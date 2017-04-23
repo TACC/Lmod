@@ -42,15 +42,18 @@ typically used as a meta-module.  That is a module that loads other
 modules.
 
 
-Picking modules when there are multiple directories in MODULEPATH
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+N/V: Picking modules when there are multiple directories in MODULEPATH
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-When there are multiple directories specified in MODULEPATH, the rules
-get more complicated on what modulefile to load. Lmod uses the
-following rules to locate a modulefile:
+The follow rules apply when the module layout is either Name/Version (NV)
+or Category/Name/Version (CNV).  The rules are a little different for
+Name/Version/Version (NVV) as described in the section below.  When
+there are multiple directories specified in MODULEPATH, the rules get
+more complicated on what modulefile to load. Lmod uses the following
+rules to locate a modulefile: 
 
 #. It looks for an exact match in all ``MODULEPATH``
-   directories. Picking the first match it finds.
+   directories. It picks the first match it finds.
 #. If the user requested name is a full name and version, and
    there is no exact match then it stops.
 #. If the name doesn't contain a version then Lmod looks for a
@@ -152,6 +155,61 @@ that the following versions are sorted from lowest to highest::
  2.4.0.0.1
      2.4.1
 
+NVV: Picking modules when there are multiple directories in MODULEPATH
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The rules are different when the module layout is Name/Version/Version
+(NVV).  The rules for NV can be called ``Find Best`` where as NVV is
+``Find First``. Note that if any one of the directories in ``MODULEPATH``
+are in NVV format, the whole tree is searched with NVV rules.  Below
+are the rules that Lmod uses to locate a modulefile:
+
+#. It looks for an exact match in all ``MODULEPATH`` directories. It
+   picks the first match it finds.
+#. If there is no exact match then Lmod finds the first match for the
+   names that it has.  It match by directory name.  No partial matches
+   are done.
+#. In the directory that is found above the first marked default is
+   found
+#. If there are no marked defaults, then the "highest" is chosen.
+#. The two above rules are followed at each directory level.
+
+For example with the following module tree where foo is the name of
+the module and rest are version information::
+
+    ----- /apps/modulefiles/A ----------------
+    foo/2/1  foo/2/4    foo/3/1    foo/3/2 (D)
+
+    ----- /apps/modulefiles/B ----------------
+    foo/3/3    foo/3/4 
+
+Then the commands ``module load foo`` and ``module load foo/3`` would
+both load ``foo/3/2``.  The command ``module load foo/2`` would load
+``foo/2/4``.
+
+When searching for ``foo``, Lmod finds it in the ``A`` directory.
+Then seeing a choice between ``2`` and ``3`` it picks ``3`` as it is
+higher.  Then in the ``foo/3`` directory it choses ``2`` as it is
+higher than ``1``.  To load any other ``foo`` module, the full name
+will have to specified.
+
+Note that directory can be marked as the default.  Suppose that you
+have the following architecture split with (32,64,128) bit libraries
+and you want the 64 directory to be the default.  With the following
+structure::
+
+      ----- /apps/modulefiles/A ----------------
+      foo/32/1    foo/64/1      foo/128/1
+      foo/32/4    foo/64/2 (D)  foo/128/2
+
+then in the file /apps/modulefiles/A/foo/.version have::
+
+    #%Module
+    module-version 64 default
+
+Normally the 128 directory would be chosen as the default directory as
+128 is higher than 64 or 32 but this .version file forces Lmod to pick
+64 over the other directories.
 
 Autoswaping Rules
 ~~~~~~~~~~~~~~~~~

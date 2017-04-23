@@ -162,7 +162,7 @@ the name and version of a modulefile.
 **myShellType** ():
    Returns the shellType based on the name of the shell the user
    specified on the command line. It returns sh for sh, bash, zsh,
-   csh for csh, tcsh. Otherwise it is the same as **myShellName**().
+   csh for csh, tcsh. Otherwise it is the same as **myShellName** ().
 
 
 **hierarchyA** ("fullName", level):

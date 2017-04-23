@@ -45,7 +45,7 @@ example::
      } Time = 0.2929
 
 One of the tricks of this package is that it guarantees that a
-~/.init.sh is read before any files in /etc/profile.d/*.sh are
+~/.init.sh is read before any files in /etc/profile.d/\*.sh are
 sourced for bash and zsh.  The file ~/.init.csh is used for csh/tcsh.
 This means that you can also easily track Lmod startup actions::
 
