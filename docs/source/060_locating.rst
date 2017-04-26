@@ -193,22 +193,43 @@ higher.  Then in the ``foo/3`` directory it choses ``2`` as it is
 higher than ``1``.  To load any other ``foo`` module, the full name
 will have to specified.
 
-Note that directory can be marked as the default.  Suppose that you
-have the following architecture split with (32,64,128) bit libraries
-and you want the 64 directory to be the default.  With the following
-structure::
+Marking a directory as default in an NVV layout
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+There are three ways to mark a directory as a default: Using a ``default``
+symlink, or the use of either the ``.modulerc`` or ``.version`` files.
+Since it is possible (but not recommended) to have all three
+possibilities, This is the same technique that was used before to mark
+a particular version file when in an NV layout. Lmod choses the
+setting of the default directory in the following order: 
+
+#. ``default`` symlink
+#. .modulerc
+#. .version
+
+Suppose that you have the following architecture split with
+(32,64,128) bit libraries and you want the 64 directory to be the
+default.  With the following structure::
 
       ----- /apps/modulefiles/A ----------------
       foo/32/1    foo/64/1      foo/128/1
       foo/32/4    foo/64/2 (D)  foo/128/2
 
-then in the file /apps/modulefiles/A/foo/.version have::
+You can have a symlink for ``/apps/modulefiles/A/foo/default`` which
+points to ``/apps/modulefiles/A/foo/64``.  Or you can have the contents of
+``/apps/modulefiles/A/foo/.modulerc`` contain::
 
     #%Module
     module-version 64 default
 
+or you can have the contents of ``/apps/modulefiles/A/foo/.version``
+contain::
+
+    #%Module
+    set ModulesVersion "64"
+
 Normally the 128 directory would be chosen as the default directory as
-128 is higher than 64 or 32 but this .version file forces Lmod to pick
+128 is higher than 64 or 32 but anyone of these files forces Lmod to pick
 64 over the other directories.
 
 Why do NVV module layouts use ``Find First`` over ``Find Best``?
