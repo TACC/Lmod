@@ -181,6 +181,8 @@ local function find_vA(name, moduleA)
    if (idx) then
       versionStr = name:sub(idx+1,-1)
    end
+   dbg.print{"sn: ",sn,", versionStr: ",versionStr,"\n"}
+   dbg.printT("vA",vA)
    return sn, versionStr, vA
 end
 
@@ -215,12 +217,13 @@ local function find_vB(sn, versionStr, vA)
             done = true
          end
       end
-      if (versionStr == nil) then
+      if (versionStr == nil or next{v} == nil) then
          vB[#vB + 1] = vv
       elseif (v) then
          vB[#vB + 1] = v
       end
    end
+   dbg.printT("vB",vB)
    return fullStr, vB
 end
 

@@ -10,3 +10,5 @@ Lmod 7.4+
              Add Global Aliases output to module avail if they exist.
     (7.4.8)  Fix case where Lmod chose the wrong modulefile when there were multiple
              foo's spread across MODULEPATH.
+    (7.4.9)  Fix bug where Lmod would be unable to load a module where NV and NVV module
+             layouts were mixed.

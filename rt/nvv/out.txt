@@ -22,13 +22,13 @@ export _ModuleTable_;
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel/17
 ===========================
-LOADEDMODULES="intel/17/17.0.2";
+LOADEDMODULES="intel/16/16.0.4";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/nvv/el1:ProjectDIR/rt/nvv/el2";
 export MODULEPATH;
-_LMFILES_="ProjectDIR/rt/nvv/el2/intel/17/17.0.2";
+_LMFILES_="ProjectDIR/rt/nvv/el1/intel/16/16.0.4";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={intel={["fn"]="ProjectDIR/rt/nvv/el2/intel/17/17.0.2",["fullName"]="intel/17/17.0.2",["loadOrder"]=1,propT={},["status"]="active",["userName"]="intel/17",},},mpathA={"ProjectDIR/rt/nvv/el1","ProjectDIR/rt/nvv/el2",},["systemBaseMPATH"]="ProjectDIR/rt/nvv/el1:ProjectDIR/rt/nvv/el2",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={intel={["fn"]="ProjectDIR/rt/nvv/el1/intel/16/16.0.4",["fullName"]="intel/16/16.0.4",["loadOrder"]=1,propT={},["status"]="active",["userName"]="intel/17",},},mpathA={"ProjectDIR/rt/nvv/el1","ProjectDIR/rt/nvv/el2",},["systemBaseMPATH"]="ProjectDIR/rt/nvv/el1:ProjectDIR/rt/nvv/el2",}';
 export _ModuleTable_;
 ===========================
 step 5
@@ -36,5 +36,35 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH="ProjectDIR/rt/nvv/el1:ProjectDIR/rt/nvv/el2";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={intel={["fn"]="ProjectDIR/rt/nvv/el2/intel/17/17.0.2",["fullName"]="intel/17/17.0.2",["loadOrder"]=1,propT={},["status"]="active",["userName"]="intel/17",},},mpathA={"ProjectDIR/rt/nvv/el1","ProjectDIR/rt/nvv/el2",},["systemBaseMPATH"]="ProjectDIR/rt/nvv/el1:ProjectDIR/rt/nvv/el2",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={intel={["fn"]="ProjectDIR/rt/nvv/el1/intel/16/16.0.4",["fullName"]="intel/16/16.0.4",["loadOrder"]=1,propT={},["status"]="active",["userName"]="intel/17",},},mpathA={"ProjectDIR/rt/nvv/el1","ProjectDIR/rt/nvv/el2",},["systemBaseMPATH"]="ProjectDIR/rt/nvv/el1:ProjectDIR/rt/nvv/el2",}';
+export _ModuleTable_;
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+unset LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/nvv/el1:ProjectDIR/rt/nvv/el2";
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/nvv/el1","ProjectDIR/rt/nvv/el2",},["systemBaseMPATH"]="ProjectDIR/rt/nvv/el1:ProjectDIR/rt/nvv/el2",}';
+export _ModuleTable_;
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+MODULEPATH="ProjectDIR/rt/nvv/bc/mf:ProjectDIR/rt/nvv/bc/cm";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/nvv/bc/mf","ProjectDIR/rt/nvv/bc/cm",},["systemBaseMPATH"]="ProjectDIR/rt/nvv/bc/mf:ProjectDIR/rt/nvv/bc/cm",}';
+export _ModuleTable_;
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load HPCBIOS/2015q2
+===========================
+LOADEDMODULES="HPCBIOS/2015q2";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/nvv/bc/mf:ProjectDIR/rt/nvv/bc/cm";
+export MODULEPATH;
+_LMFILES_="ProjectDIR/rt/nvv/bc/mf/HPCBIOS/2015q2";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={HPCBIOS={["fn"]="ProjectDIR/rt/nvv/bc/mf/HPCBIOS/2015q2",["fullName"]="HPCBIOS/2015q2",["loadOrder"]=1,propT={},["status"]="active",["userName"]="HPCBIOS/2015q2",},},mpathA={"ProjectDIR/rt/nvv/bc/mf","ProjectDIR/rt/nvv/bc/cm",},["systemBaseMPATH"]="ProjectDIR/rt/nvv/bc/mf:ProjectDIR/rt/nvv/bc/cm",}';
 export _ModuleTable_;
