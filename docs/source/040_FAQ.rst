@@ -56,7 +56,7 @@ How does one debug a modulefile?
 
         local a = "text"
         io.stderr:write("Message ",a,"\n")
-   
+
     Method 2: Take the output directly from Lmod.  You can put print()
     statements in your modulefile and do::
 
@@ -71,9 +71,9 @@ Why doesn't  % ``module avail |& grep ucc``  work under tcsh and works under bas
     However, in all shells it is better to use::
 
        % module avail ucc
-    
+
     instead as this will only output modules that have "ucc" in
-    their name. 
+    their name.
 
 Can I disable the pager output?
 
@@ -118,7 +118,7 @@ do?
    out-of-date cache.  Try running::
 
       $ module --ignore_cache avail
-       
+
    If this does find it then you might have an old personal spider cache.
    To clear it do::
 
@@ -162,7 +162,7 @@ Why is the output of ``module avail`` not filling the width of the terminal?
   isn't installed on the system.
 
 
-Why does isn't the module defined when using the **screen** program?
+Why isn't the module defined when using the **screen** program?
 
   The screen program starts a non-login interactive shell.  The Bash
   shell startup doesn't start sourcing /etc/profile and therefore the
@@ -175,7 +175,7 @@ Why does isn't the module defined when using the **screen** program?
 
 Why does ``LD_LIBRARY_PATH`` get cleared when using the **screen** program?
 
-  The screen program is guid program.  That means it runs as the group
+  The screen program is a guid program.  That means it runs as the group
   of the program and not the group associated with the user.  For
   security reason all of these kinds of program clear
   ``LD_LIBRARY_PATH``.  This unsetting of ``LD_LIBRARY_PATH`` is done
