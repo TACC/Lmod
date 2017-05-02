@@ -2,7 +2,7 @@ Providing A Standard Set Of Modules for all Users
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Users can be provided with an initial set of modulefiles as part of
-the login procedure.  Once a list of modulefiles have been installed,
+the login procedure.  Once a list of modulefiles has been installed,
 please create a file called ``StdEnv.lua`` and place it in the ``$MODULEPATH``
 list of directories, typically
 ``/opt/apps/modulefiles/Core/StdEnv.lua``. The name is your choice,
@@ -18,7 +18,7 @@ file called ``z00_StdEnv.sh`` ::
        export __Init_Default_Modules=1;
 
        ## ability to predefine elsewhere the default list
-       LMOD_SYSTEM_DEFAULT_MODULES=${LMOD_SYSTEM_DEFAULT_MODULES:-"StdEnv"} 
+       LMOD_SYSTEM_DEFAULT_MODULES=${LMOD_SYSTEM_DEFAULT_MODULES:-"StdEnv"}
        export LMOD_SYSTEM_DEFAULT_MODULES
        module --initial_load --no_redirect restore
     else
@@ -65,18 +65,18 @@ The ``module refresh`` solves an interesting problem.  Sub shells
 inherit the environment variables of the parent but do not normally
 inherit the shell aliases and functions.  This statement fixes this.
 Under a "``refresh``", all the currently loaded modules are reloaded
-but in a special way. Only the functions which define alias and shell
+but in a special way. Only the functions which define aliases and shell
 functions are active, all others functions are ignored.
 
 The above is an example of how a site might provide a default set of
-modules that a user can override with a default collection. Site are,
-of course, free to setup Lmod any way they like. The
+modules that a user can override with a default collection. Sites are,
+of course, free to set up Lmod any way they like. The
 minimum required setup (for bash with z00_StdEnv.sh ) would be::
 
     if [ -z "$__Init_Default_Modules" ]; then
        export __Init_Default_Modules=1;
 
-       module --initial_load restore   
+       module --initial_load restore
     else
        module refresh
     fi
@@ -89,7 +89,7 @@ Lmod, LD_LIBRARY_PATH and screen
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In general, it is probably better to NOT use ``screen`` and use
-``tmux`` instead.  The problem with ``screen`` is that it guid
+``tmux`` instead.  The problem with ``screen`` is that it is a guid
 program (``tmux`` is not).  That means it uses the group associated
 with the executable and not the user's group.  The main consequence of
 this is that the operating system removes LD_LIBRARY_PATH from the
@@ -101,7 +101,7 @@ A site could change z00_StdEnv.sh to have::
     if [ -z "$__Init_Default_Modules" -o -z "$LD_LIBRARY_PATH" ]; then
        export __Init_Default_Modules=1;
 
-       module --initial_load restore   
+       module --initial_load restore
     else
        module refresh
     fi
