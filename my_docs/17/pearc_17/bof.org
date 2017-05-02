@@ -1,0 +1,19 @@
+Here are ideas for this bof.
+
+Title: Modules and HPC
+
+* Why are modules important?
+
+Modules are where we as service providers communicate the optional
+software we provide.
+
+* issue
+** bash and interactive shells
+** Choices for Bash
+*** patch bash
+*** expect users to source /etc/bashrc in their ~/.bashrc
+*** #!/bin/bash -l?
+
+* Hierarchy vs Flat?
+
+* How to transition from one layout to another
