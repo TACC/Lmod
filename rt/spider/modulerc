@@ -2,6 +2,7 @@
 
 module-alias intelcompiler intel
 module-version intel/2017.1.132 2017 17
+hide-version gcc/4.8
 #hide-version intel
 
 
