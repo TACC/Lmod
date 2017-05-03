@@ -433,7 +433,7 @@ function main()
    dbg.print{"lmodPath:", lmodPath,"\n"}
    require("SitePackage")
 
-   -- Make sure that MRC ignores $MODULERC and ~/.modulerc when building the cache
+   -- Make sure that MRC ignores $MODULERCFILE and ~/.modulerc when building the cache
    local mrc                     = MRC:singleton({})
    local cache                   = Cache:singleton{dontWrite = true, quiet = true, buildCache = true,
                                                    buildFresh = true, noMRC=true}
