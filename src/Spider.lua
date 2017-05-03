@@ -466,6 +466,7 @@ local dbT_keyA = { 'Description', 'Category', 'URL', 'Version', 'whatis', 'dirA'
 function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
    dbg.start{"Spider:buildDbT(mpathMapT,spiderT, dbT)"}
    local parentT      = l_build_parentT(mpathMapT)
+   local mrc          = MRC:singleton()
 
    local function buildDbT_helper(mpath, sn, v, T)
       if (v.file) then
@@ -476,6 +477,7 @@ function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
          end
          t.parentAA     = parentT[mpath]
          t.fullName     = sn
+         t.hidden       = not mrc:isVisible(sn)
          T[v.file]      = t
       elseif (next(v.fileT) ~= nil) then
          for fullName, vv in pairs(v.fileT) do
@@ -486,6 +488,7 @@ function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
             end
             t.parentAA   = parentT[mpath]
             t.fullName   = fullName
+            t.hidden     = not mrc:isVisible(fullName)
             T[vv.fn]     = t
          end
       elseif (next(v.dirT) ~= nil) then
