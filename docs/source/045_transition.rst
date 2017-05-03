@@ -4,19 +4,19 @@ How to Transition to Lmod (or how to test Lmod without installing it for all)
 In the :ref:`installing-lmod-label` document, we described how to
 install Lua and Lmod for all.  Sites which are currently running
 another environment module system will likely wish to test and then
-transition from their old module system to Lmod. This can be smoothly
-with changing all users on some Tuesday.
+transition from their old module system to Lmod. This can be done
+smoothly by switching over all users on a set date.
 
 It is important to remember the following facts:
 
 * Lmod reads modulefiles written in TCL.  There is typically no need
   to translate modulefiles written in TCL into Lua. Lmod does this for
-  you automatically.  
+  you automatically.
 
 * Some users can run Lmod while others use the old environment module
   system.
 
-* However no user can run both at the same time in the same shell.
+* However, no user can run both at the same time in the same shell.
 
 
 Obviously, since you are installing Lmod in your own account, this is
@@ -37,7 +37,7 @@ Install Lua
 ~~~~~~~~~~~
 
 The previous document described how to install Lua.  If your system
-doesn't provide package for Lua, then it is probably easy to
+doesn't provide a package for Lua, then it is probably easiest to
 install the lua tarball found at sourceforge.net using the following
 command::
 
@@ -47,11 +47,11 @@ where you replace the *W.X.Y.Z* with the current version
 (i.e. 5.1.4.8).
 
 Many Linux distributions already have a lua package
-and it may even be install automatically.  For example recent Centos
+and it may even be installed automatically.  For example, recent Centos
 and other Redhat based distributions automatically install Lua as part
 of the rpm tools.
 
-Once you have lua installed and in your path.  You'll need
+Once you have lua installed and in your path, you'll need the
 luafilesystem and luaposix libraries to complete the
 requirements.  See the previous document on how to install these
 libraries via your package manager or luarocks.
@@ -77,7 +77,7 @@ Many sites provide a default set of modules.  When testing, you'll
 want to be able to load those list of modules using Lmod.   Using your
 old module system, login and do::
 
-    
+
     $ module list
 
     Currently Loaded Modules:
@@ -108,17 +108,17 @@ to unload the currently loaded modules **using the old module command**.
 Reload modules using Lmod
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Once all modules have been purge and the environment variable
-LMOD_SYSTEM_DEFAULT_MODULES has been set. All that are required are to redefine the 
+Once all modules have been purged and the environment variable
+LMOD_SYSTEM_DEFAULT_MODULES has been set, all that is required is to redefine the
 module command to use Lmod and to restore the default
 set of modules by::
 
-    
+
     $ export BASH_ENV=$HOME/pkg/lmod/lmod/init/bash
     $ source $BASH_ENV
 
 This will define the module command.  Finally the default set of
-modules can be loaded.
+modules can be loaded::
 
     $ module --initial_load restore
 
@@ -152,7 +152,7 @@ All the comments above can be combined into a complete example::
        export MODULEPATH=...                         # define  MODULEPATH
        export BASH_ENV=$HOME/pkg/lmod/lmod/init/bash # Point to the new definition of Lmod
 
-       source $BASH_ENV                              # Redefine the module command to point 
+       source $BASH_ENV                              # Redefine the module command to point
                                                      # to the new Lmod
        export LMOD_SYSTEM_DEFAULT_MODULES=...        # Colon separated list of modules
                                                      # to load at startup
@@ -160,9 +160,9 @@ All the comments above can be combined into a complete example::
                                                      # user's ~/.lmod.d/default module collection
     else
        source $BASH_ENV                              # redefine the module command for sub-shell
-       module refresh                                # reload all modules but only activate the "set_alias" 
+       module refresh                                # reload all modules but only activate the "set_alias"
                                                      # functions.
-    fi  
+    fi
 
 Obviously, you will have to define **MODULEPATH** and
 **LMOD_SYSTEM_DEFAULT_MODULES** to match your site setup.
@@ -183,7 +183,7 @@ friendly/power users for testing:
 #. Install Lua and Lmod in system locations
 #. Install */etc/profile.d/z00_lmod.sh* to redefine the module command
 #. Load system default modules (if any) after previous steps
-#. Only user who have a file named *~/.lmod* use Lmod
+#. Only users who have a file named *~/.lmod* use Lmod
 #. At TACC, we did this for 6 months.
 
 Using this strategy, you can have extended testing  without
