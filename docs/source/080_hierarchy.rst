@@ -100,5 +100,7 @@ new **MODULEPATH** changes.
    similarly 1.8 instead of 1.8.2.  It is our view that for at least
    compilers and MPI stacks, the third digit is typically a bug
    fix and doesn't require rebuilding all the dependent
-   packages.
+   packages. Y.M.M.V.
+
+
 

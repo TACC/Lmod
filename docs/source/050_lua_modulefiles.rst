@@ -40,7 +40,7 @@ unset during unloading.
    when the mode is unload.
 
 **whatis** ("STRING"):
-    The whatis string; can be called repeatedly with different strings. See the Administrator Guide for more details.
+    The whatis command can be called repeatedly with different strings. See the Administrator Guide for more details.
 
 **help** ( [[ *help string* ]]):
      What is printed out when the help command is called. Note that
