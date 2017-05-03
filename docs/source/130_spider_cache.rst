@@ -135,7 +135,7 @@ Then you can check to see that it works by running::
     Cache Directory              Time Stamp File
     ---------------              ---------------
     $HOME/moduleData/cacheDir    $HOME/moduleData/system.txt
-  
+
 Where **$HOME** is replaced by your real home directory.  Now you can
 test that it works by doing::
 

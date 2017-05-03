@@ -3,9 +3,9 @@ Generic Modules
 
 Lmod provides inspection functions that describe the name
 and version of a modulefile as well as the path to the modulefile.
-These functions provide a way to write "generic" modulefiles, 
+These functions provide a way to write "generic" modulefiles,
 i.e. modulefiles that can fill in its values based on the location of the
-file itself.  
+file itself.
 
 These ideas work best in the software hierarchy style of modulefiles.
 For example: suppose the following is a modulefile for Git.  Its
@@ -20,7 +20,7 @@ modulefile would work for every version of git::
    whatis("Name:        ", myModuleName())
    whatis("Version:     ", myModuleVersion())
    whatis("Description: ", "Git is a fast distributive version control system")
-  
+
 The contents of this modulefile can be used for multiple versions of
 the git software, because the local variable bin changes the location
 of the bin directory to match the version of the used as the name of

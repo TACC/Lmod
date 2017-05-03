@@ -8,7 +8,7 @@ This discussion is under construction.
 Notes:
 
 #. The system lmodrc.lua is in init/lmodrc.lua.
-#. It is copied to the init directory in the installation directory. 
+#. It is copied to the init directory in the installation directory.
 #. During the install process this file is modified to include the
    location of the system spider cache.
 #. Need to explain how the lmodrc table works.
@@ -29,7 +29,7 @@ Show how module files can be marked::
             obsolete      = { short = "(O)",  long = "(O)",     color = "red",   doc = "Obsolete", },
          },
       },
-   }  
+   }
 
 
 

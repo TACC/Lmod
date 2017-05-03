@@ -4,13 +4,13 @@ Providing Custom Labels for Avail
 Lmod writes out the modules in alphabetical for each directory in
 MODULEPATH in order::
 
-     $ module avail 
+     $ module avail
 
      --------------- /opt/apps/modulefiles/Common ----------------
      abc/8.1   def/11.1   ghi/2.3
 
      --------------- /opt/apps/modulefiles/Core ------------------
-     xyz/8.1   xyz/11.1 (D)   
+     xyz/8.1   xyz/11.1 (D)
 
      --------------- /opt/apps/modulefiles/Compilers -------------
      gcc/6.3  intel/17.0
@@ -24,10 +24,10 @@ Suppose you wish to merge the Common and Core sections above into
 a single group named "Core Modules" and change the directory to
 "Compiler Modules".  The result would be::
 
-     $ module avail 
+     $ module avail
 
      --------------- Core Modules -------------------------
-     abc/8.1   def/11.1   ghi/2.3   xyz/8.1   xyz/11.1 (D)   
+     abc/8.1   def/11.1   ghi/2.3   xyz/8.1   xyz/11.1 (D)
 
      --------------- Compiler Modules ---------------------
      gcc/6.3  intel/17.0
@@ -77,7 +77,7 @@ SitePackage.lua file containing::
 And then set the LMOD_AVAIL_STYLE variable to be::
 
    export LMOD_AVAIL_STYLE="system:<en_grouped>:fr_grouped"
-  
+
 The angle brackets define the default which in this case is
 en_grouped.  A user can set::
 

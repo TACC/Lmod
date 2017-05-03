@@ -23,7 +23,7 @@ And module C/2.0.lua is::
 
 
 The load() function always loads the requested module file even if
-that modulefile is already loaded.  
+that modulefile is already loaded.
 
 Lmod can report what is happening.  Using the -D debug flag it is
 possible to track what gets loaded::

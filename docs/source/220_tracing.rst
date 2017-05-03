@@ -52,7 +52,7 @@ This means that you can also easily track Lmod startup actions::
      % cat > ~/.init.sh
      export LMOD_TRACING=yes
      ^D
-  
+
      % ssh localhost
      Last login: Sun Apr  2 08:03:13 2017
      running: module --initial_load restore

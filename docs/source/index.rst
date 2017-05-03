@@ -20,11 +20,11 @@ This guide is written to explain what Environment Modules are and why
 they are very useful for both users and system administrators. Lmod is
 an implementation of Environment Modules, much of what is said here is
 true for any environment modules system but there are many features
-which are unique to Lmod. 
+which are unique to Lmod.
 
 Environment Modules provide a convenient way to dynamically change the
 users' environment through modulefiles. This includes easily adding or
-removing directories to the PATH environment variable. 
+removing directories to the PATH environment variable.
 
 A modulefile contains the necessary information to allow a user to run
 a particular application or provide access to a particular
@@ -32,14 +32,14 @@ library. All of this can be done dynamically without logging out and
 back in. Modulefiles for applications modify the user's path to make
 access easy. Modulefiles for Library packages provide environment
 variables that specify where the library and header files can be
-found. 
+found.
 
 Packages can be loaded and unloaded cleanly through the module
 system. All the popular shells are supported: bash, ksh, csh, tcsh,
-zsh.  Also available for perl and python. 
+zsh.  Also available for perl and python.
 
 It is also very easy to switch between different versions of a package
-or remove it. 
+or remove it.
 
 Introduction to Lmod
 ^^^^^^^^^^^^^^^^^^^^
@@ -99,7 +99,7 @@ Advanced Topics
    200_avail_custom
    210_load_storms
    220_tracing
-   
+
 
 Topics yet to be written
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -122,7 +122,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
-
-   
-

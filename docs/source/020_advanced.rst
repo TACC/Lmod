@@ -75,7 +75,7 @@ Finally the user can do: ::
    ~/pkg/git/2.6.2/bin/git
 
 For git to be available on future logins, users need to add the
-following to their startup scripts or a saved collection.  ::
+following to their startup scripts or a saved collection::
 
    $ module use $HOME/modulefiles
    $ module load git
