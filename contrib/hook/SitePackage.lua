@@ -35,10 +35,12 @@
 require("strict")
 require("lmod_system_execute")
 local hook   = require("Hook")
+local uname  = require("posix").uname
 
 -- By using the hook.register function, this function "load_hook" is called
 -- ever time a module is loaded with the file name and the module name.
 
+local s_msgA = {}
 
 function load_hook(t)
    -- the arg t is a table:
@@ -55,13 +57,35 @@ function load_hook(t)
    -- This is an example writing to syslogd:
 
    if (mode() ~= "load") then return end
-   local user  = os.getenv("USER")
-   local jobid = os.getenv("PBS_JOBID") or "unknown"
-   local msg   = string.format("user=%s,module=%s,fn=%s,job=%s",
-                               user, t.modFullName, t.fn, jobid)
-   lmod_system_execute("logger -t lmod -p local0.info " .. msg)
+   local user        = os.getenv("USER")
+   local host        = uname("%n")
+   local currentTime = epoch()
+-- 20170503FG improve syslog 4 SGE jobs ; replace for your own scheduler's best variable
+   local jobid       = os.getenv("JOB_ID")
+   if jobid == nil then
+      jobid = "0"
+   end
+   local msg         = string.format("USER=%s JOB_ID=%s MODULE=%s FULLPATH=%s HOST=%s TIME=%f",
+                                     user, jobid, t.modFullName, t.fn, host, currentTime)
+   local a           = s_msgA
+   a[#a+1]           = msg
 end
 
 hook.register("load",load_hook)
 
 
+function report_loads()
+
+   local sys         = os.getenv("LMOD_sys") or "Linux"
+   if (sys == "Linux") then
+      local a = s_msgA
+      for i = 1,#a do
+         local msg = a[i]
+         os.execute("logger -t ModuleUsageTracking -p local0.info " .. msg)
+      end
+   end
+
+end
+
+
+ExitHookA.register(report_loads)
