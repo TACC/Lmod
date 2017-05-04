@@ -19,6 +19,7 @@ testdescript = {
      initStdEnvVars
      export MODULEPATH_ROOT=$(testDir)/mf
      export TEST_MROOT=$(testDir)/mf
+     export MODULERCFILE=$testDir/modulerc
 
      rm -f  _stderr.* _stdout.* err.* out.*
      rm -fr .lmod.d .lmodrc.lua
@@ -59,10 +60,9 @@ testdescript = {
      runLmod spider smrt                                                      #27
      runLmod spider petsc/3.1                                                 #28
 
-     rm -fr $HOME/.lmod.d/.cache
+     mv $HOME/.lmod.d/.cache $HOME/.lmod.d/.old.cache 
      unsetMT
      export LMOD_CASE_INDEPENDENT_SORTING=yes
-     export MODULERCFILE=$testDir/modulerc
      export LMOD_RC=$testDir/lmodrc.lua
      export MROOT_CQ=$testDir/mf/CQ
      export MODULEPATH=$testDir/mf/CQ/Core
