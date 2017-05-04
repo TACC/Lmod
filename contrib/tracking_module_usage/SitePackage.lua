@@ -62,8 +62,10 @@ function load_hook(t)
    local user        = os.getenv("USER")
    local host        = syshost or uname("%n")
    local currentTime = epoch()
-   local msg         = string.format("user=%s module=%s path=%s host=%s time=%f",
-                                     user, t.modFullName, t.fn, host, currentTime)
+-- 20170503FG improve syslog 4 SGE jobs ; replace for your own scheduler's best variable
+   local jobid       = os.getenv("JOB_ID") or os.getenv("PBS_JOBID") or "0"
+   local msg         = string.format("USER=%s JOB_ID=%s MODULE=%s FULLPATH=%s HOST=%s TIME=%f",
+                                     user, jobid, t.modFullName, t.fn, host, currentTime)
    local a           = s_msgA
    a[#a+1]           = msg
 end
