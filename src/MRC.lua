@@ -62,6 +62,7 @@ local concatTbl = table.concat
 local getenv    = os.getenv
 local load      = (_VERSION == "Lua 5.1") and loadstring or load
 local s_MRC     = false
+local hook      = require("Hook")
 
 ------------------------------------------------------------------------
 -- Local functions
@@ -336,6 +337,7 @@ function M.isVisible(self, modT)
    end
 
    modT['isVisible'] = isVisible
+   hook.apply("isVisibleHook", modT)
 
    return modT.isVisible
 end
