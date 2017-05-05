@@ -710,19 +710,11 @@ function M.spiderSearch(self, dbT, userSearchPat, helpFlg)
          -- only continue if visible
          if (show_hidden or mrc:isVisible({fullName=fullName,sn=sn,fn=fn})) then
 
-            if sn == origUserSearchPat then
+            if sn == origUserSearchPat or fullName == origUserSearchPat then
                 aT[sn] = origUserSearchPat
             end
 
-            if fullName == origUserSearchPat then
-                aT[sn] = origUserSearchPat
-            end
-
-            if sn:find(userSearchPat) then
-                bT[sn] = userSearchPat
-            end
-
-            if fullName:find(userSearchPat) then
+            if sn:find(userSearchPat) or fullName:find(userSearchPat) then
                 bT[sn] = userSearchPat
             end
 
