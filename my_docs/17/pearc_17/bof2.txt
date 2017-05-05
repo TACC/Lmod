@@ -2,3 +2,38 @@ Title: Managing the User Environment: Opportunities and Challenges
 
 Abstract:
 
+This BoF is about managing complexity of the software stack using
+modules.  It is for admin and other support staff who are in the
+trenches including those who manage campus and department
+resources. It is especially for those who might be outgrowing their
+current approach.  Please bring your lessons learned, questions, war
+stories and favorite tricks.  This will be a place where we will
+discuss our progress and best practices, articulate additional needs
+and perhaps identify new opportunities.
+
+Description:
+
+We expect to begin our discussion with an informal assessment of our
+experience with environmental modules.  How are we doing? What can we
+do better? This brief introduction will then open up to discuss such
+as how a site can organize their software stack, write robust module files
+handle shared home file systems, test packages before release,
+deprecate packages. 
+
+A well-managed user environment is particularly important for
+researchers transitioning to high-end computation. Such users face
+formidable barriers to entry, including difficulties managing their
+personal environment, diagnosing associated problems, and learning how
+to recover from them. One important goal of this BoF is to do our part
+to break down those barriers. How do we protect new users, however,
+without hindering those with more experience? We hope to touch on this
+question as well. More generally, we expect this work to benefit all
+users: improving workflows, reducing error rates, and increasing
+repeatability.
+
+
+The proposer bring to the table passion for and experience improving
+the end-user experience. Dr. McLay is the author and maintainer of Lmod, a
+module system that ensures each user's environment includes software
+and libraries that are consistent with and appropriate for the current
+compiler and Message Passing Interface (MPI) communications library.
