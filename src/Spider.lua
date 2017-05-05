@@ -477,7 +477,7 @@ function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
          end
          t.parentAA     = parentT[mpath]
          t.fullName     = sn
-         t.hidden       = not mrc:isVisible(sn)
+         t.hidden       = not mrc:isVisible({fullName=sn, sn=sn, fn=v.file})
          T[v.file]      = t
       elseif (next(v.fileT) ~= nil) then
          for fullName, vv in pairs(v.fileT) do
@@ -488,7 +488,7 @@ function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
             end
             t.parentAA   = parentT[mpath]
             t.fullName   = fullName
-            t.hidden     = not mrc:isVisible(fullName)
+            t.hidden     = not mrc:isVisible({fullName=fullName, sn=sn, fn=vv.fn})
             T[vv.fn]     = t
          end
       elseif (next(v.dirT) ~= nil) then
