@@ -215,18 +215,19 @@ end
 -- Use the *propT* table to colorize the module name when requested by
 -- *propT*.
 -- @param style How to colorize
--- @param moduleName The module name
+-- @param modT The module table contain fullName, sn and fn
 -- @param propT The property table
 -- @param legendT The legend table.  A key-value pairing of keys to descriptions.
 -- @return An array of colorized strings
-function colorizePropA(style, moduleName, mrc, propT, legendT)
+function colorizePropA(style, modT, mrc, propT, legendT)
    local readLmodRC   = require("ReadLmodRC"):singleton()
    local propDisplayT = readLmodRC:propT()
    local iprop        = 0
    local pA           = {}
+   local moduleName   = modT.fullName
    propT              = propT or {}
 
-   if (not mrc:isVisible(moduleName)) then
+   if (not mrc:isVisible(modT)) then
       local i18n = require("i18n")
       local H    = 'H'
       moduleName = colorize("hidden",moduleName)
@@ -430,9 +431,9 @@ function getModuleRCT()
    return A
 end
 
-function isActiveMFile(mrc, full, sn)
+function isActiveMFile(mrc, full, sn, fn)
    local version = extractVersion(full, sn) or ""
-   return mrc:isVisible(full), version
+   return mrc:isVisible({fullName=full, sn=sn, fn=fn}), version
 end
 
 --------------------------------------------------------------------------

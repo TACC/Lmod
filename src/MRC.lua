@@ -108,27 +108,27 @@ end
 
 function l_build(self, fnA)
    dbg.start{"MRC l_build(self,fnA)"}
+   -- modA gets the contents of the modulerc
    declare("modA",{})
    local whole
    local ok
    local func
-   local optStr = ""
-      
+
    for i = 1, #fnA do
       local fn     = fnA[i][1]
       if (isFile(fn)) then
          local weight = fnA[i][2]
-         whole, ok = runTCLprog("RC2lua.tcl", optStr, fn)
+         whole, ok = runTCLprog("RC2lua.tcl", "", fn)
          if (not ok) then
             LmodError{msg = "e_Unable_2_parse", path = fn}
          end
-         
+
          ok, func = pcall(load, whole)
          if (not ok or not func) then
             LmodError{msg = "e_Unable_2_parse", path = fn}
          end
          func()
-         
+
          l_parseModA(self, modA, weight)
       end
    end
@@ -321,15 +321,23 @@ function M.import(self, mrcT)
    end
 end
 
-function M.isVisible(self, name)
+-- modT is a table with: sn, fullName and fn
+function M.isVisible(self, modT)
+   local name = modT.fullName
+   local isVisible = true
+
    if (self:getHiddenT(name)) then
-      return false
+      isVisible = false
+   elseif (name:sub(1,1) == ".") then
+      isVisible = false
+   else
+      local idx = name:find("/%.")
+      isVisible = idx == nil
    end
-   if (name:sub(1,1) == ".") then
-      return false
-   end
-   local idx = name:find("/%.")
-   return idx == nil
+
+   modT['isVisible'] = isVisible
+
+   return modT.isVisible
 end
 
 function M.update(self, fnA)
