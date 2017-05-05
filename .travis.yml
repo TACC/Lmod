@@ -23,7 +23,7 @@ before_install:
   - pip install hererocks
   - hererocks lua_install -r^ --$LUA
   # install Hermes test tool
-  - git clone https://github.com/rtmclay/Hermes.git
+  - git clone https://github.com/TACC/Hermes.git
   - export PATH="$PATH:$PWD/lua_install/bin:$HOME/Hermes/bin"
   - cd -
 
