@@ -73,8 +73,8 @@ Hook tips
 
 # If you want to know the short name or path of a loaded module, you can use the ModuleTable::
 
-    local mname = MName:new("mt", FullModuleName)
-    local sn         = mname:sn()
+    local mname   = MName:new("mt", FullModuleName)
+    local sn      = mname:sn()
     local version = mname:version()
 
 .. _hook_functions:
