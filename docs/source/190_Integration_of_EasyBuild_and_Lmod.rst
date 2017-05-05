@@ -17,20 +17,20 @@ Features obtained:
 Caveats:
 
 * This feature is super-picky on broken module environments, fi: https://bugzilla.redhat.com/show_bug.cgi?id=1326075 (testable via https://github.com/hpcugent/easybuild-framework/issues/1756) . Fix that asap, or your modulefiles experience may not be as good as it can!
-  
+
 How to put into use
 -------------------
 
 The two examples are visible below and are ready to be copied in respective filenames ``use.own.eb/append`` & ``use.own.eb/prepend``. Simply place both files in a directory of the existing ``$MODULEPATH`` and decide if you with to *append* or *prepend*: ::
 
   $ ml av use.own
-  
+
   --------------------- /etc/site/modules ---------------------
      use.own.eb/append    use.own.eb/prepend (D)
-  
+
   ------------------- /cm/local/modulefiles -------------------
      use.own
-  
+
     Where:
      D:  Default Module
 
@@ -63,19 +63,19 @@ Example use.own.eb/append
         puts stderr "\tThis module, when loaded, will create this directory if necessary."
         puts stderr "\n\n"
   }
-  
+
   module-whatis   "adds your EasyBuild modulefiles directory to MODULEPATH"
-  
+
   eval set  [ array get env HOME ]
   set     ownmoddir       $HOME/.local/easybuild/modules/all
-  
+
   # create directory if necessary
   if [ module-info mode load ] {
         if { ! [ file exists $ownmoddir ] } {
                 file mkdir $ownmoddir
         }
   }
-  
+
   module use --append $ownmoddir
 
 
@@ -98,17 +98,17 @@ Example use.own.eb/prepend
         puts stderr "\tfor modules.  EasyBuild places your own modulefiles here."
         puts stderr "\tThis module, when loaded, will create this directory if necessary."
   }
-  
+
   module-whatis   "adds your EasyBuild modulefiles directory to MODULEPATH"
-  
+
   eval set  [ array get env HOME ]
   set     ownmoddir       $HOME/.local/easybuild/modules/all
-  
+
   # create directory if necessary
   if [ module-info mode load ] {
         if { ! [ file exists $ownmoddir ] } {
                 file mkdir $ownmoddir
         }
   }
-  
+
   module use --prepend $ownmoddir

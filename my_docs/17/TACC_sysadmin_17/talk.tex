@@ -6,6 +6,7 @@
 \usetikzlibrary{decorations.pathreplacing}
 \usetikzlibrary{calc,arrows.meta,positioning}
 \usepackage{pstricks}
+\usepackage{alltt}
 \usepackage{colortbl}
 \usepackage{textcomp}
 \usepackage{picture}
@@ -16,26 +17,26 @@
 
 
 \begin{document}
-\title[Lmod]{Lmod: A Modern Environment System}
+\title[Lmod]{Lmod: A Modern Environment Module System}
 \author{Robert McLay} 
 \date{April 20, 2017} 
 
-
-% page 0
+% page 1
 \frame{\titlepage} 
 
-% page 1
+% page 2
 \begin{frame}{Outline}
   \begin{itemize}
     \item What are Environment Modules?
     \item What is Lmod?
     \item Modulefiles Architecture
+    \item Advanced Topics
     \item Where to go for help.
   \end{itemize}
 \end{frame}
 
-% page 2
-\begin{frame}{Conclusions: Lmod}
+% page 3
+\begin{frame}{Main Takeaways}
   \begin{itemize}
     \item Latest version: https://github.com:TACC/Lmod.git
     \item Stable version: http://lmod.sf.net
@@ -45,36 +46,99 @@
   \end{itemize}
 \end{frame}
 
-% page 3
+% page 4
 \begin{frame}{What are Modules?}
   \begin{itemize}
     \item Modules are the way sites provide optional software: MPI,
       Boost, ...
     \item Modules add to PATH and set other env. vars for each package
     \item Modules can be unloaded.
-    \item Modulefiles are in one file not one for each
-      shell. (e.g. Compiler init scripts)
-    \item Demo
+    \item Modulefiles are in one file not one for each shell. (e.g. Compiler init scripts)
   \end{itemize}
 \end{frame}
 
-% page 4
+% page 5
 \begin{frame}{What is Lmod?}
   \begin{itemize}
     \item A modern replacement for a tried and true concept.
-    \item The guiding principal: ``Make life easier w/o getting in
+    \item The guiding principal: ``Make life easier without getting in
       the way.''
     \item Reads both TCL and Lua modulefiles
   \end{itemize}
 \end{frame}
 
-% page 5
+% page 6
+\begin{frame}{Fundamental Issues}
+  \begin{itemize}
+    \item Software Packages are created and updated all the time.
+    \item Some Users need new versions for new features and bug fixes.
+    \item Other Users need older versions for stability and continuity.
+    \item No system can support all versions of all packages.
+    \item User programs using pre-built C++ \& Fortran libraries must link with the same compiler.
+    \item Similarly, MPI Applications must build and link with same
+      MPI/Compiler pairing when using pre-built MPI libraries.
+  \end{itemize}
+\end{frame}
+
+% page 7
+\begin{frame}[fragile]
+    \frametitle{Example of Lmod: Environment Modules (I)}
+    {\tiny
+\begin{alltt}
+\$ {\color{blue} module avail}
+------------------ /opt/apps/modulefiles/MPI/intel/12.0/mpich2/1.4 ------------------
+  petsc/3.1 (default)    petsc/3.1-debug    pmetis/4.0    tau/2.20.3
+
+------------------- /opt/apps/modulefiles/Compiler/intel/12.0 -----------------------
+  boost/1.45.0              gotoblas2/1.13          openmpi/1.4.3
+  boost/1.46.0              mpich2/1.3.2            openmpi/1.5.1
+  boost/1.46.1 (default)    mpich2/1.4 (default)    openmpi/1.5.3 (default)
+
+-------------------------- /opt/apps/modulefiles/Core -------------------------------
+  StdEnv               intel/11.1               papi/4.1.4
+  admin/admin-1.0      intel/12.0 (default)     scite/2.28
+  ddt/ddt              lmod/lmod                tex/2010
+  dmalloc/dmalloc      local/local (default)    unix/unix (default)
+  fdepend/1.2          mkl/mkl                  visit/visit
+  gcc/4.4              noweb/2.11b
+  gcc/4.5 (default)
+\end{alltt}
+    }
+\end{frame}
+
+% page 8
+\begin{frame}[fragile]
+    \frametitle{Example of Lmod: Environment Modules (II)}
+    {\tiny
+\begin{alltt}
+{\color{blue}\$ module list}
+Currently Loaded Modules:
+  1) StdEnv  2) gcc/4.5  3) mpich2/1.4  4) petsc/3.1
+{\color{blue}\$ module unload gcc}
+Inactive Modules:
+  1) mpich2  2) petsc
+{\color{blue}\$ module list}
+Currently Loaded Modules:
+  1) StdEnv
+Inactive Modules:
+  1) mpich2  2) petsc
+{\color{blue}\$ module load intel}
+Activating Modules:
+  1) mpich2  2) petsc
+{\color{blue}\$ module swap intel gcc}
+Due to MODULEPATH changes the follow modules have been reloaded:
+  1) mpich2  2) petsc
+\end{alltt}
+    }
+\end{frame}
+
+% page 9
 \begin{frame}{Why You Might Want To Use Lmod?}
   \begin{itemize}
-    \item Same \texttt{module} command as in Tmod
+    \item Same \texttt{module} commands as in Tmod (modules.sf.net)
     \item Active Development;  Frequent Releases; Bug fixes.
     \item Vibrant Community
-    \item It is used from Norway to Isreal to New Zealand from Stanford to MIT to NASA
+    \item It is used from Norway to Israel to New Zealand from Stanford to MIT to NASA
     \item Enjoy many capabilities w/o changing a single module file
     \item Debian, Fedora and Brew packages available
     \item Many more advantages when you're ready
@@ -82,62 +146,88 @@
   \end{itemize}
 \end{frame}
 
-% page 6
-\begin{frame}{Features}
+% page 10
+\begin{frame}{Lmod Features}
   \begin{itemize}
-    \item Reads for TCL and Lua modulefiles
+    \item Reads both TCL and Lua modulefiles (mixing works fine)
     \item One name rule.
     \item Support a Software Hierarchy
     \item Fast \texttt{module avail} via optional spider cache 
     \item Properties (gpu, mic)
     \item Semantic Versioning:  5.6 is older than 5.10
-    \item family(``compiler'') family(``mpi'') support
+    \item family(``compiler''), family(``MPI'') support
     \item Optional Tracking: What modules are used?
     \item Many other features: ml, collections, hooks, nag, ...
   \end{itemize}
 \end{frame}
 
-% page 7
+% page 11
 \begin{frame}{Tmod vs. Lmod}
   \begin{itemize}
-    \item Tmod is in maintenance mode, Lmod active
+    \item Tmod (TCL/C) is in maintenance mode, Lmod active
+    \item Some work on Tmod (TCL) recently
     \item Lmod has many more features
     \item Tmod: \texttt{module load gcc/5.3 gcc/6.0} works
     \item Lmod has the ``One Name Rule''
-    \item Lmod close to Tmod, but not the same.
+    \item Lmod is close to Tmod, but not the same.
   \end{itemize}
 \end{frame}
 
-%page 8
+% page 12
+\begin{frame}{Safety Features of Lmod (I)}
+  \begin{itemize}
+    \item Users can only load one version of a package.
+    \item ``\texttt{module load xyz/2.1}'' loads xyz version 2.1
+    \item ``\texttt{module load xyz/2.2}'' unloads 2.1, loads 2.2
+    \item No way to force Lmod to load two or more version with the
+      same ``name''!
+  \end{itemize}
+\end{frame}
+
+% page 13
+\begin{frame}{Safety Features of Lmod (II)}
+  \begin{itemize}
+    \item Lmod adds a new command in modulefiles: \texttt{family("}\emph{name}\texttt{")}
+    \item All of our compiler modules have \texttt{family("compiler")}
+    \item All of our MPI modules have \texttt{family("MPI")}
+    \item Users can only load one compiler or MPI at a time
+    \item Power users can get around this restriction.
+  \end{itemize}
+\end{frame}
+
+%page 14
 \begin{frame}{Module Architecture Design}
   \begin{itemize}
+    \item Lua or TCL modulefiles?
     \item Optional software: shared or local?
     \item Flat or Hierarchical Module Layout?
-    \item Naming conventions? (NV, CNV, NVV?)
-    \item Keep software for life of cluster?
-    \item Type of User: Expert, Novice, M\&S, Other?
-    \item Conventions for contents of Modules?
+    \item Naming conventions? (N/V, C/N/V, N/V/V?)
+    \item A standard set of modules?
+    \item Keep software for life of cluster or not?
+    \item Problems with Bash
   \end{itemize}
 \end{frame}
 
-%page 9
+%page 15
 \begin{frame}{Shared Disk versus Local Install}
   \begin{itemize}
     \item Local install: Fast, small 
     \item Shared Disk: Big, slow
     \item TACC: local install (mostly)
     \item Limited to 3 version max!
-    \item Shared Disk: Keep Software for life of system.
+    \item Shared Disk: Keep software for life of system?
   \end{itemize}
 \end{frame}
 
+%page 16
 \begin{frame}{Modulefile Choices}
   \begin{itemize}
-    \item Flat Naming Scheme
-    \item Hierarchical Naming Scheme
+    \item Flat Naming Scheme?
+    \item Hierarchical Naming Scheme?
   \end{itemize}
 \end{frame}
 
+%page 17
 \begin{frame}{Flat Naming Scheme: PETSc}
   PETSc is a parallel iterative solver package:
   \begin{itemize}
@@ -148,6 +238,7 @@
   \end{itemize}
 \end{frame}
 
+%page 18
 \begin{frame}{Flat: PETSc }
   \begin{enumerate}
   \item \texttt{PETSc/4.1-mvapich2-2.1-gcc-6.3}
@@ -157,6 +248,7 @@
   \end{enumerate}
 \end{frame}
 
+%page 19
 \begin{frame}{Problems w/ Flat naming scheme}
   \begin{itemize}
     \item Users have to load modules:
@@ -173,6 +265,16 @@
   \end{itemize}
 \end{frame}
 
+%page 20
+\begin{frame}{Extremely complicated modulefiles}
+  \begin{itemize}
+    \item Protect users via conflicts and/or prereqs
+    \item The problem is that they are fragile
+    \item What happens with a new compiler or MPI stack?
+  \end{itemize}
+\end{frame}
+
+%page 21
 \begin{frame}{Hierarchical Naming Schemes}
   \begin{itemize}
     \item Store modules under one tree: \texttt{/opt/apps/modulefiles}
@@ -180,12 +282,12 @@
       \begin{itemize}
         \item Core: Regular packages: apps, compilers, git
         \item Compiler: Packages that depend on compiler: boost, MPI
-        \item MPI: Packages that depend on MPI/Compiler: PETSc, TAU
+        \item MPI: Packages that depend on MPI/Compiler: PETSc, FFTW3
       \end{itemize}
-
   \end{itemize}
 \end{frame}
 
+%page 22
 \begin{frame}{\texttt{MODULEPATH}}
   \begin{itemize}
     \item \texttt{MODULEPATH} is a colon separated list of directories
@@ -198,12 +300,13 @@
       \end{itemize}
     \item Loading an MPI module adds to the \texttt{MODULEPATH}:
       \begin{itemize}
-        \item Users can load MPI libraries that match the MPI/compiler pairing.
+        \item Users can load MPI libraries that match the MPI/compiler pairing
       \end{itemize}
   \end{itemize}
 \end{frame}
 
 
+%page 23
 \begin{frame}{Hierarchical Examples: Core}
   \begin{itemize}
     \item Generic:
@@ -217,7 +320,7 @@
         \item Package: \texttt{/opt/apps/git/1.8}
         \item Modulefile: \texttt{{\color{blue}\$M}/Core/git/1.8}
       \end{itemize}
-    \item Intel compilers 11.1
+    \item Intel compilers 17.0
       \begin{itemize}
         \item Package: \texttt{/opt/apps/intel/17.0}
         \item Modulefile: \texttt{{\color{blue}\$M}/Core/intel/17.0}
@@ -226,8 +329,7 @@
   \end{itemize}
 \end{frame}
 
-
-
+%page 24
 \begin{frame}{Hierarchical Examples: Compiler Dependent}
   \begin{itemize}
     \item Generic:
@@ -243,25 +345,25 @@
         \item Modulefile adds \texttt{{\color{blue}\$M}/MPI/gcc/6.3/openmpi/1.8}
           to \texttt{MODULEPATH} \\
       \end{itemize}
-    \item Openmpi 1.8 with intel 11.1
+    \item Openmpi 1.8 with intel 17.0
       \begin{itemize}
         \item Package: \texttt{/opt/apps/intel-17\_0/openmpi/1.8}
         \item Modulefile: \texttt{{\color{blue}\$M}/Compiler/intel/17.0/openmpi/1.8}
         \item Modulefile adds \texttt{\$M/MPI/intel/17.0/openmpi/1.8}
           to \texttt{MODULEPATH}
-
       \end{itemize}
   \end{itemize}
 \end{frame}
 
+%page 25
 \begin{frame}{Hierarchical Examples: MPI/Compiler Dependent}
   \begin{itemize}
-    \item PETSc 4.1 (1)
+    \item PETSc 4.1 (1/4)
       \begin{itemize}
         \item Package: \texttt{/opt/apps/intel-17\_0/openmpi-1\_8/petsc/4.1}
         \item Modulefile: \texttt{{\color{blue}\$M}/MPI/intel/17.0/openmpi/1.8/petsc/4.1}
       \end{itemize}
-    \item PETSc 4.1 (2)
+    \item PETSc 4.1 (2/4)
       \begin{itemize}
         \item Package: \texttt{/opt/apps/gcc-4\_5/mvapich2-2\_1/petsc/4.1}
         \item Modulefile: \texttt{{\color{blue}\$M}/MPI/gcc/6.3/mvapich2/2.1/petsc/4.1}
@@ -270,35 +372,110 @@
 \end{frame}
 
 
+%page 26
 \begin{frame}{Loading the correct module}
   \begin{itemize}
     \item User loads ``\texttt{intel/17.0}'' module
     \item Can only see/load compiler dependent packages that are built with
       intel 17.0 compiler.
     \item Can not see/load package built with other versions or other compilers.
-    \item Similar loading ``\texttt{openmpi/1.8'' module.
-    \item User can only load package that are built w/ intel 17.0 and
+    \item Similar loading ``\texttt{openmpi/1.8}'' module.
+    \item Users can only load package that are built w/ intel 17.0 and
       openmpi 1.8 and no others.
   \end{itemize}
 \end{frame}
 
 
-
-
-
-
-
-
-%page 8
-\begin{frame}{Module Architecture Design at TACC}
+%page 27
+\begin{frame}{Modulefile contents}
   \begin{itemize}
-    \item Be consistent! Find a convention and stick with it!
+    \item Be consistent! Find a convention and stick with it
     \item We define consistent variables in each module:
       $<$SITE\_NAME$>$\_$<$PKG\_Name$>$\_\{LIB,INC,BIN\}
       \begin{itemize}
         \item TACC\_HDF5\_INC
         \item TACC\_HDF5\_BIN
       \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+%page 28
+\begin{frame}[fragile]
+    \frametitle{A Standard Set of Modules}
+  \begin{itemize}
+    \item Define a compiler and mpi stack
+    \item /opt/apps/modulefiles/Core/StdEnv.lua
+  {\small
+    \begin{alltt}
+load("gcc","mvapich2")
+    \end{alltt}
+}
+  \end{itemize}
+\end{frame}
+
+
+%page 29
+\begin{frame}[fragile]
+    \frametitle{A Standard Set of Modules (II)}
+  \begin{itemize}
+    \item /etc/profile.d/z99\_StdEnv.sh
+  {\small
+    \begin{alltt}
+   if [ -z "\$\_\_Init\_Default\_Modules" ]; then
+      export \_\_Init\_Default\_Modules=1;
+
+      export LMOD\_SYSTEM\_DEFAULT\_MODULES="StdEnv"
+      module --initial\_load --no\_redirect restore
+   else
+      module refresh
+   fi
+    \end{alltt}
+}
+    \item Why is  ``module refresh'' there?
+  \end{itemize}
+\end{frame}
+
+
+%page 30
+\begin{frame}{User collections}
+  \begin{itemize}
+    \item Users may save a ``default'' collection of modules 
+    \item module save 
+    \item Users may save as many named collections as they like
+    \item module save \emph{name}
+    \item module restore \emph{name} will remove all modules then load
+      the collection.
+  \end{itemize}
+\end{frame}
+
+%page 31
+\begin{frame}{Save/Restore}
+  \begin{itemize}
+    \item Users can setup their own initially loaded modules.
+      \begin{itemize}
+        \item Users simply load, unload and/or swap until happy.
+        \item {\color{blue}\texttt{module save}} saves state in ``default''
+        \item Our login scripts do: {\color{blue}\texttt{module restore}}
+          which loads the user's default.
+      \end{itemize}
+    \item Users can create other collections by:
+      \begin{itemize}
+        \item {\color{blue}\texttt{module save}
+            {\color{violet}name}} to save it.
+        \item {\color{blue}\texttt{module restore}
+            {\color{violet}name}} to retrieve it.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+%page 32
+\begin{frame}{Module reset, restore}
+  \begin{itemize}
+    \item module reset $\rightarrow$ module purge; module load
+      \$LMOD\_SYSTEM\_DEFAULT\_MODULES
+    \item module restore looks for a default collection or loads the
+      system default.
   \end{itemize}
 \end{frame}
 
@@ -316,33 +493,595 @@
 %  \end{itemize}
 %\end{frame}
 
+%page 33
+\begin{frame}{Module Naming Convenions}
+  \begin{itemize}
+    \item N/V:   Name/Version (e.g. \texttt{bowtie/2.3})
+    \item C/N/V: Category/Name/Version (e.g. \texttt{bio/bowtie/2.3})
+    \item N/V/V: Name/Version/Version (e.g. \texttt{bowtie/64/2.3})
+  \end{itemize}
+\end{frame}
+
+%page 34
+\begin{frame}{Module Naming Conventions (II)}
+  \begin{itemize}
+    \item Try to stick with N/V if possible
+    \item It's less typing
+    \item C/N/V might be helpful to novice users
+    \item But your obvious categories may not be obvious to your users
+    \item Avoid N/V/V unless your users are experts 
+    \item Or if you really need 64/32 bit libraries
+  \end{itemize}
+\end{frame}
+
+%page 35
+\begin{frame}{Bash Issues}
+  \begin{itemize}
+    \item Bash Startup is typically ``broken'' for non-login interactive shells
+    \item Redhat, Centos, MacOS typically don't source /etc/bashrc on interactive shells
+    \item MPI jobs start an interactive shell.
+  \end{itemize}
+\end{frame}
+
+%page 36
+\begin{frame}{Bash Issues (II)}
+  \begin{itemize}
+    \item Want module command to work in all shells.
+    \item Want stacksize unlimited for MPI jobs
+    \item We patched bash to force it to source /etc/tacc/bashrc
+  \end{itemize}
+\end{frame}
+
+%page 37
+\begin{frame}{Bash Repair Choices}
+  \begin{itemize}
+    \item Switch users to Z shell?
+    \item patch bash (see Lmod docs)
+    \item Expect all users to source /etc/bashrc in \textasciitilde/.bashrc
+    \item Expect all users to start jobs with \#!/bin/bash -l
+  \end{itemize}
+\end{frame}
+
+%page 38
+\begin{frame}{Keeping Software for Life of Cluster or Not}
+  \begin{itemize}
+    \item It is possible with a shared disk approach
+    \item You might want to hide older modules
+  \end{itemize}
+\end{frame}
+
+%page 39
+\begin{frame}{Hidden Modules}
+  \begin{itemize}
+    \item Modules can be hidden by adding a leading dot
+    \item For example gcc/.6.3
+    \item Lmod 7 also allows for hidden modules via MODULERC
+    \item system MODULERC or \textasciitilde/.modulerc or file .modulerc
+  \end{itemize}
+\end{frame}
+
+%page 40
+\begin{frame}[fragile]
+    \frametitle{Using System MODULERC to hide modules}
+  \begin{itemize}
+    \item In \$MODULERCFILE
+  {\small
+    \begin{alltt}
+        #%Module
+        hide-version foo/3.2
+    \end{alltt}
+}
+  \end{itemize}
+\end{frame}
+
+%page 41
+\begin{frame}{Deprecating Modules}
+  \begin{itemize}
+    \item Sometime you may have to remove a package (and its
+      modulefile)
+    \item Certainly with Local installs.
+    \item How do you let users know?
+  \end{itemize}
+\end{frame}
+
+%page 42
+\begin{frame}{Deprecating Modules (II)}
+  \begin{itemize}
+    \item Assume Lmod is installed as /opt/apps/lmod/7.4.1/...
+    \item Then /opt/apps/lmod/etc/admin.list is the ``nag'' file
+    \item Or set \$LMOD\_ADMIN\_FILE to any file.
+    \item Every time a particular modulefile is loaded the user gets a
+      message.
+    \item We have found that setting a nag message to be very effective!
+  \end{itemize}
+\end{frame}
+
+%page 43
+\begin{frame}{Tracking Module Usage}
+  \begin{itemize}
+    \item Lmod makes it easy to track module usage.
+    \item Lmod can be setup to send a tagged message to syslog
+    \item Rsyslog can send tags to a separate file.
+    \item See lmod/contrib/tracking\_module\_usage for details
+  \end{itemize}
+\end{frame}
+
+%page 44
+\begin{frame}[fragile]
+    \frametitle{Usage counts}
+  {\small
+    \begin{alltt}
+\$ analyzeLmodDB --sqlPattern '%fftw%' --start '2015-01-01' --end '2015-02-01'  counts
+
+  Module path                                Distinct Users
+  -----------                                --------------  
+  /apps/intel13/mpich\_3\_2/mfiles/fftw3/3.3.2             151
+  /apps/intel13/mpich\_3\_2/mfiles/fftw2/2.1.5              62
+  /apps/intel13/impi\_4\_1/mfiles/fftw3/3.3.2               45
+  /apps/intel13/impi\_4\_1/mfiles/fftw2/2.1.5               19
+
+    \end{alltt}
+}
+\end{frame}
+
+%page 45
+\begin{frame}[fragile]
+    \frametitle{Distinct Users}
+  {\small
+    \begin{alltt}
+\$ ./analyzeLmodDB --sqlPattern '%/settarg/%' usernames
+
+Module path                   User Name
+-----------                   ---------
+/apps/mfiles/settarg/5.8      user1
+/apps/mfiles/settarg/5.8      user2
+/apps/mfiles/settarg/5.8      user3
+/apps/mfiles/settarg/5.8.1    mclay
+/apps/mfiles/settarg/5.9.1    user5
+    \end{alltt}
+}
+\end{frame}
+
+%page 46
+\begin{frame}{Why does Lmod work at all?}
+  \begin{itemize}
+    \item The Environment is inherited from the parent process
+    \item Changes in the child's environment DOES NOT affect the parent's
+    \item So how could Lmod work at all? 
+  \end{itemize}
+\end{frame}
+
+%page 47
+\begin{frame}{The trick is}
+  \begin{itemize}
+    \item The \texttt{lmod} program generates text.
+    \item The module command eval's that text.
+    \item \texttt{module() \{ eval \$( \$LMOD\_CMD bash "\$@"; )\}}
+  \end{itemize}
+\end{frame}
+
+%page 48
+\begin{frame}{Why is this important?}
+  \begin{itemize}
+    \item It's a useful trick to know
+    \item Debugging Modulefiles:
+    \item \texttt{\$LMOD\_CMD bash load} \emph{module} \texttt{2$>$
+        /dev/null $>$ stdout.txt}
+  \end{itemize}
+\end{frame}
+
+%page 49
+\begin{frame}{Debugging Lmod}
+  \begin{itemize}
+    \item \texttt{module --config} : reports Lmod configuration
+    \item \texttt{module -D load foo $>$ load.log}
+  \end{itemize}
+\end{frame}
+
+%page 50
+\begin{frame}{Tracing Lmod}
+  \begin{itemize}
+    \item A new feature of Lmod 7.4.4+
+    \item module -T ...
+    \item export LMOD\_TRACING=yes
+    \item Can trace loads and how restores work.
+  \end{itemize}
+\end{frame}
+
+%page 51
+\begin{frame}[fragile]
+    \frametitle{Tracing Example}
+  {\small
+    \begin{alltt}
+running: module --initial\_load restore
+  Using collection:      /home/user/.lmod.d/default
+  Setting MODULEPATH to: /apps/mfiles/Darwin:/apps/mfiles/Core
+  Loading: unix (fn: /apps/mfiles/Core/unix/unix.lua)
+  Loading: gcc (fn: /apps/mfiles/Darwin/gcc/5.2.lua)
+  Loading: StdEnv (fn: /apps/mfiles/Core/StdEnv.lua)
+    \end{alltt}
+}
+\end{frame}
 
 
+%page 52
+\begin{frame}{Why tracing is important}
+  \begin{itemize}
+    \item A single group with similar module commands in \textasciitilde/.bashrc
+    \item Yet had different modules loaded. Why?
+    \item Answer: One user had a default collection which changed MODULEPATH.
+  \end{itemize}
+\end{frame}
+
+%page 53
+\begin{frame}{How to trace Lmod startup behavior}
+  \begin{itemize}
+    \item How do you trace module commands in /etc/profile.d/*.sh?
+    \item Could modify /etc/profile.d/z99\_StdEnv.sh to turn on
+      LMOD\_TRACING for a particular user. UGH!
+    \item Install SHELL STARTUP DEBUG package instead
+  \end{itemize}
+\end{frame}
+
+%page 54
+\begin{frame}{SHELL STARTUP DEBUG}
+  \begin{itemize}
+    \item Install from shellstartupdebug.sf.net
+    \item Tracks startup behavior of /etc/profile.d/*.sh
+    \item Allows for the setting of env. vars before
+      /etc/profile.d/*.sh is sourced.
+    \item Requires modifying /etc/bashrc ...
+  \end{itemize}
+\end{frame}
+
+%page 55
+\begin{frame}[fragile]
+    \frametitle{SHELL STARTUP DEBUG (II)}
+  \begin{itemize}
+    \item export SHELL\_STARTUP\_DEBUG=1 (in \textasciitilde/.init.sh)
+    \item Example output:
+  {\small
+    \begin{alltt}
+    /etc/profile\{
+      /etc/profile.d/z00\_lmod.sh\{
+      \} Time = 0.0770
+      /etc/profile.d/z99\_StdEnv.sh\{
+      \} Time = 0.2067
+      /etc/bash.bashrc\{
+      \} Time = 0.2338
+    \} Time = 0.3156
+    \end{alltt}
+}
+  \end{itemize}
+\end{frame}
+
+%page 56
+\begin{frame}{Examples}
+  \begin{itemize}
+    \item Root \textbf{must} login when Lustre is not working
+    \item No Lustre directory can be Root's PATH
+    \item Find it with SHELL STARTUP DEBUG
+    \item Tracking MPI shell startup behavior with SHELL STARTUP DEBUG
+  \end{itemize}
+\end{frame}
+
+%page 57
+\begin{frame}{SHELL STARTUP DEBUG and LMOD\_TRACING}
+  \begin{itemize}
+    \item Put export LMOD\_TRACING=yes in \textasciitilde/.init.sh
+    \item Track Lmod startup issues
+  \end{itemize}
+\end{frame}
 
 
-\begin{frame}{Conclusions: Lmod 7+}
+%page 58
+\begin{frame}[fragile]
+    \frametitle{Tracing Example}
+  {\small
+    \begin{alltt}
+running: module --initial\_load restore
+  Using collection:      /home/user/.lmod.d/default
+  Setting MODULEPATH to: /apps/mfiles/Darwin:/apps/mfiles/Core
+  Loading: unix (fn: /apps/mfiles/Core/unix/unix.lua)
+  Loading: gcc (fn: /apps/mfiles/Darwin/gcc/5.2.lua)
+  Loading: StdEnv (fn: /apps/mfiles/Core/StdEnv.lua)
+    \end{alltt}
+}
+\end{frame}
+
+%page 59
+\begin{frame}{Advanced Topics}
+  \begin{itemize}
+    \item ml 
+    \item Spider Cache
+    \item Semantic Versioning
+    \item Modulefiles can have properties
+    \item Modify functions for load() and prereq()
+    \item New functions pushenv()
+    \item SitePackage.lua and hooks
+  \end{itemize}
+\end{frame}
+
+%page 60
+\begin{frame}{ml}
+  \begin{itemize}
+    \item I have trouble typing ``module''
+    \item Needed a shortcut
+    \item ml was born
+    \item ml $\rightarrow$ module list
+    \item ml \emph{name} $\rightarrow$ module load \emph{name}
+    \item ml -a b -c d $\rightarrow$ module unload a c; module load b d; 
+    \item ml av $\rightarrow$ module avail
+    \item ml spider $\rightarrow$ module spider
+    \item ml load spider $\rightarrow$ module load spider
+  \end{itemize}
+\end{frame}
+
+%page 61 
+\begin{frame}{Spider Cache}
+  \begin{itemize}
+    \item Lmod has to know what modulefiles are in MODULEPATH
+    \item It walks the directories in MODULEPATH every time!
+    \item Or you can have system spider cache to speed things up
+    \item See
+      https://lmod.readthedocs.io/en/latest/130\_spider\_cache.html for
+      details.
+  \end{itemize}
+\end{frame}
+
+%page 62
+\begin{frame}{Spider Cache (II)}
+  \begin{itemize}
+    \item It is much much faster to read a single big file than
+      walking directories
+    \item The spider cache \textbf{must} be up-to-date!
+    \item Lmod trusts the cache if it exists!
+    \item module --ignore\_cache avail to override!
+  \end{itemize}
+\end{frame}
+
+%page 63
+\begin{frame}{Spider Cache (III)}
+  \begin{itemize}
+    \item Normally only module avail and spider use the cache
+    \item module -t avail never uses the cache
+    \item module load \emph{name} does not use the cache
+    \item Sites can configure Lmod to use the cache for loads
+    \item Sites must use extreme care to keep the cache up-to-date!
+  \end{itemize}
+\end{frame}
+
+%page 64
+\begin{frame}{Spider Cache Advantages}
+  \begin{itemize}
+    \item The spider cache speeds up avail and spider greatly.
+    \item All system modulefiles have been read, properties determined.
+    \item Lua is quite fast at reading and interpreting a single file.
+    \item This is preferable to walking the directory tree and reading
+      every module.
+    \item Properties are the reason why the cache was created.
+    \item Properties must be read the modulefile or from the cache.
+  \end{itemize}
+\end{frame}
+
+%page 65
+\begin{frame}{Spider Cache Disadvantages}
+  \begin{itemize}
+    \item There is only one: Keeping it up-to-date.
+    \item If Lmod sees a valid cache file it assumes it is correct.
+    \item Otherwise what's the point.
+    \item Currently loads bypass cache but avail and spider depend on it.
+    \item Personal modules are not effected by system cache foo.
+  \end{itemize}
+\end{frame}
+
+%page 66
+\begin{frame}{Module version sorting}
+  \begin{itemize}
+    \item Old way lexicographically sort: 5.6 is newer that 5.10
+    \item New way 5.10 is newer than 5.6
+    \item Old to new: 2.4dev1, 2.4a1, 2.4rc2, 2.4, 2.4-1, 2.4.1
+    \item Same: 2.4-1, 2.4p1, 2.4-p1
+    \item Old to new: 3.2-shared, 3.2
+  \end{itemize}
+\end{frame}
+
+%page 67
+\begin{frame}{Load and prereq modify functions}
+  \begin{itemize}
+    \item \texttt{load(atleast("A","1.4"))}
+    \item \texttt{load(between("B","1.4","2.7"))}
+    \item \texttt{load(latest("C"))}
+    \item \texttt{prereq(atleast("D","1.4"))}
+    \item \texttt{prereq(between("E","1.4","2.7"))}
+    \item \texttt{prereq(latest("F"))}
+    \item Typically marked default or the latest.
+  \end{itemize}
+\end{frame}
+
+%page 68
+\begin{frame}[fragile]
+    \frametitle{Module Properties}
+  \begin{itemize}
+    \item TACC is deploying Stampede with MIC accelerators
+    \item Some modules will be ``MIC'' aware: mkl, fftw3, phdf5, ...
+    \item Lmod will decorate these modules:
+  {\tiny
+    \begin{alltt}
+  1) unix/unix     3) ddt/ddt       5) mpich2/1.5    7) phdf5/1.8.9 {\color{blue}(m)}
+  2) intel/13.0    4) mkl/mkl {\color{red}(*)}   6) petsc/3.2     8) StdEnv
+
+  Where:
+   {\color{blue}(m)}:  module is build natively for MIC
+   {\color{red}(*)}:  module is build natively for MIC and offload to the MIC
+
+   ------
+   add_property("arch","mic")              -- \textgreater phdf5
+   add_property("arch","mic:offload")      -- \textgreater mkl
+    \end{alltt}
+}
+  \item What properties would you like to support?
+  \end{itemize}
+\end{frame}
+
+
+%page 69
+\begin{frame}[fragile]
+    \frametitle{Module Properties (II): Sticky}
+  \begin{itemize}
+    \item A module can be sticky.
+    \item It requires ``\texttt{--force}'' to unload or purge.
+    {\small
+\begin{alltt}
+    add\_property("lmod","sticky")
+\end{alltt}
+}
+  \end{itemize}
+\end{frame}
+
+%page 70
+\begin{frame}[fragile]
+    \frametitle{pushenv()}
+  \begin{itemize}
+    \item Suppose you'd like to set \texttt{CC} in the environment.
+    \item \texttt{setenv()} won't work.
+    \item \texttt{pushenv()} will!
+    {\small
+\begin{alltt}
+                         #    setenv()     pushenv()
+  $ module load   gcc;   # -\textgreater CC=gcc       CC=gcc
+  $ module load   mpich; # -\textgreater CC=mpicc     CC=mpicc
+  $ module unload mpich; # -\textgreater CC is unset  CC=gcc
+  $ module unload gcc;   # -\textgreater CC is unset  CC is unset
+\end{alltt}
+}
+    \item \texttt{pushenv} keeps a private env vars: \texttt{\_\_LMOD\_STACK\_}\emph{NAME}
+  \end{itemize}
+\end{frame}
+
+%page 71
+\begin{frame}[fragile]
+    \frametitle{always\_load()}
+  \begin{itemize}
+    \item The load() function is reversed on unload.
+    \item The always\_load() function is a no-op on unload.
+    \item Still you may want:
+    {\small
+\begin{alltt}
+  if (not isloaded("FOO")) then always\_load("FOO") end
+\end{alltt}
+}
+    \item Which is only slightly better than:
+    {\small
+\begin{verbatim}
+  if (not isloaded("FOO") and mode()== "load") then
+     load("FOO")
+  end
+\end{verbatim}
+}
+  \end{itemize}
+\end{frame}
+
+%page 72
+\begin{frame}{SitePackage.lua}
+  \begin{itemize}
+    \item Functions for all modulefiles that a site needs
+    \item Support for hooks like load\_hook()
+    \item See contrib/SitePackage for examples
+  \end{itemize}
+\end{frame}
+
+%page 73
+\begin{frame}{Lmod can be configured for a site's need}
+  \begin{itemize}
+    \item Configuration allows for many things: redirected output,
+      Site Name, System name, ...
+    \item Over 40 different configuration variables.
+    \item Support for shared home directories
+    \item 14 different hooks to change the behavior (SitePackage.lua)
+    \item Multiple language support: en, es, de, fr, zh, site
+  \end{itemize}
+\end{frame}
+
+%page 74
+\begin{frame}{Lessons Learned}
+  \begin{itemize}
+    \item A very small percentage of Lmod users join the mailing list.
+    \item I'm able to support many requests for features but not all.
+    \item Hardening:
+      \begin{itemize}
+        \item sandbox for evaluating modulefiles
+        \item Checking argument types
+        \item checkModuleSyntax script
+      \end{itemize}
+    \item Users sometimes ask the right question.
+    \item Lmod is much better product because of its wider use.
+  \end{itemize}
+\end{frame}
+
+%page 75
+\begin{frame}{Lessons Learned (II)}
+  \begin{itemize}
+    \item It is hard work to develop a communities trust.
+    \item Some site will be managed in a way that I have never dreamed of.
+    \item Deprecating features is difficult with Lmod.
+    \item Users would get deprecated feature reports that sys-admins
+      must fix.
+  \end{itemize}
+\end{frame}
+
+
+%page 76
+\begin{frame}{Regression Testing of Lmod}
+  \begin{itemize}
+    \item A suite of 100+ tests each with many steps.
+    \item No release without passing all those tests.
+    \item These tests make Lmod re-factoring much easier.
+    \item The github repo is generally safe.
+  \end{itemize}
+\end{frame}
+
+%page 77
+\begin{frame}{Remote Debugging}
+  \begin{itemize}
+    \item No software over ten lines is bug free.
+    \item Lmod is no exception.
+    \item Bug reports are as easy as:
+      \begin{itemize}
+        \item \texttt{module --config  2\textgreater  config.log}
+        \item \texttt{module -D avail  2\textgreater  avail.log}
+      \end{itemize}
+    \item Sometimes I'll create test versions with more debugging for
+      you to test.
+  \end{itemize}
+\end{frame}
+
+%page 78
+\begin{frame}{Recommendations for Good Site Management}
+  \begin{itemize}
+    \item A module purge should not break things.
+    \item Set \texttt{LMOD\_SYSTEM\_DEFAULT\_MODULES} so that module
+      restore and reset works.
+    \item Encourage the use of "module save" so that users can have a
+      default set of modules.
+    \item Use the family directive to protect users.
+    \item Consider the use of "checkModuleSyntax" before installing new modules.
+  \end{itemize}
+\end{frame}
+
+%page 79
+\begin{frame}{Conclusions: Lmod}
   \begin{itemize}
     \item Latest version: https://github.com:TACC/Lmod.git
     \item Stable version: http://lmod.sf.net
     \item Documentation:  http://lmod.readthedocs.org
+    \item Shell Startup Debug: http://shellstartupdebug.sf.net
     \item Mailing List:   lmod-users@lists.sourceforge.net.
     \item Join here: https://lists.sourceforge.net/lists/listinfo/lmod-users
   \end{itemize}
 \end{frame}
 
 
-\input{./themes/license}
+%\input{./themes/license}
 
 \end{document}
-
-
-
-
-
-
-
-
-
-
-
-

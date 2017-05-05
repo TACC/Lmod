@@ -89,7 +89,7 @@ case $SYSHOST in
     fi
     ;;
 
-  ls5 | maverick | stampede | wrangler)
+  ls5 | maverick | stampede | wrangler | stampede2 )
     base="$HOME/l/pkg"
     ADMIN_DIR="$HOME/a/moduleData"
     UPDATE_FN=$ADMIN_DIR/system.txt
@@ -153,4 +153,4 @@ cmdA=("-$MAKE distclean"
 
 runMe "${cmdA[@]}"
 
-rm -rf /tmp/{stampede,ls4}.build.$$
+rm -rf /tmp/TACC.build.$$

@@ -86,7 +86,7 @@ _module_loaded_modules()
 _module_available_modules()
 {
   if [[ -n $MODULEPATH ]];  then
-    _available_modules=(${$(module -q -t --no_redirect avail 2>&1 > /dev/null | sed ' /:$/d; s#/*$##g;')})
+    _available_modules=(${$(module -q -t --no_redirect avail 2>&1 > /dev/null | sed ' /:$/d; s/(@.*)//g; s#/*$##g;')})
   fi
 }
 

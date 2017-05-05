@@ -94,19 +94,24 @@ runSh2MF ()
    runBase $LUA_EXEC $projectDir/src/sh_to_modulefile.in.lua "$@"
 }
 
+runSpiderCmd ()
+{
+   $LUA_EXEC $projectDir/src/spider.in.lua "$@"
+}
+
 buildSpiderT ()
 {
-   $LUA_EXEC $projectDir/src/spider.in.lua -o spiderT "$@"
+   runSpiderCmd -o spiderT "$@"
 }
 
 buildDbT ()
 {
-   $LUA_EXEC $projectDir/src/spider.in.lua -o dbT     "$@"
+   runSpiderCmd -o dbT     "$@"
 }
 
 buildRmapT ()
 {
-   $LUA_EXEC $projectDir/src/spider.in.lua -o reverseMapT "$@"
+   runSpiderCmd -o reverseMapT "$@"
 }
 
 buildNewDB()

@@ -433,8 +433,9 @@ function main()
    dbg.print{"lmodPath:", lmodPath,"\n"}
    require("SitePackage")
 
-   -- Make sure that MRC ignores $MODULERC and ~/.modulerc when building the cache
-   local mrc                     = MRC:singleton({})
+   -- Make sure that MRC uses $MODULERCFILE and ignores ~/.modulerc when building the cache
+   local remove_MRC_home         = true
+   local mrc                     = MRC:singleton(getModuleRCT(remove_MRC_home))
    local cache                   = Cache:singleton{dontWrite = true, quiet = true, buildCache = true,
                                                    buildFresh = true, noMRC=true}
    local spider                  = Spider:new()

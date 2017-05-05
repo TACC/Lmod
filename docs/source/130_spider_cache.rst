@@ -95,11 +95,11 @@ program and place the cache in the directory *~/moduleData/cacheDir* and
 the time stamp file in *~/moduleData/system.txt*::
 
    $ module load lmod
-   $ update_lmod_system_cache_files -d ~/moduleData/cacheDir -t ~/moduleData/system.txt $LMOD_DEFAULT_MODULEPATH
+   $ update_lmod_system_cache_files -d ~/moduleData/cacheDir -t ~/moduleData/system.txt $MODULEPATH
 
-Here we have use the trick that Lmod keeps track of the Core module
-directories in **LMOD_DEFAULT_MODULEPATH** so it should be safe to use,
-no matter whether your site is using the hierarchy or not.
+If you using Lmod 6 then replace **MODULEPATH** with
+**LMOD_DEFAULT_MODULEPATH** instead.
+
 
 Next you need to find your site's copy of lmodrc.lua.  This can be
 found by running::
@@ -135,7 +135,7 @@ Then you can check to see that it works by running::
     Cache Directory              Time Stamp File
     ---------------              ---------------
     $HOME/moduleData/cacheDir    $HOME/moduleData/system.txt
-  
+
 Where **$HOME** is replaced by your real home directory.  Now you can
 test that it works by doing::
 

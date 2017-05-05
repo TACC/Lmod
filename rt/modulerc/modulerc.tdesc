@@ -49,10 +49,11 @@ testdescript = {
      runLmod list                    #13
      runLmod load hidden/2.0         #14
      runLmod list                    #15
+     runLmod -t avail                #16
      export LMOD_SHORT_TIME=0
-     runLmod avail                   #16
-     unset LMOD_SHORT_TIME
      runLmod avail                   #17
+     unset LMOD_SHORT_TIME
+     runLmod avail                   #18
      rm -rf .lmod.d
 
 
@@ -65,29 +66,29 @@ EOF
      mkdir cacheDir
      touch last_update
      buildSpiderT $MODULEPATH > cacheDir/spiderT.lua
-     runLmod avail                    #18
-     runLmod use  $(testDir)/mf2/Core #19
-     runLmod spider dum               #20
+     runLmod avail                    #19
+     runLmod use  $(testDir)/mf2/Core #20
+     runLmod spider dum               #21
 
      unsetMT
      export MODULEPATH=$(testDir)/mf/Core:$(testDir)/mf3/Core
-     runLmod load cluster             #21
+     runLmod load cluster             #22
 
      rm .modulerc
      unsetMT
      export MODULEPATH=$(testDir)/mf4
-     runLmod avail                    #22
+     runLmod avail                    #23
 
      cp $testDir/dot.modulerc .modulerc
-     runLmod avail                    #23
-     runLmod --show_hidden avail      #24
-     runLmod load mpich a             #25
-     runLmod list                     #26
+     runLmod avail                    #24
+     runLmod --show_hidden avail      #25
+     runLmod load mpich a             #26
+     runLmod list                     #27
 
      rm .modulerc
      export LMOD_MODULERCFILE=$testDir/dot.modulerc
-     runLmod avail                    #27
-     runLmod --show_hidden avail      #28
+     runLmod avail                    #28
+     runLmod --show_hidden avail      #29
 
 
 

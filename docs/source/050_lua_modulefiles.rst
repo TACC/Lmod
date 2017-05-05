@@ -7,10 +7,10 @@ Lua Modulefile Functions
 Lua is an efficient language built on simple syntax. Readers wanting
 to know more about lua can see http://www.lua.org/. This simple description
 given here should be sufficient to write all but the most complex
-modulefiles. 
+modulefiles.
 
 It is important to understand that modulefiles are written in the
-positive. That is one writes the actions necessary to activate the
+positive. That is, one writes the actions necessary to activate the
 package. A modulefile contains commands to add to the PATH or set
 environment variables. When loading a modulefile the commands are
 followed. When unloading a modulefile the actions are reversed. That
@@ -40,7 +40,7 @@ unset during unloading.
    when the mode is unload.
 
 **whatis** ("STRING"):
-    The whatis string, can be called repeatedly with different strings. See the Administrator Guide for more details.
+    The whatis command can be called repeatedly with different strings. See the Administrator Guide for more details.
 
 **help** ( [[ *help string* ]]):
      What is printed out when the help command is called. Note that
@@ -88,7 +88,7 @@ The entries below describe several useful commands that come with Lmod that can 
     Ask for environment for the value of "NAME". Note that if the
     "NAME" might not be in the environment, then it is probably best
     to do::
-    
+
        local foo=os.getenv("FOO") or ""
 
     otherwise ``foo`` will have the value of ``nil``.
@@ -127,7 +127,7 @@ Modifier functions to prereq and loads
 
 **between** ("name","v1","v2"):
     This modifier function will only succeed if the module's version is
-    equal to or between "v1" and "v2".  
+    equal to or between "v1" and "v2".
 
 **latest** ("name"):
     This modifier function will only succeed if the module has the
@@ -162,7 +162,7 @@ the name and version of a modulefile.
 **myShellType** ():
    Returns the shellType based on the name of the shell the user
    specified on the command line. It returns sh for sh, bash, zsh,
-   csh for csh, tcsh. Otherwise it is the same as **myShellName**().
+   csh for csh, tcsh. Otherwise it is the same as **myShellName** ().
 
 
 **hierarchyA** ("fullName", level):

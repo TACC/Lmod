@@ -418,14 +418,14 @@ end
 ------------------------------------------------------------
 -- Get the table of modulerc files with proper weights
 
-function getModuleRCT()
+function getModuleRCT(remove_MRC_home)
    local A           = {}
    local MRC_system  = cosmic:value("LMOD_MODULERCFILE")
    local MRC_home    = pathJoin(getenv("HOME"), ".modulerc")
    if (MRC_system and isFile(MRC_system)) then
       A[#A+1] = { MRC_system, "s"}
    end
-   if (isFile(MRC_home)) then
+   if (not remove_MRC_home and isFile(MRC_home)) then
       A[#A+1] = { MRC_home, "u"}
    end
    return A

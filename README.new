@@ -1,8 +1,14 @@
-Lmod 7.4 +
+Lmod 7.4+
     (7.4.1)  Added -T, --trace option to report restore, load and unloads
     (7.4.2)  Merged in PR #244 extending msgHook for list to get the original list.
     (7.4.3)  Added listHook so that sites can control what gets listed by module list.
     (7.4.4)  Now print userName and fn when loading/unloading when tracing
              Fix bug with -T, --trace option. Add -T, --trace to ml
-    (7.4.5)  Workaround for old posix that does not have getuid()
-    
+    (7.4.5)  Workaround for old lua posix that does not have getuid()
+    (7.4.6)  Report both global and version aliases with module --terse avail
+    (7.4.7)  Change --terse avail output to include fullName a14(@a/14.0.4)
+             Add Global Aliases output to module avail if they exist.
+    (7.4.8)  Fix case where Lmod chose the wrong modulefile when there were multiple
+             foo's spread across MODULEPATH.
+    (7.4.9)  Fix bug where Lmod would be unable to load a module where NV and NVV module
+             layouts were mixed.

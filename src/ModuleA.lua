@@ -156,8 +156,8 @@ local function find_vA(name, moduleA)
    local versionStr = nil
    local vA         = {}
    local sn         = name
-   local done       = false
    local idx        = nil
+   local done       = false
 
    while true do
       for i = 1, #moduleA do
@@ -181,6 +181,8 @@ local function find_vA(name, moduleA)
    if (idx) then
       versionStr = name:sub(idx+1,-1)
    end
+   dbg.print{"sn: ",sn,", versionStr: ",versionStr,"\n"}
+   dbg.printT("vA",vA)
    return sn, versionStr, vA
 end
 
@@ -189,7 +191,8 @@ local function find_vB(sn, versionStr, vA)
    local vB      = {}
 
    for i = 1,#vA do
-      local v    = vA[i]
+      local v       
+      local vv   = vA[i]
       local done = (versionStr == nil)
       local idx  = 1
       local vStr = versionStr
@@ -204,7 +207,7 @@ local function find_vB(sn, versionStr, vA)
             jdx  = idx + 1
          end
          local key   = pathJoin(sn, vStr)
-         local value = v.dirT[key]
+         local value = vv.dirT[key]
          if (value) then
             v = value
             if (vStr == versionStr) then
@@ -214,8 +217,13 @@ local function find_vB(sn, versionStr, vA)
             done = true
          end
       end
-      vB[#vB + 1] = v
+      if (versionStr == nil or next{v} == nil) then
+         vB[#vB + 1] = vv
+      elseif (v) then
+         vB[#vB + 1] = v
+      end
    end
+   dbg.printT("vB",vB)
    return fullStr, vB
 end
 

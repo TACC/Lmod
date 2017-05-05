@@ -784,6 +784,7 @@ function M.avail(self, argA)
    end
 
    local moduleA     = ModuleA:singleton{spider_cache=(not masterTbl.terse)}
+   local mrc         = MRC:singleton()
    local availA      = moduleA:build_availA()
    local twidth      = TermWidth()
    local cwidth      = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or twidth
@@ -791,6 +792,8 @@ function M.avail(self, argA)
    local searchA     = argA
    local defaultOnly = masterTbl.defaultOnly
    local showSN      = not defaultOnly
+   local alias2modT  = mrc:getAlias2ModT()
+
    dbg.print{"defaultOnly: ",defaultOnly,", showSN: ",showSN,"\n"}
 
    if (not masterTbl.regexp and argA and next(argA) ~= nil) then
@@ -805,9 +808,15 @@ function M.avail(self, argA)
    end
    
    if (masterTbl.terse) then
-      dbg.printT("availA",availA)
 
+      --------------------------------------------------
       -- Terse output
+      dbg.printT("availA",availA)
+      for k, v in pairsByKeys(alias2modT) do
+         local fullName = mrc:resolve(v)
+         a[#a+1] = k.."(@" .. fullName ..")\n"
+      end
+
       for j = 1,#availA do
          local A      = availA[j].A
          local label  = availA[j].mpath
@@ -820,6 +829,13 @@ function M.avail(self, argA)
                if (not prtSnT[sn] and sn ~= fullName and showSN) then
                   prtSnT[sn] = true
                   aa[#aa+1]  = sn .. "/\n"
+               end
+               local aliasA = mrc:getFull2AliasesT(fullName)
+               if (aliasA) then
+                  for i = 1,#aliasA do
+                     local fullName = mrc:resolve(aliasA[i])
+                     aa[#aa+1]  = aliasA[i] .. "(@".. fullName ..")\n"
+                  end
                end
                aa[#aa+1]     = fullName .. "\n"
             end
@@ -838,11 +854,26 @@ function M.avail(self, argA)
 
    availA = regroup_avail_blocks(availStyle, availA)
 
-   local mrc      = MRC:singleton()
    local banner   = Banner:singleton()
    local legendT  = {}
    local Default  = 'D'
    local numFound = 0
+
+   
+   if (next(alias2modT) ~= nil) then
+      local b = {}
+      for k, v in pairsByKeys(alias2modT) do
+         local fullName = mrc:resolve(v)
+         b[#b+1] = { "   " .. k, "->", fullName}
+      end
+      local ct = ColumnTable:new{tbl=b, gap=1, len=length, width = cwidth}
+      a[#a+1]  = "\n"
+      a[#a+1] = banner:bannerStr("Global Aliases")
+      a[#a+1] = "\n"
+      a[#a+1]  = ct:build_tbl()
+      a[#a+1] = "\n"
+   end
+
 
    for k = 1,#availA do
       local A = availA[k].A
