@@ -653,10 +653,10 @@ function M.spiderSearch(self, dbT, userSearchPat, helpFlg)
    --dbg.printT("dbT",dbT)
 
 
-   local fullT = {}
+   local fullA = {}
    for sn, vv in pairs(dbT) do
       for fn, v in pairs(vv) do
-         fullT[#fullT+1] = {sn=sn, fullName=v.fullName, fn=fn}
+         fullA[#fullA+1] = {sn=sn, fullName=v.fullName, fn=fn}
       end
    end
 
@@ -670,14 +670,14 @@ function M.spiderSearch(self, dbT, userSearchPat, helpFlg)
    -- Match rules in dbT
    --
    -- 1) Matching original user search pattern in dbT
-   --    Check for possibles.  Count 
-   
+   --    Check for possibles.  Count
+
    -- 2) Matching one Full only -> Level 2
    --
    -- 3) Matching sn but there is only 1 fullName -> Level 2
    --
    -- 4) Matching sn or full with multiple versions -> Level1
-   
+
    local a         = {}
    local matchT    = {}
    local T         = dbT[origUserSearchPat]
@@ -690,7 +690,7 @@ function M.spiderSearch(self, dbT, userSearchPat, helpFlg)
       if (not show_hidden) then
          found = false
          for fn, v in pairs(T) do
-            if (mrc:isVisible({fullName=v.fullName,fn=fn,sn=fullT[v.fullName]})) then
+            if (mrc:isVisible({fullName=v.fullName,fn=fn,sn=origUserSearchPat})) then
                found = true
                break
             end
@@ -705,7 +705,7 @@ function M.spiderSearch(self, dbT, userSearchPat, helpFlg)
       local aT = {}
       local bT = {}
       dbg.print{"userSearchPat: ",userSearchPat,"\n"}
-      for _, mod in ipairs(fullT) do
+      for _, mod in ipairs(fullA) do
          local sn = mod.sn
          local fullName = mod.fullName
          local fn = mod.fn
@@ -759,7 +759,7 @@ function M.spiderSearch(self, dbT, userSearchPat, helpFlg)
 
    dbg.fini("Spider:spiderSearch")
    return concatTbl(a,"")
-end   
+end
 
 function M._Level1(self, dbT, possibleA, sn, key, helpFlg)
    dbg.start{"Spider:_Level1(dbT, sn: \"",sn,"\", key: \"",key,"\")"}
