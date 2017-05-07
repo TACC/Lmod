@@ -123,3 +123,8 @@ Hook functions
 
 **load_spider** (...):
   This hook is called when spider is evaluating a modulefile.
+
+**isVisibleHook** (modT):
+  This hook is called when evaluating whether a module is visible or hidden. It's
+  argument is a table containing: fullName, sn (short name), fn (file path) and
+  isVisible (boolean) of the module.
