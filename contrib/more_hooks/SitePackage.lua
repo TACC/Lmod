@@ -172,6 +172,19 @@ local function packagebasename(t)
     t.patDir = "^EBROOT.*"
 end
 
+local function avail_module_hook(moduleT)
+    -- This is a costly hook, called for *every* module
+    -- shown in `module avail`. Its argument is a table with
+    -- three elements: sn, fn and fullName
+
+    -- filter out all modules in /etc
+    if moduleT.fn:match("^/etc") then
+        moduleT.sn = nil
+    end
+
+    return moduleT
+end
+
 
 hook.register("load", load_hook)
 hook.register("startup", startup_hook)
@@ -179,3 +192,4 @@ hook.register("msgHook", msg_hook)
 hook.register("SiteName", site_name_hook)
 hook.register("packagebasename", packagebasename)
 hook.register("errWarnMsgHook", errwarnmsg_hook)
+hook.register("avail_module", avail_module_hook)
