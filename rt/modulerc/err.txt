@@ -180,7 +180,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/modul
 step 21
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider dum
 ===========================
-Lmod has detected the following error: No matching modules found.
+Lmod has detected the following error: Unable to find: "dum".
 ===========================
 step 22
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cluster

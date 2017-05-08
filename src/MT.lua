@@ -558,7 +558,7 @@ function M.list_property(self, idx, sn, style, legendT)
       LmodError{msg="e_No_Mod_Entry", routine = "MT:list_property()", name = sn}
    end
 
-   local resultA = colorizePropA(style, entry.fullName, mrc, entry.propT, legendT)
+   local resultA = colorizePropA(style, {fullName=entry.fullName,sn=sn,fn=entry.fn}, mrc, entry.propT, legendT)
    if (resultA[2]) then
       resultA[2] = "(" .. resultA[2] .. ")"
    end

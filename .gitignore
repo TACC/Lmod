@@ -1,6 +1,7 @@
 .#*
 .*~
 *~
+.*.sw[op]
 testreports
 t1
 config.log

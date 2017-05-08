@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------
--- Copyright 2016-2017 Ghent University, Ward Poelmans (wpoely86@gmail.com)
+-- Copyright 2016-2017 Ward Poelmans (wpoely86@gmail.com)
 --------------------------------------------------------------------------
 
 require("strict")
@@ -173,9 +173,26 @@ local function packagebasename(t)
 end
 
 
+local function visible_hook(modT)
+    -- modT is a table with: fullName, sn, fn and isVisible
+    -- The latter is a boolean to determine if a module is visible or not
+
+    dbg.start{"visible_hook"}
+
+    dbg.print{"Received modT: ", modT, "\n"}
+
+    if modT.fn:match("^/some/path") then
+        modT.isVisible = false
+    end
+
+    dbg.fini()
+end
+
+
 hook.register("load", load_hook)
 hook.register("startup", startup_hook)
 hook.register("msgHook", msg_hook)
 hook.register("SiteName", site_name_hook)
 hook.register("packagebasename", packagebasename)
 hook.register("errWarnMsgHook", errwarnmsg_hook)
+hook.register("isVisibleHook", visible_hook)

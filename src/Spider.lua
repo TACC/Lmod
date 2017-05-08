@@ -477,7 +477,7 @@ function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
          end
          t.parentAA     = parentT[mpath]
          t.fullName     = sn
-         t.hidden       = not mrc:isVisible(sn)
+         t.hidden       = not mrc:isVisible({fullName=sn, sn=sn, fn=v.file})
          T[v.file]      = t
       elseif (next(v.fileT) ~= nil) then
          for fullName, vv in pairs(v.fileT) do
@@ -488,7 +488,7 @@ function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
             end
             t.parentAA   = parentT[mpath]
             t.fullName   = fullName
-            t.hidden     = not mrc:isVisible(fullName)
+            t.hidden     = not mrc:isVisible({fullName=fullName, sn=sn, fn=vv.fn})
             T[vv.fn]     = t
          end
       elseif (next(v.dirT) ~= nil) then
@@ -539,7 +539,7 @@ function M.Level0(self, dbT)
       local t  = {}
       for sn, vv in pairs(dbT) do
          for fn, v in pairs(vv) do
-            local isActive, version = isActiveMFile(mrc, v.fullName, sn)
+            local isActive, version = isActiveMFile(mrc, v.fullName, sn, fn)
             if (show_hidden or isActive) then
                if (sn == v.fullName) then
                   t[sn] = sn
@@ -598,7 +598,7 @@ function M.Level0Helper(self, dbT, a)
 
    for sn, vv in pairs(dbT) do
       for fn,v in pairsByKeys(vv) do
-         local isActive, version = isActiveMFile(mrc, v.fullName, sn)
+         local isActive, version = isActiveMFile(mrc, v.fullName, sn, fn)
          if (show_hidden or isActive) then
             if (t[sn] == nil) then
                t[sn] = { Description = v.Description, versionA = { }, name = sn}
@@ -653,11 +653,10 @@ function M.spiderSearch(self, dbT, userSearchPat, helpFlg)
    --dbg.printT("dbT",dbT)
 
 
-   local fullT = {}
+   local fullA = {}
    for sn, vv in pairs(dbT) do
-      fullT[sn] = sn
       for fn, v in pairs(vv) do
-         fullT[v.fullName] = sn
+         fullA[#fullA+1] = {sn=sn, fullName=v.fullName, fn=fn}
       end
    end
 
@@ -671,14 +670,14 @@ function M.spiderSearch(self, dbT, userSearchPat, helpFlg)
    -- Match rules in dbT
    --
    -- 1) Matching original user search pattern in dbT
-   --    Check for possibles.  Count 
-   
+   --    Check for possibles.  Count
+
    -- 2) Matching one Full only -> Level 2
    --
    -- 3) Matching sn but there is only 1 fullName -> Level 2
    --
    -- 4) Matching sn or full with multiple versions -> Level1
-   
+
    local a         = {}
    local matchT    = {}
    local T         = dbT[origUserSearchPat]
@@ -691,13 +690,13 @@ function M.spiderSearch(self, dbT, userSearchPat, helpFlg)
       if (not show_hidden) then
          found = false
          for fn, v in pairs(T) do
-            if (mrc:isVisible(v.fullName)) then
+            if (mrc:isVisible({fullName=v.fullName,fn=fn,sn=origUserSearchPat})) then
                found = true
                break
             end
          end
       end
-            
+
       if (found) then
          matchT[origUserSearchPat] = origUserSearchPat
          look4poss                 = true
@@ -706,15 +705,25 @@ function M.spiderSearch(self, dbT, userSearchPat, helpFlg)
       local aT = {}
       local bT = {}
       dbg.print{"userSearchPat: ",userSearchPat,"\n"}
-      for key, sn in pairs(fullT) do
-         if (key == origUserSearchPat and (show_hidden or mrc:isVisible(key))) then
-            aT[sn] = origUserSearchPat
-         end
-         if (key:find(userSearchPat) and (show_hidden or mrc:isVisible(key))) then
-            dbg.print{"  key: ",key,", sn: ",sn,"\n"}
-            bT[sn] = userSearchPat
+      for _, mod in ipairs(fullA) do
+         local sn = mod.sn
+         local fullName = mod.fullName
+         local fn = mod.fn
+
+         -- only continue if visible
+         if (show_hidden or mrc:isVisible({fullName=fullName,sn=sn,fn=fn})) then
+
+            if sn == origUserSearchPat or fullName == origUserSearchPat then
+                aT[sn] = origUserSearchPat
+            end
+
+            if sn:find(userSearchPat) or fullName:find(userSearchPat) then
+                bT[sn] = userSearchPat
+            end
+
          end
       end
+
       matchT = (next(aT) ~= nil) and aT or bT
       --dbg.printT("aT",aT)
       --dbg.printT("bT",bT)
@@ -750,7 +759,7 @@ function M.spiderSearch(self, dbT, userSearchPat, helpFlg)
 
    dbg.fini("Spider:spiderSearch")
    return concatTbl(a,"")
-end   
+end
 
 function M._Level1(self, dbT, possibleA, sn, key, helpFlg)
    dbg.start{"Spider:_Level1(dbT, sn: \"",sn,"\", key: \"",key,"\")"}
@@ -773,7 +782,7 @@ function M._Level1(self, dbT, possibleA, sn, key, helpFlg)
          if (fullName == key) then
             aa[#aa + 1] = v
          end
-         if(fullName:find(key) and (show_hidden or mrc:isVisible(fullName))) then
+         if(fullName:find(key) and (show_hidden or mrc:isVisible({fullName=fullName,sn=sn,fn=fn}))) then
             bb[#bb + 1] = v
          end
       end
@@ -802,7 +811,7 @@ function M._Level1(self, dbT, possibleA, sn, key, helpFlg)
    local Description = nil
 
    for fn, v in pairsByKeys(T) do
-      local isActive, version = isActiveMFile(mrc, v.fullName, sn)
+      local isActive, version = isActiveMFile(mrc, v.fullName, sn, fn)
       if (show_hidden or isActive) then
          local kk            = sn .. "/" .. parseVersion(version)
          if (fullVT[kk] == nil) then
