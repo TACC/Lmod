@@ -19,13 +19,13 @@ The second kind of variable is an yes/no variable.  One example of
 this is LMOD_IGNORE_CACHE.  When this variable is "yes", Lmod ignores
 any cache files and walks MODULEPATH instead.
 
-The following setting are considered "no".  ALL OTHER VALUES are "yes"
+The following setting are considered "no".  Note that the value is
+lowercased first so NO,No, and nO are the same as no. ALL OTHER VALUES
+are "yes".
 
-#. ""
-#. 0
-#. no
-#. No
-#. NO
+#. export LMOD_IGNORE_CACHE=""
+#. export LMOD_IGNORE_CACHE=0
+#. export LMOD_IGNORE_CACHE=no
 
 
    
