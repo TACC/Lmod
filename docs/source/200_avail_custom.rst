@@ -1,7 +1,7 @@
 Providing Custom Labels for Avail
 =================================
 
-Lmod writes out the modules in alphabetical for each directory in
+Lmod writes out the modules in alphabetical order for each directory in
 MODULEPATH in order::
 
      $ module avail

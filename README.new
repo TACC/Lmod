@@ -12,3 +12,8 @@ Lmod 7.4+
              foo's spread across MODULEPATH.
     (7.4.9)  Fix bug where Lmod would be unable to load a module where NV and NVV module
              layouts were mixed.
+    (7.4.10) Support for isVisibleHook (Thanks @wpoely86!) to control whether a module
+             is hidden or not.  Support for "spider -o spider-json" to set the key "hidden"
+             to true or false for each module.  Support for marking a variable as "no" is
+             changed to "", "0" or no.
+             

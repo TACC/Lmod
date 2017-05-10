@@ -99,6 +99,7 @@ Advanced Topics
    200_avail_custom
    210_load_storms
    220_tracing
+   230_lmod_env_vars
 
 
 Topics yet to be written

@@ -88,7 +88,7 @@ across all directories in ``MODULEPATH``.
 .. _setting-default-label:
 
 Marking a Version as Default
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Suppose you have several versions of the mythical UCC compiler suite::
 
@@ -254,7 +254,7 @@ reason to pick one over the other so Lmod has chosen ``Find First``
 for NVV module layouts.
 
 Autoswapping Rules
-~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
 
 When Lmod autoswaps hierarchical dependencies, it uses the following
 rules:
