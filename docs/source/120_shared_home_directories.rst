@@ -1,3 +1,6 @@
+.. _shared_home_file_system:
+
+
 Lmod on Shared Home File Systems
 ================================
 

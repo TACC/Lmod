@@ -34,6 +34,9 @@ The following variables set actions that can only be controlled by
 environment variables.  The actions can not be controlled through the
 configuration step.
 
+**LMOD_ADMIN_FILE**:
+  [path] If set this will be a file to set the nag message.
+
 **LMOD_IGNORE_CACHE**:
   [yes/no] If set to yes then Lmod will bypass all cachefile and walk
   the directories in MODULEPATH instead.
@@ -72,7 +75,6 @@ the configuration option which will set the action.
   [number, default:86400, --with-ancient].  The number of seconds that
   the user's personal cache is consider valid.
 
-
 **LMOD_AUTO_SWAP**:
   [yes/no, default: yes, --with-autoSwap] Allows Lmod to swap
   any modules that use the family function such as compilers and mpi
@@ -80,7 +82,8 @@ the configuration option which will set the action.
 
 **LMOD_CACHED_LOADS**:
   [yes/no, default:no, --with-cachedLoads] If true then Lmod will use
-  the spider cache instead of walking MODULEPATH.
+  the spider cache instead of walking MODULEPATH as long as
+  LMOD_IGNORE_CACHE is not set.
 
 **LMOD_CASE_INDEPENDENT_SORTING**:
   [yes/no, default: no, --with-caseIndependentSorting] Make avail and
@@ -164,6 +167,3 @@ the configuration option which will set the action.
 **LMOD_USE_DOT_FILES**:
   [yes/no, default: yes, --with-useDotFiles] If yes then use
   ~/.lmod.d/.cache, if no then use ~/.lmod.d/__cache__
-
-
-
