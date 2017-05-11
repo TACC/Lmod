@@ -35,7 +35,7 @@ environment variables.  The actions can not be controlled through the
 configuration step.
 
 **LMOD_ADMIN_FILE**:
-  [path] If set this will be a file to set the nag message.
+  [path] If set this will be a file to specify the nag message.
 
 **LMOD_IGNORE_CACHE**:
   [yes/no] If set to yes then Lmod will bypass all cachefile and walk
