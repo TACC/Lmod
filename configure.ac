@@ -9,7 +9,7 @@ AC_PROG_CC
 
 AC_SUBST(DUPLICATE_PATHS)
 AC_ARG_WITH(duplicatePaths,
-    AC_HELP_STRING([--with-duplicatePaths=ans],[Allow multiple directories in path like variables [[no]]]),
+    AC_HELP_STRING([--with-duplicatePaths=ans],[Allow duplicate directories in path like variables [[no]]]),
     DUPLICATE_PATHS="$withval"
     AC_MSG_RESULT([DUPLICATE_PATHS=$with_duplicatePaths])
     AC_DEFINE_UNQUOTED(DUPLICATE_PATHS,"$with_duplicatePaths")dnl
