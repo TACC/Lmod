@@ -26,6 +26,8 @@ VALUES are treated as "yes".
 #. export LMOD_IGNORE_CACHE=""
 #. export LMOD_IGNORE_CACHE=0
 #. export LMOD_IGNORE_CACHE=no
+#. export LMOD_IGNORE_CACHE=off
+
 
 Environment variables only
 ~~~~~~~~~~~~~~~~~~~~~~~~~~

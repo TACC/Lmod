@@ -59,9 +59,10 @@ function M.singleton(self)
 end
 
 local yes_noT = {
-   ['0'] = "no",
-   ['']  = "no",
-   ['1'] = "yes",
+   ['0']   = "no",
+   ['']    = "no",
+   ['off'] = "no",
+   ['1']   = "yes",
 }
 
 function M.init(self, t)
