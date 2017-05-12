@@ -54,7 +54,7 @@ This means that you can also easily track Lmod startup actions::
      ^D
 
      % ssh localhost
-     Last login: Sun Apr  2 08:03:13 2017
+     ...
      running: module --initial_load restore
        Using collection:      /home/user/.lmod.d/default
        Setting MODULEPATH to: /opt/apps/modulefiles/Darwin:/opt/apps/modulefiles/Core
