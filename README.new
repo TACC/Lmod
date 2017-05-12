@@ -15,6 +15,6 @@ Lmod 7.4+
     (7.4.10) Support for isVisibleHook (Thanks @wpoely86!) to control whether a module
              is hidden or not.  Support for "spider -o spider-json" to set the key "hidden"
              to true or false for each module.  Support for marking a variable as "no" is
-             changed to "", "0" or no.
+             changed to "", "0" or "no".
     (7.4.11) Fix bug with setting BASH_ENV in init/profile.in
     

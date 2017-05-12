@@ -56,7 +56,7 @@ This means that you can also easily track Lmod startup actions::
 
      % ssh localhost
      ...
-     running: module --initial_load restore
+     running: module --initial_load --no_redirect restore
        Using collection:      /home/user/.lmod.d/default
        Setting MODULEPATH to: /opt/apps/modulefiles/Darwin:/opt/apps/modulefiles/Core
        Loading: unix (fn: /opt/apps/modulefiles/Core/unix/unix.lua)
