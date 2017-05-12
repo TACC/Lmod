@@ -43,6 +43,10 @@ configuration step.
   [yes/no] If set to yes then Lmod will bypass all cachefile and walk
   the directories in MODULEPATH instead.
 
+**LMOD_PAGER**:
+  [string] Lmod uses a pager when not using redirect.  It defaults to
+  less.  Site/Users can turn off the pager if it is set to "None".
+
 **LMOD_RTM_TESTING**:
   [any value] If this variable has any value it means that Lmod does
   nothing.  This is useful when testing a personal copy of Lmod and
