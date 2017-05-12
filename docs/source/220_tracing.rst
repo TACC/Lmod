@@ -10,7 +10,8 @@ can be useful to understand what happens a shell startup.  By setting
 ``LMOD_TRACING`` to yes for a particular user you can see something
 like the following for a user which as a default collection::
 
-     running: module --initial_load restore
+     $ module -T restore
+     running: module -T restore
        Using collection:      /home/user/.lmod.d/default
        Setting MODULEPATH to :/opt/apps/modulefiles/Linux:/opt/apps/modulefiles/Core
        Loading: unix (fn: /opt/apps/modulefiles/Core/unix/unix.lua)
