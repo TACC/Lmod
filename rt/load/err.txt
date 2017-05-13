@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.3.2  2017-01-12 20:25 -06:00
+Modules based on Lua: Version 7.4.11  2017-05-11 12:51 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -111,6 +111,7 @@ Lmod has detected the following error: The following module(s) are unknown: "boo
 Please check the spelling or version number. Also try "module spider ..."
 It is also possible your cache file is out-of-date; it may help to try:
   $ module --ignore-cache load "boost/1.33.0"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load boost/1.57.0
@@ -119,6 +120,7 @@ Lmod has detected the following error: The following module(s) are unknown: "boo
 Please check the spelling or version number. Also try "module spider ..."
 It is also possible your cache file is out-of-date; it may help to try:
   $ module --ignore-cache load "boost/1.57.0"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 18
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load boost
@@ -192,6 +194,7 @@ Lmod has detected the following error: The following module(s) are unknown: "Doe
 Please check the spelling or version number. Also try "module spider ..."
 It is also possible your cache file is out-of-date; it may help to try:
   $ module --ignore-cache load "DoesNotExist"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 29
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
@@ -304,6 +307,7 @@ Lmod has detected the following error: The following module(s) are unknown: "bad
 Please check the spelling or version number. Also try "module spider ..."
 It is also possible your cache file is out-of-date; it may help to try:
   $ module --ignore-cache load "bad_symlink"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 38
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load empty
@@ -312,6 +316,7 @@ Lmod has detected the following error: The following module(s) are unknown: "emp
 Please check the spelling or version number. Also try "module spider ..."
 It is also possible your cache file is out-of-date; it may help to try:
   $ module --ignore-cache load "empty"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 39
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load version_only
@@ -320,6 +325,7 @@ Lmod has detected the following error: The following module(s) are unknown: "ver
 Please check the spelling or version number. Also try "module spider ..."
 It is also possible your cache file is out-of-date; it may help to try:
   $ module --ignore-cache load "version_only"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 40
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load dflt
