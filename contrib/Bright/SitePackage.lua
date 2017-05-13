@@ -59,11 +59,7 @@ function load_hook(t)
    local user        = os.getenv("USER")
    local host        = uname("%n")
    local currentTime = epoch()
--- 20170503FG improve syslog 4 SGE jobs, but make it flexible, if variable is not there
-   local jobid       = os.getenv("JOB_ID")
-   if jobid == nil then
-      jobid = "unknown"
-   end
+   local jobid       = os.getenv("JOB_ID") or "unknown"
    local msg         = string.format("USER=%s JOB_ID=%s MODULE=%s FULLPATH=%s HOST=%s TIME=%f",
                                      user, jobid, t.modFullName, t.fn, host, currentTime)
    local a           = s_msgA
@@ -83,7 +79,6 @@ function report_loads()
          os.execute("logger -t ModuleUsageTracking -p local0.info " .. msg)
       end
    end
-
 end
 
 
