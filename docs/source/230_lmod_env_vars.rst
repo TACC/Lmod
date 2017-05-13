@@ -19,8 +19,8 @@ The second kind of variable is an yes/no variable.  One example of
 this is LMOD_IGNORE_CACHE.  When this variable is "yes", Lmod ignores
 any cache files and walks MODULEPATH instead.
 
-The following setting are considered "no".  Note that the string value
-is lowercased first, so NO,No, and nO are the same as no. ALL OTHER
+The following settings are considered "no".  Note that the string value
+is lowercased first, so NO, No, and nO are the same as no. ALL OTHER
 VALUES are treated as "yes".
 
 #. export LMOD_IGNORE_CACHE=""
@@ -79,7 +79,7 @@ the configuration option which will set the action.
 
 **LMOD_ANCIENT**:
   [number, default:86400, --with-ancient].  The number of seconds that
-  the user's personal cache is consider valid.
+  the user's personal cache is considered valid.
 
 **LMOD_AUTO_SWAP**:
   [yes/no, default: yes, --with-autoSwap] Allows Lmod to swap
@@ -161,7 +161,7 @@ the configuration option which will set the action.
 
 **LMOD_SYSHOST**:
   [string, default: <nil>, --with-syshost].  This variable can be used
-  to halp with module tracking.  See contrib/tracking_modules_usage/*
+  to help with module tracking.  See contrib/tracking_modules_usage/*
   for details.
 
 **LMOD_TMOD_PATH_RULE**:
