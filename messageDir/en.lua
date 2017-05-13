@@ -97,6 +97,8 @@ The syntax is:
 Please check the spelling or version number. Also try "module spider ..."
 It is also possible your cache file is out-of-date; it may help to try:
   $   module --ignore-cache load %{module_list} 
+
+Also make sure that all TCL modulefiles start with the string #%Module
 ]==],
      e_Failed_Load_2       = [==[These module(s) exist but cannot be loaded as requested: %{kA}
    Try: "module spider %{kB}" to see how to load the module(s).
