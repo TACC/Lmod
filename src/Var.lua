@@ -38,6 +38,7 @@ require("string_utils")
 require("pairsByKeys")
 require("utils")
 require("myGlobals")
+require("serializeTbl")
 
 _G._DEBUG            = false               -- Required by the new lua posix
 local M              = {}
@@ -289,6 +290,10 @@ function M.prepend(self, value, nodups, priority)
       l_extract(self)
    end
 
+   if (dbg.active) then
+      dbg.print{"(1) Var.PATH: ",self}
+   end
+
    self.type           = 'path'
    priority            = priority or 0
    local pathA         = path2pathA(value, self.sep)
@@ -316,6 +321,10 @@ function M.prepend(self, value, nodups, priority)
    setenv_posix(self.name, v, true)
 
    chkMP(self.name, v, adding)
+
+   if (dbg.active) then
+      dbg.print{"(2) Var.PATH: ",self}
+   end
 end
 
 --------------------------------------------------------------------------
