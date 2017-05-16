@@ -17,4 +17,5 @@ Lmod 7.4+
              to true or false for each module.  Support for marking a variable as "no" is
              changed to "", "0" or "no".
     (7.4.11) Fix bug with setting BASH_ENV in init/profile.in
+    (7.4.12) Update Error message about can find file to check for TCL magic string.
     
