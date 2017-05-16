@@ -123,6 +123,7 @@ local function GroupIntoModules(self, level, maxdepth, mpath, dirT, T)
       local prefix = extractFullName(mpath, path)
       if (next(v.defaultT) ~= nil or next(v.dirT) == nil or level == maxdepth) then
          if (next(v.dirT) ~= nil) then
+            dbg.print{"(GroupIntoModules) setting __isNVV to true\n"}
             self.__isNVV = true
          end
          T[prefix] = addPV(prefix,v,"","")
@@ -300,6 +301,8 @@ function M.__find_all_defaults(self)
          count       = 0
       end
 
+      dbg.print{"keepLooking: ",keepLooking,"\n"}
+
       if (keepLooking) then
          if (v.file and (show_hidden or mrc:isVisible({fullName=sn, sn=sn, fn=v.file}))) then
             defaultT[sn] = {weight = " ", fullName = sn, fn = v.file, count = 1}
@@ -333,12 +336,17 @@ function M.__find_all_defaults(self)
       end
    end 
 
+   dbg.printT("moduleA",moduleA)
+   dbg.print{"(4) isNVV: ",self.__isNVV,"\n"}
    local isNVV      = self.__isNVV
    local level      = 0
    for i = 1, #moduleA do
       local T      = moduleA[i].T
       local mpath  = moduleA[i].mpath
       for sn, v in pairs(T) do
+         if (sn == "aaa") then
+            dbg.printT("aaa_v",v)
+         end
          find_all_defaults_helper(level+1,isNVV, mpath, sn, v)
       end
    end
@@ -563,6 +571,7 @@ function M.update(self, t)
             -- must transfer isNVV state over from new mpath entry.
             if (not self.__isNVV) then
                self.__isNVV = mA_obj:isNVV()
+               dbg.print{"(2) setting __isNVV to: ", self.__isNVV,"\n"}
             end
          end
       until true
@@ -582,11 +591,13 @@ function M.__new(self, mpathA, maxdepthT, moduleRCT, spiderT)
 
    local dirTree   = false
    self.__index    = self
+   dbg.print{"(0) setting __isNVV to false\n"}
    o.__isNVV       = false
    spiderT         = spiderT or {}
    if (next(spiderT) ~= nil) then
       o.__spiderBuilt = true
       dbg.print{"calling build_from_spiderT()\n"}
+      dbg.printT("spiderT",spiderT)
       o.__moduleA     = build_from_spiderT(spiderT)
    else
       dbg.print{"calling DirTree:new()\n"}
@@ -597,6 +608,7 @@ function M.__new(self, mpathA, maxdepthT, moduleRCT, spiderT)
       o.__spiderBuilt = false
       o.__moduleA     = build(o, maxdepthT, dirTree:dirA())
       dbg.printT("moduleA:",o.__moduleA)
+      dbg.print{"(1) isNVV: ",o.__isNVV,"\n"}
    end
 
    if (moduleRCT and next(moduleRCT) ~= nil) then

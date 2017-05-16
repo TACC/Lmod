@@ -11,7 +11,7 @@ More than one version -> Software has bugs, lacks feature,
 
 
 
-spider cache -> slow parallel file systems (Parallel file systems are
+spider cache -> speeds up avail, spider.  slow parallel file systems (Parallel file systems are
                 great for reading/writing a lot of data.  Not so good
                 for walking a directory or reading a bunch of files)
 
@@ -23,6 +23,8 @@ Tracing option -> (1) report why different users in the same group with
 Hierarchy -> Dealing with Compiler Libraries (boost) or MPI/Compiler
              dependant libraries and apps like PETSc
 
+ml spider -> Can't see all modules with "module avail"
+
 
 One name rule -> prevents users from loading two different versions of
                  gcc
@@ -30,9 +32,24 @@ One name rule -> prevents users from loading two different versions of
 Family -> Can only load one compiler or mpi stack at a time. (Can't
           load both openmpi and mpich at the same time.)
 
+conflicts -> are fragile: what happens if you add a new compiler or
+             mpi stack
+
 
 Module Usage Tracking -> What is getting used or NOT!
 
 Deprecating packages -> Nag message 
                         hiding modules
+
+
+Site configurable -> Lmod can be configured in different ways
+                     depending on site needs.  ./configure --with-...
+
+Configurable (part deux) -> SitePackage.lua and hooks.  This way sites
+                            can run code to track modules without
+                            modifying a single modulefile. A new hook
+                            is isVisibleHook so that sites can control
+                            which modulefiles are visible or hidden.
+
+
 

@@ -40,6 +40,11 @@ testdescript = {
      runLmod avail                             # 7
      runLmod load HPCBIOS/2015q2               # 8
      
+     runLmod purge                             # 9
+     unsetMT
+
+     MODULEPATH=$(testDir)/mf2:$(testDir)/mf3
+     runLmod avail
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

@@ -303,7 +303,8 @@ dist:
         tar xf ../Lmod-$(version).tar;                			     	 \
         $(RM) ../Lmod-$(version).tar;                 			     	 \
         echo "Lmod"-$(version) > .fname;                		     	 \
-        sed -i '' 's/\@git\@/$(GIT_VERSION)/g' `cat .fname`/src/Version.lua;        \
+        sed -i.bk 's/\@git\@/$(GIT_VERSION)/g' `cat .fname`/src/Version.lua;     \
+        rm `cat .fname`/src/Version.lua.bk;                                      \
         tar chf `cat .fname`.tar `cat .fname`;           		     	 \
         bzip2 `cat .fname`.tar;                           		     	 \
         mv `cat .fname`.tar.bz2  ..;                         		     	 \
@@ -331,7 +332,8 @@ _distSrc:
 	cp shells/*.lua $(DistD)/shells
 
 _distVersion:
-	sed -i '' 's/\@git\@/$(GIT_VERSION)/g' $(DistD)/src/Version.lua
+	sed -i.bk 's/\@git\@/$(GIT_VERSION)/g' $(DistD)/src/Version.lua;
+	rm `cat .fname`/src/Version.lua.bk;
 
 _distPkgs:
 	mkdir $(DistD)/pkgs
