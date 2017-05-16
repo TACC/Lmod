@@ -290,9 +290,9 @@ function M.prepend(self, value, nodups, priority)
       l_extract(self)
    end
 
-   if (dbg.active) then
-      dbg.print{"(1) Var.PATH: ",self}
-   end
+   --if (dbg.active) then
+   --   dbg.print{"(1) Var.PATH: ",self}
+   --end
 
    self.type           = 'path'
    priority            = priority or 0
@@ -322,9 +322,9 @@ function M.prepend(self, value, nodups, priority)
 
    chkMP(self.name, v, adding)
 
-   if (dbg.active) then
-      dbg.print{"(2) Var.PATH: ",self}
-   end
+   --if (dbg.active) then
+   --   dbg.print{"(2) Var.PATH: ",self}
+   --end
 end
 
 --------------------------------------------------------------------------
