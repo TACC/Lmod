@@ -8,9 +8,10 @@ examples of hook:
 - The msg hook adds a message to avail to request new software at the helpdesk
 - The errWarnMsg adds a reference to the helpdesk and overwrites the 'No AutoSwap' message.
   This is tailored specifically to EasyBuild. All errors users get are also logged.
+- The isVisible hook hides modules of toolchain which is older then 2 years.
 
 Example grok patterns to parse the logging with Logstash can be found
 at https://github.com/hpcugent/logstash-patterns
 
-The version of this `SitePackage.lua` used in production can be at 
+The version of this `SitePackage.lua` used in production can be at
 https://github.com/hpcugent/Lmod-UGent/
