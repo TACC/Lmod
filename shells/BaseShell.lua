@@ -217,6 +217,7 @@ local s_shellTbl = false
 
 local function createShellTbl()
    if (not s_shellTbl) then
+      local CMake        = require('CMake')
       local Csh          = require('Csh')
       local Bash         = require('Bash')
       local Bare         = require('Bare')
@@ -237,6 +238,7 @@ local function createShellTbl()
          ["tcsh"]   = Csh,
          ["perl"]   = Perl,
          ["python"] = Python,
+         ["cmake"]  = CMake,
          ["bare"]   = Bare,
          ["r"]      = R,
       }
