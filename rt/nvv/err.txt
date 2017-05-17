@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.4.8  2017-04-21 21:22 -05:00
+Modules based on Lua: Version 7.4.12  2017-05-16 14:20 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -49,3 +49,29 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load HPCBIOS/2015q2
 ===========================
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+ProjectDIR/rt/nvv/mf2
+   aaa/1.0    aaa/1.1 (D)    icr/32/1.0    icr/64/1.0 (D)
+ProjectDIR/rt/nvv/mf3
+   aaa/2.0    aaa/2.1
+  Where:
+   D:  Default Module
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load aaa
+===========================
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) aaa/1.1
