@@ -1029,6 +1029,7 @@ function M.unset_family(self, name)
 end
 
 function M.registerAdminMsg(self, mA)
+   dbg.start{"MasterControl:registerAdminMsg(mA)"}
    local mt      = FrameStk:singleton():mt()
    local t       = s_adminT
    readAdmin()
@@ -1053,11 +1054,13 @@ function M.registerAdminMsg(self, mA)
          end
       end
    end
+   dbg.fini("MasterControl:registerAdminMsg")
 end
 
 -------------------------------------------------------------------
 -- Output any admin message collected from loading.
 function M.reportAdminMsgs()
+   dbg.start{"MasterControl:reportAdminMsgs()"}
    local t = s_adminT
    if (next(t) ) then
       local term_width  = TermWidth()
@@ -1073,6 +1076,7 @@ function M.reportAdminMsgs()
       end
       io.stderr:write(border,"\n\n")
    end
+   dbg.fini("MasterControl:reportAdminMsgs")
 end
 
 --------------------------------------------------------------------------
