@@ -101,7 +101,7 @@ function M.init(self, t)
          value = value:lower()
       end
       value          = yes_noT[value] or value
-      if (value:sub(1,1) == "@" or value == "<empty>" or value == "no") then
+      if (value:sub(1,1) == "@" or value == "<empty>") then
          value = defaultV
       end
       T[name] = {value = value, default = defaultV}
