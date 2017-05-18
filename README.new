@@ -18,4 +18,6 @@ Lmod 7.4+
              changed to "", "0" or "no".
     (7.4.11) Fix bug with setting BASH_ENV in init/profile.in
     (7.4.12) Update Error message about can find file to check for TCL magic string.
-    
+    (7.4.13) Recalculate isNVV status when building internal module tree from spider cache by
+             adding l_checkforNV() function.  Fix bug where certain LMOD_* variables (like LMOD_COLORIZE)
+             could never change from their default value.
