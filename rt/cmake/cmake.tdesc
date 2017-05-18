@@ -29,36 +29,39 @@ testdescript = {
 
 
 cat > $(testName).cmake << EOF
+message("CMAKE_COMMAND: \${CMAKE_COMMAND}")
+message("PATH: \$ENV{PATH}")
+
 include("$(outputDir)/init/cmake")
 
 module_avail(AVAIL_MODS)
-message("AVAIL_MODS: ${AVAIL_MODS}")
+message("AVAIL_MODS: \${AVAIL_MODS}")
 
 module_list(CURRENT_MODS)
-message("CURRENT_MODS: ${CURRENT_MODS}")
-message("ENV{FOO}: $ENV{FOO}")
-message("ENV{BAR}: $ENV{BAR}")
+message("CURRENT_MODS: \${CURRENT_MODS}")
+message("ENV{FOO}: \$ENV{FOO}")
+message("ENV{BAR}: \$ENV{BAR}")
 
 module(load foo)
 
 module_list(CURRENT_MODS)
-message("CURRENT_MODS: ${CURRENT_MODS}")
-message("ENV{FOO}: $ENV{FOO}")
-message("ENV{BAR}: $ENV{BAR}")
+message("CURRENT_MODS: \${CURRENT_MODS}")
+message("ENV{FOO}: \$ENV{FOO}")
+message("ENV{BAR}: \$ENV{BAR}")
 
 module(swap foo foo/1.0)
 
 module_list(CURRENT_MODS)
-message("CURRENT_MODS: ${CURRENT_MODS}")
-message("ENV{FOO}: $ENV{FOO}")
-message("ENV{BAR}: $ENV{BAR}")
+message("CURRENT_MODS: \${CURRENT_MODS}")
+message("ENV{FOO}: \$ENV{FOO}")
+message("ENV{BAR}: \$ENV{BAR}")
 
 module(swap foo bar)
 
 module_list(CURRENT_MODS)
-message("CURRENT_MODS: ${CURRENT_MODS}")
-message("ENV{FOO}: $ENV{FOO}")
-message("ENV{BAR}: $ENV{BAR}")
+message("CURRENT_MODS: \${CURRENT_MODS}")
+message("ENV{FOO}: \$ENV{FOO}")
+message("ENV{BAR}: \$ENV{BAR}")
 
 EOF
 
