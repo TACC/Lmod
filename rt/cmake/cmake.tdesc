@@ -1,0 +1,92 @@
+-- -*- lua -*-
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 Test initial module load
+   ]],
+   keywords = {"cmake" },
+
+   active = 1,
+   testName = "cmake",
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     MODULEPATH_ROOT=$(testDir)/mf;       export MODULEPATH_ROOT
+     MODULEPATH="$MODULEPATH_ROOT/Core";  export MODULEPATH
+
+     rm -rf init
+     mkdir init
+     sed -e 's|@PKG@/libexec/lmod|lua $(projectDir)/src/lmod.in.lua|g' \
+              < $(projectDir)/init/cmake.in > init/cmake
+
+
+
+cat > $(testName).cmake << EOF
+include("$(outputDir)/init/cmake")
+
+module_avail(AVAIL_MODS)
+message("AVAIL_MODS: ${AVAIL_MODS}")
+
+module_list(CURRENT_MODS)
+message("CURRENT_MODS: ${CURRENT_MODS}")
+message("ENV{FOO}: $ENV{FOO}")
+message("ENV{BAR}: $ENV{BAR}")
+
+module(load foo)
+
+module_list(CURRENT_MODS)
+message("CURRENT_MODS: ${CURRENT_MODS}")
+message("ENV{FOO}: $ENV{FOO}")
+message("ENV{BAR}: $ENV{BAR}")
+
+module(swap foo foo/1.0)
+
+module_list(CURRENT_MODS)
+message("CURRENT_MODS: ${CURRENT_MODS}")
+message("ENV{FOO}: $ENV{FOO}")
+message("ENV{BAR}: $ENV{BAR}")
+
+module(swap foo bar)
+
+module_list(CURRENT_MODS)
+message("CURRENT_MODS: ${CURRENT_MODS}")
+message("ENV{FOO}: $ENV{FOO}")
+message("ENV{BAR}: $ENV{BAR}")
+
+EOF
+
+
+
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+
+     which cmake
+     cmake --version
+     cmake -P ./$(testName).cmake  > _stdout.000 2> _stderr.000
+
+     HOME=$ORIG_HOME
+
+     cleanUp _stdout.000 out.txt
+     cleanUp _stderr.000 err.txt
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}
