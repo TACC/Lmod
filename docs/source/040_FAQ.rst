@@ -106,9 +106,9 @@ How can I use grep easily with the module command?
    this trick when you need to grep the output of module command.
    Here are some examples::
 
-      $ module -t --redirect avail | grep foo
-      $ module --raw show foo | grep bar
-      $ module -t spider | grep baz
+      $ module -t --redirect avail       | grep foo
+      $ module --raw --redirect show foo | grep bar
+      $ module -t --redirect spider      | grep baz
 
 Can I ignore the spider cache files when doing ``module avail``?
 
