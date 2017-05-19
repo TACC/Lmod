@@ -22,4 +22,4 @@ Lmod 7.4+
              adding l_checkforNV() function.  Fix bug where certain LMOD_* variables (like LMOD_COLORIZE)
              could never change from their default value.
     (7.4.14) Fix bug where LMOD_CASE_INDEPENDENT_SORTING=yes wasn't case independent when using avail hook
-    
+    (7.4.15) Make the TCL Mode be display instead of load when running spider
