@@ -534,6 +534,10 @@ function quiet()
    return __quiet
 end
 
+function regular_cmp(x,y)
+   return x.pV < y.pV
+end
+
 
 function runTCLprog(TCLprog, optStr, fn)
    local a   = {}

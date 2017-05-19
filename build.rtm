@@ -139,7 +139,7 @@ if [ "$?" = 0 ]; then
 fi
 
 cmdA=("-$MAKE distclean"
-      "./configure --prefix=$BASE_DIR --with-settarg=full --with-duplicatePaths=yes $EXTRA"
+      "./configure --prefix=$BASE_DIR --with-settarg=full $EXTRA"
       "$SUDO  rm -rf $BASE_DIR/$pkgName/orig"
       "-$SUDO cp -r $BASE_DIR/$pkgName/$PKG_VERSION $BASE_DIR/$pkgName/orig"
       "$SUDO  rm -f $PKG/../$pkgName"

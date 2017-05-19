@@ -24,7 +24,7 @@ function call.
 
 Normally this works fine.  However, because Lmod does evaluate the
 actions of a TCL module file as a two-step process, it can cause
-problem.  In particular, suppose you have two TCL modulefiles:
+problems.  In particular, suppose you have two TCL modulefiles:
 
 Centos::
 

@@ -670,14 +670,18 @@ end
 
 function findLatestV(a)
    local aa = {}
+   if a == nil then
+       return "default"
+   end
    for i = 1, #a do
-      local entry = a[i]
-      local b     = {}
-      for full in entry:split(":") do
-         local name, version = splitNV(full)
-         b[#b+1] = name .. "/" .. parseVersion(version)
+      local entryfull = concatTbl(a[i],":")
+      local b = {}
+      for j = 1, #a[i] do
+           local entry = a[i][j]
+           local name, version = splitNV(entry)
+           b[#b+1] = name .. "/" .. parseVersion(version)
       end
-      aa[i] = { concatTbl(b,":"), entry}
+      aa[i] = { concatTbl(b,":"), entryfull}
    end
 
    table.sort(aa, function(x,y) return x[1] > y[1] end)
@@ -742,7 +746,7 @@ function localSoftware(xml, name, t)
    root:append(Description)
 
    local Flavor = xml.new("Flavor")
-   Flavor[1]    = t.full:gsub(".*/","")
+   Flavor[1] = t.Version
    root:append(Flavor)
 
    local Default = xml.new("Default")
@@ -756,12 +760,12 @@ function localSoftware(xml, name, t)
    HType[1]     = "module"
    Handle:append(HType)
    local HKey   = xml.new("HandleKey")
-   HKey[1]      = t.full
+   HKey[1]      = t.fullName
    Handle:append(HKey)
    root:append(Handle)
 
    local Context = xml.new("Context")
-   Context[1] = findLatestV(t.parent)
+   Context[1] = findLatestV(t.parentAA)
    root:append(Context)
 
    dbg.fini()
