@@ -75,6 +75,7 @@ Why doesn't  % ``module avail |& grep ucc``  work under tcsh and works under bas
     instead as this will only output modules that have "ucc" in
     their name.
 
+
 Can I disable the pager output?
 
    Yes, you can.  Just set the environment variable ``LMOD_PAGER`` to
@@ -98,6 +99,16 @@ instead of stderr?
    this way by default.  However, no matter how Lmod is set-up,
    this will not work with tcsh/csh due to limitations of
    this shell.
+
+How can I use grep easily with the module command?
+
+   If your site doesn't send the output of stdout, you can still use
+   this trick when you need to grep the output of module command.
+   Here are some examples::
+
+      $ module -t --redirect avail | grep foo
+      $ module --raw show foo | grep bar
+      $ module -t spider | grep baz
 
 Can I ignore the spider cache files when doing ``module avail``?
 
