@@ -351,10 +351,6 @@ function M.__find_all_defaults(self)
 end
 
 
-local function regular_cmp(x,y)
-   return x.pV < y.pV
-end
-
 function M.build_availA(self)
    dbg.start{"ModuleA:build_availA()"}
    local show_hidden = masterTbl().show_hidden

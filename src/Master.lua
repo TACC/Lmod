@@ -749,9 +749,11 @@ local function regroup_avail_blocks(availStyle, availA)
       end
    end
 
+   local cmp     = (cosmic:value("LMOD_CASE_INDEPENDENT_SORTING") == "yes") and
+                    case_independent_cmp or regular_cmp
    for i = 1, #newAvailA do
       local A = newAvailA[i].A
-      sort(A, function (x,y) return x.pV < y.pV end)
+      sort(A, cmp)
    end
 
    dbg.fini("regroup_avail_blocks")
