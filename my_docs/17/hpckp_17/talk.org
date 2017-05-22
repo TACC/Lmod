@@ -53,3 +53,7 @@ Configurable (part deux) -> SitePackage.lua and hooks.  This way sites
 
 
 
+Problem w/ /usr/local/bin -> What happens when /usr/local/bin is in
+                             the original PATH.  Then a module foo adds
+                             /usr/local/bin to the path.  Finally ml
+                             -foo. Where is /usr/local/bin?
