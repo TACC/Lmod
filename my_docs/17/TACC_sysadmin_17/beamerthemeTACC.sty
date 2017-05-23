@@ -9,22 +9,10 @@
 
 \mode<presentation>
 
-\makeatletter
-  \def\beamer@calltheme#1#2#3{%
-    \def\beamer@themelist{#2}
-    \@for\beamer@themename:=\beamer@themelist\do
-    {\usepackage[{#1}]{\beamer@themelocation/#3\beamer@themename}}}
-
-  \def\usefolder#1{
-    \def\beamer@themelocation{#1}
-  }
-  \def\beamer@themelocation{}
-
-\usefolder{themes}
-\usefonttheme{TACC16}
-\useinnertheme{TACC16}
-\useoutertheme{TACC16-169}
-\usecolortheme{TACC16}
+\usefonttheme{TACC}
+\usecolortheme{TACC}
+\useinnertheme{TACC}
+\useoutertheme{TACC}
 
 \mode
 <all>

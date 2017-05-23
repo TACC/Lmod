@@ -1,20 +1,11 @@
-\documentclass[dvipsnames,aspectratio=169]{beamer}
+\documentclass{beamer}
 
-\usepackage{etex}
-\usepackage{tikz}
-\usetikzlibrary{shapes.geometric, arrows}
-\usetikzlibrary{decorations.pathreplacing}
-\usetikzlibrary{calc,arrows.meta,positioning}
-\usepackage{pstricks}
-\usepackage{alltt}
-\usepackage{colortbl}
-\usepackage{textcomp}
-\usepackage{picture}
-\usepackage{outlines}
-\usepackage{listings}
+% You can also use a 16:9 aspect ratio:
+%\documentclass[aspectratio=169]{beamer}
+\usetheme{TACC16}
 
-\usepackage{./themes/beamerthemeTACC16-169}
-
+% It's possible to move the footer to the right:
+%\usetheme[rightfooter]{TACC16}
 
 \begin{document}
 \title[Lmod]{Lmod: A Modern Environment Module System}
@@ -84,7 +75,7 @@
 \begin{frame}[fragile]
     \frametitle{Example of Lmod: Environment Modules (I)}
     {\tiny
-\begin{alltt}
+\begin{semiverbatim}
 \$ {\color{blue} module avail}
 ------------------ /opt/apps/modulefiles/MPI/intel/12.0/mpich2/1.4 ------------------
   petsc/3.1 (default)    petsc/3.1-debug    pmetis/4.0    tau/2.20.3
@@ -102,7 +93,7 @@
   fdepend/1.2          mkl/mkl                  visit/visit
   gcc/4.4              noweb/2.11b
   gcc/4.5 (default)
-\end{alltt}
+\end{semiverbatim}
     }
 \end{frame}
 
@@ -110,7 +101,7 @@
 \begin{frame}[fragile]
     \frametitle{Example of Lmod: Environment Modules (II)}
     {\tiny
-\begin{alltt}
+\begin{semiverbatim}
 {\color{blue}\$ module list}
 Currently Loaded Modules:
   1) StdEnv  2) gcc/4.5  3) mpich2/1.4  4) petsc/3.1
@@ -128,7 +119,7 @@ Activating Modules:
 {\color{blue}\$ module swap intel gcc}
 Due to MODULEPATH changes the follow modules have been reloaded:
   1) mpich2  2) petsc
-\end{alltt}
+\end{semiverbatim}
     }
 \end{frame}
 
@@ -407,9 +398,9 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \item Define a compiler and mpi stack
     \item /opt/apps/modulefiles/Core/StdEnv.lua
   {\small
-    \begin{alltt}
+    \begin{semiverbatim}
 load("gcc","mvapich2")
-    \end{alltt}
+    \end{semiverbatim}
 }
   \end{itemize}
 \end{frame}
@@ -421,7 +412,7 @@ load("gcc","mvapich2")
   \begin{itemize}
     \item /etc/profile.d/z99\_StdEnv.sh
   {\small
-    \begin{alltt}
+    \begin{semiverbatim}
    if [ -z "\$\_\_Init\_Default\_Modules" ]; then
       export \_\_Init\_Default\_Modules=1;
 
@@ -430,7 +421,7 @@ load("gcc","mvapich2")
    else
       module refresh
    fi
-    \end{alltt}
+    \end{semiverbatim}
 }
     \item Why is  ``module refresh'' there?
   \end{itemize}
@@ -485,9 +476,9 @@ load("gcc","mvapich2")
 %  \begin{itemize}
 %    \item 
 %  {\small
-%    \begin{alltt}
+%    \begin{semiverbatim}
 %
-%    \end{alltt}
+%    \end{semiverbatim}
 %}
 %    \item 
 %  \end{itemize}
@@ -566,10 +557,10 @@ load("gcc","mvapich2")
   \begin{itemize}
     \item In \$MODULERCFILE
   {\small
-    \begin{alltt}
+    \begin{semiverbatim}
         #%Module
         hide-version foo/3.2
-    \end{alltt}
+    \end{semiverbatim}
 }
   \end{itemize}
 \end{frame}
@@ -610,7 +601,7 @@ load("gcc","mvapich2")
 \begin{frame}[fragile]
     \frametitle{Usage counts}
   {\small
-    \begin{alltt}
+    \begin{semiverbatim}
 \$ analyzeLmodDB --sqlPattern '%fftw%' --start '2015-01-01' --end '2015-02-01'  counts
 
   Module path                                Distinct Users
@@ -620,7 +611,7 @@ load("gcc","mvapich2")
   /apps/intel13/impi\_4\_1/mfiles/fftw3/3.3.2               45
   /apps/intel13/impi\_4\_1/mfiles/fftw2/2.1.5               19
 
-    \end{alltt}
+    \end{semiverbatim}
 }
 \end{frame}
 
@@ -628,7 +619,7 @@ load("gcc","mvapich2")
 \begin{frame}[fragile]
     \frametitle{Distinct Users}
   {\small
-    \begin{alltt}
+    \begin{semiverbatim}
 \$ ./analyzeLmodDB --sqlPattern '%/settarg/%' usernames
 
 Module path                   User Name
@@ -638,7 +629,7 @@ Module path                   User Name
 /apps/mfiles/settarg/5.8      user3
 /apps/mfiles/settarg/5.8.1    mclay
 /apps/mfiles/settarg/5.9.1    user5
-    \end{alltt}
+    \end{semiverbatim}
 }
 \end{frame}
 
@@ -692,14 +683,14 @@ Module path                   User Name
 \begin{frame}[fragile]
     \frametitle{Tracing Example}
   {\small
-    \begin{alltt}
+    \begin{semiverbatim}
 running: module --initial\_load restore
   Using collection:      /home/user/.lmod.d/default
   Setting MODULEPATH to: /apps/mfiles/Darwin:/apps/mfiles/Core
   Loading: unix (fn: /apps/mfiles/Core/unix/unix.lua)
   Loading: gcc (fn: /apps/mfiles/Darwin/gcc/5.2.lua)
   Loading: StdEnv (fn: /apps/mfiles/Core/StdEnv.lua)
-    \end{alltt}
+    \end{semiverbatim}
 }
 \end{frame}
 
@@ -741,7 +732,7 @@ running: module --initial\_load restore
     \item export SHELL\_STARTUP\_DEBUG=1 (in \textasciitilde/.init.sh)
     \item Example output:
   {\small
-    \begin{alltt}
+    \begin{semiverbatim}
     /etc/profile\{
       /etc/profile.d/z00\_lmod.sh\{
       \} Time = 0.0770
@@ -750,7 +741,7 @@ running: module --initial\_load restore
       /etc/bash.bashrc\{
       \} Time = 0.2338
     \} Time = 0.3156
-    \end{alltt}
+    \end{semiverbatim}
 }
   \end{itemize}
 \end{frame}
@@ -778,14 +769,14 @@ running: module --initial\_load restore
 \begin{frame}[fragile]
     \frametitle{Tracing Example}
   {\small
-    \begin{alltt}
+    \begin{semiverbatim}
 running: module --initial\_load restore
   Using collection:      /home/user/.lmod.d/default
   Setting MODULEPATH to: /apps/mfiles/Darwin:/apps/mfiles/Core
   Loading: unix (fn: /apps/mfiles/Core/unix/unix.lua)
   Loading: gcc (fn: /apps/mfiles/Darwin/gcc/5.2.lua)
   Loading: StdEnv (fn: /apps/mfiles/Core/StdEnv.lua)
-    \end{alltt}
+    \end{semiverbatim}
 }
 \end{frame}
 
@@ -907,7 +898,7 @@ running: module --initial\_load restore
     \item Some modules will be ``MIC'' aware: mkl, fftw3, phdf5, ...
     \item Lmod will decorate these modules:
   {\tiny
-    \begin{alltt}
+    \begin{semiverbatim}
   1) unix/unix     3) ddt/ddt       5) mpich2/1.5    7) phdf5/1.8.9 {\color{blue}(m)}
   2) intel/13.0    4) mkl/mkl {\color{red}(*)}   6) petsc/3.2     8) StdEnv
 
@@ -918,7 +909,7 @@ running: module --initial\_load restore
    ------
    add_property("arch","mic")              -- \textgreater phdf5
    add_property("arch","mic:offload")      -- \textgreater mkl
-    \end{alltt}
+    \end{semiverbatim}
 }
   \item What properties would you like to support?
   \end{itemize}
@@ -932,9 +923,9 @@ running: module --initial\_load restore
     \item A module can be sticky.
     \item It requires ``\texttt{--force}'' to unload or purge.
     {\small
-\begin{alltt}
+\begin{semiverbatim}
     add\_property("lmod","sticky")
-\end{alltt}
+\end{semiverbatim}
 }
   \end{itemize}
 \end{frame}
@@ -947,13 +938,13 @@ running: module --initial\_load restore
     \item \texttt{setenv()} won't work.
     \item \texttt{pushenv()} will!
     {\small
-\begin{alltt}
+\begin{semiverbatim}
                          #    setenv()     pushenv()
   $ module load   gcc;   # -\textgreater CC=gcc       CC=gcc
   $ module load   mpich; # -\textgreater CC=mpicc     CC=mpicc
   $ module unload mpich; # -\textgreater CC is unset  CC=gcc
   $ module unload gcc;   # -\textgreater CC is unset  CC is unset
-\end{alltt}
+\end{semiverbatim}
 }
     \item \texttt{pushenv} keeps a private env vars: \texttt{\_\_LMOD\_STACK\_}\emph{NAME}
   \end{itemize}
@@ -967,9 +958,9 @@ running: module --initial\_load restore
     \item The always\_load() function is a no-op on unload.
     \item Still you may want:
     {\small
-\begin{alltt}
+\begin{semiverbatim}
   if (not isloaded("FOO")) then always\_load("FOO") end
-\end{alltt}
+\end{semiverbatim}
 }
     \item Which is only slightly better than:
     {\small

@@ -1,7 +1,7 @@
-% Copyright 2003 by Till Tantau <tantau@users.sourceforge.net>
-%
-% This program can be redistributed and/or modified under the terms
-% of the GNU Public License, version 2.
+% Antonio Gomez (agomez@tacc.utexas.edu)
+% 4-20-17. Added option to put the footer on the right side
+
+
 
 \mode<presentation>
 
@@ -9,36 +9,96 @@
 \usepackage{graphicx}
 \usepackage{etoolbox}
 
-\pgfdeclareimage[width=\paperwidth]{titlebackground}{./figures/master169.png}
-\pgfdeclareimage[width=\paperwidth]{background}{./figures/secondary169.png}
+
+
+% This theme accepts the "rightfooter" option
+% When used, it will put the TACC logo at the bottom of the slide on the right side
+% By default, it goes to the left
+
+\xifaspectratio{
+  {169} {
+  \pgfdeclareimage[width=\paperwidth]{titlebackground}{./figures/master169.jpg}
+  \if@rightfooterOption
+	\pgfdeclareimage[width=\paperwidth]{background}{./figures/secondary_right169.jpg}
+\else
+	\pgfdeclareimage[width=\paperwidth]{background}{./figures/secondary169.jpg}
+\fi
+} 
+}[
+\pgfdeclareimage[width=\paperwidth]{titlebackground}{./figures/master.jpg}
+ \if@rightfooterOption
+	\pgfdeclareimage[width=\paperwidth]{background}{./figures/secondary_right.jpg}
+\else
+	\pgfdeclareimage[width=\paperwidth]{background}{./figures/secondary.jpg}
+\fi
+]
 
 \setbeamertemplate{background canvas}{%
-    \ifnum\c@framenumber=1%
-    \begin{picture}(0,0)
- \put(-0.15,-250){%
+\xifaspectratio{
+  	{169} {
+  	 	\ifnum\c@framenumber=1 %
+  			\begin{picture}(0,0)
+            	\put(-3,-256){%
                 \pgfuseimage{titlebackground}
-            }
-            %\put(0,-130.7){%
-         
-                %\begin{minipage}[b][45mm][t]{\textwidth}%{226mm}
-                %\begin{center}
-                   % \usebeamerfont{title}{\MakeTextUppercase{\inserttitle}\par}
-                    %\vspace{2ex}
-                     %\usebeamerfont{author}{\insertauthor}
-                  %   \end{center}
-                %\end{minipage}
-            %}
+                }
             \end{picture}
-        % On title page
-    \else%
-            % Other frames background
-            \begin{picture}(0,0)
- \put(-0.15,-255.55){%
+         \else%
+         	\begin{picture}(0,0)
+ 				\put(-3,-260){%
                 \pgfuseimage{background}
             }
            \end{picture}
-    \fi%
+         \fi
+  	}
+  	{43} {
+  		\ifnum\c@framenumber=1 %
+  			\begin{picture}(0,0)
+            	\put(-4,-274){%
+                \pgfuseimage{titlebackground}
+                }
+            \end{picture}
+         \else%
+         	 \begin{picture}(0,0)
+ 				\put(-4,-274){%
+                \pgfuseimage{background}
+            }
+           \end{picture}
+         \fi
+  	}
 }
+}
+  			
+
+
+%\setbeamertemplate{background canvas}{%
+%	% On title page
+%    \ifnum\c@framenumber=1 %
+%  			\begin{picture}(0,0)
+%            	\put(0,-253){%
+%                \pgfuseimage{titlebackground}
+%                }
+%            \end{picture}
+%
+%    \else%
+%    	\xifaspectratio{
+%  			{169} {
+%            % Other frames background
+%            \begin{picture}(0,0)
+% 				\put(-4,-260){%
+%                \pgfuseimage{background}
+%            }
+%           \end{picture}
+%           }
+%           }[
+%            % Other frames background
+%            \begin{picture}(0,0)
+% 				\put(-4,-274){%
+%                \pgfuseimage{background}
+%            }
+%           \end{picture}
+%           ]
+%    \fi%
+%}
 
 
 \setbeamertemplate{title page}{
@@ -86,30 +146,35 @@
 
   \hbox{%
   \ifnum \thepage>1
-    % On the left half of the footer, insert the TACC of
-    \begin{minipage}{.2\textwidth}%
-      \hskip .05\textwidth%Give horizontal space else this will set on the left edge of the slide!
-     % \includegraphics[width=.8\textwidth]{TACC_logo.png}
-    \end{minipage}
+    \if@rightfooterOption
+    	\begin{minipage}{.2\textwidth}%
+      		\hskip .05\textwidth%Give horizontal space else this will set on the left edge of the slide!
+    	\end{minipage}
+    \else
+    	\begin{minipage}{.4\textwidth}%
+      		\hskip .05\textwidth%Give horizontal space else this will set on the left edge of the slide!
+    	\end{minipage}
+    \fi
     
  
     \begin{minipage}{\textwidth}%
      % \vskip .023\textheight%
       \raggedleft%
       \setlength{\rightskip}{\textwidth}
-      \hbox{%
-      	\begin{beamercolorbox}[wd=0.7\textwidth,ht=2.25ex,dp=1ex,left]{author in head/foot}%
-	         \insertshorttitle{} \hskip .01\textwidth | \hskip .01\textwidth \insertdate{} \hskip .01\textwidth  | \hskip .01\textwidth  \insertframenumber{}
-  			\end{beamercolorbox}%
+		\if@rightfooterOption
+      		\hbox{%
+      			\begin{beamercolorbox}[wd=0.7\textwidth,ht=2.25ex,dp=1ex,left]{author in head/foot}%
+	         		\insertshorttitle{} \hskip .01\textwidth | \hskip .01\textwidth \insertdate{} \hskip .01\textwidth  | \hskip .01\textwidth  \insertframenumber{}
+  				\end{beamercolorbox}%
 			}
+		\else
+			\hbox{%
+      			\begin{beamercolorbox}[wd=0.5\textwidth,ht=2.25ex,dp=1ex,left]{author in head/foot}%
+	         		\insertshorttitle{} \hskip .01\textwidth | \hskip .01\textwidth \insertdate{} \hskip .01\textwidth  | \hskip .01\textwidth  \insertframenumber{}
+  				\end{beamercolorbox}%
+			}
+		\fi
 		
-      %
-      % If we are not on the first page, insert a page number
-      % For some reason, insertframenumber is buggy when you have fragile
-      % slides with verbatim environments in them... it tends to skip numbers
-      % for some reason!  On the other hand, the pagenumber is incremented
-      % for *every* slide, including transition slides...
-        %   \hfill\includegraphics[width=\textwidth]{tacc_ut.png}
     \end{minipage}%
     \begin{minipage}{.05\textwidth}%
     \end{minipage}%
