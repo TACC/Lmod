@@ -145,6 +145,8 @@ end
 
 local function findModules(mpath, mt, mList, sn, v, moduleT)
 
+   local shell    = _G.Shell
+   local tracing  = cosmic:value("LMOD_TRACING")
    local function loadMe(entryT, moduleStack, iStack, myModuleT)
       local shellNm       = "bash"
       local fn            = entryT.fn
@@ -156,6 +158,17 @@ local function findModules(mpath, mt, mList, sn, v, moduleT)
       moduleStack[iStack] = { mpath = mpath, sn = sn, fullName = fullName, moduleT = myModuleT, fn = fn}
       local mname         = MName:new("entryT", entryT)
       mt:add(mname, "pending")
+
+      if (tracing == "yes") then
+         local b          = {}
+         b[#b + 1]        = "Loading: "
+         b[#b + 1]        = fullName
+         b[#b + 1]        = " (fn: "
+         b[#b + 1]        = fn or "nil"
+         b[#b + 1]        = ")\n"
+         shell:echo(concatTbl(b,""))
+      end
+      
       loadModuleFile{file=fn, shell=shellNm, reportErr=true, mList = mList}
       hook.apply("load_spider",{fn = fn, modFullName = fullName, sn = sn})
       mt:setStatus(sn, "active")
