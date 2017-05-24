@@ -1,0 +1,127 @@
+\documentclass{beamer}
+
+% You can also use a 16:9 aspect ratio:
+%\documentclass[aspectratio=169]{beamer}
+\usetheme{TACC16}
+
+% It's possible to move the footer to the right:
+%\usetheme[rightfooter]{TACC16}
+
+\begin{document}
+\title[Lmod]{Lmod: A Modern Environment Module System}
+
+% page 1
+\frame{\titlepage} 
+
+% page 2
+\begin{frame}{Outline}
+  \begin{itemize}
+    \item What are Environment Modules?
+    \item What is Lmod?
+    \item Can Lmod help manage your site?
+    \item Advanced Topics
+    \item Where to go for help.
+  \end{itemize}
+\end{frame}
+
+% page 3
+\begin{frame}{What are Modules?}
+  \begin{itemize}
+    \item Modules are the way sites provide optional software: MPI,
+      Boost, ...
+    \item Modules add to PATH and set other env. vars for each package
+    \item Modules can be unloaded.
+    \item Modulefiles are in one file not one for each
+      shell. (e.g. Compiler init scripts)
+    \item It is one of the main way we communicate with our users.
+    \item Main Function: Change User Env, Modify Path-like vars, Add/Remove
+      aliases, ...
+  \end{itemize}
+\end{frame}
+
+% page 4
+\begin{frame}{What is Lmod?}
+  \begin{itemize}
+    \item A modern replacement for a tried and true concept.
+    \item The guiding principal: ``Make life easier without getting in
+      the way.''
+    \item Reads both TCL and Lua modulefiles
+  \end{itemize}
+\end{frame}
+
+% page 5
+\begin{frame}{Fundamental Issues}
+  \begin{itemize}
+    \item Software Packages are created and updated all the time.
+    \item Some Users need new versions for new features and bug fixes.
+    \item Other Users need older versions for stability and continuity.
+    \item No system can support all versions of all packages.
+    \item User programs using pre-built C++ \& Fortran libraries must link with the same compiler.
+    \item Similarly, MPI Applications must build and link with same
+      MPI/Compiler pairing when using pre-built MPI libraries.
+  \end{itemize}
+\end{frame}
+
+% page 6
+\begin{frame}[fragile]
+    \frametitle{Example of Lmod: Environment Modules (I)}
+    {\tiny
+\begin{semiverbatim}
+\$ {\color{blue} module avail}
+------------------ /opt/apps/modulefiles/MPI/intel/12.0/mpich2/1.4 ------------------
+  petsc/3.1 (D)    petsc/3.1-debug    pmetis/4.0    tau/2.20.3
+
+------------------- /opt/apps/modulefiles/Compiler/intel/12.0 -----------------------
+  boost/1.45.0        gotoblas2/1.13      openmpi/1.4.3
+  boost/1.46.0        mpich2/1.3.2        openmpi/1.5.1
+  boost/1.46.1 (D)    mpich2/1.4    (D)   openmpi/1.5.3   (D)
+
+-------------------------- /opt/apps/modulefiles/Core -------------------------------
+  StdEnv               intel/11.1         papi/4.1.4
+  admin/admin-1.0      intel/12.0  (D)    scite/2.28
+  ddt/ddt              lmod/lmod          tex/2010
+  dmalloc/dmalloc      local/local (D)    unix/unix    (D)
+  fdepend/1.2          mkl/mkl            visit/visit
+  gcc/4.4              noweb/2.11b
+  gcc/4.5        (D)
+\end{semiverbatim}
+    }
+\end{frame}
+
+% page 7
+\begin{frame}[fragile]
+    \frametitle{Example of Lmod: Environment Modules (II)}
+    {\tiny
+\begin{semiverbatim}
+{\color{blue}\$ module list}
+Currently Loaded Modules:
+  1) StdEnv  2) gcc/4.5  3) mpich2/1.4  4) petsc/3.1
+{\color{blue}\$ module unload gcc}
+Inactive Modules:
+  1) mpich2  2) petsc
+{\color{blue}\$ module list}
+Currently Loaded Modules:
+  1) StdEnv
+Inactive Modules:
+  1) mpich2  2) petsc
+{\color{blue}\$ module load intel}
+Activating Modules:
+  1) mpich2  2) petsc
+{\color{blue}\$ module swap intel gcc}
+Due to MODULEPATH changes the follow modules have been reloaded:
+  1) mpich2  2) petsc
+\end{semiverbatim}
+    }
+\end{frame}
+
+% page 4
+\begin{frame}{}
+  \begin{itemize}
+    \item 
+  \end{itemize}
+\end{frame}
+
+
+
+
+\end{document}
