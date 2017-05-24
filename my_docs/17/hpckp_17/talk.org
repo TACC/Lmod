@@ -57,3 +57,13 @@ Problem w/ /usr/local/bin -> What happens when /usr/local/bin is in
                              the original PATH.  Then a module foo adds
                              /usr/local/bin to the path.  Finally ml
                              -foo. Where is /usr/local/bin?
+
+
+---------------------------------------------
+How can Lmod help with user experience:
+
+* Cut down on tickets
+* More importantly we want to protect novice users w/o getting in the way.
+** Lmod supports the software hierarchy.
+** Note Lmod supports many different layouts: Flat, Hierarchy
+* 
