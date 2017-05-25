@@ -40,16 +40,17 @@ require("serializeTbl")
 require("string_utils")
 require("utils")
 
-local DirTree   = require("DirTree")
-local FrameStk  = require("FrameStk")
-local LocationT = require("LocationT")
-local M         = {}
-local MRC       = require("MRC")
-local cosmic    = require("Cosmic"):singleton()
-local dbg       = require("Dbg"):dbg()
-local getenv    = os.getenv
-local s_moduleA = false
-local sort      = table.sort
+local DirTree     = require("DirTree")
+local FrameStk    = require("FrameStk")
+local LocationT   = require("LocationT")
+local M           = {}
+local MRC         = require("MRC")
+local cosmic      = require("Cosmic"):singleton()
+local dbg         = require("Dbg"):dbg()
+local getenv      = os.getenv
+local s_moduleA   = false
+local sort        = table.sort
+local exact_match = cosmic:value("LMOD_EXACT_MATCH")
 
 -- print(__FILE__() .. ':' .. __LINE__())
 ----------------------------------------------------------------------
@@ -644,6 +645,10 @@ function M.locationT(self)
 end
 
 function M.defaultT(self)
+   if (exact_match == "yes") then
+      return self.__defaultT
+   end
+
    if (next(self.__defaultT) == nil) then
       self:__find_all_defaults()
    end

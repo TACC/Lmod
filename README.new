@@ -24,4 +24,5 @@ Lmod 7.4+
     (7.4.14) Fix bug where LMOD_CASE_INDEPENDENT_SORTING=yes wasn't case independent when using avail hook
     (7.4.15) Make the TCL Mode be display instead of load when running spider
     (7.4.16) Add tracing support for spider
+    (7.4.17) Setting LMOD_EXACT_MATCH=yes also turns off the display of (D) with avail.
     
