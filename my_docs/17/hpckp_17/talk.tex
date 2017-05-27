@@ -120,11 +120,89 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \item Sites provide packages: applications and libraries
     \item Users can pick which packages and version to suit their needs
     \item But what we are really after is to cut down on tickets!
-    \item We also want to make it difficult for users to load
-      incompatible modules
+    \item Or simply make your site easier for users to work with.
   \end{itemize}
 \end{frame}
 
+% page 9
+\begin{frame}{Can Lmod help in Production Environments?}
+  \begin{itemize}
+    \item Suppose your site produces Weather Forecasts or Processed
+      Satellite Images.
+    \item It will be a mix of standard production runs and new runs
+    \item No one set of compilers etc will satify your needs.
+    \item Reproducibility is key.  Do not want compiler defaults to
+      affect results.
+    \item Site can set LMOD\_EXACT\_MATCH=yes $\Rightarrow$ There are no defaults
+    \item Users \emph(MUST} specify name and version!
+  \end{itemize}
+\end{frame}
+
+% page 10
+\begin{frame}{How to manage SW when it kept forever?}
+  \begin{itemize}
+    \item Suppose your site keeps SW for the life of machine?
+    \item How do you encourage usage of new SW w/o breaking old job
+      scripts?
+    \item Lmod now supports hiding regular modules from avail and
+      spider.
+    \item Hidden modules can still be loaded.
+  \end{itemize}
+\end{frame}
+
+% page 11
+\begin{frame}{Can Lmod help with deprecating packages?}
+  \begin{itemize}
+    \item Suppose your site keeps a limited number of versions (say 3
+      or less)
+    \item How to you decide which package to keep or remove?
+    \item Lmod support optional tracking of what packages are loaded
+      by whom.
+    \item You can send targeted email to those users about
+      deprecation based on tracking.
+    \item Independent of tracking: NAG messaging
+    \item Do not need to change modulefile!
+    \item Users get a message when they load a deprecated module. 
+  \end{itemize}
+\end{frame}
+
+% page 12
+\begin{frame}{Can Lmod help with the /usr/local/bin problem?}
+  \begin{itemize}
+    \item Suppose your startup files put /usr/local/bin in PATH
+    \item And suppose module BAR also adds /usr/local/bin to PATH
+    \item Currently Loading then unloading BAR will remove
+      /usr/local/bin from PATH. 
+    \item Site can configure Lmod to support duplicate paths
+    \item Or coming soon Lmod will support reference counting!
+  \end{itemize}
+\end{frame}
+
+% page 13
+\begin{frame}{Can Lmod prevent users from mixing modules they shouldn't?}
+  \begin{itemize}
+      \item Same Name modules:
+      \begin{itemize}
+        \item Things can get confusing when users load two gcc modules
+        \item Normally, Lmod will unload old gcc, then load new gcc
+        \item Optionally, sites can auto-conflict with themselves.
+      \end{itemize}
+    \item Loading two compilers or MPI Stack:
+      \begin{itemize}
+        \item It is a rare user who needs to load two MPI stacks or
+          two different compilers
+        \item GCC and Intel are a special case.
+        \item Sites can add family("compiler") to compiler modules
+        \item This will autoswap one compiler for another!
+        \item Similarly for MPI modules.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+
+%\item We also want to make it difficult for users to load
+%incompatible modules.   
 
 
 
