@@ -27,15 +27,14 @@
 % page 3
 \begin{frame}{What are Modules?}
   \begin{itemize}
-    \item Modules are the way sites provide optional software: MPI,
-      Boost, ...
-    \item Modules add to PATH and set other env. vars for each package
+    \item Modules help user load the SW packages they need: MPI, Boost, ...
     \item Modules can be unloaded.
     \item Modulefiles are in one file not one for each
-      shell. (e.g. Compiler init scripts)
-    \item It is one of the main way we communicate with our users.
-    \item Main Function: Change User Env, Modify Path-like vars, Add/Remove
-      aliases, ...
+      shell. (e.g. compiler init scripts)
+    \item It is one of the main ways we communicate with our users.
+    \item The main function of Lmod is to change the user environment
+    \item It modifies PATH, LD_LIBRARY_PATH, ...
+    \item It sets other environment variables and defines aliases
   \end{itemize}
 \end{frame}
 
@@ -62,35 +61,10 @@
   \end{itemize}
 \end{frame}
 
+
 % page 6
 \begin{frame}[fragile]
     \frametitle{Example of Lmod: Environment Modules (I)}
-    {\tiny
-\begin{semiverbatim}
-\$ {\color{blue} module avail}
------------------- /opt/apps/modulefiles/MPI/intel/12.0/mpich2/1.4 ------------------
-  petsc/3.1 (D)    petsc/3.1-debug    pmetis/4.0    tau/2.20.3
-
-------------------- /opt/apps/modulefiles/Compiler/intel/12.0 -----------------------
-  boost/1.45.0        gotoblas2/1.13      openmpi/1.4.3
-  boost/1.46.0        mpich2/1.3.2        openmpi/1.5.1
-  boost/1.46.1 (D)    mpich2/1.4    (D)   openmpi/1.5.3   (D)
-
--------------------------- /opt/apps/modulefiles/Core -------------------------------
-  StdEnv               intel/11.1         papi/4.1.4
-  admin/admin-1.0      intel/12.0  (D)    scite/2.28
-  ddt/ddt              lmod/lmod          tex/2010
-  dmalloc/dmalloc      local/local (D)    unix/unix    (D)
-  fdepend/1.2          mkl/mkl            visit/visit
-  gcc/4.4              noweb/2.11b
-  gcc/4.5        (D)
-\end{semiverbatim}
-    }
-\end{frame}
-
-% page 7
-\begin{frame}[fragile]
-    \frametitle{Example of Lmod: Environment Modules (II)}
     {\tiny
 \begin{semiverbatim}
 {\color{blue}\$ module list}
@@ -114,59 +88,52 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     }
 \end{frame}
 
+% page 7
+\begin{frame}[fragile]
+    \frametitle{Example of Lmod: Environment Modules (II)}
+    {\tiny
+\begin{semiverbatim}
+\$ {\color{blue} module avail}
+------------------ /opt/apps/modulefiles/MPI/intel/12.0/mpich2/1.4 ------------------
+  petsc/3.1 (D)    petsc/3.1-debug    pmetis/4.0    tau/2.20.3
+
+------------------- /opt/apps/modulefiles/Compiler/intel/12.0 -----------------------
+  boost/1.45.0        gotoblas2/1.13      openmpi/1.4.3
+  boost/1.46.0        mpich2/1.3.2        openmpi/1.5.1
+  boost/1.46.1 (D)    mpich2/1.4    (D)   openmpi/1.5.3   (D)
+
+-------------------------- /opt/apps/modulefiles/Core -------------------------------
+  StdEnv               intel/11.1         papi/4.1.4
+  admin/admin-1.0      intel/12.0  (D)    scite/2.28
+  ddt/ddt              lmod/lmod          tex/2010
+  dmalloc/dmalloc      local/local (D)    unix/unix    (D)
+  fdepend/1.2          mkl/mkl            visit/visit
+  gcc/4.4              noweb/2.11b
+  gcc/4.5        (D)
+\end{semiverbatim}
+    }
+\end{frame}
+
 % page 8
 \begin{frame}{Can tools like Lmod improve the user experience?}
   \begin{itemize}
     \item Sites provide packages: applications and libraries
     \item Users can pick which packages and version to suit their needs
     \item But what we are really after is to cut down on tickets!
-    \item Or simply make your site easier for users to work with.
+    \item Or simply make your resources easier for users to use.
   \end{itemize}
 \end{frame}
 
 % page 9
-\begin{frame}{Can Lmod help in Production Environments?}
+\begin{frame}{Lmod examples}
   \begin{itemize}
-    \item Suppose your site produces Weather Forecasts or Processed
-      Satellite Images.
-    \item It will be a mix of standard production runs and new runs
-    \item No one set of compilers etc will satify your needs.
-    \item Reproducibility is key.  Do not want compiler defaults to
-      affect results.
-    \item Site can set LMOD\_EXACT\_MATCH=yes $\Rightarrow$ There are no defaults
-    \item Users \emph(MUST} specify name and version!
+    \item Lmod was first released in 2009
+    \item It is the only module system used at TACC since 2010
+    \item The following are some examples of how Lmod can help
   \end{itemize}
 \end{frame}
 
 % page 10
-\begin{frame}{How to manage SW when it kept forever?}
-  \begin{itemize}
-    \item Suppose your site keeps SW for the life of machine?
-    \item How do you encourage usage of new SW w/o breaking old job
-      scripts?
-    \item Lmod now supports hiding regular modules from avail and
-      spider.
-    \item Hidden modules can still be loaded.
-  \end{itemize}
-\end{frame}
-
-% page 11
-\begin{frame}{Can Lmod help with deprecating packages?}
-  \begin{itemize}
-    \item Suppose your site keeps a limited number of versions (say 3
-      or less)
-    \item How to you decide which package to keep or remove?
-    \item Lmod support optional tracking of what packages are loaded
-      by whom.
-    \item You can send targeted email to those users about
-      deprecation based on tracking.
-    \item Independent of tracking: NAG messaging
-    \item Do not need to change modulefile!
-    \item Users get a message when they load a deprecated module. 
-  \end{itemize}
-\end{frame}
-
-% page 12
 \begin{frame}{Can Lmod help with the /usr/local/bin problem?}
   \begin{itemize}
     \item Suppose your startup files put /usr/local/bin in PATH
@@ -178,7 +145,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-% page 13
+% page 11
 \begin{frame}{Can Lmod prevent users from mixing modules they shouldn't?}
   \begin{itemize}
       \item Same Name modules:
@@ -199,10 +166,65 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
+% page 12
+\begin{frame}{How to manage software: New or Old}
+  \begin{itemize}
+    \item How can you test new/experimental software?
+    \item Suppose your site keeps SW for the life of machine?
+    \item How do you encourage usage of newer SW w/o breaking old job
+      scripts?
+    \item Lmod now supports hiding regular modules from avail and
+      spider.
+    \item Hidden modules can still be loaded.
+    \item Modules can be explicitly marked as hidden
+    \item Or you can use the isVisible hook
+    \item Both sites and users can hide modules
+  \end{itemize}
+\end{frame}
+
+% page 13
+\begin{frame}{Can Lmod help with deprecating packages?}
+  \begin{itemize}
+    \item Suppose your site keeps a limited number of versions (say 3
+      or less)
+    \item How to you decide which package to keep or remove?
+    \item Lmod support optional tracking of what packages are loaded
+      by whom.
+    \item You can send targeted email to those users about
+      deprecation based on tracking.
+    \item Independent of tracking: nag messaging
+    \item Do not need to change modulefile!
+    \item Users get a message when they load a deprecated module. 
+  \end{itemize}
+\end{frame}
+
 % page 14
+\begin{frame}{A site that does not want module defaults}
+  \begin{itemize}
+    \item Suppose your site produces Weather Forecasts or Processes
+      Satellite Images.
+    \item No one set of compilers etc will satify your needs.
+    \item Site can set LMOD\_EXACT\_MATCH$=$yes $\Rightarrow$ There are no defaults
+    \item Users \emph{MUST} specify name and version!
+  \end{itemize}
+\end{frame}
+
+% page 15
+\begin{frame}{Can users have their own default list of modules?}
+  \begin{itemize}
+    \item It is common to provide a default list of modules
+    \item 
+  \end{itemize}
+\end{frame}
+
+
+
+
+
+% page 15
 \begin{frame}{Can Lmod deal with shared home file system?}
   \begin{itemize}
-    \item 
+    \item Suppose 
   \end{itemize}
 \end{frame}
 
