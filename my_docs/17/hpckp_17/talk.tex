@@ -264,8 +264,11 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 \begin{frame}{Can users easily grep the output from Lmod?}
   \begin{itemize}
     \item Lmod sends messages to \texttt{stderr} by default
-    \item Lmod can redirect the output to \texttt{stdout} by setting \$LMOD\_REDIRECT=yes
-    \item But then you lose the pager
+    \item Lmod can redirect the output to \texttt{stdout} by setting
+      \$LMOD\_REDIRECT=yes
+    \item This works for bash, zsh
+    \item It doesn't work for csh/tcsh due to the way eval works there
+    \item Setting \$LMOD\_REDIRECT=yes means you lose the pager
     \item I do this instead: \$ module --raw --redirect show impi |
       grep tmi
   \end{itemize}
