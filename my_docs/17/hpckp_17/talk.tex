@@ -33,7 +33,7 @@
       shell. (e.g. compiler init scripts)
     \item It is one of the main ways we communicate with our users.
     \item The main function of Lmod is to change the user environment
-    \item It modifies PATH, LD_LIBRARY_PATH, ...
+    \item It modifies PATH, LD\_LIBRARY\_PATH, ...
     \item It sets other environment variables and defines aliases
   \end{itemize}
 \end{frame}
@@ -84,6 +84,9 @@ Activating Modules:
 {\color{blue}\$ module swap intel gcc}
 Due to MODULEPATH changes the follow modules have been reloaded:
   1) mpich2  2) petsc
+{\color{blue}\$ module load gcc}
+Due to MODULEPATH changes the follow modules have been reloaded:
+  1) mpich2  2) petsc
 \end{semiverbatim}
     }
 \end{frame}
@@ -114,17 +117,40 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     }
 \end{frame}
 
+
 % page 8
+\begin{frame}{Why does Lmod work at all?}
+  \begin{itemize}
+    \item The environment is inherited from the parent process
+    \item Changes in a child process \emph{DOES NOT} affect the
+      parent's environment
+    \item So how could Lmod work at all?
+  \end{itemize}
+\end{frame}
+
+% page 9
+\begin{frame}{The trick is:}
+  \begin{itemize}
+    \item The \texttt{lmod} program generates text.
+    \item The module command eval's that text.
+    \item \texttt{module() \{eval \$(\$LMOD\_CMD bash "\$@";)\}}
+    \item \texttt{stdout} is evaluated
+    \item \texttt{stderr} passes through
+  \end{itemize}
+\end{frame}
+
+
+% page 10
 \begin{frame}{Can tools like Lmod improve the user experience?}
   \begin{itemize}
     \item Sites provide packages: applications and libraries
     \item Users can pick which packages and version to suit their needs
     \item But what we are really after is to cut down on tickets!
-    \item Or simply make your resources easier for users to use.
+    \item Or simply make your resources easier for your users
   \end{itemize}
 \end{frame}
 
-% page 9
+% page 11
 \begin{frame}{Lmod examples}
   \begin{itemize}
     \item Lmod was first released in 2009
@@ -133,7 +159,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-% page 10
+% page 12
 \begin{frame}{Can Lmod help with the /usr/local/bin problem?}
   \begin{itemize}
     \item Suppose your startup files put /usr/local/bin in PATH
@@ -145,7 +171,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-% page 11
+% page 13
 \begin{frame}{Can Lmod prevent users from mixing modules they shouldn't?}
   \begin{itemize}
       \item Same Name modules:
@@ -156,9 +182,9 @@ Due to MODULEPATH changes the follow modules have been reloaded:
       \end{itemize}
     \item Loading two compilers or MPI Stack:
       \begin{itemize}
-        \item It is a rare user who needs to load two MPI stacks or
-          two different compilers
-        \item GCC and Intel are a special case.
+        \item It is a rare user who needs to load two different
+          compilers or two MPI stacks
+        \item GCC and Intel are a special case
         \item Sites can add family("compiler") to compiler modules
         \item This will autoswap one compiler for another!
         \item Similarly for MPI modules.
@@ -166,7 +192,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-% page 12
+% page 14
 \begin{frame}{How to manage software: New or Old}
   \begin{itemize}
     \item How can you test new/experimental software?
@@ -182,7 +208,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-% page 13
+% page 15
 \begin{frame}{Can Lmod help with deprecating packages?}
   \begin{itemize}
     \item Suppose your site keeps a limited number of versions (say 3
@@ -198,72 +224,175 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-% page 14
-\begin{frame}{A site that does not want module defaults}
+% page 16
+\begin{frame}{Can Lmod help a site that does not want default modules?}
   \begin{itemize}
-    \item Suppose your site produces Weather Forecasts or Processes
-      Satellite Images.
+    \item Suppose your site produces weather forecasts or processes
+      satellite images.
     \item No one set of compilers etc will satify your needs.
     \item Site can set LMOD\_EXACT\_MATCH$=$yes $\Rightarrow$ There are no defaults
     \item Users \emph{MUST} specify name and version!
   \end{itemize}
 \end{frame}
 
-% page 15
+% page 17
 \begin{frame}{Can users have their own default list of modules?}
   \begin{itemize}
     \item It is common to provide a default list of modules
-    \item 
+    \item However some users will want their own modules at startup
+    \item Users can add module commands to \textasciitilde/.bashrc etc
+    \item But this is tricky to get right.
+    \item Lmod supports default module collections
+    \item In fact, users can have as many named collections as they like.
   \end{itemize}
 \end{frame}
 
-
-
-
-
-% page 15
-\begin{frame}{Can Lmod deal with shared home file system?}
-  \begin{itemize}
-    \item Suppose 
-  \end{itemize}
-\end{frame}
-
-% page 15
-\begin{frame}{Can users easily grep the output from Lmod?}
-  \begin{itemize}
-    \item 
-  \end{itemize}
-\end{frame}
-
-% page 16
-\begin{frame}{Can Lmod work with non-english speakers?}
-  \begin{itemize}
-    \item 
-  \end{itemize}
-\end{frame}
-
-% page 17
-\begin{frame}{Can Lmod help with compiler and/or MPI/compiler
-      depenedent modules?}
-  \begin{itemize}
-    \item 
-  \end{itemize}
-\end{frame}
 
 % page 18
-\begin{frame}{Can a Site control the output of module avail?}
+\begin{frame}{Can Lmod deal with shared home filesystem?}
   \begin{itemize}
-    \item 
+    \item Suppose your site shares the home filesystem across two or
+      more clusters
+    \item These clusters have different modules.
+    \item Site can set \$LMOD\_SYSTEM\_NAME uniquely on each cluster
+    \item This way users's collection (and personal caches) will be
+      unique
   \end{itemize}
 \end{frame}
 
 % page 19
-\begin{frame}{Can Lmod help with software web pages?}
+\begin{frame}{Can users easily grep the output from Lmod?}
   \begin{itemize}
-    \item 
+    \item Lmod sends messages to \texttt{stderr} by default
+    \item Lmod can redirect the output to \texttt{stdout} by setting \$LMOD\_REDIRECT=yes
+    \item But then you lose the pager
+    \item I do this instead: \$ module --raw --redirect show impi |
+      grep tmi
   \end{itemize}
 \end{frame}
 
+%page 20
+\begin{frame}[fragile]
+    \frametitle{Can a site control the output of module avail?}
+  {\tiny
+    \begin{semiverbatim}
+ $ module av
+---- Packages compiled w/ Intel compilers -----------
+   ABINIT/8.2.2           ParaView/5.3.0-OSMesa
+   ARPACK-NG/3.4.0        PyMOL/1.8.6-Python-2.7.13
+  [...]
+
+------------ MPI available for Intel compilers ------
+   IntelMPI/2017.2.174    ParaStationMPI/5.1.9-1 (D)
+   [...]
+------ Packages compiled with Intel compilers -------
+   Eigen/3.3.3            Libxc/2.2.3 
+   [...]
+--------------- Core packages -----------------------
+   Advisor/2017\_update2      PostgreSQL/9.6.2
+   [...]
+
+----------------- Compilers -------------------------
+   GCC/5.4.0                Intel/17.2-GCC-5.4 (D)
+   Intel/16.4-GCC-5.4       PGI/17.3-GCC-5.4
+
+---------------- Recommended defaults ---------------
+   defaults/CPU (D)         defaults/GPU (g)
+\end{semiverbatim}
+%$
+}
+\end{frame}
+
+% page 21
+\begin{frame}{Can Lmod work with Localization and Site Messages?}
+  \begin{itemize}
+    \item Starting Lmod 7.1+ Lmod provides the possibility of Language
+      Translations: ES, FR, DE, and ZH
+    \item Sites can also provide tailored message to suit their needs
+  \end{itemize}
+\end{frame}
+
+% page 22
+\begin{frame}{Can Lmod help with software web pages?}
+  \begin{itemize}
+    \item Many sites want to provide web pages that list the SW
+      they provide.
+    \item Lmod provides a tool to generate a JSON or XML list of all
+      system modules.
+    \item You'll have to write something to ingest the JSON or XML
+  \end{itemize}
+\end{frame}
+
+% page 23
+\begin{frame}{Can Lmod help with compiler and/or MPI/compiler
+      dependent modules?}
+  \begin{itemize}
+    \item Sites can chose a Flat or Hierarchical Naming Scheme
+    \item Petsc: A parallel iterative solver package:
+      \begin{itemize}
+        \item Compilers: GCC 6.3, Intel 17.0
+        \item MPI Implementations: MVAPICH2 2.1, IMPI 17.0
+        \item MPI Solver package: PETSc 4.1
+        \item 4 versions of PETSc: 2 Compilers $\times$ 2 MPI
+      \end{itemize}
+      \begin{enumerate}
+        \item \texttt{PETSc/4.1-mvapich2-2.1-gcc-6.3}
+        \item \texttt{PETSc/4.1-mvapich2-2.1-intel-17.0}
+        \item \texttt{PETSc/4.1-openmpi-1.8-gcc-6.3}
+        \item \texttt{PETSc/4.1-openmpi-1.8-intel-17.0}
+      \end{enumerate}
+  \end{itemize}
+\end{frame}
+
+% page 24
+\begin{frame}{Problems w/ Flat naming scheme}
+  \begin{itemize}
+    \item Users have to load modules:
+      \begin{itemize}
+        \item ``intel/17.0''
+        \item ``mvapich2/2.1-intel-17.0''
+        \item ``PETSc/4.1-mvapich2-2.1-intel-17.0''
+        \item Changing compilers means unloading all three modules
+        \item Reloading new compiler, MPI, PETSc modules.
+        \item Not loading correct modules $\Rightarrow$ Mysterious Failures!
+        \item Onus of package compatibility on users!
+        \item Or extremely complicated modulefiles!
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+%page 25
+\begin{frame}{Hierarchical Naming Schemes}
+  \begin{itemize}
+    \item Store modules under one tree: \texttt{/opt/apps/modulefiles}
+    \item One strategy is to use sub-directories:
+      \begin{itemize}
+        \item Core: Regular packages: apps, compilers, git
+        \item Compiler: Packages that depend on compiler: boost, MPI
+        \item MPI: Packages that depend on MPI/Compiler: PETSc, FFTW3
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+%page 26
+\begin{frame}{Loading the correct module}
+  \begin{itemize}
+    \item User loads ``\texttt{intel/17.0}'' module
+    \item Can only see/load compiler dependent packages that are built with
+      intel 17.0 compiler.
+    \item Can not see/load package built with other versions or other compilers.
+    \item Similar loading ``\texttt{mvapich2/2.1}'' module.
+    \item Users can only load package that are built w/ intel 17.0 and
+      mvapich2 2.1 and no others.
+  \end{itemize}
+\end{frame}
+
+% page 27
+\begin{frame}{Lmod works with both flat or hierarchy layouts}
+  \begin{itemize}
+    \item Sites can 
+  \end{itemize}
+\end{frame}
 
 
 
