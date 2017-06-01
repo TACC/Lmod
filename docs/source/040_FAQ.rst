@@ -195,3 +195,26 @@ Why does ``LD_LIBRARY_PATH`` get cleared when using the **screen** program?
   You may be better off using **tmux** instead. It is a regular
   program.
 
+How can you write TCL files that can be safely used with both Lmod
+and Tmod?
+
+  For example the hide-version command only works Lmod and could be
+  found in ~/.modulerc.  This could be read by both Tmod and Lmod.
+  You can prevent Tmod from executing Lmod only code in the following way::
+
+    #%Module
+    global env
+    if { [info exists env(LMOD_VERSION_MAJOR)]} {
+       hide-version CUDA/8.8.8
+    }
+
+  Lmod defines the environment variable LMOD_VERSION_MAJOR during its
+  execution.  This trick can also be used in a TCL modulefile to set
+  the family function::
+
+    #%Module
+    ...
+    global env
+    if { [info exists env(LMOD_VERSION_MAJOR)]} {
+       family compiler
+    }
