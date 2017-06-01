@@ -328,18 +328,20 @@ Due to MODULEPATH changes the follow modules have been reloaded:
       dependent modules?}
   \begin{itemize}
     \item Sites can chose a Flat or Hierarchical Naming Scheme
-    \item Petsc: A parallel iterative solver package:
+    \item PETSc: A parallel iterative solver package:
       \begin{itemize}
         \item Compilers: GCC 6.3, Intel 17.0
         \item MPI Implementations: MVAPICH2 2.1, IMPI 17.0
         \item MPI Solver package: PETSc 4.1
         \item 4 versions of PETSc: 2 Compilers $\times$ 2 MPI
       \end{itemize}
+
+    \item Flat layout for PETSc
       \begin{enumerate}
         \item \texttt{PETSc/4.1-mvapich2-2.1-gcc-6.3}
         \item \texttt{PETSc/4.1-mvapich2-2.1-intel-17.0}
-        \item \texttt{PETSc/4.1-openmpi-1.8-gcc-6.3}
-        \item \texttt{PETSc/4.1-openmpi-1.8-intel-17.0}
+        \item \texttt{PETSc/4.1-impi-17.0-gcc-6.3}
+        \item \texttt{PETSc/4.1-impi-17.0-intel-17.0}
       \end{enumerate}
   \end{itemize}
 \end{frame}
@@ -357,6 +359,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
         \item Not loading correct modules $\Rightarrow$ Mysterious Failures!
         \item Onus of package compatibility on users!
         \item Or extremely complicated modulefiles!
+        \item Tools like EasyBuild or Spack can help here.
       \end{itemize}
   \end{itemize}
 \end{frame}
@@ -390,17 +393,86 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 % page 27
 \begin{frame}{Lmod works with both flat or hierarchy layouts}
   \begin{itemize}
-    \item Sites can 
+    \item Sites can chose either kind of layout.  
+    \item Lmod offers many advantages with either layout
+    \item An Lmod site sys-admin transitioned his users by leaving the
+      old system active
+    \item A new hierarchy was available where all new SW was installed.
+    \item Users can transition if/when they like.
   \end{itemize}
 \end{frame}
 
+%page 28
+\begin{frame}{Bash Issues}
+  \begin{itemize}
+    \item Bash Startup is typically ``broken'' for non-login interactive shells
+    \item Redhat, Centos, MacOS typically don't source /etc/bashrc on interactive shells
+    \item MPI jobs start an interactive shell.
+  \end{itemize}
+\end{frame}
 
+%page 29
+\begin{frame}{Bash Issues (II)}
+  \begin{itemize}
+    \item Want module command to work in all shells.
+    \item Want stacksize unlimited for MPI jobs
+    \item We patched bash to force it to source /etc/tacc/bashrc
+  \end{itemize}
+\end{frame}
 
+%page 30
+\begin{frame}{Bash Repair Choices}
+  \begin{itemize}
+    \item Switch users to Z shell?
+    \item patch bash (see Lmod docs)
+    \item Expect all users to source /etc/bashrc in \textasciitilde/.bashrc
+    \item Expect all users to start jobs with \#!/bin/bash -l
+  \end{itemize}
+\end{frame}
 
+%page 31
+\begin{frame}{Debugging Lmod}
+  \begin{itemize}
+    \item \texttt{module --config} : reports Lmod configuration
+    \item \texttt{module -D load foo $>$ load.log}
+  \end{itemize}
+\end{frame}
 
-%\item We also want to make it difficult for users to load
-%incompatible modules.   
+%page 32
+\begin{frame}{Tracing Lmod}
+  \begin{itemize}
+    \item A new feature of Lmod 7.4.4+
+    \item module -T ...
+    \item export LMOD\_TRACING=yes
+    \item Can trace loads and how restores work.
+  \end{itemize}
+\end{frame}
 
+% page 33
+\begin{frame}{Lmod Features}
+  \begin{itemize}
+    \item Reads both TCL and Lua modulefiles (mixing works fine)
+    \item One name rule.
+    \item Support a Software Hierarchy
+    \item Fast \texttt{module avail} via optional spider cache 
+    \item Properties (gpu, mic)
+    \item Semantic Versioning:  5.6 is older than 5.10
+    \item family(``compiler''), family(``MPI'') support
+    \item Optional Tracking: What modules are used?
+    \item Many other features: ml, collections, hooks, nag, ...
+  \end{itemize}
+\end{frame}
 
+%page 34
+\begin{frame}{Conclusions: Lmod}
+  \begin{itemize}
+    \item Latest version: https://github.com:TACC/Lmod.git
+    \item Stable version: http://lmod.sf.net
+    \item Documentation:  http://lmod.readthedocs.org
+    \item Shell Startup Debug: http://shellstartupdebug.sf.net
+    \item Mailing List:   lmod-users@lists.sourceforge.net.
+    \item Join here: https://lists.sourceforge.net/lists/listinfo/lmod-users
+  \end{itemize}
+\end{frame}
 
 \end{document}
