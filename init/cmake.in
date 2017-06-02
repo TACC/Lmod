@@ -1,0 +1,186 @@
+# -*- cmake -*-
+
+#------------------------------------------------------------------------
+# Lmod License
+#------------------------------------------------------------------------
+#
+#  Lmod is licensed under the terms of the MIT license reproduced below.
+#  This means that Lmod is free software and can be used for both academic
+#  and commercial purposes at absolutely no cost.
+#
+#  ----------------------------------------------------------------------
+#
+#  Copyright (C) 2017 Chuck Atkins
+#
+#  Permission is hereby granted, free of charge, to any person obtaining
+#  a copy of this software and associated documentation files (the
+#  "Software"), to deal in the Software without restriction, including
+#  without limitation the rights to use, copy, modify, merge, publish,
+#  distribute, sublicense, and/or sell copies of the Software, and to
+#  permit persons to whom the Software is furnished to do so, subject
+#  to the following conditions:
+#
+#  The above copyright notice and this permission notice shall be
+#  included in all copies or substantial portions of the Software.
+#
+#  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+#  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+#  OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+#  NONINFRINGEMENT.  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+#  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+#  ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+#  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+#  THE SOFTWARE.
+#
+#------------------------------------------------------------------------
+
+#------------------------------------------------------------------------
+# Make Lmod module commands available to CMake scripts.
+#
+
+# This makes the following module commands available as CMake functions:
+#   module(...)                 - Execute an arbitry module command
+#
+# And then the convience functions:
+#   module_list(out_var)        - Retrieve the currently loaded modules,
+#                                 making the output available as a properly
+#                                 formatted CMake ;-seperated list variable.
+#                                 This is functionally equivalent to calling
+#                                 module(list OUTPUT_VARIABLE out_var) but
+#                                 with additional code to properly parse the
+#                                 output.
+#   module_swap(out_mod in_mod) - Swap one module out for another.
+#                                 This is functionally equivalent to calling
+#                                 module(swap out_mod in_mod).
+#   module_avail(out_var)       - Retrieve the availabe modules that can be
+#                                 loaded, making the output available as a
+#                                 properly formatted CMake ;-seperated list
+#                                 variable.
+#                                 This is functionally equivalent to calling
+#                                 module(avail OUTPUT_VARIABLE out_var) but
+#                                 with additional code to properly parse the
+#                                 output.
+
+# Execute an aribitrary module command.  Usage:
+#   module(cmd arg1 ... argN)
+#     Process the given command and arguments as if they were passed
+#     directly to the module command in your shell environment.
+#   module(
+#     COMMAND cmd arg1 .. argN
+#     [OUTPUT_VARIABLE out_var]
+#     [RESULT_VARIABLE ret_var]
+#   )
+function(module)
+  if(NOT LMOD_COMMAND)
+    message(ERROR "Failed to process module command.  LMOD_COMMAND not found")
+    return()
+  endif()
+
+  set(options)
+  set(oneValueArgs OUTPUT_VARIABLE RESULT_VARIABLE)
+  set(multiValueArgs COMMAND)
+  cmake_parse_arguments(LMOD_ARGS
+    "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGV}
+  )
+  if(NOT LMOD_ARGS_COMMAND)
+    # If no explicit command argument was given, then treat the calling syntax
+    # as: module(cmd args...)
+    set(exec_cmd ${ARGV})
+  else()
+    set(exec_cmd ${LMOD_ARGS_COMMAND})
+  endif()
+
+  if(LMOD_ARGS_OUTPUT_VARIABLE)
+    set(err_var_args ERROR_VARIABLE err_var)
+  endif()
+
+  execute_process(
+    COMMAND mktemp -t module.cmake.XXXXXXXXXXXX
+    OUTPUT_VARIABLE tempfile_name
+  )
+  string(STRIP "${tempfile_name}" tempfile_name)
+
+  execute_process(
+    COMMAND ${LMOD_COMMAND} cmake ${exec_cmd}
+    OUTPUT_FILE ${tempfile_name}
+    ${err_var_args}
+    RESULT_VARIABLE ret_var
+  )
+
+  # If we executed successfully then process and cleanup the temp file
+  if("${ret_var}" EQUAL 0)
+    include(${tempfile_name})
+    file(REMOVE ${tempfile_name})
+  endif()
+
+  # Push the output back out to the calling scope
+  if(LMOD_ARGS_OUTPUT_VARIABLE)
+    set(${LMOD_ARGS_OUTPUT_VARIABLE} "${err_var}" PARENT_SCOPE)
+  endif()
+  if(LMOD_ARGS_RESULT_VARIABLE)
+    set(${LMOD_ARGS_RESULT_VARIABLE} ${ret_var} PARENT_SCOPE)
+  endif()
+endfunction(module)
+
+# Retrieve the currently loaded modules
+function(module_list out_var)
+  # Make sure empty list items get properly handled
+  cmake_policy(SET CMP0007 NEW)
+
+  module(COMMAND -t list OUTPUT_VARIABLE tmp_out)
+
+  # Convert output into a CMake list
+  string(REPLACE "\n" ";" ${out_var} "${tmp_out}")
+
+  # Remove tile headers and empty entries
+  list(REMOVE_ITEM ${out_var} "No modules loaded")
+  if(${out_var})
+    list(FILTER ${out_var} EXCLUDE REGEX "^(.*:)?$")
+  endif()
+
+  set(${out_var} ${${out_var}} PARENT_SCOPE)
+endfunction()
+
+# Swap one module for another
+function(module_swap out_mod in_mod)
+  module(COMMAND -t swap ${out_mod} ${in_mod} OUTPUT_VARIABLE tmp_out)
+endfunction()
+
+# Retrieve the list of available modules
+function(module_avail out_var)
+  # Make sure empty list items get properly handled
+  cmake_policy(SET CMP0007 NEW)
+
+  module(COMMAND -t avail OUTPUT_VARIABLE tmp_out)
+
+  # Convert output into a CMake list
+  string(REPLACE "\n" ";" tmp_out "${tmp_out}")
+
+  set(${out_var})
+  foreach(MOD IN LISTS tmp_out)
+    # Remove directory entries and empty values
+    if(MOD MATCHES "^(.*:)?$")
+      continue()
+    endif()
+
+    # Convert default modules
+    if(MOD MATCHES "^(.*)/$" ) # "foo/"
+      list(APPEND ${out_var} ${CMAKE_MATCH_1})
+    elseif(MOD MATCHES "^((.*)/.*)\\(default\\)$") # "foo/1.2.3(default)"
+      list(APPEND ${out_var} ${CMAKE_MATCH_2})
+      list(APPEND ${out_var} ${CMAKE_MATCH_1})
+    else()
+      list(APPEND ${out_var} ${MOD})
+    endif()
+  endforeach()
+
+  set(${out_var} ${${out_var}} PARENT_SCOPE)
+endfunction()
+
+# Make sure our CMake is new enough
+if(CMAKE_VERSION VERSION_LESS 3.6)
+  message(FATAL_ERROR "The Lmod interface requires at least CMake v3.6")
+endif()
+
+# Make sure we know where the underlying module command is
+set(LMOD_COMMAND "@PKG@/libexec/lmod" CACHE FILEPATH "Low level module command")
