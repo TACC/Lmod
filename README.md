@@ -87,7 +87,7 @@ Bug Fixes:
 
    2. Repaired zsh tab completion.
 
-   3. Minimize the output of Lmod's BASHENV when debugging Bash shell scripts.
+   3. Minimize the output of Lmod's BASH_ENV when debugging Bash shell scripts.
 
    4. Allow colons as well as spaces for the path used in the addto command.
 
