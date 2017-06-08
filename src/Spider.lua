@@ -882,8 +882,6 @@ function M._Level1(self, dbT, possibleA, sn, key, helpFlg)
       if (name) then
          ia = ia + 1; a[ia] = i18n("m_Regex_Spider",{border=border, name=name})
       end
-
-      
       ia = ia + 1; a[ia] = i18n("m_Spdr_L1",{border=border,key=key,exampleV=exampleV})
    end
 
@@ -904,20 +902,21 @@ function M._Level2(self, sn, entryA, possibleA)
 
    local entryT       = entryA[1]
    local fullName     = entryT.fullName
+   local option       = entryT.hidden and "--show_hidden " or ""
    local banner       = Banner:singleton()
    local border       = banner:border(0)
    local readLmodRC   = ReadLmodRC:singleton()
    local propDisplayT = readLmodRC:propT()
    local term_width   = TermWidth() - 4
    local availT       = {
-      i18n("m_Direct_Load",{fullName=fullName}),
+      i18n("m_Direct_Load",{fullName=fullName,option=option}),
       i18n("m_Depend_Mods",{fullName=fullName}),
-      i18n("m_Direct_Load",{fullName=fullName}) .. i18n("m_Additional_Variants",{}),
+      i18n("m_Direct_Load",{fullName=fullName,option=option}) .. i18n("m_Additional_Variants",{}),
    }
    local haveCore = 0
    local haveHier = 0
 
-   dbg.printT("entryA[1]", entryT)
+   --dbg.printT("entryA[1]", entryT)
 
 
    ia = ia + 1; a[ia] = "\n"

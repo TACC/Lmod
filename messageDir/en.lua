@@ -154,7 +154,7 @@ The system default contains no modules
      m_Additional_Variants = "\n    Additional variants of this module can also be loaded after loading the following modules:\n",
      m_Depend_Mods         = "\n    You will need to load all module(s) on any one of the lines below before the \"%{fullName}\" module is available to load.\n",
      m_Description         = "    Description:\n%{descript}\n\n",
-     m_Direct_Load         = "\n    This module can be loaded directly: module load %{fullName}\n",
+     m_Direct_Load         = "\n    This module can be loaded directly: module %{option}load %{fullName}\n",
      m_Family_Swap         = "\nLmod is automatically replacing \"%{oldFullName}\" with \"%{newFullName}\".\n",
      m_For_System          = ", for system: \"%{sname}\"",
      m_Inactive_Modules    = "\nInactive Modules:\n",
