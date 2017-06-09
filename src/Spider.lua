@@ -902,16 +902,15 @@ function M._Level2(self, sn, entryA, possibleA)
 
    local entryT       = entryA[1]
    local fullName     = entryT.fullName
-   local option       = entryT.hidden and "--show_hidden " or ""
    local banner       = Banner:singleton()
    local border       = banner:border(0)
    local readLmodRC   = ReadLmodRC:singleton()
    local propDisplayT = readLmodRC:propT()
    local term_width   = TermWidth() - 4
    local availT       = {
-      i18n("m_Direct_Load",{fullName=fullName,option=option}),
+      i18n("m_Direct_Load",{fullName=fullName),
       i18n("m_Depend_Mods",{fullName=fullName}),
-      i18n("m_Direct_Load",{fullName=fullName,option=option}) .. i18n("m_Additional_Variants",{}),
+      i18n("m_Direct_Load",{fullName=fullName}) .. i18n("m_Additional_Variants",{}),
    }
    local haveCore = 0
    local haveHier = 0

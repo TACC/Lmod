@@ -28,3 +28,5 @@ Lmod 7.4+
     (7.4.18) Accepted CMake "shell" patch.
     (7.4.19) Fix spider Level2 output so that if you do ml --show_hidden spider b/3.0,
              the detailed output will report "module --show_hidden load b/3.0".
+    (7.4.20) Remove the changes for 7.4.19. You do not need or want to say --show_hidden with a load.
+    

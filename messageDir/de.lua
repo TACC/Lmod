@@ -160,7 +160,7 @@ Die Standard-Module des Systems enthalten keine Module.
      m_Additional_Variants = "\n    Zusätzliche Varianten des Moduls können geladen werden, nachdem die folgenden Module geladen wurden:\n",
      m_Depend_Mods         = "\n    Sie müssen alle nachfolgenden Module laden bevor Sie das Modul \"%{fullName}\" laden können.\n",
      m_Description         = "    Beschreibung:\n%{descript}\n\n",
-     m_Direct_Load         = "\n    Dieses Modul kann direkt geladen werden: \"module %{option}load %{fullName}\".\n",
+     m_Direct_Load         = "\n    Dieses Modul kann direkt geladen werden: \"module load %{fullName}\".\n",
      m_Family_Swap         = "\nLmod hat \"%{oldFullName}\" automatisch durch \"%{newFullName}\" ersetzt.\n",
      m_For_System          = ", für das System: \"%{sname}\"",
      m_Inactive_Modules    = "\nInaktive Module:\n",

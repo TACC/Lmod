@@ -41,7 +41,7 @@ step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider GCCcore
 ===========================
   GCCcore: GCCcore/.6.3
-    This module can be loaded directly: module --show_hidden load GCCcore/.6.3
+    This module can be loaded directly: module load GCCcore/.6.3
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GCCcore

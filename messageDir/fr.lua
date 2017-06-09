@@ -153,7 +153,7 @@ L'environnement par défaut ne contient aucun module
      m_Additional_Variants = "\n    Des variantes additionnelles de ce module peuvent être chargées après le chargement des modules suivants :\n",
      m_Depend_Mods         = "\n    Vous devrez charger tous les modules de l'un des lignes suivantes avant de pouvoir charger le module \"%{fullName}\".\n",
      m_Description         = "    Description:\n%{descript}\n\n",
-     m_Direct_Load         = "\n    Ce module peut être chargé directement : module %{option}load %{fullName}\n",
+     m_Direct_Load         = "\n    Ce module peut être chargé directement : module load %{fullName}\n",
      m_Family_Swap         = "\nLmod a automatiquement remplacé \"%{oldFullName}\" par \"%{newFullName}\"\n",
      m_For_System          = ", pour le système: \"%{sname}\"",
      m_Inactive_Modules    = "\nModules inactifs:\n",
