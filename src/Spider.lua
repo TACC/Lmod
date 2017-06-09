@@ -893,13 +893,12 @@ function M._Level2(self, sn, entryA, possibleA)
    dbg.start{"Spider:_Level2(",sn,", entryA, possibleA)"}
    --dbg.printT("entryA",entryA)
 
-   local show_hidden = masterTbl().show_hidden
-   local a           = {}
-   local ia          = 0
-   local b           = {}
-   local c           = {}
-   local titleIdx    = 0
-
+   local show_hidden  = masterTbl().show_hidden
+   local a            = {}
+   local ia           = 0
+   local b            = {}
+   local c            = {}
+   local titleIdx     = 0
    local entryT       = entryA[1]
    local fullName     = entryT.fullName
    local banner       = Banner:singleton()
