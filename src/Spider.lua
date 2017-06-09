@@ -908,7 +908,7 @@ function M._Level2(self, sn, entryA, possibleA)
    local propDisplayT = readLmodRC:propT()
    local term_width   = TermWidth() - 4
    local availT       = {
-      i18n("m_Direct_Load",{fullName=fullName),
+      i18n("m_Direct_Load",{fullName=fullName}),
       i18n("m_Depend_Mods",{fullName=fullName}),
       i18n("m_Direct_Load",{fullName=fullName}) .. i18n("m_Additional_Variants",{}),
    }
