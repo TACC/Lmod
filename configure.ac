@@ -335,6 +335,18 @@ AC_ARG_WITH(tmodPathRule,
     TMOD_PATH_RULE="$withval"
     AC_DEFINE_UNQUOTED(TMOD_PATH_RULE, "$withval"))dnl
 
+AC_SUBST(TMOD_FIND_FIRST)
+AC_ARG_WITH(tmodFindFirst,
+    AC_HELP_STRING([--with-tmodFindFirst=ans],[Use Tmod Find First rule instead of Find Best for defaults.[[no]]]),
+    TMOD_FIND_FIRST="$withval"
+    AC_MSG_RESULT([TMOD_FIND_FIRST=$with_tmodFindFirst])
+    AC_DEFINE_UNQUOTED(TMOD_FIND_FIRST, "$with_tmodFindFirst")dnl
+    ,
+    withval="NO"
+    AC_MSG_RESULT([TMOD_FIND_FIRST=$withval])
+    TMOD_FIND_FIRST="$withval"
+    AC_DEFINE_UNQUOTED(TMOD_FIND_FIRST, "$withval"))dnl
+
 AC_SUBST(LUA_INCLUDE)
 AC_ARG_WITH(lua_include,
     AC_HELP_STRING([--with-lua_include=ans],[Save/Restore will use the current version instead of changing with the default.[[no]]]),

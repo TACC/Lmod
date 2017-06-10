@@ -45,58 +45,6 @@ require("serializeTbl")
 local Dbg  = require("Dbg")
 local json = require("json")
 
---[[
-
-{
-   "configT": {
-     "allowTCL":"yes",
-     "autoSwap":"yes",
-     "case":"no",
-     "colorize":"@colorize@",
-     "disable1N":"no",
-     "dot_files":"yes",
-     "dupPaths":"no",
-     "exactMatch":"no",
-     "expMCmd":"yes",
-     "ld_lib_path":"<empty>",
-     "ld_preload":"<empty>"
-     "lmodV":"7.0",
-     "luaV":"Lua 5.3",
-     "lua_json":"@have_lua_json@",
-     "lua_term":"@have_lua_term@",
-     "lua_term_A":"true",
-     "modRC":"\/Users\/mclay\/w\/etc\/rc",
-     "mpath_av":"no",
-     "mpath_root":"@modulepath_root@",
-     "numSC":0,
-     "pager":"@path_to_pager@",
-     "pager_opts":"-XqMREF",
-     "path_hash":"@path_to_hashsum@",
-     "path_lua":"@path_to_lua@",
-     "pin_v":"no",
-     "pkg":"Pkg",
-     "prefix":"@PREFIX@",
-     "prpnd_blk":"@prepend_block@",
-     "redirect":"no",
-     "settarg":"@lmod_full_settarg_support@",
-     "sitePkg":"standard",
-     "spdr_ignore":"no",
-     "spdr_loads":"no",
-     "tm_ancient":"@ancient@",
-     "tm_short":"@short_time@",
-     "tm_threshold":1,
-     "tmod_rule":"no",
-     "uname":"Darwin mijo 15.6.0 Darwin Kernel Version 15.6.0: Thu Sep  1 15:01:16 PDT 2016; root:xnu-3248.60.11~2\/RELEASE_X86_64 x86_64 i386 MacBookPro11,5 Darwin\n",
-     "z01_admin":"\/Users\/mclay\/w\/etc\/admin.list",
-   },
-   "rcfileA":[
-      "\/Users\/mclay\/w\/lmod\/init\/lmodrc.lua",
-      "\/Users\/mclay\/w\/lmod\/rt\/help\/t1\/x86_64_dbg_gcc-5.2-2016_11_14_10_57_10-Darwin-x86_64-help\/.lmodrc.lua"],
-   "propT":{
-      "status":{
-         "validT":{"active":1},"displayT":{"active":{"doc":"Module is loaded","short":"(L)","color":"yellow","long":"(L)"}}},"arch":{"validT":{"offload":1,"mic":1,"gpu":1},"displayT":{"mic":{"doc":"built for host and native MIC","short":"(m)","color":"blue","long":"(m)"},"gpu:mic:offload":{"doc":"built natively for MIC and GPU and offload to the MIC","short":"(@)","color":"red","long":"(g,m,o)"},"offload":{"doc":"built for offload to the MIC only","short":"(o)","color":"blue","long":"(o)"},"gpu":{"doc":"built for GPU","short":"(g)","color":"red","long":"(g)"},"gpu:mic":{"doc":"built natively for MIC and GPU","short":"(gm)","color":"red","long":"(g,m)"},"mic:offload":{"doc":"built for host, native MIC and offload to the MIC","short":"(*)","color":"blue","long":"(m,o)"}}},"state":{"validT":{"experimental":1,"testing":1,"obsolete":1},"displayT":{"experimental":{"doc":"Experimental","short":"(E)","color":"blue","long":"(E)"},"testing":{"doc":"Testing","short":"(T)","color":"green","long":"(T)"},"obsolete":{"doc":"Obsolete","short":"(O)","color":"red","long":"(O)"}}},"lmod":{"validT":{"sticky":1},"displayT":{"sticky":{"doc":"Module is Sticky, requires --force to unload or purge","short":"(S)","color":"red","long":"(S)"}}}}}
-
-]]
 function main()
 
    local configT = {
@@ -146,6 +94,7 @@ function main()
       tm_short     = { rule = "match", value = 2},
       tm_threshold = { rule = "match", value = 1},
       tmod_rule    = { rule = "match", value = "no"},
+      tmod_find1st = { rule = "match", value = "no"},
       tracing      = { rule = "match", value = "no"},
    }
 

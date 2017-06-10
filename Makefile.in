@@ -39,6 +39,7 @@ ANCIENT           	  := @ANCIENT@
 ALLOW_TCL_MFILES          := @ALLOW_TCL_MFILES@
 MPATH_AVAIL               := @MPATH_AVAIL@
 TMOD_PATH_RULE            := @TMOD_PATH_RULE@
+TMOD_FIND_FIRST           := @TMOD_FIND_FIRST@
 CACHED_LOADS              := @CACHED_LOADS@
 EXACT_MATCH               := @EXACT_MATCH@
 DUPLICATE_PATHS           := @DUPLICATE_PATHS@
@@ -202,6 +203,7 @@ __installMe:
                 -e 's|@tclsh@|$(PATH_TO_TCLSH)|g'                             	  \
                 -e 's|@disable_name_autoswap@|$(DISABLE_NAME_AUTOSWAP)|g'     	  \
 	        -e 's|@tmod_path_rule@|$(TMOD_PATH_RULE)|g'            	   	  \
+	        -e 's|@tmod_find_first@|$(TMOD_FIND_FIRST)|g'            	  \
 	        -e 's|@redirect@|$(REDIRECT)|g'                       	   	  \
 	        -e 's|@basename@|$(BASENAME)|g'                       	   	  \
 	        -e 's|@cached_loads@|$(CACHED_LOADS)|g'                	   	  \

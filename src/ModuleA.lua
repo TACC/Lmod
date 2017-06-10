@@ -51,6 +51,7 @@ local getenv      = os.getenv
 local s_moduleA   = false
 local sort        = table.sort
 local exact_match = cosmic:value("LMOD_EXACT_MATCH")
+local find_first  = cosmic:value("LMOD_TMOD_FIND_FIRST")
 
 -- print(__FILE__() .. ':' .. __LINE__())
 ----------------------------------------------------------------------
@@ -499,7 +500,7 @@ local function build_from_spiderT(spiderT)
    local mt       = frameStk:mt()
    local mpathA   = mt:modulePathA()
    local moduleA  = {}
-   local isNV     = true
+   local isNV     = find_first == "no"
    for i = 1, #mpathA do
       local mpath = mpathA[i]
       if (isDir(mpath)) then
@@ -514,10 +515,6 @@ local function build_from_spiderT(spiderT)
    dbg.fini("ModuleA build_from_spiderT")
    return moduleA, not isNV
 end
-
-
-
-
 
 ------------------------------------------------------------
 -- This routine updates the self.__moduleA array when 
@@ -594,7 +591,7 @@ function M.__new(self, mpathA, maxdepthT, moduleRCT, spiderT)
 
    local dirTree   = false
    self.__index    = self
-   o.__isNVV       = false
+   o.__isNVV       = (find_first ~= "no")
    spiderT         = spiderT or {}
    if (next(spiderT) ~= nil) then
       o.__spiderBuilt        = true

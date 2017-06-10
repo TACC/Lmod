@@ -159,6 +159,14 @@ cosmic:init{name = "LMOD_TMOD_PATH_RULE",
             yn   = "no"}
 
 ------------------------------------------------------------------------
+-- LMOD_TMOD_FIND_FIRST:  Using Tmod rule where it uses find first for
+---                       defaults.
+------------------------------------------------------------------------
+cosmic:init{name = "LMOD_TMOD_FIND_FIRST",
+            sedV = "@tmod_find_first@",
+            yn   = "no"}
+
+------------------------------------------------------------------------
 -- LMOD_DISABLE_SAME_NAME_AUTOSWAP: This env. var requires users to swap
 --                  out rather than using the one name rule.
 ------------------------------------------------------------------------

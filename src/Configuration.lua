@@ -143,6 +143,7 @@ local function new(self)
    local case_ind_sorting  = cosmic:value("LMOD_CASE_INDEPENDENT_SORTING")
    local disable1N         = cosmic:value("LMOD_DISABLE_SAME_NAME_AUTOSWAP")
    local tmod_rule         = cosmic:value("LMOD_TMOD_PATH_RULE")
+   local find_first        = cosmic:value("LMOD_TMOD_FIND_FIRST")
    local exactMatch        = cosmic:value("LMOD_EXACT_MATCH")
    local cached_loads      = cosmic:value("LMOD_CACHED_LOADS")
    local ignore_cache      = cosmic:value("LMOD_IGNORE_CACHE") and "yes" or "no"
@@ -221,6 +222,7 @@ local function new(self)
    tbl.tm_ancient   = { k = "User cache valid time(sec)"        , v = ancient,          }
    tbl.tm_short     = { k = "Write cache after (sec)"           , v = shortTime,        }
    tbl.tm_threshold = { k = "Threshold (sec)"                   , v = threshold,        }
+   tbl.tmod_find1st = { k = "Tmod find first rule"              , v = find_first,       }
    tbl.tmod_rule    = { k = "Tmod prepend PATH Rule"            , v = tmod_rule,        }
    tbl.tracing      = { k = "Tracing"                           , v = tracing,          }
    tbl.uname        = { k = "uname -a"                          , v = uname,            }
