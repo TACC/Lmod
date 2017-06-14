@@ -102,7 +102,7 @@ B) Now with version 5.+ of Lmod, it is now very important that sites with large
          mins.  This way the cache file is up-to-date.  No new module will be
          unknown for more 30 mins.  Assuming that you are going to store the cache file
          in /opt/moduleData/cacheDir and the timestamp is in /opt/moduleData/system.txt.
-         Please create the following script
+         Please create the following script:
 
          $ cd /opt/moduleData
          $ cat > createSystemCache.sh
