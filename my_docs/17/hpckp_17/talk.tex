@@ -8,7 +8,8 @@
 %\usetheme[rightfooter]{TACC16}
 
 \begin{document}
-\title[Lmod]{Lmod: A Modern Environment Module System}
+\title[Lmod]{Lmod: A Modern Environment Module System\\
+             XALT: Understanding HPC Usage via Job Level Collection}
 
 % page 1
 \frame{\titlepage} 
@@ -475,6 +476,259 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     \item Shell Startup Debug: http://shellstartupdebug.sf.net
     \item Mailing List:   lmod-users@lists.sourceforge.net.
     \item Join here: https://lists.sourceforge.net/lists/listinfo/lmod-users
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{XALT: What runs on the system}
+  \begin{itemize}
+    \item A U.S. NSF Funded project: PI: Mark Fahey and Robert McLay
+    \item A Census of what programs and libraries are run
+    \item Running at TACC, NICS, U. Florida, KAUST, ...
+    \item Integrates with TACC-Stats.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Design Goals}
+  \begin{itemize}
+    \item Be extremely light-weight
+    \item Provide provenance data: How?
+    \item How many use a library or application?
+    \item Collect Data into a Database for analysis.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Design: Linker}
+  \begin{itemize}
+    \item XALT wraps the linker to enable tracking of exec's
+    \item The linker (ld) wrapper intercepts the user link line.
+    \item Generate assembly code: key-value pairs
+    \item Capture tracemap output from ld
+    \item Transmit collected data in *.json format
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Design: Launcher}
+  \begin{itemize}
+    \item XALT 1 used to require a wrapper for aprun, mpirun, etc
+    \item XALT 2 no longer needs to
+    \item Hooray! Correct wrappers were a nightmare!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Design: Transmission to DB}
+  \begin{itemize}
+    \item File: collect nightly
+    \item Syslog: Use Syslog filtering (or ELK)
+    \item Direct to DB.
+    \item Future: RabbitMQ
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lmod to XALT connection}
+  \begin{itemize}
+    \item Lmod spider walks entire module tree.
+    \item Can build a reverse map from paths to modules
+    \item Can map program \& libraries to modules.
+    \item /opt/apps/i15/mv2\_2\_1/phdf5/1.8.14/lib/libhdf5.so.9
+      $\Rightarrow$ phdf5/1.8.14(intel/15.02:mvapich2/2.1)
+    \item Also helps with function tracking.
+    \item Tmod Sites can still use Lmod to build the reverse map.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Database Changes (I)}
+  \begin{itemize}
+      \item Tables sizes in XALT:
+ {\small
+    \begin{semiverbatim}
++------------------+------------+
+| Table            | Size in MB |
++------------------+------------+
+| join\_run\_env     |  199603.00 |
+| join\_run\_object  |    9388.00 |
+| join\_link\_object |    5013.00 |
+| xalt\_run         |    4613.00 |
+| xalt\_object      |    4175.00 |
+| xalt\_link        |     814.00 |
++------------------+------------+
+    \end{semiverbatim}
+}
+    \item \texttt{join\_run\_env} has 2.1 billion rows
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Database Changes (II)}
+  \begin{itemize}
+    \item Environment variables are important.
+    \item But mainly for reproducing results
+    \item Chose a few for SQL tests.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Database Changes (III): New Design}
+  \begin{itemize}
+    \item Store complete env $\Rightarrow$ compressed json blob
+    \item Filter Env's with Accept Test followed by Reject Test
+    \item Instead of 250 vars per job $\Rightarrow$ 20 to 30.
+    \item The Filter is site controllable!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Database Changes (IV): New Design}
+  \begin{itemize}
+    \item The ``join'' tables are large 
+    \item Partition ``join'' tables by dates or index
+    \item Precompute views nightly.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Protecting XALT (I): UTF8 Characters}
+  \begin{itemize}
+    \item Linux supports UTF8 Characters in file names, env. vars.
+    \item Python supports UTF8 if you know what you are doing.
+    \item Switch XALT to use prepared statements
+    \item Where \texttt{query="INSERT INTO table VALUE(?,?)"}
+    \item This prevent SQL injection: ``johnny drop tables;''
+    \item Also supports UTF8 characters.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Protecting XALT (II): Python to C++}
+    \begin{itemize}
+      \item Difficult to protect Python from users in every case
+      \item Solution: LD\_LIBRARY\_PATH="@ld\_lib\_path@"
+        PATH=/usr/bin:/bin C++-exec ...
+      \item Everything that depends on PATH must be hard coded
+      \item basename $\Rightarrow$ /bin/basename
+      \item Unique install for each operating system.
+      \item Certain programs aren't in the same place: \texttt{basename}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Using XALT Data}
+  \begin{itemize}
+    \item Targetted Outreach: Who will be affected
+    \item Largemem Queue Overuse
+    \item XALT and TACC-Stats
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Tracking Non-mpi jobs (I)}
+  \begin{itemize}
+    \item Originally we tracked only MPI Jobs
+    \item By hijacking mpirun etc.
+    \item Now we can use ELF binary format to track jobs
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{ELF Binary Format Trick}
+ {\small
+    \begin{semiverbatim}
+void myinit(int argc, char **argv)
+\{
+  /* ... */
+\}
+void myfini()
+\{
+  /* ... */
+\}
+  __attribute__((section(".init_array")))
+       typeof(myinit) *__init = myinit;
+  __attribute__((section(".fini_array")))
+       typeof(myfini) *__fini = myfini;
+    \end{semiverbatim}
+}
+\end{frame}
+
+\begin{frame}{Using the ELF Binary Format Trick}
+  \begin{itemize}
+    \item This C code is compiled and linked in through the hijacked linker
+    \item It can also be used with \texttt{LD\_PRELOAD}
+    \item We are using both...
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Downsides}
+  \begin{itemize}
+    \item Currently, we only track task 0 jobs.
+    \item MPMD programs will only record the Task 0 job.
+    \item We also lose the ability to capture return exit status
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Challenges (I)}
+  \begin{itemize}
+    \item Do not want to track mv, cp, etc
+    \item Only want to track some executables on compute nodes
+    \item Do not want to get overwhelmed by the data. 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Answers}
+  \begin{itemize}
+    \item XALT Tracking only when told to
+    \item Compute node only by host name filtering
+    \item Executable Filter based on Path
+    \item Protection against closing stderr before fini.
+    \item Site configurable!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Path Filtering}
+  \begin{itemize}
+    \item Accept test, following an Ignore Test,
+    \item Two files containing regex patterns, converted to code.
+    \item Accept List Tests: Track /usr/bin/ddt, /bin/tar
+    \item Ignore List Tests: /usr/bin, /bin, /sbin, ...
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Using XALT 2}
+  \begin{itemize}
+    \item A great deal of hardening 
+    \item Been running XALT 2 for 4 months with only 1 tckt.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Speeding up XALT 2}
+  \begin{itemize}
+    \item XALT 2 generates 2 json records: at start and end
+    \item Want to minimize measurement: Launcher jobs
+    \item The most expensive operation is sha1sum of the shared libs
+    \item Used to system sha1sum call in serial
+    \item Now up-to 16 threads calls directly
+    \item Tests show 1 sec first time 0.04 second time on Lustre.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{XALT Demo}
+  \begin{itemize}
+    \item Show modules hierarchy
+    \item ml --raw show xalt
+    \item Show debugging output
+    \item type -a {ld,mpirun}
+    \item Build programs
+    \item Run tests
+    \item Run utf8 program
+    \item Show database results
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Conclusion}
+  \begin{itemize}
+    \item Lmod:
+      \begin{itemize}
+        \item Source: github.com/TACC/lmod.git, lmod.sf.net
+        \item Documentation: lmod.readthedocs.org
+      \end{itemize}
+    \item XALT:
+      \begin{itemize}
+        \item Source: github.com/Fahey-McLay/xalt.git, xalt.sf.net
+        \item Documentation: doc/*.pdf, xalt.readthedocs.org
+      \end{itemize}
   \end{itemize}
 \end{frame}
 
