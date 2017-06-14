@@ -104,14 +104,17 @@ B) Now with version 5.+ of Lmod, it is now very important that sites with large
          in /opt/moduleData/cacheDir and the timestamp is in /opt/moduleData/system.txt.
          Please create the following script:
 
-         $ cd /opt/moduleData
-         $ cat > createSystemCache.sh
-         LMOD_CACHE_LOCATION=/opt/moduleData
-         LMOD_DIR=<path_to_the_command_spider>
-         MODULEPATH=<Your site's default MODULEPATH>
+            $ cd /opt/moduleData
+            $ cat > createSystemCache.sh
+            LMOD_CACHE_LOCATION=/opt/moduleData
+            LMOD_DIR=<path_to_the_command_spider>
+            MODULEPATH=<Your site's default MODULEPATH>
 
-         $LMOD_DIR/update_lmod_system_cache_files -t $LMOD_CACHE_LOCATION/system.txt -d $LMOD_CACHE_LOCATION/cacheDir $MODULEPATH
-         ^D         
+            $LMOD_DIR/update_lmod_system_cache_files -t $LMOD_CACHE_LOCATION/system.txt -d $LMOD_CACHE_LOCATION/cacheDir $MODULEPATH
+            ^D         
+
+         Please modify the top three environment variables to match your site.
+
 
       4) There are two ways to specify how cache directories and timestep files are
          specified.  You can use "--with-spiderCacheDir=dirs" and
