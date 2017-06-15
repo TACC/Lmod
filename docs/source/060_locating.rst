@@ -256,8 +256,8 @@ reason to pick one over the other so Lmod has chosen ``Find First``
 for NVV module layouts.
 
 For sites that are mixing N/V and N/V/V module layouts they may wish
-to change Lmod to use the find first rule. See :ref:`env_vars-label`
-
+to change Lmod to use the find first rule in all cases. See
+:ref:`env_vars-label` to see how to configure Lmod for find first.
 
 Autoswapping Rules
 ~~~~~~~~~~~~~~~~~~
