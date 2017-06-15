@@ -100,7 +100,7 @@ Advanced Topics
    210_load_storms
    220_tracing
    230_lmod_env_vars
-
+   240_sticky_modules
 
 Topics yet to be written
 ^^^^^^^^^^^^^^^^^^^^^^^^
