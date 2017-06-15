@@ -23,8 +23,8 @@ A TCL module would look like::
     setenv ARCH abc
     add-property lmod sticky
 
-It is the ``add_property()`` function in Lua or ``add-property`` in
-TCL which makes the module sticky.
+It is the ``add_property()`` function in Lua or ``add-property``
+command in TCL which makes the module sticky.
 
 If the "site" module is loaded then it can be unloaded by either
 command::
@@ -35,9 +35,8 @@ or::
 
     $ module --force purge
 
-
 Since a user can unload a sticky module if they really want to.  You
-may wish to the startup scripts (i.e. /etc/profile.d/*) instead of
+may wish to the startup scripts (i.e. /etc/profile.d/\*) instead of
 modules to define environment variables that you don't want users to
 easily change.
 
