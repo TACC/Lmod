@@ -1,4 +1,4 @@
-.. _debugging_modulefiles_label:
+.. _debugging_modulefiles-label:
 
 Debugging Modulefiles
 =====================

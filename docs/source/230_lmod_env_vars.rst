@@ -1,3 +1,5 @@
+.. _env_vars-label:
+
 Controlling Lmod behavior through Environment Variables
 =======================================================
 
@@ -169,7 +171,7 @@ the configuration option which will set the action.
   FIND BEST rule to search for defaults when searching C/N/V or N/V
   module layouts.  A site can force FIND_FIRST for C/N/V or N/V module
   layouts to match the FIND_FIRST rule for N/V/V module layout.  See
-  :ref:`NVV_label` for more details.
+  :ref:`NVV-label` for more details.
 
 **LMOD_TMOD_PATH_RULE**:
   [yes/no, default: no, --with-tmodPathRule].  Normally Lmod

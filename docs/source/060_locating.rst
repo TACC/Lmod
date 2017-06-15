@@ -44,9 +44,9 @@ typically used as a meta-module: a module that loads other modules.
 N/V: Picking modules when there are multiple directories in MODULEPATH
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The follow rules apply when the module layout is either Name/Version (NV)
-or Category/Name/Version (CNV).  The rules are a little different for
-Name/Version/Version (NVV) as described in the section below.  When
+The follow rules apply when the module layout is either Name/Version (N/V)
+or Category/Name/Version (C/N/V).  The rules are a little different for
+Name/Version/Version (N/V/V) as described in the section below.  When
 there are multiple directories specified in MODULEPATH, the rules get
 more complicated on what modulefile to load. Lmod uses the following
 rules to locate a modulefile:
@@ -154,7 +154,7 @@ that the following versions are sorted from lowest to highest::
  2.4.0.0.1
      2.4.1
 
-.. _NVV_label:
+.. _NVV-label:
 
 NVV: Picking modules when there are multiple directories in MODULEPATH
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -254,6 +254,10 @@ default in ``A`` where as it is not in ``B``.  Does that mean that
 ``foo/64/2`` is "higher" that ``foo/64/4`` or not.  There is no clear
 reason to pick one over the other so Lmod has chosen ``Find First``
 for NVV module layouts.
+
+For sites that are mixing N/V and N/V/V module layouts they may wish
+to change Lmod to use the find first rule. See :ref:`env_vars-label`
+
 
 Autoswapping Rules
 ~~~~~~~~~~~~~~~~~~

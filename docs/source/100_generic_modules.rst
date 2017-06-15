@@ -80,7 +80,7 @@ of the package no matter where it is, as long as the relation between
 apps directories and modulefiles is consistent.
 
 Creating modules like this can be complicated. See
-:ref:`debugging_modulefiles_label` for helpful tips.
+:ref:`debugging_modulefiles-label` for helpful tips.
 
 
 Generic Modules with the Hierarchy
@@ -168,7 +168,7 @@ converts the `gcc/4.8` into `gcc-4_8`.  This makes the `base` variable
 be: `/apps/gcc-4_8/boost/1.55.0`.
 
 Creating modules like this can be complicated. See
-:ref:`debugging_modulefiles_label` for helpful tips.
+:ref:`debugging_modulefiles-label` for helpful tips.
 
 A proposed directory structure of /apps/mfiles/Compiler would be::
 
