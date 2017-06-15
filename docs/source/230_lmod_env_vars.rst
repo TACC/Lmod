@@ -164,6 +164,13 @@ the configuration option which will set the action.
   to help with module tracking.  See contrib/tracking_modules_usage/*
   for details.
 
+**LMOD_TMOD_FIND_FIRST**:
+  [yes/no, default: no, --with-tmodFindFirst].  Normally Lmod uses the
+  FIND BEST rule to search for defaults when searching C/N/V or N/V
+  module layouts.  A site can force FIND_FIRST for C/N/V or N/V module
+  layouts to match the FIND_FIRST rule for N/V/V module layout.  See
+  :ref:`NVV_label` for more details.
+
 **LMOD_TMOD_PATH_RULE**:
   [yes/no, default: no, --with-tmodPathRule].  Normally Lmod
   prepend/appends  a directory in the beginning/end of the path like

@@ -154,6 +154,8 @@ that the following versions are sorted from lowest to highest::
  2.4.0.0.1
      2.4.1
 
+.. _NVV_label:
+
 NVV: Picking modules when there are multiple directories in MODULEPATH
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
