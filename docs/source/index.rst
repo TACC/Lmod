@@ -101,6 +101,7 @@ Advanced Topics
    220_tracing
    230_lmod_env_vars
    240_sticky_modules
+   250_site_package
 
 Topics yet to be written
 ^^^^^^^^^^^^^^^^^^^^^^^^
