@@ -32,3 +32,5 @@ Lmod 7.4+
     (7.4.21) Added feature that LMOD_TMOD_FIND_FIRST.  A site can decide to force
              FIND_FIRST instead FIND_BEST for NV module layouts.
              Fix bug where setting ignore_cache would still allow the spiderT cachefile to be written.
+    (7.4.22) Fix the setting of ignore_cache correctly that broke things with 7.4.21
+    
