@@ -114,6 +114,7 @@ B) Now with version 5.+ of Lmod, it is now very important that sites with large
             ^D
 
          Please modify the top three environment variables to match your site.
+         Then you will have to add createSystemCache.sh to your crontab.
 
 
       4) There are two ways to specify how cache directories and timestep files are
