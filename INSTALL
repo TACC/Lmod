@@ -111,7 +111,7 @@ B) Now with version 5.+ of Lmod, it is now very important that sites with large
             MODULEPATH=<Your site's default MODULEPATH>
 
             $LMOD_DIR/update_lmod_system_cache_files -t $CACHE_LOCATION/system.txt -d $CACHE_LOCATION/cacheDir $MODULEPATH
-            ^D         
+            ^D
 
          Please modify the top three environment variables to match your site.
 
@@ -126,7 +126,7 @@ B) Now with version 5.+ of Lmod, it is now very important that sites with large
              cacheDir1:timestamp1
              cacheDir2:timestamp2
 
-         lines starting with '#' and blank lines are ignored.  
+         lines starting with '#' and blank lines are ignored.
 
 
 

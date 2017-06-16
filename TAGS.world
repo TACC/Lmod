@@ -192,25 +192,25 @@ _ml_dist:_ml_dist373,16883
 test:test382,17282
 tags:tags385,17320
 build_tags:build_tags388,17357
-busted:busted447,20912
-luachk:luachk450,21033
-libexec:libexec454,21199
-Inst_Tools:Inst_Tools457,21285
-Inst_Shells:Inst_Shells460,21371
-Inst_Settarg:Inst_Settarg463,21470
-Inst_Lmod_MF:Inst_Lmod_MF467,21567
-clean:clean470,21663
-clobber:clobber475,21844
-distclean:distclean477,21860
-world_update:world_update480,21910
-            echo "All files not checked in echo "All files not checked in483,22087
-            echo "configure is out of date echo "configure is out of date485,22250
-gittag:gittag495,22954
-            echo "configure is out of date echo "configure is out of date501,23313
-            echo '   local s echo '   local s507,23800
-            echo '   if (s echo '   if (s508,23887
-            echo '   if (s echo '   if (s509,23974
-            echo '  local a echo '  local a514,24395
+busted:busted448,20972
+luachk:luachk451,21093
+libexec:libexec455,21259
+Inst_Tools:Inst_Tools458,21345
+Inst_Shells:Inst_Shells461,21431
+Inst_Settarg:Inst_Settarg464,21530
+Inst_Lmod_MF:Inst_Lmod_MF468,21627
+clean:clean471,21723
+clobber:clobber476,21904
+distclean:distclean478,21920
+world_update:world_update481,21970
+            echo "All files not checked in echo "All files not checked in484,22147
+            echo "configure is out of date echo "configure is out of date486,22310
+gittag:gittag496,23014
+            echo "configure is out of date echo "configure is out of date502,23373
+            echo '   local s echo '   local s508,23860
+            echo '   if (s echo '   if (s509,23947
+            echo '   if (s echo '   if (s510,24034
+            echo '  local a echo '  local a515,24455
 
 README.new,92
     (7.4.1)  Added -T,T2,10
@@ -653,8 +653,8 @@ Lua Modulefile Functions4,38
 
 docs/source/060_locating.rst,139
 How Lmod Picks which Modulefiles to Load3,23
-    $ module purge; module load intel boost;275,9632
-    $ module swap intel gcc;297,10205
+    $ module purge; module load intel boost;275,9689
+    $ module swap intel gcc;297,10262
 
 docs/source/070_standard_modules.rst,240
        export __Init_Default_Modules=18,724
@@ -730,10 +730,16 @@ Tracing Lmod3,14
      } Time 46,1532
 
 docs/source/230_lmod_env_vars.rst,163
-Controlling Lmod behavior through Environment Variables2,20
-is lowercased first,24,991
-is lowercased first, so NO,24,991
-is lowercased first, so NO, No,24,991
+Controlling Lmod behavior through Environment Variables3,21
+is lowercased first,25,992
+is lowercased first, so NO,25,992
+is lowercased first, so NO, No,25,992
+
+docs/source/240_sticky_modules.rst,20
+Sticky Modules3,27
+
+docs/source/250_site_package.rst,51
+Modify Lmod behavior with SitePackage.lualua3,19
 
 docs/source/index.rst,42
 Lmod: A New Environment Module System2,1
@@ -1198,44 +1204,6 @@ all:all7,128
 clean:clean9,143
 clobber:clobber13,226
 
-my_docs/17/TACC_sysadmin_17/beamercolorthemeTACC.sty,556
-\definecolor{inecolor22,886
-\definecolor{inecolor23,952
-\definecolor{inecolor24,1017
-\definecolor{inecolor27,1098
-\definecolor{inecolor28,1172
-\definecolor{inecolor29,1249
-\definecolor{inecolor32,1360
-\definecolor{inecolor33,1433
-\definecolor{inecolor34,1508
-\definecolor{inecolor37,1600
-\definecolor{inecolor38,1672
-\definecolor{inecolor39,1735
-\definecolor{inecolor42,1854
-\definecolor{inecolor43,1924
-\definecolor{inecolor44,1998
-\definecolor{inecolor46,2074
-\definecolor{inecolor47,2146
-\definecolor{inecolor48,2222
-
-my_docs/17/TACC_sysadmin_17/beamercolorthemeTACC16.sty,120
-\definecolor{inecolor13,281
-\definecolor{inecolor14,319
-\definecolor{inecolor15,361
-\definecolor{inecolor16,404
-
-my_docs/17/TACC_sysadmin_17/beamerthemeTACC.sty,182
-\newcommand{\event}\event20,317
-  \def\TACC@eventname{\TACC@eventname22,359
-\newcommand{\sectionframe}\sectionframe25,403
-\newcommand{\subsectionframe}\subsectionframe26,472
-
-my_docs/17/TACC_sysadmin_17/beamerthemeTACC16.sty,186
-\newcommand{\event}\event55,1366
-  \def\TACC@eventname{\TACC@eventname57,1408
-\newcommand{\sectionframe}\sectionframe60,1452
-\newcommand{\subsectionframe}\subsectionframe61,1521
-
 my_docs/17/TACC_sysadmin_17/example.tex,38
 \section{First Section} First24,501
 
@@ -1293,44 +1261,6 @@ TEX_SUFS 2,21
 all:all7,128
 clean:clean9,143
 clobber:clobber13,226
-
-my_docs/17/hpckp_17/beamercolorthemeTACC.sty,556
-\definecolor{inecolor22,886
-\definecolor{inecolor23,952
-\definecolor{inecolor24,1017
-\definecolor{inecolor27,1098
-\definecolor{inecolor28,1172
-\definecolor{inecolor29,1249
-\definecolor{inecolor32,1360
-\definecolor{inecolor33,1433
-\definecolor{inecolor34,1508
-\definecolor{inecolor37,1600
-\definecolor{inecolor38,1672
-\definecolor{inecolor39,1735
-\definecolor{inecolor42,1854
-\definecolor{inecolor43,1924
-\definecolor{inecolor44,1998
-\definecolor{inecolor46,2074
-\definecolor{inecolor47,2146
-\definecolor{inecolor48,2222
-
-my_docs/17/hpckp_17/beamercolorthemeTACC16.sty,120
-\definecolor{inecolor13,281
-\definecolor{inecolor14,319
-\definecolor{inecolor15,361
-\definecolor{inecolor16,404
-
-my_docs/17/hpckp_17/beamerthemeTACC.sty,182
-\newcommand{\event}\event20,317
-  \def\TACC@eventname{\TACC@eventname22,359
-\newcommand{\sectionframe}\sectionframe25,403
-\newcommand{\subsectionframe}\subsectionframe26,472
-
-my_docs/17/hpckp_17/beamerthemeTACC16.sty,186
-\newcommand{\event}\event55,1366
-  \def\TACC@eventname{\TACC@eventname57,1408
-\newcommand{\sectionframe}\sectionframe60,1452
-\newcommand{\subsectionframe}\subsectionframe61,1521
 
 my_docs/17/hpckp_17/example.tex,38
 \section{First Section} First24,501
@@ -15635,18 +15565,6 @@ my_docs/17/hpckp_17/talk.tex,0
 
 my_docs/17/hpckp_17/talk.org,0
 
-my_docs/17/hpckp_17/beamerouterthemeTACC16.sty,0
-
-my_docs/17/hpckp_17/beamerouterthemeTACC.sty,0
-
-my_docs/17/hpckp_17/beamerinnerthemeTACC16.sty,0
-
-my_docs/17/hpckp_17/beamerinnerthemeTACC.sty,0
-
-my_docs/17/hpckp_17/beamerfontthemeTACC16.sty,0
-
-my_docs/17/hpckp_17/beamerfontthemeTACC.sty,0
-
 my_docs/17/hpckp_17/HPCKP_17_Lmod_XALT.txt,0
 
 my_docs/17/crick_17/abs.txt,0
@@ -15654,18 +15572,6 @@ my_docs/17/crick_17/abs.txt,0
 my_docs/17/TACC_sysadmin_17/template.tex,0
 
 my_docs/17/TACC_sysadmin_17/talk.tex,0
-
-my_docs/17/TACC_sysadmin_17/beamerouterthemeTACC16.sty,0
-
-my_docs/17/TACC_sysadmin_17/beamerouterthemeTACC.sty,0
-
-my_docs/17/TACC_sysadmin_17/beamerinnerthemeTACC16.sty,0
-
-my_docs/17/TACC_sysadmin_17/beamerinnerthemeTACC.sty,0
-
-my_docs/17/TACC_sysadmin_17/beamerfontthemeTACC16.sty,0
-
-my_docs/17/TACC_sysadmin_17/beamerfontthemeTACC.sty,0
 
 my_docs/16/sc16_bof/talk.org,0
 

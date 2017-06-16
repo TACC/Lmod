@@ -413,6 +413,7 @@ build_tags:
 	    -e 's|.*\.pyo$$||g'                                  \
 	    -e 's|.*\.snm$$||g'                                  \
 	    -e 's|.*\.toc$$||g'                                  \
+	    -e 's|.*\.sty$$||g'                                  \
 	    -e 's|.*\.vrb$$||g'                                  \
 	    -e 's|.*\.key$$||g'                                  \
             -e 's|^#.*||g'                                       \
