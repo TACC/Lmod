@@ -33,9 +33,31 @@ release at sourceforge.
 
 Features:
 
-   1. Added -T, --trace option to report restore, load and unloads.
+   1. Added -T, --trace option to report restore, load, unloads and spider.
 
-   2. 
+   2. Report both global and version aliases with module --terse
+      Add Global Aliases output to module avail if they exist.
+
+   3. Support for isVisibleHook (Thanks @wpoely86!) to control whether
+      a module is hidden or not.
+
+   4. Support for "spider -o spider-json" to set the key "hidden"
+      to true or false for each module.
+
+   5. Setting LMOD_EXACT_MATCH=yes also turns off the display of (D) with avail.
+
+   6. CMake "shell" added.
+
+   7. Added feature that LMOD_TMOD_FIND_FIRST.  A site can decide to force
+      FIND_FIRST instead FIND_BEST for NV module layouts.
+
+Bug Fixes:
+
+   1. Fix bug where Lmod would be unable to load a module where NV and
+      NVV module layouts were mixed.
+
+   2. Fix bug where LMOD_CASE_INDEPENDENT_SORTING=yes wasn't case
+      independent when using avail hook.
 
 ### Lmod 7.4:
 
