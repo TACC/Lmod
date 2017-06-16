@@ -102,6 +102,7 @@ Advanced Topics
    230_lmod_env_vars
    240_sticky_modules
    250_site_package
+   260_sh_to_modulefile
 
 Topics yet to be written
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -111,7 +112,6 @@ Topics yet to be written
 #. Advanced Topics: priority path, .modulerc tricks
 #. settarg
 #. tracking module usage
-#. converting shell scripts into modulefiles
 #. module command and a parallel a file system.
 #. inherit
 #. internal structure of lmod.
