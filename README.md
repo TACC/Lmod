@@ -29,6 +29,14 @@ release at sourceforge.
 
 ## ChangeLog
 
+### Lmod 7.5:
+
+Features:
+
+   1. Added -T, --trace option to report restore, load and unloads.
+
+   2. 
+
 ### Lmod 7.4:
 
 Features:
