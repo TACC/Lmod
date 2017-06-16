@@ -79,5 +79,9 @@ function MF_TCL.append_path(self, k, v)
    return "append-path ".. k .. " {" .. v .. "};"
 end
 
+function MF_TCL.header()
+   return "#%Module"
+end
+
 return MF_TCL
 
