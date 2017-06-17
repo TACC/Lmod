@@ -234,7 +234,7 @@ function M.singleton(self, usage)
    cmdlineParser:add_option{
       name   = {"-r","--regexp"},
       dest   = "regexp",
-      action = "store_true",
+      action = "store",
       help   = i18n("rexp_hlp"),
    }
 
