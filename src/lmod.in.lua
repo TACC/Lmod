@@ -170,9 +170,9 @@ function Usage()
    a[#a+1] = { i18n("srch0") }
    a[#a+1] = { "  "}
    a[#a+1] = { "" }
-   a[#a+1] = { "  spider -r ", "'^p'",  i18n("srch1") }
-   a[#a+1] = { "  spider -r ", "mpi",   i18n("srch2") }
-   a[#a+1] = { "  spider -r ", "'mpi$", i18n("srch3") }
+   a[#a+1] = { "  -r spider ", "'^p'",  i18n("srch1") }
+   a[#a+1] = { "  -r spider ", "mpi",   i18n("srch2") }
+   a[#a+1] = { "  -r spider ", "'mpi$", i18n("srch3") }
    a[#a+1] = { "" }
    a[#a+1] = { i18n("collctn_title") }
    a[#a+1] = { "  save | s",    "",         i18n("collctn1") }    

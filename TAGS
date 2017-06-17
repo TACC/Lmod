@@ -212,10 +212,6 @@ gittag:gittag496,23014
             echo '   if (s echo '   if (s510,24034
             echo '  local a echo '  local a515,24455
 
-README.new,92
-    (7.4.1)  Added -T,T2,10
-    (7.4.1)  Added -T, --trace option to report restore,2,10
-
 README.old,518
    b) Thanks to Kenneth Hoste,6,70
    b) Thanks to Kenneth Hoste, a parameterized script,6,70
@@ -1601,12 +1597,12 @@ function M.unsetShellFunction(unsetShellFunction579,17828
 src/Version.lua,196
 function M.tag(2,11
 function M.tag(tag2,11
-function M.git(3,51
-function M.git(git3,51
-function M.date(9,199
-function M.date(date9,199
-function M.name(10,254
-function M.name(name10,254
+function M.git(3,48
+function M.git(git3,48
+function M.date(9,196
+function M.date(date9,196
+function M.name(10,251
+function M.name(name10,251
 
 src/addto.in.lua,212
 function cmdDir(94,3116
@@ -1782,17 +1778,17 @@ local function run5_2(258,10351
 src/sh_to_modulefile.in.lua,376
 function cmdDir(109,4071
 function programName(113,4112
-function capture(168,5781
-function masterTbl(223,7251
-function wrtEnv(227,7296
-function splice(241,7593
-function path_regularize(253,7752
-function path2pathA(265,8075
-local function cleanPath(281,8342
-function indexPath(334,9475
-function cleanEnv(390,10509
-function main(405,10784
-function options(476,12440
+function capture(205,5933
+function masterTbl(260,7403
+function wrtEnv(264,7448
+function splice(278,7745
+function path_regularize(290,7904
+function path2pathA(302,8227
+local function cleanPath(318,8494
+function indexPath(371,9627
+function cleanEnv(427,10661
+function main(442,10936
+function options(513,12592
 
 src/spider.in.lua,867
 function cmdDir(81,2888
@@ -2024,13 +2020,15 @@ function M.flush(flush441,12091
 function M._printT(445,12136
 function M._printT(_printT445,12136
 
-tools/MF_Base.lua,177
+tools/MF_Base.lua,240
 function M.name(54,2168
 function M.name(name54,2168
 function M.build(63,2421
 function M.build(build63,2421
 function M.process(83,3083
 function M.process(process83,3083
+function M.header(129,4472
+function M.header(header129,4472
 
 tools/MF_Lua.lua,252
 function MF_Lmod.setenv(54,2234
@@ -2040,13 +2038,15 @@ function MF_Lmod.prepend_path(prepend_path64,2548
 function MF_Lmod.append_path(74,2873
 function MF_Lmod.append_path(append_path74,2873
 
-tools/MF_TCL.lua,246
+tools/MF_TCL.lua,317
 function MF_TCL.setenv(59,2444
 function MF_TCL.setenv(setenv59,2444
 function MF_TCL.prepend_path(68,2717
 function MF_TCL.prepend_path(prepend_path68,2717
 function MF_TCL.append_path(78,3002
 function MF_TCL.append_path(append_path78,3002
+function MF_TCL.header(82,3097
+function MF_TCL.header(header82,3097
 
 tools/Optiks.lua,1385
 local function argsPack(33,1446
@@ -2347,6 +2347,8 @@ init/lmodrc.lua,0
 aclocal.m4,0
 
 Transition_to_Lmod7.txt,0
+
+README.new,0
 
 README.md,0
 
