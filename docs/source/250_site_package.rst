@@ -4,17 +4,87 @@ Modify Lmod behavior with SitePackage.lua
 =========================================
 
 Lmod provides a standard way for sites to modify its behavior. This
-file is called SitePackage.lua.
+file is called SitePackage.lua.  Anything in this file will
+automatically be loaded every time the Lmod command is run.  Here are
+two suggestions on how to use your SitePackage.lua file  
 
-Here are some notes on what should be discussed here:
+#. Install Lmod normally and then overwrite your SitePackage.lua file over
+   this one in the install directory.
+#. Create a file named "SitePackage.lua" in a different directory separate
+   from the Lmod installed directory.  Then you should modify
+   your z01_lmod.sh and z01_lmod.csh (or however you initialize the
+   "module" command) with:
 
-#. Here is where you can have a function that all your modules can
-   call.  Note that these are for lua modulefiles.  If you have TCL
-   module files, you'll have to modify tcl2lua.tcl to a TCL function
-   into lua.
-#. Functions must be registered.  Modulefiles are evaluated in a
-   "sandbox". Modules can only execute functions that are registered.
+      (for bash, zsh, etc)
+      export LMOD_PACKAGE_PATH=/path/to/the/Site/Directory
 
-#. Here is where to add hook functions.
-#. See contrib/tracking_module_usage/README to track your sites module
-   usage.
+      (for csh)
+      setenv LMOD_PACKAGE_PATH /path/to/the/Site/Directory
+
+   A "SitePackage.lua" in that directory will override the one in the Lmod
+   install directory.
+
+
+You should check to see that Lmod finds your SitePackage.lua.  If you do::
+ 
+    $ module --config
+ 
+and it reports::
+ 
+    Modules based on Lua: Version X.Y.Z  3027-02-05 16:31
+        by Robert McLay mclay@tacc.utexas.edu
+ 
+    Description                      Value
+    -----------                      -----
+    ...
+    Site Pkg location                standard
+
+Then you haven't set things up correctly.
+
+Possible functions for your SitePackage.lua file
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+There are two common reason a site might setup this file. The main
+reason is to specify hook functions.  If your site wishes to track
+module usage, you can use the load hook to have a message sent to
+syslog.  The details are in contrib/track_module_usage/README.  
+
+The second reason is to provide common functions that all your
+modulefiles can use.  These functions must be registered.  To prevent
+modulefiles from calling arbitrary functions all modulefiles are
+evaluated in a "sandbox" which limits the functions that are called.
+
+The following SitePackage.lua file is a simple example of how to
+implement a function.  In this case, we are going to provide a simple
+prepend to the MODULEPATH that can be called by any modulefile.
+Suppose your site is wants to use MODULEPATH_ROOT as the top level
+directory and all modulepath entry are subdirectories of it.  You
+could create a ``prependModulePath()`` function to simplify your
+modulefiles. 
+
+Here is the SitePackage.lua file::
+
+   require("sandbox")
+
+   function prependModulePath(subdir)
+      local mroot = os.getenv("MODULEPATH_ROOT")
+      local mdir  = pathJoin(mroot, subdir)
+      prepend_path("MODULEPATH", mdir)
+   end
+
+   sandbox_registration{ prependModulePath    = prependModulePath, }
+
+Then in your lua modulefiles you can use it to extend MODULEPATH::
+
+   -- gcc modulefile:
+   local version = "7.1"
+   prependModulePath(pathJoin("Compiler/gcc/",version))
+
+Note that if you wish to use any function defined in SitePackage.lua
+in a TCL modulefile, you will need to modify tcl2lua.tcl to know about
+these functions. You'll also have to merge your changes to tcl2lua.tcl
+into any new version of Lmod.
+
+There is no need to modify tcl2lua.tcl if you only add hook functions.
+
+
