@@ -319,6 +319,10 @@ as that file is always sourced:  ::
        # module load git
     endif
 
+
+User Collections
+~~~~~~~~~~~~~~~~
+
 User defined initial list of login modules:
 
 Assuming that the system administrators have installed Lmod correctly,
@@ -350,6 +354,44 @@ and restore that named collection with::
 
       $ module restore <collection_name>
 
-Finally a user can print the contents of a collection with::
+A user can print the contents of a collection with::
 
       $ module describe <collection_name>
+
+A user can list the collections they have with::
+
+      $ module savelist
+
+Finally a user can disable a collection with::
+
+      $ module unsave <collection_name>
+
+If no ``collection_name`` is given then the default is disabled.  Note
+that the collection is not remove just renamed.  If a user disables
+the foo collection, the file foo is renamed to foo~.  To restore foo,
+a user will have to do the following::
+
+      $ cd ~/.lmod.d; mv foo~ foo
+
+User Collections on shared home file systems
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If your site has a shared home file system, then things become a
+little more complicated.  A shared home file system means that your
+site has a single home file system shared between two or more
+clusters.  See :ref:`shared_home_file_system` for a system
+administrators point of view.
+
+If you have a collection on one cluster it needs to be independent of
+another cluster.  Your site should set $LMOD_SYSTEM_NAME uniquely for
+each cluster.  Suppose you have cluster A and B.  Then
+$LMOD_SYSTEM_NAME will be either A or B.  A default collection will
+be named "default.A" for the A cluster and "default.B" for the B
+cluster.  The names a user sees will have the extension removed.  In
+other words on the A cluster a user would see::
+
+    $ module savelist
+
+      1) default
+
+where the default file is named "default.A".

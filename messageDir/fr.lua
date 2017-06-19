@@ -151,6 +151,7 @@ L'environnement par défaut ne contient aucun module
      --------------------------------------------------------------------------
      m_Activate_Modules    = "\nChargement des modules :\n",
      m_Additional_Variants = "\n    Des variantes additionnelles de ce module peuvent être chargées après le chargement des modules suivants :\n",
+     m_Collection_disable  = nil,
      m_Depend_Mods         = "\n    Vous devrez charger tous les modules de l'un des lignes suivantes avant de pouvoir charger le module \"%{fullName}\".\n",
      m_Description         = "    Description:\n%{descript}\n\n",
      m_Direct_Load         = "\n    Ce module peut être chargé directement : module load %{fullName}\n",
@@ -298,6 +299,7 @@ pour vérifier si les modules sont disponibles avec l'un des compilateurs ou imp
      collctn6      = "Restaure les modules à l'état par défaut du système.",                                 
      collctn7      = "Affiche la liste des collections sauvegardées.",
      collctn8      = "Décrit le contenu d'une collection.",
+     collctn9      = nil,
 
      depr_title    = "Sous-commandes désuètes :\n" ..
                      "-------------------------",

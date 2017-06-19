@@ -194,6 +194,7 @@ function main()
       unload="unload", rm = "unload", del = "unload", delete="unload",      unuse="unuse",
       update="update",
       use="use",
+      unsave="unsave",
       whatis="whatis",
    }
    local grab     = 0

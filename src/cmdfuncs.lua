@@ -849,6 +849,29 @@ function TableList()
 end
 
 --------------------------------------------------------------------------
+-- Unsave a collection
+function Unsave(...)
+   local shell = _G.Shell
+   local path  = pathJoin(os.getenv("HOME"), LMODdir)
+   local arg   = pack(...)
+   local sname = (not system_name) and "" or "." .. system_name
+
+   if (arg.n == 0) then
+      arg[1] = "default"
+      arg.n  = 1
+   end
+
+   for i = 1,arg.n do
+      local name  = arg[i]
+      local fn    = pathJoin(path,name .. sname)
+      local fnNew = fn .. "~"
+      os.rename(fn, fnNew)
+      shell:echo(i18n("m_Collection_disable",{name=name}))
+   end
+end
+   
+
+--------------------------------------------------------------------------
 --  Reload all modules.
 function Update()
    local master = Master:singleton()

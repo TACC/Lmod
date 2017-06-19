@@ -143,7 +143,7 @@ Die Standard-Module des Systems enthalten keine Module.
 ]==],
      e_Unable_2_Load       = [==[Modul konnte nicht geladen werden: "%{name}"
      %{fn}: %{message}
-]==],
+]==], --
      e_Unable_2_parse      = "Nicht einlesbar: \"%{path}\". Abbruch!\n",
      e_Unknown_Coll        = [==[Benutzer-Modulsammlung: "%{collection}" existiert nicht.
   "module savelist" zeigt mögliche Werte.
@@ -158,6 +158,7 @@ Die Standard-Module des Systems enthalten keine Module.
      --------------------------------------------------------------------------
      m_Activate_Modules    = "\nAktiviere Module:\n",
      m_Additional_Variants = "\n    Zusätzliche Varianten des Moduls können geladen werden, nachdem die folgenden Module geladen wurden:\n",
+     m_Collection_disable  = nil,
      m_Depend_Mods         = "\n    Sie müssen alle nachfolgenden Module laden bevor Sie das Modul \"%{fullName}\" laden können.\n",
      m_Description         = "    Beschreibung:\n%{descript}\n\n",
      m_Direct_Load         = "\n    Dieses Modul kann direkt geladen werden: \"module load %{fullName}\".\n",
@@ -294,6 +295,7 @@ um in allen Compilern und MPI-Implementierungen zu suchen.
      collctn6              = "Setzt die Module auf die Standard-Module des Systems zurück.",
      collctn7              = "Liste der gespeicherten Sammlungen.",
      collctn8              = "Beschreibt die Inhalte einer Modulsammlung.",
+     collctn9              = nil,
 
      depr_title            = "Veraltete Befehle:\n" ..
                              "--------------------",

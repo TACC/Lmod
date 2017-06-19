@@ -53,8 +53,8 @@ _ml()
     "keyword:search for a given keyword in modules"
     "update:reload all loaded modules"
     "mcc:module collection contents"
-    "collection:module collection contents"
-    "cc:module collection contents"
+    "describe:module collection contents"
+    "unsave:disable a module collection"
   )
 
   for i in $_ml_cmds; do
@@ -188,18 +188,17 @@ _ml_mcc()
   compadd "$@" -a -- _savelist_list
 }
 
-_ml_collection()
+_ml_describe()
 {
   _savelist_list=(${$(module -q -t --no_redirect savelist 2>&1 > /dev/null)})
   compadd "$@" -a -- _savelist_list
 }
 
-_ml_cc()
+_ml_unsave()
 {
   _savelist_list=(${$(module -q -t --no_redirect savelist 2>&1 > /dev/null)})
   compadd "$@" -a -- _savelist_list
 }
-
 
 _ml_help()
 {

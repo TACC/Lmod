@@ -90,7 +90,7 @@ Por favor, envíe un ticket si necesita más ayuda.
    $ module swap %{oldFullName} %{newFullName}
 
 Además, puede configurar la variable de entorno LMOD_DISABLE_SAME_NAME_AUTOSWAP con el valor "no"  para habilitar al intercambio automático de módulos con el mismo nombre.
-]==],
+]==], -- 
      e_No_Hashsum          = "Imposible encontrar un programa HashSum (sha1sum, shasum, md5sum o md5)",
      e_No_Matching_Mods    = "No se encontraron módulos que coincidan.\n",
      e_No_Mod_Entry        = "%{routine}: No se encontró la entrada al módulo: \"%{name}\". ¡Esto no debería suceder!\n",
@@ -116,6 +116,7 @@ Además, puede configurar la variable de entorno LMOD_DISABLE_SAME_NAME_AUTOSWAP
      --------------------------------------------------------------------------
      m_Activate_Modules    = nil,
      m_Additional_Variants = nil,
+     m_Collection_disable  = nil,
      m_Depend_Mods         = nil,
      m_Description         = nil,
      m_Direct_Load         = nil,
@@ -215,6 +216,7 @@ No ha habido ningún cambio en los módulos cargados
      collctn6              = nil,
      collctn7              = nil,
      collctn8              = nil,
+     collctn9              = nil,
 
      depr_title            = nil,
      depr1                 = nil,

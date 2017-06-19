@@ -152,6 +152,7 @@ The system default contains no modules
      --------------------------------------------------------------------------
      m_Activate_Modules    = "\nActivating Modules:\n",
      m_Additional_Variants = "\n    Additional variants of this module can also be loaded after loading the following modules:\n",
+     m_Collection_disable  = "Disabling %{name} collection by renaming with a \"~\"\n",
      m_Depend_Mods         = "\n    You will need to load all module(s) on any one of the lines below before the \"%{fullName}\" module is available to load.\n",
      m_Description         = "    Description:\n%{descript}\n\n",
      m_Direct_Load         = "\n    This module can be loaded directly: module load %{fullName}\n",
@@ -245,7 +246,7 @@ to see if the module(s) are available across all compilers and MPI implementatio
      w_No_dot_Coll         = "It is illegal to have a `.' in a collection name.  Please choose another name for: \"%{name}\".",
      w_Save_Empty_Coll     = [==[You are trying to save an empty collection of modules in "%{name}". If this is what you want then enter:
   $  module --force save %{name}
-]==],
+]==], --
      w_System_Reserved     = "The named collection 'system' is reserved. Please choose another name.\n",
      w_Undef_MPATH         = "MODULEPATH is undefined.\n",
      w_Unknown_Hook        = "Unknown hook: %{name}\n",
@@ -300,6 +301,7 @@ to see if the module(s) are available across all compilers and MPI implementatio
      collctn6              = "Restore module state to system defaults.",                                 
      collctn7              = "List of saved collections.",
      collctn8              = "Describe the contents of a module collection.",
+     collctn9              = "Remove a collection.",
 
      depr_title            = "Deprecated commands:\n" ..
                              "--------------------",

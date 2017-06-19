@@ -75,12 +75,20 @@ _module_savelist() {
   @PKG@/libexec/lmod bash -q -t --no_redirect savelist 2>&1 >/dev/null
 }
 
+_module_unsave() {
+  @PKG@/libexec/lmod bash -q -t --no_redirect savelist 2>&1 >/dev/null
+}
+
 _module_loaded_modules_negated() {
   @PKG@/libexec/lmod bash -q -t --no_redirect list 2>&1 >/dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g; s|^|-|g;'
 }
 
 _module_mcc() {
-  @PKG@/libexec/lmod bash -q -t --no_redirect collection 2>&1 >/dev/null
+  @PKG@/libexec/lmod bash -q -t --no_redirect savelist 2>&1 >/dev/null
+}
+
+_module_describe() {
+  @PKG@/libexec/lmod bash -q -t --no_redirect savelist 2>&1 >/dev/null
 }
 
 _module_not_yet_loaded() {
@@ -140,7 +148,10 @@ _module() {
     help|show|whatis)
       COMPREPLY=( $(compgen -W "$(_module_avail)" -- "${cur}") )
       ;;
-    collection|cc|mcc)
+    describe|mcc)
+      COMPREPLY=( $(compgen -W "$(_module_mcc)" -- "${cur}") )
+      ;;
+    unsave)
       COMPREPLY=( $(compgen -W "$(_module_mcc)" -- "${cur}") )
       ;;
     *)

@@ -90,6 +90,7 @@ return {
      --------------------------------------------------------------------------
      m_Activate_Modules    = nil,
      m_Additional_Variants = nil,
+     m_Collection_disable  = nil,
      m_Depend_Mods         = nil,
      m_Description         = nil,
      m_Direct_Load         = nil,
@@ -178,6 +179,7 @@ return {
      collctn6              = nil,
      collctn7              = nil,
      collctn8              = nil,
+     collctn9              = nil,
 
      depr_title            = nil,
      depr1                 = nil,
