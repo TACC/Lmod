@@ -54,7 +54,7 @@ _ml()
     "update:reload all loaded modules"
     "mcc:module collection contents"
     "describe:module collection contents"
-    "unsave:disable a module collection"
+    "disable:disable a module collection"
   )
 
   for i in $_ml_cmds; do
@@ -194,7 +194,7 @@ _ml_describe()
   compadd "$@" -a -- _savelist_list
 }
 
-_ml_unsave()
+_ml_disable()
 {
   _savelist_list=(${$(module -q -t --no_redirect savelist 2>&1 > /dev/null)})
   compadd "$@" -a -- _savelist_list

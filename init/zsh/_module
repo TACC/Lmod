@@ -47,7 +47,7 @@ _module_command()
     "keyword:search for a given keyword in modules"
     "mcc:module collection contents"
     "describe:module collection contents"
-    "unsave:disable a module collection"
+    "disable:disable a module collection"
   )
 
   if (( CURRENT == 1 )); then
@@ -97,6 +97,12 @@ _module_spider_list()
 }
 
 _module_restore()
+{
+  _savelist_list=(${$(module -q -t --no_redirect savelist 2>&1 > /dev/null)})
+  compadd "$@" -a -- _savelist_list
+}
+
+_module_disable()
 {
   _savelist_list=(${$(module -q -t --no_redirect savelist 2>&1 > /dev/null)})
   compadd "$@" -a -- _savelist_list

@@ -301,7 +301,7 @@ to see if the module(s) are available across all compilers and MPI implementatio
      collctn6              = "Restore module state to system defaults.",                                 
      collctn7              = "List of saved collections.",
      collctn8              = "Describe the contents of a module collection.",
-     collctn9              = "Remove a collection.",
+     collctn9              = "Disable a collection.",
 
      depr_title            = "Deprecated commands:\n" ..
                              "--------------------",

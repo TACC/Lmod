@@ -75,7 +75,7 @@ _module_savelist() {
   @PKG@/libexec/lmod bash -q -t --no_redirect savelist 2>&1 >/dev/null
 }
 
-_module_unsave() {
+_module_disable() {
   @PKG@/libexec/lmod bash -q -t --no_redirect savelist 2>&1 >/dev/null
 }
 
@@ -151,7 +151,7 @@ _module() {
     describe|mcc)
       COMPREPLY=( $(compgen -W "$(_module_mcc)" -- "${cur}") )
       ;;
-    unsave)
+    disable)
       COMPREPLY=( $(compgen -W "$(_module_mcc)" -- "${cur}") )
       ;;
     *)

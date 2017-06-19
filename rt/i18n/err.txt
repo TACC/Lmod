@@ -120,7 +120,7 @@ Gérer une collection de modules :
   restore             system        Restaure les modules à l'état par défaut du système.
   savelist                          Affiche la liste des collections sauvegardées.
   describe | mcc      name          Décrit le contenu d'une collection.
-  unsave              name          Remove a collection.
+  disable             name          Disable a collection.
 Sous-commandes désuètes :
   getdefault          [name]        charge la collection nommée "name" de l'usager, ou la collection par défaut si aucun nom n'est fourni.
                                     ===> Utilisez plutôt "restore"  <====

@@ -364,12 +364,12 @@ A user can list the collections they have with::
 
 Finally a user can disable a collection with::
 
-      $ module unsave <collection_name>
+      $ module disable <collection_name>
 
 If no ``collection_name`` is given then the default is disabled.  Note
 that the collection is not remove just renamed.  If a user disables
-the foo collection, the file foo is renamed to foo~.  To restore foo,
-a user will have to do the following::
+the foo collection, the file foo is renamed to foo~.  To restore the
+foo collection, a user will have to do the following::
 
       $ cd ~/.lmod.d; mv foo~ foo
 

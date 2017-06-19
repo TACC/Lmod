@@ -849,8 +849,8 @@ function TableList()
 end
 
 --------------------------------------------------------------------------
--- Unsave a collection
-function Unsave(...)
+-- Disable a collection
+function Disable(...)
    local shell = _G.Shell
    local path  = pathJoin(os.getenv("HOME"), LMODdir)
    local arg   = pack(...)

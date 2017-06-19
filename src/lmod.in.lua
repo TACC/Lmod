@@ -183,7 +183,7 @@ function Usage()
    a[#a+1] = { "  restore",     "system",   i18n("collctn6") } 
    a[#a+1] = { "  savelist",    "",         i18n("collctn7") } 
    a[#a+1] = { "  describe | mcc",  "name", i18n("collctn8") }   
-   a[#a+1] = { "  unsave",          "name", i18n("collctn9") }   
+   a[#a+1] = { "  disable",         "name", i18n("collctn9") }   
    a[#a+1] = { "" }
    a[#a+1] = { i18n("depr_title") }
    a[#a+1] = { "  getdefault", "[name]", i18n("depr1") }
@@ -261,7 +261,7 @@ function main()
    local unuseTbl     = { name = "unuse",       checkMPATH = true,  cmd = UnUse         }
    local updateTbl    = { name = "update",      checkMPATH = true,  cmd = Update        }
    local useTbl       = { name = "use",         checkMPATH = true,  cmd = Use           }
-   local unsaveTbl    = { name = "unsave",      checkMPATH = false, cmd = Unsave        }
+   local disableTbl   = { name = "disable",     checkMPATH = false, cmd = Disable       }
    local whatisTbl    = { name = "whatis",      checkMPATH = false, cmd = Whatis        }
 
    local lmodCmdA = {
@@ -271,6 +271,7 @@ function main()
       {'^del'     , unloadTbl     },
       {'^des'     , mcTbl         },
       {'^dis'     , showTbl       },
+      {'^disable' , disableTbl    },
       {'^era'     , unloadTbl     },
       {'^gd'      , gdTbl         },
       {'^getd'    , gdTbl         },
@@ -300,7 +301,6 @@ function main()
       {'^table'   , tblLstTbl     },
       {'^try'     , tryAddTbl     },
       {'^unuse$'  , unuseTbl      },
-      {'^uns'     , unsaveTbl     },
       {'^unl'     , unloadTbl     },
       {'^up'      , updateTbl     },
       {'^use$'    , useTbl        },

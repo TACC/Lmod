@@ -171,6 +171,7 @@ function main()
    local lmodCmdT = {
       avail="avail",  av="avail", available="avail",
       describe="describe", mcc="describe",
+      disable="disable",
       getdefault="getdefault", gd="getdefault",
       help="help",
       key="keyword", keyword="keyword",
@@ -194,7 +195,6 @@ function main()
       unload="unload", rm = "unload", del = "unload", delete="unload",      unuse="unuse",
       update="update",
       use="use",
-      unsave="unsave",
       whatis="whatis",
    }
    local grab     = 0

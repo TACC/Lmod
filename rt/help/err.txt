@@ -78,7 +78,7 @@ Handling a collection of modules:
   restore             system        Restore module state to system defaults.
   savelist                          List of saved collections.
   describe | mcc      name          Describe the contents of a module collection.
-  unsave              name          Remove a collection.
+  disable             name          Disable a collection.
 Deprecated commands:
   getdefault          [name]        load name collection of modules or user's "default" if no name given.
                                     ===> Use "restore" instead  <====
@@ -173,7 +173,7 @@ Handling a collection of modules:
   restore             system        Restore module state to system defaults.
   savelist                          List of saved collections.
   describe | mcc      name          Describe the contents of a module collection.
-  unsave              name          Remove a collection.
+  disable             name          Disable a collection.
 Deprecated commands:
   getdefault          [name]        load name collection of modules or user's "default" if no name given.
                                     ===> Use "restore" instead  <====
