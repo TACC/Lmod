@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.4.20  2017-06-09 09:40 +01:00
+Modules based on Lua: Version 7.5.1  2017-06-19 15:49 +02:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -66,9 +66,9 @@ Listing / Searching sub-commands:
   keyword | key       string        Search all name and whatis that contain "string".
 Searching with Lmod:
   All searching (spider, list, avail, keyword) support regular expressions:
-  spider -r           '^p'          Finds all the modules that start with `p' or `P'
-  spider -r           mpi           Finds all modules that have "mpi" in their name.
-  spider -r           'mpi$         Finds all modules that end with "mpi" in their name.
+  -r spider           '^p'          Finds all the modules that start with `p' or `P'
+  -r spider           mpi           Finds all modules that have "mpi" in their name.
+  -r spider           'mpi$         Finds all modules that end with "mpi" in their name.
 Handling a collection of modules:
   save | s                          Save the current list of modules to a user defined "default" collection.
   save | s            name          Save the current list of modules to "name" collection.
@@ -78,6 +78,7 @@ Handling a collection of modules:
   restore             system        Restore module state to system defaults.
   savelist                          List of saved collections.
   describe | mcc      name          Describe the contents of a module collection.
+  unsave              name          Remove a collection.
 Deprecated commands:
   getdefault          [name]        load name collection of modules or user's "default" if no name given.
                                     ===> Use "restore" instead  <====
@@ -96,7 +97,7 @@ Lmod Web Sites
   Sourceforge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 7.4.20  2017-06-09 09:40 +01:00
+Modules based on Lua: Version 7.5.1  2017-06-19 15:49 +02:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -160,9 +161,9 @@ Listing / Searching sub-commands:
   keyword | key       string        Search all name and whatis that contain "string".
 Searching with Lmod:
   All searching (spider, list, avail, keyword) support regular expressions:
-  spider -r           '^p'          Finds all the modules that start with `p' or `P'
-  spider -r           mpi           Finds all modules that have "mpi" in their name.
-  spider -r           'mpi$         Finds all modules that end with "mpi" in their name.
+  -r spider           '^p'          Finds all the modules that start with `p' or `P'
+  -r spider           mpi           Finds all modules that have "mpi" in their name.
+  -r spider           'mpi$         Finds all modules that end with "mpi" in their name.
 Handling a collection of modules:
   save | s                          Save the current list of modules to a user defined "default" collection.
   save | s            name          Save the current list of modules to "name" collection.
@@ -172,6 +173,7 @@ Handling a collection of modules:
   restore             system        Restore module state to system defaults.
   savelist                          List of saved collections.
   describe | mcc      name          Describe the contents of a module collection.
+  unsave              name          Remove a collection.
 Deprecated commands:
   getdefault          [name]        load name collection of modules or user's "default" if no name given.
                                     ===> Use "restore" instead  <====
@@ -190,7 +192,7 @@ Lmod Web Sites
   Sourceforge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 7.4.20  2017-06-09 09:40 +01:00
+Modules based on Lua: Version 7.5.1  2017-06-19 15:49 +02:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -210,7 +212,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --config
 ===========================
-Modules based on Lua: Version 7.4.20  2017-06-09 09:40 +01:00
+Modules based on Lua: Version 7.5.1  2017-06-19 15:49 +02:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                      Value
 Allow TCL modulefiles            yes

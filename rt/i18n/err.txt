@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.4  2017-03-20 16:49 -05:00
+Modules based on Lua: Version 7.5.1  2017-06-19 15:49 +02:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -108,9 +108,9 @@ Sous-commandes pour lister / chercher :
   keyword | key       string        Cherche tous les noms et descriptions ("whatis") qui contiennent "string".
 Chercher avec Lmod:
   Toutes les sous-commandes de recherche (spider, list, avail, keyword) supportent les expressions régulières :
-  spider -r           '^p'          Trouve tous les modules qui débutent par `p' or `P'
-  spider -r           mpi           Trouve tous les modules qui ont "mpi" dans leur nom.
-  spider -r           'mpi$         Trouve tous les modules dont le nom se termine par "mpi".
+  -r spider           '^p'          Trouve tous les modules qui débutent par `p' or `P'
+  -r spider           mpi           Trouve tous les modules qui ont "mpi" dans leur nom.
+  -r spider           'mpi$         Trouve tous les modules dont le nom se termine par "mpi".
 Gérer une collection de modules :
   save | s                          Sauvegarde la liste actuelle de modules vers une collection "default" définie par l'usage.
   save | s            name          Sauvegarde la liste actuelle de modules vers une collection nommée "name".
@@ -120,6 +120,7 @@ Gérer une collection de modules :
   restore             system        Restaure les modules à l'état par défaut du système.
   savelist                          Affiche la liste des collections sauvegardées.
   describe | mcc      name          Décrit le contenu d'une collection.
+  unsave              name          Remove a collection.
 Sous-commandes désuètes :
   getdefault          [name]        charge la collection nommée "name" de l'usager, ou la collection par défaut si aucun nom n'est fourni.
                                     ===> Utilisez plutôt "restore"  <====
@@ -138,5 +139,5 @@ Sites web de Lmod
   Sourceforge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   Pour rapporter un bogue, veuillez lire http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 7.4  2017-03-20 16:49 -05:00
+Modules based on Lua: Version 7.5.1  2017-06-19 15:49 +02:00
     by Robert McLay mclay@tacc.utexas.edu
