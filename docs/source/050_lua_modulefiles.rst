@@ -94,7 +94,12 @@ The entries below describe several useful commands that come with Lmod that can 
     otherwise ``foo`` will have the value of ``nil``.
 
 **capture** ("string"):
-    Run the "string" as a command and capture the output.
+    Run the "string" as a command and capture the output.  This
+    function uses the value of LD_PRELOAD and LD_LIBRARY_PATH found
+    when Lmod is configured. Use **subprocess** if you wish to use the
+    current values.
+**subprocess**("string")
+    Run the "string" as a command and capture the output.  
 **isFile** ("name"):
     Returns true if "name" is a file.
 **isDir** ("name"):

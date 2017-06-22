@@ -210,6 +210,7 @@ sandbox_env = {
   ------------------------------------------------------------
   -- Misc functions
   ------------------------------------------------------------
+  subprocess           = subprocess,
   capture              = capture,
   UUIDString           = UUIDString,
   execute              = execute,

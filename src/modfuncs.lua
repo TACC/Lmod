@@ -751,3 +751,14 @@ end
 
 --- Family function ---
 
+function subprocess(cmd)
+   dbg.start{"subprocess(",cmd,")"}
+   local p = io.popen(cmd)
+   if p == nil then
+      return nil
+   end
+   local ret = p:read("*all")
+   p:close()
+   return ret
+end
+   
