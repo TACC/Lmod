@@ -502,6 +502,11 @@ function main()
    varT[n]        = Var:new(n)
    varT[n]:set(mt:serializeTbl())
 
+   local vPATH = varT["PATH"]
+   if (vPATH) then
+      vPATH:prt();
+   end
+
    ExitHookA.apply()
    dbg.fini("lmod")
 

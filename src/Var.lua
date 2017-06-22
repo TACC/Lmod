@@ -431,6 +431,38 @@ function M.pop(self)
 end
 
 --------------------------------------------------------------------------
+-- This member function is here just when debugging.
+-- @param self A Var object.
+-- @param title A Descriptive title.
+function M.prt(self,title)
+   dbg.start{"Var:prt(",title,")"}
+   dbg.print{"name:  \"", self.name, "\"\n"}
+   dbg.print{"imin:  ",   self.imin, "\n"}
+   dbg.print{"imax:  ",   self.imax, "\n"}
+   local v = self.value
+   if (type(self.value) == "string") then
+      v = "\"" .. self.value .. "\""
+   end
+   dbg.print{"value: ", v, "\n"}
+   if (not self.tbl or type(self.tbl) ~= "table" or next(self.tbl) == nil) then
+      dbg.print{"tbl is empty\n"}
+      dbg.fini ("Var:prt")
+      return
+   end
+   if (dbg.active()) then
+      for k,vA in pairsByKeys(self.tbl) do
+         dbg.print{"   \"",k,"\":"}
+         for ii = 1,#vA do
+            io.stderr:write(" {",tostring(vA[ii][1]), ", ",tostring(vA[ii][2]),"} ")
+         end
+         dbg.print{"\n"}
+      end
+   end
+   dbg.print{"\n"}
+   dbg.fini ("Var:prt")
+end
+
+--------------------------------------------------------------------------
 -- Unset the environment variable.
 -- @param self A Var object
 function M.unset(self)
