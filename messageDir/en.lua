@@ -81,7 +81,7 @@ return {
      --------------------------------------------------------------------------
      e_Args_Not_Strings    = [==[Syntax error in file: %{fn}
  with command: %{cmdName}, one or more arguments are not strings.
-]==],
+]==], --
      e_Avail_No_MPATH      = "module avail is not possible. MODULEPATH is not set or not set with valid paths.\n",
      e_Conflict            = "Cannot load module \"%{name}\" because these module(s) are loaded:\n   %{module_list}\n",
      e_Execute_Msg         = [==[Syntax error in file: %{fn}
@@ -183,7 +183,7 @@ To search the contents of modules for matching words execute:
 
       $ module -r spider '.*%{name}.*'
 
-]==],
+]==], --
      m_Reload_Modules      = "\nDue to MODULEPATH changes, the following have been reloaded:\n",
      m_Reload_Version_Chng = "\nThe following have been reloaded with a version change:\n",
      m_Restore_Coll        = "Restoring modules from %{msg}\n",
