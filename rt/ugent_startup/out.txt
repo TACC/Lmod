@@ -1,0 +1,54 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+MODULEPATH="ProjectDIR/rt/ugent_startup/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/ugent_startup/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/ugent_startup/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
+===========================
+MODULEPATH="ProjectDIR/rt/ugent_startup/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/ugent_startup/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/ugent_startup/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cluster
+===========================
+LMOD_FAMILY_CLUSTER="cluster";
+export LMOD_FAMILY_CLUSTER;
+LMOD_FAMILY_CLUSTER_VERSION="delcatty";
+export LMOD_FAMILY_CLUSTER_VERSION;
+LOADEDMODULES="cluster/delcatty:cluster/.defaultcluster";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/ugent_startup/mf/Core";
+export MODULEPATH;
+PBS_DEFAULT="master15.delcatty.gent.vsc";
+export PBS_DEFAULT;
+VSC_ARCH_LOCAL="sandybridge";
+export VSC_ARCH_LOCAL;
+VSC_INSTITUTE_CLUSTER="delcatty";
+export VSC_INSTITUTE_CLUSTER;
+VSC_INSTITUTE_LOCAL="gent";
+export VSC_INSTITUTE_LOCAL;
+VSC_OS_LOCAL="CO7";
+export VSC_OS_LOCAL;
+_LMFILES_="ProjectDIR/rt/ugent_startup/mf/Core/cluster/delcatty.lua:ProjectDIR/rt/ugent_startup/mf/Core/cluster/.defaultcluster.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["cluster"]="cluster",},mT={cluster={["fn"]="ProjectDIR/rt/ugent_startup/mf/Core/cluster/delcatty.lua",["fullName"]="cluster/delcatty",["loadOrder"]=1,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="cluster/delcatty",},},mpathA={"ProjectDIR/rt/ugent_startup/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/ugent_startup/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH="ProjectDIR/rt/ugent_startup/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["cluster"]="cluster",},mT={cluster={["fn"]="ProjectDIR/rt/ugent_startup/mf/Core/cluster/delcatty.lua",["fullName"]="cluster/delcatty",["loadOrder"]=1,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="cluster/delcatty",},},mpathA={"ProjectDIR/rt/ugent_startup/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/ugent_startup/mf/Core",}';
+export _ModuleTable_;

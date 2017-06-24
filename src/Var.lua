@@ -290,10 +290,6 @@ function M.prepend(self, value, nodups, priority)
       l_extract(self)
    end
 
-   --if (dbg.active) then
-   --   dbg.print{"(1) Var.PATH: ",self}
-   --end
-
    self.type           = 'path'
    priority            = priority or 0
    local pathA         = path2pathA(value, self.sep)
@@ -549,7 +545,7 @@ function M.expand(self)
 
    -- Step 4: Remove leading and trailing ':' from PATH string
    --         Note this cleanup is only for PATH and no other
-   --         path variables.
+   --         path-like variables.
    if (self.name == 'PATH') then
       pathStr = pathStr:gsub('^:+','')
       pathStr = pathStr:gsub(':+$','')
