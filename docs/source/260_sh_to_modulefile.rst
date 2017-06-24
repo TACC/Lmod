@@ -24,7 +24,7 @@ See::
 
     % $LMOD_DIR/sh_to_modulefile  --help
 
-for all options.
+for all the options.
 
 The way it works is that remembers the initial environment and runs
 the script.  The program then compares the initial environment and
