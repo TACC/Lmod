@@ -1,7 +1,7 @@
 Lmod 7.5+
-    
    (7.5.1) Changed documentation on regex spider in help message.
    (7.5.2) Support for "module unsave <collection_name>" added.
    (7.5.3) Change unsave to disable.
    (7.5.4) Add subprocess() to run a command that doesn't modify
            LD_LIBRARY_PATH.
+   (7.5.5) A marked default honored even if it is hidden.

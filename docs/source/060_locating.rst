@@ -52,15 +52,19 @@ more complicated on what modulefile to load. Lmod uses the following
 rules to locate a modulefile:
 
 #. It looks for an exact match in all ``MODULEPATH``
-   directories. It picks the first match it finds.
+   directories. It picks the first match it finds.  This is true
+   of hidden modules.  Specifying the fullName of a module will
+   load it.
 #. If the user requested name is a full name and version, and
    there is no exact match then it stops.
 #. If the name doesn't contain a version then Lmod looks for a
-   marked default in the first directory that has one.
+   marked default in the first directory that has one. A marked
+   default which is also hidden will be loaded.
 #. Finally it looks for the "Highest" Version in all ``MODULEPATH``
    directories. If there are two or more modulefiles with the
    "Highest" version then the first one in ``MODULEPATH`` order will
-   be picked.
+   be picked.  Note that hidden modulefiles are ignored when choosing
+   the "Highest".
 #. As a side node, if there are two version files, one with a ``.lua``
    extension and one without, the lua file will be used over the other
    one. It will be like the other file is not there.
