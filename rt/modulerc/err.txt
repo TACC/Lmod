@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.4.7  2017-04-17 14:42 -05:00
+Modules based on Lua: Version 7.5.4  2017-06-22 06:08 +02:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -235,7 +235,9 @@ step 27
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) mpich/3.2-dbg   2) a/3.0
+  1) mpich/3.2-dbg   2) a/2.0 (H)
+  Where:
+   H:  Hidden Module
 ===========================
 step 28
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
@@ -243,8 +245,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 Global Aliases
    a13 -> a/13.2.345    a14 -> a/14.0.1.134
 ProjectDIR/rt/modulerc/mf4
-   a/1.0          mpich/3.1.2-dbg    mpich/3.2-dbg (L,D)
-   a/3.0 (L,D)    mpich/3.1.2
+   a/1.0    a/3.0 (D)    mpich/3.1.2-dbg    mpich/3.1.2    mpich/3.2-dbg (L,D)
   Where:
    D:  Default Module
    L:  Module is loaded
@@ -257,8 +258,8 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
 Global Aliases
    a13 -> a/13.2.345    a14 -> a/14.0.1.134
 ProjectDIR/rt/modulerc/mf4
-   a/1.0        a/3.0           (L,D)    mpich/3.1.2            mpich/3.2 (H)
-   a/2.0 (H)    mpich/3.1.2-dbg          mpich/3.2-dbg (L,D)
+   a/1.0          a/3.0           (D)    mpich/3.1.2            mpich/3.2 (H)
+   a/2.0 (H,L)    mpich/3.1.2-dbg        mpich/3.2-dbg (L,D)
   Where:
    D:  Default Module
    H:  Hidden Module
