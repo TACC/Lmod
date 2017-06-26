@@ -307,7 +307,7 @@ function M.__find_all_defaults(self)
             defaultT[sn] = {weight = " ", fullName = sn, fn = v.file, count = 1}
          elseif (next(v.fileT) ~= nil) then
             for fullName, vv in pairs(v.fileT) do
-               local vis = mrc:isVisible({fullName=fullName, sn=sn, fn=vv.fn})
+               local vis = mrc:isVisible({fullName=fullName, sn=sn, fn=vv.fn}) or isMarked(vv.wV)
                if (show_hidden or vis) then
                   count = count + 1
                   if (vis and (vv.wV > weight)) then

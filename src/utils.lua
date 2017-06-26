@@ -436,6 +436,18 @@ function isActiveMFile(mrc, full, sn, fn)
    return mrc:isVisible({fullName=full, sn=sn, fn=fn}), version
 end
 
+-----------------------------------------------------------------------
+-- This function decides if the modulefile is a marked default
+-- The rule is that a marked default is given in the first character
+-- after the '/' if there is one.  A marked default will either be
+-- '^','s' or 'u'.  All of these characters are >= '^'
+function isMarked(wV)
+   local i,j = wV:find(".*/")
+   j = j and j+1 or 1
+   local c = wV:sub(j,j)
+   return (c >= '^') 
+end
+
 --------------------------------------------------------------------------
 -- compute the length of a string and ignore any string
 -- colorization.

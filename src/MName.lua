@@ -335,18 +335,6 @@ function M.find_exact_match(self, fileA)
    return found, fn, version
 end
 
------------------------------------------------------------------------
--- This function decides if the modulefile is a marked default
--- The rule is that a marked default is given in the first character
--- after the '/' if there is one.  A marked default will either be
--- '^','s' or 'u'.  All of these characters are >= '^'
-local function isMarked(wV)
-   local i,j = wV:find(".*/")
-   j = j and j+1 or 1
-   local c = wV:sub(j,j)
-   return (c >= '^') 
-end
-
 local function find_highest_by_key(key, fileA)
    local mrc     = MRC:singleton()
    local a       = fileA[1] or {}

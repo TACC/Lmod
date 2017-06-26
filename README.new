@@ -5,3 +5,4 @@ Lmod 7.5+
    (7.5.4) Add subprocess() to run a command that doesn't modify
            LD_LIBRARY_PATH.
    (7.5.5) A marked default honored even if it is hidden.
+   (7.5.6) Handle hidden marked defaults correctly when doing ml avail.
