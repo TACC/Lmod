@@ -41,7 +41,7 @@ example::
        } Time = 0.1875
        /etc/profile.d/z00_lmod.sh{
        } Time = 0.2294
-       /etc/profile.d/z99_StdEnv.sh{
+       /etc/profile.d/z01_StdEnv.sh{
        } Time = 0.2889
      } Time = 0.2929
 
