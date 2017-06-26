@@ -410,7 +410,7 @@ load("gcc","mvapich2")
 \begin{frame}[fragile]
     \frametitle{A Standard Set of Modules (II)}
   \begin{itemize}
-    \item /etc/profile.d/z99\_StdEnv.sh
+    \item /etc/profile.d/z01\_StdEnv.sh
   {\small
     \begin{semiverbatim}
    if [ -z "\$\_\_Init\_Default\_Modules" ]; then
@@ -707,7 +707,7 @@ running: module --initial\_load restore
 \begin{frame}{How to trace Lmod startup behavior}
   \begin{itemize}
     \item How do you trace module commands in /etc/profile.d/*.sh?
-    \item Could modify /etc/profile.d/z99\_StdEnv.sh to turn on
+    \item Could modify /etc/profile.d/z01\_StdEnv.sh to turn on
       LMOD\_TRACING for a particular user. UGH!
     \item Install SHELL STARTUP DEBUG package instead
   \end{itemize}
@@ -735,7 +735,7 @@ running: module --initial\_load restore
     /etc/profile\{
       /etc/profile.d/z00\_lmod.sh\{
       \} Time = 0.0770
-      /etc/profile.d/z99\_StdEnv.sh\{
+      /etc/profile.d/z01\_StdEnv.sh\{
       \} Time = 0.2067
       /etc/bash.bashrc\{
       \} Time = 0.2338

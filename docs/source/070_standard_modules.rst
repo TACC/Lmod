@@ -12,7 +12,7 @@ login. In ``StdEnv.lua`` is something like: ::
     load("name1","name2","name3")
 
 Using the /etc/profile.d directory system described earlier to create a
-file called ``z00_StdEnv.sh`` ::
+file called ``z01_StdEnv.sh`` ::
 
     if [ -z "$__Init_Default_Modules" ]; then
        export __Init_Default_Modules=1;
@@ -25,7 +25,7 @@ file called ``z00_StdEnv.sh`` ::
        module refresh
     fi
 
-Similar for z00_StdEnv.csh::
+Similar for z01_StdEnv.csh::
 
     if ( ! $?__Init_Default_Modules )  then
       setenv __Init_Default_Modules 1
@@ -37,11 +37,11 @@ Similar for z00_StdEnv.csh::
       module refresh
     endif
 
-The z00_Stdenv.* names are chosen because the files in /etc/profile.d
+The z01_Stdenv.* names are chosen because the files in /etc/profile.d
 are sourced in alphabetical order. These names guarantee they will run
 after the module command is defined.
 
-The z00_Stdenv.sh now includes ``--no_redirect``. This option prevents
+The z01_Stdenv.sh now includes ``--no_redirect``. This option prevents
 sites that configure Lmod to write messages to stdout to write them to
 stderr instead.  This is important as any messages written to stdout
 during shell startup causes scp copies to fail.  Csh/tcsh cannot write
@@ -71,7 +71,7 @@ functions are active, all others functions are ignored.
 The above is an example of how a site might provide a default set of
 modules that a user can override with a default collection. Sites are,
 of course, free to set up Lmod any way they like. The
-minimum required setup (for bash with z00_StdEnv.sh ) would be::
+minimum required setup (for bash with z01_StdEnv.sh ) would be::
 
     if [ -z "$__Init_Default_Modules" ]; then
        export __Init_Default_Modules=1;
@@ -96,7 +96,7 @@ this is that the operating system removes LD_LIBRARY_PATH from the
 environment.  This is a security feature built into the operating
 system.
 
-A site could change z00_StdEnv.sh to have::
+A site could change z01_StdEnv.sh to have::
 
     if [ -z "$__Init_Default_Modules" -o -z "$LD_LIBRARY_PATH" ]; then
        export __Init_Default_Modules=1;
