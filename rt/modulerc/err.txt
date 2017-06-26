@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.5.4  2017-06-22 06:08 +02:00
+Modules based on Lua: Version 7.5.6  2017-06-26 18:04 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -207,7 +207,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 Global Aliases
    a13 -> a/13.2.345    a14 -> a/14.0.1.134
 ProjectDIR/rt/modulerc/mf4
-   a/1.0    a/3.0 (D)    mpich/3.1.2-dbg    mpich/3.1.2    mpich/3.2-dbg (D)
+   a/1.0    a/3.0    mpich/3.1.2-dbg    mpich/3.1.2    mpich/3.2-dbg (D)
   Where:
    D:  Default Module
 Use "module spider" to find all possible modules.
@@ -219,8 +219,8 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
 Global Aliases
    a13 -> a/13.2.345    a14 -> a/14.0.1.134
 ProjectDIR/rt/modulerc/mf4
-   a/1.0        a/3.0           (D)    mpich/3.1.2          mpich/3.2 (H)
-   a/2.0 (H)    mpich/3.1.2-dbg        mpich/3.2-dbg (D)
+   a/1.0          a/3.0              mpich/3.1.2          mpich/3.2 (H)
+   a/2.0 (H,D)    mpich/3.1.2-dbg    mpich/3.2-dbg (D)
   Where:
    D:  Default Module
    H:  Hidden Module
@@ -245,7 +245,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 Global Aliases
    a13 -> a/13.2.345    a14 -> a/14.0.1.134
 ProjectDIR/rt/modulerc/mf4
-   a/1.0    a/3.0 (D)    mpich/3.1.2-dbg    mpich/3.1.2    mpich/3.2-dbg (L,D)
+   a/1.0    a/3.0    mpich/3.1.2-dbg    mpich/3.1.2    mpich/3.2-dbg (L,D)
   Where:
    D:  Default Module
    L:  Module is loaded
@@ -258,8 +258,8 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
 Global Aliases
    a13 -> a/13.2.345    a14 -> a/14.0.1.134
 ProjectDIR/rt/modulerc/mf4
-   a/1.0          a/3.0           (D)    mpich/3.1.2            mpich/3.2 (H)
-   a/2.0 (H,L)    mpich/3.1.2-dbg        mpich/3.2-dbg (L,D)
+   a/1.0            a/3.0              mpich/3.1.2            mpich/3.2 (H)
+   a/2.0 (H,L,D)    mpich/3.1.2-dbg    mpich/3.2-dbg (L,D)
   Where:
    D:  Default Module
    H:  Hidden Module
