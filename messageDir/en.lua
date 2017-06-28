@@ -133,12 +133,6 @@ Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOS
      e_Prereq_Any          = "Cannot load module \"%{name}\". At least one of these module(s) must be loaded:\n   %{module_list}\n",
      e_Spdr_Timeout        = "Spider search timed out.\n",
      e_Swap_Failed         = "Swap failed: \"%{name}\" is not loaded.\n",
-     e_SYS_DFLT_EMPTY      = [==[
-The system default contains no modules
-  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
-  No changes in loaded modules
-
-]==],
      e_Unable_2_Load       = "Unable to load module: %{name}\n     %{fn}: %{message}\n",
      e_Unable_2_parse      = "Unable to parse: \"%{path}\". Aborting!\n",
      e_Unknown_Coll        = "User module collection: \"%{collection}\" does not exist.\n  Try \"module savelist\" for possible choices.\n",
@@ -244,6 +238,12 @@ to see if the module(s) are available across all compilers and MPI implementatio
      w_Mods_Not_Loaded     = "The following modules were not loaded: %{module_list}\n\n",
      w_No_Coll             = "No collection named \"%{collection}\" found.",
      w_No_dot_Coll         = "It is illegal to have a `.' in a collection name.  Please choose another name for: \"%{name}\".",
+     w_SYS_DFLT_EMPTY      = [==[
+The system default contains no modules
+  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
+  No changes in loaded modules
+
+]==],
      w_Save_Empty_Coll     = [==[You are trying to save an empty collection of modules in "%{name}". If this is what you want then enter:
   $  module --force save %{name}
 ]==], --

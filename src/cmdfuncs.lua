@@ -481,7 +481,9 @@ function Reset(msg)
    dbg.start{"Reset()"}
    local default = os.getenv("LMOD_SYSTEM_DEFAULT_MODULES") or ""
    if (default == "") then
-      io.stderr:write(i18n("e_SYS_DFLT_EMPTY",{}))
+      if (not quiet()) then
+         io.stderr:write(i18n("w_SYS_DFLT_EMPTY",{}))
+      end
       LmodErrorExit()
       dbg.fini("Reset")
       return

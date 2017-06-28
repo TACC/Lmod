@@ -136,11 +136,6 @@ Alternativ können Sie die Umgebungsvariable LMOD_DISABLE_SAME_NAME_AUTOSWAP auf
 ]==],
      e_Spdr_Timeout        = "Zeitbegrenzung für Spider-Suche ist abgelaufen.\n",
      e_Swap_Failed         = "Swap fehlgeschlagen: \"%{name}\" ist nicht geladen.\n",
-     e_SYS_DFLT_EMPTY      = [==[
-Die Standard-Module des Systems enthalten keine Module.
-  (Umgebungsvariable: LMOD_SYSTEM_DEFAULT_MODULES ist leer)
-  Es wurden keine Änderungen der geladenen Module vorgenommen.
-]==],
      e_Unable_2_Load       = [==[Modul konnte nicht geladen werden: "%{name}"
      %{fn}: %{message}
 ]==], --
@@ -241,6 +236,11 @@ um in allen Compilern und MPI-Implementierungen zu suchen.
      w_No_dot_Coll         = "Der Name einer Sammlung darf keinen Punkt ('.') enthalten. Bitte vergeben Sie einen anderen Namen für \"%{name}\".",
      w_Save_Empty_Coll     = [==[Sie versuchen in "%{name}" eine leere Modulsammlung zu speichern. Falls Sie dies wollen, verwenden Sie:
   $ module --force save %{name}
+]==],
+     w_SYS_DFLT_EMPTY      = [==[
+Die Standard-Module des Systems enthalten keine Module.
+  (Umgebungsvariable: LMOD_SYSTEM_DEFAULT_MODULES ist leer)
+  Es wurden keine Änderungen der geladenen Module vorgenommen.
 ]==],
      w_System_Reserved     = "Die Bezeichnung \"system\" für Sammlungen ist reserviert. Bitte vergeben Sie einen anderen Namen.\n",
      w_Undef_MPATH         = "MODULEPATH ist nicht definiert.\n",

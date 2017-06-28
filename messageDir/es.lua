@@ -102,7 +102,7 @@ Además, puede configurar la variable de entorno LMOD_DISABLE_SAME_NAME_AUTOSWAP
      e_Prereq_Any          = "Imposible cargar el módulo \"%{name}\". Al menos uno de estos módulos debe ser cargado anteriormente:\n   %{module_list}\n",
      e_Spdr_Timeout        = "La búsqueda de Spider expiró\n",
      e_Swap_Failed         = "Falló el intercambio: \"%{name}\" no está cargado.\n",
-     e_SYS_DFLT_EMPTY      = nil,
+     w_SYS_DFLT_EMPTY      = nil,
      e_Unable_2_Load       = "Imposible cargar el módulo: %{name}\n     %{fn}: %{message}\n",
      e_Unable_2_parse      = "Imposible analizar: \"%{path}\". ¡Abortar!\n",
      e_Unknown_Coll        = "La colección: \"%{collection}\" no existe.\n  Intente \"module savelist\" para ver posibles opciones.\n",
@@ -168,6 +168,7 @@ No ha habido ningún cambio en los módulos cargados
      w_Save_Empty_Coll     = [==[Está intentando guardar una colección vacía en "%{name}". Si esto es lo que realmente desea hacer, entonces ejecute lo siguiente:
   $  module --force save %{name}
 ]==],
+     w_SYS_DFLT_EMPTY      = nil,
      w_System_Reserved     = "El nombre 'system' es un nombre reservado. Por favor, elija otro nombre.\n",
      w_Undef_MPATH         = "MODULEPATH no está definido\n",
      w_Unknown_Hook        = nil,

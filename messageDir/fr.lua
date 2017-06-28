@@ -132,12 +132,6 @@ Sinon, vous pouvez définir la variable d'environnement LMOD_DISABLE_SAME_NAME_A
      e_Prereq_Any        = "Impossible de charger le module  \"%{name}\". Au moins l'un de ces modules doit être chargé :\n   %{module_list}\n",
      e_Spdr_Timeout      = "La recherche Spider a expiré\n",
      e_Swap_Failed       = "L'échange a échoué : \"%{name}\" n'est pas chargé.\n",
-     e_SYS_DFLT_EMPTY    = [==[
-L'environnement par défaut ne contient aucun module
-  (la variable d'environnement : LMOD_SYSTEM_DEFAULT_MODULES est vide)
-  Aucun changement dans les modules chargés.
-
-]==],
      e_Unable_2_Load     = "Impossible de charger le module : %{name}\n     %{fn}: %{message}\n",
      e_Unable_2_parse    = "Impossible d'analyser : \"%{path}\". Abandon.\n",
      e_Unknown_Coll      = "Collection de modules utilisateur : \"%{collection}\" n'existe pas.\n  Essayez \"module savelist\" pour une liste de choix possibles.\n",
@@ -244,6 +238,12 @@ pour vérifier si les modules sont disponibles avec l'un des compilateurs ou imp
      w_No_dot_Coll     = "Les noms de collection ne peuvent pas contenir de '.'. Merci de bien vouloir choisir un autre nom pour : %{name}",
      w_Save_Empty_Coll = [==[Vous tentez de sauvegarder une collection de modules vide dans "%{name}". Si c'est ce que vous souhaitez, utilisez :
   $  module --force save %{name}
+]==],
+     w_SYS_DFLT_EMPTY    = [==[
+L'environnement par défaut ne contient aucun module
+  (la variable d'environnement : LMOD_SYSTEM_DEFAULT_MODULES est vide)
+  Aucun changement dans les modules chargés.
+
 ]==],
      w_System_Reserved = "Le nom 'system' pour une collection est réservé. Merci de bien vouloir choisir un autre nom.\n",
 
