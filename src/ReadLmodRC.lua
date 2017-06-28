@@ -68,12 +68,12 @@ local function buildRC(self)
    
    for i = 1,#RCFileA do
       repeat
-         local f        = RCFileA[i]
+         local f  = RCFileA[i]
          local fh = open(f)
          if (not fh) then break end
             
          assert(loadfile(f))()
-         s_rcFileA[#s_rcFileA+1] = abspath(f)
+         s_rcFileA[#s_rcFileA+1] = f
          fh:close()
 
          local propT       = _G.propT or {}

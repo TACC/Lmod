@@ -302,18 +302,9 @@ end
 function findAdminFn()
    local readable    = "no"
    local adminFn     = cosmic:value("LMOD_ADMIN_FILE")
-   local dirName, fn = splitFileName(adminFn)
-   if (isDir(dirName)) then
-      local cwd      = posix.getcwd()
-      posix.chdir(dirName)
-      dirName = posix.getcwd()
-      adminFn = pathJoin(dirName, fn)
-      posix.chdir(cwd)
-      if (posix.access(adminFn, 'r')) then
-         readable = "yes"
-      end
+   if (posix.access(adminFn, 'r')) then
+      readable = "yes"
    end
-
    return adminFn, readable
 end
 
