@@ -9,5 +9,3 @@ Lmod 7.5+
    (7.5.7) Removing unnecessary calls to abspath() or anything which
            does posix.chdir(dir) where dir could be nil.
    (7.5.8) Make system default empty a warning and not an error.
-   
-           
