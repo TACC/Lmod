@@ -6,3 +6,6 @@ Lmod 7.5+
            LD_LIBRARY_PATH.
    (7.5.5) A marked default honored even if it is hidden.
    (7.5.6) Handle hidden marked defaults correctly when doing ml avail.
+   (7.5.7) Removing unnecessary calls to abspath() or anything which
+           does posix.chdir(dir) where dir could be nil.
+           
