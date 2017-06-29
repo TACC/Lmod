@@ -56,8 +56,8 @@ The message can be as many lines as you like.  The message ends with a
 blank line.   Below is an example::
 
 
-      gcc/2.95:    This module is deprecated and will be removed from the system on Jan 1.  1999.
-                   Please change you use of this compiler to a newer one.
+      gcc/2.95:    This module is deprecated and will be removed from the system on Jan 1. 1999.
+                   Please switch to a newer compiler.
 
       boost/1.54.0:
       We are having issues
