@@ -389,27 +389,30 @@ AC_SUBST(PATH_TO_PAGER)
 AC_SUBST(PATH_TO_SRC)
 AC_SUBST(PATH_TO_TCLSH)
 
-AC_PATH_PROG(PS,ps, UNKNOWN)
-if test "$PS" = "UNKNOWN" ; then
+AC_PATH_PROG(PS,ps, UNKNOWN_PS)
+if test "$PS" = "UNKNOWN_PS" ; then
   echo
   echo "You must have either ps in your path. Quitting!"
   echo
+  rm -f makefile
   exit
 fi
 
-AC_PATH_PROG(EXPR,expr, UNKNOWN)
-if test "$EXPR" = "UNKNOWN" ; then
+AC_PATH_PROG(EXPR,expr, UNKNOWN_EXPR)
+if test "$EXPR" = "UNKNOWN_EXPR" ; then
   echo
   echo "You must have either ps in your path. Quitting!"
   echo
+  rm -f makefile
   exit
 fi
 
-AC_PATH_PROG(BASENAME, basename, UNKNOWN)
-if test "$BASENAME" = "UNKNOWN" ; then
+AC_PATH_PROG(BASENAME, basename, UNKNOWN_BASENAME)
+if test "$BASENAME" = "UNKNOWN_BASENAME" ; then
   echo
   echo "You must have either basename in your path. Quitting!"
   echo
+  rm -f makefile
   exit
 fi
 
@@ -420,21 +423,23 @@ fi
 AC_PATH_PROG(PATH_TO_GIT, git, "")
 AC_PATH_PROG(PATH_TO_PAGER,[less] [more], [more])
 
-AC_PATH_PROGS(PATH_TO_HASHSUM, [sha1sum] [gsha1sum] [shasum] [md5sum] [gmd5sum] [md5], UNKNOWN)
+AC_PATH_PROGS(PATH_TO_HASHSUM, [sha1sum] [gsha1sum] [shasum] [md5sum] [gmd5sum] [md5], UNKNOWN_HASHSUM)
 if test "`basename $PATH_TO_HASHSUM`" = "md5" ; then
   PATH_TO_HASHSUM="$PATH_TO_HASHSUM -r"
-elif test "$PATH_TO_HASHSUM" = "UNKNOWN" ; then
+elif test "$PATH_TO_HASHSUM" = "UNKNOWN_HASHSUM" ; then
   echo
   echo "You must have either sha1sum, shasum, md5sum or md5 in your path. Quitting!"
   echo
+  rm -f makefile
   exit
 fi
 
-AC_PATH_PROG(PATH_TO_TCLSH, tclsh, UNKNOWN)
-if test "$PATH_TO_TCLSH" = "UNKNOWN" -a "$ALLOW_TCL_MFILES" = yes; then
+AC_PATH_PROG(PATH_TO_TCLSH, tclsh, UNKNOWN_TCLSH)
+if test "$PATH_TO_TCLSH" = "UNKNOWN_TCLSH" -a "$ALLOW_TCL_MFILES" = yes; then
   echo
   echo "The tclsh program must be in your path. Quitting!"
   echo
+  rm -f makefile
   exit
 fi
 AC_PATH_PROG(PATH_TO_TR, [tr],"")
@@ -444,11 +449,13 @@ AC_PATH_PROG(luaprog, [lua], "")
 
 if test x$luaprog = "x"; then
   echo The program "lua" must be in your path
+  rm -f makefile
   exit
 fi
 
 if test x$PATH_TO_LUAC = "x"; then
   echo The program "luac" must be in your path
+  rm -f makefile
   exit
 fi
 
@@ -492,6 +499,7 @@ IntLuaV=$( $luaprog  -e "_,_,M,m=_VERSION:gsub('Lua%s+',''):find('(%d+)%.(%d)');
 
 if test $IntLuaV -lt 5001 -o $IntLuaV -gt 5003; then
   echo "Error: Lmod requires versions 5.1 or 5.2 or 5.3, You have: $LuaV"
+  rm -f makefile
   exit 1
 fi
 
@@ -549,6 +557,7 @@ if test -n "$missingModules" ; then
   echo "Error: The follow lua module(s) are missing: $missingModules"
   echo ""
   echo "You can not run Lmod without: $missingModules"
+  rm -f makefile
   exit 1
 else
   echo "... yes"
@@ -683,6 +692,7 @@ if ! test "$HAVE_LUA_TERM" = yes; then
     echo You can either install lua-term or the lua development package.
     echo Quitting!
     echo
+    rm -f makefile
     exit 1
   fi
 fi
