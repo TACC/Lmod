@@ -495,8 +495,6 @@ function convertEntry(name, vv, spA)
       URL         = "url",
    }
 
-
-
    local keyT = {
       Version     = "versionName",
       fullName    = "full",
@@ -509,19 +507,36 @@ function convertEntry(name, vv, spA)
    entry.package  = name
    local versionT = {}
 
-   local first    = true
+   local pV       = " "  -- This is the lowest possible value for a pV
    local epoch    = 0
 
-   for mfPath, v in pairs(vv) do
+   local a        = {}
+
+   --------------------------------------------------------
+   -- Sort the version by pV
+
+   for mfPath,v in pairs(vv) do
+      a[#a+1] = { mfPath, v.pV }
+   end
+   
+   local function cmp_pV(x,y)
+      return x[2] < y[2]
+   end
+   sort(a,cmp_pV)
+
+   ------------------------------------------------------------
+   -- Loop over version from lowest to highest version in pv
+   -- order.
+
+   for i = 1, #a do
+      local mfPath = a[i][1]
+      local v      = vv[mfPath]
       local vT = {}
 
       vT.path = mfPath
 
-      if (first or (v.default and v.epoch > epoch) ) then
-         if (not first) then
-            epoch = v.epoch
-         end
-         first = false
+      if (v.pV > pV) then
+         pV = v.pV
          for topKey, newKey in pairs(topKeyT) do
             entry[newKey] = v[topKey]
          end
@@ -545,8 +560,6 @@ function convertEntry(name, vv, spA)
    entry.versions = versionT
    spA[#spA+1] = entry
 end
-
-
 
 function options()
    local masterTbl = masterTbl()

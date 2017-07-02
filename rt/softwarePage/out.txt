@@ -1,0 +1,39 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+MODULEPATH="ProjectDIR/rt/softwarePage/mf";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/softwarePage/mf",},["systemBaseMPATH"]="ProjectDIR/rt/softwarePage/mf",}';
+export _ModuleTable_;
+===========================
+step 3
+runSpiderCmd -o softwarePageLua ProjectDIR/rt/softwarePage/mf
+===========================
+spA = {
+  {
+    ["defaultVersionName"] = "1.1",
+    ["description"] = "foo description",
+    ["package"] = "foo",
+    versions = {
+      {
+        ["canonicalVersionString"] = "000000001.*zfinal",
+        ["full"] = "foo/1.0",
+        ["help"] = "foo v1.0",
+        ["path"] = "ProjectDIR/rt/softwarePage/mf/foo/1.0.lua",
+        ["versionName"] = "1.0",
+      },
+      {
+        ["canonicalVersionString"] = "000000001.000000001.*zfinal",
+        ["full"] = "foo/1.1",
+        ["help"] = "foo v1.1",
+        ["path"] = "ProjectDIR/rt/softwarePage/mf/foo/1.1.lua",
+        ["versionName"] = "1.1",
+      },
+    },
+  },
+}
