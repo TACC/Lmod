@@ -1,14 +1,16 @@
 Lmod 7.5+
-   (7.5.1) Changed documentation on regex spider in help message.
-   (7.5.2) Support for "module unsave <collection_name>" added.
-   (7.5.3) Change unsave to disable.
-   (7.5.4) Add subprocess() to run a command that doesn't modify
-           LD_LIBRARY_PATH.
-   (7.5.5) A marked default honored even if it is hidden.
-   (7.5.6) Handle hidden marked defaults correctly when doing ml avail.
-   (7.5.7) Removing unnecessary calls to abspath() or anything which
-           does posix.chdir(dir) where dir could be nil.
-   (7.5.8) Make system default empty a warning and not an error.
-   (7.5.9) Change configure so that if programs like tclsh are missing
-           it is harder to finish building Lmod.
-           Now sort the versions in pV order when outputing softwarePage.
+   (7.5.1)  Changed documentation on regex spider in help message.
+   (7.5.2)  Support for "module unsave <collection_name>" added.
+   (7.5.3)  Change unsave to disable.
+   (7.5.4)  Add subprocess() to run a command that doesn't modify
+            LD_LIBRARY_PATH.
+   (7.5.5)  A marked default honored even if it is hidden.
+   (7.5.6)  Handle hidden marked defaults correctly when doing ml avail.
+   (7.5.7)  Removing unnecessary calls to abspath() or anything which
+            does posix.chdir(dir) where dir could be nil.
+   (7.5.8)  Make system default empty a warning and not an error.
+   (7.5.9)  Change configure so that if programs like tclsh are missing
+            it is harder to finish building Lmod.
+            Now sort the versions in pV order when outputing the softwarePage.
+   (7.5.10) Now sort the versions in wV order when outputing the softwarePage.
+            Add markedDefault field in the versions array in the softwarePage.
