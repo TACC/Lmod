@@ -473,7 +473,7 @@ local function l_build_keepT(mpathA, mpathParentT, spiderT)
 end
 
 local dbT_keyA = { 'Description', 'Category', 'URL', 'Version', 'whatis', 'dirA',
-                   'pathA', 'lpathA', 'propT','help','pV'}
+                   'pathA', 'lpathA', 'propT','help','pV','wV'}
 
 
 function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
@@ -926,6 +926,7 @@ function M._Level2(self, sn, entryA, possibleA)
    if (entryT.Description) then
       ia = ia + 1; a[ia] = i18n("m_Description", {descript = entryT.Description:fillWords("      ", term_width)})
    end
+
    if (entryT.propT ) then
       ia = ia + 1; a[ia] = i18n("m_Properties",{})
       for kk, vv in pairs(propDisplayT) do

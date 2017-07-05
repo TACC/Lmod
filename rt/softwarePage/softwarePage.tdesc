@@ -20,12 +20,13 @@ testdescript = {
      unsetMT
      initStdEnvVars
      export MODULEPATH=$(testDir)/mf
+     export MODULERCFILE=$(testDir)/rc
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
-     runLmod --version                           # 1
-     runLmod avail                               # 2
-     runBase runSpiderCmd -o softwarePageLua $MODULEPATH # 3             
+     runLmod --version                                   # 1
+     runLmod avail                                       # 2
+     runBase runSpiderCmd -o softwarePageLua $MODULEPATH # 3
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

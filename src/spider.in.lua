@@ -499,7 +499,8 @@ function convertEntry(name, vv, spA)
       Version     = "versionName",
       fullName    = "full",
       help        = "help",
-      parentAA    = "parent"
+      parentAA    = "parent",
+      wV          = "wV",
    }
 
 
@@ -507,7 +508,7 @@ function convertEntry(name, vv, spA)
    entry.package  = name
    local versionT = {}
 
-   local pV       = " "  -- This is the lowest possible value for a pV
+   local wV       = " "  -- This is the lowest possible value for a pV
    local epoch    = 0
 
    local a        = {}
@@ -516,13 +517,13 @@ function convertEntry(name, vv, spA)
    -- Sort the version by pV
 
    for mfPath,v in pairs(vv) do
-      a[#a+1] = { mfPath, v.pV }
+      a[#a+1] = { mfPath, v.wV }
    end
    
-   local function cmp_pV(x,y)
+   local function cmp_wV(x,y)
       return x[2] < y[2]
    end
-   sort(a,cmp_pV)
+   sort(a,cmp_wV)
 
    ------------------------------------------------------------
    -- Loop over version from lowest to highest version in pv
@@ -535,8 +536,8 @@ function convertEntry(name, vv, spA)
 
       vT.path = mfPath
 
-      if (v.pV > pV) then
-         pV = v.pV
+      if (v.wV > wV) then
+         wV = v.wV
          for topKey, newKey in pairs(topKeyT) do
             entry[newKey] = v[topKey]
          end
@@ -552,6 +553,9 @@ function convertEntry(name, vv, spA)
       vT.canonicalVersionString = ""
       if (v.Version) then
          vT.canonicalVersionString = parseVersion(v.Version)
+      end
+      if (v.wV) then
+         vT.markedDefault=isMarked(v.wV)
       end
 
       versionT[#versionT + 1] = vT
