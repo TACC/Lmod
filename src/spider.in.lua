@@ -501,6 +501,7 @@ function convertEntry(name, vv, spA)
       help        = "help",
       parentAA    = "parent",
       wV          = "wV",
+      hidden      = "hidden",
    }
 
 
@@ -552,7 +553,7 @@ function convertEntry(name, vv, spA)
 
       vT.canonicalVersionString = ""
       if (v.Version) then
-         vT.canonicalVersionString = parseVersion(v.Version)
+         vT.canonicalVersionString = v.pV
       end
       if (v.wV) then
          vT.markedDefault=isMarked(v.wV)

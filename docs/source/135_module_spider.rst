@@ -1,4 +1,4 @@
-.. _module_spider_cmd:
+.. _module_spider_cmd-label:
 
 Using the module spider command
 ===============================
