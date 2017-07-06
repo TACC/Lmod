@@ -79,7 +79,7 @@ This will search any help or whatis description for the word(s) given on the com
 Another way to search for modules is with the "module spider" command.
 This command searches the entire list of possible modules.  The
 difference between "module avail" and "module spider" is explained in
-the "Module Hierarchy" and "Searching for Modules" section. ::
+the "Module Hierarchy" and "Searching for Modules" section.::
 
     $ module spider
 

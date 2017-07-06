@@ -976,7 +976,7 @@ function M._Level2(self, sn, entryA, possibleA)
             b[#b] = "\n      "
          end
          if (#b > 0) then
-            b[#b] = "\n" -- Remove final comma add newline instead
+            b[#b] = "\n" -- Remove the final space add newline instead
             c[#c+1] = concatTbl(b,"")
             b = {}
          end

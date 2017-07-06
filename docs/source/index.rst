@@ -88,6 +88,7 @@ Advanced Topics
    120_shared_home_directories
    125_personal_spider_cache
    130_spider_cache
+   135_module_spider
    140_deprecating_modules
    150_kitchen_sink_module
    155_lmodrc
