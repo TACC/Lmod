@@ -40,3 +40,120 @@ Lmod looks for special whatis calls to know what the description for a
 module is.  See :ref:`module_spider_cmd-label` for details.
 
 
+Software page generation
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Since the package modulefiles are the gold standard of the packages
+your sites offers, it should be that information which should be used
+to generate the list of software packages.  Lmod provides two kind of
+output depending on your sites needs.  Suppose you have the simple
+module tree::
+
+    foo
+    ├── .2.0.lua
+    ├── 1.0.lua
+    ├── 1.1.lua
+    └── default -> 1.0.lua
+
+Then Lmod can produce the following information in json format::
+
+    $ MODULEPATH=.
+    $ spider -o jsonSoftwarePage $MODULEPATH | python  -mjson.tool
+    [   
+        {
+            "defaultVersionName": "1.0",
+            "description": "foo description",
+            "package": "foo",
+            "versions": [
+                {
+                    "canonicalVersionString": "000000001.*zfinal",
+                    "full": "foo/.2.0",
+                    "help": "foo v.2.0",
+                    "hidden": true,
+                    "markedDefault": false,
+                    "path": "foo/.2.0.lua",
+                    "versionName": "1.0",
+                    "wV": "000000000.000000002.*zfinal"
+                },
+                {
+                    "canonicalVersionString": "000000001.000000001.*zfinal",
+                    "full": "foo/1.1",
+                    "help": "foo v1.1",
+                    "markedDefault": false,
+                    "path": "foo/1.1.lua",
+                    "versionName": "1.1",
+                    "wV": "000000001.000000001.*zfinal"
+                },
+                {
+                    "canonicalVersionString": "000000001.*zfinal",
+                    "full": "foo/1.0",
+                    "help": "foo v1.0",
+                    "markedDefault": true,
+                    "path": "foo/1.0.lua",
+                    "versionName": "1.0",
+                    "wV": "^00000001.*zfinal"
+                }
+            ]
+        }
+    ]
+
+The versions array block is sorted by the "wV" fields. This a weighted
+version of the canonicalVersionString, where the only difference is
+that the first character in the string is modified to know that it is
+marked default.  Also if a module is hidden then the "hidden" field
+will be set to true.
+
+The last entry in the versions array is used to set the description.
+
+Another json output may be of interest.  There is more information but
+it will be up to the site build the summarization that
+jsonSoftwarePage provides::
+
+    $ MODULEPATH=.
+    $ spider -o spider-json $MODULEPATH | python  -mjson.tool
+    {
+        "foo": {
+            "foo/.2.0.lua": {
+                "Description": "foo description",
+                "Version": "1.0",
+                "fullName": "foo/.2.0",
+                "help": "foo v.2.0",
+                "hidden": true,
+                "pV": "000000000.000000002.*zfinal",
+                "wV": "000000000.000000002.*zfinal",
+                "whatis": [
+                    "Description: foo description",
+                    "Version: .2.0",
+                    "Categories: foo"
+                ]
+            },
+            "foo/1.0.lua": {
+                "Description": "foo description",
+                "Version": "1.0",
+                "fullName": "foo/1.0",
+                "help": "foo v1.0",
+                "hidden": false,
+                "pV": "000000001.*zfinal",
+                "wV": "^00000001.*zfinal",
+                "whatis": [
+                    "Description: foo description",
+                    "Version: 1.0",
+                    "Categories: foo"
+                ]
+            },
+            "foo/1.1.lua": {
+                "Description": "foo description",
+                "Version": "1.1",
+                "fullName": "foo/1.1",
+                "help": "foo v1.1",
+                "hidden": false,
+                "pV": "000000001.000000001.*zfinal",
+                "wV": "000000001.000000001.*zfinal",
+                "whatis": [
+                    "Description: foo description",
+                    "Version: 1.1",
+                    "Categories: foo"
+                ]
+            }
+        }
+    }   
