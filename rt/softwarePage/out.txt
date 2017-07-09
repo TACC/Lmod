@@ -21,6 +21,16 @@ spA = {
     ["package"] = "foo",
     versions = {
       {
+        ["canonicalVersionString"] = "000000000.000000002.*zfinal",
+        ["full"] = "foo/.2.0",
+        ["help"] = "foo v.2.0",
+        ["hidden"] = true,
+        ["markedDefault"] = false,
+        ["path"] = "ProjectDIR/rt/softwarePage/mf/foo/.2.0.lua",
+        ["versionName"] = "1.0",
+        ["wV"] = "000000000.000000002.*zfinal",
+      },
+      {
         ["canonicalVersionString"] = "000000001.000000001.*zfinal",
         ["full"] = "foo/1.1",
         ["help"] = "foo v1.1",

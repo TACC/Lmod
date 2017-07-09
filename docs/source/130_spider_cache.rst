@@ -85,6 +85,8 @@ hierarchy, then just specify the "Core" directories,
 i.e. the directories that are used to initialize Lmod but not the compiler
 dependent or mpi-compiler dependent directories.
 
+.. _update_cache_sh-label:
+
 How to test the Spider Cache Generation and Usage
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
