@@ -14,5 +14,6 @@ Lmod 7.5+
             Now sort the versions in pV order when outputing the softwarePage.
    (7.5.10) Now sort the versions in wV order when outputing the softwarePage.
             Add markedDefault field in the versions array in the softwarePage.
-   (7.5.11) Adding hidden = true, when modulefile is hidden for softwarePage
-            output.
+   (7.5.11) Adding hidden = true, when modulefile is hidden for softwarePage output.
+            Change @libexec@ to @PKG@ in update_lmod_system_cache_files.in
+            
