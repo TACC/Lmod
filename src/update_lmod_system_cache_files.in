@@ -269,9 +269,9 @@ run_spider() {
     if [ -z "$LMOD_DEBUG" ]; then
       debug "Generating new $cache_type Lmod cache file at $cache_file_path"
       debug "Running \"spider -o $cache_type $BASE_MODULEPATH > $cache_file_path\""
-      @libexec@/spider -o $cache_type $BASE_MODULEPATH > $cache_file_path
+      @PKG@/spider -o $cache_type $BASE_MODULEPATH > $cache_file_path
     else
-      @libexec@/spider -D -o $cache_type $BASE_MODULEPATH > $cache_file_path 2> ${cache_file_path}.log
+      @PKG@/spider -D -o $cache_type $BASE_MODULEPATH > $cache_file_path 2> ${cache_file_path}.log
     fi
 
     SPIDER_EXIT_CODE=$?
