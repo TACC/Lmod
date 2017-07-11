@@ -19,13 +19,30 @@ during unloading. The environment variables set during loading are
 unset during unloading.
 
 **prepend_path** ("PATH","*/path/to/pkg/bin*"):
-   prepend to a path variable the value.
+   prepend to a path-like variable the value.
+
+**prepend_path** ("PATH","*/path/to/pkg/bin*", "*sep*" ):
+   prepend to a path-like variable the value. It is possible to add a
+   third argument to be the separator.  By default is is "*:*", the
+   separator can be any single character for example " " or  ";"
 
 **append_path** ("PATH","*/path/to/pkg/bin*"):
-   append to a path variable the value.
+   append to a path-like variable the value.
+
+**append_path** ("PATH","*/path/to/pkg/bin*", "*sep*" ):
+   append to a path-like variable the value. It is possible to add a
+   third argument to be the separator.  By default is is "*:*", the
+   separator can be any single character for example " " or  ";"
 
 **remove_path** ("PATH","*/path/to/pkg/bin*"):
-   remove value from path.  This command is a no-op when the mode is unload.
+   remove value from a path-like variable.  This command is a no-op
+   when the mode is unload. 
+
+**remove_path** ("PATH","*/path/to/pkg/bin*" , "*sep*" ):
+   remove value from a path-like variable.  This command is a no-op
+   when the mode is unload.  It is possible to add a
+   third argument to be the separator.  By default is is "*:*", the
+   separator can be any single character for example " " or  ";"
 
 **setenv** ("NAME", "*value*"):
    assigns to the environment variable "NAME" the value.
