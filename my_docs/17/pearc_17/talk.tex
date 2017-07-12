@@ -32,6 +32,7 @@
     \item I'm Robert McLay
     \item Joined TACC's HPC Group in 2008.
     \item Developer of Lmod since 2008, First release in 2009.
+    \item lmod.sf.net, lmod.readthedocs.org
   \end{itemize}
 \end{frame}
 
@@ -65,71 +66,8 @@
 \end{frame}
 
 % page 7
-\begin{frame}{What is the BoF about?}
-  \begin{itemize}
-    \item It is not to ``sell'' Lmod
-    \item It's to talk about problems with modules in general.
-    \item It is what you want to talk about
-  \end{itemize}
-\end{frame}
-
-
-% page 8
-\begin{frame}{Topics}
-  \begin{itemize}
-    \item 
-    \item 
-    \item 
-    \item How do you manage Modulefiles?
-    \item RPM's, EB, Spack, ...?
-    \item Deprecating Packages?
-    \item Module dependencies?
-  \end{itemize}
-\end{frame}
-
-% page 9
-\begin{frame}{Other Possible topics}
-  \begin{itemize}
-    \item /usr/local/bin problem
-    \item Managing Package lifetime: New and Old?
-    \item Production Systems
-    \item Shared home file system?
-    \item Control the output of \texttt{\bf module avail}?
-  \end{itemize}
-\end{frame}
-
-
-% page 10
-\begin{frame}{Yet even more topics}
-  \begin{itemize}
-    \item Help with generating software pages?
-    \item Localization?
-    \item Flat vs. Hierarchy?
-    \item Category/Name/Version vs Name/Version vs
-      Name/Version/Version?
-    \item Transitioning to new Module Layout?
-    \item Bash Startup Issues and MPI?
-  \end{itemize}
-\end{frame}
-
-
-% page 11
-\begin{frame}{Fundamental Issues}
-  \begin{itemize}
-    \item Software Packages are created and updated all the time.
-    \item Some Users need new versions for new features and bug fixes.
-    \item Other Users need older versions for stability and continuity.
-    \item No system can support all versions of all packages.
-    \item User programs using pre-built C++ \& Fortran libraries must link with the same compiler.
-    \item Similarly, MPI Applications must build and link with same
-      MPI/Compiler pairing when using pre-built MPI libraries.
-  \end{itemize}
-\end{frame}
-
-
-% page 12
 \begin{frame}[fragile]
-    \frametitle{Example of Lmod: Environment Modules (I)}
+    \frametitle{Environment Modules (I)}
     {\tiny
 \begin{semiverbatim}
 {\color{blue}\$ module list}
@@ -156,9 +94,9 @@ Due to MODULEPATH changes the follow modules have been reloaded:
     }
 \end{frame}
 
-% page 13
+% page 8
 \begin{frame}[fragile]
-    \frametitle{Example of Lmod: Environment Modules (II)}
+    \frametitle{Environment Modules (II)}
     {\tiny
 \begin{semiverbatim}
 \$ {\color{blue} module avail}
@@ -183,7 +121,98 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 \end{frame}
 
 
+% page 9
+\begin{frame}{What is the BoF about?}
+  \begin{itemize}
+    \item It is not to ``sell'' Lmod
+    \item It's to talk about problems with modules in general.
+    \item It is what you want to talk about
+  \end{itemize}
+\end{frame}
+
+
+% page 10
+\begin{frame}{Topics}
+  \begin{itemize}
+    \item How to handle WRF, Lammps?
+    \item Multiple Arch, Generic modulefiles?
+    \item rec-cast.com
+    \item How do you manage Modulefiles?
+    \item RPM's, EB, Spack, ...?
+    \item Deprecating Packages?
+    \item Module dependencies?
+  \end{itemize}
+\end{frame}
+
+% page 11
+\begin{frame}{Other Possible topics}
+  \begin{itemize}
+    \item /usr/local/bin problem
+    \item Managing Package lifetime: New and Old?
+    \item Production Systems
+    \item Shared home file system?
+    \item Control the output of \texttt{\bf module avail}?
+    \item Too Many Modules? Too Slow?
+  \end{itemize}
+\end{frame}
+
+
+% page 12
+\begin{frame}{Yet even more topics}
+  \begin{itemize}
+    \item Help with generating software pages?
+    \item Localization?
+    \item Flat vs. Hierarchy?
+    \item Category/Name/Version vs Name/Version vs
+      Name/Version/Version?
+    \item Transitioning to new Module Layout?
+    \item Bash Startup Issues and MPI?
+  \end{itemize}
+\end{frame}
+
+
+% page 13
+\begin{frame}{Fundamental Issues}
+  \begin{itemize}
+    \item Software Packages are created and updated all the time.
+    \item Some Users need new versions for new features and bug fixes.
+    \item Other Users need older versions for stability and continuity.
+    \item No system can support all versions of all packages.
+    \item User programs using pre-built C++ \& Fortran libraries must link with the same compiler.
+    \item Similarly, MPI Applications must build and link with same
+      MPI/Compiler pairing when using pre-built MPI libraries.
+  \end{itemize}
+\end{frame}
+
+
 % page 14
+\begin{frame}{Module Dependencies (I)}
+  \begin{itemize}
+    \item use prereq("A")?
+    \item use load("A")?
+    \item use always\_load("A")?
+    \item if (not isloaded("A")) then load("A")        end
+    \item if (not isloaded("A")) then always\_load("A") end
+  \end{itemize}
+\end{frame}
+
+% page 15
+\begin{frame}{Feature request require()}
+  \begin{itemize}
+    \item Assume that B depends on A
+    \item require("A")
+    \item module load B $\Rightarrow$ Load A only if not already
+      loaded
+    \item module unload B $\Rightarrow$  unload only if A is a
+      dependent load
+      \begin{itemize}
+        \item module load A B; module unload B; $\Rightarrow$ keep A
+        \item module load B; module unload B; $\Rightarrow$ unload A
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+% page 16
 \begin{frame}{Can Modules help with the /usr/local/bin problem?}
   \begin{itemize}
     \item Suppose your startup files put /usr/local/bin in PATH
@@ -196,7 +225,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-% page 15
+% page 17
 \begin{frame}{Can Modules prevent users from mixing modules they shouldn't?}
   \begin{itemize}
       \item Same Name modules:
@@ -217,7 +246,20 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-% page 16
+% page 18
+\begin{frame}{Too Many Modules, Long load or avail times}
+  \begin{itemize}
+    \item Loading modules w/ Tmod can be faster:
+      \begin{itemize}
+        \item Partially compiled code
+        \item Can stop early (Find First rule for defaults)
+      \end{itemize}
+    \item Lmod uses Find Best rule $\Rightarrow$ walks entire tree
+    \item Use System Spider cache to loads and avail, spider
+  \end{itemize}
+\end{frame}
+
+% page 19
 \begin{frame}{How to manage software: New or Old}
   \begin{itemize}
     \item How can you test new/experimental software?
@@ -233,7 +275,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-% page 17
+% page 20
 \begin{frame}{Can Modules help with deprecating packages?}
   \begin{itemize}
     \item Suppose your site keeps a limited number of versions (say 3
@@ -249,7 +291,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-% page 18
+% page 21
 \begin{frame}{Can Modules help a site that does not want default modules?}
   \begin{itemize}
     \item Suppose your site produces weather forecasts or processes
@@ -260,7 +302,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-% page 19
+% page 22
 \begin{frame}{Can users have their own default list of modules?}
   \begin{itemize}
     \item It is common to provide a default list of modules
@@ -273,7 +315,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 \end{frame}
 
 
-% page 20
+% page 23
 \begin{frame}{Can Lmod deal with shared home filesystem?}
   \begin{itemize}
     \item Suppose your site shares the home filesystem across two or
@@ -285,7 +327,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-% page 21
+% page 24
 \begin{frame}{Can users easily grep the output from Modules?}
   \begin{itemize}
     \item Lmod sends messages to \texttt{stderr} by default
@@ -300,7 +342,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-%page 22
+%page 25
 \begin{frame}[fragile]
     \frametitle{Can a site control the output of module avail?}
   {\tiny
@@ -332,7 +374,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 }
 \end{frame}
 
-% page 23
+% page 26
 \begin{frame}{Can Modules work with Localization and Site Messages?}
   \begin{itemize}
     \item Starting Lmod 7.1+ Lmod provides the possibility of Language
@@ -341,7 +383,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-% page 24
+% page 27
 \begin{frame}{Can Modules help with software web pages?}
   \begin{itemize}
     \item Many sites want to provide web pages that list the SW
@@ -352,7 +394,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-% page 25
+% page 28
 \begin{frame}{Can Modules help with compiler and/or MPI/compiler
       dependent modules?}
   \begin{itemize}
@@ -375,7 +417,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-% page 26
+% page 29
 \begin{frame}{Problems w/ Flat naming scheme}
   \begin{itemize}
     \item Users have to load modules:
@@ -393,7 +435,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-%page 27
+%page 30
 \begin{frame}{Hierarchical Naming Schemes}
   \begin{itemize}
     \item Store modules under one tree: \texttt{/opt/apps/modulefiles}
@@ -406,7 +448,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-%page 28
+%page 31
 \begin{frame}{Loading the correct module}
   \begin{itemize}
     \item User loads ``\texttt{intel/17.0}'' module
@@ -419,7 +461,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-% page 29
+% page 32
 \begin{frame}{Lmod works with both flat or hierarchy layouts}
   \begin{itemize}
     \item Sites can chose either kind of layout.  
@@ -431,7 +473,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-%page 30
+%page 33
 \begin{frame}{Bash Issues}
   \begin{itemize}
     \item Bash Startup is typically ``broken'' for non-login interactive shells
@@ -440,7 +482,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-%page 31
+%page 34
 \begin{frame}{Bash Issues (II)}
   \begin{itemize}
     \item Want module command to work in all shells.
@@ -449,7 +491,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-%page 32
+%page 35
 \begin{frame}{Bash Repair Choices}
   \begin{itemize}
     \item Five choices:
@@ -463,7 +505,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-%page 33
+%page 36
 \begin{frame}{Tracing Lmod}
   \begin{itemize}
     \item A new feature of Lmod 7.4.4+
@@ -473,7 +515,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-%page 34
+%page 37
 \begin{frame}{Debugging Lmod}
   \begin{itemize}
     \item \texttt{module --config} : reports Lmod configuration
@@ -481,7 +523,7 @@ Due to MODULEPATH changes the follow modules have been reloaded:
   \end{itemize}
 \end{frame}
 
-% page 35
+%page 38
 \begin{frame}{Lmod Features}
   \begin{itemize}
     \item Reads both TCL and Lua modulefiles (mixing works fine)
@@ -497,13 +539,13 @@ Due to MODULEPATH changes the follow modules have been reloaded:
 \end{frame}
 
 
-%page 36
+%page 39
 \begin{frame}[fragile]
     \frametitle{Lmod Doc usage}
     \center{\includegraphics[width=.9\textwidth]{Lmod_doc_usage}}
 \end{frame}
 
-%page 37
+%page 40
 \begin{frame}{Conclusions: Lmod}
   \begin{itemize}
     \item Latest version: https://github.com:TACC/Lmod.git
