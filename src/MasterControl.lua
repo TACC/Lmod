@@ -672,6 +672,17 @@ local function registerUserLoads(mA)
    dbg.fini("registerUserLoads")
 end
 
+local function unRegisterUserLoads(mA)
+   dbg.start{"unRegisterUserLoads(mA)"}
+   for i = 1, #mA do
+      local mname       = mA[i]
+      local userName    = mname:userName()
+      s_loadT[userName] = nil
+      dbg.print{"userName: ",userName,"\n"}
+   end
+   dbg.fini("unRegisterUserLoads")
+end
+
 local function compareRequestedLoadsWithActual()
    dbg.start{"compareRequestedLoadsWithActual()"}
    local mt = FrameStk:singleton():mt()
@@ -824,6 +835,7 @@ function M.unload(self, mA)
       dbg.start{"MasterControl:unload(mA={"..s.."})"}
    end
 
+   unRegisterUserLoads(mA)
    local aa     = master:unload(mA)
    dbg.fini("MasterControl:unload")
    return aa
