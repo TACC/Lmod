@@ -1079,10 +1079,9 @@ function M.getMTfromFile(self,tt)
 
 
    dbg.print{"(3) mt.systemBaseMPATH: ",mt.systemBaseMPATH,"\n"}
-   local build_cache  = (cached_loads ~= 'no')
-   local moduleA      = require("ModuleA"):singleton{spider_cache = build_cache}
+   local moduleA      = require("ModuleA"):singleton()
    local cached_loads = cosmic:value("LMOD_CACHED_LOADS")
-   moduleA:update{spider_cache = build_cache}
+   moduleA:update{spider_cache = (cached_loads ~= 'no')}
    dbg.print{"(4) mt.systemBaseMPATH: ",mt.systemBaseMPATH,"\n"}
 
    -----------------------------------------------------------------------
