@@ -264,17 +264,16 @@ function M.load(self, mA)
 
 
    for i = 1,#mA do
-      mt             = frameStk:mt()
-      local mname    = mA[i]
-      local sn       = mname:sn()
-      local userName = mname:userName()
-      local fullName = mname:fullName()
-      local fn       = mname:fn()
-      local loaded   = false
-
-      
+      mt               = frameStk:mt()
+      local mname      = mA[i]
+      local sn         = mname:sn()
+      local userName   = mname:userName()
+      local fullName   = mname:fullName()
+      local fn         = mname:fn()
+      local loaded     = false
+      local stackDepth = frameStk:stackDepth()
+     
       if (tracing == "yes") then
-         local stackDepth = frameStk:stackDepth()
          local indent     = ("  "):rep(stackDepth+1)
          local b          = {}
          b[#b + 1]        = indent
@@ -320,7 +319,7 @@ function M.load(self, mA)
          local mList = concatTbl(mt:list("both","active"),":")
          frameStk:push(mname)
          mt = frameStk:mt()
-         mt:add(mname,"pending")
+         mt:add(mname,"pending", stackDepth)
          loadModuleFile{file = fn, shell = shellNm, mList = mList, reportErr = true}
          mt = frameStk:mt()
          mt:setStatus(sn, "active")
@@ -477,10 +476,10 @@ function M.reloadAll(self)
 
    for i = 1, #a do
       repeat
-         mt              = frameStk:mt()
-         local v         = a[i]
-         local sn        = v.sn
-         local mname_old = MName:new("mt",v.userName)
+         mt               = frameStk:mt()
+         local v          = a[i]
+         local sn         = v.sn
+         local mname_old  = MName:new("mt",v.userName)
          if (not mname_old:sn()) then break end
          mA[#mA+1]       = mname_old
          dbg.print{"adding sn: ",sn," to mA\n"}

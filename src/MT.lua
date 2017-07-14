@@ -229,21 +229,21 @@ end
 --------------------------------------------------------------------------
 -- Return the original MT from bottom of stack.
 
-function M.add(self, mname, status, loadOrder)
-   local mT            = self.mT
-   local sn            = mname:sn()
+function M.add(self, mname, status, stackDepth, loadOrder)
+   local mT    = self.mT
+   local sn    = mname:sn()
+   stackDepth  = stackDepth == nil and  0 or stackDepth
+   loadOrder   = loadOrder  == nil and -1 or loadOrder
    assert(sn)
    mT[sn] = {
-      fullName  = mname:fullName(),
-      fn        = mname:fn(),
-      userName  = mname:userName(),
-      status    = status,
-      loadOrder = -1,
-      propT     = {},
+      fullName   = mname:fullName(),
+      fn         = mname:fn(),
+      userName   = mname:userName(),
+      stackDepth = stackDepth
+      status     = status,
+      loadOrder  = loadOrder
+      propT      = {},
    }
-   if (loadOrder) then
-      mT[sn].loadOrder = loadOrder
-   end
 end
 
 
