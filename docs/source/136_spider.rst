@@ -4,7 +4,7 @@ The spider tool
 Lmod provides a tool called *spider* to build the spider cache and
 other files that can help a site manage their modulefiles.  The shell
 script *update\_lmod\_system\_cache\_files* described in
-:ref:`update_cache_sh-label` uses the spider command to build the
+:ref:`system-spider-cache-label` uses the spider command to build the
 spiderT.lua file which is the filename of the spider cache.  The
 command *spider* is different from the *module spider* command.  The
 first one will be mainly used by system administrators where as the
