@@ -271,9 +271,9 @@ function M.load(self, mA)
       local fullName   = mname:fullName()
       local fn         = mname:fn()
       local loaded     = false
-      local stackDepth = frameStk:stackDepth()
      
       if (tracing == "yes") then
+         local stackDepth = frameStk:stackDepth()
          local indent     = ("  "):rep(stackDepth+1)
          local b          = {}
          b[#b + 1]        = indent
@@ -319,7 +319,7 @@ function M.load(self, mA)
          local mList = concatTbl(mt:list("both","active"),":")
          frameStk:push(mname)
          mt = frameStk:mt()
-         mt:add(mname,"pending", stackDepth)
+         mt:add(mname,"pending")
          loadModuleFile{file = fn, shell = shellNm, mList = mList, reportErr = true}
          mt = frameStk:mt()
          mt:setStatus(sn, "active")

@@ -229,19 +229,18 @@ end
 --------------------------------------------------------------------------
 -- Return the original MT from bottom of stack.
 
-function M.add(self, mname, status, stackDepth, loadOrder)
+function M.add(self, mname, status, loadOrder)
    local mT    = self.mT
    local sn    = mname:sn()
-   stackDepth  = stackDepth == nil and  0 or stackDepth
    loadOrder   = loadOrder  == nil and -1 or loadOrder
    assert(sn)
    mT[sn] = {
       fullName   = mname:fullName(),
       fn         = mname:fn(),
       userName   = mname:userName(),
-      stackDepth = stackDepth
+      stackDepth = mname:stackDepth(),
       status     = status,
-      loadOrder  = loadOrder
+      loadOrder  = loadOrder,
       propT      = {},
    }
 end
@@ -413,7 +412,8 @@ function M.list(self, kind, status)
          if ((status == "any" or status == v.status) and
              (v.status ~= "pending")) then
             local obj = { sn = k, fullName = v.fullName, userName = v.userName,
-                          name = v[kind], fn = v.fn, loadOrder = v.loadOrder}
+                          name = v[kind], fn = v.fn, loadOrder = v.loadOrder,
+                          stackDepth = v.stackDepth}
             a, b = build_AB(a, b, v.loadOrder, v[kind], obj )
          end
       end
@@ -628,6 +628,14 @@ function M.version(self,sn)
       return nil
    end
    return extractVersion(entry.fullName, sn)
+end
+   
+function M.stackDepth(self,sn)
+   local entry = self.mT[sn]
+   if (entry == nil) then
+      return nil
+   end
+   return entry.stackDepth or 0
 end
    
 function M.updateMPathA(self, value)
@@ -1104,8 +1112,11 @@ function M.getMTfromFile(self,tt)
    local knd          = (pin_versions == "no") and "userName" or "fullName"
    local mA           = {}
 
+   -- remember to transfer the old stackDepth to the new mname object.
    for i = 1, #activeA do
-      mA[#mA+1]  = MName:new("load",activeA[i][knd])
+      local mname = MName:new("load",activeA[i][knd])
+      mname:setStackDepth(activeA[i].stackDepth)
+      mA[#mA+1]   = mname
    end
    MCP.load(mcp,mA)
    mcp = mcp_old

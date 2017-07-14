@@ -151,9 +151,10 @@ local function lazyEval(self)
          sn        = sn:sub(1,idx-1)
       end
       if (found) then
-         self.__sn       = sn
-         self.__fn       = mt:fn(sn)
-         self.__version  = mt:version(sn)
+         self.__sn         = sn
+         self.__fn         = mt:fn(sn)
+         self.__version    = mt:version(sn)
+         self.__stackDepth = mt:stackDepth(sn)
       end
       --dbg.print{"mt\n"}
       --dbg.fini("lazyEval")
@@ -180,12 +181,14 @@ local function lazyEval(self)
    assert(sType == "load", "unknown sType: "..sType)
    local mrc                   = MRC:singleton()
 
+   local frameStk              = FrameStk:singleton()
    local userName              = mrc:resolve(self:userName())
    local sn, versionStr, fileA = moduleA:search(userName)
 
    self.__userName   = userName
    self.__sn         = sn
    self.__versionStr = versionStr
+   self.__stackDepth = frameStk:stackDepth()
    
    if (not sn) then
       --dbg.print{"did not find sn\n"}
@@ -245,6 +248,18 @@ function M.version(self)
       lazyEval(self)
    end
    return self.__version
+end
+
+function M.stackDepth(self)
+   if (not self.__sn) then
+      lazyEval(self)
+   end
+   local stackDepth = self.__stackDepth == nil and 0 or self.__stackDepth
+   return stackDepth
+end
+
+function M.setStackDepth(self, depth)
+   self.__stackDepth = depth
 end
 
 function M.fullName(self)
