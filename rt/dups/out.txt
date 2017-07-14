@@ -14,7 +14,7 @@ RTM_PATH="A:B:C:A:B:A";
 export RTM_PATH;
 _LMFILES_="ProjectDIR/rt/dups/mf/a/1.0.lua:ProjectDIR/rt/dups/mf/b/1.0.lua:ProjectDIR/rt/dups/mf/c/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/dups/mf/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/dups/mf/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},c={["fn"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=3,propT={},["status"]="active",["userName"]="c",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/dups/mf/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/dups/mf/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="b",},c={["fn"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="c",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -28,7 +28,7 @@ RTM_PATH="A:B:C:A:B:A:A";
 export RTM_PATH;
 _LMFILES_="ProjectDIR/rt/dups/mf/a/1.0.lua:ProjectDIR/rt/dups/mf/b/1.0.lua:ProjectDIR/rt/dups/mf/c/1.0.lua:ProjectDIR/rt/dups/mf/d/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/dups/mf/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/dups/mf/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},c={["fn"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=3,propT={},["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=4,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/dups/mf/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/dups/mf/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="b",},c={["fn"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=4,propT={},["stackDepth"]=0,["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -42,7 +42,7 @@ RTM_PATH="B:C:A:B:A:A";
 export RTM_PATH;
 _LMFILES_="ProjectDIR/rt/dups/mf/b/1.0.lua:ProjectDIR/rt/dups/mf/c/1.0.lua:ProjectDIR/rt/dups/mf/d/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={b={["fn"]="ProjectDIR/rt/dups/mf/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="b",},c={["fn"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=3,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={b={["fn"]="ProjectDIR/rt/dups/mf/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="b",},c={["fn"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
 export _ModuleTable_;
 ===========================
 step 5
@@ -56,7 +56,7 @@ RTM_PATH="C:B:A:A";
 export RTM_PATH;
 _LMFILES_="ProjectDIR/rt/dups/mf/c/1.0.lua:ProjectDIR/rt/dups/mf/d/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={c={["fn"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={c={["fn"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
 export _ModuleTable_;
 ===========================
 step 6
@@ -70,7 +70,7 @@ RTM_PATH="A";
 export RTM_PATH;
 _LMFILES_="ProjectDIR/rt/dups/mf/d/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={d={["fn"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={d={["fn"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
 export _ModuleTable_;
 ===========================
 step 7
@@ -95,7 +95,7 @@ RTM_PATH="A:B:C";
 export RTM_PATH;
 _LMFILES_="ProjectDIR/rt/dups/mf/a/1.0.lua:ProjectDIR/rt/dups/mf/b/1.0.lua:ProjectDIR/rt/dups/mf/c/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/dups/mf/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/dups/mf/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},c={["fn"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=3,propT={},["status"]="active",["userName"]="c",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/dups/mf/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/dups/mf/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="b",},c={["fn"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="c",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
 export _ModuleTable_;
 ===========================
 step 9
@@ -109,7 +109,7 @@ RTM_PATH="B:C:A";
 export RTM_PATH;
 _LMFILES_="ProjectDIR/rt/dups/mf/a/1.0.lua:ProjectDIR/rt/dups/mf/b/1.0.lua:ProjectDIR/rt/dups/mf/c/1.0.lua:ProjectDIR/rt/dups/mf/d/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/dups/mf/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/dups/mf/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},c={["fn"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=3,propT={},["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=4,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/dups/mf/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/dups/mf/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="b",},c={["fn"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=4,propT={},["stackDepth"]=0,["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
 export _ModuleTable_;
 ===========================
 step 10
@@ -123,7 +123,7 @@ RTM_PATH="B:C";
 export RTM_PATH;
 _LMFILES_="ProjectDIR/rt/dups/mf/b/1.0.lua:ProjectDIR/rt/dups/mf/c/1.0.lua:ProjectDIR/rt/dups/mf/d/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={b={["fn"]="ProjectDIR/rt/dups/mf/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="b",},c={["fn"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=3,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={b={["fn"]="ProjectDIR/rt/dups/mf/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="b",},c={["fn"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
 export _ModuleTable_;
 ===========================
 step 11
@@ -137,7 +137,7 @@ RTM_PATH="C";
 export RTM_PATH;
 _LMFILES_="ProjectDIR/rt/dups/mf/c/1.0.lua:ProjectDIR/rt/dups/mf/d/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={c={["fn"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={c={["fn"]="ProjectDIR/rt/dups/mf/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
 export _ModuleTable_;
 ===========================
 step 12
@@ -150,7 +150,7 @@ export MODULEPATH;
 unset RTM_PATH;
 _LMFILES_="ProjectDIR/rt/dups/mf/d/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={d={["fn"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={d={["fn"]="ProjectDIR/rt/dups/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/dups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/dups/mf",}';
 export _ModuleTable_;
 ===========================
 step 13

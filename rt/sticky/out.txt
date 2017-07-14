@@ -14,7 +14,7 @@ MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={std={["fn"]="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua",["fullName"]="std/1.0",["loadOrder"]=1,propT={arch={["mic"]=1,},lmod={["sticky"]=1,},},["status"]="active",["userName"]="std",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={std={["fn"]="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua",["fullName"]="std/1.0",["loadOrder"]=1,propT={arch={["mic"]=1,},lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="std",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -22,7 +22,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={std={["fn"]="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua",["fullName"]="std/1.0",["loadOrder"]=1,propT={arch={["mic"]=1,},lmod={["sticky"]=1,},},["status"]="active",["userName"]="std",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={std={["fn"]="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua",["fullName"]="std/1.0",["loadOrder"]=1,propT={arch={["mic"]=1,},lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="std",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -36,7 +36,7 @@ MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={std={["fn"]="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua",["fullName"]="std/1.0",["loadOrder"]=1,propT={arch={["mic"]=1,},lmod={["sticky"]=1,},},["status"]="active",["userName"]="std",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={std={["fn"]="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua",["fullName"]="std/1.0",["loadOrder"]=1,propT={arch={["mic"]=1,},lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="std",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 5
@@ -44,7 +44,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={std={["fn"]="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua",["fullName"]="std/1.0",["loadOrder"]=1,propT={arch={["mic"]=1,},lmod={["sticky"]=1,},},["status"]="active",["userName"]="std",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={std={["fn"]="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua",["fullName"]="std/1.0",["loadOrder"]=1,propT={arch={["mic"]=1,},lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="std",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 6
@@ -56,7 +56,7 @@ MODULEPATH="ProjectDIR/rt/sticky/mf/Compiler/gcc/4.6:ProjectDIR/rt/sticky/mf/Cor
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua:ProjectDIR/rt/sticky/mf/Core/gcc/4.6.lua:ProjectDIR/rt/sticky/mf/Compiler/gcc/4.6/boost/1.53.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/sticky/mf/Compiler/gcc/4.6/boost/1.53.0.lua",["fullName"]="boost/1.53.0",["loadOrder"]=3,propT={lmod={["sticky"]=1,},state={["testing"]=1,},},["status"]="active",["userName"]="boost",},gcc={["fn"]="ProjectDIR/rt/sticky/mf/Core/gcc/4.6.lua",["fullName"]="gcc/4.6",["loadOrder"]=2,propT={},["status"]="active",["userName"]="gcc",},std={["fn"]="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua",["fullName"]="std/1.0",["loadOrder"]=1,propT={arch={["mic"]=1,},lmod={["sticky"]=1,},},["status"]="active",["userName"]="std",},},mpathA={"ProjectDIR/rt/sticky/mf/Compiler/gcc/4.6","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/sticky/mf/Compiler/gcc/4.6/boost/1.53.0.lua",["fullName"]="boost/1.53.0",["loadOrder"]=3,propT={lmod={["sticky"]=1,},state={["testing"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="boost",},gcc={["fn"]="ProjectDIR/rt/sticky/mf/Core/gcc/4.6.lua",["fullName"]="gcc/4.6",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="gcc",},std={["fn"]="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua",["fullName"]="std/1.0",["loadOrder"]=1,propT={arch={["mic"]=1,},lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="std",},},mpathA={"ProjectDIR/rt/sticky/mf/Compiler/gcc/4.6","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 7
@@ -64,7 +64,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH="ProjectDIR/rt/sticky/mf/Compiler/gcc/4.6:ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/sticky/mf/Compiler/gcc/4.6/boost/1.53.0.lua",["fullName"]="boost/1.53.0",["loadOrder"]=3,propT={lmod={["sticky"]=1,},state={["testing"]=1,},},["status"]="active",["userName"]="boost",},gcc={["fn"]="ProjectDIR/rt/sticky/mf/Core/gcc/4.6.lua",["fullName"]="gcc/4.6",["loadOrder"]=2,propT={},["status"]="active",["userName"]="gcc",},std={["fn"]="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua",["fullName"]="std/1.0",["loadOrder"]=1,propT={arch={["mic"]=1,},lmod={["sticky"]=1,},},["status"]="active",["userName"]="std",},},mpathA={"ProjectDIR/rt/sticky/mf/Compiler/gcc/4.6","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/sticky/mf/Compiler/gcc/4.6/boost/1.53.0.lua",["fullName"]="boost/1.53.0",["loadOrder"]=3,propT={lmod={["sticky"]=1,},state={["testing"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="boost",},gcc={["fn"]="ProjectDIR/rt/sticky/mf/Core/gcc/4.6.lua",["fullName"]="gcc/4.6",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="gcc",},std={["fn"]="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua",["fullName"]="std/1.0",["loadOrder"]=1,propT={arch={["mic"]=1,},lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="std",},},mpathA={"ProjectDIR/rt/sticky/mf/Compiler/gcc/4.6","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 8
@@ -78,7 +78,7 @@ MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={std={["fn"]="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua",["fullName"]="std/1.0",["loadOrder"]=1,propT={arch={["mic"]=1,},lmod={["sticky"]=1,},},["status"]="active",["userName"]="std",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={std={["fn"]="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua",["fullName"]="std/1.0",["loadOrder"]=1,propT={arch={["mic"]=1,},lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="std",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 9
@@ -111,7 +111,7 @@ MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={std={["fn"]="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua",["fullName"]="std/1.0",["loadOrder"]=1,propT={arch={["mic"]=1,},lmod={["sticky"]=1,},},["status"]="active",["userName"]="std",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={std={["fn"]="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua",["fullName"]="std/1.0",["loadOrder"]=1,propT={arch={["mic"]=1,},lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="std",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 12
@@ -125,7 +125,7 @@ MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={std={["fn"]="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua",["fullName"]="std/1.0",["loadOrder"]=1,propT={arch={["mic"]=1,},lmod={["sticky"]=1,},},["status"]="active",["userName"]="std",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={std={["fn"]="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua",["fullName"]="std/1.0",["loadOrder"]=1,propT={arch={["mic"]=1,},lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="std",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 13
@@ -133,7 +133,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={std={["fn"]="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua",["fullName"]="std/1.0",["loadOrder"]=1,propT={arch={["mic"]=1,},lmod={["sticky"]=1,},},["status"]="active",["userName"]="std",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={std={["fn"]="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua",["fullName"]="std/1.0",["loadOrder"]=1,propT={arch={["mic"]=1,},lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="std",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 14
@@ -168,7 +168,7 @@ MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua:ProjectDIR/rt/sticky/mf/Core/b/1.1.lua:ProjectDIR/rt/sticky/mf/Core/StdEnv.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 17
@@ -176,7 +176,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 18
@@ -192,7 +192,7 @@ MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua:ProjectDIR/rt/sticky/mf/Core/b/1.1.lua:ProjectDIR/rt/sticky/mf/Core/StdEnv.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 19
@@ -200,7 +200,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 20
@@ -214,7 +214,7 @@ MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=1,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="StdEnv",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=1,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 21
@@ -222,7 +222,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=1,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="StdEnv",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=1,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 22
@@ -238,7 +238,7 @@ MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua:ProjectDIR/rt/sticky/mf/Core/b/1.1.lua:ProjectDIR/rt/sticky/mf/Core/StdEnv.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 23
@@ -246,7 +246,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 24
@@ -254,7 +254,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 25
@@ -282,7 +282,7 @@ MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua:ProjectDIR/rt/sticky/mf/Core/b/1.1.lua:ProjectDIR/rt/sticky/mf/Core/StdEnv.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
@@ -292,7 +292,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 28
@@ -308,7 +308,7 @@ MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua:ProjectDIR/rt/sticky/mf/Core/b/1.1.lua:ProjectDIR/rt/sticky/mf/Core/StdEnv.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
@@ -318,7 +318,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 30
@@ -346,7 +346,7 @@ MODULEPATH="ProjectDIR/rt/sticky/mf/Shared:ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua:ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua:ProjectDIR/rt/sticky/mf/Core/M1.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 32
@@ -354,7 +354,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH="ProjectDIR/rt/sticky/mf/Shared:ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 33
@@ -362,7 +362,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 MODULEPATH="ProjectDIR/rt/sticky/mf/Shared:ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 34
@@ -378,7 +378,7 @@ MODULEPATH="ProjectDIR/rt/sticky/mf/Shared:ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua:ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua:ProjectDIR/rt/sticky/mf/Core/M1.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
@@ -388,7 +388,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH="ProjectDIR/rt/sticky/mf/Shared:ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 36
@@ -416,7 +416,7 @@ MODULEPATH="ProjectDIR/rt/sticky/mf/Shared:ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua:ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua:ProjectDIR/rt/sticky/mf/Core/M1.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 38
@@ -424,7 +424,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH="ProjectDIR/rt/sticky/mf/Shared:ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 39
@@ -432,7 +432,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 MODULEPATH="ProjectDIR/rt/sticky/mf/Shared:ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 40
@@ -448,7 +448,7 @@ MODULEPATH="ProjectDIR/rt/sticky/mf/Shared:ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua:ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua:ProjectDIR/rt/sticky/mf/Core/M1.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
@@ -458,7 +458,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH="ProjectDIR/rt/sticky/mf/Shared:ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 42
@@ -486,7 +486,7 @@ MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua:ProjectDIR/rt/sticky/mf/Core/b/1.1.lua:ProjectDIR/rt/sticky/mf/Core/StdEnv.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 44
@@ -502,7 +502,7 @@ MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua:ProjectDIR/rt/sticky/mf/Core/b/1.1.lua:ProjectDIR/rt/sticky/mf/Core/StdEnv.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 45
@@ -520,7 +520,7 @@ NAME="old";
 export NAME;
 _LMFILES_="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua:ProjectDIR/rt/sticky/mf/Core/b/1.1.lua:ProjectDIR/rt/sticky/mf/Core/StdEnv.lua:ProjectDIR/rt/sticky/mf/Core/old.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["base"]="old",},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},old={["fn"]="ProjectDIR/rt/sticky/mf/Core/old.lua",["fullName"]="old",["loadOrder"]=4,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="old",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["base"]="old",},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},old={["fn"]="ProjectDIR/rt/sticky/mf/Core/old.lua",["fullName"]="old",["loadOrder"]=4,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="old",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 46
@@ -538,7 +538,7 @@ NAME="new";
 export NAME;
 _LMFILES_="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua:ProjectDIR/rt/sticky/mf/Core/b/1.1.lua:ProjectDIR/rt/sticky/mf/Core/StdEnv.lua:ProjectDIR/rt/sticky/mf/Core/new.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["base"]="new",},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},new={["fn"]="ProjectDIR/rt/sticky/mf/Core/new.lua",["fullName"]="new",["loadOrder"]=4,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="new",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["base"]="new",},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},new={["fn"]="ProjectDIR/rt/sticky/mf/Core/new.lua",["fullName"]="new",["loadOrder"]=4,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="new",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 47
@@ -546,7 +546,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["base"]="new",},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},new={["fn"]="ProjectDIR/rt/sticky/mf/Core/new.lua",["fullName"]="new",["loadOrder"]=4,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="new",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["base"]="new",},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},new={["fn"]="ProjectDIR/rt/sticky/mf/Core/new.lua",["fullName"]="new",["loadOrder"]=4,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="new",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 48
@@ -564,7 +564,7 @@ NAME="old";
 export NAME;
 _LMFILES_="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua:ProjectDIR/rt/sticky/mf/Core/b/1.1.lua:ProjectDIR/rt/sticky/mf/Core/StdEnv.lua:ProjectDIR/rt/sticky/mf/Core/old.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["base"]="old",},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},old={["fn"]="ProjectDIR/rt/sticky/mf/Core/old.lua",["fullName"]="old",["loadOrder"]=4,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="old",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["base"]="old",},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},old={["fn"]="ProjectDIR/rt/sticky/mf/Core/old.lua",["fullName"]="old",["loadOrder"]=4,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="old",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 49
@@ -572,7 +572,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["base"]="old",},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},old={["fn"]="ProjectDIR/rt/sticky/mf/Core/old.lua",["fullName"]="old",["loadOrder"]=4,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="old",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["base"]="old",},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},old={["fn"]="ProjectDIR/rt/sticky/mf/Core/old.lua",["fullName"]="old",["loadOrder"]=4,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="old",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 50
@@ -580,5 +580,5 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 MODULEPATH="ProjectDIR/rt/sticky/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["base"]="old",},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},old={["fn"]="ProjectDIR/rt/sticky/mf/Core/old.lua",["fullName"]="old",["loadOrder"]=4,propT={lmod={["sticky"]=1,},},["status"]="active",["userName"]="old",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["base"]="old",},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},old={["fn"]="ProjectDIR/rt/sticky/mf/Core/old.lua",["fullName"]="old",["loadOrder"]=4,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="old",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;

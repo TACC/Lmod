@@ -38,7 +38,7 @@ VERSION="R2015a";
 export VERSION;
 _LMFILES_="ProjectDIR/rt/cas_avail/mf/kc/matlab/R2015a";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={matlab={["fn"]="ProjectDIR/rt/cas_avail/mf/kc/matlab/R2015a",["fullName"]="matlab/R2015a",["loadOrder"]=1,propT={},["status"]="active",["userName"]="matlab/R2015a",},},mpathA={"ProjectDIR/rt/cas_avail/mf/kc","ProjectDIR/rt/cas_avail/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/cas_avail/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={matlab={["fn"]="ProjectDIR/rt/cas_avail/mf/kc/matlab/R2015a",["fullName"]="matlab/R2015a",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="matlab/R2015a",},},mpathA={"ProjectDIR/rt/cas_avail/mf/kc","ProjectDIR/rt/cas_avail/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/cas_avail/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 6
@@ -46,5 +46,5 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH="ProjectDIR/rt/cas_avail/mf/kc:ProjectDIR/rt/cas_avail/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={matlab={["fn"]="ProjectDIR/rt/cas_avail/mf/kc/matlab/R2015a",["fullName"]="matlab/R2015a",["loadOrder"]=1,propT={},["status"]="active",["userName"]="matlab/R2015a",},},mpathA={"ProjectDIR/rt/cas_avail/mf/kc","ProjectDIR/rt/cas_avail/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/cas_avail/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={matlab={["fn"]="ProjectDIR/rt/cas_avail/mf/kc/matlab/R2015a",["fullName"]="matlab/R2015a",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="matlab/R2015a",},},mpathA={"ProjectDIR/rt/cas_avail/mf/kc","ProjectDIR/rt/cas_avail/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/cas_avail/mf/Core",}';
 export _ModuleTable_;

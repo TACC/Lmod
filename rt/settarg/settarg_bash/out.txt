@@ -18,7 +18,7 @@ SETTARG_TAG2="_";
 export SETTARG_TAG2;
 _LMFILES_="ProjectDIR/rt/settarg/mf/Core/settarg/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={settarg={["fn"]="ProjectDIR/rt/settarg/mf/Core/settarg/1.0.lua",["fullName"]="settarg/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="settarg",},},mpathA={"ProjectDIR/rt/settarg/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/settarg/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={settarg={["fn"]="ProjectDIR/rt/settarg/mf/Core/settarg/1.0.lua",["fullName"]="settarg/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="settarg",},},mpathA={"ProjectDIR/rt/settarg/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/settarg/mf/Core",}';
 export _ModuleTable_;
 alias cdt='cd $TARG';
 dbg() { settarg "$@" dbg; };
@@ -158,7 +158,7 @@ PATH="/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64:ProjectDIR/src:PATH_to_TM:/
 export PATH;
 _LMFILES_="ProjectDIR/rt/settarg/mf/Core/settarg/1.0.lua:ProjectDIR/rt/settarg/mf/Core/gcc/4.7.2.lua:ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7/mpich/3.0.4.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mpich",["compiler"]="gcc",},mT={gcc={["fn"]="ProjectDIR/rt/settarg/mf/Core/gcc/4.7.2.lua",["fullName"]="gcc/4.7.2",["loadOrder"]=2,propT={},["status"]="active",["userName"]="gcc",},mpich={["fn"]="ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7/mpich/3.0.4.lua",["fullName"]="mpich/3.0.4",["loadOrder"]=3,propT={},["status"]="active",["userName"]="mpich",},settarg={["fn"]="ProjectDIR/rt/settarg/mf/Core/settarg/1.0.lua",["fullName"]="settarg/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="settarg",},},mpathA={"ProjectDIR/rt/settarg/mf/MPI/gcc/4.7/mpich/3.0","ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7","ProjectDIR/rt/settarg/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/settarg/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mpich",["compiler"]="gcc",},mT={gcc={["fn"]="ProjectDIR/rt/settarg/mf/Core/gcc/4.7.2.lua",["fullName"]="gcc/4.7.2",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="gcc",},mpich={["fn"]="ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7/mpich/3.0.4.lua",["fullName"]="mpich/3.0.4",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mpich",},settarg={["fn"]="ProjectDIR/rt/settarg/mf/Core/settarg/1.0.lua",["fullName"]="settarg/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="settarg",},},mpathA={"ProjectDIR/rt/settarg/mf/MPI/gcc/4.7/mpich/3.0","ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7","ProjectDIR/rt/settarg/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/settarg/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 7
@@ -478,7 +478,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing show settarg
 ===========================
 MODULEPATH="ProjectDIR/rt/settarg/mf/MPI/gcc/4.7/mpich/3.0:ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7:ProjectDIR/rt/settarg/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mpich",["compiler"]="gcc",},mT={gcc={["fn"]="ProjectDIR/rt/settarg/mf/Core/gcc/4.7.2.lua",["fullName"]="gcc/4.7.2",["loadOrder"]=2,propT={},["status"]="active",["userName"]="gcc",},mpich={["fn"]="ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7/mpich/3.0.4.lua",["fullName"]="mpich/3.0.4",["loadOrder"]=3,propT={},["status"]="active",["userName"]="mpich",},settarg={["fn"]="ProjectDIR/rt/settarg/mf/Core/settarg/1.0.lua",["fullName"]="settarg/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="settarg",},},mpathA={"ProjectDIR/rt/settarg/mf/MPI/gcc/4.7/mpich/3.0","ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7","ProjectDIR/rt/settarg/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/settarg/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mpich",["compiler"]="gcc",},mT={gcc={["fn"]="ProjectDIR/rt/settarg/mf/Core/gcc/4.7.2.lua",["fullName"]="gcc/4.7.2",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="gcc",},mpich={["fn"]="ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7/mpich/3.0.4.lua",["fullName"]="mpich/3.0.4",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mpich",},settarg={["fn"]="ProjectDIR/rt/settarg/mf/Core/settarg/1.0.lua",["fullName"]="settarg/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="settarg",},},mpathA={"ProjectDIR/rt/settarg/mf/MPI/gcc/4.7/mpich/3.0","ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7","ProjectDIR/rt/settarg/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/settarg/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 17
@@ -491,7 +491,7 @@ MODULEPATH="ProjectDIR/rt/settarg/mf/MPI/gcc/4.7/mpich/3.0:ProjectDIR/rt/settarg
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/settarg/mf/Core/gcc/4.7.2.lua:ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7/mpich/3.0.4.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mpich",["compiler"]="gcc",},mT={gcc={["fn"]="ProjectDIR/rt/settarg/mf/Core/gcc/4.7.2.lua",["fullName"]="gcc/4.7.2",["loadOrder"]=1,propT={},["status"]="active",["userName"]="gcc",},mpich={["fn"]="ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7/mpich/3.0.4.lua",["fullName"]="mpich/3.0.4",["loadOrder"]=2,propT={},["status"]="active",["userName"]="mpich",},},mpathA={"ProjectDIR/rt/settarg/mf/MPI/gcc/4.7/mpich/3.0","ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7","ProjectDIR/rt/settarg/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/settarg/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mpich",["compiler"]="gcc",},mT={gcc={["fn"]="ProjectDIR/rt/settarg/mf/Core/gcc/4.7.2.lua",["fullName"]="gcc/4.7.2",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="gcc",},mpich={["fn"]="ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7/mpich/3.0.4.lua",["fullName"]="mpich/3.0.4",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mpich",},},mpathA={"ProjectDIR/rt/settarg/mf/MPI/gcc/4.7/mpich/3.0","ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7","ProjectDIR/rt/settarg/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/settarg/mf/Core",}';
 export _ModuleTable_;
 unalias cdt 2> /dev/null || true;
 unset -f dbg 2> /dev/null || true;

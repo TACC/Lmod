@@ -16,7 +16,7 @@ TEST_B="1";
 export TEST_B;
 _LMFILES_="ProjectDIR/rt/conflict/mf/a.lua:ProjectDIR/rt/conflict/mf/b.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/conflict/mf/a.lua",["fullName"]="a",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/conflict/mf/b.lua",["fullName"]="b",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/conflict/mf",},["systemBaseMPATH"]="ProjectDIR/rt/conflict/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/conflict/mf/a.lua",["fullName"]="a",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/conflict/mf/b.lua",["fullName"]="b",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/conflict/mf",},["systemBaseMPATH"]="ProjectDIR/rt/conflict/mf",}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -29,7 +29,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH="ProjectDIR/rt/conflict/mf";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/conflict/mf/a.lua",["fullName"]="a",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/conflict/mf/b.lua",["fullName"]="b",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/conflict/mf",},["systemBaseMPATH"]="ProjectDIR/rt/conflict/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/conflict/mf/a.lua",["fullName"]="a",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/conflict/mf/b.lua",["fullName"]="b",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/conflict/mf",},["systemBaseMPATH"]="ProjectDIR/rt/conflict/mf",}';
 export _ModuleTable_;
 ===========================
 step 5
@@ -42,7 +42,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH="ProjectDIR/rt/conflict/mf";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/conflict/mf/a.lua",["fullName"]="a",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/conflict/mf/b.lua",["fullName"]="b",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/conflict/mf",},["systemBaseMPATH"]="ProjectDIR/rt/conflict/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/conflict/mf/a.lua",["fullName"]="a",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/conflict/mf/b.lua",["fullName"]="b",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/conflict/mf",},["systemBaseMPATH"]="ProjectDIR/rt/conflict/mf",}';
 export _ModuleTable_;
 ===========================
 step 7
@@ -54,7 +54,7 @@ MODULEPATH="ProjectDIR/rt/conflict/mf";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/conflict/mf/a.lua:ProjectDIR/rt/conflict/mf/b.lua:ProjectDIR/rt/conflict/mf/e/2.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/conflict/mf/a.lua",["fullName"]="a",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/conflict/mf/b.lua",["fullName"]="b",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},e={["fn"]="ProjectDIR/rt/conflict/mf/e/2.0.lua",["fullName"]="e/2.0",["loadOrder"]=3,propT={},["status"]="active",["userName"]="e/2.0",},},mpathA={"ProjectDIR/rt/conflict/mf",},["systemBaseMPATH"]="ProjectDIR/rt/conflict/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/conflict/mf/a.lua",["fullName"]="a",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/conflict/mf/b.lua",["fullName"]="b",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="b",},e={["fn"]="ProjectDIR/rt/conflict/mf/e/2.0.lua",["fullName"]="e/2.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="e/2.0",},},mpathA={"ProjectDIR/rt/conflict/mf",},["systemBaseMPATH"]="ProjectDIR/rt/conflict/mf",}';
 export _ModuleTable_;
 e="2.0";
 export e;
@@ -73,7 +73,7 @@ MODULEPATH="ProjectDIR/rt/conflict/mf";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/conflict/mf/a.lua:ProjectDIR/rt/conflict/mf/b.lua:ProjectDIR/rt/conflict/mf/e/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/conflict/mf/a.lua",["fullName"]="a",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/conflict/mf/b.lua",["fullName"]="b",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},e={["fn"]="ProjectDIR/rt/conflict/mf/e/1.0.lua",["fullName"]="e/1.0",["loadOrder"]=3,propT={},["status"]="active",["userName"]="e/1.0",},},mpathA={"ProjectDIR/rt/conflict/mf",},["systemBaseMPATH"]="ProjectDIR/rt/conflict/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/conflict/mf/a.lua",["fullName"]="a",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/conflict/mf/b.lua",["fullName"]="b",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="b",},e={["fn"]="ProjectDIR/rt/conflict/mf/e/1.0.lua",["fullName"]="e/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="e/1.0",},},mpathA={"ProjectDIR/rt/conflict/mf",},["systemBaseMPATH"]="ProjectDIR/rt/conflict/mf",}';
 export _ModuleTable_;
 e="1.0";
 export e;
@@ -87,7 +87,7 @@ MODULEPATH="ProjectDIR/rt/conflict/mf";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/conflict/mf/a.lua:ProjectDIR/rt/conflict/mf/b.lua:ProjectDIR/rt/conflict/mf/e/1.0.lua:ProjectDIR/rt/conflict/mf/d/1.0.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/conflict/mf/a.lua",["fullName"]="a",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/conflict/mf/b.lua",["fullName"]="b",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},d={["fn"]="ProjectDIR/rt/conflict/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=4,propT={},["status"]="active",["userName"]="d",},e={["fn"]="ProjectDIR/rt/conflict/mf/e/1.0.lua",["fullName"]="e/1.0",["loadOrder"]=3,propT={},["status"]="active",["userName"]="e/1.0",},},mpathA={"ProjectDIR/rt/conflict/mf",},["systemBaseMPATH"]="ProjectDIR/rt/conflict/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/conflict/mf/a.lua",["fullName"]="a",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/conflict/mf/b.lua",["fullName"]="b",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="b",},d={["fn"]="ProjectDIR/rt/conflict/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=4,propT={},["stackDepth"]=0,["status"]="active",["userName"]="d",},e={["fn"]="ProjectDIR/rt/conflict/mf/e/1.0.lua",["fullName"]="e/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="e/1.0",},},mpathA={"ProjectDIR/rt/conflict/mf",},["systemBaseMPATH"]="ProjectDIR/rt/conflict/mf",}';
 export _ModuleTable_;
 ===========================
 step 11
@@ -99,5 +99,5 @@ MODULEPATH="ProjectDIR/rt/conflict/mf";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/conflict/mf/a.lua:ProjectDIR/rt/conflict/mf/b.lua:ProjectDIR/rt/conflict/mf/e/1.0.lua:ProjectDIR/rt/conflict/mf/d/1.0.lua:ProjectDIR/rt/conflict/mf/f.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/conflict/mf/a.lua",["fullName"]="a",["loadOrder"]=1,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/conflict/mf/b.lua",["fullName"]="b",["loadOrder"]=2,propT={},["status"]="active",["userName"]="b",},d={["fn"]="ProjectDIR/rt/conflict/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=4,propT={},["status"]="active",["userName"]="d",},e={["fn"]="ProjectDIR/rt/conflict/mf/e/1.0.lua",["fullName"]="e/1.0",["loadOrder"]=3,propT={},["status"]="active",["userName"]="e/1.0",},f={["fn"]="ProjectDIR/rt/conflict/mf/f.lua",["fullName"]="f",["loadOrder"]=5,propT={},["status"]="active",["userName"]="f",},},mpathA={"ProjectDIR/rt/conflict/mf",},["systemBaseMPATH"]="ProjectDIR/rt/conflict/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/conflict/mf/a.lua",["fullName"]="a",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/conflict/mf/b.lua",["fullName"]="b",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="b",},d={["fn"]="ProjectDIR/rt/conflict/mf/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=4,propT={},["stackDepth"]=0,["status"]="active",["userName"]="d",},e={["fn"]="ProjectDIR/rt/conflict/mf/e/1.0.lua",["fullName"]="e/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="e/1.0",},f={["fn"]="ProjectDIR/rt/conflict/mf/f.lua",["fullName"]="f",["loadOrder"]=5,propT={},["stackDepth"]=0,["status"]="active",["userName"]="f",},},mpathA={"ProjectDIR/rt/conflict/mf",},["systemBaseMPATH"]="ProjectDIR/rt/conflict/mf",}';
 export _ModuleTable_;

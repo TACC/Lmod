@@ -14,7 +14,7 @@ MY_VERSION="2.7.9";
 export MY_VERSION;
 _LMFILES_="ProjectDIR/rt/hierarchy/mf/Core/python/2.7.9.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={python={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/python/2.7.9.lua",["fullName"]="python/2.7.9",["loadOrder"]=1,propT={},["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={python={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/python/2.7.9.lua",["fullName"]="python/2.7.9",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -22,7 +22,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={python={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/python/2.7.9.lua",["fullName"]="python/2.7.9",["loadOrder"]=1,propT={},["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={python={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/python/2.7.9.lua",["fullName"]="python/2.7.9",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -40,7 +40,7 @@ MY_VERSION="2.7.9";
 export MY_VERSION;
 _LMFILES_="ProjectDIR/rt/hierarchy/mf/Core/gcc/6.1.lua:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/boost/1.59.0.lua:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/python/2.7.9.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/boost/1.59.0.lua",["fullName"]="boost/1.59.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="boost",},gcc={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/gcc/6.1.lua",["fullName"]="gcc/6.1",["loadOrder"]=1,propT={},["status"]="active",["userName"]="gcc",},python={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/python/2.7.9.lua",["fullName"]="python/2.7.9",["loadOrder"]=3,propT={},["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/boost/1.59.0.lua",["fullName"]="boost/1.59.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="boost",},gcc={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/gcc/6.1.lua",["fullName"]="gcc/6.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="gcc",},python={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/python/2.7.9.lua",["fullName"]="python/2.7.9",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 5
@@ -48,7 +48,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1:ProjectDIR/rt/hierarchy/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/boost/1.59.0.lua",["fullName"]="boost/1.59.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="boost",},gcc={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/gcc/6.1.lua",["fullName"]="gcc/6.1",["loadOrder"]=1,propT={},["status"]="active",["userName"]="gcc",},python={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/python/2.7.9.lua",["fullName"]="python/2.7.9",["loadOrder"]=3,propT={},["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/boost/1.59.0.lua",["fullName"]="boost/1.59.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="boost",},gcc={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/gcc/6.1.lua",["fullName"]="gcc/6.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="gcc",},python={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/python/2.7.9.lua",["fullName"]="python/2.7.9",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 6
@@ -64,7 +64,7 @@ MY_VERSION="2.7.9";
 export MY_VERSION;
 _LMFILES_="ProjectDIR/rt/hierarchy/mf/Core/python/2.7.9.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/boost/1.59.0.lua",["fullName"]="boost/1.59.0",["loadOrder"]=-1,propT={},["status"]="inactive",["userName"]="boost",},python={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/python/2.7.9.lua",["fullName"]="python/2.7.9",["loadOrder"]=1,propT={},["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/boost/1.59.0.lua",["fullName"]="boost/1.59.0",["loadOrder"]=-1,propT={},["stackDepth"]=0,["status"]="inactive",["userName"]="boost",},python={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/python/2.7.9.lua",["fullName"]="python/2.7.9",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 7
@@ -72,5 +72,5 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/boost/1.59.0.lua",["fullName"]="boost/1.59.0",["loadOrder"]=-1,propT={},["status"]="inactive",["userName"]="boost",},python={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/python/2.7.9.lua",["fullName"]="python/2.7.9",["loadOrder"]=1,propT={},["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/boost/1.59.0.lua",["fullName"]="boost/1.59.0",["loadOrder"]=-1,propT={},["stackDepth"]=0,["status"]="inactive",["userName"]="boost",},python={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/python/2.7.9.lua",["fullName"]="python/2.7.9",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
 export _ModuleTable_;
