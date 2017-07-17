@@ -50,6 +50,7 @@ M.always_unload        = MasterControl.quiet
 M.add_property         = MasterControl.add_property
 M.append_path          = MasterControl.append_path
 M.conflict             = MasterControl.quiet
+M.depends_on           = MasterControl.depends_on
 M.execute              = MasterControl.quiet
 M.family               = MasterControl.quiet
 M.help                 = MasterControl.quiet

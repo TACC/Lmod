@@ -749,7 +749,15 @@ function always_unload(...)
    return b
 end
 
---- Family function ---
+function depends_on(...)
+   dbg.start{"depends_on(",concatTbl({...},", "),")"}
+   if (not validateStringArgs("depends_on",...)) then return {} end
+
+   local b = mcp:depends_on(MName:buildA(mcp:MNameType(),...))
+   dbg.fini("depends_on")
+end
+   
+--- subprocess function ---
 
 function subprocess(cmd)
    dbg.start{"subprocess(",cmd,")"}

@@ -83,6 +83,7 @@ Advanced Topics
    080_hierarchy
    090_configuring_lmod
    095_tcl2lua
+   098_dependent_modules
    100_generic_modules
    110_lmod_mpi_parallel_filesystem
    120_shared_home_directories

@@ -54,6 +54,7 @@ M.always_unload        = MasterControl.unload
 M.add_property         = MasterControl.remove_property
 M.append_path          = MasterControl.remove_path_last
 M.conflict             = MasterControl.quiet
+M.depends_on           = MasterControl.forgo
 M.execute              = MasterControl.execute
 M.family               = MasterControl.unset_family
 M.help                 = MasterControl.quiet

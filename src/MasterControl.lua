@@ -759,6 +759,73 @@ end
 
 
 -------------------------------------------------------------------
+-- depends_on() a list of modules.  This is short hand for:
+--
+--   if (not isloaded("name")) then load("name") end
+--
+
+function M.depends_on(self, mA)
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"MasterControl:depends_on(mA={"..s.."})"}
+   end
+
+   local mB = {}
+
+   for i = 1,#mA do
+      local mname = mA[i]
+      if (not mname:isloaded()) then
+         mB[#mB + 1] = mname
+      end
+   end
+
+   local frameStk = FrameStk:singleton()
+   if (masterTbl().checkSyntax and frameStk:count() > 1) then
+      dbg.print{"frameStk:count(): ",frameStk:count(),"\n"}
+      dbg.fini("MasterControl:depends_on")
+      return {}
+   end
+
+   registerUserLoads(mB)
+   local a = self:load(mB)
+   dbg.fini("MasterControl:depends_on")
+   return a
+end
+
+-------------------------------------------------------------------
+-- forgo a list of modules.  This is the reverse of depends_on()
+--
+--   if (not isloaded("name")) then load("name") end
+--
+-- On unload forgo unloads iff stackDepth is zero.
+
+function M.forgo(self,mA)
+   local master = Master:singleton()
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"MasterControl:forgo(mA={"..s.."})"}
+   end
+
+   local mt = FrameStk:singleton():mt()
+   local mB = {}
+   for i = 1,#mA do
+      local mname      = mA[i]
+      local sn         = mname:sn()
+      local stackDepth = mt:stackDepth(sn)
+      if (stackDepth > 0) then
+         mB[#mB+1] = mname
+      end
+   end
+
+   unRegisterUserLoads(mB)
+   local aa     = master:unload(mB)
+   dbg.fini("MasterControl:forgo")
+   return aa
+end
+
+
+
+-------------------------------------------------------------------
 -- Load a list of modules.  Check to see if the user requested
 -- modules were actually loaded.
 -- @param self A MasterControl object

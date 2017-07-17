@@ -209,6 +209,13 @@ end
 function M.load(self, mA)
    A[#A+1] = ShowCmdA("load",mA)
 end
+--------------------------------------------------------------------------
+-- Print depends_on command.
+-- @param self A MasterControl object
+-- @param mA An array of module names (MName objects)
+function M.depends_on(self, mA)
+   A[#A+1] = ShowCmdA("depends_on",mA)
+end
 
 M.load_usr = M.load
 

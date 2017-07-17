@@ -98,6 +98,7 @@ sandbox_env = {
   try_add              = try_load,
   unload               = unload,
   always_load          = always_load,
+  depends_on           = depends_on,
 
   --- Load Modify functions ---
   atleast              = atleast,
