@@ -18,3 +18,5 @@ Lmod 7.5+
             Change @libexec@ to @PKG@ in update_lmod_system_cache_files.in
             Use spider cache when constructing ModuleA from inside Var.lua (issue #300)
             Now remove unloaded module from registered load table.
+   (7.5.12) Adding depends_on() function
+   
