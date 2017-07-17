@@ -1,3 +1,5 @@
+.. _dependent_modules-label:
+
 Dependent Modules
 =================
 

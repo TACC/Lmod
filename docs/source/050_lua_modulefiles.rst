@@ -69,6 +69,11 @@ unset during unloading.
      removed. If you need a trailing slash then do
      **pathJoin("/a","b/c") .. "/"** to get "/a/b/c/".
 
+**depends_on** ("pkgA", "pkgB", "pkgC"):
+     loads all modules.  When unloading only dependent modules are
+     unloaded.  See :ref:`dependent_modules-label` for details.
+
+
 **load** ("pkgA", "pkgB", "pkgC"):
      load all modules. Report error if unable to load.
 
