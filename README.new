@@ -19,4 +19,4 @@ Lmod 7.5+
             Use spider cache when constructing ModuleA from inside Var.lua (issue #300)
             Now remove unloaded module from registered load table.
    (7.5.12) Adding depends_on() function
-   
+   (7.5.13) Fix issue #301: atleast("foobar","1.4") where there is no foobar
