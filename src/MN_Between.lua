@@ -55,10 +55,11 @@ end
 -- Show the atleast or between modifier.
 -- @param self A MName object
 function M.show(self)
-   local a = {}
-   a[#a+1] = self.__actionNm
-   a[#a+1] = "(\""
-   a[#a+1] = self:sn() .. '"'
+   local a  = {}
+   local nm = self:sn() or self:userName()
+   a[#a+1]  = self.__actionNm
+   a[#a+1]  = "(\""
+   a[#a+1]  = nm .. '"'
    for i = 1, #self.__range do
       if (self.__range[i]) then
          a[#a+1] = ",\""
