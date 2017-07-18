@@ -205,3 +205,8 @@ MODULEPATH="ProjectDIR/rt/between/mf/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M9={["fn"]="ProjectDIR/rt/between/mf/Core/M9.lua",["fullName"]="M9",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="M9",},b={["fn"]="ProjectDIR/rt/between/mf/Core/b/1.4.lua",["fullName"]="b/1.4",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b/1.4",},},mpathA={"ProjectDIR/rt/between/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/between/mf/Core",}';
 export _ModuleTable_;
+===========================
+step 22
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Ma
+===========================
+false
