@@ -61,7 +61,7 @@ local remove       = table.remove
 local s_adminT     = {}
 local s_loadT      = {}
 local s_moduleStk  = {}
-
+local s_missDepT   = {}
 
 function M.name(self)
    return self.my_name
@@ -111,6 +111,7 @@ function M.build(name,mode)
       local MCUnload      = require('MC_Unload')
       local MCMgrLoad     = require('MC_MgrLoad')
       local MCRefresh     = require('MC_Refresh')
+      local MCDepCk       = require('MC_DependencyCk')
       local MCShow        = require('MC_Show')
       local MCAccess      = require('MC_Access')
       local MCSpider      = require('MC_Spider')
@@ -127,8 +128,9 @@ function M.build(name,mode)
          ["show"]         = MCShow,        -- show the module function instead.
          ["access"]       = MCAccess,      -- for whatis, help
          ["spider"]       = MCSpider,      -- Process module files for spider operations
-         ["checkSyntax"]  = MCCheckSyntax  -- Check the syntax of a module, load, prereq, etc
+         ["checkSyntax"]  = MCCheckSyntax, -- Check the syntax of a module, load, prereq, etc
                                            -- are ignored.
+         ["dependencyCk"] = MCDepCk,       -- Report any missing dependency modules
       }
    end
 
@@ -758,6 +760,40 @@ function M.mustLoad(self)
 end
 
 
+function M.dependencyCk(self,mA)
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"MasterControl:dependencyCk(mA={"..s.."})"}
+   end
+
+   local mt = FrameStk:singleton():mt()
+   for i = 1,#mA do
+      local mname = mA[i]
+      local sn    = mname:sn()
+      if (not mt:have(sn,"active")) then
+         s_missDepT[mname:userName()] = true
+      end
+   end
+
+   dbg.fini("MasterControl:depends_on")
+   return {}
+end
+
+function M.reportMissingDepModules(self)
+   local t = s_missDepT
+   if (next(t) ~= nil) then
+      local a           = {}
+      local term_width  = TermWidth()
+      local border      = colorize("red",string.rep("-", term_width-1))
+      
+      for k in pairsByKeys(t) do
+         a[#a+1] = k
+      end
+      io.stderr:write(i18n("w_MissingModules",{border=border,missing=concatTbl(a," ")}))
+   end
+end
+
+
 -------------------------------------------------------------------
 -- depends_on() a list of modules.  This is short hand for:
 --
@@ -788,6 +824,20 @@ function M.depends_on(self, mA)
 
    registerUserLoads(mB)
    local a = self:load(mB)
+
+   --------------------------------------------
+   -- Bump ref count on ALL dependent modules
+
+   local mt = FrameStk:singleton():mt()
+   for i = 1,#mA do
+      local mname      = mA[i]
+      local sn         = mname:sn()
+      local stackDepth = mt:stackDepth(sn)
+      if (stackDepth > 0) then
+         mt:incr_ref_count(sn)
+      end
+   end
+
    dbg.fini("MasterControl:depends_on")
    return a
 end
@@ -797,7 +847,9 @@ end
 --
 --   if (not isloaded("name")) then load("name") end
 --
--- On unload forgo unloads iff stackDepth is zero.
+-- On unload forgo() unloads iff stackDepth is non-zero and the ref count
+-- is zero.
+
 
 function M.forgo(self,mA)
    local master = Master:singleton()
@@ -809,12 +861,16 @@ function M.forgo(self,mA)
    local mt = FrameStk:singleton():mt()
    local mB = {}
    for i = 1,#mA do
-      local mname      = mA[i]
-      local sn         = mname:sn()
-      local stackDepth = mt:stackDepth(sn)
-      if (stackDepth > 0) then
-         mB[#mB+1] = mname
-      end
+      repeat
+         local mname      = mA[i]
+         local sn         = mname:sn()
+         if (not sn) then break end
+         local ref_count  = mt:decr_ref_count(sn)
+         local stackDepth = mt:stackDepth(sn)
+         if (stackDepth > 0 and ref_count < 1) then
+            mB[#mB+1] = mname
+         end
+      until true
    end
 
    unRegisterUserLoads(mB)
@@ -920,6 +976,9 @@ function M.unload_usr(self, mA, force)
    self:unload(mA)
    local master = Master:singleton()
    local aa = master:reload_sticky(force)
+
+   master:dependencyCk()
+
    dbg.fini("MasterControl:unload_usr")
    return aa
 end
@@ -1141,7 +1200,7 @@ end
 function M.reportAdminMsgs()
    dbg.start{"MasterControl:reportAdminMsgs()"}
    local t = s_adminT
-   if (next(t) ) then
+   if (next(t) ~= nil) then
       local term_width  = TermWidth()
       local bt
       local a       = {}

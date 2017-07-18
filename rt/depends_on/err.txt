@@ -2,21 +2,21 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.5.11  2017-07-13 12:46 -05:00
+Modules based on Lua: Version 7.5.13  2017-07-18 13:20 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A C
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A X
 ===========================
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) A   2) B   3) C
+  1) A   2) B   3) X
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload C
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload X
 ===========================
 ===========================
 step 5
@@ -24,3 +24,45 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) A
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload A
+===========================
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load X Y
+===========================
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) A   2) B   3) X   4) Y
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload X
+===========================
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) B   2) Y
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload Y
+===========================
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+No modules loaded
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load X
+===========================
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload A
+===========================
+The following dependent module(s) are not currently loaded: A

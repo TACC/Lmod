@@ -232,6 +232,7 @@ Essayez:
 
 pour vérifier si les modules sont disponibles avec l'un des compilateurs ou implémentation MPI installés.
 ]==],
+     w_MissingModules  = nil,
      w_MPATH_Coll      = "La variable MODULEPATH du système a changé : merci de bien vouloir reconstruire les collections que vous avez sauvegardées.\n",
      w_Mods_Not_Loaded = "Les modules suivants n'ont pas été chargés : %{module_list}\n\n",
      w_No_Coll         = "Aucune collection \"%{collection}\" n'a été trouvée.",

@@ -234,6 +234,11 @@ Try:
 
 to see if the module(s) are available across all compilers and MPI implementations.
 ]==],
+     w_MissingModules      = [==[
+%{border}
+The following dependent module(s) are not currently loaded: %{missing}
+%{border}
+]==],
      w_MPATH_Coll          = "The system MODULEPATH has changed: please rebuild your saved collection.\n",
      w_Mods_Not_Loaded     = "The following modules were not loaded: %{module_list}\n\n",
      w_No_Coll             = "No collection named \"%{collection}\" found.",

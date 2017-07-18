@@ -62,12 +62,14 @@ loaded.  When module "X" is unloaded, module "A" will remain loaded.
 This choice loads module "A" on the users behalf if it not already
 loaded. When module "X" is unloaded, module "A" will be unloaded if it
 is a dependent load.  Imagine the following scenario with
-depends_on("A")::
+``depends_on("A")``::
 
    $ module purge; module load X; module unload X => unload A
    $ module purge; module load A; module load X; module unload X => keep A
 
-Note that Lmod *does not* know that if both module "X" and "Y" depend
-on "A".  So if a user loads both "X" and "Y" and then unloads "X",
-module "A" will be unloaded unless the user has explicitly load "A" on
-the command line.
+Lmod implements reference counting for modules loaded via
+``depends_on()`` and only ``depends_on()``.  So if "X" and "Y" depend
+on "A" then::
+
+   $ module purge; module load X Y; module unload X => keep A   
+   $ module purge; module load X Y; module unload X Y => unload A

@@ -161,6 +161,7 @@ No ha habido ningún cambio en los módulos cargados
      w_Broken_FullName     = "module-version es incorrecto: module-name debe estar totalmente descrito: %{fullName} no lo está\n",
      w_Empty_Coll          = "¡No tiene módulos cargados porque la colección \"%{collectionName}\" está vacía!\n",
      w_Failed_2_Find       = nil,
+     w_MissingModules      = nil,
      w_MPATH_Coll          = "El sistema MODULEPATH ha cambiado: por favor, reconstruya su colección.\n",
      w_Mods_Not_Loaded     = "Los siguientes módulos no fueron cargados: %{module_list}\n\n",
      w_No_Coll             = "No se encontró una colección con el nombre \"%{collection}\" .",

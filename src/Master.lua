@@ -575,6 +575,75 @@ function M.refresh()
    dbg.fini("Master:refresh")
 end
 
+--------------------------------------------------------------------------
+-- Loop over all active modules and reload each one.
+-- Since only the "shell" functions are active and all
+-- other Lmod functions are inactive because mcp is now
+-- MC_Refresh, there is no need to unload and reload the
+-- modulefiles.  Just call loadModuleFile() to redefine
+-- the aliases/shell functions in a subshell.
+function M.refresh()
+   dbg.start{"Master:refresh()"}
+   local frameStk = FrameStk:singleton() 
+   local mt       = frameStk:mt()
+   local shellNm  = _G.Shell and _G.Shell:name() or "bash"
+   local mcp_old  = mcp
+   mcp            = MasterControl.build("refresh","load")
+
+   local activeA  = mt:list("short","active")
+   local mList    = concatTbl(mt:list("both","active"),":")
+
+   for i = 1,#activeA do
+      local sn       = activeA[i]
+      local fn       = mt:fn(sn)
+      if (isFile(fn)) then
+         frameStk:push(MName:new("mt",sn))
+         dbg.print{"loading: ",sn," fn: ", fn,"\n"}
+         loadModuleFile{file = fn, shell = shellNm, mList = mList,
+                        reportErr=true}
+         frameStk:pop()
+      end
+   end
+
+   mcp = mcp_old
+   dbg.print{"Setting mcp to : ",mcp:name(),"\n"}
+   dbg.fini("Master:refresh")
+end
+
+--------------------------------------------------------------------------
+-- Loop over all active modules and reload each one.
+-- Since only the "depend_on()" function is active and all
+-- other Lmod functions are inactive because mcp is now
+-- MC_DependencyCk, there is no need to unload and reload the
+-- modulefiles.  Just call loadModuleFile() to check the dependencies.
+function M.dependencyCk()
+   dbg.start{"Master:dependencyCk()"}
+   local frameStk = FrameStk:singleton() 
+   local mt       = frameStk:mt()
+   local shellNm  = _G.Shell and _G.Shell:name() or "bash"
+   local mcp_old  = mcp
+   mcp            = MasterControl.build("dependencyCk","load")
+
+   local activeA  = mt:list("short","active")
+   local mList    = concatTbl(mt:list("both","active"),":")
+
+   for i = 1,#activeA do
+      local sn       = activeA[i]
+      local fn       = mt:fn(sn)
+      if (isFile(fn)) then
+         frameStk:push(MName:new("mt",sn))
+         dbg.print{"loading: ",sn," fn: ", fn,"\n"}
+         loadModuleFile{file = fn, shell = shellNm, mList = mList,
+                        reportErr=true}
+         frameStk:pop()
+      end
+   end
+
+   mcp = mcp_old
+   dbg.print{"Setting mcp to : ",mcp:name(),"\n"}
+   dbg.fini("Master:dependencyCk")
+end
+
 
 --------------------------------------------------------------------------
 -- Once the purge or unload happens, the sticky modules are reloaded.

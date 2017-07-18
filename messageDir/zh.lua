@@ -124,6 +124,7 @@ return {
      w_Broken_FullName     = "模块版本行格式不正确：模块名称必须完全限定：％{fullName} 不符合.\n",
      w_Empty_Coll          = "由于\"%{collectionName}\" 为空, 未载入任何模块!\n",
      w_Failed_2_Find       = nil,
+     w_MissingModules      = nil,
      w_MPATH_Coll          = "系统MODULEPATH 已被修改：请重建您保存的模块集",
      w_Mods_Not_Loaded     = "下列模块没有被载入: %{module_list}\n\n",
      w_No_Coll             = "找不到\"%{collection}\" .",

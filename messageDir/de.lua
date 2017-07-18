@@ -230,6 +230,7 @@ Versuchen Sie:
   $ module spider %{module_list}
 um in allen Compilern und MPI-Implementierungen zu suchen.
 ]==],
+     w_MissingModules      = nil,
      w_MPATH_Coll          = "MODULEPATH des Systems hat sich geändert: Bitte legen Sie ihre gespeicherten Sammlungen neu an.\n",
      w_Mods_Not_Loaded     = "Die folgenden Module wurden nicht geladen: %{module_list}.\n\n",
      w_No_Coll             = "Keine Sammlung mit dem Namen \"%{collection}\" gefunden.",

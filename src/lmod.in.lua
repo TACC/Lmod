@@ -487,10 +487,15 @@ function main()
    local frameStk = FrameStk:singleton()
    local mt       = frameStk:mt()
 
+   --------------------------------------------------------
    -- Report any admin messages associated with loads
    -- Note that is safe to run every time.
    mcp:reportAdminMsgs()
 
+   --------------------------------------------------------
+   -- Report any missing dependent modules
+   -- Note that is safe to run every time.
+   mcp:reportMissingDepModules()
 
    -- Report any changes (worth reporting from original MT)
    if (not quiet()) then

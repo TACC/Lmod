@@ -125,6 +125,7 @@ return {
      w_Broken_FullName     = nil,
      w_Empty_Coll          = nil,
      w_Failed_2_Find       = nil,
+     w_MissingModules      = nil,
      w_MPATH_Coll          = nil,
      w_Mods_Not_Loaded     = nil,
      w_No_Coll             = nil,

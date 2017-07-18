@@ -638,6 +638,25 @@ function M.stackDepth(self,sn)
    return entry.stackDepth or 0
 end
    
+function M.incr_ref_count(self,sn)
+   local entry = self.mT[sn]
+   if (entry == nil) then
+      return 
+   end
+   entry.ref_count = (entry.ref_count or 0) + 1
+   return 
+end
+
+function M.decr_ref_count(self,sn)
+   local entry = self.mT[sn]
+   if (entry == nil or entry.ref_count == nil) then
+      return 0
+   end
+   local ref_count = entry.ref_count - 1
+   entry.ref_count = ref_count
+   return ref_count
+end
+
 function M.updateMPathA(self, value)
    if (type(value) == "string") then
       self.mpathA = path2pathA(value)
