@@ -23,3 +23,5 @@ Lmod 7.5+
    (7.5.14) Adding reference counting to depends_on() function.
             Adding a report on missing dependent modules on any unload.
    (7.5.15) Fix bug: When restoring a collection, the ref_count is transferred.
+   (7.5.16) Fix issue #294: Use keepT to know if a mpath directory should be kept
+            when building parent array for level 2 spider output.
