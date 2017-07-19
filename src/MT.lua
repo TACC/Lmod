@@ -210,9 +210,6 @@ function M.__convertMT(self, v2)
    self.mT = mT
 end
 
-
-
-
 function __removeEnvMT()
    local SzStr = "_ModuleTable_Sz_"
    local piece = "_ModuleTable%03d_"
@@ -223,8 +220,6 @@ function __removeEnvMT()
       posix_setenv(envNm, nil, true)
    end
 end
-
-
 
 --------------------------------------------------------------------------
 -- Return the original MT from bottom of stack.
@@ -239,14 +234,12 @@ function M.add(self, mname, status, loadOrder)
       fn         = mname:fn(),
       userName   = mname:userName(),
       stackDepth = mname:stackDepth(),
+      ref_count  = mname:ref_count(),
       status     = status,
       loadOrder  = loadOrder,
       propT      = {},
    }
 end
-
-
-
 
 --------------------------------------------------------------------------
 -- Report the contents of the collection. Return an empty array if the
@@ -413,7 +406,7 @@ function M.list(self, kind, status)
              (v.status ~= "pending")) then
             local obj = { sn = k, fullName = v.fullName, userName = v.userName,
                           name = v[kind], fn = v.fn, loadOrder = v.loadOrder,
-                          stackDepth = v.stackDepth}
+                          stackDepth = v.stackDepth, ref_count = v.ref_count}
             a, b = build_AB(a, b, v.loadOrder, v[kind], obj )
          end
       end
@@ -1135,6 +1128,7 @@ function M.getMTfromFile(self,tt)
    for i = 1, #activeA do
       local mname = MName:new("load",activeA[i][knd])
       mname:setStackDepth(activeA[i].stackDepth)
+      mname:setRefCount(activeA[i].ref_count)
       mA[#mA+1]   = mname
    end
    MCP.load(mcp,mA)

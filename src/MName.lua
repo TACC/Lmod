@@ -262,6 +262,17 @@ function M.setStackDepth(self, depth)
    self.__stackDepth = depth
 end
 
+function M.setRefCount(self, count)
+   self.__ref_count = count
+end
+
+function M.ref_count(self)
+   if (not self.__sn) then
+      lazyEval(self)
+   end
+   return self.__ref_count
+end
+
 function M.fullName(self)
    if (not self.__sn) then
       lazyEval(self)
