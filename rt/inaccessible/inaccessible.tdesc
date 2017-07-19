@@ -20,9 +20,11 @@ testdescript = {
      unsetMT
      initStdEnvVars
      export MODULEPATH_ROOT=$(testDir)/mf
+     export MROOT2=$(testDir)/mf2
      export MODULEPATH=$MODULEPATH_ROOT/Core
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+     mkdir -p .lmod.d/.cache
 
      runLmod --version                          # 1
      runLmod use $MODULEPATH_ROOT/path1         # 2
@@ -33,7 +35,11 @@ testdescript = {
      export LMOD_SHORT_TIME=10
      runLmod spider inaccessible                # 6
      runLmod load extend                        # 7
-     
+     runLmod purge                              # 8
+     unsetMT
+     buildSpiderT $MROOT2/Stages/2017a/UI/Compilers:$MROOT2/OtherStages > .lmod.d/.cache/spiderT.lua
+     export MODULEPATH=$MROOT2/Stages/2017a/UI/Compilers
+     runLmod spider software1                   # 9
 
 
      HOME=$ORIG_HOME

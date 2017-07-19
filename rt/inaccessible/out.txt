@@ -44,3 +44,19 @@ step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load extend
 ===========================
 false
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+MODULEPATH="ProjectDIR/rt/inaccessible/mf/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/inaccessible/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/inaccessible/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider software1
+===========================
+MODULEPATH="ProjectDIR/rt/inaccessible/mf2/Stages/2017a/UI/Compilers";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/inaccessible/mf2/Stages/2017a/UI/Compilers",},["systemBaseMPATH"]="ProjectDIR/rt/inaccessible/mf2/Stages/2017a/UI/Compilers",}';
+export _ModuleTable_;

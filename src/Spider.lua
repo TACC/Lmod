@@ -376,7 +376,7 @@ end
 -- The logic for this routine was originally written by Kenneth Hoste in
 -- python after yours truly couldn't work it out.
 
-local function l_build_parentT(mpathMapT)
+local function l_build_parentT(keepT, mpathMapT)
 
    local function l_build_parentT_helper( mpath, fullNameA)
       local resultA
@@ -385,9 +385,11 @@ local function l_build_parentT(mpathMapT)
       else
          resultA = {}
          for fullName, mpath2 in pairs(mpathMapT[mpath]) do
-            local tmpA    = copy(fullNameA)
-            tmpA[#tmpA+1] = fullName
-            resultA = extend(resultA, l_build_parentT_helper(mpath2, tmpA))
+            if (keepT[mpath2]) then
+               local tmpA    = copy(fullNameA)
+               tmpA[#tmpA+1] = fullName
+               resultA = extend(resultA, l_build_parentT_helper(mpath2, tmpA))
+            end
          end
       end
       return resultA
@@ -478,7 +480,9 @@ local dbT_keyA = { 'Description', 'Category', 'URL', 'Version', 'whatis', 'dirA'
 
 function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
    dbg.start{"Spider:buildDbT(mpathMapT,spiderT, dbT)"}
-   local parentT      = l_build_parentT(mpathMapT)
+   local mpathParentT = l_build_mpathParentT(mpathMapT)
+   local keepT        = l_build_keepT(mpathA, mpathParentT, spiderT)
+   local parentT      = l_build_parentT(keepT, mpathMapT)
    local mrc          = MRC:singleton()
 
    local function buildDbT_helper(mpath, sn, v, T)
@@ -511,13 +515,12 @@ function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
       end
    end
 
-   local mpathParentT = l_build_mpathParentT(mpathMapT)
-   local keepT        = l_build_keepT(mpathA, mpathParentT, spiderT)
 
    dbg.printT("mpathA",      mpathA)
    dbg.printT("mpathMapT",   mpathMapT)
    dbg.printT("mpathParentT",mpathParentT)
    dbg.printT("keepT",       keepT)
+   dbg.printT("parentT",     parentT)
 
 
    if (next(spiderT) == nil) then
@@ -527,6 +530,7 @@ function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
    end
 
    for mpath, vv in pairs(spiderT) do
+      dbg.print{"mpath: ",mpath, ", keepT[mpathT]: ",tostring(keepT[mpath]),"\n"}
       if (mpath ~= 'version' and keepT[mpath]) then
          for sn, v in pairs(vv) do
             local T = dbT[sn] or {}
