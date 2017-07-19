@@ -22,4 +22,4 @@ Lmod 7.5+
    (7.5.13) Fix issue #301: atleast("foobar","1.4") where there is no foobar
    (7.5.14) Adding reference counting to depends_on() function.
             Adding a report on missing dependent modules on any unload.
-            
+   (7.5.15) Fix bug: When restoring a collection, the ref_count is transferred.
