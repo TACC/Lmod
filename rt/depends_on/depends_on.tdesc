@@ -31,12 +31,14 @@ testdescript = {
      runLmod unload A                          # 6
      runLmod load X Y                          # 7
      runLmod list                              # 8
-     runLmod unload X                          # 9
-     runLmod list                              #10
-     runLmod unload Y                          #11
-     runLmod list                              #12
-     runLmod load X                            #13
-     runLmod unload A                          #14
+     runLmod save                              # 9
+     runLmod unload X                          #10
+     runLmod list                              #11
+     runLmod unload Y                          #12
+     runLmod list                              #13
+     runLmod load X                            #14
+     runLmod unload A                          #15
+     runLmod restore                           #16
 
 
      HOME=$ORIG_HOME
