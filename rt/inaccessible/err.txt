@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.5.15  2017-07-19 07:03 -05:00
+Modules based on Lua: Version 7.5.16  2017-07-19 14:05 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -57,3 +57,4 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider software1
 ===========================
   software1: software1/1.0
     You will need to load all module(s) on any one of the lines below before the "software1/1.0" module is available to load.
+      compiler1/1.0

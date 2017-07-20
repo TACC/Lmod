@@ -385,11 +385,11 @@ local function l_build_parentT(keepT, mpathMapT)
       else
          resultA = {}
          for fullName, mpath2 in pairs(mpathMapT[mpath]) do
+            local tmpA    = copy(fullNameA)
             if (keepT[mpath2]) then
-               local tmpA    = copy(fullNameA)
                tmpA[#tmpA+1] = fullName
-               resultA = extend(resultA, l_build_parentT_helper(mpath2, tmpA))
             end
+            resultA = extend(resultA, l_build_parentT_helper(mpath2, tmpA))
          end
       end
       return resultA
