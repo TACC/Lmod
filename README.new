@@ -25,3 +25,4 @@ Lmod 7.5+
    (7.5.15) Fix bug: When restoring a collection, the ref_count is transferred.
    (7.5.16) Fix issue #294: Use keepT to know if a mpath directory should be kept
             when building parent array for level 2 spider output.
+   (7.5.17) Really fix issue #294.  The keepT test has to be deeper in the loop.
