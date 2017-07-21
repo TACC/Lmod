@@ -96,7 +96,6 @@ Advanced Topics
    155_lmodrc
    160_debugging_modulefiles
    170_hooks
-   180_prereqs_load_rpath
    185_localization
    190_Integration_of_EasyBuild_and_Lmod
    200_avail_custom
