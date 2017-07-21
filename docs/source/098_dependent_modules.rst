@@ -55,6 +55,7 @@ The TCL equivalent is::
    if { [ module-info mode load ] } {
       module load A
    }
+
 This choice will always load module "A" on the users behalf.  This is
 true even if "A" is already loaded.  When module "X" is unloaded, 
 module "A" will remain loaded. 
@@ -90,12 +91,12 @@ loaded. When module "X" is unloaded, module "A" will be unloaded if it
 is a dependent load.  Imagine the following scenario with
 ``depends_on("A")``::
 
-   $ module purge; module load X; module unload X => unload A
+   $ module purge; module load X; module unload X                => unload A
    $ module purge; module load A; module load X; module unload X => keep A
 
 Lmod implements reference counting for modules loaded via
 ``depends_on()`` and only ``depends_on()``.  So if "X" and "Y" depend
 on "A" then::
 
-   $ module purge; module load X Y; module unload X => keep A   
+   $ module purge; module load X Y; module unload X   => keep A   
    $ module purge; module load X Y; module unload X Y => unload A
