@@ -29,6 +29,16 @@ release at sourceforge.
 
 ## ChangeLog
 
+### Lmod 7.6:
+
+Features:
+
+   1. Support for disable <collection_name>
+
+   2. A marked default is honored even if it is hidden
+
+   3. Support for depends_on() as a better way to handle module dependencies.
+
 ### Lmod 7.5:
 
 Features:
