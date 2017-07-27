@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.5.11  2017-07-13 12:46 -05:00
+Modules based on Lua: Version 7.6  2017-07-24 14:07 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -42,3 +42,49 @@ Currently Loaded Modules:
   1) python/2.7.9
 Inactive Modules:
   1) boost
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc impi petsc
+===========================
+Activating Modules:
+  1) boost/1.59.0
+Due to MODULEPATH changes, the following have been reloaded:
+  1) python/2.7.9
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+ProjectDIR/rt/hierarchy/mf/MPI/gcc/6.1/impi/17.0
+   petsc/3.7 (L)
+ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1
+   boost/1.59.0 (L)    impi/17.0.3 (L)    python/2.7.9 (L,D)
+ProjectDIR/rt/hierarchy/mf/Core
+   gcc/6.1 (L)    intel/17.0.4    python/2.7.9
+  Where:
+   D:  Default Module
+   L:  Module is loaded
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel petsc
+===========================
+Lmod is automatically replacing "gcc/6.1" with "intel/17.0.4".
+Inactive Modules:
+  1) boost
+Due to MODULEPATH changes, the following have been reloaded:
+  1) impi/17.0.3     2) python/2.7.9
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+ProjectDIR/rt/hierarchy/mf/MPI/intel/17.0/impi/17.0
+   petsc/3.7
+ProjectDIR/rt/hierarchy/mf/Compiler/intel/17.0
+   impi/17.0.3 (L)
+ProjectDIR/rt/hierarchy/mf/Core
+   gcc/6.1    intel/17.0.4 (L)    python/2.7.9 (L)
+  Where:
+   L:  Module is loaded
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".

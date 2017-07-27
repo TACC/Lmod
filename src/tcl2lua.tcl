@@ -543,10 +543,13 @@ proc cmdargs { cmd args } {
     set cmdArgs [join $cmdArgsL ","]
     puts stdout "$cmd\($cmdArgs\)"
 }
+
+proc depends-on { args} {
+    eval cmdargs "depends_on" $args
+}
 proc family { var } {
     cmdargs "family" $var
 }
-
 
 proc loadcmd { args } {
     eval cmdargs "load" $args
@@ -753,6 +756,7 @@ proc execute-modulefile {modfile } {
 
     if {![interp exists $slave]} {
 	interp create $slave
+	interp alias $slave depends-on {} depends-on
 	interp alias $slave family {} family
 	interp alias $slave setenv {} setenv
 	interp alias $slave pushenv {} pushenv
