@@ -547,6 +547,10 @@ proc cmdargs { cmd args } {
 proc depends-on { args} {
     eval cmdargs "depends_on" $args
 }
+
+proc always-load { args} {
+    eval cmdargs "depends_on" $args
+}
 proc family { var } {
     cmdargs "family" $var
 }
@@ -757,6 +761,7 @@ proc execute-modulefile {modfile } {
     if {![interp exists $slave]} {
 	interp create $slave
 	interp alias $slave depends-on {} depends-on
+	interp alias $slave always-load {} always-load
 	interp alias $slave family {} family
 	interp alias $slave setenv {} setenv
 	interp alias $slave pushenv {} pushenv
