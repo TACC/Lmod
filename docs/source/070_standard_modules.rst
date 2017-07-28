@@ -89,12 +89,12 @@ Lmod, LD_LIBRARY_PATH and screen
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In general, it is probably better to NOT use ``screen`` and use
-``tmux`` instead.  The problem with ``screen`` is that it is a guid
-program (``tmux`` is not).  That means it uses the group associated
-with the executable and not the user's group.  The main consequence of
-this is that the operating system removes LD_LIBRARY_PATH from the
-environment.  This is a security feature built into the operating
-system.
+``tmux`` instead.  The problem with ``screen`` is that it is a 
+*set-group-id* (SGID) program (``tmux`` is not).  That means it uses 
+the group associated with the executable and not the user's group.  
+The main consequence of this is that the operating system removes 
+LD_LIBRARY_PATH from the environment.  This is a security feature 
+built into the operating system.
 
 A site could change z01_StdEnv.sh to have::
 
