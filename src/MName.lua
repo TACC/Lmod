@@ -132,7 +132,7 @@ function M.buildA(self,sType, ...)
 end
 
 local function lazyEval(self)
-   --dbg.start{"lazyEval()"}
+   dbg.start{"lazyEval(",self.__userName,")"}
 
    local found   = false
    local sType   = self.__sType
@@ -156,8 +156,8 @@ local function lazyEval(self)
          self.__version    = mt:version(sn)
          self.__stackDepth = mt:stackDepth(sn)
       end
-      --dbg.print{"mt\n"}
-      --dbg.fini("lazyEval")
+      dbg.print{"mt\n"}
+      dbg.fini("lazyEval")
       return
    end
 
@@ -173,8 +173,8 @@ local function lazyEval(self)
          self.__userName = build_fullName(t.sn, t.version)
       end
       
-      --dbg.print{"inherit\n"}
-      --dbg.fini("lazyEval")
+      dbg.print{"inherit\n"}
+      dbg.fini("lazyEval")
       return
    end
 
@@ -191,8 +191,8 @@ local function lazyEval(self)
    self.__stackDepth = frameStk:stackDepth()
    
    if (not sn) then
-      --dbg.print{"did not find sn\n"}
-      --dbg.fini("lazyEval")
+      dbg.print{"did not find sn\n"}
+      dbg.fini("lazyEval")
       return
    end
 
@@ -211,7 +211,7 @@ local function lazyEval(self)
          break
       end
    end
-   --dbg.fini("lazyEval")
+   dbg.fini("lazyEval")
 end
 
 

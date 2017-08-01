@@ -124,8 +124,8 @@ then that is a bug and should be reported.
 SAFETY FEATURES
 ^^^^^^^^^^^^^^^
 
-(1): Users can only have one version active.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(1): Users can only have one version active: The One Name Rule
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If a user does: ::
 
@@ -141,6 +141,10 @@ The first load command will load the 11.1 version of xyz. In the
 second load, the module command knows that the user already has
 xyz/11.1 loaded so it unloads that and then loads xyz/12.0. This
 protection is only available with Lmod.
+
+This is known as the *One Name* rule.  This feature is core to how
+Lmod works and there is no way to override this.
+
 
 (2) : Users can only load one compiler or MPI stack at a time.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -71,7 +71,7 @@ Lmod Guide.  The rest of the guides can be read as needed.
    050_lua_modulefiles
    060_locating
    070_standard_modules
-
+   073_tmod_to_lmod
 
 Advanced Topics
 ^^^^^^^^^^^^^^^

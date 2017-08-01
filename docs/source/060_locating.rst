@@ -41,6 +41,8 @@ file is a module with no version associated with it.  These are
 typically used as a meta-module: a module that loads other modules.
 
 
+.. _nv_rules-label:
+
 N/V: Picking modules when there are multiple directories in MODULEPATH
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
