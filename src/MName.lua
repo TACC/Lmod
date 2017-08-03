@@ -43,6 +43,7 @@ local M           = {}
 local MRC         = require("MRC") 
 local ModuleA     = require("ModuleA") 
 local MT          = require("MT")
+local concatTbl   = table.concat
 local cosmic      = require("Cosmic"):singleton()
 local dbg         = require("Dbg"):dbg()
 local sort        = table.sort
@@ -178,6 +179,9 @@ local function lazyEval(self)
       return
    end
 
+   
+
+
    assert(sType == "load", "unknown sType: "..sType)
    local mrc                   = MRC:singleton()
 
@@ -210,6 +214,20 @@ local function lazyEval(self)
          end
          break
       end
+   end
+   local tracing  = cosmic:value("LMOD_TRACING")
+   if (tracing == "yes") then
+      local shell      = _G.Shell
+      local stackDepth = frameStk:stackDepth()
+      local indent     = ("  "):rep(stackDepth+1)
+      local b          = {}
+      b[#b + 1]        = indent
+      b[#b + 1]        = "lazyEval: "
+      b[#b + 1]        = userName
+      b[#b + 1]        = " (fn: "
+      b[#b + 1]        = fn or "nil"
+      b[#b + 1]        = ")\n"
+      shell:echo(concatTbl(b,""))
    end
    dbg.fini("lazyEval")
 end
