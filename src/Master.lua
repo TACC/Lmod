@@ -306,8 +306,7 @@ function M.load(self, mA)
          local mcp     = MCP
          dbg.print{"Setting mcp to ", mcp:name(),"\n"}
          mcp:unload{MName:new("mt",sn)}
-         mname    = MName:new("load",mname:userName())
-         mA[i]    = mname
+         mname:reset()  -- force a new lazyEval
          local aa = mcp:load_usr{mname}
          mcp      = mcp_old
          dbg.print{"Setting mcp to ", mcp:name(),"\n"}
@@ -471,25 +470,13 @@ function M.reloadAll(self)
    dbg.start{"Master:reloadAll()"}
    local frameStk = FrameStk:singleton()
    local mt       = frameStk:mt()
-   local shell    = _G.Shell
    local mcp_old  = mcp
    mcp = MCP
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
 
-   local tracing  = cosmic:value("LMOD_TRACING")
    local same     = true
    local a        = mt:list("userName","any")
    local mA       = {}
-
-   if (tracing == "yes") then
-      local stackDepth = frameStk:stackDepth()
-      local indent     = ("  "):rep(stackDepth+1)
-      local b          = {}
-      b[#b + 1]        = indent
-      b[#b + 1]        = "reloadAll\n"
-      shell:echo(concatTbl(b,""))
-   end
-
 
    for i = 1, #a do
       repeat

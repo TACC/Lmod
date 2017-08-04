@@ -215,20 +215,6 @@ local function lazyEval(self)
          break
       end
    end
-   local tracing  = cosmic:value("LMOD_TRACING")
-   if (tracing == "yes") then
-      local shell      = _G.Shell
-      local stackDepth = frameStk:stackDepth()
-      local indent     = ("  "):rep(stackDepth+1)
-      local b          = {}
-      b[#b + 1]        = indent
-      b[#b + 1]        = "lazyEval: "
-      b[#b + 1]        = userName
-      b[#b + 1]        = " (fn: "
-      b[#b + 1]        = fn or "nil"
-      b[#b + 1]        = ")\n"
-      shell:echo(concatTbl(b,""))
-   end
    dbg.fini("lazyEval")
 end
 
@@ -515,6 +501,14 @@ function M.prereq(self)
 
    -- userName did not match.
    return userName
+end
+
+-- reset the private variable to force a new lazyEval.
+function M.reset(self)
+   self.__sn         = nil
+   self.__fn         = nil
+   self.__version    = nil
+   self.__stackDepth = nil
 end
 
 --------------------------------------------------------------------------
