@@ -264,10 +264,13 @@ function M.load(self, mA)
 
 
    for i = 1,#mA do
-      mt               = frameStk:mt()
       local mname      = mA[i]
-      local sn         = mname:sn()
       local userName   = mname:userName()
+
+      dbg.print{"Master:load i: ",i," userName: ",userName,"\n"}
+
+      mt               = frameStk:mt()
+      local sn         = mname:sn()
       local fullName   = mname:fullName()
       local fn         = mname:fn()
       local loaded     = false
@@ -303,6 +306,8 @@ function M.load(self, mA)
          local mcp     = MCP
          dbg.print{"Setting mcp to ", mcp:name(),"\n"}
          mcp:unload{MName:new("mt",sn)}
+         mname    = MName:new("load",mname:userName())
+         mA[i]    = mname
          local aa = mcp:load_usr{mname}
          mcp      = mcp_old
          dbg.print{"Setting mcp to ", mcp:name(),"\n"}
@@ -466,13 +471,25 @@ function M.reloadAll(self)
    dbg.start{"Master:reloadAll()"}
    local frameStk = FrameStk:singleton()
    local mt       = frameStk:mt()
-   local mcp_old = mcp
+   local shell    = _G.Shell
+   local mcp_old  = mcp
    mcp = MCP
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
 
-   local same = true
-   local a    = mt:list("userName","any")
-   local mA   = {}
+   local tracing  = cosmic:value("LMOD_TRACING")
+   local same     = true
+   local a        = mt:list("userName","any")
+   local mA       = {}
+
+   if (tracing == "yes") then
+      local stackDepth = frameStk:stackDepth()
+      local indent     = ("  "):rep(stackDepth+1)
+      local b          = {}
+      b[#b + 1]        = indent
+      b[#b + 1]        = "reloadAll\n"
+      shell:echo(concatTbl(b,""))
+   end
+
 
    for i = 1, #a do
       repeat
@@ -480,6 +497,7 @@ function M.reloadAll(self)
          local v          = a[i]
          local sn         = v.sn
          local mname_old  = MName:new("mt",v.userName)
+         dbg.print{"userName: ",v.userName,"\n"}
          if (not mname_old:sn()) then break end
          mA[#mA+1]       = mname_old
          dbg.print{"adding sn: ",sn," to mA\n"}

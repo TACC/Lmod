@@ -1135,6 +1135,7 @@ end
 -- @param self A MasterControl object
 -- @param name The name of the family
 function M.family(self, name)
+   dbg.start{"MasterControl:family(",name,")"}
    local frameStk  = FrameStk:singleton()
    local mt        = frameStk:mt()
    local fullName  = frameStk:fullName()

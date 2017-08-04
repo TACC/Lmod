@@ -82,10 +82,20 @@ _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["f
 export _ModuleTable_;
 ===========================
 step 8
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload boost
+===========================
+LOADEDMODULES="python/2.7.9";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/hierarchy/mf/Core";
+export MODULEPATH;
+_LMFILES_="ProjectDIR/rt/hierarchy/mf/Core/python/2.7.9.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={python={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/python/2.7.9.lua",["fullName"]="python/2.7.9",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc impi petsc
 ===========================
-BOOST_VERSION="1.59.0";
-export BOOST_VERSION;
 COMPILER_DEPENDENT="yes";
 export COMPILER_DEPENDENT;
 LD_LIBRARY_PATH="lib/openmpi:lib";
@@ -98,7 +108,7 @@ LMOD_FAMILY_MPI="impi";
 export LMOD_FAMILY_MPI;
 LMOD_FAMILY_MPI_VERSION="17.0.3";
 export LMOD_FAMILY_MPI_VERSION;
-LOADEDMODULES="gcc/6.1:impi/17.0.3:petsc/3.7:python/2.7.9:boost/1.59.0";
+LOADEDMODULES="gcc/6.1:impi/17.0.3:petsc/3.7:python/2.7.9";
 export LOADEDMODULES;
 MANPATH="/opt/apps/gcc-6_1/impi/17.0.3/man";
 export MANPATH;
@@ -118,23 +128,22 @@ TACC_IMPI_INC="/opt/apps/gcc-6_1/impi/17.0.3/include";
 export TACC_IMPI_INC;
 TACC_IMPI_LIB="/opt/apps/gcc-6_1/impi/17.0.3/lib";
 export TACC_IMPI_LIB;
-_LMFILES_="ProjectDIR/rt/hierarchy/mf/Core/gcc/6.1.lua:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/impi/17.0.3.lua:ProjectDIR/rt/hierarchy/mf/MPI/gcc/6.1/impi/17.0/petsc/3.7.lua:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/python/2.7.9.lua:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/boost/1.59.0.lua";
+_LMFILES_="ProjectDIR/rt/hierarchy/mf/Core/gcc/6.1.lua:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/impi/17.0.3.lua:ProjectDIR/rt/hierarchy/mf/MPI/gcc/6.1/impi/17.0/petsc/3.7.lua:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/python/2.7.9.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["Compiler"]="gcc",["MPI"]="impi",},mT={boost={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/boost/1.59.0.lua",["fullName"]="boost/1.59.0",["loadOrder"]=5,propT={},["stackDepth"]=0,["status"]="active",["userName"]="boost",},gcc={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/gcc/6.1.lua",["fullName"]="gcc/6.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="gcc",},impi={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/impi/17.0.3.lua",["fullName"]="impi/17.0.3",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="impi",},petsc={["fn"]="ProjectDIR/rt/hierarchy/mf/MPI/gcc/6.1/impi/17.0/petsc/3.7.lua",["fullName"]="petsc/3.7",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="petsc",},python={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/python/2.7.9.lua",["fullName"]="python/2.7.9",["loadOrder"]=4,propT={},["stackDepth"]=0,["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/gcc/6.1/impi/17.0","ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["Compiler"]="gcc",["MPI"]="impi",},mT={gcc={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/gcc/6.1.lua",["fullName"]="gcc/6.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="gcc",},impi={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/impi/17.0.3.lua",["fullName"]="impi/17.0.3",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="impi",},petsc={["fn"]="ProjectDIR/rt/hierarchy/mf/MPI/gcc/6.1/impi/17.0/petsc/3.7.lua",["fullName"]="petsc/3.7",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="petsc",},python={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/python/2.7.9.lua",["fullName"]="python/2.7.9",["loadOrder"]=4,propT={},["stackDepth"]=0,["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/gcc/6.1/impi/17.0","ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 9
+step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/gcc/6.1/impi/17.0:ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1:ProjectDIR/rt/hierarchy/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["Compiler"]="gcc",["MPI"]="impi",},mT={boost={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/boost/1.59.0.lua",["fullName"]="boost/1.59.0",["loadOrder"]=5,propT={},["stackDepth"]=0,["status"]="active",["userName"]="boost",},gcc={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/gcc/6.1.lua",["fullName"]="gcc/6.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="gcc",},impi={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/impi/17.0.3.lua",["fullName"]="impi/17.0.3",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="impi",},petsc={["fn"]="ProjectDIR/rt/hierarchy/mf/MPI/gcc/6.1/impi/17.0/petsc/3.7.lua",["fullName"]="petsc/3.7",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="petsc",},python={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/python/2.7.9.lua",["fullName"]="python/2.7.9",["loadOrder"]=4,propT={},["stackDepth"]=0,["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/gcc/6.1/impi/17.0","ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["Compiler"]="gcc",["MPI"]="impi",},mT={gcc={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/gcc/6.1.lua",["fullName"]="gcc/6.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="gcc",},impi={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/impi/17.0.3.lua",["fullName"]="impi/17.0.3",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="impi",},petsc={["fn"]="ProjectDIR/rt/hierarchy/mf/MPI/gcc/6.1/impi/17.0/petsc/3.7.lua",["fullName"]="petsc/3.7",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="petsc",},python={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/python/2.7.9.lua",["fullName"]="python/2.7.9",["loadOrder"]=4,propT={},["stackDepth"]=0,["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/gcc/6.1/impi/17.0","ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 10
+step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel petsc
 ===========================
-unset BOOST_VERSION;
 unset COMPILER_DEPENDENT;
 LD_LIBRARY_PATH="lib/openmpi:lib";
 export LD_LIBRARY_PATH;
@@ -166,15 +175,15 @@ TACC_IMPI_INC="/opt/apps/intel-17_0/impi/17.0.3/include";
 export TACC_IMPI_INC;
 TACC_IMPI_LIB="/opt/apps/intel-17_0/impi/17.0.3/lib";
 export TACC_IMPI_LIB;
-_LMFILES_="ProjectDIR/rt/hierarchy/mf/Core/intel/17.0.4.lua:ProjectDIR/rt/hierarchy/mf/Core/python/2.7.9.lua:ProjectDIR/rt/hierarchy/mf/Compiler/intel/17.0/impi/17.0.3.lua:ProjectDIR/rt/hierarchy/mf/MPI/gcc/6.1/impi/17.0/petsc/3.7.lua";
+_LMFILES_="ProjectDIR/rt/hierarchy/mf/Core/intel/17.0.4.lua:ProjectDIR/rt/hierarchy/mf/Core/python/2.7.9.lua:ProjectDIR/rt/hierarchy/mf/Compiler/intel/17.0/impi/17.0.3.lua:ProjectDIR/rt/hierarchy/mf/MPI/intel/17.0/impi/17.0/petsc/3.7.lua";
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["Compiler"]="intel",["MPI"]="impi",},mT={boost={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/boost/1.59.0.lua",["fullName"]="boost/1.59.0",["loadOrder"]=-3,propT={},["stackDepth"]=0,["status"]="inactive",["userName"]="boost",},impi={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/intel/17.0/impi/17.0.3.lua",["fullName"]="impi/17.0.3",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="impi",},intel={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/intel/17.0.4.lua",["fullName"]="intel/17.0.4",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",},petsc={["fn"]="ProjectDIR/rt/hierarchy/mf/MPI/gcc/6.1/impi/17.0/petsc/3.7.lua",["fullName"]="petsc/3.7",["loadOrder"]=4,propT={},["stackDepth"]=0,["status"]="active",["userName"]="petsc",},python={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/python/2.7.9.lua",["fullName"]="python/2.7.9",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/intel/17.0/impi/17.0","ProjectDIR/rt/hierarchy/mf/Compiler/intel/17.0","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["Compiler"]="intel",["MPI"]="impi",},mT={impi={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/intel/17.0/impi/17.0.3.lua",["fullName"]="impi/17.0.3",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="impi",},intel={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/intel/17.0.4.lua",["fullName"]="intel/17.0.4",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",},petsc={["fn"]="ProjectDIR/rt/hierarchy/mf/MPI/intel/17.0/impi/17.0/petsc/3.7.lua",["fullName"]="petsc/3.7",["loadOrder"]=4,propT={},["stackDepth"]=0,["status"]="active",["userName"]="petsc",},python={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/python/2.7.9.lua",["fullName"]="python/2.7.9",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/intel/17.0/impi/17.0","ProjectDIR/rt/hierarchy/mf/Compiler/intel/17.0","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 11
+step 12
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 MODULEPATH="ProjectDIR/rt/hierarchy/mf/MPI/intel/17.0/impi/17.0:ProjectDIR/rt/hierarchy/mf/Compiler/intel/17.0:ProjectDIR/rt/hierarchy/mf/Core";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["Compiler"]="intel",["MPI"]="impi",},mT={boost={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/boost/1.59.0.lua",["fullName"]="boost/1.59.0",["loadOrder"]=-3,propT={},["stackDepth"]=0,["status"]="inactive",["userName"]="boost",},impi={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/intel/17.0/impi/17.0.3.lua",["fullName"]="impi/17.0.3",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="impi",},intel={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/intel/17.0.4.lua",["fullName"]="intel/17.0.4",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",},petsc={["fn"]="ProjectDIR/rt/hierarchy/mf/MPI/gcc/6.1/impi/17.0/petsc/3.7.lua",["fullName"]="petsc/3.7",["loadOrder"]=4,propT={},["stackDepth"]=0,["status"]="active",["userName"]="petsc",},python={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/python/2.7.9.lua",["fullName"]="python/2.7.9",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/intel/17.0/impi/17.0","ProjectDIR/rt/hierarchy/mf/Compiler/intel/17.0","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["Compiler"]="intel",["MPI"]="impi",},mT={impi={["fn"]="ProjectDIR/rt/hierarchy/mf/Compiler/intel/17.0/impi/17.0.3.lua",["fullName"]="impi/17.0.3",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="impi",},intel={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/intel/17.0.4.lua",["fullName"]="intel/17.0.4",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",},petsc={["fn"]="ProjectDIR/rt/hierarchy/mf/MPI/intel/17.0/impi/17.0/petsc/3.7.lua",["fullName"]="petsc/3.7",["loadOrder"]=4,propT={},["stackDepth"]=0,["status"]="active",["userName"]="petsc",},python={["fn"]="ProjectDIR/rt/hierarchy/mf/Core/python/2.7.9.lua",["fullName"]="python/2.7.9",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/hierarchy/mf/MPI/intel/17.0/impi/17.0","ProjectDIR/rt/hierarchy/mf/Compiler/intel/17.0","ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
 export _ModuleTable_;
