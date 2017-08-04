@@ -1,3 +1,4 @@
 Lmod 7.6+
     (7.6.1) depends-on and always-load support added to TCL modulefiles.
             Let .modulerc and .version have access to $env.
+    (7.6.2) Force a new lazyEval when enforcing the one-name rule.
