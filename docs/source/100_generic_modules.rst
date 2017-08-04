@@ -1,3 +1,5 @@
+.. _generic_modules-label:
+
 Generic Modules
 ===============
 

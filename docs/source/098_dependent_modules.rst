@@ -100,3 +100,79 @@ on "A" then::
 
    $ module purge; module load X Y; module unload X   => keep A   
    $ module purge; module load X Y; module unload X Y => unload A
+
+Complex uses of ``depends_on()``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Sites can have complex dependencies that they might wish to express
+using ``depends_on()``.  Let's assume that module X depends on the
+openblas package but only when using gcc.  A site might try to do the
+following in the X modulefile::
+
+ 
+    -- DO NOT DO THIS!!
+    if (isloaded("gcc")) then
+       depends_on("openblas")
+    end
+    -- DO NOT DO THIS!!
+
+Let's also assume that your site is using the hierarchy where X is a
+compiler dependent module and you wish to use the same modulefile for
+X for both the gcc and intel compiler modules.  The above code in the
+X modulefile works correctly when loading but will fail when
+unloading in this common scenario:  if a user tries to swap gcc for
+intel then the openblas module will likely be left loaded or inactive.
+
+To simplify the discussion, let's have the user start with the
+following modules loaded::
+
+   $ module list
+
+   1) gcc/7.1  2) X/1.0  3) openblas/0.2.20
+
+And lets assume that openblas is a Core module and X is a compiler
+dependent module.  Then executing::
+
+   $ module swap gcc intel
+
+causes gcc to  be unloaded.  When gcc is unloaded  it removes the path
+to  gcc dependent  modules which  means that  X will  be unloaded  and
+marked as inactive.  The way  that a module  is unloaded is  that the
+contents  of the  module is  evaluated and  most action  requested are
+reversed.  So  load  statements  cause  a  module  to  unload  and  a
+depends_on() function is told to  forgo() the modules.  The isloaded()
+is not reversed.  But  as you can see since the  gcc modulefile is not
+loaded the if statement then clause is not evaluated.  This means that
+openblas will still be loaded.
+
+In the case where openblas is a compiler-dependent module then it will
+be unloaded and marked as inactive. Either way this probably not what
+the site wants to happen.  The trouble here is that environment that
+happens on load is not the case on unload.
+
+There is another way to determine which compiler and/or mpi stack a
+module is in and that is its filename.  This assumes that you have a
+rational naming convention for module locations.  Using a similar
+technique to the one describe in :ref:`generic_modules-label`.  We can
+determine which compiler is in use.  So if the module file is located
+in `/apps/mfiles/Compiler/<compiler>/<compiler-version>/<app-name>/<app-version>` 
+then we can do the following and use the hierarchyA() function in the
+X modulefile::
+
+     local hierA = hierarchyA(myModuleFullName(),1)
+     if (hierA[1]:find("^gcc/")) then
+        depends_on("openblas")
+     end
+
+This will work correctly for both loading and unloading.  This, of
+course, assumes that the location of the X modulefile is something
+like::
+
+    /apps/mfiles/Compiler/gcc/7.1/X/1.0.lua
+
+
+
+
+
+
+
