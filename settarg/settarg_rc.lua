@@ -25,14 +25,14 @@ TitleTbl = {
 
 ModuleTbl = {
    build_scenario     = { "mdbg", "dbg", "opt", "gopt", "empty"},
-   mpi                = { "mpich", "mpich2", "openmpi", "mvapich2", "impi"},
-   compiler           = { "intel", "pgi", "gcc", "sun", "clang"},
-   blas               = { "gotoblas", "mkl",},
-   solver             = { "petsc", "trilinos"},
+   mpi                = { "mpich", "mpich2", "openmpi", "mvapich2", "impi", "MPICH", "MPICH2", "OPENMPI", "MVAPICH2", "gmvapich2", "gmpich"},
+   compiler           = { "intel", "pgi", "gcc", "sun", "clang", "Clang", "GCC", "LLVM"},
+   blas               = { "gotoblas", "mkl", "imkl", "OpenBLAS"},
+   solver             = { "petsc", "trilinos", "PETSc", "Trilinos"},
    pointer_validation = { "mudflap", "mudflapth", "dmalloc"},
    valgrind           = { "memgrind", "cachegrind"},
-   profiling          = { "mpiP", "tau"},
-   file_io            = { "hdf5", "phdf5" },
+   profiling          = { "mpiP", "tau", "TAU"},
+   file_io            = { "hdf5", "phdf5", "HDF5"},
 }
 
 TargetList = { "mach", "build_scenario", "compiler", "mpi"}
