@@ -209,11 +209,11 @@ function M.searchSpiderDB(self, strA, dbT)
 
    local kywdT = {}
    
-   for sn, vv in pairs(dbT) do
+   for sn, vvv in pairs(dbT) do
       kywdT[sn] = {}
       local t   = kywdT[sn]
-      for fn, v in pairs(vv) do
-         local whatisS  = concatTbl(v.whatis or {},"\n"):lower()
+      for fn, vv in pairs(vvv) do
+         local whatisS  = concatTbl(vv.whatis or {},"\n"):lower()
          local found    = false
          for i = 1,strA.n do
             local str = strA[i]
@@ -221,9 +221,19 @@ function M.searchSpiderDB(self, strA, dbT)
                found = true
                break
             end
+            if (vv.propT and next(vv.propT) ~= nil) then
+               for propN,v in pairs(vv.propT) do
+                  for k in pairs(v) do
+                     if (k:find(str)) then
+                        found = true
+                        break
+                     end
+                  end
+               end
+            end
          end
          if (found) then
-            t[fn] = v
+            t[fn] = vv
          end
       end
       if (next(kywdT[sn]) == nil) then
