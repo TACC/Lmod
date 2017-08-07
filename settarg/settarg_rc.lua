@@ -4,7 +4,7 @@ BuildScenarioTbl = {
    default                = "empty",
 }
 
-HostnameTbl = { 2 }
+HostnameTbl = { 2 }  -- extracts the 2nd part of `hostname -f` output, towards variable $TARG_HOST
 
 TitleTbl = {
    mic                    = "MIC",
@@ -21,13 +21,32 @@ TitleTbl = {
    gcc                    = "G",
    clang                  = "C",
    tau                    = "Tau",
+   pgi                    = "P",
+   MVAPICH2               = 'M',
+   OpenMPI                = "O",
+   MPICH                  = "M",
+   MPICH2                 = "M2",
+   INTEL                  = "I",
+   GCC                    = "G",
+   Clang                  = "C",
+   TAU                    = 'Tau',
+   PGI                    = "P",
 }
 
 ModuleTbl = {
    build_scenario     = { "mdbg", "dbg", "opt", "gopt", "empty"},
-   mpi                = { "mpich", "mpich2", "openmpi", "mvapich2", "impi", "MPICH", "MPICH2", "OpenMPI", "MVAPICH2"},
-   compiler           = { "intel", "pgi", "gcc", "sun", "clang", "Clang", "GCC", "LLVM"},
-   blas               = { "gotoblas", "mkl", "imkl", "OpenBLAS"},
+   mpi                = { "mpich", "mpich2", "openmpi", "mvapich2", "impi", "MPICH", "MPICH2", "MVAPICH2", 
+                          "OpenMPI", "QLogicMPI", "psmpi", "psmpi2"},
+   compiler           = { "intel", "pgi", "gcc", "sun", "clang", "Clang", "GCC", "LLVM", "PGI", "PCC", "TCC", "SDCC", "ispc", "Go"},
+   blas               = { "gotoblas", "mkl", "imkl", "OpenBLAS", "GotoBLAS", "GotoBLAS2", "ATLAS"},
+   toolchain          = { "ClangGCC", "CrayCCE", "CrayGNU", "CrayIntel", "CrayPGI", "GCCcore", 
+                          "GNU", "PGI", "cgmpich", "cgmpolf", "cgmvapich2", "cgmvolf", "cgompi", "cgoolf", 
+                          "dummy", "foss", "gcccuda", "gimkl", "gimpi", "gmacml", "gmpich", "gmpich2", 
+                          "gmpolf", "gmvapich2", "gmvolf", "goalf", "gompi", "gompic", "goolf", "goolfc", 
+                          "gpsmpi", "gpsolf", "gqacml", "iccifort", "iccifortcuda", "ictce", 
+                          "iimkl", "iimpi", "iimpic", "iiqmpi", "impich", "impmkl", "intel", 
+                          "intel-para", "intelcuda", "iomkl", "iompi", "ipsmpi", "iqacml", "ismkl", 
+                          "pomkl", "pompi", "xlcxlf", "xlmpich", "xlmpich2", "xlmvapich2", "xlompi"},   
    solver             = { "petsc", "trilinos", "PETSc", "Trilinos"},
    acceleratings_libs = { "CUDA", "cuDNN"},
    pointer_validation = { "mudflap", "mudflapth", "dmalloc"},
