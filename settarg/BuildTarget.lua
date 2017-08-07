@@ -237,8 +237,12 @@ local function readDotFiles()
 
    -------------------------------------------------------
    -- Load system then user default table.
+   local settarg_rc = getenv(SETTARG_RC)
+   if (not settarg_rc or not isFile(settarg_rc)) then
+      settarg_rc = pathJoin(masterTbl.execDir,"settarg_rc.lua")
+   end
 
-   local a = { pathJoin(masterTbl.execDir,"settarg_rc.lua"),
+   local a = { settarg_rc,
                pathJoin(getenv('HOME') or '',".settarg.lua"),
    }
 

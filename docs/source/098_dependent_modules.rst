@@ -135,13 +135,13 @@ dependent module.  Then executing::
 
    $ module swap gcc intel
 
-causes gcc to  be unloaded.  When gcc is unloaded  it removes the path
-to  gcc dependent  modules which  means that  X will  be unloaded  and
-marked as inactive.  The way  that a module  is unloaded is  that the
-contents  of the  module is  evaluated and  most action  requested are
-reversed.  So  load  statements  cause  a  module  to  unload  and  a
-depends_on() function is told to  forgo() the modules.  The isloaded()
-is not reversed.  But  as you can see since the  gcc modulefile is not
+causes gcc to be unloaded.  When gcc is unloaded it removes the path
+in MODULEPATH to the gcc dependent modules which means that X will be
+unloaded and marked as inactive.  The way that a module is unloaded is
+that the contents of the module is evaluated and most action requested
+are reversed.  So load statements cause a module to unload and a
+depends_on() function is told to forgo() the modules.  The isloaded()
+is not reversed.  But as you can see since the gcc modulefile is not
 loaded the if statement then clause is not evaluated.  This means that
 openblas will still be loaded.
 
