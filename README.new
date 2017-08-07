@@ -4,3 +4,4 @@ Lmod 7.6+
     (7.6.2) Force a new lazyEval when enforcing the one-name rule.
             env var SETTARG_RC overrides standard settarg_rc.lua file.
     (7.6.3) Merged in PR #311: making settarg more EB, buildset friendly.
+    (7.6.4) Support for ml keyword <prop_name> added
