@@ -8,31 +8,32 @@ HostnameTbl = { 2 }
 
 TitleTbl = {
    mic                    = "MIC",
-   dbg                    = 'D',
-   mdbg                   = 'M',
-   opt                    = 'O',
-   gopt                   = 'G',
+   dbg                    = "D",
+   mdbg                   = "M",
+   opt                    = "O",
+   gopt                   = "G",
    impi                   = "IM",
-   mvapich2               = 'M',
+   mvapich2               = "M",
    openmpi                = "O",
    mpich                  = "M",
    mpich2                 = "M2",
    intel                  = "I",
    gcc                    = "G",
    clang                  = "C",
-   tau                    = 'Tau',
+   tau                    = "Tau",
 }
 
 ModuleTbl = {
    build_scenario     = { "mdbg", "dbg", "opt", "gopt", "empty"},
-   mpi                = { "mpich", "mpich2", "openmpi", "mvapich2", "impi"},
-   compiler           = { "intel", "pgi", "gcc", "sun",'clang'},
-   blas               = { "gotoblas", "mkl",},
-   solver             = { "petsc","trilinos"},
-   pointer_validation = { "mudflap", "mudflapth","dmalloc"},
-   valgrind           = { "memgrind","cachegrind"},
-   profiling          = { "mpiP", "tau"},
-   file_io            = { "hdf5", "phdf5" },
+   mpi                = { "mpich", "mpich2", "openmpi", "mvapich2", "impi", "MPICH", "MPICH2", "OpenMPI", "MVAPICH2"},
+   compiler           = { "intel", "pgi", "gcc", "sun", "clang", "Clang", "GCC", "LLVM"},
+   blas               = { "gotoblas", "mkl", "imkl", "OpenBLAS"},
+   solver             = { "petsc", "trilinos", "PETSc", "Trilinos"},
+   acceleratings_libs = { "CUDA", "cuDNN"},
+   pointer_validation = { "mudflap", "mudflapth", "dmalloc"},
+   valgrind           = { "memgrind", "cachegrind"},
+   profiling          = { "mpiP", "tau", "TAU"},
+   file_io            = { "hdf5", "phdf5", "HDF5"},
 }
 
 TargetList = { "mach", "build_scenario", "compiler", "mpi"}
