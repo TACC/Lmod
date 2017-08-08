@@ -218,10 +218,19 @@ function Keyword(...)
    local spider      = Spider:new()
    local a           = {}
    local ia          = 0
+   local masterTbl   = masterTbl()
+   local terse       = masterTbl.terse
    local kywdT       = spider:searchSpiderDB(pack(...), dbT)
 
+   if (terse) then
+      shell:echo(Spider:Level0_terse(kywdT))
+      dbg.fini("Keyword")
+      return
+   end
 
    ia = ia+1; a[ia] = i18n("keyword_msg",{border=border, module_list = concatTbl({...},"\", \"")})
+
+   dbg.printT("kywdT",kywdT)
 
    spider:Level0Helper(kywdT,a)
 
@@ -769,7 +778,6 @@ function SpiderCmd(...)
       a[#a+1] = spider:spiderSearch(dbT, arg[arg.n], true)
       s = concatTbl(a,"")
    end
-
    if (masterTbl.terse) then
       shell:echo(s.."\n")
    else

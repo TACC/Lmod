@@ -553,37 +553,42 @@ function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
    dbg.fini("Spider:buildDbT")
 end         
 
-function M.Level0(self, dbT)
-   local a           = {}
-   local masterTbl   = masterTbl()
-   local show_hidden = masterTbl.show_hidden
-   local terse       = masterTbl.terse
+function M.Level0_terse(self,dbT)
+   dbg.start{"Spider:Level0_terse()"}
    local mrc         = MRC:singleton()
-
-
-   if (terse) then
-      dbg.start{"Spider:Level0()"}
-      local t  = {}
-      for sn, vv in pairs(dbT) do
-         for fn, v in pairs(vv) do
-            local isActive, version = isActiveMFile(mrc, v.fullName, sn, fn)
-            if (show_hidden or isActive) then
-               if (sn == v.fullName) then
-                  t[sn] = sn
-               else
-                  -- print out directory name (e.g. gcc) for tab completion.
-                  t[sn]     = sn .. "/"
-                  local key = sn .. "/" .. v.pV
-                  t[key]    = v.fullName
-               end
+   local show_hidden = masterTbl().show_hidden
+   local t           = {}
+   local a           = {}
+   for sn, vv in pairs(dbT) do
+      for fn, v in pairs(vv) do
+         local isActive, version = isActiveMFile(mrc, v.fullName, sn, fn)
+         if (show_hidden or isActive) then
+            if (sn == v.fullName) then
+               t[sn] = sn
+            else
+               -- print out directory name (e.g. gcc) for tab completion.
+               t[sn]     = sn .. "/"
+               local key = sn .. "/" .. v.pV
+               t[key]    = v.fullName
             end
          end
       end
-      for k,v in pairsByKeys(t) do
-         a[#a+1] = v
-      end
-      dbg.fini("Spider:Level0")
-      return concatTbl(a,"\n")
+   end
+   for k,v in pairsByKeys(t) do
+      a[#a+1] = v
+   end
+   dbg.fini("Spider:Level0_terse")
+   return concatTbl(a,"\n")
+end
+
+function M.Level0(self, dbT)
+   local a           = {}
+   local masterTbl   = masterTbl()
+   local terse       = masterTbl.terse
+
+
+   if (terse) then
+      return self:Level0_terse(dbT)
    end
 
    local ia     = 0
