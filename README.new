@@ -6,3 +6,5 @@ Lmod 7.6+
     (7.6.3) Merged in PR #311: making settarg more EB, buildset friendly.
     (7.6.4) Support for ml keyword <prop_name> added
     (7.6.5) --terse support added to keyword.
+            Changed SETTARG_RC to LMOD_SETTARG_RC
+            
