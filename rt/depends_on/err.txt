@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.5.14  2017-07-18 17:28 -05:00
+Modules based on Lua: Version 7.6.4  2017-08-07 17:29 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -70,7 +70,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load X
 step 15
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload A
 ===========================
-The following dependent module(s) are not currently loaded: A
+The following dependent module(s) are not currently loaded: A (required by: X)
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore

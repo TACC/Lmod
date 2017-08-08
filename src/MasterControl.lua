@@ -766,12 +766,16 @@ function M.dependencyCk(self,mA)
       dbg.start{"MasterControl:dependencyCk(mA={"..s.."})"}
    end
 
-   local mt = FrameStk:singleton():mt()
+   local frameStk = FrameStk:singleton()
+   local mt       = frameStk:mt()
+   local fullName = frameStk:fullName()
    for i = 1,#mA do
       local mname = mA[i]
       local sn    = mname:sn()
       if (not mt:have(sn,"active")) then
-         s_missDepT[mname:userName()] = true
+         local a = s_missDepT[mname:userName()] or {}
+         a[#a+1] = fullName
+         s_missDepT[mname:userName()] = a
       end
    end
 
@@ -786,10 +790,11 @@ function M.reportMissingDepModules(self)
       local term_width  = TermWidth()
       local border      = colorize("red",string.rep("-", term_width-1))
       
-      for k in pairsByKeys(t) do
-         a[#a+1] = k
+      for k,v in pairsByKeys(t) do
+         local s = concatTbl(v,", ")
+         a[#a+1] = k .. " (required by: "..s..")"
       end
-      io.stderr:write(i18n("w_MissingModules",{border=border,missing=concatTbl(a," ")}))
+      io.stderr:write(i18n("w_MissingModules",{border=border,missing=concatTbl(a,", ")}))
    end
 end
 
