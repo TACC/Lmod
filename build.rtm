@@ -91,17 +91,19 @@ case $SYSHOST in
 
   ls5 | maverick | stampede | wrangler | stampede2 )
     base="$HOME/l/pkg"
-    ADMIN_DIR="$HOME/a/moduleData"
-    UPDATE_FN=$ADMIN_DIR/system.txt
-
+    UPDATE_FN=/tmp/losf_last_update
+    CACHEDIRS=/tmp/moduleData/cacheDir
     if [ $SYSHOST == "stampede" ]; then
        if [ -x $HOME/.up/bin/arch.py ]; then
 	   base="$base/$($HOME/.up/bin/arch.py)"
        else
 	   base="$base/$(uname -m)"
        fi
+    elif [ $SYSHOST == "ls5" ]; then
+      UPDATE_FN=/home1/moduleData/cacheDir/tacc_cache_timestamp.txt
+      CACHEDIRS=/home1/moduleData/cacheDir/tacc
     fi
-    EXTRA="--with-spiderCacheDescript=/tmp/TACC.build.$$ --with-siteName=TACC --with-syshost=$SYSHOST"
+    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN --with-siteName=TACC --with-syshost=$SYSHOST"
     SITE_PKG="contrib/TACC/*.lua"
     ;;
 
