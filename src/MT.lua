@@ -650,6 +650,14 @@ function M.decr_ref_count(self,sn)
    return ref_count
 end
 
+function M.get_ref_count(self,sn)
+   local entry = self.mT[sn]
+   if (entry == nil or entry.ref_count == nil) then
+      return 0
+   end
+   return entry.ref_count
+end
+
 function M.updateMPathA(self, value)
    if (type(value) == "string") then
       self.mpathA = path2pathA(value)
