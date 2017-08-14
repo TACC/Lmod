@@ -39,6 +39,7 @@ testdescript = {
      runLmod load X                            #14
      runLmod unload A                          #15
      runLmod restore                           #16
+     runLmod unload A                          #17
 
 
      HOME=$ORIG_HOME

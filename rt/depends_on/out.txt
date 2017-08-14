@@ -156,3 +156,15 @@ _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]=
 export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload A
+===========================
+LOADEDMODULES="B:X:Y";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/depends_on/mf/Core";
+export MODULEPATH;
+_LMFILES_="ProjectDIR/rt/depends_on/mf/Core/B.lua:ProjectDIR/rt/depends_on/mf/Core/X.lua:ProjectDIR/rt/depends_on/mf/Core/Y.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={B={["fn"]="ProjectDIR/rt/depends_on/mf/Core/B.lua",["fullName"]="B",["loadOrder"]=1,propT={},["ref_count"]=2,["stackDepth"]=0,["status"]="active",["userName"]="B",},X={["fn"]="ProjectDIR/rt/depends_on/mf/Core/X.lua",["fullName"]="X",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="X",},Y={["fn"]="ProjectDIR/rt/depends_on/mf/Core/Y.lua",["fullName"]="Y",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="Y",},},mpathA={"ProjectDIR/rt/depends_on/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/depends_on/mf/Core",}';
+export _ModuleTable_;
