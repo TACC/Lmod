@@ -81,3 +81,36 @@ step 17
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload A
 ===========================
 The following dependent module(s) are not currently loaded: A (required by: X)
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Y
+===========================
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) B   2) Y
+===========================
+step 21
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
+===========================
+Saved current collection of modules to: "default"
+===========================
+step 22
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
+===========================
+Restoring modules from user's default
+===========================
+step 23
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload Y
+===========================
+===========================
+step 24
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+No modules loaded
