@@ -40,21 +40,20 @@ unset postfix
 unset histchar
 unset merge
 
-if ( ! $?TARG_TITLE_BAR_PAREN ) then
-  setenv TARG_TITLE_BAR_PAREN ""
-endif
-
-if ( $?TERM && $?prompt && $?tcsh && "$LMOD_FULL_SETTARG_SUPPORT" != no ) then
-   alias cwdcmd 'eval `$LMOD_SETTARG_CMD -s csh`'
-
-   switch ($TERM)
-      case "xterm*":
-         set echo_style=both
-         alias precmd 'echo -n "\033]2;${TARG_TITLE_BAR_PAREN}${HOST}:$cwd\007"'
-         breaksw
-      endsw
-   endif
-endif
+#if ( ! $?TARG_TITLE_BAR_PAREN ) then
+#  setenv TARG_TITLE_BAR_PAREN ""
+#endif
+#
+#if ( $?TERM && $?prompt && $?tcsh && "$LMOD_FULL_SETTARG_SUPPORT" != no ) then
+#   alias cwdcmd 'eval `$LMOD_SETTARG_CMD -s csh`'
+#
+#   switch ($TERM)
+#      case "xterm*":
+#         set echo_style=both
+#         alias precmd 'echo -n "\033]2;${TARG_TITLE_BAR_PAREN}${HOST}:$cwd\007"'
+#         breaksw
+#      endsw
+#endif
 # Local Variables:
 # mode: shell-script
 # indent-tabs-mode: nil

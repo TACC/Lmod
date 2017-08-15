@@ -99,35 +99,36 @@ clearMT()
   eval $($LMOD_DIR/clearMT_cmd bash)
 }
 
+xSetTitleLmod()
+{
+  builtin echo -n -e "\033]2;$1\007";
+}
+
 ########################################################################
 #  The following make the action of the settarg available to the titlebar
 #  for both xterm's and screen but only for interactive shells.
-if [ -n "${PS1:-}" ]; then
-  if [ -n "${LMOD_FULL_SETTARG_SUPPORT:-}" -a "$LMOD_FULL_SETTARG_SUPPORT" != no ]; then
-    xSetTitleLmod()
-    {
-      builtin echo -n -e "\033]2;$1\007";
-    }
-    SET_TITLE_BAR=:
-
-    case "$TERM" in
-      xterm*)
-        SET_TITLE_BAR=xSetTitleLmod
-        ;;
-    esac
-
-    SHOST=${SHOST-${HOSTNAME%%.*}}
-    precmd()
-    {
-      eval $(${LMOD_SETTARG_CMD:-:} -s bash)
-      ${SET_TITLE_BAR:-:} "${TARG_TITLE_BAR_PAREN}${USER}@${SHOST}:${PWD/#$HOME/~}"
-      ${USER_PROMPT_CMD:-:}
-    }
-
-    # define the PROMPT_COMMAND to be precmd iff it isn't defined already.
-    : ${PROMPT_COMMAND:=precmd}
-  fi
-fi
+#if [ -n "${PS1:-}" ]; then
+#  if [ -n "${LMOD_FULL_SETTARG_SUPPORT:-}" -a "$LMOD_FULL_SETTARG_SUPPORT" != no ]; then
+#    SET_TITLE_BAR=:
+#
+#    case "$TERM" in
+#      xterm*)
+#        SET_TITLE_BAR=xSetTitleLmod
+#        ;;
+#    esac
+#
+#    SHOST=${SHOST-${HOSTNAME%%.*}}
+#    precmd()
+#    {
+#      eval $(${LMOD_SETTARG_CMD:-:} -s bash)
+#      ${SET_TITLE_BAR:-:} "${TARG_TITLE_BAR_PAREN}${USER}@${SHOST}:${PWD/#$HOME/~}"
+#      ${USER_PROMPT_CMD:-:}
+#    }
+#
+#    # define the PROMPT_COMMAND to be precmd iff it isn't defined already.
+#    : ${PROMPT_COMMAND:=precmd}
+#  fi
+#fi
 
 ########################################################################
 #  Make tab completions available to bash users.

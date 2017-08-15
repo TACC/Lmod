@@ -25,6 +25,80 @@ local myShell = myShellName()
 local cmd     = "eval `" .. settarg_cmd .. " -s " .. myShell .. " --destroy`"
 execute{cmd=cmd, modeA = {"unload"}}
 
+local full_support = os.getenv("LMOD_FULL_SETTARG_SUPPORT") or "no"
+local TERM         = os.getenv("TERM")
+
+if (full_support ~= "no") then
+   if (myShellName() == "bash" or myShellName() == "zsh" ) then
+      if (mode() == "load") then
+         cmd = [==[
+           SET_TITLE_BAR=:;
+
+           case "$TERM" in
+             xterm*)
+               SET_TITLE_BAR=xSetTitleLmod;
+               ;;
+           esac;
+
+           SHOST=${SHOST-${HOSTNAME%%.*}};
+              
+           if [ -n "${BASH_VERSION+x}" ]; then
+              type precmd > /dev/null 2>&1;
+              my_status=$?;
+           fi;
+           if [ -n "${ZSH_VERSION+x}" ]; then
+              whence -vf precmd > /dev/null 2>&1;
+              my_status=$?;
+           fi;
+           if [ "${my_status}" -ne 0 ]; then
+              precmd()
+              {
+                eval $(${LMOD_SETTARG_CMD:-:} -s bash);
+                ${SET_TITLE_BAR:-:} "${TARG_TITLE_BAR_PAREN}${USER}@${SHOST}:${PWD/#$HOME/~}";
+                ${USER_PROMPT_CMD:-:};
+              };
+           fi;
+
+           # define the PROMPT_COMMAND to be precmd iff it isn't defined already.
+           : ${PROMPT_COMMAND:=precmd};
+         ]==]
+      end
+      execute{cmd=cmd, modeA={"load"}}
+   elseif (myShellType() == "csh") then
+      if (mode() == "unload") then
+         cmd = [==[
+            if ( $?LMOD_SETTARG_CSH ) then
+               unalias cwdcmd
+               if ( $?TERM ) then
+                  switch ($TERM)
+                    case "xterm*":
+                    unalias precmd 
+                    breaksw
+                  endsw
+               endif
+            endif
+         ]==]
+      elseif (mode() == "load") then
+         cmd = [==[
+            which cwdcmd >& /dev/null;
+            if ( $status != 0) then;
+               set LMOD_SETTARG_CSH=1;
+               alias cwdcmd 'eval `$LMOD_SETTARG_CMD -s csh`';
+            endif;
+            if ( $?TERM ) then;
+               switch ($TERM)
+                 case "xterm*":
+                    alias precmd 'echo -n "\033]2;${TARG_TITLE_BAR_PAREN}${HOST}:$cwd\007"';
+                    breaksw;
+               endsw;
+            endif;
+         ]==]
+      end
+      execute{cmd=cmd, modeA={"load","unload"}}
+   end
+end
+
+
 
 local helpMsg = [[
 The settarg module dynamically and automatically updates "$TARG" and a
