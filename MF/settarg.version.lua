@@ -64,37 +64,6 @@ if (full_support ~= "no") then
          ]==]
       end
       execute{cmd=cmd, modeA={"load"}}
-   elseif (myShellType() == "csh") then
-      if (mode() == "unload") then
-         cmd = [==[
-            if ( $?LMOD_SETTARG_CSH ) then
-               unalias cwdcmd
-               if ( $?TERM ) then
-                  switch ($TERM)
-                    case "xterm*":
-                    unalias precmd 
-                    breaksw
-                  endsw
-               endif
-            endif
-         ]==]
-      elseif (mode() == "load") then
-         cmd = [==[
-            which cwdcmd >& /dev/null;
-            if ( $status != 0) then;
-               set LMOD_SETTARG_CSH=1;
-               alias cwdcmd 'eval `$LMOD_SETTARG_CMD -s csh`';
-            endif;
-            if ( $?TERM ) then;
-               switch ($TERM)
-                 case "xterm*":
-                    alias precmd 'echo -n "\033]2;${TARG_TITLE_BAR_PAREN}${HOST}:$cwd\007"';
-                    breaksw;
-               endsw;
-            endif;
-         ]==]
-      end
-      execute{cmd=cmd, modeA={"load","unload"}}
    end
 end
 
