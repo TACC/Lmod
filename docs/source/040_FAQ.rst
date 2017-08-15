@@ -220,3 +220,19 @@ and Tmod?
     if { [info exists env(LMOD_VERSION_MAJOR)]} {
        family compiler
     }
+
+How can I get the shell functions created by modules in bash shell
+scripts such as job submission scripts?
+
+   First, please make sure that shell functions and alias works
+   correctly in bash interactive subshells.  If they don't then your
+   site is not setup correctly.
+
+   Once that works then change the first line of the shell script to
+   be:
+
+       #!/bin/bash -l
+
+   Note that is a minus ell not minus one. This will cause the startup
+   scripts to be sourced before the first executable statement in the
+   script.
