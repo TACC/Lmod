@@ -1135,8 +1135,8 @@ function M.getMTfromFile(self,tt)
    -- remember to transfer the old stackDepth to the new mname object.
    for i = 1, #activeA do
       local mname = MName:new("load",activeA[i][knd])
-      mname:setStackDepth(activeA[i].stackDepth)
       mname:setRefCount(activeA[i].ref_count)
+      mname:setStackDepth(activeA[i].stackDepth)
       mA[#mA+1]   = mname
    end
    MCP.load(mcp,mA)

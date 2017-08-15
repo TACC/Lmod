@@ -192,7 +192,7 @@ local function lazyEval(self)
    self.__userName   = userName
    self.__sn         = sn
    self.__versionStr = versionStr
-   self.__stackDepth = frameStk:stackDepth()
+   self.__stackDepth = self.__stackDepth or frameStk:stackDepth()
    
    if (not sn) then
       --dbg.print{"did not find sn\n"}
