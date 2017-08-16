@@ -10,4 +10,6 @@ Lmod 7.6+
             Added (required by ..) to dependency check.
     (7.6,6) Bug fix for depends_on() and restore.
     (7.6.7) Support for MODULEPATH_INIT added.
+    (7.6.8) Fix typos in MODULEPATH_INIT code.
+    
     
