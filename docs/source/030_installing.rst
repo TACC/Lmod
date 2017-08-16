@@ -204,6 +204,16 @@ modulefiles is discussed later.
    Obviously you will want to modify the profile.in and cshrc.in files to suit
    your system.
 
+Sites can also use ``/apps/lmod/lmod/init/.modulespath`` or configure
+Lmod to use `--with-ModulePathInit=...`` to point to any file.  The
+format of this file is::
+
+    # comments are allowed as well as wildcards
+    /apps/modulefiles/*
+    /apps/other_modulefiles
+
+If this file exists then MODULEPATH_ROOT method is not used.
+
 
 The ``profile`` file is the Lmod initialization script for the bash and zsh
 shells, and the ``cshrc`` file is for tcsh and csh shells. Please copy or link

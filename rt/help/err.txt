@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.5.11  2017-07-13 12:46 -05:00
+Modules based on Lua: Version 7.6.6  2017-08-15 14:55 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -97,7 +97,7 @@ Lmod Web Sites
   Sourceforge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 7.5.11  2017-07-13 12:46 -05:00
+Modules based on Lua: Version 7.6.6  2017-08-15 14:55 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -192,7 +192,7 @@ Lmod Web Sites
   Sourceforge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 7.5.11  2017-07-13 12:46 -05:00
+Modules based on Lua: Version 7.6.6  2017-08-15 14:55 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -212,7 +212,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --config
 ===========================
-Modules based on Lua: Version 7.5.11  2017-07-13 12:46 -05:00
+Modules based on Lua: Version 7.6.6  2017-08-15 14:55 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                      Value
 Allow TCL modulefiles            yes
@@ -230,6 +230,7 @@ Site message file                <empty>
 System lua_json                  no
 System lua-term                  no
 avail: Include modulepath dir    no
+MODULEPATH_INIT                  @PKG@/init/.modulespath
 MODULEPATH_ROOT
 number of cache dirs             0
 Pager                            less

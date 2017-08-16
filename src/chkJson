@@ -52,6 +52,7 @@ function main()
       lfsV         = { rule = "have"},
       lua_term_A   = { rule = "have"},
       luaV         = { rule = "have"},
+      mpath_init   = { rule = "have"},
       modRC        = { rule = "have"},
       siteName     = { rule = "have"},
       sysName      = { rule = "have"},
