@@ -8,3 +8,6 @@ Lmod 7.6+
     (7.6.5) --terse support added to keyword.
             Changed SETTARG_RC to LMOD_SETTARG_RC
             Added (required by ..) to dependency check.
+    (7.6,6) Bug fix for depends_on() and restore.
+    (7.6.7) Support for MODULEPATH_INIT added.
+    
