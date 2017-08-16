@@ -371,6 +371,17 @@ AC_ARG_WITH(cachedLoads,
     CACHED_LOADS="$withval"
     AC_DEFINE_UNQUOTED(CACHED_LOADS, "$withval"))dnl
 
+AC_SUBST(MODULEPATH_INIT)
+AC_ARG_WITH(ModulePathInit,
+    AC_HELP_STRING([--with-ModulePathInit=ans],[File containing initial MODULEPATH directories]),
+    MODULEPATH_INIT="$withval"
+    AC_MSG_RESULT([MODULEPATH_INIT=$with_ModulePathInit])
+    AC_DEFINE_UNQUOTED(MODULEPATH_INIT, "$with_ModulePathInit")dnl
+    ,
+    withval="@PKG@/init/.modulespath"
+    AC_MSG_RESULT([MODULEPATH_INIT=$withval])
+    MODULEPATH_INIT="$withval"
+    AC_DEFINE_UNQUOTED(MODULEPATH_INIT, "$withval"))dnl
 
 AC_SUBST(SYS_LD_LIB_PATH)
 SYS_LD_LIB_PATH=$LD_LIBRARY_PATH

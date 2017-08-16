@@ -96,7 +96,7 @@ function M.init(self, t)
       
       local defaultV = t.default
       local sedV     = t.sedV or "@"
-      local value    = (getenv(name) or sedV)
+      local value    = t.no_env and sedV or (getenv(name) or sedV) 
       if (t.lower) then
          value = value:lower()
       end

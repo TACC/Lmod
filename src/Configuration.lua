@@ -124,6 +124,7 @@ local function new(self)
    else
       lmod_version = lmod_version:gsub("[)(]","")
    end
+   local mpath_init        = cosmic:value("LMOD_MODULEPATH_INIT")
    local readLmodRC        = ReadLmodRC:singleton()
    local pkgName           = Pkg.name() or "unknown"
    local scDescriptT       = readLmodRC:scDescriptT()
@@ -201,6 +202,7 @@ local function new(self)
    tbl.lua_term     = { k = "System lua-term"                   , v = have_term,        }
    tbl.lua_term_A   = { k = "Active lua-term"                   , v = activeTerm,       }
    tbl.mpath_av     = { k = "avail: Include modulepath dir"     , v = mpath_avail,      }
+   tbl.mpath_init   = { k = "MODULEPATH_INIT"                   , v = mpath_init,       }
    tbl.mpath_root   = { k = "MODULEPATH_ROOT"                   , v = mpath_root,       }
    tbl.modRC        = { k = "MODULERCFILE"                      , v = rc,               }
    tbl.numSC        = { k = "number of cache dirs"              , v = numSC,            }

@@ -70,6 +70,19 @@ ExitHookA = require("HookArray")
 ------------------------------------------------------------------------
 setenv_posix("LC_ALL","C",true)
 
+
+
+------------------------------------------------------------------------
+-- MODULEPATH_INIT: Name of the file that can be used to initialize
+--                  MODULEPATH in the startup scripts
+------------------------------------------------------------------------
+
+cosmic:init{name    = "LMOD_MODULEPATH_INIT",
+            sedV    = "@modulepath_init@",
+            no_env  = true,
+            default = "@PKG@/init/.modulespath"}
+
+
 ------------------------------------------------------------------------
 -- ModulePath: The name of the environment variable which contains the
 --             directories that contain modulefiles. 

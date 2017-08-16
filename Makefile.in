@@ -23,6 +23,7 @@ LMOD_FULL_SETTARG_SUPPORT := $(shell echo "@SETTARG@"       | tr '[:upper:]' '[:
 USE_DOT_FILES             := $(shell echo "@USE_DOT_FILES@" | tr '[:upper:]' '[:lower:]')
 PREPEND_BLOCK     	  := $(shell echo "@PREPEND_BLOCK@" | tr '[:upper:]' '[:lower:]')
 COLORIZE          	  := $(shell echo "@COLORIZE@"      | tr '[:upper:]' '[:lower:]')
+MODULEPATH_INIT           := @MODULEPATH_INIT@
 LMOD_HIDDEN_ITALIC        := @HIDDEN_ITALIC@
 LMOD_OVERRIDE_LANG        := @LMOD_OVERRIDE_LANG@
 SITE_MSG_FILE             := @SITE_MSG_FILE@
@@ -195,6 +196,7 @@ __installMe:
                 -e 's|--@ignore_dirs@--|$(IGNORE_DIRS)|g'                         \
 	        -e 's|@sys_lua_path@|$(SYS_LUA_PATH)|g'                  	  \
 	        -e 's|@hidden_italic@|$(LMOD_HIDDEN_ITALIC)|g'                	  \
+	        -e 's|@modulepath_init@|$(MODULEPATH_INIT)|g'                  	  \
 	        -e 's|@sys_lua_cpath@|$(SYS_LUA_CPATH)|g'                  	  \
                 -e 's|@path_to_luac@|$(PATH_TO_LUAC)|g'                  	  \
                 -e 's|@have_lua_term@|$(HAVE_LUA_TERM)|g'                  	  \

@@ -18,8 +18,18 @@ if ( ! $?MODULEPATH_ROOT ) then
     set UNAME = `uname`
     setenv LMOD_sys             $UNAME
     setenv MODULEPATH_ROOT      "@modulepath_root@"
-    setenv MODULEPATH           `@PKG@/libexec/addto --append MODULEPATH $MODULEPATH_ROOT/$LMOD_sys $MODULEPATH_ROOT/Core`
-    setenv MODULEPATH           `@PKG@/libexec/addto --append MODULEPATH @PKG@/modulefiles/Core`
+    set MODULEPATH_INIT = "@modulepath_init@"
+    if ( -f $MODULEPATH_INIT ) then
+       	foreach str (`cat $MODULEPATH_INIT | sed -r 's/#.*$//'`)	# Allow end-of-line comments.
+	   foreach dir (`ls -d $string`)
+              setenv MODULEPATH `@PKG@/libexec/addto --append MODULEPATH $dir`
+           end
+	end
+    else
+       setenv MODULEPATH `@PKG@/libexec/addto --append MODULEPATH $MODULEPATH_ROOT/$LMOD_sys $MODULEPATH_ROOT/Core`
+       setenv MODULEPATH `@PKG@/libexec/addto --append MODULEPATH @PKG@/modulefiles/Core`
+    endif
+
     setenv BASH_ENV             "@PKG@/init/bash"
 
     #

@@ -61,6 +61,7 @@ echo "Which LuaFileSystem is being used..........................." : $LFS_STATU
 echo 'Use italic instead of faint for hidden modules..............' : $HIDDEN_ITALIC
 echo "If path entry is already there then don't prepend..........." : $TMOD_PATH_RULE
 echo "Use Tmod Find First rule instead of Find Best for defaults.." : $TMOD_FIND_FIRST
+echo "MODULEPATH Initial file....................................." : $MODULEPATH_INIT
 
 
 echo

@@ -13,8 +13,18 @@ if [ -z "${USER_IS_ROOT:-}" ]; then
     export LMOD_sys=`uname`
 
     export MODULEPATH_ROOT="@modulepath_root@"
-    export MODULEPATH=$(@PKG@/libexec/addto --append MODULEPATH $MODULEPATH_ROOT/$LMOD_sys $MODULEPATH_ROOT/Core)
-    export MODULEPATH=$(@PKG@/libexec/addto --append MODULEPATH @PKG@/modulefiles/Core)
+    MODULEPATH_INIT="@modulepath_init@"
+    if [ -f ${MODULEPATH_INIT} ]; then
+       for str in $(cat ${MODULEPATH_INIT} | sed -r 's/#.*$//'); do   # Allow end-of-line comments.
+          for dir in $(ls -d $do); do
+              export MODULEPATH=$(@PKG@/libexec/addto --append MODULEPATH $dir)
+	  done
+       done
+    else
+       export MODULEPATH=$(@PKG@/libexec/addto --append MODULEPATH $MODULEPATH_ROOT/$LMOD_sys $MODULEPATH_ROOT/Core)
+       export MODULEPATH=$(@PKG@/libexec/addto --append MODULEPATH @PKG@/modulefiles/Core)
+    fi
+
     export BASH_ENV=@PKG@/init/bash
 
     #
@@ -60,7 +70,7 @@ if [ -z "${USER_IS_ROOT:-}" ]; then
   else
      .    @PKG@/init/sh        >/dev/null # Module Support
   fi
-  unset my_shell PS_CMD EXPR_CMD BASENAME_CMD
+  unset my_shell PS_CMD EXPR_CMD BASENAME_CMD MODULEPATH_INIT
 fi
 
 # Local Variables:
