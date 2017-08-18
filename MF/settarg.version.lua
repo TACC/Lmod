@@ -64,6 +64,10 @@ if (full_support ~= "no") then
          ]==]
       end
       execute{cmd=cmd, modeA={"load"}}
+   elseif (myShellType() == "csh") then
+      set_alias("cwdcmd",'eval `$LMOD_SETTARG_CMD -s csh`')
+      set_alias("precmd",'echo -n "\\033]2;${TARG_TITLE_BAR_PAREN}${USER}@${HOST} : $cwd\\007"')
+      execute{cmd='echo -n "\\033]2;${USER}@${HOST} : $cwd\\007"',modeA={"unload"}}
    end
 end
 
@@ -115,6 +119,10 @@ One way that these variables can be used is part of a build system where
 the executables and object files are placed in $TARG.  You can also use
 $TARG_COMPILER_FAMILY to know which compiler you are using so that you
 can set the appropriate compiler flags.
+
+If the environment variable LMOD_FULL_SETTARG_SUPPORT is set to "yes"
+then the settarg module will set the title bar in an xterm terminal.
+
 
 Settarg can do more.  Please see the Lmod website for more details.
 ]]
