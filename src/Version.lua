@@ -1,12 +1,12 @@
 local M={}
-function M.tag()  return "7.6.9"   end
+function M.tag()  return "7.6.10"   end
 function M.git()
    local s = "@git@"
    if (s == "@" .. "git@")     then s = "" end
    if (s == "("..M.tag()..")") then s = "" end
    return s
 end
-function M.date() return "2017-08-18 14:57 -05:00" end
+function M.date() return "2017-08-19 15:17 -05:00" end
 function M.name()
   local a = {}
   a[#a+1] = M.tag()
