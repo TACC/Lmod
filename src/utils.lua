@@ -239,18 +239,21 @@ function colorizePropA(style, modT, mrc, propT, legendT)
    
    local resultA      = { moduleName }
    for kk,vv in pairsByKeys(propDisplayT) do
-      iprop        = iprop + 1
-      local propA  = {}
-      local t      = propT[kk]
-      local result = ""
-      local color  = nil
+      iprop            = iprop + 1
+      local propA      = {}
+      local t          = propT[kk]
+      local result     = ""
+      local color      = nil
+      local name_color = nil
+      local full_color = false
       if (type(t) == "table") then
          for k in pairs(t) do
             propA[#propA+1] = k
          end
 
          table.sort(propA);
-         local n = concatTbl(propA,":")
+         local full_color = false
+         local n          = concatTbl(propA,":")
          if (vv.displayT[n]) then
             result     = vv.displayT[n][style]
             if (result:sub( 1, 1) == "(" and result:sub(-1,-1) == ")") then
@@ -259,6 +262,10 @@ function colorizePropA(style, modT, mrc, propT, legendT)
             color      = vv.displayT[n].color
             local k    = colorize(color,result)
             legendT[k] = vv.displayT[n].doc
+            full_color = vv.displayT[n].full_color
+            if (full_color) then
+               resultA[1] = colorize(color,resultA[1])
+            end
          end
       end
       local s             = colorize(color,result)
