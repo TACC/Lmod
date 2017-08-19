@@ -39,7 +39,7 @@ function ModifyPath()
    local masterTbl   = masterTbl()
    local oldTarg     = os.getenv('TARG') or ''
    local targ        = masterTbl.envVarsTbl.TARG
-   local targPathLoc = masterTbl.TargPathLoc
+   local targPathLoc = masterTbl.TargPathLoc or "empty"
    local path        = os.getenv('PATH') or ''
 
    local w_path      = ":" .. path    .. ":"
