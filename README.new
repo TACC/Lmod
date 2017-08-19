@@ -1,14 +1,17 @@
 Lmod 7.6+
-    (7.6.1) depends-on and always-load support added to TCL modulefiles.
-            Let .modulerc and .version have access to $env.
-    (7.6.2) Force a new lazyEval when enforcing the one-name rule.
-            env var SETTARG_RC overrides standard settarg_rc.lua file.
-    (7.6.3) Merged in PR #311: making settarg more EB, buildset friendly.
-    (7.6.4) Support for ml keyword <prop_name> added
-    (7.6.5) --terse support added to keyword.
-            Changed SETTARG_RC to LMOD_SETTARG_RC
-            Added (required by ..) to dependency check.
-    (7.6,6) Bug fix for depends_on() and restore.
-    (7.6.7) Support for MODULEPATH_INIT added.
-    (7.6.8) Fix typos in MODULEPATH_INIT code.
-    (7.6.9) Transferred settarg setup code into the settarg module.
+    (7.6.1)  depends-on and always-load support added to TCL modulefiles.
+             Let .modulerc and .version have access to $env.
+    (7.6.2)  Force a new lazyEval when enforcing the one-name rule.
+             env var SETTARG_RC overrides standard settarg_rc.lua file.
+    (7.6.3)  Merged in PR #311: making settarg more EB, buildset friendly.
+    (7.6.4)  Support for ml keyword <prop_name> added
+    (7.6.5)  --terse support added to keyword.
+             Changed SETTARG_RC to LMOD_SETTARG_RC
+             Added (required by ..) to dependency check.
+    (7.6,6)  Bug fix for depends_on() and restore.
+    (7.6.7)  Support for MODULEPATH_INIT added.
+    (7.6.8)  Fix typos in MODULEPATH_INIT code.
+    (7.6.9)  Transferred settarg setup code into the settarg module.
+    (7.6.10) Support issue #282: Allow sites to colorize module name in addition to
+             the property.
+             
