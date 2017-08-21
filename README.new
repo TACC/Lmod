@@ -14,4 +14,4 @@ Lmod 7.6+
     (7.6.9)  Transferred settarg setup code into the settarg module.
     (7.6.10) Support issue #282: Allow sites to colorize module name in addition to
              the property.
-             
+    (7.6.11) Tracing now reports changes to MODULEPATH.
