@@ -225,6 +225,20 @@ function M.remove(self, value, where, priority, nodups)
    local tbl     = self.tbl
    local adding  = false
 
+   local tracing  = cosmic:value("LMOD_TRACING")
+   if (tracing == "yes" and self.name == "MODULEPATH" ) then
+      local shell      = _G.Shell
+      local frameStk   = require("FrameStk"):singleton()
+      local stackDepth = frameStk:stackDepth()
+      local indent     = ("  "):rep(stackDepth+1)
+      local b          = {}
+      b[#b + 1]        = indent
+      b[#b + 1]        = "Removing: "
+      b[#b + 1]        = value
+      b[#b + 1]        = " from MODULEPATH\n"
+      shell:echo(concatTbl(b,""))
+   end
+
    for i = 1, #pathA do
       local path = pathA[i]
       if (tbl[path]) then
@@ -301,6 +315,20 @@ function M.prepend(self, value, nodups, priority)
 
    local tbl  = self.tbl
 
+   local tracing  = cosmic:value("LMOD_TRACING")
+   if (tracing == "yes" and self.name == "MODULEPATH" ) then
+      local shell      = _G.Shell
+      local frameStk   = require("FrameStk"):singleton()
+      local stackDepth = frameStk:stackDepth()
+      local indent     = ("  "):rep(stackDepth+1)
+      local b          = {}
+      b[#b + 1]        = indent
+      b[#b + 1]        = "Prepending: "
+      b[#b + 1]        = value
+      b[#b + 1]        = " to MODULEPATH\n"
+      shell:echo(concatTbl(b,""))
+   end
+   
    local imin = min(self.imin, 0)
    for i = is, ie, iskip do
       local path = pathA[i]
@@ -343,6 +371,20 @@ function M.append(self, value, nodups, priority)
    local isPrepend  = false
    local adding     = true
    
+   local tracing  = cosmic:value("LMOD_TRACING")
+   if (tracing == "yes" and self.name == "MODULEPATH" ) then
+      local shell      = _G.Shell
+      local frameStk   = require("FrameStk"):singleton()
+      local stackDepth = frameStk:stackDepth()
+      local indent     = ("  "):rep(stackDepth+1)
+      local b          = {}
+      b[#b + 1]        = indent
+      b[#b + 1]        = "Appending: "
+      b[#b + 1]        = value
+      b[#b + 1]        = " to MODULEPATH\n"
+      shell:echo(concatTbl(b,""))
+   end
+
    local tbl  = self.tbl
    local imax = self.imax
    for i = 1, #pathA do

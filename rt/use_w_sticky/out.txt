@@ -36,7 +36,7 @@ _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={HPCBIOS={[
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/use_w_sticky/mf/Other ProjectDIR/rt/use_w_sticky/mf/A
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T use ProjectDIR/rt/use_w_sticky/mf/Other ProjectDIR/rt/use_w_sticky/mf/A
 ===========================
 unset LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/use_w_sticky/mf/A";

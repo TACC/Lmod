@@ -9,7 +9,7 @@ testdescript = {
    ]],
    keywords = {testName },
 
-   active   = false,
+   active   = true,
    testName = testName,
    job_submit_method = "INTERACTIVE",
 
@@ -29,7 +29,7 @@ testdescript = {
      runLmod purge                                       # 3
      runLmod list                                        # 4
      unset MODULEPATH                                    # 5
-     runLmod use $(testDir)/mf/Other $(testDir)/mf/A     # 6
+     runLmod -T use $(testDir)/mf/Other $(testDir)/mf/A  # 6
      runBase echo MODULEPATH: $MODULEPATH 1>&2           # 7
      
      HOME=$ORIG_HOME
