@@ -92,6 +92,7 @@ Advanced Topics
    135_module_spider
    136_spider
    140_deprecating_modules
+   145_properties
    150_kitchen_sink_module
    155_lmodrc
    160_debugging_modulefiles
