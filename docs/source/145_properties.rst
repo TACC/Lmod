@@ -1,3 +1,5 @@
+.. _lmodrc-label:
+
 Module Properties
 =================
 
@@ -11,6 +13,35 @@ In TCL, it is written as::
     add-property key value
 
 The `key` and `value` are controlled by a file called lmodrc.lua.
+
+
+The Properties File: lmodrc.lua
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Lmod provides a standard lmodrc.lua which is copied to the
+installation directory.  For example Lmod version X.Y.Z is installed
+in /apps/lmod/X.Y.Z then lmodrc.lua would be installed in
+/apps/lmod/X.Y.Z/init/lmodrc.lua.  During the install process this
+file is modified to include the location of the system spider cache. 
+
+Lmod searches the properties in several location in order given
+below.   Assuming again that Lmod is installed in /apps/lmod/X.Y.Z
+then Lmod searches for the property information in the following order:
+
+#. /apps/lmod/X.Y.Z/init/lmodrc.lua
+#. /apps/lmod/etc/lmodrc.lua
+#. /etc/lmodrc.lua
+#. $HOME/.lmodrc.lua
+#. $LMOD_RC
+
+Where $LMOD_RC is an environment variable that can be set to point to
+any file locaiton. If there are more than one of these files exist
+then they are merged and not a replacement.  So a site can (and
+should) leave the first file as is and create another one to specify
+site properties and Lmod will merge the information into one.
+
+
+
 The format of this file looks like::
 
    local i18n = require("i18n")

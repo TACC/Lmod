@@ -94,7 +94,6 @@ Advanced Topics
    140_deprecating_modules
    145_properties
    150_kitchen_sink_module
-   155_lmodrc
    160_debugging_modulefiles
    170_hooks
    185_localization
