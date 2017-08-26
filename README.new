@@ -15,3 +15,5 @@ Lmod 7.6+
     (7.6.10) Support issue #282: Allow sites to colorize module name in addition to
              the property.
     (7.6.11) Tracing now reports changes to MODULEPATH.
+             Lmod now uses the spider cache when doing a restore when LMOD_CACHED_LOAD=yes.
+             
