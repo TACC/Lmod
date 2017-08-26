@@ -136,7 +136,6 @@ use light letter on dark backgrounds or dark letters on light
 backgrounds, the only useable colors are `red`, `green`, `yellow`
 and `blue`.
 
-
 The arch key shows that the the values can be combined.  If the value
 is colon separated then each string between the colons have to be
 valid keys.

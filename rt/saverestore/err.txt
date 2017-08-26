@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.6.5  2017-08-08 15:43 -05:00
+Modules based on Lua: Version 7.6.10  2017-08-19 15:17 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -246,3 +246,25 @@ Currently Loaded Modules:
   1) binutils/.2.26 (H)   2) numactl/.2.0.11 (H)   3) gcc/5.4
   Where:
    H:  Hidden Module
+===========================
+step 42
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+===========================
+step 43
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a
+===========================
+===========================
+step 44
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing save my_A
+===========================
+Saved current collection of modules to: "my_A"
+===========================
+step 45
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+===========================
+step 46
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore my_A
+===========================
+Restoring modules from user's my_A

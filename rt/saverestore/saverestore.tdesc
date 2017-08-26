@@ -91,7 +91,18 @@ testdescript = {
      runLmod save    foss            #39
      runLmod restore foss            #40
      runLmod list                    #41
+     runLmod purge                   #42
+     unsetMT
 
+     MODULEPATH=$(testDir)/Core     
+     export LMOD_CACHED_LOADS=yes
+     mkdir -p $HOME/.lmod.d/.cache
+     buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
+
+     runLmod load a                  #43
+     runLmod save my_A               #44
+     runLmod purge                   #45
+     runLmod restore my_A            #46
 
      HOME=$ORIG_HOME
      export HOME
