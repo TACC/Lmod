@@ -101,9 +101,9 @@ and 'T' will be in green.
 
 The possible color values are: `black`, `red`, `green`, `yellow`,
 `blue`, `magenta`, `cyan`, and `white`.  In practice, since users can
-use light letter on dark backgrounds or dark letters on light
-backgrounds, the only useable colors are `red`, `green`, `yellow`
-and `blue`.
+use light letters on dark backgrounds or dark letters on light
+backgrounds, sites may wish to avoid `black`, `white` and possibly
+`yellow`. 
 
 
 The arch key shows that the the values can be combined.  If the value
