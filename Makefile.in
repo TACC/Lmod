@@ -448,7 +448,11 @@ build_tags:
 	etags `cat file_list.3.txt`
 
 busted:
-	@PROJDIR=$(CURDIR) busted  --verbose -m "$(CURDIR)/src/?.lua;$(CURDIR)/tools/?.lua;$(CURDIR)/tools/?/init.lua"
+        ifeq ($(TAG),)
+	  @PROJDIR=$(CURDIR) busted            --verbose -m "$(CURDIR)/src/?.lua;$(CURDIR)/tools/?.lua;$(CURDIR)/tools/?/init.lua"
+        else
+	  @PROJDIR=$(CURDIR) busted  -t $(TAG) --verbose -m "$(CURDIR)/src/?.lua;$(CURDIR)/tools/?.lua;$(CURDIR)/tools/?/init.lua"
+        endif
 
 luachk:
 	luacheck --exclude-files src/*.new.lua -- src shells tools settarg spec 2>&1 | tee lmod.check.txt; \

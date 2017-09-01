@@ -133,7 +133,7 @@ function M.buildA(self,sType, ...)
 end
 
 local function lazyEval(self)
-   --dbg.start{"lazyEval(",self.__userName,")"}
+   dbg.start{"lazyEval(",self.__userName,")"}
 
    local found   = false
    local sType   = self.__sType
@@ -157,8 +157,8 @@ local function lazyEval(self)
          self.__version    = mt:version(sn)
          self.__stackDepth = mt:stackDepth(sn)
       end
-      --dbg.print{"mt\n"}
-      --dbg.fini("lazyEval")
+      dbg.print{"mt\n"}
+      dbg.fini("lazyEval")
       return
    end
 
@@ -174,8 +174,8 @@ local function lazyEval(self)
          self.__userName = build_fullName(t.sn, t.version)
       end
       
-      --dbg.print{"inherit\n"}
-      --dbg.fini("lazyEval")
+      dbg.print{"inherit\n"}
+      dbg.fini("lazyEval")
       return
    end
 
@@ -195,14 +195,17 @@ local function lazyEval(self)
    self.__stackDepth = self.__stackDepth or frameStk:stackDepth()
    
    if (not sn) then
-      --dbg.print{"did not find sn\n"}
-      --dbg.fini("lazyEval")
+      dbg.print{"did not find sn\n"}
+      dbg.fini("lazyEval")
       return
    end
 
    local stepA   = self:steps()
    local version
    local fn
+   dbg.printT("fileA",fileA)
+   dbg.print{"#stepA: ",#stepA,"\n"}
+
    for i = 1, #stepA do
       local func = stepA[i]
       found, fn, version = func(self, fileA)
@@ -215,7 +218,8 @@ local function lazyEval(self)
          break
       end
    end
-   --dbg.fini("lazyEval")
+   dbg.print{"fn: ",self.__fn,"\n"}
+   dbg.fini("lazyEval")
 end
 
 
@@ -232,18 +236,20 @@ function M.userName(self)
 end
 
 function M.sn(self)
-   --dbg.start{"Mname:sn()"}
+   dbg.start{"Mname:sn()"}
    if (not self.__sn) then
       lazyEval(self)
    end
-   --dbg.fini("Mname:sn")
+   dbg.fini("Mname:sn")
    return self.__sn
 end
 
 function M.fn(self)
+   dbg.start{"Mname:fn()"}
    if (not self.__fn) then
       lazyEval(self)
    end
+   dbg.fini("Mname:fn")
    return self.__fn
 end
 

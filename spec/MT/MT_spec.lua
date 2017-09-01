@@ -57,6 +57,7 @@ describe("Testing MT Class #MT.",
                            ["fullName"] = "icr/64/3.8",
                            ["loadOrder"] = 1,
                            propT = { arch = { mic = 1},},
+                           ["stackDepth"] = 0,
                            ["status"] = "active",
                            ["userName"] = "icr/64",
                         },
@@ -65,6 +66,7 @@ describe("Testing MT Class #MT.",
                            ["fullName"] = "TACC",
                            ["loadOrder"] = 2,
                            propT = {},
+                           ["stackDepth"] = 0,
                            ["status"] = "active",
                            ["userName"] = "TACC",
                         },
@@ -139,7 +141,8 @@ describe("Testing MT Class #MT.",
 
                   -- Remove MT that was pushed to the environment
                   __removeEnvMT()
-               end)
+               end
+            )
          end
 )
 

@@ -90,7 +90,6 @@ describe("Testing The Avail command #Avail.",
                   masterTbl.terse       = nil
                   a  = master:avail(pack()) or {}
                   _a = {}
-                  --print(serializeTbl{indent=true, name = "availA", value = a})
                   sanizatizeTbl(rplmntA, a, _a)
                   for i = 1,#_a do
                      _a[i] = _a[i]:gsub("%-%-%-*","---")
@@ -103,10 +102,9 @@ describe("Testing The Avail command #Avail.",
                      "   bio/bowtie/32/1.0    bio/bowtie/64/2.0 (D)\n" ..
                      "   bio/bowtie/32/2.0    bio/genomics",
                      "\n",
-                     "\n  Where:\n",
-                     "   D:  Default Module",
-                     "\n",
                   }
+                  --print("availA:\n", concatTbl(_a,""))
+                  --print("gold_availA:\n", concatTbl(gold_availA,""))
                   assert.are.same(gold_availA, _a)
                end)
          end

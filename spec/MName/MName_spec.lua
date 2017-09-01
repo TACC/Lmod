@@ -28,6 +28,11 @@ describe("Testing MName Class #MName.",
                   cosmic:assign("LMOD_MAXDEPTH",maxdepth)
                   __removeEnvMT()
             
+                  local debug = os.getenv("LMOD_DEBUG")
+                  if (debug == "yes" or debug == "MName" ) then
+                     dbg:activateDebug(1)
+                  end
+
                   local moduleA = ModuleA:singleton{reset=true}
                   local goldA = {
                      { value = "bio/g",      sn = "bio/g",  version = false,   action = "match",
@@ -69,17 +74,21 @@ describe("Testing MName Class #MName.",
                      
                   for i = 1, #goldA do
                      local gold     = goldA[i]
+                     dbg.print{"RTM MName:new(\"load\", ",gold.value,",", gold.action,")\n"}
                      local mname    = MName:new("load", gold.value, gold.action)
+                     dbg.print{"RTM MName:sn()\n"}
                      local sn       = mname:sn()
                      local fn       = (mname:fn() or ""):gsub(projDir,"%%ProjDir%%")
                      local version  = mname:version()
+                     dbg.print{"RTM MName:fullName()\n"}
                      local fullName = mname:fullName()
+                     dbg.print{"RTM tests\n"}
                      local g_full   = build_fullName(gold.sn, gold.version)
                   
-                     assert.are.equal(g_full,       fullName)
                      assert.are.equal(gold.sn,      sn)
                      assert.are.equal(gold.fn,      fn)
                      assert.are.equal(gold.version, version)
+                     assert.are.equal(g_full,       fullName)
                   
                   end
             
@@ -150,12 +159,12 @@ describe("Testing MName Class #MName.",
                      local version  = mname:version()
                      local fullName = mname:fullName()
                      local g_full   = build_fullName(gold.sn ,gold.version)
-
+            
                      assert.are.equal(gold.fn,      fn)
                      assert.are.equal(g_full,       fullName)
                      assert.are.equal(gold.sn,      sn)
                      assert.are.equal(gold.version, version)
-
+            
                   end
             
                   goldA = {
@@ -171,14 +180,14 @@ describe("Testing MName Class #MName.",
                      local version  = mname:version()
                      local fullName = mname:fullName()
                      local g_full   = build_fullName(gold.sn, gold.version)
-
+            
                      assert.are.equal(g_full,       fullName)
                      assert.are.equal(gold.sn,      sn)
                      assert.are.equal(gold.fn,      fn)
                      assert.are.equal(gold.version, version)
-
+            
                   end
-             end)
+            end)
          end
 )
 
