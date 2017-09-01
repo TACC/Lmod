@@ -84,16 +84,16 @@ local function new(self, s, restoreFn)
    dbg.start{"MT new(s,restoreFn:",restoreFn,")"}
    local o         = {}
 
-   o.c_rebuildTime = false
-   o.c_shortTime   = false
-   o.mT            = {}
-   o.MTversion     = mt_version()
-   o.family        = {}
-   o.mpathA        = {}
-   o.depthT        = {}
-   o._stickyA      = {}
-   o._loadT        = {}
-   o._changeMPATH  = false
+   o.c_rebuildTime   = false
+   o.c_shortTime     = false
+   o.mT              = {}
+   o.MTversion       = mt_version()
+   o.family          = {}
+   o.mpathA          = {}
+   o.depthT          = {}
+   o.__stickyA     = {}
+   o.__loadT       = {}
+   o.__changeMPATH = false
 
    setmetatable(o, self)
    self.__index    = self
@@ -270,16 +270,16 @@ end
 -- Mark Changing MODULEPATH
 
 function M.changeMPATH(self)
-   return self._changeMPATH
+   return self.__changeMPATH
 end
 
 function M.set_MPATH_change_flag(self)
    dbg.print{"MT:set_MPATH_change_flag(self)\n"}
-   self._changeMPATH = true
+   self.__changeMPATH = true
 end
 
 function M.reset_MPATH_change_flag(self)
-   self._changeMPATH = false
+   self.__changeMPATH = false
 end
 
 
@@ -707,7 +707,7 @@ end
 -- @param self An MT object.
 -- @param sn the short name
 function M.addStickyA(self, sn)
-   local a     = self._stickyA
+   local a     = self.__stickyA
    local entry = self.mT[sn]
    a[#a+1]     = {sn = sn, fn = entry.fn, version = extractVersion(entry.fullName, sn),
                   userName = entry.userName }
@@ -717,7 +717,7 @@ end
 -- Return the array of sticky modules.
 -- @param self An MT object.
 function M.getStickyA(self)
-   return self._stickyA
+   return self.__stickyA
 end
 
 --------------------------------------------------------------------------
@@ -731,7 +731,7 @@ end
 -- @param usrName The name the user specified for the module.
 function M.userLoad(self, sn, userName)
    dbg.start{"MT:userLoad(",sn,")"}
-   self._loadT[sn] = userName
+   self.__loadT[sn] = userName
    dbg.fini("MT:userLoad")
 end
 
@@ -771,7 +771,7 @@ function M.reportChanges(self)
    local activeA   = {}
    local changedA  = {}
    local reloadA   = {}
-   local loadT     = self._loadT
+   local loadT     = self.__loadT
 
    for sn, v_orig in pairsByKeys(mT_orig) do
       if (self:have(sn,"inactive") and v_orig.status == "active") then

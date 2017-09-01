@@ -572,7 +572,7 @@ function sanizatizeTbl(rplmntA, inT, outT)
          end
       end
 
-      if (type(key) == "string" and key:sub(1,1) == '_') then
+      if (type(key) == "string" and key:sub(1,1) == '__') then
          outT[key] = nil
       elseif (type(v) == "table") then
          outT[key] = {}

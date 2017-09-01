@@ -123,6 +123,61 @@ describe("Testing DirTree Class: #DirTree.",
                   dbg.printT("goldA", goldA)
                   dbg.printT("dirA",  _dirA)
                   assert.are.same(goldA, _dirA)
-               end)
+               end
+            )
+            it("Testing modulefiles with leading underscores",
+               function()
+                  local debug = os.getenv("LMOD_DEBUG")
+                  if (debug == "yes" or debug == "DirTree" ) then
+                     dbg:activateDebug(1)
+                  end
+                  local projDir = os.getenv("PROJDIR")
+                  local mpathA  = { pathJoin(projDir, testDir, "mf_underscore") }
+                  local dirTree = DirTree:new(mpathA)
+                  local dirA    = dirTree:dirA()
+                  local rplmntA = { {projDir,"%%ProjDir%%"} }
+                  local _dirA   = {}
+                  local goldA   = {
+                     {
+                        dirT = {
+                           defaultT = {},
+                           dirT = {
+                              ["_A" ] = {
+                                 defaultT = {},
+                                 dirT = {},
+                                 fileT = {
+                                    ["_A/1.0"]  = {
+                                       ["canonical"] = "1.0",
+                                       ["fn"] = "%ProjDir%/spec/DirTree/mf_underscore/_A/1.0.lua",
+                                       ["luaExt"] = 4,
+                                       ["mpath"] = "%ProjDir%/spec/DirTree/mf_underscore",
+                                    },
+                                 },
+                              },
+                              B = {
+                                 defaultT = {},
+                                 dirT = {},
+                                 fileT = {
+                                    ["B/2.0"]  = {
+                                       ["canonical"] = "2.0",
+                                       ["fn"] = "%ProjDir%/spec/DirTree/mf_underscore/B/2.0.lua",
+                                       ["luaExt"] = 4,
+                                       ["mpath"] = "%ProjDir%/spec/DirTree/mf_underscore",
+                                    },
+                                 },
+                              },
+                           },
+                           fileT = {},
+                        },
+                        ["mpath"] = "%ProjDir%/spec/DirTree/mf_underscore",
+                     },
+                  }
+                  sanizatizeTbl(rplmntA, dirA, _dirA)
+                  --dbg.printT("goldA", goldA)
+                  --dbg.printT("dirA",  _dirA)
+                  assert.are.same(goldA, _dirA)
+                  
+               end
+            )
          end
 )

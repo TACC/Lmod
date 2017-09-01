@@ -99,11 +99,11 @@ end
 local function outputTblHelper(indentIdx, name, T, a, level)
 
    -------------------------------------------------
-   -- Remove all keys in table that start with "_"
+   -- Remove all keys in table that start with "__"
 
    local t = {}
    for key in pairs(T) do
-      if (type(key) == "number" or key:sub(1,1) ~= '_') then
+      if (type(key) == "number" or key:sub(1,1) ~= '__') then
          t[key] = T[key]
       end
    end

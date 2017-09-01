@@ -265,9 +265,7 @@ local function build(mpathA)
          dirA[#dirA+1] = {mpath=mpath, dirT=dirT}
       end
    end
-
    return dirA
-
 end
 
 function M.new(self, mpathA)
