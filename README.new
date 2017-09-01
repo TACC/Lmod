@@ -17,4 +17,3 @@ Lmod 7.6+
     (7.6.11) Tracing now reports changes to MODULEPATH.
              Lmod now uses the spider cache when doing a restore when LMOD_CACHED_LOAD=yes.
     (7.6.12) Lmod can now support module with a single leading underscore.
-    
