@@ -94,7 +94,7 @@ end
 
 --------------------------------------------------------------------------
 -- This is the work-horse for this collections.  It is recursively for
--- sub-tables.  It also ignores keys that start with "_".
+-- sub-tables.  It also ignores keys that start with "__".
 
 local function outputTblHelper(indentIdx, name, T, a, level)
 
@@ -103,7 +103,7 @@ local function outputTblHelper(indentIdx, name, T, a, level)
 
    local t = {}
    for key in pairs(T) do
-      if (type(key) == "number" or key:sub(1,1) ~= '__') then
+      if (type(key) == "number" or key:sub(1,2) ~= '__') then
          t[key] = T[key]
       end
    end
