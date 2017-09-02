@@ -16,6 +16,7 @@ addons:
       - tcl8.5
       - uuid  # for uuidgen
       - r-base
+      - r-base-dev
 
 before_install:
   - cd $HOME

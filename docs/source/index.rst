@@ -69,6 +69,7 @@ Lmod Guide.  The rest of the guides can be read as needed.
    030_installing
    045_transition
    050_lua_modulefiles
+   055_module_names
    060_locating
    070_standard_modules
    073_tmod_to_lmod
@@ -110,7 +111,6 @@ Topics yet to be written
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 #. Optional Software layout, two digit rule
-#. Module naming conventions
 #. Advanced Topics: priority path, .modulerc tricks
 #. settarg
 #. tracking module usage
