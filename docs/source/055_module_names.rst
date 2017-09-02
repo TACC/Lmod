@@ -4,8 +4,7 @@ Module names and module naming conventions
 The modulefiles contain commands that change the user's environment to
 make an application or library available to a user.  So loading a modulefile
 named gcc/7.1 should hopefully make the programs Gnu Compiler
-Collection (i.e. gcc, gfortran and g++ compilers) available to be used
-by a user.
+Collection (i.e. gcc, gfortran and g++ compilers) available to a user.
 
 So the ``gcc/7.1`` module is a file named either 7.1 or 7.1.lua depending
 on whether the commands are written in TCL or Lua respectively and
@@ -14,7 +13,7 @@ this file is in the ``gcc`` directory.
 To see a more complete module layout, let's assume your site has
 has a MODULEPATH set to::
 
-   /apps/modulefiles/Core:/apps/modulefiles/Common
+   /apps/modulefiles/Core:/apps/modulefiles/Other
 
 And the directory layout from /apps/modulefiles is::
 
@@ -137,7 +136,7 @@ and ``64/4.2``.
 
 By default, Lmod assumes that the version is just the file, so lmod
 needs to be told where the sn / version split is.  This can be done by
-creating a ``.version`` or ``.modulerc`` file where a site wants the
+creating an empty ``.version`` or ``.modulerc`` file where a site wants the
 split to be.  For the above example, the following layout make
 ``acme`` be the sn::
 
@@ -151,4 +150,16 @@ split to be.  For the above example, the following layout make
            └── 4.2
 
 because there is a .version at the same level as the 32 and 64
-directories.        
+directories.  With the .version file, the fullName is ``acme/64/4.2``
+and the sn is ``acme`` and the version ``64/4.2``.  If the .version
+file was removed then the sn would be ``acme/64`` and the version
+would be ``4.2``.
+
+Sites are can name modules with as many directories as they like.  For
+example a site can have a module named::
+
+   mpi/mpich/64/3.1/048
+
+If there is an empty file at ``mpi/mpich/.version`` then the sn
+would be ``mpi/mpich`` and the version would be ``64/3.1/048``.  
+

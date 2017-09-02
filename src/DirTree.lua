@@ -72,7 +72,7 @@ local function keepFile(fn)
    local firstTwo  = fn:sub(1,2)
 
    local result    = not (ignoreT[fn]     or lastChar == '~' or firstChar == '#' or
-                          lastChar == '#' or firstTwo == '.#')
+                          lastChar == '#' or firstTwo == '.#' or firstTwo == '__')
    if (not result) then
       return false
    end
