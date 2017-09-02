@@ -82,6 +82,7 @@ Para solucionar esta situación, introduzca el siguiente comando:
 
 Por favor, envíe un ticket si necesita más ayuda.
 ]==],
+     e_Illegal_Load        = nil,
      e_LocationT_Srch      = "Error in LocationT:search()",
      e_Missing_Value       = "%{func}(\"%{name}\") no es válido, es necesario un valor",
      e_MT_corrupt          = nil,

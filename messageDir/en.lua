@@ -111,6 +111,9 @@ To correct the situation, please execute the following command:
 
 Please submit a consulting ticket if you require additional assistance.
 ]==],
+     e_Illegal_Load       = [==[The following module(s) are illegal: %{module_list}
+Lmod does not support modulefiles that start with two or more underscores
+]==],
      e_LocationT_Srch      = "Error in LocationT:search().",
      e_Missing_Value       = "%{func}(\"%{name}\") is not valid; a value is required.",
      e_MT_corrupt          = [==[The module table stored in the environment is corrupt.

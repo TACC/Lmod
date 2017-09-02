@@ -723,6 +723,7 @@ function M.mustLoad(self)
       local count   = #cmdA
 
       local uA = {}  -- unknown names
+      local iA = {}  -- illegal names
       local kA = {}  -- known modules (show)
       local kB = {}  -- known modules (usrName)
 
@@ -732,21 +733,30 @@ function M.mustLoad(self)
       else
          local outputDirection = dbg.active() and "2> spider.log" or "2> /dev/null"
          for i = 1, #bb do
-            cmdA[count+1] = "'^" .. bb[i]:escape() .. "$'"
-            cmdA[count+2] = outputDirection
-            local cmd     = concatTbl(cmdA," ")
-            local result  = capture(cmd)
-            dbg.print{"result: ",result,"\n"}
-            if (result:find("\nfalse")) then
-               uA[#uA+1] = aa[i]
+            if (bb[i]:sub(1,2) == "__") then
+               iA[#iA+1] = bb[i]
             else
-               kA[#kA+1] = aa[i]
-               kB[#kB+1] = bb[i]
+               cmdA[count+1] = "'^" .. bb[i]:escape() .. "$'"
+               cmdA[count+2] = outputDirection
+               local cmd     = concatTbl(cmdA," ")
+               local result  = capture(cmd)
+               dbg.print{"result: ",result,"\n"}
+               if (result:find("\nfalse")) then
+                  uA[#uA+1] = aa[i]
+               else
+                  kA[#kA+1] = aa[i]
+                  kB[#kB+1] = bb[i]
+               end
             end
          end
       end
 
       local a = {}
+
+      if (#iA > 0) then
+         mcp:report{msg="e_Illegal_Load", module_list = concatTbl(iA, " ") }
+      end
+
 
       if (#uA > 0) then
          mcp:report{msg="e_Failed_Load", module_list = concatTbl(uA, " ") }

@@ -162,14 +162,14 @@ that the following versions are sorted from lowest to highest::
 
 .. _NVV-label:
 
-NVV: Picking modules when there are multiple directories in MODULEPATH
+N/V/V: Picking modules when there are multiple directories in MODULEPATH
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The rules are different when the module layout is Name/Version/Version
-(NVV).  The rules for NV can be called ``Find Best`` where as NVV is
+(N/V/V).  The rules for N/V can be called ``Find Best`` where as N/V/V is
 ``Find First``. Note that if any one of the directories in ``MODULEPATH``
-are in NVV format, the whole tree is searched with NVV rules.  Below
-are the rules that Lmod uses to locate a modulefile when in NVV mode:
+are in N/V/V format, the whole tree is searched with N/V/V rules.  Below
+are the rules that Lmod uses to locate a modulefile when in N/V/V mode:
 
 #. It looks for an exact match in all ``MODULEPATH`` directories. It
    picks the first match it finds.
@@ -200,14 +200,14 @@ higher.  Then in the ``foo/3`` directory it choses ``2`` as it is
 higher than ``1``.  To load any other ``foo`` module, the full name
 will have to specified.
 
-Marking a directory as default in an NVV layout
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Marking a directory as default in an N/V/V layout
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 There are three ways to mark a directory as a default: Using a ``default``
 symlink, or the use of either the ``.modulerc`` or ``.version`` files.
 Since it is possible (but not recommended) to have all three
 possibilities, This is the same technique that was used before to mark
-a particular version file when in an NV layout. Lmod choses the
+a particular version file when in an N/V layout. Lmod choses the
 setting of the default directory in the following order:
 
 #. ``default`` symlink
@@ -239,8 +239,8 @@ Normally the 128 directory would be chosen as the default directory as
 128 is higher than 64 or 32 but any one of these files forces Lmod to pick
 64 over the other directories.
 
-Why do NVV module layouts use ``Find First`` over ``Find Best``?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Why do N/V/V module layouts use ``Find First`` over ``Find Best``?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The main problem here is that of the default directories.  There is no
 sane way to pick.  Suppose that you have the following structure::
@@ -259,7 +259,7 @@ And where the default directory in ``A`` in ``64`` and in ``B`` it is
 default in ``A`` where as it is not in ``B``.  Does that mean that
 ``foo/64/2`` is "higher" that ``foo/64/4`` or not.  There is no clear
 reason to pick one over the other so Lmod has chosen ``Find First``
-for NVV module layouts.
+for N/V/V module layouts.
 
 For sites that are mixing N/V and N/V/V module layouts they may wish
 to change Lmod to use the find first rule in all cases. See

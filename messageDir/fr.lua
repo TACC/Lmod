@@ -110,6 +110,7 @@ Pour corriger le problème, vous pouvez utiliser la commande suivante :
 Merci de bien vouloir soumettre un ticket si vous désirez plus d'assistance.
 
 ]==],
+     e_Illegal_Load      = nil,
      e_LocationT_Srch    = "Erreur dans la fonction 'LocationT:search()'",
      e_Missing_Value     = "%{func}(\"%{name}\") n'est pas valide, une valeur est requise",
      e_MT_corrupt        = [==[La table de modules stockée dans l'environnement est corrompue.

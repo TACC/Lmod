@@ -62,6 +62,7 @@ return {
      e_Failed_Load         = nil,
      e_Failed_Load_2       = nil,
      e_Family_Conflict     = nil,
+     e_Illegal_Load        = nil,
      e_LocationT_Srch      = nil,
      e_Missing_Value       = nil,
      e_MT_corrupt          = nil,

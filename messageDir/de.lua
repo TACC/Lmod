@@ -104,6 +104,7 @@ Verwenden Sie folgendes Kommando, um das Modul zu laden:
 
 Falls Sie weitere Unterstützung brauchen, erstellen Sie ein Support-Ticket.
 ]==],
+     e_Illegal_Load        = nil,
      e_LocationT_Srch      = "Fehler in \"LocationT:search()\".",
      e_Missing_Value       = "%{func}(\"%{name}\") ist ungültig. Es wird ein Wert benötigt.",
      e_MT_corrupt          = [==[Die gespeicherte Modul-Liste ist beschädigt.
