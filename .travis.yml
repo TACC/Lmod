@@ -1,6 +1,6 @@
 # although Lmod is written in Lua, use Python environment
 language: python
-sudo: false
+sudo: required
 
 env:
   - LUA='lua=5.1'
