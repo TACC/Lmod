@@ -15,8 +15,6 @@ addons:
       - tcsh
       - tcl8.5
       - uuid  # for uuidgen
-      - r-base
-      - r-base-dev
 
 before_install:
   - cd $HOME
@@ -31,6 +29,10 @@ before_install:
   - curl https://cmake.org/files/v3.6/cmake-3.6.0-Linux-x86_64.tar.gz | tar -xz
   - export PATH="$PWD/cmake-3.6.0-Linux-x86_64/bin:$PATH"
   - cd -
+  - sudo add-apt-repository ppa:marutter/rrutter -y
+  - sudo apt-get update -q
+  - sudo install r-base r-base-dev
+
 
 install:
   - luarocks install luaposix
