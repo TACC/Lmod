@@ -138,7 +138,7 @@ local function l_extract(self)
             priority = vA[1]
          end
          a[#a + 1]  = {i,priority}
-         pathTbl[v] = a
+         pathTbl[v] = {num = #a, idxA = a }
          imax       = i
       end
    end
@@ -179,27 +179,31 @@ end
 --  @param a An array of values.
 --  @param where Where to remove and how: {"first", "last", "all"}
 --  @param priority The priority of the path if any (default is zero)
-local function remFunc(a, where, priority, nodups)
+local function remFunc(vv, where, priority, nodups)
+   local num  = vv.num
+   local idxA = vv.idxA
    if (where == "all" or abs(priority) > 0) then
       local oldPriority = 0
-      if (next(a) ~= nil) then
-         oldPriority = tonumber(a[1][2])
+      if (next(idxA) ~= nil) then
+         oldPriority = tonumber(idxA[1][2])
       end
       if (oldPriority == priority or nodups) then
-         a = nil
+         vv = nil
       end
    elseif (where == "first" ) then
-      table.remove(a,1)
-      if (next(a) == nil) then
-         a = nil
+      table.remove(idxA,1)
+      vv.num = num - 1
+      if (next(idxA) == nil) then
+         vv = nil
       end
    elseif (where == "last" ) then
-      a[#a] = nil
-      if (next(a) == nil) then
-         a = nil
+      idxA[#idxA] = nil
+      vv.num = num - 1
+      if (next(idxA) == nil) then
+         vv = nil
       end
    end
-   return a
+   return vv
 end
 
 --------------------------------------------------------------------------
@@ -242,7 +246,7 @@ function M.remove(self, value, where, priority, nodups)
    for i = 1, #pathA do
       local path = pathA[i]
       if (tbl[path]) then
-         tbl[path]   = remFunc(self.tbl[path], where, priority, nodups)
+         tbl[path]   = remFunc(tbl[path], where, priority, nodups)
       end
    end
    local v    = self:expand()
@@ -262,30 +266,36 @@ end
 -- @param isPrepend True if a prepend.
 -- @param nodups True if no duplications are allowed.
 -- @param priority The priority value.
-local function insertFunc(a, idx, isPrepend, nodups, priority)
+local function insertFunc(vv, idx, isPrepend, nodups, priority)
+   dbg.print{"insertFunc(vv,",idx,",",isPrepend,",",nodups,",",priority,")\n"}
+   local num  = vv.num
+   local idxA = vv.idxA
    if (nodups or abs(priority) > 0) then
       if (priority == 0) then
-         return { {idx,priority}  }
+         dbg.print{"nodups: true, priority: 0\n"}
+         return { num = 1, idxA = {idx,priority} }
       end
 
       local oldPriority = 0
-      if (next(a) ~= nil) then
-         oldPriority = tonumber(a[1][2])
+      if (next(idxA) ~= nil) then
+         oldPriority = tonumber(idxA[1][2])
       end
 
       if (priority < 0) then
          if (priority <= oldPriority) then
-            return { {idx,priority}  }
+            return { num = 1, idxA = {idx,priority}  }
          end
       elseif (oldPriority > 0 and priority > oldPriority) then
-         return { {idx,priority}  }
+         return { num = 1, idxA = {idx,priority}  }
       end
    elseif (isPrepend) then
-      table.insert(a,1, {idx, priority})
+      table.insert(idxA,1, {idx, priority})
+      vv.num = num + 1
    else
-      a[#a+1] = {idx, priority}
+      idxA[#idxA+1] = {idx, priority}
+      vv.num = num + 1
    end
-   return a
+   return vv
 end
 
 --------------------------------------------------------------------------
@@ -333,9 +343,9 @@ function M.prepend(self, value, nodups, priority)
    for i = is, ie, iskip do
       local path = pathA[i]
       imin       = imin - 1
-      local   a  = tbl[path]
+      local vv   = tbl[path]
       if (tmod_path_rule == "no" or not a) then
-         tbl[path]   = insertFunc(a or {}, imin, isPrepend, nodups, priority)
+         tbl[path]   = insertFunc(vv or {num = 0, idxA = {}}, imin, isPrepend, nodups, priority)
       end
    end
    self.imin = imin
@@ -364,6 +374,7 @@ function M.append(self, value, nodups, priority)
    if (self.type ~= 'path') then
       l_extract(self)
    end
+
    self.type        = 'path'
    nodups           = not allow_dups(not nodups)
    priority         = tonumber(priority or "0")
@@ -386,21 +397,22 @@ function M.append(self, value, nodups, priority)
    end
 
    local tbl  = self.tbl
+   dbg.printT("(1) tbl",tbl)
    local imax = self.imax
    for i = 1, #pathA do
       local path = pathA[i]
       imax       = imax + 1
-      local a    = tbl[path]
-      if (tmod_path_rule == "no" or not a) then
-         tbl[path]   = insertFunc(a or {}, imax, isPrepend, nodups, priority)
+      local vv   = tbl[path]
+      if (tmod_path_rule == "no" or not vv) then
+         tbl[path]   = insertFunc(vv or {num = 0, idxA = {}}, imax, isPrepend, nodups, priority)
       end
    end
-   self.imax  = imax
-   local v    = self:expand()
-   self.value = v
-   if (not v) then v = nil end
-   setenv_posix(self.name, v, true)
-   chkMP(self.name, v, adding)
+   self.imax   = imax
+   local value = self:expand()
+   self.value  = value
+   if (not value) then value = nil end
+   setenv_posix(self.name, value, true)
+   chkMP(self.name, value, adding)
 end
 
 --------------------------------------------------------------------------
@@ -433,12 +445,14 @@ function M.pop(self)
    --   print(__FILE__() .. ':' .. __LINE__())
    --end
 
-   for k, idxA in pairs(self.tbl) do
+   for k, vv in pairs(self.tbl) do
+      local idxA = vv.idxA
       local v = idxA[1][1]
       dbg.print{"v: ",v,", imin: ",imin,", min2: ",min2,"\n"}
       if (v == imin) then
-         idxA        = remFunc(idxA, "first", 0)
-         self.tbl[k] = idxA
+         vv          = remFunc(vv, "first", 0)
+         self.tbl[k] = vv
+         idxA        = vv.idxA
          if (idxA ~= nil) then
             v = idxA[1][1]
          else
@@ -490,10 +504,12 @@ function M.prt(self,title)
    end
    if (dbg.active()) then
       dbg.print{"tbl:\n"}
-      for k,vA in pairsByKeys(self.tbl) do
-         dbg.print{"   \"",k,"\":"}
-         for ii = 1,#vA do
-            io.stderr:write(" {",tostring(vA[ii][1]), ", ",tostring(vA[ii][2]),"} ")
+      for k,vv in pairsByKeys(self.tbl) do
+         local num  = vv.num
+         local idxA = vv.idxA
+         dbg.print{"   \"",k,"(",num,")\":"}
+         for ii = 1,#idxA do
+            io.stderr:write(" {",tostring(idxA[ii][1]), ", ",tostring(idxA[ii][2]),"} ")
          end
          dbg.print{"\n"}
       end
@@ -538,12 +554,17 @@ function M.expand(self)
    local resultA = {}
    local tbl     = self.tbl
 
+   dbg.print{"tbl:",tbl,"\n"}
+
    -- Step 1: Make a sparse array with path as values
-   for k, vA in pairs(tbl) do
-      for ii = 1,#vA do
-         local pair     = vA[ii]
-         local value    = pair[1]
-         local priority = pair[2]
+   for k, vv in pairs(tbl) do
+      dbg.print{"vv:",vv,"\n"}
+      local idxA = vv.idxA
+      dbg.print{"idxA:",idxA,"\n"}
+      for ii = 1,#idxA do
+         local duo      = idxA[ii]
+         local value    = duo[1]
+         local priority = duo[2]
          local idx      = value + factor*priority
          t[idx]         = k
          if (abs(priority) > 0) then
