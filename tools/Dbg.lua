@@ -444,7 +444,7 @@ end
 
 function M._printT(name, value)
    require("serializeTbl")
-   io.stderr:write(serializeTbl{indent=true, name = name, value=value})
+   io.stderr:write(serializeTbl{indent=s_indentString, name = name, value=value})
 end
 
 ---- finis -----

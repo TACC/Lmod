@@ -765,10 +765,6 @@ local function regroup_avail_blocks(availStyle, availA)
    local labelT       = {}
    local label2mpathT = {}
    
-   --if (dbg:active()) then
-   --   io.stderr:write(serializeTbl{indent=true, name="availA", value=availA})
-   --end
-
    for i = 1, #availA do         
       local mpath         = availA[i].mpath
       labelT[mpath]       = mpath

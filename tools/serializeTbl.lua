@@ -11,6 +11,9 @@
 --   Generate String:
 --      s = serializeTbl{indent=true, name="SomeName", value=luaTable}
 --
+--   Note that indent can also be an indent string (i.e. indent = "    ")
+--   which will be treated as the initial indentation.
+
 -- @module serializeTbl
 
 require("strict")
@@ -210,6 +213,9 @@ function serializeTbl(options)
    local indentIdx = -1
    if (options.indent) then
       indentIdx = 0
+      if (type(options.indent) == 'string' and options.indent:find("^  *$")) then
+         indentIdx = options.indent:len()
+      end
    end
 
    if (type(value) == "table") then
