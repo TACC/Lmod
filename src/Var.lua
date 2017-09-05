@@ -70,12 +70,12 @@ local ln10_inv       = 1.0/log(10.0)
 -- @param self A Var object.
 
 local function build_priorityT(self)
-   local value   = getenv(envPrtyName .. self.name)
+   local value = getenv(envPrtyName .. self.name)
+   local t     = {}
    if (value == nil) then
-      return {}
+      return t
    end
 
-   local t = {}
    local a = false
    for outer in value:split(";") do
       local istate = 0
@@ -489,6 +489,7 @@ function M.prt(self,title)
       return
    end
    if (dbg.active()) then
+      dbg.print{"tbl:\n"}
       for k,vA in pairsByKeys(self.tbl) do
          dbg.print{"   \"",k,"\":"}
          for ii = 1,#vA do
