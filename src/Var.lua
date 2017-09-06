@@ -162,6 +162,8 @@ local function l_extract(self, nodups)
          pathTbl[v] = vv
       end
    end
+   --dbg.printT(self.name, pathTbl)
+
    self.value  = myValue
    self.type   = 'path'
    self.tbl    = pathTbl
@@ -389,14 +391,11 @@ end
 -- @param nodups True if no duplications are allowed.
 -- @param priority The priority value.
 function M.append(self, value, nodups, priority)
-   dbg.start{"Var:append( value:",value,", nodups: ",nodups,", priority: ",priority,")"}
    nodups = not allow_dups(not nodups)
    if (value == nil) then return end
    if (self.type ~= 'path') then
       l_extract(self, nodups)
    end
-
-   --dbg.printT("(1) tbl: ",self.tbl)
 
    self.type        = 'path'
    priority         = tonumber(priority or "0")
@@ -428,14 +427,12 @@ function M.append(self, value, nodups, priority)
          tbl[path]   = insertFunc(vv or {num = 0, idxA = {}}, imax, isPrepend, nodups, priority)
       end
    end
-   --dbg.printT("(2) tbl: ",self.tbl)
    self.imax   = imax
    local value = self:expand()
    self.value  = value
    if (not value) then value = nil end
    setenv_posix(self.name, value, true)
    chkMP(self.name, value, adding)
-   --dbg.fini("Var:append")
 end
 
 --------------------------------------------------------------------------
@@ -471,21 +468,24 @@ function M.pop(self)
    for k, vv in pairs(self.tbl) do
       local idxA = vv.idxA
       local v = idxA[1][1]
+      dbg.print{"v: ",v,", imin: ",imin,", min2: ",min2,"\n"}
       if (v == imin) then
          vv          = remFunc(vv, "first", 0)
          self.tbl[k] = vv
-         idxA        = vv.idxA
-         if (idxA ~= nil) then
-            v = idxA[1][1]
+         if (vv ~= nil) then
+            v = vv.idxA[1][1]
          else
             v = huge
          end
       end
+      dbg.print{"v: ",v,"\n"}
       if (v < min2) then
          min2   = v
          result = k
       end
+      dbg.print{"min2: ",min2,"\n"}
    end
+   dbg.print{"imin: ",imin,", min2: ",min2,"\n"}
    if (min2 < huge) then
       self.imin = min2
    end
@@ -574,7 +574,7 @@ function M.expand(self)
    local refCountT = {}
    -- Step 1: Make a sparse array with path as values
 
-   dbg.printT("tbl",tbl)
+   --dbg.printT("tbl",tbl)
 
    for k, vv in pairsByKeys(tbl) do
       local idxA = vv.idxA
