@@ -333,7 +333,7 @@ function M.append_path(self, t)
    local sep      = t.delim or ":"
    local name     = t[1]
    local value    = t[2]
-   local nodups   = t.nodups
+   local nodups   = not allow_dups( not t.nodups)
    local priority = t.priority or 0
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
@@ -362,7 +362,7 @@ function M.remove_path(self, t)
    local sep      = t.delim or ":"
    local name     = t[1]
    local value    = t[2]
-   local nodups   = t.nodups
+   local nodups   = not allow_dups( not t.nodups)
    local priority = t.priority or 0
    local where    = t.where
    local frameStk = FrameStk:singleton()

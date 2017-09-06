@@ -138,7 +138,12 @@ local function l_extract(self, nodups)
          local vv       = pathTbl[v] or {num = -1, idxA = {}}
          local num      = vv.num 
          if (num == -1) then
-            num = (refCountT[v] or 1) - 1
+            local refCount = false
+            local vA       = refCountT[v]
+            if (vA) then
+               refCount = tonumber(vA[1])
+            end
+            num = (refCount or 1) - 1
          end
 
          local priority = 0
@@ -162,7 +167,6 @@ local function l_extract(self, nodups)
          pathTbl[v] = vv
       end
    end
-   --dbg.printT(self.name, pathTbl)
 
    self.value  = myValue
    self.type   = 'path'
@@ -205,7 +209,12 @@ end
 local function remFunc(vv, where, priority, nodups)
    local num  = vv.num
    local idxA = vv.idxA
-   if (where == "all" or abs(priority) > 0) then
+   if (nodups) then
+      vv.num = num - 1
+      if (vv.num < 1) then
+         vv = nil
+      end
+   elseif (where == "all" or abs(priority) > 0) then
       local oldPriority = 0
       if (next(idxA) ~= nil) then
          oldPriority = tonumber(idxA[1][2])
@@ -293,21 +302,21 @@ local function insertFunc(vv, idx, isPrepend, nodups, priority)
    local num  = vv.num
    local idxA = vv.idxA
    if (nodups or abs(priority) > 0) then
-      if (priority == 0) then
-         return { num = 1, idxA = {{idx,priority}} }
-      end
-
       local oldPriority = 0
       if (next(idxA) ~= nil) then
          oldPriority = tonumber(idxA[1][2])
       end
-
       if (priority < 0) then
-         if (priority <= oldPriority) then
-            return { num = 1, idxA = {{idx,priority}} }
-         end
-      elseif (oldPriority > 0 and priority > oldPriority) then
-         return { num = 1, idxA = {{idx,priority}}  }
+         priority = min(priority, oldPriority)
+      elseif (priority > 0) then
+         priority = max(priority, oldPriority)
+      end
+
+      if (num == 0) then
+         return { num = 1, idxA = {{idx,priority}} }
+      else
+         vv.num = num + 1
+         return vv
       end
    elseif (isPrepend) then
       table.insert(idxA,1, {idx, priority})
@@ -334,6 +343,10 @@ function M.prepend(self, value, nodups, priority)
 
    if (self.type ~= 'path') then
       l_extract(self, nodups)
+   end
+
+   if (self.name == "RTM_PATH") then
+      dbg.printT("(1) "..self.name, self.tbl)
    end
 
    self.type           = 'path'
@@ -370,6 +383,10 @@ function M.prepend(self, value, nodups, priority)
       end
    end
    self.imin = imin
+
+   if (self.name == "RTM_PATH") then
+      dbg.printT("(2) "..self.name, self.tbl)
+   end
 
    local v    = self:expand()
    self.value = v
