@@ -114,7 +114,7 @@ function M.expand(self, tbl)
 
 
    for k,v in pairsByKeys(tbl) do
-      local vstr, vType, priorityStrT = v:expand()
+      local vstr, vType, priorityStrT, refCountT = v:expand()
       if (next(priorityStrT)) then
          for prtyKey,prtyStr in pairs(priorityStrT) do
             self:expandVar(prtyKey,prtyStr,"path")

@@ -40,23 +40,25 @@ require("utils")
 require("myGlobals")
 require("serializeTbl")
 
-_G._DEBUG            = false               -- Required by the new lua posix
-local M              = {}
-local abs            = math.abs
-local ceil           = math.ceil
-local concatTbl      = table.concat
-local cosmic         = require("Cosmic"):singleton()
-local dbg            = require("Dbg"):dbg()
-local envPrtyName    = "LMOD_Priority_"
-local getenv         = os.getenv
-local log            = math.log
-local min            = math.min
-local max            = math.max
-local huge           = math.huge
-local posix          = require("posix")
-local setenv_posix   = posix.setenv
-local tmod_path_rule = cosmic:value("LMOD_TMOD_PATH_RULE")
-local ln10_inv       = 1.0/log(10.0)
+_G._DEBUG             = false               -- Required by the new lua posix
+local M               = {}
+local abs             = math.abs
+local ceil            = math.ceil
+local concatTbl       = table.concat
+local cosmic          = require("Cosmic"):singleton()
+local duplicate_paths = cosmic:value("LMOD_DUPLICATE_PATHS")
+local dbg             = require("Dbg"):dbg()
+local envPrtyName     = "LMOD_Priority_"
+local envRefCountName = "__LMOD_REF_COUNT_"
+local getenv          = os.getenv
+local log             = math.log
+local min             = math.min
+local max             = math.max
+local huge            = math.huge
+local posix           = require("posix")
+local setenv_posix    = posix.setenv
+local tmod_path_rule  = cosmic:value("LMOD_TMOD_PATH_RULE")
+local ln10_inv        = 1.0/log(10.0)
 --------------------------------------------------------------------------
 -- Rebuild the path-like priority table.  So for a PATH with priorities
 -- would have:
@@ -69,8 +71,8 @@ local ln10_inv       = 1.0/log(10.0)
 --
 -- @param self A Var object.
 
-local function build_priorityT(self)
-   local value = getenv(envPrtyName .. self.name)
+local function l_extract_Lmod_var_table(self, envName)
+   local value = getenv(envName .. self.name)
    local t     = {}
    if (value == nil) then
       return t
@@ -118,28 +120,46 @@ end
 -- all variables are path like variables here.  Not to worry
 -- however, the set function mark the type as "var" and not
 -- "path".  Other functions work similarly.
-local function l_extract(self)
+local function l_extract(self, nodups)
    local myValue   = self.value or getenv(self.name)
    local pathTbl   = {}
    local imax      = 0
    local imin      = 1
    local pathA     = {}
    local sep       = self.sep
-   local priorityT = build_priorityT(self)
+   local priorityT = l_extract_Lmod_var_table(self, envPrtyName)
+   local refCountT = l_extract_Lmod_var_table(self, envRefCountName)
 
    if (myValue and myValue ~= '') then
       pathA = path2pathA(myValue, sep)
 
       for i,v in ipairs(pathA) do
-         local a        = pathTbl[v] or {}
+         local idxA
+         local vv       = pathTbl[v] or {num = -1, idxA = {}}
+         local num      = vv.num 
+         if (num == -1) then
+            num = (refCountT[v] or 1) - 1
+         end
+
          local priority = 0
          local vA       = priorityT[v]
          if (vA) then
             priority = vA[1]
          end
-         a[#a + 1]  = {i,priority}
-         pathTbl[v] = {num = #a, idxA = a }
+         
+         if (nodups) then
+            if (num == 0) then
+               vv     = {num = 1, idxA = {{i,priority}} }
+            else
+               vv.num = num + 1
+            end   
+         else
+            local idxA    = vv.idxA
+            idxA[#idxA+1] = {i,priority}
+            vv.num        = num + 1
+         end
          imax       = i
+         pathTbl[v] = vv
       end
    end
    self.value  = myValue
@@ -156,15 +176,16 @@ end
 -- @param self A Var object.
 -- @param name The name of the variable.
 -- @param value The value assigned to the variable.
+-- @param nodup If true then no duplicate entries in path like variable.
 -- @param sep The separator character.  (By default it is ":")
-function M.new(self, name, value, sep)
+function M.new(self, name, value, nodup, sep)
    local o = {}
    setmetatable(o,self)
    self.__index = self
    o.value      = value
    o.name       = name
    o.sep        = sep or ":"
-   l_extract(o)
+   l_extract(o, nodup)
    if (not value) then value = nil end
    setenv_posix(name, value, true)
    return o
@@ -267,13 +288,11 @@ end
 -- @param nodups True if no duplications are allowed.
 -- @param priority The priority value.
 local function insertFunc(vv, idx, isPrepend, nodups, priority)
-   dbg.print{"insertFunc(vv,",idx,",",isPrepend,",",nodups,",",priority,")\n"}
    local num  = vv.num
    local idxA = vv.idxA
    if (nodups or abs(priority) > 0) then
       if (priority == 0) then
-         dbg.print{"nodups: true, priority: 0\n"}
-         return { num = 1, idxA = {idx,priority} }
+         return { num = 1, idxA = {{idx,priority}} }
       end
 
       local oldPriority = 0
@@ -283,10 +302,10 @@ local function insertFunc(vv, idx, isPrepend, nodups, priority)
 
       if (priority < 0) then
          if (priority <= oldPriority) then
-            return { num = 1, idxA = {idx,priority}  }
+            return { num = 1, idxA = {{idx,priority}} }
          end
       elseif (oldPriority > 0 and priority > oldPriority) then
-         return { num = 1, idxA = {idx,priority}  }
+         return { num = 1, idxA = {{idx,priority}}  }
       end
    elseif (isPrepend) then
       table.insert(idxA,1, {idx, priority})
@@ -312,7 +331,7 @@ function M.prepend(self, value, nodups, priority)
    if (value == nil) then return end
 
    if (self.type ~= 'path') then
-      l_extract(self)
+      l_extract(self, nodups)
    end
 
    self.type           = 'path'
@@ -370,13 +389,16 @@ end
 -- @param nodups True if no duplications are allowed.
 -- @param priority The priority value.
 function M.append(self, value, nodups, priority)
+   dbg.start{"Var:append( value:",value,", nodups: ",nodups,", priority: ",priority,")"}
+   nodups = not allow_dups(not nodups)
    if (value == nil) then return end
    if (self.type ~= 'path') then
-      l_extract(self)
+      l_extract(self, nodups)
    end
 
+   --dbg.printT("(1) tbl: ",self.tbl)
+
    self.type        = 'path'
-   nodups           = not allow_dups(not nodups)
    priority         = tonumber(priority or "0")
    local pathA      = path2pathA(value, self.sep)
    local isPrepend  = false
@@ -397,7 +419,6 @@ function M.append(self, value, nodups, priority)
    end
 
    local tbl  = self.tbl
-   dbg.printT("(1) tbl",tbl)
    local imax = self.imax
    for i = 1, #pathA do
       local path = pathA[i]
@@ -407,12 +428,14 @@ function M.append(self, value, nodups, priority)
          tbl[path]   = insertFunc(vv or {num = 0, idxA = {}}, imax, isPrepend, nodups, priority)
       end
    end
+   --dbg.printT("(2) tbl: ",self.tbl)
    self.imax   = imax
    local value = self:expand()
    self.value  = value
    if (not value) then value = nil end
    setenv_posix(self.name, value, true)
    chkMP(self.name, value, adding)
+   --dbg.fini("Var:append")
 end
 
 --------------------------------------------------------------------------
@@ -448,7 +471,6 @@ function M.pop(self)
    for k, vv in pairs(self.tbl) do
       local idxA = vv.idxA
       local v = idxA[1][1]
-      dbg.print{"v: ",v,", imin: ",imin,", min2: ",min2,"\n"}
       if (v == imin) then
          vv          = remFunc(vv, "first", 0)
          self.tbl[k] = vv
@@ -459,23 +481,17 @@ function M.pop(self)
             v = huge
          end
       end
-      dbg.print{"v: ",v,"\n"}
       if (v < min2) then
          min2   = v
          result = k
       end
-      dbg.print{"min2: ",min2,"\n"}
    end
-   dbg.print{"imin: ",imin,", min2: ",min2,"\n"}
    if (min2 < huge) then
       self.imin = min2
    end
 
    local v    = self:expand()
    self.value = v
-   --if (dbg.active()) then
-   --   self:prt("(2) Var:pop()")
-   --end
    if (not v) then v = nil end
    setenv_posix(self.name, v, true)
    local adding = false
@@ -541,26 +557,28 @@ end
 -- @param self A Var object.
 function M.expand(self)
    if (self.type ~= 'path') then
-      return self.value, self.type, {}
+      return self.value, self.type, {}, {}
    end
 
-   local t       = {}
-   local pathA   = {}
-   local pathStr = false
-   local sep     = self.sep
-   local prT     = {}
-   local maxV    = max(abs(self.imin), self.imax) + 1
-   local factor  = 10^ceil(log(maxV)*ln10_inv+1)
-   local resultA = {}
-   local tbl     = self.tbl
-
-   dbg.print{"tbl:",tbl,"\n"}
-
+   local env_name
+   local t         = {}
+   local pathA     = {}
+   local pathStr   = false
+   local sep       = self.sep
+   local prT       = {}
+   local maxV      = max(abs(self.imin), self.imax) + 1
+   local factor    = 10^ceil(log(maxV)*ln10_inv+1)
+   local resultA   = {}
+   local tbl       = self.tbl
+   local sA        = {}
+   local refCountT = {}
    -- Step 1: Make a sparse array with path as values
-   for k, vv in pairs(tbl) do
-      dbg.print{"vv:",vv,"\n"}
+
+   dbg.printT("tbl",tbl)
+
+   for k, vv in pairsByKeys(tbl) do
       local idxA = vv.idxA
-      dbg.print{"idxA:",idxA,"\n"}
+      sA[#sA+1]  = k .. ":" .. tostring(vv.num)
       for ii = 1,#idxA do
          local duo      = idxA[ii]
          local value    = duo[1]
@@ -619,14 +637,20 @@ function M.expand(self)
       end
    end
 
+   if (duplicate_paths) then
+      env_name            = envRefCountName .. self.name
+      refCountT[env_name] = concatTbl(sA,";")
+   end
+
+
    local priorityStrT = {}
-   local env_name = envPrtyName .. self.name
+   env_name = envPrtyName .. self.name
    if (next(prT) == nil) then
       if (getenv(env_name)) then
          priorityStrT[env_name] = false
       end
    else
-      local sA = {}
+      sA = {}
       for k,priority in pairsByKeys(prT) do
          sA[#sA+1] = k .. ':' .. tostring(priority)
       end
@@ -635,7 +659,7 @@ function M.expand(self)
 
    if (next(tbl) == nil) then pathStr = false end
 
-   return pathStr, "path", priorityStrT
+   return pathStr, "path", priorityStrT, refCountT
 end
 
 --------------------------------------------------------------------------

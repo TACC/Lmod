@@ -62,9 +62,10 @@ function M.singleton(self)
    if (not s_frameStk) then
       s_frameStk = new(self)
       local mpath = getenv(ModulePath)
+      local nodups = true
       if (mpath) then
          local varT       = s_frameStk:varT()
-         varT[ModulePath] = Var:new(ModulePath, mpath)
+         varT[ModulePath] = Var:new(ModulePath, mpath, nodups, ":")
       end
    end
    return s_frameStk

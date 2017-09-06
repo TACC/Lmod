@@ -230,17 +230,17 @@ function M.pushenv(self, name, value)
       v64          = encode64(v)
    end
 
+   local nodups   = false
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
 
    if (varT[stackName] == nil) then
-      varT[stackName] = Var:new(stackName, v64, ":")
+      varT[stackName] = Var:new(stackName, v64, nodups, ":")
    end
 
 
    v   = tostring(value)
    v64 = encode64(value)
-   local nodups  = false
    local priority = 0
 
    varT[stackName]:prepend(v64, nodups, priority)
@@ -315,7 +315,7 @@ function M.prepend_path(self, t)
              "\", priority=",priority,"\n"}
 
    if (varT[name] == nil) then
-      varT[name] = Var:new(name, nil, sep)
+      varT[name] = Var:new(name, nil, nodups, sep)
    end
 
    -- Do not allow dups on MODULEPATH like env vars.
@@ -343,12 +343,12 @@ function M.append_path(self, t)
              "\", priority=",priority,
              "}"}
 
-   if (varT[name] == nil) then
-      varT[name] = Var:new(name, nil, sep)
-   end
-
    -- Do not allow dups on MODULEPATH like env vars.
    nodups = name == ModulePath or nodups
+
+   if (varT[name] == nil) then
+      varT[name] = Var:new(name, false, nodups, sep)
+   end
 
    varT[name]:append(tostring(value), nodups, priority)
    dbg.fini("MasterControl:append_path")
@@ -378,7 +378,7 @@ function M.remove_path(self, t)
    nodups = name == ModulePath or nodups
 
    if (varT[name] == nil) then
-      varT[name] = Var:new(name,nil, sep)
+      varT[name] = Var:new(name,nil, nodups, sep)
    end
    varT[name]:remove(tostring(value), where, priority, nodups)
    dbg.fini("MasterControl:remove_path")

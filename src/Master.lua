@@ -163,14 +163,13 @@ local function registerLoaded(fullName, fn)
    local priority = 0
    local sep      = ":"
    if (varT[modList] == nil) then
-      varT[modList] = Var:new(modList, nil, sep)
+      varT[modList] = Var:new(modList, nil, nodups, sep)
    end
 
    varT[modList]:append(fullName, nodups, priority)
 
-
    if (varT[modFn] == nil) then
-      varT[modFn] = Var:new(modFn, nil, sep)
+      varT[modFn] = Var:new(modFn, nil, nodups, sep)
    end
 
    varT[modFn]:append(fn, nodups, priority)
@@ -187,17 +186,19 @@ local function registerUnloaded(fullName, fn)
    local modList  = "LOADEDMODULES"
    local modFn    = "_LMFILES_"
    local where    = "all"
+   local nodups   = true
    local sep      = ":"
    local priority = 0
+
    if (varT[modList] == nil) then
-      varT[modList] = Var:new(modList, nil, sep)
+      varT[modList] = Var:new(modList, nil, nodups, sep)
    end
 
    varT[modList]:remove(fullName, where, priority)
 
 
    if (varT[modFn] == nil) then
-      varT[modFn] = Var:new(modFn, nil, sep)
+      varT[modFn] = Var:new(modFn, nil, nodups, sep)
    end
 
    varT[modFn]:remove(fn, where, priority)

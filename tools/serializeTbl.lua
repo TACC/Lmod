@@ -164,7 +164,7 @@ local function outputTblHelper(indentIdx, name, T, a, level)
       w       = w + indent:len()
       for i = 1,#t-1 do
          a[#a+1] = nsformat(t[i])
-         w       = w + a[#a]:len()
+         w       = w + tostring(a[#a]):len()
          a[#a+1] = ", "
          w       = w + a[#a]:len()
          if ( w > twidth) then
