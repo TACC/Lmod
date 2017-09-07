@@ -313,7 +313,8 @@ local function insertFunc(vv, idx, isPrepend, nodups, priority)
       if (num == 0) then
          return { num = 1, idxA = {{idx,priority}} }
       else
-         vv.num = num + 1
+         vv.num  = num + 1
+         vv.idxA = {{idx,priority}} 
          return vv
       end
    elseif (isPrepend) then
