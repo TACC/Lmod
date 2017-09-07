@@ -595,8 +595,9 @@ function M.expand(self)
          local value    = duo[1]
          local priority = duo[2]
          local idx      = value + factor*priority
-         dbg.print{"t[",idx,"]: ",k,"\n"}
-
+         if (self.name == "RTM_PATH") then
+            dbg.print{"t[",idx,"]: ",k,"\n"}
+         end
          t[idx]         = k
          if (abs(priority) > 0) then
             prT[k] = priority
@@ -613,14 +614,16 @@ function M.expand(self)
       if (v == ' ') then
          v = ''
       end
-      dbg.print{"pathA[",n,"]: ",v,"\n"}
+      if (self.name == "RTM_PATH") then
+         dbg.print{"pathA[",n,"]: ",v,"\n"}
+      end
       pathA[n] = v
    end
 
    if (self.name == "RTM_PATH") then
-      dbg.printT("pathA",pathA)
+      local pathStr2 = pathA[1] .. "::" .. "/usr/local/bin2" .. "::" .. pathA[3]
+      dbg.print{"(0) pathStr2: ",pathStr2,", sep: \'",sep,"\'\n"}
    end
-   
 
    -- Step 2.1: Remove extra trailing empty strings, keep only one.
 
@@ -647,7 +650,7 @@ function M.expand(self)
          dbg.print{"pathA[1]= '",pathA[1],"'\n"}
          dbg.print{"pathA[2]= '",pathA[2],"'\n"}
          dbg.print{"pathA[3]= '",pathA[3],"'\n"}
-         local pathStr2 = pathA[1] .. "::" .. "/usr/local/bin2" .. "::" .. pathA[3]
+         local pathStr2 = pathA[1] .. "::" .. "/usr/local/bin" .. "::" .. pathA[3]
          dbg.print{"(0) pathStr2: ",pathStr2,", sep: \'",sep,"\'\n"}
       end
       if (pathA[#pathA] == "") then
