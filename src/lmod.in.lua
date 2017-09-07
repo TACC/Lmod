@@ -30,7 +30,7 @@
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 --  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
---  OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+--  OF MERCHANTABILITY, FITNESS FOR A APRTICULAR PURPOSE AND
 --  NONINFRINGEMENT.  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
 --  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
 --  ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
@@ -367,6 +367,7 @@ function main()
       dbg.print{"Hostname: ",posix.uname("%n"),"\n"}
       dbg.print{"System: ",posix.uname("%s")," ",posix.uname("%r"),"\n"}
       dbg.print{"Version: ",posix.uname("%v"),"\n"}
+      dbg.print{"Lua Version: ", _VERSION:sub(5,-1),"\n"}
       dbg.print{"Lmod Version: ",Version.name(),"\n"}
       dbg.print{"package.path: ",package.path,"\n"}
       dbg.print{"package.cpath: ",package.cpath,"\n"}

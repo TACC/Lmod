@@ -23,7 +23,7 @@ testdescript = {
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
-     export RTM_PATH=/usr/local/bin:/bin:/usr/local/bin:/bin
+     export RTM_PATH=/usr/local/mybin:/mybin:/usr/local/mybin:/mybin
 
      runLmod --version                         # 1
      runLmod load rtm                          # 2

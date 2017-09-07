@@ -48,7 +48,7 @@ local concatTbl       = table.concat
 local cosmic          = require("Cosmic"):singleton()
 local nodupsG         = cosmic:value("LMOD_DUPLICATE_PATHS") == "no"
 local dbg             = require("Dbg"):dbg()
-local envPrtyName     = "LMOD_Priority_"
+local envPrtyName     = "__LMOD_Priority_"
 local envRefCountName = "__LMOD_REF_COUNT_"
 local getenv          = os.getenv
 local log             = math.log
@@ -134,7 +134,6 @@ local function l_extract(self, nodups)
       pathA = path2pathA(myValue, sep)
 
       for i,v in ipairs(pathA) do
-         local idxA
          local vv       = pathTbl[v] or {num = -1, idxA = {}}
          local num      = vv.num 
          if (num == -1) then
@@ -152,14 +151,13 @@ local function l_extract(self, nodups)
             priority = vA[1]
          end
          
+         local idxA    = vv.idxA
          if (nodups) then
-            if (num == 0) then
-               vv     = {num = 1, idxA = {{i,priority}} }
-            else
-               vv.num = num + 1
-            end   
+            vv.num = num + 1
+            if (next(idxA) == nil) then
+               idxA[1] = {i,priority}
+            end
          else
-            local idxA    = vv.idxA
             idxA[#idxA+1] = {i,priority}
             vv.num        = num + 1
          end
@@ -579,25 +577,17 @@ function M.expand(self)
    local factor    = 10^ceil(log(maxV)*ln10_inv+1)
    local resultA   = {}
    local tbl       = self.tbl
-   local sA        = {}
-   local refCountT = {}
+   local sAA       = {}
    -- Step 1: Make a sparse array with path as values
-
-   if (self.name == "RTM_PATH") then
-      dbg.printT(self.name,tbl)
-   end
 
    for k, vv in pairsByKeys(tbl) do
       local idxA = vv.idxA
-      sA[#sA+1]  = k .. ":" .. tostring(vv.num)
+      sAA[#sAA+1]  = k .. ":" .. tostring(vv.num)
       for ii = 1,#idxA do
          local duo      = idxA[ii]
          local value    = duo[1]
          local priority = duo[2]
          local idx      = value + factor*priority
-         if (self.name == "RTM_PATH") then
-            dbg.print{"t[",idx,"]: ",k,"\n"}
-         end
          t[idx]         = k
          if (abs(priority) > 0) then
             prT[k] = priority
@@ -614,15 +604,7 @@ function M.expand(self)
       if (v == ' ') then
          v = ''
       end
-      if (self.name == "RTM_PATH") then
-         dbg.print{"pathA[",n,"]: ",v,"\n"}
-      end
       pathA[n] = v
-   end
-
-   if (self.name == "RTM_PATH") then
-      local pathStr2 = pathA[1] .. "::" .. "/usr/local/bin2" .. "::" .. pathA[3]
-      dbg.print{"(0) pathStr2: ",pathStr2,", sep: \'",sep,"\'\n"}
    end
 
    -- Step 2.1: Remove extra trailing empty strings, keep only one.
@@ -643,23 +625,10 @@ function M.expand(self)
    if (n == 1 and pathA[1] == "") then
       pathStr = sep .. sep
    else
-         
       pathStr = concatTbl(pathA,sep)
-      if (self.name == "RTM_PATH") then
-         dbg.print{"(-1) pathStr: ",pathStr,", sep: \'",sep,"\'\n"}
-         dbg.print{"pathA[1]= '",pathA[1],"'\n"}
-         dbg.print{"pathA[2]= '",pathA[2],"'\n"}
-         dbg.print{"pathA[3]= '",pathA[3],"'\n"}
-         local pathStr2 = pathA[1] .. "::" .. "/usr/local/bin" .. "::" .. pathA[3]
-         dbg.print{"(0) pathStr2: ",pathStr2,", sep: \'",sep,"\'\n"}
-      end
       if (pathA[#pathA] == "") then
          pathStr = pathStr .. sep
       end
-   end
-
-   if (self.name == 'RTM_PATH') then
-      dbg.print{"(1) pathStr: ",pathStr,"\n"}
    end
 
    -- Step 4: Remove leading and trailing ':' from PATH string
@@ -673,28 +642,40 @@ function M.expand(self)
       end
    end
 
-   if (self.name == 'RTM_PATH') then
-      dbg.print{"(2) pathStr: ",pathStr,"\n"}
-   end
-
-   if (nodupsG) then
-      env_name            = envRefCountName .. self.name
-      refCountT[env_name] = concatTbl(sA,";")
-   end
 
 
    local priorityStrT = {}
-   env_name = envPrtyName .. self.name
+   env_name   = envPrtyName .. self.name
+   local oldV = getenv(env_name)
    if (next(prT) == nil) then
-      if (getenv(env_name)) then
+      if (oldV) then
          priorityStrT[env_name] = false
       end
    else
-      sA = {}
+      local sA = {}
       for k,priority in pairsByKeys(prT) do
          sA[#sA+1] = k .. ':' .. tostring(priority)
       end
-      priorityStrT[env_name] = concatTbl(sA,';')
+      local s = concatTbl(sA,';')
+      if (oldV ~= s) then
+         priorityStrT[env_name] = s
+      end
+   end
+
+   local refCountT = {}
+   if (nodupsG) then
+      env_name = envRefCountName .. self.name
+      oldV     = getenv(env_name)
+      if (next(sAA) == nil) then
+         if (oldV) then
+            refCountT[env_name] = false
+         end
+      else
+         local s = concatTbl(sAA,';')
+         if (oldV ~= s) then
+            refCountT[env_name] = s
+         end
+      end
    end
 
    if (next(tbl) == nil) then pathStr = false end

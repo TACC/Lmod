@@ -117,12 +117,20 @@ function M.expand(self, tbl)
       local vstr, vType, priorityStrT, refCountT = v:expand()
       if (next(priorityStrT) ~= nil) then
          for prtyKey,prtyStr in pairs(priorityStrT) do
-            self:expandVar(prtyKey,prtyStr,"path")
+            if (prtyStr) then
+               self:expandVar(prtyKey,prtyStr,"path")
+            else
+               self:unset(prtyKey,"path")
+            end
          end
       end
       if (next(refCountT) ~= nil) then
          for key,value in pairs(refCountT) do
-            self:expandVar(key, value, "path")
+            if (value) then
+               self:expandVar(key, value, "path")
+            else
+               self:unset(key,"path")
+            end
          end
       end
       if (vType == "alias") then
