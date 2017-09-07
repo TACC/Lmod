@@ -46,7 +46,7 @@ local abs             = math.abs
 local ceil            = math.ceil
 local concatTbl       = table.concat
 local cosmic          = require("Cosmic"):singleton()
-local duplicate_paths = cosmic:value("LMOD_DUPLICATE_PATHS")
+local nodupsG         = cosmic:value("LMOD_DUPLICATE_PATHS") == "no"
 local dbg             = require("Dbg"):dbg()
 local envPrtyName     = "LMOD_Priority_"
 local envRefCountName = "__LMOD_REF_COUNT_"
@@ -345,10 +345,6 @@ function M.prepend(self, value, nodups, priority)
       l_extract(self, nodups)
    end
 
-   if (self.name == "RTM_PATH") then
-      dbg.printT("(1) "..self.name, self.tbl)
-   end
-
    self.type           = 'path'
    priority            = priority or 0
    local pathA         = path2pathA(value, self.sep)
@@ -383,10 +379,6 @@ function M.prepend(self, value, nodups, priority)
       end
    end
    self.imin = imin
-
-   if (self.name == "RTM_PATH") then
-      dbg.printT("(2) "..self.name, self.tbl)
-   end
 
    local v    = self:expand()
    self.value = v
@@ -591,7 +583,9 @@ function M.expand(self)
    local refCountT = {}
    -- Step 1: Make a sparse array with path as values
 
-   --dbg.printT("tbl",tbl)
+   if (self.name == "RTM_PATH") then
+      dbg.printT(self.name,tbl)
+   end
 
    for k, vv in pairsByKeys(tbl) do
       local idxA = vv.idxA
@@ -601,6 +595,8 @@ function M.expand(self)
          local value    = duo[1]
          local priority = duo[2]
          local idx      = value + factor*priority
+         dbg.print{"t[",idx,"]: ",k,"\n"}
+
          t[idx]         = k
          if (abs(priority) > 0) then
             prT[k] = priority
@@ -617,9 +613,14 @@ function M.expand(self)
       if (v == ' ') then
          v = ''
       end
+      dbg.print{"pathA[",n,"]: ",v,"\n"}
       pathA[n] = v
    end
 
+   if (self.name == "RTM_PATH") then
+      dbg.printT("pathA",pathA)
+   end
+   
 
    -- Step 2.1: Remove extra trailing empty strings, keep only one.
 
@@ -628,19 +629,34 @@ function M.expand(self)
       i = i - 1
    end
    i = i + 2
+   
    for j = i, n do
       pathA[j] = nil
    end
    n = #pathA
+
    -- Step 3: convert pathA array into "sep" separated string.
    --         Also Handle "" at end of "path"
    if (n == 1 and pathA[1] == "") then
       pathStr = sep .. sep
    else
+         
       pathStr = concatTbl(pathA,sep)
+      if (self.name == "RTM_PATH") then
+         dbg.print{"(-1) pathStr: ",pathStr,", sep: \'",sep,"\'\n"}
+         dbg.print{"pathA[1]= '",pathA[1],"'\n"}
+         dbg.print{"pathA[2]= '",pathA[2],"'\n"}
+         dbg.print{"pathA[3]= '",pathA[3],"'\n"}
+         local pathStr2 = pathA[1] .. "::" .. "/usr/local/bin2" .. "::" .. pathA[3]
+         dbg.print{"(0) pathStr2: ",pathStr2,", sep: \'",sep,"\'\n"}
+      end
       if (pathA[#pathA] == "") then
          pathStr = pathStr .. sep
       end
+   end
+
+   if (self.name == 'RTM_PATH') then
+      dbg.print{"(1) pathStr: ",pathStr,"\n"}
    end
 
    -- Step 4: Remove leading and trailing ':' from PATH string
@@ -654,7 +670,11 @@ function M.expand(self)
       end
    end
 
-   if (duplicate_paths) then
+   if (self.name == 'RTM_PATH') then
+      dbg.print{"(2) pathStr: ",pathStr,"\n"}
+   end
+
+   if (nodupsG) then
       env_name            = envRefCountName .. self.name
       refCountT[env_name] = concatTbl(sA,";")
    end
