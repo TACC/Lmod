@@ -6,6 +6,8 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/rt/lastName/mf/Core ProjectDIR/rt/lastName/mf/Beta
 ===========================
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/lastName/mf/Beta:1;ProjectDIR/rt/lastName/mf/Core:1";
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/lastName/mf/Core:ProjectDIR/rt/lastName/mf/Beta";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/lastName/mf/Core","ProjectDIR/rt/lastName/mf/Beta",},}';
@@ -14,6 +16,8 @@ export _ModuleTable_;
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/lastName/mf/notDir
 ===========================
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/lastName/mf/Beta:1;ProjectDIR/rt/lastName/mf/Core:1;ProjectDIR/rt/lastName/mf/notDir:1";
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/lastName/mf/notDir:ProjectDIR/rt/lastName/mf/Core:ProjectDIR/rt/lastName/mf/Beta";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/lastName/mf/notDir","ProjectDIR/rt/lastName/mf/Core","ProjectDIR/rt/lastName/mf/Beta",},}';
@@ -22,10 +26,14 @@ export _ModuleTable_;
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load git
 ===========================
+__LMOD_REF_COUNT_LOADEDMODULES="git/1.7.4.3:1";
+export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="git/1.7.4.3";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/lastName/mf/notDir:ProjectDIR/rt/lastName/mf/Core:ProjectDIR/rt/lastName/mf/Beta";
 export MODULEPATH;
+__LMOD_REF_COUNT_PATH="PATH_to_TM:1;ProjectDIR/src:1;/bin:1;/opt/apps/lua/lua/bin:1;/unknown/apps/git/1.7.4.3/bin:1;/usr/bin:1;/usr/local/opt/coreutils/libexec/gnubin:1";
+export __LMOD_REF_COUNT_PATH;
 PATH="/unknown/apps/git/1.7.4.3/bin:ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
 TACC_GIT_BIN="/unknown/apps/git/1.7.4.3/bin";
@@ -34,6 +42,8 @@ TACC_GIT_DIR="/unknown/apps/git/1.7.4.3/";
 export TACC_GIT_DIR;
 TACC_GIT_LIB="/unknown/apps/git/1.7.4.3/lib";
 export TACC_GIT_LIB;
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/lastName/mf/Core/git/1.7.4.3.lua:1";
+export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/lastName/mf/Core/git/1.7.4.3.lua";
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={git={["fn"]="ProjectDIR/rt/lastName/mf/Core/git/1.7.4.3.lua",["fullName"]="git/1.7.4.3",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="git",},},mpathA={"ProjectDIR/rt/lastName/mf/notDir","ProjectDIR/rt/lastName/mf/Core","ProjectDIR/rt/lastName/mf/Beta",},}';
