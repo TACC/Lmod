@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.5.11  2017-07-13 12:46 -05:00
+Modules based on Lua: Version 7.6.12  2017-09-01 18:59 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -139,5 +139,5 @@ Sites web de Lmod
   Sourceforge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   Pour rapporter un bogue, veuillez lire http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 7.5.11  2017-07-13 12:46 -05:00
+Modules based on Lua: Version 7.6.12  2017-09-01 18:59 -05:00
     by Robert McLay mclay@tacc.utexas.edu
