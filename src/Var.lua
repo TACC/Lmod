@@ -46,7 +46,6 @@ local abs             = math.abs
 local ceil            = math.ceil
 local concatTbl       = table.concat
 local cosmic          = require("Cosmic"):singleton()
-local nodupsG         = cosmic:value("LMOD_DUPLICATE_PATHS") == "no"
 local dbg             = require("Dbg"):dbg()
 local envPrtyName     = "__LMOD_Priority_"
 local envRefCountName = "__LMOD_REF_COUNT_"
@@ -170,6 +169,7 @@ local function l_extract(self, nodups)
       end
    end
 
+   self.nodups = nodups
    self.value  = myValue
    self.type   = 'path'
    self.tbl    = pathTbl
@@ -614,10 +614,6 @@ function M.expand(self)
       pathA[n] = v
    end
 
-   
-
-
-
    -- Step 2.1: Remove extra trailing empty strings, keep only one.
 
    local i = n
@@ -631,11 +627,13 @@ function M.expand(self)
    end
    n = #pathA
 
-   for i = 1,n do
-      local path = pathA[i]
-      local vv   = tbl[path]
-      if (vv) then
-         sAA[#sAA+1] = path .. ":" .. tostring(vv.num)
+   if (self.nodups) then
+      for i = 1,n do
+         local path = pathA[i]
+         local vv   = tbl[path]
+         if (vv) then
+            sAA[#sAA+1] = path .. ":" .. tostring(vv.num)
+         end
       end
    end
 
@@ -682,7 +680,7 @@ function M.expand(self)
    end
 
    local refCountT = {}
-   if (nodupsG) then
+   if (self.nodups) then
       env_name = envRefCountName .. self.name
       oldV     = getenv(env_name)
       if (next(sAA) == nil) then
