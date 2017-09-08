@@ -634,7 +634,9 @@ function M.expand(self)
    for i = 1,n do
       local path = pathA[i]
       local vv   = tbl[path]
-      sAA[#sAA+1] = path .. ":" .. tostring(vv.num)
+      if (vv) then
+         sAA[#sAA+1] = path .. ":" .. tostring(vv.num)
+      end
    end
 
    -- Step 3: convert pathA array into "sep" separated string.
