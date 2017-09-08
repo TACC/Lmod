@@ -6,7 +6,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel
 ===========================
-__LMOD_REF_COUNT_LD_LIBRARY_PATH="/vol/local/intel/cc/cc/lib:1;/vol/local/intel/fc/fc/lib:1;/vol/local/intel/idb/idb/lib:1;/vol/local/intel/mkl/mkl/lib/lib:1";
+__LMOD_REF_COUNT_LD_LIBRARY_PATH="/vol/local/intel/mkl/mkl/lib/lib:1;/vol/local/intel/idb/idb/lib:1;/vol/local/intel/fc/fc/lib:1;/vol/local/intel/cc/cc/lib:1";
 export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
 LD_LIBRARY_PATH="/vol/local/intel/mkl/mkl/lib/lib:/vol/local/intel/idb/idb/lib:/vol/local/intel/fc/fc/lib:/vol/local/intel/cc/cc/lib";
 export LD_LIBRARY_PATH;
@@ -18,7 +18,7 @@ __LMOD_REF_COUNT_LOADEDMODULES="intel/intel:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="intel/intel";
 export LOADEDMODULES;
-__LMOD_REF_COUNT_MANPATH="/vol/local/intel/cc/cc/man:1;/vol/local/intel/fc/fc/man:1;/vol/local/intel/idb/idb/man:1;/vol/local/intel/mkl/mkl/man:1";
+__LMOD_REF_COUNT_MANPATH="/vol/local/intel/mkl/mkl/man:1;/vol/local/intel/idb/idb/man:1;/vol/local/intel/fc/fc/man:1;/vol/local/intel/cc/cc/man:1";
 export __LMOD_REF_COUNT_MANPATH;
 MANPATH="/vol/local/intel/mkl/mkl/man:/vol/local/intel/idb/idb/man:/vol/local/intel/fc/fc/man:/vol/local/intel/cc/cc/man";
 export MANPATH;
@@ -30,7 +30,7 @@ __LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/avail/mf/Compiler/intel/10.1:1;Projec
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/avail/mf/Compiler/intel/10.1:ProjectDIR/rt/avail/mf/Core";
 export MODULEPATH;
-__LMOD_REF_COUNT_PATH="PATH_to_TM:1;ProjectDIR/src:1;/bin:1;/opt/apps/lua/lua/bin:1;/usr/bin:1;/usr/local/opt/coreutils/libexec/gnubin:1;/vol/local/intel/cc/cc/bin:1;/vol/local/intel/fc/fc/bin:1;/vol/local/intel/idb/idb/bin:1";
+__LMOD_REF_COUNT_PATH="/vol/local/intel/idb/idb/bin:1;/vol/local/intel/fc/fc/bin:1;/vol/local/intel/cc/cc/bin:1;ProjectDIR/src:1;/opt/apps/lua/lua/bin:1;PATH_to_TM:1;/usr/bin:2;/bin:1";
 export __LMOD_REF_COUNT_PATH;
 PATH="/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
@@ -74,7 +74,7 @@ __LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/avail/mf/Core:1";
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/avail/mf/Core";
 export MODULEPATH;
-__LMOD_REF_COUNT_PATH="PATH_to_TM:1;ProjectDIR/src:1;/bin:1;/opt/apps/lua/lua/bin:1;/usr/bin:1;/usr/local/opt/coreutils/libexec/gnubin:1";
+__LMOD_REF_COUNT_PATH="ProjectDIR/src:1;/opt/apps/lua/lua/bin:1;PATH_to_TM:1;/usr/bin:2;/bin:1";
 export __LMOD_REF_COUNT_PATH;
 PATH="ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;
@@ -150,7 +150,7 @@ export _ModuleTable_;
 step 14
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/avail/mf/Core2
 ===========================
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/avail/mf/Core:1;ProjectDIR/rt/avail/mf/Core2:1";
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/avail/mf/Core2:1;ProjectDIR/rt/avail/mf/Core:1";
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/avail/mf/Core2:ProjectDIR/rt/avail/mf/Core";
 export MODULEPATH;
@@ -253,7 +253,7 @@ export _ModuleTable_;
 step 23
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/avail/mf/Core4
 ===========================
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/avail/mf/Core3:1;ProjectDIR/rt/avail/mf/Core4:1";
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/avail/mf/Core4:1;ProjectDIR/rt/avail/mf/Core3:1";
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/avail/mf/Core4:ProjectDIR/rt/avail/mf/Core3";
 export MODULEPATH;
@@ -271,7 +271,7 @@ export _ModuleTable_;
 step 25
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/avail/mf/Order
 ===========================
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/avail/mf/Core3:1;ProjectDIR/rt/avail/mf/Core4:1;ProjectDIR/rt/avail/mf/Order:1";
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/avail/mf/Order:1;ProjectDIR/rt/avail/mf/Core4:1;ProjectDIR/rt/avail/mf/Core3:1";
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/avail/mf/Order:ProjectDIR/rt/avail/mf/Core4:ProjectDIR/rt/avail/mf/Core3";
 export MODULEPATH;
@@ -289,7 +289,7 @@ export _ModuleTable_;
 step 27
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/avail/mf/Core6
 ===========================
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/avail/mf/Core3:1;ProjectDIR/rt/avail/mf/Core4:1;ProjectDIR/rt/avail/mf/Core6:1;ProjectDIR/rt/avail/mf/Order:1";
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/avail/mf/Core6:1;ProjectDIR/rt/avail/mf/Order:1;ProjectDIR/rt/avail/mf/Core4:1;ProjectDIR/rt/avail/mf/Core3:1";
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/avail/mf/Core6:ProjectDIR/rt/avail/mf/Order:ProjectDIR/rt/avail/mf/Core4:ProjectDIR/rt/avail/mf/Core3";
 export MODULEPATH;

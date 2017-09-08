@@ -101,13 +101,13 @@ export miniconda;
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES="A/1.0:1;miniconda/1.0:1";
+__LMOD_REF_COUNT_LOADEDMODULES="miniconda/1.0:1;A/1.0:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="miniconda/1.0:A/1.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/cnflt_except/mf/Core";
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/cnflt_except/mf/Core/A/1.0.lua:1;ProjectDIR/rt/cnflt_except/mf/Core/miniconda/1.0.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/cnflt_except/mf/Core/miniconda/1.0.lua:1;ProjectDIR/rt/cnflt_except/mf/Core/A/1.0.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/cnflt_except/mf/Core/miniconda/1.0.lua:ProjectDIR/rt/cnflt_except/mf/Core/A/1.0.lua";
 export _LMFILES_;

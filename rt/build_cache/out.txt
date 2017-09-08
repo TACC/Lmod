@@ -16,7 +16,7 @@ export _ModuleTable_;
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use broken_mf
 ===========================
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/build_cache/mf/Common:1;broken_mf:1";
+__LMOD_REF_COUNT_MODULEPATH="broken_mf:1;ProjectDIR/rt/build_cache/mf/Common:1";
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="broken_mf:ProjectDIR/rt/build_cache/mf/Common";
 export MODULEPATH;

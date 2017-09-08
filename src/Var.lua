@@ -590,9 +590,6 @@ function M.expand(self)
 
    for k, vv in pairsByKeys(tbl) do
       local idxA = vv.idxA
-      if (k ~= ' ') then
-         sAA[#sAA+1]  = k .. ":" .. tostring(vv.num)
-      end
       for ii = 1,#idxA do
          local duo      = idxA[ii]
          local value    = duo[1]
@@ -617,6 +614,10 @@ function M.expand(self)
       pathA[n] = v
    end
 
+   
+
+
+
    -- Step 2.1: Remove extra trailing empty strings, keep only one.
 
    local i = n
@@ -629,6 +630,12 @@ function M.expand(self)
       pathA[j] = nil
    end
    n = #pathA
+
+   for i = 1,n do
+      local path = pathA[i]
+      local vv   = tbl[path]
+      sAA[#sAA+1] = path .. ":" .. tostring(vv.num)
+   end
 
    -- Step 3: convert pathA array into "sep" separated string.
    --         Also Handle "" at end of "path"

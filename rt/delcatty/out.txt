@@ -10,7 +10,7 @@ __LMOD_REF_COUNT_LOADEDMODULES="cluster/delcatty:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="cluster/delcatty";
 export LOADEDMODULES;
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/delcatty/mf/Core:1;/apps/gent/SL6/sandybridge/modules/all:1";
+__LMOD_REF_COUNT_MODULEPATH="/apps/gent/SL6/sandybridge/modules/all:1;ProjectDIR/rt/delcatty/mf/Core:1";
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="/apps/gent/SL6/sandybridge/modules/all:ProjectDIR/rt/delcatty/mf/Core";
 export MODULEPATH;
@@ -34,7 +34,7 @@ export _ModuleTable_;
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load VSC-tools
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES="VSC-tools/1.17:1;cluster/delcatty:1";
+__LMOD_REF_COUNT_LOADEDMODULES="cluster/delcatty:1;VSC-tools/1.17:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="cluster/delcatty:VSC-tools/1.17";
 export LOADEDMODULES;
@@ -42,7 +42,7 @@ MODULEPATH="/apps/gent/SL6/sandybridge/modules/all:ProjectDIR/rt/delcatty/mf/Cor
 export MODULEPATH;
 VSC_tools_version="1.17";
 export VSC_tools_version;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/delcatty/mf/Core/VSC-tools/1.17:1;ProjectDIR/rt/delcatty/mf/Core/cluster/delcatty:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/delcatty/mf/Core/cluster/delcatty:1;ProjectDIR/rt/delcatty/mf/Core/VSC-tools/1.17:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/delcatty/mf/Core/cluster/delcatty:ProjectDIR/rt/delcatty/mf/Core/VSC-tools/1.17";
 export _LMFILES_;

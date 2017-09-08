@@ -95,13 +95,13 @@ export e;
 step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load d
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES="a:1;b:1;d/1.0:1;e/1.0:1";
+__LMOD_REF_COUNT_LOADEDMODULES="a:1;b:1;e/1.0:1;d/1.0:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="a:b:e/1.0:d/1.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/conflict/mf";
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/conflict/mf/a.lua:1;ProjectDIR/rt/conflict/mf/b.lua:1;ProjectDIR/rt/conflict/mf/d/1.0.lua:1;ProjectDIR/rt/conflict/mf/e/1.0.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/conflict/mf/a.lua:1;ProjectDIR/rt/conflict/mf/b.lua:1;ProjectDIR/rt/conflict/mf/e/1.0.lua:1;ProjectDIR/rt/conflict/mf/d/1.0.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/conflict/mf/a.lua:ProjectDIR/rt/conflict/mf/b.lua:ProjectDIR/rt/conflict/mf/e/1.0.lua:ProjectDIR/rt/conflict/mf/d/1.0.lua";
 export _LMFILES_;
@@ -111,13 +111,13 @@ export _ModuleTable_;
 step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load f
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES="a:1;b:1;d/1.0:1;e/1.0:1;f:1";
+__LMOD_REF_COUNT_LOADEDMODULES="a:1;b:1;e/1.0:1;d/1.0:1;f:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="a:b:e/1.0:d/1.0:f";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/conflict/mf";
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/conflict/mf/a.lua:1;ProjectDIR/rt/conflict/mf/b.lua:1;ProjectDIR/rt/conflict/mf/d/1.0.lua:1;ProjectDIR/rt/conflict/mf/e/1.0.lua:1;ProjectDIR/rt/conflict/mf/f.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/conflict/mf/a.lua:1;ProjectDIR/rt/conflict/mf/b.lua:1;ProjectDIR/rt/conflict/mf/e/1.0.lua:1;ProjectDIR/rt/conflict/mf/d/1.0.lua:1;ProjectDIR/rt/conflict/mf/f.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/conflict/mf/a.lua:ProjectDIR/rt/conflict/mf/b.lua:ProjectDIR/rt/conflict/mf/e/1.0.lua:ProjectDIR/rt/conflict/mf/d/1.0.lua:ProjectDIR/rt/conflict/mf/f.lua";
 export _LMFILES_;

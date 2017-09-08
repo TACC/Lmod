@@ -10,7 +10,7 @@ __LMOD_REF_COUNT_LOADEDMODULES="C/1.2:1;openfoam/1.0:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="C/1.2:openfoam/1.0";
 export LOADEDMODULES;
-__LMOD_REF_COUNT_MODULEPATH="OutputDIR/mf/Core:1;OutputDIR/mf/cae:1";
+__LMOD_REF_COUNT_MODULEPATH="OutputDIR/mf/cae:1;OutputDIR/mf/Core:1";
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="OutputDIR/mf/cae:OutputDIR/mf/Core";
 export MODULEPATH;
