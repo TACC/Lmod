@@ -109,6 +109,8 @@ the configuration option which will set the action.
 **LMOD_DUPLICATE_PATHS**:
   [yes/no, default: no, --with-duplicatePaths] Allow duplicates
   directories in path-like variables, PATH, LD_LIBRARY_PATH, ...
+  Note that if LMOD_TMOD_PATH_RULE is "yes" then LMOD_DUPLICATE_PATH
+  is set to "no".
 
 **LMOD_EXACT_MATCH**:
   [yes/no, default: no, --with-exactMatch] Requires Lmod to use
@@ -177,7 +179,9 @@ the configuration option which will set the action.
   [yes/no, default: no, --with-tmodPathRule].  Normally Lmod
   prepend/appends  a directory in the beginning/end of the path like
   variable. If this is true then if path entry is already there then
-  do not prepend/append.
+  do not prepend/append.  Note that if LMOD_TMOD_PATH_RULE is "yes"
+  then LMOD_DUPLICATE_PATH is set to "no".
+
 
 **LMOD_USE_DOT_FILES**:
   [yes/no, default: yes, --with-useDotFiles] If yes then use

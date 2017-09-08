@@ -164,14 +164,6 @@ cosmic:init{name    = "LMOD_SYSTEM_NAME",
 LMOD_COLUMN_TABLE_WIDTH = 80
 
 ------------------------------------------------------------------------
--- LMOD_TMOD_PATH_RULE:  Using Tmod rule where if path is already there
---                       do not prepend/append
-------------------------------------------------------------------------
-cosmic:init{name = "LMOD_TMOD_PATH_RULE",
-            sedV = "@tmod_path_rule@",
-            yn   = "no"}
-
-------------------------------------------------------------------------
 -- LMOD_TMOD_FIND_FIRST:  Using Tmod rule where it uses find first for
 ---                       defaults.
 ------------------------------------------------------------------------
@@ -232,6 +224,14 @@ cosmic:init{name = "LMOD_ALLOW_TCL_MFILES",
             yn   = "yes"}
 
 ------------------------------------------------------------------------
+-- LMOD_TMOD_PATH_RULE:  Using Tmod rule where if path is already there
+--                       do not prepend/append
+------------------------------------------------------------------------
+cosmic:init{name = "LMOD_TMOD_PATH_RULE",
+            sedV = "@tmod_path_rule@",
+            yn   = "no"}
+
+------------------------------------------------------------------------
 -- LMOD_DUPLICATE_PATHS:  Allow the same path to be stored in PATH like
 --                        vars like PATH, LD_LIBRARY_PATH, etc
 ------------------------------------------------------------------------
@@ -240,6 +240,10 @@ cosmic:init{name = "LMOD_DUPLICATE_PATHS",
             sedV = "@duplicate_paths@",
             yn   = "no"}
 
+
+if (cosmic:value("LMOD_TMOD_PATH_RULE") == "yes") then
+   cosmic.assign("LMOD_DUPLICATE_PATHS", "no")
+end
 
 ------------------------------------------------------------------------
 -- LMOD_IGNORE_CACHE:  Ignore user and system caches and rebuild if needed
