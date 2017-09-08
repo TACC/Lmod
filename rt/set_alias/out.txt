@@ -6,12 +6,18 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load test1
 ===========================
+__LMOD_REF_COUNT_LOADEDMODULES="test1/1.0:1";
+export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="test1/1.0";
 export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/set_alias/mf:1";
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export MODULEPATH;
 VARIABLE="1";
 export VARIABLE;
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/set_alias/mf/test1/1.0.lua:1";
+export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/set_alias/mf/test1/1.0.lua";
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={test1={["fn"]="ProjectDIR/rt/set_alias/mf/test1/1.0.lua",["fullName"]="test1/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="test1",},},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",}';
@@ -22,12 +28,16 @@ alias somealias='1';
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load test2
 ===========================
+__LMOD_REF_COUNT_LOADEDMODULES="test2/2.0:1";
+export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="test2/2.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export MODULEPATH;
 VARIABLE="2";
 export VARIABLE;
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/set_alias/mf/test2/2.0.lua:1";
+export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/set_alias/mf/test2/2.0.lua";
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={test2={["fn"]="ProjectDIR/rt/set_alias/mf/test2/2.0.lua",["fullName"]="test2/2.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="test2",},},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",}';
@@ -38,10 +48,12 @@ alias somealias='2';
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload test2
 ===========================
+unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export MODULEPATH;
 unset VARIABLE;
+unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",}';
 export _ModuleTable_;
@@ -50,12 +62,16 @@ unalias somealias 2> /dev/null || true;
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load test1
 ===========================
+__LMOD_REF_COUNT_LOADEDMODULES="test1/1.0:1";
+export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="test1/1.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export MODULEPATH;
 VARIABLE="1";
 export VARIABLE;
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/set_alias/mf/test1/1.0.lua:1";
+export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/set_alias/mf/test1/1.0.lua";
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={test1={["fn"]="ProjectDIR/rt/set_alias/mf/test1/1.0.lua",["fullName"]="test1/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="test1",},},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",}';
@@ -66,10 +82,14 @@ alias somealias='1';
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load sfunc
 ===========================
+__LMOD_REF_COUNT_LOADEDMODULES="sfunc/1.0:1;test1/1.0:1";
+export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="test1/1.0:sfunc/1.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua:1;ProjectDIR/rt/set_alias/mf/test1/1.0.lua:1";
+export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/set_alias/mf/test1/1.0.lua:ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua";
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={sfunc={["fn"]="ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua",["fullName"]="sfunc/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="sfunc",},test1={["fn"]="ProjectDIR/rt/set_alias/mf/test1/1.0.lua",["fullName"]="test1/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="test1",},},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",}';
@@ -79,10 +99,14 @@ ml() { eval $($LMOD_DIR/ml_cmd "$@"); };
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load alias
 ===========================
+__LMOD_REF_COUNT_LOADEDMODULES="alias/1.0:1;sfunc/1.0:1;test1/1.0:1";
+export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="test1/1.0:sfunc/1.0:alias/1.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/set_alias/mf/alias/1.0:1;ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua:1;ProjectDIR/rt/set_alias/mf/test1/1.0.lua:1";
+export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/set_alias/mf/test1/1.0.lua:ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua:ProjectDIR/rt/set_alias/mf/alias/1.0";
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={alias={["fn"]="ProjectDIR/rt/set_alias/mf/alias/1.0",["fullName"]="alias/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="alias",},sfunc={["fn"]="ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua",["fullName"]="sfunc/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="sfunc",},test1={["fn"]="ProjectDIR/rt/set_alias/mf/test1/1.0.lua",["fullName"]="test1/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="test1",},},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",}';

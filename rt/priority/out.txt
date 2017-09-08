@@ -18,8 +18,6 @@ export _ModuleTable_;
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use --priority 100 ProjectDIR/rt/priority/mf/RTM
 ===========================
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/priority/mf/Core:1;ProjectDIR/rt/priority/mf/RTM:2";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/priority/mf/Core",}';
