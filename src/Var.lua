@@ -153,7 +153,11 @@ local function l_extract(self, nodups)
          
          local idxA    = vv.idxA
          if (nodups) then
-            vv.num = num + 1
+            if (self.name == "MODULEPATH") then 
+               vv.num = 1
+            else
+               vv.num = num + 1
+            end
             if (next(idxA) == nil) then
                idxA[1] = {i,priority}
             end
@@ -296,7 +300,7 @@ end
 -- @param isPrepend True if a prepend.
 -- @param nodups True if no duplications are allowed.
 -- @param priority The priority value.
-local function insertFunc(vv, idx, isPrepend, nodups, priority)
+local function insertFunc(name, vv, idx, isPrepend, nodups, priority)
    local num  = vv.num
    local idxA = vv.idxA
    if (nodups or abs(priority) > 0) then
@@ -310,11 +314,15 @@ local function insertFunc(vv, idx, isPrepend, nodups, priority)
          priority = max(priority, oldPriority)
       end
 
-      if (num == 0) then
+      if (num == 0 ) then
          return { num = 1, idxA = {{idx,priority}} }
       else
-         vv.num  = num + 1
-         vv.idxA = {{idx,priority}} 
+         if (name ~= "MODULEPATH") then
+            vv.num  = num + 1
+         end
+         if (tmod_path_rule == "no") then
+            vv.idxA = {{idx,priority}}
+         end
          return vv
       end
    elseif (isPrepend) then
@@ -369,13 +377,13 @@ function M.prepend(self, value, nodups, priority)
    end
    
    local imin = min(self.imin, 0)
+   local name = self.name
    for i = is, ie, iskip do
       local path = pathA[i]
       imin       = imin - 1
       local vv   = tbl[path]
-      if (tmod_path_rule == "no" or not a) then
-         tbl[path]   = insertFunc(vv or {num = 0, idxA = {}}, imin, isPrepend, nodups, priority)
-      end
+      tbl[path]  = insertFunc(name, vv or {num = 0, idxA = {}},
+                              imin, isPrepend, nodups, priority)
    end
    self.imin = imin
 
@@ -427,13 +435,12 @@ function M.append(self, value, nodups, priority)
 
    local tbl  = self.tbl
    local imax = self.imax
+   local name = self.name
    for i = 1, #pathA do
       local path = pathA[i]
       imax       = imax + 1
       local vv   = tbl[path]
-      if (tmod_path_rule == "no" or not vv) then
-         tbl[path]   = insertFunc(vv or {num = 0, idxA = {}}, imax, isPrepend, nodups, priority)
-      end
+      tbl[path]  = insertFunc(name, vv or {num = 0, idxA = {}}, imax, isPrepend, nodups, priority)
    end
    self.imax   = imax
    local value = self:expand()
