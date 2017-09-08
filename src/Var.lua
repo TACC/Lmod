@@ -583,7 +583,9 @@ function M.expand(self)
 
    for k, vv in pairsByKeys(tbl) do
       local idxA = vv.idxA
-      sAA[#sAA+1]  = k .. ":" .. tostring(vv.num)
+      if (k ~= ' ') then
+         sAA[#sAA+1]  = k .. ":" .. tostring(vv.num)
+      end
       for ii = 1,#idxA do
          local duo      = idxA[ii]
          local value    = duo[1]
