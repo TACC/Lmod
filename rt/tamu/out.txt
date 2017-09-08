@@ -54,11 +54,11 @@ __LMOD_REF_COUNT_LOADEDMODULES="ucc/9.0:1;umpi/8.1:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="ucc/9.0:umpi/8.1";
 export LOADEDMODULES;
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:1;ProjectDIR/rt/tamu/mf/Core:1;ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1:1";
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1:1;ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:1;ProjectDIR/rt/tamu/mf/Core:1";
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1:ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:ProjectDIR/rt/tamu/mf/Core";
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0/umpi/8.1.lua:1;ProjectDIR/rt/tamu/mf/Core/ucc/9.0.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/tamu/mf/Core/ucc/9.0.lua:1;ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0/umpi/8.1.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/tamu/mf/Core/ucc/9.0.lua:ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0/umpi/8.1.lua";
 export _LMFILES_;
@@ -76,13 +76,13 @@ export _ModuleTable_;
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load uapp
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES="uapp/7.1.8.1:1;ucc/9.0:1;umpi/8.1:1";
+__LMOD_REF_COUNT_LOADEDMODULES="ucc/9.0:1;umpi/8.1:1;uapp/7.1.8.1:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="ucc/9.0:umpi/8.1:uapp/7.1.8.1";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1:ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:ProjectDIR/rt/tamu/mf/Core";
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0/umpi/8.1.lua:1;ProjectDIR/rt/tamu/mf/Core/ucc/9.0.lua:1;ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1/uapp/7.1.8.1.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/tamu/mf/Core/ucc/9.0.lua:1;ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0/umpi/8.1.lua:1;ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1/uapp/7.1.8.1.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/tamu/mf/Core/ucc/9.0.lua:ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0/umpi/8.1.lua:ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1/uapp/7.1.8.1.lua";
 export _LMFILES_;

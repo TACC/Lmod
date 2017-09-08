@@ -18,7 +18,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load admin intel
 ===========================
 ADMIN_MODULE_LOADED="1";
 export ADMIN_MODULE_LOADED;
-__LMOD_REF_COUNT_LD_LIBRARY_PATH="/vol/local/intel/cc/cc/lib:1;/vol/local/intel/fc/fc/lib:1;/vol/local/intel/idb/idb/lib:1;/vol/local/intel/mkl/mkl/lib/lib:1";
+__LMOD_REF_COUNT_LD_LIBRARY_PATH="/vol/local/intel/mkl/mkl/lib/lib:1;/vol/local/intel/idb/idb/lib:1;/vol/local/intel/fc/fc/lib:1;/vol/local/intel/cc/cc/lib:1";
 export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
 LD_LIBRARY_PATH="/vol/local/intel/mkl/mkl/lib/lib:/vol/local/intel/idb/idb/lib:/vol/local/intel/fc/fc/lib:/vol/local/intel/cc/cc/lib";
 export LD_LIBRARY_PATH;
@@ -30,7 +30,7 @@ __LMOD_REF_COUNT_LOADEDMODULES="admin/admin-1.0:1;intel/intel:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="admin/admin-1.0:intel/intel";
 export LOADEDMODULES;
-__LMOD_REF_COUNT_MANPATH="/vol/local/intel/cc/cc/man:1;/vol/local/intel/fc/fc/man:1;/vol/local/intel/idb/idb/man:1;/vol/local/intel/mkl/mkl/man:1";
+__LMOD_REF_COUNT_MANPATH="/vol/local/intel/mkl/mkl/man:1;/vol/local/intel/idb/idb/man:1;/vol/local/intel/fc/fc/man:1;/vol/local/intel/cc/cc/man:1";
 export __LMOD_REF_COUNT_MANPATH;
 MANPATH="/vol/local/intel/mkl/mkl/man:/vol/local/intel/idb/idb/man:/vol/local/intel/fc/fc/man:/vol/local/intel/cc/cc/man";
 export MANPATH;
@@ -42,7 +42,7 @@ __LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/hook/mf/Compiler/intel/10.1:1;Project
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/hook/mf/Compiler/intel/10.1:ProjectDIR/rt/hook/mf/Core";
 export MODULEPATH;
-__LMOD_REF_COUNT_PATH="PATH_to_TM:1;ProjectDIR/src:1;/bin:1;/opt/apps/lua/lua/bin:1;/sbin:1;/usr/bin:1;/usr/local/opt/coreutils/libexec/gnubin:1;/usr/sbin:1;/vol/local/intel/cc/cc/bin:1;/vol/local/intel/fc/fc/bin:1;/vol/local/intel/idb/idb/bin:1";
+__LMOD_REF_COUNT_PATH="/vol/local/intel/idb/idb/bin:1;/vol/local/intel/fc/fc/bin:1;/vol/local/intel/cc/cc/bin:1;/usr/sbin:1;/sbin:1;ProjectDIR/src:1;/opt/apps/lua/lua/bin:1;PATH_to_TM:1;/usr/bin:2;/bin:1";
 export __LMOD_REF_COUNT_PATH;
 PATH="/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/usr/sbin:/sbin:ProjectDIR/src:PATH_to_TM:/bin";
 export PATH;

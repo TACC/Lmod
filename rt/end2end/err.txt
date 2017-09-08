@@ -8,7 +8,7 @@ Modules based on Lua: Version 7.6.12  2017-09-01 18:59 -05:00
 step 2
  OutputDIR/lmod/lmod/libexec/lmod --version
 ===========================
-Modules based on Lua: Version 7.6.12 (7.6.12-20-g44168884) 2017-09-01 18:59 -05:00
+Modules based on Lua: Version 7.6.12 (7.6.12-26-g5816c53b) 2017-09-01 18:59 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3

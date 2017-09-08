@@ -62,7 +62,7 @@ export _ModuleTable_;
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/nvv/bc/cm:1;ProjectDIR/rt/nvv/bc/mf:1";
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/nvv/bc/mf:1;ProjectDIR/rt/nvv/bc/cm:1";
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/nvv/bc/mf:ProjectDIR/rt/nvv/bc/cm";
 export MODULEPATH;

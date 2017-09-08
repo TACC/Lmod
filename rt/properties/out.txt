@@ -36,7 +36,7 @@ export _ModuleTable_;
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load PrgEnv
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES="PrgEnv:1;a/1.0:1;b/1.0:1;c/1.0:1;d/1.0:1;mkl/10.3:1";
+__LMOD_REF_COUNT_LOADEDMODULES="mkl/10.3:1;a/1.0:1;b/1.0:1;c/1.0:1;d/1.0:1;PrgEnv:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="mkl/10.3:a/1.0:b/1.0:c/1.0:d/1.0:PrgEnv";
 export LOADEDMODULES;
@@ -50,7 +50,7 @@ TACC_C_DIR="/unknown/apps/c/1.0";
 export TACC_C_DIR;
 TACC_MKL_DIR="/unknown/apps/mkl/10.3";
 export TACC_MKL_DIR;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/properties/mf/Core/PrgEnv.lua:1;ProjectDIR/rt/properties/mf/Core/a/1.0.lua:1;ProjectDIR/rt/properties/mf/Core/b/1.0.lua:1;ProjectDIR/rt/properties/mf/Core/c/1.0.lua:1;ProjectDIR/rt/properties/mf/Core/d/1.0.lua:1;ProjectDIR/rt/properties/mf/Core/mkl/10.3.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/properties/mf/Core/mkl/10.3.lua:1;ProjectDIR/rt/properties/mf/Core/a/1.0.lua:1;ProjectDIR/rt/properties/mf/Core/b/1.0.lua:1;ProjectDIR/rt/properties/mf/Core/c/1.0.lua:1;ProjectDIR/rt/properties/mf/Core/d/1.0.lua:1;ProjectDIR/rt/properties/mf/Core/PrgEnv.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/properties/mf/Core/mkl/10.3.lua:ProjectDIR/rt/properties/mf/Core/a/1.0.lua:ProjectDIR/rt/properties/mf/Core/b/1.0.lua:ProjectDIR/rt/properties/mf/Core/c/1.0.lua:ProjectDIR/rt/properties/mf/Core/d/1.0.lua:ProjectDIR/rt/properties/mf/Core/PrgEnv.lua";
 export _LMFILES_;

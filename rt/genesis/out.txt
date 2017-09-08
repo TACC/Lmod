@@ -26,7 +26,7 @@ export _ModuleTable_;
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load common
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES="common:1;genesis/1.0:1";
+__LMOD_REF_COUNT_LOADEDMODULES="genesis/1.0:1;common:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="genesis/1.0:common";
 export LOADEDMODULES;
@@ -34,7 +34,7 @@ MODULEPATH="ProjectDIR/rt/genesis/mf/Core";
 export MODULEPATH;
 TESTTEST="x86_64";
 export TESTTEST;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/genesis/mf/Core/common.lua:1;ProjectDIR/rt/genesis/mf/Core/genesis/1.0.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/genesis/mf/Core/genesis/1.0.lua:1;ProjectDIR/rt/genesis/mf/Core/common.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/genesis/mf/Core/genesis/1.0.lua:ProjectDIR/rt/genesis/mf/Core/common.lua";
 export _LMFILES_;

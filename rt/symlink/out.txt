@@ -24,7 +24,7 @@ export _ModuleTable_;
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel a b boost mv2
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES="a/1.2:1;b/1.1:1;boost/1.55.0:1;intel/12.1.5:1;mv2/2.1rc2:1";
+__LMOD_REF_COUNT_LOADEDMODULES="intel/12.1.5:1;a/1.2:1;b/1.1:1;boost/1.55.0:1;mv2/2.1rc2:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="intel/12.1.5:a/1.2:b/1.1:boost/1.55.0:mv2/2.1rc2";
 export LOADEDMODULES;
@@ -34,7 +34,7 @@ MY_VERSION="12.1.5";
 export MY_VERSION;
 VERSION="2.1rc2";
 export VERSION;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/symlink/mf/Core/a/1.2.lua:1;ProjectDIR/rt/symlink/mf/Core/b/1.1.lua:1;ProjectDIR/rt/symlink/mf/Core/boost/1.55.0.lua:1;ProjectDIR/rt/symlink/mf/Core/intel/12.1.5.lua:1;ProjectDIR/rt/symlink/mf/Core/mv2/2.1rc2.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/symlink/mf/Core/intel/12.1.5.lua:1;ProjectDIR/rt/symlink/mf/Core/a/1.2.lua:1;ProjectDIR/rt/symlink/mf/Core/b/1.1.lua:1;ProjectDIR/rt/symlink/mf/Core/boost/1.55.0.lua:1;ProjectDIR/rt/symlink/mf/Core/mv2/2.1rc2.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/symlink/mf/Core/intel/12.1.5.lua:ProjectDIR/rt/symlink/mf/Core/a/1.2.lua:ProjectDIR/rt/symlink/mf/Core/b/1.1.lua:ProjectDIR/rt/symlink/mf/Core/boost/1.55.0.lua:ProjectDIR/rt/symlink/mf/Core/mv2/2.1rc2.lua";
 export _LMFILES_;

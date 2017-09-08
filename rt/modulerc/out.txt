@@ -60,7 +60,7 @@ export _ModuleTable_;
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a14
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES="a/14.0.1.134:1;intel/15.0.2:1";
+__LMOD_REF_COUNT_LOADEDMODULES="intel/15.0.2:1;a/14.0.1.134:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="intel/15.0.2:a/14.0.1.134";
 export LOADEDMODULES;
@@ -68,7 +68,7 @@ MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
 export MODULEPATH;
 Version_A="14.0.1.134";
 export Version_A;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/modulerc/mf/Core/a/14.0.1.134.lua:1;ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua:1;ProjectDIR/rt/modulerc/mf/Core/a/14.0.1.134.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua:ProjectDIR/rt/modulerc/mf/Core/a/14.0.1.134.lua";
 export _LMFILES_;
@@ -86,7 +86,7 @@ export _ModuleTable_;
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a13
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES="a/13.2.345:1;intel/15.0.2:1";
+__LMOD_REF_COUNT_LOADEDMODULES="intel/15.0.2:1;a/13.2.345:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="intel/15.0.2:a/13.2.345";
 export LOADEDMODULES;
@@ -95,7 +95,7 @@ export MODULEPATH;
 Version="13.2.345";
 export Version;
 unset Version_A;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/modulerc/mf/Core/a/13.2.345.lua:1;ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua:1;ProjectDIR/rt/modulerc/mf/Core/a/13.2.345.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua:ProjectDIR/rt/modulerc/mf/Core/a/13.2.345.lua";
 export _LMFILES_;
@@ -115,13 +115,13 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load abinit/6
 ===========================
 ABINIT_VERSION="6.12.3";
 export ABINIT_VERSION;
-__LMOD_REF_COUNT_LOADEDMODULES="a/13.2.345:1;abinit/6.12.3:1;intel/15.0.2:1";
+__LMOD_REF_COUNT_LOADEDMODULES="intel/15.0.2:1;a/13.2.345:1;abinit/6.12.3:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="intel/15.0.2:a/13.2.345:abinit/6.12.3";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/modulerc/mf/Core/a/13.2.345.lua:1;ProjectDIR/rt/modulerc/mf/Core/abinit/6.12.3:1;ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua:1;ProjectDIR/rt/modulerc/mf/Core/a/13.2.345.lua:1;ProjectDIR/rt/modulerc/mf/Core/abinit/6.12.3:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua:ProjectDIR/rt/modulerc/mf/Core/a/13.2.345.lua:ProjectDIR/rt/modulerc/mf/Core/abinit/6.12.3";
 export _LMFILES_;
@@ -141,13 +141,13 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load abinit/7
 ===========================
 ABINIT_VERSION="7.4.3";
 export ABINIT_VERSION;
-__LMOD_REF_COUNT_LOADEDMODULES="a/13.2.345:1;abinit/7.4.3:1;intel/15.0.2:1";
+__LMOD_REF_COUNT_LOADEDMODULES="intel/15.0.2:1;a/13.2.345:1;abinit/7.4.3:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="intel/15.0.2:a/13.2.345:abinit/7.4.3";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/modulerc/mf/Core/a/13.2.345.lua:1;ProjectDIR/rt/modulerc/mf/Core/abinit/7.4.3:1;ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua:1;ProjectDIR/rt/modulerc/mf/Core/a/13.2.345.lua:1;ProjectDIR/rt/modulerc/mf/Core/abinit/7.4.3:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua:ProjectDIR/rt/modulerc/mf/Core/a/13.2.345.lua:ProjectDIR/rt/modulerc/mf/Core/abinit/7.4.3";
 export _LMFILES_;
@@ -165,7 +165,7 @@ export _ModuleTable_;
 step 14
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load hidden/2.0
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES="a/13.2.345:1;abinit/7.4.3:1;hidden/2.0:1;intel/15.0.2:1";
+__LMOD_REF_COUNT_LOADEDMODULES="intel/15.0.2:1;a/13.2.345:1;abinit/7.4.3:1;hidden/2.0:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="intel/15.0.2:a/13.2.345:abinit/7.4.3:hidden/2.0";
 export LOADEDMODULES;
@@ -173,7 +173,7 @@ MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
 export MODULEPATH;
 Version="hidden/2.0";
 export Version;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/modulerc/mf/Core/a/13.2.345.lua:1;ProjectDIR/rt/modulerc/mf/Core/abinit/7.4.3:1;ProjectDIR/rt/modulerc/mf/Core/hidden/2.0.lua:1;ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua:1;ProjectDIR/rt/modulerc/mf/Core/a/13.2.345.lua:1;ProjectDIR/rt/modulerc/mf/Core/abinit/7.4.3:1;ProjectDIR/rt/modulerc/mf/Core/hidden/2.0.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua:ProjectDIR/rt/modulerc/mf/Core/a/13.2.345.lua:ProjectDIR/rt/modulerc/mf/Core/abinit/7.4.3:ProjectDIR/rt/modulerc/mf/Core/hidden/2.0.lua";
 export _LMFILES_;
@@ -223,7 +223,7 @@ export _ModuleTable_;
 step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/modulerc/mf2/Core
 ===========================
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core:1;ProjectDIR/rt/modulerc/mf2/Core:1";
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/modulerc/mf2/Core:1;ProjectDIR/rt/modulerc/mf/Core:1";
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/modulerc/mf2/Core:ProjectDIR/rt/modulerc/mf/Core";
 export MODULEPATH;
@@ -269,13 +269,13 @@ export _ModuleTable_;
 step 26
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load mpich a
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES="a/13.2.345:1;a/2.0:1;abinit/7.4.3:1;hidden/2.0:1;intel/15.0.2:1;mpich/3.2-dbg:1";
+__LMOD_REF_COUNT_LOADEDMODULES="intel/15.0.2:1;a/13.2.345:1;abinit/7.4.3:1;hidden/2.0:1;mpich/3.2-dbg:1;a/2.0:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="intel/15.0.2:a/13.2.345:abinit/7.4.3:hidden/2.0:mpich/3.2-dbg:a/2.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/modulerc/mf4";
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/modulerc/mf/Core/a/13.2.345.lua:1;ProjectDIR/rt/modulerc/mf/Core/abinit/7.4.3:1;ProjectDIR/rt/modulerc/mf/Core/hidden/2.0.lua:1;ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua:1;ProjectDIR/rt/modulerc/mf4/a/2.0.lua:1;ProjectDIR/rt/modulerc/mf4/mpich/3.2-dbg.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua:1;ProjectDIR/rt/modulerc/mf/Core/a/13.2.345.lua:1;ProjectDIR/rt/modulerc/mf/Core/abinit/7.4.3:1;ProjectDIR/rt/modulerc/mf/Core/hidden/2.0.lua:1;ProjectDIR/rt/modulerc/mf4/mpich/3.2-dbg.lua:1;ProjectDIR/rt/modulerc/mf4/a/2.0.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua:ProjectDIR/rt/modulerc/mf/Core/a/13.2.345.lua:ProjectDIR/rt/modulerc/mf/Core/abinit/7.4.3:ProjectDIR/rt/modulerc/mf/Core/hidden/2.0.lua:ProjectDIR/rt/modulerc/mf4/mpich/3.2-dbg.lua:ProjectDIR/rt/modulerc/mf4/a/2.0.lua";
 export _LMFILES_;

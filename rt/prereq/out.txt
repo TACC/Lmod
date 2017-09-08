@@ -96,7 +96,7 @@ export _ModuleTable_;
 step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load petsc/3.1.0
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES="petsc/3.1.0:1;slepc/2.9.0:1";
+__LMOD_REF_COUNT_LOADEDMODULES="slepc/2.9.0:1;petsc/3.1.0:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="slepc/2.9.0:petsc/3.1.0";
 export LOADEDMODULES;
@@ -104,7 +104,7 @@ MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
 PETSC_DIR="foo";
 export PETSC_DIR;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/prereq/mf/petsc/3.1.0:1;ProjectDIR/rt/prereq/mf/slepc/2.9.0:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/prereq/mf/slepc/2.9.0:1;ProjectDIR/rt/prereq/mf/petsc/3.1.0:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/prereq/mf/slepc/2.9.0:ProjectDIR/rt/prereq/mf/petsc/3.1.0";
 export _LMFILES_;
@@ -184,13 +184,13 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load jdk32
 ===========================
 JDK32="1";
 export JDK32;
-__LMOD_REF_COUNT_LOADEDMODULES="jdk32/1.0:1;petsc/3.1.0:1;slepc/2.9.0:1";
+__LMOD_REF_COUNT_LOADEDMODULES="petsc/3.1.0:1;slepc/2.9.0:1;jdk32/1.0:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="petsc/3.1.0:slepc/2.9.0:jdk32/1.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/prereq/mf/jdk32/1.0.lua:1;ProjectDIR/rt/prereq/mf/petsc/3.1.0:1;ProjectDIR/rt/prereq/mf/slepc/2.9.0:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/prereq/mf/petsc/3.1.0:1;ProjectDIR/rt/prereq/mf/slepc/2.9.0:1;ProjectDIR/rt/prereq/mf/jdk32/1.0.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/prereq/mf/petsc/3.1.0:ProjectDIR/rt/prereq/mf/slepc/2.9.0:ProjectDIR/rt/prereq/mf/jdk32/1.0.lua";
 export _LMFILES_;
@@ -200,13 +200,13 @@ export _ModuleTable_;
 step 17
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load junk/1.0
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES="jdk32/1.0:1;junk/1.0:1;petsc/3.1.0:1;slepc/2.9.0:1";
+__LMOD_REF_COUNT_LOADEDMODULES="petsc/3.1.0:1;slepc/2.9.0:1;jdk32/1.0:1;junk/1.0:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="petsc/3.1.0:slepc/2.9.0:jdk32/1.0:junk/1.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/prereq/mf";
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/prereq/mf/jdk32/1.0.lua:1;ProjectDIR/rt/prereq/mf/junk/1.0.lua:1;ProjectDIR/rt/prereq/mf/petsc/3.1.0:1;ProjectDIR/rt/prereq/mf/slepc/2.9.0:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/prereq/mf/petsc/3.1.0:1;ProjectDIR/rt/prereq/mf/slepc/2.9.0:1;ProjectDIR/rt/prereq/mf/jdk32/1.0.lua:1;ProjectDIR/rt/prereq/mf/junk/1.0.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/prereq/mf/petsc/3.1.0:ProjectDIR/rt/prereq/mf/slepc/2.9.0:ProjectDIR/rt/prereq/mf/jdk32/1.0.lua:ProjectDIR/rt/prereq/mf/junk/1.0.lua";
 export _LMFILES_;

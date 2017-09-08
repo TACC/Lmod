@@ -42,7 +42,7 @@ export _ModuleTable_;
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load local
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES="local:1;p4est/1.1:1";
+__LMOD_REF_COUNT_LOADEDMODULES="p4est/1.1:1;local:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="p4est/1.1:local";
 export LOADEDMODULES;
@@ -50,7 +50,7 @@ MODULEPATH="ProjectDIR/rt/p4est/mf/Core:ProjectDIR/rt/p4est/mf/User";
 export MODULEPATH;
 TACC="found";
 export TACC;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/p4est/mf/Core/local:1;ProjectDIR/rt/p4est/mf/Core/p4est/1.1.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/p4est/mf/Core/p4est/1.1.lua:1;ProjectDIR/rt/p4est/mf/Core/local:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/p4est/mf/Core/p4est/1.1.lua:ProjectDIR/rt/p4est/mf/Core/local";
 export _LMFILES_;

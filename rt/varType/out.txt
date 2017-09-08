@@ -26,7 +26,7 @@ M="B";
 export M;
 MODULEPATH="ProjectDIR/rt/varType/mf";
 export MODULEPATH;
-__LMOD_REF_COUNT_N="C:1;D:1";
+__LMOD_REF_COUNT_N="D:1;C:1";
 export __LMOD_REF_COUNT_N;
 N="D:C";
 export N;

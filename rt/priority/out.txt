@@ -8,7 +8,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing use --priority 100 Proj
 ===========================
 __LMOD_Priority_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:-100";
 export __LMOD_Priority_MODULEPATH;
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/priority/mf/Core:1;ProjectDIR/rt/priority/mf/RTM:1";
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/priority/mf/RTM:1;ProjectDIR/rt/priority/mf/Core:1";
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
@@ -48,17 +48,17 @@ export _ModuleTable_;
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES="a/1.0:1;priority/1.0:1";
+__LMOD_REF_COUNT_LOADEDMODULES="priority/1.0:1;a/1.0:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="priority/1.0:a/1.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
-__LMOD_REF_COUNT_RTM_PATH="/a/b/c:1;/d/e/f:1;/top/dog10:1";
+__LMOD_REF_COUNT_RTM_PATH="/top/dog10:1;/d/e/f:1;/a/b/c:1";
 export __LMOD_REF_COUNT_RTM_PATH;
 RTM_PATH="/top/dog10:/d/e/f:/a/b/c";
 export RTM_PATH;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/priority/mf/Core/a/1.0.lua:1;ProjectDIR/rt/priority/mf/Core/priority/1.0.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/priority/mf/Core/priority/1.0.lua:1;ProjectDIR/rt/priority/mf/Core/a/1.0.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/priority/mf/Core/priority/1.0.lua:ProjectDIR/rt/priority/mf/Core/a/1.0.lua";
 export _LMFILES_;
@@ -68,7 +68,7 @@ export _ModuleTable_;
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load tdog
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES="a/1.0:1;priority/1.0:1;tdog/1.0:1";
+__LMOD_REF_COUNT_LOADEDMODULES="priority/1.0:1;a/1.0:1;tdog/1.0:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="priority/1.0:a/1.0:tdog/1.0";
 export LOADEDMODULES;
@@ -76,11 +76,11 @@ MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
 __LMOD_Priority_RTM_PATH="/top/dog10:-10;/top/dog100:-100";
 export __LMOD_Priority_RTM_PATH;
-__LMOD_REF_COUNT_RTM_PATH="/a/b/c:1;/d/e/f:1;/top/dog0:1;/top/dog10:1;/top/dog100:1";
+__LMOD_REF_COUNT_RTM_PATH="/top/dog100:1;/top/dog10:1;/top/dog0:1;/d/e/f:1;/a/b/c:1";
 export __LMOD_REF_COUNT_RTM_PATH;
 RTM_PATH="/top/dog100:/top/dog10:/top/dog0:/d/e/f:/a/b/c";
 export RTM_PATH;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/priority/mf/Core/a/1.0.lua:1;ProjectDIR/rt/priority/mf/Core/priority/1.0.lua:1;ProjectDIR/rt/priority/mf/Core/tdog/1.0:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/priority/mf/Core/priority/1.0.lua:1;ProjectDIR/rt/priority/mf/Core/a/1.0.lua:1;ProjectDIR/rt/priority/mf/Core/tdog/1.0:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/priority/mf/Core/priority/1.0.lua:ProjectDIR/rt/priority/mf/Core/a/1.0.lua:ProjectDIR/rt/priority/mf/Core/tdog/1.0";
 export _LMFILES_;
@@ -106,7 +106,7 @@ MODULEPATH="ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core";
 export MODULEPATH;
 __LMOD_Priority_RTM_PATH="/top/dog100:-100";
 export __LMOD_Priority_RTM_PATH;
-__LMOD_REF_COUNT_RTM_PATH="/a/b/c:1;/d/e/f:1;/top/dog0:1;/top/dog100:1";
+__LMOD_REF_COUNT_RTM_PATH="/top/dog100:1;/top/dog0:1;/d/e/f:1;/a/b/c:1";
 export __LMOD_REF_COUNT_RTM_PATH;
 RTM_PATH="/top/dog100:/top/dog0:/d/e/f:/a/b/c";
 export RTM_PATH;

@@ -16,7 +16,7 @@ export _ModuleTable_;
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/mpath/mf/Core:1;ProjectDIR/rt/mpath/mf/RTM:1";
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/mpath/mf/RTM:1;ProjectDIR/rt/mpath/mf/Core:1";
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/mpath/mf/RTM:ProjectDIR/rt/mpath/mf/Core";
 export MODULEPATH;

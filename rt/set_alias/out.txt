@@ -82,13 +82,13 @@ alias somealias='1';
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load sfunc
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES="sfunc/1.0:1;test1/1.0:1";
+__LMOD_REF_COUNT_LOADEDMODULES="test1/1.0:1;sfunc/1.0:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="test1/1.0:sfunc/1.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua:1;ProjectDIR/rt/set_alias/mf/test1/1.0.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/set_alias/mf/test1/1.0.lua:1;ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/set_alias/mf/test1/1.0.lua:ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua";
 export _LMFILES_;
@@ -99,13 +99,13 @@ ml() { eval $($LMOD_DIR/ml_cmd "$@"); };
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load alias
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES="alias/1.0:1;sfunc/1.0:1;test1/1.0:1";
+__LMOD_REF_COUNT_LOADEDMODULES="test1/1.0:1;sfunc/1.0:1;alias/1.0:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="test1/1.0:sfunc/1.0:alias/1.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/set_alias/mf";
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/set_alias/mf/alias/1.0:1;ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua:1;ProjectDIR/rt/set_alias/mf/test1/1.0.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/set_alias/mf/test1/1.0.lua:1;ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua:1;ProjectDIR/rt/set_alias/mf/alias/1.0:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/set_alias/mf/test1/1.0.lua:ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua:ProjectDIR/rt/set_alias/mf/alias/1.0";
 export _LMFILES_;

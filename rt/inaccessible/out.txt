@@ -6,7 +6,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/inaccessible/mf/path1
 ===========================
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/inaccessible/mf/Core:1;ProjectDIR/rt/inaccessible/mf/path1:1";
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/inaccessible/mf/path1:1;ProjectDIR/rt/inaccessible/mf/Core:1";
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/inaccessible/mf/path1:ProjectDIR/rt/inaccessible/mf/Core";
 export MODULEPATH;
