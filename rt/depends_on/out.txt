@@ -188,8 +188,6 @@ _LMFILES_="ProjectDIR/rt/depends_on/mf/Core/A.lua:ProjectDIR/rt/depends_on/mf/Co
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/depends_on/mf/Core/A.lua",["fullName"]="A",["loadOrder"]=1,propT={},["ref_count"]=1,["stackDepth"]=1,["status"]="active",["userName"]="A",},B={["fn"]="ProjectDIR/rt/depends_on/mf/Core/B.lua",["fullName"]="B",["loadOrder"]=2,propT={},["ref_count"]=2,["stackDepth"]=1,["status"]="active",["userName"]="B",},X={["fn"]="ProjectDIR/rt/depends_on/mf/Core/X.lua",["fullName"]="X",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="X",},Y={["fn"]="ProjectDIR/rt/depends_on/mf/Core/Y.lua",["fullName"]="Y",["loadOrder"]=4,propT={},["stackDepth"]=0,["status"]="active",["userName"]="Y",},},mpathA={"ProjectDIR/rt/depends_on/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/depends_on/mf/Core",}';
 export _ModuleTable_;
-__LMOD_REF_COUNT___LMOD_DEFAULT_MODULES_LOADED__="1:1";
-export __LMOD_REF_COUNT___LMOD_DEFAULT_MODULES_LOADED__;
 __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
