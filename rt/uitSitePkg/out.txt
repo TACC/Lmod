@@ -30,9 +30,9 @@ __LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/uitSitePkg/mf/Compiler/gcc/4.7.2:1;Pr
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/uitSitePkg/mf/Compiler/gcc/4.7.2:ProjectDIR/rt/uitSitePkg/mf/Core";
 export MODULEPATH;
-__LMOD_REF_COUNT_PATH="/global/apps/python/2.7.3/bin:1;/global/apps/gcc/4.7.2/bin:1;ProjectDIR/src:1;/opt/apps/lua/lua/bin:1;PATH_to_TM:1;/usr/bin:2;/bin:1";
+__LMOD_REF_COUNT_PATH="/global/apps/python/2.7.3/bin:1;/global/apps/gcc/4.7.2/bin:1;ProjectDIR/src:1;PATH_to_TM:1";
 export __LMOD_REF_COUNT_PATH;
-PATH="/global/apps/python/2.7.3/bin:/global/apps/gcc/4.7.2/bin:ProjectDIR/src:PATH_to_TM:/bin";
+PATH="/global/apps/python/2.7.3/bin:/global/apps/gcc/4.7.2/bin:ProjectDIR/src:PATH_to_TM";
 export PATH;
 __LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/uitSitePkg/mf/Core/gcc/4.7.2.lua:1;ProjectDIR/rt/uitSitePkg/mf/Core/python/2.7.3.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
@@ -74,14 +74,12 @@ MANPATH="/global/apps/python/2.7.3/man:/global/apps/gcc/4.7.2/share/man";
 export MANPATH;
 MODULEPATH="ProjectDIR/rt/uitSitePkg/mf/Compiler/gcc/4.7.2:ProjectDIR/rt/uitSitePkg/mf/Core";
 export MODULEPATH;
-PATH="/global/apps/python/2.7.3/bin:/global/apps/gcc/4.7.2/bin:ProjectDIR/src:PATH_to_TM:/bin";
+PATH="/global/apps/python/2.7.3/bin:/global/apps/gcc/4.7.2/bin:ProjectDIR/src:PATH_to_TM";
 export PATH;
 _LMFILES_="ProjectDIR/rt/uitSitePkg/mf/Core/gcc/4.7.2.lua:ProjectDIR/rt/uitSitePkg/mf/Core/python/2.7.3.lua";
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="gcc",},mT={gcc={["fn"]="ProjectDIR/rt/uitSitePkg/mf/Core/gcc/4.7.2.lua",["fullName"]="gcc/4.7.2",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="gcc",},python={["fn"]="ProjectDIR/rt/uitSitePkg/mf/Core/python/2.7.3.lua",["fullName"]="python/2.7.3",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/uitSitePkg/mf/Compiler/gcc/4.7.2","ProjectDIR/rt/uitSitePkg/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/uitSitePkg/mf/Core",}';
 export _ModuleTable_;
-__LMOD_REF_COUNT___LMOD_DEFAULT_MODULES_LOADED__="1:1";
-export __LMOD_REF_COUNT___LMOD_DEFAULT_MODULES_LOADED__;
 __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================

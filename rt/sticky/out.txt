@@ -328,8 +328,6 @@ _LMFILES_="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua:ProjectDIR/rt/sticky/mf/Core/b
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
-__LMOD_REF_COUNT___LMOD_DEFAULT_MODULES_LOADED__="1:1";
-export __LMOD_REF_COUNT___LMOD_DEFAULT_MODULES_LOADED__;
 __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
