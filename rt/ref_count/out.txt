@@ -10,8 +10,6 @@ __LMOD_REF_COUNT_LOADEDMODULES="rtm/1.0:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="rtm/1.0";
 export LOADEDMODULES;
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/ref_count/mf/Core:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/ref_count/mf/Core";
 export MODULEPATH;
 __LMOD_Priority_RTM_PATH="/top/dog10:-10";

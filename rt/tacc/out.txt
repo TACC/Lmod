@@ -6,8 +6,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/tacc/mf/TACC:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/tacc/mf/TACC";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
@@ -56,8 +54,6 @@ __LMOD_REF_COUNT_MANPATH="/usr/share/man:1;/usr/X11R6/man:1;/opt/ganglia/man:1;/
 export __LMOD_REF_COUNT_MANPATH;
 MANPATH="/usr/share/man:/usr/X11R6/man:/opt/ganglia/man:/opt/rocks/man:/usr/kerberos/man:/usr/man:/share/apps/teragrid/globus-4.0.7-r1/man:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:/unknown/apps/intel10_1/mvapich/1.0.1/man:/unknown/apps/pgi/7.1/linux86-64/7.1-2/man:/unknown/apps/pki_apps/man:/usr/local/man";
 export MANPATH;
-__LMOD_REF_COUNT_MODULEPATH="/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:1;ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1:1;ProjectDIR/rt/tacc/mf/TACC:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1:ProjectDIR/rt/tacc/mf/TACC";
 export MODULEPATH;
 MPICH_HOME="/unknown/apps/intel10_1/mvapich/1.0.1";
@@ -130,8 +126,6 @@ __LMOD_REF_COUNT_MANPATH="/unknown/apps/pgi/7.2/linux86-64/7.2-5/man:1;/usr/shar
 export __LMOD_REF_COUNT_MANPATH;
 MANPATH="/unknown/apps/pgi/7.2/linux86-64/7.2-5/man:/usr/share/man:/usr/X11R6/man:/opt/ganglia/man:/opt/rocks/man:/usr/kerberos/man:/usr/man:/share/apps/teragrid/globus-4.0.7-r1/man:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:/unknown/apps/intel10_1/mvapich/1.0.1/man:/unknown/apps/pki_apps/man:/usr/local/man";
 export MANPATH;
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.2-5:1;/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:1;ProjectDIR/rt/tacc/mf/TACC:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.2-5:/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/tacc/mf/TACC";
 export MODULEPATH;
 __LMOD_REF_COUNT_PATH="/unknown/apps/pgi/7.2/linux86-64/7.2-5/bin:1;/usr/local/first:1;/share/apps/teragrid/globus-4.0.7-r1/sbin:1;/share/apps/teragrid/globus-4.0.7-r1/bin:1;/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/bin:1;/unknown/apps/intel10_1/mvapich/1.0.1/bin:1;ProjectDIR/src:1;PATH_to_TM:1;/unknown/apps/pki_apps:1;/share/sge6.2/default/pe_scripts:1;.:1";
@@ -174,8 +168,6 @@ __LMOD_REF_COUNT_MANPATH="/unknown/apps/pgi/7.1/linux86-64/7.1-2/man:1;/usr/shar
 export __LMOD_REF_COUNT_MANPATH;
 MANPATH="/unknown/apps/pgi/7.1/linux86-64/7.1-2/man:/usr/share/man:/usr/X11R6/man:/opt/ganglia/man:/opt/rocks/man:/usr/kerberos/man:/usr/man:/share/apps/teragrid/globus-4.0.7-r1/man:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:/unknown/apps/intel10_1/mvapich/1.0.1/man:/unknown/apps/pki_apps/man:/usr/local/man";
 export MANPATH;
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1:1;/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:1;ProjectDIR/rt/tacc/mf/TACC:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1:/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/tacc/mf/TACC";
 export MODULEPATH;
 __LMOD_REF_COUNT_PATH="/unknown/apps/pgi/7.1/linux86-64/7.1-2/bin:1;/usr/local/first:1;/share/apps/teragrid/globus-4.0.7-r1/sbin:1;/share/apps/teragrid/globus-4.0.7-r1/bin:1;/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/bin:1;/unknown/apps/intel10_1/mvapich/1.0.1/bin:1;ProjectDIR/src:1;PATH_to_TM:1;/unknown/apps/pki_apps:1;/share/sge6.2/default/pe_scripts:1;.:1";
@@ -218,8 +210,6 @@ __LMOD_REF_COUNT_MANPATH="/unknown/apps/pgi/7.2/linux86-64/7.2-5/man:1;/usr/shar
 export __LMOD_REF_COUNT_MANPATH;
 MANPATH="/unknown/apps/pgi/7.2/linux86-64/7.2-5/man:/usr/share/man:/usr/X11R6/man:/opt/ganglia/man:/opt/rocks/man:/usr/kerberos/man:/usr/man:/share/apps/teragrid/globus-4.0.7-r1/man:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:/unknown/apps/intel10_1/mvapich/1.0.1/man:/unknown/apps/pki_apps/man:/usr/local/man";
 export MANPATH;
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.2-5:1;/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:1;ProjectDIR/rt/tacc/mf/TACC:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.2-5:/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/tacc/mf/TACC";
 export MODULEPATH;
 __LMOD_REF_COUNT_PATH="/unknown/apps/pgi/7.2/linux86-64/7.2-5/bin:1;/usr/local/first:1;/share/apps/teragrid/globus-4.0.7-r1/sbin:1;/share/apps/teragrid/globus-4.0.7-r1/bin:1;/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/bin:1;/unknown/apps/intel10_1/mvapich/1.0.1/bin:1;ProjectDIR/src:1;PATH_to_TM:1;/unknown/apps/pki_apps:1;/share/sge6.2/default/pe_scripts:1;.:1";
@@ -272,8 +262,6 @@ __LMOD_REF_COUNT_MANPATH="/usr/local/man:1";
 export __LMOD_REF_COUNT_MANPATH;
 MANPATH="/usr/local/man";
 export MANPATH;
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/tacc/mf/TACC:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/tacc/mf/TACC";
 export MODULEPATH;
 unset MPICH_HOME;
@@ -322,8 +310,6 @@ export _ModuleTable_;
 step 14
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/tacc/mf/Base
 ===========================
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/tacc/mf/Base:1;ProjectDIR/rt/tacc/mf/TACC:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/tacc/mf/Base:ProjectDIR/rt/tacc/mf/TACC";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/tacc/mf/Base","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';

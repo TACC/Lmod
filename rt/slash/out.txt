@@ -12,8 +12,6 @@ __LMOD_REF_COUNT_LOADEDMODULES="admin/admin-1.0:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="admin/admin-1.0";
 export LOADEDMODULES;
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/slash/mf/Core:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/slash/mf/Core";
 export MODULEPATH;
 __LMOD_REF_COUNT_PATH="/usr/sbin:1;/sbin:1;ProjectDIR/src:1;PATH_to_TM:1";

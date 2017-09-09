@@ -54,8 +54,6 @@ MANPATH="/software6/mpi/openmpi/1.6.5_intel/share/man:/software6/compilers/intel
 export MANPATH;
 MOABHOMEDIR="/software6/apps/moab/config_colosse";
 export MOABHOMEDIR;
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/helios/mf/MPI/intel14.0/openmpi1.6.5:1;ProjectDIR/rt/helios/mf/Compilers/intel14.0:1;ProjectDIR/rt/helios/mf/Core:1;ProjectDIR/rt/helios/mf/Core-helios:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/helios/mf/MPI/intel14.0/openmpi1.6.5:ProjectDIR/rt/helios/mf/Compilers/intel14.0:ProjectDIR/rt/helios/mf/Core:ProjectDIR/rt/helios/mf/Core-helios";
 export MODULEPATH;
 OMPI_MCA_plm_rsh_num_concurrent="960";

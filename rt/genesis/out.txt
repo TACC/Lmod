@@ -12,8 +12,6 @@ __LMOD_REF_COUNT_LOADEDMODULES="genesis/1.0:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="genesis/1.0";
 export LOADEDMODULES;
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/genesis/mf/Core:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/genesis/mf/Core";
 export MODULEPATH;
 __LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/genesis/mf/Core/genesis/1.0.lua:1";

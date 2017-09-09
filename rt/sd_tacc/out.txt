@@ -46,8 +46,6 @@ __LMOD_REF_COUNT_MANPATH="/share/apps/teragrid/globus-4.0.7-r1/man:1;/share/apps
 export __LMOD_REF_COUNT_MANPATH;
 MANPATH="/share/apps/teragrid/globus-4.0.7-r1/man:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:/unknown/apps/intel10_1/mvapich/1.0.1/man:/unknown/apps/pgi/7.1/linux86-64/7.1-2/man:/usr/local/man:/usr/share/man:/usr/X11R6/man:/opt/ganglia/man:/opt/rocks/man:/usr/kerberos/man:/usr/man:/unknown/apps/pki_apps/man";
 export MANPATH;
-__LMOD_REF_COUNT_MODULEPATH="/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:1;ProjectDIR/rt/sd_tacc/mf/TACC_COMPILER/pgi/7.1:1;ProjectDIR/rt/sd_tacc/mf/TACC:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/sd_tacc/mf/TACC_COMPILER/pgi/7.1:ProjectDIR/rt/sd_tacc/mf/TACC";
 export MODULEPATH;
 MPICH_HOME="/unknown/apps/intel10_1/mvapich/1.0.1";
@@ -108,8 +106,6 @@ unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
 unset __LMOD_REF_COUNT_MANPATH;
 unset MANPATH;
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/sd_tacc/mf/TACC:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/sd_tacc/mf/TACC";
 export MODULEPATH;
 unset MPICH_HOME;
@@ -172,8 +168,6 @@ __LMOD_REF_COUNT_MANPATH="/usr/share/man:1;/usr/X11R6/man:1;/opt/ganglia/man:1;/
 export __LMOD_REF_COUNT_MANPATH;
 MANPATH="/usr/share/man:/usr/X11R6/man:/opt/ganglia/man:/opt/rocks/man:/usr/kerberos/man:/usr/man:/share/apps/teragrid/globus-4.0.7-r1/man:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:/unknown/apps/intel10_1/mvapich/1.0.1/man:/unknown/apps/pgi/7.1/linux86-64/7.1-2/man:/unknown/apps/pki_apps/man:/usr/local/man";
 export MANPATH;
-__LMOD_REF_COUNT_MODULEPATH="/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:1;ProjectDIR/rt/sd_tacc/mf/TACC_COMPILER/pgi/7.1:1;ProjectDIR/rt/sd_tacc/mf/TACC:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/sd_tacc/mf/TACC_COMPILER/pgi/7.1:ProjectDIR/rt/sd_tacc/mf/TACC";
 export MODULEPATH;
 MPICH_HOME="/unknown/apps/intel10_1/mvapich/1.0.1";

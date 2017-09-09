@@ -18,8 +18,6 @@ __LMOD_REF_COUNT_LOADEDMODULES="a/1.0:1;b/1.0:1;c/1.0:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="a/1.0:b/1.0:c/1.0";
 export LOADEDMODULES;
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/refresh/mf/Core:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/refresh/mf/Core";
 export MODULEPATH;
 __LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/refresh/mf/Core/a/1.0.lua:1;ProjectDIR/rt/refresh/mf/Core/b/1.0.lua:1;ProjectDIR/rt/refresh/mf/Core/c/1.0.lua:1";

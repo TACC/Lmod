@@ -6,8 +6,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/noTCL/mf/Core:1;ProjectDIR/rt/noTCL/mf/TACC:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/noTCL/mf/Core:ProjectDIR/rt/noTCL/mf/TACC";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/noTCL/mf/Core","ProjectDIR/rt/noTCL/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/noTCL/mf/Core:ProjectDIR/rt/noTCL/mf/TACC",}';
@@ -48,8 +46,6 @@ MKL_DIR="/vol/local/intel/mkl/mkl/lib/lib";
 export MKL_DIR;
 MKL_INCLUDE="/vol/local/intel/mkl/mkl/include";
 export MKL_INCLUDE;
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/noTCL/mf/Compiler/intel/10.1:1;ProjectDIR/rt/noTCL/mf/Core:1;ProjectDIR/rt/noTCL/mf/TACC:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/noTCL/mf/Compiler/intel/10.1:ProjectDIR/rt/noTCL/mf/Core:ProjectDIR/rt/noTCL/mf/TACC";
 export MODULEPATH;
 __LMOD_REF_COUNT_PATH="/vol/local/noweb/icon/bin:1;/vol/local/noweb/2.10c/bin:1;/vol/local/intel/idb/idb/bin:1;/vol/local/intel/fc/fc/bin:1;/vol/local/intel/cc/cc/bin:1;/usr/local/share/bin:1;ProjectDIR/src:1;PATH_to_TM:1";
@@ -78,8 +74,6 @@ unset __LMOD_REF_COUNT_MANPATH;
 unset MANPATH;
 unset MKL_DIR;
 unset MKL_INCLUDE;
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/noTCL/mf/Core:1;ProjectDIR/rt/noTCL/mf/TACC:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/noTCL/mf/Core:ProjectDIR/rt/noTCL/mf/TACC";
 export MODULEPATH;
 __LMOD_REF_COUNT_PATH="ProjectDIR/src:1;PATH_to_TM:1";
@@ -118,8 +112,6 @@ MKL_DIR="/vol/local/intel/mkl/mkl/lib/lib";
 export MKL_DIR;
 MKL_INCLUDE="/vol/local/intel/mkl/mkl/include";
 export MKL_INCLUDE;
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/noTCL/mf/Compiler/intel/10.1:1;ProjectDIR/rt/noTCL/mf/Core:1;ProjectDIR/rt/noTCL/mf/TACC:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/noTCL/mf/Compiler/intel/10.1:ProjectDIR/rt/noTCL/mf/Core:ProjectDIR/rt/noTCL/mf/TACC";
 export MODULEPATH;
 __LMOD_REF_COUNT_PATH="/vol/local/noweb/icon/bin:1;/vol/local/noweb/2.10c/bin:1;/vol/local/intel/idb/idb/bin:1;/vol/local/intel/fc/fc/bin:1;/vol/local/intel/cc/cc/bin:1;/usr/local/share/bin:1;ProjectDIR/src:1;PATH_to_TM:1";

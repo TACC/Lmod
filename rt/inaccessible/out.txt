@@ -6,8 +6,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/inaccessible/mf/path1
 ===========================
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/inaccessible/mf/path1:1;ProjectDIR/rt/inaccessible/mf/Core:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/inaccessible/mf/path1:ProjectDIR/rt/inaccessible/mf/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/inaccessible/mf/path1","ProjectDIR/rt/inaccessible/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/inaccessible/mf/Core",}';
@@ -32,8 +30,6 @@ export _ModuleTable_;
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unuse ProjectDIR/rt/inaccessible/mf/path1
 ===========================
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/inaccessible/mf/Core:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/inaccessible/mf/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/inaccessible/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/inaccessible/mf/Core",}';
@@ -60,8 +56,6 @@ export _ModuleTable_;
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider software1
 ===========================
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/inaccessible/mf2/Stages/2017a/UI/Compilers:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/inaccessible/mf2/Stages/2017a/UI/Compilers";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/inaccessible/mf2/Stages/2017a/UI/Compilers",},["systemBaseMPATH"]="ProjectDIR/rt/inaccessible/mf2/Stages/2017a/UI/Compilers",}';

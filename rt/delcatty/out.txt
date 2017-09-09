@@ -10,8 +10,6 @@ __LMOD_REF_COUNT_LOADEDMODULES="cluster/delcatty:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="cluster/delcatty";
 export LOADEDMODULES;
-__LMOD_REF_COUNT_MODULEPATH="/apps/gent/SL6/sandybridge/modules/all:1;ProjectDIR/rt/delcatty/mf/Core:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="/apps/gent/SL6/sandybridge/modules/all:ProjectDIR/rt/delcatty/mf/Core";
 export MODULEPATH;
 PBS_DEFAULT="master15.delcatty.gent.vsc";

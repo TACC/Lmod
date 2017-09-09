@@ -10,8 +10,6 @@ __LMOD_REF_COUNT_LOADEDMODULES="a:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="a";
 export LOADEDMODULES;
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/versionTest/mf:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/versionTest/mf";
 export MODULEPATH;
 __LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/versionTest/mf/a.lua:1";

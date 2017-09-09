@@ -26,8 +26,6 @@ __LMOD_REF_COUNT_MANPATH="/opt/apps/gcc-4_7/mpich/3.0.4/man:1";
 export __LMOD_REF_COUNT_MANPATH;
 MANPATH="/opt/apps/gcc-4_7/mpich/3.0.4/man";
 export MANPATH;
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/pkg/mf/MPI/gcc/4.7/mpich/3.0:1;ProjectDIR/rt/pkg/mf/Compiler/gcc/4.7:1;ProjectDIR/rt/pkg/mf/Core:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/pkg/mf/MPI/gcc/4.7/mpich/3.0:ProjectDIR/rt/pkg/mf/Compiler/gcc/4.7:ProjectDIR/rt/pkg/mf/Core";
 export MODULEPATH;
 MPICH_HOME="/opt/apps/gcc-4_7/mpich/3.0.4";
@@ -144,8 +142,6 @@ __LMOD_REF_COUNT_MANPATH="/opt/apps/intel-13_1/mpich/3.0.4/man:1;/opt/apps/intel
 export __LMOD_REF_COUNT_MANPATH;
 MANPATH="/opt/apps/intel-13_1/mpich/3.0.4/man:/opt/apps/intel/13.1.0/composer_xe_2013.2.146/man/en_US";
 export MANPATH;
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/pkg/mf/MPI/intel/13.1/mpich/3.0:1;ProjectDIR/rt/pkg/mf/Compiler/intel/13.1:1;ProjectDIR/rt/pkg/mf/Core:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/pkg/mf/MPI/intel/13.1/mpich/3.0:ProjectDIR/rt/pkg/mf/Compiler/intel/13.1:ProjectDIR/rt/pkg/mf/Core";
 export MODULEPATH;
 MPICH_HOME="/opt/apps/intel-13_1/mpich/3.0.4";

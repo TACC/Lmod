@@ -680,7 +680,7 @@ function M.expand(self)
    end
 
    local refCountT = {}
-   if (self.nodups) then
+   if (self.nodups and self.name ~= "MODULEPATH") then
       env_name = envRefCountName .. self.name
       oldV     = getenv(env_name)
       if (next(sAA) == nil) then

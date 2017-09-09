@@ -6,8 +6,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/personal_mf/.modulefiles
 ===========================
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/personal_mf/.modulefiles:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/personal_mf/.modulefiles";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/personal_mf/.modulefiles",},}';
