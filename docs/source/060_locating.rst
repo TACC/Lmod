@@ -163,7 +163,7 @@ that the following versions are sorted from lowest to highest::
 .. _NVV-label:
 
 N/V/V: Picking modules when there are multiple directories in MODULEPATH
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The rules are different when the module layout is Name/Version/Version
 (N/V/V).  The rules for N/V can be called ``Find Best`` where as N/V/V is

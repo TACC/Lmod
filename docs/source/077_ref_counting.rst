@@ -88,3 +88,13 @@ Note the use of curly braces instead of parentheses and setting
 priority to a number.  Lmod groups the entries of the same priority
 together.   This means that ``/foo/bar`` will likely be at the
 beginning of $PATH as long as no other entry has a higher priority.
+
+Assuming that PATH is initially empty, here is an example::
+
+    prepend_path{"PATH","/foo",priority=100}  --> PATH = /foo
+    prepend_path("PATH","/A")                 --> PATH = /foo:/A
+    prepend_path("PATH","/B")                 --> PATH = /foo:/B/A
+
+Lmod remembers the priority between invocations, meaning that you'll
+get the same results even if the following where in three separate
+modulefiles.
