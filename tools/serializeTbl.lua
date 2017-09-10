@@ -85,7 +85,7 @@ local keywordT = {
 
 local function wrap_name(indent, name)
    local str
-   if (name:find("[-+:./]") or keywordT[name] or
+   if (name:find("[-+:./]") or keywordT[name] or name == " " or
        name:sub(1,1):find("[0-9]")) then
       str = indent .. "[\"" .. name .. "\"] "
    else
