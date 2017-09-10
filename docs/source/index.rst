@@ -79,8 +79,9 @@ Advanced Topics
 
 .. toctree::
    :maxdepth: 1
-
+   
    075_bug_reporting
+   077_ref_counting
    080_hierarchy
    090_configuring_lmod
    095_tcl2lua
