@@ -193,6 +193,8 @@ local function new(self)
    tbl.hiddenItalic = { k = "Use italic instead of dim"         , v = hiddenItalic,     }
    tbl.lang         = { k = "Language used for err/msg/warn"    , v = lmod_lang,        }
    tbl.lang_site    = { k = "Site message file"                 , v = site_msg_file,    }
+   tbl.lua_cpath    = { k = "LUA_CPATH"                         , v = "@sys_lua_cpath@",}
+   tbl.lua_path     = { k = "LUA_PATH"                          , v = "@sys_lua_path@", }
    tbl.ld_preload   = { k = "LD_PRELOAD at config time"         , v = ld_preload,       }
    tbl.ld_lib_path  = { k = "LD_LIBRARY_PATH at config time"    , v = ld_lib_path,      }
    tbl.lfsV         = { k = "LuaFileSystem version"             , v = lfsV,             }

@@ -227,7 +227,9 @@ Export the module command        yes
 Use italic instead of dim        no
 Language used for err/msg/warn   en
 Site message file                <empty>
+LUA_CPATH                        @sys_lua_cpath@
 System lua_json                  no
+LUA_PATH                         @sys_lua_path@
 System lua-term                  no
 avail: Include modulepath dir    no
 MODULEPATH_INIT                  @PKG@/init/.modulespath
