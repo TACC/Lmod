@@ -22,12 +22,8 @@ _LMFILES_="ProjectDIR/rt/pushenv/mf/Core/a/1.0.lua:ProjectDIR/rt/pushenv/mf/Core
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/pushenv/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/pushenv/mf/Core/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",}';
 export _ModuleTable_;
-__LMOD_REF_COUNT___LMOD_STACK_R="QQ==:1;Qg==:1";
-export __LMOD_REF_COUNT___LMOD_STACK_R;
 __LMOD_STACK_R="B:A";
 export __LMOD_STACK_R;
-__LMOD_REF_COUNT___LMOD_STACK_RTM="QQ==:2";
-export __LMOD_REF_COUNT___LMOD_STACK_RTM;
 __LMOD_STACK_RTM="A:A";
 export __LMOD_STACK_RTM;
 ===========================
@@ -44,9 +40,7 @@ unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",}';
 export _ModuleTable_;
-unset __LMOD_REF_COUNT___LMOD_STACK_R;
 unset __LMOD_STACK_R;
-unset __LMOD_REF_COUNT___LMOD_STACK_RTM;
 unset __LMOD_STACK_RTM;
 ===========================
 step 4
@@ -66,8 +60,6 @@ _LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua";
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={intel={["fn"]="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua",["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",},},mpathA={"ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0","ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",}';
 export _ModuleTable_;
-__LMOD_REF_COUNT___LMOD_STACK_CC="aWNj:1";
-export __LMOD_REF_COUNT___LMOD_STACK_CC;
 __LMOD_STACK_CC="icc";
 export __LMOD_STACK_CC;
 ===========================
@@ -82,14 +74,12 @@ LOADEDMODULES="intel/13.0:mpich/3.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/mf/Core";
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:1;ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:1;ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua";
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={intel={["fn"]="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua",["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",},mpich={["fn"]="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua",["fullName"]="mpich/3.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mpich",},},mpathA={"ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0","ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",}';
 export _ModuleTable_;
-__LMOD_REF_COUNT___LMOD_STACK_CC="aWNj:1;bXBpY2M=:1";
-export __LMOD_REF_COUNT___LMOD_STACK_CC;
 __LMOD_STACK_CC="mpicc:icc";
 export __LMOD_STACK_CC;
 ===========================
@@ -98,20 +88,18 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load clang
 ===========================
 CC="icc";
 export CC;
-__LMOD_REF_COUNT_LOADEDMODULES="clang/4.2:1;intel/13.0:1;mpich/3.0:1";
+__LMOD_REF_COUNT_LOADEDMODULES="intel/13.0:1;mpich/3.0:1;clang/4.2:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="intel/13.0:mpich/3.0:clang/4.2";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/pushenv/mf:ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/mf/Core";
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:1;ProjectDIR/rt/pushenv/mf/Core/clang/4.2.lua:1;ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:1;ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:1;ProjectDIR/rt/pushenv/mf/Core/clang/4.2.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:ProjectDIR/rt/pushenv/mf/Core/clang/4.2.lua";
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={clang={["fn"]="ProjectDIR/rt/pushenv/mf/Core/clang/4.2.lua",["fullName"]="clang/4.2",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="clang",},intel={["fn"]="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua",["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",},mpich={["fn"]="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua",["fullName"]="mpich/3.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mpich",},},mpathA={"ProjectDIR/rt/pushenv/mf","ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0","ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",}';
 export _ModuleTable_;
-__LMOD_REF_COUNT___LMOD_STACK_CC="aWNj:2;bXBpY2M=:1";
-export __LMOD_REF_COUNT___LMOD_STACK_CC;
 __LMOD_STACK_CC="icc:mpicc:icc";
 export __LMOD_STACK_CC;
 ===========================
@@ -126,7 +114,7 @@ LOADEDMODULES="intel/13.0:mpich/3.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/mf/Core";
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:1;ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:1;ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua";
 export _LMFILES_;
@@ -152,8 +140,6 @@ _LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua";
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={intel={["fn"]="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua",["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",},},mpathA={"ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0","ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",}';
 export _ModuleTable_;
-__LMOD_REF_COUNT___LMOD_STACK_CC="aWNj:2";
-export __LMOD_REF_COUNT___LMOD_STACK_CC;
 __LMOD_STACK_CC="icc";
 export __LMOD_STACK_CC;
 ===========================
@@ -169,7 +155,6 @@ unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",}';
 export _ModuleTable_;
-unset __LMOD_REF_COUNT___LMOD_STACK_CC;
 unset __LMOD_STACK_CC;
 ===========================
 step 10
@@ -183,14 +168,12 @@ LOADEDMODULES="intel/13.0:mpich/3.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/mf/Core";
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:1;ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:1;ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua";
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={intel={["fn"]="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua",["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",},mpich={["fn"]="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua",["fullName"]="mpich/3.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mpich",},},mpathA={"ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0","ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",}';
 export _ModuleTable_;
-__LMOD_REF_COUNT___LMOD_STACK_CC="aWNj:1;bXBpY2M=:1";
-export __LMOD_REF_COUNT___LMOD_STACK_CC;
 __LMOD_STACK_CC="mpicc:icc";
 export __LMOD_STACK_CC;
 ===========================
@@ -206,7 +189,6 @@ unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={mpich={["fn"]="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua",["fullName"]="mpich/3.0",["loadOrder"]=-1,propT={},["stackDepth"]=0,["status"]="inactive",["userName"]="mpich",},},mpathA={"ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",}';
 export _ModuleTable_;
-unset __LMOD_REF_COUNT___LMOD_STACK_CC;
 unset __LMOD_STACK_CC;
 ===========================
 step 12
@@ -220,14 +202,12 @@ LOADEDMODULES="intel/13.0:mpich/3.0";
 export LOADEDMODULES;
 MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/mf/Core";
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:1;ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:1;ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua";
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={intel={["fn"]="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua",["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",},mpich={["fn"]="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua",["fullName"]="mpich/3.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mpich",},},mpathA={"ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0","ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",}';
 export _ModuleTable_;
-__LMOD_REF_COUNT___LMOD_STACK_CC="aWNj:1;bXBpY2M=:1";
-export __LMOD_REF_COUNT___LMOD_STACK_CC;
 __LMOD_STACK_CC="mpicc:icc";
 export __LMOD_STACK_CC;
 ===========================
@@ -242,14 +222,12 @@ MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/m
 export MODULEPATH;
 RTM_SETTARG_CMD="SETTARG_CMD";
 export RTM_SETTARG_CMD;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:1;ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:1;ProjectDIR/rt/pushenv/mf/Core/settarg/1.0.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:1;ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:1;ProjectDIR/rt/pushenv/mf/Core/settarg/1.0.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:ProjectDIR/rt/pushenv/mf/Core/settarg/1.0.lua";
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={intel={["fn"]="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua",["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",},mpich={["fn"]="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua",["fullName"]="mpich/3.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mpich",},settarg={["fn"]="ProjectDIR/rt/pushenv/mf/Core/settarg/1.0.lua",["fullName"]="settarg/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="settarg",},},mpathA={"ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0","ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",}';
 export _ModuleTable_;
-__LMOD_REF_COUNT___LMOD_STACK_RTM_SETTARG_CMD="Og==:1;U0VUVEFSR19DTUQ=:1";
-export __LMOD_REF_COUNT___LMOD_STACK_RTM_SETTARG_CMD;
 __LMOD_STACK_RTM_SETTARG_CMD="SETTARG_CMD::";
 export __LMOD_STACK_RTM_SETTARG_CMD;
 ===========================
@@ -264,14 +242,12 @@ MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/m
 export MODULEPATH;
 RTM_SETTARG_CMD=":";
 export RTM_SETTARG_CMD;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:1;ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:1;ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua";
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={intel={["fn"]="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua",["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",},mpich={["fn"]="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua",["fullName"]="mpich/3.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mpich",},},mpathA={"ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0","ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",}';
 export _ModuleTable_;
-__LMOD_REF_COUNT___LMOD_STACK_RTM_SETTARG_CMD="Og==:1";
-export __LMOD_REF_COUNT___LMOD_STACK_RTM_SETTARG_CMD;
 __LMOD_STACK_RTM_SETTARG_CMD=":";
 export __LMOD_STACK_RTM_SETTARG_CMD;
 ===========================
@@ -280,7 +256,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ll/1.0
 ===========================
 LEWIS="correct";
 export LEWIS;
-__LMOD_REF_COUNT_LOADEDMODULES="intel/13.0:1;ll/1.0:1;mpich/3.0:1";
+__LMOD_REF_COUNT_LOADEDMODULES="intel/13.0:1;mpich/3.0:1;ll/1.0:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="intel/13.0:mpich/3.0:ll/1.0";
 export LOADEDMODULES;
@@ -288,18 +264,14 @@ MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/m
 export MODULEPATH;
 RTM="correct";
 export RTM;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:1;ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:1;ProjectDIR/rt/pushenv/mf/Core/ll/1.0.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:1;ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:1;ProjectDIR/rt/pushenv/mf/Core/ll/1.0.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:ProjectDIR/rt/pushenv/mf/Core/ll/1.0.lua";
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={intel={["fn"]="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua",["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",},ll={["fn"]="ProjectDIR/rt/pushenv/mf/Core/ll/1.0.lua",["fullName"]="ll/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="ll/1.0",},mpich={["fn"]="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua",["fullName"]="mpich/3.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mpich",},},mpathA={"ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0","ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",}';
 export _ModuleTable_;
-__LMOD_REF_COUNT___LMOD_STACK_LEWIS="Y29ycmVjdA==:1;dGVzdA==:1";
-export __LMOD_REF_COUNT___LMOD_STACK_LEWIS;
 __LMOD_STACK_LEWIS="correct:test";
 export __LMOD_STACK_LEWIS;
-__LMOD_REF_COUNT___LMOD_STACK_RTM="Y29ycmVjdA==:1;dGVzdA==:1";
-export __LMOD_REF_COUNT___LMOD_STACK_RTM;
 __LMOD_STACK_RTM="correct:test";
 export __LMOD_STACK_RTM;
 ===========================
@@ -316,18 +288,14 @@ MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/m
 export MODULEPATH;
 RTM="test";
 export RTM;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:1;ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:1;ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua";
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={intel={["fn"]="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua",["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",},mpich={["fn"]="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua",["fullName"]="mpich/3.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mpich",},},mpathA={"ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0","ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",}';
 export _ModuleTable_;
-__LMOD_REF_COUNT___LMOD_STACK_LEWIS="dGVzdA==:1";
-export __LMOD_REF_COUNT___LMOD_STACK_LEWIS;
 __LMOD_STACK_LEWIS="test";
 export __LMOD_STACK_LEWIS;
-__LMOD_REF_COUNT___LMOD_STACK_RTM="dGVzdA==:1";
-export __LMOD_REF_COUNT___LMOD_STACK_RTM;
 __LMOD_STACK_RTM="test";
 export __LMOD_STACK_RTM;
 ===========================
@@ -336,7 +304,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ll/2.0
 ===========================
 LEWIS="";
 export LEWIS;
-__LMOD_REF_COUNT_LOADEDMODULES="intel/13.0:1;ll/2.0:1;mpich/3.0:1";
+__LMOD_REF_COUNT_LOADEDMODULES="intel/13.0:1;mpich/3.0:1;ll/2.0:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="intel/13.0:mpich/3.0:ll/2.0";
 export LOADEDMODULES;
@@ -344,7 +312,7 @@ MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/m
 export MODULEPATH;
 RTM=" ";
 export RTM;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:1;ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:1;ProjectDIR/rt/pushenv/mf/Core/ll/2.0.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:1;ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:1;ProjectDIR/rt/pushenv/mf/Core/ll/2.0.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:ProjectDIR/rt/pushenv/mf/Core/ll/2.0.lua";
 export _LMFILES_;
@@ -352,8 +320,6 @@ _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={intel={["f
 export _ModuleTable_;
 __LMOD_STACK_LEWIS=":test";
 export __LMOD_STACK_LEWIS;
-__LMOD_REF_COUNT___LMOD_STACK_RTM="IA==:1;dGVzdA==:1";
-export __LMOD_REF_COUNT___LMOD_STACK_RTM;
 __LMOD_STACK_RTM=" :test";
 export __LMOD_STACK_RTM;
 ===========================
@@ -370,7 +336,7 @@ MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/m
 export MODULEPATH;
 RTM="test";
 export RTM;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:1;ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:1";
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:1;ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua";
 export _LMFILES_;
@@ -378,8 +344,6 @@ _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={intel={["f
 export _ModuleTable_;
 __LMOD_STACK_LEWIS="test";
 export __LMOD_STACK_LEWIS;
-__LMOD_REF_COUNT___LMOD_STACK_RTM="dGVzdA==:1";
-export __LMOD_REF_COUNT___LMOD_STACK_RTM;
 __LMOD_STACK_RTM="test";
 export __LMOD_STACK_RTM;
 ===========================
@@ -404,8 +368,6 @@ _LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:ProjectDIR/rt/pushenv/mf
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={intel={["fn"]="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua",["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",},mpich={["fn"]="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua",["fullName"]="mpich/3.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mpich",},},mpathA={"ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0","ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",}';
 export _ModuleTable_;
-__LMOD_REF_COUNT___LMOD_DEFAULT_MODULES_LOADED__="1:1";
-export __LMOD_REF_COUNT___LMOD_DEFAULT_MODULES_LOADED__;
 __LMOD_DEFAULT_MODULES_LOADED__="1";
 export __LMOD_DEFAULT_MODULES_LOADED__;
 __LMOD_STACK_CC="mpicc:icc";

@@ -131,7 +131,6 @@ local function l_extract(self, nodups)
 
    if (myValue and myValue ~= '') then
       pathA = path2pathA(myValue, sep)
-
       for i,v in ipairs(pathA) do
          local vv       = pathTbl[v] or {num = -1, idxA = {}}
          local num      = vv.num 
@@ -262,6 +261,17 @@ function M.remove(self, value, where, priority, nodups)
    local pathA   = path2pathA(value, self.sep)
    local tbl     = self.tbl
    local adding  = false
+
+   if (self.name == "RTM_LUA_PATH") then
+      dbg.printT("RTM_LUA_PATH",tbl)
+      for i  = 1, #pathA do
+         dbg.print{i,": \"",pathA[i],"\"\n"}
+      end
+      dbg.print{"value: \"",value,"\"\n"}
+      for k in pairs(tbl) do
+         dbg.print{"\"",k,"\"\n"}
+      end
+   end
 
    local tracing  = cosmic:value("LMOD_TRACING")
    if (tracing == "yes" and self.name == "MODULEPATH" ) then

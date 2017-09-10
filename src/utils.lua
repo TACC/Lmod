@@ -523,7 +523,7 @@ function path2pathA(path, sep)
 
    local n = #pathA
    local i = n
-   while (pathA[i] == "") do
+   while (pathA[i] == "" or pathA[i] == " ") do
       i = i - 1
    end
    i = i + 2

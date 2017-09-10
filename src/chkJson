@@ -73,6 +73,8 @@ function main()
       lang_site    = { rule = "match", value = "<empty>"},
       ld_lib_path  = { rule = "match", value = "<empty>"},
       ld_preload   = { rule = "match", value = "<empty>"},
+      lua_cpath    = { rule = "match", value = "@sys_lua_cpath@"},
+      lua_path     = { rule = "match", value = "@sys_lua_path@"},
       lua_json     = { rule = "match", value = "no"},
       lua_term     = { rule = "match", value = "no"},
       mpath_av     = { rule = "match", value = "no"},
