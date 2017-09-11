@@ -502,6 +502,7 @@ function convertEntry(name, vv, spA)
       parentAA    = "parent",
       wV          = "wV",
       hidden      = "hidden",
+      propT       = "properties",
    }
 
 
