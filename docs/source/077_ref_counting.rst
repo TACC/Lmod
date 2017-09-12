@@ -98,3 +98,44 @@ Assuming that PATH is initially empty, here is an example::
 Lmod remembers the priority between invocations, meaning that you'll
 get the same results even if the following where in three separate
 modulefiles.
+
+
+An Example of Loading and Unloading a Module
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Above we showed that there are three modes for path like variables:
+
+#. LMOD_DUPLICATE_PATH=no   
+#. LMOD_DUPLICATE_PATH=no, LMOD_TMOD_PATH_RULE=yes
+#. LMOD_DUPLICATE_PATH=yes
+
+Let's assume that $PATH = ``/A:/B:/C`` and the module FOO is::
+
+   prepend_path("PATH","/C")
+
+then the following table shows what happens for each of the three modes when
+loading and unloading FOO. Note that ``/A(2)`` is the path entry
+``/A`` a reference count of 2:
+
+
+==================   =================    =================   ===========
+Action                       1                   2                3
+==================   =================    =================   ===========
+original PATH        /A(1):/B(1):/C(1)    /A(1):/B(1):/C(1)   /A:/B:/C
+module load FOO      /C(2):/A(1):/B(1)    /A(1):/B(1):/C(2)   /C:/A:/B:/C
+module unload FOO    /C(1):/A(1):/B(1)    /A(1):/B(1):/C(1)   /A:/B:/C
+==================   =================    =================   ===========
+
+For mode (1) where no duplicates are allowed, upon loading FOO path
+``/C`` is moved to the beginning and stays there when unloading FOO.
+For mode (2), If a directory is already in ``$PATH``, it is not moved,
+only the ref count is increased on load and decreased upon unload.
+Finally in mode (3), loading causes ``/C`` to be placed at the
+beginning and unloading removes it from the beginning.  
+
+
+When duplicates are allowed and unloading a module,  Lmod does not
+remember which module inserted which directory where, it just removes
+the first or last entry depending on whether it was a prepend_path() or
+append_path() respectively. Also there is no reference counting when
+duplicates are allowed.  It is not necessary and doesn't make sense.
