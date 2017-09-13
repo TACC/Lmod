@@ -42,7 +42,7 @@ local function buildTargetName(name, defaultFlag, fullName)
    local result = name
    result = fullName
    result = result:gsub("/","-")
-   result = result:gsub("_","-")
+   --result = result:gsub("_","-")
 
    return result
 end

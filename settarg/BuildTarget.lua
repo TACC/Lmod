@@ -448,12 +448,12 @@ function M.exec(shell)
       end
    end
    local s                          = concatTbl(aa," "):trim()
-   local paren                      = ""
+   local paren_s                    = ""
    if (s ~= "") then
-      paren                         = "("..s..")"
+      paren_s                       = "("..s..")"
    end
    envVarsTbl.TARG_TITLE_BAR        = s
-   envVarsTbl.TARG_TITLE_BAR_PAREN  = paren
+   envVarsTbl.TARG_TITLE_BAR_PAREN  = paren_s
 
    if (masterTbl.destroyFlag) then
       for k in pairs(envVarsTbl) do
