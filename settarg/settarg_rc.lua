@@ -15,6 +15,7 @@ TitleTbl = {
    impi                   = "IM",
    mvapich2               = "M",
    openmpi                = "O",
+   cray_mpich             = "M",
    mpich                  = "M",
    mpich2                 = "M2",
    intel                  = "I",
@@ -36,7 +37,7 @@ TitleTbl = {
 ModuleTbl = {
    build_scenario     = { "mdbg", "dbg", "opt", "gopt", "empty"},
    mpi                = { "mpich", "mpich2", "openmpi", "mvapich2", "impi", "MPICH", "MPICH2", "MVAPICH2", 
-                          "OpenMPI", "QLogicMPI", "psmpi", "psmpi2"},
+                          "OpenMPI", "QLogicMPI", "psmpi", "psmpi2","cray_mpich"},
    compiler           = { "intel", "pgi", "gcc", "sun", "clang", "Clang", "GCC", "LLVM", "PGI", "PCC", "TCC", "SDCC", "ispc", "Go"},
    blas               = { "gotoblas", "mkl", "imkl", "OpenBLAS", "GotoBLAS", "GotoBLAS2", "ATLAS"},
    toolchain          = { "ClangGCC", "CrayCCE", "CrayGNU", "CrayIntel", "CrayPGI", "GCCcore", 
