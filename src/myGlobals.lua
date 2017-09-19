@@ -242,7 +242,7 @@ cosmic:init{name = "LMOD_DUPLICATE_PATHS",
 
 
 if (cosmic:value("LMOD_TMOD_PATH_RULE") == "yes") then
-   cosmic.assign("LMOD_DUPLICATE_PATHS", "no")
+   cosmic:assign("LMOD_DUPLICATE_PATHS", "no")
 end
 
 ------------------------------------------------------------------------
