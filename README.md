@@ -29,6 +29,26 @@ release at sourceforge.
 
 ## ChangeLog
 
+### Lmod 7.7:
+
+Features:
+
+   1. Lmod now uses reference counting for PATH-like variables
+
+   2. Support for MODULEPATH_INIT. If found use <install_dir>/init/.modulespath
+      to specify initial MODULEPATH.
+
+   3. Tracing now reports changes to MODULEPATH
+
+   4. Support for ml keyword <prop_name> added
+
+Bug Fixes:
+
+   1. Lmod now uses the spider cache when restoring when LMOD_CACHED_LOAD=yes
+
+   2. Lmod now supports a module with a single leading underscore. It reports an
+      error if there are two or more.
+
 ### Lmod 7.6:
 
 Features:
