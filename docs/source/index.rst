@@ -115,7 +115,6 @@ Topics yet to be written
 #. Optional Software layout, two digit rule
 #. Advanced Topics: priority path, .modulerc tricks
 #. settarg
-#. tracking module usage
 #. module command and a parallel a file system.
 #. inherit
 #. internal structure of lmod.
