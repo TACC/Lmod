@@ -107,6 +107,7 @@ Advanced Topics
    240_sticky_modules
    250_site_package
    260_sh_to_modulefile
+   300_tracking_module_usage
 
 Topics yet to be written
 ^^^^^^^^^^^^^^^^^^^^^^^^
