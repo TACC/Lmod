@@ -78,5 +78,5 @@ function processModuleTable(mt_string, targetTbl, tbl)
          tbl[K] = false
       end
    end
-   dbg.fini()
+   dbg.fini("processModuleTable")
 end

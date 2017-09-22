@@ -178,7 +178,7 @@ local function string2Tbl(s,tbl)
          end
       end
    end
-   dbg.fini()
+   dbg.fini("string2Tbl")
 end
 
 function M.buildTbl(targetTbl)
@@ -228,7 +228,7 @@ function M.buildTbl(targetTbl)
       end
    end
 
-   dbg.fini()
+   dbg.fini("BuildTarget.buildTbl")
    return tbl
 end
 
@@ -320,7 +320,7 @@ local function readDotFiles()
       end
    end
 
-   masterTbl.TargPathLoc      = TargPathLoc
+   masterTbl.TargPathLoc      = getenv("LMOD_TARGPATHLOC") or TargPathLoc
    masterTbl.HostTbl          = HostTbl
    masterTbl.TitleTbl         = TitleMstrTbl
    masterTbl.BuildScenarioTbl = MethodMstrTbl
@@ -329,7 +329,6 @@ local function readDotFiles()
    masterTbl.targetList       = systemG.TargetList
    masterTbl.familyTbl        = familyTbl
    masterTbl.SettargDirTmpl   = SettargDirTmpl
-
 end
 
 function M.exec(shell)
@@ -420,6 +419,9 @@ function M.exec(shell)
    end
 
    envVarsTbl.TARG         = concatTbl(b,"")
+   if (envVarsTbl.TARG:sub(1,1) == "/") then
+      envVarsTbl.TARG = "." .. envVarsTbl.TARG
+   end
 
    local TitleTbl = masterTbl.TitleTbl
 
@@ -464,13 +466,17 @@ function M.exec(shell)
       envVarsTbl.TARG_TITLE_BAR_PAREN  = " "
    end
 
+   if (envVarsTbl.TARG_TITLE_BAR_PAREN == "") then
+      envVarsTbl.TARG_TITLE_BAR_PAREN = " "
+   end
+
    stt:registerVars(envVarsTbl)
    local old_stt = getSTT() or ""
    local new_stt = stt:serializeTbl()
    if (old_stt ~= new_stt) then
       envVarsTbl._SettargTable_ = new_stt
    end
-   dbg.fini()
+   dbg.fini("BuildTarget.exec")
 end
 
 return M

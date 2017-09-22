@@ -1,5 +1,5 @@
 -- -*- lua -*-
-local testName = "settarg_bash"
+local testName = "settarg"
 testdescript = {
    owner   = "rtm",
    product = "modules",
@@ -22,19 +22,30 @@ testdescript = {
      initStdEnvVars
      unset SETTARG_TAG1
      unset SETTARG_TAG2
-     MODULEPATH=$(testDir)/../mf/Core;     export MODULEPATH
-     MODULEPATH_ROOT=$(testDir)/../mf;     export MODULEPATH_ROOT
-     TARG_RTM="Is Great";                  export TARG_RTM
+     export MODULEPATH_ROOT=$(testDir)/mf
+     export MODULEPATH=$(outputDir)/mf/Core:$MODULEPATH_ROOT/Core
+     export TARG_RTM="Is Great"; 
 
      cp $(projectDir)/settarg/settarg_rc.lua  .settarg.lua
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
+     PATH_TO_LUA=`type -p lua`
+     PATH_TO_LUA=${PATH_TO_LUA%%/lua}
+     echo PATH_TO_LUA: $PATH_TO_LUA
+     mkdir -p mf/Core/settarg
+     sed -e 's|@PKG@|$(projectDir)|g'                    \
+         -e 's|@settarg_cmd@|settarg_cmd.in.lua|g'       \
+         -e "s|@path_to_lua@|$PATH_TO_LUA|g"             \
+          < $(projectDir)/MF/settarg.version.lua > mf/Core/settarg/1.0.lua
+
+     export LMOD_FULL_SETTARG_SUPPORT=full
+
      runLmod --version                              # 1
      runLmod load settarg                           # 2
      runSettargBash dbg                             # 3
-     SETTARG_TAG1="obj";                   export SETTARG_TAG1
-     SETTARG_TAG2="__";                    export SETTARG_TAG2
+     export SETTARG_TAG1="obj";
+     export SETTARG_TAG2="__"; 
      runSettargBash opt                             # 4
      runSettargBash empty                           # 5
      runLmod load gcc mpich                         # 6

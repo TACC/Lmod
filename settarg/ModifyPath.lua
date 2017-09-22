@@ -76,5 +76,5 @@ function ModifyPath()
    end
 
    masterTbl.envVarsTbl.PATH = path
-   dbg.fini()
+   dbg.fini("ModifyPath")
 end

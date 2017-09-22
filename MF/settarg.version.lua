@@ -1,5 +1,5 @@
 local base        = "@PKG@/settarg"
-local settarg_cmd = pathJoin(base, "settarg_cmd")
+local settarg_cmd = pathJoin(base, "@settarg_cmd@")
 
 prepend_path("PATH",base)
 pushenv("LMOD_SETTARG_CMD", settarg_cmd)
@@ -22,48 +22,46 @@ if ((os.getenv("LMOD_FULL_SETTARG_SUPPORT") or "no"):lower() ~= "no") then
 end
 
 local myShell = myShellName()
-local cmd     = "eval `" .. settarg_cmd .. " -s " .. myShell .. " --destroy`"
-execute{cmd=cmd, modeA = {"unload"}}
+local exitCmd = "eval `" .. "@path_to_lua@/lua " .. settarg_cmd .. " -s " .. myShell .. " --destroy`"
+execute{cmd=exitCmd, modeA = {"unload"}}
 
 local full_support = os.getenv("LMOD_FULL_SETTARG_SUPPORT") or "no"
 local TERM         = os.getenv("TERM")
 
 if (full_support ~= "no") then
-   if (myShellName() == "bash" or myShellName() == "zsh" ) then
-      if (mode() == "load") then
-         cmd = [==[
-           SET_TITLE_BAR=:;
+   if ((myShellName() == "bash" or myShellName() == "zsh" ) and mode() == "load") then
+      local startCmd = [==[
+        SET_TITLE_BAR=:;
 
-           case "$TERM" in
-             xterm*)
-               SET_TITLE_BAR=xSetTitleLmod;
-               ;;
-           esac;
+        case "$TERM" in
+          xterm*)
+            SET_TITLE_BAR=xSetTitleLmod;
+            ;;
+        esac;
 
-           SHOST=${SHOST-${HOSTNAME%%.*}};
-              
-           if [ -n "${BASH_VERSION+x}" ]; then
-              type precmd > /dev/null 2>&1;
-              my_status=$?;
-           fi;
-           if [ -n "${ZSH_VERSION+x}" ]; then
-              whence -vf precmd > /dev/null 2>&1;
-              my_status=$?;
-           fi;
-           if [ "${my_status}" -ne 0 ]; then
-              precmd()
-              {
-                eval $(${LMOD_SETTARG_CMD:-:} -s bash);
-                ${SET_TITLE_BAR:-:} "${TARG_TITLE_BAR_PAREN}${USER}@${SHOST}:${PWD/#$HOME/~}";
-                ${USER_PROMPT_CMD:-:};
-              };
-           fi;
+        SHOST=${SHOST-${HOSTNAME%%.*}};
+           
+        if [ -n "${BASH_VERSION+x}" ]; then
+           type precmd > /dev/null 2>&1;
+           my_status=$?;
+        fi;
+        if [ -n "${ZSH_VERSION+x}" ]; then
+           whence -vf precmd > /dev/null 2>&1;
+           my_status=$?;
+        fi;
+        if [ "${my_status}" -ne 0 ]; then
+           precmd()
+           {
+             eval $(${LMOD_SETTARG_CMD:-:} -s bash);
+             ${SET_TITLE_BAR:-:} "${TARG_TITLE_BAR_PAREN}${USER}@${SHOST}:${PWD/#$HOME/~}";
+             ${USER_PROMPT_CMD:-:};
+           };
+        fi;
 
-           # define the PROMPT_COMMAND to be precmd iff it isn't defined already.
-           : ${PROMPT_COMMAND:=precmd};
-         ]==]
-      end
-      execute{cmd=cmd, modeA={"load"}}
+        # define the PROMPT_COMMAND to be precmd iff it isn't defined already.
+        : ${PROMPT_COMMAND:=precmd};
+      ]==]
+      execute{cmd=startCmd, modeA={"load"}}
    elseif (myShellType() == "csh") then
       set_alias("cwdcmd",'eval `$LMOD_SETTARG_CMD -s csh`')
       set_alias("precmd",'echo -n "\\033]2;${TARG_TITLE_BAR_PAREN}${USER}@${HOST} : $cwd\\007"')
