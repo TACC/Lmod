@@ -41,9 +41,8 @@ if (full_support ~= "no") then
 
         SHOST=${SHOST-${HOSTNAME%%.*}};
            
-        if [ -n "${BASH_VERSION+x}" ]; then
-           type precmd > /dev/null 2>&1;
-           my_status=$?;
+        if [ -n "${BASH_VERSION+x}" -a -z ${PROMPT_COMMAND} ]; then
+           my_status=1;
         fi;
         if [ -n "${ZSH_VERSION+x}" ]; then
            whence -vf precmd > /dev/null 2>&1;
