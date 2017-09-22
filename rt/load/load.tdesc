@@ -20,12 +20,14 @@ testdescript = {
      initStdEnvVars
      MODULEPATH_ROOT=$(testDir)/mf;  export MODULEPATH_ROOT
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua mf
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
+     mkdir -p mf/bad_symlink
+     ln -s 1.0.lua mf/bad_symlink/2.0.lua
 
      runLmod --version                                      #  1
      runLmod use -a $testDir/mf/Core $testDir/mf/Beta       #  2
-     runLmod use $testDir/mf/notDir                         #  3
+     runLmod use $testDir/mf/notDir  $outputDir/mf          #  3
      runLmod load admin PrgEnv                              #  4
      runLmod load gotoblas/1.30-beta                        #  5
      runLmod rm   gotoblas/1.30-beta                        #  6
@@ -66,7 +68,6 @@ testdescript = {
      runLmod load version_only                              # 41
      runLmod load dflt                                      # 42
      runLmod list                                           # 43
-
      runLmod load noweb/2.10c.lua                           # 44
 
      export LMOD_DISABLE_SAME_NAME_AUTOSWAP=yes

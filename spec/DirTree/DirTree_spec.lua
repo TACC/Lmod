@@ -11,7 +11,12 @@ describe("Testing DirTree Class: #DirTree.",
          function()
             it("build dirA from mf/bio directory",
                function()
-                  local goldA = {
+                  local projDir = os.getenv("PROJDIR")
+                  local cmd     = "rm -f " .. projDir .. "/spec/DirTree/mf/best/2.0.lua"
+                  os.execute(cmd)
+                  cmd           = "ln -s 1.0.lua " .. projDir .. "/spec/DirTree/mf/best/2.0.lua"
+                  os.execute(cmd)
+                  local goldA   = {
                      {
                         dirT = {
                            defaultT = {},
@@ -112,7 +117,6 @@ describe("Testing DirTree Class: #DirTree.",
                         ["mpath"] = "%ProjDir%/spec/DirTree/mf",
                      },
                   }
-                  local projDir = os.getenv("PROJDIR")
                   local mpathA  = { pathJoin(projDir, testDir, "mf") }
                   --dbg:activateDebug(1)
                   local dirTree = DirTree:new(mpathA)
