@@ -41,7 +41,7 @@ if (full_support ~= "no") then
 
         SHOST=${SHOST-${HOSTNAME%%.*}};
            
-        if [ -n "${BASH_VERSION+x}" -a -z ${PROMPT_COMMAND} ]; then
+        if [ -n "${BASH_VERSION+x}" -a -z "${PROMPT_COMMAND+x}" ]; then
            my_status=1;
         fi;
         if [ -n "${ZSH_VERSION+x}" ]; then
