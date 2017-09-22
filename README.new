@@ -1,3 +1,4 @@
 Lmod 7.7+
    (7.7.1)  Fix typo in myGlobals.lua about assigning LMOD_DUPLICATE_PATHS
-   
+            Fix bug in settarg when using tcsh. (issue #318)
+	    
