@@ -41,7 +41,7 @@ if (titlebar_support == "yes") then
            }
       ]==]
       set_shell_function("precmd",precmd,"")
-      local term = os.getenv("TERM")
+      local term = os.getenv("TERM") or " "
       if (term:find("xterm")) then
          setenv("SET_TITLE_BAR","xSetTitleLmod")
       end

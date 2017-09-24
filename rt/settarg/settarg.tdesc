@@ -31,6 +31,7 @@ testdescript = {
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
      PATH_TO_LUA=`type -p lua`
+     PATH_TO_LUA=${PATH_TO_LUA#lua is }
      PATH_TO_LUA=${PATH_TO_LUA%%/lua}
      echo PATH_TO_LUA: $PATH_TO_LUA
      mkdir -p mf/Core/settarg
@@ -40,6 +41,7 @@ testdescript = {
           < $(projectDir)/MF/settarg.version.lua > mf/Core/settarg/1.0.lua
 
      export LMOD_FULL_SETTARG_SUPPORT=full
+     export LMOD_SETTARG_TITLE_BAR=yes
 
      runLmod --version                              # 1
      runLmod load settarg                           # 2

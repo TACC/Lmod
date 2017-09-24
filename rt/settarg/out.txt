@@ -18,6 +18,8 @@ __LMOD_REF_COUNT_PATH="ProjectDIR/settarg:1;ProjectDIR/src:1;PATH_to_TM:1";
 export __LMOD_REF_COUNT_PATH;
 PATH="ProjectDIR/settarg:ProjectDIR/src:PATH_to_TM";
 export PATH;
+PROMPT_COMMAND="precmd";
+export PROMPT_COMMAND;
 SETTARG_TAG1="OBJ";
 export SETTARG_TAG1;
 SETTARG_TAG2="_";
@@ -30,39 +32,24 @@ _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={settarg={[
 export _ModuleTable_;
 __LMOD_STACK_LMOD_SETTARG_CMD="ProjectDIR/settarg/settarg_cmd.in.lua::";
 export __LMOD_STACK_LMOD_SETTARG_CMD;
+__LMOD_STACK_PROMPT_COMMAND="precmd";
+export __LMOD_STACK_PROMPT_COMMAND;
 alias cdt='cd $TARG';
 dbg() { settarg "$@" dbg; };
 empty() { settarg "$@" empty; };
 gettargdir() { builtin echo $TARG; };
 mdbg() { settarg "$@" mdbg; };
 opt() { settarg "$@" opt; };
+precmd() { precmd()
+           {
+             local tilde="~";
+             eval $(${LMOD_SETTARG_CMD:-:} -s bash);
+             ${SET_TITLE_BAR:-:} "${TARG_TITLE_BAR_PAREN}${USER}@${SHOST}:${PWD/$HOME/$tilde}";
+             ${USER_PROMPT_CMD:-:};
+           }
+      ; };
 settarg() { eval $($LMOD_SETTARG_CMD -s sh "$@"); };
 targ() { builtin echo $TARG; };
-        SET_TITLE_BAR=:;
-        case "$TERM" in
-          xterm*)
-            SET_TITLE_BAR=xSetTitleLmod;
-            ;;
-        esac;
-        SHOST=${SHOST-${HOSTNAME%%.*}};
-        if [ -n "${BASH_VERSION+x}" ]; then
-           type precmd > /dev/null 2>&1;
-           my_status=$?;
-        fi;
-        if [ -n "${ZSH_VERSION+x}" ]; then
-           whence -vf precmd > /dev/null 2>&1;
-           my_status=$?;
-        fi;
-        if [ "${my_status}" -ne 0 ]; then
-           precmd()
-           {
-             eval $(${LMOD_SETTARG_CMD:-:} -s bash);
-             ${SET_TITLE_BAR:-:} "${TARG_TITLE_BAR_PAREN}${USER}@${SHOST}:${PWD/#$HOME/~}";
-             ${USER_PROMPT_CMD:-:};
-           };
-        fi;
-        # define the PROMPT_COMMAND to be precmd iff it isn't defined already.
-        : ${PROMPT_COMMAND:=precmd};
 ===========================
 step 3
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model dbg
@@ -236,9 +223,9 @@ TARG_OS_FAMILY=''
 export TARG_OS_FAMILY;
 TARG_SUMMARY='x86_64_gcc-4.7.2_mpich-3.0.4';
 export TARG_SUMMARY;
-TARG_TITLE_BAR='G-4.7.2 M-3.0.4';
+TARG_TITLE_BAR='G/4.7.2 M/3.0.4';
 export TARG_TITLE_BAR;
-TARG_TITLE_BAR_PAREN='(G-4.7.2 M-3.0.4)';
+TARG_TITLE_BAR_PAREN='(G/4.7.2 M/3.0.4)';
 export TARG_TITLE_BAR_PAREN;
 ===========================
 step 8
@@ -271,9 +258,9 @@ TARG_OS_FAMILY=''
 export TARG_OS_FAMILY;
 TARG_SUMMARY='x86_64_gcc-4.7.2_mpich-3.0.4_f_f';
 export TARG_SUMMARY;
-TARG_TITLE_BAR='G-4.7.2 M-3.0.4 f_f';
+TARG_TITLE_BAR='G/4.7.2 M/3.0.4 f_f';
 export TARG_TITLE_BAR;
-TARG_TITLE_BAR_PAREN='(G-4.7.2 M-3.0.4 f_f)';
+TARG_TITLE_BAR_PAREN='(G/4.7.2 M/3.0.4 f_f)';
 export TARG_TITLE_BAR_PAREN;
 _SettargTable001_='X1NldHRhcmdUYWJsZV89e1siYnVpbGRTY2VuYXJpb1N0YXRlIl09ImVtcHR5IixleHRyYVQ9e1siZl9mIl09dHJ1ZSx9LHRhcmdBPXsiVEFSRyIsIlRBUkdfQlVJTERfU0NFTkFSSU8iLCJUQVJHX0NPTVBJTEVSIiwiVEFSR19DT01QSUxFUl9GQU1JTFkiLCJUQVJHX0VYVFJBIiwiVEFSR19IT1NUIiwiVEFSR19NQUNIIiwiVEFSR19NQUNIX0RFU0NSSVBUIiwiVEFSR19NUEkiLCJUQVJHX01QSV9GQU1JTFkiLCJUQVJHX09TIiwiVEFSR19PU19GQU1JTFkiLCJUQVJHX1NVTU1BUlkiLCJUQVJHX1RJVExFX0JBUiIsIlRBUkdfVElUTEVfQkFSX1BBUkVOIix9LFsidmVyc2lvbiJdPTEsfQ==';
 export _SettargTable001_;
@@ -310,9 +297,9 @@ TARG_OS_FAMILY=''
 export TARG_OS_FAMILY;
 TARG_SUMMARY='x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f';
 export TARG_SUMMARY;
-TARG_TITLE_BAR='G-4.7.2 M-3.0.4 b:b_f_f';
+TARG_TITLE_BAR='G/4.7.2 M/3.0.4 b:b_f_f';
 export TARG_TITLE_BAR;
-TARG_TITLE_BAR_PAREN='(G-4.7.2 M-3.0.4 b:b_f_f)';
+TARG_TITLE_BAR_PAREN='(G/4.7.2 M/3.0.4 b:b_f_f)';
 export TARG_TITLE_BAR_PAREN;
 _SettargTable001_='X1NldHRhcmdUYWJsZV89e1siYnVpbGRTY2VuYXJpb1N0YXRlIl09ImVtcHR5IixleHRyYVQ9e1siYjpiIl09dHJ1ZSxbImZfZiJdPXRydWUsfSx0YXJnQT17IlRBUkciLCJUQVJHX0JVSUxEX1NDRU5BUklPIiwiVEFSR19DT01QSUxFUiIsIlRBUkdfQ09NUElMRVJfRkFNSUxZIiwiVEFSR19FWFRSQSIsIlRBUkdfSE9TVCIsIlRBUkdfTUFDSCIsIlRBUkdfTUFDSF9ERVNDUklQVCIsIlRBUkdfTVBJIiwiVEFSR19NUElfRkFNSUxZIiwiVEFSR19PUyIsIlRBUkdfT1NfRkFNSUxZIiwiVEFSR19TVU1NQVJZIiwiVEFSR19USVRMRV9CQVIiLCJUQVJHX1RJVExFX0JBUl9QQVJFTiIsfSxbInZlcnNpb24iXT0xLH0=';
 export _SettargTable001_;
@@ -349,9 +336,9 @@ TARG_OS_FAMILY=''
 export TARG_OS_FAMILY;
 TARG_SUMMARY='x86_64_gcc-4.7.2_mpich-3.0.4_b:b';
 export TARG_SUMMARY;
-TARG_TITLE_BAR='G-4.7.2 M-3.0.4 b:b';
+TARG_TITLE_BAR='G/4.7.2 M/3.0.4 b:b';
 export TARG_TITLE_BAR;
-TARG_TITLE_BAR_PAREN='(G-4.7.2 M-3.0.4 b:b)';
+TARG_TITLE_BAR_PAREN='(G/4.7.2 M/3.0.4 b:b)';
 export TARG_TITLE_BAR_PAREN;
 _SettargTable001_='X1NldHRhcmdUYWJsZV89e1siYnVpbGRTY2VuYXJpb1N0YXRlIl09ImVtcHR5IixleHRyYVQ9e1siYjpiIl09dHJ1ZSx9LHRhcmdBPXsiVEFSRyIsIlRBUkdfQlVJTERfU0NFTkFSSU8iLCJUQVJHX0NPTVBJTEVSIiwiVEFSR19DT01QSUxFUl9GQU1JTFkiLCJUQVJHX0VYVFJBIiwiVEFSR19IT1NUIiwiVEFSR19NQUNIIiwiVEFSR19NQUNIX0RFU0NSSVBUIiwiVEFSR19NUEkiLCJUQVJHX01QSV9GQU1JTFkiLCJUQVJHX09TIiwiVEFSR19PU19GQU1JTFkiLCJUQVJHX1NVTU1BUlkiLCJUQVJHX1RJVExFX0JBUiIsIlRBUkdfVElUTEVfQkFSX1BBUkVOIix9LFsidmVyc2lvbiJdPTEsfQ==';
 export _SettargTable001_;
@@ -387,9 +374,9 @@ TARG_OS_FAMILY=''
 export TARG_OS_FAMILY;
 TARG_SUMMARY='x86_64_gcc-4.7.2_mpich-3.0.4';
 export TARG_SUMMARY;
-TARG_TITLE_BAR='G-4.7.2 M-3.0.4';
+TARG_TITLE_BAR='G/4.7.2 M/3.0.4';
 export TARG_TITLE_BAR;
-TARG_TITLE_BAR_PAREN='(G-4.7.2 M-3.0.4)';
+TARG_TITLE_BAR_PAREN='(G/4.7.2 M/3.0.4)';
 export TARG_TITLE_BAR_PAREN;
 _SettargTable001_='X1NldHRhcmdUYWJsZV89e1siYnVpbGRTY2VuYXJpb1N0YXRlIl09ImVtcHR5IixleHRyYVQ9e30sdGFyZ0E9eyJUQVJHIiwiVEFSR19CVUlMRF9TQ0VOQVJJTyIsIlRBUkdfQ09NUElMRVIiLCJUQVJHX0NPTVBJTEVSX0ZBTUlMWSIsIlRBUkdfRVhUUkEiLCJUQVJHX0hPU1QiLCJUQVJHX01BQ0giLCJUQVJHX01BQ0hfREVTQ1JJUFQiLCJUQVJHX01QSSIsIlRBUkdfTVBJX0ZBTUlMWSIsIlRBUkdfT1MiLCJUQVJHX09TX0ZBTUlMWSIsIlRBUkdfU1VNTUFSWSIsIlRBUkdfVElUTEVfQkFSIiwiVEFSR19USVRMRV9CQVJfUEFSRU4iLH0sWyJ2ZXJzaW9uIl09MSx9';
 export _SettargTable001_;
@@ -426,9 +413,9 @@ TARG_OS_FAMILY=''
 export TARG_OS_FAMILY;
 TARG_SUMMARY='x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f';
 export TARG_SUMMARY;
-TARG_TITLE_BAR='G-4.7.2 M-3.0.4 b:b_f_f';
+TARG_TITLE_BAR='G/4.7.2 M/3.0.4 b:b_f_f';
 export TARG_TITLE_BAR;
-TARG_TITLE_BAR_PAREN='(G-4.7.2 M-3.0.4 b:b_f_f)';
+TARG_TITLE_BAR_PAREN='(G/4.7.2 M/3.0.4 b:b_f_f)';
 export TARG_TITLE_BAR_PAREN;
 _SettargTable001_='X1NldHRhcmdUYWJsZV89e1siYnVpbGRTY2VuYXJpb1N0YXRlIl09ImVtcHR5IixleHRyYVQ9e1siYjpiIl09dHJ1ZSxbImZfZiJdPXRydWUsfSx0YXJnQT17IlRBUkciLCJUQVJHX0JVSUxEX1NDRU5BUklPIiwiVEFSR19DT01QSUxFUiIsIlRBUkdfQ09NUElMRVJfRkFNSUxZIiwiVEFSR19FWFRSQSIsIlRBUkdfSE9TVCIsIlRBUkdfTUFDSCIsIlRBUkdfTUFDSF9ERVNDUklQVCIsIlRBUkdfTVBJIiwiVEFSR19NUElfRkFNSUxZIiwiVEFSR19PUyIsIlRBUkdfT1NfRkFNSUxZIiwiVEFSR19TVU1NQVJZIiwiVEFSR19USVRMRV9CQVIiLCJUQVJHX1RJVExFX0JBUl9QQVJFTiIsfSxbInZlcnNpb24iXT0xLH0=';
 export _SettargTable001_;
@@ -466,9 +453,9 @@ TARG_OS_FAMILY=''
 export TARG_OS_FAMILY;
 TARG_SUMMARY='x86_64_dbg_gcc-4.7.2_mpich-3.0.4_b:b_f_f';
 export TARG_SUMMARY;
-TARG_TITLE_BAR='D G-4.7.2 M-3.0.4 b:b_f_f';
+TARG_TITLE_BAR='D G/4.7.2 M/3.0.4 b:b_f_f';
 export TARG_TITLE_BAR;
-TARG_TITLE_BAR_PAREN='(D G-4.7.2 M-3.0.4 b:b_f_f)';
+TARG_TITLE_BAR_PAREN='(D G/4.7.2 M/3.0.4 b:b_f_f)';
 export TARG_TITLE_BAR_PAREN;
 _SettargTable001_='X1NldHRhcmdUYWJsZV89e1siYnVpbGRTY2VuYXJpb1N0YXRlIl09ImRiZyIsZXh0cmFUPXtbImI6YiJdPXRydWUsWyJmX2YiXT10cnVlLH0sdGFyZ0E9eyJUQVJHIiwiVEFSR19CVUlMRF9TQ0VOQVJJTyIsIlRBUkdfQ09NUElMRVIiLCJUQVJHX0NPTVBJTEVSX0ZBTUlMWSIsIlRBUkdfRVhUUkEiLCJUQVJHX0hPU1QiLCJUQVJHX01BQ0giLCJUQVJHX01BQ0hfREVTQ1JJUFQiLCJUQVJHX01QSSIsIlRBUkdfTVBJX0ZBTUlMWSIsIlRBUkdfT1MiLCJUQVJHX09TX0ZBTUlMWSIsIlRBUkdfU1VNTUFSWSIsIlRBUkdfVElUTEVfQkFSIiwiVEFSR19USVRMRV9CQVJfUEFSRU4iLH0sWyJ2ZXJzaW9uIl09MSx9';
 export _SettargTable001_;
@@ -505,9 +492,9 @@ TARG_OS_FAMILY=''
 export TARG_OS_FAMILY;
 TARG_SUMMARY='x86_64_dbg_gcc-4.7.2_mpich-3.0.4';
 export TARG_SUMMARY;
-TARG_TITLE_BAR='D G-4.7.2 M-3.0.4';
+TARG_TITLE_BAR='D G/4.7.2 M/3.0.4';
 export TARG_TITLE_BAR;
-TARG_TITLE_BAR_PAREN='(D G-4.7.2 M-3.0.4)';
+TARG_TITLE_BAR_PAREN='(D G/4.7.2 M/3.0.4)';
 export TARG_TITLE_BAR_PAREN;
 _SettargTable001_='X1NldHRhcmdUYWJsZV89e1siYnVpbGRTY2VuYXJpb1N0YXRlIl09ImRiZyIsZXh0cmFUPXt9LHRhcmdBPXsiVEFSRyIsIlRBUkdfQlVJTERfU0NFTkFSSU8iLCJUQVJHX0NPTVBJTEVSIiwiVEFSR19DT01QSUxFUl9GQU1JTFkiLCJUQVJHX0VYVFJBIiwiVEFSR19IT1NUIiwiVEFSR19NQUNIIiwiVEFSR19NQUNIX0RFU0NSSVBUIiwiVEFSR19NUEkiLCJUQVJHX01QSV9GQU1JTFkiLCJUQVJHX09TIiwiVEFSR19PU19GQU1JTFkiLCJUQVJHX1NVTU1BUlkiLCJUQVJHX1RJVExFX0JBUiIsIlRBUkdfVElUTEVfQkFSX1BBUkVOIix9LFsidmVyc2lvbiJdPTEsfQ==';
 export _SettargTable001_;
@@ -542,6 +529,7 @@ __LMOD_REF_COUNT_PATH="/opt/apps/gcc-4_7/mpich/3.0.4/bin:1;obj/__x86_64_dbg_gcc-
 export __LMOD_REF_COUNT_PATH;
 PATH="/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_dbg_gcc-4.7.2_mpich-3.0.4:ProjectDIR/src:PATH_to_TM";
 export PATH;
+unset PROMPT_COMMAND;
 __LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/settarg/mf/Core/gcc/4.7.2.lua:1;ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7/mpich/3.0.4.lua:1";
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_="ProjectDIR/rt/settarg/mf/Core/gcc/4.7.2.lua:ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7/mpich/3.0.4.lua";
@@ -550,12 +538,15 @@ _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mpich",
 export _ModuleTable_;
 __LMOD_STACK_LMOD_SETTARG_CMD=":";
 export __LMOD_STACK_LMOD_SETTARG_CMD;
+unset __LMOD_STACK_PROMPT_COMMAND;
 unalias cdt 2> /dev/null || true;
 unset -f dbg 2> /dev/null || true;
 unset -f empty 2> /dev/null || true;
 unset -f gettargdir 2> /dev/null || true;
 unset -f mdbg 2> /dev/null || true;
 unset -f opt 2> /dev/null || true;
+unset -f precmd 2> /dev/null || true;
 unset -f settarg 2> /dev/null || true;
 unset -f targ 2> /dev/null || true;
 eval `lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --destroy`;
+echo -n -e "\033]2; \007";
