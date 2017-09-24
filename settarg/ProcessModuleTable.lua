@@ -47,6 +47,15 @@ local function buildTargetName(name, defaultFlag, fullName)
    return result
 end
 
+function extractVersion(fullName, sn)
+   local pattern = '^' .. sn:escape() .. '/?'
+   local version = fullName:gsub(pattern,"")
+   if (version == "") then
+      version = false
+   end
+   return version
+end
+
 function processModuleTable(mt_string, targetTbl, tbl)
    dbg.start{"processModuleTable(mt_string, targetTbl, tbl)"}
    if (mt_string == nil) then return end
@@ -64,7 +73,7 @@ function processModuleTable(mt_string, targetTbl, tbl)
             if (v.status == "active" and targetTbl[key] ) then
                targetTbl[key] = -1
                local K = "TARG_" .. key:upper()
-               tbl[K] = buildTargetName(sn, v.default, v.fullName)
+               tbl[K] = v.fullName -- buildTargetName(sn, v.default, v.fullName)
                dbg.print{"V2: K: ",K, " tbl[K]: ",tbl[K],"\n"}
             end
          end

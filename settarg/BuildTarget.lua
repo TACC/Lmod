@@ -438,12 +438,12 @@ function M.exec(shell)
 
    local aa = {}
    for _,v in ipairs(a) do
-      local _, _, name, version = v:find("([^-]*)-?(.*)")
+      local _, _, name, version = v:find("([^/]*)/?(.*)")
       if (v:len() > 0) then
          local s = TitleTbl[name] or v
          if (s) then
             if (TitleTbl[name] and version ~= "" ) then
-               s = TitleTbl[name] .. "-" .. version
+               s = TitleTbl[name] .. "/" .. version
             end
             aa[#aa+1] = s
          end
