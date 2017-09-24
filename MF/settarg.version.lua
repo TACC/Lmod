@@ -48,11 +48,12 @@ if (titlebar_support == "yes") then
       if (myShellName() == "bash") then
          pushenv("PROMPT_COMMAND","precmd")
       end
+      execute{cmd='echo -n -e "\\033]2; \\007"',modeA={"unload"}}
    elseif (myShellType() == "csh") then
       set_alias("cwdcmd",'eval `$LMOD_SETTARG_CMD -s csh`')
       set_alias("precmd",'echo -n "\\033]2;${TARG_TITLE_BAR_PAREN}${USER}@${HOST} : $cwd\\007"')
+      execute{cmd='echo -n "\\033]2; \\007"',modeA={"unload"}}
    end
-   execute{cmd='echo -n "\\033]2; \\007"',modeA={"unload"}}
 end
 
 
