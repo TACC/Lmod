@@ -30,7 +30,7 @@ local TERM         = os.getenv("TERM")
 
 local titlebar_support = (os.getenv("LMOD_SETTARG_TITLE_BAR") or "no"):lower()
 
-if (titlebar_support ~= "yes") then
+if (titlebar_support == "yes") then
    if (myShellName() == "bash" or myShellName() == "zsh") then
       local precmd = [==[precmd()
            {
