@@ -12,7 +12,8 @@ local respect = "true"
 setenv("SETTARG_TAG1", "OBJ", respect )
 setenv("SETTARG_TAG2", "_"  , respect )
 
-if ((os.getenv("LMOD_FULL_SETTARG_SUPPORT") or "no"):lower() ~= "no") then
+local full_support = (os.getenv("LMOD_FULL_SETTARG_SUPPORT") or "no"):lower()
+if (full_support ~= "no") then
    set_alias("cdt", "cd $TARG")
    set_shell_function("targ",  'builtin echo $TARG', 'echo $TARG')
    set_shell_function("dbg",   'settarg "$@" dbg',   'settarg $* dbg')
@@ -25,42 +26,28 @@ local myShell = myShellName()
 local exitCmd = "eval `" .. "@path_to_lua@/lua " .. settarg_cmd .. " -s " .. myShell .. " --destroy`"
 execute{cmd=exitCmd, modeA = {"unload"}}
 
-local full_support = os.getenv("LMOD_FULL_SETTARG_SUPPORT") or "no"
 local TERM         = os.getenv("TERM")
 
-if (full_support ~= "no") then
-   if ((myShellName() == "bash" or myShellName() == "zsh" ) and mode() == "load") then
-      local startCmd = [==[
-        SET_TITLE_BAR=:;
+local titlebar_support = (os.getenv("LMOD_SETTARG_TITLE_BAR") or "no"):lower()
 
-        case "$TERM" in
-          xterm*)
-            SET_TITLE_BAR=xSetTitleLmod;
-            ;;
-        esac;
-
-        SHOST=${SHOST-${HOSTNAME%%.*}};
-           
-        if [ -n "${BASH_VERSION+x}" -a -z "${PROMPT_COMMAND+x}" ]; then
-           my_status=1;
-        fi;
-        if [ -n "${ZSH_VERSION+x}" ]; then
-           whence -vf precmd > /dev/null 2>&1;
-           my_status=$?;
-        fi;
-        if [ "${my_status}" -ne 0 ]; then
-           precmd()
+if (titlebar_support ~= "yes") then
+   if (myShellName() == "bash" or myShellName() == "zsh") then
+      local precmd = [==[precmd()
            {
+             local tilde="~";
              eval $(${LMOD_SETTARG_CMD:-:} -s bash);
-             ${SET_TITLE_BAR:-:} "${TARG_TITLE_BAR_PAREN}${USER}@${SHOST}:${PWD/#$HOME/~}";
+             ${SET_TITLE_BAR:-:} "${TARG_TITLE_BAR_PAREN}${USER}@${SHOST}:${PWD/$HOME/$tilde}";
              ${USER_PROMPT_CMD:-:};
-           };
-        fi;
-
-        # define the PROMPT_COMMAND to be precmd iff it isn't defined already.
-        : ${PROMPT_COMMAND:=precmd};
+           }
       ]==]
-      execute{cmd=startCmd, modeA={"load"}}
+      set_shell_function("precmd",precmd,"")
+      local term = os.getenv("TERM")
+      if (term:find("xterm")) then
+         setenv("SET_TITLE_BAR","xSetTitleLmod")
+      end
+      if (myShellName() == "bash") then
+         pushenv("PROMPT_COMMAND","precmd")
+      end
    elseif (myShellType() == "csh") then
       set_alias("cwdcmd",'eval `$LMOD_SETTARG_CMD -s csh`')
       set_alias("precmd",'echo -n "\\033]2;${TARG_TITLE_BAR_PAREN}${USER}@${HOST} : $cwd\\007"')
@@ -118,7 +105,12 @@ $TARG_COMPILER_FAMILY to know which compiler you are using so that you
 can set the appropriate compiler flags.
 
 If the environment variable LMOD_FULL_SETTARG_SUPPORT is set to "yes"
-then the settarg module will set the title bar in an xterm terminal.
+then helpful aliases are defined to set the debug/optimize/max debug
+build scenerio 
+
+If the environment variable LMOD_SETTARG_TITLE_BAR is set to "yes" then
+the xterm title will be set with along with important modules like the
+compiler and mpi stack.
 
 
 Settarg can do more.  Please see the Lmod website for more details.
