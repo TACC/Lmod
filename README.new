@@ -1,4 +1,8 @@
 Lmod 7.7+
-   (7.7.1)  Fix typo in myGlobals.lua about assigning LMOD_DUPLICATE_PATHS
-            Fix bug in settarg when using tcsh. (issue #318)
+   (7.7.1)  Fixed typo in myGlobals.lua about assigning LMOD_DUPLICATE_PATHS
+            Fixed TARG_TITLE_BAR_PAREN to always have a value, needed for tcsh.
+	    Added LMOD_SETTARG_TITLE_BAR=yes to turn on the title bar.
+            Changed from sn-version to sn/version in title bar
+	    
+	    
 	    

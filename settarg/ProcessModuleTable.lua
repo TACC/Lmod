@@ -73,7 +73,7 @@ function processModuleTable(mt_string, targetTbl, tbl)
             if (v.status == "active" and targetTbl[key] ) then
                targetTbl[key] = -1
                local K = "TARG_" .. key:upper()
-               tbl[K] = v.fullName -- buildTargetName(sn, v.default, v.fullName)
+               tbl[K] = buildTargetName(sn, v.default, v.fullName)
                dbg.print{"V2: K: ",K, " tbl[K]: ",tbl[K],"\n"}
             end
          end
