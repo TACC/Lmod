@@ -34,7 +34,7 @@ if (titlebar_support == "yes") then
            {
              local tilde="~";
              eval $(${LMOD_SETTARG_CMD:-:} -s bash);
-             ${SET_TITLE_BAR:-:} "${TARG_TITLE_BAR_PAREN}${USER}@${SHOST}:${PWD/$HOME/$tilde}";
+             ${SET_TITLE_BAR:-:} "${TARG_TITLE_BAR_PAREN}${USER}@${SHOST}:${PWD/#$HOME/$tilde}";
              ${USER_PROMPT_CMD:-:};
            }
       ]==]
@@ -47,6 +47,7 @@ if (titlebar_support == "yes") then
          pushenv("PROMPT_COMMAND","precmd")
       end
       execute{cmd='echo -n -e "\\033]2; \\007"',modeA={"unload"}}
+      execute{cmd='precmd',modeA={"load"}}
    elseif (myShellType() == "csh") then
       set_alias("cwdcmd",'eval `$LMOD_SETTARG_CMD -s csh`')
       set_alias("precmd",'echo -n "\\033]2;${TARG_TITLE_BAR_PAREN}${USER}@${HOST} : $cwd\\007"')
