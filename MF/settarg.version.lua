@@ -54,6 +54,7 @@ if (titlebar_support == "yes") then
       set_alias("precmd",'echo -n "\\033]2;${TARG_TITLE_BAR_PAREN}${USER}@${HOST} : $cwd\\007"')
       execute{cmd='echo -n "\\033]2; \\007"',modeA={"unload"}}
    end
+   execute{cmd='precmd',modeA={"load"}}
 end
 
 
