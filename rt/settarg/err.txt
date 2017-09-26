@@ -89,8 +89,7 @@ set_shell_function("empty","settarg "$@" empty","settarg $* empty")
 set_shell_function("opt","settarg "$@" opt","settarg $* opt")
 set_shell_function("mdbg","settarg "$@" mdbg","settarg $* mdbg")
 execute{cmd="eval `lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --destroy`", modeA={"unload"}}
-set_shell_function("precmd","precmd()
-           {
+set_shell_function("precmd","{
              local tilde="~";
              eval $(${LMOD_SETTARG_CMD:-:} -s bash);
              ${SET_TITLE_BAR:-:} "${TARG_TITLE_BAR_PAREN}${USER}@${SHOST}:${PWD/#$HOME/$tilde}";
@@ -99,7 +98,6 @@ set_shell_function("precmd","precmd()
       ","")
 pushenv("PROMPT_COMMAND","precmd")
 execute{cmd="echo -n -e "\033]2; \007"", modeA={"unload"}}
-execute{cmd="precmd", modeA={"load"}}
 help([[The settarg module dynamically and automatically updates "$TARG" and a
 host of other environment variables. These new environment variables
 encapsulate the state of the modules loaded.
