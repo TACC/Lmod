@@ -44,12 +44,13 @@ precmd() { precmd()
            {
              local tilde="~";
              eval $(${LMOD_SETTARG_CMD:-:} -s bash);
-             ${SET_TITLE_BAR:-:} "${TARG_TITLE_BAR_PAREN}${USER}@${SHOST}:${PWD/$HOME/$tilde}";
+             ${SET_TITLE_BAR:-:} "${TARG_TITLE_BAR_PAREN}${USER}@${SHOST}:${PWD/#$HOME/$tilde}";
              ${USER_PROMPT_CMD:-:};
            }
       ; };
 settarg() { eval $($LMOD_SETTARG_CMD -s sh "$@"); };
 targ() { builtin echo $TARG; };
+precmd;
 ===========================
 step 3
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model dbg

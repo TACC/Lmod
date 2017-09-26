@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.7  2017-09-19 11:05 -05:00
+Modules based on Lua: Version 7.7.1  2017-09-24 02:11 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -93,12 +93,13 @@ set_shell_function("precmd","precmd()
            {
              local tilde="~";
              eval $(${LMOD_SETTARG_CMD:-:} -s bash);
-             ${SET_TITLE_BAR:-:} "${TARG_TITLE_BAR_PAREN}${USER}@${SHOST}:${PWD/$HOME/$tilde}";
+             ${SET_TITLE_BAR:-:} "${TARG_TITLE_BAR_PAREN}${USER}@${SHOST}:${PWD/#$HOME/$tilde}";
              ${USER_PROMPT_CMD:-:};
            }
       ","")
 pushenv("PROMPT_COMMAND","precmd")
 execute{cmd="echo -n -e "\033]2; \007"", modeA={"unload"}}
+execute{cmd="precmd", modeA={"load"}}
 help([[The settarg module dynamically and automatically updates "$TARG" and a
 host of other environment variables. These new environment variables
 encapsulate the state of the modules loaded.
