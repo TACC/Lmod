@@ -32,8 +32,7 @@ local titlebar_support = (os.getenv("LMOD_SETTARG_TITLE_BAR") or "no"):lower()
 
 if (titlebar_support == "yes") then
    if (myShellName() == "bash" or myShellName() == "zsh") then
-      local precmd = [==[precmd()
-           {
+      local precmd = [==[{
              local tilde="~";
              eval $(${LMOD_SETTARG_CMD:-:} -s bash);
              ${SET_TITLE_BAR:-:} "${TARG_TITLE_BAR_PAREN}${USER}@${SHOST}:${PWD/#$HOME/$tilde}";
@@ -49,7 +48,6 @@ if (titlebar_support == "yes") then
          pushenv("PROMPT_COMMAND","precmd")
       end
       execute{cmd='echo -n -e "\\033]2; \\007"',modeA={"unload"}}
-      execute{cmd='precmd',modeA={"load"}}
    elseif (myShellType() == "csh") then
       set_alias("cwdcmd",'eval `$LMOD_SETTARG_CMD -s csh`')
       set_alias("precmd",'echo -n "\\033]2;${TARG_TITLE_BAR_PAREN}${USER}@${HOST} : $cwd\\007"')

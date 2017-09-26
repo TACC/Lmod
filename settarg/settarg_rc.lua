@@ -73,5 +73,8 @@ NoFamilyList = {"mach", "build_scenario",}
 -- directories to $PATH so that $TARG is in the fourth position, Settarg changes the value
 -- in place at the fourth position.  It does not move the location of $TARG back to first
 -- position.
+--
+-- Note that you can set the variable LMOD_TARGPATHLOC to override this setting.
+
 
 TargPathLoc = "first"   

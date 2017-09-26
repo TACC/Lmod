@@ -5,7 +5,9 @@ setenv LMOD_PKG                  "@PKGV@"
 setenv MODULESHOME               "@PKGV@"      
 setenv TARG_TITLE_BAR_PAREN      " "
 setenv LMOD_FULL_SETTARG_SUPPORT @lmod_full_settarg_support@
-setenv LMOD_SETTARG_CMD          :
+if ( ! $? LMOD_SETTARG_CMD ) then
+  setenv LMOD_SETTARG_CMD          :
+endif
 
 set prefix  = ""
 set midfix  = ""

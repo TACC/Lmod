@@ -15,7 +15,10 @@ export LMOD_PKG=@PKGV@
 export LMOD_DIR=@PKGV@/libexec
 export LMOD_CMD=@PKGV@/libexec/lmod
 export MODULESHOME=@PKGV@
-export LMOD_SETTARG_CMD=":"
+
+if [ -z "${LMOD_SETTARG_CMD+x}" ]; then
+    export LMOD_SETTARG_CMD=":"
+fi
 export LMOD_FULL_SETTARG_SUPPORT=@lmod_full_settarg_support@
 
 ########################################################################
