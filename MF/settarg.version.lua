@@ -26,8 +26,6 @@ local myShell = myShellName()
 local exitCmd = "eval `" .. "@path_to_lua@/lua " .. settarg_cmd .. " -s " .. myShell .. " --destroy`"
 execute{cmd=exitCmd, modeA = {"unload"}}
 
-local TERM         = os.getenv("TERM")
-
 local titlebar_support = (os.getenv("LMOD_SETTARG_TITLE_BAR") or "no"):lower()
 
 if (titlebar_support == "yes") then

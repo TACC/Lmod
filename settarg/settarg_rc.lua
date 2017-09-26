@@ -68,7 +68,7 @@ NoFamilyList = {"mach", "build_scenario",}
 --    last:   Put $TARG at end of $PATH
 --    empty:  Do not put $TARG in $PATH.
 
--- Note that once $TARG is placed in $PATH its relactive position is maintained.  
+-- Note that once $TARG is placed in $PATH its relative position is maintained.  
 -- That is if after putting $TARG at the beginning of $PATH, the user prepends other
 -- directories to $PATH so that $TARG is in the fourth position, Settarg changes the value
 -- in place at the fourth position.  It does not move the location of $TARG back to first
