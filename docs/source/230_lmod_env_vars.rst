@@ -89,9 +89,9 @@ the configuration option which will set the action.
   stacks. 
 
 **LMOD_CACHED_LOADS**:
-  [yes/no, default:no, --with-cachedLoads] If true then Lmod will use
-  the spider cache instead of walking MODULEPATH as long as
-  LMOD_IGNORE_CACHE is not set.
+  [yes/no, default:no, --with-cachedLoads] If "yes" then Lmod will use
+  the spider cache instead of walking MODULEPATH to load modulefiles
+  and do "module --terse avail" as long as LMOD_IGNORE_CACHE is not set. 
 
 **LMOD_CASE_INDEPENDENT_SORTING**:
   [yes/no, default: no, --with-caseIndependentSorting] Make avail and
