@@ -30,8 +30,6 @@ _LMFILES_="OutputDIR/mf/Core/settarg/1.0.lua";
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={settarg={["fn"]="OutputDIR/mf/Core/settarg/1.0.lua",["fullName"]="settarg/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="settarg",},},mpathA={"OutputDIR/mf/Core","ProjectDIR/rt/settarg/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core:ProjectDIR/rt/settarg/mf/Core",}';
 export _ModuleTable_;
-__LMOD_STACK_LMOD_SETTARG_CMD="ProjectDIR/settarg/settarg_cmd.in.lua::";
-export __LMOD_STACK_LMOD_SETTARG_CMD;
 __LMOD_STACK_PROMPT_COMMAND="precmd";
 export __LMOD_STACK_PROMPT_COMMAND;
 alias cdt='cd $TARG';
@@ -516,8 +514,7 @@ export _ModuleTable_;
 step 17
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload settarg
 ===========================
-LMOD_SETTARG_CMD=":";
-export LMOD_SETTARG_CMD;
+unset LMOD_SETTARG_CMD;
 __LMOD_REF_COUNT_LOADEDMODULES="gcc/4.7.2:1;mpich/3.0.4:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="gcc/4.7.2:mpich/3.0.4";
@@ -535,8 +532,6 @@ _LMFILES_="ProjectDIR/rt/settarg/mf/Core/gcc/4.7.2.lua:ProjectDIR/rt/settarg/mf/
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mpich",["compiler"]="gcc",},mT={gcc={["fn"]="ProjectDIR/rt/settarg/mf/Core/gcc/4.7.2.lua",["fullName"]="gcc/4.7.2",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="gcc",},mpich={["fn"]="ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7/mpich/3.0.4.lua",["fullName"]="mpich/3.0.4",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mpich",},},mpathA={"ProjectDIR/rt/settarg/mf/MPI/gcc/4.7/mpich/3.0","ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7","OutputDIR/mf/Core","ProjectDIR/rt/settarg/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core:ProjectDIR/rt/settarg/mf/Core",}';
 export _ModuleTable_;
-__LMOD_STACK_LMOD_SETTARG_CMD=":";
-export __LMOD_STACK_LMOD_SETTARG_CMD;
 unset __LMOD_STACK_PROMPT_COMMAND;
 unalias cdt 2> /dev/null || true;
 unset -f dbg 2> /dev/null || true;

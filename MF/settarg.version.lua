@@ -2,7 +2,7 @@ local base        = "@PKG@/settarg"
 local settarg_cmd = pathJoin(base, "@settarg_cmd@")
 
 prepend_path("PATH",base)
-pushenv("LMOD_SETTARG_CMD", settarg_cmd)
+setenv("LMOD_SETTARG_CMD", settarg_cmd)
 set_shell_function("settarg", 'eval $($LMOD_SETTARG_CMD -s sh "$@")',
                               'eval `$LMOD_SETTARG_CMD  -s csh $*`' )
 
