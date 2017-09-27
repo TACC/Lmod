@@ -855,7 +855,8 @@ function M.avail(self, argA)
       return a
    end
 
-   local moduleA     = ModuleA:singleton{spider_cache=(not masterTbl.terse)}
+   local use_cache   = (not masterTbl.terse) or (cosmic:value("LMOD_CACHED_LOADS") ~= "no")
+   local moduleA     = ModuleA:singleton{spider_cache=use_cache}
    local mrc         = MRC:singleton()
    local availA      = moduleA:build_availA()
    local twidth      = TermWidth()
