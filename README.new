@@ -8,3 +8,5 @@ Lmod 7.7+
 	    in sub-shells.
    (7.7.3)  Use spider cache for "module --terse avail" when LMOD_CACHED_LOADS=yes
    (7.7.4)  Fix bug with LMOD_SETTARG_CMD and csh.
+   (7.7.5)  Turn off LMOD_REDIRECT for tcsh
+   
