@@ -1,3 +1,5 @@
+.. _tracking_usage:
+
 Tracking Module Usage
 =====================
 
@@ -43,8 +45,10 @@ Use SitePackage.lua to send a message to syslog.::
    --------------------------------------------------------------------------
    -- load_hook(): Here we record the any modules loaded.
 
-   local hook   = require("Hook")
-   local uname  = require("posix").uname
+   local hook    = require("Hook")
+   local uname   = require("posix").uname
+   local cosmic  = require("Cosmic"):singleton()
+   local syshost = cosmic:value("LMOD_SYSHOST")
 
    local s_msgA = {}
 
@@ -53,6 +57,15 @@ Use SitePackage.lua to send a message to syslog.::
       --     t.modFullName:  the module full name: (i.e: gcc/4.7.2)
       --     t.fn:           The file name: (i.e /apps/modulefiles/Core/gcc/4.7.2.lua)
 
+
+      -- use syshost from configuration if set
+      -- otherwise extract 2nd name from hostname: i.e. login1.stampede2.tacc.utexas.edu
+      local host        = syshost 
+      if (not host) then
+         local i,j, first
+         i,j, first, host = uname("%n"):find("([^.]*)%.([^.]*)%.")
+      end
+      
 
       if (mode() ~= "load") then return end
       local msg         = string.format("user=%s module=%s path=%s host=%s time=%f",
