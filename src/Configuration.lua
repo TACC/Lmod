@@ -217,6 +217,7 @@ local function new(self)
    tbl.prefix       = { k = "Lmod prefix"                       , v = "@PREFIX@",       }
    tbl.prpnd_blk    = { k = "Prepend order"                     , v = prepend_block,    }
    tbl.settarg      = { k = "Supporting Full Settarg Use"       , v = settarg_support,  }
+   tbl.shell        = { k = "User shell"                        , v = myShellName(),    }
    tbl.sitePkg      = { k = "Site Pkg location"                 , v = locSitePkg,       }
    tbl.siteName     = { k = "Site Name"                         , v = site_name,        }
    tbl.spdr_ignore  = { k = "Ignore Cache"                      , v = ignore_cache,     }

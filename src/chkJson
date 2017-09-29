@@ -90,6 +90,7 @@ function main()
       prpnd_blk    = { rule = "match", value = "normal"},
       redirect     = { rule = "match", value = "no"},
       settarg      = { rule = "match", value = "no"},
+      shell        = { rule = "match", value = "bash"},
       sitePkg      = { rule = "match", value = "standard"},
       spdr_ignore  = { rule = "match", value = "no"},
       spdr_loads   = { rule = "match", value = "no"},
