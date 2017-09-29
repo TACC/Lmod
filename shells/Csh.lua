@@ -40,12 +40,14 @@
 require("strict")
 require("pairsByKeys")
 
-local BaseShell = require("BaseShell")
-local Csh       = inheritsFrom(BaseShell)
-local dbg       = require("Dbg"):dbg()
-local concatTbl = table.concat
-local stdout    = io.stdout
-Csh.my_name     = 'csh'
+local BaseShell    = require("BaseShell")
+local Csh          = inheritsFrom(BaseShell)
+local dbg          = require("Dbg"):dbg()
+local concatTbl    = table.concat
+local posix        = require("posix")
+local setenv_posix = posix.setenv
+local stdout       = io.stdout
+Csh.my_name        = 'csh'
 
 --------------------------------------------------------------------------
 -- Csh:alias(): Either define or undefine a Csh shell alias. Remove any
@@ -100,6 +102,12 @@ function Csh.expandVar(self, k, v, vType)
    local  line       = concatTbl(lineA,"")
    stdout:write(line)
    dbg.print{   line}
+end
+
+function Csh.echo(self, ...)
+   setenv_posix("LC_ALL",nil,true)
+   pcall(pager,io.stderr,...)
+   setenv_posix("LC_ALL","C",true)
 end
 
 --------------------------------------------------------------------------
