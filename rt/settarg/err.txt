@@ -97,7 +97,6 @@ set_shell_function("precmd","{
            }
       ","")
 pushenv("PROMPT_COMMAND","precmd")
-execute{cmd="echo -n -e "\033]2; \007"", modeA={"unload"}}
 help([[The settarg module dynamically and automatically updates "$TARG" and a
 host of other environment variables. These new environment variables
 encapsulate the state of the modules loaded.

@@ -541,4 +541,3 @@ unset -f precmd 2> /dev/null || true;
 unset -f settarg 2> /dev/null || true;
 unset -f targ 2> /dev/null || true;
 eval `lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --destroy`;
-echo -n -e "\033]2; \007";
