@@ -107,7 +107,7 @@ function M.getBuildScenarioState(self)
 end
 
 function M.setBuildScenarioState(self, scenario)
-   dbg.print{"Setting BS: ",scenario, "\n"}
+   dbg.print{"Setting BuildScenario: ",scenario, "\n"}
    self.buildScenarioState = scenario
 end
 

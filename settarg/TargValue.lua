@@ -33,50 +33,51 @@
 --------------------------------------------------------------------------
 
 require("strict")
-_ModuleTable_ = ""
-local TargValue = require("TargValue")
-local dbg       = require("Dbg"):dbg()
-local systemG   = _G
-local load      = (_VERSION == "Lua 5.1") and loadstring or load
 
-function extractVersion(fullName, sn)
-   local pattern = '^' .. sn:escape() .. '/?'
-   local version = fullName:gsub(pattern,"")
-   if (version == "") then
-      version = false
+
+local M = {}
+
+-- The table t can have the following forms:
+--   t = { value = "..." }
+--   t = { sn = "...", version = "..." }
+
+
+function M.new(self, t)
+   local o = {}
+   setmetatable(o,self)
+   self.__index = self
+   if (t.value) then
+      o.__kind  = "value"
+      o.__value = t.value
    end
-   return version
+   if (t.sn) then
+      o.__kind    = "module"
+      o.__sn      = t.sn
+      o.__version = t.version
+   end
+   return o
 end
 
-function processModuleTable(mt_string, targetTbl, tbl)
-   dbg.start{"processModuleTable(mt_string, targetTbl, tbl)"}
-   if (mt_string == nil) then return end
-   assert(load(mt_string))()
-   local mt        = systemG._ModuleTable_
-
-   local stringKindTbl = masterTbl().stringKindTbl
-
-   local mT = mt.mT
-   for sn,v in pairs(mT) do
-      local kindT = stringKindTbl[sn]
-      if (kindT and next(kindT) ~= nil) then
-         for key in pairs(kindT) do
-            if (v.status == "active" and targetTbl[key] ) then
-               targetTbl[key] = -1
-               local K = "TARG_" .. key:upper()
-               tbl[K]  = TargValue:new{sn = sn, version = extractVersion(v.fullName, sn)}
-               dbg.print{"V2: K: ",K, " tbl[K]: ",tbl[K]:display(),"\n"}
-            end
-         end
-      end
+function M.value(self)
+   if (self.__kind == "value") then
+      return { kind = "value", value = self.__value}
+   elseif (self.__kind == "module") then
+      return { kind = "module", sn = self.__sn, version = self.__version}
    end
-
-   for k in pairs(targetTbl) do
-      if (targetTbl[k] ~= -1) then
-         dbg.print{"Clearing k: ",k," targetTbl[k]: ", tostring(targetTbl[k]), "\n"}
-         local K = "TARG_" .. k:upper()
-         tbl[K] = false
-      end
-   end
-   dbg.fini("processModuleTable")
+   return {}
 end
+
+
+function M.display(self)
+   if (self.__kind == "value") then
+      return self.__value
+   elseif (self.__kind == "module") then
+      local  v = self.__sn .. "/" .. self.__version
+      return v:gsub("/","-")
+   end
+   return " "
+end
+
+
+
+return M

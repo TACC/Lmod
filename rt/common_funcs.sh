@@ -174,6 +174,7 @@ initStdEnvVars()
   unset LD_LIBRARY_PATH
   unset LIBPATH
   unset LIBRARY_PATH
+  unset LMOD_REDIRECT
   unset LMOD_ADMIN_FILE
   unset LMOD_COLORIZE
   unset LMOD_DEFAULT_MODULEPATH
@@ -196,6 +197,7 @@ initStdEnvVars()
   unset OMP_NUM_THREADS
   unset PYTHONPATH
   unset SHLIB_PATH
+  unset TERM
   unset _LMFILES_
   unset __LMOD_PRIORITY_PATH
   PATH_to_LUA=`findcmd --pathOnly lua`

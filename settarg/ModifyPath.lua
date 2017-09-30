@@ -36,6 +36,7 @@ require("strict")
 require("string_utils")
 local dbg = require("Dbg"):dbg()
 function ModifyPath()
+   dbg.start{"ModifyPath()"}
    local masterTbl   = masterTbl()
    local oldTarg     = os.getenv('TARG') or ''
    local targ        = masterTbl.envVarsTbl.TARG
@@ -49,9 +50,7 @@ function ModifyPath()
    if (targ == "" or targPathLoc == "empty") then
       w_targ    = ":"
    end
-
-   dbg.start{"ModifyPath()"}
-
+   
    w_oldTarg = w_oldTarg:escape()
 
    if (w_oldTarg == '::' or w_path:find(w_oldTarg) == nil) then

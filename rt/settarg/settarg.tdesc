@@ -33,7 +33,6 @@ testdescript = {
      PATH_TO_LUA=`type -p lua`
      PATH_TO_LUA=${PATH_TO_LUA#lua is }
      PATH_TO_LUA=${PATH_TO_LUA%%/lua}
-     echo PATH_TO_LUA: $PATH_TO_LUA
      mkdir -p mf/Core/settarg
      sed -e 's|@PKG@|$(projectDir)|g'                    \
          -e 's|@settarg_cmd@|settarg_cmd.in.lua|g'       \
