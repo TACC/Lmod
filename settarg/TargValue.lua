@@ -68,12 +68,16 @@ function M.value(self)
 end
 
 
-function M.display(self)
+function M.display(self, de_slash)
    if (self.__kind == "value") then
       return self.__value
    elseif (self.__kind == "module") then
       local  v = self.__sn .. "/" .. self.__version
-      return v:gsub("/","-")
+      if (de_slash) then
+         return v:gsub("/","-")
+      else
+         return v
+      end
    end
    return " "
 end

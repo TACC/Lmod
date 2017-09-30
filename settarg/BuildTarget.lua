@@ -390,7 +390,7 @@ function M.exec(shell)
          envVarsTbl[KK] = false
       else
          entryA[#entryA + 1] = entry
-         a[#a+1]             = entry:display()
+         a[#a+1]             = entry:display(true)  -- change '/' into '-'
          if (familyTbl[v]) then
             local t        = entry:value()
             envVarsTbl[KK] = t.sn
