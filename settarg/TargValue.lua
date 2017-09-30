@@ -46,7 +46,7 @@ function M.new(self, t)
    local o = {}
    setmetatable(o,self)
    self.__index = self
-   if (t.value) then
+   if (t.value ~= nil) then
       o.__kind  = "value"
       o.__value = t.value
    end
@@ -70,7 +70,7 @@ end
 
 function M.display(self, de_slash)
    if (self.__kind == "value") then
-      return self.__value
+      return self.__value or ''
    elseif (self.__kind == "module") then
       local  v = self.__sn .. "/" .. self.__version
       if (de_slash) then
@@ -79,7 +79,7 @@ function M.display(self, de_slash)
          return v
       end
    end
-   return " "
+   return "should not happen!!!"
 end
 
 

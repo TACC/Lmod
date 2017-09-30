@@ -367,7 +367,7 @@ function M.exec(shell)
 
 
    tbl.TARG_BUILD_SCENARIO = TargValue:new{value=stt:getBuildScenario()}
-   dbg.print{"BUILD_SCENARIO_STATE: ",stt:getBuildScenarioState(),"\n"}
+   --dbg.print{"BUILD_SCENARIO_STATE: ",stt:getBuildScenarioState(),"\n"}
 
    -- Remove options from TARG_EXTRA
 
@@ -384,17 +384,15 @@ function M.exec(shell)
    for _,v in ipairs(targetList) do
       local K     = "TARG_" .. v:upper()
       local KK    = K .. "_FAMILY"
-      --dbg.print{"K: ",K,"\n"}
       local entry = tbl[K]
       if (not entry) then
          envVarsTbl[KK] = false
       else
          entryA[#entryA + 1] = entry
-         a[#a+1]             = entry:display(true)  -- change '/' into '-'
+         a[#a+1]             = entry:display(true)  -- The true says change '/' into '-'
          if (familyTbl[v]) then
             local t        = entry:value()
             envVarsTbl[KK] = t.sn
-            --dbg.print{"envVarsTbl[",KK,"]: ",t.sn,"\n"}
          end
       end
    end

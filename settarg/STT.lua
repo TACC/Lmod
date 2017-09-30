@@ -97,7 +97,7 @@ end
 function M.getBuildScenario(self)
    local method = self.buildScenarioState
    if (not method or method == "empty") then
-      method = ""
+      method = false
    end
    return method
 end
