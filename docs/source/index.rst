@@ -108,13 +108,13 @@ Advanced Topics
    250_site_package
    260_sh_to_modulefile
    300_tracking_module_usage
+   310_settarg
 
 Topics yet to be written
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 #. Optional Software layout, two digit rule
 #. Advanced Topics: priority path, .modulerc tricks
-#. settarg
 #. module command and a parallel a file system.
 #. inherit
 #. internal structure of lmod.
