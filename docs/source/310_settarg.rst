@@ -406,3 +406,68 @@ See the ``contrib/settarg/make_example`` directory and the README.txt
 inside.  That directory contains a simple Makefile and a more
 complicated one to a way to use $TARG in a Makefile so that all
 generated files (*.o and the executable) are in the $TARG directory.
+
+There are four main points to converting a Makefile to know about
+settarg.  The first is to set the compiler based on
+``TARG_COMPILER_FAMILY``::
+
+   CC := gcc
+   ########################################################################
+   #  Use TARG_COMPILER_FAMILY to set the C compiler name
+
+   ifeq ($(TARG_COMPILER_FAMILY),gcc)
+      CC := gcc
+   endif
+
+   ifeq ($(TARG_COMPILER_FAMILY),intel)
+      CC := icc
+   endif
+
+The second is to set the optimization based on
+``TARG_BUILD_SCENARIO``::
+
+   CF := -O2
+   ########################################################################
+   #  Use TARG_BUILD_SCENARIO to set the compiler options for either
+   #  debug or optimize.
+
+   ifeq ($(TARG_BUILD_SCENARIO),dbg)
+     CF := -g -O0
+   endif
+
+   ifeq ($(TARG_BUILD_SCENARIO),opt)
+     CF := -O3
+   endif
+   override CFLAGS   := $(CFLAGS) $(CF)
+
+The third point is to force the make file to use the $TARG directory
+if defined and change the compilation rules::
+
+    ########################################################################
+    #  Use O_DIR as equal to $(TARG)/ so that if TARG is empty then O_DIR
+    #  will be empty.  But if $(TARG) as a value then O_DIR will have a
+    #  trailing slash.
+
+    ifneq ($(TARG),)
+      override O_DIR := $(TARG)/
+    endif
+
+
+    ######################## compilation rules ###############################
+
+    $(O_DIR)%.o : %.c
+            $(COMPILE.c) -o $@ -c $<
+
+The four point is that the dependencies have to change to use
+$(O_DIR)::
+
+     ######################## Dependancies ####################################
+
+     $(O_DIR)main.o : main.c hello.h
+
+     $(O_DIR)hello.o: hello.c hello.h
+
+For small projects, generating  the dependancies by hand is manageable.
+But for larger projects it can get unwieldy.  The ``Makefile`` shows
+how to generate the dependancies automatically.
+
