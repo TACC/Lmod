@@ -5,7 +5,7 @@ Combining build systems and modules with settarg
 
 Settarg works with Lmod to help developers manage their compiled
 software projects. It does so by making it easy to switch between
-optimize or debug build or changing compiler or other modules and
+optimize or debug builds or changing compiler or other modules and
 letting the build system about the changes.  The secret of settarg is
 that concentrates the state of a build into one environment variable
 called $TARG.
@@ -22,15 +22,16 @@ include the symbol table for ease of debugging and other builds with
 full optimization.
 
 Finally there are some sites which have "shared-home" filesystems.
-That is where two or more clusters share the same "home".  Unless they
-are exactly the same hardware and running the same version of the
-operating system, software built on one system might not work on
-another.
+That is where two or more clusters share the same "home" directory
+tree.  Unless they are exactly the same hardware and running the same
+version of the operating system, software built on one system might
+not work on another.
 
-For all these reasons, it is convenient to have the built software reside in
-different directories.  One places the objects, libraries and executes
-in separate directories so that they never mix and avoids hard to
-resolve bugs. 
+For all these reasons, it is convenient to have the built software
+reside in different directories.  Settarg makes it easy to place all
+the objects, libraries and executes in a separate directory for each
+kind of build so that they never mix and this avoids hard to resolve
+bugs.
 
 Settarg manages these environment variables but it up to the software
 developer to integrate these variables in to their build tool. More on
@@ -41,7 +42,7 @@ The keys to settarg
 
 The keys to settarg are:
 
-#. It manages a set of environment variables especially $TARG
+#. It manages a set of environment variables including $TARG
 #. It is integrated so that changes in modules automatically changes
    $TARG
 #. Your PATH is dynamically adjusted with $TARG
@@ -58,8 +59,8 @@ be::
     TARG = OBJ/_x86_64_06_2d_dbg_gcc-7.1_openmpi-2.2
 
 Settarg also generates other environment variable to be used to
-control your Makefile.  So for the above $TARG, the following
-variables are also set::
+control your Makefile or other build tool.  So for the above $TARG,
+the following variables are also set::
 
     TARG_MACH            = x86_64_06_2d
     TARG_BUILD_SCENARIO  = dbg
@@ -90,7 +91,7 @@ Integration with your build system
 ----------------------------------
 
 Once we have these environment variables, we can use them to control
-where our software is built.  It is possible to all the objects,s hi
+where our software is built.  It is possible to place all the objects,
 libraries and executable stored in the $TARG directory.  If all the
 generated files are in the $TARG directory, then changing the compiler
 will result in a different TARG directory.  So each $TARG directory is
@@ -119,7 +120,8 @@ your current directory.  The string in the parentheses are what
 settarg are providing.  The "D" is dbg build scenario, the "G/5.2" is
 an abbreviation for the gcc/5.2 compiler module and "M/3.2" is an
 abbreviation for the mpich/3.2 mpi module.  The abbrevations are
-controlled by configuration files.
+controlled by configuration files.  This string is
+TARG_TITLE_BAR_PAREN. 
 
 Settarg configuration
 ---------------------
@@ -130,7 +132,7 @@ of their compilers and mpi modules and other module names.  Then users
 may wish to set their own preferences.  Finally a project may wish to
 have speciallize settings.  All files are merged together in an
 intelligent fashion into a single configuration. They do not overwrite
-the previous setting.  More on this in XXXXX.
+the previous setting.  More on this in :ref:`settarg_configuration-label`
 
 Commands
 ========
@@ -181,17 +183,17 @@ Below are a typical list of variables::
     TARG_SUMMARY=x86_64_06_2d_dbg_gcc-7.1_openmpi-2.2
     TARG=OBJ/_x86_64_06_2d_dbg_gcc-7.1_openmpi-2.2
 
-    TARG_TITLE_BAR=D G-4.6.3 O-1.6.3
-    TARG_TITLE_BAR_PAREN=(D G-4.6.3 O-1.6.3)
+    TARG_TITLE_BAR=D G/7.1 O/2.2
+    TARG_TITLE_BAR_PAREN=(D G/7.1 O/2.2)
 
     TARG_BUILD_SCENARIO=dbg
 
     TARG_MACH=x86_64_06_2d
 
-    TARG_COMPILER=gcc-4.6.3
+    TARG_COMPILER=gcc/7.1
     TARG_COMPILER_FAMILY=gcc
 
-    TARG_MPI=openmpi-1.6.3
+    TARG_MPI=openmpi/2.2
     TARG_MPI_FAMILY=openmpi
 
     TARG_OS=Linux-2.6.32-279
@@ -210,17 +212,23 @@ TARG:
 
 TARG_TITLE_BAR:
     This contains everything in TARG_SUMMARY but it is abbreviated to
-    fit the space available. 
+    fit the space available.   This string is provided in case the
+    user wishes to use this variable as part of their own title bar
+    string.
+
+TARG_TITLE_BAR_PAREN:
+    This is $TARG_TITLE_BAR with parentheses around the string.  This
+    variable is typically used in the xterm title bar.
 
 TARG_BUILD_SCENARIO:
     This can be used to control compiler flags so that "dbg" might
     mean to create a debuggable executable.  Where as "opt" might
     mean to build a fully optimized build.  To clear this field use
-    "empty" 
+    the command ``settarg empty``.
 
 TARG_MACH:
     This is the machine architecture along with the cpu family and
-    model number in two hex numbers when on linux system that has
+    model number in two hex numbers when on Linux system that has
     the psuedo file /proc/cpuinfo. The architecture is what is
     reported by "uname -m"
 
@@ -243,18 +251,21 @@ TARG_OS, TARG_OS_FAMILY:
 TARG_HOST:
     See below on how this is extracted from `hostname -f`
 
+.. _settarg_configuration-label:
+
 Settarg configuration
 =====================
 
-Below is a typical settarg_rc.lua file.  This is file contains several
+Below is a typical configuration file.  This is file contains several
 tables in written in Lua.  If you don't know Lua, it still should be
 easy to modify this table. just remember the comma's.
 
-The BuildScenarioTbl table maps host name to Build Scenario state.  So
-the default is "empty" which means that the TARG_BUILD_SCENARIO is
-undefined.  If you are on "login1.stampede.tacc.utexas.edu" your
-default TARG_BUILD_SCENARIO will be "opt".  Similarily, any host with
-"foo.bar.edu" will have a default scenario of "dbg".::
+The BuildScenarioTbl table maps host name to initial Build Scenario
+state.  So the default is "empty" which means that the
+TARG_BUILD_SCENARIO is undefined.  If you are on
+"login1.stampede.tacc.utexas.edu" your default TARG_BUILD_SCENARIO
+will be "opt".  Similarily, any host with "foo.bar.edu" will have a
+default scenario of "dbg".::
 
     BuildScenarioTbl = {
        default             = "empty",
@@ -395,7 +406,3 @@ See the ``contrib/settarg/make_example`` directory and the README.txt
 inside.  That directory contains a simple Makefile and a more
 complicated one to a way to use $TARG in a Makefile so that all
 generated files (*.o and the executable) are in the $TARG directory.
-
-
-
-
