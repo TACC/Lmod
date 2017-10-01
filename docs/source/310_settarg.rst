@@ -37,7 +37,7 @@ developer to integrate these variables in to their build tool. More on
 how to modify a Makefile to know about all the TARG variables later.
 
 The keys to settarg
-~~~~~~~~~~~~~~~~~~~
+-------------------
 
 The keys to settarg are:
 
@@ -87,10 +87,10 @@ result::
     TARG_BUILD_SCENARIO  = opt
 
 Integration with your build system
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------
 
 Once we have these environment variables, we can use them to control
-where our software is built.  It is possible to all the objects,
+where our software is built.  It is possible to all the objects,s hi
 libraries and executable stored in the $TARG directory.  If all the
 generated files are in the $TARG directory, then changing the compiler
 will result in a different TARG directory.  So each $TARG directory is
@@ -98,12 +98,304 @@ independent and we won't require a ``make clean`` between changing
 compilers or build scenarios. 
 
 Integration with PATH
-~~~~~~~~~~~~~~~~~~~~~
+---------------------
 
 It is useful to have your PATH point to the new $TARG directory, so
 settarg changes your path to include $TARG by removing the old value
 of $TARG and replacing it with the new value of $TARG.  This way you
 can set $TARG, build, then run the new executable.
+
+Xterm title bar support
+-----------------------
+
+If the environment variable LMOD_SETTARG_TITLE_BAR=yes and $TERM has
+"xterm" in the string, then loading the module settarg will turn on
+title bar support. A typical string in the title bar might be::
+
+   (D G/5.2 M/3.2)user@host: ~/bin
+
+where user is your user name and host is your hostname followed by
+your current directory.  The string in the parentheses are what
+settarg are providing.  The "D" is dbg build scenario, the "G/5.2" is
+an abbreviation for the gcc/5.2 compiler module and "M/3.2" is an
+abbreviation for the mpich/3.2 mpi module.  The abbrevations are
+controlled by configuration files.
+
+Settarg configuration
+---------------------
+
+Lmod provides a default configuration for settarg in the file
+settarg_rc.lua.  Sites may have to tailor this file to match the names
+of their compilers and mpi modules and other module names.  Then users
+may wish to set their own preferences.  Finally a project may wish to
+have speciallize settings.  All files are merged together in an
+intelligent fashion into a single configuration. They do not overwrite
+the previous setting.  More on this in XXXXX.
+
+Commands
+========
+
+The environment TARG's value is typically used as a name of the build
+directory.  So the settarg module provides some helpful aliases to
+take advantage of this.
+
+#. gettargdir:  it is simply an alias for "echo $TARG"
+#. cdt:         Another alias: "cd $TARG"
+#. settarg:     How to set the build scenario and to access other features.
+
+By default settarg has an "empty" build scenario.  This can be changed
+by::
+
+    $ settarg dbg
+    $ settarg opt
+
+Which will change TARG_BUILD_SCENARIO to "dbg" or "opt".  Also::
+
+    $ settarg --report
+
+report the state of the .settarg table after combining all the
+possible .settarg.lua files.
+
+For those of you who like short commands, please configure Lmod with
+--with_settarg=full or set the environment variable 
+LMOD_FULL_SETTARG_SUPPORT=full before loading the settarg module.
+One useful command is::
+
+    $ targ
+
+which is a short for "gettargdir".  Also if you switch between build
+scenarios frequently may wish to define the following shortcuts for
+setting the build scenario::
+
+    dbg()  { settarg "$@" dbg;   }
+    opt()  { settarg "$@" opt;   }
+    mdbg() { settarg "$@" mdbg;  }
+    empty(){ settarg "$@" empty; }
+  
+
+What environment variables are defined by settarg
+-------------------------------------------------
+
+Below are a typical list of variables::
+
+    TARG_SUMMARY=x86_64_06_2d_dbg_gcc-7.1_openmpi-2.2
+    TARG=OBJ/_x86_64_06_2d_dbg_gcc-7.1_openmpi-2.2
+
+    TARG_TITLE_BAR=D G-4.6.3 O-1.6.3
+    TARG_TITLE_BAR_PAREN=(D G-4.6.3 O-1.6.3)
+
+    TARG_BUILD_SCENARIO=dbg
+
+    TARG_MACH=x86_64_06_2d
+
+    TARG_COMPILER=gcc-4.6.3
+    TARG_COMPILER_FAMILY=gcc
+
+    TARG_MPI=openmpi-1.6.3
+    TARG_MPI_FAMILY=openmpi
+
+    TARG_OS=Linux-2.6.32-279
+    TARG_OS_Family=Linux
+    TARG_HOST=stampede
+
+Here is a glossary of what each of these variables mean:
+
+TARG_SUMMARY:
+    The dynamic combination of items like the machine architecture,
+    build scenario, etc.   See below for how this gets built.
+
+TARG:
+    This variable contains all the "interesting" items.  How is
+    put together is described later.
+
+TARG_TITLE_BAR:
+    This contains everything in TARG_SUMMARY but it is abbreviated to
+    fit the space available. 
+
+TARG_BUILD_SCENARIO:
+    This can be used to control compiler flags so that "dbg" might
+    mean to create a debuggable executable.  Where as "opt" might
+    mean to build a fully optimized build.  To clear this field use
+    "empty" 
+
+TARG_MACH:
+    This is the machine architecture along with the cpu family and
+    model number in two hex numbers when on linux system that has
+    the psuedo file /proc/cpuinfo. The architecture is what is
+    reported by "uname -m"
+
+TARG_COMPILER:
+   The name of the compiler and version writen as <compiler>/<version>
+
+TARG_COMPILER_FAMILY:
+   The name of the compiler without the version.
+
+TARG_MPI:
+   The name of the mpi module and version writen as <mpi>/<version>
+
+TARG_MPI_FAMILY:
+   The name of the mpi module without the version.
+
+TARG_OS, TARG_OS_FAMILY:
+    These are the OS name and family.  These variables are always
+    defined even if there are not part of TARG_SUMMARY.
+
+TARG_HOST:
+    See below on how this is extracted from `hostname -f`
+
+Settarg configuration
+=====================
+
+Below is a typical settarg_rc.lua file.  This is file contains several
+tables in written in Lua.  If you don't know Lua, it still should be
+easy to modify this table. just remember the comma's.
+
+The BuildScenarioTbl table maps host name to Build Scenario state.  So
+the default is "empty" which means that the TARG_BUILD_SCENARIO is
+undefined.  If you are on "login1.stampede.tacc.utexas.edu" your
+default TARG_BUILD_SCENARIO will be "opt".  Similarily, any host with
+"foo.bar.edu" will have a default scenario of "dbg".::
+
+    BuildScenarioTbl = {
+       default             = "empty",
+       ["tacc.utexas.edu"] = "opt",
+       ["foo.bar.edu"]     = "dbg",
+    }
+
+    ModuleTbl = {
+       build_scenario     = { "dbg", "opt", "empty"},
+       compiler           = { "intel", "pgi", "gcc", "sun",},
+       mpi                = { "mpich", "mpich2", "openmpi", "mvapich2", "impi"},
+       solver             = { "petsc","trilinos"},
+       profiling          = { "mpiP", "tau"},
+       file_io            = { "hdf5", "netcdf", },
+    }
+
+    TargetList = { "mach", "build_scenario", "compiler", "mpi"}
+
+    SettargDirTemplate = { "$SETTARG_TAG1", "/", "$SETTARG_TAG2", "$TARG_SUMMARY" }
+
+    NoFamilyList = {"mach", "build_scenario"}
+
+    TitleTbl = {
+       dbg                    = 'D',
+       opt                    = 'O',
+       impi                   = "IM",
+       mvapich2               = 'M',
+       openmpi                = "O",
+       mpich                  = "M",
+       mpich2                 = "M2",
+       intel                  = "I",
+       gcc                    = "G",
+       phdf5                  = "H5"
+       hdf5                   = "H5"
+    }
+
+    TargPathLoc = "first"
+
+    HostnameTbl = { 2}
+
+
+ModuleTbl connects module names with a category.  It is also used to
+define "build_scenario" which is just words to declare a build state.
+In other words, in the above table "dbg" and "opt" could be anything.
+The only hard-wired name is "empty".  The category "build_scenario" is
+also hard-wired.  The names of all other categories are not fixed and
+you are free to add other categories.
+
+This table is also how settarg knows what the names of the compiler
+and mpi stacks are.  If your site uses the name "ompi" for openmpi
+then the above table will have to be modified to match.
+
+TargetList defines how TARG_SUMMARY is assembled.  It is an array of
+categories.   The category "mach" is special it is always defined to
+be `uname -m` plus on linux systems it contains the cpu family and
+model from /proc/cpuinfo. Each piece is concatenated together with
+"_".  If an item is undefined then the extra "_" is removed.
+
+Settarg ships with the order given above, but sites and users can
+change the order to be anything they like.  Also notice that there are
+many more categories then are listed in TargetList.  More on this
+aspect in the "Custom Configuration" section.
+
+SettargDirTemplate specifies how TARG is assembled.  In the case shown
+above then env var SETTARG_TAG1 is combined with "/" and
+SETTARG_TAG2 followed by TARG_SUMMARY.  Both "TAG" variables have to
+be set in the environment.  Here we have assumed that SETTARG_TAG1 is
+"OBJ" and SETTARG_TAG2 is "_".  This leads to TARG being:
+
+    TARG=OBJ/_x86_64_06_2d_dbg_gcc-7.1_openmpi-2.2
+
+
+The NoFamilyList is an array of categories that do not get the FAMILY
+version.  All categories do.  For example, if TARG_COMPILER is
+"gcc/7.1" then TARG_COMPILER_FAMILY is "gcc".
+
+The TARG_TITLE_BAR and TARG_TITLE_BAR_PAREN are strings that could be
+used in a terminal title bar. Every item in the TARG_SUMMARY is in the
+TITLE bar variables (except for TARG_MACH).  Because the title bar
+space is limited, TitleTbl is a way to map each item into an
+abbreviation.   The order in which categories appear on the
+title bar is the same as TargetList.  So a title bar with "O G/7.1
+O/2.2" would mean that you are in "opt" mode with gcc/7.1 and
+openmpi/2.2 loaded.
+
+TargPathLoc controls where (or if) $TARG.  Note that the enviroment
+variable LMOD_TARGPATHLOC is use to control TargPathLoc. Normally the
+value of TARG is placed in the PATH at the begining of your PATH.  You
+can place it at the end of your PATH when TargPathLoc = "last".  If
+TargPathLoc is "empty" then TARG is removed from your path.  Actually
+the rules controlling where TARG goes in your path are slightly more
+complicated.  TargPathLoc controls where $TARG is placed in your path
+when TARG was not there before.  After the first time TARG is added to
+your path, TARG maintains its relative location.
+
+Finally, HostnameTbl tells settarg how to extract an entry from the
+full hostname to be used as TARG_HOST.  If your host has multiple
+components then a "2" would say to use the second component as
+TARG_HOST.  So if your hostname is "login1.stampede.tacc.utexas.edu"
+then TARG_HOST would be "stampede".  If HostnameTbl was "{ 3,2}" then
+TARG_HOST would be "tacc.stampede".  If your hostname has a single
+component then that is used for TARG_HOST.
+
+Custon configuration
+--------------------
+
+Settarg will read up to three separate copies of settarg configuration
+files.  The first one is in the same directory as the settarg command
+is and is called settarg_rc.lua.  The second place is in the user's
+home directory (if ~/.settarg.lua exists). Then from the current
+directory up to "/" it looks for another .settarg.lua (if it exists).
+It will not re-read the ~/.settarg.lua.  Typically a user should copy
+the system .settarg.lua to their home diprectory and specify the
+generally desired behaviour.  Then in top directory of a project place
+a simple .settarg.lua that specifies how the target list should be put
+together for that project:
+
+Suppose that TargetList ~/.settarg.lua is
+
+   TargetList  = { "mach", "build_scenario", "compiler", "mpi",}
+
+Then in ~/project/a there is another .settarg.lua that just has:
+
+   TargetList  = { "mach", "build_scenario", "compiler", "mpi", "file_io"}
+
+Normally in any directory your TARG will be the default, but in any
+directory below ~/project/a TARG will have hdf5 or netcdf if either
+are loaded.
+
+To see the state of the configuration execute::
+
+    $ settarg --report
+
+Makefile integration
+====================
+
+See the ``contrib/settarg/make_example`` directory and the README.txt
+inside.  That directory contains a simple Makefile and a more
+complicated one to a way to use $TARG in a Makefile so that all
+generated files (*.o and the executable) are in the $TARG directory.
+
 
 
 
