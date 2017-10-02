@@ -1,7 +1,12 @@
 .. _settarg-label:
 
+================================================
 Combining build systems and modules with settarg
 ================================================
+
+````````````
+Introduction
+````````````
 
 Settarg works with Lmod to help developers manage their compiled
 software projects. It does so by making it easy to switch between
@@ -38,7 +43,7 @@ developer to integrate these variables in to their build tool. More on
 how to modify a Makefile to know about all the TARG variables later.
 
 The keys to settarg
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 The keys to settarg are:
 
@@ -88,7 +93,7 @@ result::
     TARG_BUILD_SCENARIO  = opt
 
 Integration with your build system
-----------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Once we have these environment variables, we can use them to control
 where our software is built.  It is possible to place all the objects,
@@ -99,7 +104,7 @@ independent and we won't require a ``make clean`` between changing
 compilers or build scenarios. 
 
 Integration with PATH
----------------------
+~~~~~~~~~~~~~~~~~~~~~
 
 It is useful to have your PATH point to the new $TARG directory, so
 settarg changes your path to include $TARG by removing the old value
@@ -107,7 +112,7 @@ of $TARG and replacing it with the new value of $TARG.  This way you
 can set $TARG, build, then run the new executable.
 
 Xterm title bar support
------------------------
+~~~~~~~~~~~~~~~~~~~~~~~
 
 If the environment variable LMOD_SETTARG_TITLE_BAR=yes and $TERM has
 "xterm" in the string, then loading the module settarg will turn on
@@ -124,7 +129,7 @@ controlled by configuration files.  This string is
 TARG_TITLE_BAR_PAREN. 
 
 Settarg configuration
----------------------
+~~~~~~~~~~~~~~~~~~~~~
 
 Lmod provides a default configuration for settarg in the file
 settarg_rc.lua.  Sites may have to tailor this file to match the names
@@ -135,7 +140,7 @@ intelligent fashion into a single configuration. They do not overwrite
 the previous setting.  More on this in :ref:`settarg_configuration-label`
 
 Commands
-========
+~~~~~~~~
 
 The environment TARG's value is typically used as a name of the build
 directory.  So the settarg module provides some helpful aliases to
@@ -176,7 +181,7 @@ setting the build scenario::
   
 
 What environment variables are defined by settarg
--------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Below are a typical list of variables::
 
@@ -253,8 +258,9 @@ TARG_HOST:
 
 .. _settarg_configuration-label:
 
-Settarg configuration
-=====================
+```````````````````````````
+Settarg configuration files
+```````````````````````````
 
 Below is a typical configuration file.  This is file contains several
 tables in written in Lua.  If you don't know Lua, it still should be
@@ -370,42 +376,45 @@ TARG_HOST would be "tacc.stampede".  If your hostname has a single
 component then that is used for TARG_HOST.
 
 Custon configuration
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 Settarg will read up to three separate copies of settarg configuration
 files.  The first one is in the same directory as the settarg command
 is and is called settarg_rc.lua.  The second place is in the user's
-home directory (if ~/.settarg.lua exists). Then from the current
+home directory (if ``~/.settarg.lua`` exists). Then from the current
 directory up to "/" it looks for another .settarg.lua (if it exists).
-It will not re-read the ~/.settarg.lua.  Typically a user should copy
-the system .settarg.lua to their home diprectory and specify the
-generally desired behaviour.  Then in top directory of a project place
-a simple .settarg.lua that specifies how the target list should be put
-together for that project:
+It will not re-read the ``~/.settarg.lua``.  Typically a user should
+copy the system settarg_rc.lua to their home directory (as
+``~/.settarg.lua``) and specify the generally desired behaviour.  Then
+in top directory of a project place a simple .settarg.lua that
+specifies how the target list should be put together for that project:
 
-Suppose that TargetList ~/.settarg.lua is
+Suppose that TargetList ``~/.settarg.lua`` is::
 
    TargetList  = { "mach", "build_scenario", "compiler", "mpi",}
 
-Then in ~/project/a there is another .settarg.lua that just has:
+Then in ``~/project/a`` there is another ``.settarg.lua`` that just has::
 
    TargetList  = { "mach", "build_scenario", "compiler", "mpi", "file_io"}
 
 Normally in any directory your TARG will be the default, but in any
-directory below ~/project/a TARG will have hdf5 or netcdf if either
+directory below ``~/project/a`` TARG will have hdf5 or netcdf if either
 are loaded.
 
 To see the state of the configuration execute::
 
     $ settarg --report
 
+````````````````````
 Makefile integration
-====================
+````````````````````
+
 
 See the ``contrib/settarg/make_example`` directory and the README.txt
 inside.  That directory contains a simple Makefile and a more
 complicated one to a way to use $TARG in a Makefile so that all
-generated files (*.o and the executable) are in the $TARG directory.
+generated files (``*.o`` and the executable) are in the $TARG directory.
+
 
 There are four main points to converting a Makefile to know about
 settarg.  The first is to set the compiler based on

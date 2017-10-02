@@ -75,7 +75,7 @@ Use SitePackage.lua to send a message to syslog.::
       a[#a+1]           = msg
    end
 
-   hook.register("load",           load_hook)
+   hook.register("load", load_hook)
 
    local function report_loads()
       local a = s_msgA
