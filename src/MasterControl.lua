@@ -63,6 +63,7 @@ local s_loadT      = {}
 local s_moduleStk  = {}
 local s_missDepT   = {}
 
+
 function M.name(self)
    return self.my_name
 end
@@ -136,16 +137,43 @@ function M.build(name,mode)
 
    local o                = valid_name(s_nameTbl, name):create()
    o:_setMode(mode or name)
+   o.__first   =  0
+   o.__last    = -1
+   o.__moduleQ = {}
 
    dbg.print{"Setting mcp to ", o:name(),"\n"}
    return o
 end
 
 -------------------------------------------------------------------
+-- Module Queue functions
+
+function M.pushModule(self, value)
+   local last  = self.__last + 1
+   self.__last = last
+   self.__moduleQ[last] = value
+end
+
+function M.popModule(self)
+   local first = self.__first
+   if (first > self.__last) then
+      LmodError{msg="e_BrokenQ"}
+   end
+   local value           = self.__moduleQ[first]
+   self.__moduleQ[first] = nil                   -- to allow garbage collection
+   self.__first          = first + 1
+   return value
+end
+
+function M.isEmpty(self)
+   return self.__last < self.__first
+end
+
+-------------------------------------------------------------------
 -- Setenv / Unsetenv Functions
 -------------------------------------------------------------------
 
---------------------------------------------------------------------------
+-------------------------------------------------------------------
 -- Set an environment variable.
 -- @param self A MasterControl object.
 -- @param name the environment variable name.
@@ -940,6 +968,11 @@ function M.load(self, mA)
 
    local master = Master:singleton()
    local a      = master:load(mA)
+
+   while (not self:isEmpty()) do
+      local mname = self:popModule()
+      a[#a+1]     = master:load{mname}
+   end
 
    if (not quiet()) then
       self:registerAdminMsg(mA)

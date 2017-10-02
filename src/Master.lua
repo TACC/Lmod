@@ -265,97 +265,103 @@ function M.load(self, mA)
 
 
    for i = 1,#mA do
-      local mname      = mA[i]
-      local userName   = mname:userName()
+      repeat
+         local mname      = mA[i]
+         local userName   = mname:userName()
 
-      dbg.print{"Master:load i: ",i," userName: ",userName,"\n"}
+         dbg.print{"Master:load i: ",i,", userName: ",userName,", stackDepth: ",frameStk:stackDepth(),"\n",}
 
-      mt               = frameStk:mt()
-      local sn         = mname:sn()
-      local fullName   = mname:fullName()
-      local fn         = mname:fn()
-      local loaded     = false
+         mt               = frameStk:mt()
+         local sn         = mname:sn()
+         if ((sn == nil) and ((i > 1) or (not frameStk:atTop()))) then
+            mcp:pushModule(mname)
+            break  
+         end
+
+         local fullName   = mname:fullName()
+         local fn         = mname:fn()
+         local loaded     = false
      
-      if (tracing == "yes") then
-         local stackDepth = frameStk:stackDepth()
-         local indent     = ("  "):rep(stackDepth+1)
-         local b          = {}
-         b[#b + 1]        = indent
-         b[#b + 1]        = "Loading: "
-         b[#b + 1]        = userName
-         b[#b + 1]        = " (fn: "
-         b[#b + 1]        = fn or "nil"
-         b[#b + 1]        = ")\n"
-         shell:echo(concatTbl(b,""))
-      end
-
-      dbg.print{"Master:load i: ",i," sn: ",sn," fn: ",fn,"\n"}
-
-      if (mt:have(sn,"active")) then
-         local version    = mname:version()
-         local mt_version = mt:version(sn)
-
-         dbg.print{"mnV: ",version,", mtV: ",mt_version,"\n"}
-
-         if (disable_same_name_autoswap == "yes" and mt_version ~= version) then
-            local oldFullName = pathJoin(sn,mt_version)
-            LmodError{msg="e_No_AutoSwap", oldFullName = oldFullName, sn = sn, oldVersion = mt_version,
-                                           newFullName = fullName,    newVersion = mname:version()}
+         if (tracing == "yes") then
+            local stackDepth = frameStk:stackDepth()
+            local indent     = ("  "):rep(stackDepth+1)
+            local b          = {}
+            b[#b + 1]        = indent
+            b[#b + 1]        = "Loading: "
+            b[#b + 1]        = userName
+            b[#b + 1]        = " (fn: "
+            b[#b + 1]        = fn or "nil"
+            b[#b + 1]        = ")\n"
+            shell:echo(concatTbl(b,""))
          end
 
-         local mcp_old = mcp
-         local mcp     = MCP
-         dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-         mcp:unload{MName:new("mt",sn)}
-         mname:reset()  -- force a new lazyEval
-         local aa = mcp:load_usr{mname}
-         mcp      = mcp_old
-         dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-         loaded = aa[1]
-      elseif (not fn and not frameStk:empty()) then
-         local msg = "Executing this command requires loading \"" .. userName .. "\" which failed"..
-            " while processing the following module(s):\n\n"
-         msg = buildMsg(TermWidth(), msg)
-         if (haveWarnings()) then
-            stackTraceBackA[#stackTraceBackA+1] = moduleStackTraceBack(msg)
+         dbg.print{"Master:load i: ",i," sn: ",sn," fn: ",fn,"\n"}
+
+         if (mt:have(sn,"active")) then
+            local version    = mname:version()
+            local mt_version = mt:version(sn)
+
+            dbg.print{"mnV: ",version,", mtV: ",mt_version,"\n"}
+
+            if (disable_same_name_autoswap == "yes" and mt_version ~= version) then
+               local oldFullName = pathJoin(sn,mt_version)
+               LmodError{msg="e_No_AutoSwap", oldFullName = oldFullName, sn = sn, oldVersion = mt_version,
+                                              newFullName = fullName,    newVersion = mname:version()}
+            end
+
+            local mcp_old = mcp
+            local mcp     = MCP
+            dbg.print{"Setting mcp to ", mcp:name(),"\n"}
+            mcp:unload{MName:new("mt",sn)}
+            mname:reset()  -- force a new lazyEval
+            local aa = mcp:load_usr{mname}
+            mcp      = mcp_old
+            dbg.print{"Setting mcp to ", mcp:name(),"\n"}
+            loaded = aa[1]
+         elseif (not fn and not frameStk:empty()) then
+            local msg = "Executing this command requires loading \"" .. userName .. "\" which failed"..
+               " while processing the following module(s):\n\n"
+            msg = buildMsg(TermWidth(), msg)
+            if (haveWarnings()) then
+               stackTraceBackA[#stackTraceBackA+1] = moduleStackTraceBack(msg)
+            end
+         elseif (fn) then
+            dbg.print{"Master:loading: \"",userName,"\" from file: \"",fn,"\"\n"}
+            local mList = concatTbl(mt:list("both","active"),":")
+            frameStk:push(mname)
+            mt = frameStk:mt()
+            mt:add(mname,"pending")
+            loadModuleFile{file = fn, shell = shellNm, mList = mList, reportErr = true}
+            mt = frameStk:mt()
+            mt:setStatus(sn, "active")
+            hook.apply("load",{fn = mname:fn(), modFullName = mname:fullName()})
+            frameStk:pop()
+            dbg.print{"Marking ",fullName," as active and loaded\n"}
+            registerLoaded(fullName, fn)
+            loaded = true
          end
-      elseif (fn) then
-         dbg.print{"Master:loading: \"",userName,"\" from file: \"",fn,"\"\n"}
-         local mList = concatTbl(mt:list("both","active"),":")
-         frameStk:push(mname)
-         mt = frameStk:mt()
-         mt:add(mname,"pending")
-         loadModuleFile{file = fn, shell = shellNm, mList = mList, reportErr = true}
-         mt = frameStk:mt()
-         mt:setStatus(sn, "active")
-         hook.apply("load",{fn = mname:fn(), modFullName = mname:fullName()})
-         frameStk:pop()
-         dbg.print{"Marking ",fullName," as active and loaded\n"}
-         registerLoaded(fullName, fn)
-         loaded = true
-      end
-      a[#a + 1] = loaded
+         a[#a + 1] = loaded
 
-      if (not mcp.familyStackEmpty()) then
-         local b = {}
-         while (not mcp.familyStackEmpty()) do
-            local   b_old, b_new = mcp.familyStackPop()
-            LmodMessage{msg="m_Family_Swap", oldFullName=b_old.fullName, newFullName=b_new.fullName}
-            local umA   = {MName:new("mt",   b_old.sn) , MName:new("mt",   b_new.sn) }
-            local lmA   = {MName:new("load", b_new.userName)}
-            b[#b+1]     = {umA = umA, lmA = lmA}
+         if (not mcp.familyStackEmpty()) then
+            local b = {}
+            while (not mcp.familyStackEmpty()) do
+               local   b_old, b_new = mcp.familyStackPop()
+               LmodMessage{msg="m_Family_Swap", oldFullName=b_old.fullName, newFullName=b_new.fullName}
+               local umA   = {MName:new("mt",   b_old.sn) , MName:new("mt",   b_new.sn) }
+               local lmA   = {MName:new("load", b_new.userName)}
+               b[#b+1]     = {umA = umA, lmA = lmA}
+            end
+
+
+            local force = true
+            for j = 1,#b do
+               s_stk[#s_stk + 1] = "stuff"
+               mcp:unload_usr(b[j].umA, force)
+               mcp:load(b[j].lmA)
+               remove(s_stk)
+            end
          end
-
-
-         local force = true
-         for j = 1,#b do
-            s_stk[#s_stk + 1] = "stuff"
-            mcp:unload_usr(b[j].umA, force)
-            mcp:load(b[j].lmA)
-            remove(s_stk)
-         end
-      end
-
+      until true
    end
       
    mt = frameStk:mt()
