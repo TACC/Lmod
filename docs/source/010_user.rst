@@ -136,7 +136,7 @@ If you ever have to load a module name *spider* you can do::
 
   $ ml load spider
 
-If you are ever force to type the module command instead of **ml**
+If you are ever forced to type the **module** command instead of **ml**
 then that is a bug and should be reported.
 
 SAFETY FEATURES
