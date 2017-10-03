@@ -11,58 +11,75 @@ _________________________________
 
 The module command sets the appropriate environment variable
 independent of the user's shell.  Typically the system will load a
-default set of modules.  A user can list the modules loaded by: ::
+default set of modules.  A user can list the modules loaded by::
 
     $ module list
 
-To find out what modules are available to be loaded a user can do: ::
+To find out what modules are available to be loaded a user can do::
 
     $ module avail
 
-To load packages a user simply does: ::
+To load packages a user simply does::
 
     $ module load package1 package2 ...
 
-To unload packages a user does: ::
+To unload packages a user does::
 
     $ module unload package1 package2 ...
 
-A user might wish to change from one compiler to another: ::
+A user might wish to change from one compiler to another::
 
     $ module swap gcc intel
 
-The above command is short for: ::
+The above command is short for::
 
     $ module unload gcc
     $ module load intel
 
-If a module is not available then an error message is produced: ::
+A user may wish to go back to an initial set of modules::
+
+    $ module reset
+
+This will purge all currently loaded modules then load the list of
+modules specified by LMOD_SYSTEM_DEFAULT_MODULES. There is a related
+command::
+
+    $ module restore
+
+This command will also purge all currently loaded modules and then
+load the system default unless the user has a default collection.
+See :ref:`user_collections-label` for more details.
+
+If a module is not available then an error message is produced::
 
     $ module load packageXYZ
     Warning: Failed to load: packageXYZ
 
 It is possible to try to load a module with no error message if it
-does not exist: ::
+does not exist::
 
     $ module try-load packageXYZ
 
 Modulefiles can contain help messages.  To access a modulefile's help
-do: ::
+do::
 
     $ module help packageName
 
-To get a list of all the commands that module knows about do: ::
+To get a list of all the commands that module knows about do::
 
     $ module help
 
-The module avail command has search capabilities: ::
+The module avail command has search capabilities::
 
    $ module avail cc
 
 will list for any modulefile where the name contains the string "cc".
 
+
+
+
 Modulefiles can have a description section known as "whatis".  It is
-accessed by: ::
+accessed by::
 
    $ module whatis pmetis
    pmetis/3.1	: Name: ParMETIS
@@ -74,7 +91,8 @@ Finally, there is a keyword search tool: ::
 
    $ module keyword word1 word2 ...
 
-This will search any help or whatis description for the word(s) given on the command line.
+This will search any help message  or whatis description for the
+word(s) given on the command line. 
 
 Another way to search for modules is with the "module spider" command.
 This command searches the entire list of possible modules.  The
@@ -324,6 +342,8 @@ as that file is always sourced:  ::
     endif
 
 
+.. _user_collections-label:
+
 User Collections
 ~~~~~~~~~~~~~~~~
 
@@ -332,7 +352,7 @@ User defined initial list of login modules:
 Assuming that the system administrators have installed Lmod correctly,
 there is a second way which is much easier to setup. A user logs in
 with the standard modules loaded. Then the user modifies the default
-setup through the standard module commands:  ::
+setup through the standard module commands::
 
       $ module unload XYZ
       $ module swap gcc ucc
@@ -343,11 +363,17 @@ Once users have the desired modules load then they issue::
       $ module save
 
 This creates a file called ``~/.lmod.d/default`` which has the list of
-desired modules. Once this is setup a user can issue::
+desired modules. Once this is set-up a user can issue::
 
       $ module restore
 
-and only the desired modules will be loaded during login.
+and only the desired modules will be loaded. If Lmod is setup
+correctly (see :ref:`startup_w_stdenv-label`) then the default
+collection will be the user's initial set of modules.
+
+If a user doesn't have a default collection, the Lmod purges all
+currently loaded modules and loads the list of module specified by
+LMOD_SYSTEM_DEFAULT_MODULES just like the ``module reset`` command.
 
 Users can have as many collections as they like.  They can save to a
 named collection with::

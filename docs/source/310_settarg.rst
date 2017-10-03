@@ -1,7 +1,7 @@
 .. _settarg-label:
 
 ================================================
-Combining build systems and modules with settarg
+Combining modules and build systems with settarg
 ================================================
 
 ````````````

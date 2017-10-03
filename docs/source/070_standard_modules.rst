@@ -1,3 +1,5 @@
+.. _startup_w_stdenv-label:
+
 Providing A Standard Set Of Modules for all Users
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
