@@ -269,11 +269,12 @@ function M.load(self, mA)
          local mname      = mA[i]
          local userName   = mname:userName()
 
-         dbg.print{"Master:load i: ",i,", userName: ",userName,", stackDepth: ",frameStk:stackDepth(),"\n",}
+         dbg.print{"Master:load i: ",i,", userName: ",userName,"\n",}
 
          mt               = frameStk:mt()
          local sn         = mname:sn()
-         if ((sn == nil) and ((i > 1) or (not frameStk:atTop()))) then
+         if ((sn == nil) and ((i > 1) or (frameStk:stackDepth() > 0))) then
+            dbg.print{"Pushing ",mname:userName()," on moduleQ\n"}
             mcp:pushModule(mname)
             break  
          end
