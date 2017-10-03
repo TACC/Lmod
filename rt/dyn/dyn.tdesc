@@ -26,7 +26,8 @@ testdescript = {
 
      runLmod --version                         # 1
      runLmod load intel impi                   # 2
-     runLmod load gcc   fenics                 # 3
+     runLmod -T load gcc   fenics              # 3
+     runLmod load gcc   fenics                 # 4
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

@@ -62,6 +62,7 @@ local s_adminT     = {}
 local s_loadT      = {}
 local s_moduleStk  = {}
 local s_missDepT   = {}
+local q_load       = 0
 
 
 function M.name(self)
@@ -971,6 +972,11 @@ function M.load(self, mA)
 
    while (not self:isEmpty()) do
       local mname = self:popModule()
+      q_load      = q_load + 1
+      dbg.print{"q_load: ",q_load,", Trying to load userName: ",mname:userName(),"\n"}
+      if (q_load > 10) then
+         LmodError("too many q loads\n")
+      end
       a[#a+1]     = master:load{mname}
    end
 
