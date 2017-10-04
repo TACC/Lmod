@@ -32,51 +32,9 @@ export _ModuleTable_;
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T load gcc fenics
 ===========================
-GCC="7.1";
-export GCC;
-LMOD_FAMILY_COMPILER="gcc";
-export LMOD_FAMILY_COMPILER;
-LMOD_FAMILY_COMPILER_VERSION="7.1";
-export LMOD_FAMILY_COMPILER_VERSION;
-LMOD_FAMILY_MPI="impi";
-export LMOD_FAMILY_MPI;
-LMOD_FAMILY_MPI_VERSION="18.0.1";
-export LMOD_FAMILY_MPI_VERSION;
-__LMOD_REF_COUNT_LOADEDMODULES="gcc/7.1:1;impi/18.0.1:1;fenics/1.0:1";
-export __LMOD_REF_COUNT_LOADEDMODULES;
-LOADEDMODULES="gcc/7.1:impi/18.0.1:fenics/1.0";
-export LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/dyn/mf/MPI/gcc/7.1/impi/18.0:ProjectDIR/rt/dyn/mf/Compiler/gcc/7.1:ProjectDIR/rt/dyn/mf/Core";
-export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/dyn/mf/Core/gcc/7.1.lua:1;ProjectDIR/rt/dyn/mf/Compiler/gcc/7.1/impi/18.0.1.lua:1;ProjectDIR/rt/dyn/mf/MPI/gcc/7.1/impi/18.0/fenics/1.0.lua:1";
-export __LMOD_REF_COUNT__LMFILES_;
-_LMFILES_="ProjectDIR/rt/dyn/mf/Core/gcc/7.1.lua:ProjectDIR/rt/dyn/mf/Compiler/gcc/7.1/impi/18.0.1.lua:ProjectDIR/rt/dyn/mf/MPI/gcc/7.1/impi/18.0/fenics/1.0.lua";
-export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["Compiler"]="gcc",["MPI"]="impi",},mT={fenics={["fn"]="ProjectDIR/rt/dyn/mf/MPI/gcc/7.1/impi/18.0/fenics/1.0.lua",["fullName"]="fenics/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="fenics",},gcc={["fn"]="ProjectDIR/rt/dyn/mf/Core/gcc/7.1.lua",["fullName"]="gcc/7.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="gcc",},impi={["fn"]="ProjectDIR/rt/dyn/mf/Compiler/gcc/7.1/impi/18.0.1.lua",["fullName"]="impi/18.0.1",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="impi",},},mpathA={"ProjectDIR/rt/dyn/mf/MPI/gcc/7.1/impi/18.0","ProjectDIR/rt/dyn/mf/Compiler/gcc/7.1","ProjectDIR/rt/dyn/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/dyn/mf/Core",}';
-export _ModuleTable_;
-fenics="1.0";
-export fenics;
+false
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc fenics
 ===========================
-GCC="7.1";
-export GCC;
-LMOD_FAMILY_COMPILER="gcc";
-export LMOD_FAMILY_COMPILER;
-LMOD_FAMILY_COMPILER_VERSION="7.1";
-export LMOD_FAMILY_COMPILER_VERSION;
-LMOD_FAMILY_MPI="impi";
-export LMOD_FAMILY_MPI;
-LMOD_FAMILY_MPI_VERSION="18.0.1";
-export LMOD_FAMILY_MPI_VERSION;
-LOADEDMODULES="gcc/7.1:impi/18.0.1:fenics/1.0";
-export LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/dyn/mf/MPI/gcc/7.1/impi/18.0:ProjectDIR/rt/dyn/mf/Compiler/gcc/7.1:ProjectDIR/rt/dyn/mf/Core";
-export MODULEPATH;
-_LMFILES_="ProjectDIR/rt/dyn/mf/Core/gcc/7.1.lua:ProjectDIR/rt/dyn/mf/Compiler/gcc/7.1/impi/18.0.1.lua:ProjectDIR/rt/dyn/mf/MPI/gcc/7.1/impi/18.0/fenics/1.0.lua";
-export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["Compiler"]="gcc",["MPI"]="impi",},mT={fenics={["fn"]="ProjectDIR/rt/dyn/mf/MPI/gcc/7.1/impi/18.0/fenics/1.0.lua",["fullName"]="fenics/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="fenics",},gcc={["fn"]="ProjectDIR/rt/dyn/mf/Core/gcc/7.1.lua",["fullName"]="gcc/7.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="gcc",},impi={["fn"]="ProjectDIR/rt/dyn/mf/Compiler/gcc/7.1/impi/18.0.1.lua",["fullName"]="impi/18.0.1",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="impi",},},mpathA={"ProjectDIR/rt/dyn/mf/MPI/gcc/7.1/impi/18.0","ProjectDIR/rt/dyn/mf/Compiler/gcc/7.1","ProjectDIR/rt/dyn/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/dyn/mf/Core",}';
-export _ModuleTable_;
-fenics="1.0";
-export fenics;
+false

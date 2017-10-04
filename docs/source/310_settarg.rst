@@ -11,9 +11,9 @@ Introduction
 Settarg works with Lmod to help developers manage their compiled
 software projects. It does so by making it easy to switch between
 optimize or debug builds or changing compiler or other modules and
-letting the build system about the changes.  The secret of settarg is
-that concentrates the state of a build into one environment variable
-called $TARG.
+letting the build system know about the changes.  The secret of
+settarg is that it concentrates the state of a build into one
+environment variable called $TARG.
 
 One of the big advantages of developing software with a module system
 is the ability to easily switch between compilers and mpi stacks and
@@ -38,9 +38,10 @@ the objects, libraries and executes in a separate directory for each
 kind of build so that they never mix and this avoids hard to resolve
 bugs.
 
-Settarg manages these environment variables but it up to the software
-developer to integrate these variables in to their build tool. More on
-how to modify a Makefile to know about all the TARG variables later.
+Settarg manages these environment variables but it is up to the
+software developer to integrate these variables in to their build
+system. More on how to modify a Makefile to know about all the TARG
+variables later.
 
 The keys to settarg
 ~~~~~~~~~~~~~~~~~~~
@@ -48,8 +49,8 @@ The keys to settarg
 The keys to settarg are:
 
 #. It manages a set of environment variables including $TARG
-#. It is integrated so that changes in modules automatically changes
-   $TARG
+#. It is integrated with Lmod so that changes in modules automatically
+   changes $TARG
 #. Your PATH is dynamically adjusted with $TARG
 #. The title bar is dynamically managed.
 #. It is easy to configure with site, user and project control.
@@ -63,7 +64,7 @@ be::
 
     TARG = OBJ/_x86_64_06_2d_dbg_gcc-7.1_openmpi-2.2
 
-Settarg also generates other environment variable to be used to
+Settarg also generates other environment variables to be used to
 control your Makefile or other build tool.  So for the above $TARG,
 the following variables are also set::
 
