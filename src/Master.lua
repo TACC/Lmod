@@ -554,14 +554,14 @@ function M.reloadAll(self)
             end
          else
             dbg.print{"module sn: ", sn, " is inactive\n"}
-            local fn    = mt:fn(sn)
-            local name  = v.name          -- This name is short for default and
+            local fn_old = mt:fn(sn)
+            local name   = v.name          -- This name is short for default and
                                           -- Full for specific version.
             dbg.print{"Master:reloadAll Loading module: \"", name, "\"\n"}
             local aa = mcp:load({MName:new("load",name)})
             mt       = frameStk:mt()
-            dbg.print{"aa[1]: ",aa[1],", fn_old: ",fn,", fn: ",mt:fn(sn),"\n"}
-            if (aa[1] and fn ~= mt:fn(sn)) then
+            dbg.print{"aa[1]: ",aa[1],", fn_old: ",fn_old,", fn: ",mt:fn(sn),"\n"}
+            if (aa[1] and fn_old ~= mt:fn(sn)) then
                dbg.print{"Master:reloadAll module: ", name, " marked as reloaded\n"}
             end
             if (aa[1]) then
