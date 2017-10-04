@@ -22,17 +22,14 @@ Lmod is automatically replacing "intel/18.0.1" with "gcc/7.1".
     Removing: ProjectDIR/rt/dyn/mf/Compiler/gcc/7.1 from MODULEPATH
   Loading: gcc (fn: ProjectDIR/rt/dyn/mf/Core/gcc/7.1.lua)
     Prepending: ProjectDIR/rt/dyn/mf/Compiler/gcc/7.1 to MODULEPATH
-  Loading: fenics (fn: nil)
   Unloading: impi (fn: ProjectDIR/rt/dyn/mf/Compiler/intel/18.0/impi/18.0.1.lua)
     Removing: ProjectDIR/rt/dyn/mf/MPI/intel/18.0/impi/18.0 from MODULEPATH
   Loading: impi (fn: ProjectDIR/rt/dyn/mf/Compiler/gcc/7.1/impi/18.0.1.lua)
     Prepending: ProjectDIR/rt/dyn/mf/MPI/gcc/7.1/impi/18.0 to MODULEPATH
-Lmod has detected the following error: These module(s) exist but cannot be loaded as requested: "fenics"
-   Try: "module spider fenics" to see how to load the module(s).
+  Loading: fenics (fn: ProjectDIR/rt/dyn/mf/MPI/gcc/7.1/impi/18.0/fenics/1.0.lua)
+Due to MODULEPATH changes, the following have been reloaded:
+  1) impi/18.0.1
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc fenics
 ===========================
-Lmod is automatically replacing "intel/18.0.1" with "gcc/7.1".
-Lmod has detected the following error: These module(s) exist but cannot be loaded as requested: "fenics"
-   Try: "module spider fenics" to see how to load the module(s).

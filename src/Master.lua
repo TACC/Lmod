@@ -275,12 +275,12 @@ function M.load(self, mA)
 
          mt               = frameStk:mt()
          local sn         = mname:sn()
-         --if ((sn == nil) and ((i > 1) or (frameStk:stackDepth() > 0))) then
-         --   dbg.print{"Pushing ",mname:userName()," on moduleQ\n"}
-         --   dbg.print{"i: ",i,", stackDepth: ", frameStk:stackDepth(),"\n"}
-         --   mcp:pushModule(mname)
-         --   break  
-         --end
+         if ((sn == nil) and ((i > 1) or (frameStk:stackDepth() > 0))) then
+            dbg.print{"Pushing ",mname:userName()," on moduleQ\n"}
+            dbg.print{"i: ",i,", stackDepth: ", frameStk:stackDepth(),"\n"}
+            mcp:pushModule(mname)
+            break  
+         end
 
          local fullName   = mname:fullName()
          local fn         = mname:fn()
@@ -382,28 +382,27 @@ function M.load(self, mA)
       end
    end
 
-   --local clear = false
-   --while (not mcp:isEmpty()) do
-   --   local mname = mcp:popModule()
-   --   q_load      = q_load + 1
-   --   dbg.print{"q_load: ",q_load,", Trying to load userName: ",mname:userName(),"\n"}
-   --   if (q_load > 10) then
-   --      LmodError("too many q loads\n")
-   --   end
-   --   if (not s_same) then
-   --      a[#a+1] = self:load{mname}
-   --      dbg.print{"a[#a]: ",a[#a],"\n"}
-   --      if (not a[#a]) then
-   --         dbg.print{"setting clear: true\n"}
-   --         clear = true
-   --      end
-   --   end
-   --end
-
-   --if (clear) then
-   --   s_same = true
-   --   dbg.print{"setting s_same: true\n"}
-   --end
+   local clear = false
+   if (not s_same) then
+      while (not mcp:isEmpty()) do
+         local mname = mcp:popModule()
+         q_load      = q_load + 1
+         dbg.print{"q_load: ",q_load,", Trying to load userName: ",mname:userName(),"\n"}
+         if (q_load > 10) then
+            break
+         end
+         a[#a+1] = self:load{mname}
+         dbg.print{"a[#a]: ",a[#a],"\n"}
+         if (not a[#a]) then
+            dbg.print{"setting clear: true\n"}
+            clear = true
+         end
+      end
+   end
+   if (clear) then
+      s_same = true
+      dbg.print{"setting s_same: true\n"}
+   end
          
    dbg.fini("Master:load")
    return a
