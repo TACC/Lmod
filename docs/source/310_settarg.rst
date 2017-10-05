@@ -8,11 +8,11 @@ Combining modules and build systems with settarg
 Introduction
 ````````````
 
-Settarg works with Lmod to help developers manage their compiled
-software projects. It does so by making it easy to switch between
-optimize or debug builds or changing compiler or other modules and
-letting the build system know about the changes.  The secret of
-settarg is that it concentrates the state of a build into one
+The settarg module works with Lmod to help developers manage their
+compiled software projects. It does so by making it easy to switch
+between optimize or debug builds; change compiler or other modules;
+and let the build system know about the changes.  The secret of
+settarg is that it consolidates the state of a build into one
 environment variable called $TARG.
 
 One of the big advantages of developing software with a module system
@@ -125,7 +125,7 @@ where user is your user name and host is your hostname followed by
 your current directory.  The string in the parentheses are what
 settarg are providing.  The "D" is dbg build scenario, the "G/5.2" is
 an abbreviation for the gcc/5.2 compiler module and "M/3.2" is an
-abbreviation for the mpich/3.2 mpi module.  The abbrevations are
+abbreviation for the mpich/3.2 mpi module.  The abbreviations are
 controlled by configuration files.  This string is
 TARG_TITLE_BAR_PAREN. 
 
@@ -136,7 +136,7 @@ Lmod provides a default configuration for settarg in the file
 settarg_rc.lua.  Sites may have to tailor this file to match the names
 of their compilers and mpi modules and other module names.  Then users
 may wish to set their own preferences.  Finally a project may wish to
-have speciallize settings.  All files are merged together in an
+have specialize settings.  All files are merged together in an
 intelligent fashion into a single configuration. They do not overwrite
 the previous setting.  More on this in :ref:`settarg_configuration-label`
 
@@ -235,17 +235,17 @@ TARG_BUILD_SCENARIO:
 TARG_MACH:
     This is the machine architecture along with the cpu family and
     model number in two hex numbers when on Linux system that has
-    the psuedo file /proc/cpuinfo. The architecture is what is
+    the pseudo file /proc/cpuinfo. The architecture is what is
     reported by "uname -m"
 
 TARG_COMPILER:
-   The name of the compiler and version writen as <compiler>/<version>
+   The name of the compiler and version written as <compiler>/<version>
 
 TARG_COMPILER_FAMILY:
    The name of the compiler without the version.
 
 TARG_MPI:
-   The name of the mpi module and version writen as <mpi>/<version>
+   The name of the mpi module and version writ-en as <mpi>/<version>
 
 TARG_MPI_FAMILY:
    The name of the mpi module without the version.
@@ -271,7 +271,7 @@ The BuildScenarioTbl table maps host name to initial Build Scenario
 state.  So the default is "empty" which means that the
 TARG_BUILD_SCENARIO is undefined.  If you are on
 "login1.stampede.tacc.utexas.edu" your default TARG_BUILD_SCENARIO
-will be "opt".  Similarily, any host with "foo.bar.edu" will have a
+will be "opt".  Similarly, any host with "foo.bar.edu" will have a
 default scenario of "dbg".::
 
     BuildScenarioTbl = {
@@ -327,7 +327,7 @@ then the above table will have to be modified to match.
 
 TargetList defines how TARG_SUMMARY is assembled.  It is an array of
 categories.   The category "mach" is special it is always defined to
-be `uname -m` plus on linux systems it contains the cpu family and
+be `uname -m` plus on Linux systems it contains the cpu family and
 model from /proc/cpuinfo. Each piece is concatenated together with
 "_".  If an item is undefined then the extra "_" is removed.
 
@@ -337,7 +337,7 @@ many more categories then are listed in TargetList.  More on this
 aspect in the "Custom Configuration" section.
 
 SettargDirTemplate specifies how TARG is assembled.  In the case shown
-above then env var SETTARG_TAG1 is combined with "/" and
+above then env. var SETTARG_TAG1 is combined with "/" and
 SETTARG_TAG2 followed by TARG_SUMMARY.  Both "TAG" variables have to
 be set in the environment.  Here we have assumed that SETTARG_TAG1 is
 "OBJ" and SETTARG_TAG2 is "_".  This leads to TARG being:
@@ -358,9 +358,9 @@ title bar is the same as TargetList.  So a title bar with "O G/7.1
 O/2.2" would mean that you are in "opt" mode with gcc/7.1 and
 openmpi/2.2 loaded.
 
-TargPathLoc controls where (or if) $TARG.  Note that the enviroment
+TargPathLoc controls where (or if) $TARG.  Note that the environment
 variable LMOD_TARGPATHLOC is use to control TargPathLoc. Normally the
-value of TARG is placed in the PATH at the begining of your PATH.  You
+value of TARG is placed in the PATH at the beginning of your PATH.  You
 can place it at the end of your PATH when TargPathLoc = "last".  If
 TargPathLoc is "empty" then TARG is removed from your path.  Actually
 the rules controlling where TARG goes in your path are slightly more
@@ -376,7 +376,7 @@ then TARG_HOST would be "stampede".  If HostnameTbl was "{ 3,2}" then
 TARG_HOST would be "tacc.stampede".  If your hostname has a single
 component then that is used for TARG_HOST.
 
-Custon configuration
+Custom configuration
 ~~~~~~~~~~~~~~~~~~~~
 
 Settarg will read up to three separate copies of settarg configuration
@@ -386,7 +386,7 @@ home directory (if ``~/.settarg.lua`` exists). Then from the current
 directory up to "/" it looks for another .settarg.lua (if it exists).
 It will not re-read the ``~/.settarg.lua``.  Typically a user should
 copy the system settarg_rc.lua to their home directory (as
-``~/.settarg.lua``) and specify the generally desired behaviour.  Then
+``~/.settarg.lua``) and specify the generally desired behavior.  Then
 in top directory of a project place a simple .settarg.lua that
 specifies how the target list should be put together for that project:
 
@@ -471,13 +471,13 @@ if defined and change the compilation rules::
 The four point is that the dependencies have to change to use
 $(O_DIR)::
 
-     ######################## Dependancies ####################################
+     ######################## Dependencies ####################################
 
      $(O_DIR)main.o : main.c hello.h
 
      $(O_DIR)hello.o: hello.c hello.h
 
-For small projects, generating  the dependancies by hand is manageable.
+For small projects, generating  the dependencies by hand is manageable.
 But for larger projects it can get unwieldy.  The ``Makefile`` shows
-how to generate the dependancies automatically.
+how to generate the dependencies automatically.
 
