@@ -279,6 +279,16 @@ function M.load(self, mA)
             dbg.print{"Pushing ",mname:userName()," on moduleQ\n"}
             dbg.print{"i: ",i,", stackDepth: ", frameStk:stackDepth(),"\n"}
             mcp:pushModule(mname)
+            if (tracing == "yes") then
+               local stackDepth = frameStk:stackDepth()
+               local indent     = ("  "):rep(stackDepth+1)
+               local b          = {}
+               b[#b + 1]        = indent
+               b[#b + 1]        = "Pushing "
+               b[#b + 1]        = userName
+               b[#b + 1]        = " on moduleQ\n"
+               shell:echo(concatTbl(b,""))
+            end
             break  
          end
 
