@@ -1,7 +1,64 @@
+Modulefile Examples from simple to complex
+==========================================
+
+Most of the time a modulefile is just a collection of setting
+environment variables and prepending to PATH or other path like
+variables. However, the modulefiles are actually programs so you can
+do a great deal if necessary.
+
+Some simple modulefiles
+~~~~~~~~~~~~~~~~~~~~~~~
+
+An application modulefile might add to ``$PATH``, set a few other
+environment variables and provide help message as well as ``whatis()``
+strings.  For example the valgrind memory usage tester might look
+like::
+
+    help([[
+    To use the valgrind utility on an executable called a.out:
+
+    valgrind ./a.out
+    ]])
+
+    local version = "3.7.0"
+    local base    = pathJoin("/apps/valgrind",version)
+    prepend_path("PATH", pathJoin(base,"bin"))  -- /app/valgrind/3.7.0/bin
+    setenv(      "SITE_VALGRIND_DIR", base)
+    setenv(      "SITE_VALGRIND_INC", pathJoin(base,"include"))
+    setenv(      "SITE_VALGRIND_LIB", pathJoin(base,"lib"))
+
+    whatis("Name: ".. pkgName)
+    whatis("Version: " .. fullVersion)
+    whatis("Category: tools")
+    whatis("URL: http://www.valgrind.org")
+    whatis("Description: memory usage tester")
+
+
+A library module might look like::
+
+    help([[
+    ... 
+    ]])
+    whatis("Name: boost")
+    whatis("Version: 1.64")
+    whatis("Category: Lmod/Modulefiles")
+    whatis("Keywords: System, Library, C++")
+    whatis("URL: http://www.boost.org")
+    whatis("Description: Boost provides free peer-reviewed portable C++ source libraries.")
+
+    setenv("SITE_BOOST_DIR","/apps/intel17/boost/1.64")
+    setenv("SITE_BOOST_LIB","/apps/intel17/boost/1.64/lib")
+    setenv("SITE_BOOST_INC","/apps/intel17/boost/1.64/include")
+    setenv("SITE_BOOST_BIN","/apps/intel17/boost/1.64/bin")
+    setenv("BOOST_ROOT","/apps/intel17/boost/1.64")
+    prepend_path("LD_LIBRARY_PATH","/apps/intel17/boost/1.64/lib")
+    prepend_path("PATH","/apps/intel17/boost/1.64/bin")
+
+
 .. _generic_modules-label:
 
-Generic Modules
-===============
+Introspection
+~~~~~~~~~~~~~
 
 Lmod provides inspection functions that describe the name
 and version of a modulefile as well as the path to the modulefile.
@@ -253,7 +310,7 @@ is::
     prepend_path("MODULEPATH", mpath)
     setenv(      "TACC_MPICH_DIR", base)
     setenv(      "TACC_MPICH_LIB", pathJoin(base,"lib"))
-    setenv(      "TACC_MPICH_BIN", pathJoin(base,"bin"))
+    setenv(      "TACC_MPICH_BIN", pathJoin(base,"bin"))p
     setenv(      "TACC_MPICH_INC", pathJoin(base,"include"))
 
     whatis("Name: "..pkgName)

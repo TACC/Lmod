@@ -86,7 +86,7 @@ Advanced Topics
    090_configuring_lmod
    095_tcl2lua
    098_dependent_modules
-   100_generic_modules
+   100_modulefile_examples
    110_lmod_mpi_parallel_filesystem
    120_shared_home_directories
    125_personal_spider_cache
@@ -95,7 +95,6 @@ Advanced Topics
    136_spider
    140_deprecating_modules
    145_properties
-   150_kitchen_sink_module
    160_debugging_modulefiles
    170_hooks
    185_localization
@@ -103,7 +102,6 @@ Advanced Topics
    200_avail_custom
    210_load_storms
    220_tracing
-   230_lmod_env_vars
    240_sticky_modules
    250_site_package
    260_sh_to_modulefile
@@ -115,7 +113,6 @@ Topics yet to be written
 
 #. Optional Software layout, two digit rule
 #. Advanced Topics: priority path, .modulerc tricks
-#. module command and a parallel a file system.
 #. inherit
 #. internal structure of lmod.
 
