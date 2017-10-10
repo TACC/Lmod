@@ -486,11 +486,9 @@ function M.search(self, name)
 end
 
 local function l_checkforNV(T)
-   if (T ~= nil) then
-      for sn, vv in pairs(T) do
-         if (next(vv.dirT) ~= nil) then
-            return false
-         end
+   for sn, vv in pairs(T) do
+      if (next(vv.dirT) ~= nil) then
+         return false
       end
    end
    return true
@@ -507,10 +505,12 @@ local function build_from_spiderT(spiderT)
       local mpath = mpathA[i]
       if (isDir(mpath)) then
          dbg.print{"pulling mpath: ",mpath," into moduleA\n"}
-         local T = spiderT[mpath]
-         moduleA[#moduleA+1] = { mpath = mpath, T = deepcopy(T) }
-         if (isNV) then
-            isNV = l_checkforNV(T)
+         local T = spiderT[mpath] 
+         if (T and next(T) ~= nil) then
+            moduleA[#moduleA+1] = { mpath = mpath, T = deepcopy(T) }
+            if (isNV) then
+               isNV = l_checkforNV(T)
+            end
          end
       end
    end
