@@ -486,9 +486,11 @@ function M.search(self, name)
 end
 
 local function l_checkforNV(T)
-   for sn, vv in pairs(T) do
-      if (next(vv.dirT) ~= nil) then
-         return false
+   if (T ~= nil) then
+      for sn, vv in pairs(T) do
+         if (next(vv.dirT) ~= nil) then
+            return false
+         end
       end
    end
    return true
