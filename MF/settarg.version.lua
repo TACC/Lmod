@@ -12,7 +12,8 @@ local respect = "true"
 setenv("SETTARG_TAG1", "OBJ", respect )
 setenv("SETTARG_TAG2", "_"  , respect )
 
-local full_support = (os.getenv("LMOD_FULL_SETTARG_SUPPORT") or "no"):lower()
+local full_support = (os.getenv("LMOD_FULL_SETTARG_SUPPORT") or
+                      os.getenv("LMOD_SETTARG_FULL_SUPPORT") or "no"):lower()
 if (full_support ~= "no") then
    set_alias("cdt", "cd $TARG")
    set_shell_function("targ",  'builtin echo $TARG', 'echo $TARG')
@@ -106,7 +107,7 @@ the executables and object files are placed in $TARG.  You can also use
 $TARG_COMPILER_FAMILY to know which compiler you are using so that you
 can set the appropriate compiler flags.
 
-If the environment variable LMOD_FULL_SETTARG_SUPPORT is set to "yes"
+If the environment variable LMOD_SETTARG_FULL_SUPPORT is set to "yes"
 then helpful aliases are defined to set the debug/optimize/max debug
 build scenerio 
 

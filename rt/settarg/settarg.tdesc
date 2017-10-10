@@ -42,7 +42,7 @@ testdescript = {
          -e "s|@path_to_lua@|$PATH_TO_LUA|g"             \
           < $(projectDir)/MF/settarg.version.lua > mf/Core/settarg/1.0.lua
 
-     export LMOD_FULL_SETTARG_SUPPORT=full
+     export LMOD_SETTARG_FULL_SUPPORT=full
      export LMOD_SETTARG_TITLE_BAR=yes
 
      runLmod --version                              # 1

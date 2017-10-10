@@ -145,7 +145,7 @@ One way that these variables can be used is part of a build system where
 the executables and object files are placed in $TARG.  You can also use
 $TARG_COMPILER_FAMILY to know which compiler you are using so that you
 can set the appropriate compiler flags.
-If the environment variable LMOD_FULL_SETTARG_SUPPORT is set to "yes"
+If the environment variable LMOD_SETTARG_FULL_SUPPORT is set to "yes"
 then helpful aliases are defined to set the debug/optimize/max debug
 build scenerio
 If the environment variable LMOD_SETTARG_TITLE_BAR is set to "yes" then
