@@ -53,6 +53,7 @@ return {
      --------------------------------------------------------------------------
      e_Args_Not_Strings    = nil,
      e_Avail_No_MPATH      = nil,
+     e_BrokenQ             = nil,
      e_Conflict            = nil,
      e_Execute_Msg         = nil,
      e_Failed_2_Find       = nil,

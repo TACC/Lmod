@@ -449,11 +449,12 @@ cosmic:init{name    = "LMOD_LANG",
             assignV = lang}
 
 ------------------------------------------------------------------------
--- LMOD_FULL_SETTARG_SUPPORT:  the time in seconds when the cache file is considered old
+-- LMOD_SETTARG_FULL_SUPPORT: remember the settarg support level to
+--                            report value in the configuration report.
 ------------------------------------------------------------------------
 
-cosmic:init{name = "LMOD_FULL_SETTARG_SUPPORT",
-            sedV = "@lmod_full_settarg_support@",
+cosmic:init{name = "LMOD_SETTARG_FULL_SUPPORT",
+            sedV = "@lmod_settarg_full_support@",
             yn   = "no"}
 
 ------------------------------------------------------------------------

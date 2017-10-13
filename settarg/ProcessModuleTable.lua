@@ -34,18 +34,10 @@
 
 require("strict")
 _ModuleTable_ = ""
-local dbg     = require("Dbg"):dbg()
-local systemG = _G
-local load    = (_VERSION == "Lua 5.1") and loadstring or load
-
-local function buildTargetName(name, defaultFlag, fullName)
-   local result = name
-   result = fullName
-   result = result:gsub("/","-")
-   --result = result:gsub("_","-")
-
-   return result
-end
+local TargValue = require("TargValue")
+local dbg       = require("Dbg"):dbg()
+local systemG   = _G
+local load      = (_VERSION == "Lua 5.1") and loadstring or load
 
 function extractVersion(fullName, sn)
    local pattern = '^' .. sn:escape() .. '/?'
@@ -72,8 +64,8 @@ function processModuleTable(mt_string, targetTbl, tbl)
             if (v.status == "active" and targetTbl[key] ) then
                targetTbl[key] = -1
                local K = "TARG_" .. key:upper()
-               tbl[K] = buildTargetName(sn, v.default, v.fullName)
-               dbg.print{"V2: K: ",K, " tbl[K]: ",tbl[K],"\n"}
+               tbl[K]  = TargValue:new{sn = sn, version = extractVersion(v.fullName, sn)}
+               dbg.print{"V2: K: ",K, " tbl[K]: ",tbl[K]:display(),"\n"}
             end
          end
       end

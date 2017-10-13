@@ -12,7 +12,8 @@ local respect = "true"
 setenv("SETTARG_TAG1", "OBJ", respect )
 setenv("SETTARG_TAG2", "_"  , respect )
 
-local full_support = (os.getenv("LMOD_FULL_SETTARG_SUPPORT") or "no"):lower()
+local full_support = (os.getenv("LMOD_FULL_SETTARG_SUPPORT") or
+                      os.getenv("LMOD_SETTARG_FULL_SUPPORT") or "no"):lower()
 if (full_support ~= "no") then
    set_alias("cdt", "cd $TARG")
    set_shell_function("targ",  'builtin echo $TARG', 'echo $TARG')
@@ -41,15 +42,17 @@ if (titlebar_support == "yes") then
       local term = os.getenv("TERM") or " "
       if (term:find("xterm")) then
          setenv("SET_TITLE_BAR","xSetTitleLmod")
+         execute{cmd='echo -n -e "\\033]2; \\007"',modeA={"unload"}}
       end
       if (myShellName() == "bash") then
          pushenv("PROMPT_COMMAND","precmd")
       end
-      execute{cmd='echo -n -e "\\033]2; \\007"',modeA={"unload"}}
    elseif (myShellType() == "csh") then
       set_alias("cwdcmd",'eval `$LMOD_SETTARG_CMD -s csh`')
-      set_alias("precmd",'echo -n "\\033]2;${TARG_TITLE_BAR_PAREN}${USER}@${HOST} : $cwd\\007"')
-      execute{cmd='echo -n "\\033]2; \\007"',modeA={"unload"}}
+      if (term:find("xterm")) then
+         set_alias("precmd",'echo -n "\\033]2;${TARG_TITLE_BAR_PAREN}${USER}@${HOST} : $cwd\\007"')
+         execute{cmd='echo -n "\\033]2; \\007"',modeA={"unload"}}
+      end
    end
 end
 if (myShellType() == "csh") then
@@ -104,7 +107,7 @@ the executables and object files are placed in $TARG.  You can also use
 $TARG_COMPILER_FAMILY to know which compiler you are using so that you
 can set the appropriate compiler flags.
 
-If the environment variable LMOD_FULL_SETTARG_SUPPORT is set to "yes"
+If the environment variable LMOD_SETTARG_FULL_SUPPORT is set to "yes"
 then helpful aliases are defined to set the debug/optimize/max debug
 build scenerio 
 

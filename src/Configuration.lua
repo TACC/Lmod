@@ -136,7 +136,7 @@ local function new(self)
    local lfsV              = cosmic:value("LFS_VERSION")
    local lmod_lang         = cosmic:value("LMOD_LANG")
    local site_msg_file     = cosmic:value("LMOD_SITE_MSG_FILE") or "<empty>"
-   local settarg_support   = cosmic:value("LMOD_FULL_SETTARG_SUPPORT")
+   local settarg_support   = cosmic:value("LMOD_SETTARG_FULL_SUPPORT")
    local lmod_colorize     = cosmic:value("LMOD_COLORIZE")
    local site_name         = cosmic:value("LMOD_SITE_NAME")   or "<empty>"
    local syshost           = cosmic:value("LMOD_SYSHOST")     or "<empty>"

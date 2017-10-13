@@ -9,4 +9,9 @@ Lmod 7.7+
    (7.7.3)  Use spider cache for "module --terse avail" when LMOD_CACHED_LOADS=yes
    (7.7.4)  Fix bug with LMOD_SETTARG_CMD and csh.
    (7.7.5)  Turn off LMOD_REDIRECT for tcsh
-   
+   (7.7.6)  Settarg now supports C/N/V and N/V/V module layouts.
+   (7.7.7)  Fixed a bug where sometimes a compiler-mpi dependent module wouldn't
+            be found when it should.
+	    Fixed issue #321 Changed LMOD_TARGPATHLOC to LMOD_SETTARG_TARG_PATH_LOCATION
+	    changed LMOD_FULL_SETTARG_SUPPORT to LMOD_SETTARG_FULL_SUPPORT. (Lmod supports both)
+	    Fixed issue #322 where non-existant directory would cause problems

@@ -38,8 +38,10 @@ require("string_utils")
 require("fileOps")
 require("utils")
 require("ProcessModuleTable")
+require("pairsByKeys")
 
 _G._DEBUG         = false               -- Required by the new lua posix
+local TargValue   = require("TargValue")
 local dbg         = require("Dbg"):dbg()
 local STT         = require("STT")
 local posix       = require("posix")
@@ -174,7 +176,7 @@ local function string2Tbl(s,tbl)
                stt:setBuildScenarioState(v)
             end
             dbg.print{"v: ",v," kind: ",kind," K: ",K,"\n"}
-            tbl[K] = v
+            tbl[K] = TargValue:new{value=v}
          end
       end
    end
@@ -186,36 +188,42 @@ function M.buildTbl(targetTbl)
    local tbl = {}
    local stt = STT:stt()
 
-   for k in pairs(targetTbl) do
+   for k in pairsByKeys(targetTbl) do
       local K   = k:upper()
       local key = "TARG_" .. K
       local v   = getenv(key)
+      dbg.print{"key: ",key,", v: ",v,"\n"}
       if (v == nil) then
          local ss = "default_" .. K
          if (M[ss]) then
             v = M[ss](tbl)
-         else
-            v = ''
          end
          dbg.print{"ss: ", ss," v: ",v,"\n"}
       end
-      tbl[key] = v
+      if (v) then
+         tbl[key] = TargValue:new{value=v}
+      end
    end
 
    -- Always set mach
-   tbl.TARG_MACH           = M.default_MACH()
-   tbl.TARG_MACH_DESCRIPT  = getUname().machDescript
+   tbl.TARG_MACH           = TargValue:new{value=M.default_MACH()}
+   tbl.TARG_MACH_DESCRIPT  = TargValue:new{value=getUname().machDescript}
    targetTbl.mach          = -1
    targetTbl.mach_descript = -1
+   dbg.print{"M.default_MACH(): ",M.default_MACH(),"\n"}
+   dbg.print{"tbl.TARG_MACH: ",tbl.TARG_MACH:display(),"\n"}
+
+
 
    -- Always set os and os_family
-   tbl.TARG_OS         = M.default_OS()
-   tbl.TARG_OS_FAMILY  = tbl.TARG_OS:gsub("-.*","")
+   local os_name       = M.default_OS()
+   tbl.TARG_OS         = TargValue:new{value=os_name}
+   tbl.TARG_OS_FAMILY  = TargValue:new{value=os_name:gsub("-.*","")}
    targetTbl.os        = -1
    targetTbl.os_family = -1
 
    -- Always set host
-   tbl.TARG_HOST       = M.default_HOST()
+   tbl.TARG_HOST       = TargValue:new{value=M.default_HOST()}
    targetTbl.host      = -1
 
    -- Clear
@@ -297,7 +305,7 @@ local function readDotFiles()
             HostTbl[k] = v
          end
 
-         for k,v in pairs(systemG.TitleTbl) do
+         for k,v in pairsByKeys(systemG.TitleTbl) do
             dbg.print{"Title: k: ",k," v: ",v,"\n"}
             TitleMstrTbl[k] = v
          end
@@ -320,7 +328,7 @@ local function readDotFiles()
       end
    end
 
-   masterTbl.TargPathLoc      = getenv("LMOD_TARGPATHLOC") or TargPathLoc
+   masterTbl.TargPathLoc      = getenv("LMOD_SETTARG_TARG_PATH_LOCATION") or TargPathLoc
    masterTbl.HostTbl          = HostTbl
    masterTbl.TitleTbl         = TitleMstrTbl
    masterTbl.BuildScenarioTbl = MethodMstrTbl
@@ -358,9 +366,8 @@ function M.exec(shell)
    processModuleTable(shell:getMT(), targetTbl, tbl)
 
 
-   tbl.TARG_BUILD_SCENARIO       = stt:getBuildScenario()
-
-   dbg.print{"BUILD_SCENARIO_STATE: ",stt:getBuildScenarioState(),"\n"}
+   tbl.TARG_BUILD_SCENARIO = TargValue:new{value=stt:getBuildScenario()}
+   --dbg.print{"BUILD_SCENARIO_STATE: ",stt:getBuildScenarioState(),"\n"}
 
    -- Remove options from TARG_EXTRA
 
@@ -370,9 +377,10 @@ function M.exec(shell)
       stt:removeFromExtra(masterTbl.remOptions)
    end
 
-   tbl.TARG_EXTRA = stt:getEXTRA()
+   tbl.TARG_EXTRA = TargValue:new{value=stt:getEXTRA()}
 
-   local a = {}
+   local entryA = {}
+   local a      = {}
    for _,v in ipairs(targetList) do
       local K     = "TARG_" .. v:upper()
       local KK    = K .. "_FAMILY"
@@ -380,18 +388,20 @@ function M.exec(shell)
       if (not entry) then
          envVarsTbl[KK] = false
       else
-         a[#a + 1]   = entry
+         entryA[#entryA + 1] = entry
+         a[#a+1]             = entry:display(true)  -- The true says change '/' into '-'
          if (familyTbl[v]) then
-            local value    = entry:gsub("-.*","")
-            envVarsTbl[KK] = value
-            dbg.print{"envVarsTbl[",KK,"]: ",value,"\n"}
+            local t        = entry:value()
+            envVarsTbl[KK] = t.sn
          end
       end
    end
 
 
    for k in pairs(tbl) do
-      envVarsTbl[k] = tbl[k]
+      if (tbl[k]) then
+         envVarsTbl[k] = tbl[k]:display()
+      end
    end
 
    target = concatTbl(a,"_")
@@ -426,29 +436,45 @@ function M.exec(shell)
    local TitleTbl = masterTbl.TitleTbl
 
    -- Remove TARG_MACH when it is the same as the host.
-   if (tbl.TARG_MACH == getUname().machName) then
-      for i = 1,#a do
-         local v = a[i]
-         if (v == tbl.TARG_MACH) then
-            table.remove(a,i)
+   local mach = tbl.TARG_MACH:display()
+   dbg.print{"TARG_MACH:",mach,", uname mach: ",getUname().machName,"\n"}
+   if (mach == getUname().machName) then
+      for i = 1,#entryA do
+         local v = entryA[i]:display()
+         if (v == mach) then
+            table.remove(entryA,i)
             break
          end
       end
    end
 
    local aa = {}
-   for _,v in ipairs(a) do
-      local _, _, name, version = v:find("([^-]*)-?(.*)")
-      if (v:len() > 0) then
-         local s = TitleTbl[name] or v
-         if (s) then
-            if (TitleTbl[name] and version ~= "" ) then
-               s = TitleTbl[name] .. "/" .. version
-            end
-            aa[#aa+1] = s
+   for i = 1,#entryA do
+      local t     = entryA[i]:value()
+      local name  = t.value or t.sn
+      local tname = TitleTbl[name]
+      local s     = tname or name
+      if (s) then
+         if (tname and t.version and t.version ~= "") then
+            s = tname .. "/" .. t.version
          end
+         aa[#aa+1] = s
       end
    end
+
+   --local aa = {}
+   --for _,v in ipairs(a) do
+   --   local _, _, name, version = v:find("([^-]*)-?(.*)")
+   --   if (v:len() > 0) then
+   --      local s = TitleTbl[name] or v
+   --      if (s) then
+   --         if (TitleTbl[name] and version ~= "" ) then
+   --            s = TitleTbl[name] .. "/" .. version
+   --         end
+   --         aa[#aa+1] = s
+   --      end
+   --   end
+   --end
    local s                          = concatTbl(aa," "):trim()
    local paren_s                    = ""
    if (s ~= "") then

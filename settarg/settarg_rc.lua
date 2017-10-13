@@ -74,7 +74,7 @@ NoFamilyList = {"mach", "build_scenario",}
 -- in place at the fourth position.  It does not move the location of $TARG back to first
 -- position.
 --
--- Note that you can set the variable LMOD_TARGPATHLOC to override this setting.
+-- Note that you can set the variable LMOD_SETTARG_TARG_PATH_LOCATION to override this setting.
 
 
 TargPathLoc = "first"   

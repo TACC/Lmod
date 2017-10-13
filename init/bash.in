@@ -16,7 +16,7 @@ export LMOD_DIR=@PKGV@/libexec
 export LMOD_CMD=@PKGV@/libexec/lmod
 export MODULESHOME=@PKGV@
 
-export LMOD_FULL_SETTARG_SUPPORT=@lmod_full_settarg_support@
+export LMOD_SETTARG_FULL_SUPPORT=@lmod_settarg_full_support@
 
 ########################################################################
 #  Define the module command:  The first line runs the "lmod" command

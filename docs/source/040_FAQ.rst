@@ -236,3 +236,10 @@ scripts such as job submission scripts?
    Note that is a minus ell not minus one. This will cause the startup
    scripts to be sourced before the first executable statement in the
    script.
+
+Why do modules get sometimes get loaded when I execute ``module use <path>``?
+
+   A main principal is that when $MODULEPATH changes, Lmod checks all
+   the currently loaded modules. If any of thoses modules would not
+   have been chosen then each is swapped for the new choice.
+

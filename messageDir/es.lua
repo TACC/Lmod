@@ -56,6 +56,7 @@ return {
  con el comando: %{cmdName}, uno o más argumentos no son cadenas de caracteres.
 ]==],
      e_Avail_No_MPATH      = "No es posible ejecutar 'module avail'. MODULEPATH no está inicializado o su valor no contiene rutas correctas.\n",
+     e_BrokenQ             = nil,
      e_Conflict            = "Imposible cargar el módulo \"%{name}\" porque este (estos) módulo(s) está(n) cargado(s):\n   %{module_list}\n",
      e_Execute_Msg         = [==[Error de sintaxis en el archivo: %{fn}
 con el comando: "execute".

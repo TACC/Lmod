@@ -505,10 +505,12 @@ local function build_from_spiderT(spiderT)
       local mpath = mpathA[i]
       if (isDir(mpath)) then
          dbg.print{"pulling mpath: ",mpath," into moduleA\n"}
-         local T = spiderT[mpath]
-         moduleA[#moduleA+1] = { mpath = mpath, T = deepcopy(T) }
-         if (isNV) then
-            isNV = l_checkforNV(T)
+         local T = spiderT[mpath] 
+         if (T and next(T) ~= nil) then
+            moduleA[#moduleA+1] = { mpath = mpath, T = deepcopy(T) }
+            if (isNV) then
+               isNV = l_checkforNV(T)
+            end
          end
       end
    end

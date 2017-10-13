@@ -26,21 +26,23 @@ testdescript = {
      export MODULEPATH=$(outputDir)/mf/Core:$MODULEPATH_ROOT/Core
      export TARG_RTM="Is Great"; 
 
-     cp $(projectDir)/settarg/settarg_rc.lua  .settarg.lua
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d settarg_rc.lua .settarg.lua
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+     cp $(projectDir)/settarg/settarg_rc.lua  settarg_rc.lua
+     export LMOD_SETTARG_RC=$(outputDir)/settarg_rc.lua
+     cp $(testDir)/.settarg.lua .
+
 
      PATH_TO_LUA=`type -p lua`
      PATH_TO_LUA=${PATH_TO_LUA#lua is }
      PATH_TO_LUA=${PATH_TO_LUA%%/lua}
-     echo PATH_TO_LUA: $PATH_TO_LUA
      mkdir -p mf/Core/settarg
      sed -e 's|@PKG@|$(projectDir)|g'                    \
          -e 's|@settarg_cmd@|settarg_cmd.in.lua|g'       \
          -e "s|@path_to_lua@|$PATH_TO_LUA|g"             \
           < $(projectDir)/MF/settarg.version.lua > mf/Core/settarg/1.0.lua
 
-     export LMOD_FULL_SETTARG_SUPPORT=full
+     export LMOD_SETTARG_FULL_SUPPORT=full
      export LMOD_SETTARG_TITLE_BAR=yes
 
      runLmod --version                              # 1
@@ -60,8 +62,13 @@ testdescript = {
      runSettargBash --stt dbg                       #13
      runSettargBash --purge                         #14
      runBase echo "TARG_RTM: $TARG_RTM"             #15
-     runLmod show settarg                           #16
-     runLmod unload settarg                         #17
+     runLmod unload gcc mpich                       #16
+     runLmod load   cmplr/clang                     #17
+     runSettargBash                                 #18
+
+
+     runLmod show settarg                           #19
+     runLmod unload settarg                         #20
 
      HOME=$ORIG_HOME
 

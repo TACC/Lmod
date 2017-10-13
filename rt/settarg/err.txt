@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.7.3  2017-09-27 11:31 -05:00
+Modules based on Lua: Version 7.7.5  2017-09-29 13:56 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -73,6 +73,18 @@ echo TARG_RTM: Is Great
 ===========================
 ===========================
 step 16
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload gcc mpich
+===========================
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cmplr/clang
+===========================
+===========================
+step 18
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model
+===========================
+===========================
+step 19
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show settarg
 ===========================
  OutputDIR/mf/Core/settarg/1.0.lua:
@@ -97,7 +109,6 @@ set_shell_function("precmd","{
            }
       ","")
 pushenv("PROMPT_COMMAND","precmd")
-execute{cmd="echo -n -e "\033]2; \007"", modeA={"unload"}}
 help([[The settarg module dynamically and automatically updates "$TARG" and a
 host of other environment variables. These new environment variables
 encapsulate the state of the modules loaded.
@@ -134,7 +145,7 @@ One way that these variables can be used is part of a build system where
 the executables and object files are placed in $TARG.  You can also use
 $TARG_COMPILER_FAMILY to know which compiler you are using so that you
 can set the appropriate compiler flags.
-If the environment variable LMOD_FULL_SETTARG_SUPPORT is set to "yes"
+If the environment variable LMOD_SETTARG_FULL_SUPPORT is set to "yes"
 then helpful aliases are defined to set the debug/optimize/max debug
 build scenerio
 If the environment variable LMOD_SETTARG_TITLE_BAR is set to "yes" then
@@ -143,6 +154,6 @@ compiler and mpi stack.
 Settarg can do more.  Please see the Lmod website for more details.
 ]])
 ===========================
-step 17
+step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload settarg
 ===========================

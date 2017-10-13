@@ -83,6 +83,7 @@ return {
  with command: %{cmdName}, one or more arguments are not strings.
 ]==], --
      e_Avail_No_MPATH      = "module avail is not possible. MODULEPATH is not set or not set with valid paths.\n",
+     e_BrokenQ             = "Internal error: broken module Q\n",
      e_Conflict            = "Cannot load module \"%{name}\" because these module(s) are loaded:\n   %{module_list}\n",
      e_Execute_Msg         = [==[Syntax error in file: %{fn}
 with command: "execute".
