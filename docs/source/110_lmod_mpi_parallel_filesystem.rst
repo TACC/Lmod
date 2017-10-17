@@ -86,7 +86,13 @@ submission script::
     #SBATCH ...
 
     module load intel mvapich2
-    srun ./my_mpi_program        # start parallel executation.
+    ibrun ./my_mpi_program        # start parallel executation.
+
+Note that the total environment is passed by our parallel job starter
+ibrun.  So there is no need for a user's ~/bashrc or similar file to
+load modules. In fact it can lead to problems if the user's current
+module environment loads modules that don't match the environment that
+ibrun pushes to the compute nodes.
 
 Tcsh and Zsh source the startup scripts sourced in /etc/profile.d/ for
 shell script startup.  This is how the module command is defined
