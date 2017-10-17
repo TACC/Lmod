@@ -142,78 +142,86 @@ _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={
 export _ModuleTable_;
 ===========================
 step 20
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/spider/mf/UNKNOWN
 ===========================
-MODULEPATH="ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2";
+MODULEPATH="ProjectDIR/rt/spider/mf/UNKNOWN:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/UNKNOWN","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
 export _ModuleTable_;
 ===========================
 step 21
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gromacs
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
-MODULEPATH="ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2";
+MODULEPATH="ProjectDIR/rt/spider/mf/UNKNOWN:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/UNKNOWN","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
 export _ModuleTable_;
 ===========================
 step 22
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gromacs
 ===========================
-MODULEPATH="ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2";
+MODULEPATH="ProjectDIR/rt/spider/mf/UNKNOWN:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/UNKNOWN","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
 export _ModuleTable_;
 ===========================
 step 23
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6.3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs
 ===========================
-MODULEPATH="ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2";
+MODULEPATH="ProjectDIR/rt/spider/mf/UNKNOWN:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/UNKNOWN","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
 export _ModuleTable_;
 ===========================
 step 24
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6.3-debug
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6.3
 ===========================
-MODULEPATH="ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2";
+MODULEPATH="ProjectDIR/rt/spider/mf/UNKNOWN:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/UNKNOWN","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
 export _ModuleTable_;
 ===========================
 step 25
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider petsc/3.1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6.3-debug
 ===========================
-MODULEPATH="ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2";
+MODULEPATH="ProjectDIR/rt/spider/mf/UNKNOWN:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/UNKNOWN","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
 export _ModuleTable_;
 ===========================
 step 26
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/spider/mf/Core3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider petsc/3.1
 ===========================
-MODULEPATH="ProjectDIR/rt/spider/mf/Core3:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2";
+MODULEPATH="ProjectDIR/rt/spider/mf/UNKNOWN:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core3","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/UNKNOWN","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
 export _ModuleTable_;
 ===========================
 step 27
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider smrt
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/spider/mf/Core3
 ===========================
-MODULEPATH="ProjectDIR/rt/spider/mf/Core3:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2";
+MODULEPATH="ProjectDIR/rt/spider/mf/Core3:ProjectDIR/rt/spider/mf/UNKNOWN:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core3","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core3","ProjectDIR/rt/spider/mf/UNKNOWN","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
 export _ModuleTable_;
 ===========================
 step 28
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider petsc/3.1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider smrt
 ===========================
-MODULEPATH="ProjectDIR/rt/spider/mf/Core3:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2";
+MODULEPATH="ProjectDIR/rt/spider/mf/Core3:ProjectDIR/rt/spider/mf/UNKNOWN:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2";
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core3","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core3","ProjectDIR/rt/spider/mf/UNKNOWN","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
 export _ModuleTable_;
 ===========================
 step 29
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider petsc/3.1
+===========================
+MODULEPATH="ProjectDIR/rt/spider/mf/Core3:ProjectDIR/rt/spider/mf/UNKNOWN:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core3","ProjectDIR/rt/spider/mf/UNKNOWN","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+export _ModuleTable_;
+===========================
+step 30
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
 MODULEPATH="ProjectDIR/rt/spider/mf/CQ/Core";
@@ -221,7 +229,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/CQ/Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider/mf/CQ/Core",}';
 export _ModuleTable_;
 ===========================
-step 30
+step 31
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GCC
 ===========================
 MODULEPATH="ProjectDIR/rt/spider/mf/D";
@@ -229,7 +237,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/D",},["systemBaseMPATH"]="ProjectDIR/rt/spider/mf/D",}';
 export _ModuleTable_;
 ===========================
-step 31
+step 32
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gcc
 ===========================
 MODULEPATH="ProjectDIR/rt/spider/mf/D";

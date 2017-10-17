@@ -19,7 +19,7 @@ CURRENT_MK                := $(lastword $(MAKEFILE_LIST))
 PATH_TO_LUA	  	  := @PATH_TO_LUA@
 export IGNORE_DIRS        := $(shell $(PATH_TO_LUA)/lua $(srcdir)/src/ignore_dirs_converter @IGNORE_DIRS@)
 REDIRECT                  := @REDIRECT@
-LMOD_FULL_SETTARG_SUPPORT := $(shell echo "@SETTARG@"       | tr '[:upper:]' '[:lower:]')
+LMOD_SETTARG_FULL_SUPPORT := $(shell echo "@SETTARG@"       | tr '[:upper:]' '[:lower:]')
 USE_DOT_FILES             := $(shell echo "@USE_DOT_FILES@" | tr '[:upper:]' '[:lower:]')
 PREPEND_BLOCK     	  := $(shell echo "@PREPEND_BLOCK@" | tr '[:upper:]' '[:lower:]')
 COLORIZE          	  := $(shell echo "@COLORIZE@"      | tr '[:upper:]' '[:lower:]')
@@ -189,7 +189,7 @@ __installMe:
 	        -e 's|@hashsum@|$(PATH_TO_HASHSUM)|g'         	   	          \
 	        -e 's|@pager@|$(PATH_TO_PAGER)|g'                 	   	  \
 	        -e 's|@case_independent_sorting@|$(CASE_INDEPENDENT_SORTING)|g'   \
-                -e 's|@lmod_full_settarg_support@|$(LMOD_FULL_SETTARG_SUPPORT)|g' \
+                -e 's|@lmod_settarg_full_support@|$(LMOD_SETTARG_FULL_SUPPORT)|g' \
                 -e 's|@use_dot_files@|$(USE_DOT_FILES)|g'             	   	  \
                 -e 's|@lang@|$(LMOD_OVERRIDE_LANG)|g'                             \
                 -e 's|@site_msg_file@|$(SITE_MSG_FILE)|g'               	  \

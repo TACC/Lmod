@@ -47,20 +47,22 @@ testdescript = {
      runLmod spider apps/gromacs/4.6.3                                        #18
      runLmod spider apps/gromacs/4.6.3-debug                                  #19
 
+     runLmod use $testDir/mf/UNKNOWN                                          #20
+
      mkdir -p $HOME/.lmod.d/.cache
      buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
      buildDbT $MODULEPATH > $HOME/.lmod.d/.cache/dbT.lua
      runSpiderCmd -o spider-json $MODULEPATH > $HOME/.lmod.d/.cache/spider.json
-     runLmod spider                                                           #20
-     runLmod spider gromacs                                                   #21
-     runLmod spider apps/gromacs                                              #22
-     runLmod spider apps/gromacs/4.6.3                                        #23
-     runLmod spider apps/gromacs/4.6.3-debug                                  #24
-     runLmod spider petsc/3.1                                                 #25
+     runLmod spider                                                           #21
+     runLmod spider gromacs                                                   #22
+     runLmod spider apps/gromacs                                              #23
+     runLmod spider apps/gromacs/4.6.3                                        #24
+     runLmod spider apps/gromacs/4.6.3-debug                                  #25
+     runLmod spider petsc/3.1                                                 #26
 
-     runLmod use $testDir/mf/Core3                                            #26
-     runLmod spider smrt                                                      #27
-     runLmod spider petsc/3.1                                                 #28
+     runLmod use $testDir/mf/Core3                                            #27
+     runLmod spider smrt                                                      #28
+     runLmod spider petsc/3.1                                                 #29
 
      mv $HOME/.lmod.d/.cache $HOME/.lmod.d/.old.cache 
      unsetMT
@@ -68,12 +70,12 @@ testdescript = {
      export LMOD_RC=$testDir/lmodrc.lua
      export MROOT_CQ=$testDir/mf/CQ
      export MODULEPATH=$testDir/mf/CQ/Core
-     runLmod spider                                                           #29
+     runLmod spider                                                           #30
 
      unsetMT
      export MODULEPATH=$testDir/mf/D
-     runLmod spider GCC                                                       #30
-     runLmod spider gcc                                                       #31
+     runLmod spider GCC                                                       #31
+     runLmod spider gcc                                                       #32
      
 
 

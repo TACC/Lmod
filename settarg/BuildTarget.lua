@@ -328,7 +328,7 @@ local function readDotFiles()
       end
    end
 
-   masterTbl.TargPathLoc      = getenv("LMOD_TARGPATHLOC") or TargPathLoc
+   masterTbl.TargPathLoc      = getenv("LMOD_SETTARG_TARG_PATH_LOCATION") or TargPathLoc
    masterTbl.HostTbl          = HostTbl
    masterTbl.TitleTbl         = TitleMstrTbl
    masterTbl.BuildScenarioTbl = MethodMstrTbl

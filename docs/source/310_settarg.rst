@@ -166,7 +166,7 @@ possible .settarg.lua files.
 
 For those of you who like short commands, please configure Lmod with
 --with_settarg=full or set the environment variable 
-LMOD_FULL_SETTARG_SUPPORT=full before loading the settarg module.
+LMOD_SETTARG_FULL_SUPPORT=full before loading the settarg module.
 One useful command is::
 
     $ targ
@@ -359,14 +359,15 @@ O/2.2" would mean that you are in "opt" mode with gcc/7.1 and
 openmpi/2.2 loaded.
 
 TargPathLoc controls where (or if) $TARG.  Note that the environment
-variable LMOD_TARGPATHLOC is use to control TargPathLoc. Normally the
-value of TARG is placed in the PATH at the beginning of your PATH.  You
-can place it at the end of your PATH when TargPathLoc = "last".  If
-TargPathLoc is "empty" then TARG is removed from your path.  Actually
-the rules controlling where TARG goes in your path are slightly more
-complicated.  TargPathLoc controls where $TARG is placed in your path
-when TARG was not there before.  After the first time TARG is added to
-your path, TARG maintains its relative location.
+variable LMOD_SETTARG_TARG_PATH_LOCATION is use to control
+TargPathLoc. Normally the value of TARG is placed in the PATH at the
+beginning of your PATH.  You can place it at the end of your PATH when
+TargPathLoc = "last".  If TargPathLoc is "empty" then TARG is removed
+from your path.  Actually the rules controlling where TARG goes in
+your path are slightly more complicated.  TargPathLoc controls where
+$TARG is placed in your path when TARG was not there before.  After
+the first time TARG is added to your path, TARG maintains its relative
+location.
 
 Finally, HostnameTbl tells settarg how to extract an entry from the
 full hostname to be used as TARG_HOST.  If your host has multiple
