@@ -28,6 +28,7 @@ local exitCmd = "eval `" .. "@path_to_lua@/lua " .. settarg_cmd .. " -s " .. myS
 execute{cmd=exitCmd, modeA = {"unload"}}
 
 local titlebar_support = (os.getenv("LMOD_SETTARG_TITLE_BAR") or "no"):lower()
+local term             = os.getenv("TERM") or " "
 
 if (titlebar_support == "yes") then
    if (myShellName() == "bash" or myShellName() == "zsh") then
@@ -39,7 +40,6 @@ if (titlebar_support == "yes") then
            }
       ]==]
       set_shell_function("precmd",precmd,"")
-      local term = os.getenv("TERM") or " "
       if (term:find("xterm")) then
          setenv("SET_TITLE_BAR","xSetTitleLmod")
          execute{cmd='echo -n -e "\\033]2; \\007"',modeA={"unload"}}

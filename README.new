@@ -15,3 +15,4 @@ Lmod 7.7+
 	    Fixed issue #321 Changed LMOD_TARGPATHLOC to LMOD_SETTARG_TARG_PATH_LOCATION
 	    changed LMOD_FULL_SETTARG_SUPPORT to LMOD_SETTARG_FULL_SUPPORT. (Lmod supports both)
 	    Fixed issue #322 where non-existant directory would cause problems
+   (7.7.8)  Fix bug in settarg module for csh.
