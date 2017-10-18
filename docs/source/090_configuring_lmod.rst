@@ -145,7 +145,7 @@ the configuration option which will set the action.
 **LMOD_REDIRECT**:
   [yes/no, default: no, --with-redirect].  Normal messages generated
   by  "module avail", "module list",etc write the output to
-  stderr. Turning redirect to "yes" will cause these message to be  
+  stderr. Turning redirect to "yes" will cause these messages to be  
   written to stdout.  Note this only works for bash and zsh.  This
   will not work with csh or tcsh as there is a problem with these
   shells and not Lmod.

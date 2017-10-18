@@ -10,7 +10,7 @@ Introduction
 
 The settarg module works with Lmod to help developers manage their
 compiled software projects. It does so by making it easy to switch
-between optimize or debug builds; change compiler or other modules;
+between optimized or debug builds; change compiler or other modules;
 and let the build system know about the changes.  The secret of
 settarg is that it consolidates the state of a build into one
 environment variable called $TARG.
@@ -136,7 +136,7 @@ Lmod provides a default configuration for settarg in the file
 settarg_rc.lua.  Sites may have to tailor this file to match the names
 of their compilers and mpi modules and other module names.  Then users
 may wish to set their own preferences.  Finally a project may wish to
-have specialize settings.  All files are merged together in an
+have specialized settings.  All files are merged together in an
 intelligent fashion into a single configuration. They do not overwrite
 the previous setting.  More on this in :ref:`settarg_configuration-label`
 
@@ -245,7 +245,7 @@ TARG_COMPILER_FAMILY:
    The name of the compiler without the version.
 
 TARG_MPI:
-   The name of the mpi module and version writ-en as <mpi>/<version>
+   The name of the mpi module and version written as <mpi>/<version>
 
 TARG_MPI_FAMILY:
    The name of the mpi module without the version.
