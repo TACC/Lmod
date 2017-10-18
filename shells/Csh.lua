@@ -62,7 +62,7 @@ function Csh.alias(self, k, v)
    else
       v = v:gsub("%$%*","\\!*")
       v = v:gsub("%$([0-9])", "\\!:%1")
-      v = v:gsub(";%s","")
+      v = v:gsub(";%s$","")
       stdout:write("alias ",k," '",v,"';\n")
       dbg.print{   "alias ",k," '",v,"';\n"}
    end
