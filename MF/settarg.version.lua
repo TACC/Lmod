@@ -93,7 +93,7 @@ change to:
    TARG_MPI_FAMILY=mpich
    TARG_SUMMARY=x86_64_06_1a_dbg_intel-13.1.0_mpich-3.0.4
 
-You also get some TARG_* variables that always available, independent
+You also get some TARG_* variables that are always available, independent
 of what modules you have loaded:
 
    TARG_MACH=x86_64_06_1a
