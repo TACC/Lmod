@@ -260,6 +260,7 @@ local function readDotFiles()
       a[#a+1] = projectConfig
    end
 
+   local SttgConfFnA    = {}
    local MethodMstrTbl  = {}
    local TitleMstrTbl   = {}
    local ModuleMstrTbl  = {}
@@ -273,6 +274,9 @@ local function readDotFiles()
       dbg.print{"fn: ",fn,"\n"}
       local f = io.open(fn,"r")
       if (f) then
+
+         SttgConfFnA[#SttgConfFnA+1] = fn
+
          local whole  = f:read("*all")
          f:close()
 
@@ -337,6 +341,7 @@ local function readDotFiles()
    masterTbl.targetList       = systemG.TargetList
    masterTbl.familyTbl        = familyTbl
    masterTbl.SettargDirTmpl   = SettargDirTmpl
+   masterTbl.SttgConfFnA      = SttgConfFnA
 end
 
 function M.exec(shell)

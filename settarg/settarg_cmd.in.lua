@@ -157,6 +157,7 @@ function main()
    BuildTarget.exec(shell)
 
    if (masterTbl.report) then
+      io.stderr:write(serializeTbl{name="SettargConfigFnA",   indent=true, value=masterTbl.SttgConfFnA},"\n")
       io.stderr:write(serializeTbl{name="BuildScenarioTbl",   indent=true, value=masterTbl.BuildScenarioTbl},"\n")
       io.stderr:write(serializeTbl{name="HostnameTbl",        indent=true, value=masterTbl.HostTbl},         "\n")
       io.stderr:write(serializeTbl{name="ModuleTbl",          indent=true, value=masterTbl.ModuleTbl},       "\n")
