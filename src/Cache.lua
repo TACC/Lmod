@@ -302,6 +302,10 @@ local function l_readCacheFile(self, spiderTFnA)
 
             -- Check for matching default MODULEPATH.
             assert(loadfile(fn))()
+            if (_G.mrcT == nil or next(_G.mrcT) == nil) then
+               LmodError{msg="e_BrokenCacheFn",fn=fn}
+            end
+
             mrc:import(_G.mrcT)
 
             local G_spiderT = _G.spiderT

@@ -83,6 +83,7 @@ return {
  avec la commande : %{cmdName}. Un ou plusieurs arguments ne sont pas des chaînes de caractères.
 ]==],
      e_Avail_No_MPATH    = "La commande 'module avail' n'est pas possible. MODULEPATH n'est pas défini ou n'est pas défini avec des chemins valides.\n",
+     e_BrokenCacheFn     = nil,
      e_BrokenQ           = nil,
      e_Conflict          = "Impossible de charger le module \"%{name}\" car le(s) module(s) suivant(s) est/sont chargé(s) :\n   %{module_list}\n",
      e_Execute_Msg       = [==[Erreur de syntaxe dans le fichier : %{fn}

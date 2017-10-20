@@ -77,6 +77,7 @@ return {
 bei dem Befehl "%{cmdName}", ein oder mehrere Argumente sind keine Strings.
 ]==],
      e_Avail_No_MPATH      = "Der Befehl \"module avail\" kann nicht ausgeführt werden. Die Variable MODULEPATH ist entweder nicht gesetzt oder enthält einen ungültigen Wert.",
+     e_BrokenCacheFn       = nil,
      e_BrokenQ             = nil,
      e_Conflict            = [==[Das Modul "%{name}" kann nicht geladen werden, weil diese Module geladen sind:
   %{module_list}
