@@ -395,16 +395,26 @@ function path_regularize(value)
       a[1] = first
    end
 
+   
+
+   --for i = icnt, #aa do
+   --   local dir  = aa[i]
+   --   local prev = a[#a]
+   --   if (    dir == ".." and prev ~= "..") then
+   --      a[#a] = nil
+   --   elseif (dir ~= ".") then
+   --      a[#a+1] = dir
+   --   end
+   --end
+
    for i = icnt, #aa do
       local dir  = aa[i]
       local prev = a[#a]
-      if (    dir == ".." and prev ~= "..") then
-         a[#a] = nil
-      elseif (dir ~= ".") then
+      if (dir ~= ".") then
          a[#a+1] = dir
       end
    end
-
+      
    value = concatTbl(a,"/")
 
    return value

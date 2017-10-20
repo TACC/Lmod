@@ -18,3 +18,4 @@ Lmod 7.7+
    (7.7.8)  Fix bug in settarg module for csh.
    (7.7.9)  Fix bug in Csh.lua where semicolons inside an alias were removed.  Only remove the
             trailing semicolon.
+   (7.7.10) Generate an LmodError() if the cachefile is broken.
