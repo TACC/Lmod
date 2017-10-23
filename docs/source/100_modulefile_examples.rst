@@ -7,7 +7,7 @@ variables. However, the modulefiles are actually programs so you can
 do a great deal if necessary.
 
 Here we show some of the techniques that site's or user's might use in
-their modulefiles.  In addition there are many examples in the Lmod
+their modulefiles.  In addition, there are many examples in the Lmod
 source tree.  The ``rt`` directory contains the regression testing
 suite.  Each subdirectory in ``rt`` is a separate test and below that
 there will be many modulefiles.  For example see all the modulefile
