@@ -89,9 +89,10 @@ the configuration option which will set the action.
   stacks. 
 
 **LMOD_CACHED_LOADS**:
-  [yes/no, default:no, --with-cachedLoads] If true then Lmod will use
-  the spider cache instead of walking MODULEPATH as long as
-  LMOD_IGNORE_CACHE is not set. 
+  [yes/no, default:no, --with-cachedLoads] If "yes" then Lmod will use
+  the spider cache to load modulefiles and produce a terse avail instead
+  of walking all the directories in MODULEPATH as long as
+  LMOD_IGNORE_CACHE is not set.
 
 **LMOD_CASE_INDEPENDENT_SORTING**:
   [yes/no, default: no, --with-caseIndependentSorting] Make avail and
@@ -165,8 +166,7 @@ the configuration option which will set the action.
 
 **LMOD_SYSHOST**:
   [string, default: <nil>, --with-syshost].  This variable can be used
-  to help with module tracking.  See contrib/tracking_modules_usage/*
-  for details.
+  to help with module tracking.  See :ref:`tracking_usage` for details.
 
 **LMOD_TMOD_FIND_FIRST**:
   [yes/no, default: no, --with-tmodFindFirst].  Normally Lmod uses the
