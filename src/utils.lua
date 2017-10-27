@@ -330,14 +330,14 @@ function readAdmin()
 
    -- If there is anything in [[adminT]] then return because
    -- this routine has already read in the file.
-   if (next (adminT)) then return end
+   if (next (adminA)) then return end
 
    local adminFn = findAdminFn()
    local f       = open(adminFn,"r")
 
    -- Put something in adminT so that this routine will not be
    -- run again even if the file does not exist.
-   adminT["%%_foo_%%"] = "bar"
+   adminA[#adminA+1] = { "%%_foo_%%", "bar" }
 
    if (f) then
       local whole = f:read("*all") .. "\n"
@@ -361,10 +361,10 @@ function readAdmin()
 
             elseif (v:find("^%s*$")) then
                if (state == "value") then
-                  value       = concatTbl(a, " ")
-                  a           = {}
-                  adminT[key] = value
-                  state       = "init"
+                  value             = concatTbl(a, " ")
+                  a                 = {}
+                  adminA[#adminA+1] = { key, value }
+                  state             = "init"
                end
 
                -- Ignore blank lines

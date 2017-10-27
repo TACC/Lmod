@@ -1212,25 +1212,31 @@ end
 
 function M.registerAdminMsg(self, mA)
    dbg.start{"MasterControl:registerAdminMsg(mA)"}
-   local mt      = FrameStk:singleton():mt()
-   local t       = s_adminT
+   local mt = FrameStk:singleton():mt()
+   local t  = s_adminT
    readAdmin()
    for i = 1, #mA do
-      local mname      = mA[i]
-      local sn         = mname:sn()
+      local mname = mA[i]
+      local sn    = mname:sn()
       if (mt:have(sn,"active")) then
          local fn       = mt:fn(sn)
          local fullName = mt:fullName(sn)
-         local message
+         local message  = nil
          local key
-         if (adminT[fn]) then
-            message = adminT[fn]
-            key     = fn
-         elseif (adminT[fullName]) then
-            message = adminT[fullName]
-            key     = fullName
-         end
 
+         for i = 1, #adminA do
+            local pattern = adminA[i][1]
+            if (fullName:find(pattern)) then
+               message = adminA[i][2]
+               key     = fullName
+               break
+            end
+            if (fn:find(pattern)) then
+               message = adminA[i][2]
+               key     = fullName
+               break
+            end
+         end
          if (message) then
             t[key] = message
          end

@@ -336,12 +336,12 @@ MCP            = false
 mcp            = false
 
 ------------------------------------------------------------------------
--- adminT:  A table that contains module names and a message to users
+-- adminA:  An array that contains module names and a message to users
 --          The main purpose is to tell users that say this module is
 --          deprecated.
 ------------------------------------------------------------------------
 
-adminT         = {}
+adminA         = {}
 
 ------------------------------------------------------------------------
 -- stackTraceBackA 
