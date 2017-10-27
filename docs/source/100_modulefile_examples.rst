@@ -3,7 +3,7 @@ Modulefile Examples from simple to complex
 
 Most of the time a modulefile is just a collection of setting
 environment variables and prepending to PATH or other path like
-variables. However, the modulefiles are actually programs so you can
+variables. However, modulefiles are actually programs so you can
 do a great deal if necessary.
 
 Here we show some of the techniques that site's or user's might use in
