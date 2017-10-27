@@ -882,8 +882,11 @@ switch -regexp -- $g_shellName {
     ^(fish)$ {
 	set g_shellType fish
     }
+    ^(cmake)$ {
+	set g_shellType cmake
+    }
     . {
-	error " +(0):ERROR:0: Unknown shell type \'($g_shell)\'"
+	error " +(0):ERROR:0: Unknown shell type \'($g_shellName)\'"
     }
 }
 

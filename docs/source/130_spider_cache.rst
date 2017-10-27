@@ -3,12 +3,12 @@
 System Spider Cache
 ===================
 
-Now with version 5.+ of Lmod, it is now very important that sites with
-large modulefile installations build system spider cache files. There
-is a file called "update_lmod_system_cache_files" that builds a system
-cache file.  It also touches a file called "system.txt".  Whatever the
-name of this file is, Lmod uses this file to know that the spider cache
-is up-to-date.
+It is now very important that sites with large modulefile
+installations build system spider cache files. There is a shell script
+called "update_lmod_system_cache_files" that builds a system cache
+file.  It also touches a file called "system.txt".  Whatever the name
+of this file is, Lmod uses this file to know that the spider cache is
+up-to-date.
 
 Lmod uses the spider cache file as a replacement for walking the directory tree
 to find all modulefiles in your ``MODULEPATH``.  This means that Lmod only knows
@@ -16,6 +16,32 @@ about system modules that are found in the spider cache.  Lmod won't know about
 any system modules that are not in this cache.  (Personal module files are
 always found).  It turns out that reading a single file is much faster than
 walking the directory tree.
+
+The spider cache is used to speed up ``module avail`` and ``module
+spider`` and not ``module load``. All the spider cache file(s) provide
+is a way for Lmod to know what modules exist and any properties that a
+modulefile might have.  It does not save the contents of any
+modulefiles.  Lmod always reads and evaluate the actual modulefile
+when performing loads, shows and similar commands.
+
+The reason that Lmod does not use the cache with ``module load`` is that
+if the spider cache is out-of-date, then Lmod will not be able to load
+a module. Either Lmod uses the spider cache or it walks the
+directories in ``MODULEPATH``.
+
+A site may choose to use have the spider cache assist the ``module
+load`` command by configuring Lmod or setting the environment variable::
+
+   export LMOD_CACHED_LOADS=yes
+
+See :ref:`env_vars-label` for more details.  Just remember that the
+cache file has to be up-to-date or user's won't be able to find system
+modulefiles!  Note too, that a cache file is tied to a particular set
+of directories in the MODULEPATH.  Lmod knows which directories in
+``MODULEPATH`` are covered by spider cache file(s) and which are
+not. So having a system spider cache file and setting
+LMOD_CACHED_LOADS=yes will not hamper modulefiles created
+by users in personal directories.
 
 While building the spider cache, each modulefile is evaluated for
 changes to ``MODULEPATH``.  Any directories added to ``MODULEPATH``
