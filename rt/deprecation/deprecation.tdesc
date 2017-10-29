@@ -27,6 +27,7 @@ testdescript = {
      runLmod use -a $testDir/mf/Core      # 2
      runLmod load gcc                     # 3
      runLmod load git/1.7.4.3             # 4
+     runLmod load bar                     # 5
 
      HOME=$ORIG_HOME
 

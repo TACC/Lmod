@@ -52,6 +52,26 @@ Or::
      Full_PATH_to_Modulefile: message
      <blank line>
 
+Or::
+     moduleName_1/version_1  | moduleName_2/version_2  | Full_Path_to_Module:
+        message
+     <blank line>
+
+In other words, you can have several modulefiles use the same message
+by separating them with `|' 
+
+You can use Lua regular expression to also match one or modules for
+both the full path to a module or the module fullname. Lua regular
+expressions are much less powerful.  In particular they do not support
+patterns like::
+
+    (foo|bar)
+
+
+Lmod searches the list of modules and/or paths from top to bottom and
+it uses the first match it finds.  So you might want to place the
+module pattern from specific to general in the admin file.
+
 The message can be as many lines as you like.  The message ends with a
 blank line.   Below is an example::
 
@@ -64,6 +84,11 @@ blank line.   Below is an example::
 
       /opt/apps/modulefiles/Compiler/gcc/4.7.2/boost/1.55.0:
       We are having issues
+
+
+      boost/1.[5-7].*:
+         We are having more issues.
+
 
 
 Note that you don't include the .lua part when specifying the version

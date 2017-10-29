@@ -1231,7 +1231,7 @@ function M.registerAdminMsg(self, mA)
                key     = fullName
                break
             end
-            if (fn:find(pattern)) then
+            if (pattern:sub(1,1) == '/' and fn:find(pattern)) then
                message = adminA[i][2]
                key     = fullName
                break

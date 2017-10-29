@@ -347,7 +347,7 @@ function readAdmin()
       -- Split lines on ":" module:message
 
       local state = "init"
-      local key   = "unknown"
+      local keyA  = {}
       local value = nil
       local a     = {}
 
@@ -362,8 +362,11 @@ function readAdmin()
             elseif (v:find("^%s*$")) then
                if (state == "value") then
                   value             = concatTbl(a, " ")
+                  for i = 1, #keyA do
+                     adminA[#adminA+1] = { keyA[i], value }
+                  end
                   a                 = {}
-                  adminA[#adminA+1] = { key, value }
+                  keyA              = {}
                   state             = "init"
                end
 
@@ -373,8 +376,11 @@ function readAdmin()
             else
                local i     = v:find(":")
                if (i) then
-                  key      = v:sub(1,i-1):trim()
-                  local  s = v:sub(i+1):trim()
+                  local k = v:sub(1,i-1):trim()
+                  for key in k:split('|') do
+                     keyA[#keyA+1] = key:trim()
+                  end
+                  local s = v:sub(i+1):trim()
                   if (s:len() > 0) then
                      a[#a+1]  = s
                   end
