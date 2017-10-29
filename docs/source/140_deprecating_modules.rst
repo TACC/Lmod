@@ -53,16 +53,20 @@ Or::
      <blank line>
 
 Or::
-     moduleName_1/version_1  | moduleName_2/version_2  | Full_Path_to_Module:
-        message
+
+     foo/1.1  | bar/1.2  | Full_Path_to_Modulefile:
+     message
      <blank line>
 
+
 In other words, you can have several modulefiles use the same message
-by separating them with `|' 
+by separating them with *|* 
 
 You can use Lua regular expression to also match one or modules for
 both the full path to a module or the module fullname. Lua regular
-expressions are much less powerful.  In particular they do not support
+expressions are much less powerful (see
+http://lua-users.org/wiki/PatternsTutorial for more details).
+In particular they do not support
 patterns like::
 
     (foo|bar)
@@ -72,8 +76,8 @@ Lmod searches the list of modules and/or paths from top to bottom and
 it uses the first match it finds.  So you might want to place the
 module pattern from specific to general in the admin file.
 
-Also some care may be necessary for `.' as it matches every character
-so you might have to change the `.' to `%.' to match the actual
+Also some care may be necessary for '.' as it matches every character
+so you might have to change the '.' to '%.' to match the actual
 period.
 
 
