@@ -21,5 +21,4 @@ Lmod 7.7+
    (7.7.10) Generate an LmodError() if the cachefile is broken.
             Do not convert /foo/bar/../baz to /foo/baz.  Leave .. in paths. Fixes issue #324
    (7.7.11) The admin.list (aka, nag mesages) supports Lua regex's.  Responds to issue #326
-   (7.7.12) The admin list now supports multiple targets for the same message (issue #326)
-   
+   (7.7.12) The admin.list now supports multiple targets for the same message (issue #326)

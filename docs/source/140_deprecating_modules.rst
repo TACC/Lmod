@@ -66,15 +66,15 @@ You can use Lua regular expression to also match one or modules for
 both the full path to a module or the module fullname. Lua regular
 expressions are much less powerful (see
 http://lua-users.org/wiki/PatternsTutorial for more details).
-In particular they do not support
-patterns like::
+In particular they do not support patterns like::
 
     (foo|bar)
 
 
 Lmod searches the list of modules and/or paths from top to bottom and
 it uses the first match it finds.  So you might want to place the
-module pattern from specific to general in the admin file.
+module patterns from specific to general in the admin file to avoid
+incorrect matching.
 
 Also some care may be necessary for '.' as it matches every character
 so you might have to change the '.' to '%.' to match the actual
