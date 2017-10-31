@@ -360,7 +360,7 @@ end
 -- Remove leading and trail spaces and extra slashes.
 -- @param value A path
 -- @return A clean canonical path.
-function path_regularize(value)
+function path_regularize(value, full)
    if value == nil then return nil end
    value = value:gsub("^%s+", "")
    value = value:gsub("%s+$", "")
@@ -397,21 +397,23 @@ function path_regularize(value)
 
    
 
-   --for i = icnt, #aa do
-   --   local dir  = aa[i]
-   --   local prev = a[#a]
-   --   if (    dir == ".." and prev ~= "..") then
-   --      a[#a] = nil
-   --   elseif (dir ~= ".") then
-   --      a[#a+1] = dir
-   --   end
-   --end
-
-   for i = icnt, #aa do
-      local dir  = aa[i]
-      local prev = a[#a]
-      if (dir ~= ".") then
-         a[#a+1] = dir
+   if (full) then
+      for i = icnt, #aa do
+         local dir  = aa[i]
+         local prev = a[#a]
+         if (    dir == ".." and prev ~= "..") then
+            a[#a] = nil
+         elseif (dir ~= ".") then
+            a[#a+1] = dir
+         end
+      end
+   else
+      for i = icnt, #aa do
+         local dir  = aa[i]
+         local prev = a[#a]
+         if (dir ~= ".") then
+            a[#a+1] = dir
+         end
       end
    end
       

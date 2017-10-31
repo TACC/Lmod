@@ -560,7 +560,7 @@ function runTCLprog(TCLprog, optStr, fn)
    a[#a + 1] = cosmic:value("LMOD_TCLSH")
    a[#a + 1] = pathJoin(cmdDir(),TCLprog)
    a[#a + 1] = optStr or ""
-   a[#a + 1] = fn
+   a[#a + 1] = path_regularize(fn,true)  -- convert /a/b/../d/e to /a/d/e
    local cmd = concatTbl(a," ")
    local whole, status = capture(cmd)
    return whole, status
