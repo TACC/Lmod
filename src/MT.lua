@@ -1017,6 +1017,7 @@ function M.getMTfromFile(self,tt)
    local f              = io.open(tt.fn,"r")
    local msg            = tt.msg
    local collectionName = tt.name
+   local force = tt.force
    if (not f) then
       LmodErrorExit()
    end
@@ -1054,8 +1055,8 @@ function M.getMTfromFile(self,tt)
       dbg.print{"sn: ",sn,", hash: ", t[sn], "\n"}
    end
 
-   local force = true
-   Purge(force)
+   local forcepurge = true
+   Purge(forcepurge)
 
    local savedBaseMPATH = l_mt.systemBaseMPATH
    dbg.print{"Saved baseMPATH: ",savedBaseMPATH,"\n"}
@@ -1174,7 +1175,13 @@ function M.getMTfromFile(self,tt)
    activeT = nil  -- done with activeT
    if (#aa > 0) then
       sort(aa)
-      LmodWarning{msg="w_Mods_Not_Loaded",module_list=concatTbl(aa," ")}
+      if (force ~= true) then
+      	      LmodWarning{msg="w_Missing_Coll", collectionName = collectionName, module_list = concatTbl(aa,"\", \"")}
+	      LmodErrorExit()
+	      return false
+      else
+      	      LmodWarning{msg="w_Missing_Coll_Forced", collectionName = collectionName, module_list = concatTbl(aa,"\", \"")}
+      end
    end
 
    --------------------------------------------------------------------------
@@ -1191,9 +1198,13 @@ function M.getMTfromFile(self,tt)
 
    if (#aa > 0) then
       sort(aa)
-      LmodWarning{msg="w_Broken_Coll", collectionName = collectionName, module_list = concatTbl(aa,"\", \"")}
-      if (collectionName ~= "default") then
-         LmodErrorExit()
+      if (force ~= true) then
+              LmodWarning{msg="w_Broken_Coll", collectionName = collectionName, module_list = concatTbl(aa,"\", \"")}
+	      if (collectionName ~= "default") then
+		 LmodErrorExit()
+	      end
+      else
+      	      LmodWarning{msg="w_Broken_Coll_Forced", collectionName = collectionName, module_list = concatTbl(aa,"\", \"")}
       end
       return false
    end
