@@ -18,7 +18,7 @@ or::
 This program defaults to generating a lua based modulefile.  It is
 possible to generate a TCL modulefile with::
 
-    % $LMOD_DIR/sh_to_modulefile  --style TCL --output foo_1.0 ./foo.sh
+    % $LMOD_DIR/sh_to_modulefile  --to TCL --output foo_1.0 ./foo.sh
 
 See::
 
