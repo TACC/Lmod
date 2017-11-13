@@ -165,7 +165,6 @@ local function new(self)
    local export_module     = cosmic:value("LMOD_EXPORT_MODULE")
    local prepend_block     = cosmic:value("LMOD_PREPEND_BLOCK")
    local threshold         = cosmic:value("LMOD_THRESHOLD")
-   local have_json         = cosmic:value("LMOD_HAVE_LUA_JSON")
    local have_term         = cosmic:value("LMOD_HAVE_LUA_TERM")
    local mpath_root        = cosmic:value("MODULEPATH_ROOT")
    local hashsum_path      = cosmic:value("LMOD_HASHSUM_PATH")
@@ -200,7 +199,6 @@ local function new(self)
    tbl.lfsV         = { k = "LuaFileSystem version"             , v = lfsV,             }
    tbl.lmodV        = { k = "Lmod version"                      , v = lmod_version,     }
    tbl.luaV         = { k = "Lua Version"                       , v = _VERSION,         }
-   tbl.lua_json     = { k = "System lua_json"                   , v = have_json,        }
    tbl.lua_term     = { k = "System lua-term"                   , v = have_term,        }
    tbl.lua_term_A   = { k = "Active lua-term"                   , v = activeTerm,       }
    tbl.mpath_av     = { k = "avail: Include modulepath dir"     , v = mpath_avail,      }

@@ -9,10 +9,6 @@ endif
 
 
 TOOL_SRC                  := $(wildcard $(srcdir)/tools/*.lua)
-HAVE_LUA_JSON             := @HAVE_LUA_JSON@
-ifeq ($(HAVE_LUA_JSON),yes)
-  TOOL_SRC                := $(filter-out $(srcdir)/tools/json.lua, $(TOOL_SRC))
-endif
 I18N_SRC                  := $(wildcard $(srcdir)/tools/i18n/*.lua)
 
 CURRENT_MK                := $(lastword $(MAKEFILE_LIST))
@@ -203,7 +199,6 @@ __installMe:
                 -e 's|@have_lua_term@|$(HAVE_LUA_TERM)|g'                  	  \
                 -e 's|@settarg_cmd@|$(SETTARG_CMD)|g'                  	          \
 	        -e "s|@my_shell@|$$fn|g"                   	                  \
-                -e 's|@have_lua_json@|$(HAVE_LUA_JSON)|g'                  	  \
                 -e 's|@tclsh@|$(PATH_TO_TCLSH)|g'                             	  \
                 -e 's|@disable_name_autoswap@|$(DISABLE_NAME_AUTOSWAP)|g'     	  \
 	        -e 's|@tmod_path_rule@|$(TMOD_PATH_RULE)|g'            	   	  \

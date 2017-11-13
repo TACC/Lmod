@@ -651,23 +651,6 @@ else
   echo "... yes"
 fi
 
-printf "checking for lua modules: json"
-
-missingModules=""
-for i in json; do
-  $luaprog luaModuleAvailable $i 2> /dev/null
-  if test "$?" != 0 ; then
-    missingModules="$missingModules $i"
-  fi
-done
-
-if test -n "$missingModules" ; then
-  echo "... no"
-else
-  AC_SUBST(HAVE_LUA_JSON,yes)
-  echo "... yes"
-fi
-
 rm luaModuleAvailable getLFSVersion
 
 if ! test -f $LUA_INCLUDE/lua.h; then
