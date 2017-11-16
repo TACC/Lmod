@@ -172,7 +172,7 @@ function joinMT_bash(whole)
             b[#b+1] = name
             b[#b+1] = "=\""
             for v in str:split(":") do
-               v = decode64(v)
+               v = (v ~= "false") and decode64(v) or "false"
                b[#b+1] = v
                b[#b+1] = ":"
             end
@@ -209,7 +209,7 @@ function joinMT_csh(whole)
             b[#b+1] = name
             b[#b+1] = " \""
             for v in str:split(":") do
-               v = decode64(v)
+               v = (v ~= "false") and decode64(v) or "false"
                b[#b+1] = v
                b[#b+1] = ":"
             end

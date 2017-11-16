@@ -348,6 +348,45 @@ __LMOD_STACK_RTM="test";
 export __LMOD_STACK_RTM;
 ===========================
 step 19
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load lloyd
+===========================
+unset LLOYD;
+__LMOD_REF_COUNT_LOADEDMODULES="intel/13.0:1;mpich/3.0:1;lloyd/1.0:1";
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES="intel/13.0:mpich/3.0:lloyd/1.0";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/mf/Core";
+export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:1;ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:1;ProjectDIR/rt/pushenv/mf/Core/lloyd/1.0.lua:1";
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:ProjectDIR/rt/pushenv/mf/Core/lloyd/1.0.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={intel={["fn"]="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua",["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",},lloyd={["fn"]="ProjectDIR/rt/pushenv/mf/Core/lloyd/1.0.lua",["fullName"]="lloyd/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="lloyd",},mpich={["fn"]="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua",["fullName"]="mpich/3.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mpich",},},mpathA={"ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0","ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",}';
+export _ModuleTable_;
+__LMOD_STACK_LLOYD="false:FOO";
+export __LMOD_STACK_LLOYD;
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload lloyd
+===========================
+LLOYD="FOO";
+export LLOYD;
+__LMOD_REF_COUNT_LOADEDMODULES="intel/13.0:1;mpich/3.0:1";
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES="intel/13.0:mpich/3.0";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/mf/Core";
+export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:1;ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua:1";
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={intel={["fn"]="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua",["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",},mpich={["fn"]="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua",["fullName"]="mpich/3.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mpich",},},mpathA={"ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0","ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",}';
+export _ModuleTable_;
+__LMOD_STACK_LLOYD="FOO";
+export __LMOD_STACK_LLOYD;
+===========================
+step 21
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/mf/Core";
@@ -355,7 +394,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={intel={["fn"]="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua",["fullName"]="intel/13.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",},mpich={["fn"]="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua",["fullName"]="mpich/3.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mpich",},},mpathA={"ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0","ProjectDIR/rt/pushenv/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pushenv/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 20
+step 22
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 CC="mpicc";
