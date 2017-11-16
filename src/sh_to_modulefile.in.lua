@@ -513,7 +513,9 @@ end
 function options()
    local masterTbl     = masterTbl()
    local usage         = "Usage: sh_to_modulefile [options] bash_shell_script [script_options]"
-   local cmdlineParser = Optiks:new{usage=usage, version=Version}
+   local cmdlineParser = Optiks:new{usage   = usage,
+                                    error   = io.stderr:write,
+                                    version = Version}
 
 
    cmdlineParser:add_option{

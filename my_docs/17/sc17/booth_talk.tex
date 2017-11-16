@@ -130,12 +130,13 @@
     \item Reference counting on PATH like variables
     \item French, German, Spanish translations for Lmod messages.
     \item Admin list (AKA Nag List) supports Lua Regex for matching
+    \item Improved Settarg (more on this later?)
   \end{itemize}
 \end{frame}
 
 \begin{frame}{\texttt{depends\_on()}}
   \begin{itemize}
-    \item Module X and Y depends on Module A
+    \item Modules X and Y depends on Module A
     \item ml purge; ml X; ml unload X;      $\Rightarrow$ unload A
     \item ml purge; ml X Y; ml unload X;    $\Rightarrow$ keep A
     \item ml purge; ml X Y; ml unload X Y ; $\Rightarrow$ unload A
@@ -191,7 +192,10 @@
   \end{itemize}
 \end{frame}
 
-
+\begin{frame}[fragile]
+    \frametitle{Lmod Doc usage}
+    \center{\includegraphics[width=.9\textwidth]{Lmod_docs_usage}}
+\end{frame}
 
 
 \begin{frame}{Conclusions: Lmod 7+}
