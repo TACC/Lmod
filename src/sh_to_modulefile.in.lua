@@ -493,9 +493,13 @@ function main()
 
    local s = capture(concatTbl(cmdA," "))
 
-   local f = io.open("s.log","w")
-   f:write(s)
-   f:close()
+   if (masterTbl.debug) then
+      local f = io.open("s.log","w")
+      if (f) then
+         f:write(s)
+         f:close()
+      end
+   end
 
    local factory = MF_Base.build(masterTbl.style)
 
@@ -504,8 +508,13 @@ function main()
    s = concatTbl(factory:process(ignoreT, oldEnvT, envT),"\n")
    if (masterTbl.outFn) then
       f = io.open(masterTbl.outFn,"w")
-      f:write(s)
-      f:close()
+      if (f) then
+         f:write(s)
+         f:close()
+      else
+         io.stderr:write("Unable to write modulefile named: ",masterTbl.outFn,"\n")
+         os.exit(1);
+      end
    else
       print(s)
    end
