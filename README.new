@@ -25,4 +25,4 @@ Lmod 7.7+
    (7.7.13) Use full path_regularize() on all TCL program files.  Having paths like /a/b/../d
             caused problems for some users when interacting with TCL.
    (7.7.14) Do not look for lua_json.  Just use the one that comes with Lmod.
-   
+            Fix sh_to_modulefile correctly handle bad options (issue #332)
