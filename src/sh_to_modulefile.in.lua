@@ -132,6 +132,7 @@ local setenv_posix = posix.setenv
 local concatTbl    = table.concat
 local s_master     = {}
 local load         = (_VERSION == "Lua 5.1") and loadstring or load
+local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
 envT               = false
 
 local keepT = {
@@ -510,11 +511,25 @@ function main()
    end
 end
 
+function usage()
+   return "Usage: sh_to_modulefile [options] bash_shell_script [script_options]"
+end
+
+
+function my_error(...)
+   local arg = pack(...)
+   for i = 1, arg.n do
+      io.stderr:write(arg[i])
+   end
+   io.stderr:write("\n",usage(),"\n")
+end
+
+
+
 function options()
    local masterTbl     = masterTbl()
-   local usage         = "Usage: sh_to_modulefile [options] bash_shell_script [script_options]"
-   local cmdlineParser = Optiks:new{usage   = usage,
-                                    error   = io.stderr:write,
+   local cmdlineParser = Optiks:new{usage   = usage(),
+                                    error   = my_error,
                                     version = Version}
 
 
