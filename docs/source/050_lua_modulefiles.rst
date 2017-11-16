@@ -51,6 +51,9 @@ unset during unloading.
    sets **NAME** to *value* just like **setenv**.  In addition it
    saves the previous value in a hidden environment variable.  This
    way the previous state can be returned when a module is unloaded.
+   **pushenv** ("FOO",false) will clear "FOO" and the pop will return
+   the previous value.
+
 
 **unsetenv** ("NAME"):
    unset the value associated with "NAME".  This command is a no-op
