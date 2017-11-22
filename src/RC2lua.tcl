@@ -48,6 +48,10 @@ proc hide-version {mfile} {
     puts stdout "\{kind=\"hide-version\", mfile=\"$mfile\"\},"
 }
 
+proc hide-modulefile {mfile} {
+    puts stdout "\{kind=\"hide-modulefile\", mfile=\"$mfile\"\},"
+}
+
 
 proc module-version {args} {
     set module_name    [lindex $args 0]

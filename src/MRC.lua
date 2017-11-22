@@ -79,7 +79,7 @@ local function new(self, fnA)
    o.__alias2modT    = {}  -- Map an alias string to a module name or alias
    o.__fullNameDfltT = {}
    o.__defaultT      = {}  -- Map module sn to fullname that is the default.
-   o.__hiddenT       = {}  -- Table of hidden module names.
+   o.__hiddenT       = {}  -- Table of hidden module names and modulefiles.
    o.__mod2versionT  = {}  -- Map from full module name to versions.
    o.__full2aliasesT = {}
 
@@ -172,6 +172,9 @@ function l_parseModA(self, modA, weight)
             dbg.print{"name: ",entry.name,", mfile: ", entry.mfile,"\n"}
             self.__alias2modT[entry.name] = entry.mfile
          elseif (entry.kind == "hide-version") then
+            dbg.print{"mfile: ", entry.mfile,"\n"}
+            self.__hiddenT[entry.mfile] = true
+         elseif (entry.kind == "hide-modulefile") then
             dbg.print{"mfile: ", entry.mfile,"\n"}
             self.__hiddenT[entry.mfile] = true
          end
@@ -295,6 +298,9 @@ function M.parseModA_for_moduleA(self, name, modA)
       elseif (entry.kind == "hide-version") then
          dbg.print{"mfile: ", entry.mfile,"\n"}
          self.__hiddenT[entry.mfile] = true
+      elseif (entry.kind == "hide-modulefile") then
+         dbg.print{"mfile: ", entry.mfile,"\n"}
+         self.__hiddenT[entry.mfile] = true
       end
    end
    dbg.fini("MRC:parseModA_for_moduleA")
@@ -342,9 +348,10 @@ end
 -- modT is a table with: sn, fullName and fn
 function M.isVisible(self, modT)
    local name = modT.fullName
+   local fn   = modT.fn
    local isVisible = true
 
-   if (self:getHiddenT(name)) then
+   if (self:getHiddenT(name) or self:getHiddenT(fn)) then
       isVisible = false
    elseif (name:sub(1,1) == ".") then
       isVisible = false

@@ -6,4 +6,6 @@ if {[info exists ::env(LMOD_VERSION_MAJOR)]} {
    hide-version dummy/2.0
    hide-version mpich/3.2
    hide-version a/2.0
+   set modulepath_root  $env(MODULEPATH_ROOT)
+   hide-modulefile "$modulepath_root/Core/b/3.14"
 }
