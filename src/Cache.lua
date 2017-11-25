@@ -516,11 +516,13 @@ function M.build(self, fast)
          local s3 = serializeTbl{name="spiderT",      value=userSpiderT, indent=true}
          local s4 = serializeTbl{name="mpathMapT",    value=mpathMapT,   indent=true}
          os.rename(userSpiderTFN, userSpiderTFN .. "~")
-         local f  = io.open(userSpiderTFN,"w")
+         local fn = os.tmpname()
+         local f  = io.open(fn,"w")
          if (f) then
             f:write(s0,s1,s2,s3,s4)
             f:close()
          end
+         os.rename(fn, userSpiderTFN)
          posix.unlink(userSpiderTFN .. "~")
          dbg.print{"Wrote: ",userSpiderTFN,"\n"}
          if (LUAC_PATH ~= "") then
