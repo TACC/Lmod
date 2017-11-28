@@ -2,6 +2,8 @@ set -gx LMOD_PKG @PKG@
 set -gx LMOD_DIR @PKG@/libexec
 set -gx LMOD_CMD @PKG@/libexec/lmod
 
+set -gx MODULESHOME @PKG@
+
 if status -i
    function module
       eval $LMOD_CMD fish $argv | source -
