@@ -216,11 +216,13 @@ If this file exists then MODULEPATH_ROOT method is not used.
 
 
 The ``profile`` file is the Lmod initialization script for the bash and zsh
-shells, and the ``cshrc`` file is for tcsh and csh shells. Please copy or link
-the ``profile`` and ``cshrc`` files to ``/etc/profile.d`` ::
+shells, the ``cshrc`` file is for tcsh and csh shells, and the ``profile.fish``
+file is for the fish shell. Please copy or link the ``profile`` and ``cshrc``
+files to ``/etc/profile.d``, and optionally the fish file to ``/etc/fish/conf.d``::
 
-    $ ln -s /opt/apps/lmod/lmod/init/profile /etc/profile.d/z00_lmod.sh
-    $ ln -s /opt/apps/lmod/lmod/init/cshrc   /etc/profile.d/z00_lmod.csh
+    $ ln -s /opt/apps/lmod/lmod/init/profile        /etc/profile.d/z00_lmod.sh
+    $ ln -s /opt/apps/lmod/lmod/init/cshrc          /etc/profile.d/z00_lmod.csh
+    $ ln -s /opt/apps/lmod/lmod/init/profile.fish   /etc/fish/conf.d/z00_lmod.fish
 
 To test the setup, you just need to login as a user. The module
 command should be set and ``MODULEPATH`` should be defined. Bash or Zsh
@@ -328,6 +330,14 @@ file can be in a number of places but is typically in ``/etc/zshenv`` or
       setopt nomatch
       done
     fi
+    
+    
+Fish:
+~~~~~
+
+Fish users have `several standard places <https://fishshell.com/docs/current/index.html#initialization>`_ searched for scripts. The system location is usually ``/etc/fish/conf.d`` and the user location is usually `` ~/.config/fish/conf.d/``. Fish users are provided a special profile file, ``init/profile.fish``, that should be linked into one of these places with a suitable name. For example, a local user for fish might want::
+
+    $ ln -s /opt/apps/lmod/lmod/init/profile.fish ~/.config/fish/conf.d/z00_lmod.fish
 
 .. _issues-with-bash:
 
