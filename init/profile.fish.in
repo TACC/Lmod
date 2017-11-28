@@ -8,7 +8,7 @@
 
 if test (id -u) -ne 0
 
-    if test -n "$MODULEPATH_ROOT"
+    if test -z "$MODULEPATH_ROOT"
 
         if test -n "$USER"
             set -gx USER "$LOGNAME"  # make sure $USER is set
