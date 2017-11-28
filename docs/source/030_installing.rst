@@ -216,10 +216,9 @@ If this file exists then MODULEPATH_ROOT method is not used.
 
 
 The ``profile`` file is the Lmod initialization script for the bash and zsh
-shells, the ``cshrc`` file is for tcsh and csh shells, and ``profile.fish`` is
-for the fish shell. Please copy or link
-the ``profile`` and ``cshrc`` files to ``/etc/profile.d``, and optionally the fish
-file to ``/etc/fish/conf.d``::
+shells, the ``cshrc`` file is for tcsh and csh shells, and the ``profile.fish``
+file is for the fish shell. Please copy or link the ``profile`` and ``cshrc``
+files to ``/etc/profile.d``, and optionally the fish file to ``/etc/fish/conf.d``::
 
     $ ln -s /opt/apps/lmod/lmod/init/profile        /etc/profile.d/z00_lmod.sh
     $ ln -s /opt/apps/lmod/lmod/init/cshrc          /etc/profile.d/z00_lmod.csh
