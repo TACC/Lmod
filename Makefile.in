@@ -102,7 +102,7 @@ LMODRC_INIT               := $(patsubst %, $(srcdir)/init/%, lmodrc.lua)
 ZSH_FUNCS                 := _ml _module
 ZSH_FUNCS                 := $(patsubst %, $(srcdir)/init/zsh/%, $(ZSH_FUNCS))
 
-STARTUP		  	  := profile.in cshrc.in
+STARTUP		  	  := profile.in profile.fish.in cshrc.in
 STARTUP		  	  := $(patsubst %, $(srcdir)/init/%, $(STARTUP))
 
 MSGFNs                    := $(wildcard $(srcdir)/messageDir/*.lua)
