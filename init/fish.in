@@ -1,7 +1,8 @@
 set -gx LMOD_PKG @PKG@
 set -gx LMOD_DIR @PKG@/libexec
-set -gx LMOD_DIR @PKG@/libexec
 set -gx LMOD_CMD @PKG@/libexec/lmod
+
+set -gx MODULESHOME @PKG@
 
 if status -i
    function module
@@ -14,7 +15,7 @@ else
 end
 
 function ml
-   eval $LMOD_DIR/ml $argv | source -
+   eval $LMOD_DIR/ml_cmd $argv | source -
 end
 
 function clearMT
