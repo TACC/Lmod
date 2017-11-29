@@ -85,6 +85,7 @@ local timer      = require("Timer"):singleton()
 
 local ancient    = cosmic:value("LMOD_ANCIENT_TIME")
 local shortTime  = cosmic:value("LMOD_SHORT_TIME")
+local random     = math.random
 --------------------------------------------------------------------------
 -- This singleton construct reads the scDescriptT table that can be
 -- defined in the lmodrc.lua.  Typically this table, if it exists
@@ -185,6 +186,14 @@ local function new(self, t)
    o.moduleDirA        = {}
    dbg.fini("Cache.new")
    return o
+end
+
+local function uuid()
+    local template ='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
+    return string.gsub(template, '[xy]', function (c)
+        local v = (c == 'x') and random(0, 0xf) or random(8, 0xb)
+        return string.format('%x', v)
+    end)
 end
 
 --------------------------------------------------------------------------
@@ -518,13 +527,22 @@ function M.build(self, fast)
          os.rename(userSpiderTFN, userSpiderTFN .. "~")
          local fn = os.tmpname()
          local f  = io.open(fn,"w")
+         local userSpiderTFN_new = userSpiderTFN .. "_" .. uuid()
          if (f) then
             f:write(s0,s1,s2,s3,s4)
             f:close()
+            f           = io.open(fn,"r")
+            local f2    = io.open(userSpiderTFN_new,"w")
+            local whole = f:read("*all")
+            f2:write(whole)
+            f2:close()
+            f:close()
          end
-         os.rename(fn, userSpiderTFN)
+         
+         local res, message = os.rename(userSpiderTFN_new, userSpiderTFN)
          posix.unlink(userSpiderTFN .. "~")
          dbg.print{"Wrote: ",userSpiderTFN,"\n"}
+         
          if (LUAC_PATH ~= "") then
             if (LUAC_PATH:sub(1,1) == "@") then
                LUAC_PATH="luac"
