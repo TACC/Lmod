@@ -943,7 +943,7 @@ function UnUse(...)
    local nodups = true
    for i = 1, arg.n do
       local v = arg[i]
-      MCP:remove_path{ ModulePath,  v, delim=":", nodups = true}
+      MCP:remove_path{ModulePath,  v, delim=":", nodups = true, force = true}
    end
    if (mt:changeMPATH()) then
       mt:reset_MPATH_change_flag()

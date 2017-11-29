@@ -151,11 +151,12 @@ local function l_extract(self, nodups)
          
          local idxA    = vv.idxA
          if (nodups) then
-            if (self.name == "MODULEPATH") then 
-               vv.num = 1
-            else
-               vv.num = num + 1
-            end
+            --if (self.name == "MODULEPATH") then 
+            --   vv.num = 1
+            --else
+            --   vv.num = num + 1
+            --end
+            vv.num = num + 1
             if (next(idxA) == nil) then
                idxA[1] = {i,priority}
             end
@@ -207,11 +208,11 @@ end
 --  @param a An array of values.
 --  @param where Where to remove and how: {"first", "last", "all"}
 --  @param priority The priority of the path if any (default is zero)
-local function remFunc(vv, where, priority, nodups)
+local function l_remFunc(vv, where, priority, nodups, force)
    local num  = vv.num
    local idxA = vv.idxA
    if (nodups) then
-      vv.num = num - 1
+      vv.num = (force) and 0 or num - 1
       if (vv.num < 1) then
          vv = nil
       end
@@ -249,7 +250,7 @@ end
 -- @param where where it should be removed from {"first", "last", "all"}
 -- @param priority The priority of the entry.
 -- @param nodup If true then there are no duplicates allowed.
-function M.remove(self, value, where, priority, nodups)
+function M.remove(self, value, where, priority, nodups, force)
    if (value == nil) then return end
    priority = priority or 0
 
@@ -261,17 +262,6 @@ function M.remove(self, value, where, priority, nodups)
    local pathA   = path2pathA(value, self.sep)
    local tbl     = self.tbl
    local adding  = false
-
-   if (self.name == "RTM_LUA_PATH") then
-      dbg.printT("RTM_LUA_PATH",tbl)
-      for i  = 1, #pathA do
-         dbg.print{i,": \"",pathA[i],"\"\n"}
-      end
-      dbg.print{"value: \"",value,"\"\n"}
-      for k in pairs(tbl) do
-         dbg.print{"\"",k,"\"\n"}
-      end
-   end
 
    local tracing  = cosmic:value("LMOD_TRACING")
    if (tracing == "yes" and self.name == "MODULEPATH" ) then
@@ -290,7 +280,7 @@ function M.remove(self, value, where, priority, nodups)
    for i = 1, #pathA do
       local path = pathA[i]
       if (tbl[path]) then
-         tbl[path]   = remFunc(tbl[path], where, priority, nodups)
+         tbl[path]   = l_remFunc(tbl[path], where, priority, nodups, force)
       end
    end
    local v    = self:expand()
@@ -327,9 +317,10 @@ local function insertFunc(name, vv, idx, isPrepend, nodups, priority)
       if (num == 0 ) then
          return { num = 1, idxA = {{idx,priority}} }
       else
-         if (name ~= "MODULEPATH") then
-            vv.num  = num + 1
-         end
+         --if (name ~= "MODULEPATH") then
+         --   vv.num  = num + 1
+         --end
+         vv.num  = num + 1
          if (tmod_path_rule == "no") then
             vv.idxA = {{idx,priority}}
          end
@@ -495,7 +486,7 @@ function M.pop(self)
       local v = idxA[1][1]
       dbg.print{"v: ",v,", imin: ",imin,", min2: ",min2,"\n"}
       if (v == imin) then
-         vv          = remFunc(vv, "first", 0)
+         vv          = l_remFunc(vv, "first", 0, false)
          self.tbl[k] = vv
          if (vv ~= nil) then
             v = vv.idxA[1][1]
@@ -690,7 +681,8 @@ function M.expand(self)
    end
 
    local refCountT = {}
-   if (self.nodups and self.name ~= "MODULEPATH") then
+   -- if (self.nodups and self.name ~= "MODULEPATH") then
+   if (self.nodups) then
       env_name = envRefCountName .. self.name
       oldV     = getenv(env_name)
       if (next(sAA) == nil) then

@@ -391,7 +391,7 @@ end
 --------------------------------------------------------------------------
 -- Remove an entry from a path like variable.
 -- @param self A MasterControl object
--- @param t A table containing { name, value, nodups=v1, priority=v2, where=v3}
+-- @param t A table containing { name, value, nodups=v1, priority=v2, where=v3, force=v4}
 function M.remove_path(self, t)
    local sep      = t.delim or ":"
    local name     = t[1]
@@ -401,20 +401,22 @@ function M.remove_path(self, t)
    local where    = t.where
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
+   local force    = t.force
 
    dbg.start{"MasterControl:remove_path{\"",name,"\", \"",value,
              "\", delim=\"",sep,"\", nodups=\"",nodups,
              "\", priority=",priority,
              ", where=",where,
+             ", force=",force,
              "}"}
 
    -- Do not allow dups on MODULEPATH like env vars.
-   nodups = name == ModulePath or nodups
+   nodups = (name == ModulePath) or nodups
 
    if (varT[name] == nil) then
       varT[name] = Var:new(name,nil, nodups, sep)
    end
-   varT[name]:remove(tostring(value), where, priority, nodups)
+   varT[name]:remove(tostring(value), where, priority, nodups, force)
    dbg.fini("MasterControl:remove_path")
 end
 
