@@ -72,6 +72,10 @@ local ln10_inv        = 1.0/log(10.0)
 
 local function l_extract_Lmod_var_table(self, envName)
    local value = getenv(envName .. self.name)
+   if (envName .. self.name == "__LMOD_REF_COUNT_MODULEPATH") then
+      dbg.print{"__LMOD_REF_COUNT_MODULEPATH: ",value,"\n"}
+   end
+
    local t     = {}
    if (value == nil) then
       return t
@@ -196,6 +200,9 @@ function M.new(self, name, value, nodup, sep)
    l_extract(o, nodup)
    if (not value) then value = nil end
    setenv_posix(name, value, true)
+   if (name == "MODULEPATH") then
+      o:prt("MODULEPATH")
+   end
    return o
 end
 
@@ -212,7 +219,9 @@ local function l_remFunc(vv, where, priority, nodups, force)
    local num  = vv.num
    local idxA = vv.idxA
    if (nodups) then
+      dbg.print{"RTM (1) vv.num: ", vv.num, "\n"}
       vv.num = (force) and 0 or num - 1
+      dbg.print{"RTM (2) vv.num: ", vv.num, "\n"}
       if (vv.num < 1) then
          vv = nil
       end
@@ -383,8 +392,15 @@ function M.prepend(self, value, nodups, priority)
       local path = pathA[i]
       imin       = imin - 1
       local vv   = tbl[path]
+      if (name == "MODULEPATH") then
+         dbg.print{"RTM (1) vv: ",vv,"\n"}
+      end
+
       tbl[path]  = insertFunc(name, vv or {num = 0, idxA = {}},
                               imin, isPrepend, nodups, priority)
+      if (name == "MODULEPATH") then
+         dbg.print{"RTM (2) vv: ",vv,"\n"}
+      end
    end
    self.imin = imin
 
@@ -550,6 +566,14 @@ function M.prt(self,title)
    dbg.fini ("Var:prt")
 end
 
+function M.setRefCount(self, refCountT)
+   local tbl = self.tbl
+   for k, vv in pairs(tbl) do
+      vv.num = refCountT[k] or 1
+   end
+end
+
+
 --------------------------------------------------------------------------
 -- Unset the environment variable.
 -- @param self A Var object
@@ -560,6 +584,9 @@ function M.unset(self)
    local adding = false
    chkMP(self.name, nil, adding)
 end
+
+
+
 
 --------------------------------------------------------------------------
 -- Expand the value into a string.   Obviously non-path

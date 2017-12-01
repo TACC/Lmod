@@ -137,6 +137,7 @@ Sinon, vous pouvez définir la variable d'environnement LMOD_DISABLE_SAME_NAME_A
      e_Swap_Failed       = "L'échange a échoué : \"%{name}\" n'est pas chargé.\n",
      e_Unable_2_Load     = "Impossible de charger le module : %{name}\n     %{fn}: %{message}\n",
      e_Unable_2_parse    = "Impossible d'analyser : \"%{path}\". Abandon.\n",
+     e_Unable_2_rename   = nil,
      e_Unknown_Coll      = "Collection de modules utilisateur : \"%{collection}\" n'existe pas.\n  Essayez \"module savelist\" pour une liste de choix possibles.\n",
      e_coll_corrupt      = "La collection de modules est corrompue. Veuillez supprimer : %{fn}\n",
      e_dbT_sn_fail       = "dbT[sn] a échoué pour sn: %{sn}\n",

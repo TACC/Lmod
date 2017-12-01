@@ -10,6 +10,8 @@ __LMOD_REF_COUNT_LOADEDMODULES="HPCBIOS/2016q2:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="HPCBIOS/2016q2";
 export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/use_w_sticky/mf/Core:1;ProjectDIR/rt/use_w_sticky/mf/Other:1";
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/use_w_sticky/mf/Core:ProjectDIR/rt/use_w_sticky/mf/Other";
 export MODULEPATH;
 __LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/use_w_sticky/mf/Core/HPCBIOS/2016q2.lua:1";
@@ -44,6 +46,8 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T use ProjectDIR/rt/us
 ===========================
 unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/use_w_sticky/mf/A:1";
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/use_w_sticky/mf/A";
 export MODULEPATH;
 unset __LMOD_REF_COUNT__LMFILES_;

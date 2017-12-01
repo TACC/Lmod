@@ -86,6 +86,7 @@ local timer      = require("Timer"):singleton()
 local ancient    = cosmic:value("LMOD_ANCIENT_TIME")
 local shortTime  = cosmic:value("LMOD_SHORT_TIME")
 local random     = math.random
+local randomseed = math.randomseed
 --------------------------------------------------------------------------
 -- This singleton construct reads the scDescriptT table that can be
 -- defined in the lmodrc.lua.  Typically this table, if it exists
@@ -189,11 +190,18 @@ local function new(self, t)
 end
 
 local function uuid()
-    local template ='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
-    return string.gsub(template, '[xy]', function (c)
-        local v = (c == 'x') and random(0, 0xf) or random(8, 0xb)
-        return string.format('%x', v)
-    end)
+   local time = epoch()
+   local seed = math.floor((time - math.floor(time))*1.0e+6)
+   if (seed == 0) then
+      seed = time
+   end
+   randomseed(seed)
+
+   local template ='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
+   return string.gsub(template, '[xy]', function (c)
+                         local v = (c == 'x') and random(0, 0xf) or random(8, 0xb)
+                         return string.format('%x', v)
+                                        end)
 end
 
 --------------------------------------------------------------------------
@@ -525,21 +533,19 @@ function M.build(self, fast)
          local s3 = serializeTbl{name="spiderT",      value=userSpiderT, indent=true}
          local s4 = serializeTbl{name="mpathMapT",    value=mpathMapT,   indent=true}
          os.rename(userSpiderTFN, userSpiderTFN .. "~")
-         local fn = os.tmpname()
-         local f  = io.open(fn,"w")
          local userSpiderTFN_new = userSpiderTFN .. "_" .. uuid()
+         local f  = io.open(userSpiderTFN_new,"w")
          if (f) then
             f:write(s0,s1,s2,s3,s4)
             f:close()
-            f           = io.open(fn,"r")
-            local f2    = io.open(userSpiderTFN_new,"w")
-            local whole = f:read("*all")
-            f2:write(whole)
-            f2:close()
-            f:close()
          end
          
-         local res, message = os.rename(userSpiderTFN_new, userSpiderTFN)
+         local ok, message = os.rename(userSpiderTFN_new, userSpiderTFN)
+         if (not ok) then
+            LmodError{msg="e_Unable_2_rename",from=userSpiderTFN_new,to=userSpiderTFN, errMsg=message}
+         end
+
+
          posix.unlink(userSpiderTFN .. "~")
          dbg.print{"Wrote: ",userSpiderTFN,"\n"}
          

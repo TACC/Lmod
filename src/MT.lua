@@ -1073,11 +1073,11 @@ function M.getMTfromFile(self,tt)
    -- Build a new MT with only the savedBaseMPATH from before.
    -- This means resetting s_mt, s_frameStk and defining
    -- MODULEPATH in the environment.  Then we can rebuild a fresh
-   -- FrameStk and MT.
-
+   -- FrameStk and MT.  
    local FrameStk = require("FrameStk")
    local frameStk = FrameStk:singleton()
    local mt       = frameStk:mt()
+
    dbg.print{"(1) mt.systemBaseMPATH: ",mt.systemBaseMPATH,"\n"}
    dbg.print{"savedBaseMPATH: ",savedBaseMPATH,"\n"}
    s              = serializeTbl{indent=true, name=s_name, value=mt}
@@ -1141,9 +1141,11 @@ function M.getMTfromFile(self,tt)
       mA[#mA+1]   = mname
    end
    MCP.load(mcp,mA)
-   mcp = mcp_old
+   mcp        = mcp_old
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-   mt = frameStk:mt()
+   mt         = frameStk:mt()
+   local varT = frameStk:varT()
+   varT[ModulePath]:setRefCount({})
    
    -----------------------------------------------------------------------
    -- Now check to see that all requested modules got loaded.

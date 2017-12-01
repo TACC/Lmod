@@ -19,6 +19,7 @@ setenv __LMOD_REF_COUNT_MANPATH "/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/man
 setenv MANPATH "/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/man:/vol/local/noweb/noweb/man:/vol/local/intel/mkl/mkl/man:/vol/local/intel/idb/idb/man:/vol/local/intel/fc/fc/man:/vol/local/intel/cc/cc/man:/usr/share/man";
 setenv MKL_DIR "/vol/local/intel/mkl/mkl/lib/lib";
 setenv MKL_INCLUDE "/vol/local/intel/mkl/mkl/include";
+setenv __LMOD_REF_COUNT_MODULEPATH "ProjectDIR/rt/csh_swap/mf/MPI/intel/10.1/openmpi/1.2.6:1;ProjectDIR/rt/csh_swap/mf/Compiler/intel/10.1:1;ProjectDIR/rt/csh_swap/mf/Core:1;ProjectDIR/rt/csh_swap/mf/Core2:1";
 setenv MODULEPATH "ProjectDIR/rt/csh_swap/mf/MPI/intel/10.1/openmpi/1.2.6:ProjectDIR/rt/csh_swap/mf/Compiler/intel/10.1:ProjectDIR/rt/csh_swap/mf/Core:ProjectDIR/rt/csh_swap/mf/Core2";
 setenv MPIHOME "/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt";
 setenv __LMOD_REF_COUNT_PATH "/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/bin:1;/vol/local/noweb/icon/bin:1;/vol/local/noweb/2.10c/bin:1;/vol/local/intel/idb/idb/bin:1;/vol/local/intel/fc/fc/bin:1;/vol/local/intel/cc/cc/bin:1;/usr/sbin:1;/sbin:1;ProjectDIR/src:1;PATH_to_TM:1";
@@ -46,6 +47,7 @@ setenv __LMOD_REF_COUNT_MANPATH "/vol/local/noweb/noweb/man:1;/usr/share/man:1";
 setenv MANPATH "/vol/local/noweb/noweb/man:/usr/share/man";
 unsetenv MKL_DIR;
 unsetenv MKL_INCLUDE;
+setenv __LMOD_REF_COUNT_MODULEPATH "ProjectDIR/rt/csh_swap/mf/Core:1;ProjectDIR/rt/csh_swap/mf/Core2:1";
 setenv MODULEPATH "ProjectDIR/rt/csh_swap/mf/Core:ProjectDIR/rt/csh_swap/mf/Core2";
 unsetenv MPIHOME;
 setenv __LMOD_REF_COUNT_PATH "/vol/local/noweb/icon/bin:1;/vol/local/noweb/2.10c/bin:1;/usr/sbin:1;/sbin:1;ProjectDIR/src:1;PATH_to_TM:1";
@@ -71,6 +73,7 @@ setenv __LMOD_REF_COUNT_LOADEDMODULES "admin/admin-1.0:1;unix/unix:1;local/1.3:1
 setenv LOADEDMODULES "admin/admin-1.0:unix/unix:local/1.3:noweb/2.10c:PrgEnv:gcc/4.2.3:openmpi/1.2.6:parmetis/3.1";
 setenv __LMOD_REF_COUNT_MANPATH "/vol/local/mpi/gcc/4.2.3/openmpi/1.2.6.opt/man:1;/vol/local/noweb/noweb/man:1;/usr/share/man:1";
 setenv MANPATH "/vol/local/mpi/gcc/4.2.3/openmpi/1.2.6.opt/man:/vol/local/noweb/noweb/man:/usr/share/man";
+setenv __LMOD_REF_COUNT_MODULEPATH "ProjectDIR/rt/csh_swap/mf/MPI/gcc/4.2.3/openmpi/1.2.6:1;ProjectDIR/rt/csh_swap/mf/Compiler/gcc/4.2.3:1;ProjectDIR/rt/csh_swap/mf/Core:1;ProjectDIR/rt/csh_swap/mf/Core2:1";
 setenv MODULEPATH "ProjectDIR/rt/csh_swap/mf/MPI/gcc/4.2.3/openmpi/1.2.6:ProjectDIR/rt/csh_swap/mf/Compiler/gcc/4.2.3:ProjectDIR/rt/csh_swap/mf/Core:ProjectDIR/rt/csh_swap/mf/Core2";
 setenv MPIHOME "/vol/local/mpi/gcc/4.2.3/openmpi/1.2.6.opt";
 setenv __LMOD_REF_COUNT_PATH "/vol/local/mpi/gcc/4.2.3/openmpi/1.2.6.opt/bin:1;/vol/local/noweb/icon/bin:1;/vol/local/noweb/2.10c/bin:1;/usr/sbin:1;/sbin:1;ProjectDIR/src:1;PATH_to_TM:1";
@@ -135,6 +138,7 @@ setenv __LMOD_REF_COUNT_MANPATH "/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/man
 setenv MANPATH "/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/man:/vol/local/intel/mkl/mkl/man:/vol/local/intel/idb/idb/man:/vol/local/intel/fc/fc/man:/vol/local/intel/cc/cc/man:/vol/local/noweb/noweb/man:/usr/share/man";
 setenv MKL_DIR "/vol/local/intel/mkl/mkl/lib/lib";
 setenv MKL_INCLUDE "/vol/local/intel/mkl/mkl/include";
+setenv __LMOD_REF_COUNT_MODULEPATH "ProjectDIR/rt/csh_swap/mf/MPI/intel/10.1/openmpi/1.2.6:1;ProjectDIR/rt/csh_swap/mf/Compiler/intel/10.1:1;ProjectDIR/rt/csh_swap/mf/Core:1;ProjectDIR/rt/csh_swap/mf/Core2:1";
 setenv MODULEPATH "ProjectDIR/rt/csh_swap/mf/MPI/intel/10.1/openmpi/1.2.6:ProjectDIR/rt/csh_swap/mf/Compiler/intel/10.1:ProjectDIR/rt/csh_swap/mf/Core:ProjectDIR/rt/csh_swap/mf/Core2";
 setenv MPIHOME "/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt";
 setenv __LMOD_REF_COUNT_PATH "/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/bin:1;/vol/local/intel/idb/idb/bin:1;/vol/local/intel/fc/fc/bin:1;/vol/local/intel/cc/cc/bin:1;/vol/local/noweb/icon/bin:1;/vol/local/noweb/2.10c/bin:1;/usr/sbin:1;/sbin:1;ProjectDIR/src:1;PATH_to_TM:1";

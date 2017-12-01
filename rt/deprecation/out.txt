@@ -6,6 +6,8 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/rt/deprecation/mf/Core
 ===========================
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/deprecation/mf/Core:1";
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/deprecation/mf/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/deprecation/mf/Core",},}';
@@ -22,6 +24,8 @@ __LMOD_REF_COUNT_LOADEDMODULES="gcc/4.2.3:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="gcc/4.2.3";
 export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/deprecation/mf/Compiler/gcc/4.2.3:1;ProjectDIR/rt/deprecation/mf/Core:1";
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/deprecation/mf/Compiler/gcc/4.2.3:ProjectDIR/rt/deprecation/mf/Core";
 export MODULEPATH;
 __LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/deprecation/mf/Core/gcc/4.2.3.lua:1";

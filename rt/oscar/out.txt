@@ -10,6 +10,8 @@ __LMOD_REF_COUNT_LOADEDMODULES="a:1;b:1;c:1;oscar:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="a:b:c:oscar";
 export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/oscar/mf/Oscar:1;ProjectDIR/rt/oscar/mf/Core:1";
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/oscar/mf/Oscar:ProjectDIR/rt/oscar/mf/Core";
 export MODULEPATH;
 RTM_A="a";

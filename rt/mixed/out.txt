@@ -20,6 +20,8 @@ __LMOD_REF_COUNT_LOADEDMODULES="compilers/intel/14.0.0:1;mpi/openmpi/1.6.5:1;Std
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="compilers/intel/14.0.0:mpi/openmpi/1.6.5:StdEnv";
 export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/mixed/mf/Core:1;ProjectDIR/rt/mixed/mf/Compilers/intel14.0:1;ProjectDIR/rt/mixed/mf/MPI/intel14.0/openmpi1.6:1";
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/mixed/mf/Core:ProjectDIR/rt/mixed/mf/Compilers/intel14.0:ProjectDIR/rt/mixed/mf/MPI/intel14.0/openmpi1.6";
 export MODULEPATH;
 __LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/mixed/mf/Core/compilers/intel/14.0.0.lua:1;ProjectDIR/rt/mixed/mf/Compilers/intel14.0/mpi/openmpi/1.6.5.lua:1;ProjectDIR/rt/mixed/mf/Core/StdEnv.lua:1";
@@ -52,6 +54,8 @@ LMOD_FAMILY_MPI_VERSION="1.6.5";
 export LMOD_FAMILY_MPI_VERSION;
 LOADEDMODULES="compilers/intel/14.0.0:mpi/openmpi/1.6.5:StdEnv";
 export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/mixed/mf/Core:1;ProjectDIR/rt/mixed/mf/Compilers/intel14.0:2;ProjectDIR/rt/mixed/mf/MPI/intel14.0/openmpi1.6:2";
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/mixed/mf/Core:ProjectDIR/rt/mixed/mf/Compilers/intel14.0:ProjectDIR/rt/mixed/mf/MPI/intel14.0/openmpi1.6";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/mixed/mf/Core/compilers/intel/14.0.0.lua:ProjectDIR/rt/mixed/mf/Compilers/intel14.0/mpi/openmpi/1.6.5.lua:ProjectDIR/rt/mixed/mf/Core/StdEnv.lua";

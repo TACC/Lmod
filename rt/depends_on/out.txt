@@ -10,6 +10,8 @@ __LMOD_REF_COUNT_LOADEDMODULES="A:1;B:1;X:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="A:B:X";
 export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/depends_on/mf/Core:1";
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/depends_on/mf/Core";
 export MODULEPATH;
 __LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/depends_on/mf/Core/A.lua:1;ProjectDIR/rt/depends_on/mf/Core/B.lua:1;ProjectDIR/rt/depends_on/mf/Core/X.lua:1";

@@ -12,6 +12,8 @@ __LMOD_REF_COUNT_LOADEDMODULES="admin/admin-1.0:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="admin/admin-1.0";
 export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/slash/mf/Core:1";
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/slash/mf/Core";
 export MODULEPATH;
 __LMOD_REF_COUNT_PATH="/usr/sbin:1;/sbin:1;ProjectDIR/src:1;PATH_to_TM:1";
@@ -28,6 +30,8 @@ export _ModuleTable_;
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/slash/mf/Core
 ===========================
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/slash/mf/Core:2";
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/slash/mf/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={admin={["fn"]="ProjectDIR/rt/slash/mf/Core/admin/admin-1.0.lua",["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="admin",},},mpathA={"ProjectDIR/rt/slash/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/slash/mf/Core",}';
