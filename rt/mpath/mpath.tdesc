@@ -34,7 +34,11 @@ testdescript = {
      runLmod avail                         # 4
      MODULEPATH=$MODULEPATH_ROOT/Core:$MODULEPATH_ROOT/RTM
      runLmod avail                         # 5
+     runLmod load icc ifort                # 6
+     runLmod unload icc                    # 7
+     runLmod load icc                      # 8
 
+     runLmod unuse $testDir/mf/Compiler/intel/18.0
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

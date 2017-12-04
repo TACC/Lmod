@@ -68,10 +68,14 @@ Special treatment for $MODULEPATH
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The MODULEPATH environment variable is treated special.  No duplicates
-entries are ever allowed.  Also there no reference counting for PATH
-entries stored in $MODULEPATH. Adding the same directory to
-$MODULEPATH will not effect the reference count.  It is always ``1``.
-This way a user can always clear $MODULEPATH with::
+entries are ever allowed even if LMOD_DUPLICATE_PATHS == yes.  It
+always uses reference counting for PATH entries. In order to not
+confuse users.  The command::
+
+   $ module unuse /foo/bar
+
+will always remove the path entry, even if the reference count is
+greater than 1. Also a user can always clear $MODULEPATH with::
 
    $ module unuse $MODULEPATH
 

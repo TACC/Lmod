@@ -842,3 +842,101 @@ _LMFILES_="ProjectDIR/rt/saverestore/Core/a/2.0";
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/saverestore/Core/a/2.0",["fullName"]="a/2.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a/2.0",},},mpathA={"ProjectDIR/rt/saverestore/Core",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/Core",}';
 export _ModuleTable_;
+===========================
+step 47
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+unset __LMOD_REF_COUNT_LOADEDMODULES;
+unset LOADEDMODULES;
+unset __LMOD_REF_COUNT_MANPATH;
+unset MANPATH;
+MODULEPATH="ProjectDIR/rt/saverestore/Core";
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH="ProjectDIR/src:1;PATH_to_TM:1";
+export __LMOD_REF_COUNT_PATH;
+PATH="ProjectDIR/src:PATH_to_TM";
+export PATH;
+unset __LMOD_REF_COUNT__LMFILES_;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/Core",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/Core",}';
+export _ModuleTable_;
+===========================
+step 48
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load icc ifort
+===========================
+__LMOD_REF_COUNT_LD_LIBRARY_PATH="/unknown/apps/ifort/18.0.1/lib:1;/unknown/apps/icc/18.0.1/lib:1";
+export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
+LD_LIBRARY_PATH="/unknown/apps/ifort/18.0.1/lib:/unknown/apps/icc/18.0.1/lib";
+export LD_LIBRARY_PATH;
+__LMOD_REF_COUNT_LOADEDMODULES="icc/18.0.1:1;ifort/18.0.1:1";
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES="icc/18.0.1:ifort/18.0.1";
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/saverestore/Compiler/intel/18.0:2;ProjectDIR/rt/saverestore/Core:1";
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/saverestore/Compiler/intel/18.0:ProjectDIR/rt/saverestore/Core";
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH="/unknown/apps/ifort/18.0.1/bin:1;/unknown/apps/icc/18.0.1/bin:1;ProjectDIR/src:1;PATH_to_TM:1";
+export __LMOD_REF_COUNT_PATH;
+PATH="/unknown/apps/ifort/18.0.1/bin:/unknown/apps/icc/18.0.1/bin:ProjectDIR/src:PATH_to_TM";
+export PATH;
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/saverestore/Core/icc/18.0.1.lua:1;ProjectDIR/rt/saverestore/Core/ifort/18.0.1.lua:1";
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_="ProjectDIR/rt/saverestore/Core/icc/18.0.1.lua:ProjectDIR/rt/saverestore/Core/ifort/18.0.1.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={icc={["fn"]="ProjectDIR/rt/saverestore/Core/icc/18.0.1.lua",["fullName"]="icc/18.0.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="icc",},ifort={["fn"]="ProjectDIR/rt/saverestore/Core/ifort/18.0.1.lua",["fullName"]="ifort/18.0.1",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="ifort",},},mpathA={"ProjectDIR/rt/saverestore/Compiler/intel/18.0","ProjectDIR/rt/saverestore/Core",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/Core",}';
+export _ModuleTable_;
+===========================
+step 49
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing save my_intel
+===========================
+MODULEPATH="ProjectDIR/rt/saverestore/Compiler/intel/18.0:ProjectDIR/rt/saverestore/Core";
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={icc={["fn"]="ProjectDIR/rt/saverestore/Core/icc/18.0.1.lua",["fullName"]="icc/18.0.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="icc",},ifort={["fn"]="ProjectDIR/rt/saverestore/Core/ifort/18.0.1.lua",["fullName"]="ifort/18.0.1",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="ifort",},},mpathA={"ProjectDIR/rt/saverestore/Compiler/intel/18.0","ProjectDIR/rt/saverestore/Core",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/Core",}';
+export _ModuleTable_;
+===========================
+step 50
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+unset __LMOD_REF_COUNT_LD_LIBRARY_PATH;
+unset LD_LIBRARY_PATH;
+unset __LMOD_REF_COUNT_LOADEDMODULES;
+unset LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/saverestore/Core:1";
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/saverestore/Core";
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH="ProjectDIR/src:1;PATH_to_TM:1";
+export __LMOD_REF_COUNT_PATH;
+PATH="ProjectDIR/src:PATH_to_TM";
+export PATH;
+unset __LMOD_REF_COUNT__LMFILES_;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/Core",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/Core",}';
+export _ModuleTable_;
+===========================
+step 51
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore my_intel
+===========================
+__LMOD_REF_COUNT_LD_LIBRARY_PATH="/unknown/apps/ifort/18.0.1/lib:1;/unknown/apps/icc/18.0.1/lib:1";
+export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
+LD_LIBRARY_PATH="/unknown/apps/ifort/18.0.1/lib:/unknown/apps/icc/18.0.1/lib";
+export LD_LIBRARY_PATH;
+__LMOD_REF_COUNT_LOADEDMODULES="icc/18.0.1:1;ifort/18.0.1:1";
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES="icc/18.0.1:ifort/18.0.1";
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/saverestore/Compiler/intel/18.0:2;ProjectDIR/rt/saverestore/Core:1";
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH="ProjectDIR/rt/saverestore/Compiler/intel/18.0:ProjectDIR/rt/saverestore/Core";
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH="/unknown/apps/ifort/18.0.1/bin:1;/unknown/apps/icc/18.0.1/bin:1;ProjectDIR/src:1;PATH_to_TM:1";
+export __LMOD_REF_COUNT_PATH;
+PATH="/unknown/apps/ifort/18.0.1/bin:/unknown/apps/icc/18.0.1/bin:ProjectDIR/src:PATH_to_TM";
+export PATH;
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/saverestore/Core/icc/18.0.1.lua:1;ProjectDIR/rt/saverestore/Core/ifort/18.0.1.lua:1";
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_="ProjectDIR/rt/saverestore/Core/icc/18.0.1.lua:ProjectDIR/rt/saverestore/Core/ifort/18.0.1.lua";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={icc={["fn"]="ProjectDIR/rt/saverestore/Core/icc/18.0.1.lua",["fullName"]="icc/18.0.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="icc/18.0.1",},ifort={["fn"]="ProjectDIR/rt/saverestore/Core/ifort/18.0.1.lua",["fullName"]="ifort/18.0.1",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="ifort/18.0.1",},},mpathA={"ProjectDIR/rt/saverestore/Compiler/intel/18.0","ProjectDIR/rt/saverestore/Core",},["systemBaseMPATH"]="ProjectDIR/rt/saverestore/Core",}';
+export _ModuleTable_;

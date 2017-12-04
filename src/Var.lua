@@ -565,6 +565,16 @@ function M.setRefCount(self, refCountT)
    end
 end
 
+function M.refCountT(self)
+   local refCountT = {}
+   local tbl = self.tbl
+   for k, vv in pairs(tbl) do
+      refCountT[k] = vv.num
+   end
+
+   return refCountT
+end
+
 
 --------------------------------------------------------------------------
 -- Unset the environment variable.

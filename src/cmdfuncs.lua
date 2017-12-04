@@ -607,7 +607,8 @@ end
 -- that any setenv or prepend_path commands will not be executed.
 function Save(...)
    local masterTbl = masterTbl()
-   local mt        = FrameStk:singleton():mt()
+   local frameStk  = FrameStk:singleton()
+   local mt        = frameStk:mt()
    local a         = select(1, ...) or "default"
    local path      = pathJoin(os.getenv("HOME"), LMODdir)
    dbg.start{"Save(",concatTbl({...},", "),")"}
@@ -650,6 +651,8 @@ function Save(...)
       os.rename(path, path .. "~")
    end
    mt:setHashSum()
+   local varT = frameStk:varT()
+   mt:setMpathRefCountT(varT[ModulePath]:refCountT())
 
    local f  = io.open(path,"w")
    if (f) then
@@ -660,6 +663,7 @@ function Save(...)
       f:write(s0,s1)
       f:close()
    end
+   mt:hideMpathRefCountT()
    mt:hideHash()
    if (not quiet()) then
       LmodMessage{msg="m_Save_Coll",a=a, msgTail=msgTail}

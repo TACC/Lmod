@@ -104,6 +104,12 @@ testdescript = {
      runLmod purge                   #45
      runLmod restore my_A            #46
 
+     runLmod purge                   #47
+     runLmod load icc ifort          #48
+     runLmod save my_intel           #49
+     runLmod purge                   #50
+     runLmod restore my_intel        #51
+
      HOME=$ORIG_HOME
      export HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

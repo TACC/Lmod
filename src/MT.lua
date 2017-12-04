@@ -1033,13 +1033,10 @@ function M.getMTfromFile(self,tt)
 
    local restoreFn = tt.fn
    dbg.print{"s: ",s,"\n"}
-   local l_mt      = new(self, s, restoreFn)
-   local activeA   = l_mt:list("userName","active")
-
+   local l_mt       = new(self, s, restoreFn)
+   local activeA    = l_mt:list("userName","active")
    local savedMPATH = concatTbl(l_mt.mpathA,":")
-   
-   local tracing = cosmic:value("LMOD_TRACING")
-
+   local tracing    = cosmic:value("LMOD_TRACING")
 
    ---------------------------------------------
    -- If any module specified in the "default" file
@@ -1145,7 +1142,7 @@ function M.getMTfromFile(self,tt)
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    mt         = frameStk:mt()
    local varT = frameStk:varT()
-   varT[ModulePath]:setRefCount({})
+   varT[ModulePath]:setRefCount(l_mt.mpathRefCountT or {})
    
    -----------------------------------------------------------------------
    -- Now check to see that all requested modules got loaded.
@@ -1216,6 +1213,13 @@ function M.getMTfromFile(self,tt)
    mt = frameStk:mt()
    dbg.fini("MT:getMTfromFile")
    return true
+end
+
+function M.setMpathRefCountT(self, refCountT)
+   self.mpathRefCountT = refCountT
+end
+function M.hideMpathRefCountT(self, refCountT)
+   self.mpathRefCountT = nil
 end
 
 return M

@@ -268,3 +268,25 @@ step 46
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore my_A
 ===========================
 Restoring modules from user's my_A
+===========================
+step 47
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+===========================
+step 48
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load icc ifort
+===========================
+===========================
+step 49
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing save my_intel
+===========================
+Saved current collection of modules to: "my_intel"
+===========================
+step 50
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+===========================
+step 51
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore my_intel
+===========================
+Restoring modules from user's my_intel
