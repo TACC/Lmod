@@ -72,8 +72,6 @@ LOADEDMODULES="gcc/4.7.2:python/2.7.3";
 export LOADEDMODULES;
 MANPATH="/global/apps/python/2.7.3/man:/global/apps/gcc/4.7.2/share/man";
 export MANPATH;
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/uitSitePkg/mf/Compiler/gcc/4.7.2:2;ProjectDIR/rt/uitSitePkg/mf/Core:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/uitSitePkg/mf/Compiler/gcc/4.7.2:ProjectDIR/rt/uitSitePkg/mf/Core";
 export MODULEPATH;
 PATH="/global/apps/python/2.7.3/bin:/global/apps/gcc/4.7.2/bin:ProjectDIR/src:PATH_to_TM";

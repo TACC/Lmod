@@ -225,7 +225,7 @@ MKL_DIR="/vol/local/intel/mkl/mkl/lib/lib";
 export MKL_DIR;
 MKL_INCLUDE="/vol/local/intel/mkl/mkl/include";
 export MKL_INCLUDE;
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/changeMPATH/mf/Compiler/intel/10.1:2;ProjectDIR/rt/changeMPATH/mf/Core2:1;ProjectDIR/rt/changeMPATH/mf/Core:1";
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/changeMPATH/mf/Compiler/intel/10.1:1;ProjectDIR/rt/changeMPATH/mf/Core2:1;ProjectDIR/rt/changeMPATH/mf/Core:1";
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/changeMPATH/mf/Compiler/intel/10.1:ProjectDIR/rt/changeMPATH/mf/Core2:ProjectDIR/rt/changeMPATH/mf/Core";
 export MODULEPATH;

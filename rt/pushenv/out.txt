@@ -417,8 +417,6 @@ CC="mpicc";
 export CC;
 LOADEDMODULES="intel/13.0:mpich/3.0";
 export LOADEDMODULES;
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:2;ProjectDIR/rt/pushenv/mf/Core:1";
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/mf/Core";
 export MODULEPATH;
 _LMFILES_="ProjectDIR/rt/pushenv/mf/Core/intel/13.0.lua:ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0/mpich/3.0.lua";

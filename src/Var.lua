@@ -155,7 +155,7 @@ local function l_extract(self, nodups)
          
          local idxA    = vv.idxA
          if (nodups) then
-            --if (self.name == "MODULEPATH") then 
+            --if (self.name == ModulePath) then 
             --   vv.num = 1
             --else
             --   vv.num = num + 1
@@ -197,12 +197,12 @@ function M.new(self, name, value, nodup, sep)
    o.value      = value
    o.name       = name
    o.sep        = sep or ":"
+   if (name == ModulePath) then
+      nodup = true
+   end
    l_extract(o, nodup)
    if (not value) then value = nil end
    setenv_posix(name, value, true)
-   if (name == "MODULEPATH") then
-      o:prt("MODULEPATH")
-   end
    return o
 end
 
@@ -219,9 +219,7 @@ local function l_remFunc(vv, where, priority, nodups, force)
    local num  = vv.num
    local idxA = vv.idxA
    if (nodups) then
-      dbg.print{"RTM (1) vv.num: ", vv.num, "\n"}
       vv.num = (force) and 0 or num - 1
-      dbg.print{"RTM (2) vv.num: ", vv.num, "\n"}
       if (vv.num < 1) then
          vv = nil
       end
@@ -273,7 +271,7 @@ function M.remove(self, value, where, priority, nodups, force)
    local adding  = false
 
    local tracing  = cosmic:value("LMOD_TRACING")
-   if (tracing == "yes" and self.name == "MODULEPATH" ) then
+   if (tracing == "yes" and self.name == ModulePath ) then
       local shell      = _G.Shell
       local frameStk   = require("FrameStk"):singleton()
       local stackDepth = frameStk:stackDepth()
@@ -309,7 +307,7 @@ end
 -- @param isPrepend True if a prepend.
 -- @param nodups True if no duplications are allowed.
 -- @param priority The priority value.
-local function insertFunc(name, vv, idx, isPrepend, nodups, priority)
+local function insertFunc(vv, idx, isPrepend, nodups, priority)
    local num  = vv.num
    local idxA = vv.idxA
    if (nodups or abs(priority) > 0) then
@@ -326,9 +324,6 @@ local function insertFunc(name, vv, idx, isPrepend, nodups, priority)
       if (num == 0 ) then
          return { num = 1, idxA = {{idx,priority}} }
       else
-         --if (name ~= "MODULEPATH") then
-         --   vv.num  = num + 1
-         --end
          vv.num  = num + 1
          if (tmod_path_rule == "no") then
             vv.idxA = {{idx,priority}}
@@ -362,6 +357,9 @@ function M.prepend(self, value, nodups, priority)
       l_extract(self, nodups)
    end
 
+   if (self.name == ModulePath) then
+      nodups = true
+   end
    self.type           = 'path'
    priority            = priority or 0
    local pathA         = path2pathA(value, self.sep)
@@ -373,7 +371,7 @@ function M.prepend(self, value, nodups, priority)
    local tbl  = self.tbl
 
    local tracing  = cosmic:value("LMOD_TRACING")
-   if (tracing == "yes" and self.name == "MODULEPATH" ) then
+   if (tracing == "yes" and self.name == ModulePath ) then
       local shell      = _G.Shell
       local frameStk   = require("FrameStk"):singleton()
       local stackDepth = frameStk:stackDepth()
@@ -392,15 +390,8 @@ function M.prepend(self, value, nodups, priority)
       local path = pathA[i]
       imin       = imin - 1
       local vv   = tbl[path]
-      if (name == "MODULEPATH") then
-         dbg.print{"RTM (1) vv: ",vv,"\n"}
-      end
-
-      tbl[path]  = insertFunc(name, vv or {num = 0, idxA = {}},
+      tbl[path]  = insertFunc(vv or {num = 0, idxA = {}},
                               imin, isPrepend, nodups, priority)
-      if (name == "MODULEPATH") then
-         dbg.print{"RTM (2) vv: ",vv,"\n"}
-      end
    end
    self.imin = imin
 
@@ -424,7 +415,9 @@ end
 -- @param nodups True if no duplications are allowed.
 -- @param priority The priority value.
 function M.append(self, value, nodups, priority)
-   nodups = not allow_dups(not nodups)
+   local name = self.name
+   nodups = (not allow_dups(not nodups)) or (name == ModulePath)
+
    if (value == nil) then return end
    if (self.type ~= 'path') then
       l_extract(self, nodups)
@@ -437,7 +430,7 @@ function M.append(self, value, nodups, priority)
    local adding     = true
    
    local tracing  = cosmic:value("LMOD_TRACING")
-   if (tracing == "yes" and self.name == "MODULEPATH" ) then
+   if (tracing == "yes" and name == ModulePath ) then
       local shell      = _G.Shell
       local frameStk   = require("FrameStk"):singleton()
       local stackDepth = frameStk:stackDepth()
@@ -452,19 +445,18 @@ function M.append(self, value, nodups, priority)
 
    local tbl  = self.tbl
    local imax = self.imax
-   local name = self.name
    for i = 1, #pathA do
       local path = pathA[i]
       imax       = imax + 1
       local vv   = tbl[path]
-      tbl[path]  = insertFunc(name, vv or {num = 0, idxA = {}}, imax, isPrepend, nodups, priority)
+      tbl[path]  = insertFunc(vv or {num = 0, idxA = {}}, imax, isPrepend, nodups, priority)
    end
    self.imax   = imax
    local value = self:expand()
    self.value  = value
    if (not value) then value = nil end
-   setenv_posix(self.name, value, true)
-   chkMP(self.name, value, adding)
+   setenv_posix(name, value, true)
+   chkMP(name, value, adding)
 end
 
 --------------------------------------------------------------------------
@@ -708,7 +700,6 @@ function M.expand(self)
    end
 
    local refCountT = {}
-   -- if (self.nodups and self.name ~= "MODULEPATH") then
    if (self.nodups) then
       env_name = envRefCountName .. self.name
       oldV     = getenv(env_name)
@@ -725,7 +716,6 @@ function M.expand(self)
    end
 
    if (next(tbl) == nil) then pathStr = false end
-
    return pathStr, "path", priorityStrT, refCountT
 end
 
