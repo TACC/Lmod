@@ -307,7 +307,7 @@ cosmic:init{name    = "LMOD_ADMIN_FILE",
 --                   names.  Note that the default choice is marked by
 --                   angle brackets:  A:B:<C> ==> C is the default.
 --                   If no angle brackets are specified then the first
---                   entry is the default (i.e. A:B:C => A is default.
+--                   entry is the default (i.e. A:B:C => A is default).
 ------------------------------------------------------------------------
 
 LMOD_AVAIL_STYLE = getenv("LMOD_AVAIL_STYLE") or "<system>"
