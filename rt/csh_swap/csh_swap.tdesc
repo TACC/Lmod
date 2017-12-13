@@ -64,7 +64,7 @@ cat > $(testName).csh << EOF
      echo "step 1"                      >> _stdout.02
      echo "===========================" >> _stdout.02
 
-     lua $(projectDir)/src/$CMD csh load admin PrgEnv openmpi parmetis > _stdout.03
+     lua $(projectDir)/src/$CMD csh load admin dollar PrgEnv openmpi parmetis > _stdout.03
      eval \`cat _stdout.03\`
 
      echo "===========================" >  _stdout.04

@@ -1,0 +1,26 @@
+#%Module
+setenv PAT_REPORT_PRUNE_NAME [ join {
+         _cray$mt_start_
+        __cray_hwpc_
+        f_cray_hwpc_
+          cstart
+        __pat_
+          pat_region_
+          PAT_
+          OMP.slave_loop
+          slave_entry
+         _new_slave_entry
+          THREAD_POOL_join
+        __libc_start_main
+         _start
+        __start
+          start_thread
+        __wrap_
+          UPC_ADIO_
+         _upc_
+          upc_
+        __caf_
+        __pgas_
+        syscall
+  __device_stub
+} "," ]
