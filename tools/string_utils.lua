@@ -115,7 +115,7 @@ function string.cshEscaped(self)
    if (type(self) ~= 'string') then
       self = tostring(self)
    else
-      self = self:gsub("[ \"\t\{\}|<>!;#^$&*'`()]","\\%1")
+      self = self:gsub("[ \"\t{}|<>!;#^$&*'`()]","\\%1")
    end
    return self
 end
