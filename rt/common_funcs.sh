@@ -166,6 +166,16 @@ EPOCH()
 
 initStdEnvVars()
 {
+  while IFS='=' read -r name value; do
+    if [ $name = "LMOD_CMD" ] || [ $name = "LMOD_DIR" ]; then
+        :
+    elif [[ $name =~ ^__LMOD_REF_COUNT.* ]]; then
+        unset $name
+    elif [[ $name =~ ^LMOD.* ]]; then
+        unset $name
+    fi
+  done < <(env)
+
   unset CPATH
   unset DYLD_LIBRARY_PATH
   unset INCLUDE
@@ -174,33 +184,18 @@ initStdEnvVars()
   unset LD_LIBRARY_PATH
   unset LIBPATH
   unset LIBRARY_PATH
-  unset LMOD_REDIRECT
-  unset LMOD_ADMIN_FILE
-  unset LMOD_COLORIZE
-  unset LMOD_DEFAULT_MODULEPATH
-  unset LMOD_EXPERT
-  unset LMOD_OPTIONS
-  unset LMOD_PIN_VERSIONS
-  unset LMOD_QUIET
-  unset LMOD_CASE_INDEPENDENT_SORTING
-  unset LMOD_SYSTEM_DEFAULT_MODULES
-  unset LMOD_FULL_SETTARG_SUPPORT
-  unset LMOD_SETTARG_FULL_SUPPORT
-  unset LMOD_TERM_WIDTH
   unset SETTARG_RC
   unset LOADEDMODULES
   unset MANPATH
   unset MODULEPATH
   unset MODULEPATH_ROOT
   unset MODULERCFILE
-  unset LMOD_MODULERCFILE
   unset NLSPATH
   unset OMP_NUM_THREADS
   unset PYTHONPATH
   unset SHLIB_PATH
   unset TERM
   unset _LMFILES_
-  unset __LMOD_PRIORITY_PATH
   PATH_to_LUA=`findcmd --pathOnly lua`
   PATH_to_TM=`findcmd --pathOnly tm`
   PATH_to_SHA1=`findcmd --pathOnly sha1sum`
