@@ -540,8 +540,10 @@ proc cmdargs { cmd args } {
 	    lappend cmdArgsL "\"$val\""
 	#}
     }
-    set cmdArgs [join $cmdArgsL ","]
-    puts stdout "$cmd\($cmdArgs\)"
+    if {[info exists cmdArgsL]} {
+        set cmdArgs [join $cmdArgsL ","]
+        puts stdout "$cmd\($cmdArgs\)"
+    }
 }
 
 proc depends-on { args} {
@@ -571,8 +573,10 @@ proc system { args } {
     foreach arg $args {
         lappend cmdArgsL "$arg"
     }
-    set cmdArgs [join $cmdArgsL " "]
-    puts stdout "execute\{cmd=\"$cmdArgs\",modeA = \{\"all\"\}\}"
+    if {[info exists cmdArgsL]} {
+        set cmdArgs [join $cmdArgsL " "]
+        puts stdout "execute\{cmd=\"$cmdArgs\",modeA = \{\"all\"\}\}"
+    }
 }
 
 proc tryloadcmd { args } {
