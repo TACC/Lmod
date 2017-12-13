@@ -85,6 +85,16 @@ local function grab(line, b)
    b[#b+1] = a[2]
 end
 
+local function grabCsh(line,b)
+   local a = {}
+   for v in line:split(' ') do
+      a[#a + 1] = v
+   end
+   a[3] = a[3]:gsub(";","")
+   b[#b+1] = a[3]
+end   
+
+
 _ModuleTable_ = false
 function removeUnwantedFields(s)
    if (s == nil) then return "" end
@@ -199,7 +209,7 @@ function joinMT_csh(whole)
             state = "mt"
          end
          a = a3
-         grab(s, a2)
+         grabCsh(s, a2)
       elseif (state == "init") then
          local i,j, name, str = s:find("^(setenv __LMOD_STACK[^ ]*)%s+\"(.*)\"")
          if (not i) then
