@@ -401,10 +401,6 @@ function M.prepend(self, value, nodups, priority)
    setenv_posix(self.name, v, true)
 
    chkMP(self.name, v, adding)
-
-   --if (dbg.active) then
-   --   dbg.print{"(2) Var.PATH: ",self}
-   --end
 end
 
 --------------------------------------------------------------------------
@@ -528,10 +524,11 @@ end
 -- @param self A Var object.
 -- @param title A Descriptive title.
 function M.prt(self,title)
-   dbg.start{"Var:prt(",title,")"}
-   dbg.print{"name:  \"", self.name, "\"\n"}
-   dbg.print{"imin:  ",   self.imin, "\n"}
-   dbg.print{"imax:  ",   self.imax, "\n"}
+   dbg.start{"Var:prt(\"",title,"\")"}
+   dbg.print{"name:   \"", self.name,   "\"\n"}
+   dbg.print{"nodups: ",   self.nodups, "\n"}
+   dbg.print{"imin:   ",   self.imin,   "\n"}
+   dbg.print{"imax:   ",   self.imax,   "\n"}
    local v = self.value
    if (type(self.value) == "string") then
       v = "\"" .. self.value .. "\""
