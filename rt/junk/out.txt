@@ -30,6 +30,8 @@ MKL_DIR="/vol/local/intel/mkl/mkl/lib/lib";
 export MKL_DIR;
 MKL_INCLUDE="/vol/local/intel/mkl/mkl/include";
 export MKL_INCLUDE;
+__LMOD_REF_COUNT_MODULEPATH="/mf/Compiler/intel/10.1:1;ProjectDIR/rt/junk/mf/Core:1";
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="/mf/Compiler/intel/10.1:ProjectDIR/rt/junk/mf/Core";
 export MODULEPATH;
 __LMOD_REF_COUNT_PATH="/vol/local/noweb/icon/bin:1;/vol/local/noweb/2.10c/bin:1;/vol/local/intel/idb/idb/bin:1;/vol/local/intel/fc/fc/bin:1;/vol/local/intel/cc/cc/bin:1;ProjectDIR/src:1;PATH_to_TM:1";

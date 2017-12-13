@@ -140,6 +140,7 @@ Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOS
      e_Swap_Failed         = "Swap failed: \"%{name}\" is not loaded.\n",
      e_Unable_2_Load       = "Unable to load module: %{name}\n     %{fn}: %{message}\n",
      e_Unable_2_parse      = "Unable to parse: \"%{path}\". Aborting!\n",
+     e_Unable_2_rename     = "Unable to rename %{from} to %{to}, error message: %{errMsg}",
      e_Unknown_Coll        = "User module collection: \"%{collection}\" does not exist.\n  Try \"module savelist\" for possible choices.\n",
      e_coll_corrupt        = "The module collection file is corrupt. Please remove: %{fn}\n",
      e_dbT_sn_fail         = "dbT[sn] failed for sn: %{sn}\n",

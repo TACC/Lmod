@@ -42,6 +42,8 @@ __LMOD_REF_COUNT_MANPATH="/unknown/apps/intel-13_1/mvapich2/1.9/man:1;/unknown/a
 export __LMOD_REF_COUNT_MANPATH;
 MANPATH="/unknown/apps/intel-13_1/mvapich2/1.9/man:/unknown/apps/intel/13.1/composer_xe_2013.2.146/man/en_US";
 export MANPATH;
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/petsc/mf/MPI/intel/13.1/mvapich2/1.9:1;ProjectDIR/rt/petsc/mf/Compiler/intel/13.1:1;ProjectDIR/rt/petsc/mf/Core:1";
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/petsc/mf/MPI/intel/13.1/mvapich2/1.9:ProjectDIR/rt/petsc/mf/Compiler/intel/13.1:ProjectDIR/rt/petsc/mf/Core";
 export MODULEPATH;
 MPICH_HOME="/unknown/apps/intel-13_1/mvapich2/1.9";

@@ -10,6 +10,8 @@ __LMOD_REF_COUNT_LOADEDMODULES="a/4.0:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="a/4.0";
 export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/find_first/mf1:1;ProjectDIR/rt/find_first/mf2:1";
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/find_first/mf1:ProjectDIR/rt/find_first/mf2";
 export MODULEPATH;
 __LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/find_first/mf2/a/4.0:1";

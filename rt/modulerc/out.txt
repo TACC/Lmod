@@ -10,6 +10,8 @@ __LMOD_REF_COUNT_LOADEDMODULES="intel/14.0.3:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="intel/14.0.3";
 export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/modulerc/mf/Core:1";
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/modulerc/mf/Core";
 export MODULEPATH;
 Version="14.0.3";
@@ -229,6 +231,8 @@ export _ModuleTable_;
 step 21
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/modulerc/mf2/Core
 ===========================
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/modulerc/mf2/Core:1;ProjectDIR/rt/modulerc/mf/Core:1";
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/modulerc/mf2/Core:ProjectDIR/rt/modulerc/mf/Core";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/modulerc/mf/Core/a/13.2.345.lua",["fullName"]="a/13.2.345",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a/13.2.345",},abinit={["fn"]="ProjectDIR/rt/modulerc/mf/Core/abinit/7.4.3",["fullName"]="abinit/7.4.3",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="abinit/7.4.3",},hidden={["fn"]="ProjectDIR/rt/modulerc/mf/Core/hidden/2.0.lua",["fullName"]="hidden/2.0",["loadOrder"]=4,propT={},["stackDepth"]=0,["status"]="active",["userName"]="hidden/2.0",},intel={["fn"]="ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua",["fullName"]="intel/15.0.2",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel/15.0.2",},},mpathA={"ProjectDIR/rt/modulerc/mf2/Core","ProjectDIR/rt/modulerc/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf/Core",}';
@@ -247,6 +251,8 @@ false
 step 24
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/modulerc/mf4:1";
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/modulerc/mf4";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/modulerc/mf4",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf4",}';

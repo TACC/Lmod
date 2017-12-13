@@ -72,6 +72,10 @@ local ln10_inv        = 1.0/log(10.0)
 
 local function l_extract_Lmod_var_table(self, envName)
    local value = getenv(envName .. self.name)
+   if (envName .. self.name == "__LMOD_REF_COUNT_MODULEPATH") then
+      dbg.print{"__LMOD_REF_COUNT_MODULEPATH: ",value,"\n"}
+   end
+
    local t     = {}
    if (value == nil) then
       return t
@@ -151,11 +155,12 @@ local function l_extract(self, nodups)
          
          local idxA    = vv.idxA
          if (nodups) then
-            if (self.name == "MODULEPATH") then 
-               vv.num = 1
-            else
-               vv.num = num + 1
-            end
+            --if (self.name == ModulePath) then 
+            --   vv.num = 1
+            --else
+            --   vv.num = num + 1
+            --end
+            vv.num = num + 1
             if (next(idxA) == nil) then
                idxA[1] = {i,priority}
             end
@@ -192,6 +197,9 @@ function M.new(self, name, value, nodup, sep)
    o.value      = value
    o.name       = name
    o.sep        = sep or ":"
+   if (name == ModulePath) then
+      nodup = true
+   end
    l_extract(o, nodup)
    if (not value) then value = nil end
    setenv_posix(name, value, true)
@@ -207,11 +215,11 @@ end
 --  @param a An array of values.
 --  @param where Where to remove and how: {"first", "last", "all"}
 --  @param priority The priority of the path if any (default is zero)
-local function remFunc(vv, where, priority, nodups)
+local function l_remFunc(vv, where, priority, nodups, force)
    local num  = vv.num
    local idxA = vv.idxA
    if (nodups) then
-      vv.num = num - 1
+      vv.num = (force) and 0 or num - 1
       if (vv.num < 1) then
          vv = nil
       end
@@ -249,7 +257,7 @@ end
 -- @param where where it should be removed from {"first", "last", "all"}
 -- @param priority The priority of the entry.
 -- @param nodup If true then there are no duplicates allowed.
-function M.remove(self, value, where, priority, nodups)
+function M.remove(self, value, where, priority, nodups, force)
    if (value == nil) then return end
    priority = priority or 0
 
@@ -262,19 +270,8 @@ function M.remove(self, value, where, priority, nodups)
    local tbl     = self.tbl
    local adding  = false
 
-   if (self.name == "RTM_LUA_PATH") then
-      dbg.printT("RTM_LUA_PATH",tbl)
-      for i  = 1, #pathA do
-         dbg.print{i,": \"",pathA[i],"\"\n"}
-      end
-      dbg.print{"value: \"",value,"\"\n"}
-      for k in pairs(tbl) do
-         dbg.print{"\"",k,"\"\n"}
-      end
-   end
-
    local tracing  = cosmic:value("LMOD_TRACING")
-   if (tracing == "yes" and self.name == "MODULEPATH" ) then
+   if (tracing == "yes" and self.name == ModulePath ) then
       local shell      = _G.Shell
       local frameStk   = require("FrameStk"):singleton()
       local stackDepth = frameStk:stackDepth()
@@ -290,7 +287,7 @@ function M.remove(self, value, where, priority, nodups)
    for i = 1, #pathA do
       local path = pathA[i]
       if (tbl[path]) then
-         tbl[path]   = remFunc(tbl[path], where, priority, nodups)
+         tbl[path]   = l_remFunc(tbl[path], where, priority, nodups, force)
       end
    end
    local v    = self:expand()
@@ -310,7 +307,7 @@ end
 -- @param isPrepend True if a prepend.
 -- @param nodups True if no duplications are allowed.
 -- @param priority The priority value.
-local function insertFunc(name, vv, idx, isPrepend, nodups, priority)
+local function insertFunc(vv, idx, isPrepend, nodups, priority)
    local num  = vv.num
    local idxA = vv.idxA
    if (nodups or abs(priority) > 0) then
@@ -327,9 +324,7 @@ local function insertFunc(name, vv, idx, isPrepend, nodups, priority)
       if (num == 0 ) then
          return { num = 1, idxA = {{idx,priority}} }
       else
-         if (name ~= "MODULEPATH") then
-            vv.num  = num + 1
-         end
+         vv.num  = num + 1
          if (tmod_path_rule == "no") then
             vv.idxA = {{idx,priority}}
          end
@@ -362,6 +357,9 @@ function M.prepend(self, value, nodups, priority)
       l_extract(self, nodups)
    end
 
+   if (self.name == ModulePath) then
+      nodups = true
+   end
    self.type           = 'path'
    priority            = priority or 0
    local pathA         = path2pathA(value, self.sep)
@@ -373,7 +371,7 @@ function M.prepend(self, value, nodups, priority)
    local tbl  = self.tbl
 
    local tracing  = cosmic:value("LMOD_TRACING")
-   if (tracing == "yes" and self.name == "MODULEPATH" ) then
+   if (tracing == "yes" and self.name == ModulePath ) then
       local shell      = _G.Shell
       local frameStk   = require("FrameStk"):singleton()
       local stackDepth = frameStk:stackDepth()
@@ -392,7 +390,7 @@ function M.prepend(self, value, nodups, priority)
       local path = pathA[i]
       imin       = imin - 1
       local vv   = tbl[path]
-      tbl[path]  = insertFunc(name, vv or {num = 0, idxA = {}},
+      tbl[path]  = insertFunc(vv or {num = 0, idxA = {}},
                               imin, isPrepend, nodups, priority)
    end
    self.imin = imin
@@ -417,7 +415,9 @@ end
 -- @param nodups True if no duplications are allowed.
 -- @param priority The priority value.
 function M.append(self, value, nodups, priority)
-   nodups = not allow_dups(not nodups)
+   local name = self.name
+   nodups = (not allow_dups(not nodups)) or (name == ModulePath)
+
    if (value == nil) then return end
    if (self.type ~= 'path') then
       l_extract(self, nodups)
@@ -430,7 +430,7 @@ function M.append(self, value, nodups, priority)
    local adding     = true
    
    local tracing  = cosmic:value("LMOD_TRACING")
-   if (tracing == "yes" and self.name == "MODULEPATH" ) then
+   if (tracing == "yes" and name == ModulePath ) then
       local shell      = _G.Shell
       local frameStk   = require("FrameStk"):singleton()
       local stackDepth = frameStk:stackDepth()
@@ -445,19 +445,18 @@ function M.append(self, value, nodups, priority)
 
    local tbl  = self.tbl
    local imax = self.imax
-   local name = self.name
    for i = 1, #pathA do
       local path = pathA[i]
       imax       = imax + 1
       local vv   = tbl[path]
-      tbl[path]  = insertFunc(name, vv or {num = 0, idxA = {}}, imax, isPrepend, nodups, priority)
+      tbl[path]  = insertFunc(vv or {num = 0, idxA = {}}, imax, isPrepend, nodups, priority)
    end
    self.imax   = imax
    local value = self:expand()
    self.value  = value
    if (not value) then value = nil end
-   setenv_posix(self.name, value, true)
-   chkMP(self.name, value, adding)
+   setenv_posix(name, value, true)
+   chkMP(name, value, adding)
 end
 
 --------------------------------------------------------------------------
@@ -495,7 +494,7 @@ function M.pop(self)
       local v = idxA[1][1]
       dbg.print{"v: ",v,", imin: ",imin,", min2: ",min2,"\n"}
       if (v == imin) then
-         vv          = remFunc(vv, "first", 0)
+         vv          = l_remFunc(vv, "first", 0, false)
          self.tbl[k] = vv
          if (vv ~= nil) then
             v = vv.idxA[1][1]
@@ -559,6 +558,24 @@ function M.prt(self,title)
    dbg.fini ("Var:prt")
 end
 
+function M.setRefCount(self, refCountT)
+   local tbl = self.tbl
+   for k, vv in pairs(tbl) do
+      vv.num = refCountT[k] or 1
+   end
+end
+
+function M.refCountT(self)
+   local refCountT = {}
+   local tbl = self.tbl
+   for k, vv in pairs(tbl) do
+      refCountT[k] = vv.num
+   end
+
+   return refCountT
+end
+
+
 --------------------------------------------------------------------------
 -- Unset the environment variable.
 -- @param self A Var object
@@ -569,6 +586,9 @@ function M.unset(self)
    local adding = false
    chkMP(self.name, nil, adding)
 end
+
+
+
 
 --------------------------------------------------------------------------
 -- Expand the value into a string.   Obviously non-path
@@ -690,7 +710,7 @@ function M.expand(self)
    end
 
    local refCountT = {}
-   if (self.nodups and self.name ~= "MODULEPATH") then
+   if (self.nodups) then
       env_name = envRefCountName .. self.name
       oldV     = getenv(env_name)
       if (next(sAA) == nil) then
@@ -706,7 +726,6 @@ function M.expand(self)
    end
 
    if (next(tbl) == nil) then pathStr = false end
-
    return pathStr, "path", priorityStrT, refCountT
 end
 

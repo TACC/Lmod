@@ -1,0 +1,21 @@
+Notes on what to talk about at LLNL
+
+Lmod:
+
+Here is what is new:
+
+Use slides from TACC Booth talk
+
+Title:  Lmod and XALT: What's New with TACC's Environment Module
+System and How XALT can track what your users are doing?
+
+Lmod is a modern Environment Module system.  We will briefly discuss the
+features of Lmod over other module systems.  Also we  will cover the new ways that Lmod
+will allow for hiding modules without removing them as well as better
+ways to handle dependent modules and other new features.
+
+XALT is a extremely lightweight solution to track what your users do.
+The new XALT tracks both MPI and non-MPI programs.  Come see how easy
+it is to better understand what your users are doing.  Let's learn how
+to drink from the firehose of job data that your site is generating.
+

@@ -81,6 +81,7 @@ return {
      e_Swap_Failed         = nil,
      e_Unable_2_Load       = nil,
      e_Unable_2_parse      = "不能解析 \"%{path}\". 已退出！\n",      
+     e_Unable_2_rename     = nil,
      e_Unknown_Coll        = nil,
      e_coll_corrupt        = nil,
      e_dbT_sn_fail         = nil,

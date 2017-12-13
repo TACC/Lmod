@@ -1033,13 +1033,10 @@ function M.getMTfromFile(self,tt)
 
    local restoreFn = tt.fn
    dbg.print{"s: ",s,"\n"}
-   local l_mt      = new(self, s, restoreFn)
-   local activeA   = l_mt:list("userName","active")
-
+   local l_mt       = new(self, s, restoreFn)
+   local activeA    = l_mt:list("userName","active")
    local savedMPATH = concatTbl(l_mt.mpathA,":")
-   
-   local tracing = cosmic:value("LMOD_TRACING")
-
+   local tracing    = cosmic:value("LMOD_TRACING")
 
    ---------------------------------------------
    -- If any module specified in the "default" file
@@ -1073,11 +1070,11 @@ function M.getMTfromFile(self,tt)
    -- Build a new MT with only the savedBaseMPATH from before.
    -- This means resetting s_mt, s_frameStk and defining
    -- MODULEPATH in the environment.  Then we can rebuild a fresh
-   -- FrameStk and MT.
-
+   -- FrameStk and MT.  
    local FrameStk = require("FrameStk")
    local frameStk = FrameStk:singleton()
    local mt       = frameStk:mt()
+
    dbg.print{"(1) mt.systemBaseMPATH: ",mt.systemBaseMPATH,"\n"}
    dbg.print{"savedBaseMPATH: ",savedBaseMPATH,"\n"}
    s              = serializeTbl{indent=true, name=s_name, value=mt}
@@ -1141,9 +1138,11 @@ function M.getMTfromFile(self,tt)
       mA[#mA+1]   = mname
    end
    MCP.load(mcp,mA)
-   mcp = mcp_old
+   mcp        = mcp_old
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-   mt = frameStk:mt()
+   mt         = frameStk:mt()
+   local varT = frameStk:varT()
+   varT[ModulePath]:setRefCount(l_mt.mpathRefCountT or {})
    
    -----------------------------------------------------------------------
    -- Now check to see that all requested modules got loaded.
@@ -1214,6 +1213,13 @@ function M.getMTfromFile(self,tt)
    mt = frameStk:mt()
    dbg.fini("MT:getMTfromFile")
    return true
+end
+
+function M.setMpathRefCountT(self, refCountT)
+   self.mpathRefCountT = refCountT
+end
+function M.hideMpathRefCountT(self, refCountT)
+   self.mpathRefCountT = nil
 end
 
 return M

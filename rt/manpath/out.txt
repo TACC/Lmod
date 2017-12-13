@@ -12,6 +12,8 @@ LOADEDMODULES="unix/1.0";
 export LOADEDMODULES;
 MANPATH="::";
 export MANPATH;
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/manpath/mf/Core:1";
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/manpath/mf/Core";
 export MODULEPATH;
 __LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/manpath/mf/Core/unix/1.0.lua:1";

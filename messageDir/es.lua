@@ -108,6 +108,7 @@ Además, puede configurar la variable de entorno LMOD_DISABLE_SAME_NAME_AUTOSWAP
      w_SYS_DFLT_EMPTY      = nil,
      e_Unable_2_Load       = "Imposible cargar el módulo: %{name}\n     %{fn}: %{message}\n",
      e_Unable_2_parse      = "Imposible analizar: \"%{path}\". ¡Abortar!\n",
+     e_Unable_2_rename     = nil,
      e_Unknown_Coll        = "La colección: \"%{collection}\" no existe.\n  Intente \"module savelist\" para ver posibles opciones.\n",
      e_coll_corrupt        = nil,
      e_dbT_sn_fail         = "dbT[sn] falló por sn: %{sn}\n",

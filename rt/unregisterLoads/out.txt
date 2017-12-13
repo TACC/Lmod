@@ -14,6 +14,8 @@ __LMOD_REF_COUNT_LOADEDMODULES="a:1;c:1;b:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="a:c:b";
 export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/unregisterLoads/mf/B:1;ProjectDIR/rt/unregisterLoads/mf/Core:1";
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/unregisterLoads/mf/B:ProjectDIR/rt/unregisterLoads/mf/Core";
 export MODULEPATH;
 __LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/unregisterLoads/mf/Core/a.lua:1;ProjectDIR/rt/unregisterLoads/mf/B/c.lua:1;ProjectDIR/rt/unregisterLoads/mf/B/b.lua:1";

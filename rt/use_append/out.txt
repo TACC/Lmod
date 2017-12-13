@@ -10,6 +10,8 @@ __LMOD_REF_COUNT_LOADEDMODULES="append:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="append";
 export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/use_append/mf/Core:1;ProjectDIR/rt/use_append/mf/Append:1;ProjectDIR/rt/use_append/mf/Append2:1";
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/use_append/mf/Core:ProjectDIR/rt/use_append/mf/Append:ProjectDIR/rt/use_append/mf/Append2";
 export MODULEPATH;
 __LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/use_append/mf/Core/append:1";

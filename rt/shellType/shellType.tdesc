@@ -1,5 +1,5 @@
 -- -*- lua -*-
-local testName = "nvv"
+local testName = "shellType"
 
 testdescript = {
    owner   = "rtm",

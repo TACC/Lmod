@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.6.12  2017-09-01 18:59 -05:00
+Modules based on Lua: Version 7.7.14  2017-11-16 16:23 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -268,3 +268,25 @@ step 46
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore my_A
 ===========================
 Restoring modules from user's my_A
+===========================
+step 47
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+===========================
+step 48
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load icc ifort
+===========================
+===========================
+step 49
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing save my_intel
+===========================
+Saved current collection of modules to: "my_intel"
+===========================
+step 50
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+===========================
+step 51
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore my_intel
+===========================
+Restoring modules from user's my_intel

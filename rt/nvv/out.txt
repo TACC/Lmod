@@ -6,6 +6,8 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/nvv/mf:1";
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/nvv/mf";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/nvv/mf",},["systemBaseMPATH"]="ProjectDIR/rt/nvv/mf",}';
@@ -26,6 +28,8 @@ __LMOD_REF_COUNT_LOADEDMODULES="intel/16/16.0.4:1";
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES="intel/16/16.0.4";
 export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/nvv/el1:1;ProjectDIR/rt/nvv/el2:1";
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/nvv/el1:ProjectDIR/rt/nvv/el2";
 export MODULEPATH;
 __LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/nvv/el1/intel/16/16.0.4:1";
@@ -58,6 +62,8 @@ export _ModuleTable_;
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/nvv/bc/mf:1;ProjectDIR/rt/nvv/bc/cm:1";
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/nvv/bc/mf:ProjectDIR/rt/nvv/bc/cm";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/nvv/bc/mf","ProjectDIR/rt/nvv/bc/cm",},["systemBaseMPATH"]="ProjectDIR/rt/nvv/bc/mf:ProjectDIR/rt/nvv/bc/cm",}';
@@ -94,6 +100,8 @@ export _ModuleTable_;
 step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
+__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/nvv/mf2:1;ProjectDIR/rt/nvv/mf3:1";
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH="ProjectDIR/rt/nvv/mf2:ProjectDIR/rt/nvv/mf3";
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/nvv/mf2","ProjectDIR/rt/nvv/mf3",},["systemBaseMPATH"]="ProjectDIR/rt/nvv/mf2:ProjectDIR/rt/nvv/mf3",}';

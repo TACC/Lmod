@@ -143,6 +143,7 @@ Alternativ können Sie die Umgebungsvariable LMOD_DISABLE_SAME_NAME_AUTOSWAP auf
      %{fn}: %{message}
 ]==], --
      e_Unable_2_parse      = "Nicht einlesbar: \"%{path}\". Abbruch!\n",
+     e_Unable_2_rename     = nil,
      e_Unknown_Coll        = [==[Benutzer-Modulsammlung: "%{collection}" existiert nicht.
   "module savelist" zeigt mögliche Werte.
 ]==],

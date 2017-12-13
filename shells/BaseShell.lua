@@ -56,7 +56,7 @@ local huge         = math.huge
 local pack         = (_VERSION == "Lua 5.1") and argsPack   or table.pack -- luacheck: compat
 local pairsByKeys  = pairsByKeys
 local posix        = require("posix")
-local setenv_posix = posix.setenv
+local posix_setenv = posix.setenv
 
 --------------------------------------------------------------------------
 -- BaseShell Member functions:
@@ -190,9 +190,9 @@ end
 function M.echo(self, ...)
    local LMOD_REDIRECT = cosmic:value("LMOD_REDIRECT")
    if (LMOD_REDIRECT == "no") then
-      setenv_posix("LC_ALL",nil,true)
+      posix_setenv("LC_ALL",nil,true)
       pcall(pager,io.stderr,...)
-      setenv_posix("LC_ALL","C",true)
+      posix_setenv("LC_ALL","C",true)
    else
       local arg = pack(...)
       for i = 1, arg.n do
