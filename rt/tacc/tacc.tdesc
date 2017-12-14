@@ -42,6 +42,7 @@ testdescript = {
      runLmod unload gatk            #17
      runLmod load stir              #18
      runLmod load foo               #19
+     runLmod load empty_unload      #20
 
 
 

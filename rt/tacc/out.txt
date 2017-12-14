@@ -404,3 +404,19 @@ _LMFILES_="ProjectDIR/rt/tacc/mf/Base/stir/2.1:ProjectDIR/rt/tacc/mf/Base/foo/1.
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={foo={["fn"]="ProjectDIR/rt/tacc/mf/Base/foo/1.0",["fullName"]="foo/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="foo",},stir={["fn"]="ProjectDIR/rt/tacc/mf/Base/stir/2.1",["fullName"]="stir/2.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="stir",},},mpathA={"ProjectDIR/rt/tacc/mf/Base","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
 export _ModuleTable_;
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load empty_unload
+===========================
+__LMOD_REF_COUNT_LOADEDMODULES="stir/2.1:1;foo/1.0:1;empty_unload/1.0:1";
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES="stir/2.1:foo/1.0:empty_unload/1.0";
+export LOADEDMODULES;
+MODULEPATH="ProjectDIR/rt/tacc/mf/Base:ProjectDIR/rt/tacc/mf/TACC";
+export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/tacc/mf/Base/stir/2.1:1;ProjectDIR/rt/tacc/mf/Base/foo/1.0:1;ProjectDIR/rt/tacc/mf/TACC/empty_unload/1.0:1";
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_="ProjectDIR/rt/tacc/mf/Base/stir/2.1:ProjectDIR/rt/tacc/mf/Base/foo/1.0:ProjectDIR/rt/tacc/mf/TACC/empty_unload/1.0";
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={empty_unload={["fn"]="ProjectDIR/rt/tacc/mf/TACC/empty_unload/1.0",["fullName"]="empty_unload/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="empty_unload",},foo={["fn"]="ProjectDIR/rt/tacc/mf/Base/foo/1.0",["fullName"]="foo/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="foo",},stir={["fn"]="ProjectDIR/rt/tacc/mf/Base/stir/2.1",["fullName"]="stir/2.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="stir",},},mpathA={"ProjectDIR/rt/tacc/mf/Base","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
+export _ModuleTable_;

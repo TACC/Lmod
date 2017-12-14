@@ -1,3 +1,16 @@
+pathmunge () {
+    case ":${PATH}:" in
+        *:"$1":*)
+            ;;
+        *)
+            if [ "$2" = "after" ] ; then
+                PATH=$PATH:$1
+            else
+                PATH=$1:$PATH
+            fi
+    esac
+}  
+
 cleanUp ()
 {
    gitV=$(git describe --always)
@@ -9,17 +22,22 @@ cleanUp ()
 
    sed                                                    \
        -e "s|\@git\@|$gitV|g"                             \
-       -e "s|:$PATH_to_LUA:|:|g"                          \
+       -e "s|:$PATH_to_LUA\([:\"]\)|\1|g"                 \
+       -e "s|;$PATH_to_LUA:[0-9]\([;\"]\)|\1|g"           \
+       -e "s|\\\;$PATH_to_LUA:[0-9]\\\;|\\\;|g"           \
        -e "s|$PATH_to_LUA/lua|lua|g"                      \
        -e 's|:/bin\([:"]\)|\1|g'                          \
+       -e 's|;/bin:[0-9]\([;"]\)|\1|g'                    \
+       -e 's|\\\;/bin:[0-9]\\\;|\\\;|g'                   \
        -e "s|:/usr/bin\([:\"]\)|\1|g"                     \
-       -e "s|:/usr/local/bin\([:\"]\)|\1|g"               \
-       -e "s|:$PATH_to_SHA1\([:\"]\)|\1|g"                \
-       -e "s|;/bin:[0-9]\([;\"]\)|\1|g"                   \
        -e "s|;/usr/bin:[0-9]\([;\"]\)|\1|g"               \
+       -e "s|\\\;/usr/bin:[0-9]\\\;|\\\;|g"               \
+       -e "s|:/usr/local/bin\([:\"]\)|\1|g"               \
        -e "s|;/usr/local/bin:[0-9]\([;\"]\)|\1|g"         \
+       -e "s|\\\;/usr/local/bin:[0-9]\\\;|\\\;|g"         \
+       -e "s|:$PATH_to_SHA1\([:\"]\)|\1|g"                \
        -e "s|;$PATH_to_SHA1:[0-9]\([;\"]\)|\1|g"          \
-       -e "s|;$PATH_to_LUA:[0-9]\([;\"]\)|\1|g"           \
+       -e "s|\\\;$PATH_to_SHA1\\\;|\\\;|g"                \
        -e "s|^Lmod version.*||g"                          \
        -e "s|^LuaFileSystem version.*||g"                 \
        -e "s|^Lua Version.*||g"                           \
@@ -206,8 +224,10 @@ initStdEnvVars()
   HOME=`/bin/pwd`
   export LMOD_TERM_WIDTH=300
 
-  export PATH=$projectDir/src:$PATH_to_LUA:$PATH_to_TM:$PATH_to_SHA1:/usr/bin:/bin
-
+  PATH=/usr/bin:/bin
+  for i in $PATH_to_SHA1 $PATH_to_TM $PATH_to_LUA $projectDir/src; do
+    pathmunge $i 
+  done
 }
 
 clearTARG()
