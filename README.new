@@ -28,3 +28,5 @@ Lmod 7.7+
             Fix sh_to_modulefile correctly handle bad options (issue #332)
             Allow pushenv("FOO",false) to clear "FOO" (issue #331)
    (7.7.15) Always use ref counting for MODULEPATH.
+            Change the C-shell output to not use quotes and instead use back slashes to
+            quote special characters like $.
