@@ -37,7 +37,7 @@ cleanUp ()
        -e "s|\\\;/usr/local/bin:[0-9]\\\;|\\\;|g"         \
        -e "s|:$PATH_to_SHA1\([:\"]\)|\1|g"                \
        -e "s|;$PATH_to_SHA1:[0-9]\([;\"]\)|\1|g"          \
-       -e "s|\\\;$PATH_to_SHA1\\\;|\\\;|g"                \
+       -e "s|\\\;$PATH_to_SHA1:[0-9]\\\;|\\\;|g"          \
        -e "s|^Lmod version.*||g"                          \
        -e "s|^LuaFileSystem version.*||g"                 \
        -e "s|^Lua Version.*||g"                           \
