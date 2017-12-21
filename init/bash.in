@@ -115,7 +115,7 @@ fi
 
 # Restoring XTRACE and VERBOSE states.
 set  $XTRACE_STATE $VERBOSE_STATE
-unset XTRACE_STATE  VERBOSE_STATE
+unset XTRACE_STATE  VERBOSE_STATE SHOST
 
 ########################################################################
 # End Lmod BASHENV
