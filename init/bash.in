@@ -99,8 +99,6 @@ clearMT()
   eval $($LMOD_DIR/clearMT_cmd bash)
 }
 
-export SHOST=${SHOST-${HOSTNAME%%.*}}
-
 xSetTitleLmod()
 {
   builtin echo -n -e "\033]2;$1\007";

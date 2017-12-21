@@ -31,5 +31,4 @@ Lmod 7.7+
             Change the C-shell output to not use quotes and instead use back slashes to
             quote special characters like $.
 	    Better filtering for c-shell output testing
-	    
-	    
+	    Remove definition of SHOST from bash.in.  Recompute it in settarg module.
