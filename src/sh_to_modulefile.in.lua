@@ -507,7 +507,7 @@ function main()
 
    s = concatTbl(factory:process(ignoreT, oldEnvT, envT),"\n")
    if (masterTbl.outFn) then
-      f = io.open(masterTbl.outFn,"w")
+      local f = io.open(masterTbl.outFn,"w")
       if (f) then
          f:write(s)
          f:close()
