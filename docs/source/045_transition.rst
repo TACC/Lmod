@@ -1,3 +1,5 @@
+.. _transition-to-lmod:
+
 How to Transition to Lmod (or how to test Lmod without installing it for all)
 =============================================================================
 
