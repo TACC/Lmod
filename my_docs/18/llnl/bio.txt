@@ -1,0 +1,9 @@
+Dr Robert McLay received his Ph.D. from the University of Texas at
+Austin in Engineering Mechanics.  His interests include 3D Parallel
+Finite Element simulation of Fluid Flow and Heat Transfer and the
+tools that aid parallel computations. Since 2008, he has worked at The
+Texas Advance Computing Center (TACC) where he now leads the Software
+Tools group.  He is also the chief developer of Lmod, a modern
+environment module tool and XALT a tool to track what programs on a
+cluster.
+
