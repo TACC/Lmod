@@ -60,7 +60,7 @@ local stat     = posix.stat
 local st       = stat(arg_0)
 while (st.type == "link") do
    local lnk = readlink(arg_0)
-   if (arg_0:find("^/") and (lnk:find("^/") == nil)) then
+   if (arg_0:find("/") and (lnk:find("^/") == nil)) then
       local dir = arg_0:gsub("/[^/]*$","")
       lnk       = dir .. "/" .. lnk
    end
