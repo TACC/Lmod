@@ -124,6 +124,10 @@ local function new(self, t)
       local entry = scDescriptT[j]
       local tt    = {}
       if (entry.timestamp) then
+         local attr = lfs.attributes(entry.timestamp)
+         if (attr and type(attr) == "table") then
+            tt.lastUpdateEpoch = attr.modification
+         end
          hook.apply("parse_updateFn", entry.timestamp, tt)
       end
 
