@@ -103,6 +103,9 @@ set_shell_function("mdbg","settarg "$@" mdbg","settarg $* mdbg")
 execute{cmd="eval `lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --destroy`", modeA={"unload"}}
 set_shell_function("precmd","{
              local tilde="~";
+             local H=${HOSTNAME-$(hostname)}
+             H=${H%%.*}
+             local SHOST=${SHOST-$H}
              eval $(${LMOD_SETTARG_CMD:-:} -s bash);
              ${SET_TITLE_BAR:-:} "${TARG_TITLE_BAR_PAREN}${USER}@${SHOST}:${PWD/#$HOME/$tilde}";
              ${USER_PROMPT_CMD:-:};

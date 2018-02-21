@@ -129,6 +129,16 @@ abbreviation for the mpich/3.2 mpi module.  The abbreviations are
 controlled by configuration files.  This string is
 TARG_TITLE_BAR_PAREN. 
 
+Settarg uses the following rules to define what the host is.
+If the environment variable $SHOST is defined then that value is use
+for the hostname.  Otherwise the first name is used from the
+hostname.  In other words, your host name is
+"login1.stampede2.tacc.utexas.edu" then "login1" will be used as the
+host. Obviously, if you'd rather have "login1.stampede2" be in the
+title bar then define SHOST to do so.
+
+
+
 Settarg configuration
 ~~~~~~~~~~~~~~~~~~~~~
 

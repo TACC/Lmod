@@ -32,4 +32,6 @@ Lmod 7.7+
             quote special characters like $.
 	    Better filtering for c-shell output testing
 	    Fix bug in sh_to_modulefile
- 
+	    Remove definition of SHOST from bash.in.  Recompute it in settarg module.
+            Support relative symlink when trying to find cmd_dir
+            Now get modify time correctly from SpiderCache timestamp file.

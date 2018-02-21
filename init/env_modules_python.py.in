@@ -1,7 +1,6 @@
 # -*- python -*-
-import os, string
+import os
 def module(command, *arguments):
   commands = os.popen('@PKG@/libexec/lmod python %s %s'\
-                      % (command, string.join(arguments))).read()
-  exec commands
-
+                      % (command, ' '.join(arguments))).read()
+  exec(commands)
