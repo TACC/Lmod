@@ -271,65 +271,68 @@ local function readDotFiles()
    local TargPathLoc    = "first"
 
    for _, fn  in ipairs(a) do
-      dbg.print{"fn: ",fn,"\n"}
-      local f = io.open(fn,"r")
-      if (f) then
+      repeat
+         dbg.print{"fn: ",fn,"\n"}
+         local f = io.open(fn,"r")
+         if (f) then
 
-         SttgConfFnA[#SttgConfFnA+1] = fn
+            SttgConfFnA[#SttgConfFnA+1] = fn
 
-         local whole  = f:read("*all")
-         f:close()
+            local whole  = f:read("*all")
+            f:close()
 
-         local ok
-         local func, msg = load(whole)
-         if (func) then
-            ok, msg = pcall(func)
-         else
-            ok = false
-         end
+            if (type(whole) ~= "string") then break end
+            local ok
+            local func, msg = load(whole)
+            if (func) then
+               ok, msg = pcall(func)
+            else
+               ok = false
+            end
 
-         if (not ok) then
-            io.stderr:write("Error: Unable to load: ",fn,"\n",
-                            "  ", msg,"\n");
-            os.exit(1)
-         end
+            if (not ok) then
+               io.stderr:write("Error: Unable to load: ",fn,"\n",
+                               "  ", msg,"\n");
+               os.exit(1)
+            end
 
-         TargPathLoc = systemG.TargPathLoc
+            TargPathLoc = systemG.TargPathLoc
 
-         for k,v in pairs(systemG.SettargDirTemplate) do
-            SettargDirTmpl[k] = v
-         end
+            for k,v in pairs(systemG.SettargDirTemplate) do
+               SettargDirTmpl[k] = v
+            end
 
-         for k,v in pairs(systemG.BuildScenarioTbl) do
-            dbg.print{"BS: k: ",k," v: ",v,"\n"}
-            MethodMstrTbl[k] = v
-         end
+            for k,v in pairs(systemG.BuildScenarioTbl) do
+               dbg.print{"BS: k: ",k," v: ",v,"\n"}
+               MethodMstrTbl[k] = v
+            end
 
-         for k,v in pairs(systemG.HostnameTbl) do
-            HostTbl[k] = v
-         end
+            for k,v in pairs(systemG.HostnameTbl) do
+               HostTbl[k] = v
+            end
 
-         for k,v in pairsByKeys(systemG.TitleTbl) do
-            dbg.print{"Title: k: ",k," v: ",v,"\n"}
-            TitleMstrTbl[k] = v
-         end
+            for k,v in pairsByKeys(systemG.TitleTbl) do
+               dbg.print{"Title: k: ",k," v: ",v,"\n"}
+               TitleMstrTbl[k] = v
+            end
 
-         for k in pairs(systemG.ModuleTbl) do
-            ModuleMstrTbl[k] = systemG.ModuleTbl[k]
-            for _, v in ipairs(ModuleMstrTbl[k]) do
-               local t          = stringKindTbl[v] or {}
-               t[k]             = true
-               stringKindTbl[v] = t
+            for k in pairs(systemG.ModuleTbl) do
+               ModuleMstrTbl[k] = systemG.ModuleTbl[k]
+               for _, v in ipairs(ModuleMstrTbl[k]) do
+                  local t          = stringKindTbl[v] or {}
+                  t[k]             = true
+                  stringKindTbl[v] = t
+               end
+            end
+            for k in pairs(ModuleMstrTbl) do
+               familyTbl[k] = 1
+            end
+            for i = 1, #systemG.NoFamilyList do
+               local k = systemG.NoFamilyList[i]
+               familyTbl[k] = nil
             end
          end
-         for k in pairs(ModuleMstrTbl) do
-            familyTbl[k] = 1
-         end
-         for i = 1, #systemG.NoFamilyList do
-            local k = systemG.NoFamilyList[i]
-            familyTbl[k] = nil
-         end
-      end
+      until true
    end
 
    masterTbl.TargPathLoc      = getenv("LMOD_SETTARG_TARG_PATH_LOCATION") or TargPathLoc
