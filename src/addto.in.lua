@@ -181,8 +181,12 @@ function main()
    local valueA    = {}
    for j = 1,#pargs do
       local s = pargs[j]
-      for path in s:split(':') do
-         valueA[#valueA+1] = cleanPath(path)
+      if (s == ":") then
+         valueA[#valueA+1] = false
+      else
+         for path in s:split(':') do
+            valueA[#valueA+1] = cleanPath(path)
+         end
       end
    end
 

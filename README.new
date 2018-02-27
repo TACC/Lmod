@@ -35,3 +35,6 @@ Lmod 7.7+
 	    Remove definition of SHOST from bash.in.  Recompute it in settarg module.
             Support relative symlink when trying to find cmd_dir
             Now get modify time correctly from SpiderCache timestamp file.
+   (7.7.16) Issue #346: do not use "ls" to get the list of directories when dealing with .modulepath
+            Issue #347: Just skip parsing "whole" if it is not a string (settarg)
+	    Issue #348: Do not double the colon when the original was a single colon
