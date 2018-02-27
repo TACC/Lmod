@@ -21,7 +21,7 @@ if test (id -u) -ne 0
         
         if test -e "$MODULEPATH_INIT" 
             for str in (cat "$MODULEPATH_INIT" | sed 's/#.*$//')  # Allow end-of-line comments.
-                for dir in (ls -d "$str")
+                for dir in (@ls@ -d "$str")
                     set -gx MODULEPATH (@PKG@/libexec/addto --append MODULEPATH $dir)
                 end
             end

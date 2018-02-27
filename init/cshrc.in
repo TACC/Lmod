@@ -21,8 +21,10 @@ if ( ! $?MODULEPATH_ROOT ) then
     set MODULEPATH_INIT = "@modulepath_init@"
     if ( -f $MODULEPATH_INIT ) then
        	foreach str (`cat $MODULEPATH_INIT | sed 's/#.*$//'`)	# Allow end-of-line comments.
-	   foreach dir (`ls -d $str`)
-              setenv MODULEPATH `@PKG@/libexec/addto --append MODULEPATH $dir`
+	   foreach dir ( $str )
+              if ( -d $dir ) then
+                 setenv MODULEPATH `@PKG@/libexec/addto --append MODULEPATH $dir`
+              end
            end
 	end
     else

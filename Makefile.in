@@ -55,6 +55,7 @@ PATH_TO_HASHSUM   	  := @PATH_TO_HASHSUM@
 PATH_TO_LUAC              := @PATH_TO_LUAC@
 PATH_TO_PAGER	  	  := @PATH_TO_PAGER@
 PATH_TO_TCLSH             := @PATH_TO_TCLSH@
+PATH_TO_LS                := @PATH_TO_LS@
 MODULEPATH_ROOT   	  := @MODULEPATH_ROOT@
 VERSION_SRC	  	  := $(srcdir)/src/Version.lua
 LUA_INCLUDE       	  := @LUA_INCLUDE@
@@ -200,6 +201,7 @@ __installMe:
                 -e 's|@settarg_cmd@|$(SETTARG_CMD)|g'                  	          \
 	        -e "s|@my_shell@|$$fn|g"                   	                  \
                 -e 's|@tclsh@|$(PATH_TO_TCLSH)|g'                             	  \
+                -e 's|@ls@|$(PATH_TO_LS)|g'                             	  \
                 -e 's|@disable_name_autoswap@|$(DISABLE_NAME_AUTOSWAP)|g'     	  \
 	        -e 's|@tmod_path_rule@|$(TMOD_PATH_RULE)|g'            	   	  \
 	        -e 's|@tmod_find_first@|$(TMOD_FIND_FIRST)|g'            	  \

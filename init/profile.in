@@ -16,8 +16,10 @@ if [ -z "${USER_IS_ROOT:-}" ]; then
     MODULEPATH_INIT="@modulepath_init@"
     if [ -f ${MODULEPATH_INIT} ]; then
        for str in $(cat ${MODULEPATH_INIT} | sed 's/#.*$//'); do   # Allow end-of-line comments.
-          for dir in $(ls -d $str); do
-              export MODULEPATH=$(@PKG@/libexec/addto --append MODULEPATH $dir)
+          for dir in $str; do
+              if [ -d $dir ]; then
+                  export MODULEPATH=$(@PKG@/libexec/addto --append MODULEPATH $dir)
+              fi
 	  done
        done
     else
