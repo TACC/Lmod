@@ -172,6 +172,7 @@ function main()
    local insert    = myInsert(masterTbl.appendFlg, masterTbl.existFlg)
    local cleanPath = myClean(cleanFlg)
    local chkDir    = myChkDir(masterTbl.existFlg)
+
    remove(pargs,1)
 
    ------------------------------------------------------------------------
@@ -189,8 +190,12 @@ function main()
    ------------------------------------------------------------------------
    -- Convert empty string envVar values into false and clean path if requested
    if (envVar) then
-      for v in envVar:split(sep) do
-	 envVarA[#envVarA + 1] = cleanPath(v)
+      if (envVar == ":") then
+	 envVarA[#envVarA + 1] = false
+      else
+         for v in envVar:split(sep) do
+            envVarA[#envVarA + 1] = cleanPath(v)
+         end
       end
    end
 
