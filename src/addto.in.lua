@@ -153,6 +153,16 @@ function myChkDir(existFlg)
    end
 end
 
+function build_array(s,A)
+   if (s == ":") then
+      A[#A + 1] = false
+   else
+      for path in s:split(':') do
+         A[#A+1] = cleanPath(path)
+      end
+   end
+end
+
 function main()
 
    local remove  = table.remove
@@ -180,27 +190,14 @@ function main()
    -- Also separate colons into separate arguments
    local valueA    = {}
    for j = 1,#pargs do
-      local s = pargs[j]
-      if (s == ":") then
-         valueA[#valueA+1] = false
-      else
-         for path in s:split(':') do
-            valueA[#valueA+1] = cleanPath(path)
-         end
-      end
+      build_array(pargs[j], valueA)
    end
 
 
    ------------------------------------------------------------------------
    -- Convert empty string envVar values into false and clean path if requested
    if (envVar) then
-      if (envVar == ":") then
-	 envVarA[#envVarA + 1] = false
-      else
-         for v in envVar:split(sep) do
-            envVarA[#envVarA + 1] = cleanPath(v)
-         end
-      end
+      build_array(envVar, envVarA)
    end
 
    ------------------------------------------------------------------------
