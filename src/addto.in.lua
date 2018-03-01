@@ -153,16 +153,6 @@ function myChkDir(existFlg)
    end
 end
 
-function build_array(s,A)
-   if (s == ":") then
-      A[#A + 1] = false
-   else
-      for path in s:split(':') do
-         A[#A+1] = cleanPath(path)
-      end
-   end
-end
-
 function main()
 
    local remove  = table.remove
@@ -184,6 +174,16 @@ function main()
    local chkDir    = myChkDir(masterTbl.existFlg)
 
    remove(pargs,1)
+
+   local function build_array(s,A)
+      if (s == ":") then
+         A[#A + 1] = false
+      else
+         for path in s:split(':') do
+            A[#A+1] = cleanPath(path)
+         end
+      end
+   end
 
    ------------------------------------------------------------------------
    -- Convert empty string input values into false and clean path if requested
