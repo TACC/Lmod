@@ -7,7 +7,6 @@ ifeq ($(PATH_TO_SRC),@$(path_to_src)@)
 endif
 
 
-
 TOOL_SRC                  := $(wildcard $(srcdir)/tools/*.lua)
 I18N_SRC                  := $(wildcard $(srcdir)/tools/i18n/*.lua)
 
