@@ -10,7 +10,7 @@ env:
 addons:
   apt:
     sources:
-      - r-packages-precise
+      - r-packages
     packages:
       - tcsh
       - tcl8.5
