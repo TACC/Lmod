@@ -76,6 +76,10 @@ return {
 ]==],
      ml_2many              = "ml error: too many commands\n",
      
+     ml_misplaced_opt      = [==[ml error: misplaced option: \"%{opt}\"
+  Try ml --help for usage.
+]==],
+
      --------------------------------------------------------------------------
      -- LmodError messages
      --------------------------------------------------------------------------

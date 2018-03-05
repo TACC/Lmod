@@ -47,6 +47,7 @@ return {
      ml_help               = nil,
      ml_opt                = nil,
      ml_2many              = nil,
+     ml_misplaced_opt      = nil,
      
      --------------------------------------------------------------------------
      -- LmodError messages

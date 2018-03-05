@@ -243,6 +243,10 @@ function main()
 
          local num = lmodOptT[v]
          if (num) then
+            if (cmdFound) then
+               io.stderr:write(i18n("ml_misplaced_opt",{opt=v}))
+               os.exit(1)
+            end
             grab          = num
             optA[#optA+1] = translateT[v] or v
             break

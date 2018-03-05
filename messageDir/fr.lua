@@ -75,6 +75,7 @@ return {
   Essayez ml --help pour les instructions d'utilisation.
 ]==],
      ml_2many  = "erreur ml : trop de commandes\n",
+     ml_misplaced_opt      = nil,
 
      --------------------------------------------------------------------------
      -- LmodError messages

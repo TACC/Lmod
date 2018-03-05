@@ -69,6 +69,7 @@ return {
   Geben Sie "ml --help" für Informationen zur Verwendung ein.
 ]==],
      ml_2many              = "ml Fehler: zu viele Befehle\n",
+     ml_misplaced_opt      = nil,
 
      --------------------------------------------------------------------------
      -- LmodError messages
