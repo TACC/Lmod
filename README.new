@@ -39,4 +39,5 @@ Lmod 7.7+
             Issue #347: Just skip parsing "whole" if it is not a string (settarg)
 	    Issue #348: Do not double the colon when the original was a single colon
    (7.7.18) Change ml so that ml av --terse is an error.
+   (7.7.19) Making the settarg and lmod files be installed versionless.
    
