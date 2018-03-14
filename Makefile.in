@@ -1,17 +1,28 @@
 srcdir                    := @srcdir@
-CC                        := @CC@
-PATH_TO_SRC               := @PATH_TO_SRC@
-path_to_src               := PATH_TO_SRC
+prefix		  	  := @prefix@
+package		  	  := lmod
 ifeq ($(PATH_TO_SRC),@$(path_to_src)@)
   PATH_TO_SRC             := .
 endif
+PATH_TO_LUA	  	  := @PATH_TO_LUA@
+version		  	  := $(shell cd $(srcdir)/src; $(PATH_TO_LUA)/lua -e "V=require('Version'); print(V.tag())")
+SITE_CONTROLLED_PREFIX    := @SITE_CONTROLLED_PREFIX@
+MY_PACKAGE                := $(prefix)/$(package)/$(version)
+MY_PKG_PACKAGE            := $(prefix)/$(package)/$(package)
+
+ifneq ($(SITE_CONTROLLED_PREFIX),no)
+  MY_PACKAGE              := $(prefix)
+  MY_PKG_PACKAGE          := $(prefix)
+endif
+CC                        := @CC@
+PATH_TO_SRC               := @PATH_TO_SRC@
+path_to_src               := PATH_TO_SRC
 
 
 TOOL_SRC                  := $(wildcard $(srcdir)/tools/*.lua)
 I18N_SRC                  := $(wildcard $(srcdir)/tools/i18n/*.lua)
 
 CURRENT_MK                := $(lastword $(MAKEFILE_LIST))
-PATH_TO_LUA	  	  := @PATH_TO_LUA@
 export IGNORE_DIRS        := $(shell $(PATH_TO_LUA)/lua $(srcdir)/src/ignore_dirs_converter @IGNORE_DIRS@)
 REDIRECT                  := @REDIRECT@
 LMOD_SETTARG_FULL_SUPPORT := $(shell echo "@SETTARG@"       | tr '[:upper:]' '[:lower:]')
@@ -61,21 +72,18 @@ LUA_INCLUDE       	  := @LUA_INCLUDE@
 UPDATE_SYSTEM_FN  	  := @UPDATE_SYSTEM_FN@
 GIT_BRANCH                := master
 GIT_PROG                  := @PATH_TO_GIT@
-version		  	  := $(shell cd $(srcdir)/src; $(PATH_TO_LUA)/lua -e "V=require('Version'); print(V.tag())")
 GIT_VERSION               := $(shell if [ -n "$(GIT_PROG)" -a -d .git ]; then lmodV=`git describe --always`; echo "($$lmodV)"; else echo "($(version))"; fi)
-prefix		  	  := @prefix@
-package		  	  := lmod
-PKGV		  	  := $(prefix)/$(package)/$(version)
-PKG		  	  := $(prefix)/$(package)/$(package)
-LIBEXEC		  	  := $(prefix)/$(package)/$(version)/libexec
-SHELLS                    := $(prefix)/$(package)/$(version)/shells
-TOOLS                     := $(prefix)/$(package)/$(version)/tools
-I18N                      := $(prefix)/$(package)/$(version)/tools/i18n
-SETTARG                   := $(prefix)/$(package)/$(version)/settarg
-INIT		  	  := $(prefix)/$(package)/$(version)/init
-MESSAGEDIR      	  := $(prefix)/$(package)/$(version)/messageDir
-LMOD_MF 	  	  := $(prefix)/$(package)/$(version)/modulefiles/Core
-MAN_PAGES                 := $(prefix)/$(package)/$(version)/share/man/cat1
+PKG		  	  := $(MY_PKG_PACKAGE)
+PKGV		  	  := $(MY_PACKAGE)
+LIBEXEC		  	  := $(MY_PACKAGE)/libexec
+SHELLS                    := $(MY_PACKAGE)/shells
+TOOLS                     := $(MY_PACKAGE)/tools
+I18N                      := $(MY_PACKAGE)/tools/i18n
+SETTARG                   := $(MY_PACKAGE)/settarg
+INIT		  	  := $(MY_PACKAGE)/init
+MESSAGEDIR      	  := $(MY_PACKAGE)/messageDir
+LMOD_MF 	  	  := $(MY_PACKAGE)/modulefiles/Core
+MAN_PAGES                 := $(MY_PACKAGE)/share/man/cat1
 LMOD_MF_SOURCE            := $(patsubst %, $(srcdir)/%, MF/*.version.lua)
 SETTARG_SOURCE            := $(patsubst %, $(srcdir)/%, settarg/*.lua  settarg/targ.in)
 
@@ -159,8 +167,10 @@ pre-install: $(DIRLIST) lmodrc_init shell_init startup libexec spiderCacheSuppor
 
 install: pre-install  zsh_tab_funcs
 	$(MAKE) PKGV=$(PKG) shell_init
-	$(RM) $(DESTDIR)$(PKG)
-	ln -s $(version) $(DESTDIR)$(PKG)
+	if test "$(SITE_CONTROLLED_PREFIX)" = "no" ; then                         \
+	   $(RM) $(DESTDIR)$(PKG);                                                \
+	   ln -s $(version) $(DESTDIR)$(PKG);                                     \
+	fi;
 
 echo:
 	@echo Version: $(version)

@@ -41,3 +41,4 @@ Lmod 7.7+
    (7.7.18) Change ml so that ml av --terse is an error.
    (7.7.19) Making the settarg and lmod modulefiles be installed versionless.
    (7.7.20) Issue #353: Fix bug in cshrc.in end -> endif
+   (7.7.21) Issue #352: Allow sites to control the prefix completely.

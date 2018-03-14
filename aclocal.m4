@@ -17,6 +17,10 @@ if test "$HAVE_LUAFILESYSTEM" = yes; then
   LFS_STATUS="system"
 fi
 
+MY_PACKAGE=$prefix/lmod/$LmodV
+if test "$SITE_CONTROLLED_PREFIX" != no ; then
+  MY_PACKAGE=$prefix
+fi
 
 echo
 echo '----------------------------------- SUMMARY ----------------------------------'
@@ -27,8 +31,9 @@ echo
 echo "LUA_INCLUDE................................................." : $LUA_INCLUDE
 echo "Lua executable.............................................." : $luaprog
 echo "Luac executable............................................." : $PATH_TO_LUAC
+echo "User Controlled Prefix......................................" : $SITE_CONTROLLED_PREFIX
 echo "Prefix......................................................" : $prefix
-echo "Actual Install dir.........................................." : $prefix/lmod/$LmodV
+echo "Actual Install dir.........................................." : $MY_PACKAGE
 echo 
 echo "MODULEPATH_ROOT............................................." : $MODULEPATH_ROOT
 echo "Wait (s) before rebuilding cache............................" : $ANCIENT
@@ -63,7 +68,6 @@ echo "If path entry is already there then don't prepend..........." : $TMOD_PATH
 echo "Use Tmod Find First rule instead of Find Best for defaults.." : $TMOD_FIND_FIRST
 echo "MODULEPATH Initial file....................................." : $MODULEPATH_INIT
 
-
 echo
 echo '------------------------------------------------------------------------------'
 echo
@@ -77,8 +81,8 @@ echo If your site already uses BASH_ENV to point to a site specific script, plea
 echo consider sourcing Lmod\'s init/bash from your site\'s file.
 echo
 echo BASH_ENV is defined both in:
-echo "   $prefix/lmod/$LmodV/init/profile"
-echo "   $prefix/lmod/$LmodV/init/cshrc"
+echo "   $MY_PACKAGE/init/profile"
+echo "   $MY_PACKAGE/init/cshrc"
 echo
 echo '******************************************************************************'
 echo
@@ -112,6 +116,9 @@ if test "$a" != no; then
   echo '******************************************************************************'
   echo
 fi
+
+if test 
+
 
 echo
 echo Configure complete, Now do:

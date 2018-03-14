@@ -607,6 +607,7 @@ EXPR
 BASENAME
 SYS_LD_PRELOAD
 SYS_LD_LIB_PATH
+SITE_CONTROLLED_PREFIX
 MODULEPATH_INIT
 CACHED_LOADS
 LUA_INCLUDE
@@ -718,6 +719,7 @@ with_tmodFindFirst
 with_lua_include
 with_cachedLoads
 with_ModulePathInit
+with_userControlPrefix
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1402,6 +1404,8 @@ Optional Packages:
   --with-cachedLoads=ans  Use cache when loading modules. [[no]]
   --with-ModulePathInit=ans
                           File containing initial MODULEPATH directories
+  --with-userControlPrefix=ans
+                          A user controlled prefix. [[no]]
 
 Some influential environment variables:
   CC          C compiler command
@@ -3354,6 +3358,28 @@ $as_echo "MODULEPATH_INIT=$withval" >&6; }
     MODULEPATH_INIT="$withval"
     cat >>confdefs.h <<_ACEOF
 #define MODULEPATH_INIT "$withval"
+_ACEOF
+
+fi
+
+
+
+# Check whether --with-userControlPrefix was given.
+if test "${with_userControlPrefix+set}" = set; then :
+  withval=$with_userControlPrefix; SITE_CONTROLLED_PREFIX="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SITE_CONTROLLED_PREFIX=$with_userControlPrefix" >&5
+$as_echo "SITE_CONTROLLED_PREFIX=$with_userControlPrefix" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define SITE_CONTROLLED_PREFIX "$with_userControlPrefix"
+_ACEOF
+
+else
+  withval="no"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SITE_CONTROLLED_PREFIX=$withval" >&5
+$as_echo "SITE_CONTROLLED_PREFIX=$withval" >&6; }
+    SITE_CONTROLLED_PREFIX="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define SITE_CONTROLLED_PREFIX "$withval"
 _ACEOF
 
 fi
@@ -5394,6 +5420,10 @@ if test "$HAVE_LUAFILESYSTEM" = yes; then
   LFS_STATUS="system"
 fi
 
+MY_PACKAGE=$prefix/lmod/$LmodV
+if test "$SITE_CONTROLLED_PREFIX" != no ; then
+  MY_PACKAGE=$prefix
+fi
 
 echo
 echo '----------------------------------- SUMMARY ----------------------------------'
@@ -5404,8 +5434,9 @@ echo
 echo "LUA_INCLUDE................................................." : $LUA_INCLUDE
 echo "Lua executable.............................................." : $luaprog
 echo "Luac executable............................................." : $PATH_TO_LUAC
+echo "User Controlled Prefix......................................" : $SITE_CONTROLLED_PREFIX
 echo "Prefix......................................................" : $prefix
-echo "Actual Install dir.........................................." : $prefix/lmod/$LmodV
+echo "Actual Install dir.........................................." : $MY_PACKAGE
 echo
 echo "MODULEPATH_ROOT............................................." : $MODULEPATH_ROOT
 echo "Wait (s) before rebuilding cache............................" : $ANCIENT
@@ -5440,7 +5471,6 @@ echo "If path entry is already there then don't prepend..........." : $TMOD_PATH
 echo "Use Tmod Find First rule instead of Find Best for defaults.." : $TMOD_FIND_FIRST
 echo "MODULEPATH Initial file....................................." : $MODULEPATH_INIT
 
-
 echo
 echo '------------------------------------------------------------------------------'
 echo
@@ -5454,8 +5484,8 @@ echo If your site already uses BASH_ENV to point to a site specific script, plea
 echo consider sourcing Lmod\'s init/bash from your site\'s file.
 echo
 echo BASH_ENV is defined both in:
-echo "   $prefix/lmod/$LmodV/init/profile"
-echo "   $prefix/lmod/$LmodV/init/cshrc"
+echo "   $MY_PACKAGE/init/profile"
+echo "   $MY_PACKAGE/init/cshrc"
 echo
 echo '******************************************************************************'
 echo
@@ -5489,6 +5519,9 @@ if test "$a" != no; then
   echo '******************************************************************************'
   echo
 fi
+
+if test
+
 
 echo
 echo Configure complete, Now do:

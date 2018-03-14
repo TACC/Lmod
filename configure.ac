@@ -383,6 +383,18 @@ AC_ARG_WITH(ModulePathInit,
     MODULEPATH_INIT="$withval"
     AC_DEFINE_UNQUOTED(MODULEPATH_INIT, "$withval"))dnl
 
+AC_SUBST(SITE_CONTROLLED_PREFIX)
+AC_ARG_WITH(userControlPrefix,
+    AC_HELP_STRING([--with-userControlPrefix=ans],[A user controlled prefix. [[no]]]),
+    SITE_CONTROLLED_PREFIX="$withval"
+    AC_MSG_RESULT([SITE_CONTROLLED_PREFIX=$with_userControlPrefix])
+    AC_DEFINE_UNQUOTED(SITE_CONTROLLED_PREFIX, "$with_userControlPrefix")dnl
+    ,
+    withval="no"
+    AC_MSG_RESULT([SITE_CONTROLLED_PREFIX=$withval])
+    SITE_CONTROLLED_PREFIX="$withval"
+    AC_DEFINE_UNQUOTED(SITE_CONTROLLED_PREFIX, "$withval"))dnl
+
 AC_SUBST(SYS_LD_LIB_PATH)
 SYS_LD_LIB_PATH=$LD_LIBRARY_PATH
 
