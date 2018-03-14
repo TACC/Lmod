@@ -40,4 +40,5 @@ Lmod 7.7+
 	    Issue #348: Do not double the colon when the original was a single colon
    (7.7.18) Change ml so that ml av --terse is an error.
    (7.7.19) Making the settarg and lmod modulefiles be installed versionless.
+   (7.7.20) Fix bug in cshrc.in end -> endif
    

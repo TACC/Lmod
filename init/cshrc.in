@@ -24,7 +24,7 @@ if ( ! $?MODULEPATH_ROOT ) then
 	   foreach dir ( $str )
               if ( -d $dir ) then
                  setenv MODULEPATH `@PKG@/libexec/addto --append MODULEPATH $dir`
-              end
+              endif
            end
 	end
     else
