@@ -1,6 +1,6 @@
 #!/bin/bash
 # -*- shell-script -*-
-PKG_VERSION=`(cd src; lua src/lmod.in.lua --dumpversion`
+PKG_VERSION=`(lua src/lmod.in.lua --dumpversion 2>&1)`
 echo Making Version: $PKG_VERSION
 
 make_install()
@@ -117,6 +117,7 @@ case $SYSHOST in
     UPDATE_FN=$ADMIN_DIR/system.txt
     CACHEDIRS=$ADMIN_DIR/cacheDir
     EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN"
+    ;;
 
   ls5 | maverick | stampede | wrangler | stampede2 )
     base="$HOME/l/pkg"
