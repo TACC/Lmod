@@ -30,7 +30,8 @@ save_old_version()
 make_symlink()
 {
   if [ "$SITE_CONTROLLED_PREFIX" = "yes" ]; then
-      $SUDO ln -s $PKG_VERSION ../lmod
+      $SUDO rm -f $BASE_DIR/../lmod
+      $SUDO ln -s $PKG_VERSION $BASE_DIR/../lmod
   fi
 }
 
