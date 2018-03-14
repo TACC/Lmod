@@ -117,7 +117,15 @@ if test "$a" != no; then
   echo
 fi
 
-if test 
+if test $SITE_CONTROLLED_PREFIX != no ; then
+   echo
+   echo '**********************************************************************'
+   echo ' '
+   echo 'Warning: you have chosen to control the prefix.  This means that '
+   echo '         you must update any Lmod scripts in /etc/profile.d'
+   echo ' '
+   echo '**********************************************************************'
+fi
 
 
 echo

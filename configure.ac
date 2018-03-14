@@ -384,11 +384,11 @@ AC_ARG_WITH(ModulePathInit,
     AC_DEFINE_UNQUOTED(MODULEPATH_INIT, "$withval"))dnl
 
 AC_SUBST(SITE_CONTROLLED_PREFIX)
-AC_ARG_WITH(userControlPrefix,
-    AC_HELP_STRING([--with-userControlPrefix=ans],[A user controlled prefix. [[no]]]),
+AC_ARG_WITH(siteControlPrefix,
+    AC_HELP_STRING([--with-siteControlPrefix=ans],[A user controlled prefix. [[no]]]),
     SITE_CONTROLLED_PREFIX="$withval"
-    AC_MSG_RESULT([SITE_CONTROLLED_PREFIX=$with_userControlPrefix])
-    AC_DEFINE_UNQUOTED(SITE_CONTROLLED_PREFIX, "$with_userControlPrefix")dnl
+    AC_MSG_RESULT([SITE_CONTROLLED_PREFIX=$with_siteControlPrefix])
+    AC_DEFINE_UNQUOTED(SITE_CONTROLLED_PREFIX, "$with_siteControlPrefix")dnl
     ,
     withval="no"
     AC_MSG_RESULT([SITE_CONTROLLED_PREFIX=$withval])

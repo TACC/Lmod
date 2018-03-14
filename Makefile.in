@@ -167,9 +167,17 @@ pre-install: $(DIRLIST) lmodrc_init shell_init startup libexec spiderCacheSuppor
 
 install: pre-install  zsh_tab_funcs
 	$(MAKE) PKGV=$(PKG) shell_init
-	if test "$(SITE_CONTROLLED_PREFIX)" = "no" ; then                         \
+	@if test "$(SITE_CONTROLLED_PREFIX)" = "no" ; then                        \
+	   echo $(RM) $(DESTDIR)$(PKG);                                           \
 	   $(RM) $(DESTDIR)$(PKG);                                                \
+	   echo ln -s $(version) $(DESTDIR)$(PKG);                                \
 	   ln -s $(version) $(DESTDIR)$(PKG);                                     \
+        else                                                                      \
+	  echo '**************************************************************';  \
+          echo '';                                                                \
+          echo 'Warning: remember to update the Lmod scripts in /etc/profile.d';  \
+          echo '';                                                                \
+	  echo '**************************************************************';  \
 	fi;
 
 echo:

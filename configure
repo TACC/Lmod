@@ -665,7 +665,6 @@ infodir
 docdir
 oldincludedir
 includedir
-runstatedir
 localstatedir
 sharedstatedir
 sysconfdir
@@ -719,7 +718,7 @@ with_tmodFindFirst
 with_lua_include
 with_cachedLoads
 with_ModulePathInit
-with_userControlPrefix
+with_siteControlPrefix
 '
       ac_precious_vars='build_alias
 host_alias
@@ -767,7 +766,6 @@ datadir='${datarootdir}'
 sysconfdir='${prefix}/etc'
 sharedstatedir='${prefix}/com'
 localstatedir='${prefix}/var'
-runstatedir='${localstatedir}/run'
 includedir='${prefix}/include'
 oldincludedir='/usr/include'
 docdir='${datarootdir}/doc/${PACKAGE}'
@@ -1020,15 +1018,6 @@ do
   | -silent | --silent | --silen | --sile | --sil)
     silent=yes ;;
 
-  -runstatedir | --runstatedir | --runstatedi | --runstated \
-  | --runstate | --runstat | --runsta | --runst | --runs \
-  | --run | --ru | --r)
-    ac_prev=runstatedir ;;
-  -runstatedir=* | --runstatedir=* | --runstatedi=* | --runstated=* \
-  | --runstate=* | --runstat=* | --runsta=* | --runst=* | --runs=* \
-  | --run=* | --ru=* | --r=*)
-    runstatedir=$ac_optarg ;;
-
   -sbindir | --sbindir | --sbindi | --sbind | --sbin | --sbi | --sb)
     ac_prev=sbindir ;;
   -sbindir=* | --sbindir=* | --sbindi=* | --sbind=* | --sbin=* \
@@ -1166,7 +1155,7 @@ fi
 for ac_var in	exec_prefix prefix bindir sbindir libexecdir datarootdir \
 		datadir sysconfdir sharedstatedir localstatedir includedir \
 		oldincludedir docdir infodir htmldir dvidir pdfdir psdir \
-		libdir localedir mandir runstatedir
+		libdir localedir mandir
 do
   eval ac_val=\$$ac_var
   # Remove trailing slashes.
@@ -1319,7 +1308,6 @@ Fine tuning of the installation directories:
   --sysconfdir=DIR        read-only single-machine data [PREFIX/etc]
   --sharedstatedir=DIR    modifiable architecture-independent data [PREFIX/com]
   --localstatedir=DIR     modifiable single-machine data [PREFIX/var]
-  --runstatedir=DIR       modifiable per-process data [LOCALSTATEDIR/run]
   --libdir=DIR            object code libraries [EPREFIX/lib]
   --includedir=DIR        C header files [PREFIX/include]
   --oldincludedir=DIR     C header files for non-gcc [/usr/include]
@@ -1404,7 +1392,7 @@ Optional Packages:
   --with-cachedLoads=ans  Use cache when loading modules. [[no]]
   --with-ModulePathInit=ans
                           File containing initial MODULEPATH directories
-  --with-userControlPrefix=ans
+  --with-siteControlPrefix=ans
                           A user controlled prefix. [[no]]
 
 Some influential environment variables:
@@ -3364,13 +3352,13 @@ fi
 
 
 
-# Check whether --with-userControlPrefix was given.
-if test "${with_userControlPrefix+set}" = set; then :
-  withval=$with_userControlPrefix; SITE_CONTROLLED_PREFIX="$withval"
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SITE_CONTROLLED_PREFIX=$with_userControlPrefix" >&5
-$as_echo "SITE_CONTROLLED_PREFIX=$with_userControlPrefix" >&6; }
+# Check whether --with-siteControlPrefix was given.
+if test "${with_siteControlPrefix+set}" = set; then :
+  withval=$with_siteControlPrefix; SITE_CONTROLLED_PREFIX="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SITE_CONTROLLED_PREFIX=$with_siteControlPrefix" >&5
+$as_echo "SITE_CONTROLLED_PREFIX=$with_siteControlPrefix" >&6; }
     cat >>confdefs.h <<_ACEOF
-#define SITE_CONTROLLED_PREFIX "$with_userControlPrefix"
+#define SITE_CONTROLLED_PREFIX "$with_siteControlPrefix"
 _ACEOF
 
 else
@@ -5520,7 +5508,15 @@ if test "$a" != no; then
   echo
 fi
 
-if test
+if test $SITE_CONTROLLED_PREFIX != no ; then
+   echo
+   echo '**********************************************************************'
+   echo ' '
+   echo 'Warning: you have chosen to control the prefix.  This means that '
+   echo '         you must update any Lmod scripts in /etc/profile.d'
+   echo ' '
+   echo '**********************************************************************'
+fi
 
 
 echo
