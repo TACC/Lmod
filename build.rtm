@@ -1,6 +1,6 @@
 #!/bin/bash
 # -*- shell-script -*-
-PKG_VERSION=`(cd src; lua -e "local Version=require('Version'); print(Version.name())") | awk '{print $1}'`
+PKG_VERSION=`(cd src; lua src/lmod.in.lua --dumpversion`
 echo Making Version: $PKG_VERSION
 
 make_install()
@@ -12,6 +12,25 @@ make_install()
     $SUDO $MAKE pre-install $MAKE_EXTRA
     $SUDO rm -f $BASE_DIR/lmod/EXPERIMENTAL
     $SUDO ln -s $PKG_VERSION $BASE_DIR/lmod/EXPERIMENTAL
+  fi
+}
+
+save_old_version()
+{
+  if [ "$SITE_CONTROLLED_PREFIX" != "yes" ]; then
+    $SUDO rm -rf $BASE_DIR/$pkgName/orig
+    if [ -d $BASE_DIR/$pkgName/$PKG_VERSION ]; then
+	$SUDO cp -r $BASE_DIR/$pkgName/$PKG_VERSION $BASE_DIR/$pkgName/orig
+	$SUDO rm -f $PKG/../$pkgName
+	$SUDO ln -s orig $PKG/../$pkgName
+    fi
+  fi
+}
+
+make_symlink()
+{
+  if [ "$SITE_CONTROLLED_PREFIX" = "yes" ]; then
+      $SUDO ln -s $PKG_VERSION ../lmod
   fi
 }
 
@@ -76,18 +95,27 @@ fi
 
 
 case $SYSHOST in
-  rios | mijo | jedrik | vato | vmijo | devo | xalt-lmod )
+  mijo | vmijo )
+    SITE_CONTROLLED_PREFIX=yes
+    SUDO="sudo"
+    base="/opt/apps/lmod/$PKG_VERSION"
+    ADMIN_DIR=/opt/moduleData
+    UPDATE_FN=$ADMIN_DIR/system.txt
+    CACHEDIRS=$ADMIN_DIR/cacheDir
+    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN --with-siteControlPrefix=yes"
+
+    if [ "$SYSHOST" == "mijo" ]; then
+      EXTRA="$EXTRA --with-exportedModuleCmd=no"
+    fi
+    ;; 
+
+  rios | jedrik | vato | devo | xalt-lmod )
     SUDO="sudo"
     base="/opt/apps"
     ADMIN_DIR=/opt/moduleData
     UPDATE_FN=$ADMIN_DIR/system.txt
     CACHEDIRS=$ADMIN_DIR/cacheDir
     EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN"
-
-    if [ "$SYSHOST" == "mijo" ]; then
-      EXTRA="$EXTRA --with-exportedModuleCmd=no"
-    fi
-    ;;
 
   ls5 | maverick | stampede | wrangler | stampede2 )
     base="$HOME/l/pkg"
@@ -142,12 +170,10 @@ fi
 
 cmdA=("-$MAKE distclean"
       "./configure --prefix=$BASE_DIR --with-settarg=full $EXTRA"
-      "$SUDO  rm -rf $BASE_DIR/$pkgName/orig"
-      "-$SUDO cp -r $BASE_DIR/$pkgName/$PKG_VERSION $BASE_DIR/$pkgName/orig"
-      "$SUDO  rm -f $PKG/../$pkgName"
-      "-$SUDO ln -s orig $PKG/../$pkgName"
+      "save_old_version"
       "make_install"
       "$EXTRA_CMD"
+      "make_symlink"
       "$SUDO  rm -rf $BASE_DIR/$pkgName/orig"
       "$MAKE clobber"
       )
