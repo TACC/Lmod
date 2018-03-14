@@ -64,6 +64,7 @@ function main()
       syshost      = { rule = "have"},
       uname        = { rule = "have"},
       z01_admin    = { rule = "have"},
+      prefix_site  = { rule = "have"},
       allowTCL     = { rule = "match", value = "yes"},
       autoSwap     = { rule = "match", value = "yes"},
       case         = { rule = "match", value = "no"},

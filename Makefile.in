@@ -227,6 +227,7 @@ __installMe:
 	        -e 's|@cached_loads@|$(CACHED_LOADS)|g'                	   	  \
 	        -e 's|@ps@|$(PS)|g'                              	   	  \
 	        -e 's|@site_name@|$(SITE_NAME)|g'                     	   	  \
+	        -e 's|@site_controlled_prefix@|$(SITE_CONTROLLED_PREFIX)|g'       \
 	        -e 's|@syshost@|$(SYSHOST)|g'                     	   	  \
 	        -e 's|@expr@|$(EXPR)|g'                              	   	  \
 	        -e 's|@libexec@|$(LIBEXEC)|g'                       	   	  \

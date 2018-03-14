@@ -82,6 +82,13 @@ cosmic:init{name    = "LMOD_MODULEPATH_INIT",
             no_env  = true,
             default = "@PKG@/init/.modulespath"}
 
+------------------------------------------------------------------------
+-- SITE_CONTROLLED_PREFIX: If a site configured lmod with direct prefix
+------------------------------------------------------------------------
+cosmic:init{name    = "SITE_CONTROLLED_PREFIX",
+            sedV    = "@site_controlled_prefix@",
+            no_env  = true,
+            default = "no"}
 
 ------------------------------------------------------------------------
 -- ModulePath: The name of the environment variable which contains the
