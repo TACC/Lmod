@@ -158,7 +158,7 @@ all:
 	@echo done
 
 uninstall:
-	$(RM) -rf $(DESTDIR)$(prefix)/$(package)
+	$(RM) -rf $(DESTDIR)$(MY_PKG_PACKAGE)
 	@echo "If you added lmod files to /etc/profile.d please remove them."
 
 pre-install: $(DIRLIST) lmodrc_init shell_init startup libexec spiderCacheSupport \
