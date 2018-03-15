@@ -74,6 +74,7 @@ GIT_BRANCH                := master
 GIT_PROG                  := @PATH_TO_GIT@
 GIT_VERSION               := $(shell if [ -n "$(GIT_PROG)" -a -d .git ]; then lmodV=`git describe --always`; echo "($$lmodV)"; else echo "($(version))"; fi)
 PKG		  	  := $(MY_PKG_PACKAGE)
+LIB                       := $(MY_PKG_PACKAGE)/lib
 PKGV		  	  := $(MY_PACKAGE)
 LIBEXEC		  	  := $(MY_PACKAGE)/libexec
 SHELLS                    := $(MY_PACKAGE)/shells
@@ -142,7 +143,6 @@ export L_PATH              =  $(LUA_PATH)
 export L_CPATH             =  $(LUA_CPATH)
 
 HAVE_LUA_TERM             := @HAVE_LUA_TERM@
-LIB                       := $(prefix)/$(package)/$(version)/lib
 ifneq ($(HAVE_LUA_TERM),yes)
   PKGS := pkgs
 endif
