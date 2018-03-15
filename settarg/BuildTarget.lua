@@ -31,6 +31,8 @@
 --  THE SOFTWARE.
 --
 --------------------------------------------------------------------------
+_G._DEBUG         = false
+local posix       = require("posix")
 
 require("strict")
 require("getUname")
@@ -44,7 +46,6 @@ _G._DEBUG         = false               -- Required by the new lua posix
 local TargValue   = require("TargValue")
 local dbg         = require("Dbg"):dbg()
 local STT         = require("STT")
-local posix       = require("posix")
 local base64      = require("base64")
 local concatTbl   = table.concat
 local decode64    = base64.decode64

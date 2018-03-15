@@ -8,6 +8,9 @@
 --
 -- @classmod Options
 
+_G._DEBUG          = false               -- Required by the new lua posix
+local posix        = require("posix")
+
 require("strict")
 
 --------------------------------------------------------------------------
@@ -44,11 +47,9 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
-_G._DEBUG          = false               -- Required by the new lua posix
 local cosmic       = require("Cosmic"):singleton()
 local dbg          = require("Dbg"):dbg()
 local i18n         = require("i18n")
-local posix        = require("posix")
 local setenv_posix = posix.setenv
 local stderr       = io.stderr
 local systemG      = _G

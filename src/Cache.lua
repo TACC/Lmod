@@ -25,6 +25,9 @@
 --        10 seconds and it is set at configure time.
 -- @classmod Cache
 
+local posix      = require("posix")
+_G._DEBUG        = false
+
 require("strict")
 
 --------------------------------------------------------------------------
@@ -79,7 +82,6 @@ local cosmic     = require("Cosmic"):singleton()
 local dbg        = require("Dbg"):dbg()
 local hook       = require("Hook")
 local lfs        = require("lfs")
-local posix      = require("posix")
 local s_cache    = false
 local timer      = require("Timer"):singleton()
 

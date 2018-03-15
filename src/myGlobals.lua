@@ -2,6 +2,9 @@
 -- Fixme
 -- @module myGlobals
 
+_G._DEBUG          = false               -- Required by the new lua posix
+local posix        = require("posix")
+
 require("strict")
 
 --------------------------------------------------------------------------
@@ -41,10 +44,8 @@ require("strict")
 require("declare")
 require("fileOps")
 
-_G._DEBUG          = false               -- Required by the new lua posix
 local cosmic       = require("Cosmic"):singleton()
 local lfs          = require("lfs")
-local posix        = require("posix")
 local getenv       = os.getenv
 local setenv_posix = posix.setenv
 

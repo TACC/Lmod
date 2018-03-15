@@ -35,6 +35,9 @@
 --------------------------------------------------------------------------
 -- BaseShell:  This is the base class for all the shell output classes.
 
+_G._DEBUG          = false
+local posix        = require("posix")
+
 require("strict")
 require("myGlobals")
 require("inherits")
@@ -55,7 +58,6 @@ local getenv       = os.getenv
 local huge         = math.huge
 local pack         = (_VERSION == "Lua 5.1") and argsPack   or table.pack -- luacheck: compat
 local pairsByKeys  = pairsByKeys
-local posix        = require("posix")
 local posix_setenv = posix.setenv
 
 --------------------------------------------------------------------------

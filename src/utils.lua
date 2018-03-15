@@ -1,3 +1,6 @@
+_G._DEBUG          = false
+local posix        = require("posix")
+
 require("strict")
 
 --------------------------------------------------------------------------
@@ -40,7 +43,6 @@ require("myGlobals")
 require("pairsByKeys")
 require("string_utils")
 
-_G._DEBUG          = false
 local Version      = require("Version")
 local arg_0        = arg[0]
 local base64       = require("base64")
@@ -54,7 +56,6 @@ local getenv       = os.getenv
 local huge         = math.huge
 local min          = math.min
 local open         = io.open
-local posix        = require("posix")
 local readlink     = posix.readlink
 local setenv_posix = posix.setenv
 local stat         = posix.stat

@@ -9,6 +9,9 @@
 --
 -- @module sandbox
 
+_G._DEBUG   = false               -- Required by the new lua posix
+local posix = require("posix")
+
 require("strict")
 
 --------------------------------------------------------------------------
@@ -50,8 +53,6 @@ require("capture")
 require("modfuncs")
 require("string_utils")
 require("utils")
-_G._DEBUG   = false               -- Required by the new lua posix
-local posix = require("posix")
 local lfs   = require("lfs")
 
 sandbox_run = false

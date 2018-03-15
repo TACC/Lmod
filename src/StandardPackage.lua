@@ -2,6 +2,9 @@
 -- Fixme
 -- @module StandardPackage
 
+_G._DEBUG       = false               -- Required by the new lua posix
+local posix     = require("posix")
+
 require("strict")
 --------------------------------------------------------------------------
 -- Lmod License
@@ -39,7 +42,6 @@ require("TermWidth")
 require("string_utils")
 require("fileOps")
 require("sandbox")
-_G._DEBUG       = false               -- Required by the new lua posix
 PkgBase         = require("PkgBase")
 Pkg             = PkgBase.build("Pkg")
 local concatTbl = table.concat
@@ -48,7 +50,6 @@ local hook      = require("Hook")
 local getenv    = os.getenv
 local i18n      = require("i18n")
 local min       = math.min
-local posix     = require("posix")
 
 ------------------------------------------------------------
 -- Standard version of site_name_hook:

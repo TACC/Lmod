@@ -1,6 +1,8 @@
 --------------------------------------------------------------------------
 -- A collection of useful file operations.
 -- @module fileOps
+_G._DEBUG       = false                     -- Required by luaposix 33
+local posix     = require("posix")
 
 require("strict")
 
@@ -31,8 +33,6 @@ require("strict")
 --------------------------------------------------------------------------
 
 require("string_utils")
-_G._DEBUG       = false                     -- Required by luaposix 33
-local posix     = require("posix")
 local lfs       = require("lfs")
 local access    = posix.access
 local concatTbl = table.concat

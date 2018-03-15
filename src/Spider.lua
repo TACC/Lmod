@@ -1,3 +1,6 @@
+_G._DEBUG          = false               -- Required by the new lua posix
+local posix        = require("posix")
+
 require("strict")
 
 --------------------------------------------------------------------------
@@ -42,7 +45,6 @@ require("serializeTbl")
 require("deepcopy")
 require("loadModuleFile")
 
-_G._DEBUG          = false               -- Required by the new lua posix
 local Banner       = require("Banner")
 local M            = {}
 local MRC          = require("MRC")
@@ -57,7 +59,6 @@ local getenv       = os.getenv
 local hook         = require("Hook")
 local i18n         = require("i18n")
 local lfs          = require("lfs")
-local posix        = require("posix")
 local access       = posix.access
 
 KeyT = {Description=true, Name=true, URL=true, Version=true, Category=true, Keyword=true}

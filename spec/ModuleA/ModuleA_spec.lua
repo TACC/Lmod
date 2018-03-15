@@ -1,4 +1,6 @@
 _G._DEBUG=false
+local posix     = require("posix")
+
 require("strict")
 require("utils")
 require("fileOps")
@@ -11,7 +13,6 @@ local ModuleA   = require("ModuleA")
 local concatTbl = table.concat
 local cosmic    = require("Cosmic"):singleton()
 local getenv    = os.getenv
-local posix     = require("posix")
 local testDir   = "spec/ModuleA"
 describe("Testing ModuleA Class #ModuleA.",
          function()

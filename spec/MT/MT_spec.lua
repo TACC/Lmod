@@ -1,4 +1,6 @@
 _G._DEBUG=false
+local posix     = require("posix")
+
 require("strict")
 require("fileOps")
 require("deepcopy")
@@ -6,7 +8,6 @@ local MName     = require("MName")
 local MT        = require("MT")
 local cosmic    = require("Cosmic"):singleton()
 local dbg       = require("Dbg"):dbg()
-local posix     = require("posix")
 local testDir   = "spec/MT"
 
 describe("Testing MT Class #MT.",

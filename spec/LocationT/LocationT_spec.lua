@@ -1,4 +1,6 @@
 _G._DEBUG=false
+local posix     = require("posix")
+
 require("strict")
 require("fileOps")
 require("utils")
@@ -8,7 +10,6 @@ local ModuleA   = require("ModuleA")
 local LocationT = require("LocationT")
 local concatTbl = table.concat
 local getenv    = os.getenv
-local posix     = require("posix")
 local testDir   = "spec/LocationT"
 
 describe("Testing LocationT Class #LocationT.",

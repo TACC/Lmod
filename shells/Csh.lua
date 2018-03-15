@@ -36,6 +36,8 @@
 -- Csh: This is a derived class from BaseShell.  This classes knows how
 --      to expand the environment variable into Csh syntax.
 
+_G._DEBUG          = false
+local posix        = require("posix")
 
 require("strict")
 require("pairsByKeys")
@@ -44,7 +46,6 @@ local BaseShell    = require("BaseShell")
 local Csh          = inheritsFrom(BaseShell)
 local dbg          = require("Dbg"):dbg()
 local concatTbl    = table.concat
-local posix        = require("posix")
 local setenv_posix = posix.setenv
 local stdout       = io.stdout
 Csh.my_name        = 'csh'

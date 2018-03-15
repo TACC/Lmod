@@ -1,4 +1,6 @@
 _G._DEBUG=false
+local posix     = require("posix")
+
 require("strict")
 require("utils")
 require("fileOps")
@@ -10,7 +12,6 @@ local FrameStk  = require("FrameStk")
 local concatTbl = table.concat
 local cosmic    = require("Cosmic"):singleton()
 local dbg       = require("Dbg"):dbg()
-local posix     = require("posix")
 local testDir   = "spec/MName"
 describe("Testing MName Class #MName.",
          function()

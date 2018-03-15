@@ -2,6 +2,9 @@
 -- use io.popen to open a pipe to collect the output of a command.
 -- @module capture
 
+_G._DEBUG          = false                       -- Required by luaposix 33
+local posix        = require("posix")
+
 require("strict")
 
 ------------------------------------------------------------------------
@@ -32,8 +35,6 @@ require("strict")
 
 
 local dbg          = require("Dbg"):dbg()
-_G._DEBUG          = false                       -- Required by luaposix 33
-local posix        = require("posix")
 local getenv       = os.getenv
 local setenv_posix = posix.setenv
 local cosmic       = require("Cosmic"):singleton()

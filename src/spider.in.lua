@@ -52,6 +52,7 @@ end
 package.path   = sys_lua_path
 package.cpath  = sys_lua_cpath
 
+_G._DEBUG      = false
 local arg_0    = arg[0]
 local posix    = require("posix")
 local readlink = posix.readlink

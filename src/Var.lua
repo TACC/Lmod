@@ -1,3 +1,6 @@
+_G._DEBUG             = false               -- Required by the new lua posix
+local posix           = require("posix")
+
 require("strict")
 
 --------------------------------------------------------------------------
@@ -40,7 +43,6 @@ require("utils")
 require("myGlobals")
 require("serializeTbl")
 
-_G._DEBUG             = false               -- Required by the new lua posix
 local M               = {}
 local abs             = math.abs
 local ceil            = math.ceil
@@ -54,7 +56,6 @@ local log             = math.log
 local min             = math.min
 local max             = math.max
 local huge            = math.huge
-local posix           = require("posix")
 local setenv_posix    = posix.setenv
 local tmod_path_rule  = cosmic:value("LMOD_TMOD_PATH_RULE")
 local ln10_inv        = 1.0/log(10.0)

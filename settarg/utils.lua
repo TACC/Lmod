@@ -32,11 +32,12 @@
 --
 --------------------------------------------------------------------------
 
-require("strict")
+_G._DEBUG       = false               -- Required by the new lua posix
+local posix     = require("posix")
 
+require("strict")
 require("fileOps")
 
-_G._DEBUG       = false               -- Required by the new lua posix
 local dbg       = require("Dbg"):dbg()
 local base64    = require("base64")
 local concatTbl = table.concat
@@ -44,7 +45,6 @@ local decode64  = base64.decode64
 local format    = string.format
 local getenv    = os.getenv
 local huge      = math.huge
-local posix     = require("posix")
 
 
 function argsPack(...)

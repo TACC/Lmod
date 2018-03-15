@@ -1,3 +1,6 @@
+_G._DEBUG       = false
+local posix     = require("posix")
+
 require("strict")
 
 --------------------------------------------------------------------------
@@ -36,13 +39,11 @@ require("strict")
 
 require("declare")
 require("utils")
-_G._DEBUG       = false
 local M         = {}
 local MRC       = require("MRC")
 local dbg       = require("Dbg"):dbg()
 local lfs       = require("lfs")
 local open      = io.open
-local posix     = require("posix")
 
 local access    = posix.access
 local concatTbl = table.concat

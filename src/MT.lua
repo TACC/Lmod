@@ -5,6 +5,9 @@
 --
 -- @classmod MT
 
+_G._DEBUG          = false
+local posix        = require("posix")
+
 require("strict")
 
 --------------------------------------------------------------------------
@@ -61,7 +64,6 @@ local hook         = require("Hook")
 local i18n         = require("i18n")
 local load         = (_VERSION == "Lua 5.1") and loadstring or load
 local min          = math.min
-local posix        = require("posix")
 local posix_setenv = posix.setenv
 local s_loadOrder  = 0
 local s_mt         = false

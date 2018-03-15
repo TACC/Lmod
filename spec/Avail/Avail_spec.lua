@@ -1,4 +1,6 @@
 _G._DEBUG=false
+local posix      = require("posix")
+
 require("strict")
 require("utils")
 require("fileOps")
@@ -11,7 +13,6 @@ local cosmic     = require("Cosmic"):singleton()
 
 local concatTbl  = table.concat
 local getenv     = os.getenv
-local posix      = require("posix")
 local testDir    = "spec/Avail"
 describe("Testing The Avail command #Avail.",
          function()

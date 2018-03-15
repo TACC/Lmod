@@ -2,6 +2,9 @@
 -- The all the user sub-commands are implemented here.
 -- @module cmdfuncs
 
+_G._DEBUG          = false
+local posix        = require("posix")
+
 require("strict")
 
 --------------------------------------------------------------------------
@@ -59,7 +62,6 @@ local getenv       = os.getenv
 local hook         = require("Hook")
 local i18n         = require("i18n")
 local lfs          = require("lfs")
-local posix        = require("posix")
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack  -- luacheck: compat
 local unpack       = (_VERSION == "Lua 5.1") and unpack or table.unpack  -- luacheck: compat
 

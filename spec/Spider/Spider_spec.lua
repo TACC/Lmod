@@ -1,4 +1,6 @@
 _G._DEBUG=false
+local posix      = require("posix")
+
 require("strict")
 require("utils")
 require("fileOps")
@@ -12,7 +14,6 @@ local concatTbl  = table.concat
 local cosmic     = require("Cosmic"):singleton()
 local dbg        = require("Dbg"):dbg()
 local getenv     = os.getenv
-local posix      = require("posix")
 local testDir    = "spec/Spider"
 describe("Testing Spider Class #Spider.",
          function()

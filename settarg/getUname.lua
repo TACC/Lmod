@@ -32,10 +32,11 @@
 --
 --------------------------------------------------------------------------
 
-require("strict")
-require("capture")
 _G._DEBUG   = false               -- Required by the new lua posix
 local posix = require("posix")
+
+require("strict")
+require("capture")
 
 local getenv = os.getenv
 
