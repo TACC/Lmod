@@ -35,7 +35,7 @@ before_install:
 
 
 install:
-  - luarocks install luaposix 34.0.1-3
+  - luarocks install luaposix 
   - luarocks install luafileSystem
   - luarocks install luajson
   - luarocks install lua-term
