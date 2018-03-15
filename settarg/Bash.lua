@@ -37,7 +37,6 @@ require("pairsByKeys")
 local concat      = table.concat
 Bash              = inheritsFrom(BaseShell)
 Bash.my_name      = 'bash'
-local systemG     = _G
 
 function Bash.expandVar(self, k, v)
 
