@@ -30,7 +30,7 @@ testdescript = {
      dir=lmod
 
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d build b0
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d build b0 lmod
      rm -f  results.csv 
 
      runLmod --version              # 1
