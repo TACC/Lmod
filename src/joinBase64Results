@@ -5,8 +5,6 @@
 -- to generate test results.
 -- @script joinBase64Results
 
-require("strict")
-
 --------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
@@ -53,6 +51,11 @@ package.path = cmd_dir .. "../tools/?.lua;"      ..
                cmd_dir .. "../tools/?/init.lua;" ..
                cmd_dir .. "?.lua;"               ..
                package.path
+
+_G._DEBUG   = false
+local posix = require("posix")
+
+require("strict")
 
 --------------------------------------------------------------------------
 -- This is 5.1 Lua function to cover the table.pack function
