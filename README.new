@@ -45,4 +45,5 @@ Lmod 7.7+
    (7.7.22) luaposix 34.0.4-1 wants to use setfenv() which only exists in Lua 5.1 and not in Lua 5.2+
             so Lmod now requires("posix") outside of strict.
             Build lua-term in the correct location when --with-siteControlPrefix=yes
-            
+   (7.7.23) issue #347: Remove ./?.lua, ./?/init.lua from LUA_PATH and ./?.so from LUA_CPATH
+   

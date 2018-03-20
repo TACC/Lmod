@@ -542,6 +542,15 @@ AC_SUBST(SYS_LUA_PATH)
 AC_SUBST(SYS_LUA_CPATH)
 SYS_LUA_PATH=$($luaprog -e "print(package.path)")
 SYS_LUA_CPATH=$($luaprog -e "print(package.cpath)")
+SYS_LUA_PATH=$(echo $SYS_LUA_PATH   | sed -e 's|^\./?.lua;||'       \
+                                          -e 's|;\./?.lua;|;|'      \
+                                          -e 's|;\./?.lua$||'       \
+                                          -e 's|;\./?/init.lua;|;|' \
+                                          -e 's|;\./?/init.lua$||'  )
+
+SYS_LUA_CPATH=$(echo $SYS_LUA_CPATH | sed -e 's|^\./?.so;||'   \
+                                          -e 's|;\./?.so;|;|'  \
+                                          -e 's|;\./?.so$|;|')
 
 WD=`pwd`
 
