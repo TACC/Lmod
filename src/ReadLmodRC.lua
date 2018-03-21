@@ -52,8 +52,11 @@ local RCFileA = {
    pathJoin(cmdDir(),"../../etc/lmodrc.lua"),
    pathJoin("/etc/lmodrc.lua"),
    pathJoin(getenv("HOME"),".lmodrc.lua"),
-   getenv("LMOD_RC"),
 }
+
+for rc in string.gmatch(getenv("LMOD_RC") or "", "([^:]+)") do
+   table.insert(RCFileA, #RCFileA, rc)
+end
 
 local s_classObj    = false
 
