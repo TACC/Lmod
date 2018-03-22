@@ -277,10 +277,14 @@ local function buildLibMapA(reverseMapT)
    for path,v in pairs(reverseMapT) do
       local kind = v.kind
       if (kind == "lib") then
-         for file in lfs.dir(path) do
-            local ext = extname(file)
-            if (ext == ".a" or ext == ".so" or ext == ".dylib") then
-               libT[file] = true
+         local attr = lfs.attributes(path)
+         if (attr and type(attr) == "table" and attr.mode == "directory" and
+                access(path,"x")) then
+            for file in lfs.dir(path) do
+               local ext = extname(file)
+               if (ext == ".a" or ext == ".so" or ext == ".dylib") then
+                  libT[file] = true
+               end
             end
          end
       end
