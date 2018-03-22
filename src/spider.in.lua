@@ -57,6 +57,7 @@ local arg_0    = arg[0]
 local posix    = require("posix")
 local readlink = posix.readlink
 local stat     = posix.stat
+local access   = posix.access
 
 local st       = stat(arg_0)
 while (st.type == "link") do
