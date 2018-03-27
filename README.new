@@ -46,4 +46,5 @@ Lmod 7.7+
             so Lmod now requires("posix") outside of strict.
             Build lua-term in the correct location when --with-siteControlPrefix=yes
    (7.7.23) issue #347: Remove ./?.lua, ./?/init.lua from LUA_PATH and ./?.so from LUA_CPATH
+   (7.7.24) issue #357: Add missing semicolons in settarg.version.lua
    
