@@ -60,7 +60,7 @@ function findInPath(exec, path)
    end
 
    if (cmd:find("/")) then
-      if (posix.access(cmd,"x")) then
+      if (access(cmd,"x")) then
          return exec
       else
          return result
@@ -70,7 +70,7 @@ function findInPath(exec, path)
    path    = path or os.getenv("PATH")
    for dir in path:split(":") do
       local fullcmd = pathJoin(dir, cmd)
-      if (posix.access(fullcmd,"x")) then
+      if (access(fullcmd,"x")) then
          result = fullcmd .. tail
          break
       end
@@ -95,7 +95,7 @@ function find_exec_path(exec, path)
    end
 
    if (cmd:find("/")) then
-      if (posix.access(cmd,"x")) then
+      if (access(cmd,"x")) then
          return exec
       else
          return result
@@ -105,7 +105,7 @@ function find_exec_path(exec, path)
    path    = path or os.getenv("PATH")
    for dir in path:split(":") do
       local fullcmd = pathJoin(dir, cmd)
-      if (posix.access(fullcmd,"x")) then
+      if (access(fullcmd,"x")) then
          result = fullcmd .. tail
          break
       end
@@ -150,7 +150,7 @@ end
 -- @param fn A file path
 function isExec(fn)
    if (fn == nil) then return false end
-   local result = posix.access(fn,"rx")
+   local result = access(fn,"rx")
    return result
 end
 
@@ -425,14 +425,18 @@ end
 local function _walk_dir(path)
    local dirA  = {}
    local fileA = {}
-   for file in lfs.dir(path) do
-      if ( file ~= '.' and file ~= '..') then
-         local fn   = pathJoin(path,file)
-         local mode = lfs.attributes(fn,'mode')
-         if (mode == 'directory') then
-            dirA[#dirA+1]   = file
-         else
-            fileA[#fileA+1] = file
+   local attr = lfs.attributes(path)
+   if (attr and type(attr) == "table" and attr.mode == "directory" and
+       access(path,"x")) then
+      for file in lfs.dir(path) do
+         if ( file ~= '.' and file ~= '..') then
+            local fn   = pathJoin(path,file)
+            local mode = lfs.attributes(fn,'mode')
+            if (mode == 'directory') then
+               dirA[#dirA+1]   = file
+            else
+               fileA[#fileA+1] = file
+            end
          end
       end
    end

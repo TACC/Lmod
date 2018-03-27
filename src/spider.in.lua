@@ -57,6 +57,7 @@ local arg_0    = arg[0]
 local posix    = require("posix")
 local readlink = posix.readlink
 local stat     = posix.stat
+local access   = posix.access
 
 local st       = stat(arg_0)
 while (st.type == "link") do
@@ -277,10 +278,14 @@ local function buildLibMapA(reverseMapT)
    for path,v in pairs(reverseMapT) do
       local kind = v.kind
       if (kind == "lib") then
-         for file in lfs.dir(path) do
-            local ext = extname(file)
-            if (ext == ".a" or ext == ".so" or ext == ".dylib") then
-               libT[file] = true
+         local attr = lfs.attributes(path)
+         if (attr and type(attr) == "table" and attr.mode == "directory" and
+                access(path,"x")) then
+            for file in lfs.dir(path) do
+               local ext = extname(file)
+               if (ext == ".a" or ext == ".so" or ext == ".dylib") then
+                  libT[file] = true
+               end
             end
          end
       end
