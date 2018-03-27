@@ -12,9 +12,13 @@
 set +xv     # Turn off tracing for now.
 
 export LMOD_PKG=@PKGV@
-export LMOD_DIR=@PKGV@/libexec
-export LMOD_CMD=@PKGV@/libexec/lmod
-export MODULESHOME=@PKGV@
+if [ "${LMOD_PKG##*/}" != "lmod" -a -L $LMOD_PKG/../lmod ]; then
+    LMOD_PKG=${LMOD_PKG%/*}/lmod
+fi
+
+export LMOD_DIR=$LMOD_PKG/libexec
+export LMOD_CMD=$LMOD_PKG/libexec/lmod
+export MODULESHOME=$LMOD_PKG
 
 export LMOD_SETTARG_FULL_SUPPORT=@lmod_settarg_full_support@
 
