@@ -54,8 +54,11 @@ local RCFileA = {
    pathJoin(getenv("HOME"),".lmodrc.lua"),
 }
 
-for rc in string.gmatch(getenv("LMOD_RC") or "", "([^:]+)") do
-   table.insert(RCFileA, #RCFileA, rc)
+local lmodrc_env = getenv("LMOD_RC") or ""
+if (lmodrc_env:len() > 0) then
+   for rc in lmodrc:split(":") do
+      RCFileA[#RCFileA+1] = rc
+   end
 end
 
 local s_classObj    = false
