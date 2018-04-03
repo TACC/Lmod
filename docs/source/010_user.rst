@@ -92,7 +92,7 @@ Finally, there is a keyword search tool: ::
    $ module keyword word1 word2 ...
 
 This will search any help message  or whatis description for the
-word(s) given on the command line. 
+word(s) given on the command line.
 
 Another way to search for modules is with the "module spider" command.
 This command searches the entire list of possible modules.  The
@@ -108,7 +108,7 @@ ml: A convenient tool
 For those of you who can't type the *mdoule*, *moduel*, err *module*
 command correctly, Lmod has a tool for you.  With **ml** you won't
 have to type the module command again.  The two most common commands
-are *module list*and *module load <something>* and **ml** does both::
+are *module list* and *module load <something>* and **ml** does both::
 
   $ ml
 
