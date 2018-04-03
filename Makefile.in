@@ -138,7 +138,7 @@ lua_code	  	  := $(filter-out %.in.lua, $(wildcard $(srcdir)/src/*.lua))   \
 VDATE		  	  := $(shell date +'%F %H:%M %:z')
 
 ComputeHashSum    	  := $(srcdir)/src/computeHashSum.in.lua
-spiderCacheSupportCMD     := $(PATH_TO_LUA)/lua $(srcdir)/src/spiderCacheSupport.in.lua
+spiderCacheSupportCMD     := $(PATH_TO_LUA)/lua $(DESTDIR)$(LIBEXEC)/spiderCacheSupport
 export L_PATH              =  $(LUA_PATH)
 export L_CPATH             =  $(LUA_CPATH)
 
