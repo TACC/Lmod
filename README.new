@@ -51,4 +51,4 @@ Lmod 7.7+
    (7.7.25) issue #355: Make LMOD_RC support a colon separated list of possible lmodrc.lua files
             Make bash, zsh and csh form LMOD_PKG to use <prefix>/lmod/lmod instead of
 	    <prefix>/lmod/<lmod_version> when allowing sites to completely control prefix (issue #352)
-	    
+	    issue #359: Lmod can now use the internal version of lfs for installation.
