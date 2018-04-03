@@ -56,7 +56,7 @@ local RCFileA = {
 
 local lmodrc_env = getenv("LMOD_RC") or ""
 if (lmodrc_env:len() > 0) then
-   for rc in lmodrc:split(":") do
+   for rc in lmodrc_env:split(":") do
       RCFileA[#RCFileA+1] = rc
    end
 end
