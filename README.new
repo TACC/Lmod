@@ -52,4 +52,4 @@ Lmod 7.7+
             Make bash, zsh and csh form LMOD_PKG to use <prefix>/lmod/lmod instead of
 	    <prefix>/lmod/<lmod_version> when allowing sites to completely control prefix (issue #352)
 	    issue #359: Lmod can now use the internal version of lfs for installation.
-   (7.7.26) issue #361: Support make -j install
+   (7.7.26) issue #361: Support make -j install added.

@@ -6,10 +6,10 @@ echo Making Version: $PKG_VERSION
 make_install()
 {
   if [ "$BUILD_TYPE" != "EXPERIMENTAL" ]; then
-    $SUDO $MAKE install     $MAKE_EXTRA
+    $SUDO $MAKE -j install     $MAKE_EXTRA
   else
     echo "$SUDO $MAKE pre-install $MAKE_EXTRA"
-    $SUDO $MAKE pre-install $MAKE_EXTRA
+    $SUDO $MAKE -j pre-install $MAKE_EXTRA
     $SUDO rm -f $BASE_DIR/lmod/EXPERIMENTAL
     $SUDO ln -s $PKG_VERSION $BASE_DIR/lmod/EXPERIMENTAL
   fi
