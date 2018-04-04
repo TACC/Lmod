@@ -149,6 +149,7 @@ endif
 HAVE_LUAFILESYSTEM        := @HAVE_LUAFILESYSTEM@
 ifneq ($(HAVE_LUAFILESYSTEM),yes)
   PKGS := $(PKGS) lfs
+  PKG_LFS := lfs
 endif
 
 
@@ -283,7 +284,7 @@ startup: $(STARTUP)
 other_tools: $(ComputeHashSum) $(STANDALONE_PRGM)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LIBEXEC) __installMe
 
-spiderCacheSupport: lfs Inst_Tools libexec
+spiderCacheSupport: $(PKG_LFS) Inst_Tools libexec
 	$(spiderCacheSupportCMD) --cacheDirs "$(SPIDER_CACHE_DIRS)"          \
 	                         --updateFn  "$(UPDATE_SYSTEM_FN)"           \
                                  --descriptFn "$(SPIDER_CACHE_DESCRIPT_FN)"  \
@@ -294,9 +295,11 @@ src/computeHashSum: $(ComputeHashSum)
 	chmod +x $@
 
 lfs:
-	cd $(srcdir)/pkgs/luafilesystem;                                 \
-        $(MAKE) LUA_INC=$(LUA_INCLUDE)  LIB=$(DESTDIR)$(LIB)             \
-                SHARE=$(DESTDIR)$(LIBEXEC) CC=$(CC) install
+	if [ -d $(srcdir)/pkgs/luafilesystem ]; then                       \
+           $(MAKE) -C $(srcdir)/pkgs/luafilesystem  LUA_INC=$(LUA_INCLUDE) \
+                LIB=$(DESTDIR)$(LIB) SHARE=$(DESTDIR)$(LIBEXEC) CC=$(CC)   \
+                install;                                                   \
+        fi
 pkgs:   
 	cd $(srcdir)/pkgs; \
         $(MAKE) LUA_INC=$(LUA_INCLUDE)  LIB=$(DESTDIR)$(LIB) \

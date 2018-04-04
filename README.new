@@ -53,3 +53,4 @@ Lmod 7.7+
 	    <prefix>/lmod/<lmod_version> when allowing sites to completely control prefix (issue #352)
 	    issue #359: Lmod can now use the internal version of lfs for installation.
    (7.7.26) issue #361: Support make -j install added.
+   (7.7.27) issue #362: Trying to fix problem with RPM builds of Lmod at UGENT.
