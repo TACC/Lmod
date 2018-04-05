@@ -301,9 +301,11 @@ lfs:
                 install;                                                   \
         fi
 pkgs:   
-	cd $(srcdir)/pkgs; \
-        $(MAKE) LUA_INC=$(LUA_INCLUDE)  LIB=$(DESTDIR)$(LIB) \
-                SHARE=$(DESTDIR)$(LIBEXEC) CC=$(CC) install
+	if [ -d $(srcdir)/pkgs ]; then                                     \
+           $(MAKE) -C $(srcdir)/pkg LUA_INC=$(LUA_INCLUDE)                 \
+               LIB=$(DESTDIR)$(LIB) SHARE=$(DESTDIR)$(LIBEXEC) CC=$(CC)    \
+               install;                                                    \
+        fi
 
 zsh_tab_funcs: $(ZSH_FUNCS)
 	-if [ -n "$(ZSH_SITE_FUNCTIONS_DIRS)" ]; then                    \
