@@ -3,7 +3,7 @@
 PKG_VERSION=`(lua src/lmod.in.lua --dumpversion 2>&1)`
 echo Making Version: $PKG_VERSION
 
-make_install()
+parallel_make_install()
 {
   if [ "$BUILD_TYPE" != "EXPERIMENTAL" ]; then
     $SUDO $MAKE -j install     $MAKE_EXTRA
@@ -173,7 +173,7 @@ fi
 cmdA=("-$MAKE distclean"
       "./configure --prefix=$BASE_DIR --with-settarg=full $EXTRA"
       "save_old_version"
-      "make_install"
+      "parallel_make_install"
       "$EXTRA_CMD"
       "make_symlink"
       "$SUDO  rm -rf $BASE_DIR/$pkgName/orig"
