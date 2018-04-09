@@ -22,7 +22,7 @@ Currently Loaded Modules:
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Error
 ===========================
-Lmod has detected the following error: Unable to load module because of error error when evaluating modulefile: Error
+Lmod has detected the following error: Unable to load module because of error when evaluating modulefile: Error
      ProjectDIR/rt/delcatty/mf/Core/Error/1.0: Non-zero status returned
      Please check the modulefile and especially if there is a the line number specified in the above message
 While processing the following module(s):
