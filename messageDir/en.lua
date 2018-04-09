@@ -145,7 +145,7 @@ Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOS
      e_Prereq_Any          = "Cannot load module \"%{name}\". At least one of these module(s) must be loaded:\n   %{module_list}\n",
      e_Spdr_Timeout        = "Spider search timed out.\n",
      e_Swap_Failed         = "Swap failed: \"%{name}\" is not loaded.\n",
-     e_Unable_2_Load       = "Unable to load module: %{name}\n     %{fn}: %{message}\n",
+     e_Unable_2_Load       = "Unable to load module because of error error when evaluating modulefile: %{name}\n     %{fn}: %{message}\n     Please check the modulefile and especially if there is a the line number specified in the above message",
      e_Unable_2_parse      = "Unable to parse: \"%{path}\". Aborting!\n",
      e_Unable_2_rename     = "Unable to rename %{from} to %{to}, error message: %{errMsg}",
      e_Unknown_Coll        = "User module collection: \"%{collection}\" does not exist.\n  Try \"module savelist\" for possible choices.\n",
