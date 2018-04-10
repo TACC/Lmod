@@ -55,3 +55,5 @@ Lmod 7.7+
    (7.7.26) issue #361: Support make -j install added.
    (7.7.27) issue #362: Trying to fix problem with RPM builds of Lmod at UGENT.
    (7.7.28) issue #358: Improved error msg when there is a syntax error in a modulefile.
+   (7.7.29) issue #365, #366: Fix typo in Makefile about pkgs.
+            Modify end2end test to use build-in lua pkgs only.
