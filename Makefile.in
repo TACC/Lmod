@@ -302,7 +302,7 @@ lfs:
         fi
 pkgs:   
 	if [ -d $(srcdir)/pkgs ]; then                                     \
-           $(MAKE) -C $(srcdir)/pkg LUA_INC=$(LUA_INCLUDE)                 \
+           $(MAKE) -C $(srcdir)/pkgs LUA_INC=$(LUA_INCLUDE)                 \
                LIB=$(DESTDIR)$(LIB) SHARE=$(DESTDIR)$(LIBEXEC) CC=$(CC)    \
                install;                                                    \
         fi
