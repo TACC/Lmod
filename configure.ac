@@ -646,49 +646,49 @@ end
 main()
 EOF
 
-printf "checking for lua modules: lfs"
-
-missingModules=""
-for i in lfs; do
-  $luaprog luaModuleAvailable $i 2> /dev/null
-  if test "$?" != 0 ; then
-    missingModules="$i"
-  fi
-done
-
-if test -n "$missingModules" ; then
-  echo "... no"
-else
-  lfsV=`$luaprog getLFSVersion`
-  if test "$lfsV" -lt 1006002; then
-     echo "... Too old, using providing version"
-  else
-     echo "... yes"    
-     AC_SUBST(HAVE_LUAFILESYSTEM,yes)
-  fi
-fi
-
-
-printf "checking for lua modules: term"
-
-missingModules=""
-for i in term; do
-  $luaprog luaModuleAvailable $i 2> /dev/null
-  if test "$?" != 0 ; then
-    missingModules="$missingModules $i"
-  fi
-done
-
-if test -n "$missingModules" ; then
-  echo "... no"
-else
-  AC_SUBST(HAVE_LUA_TERM,yes)
-  echo "... yes"
-fi
-
 if test "$USE_BUILT_IN_PKGS" = yes ; then
-  AC_SUBST(HAVE_LUAFILESYSTEM,yes)
-  AC_SUBST(HAVE_LUA_TERM,yes)
+  AC_SUBST(HAVE_LUAFILESYSTEM,no)
+  AC_SUBST(HAVE_LUA_TERM,no)
+else
+  printf "checking for lua modules: lfs"
+
+  missingModules=""
+  for i in lfs; do
+    $luaprog luaModuleAvailable $i 2> /dev/null
+    if test "$?" != 0 ; then
+      missingModules="$i"
+    fi
+  done
+
+  if test -n "$missingModules" ; then
+    echo "... no"
+  else
+    lfsV=`$luaprog getLFSVersion`
+    if test "$lfsV" -lt 1006002; then
+       echo "... Too old, using providing version"
+    else
+       echo "... yes"    
+       AC_SUBST(HAVE_LUAFILESYSTEM,yes)
+    fi
+  fi
+
+
+  printf "checking for lua modules: term"
+
+  missingModules=""
+  for i in term; do
+    $luaprog luaModuleAvailable $i 2> /dev/null
+    if test "$?" != 0 ; then
+      missingModules="$missingModules $i"
+    fi
+  done
+
+  if test -n "$missingModules" ; then
+    echo "... no"
+  else
+    AC_SUBST(HAVE_LUA_TERM,yes)
+    echo "... yes"
+  fi
 fi
 
 
