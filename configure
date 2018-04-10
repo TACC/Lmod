@@ -5496,6 +5496,7 @@ echo "ZSH Tab Completion Functions Site Directory................." : $ZSH_SITE_
 echo "Use Dot files in ~/.lmod.d.................................." : $USE_DOT_FILES
 echo "Full Settarg support........................................" : $SETTARG
 echo "Have lua-term..............................................." : $HAVE_LUA_TERM
+echo "Have luafilesystem.........................................." : $HAVE_LUAFILESYSTEM
 echo "Support Auto Swap when using families......................." : $AUTO_SWAP
 echo "Export the module shell function in Bash...................." : $EXPORT_MODULE
 echo "Disable same name autoswapping.............................." : $DISABLE_NAME_AUTOSWAP
