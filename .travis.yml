@@ -43,6 +43,10 @@ install:
 script:
   # run Lmod test suite with Hermes
   - tm
+  # test the actual install
+  - ./configure --prefix=$HOME/install-test && make install
+  - source $HOME/install-test/lmod/lmod/init/bash
+  - ml --version
 
 after_failure:
   # diff stdout/stderr for all tests in case of failure
