@@ -4094,53 +4094,53 @@ end
 main()
 EOF
 
-printf "checking for lua modules: lfs"
-
-missingModules=""
-for i in lfs; do
-  $luaprog luaModuleAvailable $i 2> /dev/null
-  if test "$?" != 0 ; then
-    missingModules="$i"
-  fi
-done
-
-if test -n "$missingModules" ; then
-  echo "... no"
-else
-  lfsV=`$luaprog getLFSVersion`
-  if test "$lfsV" -lt 1006002; then
-     echo "... Too old, using providing version"
-  else
-     echo "... yes"
-     HAVE_LUAFILESYSTEM=yes
-
-  fi
-fi
-
-
-printf "checking for lua modules: term"
-
-missingModules=""
-for i in term; do
-  $luaprog luaModuleAvailable $i 2> /dev/null
-  if test "$?" != 0 ; then
-    missingModules="$missingModules $i"
-  fi
-done
-
-if test -n "$missingModules" ; then
-  echo "... no"
-else
-  HAVE_LUA_TERM=yes
-
-  echo "... yes"
-fi
-
 if test "$USE_BUILT_IN_PKGS" = yes ; then
-  HAVE_LUAFILESYSTEM=yes
+  HAVE_LUAFILESYSTEM=no
 
-  HAVE_LUA_TERM=yes
+  HAVE_LUA_TERM=no
 
+else
+  printf "checking for lua modules: lfs"
+
+  missingModules=""
+  for i in lfs; do
+    $luaprog luaModuleAvailable $i 2> /dev/null
+    if test "$?" != 0 ; then
+      missingModules="$i"
+    fi
+  done
+
+  if test -n "$missingModules" ; then
+    echo "... no"
+  else
+    lfsV=`$luaprog getLFSVersion`
+    if test "$lfsV" -lt 1006002; then
+       echo "... Too old, using providing version"
+    else
+       echo "... yes"
+       HAVE_LUAFILESYSTEM=yes
+
+    fi
+  fi
+
+
+  printf "checking for lua modules: term"
+
+  missingModules=""
+  for i in term; do
+    $luaprog luaModuleAvailable $i 2> /dev/null
+    if test "$?" != 0 ; then
+      missingModules="$missingModules $i"
+    fi
+  done
+
+  if test -n "$missingModules" ; then
+    echo "... no"
+  else
+    HAVE_LUA_TERM=yes
+
+    echo "... yes"
+  fi
 fi
 
 
@@ -5496,7 +5496,6 @@ echo "ZSH Tab Completion Functions Site Directory................." : $ZSH_SITE_
 echo "Use Dot files in ~/.lmod.d.................................." : $USE_DOT_FILES
 echo "Full Settarg support........................................" : $SETTARG
 echo "Have lua-term..............................................." : $HAVE_LUA_TERM
-echo "Have lua-json..............................................." : $HAVE_LUA_JSON
 echo "Support Auto Swap when using families......................." : $AUTO_SWAP
 echo "Export the module shell function in Bash...................." : $EXPORT_MODULE
 echo "Disable same name autoswapping.............................." : $DISABLE_NAME_AUTOSWAP
