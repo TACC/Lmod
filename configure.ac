@@ -395,6 +395,18 @@ AC_ARG_WITH(siteControlPrefix,
     SITE_CONTROLLED_PREFIX="$withval"
     AC_DEFINE_UNQUOTED(SITE_CONTROLLED_PREFIX, "$withval"))dnl
 
+AC_SUBST(USE_BUILT_IN_PKGS)
+AC_ARG_WITH(useBuiltinPkgs,
+    AC_HELP_STRING([--with-useBuiltinPkgs=ans],[Use Built-in lua package instead of system ones. [[no]]]),
+    USE_BUILT_IN_PKGS="$withval"
+    AC_MSG_RESULT([USE_BUILT_IN_PKGS=$with_useBuiltinPkgs])
+    AC_DEFINE_UNQUOTED(USE_BUILT_IN_PKGS, "$with_useBuiltinPkgs")dnl
+    ,
+    withval="no"
+    AC_MSG_RESULT([USE_BUILT_IN_PKGS=$withval])
+    USE_BUILT_IN_PKGS="$withval"
+    AC_DEFINE_UNQUOTED(USE_BUILT_IN_PKGS, "$withval"))dnl
+
 AC_SUBST(SYS_LD_LIB_PATH)
 SYS_LD_LIB_PATH=$LD_LIBRARY_PATH
 
@@ -673,6 +685,12 @@ else
   AC_SUBST(HAVE_LUA_TERM,yes)
   echo "... yes"
 fi
+
+if test "$USE_BUILT_IN_PKGS" = yes ; then
+  AC_SUBST(HAVE_LUAFILESYSTEM,yes)
+  AC_SUBST(HAVE_LUA_TERM,yes)
+fi
+
 
 rm luaModuleAvailable getLFSVersion
 

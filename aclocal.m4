@@ -67,6 +67,7 @@ echo 'Use italic instead of faint for hidden modules..............' : $HIDDEN_IT
 echo "If path entry is already there then don't prepend..........." : $TMOD_PATH_RULE
 echo "Use Tmod Find First rule instead of Find Best for defaults.." : $TMOD_FIND_FIRST
 echo "MODULEPATH Initial file....................................." : $MODULEPATH_INIT
+echo "Use built-in lua packages instead of system provided pkgs..." : $USE_BUILT_IN_PKGS
 
 echo
 echo '------------------------------------------------------------------------------'
