@@ -80,7 +80,10 @@ The above code will prepend
 ``/opt/apps/modulefiles/MPI/gcc/4.9/openmpi/1.8`` to the
 **MODULEPATH**.
 
-We store packages as follows:
+The above description is a suggested way to handle the modulefile
+software hierarchy.  The software packages themselves can be stored in
+many ways.  For software packages, but not the modulefiles, we store
+them in another software hierarchy as follows:
 
 #. Core packages: **/opt/apps/pkgName/version**
 #. Compiler dependent packages: **/opt/apps/compilerName-version/pkgName/version**
