@@ -1234,12 +1234,12 @@ function M.registerAdminMsg(self, mA)
 
          for i = 1, #adminA do
             local pattern = adminA[i][1]
-            if (fullName:find(pattern)) then
+            if (fullName:find(pattern) or fullName:find(pattern,1,true)) then
                message = adminA[i][2]
                key     = fullName
                break
             end
-            if (pattern:sub(1,1) == '/' and fn:find(pattern)) then
+            if (pattern:sub(1,1) == '/' and (fn:find(pattern) or fn:find(pattern,1,true))) then
                message = adminA[i][2]
                key     = fullName
                break
