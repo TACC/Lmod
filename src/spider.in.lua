@@ -571,7 +571,10 @@ function convertEntry(name, vv, spA)
          vT.markedDefault=isMarked(v.wV)
       end
 
-      versionT[#versionT + 1] = vT
+      if ((not vT.versionName:find("^%.version")) and
+          (not vT.versionName:find("^%.modulerc"))) then
+         versionT[#versionT + 1] = vT
+      end
    end
 
    entry.versions = versionT

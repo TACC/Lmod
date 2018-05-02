@@ -59,8 +59,10 @@ Or::
      <blank line>
 
 
-In other words, you can have several modulefiles use the same message
-by separating them with *|* 
+Lmod treats assume that if a pattern starts with a '/' then it is a
+full path to a modulefile.  If it doesn't then it is a
+moduleName/version string. Also, you can have several
+modulefiles use the same message by separating them with *|* 
 
 You can use Lua regular expression to also match one or modules for
 both the full path to a module or the module fullname. Lua regular
