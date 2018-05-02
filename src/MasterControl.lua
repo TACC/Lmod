@@ -1229,17 +1229,18 @@ function M.registerAdminMsg(self, mA)
       if (mt:have(sn,"active")) then
          local fn       = mt:fn(sn)
          local fullName = mt:fullName(sn)
+         local name     = mt:name(sn)
          local message  = nil
          local key
 
          for i = 1, #adminA do
             local pattern = adminA[i][1]
-            if (fullName:find(pattern) or fullName:find(pattern,1,true)) then
+            if (fullName:find(pattern) or fullName == pattern) then
                message = adminA[i][2]
                key     = fullName
                break
             end
-            if (pattern:sub(1,1) == '/' and (fn:find(pattern) or fn:find(pattern,1,true))) then
+            if (pattern:sub(1,1) == '/' and (fn:find(pattern) or fn = pattern)) then
                message = adminA[i][2]
                key     = fullName
                break

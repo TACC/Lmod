@@ -78,8 +78,8 @@ incorrect matching.
 
 Also some care may be necessary for '.' as it matches every character
 so you might have to change the '.' to '%.' to match the actual
-period.
-
+period. Also '-' is a regular expression character so matching module
+names that have a '-' in their name requires % quoting.
 
 
 The message can be as many lines as you like.  The message ends with a
@@ -99,6 +99,9 @@ blank line.   Below is an example::
       boost/1%.[5-7].*:
          We are having more issues.
 
+      boost%-mpi/1%.[5-7].*:
+         This module will be removed.
+      
 
 
 Note that you don't include the .lua part when specifying the version
