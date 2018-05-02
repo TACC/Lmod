@@ -57,3 +57,5 @@ Lmod 7.7+
    (7.7.28) issue #358: Improved error msg when there is a syntax error in a modulefile.
    (7.7.29) issue #365, #366: Fix typo in Makefile about pkgs.
             Modify end2end test to use build-in lua pkgs only.
+   (7.7.30) issue #370: Allow for exact match with fn and fullName w/o regex pattern matching
+            added % quoting for '-' in docs.
