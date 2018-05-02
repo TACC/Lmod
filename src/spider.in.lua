@@ -519,7 +519,7 @@ function convertEntry(name, vv, spA)
 
    local entry    = {}
    entry.package  = name
-   local versionT = {}
+   local versionA = {}
 
    local wV       = " "  -- This is the lowest possible value for a pV
    local epoch    = 0
@@ -571,13 +571,17 @@ function convertEntry(name, vv, spA)
          vT.markedDefault=isMarked(v.wV)
       end
 
-      if ((not vT.versionName:find("^%.version")) and
-          (not vT.versionName:find("^%.modulerc"))) then
-         versionT[#versionT + 1] = vT
+      if (vT.versionName) then
+         if (not vT.versionName:find("^%.version") and
+             not vT.versionName:find("^%.modulerc")) then
+            versionA[#versionA + 1] = vT
+         end
+      else
+         versionA[#versionA + 1] = vT
       end
    end
 
-   entry.versions = versionT
+   entry.versions = versionA
    spA[#spA+1] = entry
 end
 
