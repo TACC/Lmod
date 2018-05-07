@@ -97,15 +97,6 @@ function M.isActive(self)
 end
 
 
-function M.silent_shell_start(self)
-   -- do nothing normally.  Bash type shells will produce code
-end
-
-function M.silent_shell_end(self)
-   -- do nothing normally.  Bash type shells will produce code
-end
-
-
 --------------------------------------------------------------------------
 -- BaseShell:expand(): This base class function is what converts the
 --                     environment variables stored internally into
@@ -121,12 +112,6 @@ function M.expand(self, tbl)
       dbg.print{"expand is not active\n"}
       dbg.fini("BaseShell:expand")
       return
-   end
-
-
-   local LMOD_SILENT_SHELL_DEBUG = cosmic:value("LMOD_SILENT_SHELL_DEBUG")
-   if (LMOD_SILENT_SHELL_DEBUG == "yes") then
-      self:silent_shell_start()
    end
 
    for k,v in pairsByKeys(tbl) do
@@ -160,10 +145,6 @@ function M.expand(self, tbl)
       else
          self:expandVar(k,vstr,vType)
       end
-   end
-
-   if (LMOD_SILENT_SHELL_DEBUG == "yes") then
-      self:silent_shell_end()
    end
    dbg.fini("BaseShell:expand")
 end

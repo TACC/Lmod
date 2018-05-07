@@ -323,13 +323,6 @@ if (LMOD_AVAIL_STYLE == "") then
    LMOD_AVAIL_STYLE = "<system>"
 end
 
-local LMOD_SILENT_SHELL_DEBUG = getenv("LMOD_SILENT_SHELL_DEBUG") or getenv("MODULES_SILENT_SHELL_DEBUG")
-cosmic:init{name    = "LMOD_SILENT_SHELL_DEBUG",
-            yn      = LMOD_SILENT_SHELL_DEBUG,
-            no_env  = true,
-            default = "no"}
-
-
 ------------------------------------------------------------------------
 -- LFS_VERSION: The version of luafilesystem being used
 ------------------------------------------------------------------------

@@ -127,31 +127,4 @@ function Bash.real_shell(self)
    return true
 end
 
-function Bash.silent_shell_start(self)
-   local silent_start = [[
-   # Stop shell debugging
-   unset __lmod_shell_debug
-   case "$-" in
-      *v*x*) set +vx; __lmod_shell_debug='vx' ;;
-      *v*)   set +v;  __lmod_shell_debug='v'  ;;
-      *x*)   set +x;  __lmod_shell_debug='x'  ;;
-      *)              __lmod_shell_debug=''   ;;
-   esac;
-]]
-   stdout:write(silent_start)
-   dbg.print{   silent_start}
-end
-
-function Bash.silent_shell_end(self)
-   local silent_end = [[
-   # restart shell debugging
-   if [ -n "${__lmod_shell_debug}" ]; then
-      set -$__lmod_shell_debug;
-      unset __lmod_shell_debug;
-   fi;
-]]
-   stdout:write(silent_end)
-   dbg.print{   silent_end}
-end
-
 return Bash
