@@ -171,6 +171,7 @@ local function new(self)
    local hashsum_path      = cosmic:value("LMOD_HASHSUM_PATH")
    local lua_path          = cosmic:value("PATH_TO_LUA")
    local tracing           = cosmic:value("LMOD_TRACING")
+   local silent_sh         = cosmic:value("LMOD_SILENT_SHELL_DEBUG")
 
    if (not isFile(rc)) then
       rc = rc .. " -> <empty>"
@@ -218,6 +219,7 @@ local function new(self)
    tbl.prpnd_blk    = { k = "Prepend order"                     , v = prepend_block,    }
    tbl.settarg      = { k = "Supporting Full Settarg Use"       , v = settarg_support,  }
    tbl.shell        = { k = "User shell"                        , v = myShellName(),    }
+   tbl.silent_sh    = { k = "Silent Shell Debugging"            , v = silent_sh,        }
    tbl.sitePkg      = { k = "Site Pkg location"                 , v = locSitePkg,       }
    tbl.siteName     = { k = "Site Name"                         , v = site_name,        }
    tbl.spdr_ignore  = { k = "Ignore Cache"                      , v = ignore_cache,     }
