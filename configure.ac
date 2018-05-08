@@ -407,6 +407,18 @@ AC_ARG_WITH(useBuiltinPkgs,
     USE_BUILT_IN_PKGS="$withval"
     AC_DEFINE_UNQUOTED(USE_BUILT_IN_PKGS, "$withval"))dnl
 
+AC_SUBST(SILENCE_SHELL_DEBUGGING)
+AC_ARG_WITH(silentShellDebugging,
+    AC_HELP_STRING([--with-silentShellDebugging=ans],[Use Built-in lua package instead of system ones. [[no]]]),
+    SILENCE_SHELL_DEBUGGING="$withval"
+    AC_MSG_RESULT([SILENCE_SHELL_DEBUGGING=$with_silentShellDebugging])
+    AC_DEFINE_UNQUOTED(SILENCE_SHELL_DEBUGGING, "$with_silentShellDebugging")dnl
+    ,
+    withval="no"
+    AC_MSG_RESULT([SILENCE_SHELL_DEBUGGING=$withval])
+    SILENCE_SHELL_DEBUGGING="$withval"
+    AC_DEFINE_UNQUOTED(SILENCE_SHELL_DEBUGGING, "$withval"))dnl
+
 AC_SUBST(SYS_LD_LIB_PATH)
 SYS_LD_LIB_PATH=$LD_LIBRARY_PATH
 

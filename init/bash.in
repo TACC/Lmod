@@ -58,30 +58,42 @@ export LMOD_SETTARG_FULL_SUPPORT=@lmod_settarg_full_support@
 #
 # See Lmod web site for more details.
 
-module()
-{
-  ############################################################
-  # Silence shell debug UNLESS $LMOD_SHELL_DEBUG_ON has a value
-  if [ -z "${LMOD_SHELL_DEBUG_ON+x}" ]; then
-     case "$-" in
-       *v*x*) set +vx;  __lmod_shell_debug='vx' ;;
-       *v*)   set +v;   __lmod_shell_debug='v'  ;;
-       *x*)   set +x;   __lmod_shell_debug='x'  ;;
-       *)               __lmod_shell_debug=''   ;;
-     esac;
-  fi
 
-  eval $($LMOD_CMD @my_shell@ "$@") && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
+if [ "@silence_shell_debugging@" = "no" ]; then
+   module()
+   {
+     eval $($LMOD_CMD @my_shell@ "$@") && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
+   }
+else
+   module()
+   {
+     ############################################################
+     # Silence shell debug UNLESS $LMOD_SH_DBG_ON has a value
+     if [ -z "${LMOD_SH_DBG_ON+x}" ]; then
+        case "$-" in
+          *v*x*) __lmod_sh_dbg='vx' ;;
+          *v*)   __lmod_sh_dbg='v'  ;;
+          *x*)   __lmod_sh_dbg='x'  ;;
+        esac;
+     fi
+     
+     if [ -n "${__lmod_sh_dbg}" ]; then
+        set +$__lmod_sh_dbg 
+        echo "Shell debugging temporarily silenced: export LMOD_SH_DBG_ON=1 for Lmod's output"
+     fi
 
-  ############################################################
-  # Un-silence shell debug after module command
-  if [ -n "${__lmod_shell_debug:-}" ]; then
-    set -$__lmod_shell_debug;
-    unset __lmod_shell_debug;
-  fi;
+     eval $($LMOD_CMD @my_shell@ "$@") && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
 
+     ############################################################
+     # Un-silence shell debug after module command
+     if [ -n "${__lmod_sh_dbg:-}" ]; then
+       echo "Shell debugging restarted"
+       set -$__lmod_sh_dbg;
+       unset __lmod_sh_dbg;
+     fi;
+   }
+fi
 
-} 
 
 LMOD_VERSION="@lmod_version@"
 export LMOD_VERSION

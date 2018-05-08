@@ -68,6 +68,7 @@ echo "If path entry is already there then don't prepend..........." : $TMOD_PATH
 echo "Use Tmod Find First rule instead of Find Best for defaults.." : $TMOD_FIND_FIRST
 echo "MODULEPATH Initial file....................................." : $MODULEPATH_INIT
 echo "Use built-in lua packages instead of system provided pkgs..." : $USE_BUILT_IN_PKGS
+echo "Silence shell debugging output for bash/zsh................." : $SILENT_SHELL_DEBUGGING
 
 echo
 echo '------------------------------------------------------------------------------'

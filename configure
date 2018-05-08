@@ -607,6 +607,7 @@ EXPR
 BASENAME
 SYS_LD_PRELOAD
 SYS_LD_LIB_PATH
+SILENCE_SHELL_DEBUGGING
 USE_BUILT_IN_PKGS
 SITE_CONTROLLED_PREFIX
 MODULEPATH_INIT
@@ -722,6 +723,7 @@ with_cachedLoads
 with_ModulePathInit
 with_siteControlPrefix
 with_useBuiltinPkgs
+with_silentShellDebugging
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1409,6 +1411,9 @@ Optional Packages:
   --with-siteControlPrefix=ans
                           A user controlled prefix. [[no]]
   --with-useBuiltinPkgs=ans
+                          Use Built-in lua package instead of system ones.
+                          [[no]]
+  --with-silentShellDebugging=ans
                           Use Built-in lua package instead of system ones.
                           [[no]]
 
@@ -3407,6 +3412,28 @@ $as_echo "USE_BUILT_IN_PKGS=$withval" >&6; }
     USE_BUILT_IN_PKGS="$withval"
     cat >>confdefs.h <<_ACEOF
 #define USE_BUILT_IN_PKGS "$withval"
+_ACEOF
+
+fi
+
+
+
+# Check whether --with-silentShellDebugging was given.
+if test "${with_silentShellDebugging+set}" = set; then :
+  withval=$with_silentShellDebugging; SILENCE_SHELL_DEBUGGING="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SILENCE_SHELL_DEBUGGING=$with_silentShellDebugging" >&5
+$as_echo "SILENCE_SHELL_DEBUGGING=$with_silentShellDebugging" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define SILENCE_SHELL_DEBUGGING "$with_silentShellDebugging"
+_ACEOF
+
+else
+  withval="no"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SILENCE_SHELL_DEBUGGING=$withval" >&5
+$as_echo "SILENCE_SHELL_DEBUGGING=$withval" >&6; }
+    SILENCE_SHELL_DEBUGGING="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define SILENCE_SHELL_DEBUGGING "$withval"
 _ACEOF
 
 fi
@@ -5515,6 +5542,7 @@ echo "If path entry is already there then don't prepend..........." : $TMOD_PATH
 echo "Use Tmod Find First rule instead of Find Best for defaults.." : $TMOD_FIND_FIRST
 echo "MODULEPATH Initial file....................................." : $MODULEPATH_INIT
 echo "Use built-in lua packages instead of system provided pkgs..." : $USE_BUILT_IN_PKGS
+echo "Silence shell debugging output for bash/zsh................." : $SILENT_SHELL_DEBUGGING
 
 echo
 echo '------------------------------------------------------------------------------'
