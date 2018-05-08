@@ -59,3 +59,4 @@ Lmod 7.7+
             Modify end2end test to use build-in lua pkgs only.
    (7.7.30) issue #370: Allow for exact match with fn and fullName w/o regex pattern matching
             added % quoting for '-' in docs.
+   (7.7.31) Support for making lmod silence shell debug output (when doing set -xv for bash or zsh)
