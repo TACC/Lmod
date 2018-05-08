@@ -518,8 +518,6 @@ world_update:
 	    branchName=`git status | head -n 1 | sed 's/^[# ]*On branch //g'`;	       \
             git push        github $$branchName;                                       \
             git push --tags github $$branchName;                                       \
-            git push        sf     $$branchName;                                       \
-            git push --tags sf     $$branchName;                                       \
 	    pid=$$$$;                                                                  \
 	    echo '{'                                               >  /tmp/json_$$pid; \
             echo "  \"tag_name\":         \"$(version)\","         >> /tmp/json_$$pid; \
@@ -531,7 +529,10 @@ world_update:
 	    echo '}'                                               >> /tmp/json_$$pid; \
             URL=https://api.github.com/repositories/9381512/releases;                  \
 	    TOKEN=$(cat ~/lmod_github_token.txt);                                      \
+            echo curl --user rtmclay:token -H "Authorization: token $$TOKEN" -X POST --data @/tmp/json_$$pid $$URL; \
             curl --user rtmclay:token -H "Authorization: token $$TOKEN" -X POST --data @/tmp/json_$$pid $$URL; \
+            git push        sf     $$branchName;                                       \
+            git push --tags sf     $$branchName;                                       \
         fi;                                                                            \
         rm -f /tmp/json_$$pid /tmp/git_st_$$$$;
 
