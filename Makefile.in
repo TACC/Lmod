@@ -530,7 +530,8 @@ world_update:
             echo "  \"prelease\":         false"                   >> /tmp/json_$$pid; \
 	    echo '}'                                               >> /tmp/json_$$pid; \
             URL=https://api.github.com/repositories/9381512/releases;                  \
-            curl --user rtmclay -X POST --data @/tmp/json_$$pid $$URL;                 \
+	    TOKEN=$(cat ~/lmod_github_token.txt);                                      \
+            curl --user rtmclay -H "Authorization: token $$TOKEN" -X POST --data @/tmp/json_$$pid $$URL; \
         fi;                                                                            \
         rm -f /tmp/json_$$pid /tmp/git_st_$$$$;
 
