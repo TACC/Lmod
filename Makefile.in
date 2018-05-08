@@ -165,7 +165,7 @@ uninstall:
 
 pre-install: $(DIRLIST) $(PKGS) lmodrc_init shell_init startup libexec    \
              Inst_Tools Inst_Shells Inst_Settarg Inst_Lmod_MF other_tools \
-             man_pages messageFns i18n spiderCacheSupport 
+             man_pages messageFns i18n spiderCacheSupport
 
 install: pre-install  zsh_tab_funcs
 	$(MAKE) PKGV=$(PKG) shell_init
@@ -302,7 +302,7 @@ lfs:
                 LIB=$(DESTDIR)$(LIB) SHARE=$(DESTDIR)$(LIBEXEC) CC=$(CC)   \
                 install;                                                   \
         fi
-pkgs:   
+pkgs:
 	if [ -d $(srcdir)/pkgs ]; then                                     \
            $(MAKE) -C $(srcdir)/pkgs LUA_INC=$(LUA_INCLUDE)                 \
                LIB=$(DESTDIR)$(LIB) SHARE=$(DESTDIR)$(LIBEXEC) CC=$(CC)    \
@@ -509,19 +509,30 @@ distclean: clobber
 	$(RM) makefile config.status
 
 world_update:
-	@git status -s > /tmp/git_st_$$$$;                                         \
-        if [ -s /tmp/git_st_$$$$ ]; then                                           \
-            echo "All files not checked in => try again";                          \
-	elif [ $(srcdir)/configure -ot $(srcdir)/configure.ac ]; then              \
-            echo "configure is out of date => try again";                          \
-        else                                                                       \
-	    branchName=`git status | head -n 1 | sed 's/^[# ]*On branch //g'`;	   \
-            git push        github $$branchName;                                   \
-            git push --tags github $$branchName;                                   \
-            git push        sf     $$branchName;                                   \
-            git push --tags sf     $$branchName;                                   \
-        fi;                                                                        \
-        rm -f /tmp/git_st_$$$$
+	@git status -s > /tmp/git_st_$$$$;                                             \
+        if [ -s /tmp/git_st_$$$$ ]; then                                               \
+            echo "All files not checked in => try again";                              \
+	elif [ $(srcdir)/configure -ot $(srcdir)/configure.ac ]; then                  \
+            echo "configure is out of date => try again";                              \
+        else                                                                           \
+	    branchName=`git status | head -n 1 | sed 's/^[# ]*On branch //g'`;	       \
+            git push        github $$branchName;                                       \
+            git push --tags github $$branchName;                                       \
+            git push        sf     $$branchName;                                       \
+            git push --tags sf     $$branchName;                                       \
+	    pid=$$$$;                                                                  \
+	    echo '{'                                               >  /tmp/json_$$pid; \
+            echo "  \"tag_name\":         \"$(version)\","         >> /tmp/json_$$pid; \
+	    echo "  \"target_commitish\": \"$$branchName\","       >> /tmp/json_$$pid; \
+            echo "  \"name\":             \"$(version)\","         >> /tmp/json_$$pid; \
+            echo "  \"body\":             \"The latest release\"," >> /tmp/json_$$pid; \
+            echo "  \"draft\":            false,"                  >> /tmp/json_$$pid; \
+            echo "  \"prelease\":         false"                   >> /tmp/json_$$pid; \
+	    echo '}'                                               >> /tmp/json_$$pid; \
+            URL=https://api.github.com/repositories/9381512/releases;                  \
+            curl --user rtmclay -X POST --data @/tmp/json_$$pid $$URL;                 \
+        fi;                                                                            \
+        rm -f /tmp/json_$$pid /tmp/git_st_$$$$;
 
 gittag:
         ifneq ($(TAG),)
