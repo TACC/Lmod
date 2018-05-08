@@ -529,7 +529,6 @@ world_update:
 	    echo '}'                                               >> /tmp/json_$$pid; \
             URL=https://api.github.com/repositories/9381512/releases;                  \
 	    TOKEN=$$(cat ~/lmod_github_token.txt);                                     \
-            echo curl --user rtmclay:token -H "Authorization: token $$TOKEN" -X POST --data @/tmp/json_$$pid $$URL; \
             curl --user rtmclay:token -H "Authorization: token $$TOKEN" -X POST --data @/tmp/json_$$pid $$URL; \
             git push        sf     $$branchName;                                       \
             git push --tags sf     $$branchName;                                       \
