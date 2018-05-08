@@ -68,7 +68,7 @@ configuration step.
 
 
 Configuration time settings that can be overridden by env. vars.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The following settings are defined by configure but can be overridden
 by environment variables.  The brackets show the following values
@@ -191,10 +191,9 @@ the configuration option which will set the action.
   ~/.lmod.d/.cache, if no then use ~/.lmod.d/__cache__
 
 Configuration only settings
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**--with-silentShellDebug**:
-  [yes/no, default: no] If yes then define the module command to
-  silence its output under shell debug.
+--**with-silentShellDebug**:
+  [yes/no, default: no] If yes then the module command will silence its output under shell debug.
 
 
