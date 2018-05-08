@@ -60,3 +60,5 @@ Lmod 7.7+
    (7.7.30) issue #370: Allow for exact match with fn and fullName w/o regex pattern matching
             added % quoting for '-' in docs.
    (7.7.31) Support for making lmod silence shell debug output (when doing set -xv for bash or zsh)
+            The command "make world_update" now marks the latest release as the latest release at
+	    github.com/TACC/Lmod
