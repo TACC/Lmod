@@ -523,7 +523,7 @@ world_update:
             echo "  \"tag_name\":         \"$(version)\","         >> /tmp/json_$$pid; \
 	    echo "  \"target_commitish\": \"$$branchName\","       >> /tmp/json_$$pid; \
             echo "  \"name\":             \"$(version)\","         >> /tmp/json_$$pid; \
-            echo "  \"body\":             \"The latest release\"," >> /tmp/json_$$pid; \
+            echo "  \"body\":             \"\","                   >> /tmp/json_$$pid; \
             echo "  \"draft\":            false,"                  >> /tmp/json_$$pid; \
             echo "  \"prelease\":         false"                   >> /tmp/json_$$pid; \
 	    echo '}'                                               >> /tmp/json_$$pid; \
