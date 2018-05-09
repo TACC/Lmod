@@ -92,7 +92,7 @@ else
        set -$__lmod_sh_dbg;
        unset __lmod_sh_dbg;
      fi;
-     exit $_lmod_my_status
+     return $_lmod_my_status
    }
 fi
 
