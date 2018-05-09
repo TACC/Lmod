@@ -83,7 +83,7 @@ else
      fi
 
      eval $($LMOD_CMD @my_shell@ "$@") && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
-     local my_status=$?
+     local _lmod_my_status=$?
 
      ############################################################
      # Un-silence shell debug after module command
@@ -92,7 +92,7 @@ else
        set -$__lmod_sh_dbg;
        unset __lmod_sh_dbg;
      fi;
-     exit $my_status
+     exit $_lmod_my_status
    }
 fi
 
