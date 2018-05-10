@@ -5,15 +5,23 @@
 # Start Lmod BASHENV
 ########################################################################
 
-# Remember the XTRACE and VERBOSE states so that they are restored
-# at the end of this script.
-[[ ${-/x} != $- ]] && XTRACE_STATE="-x"  || XTRACE_STATE="+x"
-[[ ${-/v} != $- ]] && VERBOSE_STATE="-v" || VERBOSE_STATE="+v"
-set +xv     # Turn off tracing for now.
+if [ -z "${LMOD_SH_DBG_ON+x}" ]; then
+   case "$-" in
+     *v*x*) __lmod_vx='vx' ;;
+     *v*)   __lmod_vx='v'  ;;
+     *x*)   __lmod_vx='x'  ;;
+   esac;
+fi
+
+[ -n "${__lmod_vx}" ] && set +$__lmod_vx 
 
 export LMOD_PKG=@PKGV@
 if [ "${LMOD_PKG##*/}" != "lmod" -a -L $LMOD_PKG/../lmod ]; then
     LMOD_PKG=${LMOD_PKG%/*}/lmod
+fi
+
+if [ -n "${__lmod_vx}" ]; then
+    echo "Shell debugging temporarily silenced: export LMOD_SH_DBG_ON=1 for this output ($LMOD_PKG/init/bash)"
 fi
 
 export LMOD_DIR=$LMOD_PKG/libexec
@@ -150,10 +158,12 @@ if [ ${BASH_VERSINFO:-0} -ge 3 ] && [ -r  @PKGV@/init/lmod_bash_completions ] &&
 fi
 
 
-
 # Restoring XTRACE and VERBOSE states.
-set  $XTRACE_STATE $VERBOSE_STATE
-unset XTRACE_STATE  VERBOSE_STATE
+if [ -n "${__lmod_vx:-}" ]; then
+  echo "Shell debugging restarted"
+  set -$__lmod_vx;
+  unset __lmod_vx;
+fi;
 
 ########################################################################
 # End Lmod BASHENV

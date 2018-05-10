@@ -62,3 +62,5 @@ Lmod 7.7+
    (7.7.31) Support for making lmod silence shell debug output (when doing set -xv for bash or zsh)
             The command "make world_update" now marks the latest release as the latest release at
 	    github.com/TACC/Lmod
+   (7.7.32) The new module command now returns the status from the eval of the lmod command
+   
