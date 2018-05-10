@@ -40,9 +40,10 @@ require("strict")
 
 Pkg = inheritsFrom(PkgBase)
 
-local unpack = (_VERSION == "Lua 5.1") and unpack or table.unpack -- luacheck: compat
-local dbg    = require("Dbg"):dbg()
-local M      = Pkg
+local concatTbl = table.concat
+local unpack    = (_VERSION == "Lua 5.1") and unpack or table.unpack -- luacheck: compat
+local dbg       = require("Dbg"):dbg()
+local M         = Pkg
 
 s_MdirA = { [0] = "Compiler",
             [1] = "MPI",
@@ -70,12 +71,24 @@ function M._build_pkgBase(self,level)
    return pathJoin(unpack(a))
 end
 
+function l_digit_rule_pattern(digit_rule)
+   local sA = {}
+   sA[#sA + 1] = "("
+
+   for i = 1,digit_rule-1 do
+      sA[#sA + 1] = "%d+%."
+   end
+   sA[#sA + 1] = "%d+)%.?"
+   return concatTbl(sA,"")
+end
+
 function M.moduleDir(self)
    dbg.start{"Pkg:moduleDir()"}
-   local level = self.level or 0
-   local a     = {}
-   a[#a+1]     = os.getenv("MODULEPATH_ROOT")
-   a[#a+1]     = s_MdirA[level]
+   local level      = self.level or 0
+   local digit_rule = self.digit_rule or 2
+   local a          = {}
+   a[#a+1]          = os.getenv("MODULEPATH_ROOT")
+   a[#a+1]          = s_MdirA[level]
 
    if (level > 0) then
       local hierA = hierarchyA(self._pkgNameVer, level)
@@ -83,7 +96,9 @@ function M.moduleDir(self)
          a[#a+1] = hierA[i]
       end
    end
-   local pkgV = self._pkgVersion:match("(%d+%.%d+)%.?")
+
+   local patt = l_digit_rule_pattern(digit_rule)
+   local pkgV = self._pkgVersion:match(patt)
 
    a[#a+1]    = pathJoin(self._pkgName,pkgV)
    local mdir = pathJoin(unpack(a))
