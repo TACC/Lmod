@@ -71,7 +71,7 @@ function M._build_pkgBase(self,level)
    return pathJoin(unpack(a))
 end
 
-function l_digit_rule_pattern(digit_rule)
+local function l_digit_rule_pattern(digit_rule)
    local sA = {}
    sA[#sA + 1] = "("
 
