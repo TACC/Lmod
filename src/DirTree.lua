@@ -67,6 +67,12 @@ local ignoreT = {
    ['.DS_Store']  = true,
 }
 
+local defaultFnT = {
+   default       = 1,
+   ['.modulerc'] = 2,
+   ['.version']  = 3,
+}
+
 local function keepFile(fn)
    local firstChar = fn:sub(1,1)
    local lastChar  = fn:sub(-1,-1)
@@ -82,14 +88,16 @@ local function keepFile(fn)
       return false
    end
 
+   if (defaultFnT[fn]) then
+      return true
+   end
+
+   if (fn:find("^%.version.") or fn:find("^%.modulerc.")) then
+      return false
+   end
+
    return true
 end
-
-local defaultFnT = {
-   default       = 1,
-   ['.modulerc'] = 2,
-   ['.version']  = 3,
-}
 
 local function checkValidModulefileReal(fn)
    local f = open(fn,"r")
