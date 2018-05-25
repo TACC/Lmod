@@ -10,23 +10,23 @@ step 2
 step 3
  OutputDIR/lmod/lmod/libexec/lmod load admin
 ===========================
-ADMIN_MODULE_LOADED="1";
+ADMIN_MODULE_LOADED=1;
 export ADMIN_MODULE_LOADED;
-__LMOD_REF_COUNT_LOADEDMODULES="admin/admin-1.0:1";
+__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1;
 export __LMOD_REF_COUNT_LOADEDMODULES;
-LOADEDMODULES="admin/admin-1.0";
+LOADEDMODULES=admin/admin-1.0;
 export LOADEDMODULES;
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/end2end/mf/Core:1";
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/end2end/mf/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/end2end/mf/Core";
+MODULEPATH=ProjectDIR/rt/end2end/mf/Core;
 export MODULEPATH;
-__LMOD_REF_COUNT_PATH="/usr/sbin:1;/sbin:1;ProjectDIR/src:1;PATH_to_TM:1";
+__LMOD_REF_COUNT_PATH=/usr/sbin:1\;/sbin:1\;ProjectDIR/src:1\;PATH_to_TM:1;
 export __LMOD_REF_COUNT_PATH;
-PATH="/usr/sbin:/sbin:ProjectDIR/src:PATH_to_TM";
+PATH=/usr/sbin:/sbin:ProjectDIR/src:PATH_to_TM;
 export PATH;
-__LMOD_REF_COUNT__LMFILES_="ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua:1";
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
-_LMFILES_="ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua";
+_LMFILES_=ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={admin={["fn"]="ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua",["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="admin",},},mpathA={"ProjectDIR/rt/end2end/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/end2end/mf/Core",}';
 export _ModuleTable_;
@@ -34,7 +34,7 @@ export _ModuleTable_;
 step 4
  OutputDIR/lmod/lmod/libexec/lmod list
 ===========================
-MODULEPATH="ProjectDIR/rt/end2end/mf/Core";
+MODULEPATH=ProjectDIR/rt/end2end/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={admin={["fn"]="ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua",["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="admin",},},mpathA={"ProjectDIR/rt/end2end/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/end2end/mf/Core",}';
 export _ModuleTable_;

@@ -100,4 +100,3 @@ function capture(cmd, envT)
    dbg.fini("capture")
    return out, status
 end
-

@@ -22,21 +22,21 @@ cleanUp ()
 
    sed                                                    \
        -e "s|\@git\@|$gitV|g"                             \
-       -e "s|:$PATH_to_LUA\([:\"]\)|\1|g"                 \
-       -e "s|;$PATH_to_LUA:[0-9]\([;\"]\)|\1|g"           \
+       -e "s|:$PATH_to_LUA\([:;]\)|\1|g"                  \
+       -e "s|;$PATH_to_LUA:[0-9];|;|g"                    \
        -e "s|\\\;$PATH_to_LUA:[0-9]\\\;|\\\;|g"           \
        -e "s|$PATH_to_LUA/lua|lua|g"                      \
-       -e 's|:/bin\([:"]\)|\1|g'                          \
-       -e 's|;/bin:[0-9]\([;"]\)|\1|g'                    \
+       -e 's|:/bin\([:;]\)|\1|g'                          \
+       -e 's|;/bin:[0-9];|;|g'                            \
        -e 's|\\\;/bin:[0-9]\\\;|\\\;|g'                   \
-       -e "s|:/usr/bin\([:\"]\)|\1|g"                     \
-       -e "s|;/usr/bin:[0-9]\([;\"]\)|\1|g"               \
+       -e "s|:/usr/bin\([:;]\)|\1|g"                      \
+       -e "s|;/usr/bin:[0-9];|;|g"                        \
        -e "s|\\\;/usr/bin:[0-9]\\\;|\\\;|g"               \
-       -e "s|:/usr/local/bin\([:\"]\)|\1|g"               \
-       -e "s|;/usr/local/bin:[0-9]\([;\"]\)|\1|g"         \
+       -e "s|:/usr/local/bin\([:;]\)|\1|g"                \
+       -e "s|;/usr/local/bin:[0-9];|;|g"                  \
        -e "s|\\\;/usr/local/bin:[0-9]\\\;|\\\;|g"         \
-       -e "s|:$PATH_to_SHA1\([:\"]\)|\1|g"                \
-       -e "s|;$PATH_to_SHA1:[0-9]\([;\"]\)|\1|g"          \
+       -e "s|:$PATH_to_SHA1\([:;]\)|\1|g"                 \
+       -e "s|;$PATH_to_SHA1:[0-9];|;|g"                   \
        -e "s|\\\;$PATH_to_SHA1:[0-9]\\\;|\\\;|g"          \
        -e "s|^Lmod version.*||g"                          \
        -e "s|^LuaFileSystem version.*||g"                 \
@@ -73,6 +73,7 @@ cleanUp ()
        -e "/Using your spider cache file/d"               \
        -e "/^_ModuleTable_Sz_=.*$/d"                      \
        -e "/^setenv _ModuleTable_Sz_ .*$/d"               \
+       -e "s|\\\;$|;|"                                    \
        -e "/^ *$/d"                                       \
        < $1 > $2
 }

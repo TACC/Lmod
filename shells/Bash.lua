@@ -58,9 +58,10 @@ function Bash.alias(self, k, v)
       stdout:write("unalias ",k," 2> /dev/null || true;\n")
       dbg.print{   "unalias ",k," 2> /dev/null || true;\n"}
    else
-      v = v:gsub(";%s*$","")
-      stdout:write("alias ",k,"='",v,"';\n")
-      dbg.print{   "alias ",k,"='",v,"';\n"}
+      v = v:gsub(";%s*$",""):multiEscaped()
+
+      stdout:write("alias ",k,"=",v,";\n")
+      dbg.print{   "alias ",k,"=",v,";\n"}
    end
 end
 

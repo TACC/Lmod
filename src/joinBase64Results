@@ -81,11 +81,9 @@ cosmic:init{name = "LMOD_LD_PRELOAD",      default = false, assignV = false}
 
 
 local function grab(line, b)
-   local a = {}
-   for v in line:split('"') do
-      a[#a + 1] = v
-   end
-   b[#b+1] = a[2]
+   local eqIdx = line:find("=")
+   local scIdx = line:find(";")
+   b[#b+1]     = line:sub(eqIdx+1,scIdx-1):gsub("\"","")
 end
 
 local function grabCsh(line,b)
@@ -177,19 +175,19 @@ function joinMT_bash(whole)
          haveMT  = false
       end
       if (state == "init") then
-         local i,j, name, str = s:find("^(__LMOD_STACK.*)=\"(.*)\"")
+         local i,j, name, str = s:find("^(__LMOD_STACK[^=]*)=([^;]*);")
          if (not i) then
             a[#a + 1] = s
          else
             local b = {}
             b[#b+1] = name
-            b[#b+1] = "=\""
+            b[#b+1] = "="
             for v in str:split(":") do
                v = (v ~= "false") and decode64(v) or "false"
                b[#b+1] = v
                b[#b+1] = ":"
             end
-            b[#b] = "\";"
+            b[#b] = ";"
             a[#a+1] = concatTbl(b,"")
          end
       end

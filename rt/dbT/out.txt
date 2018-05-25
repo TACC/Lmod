@@ -6,9 +6,9 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing av
 ===========================
-__LMOD_REF_COUNT_MODULEPATH="ProjectDIR/rt/dbT/mf2/Core:1;ProjectDIR/rt/dbT/mf1/Core:1";
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dbT/mf2/Core:1\;ProjectDIR/rt/dbT/mf1/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
-MODULEPATH="ProjectDIR/rt/dbT/mf2/Core:ProjectDIR/rt/dbT/mf1/Core";
+MODULEPATH=ProjectDIR/rt/dbT/mf2/Core:ProjectDIR/rt/dbT/mf1/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dbT/mf2/Core","ProjectDIR/rt/dbT/mf1/Core",},["systemBaseMPATH"]="ProjectDIR/rt/dbT/mf2/Core:ProjectDIR/rt/dbT/mf1/Core",}';
 export _ModuleTable_;
