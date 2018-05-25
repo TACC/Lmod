@@ -35,23 +35,23 @@ export _ModuleTable_;
 __LMOD_STACK_PROMPT_COMMAND=precmd;
 export __LMOD_STACK_PROMPT_COMMAND;
 alias cdt=cd\ \$TARG;
-dbg() { settarg "$@" dbg; };
-empty() { settarg "$@" empty; };
-gettargdir() { builtin echo $TARG; };
-mdbg() { settarg "$@" mdbg; };
-opt() { settarg "$@" opt; };
-precmd() { {
-             local tilde="~";
-             local H=${HOSTNAME-$(hostname)};
-             H=${H%%.*};
-             local SHOST=${SHOST-$H};
-             eval $(${LMOD_SETTARG_CMD:-:} -s bash);
-             ${SET_TITLE_BAR:-:} "${TARG_TITLE_BAR_PAREN}${USER}@${SHOST}:${PWD/#$HOME/$tilde}";
-             ${USER_PROMPT_CMD:-:};
-           }
-      ; };
-settarg() { eval $($LMOD_SETTARG_CMD -s sh "$@"); };
-targ() { builtin echo $TARG; };
+dbg() { settarg\ \"\$@\"\ dbg; };
+empty() { settarg\ \"\$@\"\ empty; };
+gettargdir() { builtin\ echo\ \$TARG; };
+mdbg() { settarg\ \"\$@\"\ mdbg; };
+opt() { settarg\ \"\$@\"\ opt; };
+precmd() { \{
+\ \ \ \ \ \ \ \ \ \ \ \ \ local\ tilde=\"\~\";
+\ \ \ \ \ \ \ \ \ \ \ \ \ local\ H=\$\{HOSTNAME-\$\(hostname\)\};
+\ \ \ \ \ \ \ \ \ \ \ \ \ H=\$\{H%%.\*\};
+\ \ \ \ \ \ \ \ \ \ \ \ \ local\ SHOST=\$\{SHOST-\$H\};
+\ \ \ \ \ \ \ \ \ \ \ \ \ eval\ \$\(\$\{LMOD_SETTARG_CMD:-:\}\ -s\ bash\);
+\ \ \ \ \ \ \ \ \ \ \ \ \ \$\{SET_TITLE_BAR:-:\}\ \"\$\{TARG_TITLE_BAR_PAREN\}\$\{USER\}@\$\{SHOST\}:\$\{PWD/\#\$HOME/\$tilde\}\";
+\ \ \ \ \ \ \ \ \ \ \ \ \ \$\{USER_PROMPT_CMD:-:\};
+\ \ \ \ \ \ \ \ \ \ \ \}
+\ \ \ \ \ \ ; };
+settarg() { eval\ \$\(\$LMOD_SETTARG_CMD\ -s\ sh\ \"\$@\"\); };
+targ() { builtin\ echo\ \$TARG; };
 ===========================
 step 3
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model dbg
