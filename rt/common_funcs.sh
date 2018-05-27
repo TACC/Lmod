@@ -72,7 +72,7 @@ cleanUp ()
        -e "/Rebuilding cache.*done/d"                     \
        -e "/Using your spider cache file/d"               \
        -e "/^_ModuleTable_Sz_=.*$/d"                      \
-       -e "/^setenv _ModuleTable_Sz_ .*$/d"               \
+       -e "/^set.* _ModuleTable_Sz_ .*$/d"                \
        -e "s|\\\;$|;|"                                    \
        -e "/^ *$/d"                                       \
        < $1 > $2
@@ -95,6 +95,11 @@ runBase ()
    numStep=$(($numStep+1))
    NUM=`printf "%03d" $numStep`
    "$@" > _stdout.$NUM 2>> _stderr.$NUM
+}
+
+runFish ()
+{
+  runBase $LUA_EXEC $projectDir/src/lmod.in.lua fish --regression_testing "$@"
 }
 
 runMe ()

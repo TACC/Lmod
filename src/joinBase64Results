@@ -91,8 +91,15 @@ local function grabCsh(line,b)
    for v in line:split(' ') do
       a[#a + 1] = v
    end
-   a[3] = a[3]:gsub(";","")
-   b[#b+1] = a[3]
+   b[#b+1] = a[3]:gsub(";","")
+end   
+
+local function grabFish(line,b)
+   local a = {}
+   for v in line:split(' ') do
+      a[#a + 1] = v
+   end
+   b[#b+1] = a[5]:gsub(";","")
 end   
 
 
@@ -125,8 +132,10 @@ function sectionEnd(sType,A, a1, a2, a3)
       if (sType == "bash") then
          b[1] = s_name .."='" .. removeUnwantedFields(decode64(table.concat(a2,""))) .. "';"
          b[2] = "export ".. s_name ..";"
-      else
+      elseif (sType == "csh") then
          b[1] = "setenv " .. s_name .. " '" .. removeUnwantedFields(decode64(table.concat(a2,""))) .. "';"
+      elseif (sType == "fish") then
+         b[1] = "set -x -g " .. s_name .. " '" .. removeUnwantedFields(decode64(table.concat(a2,""))) .. "';"
       end
    end
    joinArrays(A, a1, b, a3)
@@ -144,6 +153,48 @@ function joinArrays(A,...)
          A[#A + 1] = b[j]
       end
    end
+end
+
+function joinMT_fish(whole)
+   local n2 = "_ModuleTable"
+   local A  = {}
+   local a1 = {}
+   local a2 = {}
+   local a3 = {}
+   local a  = a1
+   local state = "init"
+   for s in whole:split("\n") do
+      if (s:find("^set %-x %-g ".. n2 .. "%d%d%d_")) then
+         if (state == "init") then
+            state = "mt"
+         end
+         a = a3
+         grabFish(s, a2)
+      elseif (state == "init") then
+         local i,j, name, str = s:find("^(set -x -g __LMOD_STACK[^ ]*)%s+\"(.*)\"")
+         if (not i) then
+            a[#a + 1] = s
+         else
+            local b = {}
+            b[#b+1] = name
+            b[#b+1] = " \""
+            for v in str:split(":") do
+               v = (v ~= "false") and decode64(v) or "false"
+               b[#b+1] = v
+               b[#b+1] = ":"
+            end
+            b[#b]   = "\";"
+            a[#a+1] = concatTbl(b,"")
+         end
+      else
+         a1, a2, a3 = sectionEnd("fish", A,a1,a2,a3)
+         state   = "init"
+         a       = a1
+         a[#a+1] = s
+      end
+   end
+   sectionEnd("fish",A,a1,a2,a3)
+   return A
 end
 
 function joinMT_bash(whole)
@@ -244,6 +295,9 @@ function main()
    if ( arg[1]:sub(1,1) == "-") then
       if (arg[1] == "-bash") then
          joinMT = joinMT_bash
+      end
+      if (arg[1] == "-fish") then
+         joinMT = joinMT_fish
       end
       table.remove(arg,1)
    end

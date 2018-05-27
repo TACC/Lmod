@@ -65,4 +65,6 @@ Lmod 7.7+
    (7.7.32) The new module command now returns the status from the eval of the lmod command
    (7.7.33) Block .version.version and .modulerc.version files from being included in DirTree
             Bash like shells now output without double quotes.
-	    
+   (7.7.34) Fix fish shell output for path and infopath. Fix shell function output for zsh/bash
+   
+   
