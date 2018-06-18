@@ -33,10 +33,13 @@ require("strict")
 --------------------------------------------------------------------------
 
 require("string_utils")
+local getenv    = os.getenv
+local TILDE     = getenv("HOME") or "~"
 local lfs       = require("lfs")
 local access    = posix.access
 local concatTbl = table.concat
 local dbg       = require("Dbg"):dbg()
+
 
 local function argsPack(...)
    local arg = { n = select("#", ...), ...}
@@ -367,6 +370,7 @@ function path_regularize(value, full)
    value = value:gsub("//+" , "/")
    value = value:gsub("/%./", "/")
    value = value:gsub("/$"  , "")
+   value = value:gsub("^~"  , TILDE)
    if (value == '') then
       value = ' '
       return value
