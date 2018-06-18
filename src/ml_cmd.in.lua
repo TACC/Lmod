@@ -198,6 +198,8 @@ function main()
       swap="swap", sw="swap",
       tablelist="tablelist",
       ['try-load'] = "try-load",
+      ['is-loaded'] = "is-loaded",
+      ['is-avail'] = "is-avail",
       unload="unload", rm = "unload", del = "unload", delete="unload",      unuse="unuse",
       update="update",
       use="use",

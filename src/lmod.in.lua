@@ -198,10 +198,12 @@ function Usage()
    a[#a+1] = { "",            "",        i18n("depr4") }
    a[#a+1] = { "" }
    a[#a+1] = { i18n("misc_title") }
-   a[#a+1] = { "  show",     "modulefile", i18n("misc1") }
-   a[#a+1] = { "  use [-a]", "path",       i18n("misc2") }
-   a[#a+1] = { "  unuse",    "path",       i18n("misc3") }
-   a[#a+1] = { "  tablelist","",           i18n("misc4") }
+   a[#a+1] = { "  is-loaded", "modulefile", i18n("misc_isLoaded") }
+   a[#a+1] = { "  is-avail",  "modulefile", i18n("misc_isAvail") }
+   a[#a+1] = { "  show",      "modulefile", i18n("misc1") }
+   a[#a+1] = { "  use [-a]",  "path",       i18n("misc2") }
+   a[#a+1] = { "  unuse",     "path",       i18n("misc3") }
+   a[#a+1] = { "  tablelist", "",           i18n("misc4") }
    a[#a+1] = { "" }
    a[#a+1] = { i18n("env_title") }
    a[#a+1] = { "  LMOD_COLORIZE", "",      i18n("env1") }
@@ -269,48 +271,52 @@ function main()
    local useTbl       = { name = "use",         checkMPATH = true,  cmd = Use           }
    local disableTbl   = { name = "disable",     checkMPATH = false, cmd = Disable       }
    local whatisTbl    = { name = "whatis",      checkMPATH = false, cmd = Whatis        }
+   local isLoadedTbl  = { name = "isLoaded",    checkMPATH = false, cmd = IsLoaded      }
+   local isAvailTbl   = { name = "isAvail",     checkMPATH = false, cmd = IsAvail       }
 
    local lmodCmdA = {
-      {'^ad'      , loadTbl       },
-      {'^ap'      , keywordTbl    },
-      {'^av'      , availTbl      },
-      {'^del'     , unloadTbl     },
-      {'^des'     , mcTbl         },
-      {'^disable' , disableTbl    },
-      {'^dis'     , showTbl       },
-      {'^era'     , unloadTbl     },
-      {'^gd'      , gdTbl         },
-      {'^getd'    , gdTbl         },
-      {'^h'       , helpTbl       },
-      {'^k'       , keywordTbl    },
-      {'^ld'      , savelistTbl   },
-      {'^listd'   , savelistTbl   },
-      {'^lo'      , loadTbl       },
-      {'^l'       , listTbl       },
-      {'^mc'      , mcTbl         },
-      {'^pu'      , purgeTbl      },
-      {'^refr'    , refreshTbl    },
-      {'^rel'     , updateTbl     },
-      {'^rem'     , unloadTbl     },
-      {'^rese'    , resetTbl      },
-      {'^rm'      , unloadTbl     },
-      {'^r'       , restoreTbl    },
-      {'^savel'   , savelistTbl   },
-      {'^sd'      , saveTbl       },
-      {'^sea'     , searchTbl     },
-      {'^setd'    , saveTbl       },
-      {'^sh'      , showTbl       },
-      {'^sl'      , savelistTbl   },
-      {'^sp'      , spiderTbl     },
-      {'^sw'      , swapTbl       },
-      {'^s'       , saveTbl       },
-      {'^table'   , tblLstTbl     },
-      {'^try'     , tryAddTbl     },
-      {'^unuse$'  , unuseTbl      },
-      {'^unl'     , unloadTbl     },
-      {'^up'      , updateTbl     },
-      {'^use$'    , useTbl        },
-      {'^w'       , whatisTbl     },
+      {'^ad'          , loadTbl       },
+      {'^ap'          , keywordTbl    },
+      {'^av'          , availTbl      },
+      {'^del'         , unloadTbl     },
+      {'^des'         , mcTbl         },
+      {'^disable'     , disableTbl    },
+      {'^dis'         , showTbl       },
+      {'^era'         , unloadTbl     },
+      {'^gd'          , gdTbl         },
+      {'^getd'        , gdTbl         },
+      {'^h'           , helpTbl       },
+      {'^is[_-]avail' , isAvailTbl    },
+      {'^is[_-]loaded', isLoadedTbl   },
+      {'^k'           , keywordTbl    },
+      {'^ld'          , savelistTbl   },
+      {'^listd'       , savelistTbl   },
+      {'^lo'          , loadTbl       },
+      {'^l'           , listTbl       },
+      {'^mc'          , mcTbl         },
+      {'^pu'          , purgeTbl      },
+      {'^refr'        , refreshTbl    },
+      {'^rel'         , updateTbl     },
+      {'^rem'         , unloadTbl     },
+      {'^rese'        , resetTbl      },
+      {'^rm'          , unloadTbl     },
+      {'^r'           , restoreTbl    },
+      {'^savel'       , savelistTbl   },
+      {'^sd'          , saveTbl       },
+      {'^sea'         , searchTbl     },
+      {'^setd'        , saveTbl       },
+      {'^sh'          , showTbl       },
+      {'^sl'          , savelistTbl   },
+      {'^sp'          , spiderTbl     },
+      {'^sw'          , swapTbl       },
+      {'^s'           , saveTbl       },
+      {'^table'       , tblLstTbl     },
+      {'^try'         , tryAddTbl     },
+      {'^unuse$'      , unuseTbl      },
+      {'^unl'         , unloadTbl     },
+      {'^up'          , updateTbl     },
+      {'^use$'        , useTbl        },
+      {'^w'           , whatisTbl     },
    }
 
    build_i18n_messages()

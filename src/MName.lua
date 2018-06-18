@@ -227,7 +227,7 @@ function M.valid(self)
    if (not self.__sn) then
       lazyEval(self)
    end
-   return self.__sn ~= false
+   return self.__fn 
 end       
 
 

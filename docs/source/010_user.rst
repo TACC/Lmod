@@ -76,6 +76,21 @@ The module avail command has search capabilities::
 will list for any modulefile where the name contains the string "cc".
 
 
+Users may wish to test whether certain modules are already loaded::
+
+   $ module is-loaded packageName1 packageName2 ...
+
+Lmod will return true if all modules are loaded and false if one is
+not.
+
+Users also may wish to test whether certain modules can be loaded with
+the current $MODULEPATH::
+
+    $ module is-avail packageName1 packageName2 ...
+
+Lmod will return true if all modules are available and false if one
+can not be loaded.
+
 
 
 Modulefiles can have a description section known as "whatis".  It is

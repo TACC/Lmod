@@ -206,6 +206,28 @@ function Help(...)
    Access("help",...)
 end
 
+function IsAvail(...)
+   local arg = pack(...)
+   for i = 1, arg.n do
+      local mname = MName:new("load", arg[i])
+      if (not mname:valid()) then
+         setWarningFlag()
+         break
+      end
+   end
+end
+
+function IsLoaded(...)
+   local arg = pack(...)
+   for i = 1, arg.n do
+      local mname = MName:new("mt", arg[i])
+      if (not mname:isloaded()) then
+         setWarningFlag()
+         break
+      end
+   end
+end
+
 --------------------------------------------------------------------------
 -- Use the list of user requested keywords to be searched
 -- through the spider cache.

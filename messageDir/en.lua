@@ -334,6 +334,8 @@ The system default contains no modules
      misc2                 = "Prepend or Append path to MODULEPATH.",
      misc3                 = "remove path from MODULEPATH.",
      misc4                 = "output list of active modules as a lua table.",
+     misc_isLoaded         = "return true if module is loaded",
+     misc_isAvail          = "return true if module can be loaded",
 
 
      env_title             = "Important Environment Variables:\n" ..

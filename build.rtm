@@ -1,6 +1,6 @@
 #!/bin/bash
 # -*- shell-script -*-
-PKG_VERSION=`(lua src/lmod.in.lua --dumpversion 2>&1)`
+PKG_VERSION=`(lua -e "V=require('src/Version'); print(V.tag())")`
 echo Making Version: $PKG_VERSION
 
 parallel_make_install()
