@@ -67,4 +67,5 @@ Lmod 7.7+
             Bash like shells now output without double quotes.
    (7.7.34) Fix fish shell output for path and infopath. Fix shell function output for zsh/bash
    (7.7.35) issue #374: convert ~ to $HOME internally.  This allows C-shell users to use ~
-            inside a modulefile and have it work.
+            inside a modulefile and have it work when unloading.
+            
