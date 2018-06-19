@@ -259,7 +259,6 @@ __installMe:
             if [ "$$ext" = "version.lua" ]; then                           	  \
                mname=$${bareN%%.*};                                        	  \
 	       : echo "DIRLOC: $(DIRLOC)/$$mname";                         	  \
-	       mkdir -p $(DIRLOC)/$$mname;                                 	  \
                mv $(DIRLOC)/$$fn $(DIRLOC)/$$mname.lua;            	          \
             fi;                                                            	  \
         done
