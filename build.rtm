@@ -33,7 +33,7 @@ make_symlink()
       $SUDO rm -f $BASE_DIR/../lmod
       $SUDO ln -s $PKG_VERSION $BASE_DIR/../lmod
       bb=${BASE_DIR/$PKG_VERSION/lmod}
-      $SUDO find $BASE_DIR/modulefiles $BASE_DIR/init -type f -exec perl -p -i -e "s|$BASE_DIR|$bb|" {} \;
+      $SUDO find $BASE_DIR/modulefiles $BASE_DIR/init -type f -exec perl -p -i -e "s|$BASE_DIR|$bb|g" {} \;
   fi
 }
 
