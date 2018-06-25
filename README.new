@@ -69,5 +69,6 @@ Lmod 7.7+
    (7.7.35) issue #374: convert ~ to $HOME internally.  This allows C-shell users to use ~
             inside a modulefile and have it work when unloading.
             issue #375: Support for is-loaded and is-avail added.
-            
+   (7.7.36) Do not convert LMOD_PKG from /opt/apps/lmod/7.7.35 to /opt/apps/lmod/lmod if the link exists.
+   
             

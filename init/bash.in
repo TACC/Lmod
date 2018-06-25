@@ -16,9 +16,6 @@ fi
 [ -n "${__lmod_vx}" ] && set +$__lmod_vx 
 
 export LMOD_PKG=@PKGV@
-if [ "${LMOD_PKG##*/}" != "lmod" -a -L $LMOD_PKG/../lmod ]; then
-    LMOD_PKG=${LMOD_PKG%/*}/lmod
-fi
 
 if [ -n "${__lmod_vx}" ]; then
     echo "Shell debugging temporarily silenced: export LMOD_SH_DBG_ON=1 for this output ($LMOD_PKG/init/bash)"

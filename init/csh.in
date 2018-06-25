@@ -1,10 +1,5 @@
 #!/bin/csh
 setenv LMOD_PKG                  "@PKGV@"
-set lastdir = `echo $LMOD_PKG | sed -e 's|.*/||'`
-if ( $lastdir != "lmod" && -f $LMOD_PKG/../lmod ) then
-   set dir = `echo  $LMOD_PKG | sed -e 's|/[^/]*$|/|g'`
-   setenv LMOD_PKG               "$dir/lmod"
-endif
 setenv LMOD_CMD                  "$LMOD_PKG/libexec/lmod"
 setenv LMOD_DIR                  "$LMOD_PKG/libexec"
 setenv MODULESHOME               "$LMOD_PKG"      
