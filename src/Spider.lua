@@ -84,6 +84,10 @@ local function process(kind, value)
    for path in value:split(":") do
       path         = path_regularize(path)
       a[path]      = 1
+      local p2     = abspath(path)
+      if (p2 ~= path) then
+         a[p2]     = 1
+      end
    end
    moduleT[kind] = a
 end
