@@ -71,4 +71,5 @@ Lmod 7.7+
             issue #375: Support for is-loaded and is-avail added.
    (7.7.36) Do not convert LMOD_PKG from /opt/apps/lmod/7.7.35 to /opt/apps/lmod/lmod if the link exists.
    (7.7.37) When building reverseMap also take abspath(path) and store it if different.
-   
+            Now make startup scripts (profile.in, cshrc.in, profile.fish.in) use PKGV instead of PKG so
+	    that the pre-install create $VERSION files. The install target will convert them to PKG.
