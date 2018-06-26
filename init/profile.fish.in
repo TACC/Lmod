@@ -26,11 +26,11 @@ if test (id -u) -ne 0
                 end
             end
         else
-            set -xg MODULEPATH (@PKG@/libexec/addto --append MODULEPATH $MODULEPATH_ROOT/$LMOD_sys $MODULEPATH_ROOT/Core)
-            set -xg MODULEPATH (@PKG@/libexec/addto --append MODULEPATH @PKG@/modulefiles/Core)
+            set -xg MODULEPATH (@PKGV@/libexec/addto --append MODULEPATH $MODULEPATH_ROOT/$LMOD_sys $MODULEPATH_ROOT/Core)
+            set -xg MODULEPATH (@PKGV@/libexec/addto --append MODULEPATH @PKGV@/modulefiles/Core)
         end
 
-        set -xg FISH_ENV @PKG@/init/fish
+        set -xg FISH_ENV @PKGV@/init/fish
 
         #
         # If MANPATH is empty, Lmod is adding a trailing ":" so that
@@ -39,7 +39,7 @@ if test (id -u) -ne 0
             set -xg MANPATH ":"
         end
 
-        set -gx MANPATH (@PKG@/libexec/addto MANPATH @PKG@/share/man)
+        set -gx MANPATH (@PKGV@/libexec/addto MANPATH @PKGV@/share/man)
     end
 
     set PS_CMD @ps@
@@ -74,10 +74,10 @@ if test (id -u) -ne 0
     set my_shell (eval "$EXPR_CMD \"$my_shell\" : '-*\(.*\)'")
     set my_shell (eval "$BASENAME_CMD $my_shell")
 
-    if test -f @PKG@/init/$my_shell
-        source  @PKG@/init/$my_shell >/dev/null # Module Support
+    if test -f @PKGV@/init/$my_shell
+        source  @PKGV@/init/$my_shell >/dev/null # Module Support
     else
-        source  @PKG@/init/sh        >/dev/null # Module Support
+        source  @PKGV@/init/sh        >/dev/null # Module Support
     end
 end
 
