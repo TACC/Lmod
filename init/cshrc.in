@@ -6,7 +6,7 @@
 #
 ########################################################################
 
-set MY_NAME="@PKG@/init/cshrc"
+set MY_NAME="@PKGV@/init/cshrc"
 
 
 
@@ -23,16 +23,16 @@ if ( ! $?MODULEPATH_ROOT ) then
        	foreach str (`cat $MODULEPATH_INIT | sed 's/#.*$//'`)	# Allow end-of-line comments.
 	   foreach dir ( $str )
               if ( -d $dir ) then
-                 setenv MODULEPATH `@PKG@/libexec/addto --append MODULEPATH $dir`
+                 setenv MODULEPATH `@PKGV@/libexec/addto --append MODULEPATH $dir`
               endif
            end
 	end
     else
-       setenv MODULEPATH `@PKG@/libexec/addto --append MODULEPATH $MODULEPATH_ROOT/$LMOD_sys $MODULEPATH_ROOT/Core`
-       setenv MODULEPATH `@PKG@/libexec/addto --append MODULEPATH @PKG@/modulefiles/Core`
+       setenv MODULEPATH `@PKGV@/libexec/addto --append MODULEPATH $MODULEPATH_ROOT/$LMOD_sys $MODULEPATH_ROOT/Core`
+       setenv MODULEPATH `@PKGV@/libexec/addto --append MODULEPATH @PKGV@/modulefiles/Core`
     endif
 
-    setenv BASH_ENV             "@PKG@/init/bash"
+    setenv BASH_ENV             "@PKGV@/init/bash"
 
     #
     # If MANPATH is empty, Lmod is adding a trailing ":" so that
@@ -40,12 +40,12 @@ if ( ! $?MODULEPATH_ROOT ) then
     if ( ! $?MANPATH ) then
       setenv MANPATH :
     endif
-    setenv MANPATH `@PKG@/libexec/addto MANPATH @PKG@/share/man`
+    setenv MANPATH `@PKGV@/libexec/addto MANPATH @PKGV@/share/man`
 
 endif
 
-if ( -f  @PKG@/init/csh  ) then
-  source @PKG@/init/csh
+if ( -f  @PKGV@/init/csh  ) then
+  source @PKGV@/init/csh
 endif
 
 # Local Variables:

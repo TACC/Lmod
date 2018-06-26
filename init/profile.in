@@ -18,16 +18,16 @@ if [ -z "${USER_IS_ROOT:-}" ]; then
        for str in $(cat ${MODULEPATH_INIT} | sed 's/#.*$//'); do   # Allow end-of-line comments.
           for dir in $str; do
               if [ -d $dir ]; then
-                  export MODULEPATH=$(@PKG@/libexec/addto --append MODULEPATH $dir)
+                  export MODULEPATH=$(@PKGV@/libexec/addto --append MODULEPATH $dir)
               fi
 	  done
        done
     else
-       export MODULEPATH=$(@PKG@/libexec/addto --append MODULEPATH $MODULEPATH_ROOT/$LMOD_sys $MODULEPATH_ROOT/Core)
-       export MODULEPATH=$(@PKG@/libexec/addto --append MODULEPATH @PKG@/modulefiles/Core)
+       export MODULEPATH=$(@PKGV@/libexec/addto --append MODULEPATH $MODULEPATH_ROOT/$LMOD_sys $MODULEPATH_ROOT/Core)
+       export MODULEPATH=$(@PKGV@/libexec/addto --append MODULEPATH @PKGV@/modulefiles/Core)
     fi
 
-    export BASH_ENV=@PKG@/init/bash
+    export BASH_ENV=@PKGV@/init/bash
 
     #
     # If MANPATH is empty, Lmod is adding a trailing ":" so that
@@ -35,7 +35,7 @@ if [ -z "${USER_IS_ROOT:-}" ]; then
     if [ -z "${MANPATH:-}" ]; then
       export MANPATH=:
     fi
-    export MANPATH=$(@PKG@/libexec/addto MANPATH @PKG@/share/man)
+    export MANPATH=$(@PKGV@/libexec/addto MANPATH @PKGV@/share/man)
   fi
 
   PS_CMD=@ps@
@@ -67,10 +67,10 @@ if [ -z "${USER_IS_ROOT:-}" ]; then
   my_shell=$($PS_CMD -p $$ -ocomm=)
   my_shell=$($EXPR_CMD    "$my_shell" : '-*\(.*\)')
   my_shell=$($BASENAME_CMD $my_shell)
-  if [ -f @PKG@/init/$my_shell ]; then
-     .    @PKG@/init/$my_shell >/dev/null # Module Support
+  if [ -f @PKGV@/init/$my_shell ]; then
+     .    @PKGV@/init/$my_shell >/dev/null # Module Support
   else
-     .    @PKG@/init/sh        >/dev/null # Module Support
+     .    @PKGV@/init/sh        >/dev/null # Module Support
   fi
   unset my_shell PS_CMD EXPR_CMD BASENAME_CMD MODULEPATH_INIT
 fi

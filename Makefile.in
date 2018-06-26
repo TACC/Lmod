@@ -168,7 +168,7 @@ pre-install: $(DIRLIST) $(PKGS) lmodrc_init shell_init startup libexec    \
              man_pages messageFns i18n spiderCacheSupport
 
 install: pre-install  zsh_tab_funcs
-	$(MAKE) PKGV=$(PKG) shell_init
+	$(MAKE) PKGV=$(PKG) shell_init startup
 	@if test "$(SITE_CONTROLLED_PREFIX)" = "no" ; then                        \
 	   echo $(RM) $(DESTDIR)$(PKG);                                           \
 	   $(RM) $(DESTDIR)$(PKG);                                                \
