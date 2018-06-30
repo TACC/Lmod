@@ -50,6 +50,37 @@ Please submit a consulting ticket if you require additional assistance.
    -- LmodWarnings
    --------------------------------------------------------------------------
    w_Broken_Coll = [==[One or more modules in your %{collectionName} collection have changed: "%{module_list}".
+
+To see the contents of this collection do:
+  $ module describe %{collectionName}
+To forcibly load this collection without the changed modules do:
+  $ module restore %{collectionName} --force
+To rebuild the collection, load the modules you wish then do:
+  $ module save %{collectionName}
+If you no longer want this module collection do:
+  $ rm ~/.lmod.d/%{collectionName}
+
+For more information execute 'module help' or see http://lmod.readthedocs.org/
+No change in modules loaded
+
+]==],
+   w_Missing_Coll = [==[One or more modules in your %{collectionName} collection are missing: "%{module_list}".
+
+To see the contents of this collection do:
+  $ module describe %{collectionName}
+To forcibly load this collection without the missing modules do:
+  $ module restore %{collectionName} --force
+To rebuild the collection, load the modules you wish then do:
+  $ module save %{collectionName}
+If you no longer want this module collection do:
+  $ rm ~/.lmod.d/%{collectionName}
+
+For more information execute 'module help' or see http://lmod.readthedocs.org/
+No change in modules loaded
+
+]==],
+   w_Broken_Coll_Forced = [==[Forcibly loading collection %{collectionName} despite changed modules: "%{module_list}".
+
 To see the contents of this collection do:
   $ module describe %{collectionName}
 To rebuild the collection, load the modules you wish then do:
@@ -58,7 +89,18 @@ If you no longer want this module collection do:
   $ rm ~/.lmod.d/%{collectionName}
 
 For more information execute 'module help' or see http://lmod.readthedocs.org/
-No change in modules loaded
+
+]==],
+   w_Missing_Coll_Forced = [==[Forcibly loading collection %{collectionName} despite missing modules: "%{module_list}".
+
+To see the contents of this collection do:
+  $ module describe %{collectionName}
+To rebuild the collection, load the modules you wish then do:
+  $ module save %{collectionName}
+If you no longer want this module collection do:
+  $ rm ~/.lmod.d/%{collectionName}
+
+For more information execute 'module help' or see http://lmod.readthedocs.org/
 
 ]==],
    w_Broken_FullName = "Badly formed module-version line: module-name must be fully qualified: %{fullName} is not\n",

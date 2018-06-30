@@ -551,7 +551,7 @@ end
 -- state. If a user has a "default" then use that collection.
 -- Otherwise do a "Reset()"
 -- @param collection The user supplied collection name. If *nil* the use "default"
-function Restore(collection)
+function Restore(collection, force)
    dbg.start{"Restore(",collection,")"}
 
    local msg
@@ -589,6 +589,12 @@ function Restore(collection)
 
 
    local masterTbl = masterTbl()
+   local force
+   if (masterTbl.force) then
+      force = true
+   else
+      force = false
+   end
 
    if (collection == "system" ) then
       msg = "system default" .. msgTail
@@ -605,7 +611,7 @@ function Restore(collection)
       Reset(msg)
    else
       local mt      = FrameStk:singleton():mt()
-      local results = mt:getMTfromFile{fn=path, name=myName, msg=msg}
+      local results = mt:getMTfromFile{fn=path, name=myName, msg=msg, force=force}
       if (not results and collection == "default") then
          Reset(msg)
       end
