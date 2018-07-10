@@ -73,3 +73,4 @@ Lmod 7.7+
    (7.7.37) When building reverseMap also take abspath(path) and store it if different.
             Now make startup scripts (profile.in, cshrc.in, profile.fish.in) use PKGV instead of PKG so
 	    that the pre-install create $VERSION files. The install target will convert them to PKG.
+   (7.7.38) Check for "g" tools like gbasename, gexpr as well as the regular basename, expr etc.

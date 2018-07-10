@@ -446,7 +446,7 @@ if test "$PS" = "UNKNOWN_PS" ; then
   exit
 fi
 
-AC_PATH_PROG(EXPR,expr, UNKNOWN_EXPR)
+AC_PATH_PROGS(EXPR,[gexpr] [expr], UNKNOWN_EXPR)
 if test "$EXPR" = "UNKNOWN_EXPR" ; then
   echo
   echo "You must have either ps in your path. Quitting!"
@@ -455,7 +455,7 @@ if test "$EXPR" = "UNKNOWN_EXPR" ; then
   exit
 fi
 
-AC_PATH_PROG(BASENAME, basename, UNKNOWN_BASENAME)
+AC_PATH_PROGS(BASENAME, [gbasename] [basename], UNKNOWN_BASENAME)
 if test "$BASENAME" = "UNKNOWN_BASENAME" ; then
   echo
   echo "You must have either basename in your path. Quitting!"
@@ -468,9 +468,9 @@ fi
 
 
 
-AC_PATH_PROG(PATH_TO_LS, ls, "")
+AC_PATH_PROGS(PATH_TO_LS, [gls] [ls], "")
 AC_PATH_PROG(PATH_TO_GIT, git, "")
-AC_PATH_PROG(PATH_TO_PAGER,[less] [more], [more])
+AC_PATH_PROGS(PATH_TO_PAGER,[less] [more], [more])
 
 AC_PATH_PROGS(PATH_TO_HASHSUM, [sha1sum] [gsha1sum] [shasum] [md5sum] [gmd5sum] [md5], UNKNOWN_HASHSUM)
 if test "`basename $PATH_TO_HASHSUM`" = "md5" ; then
@@ -491,7 +491,7 @@ if test "$PATH_TO_TCLSH" = "UNKNOWN_TCLSH" -a "$ALLOW_TCL_MFILES" = yes; then
   rm -f makefile
   exit
 fi
-AC_PATH_PROG(PATH_TO_TR, [tr],"")
+AC_PATH_PROGS(PATH_TO_TR, [gtr] [tr],"")
 
 AC_PATH_PROG(PATH_TO_LUAC, [luac])
 AC_PATH_PROG(luaprog, [lua], "")
