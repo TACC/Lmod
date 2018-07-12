@@ -164,7 +164,7 @@ local function versionFile(mrc, defaultT)
       LmodError{msg = "e_Unable_2_parse", path = path}
    end
 
-   declare("modA",{})
+   declare("ModA",{})
    ok, func = pcall(load, whole)
    if (not ok or not func) then
       LmodError{msg = "e_Unable_2_parse", path = path}
@@ -173,7 +173,11 @@ local function versionFile(mrc, defaultT)
 
    local _, _, name = defaultT.fullName:find("(.*)/.*")
 
-   defaultT.value = mrc:parseModA_for_moduleA(name,modA)
+   dbg.print{"In versionFile\n"}
+
+   defaultT.value = mrc:parseModA_for_moduleA(name,ModA)
+
+   dbg.print{"Back in  versionFile\n"}
 
    return defaultT
 end

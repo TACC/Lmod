@@ -8,22 +8,22 @@ describe("Testing MRC class #MRC.",
             it("Test parsing of modA",
                function()
                   local mrc = MRC:singleton()
-                  local modA={
+                  local ModA={
                      {kind="module-version",module_name="/15.0.2",      module_versionA={"15.0","15"}},
                      {kind="module-version",module_name="intel/14.0.3", module_versionA={"14.0"}},
                      {kind="module-version",module_name="intel/14.0",   module_versionA={"14"}},
                      {kind="module-version",module_name="intel/14",     module_versionA={"default"}},
                   }
-                  local defaultV = mrc:parseModA_for_moduleA("intel", modA)
+                  local defaultV = mrc:parseModA_for_moduleA("intel", ModA)
                   assert.are.equal("intel/14.0.3" , defaultV)
 
-                  modA={
+                  ModA={
                      {kind="module-version", module_name="/15.0.2", module_versionA={"15.0","15"}},
                      {kind="module-version", module_name="/14.0.3", module_versionA={"14.0"}},
                      {kind="module-version", module_name="/14.0",   module_versionA={"14"}},
                      {kind="module-version", module_name="/14",     module_versionA={"default"}},
                   }
-                  defaultV = mrc:parseModA_for_moduleA("intel", modA)
+                  defaultV = mrc:parseModA_for_moduleA("intel", ModA)
                   assert.are.equal("intel/14.0.3" , defaultV)
                end)
          end

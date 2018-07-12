@@ -240,7 +240,7 @@ MODULEPATH_ROOT
 number of cache dirs             0
 Pager                            less
 Pager Options                    -XqMREF
-Path to HashSum                  /usr/bin/sha1sum
+Path to HashSum                  PATH_to_HASHSUM
 Path to Lua                      lua
 Pin Versions in restore          no
 Pkg Class name                   Pkg

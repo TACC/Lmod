@@ -71,8 +71,6 @@ ExitHookA = require("HookArray")
 ------------------------------------------------------------------------
 setenv_posix("LC_ALL","C",true)
 
-
-
 ------------------------------------------------------------------------
 -- MODULEPATH_INIT: Name of the file that can be used to initialize
 --                  MODULEPATH in the startup scripts
@@ -330,6 +328,13 @@ end
 cosmic:init{name    = "LFS_VERSION",
             default = "1.6.3",            
             assignV = lfs._VERSION:gsub("LuaFileSystem  *","")}
+
+------------------------------------------------------------------------
+--  ModA:  A global array used to collect from .modulerc etc files
+------------------------------------------------------------------------
+--
+--ModA           = false
+--
 
 ------------------------------------------------------------------------
 -- MCP, mcp:  Master Control Program objects.  These objects implement

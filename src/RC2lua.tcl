@@ -65,7 +65,7 @@ proc module-version {args} {
 
 proc main {mRcFile} {
     global env
-    puts stdout "modA=\{"
+    puts stdout "ModA=\{"
     set version  -1
     set found 0
 

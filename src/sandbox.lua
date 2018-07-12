@@ -60,7 +60,7 @@ sandbox_run = false
 
 --------------------------------------------------------------------------
 -- Table containing valid functions for modulefiles.
-sandbox_env = {
+local sandbox_env = {
   loadfile = loadfile,
   require  = require,
   ipairs   = ipairs,
