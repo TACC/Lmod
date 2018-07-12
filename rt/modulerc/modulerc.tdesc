@@ -91,6 +91,11 @@ EOF
      runLmod avail                    #29
      runLmod --show_hidden avail      #30
 
+     export LMOD_MODULERCFILE=$testDir/dot.modulerc.lua
+     runLmod avail                    #31
+     runLmod --show_hidden avail      #32
+     
+
 
 
 

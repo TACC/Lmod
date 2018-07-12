@@ -1,7 +1,4 @@
---------------------------------------------------------------------------
--- This file contains the lua based function used by the lua based
--- .modulerc.lua files
-
+-- This file loads the .modulerc.lua, .modulerc and .version files
 require("strict")
 
 --------------------------------------------------------------------------
@@ -38,26 +35,52 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
---module_version("module_name","v1","v2"...)
-function module_version(module_name, ...)
-   local argA = pack(...)
-   argA.n     = nil
-   ModA[#ModA+1] = {kind="module_version", module_name=module_name, module_versionA=argA}
+require("fileOps")
+require("mrc_sandbox")
+
+local dbg = require("Dbg"):dbg()
+
+function mrc_load(fn)
+   local whole
+   local ok
+   local func
+   local msg
+   local status
+
+   declare("ModA",false)
+   ModA = {}
+   local myType = extname(fn)
+   if (myType == ".lua") then
+      local f = io.open(fn)
+      whole   = false
+      if (f) then
+         whole = f:read("*all")
+         dbg.start{"RC_File(",fn,")"}
+         dbg.print{whole}
+         dbg.fini("RC_File")
+         f:close()
+      end
+      if (whole) then
+         status, msg = mrc_sandbox_run(whole)
+      else
+         status = nil
+         msg    = "Empty or non-existant file"
+      end
+      if (not status) then
+         LmodError{msg="e_Unable_2_Load", name = "<unknown>", fn = fn, message = msg}
+      end
+   else
+      whole, ok = runTCLprog("RC2lua.tcl", "", fn)
+      if (not ok) then
+         LmodError{msg = "e_Unable_2_parse", path = fn}
+      end
+
+      ok, func = pcall(load, whole)
+      if (not ok or not func) then
+         LmodError{msg = "e_Unable_2_parse", path = fn}
+      end
+      func()
+   end
+   --dbg.printT("ModA",ModA)
+   return ModA
 end
-
---module_alias("name","modulefile")
-function module_alias(name,mfile)
-   ModA[#ModA+1] = {kind="module_alias", name=name, mfile=mfile}
-end
-
---hide_version("full_module_version")
-function hide_version(full)
-   ModA[#ModA+1] = {kind="hide_version", mfile=full}
-end
-
-
---hide_modulefile("/path/to/modulefile")
-function hide_modulefile(path)
-   ModA[#ModA+1] = {kind="hide_modulefile", mfile=path}
-end
-

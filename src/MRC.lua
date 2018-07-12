@@ -1,5 +1,4 @@
---------------------------------------------------------------------------
--- This class is a singleton controlling the version and alias mapping.
+
 -- Site create .modulerc files to specify that certain strings can be
 -- also know as.  Here are some examples:
 --
@@ -55,7 +54,7 @@ require("strict")
 
 require("fileOps")
 require("utils")
-require("mrc_sandbox")
+require("mrc_load")
 
 local M         = {}
 local dbg       = require("Dbg"):dbg()
@@ -116,50 +115,12 @@ end
 
 function l_build(self, fnA)
    dbg.start{"MRC l_build(self,fnA)"}
-   -- modA gets the contents of the modulerc
-   declare("ModA",{})
-   local whole
-   local ok
-   local func
-   local msg
-   local status
-
    for i = 1, #fnA do
       local fn     = fnA[i][1]
       if (isFile(fn)) then
          local weight = fnA[i][2]
-         local myType = extname(fn)
-         if (myType == ".lua") then
-            local f = io.open(fn)
-            if (f) then
-               whole = f:read("*all")
-               dbg.start{"RC File(",fn,")"}
-               dbg.print(whole)
-               dbg.fini("RC File")
-               f:close()
-            end
-            if (whole) then
-               status, msg = mrc_sandbox_run(whole)
-            else
-               status = nil
-               msg    = "Empty or non-existant file"
-            end
-            if (not status) then
-               LmodError{msg="e_Unable_2_load", name = "", fn = fn, message = msg}
-            end
-         else
-            whole, ok = runTCLprog("RC2lua.tcl", "", fn)
-            if (not ok) then
-               LmodError{msg = "e_Unable_2_parse", path = fn}
-            end
-
-            ok, func = pcall(load, whole)
-            if (not ok or not func) then
-               LmodError{msg = "e_Unable_2_parse", path = fn}
-            end
-            func()
-         end
-         l_parseModA(self, ModA, weight)
+         local modA   = mrc_load(fn)
+         l_parseModA(self, modA, weight)
       end
    end
    dbg.fini("MRC l_build")

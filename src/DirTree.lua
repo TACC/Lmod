@@ -68,9 +68,10 @@ local ignoreT = {
 }
 
 local defaultFnT = {
-   default       = 1,
-   ['.modulerc'] = 2,
-   ['.version']  = 3,
+   default           = 1,
+   ['.modulerc.lua'] = 2,
+   ['.modulerc']     = 3,
+   ['.version']      = 4,
 }
 
 local function keepFile(fn)
@@ -150,34 +151,20 @@ local function versionFile(mrc, defaultT)
       return defaultT
    end
 
-   if (not checkValidModulefile(path)) then
+   local luaExt = path:find("%.lua$")
+
+   if (not luaExt and not checkValidModulefile(path)) then
       return defaultT
    end
 
-   local version = false
-   local whole
-   local ok
-   local func
-   local optStr  = ""
-   whole, ok = runTCLprog("RC2lua.tcl", optStr, path)
-   if (not ok) then
-      LmodError{msg = "e_Unable_2_parse", path = path}
-   end
-
-   declare("ModA",{})
-   ok, func = pcall(load, whole)
-   if (not ok or not func) then
-      LmodError{msg = "e_Unable_2_parse", path = path}
-   end
-   func()
-
+   local modA = mrc_load(path)
    local _, _, name = defaultT.fullName:find("(.*)/.*")
 
    dbg.print{"In versionFile\n"}
 
-   defaultT.value = mrc:parseModA_for_moduleA(name,ModA)
+   defaultT.value = mrc:parseModA_for_moduleA(name,modA)
 
-   dbg.print{"Back in  versionFile\n"}
+   dbg.print{"Back in versionFile\n"}
 
    return defaultT
 end

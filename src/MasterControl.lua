@@ -619,7 +619,7 @@ local function l_generateMsg(kind, label, ...)
    if (arg.n == 1 and type(arg[1]) == "table") then
       local t   = arg[1]
       local key = t.msg
-      local msg = i18n(key, t)
+      local msg = i18n(key, t) or "Unknown Error Message"
       msg       = hook.apply("errWarnMsgHook", kind, key, msg, t) or msg
       sA[#sA+1] = buildMsg(twidth, label, msg)
    else

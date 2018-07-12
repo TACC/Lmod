@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.7.14  2017-11-16 16:23 -07:00
+Modules based on Lua: Version 7.7.37  2018-06-26 14:30 +02:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -88,6 +88,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t avail
 ===========================
 a13(@a/13.2.345)
 a14(@a/14.0.1.134)
+z13(@z/13.2.345)
 ProjectDIR/rt/modulerc/mf/Core:
 Rstats/
 Rstats/2.1.5
@@ -97,6 +98,13 @@ a/13(@a/13.2.345)
 a/13.2.345
 a/14(@a/14.0.1.134)
 a/14.0.1.134
+ab2/
+ab2/6(@ab2/6.12.3)
+ab2/6.12(@ab2/6.12.3)
+ab2/6.12.3
+ab2/7(@ab2/7.4.3)
+ab2/7.4(@ab2/7.4.3)
+ab2/7.4.3
 abinit/
 abinit/6(@abinit/6.12.3)
 abinit/6.12(@abinit/6.12.3)
@@ -106,6 +114,8 @@ abinit/7.4(@abinit/7.4.3)
 abinit/7.4.3
 arpack/openmpi/
 arpack/openmpi/3.1.4
+h2/
+h2/2.0
 intel/
 intel/14.0.2
 intel/14(@intel/14.0.3)
@@ -115,21 +125,42 @@ intel/15.0.1
 intel/15(@intel/15.0.2)
 intel/15.0(@intel/15.0.2)
 intel/15.0.2
+jtel/
+jtel/14.0.2
+jtel/14(@jtel/14.0.3)
+jtel/14.0(@jtel/14.0.3)
+jtel/14.0.3
+jtel/15.0.1
+jtel/15(@jtel/15.0.2)
+jtel/15.0(@jtel/15.0.2)
+jtel/15.0.2
+z/
+z/13.1.23
+z/13(@z/13.2.345)
+z/13.2.345
+z/14(@z/14.0.1.134)
+z/14.0.1.134
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
 ===========================
 Global Aliases
-   a13 -> a/13.2.345    a14 -> a/14.0.1.134
+   a13 -> a/13.2.345    a14 -> a/14.0.1.134    z13 -> z/13.2.345
 ProjectDIR/rt/modulerc/mf/Core
-   Rstats/2.1.5                        b/3.14       (H)
-   a/13.1.23                           dummy/2.0    (H)
-   a/13.2.345           (L,13)         hidden/1.0   (H)
-   a/14.0.1.134         (D:14)         hidden/2.0   (H,L)
-   abinit/6.12.3        (6:6.12)       intel/14.0.2
-   abinit/7.4.3         (L,D:7:7.4)    intel/14.0.3 (D:14:14.0)
-   arpack/.common.96    (H)            intel/15.0.1
-   arpack/openmpi/3.1.4                intel/15.0.2 (L,15:15.0)
+   Rstats/2.1.5                        hidden/1.0   (H)
+   a/13.1.23                           hidden/2.0   (H,L)
+   a/13.2.345           (L,13)         intel/14.0.2
+   a/14.0.1.134         (D:14)         intel/14.0.3 (D:14:14.0)
+   ab2/6.12.3           (6:6.12)       intel/15.0.1
+   ab2/7.4.3            (D:7:7.4)      intel/15.0.2 (L,15:15.0)
+   abinit/6.12.3        (6:6.12)       jtel/14.0.2
+   abinit/7.4.3         (L,D:7:7.4)    jtel/14.0.3  (D:14:14.0)
+   arpack/.common.96    (H)            jtel/15.0.1
+   arpack/openmpi/3.1.4                jtel/15.0.2  (15:15.0)
+   b/3.14               (H)            z/13.1.23
+   dummy/2.0            (H)            z/13.2.345   (13)
+   h2/1.0               (H)            z/14.0.1.134 (D:14)
+   h2/2.0               (D)
   Where:
    Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
    D:        Default Module
@@ -142,14 +173,19 @@ step 18
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 Global Aliases
-   a13 -> a/13.2.345    a14 -> a/14.0.1.134
+   a13 -> a/13.2.345    a14 -> a/14.0.1.134    z13 -> z/13.2.345
 ProjectDIR/rt/modulerc/mf/Core
-   Rstats/2.1.5                 arpack/openmpi/3.1.4
-   a/13.1.23                    intel/14.0.2
-   a/13.2.345    (L,13)         intel/14.0.3         (D:14:14.0)
-   a/14.0.1.134  (D:14)         intel/15.0.1
-   abinit/6.12.3 (6:6.12)       intel/15.0.2         (L,15:15.0)
-   abinit/7.4.3  (L,D:7:7.4)
+   Rstats/2.1.5                        intel/14.0.3 (D:14:14.0)
+   a/13.1.23                           intel/15.0.1
+   a/13.2.345           (L,13)         intel/15.0.2 (L,15:15.0)
+   a/14.0.1.134         (D:14)         jtel/14.0.2
+   ab2/6.12.3           (6:6.12)       jtel/14.0.3  (D:14:14.0)
+   ab2/7.4.3            (D:7:7.4)      jtel/15.0.1
+   abinit/6.12.3        (6:6.12)       jtel/15.0.2  (15:15.0)
+   abinit/7.4.3         (L,D:7:7.4)    z/13.1.23
+   arpack/openmpi/3.1.4                z/13.2.345   (13)
+   h2/2.0                              z/14.0.1.134 (D:14)
+   intel/14.0.2
   Where:
    Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
    D:        Default Module
@@ -161,14 +197,19 @@ step 19
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 Global Aliases
-   a13 -> a/13.2.345    a14 -> a/14.0.1.134
+   a13 -> a/13.2.345    a14 -> a/14.0.1.134    z13 -> z/13.2.345
 ProjectDIR/rt/modulerc/mf/Core
-   Rstats/2.1.5                 arpack/openmpi/3.1.4
-   a/13.1.23                    intel/14.0.2
-   a/13.2.345    (L,13)         intel/14.0.3         (D:14:14.0)
-   a/14.0.1.134  (D:14)         intel/15.0.1
-   abinit/6.12.3 (6:6.12)       intel/15.0.2         (L,15:15.0)
-   abinit/7.4.3  (L,D:7:7.4)
+   Rstats/2.1.5                        intel/14.0.3 (D:14:14.0)
+   a/13.1.23                           intel/15.0.1
+   a/13.2.345           (L,13)         intel/15.0.2 (L,15:15.0)
+   a/14.0.1.134         (D:14)         jtel/14.0.2
+   ab2/6.12.3           (6:6.12)       jtel/14.0.3  (D:14:14.0)
+   ab2/7.4.3            (D:7:7.4)      jtel/15.0.1
+   abinit/6.12.3        (6:6.12)       jtel/15.0.2  (15:15.0)
+   abinit/7.4.3         (L,D:7:7.4)    z/13.1.23
+   arpack/openmpi/3.1.4                z/13.2.345   (13)
+   h2/2.0                              z/14.0.1.134 (D:14)
+   intel/14.0.2
   Where:
    Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
    D:        Default Module
@@ -180,14 +221,19 @@ step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 Global Aliases
-   a13 -> a/13.2.345    a14 -> a/14.0.1.134
+   a13 -> a/13.2.345    a14 -> a/14.0.1.134    z13 -> z/13.2.345
 ProjectDIR/rt/modulerc/mf/Core
-   Rstats/2.1.5                 arpack/openmpi/3.1.4
-   a/13.1.23                    intel/14.0.2
-   a/13.2.345    (L,13)         intel/14.0.3         (D:14:14.0)
-   a/14.0.1.134  (D:14)         intel/15.0.1
-   abinit/6.12.3 (6:6.12)       intel/15.0.2         (L,15:15.0)
-   abinit/7.4.3  (L,D:7:7.4)
+   Rstats/2.1.5                        intel/14.0.3 (D:14:14.0)
+   a/13.1.23                           intel/15.0.1
+   a/13.2.345           (L,13)         intel/15.0.2 (L,15:15.0)
+   a/14.0.1.134         (D:14)         jtel/14.0.2
+   ab2/6.12.3           (6:6.12)       jtel/14.0.3  (D:14:14.0)
+   ab2/7.4.3            (D:7:7.4)      jtel/15.0.1
+   abinit/6.12.3        (6:6.12)       jtel/15.0.2  (15:15.0)
+   abinit/7.4.3         (L,D:7:7.4)    z/13.1.23
+   arpack/openmpi/3.1.4                z/13.2.345   (13)
+   h2/2.0                              z/14.0.1.134 (D:14)
+   intel/14.0.2
   Where:
    Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
    D:        Default Module
@@ -214,7 +260,7 @@ step 24
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 Global Aliases
-   a13 -> a/13.2.345
+   a13 -> a/13.2.345    z13 -> z/13.2.345
 ProjectDIR/rt/modulerc/mf4
    a/1.0        a/3.0              mpich/3.1.2      mpich/3.2 (D)
    a/2.0 (D)    mpich/3.1.2-dbg    mpich/3.2-dbg
@@ -227,7 +273,7 @@ step 25
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 Global Aliases
-   a13 -> a/13.2.345    a14 -> a/14.0.1.134
+   a13 -> a/13.2.345    a14 -> a/14.0.1.134    z13 -> z/13.2.345
 ProjectDIR/rt/modulerc/mf4
    a/1.0    a/3.0    mpich/3.1.2-dbg    mpich/3.1.2    mpich/3.2-dbg (D)
   Where:
@@ -239,7 +285,7 @@ step 26
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
 ===========================
 Global Aliases
-   a13 -> a/13.2.345    a14 -> a/14.0.1.134
+   a13 -> a/13.2.345    a14 -> a/14.0.1.134    z13 -> z/13.2.345
 ProjectDIR/rt/modulerc/mf4
    a/1.0          a/3.0              mpich/3.1.2          mpich/3.2 (H)
    a/2.0 (H,D)    mpich/3.1.2-dbg    mpich/3.2-dbg (D)
@@ -265,7 +311,7 @@ step 29
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 Global Aliases
-   a13 -> a/13.2.345    a14 -> a/14.0.1.134
+   a13 -> a/13.2.345    a14 -> a/14.0.1.134    z13 -> z/13.2.345
 ProjectDIR/rt/modulerc/mf4
    a/1.0    a/3.0    mpich/3.1.2-dbg    mpich/3.1.2    mpich/3.2-dbg (L,D)
   Where:
@@ -278,7 +324,35 @@ step 30
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
 ===========================
 Global Aliases
-   a13 -> a/13.2.345    a14 -> a/14.0.1.134
+   a13 -> a/13.2.345    a14 -> a/14.0.1.134    z13 -> z/13.2.345
+ProjectDIR/rt/modulerc/mf4
+   a/1.0            a/3.0              mpich/3.1.2            mpich/3.2 (H)
+   a/2.0 (H,L,D)    mpich/3.1.2-dbg    mpich/3.2-dbg (L,D)
+  Where:
+   D:  Default Module
+   H:  Hidden Module
+   L:  Module is loaded
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 31
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+Global Aliases
+   a13 -> a/13.2.345    a14 -> a/14.0.1.134    z13 -> z/13.2.345
+ProjectDIR/rt/modulerc/mf4
+   a/1.0    a/3.0    mpich/3.1.2-dbg    mpich/3.1.2    mpich/3.2-dbg (L,D)
+  Where:
+   D:  Default Module
+   L:  Module is loaded
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 32
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
+===========================
+Global Aliases
+   a13 -> a/13.2.345    a14 -> a/14.0.1.134    z13 -> z/13.2.345
 ProjectDIR/rt/modulerc/mf4
    a/1.0            a/3.0              mpich/3.1.2            mpich/3.2 (H)
    a/2.0 (H,L,D)    mpich/3.1.2-dbg    mpich/3.2-dbg (L,D)
