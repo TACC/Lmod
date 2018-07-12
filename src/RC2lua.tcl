@@ -41,15 +41,15 @@ proc doubleQuoteEscaped {text} {
 }
 
 proc module-alias {name mfile} {
-    puts stdout "\{kind=\"module-alias\",name=\"$name\",mfile=\"$mfile\"\},"
+    puts stdout "\{kind=\"module_alias\",name=\"$name\",mfile=\"$mfile\"\},"
 }
 
 proc hide-version {mfile} {
-    puts stdout "\{kind=\"hide-version\", mfile=\"$mfile\"\},"
+    puts stdout "\{kind=\"hide_version\", mfile=\"$mfile\"\},"
 }
 
 proc hide-modulefile {mfile} {
-    puts stdout "\{kind=\"hide-modulefile\", mfile=\"$mfile\"\},"
+    puts stdout "\{kind=\"hide_modulefile\", mfile=\"$mfile\"\},"
 }
 
 
@@ -60,7 +60,7 @@ proc module-version {args} {
         lappend argL "\"$val\""
     }
     set versionA [join $argL ","]
-    puts stdout "\{kind=\"module-version\",module_name=\"$module_name\", module_versionA=\{$versionA\}\},"
+    puts stdout "\{kind=\"module_version\",module_name=\"$module_name\", module_versionA=\{$versionA\}\},"
 }
 
 proc main {mRcFile} {
@@ -86,7 +86,7 @@ proc main {mRcFile} {
     #}
 
     if { $found > 0 } {
-        puts stdout "\{kind=\"set-default-version\", version=\"$version\"\}"
+        puts stdout "\{kind=\"set_default_version\", version=\"$version\"\}"
     }
     puts stdout "\}"
 }

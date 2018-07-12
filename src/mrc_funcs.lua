@@ -21,7 +21,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -45,46 +45,25 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
-mrc_sandbox_run = false
-
-require("mrc_funcs")
---------------------------------------------------------------------------
--- Table containing valid functions for modulefiles.
-local mrc_sandbox_env = {
-   module_alias    = module_alias,
-   module_version  = module_version,
-   hide_version    = hide_version,
-   hide_modulefile = hide_modulefile,
-}
-
-
---------------------------------------------------------------------------
--- This function is what actually "loads" a modulefile with protection
--- against modulefiles call functions they shouldn't or syntax errors
--- of any kind.
--- @param untrusted_code A string containing lua code
-
-local function mrc_run5_1(untrusted_code)
-  if untrusted_code:byte(1) == 27 then return nil, "binary bytecode prohibited" end
-  local untrusted_function, message = loadstring(untrusted_code)
-  if not untrusted_function then return nil, message end
-  setfenv(untrusted_function, mrc_sandbox_env)
-  return pcall(untrusted_function)
+--module_version("module_name","v1","v2"...)
+function module_version(module_name, ...)
+   local argA = pack(...)
+   ModA[#ModA+1] = {kind="module_version", module_name=module_name, module_versionA=argA}
 end
 
---------------------------------------------------------------------------
--- This function is what actually "loads" a modulefile with protection
--- against modulefiles call functions they shouldn't or syntax errors
--- of any kind. This run codes under environment [Lua 5.2] or later.
--- @param untrusted_code A string containing lua code
-local function mrc_run5_2(untrusted_code)
-  local untrusted_function, message = load(untrusted_code, nil, 't', mrc_sandbox_env)
-  if not untrusted_function then return nil, message end
-  return pcall(untrusted_function)
+--module_alias("name","modulefile")
+function module_alias(name,mfile)
+   ModA[#ModA+1] = {kind="module_alias", name=name, mfile=mfile}
 end
 
---------------------------------------------------------------------------
--- Define two version: Lua 5.1 or 5.2.  It is likely that
--- The 5.2 version will be good for many new versions of
--- Lua but time will only tell.
-mrc_sandbox_run = (_VERSION == "Lua 5.1") and mrc_run5_1 or mrc_run5_2
+--hide_version("full_module_version")
+function hide_version(full)
+   ModA[#ModA+1] = {kind="hide_version", mfile=full}
+end
+
+
+--hide_modulefile("/path/to/modulefile")
+function hide_modulefile(path)
+   ModA[#ModA+1] = {kind="hide_modulefile", mfile=path}
+end
+

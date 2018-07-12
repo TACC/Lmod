@@ -65,6 +65,12 @@ local load      = (_VERSION == "Lua 5.1") and loadstring or load
 local s_MRC     = false
 local hook      = require("Hook")
 
+local function argsPack(...)
+   local arg = { n = select("#", ...), ...}
+   return arg
+end
+local pack      = (_VERSION == "Lua 5.1") and argsPack or table.pack  -- luacheck: compat
+
 ------------------------------------------------------------------------
 -- Local functions
 local l_build             
@@ -166,7 +172,7 @@ function l_parseModA(self, modA, weight)
          local entry = modA[i]
          dbg.print{"entry.kind: ",entry.kind, "\n"}
 
-         if (entry.kind == "module-version") then
+         if (entry.kind == "module_version") then
             local fullName = entry.module_name
             fullName = self:resolve(fullName)
             dbg.print{"self:resolve(fullName): ",fullName, "\n"}
@@ -191,13 +197,13 @@ function l_parseModA(self, modA, weight)
                   dbg.print{"v2m: key: ",key,": ",fullName,"\n"}
                end
             end
-         elseif (entry.kind == "module-alias") then
+         elseif (entry.kind == "module_alias") then
             dbg.print{"name: ",entry.name,", mfile: ", entry.mfile,"\n"}
             self.__alias2modT[entry.name] = entry.mfile
-         elseif (entry.kind == "hide-version") then
+         elseif (entry.kind == "hide_version") then
             dbg.print{"mfile: ", entry.mfile,"\n"}
             self.__hiddenT[entry.mfile] = true
-         elseif (entry.kind == "hide-modulefile") then
+         elseif (entry.kind == "hide_modulefile") then
             dbg.print{"mfile: ", entry.mfile,"\n"}
             self.__hiddenT[entry.mfile] = true
          end
@@ -280,7 +286,7 @@ function M.parseModA_for_moduleA(self, name, modA)
       local entry = modA[i]
       dbg.print{"entry.kind: ",entry.kind, "\n"}
 
-      if (entry.kind == "module-version") then
+      if (entry.kind == "module_version") then
          local fullName = entry.module_name
          if (fullName:sub(1,1) == '/') then
             fullName = name .. fullName
@@ -303,10 +309,10 @@ function M.parseModA_for_moduleA(self, name, modA)
                dbg.print{"v2m: key: ",key,": ",fullName,"\n"}
             end
          end
-      elseif (entry.kind == "set-default-version") then
+      elseif (entry.kind == "set_default_version") then
          dbg.print{"version: ",entry.version,"\n"}
          defaultV = entry.version
-      elseif (entry.kind == "module-alias") then
+      elseif (entry.kind == "module_alias") then
          local fullName = entry.name
          if (fullName:sub(1,1) == '/') then
             fullName = name .. fullName
@@ -318,17 +324,17 @@ function M.parseModA_for_moduleA(self, name, modA)
          end
          dbg.print{"fullName: ",fullName,", mfile: ", mfile,"\n"}
          self.__alias2modT[fullName] = mfile
-      elseif (entry.kind == "hide-version") then
+      elseif (entry.kind == "hide_version") then
          dbg.print{"mfile: ", entry.mfile,"\n"}
          self.__hiddenT[entry.mfile] = true
-      elseif (entry.kind == "hide-modulefile") then
+      elseif (entry.kind == "hide_modulefile") then
          dbg.print{"mfile: ", entry.mfile,"\n"}
          self.__hiddenT[entry.mfile] = true
       end
    end
    dbg.fini("MRC:parseModA_for_moduleA")
    return defaultV
-endp
+end
 
 
 function M.fullNameDfltT(self)
@@ -394,23 +400,6 @@ function M.update(self, fnA)
    fnA = fnA or getModuleRCT()
    l_build(self,fnA)
    dbg.fini("MRC:update")
-end
-
---module_version("modulefile","v1","v2"...)
-function module_version(mfile,...)
-end
-
---module_alias("name","modulefile")
-function module_alias(name,mfile)
-end
-
---hide_version("full_module_version")
-function hide_version(full)
-end
-
-
---hide_modulefile("/path/to/modulefile")
-function hide_modulefile(path)
 end
 
 

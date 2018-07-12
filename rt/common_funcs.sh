@@ -22,7 +22,7 @@ cleanUp ()
 
    sed                                                    \
        -e "s|\@git\@|$gitV|g"                             \
-       -e "s|/usr/bin/sha1sum|PATH_to_HASHSUM|g"         \
+       -e "s|/usr/bin/sha1sum|PATH_to_HASHSUM|g"          \
        -e "s|:$PATH_to_LUA\([:;]\)|\1|g"                  \
        -e "s|;$PATH_to_LUA:[0-9];|;|g"                    \
        -e "s| $PATH_to_LUA||g"                            \
