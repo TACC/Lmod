@@ -80,7 +80,8 @@ the configuration option which will set the action.
 **LMOD_ALLOW_TCL_MFILES**:
   [yes/no, default: yes, --with-tcl].  Allow tcl modulefiles.  Note
   that .version and .modulerc files still use the tcl interpreter. So
-  setting this to no.
+  setting this to no means that your site will have to use either the
+  "default" symlink or ".modulerc.lua" to specify defaults.
 
 **LMOD_ANCIENT**:
   [number, default:86400, --with-ancient].  The number of seconds that

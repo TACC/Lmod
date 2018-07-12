@@ -110,20 +110,26 @@ order.  The first way is to make a symbolic link between a file named
     $ cd /opt/apps/modulefiles/Core/ucc; ln -s 11.1.lua default
 
 
-A second way to mark a default is with a .modulerc file in the same
+A second way to mark a default is with a .modulerc.lua file in the same
+directory as the modulefiles.::
+
+    module_version("ucc/11.1", "default")
+
+
+A third way to mark a default is with a .modulerc file in the same
 directory as the modulefiles.::
 
     #%Module
     module-version ucc/11.1 default
 
 
-There is a third method to pick the default module.  If you create a
+There is a four method to pick the default module.  If you create a
 .version file in the ucc directory that contains::
 
     #%Module
     set   ModulesVersion   "11.1"
 
-Please note that either a .modulerc or .version file must be in the
+Please note that a .modulerc.lua, .modulerc or .version file must be in the
 same directory as the 11.1.lua file in order for Lmod to read it.
 
 Using any of the above three ways will change the default to version
@@ -211,6 +217,7 @@ a particular version file when in an N/V layout. Lmod choses the
 setting of the default directory in the following order:
 
 #. ``default`` symlink
+#. ``.modulerc.lua``
 #. ``.modulerc``
 #. ``.version``
 
@@ -228,6 +235,11 @@ points to ``/apps/modulefiles/A/foo/64``.  Or you can have the contents of
 
     #%Module
     module-version 64 default
+
+or you can have the contents of
+``/apps/modulefiles/A/foo/.modulerc.lua`` contain::
+
+    module_version("64","default")
 
 or you can have the contents of ``/apps/modulefiles/A/foo/.version``
 contain::
