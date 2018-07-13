@@ -13,7 +13,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -123,15 +123,14 @@ function M.setStandardPaths(self, ...)
    local siteName = hook.apply("SiteName"):upper()
    local base     = self:pkgBase()
    local pkgNameU = self:pkgDisplayName():upper()
+   local argA     = pack(...)
 
-   local arg = pack(...)
 
-
-   for i = 1, arg.n do
-      local v  = arg[i]:upper()
+   for i = 1, argA.n do
+      local v  = argA[i]:upper()
       local pp = stdT[v]             -- Path piece
       if (pp == nil) then
-         LmodError{msg="e_setStandardPaths", key = arg[i]}
+         LmodError{msg="e_setStandardPaths", key = argA[i]}
       end
 
       local name = siteName .. "_" .. pkgNameU .. "_" .. v

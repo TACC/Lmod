@@ -10,7 +10,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -615,9 +615,9 @@ end
 local function l_generateMsg(kind, label, ...)
    local sA     = {}
    local twidth = TermWidth()
-   local arg    = pack(...)
-   if (arg.n == 1 and type(arg[1]) == "table") then
-      local t   = arg[1]
+   local argA   = pack(...)
+   if (argA.n == 1 and type(argA[1]) == "table") then
+      local t   = argA[1]
       local key = t.msg
       local msg = i18n(key, t) or "Unknown Error Message"
       msg       = hook.apply("errWarnMsgHook", kind, key, msg, t) or msg
@@ -637,11 +637,11 @@ function M.message(self, ...)
    end
    local sA     = {}
    local twidth = TermWidth()
-   local arg    = pack(...)
-   if (arg.n == 1 and type(arg[1]) == "table") then
-      local t   = arg[1]
+   local argA   = pack(...)
+   if (argA.n == 1 and type(argA[1]) == "table") then
+      local t   = argA[1]
       local key = t.msg
-      local msg = i18n(key, t)
+      local msg = i18n(key, t) or "Unknown Message"
       msg       = hook.apply("errWarnMsgHook", "lmodmessage", key, msg, t) or msg
       sA[#sA+1] = buildMsg(twidth, msg)
    else

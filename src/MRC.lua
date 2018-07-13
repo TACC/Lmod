@@ -28,7 +28,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -65,8 +65,8 @@ local s_MRC     = false
 local hook      = require("Hook")
 
 local function argsPack(...)
-   local arg = { n = select("#", ...), ...}
-   return arg
+   local argA = { n = select("#", ...), ...}
+   return argA
 end
 local pack      = (_VERSION == "Lua 5.1") and argsPack or table.pack  -- luacheck: compat
 

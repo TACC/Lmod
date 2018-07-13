@@ -10,7 +10,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -112,11 +112,11 @@ function M.access(self, ...)
    local A         = ShowResultsA
    local result, t
 
-   local arg = pack(...)
-   for i = 1, arg.n do
-      local userName = arg[i]
-      local mname    = mt:have(arg[i],"any") and MName:new("mt",userName)
-                                             or  MName:new("load",userName) 
+   local argA = pack(...)
+   for i = 1, argA.n do
+      local userName = argA[i]
+      local mname    = mt:have(userName,"any") and MName:new("mt",userName)
+                                               or  MName:new("load",userName) 
       local fn       = mname:fn()
       _G.ModuleFn    = fn
       _G.FullName    = mname:fullName()

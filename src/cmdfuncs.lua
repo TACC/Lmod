@@ -17,7 +17,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -207,9 +207,9 @@ function Help(...)
 end
 
 function IsAvail(...)
-   local arg = pack(...)
-   for i = 1, arg.n do
-      local mname = MName:new("load", arg[i])
+   local argA = pack(...)
+   for i = 1, argA.n do
+      local mname = MName:new("load", argA[i])
       if (not mname:valid()) then
          setWarningFlag()
          break
@@ -218,9 +218,9 @@ function IsAvail(...)
 end
 
 function IsLoaded(...)
-   local arg = pack(...)
-   for i = 1, arg.n do
-      local mname = MName:new("mt", arg[i])
+   local argA = pack(...)
+   for i = 1, argA.n do
+      local mname = MName:new("mt", argA[i])
       if (not mname:isloaded()) then
          setWarningFlag()
          break
@@ -419,11 +419,11 @@ end
 function Load_Usr(...)
    local frameStk = FrameStk:singleton()
    dbg.start{"Load_Usr(",concatTbl({...},", "),")"}
-   local uA = {}
-   local lA = {}
-   local arg = pack(...)
-   for i = 1, arg.n do
-      local v = arg[i]
+   local uA   = {}
+   local lA   = {}
+   local argA = pack(...)
+   for i = 1, argA.n do
+      local v = argA[i]
       if (v:sub(1,1) == "-") then
          uA[#uA+1] = MName:new("mt", v:sub(2,-1))
       else
@@ -790,20 +790,20 @@ function SpiderCmd(...)
    local masterTbl   = masterTbl()
    local spiderT,dbT = cache:build()
    local spider      = Spider:new()
+   local argA        = pack(...)
    local s
    local srch
 
-   local arg = pack(...)
 
-   if (arg.n < 1) then
+   if (argA.n < 1) then
       s = spider:Level0(dbT)
    else
       local a       = {}
       local helpFlg = false
-      for i = 1, arg.n-1 do
-         a[#a+1] = spider:spiderSearch(dbT, arg[i], helpFlg)
+      for i = 1, argA.n-1 do
+         a[#a+1] = spider:spiderSearch(dbT, argA[i], helpFlg)
       end
-      a[#a+1] = spider:spiderSearch(dbT, arg[arg.n], true)
+      a[#a+1] = spider:spiderSearch(dbT, argA[argA.n], true)
       s = concatTbl(a,"")
    end
    if (masterTbl.terse) then
@@ -891,16 +891,16 @@ end
 function Disable(...)
    local shell = _G.Shell
    local path  = pathJoin(os.getenv("HOME"), LMODdir)
-   local arg   = pack(...)
+   local argA  = pack(...)
    local sname = (not system_name) and "" or "." .. system_name
 
-   if (arg.n == 0) then
-      arg[1] = "default"
-      arg.n  = 1
+   if (argA.n == 0) then
+      argA[1] = "default"
+      argA.n  = 1
    end
 
-   for i = 1,arg.n do
-      local name  = arg[i]
+   for i = 1,argA.n do
+      local name  = argA[i]
       local fn    = pathJoin(path,name .. sname)
       local fnNew = fn .. "~"
       os.rename(fn, fnNew)
@@ -928,20 +928,20 @@ function Use(...)
    local mcp     = MCP
    local op = mcp.prepend_path
 
-   local arg      = pack(...)
+   local argA     = pack(...)
    local iarg     = 1
    local priority = 0
 
    dbg.print{"using mcp: ",mcp:name(), "\n"}
 
-   while (iarg <= arg.n) do
-      local v = arg[iarg]
+   while (iarg <= argA.n) do
+      local v = argA[iarg]
       local w = v:lower()
       if (w == "-a" or w == "--append" ) then
          op = mcp.append_path
       elseif (w == "--priority") then
          iarg     = iarg + 1
-         priority = tonumber(arg[iarg])
+         priority = tonumber(argA[iarg])
       else
          a[#a + 1] = v
       end
@@ -966,11 +966,11 @@ end
 --  modules reviewed and possibly reloaded or made inactive.
 function UnUse(...)
    dbg.start{"UnUse(", concatTbl({...},", "),")"}
-   local mt  = FrameStk:singleton():mt()
-   local arg = pack(...)
+   local mt     = FrameStk:singleton():mt()
+   local argA   = pack(...)
    local nodups = true
-   for i = 1, arg.n do
-      local v = arg[i]
+   for i = 1, argA.n do
+      local v = argA[i]
       MCP:remove_path{ModulePath,  v, delim=":", nodups = true, force = true}
    end
    if (mt:changeMPATH()) then

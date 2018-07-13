@@ -15,7 +15,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -146,9 +146,9 @@ function sectionEnd(sType,A, a1, a2, a3)
 end
 
 function joinArrays(A,...)
-   local arg = pack(...)
-   for i = 1, arg.n do
-      local b = arg[i]
+   local argA = pack(...)
+   for i = 1, argA.n do
+      local b = argA[i]
       for j = 1, #b do
          A[#A + 1] = b[j]
       end

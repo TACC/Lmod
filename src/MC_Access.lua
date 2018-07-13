@@ -15,7 +15,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -70,10 +70,10 @@ end
 -- print Help message when assessT is in help mode
 -- @param self MC_Access object
 function M.help(self, ...)
-   local arg = pack(...)
+   local argA = pack(...)
    if (self.accessT.help == true) then
-      for i = 1, arg.n do
-         A[#A+1] = arg[i]
+      for i = 1, argA.n do
+         A[#A+1] = argA[i]
       end
       A[#A+1] = "\n"
    end

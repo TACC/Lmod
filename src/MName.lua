@@ -10,7 +10,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -118,11 +118,11 @@ end
 -- @param sType The type which can be "entryT", "load", "mt"
 -- @return An array of MName objects.
 function M.buildA(self,sType, ...)
-   local arg = pack(...)
-   local a = {}
+   local argA = pack(...)
+   local a    = {}
 
-   for i = 1, arg.n do
-      local v = arg[i]
+   for i = 1, argA.n do
+      local v = argA[i]
       if (type(v) == "string" ) then
          a[#a + 1] = self:new(sType, v:trim())
       elseif (type(v) == "table") then

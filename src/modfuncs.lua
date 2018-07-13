@@ -27,7 +27,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -94,9 +94,9 @@ end
 -- Validate a function with only string arguments.
 -- @param cmdName The command which is getting its arguments validated.
 local function validateStringArgs(cmdName, ...)
-   local arg = pack(...)
-   for i = 1, arg.n do
-      local v = arg[i]
+   local argA = pack(...)
+   for i = 1, argA.n do
+      local v = argA[i]
       if (type(v) ~= "string") then
          mcp:report{msg="e_Args_Not_Strings", fn = myFileName(), cmdName = cmdName}
          return false
@@ -138,17 +138,17 @@ end
 -- Validate a function with only string module names table.
 -- @param cmdName The command which is getting its arguments validated.
 local function validateArgsWithValue(cmdName, ...)
-   local arg = pack(...)
+   local argA = pack(...)
 
-   for i = 1, arg.n -1 do
-      local v = arg[i]
+   for i = 1, argA.n -1 do
+      local v = argA[i]
       if (type(v) ~= "string") then
          mcp:report{msg="e_Args_Not_Strings", fn = myFileName(), cmdName = cmdName}
          return false
       end
    end
 
-   local v = arg[arg.n]
+   local v = argA[argA.n]
    if (type(v) ~= "string" and type(v) ~= "number" and type(v) ~= "boolean") then
       mcp:report{msg="e_Args_Not_Strings", fn = myFileName(), cmdName = cmdName}
       return false
@@ -160,12 +160,12 @@ end
 -- Validate a function with only string module names table.
 -- @param cmdName The command which is getting its arguments validated.
 local function validateModules(cmdName, ...)
-   local arg = pack(...)
-   dbg.print{"cmd: ",cmdName, " arg.n: ",arg.n,"\n"}
+   local argA = pack(...)
+   dbg.print{"cmd: ",cmdName, " argA.n: ",argA.n,"\n"}
    local allGood = true
    local fn      = false
-   for i = 1, arg.n do
-      local v = arg[i]
+   for i = 1, argA.n do
+      local v = argA[i]
       if (type(v) == "string") then
          allGood = true
       elseif (type(v) == "table" and v.__waterMark == "MName") then
@@ -199,16 +199,16 @@ end
 --------------------------------------------------------------------------
 -- convert arguments into a table if necessary.
 local function convert2table(...)
-   local arg = pack(...)
-   local t   = {}
+   local argA = pack(...)
+   local t    = {}
 
-   if (arg.n == 1 and type(arg[1]) == "table" ) then
-      t = arg[1]
+   if (argA.n == 1 and type(argA[1]) == "table" ) then
+      t = argA[1]
       t[1] = t[1]:trim()
    else
-      t[1]    = arg[1]:trim()
-      t[2]    = arg[2]
-      t.delim = arg[3]
+      t[1]    = argA[1]:trim()
+      t[2]    = argA[2]
+      t.delim = argA[3]
    end
    t.priority = tonumber(t.priority or "0")
    return t

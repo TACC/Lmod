@@ -8,7 +8,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -194,9 +194,9 @@ function M.echo(self, ...)
       pcall(pager,io.stderr,...)
       posix_setenv("LC_ALL","C",true)
    else
-      local arg = pack(...)
-      for i = 1, arg.n do
-         local whole=arg[i]
+      local argA = pack(...)
+      for i = 1, argA.n do
+         local whole = argA[i]
          if (whole:sub(-1) == "\n") then
             whole = whole:sub(1,-2)
          end
@@ -209,9 +209,9 @@ function M.echo(self, ...)
 end
 
 function M._echo(self, ...)
-   local arg = pack(...)
-   for i = 1, arg.n do
-      io.stderr:write(arg[i])
+   local argA = pack(...)
+   for i = 1, argA.n do
+      io.stderr:write(argA[i])
    end
 end
 

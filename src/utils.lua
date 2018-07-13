@@ -13,7 +13,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -65,8 +65,8 @@ local strfmt       = string.format
 -- This is 5.1 Lua function to cover the table.pack function
 -- that is in Lua 5.2 and later.
 function argsPack(...)
-   local arg = { n = select("#", ...), ...}
-   return arg
+   local argA = { n = select("#", ...), ...}
+   return argA
 end
 pack     = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
@@ -82,12 +82,12 @@ end
 -- Generate a message that will fix the available terminal width.
 -- @param width The terminal width
 function buildMsg(width, ... )
-   local arg = pack(...)
-   local a   = {}
-   local len = 0
+   local argA = pack(...)
+   local a    = {}
+   local len  = 0
 
-   for idx = 1, arg.n do
-      local block  = arg[idx]
+   for idx = 1, argA.n do
+      local block  = argA[idx] or ""
       local done   = false
       while (not done) do
          local hasNL  = false
@@ -672,14 +672,14 @@ local s_defaultsT = {
 function ShowCmdStr(name, ...)
    dbg.start{"ShowCmdStr(",name,", ...)"}
    local a       = {}
-   local arg     = pack(...)
-   local n       = arg.n
-   local t       = arg
+   local argA    = pack(...)
+   local n       = argA.n
+   local t       = argA
    local hasKeys = false
    local left    = "("
    local right   = ")\n"
-   if (arg.n == 1 and type(arg[1]) == "table") then
-      t       = arg[1]
+   if (argA.n == 1 and type(argA[1]) == "table") then
+      t       = argA[1]
       n       = #t
       hasKeys = true
    end
