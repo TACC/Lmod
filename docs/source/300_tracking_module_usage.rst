@@ -100,7 +100,7 @@ You should check to see that Lmod finds your SitePackage.lua.  If you do::
 
 and it reports::
 
-   Modules based on Lua: Version 6.1  2016-02-05 16:31
+   Modules based on Lua: Version X.Y ...
        by Robert McLay mclay@tacc.utexas.edu
 
    Description                      Value
