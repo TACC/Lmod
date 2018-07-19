@@ -74,3 +74,5 @@ Lmod 7.7+
             Now make startup scripts (profile.in, cshrc.in, profile.fish.in) use PKGV instead of PKG so
 	    that the pre-install create $VERSION files. The install target will convert them to PKG.
    (7.7.38) Check for "g" tools like gbasename, gexpr as well as the regular basename, expr etc.
+            General support for the modulerc files to be written in lua. They have a .lua extension.
+   (7.7.39) Bug fix for 7.7.38 where it did not work for Lua 5.1
