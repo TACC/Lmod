@@ -38,7 +38,8 @@ require("strict")
 require("fileOps")
 require("mrc_sandbox")
 
-local dbg = require("Dbg"):dbg()
+local dbg  = require("Dbg"):dbg()
+local load = (_VERSION == "Lua 5.1") and loadstring or load
 
 function mrc_load(fn)
    local whole
