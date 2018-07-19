@@ -119,7 +119,7 @@ Have "master" send the tracking messages to a separate computer.
 
 You can add the following to master's /etc/rsyslog.conf file::
 
-   if $programname contains ‘ModuleUsageTracking’ then @module_usage_tracking
+   if $programname contains 'ModuleUsageTracking' then @module_usage_tracking
    &~
 
 Where you change "module_usage_tracking" into a real machine name.
