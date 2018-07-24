@@ -76,15 +76,48 @@ single timestamp file::
   ./configure --with-spiderCacheDir=/opt/mData/cacheDir --with-updateSystemFn=/opt/mdata/system.txt
 
 
-If you have multiple directories with multiple
-timestamp files you can use "--with-spiderCacheDescript=file" where the
-contents of the "file" is::
+
+If you have multiple directories each with their own timestamp file,
+you can list those in a file that configure will read rather than
+enumerating them with –with-spiderCacheDescript=file.  This also enables
+each cache directory to have its own timestamp.  The file is only used
+at configure time, not when Lmod runs, and is used like::
 
     cacheDir1:timestamp1
     cacheDir2:timestamp2
 
-Lines starting with '#' and blank lines are ignored.  Please also note that a
-single timestamp file can be used with multiple cache directories.
+Lines starting with '#' and blank lines are ignored.  It is best if
+each cache directory has its own timestamp file.  This file is used by
+configure to modify the $LMOD_DIR/init/lmodrc.lua file.
+
+
+
+
+
+If your
+configure line is::
+
+  ./configure --with-spiderCacheDescript=cache.descript
+
+And cache.descript is::
+
+   /sw/abc/cacheDir:/sw/abc/cacheTS.txt
+   /sw/def/cacheDir:/sw/def/cacheTS.txt
+
+Then after lmod is configured and installed the
+$LMOD_DIR/init/lmodrc.lua file looks like::
+
+   ...
+   scDescriptT = {
+      {
+        ["dir"] = "/sw/abc/cacheDir",
+        ["timestamp"] = "/sw/abc/cacheTS.txt",
+      },
+      {
+        ["dir"] = "/sw/def/cacheDir",
+        ["timestamp"] = "/sw/def/cacheTS.txt",
+      },
+   }
 
 How to decide how many system cache directories to have
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -174,3 +207,7 @@ The above command should be much faster than running without the
 cache::
 
     $ module --ignore_cache avail
+
+
+.. _full_example-label:
+
