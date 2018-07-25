@@ -228,6 +228,27 @@ is only used to configure Lmod.::
 
     $ ./configure --with-spiderCacheDescript=/path/to/spiderCacheDescript.txt
 
+The configure script modifies the $LMOD_DIR/init/lmodrc.lua file so
+that the lmod command knows about the caches.  The
+spiderCacheDescript.txt is never used again.  Here is what the bottom
+of the lmodrc.lua would look like::
+
+  ...
+  scDescriptT = {
+      {
+        ["dir"]       = "/sw/ab/mData/cacheDir",
+        ["timestamp"] = "/sw/ab/mData/cacheTS.txt",
+      },
+      {
+        ["dir"]       = "/sw/cd/mData/cacheDir",
+        ["timestamp"] = "/sw/cd/mData/cacheTS.txt",
+      },
+      {
+        ["dir"]       = "/sw/ef/mData/cacheDir",
+        ["timestamp"] = "/sw/ef/mData/cacheTS.txt",
+      },
+  }
+
 Then on each machine or group builds a separate cache file for each
 directory. Here we assume that there are three different computers
 (ab, cd, ef).
