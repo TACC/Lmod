@@ -88,36 +88,10 @@ at configure time, not when Lmod runs, and is used like::
 
 Lines starting with '#' and blank lines are ignored.  It is best if
 each cache directory has its own timestamp file.  This file is used by
-configure to modify the $LMOD_DIR/init/lmodrc.lua file.
+configure to modify the $LMOD_DIR/init/lmodrc.lua file.  See the
+:ref:`full_example-label` for a complete example.
 
 
-
-
-
-If your
-configure line is::
-
-  ./configure --with-spiderCacheDescript=cache.descript
-
-And cache.descript is::
-
-   /sw/abc/cacheDir:/sw/abc/cacheTS.txt
-   /sw/def/cacheDir:/sw/def/cacheTS.txt
-
-Then after lmod is configured and installed the
-$LMOD_DIR/init/lmodrc.lua file looks like::
-
-   ...
-   scDescriptT = {
-      {
-        ["dir"] = "/sw/abc/cacheDir",
-        ["timestamp"] = "/sw/abc/cacheTS.txt",
-      },
-      {
-        ["dir"] = "/sw/def/cacheDir",
-        ["timestamp"] = "/sw/def/cacheTS.txt",
-      },
-   }
 
 How to decide how many system cache directories to have
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -143,6 +117,10 @@ all the directory specified in **MODULEPATH**.  If you do use the
 hierarchy, then just specify the "Core" directories,
 i.e. the directories that are used to initialize Lmod but not the compiler
 dependent or mpi-compiler dependent directories.
+
+
+
+
 
 .. _update_cache_sh-label:
 
@@ -210,4 +188,65 @@ cache::
 
 
 .. _full_example-label:
+
+An Example Setup
+^^^^^^^^^^^^^^^^
+
+Suppose that your site has three different modulefile trees.  This can
+be handle in two very different ways.  If each tree is on the same
+computer you can have one spider cache that knows about all three.
+
+Assuming that the tree modulefile trees are named::
+
+    /sw/ab/modulefiles
+    /sw/cd/modulefiles
+    /sw/ef/modulefiles
+
+If all tree directory trees are owned by same computer then one
+can configure Lmod with::
+
+    $ ./configure --with-spiderCacheDir=/sw/mData/cacheDir --with-updateSystemFn=/sw/mData/cacheTS.txt
+
+And build the cache file with::
+
+    $ export MODULEPATH=/sw/ab/modulefiles:/sw/cd/modulefiles:/sw/ef/modulefiles
+    $ update_lmod_system_cache_files -d /sw/mData/cacheDir -t /sw/mData/cacheTS.txt  $MODULEPATH
+
+Now suppose you have the same three module directories but they reside
+on three different computers or are managed by three different
+groups. So for any number of reasons you might have to have multiple
+spider cache files.  In this case your site would configure Lmod
+with a spider cache description file (call say:
+spiderCacheDescript.txt) that contains::
+
+    /sw/ab/mData/cacheDir:/sw/ab/mData/cacheTS.txt
+    /sw/cd/mData/cacheDir:/sw/cd/mData/cacheTS.txt
+    /sw/ef/mData/cacheDir:/sw/ef/mData/cacheTS.txt
+
+Next Lmod is configured with this spiderCacheDescript.txt file, which
+is only used to configure Lmod.::
+
+    $ ./configure --with-spiderCacheDescript=/path/to/spiderCacheDescript.txt
+
+Then on each machine or group builds a separate cache file for each
+directory. Here we assume that there are three different computers
+(ab, cd, ef).
+
+So on the ab computer you run::
+
+    $ update_lmod_system_cache_files -d /sw/ab/mData/cacheDir -t /sw/ab/mData/cacheTS.txt  /sw/ab/modulefiles
+
+On the cd computer you run::
+
+    $ update_lmod_system_cache_files -d /sw/cd/mData/cacheDir -t /sw/cd/mData/cacheTS.txt  /sw/cd/modulefiles
+
+On the ef computer you run::
+
+    $ update_lmod_system_cache_files -d /sw/ef/mData/cacheDir -t /sw/ef/mData/cacheTS.txt  /sw/ef/modulefiles
+
+
+Each of these cache file generation command **must** run every time
+the modulefiles change, either by content or files are added or
+removed.
+
 
