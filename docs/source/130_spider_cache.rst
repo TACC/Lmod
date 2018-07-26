@@ -294,5 +294,5 @@ local disk.  So each node has to run::
     $ update_lmod_system_cache_files -d /sw/ef/mData/cacheDir -t /sw/ef/mData/cacheTS.txt  /sw/ef/modulefiles
 
 Again if any new modulefiles are added or changed, then the
-appropriate cache must be updated.
+appropriate caches must be updated.
 
