@@ -214,7 +214,16 @@ And build the cache file with::
 
 Now suppose you have the same three module directories but they reside
 on three different computers or are managed by three different
-groups. So for any number of reasons you might have to have multiple
+groups.  If you have three different groups managing a different
+module directory tree, you'll obviously want each group to manage each
+module tree separately.
+
+Many sites place all their module based software on a shared disk
+across all nodes.  Other sites might store some software locally on a
+node and some in a shared location.  It is this scenario which
+requires some care when generating the spider caches.
+
+So for any number of reasons you might have to have multiple
 spider cache files.  In this case your site would configure Lmod
 with a spider cache description file (call say:
 spiderCacheDescript.txt) that contains::
@@ -249,25 +258,41 @@ of the lmodrc.lua would look like::
       },
   }
 
-Then on each machine or group builds a separate cache file for each
-directory. Here we assume that there are three different computers
-(ab, cd, ef).
+Scenario 1: Three groups managing a separate module tree
+--------------------------------------------------------
 
-So on the ab computer you run::
+Here we are assuming that all software resides on a shared but there
+are three group each managing a module tree.
+
+So the "ab" group builds their spider cache as follows::
 
     $ update_lmod_system_cache_files -d /sw/ab/mData/cacheDir -t /sw/ab/mData/cacheTS.txt  /sw/ab/modulefiles
 
-On the cd computer you run::
+Similar the "cd" group builds their spider cache by::
 
     $ update_lmod_system_cache_files -d /sw/cd/mData/cacheDir -t /sw/cd/mData/cacheTS.txt  /sw/cd/modulefiles
 
-On the ef computer you run::
+and so on for each group managing their module tree.  Each group has
+to update their spider cache if they update their module tree.  If the
+"ab" group add new software and new modulefiles. They must update
+their cache file, but other groups do not have to update their caches
+if everything has remained the same for their modules
+
+
+Scenario 2: Different computers owning different module trees
+-------------------------------------------------------------
+
+Suppose that the master node controls the directories **/sw/ab/...**
+and the **/sw/cd/...** on a shared disk.  Then on the master node, one runs::
+
+    master$ update_lmod_system_cache_files -d /sw/ab/mData/cacheDir -t /sw/ab/mData/cacheTS.txt  /sw/ab/modulefiles
+    master$ update_lmod_system_cache_files -d /sw/cd/mData/cacheDir -t /sw/cd/mData/cacheTS.txt  /sw/cd/modulefiles
+
+Then on each local node has a replicated copy of **/sw/ef/...** on a
+local disk.  So each node has to run::
 
     $ update_lmod_system_cache_files -d /sw/ef/mData/cacheDir -t /sw/ef/mData/cacheTS.txt  /sw/ef/modulefiles
 
-
-Each of these cache file generation command **must** run every time
-the modulefiles change, either by content or files are added or
-removed.
-
+Again if any new modulefiles are added or changed, then the
+appropriate cache must be updated.
 
