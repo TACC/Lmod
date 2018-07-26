@@ -47,7 +47,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Lmod'
-copyright = u'2015, Robert McLay'
+copyright = u'2018, Robert McLay'
 author = u'Robert McLay'
 
 # The version info for the project you're documenting, acts as replacement for
