@@ -497,7 +497,7 @@ Dependent Modules3,30
 
 docs/source/130_spider_cache.rst,56
 System Spider Cache3,32
-    $ export LMOD_RC=156,6304
+    $ export LMOD_RC=167,6612
 
 docs/source/110_lmod_mpi_parallel_filesystem.rst,230
 The Interaction between Modules,1,0
@@ -507,8 +507,9 @@ Normally,65,2561
       export ENVIRONMENT=70,2795
         export LMOD_CMD=74,2929
 
-docs/source/170_hooks.rst,39
-   function prependModulePath(48,1835
+docs/source/170_hooks.rst,72
+   function prependModulePath(48,1830
+    function myMsgHook(143,4584
 
 docs/source/090_configuring_lmod.rst,140
 is lowercased first,27,977
@@ -656,8 +657,8 @@ Lmod on Shared Home File Systems4,31
 docs/source/240_sticky_modules.rst,20
 Sticky Modules3,27
 
-docs/source/136_spider.rst,20
-The spider tool1,0
+docs/source/136_spider.rst,21
+The spider tool3,24
 
 docs/source/077_ref_counting.rst,18
 entry it 31,1149
@@ -15042,12 +15043,12 @@ function M.apply(apply90,4205
 src/Version.lua,196
 function M.tag(2,11
 function M.tag(tag2,11
-function M.git(3,51
-function M.git(git3,51
-function M.date(9,199
-function M.date(date9,199
-function M.name(10,254
-function M.name(name10,254
+function M.git(3,48
+function M.git(git3,48
+function M.date(9,196
+function M.date(date9,196
+function M.name(10,251
+function M.name(name10,251
 
 src/MC_Spider.lua,922
 function M.myFileName(89,3742
@@ -15283,7 +15284,7 @@ function M.rcFileA(130,3689
 function M.rcFileA(rcFileA130,3689
 
 src/mrc_load.lua,27
-function mrc_load(43,1833
+function mrc_load(44,1894
 
 src/MRC.lua,1099
 local function argsPack(67,2484
@@ -15585,9 +15586,6 @@ function csh_setenv(113,3434
 function python_setenv(129,3750
 function main(148,4186
 
-README.new,68
-            Fixed TARG_TITLE_BAR_PAREN to always have a value,3,87
-
 spec/Avail/Avail_spec.lua,64
          function()(18,456
                function()(20,526
@@ -15645,18 +15643,15 @@ INSTALL,759
         ./?.so;/usr/lib64/lua/5.1/?.so;/usr/lib64/lua/5.1/loadall.so;so56,1817
          LUAROCKS_PREFIX=66,2149
 
-README.old,518
-   b) Thanks to Kenneth Hoste,6,70
-   b) Thanks to Kenneth Hoste, a parameterized script,6,70
-      update_lmod_system_cache_files,7,132
-      createSystemCacheFile.sh sh9,265
-         t 116,4871
-         t 121,5028
-   f) New option,130,5359
-   f) New option, --show_hidden,show_hidden130,5359
-    prepend-path --delim ";" LUA_PATH  "/a/lua/share/5.1/?.lua;lua847,33261
-    prepend_path("LUA_PATH",  "/a/lua/share/5.1/?.lua;lua852,33477
-    append_path( "LUA_CPATH", "/a/lua/share/5.1/?.so"so853,33558
+README.old,409
+            Fixed TARG_TITLE_BAR_PAREN to always have a value,3,87
+         t 194,10634
+         t 199,10791
+   f) New option,208,11122
+   f) New option, --show_hidden,show_hidden208,11122
+    prepend-path --delim ";" LUA_PATH  "/a/lua/share/5.1/?.lua;lua925,39024
+    prepend_path("LUA_PATH",  "/a/lua/share/5.1/?.lua;lua930,39240
+    append_path( "LUA_CPATH", "/a/lua/share/5.1/?.so"so931,39321
 
 init/zsh/_ml,396
 _ml(4,31
@@ -16313,6 +16308,8 @@ spec/Avail/mf/bio/bowtie/.version,0
 MF/lmod.version.lua,0
 
 MF/settarg.version.lua,0
+
+README.new,0
 
 src/MC_Refresh.lua,0
 

@@ -29,6 +29,27 @@ release at sourceforge.
 
 ## ChangeLog
 
+### Lmod 7.8:
+
+Features:
+
+   1. Always use ref. counting for MODULEPATH.
+
+   2. Make LMOD_RC support a colon separated list of possible lmodrc.lua files.
+
+   3. General support for "MODULERC" files written in lua.
+   
+
+Bug Fixes:
+
+   1. Just use lua_json provided with Lmod distribution
+
+   2. Change ml so that ml av --terse is an error.
+
+   3. Allow sites to completely control prefix location of lmod.
+
+   4. Support "make -j install"
+
 ### Lmod 7.7:
 
 Features:

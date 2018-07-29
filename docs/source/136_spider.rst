@@ -1,3 +1,5 @@
+.. _spider_tool-label:
+
 The spider tool
 ===============
 
