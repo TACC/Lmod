@@ -151,7 +151,7 @@ the configuration option which will set the action.
   will not work with csh or tcsh as there is a problem with these
   shells and not Lmod.
 
-**LMOD_SHORTTIME**:
+**LMOD_SHORT_TIME**:
   [number, default: 2, --with-shortTime].  If the time to build the
   spider cache takes longer than this number then write the spider
   cache out into the user's account.  If you want to prevent the
