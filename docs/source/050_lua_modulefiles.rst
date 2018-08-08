@@ -90,9 +90,8 @@ unset during unloading.
      define an alias to name with value.
 
 **unload** ("pkgA", "pkgB"):
-     When in load mode the modulefiles are unloaded.  It is not an
-     error to unload modules that where not loaded.  When in unload
-     mode, this command does nothing.
+     In both load and unload mode, the modulefiles are unloaded. It is
+     not an error to unload modules that where not loaded.
 
 **family** ("name"):
      A user can only have one family "name" loaded at a time. For example family("compiler") would mean that a user could only have one compiler loaded at a time.
