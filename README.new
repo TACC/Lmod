@@ -1,2 +1,4 @@
 Lmod 7.8+
    (7.8.1)  Change unload() to unload in both load and unload modes.  Updated documentation.
+            remove_path() remove path entries during unload.
+	    
