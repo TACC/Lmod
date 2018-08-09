@@ -35,8 +35,7 @@ unset during unloading.
    separator can be any single character for example " " or  ";"
 
 **remove_path** ("PATH","*/path/to/pkg/bin*"):
-   remove value from a path-like variable.  This command is a no-op
-   when the mode is unload. 
+   remove value from a path-like variable for both load and unload modes.
 
 **remove_path** ("PATH","*/path/to/pkg/bin*" , "*sep*" ):
    remove value from a path-like variable.  This command is a no-op
