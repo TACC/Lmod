@@ -38,10 +38,10 @@ unset during unloading.
    remove value from a path-like variable for both load and unload modes.
 
 **remove_path** ("PATH","*/path/to/pkg/bin*" , "*sep*" ):
-   remove value from a path-like variable.  This command is a no-op
-   when the mode is unload.  It is possible to add a
-   third argument to be the separator.  By default is is "*:*", the
-   separator can be any single character for example " " or  ";"
+   remove value from a path-like variable for both load and unload modes.
+   It is possible to add a third argument to be the separator.  By
+   default is is "*:*", the separator can be any single character for
+   example " " or  ";" 
 
 **setenv** ("NAME", "*value*"):
    assigns to the environment variable "NAME" the value.
