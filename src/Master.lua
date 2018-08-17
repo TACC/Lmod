@@ -646,7 +646,7 @@ function M.dependencyCk()
    local mt       = frameStk:mt()
    local shellNm  = _G.Shell and _G.Shell:name() or "bash"
    local mcp_old  = mcp
-   mcp            = MasterControl.build("dependencyCk","load")
+   mcp            = MasterControl.build("dependencyCk")
 
    local activeA  = mt:list("short","active")
    local mList    = concatTbl(mt:list("both","active"),":")
