@@ -76,8 +76,8 @@ function Bash.shellFunc(self, k, v)
       dbg.print{   "unset -f ",k," 2> /dev/null || true;\n"}
    else
       local func = v[1]:gsub(";%s*$","")
-      stdout:write(k,"() { ",func,"; };\n")
-      dbg.print{   k,"() { ",func,"; };\n"}
+      stdout:write(k," () { ",func,"; };\n")
+      dbg.print{   k," () { ",func,"; };\n"}
    end
 end
 

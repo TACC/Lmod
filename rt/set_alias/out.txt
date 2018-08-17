@@ -94,7 +94,7 @@ _LMFILES_=ProjectDIR/rt/set_alias/mf/test1/1.0.lua:ProjectDIR/rt/set_alias/mf/sf
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={sfunc={["fn"]="ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua",["fullName"]="sfunc/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="sfunc",},test1={["fn"]="ProjectDIR/rt/set_alias/mf/test1/1.0.lua",["fullName"]="test1/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="test1",},},mpathA={"ProjectDIR/rt/set_alias/mf",},["systemBaseMPATH"]="ProjectDIR/rt/set_alias/mf",}';
 export _ModuleTable_;
-ml() { eval $($LMOD_DIR/ml_cmd "$@"); };
+ml () { eval $($LMOD_DIR/ml_cmd "$@"); };
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load alias
