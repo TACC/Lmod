@@ -82,7 +82,7 @@ else
         esac;
      fi
      
-     if [ -n "${__lmod_sh_dbg}" ]; then
+     if [ -n "${__lmod_sh_dbg:-}" ]; then
         set +$__lmod_sh_dbg 
         echo "Shell debugging temporarily silenced: export LMOD_SH_DBG_ON=1 for Lmod's output"
      fi
