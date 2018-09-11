@@ -5,3 +5,4 @@ Lmod 7.8+
             issue #380: Change DependencyCk mode from load to dependencyCk,
 	    sType and tcl_mode remain load.
    (7.8.3)  Fixed problem with unbound variable __lmod_sh_dbg in module shell function definition
+   (7.8.4)  Add unload state to tracing.
