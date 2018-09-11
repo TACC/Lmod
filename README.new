@@ -4,3 +4,4 @@ Lmod 7.8+
    (7.8.2)  issue #379: Extra space required for shell function definitions under bash
             issue #380: Change DependencyCk mode from load to dependencyCk,
 	    sType and tcl_mode remain load.
+   (7.8.3)  Fixed problem with unbound variable __lmod_sh_dbg in module shell function definition
