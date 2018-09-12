@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.7.14  2017-11-16 16:23 -07:00
+Modules based on Lua: Version 7.8.3  2018-09-11 13:20 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -16,15 +16,15 @@ running: module --regression_testing -T load gcc fenics
   Loading: gcc (fn: ProjectDIR/rt/dyn/mf/Core/gcc/7.1.lua)
     Prepending: ProjectDIR/rt/dyn/mf/Compiler/gcc/7.1 to MODULEPATH
 Lmod is automatically replacing "intel/18.0.1" with "gcc/7.1".
-  Unloading: intel (fn: ProjectDIR/rt/dyn/mf/Core/intel/18.0.1.lua)
     Removing: ProjectDIR/rt/dyn/mf/Compiler/intel/18.0 from MODULEPATH
-  Unloading: gcc (fn: ProjectDIR/rt/dyn/mf/Core/gcc/7.1.lua)
+  Unloading: intel (state: active) (fn: ProjectDIR/rt/dyn/mf/Core/intel/18.0.1.lua)
     Removing: ProjectDIR/rt/dyn/mf/Compiler/gcc/7.1 from MODULEPATH
+  Unloading: gcc (state: active) (fn: ProjectDIR/rt/dyn/mf/Core/gcc/7.1.lua)
   Loading: gcc (fn: ProjectDIR/rt/dyn/mf/Core/gcc/7.1.lua)
     Prepending: ProjectDIR/rt/dyn/mf/Compiler/gcc/7.1 to MODULEPATH
   Pushing fenics on moduleQ
-  Unloading: impi (fn: ProjectDIR/rt/dyn/mf/Compiler/intel/18.0/impi/18.0.1.lua)
     Removing: ProjectDIR/rt/dyn/mf/MPI/intel/18.0/impi/18.0 from MODULEPATH
+  Unloading: impi (state: active) (fn: ProjectDIR/rt/dyn/mf/Compiler/intel/18.0/impi/18.0.1.lua)
   Loading: impi (fn: ProjectDIR/rt/dyn/mf/Compiler/gcc/7.1/impi/18.0.1.lua)
     Prepending: ProjectDIR/rt/dyn/mf/MPI/gcc/7.1/impi/18.0 to MODULEPATH
   Loading: fenics (fn: ProjectDIR/rt/dyn/mf/MPI/gcc/7.1/impi/18.0/fenics/1.0.lua)
