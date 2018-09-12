@@ -333,6 +333,8 @@ function main()
    end
 
    local masterTbl = masterTbl()
+   MCP = MasterControl.build("load")
+   mcp = MasterControl.build("load")
 
    -- Push Lmod version into environment
    setenv_lmod_version()
@@ -362,8 +364,6 @@ function main()
    require("SitePackage")
 
    local cmdLineUsage = "Usage: module [options] sub-command [args ...]"
-   MCP = MasterControl.build("load")
-   mcp = MasterControl.build("load")
    Options:singleton(cmdLineUsage)
    local userCmd = masterTbl.pargs[1]
    table.remove(masterTbl.pargs,1)
