@@ -68,6 +68,8 @@ local function nsformat(value)
       else
 	 value = 'false'
       end
+   elseif (type(value) == 'number') then
+      value = tostring(value)
    end
    return value
 end

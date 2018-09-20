@@ -160,7 +160,7 @@ function CollectionLst(collection)
       shell:echo(i18n("coll_contains",{collection=collection}))
       local b = {}
       for i = 1,#a do
-         b[#b+1] = { "   " .. i .. ")", a[i] }
+         b[#b+1] = { "   " .. tostring(i) .. ")", a[i] }
       end
       local ct = ColumnTable:new{tbl=b, gap = 0, width = cwidth}
       shell:echo(ct:build_tbl(),"\n")
