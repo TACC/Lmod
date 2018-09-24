@@ -195,6 +195,17 @@ function load_module(...)
    return b
 end
 
+function mgrload(required, ...)
+   dbg.start{"mgrload(",required, concatTbl({...},", "),")"}
+   if (not validateModules("mgrload",...)) then return {} end
+
+   dbg.print{"mcp:name(): ",mcp:name(),"\n"}
+   local b  = mcp:mgrload(required, MName:buildA(mcp:MNameType(), ...))
+   dbg.fini("mgrload")
+   return b
+end   
+
+
 --- PATH functions ---
 --------------------------------------------------------------------------
 -- convert arguments into a table if necessary.

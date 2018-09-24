@@ -250,6 +250,25 @@ end
 
 local s_stk = {}
 
+function M.mgrload(self, mA)
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"Master:mgrload(mA={"..s.."})"}
+   end
+
+   local mcp_old = mcp
+   mcp           = MasterControl.build("mgrload","load")
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
+   local a       = MCP.load(mcp,mA)
+   mcp           = mcp_old
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
+   
+
+   dbg.fini("Master:mgrload")
+   return a
+
+end
+
 function M.load(self, mA)
    if (dbg.active()) then
       local s = mAList(mA)
@@ -262,7 +281,7 @@ function M.load(self, mA)
    local frameStk = FrameStk:singleton()
    local shell    = _G.Shell
    local shellNm  = shell and shell:name() or "bash"
-   local a        = {}
+   local a        = true
    local mt
 
 
@@ -331,7 +350,9 @@ function M.load(self, mA)
             local aa = mcp:load_usr{mname}
             mcp      = mcp_old
             dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-            loaded = aa[1]
+            if (not aa) then
+               loaded = false
+            end
          elseif (not fn and not frameStk:empty()) then
             local msg = "Executing this command requires loading \"" .. userName .. "\" which failed"..
                " while processing the following module(s):\n\n"
@@ -354,7 +375,9 @@ function M.load(self, mA)
             registerLoaded(fullName, fn)
             loaded = true
          end
-         a[#a + 1] = loaded
+         if (not loaded) then
+            a = false
+         end
 
          if (not mcp.familyStackEmpty()) then
             local b = {}
@@ -401,9 +424,9 @@ function M.load(self, mA)
          if (q_load > 10) then
             break
          end
-         a[#a+1] = self:load{mname}
-         dbg.print{"a[#a]: ",a[#a],"\n"}
-         if (not a[#a]) then
+         local aa = self:load{mname}
+         dbg.print{"aa: ",aa,"\n"}
+         if (not aa) then
             dbg.print{"setting clear: true\n"}
             clear = true
          end

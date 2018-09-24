@@ -985,6 +985,28 @@ function M.load(self, mA)
    return a
 end
 
+
+
+function M.mgrload(self, required, mA)
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"MasterControl:mgrload(required: ",required,", mA={"..s.."})"}
+   end
+
+   if (not required) then
+      deactivateWarning()
+   else
+      activateWarning()
+   end
+
+   local a = Master:singleton():mgrload(mA)
+
+   dbg.fini("MasterControl:mgrload")
+   return a
+end
+
+
+
 -------------------------------------------------------------------
 -- Load a list of module but ignore any warnings.
 -- @param self A MasterControl object
