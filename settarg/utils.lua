@@ -83,7 +83,7 @@ end
 
 function getSTT()
    local a    = {}
-   local sz = getenv("_SettargTable_Sz_") or huge
+   local sz   = tonumber(getenv("_SettargTable_Sz_")) or huge
    local s    = nil
 
    for i = 1, sz do

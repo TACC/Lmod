@@ -59,7 +59,7 @@ end
 
 function M.getMT(self)
    local a    = {}
-   local mtSz = getenv("_ModuleTable_Sz_") or huge
+   local mtSz = tonumber(getenv("_ModuleTable_Sz_")) or huge
    local s    = nil
 
    for i = 1, mtSz do

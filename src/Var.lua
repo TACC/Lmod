@@ -620,8 +620,8 @@ function M.expand(self)
       local idxA = vv.idxA
       for ii = 1,#idxA do
          local duo      = idxA[ii]
-         local value    = duo[1]
-         local priority = duo[2]
+         local value    = tonumber(duo[1])
+         local priority = tonumber(duo[2])
          local idx      = value + factor*priority
          t[idx]         = k
          if (abs(priority) > 0) then

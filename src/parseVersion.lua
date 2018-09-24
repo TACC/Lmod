@@ -159,7 +159,7 @@ function parseVersionParts(versionStr)
          i,j = s:find("^%d+",ipos)
          if (i) then
             ipos = j + 1
-            return string.format("%09d",s:sub(i,j))
+            return string.format("%09d",tonumber(s:sub(i,j)))
          end
 
          -- grab '/'
