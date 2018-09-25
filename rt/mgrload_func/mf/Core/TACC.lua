@@ -1,3 +1,3 @@
-load (A)
-load (B)
-load (C)
+depends_on("A")
+load("B")
+depends_on("C")

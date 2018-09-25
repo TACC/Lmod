@@ -1300,9 +1300,12 @@ end
 --------------------------------------------------------------------------
 -- Provide a list of modules for sites to use
 function M.loaded_modules(self)
+   dbg.start{"MasterControl::loaded_modules()"}
    local frameStk  = FrameStk:singleton()
    local mt        = frameStk:mt()
-   return mt:list("fullName","active")
+   local mA        = mt:list("fullName","active")
+   dbg.fini("MasterControl::loaded_modules")
+   return mA
 end
 
 

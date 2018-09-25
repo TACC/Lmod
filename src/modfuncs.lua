@@ -323,7 +323,7 @@ end
 function loaded_modules()
    dbg.start{"loaded_modules()"}
    local a = mcp:loaded_modules()
-   dbg.fini{"loaded_modules"}
+   dbg.fini("loaded_modules")
    return a
 end
 
