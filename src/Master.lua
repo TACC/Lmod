@@ -347,10 +347,10 @@ function M.load(self, mA)
             dbg.print{"Setting mcp to ", mcp:name(),"\n"}
             mcp:unload{MName:new("mt",sn)}
             mname:reset()  -- force a new lazyEval
-            local aa = mcp:load_usr{mname}
-            mcp      = mcp_old
+            local status = mcp:load_usr{mname}
+            mcp          = mcp_old
             dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-            if (not aa) then
+            if (not status) then
                loaded = false
             end
          elseif (not fn and not frameStk:empty()) then
@@ -581,10 +581,10 @@ function M.reloadAll(self)
                mcp:unload({mname_old})
                dbg.print{"Master:reloadAll Loading module: \"",userName,"\"\n"}
                if (mname:valid()) then
-                  local loadA = mcp:load({mname})
-                  mt          = frameStk:mt()
-                  dbg.print{"loadA[1]: ",loadA[1],"fn_old: ",fn_old,", fn: ",mt:fn(sn),"\n"}
-                  if (loadA[1] and fn_old ~= mt:fn(sn)) then
+                  local status = mcp:load({mname})
+                  mt           = frameStk:mt()
+                  dbg.print{"status ",status,", fn_old: ",fn_old,", fn: ",mt:fn(sn),"\n"}
+                  if (status and fn_old ~= mt:fn(sn)) then
                      same = false
                      dbg.print{"Master:reloadAll module: ",fullName," marked as reloaded\n"}
                   end
@@ -596,13 +596,13 @@ function M.reloadAll(self)
             local name   = v.name          -- This name is short for default and
                                           -- Full for specific version.
             dbg.print{"Master:reloadAll Loading module: \"", name, "\"\n"}
-            local aa = mcp:load({MName:new("load",name)})
-            mt       = frameStk:mt()
-            dbg.print{"aa[1]: ",aa[1],", fn_old: ",fn_old,", fn: ",mt:fn(sn),"\n"}
-            if (aa[1] and fn_old ~= mt:fn(sn)) then
+            local status = mcp:load({MName:new("load",name)})
+            mt           = frameStk:mt()
+            dbg.print{"status: ",status,", fn_old: ",fn_old,", fn: ",mt:fn(sn),"\n"}
+            if (status and fn_old ~= mt:fn(sn)) then
                dbg.print{"Master:reloadAll module: ", name, " marked as reloaded\n"}
             end
-            if (aa[1]) then
+            if (status) then
                same = false
             end
          end
