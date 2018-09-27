@@ -250,20 +250,19 @@ end
 
 local s_stk = {}
 
-function M.mgrload(self, mA)
-   if (dbg.active()) then
-      local s = mAList(mA)
-      dbg.start{"Master:mgrload(mA={"..s.."})"}
-   end
+function M.mgrload(self, active)
+   dbg.start{"Master:mgrload(",active.userName,")"}
 
    local mcp_old = mcp
    mcp           = MasterControl.build("mgrload","load")
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-   local a       = MCP.load(mcp,mA)
+   local mname   = MName:new("load", active.userName)
+   mname:setRefCount(active.ref_count)
+   mname:setStackDepth(active.stackDepth)
+   local a       = MCP.load(mcp,{mname})
    mcp           = mcp_old
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    
-
    dbg.fini("Master:mgrload")
    return a
 

@@ -1,14 +1,14 @@
 if (mode() == "load") then
    local required = false
-   local a = loaded_modules()
+   local activeA = loaded_modules()
    
-   for i = 1,#a do
-      io.stderr:write("Unloading: ",a[i].fullName,"\n")
-      unload(a[i].userName)
+   for i = 1,#activeA do
+      io.stderr:write("Unloading: ",activeA[i].userName,"\n")
+      unload(activeA[i].userName)
    end
    setenv("RSNT_ARCH","avx")
-   for i = 1,#a do
-      io.stderr:write("loading: ",a[i].fullName,"\n")
-      mgrload(required, a[i].userName)
+   for i = 1,#activeA do
+      io.stderr:write("loading: ",activeA[i].userName,"\n")
+      mgrload(required, activeA[i])
    end
 end

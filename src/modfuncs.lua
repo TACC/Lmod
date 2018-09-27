@@ -195,14 +195,12 @@ function load_module(...)
    return b
 end
 
-function mgrload(required, ...)
-   dbg.start{"mgrload(",required, concatTbl({...},", "),")"}
-   if (not validateModules("mgrload",...)) then return {} end
+function mgrload(required, active)
+   dbg.start{"mgrload(",required,", activeA)"}
 
-   dbg.print{"mcp:name(): ",mcp:name(),"\n"}
-   local b  = mcp:mgrload(required, MName:buildA(mcp:MNameType(), ...))
+   local status  = mcp:mgrload(required, active)
    dbg.fini("mgrload")
-   return b
+   return status
 end   
 
 

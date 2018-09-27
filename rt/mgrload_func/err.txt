@@ -68,11 +68,11 @@ _ModuleTable_ = {
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load avx
 ===========================
-Unloading: A/1.0
-Unloading: C/1.0
+Unloading: A
+Unloading: C
 Unloading: TACC
-loading: A/1.0
-loading: C/1.0
+loading: A
+loading: C
 loading: TACC
 ===========================
 step 7
@@ -96,6 +96,7 @@ _ModuleTable_ = {
       ["fullName"] = "A/1.0",
       ["loadOrder"] = 1,
       propT = {},
+      ["ref_count"] = 1,
       ["stackDepth"] = 1,
       ["status"] = "active",
       ["userName"] = "A",
@@ -105,6 +106,7 @@ _ModuleTable_ = {
       ["fullName"] = "C/1.0",
       ["loadOrder"] = 2,
       propT = {},
+      ["ref_count"] = 1,
       ["stackDepth"] = 1,
       ["status"] = "active",
       ["userName"] = "C",
@@ -114,7 +116,7 @@ _ModuleTable_ = {
       ["fullName"] = "TACC",
       ["loadOrder"] = 3,
       propT = {},
-      ["stackDepth"] = 1,
+      ["stackDepth"] = 0,
       ["status"] = "active",
       ["userName"] = "TACC",
     },

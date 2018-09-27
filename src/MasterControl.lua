@@ -987,10 +987,9 @@ end
 
 
 
-function M.mgrload(self, required, mA)
+function M.mgrload(self, required, active)
    if (dbg.active()) then
-      local s = mAList(mA)
-      dbg.start{"MasterControl:mgrload(required: ",required,", mA={"..s.."})"}
+      dbg.start{"MasterControl:mgrload(required: ",required,", active=",active.userName,")"}
    end
 
    if (not required) then
@@ -999,10 +998,10 @@ function M.mgrload(self, required, mA)
       activateWarning()
    end
 
-   local a = Master:singleton():mgrload(mA)
+   local status = Master:singleton():mgrload(active)
 
    dbg.fini("MasterControl:mgrload")
-   return a
+   return status
 end
 
 
