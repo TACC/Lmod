@@ -137,6 +137,23 @@ very important that the trailing semicolon are there.  They are
 replaced by the built-in system path.
 
 
+Using Ansible
+~~~~~~~~~~~~~
+
+There is a `ready-to-use Ansible role
+<https://galaxy.ansible.com/idiv-biodiversity/lmod/>` that allows you to
+install Lmod conveniently from Ansible. The role was written with installation
+on HPC clusters in mind, i.e. it is possible to install Lmod into a global,
+networked file system share on only a single host, while all other hosts
+install just the Lmod dependencies and the shell configuration files.
+Nevertheless, it is of course possible to install Lmod with this role on a
+single server. Also, the role supports the transition to Lmod as described in
+:ref:`transition-to-lmod`.
+
+You can find the complete role documentation `here
+<https://github.com/idiv-biodiversity/ansible-role-lmod#ansible-role-lmod>`.
+
+
 Why does Lmod install differently?
 ----------------------------------
 
