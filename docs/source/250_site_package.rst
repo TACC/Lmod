@@ -87,4 +87,34 @@ into any new version of Lmod.
 
 There is no need to modify tcl2lua.tcl if you only add hook functions.
 
+.. _site_package_mgrload:
 
+Using **mgrload** function
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Suppose your site has an archecture state which controls the how the
+modules work.  So you would like to unload all the current modules and
+then set an environment variable and reload.  Here you want to use the
+**mgrload** function and not the **load** function.  If you use the
+load function you loose the **depends_on** () state and whether a
+module was loaded by a user or was loaded by another module.  The way
+this works is that you ask for the currently loaded modules with the
+**loaded_modules** function to get an array of "active" objects.  So
+the following is the "AVX" architecture module::
+
+    if (mode() == "load") then
+       local required = false
+       local activeA = loaded_modules()
+         
+       for i = 1,#activeA do
+          io.stderr:write("Unloading: ",activeA[i].userName,"\n")
+          unload(activeA[i].userName)
+       end
+       setenv("SITE_CURRENT_ARCH","avx")
+       for i = 1,#activeA do
+          io.stderr:write("loading: ",activeA[i].userName,"\n")
+          mgrload(required, activeA[i])
+       end
+    end   
+
+  

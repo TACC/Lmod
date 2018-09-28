@@ -7,3 +7,6 @@ Lmod 7.8+
    (7.8.3)  Fixed problem with unbound variable __lmod_sh_dbg in module shell function definition
    (7.8.4)  Add unload state to tracing.
    (7.8.5)  Define MCP and mcp earlier in lmod main() so that errors/warning found in SitePackage work.
+            issue #383: Use LUA_PATH to evaluate Version.lua instead of depending on ./?.lua to be LUA_PATH.
+	    Added mgrload function and documentation
+	    
