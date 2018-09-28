@@ -57,6 +57,7 @@ M.help                 = MasterControl.quiet
 M.inherit              = MasterControl.inherit
 M.load                 = MasterControl.load
 M.load_usr             = MasterControl.load_usr
+M.mgrload              = MasterControl.mgrload
 M.myFileName           = MasterControl.myFileName
 M.myModuleFullName     = MasterControl.myModuleFullName
 M.myModuleUsrName      = MasterControl.myModuleUsrName

@@ -148,6 +148,13 @@ end
 function M.load(self, mA)
    A[#A+1] = ShowCmdA("load", mA)
 end
+
+-- Print mgrload command.
+-- @param self A MasterControl object
+-- @param mA An array of module names (MName objects)
+function M.mgrload(self, required, active)
+   A[#A+1] = ShowCmd("mgrload", required, active)
+end
 --------------------------------------------------------------------------
 -- Print depends_on command.
 -- @param self A MasterControl object

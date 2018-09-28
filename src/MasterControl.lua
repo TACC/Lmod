@@ -1004,6 +1004,17 @@ function M.mgrload(self, required, active)
    return status
 end
 
+function M.mgr_unload(self, required, active)
+   if (dbg.active()) then
+      dbg.start{"MasterControl:mgr_unload(required: ",required,", active=",active.userName,")"}
+   end
+   
+   local status = MCP:unload(MName:new("mt", active.userName))
+
+   dbg.fini("MasterControl:mgr_unload")
+   return status
+end
+
 
 
 -------------------------------------------------------------------
