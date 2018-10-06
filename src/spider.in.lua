@@ -177,9 +177,14 @@ end
 -- @param rmapT
 -- @param kind
 local function add2map(entry, tbl, dirA, moduleFn, rmapT, kind)
+   dbg.start{"add2map(entry, tbl, dirA, moduleFn, rmapT, kind)"}
    for path in pairs(tbl) do
       local attr = lfs.attributes(path)
-      if (keepThisPath2(path,dirA) and attr and attr.mode == "directory") then
+      local a    = attr or {}
+      local keep = keepThisPath2(path,dirA)
+      dbg.print{"path: ",path,", keep: ",keep,", attr.mode: ",a.mode,"\n"}
+
+      if (keep and attr and attr.mode == "directory") then
          path = abspath(path)
          local t       = rmapT[path] or {pkg=entry.fullName, kind = kind, moduleFn = moduleFn, flavorT = {}}
          local flavorT = t.flavorT
@@ -196,9 +201,11 @@ local function add2map(entry, tbl, dirA, moduleFn, rmapT, kind)
                flavorT[key] = true
             end
          end
+         dbg.print{"assigning rmapT for path: ",path,"\n"}
          rmapT[path] = t
       end
    end
+   dbg.fini("add2map")
 end
 
 --------------------------------------------------------------------------
@@ -230,10 +237,12 @@ local function rptSpiderT(mpathMapT, spiderT, timestampFn, dbT)
 end
 
 local function buildReverseMapT(dbT)
+   dbg.start{"buildReverseMapT(dbT)"}
    local reverseMapT = {}
 
    for sn,vvv in pairs(dbT) do
       for fn, entry in pairs(vvv) do
+         dbg.print{"sn: ",sn,", fn: ",fn,"\n"}
          if (entry.pathA) then
             add2map(entry, entry.pathA,  entry.dirA, fn, reverseMapT, "bin")
          end
@@ -256,6 +265,7 @@ local function buildReverseMapT(dbT)
       sort(flavor)
       vv.flavor  = flavor
    end
+   dbg.fini("buildReverseMapT")
    return reverseMapT
 end
 
