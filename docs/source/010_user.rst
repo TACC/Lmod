@@ -40,15 +40,17 @@ A user may wish to go back to an initial set of modules::
 
     $ module reset
 
-This will purge all currently loaded modules then load the list of
-modules specified by LMOD_SYSTEM_DEFAULT_MODULES. There is a related
+This will unload all currently loaded modules, including the sticky
+ones, then load the list of modules specified by
+LMOD_SYSTEM_DEFAULT_MODULES. There is a related 
 command::
 
     $ module restore
 
-This command will also purge all currently loaded modules and then
-load the system default unless the user has a default collection.
-See :ref:`user_collections-label` for more details.
+This command will also unload all currently loaded modules, including
+the sticky ones, and then load the system default unless the user has
+a default collection. See :ref:`user_collections-label` for more
+details. 
 
 If a module is not available then an error message is produced::
 
@@ -386,9 +388,10 @@ and only the desired modules will be loaded. If Lmod is setup
 correctly (see :ref:`startup_w_stdenv-label`) then the default
 collection will be the user's initial set of modules.
 
-If a user doesn't have a default collection, the Lmod purges all
-currently loaded modules and loads the list of module specified by
-LMOD_SYSTEM_DEFAULT_MODULES just like the ``module reset`` command.
+If a user doesn't have a default collection, the Lmod purges ALL
+currently loaded modules, including the sticky ones, and loads the
+list of module specified by LMOD_SYSTEM_DEFAULT_MODULES just like the
+``module reset`` command. 
 
 Users can have as many collections as they like.  They can save to a
 named collection with::
