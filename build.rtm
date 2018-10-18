@@ -76,6 +76,7 @@ fi
 
 myhost=$(hostname -f)
 myhost=${myhost%.tacc.utexas.edu}
+myhost=${myhost%.local}
 first=${myhost%%.*}
 SYSHOST=${myhost#*.}
 SUDO=""
