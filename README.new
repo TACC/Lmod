@@ -10,4 +10,4 @@ Lmod 7.8+
             issue #383: Use LUA_PATH to evaluate Version.lua instead of depending on ./?.lua to be LUA_PATH.
 	    Added mgrload function and documentation
    (7.8.6)  Fixed unbound variable in bash.in.
-   
+   (7.8.7)  Fixed bug where ~/.lmod.d/cache was marked as read only.

@@ -509,6 +509,7 @@ function M.build(self, fast)
 
       local dontWrite = self.dontWrite or r.dontWriteCache or cosmic:value("LMOD_IGNORE_CACHE")
       local doneMsg
+      mrc = MRC:singleton()
 
       if (t2 - t1 < shortTime or dontWrite) then
          ancient = shortLifeCache
@@ -531,29 +532,25 @@ function M.build(self, fast)
          dbg.print{"mt: ", tostring(mt), "\n", level=2}
          doneMsg = " (not written to file) done"
       else
-         mrc = MRC:singleton()
          mkdir_recursive(self.usrCacheDir)
-         local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
-         local s1 = "ancient = " .. tostring(math.floor(ancient)) .."\n"
-         local s2 = mrc:export()
-         local s3 = serializeTbl{name="spiderT",      value=userSpiderT, indent=true}
-         local s4 = serializeTbl{name="mpathMapT",    value=mpathMapT,   indent=true}
-         os.rename(userSpiderTFN, userSpiderTFN .. "~")
          local userSpiderTFN_new = userSpiderTFN .. "_" .. uuid()
-         local f  = io.open(userSpiderTFN_new,"w")
+         local f                 = io.open(userSpiderTFN_new,"w")
          if (f) then
+            os.rename(userSpiderTFN, userSpiderTFN .. "~")
+            local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
+            local s1 = "ancient = " .. tostring(math.floor(ancient)) .."\n"
+            local s2 = mrc:export()
+            local s3 = serializeTbl{name="spiderT",      value=userSpiderT, indent=true}
+            local s4 = serializeTbl{name="mpathMapT",    value=mpathMapT,   indent=true}
             f:write(s0,s1,s2,s3,s4)
             f:close()
+            local ok, message = os.rename(userSpiderTFN_new, userSpiderTFN)
+            if (not ok) then
+               LmodError{msg="e_Unable_2_rename",from=userSpiderTFN_new,to=userSpiderTFN, errMsg=message}
+            end
+            posix.unlink(userSpiderTFN .. "~")
+            dbg.print{"Wrote: ",userSpiderTFN,"\n"}
          end
-         
-         local ok, message = os.rename(userSpiderTFN_new, userSpiderTFN)
-         if (not ok) then
-            LmodError{msg="e_Unable_2_rename",from=userSpiderTFN_new,to=userSpiderTFN, errMsg=message}
-         end
-
-
-         posix.unlink(userSpiderTFN .. "~")
-         dbg.print{"Wrote: ",userSpiderTFN,"\n"}
          
          if (LUAC_PATH ~= "") then
             if (LUAC_PATH:sub(1,1) == "@") then
