@@ -195,6 +195,20 @@ local function visible_hook(modT)
     dbg.fini()
 end
 
+local function module_weight_hook(defaultT)
+	dbg.start{"module_weight_hook"}
+	if os.getenv("ARCH") == "avx512" then
+		defaultT["intel/2018.3"] = "s"
+		defaultT["openmpi/3.1.2"] = "s"
+	else
+		defaultT["intel/2016.4"] = "s"
+		defaultT["openmpi/2.1.1"] = "s"
+	end
+	dbg.print{"Received defaultT: ", defaultT, "\n"}
+	dbg.fini()
+	return defaultT
+end
+hook.register("moduleWeightHook", module_weight_hook)
 
 hook.register("load", load_hook)
 hook.register("startup", startup_hook)
