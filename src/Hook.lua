@@ -68,6 +68,7 @@ local validT =
       load_spider     = false,  -- This hook is run evaluating modules for spider/avail
       listHook        = false,  -- This hook gets the list of active modules
       isVisibleHook   = false,  -- Called to evalate if a module should be hidden or not
+      moduleWeightHook = false, -- Called when accessing the module weights
 }
 
 --------------------------------------------------------------------------

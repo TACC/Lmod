@@ -55,6 +55,7 @@ require("strict")
 require("fileOps")
 require("utils")
 require("mrc_load")
+require("deepcopy")
 
 local M         = {}
 local dbg       = require("Dbg"):dbg()
@@ -299,7 +300,7 @@ end
 
 
 function M.fullNameDfltT(self)
-   return self.__fullNameDfltT
+   return hook.apply("moduleWeightHook", deepcopy(self.__fullNameDfltT)) or self.__fullNameDfltT
 end
 
 function M.export(self)

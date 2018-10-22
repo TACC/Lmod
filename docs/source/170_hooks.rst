@@ -129,6 +129,12 @@ Hook functions
   argument is a table containing: fullName, sn (short name), fn (file path) and
   isVisible (boolean) of the module.
 
+**moduleWeightHook** (defaultTable):
+  This is called when MRC is invoked to get the list of default modules. It receives
+  a table with the default module names and weights. It can edit the table and
+  return a modified version of it.
+  
+
 Example Hook: msgHook
 ---------------------
 
