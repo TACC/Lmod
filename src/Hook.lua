@@ -93,4 +93,8 @@ function M.apply(name, ...)
    end
 end
 
+function M.exists(name)
+   return validT[name] and true or false
+end
+
 return M
