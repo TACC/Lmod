@@ -11,3 +11,4 @@ Lmod 7.8+
 	    Added mgrload function and documentation
    (7.8.6)  Fixed unbound variable in bash.in.
    (7.8.7)  Fixed bug when ~/.lmod.d/cache was read only.
+   (7.8.8)  Fixed quote rules for Python, R and CMAKE.
