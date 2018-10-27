@@ -38,7 +38,8 @@ from env_modules_python import module
 
 module("load","foobar")
 
-print "os.environ['FOOBAR']: ",os.environ['FOOBAR']
+print "os.environ['FOOBAR']: ",'"' + os.environ['FOOBAR'] + '"'
+print "os.environ['M']: ", '"' + os.environ['M'] + '"'
 
 module("avail");
 EOF

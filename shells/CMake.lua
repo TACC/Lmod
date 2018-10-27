@@ -65,7 +65,7 @@ function CMake.expandVar(self, k, v, vType)
    lineA[#lineA + 1] = 'set(ENV{'
    lineA[#lineA + 1] = k
    lineA[#lineA + 1] = '} '
-   lineA[#lineA + 1] = tostring(v):multiEscaped()
+   lineA[#lineA + 1] = tostring(v):doubleQuoteString()
    lineA[#lineA + 1] = ')\n'
    local line        = concatTbl(lineA,"")
    stdout:write(line)
