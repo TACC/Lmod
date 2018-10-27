@@ -118,6 +118,29 @@ the "Module Hierarchy" and "Searching for Modules" section.::
 
     $ module spider
 
+Specifying modules to load
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Modules are a way to ask for a certain version of a package.  For
+example a site might have two or more versions of the gcc compiler
+collection (say versions 7.1 and 8.2).  So a user may load::
+
+   $ module load gcc
+
+or::
+
+   $ module load gcc/7.1
+
+In the second case, Lmod will load gcc version 7.1 where as in the
+first case Lmod will load the default version of gcc which normally be
+8.2 unless the site marks 7.1 as the default.
+
+In this user guide, we call **gcc/7.1** the **fullName** of the module
+and **gcc** as the **shortName**.  We also call what the user asked
+for as the **userName** which could either be the **fullName** or the
+**shortName** depending on what the user typed on the command line.
+
+
 
 ml: A convenient tool
 ^^^^^^^^^^^^^^^^^^^^^
@@ -421,6 +444,40 @@ foo collection, a user will have to do the following::
 
       $ cd ~/.lmod.d; mv foo~ foo
 
+Rules for loading modules from a collection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Lmod has rules on what modules to load when restoring a
+collection. Remember that **userName** is what the user asked for, the
+**fullName** is the exact module name and **shortName** is name of the
+package (e.g.  gcc, fftw3).
+
+#. Lmod records the fullName and the userName in the collection.
+#. If the userName is the same as the fullName then load fullName
+   independent of the default.
+#. if the userName is not the same as the fullName then load the
+   default.
+#. Unless LMOD_PIN_VERSION=yes then the fullName is always loaded.
+
+In other words if a user does::
+
+   $ module --force purge; module load A B C
+   $ module save
+
+then "**module restore**" will load the default A, B, and C. So if the
+default for module A changed between when the collection was saved and
+then restored, a new version of A will be loaded. This assumes
+that LMOD_PIN_VERSIONS is not set.
+
+On the other hand::
+
+   $ module --force purge; module load A/1.0 B/2.3 C/3.4
+   $ module save
+
+then "**module restore**" will load the A/1.0, B/2.3, and C/3.4
+independent of what the defaults are now or in the future.
+
+
 User Collections on shared home file systems
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -443,3 +500,4 @@ other words on the A cluster a user would see::
       1) default
 
 where the default file is named "default.A".
+
