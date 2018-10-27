@@ -453,9 +453,9 @@ collection. Remember that **userName** is what the user asked for, the
 package (e.g.  gcc, fftw3).
 
 #. Lmod records the fullName and the userName in the collection.
-#. If the userName is the same as the fullName then load fullName
+#. If the userName is the same as the fullName then it loads fullName
    independent of the default.
-#. if the userName is not the same as the fullName then load the
+#. if the userName is not the same as the fullName then it loads the
    default.
 #. Unless LMOD_PIN_VERSION=yes then the fullName is always loaded.
 
