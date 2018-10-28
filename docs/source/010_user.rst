@@ -457,7 +457,7 @@ package (e.g.  gcc, fftw3).
    independent of the default.
 #. if the userName is not the same as the fullName then it loads the
    default.
-#. Unless LMOD_PIN_VERSION=yes then the fullName is always loaded.
+#. Unless LMOD_PIN_VERSIONS=yes then the fullName is always loaded.
 
 In other words if a user does::
 
@@ -467,7 +467,10 @@ In other words if a user does::
 then "**module restore**" will load the default A, B, and C. So if the
 default for module A changed between when the collection was saved and
 then restored, a new version of A will be loaded. This assumes
-that LMOD_PIN_VERSIONS is not set.
+that LMOD_PIN_VERSIONS is not set. If it is set or Lmod is configured
+that way then if A/1.1, B/2.4 and C/3.3 are the default then those
+modules will be loaded in the future independent of what the defaults
+are in the future.
 
 On the other hand::
 
