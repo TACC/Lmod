@@ -128,8 +128,7 @@ Además, puede configurar la variable de entorno LMOD_DISABLE_SAME_NAME_AUTOSWAP
      m_Family_Swap         = "\nLmod va a reemplazar \"%{oldFullName}\" con \"%{newFullName}\" automáticamente\n",
      m_For_System          = nil,
      m_Inactive_Modules    = nil,
-     m_IsNVV               = [==[
-]==],
+     m_IsNVV               = nil,
      m_Module_Msgs         = nil,
      m_No_Named_Coll       = nil,
      m_No_Search_Cmd       = nil,

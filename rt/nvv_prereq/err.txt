@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.7.14  2017-11-16 16:23 -07:00
+Modules based on Lua: Version 7.8.8  2018-10-26 15:12 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -12,6 +12,8 @@ ProjectDIR/rt/nvv_prereq/mf
    a/sub/1.0 (D)    a/sub/2.0    d/1.0
   Where:
    D:  Default Module
+Module defaults are chosen based on Find First Rules due to Name/Version/Version modules found in the module tree.
+See https://lmod.readthedocs.io/en/latest/060_locating.html for details.
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================

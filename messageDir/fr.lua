@@ -157,8 +157,7 @@ Sinon, vous pouvez définir la variable d'environnement LMOD_DISABLE_SAME_NAME_A
      m_Family_Swap         = "\nLmod a automatiquement remplacé \"%{oldFullName}\" par \"%{newFullName}\"\n",
      m_For_System          = ", pour le système: \"%{sname}\"",
      m_Inactive_Modules    = "\nModules inactifs:\n",
-     m_IsNVV               = [==[
-]==],
+     m_IsNVV               = nil,
      m_Module_Msgs         = [==[
 %{border}
 Il y a des messages associés avec le(s) module(s) suivant(s) : 

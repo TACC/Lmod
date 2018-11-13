@@ -101,8 +101,7 @@ return {
      m_Family_Swap         = "\nLmod 已经自动将 \"%{oldFullName}\" 替换为 \"%{newFullName}\"\n",   
      m_For_System          = nil,
      m_Inactive_Modules    = nil,
-     m_IsNVV               = [==[
-]==],
+     m_IsNVV               = nil,
      m_Module_Msgs         = nil,
      m_No_Named_Coll       = nil,
      m_No_Search_Cmd       = nil,
