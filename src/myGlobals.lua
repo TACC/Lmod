@@ -516,10 +516,6 @@ cosmic:init{name = "LMOD_USE_DOT_FILES",
 
 local use_dot_files = cosmic:value("LMOD_USE_DOT_FILES")
 
-
-
-
-
 ------------------------------------------------------------------------
 -- LMOD_HAVE_LUA_TERM
 ------------------------------------------------------------------------
