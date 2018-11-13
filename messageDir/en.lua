@@ -166,6 +166,10 @@ Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOS
      m_Family_Swap         = "\nLmod is automatically replacing \"%{oldFullName}\" with \"%{newFullName}\".\n",
      m_For_System          = ", for system: \"%{sname}\"",
      m_Inactive_Modules    = "\nInactive Modules:\n",
+     m_IsNVV               = [==[
+Module defaults are chosen based on Find First Rules due to Name/Version/Version modules found in the module tree.
+See https://lmod.readthedocs.io/en/latest/060_locating.html for details.
+]==],
      m_Module_Msgs         = [==[
 %{border}
 There are messages associated with the following module(s):

@@ -165,6 +165,8 @@ Alternativ können Sie die Umgebungsvariable LMOD_DISABLE_SAME_NAME_AUTOSWAP auf
      m_Family_Swap         = "\nLmod hat \"%{oldFullName}\" automatisch durch \"%{newFullName}\" ersetzt.\n",
      m_For_System          = ", für das System: \"%{sname}\"",
      m_Inactive_Modules    = "\nInaktive Module:\n",
+     m_IsNVV               = [==[
+]==],
      m_Module_Msgs         = [==[
 %{border}
 Es gibt Meldungen, die zu den folgenden Modulen gehören:

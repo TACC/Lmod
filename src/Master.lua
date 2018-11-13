@@ -903,6 +903,7 @@ function M.avail(self, argA)
 
    local use_cache   = (not masterTbl.terse) or (cosmic:value("LMOD_CACHED_LOADS") ~= "no")
    local moduleA     = ModuleA:singleton{spider_cache=use_cache}
+   local isNVV       = moduleA:isNVV()
    local mrc         = MRC:singleton()
    local availA      = moduleA:build_availA()
    local twidth      = TermWidth()
@@ -1073,6 +1074,11 @@ function M.avail(self, argA)
       a[#a+1]  = "\n"
    end
 
+   if (isNVV) then
+      a[#a+1] = "\n"
+      a[#a+1] = i18n("m_IsNVV");
+   end
+      
    if (not quiet()) then
       a = hook.apply("msgHook", "avail", a) or a
    end
