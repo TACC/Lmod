@@ -28,6 +28,7 @@ testdescript = {
      runLmod load gcc                     # 3
      runLmod load git/1.7.4.3             # 4
      runLmod load bar                     # 5
+     runLmod load format                  # 6
 
      HOME=$ORIG_HOME
 

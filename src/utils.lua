@@ -354,7 +354,7 @@ function readAdmin()
 
       for v in whole:split("\n") do
          repeat
-            v = v:trim()
+            v = v:gsub("%s+$","")
 
             if (v:sub(1,1) == "#") then
                -- ignore this comment line
@@ -362,7 +362,7 @@ function readAdmin()
 
             elseif (v:find("^%s*$")) then
                if (state == "value") then
-                  value             = concatTbl(a, " ")
+                  value             = concatTbl(a, "")
                   for i = 1, #keyA do
                      adminA[#adminA+1] = { keyA[i], value }
                   end
@@ -373,7 +373,7 @@ function readAdmin()
 
                -- Ignore blank lines
             elseif (state == "value") then
-               a[#a+1]     = v:trim()
+               a[#a+1]     = v .. "\n"
             else
                local i     = v:find(":")
                if (i) then
@@ -381,7 +381,7 @@ function readAdmin()
                   for key in k:split('|') do
                      keyA[#keyA+1] = key:trim()
                   end
-                  local s = v:sub(i+1):trim()
+                  local s = v:sub(i+1)
                   if (s:len() > 0) then
                      a[#a+1]  = s
                   end

@@ -12,6 +12,6 @@ Lmod 7.8+
    (7.8.6)  Fixed unbound variable in bash.in.
    (7.8.7)  Fixed bug when ~/.lmod.d/cache was read only.
    (7.8.8)  Fixed quote rules for Python, R and CMAKE.
-   (7.8.9)  Added a message when find first rules are used to set defaults when NVV is found in both avail and tracing.
-   
-   
+   (7.8.9)  issue #390: Added a message when find first rules are used to set defaults when NVV is found in both avail and tracing.
+            issue #389: Honor newlines and leading spaces in Nag messages.
+            

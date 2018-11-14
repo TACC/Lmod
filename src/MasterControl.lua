@@ -56,6 +56,7 @@ local encode64     = base64.encode64
 local getenv       = os.getenv
 local hook         = require("Hook")
 local i18n         = require("i18n")
+local max          = math.max
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
 local remove       = table.remove
 local s_adminT     = {}
@@ -1299,8 +1300,16 @@ function M.reportAdminMsgs()
       for k, v in pairsByKeys(t) do
          io.stderr:write("\n",k,":\n")
          a[1] = { " ", v}
-         bt = BeautifulTbl:new{tbl=a, wrapped=true, column=term_width-1}
-         io.stderr:write(bt:build_tbl(), "\n")
+         local maxLen = 0
+         for line in v:split("\n") do
+            maxLen = max(line:len(), maxLen)
+         end
+         if (maxLen < term_width - 1) then
+            io.stderr:write(v,"\n")
+         else
+            bt = BeautifulTbl:new{tbl=a, wrapped=true, column=term_width-1}
+            io.stderr:write(bt:build_tbl(), "\n")
+         end
       end
       io.stderr:write(border,"\n\n")
    end
