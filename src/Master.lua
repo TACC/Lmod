@@ -276,11 +276,12 @@ function M.load(self, mA)
 
    local disable_same_name_autoswap = cosmic:value("LMOD_DISABLE_SAME_NAME_AUTOSWAP")
 
-   local tracing  = cosmic:value("LMOD_TRACING")
-   local frameStk = FrameStk:singleton()
-   local shell    = _G.Shell
-   local shellNm  = shell and shell:name() or "bash"
-   local a        = true
+   local masterTbl = masterTbl()
+   local tracing   = cosmic:value("LMOD_TRACING")
+   local frameStk  = FrameStk:singleton()
+   local shell     = _G.Shell
+   local shellNm   = shell and shell:name() or "bash"
+   local a         = true
    local mt
 
 
@@ -316,6 +317,9 @@ function M.load(self, mA)
      
          if (tracing == "yes") then
             local stackDepth = frameStk:stackDepth()
+            local use_cache  = (not masterTbl.terse) or (cosmic:value("LMOD_CACHED_LOADS") ~= "no")
+            local moduleA    = ModuleA:singleton{spider_cache=use_cache}
+            local isNVV      = moduleA:isNVV()
             local indent     = ("  "):rep(stackDepth+1)
             local b          = {}
             b[#b + 1]        = indent
@@ -323,6 +327,7 @@ function M.load(self, mA)
             b[#b + 1]        = userName
             b[#b + 1]        = " (fn: "
             b[#b + 1]        = fn or "nil"
+            b[#b + 1]        = isNVV and ", using Find-First" or ", using Find-Best"
             b[#b + 1]        = ")\n"
             shell:echo(concatTbl(b,""))
          end
