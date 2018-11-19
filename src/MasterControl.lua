@@ -1174,17 +1174,19 @@ end
 -- @param sn The new module name.
 function M.familyStackPush(oldName, sn)
    dbg.start{"familyStackPush(",oldName,", ", sn,")"}
-   local mt             = FrameStk:singleton():mt()
+   local frameStk       = FrameStk:singleton()
+   local mt             = frameStk:mt()
    local old_userName   = mt:userName(oldName)
+   local frameStkDepth  = frameStk:stackDepth()
    dbg.print{"removing old sn: ",oldName,",old userName: ",old_userName,"\n"}
 
    if (old_userName) then
       s_loadT[old_userName] = nil
    end
    s_moduleStk[#s_moduleStk+1] = { sn=oldName, fullName = mt:fullName(oldName),
-                                   userName = mt:userName(oldName)}
+                                   userName = mt:userName(oldName), frameStkDepth = frameStkDepth}
    s_moduleStk[#s_moduleStk+1] = { sn=sn,      fullName = mt:fullName(sn),
-                                   userName = mt:userName(sn)}
+                                   userName = mt:userName(sn), frameStkDepth = frameStkDepth}
    dbg.fini("familyStackPush")
 end
 
@@ -1211,6 +1213,18 @@ end
 -- @return True if the stack is empty.
 function M.familyStackEmpty()
    return (next(s_moduleStk) == nil)
+end
+
+--------------------------------------------------------------------------
+-- Check for an empty stack.
+-- @return True if the stack is empty.
+function M.processFamilyStack()
+   if (next(s_moduleStk) == nil) then
+      return false
+   end
+   local currentFrameStkDepth  = FrameStk:singleton():stackDepth()
+   local frameStkDepth         = s_moduleStk[#s_moduleStk].frameStkDepth
+   return (currentFrameStkDepth == frameStkDepth)
 end
 
 --------------------------------------------------------------------------
