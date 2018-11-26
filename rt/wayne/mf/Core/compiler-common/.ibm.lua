@@ -1,17 +1,3 @@
 -- Loads some common variables for ibm compiler
 
 setenv("CC","xlc")
-setenv("CXX","xlc")
-setenv("FC","xlf")
-setenv("MPICC_CC","xlc")
-setenv("MPICXX_CXX","xlc")
-setenv("MPIF90_F90","xlf")
-setenv("I_MPI_CC","xlc")
-setenv("I_MPI_CXX","xlc")
-setenv("I_MPI_F77","xlf")
-setenv("I_MPI_F90","xlf")
-setenv("I_MPI_FC","xlf")
-setenv("OMPI_MPICC","xlc")
-setenv("OMPI_MPICXX","xlc")
-setenv("OMPI_MPIF77","xlf")
-setenv("OMPI_MPIF90","xlf")
