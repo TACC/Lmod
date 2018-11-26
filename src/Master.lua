@@ -383,7 +383,7 @@ function M.load(self, mA)
             a = false
          end
 
-         if (not mcp.familyStackEmpty()) then
+         if (mcp.processFamilyStack()) then
             local b = {}
             while (not mcp.familyStackEmpty()) do
                local   b_old, b_new = mcp.familyStackPop()
