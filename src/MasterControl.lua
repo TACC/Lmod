@@ -1219,12 +1219,13 @@ end
 -- Check for an empty stack.
 -- @return True if the stack is empty.
 function M.processFamilyStack()
-   if (next(s_moduleStk) == nil) then
-      return false
-   end
-   local currentFrameStkDepth  = FrameStk:singleton():stackDepth()
-   local frameStkDepth         = s_moduleStk[#s_moduleStk].frameStkDepth
-   return (currentFrameStkDepth == frameStkDepth)
+   return (next(s_moduleStk) ~= nil)
+   --if (next(s_moduleStk) == nil) then
+   --   return false
+   --end
+   --local currentFrameStkDepth  = FrameStk:singleton():stackDepth()
+   --local frameStkDepth         = s_moduleStk[#s_moduleStk].frameStkDepth
+   --return (currentFrameStkDepth == frameStkDepth)
 end
 
 --------------------------------------------------------------------------
