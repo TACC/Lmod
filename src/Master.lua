@@ -476,7 +476,21 @@ function M.unload(self,mA)
       local fullName = mname:fullName()
       local sn       = mname:sn()
       local fn       = mname:fn()
-      local state    = ""
+      local status   = mt:status(sn)
+      if (tracing == "yes") then
+         local stackDepth = frameStk:stackDepth()
+         local indent     = ("  "):rep(stackDepth+1)
+         local b          = {}
+         b[#b + 1]        = indent
+         b[#b + 1]        = "Unloading: "
+         b[#b + 1]        = userName
+         b[#b + 1]        = " (status: "
+         b[#b + 1]        = status
+         b[#b + 1]        = ") (fn: "
+         b[#b + 1]        = fn or "nil"
+         b[#b + 1]        = ")\n"
+         shell:echo(concatTbl(b,""))
+      end
 
       dbg.print{"Trying to unload: ", userName, " sn: ", sn,"\n"}
 
@@ -485,8 +499,7 @@ function M.unload(self,mA)
          mt:remove(sn)
          registerUnloaded(mt:fullName(sn), mt:fn(sn))
          a[#a + 1] = true
-         state     = "inactive"
-      elseif (mt:have(sn,"active")) then
+      elseif (mt:have(sn,"active") or mt:have(sn,"pending")) then
 
          dbg.print{"Master:unload: \"",userName,"\" from file: \"",fn,"\"\n"}
          frameStk:push(mname)
@@ -505,24 +518,8 @@ function M.unload(self,mA)
          hook.apply("unload",{fn = mname:fn(), modFullName = mname:fullName()})
          frameStk:pop()
          a[#a+1] = true
-         state     = "active"
       else
          a[#a+1] = false
-         state     = "non-existant"
-      end
-      if (tracing == "yes") then
-         local stackDepth = frameStk:stackDepth()
-         local indent     = ("  "):rep(stackDepth+1)
-         local b          = {}
-         b[#b + 1]        = indent
-         b[#b + 1]        = "Unloading: "
-         b[#b + 1]        = userName
-         b[#b + 1]        = " (state: "
-         b[#b + 1]        = state
-         b[#b + 1]        = ") (fn: "
-         b[#b + 1]        = fn or "nil"
-         b[#b + 1]        = ")\n"
-         shell:echo(concatTbl(b,""))
       end
    end
    
