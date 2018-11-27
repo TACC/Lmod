@@ -15,4 +15,5 @@ Lmod 7.8+
    (7.8.9)  issue #390: Added a message when find first rules are used to set defaults when NVV is found in both avail and tracing.
             issue #389: Honor newlines and leading spaces in Nag messages.
    (7.8.10) Allow MODULERCFILE to be a colon separated list.
+            issue #391: Only process the family stack when in the modulefile that requested it.
    

@@ -1,11 +1,11 @@
 -- -*- lua -*-
-local testName = "wayne"
+local testName = "family"
 
 testdescript = {
    owner   = "rtm",
    product = "modules",
    description = [[
-	 "depends_on"
+	 "Test problem where the family directive would screw up when the compiler module had a load()"
    ]],
    keywords = {testName },
 
