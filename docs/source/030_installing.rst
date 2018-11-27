@@ -77,12 +77,11 @@ If you use this option you do **not** need to use your package manager
 or install luarocks.  Instead please read the section on how to
 install Lmod.
 
-
-
 Using Your Package Manager
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can use your package manager for your OS to install Lua. You will
+If you didn't install the lua tar ball described above then  
+you can use your package manager for your OS to install Lua. You will
 also need the matching packages: lua Filesystem (lfs) and luaposix.
 On Ubuntu Linux, the following packages will work::
 

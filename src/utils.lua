@@ -431,8 +431,8 @@ function getModuleRCT(remove_MRC_home)
 
    if (MRC_system) then
       for file in MRC_system:split(":") do
-         if (isFile(MRC_system)) then
-            A[#A+1] = { MRC_system, "s"}
+         if (isFile(file)) then
+            A[#A+1] = { file, "s"}
          end
       end
    end

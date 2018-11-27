@@ -1211,6 +1211,13 @@ end
 --------------------------------------------------------------------------
 -- Check for an empty stack.
 -- @return True if the stack is empty.
+function M.processFamilyStack()
+   return (next(s_moduleStk) ~= nil)
+end
+
+--------------------------------------------------------------------------
+-- Check for an empty stack.
+-- @return True if the stack is empty.
 function M.familyStackEmpty()
    return (next(s_moduleStk) == nil)
 end

@@ -500,8 +500,7 @@ function M.unload(self,mA)
          mt:remove(sn)
          registerUnloaded(mt:fullName(sn), mt:fn(sn))
          a[#a + 1] = true
-      elseif (mt:have(sn,"active") or mt:have(sn,"pending")) then
-
+      elseif (mt:have(sn,"active")) then
          dbg.print{"Master:unload: \"",userName,"\" from file: \"",fn,"\"\n"}
          frameStk:push(mname)
          mt = frameStk:mt()
