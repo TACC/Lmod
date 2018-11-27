@@ -1177,16 +1177,15 @@ function M.familyStackPush(oldName, sn)
    local frameStk       = FrameStk:singleton()
    local mt             = frameStk:mt()
    local old_userName   = mt:userName(oldName)
-   local frameStkDepth  = frameStk:stackDepth()
    dbg.print{"removing old sn: ",oldName,",old userName: ",old_userName,"\n"}
 
    if (old_userName) then
       s_loadT[old_userName] = nil
    end
    s_moduleStk[#s_moduleStk+1] = { sn=oldName, fullName = mt:fullName(oldName),
-                                   userName = mt:userName(oldName), frameStkDepth = frameStkDepth}
+                                   userName = mt:userName(oldName)}
    s_moduleStk[#s_moduleStk+1] = { sn=sn,      fullName = mt:fullName(sn),
-                                   userName = mt:userName(sn), frameStkDepth = frameStkDepth}
+                                   userName = mt:userName(sn)}
    dbg.fini("familyStackPush")
 end
 
@@ -1211,8 +1210,11 @@ end
 --------------------------------------------------------------------------
 -- Check for an empty stack.
 -- @return True if the stack is empty.
-function M.processFamilyStack()
-   return (next(s_moduleStk) ~= nil)
+function M.processFamilyStack(fullName)
+   if (next(s_moduleStk) ~= nil) then
+      return fullName == s_moduleStk[#s_moduleStk].fullName
+   end
+   return false
 end
 
 --------------------------------------------------------------------------
@@ -1220,19 +1222,6 @@ end
 -- @return True if the stack is empty.
 function M.familyStackEmpty()
    return (next(s_moduleStk) == nil)
-end
-
---------------------------------------------------------------------------
--- Check for an empty stack.
--- @return True if the stack is empty.
-function M.processFamilyStack()
-   return (next(s_moduleStk) ~= nil)
-   --if (next(s_moduleStk) == nil) then
-   --   return false
-   --end
-   --local currentFrameStkDepth  = FrameStk:singleton():stackDepth()
-   --local frameStkDepth         = s_moduleStk[#s_moduleStk].frameStkDepth
-   --return (currentFrameStkDepth == frameStkDepth)
 end
 
 --------------------------------------------------------------------------

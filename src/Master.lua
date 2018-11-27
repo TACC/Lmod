@@ -383,8 +383,9 @@ function M.load(self, mA)
             a = false
          end
 
-         if (mcp.processFamilyStack()) then
-            dbg.print{"In M.load() when the family stack is not empty: fullName: ",fullName,"\n"}
+         if (mcp.processFamilyStack(fullName)) then
+            local stackDepth = frameStk:stackDepth()
+            dbg.print{"In M.load() when the family stack is not empty: fullName: ",fullName,", stackDepth: ", stackDepth,"\n"}
             local b = {}
             while (not mcp.familyStackEmpty()) do
                local   b_old, b_new = mcp.familyStackPop()
