@@ -84,6 +84,7 @@ Advanced Topics
    077_ref_counting
    080_hierarchy
    090_configuring_lmod
+   093_modulerc
    095_tcl2lua
    098_dependent_modules
    100_modulefile_examples

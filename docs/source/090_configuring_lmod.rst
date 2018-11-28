@@ -66,6 +66,19 @@ configuration step.
    [yes/no] If set to yes then Lmod will trace the loads/unloads while
    the module command is running.
 
+**LMOD_MODULERCFILE**:
+   A single file or a colon separated list of files to be used to
+   specify the system MODULERC file.  **MODULERCFILE** can also be
+   used but only **LMOD_MODULERCFILE** is used if both are specified.
+   See :ref:`modulerc-label` for more details.
+
+**MODULERCFILE**:
+   A single file or a colon separated list of files to be used to
+   specify the system MODULERC file.  **LMOD_MODULERCFILE** can also be
+   used but only **LMOD_MODULERCFILE** is used if both are specified.
+   See :ref:`modulerc-label` for more details.
+   
+
 
 Configuration time settings that can be overridden by env. vars.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
