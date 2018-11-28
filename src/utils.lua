@@ -430,10 +430,14 @@ function getModuleRCT(remove_MRC_home)
    local MRC_home_lua = pathJoin(getenv("HOME"), ".modulerc.lua")
 
    if (MRC_system) then
+      local a = {}
       for file in MRC_system:split(":") do
          if (isFile(file)) then
-            A[#A+1] = { file, "s"}
+            a[#a+1] = file
          end
+      end
+      for i = #a, 1, -1 do
+         A[#A+1] = { a[i], "s"}
       end
    end
    if (not remove_MRC_home) then

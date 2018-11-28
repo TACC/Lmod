@@ -1,4 +1,4 @@
-help([[Sets up the OpenMPI MPI environment.
+help([[Sets up the MPICH environment.
 Depends on: gcc/7.1.0, common
 Dependents: Libraries built with this MPI
 Family: mpi
@@ -18,4 +18,4 @@ append_path('MODULEPATH',       mpath)
 prepend_path('PATH', pathJoin(base,"bin"))
 family("mpi")
 
-load("mpi-common/.openmpi")
+load("mpi-common/.mpich")
