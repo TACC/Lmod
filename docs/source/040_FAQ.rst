@@ -243,12 +243,13 @@ Why do modules get sometimes get loaded when I execute ``module use <path>``?
    the currently loaded modules. If any of thoses modules would not
    have been chosen then each is swapped for the new choice.
 
-How to use module commands inside a Makefile:
+How to use module commands inside a Makefile?
 
    A user might wish to use module commands inside a Makefile.  Here is a
    generic way that would work with both Tmod and Lmod.  Both Lmod and
-   Tmod define MODULESHOME to point to the top of the module source and
-   both tools use the same initialization strategy.
+   Tmod define MODULESHOME to point to the top of the module install
+   directory and both tools use the same initialization method to
+   define the module command. 
 
    Here is an example Makefile that shows a user listing their currently
    loaded modules::
