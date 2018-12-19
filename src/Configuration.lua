@@ -178,7 +178,9 @@ local function new(self)
    if (not readable) then
       adminFn = adminFn .. " -> <empty>"
    end
-
+   if (not isFile(mpath_init)) then
+      mpath_init = mpath_init .. " -> <empty>"
+   fi
 
    local tbl = {}
    tbl.allowTCL     = { k = "Allow TCL modulefiles"             , v = allow_tcl_mfiles, }
