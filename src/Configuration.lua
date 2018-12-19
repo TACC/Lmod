@@ -180,7 +180,7 @@ local function new(self)
    end
    if (not isFile(mpath_init)) then
       mpath_init = mpath_init .. " -> <empty>"
-   fi
+   end
 
    local tbl = {}
    tbl.allowTCL     = { k = "Allow TCL modulefiles"             , v = allow_tcl_mfiles, }
