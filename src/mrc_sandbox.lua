@@ -58,6 +58,7 @@ local mrc_sandbox_env = {
    hide_modulefile = hide_modulefile,
    os              = { clock = os.clock, difftime = os.difftime, time = os.time, date = os.date,
                        getenv = os.getenv, execute = os.execute},
+   io              = { stderr = io.stderr, open = io.open, close = io.close, write = io.write },
    ------------------------------------------------------------
    -- fileOp functions
    ------------------------------------------------------------

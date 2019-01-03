@@ -5,7 +5,7 @@
 module-version boost/1.60.0 default
 module-version boost-mpi/1.60.0 default
 module-version imkl/11.3.4.258 default
-module-version intel/2016.4 default
+#module-version intel/2016.4 default
 module-version openmpi/2.1.1 default
 module-version gcc/5.4.0 default
 module-version cuda/8.0.44 default
