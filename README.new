@@ -17,4 +17,5 @@ Lmod 7.8+
    (7.8.10) Allow MODULERCFILE to be a colon separated list.
             issue #391: Only process the family stack when in the modulefile that requested it.
    (7.8.11) Allow MODULERCFILE to be a colon separated list with the priority be left to right instead of right to left.
+   (7.8.12) added cc test case for issues with choosing the correct module when doing reloadAll()
    
