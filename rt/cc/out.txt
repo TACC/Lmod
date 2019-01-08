@@ -1,0 +1,197 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/cc/MF/modules:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/cc/MF/modules;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/cc/MF/modules",},["systemBaseMPATH"]="ProjectDIR/rt/cc/MF/modules",}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load StdEnv/2016.4
+===========================
+EBDEVELICCIFORT=/cvmfs/soft.computecanada.ca/easybuild/software/2017/Core/intel/2016.4/easybuild/Core-intel-2016.4-easybuild-devel;
+export EBDEVELICCIFORT;
+EBROOTICCIFORT=/cvmfs/soft.computecanada.ca/easybuild/software/2017/Core/intel/2016.4;
+export EBROOTICCIFORT;
+EBVERSIONICCIFORT=2016.4;
+export EBVERSIONICCIFORT;
+LMOD_FAMILY_COMPILER=intel;
+export LMOD_FAMILY_COMPILER;
+LMOD_FAMILY_COMPILER_VERSION=2016.4;
+export LMOD_FAMILY_COMPILER_VERSION;
+__LMOD_REF_COUNT_LOADEDMODULES=intel/2016.4:1\;StdEnv/2016.4:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=intel/2016.4:StdEnv/2016.4;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/cc/MF/Core:1\;ProjectDIR/rt/cc/MF/modules:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/cc/MF/Core:ProjectDIR/rt/cc/MF/modules;
+export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/cc/MF/Core/intel/2016.4.lua:1\;ProjectDIR/rt/cc/MF/modules/StdEnv/2016.4.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/cc/MF/Core/intel/2016.4.lua:ProjectDIR/rt/cc/MF/modules/StdEnv/2016.4.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={StdEnv={["fn"]="ProjectDIR/rt/cc/MF/modules/StdEnv/2016.4.lua",["fullName"]="StdEnv/2016.4",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv/2016.4",},intel={["fn"]="ProjectDIR/rt/cc/MF/Core/intel/2016.4.lua",["fullName"]="intel/2016.4",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="intel/2016.4",},},mpathA={"ProjectDIR/rt/cc/MF/Core","ProjectDIR/rt/cc/MF/modules",},["systemBaseMPATH"]="ProjectDIR/rt/cc/MF/modules",}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/cc/MF/Core:ProjectDIR/rt/cc/MF/modules;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={StdEnv={["fn"]="ProjectDIR/rt/cc/MF/modules/StdEnv/2016.4.lua",["fullName"]="StdEnv/2016.4",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv/2016.4",},intel={["fn"]="ProjectDIR/rt/cc/MF/Core/intel/2016.4.lua",["fullName"]="intel/2016.4",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="intel/2016.4",},},mpathA={"ProjectDIR/rt/cc/MF/Core","ProjectDIR/rt/cc/MF/modules",},["systemBaseMPATH"]="ProjectDIR/rt/cc/MF/modules",}';
+export _ModuleTable_;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load arch/avx512
+===========================
+__LMOD_REF_COUNT_LOADEDMODULES=intel/2016.4:1\;StdEnv/2016.4:1\;arch/avx512:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=intel/2016.4:StdEnv/2016.4:arch/avx512;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/cc/MF/modules-avx512:1\;ProjectDIR/rt/cc/MF/Core:1\;ProjectDIR/rt/cc/MF/modules:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/cc/MF/modules-avx512:ProjectDIR/rt/cc/MF/Core:ProjectDIR/rt/cc/MF/modules;
+export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/cc/MF/Core/intel/2016.4.lua:1\;ProjectDIR/rt/cc/MF/modules/StdEnv/2016.4.lua:1\;ProjectDIR/rt/cc/MF/modules/arch/avx512.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/cc/MF/Core/intel/2016.4.lua:ProjectDIR/rt/cc/MF/modules/StdEnv/2016.4.lua:ProjectDIR/rt/cc/MF/modules/arch/avx512.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={StdEnv={["fn"]="ProjectDIR/rt/cc/MF/modules/StdEnv/2016.4.lua",["fullName"]="StdEnv/2016.4",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv/2016.4",},arch={["fn"]="ProjectDIR/rt/cc/MF/modules/arch/avx512.lua",["fullName"]="arch/avx512",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="arch/avx512",},intel={["fn"]="ProjectDIR/rt/cc/MF/Core/intel/2016.4.lua",["fullName"]="intel/2016.4",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="intel/2016.4",},},mpathA={"ProjectDIR/rt/cc/MF/modules-avx512","ProjectDIR/rt/cc/MF/Core","ProjectDIR/rt/cc/MF/modules",},["systemBaseMPATH"]="ProjectDIR/rt/cc/MF/modules",}';
+export _ModuleTable_;
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/cc/MF/modules-avx512:ProjectDIR/rt/cc/MF/Core:ProjectDIR/rt/cc/MF/modules;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={StdEnv={["fn"]="ProjectDIR/rt/cc/MF/modules/StdEnv/2016.4.lua",["fullName"]="StdEnv/2016.4",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv/2016.4",},arch={["fn"]="ProjectDIR/rt/cc/MF/modules/arch/avx512.lua",["fullName"]="arch/avx512",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="arch/avx512",},intel={["fn"]="ProjectDIR/rt/cc/MF/Core/intel/2016.4.lua",["fullName"]="intel/2016.4",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="intel/2016.4",},},mpathA={"ProjectDIR/rt/cc/MF/modules-avx512","ProjectDIR/rt/cc/MF/Core","ProjectDIR/rt/cc/MF/modules",},["systemBaseMPATH"]="ProjectDIR/rt/cc/MF/modules",}';
+export _ModuleTable_;
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+unset EBDEVELICCIFORT;
+unset EBROOTICCIFORT;
+unset EBVERSIONICCIFORT;
+unset LMOD_FAMILY_COMPILER;
+unset LMOD_FAMILY_COMPILER_VERSION;
+unset __LMOD_REF_COUNT_LOADEDMODULES;
+unset LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/cc/MF/modules:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/cc/MF/modules;
+export MODULEPATH;
+unset __LMOD_REF_COUNT__LMFILES_;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/cc/MF/modules",},["systemBaseMPATH"]="ProjectDIR/rt/cc/MF/modules",}';
+export _ModuleTable_;
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load StdEnv
+===========================
+EBDEVELICCIFORT=/cvmfs/soft.computecanada.ca/easybuild/software/2017/Core/intel/2016.4/easybuild/Core-intel-2016.4-easybuild-devel;
+export EBDEVELICCIFORT;
+EBROOTICCIFORT=/cvmfs/soft.computecanada.ca/easybuild/software/2017/Core/intel/2016.4;
+export EBROOTICCIFORT;
+EBVERSIONICCIFORT=2016.4;
+export EBVERSIONICCIFORT;
+LMOD_FAMILY_COMPILER=intel;
+export LMOD_FAMILY_COMPILER;
+LMOD_FAMILY_COMPILER_VERSION=2016.4;
+export LMOD_FAMILY_COMPILER_VERSION;
+__LMOD_REF_COUNT_LOADEDMODULES=intel/2016.4:1\;StdEnv/2016.4:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=intel/2016.4:StdEnv/2016.4;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/cc/MF/Core:1\;ProjectDIR/rt/cc/MF/modules:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/cc/MF/Core:ProjectDIR/rt/cc/MF/modules;
+export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/cc/MF/Core/intel/2016.4.lua:1\;ProjectDIR/rt/cc/MF/modules/StdEnv/2016.4.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/cc/MF/Core/intel/2016.4.lua:ProjectDIR/rt/cc/MF/modules/StdEnv/2016.4.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={StdEnv={["fn"]="ProjectDIR/rt/cc/MF/modules/StdEnv/2016.4.lua",["fullName"]="StdEnv/2016.4",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},intel={["fn"]="ProjectDIR/rt/cc/MF/Core/intel/2016.4.lua",["fullName"]="intel/2016.4",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="intel/2016.4",},},mpathA={"ProjectDIR/rt/cc/MF/Core","ProjectDIR/rt/cc/MF/modules",},["systemBaseMPATH"]="ProjectDIR/rt/cc/MF/modules",}';
+export _ModuleTable_;
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/cc/MF/Core:ProjectDIR/rt/cc/MF/modules;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={StdEnv={["fn"]="ProjectDIR/rt/cc/MF/modules/StdEnv/2016.4.lua",["fullName"]="StdEnv/2016.4",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},intel={["fn"]="ProjectDIR/rt/cc/MF/Core/intel/2016.4.lua",["fullName"]="intel/2016.4",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="intel/2016.4",},},mpathA={"ProjectDIR/rt/cc/MF/Core","ProjectDIR/rt/cc/MF/modules",},["systemBaseMPATH"]="ProjectDIR/rt/cc/MF/modules",}';
+export _ModuleTable_;
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load arch/avx512
+===========================
+EBDEVELICCIFORT=/cvmfs/soft.computecanada.ca/easybuild/software/2017/Core/intel/2018.3/easybuild/Core-intel-2018.3-easybuild-devel;
+export EBDEVELICCIFORT;
+EBROOTICCIFORT=/cvmfs/soft.computecanada.ca/easybuild/software/2017/Core/intel/2018.3;
+export EBROOTICCIFORT;
+EBVERSIONICCIFORT=2018.3;
+export EBVERSIONICCIFORT;
+LMOD_FAMILY_COMPILER=intel;
+export LMOD_FAMILY_COMPILER;
+LMOD_FAMILY_COMPILER_VERSION=2018.3;
+export LMOD_FAMILY_COMPILER_VERSION;
+__LMOD_REF_COUNT_LOADEDMODULES=arch/avx512:1\;intel/2018.3:1\;StdEnv/2018.3:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=arch/avx512:intel/2018.3:StdEnv/2018.3;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/cc/MF/Core:1\;ProjectDIR/rt/cc/MF/modules-avx512:1\;ProjectDIR/rt/cc/MF/modules:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/cc/MF/Core:ProjectDIR/rt/cc/MF/modules-avx512:ProjectDIR/rt/cc/MF/modules;
+export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/cc/MF/modules/arch/avx512.lua:1\;ProjectDIR/rt/cc/MF/Core/intel/2018.3.lua:1\;ProjectDIR/rt/cc/MF/modules-avx512/StdEnv/2018.3.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/cc/MF/modules/arch/avx512.lua:ProjectDIR/rt/cc/MF/Core/intel/2018.3.lua:ProjectDIR/rt/cc/MF/modules-avx512/StdEnv/2018.3.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={StdEnv={["fn"]="ProjectDIR/rt/cc/MF/modules-avx512/StdEnv/2018.3.lua",["fullName"]="StdEnv/2018.3",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},arch={["fn"]="ProjectDIR/rt/cc/MF/modules/arch/avx512.lua",["fullName"]="arch/avx512",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="arch/avx512",},intel={["fn"]="ProjectDIR/rt/cc/MF/Core/intel/2018.3.lua",["fullName"]="intel/2018.3",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="intel/2018.3",},},mpathA={"ProjectDIR/rt/cc/MF/Core","ProjectDIR/rt/cc/MF/modules-avx512","ProjectDIR/rt/cc/MF/modules",},["systemBaseMPATH"]="ProjectDIR/rt/cc/MF/modules",}';
+export _ModuleTable_;
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/cc/MF/Core:ProjectDIR/rt/cc/MF/modules-avx512:ProjectDIR/rt/cc/MF/modules;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={StdEnv={["fn"]="ProjectDIR/rt/cc/MF/modules-avx512/StdEnv/2018.3.lua",["fullName"]="StdEnv/2018.3",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},arch={["fn"]="ProjectDIR/rt/cc/MF/modules/arch/avx512.lua",["fullName"]="arch/avx512",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="arch/avx512",},intel={["fn"]="ProjectDIR/rt/cc/MF/Core/intel/2018.3.lua",["fullName"]="intel/2018.3",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="intel/2018.3",},},mpathA={"ProjectDIR/rt/cc/MF/Core","ProjectDIR/rt/cc/MF/modules-avx512","ProjectDIR/rt/cc/MF/modules",},["systemBaseMPATH"]="ProjectDIR/rt/cc/MF/modules",}';
+export _ModuleTable_;
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load StdEnv
+===========================
+EBDEVELICCIFORT=/cvmfs/soft.computecanada.ca/easybuild/software/2017/Core/intel/2018.3/easybuild/Core-intel-2018.3-easybuild-devel;
+export EBDEVELICCIFORT;
+EBROOTICCIFORT=/cvmfs/soft.computecanada.ca/easybuild/software/2017/Core/intel/2018.3;
+export EBROOTICCIFORT;
+EBVERSIONICCIFORT=2018.3;
+export EBVERSIONICCIFORT;
+LMOD_FAMILY_COMPILER=intel;
+export LMOD_FAMILY_COMPILER;
+LMOD_FAMILY_COMPILER_VERSION=2018.3;
+export LMOD_FAMILY_COMPILER_VERSION;
+LOADEDMODULES=arch/avx512:intel/2018.3:StdEnv/2018.3;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/cc/MF/Core:ProjectDIR/rt/cc/MF/modules-avx512:ProjectDIR/rt/cc/MF/modules;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/cc/MF/modules/arch/avx512.lua:ProjectDIR/rt/cc/MF/Core/intel/2018.3.lua:ProjectDIR/rt/cc/MF/modules-avx512/StdEnv/2018.3.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={StdEnv={["fn"]="ProjectDIR/rt/cc/MF/modules-avx512/StdEnv/2018.3.lua",["fullName"]="StdEnv/2018.3",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},arch={["fn"]="ProjectDIR/rt/cc/MF/modules/arch/avx512.lua",["fullName"]="arch/avx512",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="arch/avx512",},intel={["fn"]="ProjectDIR/rt/cc/MF/Core/intel/2018.3.lua",["fullName"]="intel/2018.3",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="intel/2018.3",},},mpathA={"ProjectDIR/rt/cc/MF/Core","ProjectDIR/rt/cc/MF/modules-avx512","ProjectDIR/rt/cc/MF/modules",},["systemBaseMPATH"]="ProjectDIR/rt/cc/MF/modules",}';
+export _ModuleTable_;
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/cc/MF/Core:ProjectDIR/rt/cc/MF/modules-avx512:ProjectDIR/rt/cc/MF/modules;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={StdEnv={["fn"]="ProjectDIR/rt/cc/MF/modules-avx512/StdEnv/2018.3.lua",["fullName"]="StdEnv/2018.3",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},arch={["fn"]="ProjectDIR/rt/cc/MF/modules/arch/avx512.lua",["fullName"]="arch/avx512",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="arch/avx512",},intel={["fn"]="ProjectDIR/rt/cc/MF/Core/intel/2018.3.lua",["fullName"]="intel/2018.3",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="intel/2018.3",},},mpathA={"ProjectDIR/rt/cc/MF/Core","ProjectDIR/rt/cc/MF/modules-avx512","ProjectDIR/rt/cc/MF/modules",},["systemBaseMPATH"]="ProjectDIR/rt/cc/MF/modules",}';
+export _ModuleTable_;

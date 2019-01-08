@@ -1,11 +1,11 @@
 -- -*- lua -*-
-local testName = "over_sticky"
+local testName = "cc"
 
 testdescript = {
    owner   = "rtm",
    product = "modules",
    description = [[
-	 testing over_sticky problems
+	 testing  cc defaults problems
    ]],
    keywords = {testName },
 
@@ -19,12 +19,11 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     export MODULEPATH_ROOT=$(testDir)/mf
+     export MODULEPATH_ROOT=$(testDir)/MF
      export MODULEPATH=$MODULEPATH_ROOT/modules
      export CC_CLUSTER="computecanada"
      export RSNT_INTERCONNECT="infiniband"
      export RSNT_ARCH="avx512"
-     export MODULERCFILE=$(testDir)/modulerc
 
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
@@ -35,8 +34,13 @@ testdescript = {
      runLmod list                              # 4
      runLmod load arch/avx512                  # 5
      runLmod list                              # 6
-     runLmod load StdEnv                       # 7
-     runLmod list                              # 8
+     runLmod purge                             # 7
+     runLmod load StdEnv                       # 8
+     runLmod list                              # 9
+     runLmod load arch/avx512                  #10
+     runLmod list                              #11
+     runLmod load StdEnv                       #12
+     runLmod list                              #13
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
