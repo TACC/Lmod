@@ -19,7 +19,7 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     export MODULEPATH_ROOT=$(testDir)/MF
+     export MODULEPATH_ROOT=$(testDir)/mf
      export MODULEPATH=$MODULEPATH_ROOT/modules
      export CC_CLUSTER="computecanada"
      export RSNT_INTERCONNECT="infiniband"
@@ -30,17 +30,12 @@ testdescript = {
 
      runLmod --version                         # 1
      runLmod avail                             # 2
-     runLmod load StdEnv/2016.4                # 3
+     runLmod load StdEnv                       # 3
      runLmod list                              # 4
      runLmod load arch/avx512                  # 5
      runLmod list                              # 6
-     runLmod purge                             # 7
-     runLmod load StdEnv                       # 8
-     runLmod list                              # 9
-     runLmod load arch/avx512                  #10
-     runLmod list                              #11
-     runLmod load StdEnv                       #12
-     runLmod list                              #13
+     runLmod load StdEnv                       # 7
+     runLmod list                              # 8
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

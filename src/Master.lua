@@ -322,7 +322,9 @@ function M.load(self, mA)
             local isNVV      = moduleA:isNVV()
             local indent     = ("  "):rep(stackDepth+1)
             local b          = {}
+            TraceCounter     = TraceCounter + 1
             b[#b + 1]        = indent
+            b[#b + 1]        = "(" .. tostring(TraceCounter) .. ")"
             b[#b + 1]        = "Loading: "
             b[#b + 1]        = userName
             b[#b + 1]        = " (fn: "
@@ -483,7 +485,9 @@ function M.unload(self,mA)
          local stackDepth = frameStk:stackDepth()
          local indent     = ("  "):rep(stackDepth+1)
          local b          = {}
+         TraceCounter     = TraceCounter + 1
          b[#b + 1]        = indent
+         b[#b + 1]        = "(" .. tostring(TraceCounter) .. ")"
          b[#b + 1]        = "Unloading: "
          b[#b + 1]        = userName
          b[#b + 1]        = " (status: "
@@ -550,12 +554,32 @@ function M.reloadAll(self)
    local frameStk = FrameStk:singleton()
    local mt       = frameStk:mt()
    local mcp_old  = mcp
+   local shell    = _G.Shell
    mcp = MCP
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
 
    local same     = true
    local a        = mt:list("userName","any")
+   local tracing  = cosmic:value("LMOD_TRACING")
    local mA       = {}
+
+   if (tracing == "yes") then
+      local stackDepth = frameStk:stackDepth()
+      local indent     = ("  "):rep(stackDepth+1)
+      local nameA      = {}
+      for i = 1, #a do
+         nameA[#nameA + 1 ] = a[i].userName
+      end
+      local b          = {}
+      b[#b + 1]        = indent
+      b[#b + 1]        = "reloadAll("
+      b[#b + 1]        = concatTbl(nameA, ", ")
+      b[#b + 1]        = ")\n"
+      shell:echo(concatTbl(b,""))
+   end
+
+
+
 
    for i = 1, #a do
       repeat

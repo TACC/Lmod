@@ -630,6 +630,8 @@ Shell          = false
 
 master         = false
 
+TraceCounter   = 0
+
 
 
 PkgBase = false
