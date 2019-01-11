@@ -33,16 +33,27 @@ running: module --regression_testing -T load arch/avx512
   (1)Loading: arch/avx512 (fn: ProjectDIR/rt/cc/mf/modules/arch/avx512.lua, using Find-Best)
     Prepending: ProjectDIR/rt/cc/mf/modules-avx512 to MODULEPATH
   reloadAll(nixpkgs/16.09, intel/2016.4, StdEnv, arch/avx512)
-  (2)Unloading: StdEnv (status: active) (fn: ProjectDIR/rt/cc/mf/modules/StdEnv/2016.4.lua)
-    (3)Unloading: nixpkgs/16.09 (status: active) (fn: ProjectDIR/rt/cc/mf/modules/nixpkgs/16.09.lua)
-      Removing: ProjectDIR/rt/cc/mf/Core-avx512 from MODULEPATH
-    (4)Unloading: intel/2016.4 (status: active) (fn: ProjectDIR/rt/cc/mf/Core-avx512/intel/2016.4.lua)
-  reloadAll(arch/avx512)
-  (5)Loading: StdEnv (fn: ProjectDIR/rt/cc/mf/modules-avx512/StdEnv/2018.3.lua, using Find-Best)
-    (6)Loading: nixpkgs/16.09 (fn: ProjectDIR/rt/cc/mf/modules-avx512/nixpkgs/16.09.lua, using Find-Best)
+  (2)Unloading: nixpkgs/16.09 (status: active) (fn: ProjectDIR/rt/cc/mf/modules/nixpkgs/16.09.lua)
+    Removing: ProjectDIR/rt/cc/mf/Core-avx512 from MODULEPATH
+  reloadAll(intel/2016.4, StdEnv, arch/avx512)
+  (3)Unloading: intel/2016.4 (status: active) (fn: ProjectDIR/rt/cc/mf/Core-avx512/intel/2016.4.lua)
+  (4)Unloading: StdEnv (status: active) (fn: ProjectDIR/rt/cc/mf/modules/StdEnv/2016.4.lua)
+    (5)Unloading: nixpkgs/16.09 (status: ) (fn: nil)
+    (6)Unloading: intel/2016.4 (status: ) (fn: nil)
+  (7)Loading: StdEnv (fn: ProjectDIR/rt/cc/mf/modules-avx512/StdEnv/2018.3.lua, using Find-Best)
+    (8)Loading: nixpkgs/16.09 (fn: ProjectDIR/rt/cc/mf/modules-avx512/nixpkgs/16.09.lua, using Find-Best)
       Prepending: ProjectDIR/rt/cc/mf/Core-avx512 to MODULEPATH
-    (7)Loading: intel/2018.3 (fn: ProjectDIR/rt/cc/mf/Core-avx512/intel/2018.3.lua, using Find-Best)
+    (9)Loading: intel/2018.3 (fn: ProjectDIR/rt/cc/mf/Core-avx512/intel/2018.3.lua, using Find-Best)
   reloadAll(arch/avx512, nixpkgs/16.09, intel/2018.3, StdEnv)
+  (10)Loading: nixpkgs/16.09 (fn: ProjectDIR/rt/cc/mf/modules-avx512/nixpkgs/16.09.lua, using Find-Best)
+  (11)Unloading: nixpkgs (status: active) (fn: ProjectDIR/rt/cc/mf/modules-avx512/nixpkgs/16.09.lua)
+    Removing: ProjectDIR/rt/cc/mf/Core-avx512 from MODULEPATH
+  reloadAll(arch/avx512, intel/2018.3, StdEnv)
+  (12)Unloading: intel/2018.3 (status: active) (fn: ProjectDIR/rt/cc/mf/Core-avx512/intel/2018.3.lua)
+  (13)Loading: nixpkgs/16.09 (fn: ProjectDIR/rt/cc/mf/modules-avx512/nixpkgs/16.09.lua, using Find-Best)
+    Prepending: ProjectDIR/rt/cc/mf/Core-avx512 to MODULEPATH
+  reloadAll(arch/avx512, StdEnv, nixpkgs/16.09, intel/2018.3)
+  (14)Loading: intel/2018.3 (fn: ProjectDIR/rt/cc/mf/Core-avx512/intel/2018.3.lua, using Find-Best)
 Due to MODULEPATH changes, the following have been reloaded:
   1) nixpkgs/16.09
 The following have been reloaded with a version change:
@@ -52,7 +63,7 @@ step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) arch/avx512   2) nixpkgs/16.09   3) intel/2018.3   4) StdEnv/2018.3
+  1) arch/avx512   2) StdEnv/2018.3   3) nixpkgs/16.09   4) intel/2018.3
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load StdEnv

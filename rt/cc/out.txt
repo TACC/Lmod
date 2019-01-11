@@ -50,19 +50,19 @@ LMOD_FAMILY_COMPILER=intel;
 export LMOD_FAMILY_COMPILER;
 LMOD_FAMILY_COMPILER_VERSION=2018.3;
 export LMOD_FAMILY_COMPILER_VERSION;
-__LMOD_REF_COUNT_LOADEDMODULES=arch/avx512:1\;nixpkgs/16.09:1\;intel/2018.3:1\;StdEnv/2018.3:1;
+__LMOD_REF_COUNT_LOADEDMODULES=arch/avx512:1\;StdEnv/2018.3:1\;nixpkgs/16.09:1\;intel/2018.3:1;
 export __LMOD_REF_COUNT_LOADEDMODULES;
-LOADEDMODULES=arch/avx512:nixpkgs/16.09:intel/2018.3:StdEnv/2018.3;
+LOADEDMODULES=arch/avx512:StdEnv/2018.3:nixpkgs/16.09:intel/2018.3;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/cc/mf/Core-avx512:1\;ProjectDIR/rt/cc/mf/modules-avx512:1\;ProjectDIR/rt/cc/mf/modules:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/cc/mf/Core-avx512:ProjectDIR/rt/cc/mf/modules-avx512:ProjectDIR/rt/cc/mf/modules;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/cc/mf/modules/arch/avx512.lua:1\;ProjectDIR/rt/cc/mf/modules-avx512/nixpkgs/16.09.lua:1\;ProjectDIR/rt/cc/mf/Core-avx512/intel/2018.3.lua:1\;ProjectDIR/rt/cc/mf/modules-avx512/StdEnv/2018.3.lua:1;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/cc/mf/modules/arch/avx512.lua:1\;ProjectDIR/rt/cc/mf/modules-avx512/StdEnv/2018.3.lua:1\;ProjectDIR/rt/cc/mf/modules-avx512/nixpkgs/16.09.lua:1\;ProjectDIR/rt/cc/mf/Core-avx512/intel/2018.3.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
-_LMFILES_=ProjectDIR/rt/cc/mf/modules/arch/avx512.lua:ProjectDIR/rt/cc/mf/modules-avx512/nixpkgs/16.09.lua:ProjectDIR/rt/cc/mf/Core-avx512/intel/2018.3.lua:ProjectDIR/rt/cc/mf/modules-avx512/StdEnv/2018.3.lua;
+_LMFILES_=ProjectDIR/rt/cc/mf/modules/arch/avx512.lua:ProjectDIR/rt/cc/mf/modules-avx512/StdEnv/2018.3.lua:ProjectDIR/rt/cc/mf/modules-avx512/nixpkgs/16.09.lua:ProjectDIR/rt/cc/mf/Core-avx512/intel/2018.3.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={StdEnv={["fn"]="ProjectDIR/rt/cc/mf/modules-avx512/StdEnv/2018.3.lua",["fullName"]="StdEnv/2018.3",["loadOrder"]=4,propT={},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},arch={["fn"]="ProjectDIR/rt/cc/mf/modules/arch/avx512.lua",["fullName"]="arch/avx512",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="arch/avx512",},intel={["fn"]="ProjectDIR/rt/cc/mf/Core-avx512/intel/2018.3.lua",["fullName"]="intel/2018.3",["loadOrder"]=3,propT={},["stackDepth"]=1,["status"]="active",["userName"]="intel/2018.3",},nixpkgs={["fn"]="ProjectDIR/rt/cc/mf/modules-avx512/nixpkgs/16.09.lua",["fullName"]="nixpkgs/16.09",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="nixpkgs/16.09",},},mpathA={"ProjectDIR/rt/cc/mf/Core-avx512","ProjectDIR/rt/cc/mf/modules-avx512","ProjectDIR/rt/cc/mf/modules",},["systemBaseMPATH"]="ProjectDIR/rt/cc/mf/modules",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={StdEnv={["fn"]="ProjectDIR/rt/cc/mf/modules-avx512/StdEnv/2018.3.lua",["fullName"]="StdEnv/2018.3",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},arch={["fn"]="ProjectDIR/rt/cc/mf/modules/arch/avx512.lua",["fullName"]="arch/avx512",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="arch/avx512",},intel={["fn"]="ProjectDIR/rt/cc/mf/Core-avx512/intel/2018.3.lua",["fullName"]="intel/2018.3",["loadOrder"]=4,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel/2018.3",},nixpkgs={["fn"]="ProjectDIR/rt/cc/mf/modules-avx512/nixpkgs/16.09.lua",["fullName"]="nixpkgs/16.09",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="nixpkgs/16.09",},},mpathA={"ProjectDIR/rt/cc/mf/Core-avx512","ProjectDIR/rt/cc/mf/modules-avx512","ProjectDIR/rt/cc/mf/modules",},["systemBaseMPATH"]="ProjectDIR/rt/cc/mf/modules",}';
 export _ModuleTable_;
 ===========================
 step 6
@@ -70,7 +70,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/cc/mf/Core-avx512:ProjectDIR/rt/cc/mf/modules-avx512:ProjectDIR/rt/cc/mf/modules;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={StdEnv={["fn"]="ProjectDIR/rt/cc/mf/modules-avx512/StdEnv/2018.3.lua",["fullName"]="StdEnv/2018.3",["loadOrder"]=4,propT={},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},arch={["fn"]="ProjectDIR/rt/cc/mf/modules/arch/avx512.lua",["fullName"]="arch/avx512",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="arch/avx512",},intel={["fn"]="ProjectDIR/rt/cc/mf/Core-avx512/intel/2018.3.lua",["fullName"]="intel/2018.3",["loadOrder"]=3,propT={},["stackDepth"]=1,["status"]="active",["userName"]="intel/2018.3",},nixpkgs={["fn"]="ProjectDIR/rt/cc/mf/modules-avx512/nixpkgs/16.09.lua",["fullName"]="nixpkgs/16.09",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="nixpkgs/16.09",},},mpathA={"ProjectDIR/rt/cc/mf/Core-avx512","ProjectDIR/rt/cc/mf/modules-avx512","ProjectDIR/rt/cc/mf/modules",},["systemBaseMPATH"]="ProjectDIR/rt/cc/mf/modules",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={StdEnv={["fn"]="ProjectDIR/rt/cc/mf/modules-avx512/StdEnv/2018.3.lua",["fullName"]="StdEnv/2018.3",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},arch={["fn"]="ProjectDIR/rt/cc/mf/modules/arch/avx512.lua",["fullName"]="arch/avx512",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="arch/avx512",},intel={["fn"]="ProjectDIR/rt/cc/mf/Core-avx512/intel/2018.3.lua",["fullName"]="intel/2018.3",["loadOrder"]=4,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel/2018.3",},nixpkgs={["fn"]="ProjectDIR/rt/cc/mf/modules-avx512/nixpkgs/16.09.lua",["fullName"]="nixpkgs/16.09",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="nixpkgs/16.09",},},mpathA={"ProjectDIR/rt/cc/mf/Core-avx512","ProjectDIR/rt/cc/mf/modules-avx512","ProjectDIR/rt/cc/mf/modules",},["systemBaseMPATH"]="ProjectDIR/rt/cc/mf/modules",}';
 export _ModuleTable_;
 ===========================
 step 7
@@ -80,10 +80,14 @@ LMOD_FAMILY_COMPILER=intel;
 export LMOD_FAMILY_COMPILER;
 LMOD_FAMILY_COMPILER_VERSION=2018.3;
 export LMOD_FAMILY_COMPILER_VERSION;
+__LMOD_REF_COUNT_LOADEDMODULES=arch/avx512:1\;nixpkgs/16.09:1\;intel/2018.3:1\;StdEnv/2018.3:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=arch/avx512:nixpkgs/16.09:intel/2018.3:StdEnv/2018.3;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/cc/mf/Core-avx512:ProjectDIR/rt/cc/mf/modules-avx512:ProjectDIR/rt/cc/mf/modules;
 export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/cc/mf/modules/arch/avx512.lua:1\;ProjectDIR/rt/cc/mf/modules-avx512/nixpkgs/16.09.lua:1\;ProjectDIR/rt/cc/mf/Core-avx512/intel/2018.3.lua:1\;ProjectDIR/rt/cc/mf/modules-avx512/StdEnv/2018.3.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/cc/mf/modules/arch/avx512.lua:ProjectDIR/rt/cc/mf/modules-avx512/nixpkgs/16.09.lua:ProjectDIR/rt/cc/mf/Core-avx512/intel/2018.3.lua:ProjectDIR/rt/cc/mf/modules-avx512/StdEnv/2018.3.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={StdEnv={["fn"]="ProjectDIR/rt/cc/mf/modules-avx512/StdEnv/2018.3.lua",["fullName"]="StdEnv/2018.3",["loadOrder"]=4,propT={},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},arch={["fn"]="ProjectDIR/rt/cc/mf/modules/arch/avx512.lua",["fullName"]="arch/avx512",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="arch/avx512",},intel={["fn"]="ProjectDIR/rt/cc/mf/Core-avx512/intel/2018.3.lua",["fullName"]="intel/2018.3",["loadOrder"]=3,propT={},["stackDepth"]=1,["status"]="active",["userName"]="intel/2018.3",},nixpkgs={["fn"]="ProjectDIR/rt/cc/mf/modules-avx512/nixpkgs/16.09.lua",["fullName"]="nixpkgs/16.09",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="nixpkgs/16.09",},},mpathA={"ProjectDIR/rt/cc/mf/Core-avx512","ProjectDIR/rt/cc/mf/modules-avx512","ProjectDIR/rt/cc/mf/modules",},["systemBaseMPATH"]="ProjectDIR/rt/cc/mf/modules",}';
