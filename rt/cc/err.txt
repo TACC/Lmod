@@ -2,71 +2,64 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.8.11  2018-11-28 14:08 -06:00
+Modules based on Lua: Version 7.8.12  2019-01-08 16:15 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-ProjectDIR/rt/cc/MF/modules
-   StdEnv/2016.4 (D)    StdEnv/2018.3    arch/avx2    arch/avx512 (D)
+ProjectDIR/rt/cc/mf/modules
+   StdEnv/2016.4 (D)    arch/avx2          nixpkgs/16.09
+   StdEnv/2018.3        arch/avx512 (D)
   Where:
    D:  Default Module
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load StdEnv/2016.4
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load StdEnv
 ===========================
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) intel/2016.4   2) StdEnv/2016.4
+  1) nixpkgs/16.09   2) intel/2016.4   3) StdEnv/2016.4
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load arch/avx512
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T load arch/avx512
 ===========================
+running: module --regression_testing -T load arch/avx512
+  (1)Loading: arch/avx512 (fn: ProjectDIR/rt/cc/mf/modules/arch/avx512.lua, using Find-Best)
+    Prepending: ProjectDIR/rt/cc/mf/modules-avx512 to MODULEPATH
+  reloadAll(nixpkgs/16.09, intel/2016.4, StdEnv, arch/avx512)
+  (2)Unloading: StdEnv (status: active) (fn: ProjectDIR/rt/cc/mf/modules/StdEnv/2016.4.lua)
+    (3)Unloading: nixpkgs/16.09 (status: active) (fn: ProjectDIR/rt/cc/mf/modules/nixpkgs/16.09.lua)
+      Removing: ProjectDIR/rt/cc/mf/Core-avx512 from MODULEPATH
+    (4)Unloading: intel/2016.4 (status: active) (fn: ProjectDIR/rt/cc/mf/Core-avx512/intel/2016.4.lua)
+  reloadAll(arch/avx512)
+  (5)Loading: StdEnv (fn: ProjectDIR/rt/cc/mf/modules-avx512/StdEnv/2018.3.lua, using Find-Best)
+    (6)Loading: nixpkgs/16.09 (fn: ProjectDIR/rt/cc/mf/modules-avx512/nixpkgs/16.09.lua, using Find-Best)
+      Prepending: ProjectDIR/rt/cc/mf/Core-avx512 to MODULEPATH
+    (7)Loading: intel/2018.3 (fn: ProjectDIR/rt/cc/mf/Core-avx512/intel/2018.3.lua, using Find-Best)
+  reloadAll(arch/avx512, nixpkgs/16.09, intel/2018.3, StdEnv)
+Due to MODULEPATH changes, the following have been reloaded:
+  1) nixpkgs/16.09
+The following have been reloaded with a version change:
+  1) StdEnv/2016.4 => StdEnv/2018.3     2) intel/2016.4 => intel/2018.3
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) intel/2016.4   2) StdEnv/2016.4   3) arch/avx512
+  1) arch/avx512   2) nixpkgs/16.09   3) intel/2018.3   4) StdEnv/2018.3
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load StdEnv
 ===========================
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load StdEnv
-===========================
-===========================
-step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) intel/2016.4   2) StdEnv/2016.4
-===========================
-step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load arch/avx512
-===========================
-The following have been reloaded with a version change:
-  1) StdEnv/2016.4 => StdEnv/2018.3     2) intel/2016.4 => intel/2018.3
-===========================
-step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
-===========================
-Currently Loaded Modules:
-  1) arch/avx512   2) intel/2018.3   3) StdEnv/2018.3
-===========================
-step 12
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load StdEnv
-===========================
-===========================
-step 13
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
-===========================
-Currently Loaded Modules:
-  1) arch/avx512   2) intel/2018.3   3) StdEnv/2018.3
+  1) arch/avx512   2) nixpkgs/16.09   3) intel/2018.3   4) StdEnv/2018.3

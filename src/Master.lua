@@ -578,29 +578,27 @@ function M.reloadAll(self)
       shell:echo(concatTbl(b,""))
    end
 
-
-
-
    for i = 1, #a do
       repeat
          mt               = frameStk:mt()
          local v          = a[i]
          local sn         = v.sn
          local mname_old  = MName:new("mt",v.userName)
-         dbg.print{"userName: ",v.userName,"\n"}
          if (not mname_old:sn()) then break end
+         dbg.print{"a[i].userName(1): ",v.userName,"\n"}
          mA[#mA+1]       = mname_old
          dbg.print{"adding sn: ",sn," to mA\n"}
 
          if (mt:have(sn, "active")) then
             dbg.print{"module sn: ",sn," is active\n"}
-            dbg.print{"userName:  ",v.name,"\n"}
+            dbg.print{"userName(2):  ",v.name,"\n"}
             local mname    = MName:new("load", v.name)
             local fn_new   = mname:fn()
             local fn_old   = mt:fn(sn)
             local fullName = mname:fullName()
             local userName = v.name
-            if (fn_new ~= fn_old) then
+            --local mname_sn = MName:new("load", sn)
+            if (fn_new ~= fn_old and mt:userName(sn) == userName) then
                dbg.print{"Master:reloadAll fn_new: \"",fn_new,"\"",
                          " mt:fileName(sn): \"",fn_old,"\"\n"}
                dbg.print{"Master:reloadAll Unloading module: \"",sn,"\"\n"}

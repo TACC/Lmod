@@ -32,7 +32,7 @@ testdescript = {
      runLmod avail                             # 2
      runLmod load StdEnv                       # 3
      runLmod list                              # 4
-     runLmod load arch/avx512                  # 5
+     runLmod -T load arch/avx512                  # 5
      runLmod list                              # 6
      runLmod load StdEnv                       # 7
      runLmod list                              # 8
