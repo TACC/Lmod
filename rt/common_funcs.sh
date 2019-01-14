@@ -197,11 +197,11 @@ EPOCH()
 initStdEnvVars()
 {
   while IFS='=' read -r name value; do
-    if [ $name = "LMOD_CMD" ] || [ $name = "LMOD_DIR" ]; then
+    if [ "$name" = "LMOD_CMD" ] || [ "$name" = "LMOD_DIR" ]; then
         :
-    elif [[ $name =~ ^__LMOD_REF_COUNT.* ]]; then
+    elif [[ "$name" =~ ^__LMOD_REF_COUNT.* ]]; then
         unset $name
-    elif [[ $name =~ ^LMOD.* ]]; then
+    elif [[ "$name" =~ ^LMOD.* ]]; then
         unset $name
     fi
   done < <(env)

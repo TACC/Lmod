@@ -396,6 +396,9 @@ function main()
    local tracing = cosmic:value("LMOD_TRACING")
    if (tracing == "yes" ) then
       local a   = {}
+      a[#a + 1] = "Lmod version: "
+      a[#a + 1] = Version.name()
+      a[#a + 1] = "\n"
       a[#a + 1] = "running: module "
       a[#a + 1] = concatTbl(arg," ")
       a[#a + 1] = "\n"
