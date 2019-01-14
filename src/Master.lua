@@ -597,10 +597,14 @@ function M.reloadAll(self)
             local fn_old   = mt:fn(sn)
             local fullName = mname:fullName()
             local userName = v.name
+            local mt_uName = mt:userName(sn)
             -- This is #issue 394 fix: only reload when the userName has remained the same.
-            if (fn_new ~= fn_old and mt:userName(sn) == userName) then
+            if (fn_new ~= fn_old and  mt_uName == userName) then
                dbg.print{"Master:reloadAll fn_new: \"",fn_new,"\"",
-                         " mt:fileName(sn): \"",fn_old,"\"\n"}
+                         " mt:fileName(sn): \"",fn_old,"\"",
+                         " mt:userName(sn): \"",mt_uName,"\"",
+                         " a[i].userName: \"",userName,"\"",
+                         "\n"}
                dbg.print{"Master:reloadAll Unloading module: \"",sn,"\"\n"}
                mcp:unload({mname_old})
                dbg.print{"Master:reloadAll Loading module: \"",userName,"\"\n"}
