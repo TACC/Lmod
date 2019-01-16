@@ -20,4 +20,5 @@ Lmod 7.8+
    (7.8.12) added cc test case for issues with choosing the correct module when doing reloadAll()
    (7.8.13) issue #394: Only reload modules when the userName has remained the same in mt.
    (7.8.14) Add Lmod version report to --trace output.
-   
+   (7.8.15) issue #394: use mname = MName:new("load",mt:userName(sn)) to get loadable file
+            contrib/tracking_module_usage python scripts have been updated to support python2 and python3
