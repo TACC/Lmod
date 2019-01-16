@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- python -*-
 #
 # Git Version: @git@
@@ -25,7 +25,7 @@
 #-----------------------------------------------------------------------
 
 from __future__ import print_function
-import os, sys, re, ConfigParser, getpass, base64
+import os, sys, re, configparser, getpass, base64
 
 dirNm, execName = os.path.split(sys.argv[0])
 sys.path.insert(1,os.path.abspath(os.path.join(dirNm, "../libexec")))
@@ -61,11 +61,11 @@ class CreateConf(object):
     if (not self.__db):     self.__db     = raw_input("Database name: ")
 
   def __writeConfig(self):
-    config=ConfigParser.ConfigParser()
+    config = configparser.ConfigParser()
     config.add_section("MYSQL")
     config.set("MYSQL","HOST",self.__host)
     config.set("MYSQL","USER",self.__user)
-    config.set("MYSQL","PASSWD",base64.b64encode(self.__passwd))
+    config.set("MYSQL","PASSWD",base64.b64encode(self.__passwd.encode()).decode())
     config.set("MYSQL","DB",self.__db)
 
     fn = self.__db + "_db.conf"

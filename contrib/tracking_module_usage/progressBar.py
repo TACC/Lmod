@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- python -*-
 #-----------------------------------------------------------------------
 # XALT: A tool that tracks users jobs and environments on a cluster.

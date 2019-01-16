@@ -238,7 +238,7 @@ b) I use a cron job to load the moduleUsage.log-* files.   This is the script I 
 
        #!/bin/bash
 
-       PATH=<path_to_python>:$PATH
+       PATH=<path_to_python3>:$PATH
        cd ~mclay/load_module_usage
 
        for i in /var/log/moduleUsage.log-*; do
@@ -248,7 +248,11 @@ b) I use a cron job to load the moduleUsage.log-* files.   This is the script I 
          fi
        done
 
-Where <path_to_python> has a python that can also import MySQLdb python module.
+Where <path_to_python3> has a python3 that can also import MySQLdb python module.
+If it is not already installed, you can do::
+
+    $ pip3 install mysqlclient
+  
 Also you'll probably want to change ~mclay/load_module_usage to where ever you have
 the store_module_data program and lmod_db.conf files.  
 
