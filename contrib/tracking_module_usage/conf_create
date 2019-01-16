@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # -*- python -*-
 #
 # Git Version: @git@
@@ -25,7 +25,12 @@
 #-----------------------------------------------------------------------
 
 from __future__ import print_function
-import os, sys, re, configparser, getpass, base64
+import os, sys, re, getpass, base64
+
+try:
+  import configparser
+except:
+  import ConfigParser as configparser
 
 dirNm, execName = os.path.split(sys.argv[0])
 sys.path.insert(1,os.path.abspath(os.path.join(dirNm, "../libexec")))

@@ -4,7 +4,12 @@ import os, sys, re, base64, time, json
 dirNm, execName = os.path.split(os.path.realpath(sys.argv[0]))
 sys.path.append(os.path.realpath(dirNm))
 
-import MySQLdb, configparser, getpass
+try:
+  import configparser
+except:
+  import ConfigParser as configparser
+
+import MySQLdb, getpass
 import warnings, inspect
 from BeautifulTbl import BeautifulTbl
 warnings.filterwarnings("ignore", "Unknown table.*")
