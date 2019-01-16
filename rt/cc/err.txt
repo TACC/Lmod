@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.8.13  2019-01-11 16:06 -06:00
+Modules based on Lua: Version 7.8.14  2019-01-14 13:30 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -36,10 +36,10 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T load arch/avx512
 running: module --regression_testing -T load arch/avx512
   (1)Loading: arch/avx512 (fn: ProjectDIR/rt/cc/mf/modules/arch/avx512.lua, using Find-Best)
     Prepending: ProjectDIR/rt/cc/mf/modules-avx512 to MODULEPATH
-  reloadAll(nixpkgs/16.09, gcccore/.5.4.0, icc/.2016.4.258, ifort/.2016.4.258, imkl/11.3.4.258, intel/2016.4, StdEnv, arch/avx512)
+  reloadAll(1)(nixpkgs/16.09, gcccore/.5.4.0, icc/.2016.4.258, ifort/.2016.4.258, imkl/11.3.4.258, intel/2016.4, StdEnv, arch/avx512)
   (2)Unloading: nixpkgs/16.09 (status: active) (fn: ProjectDIR/rt/cc/mf/modules/nixpkgs/16.09.lua)
     Removing: ProjectDIR/rt/cc/mf/Core-avx512 from MODULEPATH
-  reloadAll(gcccore/.5.4.0, icc/.2016.4.258, ifort/.2016.4.258, imkl/11.3.4.258, intel/2016.4, StdEnv, arch/avx512)
+  reloadAll(2)(gcccore/.5.4.0, icc/.2016.4.258, ifort/.2016.4.258, imkl/11.3.4.258, intel/2016.4, StdEnv, arch/avx512)
   (3)Unloading: gcccore/.5.4.0 (status: active) (fn: ProjectDIR/rt/cc/mf/Core-avx512/gcccore/.5.4.0.lua)
   (4)Unloading: icc/.2016.4.258 (status: active) (fn: ProjectDIR/rt/cc/mf/Core-avx512/icc/.2016.4.258.lua)
     (5)Unloading: gcccore/.5.4.0 (status: ) (fn: nil)
@@ -61,11 +61,11 @@ running: module --regression_testing -T load arch/avx512
       (20)Loading: imkl/2018.3.222 (fn: ProjectDIR/rt/cc/mf/Core-avx512/imkl/2018.3.222.lua, using Find-Best)
       (21)Unloading: imkl (status: active) (fn: ProjectDIR/rt/cc/mf/Core-avx512/imkl/2018.3.222.lua)
       (22)Loading: imkl/2018.3.222 (fn: ProjectDIR/rt/cc/mf/Core-avx512/imkl/2018.3.222.lua, using Find-Best)
-  reloadAll(arch/avx512, nixpkgs/16.09, gcccore/.7.3.0, icc/.2018.3.222, ifort/.2018.3.222, imkl/2018.3.222, intel/2018.3, StdEnv)
+  reloadAll(3)(arch/avx512, nixpkgs/16.09, gcccore/.7.3.0, icc/.2018.3.222, ifort/.2018.3.222, imkl/2018.3.222, intel/2018.3, StdEnv)
   (23)Loading: nixpkgs/16.09 (fn: ProjectDIR/rt/cc/mf/modules-avx512/nixpkgs/16.09.lua, using Find-Best)
   (24)Unloading: nixpkgs (status: active) (fn: ProjectDIR/rt/cc/mf/modules-avx512/nixpkgs/16.09.lua)
     Removing: ProjectDIR/rt/cc/mf/Core-avx512 from MODULEPATH
-  reloadAll(arch/avx512, gcccore/.7.3.0, icc/.2018.3.222, ifort/.2018.3.222, imkl/2018.3.222, intel/2018.3, StdEnv)
+  reloadAll(2)(arch/avx512, gcccore/.7.3.0, icc/.2018.3.222, ifort/.2018.3.222, imkl/2018.3.222, intel/2018.3, StdEnv)
   (25)Unloading: gcccore/.7.3.0 (status: active) (fn: ProjectDIR/rt/cc/mf/Core-avx512/gcccore/.7.3.0.lua)
   (26)Unloading: icc/.2018.3.222 (status: active) (fn: ProjectDIR/rt/cc/mf/Core-avx512/icc/.2018.3.222.lua)
   (27)Unloading: ifort/.2018.3.222 (status: active) (fn: ProjectDIR/rt/cc/mf/Core-avx512/ifort/.2018.3.222.lua)
@@ -73,7 +73,7 @@ running: module --regression_testing -T load arch/avx512
   (29)Unloading: intel/2018.3 (status: active) (fn: ProjectDIR/rt/cc/mf/Core-avx512/intel/2018.3.lua)
   (30)Loading: nixpkgs/16.09 (fn: ProjectDIR/rt/cc/mf/modules-avx512/nixpkgs/16.09.lua, using Find-Best)
     Prepending: ProjectDIR/rt/cc/mf/Core-avx512 to MODULEPATH
-  reloadAll(arch/avx512, StdEnv, nixpkgs/16.09, gcccore/.7.3.0, icc/.2018.3.222, ifort/.2018.3.222, imkl/2018.3.222, intel/2018.3)
+  reloadAll(2)(arch/avx512, StdEnv, nixpkgs/16.09, gcccore/.7.3.0, icc/.2018.3.222, ifort/.2018.3.222, imkl/2018.3.222, intel/2018.3)
   (31)Loading: gcccore/.7.3.0 (fn: ProjectDIR/rt/cc/mf/Core-avx512/gcccore/.7.3.0.lua, using Find-Best)
   (32)Loading: icc/.2018.3.222 (fn: ProjectDIR/rt/cc/mf/Core-avx512/icc/.2018.3.222.lua, using Find-Best)
   (33)Loading: ifort/.2018.3.222 (fn: ProjectDIR/rt/cc/mf/Core-avx512/ifort/.2018.3.222.lua, using Find-Best)

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.8.12  2019-01-08 16:15 -06:00
+Modules based on Lua: Version 7.8.14  2019-01-14 13:30 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -16,7 +16,7 @@ running: module --regression_testing -T load ibmA openmpi phdf5
     Appending: ProjectDIR/rt/family/mf/MPI/ibm/13/openmpi/2.1 to MODULEPATH
     (4)Loading: mpi-common/.openmpi (fn: ProjectDIR/rt/family/mf/Core/mpi-common/.openmpi.lua, using Find-Best)
   (5)Loading: phdf5 (fn: ProjectDIR/rt/family/mf/MPI/ibm/13/openmpi/2.1/phdf5/1.8.18.lua, using Find-Best)
-  reloadAll(compiler-common/.ibm, ibmA, mpi-common/.openmpi, openmpi, phdf5)
+  reloadAll(1)(compiler-common/.ibm, ibmA, mpi-common/.openmpi, openmpi, phdf5)
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
@@ -46,16 +46,16 @@ Lmod is automatically replacing "ibmA/13.1.6" with "gccA/7.1.0".
   (9)Loading: gccA (fn: ProjectDIR/rt/family/mf/Core/gccA/7.1.0.lua, using Find-Best)
     (10)Loading: compiler-common/.gcc (fn: ProjectDIR/rt/family/mf/Core/compiler-common/.gcc.lua, using Find-Best)
     Appending: ProjectDIR/rt/family/mf/Compiler/gcc/7 to MODULEPATH
-  reloadAll(mpi-common/.openmpi, openmpi, phdf5, compiler-common/.gcc, gccA)
+  reloadAll(1)(mpi-common/.openmpi, openmpi, phdf5, compiler-common/.gcc, gccA)
   (11)Unloading: openmpi (status: active) (fn: ProjectDIR/rt/family/mf/Compiler/ibm/13/openmpi/2.1.1.lua)
     Removing: ProjectDIR/rt/family/mf/MPI/ibm/13/openmpi/2.1 from MODULEPATH
     (12)Unloading: mpi-common/.openmpi (status: active) (fn: ProjectDIR/rt/family/mf/Core/mpi-common/.openmpi.lua)
-  reloadAll(phdf5, compiler-common/.gcc, gccA)
+  reloadAll(2)(phdf5, compiler-common/.gcc, gccA)
   (13)Unloading: phdf5 (status: active) (fn: ProjectDIR/rt/family/mf/MPI/ibm/13/openmpi/2.1/phdf5/1.8.18.lua)
   (14)Loading: openmpi (fn: ProjectDIR/rt/family/mf/Compiler/gcc/7/openmpi/2.1.1.lua, using Find-Best)
     Appending: ProjectDIR/rt/family/mf/MPI/gcc/7/openmpi/2.1 to MODULEPATH
     (15)Loading: mpi-common/.openmpi (fn: ProjectDIR/rt/family/mf/Core/mpi-common/.openmpi.lua, using Find-Best)
-  reloadAll(compiler-common/.gcc, gccA, mpi-common/.openmpi, openmpi, phdf5)
+  reloadAll(2)(compiler-common/.gcc, gccA, mpi-common/.openmpi, openmpi, phdf5)
   (16)Loading: phdf5 (fn: ProjectDIR/rt/family/mf/MPI/gcc/7/openmpi/2.1/phdf5/1.8.18.lua, using Find-Best)
 Due to MODULEPATH changes, the following have been reloaded:
   1) openmpi/2.1.1     2) phdf5/1.8.18
@@ -95,16 +95,16 @@ Lmod is automatically replacing "gccA/7.1.0" with "ibmA/13.1.6".
   (9)Loading: ibmA (fn: ProjectDIR/rt/family/mf/Core/ibmA/13.1.6.lua, using Find-Best)
     (10)Loading: compiler-common/.ibm (fn: ProjectDIR/rt/family/mf/Core/compiler-common/.ibm.lua, using Find-Best)
     Appending: ProjectDIR/rt/family/mf/Compiler/ibm/13 to MODULEPATH
-  reloadAll(mpi-common/.openmpi, openmpi, phdf5, compiler-common/.ibm, ibmA)
+  reloadAll(1)(mpi-common/.openmpi, openmpi, phdf5, compiler-common/.ibm, ibmA)
   (11)Unloading: openmpi (status: active) (fn: ProjectDIR/rt/family/mf/Compiler/gcc/7/openmpi/2.1.1.lua)
     Removing: ProjectDIR/rt/family/mf/MPI/gcc/7/openmpi/2.1 from MODULEPATH
     (12)Unloading: mpi-common/.openmpi (status: active) (fn: ProjectDIR/rt/family/mf/Core/mpi-common/.openmpi.lua)
-  reloadAll(phdf5, compiler-common/.ibm, ibmA)
+  reloadAll(2)(phdf5, compiler-common/.ibm, ibmA)
   (13)Unloading: phdf5 (status: active) (fn: ProjectDIR/rt/family/mf/MPI/gcc/7/openmpi/2.1/phdf5/1.8.18.lua)
   (14)Loading: openmpi (fn: ProjectDIR/rt/family/mf/Compiler/ibm/13/openmpi/2.1.1.lua, using Find-Best)
     Appending: ProjectDIR/rt/family/mf/MPI/ibm/13/openmpi/2.1 to MODULEPATH
     (15)Loading: mpi-common/.openmpi (fn: ProjectDIR/rt/family/mf/Core/mpi-common/.openmpi.lua, using Find-Best)
-  reloadAll(compiler-common/.ibm, ibmA, mpi-common/.openmpi, openmpi, phdf5)
+  reloadAll(2)(compiler-common/.ibm, ibmA, mpi-common/.openmpi, openmpi, phdf5)
   (16)Loading: phdf5 (fn: ProjectDIR/rt/family/mf/MPI/ibm/13/openmpi/2.1/phdf5/1.8.18.lua, using Find-Best)
 Due to MODULEPATH changes, the following have been reloaded:
   1) openmpi/2.1.1     2) phdf5/1.8.18
@@ -145,7 +145,7 @@ Lmod is automatically replacing "openmpi/2.1.1" with "mpich/3.2.1".
   (19)Loading: mpich (fn: ProjectDIR/rt/family/mf/Compiler/gcc/7/mpich/3.2.1.lua, using Find-Best)
     Appending: ProjectDIR/rt/family/mf/MPI/gcc/7/mpich/3.2 to MODULEPATH
     (20)Loading: mpi-common/.mpich (fn: ProjectDIR/rt/family/mf/Core/mpi-common/.mpich.lua, using Find-Best)
-  reloadAll(phdf5, compiler-common/.gcc, gccA, mpi-common/.mpich, mpich)
+  reloadAll(1)(phdf5, compiler-common/.gcc, gccA, mpi-common/.mpich, mpich)
   (21)Unloading: phdf5 (status: active) (fn: ProjectDIR/rt/family/mf/MPI/ibm/13/openmpi/2.1/phdf5/1.8.18.lua)
   (22)Loading: phdf5 (fn: ProjectDIR/rt/family/mf/MPI/gcc/7/mpich/3.2/phdf5/1.8.18.lua, using Find-Best)
 Due to MODULEPATH changes, the following have been reloaded:

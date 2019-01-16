@@ -550,7 +550,8 @@ end
 -- then it is unloaded and an attempt is made to reload
 -- it.  Each inactive module is re-loaded if possible.
 function M.reloadAll(self)
-   dbg.start{"Master:reloadAll()"}
+   ReloadAllCntr = ReloadAllCntr + 1
+   dbg.start{"Master:reloadAll(count: ",ReloadAllCntr ,")"}
    local frameStk = FrameStk:singleton()
    local mt       = frameStk:mt()
    local mcp_old  = mcp
@@ -573,6 +574,8 @@ function M.reloadAll(self)
       local b          = {}
       b[#b + 1]        = indent
       b[#b + 1]        = "reloadAll("
+      b[#b + 1]        = tostring(ReloadAllCntr)
+      b[#b + 1]        = ")("
       b[#b + 1]        = concatTbl(nameA, ", ")
       b[#b + 1]        = ")\n"
       shell:echo(concatTbl(b,""))
@@ -592,23 +595,23 @@ function M.reloadAll(self)
          if (mt:have(sn, "active")) then
             dbg.print{"module sn: ",sn," is active\n"}
             dbg.print{"userName(2):  ",v.name,"\n"}
-            local mname    = MName:new("load", v.name)
+            local mname    = MName:new("load", mt:userName(sn))
             local fn_new   = mname:fn()
             local fn_old   = mt:fn(sn)
             local fullName = mname:fullName()
             local userName = v.name
             local mt_uName = mt:userName(sn)
             -- This is #issue 394 fix: only reload when the userName has remained the same.
-            if (fn_new ~= fn_old and  mt_uName == userName) then
+            if (fn_new ~= fn_old) then
                dbg.print{"Master:reloadAll fn_new: \"",fn_new,"\"",
                          " mt:fileName(sn): \"",fn_old,"\"",
                          " mt:userName(sn): \"",mt_uName,"\"",
                          " a[i].userName: \"",userName,"\"",
                          "\n"}
-               dbg.print{"Master:reloadAll Unloading module: \"",sn,"\"\n"}
+               dbg.print{"Master:reloadAll(",ReloadAllCntr,"): Unloading module: \"",sn,"\"\n"}
                mcp:unload({mname_old})
-               dbg.print{"Master:reloadAll Loading module: \"",userName,"\"\n"}
                if (mname:valid()) then
+                  dbg.print{"Master:reloadAll(",ReloadAllCntr,"): Loading module: \"",userName,"\"\n"}
                   local status = mcp:load({mname})
                   mt           = frameStk:mt()
                   dbg.print{"status ",status,", fn_old: ",fn_old,", fn: ",mt:fn(sn),"\n"}
@@ -622,8 +625,8 @@ function M.reloadAll(self)
             dbg.print{"module sn: ", sn, " is inactive\n"}
             local fn_old = mt:fn(sn)
             local name   = v.name          -- This name is short for default and
-                                          -- Full for specific version.
-            dbg.print{"Master:reloadAll Loading module: \"", name, "\"\n"}
+                                           -- Full for specific version.
+            dbg.print{"Master:reloadAll(",ReloadAllCntr,"): Loading non-active module: \"", name, "\"\n"}
             local status = mcp:load({MName:new("load",name)})
             mt           = frameStk:mt()
             dbg.print{"status: ",status,", fn_old: ",fn_old,", fn: ",mt:fn(sn),"\n"}
@@ -652,6 +655,7 @@ function M.reloadAll(self)
    mcp = mcp_old
    dbg.print{"Setting mpc to ", mcp:name(),"\n"}
    dbg.fini("Master:reloadAll")
+   ReloadAllCntr = ReloadAllCntr - 1
    return same
 end
 

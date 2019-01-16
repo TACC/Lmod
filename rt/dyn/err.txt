@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.8.12  2019-01-08 16:15 -06:00
+Modules based on Lua: Version 7.8.14  2019-01-14 13:30 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -23,13 +23,13 @@ Lmod is automatically replacing "intel/18.0.1" with "gcc/7.1".
   (4)Loading: gcc (fn: ProjectDIR/rt/dyn/mf/Core/gcc/7.1.lua, using Find-Best)
     Prepending: ProjectDIR/rt/dyn/mf/Compiler/gcc/7.1 to MODULEPATH
   Pushing fenics on moduleQ
-  reloadAll(impi, gcc)
+  reloadAll(1)(impi, gcc)
   (5)Unloading: impi (status: active) (fn: ProjectDIR/rt/dyn/mf/Compiler/intel/18.0/impi/18.0.1.lua)
     Removing: ProjectDIR/rt/dyn/mf/MPI/intel/18.0/impi/18.0 from MODULEPATH
-  reloadAll(gcc)
+  reloadAll(2)(gcc)
   (6)Loading: impi (fn: ProjectDIR/rt/dyn/mf/Compiler/gcc/7.1/impi/18.0.1.lua, using Find-Best)
     Prepending: ProjectDIR/rt/dyn/mf/MPI/gcc/7.1/impi/18.0 to MODULEPATH
-  reloadAll(gcc, impi)
+  reloadAll(2)(gcc, impi)
   (7)Loading: fenics (fn: ProjectDIR/rt/dyn/mf/MPI/gcc/7.1/impi/18.0/fenics/1.0.lua, using Find-Best)
 Due to MODULEPATH changes, the following have been reloaded:
   1) impi/18.0.1
