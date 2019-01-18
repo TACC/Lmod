@@ -325,6 +325,7 @@ function M.load(self, mA)
             TraceCounter     = TraceCounter + 1
             b[#b + 1]        = indent
             b[#b + 1]        = "(" .. tostring(TraceCounter) .. ")"
+            b[#b + 1]        = "(" .. tostring(ReloadAllCntr) .. ")"
             b[#b + 1]        = "Loading: "
             b[#b + 1]        = userName
             b[#b + 1]        = " (fn: "
@@ -488,6 +489,7 @@ function M.unload(self,mA)
          TraceCounter     = TraceCounter + 1
          b[#b + 1]        = indent
          b[#b + 1]        = "(" .. tostring(TraceCounter) .. ")"
+         b[#b + 1]        = "(" .. tostring(ReloadAllCntr) .. ")"
          b[#b + 1]        = "Unloading: "
          b[#b + 1]        = userName
          b[#b + 1]        = " (status: "
@@ -610,6 +612,9 @@ function M.reloadAll(self)
                          "\n"}
                dbg.print{"Master:reloadAll(",ReloadAllCntr,"): Unloading module: \"",sn,"\"\n"}
                mcp:unload({mname_old})
+               mt_uName = mt:userName(sn)
+               dbg.print{"Master:reloadAll(",ReloadAllCntr,"): mt:userName(sn): \"",mt_uName,"\"\n"}
+               mname    = MName:new("load", mt:userName(sn))
                if (mname:valid()) then
                   dbg.print{"Master:reloadAll(",ReloadAllCntr,"): Loading module: \"",userName,"\"\n"}
                   local status = mcp:load({mname})
