@@ -1,0 +1,23 @@
+Here are some ideas for my talk to the EB User group.
+
+* They already know about Lmod
+
+* History of Lmod (5, 6, 7)
+
+* Topics:
+** Nag message
+** Depends_on()
+** Hidden modules
+** Dynamic Cache files for external module trees
+
+* Tons of features
+* Focus on 4
+
+* Nag Message
+* depends_on()
+* Hidden Modules
+* Dynamic cache files.
+
+   This will require a change to Lmod but it is mostly there.
+   Just need to turn off the auto scanning of new MODULEPATH's
+
