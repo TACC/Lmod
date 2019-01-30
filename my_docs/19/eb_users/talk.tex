@@ -94,7 +94,6 @@
 
 \begin{frame}{Dynamic Cache files for Large Module Trees}
   \begin{itemize}
-    \item An upcoming feature!
     \item Groups that have a large number of specialize modules.
     \item Want Opt-in for these modules
   \end{itemize}
@@ -108,7 +107,9 @@
     {\tiny
 \begin{semiverbatim}
   prepend\_PATH("LMOD\_RC", "/path/to/cache\_descript/descript.lua")
-  expand\_modulepath("/path/to/bioPkgs")
+  if ( mode() ~= "spider") then 
+     prepend\_path("MODULEPATH","/path/to/bioPkgs")
+  end
 \end{semiverbatim}
     }
     \item descript.lua
@@ -127,15 +128,18 @@
 
 \begin{frame}{Future Work(?)}
   \begin{itemize}
-    \item Optionly combine TCL and Lua together to speed up performance
-    \item 
+    \item Lmod currently starts a separate process to interpret each TCL file.
+    \item Want to look at ways to improve this.
+    \item One possibility: Optionally combine TCL and Lua interpreters
+      together to speed up performance.
+    \item This will be used to parse .version, .modulerc and TCL modulefiles.
   \end{itemize}
 \end{frame}
 
 
 \begin{frame}{Conclusions: Lmod 7+}
   \begin{itemize}
-    \item Latest version: https://github.com:TACC/Lmod.git
+    \item Latest version: https://github.com:TACC/lmod.git
     \item Stable version: http://lmod.sf.net
     \item Documentation:  http://lmod.readthedocs.org
   \end{itemize}

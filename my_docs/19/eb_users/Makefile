@@ -2,7 +2,7 @@ TALKS    := talk.pdf
 TEX_SUFS := .aux .log .nav .out .snm .toc .vrb .fdb_latexmk .fls
 
 %.pdf:%.tex
-	latexmk --lualatex -pdf $<
+	latexmk -pdflua $<
 
 all: $(TALKS)
 
