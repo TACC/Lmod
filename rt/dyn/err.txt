@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.8.14  2019-01-14 13:30 -06:00
+Modules based on Lua: Version 7.8.15  2019-01-16 12:46 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -13,24 +13,24 @@ step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T load gcc fenics
 ===========================
 running: module --regression_testing -T load gcc fenics
-  (1)Loading: gcc (fn: ProjectDIR/rt/dyn/mf/Core/gcc/7.1.lua, using Find-Best)
+  (1)(0)Loading: gcc (fn: ProjectDIR/rt/dyn/mf/Core/gcc/7.1.lua, using Find-Best)
     Prepending: ProjectDIR/rt/dyn/mf/Compiler/gcc/7.1 to MODULEPATH
 Lmod is automatically replacing "intel/18.0.1" with "gcc/7.1".
-  (2)Unloading: intel (status: active) (fn: ProjectDIR/rt/dyn/mf/Core/intel/18.0.1.lua)
+  (2)(0)Unloading: intel (status: active) (fn: ProjectDIR/rt/dyn/mf/Core/intel/18.0.1.lua)
     Removing: ProjectDIR/rt/dyn/mf/Compiler/intel/18.0 from MODULEPATH
-  (3)Unloading: gcc (status: active) (fn: ProjectDIR/rt/dyn/mf/Core/gcc/7.1.lua)
+  (3)(0)Unloading: gcc (status: active) (fn: ProjectDIR/rt/dyn/mf/Core/gcc/7.1.lua)
     Removing: ProjectDIR/rt/dyn/mf/Compiler/gcc/7.1 from MODULEPATH
-  (4)Loading: gcc (fn: ProjectDIR/rt/dyn/mf/Core/gcc/7.1.lua, using Find-Best)
+  (4)(0)Loading: gcc (fn: ProjectDIR/rt/dyn/mf/Core/gcc/7.1.lua, using Find-Best)
     Prepending: ProjectDIR/rt/dyn/mf/Compiler/gcc/7.1 to MODULEPATH
   Pushing fenics on moduleQ
   reloadAll(1)(impi, gcc)
-  (5)Unloading: impi (status: active) (fn: ProjectDIR/rt/dyn/mf/Compiler/intel/18.0/impi/18.0.1.lua)
+  (5)(1)Unloading: impi (status: active) (fn: ProjectDIR/rt/dyn/mf/Compiler/intel/18.0/impi/18.0.1.lua)
     Removing: ProjectDIR/rt/dyn/mf/MPI/intel/18.0/impi/18.0 from MODULEPATH
   reloadAll(2)(gcc)
-  (6)Loading: impi (fn: ProjectDIR/rt/dyn/mf/Compiler/gcc/7.1/impi/18.0.1.lua, using Find-Best)
+  (6)(1)Loading: impi (fn: ProjectDIR/rt/dyn/mf/Compiler/gcc/7.1/impi/18.0.1.lua, using Find-Best)
     Prepending: ProjectDIR/rt/dyn/mf/MPI/gcc/7.1/impi/18.0 to MODULEPATH
   reloadAll(2)(gcc, impi)
-  (7)Loading: fenics (fn: ProjectDIR/rt/dyn/mf/MPI/gcc/7.1/impi/18.0/fenics/1.0.lua, using Find-Best)
+  (7)(0)Loading: fenics (fn: ProjectDIR/rt/dyn/mf/MPI/gcc/7.1/impi/18.0/fenics/1.0.lua, using Find-Best)
 Due to MODULEPATH changes, the following have been reloaded:
   1) impi/18.0.1
 ===========================

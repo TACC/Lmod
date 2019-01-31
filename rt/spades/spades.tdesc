@@ -1,15 +1,15 @@
 -- -*- lua -*-
-local testName = "cc"
+local testName = "spades"
 
 testdescript = {
    owner   = "rtm",
    product = "modules",
    description = [[
-	 testing  cc defaults problems
+	 nvv_prereq
    ]],
    keywords = {testName },
 
-   active   = false,
+   active   = true,
    testName = testName,
    job_submit_method = "INTERACTIVE",
 
@@ -19,23 +19,18 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     export MODULEPATH_ROOT=$(testDir)/cc_mf
-     export MODULEPATH=$MODULEPATH_ROOT/modules
-     export CC_CLUSTER="computecanada"
-     export RSNT_INTERCONNECT="infiniband"
-     export RSNT_ARCH="avx512"
-
+     export MODULEPATH=$(testDir)/mf
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
      runLmod --version                         # 1
+
+     mkdir -p $HOME/.lmod.d/cache
+     buildSpiderT $MODULEPATH > $HOME/.lmod.d/cache/spiderT.lua
+     buildDbT $MODULEPATH > $HOME/.lmod.d/cache/dbT.lua
+
      runLmod avail                             # 2
-     runLmod load StdEnv                       # 3
-     runLmod list                              # 4
-     runLmod -T load arch/avx512               # 5
-     runLmod list                              # 6
-     runLmod load StdEnv                       # 7
-     runLmod list                              # 8
+     runLmod spider spades                     # 3
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

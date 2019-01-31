@@ -523,7 +523,8 @@ function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
             t.hidden     = not mrc:isVisible({fullName=fullName, sn=sn, fn=vv.fn})
             T[vv.fn]     = t
          end
-      elseif (next(v.dirT) ~= nil) then
+      end
+      if (next(v.dirT) ~= nil) then
          for name, vv in pairs(v.dirT) do
             buildDbT_helper(mpath, sn, vv, T)
          end
