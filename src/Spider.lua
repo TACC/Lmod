@@ -511,7 +511,8 @@ function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
          t.fullName     = sn
          t.hidden       = not mrc:isVisible({fullName=sn, sn=sn, fn=v.file})
          T[v.file]      = t
-      elseif (next(v.fileT) ~= nil) then
+      end
+      if (next(v.fileT) ~= nil) then
          for fullName, vv in pairs(v.fileT) do
             local t = {}
             for i = 1,#dbT_keyA do
