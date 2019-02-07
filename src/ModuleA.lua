@@ -655,10 +655,10 @@ function M.defaultT(self)
 end
 
 function M.singleton(self, t)
-   dbg.start{"ModuleA:singleton(t)"}
+   --dbg.start{"ModuleA:singleton(t)"}
    t = t or {}
    if (t.reset or (s_moduleA and s_moduleA:spiderBuilt())) then
-      dbg.print{"Wiping out old value of s_moduleA\n"}
+      --dbg.print{"Wiping out old value of s_moduleA\n"}
       self:__clear()
    end
    if (not s_moduleA) then
@@ -668,14 +668,14 @@ function M.singleton(self, t)
       local dbT      = false
 
       if (t.spider_cache) then
-         dbg.print{"calling cache:build()\n"}
+         --dbg.print{"calling cache:build()\n"}
          local cache  = require("Cache"):singleton{quiet=masterTbl().terse, buildCache=true}
          spiderT, dbT = cache:build()
       end
       s_moduleA = self:__new(mt:modulePathA(), mt:maxDepthT(), getModuleRCT(), spiderT)
    end
 
-   dbg.fini("ModuleA:singleton")
+   --dbg.fini("ModuleA:singleton")
    return s_moduleA
 end
 
