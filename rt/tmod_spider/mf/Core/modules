@@ -26,7 +26,7 @@ setenv		MODULESHOME	$prefix
 prepend-path    PATH   		/usr/bin
 prepend-path    MANPATH		/usr/share/man
 
-#module		use		"$env(MODULEPATH_ROOT)/Core"
+module		use		"$env(MODULEPATH_ROOT)/Core"
 
 
 
