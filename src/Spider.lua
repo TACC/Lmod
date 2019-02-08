@@ -339,9 +339,6 @@ function copy(a)
    for k,v in pairs(a) do
       b[k] = v
    end
-   --for i = 1, #a do
-   --   b[i] = a[i]
-   --end
    return b
 end
 
