@@ -69,7 +69,9 @@ The TCL files support similar commands:
 System MODULERC files
 ^^^^^^^^^^^^^^^^^^^^^
 
-By default, Lmod looks in /path_to_lmod/lmod/../etc/rc to find a
-system MODULERC file.  Or you can set either **LMOD_MODULERCFILE** or
-**MODULERCFILE** to be a single file or a colon separated list. 
-If more than one file is specified then the priority is left to right.
+By default, Lmod looks in /path_to_lmod/lmod/../etc/rc.lua or
+/path_to_lmod/lmod/../etc/rc to find a system MODULERC file.  The lua
+file takes precedence over the TCL version. Or you
+can set either **LMOD_MODULERCFILE** or **MODULERCFILE** to be a
+single file or a colon separated list.  If more than one file is
+specified then the priority is left to right. 
