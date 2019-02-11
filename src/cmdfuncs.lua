@@ -463,6 +463,13 @@ function Load_Usr(...)
    return b
 end
 
+function Purge_Usr()
+   dbg.start{"Purge_Usr()"}
+   Purge()
+   dbg.fini("Purge_Usr")
+end
+
+
 --------------------------------------------------------------------------
 -- Unload all loaded modules.
 -- @param force If true then sticky modules are unloaded as well.
