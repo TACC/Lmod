@@ -24,3 +24,6 @@ Lmod 7.8+
             contrib/tracking_module_usage python scripts have been updated to support python2 and python3
    (7.8.16) Fix bug where spider reported incorrect results when a site mixed NV and NVV together in a single module.
    (7.8.17) issue #395 fix infinite loop when Lmod is trying to do "module avail" on a Tmod 3.2.10 module true that includes "module"
+   (7.8.18) issue #396 Add support for $LMOD_DIR/../../etc/rc.lua
+   (7.8.19) issue #397 "module purge foo" shouldn't be the same as "module --force purge"
+   
