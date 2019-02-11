@@ -161,6 +161,28 @@ _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={std={["fn"
 export _ModuleTable_;
 ===========================
 step 14
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge foo
+===========================
+A=Sticky;
+export A;
+LOADEDMODULES=std/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/sticky/mf/Core;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/sticky/mf/Core/std/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={std={["fn"]="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua",["fullName"]="std/1.0",["loadOrder"]=1,propT={arch={["mic"]=1,},lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="std",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/sticky/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={std={["fn"]="ProjectDIR/rt/sticky/mf/Core/std/1.0.lua",["fullName"]="std/1.0",["loadOrder"]=1,propT={arch={["mic"]=1,},lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="std",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 16
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --force rm std
 ===========================
 unset A;
@@ -173,7 +195,7 @@ unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 15
+step 17
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/sticky/mf/Core;
@@ -181,7 +203,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 16
+step 18
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load StdEnv
 ===========================
 A_VERSION=1.0;
@@ -201,7 +223,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 17
+step 19
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/sticky/mf/Core;
@@ -209,7 +231,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 18
+step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load StdEnv
 ===========================
 A_VERSION=1.0;
@@ -225,7 +247,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 19
+step 21
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/sticky/mf/Core;
@@ -233,7 +255,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 20
+step 22
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload a b
 ===========================
 unset A_VERSION;
@@ -251,7 +273,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=1,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 21
+step 23
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/sticky/mf/Core;
@@ -259,7 +281,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=1,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 22
+step 24
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 A_VERSION=1.0;
@@ -279,7 +301,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 23
+step 25
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/sticky/mf/Core;
@@ -287,7 +309,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 24
+step 26
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 MODULEPATH=ProjectDIR/rt/sticky/mf/Core;
@@ -295,7 +317,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 25
+step 27
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --force purge
 ===========================
 unset A_VERSION;
@@ -309,7 +331,7 @@ unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 26
+step 28
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 A_VERSION=1.0;
@@ -331,7 +353,7 @@ export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__=1;
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
-step 27
+step 29
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/sticky/mf/Core;
@@ -339,7 +361,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 28
+step 30
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 A_VERSION=1.0;
@@ -357,7 +379,7 @@ export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__=1;
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
-step 29
+step 31
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/sticky/mf/Core;
@@ -365,7 +387,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 30
+step 32
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --force purge
 ===========================
 unset A_VERSION;
@@ -379,7 +401,7 @@ unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 31
+step 33
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load M1
 ===========================
 C_VERSION=1.7;
@@ -401,7 +423,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 32
+step 34
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/sticky/mf/Shared:ProjectDIR/rt/sticky/mf/Core;
@@ -409,7 +431,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 33
+step 35
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 MODULEPATH=ProjectDIR/rt/sticky/mf/Shared:ProjectDIR/rt/sticky/mf/Core;
@@ -417,7 +439,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 34
+step 36
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 C_VERSION=1.7;
@@ -435,7 +457,7 @@ export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__=1;
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
-step 35
+step 37
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/sticky/mf/Shared:ProjectDIR/rt/sticky/mf/Core;
@@ -443,7 +465,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 36
+step 38
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --force purge
 ===========================
 unset C_VERSION;
@@ -459,7 +481,7 @@ unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 37
+step 39
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load c d M1
 ===========================
 C_VERSION=1.7;
@@ -481,7 +503,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 38
+step 40
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/sticky/mf/Shared:ProjectDIR/rt/sticky/mf/Core;
@@ -489,7 +511,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 39
+step 41
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 MODULEPATH=ProjectDIR/rt/sticky/mf/Shared:ProjectDIR/rt/sticky/mf/Core;
@@ -497,7 +519,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 40
+step 42
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 C_VERSION=1.7;
@@ -515,7 +537,7 @@ export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__=1;
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
-step 41
+step 43
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/sticky/mf/Shared:ProjectDIR/rt/sticky/mf/Core;
@@ -523,7 +545,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M1={["fn"]="ProjectDIR/rt/sticky/mf/Core/M1.lua",["fullName"]="M1",["loadOrder"]=3,propT={state={["obsolete"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="M1",},c={["fn"]="ProjectDIR/rt/sticky/mf/Shared/c/1.7.lua",["fullName"]="c/1.7",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/sticky/mf/Shared/d/1.8.lua",["fullName"]="d/1.8",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="d",},},mpathA={"ProjectDIR/rt/sticky/mf/Shared","ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 42
+step 44
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --force purge
 ===========================
 unset C_VERSION;
@@ -539,7 +561,7 @@ unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 43
+step 45
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing reset
 ===========================
 A_VERSION=1.0;
@@ -559,7 +581,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 44
+step 46
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing reset
 ===========================
 A_VERSION=1.0;
@@ -575,7 +597,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 45
+step 47
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load old
 ===========================
 LMOD_FAMILY_BASE=old;
@@ -597,7 +619,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["base"]="old",},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},old={["fn"]="ProjectDIR/rt/sticky/mf/Core/old.lua",["fullName"]="old",["loadOrder"]=4,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="old",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 46
+step 48
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap old new
 ===========================
 LMOD_FAMILY_BASE=new;
@@ -619,7 +641,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["base"]="new",},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},new={["fn"]="ProjectDIR/rt/sticky/mf/Core/new.lua",["fullName"]="new",["loadOrder"]=4,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="new",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 47
+step 49
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/sticky/mf/Core;
@@ -627,7 +649,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["base"]="new",},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},new={["fn"]="ProjectDIR/rt/sticky/mf/Core/new.lua",["fullName"]="new",["loadOrder"]=4,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="new",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 48
+step 50
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load old
 ===========================
 LMOD_FAMILY_BASE=old;
@@ -649,7 +671,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["base"]="old",},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},old={["fn"]="ProjectDIR/rt/sticky/mf/Core/old.lua",["fullName"]="old",["loadOrder"]=4,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="old",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 49
+step 51
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/sticky/mf/Core;
@@ -657,7 +679,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["base"]="old",},mT={StdEnv={["fn"]="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=3,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",},a={["fn"]="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",["fullName"]="b/1.1",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b",},old={["fn"]="ProjectDIR/rt/sticky/mf/Core/old.lua",["fullName"]="old",["loadOrder"]=4,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="old",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 50
+step 52
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 MODULEPATH=ProjectDIR/rt/sticky/mf/Core;
