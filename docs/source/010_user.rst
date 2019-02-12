@@ -82,8 +82,8 @@ Users may wish to test whether certain modules are already loaded::
 
    $ module is-loaded packageName1 packageName2 ...
 
-Lmod will return a true value if all modules are loaded and a false
-value if one is not.  Note that this is the status bit, there is
+Lmod will return a true status if all modules are loaded and a false
+status if one is not.  Note that Lmod is setting the status bit, there is
 nothing printed out. This means that one can do the following::
 
    $ if module is-loaded pkg ; then "echo pkg is loaded"; fi
@@ -93,7 +93,7 @@ the current $MODULEPATH::
 
     $ module is-avail packageName1 packageName2 ...
 
-Lmod will return true if all modules are available and false if one
+Lmod will a true status if all modules are available and false if one
 can not be loaded. Again this command sets the status bit.
 
 Modulefiles can have a description section known as "whatis".  It is
