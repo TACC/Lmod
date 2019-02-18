@@ -73,20 +73,20 @@ To get a list of all the commands that module knows about do::
 
 The module avail command has search capabilities::
 
-   $ module avail cc
+    $ module avail cc
 
 will list for any modulefile where the name contains the string "cc".
 
 
 Users may wish to test whether certain modules are already loaded::
 
-   $ module is-loaded packageName1 packageName2 ...
+    $ module is-loaded packageName1 packageName2 ...
 
 Lmod will return a true status if all modules are loaded and a false
 status if one is not.  Note that Lmod is setting the status bit, there is
 nothing printed out. This means that one can do the following::
 
-   $ if module is-loaded pkg ; then "echo pkg is loaded"; fi
+    $ if module is-loaded pkg ; then "echo pkg is loaded"; fi
 
 Users also may wish to test whether certain modules can be loaded with
 the current $MODULEPATH::
@@ -99,15 +99,15 @@ can not be loaded. Again this command sets the status bit.
 Modulefiles can have a description section known as "whatis".  It is
 accessed by::
 
-   $ module whatis pmetis
-   pmetis/3.1	: Name: ParMETIS
-   pmetis/3.1	: Version: 3.1
-   pmetis/3.1	: Category: library, mathematics
-   pmetis/3.1	: Description: Parallel graph partitioning..
+    $ module whatis pmetis
+    pmetis/3.1	: Name: ParMETIS
+    pmetis/3.1	: Version: 3.1
+    pmetis/3.1	: Category: library, mathematics
+    pmetis/3.1	: Description: Parallel graph partitioning..
 
 Finally, there is a keyword search tool: ::
 
-   $ module keyword word1 word2 ...
+    $ module keyword word1 word2 ...
 
 This will search any help message  or whatis description for the
 word(s) given on the command line.
@@ -126,11 +126,11 @@ Modules are a way to ask for a certain version of a package.  For
 example a site might have two or more versions of the gcc compiler
 collection (say versions 7.1 and 8.2).  So a user may load::
 
-   $ module load gcc
+    $ module load gcc
 
 or::
 
-   $ module load gcc/7.1
+    $ module load gcc/7.1
 
 In the second case, Lmod will load gcc version 7.1 where as in the
 first case Lmod will load the default version of gcc which normally be
@@ -151,31 +151,31 @@ command correctly, Lmod has a tool for you.  With **ml** you won't
 have to type the module command again.  The two most common commands
 are *module list* and *module load <something>* and **ml** does both::
 
-  $ ml
+    $ ml
 
 means *module list*. And::
 
-  $ ml foo
+    $ ml foo
 
 means *module load foo* while::
 
-  $ ml -bar
+    $ ml -bar
 
 means *module unload bar*.  It won't come as a surprise that you can
 combine them::
 
-  $ ml foo -bar
+    $ ml foo -bar
 
 means *module unload bar; module load foo*.  You can do all the module
 commands::
 
-  $ ml spider
-  $ ml avail
-  $ ml show foo
+    $ ml spider
+    $ ml avail
+    $ ml show foo
 
 If you ever have to load a module name *spider* you can do::
 
-  $ ml load spider
+    $ ml load spider
 
 If you are ever forced to type the **module** command instead of **ml**
 then that is a bug and should be reported.
@@ -188,13 +188,13 @@ SAFETY FEATURES
 
 If a user does: ::
 
-     $ module avail xyz
+    $ module avail xyz
 
-     --------------- /opt/apps/modulefiles ----------------
-     xyz/8.1   xyz/11.1 (D)   xyz/12.1
+    --------------- /opt/apps/modulefiles ----------------
+    xyz/8.1   xyz/11.1 (D)   xyz/12.1
 
-     $ module load xyz
-     $ module load xyz/12.0
+    $ module load xyz
+    $ module load xyz/12.0
 
 The first load command will load the 11.1 version of xyz. In the
 second load, the module command knows that the user already has
@@ -280,7 +280,7 @@ Searching For Modules
 
 When a user enters: ::
 
-   $ module avail
+    $ module avail
 
 Lmod reports only the modules that are in the current
 MODULEPATH. Those are the only modules that the user can load. If
@@ -288,22 +288,22 @@ there is a modulefile hierarchy, then a package the user wants may be
 available but not with the current compiler version. Lmod offers a new
 command:  ::
 
-   $ module spider
+    $ module spider
 
 which lists all possible modules and not just the modules that can be
 seen in the current MODULEPATH. This command has three modes. The
 first mode is:  ::
 
-   $ module spider
+    $ module spider
 
-   lmod: lmod/lmod
-   Lmod: An Environment Module System
+    lmod: lmod/lmod
+    Lmod: An Environment Module System
 
-   ucc: ucc/11.1, ucc/12.0, ...
-   Ucc: the ultimate compiler collection
+    ucc: ucc/11.1, ucc/12.0, ...
+    Ucc: the ultimate compiler collection
 
-   xyz: xyz/0.19, xyz/0.20, xyz/0.31
-   xyz: Solves any x or y or z problem.
+    xyz: xyz/0.19, xyz/0.20, xyz/0.31
+    xyz: Solves any x or y or z problem.
 
 This is a compact listing of all the possible modules on the
 system. The second mode describes a particular module:  ::
@@ -323,21 +323,21 @@ system. The second mode describes a particular module:  ::
 The third mode reports on a particular module version and where it can
 be found: ::
 
-   $ module spider parmetis/3.1.1
-   ----------------------------------------------------------------------------
-   parmetis: parmetis/3.1.1
-   ----------------------------------------------------------------------------
-   Description:
-   Parallel graph partitioning and fill-reduction matrix ordering routines
+    $ module spider parmetis/3.1.1
+    ----------------------------------------------------------------------------
+    parmetis: parmetis/3.1.1
+    ----------------------------------------------------------------------------
+    Description:
+    Parallel graph partitioning and fill-reduction matrix ordering routines
 
-   This module can be loaded through the following modules:
-   ucc/12.0, openmpi/1.4.3
-   ucc/11.1, openmpi/1.4.3
-   gcc/4.4.5, openmpi/1.4.3
+    This module can be loaded through the following modules:
+    ucc/12.0, openmpi/1.4.3
+    ucc/11.1, openmpi/1.4.3
+    gcc/4.4.5, openmpi/1.4.3
 
-   Help:
-   The parmetis module defines the following environment variables: ...
-   The module parmetis/3.1.1 has been compiled by three different versions of the ucc compiler and one MPI implementation.
+    Help:
+    The parmetis module defines the following environment variables: ...
+    The module parmetis/3.1.1 has been compiled by three different versions of the ucc compiler and one MPI implementation.
 
 Controlling Modules During Login
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -395,18 +395,18 @@ there is a second way which is much easier to setup. A user logs in
 with the standard modules loaded. Then the user modifies the default
 setup through the standard module commands::
 
-      $ module unload XYZ
-      $ module swap gcc ucc
-      $ module load git
+    $ module unload XYZ
+    $ module swap gcc ucc
+    $ module load git
 
 Once users have the desired modules load then they issue::
 
-      $ module save
+    $ module save
 
 This creates a file called ``~/.lmod.d/default`` which has the list of
 desired modules. Once this is set-up a user can issue::
 
-      $ module restore
+    $ module restore
 
 and only the desired modules will be loaded. If Lmod is setup
 correctly (see :ref:`startup_w_stdenv-label`) then the default
@@ -420,30 +420,30 @@ list of module specified by LMOD_SYSTEM_DEFAULT_MODULES just like the
 Users can have as many collections as they like.  They can save to a
 named collection with::
 
-      $ module save <collection_name>
+    $ module save <collection_name>
 
 and restore that named collection with::
 
-      $ module restore <collection_name>
+    $ module restore <collection_name>
 
 A user can print the contents of a collection with::
 
-      $ module describe <collection_name>
+    $ module describe <collection_name>
 
 A user can list the collections they have with::
 
-      $ module savelist
+    $ module savelist
 
 Finally a user can disable a collection with::
 
-      $ module disable <collection_name>
+    $ module disable <collection_name>
 
 If no ``collection_name`` is given then the default is disabled.  Note
 that the collection is not remove just renamed.  If a user disables
 the foo collection, the file foo is renamed to foo~.  To restore the
 foo collection, a user will have to do the following::
 
-      $ cd ~/.lmod.d; mv foo~ foo
+    $ cd ~/.lmod.d; mv foo~ foo
 
 Rules for loading modules from a collection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -462,8 +462,8 @@ package (e.g.  gcc, fftw3).
 
 In other words if a user does::
 
-   $ module --force purge; module load A B C
-   $ module save
+    $ module --force purge; module load A B C
+    $ module save
 
 then "**module restore**" will load the default A, B, and C. So if the
 default for module A changed between when the collection was saved and
@@ -475,8 +475,8 @@ are in the future.
 
 On the other hand::
 
-   $ module --force purge; module load A/1.0 B/2.3 C/3.4
-   $ module save
+    $ module --force purge; module load A/1.0 B/2.3 C/3.4
+    $ module save
 
 then "**module restore**" will load the A/1.0, B/2.3, and C/3.4
 independent of what the defaults are now or in the future.
