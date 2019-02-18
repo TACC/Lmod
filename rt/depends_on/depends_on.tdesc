@@ -47,6 +47,7 @@ testdescript = {
      runLmod restore                           #22
      runLmod unload Y                          #23
      runLmod list                              #24
+     runLmod load Z                            #25
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

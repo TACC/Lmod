@@ -884,8 +884,7 @@ function M.depends_on(self, mA)
    for i = 1,#mA do
       local mname      = mA[i]
       local sn         = mname:sn()
-      local stackDepth = mt:stackDepth(sn)
-      if (stackDepth > 0) then
+      if (sn and mt:stackDepth(sn) > 0) then
          mt:incr_ref_count(sn)
       end
    end
