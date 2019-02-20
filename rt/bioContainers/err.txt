@@ -21,6 +21,9 @@ step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T avail
 ===========================
 running: module --regression_testing -T avail
+  Building Spider cache for the following dir(s): ProjectDIR/rt/bioContainers/mf/Core
+Loading: bioContainers/0.1 (fn: ProjectDIR/rt/bioContainers/mf/Core/bioContainers/0.1.lua)
+  completed building cache. Saving cache: false
 ProjectDIR/rt/bioContainers/bcd/mf
    eagle/ctr-0.9.0--py34_0
    eagle/ctr-0.9.0--py35_0
