@@ -9,8 +9,6 @@ local bcd = pathJoin(os.getenv("testDir"),"bcd")
 
 setenv("BIOCONTAINER_DIR",      bcd)
 setenv("LMOD_CACHED_LOADS",     "yes")
-setenv("LMOD_PAGER",            "none")
-setenv("LMOD_REDIRECT",         "yes")
 prepend_path("LMOD_RC",         bcd .. "/lmod/lmodrc.lua")
 if(mode() ~= "spider") then
   prepend_path("MODULEPATH",    bcd .. "/mf")

@@ -36,9 +36,7 @@ testdescript = {
 
      runLmod avail                                    # 2
      runLmod load bioContainers                       # 3
-     runLmod --config                                 # 4
-
-     runLmod avail                                    # 5
+     runLmod -T avail                                 # 4
 
 
      HOME=$ORIG_HOME
