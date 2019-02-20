@@ -27,3 +27,5 @@ Lmod 7.8+
    (7.8.18) issue #396 Add support for $LMOD_DIR/../../etc/rc.lua
    (7.8.19) issue #397 "module purge foo" shouldn't be the same as "module --force purge"
    (7.8.20) issue #398 depends_on("non_existent") should produce a user error not an Lmod error.
+   (7.8.21) Wait to process LMOD_RC as late as possible.
+   
