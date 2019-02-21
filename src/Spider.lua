@@ -166,7 +166,7 @@ local function findModules(mpath, mt, mList, sn, v, moduleT)
 
       if (tracing == "yes") then
          local b          = {}
-         b[#b + 1]        = "Loading: "
+         b[#b + 1]        = "Spider Loading: "
          b[#b + 1]        = fullName
          b[#b + 1]        = " (fn: "
          b[#b + 1]        = fn or "nil"

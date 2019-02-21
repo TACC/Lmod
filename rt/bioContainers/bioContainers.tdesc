@@ -29,8 +29,6 @@ testdescript = {
      mkdir -p bcd/cacheDir cacheDir
 
      export LMOD_RC=$(testDir)/lmodrc.lua
-     #touch timestamp
-     #buildSpiderT $MODULEPATH > cacheDir/spiderT.lua
      touch bcd/timestamp
      buildSpiderT $BCDMF > bcd/cacheDir/spiderT.lua
 
