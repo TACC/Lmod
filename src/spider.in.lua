@@ -406,7 +406,12 @@ function main()
 
    for _, v in ipairs(pargs) do
       for path in v:split(":") do
-         mpathA[#mpathA+1] = path_regularize(path)
+         local my_path     = path_regularize(path)
+         if (my_path:sub(1,1) ~= "/") then
+            io.stderr:write("Each path in MODULEPATH must be absolute: ",path,"\n")
+            os.exit(1)
+         end
+         mpathA[#mpathA+1] = my_path
       end
    end
    local mpath = concatTbl(mpathA,":")
