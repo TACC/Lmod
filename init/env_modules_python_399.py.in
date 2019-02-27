@@ -1,0 +1,9 @@
+# -*- python -*-
+import os, sys 
+from subprocess import PIPE, Popen
+
+def module(command, *arguments):
+    proc = Popen(['@PKG@/libexec/lmod', 'python', command] + list(arguments), stdout=PIPE, stderr=PIPE)
+    stdout, stderr = proc.communicate()
+    print(stderr.decode())
+    exec(stdout.decode())
