@@ -768,60 +768,68 @@ proc reportError {message} {
     lappend g_outputA  "LmodError(\[===\[$ModulesCurrentModulefile: ($g_fullName): $message\]===\])"
 }
 
-proc execute-modulefile {modfile g_outputA} {
+
+proc wrapperHelp { child outputA} {
+    global g_outputA
+    interp eval $child set g_outputA $outputA
+    set start "help(\[===\["
+    set end   "\]===\])"
+    lappend g_outputA  $start
+    ModulesHelp
+    lappend g_outputA  $end
+    set outputA g_outputA
+}
+
+proc execute-modulefile {modfile outputA} {
     global env g_help ModulesCurrentModulefile putMode
     set ModulesCurrentModulefile $modfile
 
-    set slave "__modname"
+    set child "__modname"
     set putMode "normal"
 
-    if {![interp exists $slave]} {
-	interp create $slave
-	interp alias $slave depends-on {} depends-on
-	interp alias $slave always-load {} always-load
-	interp alias $slave family {} family
-	interp alias $slave setenv {} setenv
-	interp alias $slave pushenv {} pushenv
-	interp alias $slave unsetenv {} unsetenv
-	interp alias $slave system {} system
-	interp alias $slave append-path {} append-path
-	interp alias $slave prepend-path {} prepend-path
-	interp alias $slave remove-path {} remove-path
-	interp alias $slave prereq {} prereq
-	interp alias $slave prereq-any {} prereq-any
-	interp alias $slave conflict {} conflict
-	interp alias $slave is-loaded {} is-loaded
-	interp alias $slave module {} module
-        interp alias $slave setPutMode {} setPutMode
-        interp alias $slave puts {} myPuts
-	interp alias $slave module-info {} module-info
-	interp alias $slave module-whatis {} module-whatis
-	interp alias $slave set-alias {} set-alias
-	interp alias $slave unset-alias {} unset-alias
-	interp alias $slave add-property {} add-property
-	interp alias $slave remove-property {} remove-property
-	interp alias $slave uname {} uname
-	interp alias $slave module-version {} module-version
-	interp alias $slave module-alias {} module-alias
-	interp alias $slave reportError {} reportError
+    if {![interp exists $child]} {
+	interp create $child
+	interp alias $child depends-on {} depends-on
+	interp alias $child always-load {} always-load
+	interp alias $child family {} family
+	interp alias $child setenv {} setenv
+	interp alias $child pushenv {} pushenv
+	interp alias $child unsetenv {} unsetenv
+	interp alias $child system {} system
+	interp alias $child append-path {} append-path
+	interp alias $child prepend-path {} prepend-path
+	interp alias $child remove-path {} remove-path
+	interp alias $child prereq {} prereq
+	interp alias $child prereq-any {} prereq-any
+	interp alias $child conflict {} conflict
+	interp alias $child is-loaded {} is-loaded
+	interp alias $child module {} module
+        interp alias $child setPutMode {} setPutMode
+        interp alias $child puts {} myPuts
+	interp alias $child module-info {} module-info
+	interp alias $child module-whatis {} module-whatis
+	interp alias $child set-alias {} set-alias
+	interp alias $child unset-alias {} unset-alias
+	interp alias $child add-property {} add-property
+	interp alias $child remove-property {} remove-property
+	interp alias $child uname {} uname
+	interp alias $child module-version {} module-version
+	interp alias $child module-alias {} module-alias
+	interp alias $child reportError {} reportError
+	interp alias $child wrapperHelp {} wrapperHelp
 
-	interp eval $slave {global ModulesCurrentModulefile g_help g_outputA}
-	interp eval $slave [list "set" "ModulesCurrentModulefile" $modfile]
-	interp eval $slave [list "set" "g_help" $g_help]
-	#interp eval $slave set g_outputA $g_outputA]
+	interp eval $child {global ModulesCurrentModulefile g_help}
+	interp eval $child [list "set" "ModulesCurrentModulefile" $modfile]
+	interp eval $child [list "set" "g_help" $g_help]
     }
 
-    set errorVal [interp eval $slave {
+    set errorVal [interp eval $child {
 	set sourceFailed [catch {source $ModulesCurrentModulefile } errorMsg]
         if { $g_help && [info procs "ModulesHelp"] == "ModulesHelp" } {
-            set start "help(\[===\["
-            set end   "\]===\])"
             setPutMode "inHelp"
+	    #set outputA $g_outputA
+	    catch { wrapperHelp $child $g_outputA} errMsg
             #puts stdout $start
-	    lappend g_outputA  $start
-	    catch { ModulesHelp } errMsg
-            #puts stdout $end
-	    lappend g_outputA  $end
             setPutMode "normal"
         }
         if {$sourceFailed} {
@@ -829,7 +837,7 @@ proc execute-modulefile {modfile g_outputA} {
             return 1
         }
     }]
-    interp delete $slave
+    interp delete $child
     return $errorVal
 }
 
@@ -844,6 +852,8 @@ proc unset-env {var} {
 proc main { modfile } {
     global g_outputA
     global g_mode
+    lappend g_outputA ""
+
     pushMode $g_mode
     execute-modulefile $modfile $g_outputA
     popMode
