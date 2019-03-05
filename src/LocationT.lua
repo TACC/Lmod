@@ -124,12 +124,12 @@ function M.locationT(self)
 end
 
 function M.search(self, name)
-   dbg.start{"LocationT:search(",name,")"}
+   --dbg.start{"LocationT:search(",name,")"}
    local locationT = self.__locationT
    
    if (next(locationT) == nil) then
-      dbg.print{"next(locationT) == nil\n"}
-      dbg.fini("LocationT:search")
+      --dbg.print{"next(locationT) == nil\n"}
+      --dbg.fini("LocationT:search")
       return nil, nil, nil
    end
 
@@ -152,14 +152,14 @@ function M.search(self, name)
 
    -- if v is nil then the name was not found so quit
    if (v == nil) then
-      dbg.fini("LocationT:search")
+      --dbg.fini("LocationT:search")
       return nil
    end
 
    if (v.dirT == nil and v.file == nil) then
-      dbg.print{"sn: ",sn,"\n"}
-      dbg.printT("locationT", locationT)
-      dbg.fini("LocationT:search")
+      --dbg.print{"sn: ",sn,"\n"}
+      --dbg.printT("locationT", locationT)
+      --dbg.fini("LocationT:search")
       LmodError{msg="e_LocationT_Srch"}
       return nil
    end
@@ -203,13 +203,13 @@ function M.search(self, name)
       end
    end
 
-   dbg.print{"sn:",sn,", versionStr: ",versionStr,", fullStr: ",fullStr,"\n"}
-   dbg.printT("v",v)
+   --dbg.print{"sn:",sn,", versionStr: ",versionStr,", fullStr: ",fullStr,"\n"}
+   --dbg.printT("v",v)
 
    local fileA = {}
    fileA[1]    = {}
    collectFileA(sn, fullStr, v, fileA[1])
-   dbg.fini("LocationT:search")
+   --dbg.fini("LocationT:search")
    return sn, versionStr, fileA
 end
 

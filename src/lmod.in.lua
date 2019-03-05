@@ -253,7 +253,7 @@ function main()
    local listTbl      = { name = "list",        checkMPATH = false, cmd = List          }
    local loadTbl      = { name = "load",        checkMPATH = true,  cmd = Load_Usr      }
    local mcTbl        = { name = "describe",    checkMPATH = false, cmd = CollectionLst }
-   local purgeTbl     = { name = "purge",       checkMPATH = true,  cmd = Purge         }
+   local purgeTbl     = { name = "purge",       checkMPATH = true,  cmd = Purge_Usr     }
    local refreshTbl   = { name = "refresh",     checkMPATH = false, cmd = Refresh       }
    local resetTbl     = { name = "reset",       checkMPATH = true,  cmd = Reset         }
    local restoreTbl   = { name = "restore",     checkMPATH = false, cmd = Restore       }

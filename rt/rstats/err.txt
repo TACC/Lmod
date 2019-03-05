@@ -2,15 +2,15 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.8.12  2019-01-08 16:15 -06:00
+Modules based on Lua: Version 7.8.15  2019-01-16 12:46 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T load Rpkgs
 ===========================
 running: module --regression_testing -T load Rpkgs
-  (1)Loading: Rpkgs (fn: ProjectDIR/rt/rstats/mf/Core/Rpkgs/3.4.0.lua, using Find-Best)
-    (2)Loading: Rstats/3.4.0 (fn: ProjectDIR/rt/rstats/mf/Core/Rstats/3.4.0.lua, using Find-Best)
+  (1)(0)Loading: Rpkgs (fn: ProjectDIR/rt/rstats/mf/Core/Rpkgs/3.4.0.lua, using Find-Best)
+    (2)(0)Loading: Rstats/3.4.0 (fn: ProjectDIR/rt/rstats/mf/Core/Rstats/3.4.0.lua, using Find-Best)
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
@@ -22,4 +22,4 @@ step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T unload Rpkgs
 ===========================
 running: module --regression_testing -T unload Rpkgs
-  (1)Unloading: Rpkgs (status: active) (fn: ProjectDIR/rt/rstats/mf/Core/Rpkgs/3.4.0.lua)
+  (1)(0)Unloading: Rpkgs (status: active) (fn: ProjectDIR/rt/rstats/mf/Core/Rpkgs/3.4.0.lua)

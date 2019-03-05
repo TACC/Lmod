@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.7.34  2018-05-27 17:42 -05:00
+Modules based on Lua: Version 7.8.19  2019-02-11 12:34 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -127,8 +127,8 @@ Sous-commandes désuètes :
   setdefault          [name]        sauvegarde liste actuelle de modules dans la collection "name" si un nom est donné. Si aucun nom n'est donné, sauvegarde la liste en tant que liste par défaut pour l'usager.
                                     ===> Utilisez plutôt "save". <====
 Sous-commandes diverses:
-  is-loaded           modulefile    return true if module is loaded
-  is-avail            modulefile    return true if module can be loaded
+  is-loaded           modulefile    return a true status if module is loaded
+  is-avail            modulefile    return a true status if module can be loaded
   show                modulefile    affiche les commandes contenues dans le fichier de module.
   use [-a]            path          Ajoute un chemin au début (prepend) ou à la fin (append) de la variable d'environnement MODULEPATH.
   unuse               path          Enlève le chemin de la variable d'environnement MODULEPATH.
@@ -141,5 +141,5 @@ Sites web de Lmod
   Sourceforge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   Pour rapporter un bogue, veuillez lire http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 7.7.34  2018-05-27 17:42 -05:00
+Modules based on Lua: Version 7.8.19  2019-02-11 12:34 -06:00
     by Robert McLay mclay@tacc.utexas.edu

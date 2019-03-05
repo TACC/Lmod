@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.8.11  2018-11-28 14:08 -06:00
+Modules based on Lua: Version 7.8.19  2019-02-11 12:34 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -85,8 +85,8 @@ Deprecated commands:
   setdefault          [name]        Save current list of modules to name if given, otherwise save as the default list for you the user.
                                     ===> Use "save" instead. <====
 Miscellaneous sub-commands:
-  is-loaded           modulefile    return true if module is loaded
-  is-avail            modulefile    return true if module can be loaded
+  is-loaded           modulefile    return a true status if module is loaded
+  is-avail            modulefile    return a true status if module can be loaded
   show                modulefile    show the commands in the module file.
   use [-a]            path          Prepend or Append path to MODULEPATH.
   unuse               path          remove path from MODULEPATH.
@@ -99,7 +99,7 @@ Lmod Web Sites
   Sourceforge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 7.8.11  2018-11-28 14:08 -06:00
+Modules based on Lua: Version 7.8.19  2019-02-11 12:34 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -182,8 +182,8 @@ Deprecated commands:
   setdefault          [name]        Save current list of modules to name if given, otherwise save as the default list for you the user.
                                     ===> Use "save" instead. <====
 Miscellaneous sub-commands:
-  is-loaded           modulefile    return true if module is loaded
-  is-avail            modulefile    return true if module can be loaded
+  is-loaded           modulefile    return a true status if module is loaded
+  is-avail            modulefile    return a true status if module can be loaded
   show                modulefile    show the commands in the module file.
   use [-a]            path          Prepend or Append path to MODULEPATH.
   unuse               path          remove path from MODULEPATH.
@@ -196,7 +196,7 @@ Lmod Web Sites
   Sourceforge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 7.8.11  2018-11-28 14:08 -06:00
+Modules based on Lua: Version 7.8.19  2019-02-11 12:34 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -216,7 +216,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --config
 ===========================
-Modules based on Lua: Version 7.8.11  2018-11-28 14:08 -06:00
+Modules based on Lua: Version 7.8.19  2019-02-11 12:34 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                      Value
 Allow TCL modulefiles            yes

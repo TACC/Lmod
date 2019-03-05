@@ -34,38 +34,47 @@
 #--
 #--------------------------------------------------------------------------
 
-global g_currentModuleName
 proc doubleQuoteEscaped {text} {
     regsub -all "\"" $text "\\\"" text
     return $text
 }
 
 proc module-alias {name mfile} {
-    puts stdout "\{kind=\"module_alias\",name=\"$name\",mfile=\"$mfile\"\},"
+    global g_outputA
+    #puts stdout "\{kind=\"module_alias\",name=\"$name\",mfile=\"$mfile\"\},"
+    lappend g_outputA "\{kind=\"module_alias\",name=\"$name\",mfile=\"$mfile\"\},"
 }
 
 proc hide-version {mfile} {
-    puts stdout "\{kind=\"hide_version\", mfile=\"$mfile\"\},"
+    global g_outputA
+    #puts stdout "\{kind=\"hide_version\", mfile=\"$mfile\"\},"
+    lappend g_outputA "\{kind=\"hide_version\", mfile=\"$mfile\"\},"
 }
 
 proc hide-modulefile {mfile} {
-    puts stdout "\{kind=\"hide_modulefile\", mfile=\"$mfile\"\},"
+    global g_outputA
+    #puts stdout "\{kind=\"hide_modulefile\", mfile=\"$mfile\"\},"
+    lappend g_outputA "\{kind=\"hide_modulefile\", mfile=\"$mfile\"\},"
 }
 
 
 proc module-version {args} {
+    global g_outputA
     set module_name    [lindex $args 0]
     foreach version [lrange $args 1 end] {
         set val [doubleQuoteEscaped $version]
         lappend argL "\"$val\""
     }
     set versionA [join $argL ","]
-    puts stdout "\{kind=\"module_version\",module_name=\"$module_name\", module_versionA=\{$versionA\}\},"
+    #puts stdout "\{kind=\"module_version\",module_name=\"$module_name\", module_versionA=\{$versionA\}\},"
+    lappend g_outputA "\{kind=\"module_version\",module_name=\"$module_name\", module_versionA=\{$versionA\}\},"
 }
 
 proc main {mRcFile} {
-    global env
-    puts stdout "ModA=\{"
+    global env                 # Need this for .modulerc file that access global env vars.
+    global g_outputA
+    #puts stdout "ModA=\{"
+    lappend g_outputA "ModA=\{"
     set version  -1
     set found 0
 
@@ -86,9 +95,13 @@ proc main {mRcFile} {
     #}
 
     if { $found > 0 } {
-        puts stdout "\{kind=\"set_default_version\", version=\"$version\"\}"
+        #puts stdout "\{kind=\"set_default_version\", version=\"$version\"\},"
+	lappend g_outputA "\{kind=\"set_default_version\", version=\"$version\"\},"
     }
-    puts stdout "\}"
+    #puts stdout "\}"
+    lappend g_outputA "\}" 
+    set my_output [join $g_outputA "\n"]
+    puts stdout "$my_output"
 }
 
 eval main $argv

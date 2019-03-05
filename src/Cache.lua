@@ -465,6 +465,19 @@ function M.build(self, fast)
    if (not buildSpiderT) then
       mt:setRebuildTime(ancient, short)
    else
+      local tracing  = cosmic:value("LMOD_TRACING")
+      if (tracing == "yes") then
+         local shell      = _G.Shell
+         local stackDepth = FrameStk:singleton():stackDepth()
+         local indent     = ("  "):rep(stackDepth+1)
+         local b          = {}
+         b[#b + 1]        = indent
+         b[#b + 1]        = "Building Spider cache for the following dir(s): "
+         b[#b + 1]        = concatTbl(dirA,", ")
+         b[#b + 1]        = "\n"
+         shell:echo(concatTbl(b,""))
+      end
+
       local prtRbMsg = ((not quiet())                        and
                         (not masterTbl.initial)              and
                         ((not short) or (short > shortTime)) and
@@ -475,10 +488,9 @@ function M.build(self, fast)
       dbg.print{"prtRbMsg: ",prtRbMsg,", quiet:     ",self.quiet,"\n"}
 
       local threshold = cosmic:value("LMOD_THRESHOLD")
-      local cTimer = CTimer:singleton("Rebuilding cache, please wait ...",
-                                      threshold, prtRbMsg, masterTbl.timeout)
-
-      local mcp_old  = mcp
+      local cTimer    = CTimer:singleton("Rebuilding cache, please wait ...",
+                                         threshold, prtRbMsg, masterTbl.timeout)
+      local mcp_old   = mcp
       dbg.print{"Setting mcp to ", mcp:name(),"\n"}
       mcp                 = MasterControl.build("spider")
 
@@ -508,6 +520,21 @@ function M.build(self, fast)
                 r.dontWriteCache, "\n"}
 
       local dontWrite = self.dontWrite or r.dontWriteCache or cosmic:value("LMOD_IGNORE_CACHE")
+
+      if (tracing == "yes") then
+         local shell      = _G.Shell
+         local stackDepth = FrameStk:singleton():stackDepth()
+         local indent     = ("  "):rep(stackDepth+1)
+         local b          = {}
+         b[#b + 1]        = indent
+         b[#b + 1]        = "completed building cache. Saving cache: "
+         b[#b + 1]        = tostring(not(t2 - t1 < shortTime or dontWrite))
+         b[#b + 1]        = "\n"
+         shell:echo(concatTbl(b,""))
+      end
+
+
+
       local doneMsg
       mrc = MRC:singleton()
 

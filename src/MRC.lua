@@ -104,11 +104,11 @@ end
 
 
 function M.singleton(self, fnA)
-   dbg.start{"MRC:singleton()"}
+   --dbg.start{"MRC:singleton()"}
    if (not s_MRC) then
       s_MRC = new(self, fnA)
    end
-   dbg.fini("MRC:singleton")
+   --dbg.fini("MRC:singleton")
    return s_MRC
 end
 

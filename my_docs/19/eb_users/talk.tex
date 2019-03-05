@@ -1,0 +1,148 @@
+\documentclass{beamer}
+
+% You can also use a 16:9 aspect ratio:
+%\documentclass[aspectratio=169]{beamer}
+\usetheme{TACC16}
+
+% It's possible to move the footer to the right:
+%\usetheme[rightfooter]{TACC16}
+
+\begin{document}
+\title[Lmod]{EasyBuild User Meeting: Lmod}
+\author{Robert McLay} 
+\date{January 31, 2019} 
+
+% page 1
+\frame{\titlepage} 
+
+\section{Introduction}
+
+\begin{frame}{Introduction}
+  \begin{itemize}
+    \item Features and History
+    \item Advanced Topics
+    \item Future work?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Features}
+  \begin{itemize}
+    \item Reads for TCL and Lua modulefiles
+    \item One name rule.
+    \item Support Software Hierarchy (but not required!)
+    \item Spider Cache: fast \texttt{\color{blue} \$ module avail}
+    \item Properties (gpu, mic)
+    \item Semantic Versioning:  5.6 is older than 5.10
+    \item family(``compiler'') family(``mpi'') support
+    \item Optional Tracking: What modules are loaded?
+    \item Many other features: ml, collections, hooks, ...
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{History of Support for Module Names}
+  \begin{itemize}
+    \item Originally only \emph{name/version}:  gcc/4.8.1
+    \item Lmod 5+ \emph{cat/name/version}:  compiler/gcc/4.8.1
+    \item Lmod 7+ \emph{name/version/version}: intel/impi/64/18.0.1
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Nag Message}
+  \begin{itemize}
+    \item Suppose you have a module that you want to remove.
+    \item How do you contact just the users should care?
+    \item admin.list (A.K.A. the Nag message)
+    \item See https://lmod.readthedocs.io/en/latest/140\_deprecating\_modules.html
+    \item There is support for some pattern matching with either
+      module or file name.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\texttt{depends\_on()}}
+  \begin{itemize}
+    \item Modules X and Y depends on Module A
+    \item ml purge; ml X; ml unload X;      $\Rightarrow$ unload A
+    \item ml purge; ml X Y; ml unload X;    $\Rightarrow$ keep A
+    \item ml purge; ml X Y; ml unload X Y ; $\Rightarrow$ unload A
+    \item ml purge; ml A X Y; ml unload X Y ; $\Rightarrow$ keep A
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Hiding Modules}
+  \begin{itemize}
+    \item System MODULERC file: \texttt{/path/to/lmod/etc/rc}
+    \item User \texttt{\textasciitilde/.modulerc}
+    \item \texttt{\color{blue}hide-version foo/1.2.3}
+    \item Hidden from avail, spider and keyword
+    \item Hidden modules can be loaded
+    \item Sites: deprecation, experimental
+    \item show hidden: \texttt{module --show-hidden avail}
+    \item Sites must explicitly list all hidden modules, no pattern matching.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Hiding Modules (II): isVisibleHook}
+  \begin{itemize}
+     \item Use the {\bf isVisibleHook} hook when you want pattern matching.
+     \item You are passed in fullName, sn, fn and isVisible through a
+       table.
+     \item Use whatever rules you like to mark a module as hidden.
+     \item See contrib/more\_hooks/SitePackage.lua for an example.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Dynamic Cache files for Large Module Trees}
+  \begin{itemize}
+    \item Groups that have a large number of specialize modules.
+    \item Want Opt-in for these modules
+  \end{itemize}
+\end{frame}
+
+% page 7
+\begin{frame}[fragile]
+  \frametitle{Dynamic Cache files for Large Module Trees (II)}
+  \begin{itemize}
+    \item bioPkgs.lua
+    {\tiny
+\begin{semiverbatim}
+  prepend\_PATH("LMOD\_RC", "/path/to/cache\_descript/descript.lua")
+  if ( mode() ~= "spider") then 
+     prepend\_path("MODULEPATH","/path/to/bioPkgs")
+  end
+\end{semiverbatim}
+    }
+    \item descript.lua
+    {\tiny
+\begin{semiverbatim}
+  scDescript = \{
+     \{
+        dir = "/path/to/bioPkg/cacheDir",
+        timestamp = "/path/to/bioPkg/timestamp.txt",
+     \},
+  \}
+\end{semiverbatim}
+    }
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Future Work(?)}
+  \begin{itemize}
+    \item Lmod currently starts a separate process to interpret each TCL file.
+    \item Want to look at ways to improve this.
+    \item One possibility: Optionally combine TCL and Lua interpreters
+      together to speed up performance.
+    \item This will be used to parse .version, .modulerc and TCL modulefiles.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Conclusions: Lmod 7+}
+  \begin{itemize}
+    \item Latest version: https://github.com:TACC/lmod.git
+    \item Stable version: http://lmod.sf.net
+    \item Documentation:  http://lmod.readthedocs.org
+  \end{itemize}
+\end{frame}
+
+\end{document}

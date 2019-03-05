@@ -1,0 +1,210 @@
+\documentclass{beamer}
+
+\usetheme[headernav]{TACC} %%Drop the 'headernav' if you don't like
+                           %%the stuff at the top of your slide
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{alltt}
+\usepackage{graphicx}
+
+\title{SC17: 7th Annual Lmod Booth Talk}
+
+
+\author{Robert McLay}
+\institute{The Texas Advanced Computing Center}
+
+\date{November 15, 2017}  %% Use this if you want to fix the date in
+                          %% stone rather than use \today
+
+\newcommand{\bfnabla}{\mbox{\boldmath$\nabla$}}
+\newcommand{\laplacian}[1]{\bfnabla^2 #1}
+\newcommand{\grad}[1]{\bfnabla #1}
+\newcommand{\tgrad}[1]{\bfnabla^T #1}
+\newcommand{\dvg}[1]{\bfnabla \cdot #1}
+\newcommand{\curl}[1]{\bfnabla \times #1}
+\newcommand{\lap}[1]{\bfnabla^2 #1}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}{Introduction}
+  \begin{itemize}
+    \item Welcome to the 7th annual TACC Booth Talk
+    \item What is Lmod?
+    \item Why you might to use it
+    \item What is new?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lmod's Big Ideas}
+  \begin{itemize}
+    \item A modern replacement for a tried and true concept.
+    \item The guiding principal: ``Make life easier w/o getting in
+      the way.''
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Why You Might Want To Use Lmod}
+  \begin{itemize}
+    \item Same \texttt{module} command as in Tmod
+    \item Active Development;  Frequent Releases; Bug fixes.
+    \item Vibrant Community
+    \item It is used from Norway to Isreal to New Zealand from Stanford to MIT to NASA
+    \item Enjoy many capabilities w/o changing a single module file
+    \item Debian and Fedora packages available
+    \item Many more advantages when you're ready
+    \item It is what we use every day!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Features}
+  \begin{itemize}
+    \item Reads for TCL and Lua modulefiles
+    \item One name rule.
+    \item Support Software Hierarchy
+    \item Spider Cache: fast \texttt{\color{blue} \$ module avail}
+    \item Properties (gpu, mic)
+    \item Semantic Versioning:  5.6 is older than 5.10
+    \item family(``compiler'') family(``mpi'') support
+    \item Optional Tracking: What modules are used?
+    \item Many other features: ml, collections, hooks, ...
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{History of Support for Module Names}
+  \begin{itemize}
+    \item Originally only \emph{name/version}:  gcc/4.8.1
+    \item Lmod 5+ \emph{cat/name/version}:  compiler/gcc/4.8.1
+    \item Lmod 7+ \emph{name/version/version}: intel/impi/64/18.0.1
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{New with Lmod 7: NVV}
+  \begin{itemize}
+    \item Support for \emph{name/v1/v2}:  fftw/64/3.3.4
+    \item MODULERC Support:
+      \begin{itemize}
+        \item Set Defaults under Site and/or User
+        \item Hide any installed module
+      \end{itemize}
+    \item Major refactoring of Lmod 
+      \begin{itemize}
+        \item support NVV
+        \item Code Cleanup
+        \item Better Spider Cache handling
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Setting Defaults}
+  \begin{itemize}
+    \item System MODULERC file: \texttt{/path/to/lmod/etc/rc}
+    \item \texttt{\$MODULERC} points to a file.
+    \item User \texttt{\textasciitilde/.modulerc}
+    \item Can set defaults User, System, Files
+    \item Examples: account for web services
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Hiding Modules}
+  \begin{itemize}
+    \item System MODULERC file: \texttt{/path/to/lmod/etc/rc}
+    \item User \texttt{\textasciitilde/.modulerc}
+    \item \texttt{\color{blue}hide-version foo/1.2.3}
+    \item Hidden from avail, spider and keyword
+    \item Hidden modules can be loaded
+    \item Sites: deprecation, experimental
+    \item show hidden: \texttt{module --show-hidden avail}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{New Features since SC 16}
+  \begin{itemize}
+    \item New module function: \texttt{depends\_on()}
+    \item Reference counting on PATH like variables
+    \item French, German, Spanish translations for Lmod messages.
+    \item Admin list (AKA Nag List) supports Lua Regex for matching
+    \item Improved Settarg (more on this later?)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\texttt{depends\_on()}}
+  \begin{itemize}
+    \item Modules X and Y depends on Module A
+    \item ml purge; ml X; ml unload X;      $\Rightarrow$ unload A
+    \item ml purge; ml X Y; ml unload X;    $\Rightarrow$ keep A
+    \item ml purge; ml X Y; ml unload X Y ; $\Rightarrow$ unload A
+    \item ml purge; ml A X Y; ml unload X Y ; $\Rightarrow$ keep A
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Reference Counting for PATH like variables}
+  \begin{itemize}
+    \item AKA: the /usr/local/bin problem
+    \item Old:
+      \begin{itemize}
+        \item Default path has /usr/local/bin
+        \item Module A also has /usr/local/bin
+        \item Unloading module A removes /usr/local/bin from path
+      \end{itemize}
+    \item New: With Ref. Count the problem is fixed.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Future Work (I): Module Export}
+  \begin{itemize}
+    \item Module Collections are for individuals.
+    \item They are not meant to be shared between users
+    \item To share I plan to add ``module export''
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Module Export}
+    {\tiny
+\begin{semiverbatim}
+    \$ module export <collection> 2> export.txt
+    \$ cat export.txt
+
+    module purge
+    clearMT
+    export MODULEPATH=/path1:/path2
+    
+    module collection_load X Y Z
+    module --ref_count 2 depend_on A
+\end{semiverbatim}
+    }
+\end{frame}
+
+\begin{frame}{Future Work (II): MODULEPATH ref counting}
+  \begin{itemize}
+    \item A user has requested the MODULEPATH have ref-counting
+    \item \texttt{ml unuse /path/to/modules} would always remove
+      directory from MODULEPATH
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Lmod Doc usage}
+    \center{\includegraphics[width=.9\textwidth]{Lmod_docs_usage}}
+\end{frame}
+
+
+\begin{frame}{Conclusions: Lmod 7+}
+  \begin{itemize}
+    \item Latest version: https://github.com:TACC/Lmod.git
+    \item Stable version: http://lmod.sf.net
+    \item Documentation:  http://lmod.readthedocs.org
+  \end{itemize}
+\end{frame}
+
+
+\end{document}

@@ -742,7 +742,7 @@ end
 function M.reload_sticky(self, force)
    local cwidth    = masterTbl().rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
 
-   dbg.start{"Master:reload_sticky()"}
+   dbg.start{"Master:reload_sticky(",force,")"}
    -- Try to reload any sticky modules.
    if (masterTbl().force or force) then
       dbg.fini("Master:reload_sticky")
