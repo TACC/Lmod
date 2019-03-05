@@ -42,6 +42,18 @@ spA = {
         ["wV"] = "000000001.000000001.*zfinal",
       },
       {
+        ["canonicalVersionString"] = "000000001.000000003.*zfinal",
+        ["full"] = "foo/1.3",
+        ["help"] = [[
+This is the help message for the foo 1.3 module
+And even more help
+]],
+        ["markedDefault"] = false,
+        ["path"] = "ProjectDIR/rt/softwarePage/mf/foo/1.3",
+        ["versionName"] = "1.3 ",
+        ["wV"] = "000000001.000000003.*zfinal",
+      },
+      {
         ["canonicalVersionString"] = "000000001.*zfinal",
         ["full"] = "foo/1.0",
         ["help"] = "foo v1.0",
