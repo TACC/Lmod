@@ -26,7 +26,9 @@ testdescript = {
 
      runLmod --version                                   # 1
      runLmod avail                                       # 2
-     runBase runSpiderCmd -o softwarePageLua $MODULEPATH # 3
+     runBase runSpiderCmd -o spiderT         $MODULEPATH # 3
+     runBase runSpiderCmd -o dbT             $MODULEPATH # 4
+     runBase runSpiderCmd -o softwarePageLua $MODULEPATH # 5
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

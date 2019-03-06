@@ -14,6 +14,159 @@ _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={
 export _ModuleTable_;
 ===========================
 step 3
+runSpiderCmd -o spiderT ProjectDIR/rt/softwarePage/mf
+===========================
+timestampFn = {
+  false,
+}
+mrcT = {
+  alias2modT = {},
+  hiddenT = {},
+  version2modT = {},
+}
+spiderT = {
+  ["ProjectDIR/rt/softwarePage/mf"]  = {
+    foo = {
+      defaultT = {
+        ["barefn"] = "default",
+        ["fn"] = "ProjectDIR/rt/softwarePage/mf/foo/default",
+        ["fullName"] = "foo/default",
+        ["mpath"] = "ProjectDIR/rt/softwarePage/mf",
+        ["value"] = "1.0",
+      },
+      dirT = {},
+      fileT = {
+        ["foo/.2.0"]  = {
+          ["Description"] = "foo description",
+          ["Version"] = "1.0",
+          ["canonical"] = ".2.0",
+          ["fn"] = "ProjectDIR/rt/softwarePage/mf/foo/.2.0.lua",
+          ["help"] = "foo v.2.0",
+          ["luaExt"] = 5,
+          ["mpath"] = "ProjectDIR/rt/softwarePage/mf",
+          ["pV"] = "000000000.000000002.*zfinal",
+          ["wV"] = "000000000.000000002.*zfinal",
+          whatis = {
+            "Description: foo description", "Version: 1.0", "Categories: foo",
+          },
+        },
+        ["foo/1.0"]  = {
+          ["Description"] = "foo description",
+          ["Version"] = "1.0",
+          ["canonical"] = "1.0",
+          ["fn"] = "ProjectDIR/rt/softwarePage/mf/foo/1.0.lua",
+          ["help"] = "foo v1.0",
+          ["luaExt"] = 4,
+          ["mpath"] = "ProjectDIR/rt/softwarePage/mf",
+          ["pV"] = "000000001.*zfinal",
+          ["wV"] = "^00000001.*zfinal",
+          whatis = {
+            "Description: foo description", "Version: 1.0", "Categories: foo",
+          },
+        },
+        ["foo/1.1"]  = {
+          ["Description"] = "foo description",
+          ["Version"] = "1.1",
+          ["canonical"] = "1.1",
+          ["fn"] = "ProjectDIR/rt/softwarePage/mf/foo/1.1.lua",
+          ["help"] = "foo v1.1",
+          ["luaExt"] = 4,
+          ["mpath"] = "ProjectDIR/rt/softwarePage/mf",
+          ["pV"] = "000000001.000000001.*zfinal",
+          ["wV"] = "000000001.000000001.*zfinal",
+          whatis = {
+            "Description: foo description", "Version: 1.1", "Categories: foo",
+          },
+        },
+        ["foo/1.3"]  = {
+          ["Category"] = "system ",
+          ["Description"] = "This is a descript ",
+          ["Name"] = "foo ",
+          ["Version"] = "1.3 ",
+          ["canonical"] = "1.3",
+          ["fn"] = "ProjectDIR/rt/softwarePage/mf/foo/1.3",
+          ["help"] = [[
+This is the help message for the foo 1.3 module
+And even more help
+]],
+          ["mpath"] = "ProjectDIR/rt/softwarePage/mf",
+          ["pV"] = "000000001.000000003.*zfinal",
+          ["wV"] = "000000001.000000003.*zfinal",
+          whatis = {
+            "Name: foo ", "Version: 1.3 ", "Category: system ", "Description: This is a descript ",
+          },
+        },
+      },
+    },
+  },
+  ["version"] = 5,
+}
+mpathMapT = {}
+===========================
+step 4
+runSpiderCmd -o dbT ProjectDIR/rt/softwarePage/mf
+===========================
+timestampFn = {
+  false,
+}
+dbT = {
+  foo = {
+    ["ProjectDIR/rt/softwarePage/mf/foo/.2.0.lua"]  = {
+      ["Description"] = "foo description",
+      ["Version"] = "1.0",
+      ["fullName"] = "foo/.2.0",
+      ["help"] = "foo v.2.0",
+      ["hidden"] = true,
+      ["pV"] = "000000000.000000002.*zfinal",
+      ["wV"] = "000000000.000000002.*zfinal",
+      whatis = {
+        "Description: foo description", "Version: 1.0", "Categories: foo",
+      },
+    },
+    ["ProjectDIR/rt/softwarePage/mf/foo/1.0.lua"]  = {
+      ["Description"] = "foo description",
+      ["Version"] = "1.0",
+      ["fullName"] = "foo/1.0",
+      ["help"] = "foo v1.0",
+      ["hidden"] = false,
+      ["pV"] = "000000001.*zfinal",
+      ["wV"] = "^00000001.*zfinal",
+      whatis = {
+        "Description: foo description", "Version: 1.0", "Categories: foo",
+      },
+    },
+    ["ProjectDIR/rt/softwarePage/mf/foo/1.1.lua"]  = {
+      ["Description"] = "foo description",
+      ["Version"] = "1.1",
+      ["fullName"] = "foo/1.1",
+      ["help"] = "foo v1.1",
+      ["hidden"] = false,
+      ["pV"] = "000000001.000000001.*zfinal",
+      ["wV"] = "000000001.000000001.*zfinal",
+      whatis = {
+        "Description: foo description", "Version: 1.1", "Categories: foo",
+      },
+    },
+    ["ProjectDIR/rt/softwarePage/mf/foo/1.3"]  = {
+      ["Category"] = "system ",
+      ["Description"] = "This is a descript ",
+      ["Version"] = "1.3 ",
+      ["fullName"] = "foo/1.3",
+      ["help"] = [[
+This is the help message for the foo 1.3 module
+And even more help
+]],
+      ["hidden"] = false,
+      ["pV"] = "000000001.000000003.*zfinal",
+      ["wV"] = "000000001.000000003.*zfinal",
+      whatis = {
+        "Name: foo ", "Version: 1.3 ", "Category: system ", "Description: This is a descript ",
+      },
+    },
+  },
+}
+===========================
+step 5
 runSpiderCmd -o softwarePageLua ProjectDIR/rt/softwarePage/mf
 ===========================
 spA = {
@@ -24,6 +177,7 @@ spA = {
     versions = {
       {
         ["canonicalVersionString"] = "000000000.000000002.*zfinal",
+        ["description"] = "foo description",
         ["full"] = "foo/.2.0",
         ["help"] = "foo v.2.0",
         ["hidden"] = true,
@@ -34,6 +188,7 @@ spA = {
       },
       {
         ["canonicalVersionString"] = "000000001.000000001.*zfinal",
+        ["description"] = "foo description",
         ["full"] = "foo/1.1",
         ["help"] = "foo v1.1",
         ["markedDefault"] = false,
@@ -43,6 +198,7 @@ spA = {
       },
       {
         ["canonicalVersionString"] = "000000001.000000003.*zfinal",
+        ["description"] = "This is a descript ",
         ["full"] = "foo/1.3",
         ["help"] = [[
 This is the help message for the foo 1.3 module
@@ -55,6 +211,7 @@ And even more help
       },
       {
         ["canonicalVersionString"] = "000000001.*zfinal",
+        ["description"] = "foo description",
         ["full"] = "foo/1.0",
         ["help"] = "foo v1.0",
         ["markedDefault"] = true,

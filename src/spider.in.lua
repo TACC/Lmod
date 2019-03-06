@@ -523,6 +523,7 @@ function convertEntry(name, vv, spA)
 
    local keyT = {
       Version     = "versionName",
+      Description = "description",
       fullName    = "full",
       help        = "help",
       parentAA    = "parent",
