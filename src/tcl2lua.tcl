@@ -34,7 +34,7 @@
 #
 #------------------------------------------------------------------------
 
-global g_loadT g_varsT g_fullName g_usrName g_shellName g_mode g_shellType
+global g_loadT g_varsT g_fullName g_usrName g_shellName g_mode g_shellType g_outputA
 namespace eval ::cmdline {
     namespace export getArgv0 getopt getKnownOpt getfiles getoptions \
 	    getKnownOptions usage
@@ -269,6 +269,7 @@ proc ::cmdline::usage {optlist {usage {options:}}} {
 #	Returns the list of files that match the input patterns.
 
 proc ::cmdline::getfiles {patterns quiet} {
+    global g_outputA
     set result {}
     if {$::tcl_platform(platform) == "windows"} {
 	foreach pattern $patterns {
@@ -276,7 +277,7 @@ proc ::cmdline::getfiles {patterns quiet} {
 	    set files [glob -nocomplain -- $pat]
 	    if {$files == {}} {
 		if {! $quiet} {
-		    puts stdout "warning: no files match \"$pattern\""
+		    lappend g_outputA "warning: no files match \"$pattern\""
 		}
 	    } else {
 		foreach file $files {
@@ -296,7 +297,8 @@ proc ::cmdline::getfiles {patterns quiet} {
 	if {[file isfile $fullPath]} {
 	    lappend files $fullPath
 	} elseif {! $quiet} {
-	    puts stdout "warning: no files match \"$file\""
+	    #puts stdout "warning: no files match \"$file\""
+	    lappend g_outputA  "warning: no files match \"$file\""
 	}
     }
     return $files
@@ -391,6 +393,7 @@ proc module-info {what {more {}}} {
 }
 
 proc module-whatis { args } {
+    global g_outputA
     set msg ""
     foreach item $args {
        append msg $item
@@ -398,7 +401,8 @@ proc module-whatis { args } {
     }
 
     regsub -all {[\n]} $msg  " " msg2
-    puts stdout "whatis(\[===\[$msg2\]===\])"
+    #puts stdout "whatis(\[===\[$msg2\]===\])"
+    lappend g_outputA  "whatis(\[===\[$msg2\]===\])"
 }
 
 proc setenv { var val args } {
@@ -509,7 +513,8 @@ proc remove-path { var val args} {
 }
 
 proc output-path-foo { cmd var val separator priority } {
-    puts stdout "$cmd\{\"$var\",\"$val\",delim=\"$separator\",priority=\"$priority\"\}"
+    global g_outputA
+    lappend g_outputA  "$cmd\{\"$var\",\"$val\",delim=\"$separator\",priority=\"$priority\"\}"
 }
 
 
@@ -534,6 +539,7 @@ proc doubleQuoteEscaped {text} {
 }
 
 proc cmdargs { cmd args } {
+    global g_outputA
     foreach arg $args {
 	#if {$arg != ""} {
 	    set val [doubleQuoteEscaped $arg]
@@ -542,7 +548,8 @@ proc cmdargs { cmd args } {
     }
     if {[info exists cmdArgsL]} {
         set cmdArgs [join $cmdArgsL ","]
-        puts stdout "$cmd\($cmdArgs\)"
+        #puts stdout "$cmd\($cmdArgs\)"
+	lappend g_outputA  "$cmd\($cmdArgs\)"
     }
 }
 
@@ -570,12 +577,13 @@ proc swapcmd { old {new {}}} {
 }
 
 proc system { args } {
+    global g_outputA
     foreach arg $args {
         lappend cmdArgsL "$arg"
     }
     if {[info exists cmdArgsL]} {
         set cmdArgs [join $cmdArgsL " "]
-        puts stdout "execute\{cmd=\"$cmdArgs\",modeA = \{\"all\"\}\}"
+	lappend g_outputA  "execute\{cmd=\"$cmdArgs\",modeA = \{\"all\"\}\}"
     }
 }
 
@@ -628,7 +636,7 @@ proc setPutMode { value } {
 }
 
 proc myPuts args {
-    global putMode
+    global putMode g_outputA
     foreach {a b c} $args break
     set nonewline 0
     switch [llength $args] {
@@ -667,7 +675,8 @@ proc myPuts args {
             set text "LmodMessage(\[===\[$text\]===\])"
         }
     } else {
-        set channel  "stdout"
+	lappend g_outputA $text
+	return
     }
     if { $nonewline == 1 } {
         puts -nonewline $channel $text
@@ -751,8 +760,10 @@ proc module { command args } {
 }
 
 proc reportError {message} {
+    global g_outputA
     global ModulesCurrentModulefile g_fullName
-    puts stdout "LmodError(\[===\[$ModulesCurrentModulefile: ($g_fullName): $message\]===\])"
+    #puts stdout "LmodError(\[===\[$ModulesCurrentModulefile: ($g_fullName): $message\]===\])"
+    lappend g_outputA "LmodError(\[===\[$ModulesCurrentModulefile: ($g_fullName): $message\]===\])"
 }
 
 proc execute-modulefile {modfile } {
@@ -781,6 +792,7 @@ proc execute-modulefile {modfile } {
 	interp alias $child module {} module
         interp alias $child setPutMode {} setPutMode
         interp alias $child puts {} myPuts
+        interp alias $child myPuts {} myPuts
 	interp alias $child module-info {} module-info
 	interp alias $child module-whatis {} module-whatis
 	interp alias $child set-alias {} set-alias
@@ -803,9 +815,9 @@ proc execute-modulefile {modfile } {
             set start "help(\[===\["
             set end   "\]===\])"
             setPutMode "inHelp"
-            puts stdout $start
+            myPuts stdout $start
 	    catch { ModulesHelp } errMsg
-            puts stdout $end
+            myPuts stdout $end
             setPutMode "normal"
         }
         if {$sourceFailed} {
@@ -826,10 +838,15 @@ proc unset-env {var} {
 }
 
 proc main { modfile } {
+    global g_outputA
     global g_mode
+    lappend g_outputA ""
+
     pushMode $g_mode
     execute-modulefile $modfile
     popMode
+    set my_output [join $g_outputA "\n"]
+    puts stdout "$my_output"
 }
 
 global g_loadT g_help
