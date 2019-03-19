@@ -12,8 +12,11 @@ prtstr $my_output
 prtstr "argv0 $argv0"
 prtstr "argc $argc"
 
+set appName [info nameofexecutable]
 
 foreach arg $argv {
-    puts stdout $arg
+    prtstr $arg
 }
+
+prtstr "appName: $appName"
 
