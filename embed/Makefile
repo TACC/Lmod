@@ -4,11 +4,11 @@ LIBRARY  := $(SONAMEV).0.1
 SRC      := lua_try.c
 OBJ      := $(patsubst %.c, %.o, $(SRC))
 LUAINC   := /opt/apps/lua/lua/include
-OS       := macosx
+OS       := $(shell uname -s)
 
 override CFLAGS   := $(CFLAGS) -DLUA_COMPAT_MODULE -fPIC -I $(LUAINC)
 
-ifeq ($(OS),macosx)
+ifeq ($(OS),Darwin)
   LIB_OPTION= -bundle -undefined dynamic_lookup #for MacOS X
 else
   LIB_OPTION= -shared -Wl,-soname,$(SONAMEV) #for Linux
