@@ -48,6 +48,7 @@ int main(int argc, char **argv)
   argvPtr = Tcl_NewListObj(0, NULL);
   while (argc--) 
     Tcl_ListObjAppendElement(NULL, argvPtr, Tcl_NewStringObj(*argv++, -1));
+  Tcl_SetVar2Ex(interp, "argv", NULL, argvPtr, TCL_GLOBAL_ONLY);
 
   Tcl_EvalFile(interp, script);
 
