@@ -1,7 +1,5 @@
-#define _GNU_SOURCE
 #include <tcl/tcl.h>
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
 
 int PrintStrObjCmd(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[])
