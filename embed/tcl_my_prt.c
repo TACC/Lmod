@@ -32,15 +32,22 @@ int Tcl_AppInit(Tcl_Interp* interp)
   return TCL_OK;
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char **argv)
 {
-  char *cmd = NULL;
-  Tcl_FindExecutable(argv[0]);
-  Tcl_Interp * interp = Tcl_CreateInterp();
+  Tcl_Obj    *argvPtr;
+  Tcl_FindExecutable(argv[1]);
 
+  Tcl_Interp *interp = Tcl_CreateInterp();
   Tcl_AppInit(interp);
 
-  Tcl_EvalFile(interp, argv[1]);
+  Tcl_SetVar2Ex(interp, "argv0", NULL, argv[1], TCL_GLOBAL_ONLY);
+  argc -= 2;
+  argv += 2;
+  Tcl_SetVar2Ex(interp, "argc", NULL, Tcl_NewIntObj(argc), TCL_GLOBAL_ONLY);
+  argvPtr = Tcl_NewListObj(0, NULL);
+  while (argc--) {
+    Tcl_ListObjAppendElement(NULL, argvPtr, NewNativeObj(*argv++, -1));
+
   Tcl_EvalFile(interp, argv[1]);
 
   exit(0);
