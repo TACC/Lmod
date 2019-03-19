@@ -40,7 +40,7 @@ int main(int argc, char **argv)
   Tcl_Interp *interp = Tcl_CreateInterp();
   Tcl_AppInit(interp);
 
-  Tcl_SetVar2Ex(interp, "argv0", NULL, argv[1], TCL_GLOBAL_ONLY);
+  Tcl_SetVar2Ex(interp, "argv0", NULL, NewNativeObj(argv[1],-1), TCL_GLOBAL_ONLY);
   argc -= 2;
   argv += 2;
   Tcl_SetVar2Ex(interp, "argc", NULL, Tcl_NewIntObj(argc), TCL_GLOBAL_ONLY);
