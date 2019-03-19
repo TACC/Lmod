@@ -39,7 +39,13 @@ int main(int argc, char **argv)
   Tcl_FindExecutable(script);
 
   Tcl_Interp *interp = Tcl_CreateInterp();
-  Tcl_AppInit(interp);
+  if (interp == NULL) {
+    fprintf(stderr,"Cannot create TCL interpreter\n");
+    exit(-1);
+  }
+
+  if (Tcl_AppInit(interp) != TCL_OK)
+    return TCL_ERROR;
 
   Tcl_SetVar2Ex(interp, "argv0", NULL, Tcl_NewStringObj(script,-1), TCL_GLOBAL_ONLY);
   argc -= 2;
@@ -50,7 +56,8 @@ int main(int argc, char **argv)
     Tcl_ListObjAppendElement(NULL, argvPtr, Tcl_NewStringObj(*argv++, -1));
   Tcl_SetVar2Ex(interp, "argv", NULL, argvPtr, TCL_GLOBAL_ONLY);
 
-  Tcl_EvalFile(interp, script);
+  if (Tcl_EvalFile(interp, script) != TCL_OK)
+    return TCL_ERROR;
 
   exit(0);
 }
