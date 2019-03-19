@@ -34,21 +34,22 @@ int Tcl_AppInit(Tcl_Interp* interp)
 
 int main(int argc, char **argv)
 {
+  char       *script = argv[1];
   Tcl_Obj    *argvPtr;
-  Tcl_FindExecutable(argv[1]);
+  Tcl_FindExecutable(script);
 
   Tcl_Interp *interp = Tcl_CreateInterp();
   Tcl_AppInit(interp);
 
-  Tcl_SetVar2Ex(interp, "argv0", NULL, NewNativeObj(argv[1],-1), TCL_GLOBAL_ONLY);
+  Tcl_SetVar2Ex(interp, "argv0", NULL, Tcl_NewStringObj(script,-1), TCL_GLOBAL_ONLY);
   argc -= 2;
   argv += 2;
   Tcl_SetVar2Ex(interp, "argc", NULL, Tcl_NewIntObj(argc), TCL_GLOBAL_ONLY);
   argvPtr = Tcl_NewListObj(0, NULL);
-  while (argc--) {
-    Tcl_ListObjAppendElement(NULL, argvPtr, NewNativeObj(*argv++, -1));
+  while (argc--) 
+    Tcl_ListObjAppendElement(NULL, argvPtr, Tcl_NewStringObj(*argv++, -1));
 
-  Tcl_EvalFile(interp, argv[1]);
+  Tcl_EvalFile(interp, script);
 
   exit(0);
 }
