@@ -3,49 +3,66 @@
 #include <string.h>
 int main(int argc, char* argv[])
 {
-  const char* str = "  '/opt/apps/lmod/lmod/lib\'exec/RC2lua.tcl '  -F   -a \"foo:bar:baz\" \t -b bar amber/9";
+  const char* cmd = "   /opt/apps/lmod/lmod/libexec/RC2lua.tcl  -F   -a 'foo:bar:baz' \t -b bar amber/9";
 
-  int  done; 
   char boundary;
   const char* left;
 
-  const char* p;
+  const char* p = cmd;
   size_t len, a, b;
 
-  a    = strspn(str," \t");
-  left = &str[a];
-  
-  if (*left == '\'' || *left == '"')
-    {
-      boundary = *left;
-      left++;
-    }
-  else
-    boundary = '\0';
+  a    = strspn(p," \t");
+  p   += a;
+  left = p;
+  len  = strcspn(left, " \t");
+  printf("cmd_name: \"%.*s\"\n",len,left);
+  p   += len;
+  a    = strspn(p," \t");
+  p   += a;
+  left = p;
 
-  if (boundary)
+  while (*p)
     {
-      p = left;
-      while (1)
+      if (*left == '\'' || *left == '"')
         {
-          p = strchr(p,boundary);
-          if (p == NULL)
+          boundary = *left;
+          left++;
+        }
+      else
+        boundary = '\0';
+
+      if (boundary)
+        {
+          p = left;
+          while (1)
             {
-              len = strlen(left);
+              p = strchr(p,boundary);
+              if (p == NULL)
+                {
+                  len = strlen(left);
+                  break;
+                }
+              else if (p[-1] == '\\')
+                {
+                  p++;
+                  continue;
+                }
+              len = p - left;
               break;
             }
-          else if (p[-1] != '\\')
-            {
-              p++;
-              continue;
-            }
-          len = left - p - 1;
+          p++;
         }
-      p++;
+      else
+        {
+          len = strcspn(left," \t");
+          p   += len;
+        }
+      printf("\"%.*s\"\n",(int) len, left);
+      a    = strspn(p," \t");
+      p   += a;
+      left = p;
+  
     }
-  else
-    len = strcspn(left," \t");
-  printf("\"%.*s\"\n",(int) len, left);
 
   return 0;
 }
