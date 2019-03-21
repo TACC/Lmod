@@ -154,7 +154,8 @@ ifneq ($(HAVE_LUAFILESYSTEM),yes)
 endif
 FAST_TCL_INTERP           := @FAST_TCL_INTERP@
 ifeq ($(FAST_TCL_INTERP),yes)
-  PKGS := $(PKGS) tcl2lua
+  PKGS    := $(PKGS) tcl2lua
+  PKG_T2L := tcl2lua
 endif
 
 .PHONY: test pkgs man_pages
@@ -289,7 +290,7 @@ startup: $(STARTUP)
 other_tools: $(ComputeHashSum) $(STANDALONE_PRGM)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LIBEXEC) __installMe
 
-spiderCacheSupport: $(PKG_LFS) Inst_Tools libexec
+spiderCacheSupport: $(PKG_LFS) $(PKG_T2L) Inst_Tools libexec
 	$(spiderCacheSupportCMD) --cacheDirs "$(SPIDER_CACHE_DIRS)"          \
 	                         --updateFn  "$(UPDATE_SYSTEM_FN)"           \
                                  --descriptFn "$(SPIDER_CACHE_DESCRIPT_FN)"  \
