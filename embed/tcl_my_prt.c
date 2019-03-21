@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int PrintStrObjCmd(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[])
+int setResultsObjCmd(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[])
 {
   char     *str;
   int      len;
@@ -26,7 +26,7 @@ int Tcl_AppInit(Tcl_Interp* interp)
 {
   if (Tcl_Init(interp) == TCL_ERROR)
     return TCL_ERROR;
-  Tcl_CreateObjCommand(interp,"prtstr", PrintStrObjCmd, (ClientData) NULL, (Tcl_CmdDeleteProc *) NULL);
+  Tcl_CreateObjCommand(interp,"setResults", setResultsObjCmd, (ClientData) NULL, (Tcl_CmdDeleteProc *) NULL);
   return TCL_OK;
 }
 

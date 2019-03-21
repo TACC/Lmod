@@ -41,19 +41,16 @@ proc doubleQuoteEscaped {text} {
 
 proc module-alias {name mfile} {
     global g_outputA
-    #puts stdout "\{kind=\"module_alias\",name=\"$name\",mfile=\"$mfile\"\},"
     lappend g_outputA "\{kind=\"module_alias\",name=\"$name\",mfile=\"$mfile\"\},"
 }
 
 proc hide-version {mfile} {
     global g_outputA
-    #puts stdout "\{kind=\"hide_version\", mfile=\"$mfile\"\},"
     lappend g_outputA "\{kind=\"hide_version\", mfile=\"$mfile\"\},"
 }
 
 proc hide-modulefile {mfile} {
     global g_outputA
-    #puts stdout "\{kind=\"hide_modulefile\", mfile=\"$mfile\"\},"
     lappend g_outputA "\{kind=\"hide_modulefile\", mfile=\"$mfile\"\},"
 }
 
@@ -66,14 +63,13 @@ proc module-version {args} {
         lappend argL "\"$val\""
     }
     set versionA [join $argL ","]
-    #puts stdout "\{kind=\"module_version\",module_name=\"$module_name\", module_versionA=\{$versionA\}\},"
     lappend g_outputA "\{kind=\"module_version\",module_name=\"$module_name\", module_versionA=\{$versionA\}\},"
 }
 
 proc main {mRcFile} {
     global env                 # Need this for .modulerc file that access global env vars.
     global g_outputA
-    #puts stdout "ModA=\{"
+    global g_fast
     lappend g_outputA "ModA=\{"
     set version  -1
     set found 0
@@ -95,13 +91,31 @@ proc main {mRcFile} {
     #}
 
     if { $found > 0 } {
-        #puts stdout "\{kind=\"set_default_version\", version=\"$version\"\},"
 	lappend g_outputA "\{kind=\"set_default_version\", version=\"$version\"\},"
     }
-    #puts stdout "\}"
     lappend g_outputA "\}" 
     set my_output [join $g_outputA "\n"]
-    puts stdout "$my_output"
+    if { $g_fast > 0 } {
+	setResults $my_output
+    } else {
+	puts stdout "$my_output"
+    }
+    
 }
 
-eval main $argv
+
+set g_fast 0
+
+foreach arg $argv {
+    switch -regexp -- $arg {
+	^-F$ {
+	    set g_fast 1
+	}
+	^[^-].*$ {
+	    set fn $arg
+	}
+    }
+}
+
+
+eval main $fn

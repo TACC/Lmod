@@ -34,7 +34,7 @@
 #
 #------------------------------------------------------------------------
 
-global g_loadT g_varsT g_fullName g_usrName g_shellName g_mode g_shellType g_outputA
+global g_loadT g_varsT g_fullName g_usrName g_shellName g_mode g_shellType g_outputA, g_fast
 namespace eval ::cmdline {
     namespace export getArgv0 getopt getKnownOpt getfiles getoptions \
 	    getKnownOptions usage
@@ -297,7 +297,6 @@ proc ::cmdline::getfiles {patterns quiet} {
 	if {[file isfile $fullPath]} {
 	    lappend files $fullPath
 	} elseif {! $quiet} {
-	    #puts stdout "warning: no files match \"$file\""
 	    lappend g_outputA  "warning: no files match \"$file\""
 	}
     }
@@ -401,7 +400,6 @@ proc module-whatis { args } {
     }
 
     regsub -all {[\n]} $msg  " " msg2
-    #puts stdout "whatis(\[===\[$msg2\]===\])"
     lappend g_outputA  "whatis(\[===\[$msg2\]===\])"
 }
 
@@ -548,7 +546,6 @@ proc cmdargs { cmd args } {
     }
     if {[info exists cmdArgsL]} {
         set cmdArgs [join $cmdArgsL ","]
-        #puts stdout "$cmd\($cmdArgs\)"
 	lappend g_outputA  "$cmd\($cmdArgs\)"
     }
 }
@@ -617,10 +614,7 @@ proc use { args } {
         } elseif {($path == "--prepend") ||($path == "-p") ||($path == "-prepend")} {
 	    set path_cmd "prepend_path"
 	} else {
-            #puts stderr "path: $path"
-            #if {[file isdirectory $path]} {
-                eval cmdargs $path_cmd MODULEPATH $path
-            #}
+	    eval cmdargs $path_cmd MODULEPATH $path
 	}
     }
 }
@@ -762,7 +756,6 @@ proc module { command args } {
 proc reportError {message} {
     global g_outputA
     global ModulesCurrentModulefile g_fullName
-    #puts stdout "LmodError(\[===\[$ModulesCurrentModulefile: ($g_fullName): $message\]===\])"
     lappend g_outputA "LmodError(\[===\[$ModulesCurrentModulefile: ($g_fullName): $message\]===\])"
 }
 
@@ -840,13 +833,18 @@ proc unset-env {var} {
 proc main { modfile } {
     global g_outputA
     global g_mode
+    global g_fast
     lappend g_outputA ""
 
     pushMode $g_mode
     execute-modulefile $modfile
     popMode
     set my_output [join $g_outputA "\n"]
-    puts stdout "$my_output"
+    if { $g_fast > 0 } {
+	setResults $my_output
+    } else {
+	puts stdout "$my_output"
+    }
 }
 
 global g_loadT g_help
@@ -854,6 +852,7 @@ global g_loadT g_help
 set options {
             {l.arg   ""     "loaded list"}
             {h              "print ModulesHelp command"}
+            {F.arg   0      "fast processing of TCL files"}
             {f.arg   "???"  "module full name"}
             {m.arg   "load" "mode: load remove display"}
             {s.arg   "bash" "shell name"}
@@ -870,6 +869,7 @@ foreach m [split $params(l) ":"] {
     set g_loadT($m) 1
 }
 
+set g_fast      $params(F)
 set g_fullName  $params(f)
 set g_usrName   $params(u)
 set g_shellName $params(s)

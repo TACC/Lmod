@@ -118,7 +118,8 @@ function loadModuleFile(t)
       if (t.help) then
          A[#A + 1] = "-h"
       end
-      whole, status = runTCLprog("tcl2lua.tcl",concatTbl(A," "), t.file)
+      A[#A + 1] = path_regularize(t.file)
+      whole, status = runTCLprog("tcl2lua.tcl",concatTbl(A," "))
       if (not status) then
          local n = userName or ""
          msg     = "Non-zero status returned"

@@ -1,12 +1,12 @@
-SONAME   := rtm.so
+SONAME   := tcl2lua.so
 SONAMEV  := $(SONAME).1
 LIBRARY  := $(SONAMEV).0.1
-SRC      := lua_try.c
+SRC      := tcl2lua.c
 OBJ      := $(patsubst %.c, %.o, $(SRC))
 LUAINC   := /opt/apps/lua/lua/include
 OS       := $(shell uname -s)
 
-override CFLAGS   := $(CFLAGS) -DLUA_COMPAT_MODULE -fPIC -I $(LUAINC)
+override CFLAGS   := $(CFLAGS) -DLUA_COMPAT_MODULE -fPIC -I $(LUAINC) -I /usr/include/tcl
 
 ifeq ($(OS),Darwin)
   LIB_OPTION= -bundle -undefined dynamic_lookup #for MacOS X
@@ -23,7 +23,7 @@ $(SONAME):
 	ln -s $(SONAMEV) $@
 
 $(LIBRARY): $(OBJ)
-	$(CC) $(CFLAGS) $(LIB_OPTION) -o $(LIBRARY) $(OBJ) -lc
+	$(CC) $(CFLAGS) $(LIB_OPTION) -o $(LIBRARY) $(OBJ) -lc -ltcl
 
 install: all
 	cp $(LIBRARY) $(LUA_LIB)

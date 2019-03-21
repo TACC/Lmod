@@ -71,7 +71,7 @@ function mrc_load(fn)
          LmodError{msg="e_Unable_2_Load", name = "<unknown>", fn = fn, message = msg}
       end
    else
-      whole, ok = runTCLprog("RC2lua.tcl", "", fn)
+      whole, ok = runTCLprog("RC2lua.tcl", path_regularize(fn))
       if (not ok) then
          LmodError{msg = "e_Unable_2_parse", path = fn}
       end
