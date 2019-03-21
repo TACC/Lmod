@@ -38,3 +38,11 @@ MODULEPATH=ProjectDIR/rt/end2end/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={admin={["fn"]="ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua",["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="admin",},},mpathA={"ProjectDIR/rt/end2end/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/end2end/mf/Core",}';
 export _ModuleTable_;
+===========================
+step 5
+ OutputDIR/lmod/lmod/libexec/lmod avail
+===========================
+MODULEPATH=ProjectDIR/rt/end2end/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={admin={["fn"]="ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua",["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="admin",},},mpathA={"ProjectDIR/rt/end2end/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/end2end/mf/Core",}';
+export _ModuleTable_;
