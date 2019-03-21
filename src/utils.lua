@@ -801,7 +801,7 @@ end
 local function l_runTCLprog(TCLprog, tcl_args)
    local a   = {}
    a[#a + 1] = cosmic:value("LMOD_TCLSH")
-   a[#a + 1] = pathJoin(cmdDir(),TCLprog)
+   a[#a + 1] = TCLprog
    a[#a + 1] = tcl_args or ""
    local cmd = concatTbl(a," ")
    local whole, status = capture(cmd)
