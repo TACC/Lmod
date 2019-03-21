@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.8.19  2019-02-11 12:34 -06:00
+Modules based on Lua: Version 7.8.22  2019-03-05 18:01 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -99,7 +99,7 @@ Lmod Web Sites
   Sourceforge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 7.8.19  2019-02-11 12:34 -06:00
+Modules based on Lua: Version 7.8.22  2019-03-05 18:01 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -196,7 +196,7 @@ Lmod Web Sites
   Sourceforge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 7.8.19  2019-02-11 12:34 -06:00
+Modules based on Lua: Version 7.8.22  2019-03-05 18:01 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -216,52 +216,53 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --config
 ===========================
-Modules based on Lua: Version 7.8.19  2019-02-11 12:34 -06:00
+Modules based on Lua: Version 7.8.22  2019-03-05 18:01 -06:00
     by Robert McLay mclay@tacc.utexas.edu
-Description                      Value
-Allow TCL modulefiles            yes
-Auto swapping                    yes
-Case Independent Sorting         no
-Colorize Lmod                    yes
-Disable Same Name AutoSwap       no
-Using dotfiles                   yes
-Allow duplicate paths            no
-Require Exact Match/no defaults  no
-Export the module command        yes
-Use italic instead of dim        no
-Language used for err/msg/warn   en
-Site message file                <empty>
-LUA_CPATH                        @sys_lua_cpath@
-LUA_PATH                         @sys_lua_path@
-System lua-term                  no
-avail: Include modulepath dir    no
-MODULEPATH_INIT                  @PKG@/init/.modulespath -> <empty>
+Description                        Value
+Allow TCL modulefiles              yes
+Auto swapping                      yes
+Case Independent Sorting           no
+Colorize Lmod                      yes
+Disable Same Name AutoSwap         no
+Using dotfiles                     yes
+Allow duplicate paths              no
+Require Exact Match/no defaults    no
+Export the module command          yes
+Use attached TCL over system call  no
+Use italic instead of dim          no
+Language used for err/msg/warn     en
+Site message file                  <empty>
+LUA_CPATH                          @sys_lua_cpath@
+LUA_PATH                           @sys_lua_path@
+System lua-term                    no
+avail: Include modulepath dir      no
+MODULEPATH_INIT                    @PKG@/init/.modulespath -> <empty>
 MODULEPATH_ROOT
-number of cache dirs             0
-Pager                            less
-Pager Options                    -XqMREF
-Path to HashSum                  PATH_to_HASHSUM
-Path to Lua                      lua
-Pin Versions in restore          no
-Pkg Class name                   Pkg
-Lmod prefix                      @PREFIX@
-Site controlled prefix           no
-Prepend order                    normal
-Redirect to stdout               no
-Supporting Full Settarg Use      no
-User shell                       bash
-Site Name                        <empty>
-Site Pkg location                standard
-Ignore Cache                     no
-Cached loads                     no
-System Name                      <empty>
-SYSHOST (cluster name)           <empty>
-User cache valid time(sec)       86400
-Write cache after (sec)          2
-Threshold (sec)                  1
-Tmod find first rule             no
-Tmod prepend PATH Rule           no
-Tracing                          no
+number of cache dirs               0
+Pager                              less
+Pager Options                      -XqMREF
+Path to HashSum                    PATH_to_HASHSUM
+Path to Lua                        lua
+Pin Versions in restore            no
+Pkg Class name                     Pkg
+Lmod prefix                        @PREFIX@
+Site controlled prefix             no
+Prepend order                      normal
+Redirect to stdout                 no
+Supporting Full Settarg Use        no
+User shell                         bash
+Site Name                          <empty>
+Site Pkg location                  standard
+Ignore Cache                       no
+Cached loads                       no
+System Name                        <empty>
+SYSHOST (cluster name)             <empty>
+User cache valid time(sec)         86400
+Write cache after (sec)            2
+Threshold (sec)                    1
+Tmod find first rule               no
+Tmod prepend PATH Rule             no
+Tracing                            no
 uname -a
 Active RC file(s):
 ProjectDIR/src/../init/lmodrc.lua
