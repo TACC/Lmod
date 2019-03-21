@@ -107,6 +107,7 @@ proc main {mRcFile} {
 set g_fast 0
 
 foreach arg $argv {
+    puts stderr $arg
     switch -regexp -- $arg {
 	^-F$ {
 	    set g_fast 1
