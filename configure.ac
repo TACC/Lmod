@@ -419,13 +419,39 @@ AC_ARG_WITH(silentShellDebugging,
     SILENCE_SHELL_DEBUGGING="$withval"
     AC_DEFINE_UNQUOTED(SILENCE_SHELL_DEBUGGING, "$withval"))dnl
 
+AC_SUBST(FAST_TCL_INTERP)
+AC_ARG_WITH(fastTCLInterp,
+    AC_HELP_STRING([--with-fastTCLInterp=ans],[Use the fast TCL interpreter. [[yes]]]),
+    FAST_TCL_INTERP="$withval"
+    AC_MSG_RESULT([FAST_TCL_INTERP=$with_fastTCLInterp])
+    AC_DEFINE_UNQUOTED(FAST_TCL_INTERP, "$with_fastTCLInterp")dnl
+    ,
+    withval="yes"
+    AC_MSG_RESULT([FAST_TCL_INTERP=$withval])
+    FAST_TCL_INTERP="$withval"
+    AC_DEFINE_UNQUOTED(FAST_TCL_INTERP, "$withval"))dnl
 
-if test "$ALLOW_TCL_MFILES" = yes ; then
-   AC_CHECK_HEADERS([tcl.h] [tcl/tcl.h])
 
+if test "$ALLOW_TCL_MFILES" = yes -a "$FAST_TCL_INTERP" = yes ; then
    
+   OS=$(uname -s)
+   DIR=/usr/include/tcl
+   if test "$OS" = Darwin ; then
+     DIR=$(xcrun --show-sdk-path)
+     DIR=${DIR}/usr/include
+   fi
 
 
+   CPPFLAGS="-I $DIR"
+
+   AC_CHECK_HEADER(tcl.h,
+                   [AC_DEFINE([HAVE_TCL_H], 1, [Define to 1 if you have tcl.h])],[]) 
+   dnl AC_CHECK_HEADER(tcl/tcl.h,
+   dnl                [AC_DEFINE([HAVE_TCL_TCL_H], 1,[Define to 1 if you have tcl/tcl.h])],[]) 
+
+   if test "$ac_cv_header_tcl_h" != yes ; then
+      AC_MSG_ERROR([Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h])
+   fi
 fi
 AC_SUBST(SYS_LD_LIB_PATH)
 SYS_LD_LIB_PATH=$LD_LIBRARY_PATH

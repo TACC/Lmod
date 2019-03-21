@@ -140,6 +140,13 @@ cosmic:init{name = "LMOD_REDIRECT",
             yn   = "no"}
 
 ------------------------------------------------------------------------
+-- LMOD_FAST_TCL_INTERP:  Send messages to stdout instead of stderr
+------------------------------------------------------------------------
+cosmic:init{name = "LMOD_FAST_TCL_INTERP",
+            sedV = "@fast_tcl_interp@",
+            yn   = "no"}
+
+------------------------------------------------------------------------
 -- LMOD_SITE_NAME: The site name (e.g. TACC)
 ------------------------------------------------------------------------
 
@@ -595,6 +602,11 @@ GIT_VERSION = "@git_version@"
 ------------------------------------------------------------------------
 epoch      = false
 epoch_type = false
+
+------------------------------------------------------------------------
+-- runTCLprog: a program to process TCL programs
+------------------------------------------------------------------------
+runTCLprog = false
 
 --------------------------------------------------------------------------
 -- Accept functions: Allow or ignore TCL mfiles

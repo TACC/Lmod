@@ -570,16 +570,6 @@ function regular_cmp(x,y)
 end
 
 
-function runTCLprog(TCLprog, tcl_args)
-   local a   = {}
-   a[#a + 1] = cosmic:value("LMOD_TCLSH")
-   a[#a + 1] = pathJoin(cmdDir(),TCLprog)
-   a[#a + 1] = tcl_args or ""
-   local cmd = concatTbl(a," ")
-   local whole, status = capture(cmd)
-   return whole, status
-end
-
 function sanizatizeTbl(rplmntA, inT, outT)
    for k, v in pairs(inT) do
       local key = k
@@ -808,9 +798,35 @@ function getWarningFlag()
    return s_warning
 end
 
+local function l_runTCLprog(TCLprog, tcl_args)
+   local a   = {}
+   a[#a + 1] = cosmic:value("LMOD_TCLSH")
+   a[#a + 1] = pathJoin(cmdDir(),TCLprog)
+   a[#a + 1] = tcl_args or ""
+   local cmd = concatTbl(a," ")
+   local whole, status = capture(cmd)
+   return whole, status
+end
+
 --------------------------------------------------------------------------
--- Build function -> accept, epoch, prepend_order_function()
+-- Build function -> accept, epoch, prepend_order_function(), runTCLprog
 --------------------------------------------------------------------------
+
+--------------------------------------------------------------------------
+-- determine which version of runTCLprog to use
+
+local function build_runTCLprog()
+   local fast_tcl_interp = cosmic:value("LMOD_FAST_TCL_INTERP")
+   if (fast_tcl_interp == "no") then
+      _G.runTCLprog = l_runTCLprog
+   else
+      _G.runTCLprog = require("tcl2lua").runTCLprog
+   end
+end
+
+if (not runTCLprog) then
+   build_runTCLprog()
+end
 
 --------------------------------------------------------------------------
 -- Create the accept functions to allow or ignore TCL modulefiles.

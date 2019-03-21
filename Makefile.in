@@ -152,7 +152,10 @@ ifneq ($(HAVE_LUAFILESYSTEM),yes)
   PKGS := $(PKGS) lfs
   PKG_LFS := lfs
 endif
-
+FAST_TCL_INTERP           := @FAST_TCL_INTERP@
+ifeq ($(FAST_TCL_INTERP),yes)
+  PKGS := $(PKGS) tcl2lua
+endif
 
 .PHONY: test pkgs man_pages
 
@@ -218,6 +221,7 @@ __installMe:
                 -e 's|@path_to_luac@|$(PATH_TO_LUAC)|g'                  	  \
                 -e 's|@have_lua_term@|$(HAVE_LUA_TERM)|g'                  	  \
                 -e 's|@silence_shell_debugging@|$(SILENCE_SHELL_DEBUGGING)|g'     \
+                -e 's|@fast_tcl_interp@|$(FAST_TCL_INTERP)|g'                     \
                 -e 's|@settarg_cmd@|$(SETTARG_CMD)|g'                  	          \
 	        -e "s|@my_shell@|$$fn|g"                   	                  \
                 -e 's|@tclsh@|$(PATH_TO_TCLSH)|g'                             	  \
@@ -295,6 +299,13 @@ src/computeHashSum: $(ComputeHashSum)
 	$(MAKE) FILELIST="$^" DIRLOC="$(prefix)/src"                __installMe
 	chmod +x $@
 
+tcl2lua:
+	if [ -d $(srcdir)/pkgs/tcl2lua ]; then                             \
+           $(MAKE) -C $(srcdir)/pkgs/tcl2lua  LUA_INC=$(LUA_INCLUDE)       \
+                LIB=$(DESTDIR)$(LIB) SHARE=$(DESTDIR)$(LIBEXEC) CC=$(CC)   \
+                install;                                                   \
+        fi
+
 lfs:
 	if [ -d $(srcdir)/pkgs/luafilesystem ]; then                       \
            $(MAKE) -C $(srcdir)/pkgs/luafilesystem  LUA_INC=$(LUA_INCLUDE) \
@@ -303,7 +314,7 @@ lfs:
         fi
 pkgs:
 	if [ -d $(srcdir)/pkgs ]; then                                     \
-           $(MAKE) -C $(srcdir)/pkgs LUA_INC=$(LUA_INCLUDE)                 \
+           $(MAKE) -C $(srcdir)/pkgs LUA_INC=$(LUA_INCLUDE)                \
                LIB=$(DESTDIR)$(LIB) SHARE=$(DESTDIR)$(LIBEXEC) CC=$(CC)    \
                install;                                                    \
         fi
@@ -501,6 +512,7 @@ clean:
 	$(RM) config.log *.o
 	cd $(srcdir)/pkgs; $(MAKE) LIB=$(DESTDIR)$(LIB) SHARE=$(DESTDIR)$(LIBEXEC) clean
 	cd $(srcdir)/pkgs/luafilesystem; $(MAKE) LIB=$(DESTDIR)$(LIB) clean
+	cd $(srcdir)/pkgs/tcl2lua; $(MAKE) LIB=$(DESTDIR)$(LIB) clean
 
 clobber: clean
 

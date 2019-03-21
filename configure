@@ -647,6 +647,7 @@ SYS_LD_LIB_PATH
 EGREP
 GREP
 CPP
+FAST_TCL_INTERP
 SILENCE_SHELL_DEBUGGING
 USE_BUILT_IN_PKGS
 SITE_CONTROLLED_PREFIX
@@ -764,6 +765,7 @@ with_ModulePathInit
 with_siteControlPrefix
 with_useBuiltinPkgs
 with_silentShellDebugging
+with_fastTCLInterp
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1457,6 +1459,8 @@ Optional Packages:
   --with-silentShellDebugging=ans
                           Use Built-in lua package instead of system ones.
                           [[no]]
+  --with-fastTCLInterp=ans
+                          Use the fast TCL interpreter. [[yes]]
 
 Some influential environment variables:
   CC          C compiler command
@@ -3678,7 +3682,40 @@ _ACEOF
 fi
 
 
-if test "$ALLOW_TCL_MFILES" = yes ; then
+
+# Check whether --with-fastTCLInterp was given.
+if test "${with_fastTCLInterp+set}" = set; then :
+  withval=$with_fastTCLInterp; FAST_TCL_INTERP="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: FAST_TCL_INTERP=$with_fastTCLInterp" >&5
+$as_echo "FAST_TCL_INTERP=$with_fastTCLInterp" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define FAST_TCL_INTERP "$with_fastTCLInterp"
+_ACEOF
+
+else
+  withval="yes"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: FAST_TCL_INTERP=$withval" >&5
+$as_echo "FAST_TCL_INTERP=$withval" >&6; }
+    FAST_TCL_INTERP="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define FAST_TCL_INTERP "$withval"
+_ACEOF
+
+fi
+
+
+if test "$ALLOW_TCL_MFILES" = yes -a "$FAST_TCL_INTERP" = yes ; then
+
+   OS=$(uname -s)
+   DIR=/usr/include/tcl
+   if test "$OS" = Darwin ; then
+     DIR=$(xcrun --show-sdk-path)
+     DIR=${DIR}/usr/include
+   fi
+
+
+   CPPFLAGS="-I $DIR"
+
 
 ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
@@ -4077,23 +4114,18 @@ fi
 done
 
 
-for ac_header in tcl.h tcl/tcl.h
-do :
-  as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
-ac_fn_c_check_header_mongrel "$LINENO" "$ac_header" "$as_ac_Header" "$ac_includes_default"
-if eval test \"x\$"$as_ac_Header"\" = x"yes"; then :
-  cat >>confdefs.h <<_ACEOF
-#define `$as_echo "HAVE_$ac_header" | $as_tr_cpp` 1
-_ACEOF
+ac_fn_c_check_header_mongrel "$LINENO" "tcl.h" "ac_cv_header_tcl_h" "$ac_includes_default"
+if test "x$ac_cv_header_tcl_h" = xyes; then :
+
+$as_echo "#define HAVE_TCL_H 1" >>confdefs.h
 
 fi
 
-done
 
 
-
-
-
+   if test "$ac_cv_header_tcl_h" != yes ; then
+      as_fn_error $? "Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h" "$LINENO" 5
+   fi
 fi
 
 SYS_LD_LIB_PATH=$LD_LIBRARY_PATH
@@ -6225,6 +6257,7 @@ echo "Use Tmod Find First rule instead of Find Best for defaults.." : $TMOD_FIND
 echo "MODULEPATH Initial file....................................." : $MODULEPATH_INIT
 echo "Use built-in lua packages instead of system provided pkgs..." : $USE_BUILT_IN_PKGS
 echo "Silence shell debugging output for bash/zsh................." : $SILENT_SHELL_DEBUGGING
+echo "Use the fast TCL interpreter................................" : $FAST_TCL_INTERP
 
 echo
 echo '------------------------------------------------------------------------------'

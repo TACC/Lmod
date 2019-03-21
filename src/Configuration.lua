@@ -171,6 +171,7 @@ local function new(self)
    local hashsum_path      = cosmic:value("LMOD_HASHSUM_PATH")
    local lua_path          = cosmic:value("PATH_TO_LUA")
    local tracing           = cosmic:value("LMOD_TRACING")
+   local fast_tcl_interp   = cosmic:value("LMOD_FAST_TCL_INTERP")
 
    if (not rc:find(":") and not isFile(rc)) then
       rc = rc .. " -> <empty>"
@@ -192,6 +193,7 @@ local function new(self)
    tbl.dupPaths     = { k = "Allow duplicate paths"             , v = duplicate_paths,  }
    tbl.exactMatch   = { k = "Require Exact Match/no defaults"   , v = exactMatch,       }
    tbl.expMCmd      = { k = "Export the module command"         , v = export_module,    }
+   tbl.fastTCL      = { k = "Use attached TCL over system call" , v = fast_tcl_interp,  }
    tbl.hiddenItalic = { k = "Use italic instead of dim"         , v = hiddenItalic,     }
    tbl.lang         = { k = "Language used for err/msg/warn"    , v = lmod_lang,        }
    tbl.lang_site    = { k = "Site message file"                 , v = site_msg_file,    }

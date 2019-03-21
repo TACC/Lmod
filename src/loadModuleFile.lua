@@ -47,9 +47,10 @@ require("fileOps")
 require("sandbox")
 require("string_utils")
 require("utils")
-local dbg          = require("Dbg"):dbg()
-local concatTbl    = table.concat
-local getenv       = os.getenv
+local dbg             = require("Dbg"):dbg()
+local concatTbl       = table.concat
+local getenv          = os.getenv
+
 ------------------------------------------------------------------------
 -- loadModuleFile(t): read a modulefile in via sandbox_run
 -- @param t The input table naming the file to be loaded plus other
@@ -100,7 +101,7 @@ function loadModuleFile(t)
       A[#A + 1]    = userName
       A[#A + 1]    = "-s"
       A[#A + 1]    = t.shell
-
+      
       local ldlib  = getenv("LD_LIBRARY_PATH")
 
       if (ldlib) then
