@@ -419,6 +419,14 @@ AC_ARG_WITH(silentShellDebugging,
     SILENCE_SHELL_DEBUGGING="$withval"
     AC_DEFINE_UNQUOTED(SILENCE_SHELL_DEBUGGING, "$withval"))dnl
 
+
+if test "$ALLOW_TCL_MFILES" = yes ; then
+   AC_CHECK_HEADERS([tcl.h] [tcl/tcl.h])
+
+   
+
+
+fi
 AC_SUBST(SYS_LD_LIB_PATH)
 SYS_LD_LIB_PATH=$LD_LIBRARY_PATH
 
