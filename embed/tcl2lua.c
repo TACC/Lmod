@@ -9,6 +9,7 @@
 #define MYVERSION      MYNAME " 0.1"
 
 static char* resultStr;
+static Tcl_Interp *interp = NULL;
 
 
 int setResultsObjCmd(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[])
@@ -44,16 +45,18 @@ static int runTCLprog(lua_State *L)
   char       boundary;
   const char *left;
   Tcl_Obj    *argvPtr;
-  Tcl_Interp *interp;
 
   const char* p = args;
 
   size_t len, a;
-  int argc = 0;
+  int argc   = 0;
   int status = 1;
 
-  Tcl_FindExecutable(cmd);
-  interp = Tcl_CreateInterp();
+  if (interp == NULL)
+    {
+      Tcl_FindExecutable(cmd);
+      interp = Tcl_CreateInterp();
+    }
 
   if (interp == NULL) {
     fprintf(stderr,"Cannot create TCL interpreter\n");
@@ -66,6 +69,13 @@ static int runTCLprog(lua_State *L)
   Tcl_SetVar2Ex(interp, "argv0", NULL, Tcl_NewStringObj(cmd,-1), TCL_GLOBAL_ONLY);
   resultStr = NULL;
   argvPtr   = Tcl_NewListObj(0, NULL);
+
+  /* By convention all tcl programs that use this interface use the "-F"
+   * to signify that the script is using the fast option
+   */
+
+  Tcl_ListObjAppendElement(NULL, argvPtr, Tcl_NewStringObj("-F",-1));
+  argc++;
 
 
   while (*p)
@@ -116,6 +126,9 @@ static int runTCLprog(lua_State *L)
 
   status = Tcl_EvalFile(interp, cmd) == TCL_OK;
   
+  Tcl_DeleteInterp(interp);
+  interp = NULL;
+
   lua_pushstring(L, resultStr);
   (resultStr) ?  lua_pushboolean(L, status): lua_pushboolean(L, 0);
   return 2;

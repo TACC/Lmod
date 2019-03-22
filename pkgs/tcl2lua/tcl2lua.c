@@ -123,6 +123,7 @@ static int runTCLprog(lua_State *L)
 
   status = Tcl_EvalFile(interp, cmd) == TCL_OK;
   
+  Tcl_DeleteInterp(interp);
   lua_pushstring(L, resultStr);
   (resultStr) ?  lua_pushboolean(L, status): lua_pushboolean(L, 0);
   return 2;
