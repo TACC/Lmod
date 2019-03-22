@@ -122,9 +122,8 @@ static int runTCLprog(lua_State *L)
   Tcl_SetVar2Ex(interp, "argv", NULL, argvPtr,             TCL_GLOBAL_ONLY);
 
   int result = Tcl_EvalFile(interp, cmd);
-  if (result != TCL_OK)
-    fprintf(stderr,"results: %d\n",result);
-  status     = result == ;
+  fprintf(stderr,"results: %d\n",result);
+  status     = result == TCL_OK;
   
   Tcl_DeleteInterp(interp);
   lua_pushstring(L, resultStr);
