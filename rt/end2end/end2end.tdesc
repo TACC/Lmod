@@ -58,6 +58,7 @@ testdescript = {
 
      runMe $LMOD_EXEC --version
      runMe $LMOD_EXEC load admin
+     runMe $LMOD_EXEC load amber
      runMe $LMOD_EXEC list
      runMe $LMOD_EXEC avail
 
