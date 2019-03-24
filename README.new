@@ -32,3 +32,5 @@ Lmod 7.8+
             Change "Loading:" to "Spider Loading:" when loading modules in Spider:findModules()
 	    issue #399 use Python Subprocess instead of os.popen(), Support LMOD_REDIRECT for python output
             When generating spider products, spiderT, dbT, softwarePage, etc.  include help from TCL modulefiles
+   (7.8.90) Testing the new 8.0 with the tcl2lua.c code
+   

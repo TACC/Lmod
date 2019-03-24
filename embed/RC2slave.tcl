@@ -40,66 +40,99 @@ proc doubleQuoteEscaped {text} {
 }
 
 proc module-alias {name mfile} {
-    global g_outputA
-    lappend g_outputA "\{kind=\"module_alias\",name=\"$name\",mfile=\"$mfile\"\},"
+    myPuts "\{kind=\"module_alias\",name=\"$name\",mfile=\"$mfile\"\},"
 }
 
 proc hide-version {mfile} {
-    global g_outputA
-    lappend g_outputA "\{kind=\"hide_version\", mfile=\"$mfile\"\},"
+    myPuts "\{kind=\"hide_version\", mfile=\"$mfile\"\},"
 }
 
 proc hide-modulefile {mfile} {
-    global g_outputA
-    lappend g_outputA "\{kind=\"hide_modulefile\", mfile=\"$mfile\"\},"
+    myPuts "\{kind=\"hide_modulefile\", mfile=\"$mfile\"\},"
 }
 
 
 proc module-version {args} {
-    global g_outputA
     set module_name    [lindex $args 0]
     foreach version [lrange $args 1 end] {
         set val [doubleQuoteEscaped $version]
         lappend argL "\"$val\""
     }
     set versionA [join $argL ","]
-    lappend g_outputA "\{kind=\"module_version\",module_name=\"$module_name\", module_versionA=\{$versionA\}\},"
+    myPuts "\{kind=\"module_version\",module_name=\"$module_name\", module_versionA=\{$versionA\}\},"
 }
 
-proc main {mRcFile} {
-    global env                 # Need this for .modulerc file that access global env vars.
+proc initGA {} {
+    global g_outputA
+    unset -nocomplain g_outputA
+}
+
+proc myPuts {my_string} {
+    global g_outputA
+    lappend g_outputA $my_string
+}
+
+proc showResults {} {
     global g_outputA
     global g_fast
-    unset -nocomplain g_outputA
-    lappend g_outputA "ModA=\{"
-    set version  -1
-    set found 0
-
-    source $mRcFile
-
-    if {[info exists ModulesVersion]} {
-      set version $ModulesVersion
-      set found 1
-    } elseif {[info exists ModuleVersion]} {
-      set version $ModuleVersion
-      set found 1
-    }
-
-    if { $found > 0 } {
-	lappend g_outputA "\{kind=\"set_default_version\", version=\"$version\"\},"
-    }
-    lappend g_outputA "\}" 
-    set my_output [join $g_outputA "\n"]
+    set my_output [join  $g_outputA "\n"]
     if { $g_fast > 0 } {
 	setResults $my_output
     } else {
 	puts stdout "$my_output"
     }
-    
 }
 
+proc execute-rcfile {mRcFile} {
+    global env                 # Need this for .modulerc file that access global env vars.
+    global g_fast
+    global g_version
+    set g_version  -1
+    set found 0
 
-set g_fast 0
+    if {[info exists child] && [interp exists $child]} {
+	interp delete $child
+    }
+
+    set child [interp create]    
+    interp alias  $child initGA          {} initGA
+    interp alias  $child showResults     {} showResults
+    interp alias  $child myPuts          {} myPuts
+    interp alias  $child module-alias    {} module-alias
+    interp alias  $child hide-version    {} hide-version
+    interp alias  $child hide-modulefile {} hide-modulefile
+    interp alias  $child module-version  {} module-version
+    interp eval   $child {global mRcFile}
+    interp eval   $child [list "set" "mRcFile" $mRcFile]
+
+    set errorVal [interp eval $child {
+	initGA
+	myPuts "ModA=\{"
+	set sourceFailed [catch {source $mRcFile } errorMsg]
+        if {$sourceFailed} {
+	    interp delete $child
+            reportError $errorMsg
+            return 1
+	}
+	if {[info exists ModulesVersion]} {
+	    set g_version $ModulesVersion
+	    set found 1
+	} elseif {[info exists ModuleVersion]} {
+	    set g_version $ModuleVersion
+	    set found 1
+	}
+	if { $found > 0 } {
+	    myPuts "\{kind=\"set_default_version\", version=\"$g_version\"\},"
+	}
+	myPuts "\}" 
+	showResults
+    }]
+    interp delete $child
+    return $errorVal
+}
+
+unset -nocomplain fn
+set   g_fast 0
 
 foreach arg $argv {
     switch -regexp -- $arg {
@@ -112,5 +145,4 @@ foreach arg $argv {
     }
 }
 
-
-eval main $fn
+eval execute-rcfile $fn

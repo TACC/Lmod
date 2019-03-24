@@ -629,6 +629,27 @@ proc setPutMode { value } {
     set putMode $value
 }
 
+proc initGA {} {
+    global g_outputA
+    unset -nocomplain g_outputA
+}
+
+proc showResults {} {
+    global g_outputA
+    global g_fast
+    if [info exists g_outputA] {
+	set my_output [join  $g_outputA "\n"]
+    } else {
+	set my_output ""
+    }
+    
+    if { $g_fast > 0 } {
+	setResults $my_output
+    } else {
+	puts stdout "$my_output"
+    }
+}
+
 proc myPuts args {
     global putMode g_outputA
     foreach {a b c} $args break
@@ -677,7 +698,6 @@ proc myPuts args {
     } else {
         puts $channel $text
     }
-
 }
 
 proc uname {what} {
@@ -763,46 +783,50 @@ proc execute-modulefile {modfile } {
     global env g_help ModulesCurrentModulefile putMode
     set ModulesCurrentModulefile $modfile
 
-    set child "__modname"
     set putMode "normal"
 
-    if {![interp exists $child]} {
-	interp create $child
-	interp alias $child depends-on {} depends-on
-	interp alias $child always-load {} always-load
-	interp alias $child family {} family
-	interp alias $child setenv {} setenv
-	interp alias $child pushenv {} pushenv
-	interp alias $child unsetenv {} unsetenv
-	interp alias $child system {} system
-	interp alias $child append-path {} append-path
-	interp alias $child prepend-path {} prepend-path
-	interp alias $child remove-path {} remove-path
-	interp alias $child prereq {} prereq
-	interp alias $child prereq-any {} prereq-any
-	interp alias $child conflict {} conflict
-	interp alias $child is-loaded {} is-loaded
-	interp alias $child module {} module
-        interp alias $child setPutMode {} setPutMode
-        interp alias $child puts {} myPuts
-        interp alias $child myPuts {} myPuts
-	interp alias $child module-info {} module-info
-	interp alias $child module-whatis {} module-whatis
-	interp alias $child set-alias {} set-alias
-	interp alias $child unset-alias {} unset-alias
-	interp alias $child add-property {} add-property
-	interp alias $child remove-property {} remove-property
-	interp alias $child uname {} uname
-	interp alias $child module-version {} module-version
-	interp alias $child module-alias {} module-alias
-	interp alias $child reportError {} reportError
-
-	interp eval $child {global ModulesCurrentModulefile g_help}
-	interp eval $child [list "set" "ModulesCurrentModulefile" $modfile]
-	interp eval $child [list "set" "g_help" $g_help]
+    if {[info exists child] && [interp exists $child]} {
+	interp delete $child
     }
+	
+    set child [interp create]
+    interp alias $child add-property   	{} add-property
+    interp alias $child always-load    	{} always-load
+    interp alias $child append-path    	{} append-path
+    interp alias $child conflict       	{} conflict
+    interp alias $child depends-on     	{} depends-on
+    interp alias $child family         	{} family
+    interp alias $child initGA         	{} depends-on
+    interp alias $child is-loaded      	{} is-loaded
+    interp alias $child module         	{} module
+    interp alias $child module-alias   	{} module-alias
+    interp alias $child module-info    	{} module-info
+    interp alias $child module-version 	{} module-version
+    interp alias $child module-whatis  	{} module-whatis
+    interp alias $child myPuts         	{} myPuts
+    interp alias $child prepend-path   	{} prepend-path
+    interp alias $child prereq         	{} prereq
+    interp alias $child prereq-any     	{} prereq-any
+    interp alias $child pushenv        	{} pushenv
+    interp alias $child puts           	{} myPuts
+    interp alias $child remove-path    	{} remove-path
+    interp alias $child remove-property {} remove-property
+    interp alias $child reportError     {} reportError
+    interp alias $child set-alias       {} set-alias
+    interp alias $child setPutMode      {} setPutMode
+    interp alias $child setenv          {} setenv
+    interp alias $child showResults     {} showResults
+    interp alias $child system          {} system
+    interp alias $child uname           {} uname
+    interp alias $child unset-alias     {} unset-alias
+    interp alias $child unsetenv        {} unsetenv
+
+    interp eval $child {global ModulesCurrentModulefile g_help}
+    interp eval $child [list "set" "ModulesCurrentModulefile" $modfile]
+    interp eval $child [list "set" "g_help" $g_help]
 
     set errorVal [interp eval $child {
+        initGA
 	set sourceFailed [catch {source $ModulesCurrentModulefile } errorMsg]
         if { $g_help && [info procs "ModulesHelp"] == "ModulesHelp" } {
             set start "help(\[===\["
@@ -817,6 +841,7 @@ proc execute-modulefile {modfile } {
             reportError $errorMsg
             return 1
         }
+	showResults
     }]
     interp delete $child
     return $errorVal
@@ -831,23 +856,14 @@ proc unset-env {var} {
 }
 
 proc main { modfile } {
-    global g_outputA
     global g_mode
-    global g_fast
-    lappend g_outputA ""
 
-    pushMode $g_mode
+    pushMode           $g_mode
     execute-modulefile $modfile
     popMode
-    set my_output [join $g_outputA "\n"]
-    if { $g_fast > 0 } {
-	setResults $my_output
-    } else {
-	puts stdout "$my_output"
-    }
 }
 
-global g_loadT g_help
+global g_loadT g_help 
 
 set options {
             {l.arg   ""     "loaded list"}
