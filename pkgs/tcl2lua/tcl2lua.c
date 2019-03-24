@@ -55,6 +55,10 @@ static int runTCLprog(lua_State *L)
   Tcl_FindExecutable(cmd);
   interp = Tcl_CreateInterp();
 
+  fprintf(stderr,"cmd: %s\n",cmd);
+  
+
+
   if (interp == NULL) {
     fprintf(stderr,"Cannot create TCL interpreter\n");
     exit(-1);
