@@ -36,101 +36,101 @@
 
 puts stdout "-- Start of RC2lua.tcl"
 
-proc initGA {} {
-    global g_outputA
-    unset -nocomplain g_outputA
-}
-
-proc myPuts { s } {
-    global g_outputA
-    lappend g_outputA $s
-}
-
-proc doubleQuoteEscaped {text} {
-    regsub -all "\"" $text "\\\"" text
-    return $text
-}
-
-proc module-alias {name mfile} {
-    myPuts "\{kind=\"module_alias\",name=\"$name\",mfile=\"$mfile\"\},"
-}
-
-proc hide-version {mfile} {
-    myPuts "\{kind=\"hide_version\", mfile=\"$mfile\"\},"
-}
-
-proc hide-modulefile {mfile} {
-    myPuts "\{kind=\"hide_modulefile\", mfile=\"$mfile\"\},"
-}
-
-
-proc module-version {args} {
-    set module_name    [lindex $args 0]
-    foreach version [lrange $args 1 end] {
-        set val [doubleQuoteEscaped $version]
-        lappend argL "\"$val\""
-    }
-    set versionA [join $argL ","]
-    myPuts "\{kind=\"module_version\",module_name=\"$module_name\", module_versionA=\{$versionA\}\},"
-}
-
-proc showResults {} {
-    global g_outputA
-    global g_fast
-    if [info exists g_outputA] {
-	set my_output [join  $g_outputA "\n"]
-    } else {
-	set my_output ""
-    }
-    
-    if { $g_fast > 0 } {
-	setResults $my_output
-    } else {
-	puts stdout "$my_output"
-    }
-}
-
-proc main {mRcFile} {
-    global env                 # Need this for .modulerc file that access global env vars.
-    global g_fast
-    unset -nocomplain g_outputA
-    myPuts "ModA=\{"
-    set version  -1
-    set found 0
-
-    source $mRcFile
-
-    if {[info exists ModulesVersion]} {
-      set version $ModulesVersion
-      set found 1
-    } elseif {[info exists ModuleVersion]} {
-      set version $ModuleVersion
-      set found 1
-    }
-
-    if { $found > 0 } {
-	myPuts "\{kind=\"set_default_version\", version=\"$version\"\},"
-    }
-    myPuts "\}" 
-    showResults
-}
-
-
-set g_fast 0
-
-foreach arg $argv {
-    switch -regexp -- $arg {
-	^-F$ {
-	    set g_fast 1
-	}
-	^[^-].*$ {
-	    set fn $arg
-	}
-    }
-}
-
-
-eval main $fn
+#proc initGA {} {
+#    global g_outputA
+#    unset -nocomplain g_outputA
+#}
+#
+#proc myPuts { s } {
+#    global g_outputA
+#    lappend g_outputA $s
+#}
+#
+#proc doubleQuoteEscaped {text} {
+#    regsub -all "\"" $text "\\\"" text
+#    return $text
+#}
+#
+#proc module-alias {name mfile} {
+#    myPuts "\{kind=\"module_alias\",name=\"$name\",mfile=\"$mfile\"\},"
+#}
+#
+#proc hide-version {mfile} {
+#    myPuts "\{kind=\"hide_version\", mfile=\"$mfile\"\},"
+#}
+#
+#proc hide-modulefile {mfile} {
+#    myPuts "\{kind=\"hide_modulefile\", mfile=\"$mfile\"\},"
+#}
+#
+#
+#proc module-version {args} {
+#    set module_name    [lindex $args 0]
+#    foreach version [lrange $args 1 end] {
+#        set val [doubleQuoteEscaped $version]
+#        lappend argL "\"$val\""
+#    }
+#    set versionA [join $argL ","]
+#    myPuts "\{kind=\"module_version\",module_name=\"$module_name\", module_versionA=\{$versionA\}\},"
+#}
+#
+#proc showResults {} {
+#    global g_outputA
+#    global g_fast
+#    if [info exists g_outputA] {
+#	set my_output [join  $g_outputA "\n"]
+#    } else {
+#	set my_output ""
+#    }
+#    
+#    if { $g_fast > 0 } {
+#	setResults $my_output
+#    } else {
+#	puts stdout "$my_output"
+#    }
+#}
+#
+#proc main {mRcFile} {
+#    global env                 # Need this for .modulerc file that access global env vars.
+#    global g_fast
+#    unset -nocomplain g_outputA
+#    myPuts "ModA=\{"
+#    set version  -1
+#    set found 0
+#
+#    source $mRcFile
+#
+#    if {[info exists ModulesVersion]} {
+#      set version $ModulesVersion
+#      set found 1
+#    } elseif {[info exists ModuleVersion]} {
+#      set version $ModuleVersion
+#      set found 1
+#    }
+#
+#    if { $found > 0 } {
+#	myPuts "\{kind=\"set_default_version\", version=\"$version\"\},"
+#    }
+#    myPuts "\}" 
+#    showResults
+#}
+#
+#
+#set g_fast 0
+#
+#foreach arg $argv {
+#    switch -regexp -- $arg {
+#	^-F$ {
+#	    set g_fast 1
+#	}
+#	^[^-].*$ {
+#	    set fn $arg
+#	}
+#    }
+#}
+#
+#
+#eval main $fn
 puts stdout "-- End of RC2lua.tcl"
 return 0
 
