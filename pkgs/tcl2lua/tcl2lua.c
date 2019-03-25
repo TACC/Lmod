@@ -119,6 +119,7 @@ static int runTCLprog(lua_State *L)
           len = strcspn(left," \t");
           p   += len;
         }
+      fprintf(stderr,"%d: %.*s\n",argc, (int) len, left);
       argc++;
       Tcl_ListObjAppendElement(NULL, argvPtr, Tcl_NewStringObj(left, len));
     }
