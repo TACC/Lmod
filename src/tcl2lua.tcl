@@ -929,4 +929,4 @@ switch -regexp -- $g_shellName {
 
 
 eval main $argv
-exit 0
+return 0

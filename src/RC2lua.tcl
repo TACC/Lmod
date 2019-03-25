@@ -114,4 +114,4 @@ foreach arg $argv {
 
 
 eval main $fn
-exit 0
+return 0
