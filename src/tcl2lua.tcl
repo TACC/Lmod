@@ -856,8 +856,10 @@ proc unset-env {var} {
 
 proc main { modfile } {
     global g_mode
+    puts stderr "-- in main $modfile"
     pushMode           $g_mode
     execute-modulefile $modfile
+    puts stderr "-- after execute-modulefile"
     popMode
 }
 
