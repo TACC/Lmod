@@ -34,9 +34,7 @@
 #
 #------------------------------------------------------------------------
 
-puts stderr "--At start of tcl2lua.tcl"
-
-global g_loadT g_varsT g_fullName g_usrName g_shellName g_mode g_shellType g_outputA, g_fast g_nofast
+global g_loadT g_varsT g_fullName g_usrName g_shellName g_mode g_shellType g_outputA, g_fast
 namespace eval ::cmdline {
     namespace export getArgv0 getopt getKnownOpt getfiles getoptions \
 	    getKnownOptions usage
@@ -335,8 +333,6 @@ proc currentMode {} {
 
 proc pushMode {mode} {
     global g_modeStack
-    puts stderr "--entering pushMode"
-
     lappend g_modeStack $mode
 }
 
@@ -640,14 +636,13 @@ proc initGA {} {
 proc showResults {} {
     global g_outputA
     global g_fast
-    global g_nofast
     if [info exists g_outputA] {
 	set my_output [join  $g_outputA "\n"]
     } else {
 	set my_output ""
     }
     
-    if { $g_fast > 0 && $g_nofast == 0} {
+    if { $g_fast > 0} {
 	setResults $my_output
     } else {
 	puts stdout "$my_output"
@@ -655,7 +650,7 @@ proc showResults {} {
 }
 
 proc myPuts args {
-    global putMode g_outputA g_nofast
+    global putMode g_outputA 
     foreach {a b c} $args break
     set nonewline 0
     switch [llength $args] {
@@ -694,11 +689,7 @@ proc myPuts args {
             set text "LmodMessage(\[===\[$text\]===\])"
         }
     } else {
-	if {$g_nofast > 0} {
-	    puts stderr $text
-	} else {
-	    lappend g_outputA $text
-	}
+	lappend g_outputA $text
 	return
     }
     if { $nonewline == 1 } {
@@ -847,12 +838,13 @@ proc execute-modulefile {modfile } {
         }
         if {$sourceFailed} {
             reportError $errorMsg
+	    showResults
             return 1
         }
 	showResults
+	return 0
     }]
     interp delete $child
-    puts stdout "--errorVal: $errorVal"
     return $errorVal
 }
 
@@ -865,12 +857,9 @@ proc unset-env {var} {
 }
 
 proc main { modfile } {
-    global g_mode, g_outputA
-    puts stderr "--entering main"
+    global g_mode
     pushMode           $g_mode
-    puts stderr "--Before execute-modulefile"
     execute-modulefile $modfile
-    puts stderr "--after execute-modulefile"
     popMode
 }
 
@@ -879,8 +868,7 @@ global g_loadT g_help
 set options {
             {l.arg   ""     "loaded list"}
             {h              "print ModulesHelp command"}
-            {F.arg   0      "fast processing of TCL files"}
-            {G.arg   0      "disable fast processing of TCL files"}
+            {F              "fast processing of TCL files"}
             {f.arg   "???"  "module full name"}
             {m.arg   "load" "mode: load remove display"}
             {s.arg   "bash" "shell name"}
@@ -898,7 +886,6 @@ foreach m [split $params(l) ":"] {
 }
 
 set g_fast      $params(F)
-set g_nofast    $params(G)
 set g_fullName  $params(f)
 set g_usrName   $params(u)
 set g_shellName $params(s)
@@ -941,8 +928,5 @@ switch -regexp -- $g_shellName {
 }
 
 
-puts stderr "--Before eval main $argv"
-puts stderr "--mode: $g_mode"
-eval main $argv
-puts stderr "--At end of tcl2lua.tcl"
-return 0
+main $argv
+

@@ -128,5 +128,4 @@ foreach arg $argv {
 }
 
 
-eval main $fn
-return 1
+main $fn

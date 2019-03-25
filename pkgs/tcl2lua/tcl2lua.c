@@ -77,9 +77,6 @@ static int runTCLprog(lua_State *L)
 
   Tcl_ListObjAppendElement(NULL, argvPtr, Tcl_NewStringObj("-F",-1));
   argc++;
-  Tcl_ListObjAppendElement(NULL, argvPtr, Tcl_NewStringObj("-G",-1));
-  argc++;
-
 
   while (*p)
     {
