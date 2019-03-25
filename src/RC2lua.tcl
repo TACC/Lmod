@@ -34,44 +34,47 @@
 #--
 #--------------------------------------------------------------------------
 
+puts stdout "-- Start of RC2lua.tcl"
+
+proc myPuts { s } {
+    lappend g_outputA $s
+}
+
+
+
 proc doubleQuoteEscaped {text} {
     regsub -all "\"" $text "\\\"" text
     return $text
 }
 
 proc module-alias {name mfile} {
-    global g_outputA
-    lappend g_outputA "\{kind=\"module_alias\",name=\"$name\",mfile=\"$mfile\"\},"
+    myPuts "\{kind=\"module_alias\",name=\"$name\",mfile=\"$mfile\"\},"
 }
 
 proc hide-version {mfile} {
-    global g_outputA
-    lappend g_outputA "\{kind=\"hide_version\", mfile=\"$mfile\"\},"
+    myPuts "\{kind=\"hide_version\", mfile=\"$mfile\"\},"
 }
 
 proc hide-modulefile {mfile} {
-    global g_outputA
-    lappend g_outputA "\{kind=\"hide_modulefile\", mfile=\"$mfile\"\},"
+    myPuts "\{kind=\"hide_modulefile\", mfile=\"$mfile\"\},"
 }
 
 
 proc module-version {args} {
-    global g_outputA
     set module_name    [lindex $args 0]
     foreach version [lrange $args 1 end] {
         set val [doubleQuoteEscaped $version]
         lappend argL "\"$val\""
     }
     set versionA [join $argL ","]
-    lappend g_outputA "\{kind=\"module_version\",module_name=\"$module_name\", module_versionA=\{$versionA\}\},"
+    myPuts "\{kind=\"module_version\",module_name=\"$module_name\", module_versionA=\{$versionA\}\},"
 }
 
 proc main {mRcFile} {
     global env                 # Need this for .modulerc file that access global env vars.
-    global g_outputA
     global g_fast
     unset -nocomplain g_outputA
-    lappend g_outputA "ModA=\{"
+    myPuts "ModA=\{"
     set version  -1
     set found 0
 
@@ -86,9 +89,9 @@ proc main {mRcFile} {
     }
 
     if { $found > 0 } {
-	lappend g_outputA "\{kind=\"set_default_version\", version=\"$version\"\},"
+	myPuts "\{kind=\"set_default_version\", version=\"$version\"\},"
     }
-    lappend g_outputA "\}" 
+    myPuts "\}" 
     set my_output [join $g_outputA "\n"]
     if { $g_fast > 0 } {
 	setResults $my_output
@@ -114,4 +117,5 @@ foreach arg $argv {
 
 
 eval main $fn
+puts stdout "-- End of RC2lua.tcl"
 return 0
