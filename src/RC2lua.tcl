@@ -36,11 +36,15 @@
 
 puts stdout "-- Start of RC2lua.tcl"
 
-proc myPuts { s } {
-    lappend g_outputA $s
+proc initGA {} {
+    global g_outputA
+    unset -nocomplain g_outputA
 }
 
-
+proc myPuts { s } {
+    global g_outputA
+    lappend g_outputA $s
+}
 
 proc doubleQuoteEscaped {text} {
     regsub -all "\"" $text "\\\"" text
@@ -70,6 +74,22 @@ proc module-version {args} {
     myPuts "\{kind=\"module_version\",module_name=\"$module_name\", module_versionA=\{$versionA\}\},"
 }
 
+proc showResults {} {
+    global g_outputA
+    global g_fast
+    if [info exists g_outputA] {
+	set my_output [join  $g_outputA "\n"]
+    } else {
+	set my_output ""
+    }
+    
+    if { $g_fast > 0 } {
+	setResults $my_output
+    } else {
+	puts stdout "$my_output"
+    }
+}
+
 proc main {mRcFile} {
     global env                 # Need this for .modulerc file that access global env vars.
     global g_fast
@@ -92,13 +112,7 @@ proc main {mRcFile} {
 	myPuts "\{kind=\"set_default_version\", version=\"$version\"\},"
     }
     myPuts "\}" 
-    set my_output [join $g_outputA "\n"]
-    if { $g_fast > 0 } {
-	setResults $my_output
-    } else {
-	puts stdout "$my_output"
-    }
-    
+    showResults
 }
 
 
@@ -119,3 +133,4 @@ foreach arg $argv {
 eval main $fn
 puts stdout "-- End of RC2lua.tcl"
 return 0
+
