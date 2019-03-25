@@ -335,7 +335,7 @@ proc currentMode {} {
 
 proc pushMode {mode} {
     global g_modeStack
-    puts stderr "--entering pushMode with mode: $mode"
+    puts stderr "--entering pushMode"
 
     lappend g_modeStack $mode
 }
@@ -942,7 +942,7 @@ switch -regexp -- $g_shellName {
 
 
 puts stderr "--Before eval main $argv"
-puts stderr "mode: $g_mode"
+puts stderr "--mode: $g_mode"
 eval main $argv
 puts stderr "--At end of tcl2lua.tcl"
 return 0
