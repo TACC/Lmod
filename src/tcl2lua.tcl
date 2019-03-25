@@ -34,7 +34,7 @@
 #
 #------------------------------------------------------------------------
 
-global g_loadT g_varsT g_fullName g_usrName g_shellName g_mode g_shellType g_outputA, g_fast
+global g_loadT g_varsT g_fullName g_usrName g_shellName g_mode g_shellType g_outputA, g_fast g_nofast
 namespace eval ::cmdline {
     namespace export getArgv0 getopt getKnownOpt getfiles getoptions \
 	    getKnownOptions usage
@@ -637,13 +637,14 @@ proc initGA {} {
 proc showResults {} {
     global g_outputA
     global g_fast
+    global g_nofast
     if [info exists g_outputA] {
 	set my_output [join  $g_outputA "\n"]
     } else {
 	set my_output ""
     }
     
-    if { $g_fast > 0 } {
+    if { $g_fast > 0 && $g_nofast == 0} {
 	setResults $my_output
     } else {
 	puts stdout "$my_output"
@@ -651,7 +652,7 @@ proc showResults {} {
 }
 
 proc myPuts args {
-    global putMode g_outputA
+    global putMode g_outputA g_nofast
     foreach {a b c} $args break
     set nonewline 0
     switch [llength $args] {
@@ -690,6 +691,9 @@ proc myPuts args {
             set text "LmodMessage(\[===\[$text\]===\])"
         }
     } else {
+	if {$g_nofast > 0} {
+	    puts stderr $text
+	}
 	lappend g_outputA $text
 	return
     }
@@ -860,7 +864,7 @@ proc main { modfile } {
     global g_mode, g_outputA
 
     pushMode           $g_mode
-    lappend g_outputA "--Before execute-modulefile"
+    "--Before execute-modulefile"
     execute-modulefile $modfile
     lappend g_outputA "--after execute-modulefile"
     popMode
@@ -872,6 +876,7 @@ set options {
             {l.arg   ""     "loaded list"}
             {h              "print ModulesHelp command"}
             {F.arg   0      "fast processing of TCL files"}
+            {G.arg   0      "disable fast processing of TCL files"}
             {f.arg   "???"  "module full name"}
             {m.arg   "load" "mode: load remove display"}
             {s.arg   "bash" "shell name"}
@@ -889,6 +894,7 @@ foreach m [split $params(l) ":"] {
 }
 
 set g_fast      $params(F)
+set g_nofast    $params(G)
 set g_fullName  $params(f)
 set g_usrName   $params(u)
 set g_shellName $params(s)
