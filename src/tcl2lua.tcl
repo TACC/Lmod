@@ -693,8 +693,9 @@ proc myPuts args {
     } else {
 	if {$g_nofast > 0} {
 	    puts stderr $text
+	} else {
+	    lappend g_outputA $text
 	}
-	lappend g_outputA $text
 	return
     }
     if { $nonewline == 1 } {
