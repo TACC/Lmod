@@ -34,7 +34,7 @@
 #
 #------------------------------------------------------------------------
 
-puts stdout "--At start of tcl2lua.tcl"
+puts stderr "--At start of tcl2lua.tcl"
 return 0
 
 global g_loadT g_varsT g_fullName g_usrName g_shellName g_mode g_shellType g_outputA, g_fast g_nofast
