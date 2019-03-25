@@ -335,6 +335,7 @@ proc currentMode {} {
 
 proc pushMode {mode} {
     global g_modeStack
+    puts stderr "--entering pushMode with mode: $mode"
 
     lappend g_modeStack $mode
 }
