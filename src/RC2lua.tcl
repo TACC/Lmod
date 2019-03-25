@@ -132,5 +132,4 @@ foreach arg $argv {
 
 eval main $fn
 puts stderr "-- End of RC2lua.tcl"
-return 0
-
+return 1
