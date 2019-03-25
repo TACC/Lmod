@@ -867,7 +867,6 @@ proc unset-env {var} {
 proc main { modfile } {
     global g_mode, g_outputA
     puts stderr "--entering main"
-
     pushMode           $g_mode
     puts stderr "--Before execute-modulefile"
     execute-modulefile $modfile
