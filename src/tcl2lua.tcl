@@ -838,12 +838,10 @@ proc execute-modulefile {modfile } {
         }
         if {$sourceFailed} {
             reportError $errorMsg
-	    showResults
-            return 1
-        }
+	}
 	showResults
-	return 0
     }]
+    puts stderr "--errorVal: $errorVal"
     interp delete $child
     return $errorVal
 }
@@ -928,5 +926,7 @@ switch -regexp -- $g_shellName {
 }
 
 
+puts stderr "--before main $argv"
 main $argv
+puts stderr "--after main"
 
