@@ -844,7 +844,7 @@ proc execute-modulefile {modfile } {
 	showResults
     }]
     interp delete $child
-    puts stderr "errorVal: $errorVal"
+    puts stdout "--errorVal: $errorVal"
     return $errorVal
 }
 
@@ -857,14 +857,13 @@ proc unset-env {var} {
 }
 
 proc main { modfile } {
-    global g_mode
+    global g_mode, g_outputA
 
     pushMode           $g_mode
-    puts stderr "Before execute-modulefile"
+    lappend g_outputA "--Before execute-modulefile"
     execute-modulefile $modfile
-    puts stderr "after execute-modulefile"
+    lappend g_outputA "--after execute-modulefile"
     popMode
-    return 0
 }
 
 global g_loadT g_help 
