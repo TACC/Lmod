@@ -932,5 +932,4 @@ switch -regexp -- $g_shellName {
 }
 
 eval main $argv
-puts stderr "After eval main"
 return 0
