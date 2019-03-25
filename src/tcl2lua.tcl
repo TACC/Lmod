@@ -35,7 +35,6 @@
 #------------------------------------------------------------------------
 
 puts stderr "--At start of tcl2lua.tcl"
-return 0
 
 global g_loadT g_varsT g_fullName g_usrName g_shellName g_mode g_shellType g_outputA, g_fast g_nofast
 namespace eval ::cmdline {
@@ -940,5 +939,8 @@ switch -regexp -- $g_shellName {
     }
 }
 
+
+puts stderr "--Before eval main $argv"
 eval main $argv
+puts stderr "--At end of tcl2lua.tcl"
 return 0
