@@ -130,8 +130,8 @@ static int runTCLprog(lua_State *L)
   fprintf(stderr,"results: %d\n",result);
   status     = result == TCL_OK;
   
-  Tcl_DeleteInterp(interp);
   lua_pushstring(L, resultStr);
+  Tcl_DeleteInterp(interp);
   (resultStr) ?  lua_pushboolean(L, status): lua_pushboolean(L, 0);
   return 2;
 }
