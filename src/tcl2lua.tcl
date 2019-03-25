@@ -927,6 +927,7 @@ switch -regexp -- $g_shellName {
     }
 }
 
-
+puts stderr "Before eval main"
 eval main $argv
+puts stderr "After eval main"
 return 0
