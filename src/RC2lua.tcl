@@ -34,7 +34,7 @@
 #--
 #--------------------------------------------------------------------------
 
-puts stdout "-- Start of RC2lua.tcl"
+puts stderr "-- Start of RC2lua.tcl"
 
 proc initGA {} {
     global g_outputA
@@ -93,7 +93,7 @@ proc showResults {} {
 proc main {mRcFile} {
     global env                 # Need this for .modulerc file that access global env vars.
     global g_fast
-    unset -nocomplain g_outputA
+    initGA
     myPuts "ModA=\{"
     set version  -1
     set found 0
@@ -131,6 +131,6 @@ foreach arg $argv {
 
 
 eval main $fn
-puts stdout "-- End of RC2lua.tcl"
+puts stderr "-- End of RC2lua.tcl"
 return 0
 
