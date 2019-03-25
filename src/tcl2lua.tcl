@@ -864,9 +864,9 @@ proc main { modfile } {
     global g_mode, g_outputA
 
     pushMode           $g_mode
-    "--Before execute-modulefile"
+    myPuts stderr "--Before execute-modulefile"
     execute-modulefile $modfile
-    lappend g_outputA "--after execute-modulefile"
+    myPuts stderr "--after execute-modulefile"
     popMode
 }
 
