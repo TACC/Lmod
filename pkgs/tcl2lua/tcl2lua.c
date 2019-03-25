@@ -126,6 +126,7 @@ static int runTCLprog(lua_State *L)
   Tcl_SetVar2Ex(interp, "argc", NULL, Tcl_NewIntObj(argc), TCL_GLOBAL_ONLY);
   Tcl_SetVar2Ex(interp, "argv", NULL, argvPtr,             TCL_GLOBAL_ONLY);
 
+  fprintf(stderr,"before calling Tcl_EvalFile\n");
   int result = Tcl_EvalFile(interp, cmd);
   fprintf(stderr,"results: %d\n",result);
   status     = result == TCL_OK;
