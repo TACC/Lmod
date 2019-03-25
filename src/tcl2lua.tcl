@@ -844,6 +844,7 @@ proc execute-modulefile {modfile } {
 	showResults
     }]
     interp delete $child
+    puts stderr "errorVal: $errorVal"
     return $errorVal
 }
 
@@ -859,8 +860,11 @@ proc main { modfile } {
     global g_mode
 
     pushMode           $g_mode
+    puts stderr "Before execute-modulefile"
     execute-modulefile $modfile
+    puts stderr "after execute-modulefile"
     popMode
+    return 0
 }
 
 global g_loadT g_help 
@@ -927,7 +931,6 @@ switch -regexp -- $g_shellName {
     }
 }
 
-puts stderr "Before eval main"
 eval main $argv
 puts stderr "After eval main"
 return 0
