@@ -34,7 +34,7 @@
 #--
 #--------------------------------------------------------------------------
 
-puts stderr "-- Start of RC2lua.tcl"
+puts stdout "-- Start of RC2lua.tcl"
 
 proc initGA {} {
     global g_outputA
@@ -131,6 +131,6 @@ foreach arg $argv {
 
 
 eval main $fn
-puts stderr "-- End of RC2lua.tcl"
+puts stdout "-- End of RC2lua.tcl"
 return 0
 
