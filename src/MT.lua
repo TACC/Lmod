@@ -1224,4 +1224,8 @@ function M.hideMpathRefCountT(self, refCountT)
    self.mpathRefCountT = nil
 end
 
+function M.resetMPATH2system(self)
+   self.mpathA = path2pathA(self.systemBaseMPATH)
+end
+
 return M
