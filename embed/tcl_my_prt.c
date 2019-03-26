@@ -1,4 +1,4 @@
-#include <tcl/tcl.h>
+#include <tcl.h>
 #include <stdio.h>
 #include <stdlib.h>
 
