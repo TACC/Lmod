@@ -452,6 +452,8 @@ if test "$ALLOW_TCL_MFILES" = yes -a "$FAST_TCL_INTERP" = yes ; then
    if test "$ac_cv_header_tcl_h" != yes ; then
       AC_MSG_ERROR([Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h])
    fi
+   AC_CHECK_LIB(tcl,Tcl_CreateInterp,[],
+                [AC_MSG_ERROR([Unable to build Lmod with -ltcl lease install the tcl devel package or configure --with-fastTCLInterp=no to not require the tcl library])])
 fi
 AC_SUBST(SYS_LD_LIB_PATH)
 SYS_LD_LIB_PATH=$LD_LIBRARY_PATH
