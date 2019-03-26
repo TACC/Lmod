@@ -8,8 +8,7 @@
 #define MYNAME        "tcl2lua"
 #define MYVERSION      MYNAME " 0.1"
 
-static char* resultStr;
-
+static char* resultStr = NULL;
 
 int setResultsObjCmd(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[])
 {
