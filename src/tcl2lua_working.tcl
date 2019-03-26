@@ -843,6 +843,7 @@ proc execute-modulefile {modfile } {
             set returnVal 1
         }
 	showResults
+        return $returnVal
     }]
     interp delete $child
     return $errorVal

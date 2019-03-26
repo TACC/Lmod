@@ -28,7 +28,7 @@ module-whatis "Description: Molecular Modeling Package"
 #
 # Create environment variables.
 #
-set             amber_dir         /unknown/apps/amber/amber-9
+set2             amber_dir         /unknown/apps/amber/amber-9
 set             amber_doc         /unknown/apps/amber/amber-9/doc
 set             amber_bin         /unknown/apps/amber/amber-9/exe
 
