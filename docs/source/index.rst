@@ -108,6 +108,7 @@ Advanced Topics
    260_sh_to_modulefile
    300_tracking_module_usage
    310_settarg
+   320_improving_perf
 
 Topics yet to be written
 ^^^^^^^^^^^^^^^^^^^^^^^^

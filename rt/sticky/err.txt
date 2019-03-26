@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.8.18  2019-02-09 12:50 -06:00
+Modules based on Lua: Version 7.8.90  2019-03-22 16:05 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -272,12 +272,12 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --force purge
 step 45
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing reset
 ===========================
-Resetting modules to system default
+Resetting modules to system default. Reseting $MODULEPATH back to system default. All extra directories will be removed from $MODULEPATH.
 ===========================
 step 46
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing reset
 ===========================
-Resetting modules to system default
+Resetting modules to system default. Reseting $MODULEPATH back to system default. All extra directories will be removed from $MODULEPATH.
 ===========================
 step 47
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load old

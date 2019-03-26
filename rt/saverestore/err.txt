@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.7.34  2018-05-27 17:42 -05:00
+Modules based on Lua: Version 7.8.90  2019-03-22 16:05 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -115,7 +115,7 @@ Restoring modules from user's stdenv
 Lmod Warning: One or more modules in your stdenv collection have changed: "gcc".
 To see the contents of this collection execute:
   $ module describe stdenv
-To rebuild the collection, load the modules you wish, then execute:
+To rebuild the collection, do a module reset, then load the modules you wish, then execute:
   $ module save stdenv
 If you no longer want this module collection execute:
   $ rm ~/.lmod.d/stdenv
@@ -129,7 +129,7 @@ Restoring modules from user's stdenv
 Lmod Warning: One or more modules in your stdenv collection have changed: "StdEnv", "gcc".
 To see the contents of this collection execute:
   $ module describe stdenv
-To rebuild the collection, load the modules you wish, then execute:
+To rebuild the collection, do a module reset, then load the modules you wish, then execute:
   $ module save stdenv
 If you no longer want this module collection execute:
   $ rm ~/.lmod.d/stdenv
