@@ -639,7 +639,7 @@ proc showResults {} {
     if [info exists g_outputA] {
 	set my_output [join  $g_outputA "\n"]
     } else {
-	set my_output ""
+	set my_output " "
     }
     
     if { $g_fast > 0 } {
