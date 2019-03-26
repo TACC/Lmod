@@ -533,9 +533,7 @@ function Reset(msg)
    Purge(force)
 
    -- Change MODULEPATH back to systemBaseMPATH
-   local mt = FrameStk:singleton():mt()
-   mt:resetMPATH2system()
-
+   FrameStk:singleton():resetMPATH2system()
 
    dbg.print{"default: \"",default,"\"\n"}
 

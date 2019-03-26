@@ -75,6 +75,15 @@ function M.__clear(self)
    s_frameStk = false
 end
 
+function M.resetMPATH2system(self)
+   local varT       = self:varT()
+   local mt         = self:mt()
+   local nodups     = true
+   local mpath      = mt:resetMPATH2system()
+   varT[ModulePath] = Var:new(ModulePath, mpath, nodups, ":")
+end
+
+
 function M.push(self, mname)
    --dbg.start{"FrameStk:push(mname)"}
    local stack  = self.__stack

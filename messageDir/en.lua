@@ -198,7 +198,7 @@ To search the contents of modules for matching words execute:
      m_Reload_Modules      = "\nDue to MODULEPATH changes, the following have been reloaded:\n",
      m_Reload_Version_Chng = "\nThe following have been reloaded with a version change:\n",
      m_Restore_Coll        = "Restoring modules from %{msg}\n",
-     m_Reset_SysDflt       = "Resetting modules to system default. Reseting $MODULEPATH back to system default. All extra directories will be removed.\n",
+     m_Reset_SysDflt       = "Resetting modules to system default. Reseting $MODULEPATH back to system default. All extra directories will be removed from $MODULEPATH.\n",
      m_Save_Coll           = "Saved current collection of modules to: \"%{a}\"%{msgTail}\n",
      m_Spdr_L1             = [==[%{border}  For detailed information about a specific "%{key}" module (including how to load the modules) use the module's full name.
   For example:
@@ -233,7 +233,7 @@ must specify the version if there is more than one version:
      w_Broken_Coll         = [==[One or more modules in your %{collectionName} collection have changed: "%{module_list}".
 To see the contents of this collection execute:
   $ module describe %{collectionName}
-To rebuild the collection, load the modules you wish, then execute:
+To rebuild the collection, do a module reset, then load the modules you wish, then execute:
   $ module save %{collectionName}
 If you no longer want this module collection execute:
   $ rm ~/.lmod.d/%{collectionName}

@@ -1207,10 +1207,10 @@ function M.getMTfromFile(self,tt)
    -- read in.
 
    if (collectionName == "default") then
-      local Var = require("Var")
-      local n = "__LMOD_DEFAULT_MODULES_LOADED__"
+      local Var  = require("Var")
+      local n    = "__LMOD_DEFAULT_MODULES_LOADED__"
       local varT = frameStk:varT()
-      varT[n] = Var:new(n,"1")
+      varT[n]    = Var:new(n,"1")
    end
    mt = frameStk:mt()
    dbg.fini("MT:getMTfromFile")
@@ -1226,6 +1226,7 @@ end
 
 function M.resetMPATH2system(self)
    self.mpathA = path2pathA(self.systemBaseMPATH)
+   return self.systemBaseMPATH
 end
 
 return M

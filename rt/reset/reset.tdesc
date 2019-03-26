@@ -39,8 +39,9 @@ testdescript = {
      runLmod list                               # 6
      runLmod use $MODULEPATH_ROOT/User          # 7
      runLmod load foo                           # 8
-     runLmod reset                              # 9
-     runLmod list                               #10
+     runLmod list                               # 9
+     runLmod reset                              #10
+     runLmod list                               #11
 
      HOME=$ORIG_HOME
      PATH=$ORIGINAL_PATH
