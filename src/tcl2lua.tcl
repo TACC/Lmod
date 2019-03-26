@@ -844,6 +844,7 @@ proc execute-modulefile {modfile } {
         showResults
 	return $returnVal
     }]
+    puts stderr "--errorVal: $errorVal"
     interp delete $child
     return $errorVal
 }

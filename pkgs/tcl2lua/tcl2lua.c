@@ -127,7 +127,7 @@ static int runTCLprog(lua_State *L)
 
   fprintf(stderr,"before calling Tcl_EvalFile\n");
   int result = Tcl_EvalFile(interp, cmd);
-  fprintf(stderr,"results: %d\nresultStr: %s\n",result,resultStr);
+  fprintf(stderr,"results: %d\nresultStr: \"%s\"\n",result,resultStr);
   status     = result == TCL_OK;
   
 
