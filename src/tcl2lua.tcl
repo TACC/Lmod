@@ -333,7 +333,6 @@ proc currentMode {} {
 
 proc pushMode {mode} {
     global g_modeStack
-
     lappend g_modeStack $mode
 }
 
@@ -640,10 +639,10 @@ proc showResults {} {
     if [info exists g_outputA] {
 	set my_output [join  $g_outputA "\n"]
     } else {
-	set my_output ""
+	set my_output "<got nothing>"
     }
     
-    if { $g_fast > 0 } {
+    if { $g_fast > 0} {
 	setResults $my_output
     } else {
 	puts stdout "$my_output"
@@ -651,7 +650,7 @@ proc showResults {} {
 }
 
 proc myPuts args {
-    global putMode g_outputA
+    global putMode g_outputA 
     foreach {a b c} $args break
     set nonewline 0
     switch [llength $args] {
@@ -780,7 +779,7 @@ proc reportError {message} {
 }
 
 proc execute-modulefile {modfile } {
-    global env g_help ModulesCurrentModulefile putMode
+    global env g_help ModulesCurrentModulefile putMode g_outputA g_fast
     set ModulesCurrentModulefile $modfile
 
     set putMode "normal"
@@ -821,11 +820,13 @@ proc execute-modulefile {modfile } {
     interp alias $child unset-alias     {} unset-alias
     interp alias $child unsetenv        {} unsetenv
 
-    interp eval $child {global ModulesCurrentModulefile g_help}
+    interp eval $child {global ModulesCurrentModulefile g_help g_fast}
     interp eval $child [list "set" "ModulesCurrentModulefile" $modfile]
     interp eval $child [list "set" "g_help" $g_help]
+    interp eval $child [list "set" "g_fast" $g_fast]
 
     set errorVal [interp eval $child {
+	set returnVal 0
         initGA
 	set sourceFailed [catch {source $ModulesCurrentModulefile } errorMsg]
         if { $g_help && [info procs "ModulesHelp"] == "ModulesHelp" } {
@@ -839,10 +840,23 @@ proc execute-modulefile {modfile } {
         }
         if {$sourceFailed} {
             reportError $errorMsg
-            return 1
-        }
-	showResults
+	    set returnVal 1
+	}
+	if [info exists g_outputA] {
+	    set my_output [join  $g_outputA "\n"]
+	} else {
+	    set my_output "<got nothing>"
+	}
+    
+	if { $g_fast > 0} {
+	    setResults $my_output
+	} else {
+	    puts stdout "$my_output"
+	}
+
+	return $returnVal
     }]
+    puts stderr "--errorVal: $errorVal"
     interp delete $child
     return $errorVal
 }
@@ -857,9 +871,10 @@ proc unset-env {var} {
 
 proc main { modfile } {
     global g_mode
-
+    puts stderr "-- in main $modfile"
     pushMode           $g_mode
     execute-modulefile $modfile
+    puts stderr "-- after execute-modulefile"
     popMode
 }
 
@@ -868,7 +883,7 @@ global g_loadT g_help
 set options {
             {l.arg   ""     "loaded list"}
             {h              "print ModulesHelp command"}
-            {F.arg   0      "fast processing of TCL files"}
+            {F              "fast processing of TCL files"}
             {f.arg   "???"  "module full name"}
             {m.arg   "load" "mode: load remove display"}
             {s.arg   "bash" "shell name"}
@@ -928,4 +943,7 @@ switch -regexp -- $g_shellName {
 }
 
 
+puts stderr "--before main $argv"
 eval main $argv
+puts stderr "--after main"
+

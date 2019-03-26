@@ -55,6 +55,10 @@ static int runTCLprog(lua_State *L)
   Tcl_FindExecutable(cmd);
   interp = Tcl_CreateInterp();
 
+  fprintf(stderr,"cmd: %s\n",cmd);
+  
+
+
   if (interp == NULL) {
     fprintf(stderr,"Cannot create TCL interpreter\n");
     exit(-1);
@@ -73,7 +77,6 @@ static int runTCLprog(lua_State *L)
 
   Tcl_ListObjAppendElement(NULL, argvPtr, Tcl_NewStringObj("-F",-1));
   argc++;
-
 
   while (*p)
     {
@@ -115,18 +118,22 @@ static int runTCLprog(lua_State *L)
           len = strcspn(left," \t");
           p   += len;
         }
+      fprintf(stderr,"%d: %.*s\n",argc, (int) len, left);
       argc++;
       Tcl_ListObjAppendElement(NULL, argvPtr, Tcl_NewStringObj(left, len));
     }
   Tcl_SetVar2Ex(interp, "argc", NULL, Tcl_NewIntObj(argc), TCL_GLOBAL_ONLY);
   Tcl_SetVar2Ex(interp, "argv", NULL, argvPtr,             TCL_GLOBAL_ONLY);
 
+  fprintf(stderr,"before calling Tcl_EvalFile\n");
   int result = Tcl_EvalFile(interp, cmd);
-  fprintf(stderr,"results: %d\n",result);
+  fprintf(stderr,"results: %d\nresultStr: %s\n",result,resultStr);
   status     = result == TCL_OK;
   
-  Tcl_DeleteInterp(interp);
+
+  
   lua_pushstring(L, resultStr);
+  Tcl_DeleteInterp(interp);
   (resultStr) ?  lua_pushboolean(L, status): lua_pushboolean(L, 0);
   return 2;
 }
