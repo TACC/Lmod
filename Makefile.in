@@ -303,7 +303,8 @@ src/computeHashSum: $(ComputeHashSum)
 tcl2lua:
 	if [ -d $(srcdir)/pkgs/tcl2lua ]; then                             \
            $(MAKE) -C $(srcdir)/pkgs/tcl2lua  LUA_INC=$(LUA_INCLUDE)       \
-                LIB=$(DESTDIR)$(LIB) SHARE=$(DESTDIR)$(LIBEXEC) CC=$(CC)   \
+                LIB=$(DESTDIR)$(LIB) LIBS=@LIBS@ CC=$(CC)                  \
+                SHARE=$(DESTDIR)$(LIBEXEC)                                 \
                 install;                                                   \
         fi
 

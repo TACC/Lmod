@@ -4172,13 +4172,12 @@ fi
    if test "$ac_cv_header_tcl_h" != yes ; then
       as_fn_error $? "Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h" "$LINENO" 5
    fi
-   { $as_echo "$as_me:${as_lineno-$LINENO}: checking for Tcl_CreateInterp in -ltcl" >&5
-$as_echo_n "checking for Tcl_CreateInterp in -ltcl... " >&6; }
-if ${ac_cv_lib_tcl_Tcl_CreateInterp+:} false; then :
+   { $as_echo "$as_me:${as_lineno-$LINENO}: checking for library containing Tcl_CreateInterp" >&5
+$as_echo_n "checking for library containing Tcl_CreateInterp... " >&6; }
+if ${ac_cv_search_Tcl_CreateInterp+:} false; then :
   $as_echo_n "(cached) " >&6
 else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-ltcl  $LIBS"
+  ac_func_search_save_LIBS=$LIBS
 cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
 
@@ -4197,26 +4196,37 @@ return Tcl_CreateInterp ();
   return 0;
 }
 _ACEOF
-if ac_fn_c_try_link "$LINENO"; then :
-  ac_cv_lib_tcl_Tcl_CreateInterp=yes
-else
-  ac_cv_lib_tcl_Tcl_CreateInterp=no
+for ac_lib in '' tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
+  if test -z "$ac_lib"; then
+    ac_res="none required"
+  else
+    ac_res=-l$ac_lib
+    LIBS="-l$ac_lib  $ac_func_search_save_LIBS"
+  fi
+  if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_search_Tcl_CreateInterp=$ac_res
 fi
 rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
+    conftest$ac_exeext
+  if ${ac_cv_search_Tcl_CreateInterp+:} false; then :
+  break
 fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_tcl_Tcl_CreateInterp" >&5
-$as_echo "$ac_cv_lib_tcl_Tcl_CreateInterp" >&6; }
-if test "x$ac_cv_lib_tcl_Tcl_CreateInterp" = xyes; then :
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBTCL 1
-_ACEOF
-
-  LIBS="-ltcl $LIBS"
+done
+if ${ac_cv_search_Tcl_CreateInterp+:} false; then :
 
 else
-  as_fn_error $? "Unable to build Lmod with -ltcl Please install the tcl devel package or configure --with-fastTCLInterp=no to not require the tcl library" "$LINENO" 5
+  ac_cv_search_Tcl_CreateInterp=no
+fi
+rm conftest.$ac_ext
+LIBS=$ac_func_search_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_search_Tcl_CreateInterp" >&5
+$as_echo "$ac_cv_search_Tcl_CreateInterp" >&6; }
+ac_res=$ac_cv_search_Tcl_CreateInterp
+if test "$ac_res" != no; then :
+  test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
+
+                as_fn_error $? "Unable to build Lmod with -ltcl Please install the tcl devel package or configure --with-fastTCLInterp=no to not require the tcl library" "$LINENO" 5
 fi
 
 fi
