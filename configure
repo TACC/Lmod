@@ -4226,7 +4226,8 @@ ac_res=$ac_cv_search_Tcl_CreateInterp
 if test "$ac_res" != no; then :
   test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
 
-                as_fn_error $? "Unable to build Lmod with -ltcl Please install the tcl devel package or configure --with-fastTCLInterp=no to not require the tcl library" "$LINENO" 5
+else
+  as_fn_error $? "Unable to build Lmod with -ltcl Please install the tcl devel package or configure --with-fastTCLInterp=no to not require the tcl library" "$LINENO" 5
 fi
 
 fi
