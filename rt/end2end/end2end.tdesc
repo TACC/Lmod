@@ -57,6 +57,9 @@ testdescript = {
      LMOD_EXEC=$outputDir/$dir/$dir/libexec/lmod
 
      runMe $LMOD_EXEC --version
+     mkdir ${dir}/etc
+     cp $(testDir)/modulerc ${dir}/etc/rc
+
      runMe $LMOD_EXEC load admin
      runMe $LMOD_EXEC load amber
      runMe $LMOD_EXEC load bad
