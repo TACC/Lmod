@@ -10,7 +10,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -56,7 +56,11 @@ package.path  = LuaCommandName_dir .. "../tools/?.lua;"       ..
                 LuaCommandName_dir .. "?.lua;"                ..
                 LuaCommandName_dir .. "?/init.lua;"           ..
                 sys_lua_path
-package.cpath = sys_lua_cpath
+package.cpath = LuaCommandName_dir .. "../lib/?.so;"..
+                sys_lua_cpath
+
+_G._DEBUG            = false
+local posix          = require("posix")
 
 function cmdDir()
    return LuaCommandName_dir
@@ -72,7 +76,7 @@ function masterTbl()
    return master
 end
 
-BaseShell      = require("BaseShell")
+BaseShell            = require("BaseShell")
 
 local dbg            = require("Dbg"):dbg()
 local CmdLineOptions = require("CmdLineOptions")
@@ -80,6 +84,7 @@ local BuildTarget    = require("BuildTarget")
 local STT            = require("STT")
 local cosmic         = require("Cosmic"):singleton()
 local getenv         = os.getenv
+
 require("ModifyPath")
 require("Output")
 require("serializeTbl")
@@ -156,6 +161,7 @@ function main()
    BuildTarget.exec(shell)
 
    if (masterTbl.report) then
+      io.stderr:write(serializeTbl{name="SettargConfigFnA",   indent=true, value=masterTbl.SttgConfFnA},"\n")
       io.stderr:write(serializeTbl{name="BuildScenarioTbl",   indent=true, value=masterTbl.BuildScenarioTbl},"\n")
       io.stderr:write(serializeTbl{name="HostnameTbl",        indent=true, value=masterTbl.HostTbl},         "\n")
       io.stderr:write(serializeTbl{name="ModuleTbl",          indent=true, value=masterTbl.ModuleTbl},       "\n")

@@ -8,7 +8,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -58,9 +58,10 @@ function Bash.alias(self, k, v)
       stdout:write("unalias ",k," 2> /dev/null || true;\n")
       dbg.print{   "unalias ",k," 2> /dev/null || true;\n"}
    else
-      v = v:gsub(";%s*$","")
-      stdout:write("alias ",k,"='",v,"';\n")
-      dbg.print{   "alias ",k,"='",v,"';\n"}
+      v = v:gsub(";%s*$",""):multiEscaped()
+
+      stdout:write("alias ",k,"=",v,";\n")
+      dbg.print{   "alias ",k,"=",v,";\n"}
    end
 end
 
@@ -75,8 +76,8 @@ function Bash.shellFunc(self, k, v)
       dbg.print{   "unset -f ",k," 2> /dev/null || true;\n"}
    else
       local func = v[1]:gsub(";%s*$","")
-      stdout:write(k,"() { ",func,"; };\n")
-      dbg.print{   k,"() { ",func,"; };\n"}
+      stdout:write(k," () { ",func,"; };\n")
+      dbg.print{   k," () { ",func,"; };\n"}
    end
 end
 

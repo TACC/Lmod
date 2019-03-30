@@ -8,7 +8,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -34,17 +34,18 @@
 
 require("strict")
 _ModuleTable_ = ""
-local dbg     = require("Dbg"):dbg()
-local systemG = _G
-local load    = (_VERSION == "Lua 5.1") and loadstring or load
+local TargValue = require("TargValue")
+local dbg       = require("Dbg"):dbg()
+local systemG   = _G
+local load      = (_VERSION == "Lua 5.1") and loadstring or load
 
-local function buildTargetName(name, defaultFlag, fullName)
-   local result = name
-   result = fullName
-   result = result:gsub("/","-")
-   result = result:gsub("_","-")
-
-   return result
+function extractVersion(fullName, sn)
+   local pattern = '^' .. sn:escape() .. '/?'
+   local version = fullName:gsub(pattern,"")
+   if (version == "") then
+      version = false
+   end
+   return version
 end
 
 function processModuleTable(mt_string, targetTbl, tbl)
@@ -53,8 +54,7 @@ function processModuleTable(mt_string, targetTbl, tbl)
    assert(load(mt_string))()
    local mt        = systemG._ModuleTable_
 
-   local masterTbl     = masterTbl()
-   local stringKindTbl = masterTbl.stringKindTbl
+   local stringKindTbl = masterTbl().stringKindTbl
 
    local mT = mt.mT
    for sn,v in pairs(mT) do
@@ -64,8 +64,8 @@ function processModuleTable(mt_string, targetTbl, tbl)
             if (v.status == "active" and targetTbl[key] ) then
                targetTbl[key] = -1
                local K = "TARG_" .. key:upper()
-               tbl[K] = buildTargetName(sn, v.default, v.fullName)
-               dbg.print{"V2: K: ",K, " tbl[K]: ",tbl[K],"\n"}
+               tbl[K]  = TargValue:new{sn = sn, version = extractVersion(v.fullName, sn)}
+               dbg.print{"V2: K: ",K, " tbl[K]: ",tbl[K]:display(),"\n"}
             end
          end
       end
@@ -78,5 +78,5 @@ function processModuleTable(mt_string, targetTbl, tbl)
          tbl[K] = false
       end
    end
-   dbg.fini()
+   dbg.fini("processModuleTable")
 end

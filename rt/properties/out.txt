@@ -6,7 +6,9 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/rt/properties/mf/Core
 ===========================
-MODULEPATH="ProjectDIR/rt/properties/mf/Core";
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/properties/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/properties/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/properties/mf/Core",},}';
 export _ModuleTable_;
@@ -14,7 +16,9 @@ export _ModuleTable_;
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/rt/properties/mf/bio
 ===========================
-MODULEPATH="ProjectDIR/rt/properties/mf/Core:ProjectDIR/rt/properties/mf/bio";
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/properties/mf/Core:1\;ProjectDIR/rt/properties/mf/bio:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/properties/mf/Core:ProjectDIR/rt/properties/mf/bio;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/properties/mf/Core","ProjectDIR/rt/properties/mf/bio",},}';
 export _ModuleTable_;
@@ -22,7 +26,9 @@ export _ModuleTable_;
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/rt/properties/mf/cae
 ===========================
-MODULEPATH="ProjectDIR/rt/properties/mf/Core:ProjectDIR/rt/properties/mf/bio:ProjectDIR/rt/properties/mf/cae";
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/properties/mf/Core:1\;ProjectDIR/rt/properties/mf/bio:1\;ProjectDIR/rt/properties/mf/cae:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/properties/mf/Core:ProjectDIR/rt/properties/mf/bio:ProjectDIR/rt/properties/mf/cae;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/properties/mf/Core","ProjectDIR/rt/properties/mf/bio","ProjectDIR/rt/properties/mf/cae",},}';
 export _ModuleTable_;
@@ -30,35 +36,39 @@ export _ModuleTable_;
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load PrgEnv
 ===========================
-LOADEDMODULES="mkl/10.3:a/1.0:b/1.0:c/1.0:d/1.0:PrgEnv";
+__LMOD_REF_COUNT_LOADEDMODULES=mkl/10.3:1\;a/1.0:1\;b/1.0:1\;c/1.0:1\;d/1.0:1\;PrgEnv:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=mkl/10.3:a/1.0:b/1.0:c/1.0:d/1.0:PrgEnv;
 export LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/properties/mf/Core:ProjectDIR/rt/properties/mf/bio:ProjectDIR/rt/properties/mf/cae";
+MODULEPATH=ProjectDIR/rt/properties/mf/Core:ProjectDIR/rt/properties/mf/bio:ProjectDIR/rt/properties/mf/cae;
 export MODULEPATH;
-TACC_A_DIR="/unknown/apps/a/1.0";
+TACC_A_DIR=/unknown/apps/a/1.0;
 export TACC_A_DIR;
-TACC_B_DIR="/unknown/apps/b/1.0";
+TACC_B_DIR=/unknown/apps/b/1.0;
 export TACC_B_DIR;
-TACC_C_DIR="/unknown/apps/c/1.0";
+TACC_C_DIR=/unknown/apps/c/1.0;
 export TACC_C_DIR;
-TACC_MKL_DIR="/unknown/apps/mkl/10.3";
+TACC_MKL_DIR=/unknown/apps/mkl/10.3;
 export TACC_MKL_DIR;
-_LMFILES_="ProjectDIR/rt/properties/mf/Core/mkl/10.3.lua:ProjectDIR/rt/properties/mf/Core/a/1.0.lua:ProjectDIR/rt/properties/mf/Core/b/1.0.lua:ProjectDIR/rt/properties/mf/Core/c/1.0.lua:ProjectDIR/rt/properties/mf/Core/d/1.0.lua:ProjectDIR/rt/properties/mf/Core/PrgEnv.lua";
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/properties/mf/Core/mkl/10.3.lua:1\;ProjectDIR/rt/properties/mf/Core/a/1.0.lua:1\;ProjectDIR/rt/properties/mf/Core/b/1.0.lua:1\;ProjectDIR/rt/properties/mf/Core/c/1.0.lua:1\;ProjectDIR/rt/properties/mf/Core/d/1.0.lua:1\;ProjectDIR/rt/properties/mf/Core/PrgEnv.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/properties/mf/Core/mkl/10.3.lua:ProjectDIR/rt/properties/mf/Core/a/1.0.lua:ProjectDIR/rt/properties/mf/Core/b/1.0.lua:ProjectDIR/rt/properties/mf/Core/c/1.0.lua:ProjectDIR/rt/properties/mf/Core/d/1.0.lua:ProjectDIR/rt/properties/mf/Core/PrgEnv.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={PrgEnv={["fn"]="ProjectDIR/rt/properties/mf/Core/PrgEnv.lua",["fullName"]="PrgEnv",["loadOrder"]=6,propT={},["status"]="active",["userName"]="PrgEnv",},a={["fn"]="ProjectDIR/rt/properties/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/properties/mf/Core/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=3,propT={arch={["mic"]=1,},},["status"]="active",["userName"]="b",},c={["fn"]="ProjectDIR/rt/properties/mf/Core/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=4,propT={arch={["offload"]=1,},},["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/properties/mf/Core/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=5,propT={arch={["gpu"]=1,["mic"]=1,["offload"]=1,},},["status"]="active",["userName"]="d",},mkl={["fn"]="ProjectDIR/rt/properties/mf/Core/mkl/10.3.lua",["fullName"]="mkl/10.3",["loadOrder"]=1,propT={arch={["mic"]=1,["offload"]=1,},},["status"]="active",["userName"]="mkl",},},mpathA={"ProjectDIR/rt/properties/mf/Core","ProjectDIR/rt/properties/mf/bio","ProjectDIR/rt/properties/mf/cae",},}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={PrgEnv={["fn"]="ProjectDIR/rt/properties/mf/Core/PrgEnv.lua",["fullName"]="PrgEnv",["loadOrder"]=6,propT={},["stackDepth"]=0,["status"]="active",["userName"]="PrgEnv",},a={["fn"]="ProjectDIR/rt/properties/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/properties/mf/Core/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=3,propT={arch={["mic"]=1,},},["stackDepth"]=1,["status"]="active",["userName"]="b",},c={["fn"]="ProjectDIR/rt/properties/mf/Core/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=4,propT={arch={["offload"]=1,},},["stackDepth"]=1,["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/properties/mf/Core/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=5,propT={arch={["gpu"]=1,["mic"]=1,["offload"]=1,},},["stackDepth"]=1,["status"]="active",["userName"]="d",},mkl={["fn"]="ProjectDIR/rt/properties/mf/Core/mkl/10.3.lua",["fullName"]="mkl/10.3",["loadOrder"]=1,propT={arch={["mic"]=1,["offload"]=1,},},["stackDepth"]=1,["status"]="active",["userName"]="mkl",},},mpathA={"ProjectDIR/rt/properties/mf/Core","ProjectDIR/rt/properties/mf/bio","ProjectDIR/rt/properties/mf/cae",},}';
 export _ModuleTable_;
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-MODULEPATH="ProjectDIR/rt/properties/mf/Core:ProjectDIR/rt/properties/mf/bio:ProjectDIR/rt/properties/mf/cae";
+MODULEPATH=ProjectDIR/rt/properties/mf/Core:ProjectDIR/rt/properties/mf/bio:ProjectDIR/rt/properties/mf/cae;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={PrgEnv={["fn"]="ProjectDIR/rt/properties/mf/Core/PrgEnv.lua",["fullName"]="PrgEnv",["loadOrder"]=6,propT={},["status"]="active",["userName"]="PrgEnv",},a={["fn"]="ProjectDIR/rt/properties/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/properties/mf/Core/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=3,propT={arch={["mic"]=1,},},["status"]="active",["userName"]="b",},c={["fn"]="ProjectDIR/rt/properties/mf/Core/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=4,propT={arch={["offload"]=1,},},["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/properties/mf/Core/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=5,propT={arch={["gpu"]=1,["mic"]=1,["offload"]=1,},},["status"]="active",["userName"]="d",},mkl={["fn"]="ProjectDIR/rt/properties/mf/Core/mkl/10.3.lua",["fullName"]="mkl/10.3",["loadOrder"]=1,propT={arch={["mic"]=1,["offload"]=1,},},["status"]="active",["userName"]="mkl",},},mpathA={"ProjectDIR/rt/properties/mf/Core","ProjectDIR/rt/properties/mf/bio","ProjectDIR/rt/properties/mf/cae",},}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={PrgEnv={["fn"]="ProjectDIR/rt/properties/mf/Core/PrgEnv.lua",["fullName"]="PrgEnv",["loadOrder"]=6,propT={},["stackDepth"]=0,["status"]="active",["userName"]="PrgEnv",},a={["fn"]="ProjectDIR/rt/properties/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/properties/mf/Core/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=3,propT={arch={["mic"]=1,},},["stackDepth"]=1,["status"]="active",["userName"]="b",},c={["fn"]="ProjectDIR/rt/properties/mf/Core/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=4,propT={arch={["offload"]=1,},},["stackDepth"]=1,["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/properties/mf/Core/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=5,propT={arch={["gpu"]=1,["mic"]=1,["offload"]=1,},},["stackDepth"]=1,["status"]="active",["userName"]="d",},mkl={["fn"]="ProjectDIR/rt/properties/mf/Core/mkl/10.3.lua",["fullName"]="mkl/10.3",["loadOrder"]=1,propT={arch={["mic"]=1,["offload"]=1,},},["stackDepth"]=1,["status"]="active",["userName"]="mkl",},},mpathA={"ProjectDIR/rt/properties/mf/Core","ProjectDIR/rt/properties/mf/bio","ProjectDIR/rt/properties/mf/cae",},}';
 export _ModuleTable_;
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-MODULEPATH="ProjectDIR/rt/properties/mf/Core:ProjectDIR/rt/properties/mf/bio:ProjectDIR/rt/properties/mf/cae";
+MODULEPATH=ProjectDIR/rt/properties/mf/Core:ProjectDIR/rt/properties/mf/bio:ProjectDIR/rt/properties/mf/cae;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={PrgEnv={["fn"]="ProjectDIR/rt/properties/mf/Core/PrgEnv.lua",["fullName"]="PrgEnv",["loadOrder"]=6,propT={},["status"]="active",["userName"]="PrgEnv",},a={["fn"]="ProjectDIR/rt/properties/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=2,propT={},["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/properties/mf/Core/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=3,propT={arch={["mic"]=1,},},["status"]="active",["userName"]="b",},c={["fn"]="ProjectDIR/rt/properties/mf/Core/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=4,propT={arch={["offload"]=1,},},["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/properties/mf/Core/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=5,propT={arch={["gpu"]=1,["mic"]=1,["offload"]=1,},},["status"]="active",["userName"]="d",},mkl={["fn"]="ProjectDIR/rt/properties/mf/Core/mkl/10.3.lua",["fullName"]="mkl/10.3",["loadOrder"]=1,propT={arch={["mic"]=1,["offload"]=1,},},["status"]="active",["userName"]="mkl",},},mpathA={"ProjectDIR/rt/properties/mf/Core","ProjectDIR/rt/properties/mf/bio","ProjectDIR/rt/properties/mf/cae",},}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={PrgEnv={["fn"]="ProjectDIR/rt/properties/mf/Core/PrgEnv.lua",["fullName"]="PrgEnv",["loadOrder"]=6,propT={},["stackDepth"]=0,["status"]="active",["userName"]="PrgEnv",},a={["fn"]="ProjectDIR/rt/properties/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/properties/mf/Core/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=3,propT={arch={["mic"]=1,},},["stackDepth"]=1,["status"]="active",["userName"]="b",},c={["fn"]="ProjectDIR/rt/properties/mf/Core/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=4,propT={arch={["offload"]=1,},},["stackDepth"]=1,["status"]="active",["userName"]="c",},d={["fn"]="ProjectDIR/rt/properties/mf/Core/d/1.0.lua",["fullName"]="d/1.0",["loadOrder"]=5,propT={arch={["gpu"]=1,["mic"]=1,["offload"]=1,},},["stackDepth"]=1,["status"]="active",["userName"]="d",},mkl={["fn"]="ProjectDIR/rt/properties/mf/Core/mkl/10.3.lua",["fullName"]="mkl/10.3",["loadOrder"]=1,propT={arch={["mic"]=1,["offload"]=1,},},["stackDepth"]=1,["status"]="active",["userName"]="mkl",},},mpathA={"ProjectDIR/rt/properties/mf/Core","ProjectDIR/rt/properties/mf/bio","ProjectDIR/rt/properties/mf/cae",},}';
 export _ModuleTable_;

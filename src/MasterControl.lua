@@ -10,7 +10,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -56,11 +56,13 @@ local encode64     = base64.encode64
 local getenv       = os.getenv
 local hook         = require("Hook")
 local i18n         = require("i18n")
-local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
+local max          = math.max
+local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
 local remove       = table.remove
 local s_adminT     = {}
 local s_loadT      = {}
 local s_moduleStk  = {}
+local s_missDepT   = {}
 
 
 function M.name(self)
@@ -111,10 +113,12 @@ function M.build(name,mode)
       local MCUnload      = require('MC_Unload')
       local MCMgrLoad     = require('MC_MgrLoad')
       local MCRefresh     = require('MC_Refresh')
+      local MCDepCk       = require('MC_DependencyCk')
       local MCShow        = require('MC_Show')
       local MCAccess      = require('MC_Access')
       local MCSpider      = require('MC_Spider')
       local MCComputeHash = require('MC_ComputeHash')
+      local MCCheckSyntax = require('MC_CheckSyntax')
 
       s_nameTbl = {
          ["load"]         = MCLoad,        -- Normal loading of modules
@@ -126,21 +130,51 @@ function M.build(name,mode)
          ["show"]         = MCShow,        -- show the module function instead.
          ["access"]       = MCAccess,      -- for whatis, help
          ["spider"]       = MCSpider,      -- Process module files for spider operations
+         ["checkSyntax"]  = MCCheckSyntax, -- Check the syntax of a module, load, prereq, etc
+                                           -- are ignored.
+         ["dependencyCk"] = MCDepCk,       -- Report any missing dependency modules
       }
    end
 
    local o                = valid_name(s_nameTbl, name):create()
    o:_setMode(mode or name)
+   o.__first   =  0
+   o.__last    = -1
+   o.__moduleQ = {}
 
    dbg.print{"Setting mcp to ", o:name(),"\n"}
    return o
 end
 
 -------------------------------------------------------------------
+-- Module Queue functions
+
+function M.pushModule(self, value)
+   local last  = self.__last + 1
+   self.__last = last
+   self.__moduleQ[last] = value
+end
+
+function M.popModule(self)
+   local first = self.__first
+   if (first > self.__last) then
+      LmodError{msg="e_BrokenQ"}
+   end
+   local value           = self.__moduleQ[first]
+   self.__moduleQ[first] = nil                   -- to allow garbage collection
+   self.__first          = first + 1
+   return value
+end
+
+function M.isEmpty(self)
+   return self.__last < self.__first
+end
+
+-------------------------------------------------------------------
 -- Setenv / Unsetenv Functions
 -------------------------------------------------------------------
 
---------------------------------------------------------------------------
+-------------------------------------------------------------------
 -- Set an environment variable.
 -- @param self A MasterControl object.
 -- @param name the environment variable name.
@@ -225,17 +259,21 @@ function M.pushenv(self, name, value)
       v64          = encode64(v)
    end
 
+   local nodups   = false
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
 
    if (varT[stackName] == nil) then
-      varT[stackName] = Var:new(stackName, v64, ":")
+      varT[stackName] = Var:new(stackName, v64, nodups, ":")
    end
 
-
-   v   = tostring(value)
-   v64 = encode64(value)
-   local nodups  = false
+   if (value == false) then
+      v   = false
+      v64 = "false"
+   else
+      v   = tostring(value)
+      v64 = encode64(value)
+   end
    local priority = 0
 
    varT[stackName]:prepend(v64, nodups, priority)
@@ -270,7 +308,9 @@ function M.popenv(self, name, value)
 
    local v64 = varT[stackName]:pop()
    local v   = nil
-   if (v64) then
+   if (v64 == "false") then
+      v = false 
+   elseif (v64) then
       v = decode64(v64)
    end
    dbg.print{"v: ", v,"\n"}
@@ -310,7 +350,7 @@ function M.prepend_path(self, t)
              "\", priority=",priority,"\n"}
 
    if (varT[name] == nil) then
-      varT[name] = Var:new(name, nil, sep)
+      varT[name] = Var:new(name, nil, nodups, sep)
    end
 
    -- Do not allow dups on MODULEPATH like env vars.
@@ -328,7 +368,7 @@ function M.append_path(self, t)
    local sep      = t.delim or ":"
    local name     = t[1]
    local value    = t[2]
-   local nodups   = t.nodups
+   local nodups   = not allow_dups( not t.nodups)
    local priority = t.priority or 0
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
@@ -338,12 +378,12 @@ function M.append_path(self, t)
              "\", priority=",priority,
              "}"}
 
-   if (varT[name] == nil) then
-      varT[name] = Var:new(name, nil, sep)
-   end
-
    -- Do not allow dups on MODULEPATH like env vars.
    nodups = name == ModulePath or nodups
+
+   if (varT[name] == nil) then
+      varT[name] = Var:new(name, false, nodups, sep)
+   end
 
    varT[name]:append(tostring(value), nodups, priority)
    dbg.fini("MasterControl:append_path")
@@ -352,30 +392,32 @@ end
 --------------------------------------------------------------------------
 -- Remove an entry from a path like variable.
 -- @param self A MasterControl object
--- @param t A table containing { name, value, nodups=v1, priority=v2, where=v3}
+-- @param t A table containing { name, value, nodups=v1, priority=v2, where=v3, force=v4}
 function M.remove_path(self, t)
    local sep      = t.delim or ":"
    local name     = t[1]
    local value    = t[2]
-   local nodups   = t.nodups
+   local nodups   = not allow_dups( not t.nodups)
    local priority = t.priority or 0
    local where    = t.where
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
+   local force    = t.force
 
    dbg.start{"MasterControl:remove_path{\"",name,"\", \"",value,
              "\", delim=\"",sep,"\", nodups=\"",nodups,
              "\", priority=",priority,
              ", where=",where,
+             ", force=",force,
              "}"}
 
    -- Do not allow dups on MODULEPATH like env vars.
-   nodups = name == ModulePath or nodups
+   nodups = (name == ModulePath) or nodups
 
    if (varT[name] == nil) then
-      varT[name] = Var:new(name,nil, sep)
+      varT[name] = Var:new(name,nil, nodups, sep)
    end
-   varT[name]:remove(tostring(value), where, priority, nodups)
+   varT[name]:remove(tostring(value), where, priority, nodups, force)
    dbg.fini("MasterControl:remove_path")
 end
 
@@ -516,6 +558,18 @@ function M.myShellName(self)
    return Shell and Shell:name() or "bash"
 end
 
+function M.myShellType(self)
+   local shell = Shell and Shell:name() or "bash"
+   local kindT = {
+      bash = "sh",
+      zsh  = "sh",
+      ksh  = "sh",
+      tcsh = "csh",
+   }
+   return kindT[shell] or shell
+end      
+   
+
 --------------------------------------------------------------------------
 -- Return the current file name.
 -- @param self A MasterControl object
@@ -562,12 +616,12 @@ end
 local function l_generateMsg(kind, label, ...)
    local sA     = {}
    local twidth = TermWidth()
-   local arg    = pack(...)
-   if (arg.n == 1 and type(arg[1]) == "table") then
-      local t   = arg[1]
+   local argA   = pack(...)
+   if (argA.n == 1 and type(argA[1]) == "table") then
+      local t   = argA[1]
       local key = t.msg
-      local msg = i18n(key, t)
-      msg       = hook.apply("errWarnMsgHook", kind, key, msg) or msg
+      local msg = i18n(key, t) or "Unknown Error Message"
+      msg       = hook.apply("errWarnMsgHook", kind, key, msg, t) or msg
       sA[#sA+1] = buildMsg(twidth, label, msg)
    else
       sA[#sA+1] = buildMsg(twidth, label, ...)
@@ -584,12 +638,12 @@ function M.message(self, ...)
    end
    local sA     = {}
    local twidth = TermWidth()
-   local arg    = pack(...)
-   if (arg.n == 1 and type(arg[1]) == "table") then
-      local t   = arg[1]
+   local argA   = pack(...)
+   if (argA.n == 1 and type(argA[1]) == "table") then
+      local t   = argA[1]
       local key = t.msg
-      local msg = i18n(key, t)
-      msg       = hook.apply("errWarnMsgHook", "lmodmessage", key, msg) or msg
+      local msg = i18n(key, t) or "Unknown Message"
+      msg       = hook.apply("errWarnMsgHook", "lmodmessage", key, msg, t) or msg
       sA[#sA+1] = buildMsg(twidth, msg)
    else
       sA[#sA+1] = buildMsg(twidth, ...)
@@ -657,6 +711,17 @@ local function registerUserLoads(mA)
    dbg.fini("registerUserLoads")
 end
 
+local function unRegisterUserLoads(mA)
+   dbg.start{"unRegisterUserLoads(mA)"}
+   for i = 1, #mA do
+      local mname       = mA[i]
+      local userName    = mname:userName()
+      s_loadT[userName] = nil
+      dbg.print{"userName: ",userName,"\n"}
+   end
+   dbg.fini("unRegisterUserLoads")
+end
+
 local function compareRequestedLoadsWithActual()
    dbg.start{"compareRequestedLoadsWithActual()"}
    local mt = FrameStk:singleton():mt()
@@ -695,6 +760,7 @@ function M.mustLoad(self)
       local count   = #cmdA
 
       local uA = {}  -- unknown names
+      local iA = {}  -- illegal names
       local kA = {}  -- known modules (show)
       local kB = {}  -- known modules (usrName)
 
@@ -704,21 +770,30 @@ function M.mustLoad(self)
       else
          local outputDirection = dbg.active() and "2> spider.log" or "2> /dev/null"
          for i = 1, #bb do
-            cmdA[count+1] = "'^" .. bb[i]:escape() .. "$'"
-            cmdA[count+2] = outputDirection
-            local cmd     = concatTbl(cmdA," ")
-            local result  = capture(cmd)
-            dbg.print{"result: ",result,"\n"}
-            if (result:find("\nfalse")) then
-               uA[#uA+1] = aa[i]
+            if (bb[i]:sub(1,2) == "__") then
+               iA[#iA+1] = bb[i]
             else
-               kA[#kA+1] = aa[i]
-               kB[#kB+1] = bb[i]
+               cmdA[count+1] = "'^" .. bb[i]:escape() .. "$'"
+               cmdA[count+2] = outputDirection
+               local cmd     = concatTbl(cmdA," ")
+               local result  = capture(cmd)
+               dbg.print{"result: ",result,"\n"}
+               if (result:find("\nfalse")) then
+                  uA[#uA+1] = aa[i]
+               else
+                  kA[#kA+1] = aa[i]
+                  kB[#kB+1] = bb[i]
+               end
             end
          end
       end
 
       local a = {}
+
+      if (#iA > 0) then
+         mcp:report{msg="e_Illegal_Load", module_list = concatTbl(iA, " ") }
+      end
+
 
       if (#uA > 0) then
          mcp:report{msg="e_Failed_Load", module_list = concatTbl(uA, " ") }
@@ -732,6 +807,131 @@ function M.mustLoad(self)
 end
 
 
+function M.dependencyCk(self,mA)
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"MasterControl:dependencyCk(mA={"..s.."})"}
+   end
+
+   local frameStk = FrameStk:singleton()
+   local mt       = frameStk:mt()
+   local fullName = frameStk:fullName()
+   for i = 1,#mA do
+      local mname = mA[i]
+      local sn    = mname:sn()
+      if (not mt:have(sn,"active")) then
+         local a = s_missDepT[mname:userName()] or {}
+         a[#a+1] = fullName
+         s_missDepT[mname:userName()] = a
+      end
+   end
+
+   dbg.fini("MasterControl:depends_on")
+   return {}
+end
+
+function M.reportMissingDepModules(self)
+   local t = s_missDepT
+   if (next(t) ~= nil) then
+      local a           = {}
+      local term_width  = TermWidth()
+      local border      = colorize("red",string.rep("-", term_width-1))
+      
+      for k,v in pairsByKeys(t) do
+         local s = concatTbl(v,", ")
+         a[#a+1] = k .. " (required by: "..s..")"
+      end
+      io.stderr:write(i18n("w_MissingModules",{border=border,missing=concatTbl(a,", ")}))
+   end
+end
+
+
+-------------------------------------------------------------------
+-- depends_on() a list of modules.  This is short hand for:
+--
+--   if (not isloaded("name")) then load("name") end
+--
+
+function M.depends_on(self, mA)
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"MasterControl:depends_on(mA={"..s.."})"}
+   end
+
+   local mB = {}
+
+   for i = 1,#mA do
+      local mname = mA[i]
+      if (not mname:isloaded()) then
+         mB[#mB + 1] = mname
+      end
+   end
+
+   local frameStk = FrameStk:singleton()
+   if (masterTbl().checkSyntax and frameStk:count() > 1) then
+      dbg.print{"frameStk:count(): ",frameStk:count(),"\n"}
+      dbg.fini("MasterControl:depends_on")
+      return {}
+   end
+
+   registerUserLoads(mB)
+   local a = self:load(mB)
+
+   --------------------------------------------
+   -- Bump ref count on ALL dependent modules
+
+   local mt = FrameStk:singleton():mt()
+   for i = 1,#mA do
+      local mname      = mA[i]
+      local sn         = mname:sn()
+      if (sn and mt:stackDepth(sn) > 0) then
+         mt:incr_ref_count(sn)
+      end
+   end
+
+   dbg.fini("MasterControl:depends_on")
+   return a
+end
+
+-------------------------------------------------------------------
+-- forgo a list of modules.  This is the reverse of depends_on()
+--
+--   if (not isloaded("name")) then load("name") end
+--
+-- On unload forgo() unloads iff stackDepth is non-zero and the ref count
+-- is zero.
+
+
+function M.forgo(self,mA)
+   local master = Master:singleton()
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"MasterControl:forgo(mA={"..s.."})"}
+   end
+
+   local mt = FrameStk:singleton():mt()
+   local mB = {}
+   for i = 1,#mA do
+      repeat
+         local mname      = mA[i]
+         local sn         = mname:sn()
+         if (not sn) then break end
+         local ref_count  = mt:decr_ref_count(sn)
+         local stackDepth = mt:stackDepth(sn)
+         if (stackDepth > 0 and ref_count < 1) then
+            mB[#mB+1] = mname
+         end
+      until true
+   end
+
+   unRegisterUserLoads(mB)
+   local aa     = master:unload(mB)
+   dbg.fini("MasterControl:forgo")
+   return aa
+end
+
+
+
 -------------------------------------------------------------------
 -- Load a list of modules.  Check to see if the user requested
 -- modules were actually loaded.
@@ -739,8 +939,20 @@ end
 -- @param mA A array of MName objects.
 -- @return An array of statuses
 function M.load_usr(self, mA)
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"MasterControl:load_usr(mA={"..s.."})"}
+   end
+   local frameStk = FrameStk:singleton()
+   if (masterTbl().checkSyntax and frameStk:count() > 1) then
+      dbg.print{"frameStk:count(): ",frameStk:count(),"\n"}
+      dbg.fini("MasterControl:load_usr")
+      return {}
+   end
+
    registerUserLoads(mA)
    local a = self:load(mA)
+   dbg.fini("MasterControl:load_usr")
    return a
 end
 
@@ -757,13 +969,13 @@ function mAList(mA)
 end
 
 function M.load(self, mA)
-   local master = Master:singleton()
    if (dbg.active()) then
       local s = mAList(mA)
       dbg.start{"MasterControl:load(mA={"..s.."})"}
    end
 
-   local a = master:load(mA)
+   local master = Master:singleton()
+   local a      = master:load(mA)
 
    if (not quiet()) then
       self:registerAdminMsg(mA)
@@ -772,6 +984,38 @@ function M.load(self, mA)
    dbg.fini("MasterControl:load")
    return a
 end
+
+
+
+function M.mgrload(self, required, active)
+   if (dbg.active()) then
+      dbg.start{"MasterControl:mgrload(required: ",required,", active=",active.userName,")"}
+   end
+
+   if (not required) then
+      deactivateWarning()
+   else
+      activateWarning()
+   end
+
+   local status = Master:singleton():mgrload(active)
+
+   dbg.fini("MasterControl:mgrload")
+   return status
+end
+
+function M.mgr_unload(self, required, active)
+   if (dbg.active()) then
+      dbg.start{"MasterControl:mgr_unload(required: ",required,", active=",active.userName,")"}
+   end
+   
+   local status = MCP:unload(MName:new("mt", active.userName))
+
+   dbg.fini("MasterControl:mgr_unload")
+   return status
+end
+
+
 
 -------------------------------------------------------------------
 -- Load a list of module but ignore any warnings.
@@ -797,6 +1041,7 @@ function M.unload(self, mA)
       dbg.start{"MasterControl:unload(mA={"..s.."})"}
    end
 
+   unRegisterUserLoads(mA)
    local aa     = master:unload(mA)
    dbg.fini("MasterControl:unload")
    return aa
@@ -814,6 +1059,9 @@ function M.unload_usr(self, mA, force)
    self:unload(mA)
    local master = Master:singleton()
    local aa = master:reload_sticky(force)
+
+   master:dependencyCk()
+
    dbg.fini("MasterControl:unload_usr")
    return aa
 end
@@ -832,24 +1080,6 @@ function M.fake_load(self,mA)
    end
 end
 
--------------------------------------------------------------------
--- Unload a list modules.
--- @param self A MasterControl object
--- @param mA A array of MName objects.
--- @return an array of statuses
-function M.unload(self, mA)
-   local master = Master:singleton()
-
-   if (dbg.active()) then
-      local s = mAList(mA)
-      dbg.start{"MasterControl:unload(mA={"..s.."})"}
-   end
-
-   local aa     = master:unload(mA)
-   dbg.fini("MasterControl:unload")
-   return aa
-end
-
 --------------------------------------------------------------------------
 -- Check the conflicts from *mA*.
 -- @param self A MasterControl object.
@@ -862,19 +1092,14 @@ function M.conflict(self, mA)
    local mt        = frameStk:mt()
    local fullName  = frameStk:fullName()
    local masterTbl = masterTbl()
+   local a         = {}
 
-   if (masterTbl.checkSyntax) then
-      dbg.print{"Ignoring conflicts when syntax checking\n"}
-      dbg.fini("MasterControl:conflict")
-      return
-   end
-
-   local a = {}
    for i = 1, #mA do
-      local mname = mA[i]
-      local sn    = mname:sn()
-      if (mt:have(sn,"active")) then
-         a[#a+1]  = mname:userName()
+      local mname    = mA[i]
+      local sn       = mname:sn()  -- this will return false if there is no module loaded.
+      local userName = mname:userName()
+      if (sn and mt:have(sn,"active") and (userName == sn or extractVersion(userName, sn) == mt:version(sn))) then
+         a[#a+1]  = userName
       end
    end
 
@@ -889,17 +1114,11 @@ end
 -- @param self A MasterControl object.
 -- @param mA An array of MNname objects.
 function M.prereq(self, mA)
+   dbg.start{"MasterControl:prereq(mA)"}
+
    local frameStk  = FrameStk:singleton()
    local fullName  = frameStk:fullName()
    local masterTbl = masterTbl()
-
-   dbg.start{"MasterControl:prereq(mA)"}
-
-   if (masterTbl.checkSyntax) then
-      dbg.print{"Ignoring prereq when syntax checking\n"}
-      dbg.fini("MasterControl:prereq")
-      return
-   end
 
    local a = {}
    for i = 1, #mA do
@@ -926,15 +1145,9 @@ function M.prereq_any(self, mA)
    local frameStk  = FrameStk:singleton()
    local fullName  = frameStk:fullName()
    local masterTbl = masterTbl()
+   local found     = false
+   local a         = {}
 
-   if (masterTbl.checkSyntax) then
-      dbg.print{"Ignoring prereq_any when syntax checking\n"}
-      dbg.fini("MasterControl:prereq_any")
-      return
-   end
-
-   local found  = false
-   local a      = {}
    for i = 1, #mA do
       local v, msg = mA[i]:prereq()
       if (not v) then
@@ -960,7 +1173,8 @@ end
 -- @param sn The new module name.
 function M.familyStackPush(oldName, sn)
    dbg.start{"familyStackPush(",oldName,", ", sn,")"}
-   local mt             = FrameStk:singleton():mt()
+   local frameStk       = FrameStk:singleton()
+   local mt             = frameStk:mt()
    local old_userName   = mt:userName(oldName)
    dbg.print{"removing old sn: ",oldName,",old userName: ",old_userName,"\n"}
 
@@ -995,6 +1209,16 @@ end
 --------------------------------------------------------------------------
 -- Check for an empty stack.
 -- @return True if the stack is empty.
+function M.processFamilyStack(fullName)
+   if (next(s_moduleStk) ~= nil) then
+      return fullName == s_moduleStk[#s_moduleStk].fullName
+   end
+   return false
+end
+
+--------------------------------------------------------------------------
+-- Check for an empty stack.
+-- @return True if the stack is empty.
 function M.familyStackEmpty()
    return (next(s_moduleStk) == nil)
 end
@@ -1005,6 +1229,7 @@ end
 -- @param self A MasterControl object
 -- @param name The name of the family
 function M.family(self, name)
+   dbg.start{"MasterControl:family(",name,")"}
    local frameStk  = FrameStk:singleton()
    local mt        = frameStk:mt()
    local fullName  = frameStk:fullName()
@@ -1012,13 +1237,6 @@ function M.family(self, name)
    local sn        = mname:sn()
    local masterTbl = masterTbl()
    local auto_swap = cosmic:value("LMOD_AUTO_SWAP")
-
-   dbg.start{"MasterControl:family(",name,")"}
-   if (masterTbl.checkSyntax) then
-      dbg.print{"Ignoring family when syntax checking\n"}
-      dbg.fini()
-      return
-   end
 
    local oldName = mt:getfamily(name)
    if (oldName ~= nil and oldName ~= sn and not expert() ) then
@@ -1044,37 +1262,46 @@ function M.unset_family(self, name)
 end
 
 function M.registerAdminMsg(self, mA)
-   local mt      = FrameStk:singleton():mt()
-   local t       = s_adminT
+   dbg.start{"MasterControl:registerAdminMsg(mA)"}
+   local mt = FrameStk:singleton():mt()
+   local t  = s_adminT
    readAdmin()
    for i = 1, #mA do
-      local mname      = mA[i]
-      local sn         = mname:sn()
+      local mname = mA[i]
+      local sn    = mname:sn()
       if (mt:have(sn,"active")) then
          local fn       = mt:fn(sn)
          local fullName = mt:fullName(sn)
-         local message
+         local message  = nil
          local key
-         if (adminT[fn]) then
-            message = adminT[fn]
-            key     = fn
-         elseif (adminT[fullName]) then
-            message = adminT[fullName]
-            key     = fullName
-         end
 
+         for i = 1, #adminA do
+            local pattern = adminA[i][1]
+            if (fullName:find(pattern) or fullName == pattern) then
+               message = adminA[i][2]
+               key     = fullName
+               break
+            end
+            if (pattern:sub(1,1) == '/' and (fn:find(pattern) or fn == pattern)) then
+               message = adminA[i][2]
+               key     = fullName
+               break
+            end
+         end
          if (message) then
             t[key] = message
          end
       end
    end
+   dbg.fini("MasterControl:registerAdminMsg")
 end
 
 -------------------------------------------------------------------
 -- Output any admin message collected from loading.
 function M.reportAdminMsgs()
+   dbg.start{"MasterControl:reportAdminMsgs()"}
    local t = s_adminT
-   if (next(t) ) then
+   if (next(t) ~= nil) then
       local term_width  = TermWidth()
       local bt
       local a       = {}
@@ -1083,11 +1310,31 @@ function M.reportAdminMsgs()
       for k, v in pairsByKeys(t) do
          io.stderr:write("\n",k,":\n")
          a[1] = { " ", v}
-         bt = BeautifulTbl:new{tbl=a, wrapped=true, column=term_width-1}
-         io.stderr:write(bt:build_tbl(), "\n")
+         local maxLen = 0
+         for line in v:split("\n") do
+            maxLen = max(line:len(), maxLen)
+         end
+         if (maxLen < term_width - 1) then
+            io.stderr:write(v,"\n")
+         else
+            bt = BeautifulTbl:new{tbl=a, wrapped=true, column=term_width-1}
+            io.stderr:write(bt:build_tbl(), "\n")
+         end
       end
       io.stderr:write(border,"\n\n")
    end
+   dbg.fini("MasterControl:reportAdminMsgs")
+end
+
+--------------------------------------------------------------------------
+-- Provide a list of modules for sites to use
+function M.loaded_modules(self)
+   dbg.start{"MasterControl::loaded_modules()"}
+   local frameStk  = FrameStk:singleton()
+   local mt        = frameStk:mt()
+   local mA        = mt:list("fullName","active")
+   dbg.fini("MasterControl::loaded_modules")
+   return mA
 end
 
 

@@ -39,46 +39,48 @@ testdescript = {
      runLmod load std           #11
      runLmod rm std             #12
      runLmod list               #13
-     runLmod --force rm std     #14
+     runLmod purge foo          #14
      runLmod list               #15
-     runLmod load StdEnv        #16
+     runLmod --force rm std     #16
      runLmod list               #17
      runLmod load StdEnv        #18
      runLmod list               #19
-     runLmod unload a b         #20
+     runLmod load StdEnv        #20
      runLmod list               #21
-     runLmod purge              #22
+     runLmod unload a b         #22
      runLmod list               #23
-     runLmod save               #24
-     runLmod --force purge      #25
-     runLmod restore            #26
-     runLmod list               #27
+     runLmod purge              #24
+     runLmod list               #25
+     runLmod save               #26
+     runLmod --force purge      #27
      runLmod restore            #28
      runLmod list               #29
-     runLmod --force purge      #30
-     runLmod load M1            #31
-     runLmod list               #32
-     runLmod save               #33
-     runLmod restore            #34
-     runLmod list               #35
-     runLmod --force purge      #36
-     runLmod load c d M1        #37
-     runLmod list               #38
-     runLmod save               #39
-     runLmod restore            #40
-     runLmod list               #41
+     runLmod restore            #30
+     runLmod list               #31
+     runLmod --force purge      #32
+     runLmod load M1            #33
+     runLmod list               #34
+     runLmod save               #35
+     runLmod restore            #36
+     runLmod list               #37
+     runLmod --force purge      #38
+     runLmod load c d M1        #39
+     runLmod list               #40
+     runLmod save               #41
+     runLmod restore            #42
+     runLmod list               #43
      export LMOD_SYSTEM_DEFAULT_MODULES=StdEnv
-     runLmod --force purge      #42
-     runLmod reset              #43
-     runLmod reset              #44
+     runLmod --force purge      #44
+     runLmod reset              #45
+     runLmod reset              #46
      
-     runLmod load old           #45
-     runLmod swap old new       #46
-     runLmod list               #47
-     export LMOD_AUTO_SWAP=true
-     runLmod load old           #48
+     runLmod load old           #47
+     runLmod swap old new       #48
      runLmod list               #49
-     runLmod avail              #50
+     export LMOD_AUTO_SWAP=true
+     runLmod load old           #50
+     runLmod list               #51
+     runLmod avail              #52
 
 
      HOME=$ORIG_HOME

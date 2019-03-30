@@ -1,0 +1,74 @@
+-- -*- lua -*-
+local testName = "nvv"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 nvv_prereq
+   ]],
+   keywords = {testName },
+
+   active   = true,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     export MODULEPATH=$(testDir)/mf
+
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+
+     runLmod --version                         # 1
+     runLmod avail                             # 2
+
+     runLmod purge                             # 3
+     unsetMT
+
+     MODULEPATH=$(testDir)/el1:$(testDir)/el2
+     runLmod load intel/17                     # 4
+     runLmod list                              # 5
+
+     runLmod purge                             # 6
+     unsetMT
+
+     MODULEPATH=$(testDir)/bc/mf:$(testDir)/bc/cm
+     runLmod avail                             # 7
+     runLmod load HPCBIOS/2015q2               # 8
+     
+     runLmod purge                             # 9
+     unsetMT
+
+     MODULEPATH=$(testDir)/mf2:$(testDir)/mf3
+     runLmod avail                             #10
+     runLmod load aaa                          #11
+     runLmod list                              #12
+
+     HOME=$ORIG_HOME
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

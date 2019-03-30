@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.3.1  2017-01-11 21:09 -06:00
+Modules based on Lua: Version 7.8.22  2019-03-05 18:01 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -40,6 +40,7 @@ Options:
   --no_redirect                     Force output of list, avail and spider to stderr
   --show_hidden                     Avail and spider will report hidden modules
   --spider_timeout=timeout          a timeout for spider
+  -T --trace
 module [options] sub-command [args ...]
 Help sub-commands:
   help                              prints this message
@@ -65,9 +66,9 @@ Listing / Searching sub-commands:
   keyword | key       string        Search all name and whatis that contain "string".
 Searching with Lmod:
   All searching (spider, list, avail, keyword) support regular expressions:
-  spider -r           '^p'          Finds all the modules that start with `p' or `P'
-  spider -r           mpi           Finds all modules that have "mpi" in their name.
-  spider -r           'mpi$         Finds all modules that end with "mpi" in their name.
+  -r spider           '^p'          Finds all the modules that start with `p' or `P'
+  -r spider           mpi           Finds all modules that have "mpi" in their name.
+  -r spider           'mpi$         Finds all modules that end with "mpi" in their name.
 Handling a collection of modules:
   save | s                          Save the current list of modules to a user defined "default" collection.
   save | s            name          Save the current list of modules to "name" collection.
@@ -77,12 +78,15 @@ Handling a collection of modules:
   restore             system        Restore module state to system defaults.
   savelist                          List of saved collections.
   describe | mcc      name          Describe the contents of a module collection.
+  disable             name          Disable a collection.
 Deprecated commands:
   getdefault          [name]        load name collection of modules or user's "default" if no name given.
                                     ===> Use "restore" instead  <====
   setdefault          [name]        Save current list of modules to name if given, otherwise save as the default list for you the user.
                                     ===> Use "save" instead. <====
 Miscellaneous sub-commands:
+  is-loaded           modulefile    return a true status if module is loaded
+  is-avail            modulefile    return a true status if module can be loaded
   show                modulefile    show the commands in the module file.
   use [-a]            path          Prepend or Append path to MODULEPATH.
   unuse               path          remove path from MODULEPATH.
@@ -95,7 +99,7 @@ Lmod Web Sites
   Sourceforge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 7.3.1  2017-01-11 21:09 -06:00
+Modules based on Lua: Version 7.8.22  2019-03-05 18:01 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -133,6 +137,7 @@ Options:
   --no_redirect                     Force output of list, avail and spider to stderr
   --show_hidden                     Avail and spider will report hidden modules
   --spider_timeout=timeout          a timeout for spider
+  -T --trace
 module [options] sub-command [args ...]
 Help sub-commands:
   help                              prints this message
@@ -158,9 +163,9 @@ Listing / Searching sub-commands:
   keyword | key       string        Search all name and whatis that contain "string".
 Searching with Lmod:
   All searching (spider, list, avail, keyword) support regular expressions:
-  spider -r           '^p'          Finds all the modules that start with `p' or `P'
-  spider -r           mpi           Finds all modules that have "mpi" in their name.
-  spider -r           'mpi$         Finds all modules that end with "mpi" in their name.
+  -r spider           '^p'          Finds all the modules that start with `p' or `P'
+  -r spider           mpi           Finds all modules that have "mpi" in their name.
+  -r spider           'mpi$         Finds all modules that end with "mpi" in their name.
 Handling a collection of modules:
   save | s                          Save the current list of modules to a user defined "default" collection.
   save | s            name          Save the current list of modules to "name" collection.
@@ -170,12 +175,15 @@ Handling a collection of modules:
   restore             system        Restore module state to system defaults.
   savelist                          List of saved collections.
   describe | mcc      name          Describe the contents of a module collection.
+  disable             name          Disable a collection.
 Deprecated commands:
   getdefault          [name]        load name collection of modules or user's "default" if no name given.
                                     ===> Use "restore" instead  <====
   setdefault          [name]        Save current list of modules to name if given, otherwise save as the default list for you the user.
                                     ===> Use "save" instead. <====
 Miscellaneous sub-commands:
+  is-loaded           modulefile    return a true status if module is loaded
+  is-avail            modulefile    return a true status if module can be loaded
   show                modulefile    show the commands in the module file.
   use [-a]            path          Prepend or Append path to MODULEPATH.
   unuse               path          remove path from MODULEPATH.
@@ -188,7 +196,7 @@ Lmod Web Sites
   Sourceforge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 7.3.1  2017-01-11 21:09 -06:00
+Modules based on Lua: Version 7.8.22  2019-03-05 18:01 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -208,47 +216,56 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --config
 ===========================
-Modules based on Lua: Version 7.3.1  2017-01-11 21:09 -06:00
+Modules based on Lua: Version 7.8.22  2019-03-05 18:01 -06:00
     by Robert McLay mclay@tacc.utexas.edu
-Description                      Value
-Allow TCL modulefiles            yes
-Auto swapping                    yes
-Case Independent Sorting         no
-Colorize Lmod                    yes
-Disable Same Name AutoSwap       no
-Using dotfiles                   yes
-Allow duplicate paths            no
-Require Exact Match/no defaults  no
-Export the module command        yes
-Language used for err/msg/warn   en
-Site message file                <empty>
-System lua_json                  no
-System lua-term                  no
-avail: Include modulepath dir    no
+Description                        Value
+Allow TCL modulefiles              yes
+Auto swapping                      yes
+Case Independent Sorting           no
+Colorize Lmod                      yes
+Disable Same Name AutoSwap         no
+Using dotfiles                     yes
+Allow duplicate paths              no
+Require Exact Match/no defaults    no
+Export the module command          yes
+Use attached TCL over system call  no
+Use italic instead of dim          no
+Language used for err/msg/warn     en
+Site message file                  <empty>
+LUA_CPATH                          @sys_lua_cpath@
+LUA_PATH                           @sys_lua_path@
+System lua-term                    no
+avail: Include modulepath dir      no
+MODULEPATH_INIT                    @PKG@/init/.modulespath -> <empty>
 MODULEPATH_ROOT
-number of cache dirs             0
-Pager                            less
-Pager Options                    -XqMREF
-Path to HashSum                  /usr/bin/sha1sum
-Path to Lua                      lua
-Pin Versions in restore          no
-Pkg Class name                   Pkg
-Lmod prefix                      @PREFIX@
-Prepend order                    normal
-Redirect to stdout               no
-Supporting Full Settarg Use      no
-Site Name                        <empty>
-Site Pkg location                standard
-Ignore Cache                     no
-Cached loads                     no
-System Name                      <empty>
-User cache valid time(sec)       86400
-Write cache after (sec)          2
-Threshold (sec)                  1
-Tmod prepend PATH Rule           no
+number of cache dirs               0
+Pager                              less
+Pager Options                      -XqMREF
+Path to HashSum                    PATH_to_HASHSUM
+Path to Lua                        lua
+Pin Versions in restore            no
+Pkg Class name                     Pkg
+Lmod prefix                        @PREFIX@
+Site controlled prefix             no
+Prepend order                      normal
+Redirect to stdout                 no
+Supporting Full Settarg Use        no
+User shell                         bash
+Site Name                          <empty>
+Site Pkg location                  standard
+Ignore Cache                       no
+Cached loads                       no
+System Name                        <empty>
+SYSHOST (cluster name)             <empty>
+User cache valid time(sec)         86400
+Write cache after (sec)            2
+Threshold (sec)                    1
+Tmod find first rule               no
+Tmod prepend PATH Rule             no
+Tracing                            no
 uname -a
 Active RC file(s):
-ProjectDIR/init/lmodrc.lua
+ProjectDIR/src/../init/lmodrc.lua
  OutputDIR/.lmodrc.lua
  Lmod Property Table:
 propT = {
@@ -257,36 +274,42 @@ propT = {
       gpu = {
         ["color"] = "red",
         ["doc"] = "built for GPU",
+        ["full_color"] = false,
         ["long"] = "(g)",
         ["short"] = "(g)",
       },
       ["gpu:mic"]  = {
         ["color"] = "red",
         ["doc"] = "built natively for MIC and GPU",
+        ["full_color"] = false,
         ["long"] = "(g,m)",
         ["short"] = "(gm)",
       },
       ["gpu:mic:offload"]  = {
         ["color"] = "red",
         ["doc"] = "built natively for MIC and GPU and offload to the MIC",
+        ["full_color"] = false,
         ["long"] = "(g,m,o)",
         ["short"] = "(@)",
       },
       mic = {
         ["color"] = "blue",
         ["doc"] = "built for host and native MIC",
+        ["full_color"] = false,
         ["long"] = "(m)",
         ["short"] = "(m)",
       },
       ["mic:offload"]  = {
         ["color"] = "blue",
         ["doc"] = "built for host, native MIC and offload to the MIC",
+        ["full_color"] = false,
         ["long"] = "(m,o)",
         ["short"] = "(*)",
       },
       offload = {
         ["color"] = "blue",
         ["doc"] = "built for offload to the MIC only",
+        ["full_color"] = false,
         ["long"] = "(o)",
         ["short"] = "(o)",
       },

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.3.2  2017-01-12 20:25 -06:00
+Modules based on Lua: Version 7.7.14  2017-11-16 16:23 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -84,6 +84,22 @@ Modules de base
    StdEnv                   (S,L)    apps/moab            (S,L)    foo/1.1 (D)
    apps/buildtools/20140527 (L)      compilers/intel/14.0 (L)
    apps/lua/5.1.4.6                  foo/1.0
+  Where:
+   D:  Default Module
+   L:  Module is loaded
+   S:  Module is Sticky, requires --force to unload or purge
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+Complr Dep.
+   mpi/mvapich2/1.9    mpi/openmpi/1.6.5 (L,D)    mpi/openmpi/1.8.1
+Core Modules
+   apps/buildtools/20140527 (L)      compilers/intel/14.0 (L)    StdEnv (S,L)
+   apps/lua/5.1.4.6                  foo/1.0
+   apps/moab                (S,L)    foo/1.1              (D)
   Where:
    D:  Default Module
    L:  Module is loaded

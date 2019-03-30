@@ -15,7 +15,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -52,14 +52,21 @@ end
 package.path   = sys_lua_path
 package.cpath  = sys_lua_cpath
 
+_G._DEBUG      = false
 local arg_0    = arg[0]
 local posix    = require("posix")
 local readlink = posix.readlink
 local stat     = posix.stat
+local access   = posix.access
 
 local st       = stat(arg_0)
 while (st.type == "link") do
-   arg_0 = readlink(arg_0)
+   local lnk = readlink(arg_0)
+   if (arg_0:find("/") and (lnk:find("^/") == nil)) then
+      local dir = arg_0:gsub("/[^/]*$","")
+      lnk       = dir .. "/" .. lnk
+   end
+   arg_0 = lnk
    st    = stat(arg_0)
 end
 
@@ -74,7 +81,9 @@ package.path  = LuaCommandName_dir .. "../tools/?.lua;"      ..
                 LuaCommandName_dir .. "../shells/?.lua;"     ..
                 LuaCommandName_dir .. "?.lua;"               ..
                 sys_lua_path
-package.cpath = sys_lua_cpath
+
+package.cpath = LuaCommandName_dir .. "../lib/?.so;"..
+                sys_lua_cpath
 
 function cmdDir()
    return LuaCommandName_dir
@@ -168,9 +177,14 @@ end
 -- @param rmapT
 -- @param kind
 local function add2map(entry, tbl, dirA, moduleFn, rmapT, kind)
+   dbg.start{"add2map(entry, tbl, dirA, moduleFn, rmapT, kind)"}
    for path in pairs(tbl) do
       local attr = lfs.attributes(path)
-      if (keepThisPath2(path,dirA) and attr and attr.mode == "directory") then
+      local a    = attr or {}
+      local keep = keepThisPath2(path,dirA)
+      dbg.print{"path: ",path,", keep: ",keep,", attr.mode: ",a.mode,"\n"}
+
+      if (keep and attr and attr.mode == "directory") then
          path = abspath(path)
          local t       = rmapT[path] or {pkg=entry.fullName, kind = kind, moduleFn = moduleFn, flavorT = {}}
          local flavorT = t.flavorT
@@ -187,9 +201,11 @@ local function add2map(entry, tbl, dirA, moduleFn, rmapT, kind)
                flavorT[key] = true
             end
          end
+         dbg.print{"assigning rmapT for path: ",path,"\n"}
          rmapT[path] = t
       end
    end
+   dbg.fini("add2map")
 end
 
 --------------------------------------------------------------------------
@@ -221,10 +237,12 @@ local function rptSpiderT(mpathMapT, spiderT, timestampFn, dbT)
 end
 
 local function buildReverseMapT(dbT)
+   dbg.start{"buildReverseMapT(dbT)"}
    local reverseMapT = {}
 
    for sn,vvv in pairs(dbT) do
       for fn, entry in pairs(vvv) do
+         dbg.print{"sn: ",sn,", fn: ",fn,"\n"}
          if (entry.pathA) then
             add2map(entry, entry.pathA,  entry.dirA, fn, reverseMapT, "bin")
          end
@@ -247,6 +265,7 @@ local function buildReverseMapT(dbT)
       sort(flavor)
       vv.flavor  = flavor
    end
+   dbg.fini("buildReverseMapT")
    return reverseMapT
 end
 
@@ -269,10 +288,14 @@ local function buildLibMapA(reverseMapT)
    for path,v in pairs(reverseMapT) do
       local kind = v.kind
       if (kind == "lib") then
-         for file in lfs.dir(path) do
-            local ext = extname(file)
-            if (ext == ".a" or ext == ".so" or ext == ".dylib") then
-               libT[file] = true
+         local attr = lfs.attributes(path)
+         if (attr and type(attr) == "table" and attr.mode == "directory" and
+                access(path,"x")) then
+            for file in lfs.dir(path) do
+               local ext = extname(file)
+               if (ext == ".a" or ext == ".so" or ext == ".dylib") then
+                  libT[file] = true
+               end
             end
          end
       end
@@ -383,7 +406,12 @@ function main()
 
    for _, v in ipairs(pargs) do
       for path in v:split(":") do
-         mpathA[#mpathA+1] = path_regularize(path)
+         local my_path     = path_regularize(path)
+         if (my_path:sub(1,1) ~= "/") then
+            io.stderr:write("Each path in MODULEPATH must be absolute: ",path,"\n")
+            os.exit(1)
+         end
+         mpathA[#mpathA+1] = my_path
       end
    end
    local mpath = concatTbl(mpathA,":")
@@ -431,8 +459,9 @@ function main()
    dbg.print{"lmodPath:", lmodPath,"\n"}
    require("SitePackage")
 
-   -- Make sure that MRC ignores $MODULERC and ~/.modulerc when building the cache
-   local mrc                     = MRC:singleton({})
+   -- Make sure that MRC uses $MODULERCFILE and ignores ~/.modulerc when building the cache
+   local remove_MRC_home         = true
+   local mrc                     = MRC:singleton(getModuleRCT(remove_MRC_home))
    local cache                   = Cache:singleton{dontWrite = true, quiet = true, buildCache = true,
                                                    buildFresh = true, noMRC=true}
    local spider                  = Spider:new()
@@ -492,33 +521,52 @@ function convertEntry(name, vv, spA)
       URL         = "url",
    }
 
-
-
    local keyT = {
       Version     = "versionName",
-      full        = "full",
+      Description = "description",
+      fullName    = "full",
       help        = "help",
-      parent      = "parent"
+      parentAA    = "parent",
+      wV          = "wV",
+      hidden      = "hidden",
+      propT       = "properties",
    }
 
 
    local entry    = {}
    entry.package  = name
-   local versionT = {}
+   local versionA = {}
 
-   local first    = true
+   local wV       = " "  -- This is the lowest possible value for a pV
    local epoch    = 0
 
-   for mfPath, v in pairs(vv) do
+   local a        = {}
+
+   --------------------------------------------------------
+   -- Sort the version by pV
+
+   for mfPath,v in pairs(vv) do
+      a[#a+1] = { mfPath, v.wV }
+   end
+   
+   local function cmp_wV(x,y)
+      return x[2] < y[2]
+   end
+   sort(a,cmp_wV)
+
+   ------------------------------------------------------------
+   -- Loop over version from lowest to highest version in pv
+   -- order.
+
+   for i = 1, #a do
+      local mfPath = a[i][1]
+      local v      = vv[mfPath]
       local vT = {}
 
       vT.path = mfPath
 
-      if (first or (v.default and v.epoch > epoch) ) then
-         if (not first) then
-            epoch = v.epoch
-         end
-         first = false
+      if (v.wV > wV) then
+         wV = v.wV
          for topKey, newKey in pairs(topKeyT) do
             entry[newKey] = v[topKey]
          end
@@ -533,17 +581,18 @@ function convertEntry(name, vv, spA)
 
       vT.canonicalVersionString = ""
       if (v.Version) then
-         vT.canonicalVersionString = parseVersion(v.Version)
+         vT.canonicalVersionString = v.pV
+      end
+      if (v.wV) then
+         vT.markedDefault=isMarked(v.wV)
       end
 
-      versionT[#versionT + 1] = vT
+      versionA[#versionA + 1] = vT
    end
 
-   entry.versions = versionT
+   entry.versions = versionA
    spA[#spA+1] = entry
 end
-
-
 
 function options()
    local masterTbl = masterTbl()
@@ -667,14 +716,18 @@ end
 
 function findLatestV(a)
    local aa = {}
+   if a == nil then
+       return "default"
+   end
    for i = 1, #a do
-      local entry = a[i]
-      local b     = {}
-      for full in entry:split(":") do
-         local name, version = splitNV(full)
-         b[#b+1] = name .. "/" .. parseVersion(version)
+      local entryfull = concatTbl(a[i],":")
+      local b = {}
+      for j = 1, #a[i] do
+           local entry = a[i][j]
+           local name, version = splitNV(entry)
+           b[#b+1] = name .. "/" .. parseVersion(version)
       end
-      aa[i] = { concatTbl(b,":"), entry}
+      aa[i] = { concatTbl(b,":"), entryfull}
    end
 
    table.sort(aa, function(x,y) return x[1] > y[1] end)
@@ -739,7 +792,7 @@ function localSoftware(xml, name, t)
    root:append(Description)
 
    local Flavor = xml.new("Flavor")
-   Flavor[1]    = t.full:gsub(".*/","")
+   Flavor[1] = t.Version
    root:append(Flavor)
 
    local Default = xml.new("Default")
@@ -753,12 +806,12 @@ function localSoftware(xml, name, t)
    HType[1]     = "module"
    Handle:append(HType)
    local HKey   = xml.new("HandleKey")
-   HKey[1]      = t.full
+   HKey[1]      = t.fullName
    Handle:append(HKey)
    root:append(Handle)
 
    local Context = xml.new("Context")
-   Context[1] = findLatestV(t.parent)
+   Context[1] = findLatestV(t.parentAA)
    root:append(Context)
 
    dbg.fini()

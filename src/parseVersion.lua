@@ -14,7 +14,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -159,7 +159,7 @@ function parseVersionParts(versionStr)
          i,j = s:find("^%d+",ipos)
          if (i) then
             ipos = j + 1
-            return string.format("%09d",s:sub(i,j))
+            return string.format("%09d",tonumber(s:sub(i,j)))
          end
 
          -- grab '/'

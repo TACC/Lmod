@@ -8,7 +8,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -49,14 +49,14 @@ local stdout    = io.stdout
 Fish.my_name    = "fish"
 
 --------------------------------------------------------------------------
--- Fish:alias(): Either define or undefine a bash shell alias.
---               Modify module definition of function so that there is
+-- Fish:alias(): Either define or undefine a fish shell alias.
+--               Modify module definition of alias so that there is
 --               one and only one semicolon at the end.
 
 function Fish.alias(self, k, v)
    if (not v) then
-      stdout:write("unalias ",k," 2> /dev/null;\n")
-      dbg.print{   "unalias ",k," 2> /dev/null;\n"}
+      stdout:write("functions -e ",k,";\n")
+      dbg.print{   "functions -e ",k,";\n"}
    else
       v = v:gsub(";%s*$","")
       stdout:write("alias ",k,"='",v,"';\n")
@@ -65,18 +65,18 @@ function Fish.alias(self, k, v)
 end
 
 --------------------------------------------------------------------------
--- Fish:shellFunc(): Either define or undefine a bash shell function.
+-- Fish:shellFunc(): Either define or undefine a fish shell function.
 --                   Modify module definition of function so that there is
 --                   one and only one semicolon at the end.
 
 function Fish.shellFunc(self, k, v)
    if (not v) then
-      stdout:write("unset -f ",k," 2> /dev/null;\n")
-      dbg.print{   "unset -f ",k," 2> /dev/null;\n"}
+      stdout:write("functions -e ",k,";\n")
+      dbg.print{   "functions -e ",k,";\n"}
    else
       local func = v[1]:gsub(";%s*$","")
-      stdout:write(k,"() { ",func,"; };\n")
-      dbg.print{   k,"() { ",func,"; };\n"}
+      stdout:write("function ",k,"; ",func,"; end;\n")
+      dbg.print{   "function ",k,"; ",func,"; end;\n"}
    end
 end
 
@@ -88,8 +88,8 @@ end
 function Fish.expandVar(self, k, v, vType)
    local lineA       = {}
    v                 = tostring(v):multiEscaped()
-   if (vType == "path") then
-      v = v:gsub(":",'" "')
+   if (k == "PATH" or k == "INFOPATH") then
+      v = v:gsub(":",' ')
    end
    lineA[#lineA + 1] = "set "
    lineA[#lineA + 1] = "-x "

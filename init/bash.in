@@ -5,21 +5,27 @@
 # Start Lmod BASHENV
 ########################################################################
 
-# Remember the XTRACE and VERBOSE states so that they are restored
-# at the end of this script.
-[[ ${-/x} != $- ]] && XTRACE_STATE="-x"  || XTRACE_STATE="+x"
-[[ ${-/v} != $- ]] && VERBOSE_STATE="-v" || VERBOSE_STATE="+v"
-set +xv     # Turn off tracing for now.
+if [ -z "${LMOD_SH_DBG_ON+x}" ]; then
+   case "$-" in
+     *v*x*) __lmod_vx='vx' ;;
+     *v*)   __lmod_vx='v'  ;;
+     *x*)   __lmod_vx='x'  ;;
+   esac;
+fi
 
+[ -n "${__lmod_vx:-}" ] && set +$__lmod_vx 
 
-LMOD_PKG=@PKGV@
-LMOD_DIR=@PKGV@/libexec
-LMOD_CMD=@PKGV@/libexec/lmod
-MODULESHOME=@PKGV@
-export LMOD_PKG
-export LMOD_CMD
-export LMOD_DIR
-export MODULESHOME
+export LMOD_PKG=@PKGV@
+
+if [ -n "${__lmod_vx:-}" ]; then
+    echo "Shell debugging temporarily silenced: export LMOD_SH_DBG_ON=1 for this output ($LMOD_PKG/init/bash)"
+fi
+
+export LMOD_DIR=$LMOD_PKG/libexec
+export LMOD_CMD=$LMOD_PKG/libexec/lmod
+export MODULESHOME=$LMOD_PKG
+
+export LMOD_SETTARG_FULL_SUPPORT=@lmod_settarg_full_support@
 
 ########################################################################
 #  Define the module command:  The first line runs the "lmod" command
@@ -57,11 +63,44 @@ export MODULESHOME
 #
 # See Lmod web site for more details.
 
-module()
-{
-  eval $($LMOD_CMD bash "$@")
-  [ $? = 0 ] && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
-}
+
+if [ "@silence_shell_debugging@" = "no" ]; then
+   module()
+   {
+     eval $($LMOD_CMD @my_shell@ "$@") && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
+   }
+else
+   module()
+   {
+     ############################################################
+     # Silence shell debug UNLESS $LMOD_SH_DBG_ON has a value
+     if [ -z "${LMOD_SH_DBG_ON+x}" ]; then
+        case "$-" in
+          *v*x*) __lmod_sh_dbg='vx' ;;
+          *v*)   __lmod_sh_dbg='v'  ;;
+          *x*)   __lmod_sh_dbg='x'  ;;
+        esac;
+     fi
+     
+     if [ -n "${__lmod_sh_dbg:-}" ]; then
+        set +$__lmod_sh_dbg 
+        echo "Shell debugging temporarily silenced: export LMOD_SH_DBG_ON=1 for Lmod's output"
+     fi
+
+     eval $($LMOD_CMD @my_shell@ "$@") && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
+     local _lmod_my_status=$?
+
+     ############################################################
+     # Un-silence shell debug after module command
+     if [ -n "${__lmod_sh_dbg:-}" ]; then
+       echo "Shell debugging restarted"
+       set -$__lmod_sh_dbg;
+       unset __lmod_sh_dbg;
+     fi;
+     return $_lmod_my_status
+   }
+fi
+
 
 LMOD_VERSION="@lmod_version@"
 export LMOD_VERSION
@@ -88,8 +127,7 @@ ml()
   eval $($LMOD_DIR/ml_cmd "$@")
 }
 
-export_module=$(echo "@export_module@" | @tr@ '[:upper:]' '[:lower:]')
-if [ -n "${BASH_VERSION:-}" -a "$export_module" != no ]; then
+if [ -n "${BASH_VERSION:-}" -a "@export_module@" != no ]; then
   export -f module
   export -f ml
 fi
@@ -104,35 +142,10 @@ clearMT()
   eval $($LMOD_DIR/clearMT_cmd bash)
 }
 
-########################################################################
-#  The following make the action of the settarg available to the titlebar
-#  for both xterm's and screen but only for interactive shells.
-if [ -n "${PS1:-}" ]; then
-  if [ -n "${LMOD_FULL_SETTARG_SUPPORT:-}" -a "$LMOD_FULL_SETTARG_SUPPORT" != no ]; then
-    xSetTitleLmod()
-    {
-      builtin echo -n -e "\033]2;$1\007";
-    }
-    SET_TITLE_BAR=:
-
-    case "$TERM" in
-      xterm*)
-        SET_TITLE_BAR=xSetTitleLmod
-        ;;
-    esac
-
-    SHOST=${SHOST-${HOSTNAME%%.*}}
-    precmd()
-    {
-      eval $(${LMOD_SETTARG_CMD:-:} -s bash)
-      ${SET_TITLE_BAR:-:} "${TARG_TITLE_BAR_PAREN}${USER}@${SHOST}:${PWD/#$HOME/~}"
-      ${USER_PROMPT_CMD:-:}
-    }
-
-    # define the PROMPT_COMMAND to be precmd iff it isn't defined already.
-    : ${PROMPT_COMMAND:=precmd}
-  fi
-fi
+xSetTitleLmod()
+{
+  builtin echo -n -e "\033]2;$1\007";
+}
 
 ########################################################################
 #  Make tab completions available to bash users.
@@ -142,10 +155,12 @@ if [ ${BASH_VERSINFO:-0} -ge 3 ] && [ -r  @PKGV@/init/lmod_bash_completions ] &&
 fi
 
 
-
 # Restoring XTRACE and VERBOSE states.
-set  $XTRACE_STATE $VERBOSE_STATE
-unset XTRACE_STATE  VERBOSE_STATE
+if [ -n "${__lmod_vx:-}" ]; then
+  echo "Shell debugging restarted"
+  set -$__lmod_vx;
+  unset __lmod_vx;
+fi;
 
 ########################################################################
 # End Lmod BASHENV

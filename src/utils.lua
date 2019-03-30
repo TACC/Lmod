@@ -1,3 +1,6 @@
+_G._DEBUG          = false
+local posix        = require("posix")
+
 require("strict")
 
 --------------------------------------------------------------------------
@@ -10,7 +13,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -40,7 +43,6 @@ require("myGlobals")
 require("pairsByKeys")
 require("string_utils")
 
-_G._DEBUG          = false
 local Version      = require("Version")
 local arg_0        = arg[0]
 local base64       = require("base64")
@@ -54,7 +56,6 @@ local getenv       = os.getenv
 local huge         = math.huge
 local min          = math.min
 local open         = io.open
-local posix        = require("posix")
 local readlink     = posix.readlink
 local setenv_posix = posix.setenv
 local stat         = posix.stat
@@ -64,8 +65,8 @@ local strfmt       = string.format
 -- This is 5.1 Lua function to cover the table.pack function
 -- that is in Lua 5.2 and later.
 function argsPack(...)
-   local arg = { n = select("#", ...), ...}
-   return arg
+   local argA = { n = select("#", ...), ...}
+   return argA
 end
 pack     = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
@@ -81,12 +82,12 @@ end
 -- Generate a message that will fix the available terminal width.
 -- @param width The terminal width
 function buildMsg(width, ... )
-   local arg = pack(...)
-   local a   = {}
-   local len = 0
+   local argA = pack(...)
+   local a    = {}
+   local len  = 0
 
-   for idx = 1, arg.n do
-      local block  = arg[idx]
+   for idx = 1, argA.n do
+      local block  = argA[idx] or ""
       local done   = false
       while (not done) do
          local hasNL  = false
@@ -136,7 +137,7 @@ function buildMsg(width, ... )
          if (a[#a] == " ") then
             a[#a] = nil
          end
-         local last = a[#a]:sub(-1)
+         local last = (a[#a] or " "):sub(-1)
          if (last ~= '"' and last ~= "\n") then
             a[#a + 1] = " "
          end
@@ -215,18 +216,19 @@ end
 -- Use the *propT* table to colorize the module name when requested by
 -- *propT*.
 -- @param style How to colorize
--- @param moduleName The module name
+-- @param modT The module table contain fullName, sn and fn
 -- @param propT The property table
 -- @param legendT The legend table.  A key-value pairing of keys to descriptions.
 -- @return An array of colorized strings
-function colorizePropA(style, moduleName, mrc, propT, legendT)
+function colorizePropA(style, modT, mrc, propT, legendT)
    local readLmodRC   = require("ReadLmodRC"):singleton()
    local propDisplayT = readLmodRC:propT()
    local iprop        = 0
    local pA           = {}
+   local moduleName   = modT.fullName
    propT              = propT or {}
 
-   if (not mrc:isVisible(moduleName)) then
+   if (not mrc:isVisible(modT)) then
       local i18n = require("i18n")
       local H    = 'H'
       moduleName = colorize("hidden",moduleName)
@@ -238,18 +240,21 @@ function colorizePropA(style, moduleName, mrc, propT, legendT)
    
    local resultA      = { moduleName }
    for kk,vv in pairsByKeys(propDisplayT) do
-      iprop        = iprop + 1
-      local propA  = {}
-      local t      = propT[kk]
-      local result = ""
-      local color  = nil
+      iprop            = iprop + 1
+      local propA      = {}
+      local t          = propT[kk]
+      local result     = ""
+      local color      = nil
+      local name_color = nil
+      local full_color = false
       if (type(t) == "table") then
          for k in pairs(t) do
             propA[#propA+1] = k
          end
 
          table.sort(propA);
-         local n = concatTbl(propA,":")
+         local full_color = false
+         local n          = concatTbl(propA,":")
          if (vv.displayT[n]) then
             result     = vv.displayT[n][style]
             if (result:sub( 1, 1) == "(" and result:sub(-1,-1) == ")") then
@@ -258,6 +263,10 @@ function colorizePropA(style, moduleName, mrc, propT, legendT)
             color      = vv.displayT[n].color
             local k    = colorize(color,result)
             legendT[k] = vv.displayT[n].doc
+            full_color = vv.displayT[n].full_color
+            if (full_color) then
+               resultA[1] = colorize(color,resultA[1])
+            end
          end
       end
       local s             = colorize(color,result)
@@ -301,18 +310,9 @@ end
 function findAdminFn()
    local readable    = "no"
    local adminFn     = cosmic:value("LMOD_ADMIN_FILE")
-   local dirName, fn = splitFileName(adminFn)
-   if (isDir(dirName)) then
-      local cwd      = posix.getcwd()
-      posix.chdir(dirName)
-      dirName = posix.getcwd()
-      adminFn = pathJoin(dirName, fn)
-      posix.chdir(cwd)
-      if (posix.access(adminFn, 'r')) then
-         readable = "yes"
-      end
+   if (posix.access(adminFn, 'r')) then
+      readable = "yes"
    end
-
    return adminFn, readable
 end
 
@@ -331,14 +331,14 @@ function readAdmin()
 
    -- If there is anything in [[adminT]] then return because
    -- this routine has already read in the file.
-   if (next (adminT)) then return end
+   if (next (adminA)) then return end
 
    local adminFn = findAdminFn()
    local f       = open(adminFn,"r")
 
    -- Put something in adminT so that this routine will not be
    -- run again even if the file does not exist.
-   adminT["%%_foo_%%"] = "bar"
+   adminA[#adminA+1] = { "%%_foo_%%", "bar" }
 
    if (f) then
       local whole = f:read("*all") .. "\n"
@@ -348,13 +348,13 @@ function readAdmin()
       -- Split lines on ":" module:message
 
       local state = "init"
-      local key   = "unknown"
+      local keyA  = {}
       local value = nil
       local a     = {}
 
       for v in whole:split("\n") do
          repeat
-            v = v:trim()
+            v = v:gsub("%s+$","")
 
             if (v:sub(1,1) == "#") then
                -- ignore this comment line
@@ -362,20 +362,26 @@ function readAdmin()
 
             elseif (v:find("^%s*$")) then
                if (state == "value") then
-                  value       = concatTbl(a, " ")
-                  a           = {}
-                  adminT[key] = value
-                  state       = "init"
+                  value             = concatTbl(a, "")
+                  for i = 1, #keyA do
+                     adminA[#adminA+1] = { keyA[i], value }
+                  end
+                  a                 = {}
+                  keyA              = {}
+                  state             = "init"
                end
 
                -- Ignore blank lines
             elseif (state == "value") then
-               a[#a+1]     = v:trim()
+               a[#a+1]     = v .. "\n"
             else
                local i     = v:find(":")
                if (i) then
-                  key      = v:sub(1,i-1):trim()
-                  local  s = v:sub(i+1):trim()
+                  local k = v:sub(1,i-1):trim()
+                  for key in k:split('|') do
+                     keyA[#keyA+1] = key:trim()
+                  end
+                  local s = v:sub(i+1)
                   if (s:len() > 0) then
                      a[#a+1]  = s
                   end
@@ -417,22 +423,48 @@ end
 ------------------------------------------------------------
 -- Get the table of modulerc files with proper weights
 
-function getModuleRCT()
-   local A           = {}
-   local MRC_system  = cosmic:value("LMOD_MODULERCFILE")
-   local MRC_home    = pathJoin(getenv("HOME"), ".modulerc")
-   if (MRC_system and isFile(MRC_system)) then
-      A[#A+1] = { MRC_system, "s"}
+function getModuleRCT(remove_MRC_home)
+   local A            = {}
+   local MRC_system   = cosmic:value("LMOD_MODULERCFILE")
+   local MRC_home     = pathJoin(getenv("HOME"), ".modulerc")
+   local MRC_home_lua = pathJoin(getenv("HOME"), ".modulerc.lua")
+
+   if (MRC_system) then
+      local a = {}
+      for file in MRC_system:split(":") do
+         if (isFile(file)) then
+            a[#a+1] = file
+         end
+      end
+      for i = #a, 1, -1 do
+         A[#A+1] = { a[i], "s"}
+      end
    end
-   if (isFile(MRC_home)) then
-      A[#A+1] = { MRC_home, "u"}
+   if (not remove_MRC_home) then
+      if (isFile(MRC_home_lua)) then
+         A[#A+1] = { MRC_home_lua, "u"}
+      elseif (isFile(MRC_home)) then
+         A[#A+1] = { MRC_home, "u"}
+      end
    end
    return A
 end
 
-function isActiveMFile(mrc, full, sn)
+function isActiveMFile(mrc, full, sn, fn)
    local version = extractVersion(full, sn) or ""
-   return mrc:isVisible(full), version
+   return mrc:isVisible({fullName=full, sn=sn, fn=fn}), version
+end
+
+-----------------------------------------------------------------------
+-- This function decides if the modulefile is a marked default
+-- The rule is that a marked default is given in the first character
+-- after the '/' if there is one.  A marked default will either be
+-- '^','s' or 'u'.  All of these characters are >= '^'
+function isMarked(wV)
+   local i,j = wV:find(".*/")
+   j = j and j+1 or 1
+   local c = wV:sub(j,j)
+   return (c >= '^') 
 end
 
 --------------------------------------------------------------------------
@@ -512,7 +544,7 @@ function path2pathA(path, sep)
 
    local n = #pathA
    local i = n
-   while (pathA[i] == "") do
+   while (pathA[i] == "" or pathA[i] == " ") do
       i = i - 1
    end
    i = i + 2
@@ -533,17 +565,10 @@ function quiet()
    return __quiet
 end
 
-
-function runTCLprog(TCLprog, optStr, fn)
-   local a   = {}
-   a[#a + 1] = cosmic:value("LMOD_TCLSH")
-   a[#a + 1] = pathJoin(cmdDir(),TCLprog)
-   a[#a + 1] = optStr or ""
-   a[#a + 1] = fn
-   local cmd = concatTbl(a," ")
-   local whole, status = capture(cmd)
-   return whole, status
+function regular_cmp(x,y)
+   return x.pV < y.pV
 end
+
 
 function sanizatizeTbl(rplmntA, inT, outT)
    for k, v in pairs(inT) do
@@ -557,7 +582,7 @@ function sanizatizeTbl(rplmntA, inT, outT)
          end
       end
 
-      if (type(key) == "string" and key:sub(1,1) == '_') then
+      if (type(key) == "string" and key:sub(1,2) == '__') then
          outT[key] = nil
       elseif (type(v) == "table") then
          outT[key] = {}
@@ -644,14 +669,14 @@ local s_defaultsT = {
 function ShowCmdStr(name, ...)
    dbg.start{"ShowCmdStr(",name,", ...)"}
    local a       = {}
-   local arg     = pack(...)
-   local n       = arg.n
-   local t       = arg
+   local argA    = pack(...)
+   local n       = argA.n
+   local t       = argA
    local hasKeys = false
    local left    = "("
    local right   = ")\n"
-   if (arg.n == 1 and type(arg[1]) == "table") then
-      t       = arg[1]
+   if (argA.n == 1 and type(argA[1]) == "table") then
+      t       = argA[1]
       n       = #t
       hasKeys = true
    end
@@ -773,9 +798,35 @@ function getWarningFlag()
    return s_warning
 end
 
+local function l_runTCLprog(TCLprog, tcl_args)
+   local a   = {}
+   a[#a + 1] = cosmic:value("LMOD_TCLSH")
+   a[#a + 1] = TCLprog
+   a[#a + 1] = tcl_args or ""
+   local cmd = concatTbl(a," ")
+   local whole, status = capture(cmd)
+   return whole, status
+end
+
 --------------------------------------------------------------------------
--- Build function -> accept, epoch, prepend_order_function()
+-- Build function -> accept, epoch, prepend_order_function(), runTCLprog
 --------------------------------------------------------------------------
+
+--------------------------------------------------------------------------
+-- determine which version of runTCLprog to use
+
+local function build_runTCLprog()
+   local fast_tcl_interp = cosmic:value("LMOD_FAST_TCL_INTERP")
+   if (fast_tcl_interp == "no") then
+      _G.runTCLprog = l_runTCLprog
+   else
+      _G.runTCLprog = require("tcl2lua").runTCLprog
+   end
+end
+
+if (not runTCLprog) then
+   build_runTCLprog()
+end
 
 --------------------------------------------------------------------------
 -- Create the accept functions to allow or ignore TCL modulefiles.

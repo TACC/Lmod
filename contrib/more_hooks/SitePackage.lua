@@ -1,15 +1,17 @@
 --------------------------------------------------------------------------
--- Copyright 2016-2016 Ghent University
+-- Copyright 2016-2017 Ward Poelmans (wpoely86@gmail.com)
 --------------------------------------------------------------------------
 
 require("strict")
 require("cmdfuncs")
 require("utils")
 require("lmod_system_execute")
+require("parseVersion")
+
 local Dbg   = require("Dbg")
 local dbg   = Dbg:dbg()
 local hook  = require("Hook")
-local ModuleStack  = require("ModuleStack")
+local FrameStk  = require("FrameStk")
 
 
 local function logmsg(logTbl)
@@ -18,7 +20,7 @@ local function logmsg(logTbl)
     -- added in order. Expect format:
     -- logTbl[#logTbl+1] = {'log_key', 'log_value'}
 
-    local jobid = os.getenv("PBS_JOBID") or ""
+    local jobid = os.getenv("PBS_JOBID") or "" -- for MOAB/PBS
     local user  = os.getenv("USER")
     local msg   = string.format("username=%s, jobid=%s", user, jobid)
 
@@ -39,8 +41,8 @@ local function load_hook(t)
 
     -- if userload is yes, the user request to load this module. Else
     -- it is getting loaded as a dependency.
-    local mStack   = ModuleStack:moduleStack()
-    local userload = (mStack:atTop()) and "yes" or "no"
+    local frameStk = FrameStk:singleton()
+    local userload = (frameStk:atTop()) and "yes" or "no"
 
     local logTbl      = {}
     logTbl[#logTbl+1] = {"userload", userload}
@@ -62,6 +64,7 @@ local function startup_hook(usrCmd)
     dbg.print{"Received usrCmd: ", usrCmd, "\n"}
     dbg.print{"masterTbl:", masterTbl, "\n"}
 
+    -- Log how Lmod was called
     local fullargs    = table.concat(masterTbl.pargs, " ") or ""
     local logTbl      = {}
     logTbl[#logTbl+1] = {"cmd", usrCmd}
@@ -69,11 +72,25 @@ local function startup_hook(usrCmd)
 
     logmsg(logTbl)
 
+    -- restore the original LD_LIBRARY_PATH and LD_PRELOAD
+    -- The bash module/ml function renames both to ensure that
+    -- lua (and thus Lmod) keep on working. We restore them
+    -- once lua is started.
+    local env_vars = {"LD_LIBRARY_PATH", "LD_PRELOAD"}
+
+    for _, var in ipairs(env_vars) do
+        local orig_val = os.getenv("ORIG_" .. var) or ""
+        if orig_val ~= "" then
+            dbg.print{"Setting ", var, " to ", orig_val, "\n"}
+            posix.setenv(var, orig_val)
+        end
+    end
+
     dbg.fini()
 end
 
 local function msg_hook(mode, output)
-    -- mode is avail, list, ...
+    -- mode is avail, list and spider
     -- output is a table with the current output
 
     dbg.start{"msg_hook"}
@@ -82,14 +99,65 @@ local function msg_hook(mode, output)
 
     if mode == "avail" then
         output[#output+1] = "\nIf you need software that is not listed, request it at the helpdesk.\n"
-    elseif mode == "lmoderror" or mode == "lmodwarning" then
-        output[#output+1] = "\nIf you don't understand the warning or error, contact the helpdesk.\n"
     end
 
     dbg.fini()
 
     return output
 end
+
+-- This gets called on every message, warning and error
+local function errwarnmsg_hook(kind, key, msg, t)
+    -- kind is either lmoderror, lmodwarning or lmodmessage
+    -- msg is the actual message to display (as string)
+    -- key is a unique key for the message (see messageT.lua)
+    -- t is a table with the keys used in msg
+    dbg.start{"errwarnmsg_hook"}
+
+    dbg.print{"kind: ", kind," key: ",key,"\n"}
+    dbg.print{"keys: ", t}
+
+    if key == "e_No_AutoSwap" then
+        -- Customize this error for EasyBuild modules
+        -- When the users gets this error, it mostly likely means
+        -- that they are trying to load modules belonging to different version of the same toolchain
+        --
+        -- find the module name causing the issue (almost always toolchain module)
+        local sname = t.sn
+        local frameStk = FrameStk:singleton()
+
+        local errmsg = {"A different version of the '"..sname.."' module is already loaded (see output of 'ml')."}
+        if not frameStk:empty() then
+            local framesn = frameStk:sn()
+            errmsg[#errmsg+1] = "You should load another '"..framesn.."' module for that is compatible with the currently loaded version of '"..sname.."'."
+            errmsg[#errmsg+1] = "Use 'ml spider "..framesn.."' to get an overview of the available versions."
+        end
+        errmsg[#errmsg+1] = "\n"
+
+        msg = table.concat(errmsg, "\n")
+    end
+
+    if kind == "lmoderror" or kind == "lmodwarning" then
+        msg = msg .. "\nIf you don't understand the warning or error, contact the helpdesk at <email>"
+    end
+
+    -- log any errors users get
+    if kind == "lmoderror" then
+        local logTbl      = {}
+        logTbl[#logTbl+1] = {"error", key}
+
+        for tkey, tval in pairs(t) do
+            logTbl[#logTbl+1] = {tkey, tval}
+        end
+
+        logmsg(logTbl)
+    end
+
+    dbg.fini()
+
+    return msg
+end
+
 
 local function site_name_hook()
     -- set the SiteName, it must be a valid
@@ -98,7 +166,40 @@ local function site_name_hook()
 end
 
 
+-- To combine EasyBuild with XALT
+local function packagebasename(t)
+    -- Use the EBROOT variables in the module
+    -- as base dir for the reverse map
+    t.patDir = "^EBROOT.*"
+end
+
+
+local function visible_hook(modT)
+    -- modT is a table with: fullName, sn, fn and isVisible
+    -- The latter is a boolean to determine if a module is visible or not
+
+    dbg.start{"visible_hook"}
+
+    dbg.print{"Received modT: ", modT, "\n"}
+
+    -- EasyBuild example: if the intel or foss toolchain is older then 2 years, hide it.
+    -- Lua patterns do not support "intel|foss"
+    local tcver = modT.fullName:match("intel%-(20[0-9][0-9][ab])") or modT.fullName:match("foss%-(20[0-9][0-9][ab])")
+    if tcver == nil then return end
+
+    local cutoff = string.format("%da", os.date("%Y") - 2)
+    if parseVersion(tcver) < parseVersion(cutoff) then
+        modT.isVisible = false
+    end
+
+    dbg.fini()
+end
+
+
 hook.register("load", load_hook)
 hook.register("startup", startup_hook)
 hook.register("msgHook", msg_hook)
 hook.register("SiteName", site_name_hook)
+hook.register("packagebasename", packagebasename)
+hook.register("errWarnMsgHook", errwarnmsg_hook)
+hook.register("isVisibleHook", visible_hook)

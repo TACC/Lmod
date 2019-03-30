@@ -1,4 +1,6 @@
 _G._DEBUG=false
+local posix     = require("posix")
+
 require("strict")
 require("utils")
 require("fileOps")
@@ -11,7 +13,6 @@ local ModuleA   = require("ModuleA")
 local concatTbl = table.concat
 local cosmic    = require("Cosmic"):singleton()
 local getenv    = os.getenv
-local posix     = require("posix")
 local testDir   = "spec/ModuleA"
 describe("Testing ModuleA Class #ModuleA.",
          function()
@@ -34,6 +35,7 @@ describe("Testing ModuleA Class #ModuleA.",
                                  dirT = {},
                                  fileT = {
                                     ["bio/bowtie/.128/1.0"]  = {
+                                       ["Version"] = ".128/1.0",
                                        ["canonical"] = "1.0",
                                        ["fn"] = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/.128/1.0.lua",
                                        ["luaExt"] = 4,
@@ -48,6 +50,7 @@ describe("Testing ModuleA Class #ModuleA.",
                                  dirT = {},
                                  fileT = {
                                     ["bio/bowtie/32/.3.0"]  = {
+                                       ["Version"] = "32/.3.0",
                                        ["canonical"] = ".3.0",
                                        ["fn"] = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/32/.3.0.lua",
                                        ["luaExt"] = 5,
@@ -56,6 +59,7 @@ describe("Testing ModuleA Class #ModuleA.",
                                        ["wV"] = "000000032/000000000.000000003.*zfinal",
                                     },
                                     ["bio/bowtie/32/1.0"]  = {
+                                       ["Version"] = "32/1.0",
                                        ["canonical"] = "1.0",
                                        ["fn"] = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/32/1.0.lua",
                                        ["luaExt"] = 4,
@@ -64,6 +68,7 @@ describe("Testing ModuleA Class #ModuleA.",
                                        ["wV"] = "000000032/s00000001.*zfinal",
                                     },
                                     ["bio/bowtie/32/2.0"]  = {
+                                       ["Version"] = "32/2.0",
                                        ["canonical"] = "2.0",
                                        ["fn"] = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/32/2.0.lua",
                                        ["luaExt"] = 4,
@@ -84,6 +89,7 @@ describe("Testing ModuleA Class #ModuleA.",
                                  dirT = {},
                                  fileT = {
                                     ["bio/bowtie/64/2.0"]  = {
+                                       ["Version"] = "64/2.0",
                                        ["canonical"] = "2.0",
                                        ["fn"] = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/64/2.0.lua",
                                        ["luaExt"] = 4,
@@ -117,6 +123,7 @@ describe("Testing ModuleA Class #ModuleA.",
                            dirT = {},
                            fileT = {
                               ["boost/1.46.0"]  = {
+                                 ["Version"] = "1.46.0",
                                  ["canonical"] = "1.46.0",
                                  ["fn"] = "%ProjDir%/spec/ModuleA/mf/boost/1.46.0.lua",
                                  ["luaExt"] = 7,

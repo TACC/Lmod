@@ -1,0 +1,75 @@
+-- -*- lua -*-
+local testName = "depends_on"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 "depends_on"
+   ]],
+   keywords = {testName },
+
+   active   = true,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     export MODULEPATH=$(testDir)/mf/Core
+
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+
+     runLmod --version                         # 1
+     runLmod load A X                          # 2
+     runLmod list                              # 3
+     runLmod unload X                          # 4
+     runLmod list                              # 5
+     runLmod unload A                          # 6
+     runLmod load X Y                          # 7
+     runLmod list                              # 8
+     runLmod save                              # 9
+     runLmod unload X                          #10
+     runLmod list                              #11
+     runLmod unload Y                          #12
+     runLmod list                              #13
+     runLmod load X                            #14
+     runLmod unload A                          #15
+     runLmod restore                           #16
+     runLmod unload A                          #17
+     runLmod purge                             #18
+     runLmod load Y                            #19
+     runLmod list                              #20
+     runLmod save                              #21
+     runLmod restore                           #22
+     runLmod unload Y                          #23
+     runLmod list                              #24
+     runLmod load Z                            #25
+
+     HOME=$ORIG_HOME
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

@@ -8,7 +8,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -47,12 +47,15 @@ return {
      ml_help               = nil,
      ml_opt                = nil,
      ml_2many              = nil,
+     ml_misplaced_opt      = nil,
      
      --------------------------------------------------------------------------
      -- LmodError messages
      --------------------------------------------------------------------------
      e_Args_Not_Strings    = nil,
      e_Avail_No_MPATH      = nil,
+     e_BrokenCacheFn       = nil,
+     e_BrokenQ             = nil,
      e_Conflict            = nil,
      e_Execute_Msg         = nil,
      e_Failed_2_Find       = nil,
@@ -61,6 +64,7 @@ return {
      e_Failed_Load         = nil,
      e_Failed_Load_2       = nil,
      e_Family_Conflict     = nil,
+     e_Illegal_Load        = nil,
      e_LocationT_Srch      = "LocationT:search() 出现错误", 
      e_Missing_Value       = nil,
      e_MT_corrupt          = nil,
@@ -76,9 +80,9 @@ return {
      e_Prereq_Any          = nil,
      e_Spdr_Timeout        = nil,
      e_Swap_Failed         = nil,
-     e_SYS_DFLT_EMPTY      = nil,
      e_Unable_2_Load       = nil,
      e_Unable_2_parse      = "不能解析 \"%{path}\". 已退出！\n",      
+     e_Unable_2_rename     = nil,
      e_Unknown_Coll        = nil,
      e_coll_corrupt        = nil,
      e_dbT_sn_fail         = nil,
@@ -90,12 +94,14 @@ return {
      --------------------------------------------------------------------------
      m_Activate_Modules    = nil,
      m_Additional_Variants = nil,
+     m_Collection_disable  = nil,
      m_Depend_Mods         = nil,
      m_Description         = nil,
      m_Direct_Load         = nil,
      m_Family_Swap         = "\nLmod 已经自动将 \"%{oldFullName}\" 替换为 \"%{newFullName}\"\n",   
      m_For_System          = nil,
      m_Inactive_Modules    = nil,
+     m_IsNVV               = nil,
      m_Module_Msgs         = nil,
      m_No_Named_Coll       = nil,
      m_No_Search_Cmd       = nil,
@@ -124,11 +130,13 @@ return {
      w_Broken_FullName     = "模块版本行格式不正确：模块名称必须完全限定：％{fullName} 不符合.\n",
      w_Empty_Coll          = "由于\"%{collectionName}\" 为空, 未载入任何模块!\n",
      w_Failed_2_Find       = nil,
+     w_MissingModules      = nil,
      w_MPATH_Coll          = "系统MODULEPATH 已被修改：请重建您保存的模块集",
      w_Mods_Not_Loaded     = "下列模块没有被载入: %{module_list}\n\n",
      w_No_Coll             = "找不到\"%{collection}\" .",
      w_No_dot_Coll         = nil,
      w_Save_Empty_Coll     = nil,
+     w_SYS_DFLT_EMPTY      = nil,
      w_System_Reserved     = nil,
      w_Undef_MPATH         = nil,
      w_Unknown_Hook        = nil,
@@ -178,6 +186,7 @@ return {
      collctn6              = nil,
      collctn7              = nil,
      collctn8              = nil,
+     collctn9              = nil,
 
      depr_title            = nil,
      depr1                 = nil,
@@ -236,6 +245,8 @@ return {
      nrdirect_H= nil,
      hidden_H  = nil,
      spdrT_H   = nil,
+     trace_T   = nil,
+
      Where     = nil,
      Inactive  = nil,
      DefaultM  = nil,
@@ -247,6 +258,19 @@ return {
      aliasMsg  = nil,
      noModules = nil,
      noneFound = nil,
+
+     --------------------------------------------------------------------------
+     -- Other strings:
+     --------------------------------------------------------------------------
+     coll_contains  = nil,
+     currLoadedMods = nil,
+     keyword_msg    = nil,
+     lmodSystemName = nil,
+     matching       = nil,
+     namedCollList  = nil,
+     noModsLoaded   = nil,
+     specific_hlp   = nil,
+
    }
 }
 

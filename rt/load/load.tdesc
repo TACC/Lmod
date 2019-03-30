@@ -20,12 +20,14 @@ testdescript = {
      initStdEnvVars
      MODULEPATH_ROOT=$(testDir)/mf;  export MODULEPATH_ROOT
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua mf
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
+     mkdir -p mf/bad_symlink
+     ln -s 1.0.lua mf/bad_symlink/2.0.lua
 
      runLmod --version                                      #  1
      runLmod use -a $testDir/mf/Core $testDir/mf/Beta       #  2
-     runLmod use $testDir/mf/notDir                         #  3
+     runLmod use $testDir/mf/notDir  $outputDir/mf          #  3
      runLmod load admin PrgEnv                              #  4
      runLmod load gotoblas/1.30-beta                        #  5
      runLmod rm   gotoblas/1.30-beta                        #  6
@@ -35,41 +37,42 @@ testdescript = {
      runLmod unload multi                                   # 10
      runLmod load boost                                     # 11
      runLmod use -a $testDir/mf/Core2                       # 12
-     runLmod avail                                          # 13
-     runLmod -d avail                                       # 14
-     runLmod unload boost                                   # 15
-     runLmod load boost/1.33.0                              # 16
-     runLmod load boost/1.57.0                              # 17
-     runLmod load boost                                     # 18
-     runLmod load alex                                      # 19
-     runLmod load D                                         # 20
-     runLmod --latest load rtm_intel                        # 21
-     runLmod list                                           # 22
-     runLmod use    $testDir/mf/Share                       # 23
-     runLmod use -a $testDir/mf/Scratch                     # 24
-     runLmod -r avail A B                                   # 25
-     runLmod load  A B                                      # 26
-     runLmod list                                           # 27
-     runLmod load  DoesNotExist                             # 28
+     runLmod load _a                                        # 13
+     runLmod load __b                                       # 14
+     runLmod avail                                          # 15
+     runLmod -d avail                                       # 16
+     runLmod unload boost                                   # 17
+     runLmod load boost/1.33.0                              # 18
+     runLmod load boost/1.57.0                              # 19
+     runLmod load boost                                     # 20
+     runLmod load alex                                      # 21
+     runLmod load D                                         # 22
+     runLmod --latest load rtm_intel                        # 23
+     runLmod list                                           # 24
+     runLmod use    $testDir/mf/Share                       # 25
+     runLmod use -a $testDir/mf/Scratch                     # 26
+     runLmod -r avail A B                                   # 27
+     runLmod load  A B                                      # 28
      runLmod list                                           # 29
-     runLmod tablelist                                      # 30
-     runLmod avail                                          # 31
-     runLmod avail C                                        # 32
-     runLmod load C                                         # 33
-     runLmod list                                           # 34
-     runLmod load rtm_intel                                 # 35
-     runLmod load go                                        # 36
-     runLmod load bad_symlink                               # 37
-     runLmod load empty                                     # 38
-     runLmod load version_only                              # 39
-     runLmod load dflt                                      # 40
-     runLmod list                                           # 41
-
-     runLmod load noweb/2.10c.lua                           # 42
+     runLmod load  DoesNotExist                             # 30
+     runLmod list                                           # 31
+     runLmod tablelist                                      # 32
+     runLmod avail                                          # 33
+     runLmod avail C                                        # 34
+     runLmod load C                                         # 35
+     runLmod list                                           # 36
+     runLmod load rtm_intel                                 # 37
+     runLmod load go                                        # 38
+     runLmod load bad_symlink                               # 39
+     runLmod load empty                                     # 40
+     runLmod load version_only                              # 41
+     runLmod load dflt                                      # 42
+     runLmod list                                           # 43
+     runLmod load noweb/2.10c.lua                           # 44
 
      export LMOD_DISABLE_SAME_NAME_AUTOSWAP=yes
-     runLmod load moduleA/1.0                               # 43
-     runLmod load moduleB/1.0                               # 44
+     runLmod load moduleA/1.0                               # 45
+     runLmod load moduleB/1.0                               # 46
      
 
      HOME=$ORIG_HOME

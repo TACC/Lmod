@@ -6,76 +6,102 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load PrgEnv
 ===========================
-INFOPATH="/local/info:/usr/share/info";
+__LMOD_REF_COUNT_INFOPATH=/local/info:1\;/usr/share/info:1;
+export __LMOD_REF_COUNT_INFOPATH;
+INFOPATH=/local/info:/usr/share/info;
 export INFOPATH;
-LD_LIBRARY_PATH="/vol/local/intel/mkl/mkl/lib/lib:/vol/local/intel/idb/idb/lib:/vol/local/intel/fc/fc/lib:/vol/local/intel/cc/cc/lib";
+__LMOD_REF_COUNT_LD_LIBRARY_PATH=/vol/local/intel/mkl/mkl/lib/lib:1\;/vol/local/intel/idb/idb/lib:1\;/vol/local/intel/fc/fc/lib:1\;/vol/local/intel/cc/cc/lib:1;
+export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
+LD_LIBRARY_PATH=/vol/local/intel/mkl/mkl/lib/lib:/vol/local/intel/idb/idb/lib:/vol/local/intel/fc/fc/lib:/vol/local/intel/cc/cc/lib;
 export LD_LIBRARY_PATH;
-LMOD_FAMILY_COMPILER="intel";
+LMOD_FAMILY_COMPILER=intel;
 export LMOD_FAMILY_COMPILER;
-LMOD_FAMILY_COMPILER_VERSION="intel";
+LMOD_FAMILY_COMPILER_VERSION=intel;
 export LMOD_FAMILY_COMPILER_VERSION;
-LOADEDMODULES="unix/unix:local/1.3:intel/intel:noweb/2.10c:PrgEnv";
+__LMOD_REF_COUNT_LOADEDMODULES=unix/unix:1\;local/1.3:1\;intel/intel:1\;noweb/2.10c:1\;PrgEnv:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=unix/unix:local/1.3:intel/intel:noweb/2.10c:PrgEnv;
 export LOADEDMODULES;
-MANPATH="/vol/local/noweb/noweb/man:/vol/local/intel/mkl/mkl/man:/vol/local/intel/idb/idb/man:/vol/local/intel/fc/fc/man:/vol/local/intel/cc/cc/man:/usr/share/man";
+__LMOD_REF_COUNT_MANPATH=/vol/local/noweb/noweb/man:1\;/vol/local/intel/mkl/mkl/man:1\;/vol/local/intel/idb/idb/man:1\;/vol/local/intel/fc/fc/man:1\;/vol/local/intel/cc/cc/man:1\;/usr/share/man:1;
+export __LMOD_REF_COUNT_MANPATH;
+MANPATH=/vol/local/noweb/noweb/man:/vol/local/intel/mkl/mkl/man:/vol/local/intel/idb/idb/man:/vol/local/intel/fc/fc/man:/vol/local/intel/cc/cc/man:/usr/share/man;
 export MANPATH;
-MKL_DIR="/vol/local/intel/mkl/mkl/lib/lib";
+MKL_DIR=/vol/local/intel/mkl/mkl/lib/lib;
 export MKL_DIR;
-MKL_INCLUDE="/vol/local/intel/mkl/mkl/include";
+MKL_INCLUDE=/vol/local/intel/mkl/mkl/include;
 export MKL_INCLUDE;
-MODULEPATH="/mf/Compiler/intel/10.1:ProjectDIR/rt/junk/mf/Core";
+__LMOD_REF_COUNT_MODULEPATH=/mf/Compiler/intel/10.1:1\;ProjectDIR/rt/junk/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=/mf/Compiler/intel/10.1:ProjectDIR/rt/junk/mf/Core;
 export MODULEPATH;
-PATH="/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:ProjectDIR/src:PATH_to_TM:/bin";
+__LMOD_REF_COUNT_PATH=/vol/local/noweb/icon/bin:1\;/vol/local/noweb/2.10c/bin:1\;/vol/local/intel/idb/idb/bin:1\;/vol/local/intel/fc/fc/bin:1\;/vol/local/intel/cc/cc/bin:1\;ProjectDIR/src:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:ProjectDIR/src:PATH_to_TM;
 export PATH;
-_LMFILES_="ProjectDIR/rt/junk/mf/Core/unix/unix.lua:ProjectDIR/rt/junk/mf/Core/local/1.3.lua:ProjectDIR/rt/junk/mf/Core/intel/intel.lua:ProjectDIR/rt/junk/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/junk/mf/Core/PrgEnv.lua";
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/junk/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/junk/mf/Core/local/1.3.lua:1\;ProjectDIR/rt/junk/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/junk/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/junk/mf/Core/PrgEnv.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/junk/mf/Core/unix/unix.lua:ProjectDIR/rt/junk/mf/Core/local/1.3.lua:ProjectDIR/rt/junk/mf/Core/intel/intel.lua:ProjectDIR/rt/junk/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/junk/mf/Core/PrgEnv.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={PrgEnv={["fn"]="ProjectDIR/rt/junk/mf/Core/PrgEnv.lua",["fullName"]="PrgEnv",["loadOrder"]=5,propT={},["status"]="active",["userName"]="PrgEnv",},intel={["fn"]="ProjectDIR/rt/junk/mf/Core/intel/intel.lua",["fullName"]="intel/intel",["loadOrder"]=3,propT={},["status"]="active",["userName"]="intel",},["local"]={["fn"]="ProjectDIR/rt/junk/mf/Core/local/1.3.lua",["fullName"]="local/1.3",["loadOrder"]=2,propT={},["status"]="active",["userName"]="local",},noweb={["fn"]="ProjectDIR/rt/junk/mf/Core/noweb/2.10c.lua",["fullName"]="noweb/2.10c",["loadOrder"]=4,propT={},["status"]="active",["userName"]="noweb",},unix={["fn"]="ProjectDIR/rt/junk/mf/Core/unix/unix.lua",["fullName"]="unix/unix",["loadOrder"]=1,propT={},["status"]="active",["userName"]="unix",},},mpathA={"/mf/Compiler/intel/10.1","ProjectDIR/rt/junk/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/junk/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={PrgEnv={["fn"]="ProjectDIR/rt/junk/mf/Core/PrgEnv.lua",["fullName"]="PrgEnv",["loadOrder"]=5,propT={},["stackDepth"]=0,["status"]="active",["userName"]="PrgEnv",},intel={["fn"]="ProjectDIR/rt/junk/mf/Core/intel/intel.lua",["fullName"]="intel/intel",["loadOrder"]=3,propT={},["stackDepth"]=1,["status"]="active",["userName"]="intel",},["local"]={["fn"]="ProjectDIR/rt/junk/mf/Core/local/1.3.lua",["fullName"]="local/1.3",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="local",},noweb={["fn"]="ProjectDIR/rt/junk/mf/Core/noweb/2.10c.lua",["fullName"]="noweb/2.10c",["loadOrder"]=4,propT={},["stackDepth"]=1,["status"]="active",["userName"]="noweb",},unix={["fn"]="ProjectDIR/rt/junk/mf/Core/unix/unix.lua",["fullName"]="unix/unix",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="unix",},},mpathA={"/mf/Compiler/intel/10.1","ProjectDIR/rt/junk/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/junk/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing add junk/d
 ===========================
-JUNK="RTM_3";
+JUNK=RTM_3;
 export JUNK;
-LOADEDMODULES="unix/unix:local/1.3:intel/intel:noweb/2.10c:PrgEnv:junk/d/3.0";
+__LMOD_REF_COUNT_LOADEDMODULES=unix/unix:1\;local/1.3:1\;intel/intel:1\;noweb/2.10c:1\;PrgEnv:1\;junk/d/3.0:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=unix/unix:local/1.3:intel/intel:noweb/2.10c:PrgEnv:junk/d/3.0;
 export LOADEDMODULES;
-MODULEPATH="/mf/Compiler/intel/10.1:ProjectDIR/rt/junk/mf/Core";
+MODULEPATH=/mf/Compiler/intel/10.1:ProjectDIR/rt/junk/mf/Core;
 export MODULEPATH;
-_LMFILES_="ProjectDIR/rt/junk/mf/Core/unix/unix.lua:ProjectDIR/rt/junk/mf/Core/local/1.3.lua:ProjectDIR/rt/junk/mf/Core/intel/intel.lua:ProjectDIR/rt/junk/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/junk/mf/Core/PrgEnv.lua:ProjectDIR/rt/junk/mf/Core/junk/d/3.0.lua";
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/junk/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/junk/mf/Core/local/1.3.lua:1\;ProjectDIR/rt/junk/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/junk/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/junk/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/junk/mf/Core/junk/d/3.0.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/junk/mf/Core/unix/unix.lua:ProjectDIR/rt/junk/mf/Core/local/1.3.lua:ProjectDIR/rt/junk/mf/Core/intel/intel.lua:ProjectDIR/rt/junk/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/junk/mf/Core/PrgEnv.lua:ProjectDIR/rt/junk/mf/Core/junk/d/3.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={PrgEnv={["fn"]="ProjectDIR/rt/junk/mf/Core/PrgEnv.lua",["fullName"]="PrgEnv",["loadOrder"]=5,propT={},["status"]="active",["userName"]="PrgEnv",},intel={["fn"]="ProjectDIR/rt/junk/mf/Core/intel/intel.lua",["fullName"]="intel/intel",["loadOrder"]=3,propT={},["status"]="active",["userName"]="intel",},["junk/d"]={["fn"]="ProjectDIR/rt/junk/mf/Core/junk/d/3.0.lua",["fullName"]="junk/d/3.0",["loadOrder"]=6,propT={},["status"]="active",["userName"]="junk/d",},["local"]={["fn"]="ProjectDIR/rt/junk/mf/Core/local/1.3.lua",["fullName"]="local/1.3",["loadOrder"]=2,propT={},["status"]="active",["userName"]="local",},noweb={["fn"]="ProjectDIR/rt/junk/mf/Core/noweb/2.10c.lua",["fullName"]="noweb/2.10c",["loadOrder"]=4,propT={},["status"]="active",["userName"]="noweb",},unix={["fn"]="ProjectDIR/rt/junk/mf/Core/unix/unix.lua",["fullName"]="unix/unix",["loadOrder"]=1,propT={},["status"]="active",["userName"]="unix",},},mpathA={"/mf/Compiler/intel/10.1","ProjectDIR/rt/junk/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/junk/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={PrgEnv={["fn"]="ProjectDIR/rt/junk/mf/Core/PrgEnv.lua",["fullName"]="PrgEnv",["loadOrder"]=5,propT={},["stackDepth"]=0,["status"]="active",["userName"]="PrgEnv",},intel={["fn"]="ProjectDIR/rt/junk/mf/Core/intel/intel.lua",["fullName"]="intel/intel",["loadOrder"]=3,propT={},["stackDepth"]=1,["status"]="active",["userName"]="intel",},["junk/d"]={["fn"]="ProjectDIR/rt/junk/mf/Core/junk/d/3.0.lua",["fullName"]="junk/d/3.0",["loadOrder"]=6,propT={},["stackDepth"]=0,["status"]="active",["userName"]="junk/d",},["local"]={["fn"]="ProjectDIR/rt/junk/mf/Core/local/1.3.lua",["fullName"]="local/1.3",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="local",},noweb={["fn"]="ProjectDIR/rt/junk/mf/Core/noweb/2.10c.lua",["fullName"]="noweb/2.10c",["loadOrder"]=4,propT={},["stackDepth"]=1,["status"]="active",["userName"]="noweb",},unix={["fn"]="ProjectDIR/rt/junk/mf/Core/unix/unix.lua",["fullName"]="unix/unix",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="unix",},},mpathA={"/mf/Compiler/intel/10.1","ProjectDIR/rt/junk/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/junk/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing add junk/a/c
 ===========================
-JUNK="RTM_1";
+JUNK=RTM_1;
 export JUNK;
-LOADEDMODULES="unix/unix:local/1.3:intel/intel:noweb/2.10c:PrgEnv:junk/d/3.0:junk/a/c/1.0";
+__LMOD_REF_COUNT_LOADEDMODULES=unix/unix:1\;local/1.3:1\;intel/intel:1\;noweb/2.10c:1\;PrgEnv:1\;junk/d/3.0:1\;junk/a/c/1.0:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=unix/unix:local/1.3:intel/intel:noweb/2.10c:PrgEnv:junk/d/3.0:junk/a/c/1.0;
 export LOADEDMODULES;
-MODULEPATH="/mf/Compiler/intel/10.1:ProjectDIR/rt/junk/mf/Core";
+MODULEPATH=/mf/Compiler/intel/10.1:ProjectDIR/rt/junk/mf/Core;
 export MODULEPATH;
-_LMFILES_="ProjectDIR/rt/junk/mf/Core/unix/unix.lua:ProjectDIR/rt/junk/mf/Core/local/1.3.lua:ProjectDIR/rt/junk/mf/Core/intel/intel.lua:ProjectDIR/rt/junk/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/junk/mf/Core/PrgEnv.lua:ProjectDIR/rt/junk/mf/Core/junk/d/3.0.lua:ProjectDIR/rt/junk/mf/Core/junk/a/c/1.0.lua";
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/junk/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/junk/mf/Core/local/1.3.lua:1\;ProjectDIR/rt/junk/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/junk/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/junk/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/junk/mf/Core/junk/d/3.0.lua:1\;ProjectDIR/rt/junk/mf/Core/junk/a/c/1.0.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/junk/mf/Core/unix/unix.lua:ProjectDIR/rt/junk/mf/Core/local/1.3.lua:ProjectDIR/rt/junk/mf/Core/intel/intel.lua:ProjectDIR/rt/junk/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/junk/mf/Core/PrgEnv.lua:ProjectDIR/rt/junk/mf/Core/junk/d/3.0.lua:ProjectDIR/rt/junk/mf/Core/junk/a/c/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={PrgEnv={["fn"]="ProjectDIR/rt/junk/mf/Core/PrgEnv.lua",["fullName"]="PrgEnv",["loadOrder"]=5,propT={},["status"]="active",["userName"]="PrgEnv",},intel={["fn"]="ProjectDIR/rt/junk/mf/Core/intel/intel.lua",["fullName"]="intel/intel",["loadOrder"]=3,propT={},["status"]="active",["userName"]="intel",},["junk/a/c"]={["fn"]="ProjectDIR/rt/junk/mf/Core/junk/a/c/1.0.lua",["fullName"]="junk/a/c/1.0",["loadOrder"]=7,propT={},["status"]="active",["userName"]="junk/a/c",},["junk/d"]={["fn"]="ProjectDIR/rt/junk/mf/Core/junk/d/3.0.lua",["fullName"]="junk/d/3.0",["loadOrder"]=6,propT={},["status"]="active",["userName"]="junk/d",},["local"]={["fn"]="ProjectDIR/rt/junk/mf/Core/local/1.3.lua",["fullName"]="local/1.3",["loadOrder"]=2,propT={},["status"]="active",["userName"]="local",},noweb={["fn"]="ProjectDIR/rt/junk/mf/Core/noweb/2.10c.lua",["fullName"]="noweb/2.10c",["loadOrder"]=4,propT={},["status"]="active",["userName"]="noweb",},unix={["fn"]="ProjectDIR/rt/junk/mf/Core/unix/unix.lua",["fullName"]="unix/unix",["loadOrder"]=1,propT={},["status"]="active",["userName"]="unix",},},mpathA={"/mf/Compiler/intel/10.1","ProjectDIR/rt/junk/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/junk/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={PrgEnv={["fn"]="ProjectDIR/rt/junk/mf/Core/PrgEnv.lua",["fullName"]="PrgEnv",["loadOrder"]=5,propT={},["stackDepth"]=0,["status"]="active",["userName"]="PrgEnv",},intel={["fn"]="ProjectDIR/rt/junk/mf/Core/intel/intel.lua",["fullName"]="intel/intel",["loadOrder"]=3,propT={},["stackDepth"]=1,["status"]="active",["userName"]="intel",},["junk/a/c"]={["fn"]="ProjectDIR/rt/junk/mf/Core/junk/a/c/1.0.lua",["fullName"]="junk/a/c/1.0",["loadOrder"]=7,propT={},["stackDepth"]=0,["status"]="active",["userName"]="junk/a/c",},["junk/d"]={["fn"]="ProjectDIR/rt/junk/mf/Core/junk/d/3.0.lua",["fullName"]="junk/d/3.0",["loadOrder"]=6,propT={},["stackDepth"]=0,["status"]="active",["userName"]="junk/d",},["local"]={["fn"]="ProjectDIR/rt/junk/mf/Core/local/1.3.lua",["fullName"]="local/1.3",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="local",},noweb={["fn"]="ProjectDIR/rt/junk/mf/Core/noweb/2.10c.lua",["fullName"]="noweb/2.10c",["loadOrder"]=4,propT={},["stackDepth"]=1,["status"]="active",["userName"]="noweb",},unix={["fn"]="ProjectDIR/rt/junk/mf/Core/unix/unix.lua",["fullName"]="unix/unix",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="unix",},},mpathA={"/mf/Compiler/intel/10.1","ProjectDIR/rt/junk/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/junk/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-MODULEPATH="/mf/Compiler/intel/10.1:ProjectDIR/rt/junk/mf/Core";
+MODULEPATH=/mf/Compiler/intel/10.1:ProjectDIR/rt/junk/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={PrgEnv={["fn"]="ProjectDIR/rt/junk/mf/Core/PrgEnv.lua",["fullName"]="PrgEnv",["loadOrder"]=5,propT={},["status"]="active",["userName"]="PrgEnv",},intel={["fn"]="ProjectDIR/rt/junk/mf/Core/intel/intel.lua",["fullName"]="intel/intel",["loadOrder"]=3,propT={},["status"]="active",["userName"]="intel",},["junk/a/c"]={["fn"]="ProjectDIR/rt/junk/mf/Core/junk/a/c/1.0.lua",["fullName"]="junk/a/c/1.0",["loadOrder"]=7,propT={},["status"]="active",["userName"]="junk/a/c",},["junk/d"]={["fn"]="ProjectDIR/rt/junk/mf/Core/junk/d/3.0.lua",["fullName"]="junk/d/3.0",["loadOrder"]=6,propT={},["status"]="active",["userName"]="junk/d",},["local"]={["fn"]="ProjectDIR/rt/junk/mf/Core/local/1.3.lua",["fullName"]="local/1.3",["loadOrder"]=2,propT={},["status"]="active",["userName"]="local",},noweb={["fn"]="ProjectDIR/rt/junk/mf/Core/noweb/2.10c.lua",["fullName"]="noweb/2.10c",["loadOrder"]=4,propT={},["status"]="active",["userName"]="noweb",},unix={["fn"]="ProjectDIR/rt/junk/mf/Core/unix/unix.lua",["fullName"]="unix/unix",["loadOrder"]=1,propT={},["status"]="active",["userName"]="unix",},},mpathA={"/mf/Compiler/intel/10.1","ProjectDIR/rt/junk/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/junk/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={PrgEnv={["fn"]="ProjectDIR/rt/junk/mf/Core/PrgEnv.lua",["fullName"]="PrgEnv",["loadOrder"]=5,propT={},["stackDepth"]=0,["status"]="active",["userName"]="PrgEnv",},intel={["fn"]="ProjectDIR/rt/junk/mf/Core/intel/intel.lua",["fullName"]="intel/intel",["loadOrder"]=3,propT={},["stackDepth"]=1,["status"]="active",["userName"]="intel",},["junk/a/c"]={["fn"]="ProjectDIR/rt/junk/mf/Core/junk/a/c/1.0.lua",["fullName"]="junk/a/c/1.0",["loadOrder"]=7,propT={},["stackDepth"]=0,["status"]="active",["userName"]="junk/a/c",},["junk/d"]={["fn"]="ProjectDIR/rt/junk/mf/Core/junk/d/3.0.lua",["fullName"]="junk/d/3.0",["loadOrder"]=6,propT={},["stackDepth"]=0,["status"]="active",["userName"]="junk/d",},["local"]={["fn"]="ProjectDIR/rt/junk/mf/Core/local/1.3.lua",["fullName"]="local/1.3",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="local",},noweb={["fn"]="ProjectDIR/rt/junk/mf/Core/noweb/2.10c.lua",["fullName"]="noweb/2.10c",["loadOrder"]=4,propT={},["stackDepth"]=1,["status"]="active",["userName"]="noweb",},unix={["fn"]="ProjectDIR/rt/junk/mf/Core/unix/unix.lua",["fullName"]="unix/unix",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="unix",},},mpathA={"/mf/Compiler/intel/10.1","ProjectDIR/rt/junk/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/junk/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing del junk/a/c/1.0
 ===========================
 unset JUNK;
-LOADEDMODULES="unix/unix:local/1.3:intel/intel:noweb/2.10c:PrgEnv:junk/d/3.0";
+__LMOD_REF_COUNT_LOADEDMODULES=unix/unix:1\;local/1.3:1\;intel/intel:1\;noweb/2.10c:1\;PrgEnv:1\;junk/d/3.0:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=unix/unix:local/1.3:intel/intel:noweb/2.10c:PrgEnv:junk/d/3.0;
 export LOADEDMODULES;
-MODULEPATH="/mf/Compiler/intel/10.1:ProjectDIR/rt/junk/mf/Core";
+MODULEPATH=/mf/Compiler/intel/10.1:ProjectDIR/rt/junk/mf/Core;
 export MODULEPATH;
-_LMFILES_="ProjectDIR/rt/junk/mf/Core/unix/unix.lua:ProjectDIR/rt/junk/mf/Core/local/1.3.lua:ProjectDIR/rt/junk/mf/Core/intel/intel.lua:ProjectDIR/rt/junk/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/junk/mf/Core/PrgEnv.lua:ProjectDIR/rt/junk/mf/Core/junk/d/3.0.lua";
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/junk/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/junk/mf/Core/local/1.3.lua:1\;ProjectDIR/rt/junk/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/junk/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/junk/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/junk/mf/Core/junk/d/3.0.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/junk/mf/Core/unix/unix.lua:ProjectDIR/rt/junk/mf/Core/local/1.3.lua:ProjectDIR/rt/junk/mf/Core/intel/intel.lua:ProjectDIR/rt/junk/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/junk/mf/Core/PrgEnv.lua:ProjectDIR/rt/junk/mf/Core/junk/d/3.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={PrgEnv={["fn"]="ProjectDIR/rt/junk/mf/Core/PrgEnv.lua",["fullName"]="PrgEnv",["loadOrder"]=5,propT={},["status"]="active",["userName"]="PrgEnv",},intel={["fn"]="ProjectDIR/rt/junk/mf/Core/intel/intel.lua",["fullName"]="intel/intel",["loadOrder"]=3,propT={},["status"]="active",["userName"]="intel",},["junk/d"]={["fn"]="ProjectDIR/rt/junk/mf/Core/junk/d/3.0.lua",["fullName"]="junk/d/3.0",["loadOrder"]=6,propT={},["status"]="active",["userName"]="junk/d",},["local"]={["fn"]="ProjectDIR/rt/junk/mf/Core/local/1.3.lua",["fullName"]="local/1.3",["loadOrder"]=2,propT={},["status"]="active",["userName"]="local",},noweb={["fn"]="ProjectDIR/rt/junk/mf/Core/noweb/2.10c.lua",["fullName"]="noweb/2.10c",["loadOrder"]=4,propT={},["status"]="active",["userName"]="noweb",},unix={["fn"]="ProjectDIR/rt/junk/mf/Core/unix/unix.lua",["fullName"]="unix/unix",["loadOrder"]=1,propT={},["status"]="active",["userName"]="unix",},},mpathA={"/mf/Compiler/intel/10.1","ProjectDIR/rt/junk/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/junk/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={PrgEnv={["fn"]="ProjectDIR/rt/junk/mf/Core/PrgEnv.lua",["fullName"]="PrgEnv",["loadOrder"]=5,propT={},["stackDepth"]=0,["status"]="active",["userName"]="PrgEnv",},intel={["fn"]="ProjectDIR/rt/junk/mf/Core/intel/intel.lua",["fullName"]="intel/intel",["loadOrder"]=3,propT={},["stackDepth"]=1,["status"]="active",["userName"]="intel",},["junk/d"]={["fn"]="ProjectDIR/rt/junk/mf/Core/junk/d/3.0.lua",["fullName"]="junk/d/3.0",["loadOrder"]=6,propT={},["stackDepth"]=0,["status"]="active",["userName"]="junk/d",},["local"]={["fn"]="ProjectDIR/rt/junk/mf/Core/local/1.3.lua",["fullName"]="local/1.3",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="local",},noweb={["fn"]="ProjectDIR/rt/junk/mf/Core/noweb/2.10c.lua",["fullName"]="noweb/2.10c",["loadOrder"]=4,propT={},["stackDepth"]=1,["status"]="active",["userName"]="noweb",},unix={["fn"]="ProjectDIR/rt/junk/mf/Core/unix/unix.lua",["fullName"]="unix/unix",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="unix",},},mpathA={"/mf/Compiler/intel/10.1","ProjectDIR/rt/junk/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/junk/mf/Core",}';
 export _ModuleTable_;

@@ -7,10 +7,10 @@ Lua Modulefile Functions
 Lua is an efficient language built on simple syntax. Readers wanting
 to know more about lua can see http://www.lua.org/. This simple description
 given here should be sufficient to write all but the most complex
-modulefiles. 
+modulefiles.
 
 It is important to understand that modulefiles are written in the
-positive. That is one writes the actions necessary to activate the
+positive. That is, one writes the actions necessary to activate the
 package. A modulefile contains commands to add to the PATH or set
 environment variables. When loading a modulefile the commands are
 followed. When unloading a modulefile the actions are reversed. That
@@ -19,13 +19,29 @@ during unloading. The environment variables set during loading are
 unset during unloading.
 
 **prepend_path** ("PATH","*/path/to/pkg/bin*"):
-   prepend to a path variable the value.
+   prepend to a path-like variable the value.
+
+**prepend_path** ("PATH","*/path/to/pkg/bin*", "*sep*" ):
+   prepend to a path-like variable the value. It is possible to add a
+   third argument to be the separator.  By default is is "*:*", the
+   separator can be any single character for example " " or  ";"
 
 **append_path** ("PATH","*/path/to/pkg/bin*"):
-   append to a path variable the value.
+   append to a path-like variable the value.
+
+**append_path** ("PATH","*/path/to/pkg/bin*", "*sep*" ):
+   append to a path-like variable the value. It is possible to add a
+   third argument to be the separator.  By default is is "*:*", the
+   separator can be any single character for example " " or  ";"
 
 **remove_path** ("PATH","*/path/to/pkg/bin*"):
-   remove value from path.  This command is a no-op when the mode is unload.
+   remove value from a path-like variable for both load and unload modes.
+
+**remove_path** ("PATH","*/path/to/pkg/bin*" , "*sep*" ):
+   remove value from a path-like variable for both load and unload modes.
+   It is possible to add a third argument to be the separator.  By
+   default is is "*:*", the separator can be any single character for
+   example " " or  ";" 
 
 **setenv** ("NAME", "*value*"):
    assigns to the environment variable "NAME" the value.
@@ -34,13 +50,16 @@ unset during unloading.
    sets **NAME** to *value* just like **setenv**.  In addition it
    saves the previous value in a hidden environment variable.  This
    way the previous state can be returned when a module is unloaded.
+   **pushenv** ("FOO",false) will clear "FOO" and the pop will return
+   the previous value.
+
 
 **unsetenv** ("NAME"):
    unset the value associated with "NAME".  This command is a no-op
    when the mode is unload.
 
 **whatis** ("STRING"):
-    The whatis string, can be called repeatedly with different strings. See the Administrator Guide for more details.
+    The whatis command can be called repeatedly with different strings. See the Administrator Guide for more details.
 
 **help** ( [[ *help string* ]]):
      What is printed out when the help command is called. Note that
@@ -52,11 +71,22 @@ unset during unloading.
      removed. If you need a trailing slash then do
      **pathJoin("/a","b/c") .. "/"** to get "/a/b/c/".
 
+**depends_on** ("pkgA", "pkgB", "pkgC"):
+     loads all modules.  When unloading only dependent modules are
+     unloaded.  See :ref:`dependent_modules-label` for details.
+
+
 **load** ("pkgA", "pkgB", "pkgC"):
      load all modules. Report error if unable to load.
 
 **try_load** ("pkgA", "pkgB", "pkgC"):
      load all modules. No errors reported if unable to load.
+
+**mgrload** (required, active_object):
+     load a single module file. If required is true then error out if
+     not found.  If false then no message is generated.  Returns true
+     if successful.  See :ref:`site_package_mgrload` for details.
+
 
 **always_load** ("pkgA", "pkgB", "pkgC"):
      load all modules. However when this command is reversed it does nothing.
@@ -65,9 +95,8 @@ unset during unloading.
      define an alias to name with value.
 
 **unload** ("pkgA", "pkgB"):
-     When in load mode the modulefiles are unloaded.  It is not an
-     error to unload modules that where not loaded.  When in unload
-     mode, this command does nothing.
+     In both load and unload mode, the modulefiles are unloaded. It is
+     not an error to unload modules that where not loaded.
 
 **family** ("name"):
      A user can only have one family "name" loaded at a time. For example family("compiler") would mean that a user could only have one compiler loaded at a time.
@@ -88,13 +117,18 @@ The entries below describe several useful commands that come with Lmod that can 
     Ask for environment for the value of "NAME". Note that if the
     "NAME" might not be in the environment, then it is probably best
     to do::
-    
+
        local foo=os.getenv("FOO") or ""
 
     otherwise ``foo`` will have the value of ``nil``.
 
 **capture** ("string"):
-    Run the "string" as a command and capture the output.
+    Run the "string" as a command and capture the output.  This
+    function uses the value of LD_PRELOAD and LD_LIBRARY_PATH found
+    when Lmod is configured. Use **subprocess** if you wish to use the
+    current values.
+**subprocess** ("string")
+    Run the "string" as a command and capture the output.  
 **isFile** ("name"):
     Returns true if "name" is a file.
 **isDir** ("name"):
@@ -127,7 +161,7 @@ Modifier functions to prereq and loads
 
 **between** ("name","v1","v2"):
     This modifier function will only succeed if the module's version is
-    equal to or between "v1" and "v2".  
+    equal to or between "v1" and "v2".
 
 **latest** ("name"):
     This modifier function will only succeed if the module has the
@@ -157,7 +191,13 @@ the name and version of a modulefile.
 
 **myShellName** ():
    Returns the name of the shell the user specified on the
-    command line.
+   command line.
+
+**myShellType** ():
+   Returns the shellType based on the name of the shell the user
+   specified on the command line. It returns sh for sh, bash, zsh,
+   csh for csh, tcsh. Otherwise it is the same as **myShellName** ().
+
 
 **hierarchyA** ("fullName", level):
    Returns the hierarchy of the current module.  See the section on

@@ -1,17 +1,8 @@
-
 _module_avail() {
-  local redirect="${LMOD_REDIRECT:-false}"
-  if ${redirect,,}; then
-    #
-    # Lmod output already redirected to STDOUT: do not redirect again; just parse.
-    #
-    @PKG@/libexec/lmod bash -t avail 2>/dev/null | bash | sed ' /:$/d; s#/*$##g;'
-  else
-    #
-    # Lmod output goes to STDERR by default, but for bash redirection we need it on STOUT.
-    #
-    @PKG@/libexec/lmod bash -t avail 2>&1 >/dev/null | sed ' /:$/d; s#/*$##g;'
-  fi
+  #
+  # Lmod output goes to STDERR by default. The option --no_redirect forces output to stderr.
+  #
+  @PKG@/libexec/lmod bash --no_redirect -t -q avail 2>&1 >/dev/null | sed ' /:$/d; s/(@.*)//g; s#/*$##g;'
 }
 
 _module_dir() {
@@ -73,48 +64,31 @@ _module_dir() {
 }
 
 _module_spider() {
-  local redirect="${LMOD_REDIRECT:-false}"
-  if ${redirect,,}; then
-    @PKG@/libexec/lmod bash -t spider 2>/dev/null | bash
-  else
-    @PKG@/libexec/lmod bash -t spider 2>&1 >/dev/null
-  fi
+  @PKG@/libexec/lmod bash -q -t --no_redirect spider 2>&1 >/dev/null
 }
 
 _module_loaded_modules() {
-  local redirect="${LMOD_REDIRECT:-false}"
-  if ${redirect,,}; then
-    @PKG@/libexec/lmod bash -t list 2>/dev/null | bash | sed ' /^ *$/d; /:$/d; s#/*$##g;'
-  else
-    @PKG@/libexec/lmod bash -t list 2>&1 >/dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g;'
-  fi
+  @PKG@/libexec/lmod bash -q -t --no_redirect list 2>&1 >/dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g;'
 }
 
 _module_savelist() {
-  local redirect="${LMOD_REDIRECT:-false}"
-  if ${redirect,,}; then
-    @PKG@/libexec/lmod bash -t savelist 2>/dev/null | bash
-  else
-    @PKG@/libexec/lmod bash -t savelist 2>&1 >/dev/null
-  fi
+  @PKG@/libexec/lmod bash -q -t --no_redirect savelist 2>&1 >/dev/null
+}
+
+_module_disable() {
+  @PKG@/libexec/lmod bash -q -t --no_redirect savelist 2>&1 >/dev/null
 }
 
 _module_loaded_modules_negated() {
-  local redirect="${LMOD_REDIRECT:-false}"
-  if ${redirect,,}; then
-    @PKG@/libexec/lmod bash -t list 2>/dev/null | bash | sed ' /^ *$/d; /:$/d; s#/*$##g; s|^|-|g;'
-  else
-    @PKG@/libexec/lmod bash -t list 2>&1 >/dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g; s|^|-|g;'
-  fi
+  @PKG@/libexec/lmod bash -q -t --no_redirect list 2>&1 >/dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g; s|^|-|g;'
 }
 
 _module_mcc() {
-  local redirect="${LMOD_REDIRECT:-false}"
-  if ${redirect,,}; then
-    @PKG@/libexec/lmod bash -t collection 2>/dev/null | bash
-  else
-    @PKG@/libexec/lmod bash -t collection 2>&1 >/dev/null
-  fi
+  @PKG@/libexec/lmod bash -q -t --no_redirect savelist 2>&1 >/dev/null
+}
+
+_module_describe() {
+  @PKG@/libexec/lmod bash -q -t --no_redirect savelist 2>&1 >/dev/null
 }
 
 _module_not_yet_loaded() {
@@ -174,7 +148,10 @@ _module() {
     help|show|whatis)
       COMPREPLY=( $(compgen -W "$(_module_avail)" -- "${cur}") )
       ;;
-    collection|cc|mcc)
+    describe|mcc)
+      COMPREPLY=( $(compgen -W "$(_module_mcc)" -- "${cur}") )
+      ;;
+    disable)
       COMPREPLY=( $(compgen -W "$(_module_mcc)" -- "${cur}") )
       ;;
     *)

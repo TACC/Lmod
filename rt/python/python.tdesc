@@ -23,7 +23,8 @@ testdescript = {
 
      rm -rf init
      mkdir init
-     sed -e 's|@PKG@/libexec/lmod|lua $(projectDir)/src/lmod.in.lua|g' \
+     sed -e "s|'@PKG@/libexec/lmod'|'lua','$(projectDir)/src/lmod.in.lua'|g" \
+         -e 's|@redirect@|no|g'                                              \
               < $(projectDir)/init/env_modules_python.py.in > init/env_modules_python.py
 
 
@@ -38,8 +39,12 @@ from env_modules_python import module
 
 module("load","foobar")
 
-print "os.environ['FOOBAR']: ",os.environ['FOOBAR']
 
+print "os.environ['FOOBAR']: ",'"' + os.environ['FOOBAR'] + '"'
+print "os.environ['M']: ", '"' + os.environ['M'] + '"'
+
+module("avail");
+os.environ['LMOD_REDIRECT'] = 'yes'
 module("avail");
 EOF
 

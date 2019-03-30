@@ -1,0 +1,26 @@
+%% TACC theme for beamer
+
+\newif\ifTACCheadernav
+\DeclareOption{headernav}{\global\TACCheadernavtrue}
+
+\newif\ifTACCheadertree
+\DeclareOption{headertree}{\global\TACCheadertreetrue}
+\ProcessOptions
+
+\mode<presentation>
+
+\usefonttheme{TACC}
+\usecolortheme{TACC}
+\useinnertheme{TACC}
+\useoutertheme{TACC}
+
+\mode
+<all>
+
+\newcommand{\event}[1]{%
+  \makeatletter%
+  \def\TACC@eventname{#1}%
+  \makeatother}
+
+\newcommand{\sectionframe}[1]{\section{#1}\frame{\Large\textbf{#1}}}
+\newcommand{\subsectionframe}[1]{\subsection{#1}\frame{\large\textbf{#1}}}

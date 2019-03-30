@@ -60,10 +60,4 @@ def main():
   print(bt.build_tbl())
   print("\n\nNumber of entries: ",num)
 
-
-
-
-
-
-
 if ( __name__ == '__main__'): main()

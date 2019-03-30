@@ -1,8 +1,9 @@
 _G._DEBUG=false
+local posix        = require("posix")
+
 require("strict")
 
 local Var          = require("Var")
-local posix        = require("posix")
 local setenv_posix = posix.setenv
 local testDir      = "spec/Var"
 

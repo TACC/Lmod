@@ -5,6 +5,9 @@
 --
 -- @classmod MT
 
+_G._DEBUG          = false
+local posix        = require("posix")
+
 require("strict")
 
 --------------------------------------------------------------------------
@@ -17,7 +20,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -61,7 +64,6 @@ local hook         = require("Hook")
 local i18n         = require("i18n")
 local load         = (_VERSION == "Lua 5.1") and loadstring or load
 local min          = math.min
-local posix        = require("posix")
 local posix_setenv = posix.setenv
 local s_loadOrder  = 0
 local s_mt         = false
@@ -69,6 +71,7 @@ local s_name       = "_ModuleTable_"
 local s_familyA    = false
 local sort         = table.sort
 local strfmt       = string.format
+local abs          = math.abs
 
 function M.name(self)
    return s_name
@@ -83,16 +86,16 @@ local function new(self, s, restoreFn)
    dbg.start{"MT new(s,restoreFn:",restoreFn,")"}
    local o         = {}
 
-   o.c_rebuildTime = false
-   o.c_shortTime   = false
-   o.mT            = {}
-   o.MTversion     = mt_version()
-   o.family        = {}
-   o.mpathA        = {}
-   o.depthT        = {}
-   o._stickyA      = {}
-   o._loadT        = {}
-   o._changeMPATH  = false
+   o.c_rebuildTime   = false
+   o.c_shortTime     = false
+   o.mT              = {}
+   o.MTversion       = mt_version()
+   o.family          = {}
+   o.mpathA          = {}
+   o.depthT          = {}
+   o.__stickyA     = {}
+   o.__loadT       = {}
+   o.__changeMPATH = false
 
    setmetatable(o, self)
    self.__index    = self
@@ -115,12 +118,12 @@ local function new(self, s, restoreFn)
    declare(s_name)
 
    local func, msg = load(s)
-   local status
+   local ok
 
    if (func) then
-      status, msg = pcall(func)
+      ok, msg = pcall(func)
    else
-      status = false
+      ok = false
    end
 
    local _ModuleTable_ = _G[s_name] or _G._ModuleTable_
@@ -130,7 +133,7 @@ local function new(self, s, restoreFn)
    -- Do not call LmodError or LmodSystemError here.  It leads to an
    -- endless loop !!
    
-   if (not status or type(_ModuleTable_) ~= "table" ) then
+   if (not ok or type(_ModuleTable_) ~= "table" ) then
       if (restoreFn) then
          io.stderr:write(i18n("e_coll_corrupt",{fn=restoreFn}))
          LmodErrorExit()
@@ -209,9 +212,6 @@ function M.__convertMT(self, v2)
    self.mT = mT
 end
 
-
-
-
 function __removeEnvMT()
    local SzStr = "_ModuleTable_Sz_"
    local piece = "_ModuleTable%03d_"
@@ -223,22 +223,23 @@ function __removeEnvMT()
    end
 end
 
-
-
 --------------------------------------------------------------------------
 -- Return the original MT from bottom of stack.
 
-function M.add(self, mname, status)
-   local mT = self.mT
-   local sn = mname:sn()
+function M.add(self, mname, status, loadOrder)
+   local mT    = self.mT
+   local sn    = mname:sn()
+   loadOrder   = loadOrder  == nil and -1 or loadOrder
    assert(sn)
    mT[sn] = {
-      fullName  = mname:fullName(),
-      fn        = mname:fn(),
-      userName  = mname:userName(),
-      status    = status,
-      loadOrder = -1,
-      propT     = {},
+      fullName   = mname:fullName(),
+      fn         = mname:fn(),
+      userName   = mname:userName(),
+      stackDepth = mname:stackDepth(),
+      ref_count  = mname:ref_count(),
+      status     = status,
+      loadOrder  = loadOrder,
+      propT      = {},
    }
 end
 
@@ -271,16 +272,16 @@ end
 -- Mark Changing MODULEPATH
 
 function M.changeMPATH(self)
-   return self._changeMPATH
+   return self.__changeMPATH
 end
 
 function M.set_MPATH_change_flag(self)
    dbg.print{"MT:set_MPATH_change_flag(self)\n"}
-   self._changeMPATH = true
+   self.__changeMPATH = true
 end
 
 function M.reset_MPATH_change_flag(self)
-   self._changeMPATH = false
+   self.__changeMPATH = false
 end
 
 
@@ -364,6 +365,15 @@ function M.remove(self, sn)
    mT[sn]    = nil
 end
 
+local function build_AB(a,b, loadOrder, name, value)
+   if (loadOrder > 0) then
+      a[#a+1] = { loadOrder, name, value }
+   else
+      b[#b+1] = { abs(loadOrder), name, value }
+   end
+   return a, b
+end
+
 --------------------------------------------------------------------------
 -- Return a array of modules currently in MT.  The list is
 -- always sorted in loadOrder.
@@ -382,7 +392,6 @@ end
 
 function M.list(self, kind, status)
    local mT   = self.mT
-   local icnt = 0
    local a    = {}
    local b    = {}
 
@@ -390,52 +399,58 @@ function M.list(self, kind, status)
       for k, v in pairs(mT) do
          if ((status == "any" or status == v.status) and
              (v.status ~= "pending")) then
-            icnt = icnt + 1
-            a[icnt]   = { v.loadOrder, k, k}
+            a, b = build_AB(a, b,  v.loadOrder , k, k)
          end
       end
    elseif (kind == "userName" or kind == "fullName") then
       for k, v in pairs(mT) do
          if ((status == "any" or status == v.status) and
              (v.status ~= "pending")) then
-            icnt = icnt + 1
             local obj = { sn = k, fullName = v.fullName, userName = v.userName,
-                          name = v[kind], fn = v.fn }
-            a[icnt]   = { v.loadOrder, v[kind], obj }
+                          name = v[kind], fn = v.fn, loadOrder = v.loadOrder,
+                          stackDepth = v.stackDepth, ref_count = v.ref_count}
+            a, b = build_AB(a, b, v.loadOrder, v[kind], obj )
          end
       end
    elseif (kind == "both") then
       for k, v in pairs(mT) do
          if ((status == "any" or status == v.status) and
              (v.status ~= "pending")) then
-            icnt = icnt + 1
-            a[icnt]   = { v.loadOrder, v.userName, v.userName }
+            a, b = build_AB(a, b, v.loadOrder, v.userName, v.userName )
             if (v.userName ~= k) then
-               icnt = icnt + 1
-               a[icnt]   = { v.loadOrder, k, k }
+               a, b = build_AB(a, b, v.loadOrder, k, k)
             end
             if (v.userName ~= v.fullName) then
-               icnt = icnt + 1
-               a[icnt]   = { v.loadOrder, v.fullName, v.fullName }
+               a, b = build_AB(a, b, v.loadOrder, v.fullName, v.fullName )
             end
          end
       end
    end
 
-   sort (a, function(x,y)
-               if (x[1] == y[1]) then
-                  return x[2] < y[2]
-               else
-                  return x[1] < y[1]
-               end
-            end)
+   local function loadOrder_cmp(x,y)
+      if (x[1] == y[1]) then
+         return x[2] < y[2]
+      else
+         return x[1] < y[1]
+      end
+   end
 
-   for i = 1, icnt do
-      b[i] = a[i][3]
+   sort (a, loadOrder_cmp)
+   sort (b, loadOrder_cmp)
+   
+   local B = {}
+
+   for i = 1, #a do
+      B[i] = a[i][3]
+   end
+
+   for i = 1, #b do
+      B[#B+1] = b[i][3]
    end
 
    a = nil -- finished w/ a.
-   return b
+   b = nil -- finished w/ b.
+   return B
 end   
 
 --------------------------------------------------------------------------
@@ -538,7 +553,7 @@ function M.list_property(self, idx, sn, style, legendT)
       LmodError{msg="e_No_Mod_Entry", routine = "MT:list_property()", name = sn}
    end
 
-   local resultA = colorizePropA(style, entry.fullName, mrc, entry.propT, legendT)
+   local resultA = colorizePropA(style, {fullName=entry.fullName,sn=sn,fn=entry.fn}, mrc, entry.propT, legendT)
    if (resultA[2]) then
       resultA[2] = "(" .. resultA[2] .. ")"
    end
@@ -610,11 +625,48 @@ function M.version(self,sn)
    return extractVersion(entry.fullName, sn)
 end
    
+function M.stackDepth(self,sn)
+   local entry = self.mT[sn]
+   if (entry == nil) then
+      return nil
+   end
+   return entry.stackDepth or 0
+end
+   
+function M.incr_ref_count(self,sn)
+   local entry = self.mT[sn]
+   if (entry == nil) then
+      return 
+   end
+   entry.ref_count = (entry.ref_count or 0) + 1
+   return 
+end
+
+function M.decr_ref_count(self,sn)
+   local entry = self.mT[sn]
+   if (entry == nil or entry.ref_count == nil) then
+      return 0
+   end
+   local ref_count = entry.ref_count - 1
+   entry.ref_count = ref_count
+   return ref_count
+end
+
+function M.get_ref_count(self,sn)
+   local entry = self.mT[sn]
+   if (entry == nil or entry.ref_count == nil) then
+      return 0
+   end
+   return entry.ref_count
+end
+
 function M.updateMPathA(self, value)
    if (type(value) == "string") then
       self.mpathA = path2pathA(value)
    elseif (type(value) == "table") then
       self.mpathA = value
+   elseif (type(value) == "nil") then
+      self.mpathA = path2pathA("")
    end
 end
 
@@ -657,7 +709,7 @@ end
 -- @param self An MT object.
 -- @param sn the short name
 function M.addStickyA(self, sn)
-   local a     = self._stickyA
+   local a     = self.__stickyA
    local entry = self.mT[sn]
    a[#a+1]     = {sn = sn, fn = entry.fn, version = extractVersion(entry.fullName, sn),
                   userName = entry.userName }
@@ -667,7 +719,7 @@ end
 -- Return the array of sticky modules.
 -- @param self An MT object.
 function M.getStickyA(self)
-   return self._stickyA
+   return self.__stickyA
 end
 
 --------------------------------------------------------------------------
@@ -681,7 +733,7 @@ end
 -- @param usrName The name the user specified for the module.
 function M.userLoad(self, sn, userName)
    dbg.start{"MT:userLoad(",sn,")"}
-   self._loadT[sn] = userName
+   self.__loadT[sn] = userName
    dbg.fini("MT:userLoad")
 end
 
@@ -721,7 +773,7 @@ function M.reportChanges(self)
    local activeA   = {}
    local changedA  = {}
    local reloadA   = {}
-   local loadT     = self._loadT
+   local loadT     = self.__loadT
 
    for sn, v_orig in pairsByKeys(mT_orig) do
       if (self:have(sn,"inactive") and v_orig.status == "active") then
@@ -983,11 +1035,10 @@ function M.getMTfromFile(self,tt)
 
    local restoreFn = tt.fn
    dbg.print{"s: ",s,"\n"}
-   local l_mt      = new(self, s, restoreFn)
-   local activeA   = l_mt:list("userName","active")
-
+   local l_mt       = new(self, s, restoreFn)
+   local activeA    = l_mt:list("userName","active")
    local savedMPATH = concatTbl(l_mt.mpathA,":")
-   
+   local tracing    = cosmic:value("LMOD_TRACING")
 
    ---------------------------------------------
    -- If any module specified in the "default" file
@@ -1021,11 +1072,11 @@ function M.getMTfromFile(self,tt)
    -- Build a new MT with only the savedBaseMPATH from before.
    -- This means resetting s_mt, s_frameStk and defining
    -- MODULEPATH in the environment.  Then we can rebuild a fresh
-   -- FrameStk and MT.
-
+   -- FrameStk and MT.  
    local FrameStk = require("FrameStk")
    local frameStk = FrameStk:singleton()
    local mt       = frameStk:mt()
+
    dbg.print{"(1) mt.systemBaseMPATH: ",mt.systemBaseMPATH,"\n"}
    dbg.print{"savedBaseMPATH: ",savedBaseMPATH,"\n"}
    s              = serializeTbl{indent=true, name=s_name, value=mt}
@@ -1047,10 +1098,18 @@ function M.getMTfromFile(self,tt)
    dbg.print{"savedBaseMPATH: ",savedBaseMPATH,"\n"}
    dbg.print{"(2) mt.systemBaseMPATH: ",mt.systemBaseMPATH,"\n"}
    mt:updateMPathA(savedMPATH)
+
+   if (tracing == "yes") then
+      io.stderr:write("  Using collection:      ", tt.fn,"\n")
+      io.stderr:write("  Setting MODULEPATH to: ", savedBaseMPATH,"\n")
+   end
+
+
    dbg.print{"(3) mt.systemBaseMPATH: ",mt.systemBaseMPATH,"\n"}
-   local moduleA      = require("ModuleA"):singleton()
    local cached_loads = cosmic:value("LMOD_CACHED_LOADS")
-   moduleA:update{spider_cache = (cached_loads ~= 'no')}
+   local use_cache    = (cached_loads ~= 'no')
+   local moduleA      = require("ModuleA"):singleton{spider_cache=use_cache}
+   moduleA:update{spider_cache = use_cache }
    dbg.print{"(4) mt.systemBaseMPATH: ",mt.systemBaseMPATH,"\n"}
 
    -----------------------------------------------------------------------
@@ -1073,13 +1132,19 @@ function M.getMTfromFile(self,tt)
    local knd          = (pin_versions == "no") and "userName" or "fullName"
    local mA           = {}
 
+   -- remember to transfer the old stackDepth to the new mname object.
    for i = 1, #activeA do
-      mA[#mA+1]  = MName:new("load",activeA[i][knd])
+      local mname = MName:new("load",activeA[i][knd])
+      mname:setRefCount(activeA[i].ref_count)
+      mname:setStackDepth(activeA[i].stackDepth)
+      mA[#mA+1]   = mname
    end
    MCP.load(mcp,mA)
-   mcp = mcp_old
+   mcp        = mcp_old
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-   mt = frameStk:mt()
+   mt         = frameStk:mt()
+   local varT = frameStk:varT()
+   varT[ModulePath]:setRefCount(l_mt.mpathRefCountT or {})
    
    -----------------------------------------------------------------------
    -- Now check to see that all requested modules got loaded.
@@ -1142,14 +1207,26 @@ function M.getMTfromFile(self,tt)
    -- read in.
 
    if (collectionName == "default") then
-      local Var = require("Var")
-      local n = "__LMOD_DEFAULT_MODULES_LOADED__"
+      local Var  = require("Var")
+      local n    = "__LMOD_DEFAULT_MODULES_LOADED__"
       local varT = frameStk:varT()
-      varT[n] = Var:new(n,"1")
+      varT[n]    = Var:new(n,"1")
    end
    mt = frameStk:mt()
    dbg.fini("MT:getMTfromFile")
    return true
+end
+
+function M.setMpathRefCountT(self, refCountT)
+   self.mpathRefCountT = refCountT
+end
+function M.hideMpathRefCountT(self, refCountT)
+   self.mpathRefCountT = nil
+end
+
+function M.resetMPATH2system(self)
+   self.mpathA = path2pathA(self.systemBaseMPATH)
+   return self.systemBaseMPATH
 end
 
 return M

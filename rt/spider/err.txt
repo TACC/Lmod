@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.3  2017-01-11 11:14 -06:00
+Modules based on Lua: Version 7.7.14  2017-11-16 16:23 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -266,6 +266,10 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6
       cmplrs/intel/14.0  mpi/openmpi/1.6.5
 ===========================
 step 20
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/spider/mf/UNKNOWN
+===========================
+===========================
+step 21
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
 The following is a list of the modules currently available:
@@ -309,7 +313,7 @@ To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
-step 21
+step 22
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gromacs
 ===========================
   apps/gromacs:
@@ -321,7 +325,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gromacs
   For example:
      $ module spider apps/gromacs/4.6.3
 ===========================
-step 22
+step 23
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs
 ===========================
   apps/gromacs:
@@ -333,45 +337,45 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs
   For example:
      $ module spider apps/gromacs/4.6.3
 ===========================
-step 23
+step 24
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6.3
 ===========================
   apps/gromacs: apps/gromacs/4.6.3
     You will need to load all module(s) on any one of the lines below before the "apps/gromacs/4.6.3" module is available to load.
       cmplrs/intel/14.0  mpi/openmpi/1.6.5
 ===========================
-step 24
+step 25
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6.3-debug
 ===========================
   apps/gromacs: apps/gromacs/4.6.3-debug
     You will need to load all module(s) on any one of the lines below before the "apps/gromacs/4.6.3-debug" module is available to load.
       cmplrs/intel/14.0  mpi/openmpi/1.6.5
 ===========================
-step 25
+step 26
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider petsc/3.1
 ===========================
   petsc: petsc/3.1
     You will need to load all module(s) on any one of the lines below before the "petsc/3.1" module is available to load.
       intel/intel  mpich2/1.0.7
 ===========================
-step 26
+step 27
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/spider/mf/Core3
 ===========================
 ===========================
-step 27
+step 28
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider smrt
 ===========================
   smrt: smrt/2.3
     This module can be loaded directly: module load smrt/2.3
 ===========================
-step 28
+step 29
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider petsc/3.1
 ===========================
   petsc: petsc/3.1
     You will need to load all module(s) on any one of the lines below before the "petsc/3.1" module is available to load.
       intel/intel  mpich2/1.0.7
 ===========================
-step 29
+step 30
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
 The following is a list of the modules currently available:
@@ -391,3 +395,19 @@ where "Foo" is the name of a module.
 To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
+===========================
+step 31
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GCC
+===========================
+  GCC: GCC/6.3.0
+     Other possible modules matches:
+        GCCcore
+    This module can be loaded directly: module load GCC/6.3.0
+  To find other possible module matches execute:
+      $ module -r spider '.*GCC.*'
+===========================
+step 32
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gcc
+===========================
+  GCC: GCC/6.3.0
+    This module can be loaded directly: module load GCC/6.3.0

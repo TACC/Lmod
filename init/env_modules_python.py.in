@@ -1,7 +1,15 @@
 # -*- python -*-
-import os, string
-def module(command, *arguments):
-  commands = os.popen('@PKG@/libexec/lmod python %s %s'\
-                      % (command, string.join(arguments))).read()
-  exec commands
+from __future__ import print_function
+from subprocess import PIPE, Popen
+import os, sys 
 
+
+def module(command, *arguments):
+    proc = Popen(['@PKG@/libexec/lmod', 'python', command] + list(arguments), stdout=PIPE, stderr=PIPE)
+    stdout, stderr = proc.communicate()
+    err_out=sys.stderr
+    if (os.environ.get('LMOD_REDIRECT','@redirect@') != 'no'):
+        err_out=sys.stdout
+
+    print(stderr.decode(),file=err_out)
+    exec(stdout.decode())

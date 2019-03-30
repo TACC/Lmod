@@ -8,7 +8,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -63,8 +63,11 @@ return {
 
    Any module command can be given after ml:
 
-   if name is avail, save, restore, show, swap,...
+   if name is a subcommand like avail, save, restore, show, swap,...
        $ ml name  arg1 arg2 ...
+
+   All options must go before the subcommand:
+       $ ml --terse avail
 
    Then this is the same :
        $ module name arg1 arg2 ...
@@ -76,13 +79,19 @@ return {
 ]==],
      ml_2many              = "ml error: too many commands\n",
      
+     ml_misplaced_opt      = [==[ml error: misplaced option: "%{opt}"
+  Try ml --help for usage.
+]==],
+
      --------------------------------------------------------------------------
      -- LmodError messages
      --------------------------------------------------------------------------
      e_Args_Not_Strings    = [==[Syntax error in file: %{fn}
  with command: %{cmdName}, one or more arguments are not strings.
-]==],
+]==], --
      e_Avail_No_MPATH      = "module avail is not possible. MODULEPATH is not set or not set with valid paths.\n",
+     e_BrokenCacheFn       = "Spider cache fn: \"%{fn}\" appears broken",
+     e_BrokenQ             = "Internal error: broken module Q\n",
      e_Conflict            = "Cannot load module \"%{name}\" because these module(s) are loaded:\n   %{module_list}\n",
      e_Execute_Msg         = [==[Syntax error in file: %{fn}
 with command: "execute".
@@ -97,6 +106,8 @@ The syntax is:
 Please check the spelling or version number. Also try "module spider ..."
 It is also possible your cache file is out-of-date; it may help to try:
   $   module --ignore-cache load %{module_list} 
+
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ]==],
      e_Failed_Load_2       = [==[These module(s) exist but cannot be loaded as requested: %{kA}
    Try: "module spider %{kB}" to see how to load the module(s).
@@ -108,6 +119,9 @@ To correct the situation, please execute the following command:
   $  module swap %{oldName} %{fullName}
 
 Please submit a consulting ticket if you require additional assistance.
+]==],
+     e_Illegal_Load       = [==[The following module(s) are illegal: %{module_list}
+Lmod does not support modulefiles that start with two or more underscores
 ]==],
      e_LocationT_Srch      = "Error in LocationT:search().",
      e_Missing_Value       = "%{func}(\"%{name}\") is not valid; a value is required.",
@@ -126,19 +140,14 @@ Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOS
      e_No_Period_Allowed   = "Collection names cannot contain a period ('.').\n  Please rename \"%collection}\"\n",
      e_No_PropT_Entry      = "%{routine}: system property table has no %{location} for: \"%{name}\". \nCheck spelling and case of name.\n",
      e_No_UUID             = "uuidgen is not available, fallback failed too",
-     e_No_ValidT_Entry     = "%{routine}: The validT table for %{name} has no entry for: \"%{value}\". \nCheck spelling and case of name.\n",
+     e_No_ValidT_Entry     = "%{routine}: The validT table for %{name} has no entry for: \"%{value}\". Make sure that all keys in displayT have a matching key in validT. \nCheck spelling and case of name.\n",
      e_Prereq              = "Cannot load module \"%{name}\" without these module(s) loaded:\n   %{module_list}\n",
      e_Prereq_Any          = "Cannot load module \"%{name}\". At least one of these module(s) must be loaded:\n   %{module_list}\n",
      e_Spdr_Timeout        = "Spider search timed out.\n",
      e_Swap_Failed         = "Swap failed: \"%{name}\" is not loaded.\n",
-     e_SYS_DFLT_EMPTY      = [==[
-The system default contains no modules
-  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
-  No changes in loaded modules
-
-]==],
-     e_Unable_2_Load       = "Unable to load module: %{name}\n     %{fn}: %{message}\n",
+     e_Unable_2_Load       = "Unable to load module because of error when evaluating modulefile: %{name}\n     %{fn}: %{message}\n     Please check the modulefile and especially if there is a the line number specified in the above message",
      e_Unable_2_parse      = "Unable to parse: \"%{path}\". Aborting!\n",
+     e_Unable_2_rename     = "Unable to rename %{from} to %{to}, error message: %{errMsg}",
      e_Unknown_Coll        = "User module collection: \"%{collection}\" does not exist.\n  Try \"module savelist\" for possible choices.\n",
      e_coll_corrupt        = "The module collection file is corrupt. Please remove: %{fn}\n",
      e_dbT_sn_fail         = "dbT[sn] failed for sn: %{sn}\n",
@@ -150,12 +159,17 @@ The system default contains no modules
      --------------------------------------------------------------------------
      m_Activate_Modules    = "\nActivating Modules:\n",
      m_Additional_Variants = "\n    Additional variants of this module can also be loaded after loading the following modules:\n",
+     m_Collection_disable  = "Disabling %{name} collection by renaming with a \"~\"\n",
      m_Depend_Mods         = "\n    You will need to load all module(s) on any one of the lines below before the \"%{fullName}\" module is available to load.\n",
      m_Description         = "    Description:\n%{descript}\n\n",
      m_Direct_Load         = "\n    This module can be loaded directly: module load %{fullName}\n",
      m_Family_Swap         = "\nLmod is automatically replacing \"%{oldFullName}\" with \"%{newFullName}\".\n",
      m_For_System          = ", for system: \"%{sname}\"",
      m_Inactive_Modules    = "\nInactive Modules:\n",
+     m_IsNVV               = [==[
+Module defaults are chosen based on Find First Rules due to Name/Version/Version modules found in the module tree.
+See https://lmod.readthedocs.io/en/latest/060_locating.html for details.
+]==],
      m_Module_Msgs         = [==[
 %{border}
 There are messages associated with the following module(s):
@@ -180,11 +194,11 @@ To search the contents of modules for matching words execute:
 
       $ module -r spider '.*%{name}.*'
 
-]==],
+]==], --
      m_Reload_Modules      = "\nDue to MODULEPATH changes, the following have been reloaded:\n",
      m_Reload_Version_Chng = "\nThe following have been reloaded with a version change:\n",
      m_Restore_Coll        = "Restoring modules from %{msg}\n",
-     m_Reset_SysDflt       = "Resetting modules to system default\n",
+     m_Reset_SysDflt       = "Resetting modules to system default. Reseting $MODULEPATH back to system default. All extra directories will be removed from $MODULEPATH.\n",
      m_Save_Coll           = "Saved current collection of modules to: \"%{a}\"%{msgTail}\n",
      m_Spdr_L1             = [==[%{border}  For detailed information about a specific "%{key}" module (including how to load the modules) use the module's full name.
   For example:
@@ -219,7 +233,7 @@ must specify the version if there is more than one version:
      w_Broken_Coll         = [==[One or more modules in your %{collectionName} collection have changed: "%{module_list}".
 To see the contents of this collection execute:
   $ module describe %{collectionName}
-To rebuild the collection, load the modules you wish, then execute:
+To rebuild the collection, do a module reset, then load the modules you wish, then execute:
   $ module save %{collectionName}
 If you no longer want this module collection execute:
   $ rm ~/.lmod.d/%{collectionName}
@@ -237,13 +251,24 @@ Try:
 
 to see if the module(s) are available across all compilers and MPI implementations.
 ]==],
+     w_MissingModules      = [==[
+%{border}
+The following dependent module(s) are not currently loaded: %{missing}
+%{border}
+]==],
      w_MPATH_Coll          = "The system MODULEPATH has changed: please rebuild your saved collection.\n",
      w_Mods_Not_Loaded     = "The following modules were not loaded: %{module_list}\n\n",
      w_No_Coll             = "No collection named \"%{collection}\" found.",
      w_No_dot_Coll         = "It is illegal to have a `.' in a collection name.  Please choose another name for: \"%{name}\".",
+     w_SYS_DFLT_EMPTY      = [==[
+The system default contains no modules
+  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
+  No changes in loaded modules
+
+]==],
      w_Save_Empty_Coll     = [==[You are trying to save an empty collection of modules in "%{name}". If this is what you want then enter:
   $  module --force save %{name}
-]==],
+]==], --
      w_System_Reserved     = "The named collection 'system' is reserved. Please choose another name.\n",
      w_Undef_MPATH         = "MODULEPATH is undefined.\n",
      w_Unknown_Hook        = "Unknown hook: %{name}\n",
@@ -298,6 +323,7 @@ to see if the module(s) are available across all compilers and MPI implementatio
      collctn6              = "Restore module state to system defaults.",                                 
      collctn7              = "List of saved collections.",
      collctn8              = "Describe the contents of a module collection.",
+     collctn9              = "Disable a collection.",
 
      depr_title            = "Deprecated commands:\n" ..
                              "--------------------",
@@ -312,6 +338,8 @@ to see if the module(s) are available across all compilers and MPI implementatio
      misc2                 = "Prepend or Append path to MODULEPATH.",
      misc3                 = "remove path from MODULEPATH.",
      misc4                 = "output list of active modules as a lua table.",
+     misc_isLoaded         = "return a true status if module is loaded",
+     misc_isAvail          = "return a true status if module can be loaded",
 
 
      env_title             = "Important Environment Variables:\n" ..
@@ -360,6 +388,8 @@ to see if the module(s) are available across all compilers and MPI implementatio
      nrdirect_H= "Force output of list, avail and spider to stderr",
      hidden_H  = "Avail and spider will report hidden modules",
      spdrT_H   = "a timeout for spider",
+     trace_T   = "trace major changes such as loads",
+
      Where     = "\n  Where:\n",
      Inactive  = "\nInactive Modules",
      DefaultM  = "Default Module",
@@ -374,5 +404,20 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
      noModules = "No modules found!",
      noneFound = "  None found.",
 
+     --------------------------------------------------------------------------
+     -- Other strings:
+     --------------------------------------------------------------------------
+     coll_contains  = "Collection \"%{collection}\" contains: \n",
+     currLoadedMods = "Currently Loaded Modules",
+     keyword_msg    = [==[
+%{border}
+The following modules match your search criteria: "%{module_list}"
+%{border}
+]==],
+     lmodSystemName = "(For LMOD_SYSTEM_NAME = \"%{name}\")",
+     matching       = " Matching: %{wanted}",
+     namedCollList  = "Named collection list %{msgHdr}:\n",
+     noModsLoaded   = "No modules loaded\n",
+     specific_hlp   = "Module Specific Help for \"%{fullName}\"",
    }
 }

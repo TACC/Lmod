@@ -4,7 +4,12 @@ import os, sys, re, base64, time, json
 dirNm, execName = os.path.split(os.path.realpath(sys.argv[0]))
 sys.path.append(os.path.realpath(dirNm))
 
-import MySQLdb, ConfigParser, getpass
+try:
+  import configparser
+except:
+  import ConfigParser as configparser
+
+import MySQLdb, getpass
 import warnings, inspect
 from BeautifulTbl import BeautifulTbl
 warnings.filterwarnings("ignore", "Unknown table.*")
@@ -62,11 +67,11 @@ class LMODdb(object):
     """ Read database access info from config file. (private)"""
     confFn = self.__confFn
     try:
-      config=ConfigParser.ConfigParser()
+      config=configparser.ConfigParser()
       config.read(confFn)
       self.__host    = config.get("MYSQL","HOST")
       self.__user    = config.get("MYSQL","USER")
-      self.__passwd  = base64.b64decode(config.get("MYSQL","PASSWD"))
+      self.__passwd  = base64.b64decode(config.get("MYSQL","PASSWD").encode()).decode()
       self.__db      = config.get("MYSQL","DB")
     except ConfigParser.NoOptionError, err:
       sys.stderr.write("\nCannot parse the config file\n")
@@ -85,7 +90,7 @@ class LMODdb(object):
       self.__readFromUser()
 
     n = 200
-    for i in xrange(0,n+1):
+    for i in range(0,n+1):
       try:
         self.__conn = MySQLdb.connect (self.__host,self.__user,self.__passwd)
         if (databaseName):

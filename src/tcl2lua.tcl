@@ -10,7 +10,7 @@
 #
 #  ----------------------------------------------------------------------
 #
-#  Copyright (C) 2008-2017 Robert McLay
+#  Copyright (C) 2008-2018 Robert McLay
 #
 #  Permission is hereby granted, free of charge, to any person obtaining
 #  a copy of this software and associated documentation files (the
@@ -34,7 +34,7 @@
 #
 #------------------------------------------------------------------------
 
-global g_loadT g_varsT g_fullName g_usrName g_shellName g_mode
+global g_loadT g_varsT g_fullName g_usrName g_shellName g_mode g_shellType g_outputA, g_fast
 namespace eval ::cmdline {
     namespace export getArgv0 getopt getKnownOpt getfiles getoptions \
 	    getKnownOptions usage
@@ -269,6 +269,7 @@ proc ::cmdline::usage {optlist {usage {options:}}} {
 #	Returns the list of files that match the input patterns.
 
 proc ::cmdline::getfiles {patterns quiet} {
+    global g_outputA
     set result {}
     if {$::tcl_platform(platform) == "windows"} {
 	foreach pattern $patterns {
@@ -276,7 +277,7 @@ proc ::cmdline::getfiles {patterns quiet} {
 	    set files [glob -nocomplain -- $pat]
 	    if {$files == {}} {
 		if {! $quiet} {
-		    puts stdout "warning: no files match \"$pattern\""
+		    lappend g_outputA "warning: no files match \"$pattern\""
 		}
 	    } else {
 		foreach file $files {
@@ -296,7 +297,7 @@ proc ::cmdline::getfiles {patterns quiet} {
 	if {[file isfile $fullPath]} {
 	    lappend files $fullPath
 	} elseif {! $quiet} {
-	    puts stdout "warning: no files match \"$file\""
+	    lappend g_outputA  "warning: no files match \"$file\""
 	}
     }
     return $files
@@ -332,7 +333,6 @@ proc currentMode {} {
 
 proc pushMode {mode} {
     global g_modeStack
-
     lappend g_modeStack $mode
 }
 
@@ -346,7 +346,7 @@ proc popMode {} {
 
 
 proc module-info {what {more {}}} {
-    global g_fullName g_usrName g_shellName
+    global g_fullName g_usrName g_shellName g_shellType
     set mode [currentMode]
     switch -- $what {
     "mode" {
@@ -364,7 +364,7 @@ proc module-info {what {more {}}} {
         return $g_shellName
     }
     "shelltype" {
-        return $g_shellName
+        return $g_shellType
     }
     "flags" {
         return 0
@@ -391,6 +391,7 @@ proc module-info {what {more {}}} {
 }
 
 proc module-whatis { args } {
+    global g_outputA
     set msg ""
     foreach item $args {
        append msg $item
@@ -398,7 +399,7 @@ proc module-whatis { args } {
     }
 
     regsub -all {[\n]} $msg  " " msg2
-    puts stdout "whatis(\[===\[$msg2\]===\])"
+    lappend g_outputA  "whatis(\[===\[$msg2\]===\])"
 }
 
 proc setenv { var val args } {
@@ -509,7 +510,8 @@ proc remove-path { var val args} {
 }
 
 proc output-path-foo { cmd var val separator priority } {
-    puts stdout "$cmd\{\"$var\",\"$val\",delim=\"$separator\",priority=\"$priority\"\}"
+    global g_outputA
+    lappend g_outputA  "$cmd\{\"$var\",\"$val\",delim=\"$separator\",priority=\"$priority\"\}"
 }
 
 
@@ -534,19 +536,29 @@ proc doubleQuoteEscaped {text} {
 }
 
 proc cmdargs { cmd args } {
+    global g_outputA
     foreach arg $args {
 	#if {$arg != ""} {
 	    set val [doubleQuoteEscaped $arg]
 	    lappend cmdArgsL "\"$val\""
 	#}
     }
-    set cmdArgs [join $cmdArgsL ","]
-    puts stdout "$cmd\($cmdArgs\)"
+    if {[info exists cmdArgsL]} {
+        set cmdArgs [join $cmdArgsL ","]
+	lappend g_outputA  "$cmd\($cmdArgs\)"
+    }
+}
+
+proc depends-on { args} {
+    eval cmdargs "depends_on" $args
+}
+
+proc always-load { args} {
+    eval cmdargs "depends_on" $args
 }
 proc family { var } {
     cmdargs "family" $var
 }
-
 
 proc loadcmd { args } {
     eval cmdargs "load" $args
@@ -561,11 +573,14 @@ proc swapcmd { old {new {}}} {
 }
 
 proc system { args } {
+    global g_outputA
     foreach arg $args {
         lappend cmdArgsL "$arg"
     }
-    set cmdArgs [join $cmdArgsL " "]
-    puts stdout "execute\{cmd=\"$cmdArgs\",modeA = \{\"all\"\}\}"
+    if {[info exists cmdArgsL]} {
+        set cmdArgs [join $cmdArgsL " "]
+	lappend g_outputA  "execute\{cmd=\"$cmdArgs\",modeA = \{\"all\"\}\}"
+    }
 }
 
 proc tryloadcmd { args } {
@@ -598,10 +613,7 @@ proc use { args } {
         } elseif {($path == "--prepend") ||($path == "-p") ||($path == "-prepend")} {
 	    set path_cmd "prepend_path"
 	} else {
-            #puts stderr "path: $path"
-            #if {[file isdirectory $path]} {
-                eval cmdargs $path_cmd MODULEPATH $path
-            #}
+	    eval cmdargs $path_cmd MODULEPATH $path
 	}
     }
 }
@@ -616,8 +628,29 @@ proc setPutMode { value } {
     set putMode $value
 }
 
+proc initGA {} {
+    global g_outputA
+    unset -nocomplain g_outputA
+}
+
+proc showResults {} {
+    global g_outputA
+    global g_fast
+    if [info exists g_outputA] {
+	set my_output [join  $g_outputA "\n"]
+    } else {
+	set my_output " "
+    }
+    
+    if { $g_fast > 0 } {
+	setResults $my_output
+    } else {
+	puts stdout "$my_output"
+    }
+}
+
 proc myPuts args {
-    global putMode
+    global putMode g_outputA
     foreach {a b c} $args break
     set nonewline 0
     switch [llength $args] {
@@ -656,14 +689,14 @@ proc myPuts args {
             set text "LmodMessage(\[===\[$text\]===\])"
         }
     } else {
-        set channel  "stdout"
+	lappend g_outputA $text
+	return
     }
     if { $nonewline == 1 } {
         puts -nonewline $channel $text
     } else {
         puts $channel $text
     }
-
 }
 
 proc uname {what} {
@@ -740,67 +773,78 @@ proc module { command args } {
 }
 
 proc reportError {message} {
+    global g_outputA
     global ModulesCurrentModulefile g_fullName
-    puts stdout "LmodError(\[===\[$ModulesCurrentModulefile: ($g_fullName): $message\]===\])"
+    lappend g_outputA "LmodError(\[===\[$ModulesCurrentModulefile: ($g_fullName): $message\]===\])"
 }
 
 proc execute-modulefile {modfile } {
     global env g_help ModulesCurrentModulefile putMode
     set ModulesCurrentModulefile $modfile
 
-    set slave "__modname"
     set putMode "normal"
 
-    if {![interp exists $slave]} {
-	interp create $slave
-	interp alias $slave family {} family
-	interp alias $slave setenv {} setenv
-	interp alias $slave pushenv {} pushenv
-	interp alias $slave unsetenv {} unsetenv
-	interp alias $slave system {} system
-	interp alias $slave append-path {} append-path
-	interp alias $slave prepend-path {} prepend-path
-	interp alias $slave remove-path {} remove-path
-	interp alias $slave prereq {} prereq
-	interp alias $slave prereq-any {} prereq-any
-	interp alias $slave conflict {} conflict
-	interp alias $slave is-loaded {} is-loaded
-	interp alias $slave module {} module
-        interp alias $slave setPutMode {} setPutMode
-        interp alias $slave puts {} myPuts
-	interp alias $slave module-info {} module-info
-	interp alias $slave module-whatis {} module-whatis
-	interp alias $slave set-alias {} set-alias
-	interp alias $slave unset-alias {} unset-alias
-	interp alias $slave add-property {} add-property
-	interp alias $slave remove-property {} remove-property
-	interp alias $slave uname {} uname
-	interp alias $slave module-version {} module-version
-	interp alias $slave module-alias {} module-alias
-	interp alias $slave reportError {} reportError
-
-	interp eval $slave {global ModulesCurrentModulefile g_help}
-	interp eval $slave [list "set" "ModulesCurrentModulefile" $modfile]
-	interp eval $slave [list "set" "g_help" $g_help]
+    if {[info exists child] && [interp exists $child]} {
+	interp delete $child
     }
+	
+    set child [interp create]
+    interp alias $child add-property   	{} add-property
+    interp alias $child always-load    	{} always-load
+    interp alias $child append-path    	{} append-path
+    interp alias $child conflict       	{} conflict
+    interp alias $child depends-on     	{} depends-on
+    interp alias $child family         	{} family
+    interp alias $child initGA         	{} depends-on
+    interp alias $child is-loaded      	{} is-loaded
+    interp alias $child module         	{} module
+    interp alias $child module-alias   	{} module-alias
+    interp alias $child module-info    	{} module-info
+    interp alias $child module-version 	{} module-version
+    interp alias $child module-whatis  	{} module-whatis
+    interp alias $child myPuts         	{} myPuts
+    interp alias $child prepend-path   	{} prepend-path
+    interp alias $child prereq         	{} prereq
+    interp alias $child prereq-any     	{} prereq-any
+    interp alias $child pushenv        	{} pushenv
+    interp alias $child puts           	{} myPuts
+    interp alias $child remove-path    	{} remove-path
+    interp alias $child remove-property {} remove-property
+    interp alias $child reportError     {} reportError
+    interp alias $child set-alias       {} set-alias
+    interp alias $child setPutMode      {} setPutMode
+    interp alias $child setenv          {} setenv
+    interp alias $child showResults     {} showResults
+    interp alias $child system          {} system
+    interp alias $child uname           {} uname
+    interp alias $child unset-alias     {} unset-alias
+    interp alias $child unsetenv        {} unsetenv
 
-    set errorVal [interp eval $slave {
+    interp eval $child {global ModulesCurrentModulefile g_help}
+    interp eval $child [list "set" "ModulesCurrentModulefile" $modfile]
+    interp eval $child [list "set" "g_help" $g_help]
+
+    set errorVal [interp eval $child {
+        set returnVal 0
+        initGA
 	set sourceFailed [catch {source $ModulesCurrentModulefile } errorMsg]
         if { $g_help && [info procs "ModulesHelp"] == "ModulesHelp" } {
             set start "help(\[===\["
             set end   "\]===\])"
             setPutMode "inHelp"
-            puts stdout $start
+            myPuts stdout $start
 	    catch { ModulesHelp } errMsg
-            puts stdout $end
+            myPuts stdout $end
             setPutMode "normal"
         }
         if {$sourceFailed} {
             reportError $errorMsg
-            return 1
+	    set returnVal 1
         }
+        showResults
+	return $returnVal
     }]
-    interp delete $slave
+    interp delete $child
     return $errorVal
 }
 
@@ -814,16 +858,18 @@ proc unset-env {var} {
 
 proc main { modfile } {
     global g_mode
-    pushMode $g_mode
+
+    pushMode           $g_mode
     execute-modulefile $modfile
     popMode
 }
 
-global g_loadT g_help
+global g_loadT g_help 
 
 set options {
             {l.arg   ""     "loaded list"}
             {h              "print ModulesHelp command"}
+            {F              "fast processing of TCL files"}
             {f.arg   "???"  "module full name"}
             {m.arg   "load" "mode: load remove display"}
             {s.arg   "bash" "shell name"}
@@ -840,6 +886,7 @@ foreach m [split $params(l) ":"] {
     set g_loadT($m) 1
 }
 
+set g_fast      $params(F)
 set g_fullName  $params(f)
 set g_usrName   $params(u)
 set g_shellName $params(s)
@@ -850,4 +897,36 @@ if {[lsearch $argv "-L"] >= 0} {
 if {[lsearch $argv "-P"] >= 0} {
     set env("LD_PRELOAD")  $params(P)
 }
+
+switch -regexp -- $g_shellName {
+    ^(sh|bash|ksh|zsh)$ {
+	set g_shellType sh
+    }
+    ^(cmd)$ {
+        set g_shellType cmd
+    }
+    ^(csh|tcsh)$ {
+	set g_shellType csh
+    }
+    ^(perl)$ {
+	set g_shellType perl
+    }
+    ^(python)$ {
+	set g_shellType python
+    }
+    ^(lisp)$ {
+	set g_shellType lisp
+    }
+    ^(fish)$ {
+	set g_shellType fish
+    }
+    ^(cmake)$ {
+	set g_shellType cmake
+    }
+    . {
+	error " +(0):ERROR:0: Unknown shell type \'($g_shellName)\'"
+    }
+}
+
+
 eval main $argv

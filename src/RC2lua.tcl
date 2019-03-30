@@ -10,7 +10,7 @@
 #--
 #--  ----------------------------------------------------------------------
 #--
-#--  Copyright (C) 2008-2017 Robert McLay
+#--  Copyright (C) 2008-2018 Robert McLay
 #--
 #--  Permission is hereby granted, free of charge, to any person obtaining
 #--  a copy of this software and associated documentation files (the
@@ -34,18 +34,31 @@
 #--
 #--------------------------------------------------------------------------
 
-global g_currentModuleName
+proc initGA {} {
+    global g_outputA
+    unset -nocomplain g_outputA
+}
+
+proc myPuts { s } {
+    global g_outputA
+    lappend g_outputA $s
+}
+
 proc doubleQuoteEscaped {text} {
     regsub -all "\"" $text "\\\"" text
     return $text
 }
 
 proc module-alias {name mfile} {
-    puts stdout "\{kind=\"module-alias\",name=\"$name\",mfile=\"$mfile\"\},"
+    myPuts "\{kind=\"module_alias\",name=\"$name\",mfile=\"$mfile\"\},"
 }
 
 proc hide-version {mfile} {
-    puts stdout "\{kind=\"hide-version\", mfile=\"$mfile\"\},"
+    myPuts "\{kind=\"hide_version\", mfile=\"$mfile\"\},"
+}
+
+proc hide-modulefile {mfile} {
+    myPuts "\{kind=\"hide_modulefile\", mfile=\"$mfile\"\},"
 }
 
 
@@ -56,11 +69,30 @@ proc module-version {args} {
         lappend argL "\"$val\""
     }
     set versionA [join $argL ","]
-    puts stdout "\{kind=\"module-version\",module_name=\"$module_name\", module_versionA=\{$versionA\}\},"
+    myPuts "\{kind=\"module_version\",module_name=\"$module_name\", module_versionA=\{$versionA\}\},"
+}
+
+proc showResults {} {
+    global g_outputA
+    global g_fast
+    if [info exists g_outputA] {
+	set my_output [join  $g_outputA "\n"]
+    } else {
+	set my_output ""
+    }
+    
+    if { $g_fast > 0 } {
+	setResults $my_output
+    } else {
+	puts stdout "$my_output"
+    }
 }
 
 proc main {mRcFile} {
-    puts stdout "modA=\{"
+    global env                 # Need this for .modulerc file that access global env vars.
+    global g_fast
+    initGA
+    myPuts "ModA=\{"
     set version  -1
     set found 0
 
@@ -73,17 +105,27 @@ proc main {mRcFile} {
       set version $ModuleVersion
       set found 1
     }
-    #if {[info exists NewModulesVersionDate]} {
-    #  set date $NewModulesVersionDate
-    #}
-    #if {[info exists NewModulesVersion]} {
-    #  set newVersion $NewModulesVersion
-    #}
 
     if { $found > 0 } {
-        puts stdout "\{kind=\"set-default-version\", version=\"$version\"\}"
+	myPuts "\{kind=\"set_default_version\", version=\"$version\"\},"
     }
-    puts stdout "\}"
+    myPuts "\}" 
+    showResults
 }
 
-eval main $argv
+
+set g_fast 0
+
+foreach arg $argv {
+    switch -regexp -- $arg {
+	^-F$ {
+	    set g_fast 1
+	}
+	^[^-].*$ {
+	    set fn $arg
+	}
+    }
+}
+
+
+main $fn

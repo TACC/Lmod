@@ -1,3 +1,5 @@
+.. _faq-label:
+
 Frequently Asked Questions
 ==========================
 
@@ -56,7 +58,7 @@ How does one debug a modulefile?
 
         local a = "text"
         io.stderr:write("Message ",a,"\n")
-   
+
     Method 2: Take the output directly from Lmod.  You can put print()
     statements in your modulefile and do::
 
@@ -71,9 +73,10 @@ Why doesn't  % ``module avail |& grep ucc``  work under tcsh and works under bas
     However, in all shells it is better to use::
 
        % module avail ucc
-    
+
     instead as this will only output modules that have "ucc" in
-    their name. 
+    their name.
+
 
 Can I disable the pager output?
 
@@ -99,6 +102,16 @@ instead of stderr?
    this will not work with tcsh/csh due to limitations of
    this shell.
 
+How can I use grep easily with the module command?
+
+   If your site doesn't send the output of stdout, you can still use
+   this trick when you need to grep the output of module command.
+   Here are some examples::
+
+      $ module -t --redirect avail       | grep foo
+      $ module --raw --redirect show foo | grep bar
+      $ module -t --redirect spider      | grep baz
+
 Can I ignore the spider cache files when doing ``module avail``?
 
    Yes you can::
@@ -118,7 +131,7 @@ do?
    out-of-date cache.  Try running::
 
       $ module --ignore_cache avail
-       
+
    If this does find it then you might have an old personal spider cache.
    To clear it do::
 
@@ -146,7 +159,7 @@ How do I use the initializing shell script that comes with this application with
  is no way to unload that shell script. If the script is simple you
  can read it through and create a modulefile. To simplify this task,
  Lmod provides the ``sh_to_modulefile`` script to convert shell
- scripts to modulefiles.
+ scripts to modulefiles. See :ref:`sh_to_modulefile-label` for more details.
 
 Why is the output of ``module avail`` not filling the width of the terminal?
 
@@ -162,7 +175,7 @@ Why is the output of ``module avail`` not filling the width of the terminal?
   isn't installed on the system.
 
 
-Why does isn't the module defined when using the **screen** program?
+Why isn't the module defined when using the **screen** program?
 
   The screen program starts a non-login interactive shell.  The Bash
   shell startup doesn't start sourcing /etc/profile and therefore the
@@ -175,7 +188,7 @@ Why does isn't the module defined when using the **screen** program?
 
 Why does ``LD_LIBRARY_PATH`` get cleared when using the **screen** program?
 
-  The screen program is guid program.  That means it runs as the group
+  The screen program is a guid program.  That means it runs as the group
   of the program and not the group associated with the user.  For
   security reason all of these kinds of program clear
   ``LD_LIBRARY_PATH``.  This unsetting of ``LD_LIBRARY_PATH`` is done
@@ -184,3 +197,66 @@ Why does ``LD_LIBRARY_PATH`` get cleared when using the **screen** program?
   You may be better off using **tmux** instead. It is a regular
   program.
 
+How can you write TCL files that can be safely used with both Lmod
+and Tmod?
+
+  For example the hide-version command only works Lmod and could be
+  found in ~/.modulerc.  This could be read by both Tmod and Lmod.
+  You can prevent Tmod from executing Lmod only code in the following way::
+
+    #%Module
+    global env
+    if { [info exists env(LMOD_VERSION_MAJOR)]} {
+       hide-version CUDA/8.8.8
+    }
+
+  Lmod defines the environment variable LMOD_VERSION_MAJOR during its
+  execution.  This trick can also be used in a TCL modulefile to set
+  the family function::
+
+    #%Module
+    ...
+    global env
+    if { [info exists env(LMOD_VERSION_MAJOR)]} {
+       family compiler
+    }
+
+How can I get the shell functions created by modules in bash shell
+scripts such as job submission scripts?
+
+   First, please make sure that shell functions and alias works
+   correctly in bash interactive subshells.  If they don't then your
+   site is not setup correctly.
+
+   Once that works then change the first line of the shell script to
+   be:
+
+       #!/bin/bash -l
+
+   Note that is a minus ell not minus one. This will cause the startup
+   scripts to be sourced before the first executable statement in the
+   script.
+
+Why do modules get sometimes get loaded when I execute ``module use <path>``?
+
+   A main principal is that when $MODULEPATH changes, Lmod checks all
+   the currently loaded modules. If any of thoses modules would not
+   have been chosen then each is swapped for the new choice.
+
+How to use module commands inside a Makefile?
+
+   A user might wish to use module commands inside a Makefile.  Here is a
+   generic way that would work with both Tmod and Lmod.  Both Lmod and
+   Tmod define MODULESHOME to point to the top of the module install
+   directory and both tools use the same initialization method to
+   define the module command. 
+
+   Here is an example Makefile that shows a user listing their currently
+   loaded modules::
+
+
+      module_list:
+             source $$MODULESHOME/init/bash; module list
+
+   
+        

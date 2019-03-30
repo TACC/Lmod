@@ -11,13 +11,16 @@
 --   Generate String:
 --      s = serializeTbl{indent=true, name="SomeName", value=luaTable}
 --
+--   Note that indent can also be an indent string (i.e. indent = "    ")
+--   which will be treated as the initial indentation.
+
 -- @module serializeTbl
 
 require("strict")
 
 ------------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -65,6 +68,8 @@ local function nsformat(value)
       else
 	 value = 'false'
       end
+   elseif (type(value) == 'number') then
+      value = tostring(value)
    end
    return value
 end
@@ -82,7 +87,7 @@ local keywordT = {
 
 local function wrap_name(indent, name)
    local str
-   if (name:find("[-+:./]") or keywordT[name] or
+   if (name:find("[-+:./]") or keywordT[name] or name == " " or
        name:sub(1,1):find("[0-9]")) then
       str = indent .. "[\"" .. name .. "\"] "
    else
@@ -94,16 +99,16 @@ end
 
 --------------------------------------------------------------------------
 -- This is the work-horse for this collections.  It is recursively for
--- sub-tables.  It also ignores keys that start with "_".
+-- sub-tables.  It also ignores keys that start with "__".
 
 local function outputTblHelper(indentIdx, name, T, a, level)
 
    -------------------------------------------------
-   -- Remove all keys in table that start with "_"
+   -- Remove all keys in table that start with "__"
 
    local t = {}
    for key in pairs(T) do
-      if (type(key) == "number" or key:sub(1,1) ~= '_') then
+      if (type(key) == "number" or key:sub(1,2) ~= '__') then
          t[key] = T[key]
       end
    end
@@ -161,7 +166,7 @@ local function outputTblHelper(indentIdx, name, T, a, level)
       w       = w + indent:len()
       for i = 1,#t-1 do
          a[#a+1] = nsformat(t[i])
-         w       = w + a[#a]:len()
+         w       = w + tostring(a[#a]):len()
          a[#a+1] = ", "
          w       = w + a[#a]:len()
          if ( w > twidth) then
@@ -210,6 +215,9 @@ function serializeTbl(options)
    local indentIdx = -1
    if (options.indent) then
       indentIdx = 0
+      if (type(options.indent) == 'string' and options.indent:find("^  *$")) then
+         indentIdx = options.indent:len()
+      end
    end
 
    if (type(value) == "table") then

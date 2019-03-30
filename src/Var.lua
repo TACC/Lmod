@@ -1,3 +1,6 @@
+_G._DEBUG             = false               -- Required by the new lua posix
+local posix           = require("posix")
+
 require("strict")
 
 --------------------------------------------------------------------------
@@ -10,7 +13,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -38,24 +41,24 @@ require("string_utils")
 require("pairsByKeys")
 require("utils")
 require("myGlobals")
+require("serializeTbl")
 
-_G._DEBUG            = false               -- Required by the new lua posix
-local M              = {}
-local abs            = math.abs
-local ceil           = math.ceil
-local concatTbl      = table.concat
-local cosmic         = require("Cosmic"):singleton()
-local dbg            = require("Dbg"):dbg()
-local envPrtyName    = "NVV_Priority_"
-local getenv         = os.getenv
-local log            = math.log
-local min            = math.min
-local max            = math.max
-local huge           = math.huge
-local posix          = require("posix")
-local setenv_posix   = posix.setenv
-local tmod_path_rule = cosmic:value("LMOD_TMOD_PATH_RULE")
-local ln10_inv       = 1.0/log(10.0)
+local M               = {}
+local abs             = math.abs
+local ceil            = math.ceil
+local concatTbl       = table.concat
+local cosmic          = require("Cosmic"):singleton()
+local dbg             = require("Dbg"):dbg()
+local envPrtyName     = "__LMOD_Priority_"
+local envRefCountName = "__LMOD_REF_COUNT_"
+local getenv          = os.getenv
+local log             = math.log
+local min             = math.min
+local max             = math.max
+local huge            = math.huge
+local setenv_posix    = posix.setenv
+local tmod_path_rule  = cosmic:value("LMOD_TMOD_PATH_RULE")
+local ln10_inv        = 1.0/log(10.0)
 --------------------------------------------------------------------------
 -- Rebuild the path-like priority table.  So for a PATH with priorities
 -- would have:
@@ -68,13 +71,17 @@ local ln10_inv       = 1.0/log(10.0)
 --
 -- @param self A Var object.
 
-local function build_priorityT(self)
-   local value   = getenv(envPrtyName .. self.name)
-   if (value == nil) then
-      return {}
+local function l_extract_Lmod_var_table(self, envName)
+   local value = getenv(envName .. self.name)
+   if (envName .. self.name == "__LMOD_REF_COUNT_MODULEPATH") then
+      dbg.print{"__LMOD_REF_COUNT_MODULEPATH: ",value,"\n"}
    end
 
-   local t = {}
+   local t     = {}
+   if (value == nil) then
+      return t
+   end
+
    local a = false
    for outer in value:split(";") do
       local istate = 0
@@ -103,9 +110,10 @@ local function chkMP(name, value, adding)
       local mt = require("FrameStk"):singleton():mt()
       mt:set_MPATH_change_flag()
       mt:updateMPathA(value)
-      local moduleA      = require("ModuleA"):singleton()
       local cached_loads = cosmic:value("LMOD_CACHED_LOADS")
-      moduleA:update{spider_cache = (cached_loads ~= 'no')}
+      local spider_cache = (cached_loads ~= 'no')
+      local moduleA      = require("ModuleA"):singleton{spider_cache = spider_cache}
+      moduleA:update{spider_cache = spider_cache}
       dbg.fini("chkMP")
    end
 end
@@ -116,30 +124,57 @@ end
 -- all variables are path like variables here.  Not to worry
 -- however, the set function mark the type as "var" and not
 -- "path".  Other functions work similarly.
-local function extract(self)
+local function l_extract(self, nodups)
    local myValue   = self.value or getenv(self.name)
    local pathTbl   = {}
    local imax      = 0
    local imin      = 1
    local pathA     = {}
    local sep       = self.sep
-   local priorityT = build_priorityT(self)
+   local priorityT = l_extract_Lmod_var_table(self, envPrtyName)
+   local refCountT = l_extract_Lmod_var_table(self, envRefCountName)
 
    if (myValue and myValue ~= '') then
       pathA = path2pathA(myValue, sep)
-
       for i,v in ipairs(pathA) do
-         local a        = pathTbl[v] or {}
+         local vv       = pathTbl[v] or {num = -1, idxA = {}}
+         local num      = vv.num 
+         if (num == -1) then
+            local refCount = false
+            local vA       = refCountT[v]
+            if (vA) then
+               refCount = tonumber(vA[1])
+            end
+            num = (refCount or 1) - 1
+         end
+
          local priority = 0
          local vA       = priorityT[v]
          if (vA) then
             priority = vA[1]
          end
-         a[#a + 1]  = {i,priority}
-         pathTbl[v] = a
+         
+         local idxA    = vv.idxA
+         if (nodups) then
+            --if (self.name == ModulePath) then 
+            --   vv.num = 1
+            --else
+            --   vv.num = num + 1
+            --end
+            vv.num = num + 1
+            if (next(idxA) == nil) then
+               idxA[1] = {i,priority}
+            end
+         else
+            idxA[#idxA+1] = {i,priority}
+            vv.num        = num + 1
+         end
          imax       = i
+         pathTbl[v] = vv
       end
    end
+
+   self.nodups = nodups
    self.value  = myValue
    self.type   = 'path'
    self.tbl    = pathTbl
@@ -149,20 +184,24 @@ local function extract(self)
 end
 
 --------------------------------------------------------------------------
--- The ctor for this class.  It uses extract to build its
+-- The ctor for this class.  It uses l_extract to build its
 -- initial value from the environment.
 -- @param self A Var object.
 -- @param name The name of the variable.
 -- @param value The value assigned to the variable.
+-- @param nodup If true then no duplicate entries in path like variable.
 -- @param sep The separator character.  (By default it is ":")
-function M.new(self, name, value, sep)
+function M.new(self, name, value, nodup, sep)
    local o = {}
    setmetatable(o,self)
    self.__index = self
    o.value      = value
    o.name       = name
    o.sep        = sep or ":"
-   extract(o)
+   if (name == ModulePath) then
+      nodup = true
+   end
+   l_extract(o, nodup)
    if (not value) then value = nil end
    setenv_posix(name, value, true)
    return o
@@ -177,27 +216,36 @@ end
 --  @param a An array of values.
 --  @param where Where to remove and how: {"first", "last", "all"}
 --  @param priority The priority of the path if any (default is zero)
-local function remFunc(a, where, priority, nodups)
-   if (where == "all" or abs(priority) > 0) then
+local function l_remFunc(vv, where, priority, nodups, force)
+   local num  = vv.num
+   local idxA = vv.idxA
+   if (nodups) then
+      vv.num = (force) and 0 or num - 1
+      if (vv.num < 1) then
+         vv = nil
+      end
+   elseif (where == "all" or abs(priority) > 0) then
       local oldPriority = 0
-      if (next(a) ~= nil) then
-         oldPriority = tonumber(a[1][2])
+      if (next(idxA) ~= nil) then
+         oldPriority = tonumber(idxA[1][2])
       end
       if (oldPriority == priority or nodups) then
-         a = nil
+         vv = nil
       end
    elseif (where == "first" ) then
-      table.remove(a,1)
-      if (next(a) == nil) then
-         a = nil
+      table.remove(idxA,1)
+      vv.num = num - 1
+      if (next(idxA) == nil) then
+         vv = nil
       end
    elseif (where == "last" ) then
-      a[#a] = nil
-      if (next(a) == nil) then
-         a = nil
+      idxA[#idxA] = nil
+      vv.num = num - 1
+      if (next(idxA) == nil) then
+         vv = nil
       end
    end
-   return a
+   return vv
 end
 
 --------------------------------------------------------------------------
@@ -210,7 +258,7 @@ end
 -- @param where where it should be removed from {"first", "last", "all"}
 -- @param priority The priority of the entry.
 -- @param nodup If true then there are no duplicates allowed.
-function M.remove(self, value, where, priority, nodups)
+function M.remove(self, value, where, priority, nodups, force)
    if (value == nil) then return end
    priority = priority or 0
 
@@ -223,10 +271,24 @@ function M.remove(self, value, where, priority, nodups)
    local tbl     = self.tbl
    local adding  = false
 
+   local tracing  = cosmic:value("LMOD_TRACING")
+   if (tracing == "yes" and self.name == ModulePath ) then
+      local shell      = _G.Shell
+      local frameStk   = require("FrameStk"):singleton()
+      local stackDepth = frameStk:stackDepth()
+      local indent     = ("  "):rep(stackDepth+1)
+      local b          = {}
+      b[#b + 1]        = indent
+      b[#b + 1]        = "Removing: "
+      b[#b + 1]        = value
+      b[#b + 1]        = " from MODULEPATH\n"
+      shell:echo(concatTbl(b,""))
+   end
+
    for i = 1, #pathA do
       local path = pathA[i]
       if (tbl[path]) then
-         tbl[path]   = remFunc(self.tbl[path], where, priority, nodups)
+         tbl[path]   = l_remFunc(tbl[path], where, priority, nodups, force)
       end
    end
    local v    = self:expand()
@@ -246,30 +308,37 @@ end
 -- @param isPrepend True if a prepend.
 -- @param nodups True if no duplications are allowed.
 -- @param priority The priority value.
-local function insertFunc(a, idx, isPrepend, nodups, priority)
+local function insertFunc(vv, idx, isPrepend, nodups, priority)
+   local num  = vv.num
+   local idxA = vv.idxA
    if (nodups or abs(priority) > 0) then
-      if (priority == 0) then
-         return { {idx,priority}  }
-      end
-
       local oldPriority = 0
-      if (next(a) ~= nil) then
-         oldPriority = tonumber(a[1][2])
+      if (next(idxA) ~= nil) then
+         oldPriority = tonumber(idxA[1][2])
+      end
+      if (priority < 0) then
+         priority = min(priority, oldPriority)
+      elseif (priority > 0) then
+         priority = max(priority, oldPriority)
       end
 
-      if (priority < 0) then
-         if (priority <= oldPriority) then
-            return { {idx,priority}  }
+      if (num == 0 ) then
+         return { num = 1, idxA = {{idx,priority}} }
+      else
+         vv.num  = num + 1
+         if (tmod_path_rule == "no") then
+            vv.idxA = {{idx,priority}}
          end
-      elseif (oldPriority > 0 and priority > oldPriority) then
-         return { {idx,priority}  }
+         return vv
       end
    elseif (isPrepend) then
-      table.insert(a,1, {idx, priority})
+      table.insert(idxA,1, {idx, priority})
+      vv.num = num + 1
    else
-      a[#a+1] = {idx, priority}
+      idxA[#idxA+1] = {idx, priority}
+      vv.num = num + 1
    end
-   return a
+   return vv
 end
 
 --------------------------------------------------------------------------
@@ -286,9 +355,12 @@ function M.prepend(self, value, nodups, priority)
    if (value == nil) then return end
 
    if (self.type ~= 'path') then
-      extract(self)
+      l_extract(self, nodups)
    end
 
+   if (self.name == ModulePath) then
+      nodups = true
+   end
    self.type           = 'path'
    priority            = priority or 0
    local pathA         = path2pathA(value, self.sep)
@@ -299,14 +371,28 @@ function M.prepend(self, value, nodups, priority)
 
    local tbl  = self.tbl
 
+   local tracing  = cosmic:value("LMOD_TRACING")
+   if (tracing == "yes" and self.name == ModulePath ) then
+      local shell      = _G.Shell
+      local frameStk   = require("FrameStk"):singleton()
+      local stackDepth = frameStk:stackDepth()
+      local indent     = ("  "):rep(stackDepth+1)
+      local b          = {}
+      b[#b + 1]        = indent
+      b[#b + 1]        = "Prepending: "
+      b[#b + 1]        = value
+      b[#b + 1]        = " to MODULEPATH\n"
+      shell:echo(concatTbl(b,""))
+   end
+   
    local imin = min(self.imin, 0)
+   local name = self.name
    for i = is, ie, iskip do
       local path = pathA[i]
       imin       = imin - 1
-      local   a  = tbl[path]
-      if (tmod_path_rule == "no" or not a) then
-         tbl[path]   = insertFunc(a or {}, imin, isPrepend, nodups, priority)
-      end
+      local vv   = tbl[path]
+      tbl[path]  = insertFunc(vv or {num = 0, idxA = {}},
+                              imin, isPrepend, nodups, priority)
    end
    self.imin = imin
 
@@ -326,33 +412,48 @@ end
 -- @param nodups True if no duplications are allowed.
 -- @param priority The priority value.
 function M.append(self, value, nodups, priority)
+   local name = self.name
+   nodups = (not allow_dups(not nodups)) or (name == ModulePath)
+
    if (value == nil) then return end
    if (self.type ~= 'path') then
-      extract(self)
+      l_extract(self, nodups)
    end
+
    self.type        = 'path'
-   nodups           = not allow_dups(not nodups)
    priority         = tonumber(priority or "0")
    local pathA      = path2pathA(value, self.sep)
    local isPrepend  = false
    local adding     = true
    
+   local tracing  = cosmic:value("LMOD_TRACING")
+   if (tracing == "yes" and name == ModulePath ) then
+      local shell      = _G.Shell
+      local frameStk   = require("FrameStk"):singleton()
+      local stackDepth = frameStk:stackDepth()
+      local indent     = ("  "):rep(stackDepth+1)
+      local b          = {}
+      b[#b + 1]        = indent
+      b[#b + 1]        = "Appending: "
+      b[#b + 1]        = value
+      b[#b + 1]        = " to MODULEPATH\n"
+      shell:echo(concatTbl(b,""))
+   end
+
    local tbl  = self.tbl
    local imax = self.imax
    for i = 1, #pathA do
       local path = pathA[i]
       imax       = imax + 1
-      local a    = tbl[path]
-      if (tmod_path_rule == "no" or not a) then
-         tbl[path]   = insertFunc(a or {}, imax, isPrepend, nodups, priority)
-      end
+      local vv   = tbl[path]
+      tbl[path]  = insertFunc(vv or {num = 0, idxA = {}}, imax, isPrepend, nodups, priority)
    end
-   self.imax  = imax
-   local v    = self:expand()
-   self.value = v
-   if (not v) then v = nil end
-   setenv_posix(self.name, v, true)
-   chkMP(self.name, v, adding)
+   self.imax   = imax
+   local value = self:expand()
+   self.value  = value
+   if (not value) then value = nil end
+   setenv_posix(name, value, true)
+   chkMP(name, value, adding)
 end
 
 --------------------------------------------------------------------------
@@ -365,6 +466,8 @@ function M.set(self,value)
    self.type  = 'var'
    if (not value) then value = nil end
    setenv_posix(self.name, value, true)
+   local adding = true
+   chkMP(self.name, value, adding)
 end
 
 --------------------------------------------------------------------------
@@ -383,14 +486,15 @@ function M.pop(self)
    --   print(__FILE__() .. ':' .. __LINE__())
    --end
 
-   for k, idxA in pairs(self.tbl) do
+   for k, vv in pairs(self.tbl) do
+      local idxA = vv.idxA
       local v = idxA[1][1]
       dbg.print{"v: ",v,", imin: ",imin,", min2: ",min2,"\n"}
       if (v == imin) then
-         idxA        = remFunc(idxA, "first", 0)
-         self.tbl[k] = idxA
-         if (idxA ~= nil) then
-            v = idxA[1][1]
+         vv          = l_remFunc(vv, "first", 0, false)
+         self.tbl[k] = vv
+         if (vv ~= nil) then
+            v = vv.idxA[1][1]
          else
             v = huge
          end
@@ -409,13 +513,66 @@ function M.pop(self)
 
    local v    = self:expand()
    self.value = v
-   --if (dbg.active()) then
-   --   self:prt("(2) Var:pop()")
-   --end
    if (not v) then v = nil end
    setenv_posix(self.name, v, true)
+   local adding = false
+   chkMP(self.name, v, adding)
    return result
 end
+
+--------------------------------------------------------------------------
+-- This member function is here just when debugging.
+-- @param self A Var object.
+-- @param title A Descriptive title.
+function M.prt(self,title)
+   dbg.start{"Var:prt(\"",title,"\")"}
+   dbg.print{"name:   \"", self.name,   "\"\n"}
+   dbg.print{"nodups: ",   self.nodups, "\n"}
+   dbg.print{"imin:   ",   self.imin,   "\n"}
+   dbg.print{"imax:   ",   self.imax,   "\n"}
+   local v = self.value
+   if (type(self.value) == "string") then
+      v = "\"" .. self.value .. "\""
+   end
+   dbg.print{"value: ", v, "\n"}
+   if (not self.tbl or type(self.tbl) ~= "table" or next(self.tbl) == nil) then
+      dbg.print{"tbl is empty\n"}
+      dbg.fini ("Var:prt")
+      return
+   end
+   if (dbg.active()) then
+      dbg.print{"tbl:\n"}
+      for k,vv in pairsByKeys(self.tbl) do
+         local num  = vv.num
+         local idxA = vv.idxA
+         dbg.print{"   \"",k,"(",num,")\":"}
+         for ii = 1,#idxA do
+            io.stderr:write(" {",tostring(idxA[ii][1]), ", ",tostring(idxA[ii][2]),"} ")
+         end
+         dbg.print{"\n"}
+      end
+   end
+   dbg.print{"\n"}
+   dbg.fini ("Var:prt")
+end
+
+function M.setRefCount(self, refCountT)
+   local tbl = self.tbl
+   for k, vv in pairs(tbl) do
+      vv.num = refCountT[k] or 1
+   end
+end
+
+function M.refCountT(self)
+   local refCountT = {}
+   local tbl = self.tbl
+   for k, vv in pairs(tbl) do
+      refCountT[k] = vv.num
+   end
+
+   return refCountT
+end
+
 
 --------------------------------------------------------------------------
 -- Unset the environment variable.
@@ -424,7 +581,12 @@ function M.unset(self)
    self.value = false
    self.type  = 'var'
    setenv_posix(self.name, nil, true)
+   local adding = false
+   chkMP(self.name, nil, adding)
 end
+
+
+
 
 --------------------------------------------------------------------------
 -- Expand the value into a string.   Obviously non-path
@@ -438,25 +600,28 @@ end
 -- @param self A Var object.
 function M.expand(self)
    if (self.type ~= 'path') then
-      return self.value, self.type, {}
+      return self.value, self.type, {}, {}
    end
 
-   local t       = {}
-   local pathA   = {}
-   local pathStr = false
-   local sep     = self.sep
-   local prT     = {}
-   local maxV    = max(abs(self.imin), self.imax) + 1
-   local factor  = 10^ceil(log(maxV)*ln10_inv+1)
-   local resultA = {}
-   local tbl     = self.tbl
-
+   local env_name
+   local t         = {}
+   local pathA     = {}
+   local pathStr   = false
+   local sep       = self.sep
+   local prT       = {}
+   local maxV      = max(abs(self.imin), self.imax) + 1
+   local factor    = 10^ceil(log(maxV)*ln10_inv+1)
+   local resultA   = {}
+   local tbl       = self.tbl
+   local sAA       = {}
    -- Step 1: Make a sparse array with path as values
-   for k, vA in pairs(tbl) do
-      for ii = 1,#vA do
-         local pair     = vA[ii]
-         local value    = pair[1]
-         local priority = pair[2]
+
+   for k, vv in pairsByKeys(tbl) do
+      local idxA = vv.idxA
+      for ii = 1,#idxA do
+         local duo      = idxA[ii]
+         local value    = tonumber(duo[1])
+         local priority = tonumber(duo[2])
          local idx      = value + factor*priority
          t[idx]         = k
          if (abs(priority) > 0) then
@@ -477,7 +642,6 @@ function M.expand(self)
       pathA[n] = v
    end
 
-
    -- Step 2.1: Remove extra trailing empty strings, keep only one.
 
    local i = n
@@ -485,10 +649,22 @@ function M.expand(self)
       i = i - 1
    end
    i = i + 2
+   
    for j = i, n do
       pathA[j] = nil
    end
    n = #pathA
+
+   if (self.nodups) then
+      for i = 1,n do
+         local path = pathA[i]
+         local vv   = tbl[path]
+         if (vv) then
+            sAA[#sAA+1] = path .. ":" .. tostring(vv.num)
+         end
+      end
+   end
+
    -- Step 3: convert pathA array into "sep" separated string.
    --         Also Handle "" at end of "path"
    if (n == 1 and pathA[1] == "") then
@@ -502,7 +678,7 @@ function M.expand(self)
 
    -- Step 4: Remove leading and trailing ':' from PATH string
    --         Note this cleanup is only for PATH and no other
-   --         path variables.
+   --         path-like variables.
    if (self.name == 'PATH') then
       pathStr = pathStr:gsub('^:+','')
       pathStr = pathStr:gsub(':+$','')
@@ -511,10 +687,13 @@ function M.expand(self)
       end
    end
 
+
+
    local priorityStrT = {}
-   local env_name = envPrtyName .. self.name
+   env_name   = envPrtyName .. self.name
+   local oldV = getenv(env_name)
    if (next(prT) == nil) then
-      if (getenv(env_name)) then
+      if (oldV) then
          priorityStrT[env_name] = false
       end
    else
@@ -522,12 +701,30 @@ function M.expand(self)
       for k,priority in pairsByKeys(prT) do
          sA[#sA+1] = k .. ':' .. tostring(priority)
       end
-      priorityStrT[env_name] = concatTbl(sA,';')
+      local s = concatTbl(sA,';')
+      if (oldV ~= s) then
+         priorityStrT[env_name] = s
+      end
+   end
+
+   local refCountT = {}
+   if (self.nodups) then
+      env_name = envRefCountName .. self.name
+      oldV     = getenv(env_name)
+      if (next(sAA) == nil) then
+         if (oldV) then
+            refCountT[env_name] = false
+         end
+      else
+         local s = concatTbl(sAA,';')
+         if (oldV ~= s) then
+            refCountT[env_name] = s
+         end
+      end
    end
 
    if (next(tbl) == nil) then pathStr = false end
-
-   return pathStr, "path", priorityStrT
+   return pathStr, "path", priorityStrT, refCountT
 end
 
 --------------------------------------------------------------------------

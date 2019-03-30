@@ -2,11 +2,14 @@
 -- use io.popen to open a pipe to collect the output of a command.
 -- @module capture
 
+_G._DEBUG          = false                       -- Required by luaposix 33
+local posix        = require("posix")
+
 require("strict")
 
 ------------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -32,8 +35,6 @@ require("strict")
 
 
 local dbg          = require("Dbg"):dbg()
-_G._DEBUG          = false                       -- Required by luaposix 33
-local posix        = require("posix")
 local getenv       = os.getenv
 local setenv_posix = posix.setenv
 local cosmic       = require("Cosmic"):singleton()
@@ -99,4 +100,3 @@ function capture(cmd, envT)
    dbg.fini("capture")
    return out, status
 end
-

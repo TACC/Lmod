@@ -8,7 +8,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -47,6 +47,7 @@ return {
      ml_help               = nil,
      ml_opt                = nil,
      ml_2many              = nil,
+     ml_misplaced_opt      = nil,
      
 
      --------------------------------------------------------------------------
@@ -56,6 +57,8 @@ return {
  con el comando: %{cmdName}, uno o más argumentos no son cadenas de caracteres.
 ]==],
      e_Avail_No_MPATH      = "No es posible ejecutar 'module avail'. MODULEPATH no está inicializado o su valor no contiene rutas correctas.\n",
+     e_BrokenCacheFn       = nil,
+     e_BrokenQ             = nil,
      e_Conflict            = "Imposible cargar el módulo \"%{name}\" porque este (estos) módulo(s) está(n) cargado(s):\n   %{module_list}\n",
      e_Execute_Msg         = [==[Error de sintaxis en el archivo: %{fn}
 con el comando: "execute".
@@ -82,6 +85,7 @@ Para solucionar esta situación, introduzca el siguiente comando:
 
 Por favor, envíe un ticket si necesita más ayuda.
 ]==],
+     e_Illegal_Load        = nil,
      e_LocationT_Srch      = "Error in LocationT:search()",
      e_Missing_Value       = "%{func}(\"%{name}\") no es válido, es necesario un valor",
      e_MT_corrupt          = nil,
@@ -90,7 +94,7 @@ Por favor, envíe un ticket si necesita más ayuda.
    $ module swap %{oldFullName} %{newFullName}
 
 Además, puede configurar la variable de entorno LMOD_DISABLE_SAME_NAME_AUTOSWAP con el valor "no"  para habilitar al intercambio automático de módulos con el mismo nombre.
-]==],
+]==], -- 
      e_No_Hashsum          = "Imposible encontrar un programa HashSum (sha1sum, shasum, md5sum o md5)",
      e_No_Matching_Mods    = "No se encontraron módulos que coincidan.\n",
      e_No_Mod_Entry        = "%{routine}: No se encontró la entrada al módulo: \"%{name}\". ¡Esto no debería suceder!\n",
@@ -102,9 +106,10 @@ Además, puede configurar la variable de entorno LMOD_DISABLE_SAME_NAME_AUTOSWAP
      e_Prereq_Any          = "Imposible cargar el módulo \"%{name}\". Al menos uno de estos módulos debe ser cargado anteriormente:\n   %{module_list}\n",
      e_Spdr_Timeout        = "La búsqueda de Spider expiró\n",
      e_Swap_Failed         = "Falló el intercambio: \"%{name}\" no está cargado.\n",
-     e_SYS_DFLT_EMPTY      = nil,
+     w_SYS_DFLT_EMPTY      = nil,
      e_Unable_2_Load       = "Imposible cargar el módulo: %{name}\n     %{fn}: %{message}\n",
      e_Unable_2_parse      = "Imposible analizar: \"%{path}\". ¡Abortar!\n",
+     e_Unable_2_rename     = nil,
      e_Unknown_Coll        = "La colección: \"%{collection}\" no existe.\n  Intente \"module savelist\" para ver posibles opciones.\n",
      e_coll_corrupt        = nil,
      e_dbT_sn_fail         = "dbT[sn] falló por sn: %{sn}\n",
@@ -116,12 +121,14 @@ Además, puede configurar la variable de entorno LMOD_DISABLE_SAME_NAME_AUTOSWAP
      --------------------------------------------------------------------------
      m_Activate_Modules    = nil,
      m_Additional_Variants = nil,
+     m_Collection_disable  = nil,
      m_Depend_Mods         = nil,
      m_Description         = nil,
      m_Direct_Load         = nil,
      m_Family_Swap         = "\nLmod va a reemplazar \"%{oldFullName}\" con \"%{newFullName}\" automáticamente\n",
      m_For_System          = nil,
      m_Inactive_Modules    = nil,
+     m_IsNVV               = nil,
      m_Module_Msgs         = nil,
      m_No_Named_Coll       = nil,
      m_No_Search_Cmd       = nil,
@@ -160,6 +167,7 @@ No ha habido ningún cambio en los módulos cargados
      w_Broken_FullName     = "module-version es incorrecto: module-name debe estar totalmente descrito: %{fullName} no lo está\n",
      w_Empty_Coll          = "¡No tiene módulos cargados porque la colección \"%{collectionName}\" está vacía!\n",
      w_Failed_2_Find       = nil,
+     w_MissingModules      = nil,
      w_MPATH_Coll          = "El sistema MODULEPATH ha cambiado: por favor, reconstruya su colección.\n",
      w_Mods_Not_Loaded     = "Los siguientes módulos no fueron cargados: %{module_list}\n\n",
      w_No_Coll             = "No se encontró una colección con el nombre \"%{collection}\" .",
@@ -167,6 +175,7 @@ No ha habido ningún cambio en los módulos cargados
      w_Save_Empty_Coll     = [==[Está intentando guardar una colección vacía en "%{name}". Si esto es lo que realmente desea hacer, entonces ejecute lo siguiente:
   $  module --force save %{name}
 ]==],
+     w_SYS_DFLT_EMPTY      = nil,
      w_System_Reserved     = "El nombre 'system' es un nombre reservado. Por favor, elija otro nombre.\n",
      w_Undef_MPATH         = "MODULEPATH no está definido\n",
      w_Unknown_Hook        = nil,
@@ -215,6 +224,7 @@ No ha habido ningún cambio en los módulos cargados
      collctn6              = nil,
      collctn7              = nil,
      collctn8              = nil,
+     collctn9              = nil,
 
      depr_title            = nil,
      depr1                 = nil,
@@ -274,6 +284,8 @@ No ha habido ningún cambio en los módulos cargados
      nrdirect_H= nil,
      hidden_H  = nil,
      spdrT_H   = nil,
+     trace_T   = nil,
+
      Where     = nil,
      Inactive  = nil,
      DefaultM  = nil,
@@ -285,5 +297,18 @@ No ha habido ningún cambio en los módulos cargados
      aliasMsg  = nil,
      noModules = nil,
      noneFound = nil,
+
+     --------------------------------------------------------------------------
+     -- Other strings:
+     --------------------------------------------------------------------------
+     coll_contains  = nil,
+     currLoadedMods = nil,
+     keyword_msg    = nil,
+     lmodSystemName = nil,
+     matching       = nil,
+     namedCollList  = nil,
+     noModsLoaded   = nil,
+     specific_hlp   = nil,
+
    }
 }

@@ -17,7 +17,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -47,9 +47,10 @@ require("fileOps")
 require("sandbox")
 require("string_utils")
 require("utils")
-local dbg          = require("Dbg"):dbg()
-local concatTbl    = table.concat
-local getenv       = os.getenv
+local dbg             = require("Dbg"):dbg()
+local concatTbl       = table.concat
+local getenv          = os.getenv
+
 ------------------------------------------------------------------------
 -- loadModuleFile(t): read a modulefile in via sandbox_run
 -- @param t The input table naming the file to be loaded plus other
@@ -100,7 +101,7 @@ function loadModuleFile(t)
       A[#A + 1]    = userName
       A[#A + 1]    = "-s"
       A[#A + 1]    = t.shell
-
+      
       local ldlib  = getenv("LD_LIBRARY_PATH")
 
       if (ldlib) then
@@ -118,7 +119,8 @@ function loadModuleFile(t)
       if (t.help) then
          A[#A + 1] = "-h"
       end
-      whole, status = runTCLprog("tcl2lua.tcl",concatTbl(A," "), t.file)
+      A[#A + 1] = path_regularize(t.file)
+      whole, status = runTCLprog(pathJoin(cmdDir(),"tcl2lua.tcl"),concatTbl(A," "))
       if (not status) then
          local n = userName or ""
          msg     = "Non-zero status returned"

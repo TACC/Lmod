@@ -10,7 +10,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -56,6 +56,8 @@ local hook         = require("Hook")
 local i18n         = require("i18n")
 local remove       = table.remove
 local sort         = table.sort
+local q_load       = 0
+local s_same       = true
 
 local mpath_avail  = cosmic:value("LMOD_MPATH_AVAIL")
 
@@ -110,11 +112,11 @@ function M.access(self, ...)
    local A         = ShowResultsA
    local result, t
 
-   local arg = pack(...)
-   for i = 1, arg.n do
-      local userName = arg[i]
-      local mname    = mt:have(arg[i],"any") and MName:new("mt",userName)
-                                             or  MName:new("load",userName) 
+   local argA = pack(...)
+   for i = 1, argA.n do
+      local userName = argA[i]
+      local mname    = mt:have(userName,"any") and MName:new("mt",userName)
+                                               or  MName:new("load",userName) 
       local fn       = mname:fn()
       _G.ModuleFn    = fn
       _G.FullName    = mname:fullName()
@@ -163,14 +165,13 @@ local function registerLoaded(fullName, fn)
    local priority = 0
    local sep      = ":"
    if (varT[modList] == nil) then
-      varT[modList] = Var:new(modList, nil, sep)
+      varT[modList] = Var:new(modList, nil, nodups, sep)
    end
 
    varT[modList]:append(fullName, nodups, priority)
 
-
    if (varT[modFn] == nil) then
-      varT[modFn] = Var:new(modFn, nil, sep)
+      varT[modFn] = Var:new(modFn, nil, nodups, sep)
    end
 
    varT[modFn]:append(fn, nodups, priority)
@@ -187,17 +188,19 @@ local function registerUnloaded(fullName, fn)
    local modList  = "LOADEDMODULES"
    local modFn    = "_LMFILES_"
    local where    = "all"
+   local nodups   = true
    local sep      = ":"
    local priority = 0
+
    if (varT[modList] == nil) then
-      varT[modList] = Var:new(modList, nil, sep)
+      varT[modList] = Var:new(modList, nil, nodups, sep)
    end
 
    varT[modList]:remove(fullName, where, priority)
 
 
    if (varT[modFn] == nil) then
-      varT[modFn] = Var:new(modFn, nil, sep)
+      varT[modFn] = Var:new(modFn, nil, nodups, sep)
    end
 
    varT[modFn]:remove(fn, where, priority)
@@ -247,96 +250,164 @@ end
 
 local s_stk = {}
 
+function M.mgrload(self, active)
+   dbg.start{"Master:mgrload(",active.userName,")"}
+
+   local mcp_old = mcp
+   mcp           = MasterControl.build("mgrload","load")
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
+   local mname   = MName:new("load", active.userName)
+   mname:setRefCount(active.ref_count)
+   mname:setStackDepth(active.stackDepth)
+   local a       = MCP.load(mcp,{mname})
+   mcp           = mcp_old
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
+   
+   dbg.fini("Master:mgrload")
+   return a
+
+end
+
 function M.load(self, mA)
    if (dbg.active()) then
       local s = mAList(mA)
       dbg.start{"Master:load(mA={"..s.."})"}
    end
-   
+
    local disable_same_name_autoswap = cosmic:value("LMOD_DISABLE_SAME_NAME_AUTOSWAP")
 
-   local frameStk = FrameStk:singleton()
-   local shellNm  = _G.Shell and _G.Shell:name() or "bash"
-   local a        = {}
+   local masterTbl = masterTbl()
+   local tracing   = cosmic:value("LMOD_TRACING")
+   local frameStk  = FrameStk:singleton()
+   local shell     = _G.Shell
+   local shellNm   = shell and shell:name() or "bash"
+   local a         = true
    local mt
 
 
    for i = 1,#mA do
-      mt             = frameStk:mt()
-      local mname    = mA[i]
-      local sn       = mname:sn()
-      local userName = mname:userName()
-      local fullName = mname:fullName()
-      local fn       = mname:fn()
-      local loaded   = false
+      repeat
+         local mname      = mA[i]
+         local userName   = mname:userName()
 
-      dbg.print{"Master:load i: ",i," sn: ",sn," fn: ",fn,"\n"}
+         dbg.print{"Master:load i: ",i,", userName: ",userName,"\n",}
 
-      if (mt:have(sn,"active")) then
-         
-         local version = mname:version()
-         local mt_version = mt:version(sn)
-
-         dbg.print{"mnV: ",version,", mtV: ",mt_version,"\n"}
-
-         if (disable_same_name_autoswap == "yes" and mt_version ~= version) then
-            local oldFullName = pathJoin(sn,mt_version)
-            LmodError{msg="e_No_AutoSwap", oldFullName = oldFullName, newFullName = fullName}
+         mt               = frameStk:mt()
+         local sn         = mname:sn()
+         if ((sn == nil) and ((i > 1) or (frameStk:stackDepth() > 0))) then
+            dbg.print{"Pushing ",mname:userName()," on moduleQ\n"}
+            dbg.print{"i: ",i,", stackDepth: ", frameStk:stackDepth(),"\n"}
+            mcp:pushModule(mname)
+            if (tracing == "yes") then
+               local stackDepth = frameStk:stackDepth()
+               local indent     = ("  "):rep(stackDepth+1)
+               local b          = {}
+               b[#b + 1]        = indent
+               b[#b + 1]        = "Pushing "
+               b[#b + 1]        = userName
+               b[#b + 1]        = " on moduleQ\n"
+               shell:echo(concatTbl(b,""))
+            end
+            break  
          end
 
-         local mcp_old = mcp
-         local mcp     = MCP
-         dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-         mcp:unload{MName:new("mt",sn)}
-         local aa = mcp:load_usr{mname}
-         mcp      = mcp_old
-         dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-         loaded = aa[1]
-      elseif (not fn and not frameStk:empty()) then
-         local msg = "Executing this command requires loading \"" .. userName .. "\" which failed"..
-            " while processing the following module(s):\n\n"
-         msg = buildMsg(TermWidth(), msg)
-         if (haveWarnings()) then
-            stackTraceBackA[#stackTraceBackA+1] = moduleStackTraceBack(msg)
-         end
-      elseif (fn) then
-         dbg.print{"Master:loading: \"",userName,"\" from file: \"",fn,"\"\n"}
-         local mList = concatTbl(mt:list("both","active"),":")
-         frameStk:push(mname)
-         mt = frameStk:mt()
-         mt:add(mname,"pending")
-         loadModuleFile{file = fn, shell = shellNm, mList = mList, reportErr = true}
-         mt = frameStk:mt()
-         mt:setStatus(sn, "active")
-         hook.apply("load",{fn = mname:fn(), modFullName = mname:fullName()})
-         frameStk:pop()
-         mt = frameStk:mt()
-         dbg.print{"Marking ",fullName," as active and loaded\n"}
-         registerLoaded(fullName, fn)
-         loaded = true
-      end
-      a[#a + 1] = loaded
-
-      if (not mcp.familyStackEmpty()) then
-         local b = {}
-         while (not mcp.familyStackEmpty()) do
-            local   b_old, b_new = mcp.familyStackPop()
-            LmodMessage{msg="m_Family_Swap", oldFullName=b_old.fullName, newFullName=b_new.fullName}
-            local umA   = {MName:new("mt",   b_old.sn) , MName:new("mt",   b_new.sn) }
-            local lmA   = {MName:new("load", b_new.userName)}
-            b[#b+1]     = {umA = umA, lmA = lmA}
+         local fullName   = mname:fullName()
+         local fn         = mname:fn()
+         local loaded     = false
+     
+         if (tracing == "yes") then
+            local stackDepth = frameStk:stackDepth()
+            local use_cache  = (not masterTbl.terse) or (cosmic:value("LMOD_CACHED_LOADS") ~= "no")
+            local moduleA    = ModuleA:singleton{spider_cache=use_cache}
+            local isNVV      = moduleA:isNVV()
+            local indent     = ("  "):rep(stackDepth+1)
+            local b          = {}
+            TraceCounter     = TraceCounter + 1
+            b[#b + 1]        = indent
+            b[#b + 1]        = "(" .. tostring(TraceCounter) .. ")"
+            b[#b + 1]        = "(" .. tostring(ReloadAllCntr) .. ")"
+            b[#b + 1]        = "Loading: "
+            b[#b + 1]        = userName
+            b[#b + 1]        = " (fn: "
+            b[#b + 1]        = fn or "nil"
+            b[#b + 1]        = isNVV and ", using Find-First" or ", using Find-Best"
+            b[#b + 1]        = ")\n"
+            shell:echo(concatTbl(b,""))
          end
 
+         dbg.print{"Master:load i: ",i," sn: ",sn," fn: ",fn,"\n"}
 
-         local force = true
-         for j = 1,#b do
-            s_stk[#s_stk + 1] = "stuff"
-            mcp:unload_usr(b[j].umA, force)
-            mcp:load(b[j].lmA)
-            remove(s_stk)
+         if (mt:have(sn,"active")) then
+            local version    = mname:version()
+            local mt_version = mt:version(sn)
+
+            dbg.print{"mnV: ",version,", mtV: ",mt_version,"\n"}
+
+            if (disable_same_name_autoswap == "yes" and mt_version ~= version) then
+               local oldFullName = pathJoin(sn,mt_version)
+               LmodError{msg="e_No_AutoSwap", oldFullName = oldFullName, sn = sn, oldVersion = mt_version,
+                                              newFullName = fullName,    newVersion = mname:version()}
+            end
+
+            local mcp_old = mcp
+            local mcp     = MCP
+            dbg.print{"Setting mcp to ", mcp:name(),"\n"}
+            mcp:unload{MName:new("mt",sn)}
+            mname:reset()  -- force a new lazyEval
+            local status = mcp:load_usr{mname}
+            mcp          = mcp_old
+            dbg.print{"Setting mcp to ", mcp:name(),"\n"}
+            if (not status) then
+               loaded = false
+            end
+         elseif (not fn and not frameStk:empty()) then
+            local msg = "Executing this command requires loading \"" .. userName .. "\" which failed"..
+               " while processing the following module(s):\n\n"
+            msg = buildMsg(TermWidth(), msg)
+            if (haveWarnings()) then
+               stackTraceBackA[#stackTraceBackA+1] = moduleStackTraceBack(msg)
+            end
+         elseif (fn) then
+            dbg.print{"Master:loading: \"",userName,"\" from file: \"",fn,"\"\n"}
+            local mList = concatTbl(mt:list("both","active"),":")
+            frameStk:push(mname)
+            mt = frameStk:mt()
+            mt:add(mname,"pending")
+            loadModuleFile{file = fn, shell = shellNm, mList = mList, reportErr = true}
+            mt = frameStk:mt()
+            mt:setStatus(sn, "active")
+            hook.apply("load",{fn = mname:fn(), modFullName = mname:fullName()})
+            frameStk:pop()
+            dbg.print{"Marking ",fullName," as active and loaded\n"}
+            registerLoaded(fullName, fn)
+            loaded = true
          end
-      end
+         if (not loaded) then
+            a = false
+         end
 
+         if (mcp.processFamilyStack(fullName)) then
+            local stackDepth = frameStk:stackDepth()
+            dbg.print{"In M.load() when the family stack is not empty: fullName: ",fullName,", stackDepth: ", stackDepth,"\n"}
+            local b = {}
+            while (not mcp.familyStackEmpty()) do
+               local   b_old, b_new = mcp.familyStackPop()
+               LmodMessage{msg="m_Family_Swap", oldFullName=b_old.fullName, newFullName=b_new.fullName}
+               local umA   = {MName:new("mt",   b_old.sn) , MName:new("mt",   b_new.sn) }
+               local lmA   = {MName:new("load", b_new.userName)}
+               b[#b+1]     = {umA = umA, lmA = lmA}
+            end
+
+
+            local force = true
+            for j = 1,#b do
+               s_stk[#s_stk + 1] = "stuff"
+               mcp:unload_usr(b[j].umA, force)
+               mcp:load(b[j].lmA)
+               remove(s_stk)
+            end
+         end
+      until true
    end
       
    mt = frameStk:mt()
@@ -345,7 +416,34 @@ function M.load(self, mA)
    if (self.safeToUpdate() and mt:changeMPATH() and frameStk:empty() and next(s_stk) == nil) then
       mt:reset_MPATH_change_flag()
       dbg.print{"Master:load calling reloadAll()\n"}
-      self:reloadAll()
+      local same = self:reloadAll()
+      dbg.print{"RTM: same: ",same,"\n"}
+      if (not same) then
+         s_same = false
+         dbg.print{"setting s_same: false\n"}
+      end
+   end
+
+   local clear = false
+   if (not s_same) then
+      while (not mcp:isEmpty()) do
+         local mname = mcp:popModule()
+         q_load      = q_load + 1
+         dbg.print{"q_load: ",q_load,", Trying to load userName: ",mname:userName(),"\n"}
+         if (q_load > 10) then
+            break
+         end
+         local aa = self:load{mname}
+         dbg.print{"aa: ",aa,"\n"}
+         if (not aa) then
+            dbg.print{"setting clear: true\n"}
+            clear = true
+         end
+      end
+   end
+   if (clear) then
+      s_same = true
+      dbg.print{"setting s_same: true\n"}
    end
          
    dbg.fini("Master:load")
@@ -363,8 +461,10 @@ function M.unload(self,mA)
       dbg.start{"Master:unload(mA={"..s.."})"}
    end
 
+   local tracing  = cosmic:value("LMOD_TRACING")
    local frameStk = FrameStk:singleton()
-   local shellNm  = Shell and Shell:name() or "bash"
+   local shell    = _G.Shell
+   local shellNm  = shell and shell:name() or "bash"
    local a        = {}
    local mt
    
@@ -381,6 +481,24 @@ function M.unload(self,mA)
       local fullName = mname:fullName()
       local sn       = mname:sn()
       local fn       = mname:fn()
+      local status   = mt:status(sn)
+      if (tracing == "yes") then
+         local stackDepth = frameStk:stackDepth()
+         local indent     = ("  "):rep(stackDepth+1)
+         local b          = {}
+         TraceCounter     = TraceCounter + 1
+         b[#b + 1]        = indent
+         b[#b + 1]        = "(" .. tostring(TraceCounter) .. ")"
+         b[#b + 1]        = "(" .. tostring(ReloadAllCntr) .. ")"
+         b[#b + 1]        = "Unloading: "
+         b[#b + 1]        = userName
+         b[#b + 1]        = " (status: "
+         b[#b + 1]        = status
+         b[#b + 1]        = ") (fn: "
+         b[#b + 1]        = fn or "nil"
+         b[#b + 1]        = ")\n"
+         shell:echo(concatTbl(b,""))
+      end
 
       dbg.print{"Trying to unload: ", userName, " sn: ", sn,"\n"}
 
@@ -434,44 +552,75 @@ end
 -- then it is unloaded and an attempt is made to reload
 -- it.  Each inactive module is re-loaded if possible.
 function M.reloadAll(self)
-   dbg.start{"Master:reloadAll()"}
+   ReloadAllCntr = ReloadAllCntr + 1
+   dbg.start{"Master:reloadAll(count: ",ReloadAllCntr ,")"}
    local frameStk = FrameStk:singleton()
    local mt       = frameStk:mt()
-   local mcp_old = mcp
+   local mcp_old  = mcp
+   local shell    = _G.Shell
    mcp = MCP
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
 
-   local same = true
-   local a    = mt:list("userName","any")
-   local mA   = {}
+   local same     = true
+   local a        = mt:list("userName","any")
+   local tracing  = cosmic:value("LMOD_TRACING")
+   local mA       = {}
+
+   if (tracing == "yes") then
+      local stackDepth = frameStk:stackDepth()
+      local indent     = ("  "):rep(stackDepth+1)
+      local nameA      = {}
+      for i = 1, #a do
+         nameA[#nameA + 1 ] = a[i].userName
+      end
+      local b          = {}
+      b[#b + 1]        = indent
+      b[#b + 1]        = "reloadAll("
+      b[#b + 1]        = tostring(ReloadAllCntr)
+      b[#b + 1]        = ")("
+      b[#b + 1]        = concatTbl(nameA, ", ")
+      b[#b + 1]        = ")\n"
+      shell:echo(concatTbl(b,""))
+   end
 
    for i = 1, #a do
       repeat
-         mt              = frameStk:mt()
-         local v         = a[i]
-         local sn        = v.sn
-         local mname_old = MName:new("mt",v.userName)
+         mt               = frameStk:mt()
+         local v          = a[i]
+         local sn         = v.sn
+         local mname_old  = MName:new("mt",v.userName)
          if (not mname_old:sn()) then break end
+         dbg.print{"a[i].userName(1): ",v.userName,"\n"}
          mA[#mA+1]       = mname_old
          dbg.print{"adding sn: ",sn," to mA\n"}
 
          if (mt:have(sn, "active")) then
             dbg.print{"module sn: ",sn," is active\n"}
-            dbg.print{"userName:  ",v.name,"\n"}
-            local mname    = MName:new("load", v.name)
+            dbg.print{"userName(2):  ",v.name,"\n"}
+            local mname    = MName:new("load", mt:userName(sn))
             local fn_new   = mname:fn()
             local fn_old   = mt:fn(sn)
             local fullName = mname:fullName()
             local userName = v.name
+            local mt_uName = mt:userName(sn)
+            -- This is #issue 394 fix: only reload when the userName has remained the same.
             if (fn_new ~= fn_old) then
                dbg.print{"Master:reloadAll fn_new: \"",fn_new,"\"",
-                         " mt:fileName(sn): \"",fn_old,"\"\n"}
-               dbg.print{"Master:reloadAll Unloading module: \"",sn,"\"\n"}
+                         " mt:fileName(sn): \"",fn_old,"\"",
+                         " mt:userName(sn): \"",mt_uName,"\"",
+                         " a[i].userName: \"",userName,"\"",
+                         "\n"}
+               dbg.print{"Master:reloadAll(",ReloadAllCntr,"): Unloading module: \"",sn,"\"\n"}
                mcp:unload({mname_old})
-               dbg.print{"Master:reloadAll Loading module: \"",userName,"\"\n"}
+               mt_uName = mt:userName(sn)
+               dbg.print{"Master:reloadAll(",ReloadAllCntr,"): mt:userName(sn): \"",mt_uName,"\"\n"}
+               mname    = MName:new("load", mt:userName(sn))
                if (mname:valid()) then
-                  local loadA = mcp:load({mname})
-                  if (loadA[1] and fn_old ~= mt:fn(sn)) then
+                  dbg.print{"Master:reloadAll(",ReloadAllCntr,"): Loading module: \"",userName,"\"\n"}
+                  local status = mcp:load({mname})
+                  mt           = frameStk:mt()
+                  dbg.print{"status ",status,", fn_old: ",fn_old,", fn: ",mt:fn(sn),"\n"}
+                  if (status and fn_old ~= mt:fn(sn)) then
                      same = false
                      dbg.print{"Master:reloadAll module: ",fullName," marked as reloaded\n"}
                   end
@@ -479,15 +628,19 @@ function M.reloadAll(self)
             end
          else
             dbg.print{"module sn: ", sn, " is inactive\n"}
-            local fn    = mt:fn(sn)
-            local name  = v.name          -- This name is short for default and
-                                          -- Full for specific version.
-            dbg.print{"Master:reloadAll Loading module: \"", name, "\"\n"}
-            local aa = mcp:load({MName:new("load",name)})
-            if (aa[1] and fn ~= mt:fn(sn)) then
+            local fn_old = mt:fn(sn)
+            local name   = v.name          -- This name is short for default and
+                                           -- Full for specific version.
+            dbg.print{"Master:reloadAll(",ReloadAllCntr,"): Loading non-active module: \"", name, "\"\n"}
+            local status = mcp:load({MName:new("load",name)})
+            mt           = frameStk:mt()
+            dbg.print{"status: ",status,", fn_old: ",fn_old,", fn: ",mt:fn(sn),"\n"}
+            if (status and fn_old ~= mt:fn(sn)) then
                dbg.print{"Master:reloadAll module: ", name, " marked as reloaded\n"}
             end
-            same = not aa[1]
+            if (status) then
+               same = false
+            end
          end
       until true
    end
@@ -500,13 +653,14 @@ function M.reloadAll(self)
       dbg.print{"checking sn: ",sn,"\n"}
       if (not mt:have(sn, "active")) then
          dbg.print{"Master:reloadAll module: ", sn, " marked as inactive\n"}
-         mt:add(mname, "inactive")
+         mt:add(mname, "inactive", -i)
       end
    end
 
    mcp = mcp_old
    dbg.print{"Setting mpc to ", mcp:name(),"\n"}
    dbg.fini("Master:reloadAll")
+   ReloadAllCntr = ReloadAllCntr - 1
    return same
 end
 
@@ -546,6 +700,40 @@ function M.refresh()
    dbg.fini("Master:refresh")
 end
 
+--------------------------------------------------------------------------
+-- Loop over all active modules and reload each one.
+-- Since only the "depend_on()" function is active and all
+-- other Lmod functions are inactive because mcp is now
+-- MC_DependencyCk, there is no need to unload and reload the
+-- modulefiles.  Just call loadModuleFile() to check the dependencies.
+function M.dependencyCk()
+   dbg.start{"Master:dependencyCk()"}
+   local frameStk = FrameStk:singleton() 
+   local mt       = frameStk:mt()
+   local shellNm  = _G.Shell and _G.Shell:name() or "bash"
+   local mcp_old  = mcp
+   mcp            = MasterControl.build("dependencyCk")
+
+   local activeA  = mt:list("short","active")
+   local mList    = concatTbl(mt:list("both","active"),":")
+
+   for i = 1,#activeA do
+      local sn       = activeA[i]
+      local fn       = mt:fn(sn)
+      if (isFile(fn)) then
+         frameStk:push(MName:new("mt",sn))
+         dbg.print{"loading: ",sn," fn: ", fn,"\n"}
+         loadModuleFile{file = fn, shell = shellNm, mList = mList,
+                        reportErr=true}
+         frameStk:pop()
+      end
+   end
+
+   mcp = mcp_old
+   dbg.print{"Setting mcp to : ",mcp:name(),"\n"}
+   dbg.fini("Master:dependencyCk")
+end
+
 
 --------------------------------------------------------------------------
 -- Once the purge or unload happens, the sticky modules are reloaded.
@@ -554,7 +742,7 @@ end
 function M.reload_sticky(self, force)
    local cwidth    = masterTbl().rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
 
-   dbg.start{"Master:reload_sticky()"}
+   dbg.start{"Master:reload_sticky(",force,")"}
    -- Try to reload any sticky modules.
    if (masterTbl().force or force) then
       dbg.fini("Master:reload_sticky")
@@ -662,10 +850,6 @@ local function regroup_avail_blocks(availStyle, availA)
    local labelT       = {}
    local label2mpathT = {}
    
-   --if (dbg:active()) then
-   --   io.stderr:write(serializeTbl{indent=true, name="availA", value=availA})
-   --end
-
    for i = 1, #availA do         
       local mpath         = availA[i].mpath
       labelT[mpath]       = mpath
@@ -719,9 +903,11 @@ local function regroup_avail_blocks(availStyle, availA)
       end
    end
 
+   local cmp     = (cosmic:value("LMOD_CASE_INDEPENDENT_SORTING") == "yes") and
+                    case_independent_cmp or regular_cmp
    for i = 1, #newAvailA do
       local A = newAvailA[i].A
-      sort(A, function (x,y) return x.pV < y.pV end)
+      sort(A, cmp)
    end
 
    dbg.fini("regroup_avail_blocks")
@@ -753,7 +939,10 @@ function M.avail(self, argA)
       return a
    end
 
-   local moduleA     = ModuleA:singleton{spider_cache=(not masterTbl.terse)}
+   local use_cache   = (not masterTbl.terse) or (cosmic:value("LMOD_CACHED_LOADS") ~= "no")
+   local moduleA     = ModuleA:singleton{spider_cache=use_cache}
+   local isNVV       = moduleA:isNVV()
+   local mrc         = MRC:singleton()
    local availA      = moduleA:build_availA()
    local twidth      = TermWidth()
    local cwidth      = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or twidth
@@ -761,6 +950,8 @@ function M.avail(self, argA)
    local searchA     = argA
    local defaultOnly = masterTbl.defaultOnly
    local showSN      = not defaultOnly
+   local alias2modT  = mrc:getAlias2ModT()
+
    dbg.print{"defaultOnly: ",defaultOnly,", showSN: ",showSN,"\n"}
 
    if (not masterTbl.regexp and argA and next(argA) ~= nil) then
@@ -775,9 +966,15 @@ function M.avail(self, argA)
    end
    
    if (masterTbl.terse) then
-      dbg.printT("availA",availA)
 
+      --------------------------------------------------
       -- Terse output
+      dbg.printT("availA",availA)
+      for k, v in pairsByKeys(alias2modT) do
+         local fullName = mrc:resolve(v)
+         a[#a+1] = k.."(@" .. fullName ..")\n"
+      end
+
       for j = 1,#availA do
          local A      = availA[j].A
          local label  = availA[j].mpath
@@ -790,6 +987,13 @@ function M.avail(self, argA)
                if (not prtSnT[sn] and sn ~= fullName and showSN) then
                   prtSnT[sn] = true
                   aa[#aa+1]  = sn .. "/\n"
+               end
+               local aliasA = mrc:getFull2AliasesT(fullName)
+               if (aliasA) then
+                  for i = 1,#aliasA do
+                     local fullName = mrc:resolve(aliasA[i])
+                     aa[#aa+1]  = aliasA[i] .. "(@".. fullName ..")\n"
+                  end
                end
                aa[#aa+1]     = fullName .. "\n"
             end
@@ -808,11 +1012,26 @@ function M.avail(self, argA)
 
    availA = regroup_avail_blocks(availStyle, availA)
 
-   local mrc      = MRC:singleton()
    local banner   = Banner:singleton()
    local legendT  = {}
    local Default  = 'D'
    local numFound = 0
+
+   
+   if (next(alias2modT) ~= nil) then
+      local b = {}
+      for k, v in pairsByKeys(alias2modT) do
+         local fullName = mrc:resolve(v)
+         b[#b+1] = { "   " .. k, "->", fullName}
+      end
+      local ct = ColumnTable:new{tbl=b, gap=1, len=length, width = cwidth}
+      a[#a+1]  = "\n"
+      a[#a+1] = banner:bannerStr("Global Aliases")
+      a[#a+1] = "\n"
+      a[#a+1]  = ct:build_tbl()
+      a[#a+1] = "\n"
+   end
+
 
    for k = 1,#availA do
       local A = availA[k].A
@@ -834,7 +1053,7 @@ function M.avail(self, argA)
                   entry.propT["status"] = {active = 1}
                end
                local c = {}
-               local resultA = colorizePropA("short", fullName, mrc, entry.propT, legendT)
+               local resultA = colorizePropA("short", {sn=sn, fullName=fullName, fn=fn}, mrc, entry.propT, legendT)
                c[#c+1] = '  '
                for i = 1,#resultA do
                   c[#c+1] = resultA[i]
@@ -893,6 +1112,11 @@ function M.avail(self, argA)
       a[#a+1]  = "\n"
    end
 
+   if (isNVV) then
+      a[#a+1] = "\n"
+      a[#a+1] = i18n("m_IsNVV");
+   end
+      
    if (not quiet()) then
       a = hook.apply("msgHook", "avail", a) or a
    end

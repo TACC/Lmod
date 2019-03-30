@@ -1,0 +1,44 @@
+#%Module3.1.1###################################################################
+# module info: http://homepages.nesc.ac.uk/~gcw/NGS/UI.html#modulefiles
+#
+# AMBER
+################################################################################
+
+proc ModulesHelp { } {
+global AMBERHOME
+puts stderr "The TACC Amber installation only includes the parallel Sander/pmemd modules."
+puts stderr "The Amber modulefile defines the following environment variables:"
+puts stderr "TACC_AMBER_DIR, TACC_AMBER_DOC, TACC_AMBER_BIN for the location of"
+puts stderr "the Amber distribution, documentation, and binaries, respectively.\n"
+puts stderr "Also, AMBERHOME is set to the Amber Home Directory (TACC_AMBER_DIR),\n"
+puts stderr "and \$AMBERHOME/exe is included in the PATH variable.\n"
+puts stderr "Here is an example command for executing the Sander module:"
+puts stderr "sander.LES -i tes.in -o tes.out -p tes.prmtop.save -c tes.x -r tes.rst"
+puts stderr "\nVersion 9"
+}
+
+module-whatis "Name: AMBER"
+module-whatis "Version: 9.0"
+module-whatis "Version-notes: MKL 9.0, FFTW 3.1; only login has full directories: doc, examples"
+module-whatis "Category: Application, Chemistry"
+module-whatis "URL: http://amber.scripps.edu/"
+module-whatis "Description: Molecular Modeling Package"
+
+
+#
+# Create environment variables.
+#
+set2             amber_dir         /unknown/apps/amber/amber-9
+set             amber_doc         /unknown/apps/amber/amber-9/doc
+set             amber_bin         /unknown/apps/amber/amber-9/exe
+
+setenv          TACC_AMBER_DIR        $amber_dir
+setenv          TACC_AMBER_DOC        $amber_doc
+setenv          TACC_AMBER_BIN        $amber_bin
+
+#
+# Append path
+#
+
+setenv          AMBERHOME       $amber_dir
+append-path     PATH            $amber_bin

@@ -10,7 +10,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -36,7 +36,9 @@ require("strict")
 
 require("utils")
 
+local dbg = require("Dbg"):dbg()
 function collectFileA(sn, versionStr, v, fileA)
+   --dbg.start{"collectFileA(",sn,",", versionStr,",v,fileA)"}
    if (v.file and versionStr == nil) then
       fileA[#fileA+1] = { sn = sn, version = nil, fullName = sn, fn=v.file, wV="~", pV="~" }
    end
@@ -44,9 +46,12 @@ function collectFileA(sn, versionStr, v, fileA)
       if (versionStr) then
          local k  = pathJoin(sn, versionStr)
          local vv = v.fileT[k]
+         --dbg.print{"k: ",k,", vv: ",vv,"\n"}
          if (vv) then
             fileA[#fileA+1] = { sn = sn, fullName = build_fullName(sn, versionStr),
                                 version = versionStr, fn = vv.fn, wV = vv.wV, pV = vv.pV }
+            --dbg.print{"versionStr:",versionStr,"\n"}
+            --dbg.fini("collectFileA")
             return
          end
       else
@@ -57,9 +62,11 @@ function collectFileA(sn, versionStr, v, fileA)
          end
       end
    end
-   if (v.dirT and next(v.dirT) ~= nil and versionStr == nil) then
+   --if (v.dirT and next(v.dirT) ~= nil and versionStr == nil) then
+   if (v.dirT and next(v.dirT) ~= nil) then
       for k, vv in pairs(v.dirT) do
          collectFileA(sn, nil, vv, fileA)
       end
    end
+   --dbg.fini("collectFileA")
 end

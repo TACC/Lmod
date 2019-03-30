@@ -4,6 +4,13 @@ SONAMEV  := $(SONAME).1
 LIBRARY  := $(SONAMEV).0.1
 SRC      := $(T).c
 OBJ      := $(patsubst %.c, %.o, $(SRC))
+OS       := $(shell uname -s)
+
+ifeq ($(OS),Darwin)
+  LIB_OPTION := -bundle -undefined dynamic_lookup #for MacOS X
+else
+  LIB_OPTION := -shared -Wl,-soname,$(SONAMEV) #for Linux
+endif
 
 override CFLAGS  := $(CFLAGS) -fPIC
 
@@ -11,12 +18,6 @@ ifneq ($(LUA_INC),)
   override CFLAGS  := $(CFLAGS) -I$(LUA_INC)
 endif
 
-OS := $(shell uname -s)
-ifeq ($(OS),Darwin)
-  LIB_OPTION= -bundle -undefined dynamic_lookup #for MacOS X
-else
-  LIB_OPTION= -shared -Wl,-soname,$(SONAMEV) #for Linux
-endif
 
 all:  $(LIBRARY) $(SONAMEV) $(SONAME)
 

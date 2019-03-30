@@ -1,0 +1,302 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+===========================
+Modules based on Lua: Version 7.8.21  2019-02-20 13:56 -06:00
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+ProjectDIR/rt/bioContainers/mf/Core
+   bioContainers/0.1
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load bioContainers
+===========================
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T avail
+===========================
+running: module --regression_testing -T avail
+  Building Spider cache for the following dir(s): ProjectDIR/rt/bioContainers/mf/Core
+Spider Loading: bioContainers/0.1 (fn: ProjectDIR/rt/bioContainers/mf/Core/bioContainers/0.1.lua)
+  completed building cache. Saving cache: false
+ProjectDIR/rt/bioContainers/bcd/mf
+   eagle/ctr-0.9.0--py34_0
+   eagle/ctr-0.9.0--py35_0
+   eagle/ctr-0.9.0--py36_0
+   eagle/ctr-0.9.3.3--py35_0
+   eagle/ctr-0.9.3.3--py35h24bf2e0_2
+   eagle/ctr-0.9.3.3--py36_0
+   eagle/ctr-0.9.3.3--py36h24bf2e0_2       (D)
+   easydev/ctr-0.9.14--py35_1
+   easydev/ctr-0.9.31--py27_1
+   easydev/ctr-0.9.31--py34_1
+   easydev/ctr-0.9.31--py35_1              (D)
+   ebfilter/ctr-0.2.1--py27h24bf2e0_1
+   ebfilter/ctr-0.2.1--0                   (D)
+   ebisearch/ctr-0.0.2--py27_0
+   ebisearch/ctr-0.0.3--py27_0
+   ebisearch/ctr-0.0.3--py27_1             (D)
+   ecmwfapi/ctr-1.4.1--py_2
+   ecmwfapi/ctr-1.4.1--py27_0
+   ecmwfapi/ctr-1.4.1--py27_1
+   ecmwfapi/ctr-1.4.1--py34_0
+   ecmwfapi/ctr-1.4.1--py35_0
+   ecmwfapi/ctr-1.4.1--py35_1
+   ecmwfapi/ctr-1.4.1--py36_1              (D)
+   ecomet/ctr-phenomenal-v1.1_cv0.3.39
+   ecopcr/ctr-v0.5.0dfsg-1-deb_cv1
+   ecopcr/ctr-0.5.0--py27_0
+   ecopcr/ctr-0.5.0--py27_1                (D)
+   ecoprimers/ctr-1.0--ha92aebf_2
+   ecoprimers/ctr-1.0--0
+   ecoprimers/ctr-1.0--1                   (D)
+   ecopy/ctr-0.1.2--py27_0
+   ecopy/ctr-0.1.2--py35_0
+   ecopy/ctr-0.1.2--py36_0
+   ecopy/ctr-0.1.2.2--py27_0
+   ecopy/ctr-0.1.2.2--py27h470a237_1
+   ecopy/ctr-0.1.2.2--py35_0
+   ecopy/ctr-0.1.2.2--py35h470a237_1
+   ecopy/ctr-0.1.2.2--py36_0
+   ecopy/ctr-0.1.2.2--py36h470a237_1       (D)
+   ectyper/ctr-0.1--py35_0
+   ectyper/ctr-0.1--py36_0
+   ectyper/ctr-0.5.4--py35_2
+   ectyper/ctr-0.8.1--py_0                 (D)
+   edd/ctr-1.1.18--py27_0
+   edd/ctr-1.1.18--py27h24bf2e0_1          (D)
+   eden/ctr-1.1--hd28b015_0
+   eden/ctr-2.0--py27_0
+   eden/ctr-2.0--py27h24bf2e0_1
+   eden/ctr-2.0--py27hfd84ecd_2            (D)
+   edena/ctr-3.131028--h2d50403_1
+   edena/ctr-3.131028--0                   (D)
+   edfbrowser/ctr-v1.58-1b1-deb_cv1
+   editdistance/ctr-0.3.1--py27_0
+   editdistance/ctr-0.3.1--py34_0
+   editdistance/ctr-0.3.1--py35_0
+   editdistance/ctr-0.3.1--py36_0
+   editdistance/ctr-0.4--py27_0
+   editdistance/ctr-0.4--py35_0
+   editdistance/ctr-0.4--py36_0            (D)
+   edittag/ctr-1.1--py27_0
+   edittag/ctr-1.1--py27_1
+   edittag/ctr-1.1--py35_0
+   edittag/ctr-1.1--py35_1
+   edittag/ctr-1.1--py36_0
+   edittag/ctr-1.1--py36_1                 (D)
+   edlib/ctr-1.0.0--0
+   edlib/ctr-1.1.2--0
+   edlib/ctr-1.2.0--0
+   edlib/ctr-1.2.1--0
+   edlib/ctr-1.2.3--h2d50403_1
+   edlib/ctr-1.2.3--0                      (D)
+   edtsurf/ctr-v0.2009-4b1-deb_cv1
+   effectivet3/ctr-1.0.1--py27_0
+   effectivet3/ctr-1.0.1--py35_0
+   effectivet3/ctr-1.0.1--py36_0           (D)
+   egglib/ctr-3.0.0b21--py27h2d50403_1
+   egglib/ctr-3.0.0b21--0                  (D)
+   eigensoft/ctr-v6.1.4dfsg-1b1-deb_cv1
+   eigensoft/ctr-6.0.1--hd535c10_3
+   eigensoft/ctr-6.0.1--pl5.22.0_1
+   eigensoft/ctr-7.2.1--hd1ccf6d_0         (D)
+   elasticluster/ctr-0.1.3bcbio--py27_11
+   elasticluster/ctr-0.1.3bcbio--py27_12   (D)
+   elastix/ctr-v4.8-10b1-deb_cv1
+   elastix/ctr-v4.8-10-deb_cv1             (D)
+   elprep/ctr-3.04--0
+   elprep/ctr-3.04--1
+   elprep/ctr-4.0.0--0
+   elprep/ctr-4.0.1--0
+   elprep/ctr-4.1.0--0
+   elprep/ctr-4.1.1--0                     (D)
+   ema/ctr-v0.6.1--hd28b015_1
+   ema/ctr-v0.6.1--0
+   ema/ctr-v0.6.2--hd28b015_1
+   ema/ctr-0.6.2--hd28b015_0               (D)
+   emboss/ctr-v6.5.7_cv1
+   emboss/ctr-v6.5.7_cv2
+   emboss/ctr-v6.6.0dfsg-6-deb_cv1
+   emboss/ctr-5.0.0--0
+   emboss/ctr-6.5.7--ha92aebf_5
+   emboss/ctr-6.5.7
+   emboss/ctr-6.5.7--2
+   emboss/ctr-6.5.7--3
+   emboss/ctr-6.5.7--4
+   emboss/ctr-6.6.0--h6debe1e_0            (D)
+   emirge/ctr-0.61.1--py27_0
+   emirge/ctr-0.61.1--py27_1
+   emirge/ctr-0.61.1--py27h355e19c_2       (D)
+   emmix/ctr-1.3--h470a237_2
+   emmix/ctr-1.3--0
+   emmix/ctr-1.3--1                        (D)
+   emperor/ctr-0.9.3--py27_0
+   emperor/ctr-0.9.3--py27_1               (D)
+   enabrowsertools/ctr-1.5.4--0
+   enasearch/ctr-0.0.4--py27_0
+   enasearch/ctr-0.0.4--py27_1
+   enasearch/ctr-0.0.5--py27_0
+   enasearch/ctr-0.0.5--py27_1
+   enasearch/ctr-0.0.6--py27_0
+   enasearch/ctr-0.0.6--py27_1
+   enasearch/ctr-0.1.1--py27_0
+   enasearch/ctr-0.1.1--py27_1
+   enasearch/ctr-0.2.2--py27_0
+   enasearch/ctr-0.2.2--py27_1             (D)
+   eoulsan/ctr-2.0_beta4--1
+   eoulsan/ctr-2.3--0                      (D)
+   ephemeris/ctr-0.8.0--py_2
+   ephemeris/ctr-0.8.0--py27_0
+   ephemeris/ctr-0.8.0--py35_0
+   ephemeris/ctr-0.8.0--py36_0             (D)
+   epic/ctr-0.1.17--py27_0
+   epic/ctr-0.1.17--py34_0
+   epic/ctr-0.1.17--py35_0
+   epic/ctr-0.1.20--py35_0
+   epic/ctr-0.1.24--py27_0
+   epic/ctr-0.1.24--py34_0
+   epic/ctr-0.1.24--py35_0
+   epic/ctr-0.1.24--py36_0
+   epic/ctr-0.1.25--py27_0
+   epic/ctr-0.1.25--py35_0
+   epic/ctr-0.1.25--py36_0
+   epic/ctr-0.1.26--py35_0
+   epic/ctr-0.1.26--py36_0
+   epic/ctr-0.1.27--py27_0
+   epic/ctr-0.1.27--py35_0
+   epic/ctr-0.1.27--py36_0
+   epic/ctr-0.1.28--py27_0
+   epic/ctr-0.1.28--py35_0
+   epic/ctr-0.1.28--py36_0
+   epic/ctr-0.2.1--py27_0
+   epic/ctr-0.2.1--py35_0
+   epic/ctr-0.2.1--py36_0
+   epic/ctr-0.2.2--py27_0
+   epic/ctr-0.2.2--py35_0
+   epic/ctr-0.2.2--py36_0
+   epic/ctr-0.2.4--py27_0
+   epic/ctr-0.2.4--py35_0
+   epic/ctr-0.2.4--py36_0
+   epic/ctr-0.2.5--py27_0
+   epic/ctr-0.2.5--py35_0
+   epic/ctr-0.2.5--py36_0
+   epic/ctr-0.2.7--py27_0
+   epic/ctr-0.2.7--py35_0
+   epic/ctr-0.2.7--py36_0
+   epic/ctr-0.2.8--py27_0
+   epic/ctr-0.2.8--py35_0
+   epic/ctr-0.2.8--py36_0
+   epic/ctr-0.2.9--py27_0
+   epic/ctr-0.2.9--py35_0
+   epic/ctr-0.2.9--py36_0
+   epic/ctr-0.2.9--pyh24bf2e0_1
+   epic/ctr-0.2.12--py27h24bf2e0_0
+   epic/ctr-0.2.12--py27h24bf2e0_1
+   epic/ctr-0.2.12--py35h24bf2e0_0
+   epic/ctr-0.2.12--py35h24bf2e0_1
+   epic/ctr-0.2.12--py36h24bf2e0_0
+   epic/ctr-0.2.12--py36h24bf2e0_1         (D)
+   epic2/ctr-0.0.15--py27h4e20536_0
+   epic2/ctr-0.0.15--py35h4e20536_0
+   epic2/ctr-0.0.15--py36h4e20536_0
+   epic2/ctr-0.0.16--py27h4e20536_0
+   epic2/ctr-0.0.16--py35h4e20536_0
+   epic2/ctr-0.0.16--py36h4e20536_0        (D)
+   epicseg/ctr-1.0--r3.4.1_0
+   epicseg/ctr-1.0--r341h470a237_1
+   epicseg/ctr-1.0--r351h470a237_1         (D)
+   epigrass/ctr-v2.4.7-1-deb_cv1
+   epydoc/ctr-3.0.1--py27_0
+   epydoc/ctr-3.0.1--py27_1                (D)
+   eqtlbma/ctr-1.3.1--r3.3.1_0
+   eqtlbma/ctr-1.3.1--r3.3.1_1
+   eqtlbma/ctr-1.3.1--r3.3.2_1
+   eqtlbma/ctr-1.3.1--r3.4.1_1
+   eqtlbma/ctr-1.3.1--r3.4.1_2
+   eqtlbma/ctr-1.3.1--r3.4.1_3
+   eqtlbma/ctr-1.3.3--h3dbd7e7_0           (D)
+   erds/ctr-1.1--pl5.22.0_0
+   erds/ctr-1.1--pl5.22.0_1                (D)
+   ericscript/ctr-0.5.5--pl5.22.0r3.3.1_1
+   ericscript/ctr-0.5.5--pl5.22.0r3.3.2_1
+   ericscript/ctr-0.5.5--pl5.22.0r3.4.1_1
+   ericscript/ctr-0.5.5--pl5.22.0r3.4.1_2
+   ericscript/ctr-0.5.5--r3.3.1_0
+   ericscript/ctr-0.5.5--3                 (D)
+   erne/ctr-2.1.1--boost1.61_0
+   erne/ctr-2.1.1--boost1.64_0
+   erne/ctr-2.1.1--boost1.64_1
+   erne/ctr-2.1.1--heaa942f_2              (D)
+   esimsa/ctr-1.0--h470a237_1
+   esimsa/ctr-1.0--0                       (D)
+   esmre/ctr-0.3.1--py27_0
+   esmre/ctr-0.3.1--py27_1                 (D)
+   estmapper/ctr-2008--py27pl5.22.0_0
+   estmapper/ctr-2008--py27pl526h9d27c22_2
+   estmapper/ctr-2008--py34pl5.22.0_0
+   estmapper/ctr-2008--py35pl5.22.0_0
+   estmapper/ctr-2008--py36pl5.22.0_0      (D)
+   estscan/ctr-3.0--h470a237_2
+   estscan/ctr-3.0--r3.3.1_0
+   estscan/ctr-3.0--1                      (D)
+   eta/ctr-0.9.7--py27_0
+   eta/ctr-0.9.7--py27_1
+   eta/ctr-0.9.7--py34_0
+   eta/ctr-0.9.7--py35_0
+   eta/ctr-0.9.7--py35_1
+   eta/ctr-0.9.7--py36_0
+   eta/ctr-0.9.7--py36_1                   (D)
+   ete2/ctr-2.3.10--py27_1
+   ete2/ctr-2.3.10--py27_2
+   ete2/ctr-2.3.10--py27h24bf2e0_3         (D)
+   ete3/ctr-3.0.0b35--py27_1
+   ete3/ctr-3.0.0b35--py34_1
+   ete3/ctr-3.0.0b35--py35_1
+   ete3/ctr-3.0.0b35--py36_1
+   ete3/ctr-3.1.1--py27_0
+   ete3/ctr-3.1.1--py35_0
+   ete3/ctr-3.1.1--py36_0
+   ete3/ctr-3.1.1--pyh24bf2e0_1            (D)
+   evidencemodeler/ctr-v1.1.1--0
+   evidencemodeler/ctr-1.1.1--0            (D)
+   evofold2/ctr-0.1--0
+   exonerate/ctr-v2.4.0-2-deb_cv1
+   exonerate/ctr-2.2.0--0
+   exonerate/ctr-2.2.0--1
+   exonerate/ctr-2.4.0--hb9387b2_1
+   exonerate/ctr-2.4.0--0                  (D)
+   expansionhunter/ctr-2.0.6--0
+   expansionhunter/ctr-2.0.8--hf66f9d2_1
+   expansionhunter/ctr-2.0.8--0            (D)
+   exparna/ctr-1.0.1--h470a237_1
+   exparna/ctr-1.0.1--0                    (D)
+   expat/ctr-2.1.0--0
+   export2graphlan/ctr-0.19--py27_0
+   export2graphlan/ctr-0.19--py27_2
+   export2graphlan/ctr-0.20--py27_0        (D)
+   express/ctr-1.5.1--h2d50403_1
+   extern/ctr-0.2.1--py27_0
+   extern/ctr-0.2.1--py27_1                (D)
+   extract_fullseq/ctr-3.101--1
+   extract_fullseq/ctr-3.101--2
+   extract_fullseq/ctr-3.101--3            (D)
+   extract_genome_region/ctr-0.0.3--py27_1
+   extract_genome_region/ctr-0.0.3--py35_1
+   extract_genome_region/ctr-0.0.3--py36_0
+   extract_genome_region/ctr-0.0.3--py36_1 (D)
+   extractpirs/ctr-1.0--he941832_2
+   extractpirs/ctr-1.0--0
+   extractpirs/ctr-1.0--1                  (D)
+ProjectDIR/rt/bioContainers/mf/Core
+   bioContainers/0.1 (L)
+  Where:
+   D:  Default Module
+   L:  Module is loaded
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".

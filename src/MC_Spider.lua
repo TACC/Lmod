@@ -18,7 +18,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -52,13 +52,14 @@ local MasterControl    = require("MasterControl")
 MC_Spider              = inheritsFrom(MasterControl)
 MC_Spider.my_name      = "MC_Spider"
 MC_Spider.my_sType     = "load"
-MC_Spider.my_tcl_mode  = "load"
+MC_Spider.my_tcl_mode  = "display"
 
 local M                = MC_Spider
 
 M.always_load          = MasterControl.quiet
 M.always_unload        = MasterControl.quiet
 M.conflict             = MasterControl.quiet
+M.depends_on           = MasterControl.quiet
 M.error                = MasterControl.quiet
 M.execute              = MasterControl.execute
 M.family               = MasterControl.quiet
@@ -66,6 +67,7 @@ M.inherit              = MasterControl.quiet
 M.load                 = MasterControl.quiet
 M.load_usr             = MasterControl.quiet
 M.message              = MasterControl.quiet
+M.mgrload              = MasterControl.quiet
 M.prereq               = MasterControl.quiet
 M.prereq_any           = MasterControl.quiet
 M.pushenv              = MasterControl.quiet

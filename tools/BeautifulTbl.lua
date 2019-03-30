@@ -45,7 +45,7 @@ require("strict")
 
 ------------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -132,7 +132,7 @@ function M._build_tbl(self, tblIn)
       for icol = 1, numC do
          local v = a[icol]
          if (numC > 1) then
-            columnCnt[icol] = max(length(v), columnCnt[icol] or 0)
+            columnCnt[icol] = max(length(tostring(v)), columnCnt[icol] or 0)
          end
       end
    end

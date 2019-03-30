@@ -10,7 +10,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -43,6 +43,7 @@ local M           = {}
 local MRC         = require("MRC") 
 local ModuleA     = require("ModuleA") 
 local MT          = require("MT")
+local concatTbl   = table.concat
 local cosmic      = require("Cosmic"):singleton()
 local dbg         = require("Dbg"):dbg()
 local sort        = table.sort
@@ -93,7 +94,7 @@ function M.new(self, sType, name, action, is, ie)
 
    if (sType == "entryT") then
       local t = name
-      dbg.print{"entry: sn: ",t.sn,", version: ",t.version,", fn: ",t.fn,"\n"}
+      --dbg.print{"entry: sn: ",t.sn,", version: ",t.version,", fn: ",t.fn,"\n"}
       o.__sn       = t.sn
       o.__version  = t.version
       o.__userName = t.userName
@@ -117,11 +118,11 @@ end
 -- @param sType The type which can be "entryT", "load", "mt"
 -- @return An array of MName objects.
 function M.buildA(self,sType, ...)
-   local arg = pack(...)
-   local a = {}
+   local argA = pack(...)
+   local a    = {}
 
-   for i = 1, arg.n do
-      local v = arg[i]
+   for i = 1, argA.n do
+      local v = argA[i]
       if (type(v) == "string" ) then
          a[#a + 1] = self:new(sType, v:trim())
       elseif (type(v) == "table") then
@@ -132,7 +133,7 @@ function M.buildA(self,sType, ...)
 end
 
 local function lazyEval(self)
-   --dbg.start{"lazyEval()"}
+   --dbg.start{"lazyEval(",self.__userName,")"}
 
    local found   = false
    local sType   = self.__sType
@@ -151,9 +152,10 @@ local function lazyEval(self)
          sn        = sn:sub(1,idx-1)
       end
       if (found) then
-         self.__sn       = sn
-         self.__fn       = mt:fn(sn)
-         self.__version  = mt:version(sn)
+         self.__sn         = sn
+         self.__fn         = mt:fn(sn)
+         self.__version    = mt:version(sn)
+         self.__stackDepth = mt:stackDepth(sn)
       end
       --dbg.print{"mt\n"}
       --dbg.fini("lazyEval")
@@ -177,15 +179,20 @@ local function lazyEval(self)
       return
    end
 
+   
+
+
    assert(sType == "load", "unknown sType: "..sType)
    local mrc                   = MRC:singleton()
 
+   local frameStk              = FrameStk:singleton()
    local userName              = mrc:resolve(self:userName())
    local sn, versionStr, fileA = moduleA:search(userName)
 
    self.__userName   = userName
    self.__sn         = sn
    self.__versionStr = versionStr
+   self.__stackDepth = self.__stackDepth or frameStk:stackDepth()
    
    if (not sn) then
       --dbg.print{"did not find sn\n"}
@@ -196,6 +203,9 @@ local function lazyEval(self)
    local stepA   = self:steps()
    local version
    local fn
+   --dbg.printT("fileA",fileA)
+   --dbg.print{"#stepA: ",#stepA,"\n"}
+
    for i = 1, #stepA do
       local func = stepA[i]
       found, fn, version = func(self, fileA)
@@ -208,6 +218,7 @@ local function lazyEval(self)
          break
       end
    end
+   --dbg.print{"fn: ",self.__fn,"\n"}
    --dbg.fini("lazyEval")
 end
 
@@ -216,7 +227,7 @@ function M.valid(self)
    if (not self.__sn) then
       lazyEval(self)
    end
-   return self.__sn ~= false
+   return self.__fn 
 end       
 
 
@@ -225,17 +236,19 @@ function M.userName(self)
 end
 
 function M.sn(self)
-   --dbg.start{"Mname:sn()"}
    if (not self.__sn) then
+      dbg.start{"Mname:sn()"}
       lazyEval(self)
+      dbg.fini("Mname:sn")
    end
-   --dbg.fini("Mname:sn")
    return self.__sn
 end
 
 function M.fn(self)
    if (not self.__fn) then
+      dbg.start{"Mname:fn()"}
       lazyEval(self)
+      dbg.fini("Mname:fn")
    end
    return self.__fn
 end
@@ -247,9 +260,34 @@ function M.version(self)
    return self.__version
 end
 
-function M.fullName(self)
+function M.stackDepth(self)
    if (not self.__sn) then
       lazyEval(self)
+   end
+   local stackDepth = self.__stackDepth == nil and 0 or self.__stackDepth
+   return stackDepth
+end
+
+function M.setStackDepth(self, depth)
+   self.__stackDepth = depth
+end
+
+function M.setRefCount(self, count)
+   self.__ref_count = count
+end
+
+function M.ref_count(self)
+   if (not self.__sn) then
+      lazyEval(self)
+   end
+   return self.__ref_count
+end
+
+function M.fullName(self)
+   if (not self.__sn) then
+      dbg.start{"Mname:fullName()"}
+      lazyEval(self)
+      dbg.fini("Mname:fullName")
    end
    return build_fullName(self.__sn, self.__version)
 end
@@ -347,8 +385,8 @@ local function find_highest_by_key(key, fileA)
    for j = 1,#a do
       local entry    = a[j]
       local fullName = entry.fullName
-      if (mrc:isVisible(fullName)) then
-         local v        = entry[key]
+      local v        = entry[key]
+      if (mrc:isVisible({fullName=entry.fullName,sn=entry.sn,fn=entry.fn}) or isMarked(v)) then
          if (v > weight) then
             idx    = j
             weight = v
@@ -464,8 +502,21 @@ function M.prereq(self)
       return false
    end
 
+   local i,j = fullName:find(userName)
+   if (i == 1 and fullName:sub(j+1,j+1) == '/') then
+      return false
+   end
+
    -- userName did not match.
    return userName
+end
+
+-- reset the private variable to force a new lazyEval.
+function M.reset(self)
+   self.__sn         = nil
+   self.__fn         = nil
+   self.__version    = nil
+   self.__stackDepth = nil
 end
 
 --------------------------------------------------------------------------

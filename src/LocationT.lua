@@ -10,7 +10,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -84,7 +84,7 @@ local function build(moduleA)
       dbg.fini("LocationT build")
       return locationT
    end
-   local T = moduleA[1].T
+   local T = moduleA[1].T or {}
 
    for sn,v in pairs(T) do
       if (v.file) then
@@ -97,7 +97,7 @@ local function build(moduleA)
    end
 
    for i = 2,#moduleA do
-      T = moduleA[i].T
+      T = moduleA[i].T or {}
       for sn, v in pairs(T) do
          local origT   = locationT[sn]
          local lctnT   = locationT[sn] or {}
@@ -124,12 +124,12 @@ function M.locationT(self)
 end
 
 function M.search(self, name)
-   dbg.start{"LocationT:search(",name,")"}
+   --dbg.start{"LocationT:search(",name,")"}
    local locationT = self.__locationT
    
    if (next(locationT) == nil) then
-      dbg.print{"next(locationT) == nil\n"}
-      dbg.fini("LocationT:search")
+      --dbg.print{"next(locationT) == nil\n"}
+      --dbg.fini("LocationT:search")
       return nil, nil, nil
    end
 
@@ -152,14 +152,14 @@ function M.search(self, name)
 
    -- if v is nil then the name was not found so quit
    if (v == nil) then
-      dbg.fini("LocationT:search")
+      --dbg.fini("LocationT:search")
       return nil
    end
 
    if (v.dirT == nil and v.file == nil) then
-      dbg.print{"sn: ",sn,"\n"}
-      dbg.printT("locationT", locationT)
-      dbg.fini("LocationT:search")
+      --dbg.print{"sn: ",sn,"\n"}
+      --dbg.printT("locationT", locationT)
+      --dbg.fini("LocationT:search")
       LmodError{msg="e_LocationT_Srch"}
       return nil
    end
@@ -203,13 +203,13 @@ function M.search(self, name)
       end
    end
 
-   dbg.print{"sn:",sn,", versionStr: ",versionStr,", fullStr: ",fullStr,"\n"}
-   dbg.printT("v",v)
+   --dbg.print{"sn:",sn,", versionStr: ",versionStr,", fullStr: ",fullStr,"\n"}
+   --dbg.printT("v",v)
 
    local fileA = {}
    fileA[1]    = {}
    collectFileA(sn, fullStr, v, fileA[1])
-   dbg.fini("LocationT:search")
+   --dbg.fini("LocationT:search")
    return sn, versionStr, fileA
 end
 

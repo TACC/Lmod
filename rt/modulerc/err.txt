@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.2.1  2017-01-05 20:28 -06:00
+Modules based on Lua: Version 7.7.37  2018-06-26 14:30 +02:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -84,35 +84,87 @@ Currently Loaded Modules:
    H:  Hidden Module
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t avail
 ===========================
-ProjectDIR/rt/modulerc/mf/Core
-   Rstats/2.1.5                 arpack/openmpi/3.1.4
-   a/13.1.23                    intel/14.0.2
-   a/13.2.345    (L,13)         intel/14.0.3         (D:14:14.0)
-   a/14.0.1.134  (D:14)         intel/15.0.1
-   abinit/6.12.3 (6:6.12)       intel/15.0.2         (L,15:15.0)
-   abinit/7.4.3  (L,D:7:7.4)
-  Where:
-   Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
-   D:        Default Module
-   L:        Module is loaded
-Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+a13(@a/13.2.345)
+a14(@a/14.0.1.134)
+z13(@z/13.2.345)
+ProjectDIR/rt/modulerc/mf/Core:
+Rstats/
+Rstats/2.1.5
+a/
+a/13.1.23
+a/13(@a/13.2.345)
+a/13.2.345
+a/14(@a/14.0.1.134)
+a/14.0.1.134
+ab2/
+ab2/6(@ab2/6.12.3)
+ab2/6.12(@ab2/6.12.3)
+ab2/6.12.3
+ab2/7(@ab2/7.4.3)
+ab2/7.4(@ab2/7.4.3)
+ab2/7.4.3
+abinit/
+abinit/6(@abinit/6.12.3)
+abinit/6.12(@abinit/6.12.3)
+abinit/6.12.3
+abinit/7(@abinit/7.4.3)
+abinit/7.4(@abinit/7.4.3)
+abinit/7.4.3
+arpack/openmpi/
+arpack/openmpi/3.1.4
+h2/
+h2/2.0
+intel/
+intel/14.0.2
+intel/14(@intel/14.0.3)
+intel/14.0(@intel/14.0.3)
+intel/14.0.3
+intel/15.0.1
+intel/15(@intel/15.0.2)
+intel/15.0(@intel/15.0.2)
+intel/15.0.2
+jtel/
+jtel/14.0.2
+jtel/14(@jtel/14.0.3)
+jtel/14.0(@jtel/14.0.3)
+jtel/14.0.3
+jtel/15.0.1
+jtel/15(@jtel/15.0.2)
+jtel/15.0(@jtel/15.0.2)
+jtel/15.0.2
+z/
+z/13.1.23
+z/13(@z/13.2.345)
+z/13.2.345
+z/14(@z/14.0.1.134)
+z/14.0.1.134
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
 ===========================
+Global Aliases
+   a13 -> a/13.2.345    a14 -> a/14.0.1.134    z13 -> z/13.2.345
 ProjectDIR/rt/modulerc/mf/Core
-   Rstats/2.1.5                 arpack/openmpi/3.1.4
-   a/13.1.23                    intel/14.0.2
-   a/13.2.345    (L,13)         intel/14.0.3         (D:14:14.0)
-   a/14.0.1.134  (D:14)         intel/15.0.1
-   abinit/6.12.3 (6:6.12)       intel/15.0.2         (L,15:15.0)
-   abinit/7.4.3  (L,D:7:7.4)
+   Rstats/2.1.5                        hidden/1.0   (H)
+   a/13.1.23                           hidden/2.0   (H,L)
+   a/13.2.345           (L,13)         intel/14.0.2
+   a/14.0.1.134         (D:14)         intel/14.0.3 (D:14:14.0)
+   ab2/6.12.3           (6:6.12)       intel/15.0.1
+   ab2/7.4.3            (D:7:7.4)      intel/15.0.2 (L,15:15.0)
+   abinit/6.12.3        (6:6.12)       jtel/14.0.2
+   abinit/7.4.3         (L,D:7:7.4)    jtel/14.0.3  (D:14:14.0)
+   arpack/.common.96    (H)            jtel/15.0.1
+   arpack/openmpi/3.1.4                jtel/15.0.2  (15:15.0)
+   b/3.14               (H)            z/13.1.23
+   dummy/2.0            (H)            z/13.2.345   (13)
+   h2/1.0               (H)            z/14.0.1.134 (D:14)
+   h2/2.0               (D)
   Where:
    Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
    D:        Default Module
+   H:        Hidden Module
    L:        Module is loaded
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
@@ -120,13 +172,20 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
 step 18
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
+Global Aliases
+   a13 -> a/13.2.345    a14 -> a/14.0.1.134    z13 -> z/13.2.345
 ProjectDIR/rt/modulerc/mf/Core
-   Rstats/2.1.5                 arpack/openmpi/3.1.4
-   a/13.1.23                    intel/14.0.2
-   a/13.2.345    (L,13)         intel/14.0.3         (D:14:14.0)
-   a/14.0.1.134  (D:14)         intel/15.0.1
-   abinit/6.12.3 (6:6.12)       intel/15.0.2         (L,15:15.0)
-   abinit/7.4.3  (L,D:7:7.4)
+   Rstats/2.1.5                        intel/14.0.3 (D:14:14.0)
+   a/13.1.23                           intel/15.0.1
+   a/13.2.345           (L,13)         intel/15.0.2 (L,15:15.0)
+   a/14.0.1.134         (D:14)         jtel/14.0.2
+   ab2/6.12.3           (6:6.12)       jtel/14.0.3  (D:14:14.0)
+   ab2/7.4.3            (D:7:7.4)      jtel/15.0.1
+   abinit/6.12.3        (6:6.12)       jtel/15.0.2  (15:15.0)
+   abinit/7.4.3         (L,D:7:7.4)    z/13.1.23
+   arpack/openmpi/3.1.4                z/13.2.345   (13)
+   h2/2.0                              z/14.0.1.134 (D:14)
+   intel/14.0.2
   Where:
    Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
    D:        Default Module
@@ -135,23 +194,73 @@ Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 19
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+Global Aliases
+   a13 -> a/13.2.345    a14 -> a/14.0.1.134    z13 -> z/13.2.345
+ProjectDIR/rt/modulerc/mf/Core
+   Rstats/2.1.5                        intel/14.0.3 (D:14:14.0)
+   a/13.1.23                           intel/15.0.1
+   a/13.2.345           (L,13)         intel/15.0.2 (L,15:15.0)
+   a/14.0.1.134         (D:14)         jtel/14.0.2
+   ab2/6.12.3           (6:6.12)       jtel/14.0.3  (D:14:14.0)
+   ab2/7.4.3            (D:7:7.4)      jtel/15.0.1
+   abinit/6.12.3        (6:6.12)       jtel/15.0.2  (15:15.0)
+   abinit/7.4.3         (L,D:7:7.4)    z/13.1.23
+   arpack/openmpi/3.1.4                z/13.2.345   (13)
+   h2/2.0                              z/14.0.1.134 (D:14)
+   intel/14.0.2
+  Where:
+   Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
+   D:        Default Module
+   L:        Module is loaded
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+Global Aliases
+   a13 -> a/13.2.345    a14 -> a/14.0.1.134    z13 -> z/13.2.345
+ProjectDIR/rt/modulerc/mf/Core
+   Rstats/2.1.5                        intel/14.0.3 (D:14:14.0)
+   a/13.1.23                           intel/15.0.1
+   a/13.2.345           (L,13)         intel/15.0.2 (L,15:15.0)
+   a/14.0.1.134         (D:14)         jtel/14.0.2
+   ab2/6.12.3           (6:6.12)       jtel/14.0.3  (D:14:14.0)
+   ab2/7.4.3            (D:7:7.4)      jtel/15.0.1
+   abinit/6.12.3        (6:6.12)       jtel/15.0.2  (15:15.0)
+   abinit/7.4.3         (L,D:7:7.4)    z/13.1.23
+   arpack/openmpi/3.1.4                z/13.2.345   (13)
+   h2/2.0                              z/14.0.1.134 (D:14)
+   intel/14.0.2
+  Where:
+   Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
+   D:        Default Module
+   L:        Module is loaded
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 21
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/modulerc/mf2/Core
 ===========================
 ===========================
-step 20
+step 22
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider dum
 ===========================
-Lmod has detected the following error: No matching modules found.
+Lmod has detected the following error: Unable to find: "dum".
 ===========================
-step 21
+step 23
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cluster
 ===========================
 The default cluster module cannot be determined. Please set $VSC_DEFAULT_CLUSTER_MODULE.
 Lmod has detected the following error: Unable to parse: "ProjectDIR/rt/modulerc/mf3/Core/cluster/.modulerc". Aborting!
 ===========================
-step 22
+step 24
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
+Global Aliases
+   a13 -> a/13.2.345    z13 -> z/13.2.345
 ProjectDIR/rt/modulerc/mf4
    a/1.0        a/3.0              mpich/3.1.2      mpich/3.2 (D)
    a/2.0 (D)    mpich/3.1.2-dbg    mpich/3.2-dbg
@@ -160,56 +269,93 @@ ProjectDIR/rt/modulerc/mf4
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 23
+step 25
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
+Global Aliases
+   a13 -> a/13.2.345    a14 -> a/14.0.1.134    z13 -> z/13.2.345
 ProjectDIR/rt/modulerc/mf4
-   a/1.0    a/3.0 (D)    mpich/3.1.2-dbg    mpich/3.1.2    mpich/3.2-dbg (D)
+   a/1.0    a/3.0    mpich/3.1.2-dbg    mpich/3.1.2    mpich/3.2-dbg (D)
   Where:
    D:  Default Module
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 24
+step 26
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
 ===========================
+Global Aliases
+   a13 -> a/13.2.345    a14 -> a/14.0.1.134    z13 -> z/13.2.345
 ProjectDIR/rt/modulerc/mf4
-   a/1.0        a/3.0           (D)    mpich/3.1.2          mpich/3.2 (H)
-   a/2.0 (H)    mpich/3.1.2-dbg        mpich/3.2-dbg (D)
+   a/1.0          a/3.0              mpich/3.1.2          mpich/3.2 (H)
+   a/2.0 (H,D)    mpich/3.1.2-dbg    mpich/3.2-dbg (D)
   Where:
    D:  Default Module
    H:  Hidden Module
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 25
+step 27
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load mpich a
 ===========================
 ===========================
-step 26
+step 28
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) mpich/3.2-dbg   2) a/3.0
+  1) mpich/3.2-dbg   2) a/2.0 (H)
+  Where:
+   H:  Hidden Module
 ===========================
-step 27
+step 29
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
+Global Aliases
+   a13 -> a/13.2.345    a14 -> a/14.0.1.134    z13 -> z/13.2.345
 ProjectDIR/rt/modulerc/mf4
-   a/1.0          mpich/3.1.2-dbg    mpich/3.2-dbg (L,D)
-   a/3.0 (L,D)    mpich/3.1.2
+   a/1.0    a/3.0    mpich/3.1.2-dbg    mpich/3.1.2    mpich/3.2-dbg (L,D)
   Where:
    D:  Default Module
    L:  Module is loaded
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 28
+step 30
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
 ===========================
+Global Aliases
+   a13 -> a/13.2.345    a14 -> a/14.0.1.134    z13 -> z/13.2.345
 ProjectDIR/rt/modulerc/mf4
-   a/1.0        a/3.0           (L,D)    mpich/3.1.2            mpich/3.2 (H)
-   a/2.0 (H)    mpich/3.1.2-dbg          mpich/3.2-dbg (L,D)
+   a/1.0            a/3.0              mpich/3.1.2            mpich/3.2 (H)
+   a/2.0 (H,L,D)    mpich/3.1.2-dbg    mpich/3.2-dbg (L,D)
+  Where:
+   D:  Default Module
+   H:  Hidden Module
+   L:  Module is loaded
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 31
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+Global Aliases
+   a13 -> a/13.2.345    a14 -> a/14.0.1.134    z13 -> z/13.2.345
+ProjectDIR/rt/modulerc/mf4
+   a/1.0    a/3.0    mpich/3.1.2-dbg    mpich/3.1.2    mpich/3.2-dbg (L,D)
+  Where:
+   D:  Default Module
+   L:  Module is loaded
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 32
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
+===========================
+Global Aliases
+   a13 -> a/13.2.345    a14 -> a/14.0.1.134    z13 -> z/13.2.345
+ProjectDIR/rt/modulerc/mf4
+   a/1.0            a/3.0              mpich/3.1.2            mpich/3.2 (H)
+   a/2.0 (H,L,D)    mpich/3.1.2-dbg    mpich/3.2-dbg (L,D)
   Where:
    D:  Default Module
    H:  Hidden Module

@@ -1,4 +1,6 @@
 _G._DEBUG=false
+local posix     = require("posix")
+
 require("strict")
 require("fileOps")
 require("deepcopy")
@@ -6,7 +8,6 @@ local MName     = require("MName")
 local MT        = require("MT")
 local cosmic    = require("Cosmic"):singleton()
 local dbg       = require("Dbg"):dbg()
-local posix     = require("posix")
 local testDir   = "spec/MT"
 
 describe("Testing MT Class #MT.",
@@ -57,6 +58,7 @@ describe("Testing MT Class #MT.",
                            ["fullName"] = "icr/64/3.8",
                            ["loadOrder"] = 1,
                            propT = { arch = { mic = 1},},
+                           ["stackDepth"] = 0,
                            ["status"] = "active",
                            ["userName"] = "icr/64",
                         },
@@ -65,6 +67,7 @@ describe("Testing MT Class #MT.",
                            ["fullName"] = "TACC",
                            ["loadOrder"] = 2,
                            propT = {},
+                           ["stackDepth"] = 0,
                            ["status"] = "active",
                            ["userName"] = "TACC",
                         },
@@ -139,7 +142,8 @@ describe("Testing MT Class #MT.",
 
                   -- Remove MT that was pushed to the environment
                   __removeEnvMT()
-               end)
+               end
+            )
          end
 )
 

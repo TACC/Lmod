@@ -1,4 +1,6 @@
 _G._DEBUG=false
+local posix      = require("posix")
+
 require("strict")
 require("utils")
 require("fileOps")
@@ -10,8 +12,8 @@ local ModuleA    = require("ModuleA")
 local Spider     = require("Spider")
 local concatTbl  = table.concat
 local cosmic     = require("Cosmic"):singleton()
+local dbg        = require("Dbg"):dbg()
 local getenv     = os.getenv
-local posix      = require("posix")
 local testDir    = "spec/Spider"
 describe("Testing Spider Class #Spider.",
          function()
@@ -63,6 +65,7 @@ describe("Testing Spider Class #Spider.",
                                  dirT = {},
                                  fileT = {
                                     ["icr/64/3.7"]  = {
+                                       ["Version"] = "64/3.7",
                                        ["canonical"] = "3.7",
                                        ["fn"] = "%ProjDir%/spec/Spider/mf/Core/icr/64/3.7",
                                        ["mpath"] = "%ProjDir%/spec/Spider/mf/Core",
@@ -123,6 +126,11 @@ describe("Testing Spider Class #Spider.",
 
             it("Hierarchy directory Test",
                function()
+                  local debug = os.getenv("LMOD_DEBUG")
+                  if (debug == "yes" or debug == "Spider" ) then
+                     dbg:activateDebug(1)
+                  end
+
                   local masterTbl  = masterTbl()
                   local projDir    = getenv("PROJDIR")
                   local root_mpath = pathJoin(projDir, testDir, "h/mf")
@@ -145,6 +153,7 @@ describe("Testing Spider Class #Spider.",
                            dirT = {},
                            fileT = {
                               ["mpich/17.200.3"]  = {
+                                 ["Version"] = "17.200.3",
                                  ["canonical"] = "17.200.3",
                                  ["fn"] = "%ProjDir%/spec/Spider/h/mf/Compiler/gcc/5.9/mpich/17.200.3.lua",
                                  ["luaExt"] = 9,
@@ -159,6 +168,7 @@ describe("Testing Spider Class #Spider.",
                            dirT = {},
                            fileT = {
                               ["python/2.7.9"]  = {
+                                 ["Version"] = "2.7.9",
                                  ["canonical"] = "2.7.9",
                                  ["fn"] = "%ProjDir%/spec/Spider/h/mf/Compiler/gcc/5.9/python/2.7.9.lua",
                                  ["luaExt"] = 6,
@@ -175,6 +185,7 @@ describe("Testing Spider Class #Spider.",
                            dirT = {},
                            fileT = {
                               ["gcc/5.9.2"]  = {
+                                 ["Version"] = "5.9.2",
                                  ["canonical"] = "5.9.2",
                                  ["fn"] = "%ProjDir%/spec/Spider/h/mf/Core/gcc/5.9.2.lua",
                                  ["luaExt"] = 6,
@@ -189,6 +200,7 @@ describe("Testing Spider Class #Spider.",
                            dirT = {},
                            fileT = {
                               ["python/2.7.9"]  = {
+                                 ["Version"] = "2.7.9",
                                  ["canonical"] = "2.7.9",
                                  ["fn"] = "%ProjDir%/spec/Spider/h/mf/Core/python/2.7.9.lua",
                                  ["luaExt"] = 6,
@@ -205,6 +217,7 @@ describe("Testing Spider Class #Spider.",
                            dirT = {},
                            fileT = {
                               ["parmetis/4.0.3"]  = {
+                                 ["Version"] = "4.0.3",
                                  ["canonical"] = "4.0.3",
                                  ["fn"] = "%ProjDir%/spec/Spider/h/mf/MPI/gcc/5.9/mpich/17.200/parmetis/4.0.3.lua",
                                  ["luaExt"] = 6,
@@ -219,6 +232,7 @@ describe("Testing Spider Class #Spider.",
                            dirT = {},
                            fileT = {
                               ["python/2.7.9"]  = {
+                                 ["Version"] =  "2.7.9",
                                  ["canonical"] = "2.7.9",
                                  ["fn"] = "%ProjDir%/spec/Spider/h/mf/MPI/gcc/5.9/mpich/17.200/python/2.7.9.lua",
                                  ["luaExt"] = 6,
@@ -253,48 +267,83 @@ describe("Testing Spider Class #Spider.",
                   assert.are.same(gold_mpathMapT, mpathMapT)
 
                   local dbT = {}
-                  spider:buildDbT(masterTbl.mpathMapT, spiderT, dbT)
+                  spider:buildDbT({mpath}, masterTbl.mpathMapT, spiderT, dbT)
                   local _dbT = {}
                   sanizatizeTbl(rplmntA, dbT, _dbT)
                   local gold_dbT = {
                      gcc = {
                         ["%ProjDir%/spec/Spider/h/mf/Core/gcc/5.9.2.lua"]  = {
+                           ["Version"] = "5.9.2",
                            ["fullName"] = "gcc/5.9.2",
+                           ["hidden"] = false,
                            ["pV"] = "000000005.000000009.000000002.*zfinal",
+                           ["wV"] = "000000005.000000009.000000002.*zfinal",
                         },
                      },
                      mpich = {
                         ["%ProjDir%/spec/Spider/h/mf/Compiler/gcc/5.9/mpich/17.200.3.lua"]  = {
+                           ["Version"] = "17.200.3",
                            ["fullName"] = "mpich/17.200.3",
+                           ["hidden"] = false,
                            ["pV"] = "000000017.000000200.000000003.*zfinal",
-                           parentAA = { { "gcc/5.9.2", }, },
+                           parentAA = {
+                              {
+                                 "gcc/5.9.2",
+                              },
+                           },
+                           ["wV"] = "000000017.000000200.000000003.*zfinal",
                         },
                      },
                      parmetis = {
                         ["%ProjDir%/spec/Spider/h/mf/MPI/gcc/5.9/mpich/17.200/parmetis/4.0.3.lua"]  = {
+                           ["Version"] = "4.0.3",
                            ["fullName"] = "parmetis/4.0.3",
+                           ["hidden"] = false,
                            ["pV"] = "000000004.000000000.000000003.*zfinal",
-                           parentAA = { { "gcc/5.9.2", "mpich/17.200.3", }, },
+                           parentAA = {
+                              {
+                                 "gcc/5.9.2", "mpich/17.200.3",
+                              },
+                           },
+                           ["wV"] = "000000004.000000000.000000003.*zfinal",
                         },
                      },
                      python = {
                         ["%ProjDir%/spec/Spider/h/mf/Compiler/gcc/5.9/python/2.7.9.lua"]  = {
+                           ["Version"] = "2.7.9",
                            ["fullName"] = "python/2.7.9",
+                           ["hidden"] = false,
                            ["pV"] = "000000002.000000007.000000009.*zfinal",
-                           parentAA = { { "gcc/5.9.2", }, },
+                           parentAA = {
+                              {
+                                 "gcc/5.9.2",
+                              },
+                           },
+                           ["wV"] = "000000002.000000007.000000009.*zfinal",
                         },
                         ["%ProjDir%/spec/Spider/h/mf/Core/python/2.7.9.lua"]  = {
+                           ["Version"] = "2.7.9",
                            ["fullName"] = "python/2.7.9",
+                           ["hidden"] = false,
                            ["pV"] = "000000002.000000007.000000009.*zfinal",
+                           ["wV"] = "000000002.000000007.000000009.*zfinal",
                         },
                         ["%ProjDir%/spec/Spider/h/mf/MPI/gcc/5.9/mpich/17.200/python/2.7.9.lua"]  = {
+                           ["Version"] = "2.7.9",
                            ["fullName"] = "python/2.7.9",
+                           ["hidden"] = false,
                            ["pV"] = "000000002.000000007.000000009.*zfinal",
-                           parentAA = { { "gcc/5.9.2", "mpich/17.200.3", }, },
+                           parentAA = {
+                              {
+                                 "gcc/5.9.2", "mpich/17.200.3",
+                              },
+                           },
+                           ["wV"] = "000000002.000000007.000000009.*zfinal",
                         },
                      },
                   }
-                  --print(serializeTbl{indent=true, name="dbT", value = dbT})
+                  --print(serializeTbl{indent=true, name="dbT",      value = dbT})
+                  --print(serializeTbl{indent=true, name="gold_dbT", value = gold_dbT})
                   assert.are.same(gold_dbT, _dbT)
                end)
          end

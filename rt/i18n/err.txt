@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.3.1  2017-01-11 21:09 -06:00
+Modules based on Lua: Version 7.8.19  2019-02-11 12:34 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -18,7 +18,7 @@ Lmod ha detectado el siguiente error: No es posible ejecutar 'module avail'. MOD
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-Lmod hat den folgenden Fehler erkannt: Das Kommando 'module avail' kann nicht ausgeführt werden. Die Variable MODULEPATH ist entweder nicht gesetzt oder enthält einen ungültigen Wert.
+Lmod hat den folgenden Fehler erkannt: Der Befehl "module avail" kann nicht ausgeführt werden. Die Variable MODULEPATH ist entweder nicht gesetzt oder enthält einen ungültigen Wert.
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
@@ -82,6 +82,7 @@ Options:
   --no_redirect                     Affiche la sortie de list, avail, spider vers stderr
   --show_hidden                     Avail et spider afficheront les modules cachés
   --spider_timeout=timeout          un délai maximal pour spider
+  -T --trace
 module [options] sub-command [args ...]
 Sous-commandes d'aide :
   help                              affiche ce message
@@ -107,9 +108,9 @@ Sous-commandes pour lister / chercher :
   keyword | key       string        Cherche tous les noms et descriptions ("whatis") qui contiennent "string".
 Chercher avec Lmod:
   Toutes les sous-commandes de recherche (spider, list, avail, keyword) supportent les expressions régulières :
-  spider -r           '^p'          Trouve tous les modules qui débutent par `p' or `P'
-  spider -r           mpi           Trouve tous les modules qui ont "mpi" dans leur nom.
-  spider -r           'mpi$         Trouve tous les modules dont le nom se termine par "mpi".
+  -r spider           '^p'          Trouve tous les modules qui débutent par `p' or `P'
+  -r spider           mpi           Trouve tous les modules qui ont "mpi" dans leur nom.
+  -r spider           'mpi$         Trouve tous les modules dont le nom se termine par "mpi".
 Gérer une collection de modules :
   save | s                          Sauvegarde la liste actuelle de modules vers une collection "default" définie par l'usage.
   save | s            name          Sauvegarde la liste actuelle de modules vers une collection nommée "name".
@@ -119,12 +120,15 @@ Gérer une collection de modules :
   restore             system        Restaure les modules à l'état par défaut du système.
   savelist                          Affiche la liste des collections sauvegardées.
   describe | mcc      name          Décrit le contenu d'une collection.
+  disable             name          Disable a collection.
 Sous-commandes désuètes :
   getdefault          [name]        charge la collection nommée "name" de l'usager, ou la collection par défaut si aucun nom n'est fourni.
                                     ===> Utilisez plutôt "restore"  <====
   setdefault          [name]        sauvegarde liste actuelle de modules dans la collection "name" si un nom est donné. Si aucun nom n'est donné, sauvegarde la liste en tant que liste par défaut pour l'usager.
                                     ===> Utilisez plutôt "save". <====
 Sous-commandes diverses:
+  is-loaded           modulefile    return a true status if module is loaded
+  is-avail            modulefile    return a true status if module can be loaded
   show                modulefile    affiche les commandes contenues dans le fichier de module.
   use [-a]            path          Ajoute un chemin au début (prepend) ou à la fin (append) de la variable d'environnement MODULEPATH.
   unuse               path          Enlève le chemin de la variable d'environnement MODULEPATH.
@@ -137,5 +141,5 @@ Sites web de Lmod
   Sourceforge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   Pour rapporter un bogue, veuillez lire http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 7.3.1  2017-01-11 21:09 -06:00
+Modules based on Lua: Version 7.8.19  2019-02-11 12:34 -06:00
     by Robert McLay mclay@tacc.utexas.edu

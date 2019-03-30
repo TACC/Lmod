@@ -36,13 +36,15 @@ require("serializeTbl")
 require("myGlobals")
 require("string_utils")
 require("lmod_system_execute")
-local Dbg    = require("Dbg")
-local dbg    = Dbg:dbg()
-PkgBase      = require("PkgBase")
-local hook   = require("Hook")
-local lfs    = require("lfs")
-local getenv = os.getenv
-local uname  = require("posix").uname
+local Dbg     = require("Dbg")
+local dbg     = Dbg:dbg()
+PkgBase       = require("PkgBase")
+local hook    = require("Hook")
+local lfs     = require("lfs")
+local getenv  = os.getenv
+local uname   = require("posix").uname
+local cosmic  = require("Cosmic"):singleton()
+local syshost = cosmic:value("LMOD_SYSHOST")
 
 Pkg = PkgBase.build("PkgTACC")
 
@@ -67,10 +69,15 @@ local function load_hook(t)
 
    if (mode() ~= "load") then return end
    local user        = os.getenv("USER")
-   local host        = uname("%n")
+   local host        = syshost 
+   if (not host) then
+      local i,j, first
+      i,j, first, host = uname("%n"):find("([^.]*)%.([^.]*)%.")
+   end
+
    local currentTime = epoch()
    local msg         = string.format("user=%s module=%s path=%s host=%s time=%f",
-                                     user, t.modFullName, t.fn, host, currentTime)
+                                     user, t.modFullName, t.fn, host or "<unknown>", currentTime)
    local a           = s_msgA
    a[#a+1]           = msg
 

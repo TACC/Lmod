@@ -2,6 +2,9 @@
 -- Fixme
 -- @module myGlobals
 
+_G._DEBUG          = false               -- Required by the new lua posix
+local posix        = require("posix")
+
 require("strict")
 
 --------------------------------------------------------------------------
@@ -14,7 +17,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -41,10 +44,8 @@ require("strict")
 require("declare")
 require("fileOps")
 
-_G._DEBUG          = false               -- Required by the new lua posix
 local cosmic       = require("Cosmic"):singleton()
 local lfs          = require("lfs")
-local posix        = require("posix")
 local getenv       = os.getenv
 local setenv_posix = posix.setenv
 
@@ -69,6 +70,24 @@ ExitHookA = require("HookArray")
 -- break things.
 ------------------------------------------------------------------------
 setenv_posix("LC_ALL","C",true)
+
+------------------------------------------------------------------------
+-- MODULEPATH_INIT: Name of the file that can be used to initialize
+--                  MODULEPATH in the startup scripts
+------------------------------------------------------------------------
+
+cosmic:init{name    = "LMOD_MODULEPATH_INIT",
+            sedV    = "@modulepath_init@",
+            no_env  = true,
+            default = "@PKG@/init/.modulespath"}
+
+------------------------------------------------------------------------
+-- SITE_CONTROLLED_PREFIX: If a site configured lmod with direct prefix
+------------------------------------------------------------------------
+cosmic:init{name    = "SITE_CONTROLLED_PREFIX",
+            sedV    = "@site_controlled_prefix@",
+            no_env  = true,
+            default = "no"}
 
 ------------------------------------------------------------------------
 -- ModulePath: The name of the environment variable which contains the
@@ -97,6 +116,14 @@ LMOD_CACHE_VERSION   = 5
 LUAC_PATH = "@path_to_luac@"
 
 ------------------------------------------------------------------------
+-- LUA_TRACING : Tracing Lmod loads and other changes.
+------------------------------------------------------------------------
+
+cosmic:init{name    = "LMOD_TRACING",
+            yn      = "no"}
+
+
+------------------------------------------------------------------------
 -- LMOD_CASE_INDEPENDENT_SORTING :  make avail and spider use case
 --                                  independent sorting.
 ------------------------------------------------------------------------
@@ -113,11 +140,26 @@ cosmic:init{name = "LMOD_REDIRECT",
             yn   = "no"}
 
 ------------------------------------------------------------------------
+-- LMOD_FAST_TCL_INTERP:  Send messages to stdout instead of stderr
+------------------------------------------------------------------------
+cosmic:init{name = "LMOD_FAST_TCL_INTERP",
+            sedV = "@fast_tcl_interp@",
+            yn   = "no"}
+
+------------------------------------------------------------------------
 -- LMOD_SITE_NAME: The site name (e.g. TACC)
 ------------------------------------------------------------------------
 
 cosmic:init{name    = "LMOD_SITE_NAME",
             sedV    = "@site_name@",
+            default = false}
+
+------------------------------------------------------------------------
+-- LMOD_SYSHOST: The cluster name: (e.g. stampede)
+------------------------------------------------------------------------
+
+cosmic:init{name    = "LMOD_SYSHOST",
+            sedV    = "@syshost@",
             default = false}
 
 ------------------------------------------------------------------------
@@ -135,11 +177,11 @@ cosmic:init{name    = "LMOD_SYSTEM_NAME",
 LMOD_COLUMN_TABLE_WIDTH = 80
 
 ------------------------------------------------------------------------
--- LMOD_TMOD_PATH_RULE:  Using Tmod rule where if path is already there
---                       do not prepend/append
+-- LMOD_TMOD_FIND_FIRST:  Using Tmod rule where it uses find first for
+---                       defaults.
 ------------------------------------------------------------------------
-cosmic:init{name = "LMOD_TMOD_PATH_RULE",
-            sedV = "@tmod_path_rule@",
+cosmic:init{name = "LMOD_TMOD_FIND_FIRST",
+            sedV = "@tmod_find_first@",
             yn   = "no"}
 
 ------------------------------------------------------------------------
@@ -195,6 +237,14 @@ cosmic:init{name = "LMOD_ALLOW_TCL_MFILES",
             yn   = "yes"}
 
 ------------------------------------------------------------------------
+-- LMOD_TMOD_PATH_RULE:  Using Tmod rule where if path is already there
+--                       do not prepend/append
+------------------------------------------------------------------------
+cosmic:init{name = "LMOD_TMOD_PATH_RULE",
+            sedV = "@tmod_path_rule@",
+            yn   = "no"}
+
+------------------------------------------------------------------------
 -- LMOD_DUPLICATE_PATHS:  Allow the same path to be stored in PATH like
 --                        vars like PATH, LD_LIBRARY_PATH, etc
 ------------------------------------------------------------------------
@@ -203,6 +253,10 @@ cosmic:init{name = "LMOD_DUPLICATE_PATHS",
             sedV = "@duplicate_paths@",
             yn   = "no"}
 
+
+if (cosmic:value("LMOD_TMOD_PATH_RULE") == "yes") then
+   cosmic:assign("LMOD_DUPLICATE_PATHS", "no")
+end
 
 ------------------------------------------------------------------------
 -- LMOD_IGNORE_CACHE:  Ignore user and system caches and rebuild if needed
@@ -238,7 +292,10 @@ cosmic:init{name    = "LMOD_PAGER_OPTS",
 -- LMOD_MODULERCFILE: The system RC file to specify aliases, defaults
 --                    and hidden modules.
 ------------------------------------------------------------------------
-local rc_dflt   = pathJoin(cmdDir(),"../../etc/rc")
+local rc_dflt   = pathJoin(cmdDir(),"../../etc/rc.lua")
+if (not isFile(rc_dflt)) then
+   rc_dflt   = pathJoin(cmdDir(),"../../etc/rc")
+end
 local rc        = getenv("LMOD_MODULERCFILE") or getenv("MODULERCFILE") or rc_dflt
 cosmic:init{name    = "LMOD_MODULERCFILE",
             default = rc_dflt,
@@ -266,7 +323,7 @@ cosmic:init{name    = "LMOD_ADMIN_FILE",
 --                   names.  Note that the default choice is marked by
 --                   angle brackets:  A:B:<C> ==> C is the default.
 --                   If no angle brackets are specified then the first
---                   entry is the default (i.e. A:B:C => A is default.
+--                   entry is the default (i.e. A:B:C => A is default).
 ------------------------------------------------------------------------
 
 LMOD_AVAIL_STYLE = getenv("LMOD_AVAIL_STYLE") or "<system>"
@@ -278,11 +335,16 @@ end
 -- LFS_VERSION: The version of luafilesystem being used
 ------------------------------------------------------------------------
 
-
-
 cosmic:init{name    = "LFS_VERSION",
             default = "1.6.3",            
             assignV = lfs._VERSION:gsub("LuaFileSystem  *","")}
+
+------------------------------------------------------------------------
+--  ModA:  A global array used to collect from .modulerc etc files
+------------------------------------------------------------------------
+--
+--ModA           = false
+--
 
 ------------------------------------------------------------------------
 -- MCP, mcp:  Master Control Program objects.  These objects implement
@@ -295,12 +357,12 @@ MCP            = false
 mcp            = false
 
 ------------------------------------------------------------------------
--- adminT:  A table that contains module names and a message to users
+-- adminA:  An array that contains module names and a message to users
 --          The main purpose is to tell users that say this module is
 --          deprecated.
 ------------------------------------------------------------------------
 
-adminT         = {}
+adminA         = {}
 
 ------------------------------------------------------------------------
 -- stackTraceBackA 
@@ -408,11 +470,12 @@ cosmic:init{name    = "LMOD_LANG",
             assignV = lang}
 
 ------------------------------------------------------------------------
--- LMOD_FULL_SETTARG_SUPPORT:  the time in seconds when the cache file is considered old
+-- LMOD_SETTARG_FULL_SUPPORT: remember the settarg support level to
+--                            report value in the configuration report.
 ------------------------------------------------------------------------
 
-cosmic:init{name = "LMOD_FULL_SETTARG_SUPPORT",
-            sedV = "@lmod_full_settarg_support@",
+cosmic:init{name = "LMOD_SETTARG_FULL_SUPPORT",
+            sedV = "@lmod_settarg_full_support@",
             yn   = "no"}
 
 ------------------------------------------------------------------------
@@ -463,40 +526,32 @@ cosmic:init{name = "LMOD_USE_DOT_FILES",
 
 local use_dot_files = cosmic:value("LMOD_USE_DOT_FILES")
 
-
-------------------------------------------------------------------------
--- LMOD_HAVE_LUA_JSON
-------------------------------------------------------------------------
-cosmic:init{name = "LMOD_HAVE_LUA_JSON",
-            sedv = "@have_lua_json@",
-            yn   = "no"}
-
 ------------------------------------------------------------------------
 -- LMOD_HAVE_LUA_TERM
 ------------------------------------------------------------------------
 cosmic:init{name = "LMOD_HAVE_LUA_TERM",
-            sedv = "@have_lua_term@",
+            sedV = "@have_lua_term@",
             yn   = "no"}
 
 ------------------------------------------------------------------------
 -- MODULEPATH_ROOT
 ------------------------------------------------------------------------
 cosmic:init{name    = "MODULEPATH_ROOT",
-            sedv    = "@modulepath_root@",
+            sedV    = "@modulepath_root@",
             default = ""}
 
 ------------------------------------------------------------------------
 -- LMOD_HASHSUM_PATH
 ------------------------------------------------------------------------
 cosmic:init{name    = "LMOD_HASHSUM_PATH",
-            sedv    = "@hashsum@",
+            sedV    = "@hashsum@",
             default = "/usr/bin/sha1sum"}
 
 ------------------------------------------------------------------------
 -- PATH_TO_LUA
 ------------------------------------------------------------------------
 cosmic:init{name    = "PATH_TO_LUA",
-            sedv    = "@path_to_lua@",
+            sedV    = "@path_to_lua@",
             default = "lua"}
 
 ------------------------------------------------------------------------
@@ -526,8 +581,15 @@ cosmic:init{name    = "LMOD_PREPEND_BLOCK",
 --                overridden by a .version etc file.
 ------------------------------------------------------------------------
 cosmic:init{name    = "LMOD_MAXDEPTH",
-            sedv    = "@maxdepth@",
+            sedV    = "@maxdepth@",
             default = ""}
+
+------------------------------------------------------------------------
+-- LMOD_HIDDEN_ITALIC - Use italic instead of DIM for hidden modules
+------------------------------------------------------------------------
+cosmic:init{name = "LMOD_HIDDEN_ITALIC",
+            sedV = "@LMOD_HIDDEN_ITALIC@",
+            yn   = "no"}
 
 ------------------------------------------------------------------------
 -- GIT_VERSION: The exact git version of Lmod
@@ -540,6 +602,11 @@ GIT_VERSION = "@git_version@"
 ------------------------------------------------------------------------
 epoch      = false
 epoch_type = false
+
+------------------------------------------------------------------------
+-- runTCLprog: a program to process TCL programs
+------------------------------------------------------------------------
+runTCLprog = false
 
 --------------------------------------------------------------------------
 -- Accept functions: Allow or ignore TCL mfiles
@@ -578,6 +645,8 @@ Shell          = false
 
 master         = false
 
+TraceCounter   = 0
+ReloadAllCntr  = 0
 
 
 PkgBase = false

@@ -40,7 +40,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -81,13 +81,19 @@ package.path   = sys_lua_path
 package.cpath  = sys_lua_cpath
 
 local arg_0    = arg[0]
+_G._DEBUG      = false
 local posix    = require("posix")
 local readlink = posix.readlink
 local stat     = posix.stat
 
 local st       = stat(arg_0)
 while (st.type == "link") do
-   arg_0 = readlink(arg_0)
+   local lnk = readlink(arg_0)
+   if (arg_0:find("/") and (lnk:find("^/") == nil)) then
+      local dir = arg_0:gsub("/[^/]*$","")
+      lnk       = dir .. "/" .. lnk
+   end
+   arg_0 = lnk
    st    = stat(arg_0)
 end
 
@@ -101,7 +107,8 @@ package.path  = cmd_dir .. "../tools/?.lua;"      ..
                 cmd_dir .. "../tools/?/init.lua;" ..
                 cmd_dir .. "?.lua;"               ..
                 sys_lua_path
-package.cpath = sys_lua_cpath
+package.cpath = cmd_dir .. "../lib/?.so;"..
+                sys_lua_cpath
 
 require("strict")
 
@@ -131,6 +138,7 @@ local setenv_posix = posix.setenv
 local concatTbl    = table.concat
 local s_master     = {}
 local load         = (_VERSION == "Lua 5.1") and loadstring or load
+local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
 envT               = false
 
 local keepT = {
@@ -151,11 +159,48 @@ local execT = {
 }
 
 local ignoreA = {
-   "BASH_ENV", "COLUMNS", "DISPLAY", "ENV", "HOME", "LINES", "LOGNAME", "PWD", "SHELL",
-   "SHLVL", "LC_ALL", "SSH_ASKPASS", "SSH_CLIENT", "SSH_CONNECTION", "SSH_TTY", "TERM",
-   "USER", "EDITOR", "HISTFILE", "HISTSIZE", "MAILER", "PAGER", "REPLYTO", "VISUAL",
-   "_", "ENV2", "OLDPWD", "PS1","PS2", "PRINTER", "TTY", "TZ", "GROUP", "HOSTTYPE",
-   "MACHTYPE", "OSTYPE","REMOTEHOST", "VENDOR","HOST","module"
+   "BASH_ENV",
+   "COLUMNS",
+   "DISPLAY",
+   "EDITOR",
+   "ENV",
+   "ENV2",
+   "GROUP",
+   "HISTFILE",
+   "HISTSIZE",
+   "HOME",
+   "HOST",
+   "HOSTTYPE",
+   "LC_ALL",
+   "LINES",
+   "LMOD_SETTARG_CMD",
+   "LMOD_VERSION",
+   "LOGNAME",
+   "MACHTYPE",
+   "MAILER",
+   "OLDPWD",
+   "OSTYPE",
+   "PAGER",
+   "PRINTER",
+   "PS1",
+   "PS2",
+   "PWD",
+   "REMOTEHOST",
+   "REPLYTO",
+   "SHELL",
+   "SHLVL",
+   "SSH_ASKPASS",
+   "SSH_CLIENT",
+   "SSH_CONNECTION",
+   "SSH_TTY",
+   "TERM",
+   "TTY",
+   "TZ",
+   "USER",
+   "VENDOR",
+   "VISUAL",
+   "_",
+   "module",
 }
 
 
@@ -454,9 +499,13 @@ function main()
 
    local s = capture(concatTbl(cmdA," "))
 
-   local f = io.open("s.log","w")
-   f:write(s)
-   f:close()
+   if (masterTbl.debug) then
+      local f = io.open("s.log","w")
+      if (f) then
+         f:write(s)
+         f:close()
+      end
+   end
 
    local factory = MF_Base.build(masterTbl.style)
 
@@ -464,18 +513,39 @@ function main()
 
    s = concatTbl(factory:process(ignoreT, oldEnvT, envT),"\n")
    if (masterTbl.outFn) then
-      f = io.open(masterTbl.outFn,"w")
-      f:write(s)
-      f:close()
+      local f = io.open(masterTbl.outFn,"w")
+      if (f) then
+         f:write(s)
+         f:close()
+      else
+         io.stderr:write("Unable to write modulefile named: ",masterTbl.outFn,"\n")
+         os.exit(1);
+      end
    else
       print(s)
    end
 end
 
+function usage()
+   return "Usage: sh_to_modulefile [options] bash_shell_script [script_options]"
+end
+
+
+function my_error(...)
+   local argA = pack(...)
+   for i = 1, argA.n do
+      io.stderr:write(argA[i])
+   end
+   io.stderr:write("\n",usage(),"\n")
+end
+
+
+
 function options()
    local masterTbl     = masterTbl()
-   local usage         = "Usage: sh_to_modulefile [options] bash_shell_script [script_options]"
-   local cmdlineParser = Optiks:new{usage=usage, version=Version}
+   local cmdlineParser = Optiks:new{usage   = usage(),
+                                    error   = my_error,
+                                    version = Version}
 
 
    cmdlineParser:add_option{

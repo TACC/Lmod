@@ -45,8 +45,12 @@ testdescript = {
      runLmod load   ll/2.0    #17
      runLmod unload ll/2.0    #18
     
-     runLmod save             #19
-     runLmod restore          #20
+     export LLOYD="FOO"
+     runLmod load   lloyd     #19
+     runLmod unload lloyd     #20
+     
+     runLmod save             #21
+     runLmod restore          #22
 
      HOME_ORIG=$HOME
 

@@ -1,0 +1,37 @@
+Here are some ideas for BoF talk on Lmod and XALT?
+
+* Talk about Lmod?
+
+What can I say about Lmod in 5 mins or less?  Stickers?
+
+Lmod: A flexible Env. Module System that reads TCL and Lua based
+modules.  No translation required.  Lmod does it for you.  
+Lmod reads Cray modules.  We do it at TACC!
+
+** Ideas:
+*** Reads TCL and Lua modulefiles
+*** Support Software Hierarchy (not required!!)
+*** Spider Cache: Fast loads, avail, spider
+*** Collections: users can have their own default modules
+*** Site tayloring: Hooks, Many Configuration Options
+*** Hidden Modules
+*** Optional Tracking of Module Usage
+*** Used around the world.  (show readthedocs usage?)
+*** Many more feature: See lmod.readthedocs.io
+
+* Talk about XALT?
+
+I am more interested in my XALT work than Lmod.  I solved the scalar
+execution problem.  Now work inside Singularity containers. It
+optionally tracks GPU usage.
+
+** Ideas:
+*** Tracks both MPI and Non-MPI (Scalar) programs
+*** Tracks run time and library usage
+*** Extremely light weight
+*** Not a performance measuring tool
+*** Uses LD_PRELOAD trick to track 
+*** Site tayloring
+*** Optionally Track Package use in R, MATLAB, Python
+*** Use to know resources by Node-Hours, How Frequent, Most Users.
+*** Learn more at: xalt.readthedocs.io

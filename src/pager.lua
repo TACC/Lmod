@@ -17,7 +17,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -49,11 +49,11 @@ local concatTbl = table.concat
 local cosmic    = require("Cosmic"):singleton()
 
 local function argsPack(...)
-   local  arg = { n = select("#", ...), ...}
-   return arg
+   local  argA = { n = select("#", ...), ...}
+   return argA
 end
 
-local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
+local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
 
 s_pager = false
 
@@ -62,9 +62,9 @@ s_pager = false
 -- All input arguments to stream f
 -- @param f A stream object.
 function bypassPager(f, ...)
-   local arg = pack(...)
-   for i = 1, arg.n do
-      f:write(arg[i])
+   local argA = pack(...)
+   for i = 1, argA.n do
+      f:write(argA[i])
    end
 end
 

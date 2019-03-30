@@ -1,0 +1,8 @@
+#!/bin/bash
+# -*- shell-script -*-
+
+if [[ $1 =~ /t1/ ]]; then
+   dir=$(dirname $1)
+   mv $1 $dir/../..
+   echo mv $1 $dir/../..
+fi

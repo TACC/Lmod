@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 0.9.2  2016-10-25 13:59 -05:00
+Modules based on Lua: Version 7.8.90  2019-03-22 16:05 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -32,11 +32,29 @@ Currently Loaded Modules:
    m:  built for host and native MIC
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore system
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/reset/mf/User
 ===========================
-Resetting modules to system default
 ===========================
 step 8
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load foo
+===========================
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) admin/admin-1.0   4) intel/intel   7) openmpi/1.2.6
+  2) unix/unix         5) noweb/2.10c   8) parmetis/3.1  (m)
+  3) local/local       6) PrgEnv        9) foo/1.0
+  Where:
+   m:  built for host and native MIC
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing reset
+===========================
+Resetting modules to system default. Reseting $MODULEPATH back to system default. All extra directories will be removed from $MODULEPATH.
+===========================
+step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:

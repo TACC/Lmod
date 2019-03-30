@@ -14,7 +14,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -65,6 +65,9 @@ local validT =
       restore         = false,  -- This hook is run after restore operation
       startup         = false,  -- This hook is run when Lmod is called
       packagebasename = false,  -- Hook to find the patterns that spider uses for reverse map
+      load_spider     = false,  -- This hook is run evaluating modules for spider/avail
+      listHook        = false,  -- This hook gets the list of active modules
+      isVisibleHook   = false,  -- Called to evalate if a module should be hidden or not
 }
 
 --------------------------------------------------------------------------
@@ -88,6 +91,10 @@ function M.apply(name, ...)
    if (validT[name]) then
       return validT[name](...)
    end
+end
+
+function M.exists(name)
+   return validT[name] and true or false
 end
 
 return M

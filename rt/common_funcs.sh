@@ -1,3 +1,16 @@
+pathmunge () {
+    case ":${PATH}:" in
+        *:"$1":*)
+            ;;
+        *)
+            if [ "$2" = "after" ] ; then
+                PATH=$PATH:$1
+            else
+                PATH=$1:$PATH
+            fi
+    esac
+}  
+
 cleanUp ()
 {
    gitV=$(git describe --always)
@@ -8,13 +21,29 @@ cleanUp ()
 
 
    sed                                                    \
-       -e "s|:$PATH_to_LUA:|:|g"                          \
-       -e "s|$PATH_to_LUA/lua|lua|g"                      \
        -e "s|\@git\@|$gitV|g"                             \
-       -e "s|:/bin:|:|g"                                  \
-       -e "s|:/usr/bin:|:|g"                              \
-       -e "s|:/usr/local/bin:|:|g"                        \
-       -e "s|:$PATH_to_SHA1:|:|g"                         \
+       -e "s|/usr/bin/sha1sum|PATH_to_HASHSUM|g"          \
+       -e "s|:$PATH_to_LUA\([:;]\)|\1|g"                  \
+       -e "s|;$PATH_to_LUA:[0-9];|;|g"                    \
+       -e "s| $PATH_to_LUA||g"                            \
+       -e "s|\\\;$PATH_to_LUA:[0-9]\\\;|\\\;|g"           \
+       -e "s|$PATH_to_LUA/lua|lua|g"                      \
+       -e 's|:/bin\([:;]\)|\1|g'                          \
+       -e 's|;/bin:[0-9];|;|g'                            \
+       -e 's| /bin||g'                                    \
+       -e 's|\\\;/bin:[0-9]\\\;|\\\;|g'                   \
+       -e "s|:/usr/bin\([:;]\)|\1|g"                      \
+       -e "s|;/usr/bin:[0-9];|;|g"                        \
+       -e "s| /usr/bin||g"                                \
+       -e "s|\\\;/usr/bin:[0-9]\\\;|\\\;|g"               \
+       -e "s|:/usr/local/bin\([:;]\)|\1|g"                \
+       -e "s|;/usr/local/bin:[0-9];|;|g"                  \
+       -e "s| /usr/local/bin||g"                          \
+       -e "s|\\\;/usr/local/bin:[0-9]\\\;|\\\;|g"         \
+       -e "s|:$PATH_to_SHA1\([:;]\)|\1|g"                 \
+       -e "s|;$PATH_to_SHA1:[0-9];|;|g"                   \
+       -e "s| $PATH_to_SHA1||g"                           \
+       -e "s|\\\;$PATH_to_SHA1:[0-9]\\\;|\\\;|g"          \
        -e "s|^Lmod version.*||g"                          \
        -e "s|^LuaFileSystem version.*||g"                 \
        -e "s|^Lua Version.*||g"                           \
@@ -49,7 +78,8 @@ cleanUp ()
        -e "/Rebuilding cache.*done/d"                     \
        -e "/Using your spider cache file/d"               \
        -e "/^_ModuleTable_Sz_=.*$/d"                      \
-       -e "/^setenv _ModuleTable_Sz_ .*$/d"               \
+       -e "/^set.* _ModuleTable_Sz_ .*$/d"                \
+       -e "s|\\\;$|;|"                                    \
        -e "/^ *$/d"                                       \
        < $1 > $2
 }
@@ -73,6 +103,11 @@ runBase ()
    "$@" > _stdout.$NUM 2>> _stderr.$NUM
 }
 
+runFish ()
+{
+  runBase $LUA_EXEC $projectDir/src/lmod.in.lua fish --regression_testing "$@"
+}
+
 runMe ()
 {
    runBase "$@"
@@ -94,19 +129,24 @@ runSh2MF ()
    runBase $LUA_EXEC $projectDir/src/sh_to_modulefile.in.lua "$@"
 }
 
+runSpiderCmd ()
+{
+   $LUA_EXEC $projectDir/src/spider.in.lua "$@"
+}
+
 buildSpiderT ()
 {
-   $LUA_EXEC $projectDir/src/spider.in.lua -o spiderT "$@"
+   runSpiderCmd -o spiderT "$@"
 }
 
 buildDbT ()
 {
-   $LUA_EXEC $projectDir/src/spider.in.lua -o dbT     "$@"
+   runSpiderCmd -o dbT     "$@"
 }
 
 buildRmapT ()
 {
-   $LUA_EXEC $projectDir/src/spider.in.lua -o reverseMapT "$@"
+   runSpiderCmd -o reverseMapT "$@"
 }
 
 buildNewDB()
@@ -156,6 +196,16 @@ EPOCH()
 
 initStdEnvVars()
 {
+  while IFS='=' read -r name value; do
+    if [ "$name" = "LMOD_CMD" ] || [ "$name" = "LMOD_DIR" ]; then
+        :
+    elif [[ "$name" =~ ^__LMOD_REF_COUNT.* ]]; then
+        unset $name
+    elif [[ "$name" =~ ^LMOD.* ]]; then
+        unset $name
+    fi
+  done < <(env)
+
   unset CPATH
   unset DYLD_LIBRARY_PATH
   unset INCLUDE
@@ -164,28 +214,18 @@ initStdEnvVars()
   unset LD_LIBRARY_PATH
   unset LIBPATH
   unset LIBRARY_PATH
-  unset LMOD_ADMIN_FILE
-  unset LMOD_COLORIZE
-  unset LMOD_DEFAULT_MODULEPATH
-  unset LMOD_EXPERT
-  unset LMOD_OPTIONS
-  unset LMOD_PIN_VERSIONS
-  unset LMOD_QUIET
-  unset LMOD_SYSTEM_DEFAULT_MODULES
-  unset LMOD_FULL_SETTARG_SUPPORT
-  unset LMOD_TERM_WIDTH
+  unset SETTARG_RC
   unset LOADEDMODULES
   unset MANPATH
   unset MODULEPATH
   unset MODULEPATH_ROOT
   unset MODULERCFILE
-  unset LMOD_MODULERCFILE
   unset NLSPATH
   unset OMP_NUM_THREADS
   unset PYTHONPATH
   unset SHLIB_PATH
+  unset TERM
   unset _LMFILES_
-  unset __LMOD_PRIORITY_PATH
   PATH_to_LUA=`findcmd --pathOnly lua`
   PATH_to_TM=`findcmd --pathOnly tm`
   PATH_to_SHA1=`findcmd --pathOnly sha1sum`
@@ -196,8 +236,10 @@ initStdEnvVars()
   HOME=`/bin/pwd`
   export LMOD_TERM_WIDTH=300
 
-  export PATH=$projectDir/src:$PATH_to_LUA:$PATH_to_TM:$PATH_to_SHA1:/usr/bin:/bin
-
+  PATH=/usr/bin:/bin
+  for i in $PATH_to_SHA1 $PATH_to_TM $PATH_to_LUA $projectDir/src; do
+    pathmunge $i 
+  done
 }
 
 clearTARG()

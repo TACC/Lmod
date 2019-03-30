@@ -8,7 +8,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -35,6 +35,9 @@
 --------------------------------------------------------------------------
 -- BaseShell:  This is the base class for all the shell output classes.
 
+_G._DEBUG          = false
+local posix        = require("posix")
+
 require("strict")
 require("myGlobals")
 require("inherits")
@@ -53,10 +56,10 @@ local encode64     = base64.encode64
 local strfmt       = string.format
 local getenv       = os.getenv
 local huge         = math.huge
-local pack         = (_VERSION == "Lua 5.1") and argsPack   or table.pack
+local pack         = (_VERSION == "Lua 5.1") and argsPack   or table.pack -- luacheck: compat
 local pairsByKeys  = pairsByKeys
+local posix_setenv = posix.setenv
 
-local LMOD_REDIRECT = cosmic:value("LMOD_REDIRECT")
 --------------------------------------------------------------------------
 -- BaseShell Member functions:
 --------------------------------------------------------------------------
@@ -111,12 +114,24 @@ function M.expand(self, tbl)
       return
    end
 
-
    for k,v in pairsByKeys(tbl) do
-      local vstr, vType, priorityStrT = v:expand()
-      if (next(priorityStrT)) then
+      local vstr, vType, priorityStrT, refCountT = v:expand()
+      if (next(priorityStrT) ~= nil) then
          for prtyKey,prtyStr in pairs(priorityStrT) do
-            self:expandVar(prtyKey,prtyStr,"path")
+            if (prtyStr) then
+               self:expandVar(prtyKey,prtyStr,"path")
+            else
+               self:unset(prtyKey,"path")
+            end
+         end
+      end
+      if (next(refCountT) ~= nil) then
+         for key,value in pairs(refCountT) do
+            if (value) then
+               self:expandVar(key, value, "path")
+            else
+               self:unset(key,"path")
+            end
          end
       end
       if (vType == "alias") then
@@ -131,7 +146,6 @@ function M.expand(self, tbl)
          self:expandVar(k,vstr,vType)
       end
    end
-
    dbg.fini("BaseShell:expand")
 end
 
@@ -174,12 +188,15 @@ end
 
 
 function M.echo(self, ...)
+   local LMOD_REDIRECT = cosmic:value("LMOD_REDIRECT")
    if (LMOD_REDIRECT == "no") then
+      posix_setenv("LC_ALL",nil,true)
       pcall(pager,io.stderr,...)
+      posix_setenv("LC_ALL","C",true)
    else
-      local arg = pack(...)
-      for i = 1, arg.n do
-         local whole=arg[i]
+      local argA = pack(...)
+      for i = 1, argA.n do
+         local whole = argA[i]
          if (whole:sub(-1) == "\n") then
             whole = whole:sub(1,-2)
          end
@@ -192,9 +209,9 @@ function M.echo(self, ...)
 end
 
 function M._echo(self, ...)
-   local arg = pack(...)
-   for i = 1, arg.n do
-      io.stderr:write(arg[i])
+   local argA = pack(...)
+   for i = 1, argA.n do
+      io.stderr:write(argA[i])
    end
 end
 
@@ -213,22 +230,28 @@ local s_shellTbl = false
 
 local function createShellTbl()
    if (not s_shellTbl) then
+      local CMake        = require('CMake')
       local Csh          = require('Csh')
       local Bash         = require('Bash')
       local Bare         = require('Bare')
       local Fish         = require('Fish')
+      local Lisp         = require('Lisp')
       local Perl         = require('Perl')
       local Python       = require('Python')
       local R            = require('R')
       s_shellTbl = {
          ["sh"]     = Bash,
          ["bash"]   = Bash,
+         ["ksh"]    = Bash,
          ["zsh"]    = Bash,
          ["fish"]   = Fish,
+         ["emacs"]  = Lisp,
+         ["lisp"]   = Lisp,
          ["csh"]    = Csh,
          ["tcsh"]   = Csh,
          ["perl"]   = Perl,
          ["python"] = Python,
+         ["cmake"]  = CMake,
          ["bare"]   = Bare,
          ["r"]      = R,
       }

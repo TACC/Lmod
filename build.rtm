@@ -1,17 +1,39 @@
 #!/bin/bash
 # -*- shell-script -*-
-PKG_VERSION=`(cd src; lua -e "local Version=require('Version'); print(Version.name())") | awk '{print $1}'`
+PKG_VERSION=`(lua -e "V=require('src/Version'); print(V.tag())")`
 echo Making Version: $PKG_VERSION
 
-make_install()
+parallel_make_install()
 {
   if [ "$BUILD_TYPE" != "EXPERIMENTAL" ]; then
-    $SUDO $MAKE install     $MAKE_EXTRA
+    $SUDO $MAKE -j install     $MAKE_EXTRA
   else
     echo "$SUDO $MAKE pre-install $MAKE_EXTRA"
-    $SUDO $MAKE pre-install $MAKE_EXTRA
+    $SUDO $MAKE -j pre-install $MAKE_EXTRA
     $SUDO rm -f $BASE_DIR/lmod/EXPERIMENTAL
     $SUDO ln -s $PKG_VERSION $BASE_DIR/lmod/EXPERIMENTAL
+  fi
+}
+
+save_old_version()
+{
+  if [ "$SITE_CONTROLLED_PREFIX" != "yes" ]; then
+    $SUDO rm -rf $BASE_DIR/$pkgName/orig
+    if [ -d $BASE_DIR/$pkgName/$PKG_VERSION ]; then
+	$SUDO cp -r $BASE_DIR/$pkgName/$PKG_VERSION $BASE_DIR/$pkgName/orig
+	$SUDO rm -f $PKG/../$pkgName
+	$SUDO ln -s orig $PKG/../$pkgName
+    fi
+  fi
+}
+
+make_symlink()
+{
+  if [ "$SITE_CONTROLLED_PREFIX" = "yes" ]; then
+      $SUDO rm -f $BASE_DIR/../lmod
+      $SUDO ln -s $PKG_VERSION $BASE_DIR/../lmod
+      bb=${BASE_DIR/$PKG_VERSION/lmod}
+      $SUDO find $BASE_DIR/modulefiles $BASE_DIR/init -type f -exec perl -p -i -e "s|$BASE_DIR|$bb|g" {} \;
   fi
 }
 
@@ -54,6 +76,7 @@ fi
 
 myhost=$(hostname -f)
 myhost=${myhost%.tacc.utexas.edu}
+myhost=${myhost%.local}
 first=${myhost%%.*}
 SYSHOST=${myhost#*.}
 SUDO=""
@@ -76,32 +99,44 @@ fi
 
 
 case $SYSHOST in
-  rios | mijo | jedrik | vato | vmijo | devo | xalt-lmod )
+  mijo | vmijo )
+    SITE_CONTROLLED_PREFIX=yes
+    SUDO="sudo"
+    base="/opt/apps/lmod/$PKG_VERSION"
+    ADMIN_DIR=/opt/moduleData
+    UPDATE_FN=$ADMIN_DIR/system.txt
+    CACHEDIRS=$ADMIN_DIR/cacheDir
+    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN --with-siteControlPrefix=yes --with-module-root-path=/opt/apps/modulefiles --with-silentShellDebugging=yes"
+
+    if [ "$SYSHOST" == "mijo" ]; then
+      EXTRA="$EXTRA --with-exportedModuleCmd=no"
+    fi
+    ;; 
+
+  rios | jedrik | vato | devo | xalt-lmod )
     SUDO="sudo"
     base="/opt/apps"
     ADMIN_DIR=/opt/moduleData
     UPDATE_FN=$ADMIN_DIR/system.txt
     CACHEDIRS=$ADMIN_DIR/cacheDir
-    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN "
-
-    if [ "$SYSHOST" == "mijo" ]; then
-      EXTRA="$EXTRA --with-exportedModuleCmd=no"
-    fi
+    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN  --with-silentShellDebugging=yes"
     ;;
 
-  ls5 | maverick | stampede | wrangler)
+  ls5 | maverick | stampede | wrangler | stampede2 )
     base="$HOME/l/pkg"
-    ADMIN_DIR="$HOME/a/moduleData"
-    UPDATE_FN=$ADMIN_DIR/system.txt
-
+    UPDATE_FN=/tmp/losf_last_update
+    CACHEDIRS=/tmp/moduleData/cacheDir
     if [ $SYSHOST == "stampede" ]; then
        if [ -x $HOME/.up/bin/arch.py ]; then
 	   base="$base/$($HOME/.up/bin/arch.py)"
        else
 	   base="$base/$(uname -m)"
        fi
+    elif [ $SYSHOST == "ls5" ]; then
+      UPDATE_FN=/home1/moduleData/cacheDir/tacc_cache_timestamp.txt
+      CACHEDIRS=/home1/moduleData/cacheDir/tacc
     fi
-    EXTRA="--with-spiderCacheDescript=/tmp/TACC.build.$$ --with-siteName=TACC"
+    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN --with-siteName=TACC --with-syshost=$SYSHOST  --with-silentShellDebugging=yes"
     SITE_PKG="contrib/TACC/*.lua"
     ;;
 
@@ -109,14 +144,14 @@ case $SYSHOST in
     ADMIN_DIR=/apps/gent/lmodcache/
     UPDATE_FN=$ADMIN_DIR/timestamp
     CACHEDIRS=$ADMIN_DIR
-    EXTRA="--with-cachedLoads=yes --with-autoSwap=no --with-disableNameAutoSwap=yes --with-caseIndependentSorting=yes --with-pinVersions=yes"
+    EXTRA="--with-cachedLoads=yes --with-autoSwap=no --with-disableNameAutoSwap=yes --with-caseIndependentSorting=yes --with-pinVersions=yes  --with-silentShellDebugging=yes"
     base="$HOME/l/pkg";;
 
   *)
     ADMIN_DIR=$HOME/w/moduleData
     UPDATE_FN=$ADMIN_DIR/system.txt
     CACHEDIRS=$ADMIN_DIR/cacheDir
-    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN"
+    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN  --with-silentShellDebugging=yes"
     base="$HOME/l/pkg"
     ;;
 esac
@@ -139,13 +174,11 @@ if [ "$?" = 0 ]; then
 fi
 
 cmdA=("-$MAKE distclean"
-      "./configure --prefix=$BASE_DIR --with-settarg=full --with-duplicatePaths=yes $EXTRA"
-      "$SUDO  rm -rf $BASE_DIR/$pkgName/orig"
-      "-$SUDO cp -r $BASE_DIR/$pkgName/$PKG_VERSION $BASE_DIR/$pkgName/orig"
-      "$SUDO  rm -f $PKG/../$pkgName"
-      "-$SUDO ln -s orig $PKG/../$pkgName"
-      "make_install"
+      "./configure --prefix=$BASE_DIR --with-settarg=full $EXTRA"
+      "save_old_version"
+      "parallel_make_install"
       "$EXTRA_CMD"
+      "make_symlink"
       "$SUDO  rm -rf $BASE_DIR/$pkgName/orig"
       "$MAKE clobber"
       )
@@ -153,4 +186,4 @@ cmdA=("-$MAKE distclean"
 
 runMe "${cmdA[@]}"
 
-rm -rf /tmp/{stampede,ls4}.build.$$
+rm -rf /tmp/TACC.build.$$

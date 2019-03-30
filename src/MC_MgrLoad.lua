@@ -14,7 +14,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -51,12 +51,14 @@ M.always_unload        = MasterControl.fake_load
 M.add_property         = MasterControl.add_property
 M.append_path          = MasterControl.append_path
 M.conflict             = MasterControl.conflict
+M.depends_on           = MasterControl.fake_load
 M.execute              = MasterControl.execute
 M.family               = MasterControl.family
 M.help                 = MasterControl.quiet
 M.inherit              = MasterControl.inherit
 M.load                 = MasterControl.fake_load
 M.load_usr             = MasterControl.fake_load
+M.mgrload              = MasterControl.fake_load
 M.myFileName           = MasterControl.myFileName
 M.myModuleFullName     = MasterControl.myModuleFullName
 M.myModuleUsrName      = MasterControl.myModuleUsrName

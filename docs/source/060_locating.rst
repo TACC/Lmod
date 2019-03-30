@@ -3,7 +3,7 @@
 How Lmod Picks which Modulefiles to Load
 ========================================
 
-Lmod use the directories listed in ``MODULEPATH`` to find the
+Lmod uses the directories listed in ``MODULEPATH`` to find the
 modulefiles to load.  Suppose that you have a single directory
 ``/opt/apps/modulefiles`` that has the following files and directories::
 
@@ -36,32 +36,40 @@ that directory are the version(s).  So we have created ``ucc`` and
 ``xyz`` directories to be the names of the module.  There are two
 version files under ``ucc`` and one version file under ``xyz``.
 
-The ``StdEnv.lua`` file is the another way to specify a module. This
+The ``StdEnv.lua`` file is another way to specify a module. This
 file is a module with no version associated with it.  These are
-typically used as a meta-module.  That is a module that loads other
-modules.
+typically used as a meta-module: a module that loads other modules.
 
 
-Picking modules when there are multiple directories in MODULEPATH
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _nv_rules-label:
 
-When there are multiple directories specified in MODULEPATH, the rules
-get more complicated on what modulefile to load. Lmod uses the
-following rules to locate a modulefile:
+N/V: Picking modules when there are multiple directories in MODULEPATH
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The follow rules apply when the module layout is either Name/Version (N/V)
+or Category/Name/Version (C/N/V).  The rules are a little different for
+Name/Version/Version (N/V/V) as described in the section below.  When
+there are multiple directories specified in MODULEPATH, the rules get
+more complicated on what modulefile to load. Lmod uses the following
+rules to locate a modulefile:
 
 #. It looks for an exact match in all ``MODULEPATH``
-   directories. Picking the first match it finds.
+   directories. It picks the first match it finds.  This is true
+   of hidden modules.  Specifying the fullName of a module will
+   load it.
 #. If the user requested name is a full name and version, and
    there is no exact match then it stops.
 #. If the name doesn't contain a version then Lmod looks for a
-   marked default in the first directory that has one.
+   marked default in the first directory that has one. A marked
+   default which is also hidden will be loaded.
 #. Finally it looks for the "Highest" Version in all ``MODULEPATH``
    directories. If there are two or more modulefiles with the
    "Highest" version then the first one in ``MODULEPATH`` order will
-   be picked.
+   be picked.  Note that hidden modulefiles are ignored when choosing
+   the "Highest".
 #. As a side node, if there are two version files, one with a ``.lua``
    extension and one without, the lua file will be used over the other
-   one. It will like the other file is not there.
+   one. It will be like the other file is not there.
 
 As an example, suppose you have the following module tree::
 
@@ -80,13 +88,13 @@ If a user does the following command::
    $ module load ucc/8.2 xyz
 
 then ucc/8.2 will be loaded because the user specified a particular
-version and xyz/12.1 will be loaded be cause it is the highest version
+version and xyz/12.1 will be loaded because it is the highest version
 across all directories in ``MODULEPATH``.
 
 .. _setting-default-label:
 
-Marked a Version as Default
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Marking a Version as Default
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Suppose you have several versions of the mythical UCC compiler suite::
 
@@ -94,7 +102,7 @@ Suppose you have several versions of the mythical UCC compiler suite::
       ---------- /opt/apps/modulefiles/Core -----------
       ucc/8.1   ucc/9.2   ucc/11.1   ucc/12.2 (D)
 
-and you like to make the 11.1 version the default.  Lmod searches 
+and you would like to make the 11.1 version the default.  Lmod searches
 three different ways to mark a version as a default in the following
 order.  The first way is to make a symbolic link between a file named
 "``default``" and the desired default version.::
@@ -102,20 +110,26 @@ order.  The first way is to make a symbolic link between a file named
     $ cd /opt/apps/modulefiles/Core/ucc; ln -s 11.1.lua default
 
 
-A second way to mark a default is with a .modulerc file in the same
+A second way to mark a default is with a .modulerc.lua file in the same
 directory as the modulefiles.::
-    
+
+    module_version("ucc/11.1", "default")
+
+
+A third way to mark a default is with a .modulerc file in the same
+directory as the modulefiles.::
+
     #%Module
     module-version ucc/11.1 default
 
 
-There is a third method to pick the default module.  If you create a
+There is a four method to pick the default module.  If you create a
 .version file in the ucc directory that contains::
 
     #%Module
     set   ModulesVersion   "11.1"
 
-Please note that either a .modulerc or .version file must be in the
+Please note that a .modulerc.lua, .modulerc or .version file must be in the
 same directory as the 11.1.lua file in order for Lmod to read it.
 
 Using any of the above three ways will change the default to version
@@ -134,7 +148,7 @@ across all directories::
       $ module avail ucc
 
       ---------- /opt/apps/modulefiles/Core -----------
-      ucc/8.1   ucc/9.2   ucc/11.1   ucc/12.2 
+      ucc/8.1   ucc/9.2   ucc/11.1   ucc/12.2
 
       ---------- /opt/apps/modulefiles/New -----------
       ucc/13.2 (D)
@@ -152,9 +166,119 @@ that the following versions are sorted from lowest to highest::
  2.4.0.0.1
      2.4.1
 
+.. _NVV-label:
 
-Autoswaping Rules
-~~~~~~~~~~~~~~~~~
+N/V/V: Picking modules when there are multiple directories in MODULEPATH
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The rules are different when the module layout is Name/Version/Version
+(N/V/V).  The rules for N/V can be called ``Find Best`` where as N/V/V is
+``Find First``. Note that if any one of the directories in ``MODULEPATH``
+are in N/V/V format, the whole tree is searched with N/V/V rules.  Below
+are the rules that Lmod uses to locate a modulefile when in N/V/V mode:
+
+#. It looks for an exact match in all ``MODULEPATH`` directories. It
+   picks the first match it finds.
+#. If there is no exact match then Lmod finds the first match for the
+   names that it has.  It matches by directory name.  No partial matches
+   are done.
+#. In the directory that is found above the first marked default is
+   found
+#. If there are no marked defaults, then the "highest" is chosen.
+#. The two above rules are followed at each directory level.
+
+For example with the following module tree where foo is the name of
+the module and rest are version information::
+
+    ----- /apps/modulefiles/A ----------------
+    foo/2/1  foo/2/4    foo/3/1    foo/3/2 (D)
+
+    ----- /apps/modulefiles/B ----------------
+    foo/3/3    foo/3/4
+
+Then the commands ``module load foo`` and ``module load foo/3`` would
+both load ``foo/3/2``.  The command ``module load foo/2`` would load
+``foo/2/4``.
+
+When searching for ``foo``, Lmod finds it in the ``A`` directory.
+Then seeing a choice between ``2`` and ``3`` it picks ``3`` as it is
+higher.  Then in the ``foo/3`` directory it choses ``2`` as it is
+higher than ``1``.  To load any other ``foo`` module, the full name
+will have to specified.
+
+Marking a directory as default in an N/V/V layout
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+There are three ways to mark a directory as a default: Using a ``default``
+symlink, or the use of either the ``.modulerc`` or ``.version`` files.
+Since it is possible (but not recommended) to have all three
+possibilities, This is the same technique that was used before to mark
+a particular version file when in an N/V layout. Lmod choses the
+setting of the default directory in the following order:
+
+#. ``default`` symlink
+#. ``.modulerc.lua``
+#. ``.modulerc``
+#. ``.version``
+
+Suppose that you have the following architecture split with
+(32,64,128) bit libraries and you want the 64 directory to be the
+default.  With the following structure::
+
+      ----- /apps/modulefiles/A ----------------
+      foo/32/1    foo/64/1      foo/128/1
+      foo/32/4    foo/64/2 (D)  foo/128/2
+
+You can have a symlink for ``/apps/modulefiles/A/foo/default`` which
+points to ``/apps/modulefiles/A/foo/64``.  Or you can have the contents of
+``/apps/modulefiles/A/foo/.modulerc`` contain::
+
+    #%Module
+    module-version 64 default
+
+or you can have the contents of
+``/apps/modulefiles/A/foo/.modulerc.lua`` contain::
+
+    module_version("64","default")
+
+or you can have the contents of ``/apps/modulefiles/A/foo/.version``
+contain::
+
+    #%Module
+    set ModulesVersion "64"
+
+Normally the 128 directory would be chosen as the default directory as
+128 is higher than 64 or 32 but any one of these files forces Lmod to pick
+64 over the other directories.
+
+Why do N/V/V module layouts use ``Find First`` over ``Find Best``?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The main problem here is that of the default directories.  There is no
+sane way to pick.  Suppose that you have the following structure::
+
+      ----- /apps/modulefiles/A ----------------
+      foo/32/1    foo/64/1      foo/128/1
+      foo/32/4    foo/64/2 (D)  foo/128/2
+
+      ----- /apps/modulefiles/B ----------------
+      foo/32/5    foo/64/3      foo/128/3
+      foo/32/6    foo/64/4      foo/128/4
+
+
+And where the default directory in ``A`` in ``64`` and in ``B`` it is
+``32``.  When trying to load ``foo/64`` the site has marked ``64`` the
+default in ``A`` where as it is not in ``B``.  Does that mean that
+``foo/64/2`` is "higher" that ``foo/64/4`` or not.  There is no clear
+reason to pick one over the other so Lmod has chosen ``Find First``
+for N/V/V module layouts.
+
+For sites that are mixing N/V and N/V/V module layouts they may wish
+to change Lmod to use the find first rule in all cases. See
+:ref:`env_vars-label` to see how to configure Lmod for find first.
+
+Autoswapping Rules
+~~~~~~~~~~~~~~~~~~
 
 When Lmod autoswaps hierarchical dependencies, it uses the following
 rules:
@@ -180,7 +304,7 @@ Now swapping the Intel compiler suite for the Gnu compiler suite::
 Here boost has been reloaded with a different version because the
 default is different in the gcc hierarchy.  However if the user does::
 
-    
+
     $ module purge; module load intel boost/1.57.0; module list
 
      Currently Loaded Modules:

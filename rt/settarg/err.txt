@@ -1,0 +1,162 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+===========================
+Modules based on Lua: Version 7.8.1  2018-08-08 19:41 -05:00
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load settarg
+===========================
+===========================
+step 3
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model dbg
+===========================
+===========================
+step 4
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model opt
+===========================
+===========================
+step 5
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model empty
+===========================
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc mpich
+===========================
+===========================
+step 7
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model
+===========================
+===========================
+step 8
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model f_f
+===========================
+===========================
+step 9
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model b:b
+===========================
+===========================
+step 10
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model -r f_f
+===========================
+===========================
+step 11
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model -r b:b
+===========================
+===========================
+step 12
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model f_f b:b
+===========================
+===========================
+step 13
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --stt dbg
+===========================
+_SettargTable_ = {
+  ["buildScenarioState"] = "dbg",
+  extraT = {
+    ["b:b"] = true,
+    ["f_f"] = true,
+  },
+  targA = {
+    "TARG", "TARG_BUILD_SCENARIO", "TARG_COMPILER", "TARG_COMPILER_FAMILY", "TARG_EXTRA", "TARG_HOST", "TARG_MACH", "TARG_MACH_DESCRIPT", "TARG_MPI", "TARG_MPI_FAMILY", "TARG_OS", "TARG_OS_FAMILY", "TARG_SUMMARY", "TARG_TITLE_BAR", "TARG_TITLE_BAR_PAREN",
+  },
+  ["version"] = 1,
+}
+===========================
+step 14
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --purge
+===========================
+===========================
+step 15
+echo TARG_RTM: Is Great
+===========================
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload gcc mpich
+===========================
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cmplr/clang
+===========================
+===========================
+step 18
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model
+===========================
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show settarg
+===========================
+ OutputDIR/mf/Core/settarg/1.0.lua:
+prepend_path("PATH","ProjectDIR/settarg")
+setenv("LMOD_SETTARG_CMD","ProjectDIR/settarg/settarg_cmd.in.lua")
+set_shell_function("settarg","eval $($LMOD_SETTARG_CMD -s sh "$@")","eval `$LMOD_SETTARG_CMD  -s csh $*`")
+set_shell_function("gettargdir","builtin echo $TARG","echo $TARG")
+setenv("SETTARG_TAG1","OBJ")
+setenv("SETTARG_TAG2","_")
+set_alias("cdt","cd $TARG")
+set_shell_function("targ","builtin echo $TARG","echo $TARG")
+set_shell_function("dbg","settarg "$@" dbg","settarg $* dbg")
+set_shell_function("empty","settarg "$@" empty","settarg $* empty")
+set_shell_function("opt","settarg "$@" opt","settarg $* opt")
+set_shell_function("mdbg","settarg "$@" mdbg","settarg $* mdbg")
+execute{cmd="eval `lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --destroy`", modeA={"unload"}}
+set_shell_function("precmd","{
+             local tilde="~";
+             local H=${HOSTNAME-$(hostname)};
+             H=${H%%.*};
+             local SHOST=${SHOST-$H};
+             eval $(${LMOD_SETTARG_CMD:-:} -s bash);
+             ${SET_TITLE_BAR:-:} "${TARG_TITLE_BAR_PAREN}${USER}@${SHOST}:${PWD/#$HOME/$tilde}";
+             ${USER_PROMPT_CMD:-:};
+           }
+      ","")
+pushenv("PROMPT_COMMAND","precmd")
+help([[The settarg module dynamically and automatically updates "$TARG" and a
+host of other environment variables. These new environment variables
+encapsulate the state of the modules loaded.
+For example, if you have the settarg module and gcc/4.7.2 module loaded
+then the following variables are defined in your environment:
+   TARG=OBJ/_x86_64_06_1a_gcc-4.7.3
+   TARG_COMPILER=gcc-4.7.3
+   TARG_COMPILER_FAMILY=gcc
+   TARG_MACH=x86_64_06_1a
+   TARG_SUMMARY=x86_64_06_1a_gcc-4.7.3
+If you change your compiler to intel/13.1.0, these variables change to:
+   TARG=OBJ/_x86_64_06_1a_intel-13.1.0
+   TARG_COMPILER=intel-13.1.0
+   TARG_COMPILER_FAMILY=intel
+   TARG_MACH=x86_64_06_1a
+   TARG_SUMMARY=x86_64_06_1a_intel-13.1.0
+If you then load mpich/3.0.4 module the following variables automatically
+change to:
+   TARG=OBJ/_x86_64_06_1a_intel-13.1.0_mpich-3.0.4
+   TARG_COMPILER=intel-13.1.0
+   TARG_COMPILER_FAMILY=intel
+   TARG_MACH=x86_64_06_1a
+   TARG_MPI=mpich-3.0.4
+   TARG_MPI_FAMILY=mpich
+   TARG_SUMMARY=x86_64_06_1a_dbg_intel-13.1.0_mpich-3.0.4
+You also get some TARG_* variables that are always available, independent
+of what modules you have loaded:
+   TARG_MACH=x86_64_06_1a
+   TARG_MACH_DESCRIPT=...
+   TARG_HOST=...
+   TARG_OS=Linux-3.8.0-27-generic
+   TARG_OS_FAMILY=Linux
+One way that these variables can be used is part of a build system where
+the executables and object files are placed in $TARG.  You can also use
+$TARG_COMPILER_FAMILY to know which compiler you are using so that you
+can set the appropriate compiler flags.
+If the environment variable LMOD_SETTARG_FULL_SUPPORT is set to "yes"
+then helpful aliases are defined to set the debug/optimize/max debug
+build scenerio
+If the environment variable LMOD_SETTARG_TITLE_BAR is set to "yes" then
+the xterm title will be set with along with important modules like the
+compiler and mpi stack.
+Settarg can do more.  Please see the Lmod website for more details.
+]])
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload settarg
+===========================

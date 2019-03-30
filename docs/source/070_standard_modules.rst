@@ -1,8 +1,10 @@
+.. _startup_w_stdenv-label:
+
 Providing A Standard Set Of Modules for all Users
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Users can be provided with an initial set of modulefiles as part of
-the login procedure.  Once a list of modulefiles have been installed,
+the login procedure.  Once a list of modulefiles has been installed,
 please create a file called ``StdEnv.lua`` and place it in the ``$MODULEPATH``
 list of directories, typically
 ``/opt/apps/modulefiles/Core/StdEnv.lua``. The name is your choice,
@@ -12,20 +14,20 @@ login. In ``StdEnv.lua`` is something like: ::
     load("name1","name2","name3")
 
 Using the /etc/profile.d directory system described earlier to create a
-file called ``z00_StdEnv.sh`` ::
+file called ``z01_StdEnv.sh`` ::
 
     if [ -z "$__Init_Default_Modules" ]; then
        export __Init_Default_Modules=1;
 
        ## ability to predefine elsewhere the default list
-       LMOD_SYSTEM_DEFAULT_MODULES=${LMOD_SYSTEM_DEFAULT_MODULES:-"StdEnv"} 
+       LMOD_SYSTEM_DEFAULT_MODULES=${LMOD_SYSTEM_DEFAULT_MODULES:-"StdEnv"}
        export LMOD_SYSTEM_DEFAULT_MODULES
-       module --initial_load restore
+       module --initial_load --no_redirect restore
     else
        module refresh
     fi
 
-Similar for z00_StdEnv.csh::
+Similar for z01_StdEnv.csh::
 
     if ( ! $?__Init_Default_Modules )  then
       setenv __Init_Default_Modules 1
@@ -37,9 +39,17 @@ Similar for z00_StdEnv.csh::
       module refresh
     endif
 
-The z00_Stdenv.* names are chosen because the files in /etc/profile.d
+The z01_Stdenv.* names are chosen because the files in /etc/profile.d
 are sourced in alphabetical order. These names guarantee they will run
 after the module command is defined.
+
+The z01_Stdenv.sh now includes ``--no_redirect``. This option prevents
+sites that configure Lmod to write messages to stdout to write them to
+stderr instead.  This is important as any messages written to stdout
+during shell startup causes scp copies to fail.  Csh/tcsh cannot write
+messages to stdout due to limitations in that shell.
+
+
 
 The first time these files are sourced by a shell they will set
 ``LMOD_SYSTEM_DEFAULT_MODULES`` to ``StdEnv`` and then execute
@@ -57,18 +67,18 @@ The ``module refresh`` solves an interesting problem.  Sub shells
 inherit the environment variables of the parent but do not normally
 inherit the shell aliases and functions.  This statement fixes this.
 Under a "``refresh``", all the currently loaded modules are reloaded
-but in a special way. Only the functions which define alias and shell
+but in a special way. Only the functions which define aliases and shell
 functions are active, all others functions are ignored.
 
 The above is an example of how a site might provide a default set of
-modules that a user can override with a default collection. Site are,
-of course, free to setup Lmod any way they like. The
-minimum required setup (for bash with z00_StdEnv.sh ) would be::
+modules that a user can override with a default collection. Sites are,
+of course, free to set up Lmod any way they like. The
+minimum required setup (for bash with z01_StdEnv.sh ) would be::
 
     if [ -z "$__Init_Default_Modules" ]; then
        export __Init_Default_Modules=1;
 
-       module --initial_load restore   
+       module --initial_load restore
     else
        module refresh
     fi
@@ -81,19 +91,19 @@ Lmod, LD_LIBRARY_PATH and screen
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In general, it is probably better to NOT use ``screen`` and use
-``tmux`` instead.  The problem with ``screen`` is that it guid
-program (``tmux`` is not).  That means it uses the group associated
-with the executable and not the user's group.  The main consequence of
-this is that the operating system removes LD_LIBRARY_PATH from the
-environment.  This is a security feature built into the operating
-system.
+``tmux`` instead.  The problem with ``screen`` is that it is a 
+*set-group-id* (SGID) program (``tmux`` is not).  That means it uses 
+the group associated with the executable and not the user's group.  
+The main consequence of this is that the operating system removes 
+LD_LIBRARY_PATH from the environment.  This is a security feature 
+built into the operating system.
 
-A site could change z00_StdEnv.sh to have::
+A site could change z01_StdEnv.sh to have::
 
     if [ -z "$__Init_Default_Modules" -o -z "$LD_LIBRARY_PATH" ]; then
        export __Init_Default_Modules=1;
 
-       module --initial_load restore   
+       module --initial_load restore
     else
        module refresh
     fi
@@ -107,13 +117,13 @@ then you probably want to remove the test for an empty LD_LIBRARY_PATH::
 
     $ module list
     Currently Loaded Modules:
-       1) gcc/5.2     2) StdEnv
+       1) git/2.7     2) StdEnv
 
     $ module load bowtie
     $ bash
     $ module list
     Currently Loaded Modules:
-       1) gcc/5.2     2) StdEnv
+       1) git/2.7     2) StdEnv
 
 Running the bash shell caused the module restore to run which unloaded
 all modules and restored the modules back to the initial set.

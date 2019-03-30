@@ -8,7 +8,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -36,16 +36,19 @@
 -- Csh: This is a derived class from BaseShell.  This classes knows how
 --      to expand the environment variable into Csh syntax.
 
+_G._DEBUG          = false
+local posix        = require("posix")
 
 require("strict")
 require("pairsByKeys")
 
-local BaseShell = require("BaseShell")
-local Csh       = inheritsFrom(BaseShell)
-local dbg       = require("Dbg"):dbg()
-local concatTbl = table.concat
-local stdout    = io.stdout
-Csh.my_name     = 'csh'
+local BaseShell    = require("BaseShell")
+local Csh          = inheritsFrom(BaseShell)
+local dbg          = require("Dbg"):dbg()
+local concatTbl    = table.concat
+local setenv_posix = posix.setenv
+local stdout       = io.stdout
+Csh.my_name        = 'csh'
 
 --------------------------------------------------------------------------
 -- Csh:alias(): Either define or undefine a Csh shell alias. Remove any
@@ -60,7 +63,7 @@ function Csh.alias(self, k, v)
    else
       v = v:gsub("%$%*","\\!*")
       v = v:gsub("%$([0-9])", "\\!:%1")
-      v = v:gsub(";%s","")
+      v = v:gsub(";%s$","")
       stdout:write("alias ",k," '",v,"';\n")
       dbg.print{   "alias ",k," '",v,"';\n"}
    end
@@ -84,9 +87,8 @@ function Csh.expandVar(self, k, v, vType)
    end
    local lineA       = {}
    local middle      = ' '
-   v                 = tostring(v)
-   v                 = v:gsub("!","\\!")
-   v                 = v:multiEscaped()
+   v                 = tostring(v):gsub("!","\\!")
+   v                 = v:cshEscaped()
    if (vType == "local_var") then
       lineA[#lineA + 1] = "set "
       middle            = "="
@@ -100,6 +102,12 @@ function Csh.expandVar(self, k, v, vType)
    local  line       = concatTbl(lineA,"")
    stdout:write(line)
    dbg.print{   line}
+end
+
+function Csh.echo(self, ...)
+   setenv_posix("LC_ALL",nil,true)
+   pcall(pager,io.stderr,...)
+   setenv_posix("LC_ALL","C",true)
 end
 
 --------------------------------------------------------------------------

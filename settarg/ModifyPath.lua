@@ -8,7 +8,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -36,10 +36,11 @@ require("strict")
 require("string_utils")
 local dbg = require("Dbg"):dbg()
 function ModifyPath()
+   dbg.start{"ModifyPath()"}
    local masterTbl   = masterTbl()
    local oldTarg     = os.getenv('TARG') or ''
    local targ        = masterTbl.envVarsTbl.TARG
-   local targPathLoc = masterTbl.TargPathLoc
+   local targPathLoc = masterTbl.TargPathLoc or "empty"
    local path        = os.getenv('PATH') or ''
 
    local w_path      = ":" .. path    .. ":"
@@ -49,9 +50,7 @@ function ModifyPath()
    if (targ == "" or targPathLoc == "empty") then
       w_targ    = ":"
    end
-
-   dbg.start{"ModifyPath()"}
-
+   
    w_oldTarg = w_oldTarg:escape()
 
    if (w_oldTarg == '::' or w_path:find(w_oldTarg) == nil) then
@@ -76,5 +75,5 @@ function ModifyPath()
    end
 
    masterTbl.envVarsTbl.PATH = path
-   dbg.fini()
+   dbg.fini("ModifyPath")
 end

@@ -1,4 +1,6 @@
 _G._DEBUG=false
+local posix         = require("posix")
+
 require("strict")
 require("myGlobals")
 
@@ -14,7 +16,6 @@ local ModuleA       = require("ModuleA")
 local cosmic        = require("Cosmic"):singleton()
 local dbg           = require("Dbg")
 local getenv        = os.getenv
-local posix         = require("posix")
 local testDir       = "spec/MasterControl"
 
 describe("Testing MasterControl Class #MasterControl.",

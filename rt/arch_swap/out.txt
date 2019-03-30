@@ -1,0 +1,80 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/arch_swap/mf/a1/Core:1\;ProjectDIR/rt/arch_swap/mf/Common:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/arch_swap/mf/a1/Core:ProjectDIR/rt/arch_swap/mf/Common;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/arch_swap/mf/a1/Core","ProjectDIR/rt/arch_swap/mf/Common",},["systemBaseMPATH"]="ProjectDIR/rt/arch_swap/mf/a1/Core:ProjectDIR/rt/arch_swap/mf/Common",}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc
+===========================
+__LMOD_REF_COUNT_LOADEDMODULES=gcc/6.1:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=gcc/6.1;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/arch_swap/mf/a1/Compiler/gcc/6.1:1\;ProjectDIR/rt/arch_swap/mf/a1/Core:1\;ProjectDIR/rt/arch_swap/mf/Common:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/arch_swap/mf/a1/Compiler/gcc/6.1:ProjectDIR/rt/arch_swap/mf/a1/Core:ProjectDIR/rt/arch_swap/mf/Common;
+export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/arch_swap/mf/a1/Core/gcc/6.1.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/arch_swap/mf/a1/Core/gcc/6.1.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={gcc={["fn"]="ProjectDIR/rt/arch_swap/mf/a1/Core/gcc/6.1.lua",["fullName"]="gcc/6.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="gcc",},},mpathA={"ProjectDIR/rt/arch_swap/mf/a1/Compiler/gcc/6.1","ProjectDIR/rt/arch_swap/mf/a1/Core","ProjectDIR/rt/arch_swap/mf/Common",},["systemBaseMPATH"]="ProjectDIR/rt/arch_swap/mf/a1/Core:ProjectDIR/rt/arch_swap/mf/Common",}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load boost
+===========================
+__LMOD_REF_COUNT_LOADEDMODULES=gcc/6.1:1\;boost/1.60:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=gcc/6.1:boost/1.60;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/arch_swap/mf/a1/Compiler/gcc/6.1:ProjectDIR/rt/arch_swap/mf/a1/Core:ProjectDIR/rt/arch_swap/mf/Common;
+export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/arch_swap/mf/a1/Core/gcc/6.1.lua:1\;ProjectDIR/rt/arch_swap/mf/a1/Compiler/gcc/6.1/boost/1.60.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/arch_swap/mf/a1/Core/gcc/6.1.lua:ProjectDIR/rt/arch_swap/mf/a1/Compiler/gcc/6.1/boost/1.60.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/arch_swap/mf/a1/Compiler/gcc/6.1/boost/1.60.lua",["fullName"]="boost/1.60",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="boost",},gcc={["fn"]="ProjectDIR/rt/arch_swap/mf/a1/Core/gcc/6.1.lua",["fullName"]="gcc/6.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="gcc",},},mpathA={"ProjectDIR/rt/arch_swap/mf/a1/Compiler/gcc/6.1","ProjectDIR/rt/arch_swap/mf/a1/Core","ProjectDIR/rt/arch_swap/mf/Common",},["systemBaseMPATH"]="ProjectDIR/rt/arch_swap/mf/a1/Core:ProjectDIR/rt/arch_swap/mf/Common",}';
+export _ModuleTable_;
+boost=1.60;
+export boost;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load use_a2
+===========================
+__LMOD_REF_COUNT_LOADEDMODULES=use_a2/1.0:1\;boost/1.60:1\;gcc/6.1:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=use_a2/1.0:boost/1.60:gcc/6.1;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/arch_swap/mf/a2/Compiler/gcc/6.1:2\;ProjectDIR/rt/arch_swap/mf/a2/Core:1\;ProjectDIR/rt/arch_swap/mf/Common:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/arch_swap/mf/a2/Compiler/gcc/6.1:ProjectDIR/rt/arch_swap/mf/a2/Core:ProjectDIR/rt/arch_swap/mf/Common;
+export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/arch_swap/mf/Common/use_a2/1.0.lua:1\;ProjectDIR/rt/arch_swap/mf/a2/Compiler/gcc/6.1/boost/1.60.lua:1\;ProjectDIR/rt/arch_swap/mf/a2/Core/gcc/6.1.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/arch_swap/mf/Common/use_a2/1.0.lua:ProjectDIR/rt/arch_swap/mf/a2/Compiler/gcc/6.1/boost/1.60.lua:ProjectDIR/rt/arch_swap/mf/a2/Core/gcc/6.1.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/arch_swap/mf/a2/Compiler/gcc/6.1/boost/1.60.lua",["fullName"]="boost/1.60",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="boost",},gcc={["fn"]="ProjectDIR/rt/arch_swap/mf/a2/Core/gcc/6.1.lua",["fullName"]="gcc/6.1",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="gcc",},use_a2={["fn"]="ProjectDIR/rt/arch_swap/mf/Common/use_a2/1.0.lua",["fullName"]="use_a2/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="use_a2",},},mpathA={"ProjectDIR/rt/arch_swap/mf/a2/Compiler/gcc/6.1","ProjectDIR/rt/arch_swap/mf/a2/Core","ProjectDIR/rt/arch_swap/mf/Common",},["systemBaseMPATH"]="ProjectDIR/rt/arch_swap/mf/a1/Core:ProjectDIR/rt/arch_swap/mf/Common",}';
+export _ModuleTable_;
+__LMOD_STACK_MODULEPATH=ProjectDIR/rt/arch_swap/mf/a2/Compiler/gcc/6.1:ProjectDIR/rt/arch_swap/mf/a2/Core:ProjectDIR/rt/arch_swap/mf/Common:ProjectDIR/rt/arch_swap/mf/a1/Compiler/gcc/6.1:ProjectDIR/rt/arch_swap/mf/a1/Core:ProjectDIR/rt/arch_swap/mf/Common;
+export __LMOD_STACK_MODULEPATH;
+boost=1.60;
+export boost;
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/arch_swap/mf/a2/Compiler/gcc/6.1:ProjectDIR/rt/arch_swap/mf/a2/Core:ProjectDIR/rt/arch_swap/mf/Common;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/arch_swap/mf/a2/Compiler/gcc/6.1/boost/1.60.lua",["fullName"]="boost/1.60",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="boost",},gcc={["fn"]="ProjectDIR/rt/arch_swap/mf/a2/Core/gcc/6.1.lua",["fullName"]="gcc/6.1",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="gcc",},use_a2={["fn"]="ProjectDIR/rt/arch_swap/mf/Common/use_a2/1.0.lua",["fullName"]="use_a2/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="use_a2",},},mpathA={"ProjectDIR/rt/arch_swap/mf/a2/Compiler/gcc/6.1","ProjectDIR/rt/arch_swap/mf/a2/Core","ProjectDIR/rt/arch_swap/mf/Common",},["systemBaseMPATH"]="ProjectDIR/rt/arch_swap/mf/a1/Core:ProjectDIR/rt/arch_swap/mf/Common",}';
+export _ModuleTable_;

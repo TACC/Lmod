@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.3.1  2017-01-11 21:09 -06:00
+Modules based on Lua: Version 7.7.14  2017-11-16 16:23 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -42,3 +42,49 @@ Currently Loaded Modules:
   1) python/2.7.9
 Inactive Modules:
   1) boost
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload boost
+===========================
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc impi petsc
+===========================
+Due to MODULEPATH changes, the following have been reloaded:
+  1) python/2.7.9
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+ProjectDIR/rt/hierarchy/mf/MPI/gcc/6.1/impi/17.0
+   petsc/3.7 (L)
+ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1
+   boost/1.59.0    impi/17.0.3 (L)    python/2.7.9 (L,D)
+ProjectDIR/rt/hierarchy/mf/Core
+   gcc/6.1 (L)    intel/17.0.4    python/2.7.9
+  Where:
+   D:  Default Module
+   L:  Module is loaded
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel petsc
+===========================
+Lmod is automatically replacing "gcc/6.1" with "intel/17.0.4".
+Due to MODULEPATH changes, the following have been reloaded:
+  1) impi/17.0.3     2) petsc/3.7     3) python/2.7.9
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+ProjectDIR/rt/hierarchy/mf/MPI/intel/17.0/impi/17.0
+   petsc/3.7 (L)
+ProjectDIR/rt/hierarchy/mf/Compiler/intel/17.0
+   impi/17.0.3 (L)
+ProjectDIR/rt/hierarchy/mf/Core
+   gcc/6.1    intel/17.0.4 (L)    python/2.7.9 (L)
+  Where:
+   L:  Module is loaded
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".

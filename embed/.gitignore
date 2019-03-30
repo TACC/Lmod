@@ -1,0 +1,5 @@
+foo
+*.o
+*~
+rtm.so*
+tcl2lua.so*

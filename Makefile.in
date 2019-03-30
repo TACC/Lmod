@@ -1,31 +1,42 @@
 srcdir                    := @srcdir@
-CC                        := @CC@
-PATH_TO_SRC               := @PATH_TO_SRC@
-path_to_src               := PATH_TO_SRC
+prefix		  	  := @prefix@
+package		  	  := lmod
 ifeq ($(PATH_TO_SRC),@$(path_to_src)@)
   PATH_TO_SRC             := .
 endif
+PATH_TO_LUA	  	  := @PATH_TO_LUA@
+version		  	  := $(shell LUA_PATH="$(srcdir)/src/?.lua;" $(PATH_TO_LUA)/lua -e "V=require('Version'); print(V.tag())")
+SITE_CONTROLLED_PREFIX    := @SITE_CONTROLLED_PREFIX@
+MY_PACKAGE                := $(prefix)/$(package)/$(version)
+MY_PKG_PACKAGE            := $(prefix)/$(package)/$(package)
 
+ifneq ($(SITE_CONTROLLED_PREFIX),no)
+  MY_PACKAGE              := $(prefix)
+  MY_PKG_PACKAGE          := $(prefix)
+endif
+CC                        := @CC@
+PATH_TO_SRC               := @PATH_TO_SRC@
+path_to_src               := PATH_TO_SRC
 
 
 TOOL_SRC                  := $(wildcard $(srcdir)/tools/*.lua)
-HAVE_LUA_JSON             := @HAVE_LUA_JSON@
-ifeq ($(HAVE_LUA_JSON),yes)
-  TOOL_SRC                := $(filter-out $(srcdir)/tools/json.lua, $(TOOL_SRC))
-endif
 I18N_SRC                  := $(wildcard $(srcdir)/tools/i18n/*.lua)
 
 CURRENT_MK                := $(lastword $(MAKEFILE_LIST))
-PATH_TO_LUA	  	  := @PATH_TO_LUA@
 export IGNORE_DIRS        := $(shell $(PATH_TO_LUA)/lua $(srcdir)/src/ignore_dirs_converter @IGNORE_DIRS@)
 REDIRECT                  := @REDIRECT@
-LMOD_FULL_SETTARG_SUPPORT := $(shell echo "@SETTARG@"       | tr '[:upper:]' '[:lower:]')
+LMOD_SETTARG_FULL_SUPPORT := $(shell echo "@SETTARG@"       | tr '[:upper:]' '[:lower:]')
 USE_DOT_FILES             := $(shell echo "@USE_DOT_FILES@" | tr '[:upper:]' '[:lower:]')
 PREPEND_BLOCK     	  := $(shell echo "@PREPEND_BLOCK@" | tr '[:upper:]' '[:lower:]')
 COLORIZE          	  := $(shell echo "@COLORIZE@"      | tr '[:upper:]' '[:lower:]')
+SETTARG_CMD               := settarg_cmd
+MODULEPATH_INIT           := @MODULEPATH_INIT@
+LMOD_HIDDEN_ITALIC        := @HIDDEN_ITALIC@
 LMOD_OVERRIDE_LANG        := @LMOD_OVERRIDE_LANG@
 SITE_MSG_FILE             := @SITE_MSG_FILE@
 SITE_NAME                 := @SITE_NAME@
+SYSHOST                   := @SYSHOST@
+SILENCE_SHELL_DEBUGGING   := @SILENCE_SHELL_DEBUGGING@
 SYS_LD_LIB_PATH           := @SYS_LD_LIB_PATH@
 SYS_LD_PRELOAD            := @SYS_LD_PRELOAD@
 SYS_LUA_PATH              := @SYS_LUA_PATH@
@@ -37,6 +48,7 @@ ANCIENT           	  := @ANCIENT@
 ALLOW_TCL_MFILES          := @ALLOW_TCL_MFILES@
 MPATH_AVAIL               := @MPATH_AVAIL@
 TMOD_PATH_RULE            := @TMOD_PATH_RULE@
+TMOD_FIND_FIRST           := @TMOD_FIND_FIRST@
 CACHED_LOADS              := @CACHED_LOADS@
 EXACT_MATCH               := @EXACT_MATCH@
 DUPLICATE_PATHS           := @DUPLICATE_PATHS@
@@ -54,28 +66,26 @@ PATH_TO_HASHSUM   	  := @PATH_TO_HASHSUM@
 PATH_TO_LUAC              := @PATH_TO_LUAC@
 PATH_TO_PAGER	  	  := @PATH_TO_PAGER@
 PATH_TO_TCLSH             := @PATH_TO_TCLSH@
-PATH_TO_TR                := @PATH_TO_TR@
+PATH_TO_LS                := @PATH_TO_LS@
 MODULEPATH_ROOT   	  := @MODULEPATH_ROOT@
 VERSION_SRC	  	  := $(srcdir)/src/Version.lua
 LUA_INCLUDE       	  := @LUA_INCLUDE@
 UPDATE_SYSTEM_FN  	  := @UPDATE_SYSTEM_FN@
 GIT_BRANCH                := master
 GIT_PROG                  := @PATH_TO_GIT@
-version		  	  := $(shell cd $(srcdir)/src; $(PATH_TO_LUA)/lua -e "V=require('Version'); print(V.tag())")
 GIT_VERSION               := $(shell if [ -n "$(GIT_PROG)" -a -d .git ]; then lmodV=`git describe --always`; echo "($$lmodV)"; else echo "($(version))"; fi)
-prefix		  	  := @prefix@
-package		  	  := lmod
-PKGV		  	  := $(prefix)/$(package)/$(version)
-PKG		  	  := $(prefix)/$(package)/$(package)
-LIBEXEC		  	  := $(prefix)/$(package)/$(version)/libexec
-SHELLS                    := $(prefix)/$(package)/$(version)/shells
-TOOLS                     := $(prefix)/$(package)/$(version)/tools
-I18N                      := $(prefix)/$(package)/$(version)/tools/i18n
-SETTARG                   := $(prefix)/$(package)/$(version)/settarg
-INIT		  	  := $(prefix)/$(package)/$(version)/init
-MESSAGEDIR      	  := $(prefix)/$(package)/$(version)/messageDir
-LMOD_MF 	  	  := $(prefix)/$(package)/$(version)/modulefiles/Core
-MAN_PAGES                 := $(prefix)/$(package)/$(version)/share/man/cat1
+PKG		  	  := $(MY_PKG_PACKAGE)
+PKGV		  	  := $(MY_PACKAGE)
+LIB                       := $(MY_PACKAGE)/lib
+LIBEXEC		  	  := $(MY_PACKAGE)/libexec
+SHELLS                    := $(MY_PACKAGE)/shells
+TOOLS                     := $(MY_PACKAGE)/tools
+I18N                      := $(MY_PACKAGE)/tools/i18n
+SETTARG                   := $(MY_PACKAGE)/settarg
+INIT		  	  := $(MY_PACKAGE)/init
+MESSAGEDIR      	  := $(MY_PACKAGE)/messageDir
+LMOD_MF 	  	  := $(MY_PACKAGE)/modulefiles/Core
+MAN_PAGES                 := $(MY_PACKAGE)/share/man/cat1
 LMOD_MF_SOURCE            := $(patsubst %, $(srcdir)/%, MF/*.version.lua)
 SETTARG_SOURCE            := $(patsubst %, $(srcdir)/%, settarg/*.lua  settarg/targ.in)
 
@@ -92,8 +102,9 @@ STANDALONE_PRGM   	  := src/lmod.in.lua src/addto.in.lua                       \
 	                     src/update_lmod_system_cache_files.in                  \
                              src/ignore_dirs_converter
 STANDALONE_PRGM           := $(patsubst %, $(srcdir)/%, $(STANDALONE_PRGM))
-SHELL_INIT	  	  := bash.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in R.in \
-                             env_modules_python.py.in lmod_bash_completions
+SHELL_INIT	  	  := bash.in cmake.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in R.in \
+                             env_modules_python.py.in lmod_bash_completions fish.in  \
+                             lisp.in
 SHELL_INIT	  	  := $(patsubst %, $(srcdir)/init/%, $(SHELL_INIT))
 LMODRC_INIT               := $(patsubst %, $(srcdir)/init/%, lmodrc.lua)
 
@@ -101,7 +112,7 @@ LMODRC_INIT               := $(patsubst %, $(srcdir)/init/%, lmodrc.lua)
 ZSH_FUNCS                 := _ml _module
 ZSH_FUNCS                 := $(patsubst %, $(srcdir)/init/zsh/%, $(ZSH_FUNCS))
 
-STARTUP		  	  := profile.in cshrc.in
+STARTUP		  	  := profile.in profile.fish.in cshrc.in
 STARTUP		  	  := $(patsubst %, $(srcdir)/init/%, $(STARTUP))
 
 MSGFNs                    := $(wildcard $(srcdir)/messageDir/*.lua)
@@ -128,20 +139,24 @@ lua_code	  	  := $(filter-out %.in.lua, $(wildcard $(srcdir)/src/*.lua))   \
 VDATE		  	  := $(shell date +'%F %H:%M %:z')
 
 ComputeHashSum    	  := $(srcdir)/src/computeHashSum.in.lua
-spiderCacheSupportCMD     := $(PATH_TO_LUA)/lua $(srcdir)/src/spiderCacheSupport.in.lua
+spiderCacheSupportCMD     := $(PATH_TO_LUA)/lua $(DESTDIR)$(LIBEXEC)/spiderCacheSupport
 export L_PATH              =  $(LUA_PATH)
 export L_CPATH             =  $(LUA_CPATH)
 
 HAVE_LUA_TERM             := @HAVE_LUA_TERM@
-LIB                       := $(prefix)/$(package)/$(version)/lib
 ifneq ($(HAVE_LUA_TERM),yes)
   PKGS := pkgs
 endif
 HAVE_LUAFILESYSTEM        := @HAVE_LUAFILESYSTEM@
 ifneq ($(HAVE_LUAFILESYSTEM),yes)
-  $PKGS := $(PKGS) lfs
+  PKGS := $(PKGS) lfs
+  PKG_LFS := lfs
 endif
-
+FAST_TCL_INTERP           := @FAST_TCL_INTERP@
+ifeq ($(FAST_TCL_INTERP),yes)
+  PKGS    := $(PKGS) tcl2lua
+  PKG_T2L := tcl2lua
+endif
 
 .PHONY: test pkgs man_pages
 
@@ -149,17 +164,27 @@ all:
 	@echo done
 
 uninstall:
-	$(RM) -rf $(DESTDIR)$(prefix)/$(package)
+	$(RM) -rf $(DESTDIR)$(MY_PKG_PACKAGE)
 	@echo "If you added lmod files to /etc/profile.d please remove them."
 
-pre-install: $(DIRLIST) lmodrc_init shell_init startup libexec spiderCacheSupport \
-             Inst_Tools Inst_Shells Inst_Settarg Inst_Lmod_MF $(PKGS) other_tools \
-             man_pages messageFns i18n 
+pre-install: $(DIRLIST) $(PKGS) lmodrc_init shell_init startup libexec    \
+             Inst_Tools Inst_Shells Inst_Settarg Inst_Lmod_MF other_tools \
+             man_pages messageFns i18n spiderCacheSupport
 
 install: pre-install  zsh_tab_funcs
-	$(MAKE) PKGV=$(PKG) shell_init
-	$(RM) $(DESTDIR)$(PKG)
-	ln -s $(version) $(DESTDIR)$(PKG)
+	$(MAKE) PKGV=$(PKG) shell_init startup
+	@if test "$(SITE_CONTROLLED_PREFIX)" = "no" ; then                        \
+	   echo $(RM) $(DESTDIR)$(PKG);                                           \
+	   $(RM) $(DESTDIR)$(PKG);                                                \
+	   echo ln -s $(version) $(DESTDIR)$(PKG);                                \
+	   ln -s $(version) $(DESTDIR)$(PKG);                                     \
+        else                                                                      \
+	  echo '**************************************************************';  \
+          echo '';                                                                \
+          echo 'Warning: remember to update the Lmod scripts in /etc/profile.d';  \
+          echo '';                                                                \
+	  echo '**************************************************************';  \
+	fi;
 
 echo:
 	@echo Version: $(version)
@@ -184,26 +209,34 @@ __installMe:
 	        -e 's|@hashsum@|$(PATH_TO_HASHSUM)|g'         	   	          \
 	        -e 's|@pager@|$(PATH_TO_PAGER)|g'                 	   	  \
 	        -e 's|@case_independent_sorting@|$(CASE_INDEPENDENT_SORTING)|g'   \
-                -e 's|@lmod_full_settarg_support@|$(LMOD_FULL_SETTARG_SUPPORT)|g' \
+                -e 's|@lmod_settarg_full_support@|$(LMOD_SETTARG_FULL_SUPPORT)|g' \
                 -e 's|@use_dot_files@|$(USE_DOT_FILES)|g'             	   	  \
                 -e 's|@lang@|$(LMOD_OVERRIDE_LANG)|g'                             \
                 -e 's|@site_msg_file@|$(SITE_MSG_FILE)|g'               	  \
                 -e 's|@git@|$(GIT_VERSION)|g'                              	  \
                 -e 's|--@ignore_dirs@--|$(IGNORE_DIRS)|g'                         \
 	        -e 's|@sys_lua_path@|$(SYS_LUA_PATH)|g'                  	  \
+	        -e 's|@hidden_italic@|$(LMOD_HIDDEN_ITALIC)|g'                	  \
+	        -e 's|@modulepath_init@|$(MODULEPATH_INIT)|g'                  	  \
 	        -e 's|@sys_lua_cpath@|$(SYS_LUA_CPATH)|g'                  	  \
                 -e 's|@path_to_luac@|$(PATH_TO_LUAC)|g'                  	  \
                 -e 's|@have_lua_term@|$(HAVE_LUA_TERM)|g'                  	  \
-                -e 's|@have_lua_json@|$(HAVE_LUA_JSON)|g'                  	  \
-                -e 's|@tr@|$(PATH_TO_TR)|g'                             	  \
+                -e 's|@silence_shell_debugging@|$(SILENCE_SHELL_DEBUGGING)|g'     \
+                -e 's|@fast_tcl_interp@|$(FAST_TCL_INTERP)|g'                     \
+                -e 's|@settarg_cmd@|$(SETTARG_CMD)|g'                  	          \
+	        -e "s|@my_shell@|$$fn|g"                   	                  \
                 -e 's|@tclsh@|$(PATH_TO_TCLSH)|g'                             	  \
+                -e 's|@ls@|$(PATH_TO_LS)|g'                             	  \
                 -e 's|@disable_name_autoswap@|$(DISABLE_NAME_AUTOSWAP)|g'     	  \
 	        -e 's|@tmod_path_rule@|$(TMOD_PATH_RULE)|g'            	   	  \
+	        -e 's|@tmod_find_first@|$(TMOD_FIND_FIRST)|g'            	  \
 	        -e 's|@redirect@|$(REDIRECT)|g'                       	   	  \
 	        -e 's|@basename@|$(BASENAME)|g'                       	   	  \
 	        -e 's|@cached_loads@|$(CACHED_LOADS)|g'                	   	  \
 	        -e 's|@ps@|$(PS)|g'                              	   	  \
 	        -e 's|@site_name@|$(SITE_NAME)|g'                     	   	  \
+	        -e 's|@site_controlled_prefix@|$(SITE_CONTROLLED_PREFIX)|g'       \
+	        -e 's|@syshost@|$(SYSHOST)|g'                     	   	  \
 	        -e 's|@expr@|$(EXPR)|g'                              	   	  \
 	        -e 's|@libexec@|$(LIBEXEC)|g'                       	   	  \
 	        -e 's|@legacy_ordering@|$(LEGACY_ORDERING)|g'           	  \
@@ -231,8 +264,7 @@ __installMe:
             if [ "$$ext" = "version.lua" ]; then                           	  \
                mname=$${bareN%%.*};                                        	  \
 	       : echo "DIRLOC: $(DIRLOC)/$$mname";                         	  \
-	       mkdir -p $(DIRLOC)/$$mname;                                 	  \
-               mv $(DIRLOC)/$$fn $(DIRLOC)/$$mname/$(version).lua;         	  \
+               mv $(DIRLOC)/$$fn $(DIRLOC)/$$mname.lua;            	          \
             fi;                                                            	  \
         done
 
@@ -258,7 +290,7 @@ startup: $(STARTUP)
 other_tools: $(ComputeHashSum) $(STANDALONE_PRGM)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LIBEXEC) __installMe
 
-spiderCacheSupport:
+spiderCacheSupport: $(PKG_LFS) $(PKG_T2L) Inst_Tools libexec
 	$(spiderCacheSupportCMD) --cacheDirs "$(SPIDER_CACHE_DIRS)"          \
 	                         --updateFn  "$(UPDATE_SYSTEM_FN)"           \
                                  --descriptFn "$(SPIDER_CACHE_DESCRIPT_FN)"  \
@@ -268,14 +300,26 @@ src/computeHashSum: $(ComputeHashSum)
 	$(MAKE) FILELIST="$^" DIRLOC="$(prefix)/src"                __installMe
 	chmod +x $@
 
+tcl2lua:
+	if [ -d $(srcdir)/pkgs/tcl2lua ]; then                             \
+           $(MAKE) -C $(srcdir)/pkgs/tcl2lua  LUA_INC=$(LUA_INCLUDE)       \
+                LIB=$(DESTDIR)$(LIB) LIBS=@LIBS@ CC=$(CC)                  \
+                SHARE=$(DESTDIR)$(LIBEXEC)                                 \
+                install;                                                   \
+        fi
+
 lfs:
-	cd $(srcdir)/pkgs/luafilesystem;                                 \
-        $(MAKE) LUA_INC=$(LUA_INCLUDE)  LIB=$(DESTDIR)$(LIB)             \
-                SHARE=$(DESTDIR)$(LIBEXEC) CC=$(CC) install
-pkgs:   
-	cd $(srcdir)/pkgs; \
-        $(MAKE) LUA_INC=$(LUA_INCLUDE)  LIB=$(DESTDIR)$(LIB) \
-                SHARE=$(DESTDIR)$(LIBEXEC) CC=$(CC) install
+	if [ -d $(srcdir)/pkgs/luafilesystem ]; then                       \
+           $(MAKE) -C $(srcdir)/pkgs/luafilesystem  LUA_INC=$(LUA_INCLUDE) \
+                LIB=$(DESTDIR)$(LIB) SHARE=$(DESTDIR)$(LIBEXEC) CC=$(CC)   \
+                install;                                                   \
+        fi
+pkgs:
+	if [ -d $(srcdir)/pkgs ]; then                                     \
+           $(MAKE) -C $(srcdir)/pkgs LUA_INC=$(LUA_INCLUDE)                \
+               LIB=$(DESTDIR)$(LIB) SHARE=$(DESTDIR)$(LIBEXEC) CC=$(CC)    \
+               install;                                                    \
+        fi
 
 zsh_tab_funcs: $(ZSH_FUNCS)
 	-if [ -n "$(ZSH_SITE_FUNCTIONS_DIRS)" ]; then                    \
@@ -299,7 +343,8 @@ dist:
         tar xf ../Lmod-$(version).tar;                			     	 \
         $(RM) ../Lmod-$(version).tar;                 			     	 \
         echo "Lmod"-$(version) > .fname;                		     	 \
-        perl -p -i -e 's/\@git\@/$(GIT_VERSION)/g' `cat .fname`/src/Version.lua; \
+        sed -i.bk 's/\@git\@/$(GIT_VERSION)/g' `cat .fname`/src/Version.lua;     \
+        rm `cat .fname`/src/Version.lua.bk;                                      \
         tar chf `cat .fname`.tar `cat .fname`;           		     	 \
         bzip2 `cat .fname`.tar;                           		     	 \
         mv `cat .fname`.tar.bz2  ..;                         		     	 \
@@ -327,7 +372,8 @@ _distSrc:
 	cp shells/*.lua $(DistD)/shells
 
 _distVersion:
-	perl -p -i -e 's/\@git\@/$(GIT_VERSION)/g' $(DistD)/src/Version.lua
+	sed -i.bk 's/\@git\@/$(GIT_VERSION)/g' $(DistD)/src/Version.lua;
+	rm `cat .fname`/src/Version.lua.bk;
 
 _distPkgs:
 	mkdir $(DistD)/pkgs
@@ -405,6 +451,7 @@ build_tags:
 	    -e 's|.*\.pyo$$||g'                                  \
 	    -e 's|.*\.snm$$||g'                                  \
 	    -e 's|.*\.toc$$||g'                                  \
+	    -e 's|.*\.sty$$||g'                                  \
 	    -e 's|.*\.vrb$$||g'                                  \
 	    -e 's|.*\.key$$||g'                                  \
             -e 's|^#.*||g'                                       \
@@ -437,7 +484,11 @@ build_tags:
 	etags `cat file_list.3.txt`
 
 busted:
-	@PROJDIR=$(CURDIR) busted  --verbose -m "$(CURDIR)/src/?.lua;$(CURDIR)/tools/?.lua;$(CURDIR)/tools/?/init.lua"
+        ifeq ($(TAG),)
+	  @PROJDIR=$(CURDIR) busted            --verbose -m "$(CURDIR)/src/?.lua;$(CURDIR)/tools/?.lua;$(CURDIR)/tools/?/init.lua"
+        else
+	  @PROJDIR=$(CURDIR) busted  -t $(TAG) --verbose -m "$(CURDIR)/src/?.lua;$(CURDIR)/tools/?.lua;$(CURDIR)/tools/?/init.lua"
+        endif
 
 luachk:
 	luacheck --exclude-files src/*.new.lua -- src shells tools settarg spec 2>&1 | tee lmod.check.txt; \
@@ -463,6 +514,7 @@ clean:
 	$(RM) config.log *.o
 	cd $(srcdir)/pkgs; $(MAKE) LIB=$(DESTDIR)$(LIB) SHARE=$(DESTDIR)$(LIBEXEC) clean
 	cd $(srcdir)/pkgs/luafilesystem; $(MAKE) LIB=$(DESTDIR)$(LIB) clean
+	cd $(srcdir)/pkgs/tcl2lua; $(MAKE) LIB=$(DESTDIR)$(LIB) clean
 
 clobber: clean
 
@@ -470,25 +522,39 @@ distclean: clobber
 	$(RM) makefile config.status
 
 world_update:
-	@git status -s > /tmp/git_st_$$$$;                                         \
-        if [ -s /tmp/git_st_$$$$ ]; then                                           \
-            echo "All files not checked in => try again";                          \
-	elif [ $(srcdir)/configure -ot $(srcdir)/configure.ac ]; then              \
-            echo "configure is out of date => try again";                          \
-        else                                                                       \
-	    branchName=`git status | head -n 1 | sed 's/^[# ]*On branch //g'`;	   \
-            git push        github $$branchName;                                   \
-            git push --tags github $$branchName;                                   \
-            git push        sf     $$branchName;                                   \
-            git push --tags sf     $$branchName;                                   \
-        fi;                                                                        \
-        rm -f /tmp/git_st_$$$$
+	@git status -s > /tmp/git_st_$$$$;                                             \
+        if [ -s /tmp/git_st_$$$$ ]; then                                               \
+            echo "All files not checked in => try again";                              \
+	elif [ $(srcdir)/configure -ot $(srcdir)/configure.ac ]; then                  \
+            echo "configure is out of date => try again";                              \
+        else                                                                           \
+	    branchName=`git status | head -n 1 | sed 's/^[# ]*On branch //g'`;	       \
+            git push        github $$branchName;                                       \
+            git push --tags github $$branchName;                                       \
+	    pid=$$$$;                                                                  \
+	    echo '{'                                               >  /tmp/json_$$pid; \
+            echo "  \"tag_name\":         \"$(version)\","         >> /tmp/json_$$pid; \
+	    echo "  \"target_commitish\": \"$$branchName\","       >> /tmp/json_$$pid; \
+            echo "  \"name\":             \"$(version)\","         >> /tmp/json_$$pid; \
+            echo "  \"body\":             \"\","                   >> /tmp/json_$$pid; \
+            echo "  \"draft\":            false,"                  >> /tmp/json_$$pid; \
+            echo "  \"prelease\":         false"                   >> /tmp/json_$$pid; \
+	    echo '}'                                               >> /tmp/json_$$pid; \
+            URL=https://api.github.com/repositories/9381512/releases;                  \
+	    TOKEN=$$(cat ~/c/lmod_github_token.txt);                                   \
+            curl --user rtmclay:token -H "Authorization: token $$TOKEN" -X POST --data @/tmp/json_$$pid $$URL; \
+            git push        sf     $$branchName;                                       \
+            git push --tags sf     $$branchName;                                       \
+        fi;                                                                            \
+        rm -f /tmp/json_$$pid /tmp/git_st_$$$$;
 
 gittag:
         ifneq ($(TAG),)
 	  @git status -s > /tmp/git_st_$$$$;                                         \
           if [ -s /tmp/git_st_$$$$ ]; then                                           \
 	    echo "All files not checked in => try again";                            \
+	  elif [ $(srcdir)/configure -ot $(srcdir)/configure.ac ]; then              \
+            echo "configure is out of date => try again";                            \
 	  else                                                                       \
 	    $(RM)                                                    $(VERSION_SRC); \
 	    echo 'local M={}'                                     >  $(VERSION_SRC); \

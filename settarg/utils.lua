@@ -8,7 +8,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -32,11 +32,12 @@
 --
 --------------------------------------------------------------------------
 
-require("strict")
+_G._DEBUG       = false               -- Required by the new lua posix
+local posix     = require("posix")
 
+require("strict")
 require("fileOps")
 
-_G._DEBUG       = false               -- Required by the new lua posix
 local dbg       = require("Dbg"):dbg()
 local base64    = require("base64")
 local concatTbl = table.concat
@@ -44,14 +45,13 @@ local decode64  = base64.decode64
 local format    = string.format
 local getenv    = os.getenv
 local huge      = math.huge
-local posix     = require("posix")
 
 
 function argsPack(...)
-   local arg = { n = select("#", ...), ...}
-   return arg
+   local argA = { n = select("#", ...), ...}
+   return argA
 end
-local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
+local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
 
 function findFileInTree(fn)
    local cwd  = posix.getcwd()
@@ -73,9 +73,9 @@ end
 
 function STError(...)
    io.stderr:write("\n","Settarg has detected the following error: ")
-   local arg = pack(...)
-   for i = 1, arg.n do
-      io.stderr:write(arg[i])
+   local argA = pack(...)
+   for i = 1, argA.n do
+      io.stderr:write(argA[i])
    end
    io.stderr:write("\n")
 end
@@ -83,7 +83,7 @@ end
 
 function getSTT()
    local a    = {}
-   local sz = getenv("_SettargTable_Sz_") or huge
+   local sz   = tonumber(getenv("_SettargTable_Sz_")) or huge
    local s    = nil
 
    for i = 1, sz do

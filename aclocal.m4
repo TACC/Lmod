@@ -17,46 +17,59 @@ if test "$HAVE_LUAFILESYSTEM" = yes; then
   LFS_STATUS="system"
 fi
 
+MY_PACKAGE=$prefix/lmod/$LmodV
+if test "$SITE_CONTROLLED_PREFIX" != no ; then
+  MY_PACKAGE=$prefix
+fi
 
 echo
 echo '----------------------------------- SUMMARY ----------------------------------'
 echo
-echo "Package version............................." : Lmod-$LmodV
-echo "Package version (git) ......................" : $lmodV
-echo
-echo "LUA_INCLUDE................................." : $LUA_INCLUDE
-echo "Lua executable.............................." : $luaprog
-echo "Luac executable............................." : $PATH_TO_LUAC
-echo "Prefix......................................" : $prefix
-echo "Actual Install dir.........................." : $prefix/lmod/$LmodV
-echo
-echo "MODULEPATH_ROOT............................." : $MODULEPATH_ROOT
-echo "Wait (s) before rebuilding cache............" : $ANCIENT
-echo "Allow Duplicate Paths......................." : $DUPLICATE_PATHS
-echo "Do not save Cache if build time < .........." : $SHORT_TIME
-echo "SPIDER_CACHE_DIRS..........................." : $SPIDER_CACHE_DIRS
-echo "Prepending multiple dirs (NORMAL / REVERSED)" : $PREPEND_BLOCK
-echo "Colorized output supported.................." : $COLORIZE
-echo "File that is touched when system is updated." : $UPDATE_SYSTEM_FN
-echo "Allow duplicate entry in PATHs.............." : $DUPLICATE_PATHS
-echo "Allow tcl modulefiles......................." : $ALLOW_TCL_MFILES
-echo "ZSH Tab Completion Functions Site Directory." : $ZSH_SITE_FUNCTIONS_DIRS
-echo "Use Dot files in ~/.lmod.d.................." : $USE_DOT_FILES
-echo "Full Settarg support........................" : $SETTARG
-echo "Have lua-term..............................." : $HAVE_LUA_TERM
-echo "Have lua-json..............................." : $HAVE_LUA_JSON
-echo "Support Auto Swap when using families......." : $AUTO_SWAP
-echo "Export the module shell function in Bash...." : $EXPORT_MODULE
-echo "Disable same name autoswapping.............." : $DISABLE_NAME_AUTOSWAP
-echo "Use Spider Cache on Loads..................." : $CACHED_LOADS
-echo "Pager used inside Lmod......................" : $PATH_TO_PAGER
-echo "System LD_PRELOAD..........................." : $SYS_LD_PRELOAD
-echo "System LD_LIBRARY_PATH......................" : $SYS_LD_LIB_PATH
-echo "Hashsum program used........................" : $PATH_TO_HASHSUM
-echo "Site Name..................................." : $SITE_NAME
-echo "Site Message file..........................." : $SITE_MSG_FILE
-echo 'Override $LANG Language for error etc.......' : $LMOD_OVERRIDE_LANG
-echo "Which LuaFileSystem is being used..........." : $LFS_STATUS
+echo "Package version............................................." : Lmod-$LmodV
+echo "Package version (git) ......................................" : $lmodV
+echo 
+echo "LUA_INCLUDE................................................." : $LUA_INCLUDE
+echo "Lua executable.............................................." : $luaprog
+echo "Luac executable............................................." : $PATH_TO_LUAC
+echo "User Controlled Prefix......................................" : $SITE_CONTROLLED_PREFIX
+echo "Prefix......................................................" : $prefix
+echo "Actual Install dir.........................................." : $MY_PACKAGE
+echo 
+echo "MODULEPATH_ROOT............................................." : $MODULEPATH_ROOT
+echo "Wait (s) before rebuilding cache............................" : $ANCIENT
+echo "Allow Duplicate Paths......................................." : $DUPLICATE_PATHS
+echo "Do not save Cache if build time < .........................." : $SHORT_TIME
+echo "SPIDER_CACHE_DIRS..........................................." : $SPIDER_CACHE_DIRS
+echo "Prepending multiple dirs (NORMAL / REVERSED)................" : $PREPEND_BLOCK
+echo "Colorized output supported.................................." : $COLORIZE
+echo "File that is touched when system is updated................." : $UPDATE_SYSTEM_FN
+echo "Allow duplicate entry in PATHs.............................." : $DUPLICATE_PATHS
+echo "Allow tcl modulefiles......................................." : $ALLOW_TCL_MFILES
+echo "ZSH Tab Completion Functions Site Directory................." : $ZSH_SITE_FUNCTIONS_DIRS
+echo "Use Dot files in ~/.lmod.d.................................." : $USE_DOT_FILES
+echo "Full Settarg support........................................" : $SETTARG
+echo "Have lua-term..............................................." : $HAVE_LUA_TERM
+echo "Have luafilesystem.........................................." : $HAVE_LUAFILESYSTEM
+echo "Support Auto Swap when using families......................." : $AUTO_SWAP
+echo "Export the module shell function in Bash...................." : $EXPORT_MODULE
+echo "Disable same name autoswapping.............................." : $DISABLE_NAME_AUTOSWAP
+echo "Use Spider Cache on Loads..................................." : $CACHED_LOADS
+echo "Pager used inside Lmod......................................" : $PATH_TO_PAGER
+echo "System LD_PRELOAD..........................................." : $SYS_LD_PRELOAD
+echo "System LD_LIBRARY_PATH......................................" : $SYS_LD_LIB_PATH
+echo "Hashsum program used........................................" : $PATH_TO_HASHSUM
+echo "Site Name..................................................." : $SITE_NAME
+echo "SYSHOST....................................................." : $SYSHOST
+echo "Site Message file..........................................." : $SITE_MSG_FILE
+echo 'Override $LANG Language for error etc.......................' : $LMOD_OVERRIDE_LANG
+echo "Which LuaFileSystem is being used..........................." : $LFS_STATUS
+echo 'Use italic instead of faint for hidden modules..............' : $HIDDEN_ITALIC
+echo "If path entry is already there then don't prepend..........." : $TMOD_PATH_RULE
+echo "Use Tmod Find First rule instead of Find Best for defaults.." : $TMOD_FIND_FIRST
+echo "MODULEPATH Initial file....................................." : $MODULEPATH_INIT
+echo "Use built-in lua packages instead of system provided pkgs..." : $USE_BUILT_IN_PKGS
+echo "Silence shell debugging output for bash/zsh................." : $SILENCE_SHELL_DEBUGGING
+echo "Use the fast TCL interpreter................................" : $FAST_TCL_INTERP
 
 echo
 echo '------------------------------------------------------------------------------'
@@ -71,8 +84,8 @@ echo If your site already uses BASH_ENV to point to a site specific script, plea
 echo consider sourcing Lmod\'s init/bash from your site\'s file.
 echo
 echo BASH_ENV is defined both in:
-echo "   $prefix/lmod/$LmodV/init/profile"
-echo "   $prefix/lmod/$LmodV/init/cshrc"
+echo "   $MY_PACKAGE/init/profile"
+echo "   $MY_PACKAGE/init/cshrc"
 echo
 echo '******************************************************************************'
 echo
@@ -106,6 +119,17 @@ if test "$a" != no; then
   echo '******************************************************************************'
   echo
 fi
+
+if test $SITE_CONTROLLED_PREFIX != no ; then
+   echo
+   echo '**********************************************************************'
+   echo ' '
+   echo 'Warning: you have chosen to control the prefix.  This means that '
+   echo '         you must update any Lmod scripts in /etc/profile.d'
+   echo ' '
+   echo '**********************************************************************'
+fi
+
 
 echo
 echo Configure complete, Now do:

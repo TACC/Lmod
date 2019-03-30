@@ -14,7 +14,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -84,6 +84,15 @@ function M.process(self, ignoreT, oldEnvT, envT)
    dbg.start{"MF_Base:process(ignoreT, oldEnvT, envT)"}
    local a = {}
 
+   ------------------------------------------------------------
+   -- Add header to modulefile if necessary. 
+   -- Include the "#%Module" magic string For TCL modulefiles
+
+   local s = self:header()
+   if (s) then
+      a[#a+1] = s
+   end
+
    dbg.print{"name: ",self:name(), "\n"}
 
    local mt_pat = "^_ModuleTable"
@@ -115,6 +124,10 @@ function M.process(self, ignoreT, oldEnvT, envT)
 
    dbg.fini("MF_Base:process")
    return a
+end
+
+function M.header(self)
+   return nil
 end
 
 return M

@@ -1,3 +1,6 @@
+_G._DEBUG       = false
+local posix     = require("posix")
+
 require("strict")
 
 --------------------------------------------------------------------------
@@ -10,7 +13,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -36,18 +39,21 @@ require("strict")
 
 require("declare")
 require("utils")
-_G._DEBUG       = false
 local M         = {}
 local MRC       = require("MRC")
 local dbg       = require("Dbg"):dbg()
 local lfs       = require("lfs")
 local open      = io.open
-local posix     = require("posix")
 
 local access    = posix.access
 local concatTbl = table.concat
 local readlink  = posix.readlink
 local stat      = posix.stat
+local user_uid  = 0
+local getuid    = posix.getuid
+if (getuid) then
+   user_uid = getuid()
+end
 
 local load      = (_VERSION == "Lua 5.1") and loadstring or load
 
@@ -61,13 +67,20 @@ local ignoreT = {
    ['.DS_Store']  = true,
 }
 
+local defaultFnT = {
+   default           = 1,
+   ['.modulerc.lua'] = 2,
+   ['.modulerc']     = 3,
+   ['.version']      = 4,
+}
+
 local function keepFile(fn)
    local firstChar = fn:sub(1,1)
    local lastChar  = fn:sub(-1,-1)
    local firstTwo  = fn:sub(1,2)
 
    local result    = not (ignoreT[fn]     or lastChar == '~' or firstChar == '#' or
-                          lastChar == '#' or firstTwo == '.#')
+                          lastChar == '#' or firstTwo == '.#' or firstTwo == '__')
    if (not result) then
       return false
    end
@@ -76,14 +89,16 @@ local function keepFile(fn)
       return false
    end
 
+   if (defaultFnT[fn]) then
+      return true
+   end
+
+   if (fn:find("^%.version.") or fn:find("^%.modulerc.")) then
+      return false
+   end
+
    return true
 end
-
-local defaultFnT = {
-   default       = 1,
-   ['.modulerc'] = 2,
-   ['.version']  = 3,
-}
 
 local function checkValidModulefileReal(fn)
    local f = open(fn,"r")
@@ -136,30 +151,20 @@ local function versionFile(mrc, defaultT)
       return defaultT
    end
 
-   if (not checkValidModulefile(path)) then
+   local luaExt = path:find("%.lua$")
+
+   if (not luaExt and not checkValidModulefile(path)) then
       return defaultT
    end
 
-   local version = false
-   local whole
-   local status
-   local func
-   local optStr  = ""
-   whole, status = runTCLprog("RC2lua.tcl", optStr, path)
-   if (not status) then
-      LmodError{msg = "e_Unable_2_parse", path = path}
-   end
-
-   declare("modA",{})
-   status, func = pcall(load, whole)
-   if (not status or not func) then
-      LmodError{msg = "e_Unable_2_parse", path = path}
-   end
-   func()
-
+   local modA = mrc_load(path)
    local _, _, name = defaultT.fullName:find("(.*)/.*")
 
+   dbg.print{"In versionFile\n"}
+
    defaultT.value = mrc:parseModA_for_moduleA(name,modA)
+
+   dbg.print{"Back in versionFile\n"}
 
    return defaultT
 end
@@ -184,11 +189,11 @@ local function walk(mrc, mpath, path, dirA, fileT)
          local file = pathJoin(path, f)
          if (not keepFile(f)) then break end
 
-         local attr = (f == "default") and lfs.symlinkattributes(file) or lfs.attributes(file) 
+         local attr = (f == "default") and lfs.symlinkattributes(file) or lfs.attributes(file)
          if (attr == nil) then break end
          local kind = attr.mode
 
-         if (attr.uid == 0 and not attr.permissions:find("......r..")) then break end
+         if (attr.uid == 0 and user_uid == 0 and not attr.permissions:find("......r..")) then break end
 
          if (kind == "directory" and f ~= "." and f ~= "..") then
             dirA[#dirA + 1 ] = file
@@ -260,9 +265,7 @@ local function build(mpathA)
          dirA[#dirA+1] = {mpath=mpath, dirT=dirT}
       end
    end
-
    return dirA
-
 end
 
 function M.new(self, mpathA)

@@ -1,0 +1,58 @@
+-- -*- lua -*-
+local testName = "family"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 "Test problem where the family directive would screw up when the compiler module had a load()"
+   ]],
+   keywords = {testName },
+
+   active   = true,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     export MODULEPATH_ROOT=$(testDir)/mf
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+
+     runLmod --version                         # 1
+     runLmod -T load ibmA openmpi phdf5        # 2
+     runLmod list                              # 3
+     runLmod -T load gccA                      # 4
+     runLmod avail                             # 5
+     runLmod -T load ibmA                      # 6
+     runLmod -T load gccA mpich                # 7
+
+     HOME=$ORIG_HOME
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

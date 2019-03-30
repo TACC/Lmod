@@ -1,7 +1,9 @@
+.. _tcl2lua-label:
+
 How does Lmod convert TCL modulefile into Lua
 =============================================
 
-Lmod uses a TCL program call **tcl2lua.tcl** to read TCL modulefiles
+Lmod uses a TCL program called **tcl2lua.tcl** to read TCL modulefiles
 and convert them to lua.  The whole TCL modulefile is run through.
 However instead of executing the "module functions" they are converted
 to Lua.  For example, suppose you have the following simple TCL
@@ -24,7 +26,7 @@ function call.
 
 Normally this works fine.  However, because Lmod does evaluate the
 actions of a TCL module file as a two-step process, it can cause
-problem.  In particular, suppose you have two TCL modulefiles:
+problems.  In particular, suppose you have two TCL modulefiles:
 
 Centos::
 

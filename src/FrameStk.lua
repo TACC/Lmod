@@ -10,7 +10,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -62,9 +62,10 @@ function M.singleton(self)
    if (not s_frameStk) then
       s_frameStk = new(self)
       local mpath = getenv(ModulePath)
+      local nodups = true
       if (mpath) then
          local varT       = s_frameStk:varT()
-         varT[ModulePath] = Var:new(ModulePath, mpath)
+         varT[ModulePath] = Var:new(ModulePath, mpath, nodups, ":")
       end
    end
    return s_frameStk
@@ -73,6 +74,15 @@ end
 function M.__clear(self)
    s_frameStk = false
 end
+
+function M.resetMPATH2system(self)
+   local varT       = self:varT()
+   local mt         = self:mt()
+   local nodups     = true
+   local mpath      = mt:resetMPATH2system()
+   varT[ModulePath] = Var:new(ModulePath, mpath, nodups, ":")
+end
+
 
 function M.push(self, mname)
    --dbg.start{"FrameStk:push(mname)"}
@@ -105,8 +115,8 @@ function M.atTop(self)
    return (self.__count == 2)
 end
 
-function M.count(self)
-   return self.__count
+function M.stackDepth(self)
+   return self.__count - 1
 end
 
 function M.fullName(self)
@@ -151,6 +161,10 @@ end
 function M.varT(self)
    local top   = self.__stack[self.__count]
    return top.varT
+end
+
+function M.count(self)
+   return self.__count
 end
 
 function M.traceBack(self)

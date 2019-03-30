@@ -1,11 +1,4 @@
-Lmod 7.3+
-    (7.3.1) Usage and spider output now translatable.
-    (7.3.2) updated French translation of all known strings.
-    (7.3.3) Remove trailing .lua as the username of a module and
-            updated French translations for module types.
-    (7.3.4) Using built-in luafilesystem if system version < 1.6.2
-    (7.3.5) Fix bug that caused LMOD env vars to be lower cased.
-    (7.3.6) unset LOADEDMODULES and _LMFILES_ when doing clearMT and
-            Fix bug in configure.ac so that lfs version is found correctly.
-
-    
+Lmod 8.0+
+   (8.0.1)  Change to use AC_SEARCH_LIBS for tcl, tcl8.8, tcl8.7, tcl8.6  tcl8.5 to accomodate SUSE's decision
+            not to include libtcl.so to point to the current tcl implementation.
+	    

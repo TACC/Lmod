@@ -98,9 +98,24 @@ B) Now with version 5.+ of Lmod, it is now very important that sites with large
          which marks the time that the system was last updated, so Lmod knows that
          the cache is still good.
 
-      3) Or you can run the createSystemCache.sh script say every 30 mins.  This way
-         the cache file is up-to-date.  No new module will be unknown for more
-         30 mins.
+      3) Or you can create a script (say createSystemCache.sh) that runs every 30
+         mins.  This way the cache file is up-to-date.  No new module will be
+         unknown for more 30 mins.  Assuming that you are going to store the cache file
+         in /opt/moduleData/cacheDir and the timestamp is in /opt/moduleData/system.txt.
+         Please create the following script:
+
+            $ cd /opt/moduleData
+            $ cat > createSystemCache.sh
+            CACHE_LOCATION=/opt/moduleData
+            LMOD_DIR=<path_to_the_command_spider>
+            MODULEPATH=<Your site's default MODULEPATH>
+
+            $LMOD_DIR/update_lmod_system_cache_files -t $CACHE_LOCATION/system.txt -d $CACHE_LOCATION/cacheDir $MODULEPATH
+            ^D
+
+         Please modify the top three environment variables to match your site.
+         Then you will have to add createSystemCache.sh to your crontab.
+
 
       4) There are two ways to specify how cache directories and timestep files are
          specified.  You can use "--with-spiderCacheDir=dirs" and
@@ -112,8 +127,7 @@ B) Now with version 5.+ of Lmod, it is now very important that sites with large
              cacheDir1:timestamp1
              cacheDir2:timestamp2
 
-         lines starting with '#' and blank lines are ignored.  Also note that a
-         single timestamp file can be used with multiple cache directories.
+         lines starting with '#' and blank lines are ignored.
 
 
 

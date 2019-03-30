@@ -8,7 +8,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -31,6 +31,8 @@
 --  THE SOFTWARE.
 --
 --------------------------------------------------------------------------
+_G._DEBUG         = false
+local posix       = require("posix")
 
 require("strict")
 require("getUname")
@@ -38,11 +40,12 @@ require("string_utils")
 require("fileOps")
 require("utils")
 require("ProcessModuleTable")
+require("pairsByKeys")
 
 _G._DEBUG         = false               -- Required by the new lua posix
+local TargValue   = require("TargValue")
 local dbg         = require("Dbg"):dbg()
 local STT         = require("STT")
-local posix       = require("posix")
 local base64      = require("base64")
 local concatTbl   = table.concat
 local decode64    = base64.decode64
@@ -174,11 +177,11 @@ local function string2Tbl(s,tbl)
                stt:setBuildScenarioState(v)
             end
             dbg.print{"v: ",v," kind: ",kind," K: ",K,"\n"}
-            tbl[K] = v
+            tbl[K] = TargValue:new{value=v}
          end
       end
    end
-   dbg.fini()
+   dbg.fini("string2Tbl")
 end
 
 function M.buildTbl(targetTbl)
@@ -186,36 +189,42 @@ function M.buildTbl(targetTbl)
    local tbl = {}
    local stt = STT:stt()
 
-   for k in pairs(targetTbl) do
+   for k in pairsByKeys(targetTbl) do
       local K   = k:upper()
       local key = "TARG_" .. K
       local v   = getenv(key)
+      dbg.print{"key: ",key,", v: ",v,"\n"}
       if (v == nil) then
          local ss = "default_" .. K
          if (M[ss]) then
             v = M[ss](tbl)
-         else
-            v = ''
          end
          dbg.print{"ss: ", ss," v: ",v,"\n"}
       end
-      tbl[key] = v
+      if (v) then
+         tbl[key] = TargValue:new{value=v}
+      end
    end
 
    -- Always set mach
-   tbl.TARG_MACH           = M.default_MACH()
-   tbl.TARG_MACH_DESCRIPT  = getUname().machDescript
+   tbl.TARG_MACH           = TargValue:new{value=M.default_MACH()}
+   tbl.TARG_MACH_DESCRIPT  = TargValue:new{value=getUname().machDescript}
    targetTbl.mach          = -1
    targetTbl.mach_descript = -1
+   dbg.print{"M.default_MACH(): ",M.default_MACH(),"\n"}
+   dbg.print{"tbl.TARG_MACH: ",tbl.TARG_MACH:display(),"\n"}
+
+
 
    -- Always set os and os_family
-   tbl.TARG_OS         = M.default_OS()
-   tbl.TARG_OS_FAMILY  = tbl.TARG_OS:gsub("-.*","")
+   local os_name       = M.default_OS()
+   tbl.TARG_OS         = TargValue:new{value=os_name}
+   tbl.TARG_OS_FAMILY  = TargValue:new{value=os_name:gsub("-.*","")}
    targetTbl.os        = -1
    targetTbl.os_family = -1
 
    -- Always set host
-   tbl.TARG_HOST       = M.default_HOST()
+   tbl.TARG_HOST       = TargValue:new{value=M.default_HOST()}
    targetTbl.host      = -1
 
    -- Clear
@@ -228,7 +237,7 @@ function M.buildTbl(targetTbl)
       end
    end
 
-   dbg.fini()
+   dbg.fini("BuildTarget.buildTbl")
    return tbl
 end
 
@@ -237,8 +246,12 @@ local function readDotFiles()
 
    -------------------------------------------------------
    -- Load system then user default table.
+   local settarg_rc = getenv("LMOD_SETTARG_RC")
+   if (not settarg_rc or not isFile(settarg_rc)) then
+      settarg_rc = pathJoin(masterTbl.execDir,"settarg_rc.lua")
+   end
 
-   local a = { pathJoin(masterTbl.execDir,"settarg_rc.lua"),
+   local a = { settarg_rc,
                pathJoin(getenv('HOME') or '',".settarg.lua"),
    }
 
@@ -248,6 +261,7 @@ local function readDotFiles()
       a[#a+1] = projectConfig
    end
 
+   local SttgConfFnA    = {}
    local MethodMstrTbl  = {}
    local TitleMstrTbl   = {}
    local ModuleMstrTbl  = {}
@@ -258,65 +272,71 @@ local function readDotFiles()
    local TargPathLoc    = "first"
 
    for _, fn  in ipairs(a) do
-      dbg.print{"fn: ",fn,"\n"}
-      local f = io.open(fn,"r")
-      if (f) then
-         local whole  = f:read("*all")
-         f:close()
+      repeat
+         dbg.print{"fn: ",fn,"\n"}
+         local f = io.open(fn,"r")
+         if (f) then
 
-         local status = true
-         local func, msg = load(whole)
-         if (func) then
-            status, msg = pcall(func)
-         else
-            status = false
-         end
+            SttgConfFnA[#SttgConfFnA+1] = fn
 
-         if (not status) then
-            io.stderr:write("Error: Unable to load: ",fn,"\n",
-                            "  ", msg,"\n");
-            os.exit(1)
-         end
+            local whole  = f:read("*all")
+            f:close()
 
-         TargPathLoc = systemG.TargPathLoc
+            if (type(whole) ~= "string") then break end
+            local ok
+            local func, msg = load(whole)
+            if (func) then
+               ok, msg = pcall(func)
+            else
+               ok = false
+            end
 
-         for k,v in pairs(systemG.SettargDirTemplate) do
-            SettargDirTmpl[k] = v
-         end
+            if (not ok) then
+               io.stderr:write("Error: Unable to load: ",fn,"\n",
+                               "  ", msg,"\n");
+               os.exit(1)
+            end
 
-         for k,v in pairs(systemG.BuildScenarioTbl) do
-            dbg.print{"BS: k: ",k," v: ",v,"\n"}
-            MethodMstrTbl[k] = v
-         end
+            TargPathLoc = systemG.TargPathLoc
 
-         for k,v in pairs(systemG.HostnameTbl) do
-            HostTbl[k] = v
-         end
+            for k,v in pairs(systemG.SettargDirTemplate) do
+               SettargDirTmpl[k] = v
+            end
 
-         for k,v in pairs(systemG.TitleTbl) do
-            dbg.print{"Title: k: ",k," v: ",v,"\n"}
-            TitleMstrTbl[k] = v
-         end
+            for k,v in pairs(systemG.BuildScenarioTbl) do
+               dbg.print{"BS: k: ",k," v: ",v,"\n"}
+               MethodMstrTbl[k] = v
+            end
 
-         for k in pairs(systemG.ModuleTbl) do
-            ModuleMstrTbl[k] = systemG.ModuleTbl[k]
-            for _, v in ipairs(ModuleMstrTbl[k]) do
-               local t          = stringKindTbl[v] or {}
-               t[k]             = true
-               stringKindTbl[v] = t
+            for k,v in pairs(systemG.HostnameTbl) do
+               HostTbl[k] = v
+            end
+
+            for k,v in pairsByKeys(systemG.TitleTbl) do
+               dbg.print{"Title: k: ",k," v: ",v,"\n"}
+               TitleMstrTbl[k] = v
+            end
+
+            for k in pairs(systemG.ModuleTbl) do
+               ModuleMstrTbl[k] = systemG.ModuleTbl[k]
+               for _, v in ipairs(ModuleMstrTbl[k]) do
+                  local t          = stringKindTbl[v] or {}
+                  t[k]             = true
+                  stringKindTbl[v] = t
+               end
+            end
+            for k in pairs(ModuleMstrTbl) do
+               familyTbl[k] = 1
+            end
+            for i = 1, #systemG.NoFamilyList do
+               local k = systemG.NoFamilyList[i]
+               familyTbl[k] = nil
             end
          end
-         for k in pairs(ModuleMstrTbl) do
-            familyTbl[k] = 1
-         end
-         for i = 1, #systemG.NoFamilyList do
-            local k = systemG.NoFamilyList[i]
-            familyTbl[k] = nil
-         end
-      end
+      until true
    end
 
-   masterTbl.TargPathLoc      = TargPathLoc
+   masterTbl.TargPathLoc      = getenv("LMOD_SETTARG_TARG_PATH_LOCATION") or TargPathLoc
    masterTbl.HostTbl          = HostTbl
    masterTbl.TitleTbl         = TitleMstrTbl
    masterTbl.BuildScenarioTbl = MethodMstrTbl
@@ -325,7 +345,7 @@ local function readDotFiles()
    masterTbl.targetList       = systemG.TargetList
    masterTbl.familyTbl        = familyTbl
    masterTbl.SettargDirTmpl   = SettargDirTmpl
-
+   masterTbl.SttgConfFnA      = SttgConfFnA
 end
 
 function M.exec(shell)
@@ -355,9 +375,8 @@ function M.exec(shell)
    processModuleTable(shell:getMT(), targetTbl, tbl)
 
 
-   tbl.TARG_BUILD_SCENARIO       = stt:getBuildScenario()
-
-   dbg.print{"BUILD_SCENARIO_STATE: ",stt:getBuildScenarioState(),"\n"}
+   tbl.TARG_BUILD_SCENARIO = TargValue:new{value=stt:getBuildScenario()}
+   --dbg.print{"BUILD_SCENARIO_STATE: ",stt:getBuildScenarioState(),"\n"}
 
    -- Remove options from TARG_EXTRA
 
@@ -367,9 +386,10 @@ function M.exec(shell)
       stt:removeFromExtra(masterTbl.remOptions)
    end
 
-   tbl.TARG_EXTRA = stt:getEXTRA()
+   tbl.TARG_EXTRA = TargValue:new{value=stt:getEXTRA()}
 
-   local a = {}
+   local entryA = {}
+   local a      = {}
    for _,v in ipairs(targetList) do
       local K     = "TARG_" .. v:upper()
       local KK    = K .. "_FAMILY"
@@ -377,18 +397,20 @@ function M.exec(shell)
       if (not entry) then
          envVarsTbl[KK] = false
       else
-         a[#a + 1]   = entry
+         entryA[#entryA + 1] = entry
+         a[#a+1]             = entry:display(true)  -- The true says change '/' into '-'
          if (familyTbl[v]) then
-            local value    = entry:gsub("-.*","")
-            envVarsTbl[KK] = value
-            dbg.print{"envVarsTbl[",KK,"]: ",value,"\n"}
+            local t        = entry:value()
+            envVarsTbl[KK] = t.sn
          end
       end
    end
 
 
    for k in pairs(tbl) do
-      envVarsTbl[k] = tbl[k]
+      if (tbl[k]) then
+         envVarsTbl[k] = tbl[k]:display()
+      end
    end
 
    target = concatTbl(a,"_")
@@ -416,40 +438,59 @@ function M.exec(shell)
    end
 
    envVarsTbl.TARG         = concatTbl(b,"")
+   if (envVarsTbl.TARG:sub(1,1) == "/") then
+      envVarsTbl.TARG = "." .. envVarsTbl.TARG
+   end
 
    local TitleTbl = masterTbl.TitleTbl
 
    -- Remove TARG_MACH when it is the same as the host.
-   if (tbl.TARG_MACH == getUname().machName) then
-      for i = 1,#a do
-         local v = a[i]
-         if (v == tbl.TARG_MACH) then
-            table.remove(a,i)
+   local mach = tbl.TARG_MACH:display()
+   dbg.print{"TARG_MACH:",mach,", uname mach: ",getUname().machName,"\n"}
+   if (mach == getUname().machName) then
+      for i = 1,#entryA do
+         local v = entryA[i]:display()
+         if (v == mach) then
+            table.remove(entryA,i)
             break
          end
       end
    end
 
    local aa = {}
-   for _,v in ipairs(a) do
-      local _, _, name, version = v:find("([^-]*)-?(.*)")
-      if (v:len() > 0) then
-         local s = TitleTbl[name] or v
-         if (s) then
-            if (TitleTbl[name] and version ~= "" ) then
-               s = TitleTbl[name] .. "-" .. version
-            end
-            aa[#aa+1] = s
+   for i = 1,#entryA do
+      local t     = entryA[i]:value()
+      local name  = t.value or t.sn
+      local tname = TitleTbl[name]
+      local s     = tname or name
+      if (s) then
+         if (tname and t.version and t.version ~= "") then
+            s = tname .. "/" .. t.version
          end
+         aa[#aa+1] = s
       end
    end
+
+   --local aa = {}
+   --for _,v in ipairs(a) do
+   --   local _, _, name, version = v:find("([^-]*)-?(.*)")
+   --   if (v:len() > 0) then
+   --      local s = TitleTbl[name] or v
+   --      if (s) then
+   --         if (TitleTbl[name] and version ~= "" ) then
+   --            s = TitleTbl[name] .. "/" .. version
+   --         end
+   --         aa[#aa+1] = s
+   --      end
+   --   end
+   --end
    local s                          = concatTbl(aa," "):trim()
-   local paren                      = ""
+   local paren_s                    = ""
    if (s ~= "") then
-      paren                         = "("..s..")"
+      paren_s                       = "("..s..")"
    end
    envVarsTbl.TARG_TITLE_BAR        = s
-   envVarsTbl.TARG_TITLE_BAR_PAREN  = paren
+   envVarsTbl.TARG_TITLE_BAR_PAREN  = paren_s
 
    if (masterTbl.destroyFlag) then
       for k in pairs(envVarsTbl) do
@@ -460,13 +501,17 @@ function M.exec(shell)
       envVarsTbl.TARG_TITLE_BAR_PAREN  = " "
    end
 
+   if (envVarsTbl.TARG_TITLE_BAR_PAREN == "") then
+      envVarsTbl.TARG_TITLE_BAR_PAREN = " "
+   end
+
    stt:registerVars(envVarsTbl)
    local old_stt = getSTT() or ""
    local new_stt = stt:serializeTbl()
    if (old_stt ~= new_stt) then
       envVarsTbl._SettargTable_ = new_stt
    end
-   dbg.fini()
+   dbg.fini("BuildTarget.exec")
 end
 
 return M

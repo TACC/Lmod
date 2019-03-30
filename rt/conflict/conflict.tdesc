@@ -31,6 +31,14 @@ testdescript = {
      runLmod list                                           # 4
      runLmod swap a c                                       # 5
      runLmod list                                           # 6
+     runLmod load e/2.0                                     # 7
+     runLmod load d                                         # 8
+     runLmod load e/1.0                                     # 9
+     runLmod load d                                         #10
+     runLmod load f                                         #11
+
+
+
 
      HOME=$ORIG_HOME
 

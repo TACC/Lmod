@@ -11,7 +11,9 @@ false
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t avail
 ===========================
-MODULEPATH="ProjectDIR/rt/eb_avail/not/there/yet";
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/eb_avail/not/there/yet:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/eb_avail/not/there/yet;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/eb_avail/not/there/yet",},["systemBaseMPATH"]="ProjectDIR/rt/eb_avail/not/there/yet",}';
 export _ModuleTable_;
@@ -19,7 +21,9 @@ export _ModuleTable_;
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-MODULEPATH="ProjectDIR/rt/eb_avail/mf/Core:ProjectDIR/rt/eb_avail/not/there/yet";
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/eb_avail/mf/Core:1\;ProjectDIR/rt/eb_avail/not/there/yet:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/eb_avail/mf/Core:ProjectDIR/rt/eb_avail/not/there/yet;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/eb_avail/mf/Core","ProjectDIR/rt/eb_avail/not/there/yet",},["systemBaseMPATH"]="ProjectDIR/rt/eb_avail/mf/Core:ProjectDIR/rt/eb_avail/not/there/yet",}';
 export _ModuleTable_;
@@ -27,7 +31,9 @@ export _ModuleTable_;
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-MODULEPATH="ProjectDIR/rt/eb_avail/not/there/yet:ProjectDIR/rt/eb_avail/mf/Core";
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/eb_avail/not/there/yet:1\;ProjectDIR/rt/eb_avail/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/eb_avail/not/there/yet:ProjectDIR/rt/eb_avail/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/eb_avail/not/there/yet","ProjectDIR/rt/eb_avail/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/eb_avail/not/there/yet:ProjectDIR/rt/eb_avail/mf/Core",}';
 export _ModuleTable_;
@@ -40,7 +46,9 @@ false
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
-MODULEPATH="ProjectDIR/rt/eb_avail/mf/Core";
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/eb_avail/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/eb_avail/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/eb_avail/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/eb_avail/mf/Core",}';
 export _ModuleTable_;

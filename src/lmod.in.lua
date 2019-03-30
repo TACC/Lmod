@@ -15,7 +15,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -30,7 +30,7 @@
 --
 --  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 --  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
---  OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+--  OF MERCHANTABILITY, FITNESS FOR A APRTICULAR PURPOSE AND
 --  NONINFRINGEMENT.  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
 --  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
 --  ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
@@ -57,13 +57,19 @@ package.path   = sys_lua_path
 package.cpath  = sys_lua_cpath
 
 local arg_0    = arg[0]
+_G._DEBUG      = false
 local posix    = require("posix")
 local readlink = posix.readlink
 local stat     = posix.stat
 
 local st       = stat(arg_0)
 while (st.type == "link") do
-   arg_0 = readlink(arg_0)
+   local lnk = readlink(arg_0)
+   if (arg_0:find("/") and (lnk:find("^/") == nil)) then
+      local dir = arg_0:gsub("/[^/]*$","")
+      lnk       = dir .. "/" .. lnk
+   end
+   arg_0 = lnk
    st    = stat(arg_0)
 end
 
@@ -125,7 +131,7 @@ local getenv        = os.getenv
 local i18n          = require("i18n")
 local max           = math.max
 local timer         = require("Timer"):singleton()
-local unpack        = (_VERSION == "Lua 5.1") and unpack or table.unpack
+local unpack        = (_VERSION == "Lua 5.1") and unpack or table.unpack -- luacheck: compat
 
 local s_Usage       = false
 --------------------------------------------------------------------------
@@ -170,9 +176,9 @@ function Usage()
    a[#a+1] = { i18n("srch0") }
    a[#a+1] = { "  "}
    a[#a+1] = { "" }
-   a[#a+1] = { "  spider -r ", "'^p'",  i18n("srch1") }
-   a[#a+1] = { "  spider -r ", "mpi",   i18n("srch2") }
-   a[#a+1] = { "  spider -r ", "'mpi$", i18n("srch3") }
+   a[#a+1] = { "  -r spider ", "'^p'",  i18n("srch1") }
+   a[#a+1] = { "  -r spider ", "mpi",   i18n("srch2") }
+   a[#a+1] = { "  -r spider ", "'mpi$", i18n("srch3") }
    a[#a+1] = { "" }
    a[#a+1] = { i18n("collctn_title") }
    a[#a+1] = { "  save | s",    "",         i18n("collctn1") }    
@@ -183,6 +189,7 @@ function Usage()
    a[#a+1] = { "  restore",     "system",   i18n("collctn6") } 
    a[#a+1] = { "  savelist",    "",         i18n("collctn7") } 
    a[#a+1] = { "  describe | mcc",  "name", i18n("collctn8") }   
+   a[#a+1] = { "  disable",         "name", i18n("collctn9") }   
    a[#a+1] = { "" }
    a[#a+1] = { i18n("depr_title") }
    a[#a+1] = { "  getdefault", "[name]", i18n("depr1") }
@@ -191,10 +198,12 @@ function Usage()
    a[#a+1] = { "",            "",        i18n("depr4") }
    a[#a+1] = { "" }
    a[#a+1] = { i18n("misc_title") }
-   a[#a+1] = { "  show",     "modulefile", i18n("misc1") }
-   a[#a+1] = { "  use [-a]", "path",       i18n("misc2") }
-   a[#a+1] = { "  unuse",    "path",       i18n("misc3") }
-   a[#a+1] = { "  tablelist","",           i18n("misc4") }
+   a[#a+1] = { "  is-loaded", "modulefile", i18n("misc_isLoaded") }
+   a[#a+1] = { "  is-avail",  "modulefile", i18n("misc_isAvail") }
+   a[#a+1] = { "  show",      "modulefile", i18n("misc1") }
+   a[#a+1] = { "  use [-a]",  "path",       i18n("misc2") }
+   a[#a+1] = { "  unuse",     "path",       i18n("misc3") }
+   a[#a+1] = { "  tablelist", "",           i18n("misc4") }
    a[#a+1] = { "" }
    a[#a+1] = { i18n("env_title") }
    a[#a+1] = { "  LMOD_COLORIZE", "",      i18n("env1") }
@@ -244,7 +253,7 @@ function main()
    local listTbl      = { name = "list",        checkMPATH = false, cmd = List          }
    local loadTbl      = { name = "load",        checkMPATH = true,  cmd = Load_Usr      }
    local mcTbl        = { name = "describe",    checkMPATH = false, cmd = CollectionLst }
-   local purgeTbl     = { name = "purge",       checkMPATH = true,  cmd = Purge         }
+   local purgeTbl     = { name = "purge",       checkMPATH = true,  cmd = Purge_Usr     }
    local refreshTbl   = { name = "refresh",     checkMPATH = false, cmd = Refresh       }
    local resetTbl     = { name = "reset",       checkMPATH = true,  cmd = Reset         }
    local restoreTbl   = { name = "restore",     checkMPATH = false, cmd = Restore       }
@@ -260,54 +269,60 @@ function main()
    local unuseTbl     = { name = "unuse",       checkMPATH = true,  cmd = UnUse         }
    local updateTbl    = { name = "update",      checkMPATH = true,  cmd = Update        }
    local useTbl       = { name = "use",         checkMPATH = true,  cmd = Use           }
+   local disableTbl   = { name = "disable",     checkMPATH = false, cmd = Disable       }
    local whatisTbl    = { name = "whatis",      checkMPATH = false, cmd = Whatis        }
+   local isLoadedTbl  = { name = "isLoaded",    checkMPATH = false, cmd = IsLoaded      }
+   local isAvailTbl   = { name = "isAvail",     checkMPATH = false, cmd = IsAvail       }
 
    local lmodCmdA = {
-      {'^ad'      , loadTbl       },
-      {'^ap'      , keywordTbl    },
-      {'^av'      , availTbl      },
-      {'^del'     , unloadTbl     },
-      {'^des'     , mcTbl         },
-      {'^dis'     , showTbl       },
-      {'^era'     , unloadTbl     },
-      {'^gd'      , gdTbl         },
-      {'^getd'    , gdTbl         },
-      {'^h'       , helpTbl       },
-      {'^k'       , keywordTbl    },
-      {'^ld'      , savelistTbl   },
-      {'^listd'   , savelistTbl   },
-      {'^lo'      , loadTbl       },
-      {'^l'       , listTbl       },
-      {'^mc'      , mcTbl         },
-      {'^pu'      , purgeTbl      },
-      {'^refr'    , refreshTbl    },
-      {'^rel'     , updateTbl     },
-      {'^rem'     , unloadTbl     },
-      {'^rese'    , resetTbl      },
-      {'^rm'      , unloadTbl     },
-      {'^r'       , restoreTbl    },
-      {'^savel'   , savelistTbl   },
-      {'^sd'      , saveTbl       },
-      {'^sea'     , searchTbl     },
-      {'^setd'    , saveTbl       },
-      {'^sh'      , showTbl       },
-      {'^sl'      , savelistTbl   },
-      {'^sp'      , spiderTbl     },
-      {'^sw'      , swapTbl       },
-      {'^s'       , saveTbl       },
-      {'^table'   , tblLstTbl     },
-      {'^try'     , tryAddTbl     },
-      {'^unuse$'  , unuseTbl      },
-      {'^un'      , unloadTbl     },
-      {'^up'      , updateTbl     },
-      {'^use$'    , useTbl        },
-      {'^w'       , whatisTbl     },
+      {'^ad'          , loadTbl       },
+      {'^ap'          , keywordTbl    },
+      {'^av'          , availTbl      },
+      {'^del'         , unloadTbl     },
+      {'^des'         , mcTbl         },
+      {'^disable'     , disableTbl    },
+      {'^dis'         , showTbl       },
+      {'^era'         , unloadTbl     },
+      {'^gd'          , gdTbl         },
+      {'^getd'        , gdTbl         },
+      {'^h'           , helpTbl       },
+      {'^is[Aa]vail'  , isAvailTbl    },
+      {'^is[-_]avail' , isAvailTbl    },
+      {'^is[Ll]oaded' , isLoadedTbl   },
+      {'^is[-_]loaded', isLoadedTbl   },
+      {'^k'           , keywordTbl    },
+      {'^ld'          , savelistTbl   },
+      {'^listd'       , savelistTbl   },
+      {'^lo'          , loadTbl       },
+      {'^l'           , listTbl       },
+      {'^mc'          , mcTbl         },
+      {'^pu'          , purgeTbl      },
+      {'^refr'        , refreshTbl    },
+      {'^rel'         , updateTbl     },
+      {'^rem'         , unloadTbl     },
+      {'^rese'        , resetTbl      },
+      {'^rm'          , unloadTbl     },
+      {'^r'           , restoreTbl    },
+      {'^savel'       , savelistTbl   },
+      {'^sd'          , saveTbl       },
+      {'^sea'         , searchTbl     },
+      {'^setd'        , saveTbl       },
+      {'^sh'          , showTbl       },
+      {'^sl'          , savelistTbl   },
+      {'^sp'          , spiderTbl     },
+      {'^sw'          , swapTbl       },
+      {'^s'           , saveTbl       },
+      {'^table'       , tblLstTbl     },
+      {'^try'         , tryAddTbl     },
+      {'^unuse$'      , unuseTbl      },
+      {'^unl'         , unloadTbl     },
+      {'^up'          , updateTbl     },
+      {'^use$'        , useTbl        },
+      {'^w'           , whatisTbl     },
    }
 
    build_i18n_messages()
 
-   MCP = MasterControl.build("load")
-   mcp = MasterControl.build("load")
    dbg.set_prefix(colorize("red","Lmod"))
 
    local shellNm = barefilename(arg[1])
@@ -318,6 +333,8 @@ function main()
    end
 
    local masterTbl = masterTbl()
+   MCP = MasterControl.build("load")
+   mcp = MasterControl.build("load")
 
    -- Push Lmod version into environment
    setenv_lmod_version()
@@ -364,12 +381,29 @@ function main()
       dbg.print{"Hostname: ",posix.uname("%n"),"\n"}
       dbg.print{"System: ",posix.uname("%s")," ",posix.uname("%r"),"\n"}
       dbg.print{"Version: ",posix.uname("%v"),"\n"}
+      dbg.print{"Lua Version: ", _VERSION:sub(5,-1),"\n"}
       dbg.print{"Lmod Version: ",Version.name(),"\n"}
       dbg.print{"package.path: ",package.path,"\n"}
       dbg.print{"package.cpath: ",package.cpath,"\n"}
       dbg.print{"lmodPath: ", lmodPath,"\n"}
    end
    -- dumpversion and quit if requested.
+
+   -- Build Shell object from shellNm
+   Shell = BaseShell:build(shellNm)
+   dbg.print{"shellNm: ",shellNm,", Shell:name(): ",Shell:name(),"\n"}
+
+   local tracing = cosmic:value("LMOD_TRACING")
+   if (tracing == "yes" ) then
+      local a   = {}
+      a[#a + 1] = "Lmod version: "
+      a[#a + 1] = Version.name()
+      a[#a + 1] = "\n"
+      a[#a + 1] = "running: module "
+      a[#a + 1] = concatTbl(arg," ")
+      a[#a + 1] = "\n"
+      Shell:echo(concatTbl(a,""))
+   end
 
    if (masterTbl.dumpversion) then
       io.stderr:write(Version.tag(),"\n")
@@ -432,11 +466,9 @@ function main()
    dbg.print{"Calling Master:singleton(checkMPATH) w checkMPATH: ",checkMPATH,"\n"}
    master = Master:singleton(checkMPATH)
 
-   -- Build Shell object from shellNm
-   Shell = BaseShell:build(shellNm)
-   dbg.print{"shellNm: ",shellNm,", Shell:name(): ",Shell:name(),"\n"}
-
    if (masterTbl.checkSyntax) then
+      MCP = MasterControl.build("checkSyntax")
+      mcp = MasterControl.build("checkSyntax")
       Shell:setActive(false)
    end
 
@@ -473,10 +505,15 @@ function main()
    local frameStk = FrameStk:singleton()
    local mt       = frameStk:mt()
 
+   --------------------------------------------------------
    -- Report any admin messages associated with loads
    -- Note that is safe to run every time.
    mcp:reportAdminMsgs()
 
+   --------------------------------------------------------
+   -- Report any missing dependent modules
+   -- Note that is safe to run every time.
+   mcp:reportMissingDepModules()
 
    -- Report any changes (worth reporting from original MT)
    if (not quiet()) then
@@ -487,6 +524,11 @@ function main()
    local n        = mt:name()
    varT[n]        = Var:new(n)
    varT[n]:set(mt:serializeTbl())
+
+   local vPATH = varT["PATH"]
+   if (vPATH) then
+      vPATH:prt();
+   end
 
    ExitHookA.apply()
    dbg.fini("lmod")

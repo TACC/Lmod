@@ -1,0 +1,85 @@
+\documentclass{beamer}
+
+% You can also use a 16:9 aspect ratio:
+%\documentclass[aspectratio=169]{beamer}
+
+\usetheme{TACC16}
+
+% It's possible to move the footer to the right:
+%\usetheme[rightfooter]{TACC16}
+
+
+\begin{document}
+\title[short version of the title]{Kind of a long title to see if this works}
+\subtitle{This is a subtitle, normally not used, but just in case}
+
+\author{Name LastName} 
+\date{January 1st, 1111} 
+
+\frame{\titlepage} 
+
+\frame{\frametitle{Table of contents}\tableofcontents} 
+
+
+\section{First Section} 
+
+\begin{frame}{Frame title}
+\begin{itemize}
+ \item Item 1
+ \item Item 2
+ \begin{itemize}
+  \item SubItem 1
+  \item SubItem 2
+  \begin{itemize}
+  	\item SubSubItem 1
+  \end{itemize}
+\end{itemize}
+\end{itemize}
+\begin{block}{This is a block?}
+Text inside the block
+\end{block}
+\alert{This is an alert text}
+\end{frame}
+
+\begin{frame}{Blocks \& Columns}
+  \begin{columns}[T]
+    \begin{column}{.5\textwidth}
+      \begin{exampleblock}{Example block}
+        Text
+      \end{exampleblock}
+    \end{column}
+    \begin{column}{.5\textwidth}
+      \begin{alertblock}{Alert Block}
+        Text
+      \end{alertblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Math}
+The mass-energy equivalence is described by the famous equation
+ 
+$$E=mc^2$$
+ 
+discovered in 1905 by Albert Einstein. 
+In natural units ($c$ = 1), the formula expresses the identity
+ 
+\begin{equation}
+E=m
+\end{equation}
+
+Extra:
+
+$ \sum_{i=1}^{\infty} $
+
+
+$ \Bigg \langle 3x+7 \Bigg \rangle $
+
+
+
+
+ $ a_0+\cfrac{1}{a_1+\cfrac{1}{a_2+\cfrac{1}{a_3+\cdots}}} $
+\end{frame}
+
+\end{document}
+

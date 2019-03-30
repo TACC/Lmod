@@ -15,7 +15,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -77,6 +77,10 @@ end
 
 function MF_TCL.append_path(self, k, v)
    return "append-path ".. k .. " {" .. v .. "};"
+end
+
+function MF_TCL.header()
+   return "#%Module"
 end
 
 return MF_TCL

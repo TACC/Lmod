@@ -17,7 +17,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -54,12 +54,14 @@ M.always_unload        = MasterControl.unload
 M.add_property         = MasterControl.remove_property
 M.append_path          = MasterControl.remove_path_last
 M.conflict             = MasterControl.quiet
+M.depends_on           = MasterControl.forgo
 M.execute              = MasterControl.execute
 M.family               = MasterControl.unset_family
 M.help                 = MasterControl.quiet
 M.inherit              = MasterControl.inherit
 M.load                 = MasterControl.unload
 M.load_usr             = MasterControl.unload
+M.mgrload              = MasterControl.mgr_unload
 M.myFileName           = MasterControl.myFileName
 M.myModuleFullName     = MasterControl.myModuleFullName
 M.myModuleUsrName      = MasterControl.myModuleUsrName
@@ -69,15 +71,15 @@ M.prepend_path         = MasterControl.remove_path_first
 M.prereq               = MasterControl.quiet
 M.prereq_any           = MasterControl.quiet
 M.pushenv              = MasterControl.popenv
-M.remove_path          = MasterControl.quiet
+M.remove_path          = MasterControl.remove_path
 M.remove_property      = MasterControl.quiet
 M.report               = MasterControl.warning
 M.setenv               = MasterControl.unsetenv
 M.set_alias            = MasterControl.unset_alias
 M.set_shell_function   = MasterControl.unset_shell_function
 M.try_load             = MasterControl.unload
-M.unload               = MasterControl.quiet
-M.unload_usr           = MasterControl.quiet
+M.unload               = MasterControl.unload
+M.unload_usr           = MasterControl.unload_usr
 M.unsetenv             = MasterControl.quiet
 M.unset_alias          = MasterControl.quiet
 M.unset_shell_function = MasterControl.quiet

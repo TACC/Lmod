@@ -195,7 +195,8 @@ test -x / || exit 1"
   as_suggested="  as_lineno_1=";as_suggested=$as_suggested$LINENO;as_suggested=$as_suggested" as_lineno_1a=\$LINENO
   as_lineno_2=";as_suggested=$as_suggested$LINENO;as_suggested=$as_suggested" as_lineno_2a=\$LINENO
   eval 'test \"x\$as_lineno_1'\$as_run'\" != \"x\$as_lineno_2'\$as_run'\" &&
-  test \"x\`expr \$as_lineno_1'\$as_run' + 1\`\" = \"x\$as_lineno_2'\$as_run'\"' || exit 1"
+  test \"x\`expr \$as_lineno_1'\$as_run' + 1\`\" = \"x\$as_lineno_2'\$as_run'\"' || exit 1
+test \$(( 1 + 1 )) = 2 || exit 1"
   if (eval "$as_required") 2>/dev/null; then :
   as_have_required=yes
 else
@@ -583,12 +584,47 @@ PACKAGE_URL=
 
 ac_unique_file="Makefile.in"
 ac_default_prefix=/usr/local
+# Factoring default headers for most tests.
+ac_includes_default="\
+#include <stdio.h>
+#ifdef HAVE_SYS_TYPES_H
+# include <sys/types.h>
+#endif
+#ifdef HAVE_SYS_STAT_H
+# include <sys/stat.h>
+#endif
+#ifdef STDC_HEADERS
+# include <stdlib.h>
+# include <stddef.h>
+#else
+# ifdef HAVE_STDLIB_H
+#  include <stdlib.h>
+# endif
+#endif
+#ifdef HAVE_STRING_H
+# if !defined STDC_HEADERS && defined HAVE_MEMORY_H
+#  include <memory.h>
+# endif
+# include <string.h>
+#endif
+#ifdef HAVE_STRINGS_H
+# include <strings.h>
+#endif
+#ifdef HAVE_INTTYPES_H
+# include <inttypes.h>
+#endif
+#ifdef HAVE_STDINT_H
+# include <stdint.h>
+#endif
+#ifdef HAVE_UNISTD_H
+# include <unistd.h>
+#endif"
+
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
 ZSH
 ZSH_SITE_FUNCTIONS_DIRS
 pkgConfig
-HAVE_LUA_JSON
 HAVE_LUA_TERM
 HAVE_LUAFILESYSTEM
 SYS_LUA_CPATH
@@ -602,13 +638,23 @@ PATH_TO_LUAC
 PATH_TO_LUA
 PATH_TO_HASHSUM
 PATH_TO_GIT
+PATH_TO_LS
 PS
 EXPR
 BASENAME
 SYS_LD_PRELOAD
 SYS_LD_LIB_PATH
+EGREP
+GREP
+CPP
+FAST_TCL_INTERP
+SILENCE_SHELL_DEBUGGING
+USE_BUILT_IN_PKGS
+SITE_CONTROLLED_PREFIX
+MODULEPATH_INIT
 CACHED_LOADS
 LUA_INCLUDE
+TMOD_FIND_FIRST
 TMOD_PATH_RULE
 PIN_VERSIONS
 IGNORE_DIRS
@@ -616,6 +662,7 @@ SETTARG
 MPATH_AVAIL
 DISABLE_NAME_AUTOSWAP
 ALLOW_TCL_MFILES
+SYSHOST
 SITE_NAME
 PREPEND_BLOCK
 UPDATE_SYSTEM_FN
@@ -629,6 +676,7 @@ REDIRECT
 EXPORT_MODULE
 AUTO_SWAP
 EXACT_MATCH
+HIDDEN_ITALIC
 COLORIZE
 CASE_INDEPENDENT_SORTING
 LMOD_OVERRIDE_LANG
@@ -660,6 +708,7 @@ infodir
 docdir
 oldincludedir
 includedir
+runstatedir
 localstatedir
 sharedstatedir
 sysconfdir
@@ -687,6 +736,7 @@ with_siteMsgFile
 with_lang
 with_caseIndependentSorting
 with_colorize
+with_hiddenItalic
 with_exactMatch
 with_autoSwap
 with_exportedModuleCmd
@@ -700,6 +750,7 @@ with_spiderCacheDescript
 with_updateSystemFn
 with_prependBlock
 with_siteName
+with_syshost
 with_tcl
 with_disableNameAutoSwap
 with_mpathSearch
@@ -707,8 +758,14 @@ with_settarg
 with_ignoreDirs
 with_pinVersions
 with_tmodPathRule
+with_tmodFindFirst
 with_lua_include
 with_cachedLoads
+with_ModulePathInit
+with_siteControlPrefix
+with_useBuiltinPkgs
+with_silentShellDebugging
+with_fastTCLInterp
 '
       ac_precious_vars='build_alias
 host_alias
@@ -717,7 +774,8 @@ CC
 CFLAGS
 LDFLAGS
 LIBS
-CPPFLAGS'
+CPPFLAGS
+CPP'
 
 
 # Initialize some variables set by options.
@@ -756,6 +814,7 @@ datadir='${datarootdir}'
 sysconfdir='${prefix}/etc'
 sharedstatedir='${prefix}/com'
 localstatedir='${prefix}/var'
+runstatedir='${localstatedir}/run'
 includedir='${prefix}/include'
 oldincludedir='/usr/include'
 docdir='${datarootdir}/doc/${PACKAGE}'
@@ -1008,6 +1067,15 @@ do
   | -silent | --silent | --silen | --sile | --sil)
     silent=yes ;;
 
+  -runstatedir | --runstatedir | --runstatedi | --runstated \
+  | --runstate | --runstat | --runsta | --runst | --runs \
+  | --run | --ru | --r)
+    ac_prev=runstatedir ;;
+  -runstatedir=* | --runstatedir=* | --runstatedi=* | --runstated=* \
+  | --runstate=* | --runstat=* | --runsta=* | --runst=* | --runs=* \
+  | --run=* | --ru=* | --r=*)
+    runstatedir=$ac_optarg ;;
+
   -sbindir | --sbindir | --sbindi | --sbind | --sbin | --sbi | --sb)
     ac_prev=sbindir ;;
   -sbindir=* | --sbindir=* | --sbindi=* | --sbind=* | --sbin=* \
@@ -1145,7 +1213,7 @@ fi
 for ac_var in	exec_prefix prefix bindir sbindir libexecdir datarootdir \
 		datadir sysconfdir sharedstatedir localstatedir includedir \
 		oldincludedir docdir infodir htmldir dvidir pdfdir psdir \
-		libdir localedir mandir
+		libdir localedir mandir runstatedir
 do
   eval ac_val=\$$ac_var
   # Remove trailing slashes.
@@ -1298,6 +1366,7 @@ Fine tuning of the installation directories:
   --sysconfdir=DIR        read-only single-machine data [PREFIX/etc]
   --sharedstatedir=DIR    modifiable architecture-independent data [PREFIX/com]
   --localstatedir=DIR     modifiable single-machine data [PREFIX/var]
+  --runstatedir=DIR       modifiable per-process data [LOCALSTATEDIR/run]
   --libdir=DIR            object code libraries [EPREFIX/lib]
   --includedir=DIR        C header files [PREFIX/include]
   --oldincludedir=DIR     C header files for non-gcc [/usr/include]
@@ -1325,7 +1394,7 @@ Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
   --with-duplicatePaths=ans
-                          Allow multiple directories in path like variables
+                          Allow duplicate directories in path like variables
                           [[no]]
   --with-siteMsgFile=ans  Site Message File [[<empty>]]
   --with-lang=ans         Override $LANG for Lmod errors/messsages/warnings
@@ -1334,6 +1403,7 @@ Optional Packages:
                           Make avail and spider use case independent sorting
                           [[no]]
   --with-colorize=ans     allow for colorized output [[yes]]
+  --with-hiddenItalic=ans Use italic for hidden module instead of faint[[no]]
   --with-exactMatch=ans   require exact match, disable defaults [[no]]
   --with-autoSwap=ans     Allow auto swapping of compiler etc. [[yes]]
   --with-exportedModuleCmd=ans
@@ -1361,6 +1431,7 @@ Optional Packages:
   --with-prependBlock=ans Treat multiple directories passed to prepend in
                           normal order/ not reversed [[NORMAL]]
   --with-siteName=ans     Site Name [[<empty>]]
+  --with-syshost=ans      Site Name [[<empty>]]
   --with-tcl=ans          Allow TCL modulefiles [[yes]]
   --with-disableNameAutoSwap=ans
                           disable one name rule autoswapping [[no]]
@@ -1372,9 +1443,24 @@ Optional Packages:
                           changing with the default.[[no]]
   --with-tmodPathRule=ans If path entry is already there then do not
                           append/prepend.[[no]]
+  --with-tmodFindFirst=ans
+                          Use Tmod Find First rule instead of Find Best for
+                          defaults.[[no]]
   --with-lua_include=ans  Save/Restore will use the current version instead of
                           changing with the default.[[no]]
   --with-cachedLoads=ans  Use cache when loading modules. [[no]]
+  --with-ModulePathInit=ans
+                          File containing initial MODULEPATH directories
+  --with-siteControlPrefix=ans
+                          A user controlled prefix. [[no]]
+  --with-useBuiltinPkgs=ans
+                          Use Built-in lua package instead of system ones.
+                          [[no]]
+  --with-silentShellDebugging=ans
+                          Use Built-in lua package instead of system ones.
+                          [[no]]
+  --with-fastTCLInterp=ans
+                          Use the fast TCL interpreter. [[yes]]
 
 Some influential environment variables:
   CC          C compiler command
@@ -1384,6 +1470,7 @@ Some influential environment variables:
   LIBS        libraries to pass to the linker, e.g. -l<library>
   CPPFLAGS    (Objective) C/C++ preprocessor flags, e.g. -I<include dir> if
               you have headers in a nonstandard directory <include dir>
+  CPP         C preprocessor
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -1502,6 +1589,249 @@ fi
   as_fn_set_status $ac_retval
 
 } # ac_fn_c_try_compile
+
+# ac_fn_c_try_cpp LINENO
+# ----------------------
+# Try to preprocess conftest.$ac_ext, and return whether this succeeded.
+ac_fn_c_try_cpp ()
+{
+  as_lineno=${as_lineno-"$1"} as_lineno_stack=as_lineno_stack=$as_lineno_stack
+  if { { ac_try="$ac_cpp conftest.$ac_ext"
+case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval ac_try_echo="\"\$as_me:${as_lineno-$LINENO}: $ac_try_echo\""
+$as_echo "$ac_try_echo"; } >&5
+  (eval "$ac_cpp conftest.$ac_ext") 2>conftest.err
+  ac_status=$?
+  if test -s conftest.err; then
+    grep -v '^ *+' conftest.err >conftest.er1
+    cat conftest.er1 >&5
+    mv -f conftest.er1 conftest.err
+  fi
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; } > conftest.i && {
+	 test -z "$ac_c_preproc_warn_flag$ac_c_werror_flag" ||
+	 test ! -s conftest.err
+       }; then :
+  ac_retval=0
+else
+  $as_echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+    ac_retval=1
+fi
+  eval $as_lineno_stack; ${as_lineno_stack:+:} unset as_lineno
+  as_fn_set_status $ac_retval
+
+} # ac_fn_c_try_cpp
+
+# ac_fn_c_check_header_mongrel LINENO HEADER VAR INCLUDES
+# -------------------------------------------------------
+# Tests whether HEADER exists, giving a warning if it cannot be compiled using
+# the include files in INCLUDES and setting the cache variable VAR
+# accordingly.
+ac_fn_c_check_header_mongrel ()
+{
+  as_lineno=${as_lineno-"$1"} as_lineno_stack=as_lineno_stack=$as_lineno_stack
+  if eval \${$3+:} false; then :
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $2" >&5
+$as_echo_n "checking for $2... " >&6; }
+if eval \${$3+:} false; then :
+  $as_echo_n "(cached) " >&6
+fi
+eval ac_res=\$$3
+	       { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_res" >&5
+$as_echo "$ac_res" >&6; }
+else
+  # Is the header compilable?
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking $2 usability" >&5
+$as_echo_n "checking $2 usability... " >&6; }
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+$4
+#include <$2>
+_ACEOF
+if ac_fn_c_try_compile "$LINENO"; then :
+  ac_header_compiler=yes
+else
+  ac_header_compiler=no
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_header_compiler" >&5
+$as_echo "$ac_header_compiler" >&6; }
+
+# Is the header present?
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking $2 presence" >&5
+$as_echo_n "checking $2 presence... " >&6; }
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+#include <$2>
+_ACEOF
+if ac_fn_c_try_cpp "$LINENO"; then :
+  ac_header_preproc=yes
+else
+  ac_header_preproc=no
+fi
+rm -f conftest.err conftest.i conftest.$ac_ext
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_header_preproc" >&5
+$as_echo "$ac_header_preproc" >&6; }
+
+# So?  What about this header?
+case $ac_header_compiler:$ac_header_preproc:$ac_c_preproc_warn_flag in #((
+  yes:no: )
+    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2: accepted by the compiler, rejected by the preprocessor!" >&5
+$as_echo "$as_me: WARNING: $2: accepted by the compiler, rejected by the preprocessor!" >&2;}
+    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2: proceeding with the compiler's result" >&5
+$as_echo "$as_me: WARNING: $2: proceeding with the compiler's result" >&2;}
+    ;;
+  no:yes:* )
+    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2: present but cannot be compiled" >&5
+$as_echo "$as_me: WARNING: $2: present but cannot be compiled" >&2;}
+    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2:     check for missing prerequisite headers?" >&5
+$as_echo "$as_me: WARNING: $2:     check for missing prerequisite headers?" >&2;}
+    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2: see the Autoconf documentation" >&5
+$as_echo "$as_me: WARNING: $2: see the Autoconf documentation" >&2;}
+    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2:     section \"Present But Cannot Be Compiled\"" >&5
+$as_echo "$as_me: WARNING: $2:     section \"Present But Cannot Be Compiled\"" >&2;}
+    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2: proceeding with the compiler's result" >&5
+$as_echo "$as_me: WARNING: $2: proceeding with the compiler's result" >&2;}
+    ;;
+esac
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $2" >&5
+$as_echo_n "checking for $2... " >&6; }
+if eval \${$3+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  eval "$3=\$ac_header_compiler"
+fi
+eval ac_res=\$$3
+	       { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_res" >&5
+$as_echo "$ac_res" >&6; }
+fi
+  eval $as_lineno_stack; ${as_lineno_stack:+:} unset as_lineno
+
+} # ac_fn_c_check_header_mongrel
+
+# ac_fn_c_try_run LINENO
+# ----------------------
+# Try to link conftest.$ac_ext, and return whether this succeeded. Assumes
+# that executables *can* be run.
+ac_fn_c_try_run ()
+{
+  as_lineno=${as_lineno-"$1"} as_lineno_stack=as_lineno_stack=$as_lineno_stack
+  if { { ac_try="$ac_link"
+case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval ac_try_echo="\"\$as_me:${as_lineno-$LINENO}: $ac_try_echo\""
+$as_echo "$ac_try_echo"; } >&5
+  (eval "$ac_link") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; } && { ac_try='./conftest$ac_exeext'
+  { { case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval ac_try_echo="\"\$as_me:${as_lineno-$LINENO}: $ac_try_echo\""
+$as_echo "$ac_try_echo"; } >&5
+  (eval "$ac_try") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; }; then :
+  ac_retval=0
+else
+  $as_echo "$as_me: program exited with status $ac_status" >&5
+       $as_echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+       ac_retval=$ac_status
+fi
+  rm -rf conftest.dSYM conftest_ipa8_conftest.oo
+  eval $as_lineno_stack; ${as_lineno_stack:+:} unset as_lineno
+  as_fn_set_status $ac_retval
+
+} # ac_fn_c_try_run
+
+# ac_fn_c_check_header_compile LINENO HEADER VAR INCLUDES
+# -------------------------------------------------------
+# Tests whether HEADER exists and can be compiled using the include files in
+# INCLUDES, setting the cache variable VAR accordingly.
+ac_fn_c_check_header_compile ()
+{
+  as_lineno=${as_lineno-"$1"} as_lineno_stack=as_lineno_stack=$as_lineno_stack
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $2" >&5
+$as_echo_n "checking for $2... " >&6; }
+if eval \${$3+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+$4
+#include <$2>
+_ACEOF
+if ac_fn_c_try_compile "$LINENO"; then :
+  eval "$3=yes"
+else
+  eval "$3=no"
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+fi
+eval ac_res=\$$3
+	       { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_res" >&5
+$as_echo "$ac_res" >&6; }
+  eval $as_lineno_stack; ${as_lineno_stack:+:} unset as_lineno
+
+} # ac_fn_c_check_header_compile
+
+# ac_fn_c_try_link LINENO
+# -----------------------
+# Try to link conftest.$ac_ext, and return whether this succeeded.
+ac_fn_c_try_link ()
+{
+  as_lineno=${as_lineno-"$1"} as_lineno_stack=as_lineno_stack=$as_lineno_stack
+  rm -f conftest.$ac_objext conftest$ac_exeext
+  if { { ac_try="$ac_link"
+case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval ac_try_echo="\"\$as_me:${as_lineno-$LINENO}: $ac_try_echo\""
+$as_echo "$ac_try_echo"; } >&5
+  (eval "$ac_link") 2>conftest.err
+  ac_status=$?
+  if test -s conftest.err; then
+    grep -v '^ *+' conftest.err >conftest.er1
+    cat conftest.er1 >&5
+    mv -f conftest.er1 conftest.err
+  fi
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; } && {
+	 test -z "$ac_c_werror_flag" ||
+	 test ! -s conftest.err
+       } && test -s conftest$ac_exeext && {
+	 test "$cross_compiling" = yes ||
+	 test -x conftest$ac_exeext
+       }; then :
+  ac_retval=0
+else
+  $as_echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+	ac_retval=1
+fi
+  # Delete the IPA/IPO (Inter Procedural Analysis/Optimization) information
+  # created by the PGI compiler (conftest_ipa8_conftest.oo), as it would
+  # interfere with the next link command; also delete a directory that is
+  # left behind by Apple's compiler.  We do this before executing the actions.
+  rm -rf conftest.dSYM conftest_ipa8_conftest.oo
+  eval $as_lineno_stack; ${as_lineno_stack:+:} unset as_lineno
+  as_fn_set_status $ac_retval
+
+} # ac_fn_c_try_link
 cat >config.log <<_ACEOF
 This file contains any messages produced by compilers while
 running configure, to aid debugging if configure makes a mistake.
@@ -2758,6 +3088,28 @@ fi
 
 
 
+# Check whether --with-hiddenItalic was given.
+if test "${with_hiddenItalic+set}" = set; then :
+  withval=$with_hiddenItalic; HIDDEN_ITALIC="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: HIDDEN_ITALIC=$with_hiddenItalic" >&5
+$as_echo "HIDDEN_ITALIC=$with_hiddenItalic" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define HIDDEN_ITALIC "$with_hiddenItalic"
+_ACEOF
+
+else
+  withval="no"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: HIDDEN_ITALIC=$withval" >&5
+$as_echo "HIDDEN_ITALIC=$withval" >&6; }
+    HIDDEN_ITALIC="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define HIDDEN_ITALIC "$withval"
+_ACEOF
+
+fi
+
+
+
 # Check whether --with-exactMatch was given.
 if test "${with_exactMatch+set}" = set; then :
   withval=$with_exactMatch; EXACT_MATCH="$withval"
@@ -2804,7 +3156,9 @@ fi
 
 # Check whether --with-exportedModuleCmd was given.
 if test "${with_exportedModuleCmd+set}" = set; then :
-  withval=$with_exportedModuleCmd; EXPORT_MODULE="$withval"
+  withval=$with_exportedModuleCmd; with_exportedModuleCmd=`echo $with_exportedModuleCmd | tr '[:upper:]' '[:lower:]'`
+    withval=$with_exportedModuleCmd
+    EXPORT_MODULE="$withval"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: EXPORT_MODULE=$with_exportedModuleCmd" >&5
 $as_echo "EXPORT_MODULE=$with_exportedModuleCmd" >&6; }
     cat >>confdefs.h <<_ACEOF
@@ -3043,6 +3397,28 @@ fi
 
 
 
+# Check whether --with-syshost was given.
+if test "${with_syshost+set}" = set; then :
+  withval=$with_syshost; SYSHOST="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SYSHOST=$with_syshost" >&5
+$as_echo "SYSHOST=$with_syshost" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define SYSHOST "$with_syshost"
+_ACEOF
+
+else
+  withval='<empty>'
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SYSHOST=$withval" >&5
+$as_echo "SYSHOST=$withval" >&6; }
+    SYSHOST="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define SYSHOST "$withval"
+_ACEOF
+
+fi
+
+
+
 # Check whether --with-tcl was given.
 if test "${with_tcl+set}" = set; then :
   withval=$with_tcl; ALLOW_TCL_MFILES="$withval"
@@ -3199,6 +3575,28 @@ fi
 
 
 
+# Check whether --with-tmodFindFirst was given.
+if test "${with_tmodFindFirst+set}" = set; then :
+  withval=$with_tmodFindFirst; TMOD_FIND_FIRST="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: TMOD_FIND_FIRST=$with_tmodFindFirst" >&5
+$as_echo "TMOD_FIND_FIRST=$with_tmodFindFirst" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define TMOD_FIND_FIRST "$with_tmodFindFirst"
+_ACEOF
+
+else
+  withval="NO"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: TMOD_FIND_FIRST=$withval" >&5
+$as_echo "TMOD_FIND_FIRST=$withval" >&6; }
+    TMOD_FIND_FIRST="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define TMOD_FIND_FIRST "$withval"
+_ACEOF
+
+fi
+
+
+
 # Check whether --with-lua_include was given.
 if test "${with_lua_include+set}" = set; then :
   withval=$with_lua_include; LUA_INCLUDE="$withval"
@@ -3241,6 +3639,598 @@ _ACEOF
 
 fi
 
+
+
+# Check whether --with-ModulePathInit was given.
+if test "${with_ModulePathInit+set}" = set; then :
+  withval=$with_ModulePathInit; MODULEPATH_INIT="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: MODULEPATH_INIT=$with_ModulePathInit" >&5
+$as_echo "MODULEPATH_INIT=$with_ModulePathInit" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define MODULEPATH_INIT "$with_ModulePathInit"
+_ACEOF
+
+else
+  withval="@PKG@/init/.modulespath"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: MODULEPATH_INIT=$withval" >&5
+$as_echo "MODULEPATH_INIT=$withval" >&6; }
+    MODULEPATH_INIT="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define MODULEPATH_INIT "$withval"
+_ACEOF
+
+fi
+
+
+
+# Check whether --with-siteControlPrefix was given.
+if test "${with_siteControlPrefix+set}" = set; then :
+  withval=$with_siteControlPrefix; SITE_CONTROLLED_PREFIX="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SITE_CONTROLLED_PREFIX=$with_siteControlPrefix" >&5
+$as_echo "SITE_CONTROLLED_PREFIX=$with_siteControlPrefix" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define SITE_CONTROLLED_PREFIX "$with_siteControlPrefix"
+_ACEOF
+
+else
+  withval="no"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SITE_CONTROLLED_PREFIX=$withval" >&5
+$as_echo "SITE_CONTROLLED_PREFIX=$withval" >&6; }
+    SITE_CONTROLLED_PREFIX="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define SITE_CONTROLLED_PREFIX "$withval"
+_ACEOF
+
+fi
+
+
+
+# Check whether --with-useBuiltinPkgs was given.
+if test "${with_useBuiltinPkgs+set}" = set; then :
+  withval=$with_useBuiltinPkgs; USE_BUILT_IN_PKGS="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: USE_BUILT_IN_PKGS=$with_useBuiltinPkgs" >&5
+$as_echo "USE_BUILT_IN_PKGS=$with_useBuiltinPkgs" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define USE_BUILT_IN_PKGS "$with_useBuiltinPkgs"
+_ACEOF
+
+else
+  withval="no"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: USE_BUILT_IN_PKGS=$withval" >&5
+$as_echo "USE_BUILT_IN_PKGS=$withval" >&6; }
+    USE_BUILT_IN_PKGS="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define USE_BUILT_IN_PKGS "$withval"
+_ACEOF
+
+fi
+
+
+
+# Check whether --with-silentShellDebugging was given.
+if test "${with_silentShellDebugging+set}" = set; then :
+  withval=$with_silentShellDebugging; SILENCE_SHELL_DEBUGGING="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SILENCE_SHELL_DEBUGGING=$with_silentShellDebugging" >&5
+$as_echo "SILENCE_SHELL_DEBUGGING=$with_silentShellDebugging" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define SILENCE_SHELL_DEBUGGING "$with_silentShellDebugging"
+_ACEOF
+
+else
+  withval="no"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: SILENCE_SHELL_DEBUGGING=$withval" >&5
+$as_echo "SILENCE_SHELL_DEBUGGING=$withval" >&6; }
+    SILENCE_SHELL_DEBUGGING="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define SILENCE_SHELL_DEBUGGING "$withval"
+_ACEOF
+
+fi
+
+
+
+# Check whether --with-fastTCLInterp was given.
+if test "${with_fastTCLInterp+set}" = set; then :
+  withval=$with_fastTCLInterp; FAST_TCL_INTERP="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: FAST_TCL_INTERP=$with_fastTCLInterp" >&5
+$as_echo "FAST_TCL_INTERP=$with_fastTCLInterp" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define FAST_TCL_INTERP "$with_fastTCLInterp"
+_ACEOF
+
+else
+  withval="yes"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: FAST_TCL_INTERP=$withval" >&5
+$as_echo "FAST_TCL_INTERP=$withval" >&6; }
+    FAST_TCL_INTERP="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define FAST_TCL_INTERP "$withval"
+_ACEOF
+
+fi
+
+
+if test "$ALLOW_TCL_MFILES" = yes -a "$FAST_TCL_INTERP" = yes ; then
+
+   OS=$(uname -s)
+   DIR=/usr/include/tcl
+   if test "$OS" = Darwin ; then
+     DIR=$(xcrun --show-sdk-path)
+     DIR=${DIR}/usr/include
+   fi
+
+
+   CPPFLAGS="-I $DIR"
+
+
+ac_ext=c
+ac_cpp='$CPP $CPPFLAGS'
+ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+ac_compiler_gnu=$ac_cv_c_compiler_gnu
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking how to run the C preprocessor" >&5
+$as_echo_n "checking how to run the C preprocessor... " >&6; }
+# On Suns, sometimes $CPP names a directory.
+if test -n "$CPP" && test -d "$CPP"; then
+  CPP=
+fi
+if test -z "$CPP"; then
+  if ${ac_cv_prog_CPP+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+      # Double quotes because CPP needs to be expanded
+    for CPP in "$CC -E" "$CC -E -traditional-cpp" "/lib/cpp"
+    do
+      ac_preproc_ok=false
+for ac_c_preproc_warn_flag in '' yes
+do
+  # Use a header file that comes with gcc, so configuring glibc
+  # with a fresh cross-compiler works.
+  # Prefer <limits.h> to <assert.h> if __STDC__ is defined, since
+  # <limits.h> exists even on freestanding compilers.
+  # On the NeXT, cc -E runs the code through the compiler's parser,
+  # not just through cpp. "Syntax error" is here to catch this case.
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+#ifdef __STDC__
+# include <limits.h>
+#else
+# include <assert.h>
+#endif
+		     Syntax error
+_ACEOF
+if ac_fn_c_try_cpp "$LINENO"; then :
+
+else
+  # Broken: fails on valid input.
+continue
+fi
+rm -f conftest.err conftest.i conftest.$ac_ext
+
+  # OK, works on sane cases.  Now check whether nonexistent headers
+  # can be detected and how.
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+#include <ac_nonexistent.h>
+_ACEOF
+if ac_fn_c_try_cpp "$LINENO"; then :
+  # Broken: success on invalid input.
+continue
+else
+  # Passes both tests.
+ac_preproc_ok=:
+break
+fi
+rm -f conftest.err conftest.i conftest.$ac_ext
+
+done
+# Because of `break', _AC_PREPROC_IFELSE's cleaning code was skipped.
+rm -f conftest.i conftest.err conftest.$ac_ext
+if $ac_preproc_ok; then :
+  break
+fi
+
+    done
+    ac_cv_prog_CPP=$CPP
+
+fi
+  CPP=$ac_cv_prog_CPP
+else
+  ac_cv_prog_CPP=$CPP
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $CPP" >&5
+$as_echo "$CPP" >&6; }
+ac_preproc_ok=false
+for ac_c_preproc_warn_flag in '' yes
+do
+  # Use a header file that comes with gcc, so configuring glibc
+  # with a fresh cross-compiler works.
+  # Prefer <limits.h> to <assert.h> if __STDC__ is defined, since
+  # <limits.h> exists even on freestanding compilers.
+  # On the NeXT, cc -E runs the code through the compiler's parser,
+  # not just through cpp. "Syntax error" is here to catch this case.
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+#ifdef __STDC__
+# include <limits.h>
+#else
+# include <assert.h>
+#endif
+		     Syntax error
+_ACEOF
+if ac_fn_c_try_cpp "$LINENO"; then :
+
+else
+  # Broken: fails on valid input.
+continue
+fi
+rm -f conftest.err conftest.i conftest.$ac_ext
+
+  # OK, works on sane cases.  Now check whether nonexistent headers
+  # can be detected and how.
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+#include <ac_nonexistent.h>
+_ACEOF
+if ac_fn_c_try_cpp "$LINENO"; then :
+  # Broken: success on invalid input.
+continue
+else
+  # Passes both tests.
+ac_preproc_ok=:
+break
+fi
+rm -f conftest.err conftest.i conftest.$ac_ext
+
+done
+# Because of `break', _AC_PREPROC_IFELSE's cleaning code was skipped.
+rm -f conftest.i conftest.err conftest.$ac_ext
+if $ac_preproc_ok; then :
+
+else
+  { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+as_fn_error $? "C preprocessor \"$CPP\" fails sanity check
+See \`config.log' for more details" "$LINENO" 5; }
+fi
+
+ac_ext=c
+ac_cpp='$CPP $CPPFLAGS'
+ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+ac_compiler_gnu=$ac_cv_c_compiler_gnu
+
+
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for grep that handles long lines and -e" >&5
+$as_echo_n "checking for grep that handles long lines and -e... " >&6; }
+if ${ac_cv_path_GREP+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  if test -z "$GREP"; then
+  ac_path_GREP_found=false
+  # Loop through the user's path and test for each of PROGNAME-LIST
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH$PATH_SEPARATOR/usr/xpg4/bin
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_prog in grep ggrep; do
+    for ac_exec_ext in '' $ac_executable_extensions; do
+      ac_path_GREP="$as_dir/$ac_prog$ac_exec_ext"
+      as_fn_executable_p "$ac_path_GREP" || continue
+# Check for GNU ac_path_GREP and select it if it is found.
+  # Check for GNU $ac_path_GREP
+case `"$ac_path_GREP" --version 2>&1` in
+*GNU*)
+  ac_cv_path_GREP="$ac_path_GREP" ac_path_GREP_found=:;;
+*)
+  ac_count=0
+  $as_echo_n 0123456789 >"conftest.in"
+  while :
+  do
+    cat "conftest.in" "conftest.in" >"conftest.tmp"
+    mv "conftest.tmp" "conftest.in"
+    cp "conftest.in" "conftest.nl"
+    $as_echo 'GREP' >> "conftest.nl"
+    "$ac_path_GREP" -e 'GREP$' -e '-(cannot match)-' < "conftest.nl" >"conftest.out" 2>/dev/null || break
+    diff "conftest.out" "conftest.nl" >/dev/null 2>&1 || break
+    as_fn_arith $ac_count + 1 && ac_count=$as_val
+    if test $ac_count -gt ${ac_path_GREP_max-0}; then
+      # Best one so far, save it but keep looking for a better one
+      ac_cv_path_GREP="$ac_path_GREP"
+      ac_path_GREP_max=$ac_count
+    fi
+    # 10*(2^10) chars as input seems more than enough
+    test $ac_count -gt 10 && break
+  done
+  rm -f conftest.in conftest.tmp conftest.nl conftest.out;;
+esac
+
+      $ac_path_GREP_found && break 3
+    done
+  done
+  done
+IFS=$as_save_IFS
+  if test -z "$ac_cv_path_GREP"; then
+    as_fn_error $? "no acceptable grep could be found in $PATH$PATH_SEPARATOR/usr/xpg4/bin" "$LINENO" 5
+  fi
+else
+  ac_cv_path_GREP=$GREP
+fi
+
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_path_GREP" >&5
+$as_echo "$ac_cv_path_GREP" >&6; }
+ GREP="$ac_cv_path_GREP"
+
+
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for egrep" >&5
+$as_echo_n "checking for egrep... " >&6; }
+if ${ac_cv_path_EGREP+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  if echo a | $GREP -E '(a|b)' >/dev/null 2>&1
+   then ac_cv_path_EGREP="$GREP -E"
+   else
+     if test -z "$EGREP"; then
+  ac_path_EGREP_found=false
+  # Loop through the user's path and test for each of PROGNAME-LIST
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH$PATH_SEPARATOR/usr/xpg4/bin
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_prog in egrep; do
+    for ac_exec_ext in '' $ac_executable_extensions; do
+      ac_path_EGREP="$as_dir/$ac_prog$ac_exec_ext"
+      as_fn_executable_p "$ac_path_EGREP" || continue
+# Check for GNU ac_path_EGREP and select it if it is found.
+  # Check for GNU $ac_path_EGREP
+case `"$ac_path_EGREP" --version 2>&1` in
+*GNU*)
+  ac_cv_path_EGREP="$ac_path_EGREP" ac_path_EGREP_found=:;;
+*)
+  ac_count=0
+  $as_echo_n 0123456789 >"conftest.in"
+  while :
+  do
+    cat "conftest.in" "conftest.in" >"conftest.tmp"
+    mv "conftest.tmp" "conftest.in"
+    cp "conftest.in" "conftest.nl"
+    $as_echo 'EGREP' >> "conftest.nl"
+    "$ac_path_EGREP" 'EGREP$' < "conftest.nl" >"conftest.out" 2>/dev/null || break
+    diff "conftest.out" "conftest.nl" >/dev/null 2>&1 || break
+    as_fn_arith $ac_count + 1 && ac_count=$as_val
+    if test $ac_count -gt ${ac_path_EGREP_max-0}; then
+      # Best one so far, save it but keep looking for a better one
+      ac_cv_path_EGREP="$ac_path_EGREP"
+      ac_path_EGREP_max=$ac_count
+    fi
+    # 10*(2^10) chars as input seems more than enough
+    test $ac_count -gt 10 && break
+  done
+  rm -f conftest.in conftest.tmp conftest.nl conftest.out;;
+esac
+
+      $ac_path_EGREP_found && break 3
+    done
+  done
+  done
+IFS=$as_save_IFS
+  if test -z "$ac_cv_path_EGREP"; then
+    as_fn_error $? "no acceptable egrep could be found in $PATH$PATH_SEPARATOR/usr/xpg4/bin" "$LINENO" 5
+  fi
+else
+  ac_cv_path_EGREP=$EGREP
+fi
+
+   fi
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_path_EGREP" >&5
+$as_echo "$ac_cv_path_EGREP" >&6; }
+ EGREP="$ac_cv_path_EGREP"
+
+
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for ANSI C header files" >&5
+$as_echo_n "checking for ANSI C header files... " >&6; }
+if ${ac_cv_header_stdc+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+#include <stdlib.h>
+#include <stdarg.h>
+#include <string.h>
+#include <float.h>
+
+int
+main ()
+{
+
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_compile "$LINENO"; then :
+  ac_cv_header_stdc=yes
+else
+  ac_cv_header_stdc=no
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+
+if test $ac_cv_header_stdc = yes; then
+  # SunOS 4.x string.h does not declare mem*, contrary to ANSI.
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+#include <string.h>
+
+_ACEOF
+if (eval "$ac_cpp conftest.$ac_ext") 2>&5 |
+  $EGREP "memchr" >/dev/null 2>&1; then :
+
+else
+  ac_cv_header_stdc=no
+fi
+rm -f conftest*
+
+fi
+
+if test $ac_cv_header_stdc = yes; then
+  # ISC 2.0.2 stdlib.h does not declare free, contrary to ANSI.
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+#include <stdlib.h>
+
+_ACEOF
+if (eval "$ac_cpp conftest.$ac_ext") 2>&5 |
+  $EGREP "free" >/dev/null 2>&1; then :
+
+else
+  ac_cv_header_stdc=no
+fi
+rm -f conftest*
+
+fi
+
+if test $ac_cv_header_stdc = yes; then
+  # /bin/cc in Irix-4.0.5 gets non-ANSI ctype macros unless using -ansi.
+  if test "$cross_compiling" = yes; then :
+  :
+else
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+#include <ctype.h>
+#include <stdlib.h>
+#if ((' ' & 0x0FF) == 0x020)
+# define ISLOWER(c) ('a' <= (c) && (c) <= 'z')
+# define TOUPPER(c) (ISLOWER(c) ? 'A' + ((c) - 'a') : (c))
+#else
+# define ISLOWER(c) \
+		   (('a' <= (c) && (c) <= 'i') \
+		     || ('j' <= (c) && (c) <= 'r') \
+		     || ('s' <= (c) && (c) <= 'z'))
+# define TOUPPER(c) (ISLOWER(c) ? ((c) | 0x40) : (c))
+#endif
+
+#define XOR(e, f) (((e) && !(f)) || (!(e) && (f)))
+int
+main ()
+{
+  int i;
+  for (i = 0; i < 256; i++)
+    if (XOR (islower (i), ISLOWER (i))
+	|| toupper (i) != TOUPPER (i))
+      return 2;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_run "$LINENO"; then :
+
+else
+  ac_cv_header_stdc=no
+fi
+rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext \
+  conftest.$ac_objext conftest.beam conftest.$ac_ext
+fi
+
+fi
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_header_stdc" >&5
+$as_echo "$ac_cv_header_stdc" >&6; }
+if test $ac_cv_header_stdc = yes; then
+
+$as_echo "#define STDC_HEADERS 1" >>confdefs.h
+
+fi
+
+# On IRIX 5.3, sys/types and inttypes.h are conflicting.
+for ac_header in sys/types.h sys/stat.h stdlib.h string.h memory.h strings.h \
+		  inttypes.h stdint.h unistd.h
+do :
+  as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
+ac_fn_c_check_header_compile "$LINENO" "$ac_header" "$as_ac_Header" "$ac_includes_default
+"
+if eval test \"x\$"$as_ac_Header"\" = x"yes"; then :
+  cat >>confdefs.h <<_ACEOF
+#define `$as_echo "HAVE_$ac_header" | $as_tr_cpp` 1
+_ACEOF
+
+fi
+
+done
+
+
+ac_fn_c_check_header_mongrel "$LINENO" "tcl.h" "ac_cv_header_tcl_h" "$ac_includes_default"
+if test "x$ac_cv_header_tcl_h" = xyes; then :
+
+$as_echo "#define HAVE_TCL_H 1" >>confdefs.h
+
+fi
+
+
+
+   if test "$ac_cv_header_tcl_h" != yes ; then
+      as_fn_error $? "Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h" "$LINENO" 5
+   fi
+   { $as_echo "$as_me:${as_lineno-$LINENO}: checking for library containing Tcl_CreateInterp" >&5
+$as_echo_n "checking for library containing Tcl_CreateInterp... " >&6; }
+if ${ac_cv_search_Tcl_CreateInterp+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_func_search_save_LIBS=$LIBS
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char Tcl_CreateInterp ();
+int
+main ()
+{
+return Tcl_CreateInterp ();
+  ;
+  return 0;
+}
+_ACEOF
+for ac_lib in '' tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
+  if test -z "$ac_lib"; then
+    ac_res="none required"
+  else
+    ac_res=-l$ac_lib
+    LIBS="-l$ac_lib  $ac_func_search_save_LIBS"
+  fi
+  if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_search_Tcl_CreateInterp=$ac_res
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext
+  if ${ac_cv_search_Tcl_CreateInterp+:} false; then :
+  break
+fi
+done
+if ${ac_cv_search_Tcl_CreateInterp+:} false; then :
+
+else
+  ac_cv_search_Tcl_CreateInterp=no
+fi
+rm conftest.$ac_ext
+LIBS=$ac_func_search_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_search_Tcl_CreateInterp" >&5
+$as_echo "$ac_cv_search_Tcl_CreateInterp" >&6; }
+ac_res=$ac_cv_search_Tcl_CreateInterp
+if test "$ac_res" != no; then :
+  test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
+
+else
+  as_fn_error $? "Unable to build Lmod with -ltcl Please install the tcl devel package or configure --with-fastTCLInterp=no to not require the tcl library" "$LINENO" 5
+fi
+
+fi
 
 SYS_LD_LIB_PATH=$LD_LIBRARY_PATH
 
@@ -3286,7 +4276,7 @@ done
   done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_PS" && ac_cv_path_PS="UNKNOWN"
+  test -z "$ac_cv_path_PS" && ac_cv_path_PS="UNKNOWN_PS"
   ;;
 esac
 fi
@@ -3300,15 +4290,18 @@ $as_echo "no" >&6; }
 fi
 
 
-if test "$PS" = "UNKNOWN" ; then
+if test "$PS" = "UNKNOWN_PS" ; then
   echo
   echo "You must have either ps in your path. Quitting!"
   echo
+  rm -f makefile
   exit
 fi
 
-# Extract the first word of "expr", so it can be a program name with args.
-set dummy expr; ac_word=$2
+for ac_prog in gexpr expr
+do
+  # Extract the first word of "$ac_prog", so it can be a program name with args.
+set dummy $ac_prog; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
 $as_echo_n "checking for $ac_word... " >&6; }
 if ${ac_cv_path_EXPR+:} false; then :
@@ -3334,7 +4327,6 @@ done
   done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_EXPR" && ac_cv_path_EXPR="UNKNOWN"
   ;;
 esac
 fi
@@ -3348,15 +4340,22 @@ $as_echo "no" >&6; }
 fi
 
 
-if test "$EXPR" = "UNKNOWN" ; then
+  test -n "$EXPR" && break
+done
+test -n "$EXPR" || EXPR="UNKNOWN_EXPR"
+
+if test "$EXPR" = "UNKNOWN_EXPR" ; then
   echo
   echo "You must have either ps in your path. Quitting!"
   echo
+  rm -f makefile
   exit
 fi
 
-# Extract the first word of "basename", so it can be a program name with args.
-set dummy basename; ac_word=$2
+for ac_prog in gbasename basename
+do
+  # Extract the first word of "$ac_prog", so it can be a program name with args.
+set dummy $ac_prog; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
 $as_echo_n "checking for $ac_word... " >&6; }
 if ${ac_cv_path_BASENAME+:} false; then :
@@ -3382,7 +4381,6 @@ done
   done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_BASENAME" && ac_cv_path_BASENAME="UNKNOWN"
   ;;
 esac
 fi
@@ -3396,14 +4394,67 @@ $as_echo "no" >&6; }
 fi
 
 
-if test "$BASENAME" = "UNKNOWN" ; then
+  test -n "$BASENAME" && break
+done
+test -n "$BASENAME" || BASENAME="UNKNOWN_BASENAME"
+
+if test "$BASENAME" = "UNKNOWN_BASENAME" ; then
   echo
   echo "You must have either basename in your path. Quitting!"
   echo
+  rm -f makefile
   exit
 fi
 
 
+
+
+
+for ac_prog in gls ls
+do
+  # Extract the first word of "$ac_prog", so it can be a program name with args.
+set dummy $ac_prog; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_path_PATH_TO_LS+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $PATH_TO_LS in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_PATH_TO_LS="$PATH_TO_LS" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_PATH_TO_LS="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  ;;
+esac
+fi
+PATH_TO_LS=$ac_cv_path_PATH_TO_LS
+if test -n "$PATH_TO_LS"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $PATH_TO_LS" >&5
+$as_echo "$PATH_TO_LS" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+  test -n "$PATH_TO_LS" && break
+done
+test -n "$PATH_TO_LS" || PATH_TO_LS=""""
 
 # Extract the first word of "git", so it can be a program name with args.
 set dummy git; ac_word=$2
@@ -3446,8 +4497,10 @@ $as_echo "no" >&6; }
 fi
 
 
-# Extract the first word of "less more", so it can be a program name with args.
-set dummy less more; ac_word=$2
+for ac_prog in less more
+do
+  # Extract the first word of "$ac_prog", so it can be a program name with args.
+set dummy $ac_prog; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
 $as_echo_n "checking for $ac_word... " >&6; }
 if ${ac_cv_path_PATH_TO_PAGER+:} false; then :
@@ -3473,7 +4526,6 @@ done
   done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_PATH_TO_PAGER" && ac_cv_path_PATH_TO_PAGER="more"
   ;;
 esac
 fi
@@ -3486,6 +4538,10 @@ else
 $as_echo "no" >&6; }
 fi
 
+
+  test -n "$PATH_TO_PAGER" && break
+done
+test -n "$PATH_TO_PAGER" || PATH_TO_PAGER="more"
 
 
 for ac_prog in sha1sum gsha1sum shasum md5sum gmd5sum md5
@@ -3532,14 +4588,15 @@ fi
 
   test -n "$PATH_TO_HASHSUM" && break
 done
-test -n "$PATH_TO_HASHSUM" || PATH_TO_HASHSUM="UNKNOWN"
+test -n "$PATH_TO_HASHSUM" || PATH_TO_HASHSUM="UNKNOWN_HASHSUM"
 
 if test "`basename $PATH_TO_HASHSUM`" = "md5" ; then
   PATH_TO_HASHSUM="$PATH_TO_HASHSUM -r"
-elif test "$PATH_TO_HASHSUM" = "UNKNOWN" ; then
+elif test "$PATH_TO_HASHSUM" = "UNKNOWN_HASHSUM" ; then
   echo
   echo "You must have either sha1sum, shasum, md5sum or md5 in your path. Quitting!"
   echo
+  rm -f makefile
   exit
 fi
 
@@ -3570,7 +4627,7 @@ done
   done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_PATH_TO_TCLSH" && ac_cv_path_PATH_TO_TCLSH="UNKNOWN"
+  test -z "$ac_cv_path_PATH_TO_TCLSH" && ac_cv_path_PATH_TO_TCLSH="UNKNOWN_TCLSH"
   ;;
 esac
 fi
@@ -3584,14 +4641,17 @@ $as_echo "no" >&6; }
 fi
 
 
-if test "$PATH_TO_TCLSH" = "UNKNOWN" -a "$ALLOW_TCL_MFILES" = yes; then
+if test "$PATH_TO_TCLSH" = "UNKNOWN_TCLSH" -a "$ALLOW_TCL_MFILES" = yes; then
   echo
   echo "The tclsh program must be in your path. Quitting!"
   echo
+  rm -f makefile
   exit
 fi
-# Extract the first word of "tr", so it can be a program name with args.
-set dummy tr; ac_word=$2
+for ac_prog in gtr tr
+do
+  # Extract the first word of "$ac_prog", so it can be a program name with args.
+set dummy $ac_prog; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
 $as_echo_n "checking for $ac_word... " >&6; }
 if ${ac_cv_path_PATH_TO_TR+:} false; then :
@@ -3617,7 +4677,6 @@ done
   done
 IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_PATH_TO_TR" && ac_cv_path_PATH_TO_TR=""""
   ;;
 esac
 fi
@@ -3630,6 +4689,10 @@ else
 $as_echo "no" >&6; }
 fi
 
+
+  test -n "$PATH_TO_TR" && break
+done
+test -n "$PATH_TO_TR" || PATH_TO_TR=""""
 
 
 # Extract the first word of "luac", so it can be a program name with args.
@@ -3716,11 +4779,13 @@ fi
 
 if test x$luaprog = "x"; then
   echo The program "lua" must be in your path
+  rm -f makefile
   exit
 fi
 
 if test x$PATH_TO_LUAC = "x"; then
   echo The program "luac" must be in your path
+  rm -f makefile
   exit
 fi
 
@@ -3760,10 +4825,11 @@ else
   lmodV=$($luaprog -e "v=require('Version'); s=v.git():gsub(' .*','');print(s)")
 fi
 
-IntLuaV=$( $luaprog  -e "_,_,M,m=_VERSION:gsub('Lua%s+',''):find('(%d+)%.(%d)'); print(math.floor(M*1000+m))")
+IntLuaV=$( $luaprog  -e "_,_,M,m=_VERSION:gsub('Lua%s+',''):find('(%d+)%.(%d)'); print(math.floor(tonumber(M)*1000+tonumber(m)))")
 
 if test $IntLuaV -lt 5001 -o $IntLuaV -gt 5003; then
   echo "Error: Lmod requires versions 5.1 or 5.2 or 5.3, You have: $LuaV"
+  rm -f makefile
   exit 1
 fi
 
@@ -3781,6 +4847,15 @@ fi
 
 SYS_LUA_PATH=$($luaprog -e "print(package.path)")
 SYS_LUA_CPATH=$($luaprog -e "print(package.cpath)")
+SYS_LUA_PATH=$(echo $SYS_LUA_PATH   | sed -e 's|^\./?.lua;||'       \
+                                          -e 's|;\./?.lua;|;|'      \
+                                          -e 's|;\./?.lua$||'       \
+                                          -e 's|;\./?/init.lua;|;|' \
+                                          -e 's|;\./?/init.lua$||'  )
+
+SYS_LUA_CPATH=$(echo $SYS_LUA_CPATH | sed -e 's|^\./?.so;||'   \
+                                          -e 's|;\./?.so;|;|'  \
+                                          -e 's|;\./?.so$|;|')
 
 WD=`pwd`
 
@@ -3821,6 +4896,7 @@ if test -n "$missingModules" ; then
   echo "Error: The follow lua module(s) are missing: $missingModules"
   echo ""
   echo "You can not run Lmod without: $missingModules"
+  rm -f makefile
   exit 1
 else
   echo "... yes"
@@ -3863,65 +4939,55 @@ end
 main()
 EOF
 
-printf "checking for lua modules: lfs"
+if test "$USE_BUILT_IN_PKGS" = yes ; then
+  HAVE_LUAFILESYSTEM=no
 
-missingModules=""
-for i in lfs; do
-  $luaprog luaModuleAvailable $i 2> /dev/null
-  if test "$?" != 0 ; then
-    missingModules="$i"
-  fi
-done
+  HAVE_LUA_TERM=no
 
-if test -n "$missingModules" ; then
-  echo "... no"
 else
-  lfsV=`$luaprog getLFSVersion`
-  if test "$lfsV" -lt 1006002; then
-     echo "... Too old, using providing version"
+  printf "checking for lua modules: lfs"
+
+  missingModules=""
+  for i in lfs; do
+    $luaprog luaModuleAvailable $i 2> /dev/null
+    if test "$?" != 0 ; then
+      missingModules="$i"
+    fi
+  done
+
+  if test -n "$missingModules" ; then
+    echo "... no"
   else
-     echo "... yes"
-     HAVE_LUAFILESYSTEM=yes
+    lfsV=`$luaprog getLFSVersion`
+    if test "$lfsV" -lt 1006002; then
+       echo "... Too old, using providing version"
+    else
+       echo "... yes"
+       HAVE_LUAFILESYSTEM=yes
 
+    fi
+  fi
+
+
+  printf "checking for lua modules: term"
+
+  missingModules=""
+  for i in term; do
+    $luaprog luaModuleAvailable $i 2> /dev/null
+    if test "$?" != 0 ; then
+      missingModules="$missingModules $i"
+    fi
+  done
+
+  if test -n "$missingModules" ; then
+    echo "... no"
+  else
+    HAVE_LUA_TERM=yes
+
+    echo "... yes"
   fi
 fi
 
-
-printf "checking for lua modules: term"
-
-missingModules=""
-for i in term; do
-  $luaprog luaModuleAvailable $i 2> /dev/null
-  if test "$?" != 0 ; then
-    missingModules="$missingModules $i"
-  fi
-done
-
-if test -n "$missingModules" ; then
-  echo "... no"
-else
-  HAVE_LUA_TERM=yes
-
-  echo "... yes"
-fi
-
-printf "checking for lua modules: json"
-
-missingModules=""
-for i in json; do
-  $luaprog luaModuleAvailable $i 2> /dev/null
-  if test "$?" != 0 ; then
-    missingModules="$missingModules $i"
-  fi
-done
-
-if test -n "$missingModules" ; then
-  echo "... no"
-else
-  HAVE_LUA_JSON=yes
-
-  echo "... yes"
-fi
 
 rm luaModuleAvailable getLFSVersion
 
@@ -3998,6 +5064,7 @@ if ! test "$HAVE_LUA_TERM" = yes; then
     echo You can either install lua-term or the lua development package.
     echo Quitting!
     echo
+    rm -f makefile
     exit 1
   fi
 fi
@@ -4056,6 +5123,7 @@ if test -n "$PATH_TO_ZSH" ; then
       */site-functions)
         if test -d $dir ; then
           resultA+=($dir)
+          break
         fi
         ;;
     esac
@@ -5241,46 +6309,59 @@ if test "$HAVE_LUAFILESYSTEM" = yes; then
   LFS_STATUS="system"
 fi
 
+MY_PACKAGE=$prefix/lmod/$LmodV
+if test "$SITE_CONTROLLED_PREFIX" != no ; then
+  MY_PACKAGE=$prefix
+fi
 
 echo
 echo '----------------------------------- SUMMARY ----------------------------------'
 echo
-echo "Package version............................." : Lmod-$LmodV
-echo "Package version (git) ......................" : $lmodV
+echo "Package version............................................." : Lmod-$LmodV
+echo "Package version (git) ......................................" : $lmodV
 echo
-echo "LUA_INCLUDE................................." : $LUA_INCLUDE
-echo "Lua executable.............................." : $luaprog
-echo "Luac executable............................." : $PATH_TO_LUAC
-echo "Prefix......................................" : $prefix
-echo "Actual Install dir.........................." : $prefix/lmod/$LmodV
+echo "LUA_INCLUDE................................................." : $LUA_INCLUDE
+echo "Lua executable.............................................." : $luaprog
+echo "Luac executable............................................." : $PATH_TO_LUAC
+echo "User Controlled Prefix......................................" : $SITE_CONTROLLED_PREFIX
+echo "Prefix......................................................" : $prefix
+echo "Actual Install dir.........................................." : $MY_PACKAGE
 echo
-echo "MODULEPATH_ROOT............................." : $MODULEPATH_ROOT
-echo "Wait (s) before rebuilding cache............" : $ANCIENT
-echo "Allow Duplicate Paths......................." : $DUPLICATE_PATHS
-echo "Do not save Cache if build time < .........." : $SHORT_TIME
-echo "SPIDER_CACHE_DIRS..........................." : $SPIDER_CACHE_DIRS
-echo "Prepending multiple dirs (NORMAL / REVERSED)" : $PREPEND_BLOCK
-echo "Colorized output supported.................." : $COLORIZE
-echo "File that is touched when system is updated." : $UPDATE_SYSTEM_FN
-echo "Allow duplicate entry in PATHs.............." : $DUPLICATE_PATHS
-echo "Allow tcl modulefiles......................." : $ALLOW_TCL_MFILES
-echo "ZSH Tab Completion Functions Site Directory." : $ZSH_SITE_FUNCTIONS_DIRS
-echo "Use Dot files in ~/.lmod.d.................." : $USE_DOT_FILES
-echo "Full Settarg support........................" : $SETTARG
-echo "Have lua-term..............................." : $HAVE_LUA_TERM
-echo "Have lua-json..............................." : $HAVE_LUA_JSON
-echo "Support Auto Swap when using families......." : $AUTO_SWAP
-echo "Export the module shell function in Bash...." : $EXPORT_MODULE
-echo "Disable same name autoswapping.............." : $DISABLE_NAME_AUTOSWAP
-echo "Use Spider Cache on Loads..................." : $CACHED_LOADS
-echo "Pager used inside Lmod......................" : $PATH_TO_PAGER
-echo "System LD_PRELOAD..........................." : $SYS_LD_PRELOAD
-echo "System LD_LIBRARY_PATH......................" : $SYS_LD_LIB_PATH
-echo "Hashsum program used........................" : $PATH_TO_HASHSUM
-echo "Site Name..................................." : $SITE_NAME
-echo "Site Message file..........................." : $SITE_MSG_FILE
-echo "Override $LANG Language for error etc......." : $LMOD_OVERRIDE_LANG
-echo "Which LuaFileSystem is being used..........." : $LFS_STATUS
+echo "MODULEPATH_ROOT............................................." : $MODULEPATH_ROOT
+echo "Wait (s) before rebuilding cache............................" : $ANCIENT
+echo "Allow Duplicate Paths......................................." : $DUPLICATE_PATHS
+echo "Do not save Cache if build time < .........................." : $SHORT_TIME
+echo "SPIDER_CACHE_DIRS..........................................." : $SPIDER_CACHE_DIRS
+echo "Prepending multiple dirs (NORMAL / REVERSED)................" : $PREPEND_BLOCK
+echo "Colorized output supported.................................." : $COLORIZE
+echo "File that is touched when system is updated................." : $UPDATE_SYSTEM_FN
+echo "Allow duplicate entry in PATHs.............................." : $DUPLICATE_PATHS
+echo "Allow tcl modulefiles......................................." : $ALLOW_TCL_MFILES
+echo "ZSH Tab Completion Functions Site Directory................." : $ZSH_SITE_FUNCTIONS_DIRS
+echo "Use Dot files in ~/.lmod.d.................................." : $USE_DOT_FILES
+echo "Full Settarg support........................................" : $SETTARG
+echo "Have lua-term..............................................." : $HAVE_LUA_TERM
+echo "Have luafilesystem.........................................." : $HAVE_LUAFILESYSTEM
+echo "Support Auto Swap when using families......................." : $AUTO_SWAP
+echo "Export the module shell function in Bash...................." : $EXPORT_MODULE
+echo "Disable same name autoswapping.............................." : $DISABLE_NAME_AUTOSWAP
+echo "Use Spider Cache on Loads..................................." : $CACHED_LOADS
+echo "Pager used inside Lmod......................................" : $PATH_TO_PAGER
+echo "System LD_PRELOAD..........................................." : $SYS_LD_PRELOAD
+echo "System LD_LIBRARY_PATH......................................" : $SYS_LD_LIB_PATH
+echo "Hashsum program used........................................" : $PATH_TO_HASHSUM
+echo "Site Name..................................................." : $SITE_NAME
+echo "SYSHOST....................................................." : $SYSHOST
+echo "Site Message file..........................................." : $SITE_MSG_FILE
+echo 'Override $LANG Language for error etc.......................' : $LMOD_OVERRIDE_LANG
+echo "Which LuaFileSystem is being used..........................." : $LFS_STATUS
+echo 'Use italic instead of faint for hidden modules..............' : $HIDDEN_ITALIC
+echo "If path entry is already there then don't prepend..........." : $TMOD_PATH_RULE
+echo "Use Tmod Find First rule instead of Find Best for defaults.." : $TMOD_FIND_FIRST
+echo "MODULEPATH Initial file....................................." : $MODULEPATH_INIT
+echo "Use built-in lua packages instead of system provided pkgs..." : $USE_BUILT_IN_PKGS
+echo "Silence shell debugging output for bash/zsh................." : $SILENCE_SHELL_DEBUGGING
+echo "Use the fast TCL interpreter................................" : $FAST_TCL_INTERP
 
 echo
 echo '------------------------------------------------------------------------------'
@@ -5295,8 +6376,8 @@ echo If your site already uses BASH_ENV to point to a site specific script, plea
 echo consider sourcing Lmod\'s init/bash from your site\'s file.
 echo
 echo BASH_ENV is defined both in:
-echo "   $prefix/lmod/$LmodV/init/profile"
-echo "   $prefix/lmod/$LmodV/init/cshrc"
+echo "   $MY_PACKAGE/init/profile"
+echo "   $MY_PACKAGE/init/cshrc"
 echo
 echo '******************************************************************************'
 echo
@@ -5330,6 +6411,17 @@ if test "$a" != no; then
   echo '******************************************************************************'
   echo
 fi
+
+if test $SITE_CONTROLLED_PREFIX != no ; then
+   echo
+   echo '**********************************************************************'
+   echo ' '
+   echo 'Warning: you have chosen to control the prefix.  This means that '
+   echo '         you must update any Lmod scripts in /etc/profile.d'
+   echo ' '
+   echo '**********************************************************************'
+fi
+
 
 echo
 echo Configure complete, Now do:

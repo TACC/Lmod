@@ -1,0 +1,68 @@
+-- -*- lua -*-
+local testName = "inaccessible"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 unaccessible
+   ]],
+   keywords = {testName },
+
+   active   = true,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     export MODULEPATH_ROOT=$(testDir)/mf
+     export MROOT2=$(testDir)/mf2
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+     mkdir -p .lmod.d/.cache
+
+     runLmod --version                          # 1
+     runLmod use $MODULEPATH_ROOT/path1         # 2
+     runLmod --ignore_cache spider              # 3
+     export LMOD_SHORT_TIME=0
+     runLmod --ignore_cache spider inaccessible # 4
+     runLmod unuse $MODULEPATH_ROOT/path1       # 5
+     export LMOD_SHORT_TIME=10
+     runLmod spider inaccessible                # 6
+     runLmod load extend                        # 7
+     runLmod purge                              # 8
+     unsetMT
+     buildSpiderT $MROOT2/Stages/2017a/UI/Compilers:$MROOT2/OtherStages > .lmod.d/.cache/spiderT.lua
+     export MODULEPATH=$MROOT2/Stages/2017a/UI/Compilers
+     runLmod spider software1                   # 9
+
+
+     HOME=$ORIG_HOME
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

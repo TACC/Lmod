@@ -8,7 +8,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -48,12 +48,15 @@ return {
      ml_help               = nil,
      ml_opt                = nil,
      ml_2many              = nil,
+     ml_misplaced_opt      = nil,
      
      --------------------------------------------------------------------------
      -- LmodError messages
      --------------------------------------------------------------------------
      e_Args_Not_Strings    = nil,
      e_Avail_No_MPATH      = nil,
+     e_BrokenCacheFn       = nil,
+     e_BrokenQ             = nil,
      e_Conflict            = nil,
      e_Execute_Msg         = nil,
      e_Failed_2_Find       = nil,
@@ -62,6 +65,7 @@ return {
      e_Failed_Load         = nil,
      e_Failed_Load_2       = nil,
      e_Family_Conflict     = nil,
+     e_Illegal_Load        = nil,
      e_LocationT_Srch      = nil,
      e_Missing_Value       = nil,
      e_MT_corrupt          = nil,
@@ -77,7 +81,6 @@ return {
      e_Prereq_Any          = nil,
      e_Spdr_Timeout        = nil,
      e_Swap_Failed         = nil,
-     e_SYS_DFLT_EMPTY      = nil,
      e_Unable_2_Load       = nil,
      e_Unable_2_parse      = nil,
      e_Unknown_Coll        = nil,
@@ -91,6 +94,7 @@ return {
      --------------------------------------------------------------------------
      m_Activate_Modules    = nil,
      m_Additional_Variants = nil,
+     m_Collection_disable  = nil,
      m_Depend_Mods         = nil,
      m_Description         = nil,
      m_Direct_Load         = nil,
@@ -125,11 +129,13 @@ return {
      w_Broken_FullName     = nil,
      w_Empty_Coll          = nil,
      w_Failed_2_Find       = nil,
+     w_MissingModules      = nil,
      w_MPATH_Coll          = nil,
      w_Mods_Not_Loaded     = nil,
      w_No_Coll             = nil,
      w_No_dot_Coll         = nil,
      w_Save_Empty_Coll     = nil,
+     w_SYS_DFLT_EMPTY      = nil,
      w_System_Reserved     = nil,
      w_Undef_MPATH         = nil,
      w_Unknown_Hook        = nil,
@@ -179,6 +185,7 @@ return {
      collctn6              = nil,
      collctn7              = nil,
      collctn8              = nil,
+     collctn9              = nil,
 
      depr_title            = nil,
      depr1                 = nil,
@@ -249,6 +256,18 @@ return {
      aliasMsg  = nil,
      noModules = nil,
      noneFound = nil,
+
+     --------------------------------------------------------------------------
+     -- Other strings:
+     --------------------------------------------------------------------------
+     coll_contains  = nil,
+     currLoadedMods = nil,
+     keyword_msg    = nil,
+     lmodSystemName = nil,
+     matching       = nil,
+     namedCollList  = nil,
+     noModsLoaded   = nil,
+     specific_hlp   = nil,
 
    }
 }

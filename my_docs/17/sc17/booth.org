@@ -1,0 +1,24 @@
+Here are some ideas for the Lmod Booth Talk
+
+* 7th annual Booth talk on Lmod.
+* Last year:
+** NVV support
+** hidden
+** ~/.modulerc support
+   
+* This year:
+** depends_on()
+** Reference Counting: The /usr/local/bin problem
+** Tracing output (module -T load foo)
+** CMAKE shell added
+** module --show_hidden avail with "dim" output and (H) prop.
+** Lmod_test_suite
+** French, German and Spanish translations for Lmod messages
+** A marked default is honored even if it is hidden.
+** Admin list (AKA Nag.list) supports Lua regular expressions for matching Modules to nag about.
+
+* Future Work:
+
+** module export <collection>.  it may be a separate command.
+** Changing the behavior of Ref Counting for MODULEPATH.
+   

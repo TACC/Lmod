@@ -3,8 +3,8 @@ color = false
 unused = false
 codes  = true
 allow_defined = true
-files["src/DirTree.lua"]                = {ignore = { "modA" }}
-files["src/MRC.lua"]                    = {ignore = { "modA" }}
+files["src/DirTree.lua"]                = {ignore = { "ModA" }}
+files["src/MRC.lua"]                    = {ignore = { "ModA" }}
 files["src/Spider.lua"]                 = {ignore = { "os","sn"}}
 files["src/cmdfuncs.lua"]               = {ignore = { "prtHdr"}}
 files["src/colorize.lua"]               = {ignore = { "colorize_kind"}}

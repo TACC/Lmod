@@ -6,7 +6,7 @@ require("strict")
 
 --------------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -102,15 +102,23 @@ end
 -- Wrap input string with double quotes
 -- @param  self Input string
 -- @return A string surrounded with double quotes internal double quotes backslashed
+-- @return A string where every special character is quoted
 function string.multiEscaped(self)
    if (type(self) ~= 'string') then
       self = tostring(self)
-   else
-      self = '"' .. self:gsub("[\"$]","\\%1") .. '"'
    end
+   self = self:gsub("[ \t{}!|<>;#^$&*\"'`()~]","\\%1")
    return self
 end
 
+function string.cshEscaped(self)
+   if (type(self) ~= 'string') then
+      self = tostring(self)
+   else
+      self = self:gsub("[ \"\t{}|<>!;#^$&*'`()]","\\%1")
+   end
+   return self
+end
 --------------------------------------------------------------------------
 -- Wrap input string with double quotes
 -- @param  self Input string

@@ -5,8 +5,6 @@
 -- to generate test results.
 -- @script joinBase64Results
 
-require("strict")
-
 --------------------------------------------------------------------------
 -- Lmod License
 --------------------------------------------------------------------------
@@ -17,7 +15,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -54,6 +52,11 @@ package.path = cmd_dir .. "../tools/?.lua;"      ..
                cmd_dir .. "?.lua;"               ..
                package.path
 
+_G._DEBUG   = false
+local posix = require("posix")
+
+require("strict")
+
 --------------------------------------------------------------------------
 -- This is 5.1 Lua function to cover the table.pack function
 -- that is in Lua 5.2 and later.
@@ -78,12 +81,27 @@ cosmic:init{name = "LMOD_LD_PRELOAD",      default = false, assignV = false}
 
 
 local function grab(line, b)
+   local eqIdx = line:find("=")
+   local scIdx = line:find(";")
+   b[#b+1]     = line:sub(eqIdx+1,scIdx-1):gsub("\"","")
+end
+
+local function grabCsh(line,b)
    local a = {}
-   for v in line:split('"') do
+   for v in line:split(' ') do
       a[#a + 1] = v
    end
-   b[#b+1] = a[2]
-end
+   b[#b+1] = a[3]:gsub(";","")
+end   
+
+local function grabFish(line,b)
+   local a = {}
+   for v in line:split(' ') do
+      a[#a + 1] = v
+   end
+   b[#b+1] = a[5]:gsub(";","")
+end   
+
 
 _ModuleTable_ = false
 function removeUnwantedFields(s)
@@ -114,8 +132,10 @@ function sectionEnd(sType,A, a1, a2, a3)
       if (sType == "bash") then
          b[1] = s_name .."='" .. removeUnwantedFields(decode64(table.concat(a2,""))) .. "';"
          b[2] = "export ".. s_name ..";"
-      else
+      elseif (sType == "csh") then
          b[1] = "setenv " .. s_name .. " '" .. removeUnwantedFields(decode64(table.concat(a2,""))) .. "';"
+      elseif (sType == "fish") then
+         b[1] = "set -x -g " .. s_name .. " '" .. removeUnwantedFields(decode64(table.concat(a2,""))) .. "';"
       end
    end
    joinArrays(A, a1, b, a3)
@@ -126,13 +146,55 @@ function sectionEnd(sType,A, a1, a2, a3)
 end
 
 function joinArrays(A,...)
-   local arg = pack(...)
-   for i = 1, arg.n do
-      local b = arg[i]
+   local argA = pack(...)
+   for i = 1, argA.n do
+      local b = argA[i]
       for j = 1, #b do
          A[#A + 1] = b[j]
       end
    end
+end
+
+function joinMT_fish(whole)
+   local n2 = "_ModuleTable"
+   local A  = {}
+   local a1 = {}
+   local a2 = {}
+   local a3 = {}
+   local a  = a1
+   local state = "init"
+   for s in whole:split("\n") do
+      if (s:find("^set %-x %-g ".. n2 .. "%d%d%d_")) then
+         if (state == "init") then
+            state = "mt"
+         end
+         a = a3
+         grabFish(s, a2)
+      elseif (state == "init") then
+         local i,j, name, str = s:find("^(set -x -g __LMOD_STACK[^ ]*)%s+\"(.*)\"")
+         if (not i) then
+            a[#a + 1] = s
+         else
+            local b = {}
+            b[#b+1] = name
+            b[#b+1] = " \""
+            for v in str:split(":") do
+               v = (v ~= "false") and decode64(v) or "false"
+               b[#b+1] = v
+               b[#b+1] = ":"
+            end
+            b[#b]   = "\";"
+            a[#a+1] = concatTbl(b,"")
+         end
+      else
+         a1, a2, a3 = sectionEnd("fish", A,a1,a2,a3)
+         state   = "init"
+         a       = a1
+         a[#a+1] = s
+      end
+   end
+   sectionEnd("fish",A,a1,a2,a3)
+   return A
 end
 
 function joinMT_bash(whole)
@@ -164,19 +226,19 @@ function joinMT_bash(whole)
          haveMT  = false
       end
       if (state == "init") then
-         local i,j, name, str = s:find("^(__LMOD_STACK.*)=\"(.*)\"")
+         local i,j, name, str = s:find("^(__LMOD_STACK[^=]*)=([^;]*);")
          if (not i) then
             a[#a + 1] = s
          else
             local b = {}
             b[#b+1] = name
-            b[#b+1] = "=\""
+            b[#b+1] = "="
             for v in str:split(":") do
-               v = decode64(v)
+               v = (v ~= "false") and decode64(v) or "false"
                b[#b+1] = v
                b[#b+1] = ":"
             end
-            b[#b] = "\";"
+            b[#b] = ";"
             a[#a+1] = concatTbl(b,"")
          end
       end
@@ -199,7 +261,7 @@ function joinMT_csh(whole)
             state = "mt"
          end
          a = a3
-         grab(s, a2)
+         grabCsh(s, a2)
       elseif (state == "init") then
          local i,j, name, str = s:find("^(setenv __LMOD_STACK[^ ]*)%s+\"(.*)\"")
          if (not i) then
@@ -209,7 +271,7 @@ function joinMT_csh(whole)
             b[#b+1] = name
             b[#b+1] = " \""
             for v in str:split(":") do
-               v = decode64(v)
+               v = (v ~= "false") and decode64(v) or "false"
                b[#b+1] = v
                b[#b+1] = ":"
             end
@@ -233,6 +295,9 @@ function main()
    if ( arg[1]:sub(1,1) == "-") then
       if (arg[1] == "-bash") then
          joinMT = joinMT_bash
+      end
+      if (arg[1] == "-fish") then
+         joinMT = joinMT_fish
       end
       table.remove(arg,1)
    end

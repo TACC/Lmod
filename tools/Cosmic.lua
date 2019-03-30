@@ -18,7 +18,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -58,6 +58,12 @@ function M.singleton(self)
    return s_cosmic
 end
 
+local yes_noT = {
+   ['0']   = "no",
+   ['']    = "no",
+   ['off'] = "no",
+   ['1']   = "yes",
+}
 
 function M.init(self, t)
    local T    = self.__T
@@ -70,6 +76,7 @@ function M.init(self, t)
       if (value:sub(1,1) == "@") then
          value = defaultV
       end
+      value = yes_noT[value] or value
       if (value ~= "no") then
          value = "yes"
       end
@@ -80,7 +87,6 @@ function M.init(self, t)
    if (t.assignV ~= nil) then
       local defaultV = t.default
       local value    = t.assignV
-      local extra    = nil
       T[name] = {value = value, default = defaultV}
       return
    end
@@ -90,11 +96,11 @@ function M.init(self, t)
       
       local defaultV = t.default
       local sedV     = t.sedV or "@"
-      local value    = (getenv(name) or sedV)
+      local value    = t.no_env and sedV or (getenv(name) or sedV) 
       if (t.lower) then
          value = value:lower()
       end
-      local extra    = nil
+      value          = yes_noT[value] or value
       if (value:sub(1,1) == "@" or value == "<empty>") then
          value = defaultV
       end

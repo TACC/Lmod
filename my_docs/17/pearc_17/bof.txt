@@ -1,0 +1,18 @@
+Title:  Environment Modules: Tmod, Cmod, Lmod oh my!
+
+Environment Modules are the keys to how we provide software for our
+users on our large systems. Versions of this tool have been around
+since the '90s. The first problem is to chose one. Yet this is only
+the beginning on how to set up your system.  There are many different
+architecture choices: Flat vs. Hierarchical, Local vs. Share disk
+location, Naming Conventions, Internal Module Conventions, Package
+Lifetime questions and how do sites deal with a broken bash shell
+startup with MPI among many others.
+
+Other questions include how to transition from an old module layout to
+a new layout.  Can a new tool help solve some of the issues you are
+having at your site?  This BoF is a chance to bring together different
+sites to see how they handle the above issues and more.  Let's come
+together and bitch about modules!
+
+

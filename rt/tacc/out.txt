@@ -6,7 +6,9 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-MODULEPATH="ProjectDIR/rt/tacc/mf/TACC";
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/tacc/mf/TACC:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/tacc/mf/TACC;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
 export _ModuleTable_;
@@ -14,177 +16,231 @@ export _ModuleTable_;
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load TACC
 ===========================
-APPS="/unknown/apps";
+APPS=/unknown/apps;
 export APPS;
-GLOBUS_HOSTNAME="ranger.tacc.utexas.edu";
+GLOBUS_HOSTNAME=ranger.tacc.utexas.edu;
 export GLOBUS_HOSTNAME;
-GLOBUS_LOCATION="/share/apps/teragrid/globus-4.0.7-r1";
+GLOBUS_LOCATION=/share/apps/teragrid/globus-4.0.7-r1;
 export GLOBUS_LOCATION;
-GLOBUS_PATH="/share/apps/teragrid/globus-4.0.7-r1";
+GLOBUS_PATH=/share/apps/teragrid/globus-4.0.7-r1;
 export GLOBUS_PATH;
-GLOBUS_TCP_PORT_RANGE="50000,51000";
+GLOBUS_TCP_PORT_RANGE=50000,51000;
 export GLOBUS_TCP_PORT_RANGE;
-GPT_LOCATION="/share/apps/teragrid/globus-4.0.7-r1";
+GPT_LOCATION=/share/apps/teragrid/globus-4.0.7-r1;
 export GPT_LOCATION;
-INFOPATH="/unknown/apps/intel10_1/mvapich/1.0.1/doc";
+__LMOD_REF_COUNT_INFOPATH=/unknown/apps/intel10_1/mvapich/1.0.1/doc:1;
+export __LMOD_REF_COUNT_INFOPATH;
+INFOPATH=/unknown/apps/intel10_1/mvapich/1.0.1/doc;
 export INFOPATH;
-LD_LIBRARY_PATH="/opt/ofed/lib64:/share/apps/teragrid/globus-4.0.7-r1/lib:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:/unknown/apps/intel10_1/mvapich/1.0.1/lib:/unknown/apps/intel10_1/mvapich/1.0.1/lib/shared:/unknown/apps/pgi/7.1/linux86-64/7.1-2/libso";
+__LMOD_REF_COUNT_LD_LIBRARY_PATH=/opt/ofed/lib64:1\;/share/apps/teragrid/globus-4.0.7-r1/lib:1\;/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:1\;/unknown/apps/intel10_1/mvapich/1.0.1/lib:1\;/unknown/apps/intel10_1/mvapich/1.0.1/lib/shared:1\;/unknown/apps/pgi/7.1/linux86-64/7.1-2/libso:1;
+export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
+LD_LIBRARY_PATH=/opt/ofed/lib64:/share/apps/teragrid/globus-4.0.7-r1/lib:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:/unknown/apps/intel10_1/mvapich/1.0.1/lib:/unknown/apps/intel10_1/mvapich/1.0.1/lib/shared:/unknown/apps/pgi/7.1/linux86-64/7.1-2/libso;
 export LD_LIBRARY_PATH;
-LIBPATH="/share/apps/teragrid/globus-4.0.7-r1/lib:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib";
+__LMOD_REF_COUNT_LIBPATH=/share/apps/teragrid/globus-4.0.7-r1/lib:1\;/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:1;
+export __LMOD_REF_COUNT_LIBPATH;
+LIBPATH=/share/apps/teragrid/globus-4.0.7-r1/lib:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib;
 export LIBPATH;
-LMOD_FAMILY_COMPILER="pgi";
+LMOD_FAMILY_COMPILER=pgi;
 export LMOD_FAMILY_COMPILER;
-LMOD_FAMILY_COMPILER_VERSION="7.1";
+LMOD_FAMILY_COMPILER_VERSION=7.1;
 export LMOD_FAMILY_COMPILER_VERSION;
-LMOD_FAMILY_MPI="mvapich1";
+LMOD_FAMILY_MPI=mvapich1;
 export LMOD_FAMILY_MPI;
-LMOD_FAMILY_MPI_VERSION="mvapich1";
+LMOD_FAMILY_MPI_VERSION=mvapich1;
 export LMOD_FAMILY_MPI_VERSION;
-LOADEDMODULES="Linux:pgi/7.1:mvapich1/mvapich1:globus/4.0.7:cluster-paths:cluster:TACC-paths:TACC";
+__LMOD_REF_COUNT_LOADEDMODULES=Linux:1\;pgi/7.1:1\;mvapich1/mvapich1:1\;globus/4.0.7:1\;cluster-paths:1\;cluster:1\;TACC-paths:1\;TACC:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=Linux:pgi/7.1:mvapich1/mvapich1:globus/4.0.7:cluster-paths:cluster:TACC-paths:TACC;
 export LOADEDMODULES;
-MANPATH="/usr/share/man:/usr/X11R6/man:/opt/ganglia/man:/opt/rocks/man:/usr/kerberos/man:/usr/man:/share/apps/teragrid/globus-4.0.7-r1/man:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:/unknown/apps/intel10_1/mvapich/1.0.1/man:/unknown/apps/pgi/7.1/linux86-64/7.1-2/man:/unknown/apps/pki_apps/man:/usr/local/man";
+__LMOD_REF_COUNT_MANPATH=/usr/share/man:1\;/usr/X11R6/man:1\;/opt/ganglia/man:1\;/opt/rocks/man:1\;/usr/kerberos/man:1\;/usr/man:1\;/share/apps/teragrid/globus-4.0.7-r1/man:1\;/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:1\;/unknown/apps/intel10_1/mvapich/1.0.1/man:1\;/unknown/apps/pgi/7.1/linux86-64/7.1-2/man:1\;/unknown/apps/pki_apps/man:1\;/usr/local/man:1;
+export __LMOD_REF_COUNT_MANPATH;
+MANPATH=/usr/share/man:/usr/X11R6/man:/opt/ganglia/man:/opt/rocks/man:/usr/kerberos/man:/usr/man:/share/apps/teragrid/globus-4.0.7-r1/man:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:/unknown/apps/intel10_1/mvapich/1.0.1/man:/unknown/apps/pgi/7.1/linux86-64/7.1-2/man:/unknown/apps/pki_apps/man:/usr/local/man;
 export MANPATH;
-MODULEPATH="/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1:ProjectDIR/rt/tacc/mf/TACC";
+__LMOD_REF_COUNT_MODULEPATH=/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:1\;ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1:1\;ProjectDIR/rt/tacc/mf/TACC:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1:ProjectDIR/rt/tacc/mf/TACC;
 export MODULEPATH;
-MPICH_HOME="/unknown/apps/intel10_1/mvapich/1.0.1";
+MPICH_HOME=/unknown/apps/intel10_1/mvapich/1.0.1;
 export MPICH_HOME;
-MYPROXY_SERVER="myproxy.teragrid.org";
+MYPROXY_SERVER=myproxy.teragrid.org;
 export MYPROXY_SERVER;
-NAME="cluster-paths";
+NAME=cluster-paths;
 export NAME;
-PATH="/usr/local/first:/share/apps/teragrid/globus-4.0.7-r1/sbin:/share/apps/teragrid/globus-4.0.7-r1/bin:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/bin:/unknown/apps/intel10_1/mvapich/1.0.1/bin:/unknown/apps/pgi/7.1/linux86-64/7.1-2/bin:ProjectDIR/src:PATH_to_TM:/unknown/apps/pki_apps:/share/sge6.2/default/pe_scripts:.";
+__LMOD_REF_COUNT_PATH=/usr/local/first:1\;/share/apps/teragrid/globus-4.0.7-r1/sbin:1\;/share/apps/teragrid/globus-4.0.7-r1/bin:1\;/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/bin:1\;/unknown/apps/intel10_1/mvapich/1.0.1/bin:1\;/unknown/apps/pgi/7.1/linux86-64/7.1-2/bin:1\;ProjectDIR/src:1\;PATH_to_TM:1\;/unknown/apps/pki_apps:1\;/share/sge6.2/default/pe_scripts:1\;.:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=/usr/local/first:/share/apps/teragrid/globus-4.0.7-r1/sbin:/share/apps/teragrid/globus-4.0.7-r1/bin:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/bin:/unknown/apps/intel10_1/mvapich/1.0.1/bin:/unknown/apps/pgi/7.1/linux86-64/7.1-2/bin:ProjectDIR/src:PATH_to_TM:/unknown/apps/pki_apps:/share/sge6.2/default/pe_scripts:.;
 export PATH;
-PGI="/unknown/apps/pgi/7.1";
+PGI=/unknown/apps/pgi/7.1;
 export PGI;
-PURGE="168";
+PURGE=168;
 export PURGE;
-RSHCOMMAND="/share/apps/teragrid/globus-4.0.7-r1/bin/ssh";
+RSHCOMMAND=/share/apps/teragrid/globus-4.0.7-r1/bin/ssh;
 export RSHCOMMAND;
-SASL_PATH="/share/apps/teragrid/globus-4.0.7-r1/sasl";
+SASL_PATH=/share/apps/teragrid/globus-4.0.7-r1/sasl;
 export SASL_PATH;
-SHLIB_PATH="/share/apps/teragrid/globus-4.0.7-r1/lib:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib";
+__LMOD_REF_COUNT_SHLIB_PATH=/share/apps/teragrid/globus-4.0.7-r1/lib:1\;/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:1;
+export __LMOD_REF_COUNT_SHLIB_PATH;
+SHLIB_PATH=/share/apps/teragrid/globus-4.0.7-r1/lib:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib;
 export SHLIB_PATH;
-STTY_ARGS="sane";
+STTY_ARGS=sane;
 export STTY_ARGS;
-SYSTEM="linux";
+SYSTEM=linux;
 export SYSTEM;
-USER_SHELL="bash";
+USER_SHELL=bash;
 export USER_SHELL;
-_LMFILES_="ProjectDIR/rt/tacc/mf/TACC/Linux:ProjectDIR/rt/tacc/mf/TACC/pgi/7.1:ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1:ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7:ProjectDIR/rt/tacc/mf/TACC/cluster-paths:ProjectDIR/rt/tacc/mf/TACC/cluster:ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua:ProjectDIR/rt/tacc/mf/TACC/TACC";
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/tacc/mf/TACC/Linux:1\;ProjectDIR/rt/tacc/mf/TACC/pgi/7.1:1\;ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1:1\;ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7:1\;ProjectDIR/rt/tacc/mf/TACC/cluster-paths:1\;ProjectDIR/rt/tacc/mf/TACC/cluster:1\;ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua:1\;ProjectDIR/rt/tacc/mf/TACC/TACC:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/tacc/mf/TACC/Linux:ProjectDIR/rt/tacc/mf/TACC/pgi/7.1:ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1:ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7:ProjectDIR/rt/tacc/mf/TACC/cluster-paths:ProjectDIR/rt/tacc/mf/TACC/cluster:ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua:ProjectDIR/rt/tacc/mf/TACC/TACC;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mvapich1",["compiler"]="pgi",},mT={Linux={["fn"]="ProjectDIR/rt/tacc/mf/TACC/Linux",["fullName"]="Linux",["loadOrder"]=1,propT={},["status"]="active",["userName"]="Linux",},TACC={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC",["fullName"]="TACC",["loadOrder"]=8,propT={},["status"]="active",["userName"]="TACC",},["TACC-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua",["fullName"]="TACC-paths",["loadOrder"]=7,propT={},["status"]="active",["userName"]="TACC-paths",},cluster={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster",["fullName"]="cluster",["loadOrder"]=6,propT={},["status"]="active",["userName"]="cluster",},["cluster-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster-paths",["fullName"]="cluster-paths",["loadOrder"]=5,propT={},["status"]="active",["userName"]="cluster-paths",},globus={["fn"]="ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/tacc/mf/TACC/pgi/7.1",["fullName"]="pgi/7.1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="pgi",},},mpathA={"/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles","ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mvapich1",["compiler"]="pgi",},mT={Linux={["fn"]="ProjectDIR/rt/tacc/mf/TACC/Linux",["fullName"]="Linux",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="Linux",},TACC={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC",["fullName"]="TACC",["loadOrder"]=8,propT={},["stackDepth"]=0,["status"]="active",["userName"]="TACC",},["TACC-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua",["fullName"]="TACC-paths",["loadOrder"]=7,propT={},["stackDepth"]=1,["status"]="active",["userName"]="TACC-paths",},cluster={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster",["fullName"]="cluster",["loadOrder"]=6,propT={},["stackDepth"]=1,["status"]="active",["userName"]="cluster",},["cluster-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster-paths",["fullName"]="cluster-paths",["loadOrder"]=5,propT={},["stackDepth"]=2,["status"]="active",["userName"]="cluster-paths",},globus={["fn"]="ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["stackDepth"]=2,["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["stackDepth"]=2,["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/tacc/mf/TACC/pgi/7.1",["fullName"]="pgi/7.1",["loadOrder"]=2,propT={},["stackDepth"]=2,["status"]="active",["userName"]="pgi",},},mpathA={"/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles","ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
 export _ModuleTable_;
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing help mvapich1
 ===========================
-MODULEPATH="/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1:ProjectDIR/rt/tacc/mf/TACC";
+MODULEPATH=/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1:ProjectDIR/rt/tacc/mf/TACC;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mvapich1",["compiler"]="pgi",},mT={Linux={["fn"]="ProjectDIR/rt/tacc/mf/TACC/Linux",["fullName"]="Linux",["loadOrder"]=1,propT={},["status"]="active",["userName"]="Linux",},TACC={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC",["fullName"]="TACC",["loadOrder"]=8,propT={},["status"]="active",["userName"]="TACC",},["TACC-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua",["fullName"]="TACC-paths",["loadOrder"]=7,propT={},["status"]="active",["userName"]="TACC-paths",},cluster={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster",["fullName"]="cluster",["loadOrder"]=6,propT={},["status"]="active",["userName"]="cluster",},["cluster-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster-paths",["fullName"]="cluster-paths",["loadOrder"]=5,propT={},["status"]="active",["userName"]="cluster-paths",},globus={["fn"]="ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/tacc/mf/TACC/pgi/7.1",["fullName"]="pgi/7.1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="pgi",},},mpathA={"/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles","ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mvapich1",["compiler"]="pgi",},mT={Linux={["fn"]="ProjectDIR/rt/tacc/mf/TACC/Linux",["fullName"]="Linux",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="Linux",},TACC={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC",["fullName"]="TACC",["loadOrder"]=8,propT={},["stackDepth"]=0,["status"]="active",["userName"]="TACC",},["TACC-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua",["fullName"]="TACC-paths",["loadOrder"]=7,propT={},["stackDepth"]=1,["status"]="active",["userName"]="TACC-paths",},cluster={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster",["fullName"]="cluster",["loadOrder"]=6,propT={},["stackDepth"]=1,["status"]="active",["userName"]="cluster",},["cluster-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster-paths",["fullName"]="cluster-paths",["loadOrder"]=5,propT={},["stackDepth"]=2,["status"]="active",["userName"]="cluster-paths",},globus={["fn"]="ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["stackDepth"]=2,["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["stackDepth"]=2,["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/tacc/mf/TACC/pgi/7.1",["fullName"]="pgi/7.1",["loadOrder"]=2,propT={},["stackDepth"]=2,["status"]="active",["userName"]="pgi",},},mpathA={"/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles","ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
 export _ModuleTable_;
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-MODULEPATH="/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1:ProjectDIR/rt/tacc/mf/TACC";
+MODULEPATH=/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1:ProjectDIR/rt/tacc/mf/TACC;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mvapich1",["compiler"]="pgi",},mT={Linux={["fn"]="ProjectDIR/rt/tacc/mf/TACC/Linux",["fullName"]="Linux",["loadOrder"]=1,propT={},["status"]="active",["userName"]="Linux",},TACC={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC",["fullName"]="TACC",["loadOrder"]=8,propT={},["status"]="active",["userName"]="TACC",},["TACC-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua",["fullName"]="TACC-paths",["loadOrder"]=7,propT={},["status"]="active",["userName"]="TACC-paths",},cluster={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster",["fullName"]="cluster",["loadOrder"]=6,propT={},["status"]="active",["userName"]="cluster",},["cluster-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster-paths",["fullName"]="cluster-paths",["loadOrder"]=5,propT={},["status"]="active",["userName"]="cluster-paths",},globus={["fn"]="ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/tacc/mf/TACC/pgi/7.1",["fullName"]="pgi/7.1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="pgi",},},mpathA={"/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles","ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mvapich1",["compiler"]="pgi",},mT={Linux={["fn"]="ProjectDIR/rt/tacc/mf/TACC/Linux",["fullName"]="Linux",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="Linux",},TACC={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC",["fullName"]="TACC",["loadOrder"]=8,propT={},["stackDepth"]=0,["status"]="active",["userName"]="TACC",},["TACC-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua",["fullName"]="TACC-paths",["loadOrder"]=7,propT={},["stackDepth"]=1,["status"]="active",["userName"]="TACC-paths",},cluster={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster",["fullName"]="cluster",["loadOrder"]=6,propT={},["stackDepth"]=1,["status"]="active",["userName"]="cluster",},["cluster-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster-paths",["fullName"]="cluster-paths",["loadOrder"]=5,propT={},["stackDepth"]=2,["status"]="active",["userName"]="cluster-paths",},globus={["fn"]="ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=4,propT={},["stackDepth"]=2,["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=3,propT={},["stackDepth"]=2,["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/tacc/mf/TACC/pgi/7.1",["fullName"]="pgi/7.1",["loadOrder"]=2,propT={},["stackDepth"]=2,["status"]="active",["userName"]="pgi",},},mpathA={"/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles","ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
 export _ModuleTable_;
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --latest load pgi
 ===========================
-LD_LIBRARY_PATH="/unknown/apps/pgi/7.2/linux86-64/7.2-5/libso:/opt/ofed/lib64:/share/apps/teragrid/globus-4.0.7-r1/lib:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:/unknown/apps/intel10_1/mvapich/1.0.1/lib:/unknown/apps/intel10_1/mvapich/1.0.1/lib/shared";
+__LMOD_REF_COUNT_LD_LIBRARY_PATH=/unknown/apps/pgi/7.2/linux86-64/7.2-5/libso:1\;/opt/ofed/lib64:1\;/share/apps/teragrid/globus-4.0.7-r1/lib:1\;/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:1\;/unknown/apps/intel10_1/mvapich/1.0.1/lib:1\;/unknown/apps/intel10_1/mvapich/1.0.1/lib/shared:1;
+export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
+LD_LIBRARY_PATH=/unknown/apps/pgi/7.2/linux86-64/7.2-5/libso:/opt/ofed/lib64:/share/apps/teragrid/globus-4.0.7-r1/lib:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:/unknown/apps/intel10_1/mvapich/1.0.1/lib:/unknown/apps/intel10_1/mvapich/1.0.1/lib/shared;
 export LD_LIBRARY_PATH;
-LMOD_FAMILY_COMPILER="pgi";
+LMOD_FAMILY_COMPILER=pgi;
 export LMOD_FAMILY_COMPILER;
-LMOD_FAMILY_COMPILER_VERSION="7.2-5";
+LMOD_FAMILY_COMPILER_VERSION=7.2-5;
 export LMOD_FAMILY_COMPILER_VERSION;
-LOADEDMODULES="Linux:mvapich1/mvapich1:globus/4.0.7:cluster-paths:cluster:TACC-paths:TACC:pgi/7.2-5";
+__LMOD_REF_COUNT_LOADEDMODULES=Linux:1\;mvapich1/mvapich1:1\;globus/4.0.7:1\;cluster-paths:1\;cluster:1\;TACC-paths:1\;TACC:1\;pgi/7.2-5:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=Linux:mvapich1/mvapich1:globus/4.0.7:cluster-paths:cluster:TACC-paths:TACC:pgi/7.2-5;
 export LOADEDMODULES;
-MANPATH="/unknown/apps/pgi/7.2/linux86-64/7.2-5/man:/usr/share/man:/usr/X11R6/man:/opt/ganglia/man:/opt/rocks/man:/usr/kerberos/man:/usr/man:/share/apps/teragrid/globus-4.0.7-r1/man:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:/unknown/apps/intel10_1/mvapich/1.0.1/man:/unknown/apps/pki_apps/man:/usr/local/man";
+__LMOD_REF_COUNT_MANPATH=/unknown/apps/pgi/7.2/linux86-64/7.2-5/man:1\;/usr/share/man:1\;/usr/X11R6/man:1\;/opt/ganglia/man:1\;/opt/rocks/man:1\;/usr/kerberos/man:1\;/usr/man:1\;/share/apps/teragrid/globus-4.0.7-r1/man:1\;/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:1\;/unknown/apps/intel10_1/mvapich/1.0.1/man:1\;/unknown/apps/pki_apps/man:1\;/usr/local/man:1;
+export __LMOD_REF_COUNT_MANPATH;
+MANPATH=/unknown/apps/pgi/7.2/linux86-64/7.2-5/man:/usr/share/man:/usr/X11R6/man:/opt/ganglia/man:/opt/rocks/man:/usr/kerberos/man:/usr/man:/share/apps/teragrid/globus-4.0.7-r1/man:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:/unknown/apps/intel10_1/mvapich/1.0.1/man:/unknown/apps/pki_apps/man:/usr/local/man;
 export MANPATH;
-MODULEPATH="ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.2-5:/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/tacc/mf/TACC";
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.2-5:1\;/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:1\;ProjectDIR/rt/tacc/mf/TACC:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.2-5:/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/tacc/mf/TACC;
 export MODULEPATH;
-PATH="/unknown/apps/pgi/7.2/linux86-64/7.2-5/bin:/usr/local/first:/share/apps/teragrid/globus-4.0.7-r1/sbin:/share/apps/teragrid/globus-4.0.7-r1/bin:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/bin:/unknown/apps/intel10_1/mvapich/1.0.1/bin:ProjectDIR/src:PATH_to_TM:/unknown/apps/pki_apps:/share/sge6.2/default/pe_scripts:.";
+__LMOD_REF_COUNT_PATH=/unknown/apps/pgi/7.2/linux86-64/7.2-5/bin:1\;/usr/local/first:1\;/share/apps/teragrid/globus-4.0.7-r1/sbin:1\;/share/apps/teragrid/globus-4.0.7-r1/bin:1\;/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/bin:1\;/unknown/apps/intel10_1/mvapich/1.0.1/bin:1\;ProjectDIR/src:1\;PATH_to_TM:1\;/unknown/apps/pki_apps:1\;/share/sge6.2/default/pe_scripts:1\;.:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=/unknown/apps/pgi/7.2/linux86-64/7.2-5/bin:/usr/local/first:/share/apps/teragrid/globus-4.0.7-r1/sbin:/share/apps/teragrid/globus-4.0.7-r1/bin:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/bin:/unknown/apps/intel10_1/mvapich/1.0.1/bin:ProjectDIR/src:PATH_to_TM:/unknown/apps/pki_apps:/share/sge6.2/default/pe_scripts:.;
 export PATH;
-PGI="/unknown/apps/pgi/7.2-5";
+PGI=/unknown/apps/pgi/7.2-5;
 export PGI;
-_LMFILES_="ProjectDIR/rt/tacc/mf/TACC/Linux:ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1:ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7:ProjectDIR/rt/tacc/mf/TACC/cluster-paths:ProjectDIR/rt/tacc/mf/TACC/cluster:ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua:ProjectDIR/rt/tacc/mf/TACC/TACC:ProjectDIR/rt/tacc/mf/TACC/pgi/7.2-5";
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/tacc/mf/TACC/Linux:1\;ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1:1\;ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7:1\;ProjectDIR/rt/tacc/mf/TACC/cluster-paths:1\;ProjectDIR/rt/tacc/mf/TACC/cluster:1\;ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua:1\;ProjectDIR/rt/tacc/mf/TACC/TACC:1\;ProjectDIR/rt/tacc/mf/TACC/pgi/7.2-5:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/tacc/mf/TACC/Linux:ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1:ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7:ProjectDIR/rt/tacc/mf/TACC/cluster-paths:ProjectDIR/rt/tacc/mf/TACC/cluster:ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua:ProjectDIR/rt/tacc/mf/TACC/TACC:ProjectDIR/rt/tacc/mf/TACC/pgi/7.2-5;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mvapich1",["compiler"]="pgi",},mT={Linux={["fn"]="ProjectDIR/rt/tacc/mf/TACC/Linux",["fullName"]="Linux",["loadOrder"]=1,propT={},["status"]="active",["userName"]="Linux",},TACC={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC",["fullName"]="TACC",["loadOrder"]=7,propT={},["status"]="active",["userName"]="TACC",},["TACC-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua",["fullName"]="TACC-paths",["loadOrder"]=6,propT={},["status"]="active",["userName"]="TACC-paths",},cluster={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster",["fullName"]="cluster",["loadOrder"]=5,propT={},["status"]="active",["userName"]="cluster",},["cluster-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster-paths",["fullName"]="cluster-paths",["loadOrder"]=4,propT={},["status"]="active",["userName"]="cluster-paths",},globus={["fn"]="ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=3,propT={},["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/tacc/mf/TACC/pgi/7.2-5",["fullName"]="pgi/7.2-5",["loadOrder"]=8,propT={},["status"]="active",["userName"]="pgi/7.2-5",},},mpathA={"ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.2-5","/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mvapich1",["compiler"]="pgi",},mT={Linux={["fn"]="ProjectDIR/rt/tacc/mf/TACC/Linux",["fullName"]="Linux",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="Linux",},TACC={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC",["fullName"]="TACC",["loadOrder"]=7,propT={},["stackDepth"]=0,["status"]="active",["userName"]="TACC",},["TACC-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua",["fullName"]="TACC-paths",["loadOrder"]=6,propT={},["stackDepth"]=1,["status"]="active",["userName"]="TACC-paths",},cluster={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster",["fullName"]="cluster",["loadOrder"]=5,propT={},["stackDepth"]=1,["status"]="active",["userName"]="cluster",},["cluster-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster-paths",["fullName"]="cluster-paths",["loadOrder"]=4,propT={},["stackDepth"]=2,["status"]="active",["userName"]="cluster-paths",},globus={["fn"]="ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=3,propT={},["stackDepth"]=2,["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=2,propT={},["stackDepth"]=2,["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/tacc/mf/TACC/pgi/7.2-5",["fullName"]="pgi/7.2-5",["loadOrder"]=8,propT={},["stackDepth"]=0,["status"]="active",["userName"]="pgi/7.2-5",},},mpathA={"ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.2-5","/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
 export _ModuleTable_;
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-MODULEPATH="ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.2-5:/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/tacc/mf/TACC";
+MODULEPATH=ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.2-5:/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/tacc/mf/TACC;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mvapich1",["compiler"]="pgi",},mT={Linux={["fn"]="ProjectDIR/rt/tacc/mf/TACC/Linux",["fullName"]="Linux",["loadOrder"]=1,propT={},["status"]="active",["userName"]="Linux",},TACC={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC",["fullName"]="TACC",["loadOrder"]=7,propT={},["status"]="active",["userName"]="TACC",},["TACC-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua",["fullName"]="TACC-paths",["loadOrder"]=6,propT={},["status"]="active",["userName"]="TACC-paths",},cluster={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster",["fullName"]="cluster",["loadOrder"]=5,propT={},["status"]="active",["userName"]="cluster",},["cluster-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster-paths",["fullName"]="cluster-paths",["loadOrder"]=4,propT={},["status"]="active",["userName"]="cluster-paths",},globus={["fn"]="ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=3,propT={},["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/tacc/mf/TACC/pgi/7.2-5",["fullName"]="pgi/7.2-5",["loadOrder"]=8,propT={},["status"]="active",["userName"]="pgi/7.2-5",},},mpathA={"ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.2-5","/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mvapich1",["compiler"]="pgi",},mT={Linux={["fn"]="ProjectDIR/rt/tacc/mf/TACC/Linux",["fullName"]="Linux",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="Linux",},TACC={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC",["fullName"]="TACC",["loadOrder"]=7,propT={},["stackDepth"]=0,["status"]="active",["userName"]="TACC",},["TACC-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua",["fullName"]="TACC-paths",["loadOrder"]=6,propT={},["stackDepth"]=1,["status"]="active",["userName"]="TACC-paths",},cluster={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster",["fullName"]="cluster",["loadOrder"]=5,propT={},["stackDepth"]=1,["status"]="active",["userName"]="cluster",},["cluster-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster-paths",["fullName"]="cluster-paths",["loadOrder"]=4,propT={},["stackDepth"]=2,["status"]="active",["userName"]="cluster-paths",},globus={["fn"]="ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=3,propT={},["stackDepth"]=2,["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=2,propT={},["stackDepth"]=2,["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/tacc/mf/TACC/pgi/7.2-5",["fullName"]="pgi/7.2-5",["loadOrder"]=8,propT={},["stackDepth"]=0,["status"]="active",["userName"]="pgi/7.2-5",},},mpathA={"ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.2-5","/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
 export _ModuleTable_;
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load pgi
 ===========================
-LD_LIBRARY_PATH="/unknown/apps/pgi/7.1/linux86-64/7.1-2/libso:/opt/ofed/lib64:/share/apps/teragrid/globus-4.0.7-r1/lib:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:/unknown/apps/intel10_1/mvapich/1.0.1/lib:/unknown/apps/intel10_1/mvapich/1.0.1/lib/shared";
+__LMOD_REF_COUNT_LD_LIBRARY_PATH=/unknown/apps/pgi/7.1/linux86-64/7.1-2/libso:1\;/opt/ofed/lib64:1\;/share/apps/teragrid/globus-4.0.7-r1/lib:1\;/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:1\;/unknown/apps/intel10_1/mvapich/1.0.1/lib:1\;/unknown/apps/intel10_1/mvapich/1.0.1/lib/shared:1;
+export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
+LD_LIBRARY_PATH=/unknown/apps/pgi/7.1/linux86-64/7.1-2/libso:/opt/ofed/lib64:/share/apps/teragrid/globus-4.0.7-r1/lib:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:/unknown/apps/intel10_1/mvapich/1.0.1/lib:/unknown/apps/intel10_1/mvapich/1.0.1/lib/shared;
 export LD_LIBRARY_PATH;
-LMOD_FAMILY_COMPILER="pgi";
+LMOD_FAMILY_COMPILER=pgi;
 export LMOD_FAMILY_COMPILER;
-LMOD_FAMILY_COMPILER_VERSION="7.1";
+LMOD_FAMILY_COMPILER_VERSION=7.1;
 export LMOD_FAMILY_COMPILER_VERSION;
-LOADEDMODULES="Linux:mvapich1/mvapich1:globus/4.0.7:cluster-paths:cluster:TACC-paths:TACC:pgi/7.1";
+__LMOD_REF_COUNT_LOADEDMODULES=Linux:1\;mvapich1/mvapich1:1\;globus/4.0.7:1\;cluster-paths:1\;cluster:1\;TACC-paths:1\;TACC:1\;pgi/7.1:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=Linux:mvapich1/mvapich1:globus/4.0.7:cluster-paths:cluster:TACC-paths:TACC:pgi/7.1;
 export LOADEDMODULES;
-MANPATH="/unknown/apps/pgi/7.1/linux86-64/7.1-2/man:/usr/share/man:/usr/X11R6/man:/opt/ganglia/man:/opt/rocks/man:/usr/kerberos/man:/usr/man:/share/apps/teragrid/globus-4.0.7-r1/man:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:/unknown/apps/intel10_1/mvapich/1.0.1/man:/unknown/apps/pki_apps/man:/usr/local/man";
+__LMOD_REF_COUNT_MANPATH=/unknown/apps/pgi/7.1/linux86-64/7.1-2/man:1\;/usr/share/man:1\;/usr/X11R6/man:1\;/opt/ganglia/man:1\;/opt/rocks/man:1\;/usr/kerberos/man:1\;/usr/man:1\;/share/apps/teragrid/globus-4.0.7-r1/man:1\;/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:1\;/unknown/apps/intel10_1/mvapich/1.0.1/man:1\;/unknown/apps/pki_apps/man:1\;/usr/local/man:1;
+export __LMOD_REF_COUNT_MANPATH;
+MANPATH=/unknown/apps/pgi/7.1/linux86-64/7.1-2/man:/usr/share/man:/usr/X11R6/man:/opt/ganglia/man:/opt/rocks/man:/usr/kerberos/man:/usr/man:/share/apps/teragrid/globus-4.0.7-r1/man:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:/unknown/apps/intel10_1/mvapich/1.0.1/man:/unknown/apps/pki_apps/man:/usr/local/man;
 export MANPATH;
-MODULEPATH="ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1:/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/tacc/mf/TACC";
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1:1\;/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:1\;ProjectDIR/rt/tacc/mf/TACC:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1:/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/tacc/mf/TACC;
 export MODULEPATH;
-PATH="/unknown/apps/pgi/7.1/linux86-64/7.1-2/bin:/usr/local/first:/share/apps/teragrid/globus-4.0.7-r1/sbin:/share/apps/teragrid/globus-4.0.7-r1/bin:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/bin:/unknown/apps/intel10_1/mvapich/1.0.1/bin:ProjectDIR/src:PATH_to_TM:/unknown/apps/pki_apps:/share/sge6.2/default/pe_scripts:.";
+__LMOD_REF_COUNT_PATH=/unknown/apps/pgi/7.1/linux86-64/7.1-2/bin:1\;/usr/local/first:1\;/share/apps/teragrid/globus-4.0.7-r1/sbin:1\;/share/apps/teragrid/globus-4.0.7-r1/bin:1\;/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/bin:1\;/unknown/apps/intel10_1/mvapich/1.0.1/bin:1\;ProjectDIR/src:1\;PATH_to_TM:1\;/unknown/apps/pki_apps:1\;/share/sge6.2/default/pe_scripts:1\;.:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=/unknown/apps/pgi/7.1/linux86-64/7.1-2/bin:/usr/local/first:/share/apps/teragrid/globus-4.0.7-r1/sbin:/share/apps/teragrid/globus-4.0.7-r1/bin:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/bin:/unknown/apps/intel10_1/mvapich/1.0.1/bin:ProjectDIR/src:PATH_to_TM:/unknown/apps/pki_apps:/share/sge6.2/default/pe_scripts:.;
 export PATH;
-PGI="/unknown/apps/pgi/7.1";
+PGI=/unknown/apps/pgi/7.1;
 export PGI;
-_LMFILES_="ProjectDIR/rt/tacc/mf/TACC/Linux:ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1:ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7:ProjectDIR/rt/tacc/mf/TACC/cluster-paths:ProjectDIR/rt/tacc/mf/TACC/cluster:ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua:ProjectDIR/rt/tacc/mf/TACC/TACC:ProjectDIR/rt/tacc/mf/TACC/pgi/7.1";
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/tacc/mf/TACC/Linux:1\;ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1:1\;ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7:1\;ProjectDIR/rt/tacc/mf/TACC/cluster-paths:1\;ProjectDIR/rt/tacc/mf/TACC/cluster:1\;ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua:1\;ProjectDIR/rt/tacc/mf/TACC/TACC:1\;ProjectDIR/rt/tacc/mf/TACC/pgi/7.1:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/tacc/mf/TACC/Linux:ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1:ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7:ProjectDIR/rt/tacc/mf/TACC/cluster-paths:ProjectDIR/rt/tacc/mf/TACC/cluster:ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua:ProjectDIR/rt/tacc/mf/TACC/TACC:ProjectDIR/rt/tacc/mf/TACC/pgi/7.1;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mvapich1",["compiler"]="pgi",},mT={Linux={["fn"]="ProjectDIR/rt/tacc/mf/TACC/Linux",["fullName"]="Linux",["loadOrder"]=1,propT={},["status"]="active",["userName"]="Linux",},TACC={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC",["fullName"]="TACC",["loadOrder"]=7,propT={},["status"]="active",["userName"]="TACC",},["TACC-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua",["fullName"]="TACC-paths",["loadOrder"]=6,propT={},["status"]="active",["userName"]="TACC-paths",},cluster={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster",["fullName"]="cluster",["loadOrder"]=5,propT={},["status"]="active",["userName"]="cluster",},["cluster-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster-paths",["fullName"]="cluster-paths",["loadOrder"]=4,propT={},["status"]="active",["userName"]="cluster-paths",},globus={["fn"]="ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=3,propT={},["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/tacc/mf/TACC/pgi/7.1",["fullName"]="pgi/7.1",["loadOrder"]=8,propT={},["status"]="active",["userName"]="pgi",},},mpathA={"ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1","/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mvapich1",["compiler"]="pgi",},mT={Linux={["fn"]="ProjectDIR/rt/tacc/mf/TACC/Linux",["fullName"]="Linux",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="Linux",},TACC={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC",["fullName"]="TACC",["loadOrder"]=7,propT={},["stackDepth"]=0,["status"]="active",["userName"]="TACC",},["TACC-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua",["fullName"]="TACC-paths",["loadOrder"]=6,propT={},["stackDepth"]=1,["status"]="active",["userName"]="TACC-paths",},cluster={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster",["fullName"]="cluster",["loadOrder"]=5,propT={},["stackDepth"]=1,["status"]="active",["userName"]="cluster",},["cluster-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster-paths",["fullName"]="cluster-paths",["loadOrder"]=4,propT={},["stackDepth"]=2,["status"]="active",["userName"]="cluster-paths",},globus={["fn"]="ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=3,propT={},["stackDepth"]=2,["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=2,propT={},["stackDepth"]=2,["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/tacc/mf/TACC/pgi/7.1",["fullName"]="pgi/7.1",["loadOrder"]=8,propT={},["stackDepth"]=0,["status"]="active",["userName"]="pgi",},},mpathA={"ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1","/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
 export _ModuleTable_;
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-MODULEPATH="ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1:/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/tacc/mf/TACC";
+MODULEPATH=ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1:/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/tacc/mf/TACC;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mvapich1",["compiler"]="pgi",},mT={Linux={["fn"]="ProjectDIR/rt/tacc/mf/TACC/Linux",["fullName"]="Linux",["loadOrder"]=1,propT={},["status"]="active",["userName"]="Linux",},TACC={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC",["fullName"]="TACC",["loadOrder"]=7,propT={},["status"]="active",["userName"]="TACC",},["TACC-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua",["fullName"]="TACC-paths",["loadOrder"]=6,propT={},["status"]="active",["userName"]="TACC-paths",},cluster={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster",["fullName"]="cluster",["loadOrder"]=5,propT={},["status"]="active",["userName"]="cluster",},["cluster-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster-paths",["fullName"]="cluster-paths",["loadOrder"]=4,propT={},["status"]="active",["userName"]="cluster-paths",},globus={["fn"]="ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=3,propT={},["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/tacc/mf/TACC/pgi/7.1",["fullName"]="pgi/7.1",["loadOrder"]=8,propT={},["status"]="active",["userName"]="pgi",},},mpathA={"ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1","/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mvapich1",["compiler"]="pgi",},mT={Linux={["fn"]="ProjectDIR/rt/tacc/mf/TACC/Linux",["fullName"]="Linux",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="Linux",},TACC={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC",["fullName"]="TACC",["loadOrder"]=7,propT={},["stackDepth"]=0,["status"]="active",["userName"]="TACC",},["TACC-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua",["fullName"]="TACC-paths",["loadOrder"]=6,propT={},["stackDepth"]=1,["status"]="active",["userName"]="TACC-paths",},cluster={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster",["fullName"]="cluster",["loadOrder"]=5,propT={},["stackDepth"]=1,["status"]="active",["userName"]="cluster",},["cluster-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster-paths",["fullName"]="cluster-paths",["loadOrder"]=4,propT={},["stackDepth"]=2,["status"]="active",["userName"]="cluster-paths",},globus={["fn"]="ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=3,propT={},["stackDepth"]=2,["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=2,propT={},["stackDepth"]=2,["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/tacc/mf/TACC/pgi/7.1",["fullName"]="pgi/7.1",["loadOrder"]=8,propT={},["stackDepth"]=0,["status"]="active",["userName"]="pgi",},},mpathA={"ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1","/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
 export _ModuleTable_;
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --latest swap pgi pgi
 ===========================
-LD_LIBRARY_PATH="/unknown/apps/pgi/7.2/linux86-64/7.2-5/libso:/opt/ofed/lib64:/share/apps/teragrid/globus-4.0.7-r1/lib:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:/unknown/apps/intel10_1/mvapich/1.0.1/lib:/unknown/apps/intel10_1/mvapich/1.0.1/lib/shared";
+__LMOD_REF_COUNT_LD_LIBRARY_PATH=/unknown/apps/pgi/7.2/linux86-64/7.2-5/libso:1\;/opt/ofed/lib64:1\;/share/apps/teragrid/globus-4.0.7-r1/lib:1\;/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:1\;/unknown/apps/intel10_1/mvapich/1.0.1/lib:1\;/unknown/apps/intel10_1/mvapich/1.0.1/lib/shared:1;
+export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
+LD_LIBRARY_PATH=/unknown/apps/pgi/7.2/linux86-64/7.2-5/libso:/opt/ofed/lib64:/share/apps/teragrid/globus-4.0.7-r1/lib:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:/unknown/apps/intel10_1/mvapich/1.0.1/lib:/unknown/apps/intel10_1/mvapich/1.0.1/lib/shared;
 export LD_LIBRARY_PATH;
-LMOD_FAMILY_COMPILER="pgi";
+LMOD_FAMILY_COMPILER=pgi;
 export LMOD_FAMILY_COMPILER;
-LMOD_FAMILY_COMPILER_VERSION="7.2-5";
+LMOD_FAMILY_COMPILER_VERSION=7.2-5;
 export LMOD_FAMILY_COMPILER_VERSION;
-LOADEDMODULES="Linux:mvapich1/mvapich1:globus/4.0.7:cluster-paths:cluster:TACC-paths:TACC:pgi/7.2-5";
+__LMOD_REF_COUNT_LOADEDMODULES=Linux:1\;mvapich1/mvapich1:1\;globus/4.0.7:1\;cluster-paths:1\;cluster:1\;TACC-paths:1\;TACC:1\;pgi/7.2-5:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=Linux:mvapich1/mvapich1:globus/4.0.7:cluster-paths:cluster:TACC-paths:TACC:pgi/7.2-5;
 export LOADEDMODULES;
-MANPATH="/unknown/apps/pgi/7.2/linux86-64/7.2-5/man:/usr/share/man:/usr/X11R6/man:/opt/ganglia/man:/opt/rocks/man:/usr/kerberos/man:/usr/man:/share/apps/teragrid/globus-4.0.7-r1/man:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:/unknown/apps/intel10_1/mvapich/1.0.1/man:/unknown/apps/pki_apps/man:/usr/local/man";
+__LMOD_REF_COUNT_MANPATH=/unknown/apps/pgi/7.2/linux86-64/7.2-5/man:1\;/usr/share/man:1\;/usr/X11R6/man:1\;/opt/ganglia/man:1\;/opt/rocks/man:1\;/usr/kerberos/man:1\;/usr/man:1\;/share/apps/teragrid/globus-4.0.7-r1/man:1\;/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:1\;/unknown/apps/intel10_1/mvapich/1.0.1/man:1\;/unknown/apps/pki_apps/man:1\;/usr/local/man:1;
+export __LMOD_REF_COUNT_MANPATH;
+MANPATH=/unknown/apps/pgi/7.2/linux86-64/7.2-5/man:/usr/share/man:/usr/X11R6/man:/opt/ganglia/man:/opt/rocks/man:/usr/kerberos/man:/usr/man:/share/apps/teragrid/globus-4.0.7-r1/man:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:/unknown/apps/intel10_1/mvapich/1.0.1/man:/unknown/apps/pki_apps/man:/usr/local/man;
 export MANPATH;
-MODULEPATH="ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.2-5:/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/tacc/mf/TACC";
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.2-5:1\;/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:1\;ProjectDIR/rt/tacc/mf/TACC:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.2-5:/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/tacc/mf/TACC;
 export MODULEPATH;
-PATH="/unknown/apps/pgi/7.2/linux86-64/7.2-5/bin:/usr/local/first:/share/apps/teragrid/globus-4.0.7-r1/sbin:/share/apps/teragrid/globus-4.0.7-r1/bin:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/bin:/unknown/apps/intel10_1/mvapich/1.0.1/bin:ProjectDIR/src:PATH_to_TM:/unknown/apps/pki_apps:/share/sge6.2/default/pe_scripts:.";
+__LMOD_REF_COUNT_PATH=/unknown/apps/pgi/7.2/linux86-64/7.2-5/bin:1\;/usr/local/first:1\;/share/apps/teragrid/globus-4.0.7-r1/sbin:1\;/share/apps/teragrid/globus-4.0.7-r1/bin:1\;/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/bin:1\;/unknown/apps/intel10_1/mvapich/1.0.1/bin:1\;ProjectDIR/src:1\;PATH_to_TM:1\;/unknown/apps/pki_apps:1\;/share/sge6.2/default/pe_scripts:1\;.:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=/unknown/apps/pgi/7.2/linux86-64/7.2-5/bin:/usr/local/first:/share/apps/teragrid/globus-4.0.7-r1/sbin:/share/apps/teragrid/globus-4.0.7-r1/bin:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/bin:/unknown/apps/intel10_1/mvapich/1.0.1/bin:ProjectDIR/src:PATH_to_TM:/unknown/apps/pki_apps:/share/sge6.2/default/pe_scripts:.;
 export PATH;
-PGI="/unknown/apps/pgi/7.2-5";
+PGI=/unknown/apps/pgi/7.2-5;
 export PGI;
-_LMFILES_="ProjectDIR/rt/tacc/mf/TACC/Linux:ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1:ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7:ProjectDIR/rt/tacc/mf/TACC/cluster-paths:ProjectDIR/rt/tacc/mf/TACC/cluster:ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua:ProjectDIR/rt/tacc/mf/TACC/TACC:ProjectDIR/rt/tacc/mf/TACC/pgi/7.2-5";
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/tacc/mf/TACC/Linux:1\;ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1:1\;ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7:1\;ProjectDIR/rt/tacc/mf/TACC/cluster-paths:1\;ProjectDIR/rt/tacc/mf/TACC/cluster:1\;ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua:1\;ProjectDIR/rt/tacc/mf/TACC/TACC:1\;ProjectDIR/rt/tacc/mf/TACC/pgi/7.2-5:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/tacc/mf/TACC/Linux:ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1:ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7:ProjectDIR/rt/tacc/mf/TACC/cluster-paths:ProjectDIR/rt/tacc/mf/TACC/cluster:ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua:ProjectDIR/rt/tacc/mf/TACC/TACC:ProjectDIR/rt/tacc/mf/TACC/pgi/7.2-5;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mvapich1",["compiler"]="pgi",},mT={Linux={["fn"]="ProjectDIR/rt/tacc/mf/TACC/Linux",["fullName"]="Linux",["loadOrder"]=1,propT={},["status"]="active",["userName"]="Linux",},TACC={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC",["fullName"]="TACC",["loadOrder"]=7,propT={},["status"]="active",["userName"]="TACC",},["TACC-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua",["fullName"]="TACC-paths",["loadOrder"]=6,propT={},["status"]="active",["userName"]="TACC-paths",},cluster={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster",["fullName"]="cluster",["loadOrder"]=5,propT={},["status"]="active",["userName"]="cluster",},["cluster-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster-paths",["fullName"]="cluster-paths",["loadOrder"]=4,propT={},["status"]="active",["userName"]="cluster-paths",},globus={["fn"]="ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=3,propT={},["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/tacc/mf/TACC/pgi/7.2-5",["fullName"]="pgi/7.2-5",["loadOrder"]=8,propT={},["status"]="active",["userName"]="pgi/7.2-5",},},mpathA={"ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.2-5","/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mvapich1",["compiler"]="pgi",},mT={Linux={["fn"]="ProjectDIR/rt/tacc/mf/TACC/Linux",["fullName"]="Linux",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="Linux",},TACC={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC",["fullName"]="TACC",["loadOrder"]=7,propT={},["stackDepth"]=0,["status"]="active",["userName"]="TACC",},["TACC-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua",["fullName"]="TACC-paths",["loadOrder"]=6,propT={},["stackDepth"]=1,["status"]="active",["userName"]="TACC-paths",},cluster={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster",["fullName"]="cluster",["loadOrder"]=5,propT={},["stackDepth"]=1,["status"]="active",["userName"]="cluster",},["cluster-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster-paths",["fullName"]="cluster-paths",["loadOrder"]=4,propT={},["stackDepth"]=2,["status"]="active",["userName"]="cluster-paths",},globus={["fn"]="ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=3,propT={},["stackDepth"]=2,["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=2,propT={},["stackDepth"]=2,["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/tacc/mf/TACC/pgi/7.2-5",["fullName"]="pgi/7.2-5",["loadOrder"]=8,propT={},["stackDepth"]=0,["status"]="active",["userName"]="pgi/7.2-5",},},mpathA={"ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.2-5","/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
 export _ModuleTable_;
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-MODULEPATH="ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.2-5:/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/tacc/mf/TACC";
+MODULEPATH=ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.2-5:/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/tacc/mf/TACC;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mvapich1",["compiler"]="pgi",},mT={Linux={["fn"]="ProjectDIR/rt/tacc/mf/TACC/Linux",["fullName"]="Linux",["loadOrder"]=1,propT={},["status"]="active",["userName"]="Linux",},TACC={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC",["fullName"]="TACC",["loadOrder"]=7,propT={},["status"]="active",["userName"]="TACC",},["TACC-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua",["fullName"]="TACC-paths",["loadOrder"]=6,propT={},["status"]="active",["userName"]="TACC-paths",},cluster={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster",["fullName"]="cluster",["loadOrder"]=5,propT={},["status"]="active",["userName"]="cluster",},["cluster-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster-paths",["fullName"]="cluster-paths",["loadOrder"]=4,propT={},["status"]="active",["userName"]="cluster-paths",},globus={["fn"]="ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=3,propT={},["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=2,propT={},["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/tacc/mf/TACC/pgi/7.2-5",["fullName"]="pgi/7.2-5",["loadOrder"]=8,propT={},["status"]="active",["userName"]="pgi/7.2-5",},},mpathA={"ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.2-5","/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mvapich1",["compiler"]="pgi",},mT={Linux={["fn"]="ProjectDIR/rt/tacc/mf/TACC/Linux",["fullName"]="Linux",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="Linux",},TACC={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC",["fullName"]="TACC",["loadOrder"]=7,propT={},["stackDepth"]=0,["status"]="active",["userName"]="TACC",},["TACC-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua",["fullName"]="TACC-paths",["loadOrder"]=6,propT={},["stackDepth"]=1,["status"]="active",["userName"]="TACC-paths",},cluster={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster",["fullName"]="cluster",["loadOrder"]=5,propT={},["stackDepth"]=1,["status"]="active",["userName"]="cluster",},["cluster-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/cluster-paths",["fullName"]="cluster-paths",["loadOrder"]=4,propT={},["stackDepth"]=2,["status"]="active",["userName"]="cluster-paths",},globus={["fn"]="ProjectDIR/rt/tacc/mf/TACC/globus/4.0.7",["fullName"]="globus/4.0.7",["loadOrder"]=3,propT={},["stackDepth"]=2,["status"]="active",["userName"]="globus",},mvapich1={["fn"]="ProjectDIR/rt/tacc/mf/TACC/mvapich1/mvapich1",["fullName"]="mvapich1/mvapich1",["loadOrder"]=2,propT={},["stackDepth"]=2,["status"]="active",["userName"]="mvapich1",},pgi={["fn"]="ProjectDIR/rt/tacc/mf/TACC/pgi/7.2-5",["fullName"]="pgi/7.2-5",["loadOrder"]=8,propT={},["stackDepth"]=0,["status"]="active",["userName"]="pgi/7.2-5",},},mpathA={"ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.2-5","/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
 export _ModuleTable_;
 ===========================
 step 12
@@ -196,48 +252,69 @@ unset GLOBUS_LOCATION;
 unset GLOBUS_PATH;
 unset GLOBUS_TCP_PORT_RANGE;
 unset GPT_LOCATION;
+unset __LMOD_REF_COUNT_INFOPATH;
 unset INFOPATH;
-LD_LIBRARY_PATH="/opt/ofed/lib64";
+__LMOD_REF_COUNT_LD_LIBRARY_PATH=/opt/ofed/lib64:1;
+export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
+LD_LIBRARY_PATH=/opt/ofed/lib64;
 export LD_LIBRARY_PATH;
+unset __LMOD_REF_COUNT_LIBPATH;
 unset LIBPATH;
 unset LMOD_FAMILY_COMPILER;
 unset LMOD_FAMILY_COMPILER_VERSION;
 unset LMOD_FAMILY_MPI;
 unset LMOD_FAMILY_MPI_VERSION;
-LOADEDMODULES="Linux:TACC-paths:TACC";
+__LMOD_REF_COUNT_LOADEDMODULES=Linux:1\;TACC-paths:1\;TACC:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=Linux:TACC-paths:TACC;
 export LOADEDMODULES;
-MANPATH="/usr/local/man";
+__LMOD_REF_COUNT_MANPATH=/usr/local/man:1;
+export __LMOD_REF_COUNT_MANPATH;
+MANPATH=/usr/local/man;
 export MANPATH;
-MODULEPATH="ProjectDIR/rt/tacc/mf/TACC";
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/tacc/mf/TACC:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/tacc/mf/TACC;
 export MODULEPATH;
 unset MPICH_HOME;
 unset MYPROXY_SERVER;
 unset NAME;
-PATH="/usr/local/first:ProjectDIR/src:PATH_to_TM:/share/sge6.2/default/pe_scripts:.";
+__LMOD_REF_COUNT_PATH=/usr/local/first:1\;ProjectDIR/src:1\;PATH_to_TM:1\;/share/sge6.2/default/pe_scripts:1\;.:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=/usr/local/first:ProjectDIR/src:PATH_to_TM:/share/sge6.2/default/pe_scripts:.;
 export PATH;
 unset PGI;
 unset PURGE;
 unset RSHCOMMAND;
 unset SASL_PATH;
+unset __LMOD_REF_COUNT_SHLIB_PATH;
 unset SHLIB_PATH;
 unset USER_SHELL;
-_LMFILES_="ProjectDIR/rt/tacc/mf/TACC/Linux:ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua:ProjectDIR/rt/tacc/mf/TACC/TACC";
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/tacc/mf/TACC/Linux:1\;ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua:1\;ProjectDIR/rt/tacc/mf/TACC/TACC:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/tacc/mf/TACC/Linux:ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua:ProjectDIR/rt/tacc/mf/TACC/TACC;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={Linux={["fn"]="ProjectDIR/rt/tacc/mf/TACC/Linux",["fullName"]="Linux",["loadOrder"]=1,propT={},["status"]="active",["userName"]="Linux",},TACC={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC",["fullName"]="TACC",["loadOrder"]=3,propT={},["status"]="active",["userName"]="TACC",},["TACC-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua",["fullName"]="TACC-paths",["loadOrder"]=2,propT={},["status"]="active",["userName"]="TACC-paths",},},mpathA={"ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={Linux={["fn"]="ProjectDIR/rt/tacc/mf/TACC/Linux",["fullName"]="Linux",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="Linux",},TACC={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC",["fullName"]="TACC",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="TACC",},["TACC-paths"]={["fn"]="ProjectDIR/rt/tacc/mf/TACC/TACC-paths.lua",["fullName"]="TACC-paths",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="TACC-paths",},},mpathA={"ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
 export _ModuleTable_;
 ===========================
 step 13
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
+unset __LMOD_REF_COUNT_LD_LIBRARY_PATH;
 unset LD_LIBRARY_PATH;
+unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
+unset __LMOD_REF_COUNT_MANPATH;
 unset MANPATH;
-MODULEPATH="ProjectDIR/rt/tacc/mf/TACC";
+MODULEPATH=ProjectDIR/rt/tacc/mf/TACC;
 export MODULEPATH;
-PATH="ProjectDIR/src:PATH_to_TM:/bin";
+__LMOD_REF_COUNT_PATH=ProjectDIR/src:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=ProjectDIR/src:PATH_to_TM;
 export PATH;
 unset STTY_ARGS;
 unset SYSTEM;
+unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
 export _ModuleTable_;
@@ -245,7 +322,9 @@ export _ModuleTable_;
 step 14
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/tacc/mf/Base
 ===========================
-MODULEPATH="ProjectDIR/rt/tacc/mf/Base:ProjectDIR/rt/tacc/mf/TACC";
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/tacc/mf/Base:1\;ProjectDIR/rt/tacc/mf/TACC:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/tacc/mf/Base:ProjectDIR/rt/tacc/mf/TACC;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/tacc/mf/Base","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
 export _ModuleTable_;
@@ -253,7 +332,7 @@ export _ModuleTable_;
 step 15
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show gatk
 ===========================
-MODULEPATH="ProjectDIR/rt/tacc/mf/Base:ProjectDIR/rt/tacc/mf/TACC";
+MODULEPATH=ProjectDIR/rt/tacc/mf/Base:ProjectDIR/rt/tacc/mf/TACC;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/tacc/mf/Base","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
 export _ModuleTable_;
@@ -261,25 +340,35 @@ export _ModuleTable_;
 step 16
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gatk
 ===========================
-LOADEDMODULES="gatk/1.0";
+__LMOD_REF_COUNT_LOADEDMODULES=gatk/1.0:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=gatk/1.0;
 export LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/tacc/mf/Base:ProjectDIR/rt/tacc/mf/TACC";
+MODULEPATH=ProjectDIR/rt/tacc/mf/Base:ProjectDIR/rt/tacc/mf/TACC;
 export MODULEPATH;
-PATH="/unknown/apps/gatk/1.0/bin:ProjectDIR/src:PATH_to_TM:/bin";
+__LMOD_REF_COUNT_PATH=/unknown/apps/gatk/1.0/bin:1\;ProjectDIR/src:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=/unknown/apps/gatk/1.0/bin:ProjectDIR/src:PATH_to_TM;
 export PATH;
-_LMFILES_="ProjectDIR/rt/tacc/mf/Base/gatk/1.0";
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/tacc/mf/Base/gatk/1.0:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/tacc/mf/Base/gatk/1.0;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={gatk={["fn"]="ProjectDIR/rt/tacc/mf/Base/gatk/1.0",["fullName"]="gatk/1.0",["loadOrder"]=1,propT={},["status"]="active",["userName"]="gatk",},},mpathA={"ProjectDIR/rt/tacc/mf/Base","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={gatk={["fn"]="ProjectDIR/rt/tacc/mf/Base/gatk/1.0",["fullName"]="gatk/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="gatk",},},mpathA={"ProjectDIR/rt/tacc/mf/Base","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
 export _ModuleTable_;
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload gatk
 ===========================
+unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/tacc/mf/Base:ProjectDIR/rt/tacc/mf/TACC";
+MODULEPATH=ProjectDIR/rt/tacc/mf/Base:ProjectDIR/rt/tacc/mf/TACC;
 export MODULEPATH;
-PATH="ProjectDIR/src:PATH_to_TM:/bin";
+__LMOD_REF_COUNT_PATH=ProjectDIR/src:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=ProjectDIR/src:PATH_to_TM;
 export PATH;
+unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/tacc/mf/Base","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
 export _ModuleTable_;
@@ -287,11 +376,47 @@ export _ModuleTable_;
 step 18
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load stir
 ===========================
-LOADEDMODULES="stir/2.1";
+__LMOD_REF_COUNT_LOADEDMODULES=stir/2.1:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=stir/2.1;
 export LOADEDMODULES;
-MODULEPATH="ProjectDIR/rt/tacc/mf/Base:ProjectDIR/rt/tacc/mf/TACC";
+MODULEPATH=ProjectDIR/rt/tacc/mf/Base:ProjectDIR/rt/tacc/mf/TACC;
 export MODULEPATH;
-_LMFILES_="ProjectDIR/rt/tacc/mf/Base/stir/2.1";
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/tacc/mf/Base/stir/2.1:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/tacc/mf/Base/stir/2.1;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={stir={["fn"]="ProjectDIR/rt/tacc/mf/Base/stir/2.1",["fullName"]="stir/2.1",["loadOrder"]=1,propT={},["status"]="active",["userName"]="stir",},},mpathA={"ProjectDIR/rt/tacc/mf/Base","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={stir={["fn"]="ProjectDIR/rt/tacc/mf/Base/stir/2.1",["fullName"]="stir/2.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="stir",},},mpathA={"ProjectDIR/rt/tacc/mf/Base","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
+export _ModuleTable_;
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load foo
+===========================
+__LMOD_REF_COUNT_LOADEDMODULES=stir/2.1:1\;foo/1.0:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=stir/2.1:foo/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/tacc/mf/Base:ProjectDIR/rt/tacc/mf/TACC;
+export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/tacc/mf/Base/stir/2.1:1\;ProjectDIR/rt/tacc/mf/Base/foo/1.0:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/tacc/mf/Base/stir/2.1:ProjectDIR/rt/tacc/mf/Base/foo/1.0;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={foo={["fn"]="ProjectDIR/rt/tacc/mf/Base/foo/1.0",["fullName"]="foo/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="foo",},stir={["fn"]="ProjectDIR/rt/tacc/mf/Base/stir/2.1",["fullName"]="stir/2.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="stir",},},mpathA={"ProjectDIR/rt/tacc/mf/Base","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
+export _ModuleTable_;
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load empty_unload
+===========================
+__LMOD_REF_COUNT_LOADEDMODULES=stir/2.1:1\;foo/1.0:1\;empty_unload/1.0:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=stir/2.1:foo/1.0:empty_unload/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/tacc/mf/Base:ProjectDIR/rt/tacc/mf/TACC;
+export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/tacc/mf/Base/stir/2.1:1\;ProjectDIR/rt/tacc/mf/Base/foo/1.0:1\;ProjectDIR/rt/tacc/mf/TACC/empty_unload/1.0:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/tacc/mf/Base/stir/2.1:ProjectDIR/rt/tacc/mf/Base/foo/1.0:ProjectDIR/rt/tacc/mf/TACC/empty_unload/1.0;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={empty_unload={["fn"]="ProjectDIR/rt/tacc/mf/TACC/empty_unload/1.0",["fullName"]="empty_unload/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="empty_unload",},foo={["fn"]="ProjectDIR/rt/tacc/mf/Base/foo/1.0",["fullName"]="foo/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="foo",},stir={["fn"]="ProjectDIR/rt/tacc/mf/Base/stir/2.1",["fullName"]="stir/2.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="stir",},},mpathA={"ProjectDIR/rt/tacc/mf/Base","ProjectDIR/rt/tacc/mf/TACC",},["systemBaseMPATH"]="ProjectDIR/rt/tacc/mf/TACC",}';
 export _ModuleTable_;

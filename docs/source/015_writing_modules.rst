@@ -7,7 +7,7 @@ Then we will start with the four functions that are typically needed
 for any modulefile. From there we will talk about intermediate level
 module functions when things get more complicated.  Finally we will
 discuss the advanced module functions to flexibly control your site
-via modules.  All the Lua module functions available are described at 
+via modules.  All the Lua module functions available are described at
 :ref:`lua_modulefile_functions-label`.  This discussion shows how
 they can be used.
 
@@ -67,7 +67,7 @@ what the modulefile looks like by doing::
    prepend_path( "PATH",           "/opt/apps/ddt/5.0.1/bin")
    prepend_path( "LD_LIBRARY_PATH","/opt/apps/ddt/5.0.1/lib")
 
-Modulefiles are state the actions that need to happen when loading.
+Modulefiles state the actions that need to happen when loading.
 For example the above modulefile uses **setenv** and **prepend_path**
 to set environment variables and prepend to the **PATH**.  If the
 above modulefile is unloaded then the **setenv** actually unsets the
@@ -126,7 +126,7 @@ users to start from.   This is typically called a meta module because
 it loads other modules.  As an example of that, we here at TACC
 have created the TACC module to provide a default compiler, mpi stack
 and other modules::
-  
+
    help([[
    The TACC modulefile defines ...
    ]])
@@ -155,7 +155,7 @@ of the beginning.  We add ``.`` to our user's path at the end, except for
 root.  This way our new users don't get surprised with some programs in
 their current directory that do not run.  We used the **os.getenv**
 function built-in to Lua to get the value of environment variable
-"USER". 
+"USER".
 
 The second function is **load**, this function loads the modulefiles
 specified.  This function takes one or more names.  Here we are
@@ -179,7 +179,7 @@ best way to handle this.  It might be better to set
 **OMP_NUM_THREADS** in a file that is sourced in /etc/profile.d/ and
 have all the important properties.  Namely that there will be a
 default value that the user can change. However this example shows how
-to do something tricky in a modulefile. 
+to do something tricky in a modulefile.
 
 Typically meta modules are a single file and not versioned.  So the
 TACC modulefile can be found at */apps/modulefiles/TACC.lua*.  There
@@ -215,7 +215,7 @@ octave modulefile::
 
     load("gnuplot")
     ...
-   
+
 This simplifies the loading of the octave module.  The trouble is that
 when a user does the following::
 
@@ -239,7 +239,7 @@ Then when a user does::
 The *gnuplot* module will still be loaded after unloading *octave*.
 This will lead to the least confusion to users.
 
-    
+
 Fancy dependencies
 ------------------
 
@@ -313,4 +313,10 @@ can be set like this::
     local bashStr = 'eval $($LMOD_DIR/ml_cmd "$@")'
     local cshStr  = "eval `$LMOD_DIR/ml_cmd $*`"
     set_shell_function("ml",bashStr,cshStr)
+
+Please note that aliases in bash are not expanded for non-interactive
+shells.  This means that it won't work in bash shell scripts.  Please
+change the shell alias to use the ``set_shell_function`` instead.
+Shell functions do work in both interactive and non-interactive
+shells.
 

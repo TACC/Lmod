@@ -2,7 +2,9 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing keyword graph
 ===========================
-MODULEPATH="ProjectDIR/rt/keyword/mf/Core";
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/keyword/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/keyword/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/keyword/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/keyword/mf/Core",}';
 export _ModuleTable_;

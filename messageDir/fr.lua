@@ -8,7 +8,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -34,6 +34,13 @@
 
 return {
    fr = {
+
+     --------------------------------------------------------------------------
+     -- Error/Warning Titles
+     --------------------------------------------------------------------------
+     errTitle  = "Lmod a détecté l'erreur suivante : ",
+     warnTitle = "Lmod Warning: ",
+
      --------------------------------------------------------------------------
      -- ml messages
      --------------------------------------------------------------------------
@@ -68,6 +75,7 @@ return {
   Essayez ml --help pour les instructions d'utilisation.
 ]==],
      ml_2many  = "erreur ml : trop de commandes\n",
+     ml_misplaced_opt      = nil,
 
      --------------------------------------------------------------------------
      -- LmodError messages
@@ -76,8 +84,10 @@ return {
  avec la commande : %{cmdName}. Un ou plusieurs arguments ne sont pas des chaînes de caractères.
 ]==],
      e_Avail_No_MPATH    = "La commande 'module avail' n'est pas possible. MODULEPATH n'est pas défini ou n'est pas défini avec des chemins valides.\n",
+     e_BrokenCacheFn     = nil,
+     e_BrokenQ           = nil,
      e_Conflict          = "Impossible de charger le module \"%{name}\" car le(s) module(s) suivant(s) est/sont chargé(s) :\n   %{module_list}\n",
-     e_Execute_Msg      = [==[Erreur de syntaxe dans le fichier : %{fn}
+     e_Execute_Msg       = [==[Erreur de syntaxe dans le fichier : %{fn}
 avec la commande : "execute".
 La syntaxe est :
     execute{cmd="command string",modeA={"load",...}}
@@ -103,6 +113,7 @@ Pour corriger le problème, vous pouvez utiliser la commande suivante :
 Merci de bien vouloir soumettre un ticket si vous désirez plus d'assistance.
 
 ]==],
+     e_Illegal_Load      = nil,
      e_LocationT_Srch    = "Erreur dans la fonction 'LocationT:search()'",
      e_Missing_Value     = "%{func}(\"%{name}\") n'est pas valide, une valeur est requise",
      e_MT_corrupt        = [==[La table de modules stockée dans l'environnement est corrompue.
@@ -125,14 +136,9 @@ Sinon, vous pouvez définir la variable d'environnement LMOD_DISABLE_SAME_NAME_A
      e_Prereq_Any        = "Impossible de charger le module  \"%{name}\". Au moins l'un de ces modules doit être chargé :\n   %{module_list}\n",
      e_Spdr_Timeout      = "La recherche Spider a expiré\n",
      e_Swap_Failed       = "L'échange a échoué : \"%{name}\" n'est pas chargé.\n",
-     e_SYS_DFLT_EMPTY    = [==[
-L'environnement par défaut ne contient aucun module
-  (la variable d'environnement : LMOD_SYSTEM_DEFAULT_MODULES est vide)
-  Aucun changement dans les modules chargés.
-
-]==],
      e_Unable_2_Load     = "Impossible de charger le module : %{name}\n     %{fn}: %{message}\n",
      e_Unable_2_parse    = "Impossible d'analyser : \"%{path}\". Abandon.\n",
+     e_Unable_2_rename   = nil,
      e_Unknown_Coll      = "Collection de modules utilisateur : \"%{collection}\" n'existe pas.\n  Essayez \"module savelist\" pour une liste de choix possibles.\n",
      e_coll_corrupt      = "La collection de modules est corrompue. Veuillez supprimer : %{fn}\n",
      e_dbT_sn_fail       = "dbT[sn] a échoué pour sn: %{sn}\n",
@@ -144,12 +150,14 @@ L'environnement par défaut ne contient aucun module
      --------------------------------------------------------------------------
      m_Activate_Modules    = "\nChargement des modules :\n",
      m_Additional_Variants = "\n    Des variantes additionnelles de ce module peuvent être chargées après le chargement des modules suivants :\n",
+     m_Collection_disable  = nil,
      m_Depend_Mods         = "\n    Vous devrez charger tous les modules de l'un des lignes suivantes avant de pouvoir charger le module \"%{fullName}\".\n",
      m_Description         = "    Description:\n%{descript}\n\n",
      m_Direct_Load         = "\n    Ce module peut être chargé directement : module load %{fullName}\n",
      m_Family_Swap         = "\nLmod a automatiquement remplacé \"%{oldFullName}\" par \"%{newFullName}\"\n",
      m_For_System          = ", pour le système: \"%{sname}\"",
      m_Inactive_Modules    = "\nModules inactifs:\n",
+     m_IsNVV               = nil,
      m_Module_Msgs         = [==[
 %{border}
 Il y a des messages associés avec le(s) module(s) suivant(s) : 
@@ -230,12 +238,19 @@ Essayez:
 
 pour vérifier si les modules sont disponibles avec l'un des compilateurs ou implémentation MPI installés.
 ]==],
+     w_MissingModules  = nil,
      w_MPATH_Coll      = "La variable MODULEPATH du système a changé : merci de bien vouloir reconstruire les collections que vous avez sauvegardées.\n",
      w_Mods_Not_Loaded = "Les modules suivants n'ont pas été chargés : %{module_list}\n\n",
      w_No_Coll         = "Aucune collection \"%{collection}\" n'a été trouvée.",
      w_No_dot_Coll     = "Les noms de collection ne peuvent pas contenir de '.'. Merci de bien vouloir choisir un autre nom pour : %{name}",
      w_Save_Empty_Coll = [==[Vous tentez de sauvegarder une collection de modules vide dans "%{name}". Si c'est ce que vous souhaitez, utilisez :
   $  module --force save %{name}
+]==],
+     w_SYS_DFLT_EMPTY    = [==[
+L'environnement par défaut ne contient aucun module
+  (la variable d'environnement : LMOD_SYSTEM_DEFAULT_MODULES est vide)
+  Aucun changement dans les modules chargés.
+
 ]==],
      w_System_Reserved = "Le nom 'system' pour une collection est réservé. Merci de bien vouloir choisir un autre nom.\n",
 
@@ -291,6 +306,7 @@ pour vérifier si les modules sont disponibles avec l'un des compilateurs ou imp
      collctn6      = "Restaure les modules à l'état par défaut du système.",                                 
      collctn7      = "Affiche la liste des collections sauvegardées.",
      collctn8      = "Décrit le contenu d'une collection.",
+     collctn9      = nil,
 
      depr_title    = "Sous-commandes désuètes :\n" ..
                      "-------------------------",
@@ -316,8 +332,6 @@ pour vérifier si les modules sont disponibles avec l'un des compilateurs ou imp
      --------------------------------------------------------------------------
      -- module help strings
      --------------------------------------------------------------------------
-     errTitle  = "Lmod a détecté l'erreur suivante : ",
-     warnTitle = "Lmod Warning: ",
      
      StickyM   = "Le module est permanent - nécessite --force pour l'enlever ou purger les modules",
      LoadedM   = "Le module est chargé",
@@ -354,6 +368,9 @@ pour vérifier si les modules sont disponibles avec l'un des compilateurs ou imp
      nrdirect_H= "Affiche la sortie de list, avail, spider vers stderr",
      hidden_H  = "Avail et spider afficheront les modules cachés",
      spdrT_H   = "un délai maximal pour spider",
+     trace_T   = nil,
+
+
      Where     = "\n  Où :\n",
      Inactive  = "\nModules Inactifs",
 
@@ -367,5 +384,16 @@ Utilisez "module keyword key1 key2 ..." pour chercher tous les modules possibles
      noneFound = "  Aucun trouvé",
 
 
+     --------------------------------------------------------------------------
+     -- Other strings:
+     --------------------------------------------------------------------------
+     coll_contains  = nil,
+     currLoadedMods = nil,
+     keyword_msg    = nil,
+     lmodSystemName = nil,
+     matching       = nil,
+     namedCollList  = nil,
+     noModsLoaded   = nil,
+     specific_hlp   = nil,
    }
 }

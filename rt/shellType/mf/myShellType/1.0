@@ -1,0 +1,5 @@
+#%Module
+if [ expr [ module-info mode load ] || [module-info mode display ] ] {
+   puts stderr "shell: [module-info shell]"
+   puts stderr "shelltype: [module-info shelltype]"
+}

@@ -8,7 +8,7 @@
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -97,7 +97,7 @@ end
 function M.getBuildScenario(self)
    local method = self.buildScenarioState
    if (not method or method == "empty") then
-      method = ""
+      method = false
    end
    return method
 end
@@ -107,7 +107,7 @@ function M.getBuildScenarioState(self)
 end
 
 function M.setBuildScenarioState(self, scenario)
-   dbg.print{"Setting BS: ",scenario, "\n"}
+   dbg.print{"Setting BuildScenario: ",scenario, "\n"}
    self.buildScenarioState = scenario
 end
 

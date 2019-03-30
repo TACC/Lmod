@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.3  2017-01-11 11:14 -06:00
+Modules based on Lua: Version 7.8.90  2019-03-22 16:05 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -115,7 +115,7 @@ Restoring modules from user's stdenv
 Lmod Warning: One or more modules in your stdenv collection have changed: "gcc".
 To see the contents of this collection execute:
   $ module describe stdenv
-To rebuild the collection, load the modules you wish, then execute:
+To rebuild the collection, do a module reset, then load the modules you wish, then execute:
   $ module save stdenv
 If you no longer want this module collection execute:
   $ rm ~/.lmod.d/stdenv
@@ -129,7 +129,7 @@ Restoring modules from user's stdenv
 Lmod Warning: One or more modules in your stdenv collection have changed: "StdEnv", "gcc".
 To see the contents of this collection execute:
   $ module describe stdenv
-To rebuild the collection, load the modules you wish, then execute:
+To rebuild the collection, do a module reset, then load the modules you wish, then execute:
   $ module save stdenv
 If you no longer want this module collection execute:
   $ rm ~/.lmod.d/stdenv
@@ -208,3 +208,85 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) a/2.0   2) b/3.3
+===========================
+step 35
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+===========================
+step 36
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/saverestore/EB
+===========================
+===========================
+step 37
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc/5.4
+===========================
+===========================
+step 38
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) binutils/.2.26 (H)   2) numactl/.2.0.11 (H)   3) gcc/5.4
+  Where:
+   H:  Hidden Module
+===========================
+step 39
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing save foss
+===========================
+Saved current collection of modules to: "foss"
+===========================
+step 40
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore foss
+===========================
+Restoring modules from user's foss
+===========================
+step 41
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) binutils/.2.26 (H)   2) numactl/.2.0.11 (H)   3) gcc/5.4
+  Where:
+   H:  Hidden Module
+===========================
+step 42
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+===========================
+step 43
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a
+===========================
+===========================
+step 44
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing save my_A
+===========================
+Saved current collection of modules to: "my_A"
+===========================
+step 45
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+===========================
+step 46
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore my_A
+===========================
+Restoring modules from user's my_A
+===========================
+step 47
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+===========================
+step 48
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load icc ifort
+===========================
+===========================
+step 49
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing save my_intel
+===========================
+Saved current collection of modules to: "my_intel"
+===========================
+step 50
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+===========================
+step 51
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore my_intel
+===========================
+Restoring modules from user's my_intel

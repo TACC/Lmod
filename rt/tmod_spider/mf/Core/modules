@@ -1,0 +1,32 @@
+#%Module1.0#####################################################################
+##
+## modules modulefile
+##
+## modulefiles/modules.  Generated from modules.in by configure.
+##
+proc ModulesHelp { } {
+        global version prefix
+
+        puts stderr "\tmodules - loads the modules software & application environment"
+        puts stderr "\n\tThis adds $prefix/* to several of the"
+        puts stderr "\tenvironment variables."
+        puts stderr "\n\tVersion $version\n"
+}
+
+module-whatis	"loads the modules environment"
+
+# for Tcl script use only
+set	version		3.2.10
+set	prefix		/usr/share/Modules
+set	exec_prefix	/usr/share/Modules
+set	datarootdir	${prefix}/share
+
+
+setenv		MODULESHOME	$prefix
+prepend-path    PATH   		/usr/bin
+prepend-path    MANPATH		/usr/share/man
+
+module		use		"$env(MODULEPATH_ROOT)/Core"
+
+
+

@@ -25,6 +25,9 @@
 --        10 seconds and it is set at configure time.
 -- @classmod Cache
 
+local posix      = require("posix")
+_G._DEBUG        = false
+
 require("strict")
 
 --------------------------------------------------------------------------
@@ -37,7 +40,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -79,12 +82,13 @@ local cosmic     = require("Cosmic"):singleton()
 local dbg        = require("Dbg"):dbg()
 local hook       = require("Hook")
 local lfs        = require("lfs")
-local posix      = require("posix")
 local s_cache    = false
 local timer      = require("Timer"):singleton()
 
 local ancient    = cosmic:value("LMOD_ANCIENT_TIME")
 local shortTime  = cosmic:value("LMOD_SHORT_TIME")
+local random     = math.random
+local randomseed = math.randomseed
 --------------------------------------------------------------------------
 -- This singleton construct reads the scDescriptT table that can be
 -- defined in the lmodrc.lua.  Typically this table, if it exists
@@ -122,6 +126,10 @@ local function new(self, t)
       local entry = scDescriptT[j]
       local tt    = {}
       if (entry.timestamp) then
+         local attr = lfs.attributes(entry.timestamp)
+         if (attr and type(attr) == "table") then
+            tt.lastUpdateEpoch = attr.modification
+         end
          hook.apply("parse_updateFn", entry.timestamp, tt)
       end
 
@@ -185,6 +193,21 @@ local function new(self, t)
    o.moduleDirA        = {}
    dbg.fini("Cache.new")
    return o
+end
+
+local function uuid()
+   local time = epoch()
+   local seed = math.floor((time - math.floor(time))*1.0e+6)
+   if (seed == 0) then
+      seed = time
+   end
+   randomseed(seed)
+
+   local template ='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
+   return string.gsub(template, '[xy]', function (c)
+                         local v = (c == 'x') and random(0, 0xf) or random(8, 0xb)
+                         return string.format('%x', v)
+                                        end)
 end
 
 --------------------------------------------------------------------------
@@ -302,6 +325,10 @@ local function l_readCacheFile(self, spiderTFnA)
 
             -- Check for matching default MODULEPATH.
             assert(loadfile(fn))()
+            if (_G.mrcT == nil or next(_G.mrcT) == nil) then
+               LmodError{msg="e_BrokenCacheFn",fn=fn}
+            end
+
             mrc:import(_G.mrcT)
 
             local G_spiderT = _G.spiderT
@@ -438,6 +465,19 @@ function M.build(self, fast)
    if (not buildSpiderT) then
       mt:setRebuildTime(ancient, short)
    else
+      local tracing  = cosmic:value("LMOD_TRACING")
+      if (tracing == "yes") then
+         local shell      = _G.Shell
+         local stackDepth = FrameStk:singleton():stackDepth()
+         local indent     = ("  "):rep(stackDepth+1)
+         local b          = {}
+         b[#b + 1]        = indent
+         b[#b + 1]        = "Building Spider cache for the following dir(s): "
+         b[#b + 1]        = concatTbl(dirA,", ")
+         b[#b + 1]        = "\n"
+         shell:echo(concatTbl(b,""))
+      end
+
       local prtRbMsg = ((not quiet())                        and
                         (not masterTbl.initial)              and
                         ((not short) or (short > shortTime)) and
@@ -448,16 +488,15 @@ function M.build(self, fast)
       dbg.print{"prtRbMsg: ",prtRbMsg,", quiet:     ",self.quiet,"\n"}
 
       local threshold = cosmic:value("LMOD_THRESHOLD")
-      local cTimer = CTimer:singleton("Rebuilding cache, please wait ...",
-                                      threshold, prtRbMsg, masterTbl.timeout)
-
-      local mcp_old  = mcp
+      local cTimer    = CTimer:singleton("Rebuilding cache, please wait ...",
+                                         threshold, prtRbMsg, masterTbl.timeout)
+      local mcp_old   = mcp
       dbg.print{"Setting mcp to ", mcp:name(),"\n"}
       mcp                 = MasterControl.build("spider")
 
       local t1            = epoch()
-      local st, msg       = pcall(Spider.findAllModules, spider, dirA, userSpiderT)
-      if (not st) then
+      local ok, msg       = pcall(Spider.findAllModules, spider, dirA, userSpiderT)
+      if (not ok) then
          if (msg) then io.stderr:write("Msg: ",msg,'\n') end
          LmodSystemError{msg="e_Spdr_Timeout"}
       end
@@ -482,7 +521,22 @@ function M.build(self, fast)
 
       local dontWrite = self.dontWrite or r.dontWriteCache or cosmic:value("LMOD_IGNORE_CACHE")
 
+      if (tracing == "yes") then
+         local shell      = _G.Shell
+         local stackDepth = FrameStk:singleton():stackDepth()
+         local indent     = ("  "):rep(stackDepth+1)
+         local b          = {}
+         b[#b + 1]        = indent
+         b[#b + 1]        = "completed building cache. Saving cache: "
+         b[#b + 1]        = tostring(not(t2 - t1 < shortTime or dontWrite))
+         b[#b + 1]        = "\n"
+         shell:echo(concatTbl(b,""))
+      end
+
+
+
       local doneMsg
+      mrc = MRC:singleton()
 
       if (t2 - t1 < shortTime or dontWrite) then
          ancient = shortLifeCache
@@ -505,21 +559,26 @@ function M.build(self, fast)
          dbg.print{"mt: ", tostring(mt), "\n", level=2}
          doneMsg = " (not written to file) done"
       else
-         mrc = MRC:singleton()
          mkdir_recursive(self.usrCacheDir)
-         local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
-         local s1 = "ancient = " .. tostring(math.floor(ancient)) .."\n"
-         local s2 = mrc:export()
-         local s3 = serializeTbl{name="spiderT",      value=userSpiderT, indent=true}
-         local s4 = serializeTbl{name="mpathMapT",    value=mpathMapT,   indent=true}
-         os.rename(userSpiderTFN, userSpiderTFN .. "~")
-         local f  = io.open(userSpiderTFN,"w")
+         local userSpiderTFN_new = userSpiderTFN .. "_" .. uuid()
+         local f                 = io.open(userSpiderTFN_new,"w")
          if (f) then
+            os.rename(userSpiderTFN, userSpiderTFN .. "~")
+            local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
+            local s1 = "ancient = " .. tostring(math.floor(ancient)) .."\n"
+            local s2 = mrc:export()
+            local s3 = serializeTbl{name="spiderT",      value=userSpiderT, indent=true}
+            local s4 = serializeTbl{name="mpathMapT",    value=mpathMapT,   indent=true}
             f:write(s0,s1,s2,s3,s4)
             f:close()
+            local ok, message = os.rename(userSpiderTFN_new, userSpiderTFN)
+            if (not ok) then
+               LmodError{msg="e_Unable_2_rename",from=userSpiderTFN_new,to=userSpiderTFN, errMsg=message}
+            end
+            posix.unlink(userSpiderTFN .. "~")
+            dbg.print{"Wrote: ",userSpiderTFN,"\n"}
          end
-         posix.unlink(userSpiderTFN .. "~")
-         dbg.print{"Wrote: ",userSpiderTFN,"\n"}
+         
          if (LUAC_PATH ~= "") then
             if (LUAC_PATH:sub(1,1) == "@") then
                LUAC_PATH="luac"
@@ -563,7 +622,8 @@ function M.build(self, fast)
 
    -- With a valid spiderT build dbT if necessary:
    if (next(dbT) == nil or buildSpiderT) then
-      spider:buildDbT(mpathMapT, spiderT, dbT)
+      local mpathA = mt:modulePathA()
+      spider:buildDbT(mpathA, mpathMapT, spiderT, dbT)
    end
 
    -- remove user cache file if old

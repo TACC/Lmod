@@ -28,7 +28,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -147,6 +147,20 @@ end
 -- @param mA An array of module names (MName objects)
 function M.load(self, mA)
    A[#A+1] = ShowCmdA("load", mA)
+end
+
+-- Print mgrload command.
+-- @param self A MasterControl object
+-- @param mA An array of module names (MName objects)
+function M.mgrload(self, required, active)
+   A[#A+1] = ShowCmd("mgrload", required, active)
+end
+--------------------------------------------------------------------------
+-- Print depends_on command.
+-- @param self A MasterControl object
+-- @param mA An array of module names (MName objects)
+function M.depends_on(self, mA)
+   A[#A+1] = ShowCmdA("depends_on", mA)
 end
 
 --------------------------------------------------------------------------

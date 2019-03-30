@@ -27,7 +27,7 @@ require("strict")
 --
 --  ----------------------------------------------------------------------
 --
---  Copyright (C) 2008-2017 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -65,7 +65,7 @@ local dbg          = require("Dbg"):dbg()
 local hook         = require("Hook")
 local max          = math.max
 local _concatTbl   = table.concat
-local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack
+local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
 
 --------------------------------------------------------------------------
 -- Special table concat function that knows about strings and numbers.
@@ -94,9 +94,9 @@ end
 -- Validate a function with only string arguments.
 -- @param cmdName The command which is getting its arguments validated.
 local function validateStringArgs(cmdName, ...)
-   local arg = pack(...)
-   for i = 1, arg.n do
-      local v = arg[i]
+   local argA = pack(...)
+   for i = 1, argA.n do
+      local v = argA[i]
       if (type(v) ~= "string") then
          mcp:report{msg="e_Args_Not_Strings", fn = myFileName(), cmdName = cmdName}
          return false
@@ -138,17 +138,17 @@ end
 -- Validate a function with only string module names table.
 -- @param cmdName The command which is getting its arguments validated.
 local function validateArgsWithValue(cmdName, ...)
-   local arg = pack(...)
+   local argA = pack(...)
 
-   for i = 1, arg.n -1 do
-      local v = arg[i]
+   for i = 1, argA.n -1 do
+      local v = argA[i]
       if (type(v) ~= "string") then
          mcp:report{msg="e_Args_Not_Strings", fn = myFileName(), cmdName = cmdName}
          return false
       end
    end
 
-   local v = arg[arg.n]
+   local v = argA[argA.n]
    if (type(v) ~= "string" and type(v) ~= "number" and type(v) ~= "boolean") then
       mcp:report{msg="e_Args_Not_Strings", fn = myFileName(), cmdName = cmdName}
       return false
@@ -160,12 +160,12 @@ end
 -- Validate a function with only string module names table.
 -- @param cmdName The command which is getting its arguments validated.
 local function validateModules(cmdName, ...)
-   local arg = pack(...)
-   dbg.print{"cmd: ",cmdName, " arg.n: ",arg.n,"\n"}
+   local argA = pack(...)
+   dbg.print{"cmd: ",cmdName, " argA.n: ",argA.n,"\n"}
    local allGood = true
    local fn      = false
-   for i = 1, arg.n do
-      local v = arg[i]
+   for i = 1, argA.n do
+      local v = argA[i]
       if (type(v) == "string") then
          allGood = true
       elseif (type(v) == "table" and v.__waterMark == "MName") then
@@ -195,20 +195,29 @@ function load_module(...)
    return b
 end
 
+function mgrload(required, active)
+   dbg.start{"mgrload(",required,", activeA)"}
+
+   local status  = mcp:mgrload(required, active)
+   dbg.fini("mgrload")
+   return status
+end   
+
+
 --- PATH functions ---
 --------------------------------------------------------------------------
 -- convert arguments into a table if necessary.
 local function convert2table(...)
-   local arg = pack(...)
-   local t   = {}
+   local argA = pack(...)
+   local t    = {}
 
-   if (arg.n == 1 and type(arg[1]) == "table" ) then
-      t = arg[1]
+   if (argA.n == 1 and type(argA[1]) == "table" ) then
+      t = argA[1]
       t[1] = t[1]:trim()
    else
-      t[1]    = arg[1]:trim()
-      t[2]    = arg[2]
-      t.delim = arg[3]
+      t[1]    = argA[1]:trim()
+      t[2]    = argA[2]
+      t.delim = argA[3]
    end
    t.priority = tonumber(t.priority or "0")
    return t
@@ -305,6 +314,15 @@ function family(...)
 
    mcp:family(...)
    dbg.fini("family")
+end
+
+--------------------------------------------------------------------------
+-- Provide a list of loaded modules for sites to use
+function loaded_modules()
+   dbg.start{"loaded_modules()"}
+   local a = mcp:loaded_modules()
+   dbg.fini("loaded_modules")
+   return a
 end
 
 --- Inherit function ---
@@ -416,6 +434,10 @@ function myShellName()
    return mcp:myShellName()
 end
 
+function myShellType()
+   return mcp:myShellType()
+end
+
 --------------------------------------------------------------------------
 -- The whatis database function.
 function whatis(...)
@@ -465,7 +487,7 @@ function prereq(...)
    dbg.start{"prereq(",concatTbl({...},", "),")"}
    if (not validateModules("prereq", ...)) then return end
 
-   mcp:prereq(MName:buildA("load", ...))
+   mcp:prereq(MName:buildA("mt", ...))
    dbg.fini("prereq")
 end
 
@@ -476,7 +498,7 @@ function prereq_any(...)
    dbg.start{"prereq_any(",concatTbl({...},", "),")"}
    if (not validateModules("prereq_any",...)) then return end
 
-   mcp:prereq_any(MName:buildA("load",...))
+   mcp:prereq_any(MName:buildA("mt",...))
    dbg.fini("conflict")
 end
 
@@ -486,7 +508,7 @@ function conflict(...)
    dbg.start{"conflict(",concatTbl({...},", "),")"}
    if (not validateStringArgs("conflict",...)) then return end
 
-   mcp:conflict(MName:buildA("load",...))
+   mcp:conflict(MName:buildA("mt",...))
    dbg.fini()
 end
 
@@ -736,5 +758,24 @@ function always_unload(...)
    return b
 end
 
---- Family function ---
+function depends_on(...)
+   dbg.start{"depends_on(",concatTbl({...},", "),")"}
+   if (not validateStringArgs("depends_on",...)) then return {} end
 
+   local b = mcp:depends_on(MName:buildA(mcp:MNameType(),...))
+   dbg.fini("depends_on")
+end
+   
+--- subprocess function ---
+
+function subprocess(cmd)
+   dbg.start{"subprocess(",cmd,")"}
+   local p = io.popen(cmd)
+   if p == nil then
+      return nil
+   end
+   local ret = p:read("*all")
+   p:close()
+   return ret
+end
+   
