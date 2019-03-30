@@ -1,4 +1,4 @@
-`from __future__ import print_function
+from __future__ import print_function
 from time       import sleep
 import os, sys, re, base64, time, json
 dirNm, execName = os.path.split(os.path.realpath(sys.argv[0]))
@@ -163,7 +163,7 @@ class LMODdb(object):
 
       # extract join_user_module table:
       query = "SELECT user_id, mod_id, UNIX_TIMESTAMP(date) from join_user_module where date >= %s AND date < %s"
-      cursor.execute(query, (startDate, endDate)
+      cursor.execute(query, (startDate, endDate))
       numRows = cursor.rowcount
       for i in xrange(numRows):
         row     = cursor.fetchone()

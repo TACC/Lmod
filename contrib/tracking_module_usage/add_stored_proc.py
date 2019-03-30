@@ -117,6 +117,7 @@ def main():
     cursor.execute(sqlCommands)
     print("(%d) Create event eventCreatePartition" % idx); idx += 1
 
+    dA  = strDate2dA(args.firstPart)
     dA  = add_month(dA)
     now = time.strftime('%Y-%m-%d', time.localtime(time.time()))
     eA  = add_month(strDate2dA(now))
