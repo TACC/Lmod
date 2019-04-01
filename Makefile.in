@@ -260,7 +260,8 @@ __installMe:
 	        -e 's|@modulepath_root@|$(MODULEPATH_ROOT)|g'         	   	  \
                 -e 's|@PKGV@|$(PKGV)|g'                                    	  \
                 -e 's|@PKG@|$(PKG)|g'         < $$i > $(DIRLOC)/$$fn; 	   	  \
-            [ "$$ext" = "in.lua" -o "$$ext" = "tcl" -o "$$ext" = "in" ] && 	  \
+            [ "$$ext" = "in.lua" -o "$$ext" = "tcl" -o "$$ext" = "in"             \
+               -o "$$ext" = "sh.in" ] && 	                                  \
                chmod +x $(DIRLOC)/$$fn;                                    	  \
             if [ "$$ext" = "version.lua" ]; then                           	  \
                mname=$${bareN%%.*};                                        	  \
