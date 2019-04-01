@@ -82,6 +82,7 @@ proc showResults {} {
     }
     
     if { $g_fast > 0 } {
+	puts stderr "from RC2lua.tcl:(showResults): $my_output"
 	setResults $my_output
     } else {
 	puts stdout "$my_output"
