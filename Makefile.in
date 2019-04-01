@@ -101,7 +101,7 @@ STANDALONE_PRGM   	  := src/lmod.in.lua src/addto.in.lua                       \
                              src/sh_to_modulefile.in.lua                            \
 	                     src/update_lmod_system_cache_files.in                  \
                              src/ignore_dirs_converter                              \
-	                     sh_src/print_os.sh
+	                     sh_src/print_os.sh.in
 STANDALONE_PRGM           := $(patsubst %, $(srcdir)/%, $(STANDALONE_PRGM))
 SHELL_INIT	  	  := bash.in cmake.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in R.in \
                              env_modules_python.py.in lmod_bash_completions fish.in  \
