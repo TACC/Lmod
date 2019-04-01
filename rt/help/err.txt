@@ -258,6 +258,7 @@ Ignore Cache                       no
 Cached loads                       no
 System Name                        <empty>
 SYSHOST (cluster name)             <empty>
+TCL Version                        <N/A>
 User cache valid time(sec)         86400
 Write cache after (sec)            2
 Threshold (sec)                    1
