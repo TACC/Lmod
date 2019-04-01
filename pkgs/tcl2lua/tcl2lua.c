@@ -36,6 +36,7 @@ int setResultsObjCmd(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Ob
       resultStr = (char *) malloc(rlen*sizeof(char));
     }
   fprintf(stderr,"in setResults: str(len:%d): \"%s\"\n",len,str);
+  fprintf(stderr,"in setResults: str[%d-1]: \"%c\"\n",len,str[len-1]);
   fprintf(stderr,"%s:%d\n",__FILE__,__LINE__);
   strcpy(resultStr,str);
   //memcpy(&resultStr[0], str, len);
