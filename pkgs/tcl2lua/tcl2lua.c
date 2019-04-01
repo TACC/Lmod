@@ -23,7 +23,10 @@ int setResultsObjCmd(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Ob
 
   resultStr  = Tcl_GetStringFromObj(objPtr, &len);
   if (resultStr[0] == '\0')
-    return TCL_ERROR;
+    {
+      fprintf(stderr,"Result string has zero length\n")
+      return TCL_ERROR;
+    }
 
   return TCL_OK;
 }
@@ -121,6 +124,8 @@ static int runTCLprog(lua_State *L)
 
   int result = Tcl_EvalFile(interp, cmd);
   status     = result == TCL_OK;
+
+  fprintf(stderr,"Result string: \"%s\"\n",resultStr);
 
   lua_pushstring(L, resultStr);
   Tcl_DeleteInterp(interp);

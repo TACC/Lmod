@@ -42,6 +42,7 @@ proc initGA {} {
 proc myPuts { s } {
     global g_outputA
     lappend g_outputA $s
+    puts stderr "$s"
 }
 
 proc doubleQuoteEscaped {text} {
