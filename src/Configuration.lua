@@ -190,10 +190,9 @@ local function new(self)
    end
 
    local tcl_version = "<N/A>"
-   if (allow_tcl_mfiles == "yes") then
+   if (allow_tcl_mfiles == "yes" and not masterTbl().rt) then
       tcl_version = capture("echo 'puts [info patchlevel]' | tclsh")
    end
-
 
    local tbl = {}
    tbl.allowTCL     = { k = "Allow TCL modulefiles"             , v = allow_tcl_mfiles, }
