@@ -9,6 +9,7 @@
 #define MYVERSION      MYNAME " 0.1"
 
 static char* resultStr = NULL;
+static int   rlen      = 0;
 
 int setResultsObjCmd(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[])
 {
@@ -21,12 +22,22 @@ int setResultsObjCmd(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Ob
   }
   objPtr = objv[1];
 
-  resultStr  = Tcl_GetStringFromObj(objPtr, &len);
-  if (resultStr[0] == '\0')
+  char * str  = Tcl_GetStringFromObj(objPtr, &len);
+  if (str[0] == '\0')
     {
       fprintf(stderr,"Result string has zero length\n");
       return TCL_ERROR;
     }
+
+  if (len > rlen) 
+    {
+      free(resultStr);
+      rlen      = len + 1;
+      resultStr = (char *) malloc(rlen*sizeof(char));
+    }
+
+  memcpy(resultStr, str, len);
+  resultStr[len] = '\0';
 
   fprintf(stderr,"in setResults: resultStr(len:%d: \"%s\"\n",len,resultStr);
   return TCL_OK;
@@ -52,8 +63,11 @@ static int runTCLprog(lua_State *L)
   const char* p = args;
 
   size_t len, a;
-  int argc = 0;
+  int argc   = 0;
   int status = 1;
+
+  rlen      = 1024;
+  resultStr = (char *) malloc((rlen+1)*sizeof(char));
 
   Tcl_FindExecutable(cmd);
   interp = Tcl_CreateInterp();
