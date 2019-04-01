@@ -24,7 +24,7 @@ int setResultsObjCmd(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Ob
   resultStr  = Tcl_GetStringFromObj(objPtr, &len);
   if (resultStr[0] == '\0')
     {
-      fprintf(stderr,"Result string has zero length\n")
+      fprintf(stderr,"Result string has zero length\n");
       return TCL_ERROR;
     }
 
