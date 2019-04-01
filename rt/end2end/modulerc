@@ -1,2 +1,4 @@
 #%Module
 module-version amber/1.1 default
+hide-version amber/0.9
+hide-version amber/1.0
