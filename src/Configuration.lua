@@ -189,6 +189,12 @@ local function new(self)
       mpath_init = mpath_init .. " -> <empty>"
    end
 
+   local tcl_version = "<N/A>"
+   if (allow_tcl_mfiles == "yes") then
+      tcl_version = capture("echo 'puts [info patchlevel]' | tclsh")
+   end
+
+
    local tbl = {}
    tbl.allowTCL     = { k = "Allow TCL modulefiles"             , v = allow_tcl_mfiles, }
    tbl.autoSwap     = { k = "Auto swapping"                     , v = auto_swap,        }
@@ -235,6 +241,7 @@ local function new(self)
    tbl.spdr_loads   = { k = "Cached loads"                      , v = cached_loads,     }
    tbl.sysName      = { k = "System Name"                       , v = system_name,      }
    tbl.syshost      = { k = "SYSHOST (cluster name)"            , v = syshost,          }
+   tbl.tcl_version  = { k = "TCL Version"                       , v = tcl_version,      }
    tbl.tm_ancient   = { k = "User cache valid time(sec)"        , v = ancient,          }
    tbl.tm_short     = { k = "Write cache after (sec)"           , v = shortTime,        }
    tbl.tm_threshold = { k = "Threshold (sec)"                   , v = threshold,        }
