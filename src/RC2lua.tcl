@@ -42,7 +42,6 @@ proc initGA {} {
 proc myPuts { s } {
     global g_outputA
     lappend g_outputA $s
-    puts stderr "$s"
 }
 
 proc doubleQuoteEscaped {text} {
@@ -79,10 +78,11 @@ proc showResults {} {
     if [info exists g_outputA] {
 	set my_output [join  $g_outputA "\n"]
     } else {
-	set my_output ""
+	set my_output " "
     }
     
     if { $g_fast > 0 } {
+	puts stderr "from RC2lua.tcl:(showResults): $my_output"
 	setResults $my_output
     } else {
 	puts stdout "$my_output"
