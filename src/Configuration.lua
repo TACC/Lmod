@@ -118,7 +118,11 @@ local function new(self)
       end
    end
 
-   local os_name      = capture(pathJoin(cmdDir(),"print_os.sh"))
+   print_os = pathJoin(cmdDir(),"print_os.sh")
+   if (not isFile(print_os)) then
+      print_os = pathJoin(cmdDir(),"print_os.sh.in")
+   end
+   local os_name = capture(print_os)
 
    local lmod_version = Version.git()
    if (lmod_version == "") then
