@@ -118,6 +118,12 @@ local function new(self)
       end
    end
 
+   local os_name  = "<N/A>"
+   local print_os = pathJoin(cmdDir(),"print_os.sh")
+   if (isFile(print_os)) then
+      os_name = capture(print_os)
+   end
+
    local lmod_version = Version.git()
    if (lmod_version == "") then
       lmod_version = Version.tag()
@@ -183,6 +189,11 @@ local function new(self)
       mpath_init = mpath_init .. " -> <empty>"
    end
 
+   local tcl_version = "<N/A>"
+   if (allow_tcl_mfiles == "yes" and not masterTbl().rt) then
+      tcl_version = capture("echo 'puts [info patchlevel]' | tclsh")
+   end
+
    local tbl = {}
    tbl.allowTCL     = { k = "Allow TCL modulefiles"             , v = allow_tcl_mfiles, }
    tbl.autoSwap     = { k = "Auto swapping"                     , v = auto_swap,        }
@@ -211,6 +222,7 @@ local function new(self)
    tbl.mpath_root   = { k = "MODULEPATH_ROOT"                   , v = mpath_root,       }
    tbl.modRC        = { k = "MODULERCFILE"                      , v = rc,               }
    tbl.numSC        = { k = "number of cache dirs"              , v = numSC,            }
+   tbl.os_name      = { k = "OS Name"                           , v = os_name,          }
    tbl.pager        = { k = "Pager"                             , v = pager,            }
    tbl.pager_opts   = { k = "Pager Options"                     , v = pager_opts,       }
    tbl.path_hash    = { k = "Path to HashSum"                   , v = hashsum_path,     }
@@ -228,6 +240,7 @@ local function new(self)
    tbl.spdr_loads   = { k = "Cached loads"                      , v = cached_loads,     }
    tbl.sysName      = { k = "System Name"                       , v = system_name,      }
    tbl.syshost      = { k = "SYSHOST (cluster name)"            , v = syshost,          }
+   tbl.tcl_version  = { k = "TCL Version"                       , v = tcl_version,      }
    tbl.tm_ancient   = { k = "User cache valid time(sec)"        , v = ancient,          }
    tbl.tm_short     = { k = "Write cache after (sec)"           , v = shortTime,        }
    tbl.tm_threshold = { k = "Threshold (sec)"                   , v = threshold,        }
