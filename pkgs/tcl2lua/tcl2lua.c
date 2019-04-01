@@ -28,6 +28,7 @@ int setResultsObjCmd(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Ob
       return TCL_ERROR;
     }
 
+  fprintf(stderr,"in setResults: resultStr(len:%d: \"%s\"\n",len,resultStr);
   return TCL_OK;
 }
 
