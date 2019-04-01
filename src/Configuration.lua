@@ -118,6 +118,8 @@ local function new(self)
       end
    end
 
+   local os_name      = capture(pathJoin(cmdDir(),"print_os.sh"))
+
    local lmod_version = Version.git()
    if (lmod_version == "") then
       lmod_version = Version.tag()
@@ -211,6 +213,7 @@ local function new(self)
    tbl.mpath_root   = { k = "MODULEPATH_ROOT"                   , v = mpath_root,       }
    tbl.modRC        = { k = "MODULERCFILE"                      , v = rc,               }
    tbl.numSC        = { k = "number of cache dirs"              , v = numSC,            }
+   tbl.os_name      = { k = "OS Name"                           , v = os_name,          }
    tbl.pager        = { k = "Pager"                             , v = pager,            }
    tbl.pager_opts   = { k = "Pager Options"                     , v = pager_opts,       }
    tbl.path_hash    = { k = "Path to HashSum"                   , v = hashsum_path,     }
