@@ -73,8 +73,12 @@ static int runTCLprog(lua_State *L)
   int argc   = 0;
   int status = 1;
 
-  rlen      = 1024;
-  resultStr = (char *) malloc((rlen+1)*sizeof(char));
+  if (rlen == 0)
+    {
+      rlen      = 1024;
+      resultStr = (char *) malloc((rlen+1)*sizeof(char));
+    }
+  strcpy(resultStr," ");
 
   Tcl_FindExecutable(cmd);
   interp = Tcl_CreateInterp();
@@ -88,7 +92,6 @@ static int runTCLprog(lua_State *L)
     return TCL_ERROR;
 
   Tcl_SetVar2Ex(interp, "argv0", NULL, Tcl_NewStringObj(cmd,-1), TCL_GLOBAL_ONLY);
-  resultStr = NULL;
   argvPtr   = Tcl_NewListObj(0, NULL);
 
   /* By convention all tcl programs that use this interface use the "-F"
