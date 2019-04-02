@@ -35,18 +35,8 @@ int setResultsObjCmd(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Ob
       rlen      = len + 1;
       resultStr = (char *) malloc(rlen*sizeof(char));
     }
-  fprintf(stderr,"in setResults: str(len:%d): \"%s\"\n",len,str);
-  fprintf(stderr,"in setResults: str[%d-1]: \"%c\"\n",len,str[len-1]);
-  fprintf(stderr,"%s:%d\n",__FILE__,__LINE__);
-  strcpy(resultStr,str);
-  //memcpy(&resultStr[0], str, len);
-  fprintf(stderr,"%s:%d\n",__FILE__,__LINE__);
-  //resultStr[len] = '\0';
-  fprintf(stderr,"%s:%d\n",__FILE__,__LINE__);
-
-  fprintf(stderr,"in setResults: resultStr(len:%d): \"%s\"\n",len,resultStr);
-  fprintf(stderr,"%s:%d\n",__FILE__,__LINE__);
-  fflush(stderr);
+  memcpy(&resultStr[0], str, len);
+  resultStr[len] = '\0';
   return TCL_OK;
 }
 
@@ -149,8 +139,6 @@ static int runTCLprog(lua_State *L)
 
   int result = Tcl_EvalFile(interp, cmd);
   status     = result == TCL_OK;
-
-  fprintf(stderr,"Result string: \"%s\"\n",resultStr);
 
   lua_pushstring(L, resultStr);
   Tcl_DeleteInterp(interp);
