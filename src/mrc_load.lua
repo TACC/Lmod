@@ -80,7 +80,9 @@ function mrc_load(fn)
       if (not ok or not func) then
          LmodError{msg = "e_Unable_2_parse", path = fn}
       end
-      func()
+      if (func) then
+         func()
+      end
    end
    --dbg.printT("ModA",ModA)
    return ModA
