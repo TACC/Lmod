@@ -372,6 +372,23 @@ proc module-info {what {more {}}} {
     "name" {
         return $g_fullName
     }
+    "user" {
+         # C-version specific option, not relevant for Tcl-version but return
+         # an empty value or false to avoid breaking modulefiles using it
+         if {$more ne ""} {
+            return 0
+         } else {
+            return {}
+         }
+    }
+    "symbols" {
+         # an empty value or false to avoid breaking modulefiles using it
+         if {$more ne ""} {
+            return 0
+         } else {
+            return {}
+         }
+    }
     "specified" {
         return $g_usrName
     }
