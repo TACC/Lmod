@@ -277,7 +277,7 @@ proc ::cmdline::getfiles {patterns quiet} {
 	    set files [glob -nocomplain -- $pat]
 	    if {$files == {}} {
 		if {! $quiet} {
-		    lappend g_outputA "warning: no files match \"$pattern\""
+		    lappend g_outputA "warning: no files match \"$pattern\"\n"
 		}
 	    } else {
 		foreach file $files {
@@ -297,7 +297,7 @@ proc ::cmdline::getfiles {patterns quiet} {
 	if {[file isfile $fullPath]} {
 	    lappend files $fullPath
 	} elseif {! $quiet} {
-	    lappend g_outputA  "warning: no files match \"$file\""
+	    lappend g_outputA  "warning: no files match \"$file\"\n"
 	}
     }
     return $files
@@ -416,7 +416,7 @@ proc module-whatis { args } {
     }
 
     regsub -all {[\n]} $msg  " " msg2
-    lappend g_outputA  "whatis(\[===\[$msg2\]===\])"
+    lappend g_outputA  "whatis(\[===\[$msg2\]===\])\n"
 }
 
 proc setenv { var val args } {
@@ -528,7 +528,7 @@ proc remove-path { var val args} {
 
 proc output-path-foo { cmd var val separator priority } {
     global g_outputA
-    lappend g_outputA  "$cmd\{\"$var\",\"$val\",delim=\"$separator\",priority=\"$priority\"\}"
+    lappend g_outputA  "$cmd\{\"$var\",\"$val\",delim=\"$separator\",priority=\"$priority\"\}\n"
 }
 
 
@@ -562,7 +562,7 @@ proc cmdargs { cmd args } {
     }
     if {[info exists cmdArgsL]} {
         set cmdArgs [join $cmdArgsL ","]
-	lappend g_outputA  "$cmd\($cmdArgs\)"
+	lappend g_outputA  "$cmd\($cmdArgs\)\n"
     }
 }
 
@@ -596,7 +596,7 @@ proc system { args } {
     }
     if {[info exists cmdArgsL]} {
         set cmdArgs [join $cmdArgsL " "]
-	lappend g_outputA  "execute\{cmd=\"$cmdArgs\",modeA = \{\"all\"\}\}"
+	lappend g_outputA  "execute\{cmd=\"$cmdArgs\",modeA = \{\"all\"\}\}\n"
     }
 }
 
@@ -654,7 +654,7 @@ proc showResults {} {
     global g_outputA
     global g_fast
     if [info exists g_outputA] {
-	set my_output [join  $g_outputA "\n"]
+	set my_output [join  $g_outputA ""]
     } else {
 	set my_output " "
     }
@@ -668,6 +668,7 @@ proc showResults {} {
 
 proc myPuts args {
     global putMode g_outputA
+
     foreach {a b c} $args break
     set nonewline 0
     switch [llength $args] {
@@ -700,19 +701,12 @@ proc myPuts args {
             error {puts ?-nonewline? ?channel? text}
         }
     }
-    if {$putMode != "inHelp"} {
-        if { ($channel == "stdout") || ($channel == "stderr") } {
-            set channel "stdout"
-            set text "LmodMessage(\[===\[$text\]===\])"
-        }
-    } else {
-	lappend g_outputA $text
-	return
+    if { ($putMode != "inHelp") && ($channel == "stderr") } {
+        set text "LmodMessage(\[===\[$text\]===\])"
     }
-    if { $nonewline == 1 } {
-        puts -nonewline $channel $text
-    } else {
-        puts $channel $text
+    lappend g_outputA $text
+    if { $nonewline == 0 } {
+        lappend g_outputA "\n"
     }
 }
 
@@ -792,11 +786,11 @@ proc module { command args } {
 proc reportError {message} {
     global g_outputA
     global ModulesCurrentModulefile g_fullName
-    lappend g_outputA "LmodError(\[===\[$ModulesCurrentModulefile: ($g_fullName): $message\]===\])"
+    lappend g_outputA "LmodError(\[===\[$ModulesCurrentModulefile: ($g_fullName): $message\]===\])\n"
 }
 
 proc execute-modulefile {modfile } {
-    global env g_help ModulesCurrentModulefile putMode
+    global env g_help ModulesCurrentModulefile putMode g_shellType g_shellName
     set ModulesCurrentModulefile $modfile
 
     set putMode "normal"
@@ -837,13 +831,21 @@ proc execute-modulefile {modfile } {
     interp alias $child unset-alias     {} unset-alias
     interp alias $child unsetenv        {} unsetenv
 
-    interp eval $child {global ModulesCurrentModulefile g_help}
+    interp eval $child {global ModulesCurrentModulefile g_help g_shellType g_shellName}
     interp eval $child [list "set" "ModulesCurrentModulefile" $modfile]
-    interp eval $child [list "set" "g_help" $g_help]
+    interp eval $child [list "set" "g_help"                   $g_help]
+    interp eval $child [list "set" "g_shellType"              $g_shellType]
+    interp eval $child [list "set" "g_shellName"              $g_shellName]
 
     set errorVal [interp eval $child {
         set returnVal 0
         initGA
+        if { $g_shellType == "broken" } {
+            reportError "Unknown shell: $g_shellName exiting!"
+            showResults
+            return 1
+        }
+        
 	set sourceFailed [catch {source $ModulesCurrentModulefile } errorMsg]
         if { $g_help && [info procs "ModulesHelp"] == "ModulesHelp" } {
             set start "help(\[===\["
@@ -941,9 +943,8 @@ switch -regexp -- $g_shellName {
 	set g_shellType cmake
     }
     . {
-	error " +(0):ERROR:0: Unknown shell type \'($g_shellName)\'"
+	set g_shellType broken
     }
 }
-
 
 eval main $argv
