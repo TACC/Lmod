@@ -1,10 +1,13 @@
 #include <tcl.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+static char* resultStr = NULL;
+static int   rlen      = 0;
 
 int setResultsObjCmd(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[])
 {
-  char     *str;
   int      len;
   Tcl_Obj *objPtr;
   int i;
@@ -14,11 +17,21 @@ int setResultsObjCmd(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Ob
   }
   objPtr = objv[1];
 
-  str = Tcl_GetStringFromObj(objPtr, &len);
+  char * str  = Tcl_GetStringFromObj(objPtr, &len);
   if (str[0] == '\0')
-    return TCL_ERROR;
+    {
+      fprintf(stderr,"Result string has zero length\n");
+      return TCL_ERROR;
+    }
 
-  printf("len: %d, str: %s\n", len, str);
+  if (len > rlen) 
+    {
+      free(resultStr);
+      rlen      = len + 1;
+      resultStr = (char *) malloc(rlen*sizeof(char));
+    }
+  memcpy(&resultStr[0], str, len);
+  resultStr[len] = '\0';
   return TCL_OK;
 }
 
@@ -37,6 +50,7 @@ int main(int argc, char **argv)
   Tcl_FindExecutable(script);
 
   Tcl_Interp *interp = Tcl_CreateInterp();
+
   if (interp == NULL) {
     fprintf(stderr,"Cannot create TCL interpreter\n");
     exit(-1);
@@ -56,6 +70,8 @@ int main(int argc, char **argv)
 
   if (Tcl_EvalFile(interp, script) != TCL_OK)
     return TCL_ERROR;
+
+  fprintf(stderr,"len: %d, resultStr: \"%s\"\n",strlen(resultStr), resultStr);
 
   exit(0);
 }
