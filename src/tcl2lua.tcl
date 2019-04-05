@@ -701,9 +701,19 @@ proc myPuts args {
             error {puts ?-nonewline? ?channel? text}
         }
     }
-    if { ($putMode != "inHelp") && ($channel == "stderr") } {
-        set text "LmodMessage(\[===\[$text\]===\])"
+    if { $putMode != "inHelp" } {
+        if { $channel == "stderr" } {
+            set text "LmodMessage(\[===\[$text\]===\])"
+        } elseif { $channel == "stdout" } {
+            if { $nonewline == 0 } {
+                set text "$text\n"
+            }
+            set nonewline 0
+            set text "io.stdout:write($text)"
+        }
     }
+    
+
     lappend g_outputA $text
     if { $nonewline == 0 } {
         lappend g_outputA "\n"

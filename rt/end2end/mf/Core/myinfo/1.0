@@ -37,6 +37,10 @@ proc InfoOut { } {
 }
 if { [ module-info mode load ] } { InfoOut }
 
+if { ([ module-info shell ] == "bash") && ([ module-info mode ] == "load") } {
+    puts stdout "export MYINFO=\"Foo and Bar\""
+}
+
 # ;;; Local Variables: ***
 # ;;; mode:tcl ***
 # ;;; End: ***
