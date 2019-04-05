@@ -8,7 +8,7 @@ Modules based on Lua: Version 8.0  2019-03-26 17:00 -05:00
 step 2
  OutputDIR/lmod/lmod/libexec/lmod --version
 ===========================
-Modules based on Lua: Version 8.0 (8.0-36-gb1481452) 2019-03-26 17:00 -05:00
+Modules based on Lua: Version 8.0 (8.0-38-ga6ae27fc) 2019-03-26 17:00 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -28,16 +28,42 @@ While processing the following module(s):
     bad/9            ProjectDIR/rt/end2end/mf/Core/bad/9
 ===========================
 step 6
+ OutputDIR/lmod/lmod/libexec/lmod load myinfo
+===========================
++++ global vars +++++++++++++++++++++++++++++++
+ModulesCurrentModulefile = ProjectDIR/rt/end2end/mf/Core/myinfo/1.0
++++ module-info +++++++++++++++++++++++++++++++
+flags = 0
+mode = load
+name = myinfo/1.0
+specified = myinfo
+shell = bash
+shelltype = sh
+version = myinfo/1.0
+user =
+symbols =
++++ info ++++++++++++++++++++++++++++++++++++++
+hostname = mijo.local
+level = 1
+loaded null = 0
+library = /System/Library/Frameworks/Tcl.framework/Versions/8.5/Resources/Scripts
+nameofexecutable = OutputDIR/lmod/lmod/libexec/tcl2lua.tcl
+sharedlibextension = .dylib
+tclversion = 8.5
+patchlevel = 8.5.9
++++++++++++++++++++++++++++++++++++++++++++++++
+===========================
+step 7
  OutputDIR/lmod/lmod/libexec/lmod list
 ===========================
 Currently Loaded Modules:
-  1) admin/admin-1.0   2) amber/1.1
+  1) admin/admin-1.0   2) amber/1.1   3) myinfo/1.0
 ===========================
-step 7
+step 8
  OutputDIR/lmod/lmod/libexec/lmod avail
 ===========================
 ProjectDIR/rt/end2end/mf/Core
-   admin/admin-1.0 (L)    amber/1.1 (L,D)    amber/1.3    amber/1.5    bad/9    myinfo/1.0
+   admin/admin-1.0 (L)    amber/1.1 (L,D)    amber/1.3    amber/1.5    bad/9    myinfo/1.0 (L)
   Where:
    D:  Default Module
    L:  Module is loaded
