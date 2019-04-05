@@ -1,4 +1,9 @@
 Lmod 8.0+
-   (8.0.1)  Change to use AC_SEARCH_LIBS for tcl, tcl8.8, tcl8.7, tcl8.6  tcl8.5 to accomodate SUSE's decision
-            not to include libtcl.so to point to the current tcl implementation.
+   (8.0.1)  * Change to use AC_SEARCH_LIBS for tcl, tcl8.8, tcl8.7, tcl8.6  tcl8.5 to accomodate SUSE's decision
+              not to include libtcl.so to point to the current tcl implementation.
+            * issue #401: change tcl2lua.c to copy output string into an internal buffer. This avoids problems 
+              found with some tcl interpreter (8.5.13 and earlier.
+            * Issue with tcl2lua.tcl not handling modulefiles writing to stderr.  All output from the tcl modulefiles
+              now go through $g_outputA.
+              
 	    
