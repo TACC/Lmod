@@ -709,7 +709,7 @@ proc myPuts args {
                 set text "$text\n"
             }
             set nonewline 0
-            set text "io.stdout:write($text)"
+            set text "io.stdout:write($text )"
         }
     }
     
