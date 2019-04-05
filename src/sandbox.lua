@@ -83,7 +83,7 @@ local sandbox_env = {
   os       = { clock = os.clock, difftime = os.difftime, time = os.time, date = os.date,
                getenv = os.getenv, execute = os.execute},
 
-  io       = { stderr = io.stderr, open = io.open, close = io.close, write = io.write
+  io       = { stderr = io.stderr, open = io.open, close = io.close, write = io.write,
                stdout = io.stdout},
 
   package  = { cpath = package.cpath, loaded = package.loaded, loaders = package.loaders,
