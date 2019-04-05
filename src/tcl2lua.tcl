@@ -706,7 +706,7 @@ proc myPuts args {
             set text "LmodMessage(\[===\[$text\]===\])"
         } elseif { $channel == "stdout" } {
             if { $nonewline == 0 } {
-                set text "$text\n"
+                set text "$text\\n"
             }
             set nonewline 0
             set text "io.stdout:write(\[===\[$text\]===\])"
