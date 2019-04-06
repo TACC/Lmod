@@ -587,7 +587,9 @@ function convertEntry(name, vv, spA)
          vT.markedDefault=isMarked(v.wV)
       end
 
-      versionA[#versionA + 1] = vT
+      if (not vT.hidden) then
+         versionA[#versionA + 1] = vT
+      end
    end
 
    entry.versions = versionA

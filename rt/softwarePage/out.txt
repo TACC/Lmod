@@ -28,11 +28,12 @@ spiderT = {
   ["ProjectDIR/rt/softwarePage/mf"]  = {
     foo = {
       defaultT = {
-        ["barefn"] = "default",
-        ["fn"] = "ProjectDIR/rt/softwarePage/mf/foo/default",
-        ["fullName"] = "foo/default",
+        ["barefn"] = ".modulerc.lua",
+        ["fn"] = "ProjectDIR/rt/softwarePage/mf/foo/.modulerc.lua",
+        ["fullName"] = "foo/.modulerc",
+        ["luaExt"] = 10,
         ["mpath"] = "ProjectDIR/rt/softwarePage/mf",
-        ["value"] = "1.0",
+        ["value"] = "foo/1.0",
       },
       dirT = {},
       fileT = {
@@ -49,6 +50,15 @@ spiderT = {
           whatis = {
             "Description: foo description", "Version: 1.0", "Categories: foo",
           },
+        },
+        ["foo/.pkginfo"]  = {
+          ["Version"] = ".pkginfo",
+          ["canonical"] = ".pkginfo",
+          ["fn"] = "ProjectDIR/rt/softwarePage/mf/foo/.pkginfo.lua",
+          ["luaExt"] = 9,
+          ["mpath"] = "ProjectDIR/rt/softwarePage/mf",
+          ["pV"] = "*pkginfo.*zfinal",
+          ["wV"] = "*pkginfo.*zfinal",
         },
         ["foo/1.0"]  = {
           ["Description"] = "foo description",
@@ -123,6 +133,13 @@ dbT = {
         "Description: foo description", "Version: 1.0", "Categories: foo",
       },
     },
+    ["ProjectDIR/rt/softwarePage/mf/foo/.pkginfo.lua"]  = {
+      ["Version"] = ".pkginfo",
+      ["fullName"] = "foo/.pkginfo",
+      ["hidden"] = true,
+      ["pV"] = "*pkginfo.*zfinal",
+      ["wV"] = "*pkginfo.*zfinal",
+    },
     ["ProjectDIR/rt/softwarePage/mf/foo/1.0.lua"]  = {
       ["Description"] = "foo description",
       ["Version"] = "1.0",
@@ -175,17 +192,6 @@ spA = {
     ["description"] = "foo description",
     ["package"] = "foo",
     versions = {
-      {
-        ["canonicalVersionString"] = "000000000.000000002.*zfinal",
-        ["description"] = "foo description",
-        ["full"] = "foo/.2.0",
-        ["help"] = "foo v.2.0",
-        ["hidden"] = true,
-        ["markedDefault"] = false,
-        ["path"] = "ProjectDIR/rt/softwarePage/mf/foo/.2.0.lua",
-        ["versionName"] = "1.0",
-        ["wV"] = "000000000.000000002.*zfinal",
-      },
       {
         ["canonicalVersionString"] = "000000001.000000001.*zfinal",
         ["description"] = "foo description",
