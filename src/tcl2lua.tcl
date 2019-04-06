@@ -702,13 +702,13 @@ proc myPuts args {
         }
     }
     if { $putMode != "inHelp" } {
+        if { $nonewline == 0 } {
+            set text "$text\n"
+        }
+        set nonewline 0
         if { $channel == "stderr" } {
-            set text "LmodMessage(\[===\[$text\]===\])"
+            set text "LmodMsgRaw(\[===\[$text\]===\])"
         } elseif { $channel == "stdout" } {
-            if { $nonewline == 0 } {
-                set text "$text\n"
-            }
-            set nonewline 0
             set text "io.stdout:write(\[===\[$text\]===\])"
         }
     }

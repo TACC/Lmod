@@ -143,6 +143,13 @@ function M.message(self, ...)
 end
 
 --------------------------------------------------------------------------
+-- Print message raw command.
+-- @param self A MasterControl object.
+function M.msg_raw(self, ...)
+   ShowCmd("LmodMsgRaw", ...)
+end
+
+--------------------------------------------------------------------------
 -- Print set_alias command.
 -- @param self A MasterControl object.
 -- @param name the environment variable name.

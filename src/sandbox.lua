@@ -145,6 +145,7 @@ local sandbox_env = {
   help                 = help,
 
   -- Misc --
+  LmodMsgRaw           = LmodMsgRaw,
   LmodError            = LmodError,
   LmodMessage          = LmodMessage,
   LmodVersion          = LmodVersion,

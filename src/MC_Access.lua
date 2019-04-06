@@ -114,6 +114,7 @@ M.inherit              = MasterControl.inherit
 M.load                 = MasterControl.quiet
 M.load_usr             = MasterControl.quiet
 M.message              = MasterControl.quiet
+M.msg_raw              = MasterControl.quiet
 M.mgrload              = MasterControl.quiet
 M.myFileName           = MasterControl.myFileName
 M.myModuleFullName     = MasterControl.myModuleFullName

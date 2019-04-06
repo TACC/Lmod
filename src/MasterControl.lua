@@ -629,6 +629,17 @@ local function l_generateMsg(kind, label, ...)
    return sA
 end
 
+function M.msg_raw(self, ...)
+   if (quiet()) then
+      return
+   end
+   local argA   = pack(...)
+   for i = 1,argA.n do
+      io.stderr:write(argA[i])
+   end
+end
+
+
 --------------------------------------------------------------------------
 -- Print msgs to stderr.
 -- @param self A MasterControl object.

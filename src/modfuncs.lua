@@ -422,6 +422,13 @@ function LmodMessage(...)
    return b
 end
 
+--------------------------------------------------------------------------
+-- Print a message
+function LmodMsgRaw(...)
+   local b = mcp:msg_raw(...)
+   return b
+end
+
 ---------------------------------------------------------------------------
 -- Return the version of Lmod.
 function LmodVersion()
