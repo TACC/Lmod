@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.7.14  2017-11-16 16:23 -07:00
+Modules based on Lua: Version 8.0.1  2019-04-04 19:32 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -118,9 +118,9 @@ mod is stir/2.1
 step 19
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load foo
 ===========================
-The next line has a two blanks. Please don't error out.
+The next line has a two blanks.   Please don't error out.
 The next line has a single blank. Please don't error out.
-The next line has a zero blanks. Please don't error out.
+The next line has a zero blanks.  Please don't error out.
 ===========================
 step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load empty_unload

@@ -8,7 +8,7 @@ Modules based on Lua: Version 8.0.1  2019-04-04 19:32 -05:00
 step 2
  OutputDIR/lmod/lmod/libexec/lmod --version
 ===========================
-Modules based on Lua: Version 8.0.1 (8.0.1-7-g8920306c) 2019-04-04 19:32 -05:00
+Modules based on Lua: Version 8.0.1 (8.0.1-11-ge944a0ba) 2019-04-04 19:32 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -33,24 +33,24 @@ step 6
 +++ global vars +++++++++++++++++++++++++++++++
 ModulesCurrentModulefile = ProjectDIR/rt/end2end/mf/Core/myinfo/1.0
 +++ module-info +++++++++++++++++++++++++++++++
-flags = 0
-mode = load
-name = myinfo/1.0
-specified = myinfo
-shell = bash
-shelltype = sh
-version = myinfo/1.0
-user =
-symbols =
+flags                  = 0
+mode                   = load
+name                   = myinfo/1.0
+specified              = myinfo
+shell                  = bash
+shelltype              = sh
+version                = myinfo/1.0
+user                   =
+symbols                =
 +++ info ++++++++++++++++++++++++++++++++++++++
-hostname = mijo.local
-level = 1
-loaded null = 0
-library = /System/Library/Frameworks/Tcl.framework/Versions/8.5/Resources/Scripts
-nameofexecutable = OutputDIR/lmod/lmod/libexec/tcl2lua.tcl
-sharedlibextension = .dylib
-tclversion = 8.5
-patchlevel = 8.5.9
+hostname               = mijo.local
+level                  = 1
+loaded null            = 0
+library                = /System/Library/Frameworks/Tcl.framework/Versions/8.5/Resources/Scripts
+nameofexecutable       = OutputDIR/lmod/lmod/libexec/tcl2lua.tcl
+sharedlibextension     = .dylib
+tclversion             = 8.5
+patchlevel             = 8.5.9
 +++++++++++++++++++++++++++++++++++++++++++++++
 ===========================
 step 7
