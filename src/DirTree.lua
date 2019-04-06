@@ -93,10 +93,6 @@ local function keepFile(fn)
       return true
    end
 
-   if (fn:find("^%.version.") or fn:find("^%.modulerc.")) then
-      return false
-   end
-
    return true
 end
 
