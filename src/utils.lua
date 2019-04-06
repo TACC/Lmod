@@ -86,6 +86,10 @@ function buildMsg(width, ... )
    local a    = {}
    local len  = 0
 
+   if (argA.n == 1 and argA[1]:len() <= twidth) then
+      return argA[1]
+   end
+
    for idx = 1, argA.n do
       local block  = argA[idx] or ""
       local done   = false
