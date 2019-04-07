@@ -86,7 +86,7 @@ function buildMsg(width, ... )
    local a    = {}
    local len  = 0
 
-   if (argA.n == 1 and argA[1]:len() <= twidth) then
+   if (argA.n == 1 and argA[1]:len() <= width) then
       return argA[1]
    end
 
