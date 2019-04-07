@@ -16,9 +16,9 @@ __LMOD_REF_COUNT_MODULEPATH=OutputDIR/mf/Core:1\;ProjectDIR/rt/settarg/mf/Core:1
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=OutputDIR/mf/Core:ProjectDIR/rt/settarg/mf/Core;
 export MODULEPATH;
-__LMOD_REF_COUNT_PATH=ProjectDIR/settarg:1\;ProjectDIR/src:1\;PATH_to_TM:1;
+__LMOD_REF_COUNT_PATH=ProjectDIR/settarg:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
 export __LMOD_REF_COUNT_PATH;
-PATH=ProjectDIR/settarg:ProjectDIR/src:PATH_to_TM;
+PATH=ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
 PROMPT_COMMAND=precmd;
 export PROMPT_COMMAND;
@@ -56,7 +56,7 @@ targ () { builtin echo $TARG; };
 step 3
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model dbg
 ===========================
-PATH='OBJ/_x86_64_dbg:ProjectDIR/settarg:ProjectDIR/src:PATH_to_TM:/bin';
+PATH='OBJ/_x86_64_dbg:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM:/bin';
 export PATH;
 TARG='OBJ/_x86_64_dbg';
 export TARG;
@@ -89,7 +89,7 @@ export _SettargTable_Sz_;
 step 4
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model opt
 ===========================
-PATH='obj/__x86_64_opt:ProjectDIR/settarg:ProjectDIR/src:PATH_to_TM:/bin';
+PATH='obj/__x86_64_opt:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM:/bin';
 export PATH;
 TARG='obj/__x86_64_opt';
 export TARG;
@@ -122,7 +122,7 @@ export _SettargTable_Sz_;
 step 5
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model empty
 ===========================
-PATH='obj/__x86_64:ProjectDIR/settarg:ProjectDIR/src:PATH_to_TM:/bin';
+PATH='obj/__x86_64:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM:/bin';
 export PATH;
 TARG='obj/__x86_64';
 export TARG;
@@ -181,9 +181,9 @@ MPICH_HOME=/opt/apps/gcc-4_7/mpich/3.0.4;
 export MPICH_HOME;
 MPIHOME=/opt/apps/gcc-4_7/mpich/3.0.4;
 export MPIHOME;
-__LMOD_REF_COUNT_PATH=/opt/apps/gcc-4_7/mpich/3.0.4/bin:1\;obj/__x86_64:1\;ProjectDIR/settarg:1\;ProjectDIR/src:1\;PATH_to_TM:1;
+__LMOD_REF_COUNT_PATH=/opt/apps/gcc-4_7/mpich/3.0.4/bin:1\;obj/__x86_64:1\;ProjectDIR/settarg:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
 export __LMOD_REF_COUNT_PATH;
-PATH=/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64:ProjectDIR/settarg:ProjectDIR/src:PATH_to_TM;
+PATH=/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
 __LMOD_REF_COUNT__LMFILES_=OutputDIR/mf/Core/settarg/1.0.lua:1\;ProjectDIR/rt/settarg/mf/Core/gcc/4.7.2.lua:1\;ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7/mpich/3.0.4.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
@@ -195,7 +195,7 @@ export _ModuleTable_;
 step 7
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model
 ===========================
-PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_gcc-4.7.2_mpich-3.0.4:ProjectDIR/settarg:ProjectDIR/src:PATH_to_TM:/bin';
+PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_gcc-4.7.2_mpich-3.0.4:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM:/bin';
 export PATH;
 TARG='obj/__x86_64_gcc-4.7.2_mpich-3.0.4';
 export TARG;
@@ -233,7 +233,7 @@ export _SettargTable_Sz_;
 step 8
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model f_f
 ===========================
-PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_gcc-4.7.2_mpich-3.0.4_f_f:ProjectDIR/settarg:ProjectDIR/src:PATH_to_TM:/bin';
+PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_gcc-4.7.2_mpich-3.0.4_f_f:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM:/bin';
 export PATH;
 TARG='obj/__x86_64_gcc-4.7.2_mpich-3.0.4_f_f';
 export TARG;
@@ -272,7 +272,7 @@ export _SettargTable_Sz_;
 step 9
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model b:b
 ===========================
-PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f:ProjectDIR/settarg:ProjectDIR/src:PATH_to_TM:/bin';
+PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM:/bin';
 export PATH;
 TARG='obj/__x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f';
 export TARG;
@@ -311,7 +311,7 @@ export _SettargTable_Sz_;
 step 10
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model -r f_f
 ===========================
-PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_gcc-4.7.2_mpich-3.0.4_b:b:ProjectDIR/settarg:ProjectDIR/src:PATH_to_TM:/bin';
+PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_gcc-4.7.2_mpich-3.0.4_b:b:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM:/bin';
 export PATH;
 TARG='obj/__x86_64_gcc-4.7.2_mpich-3.0.4_b:b';
 export TARG;
@@ -350,7 +350,7 @@ export _SettargTable_Sz_;
 step 11
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model -r b:b
 ===========================
-PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_gcc-4.7.2_mpich-3.0.4:ProjectDIR/settarg:ProjectDIR/src:PATH_to_TM:/bin';
+PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_gcc-4.7.2_mpich-3.0.4:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM:/bin';
 export PATH;
 TARG='obj/__x86_64_gcc-4.7.2_mpich-3.0.4';
 export TARG;
@@ -388,7 +388,7 @@ export _SettargTable_Sz_;
 step 12
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model f_f b:b
 ===========================
-PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f:ProjectDIR/settarg:ProjectDIR/src:PATH_to_TM:/bin';
+PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM:/bin';
 export PATH;
 TARG='obj/__x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f';
 export TARG;
@@ -427,7 +427,7 @@ export _SettargTable_Sz_;
 step 13
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --stt dbg
 ===========================
-PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_dbg_gcc-4.7.2_mpich-3.0.4_b:b_f_f:ProjectDIR/settarg:ProjectDIR/src:PATH_to_TM:/bin';
+PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_dbg_gcc-4.7.2_mpich-3.0.4_b:b_f_f:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM:/bin';
 export PATH;
 TARG='obj/__x86_64_dbg_gcc-4.7.2_mpich-3.0.4_b:b_f_f';
 export TARG;
@@ -467,7 +467,7 @@ export _SettargTable_Sz_;
 step 14
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --purge
 ===========================
-PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_dbg_gcc-4.7.2_mpich-3.0.4:ProjectDIR/settarg:ProjectDIR/src:PATH_to_TM:/bin';
+PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_dbg_gcc-4.7.2_mpich-3.0.4:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM:/bin';
 export PATH;
 TARG='obj/__x86_64_dbg_gcc-4.7.2_mpich-3.0.4';
 export TARG;
@@ -529,9 +529,9 @@ MODULEPATH=OutputDIR/mf/Core:ProjectDIR/rt/settarg/mf/Core;
 export MODULEPATH;
 unset MPICH_HOME;
 unset MPIHOME;
-__LMOD_REF_COUNT_PATH=obj/__x86_64_dbg_gcc-4.7.2_mpich-3.0.4:1\;ProjectDIR/settarg:1\;ProjectDIR/src:1\;PATH_to_TM:1;
+__LMOD_REF_COUNT_PATH=obj/__x86_64_dbg_gcc-4.7.2_mpich-3.0.4:1\;ProjectDIR/settarg:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
 export __LMOD_REF_COUNT_PATH;
-PATH=obj/__x86_64_dbg_gcc-4.7.2_mpich-3.0.4:ProjectDIR/settarg:ProjectDIR/src:PATH_to_TM;
+PATH=obj/__x86_64_dbg_gcc-4.7.2_mpich-3.0.4:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
 __LMOD_REF_COUNT__LMFILES_=OutputDIR/mf/Core/settarg/1.0.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
@@ -565,7 +565,7 @@ export _ModuleTable_;
 step 18
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model
 ===========================
-PATH='obj/__x86_64_dbg_cmplr-clang-9.1:ProjectDIR/settarg:ProjectDIR/src:PATH_to_TM:/bin';
+PATH='obj/__x86_64_dbg_cmplr-clang-9.1:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM:/bin';
 export PATH;
 TARG='obj/__x86_64_dbg_cmplr-clang-9.1';
 export TARG;
@@ -616,9 +616,9 @@ LOADEDMODULES=cmplr/clang/9.1;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/settarg/mf/Compiler/cmplr/clang/9.1:OutputDIR/mf/Core:ProjectDIR/rt/settarg/mf/Core;
 export MODULEPATH;
-__LMOD_REF_COUNT_PATH=obj/__x86_64_dbg_cmplr-clang-9.1:1\;ProjectDIR/src:1\;PATH_to_TM:1;
+__LMOD_REF_COUNT_PATH=obj/__x86_64_dbg_cmplr-clang-9.1:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
 export __LMOD_REF_COUNT_PATH;
-PATH=obj/__x86_64_dbg_cmplr-clang-9.1:ProjectDIR/src:PATH_to_TM;
+PATH=obj/__x86_64_dbg_cmplr-clang-9.1:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
 unset PROMPT_COMMAND;
 __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/settarg/mf/Core/cmplr/clang/9.1.lua:1;

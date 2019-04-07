@@ -681,7 +681,7 @@ a) module --ignore_cache which tells Lmod to ignore the cache even if it
    exists.
 
 b) module --config reports how lmod was configured.
-
+ 
 c) Lmod no longer walks the directory tree on command like list and
    unload.
 

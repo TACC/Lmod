@@ -34,9 +34,9 @@ MODULEPATH=ProjectDIR/rt/family/mf/Core:ProjectDIR/rt/family/mf/Compiler/ibm/13:
 export MODULEPATH;
 MyMPI_Type=openmpi;
 export MyMPI_Type;
-__LMOD_REF_COUNT_PATH=/opt/apps/ibm-13/openmpi-2_1/phdf5/1.8.18/bin:1\;/opt/apps/ibm-13/openmpi/2.1.1/bin:1\;ProjectDIR/src:1\;PATH_to_TM:1;
+__LMOD_REF_COUNT_PATH=/opt/apps/ibm-13/openmpi-2_1/phdf5/1.8.18/bin:1\;/opt/apps/ibm-13/openmpi/2.1.1/bin:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
 export __LMOD_REF_COUNT_PATH;
-PATH=/opt/apps/ibm-13/openmpi-2_1/phdf5/1.8.18/bin:/opt/apps/ibm-13/openmpi/2.1.1/bin:ProjectDIR/src:PATH_to_TM;
+PATH=/opt/apps/ibm-13/openmpi-2_1/phdf5/1.8.18/bin:/opt/apps/ibm-13/openmpi/2.1.1/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
 TACC_HDF5_BIN=/opt/apps/ibm-13/openmpi-2_1/phdf5/1.8.18/bin;
 export TACC_HDF5_BIN;
@@ -94,9 +94,9 @@ MODULEPATH=ProjectDIR/rt/family/mf/Core:ProjectDIR/rt/family/mf/Compiler/gcc/7:P
 export MODULEPATH;
 MyMPI_Type=openmpi;
 export MyMPI_Type;
-__LMOD_REF_COUNT_PATH=/opt/apps/gcc-7/openmpi-2_1/phdf5/1.8.18/bin:1\;/opt/apps/gcc-7/openmpi/2.1.1/bin:1\;ProjectDIR/src:1\;PATH_to_TM:1;
+__LMOD_REF_COUNT_PATH=/opt/apps/gcc-7/openmpi-2_1/phdf5/1.8.18/bin:1\;/opt/apps/gcc-7/openmpi/2.1.1/bin:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
 export __LMOD_REF_COUNT_PATH;
-PATH=/opt/apps/gcc-7/openmpi-2_1/phdf5/1.8.18/bin:/opt/apps/gcc-7/openmpi/2.1.1/bin:ProjectDIR/src:PATH_to_TM;
+PATH=/opt/apps/gcc-7/openmpi-2_1/phdf5/1.8.18/bin:/opt/apps/gcc-7/openmpi/2.1.1/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
 TACC_HDF5_BIN=/opt/apps/gcc-7/openmpi-2_1/phdf5/1.8.18/bin;
 export TACC_HDF5_BIN;
@@ -154,9 +154,9 @@ MODULEPATH=ProjectDIR/rt/family/mf/Core:ProjectDIR/rt/family/mf/Compiler/ibm/13:
 export MODULEPATH;
 MyMPI_Type=openmpi;
 export MyMPI_Type;
-__LMOD_REF_COUNT_PATH=/opt/apps/ibm-13/openmpi-2_1/phdf5/1.8.18/bin:1\;/opt/apps/ibm-13/openmpi/2.1.1/bin:1\;ProjectDIR/src:1\;PATH_to_TM:1;
+__LMOD_REF_COUNT_PATH=/opt/apps/ibm-13/openmpi-2_1/phdf5/1.8.18/bin:1\;/opt/apps/ibm-13/openmpi/2.1.1/bin:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
 export __LMOD_REF_COUNT_PATH;
-PATH=/opt/apps/ibm-13/openmpi-2_1/phdf5/1.8.18/bin:/opt/apps/ibm-13/openmpi/2.1.1/bin:ProjectDIR/src:PATH_to_TM;
+PATH=/opt/apps/ibm-13/openmpi-2_1/phdf5/1.8.18/bin:/opt/apps/ibm-13/openmpi/2.1.1/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
 TACC_HDF5_BIN=/opt/apps/ibm-13/openmpi-2_1/phdf5/1.8.18/bin;
 export TACC_HDF5_BIN;
@@ -206,9 +206,9 @@ MODULEPATH=ProjectDIR/rt/family/mf/Core:ProjectDIR/rt/family/mf/Compiler/gcc/7:P
 export MODULEPATH;
 MyMPI_Type=mpich;
 export MyMPI_Type;
-__LMOD_REF_COUNT_PATH=/opt/apps/gcc-7/mpich-3_2/phdf5/1.8.18/bin:1\;/opt/apps/gcc-7/mpich/3.2.1/bin:1\;ProjectDIR/src:1\;PATH_to_TM:1;
+__LMOD_REF_COUNT_PATH=/opt/apps/gcc-7/mpich-3_2/phdf5/1.8.18/bin:1\;/opt/apps/gcc-7/mpich/3.2.1/bin:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
 export __LMOD_REF_COUNT_PATH;
-PATH=/opt/apps/gcc-7/mpich-3_2/phdf5/1.8.18/bin:/opt/apps/gcc-7/mpich/3.2.1/bin:ProjectDIR/src:PATH_to_TM;
+PATH=/opt/apps/gcc-7/mpich-3_2/phdf5/1.8.18/bin:/opt/apps/gcc-7/mpich/3.2.1/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
 TACC_HDF5_BIN=/opt/apps/gcc-7/mpich-3_2/phdf5/1.8.18/bin;
 export TACC_HDF5_BIN;

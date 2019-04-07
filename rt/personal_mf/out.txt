@@ -46,9 +46,9 @@ MANPATH=/home/pcolberg/usr/centos6-x86_64/luajit-2.0.4/share/man:/home/pcolberg/
 export MANPATH;
 MODULEPATH=ProjectDIR/rt/personal_mf/.modulefiles;
 export MODULEPATH;
-__LMOD_REF_COUNT_PATH=/home/pcolberg/usr/centos6-x86_64/hdf5-1.8.15/bin:1\;/home/pcolberg/usr/centos6-x86_64/luarocks-2.2.2/bin:1\;/home/pcolberg/usr/centos6-x86_64/luajit-2.0.4/bin:1\;/home/pcolberg/usr/centos6-x86_64/htop-1.0.3/bin:1\;/home/pcolberg/usr/centos6-x86_64/git-annex-5.20150219/bin:1\;/home/pcolberg/usr/centos6-x86_64/git-2.4.0/bin:1\;ProjectDIR/src:1\;PATH_to_TM:1;
+__LMOD_REF_COUNT_PATH=/home/pcolberg/usr/centos6-x86_64/hdf5-1.8.15/bin:1\;/home/pcolberg/usr/centos6-x86_64/luarocks-2.2.2/bin:1\;/home/pcolberg/usr/centos6-x86_64/luajit-2.0.4/bin:1\;/home/pcolberg/usr/centos6-x86_64/htop-1.0.3/bin:1\;/home/pcolberg/usr/centos6-x86_64/git-annex-5.20150219/bin:1\;/home/pcolberg/usr/centos6-x86_64/git-2.4.0/bin:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
 export __LMOD_REF_COUNT_PATH;
-PATH=/home/pcolberg/usr/centos6-x86_64/hdf5-1.8.15/bin:/home/pcolberg/usr/centos6-x86_64/luarocks-2.2.2/bin:/home/pcolberg/usr/centos6-x86_64/luajit-2.0.4/bin:/home/pcolberg/usr/centos6-x86_64/htop-1.0.3/bin:/home/pcolberg/usr/centos6-x86_64/git-annex-5.20150219/bin:/home/pcolberg/usr/centos6-x86_64/git-2.4.0/bin:ProjectDIR/src:PATH_to_TM;
+PATH=/home/pcolberg/usr/centos6-x86_64/hdf5-1.8.15/bin:/home/pcolberg/usr/centos6-x86_64/luarocks-2.2.2/bin:/home/pcolberg/usr/centos6-x86_64/luajit-2.0.4/bin:/home/pcolberg/usr/centos6-x86_64/htop-1.0.3/bin:/home/pcolberg/usr/centos6-x86_64/git-annex-5.20150219/bin:/home/pcolberg/usr/centos6-x86_64/git-2.4.0/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
 __LMOD_REF_COUNT_PKG_CONFIG_PATH=/home/pcolberg/usr/centos6-x86_64/luajit-2.0.4/lib/pkgconfig:1;
 export __LMOD_REF_COUNT_PKG_CONFIG_PATH;
