@@ -1,0 +1,117 @@
+#!/usr/bin/env lua
+-- -*- lua -*-
+
+Version = "1.0"
+
+require("declare")
+require("strict")
+require("string_utils")
+local posix  = require("posix")
+local Optiks = require("Optiks")
+local dbg    = require("Dbg"):dbg()
+local master = {}
+local load   = (_VERSION == "Lua 5.1") and loadstring or load
+
+function masterTbl()
+   return master
+end
+
+function main()
+   options()
+   local masterTbl   = masterTbl()
+   local fn = masterTbl.pargs[1] or "UnknownFile"
+   local whole
+   local fh
+
+   declare("myFullVersion")
+   declare("myVersion")
+   myFullVersion = masterTbl.version
+
+   local vA = {}
+   for value in myFullVersion:split("%.") do
+      vA[#vA + 1 ]  = value
+   end
+
+   myVersion = vA[1] .. "." .. (vA[2] or "0")
+
+   declare("patternA")
+   if (not isFile(masterTbl.patternFile)) then
+      io.stderr:write("missing patternFile\n")
+      os.exit(1)
+   end
+
+   fh    = io.open(masterTbl.patternFile,"r")
+   whole = fh:read("*all")
+   fh:close()
+   local ok
+   local func, msg = load(whole)
+   if (func) then
+      ok, msg = pcall(func)
+   else
+      ok = false
+   end
+   if (not ok) then
+      io.stderr:write("Error: unable to load: ", masterTbl.patternFile,"\n", " ", msg, "\n");
+      os.exit(1)
+   end
+
+   fh    = io.open(fn,"r")
+   whole = fh:read("*all")
+   fh:close()
+
+   fh    = io.open(fn,"w")
+   for line in whole:split("\n") do
+      for i = 1,#patternA do
+         local pattern = patternA[i][1]
+         local value   = patternA[i][2]
+         line = line:gsub(pattern,value)
+      end
+      fh:write(line,"\n")
+   end
+   fh:close()
+end
+
+function options()
+   local masterTbl = masterTbl()
+   local usage         = "Usage: "
+   local cmdlineParser = Optiks:new{usage=usage, version=Version}
+
+   cmdlineParser:add_option{ 
+      name    = {'-v','--verbose'},
+      dest    = 'verbosityLevel',
+      action  = 'count',
+   }
+   cmdlineParser:add_option{ 
+      name    = {'-p','--patternFile'},
+      dest    = 'patternFile',
+      default = '',
+      action  = 'store',
+   }
+   cmdlineParser:add_option{ 
+      name    = {'--version'},
+      dest    = 'version',
+      default = '0.0.0',
+      action  = 'store',
+   }
+   local optionTbl, pargs = cmdlineParser:parse(arg)
+
+   for v in pairs(optionTbl) do
+      masterTbl[v] = optionTbl[v]
+   end
+   masterTbl.pargs = pargs
+
+end
+
+--------------------------------------------------------------------------
+-- Return true if file exists is and is a file or link.
+-- @param fn A file path
+function isFile(fn)
+   if (fn == nil) then return false end
+   local t = posix.stat(fn,"type")
+
+   local result = ((t == "regular") or (t == "link"))
+
+   return result
+end
+
+main()

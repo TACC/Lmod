@@ -191,7 +191,7 @@ buildNewDB()
 
 EPOCH()
 {
-   $LUA_EXEC $projectDir/src/epoch.in.lua
+   $LUA_EXEC $projectDir/proj_mgmt/epoch.in.lua
 }
 
 initStdEnvVars()
@@ -237,7 +237,7 @@ initStdEnvVars()
   export LMOD_TERM_WIDTH=300
 
   PATH=/usr/bin:/bin
-  for i in $PATH_to_SHA1 $PATH_to_TM $PATH_to_LUA $projectDir/src; do
+  for i in $PATH_to_SHA1 $PATH_to_TM $PATH_to_LUA $projectDir/proj_mgmt; do
     pathmunge $i 
   done
 }

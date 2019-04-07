@@ -23,7 +23,7 @@ TOOL_SRC                  := $(wildcard $(srcdir)/tools/*.lua)
 I18N_SRC                  := $(wildcard $(srcdir)/tools/i18n/*.lua)
 
 CURRENT_MK                := $(lastword $(MAKEFILE_LIST))
-export IGNORE_DIRS        := $(shell $(PATH_TO_LUA)/lua $(srcdir)/src/ignore_dirs_converter @IGNORE_DIRS@)
+export IGNORE_DIRS        := $(shell $(PATH_TO_LUA)/lua $(srcdir)/proj_mgmt/ignore_dirs_converter @IGNORE_DIRS@)
 REDIRECT                  := @REDIRECT@
 LMOD_SETTARG_FULL_SUPPORT := $(shell echo "@SETTARG@"       | tr '[:upper:]' '[:lower:]')
 USE_DOT_FILES             := $(shell echo "@USE_DOT_FILES@" | tr '[:upper:]' '[:lower:]')
