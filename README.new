@@ -5,5 +5,9 @@ Lmod 8.0+
               found with some tcl interpreter (8.5.13 and earlier.
             * Issue with tcl2lua.tcl not handling modulefiles writing to stderr.  All output from the tcl modulefiles
               now go through $g_outputA.
+   (8.0.2)  * All hidden files are NOT written to the softwarePage output.
+            * Now automatically update docs/source/conf.py to the current version
+            * Created proj_mgmt directory to store programs that needed to manage the project but are not installed.
+            
               
 	    

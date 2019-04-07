@@ -22,6 +22,8 @@ path_to_src               := PATH_TO_SRC
 TOOL_SRC                  := $(wildcard $(srcdir)/tools/*.lua)
 I18N_SRC                  := $(wildcard $(srcdir)/tools/i18n/*.lua)
 
+CONF_PY                   := $(srcdir)/docs/source/conf.py
+CONF_PY_PATTERN           := $(srcdir)/proj_mgmt/conf_py_update_patternA.lua
 CURRENT_MK                := $(lastword $(MAKEFILE_LIST))
 export IGNORE_DIRS        := $(shell $(PATH_TO_LUA)/lua $(srcdir)/proj_mgmt/ignore_dirs_converter @IGNORE_DIRS@)
 REDIRECT                  := @REDIRECT@
@@ -576,7 +578,7 @@ gittag:
 	    echo '  return table.concat(a," ")'                   	 >> $(VERSION_SRC); \
 	    echo 'end'                                            	 >> $(VERSION_SRC); \
 	    echo 'return M'                                       	 >> $(VERSION_SRC); \
-            $(UPDATE_VERSION) -p conf_py_update_patternA.lua --version $(TAG)   $(CONF_PY); \
+            $(UPDATE_VERSION) -p $(CONF_PY_PATTERN)          --version $(TAG)   $(CONF_PY); \
             git commit -m "moving to TAG_VERSION $(TAG)"         $(CONF_PY) $(VERSION_SRC); \
             git tag -a $(TAG) -m 'Setting TAG_VERSION to $(TAG)'                   	  ; \
 	    branchName=`git status | head -n 1 | sed 's/^[# ]*On branch //g'`      	  ; \
