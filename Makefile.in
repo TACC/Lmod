@@ -60,6 +60,7 @@ SPIDER_CACHE_DIRS 	  := @SPIDER_CACHE_DIRS@
 LEGACY_ORDERING           := @LEGACY_ORDERING@
 EXPORT_MODULE             := @EXPORT_MODULE@
 BASENAME                  := @BASENAME@
+UPDATE_VERSION            := $(srcdir)/proj_mgmt/updateVersion
 PS                        := @PS@
 EXPR                      := @EXPR@
 PATH_TO_HASHSUM   	  := @PATH_TO_HASHSUM@
@@ -551,36 +552,37 @@ world_update:
 
 gittag:
         ifneq ($(TAG),)
-	  @git status -s > /tmp/git_st_$$$$;                                         \
-          if [ -s /tmp/git_st_$$$$ ]; then                                           \
-	    echo "All files not checked in => try again";                            \
-	  elif [ $(srcdir)/configure -ot $(srcdir)/configure.ac ]; then              \
-            echo "configure is out of date => try again";                            \
-	  else                                                                       \
-	    $(RM)                                                    $(VERSION_SRC); \
-	    echo 'local M={}'                                     >  $(VERSION_SRC); \
-	    echo 'function M.tag()  return "$(TAG)"   end'        >> $(VERSION_SRC); \
-	    echo 'function M.git()'                               >> $(VERSION_SRC); \
-            echo '   local s = "@git@"'                           >> $(VERSION_SRC); \
-            echo '   if (s == "@" .. "git@")     then s = "" end' >> $(VERSION_SRC); \
-            echo '   if (s == "("..M.tag()..")") then s = "" end' >> $(VERSION_SRC); \
-            echo '   return s'                                    >> $(VERSION_SRC); \
-            echo 'end'                                            >> $(VERSION_SRC); \
-	    echo 'function M.date() return "$(VDATE)" end'        >> $(VERSION_SRC); \
-	    echo 'function M.name()'                              >> $(VERSION_SRC); \
-            echo '  local a = {}'                                 >> $(VERSION_SRC); \
-	    echo '  a[#a+1] = M.tag()'                            >> $(VERSION_SRC); \
-	    echo '  a[#a+1] = M.git()'                            >> $(VERSION_SRC); \
-	    echo '  a[#a+1] = M.date()'                           >> $(VERSION_SRC); \
-	    echo '  return table.concat(a," ")'                   >> $(VERSION_SRC); \
-	    echo 'end'                                            >> $(VERSION_SRC); \
-	    echo 'return M'                                       >> $(VERSION_SRC); \
-            git commit -m "moving to TAG_VERSION $(TAG)"             $(VERSION_SRC); \
-            git tag -a $(TAG) -m 'Setting TAG_VERSION to $(TAG)'                   ; \
-	    branchName=`git status | head -n 1 | sed 's/^[# ]*On branch //g'`      ; \
-            git push        origin $$branchName                                    ; \
-	    git push --tags origin $$branchName                                    ; \
-          fi;                                                                        \
+	  @git status -s > /tmp/git_st_$$$$;                                         	    \
+          if [ -s /tmp/git_st_$$$$ ]; then                                           	    \
+	    echo "All files not checked in => try again";                            	    \
+	  elif [ $(srcdir)/configure -ot $(srcdir)/configure.ac ]; then              	    \
+            echo "configure is out of date => try again";                            	    \
+	  else                                                                       	    \
+	    $(RM)                                                 	    $(VERSION_SRC); \
+	    echo 'local M={}'                                     	 >  $(VERSION_SRC); \
+	    echo 'function M.tag()  return "$(TAG)"   end'        	 >> $(VERSION_SRC); \
+	    echo 'function M.git()'                               	 >> $(VERSION_SRC); \
+            echo '   local s = "@git@"'                           	 >> $(VERSION_SRC); \
+            echo '   if (s == "@" .. "git@")     then s = "" end' 	 >> $(VERSION_SRC); \
+            echo '   if (s == "("..M.tag()..")") then s = "" end' 	 >> $(VERSION_SRC); \
+            echo '   return s'                                    	 >> $(VERSION_SRC); \
+            echo 'end'                                            	 >> $(VERSION_SRC); \
+	    echo 'function M.date() return "$(VDATE)" end'        	 >> $(VERSION_SRC); \
+	    echo 'function M.name()'                              	 >> $(VERSION_SRC); \
+            echo '  local a = {}'                                 	 >> $(VERSION_SRC); \
+	    echo '  a[#a+1] = M.tag()'                            	 >> $(VERSION_SRC); \
+	    echo '  a[#a+1] = M.git()'                            	 >> $(VERSION_SRC); \
+	    echo '  a[#a+1] = M.date()'                           	 >> $(VERSION_SRC); \
+	    echo '  return table.concat(a," ")'                   	 >> $(VERSION_SRC); \
+	    echo 'end'                                            	 >> $(VERSION_SRC); \
+	    echo 'return M'                                       	 >> $(VERSION_SRC); \
+            $(UPDATE_VERSION) -p conf_py_update_patternA.lua --version $(TAG)   $(CONF_PY); \
+            git commit -m "moving to TAG_VERSION $(TAG)"         $(CONF_PY) $(VERSION_SRC); \
+            git tag -a $(TAG) -m 'Setting TAG_VERSION to $(TAG)'                   	  ; \
+	    branchName=`git status | head -n 1 | sed 's/^[# ]*On branch //g'`      	  ; \
+            git push        origin $$branchName                                    	  ; \
+	    git push --tags origin $$branchName                                    	  ; \
+          fi;                                                                      	    \
           rm -f /tmp/git_st_$$$$
         else
 	  @echo "To git tag do: make gittag TAG=?"
