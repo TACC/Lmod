@@ -146,7 +146,7 @@ static int runTCLprog(lua_State *L)
   Tcl_SetVar2Ex(interp, "argc", NULL, Tcl_NewIntObj(argc), TCL_GLOBAL_ONLY);
   Tcl_SetVar2Ex(interp, "argv", NULL, argvPtr,             TCL_GLOBAL_ONLY);
 
-  if ((tcl_status = Tcl_EvalFile(interp, script)) != TCL_OK)
+  if ((tcl_status = Tcl_EvalFile(interp, cmd)) != TCL_OK)
     {
       Tcl_Channel chan = Tcl_GetStdChannel(TCL_STDERR);
       if (chan)
