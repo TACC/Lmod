@@ -3,6 +3,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+/*
+ * The sLiteral argument *must* be a string literal; the incantation with
+ * sizeof(sLiteral "") will fail to compile otherwise.
+ */
+#define TclNewLiteralStringObj(objPtr, sLiteral) \
+    (objPtr) = Tcl_NewStringObj( (sLiteral), (int) (sizeof(sLiteral "") - 1))
+
 static char* resultStr = NULL;
 static int   rlen      = 0;
 
@@ -45,6 +52,7 @@ int Tcl_AppInit(Tcl_Interp* interp)
 
 int main(int argc, char **argv)
 {
+  int        status;
   char       *script = argv[1];
   Tcl_Obj    *argvPtr;
   Tcl_FindExecutable(script);
@@ -68,8 +76,27 @@ int main(int argc, char **argv)
     Tcl_ListObjAppendElement(NULL, argvPtr, Tcl_NewStringObj(*argv++, -1));
   Tcl_SetVar2Ex(interp, "argv", NULL, argvPtr, TCL_GLOBAL_ONLY);
 
-  if (Tcl_EvalFile(interp, script) != TCL_OK)
-    return TCL_ERROR;
+
+  if ((status = Tcl_EvalFile(interp, script)) != TCL_OK)
+    {
+      Tcl_Channel chan = Tcl_GetStdChannel(TCL_STDERR);
+      if (chan)
+	{
+	  Tcl_Obj *options = Tcl_GetReturnOptions(interp, status);
+	  Tcl_Obj *keyPtr, *valuePtr;
+
+	  TclNewLiteralStringObj(keyPtr, "-errorinfo");
+	  Tcl_IncrRefCount(keyPtr);
+	  Tcl_DictObjGet(NULL, options, keyPtr, &valuePtr);
+	  Tcl_DecrRefCount(keyPtr);
+
+	  if (valuePtr) 
+	    Tcl_WriteObj(chan, valuePtr);
+	  Tcl_WriteChars(chan, "\n", 1);
+	  Tcl_DecrRefCount(options);
+	}
+      return TCL_ERROR;
+    }
 
   fprintf(stderr,"len: %d, resultStr: \"%s\"\n",strlen(resultStr), resultStr);
 

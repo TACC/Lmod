@@ -44,6 +44,7 @@ require("pairsByKeys")
 require("string_utils")
 
 local Version      = require("Version")
+local access       = posix.access
 local arg_0        = arg[0]
 local base64       = require("base64")
 local concatTbl    = table.concat
@@ -436,7 +437,7 @@ function getModuleRCT(remove_MRC_home)
    if (MRC_system) then
       local a = {}
       for file in MRC_system:split(":") do
-         if (isFile(file)) then
+         if (isFile(file) and access(file,"r")) then
             a[#a+1] = file
          end
       end
@@ -445,9 +446,9 @@ function getModuleRCT(remove_MRC_home)
       end
    end
    if (not remove_MRC_home) then
-      if (isFile(MRC_home_lua)) then
+      if (isFile(MRC_home_lua) and access(MRC_home_lua,"r")) then
          A[#A+1] = { MRC_home_lua, "u"}
-      elseif (isFile(MRC_home)) then
+      elseif (isFile(MRC_home) and access(MRC_home,"r")) then
          A[#A+1] = { MRC_home, "u"}
       end
    end
