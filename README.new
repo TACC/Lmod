@@ -8,6 +8,6 @@ Lmod 8.0+
    (8.0.2)  * All hidden files are NOT written to the softwarePage output.
             * Now automatically update docs/source/conf.py to the current version
             * Created proj_mgmt directory to store programs that needed to manage the project but are not installed.
-            
-              
+            * TCL modulefiles writing to stderr (except for help msgs) now use LmodMsgRaw() and support puts -nonewline
+	    * The LmodMessage() function when given a single line that fits on the terminal do not "Fill".
 	    
