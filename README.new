@@ -10,4 +10,5 @@ Lmod 8.0+
             * Created proj_mgmt directory to store programs that needed to manage the project but are not installed.
             * TCL modulefiles writing to stderr (except for help msgs) now use LmodMsgRaw() and support puts -nonewline
 	    * The LmodMessage() function when given a single line that fits on the terminal do not "Fill".
-	    
+   (8.0.3)  * The integrated TCL interpreter will now return the error messages from a broken TCL modulefile/rc file.
+   
