@@ -74,7 +74,6 @@ MODULEPATH_ROOT   	  := @MODULEPATH_ROOT@
 VERSION_SRC	  	  := $(srcdir)/src/Version.lua
 LUA_INCLUDE       	  := @LUA_INCLUDE@
 UPDATE_SYSTEM_FN  	  := @UPDATE_SYSTEM_FN@
-GIT_BRANCH                := master
 GIT_PROG                  := @PATH_TO_GIT@
 GIT_VERSION               := $(shell if [ -n "$(GIT_PROG)" -a -d .git ]; then lmodV=`git describe --always`; echo "($$lmodV)"; else echo "($(version))"; fi)
 PKG		  	  := $(MY_PKG_PACKAGE)
@@ -340,18 +339,19 @@ config.status:
 	./config.status --recheck
 
 dist:
-	git archive --prefix=Lmod-$(version)/ $(GIT_BRANCH) > Lmod-$(version).tar
-	$(RM) -rf DIST;                               			     	 \
-        mkdir DIST;                                   			     	 \
-        cd DIST;                                      			     	 \
-        tar xf ../Lmod-$(version).tar;                			     	 \
-        $(RM) ../Lmod-$(version).tar;                 			     	 \
-        echo "Lmod"-$(version) > .fname;                		     	 \
-        sed -i.bk 's/\@git\@/$(GIT_VERSION)/g' `cat .fname`/src/Version.lua;     \
-        rm `cat .fname`/src/Version.lua.bk;                                      \
-        tar chf `cat .fname`.tar `cat .fname`;           		     	 \
-        bzip2 `cat .fname`.tar;                           		     	 \
-        mv `cat .fname`.tar.bz2  ..;                         		     	 \
+	GIT_BRANCH=`git status | head -n 1 | sed -e 's/^[# ]*On branch //g' -e 's/^[# ]*HEAD detached at//g'`; \
+	git archive --prefix=Lmod-$(version)/ $(GIT_BRANCH) > Lmod-$(version).tar ; \
+	$(RM) -rf DIST                                                            ; \
+        mkdir DIST                                                                ; \
+        cd DIST                                                                   ; \
+        tar xf ../Lmod-$(version).tar                                             ; \
+        $(RM) ../Lmod-$(version).tar                                              ; \
+        echo "Lmod"-$(version) > .fname                                           ; \
+        sed -i.bk 's/\@git\@/$(GIT_VERSION)/g' `cat .fname`/src/Version.lua       ; \
+        rm `cat .fname`/src/Version.lua.bk                                        ; \
+        tar chf `cat .fname`.tar `cat .fname`                                     ; \
+        bzip2 `cat .fname`.tar                                                    ; \
+        mv `cat .fname`.tar.bz2  ..                                               ; \
         cd ..; $(RM) -rf DIST
 
 
