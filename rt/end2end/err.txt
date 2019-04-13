@@ -43,14 +43,9 @@ version                = myinfo/1.0
 user                   =
 symbols                =
 +++ info ++++++++++++++++++++++++++++++++++++++
-hostname               = mijo.local
 level                  = 1
 loaded null            = 0
-library                = /System/Library/Frameworks/Tcl.framework/Versions/8.5/Resources/Scripts
 nameofexecutable       = OutputDIR/lmod/lmod/libexec/tcl2lua.tcl
-sharedlibextension     = .dylib
-tclversion             = 8.5
-patchlevel             = 8.5.9
 +++++++++++++++++++++++++++++++++++++++++++++++
 ===========================
 step 7
