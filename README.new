@@ -11,4 +11,4 @@ Lmod 8.0+
             * TCL modulefiles writing to stderr (except for help msgs) now use LmodMsgRaw() and support puts -nonewline
 	    * The LmodMessage() function when given a single line that fits on the terminal do not "Fill".
    (8.0.3)  * The integrated TCL interpreter will now return the error messages from a broken TCL modulefile/rc file.
-   
+   (8.0.4)  * Fix problem with end2end and the myinfo/1.0 module where it printed out things like the hostname.
