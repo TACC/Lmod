@@ -340,7 +340,7 @@ config.status:
 
 dist:
 	GIT_BRANCH=`git status | head -n 1 | sed -e 's/^[# ]*On branch //g' -e 's/^[# ]*HEAD detached at//g'`; \
-	git archive --prefix=Lmod-$(version)/ $(GIT_BRANCH) > Lmod-$(version).tar ; \
+	git archive --prefix=Lmod-$(version)/ $$GIT_BRANCH  > Lmod-$(version).tar ; \
 	$(RM) -rf DIST                                                            ; \
         mkdir DIST                                                                ; \
         cd DIST                                                                   ; \
