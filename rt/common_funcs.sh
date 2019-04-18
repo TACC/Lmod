@@ -108,6 +108,11 @@ runFish ()
   runBase $LUA_EXEC $projectDir/src/lmod.in.lua fish --regression_testing "$@"
 }
 
+runR ()
+{
+  runBase $LUA_EXEC $projectDir/src/lmod.in.lua R --regression_testing "$@"
+}
+
 runMe ()
 {
    runBase "$@"

@@ -254,6 +254,7 @@ local function createShellTbl()
          ["cmake"]  = CMake,
          ["bare"]   = Bare,
          ["r"]      = R,
+         ["R"]      = R,
       }
    end
 end

@@ -952,6 +952,9 @@ switch -regexp -- $g_shellName {
     ^(cmake)$ {
 	set g_shellType cmake
     }
+    ^(r)$ {
+	set g_shellType r
+    }
     . {
 	set g_shellType broken
     }

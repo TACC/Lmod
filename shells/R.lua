@@ -61,8 +61,6 @@ end
 function R.expandVar(self, k, v, vType)
    local lineA = {}
    v = tostring(v):doubleQuoteString()
-   io.stderr:write("v: ",v,"\n")
-
    lineA[#lineA + 1] = 'Sys.setenv("'
    lineA[#lineA + 1] = k
    lineA[#lineA + 1] = '"='
