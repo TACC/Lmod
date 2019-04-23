@@ -14,4 +14,4 @@ Lmod 8.0+
    (8.0.4)  * Fix problem with end2end and the myinfo/1.0 module where it printed out things like the hostname.
    (8.0.5)  * small fix in the dist target.  Releasing on S2.
    (8.0.6)  * Support for R to use tcl modulefiles.
-   
+   (8.0.7)  * Support for extended default
