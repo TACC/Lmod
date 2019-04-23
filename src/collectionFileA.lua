@@ -54,6 +54,17 @@ function collectFileA(sn, versionStr, v, fileA)
             --dbg.fini("collectFileA")
             return
          end
+         local vp = versionStr
+         if (vp:sub(-1) ~= ".") then
+            vp = vp .. "."
+         end
+         vp = vp:gsub("%.","%%.") .. ".*"
+         for k,vvv in pairs(v.fileT) do
+            if (vvv.canonical:find(vp)) then
+               fileA[#fileA+1] = { sn = sn, fullName = build_fullName(sn, vvv.canonical),
+                                   version = vvv.canonical, fn = vvv.fn, wV = vvv.wV, pV = vvv.pV }
+            end
+         end
       else
          for fullName, vv in pairs(v.fileT) do
             local version   = extractVersion(fullName, sn)

@@ -133,8 +133,6 @@ function M.search(self, name)
       return nil, nil, nil
    end
 
-   local v = locationT[name]
-
    -- Find sn from name by looking in locationT and if it is not there
    -- Then remove "/version" from name
 
