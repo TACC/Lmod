@@ -383,9 +383,10 @@ local function find_highest_by_key(key, fileA)
    local version = false
 
    for j = 1,#a do
-      local entry    = a[j]
-      local fullName = entry.fullName
-      local v        = entry[key]
+      local entry = a[j]
+      local v     = entry[key]
+      dbg.print{"find_highest: sn: ", entry.sn,", fullName: ",entry.fullName,", key: ",key,", v: ",v,"\n"}
+      
       if (mrc:isVisible({fullName=entry.fullName,sn=entry.sn,fn=entry.fn}) or isMarked(v)) then
          if (v > weight) then
             idx    = j
