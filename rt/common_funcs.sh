@@ -55,6 +55,7 @@ cleanUp ()
        -e "s|$PATH_to_TM|PATH_to_TM|g"                    \
        -e "s|^LD_PRELOAD at config time.*$||g"            \
        -e "s|^LD_LIBRARY_PATH at config time.*$||g"       \
+       -e "s|Sys.setenv(._ModuleTable0.*$||g"             \
        -e "s|unsetenv _ModuleTable..._;||g"               \
        -e "s|unset _ModuleTable..._;||g"                  \
        -e "s|unset _ModuleTable..._;||g"                  \
