@@ -1,11 +1,11 @@
 -- -*- lua -*-
-local testName = "compiler"
+local testName = "extended_default"
 
 testdescript = {
    owner   = "rtm",
    product = "modules",
    description = [[
-	 compiler
+	 extended_default
    ]],
    keywords = {testName },
 
@@ -24,9 +24,12 @@ testdescript = {
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
      runLmod --version                         # 1
-     runLmod load intel                        # 2
-     runLmod load mcr                          # 3
-     runLmod list                              # 4
+     runLmod load intel/1                      # 2
+     runLmod load mcr/64/1                     # 3
+     runLmod load intel/17                     # 4
+     runLmod load mcr/64/18                    # 5
+     runLmod load petsc/3                      # 6
+     runLmod list                              # 7
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

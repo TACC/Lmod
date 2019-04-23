@@ -58,11 +58,12 @@ function collectFileA(sn, versionStr, v, fileA)
          if (vp:sub(-1) ~= ".") then
             vp = vp .. "."
          end
-         vp = vp:gsub("%.","%%.") .. ".*"
+         local keyPat = pathJoin(sn,vp:gsub("%.","%%.") .. ".*")
+         dbg.print{"collectFileA: versionStr: ",versionStr,", keyPat: ",keyPat,"\n"}
          for k,vvv in pairs(v.fileT) do
-            if (vvv.canonical:find(vp)) then
-               fileA[#fileA+1] = { sn = sn, fullName = build_fullName(sn, vvv.canonical),
-                                   version = vvv.canonical, fn = vvv.fn, wV = vvv.wV, pV = vvv.pV }
+            if (k:find(keyPat)) then
+               fileA[#fileA+1] = { sn = sn, fullName = k, version = k:gsub("^" .. sn .. "/",""),
+                                   fn = vvv.fn, wV = vvv.wV, pV = vvv.pV }
             end
          end
       else

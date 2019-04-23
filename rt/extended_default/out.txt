@@ -1,0 +1,72 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel/1
+===========================
+false
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load mcr/64/1
+===========================
+false
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel/17
+===========================
+__LMOD_REF_COUNT_LOADEDMODULES=intel/17.0.3:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=intel/17.0.3;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/extended_default/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/extended_default/mf/Core;
+export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/extended_default/mf/Core/intel/17.0.3.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/extended_default/mf/Core/intel/17.0.3.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={intel={["fn"]="ProjectDIR/rt/extended_default/mf/Core/intel/17.0.3.lua",["fullName"]="intel/17.0.3",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel/17",},},mpathA={"ProjectDIR/rt/extended_default/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/extended_default/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load mcr/64/18
+===========================
+__LMOD_REF_COUNT_LOADEDMODULES=intel/17.0.3:1\;mcr/64/18.0.4:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=intel/17.0.3:mcr/64/18.0.4;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/extended_default/mf/Core;
+export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/extended_default/mf/Core/intel/17.0.3.lua:1\;ProjectDIR/rt/extended_default/mf/Core/mcr/64/18.0.4.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/extended_default/mf/Core/intel/17.0.3.lua:ProjectDIR/rt/extended_default/mf/Core/mcr/64/18.0.4.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={intel={["fn"]="ProjectDIR/rt/extended_default/mf/Core/intel/17.0.3.lua",["fullName"]="intel/17.0.3",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel/17",},mcr={["fn"]="ProjectDIR/rt/extended_default/mf/Core/mcr/64/18.0.4.lua",["fullName"]="mcr/64/18.0.4",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mcr/64/18",},},mpathA={"ProjectDIR/rt/extended_default/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/extended_default/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load petsc/3
+===========================
+__LMOD_REF_COUNT_LOADEDMODULES=intel/17.0.3:1\;mcr/64/18.0.4:1\;petsc/3.10:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=intel/17.0.3:mcr/64/18.0.4:petsc/3.10;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/extended_default/mf/Core;
+export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/extended_default/mf/Core/intel/17.0.3.lua:1\;ProjectDIR/rt/extended_default/mf/Core/mcr/64/18.0.4.lua:1\;ProjectDIR/rt/extended_default/mf/Core/petsc/3.10.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/extended_default/mf/Core/intel/17.0.3.lua:ProjectDIR/rt/extended_default/mf/Core/mcr/64/18.0.4.lua:ProjectDIR/rt/extended_default/mf/Core/petsc/3.10.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={intel={["fn"]="ProjectDIR/rt/extended_default/mf/Core/intel/17.0.3.lua",["fullName"]="intel/17.0.3",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel/17",},mcr={["fn"]="ProjectDIR/rt/extended_default/mf/Core/mcr/64/18.0.4.lua",["fullName"]="mcr/64/18.0.4",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mcr/64/18",},petsc={["fn"]="ProjectDIR/rt/extended_default/mf/Core/petsc/3.10.lua",["fullName"]="petsc/3.10",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="petsc/3",},},mpathA={"ProjectDIR/rt/extended_default/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/extended_default/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/extended_default/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={intel={["fn"]="ProjectDIR/rt/extended_default/mf/Core/intel/17.0.3.lua",["fullName"]="intel/17.0.3",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel/17",},mcr={["fn"]="ProjectDIR/rt/extended_default/mf/Core/mcr/64/18.0.4.lua",["fullName"]="mcr/64/18.0.4",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mcr/64/18",},petsc={["fn"]="ProjectDIR/rt/extended_default/mf/Core/petsc/3.10.lua",["fullName"]="petsc/3.10",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="petsc/3",},},mpathA={"ProjectDIR/rt/extended_default/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/extended_default/mf/Core",}';
+export _ModuleTable_;
