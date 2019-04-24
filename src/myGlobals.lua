@@ -302,6 +302,16 @@ cosmic:init{name    = "LMOD_MODULERCFILE",
             assignV = rc,
             kind    = "file"}
 
+
+------------------------------------------------------------------------
+-- LMOD_EXTENDED_DEFAULT: Allow for partial version matches like
+--                        ml intel/17 pick the best intel 17.*
+------------------------------------------------------------------------
+
+cosmic:init{name    = "LMOD_EXTENDED_DEFAULT",
+            sedV    = "@extended_default@",
+            yn      = "yes"}
+
 ------------------------------------------------------------------------
 -- LMOD_RTM_TESTING: If set then the author is testing Lmod
 ------------------------------------------------------------------------

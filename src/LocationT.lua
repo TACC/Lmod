@@ -41,6 +41,7 @@ require("serializeTbl")
 
 local M        = {}
 local dbg      = require("Dbg"):dbg()
+local cosmic   = require("Cosmic"):singleton()
 
 local function merge_locationT(origT, lctnT, v)
    if (v.file) then
@@ -206,7 +207,8 @@ function M.search(self, name)
 
    local fileA = {}
    fileA[1]    = {}
-   collectFileA(sn, fullStr, v, fileA[1])
+   local extended_default = cosmic:value("LMOD_EXTENDED_DEFAULT")
+   collectFileA(sn, fullStr, extended_default, v, fileA[1])
    --dbg.fini("LocationT:search")
    return sn, versionStr, fileA
 end

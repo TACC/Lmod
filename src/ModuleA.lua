@@ -239,10 +239,12 @@ local function search(name, moduleA)
 
    dbg.print{"name: ",name,", sn: ",sn,", versionStr: ",versionStr, " fullStr: ",fullStr,"\n"}
 
+   local extend_default = cosmic:value("LMOD_EXTENDED_DEFAULT")
+
    local fileA = {}
    for i = 1,#vB do
       fileA[i] = {}
-      collectFileA(sn, fullStr, vB[i], fileA[i])
+      collectFileA(sn, fullStr, extended_default, vB[i], fileA[i])
    end
    dbg.fini("ModuleA search")
    return sn, versionStr, fileA
