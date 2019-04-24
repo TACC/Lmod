@@ -134,6 +134,9 @@ function M.search(self, name)
       return nil, nil, nil
    end
 
+   dbg.printT("locationT",locationT)
+
+
    -- Find sn from name by looking in locationT and if it is not there
    -- Then remove "/version" from name
 
