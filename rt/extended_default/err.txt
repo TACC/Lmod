@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.0.6  2019-04-18 17:03 -05:00
+Modules based on Lua: Version 8.0.7  2019-04-23 17:47 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -39,4 +39,4 @@ step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) intel/17.0.3   2) mcr/64/18.0.4   3) petsc/3.10
+  1) abc/3.3   2) intel/17.0.3   3) mcr/64/18.0.4   4) petsc/3.10
