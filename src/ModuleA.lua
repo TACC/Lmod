@@ -239,7 +239,7 @@ local function search(name, moduleA)
 
    dbg.print{"name: ",name,", sn: ",sn,", versionStr: ",versionStr, " fullStr: ",fullStr,"\n"}
 
-   local extend_default = cosmic:value("LMOD_EXTENDED_DEFAULT")
+   local extended_default = cosmic:value("LMOD_EXTENDED_DEFAULT")
 
    local fileA = {}
    for i = 1,#vB do
