@@ -13,7 +13,6 @@ Sys.setenv("__LMOD_REF_COUNT_MODULEPATH"="ProjectDIR/rt/r_shell/mf/Core:1");
 Sys.setenv("MODULEPATH"="ProjectDIR/rt/r_shell/mf/Core");
 Sys.setenv("__LMOD_REF_COUNT__LMFILES_"="ProjectDIR/rt/r_shell/mf/Core/a/1.0:1");
 Sys.setenv("_LMFILES_"="ProjectDIR/rt/r_shell/mf/Core/a/1.0");
-Sys.setenv("_ModuleTable_Sz_"="1");
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua R --regression_testing load b
@@ -25,4 +24,3 @@ Sys.setenv("__LMOD_REF_COUNT_MODULEPATH"="ProjectDIR/rt/r_shell/mf/Core:1");
 Sys.setenv("MODULEPATH"="ProjectDIR/rt/r_shell/mf/Core");
 Sys.setenv("__LMOD_REF_COUNT__LMFILES_"="ProjectDIR/rt/r_shell/mf/Core/b/1.0.lua:1");
 Sys.setenv("_LMFILES_"="ProjectDIR/rt/r_shell/mf/Core/b/1.0.lua");
-Sys.setenv("_ModuleTable_Sz_"="1");

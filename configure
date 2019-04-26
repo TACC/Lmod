@@ -652,6 +652,7 @@ SILENCE_SHELL_DEBUGGING
 USE_BUILT_IN_PKGS
 SITE_CONTROLLED_PREFIX
 MODULEPATH_INIT
+EXTENDED_DEFAULT
 CACHED_LOADS
 LUA_INCLUDE
 TMOD_FIND_FIRST
@@ -761,6 +762,7 @@ with_tmodPathRule
 with_tmodFindFirst
 with_lua_include
 with_cachedLoads
+with_extendedDefault
 with_ModulePathInit
 with_siteControlPrefix
 with_useBuiltinPkgs
@@ -1449,6 +1451,8 @@ Optional Packages:
   --with-lua_include=ans  Save/Restore will use the current version instead of
                           changing with the default.[[no]]
   --with-cachedLoads=ans  Use cache when loading modules. [[no]]
+  --with-extendedDefault=ans
+                          Allow for extended default. [[yes]]
   --with-ModulePathInit=ans
                           File containing initial MODULEPATH directories
   --with-siteControlPrefix=ans
@@ -3635,6 +3639,28 @@ $as_echo "CACHED_LOADS=$withval" >&6; }
     CACHED_LOADS="$withval"
     cat >>confdefs.h <<_ACEOF
 #define CACHED_LOADS "$withval"
+_ACEOF
+
+fi
+
+
+
+# Check whether --with-extendedDefault was given.
+if test "${with_extendedDefault+set}" = set; then :
+  withval=$with_extendedDefault; EXTENDED_DEFAULT="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: EXTENDED_DEFAULT=$with_extendedDefault" >&5
+$as_echo "EXTENDED_DEFAULT=$with_extendedDefault" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define EXTENDED_DEFAULT "$with_extendedDefault"
+_ACEOF
+
+else
+  withval="yes"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: EXTENDED_DEFAULT=$withval" >&5
+$as_echo "EXTENDED_DEFAULT=$withval" >&6; }
+    EXTENDED_DEFAULT="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define EXTENDED_DEFAULT "$withval"
 _ACEOF
 
 fi
@@ -6362,6 +6388,7 @@ echo "MODULEPATH Initial file....................................." : $MODULEPAT
 echo "Use built-in lua packages instead of system provided pkgs..." : $USE_BUILT_IN_PKGS
 echo "Silence shell debugging output for bash/zsh................." : $SILENCE_SHELL_DEBUGGING
 echo "Use the fast TCL interpreter................................" : $FAST_TCL_INTERP
+echo "Allow for extended default.(ml intel/17 #-> intel/17.0.4)..." : $EXTENDED_DEFAULT  #"
 
 echo
 echo '------------------------------------------------------------------------------'

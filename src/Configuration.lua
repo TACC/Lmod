@@ -138,6 +138,7 @@ local function new(self)
    local uname             = capture("uname -a")
    local adminFn, readable = findAdminFn()
    local activeTerm        = haveTermSupport() and "true" or colorize("red","false")
+   local extended_default  = cosmic:value("LMOD_EXTENDED_DEFAULT")
    local hiddenItalic      = cosmic:value("LMOD_HIDDEN_ITALIC")
    local lfsV              = cosmic:value("LFS_VERSION")
    local lmod_lang         = cosmic:value("LMOD_LANG")
@@ -202,6 +203,7 @@ local function new(self)
    tbl.disable1N    = { k = "Disable Same Name AutoSwap"        , v = disable1N,        }
    tbl.dot_files    = { k = "Using dotfiles"                    , v = using_dotfiles,   }
    tbl.dupPaths     = { k = "Allow duplicate paths"             , v = duplicate_paths,  }
+   tbl.extendDflt   = { k = "Allow extended default"            , v = extended_default, }
    tbl.exactMatch   = { k = "Require Exact Match/no defaults"   , v = exactMatch,       }
    tbl.expMCmd      = { k = "Export the module command"         , v = export_module,    }
    tbl.fastTCL      = { k = "Use attached TCL over system call" , v = fast_tcl_interp,  }

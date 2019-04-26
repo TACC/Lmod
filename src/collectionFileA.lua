@@ -36,8 +36,8 @@ require("strict")
 
 require("utils")
 
-local dbg = require("Dbg"):dbg()
-function collectFileA(sn, versionStr, v, fileA)
+local dbg    = require("Dbg"):dbg()
+function collectFileA(sn, versionStr, extended_default, v, fileA)
    --dbg.start{"collectFileA(",sn,",", versionStr,",v,fileA)"}
    if (v.file and versionStr == nil) then
       fileA[#fileA+1] = { sn = sn, version = nil, fullName = sn, fn=v.file, wV="~", pV="~" }
@@ -54,16 +54,18 @@ function collectFileA(sn, versionStr, v, fileA)
             --dbg.fini("collectFileA")
             return
          end
-         local vp = versionStr
-         if (vp:sub(-1) ~= ".") then
-            vp = vp .. "."
-         end
-         local keyPat = pathJoin(sn,vp:gsub("%.","%%.") .. ".*")
-         dbg.print{"collectFileA: versionStr: ",versionStr,", keyPat: ",keyPat,"\n"}
-         for k,vvv in pairs(v.fileT) do
-            if (k:find(keyPat)) then
-               fileA[#fileA+1] = { sn = sn, fullName = k, version = k:gsub("^" .. sn .. "/",""),
-                                   fn = vvv.fn, wV = vvv.wV, pV = vvv.pV }
+         if (extended_default == "yes") then
+            local vp = versionStr
+            if (vp:sub(-1) ~= ".") then
+               vp = vp .. "."
+            end
+            local keyPat = pathJoin(sn,vp:gsub("%.","%%.") .. ".*")
+            dbg.print{"collectFileA: versionStr: ",versionStr,", keyPat: ",keyPat,"\n"}
+            for k,vvv in pairs(v.fileT) do
+               if (k:find(keyPat)) then
+                  fileA[#fileA+1] = { sn = sn, fullName = k, version = k:gsub("^" .. sn .. "/",""),
+                                      fn = vvv.fn, wV = vvv.wV, pV = vvv.pV }
+               end
             end
          end
       else
@@ -77,7 +79,7 @@ function collectFileA(sn, versionStr, v, fileA)
    --if (v.dirT and next(v.dirT) ~= nil and versionStr == nil) then
    if (v.dirT and next(v.dirT) ~= nil) then
       for k, vv in pairs(v.dirT) do
-         collectFileA(sn, nil, vv, fileA)
+         collectFileA(sn, nil, extended_default, vv, fileA)
       end
    end
    --dbg.fini("collectFileA")

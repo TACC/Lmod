@@ -49,6 +49,7 @@ SPIDER_CACHE_DESCRIPT_FN  := @SPIDER_CACHE_DESCRIPT_FN@
 ANCIENT           	  := @ANCIENT@
 ALLOW_TCL_MFILES          := @ALLOW_TCL_MFILES@
 MPATH_AVAIL               := @MPATH_AVAIL@
+EXTENDED_DEFAULT          := @EXTENDED_DEFAULT@
 TMOD_PATH_RULE            := @TMOD_PATH_RULE@
 TMOD_FIND_FIRST           := @TMOD_FIND_FIRST@
 CACHED_LOADS              := @CACHED_LOADS@
@@ -240,6 +241,7 @@ __installMe:
 	        -e 's|@site_controlled_prefix@|$(SITE_CONTROLLED_PREFIX)|g'       \
 	        -e 's|@syshost@|$(SYSHOST)|g'                     	   	  \
 	        -e 's|@expr@|$(EXPR)|g'                              	   	  \
+	        -e 's|@extended_default@|$(EXTENDED_DEFAULT)|g'        	   	  \
 	        -e 's|@libexec@|$(LIBEXEC)|g'                       	   	  \
 	        -e 's|@legacy_ordering@|$(LEGACY_ORDERING)|g'           	  \
 	        -e 's|@pin_versions@|$(PIN_VERSIONS)|g'                	   	  \
@@ -431,6 +433,7 @@ build_tags:
 	find . \( -regex '.*~$$\|.*/\.git\|.*/\.git/' -prune \)  \
                -o -type f > file_list.1.txt
 	sed -e 's|.*/.git.*||g'                                  \
+            -e 's|.*/embed/.*||g'                                \
             -e 's|.*/rt/.*/t1/.*||g'                             \
             -e 's|./rt/funny_files/mf/.*||g'                     \
             -e 's|.*/html/.*$$||g'                               \

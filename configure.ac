@@ -371,6 +371,18 @@ AC_ARG_WITH(cachedLoads,
     CACHED_LOADS="$withval"
     AC_DEFINE_UNQUOTED(CACHED_LOADS, "$withval"))dnl
 
+AC_SUBST(EXTENDED_DEFAULT)
+AC_ARG_WITH(extendedDefault,
+    AC_HELP_STRING([--with-extendedDefault=ans],[Allow for extended default. [[yes]]]),
+    EXTENDED_DEFAULT="$withval"
+    AC_MSG_RESULT([EXTENDED_DEFAULT=$with_extendedDefault])
+    AC_DEFINE_UNQUOTED(EXTENDED_DEFAULT, "$with_extendedDefault")dnl
+    ,
+    withval="yes"
+    AC_MSG_RESULT([EXTENDED_DEFAULT=$withval])
+    EXTENDED_DEFAULT="$withval"
+    AC_DEFINE_UNQUOTED(EXTENDED_DEFAULT, "$withval"))dnl
+
 AC_SUBST(MODULEPATH_INIT)
 AC_ARG_WITH(ModulePathInit,
     AC_HELP_STRING([--with-ModulePathInit=ans],[File containing initial MODULEPATH directories]),
