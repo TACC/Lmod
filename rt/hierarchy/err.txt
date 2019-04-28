@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.7.14  2017-11-16 16:23 -07:00
+Modules based on Lua: Version 8.0.8  2019-04-26 11:29 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -88,3 +88,61 @@ ProjectDIR/rt/hierarchy/mf/Core
    L:  Module is loaded
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc impi petsc
+===========================
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T rm impi gcc
+===========================
+running: module --regression_testing -T rm impi gcc
+  (1)(0)Unloading: impi (status: active) (fn: ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/impi/17.0.3.lua)
+    Removing: ProjectDIR/rt/hierarchy/mf/MPI/gcc/6.1/impi/17.0 from MODULEPATH
+  (2)(0)Unloading: gcc (status: active) (fn: ProjectDIR/rt/hierarchy/mf/Core/gcc/6.1.lua)
+    Removing: ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1 from MODULEPATH
+  reloadAll(1)(petsc)
+  (3)(1)Unloading: petsc (status: active) (fn: ProjectDIR/rt/hierarchy/mf/MPI/gcc/6.1/impi/17.0/petsc/3.7.lua)
+Inactive Modules:
+  1) petsc
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+Currently Loaded Modules:
+  None found.
+Inactive Modules:
+  1) petsc
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc impi petsc
+===========================
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T rm gcc impi
+===========================
+running: module --regression_testing -T rm gcc impi
+  (1)(0)Unloading: gcc (status: active) (fn: ProjectDIR/rt/hierarchy/mf/Core/gcc/6.1.lua)
+    Removing: ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1 from MODULEPATH
+  (2)(0)Unloading: impi (status: active) (fn: ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/impi/17.0.3.lua)
+    Removing: ProjectDIR/rt/hierarchy/mf/MPI/gcc/6.1/impi/17.0 from MODULEPATH
+  reloadAll(1)(petsc)
+  (3)(1)Unloading: petsc (status: active) (fn: ProjectDIR/rt/hierarchy/mf/MPI/gcc/6.1/impi/17.0/petsc/3.7.lua)
+Inactive Modules:
+  1) petsc
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+Currently Loaded Modules:
+  None found.
+Inactive Modules:
+  1) petsc
