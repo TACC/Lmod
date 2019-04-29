@@ -97,8 +97,6 @@ local function build(moduleA)
       end
    end
 
-   dbg.printT("locationT",locationT)
-
    for i = 2,#moduleA do
       T = moduleA[i].T or {}
       for sn, v in pairs(T) do
