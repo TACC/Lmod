@@ -306,7 +306,7 @@ function M.__find_all_defaults(self)
 
       if (keepLooking) then
          if (v.file and (show_hidden or mrc:isVisible({fullName=sn, sn=sn, fn=v.file}))) then
-            defaultT[sn] = {weight = " ", fullName = sn, fn = v.file, count = 1}
+            defaultT[sn] = {weight = "999999999.*zfinal", fullName = sn, fn = v.file, count = 1}
          elseif (next(v.fileT) ~= nil) then
             for fullName, vv in pairs(v.fileT) do
                local vis = mrc:isVisible({fullName=fullName, sn=sn, fn=vv.fn}) or isMarked(vv.wV)
@@ -398,7 +398,6 @@ function M.build_availA(self)
       end
       sort(availA[i].A, cmp)
    end
-
    dbg.fini("ModuleA:build_availA")
    return availA
 end

@@ -49,7 +49,7 @@ local function merge_locationT(origT, lctnT, v)
          lctnT = {file = v.file }
       end
    end
-   if (next(v.fileT) ~= nil) then
+   if (next(v.fileT) ~= nil and lctnT.file == nil) then
       if (origT == nil or lctnT.fileT == nil) then
          lctnT = {fileT = v.fileT, dirT = lctnT.dirT or {}}
       else
@@ -96,6 +96,8 @@ local function build(moduleA)
          locationT[sn] = {dirT = v.dirT, fileT={}}
       end
    end
+
+   dbg.printT("locationT",locationT)
 
    for i = 2,#moduleA do
       T = moduleA[i].T or {}
