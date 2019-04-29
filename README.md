@@ -1,3 +1,5 @@
+![Lmod Logo](https://github.com/TACC/Lmod/raw/master/logos/2x/Lmod-4color%402x.png)
+
 [![Build Status](https://travis-ci.org/TACC/Lmod.svg?branch=master)](https://travis-ci.org/TACC/Lmod)
 [![Documentation Status](https://readthedocs.org/projects/lmod/badge/?version=latest)](https://lmod.readthedocs.io/en/latest/?badge=latest)
 
