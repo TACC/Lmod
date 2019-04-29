@@ -57,8 +57,10 @@ rules to locate a modulefile:
    directories. It picks the first match it finds.  This is true
    of hidden modules.  Specifying the fullName of a module will
    load it.
-#. If the user requested name is a full name and version, and
-   there is no exact match then it stops.
+#. If a site has "extended defaults" enabled and a user types in part
+   of the version then that part is used select the "best" of that
+   version if any exist. Note that if user enters "abc/1" then it will
+   match "abc/1.*" but not "abc/17.*"
 #. If the name doesn't contain a version then Lmod looks for a
    marked default in the first directory that has one. A marked
    default which is also hidden will be loaded.
@@ -74,13 +76,14 @@ rules to locate a modulefile:
 As an example, suppose you have the following module tree::
 
    ---------- /home/user/modulefiles -----------
-   xyz/11.1
+   xyz/11.1  xyz/11.2   
+ 
 
-   ---------- /opt/apps/modulefiles -----------
-   StdEnv    ucc/8.1    ucc/8.2        xyz/10.1
+   ---------- /opt/apps/modulefiles ------------
+   StdEnv    ucc/8.1    ucc/8.2         xyz/10.1
 
-   ---------- /opt/apps/mfiles ----------------
-   ucc/8.3 (D)    xyz/12.1 (D)
+   ---------- /opt/apps/mfiles -----------------
+   ucc/8.3 (D)  xyz/12.0   xyz/12.1 (D) xyz/12.2
 
 
 If a user does the following command::
@@ -90,6 +93,20 @@ If a user does the following command::
 then ucc/8.2 will be loaded because the user specified a particular
 version and xyz/12.1 will be loaded because it is the highest version
 across all directories in ``MODULEPATH``.
+
+If a user does the following command::
+
+   $ module load xyz/11
+
+then xyz/11.2 will be loaded because it is the highest of the xyz/11.*
+modulefiles.  Note that::
+
+   $ module load xyz/12
+
+will load xyz/12.1 not xyz/12.2 because 12.1 is the marked default and
+is therefore the highest "xyz/12.*".
+
+
 
 .. _setting-default-label:
 
@@ -181,11 +198,15 @@ are the rules that Lmod uses to locate a modulefile when in N/V/V mode:
    picks the first match it finds.
 #. If there is no exact match then Lmod finds the first match for the
    names that it has.  It matches by directory name.  No partial matches
-   are done.
+   are on directory names
 #. In the directory that is found above the first marked default is
-   found
+   found.
 #. If there are no marked defaults, then the "highest" is chosen.
 #. The two above rules are followed at each directory level.
+#. If a site has "extended defaults" enabled and a user types in part
+   of the version then Lmod picks the "best" of the modulefiles that
+   match. Partial matching is only available for the last part of the
+   version.  
 
 For example with the following module tree where foo is the name of
 the module and rest are version information::
@@ -196,6 +217,9 @@ the module and rest are version information::
     ----- /apps/modulefiles/B ----------------
     foo/3/3    foo/3/4
 
+    ----- /apps/modulefiles/C ----------------
+    bar/32/3.0.1   bar/32/3.0.4   bar/32/3.1.5
+
 Then the commands ``module load foo`` and ``module load foo/3`` would
 both load ``foo/3/2``.  The command ``module load foo/2`` would load
 ``foo/2/4``.
@@ -205,6 +229,12 @@ Then seeing a choice between ``2`` and ``3`` it picks ``3`` as it is
 higher.  Then in the ``foo/3`` directory it choses ``2`` as it is
 higher than ``1``.  To load any other ``foo`` module, the full name
 will have to specified.
+
+The commands ``module load bar`` and ``module load bar/32/3.1`` would
+load ``bar/32/3.1.5``.  And the command ``module load bar/32/3.0``
+would load ``bar/32/3.0.4``.  Note that command ``module load bar/3``
+would fail to load any modules.
+
 
 Marking a directory as default in an N/V/V layout
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
