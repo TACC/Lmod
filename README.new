@@ -16,3 +16,4 @@ Lmod 8.0+
    (8.0.6)  * Support for R to use tcl modulefiles.
    (8.0.7)  * Support for extended default
    (8.0.8)  * Allow sites to disable extended default
+   (8.0.9)  * A meta module as priority over a regular module if it occurs in an earlier directory in $MODULEPATH
