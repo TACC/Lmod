@@ -130,6 +130,11 @@ the configuration option which will set the action.
   Note that if LMOD_TMOD_PATH_RULE is "yes" then LMOD_DUPLICATE_PATH
   is set to "no".
 
+**LMOD_EXTENDED_DEFAULT**:
+  [yes/no, default: yes, --with-extendedDefault] Allow users to
+  specify a partial match of a version. So abc/17 will try to match
+  the "best" abc/17.*.*
+
 **LMOD_EXACT_MATCH**:
   [yes/no, default: no, --with-exactMatch] Requires Lmod to use
   fullNames for modules.  This disables defaults.
