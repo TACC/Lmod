@@ -444,7 +444,11 @@ AC_ARG_WITH(fastTCLInterp,
     AC_DEFINE_UNQUOTED(FAST_TCL_INTERP, "$withval"))dnl
 
 
-if test "$ALLOW_TCL_MFILES" = yes -a "$FAST_TCL_INTERP" = yes ; then
+if test "$ALLOW_TCL_MFILES" = no ; then
+  FAST_TCL_INTERP=no
+fi
+
+if "$FAST_TCL_INTERP" = yes ; then
    
    OS=$(uname -s)
    DIR=/usr/include/tcl
@@ -458,8 +462,6 @@ if test "$ALLOW_TCL_MFILES" = yes -a "$FAST_TCL_INTERP" = yes ; then
 
    AC_CHECK_HEADER(tcl.h,
                    [AC_DEFINE([HAVE_TCL_H], 1, [Define to 1 if you have tcl.h])],[]) 
-   dnl AC_CHECK_HEADER(tcl/tcl.h,
-   dnl                [AC_DEFINE([HAVE_TCL_TCL_H], 1,[Define to 1 if you have tcl/tcl.h])],[]) 
 
    if test "$ac_cv_header_tcl_h" != yes ; then
       AC_MSG_ERROR([Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h])

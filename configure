@@ -3776,7 +3776,11 @@ _ACEOF
 fi
 
 
-if test "$ALLOW_TCL_MFILES" = yes -a "$FAST_TCL_INTERP" = yes ; then
+if test "$ALLOW_TCL_MFILES" = no ; then
+  FAST_TCL_INTERP=no
+fi
+
+if "$FAST_TCL_INTERP" = yes ; then
 
    OS=$(uname -s)
    DIR=/usr/include/tcl
