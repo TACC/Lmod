@@ -448,7 +448,7 @@ if test "$ALLOW_TCL_MFILES" = no ; then
   FAST_TCL_INTERP=no
 fi
 
-if "$FAST_TCL_INTERP" = yes ; then
+if test "$FAST_TCL_INTERP" = yes ; then
    
    OS=$(uname -s)
    DIR=/usr/include/tcl
