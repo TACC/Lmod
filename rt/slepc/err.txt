@@ -1,0 +1,18 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+===========================
+Modules based on Lua: Version 8.0.9  2019-04-29 10:43 -05:00
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load petsc slepc
+===========================
+Lmod has detected the following error: The following module(s) are unknown: "petsc"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore-cache load "petsc"
+Also make sure that all modulefiles written in TCL start with the string #%Module
+While processing the following module(s):
+    Module fullname  Module Filename
+    slepc/1.0        ProjectDIR/rt/slepc/mf/Core/slepc/1.0.lua

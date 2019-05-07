@@ -383,6 +383,7 @@ function M.load(self, mA)
             loaded = true
          end
          if (not loaded) then
+            mcp:missing_module(userName, mname:show())
             a = false
          end
 

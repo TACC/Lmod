@@ -40,30 +40,141 @@ require("colorize")
 require("string_utils")
 require("utils")
 
-Master             = require("Master")
+Master                 = require("Master")
 
-local BeautifulTbl = require("BeautifulTbl")
-local FrameStk     = require("FrameStk")
-local M            = {}
-local MName        = require("MName")
-local Var          = require("Var")
-local dbg          = require("Dbg"):dbg()
-local base64       = require("base64")
-local concatTbl    = table.concat
-local cosmic       = require("Cosmic"):singleton()
-local decode64     = base64.decode64
-local encode64     = base64.encode64
-local getenv       = os.getenv
-local hook         = require("Hook")
-local i18n         = require("i18n")
-local max          = math.max
-local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
-local remove       = table.remove
-local s_adminT     = {}
-local s_loadT      = {}
-local s_moduleStk  = {}
-local s_missDepT   = {}
-local s_mstLd_flg  = false
+local BeautifulTbl     = require("BeautifulTbl")
+local FrameStk         = require("FrameStk")
+local M                = {}
+local MName            = require("MName")
+local Var              = require("Var")
+local dbg              = require("Dbg"):dbg()
+local base64           = require("base64")
+local concatTbl        = table.concat
+local cosmic           = require("Cosmic"):singleton()
+local decode64         = base64.decode64
+local encode64         = base64.encode64
+local getenv           = os.getenv
+local hook             = require("Hook")
+local i18n             = require("i18n")
+local max              = math.max
+local pack             = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
+local remove           = table.remove
+local s_adminT         = {}
+local s_loadT          = {}
+local s_moduleStk      = {}
+local s_missDepT       = {}
+local s_missingModuleT = {}
+local s_missingFlg     = false
+
+--------------------------------------------------------------------------
+-- Remember the user's requested load array into an internal table.
+-- This is tricky because the module mnames in the *mA* array may not be
+-- findable yet (e.g. module load mpich petsc).  The only thing we know
+-- is the usrName from the command line.  So we use the *usrName* to be
+-- the key and not *sn*.
+-- @param mA The array of MName objects.
+local function registerUserLoads(mA)
+   dbg.start{"registerUserLoads(mA)"}
+   for i = 1, #mA do
+      local mname       = mA[i]
+      local userName    = mname:userName()
+      s_loadT[userName] = mname
+      dbg.print{"userName: ",userName,"\n"}
+   end
+   dbg.fini("registerUserLoads")
+end
+
+local function unRegisterUserLoads(mA)
+   dbg.start{"unRegisterUserLoads(mA)"}
+   for i = 1, #mA do
+      local mname       = mA[i]
+      local userName    = mname:userName()
+      s_loadT[userName] = nil
+      dbg.print{"userName: ",userName,"\n"}
+   end
+   dbg.fini("unRegisterUserLoads")
+end
+
+local function compareRequestedLoadsWithActual()
+   dbg.start{"compareRequestedLoadsWithActual()"}
+   local mt = FrameStk:singleton():mt()
+
+   local aa = {}
+   local bb = {}
+   for userName, mname in pairs(s_loadT) do
+      local sn = mname:sn()
+      if (not mt:have(sn, "active")) then
+         aa[#aa+1] = mname:show()
+         bb[#bb+1] = userName
+      end
+   end
+   dbg.fini("compareRequestedLoadsWithActual")
+   return aa, bb
+end
+
+local function l_error_on_missing_loaded_modules(aa,bb)
+
+   if (#aa > 0) then
+      local luaprog = "@path_to_lua@/lua"
+      if (luaprog:sub(1,1) == "@") then
+         luaprog = find_exec_path("lua")
+         if (luaprog == nil) then
+            LmodError{msg="e_Failed_2_Find", name = "lua"}
+         end
+      end
+      local cmdA = {}
+      cmdA[#cmdA+1] = luaprog
+      cmdA[#cmdA+1] = pathJoin(cmdDir(),cmdName())
+      cmdA[#cmdA+1] = "bash"
+      cmdA[#cmdA+1] = dbg.active() and "-D" or " "
+      cmdA[#cmdA+1] = "-r --no_redirect --spider_timeout 2.0 spider"
+      local count   = #cmdA
+
+      local uA = {}  -- unknown names
+      local iA = {}  -- illegal names
+      local kA = {}  -- known modules (show)
+      local kB = {}  -- known modules (usrName)
+
+
+      if (expert()) then
+         uA = aa
+      else
+         local outputDirection = dbg.active() and "2> spider.log" or "2> /dev/null"
+         for i = 1, #bb do
+            if (bb[i]:sub(1,2) == "__") then
+               iA[#iA+1] = bb[i]
+            else
+               cmdA[count+1] = "'^" .. bb[i]:escape() .. "$'"
+               cmdA[count+2] = outputDirection
+               local cmd     = concatTbl(cmdA," ")
+               local result  = capture(cmd)
+               dbg.print{"result: ",result,"\n"}
+               if (result:find("\nfalse")) then
+                  uA[#uA+1] = aa[i]
+               else
+                  kA[#kA+1] = aa[i]
+                  kB[#kB+1] = bb[i]
+               end
+            end
+         end
+      end
+
+      local a = {}
+
+      if (#iA > 0) then
+         mcp:report{msg="e_Illegal_Load", module_list = concatTbl(iA, " ") }
+      end
+
+
+      if (#uA > 0) then
+         mcp:report{msg="e_Failed_Load", module_list = concatTbl(uA, " ") }
+      end
+
+      if (#kA > 0) then
+         mcp:report{msg="e_Failed_Load_2", kA = concatTbl(kA, ", "), kB = concatTbl(kB, " ")}
+      end
+   end
+end
 
 function M.name(self)
    return self.my_name
@@ -682,8 +793,17 @@ end
 -- @param self A MasterControl object.
 function M.error(self, ...)
    -- Check for user loads that failed.
-   self:mustLoad()
-   
+   if (next(s_missingModuleT) ~= nil) then
+      local aa = {}
+      local bb = {}
+      for k, v in pairs(s_missingModuleT) do
+         aa[#aa + 1] = v
+         bb[#bb + 1] = k
+      end
+      s_missingModuleT = {}
+      l_error_on_missing_loaded_modules(aa, bb)
+   end
+
    local label = colorize("red", i18n("errTitle", {}))
    local sA    = l_generateMsg("lmoderror", label, ...)
    sA[#sA+1]   = "\n"
@@ -707,121 +827,12 @@ function M.quiet(self, ...)
    -- very Quiet !!!
 end
 
---------------------------------------------------------------------------
--- Remember the user's requested load array into an internal table.
--- This is tricky because the module mnames in the *mA* array may not be
--- findable yet (e.g. module load mpich petsc).  The only thing we know
--- is the usrName from the command line.  So we use the *usrName* to be
--- the key and not *sn*.
--- @param mA The array of MName objects.
-local function registerUserLoads(mA)
-   dbg.start{"registerUserLoads(mA)"}
-   for i = 1, #mA do
-      local mname       = mA[i]
-      local userName    = mname:userName()
-      s_loadT[userName] = mname
-      dbg.print{"userName: ",userName,"\n"}
-   end
-   dbg.fini("registerUserLoads")
-end
-
-local function unRegisterUserLoads(mA)
-   dbg.start{"unRegisterUserLoads(mA)"}
-   for i = 1, #mA do
-      local mname       = mA[i]
-      local userName    = mname:userName()
-      s_loadT[userName] = nil
-      dbg.print{"userName: ",userName,"\n"}
-   end
-   dbg.fini("unRegisterUserLoads")
-end
-
-local function compareRequestedLoadsWithActual()
-   dbg.start{"compareRequestedLoadsWithActual()"}
-   local mt = FrameStk:singleton():mt()
-
-   local aa = {}
-   local bb = {}
-   for userName, mname in pairs(s_loadT) do
-      local sn = mname:sn()
-      if (not mt:have(sn, "active")) then
-         aa[#aa+1] = mname:show()
-         bb[#bb+1] = userName
-      end
-   end
-   dbg.fini("compareRequestedLoadsWithActual")
-   return aa, bb
-end
-
 function M.mustLoad(self)
    dbg.start{"MasterControl:mustLoad()"}
-   if (s_mstLd_flg) then
-      return
-   end
-   s_mstLd_flg = true
 
    local aa, bb = compareRequestedLoadsWithActual()
+   l_error_on_missing_loaded_modules(aa,bb)
 
-   if (#aa > 0) then
-      local luaprog = "@path_to_lua@/lua"
-      if (luaprog:sub(1,1) == "@") then
-         luaprog = find_exec_path("lua")
-         if (luaprog == nil) then
-            LmodError{msg="e_Failed_2_Find", name = "lua"}
-         end
-      end
-      local cmdA = {}
-      cmdA[#cmdA+1] = luaprog
-      cmdA[#cmdA+1] = pathJoin(cmdDir(),cmdName())
-      cmdA[#cmdA+1] = "bash"
-      cmdA[#cmdA+1] = dbg.active() and "-D" or " "
-      cmdA[#cmdA+1] = "-r --no_redirect --spider_timeout 2.0 spider"
-      local count   = #cmdA
-
-      local uA = {}  -- unknown names
-      local iA = {}  -- illegal names
-      local kA = {}  -- known modules (show)
-      local kB = {}  -- known modules (usrName)
-
-
-      if (expert()) then
-         uA = aa
-      else
-         local outputDirection = dbg.active() and "2> spider.log" or "2> /dev/null"
-         for i = 1, #bb do
-            if (bb[i]:sub(1,2) == "__") then
-               iA[#iA+1] = bb[i]
-            else
-               cmdA[count+1] = "'^" .. bb[i]:escape() .. "$'"
-               cmdA[count+2] = outputDirection
-               local cmd     = concatTbl(cmdA," ")
-               local result  = capture(cmd)
-               dbg.print{"result: ",result,"\n"}
-               if (result:find("\nfalse")) then
-                  uA[#uA+1] = aa[i]
-               else
-                  kA[#kA+1] = aa[i]
-                  kB[#kB+1] = bb[i]
-               end
-            end
-         end
-      end
-
-      local a = {}
-
-      if (#iA > 0) then
-         mcp:report{msg="e_Illegal_Load", module_list = concatTbl(iA, " ") }
-      end
-
-
-      if (#uA > 0) then
-         mcp:report{msg="e_Failed_Load", module_list = concatTbl(uA, " ") }
-      end
-
-      if (#kA > 0) then
-         mcp:report{msg="e_Failed_Load_2", kA = concatTbl(kA, ", "), kB = concatTbl(kB, " ")}
-      end
-   end
    dbg.fini("MasterControl:mustLoad")
 end
 
@@ -1408,6 +1419,10 @@ function M.inherit(self)
    local master = Master:singleton()
    master.inheritModule()
    dbg.fini("MasterControl:inherit")
+end
+
+function M.missing_module(self,userName, showName)
+   s_missingModuleT[userName] = showName
 end
 
 return M
