@@ -31,6 +31,23 @@ release at sourceforge.
 
 ## ChangeLog
 
+### Lmod 8.1:
+
+Features:
+
+   1. Extended Default feature added: module load intel/17 will find the "best" intel/17.* etc.
+
+   2. All hidden files are NOT written to the softwarePage output.
+
+Bug Fixes:
+
+   1. Lmod now correctly reports failed to load module "A" in the special case where "ml A B" and A is a prereq of B and A doesn't exist.
+
+   2. A meta module takes precedence over a regular module if the meta module occurs in an earlier directory in $MODULEPATH
+
+   3. Lmod output only "fills" when the text is more than one line or it is wider than the current width.
+
+
 ### Lmod 8.0:
 
 Features:
