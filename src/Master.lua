@@ -382,7 +382,9 @@ function M.load(self, mA)
             registerLoaded(fullName, fn)
             loaded = true
          end
-         if (not loaded) then
+         mt = frameStk:mt()
+         if (not mt:have(sn,"active")) then
+            dbg.print{"failed to load ",mname:show(),"\n"}
             mcp:missing_module(userName, mname:show())
             a = false
          end
