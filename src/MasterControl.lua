@@ -63,7 +63,7 @@ local s_adminT     = {}
 local s_loadT      = {}
 local s_moduleStk  = {}
 local s_missDepT   = {}
-
+local s_mstLd_flg  = false
 
 function M.name(self)
    return self.my_name
@@ -681,6 +681,9 @@ end
 -- Print msgs, traceback then exit.
 -- @param self A MasterControl object.
 function M.error(self, ...)
+   -- Check for user loads that failed.
+   self:mustLoad()
+   
    local label = colorize("red", i18n("errTitle", {}))
    local sA    = l_generateMsg("lmoderror", label, ...)
    sA[#sA+1]   = "\n"
@@ -752,6 +755,11 @@ end
 
 function M.mustLoad(self)
    dbg.start{"MasterControl:mustLoad()"}
+   if (s_mstLd_flg) then
+      return
+   end
+   s_mstLd_flg = true
+
    local aa, bb = compareRequestedLoadsWithActual()
 
    if (#aa > 0) then
