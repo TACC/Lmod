@@ -129,6 +129,13 @@ Hook functions
   argument is a table containing: fullName, sn (short name), fn (file path) and
   isVisible (boolean) of the module.
 
+**spider_decoration** (table):
+  This hook provide a way for a site to add decoration to spider level
+  1 output.  The table passed in contains the whatis category and the
+  property table.  See *rt/uitSitePkg/mf/site_scripts/SitePackage.lua*
+  for a complete example.
+  
+
 Example Hook: msgHook
 ---------------------
 

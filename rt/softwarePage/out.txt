@@ -88,6 +88,11 @@ spiderT = {
           ["luaExt"] = 4,
           ["mpath"] = "ProjectDIR/rt/softwarePage/mf",
           ["pV"] = "000000001.*zfinal",
+          propT = {
+            arch = {
+              ["gpu"] = 1,
+            },
+          },
           ["wV"] = "^00000001.*zfinal",
           whatis = {
             "Description: foo description", "Version: 1.0", "Categories: foo",
@@ -103,6 +108,11 @@ spiderT = {
           ["luaExt"] = 4,
           ["mpath"] = "ProjectDIR/rt/softwarePage/mf",
           ["pV"] = "000000001.000000001.*zfinal",
+          propT = {
+            arch = {
+              ["mic"] = 1,
+            },
+          },
           ["wV"] = "000000001.000000001.*zfinal",
           whatis = {
             "Description: foo description", "Version: 1.1", "Categories: foo",
@@ -122,6 +132,11 @@ And even more help
 ]],
           ["mpath"] = "ProjectDIR/rt/softwarePage/mf",
           ["pV"] = "000000001.000000003.*zfinal",
+          propT = {
+            state = {
+              ["testing"] = 1,
+            },
+          },
           ["wV"] = "000000001.000000003.*zfinal",
           whatis = {
             "Name: foo ", "Version: 1.3 ", "Category: system ", "Description: This is a descript ",
@@ -184,6 +199,11 @@ dbT = {
       ["help"] = "foo v1.0",
       ["hidden"] = false,
       ["pV"] = "000000001.*zfinal",
+      propT = {
+        arch = {
+          ["gpu"] = 1,
+        },
+      },
       ["wV"] = "^00000001.*zfinal",
       whatis = {
         "Description: foo description", "Version: 1.0", "Categories: foo",
@@ -197,6 +217,11 @@ dbT = {
       ["help"] = "foo v1.1",
       ["hidden"] = false,
       ["pV"] = "000000001.000000001.*zfinal",
+      propT = {
+        arch = {
+          ["mic"] = 1,
+        },
+      },
       ["wV"] = "000000001.000000001.*zfinal",
       whatis = {
         "Description: foo description", "Version: 1.1", "Categories: foo",
@@ -214,6 +239,11 @@ And even more help
 ]],
       ["hidden"] = false,
       ["pV"] = "000000001.000000003.*zfinal",
+      propT = {
+        state = {
+          ["testing"] = 1,
+        },
+      },
       ["wV"] = "000000001.000000003.*zfinal",
       whatis = {
         "Name: foo ", "Version: 1.3 ", "Category: system ", "Description: This is a descript ",
@@ -239,6 +269,11 @@ spA = {
         ["help"] = "foo v1.1",
         ["markedDefault"] = false,
         ["path"] = "ProjectDIR/rt/softwarePage/mf/foo/1.1.lua",
+        properties = {
+          arch = {
+            ["mic"] = 1,
+          },
+        },
         ["versionName"] = "1.1",
         ["wV"] = "000000001.000000001.*zfinal",
       },
@@ -253,6 +288,11 @@ And even more help
 ]],
         ["markedDefault"] = false,
         ["path"] = "ProjectDIR/rt/softwarePage/mf/foo/1.3",
+        properties = {
+          state = {
+            ["testing"] = 1,
+          },
+        },
         ["versionName"] = "1.3 ",
         ["wV"] = "000000001.000000003.*zfinal",
       },
@@ -264,9 +304,22 @@ And even more help
         ["help"] = "foo v1.0",
         ["markedDefault"] = true,
         ["path"] = "ProjectDIR/rt/softwarePage/mf/foo/1.0.lua",
+        properties = {
+          arch = {
+            ["gpu"] = 1,
+          },
+        },
         ["versionName"] = "1.0",
         ["wV"] = "^00000001.*zfinal",
       },
     },
   },
 }
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider foo
+===========================
+MODULEPATH=ProjectDIR/rt/softwarePage/mf;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/softwarePage/mf",},["systemBaseMPATH"]="ProjectDIR/rt/softwarePage/mf",}';
+export _ModuleTable_;

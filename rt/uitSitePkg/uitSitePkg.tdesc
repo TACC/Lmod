@@ -31,6 +31,7 @@ testdescript = {
      runLmod save default            # 4
      runLmod restore                 # 5
      runLmod spider                  # 6
+     runLmod spider python           # 7
 
      HOME=$ORIG_HOME
 

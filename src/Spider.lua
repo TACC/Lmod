@@ -872,7 +872,7 @@ function M._Level1(self, dbT, possibleA, sn, key, helpFlg)
          if (fullVT[kk] == nil) then
             key         = sn
             Description = v.Description
-            fullVT[kk]  = v.fullName
+            fullVT[kk]  = { fullName = v.fullName, Category = v.Category, propT = v.propT }
             exampleV    = v.fullName
          end
       end
@@ -886,7 +886,7 @@ function M._Level1(self, dbT, possibleA, sn, key, helpFlg)
    local ia = 0
    if (masterTbl.terse) then
       for k, v in pairsByKeys(fullVT) do
-         ia = ia + 1; a[ia] = v .. "\n"
+         ia = ia + 1; a[ia] = v.fullName .. "\n"
       end
       return concatTbl(a,"")
    end
@@ -900,7 +900,10 @@ function M._Level1(self, dbT, possibleA, sn, key, helpFlg)
    end
    ia = ia + 1; a[ia] = i18n("m_Versions",{})
    for k, v in pairsByKeys(fullVT) do
-      ia = ia + 1; a[ia] = "        " .. v .. "\n"
+      local decoration = hook.apply("spider_decoration",v)
+      decoration = decoration and " ("..decoration..")" or ""
+      local str = v.fullName .. decoration
+      ia = ia + 1; a[ia] = "        " .. str .. "\n"
    end
 
    if (next(possibleA) ~= nil) then

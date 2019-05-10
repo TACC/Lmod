@@ -1,4 +1,5 @@
 Lmod 8.1+
    (8.1.1)  * Issue #392: include family info in spiderT and all other products based on spiderT like
               dbT and the software page.
-	      
+   (8.1.2)  * Issue #382: Adding a spider_decoration hook so that sites can modify the output of spider
+              level 1 output.

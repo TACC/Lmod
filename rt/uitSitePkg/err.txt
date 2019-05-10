@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.7.14  2017-11-16 16:23 -07:00
+Modules based on Lua: Version 8.1.1  2019-05-10 11:12 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -39,3 +39,16 @@ where "Foo" is the name of a module.
 To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider python
+===========================
+  python:
+    Description:
+      Python with scientific packages
+     Versions:
+        python/2.7.3 (Application)
+        python/3.3.0 (Application)
+  For detailed information about a specific "python" module (including how to load the modules) use the module's full name.
+  For example:
+     $ module spider python/3.3.0

@@ -3,6 +3,8 @@
 -- author: jonas.juselius@uit.no
 
 require("lmod_system_execute")
+require("string_utils")
+
 local Dbg    = require("Dbg")
 local dbg    = Dbg:dbg()
 local hook   = require("Hook")
@@ -172,6 +174,13 @@ function loadPkgDefaults()
     dbg.fini("loadPkgDefaults")
     return pkg
 end
+
+function spdrDecoration(v)
+   local cat = (v.Category or ""):trim()
+   return cat
+end
+
+hook.register("spider_decoration", spdrDecoration)
 
 sandbox_registration {
       getAppRoot           = getAppRoot
