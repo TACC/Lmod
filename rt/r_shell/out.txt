@@ -28,4 +28,4 @@ Sys.setenv("_LMFILES_"="ProjectDIR/rt/r_shell/mf/Core/b/1.0.lua");
 step 4
 lua ProjectDIR/src/lmod.in.lua R --regression_testing load bad
 ===========================
-module_status <- FALSE
+
