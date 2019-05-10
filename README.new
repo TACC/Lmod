@@ -3,3 +3,4 @@ Lmod 8.1+
               dbT and the software page.
    (8.1.2)  * Issue #382: Adding a spider_decoration hook so that sites can modify the output of spider
               level 1 output.
+   (8.1.3)  * Issue #402: Add a shell-dependent Shell:report_failure() instead of always emitting "false".
