@@ -62,7 +62,6 @@ M.conflict             = MasterControl.quiet
 M.depends_on           = MasterControl.quiet
 M.error                = MasterControl.quiet
 M.execute              = MasterControl.execute
-M.family               = MasterControl.quiet
 M.inherit              = MasterControl.quiet
 M.load                 = MasterControl.quiet
 M.load_usr             = MasterControl.quiet
@@ -238,6 +237,25 @@ function M.is_spider(self)
    dbg.fini()
    return true
 end
+
+--------------------------------------------------------------------------
+-- Copy the family to moduleT
+-- @param self A MasterControl object.
+-- @param value the family value
+
+function M.family(self, value)
+   dbg.start{"MC_Spider:family(\"value=\"",value,"\")"}
+   local moduleStack   = masterTbl().moduleStack
+   local iStack        = #moduleStack
+   local path          = moduleStack[iStack].path
+   local moduleT       = moduleStack[iStack].moduleT
+   moduleT.family      = value
+   dbg.fini()
+   return true
+end
+
+
+
 
 --------------------------------------------------------------------------
 -- Copy the property to moduleT
