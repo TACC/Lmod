@@ -109,4 +109,12 @@ function Lisp.real_shell(self)
    return false
 end
 
+function Lisp.report_failure(self)
+   local line = "nil"
+   stdout:write(line)
+   dbg.print{   line}
+end
+
+
+
 return Lisp

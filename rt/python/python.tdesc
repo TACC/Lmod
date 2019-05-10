@@ -46,6 +46,7 @@ print "os.environ['M']: ", '"' + os.environ['M'] + '"'
 module("avail");
 os.environ['LMOD_REDIRECT'] = 'yes'
 module("avail");
+module("load","bad")
 EOF
 
 

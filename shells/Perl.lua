@@ -77,4 +77,10 @@ function Perl.unset(self, k, vType)
    dbg.print{   "delete $ENV{",k,"};\n"}
 end
 
+function Perl.report_failure(self)
+   local line = "$_module_status = 0;"
+   stdout:write(line)
+   dbg.print{   line}
+end   
+
 return Perl

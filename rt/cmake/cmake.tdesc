@@ -74,6 +74,8 @@ message("CURRENT_MODS: \${CURRENT_MODS}")
 message("ENV{FOO}: \$ENV{FOO}")
 message("ENV{BAR}: \$ENV{BAR}")
 
+module(load bad)
+
 EOF
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d results.csv

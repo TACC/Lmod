@@ -704,7 +704,7 @@ end
 --------------------------------------------------------------------------
 -- Write "false" to stdout and exit.
 function LmodErrorExit()
-   io.stdout:write("\nfalse\n")
+   Shell:report_failure()
    os.exit(1)
 end
 

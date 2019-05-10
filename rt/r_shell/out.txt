@@ -24,3 +24,8 @@ Sys.setenv("__LMOD_REF_COUNT_MODULEPATH"="ProjectDIR/rt/r_shell/mf/Core:1");
 Sys.setenv("MODULEPATH"="ProjectDIR/rt/r_shell/mf/Core");
 Sys.setenv("__LMOD_REF_COUNT__LMFILES_"="ProjectDIR/rt/r_shell/mf/Core/b/1.0.lua:1");
 Sys.setenv("_LMFILES_"="ProjectDIR/rt/r_shell/mf/Core/b/1.0.lua");
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua R --regression_testing load bad
+===========================
+module_status <- FALSE

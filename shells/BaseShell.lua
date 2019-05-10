@@ -59,6 +59,7 @@ local huge         = math.huge
 local pack         = (_VERSION == "Lua 5.1") and argsPack   or table.pack -- luacheck: compat
 local pairsByKeys  = pairsByKeys
 local posix_setenv = posix.setenv
+local stdout       = io.stdout
 
 --------------------------------------------------------------------------
 -- BaseShell Member functions:
@@ -96,6 +97,18 @@ function M.isActive(self)
    return self._active
 end
 
+--------------------------------------------------------------------------
+-- BaseShell:initialize(): Do this first.
+
+function M.initialize(self)
+   -- normalize nothing happens here on most shells
+end
+
+function M.report_failure(self)
+   local line = "\nfalse\n"
+   stdout:write(line)
+   dbg.print{   line}
+end
 
 --------------------------------------------------------------------------
 -- BaseShell:expand(): This base class function is what converts the
@@ -113,6 +126,8 @@ function M.expand(self, tbl)
       dbg.fini("BaseShell:expand")
       return
    end
+
+   self:initialize()
 
    for k,v in pairsByKeys(tbl) do
       local vstr, vType, priorityStrT, refCountT = v:expand()

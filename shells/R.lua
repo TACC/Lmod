@@ -76,4 +76,10 @@ function R.unset(self, k, vType)
    dbg.print{   'Sys.unsetenv("',k,"\")\n"}
 end
 
+function R.report_failure(self)
+   local line = "module_status <- FALSE"
+   stdout:write(line)
+   dbg.print{   line}
+end   
+
 return R
