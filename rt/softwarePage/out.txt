@@ -38,6 +38,7 @@ spiderT = {
       dirT = {},
       fileT = {
         ["foo/.2.0"]  = {
+          ["Category"] = "foo",
           ["Description"] = "foo description",
           ["Version"] = "1.0",
           ["canonical"] = ".2.0",
@@ -49,7 +50,7 @@ spiderT = {
           ["pV"] = "000000000.000000002.*zfinal",
           ["wV"] = "000000000.000000002.*zfinal",
           whatis = {
-            "Description: foo description", "Version: 1.0", "Categories: foo",
+            "Description: foo description", "Version: 1.0", "Category: foo",
           },
         },
         ["foo/.modulerc.1.0"]  = {
@@ -79,6 +80,7 @@ spiderT = {
           ["wV"] = "*version.000000001.000000001.*zfinal",
         },
         ["foo/1.0"]  = {
+          ["Category"] = "foo",
           ["Description"] = "foo description",
           ["Version"] = "1.0",
           ["canonical"] = "1.0",
@@ -95,10 +97,11 @@ spiderT = {
           },
           ["wV"] = "^00000001.*zfinal",
           whatis = {
-            "Description: foo description", "Version: 1.0", "Categories: foo",
+            "Description: foo description", "Version: 1.0", "Category: foo",
           },
         },
         ["foo/1.1"]  = {
+          ["Category"] = "foo",
           ["Description"] = "foo description",
           ["Version"] = "1.1",
           ["canonical"] = "1.1",
@@ -115,7 +118,7 @@ spiderT = {
           },
           ["wV"] = "000000001.000000001.*zfinal",
           whatis = {
-            "Description: foo description", "Version: 1.1", "Categories: foo",
+            "Description: foo description", "Version: 1.1", "Category: foo",
           },
         },
         ["foo/1.3"]  = {
@@ -158,6 +161,7 @@ timestampFn = {
 dbT = {
   foo = {
     ["ProjectDIR/rt/softwarePage/mf/foo/.2.0.lua"]  = {
+      ["Category"] = "foo",
       ["Description"] = "foo description",
       ["Version"] = "1.0",
       ["family"] = "bar",
@@ -167,7 +171,7 @@ dbT = {
       ["pV"] = "000000000.000000002.*zfinal",
       ["wV"] = "000000000.000000002.*zfinal",
       whatis = {
-        "Description: foo description", "Version: 1.0", "Categories: foo",
+        "Description: foo description", "Version: 1.0", "Category: foo",
       },
     },
     ["ProjectDIR/rt/softwarePage/mf/foo/.modulerc.1.0.lua"]  = {
@@ -192,6 +196,7 @@ dbT = {
       ["wV"] = "*version.000000001.000000001.*zfinal",
     },
     ["ProjectDIR/rt/softwarePage/mf/foo/1.0.lua"]  = {
+      ["Category"] = "foo",
       ["Description"] = "foo description",
       ["Version"] = "1.0",
       ["family"] = "bar",
@@ -206,10 +211,11 @@ dbT = {
       },
       ["wV"] = "^00000001.*zfinal",
       whatis = {
-        "Description: foo description", "Version: 1.0", "Categories: foo",
+        "Description: foo description", "Version: 1.0", "Category: foo",
       },
     },
     ["ProjectDIR/rt/softwarePage/mf/foo/1.1.lua"]  = {
+      ["Category"] = "foo",
       ["Description"] = "foo description",
       ["Version"] = "1.1",
       ["family"] = "bar",
@@ -224,7 +230,7 @@ dbT = {
       },
       ["wV"] = "000000001.000000001.*zfinal",
       whatis = {
-        "Description: foo description", "Version: 1.1", "Categories: foo",
+        "Description: foo description", "Version: 1.1", "Category: foo",
       },
     },
     ["ProjectDIR/rt/softwarePage/mf/foo/1.3"]  = {
@@ -257,6 +263,7 @@ runSpiderCmd -o softwarePageLua ProjectDIR/rt/softwarePage/mf
 ===========================
 spA = {
   {
+    ["categories"] = "foo",
     ["defaultVersionName"] = "1.0",
     ["description"] = "foo description",
     ["package"] = "foo",
@@ -315,11 +322,3 @@ And even more help
     },
   },
 }
-===========================
-step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider foo
-===========================
-MODULEPATH=ProjectDIR/rt/softwarePage/mf;
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/softwarePage/mf",},["systemBaseMPATH"]="ProjectDIR/rt/softwarePage/mf",}';
-export _ModuleTable_;
