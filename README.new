@@ -1,1 +1,4 @@
 Lmod 8.1+
+   (8.1.1)  * Issue #392: include family info in spiderT and all other products based on spiderT like
+              dbT and the software page.
+	      
