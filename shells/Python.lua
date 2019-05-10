@@ -92,9 +92,7 @@ function Python.initialize(self)
 end   
 
 function Python.report_failure(self)
-   local line = "_module_status = False"
-   stdout:write(line)
-   dbg.print{   line}
+   -- do nothing here!
 end   
 
 return Python

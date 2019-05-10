@@ -83,9 +83,6 @@ function CMake.unset(self, k, vType)
 end
 
 function CMake.report_failure(self)
-   local line = "set(_module_status FALSE)"
-   stdout:write(line)
-   dbg.print{   line}
 end   
 
 return CMake

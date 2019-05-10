@@ -77,9 +77,7 @@ function R.unset(self, k, vType)
 end
 
 function R.report_failure(self)
-   local line = "module_status <- FALSE"
-   stdout:write(line)
-   dbg.print{   line}
+   -- do nothing here!
 end   
 
 return R

@@ -78,9 +78,7 @@ function Perl.unset(self, k, vType)
 end
 
 function Perl.report_failure(self)
-   local line = "$_module_status = 0;"
-   stdout:write(line)
-   dbg.print{   line}
+   -- do nothing here!
 end   
 
 return Perl
