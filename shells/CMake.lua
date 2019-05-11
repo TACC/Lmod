@@ -83,6 +83,15 @@ function CMake.unset(self, k, vType)
 end
 
 function CMake.report_failure(self)
+   local line = "set (_mlstatus FALSE)\n"
+   stdout:write(line)
+   dbg.print{   line}
+end   
+
+function CMake.report_success(self)
+   local line = "set (_mlstatus TRUE)\n"
+   stdout:write(line)
+   dbg.print{   line}
 end   
 
 return CMake

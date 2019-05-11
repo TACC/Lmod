@@ -77,7 +77,15 @@ function R.unset(self, k, vType)
 end
 
 function R.report_failure(self)
-   -- do nothing here!
+   local line = "mlstatus <- FALSE\n"
+   stdout:write(line)
+   dbg.print{   line}
+end   
+
+function R.report_success(self)
+   local line = "mlstatus <- TRUE\n"
+   stdout:write(line)
+   dbg.print{   line}
 end   
 
 return R

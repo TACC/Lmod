@@ -74,12 +74,12 @@ end
 
 function Python.unset(self, k, vType)
    local lineA = {}
-   lineA[#lineA + 1] = "os.environ['"
-   lineA[#lineA + 1] = k
-   lineA[#lineA + 1] = "'] = ''\n"
-   lineA[#lineA + 1] = "del os.environ['"
-   lineA[#lineA + 1] = k
-   lineA[#lineA + 1] = "']\n"
+   lineA[#lineA + 1] = "os.environ["
+   lineA[#lineA + 1] = k:doubleQuoteString()
+   lineA[#lineA + 1] = "] = ''\n"
+   lineA[#lineA + 1] = "del os.environ["
+   lineA[#lineA + 1] = k:doubleQuoteString()
+   lineA[#lineA + 1] = "]\n"
    local line        = concatTbl(lineA,"")
    stdout:write(line)
    dbg.print{   line}
@@ -92,7 +92,9 @@ function Python.initialize(self)
 end   
 
 function Python.report_failure(self)
-   -- do nothing here!
+   local line = "_mlstatus = False\n"
+   stdout:write(line)
+   dbg.print{   line}
 end   
 
 return Python

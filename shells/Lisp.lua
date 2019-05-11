@@ -110,7 +110,13 @@ function Lisp.real_shell(self)
 end
 
 function Lisp.report_failure(self)
-   local line = "nil"
+   local line = "nil\n"
+   stdout:write(line)
+   dbg.print{   line}
+end
+
+function Lisp.report_failure(self)
+   local line = "t\n"
    stdout:write(line)
    dbg.print{   line}
 end

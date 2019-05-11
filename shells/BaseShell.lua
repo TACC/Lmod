@@ -110,6 +110,10 @@ function M.report_failure(self)
    dbg.print{   line}
 end
 
+function M.report_success(self)
+   -- No output for normal shells
+end
+
 --------------------------------------------------------------------------
 -- BaseShell:expand(): This base class function is what converts the
 --                     environment variables stored internally into
@@ -161,6 +165,7 @@ function M.expand(self, tbl)
          self:expandVar(k,vstr,vType)
       end
    end
+   self:report_success()
    dbg.fini("BaseShell:expand")
 end
 
@@ -254,6 +259,7 @@ local function createShellTbl()
       local Perl         = require('Perl')
       local Python       = require('Python')
       local R            = require('R')
+      local Ruby         = require('Ruby')
       s_shellTbl = {
          ["sh"]     = Bash,
          ["bash"]   = Bash,
@@ -270,6 +276,7 @@ local function createShellTbl()
          ["bare"]   = Bare,
          ["r"]      = R,
          ["R"]      = R,
+         ["ruby"]   = Ruby,
       }
    end
 end

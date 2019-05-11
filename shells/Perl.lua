@@ -78,7 +78,9 @@ function Perl.unset(self, k, vType)
 end
 
 function Perl.report_failure(self)
-   -- do nothing here!
+   local line = "$_mlstatus = 0;\n"
+   stdout:write(line)
+   dbg.print{   line}
 end   
 
 return Perl
