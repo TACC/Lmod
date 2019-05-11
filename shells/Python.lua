@@ -97,4 +97,10 @@ function Python.report_failure(self)
    dbg.print{   line}
 end   
 
+function Python.report_success(self)
+   local line = "_mlstatus = True\n"
+   stdout:write(line)
+   dbg.print{   line}
+end   
+
 return Python
