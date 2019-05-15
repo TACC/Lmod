@@ -32,6 +32,7 @@ testdescript = {
 cat > $(testName).py << EOF
 #!/usr/bin/env python
 
+from __future__ import print_function
 import os, sys
 sys.path.insert(0,"$(outputDir)/init/")
 
@@ -39,9 +40,8 @@ from env_modules_python import module
 
 module("load","foobar")
 
-
-print "os.environ['FOOBAR']: ",'"' + os.environ['FOOBAR'] + '"'
-print "os.environ['M']: ", '"' + os.environ['M'] + '"'
+print ("os.environ['FOOBAR']: ",'"' + os.environ['FOOBAR'] + '"')
+print ("os.environ['M']: ", '"' + os.environ['M'] + '"')
 
 module("avail");
 os.environ['LMOD_REDIRECT'] = 'yes'
