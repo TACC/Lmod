@@ -32,6 +32,8 @@ if test (id -u) -ne 0
 
         set -xg FISH_ENV @PKGV@/init/fish
 
+	set -p fish_complete_path @PKGV@/init/fish
+
         #
         # If MANPATH is empty, Lmod is adding a trailing ":" so that
         # the system MANPATH will be found

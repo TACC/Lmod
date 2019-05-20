@@ -115,6 +115,9 @@ LMODRC_INIT               := $(patsubst %, $(srcdir)/init/%, lmodrc.lua)
 ZSH_FUNCS                 := _ml _module
 ZSH_FUNCS                 := $(patsubst %, $(srcdir)/init/zsh/%, $(ZSH_FUNCS))
 
+FISH_FUNCS                := module.fish   
+FISH_FUNCS                := $(patsubst %, $(srcdir)/init/fish/%, $(FISH_FUNCS))
+
 STARTUP		  	  := profile.in profile.fish.in cshrc.in
 STARTUP		  	  := $(patsubst %, $(srcdir)/init/%, $(STARTUP))
 
@@ -174,7 +177,7 @@ pre-install: $(DIRLIST) $(PKGS) lmodrc_init shell_init startup libexec    \
              Inst_Tools Inst_Shells Inst_Settarg Inst_Lmod_MF other_tools \
              man_pages messageFns i18n spiderCacheSupport
 
-install: pre-install  zsh_tab_funcs
+install: pre-install  zsh_tab_funcs fish_tab_funcs
 	$(MAKE) PKGV=$(PKG) shell_init startup
 	@if test "$(SITE_CONTROLLED_PREFIX)" = "no" ; then                        \
 	   echo $(RM) $(DESTDIR)$(PKG);                                           \
@@ -334,6 +337,9 @@ zsh_tab_funcs: $(ZSH_FUNCS)
 	  true;                                                          \
         fi
 
+fish_tab_funcs: $(FISH_FUNCS)
+	cp $^ $(DESTDIR)/fish 2>/dev/null
+
 makefile: $(srcdir)/Makefile.in ./config.status
 	./config.status $@
 
@@ -359,7 +365,7 @@ dist:
 
 
 _dist: _distMkDir _distMainDir _distSrc _distSetup _distSetupZsh \
-       _distVersion _distPkgs _distMF    _distContrib _distTar
+       _distVersion _distPkgs _distMF    _distContrib _distTar distSetupFish 
 
 _distMkDir:
 	$(RM) -r $(DistD)
@@ -393,6 +399,9 @@ _distSetupZsh:
 	mkdir $(DistD)/init/zsh
 	cp $(ZSH_FUNCS) $(DistD)/init/zsh
 
+_distSetupFish:
+	mkdir -p $(DistD)/init/fish
+	cp $(FISH_FUNCS) $(DistD)/init/fish
 
 
 _distMainDir:
