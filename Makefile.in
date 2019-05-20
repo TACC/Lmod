@@ -362,64 +362,6 @@ dist:
         mv `cat .fname`.tar.bz2  ..                                               ; \
         cd ..; $(RM) -rf DIST
 
-
-
-_dist: _distMkDir _distMainDir _distSrc _distSetup _distSetupZsh \
-       _distVersion _distPkgs _distMF    _distContrib _distTar distSetupFish 
-
-_distMkDir:
-	$(RM) -r $(DistD)
-	mkdir $(DistD)
-
-
-_distContrib:
-	mkdir $(DistD)/contrib
-	cp -r $(CONTRIB) $(DistD)/contrib
-
-_distSrc:
-	mkdir $(DistD)/src $(DistD)/tools $(DistD)/settarg $(DistD)/shells
-	cp $(lua_code) $(ComputeHashSum) $(STANDALONE_PRGM) $(DistD)/src
-	cp tools/*.lua $(DistD)/tools
-	cp $(SETTARG_SOURCE) $(DistD)/settarg
-	cp shells/*.lua $(DistD)/shells
-
-_distVersion:
-	sed -i.bk 's/\@git\@/$(GIT_VERSION)/g' $(DistD)/src/Version.lua;
-	rm `cat .fname`/src/Version.lua.bk;
-
-_distPkgs:
-	mkdir $(DistD)/pkgs
-	cp -r pkgs/* $(DistD)/pkgs
-
-_distSetup:
-	mkdir $(DistD)/init
-	cp $(SHELL_INIT) $(STARTUP) $(LMODRC_INIT) $(DistD)/init
-
-_distSetupZsh:
-	mkdir $(DistD)/init/zsh
-	cp $(ZSH_FUNCS) $(DistD)/init/zsh
-
-_distSetupFish:
-	mkdir -p $(DistD)/init/fish
-	cp $(FISH_FUNCS) $(DistD)/init/fish
-
-
-_distMainDir:
-	cp $(MAIN_DIR) $(DistD)
-
-_distMF:
-	mkdir $(DistD)/MF
-	cp -r MF $(DistD)/
-
-_distTar:
-	echo "Lmod"-$(version) > .fname;                		   \
-	$(RM) -r `cat .fname` `cat .fname`.tar*;         		   \
-	mv ${DistD} `cat .fname`;                            		   \
-	tar chf `cat .fname`.tar `cat .fname`;           		   \
-	bzip2 `cat .fname`.tar;                           		   \
-	rm -rf `cat .fname` .fname;
-
-
 ml_dist:
 	$(MAKE) DistD=DIST _ml_dist
 

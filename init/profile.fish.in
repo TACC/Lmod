@@ -43,43 +43,6 @@ if test (id -u) -ne 0
 
         set -gx MANPATH (@PKGV@/libexec/addto MANPATH @PKGV@/share/man)
     end
-
-    set PS_CMD @ps@
-    if not test -x $PS_CMD
-        if test -x /bin/ps
-            set PS_CMD /bin/ps
-        else if test -x /usr/bin/ps
-            set PS_CMD /usr/bin/ps
-        end
-    end
-
-    set EXPR_CMD @expr@
-    if not test -x $EXPR_CMD
-        if test -x /usr/bin/expr
-            set EXPR_CMD /usr/bin/expr
-        else if test -x /bin/expr
-            set EXPR_CMD /bin/expr
-        end
-    end
-
-    set BASENAME_CMD @basename@
-    if not test -x $BASENAME_CMD
-        if test -x /bin/basename
-            set BASENAME_CMD /bin/basename
-        else if test -x /usr/bin/basename
-            set BASENAME_CMD /usr/bin/basename
-        end
-    end
-
-
-    set my_shell (eval "$PS_CMD -p %self -ocomm=")
-    set my_shell (eval "$EXPR_CMD \"$my_shell\" : '-*\(.*\)'")
-    set my_shell (eval "$BASENAME_CMD $my_shell")
-
-    if test -f @PKGV@/init/$my_shell
-        source  @PKGV@/init/$my_shell >/dev/null # Module Support
-    else
-        source  @PKGV@/init/sh        >/dev/null # Module Support
-    end
+    source  @PKGV@/init/fish >/dev/null # Module Support
 end
 
