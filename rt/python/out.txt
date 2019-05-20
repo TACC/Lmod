@@ -7,7 +7,7 @@ ProjectDIR/rt/python/mf/Core
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 Lmod has detected the following error: Unable to load module because of error when evaluating modulefile:
-     ProjectDIR/rt/python/mf/Core/bad/1.0.lua: [string "WTF("BAD")..."]:1: attempt to call a nil value (global 'WTF')
+     ProjectDIR/rt/python/mf/Core/bad/1.0.lua: [string "WTF("BAD")..."]:1:
      Please check the modulefile and especially if there is a the line number specified in the above message
 While processing the following module(s):
     Module fullname  Module Filename

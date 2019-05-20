@@ -12,7 +12,7 @@ CURRENT_MODS: bar/3.4.5
 ENV{FOO}:
 ENV{BAR}: 3.4.5
 Lmod has detected the following error: Unable to load module because of error when evaluating modulefile:
-     ProjectDIR/rt/cmake/mf/Core/bad/1.0.lua: [string "WTF("FOO")..."]:1: attempt to call a nil value (global 'WTF')
+     ProjectDIR/rt/cmake/mf/Core/bad/1.0.lua: [string "WTF("FOO")..."]:1:
      Please check the modulefile and especially if there is a the line number specified in the above message
 While processing the following module(s):
     Module fullname  Module Filename
