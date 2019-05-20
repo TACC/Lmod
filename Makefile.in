@@ -338,7 +338,7 @@ zsh_tab_funcs: $(ZSH_FUNCS)
         fi
 
 fish_tab_funcs: $(FISH_FUNCS)
-	cp $^ $(DESTDIR)$(INIT)/fish 2>/dev/null
+	cp $^ $(DESTDIR)$(INIT)/ 2>/dev/null
 
 makefile: $(srcdir)/Makefile.in ./config.status
 	./config.status $@
