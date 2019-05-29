@@ -35,7 +35,7 @@ if test (id -u) -ne 0
         #
         # If MANPATH is empty, Lmod is adding a trailing ":" so that
         # the system MANPATH will be found
-        if test -n "$MANPATH"
+        if test -z "$MANPATH"
             set -xg MANPATH ":"
         end
 
