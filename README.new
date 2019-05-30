@@ -7,5 +7,4 @@ Lmod 8.1+
    (8.1.4)  * The R, perl, python, cmake report_failure() function ml status is false
             * Issue #409: Added fish tab completion support (Thanks Alberto!)
    (8.1.5)  * Issue #410: More fixes for the fish shell
-   
-   
+   (8.1.6)  * Issue #412: More fixes for the fish shell
