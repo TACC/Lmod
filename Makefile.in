@@ -86,6 +86,7 @@ TOOLS                     := $(MY_PACKAGE)/tools
 I18N                      := $(MY_PACKAGE)/tools/i18n
 SETTARG                   := $(MY_PACKAGE)/settarg
 INIT		  	  := $(MY_PACKAGE)/init
+FISH_TAB	  	  := $(MY_PACKAGE)/init/fish_tab_completion
 MESSAGEDIR      	  := $(MY_PACKAGE)/messageDir
 LMOD_MF 	  	  := $(MY_PACKAGE)/modulefiles/Core
 MAN_PAGES                 := $(MY_PACKAGE)/share/man/cat1
@@ -95,7 +96,7 @@ SETTARG_SOURCE            := $(patsubst %, $(srcdir)/%, settarg/*.lua  settarg/t
 DIRLIST		  	  := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS)      $(DESTDIR)$(SETTARG)    \
                              $(DESTDIR)$(SHELLS)  $(DESTDIR)$(INIT)       $(DESTDIR)$(LIB)        \
                              $(DESTDIR)$(LMOD_MF) $(DESTDIR)$(MAN_PAGES)  $(DESTDIR)$(MESSAGEDIR) \
-                             $(DESTDIR)$(I18N)
+                             $(DESTDIR)$(I18N)    $(DESTDIR)$(FISH_TAB)
 
 STANDALONE_PRGM   	  := src/lmod.in.lua src/addto.in.lua                       \
                              src/spider.in.lua src/clearMT_cmd.in.lua               \
@@ -338,7 +339,7 @@ zsh_tab_funcs: $(ZSH_FUNCS)
         fi
 
 fish_tab_funcs: $(FISH_FUNCS)
-	cp $^ $(DESTDIR)$(INIT)/ 2>/dev/null
+	cp $^ $(DESTDIR)$(FISH_TAB) 2>/dev/null
 
 makefile: $(srcdir)/Makefile.in ./config.status
 	./config.status $@

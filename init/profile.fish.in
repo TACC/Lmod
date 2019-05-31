@@ -43,5 +43,5 @@ if test (id -u) -ne 0
     end
     source  @PKGV@/init/fish >/dev/null # Module Support
     
-    set fish_complete_path @PKGV@/init/fish $fish_complete_path
+    set fish_complete_path @PKGV@/init/fish_tab_completion $fish_complete_path
 end
