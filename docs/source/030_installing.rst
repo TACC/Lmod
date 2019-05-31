@@ -347,7 +347,7 @@ file can be in a number of places but is typically in ``/etc/zshenv`` or
       for i in /etc/profile.d/*.sh; do
         if [ -r $i ]; then
           . $i
-        fi
+        fip
       setopt nomatch
       done
     fi
@@ -356,9 +356,20 @@ file can be in a number of places but is typically in ``/etc/zshenv`` or
 Fish:
 ~~~~~
 
-Fish users have `several standard places <https://fishshell.com/docs/current/index.html#initialization>`_ searched for scripts. The system location is usually ``/etc/fish/conf.d`` and the user location is usually `` ~/.config/fish/conf.d/``. Fish users are provided a special profile file, ``init/profile.fish``, that should be linked into one of these places with a suitable name. For example, a local user for fish might want::
+Fish users have `several standard places
+<https://fishshell.com/docs/current/index.html#initialization>`_
+searched for scripts. The system location is usually
+``/etc/fish/conf.d`` and the user location is usually 
+``~/.config/fish/conf.d/``. Fish users are provided a special profile
+file, ``init/profile.fish``, that should be linked into one of these
+places with a suitable name. For example, a local user for fish might
+want::
 
     $ ln -s /opt/apps/lmod/lmod/init/profile.fish ~/.config/fish/conf.d/z00_lmod.fish
+
+A site might set::
+
+    $ ln -s /opt/apps/lmod/lmod/init/profile.fish /etc/fish/conf.d/z00_lmod.fish
 
 .. _issues-with-bash:
 
