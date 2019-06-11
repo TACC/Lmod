@@ -168,7 +168,7 @@ describe("Testing ModuleA Class #ModuleA.",
                         ["count"] = 1,
                         ["fullName"] = "bio/genomics",
                         ["sn"] = "bio/genomics",
-                        ["weight"] = " ",
+                        ["weight"] = "999999999.*zfinal",
                      },
                      ["%ProjDir%/spec/ModuleA/mf/boost/1.46.0.lua"]  = {
                         ["count"] = 1,

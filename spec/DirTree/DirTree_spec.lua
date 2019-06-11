@@ -1,4 +1,6 @@
 _G._DEBUG=false
+local posix   = require("posix")
+
 require("strict")
 require("fileOps")
 require("utils")

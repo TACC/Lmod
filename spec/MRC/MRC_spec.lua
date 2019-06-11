@@ -1,3 +1,6 @@
+_G._DEBUG=false
+local posix   = require("posix")
+
 require("strict")
 
 local dbg          = require("Dbg"):dbg()
