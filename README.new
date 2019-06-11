@@ -8,3 +8,4 @@ Lmod 8.1+
             * Issue #409: Added fish tab completion support (Thanks Alberto!)
    (8.1.5)  * Issue #410: More fixes for the fish shell
    (8.1.6)  * Issue #412: More fixes for the fish shell
+   (8.1.7)  * Issue #413: Support escape in things like PS1 for bash
