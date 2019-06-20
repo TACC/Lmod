@@ -400,7 +400,7 @@ function M.build(self, fast)
    -------------------------------------------------------------------
    -- Ctor w/o system or user MODULERC files.  We will update when
    -- we need to.
-   local mrc       = MRC:singleton({})  
+   local mrc       = MRC:singleton({})
 
 
    dbg.print{"self.buildCache: ",self.buildCache,"\n"}
@@ -571,14 +571,14 @@ function M.build(self, fast)
             local s4 = serializeTbl{name="mpathMapT",    value=mpathMapT,   indent=true}
             f:write(s0,s1,s2,s3,s4)
             f:close()
-            local ok, message = os.rename(userSpiderTFN_new, userSpiderTFN)
+            ok, msg = os.rename(userSpiderTFN_new, userSpiderTFN)
             if (not ok) then
-               LmodError{msg="e_Unable_2_rename",from=userSpiderTFN_new,to=userSpiderTFN, errMsg=message}
+               LmodError{msg="e_Unable_2_rename",from=userSpiderTFN_new,to=userSpiderTFN, errMsg=msg}
             end
             posix.unlink(userSpiderTFN .. "~")
             dbg.print{"Wrote: ",userSpiderTFN,"\n"}
          end
-         
+
          if (LUAC_PATH ~= "") then
             if (LUAC_PATH:sub(1,1) == "@") then
                LUAC_PATH="luac"
