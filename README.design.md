@@ -17,7 +17,9 @@ Spider format
 Master Control
 --------------
 
-The MasterControl is the heart of Lmod. An 'action' in a module file like `setenv('foo', 'bar')` has a different meaning depending on the mode. For a load it will set `foo` while for a unload it will delete it. There are 7 modes in Lmod:
+The MasterControl is the heart of Lmod. An 'action' in a module file like `setenv('foo', 'bar')` has a different
+meaning depending on the mode. For a load it will set `foo` while for a unload it will delete it.
+There are 7 modes in Lmod:
 - Load
 - Unload
 - Access: for help and whatis messages
@@ -29,14 +31,20 @@ The MasterControl is the heart of Lmod. An 'action' in a module file like `seten
 - Show: show the contents of the module
 - Spider: process module files for spider operations
 
-The file `MasterControl.lua` holds all code and the files `MC_<mode>.lua` assign what each action in a module exactly does. 
+The file `MasterControl.lua` holds all code and the files `MC_<mode>.lua` assign what each action in a
+module exactly does. 
 
-The object MCP (MasterControl Program) is created once and always points to a 'positive' action (a load basically). The lowercase mcp points to the current MasterControl Program. This variables are global.
+The object MCP (MasterControl Program) is created once and always points to a 'positive'
+action (a load basically). The lowercase mcp points to the current MasterControl
+Program. This variables are global.
 
-The file `Master.lua` is were the real work is being done. MasterControl will decides which functions get called from this file.
-
+The file `Master.lua` is were the real work is being done. MasterControl will decides which functions
+get called from this file.
 
 General flow
 ------------
 
-The Lmod main is in `lmod.lua.in`. There the MasterControl Program (MCP) object is created. The array `lmodCmdA` does the translation between user input and a Lmod command. The file `cmdfuncs.lua` holds all 'user' actions. The main will run a function from that file which will call MasterControl which calls Master (or sometimes Master directly).
+The Lmod main is in `lmod.lua.in`. There the MasterControl Program (MCP) object is created. The array
+`lmodCmdA` does the translation between user input and a Lmod command. The file `cmdfuncs.lua` holds
+all 'user' actions. The main will run a function from that file which will call MasterControl which
+calls Master (or sometimes Master directly).
