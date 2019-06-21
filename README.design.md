@@ -5,8 +5,15 @@ The style of variables is:
 `varT`: a table
 `varA`: an array
 
-Spider format
--------------
+Spider
+------
+
+Spider searches for module(names). There are 3 levels of spider:
+- level 0: just list all modules, no input given
+- level 1: search for a module with a given name
+- level 2: search for a module with a given name/version
+
+Level 2 will show how to load the specified module in a hierarchy.
 
 `canonical`: the version according to Lmod
 `Version`: the version specify by whatis in the module (can be anything)
