@@ -423,3 +423,15 @@ runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/E_Core
 step 34
 runSpiderCmd -o dbT ProjectDIR/rt/spider/mf/E_Core
 ===========================
+===========================
+step 35
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider python2/2.7
+===========================
+  python2: python2/2.7
+    You will need to load all module(s) on any one of the lines below before the "python2/2.7" module is available to load.
+      gcc/4.2.3
+      intel/intel
+    This module provides:
+       numpy/1.16.4, scipy/1.2.2
+    Help:
+      This is the help message for python 2.7

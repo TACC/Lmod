@@ -1052,6 +1052,12 @@ function M._Level2(self, sn, entryA, possibleA)
       ia = ia + 1; a[ia] = concatTbl(c,"\n")
    end
 
+   if (entryT and entryT.provides ~= nil) then
+      ia = ia + 1; a[ia] = "\n    This module provides:\n"
+      ia = ia + 1; a[ia] = "\n       " .. concatTbl(entryT.provides,", ")
+      ia = ia + 1; a[ia] = "\n"
+   end
+
    if (entryT and entryT.help ~= nil) then
       ia = ia + 1; a[ia] = "\n    Help:\n"
       for s in entryT.help:split("\n") do

@@ -283,6 +283,9 @@ spiderT = {
           ["Version"] = "2.7",
           ["canonical"] = "2.7",
           ["fn"] = "ProjectDIR/rt/spider/mf/E_Compiler/gcc/4.2.3/python2/2.7.lua",
+          ["help"] = [[
+This is the help message for python 2.7
+]],
           ["luaExt"] = 4,
           ["mpath"] = "ProjectDIR/rt/spider/mf/E_Compiler/gcc/4.2.3",
           ["pV"] = "000000002.000000007.*zfinal",
@@ -303,6 +306,9 @@ spiderT = {
           ["Version"] = "2.7",
           ["canonical"] = "2.7",
           ["fn"] = "ProjectDIR/rt/spider/mf/E_Compiler/intel/10.1/python2/2.7.lua",
+          ["help"] = [[
+This is the help message for python 2.7
+]],
           ["luaExt"] = 4,
           ["mpath"] = "ProjectDIR/rt/spider/mf/E_Compiler/intel/10.1",
           ["pV"] = "000000002.000000007.*zfinal",
@@ -422,6 +428,9 @@ dbT = {
     ["ProjectDIR/rt/spider/mf/E_Compiler/gcc/4.2.3/python2/2.7.lua"]  = {
       ["Version"] = "2.7",
       ["fullName"] = "python2/2.7",
+      ["help"] = [[
+This is the help message for python 2.7
+]],
       ["hidden"] = false,
       ["pV"] = "000000002.000000007.*zfinal",
       parentAA = {
@@ -437,6 +446,9 @@ dbT = {
     ["ProjectDIR/rt/spider/mf/E_Compiler/intel/10.1/python2/2.7.lua"]  = {
       ["Version"] = "2.7",
       ["fullName"] = "python2/2.7",
+      ["help"] = [[
+This is the help message for python 2.7
+]],
       ["hidden"] = false,
       ["pV"] = "000000002.000000007.*zfinal",
       parentAA = {
@@ -451,3 +463,13 @@ dbT = {
     },
   },
 }
+===========================
+step 35
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider python2/2.7
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/spider/mf/E_Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/spider/mf/E_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/E_Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider/mf/E_Core",}';
+export _ModuleTable_;
