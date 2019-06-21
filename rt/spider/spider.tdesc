@@ -77,7 +77,8 @@ testdescript = {
      runLmod spider GCC                                                       #31
      runLmod spider gcc                                                       #32
      
-
+     runBase runSpiderCmd -o spiderT  $testDir/mf/E_Core                      #33
+     runBase runSpiderCmd -o dbT      $testDir/mf/E_Core                      #34
 
 
      HOME=$ORIG_HOME

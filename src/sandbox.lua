@@ -144,6 +144,9 @@ local sandbox_env = {
   whatis               = whatis,
   help                 = help,
 
+  -- meta data foo ---
+  module_provides      = module_provides,
+
   -- Misc --
   LmodMsgRaw           = LmodMsgRaw,
   LmodError            = LmodError,

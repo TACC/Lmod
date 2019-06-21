@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.7.14  2017-11-16 16:23 -07:00
+Modules based on Lua: Version 8.1.7  2019-06-11 15:49 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -44,6 +44,7 @@ The following is a list of the modules currently available:
     Parallel graph partitioning and fill-reduction matrix ordering routines
   petsc: petsc/3.1, petsc/3.2
   phdf5: phdf5/1.8.2, phdf5/1.8.9, phdf5/1.8.10
+  python2: python2/2.7
   r: r/2.1.5
   unix: unix/unix
 To learn more about a package execute:
@@ -130,6 +131,8 @@ phdf5/
 phdf5/1.8.2
 phdf5/1.8.9
 phdf5/1.8.10
+python2/
+python2/2.7
 r/
 r/2.1.5
 unix/
@@ -304,6 +307,7 @@ The following is a list of the modules currently available:
     Parallel graph partitioning and fill-reduction matrix ordering routines
   petsc: petsc/3.1, petsc/3.2
   phdf5: phdf5/1.8.2, phdf5/1.8.9, phdf5/1.8.10
+  python2: python2/2.7
   r: r/2.1.5
   unix: unix/unix
 To learn more about a package execute:
@@ -411,3 +415,11 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gcc
 ===========================
   GCC: GCC/6.3.0
     This module can be loaded directly: module load GCC/6.3.0
+===========================
+step 33
+runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/E_Core
+===========================
+===========================
+step 34
+runSpiderCmd -o dbT ProjectDIR/rt/spider/mf/E_Core
+===========================

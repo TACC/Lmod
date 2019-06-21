@@ -531,6 +531,7 @@ function convertEntry(name, vv, spA)
       hidden      = "hidden",
       family      = "family",
       propT       = "properties",
+      provides    = "provides",
    }
 
 

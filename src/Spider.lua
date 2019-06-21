@@ -506,7 +506,7 @@ local function l_build_keepT(mpathA, mpathParentT, spiderT)
 end
 
 local dbT_keyA = { 'Description', 'Category', 'URL', 'Version', 'whatis', 'dirA',
-                   'family','pathA', 'lpathA', 'propT','help','pV','wV'}
+                   'family','pathA', 'lpathA', 'propT','help','pV','wV','provides'}
 
 
 function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)

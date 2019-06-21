@@ -128,7 +128,7 @@ function M.myModuleVersion(self)
 end
 
 --------------------------------------------------------------------------
--- MC_Spider:help(): Collect the help message into moduleT
+-- MC_Spider:help(...): Collect the help message into moduleT
 -- @param self A MasterControl object.
 function M.help(self,...)
    dbg.start{"MC_Spider:help(...)"}
@@ -137,6 +137,20 @@ function M.help(self,...)
    local path         = moduleStack[iStack].path
    local moduleT      = moduleStack[iStack].moduleT
    moduleT.help       = concatTbl({...},"")
+   dbg.fini()
+   return true
+end
+
+--------------------------------------------------------------------------
+-- MC_Spider:module_provides(...): Copy the list of provides to moduleT
+-- @param self A MasterControl object.
+function M.module_provides(self,...)
+   dbg.start{"MC_Spider:module_provides(...)"}
+   local moduleStack  = masterTbl().moduleStack
+   local iStack       = #moduleStack
+   local path         = moduleStack[iStack].path
+   local moduleT      = moduleStack[iStack].moduleT
+   moduleT.provides   = {...}
    dbg.fini()
    return true
 end

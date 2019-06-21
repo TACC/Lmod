@@ -308,7 +308,7 @@ function M.load(self, mA)
                b[#b + 1]        = " on moduleQ\n"
                shell:echo(concatTbl(b,""))
             end
-            break  
+            break
          end
 
          local fullName   = mname:fullName()
