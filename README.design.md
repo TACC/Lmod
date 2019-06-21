@@ -36,7 +36,7 @@ module exactly does.
 
 The object MCP (MasterControl Program) is created once and always points to a 'positive'
 action (a load basically). The lowercase mcp points to the current MasterControl
-Program. This variables are global.
+Program. These variables are global.
 
 The file `Master.lua` is were the real work is being done. MasterControl will decides which functions
 get called from this file.
