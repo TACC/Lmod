@@ -576,6 +576,28 @@ function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
    dbg.fini("Spider:buildDbT")
 end
 
+function M.buildProvideByT(dbT, providedByT)
+   dbg.start{"Spider:buildProvideByT(dbT, providedByT)"}
+
+   --for key, vv in pairs(dbT) do
+   --   for fullPath, v in pairs(vv) do
+   --      if (v.provides ~= nil) then
+   --         local providesA = v.provides
+   --         for i = 1, #providesA do
+   --            local name = providesA[i]
+   --            local T = providedByT[name] or {}
+   --            for j = 1,#parentAA do
+                  
+            
+
+
+
+
+
+   dbg.fini("Spider:buildProvideByT")
+end
+
+
 function M.Level0_terse(self,dbT)
    dbg.start{"Spider:Level0_terse()"}
    local mrc         = MRC:singleton()

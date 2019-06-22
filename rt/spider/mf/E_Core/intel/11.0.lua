@@ -32,7 +32,7 @@ prepend_path('LD_LIBRARY_PATH','/vol/local/intel/mkl/mkl/lib/lib')
 
 family("compiler")
 
-local pkgVersion      = "10.1"
+local pkgVersion      = "11"
 local pkgName         = "intel"
 local pkgNameVer      = pathJoin(pkgName,pkgVersion)
 local modulepath_root = os.getenv("MODULEPATH_ROOT")

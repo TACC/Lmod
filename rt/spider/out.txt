@@ -274,7 +274,7 @@ mrcT = {
   },
 }
 spiderT = {
-  ["ProjectDIR/rt/spider/mf/E_Compiler/gcc/4.2.3"]  = {
+  ["ProjectDIR/rt/spider/mf/E_Compiler/gcc/4.2"]  = {
     python2 = {
       defaultT = {},
       dirT = {},
@@ -282,12 +282,12 @@ spiderT = {
         ["python2/2.7"]  = {
           ["Version"] = "2.7",
           ["canonical"] = "2.7",
-          ["fn"] = "ProjectDIR/rt/spider/mf/E_Compiler/gcc/4.2.3/python2/2.7.lua",
+          ["fn"] = "ProjectDIR/rt/spider/mf/E_Compiler/gcc/4.2/python2/2.7.lua",
           ["help"] = [[
 This is the help message for python 2.7
 ]],
           ["luaExt"] = 4,
-          ["mpath"] = "ProjectDIR/rt/spider/mf/E_Compiler/gcc/4.2.3",
+          ["mpath"] = "ProjectDIR/rt/spider/mf/E_Compiler/gcc/4.2",
           ["pV"] = "000000002.000000007.*zfinal",
           provides = {
             "numpy/1.16.4", "scipy/1.2.2",
@@ -297,7 +297,7 @@ This is the help message for python 2.7
       },
     },
   },
-  ["ProjectDIR/rt/spider/mf/E_Compiler/intel/10.1"]  = {
+  ["ProjectDIR/rt/spider/mf/E_Compiler/intel/11"]  = {
     python2 = {
       defaultT = {},
       dirT = {},
@@ -305,12 +305,12 @@ This is the help message for python 2.7
         ["python2/2.7"]  = {
           ["Version"] = "2.7",
           ["canonical"] = "2.7",
-          ["fn"] = "ProjectDIR/rt/spider/mf/E_Compiler/intel/10.1/python2/2.7.lua",
+          ["fn"] = "ProjectDIR/rt/spider/mf/E_Compiler/intel/11/python2/2.7.lua",
           ["help"] = [[
 This is the help message for python 2.7
 ]],
           ["luaExt"] = 4,
-          ["mpath"] = "ProjectDIR/rt/spider/mf/E_Compiler/intel/10.1",
+          ["mpath"] = "ProjectDIR/rt/spider/mf/E_Compiler/intel/11",
           ["pV"] = "000000002.000000007.*zfinal",
           provides = {
             "numpy/1.16.4", "scipy/1.2.2",
@@ -335,17 +335,27 @@ This is the help message for python 2.7
           ["pV"] = "000000004.000000002.000000003.*zfinal",
           ["wV"] = "000000004.000000002.000000003.*zfinal",
         },
+        ["gcc/4.2.5"]  = {
+          ["Version"] = "4.2.5",
+          ["canonical"] = "4.2.5",
+          ["family"] = "compiler",
+          ["fn"] = "ProjectDIR/rt/spider/mf/E_Core/gcc/4.2.5.lua",
+          ["luaExt"] = 6,
+          ["mpath"] = "ProjectDIR/rt/spider/mf/E_Core",
+          ["pV"] = "000000004.000000002.000000005.*zfinal",
+          ["wV"] = "000000004.000000002.000000005.*zfinal",
+        },
       },
     },
     intel = {
       defaultT = {},
       dirT = {},
       fileT = {
-        ["intel/intel"]  = {
-          ["Version"] = "intel",
-          ["canonical"] = "intel",
+        ["intel/11.0"]  = {
+          ["Version"] = "11.0",
+          ["canonical"] = "11.0",
           ["family"] = "compiler",
-          ["fn"] = "ProjectDIR/rt/spider/mf/E_Core/intel/intel.lua",
+          ["fn"] = "ProjectDIR/rt/spider/mf/E_Core/intel/11.0.lua",
           ["help"] = [[
         Intel Compilers
         This module loads Intel Compiler variables.
@@ -357,15 +367,41 @@ This is the help message for python 2.7
             ["/vol/local/intel/idb/idb/lib"] = 1,
             ["/vol/local/intel/mkl/mkl/lib/lib"] = 1,
           },
-          ["luaExt"] = 6,
+          ["luaExt"] = 5,
           ["mpath"] = "ProjectDIR/rt/spider/mf/E_Core",
-          ["pV"] = "*intel.*zfinal",
+          ["pV"] = "000000011.*zfinal",
           pathA = {
             ["/vol/local/intel/cc/cc/bin"] = 1,
             ["/vol/local/intel/fc/fc/bin"] = 1,
             ["/vol/local/intel/idb/idb/bin"] = 1,
           },
-          ["wV"] = "*intel.*zfinal",
+          ["wV"] = "000000011.*zfinal",
+        },
+        ["intel/11.2"]  = {
+          ["Version"] = "11.2",
+          ["canonical"] = "11.2",
+          ["family"] = "compiler",
+          ["fn"] = "ProjectDIR/rt/spider/mf/E_Core/intel/11.2.lua",
+          ["help"] = [[
+        Intel Compilers
+        This module loads Intel Compiler variables.
+        { standard TACC variables: ICC_DIR,  ICC_BIN,  ICC_LIB  }
+]],
+          lpathA = {
+            ["/vol/local/intel/cc/cc/lib"] = 1,
+            ["/vol/local/intel/fc/fc/lib"] = 1,
+            ["/vol/local/intel/idb/idb/lib"] = 1,
+            ["/vol/local/intel/mkl/mkl/lib/lib"] = 1,
+          },
+          ["luaExt"] = 5,
+          ["mpath"] = "ProjectDIR/rt/spider/mf/E_Core",
+          ["pV"] = "000000011.000000002.*zfinal",
+          pathA = {
+            ["/vol/local/intel/cc/cc/bin"] = 1,
+            ["/vol/local/intel/fc/fc/bin"] = 1,
+            ["/vol/local/intel/idb/idb/bin"] = 1,
+          },
+          ["wV"] = "000000011.000000002.*zfinal",
         },
       },
     },
@@ -373,11 +409,13 @@ This is the help message for python 2.7
   ["version"] = 5,
 }
 mpathMapT = {
-  ["ProjectDIR/rt/spider/mf/E_Compiler/gcc/4.2.3"]  = {
+  ["ProjectDIR/rt/spider/mf/E_Compiler/gcc/4.2"]  = {
     ["gcc/4.2.3"] = "ProjectDIR/rt/spider/mf/E_Core",
+    ["gcc/4.2.5"] = "ProjectDIR/rt/spider/mf/E_Core",
   },
-  ["ProjectDIR/rt/spider/mf/E_Compiler/intel/10.1"]  = {
-    ["intel/intel"] = "ProjectDIR/rt/spider/mf/E_Core",
+  ["ProjectDIR/rt/spider/mf/E_Compiler/intel/11"]  = {
+    ["intel/11.0"] = "ProjectDIR/rt/spider/mf/E_Core",
+    ["intel/11.2"] = "ProjectDIR/rt/spider/mf/E_Core",
   },
 }
 ===========================
@@ -397,12 +435,20 @@ dbT = {
       ["pV"] = "000000004.000000002.000000003.*zfinal",
       ["wV"] = "000000004.000000002.000000003.*zfinal",
     },
+    ["ProjectDIR/rt/spider/mf/E_Core/gcc/4.2.5.lua"]  = {
+      ["Version"] = "4.2.5",
+      ["family"] = "compiler",
+      ["fullName"] = "gcc/4.2.5",
+      ["hidden"] = false,
+      ["pV"] = "000000004.000000002.000000005.*zfinal",
+      ["wV"] = "000000004.000000002.000000005.*zfinal",
+    },
   },
   intel = {
-    ["ProjectDIR/rt/spider/mf/E_Core/intel/intel.lua"]  = {
-      ["Version"] = "intel",
+    ["ProjectDIR/rt/spider/mf/E_Core/intel/11.0.lua"]  = {
+      ["Version"] = "11.0",
       ["family"] = "compiler",
-      ["fullName"] = "intel/intel",
+      ["fullName"] = "intel/11.0",
       ["help"] = [[
         Intel Compilers
         This module loads Intel Compiler variables.
@@ -415,17 +461,41 @@ dbT = {
         ["/vol/local/intel/idb/idb/lib"] = 1,
         ["/vol/local/intel/mkl/mkl/lib/lib"] = 1,
       },
-      ["pV"] = "*intel.*zfinal",
+      ["pV"] = "000000011.*zfinal",
       pathA = {
         ["/vol/local/intel/cc/cc/bin"] = 1,
         ["/vol/local/intel/fc/fc/bin"] = 1,
         ["/vol/local/intel/idb/idb/bin"] = 1,
       },
-      ["wV"] = "*intel.*zfinal",
+      ["wV"] = "000000011.*zfinal",
+    },
+    ["ProjectDIR/rt/spider/mf/E_Core/intel/11.2.lua"]  = {
+      ["Version"] = "11.2",
+      ["family"] = "compiler",
+      ["fullName"] = "intel/11.2",
+      ["help"] = [[
+        Intel Compilers
+        This module loads Intel Compiler variables.
+        { standard TACC variables: ICC_DIR,  ICC_BIN,  ICC_LIB  }
+]],
+      ["hidden"] = false,
+      lpathA = {
+        ["/vol/local/intel/cc/cc/lib"] = 1,
+        ["/vol/local/intel/fc/fc/lib"] = 1,
+        ["/vol/local/intel/idb/idb/lib"] = 1,
+        ["/vol/local/intel/mkl/mkl/lib/lib"] = 1,
+      },
+      ["pV"] = "000000011.000000002.*zfinal",
+      pathA = {
+        ["/vol/local/intel/cc/cc/bin"] = 1,
+        ["/vol/local/intel/fc/fc/bin"] = 1,
+        ["/vol/local/intel/idb/idb/bin"] = 1,
+      },
+      ["wV"] = "000000011.000000002.*zfinal",
     },
   },
   python2 = {
-    ["ProjectDIR/rt/spider/mf/E_Compiler/gcc/4.2.3/python2/2.7.lua"]  = {
+    ["ProjectDIR/rt/spider/mf/E_Compiler/gcc/4.2/python2/2.7.lua"]  = {
       ["Version"] = "2.7",
       ["fullName"] = "python2/2.7",
       ["help"] = [[
@@ -437,13 +507,16 @@ This is the help message for python 2.7
         {
           "gcc/4.2.3",
         },
+        {
+          "gcc/4.2.5",
+        },
       },
       provides = {
         "numpy/1.16.4", "scipy/1.2.2",
       },
       ["wV"] = "000000002.000000007.*zfinal",
     },
-    ["ProjectDIR/rt/spider/mf/E_Compiler/intel/10.1/python2/2.7.lua"]  = {
+    ["ProjectDIR/rt/spider/mf/E_Compiler/intel/11/python2/2.7.lua"]  = {
       ["Version"] = "2.7",
       ["fullName"] = "python2/2.7",
       ["help"] = [[
@@ -453,7 +526,10 @@ This is the help message for python 2.7
       ["pV"] = "000000002.000000007.*zfinal",
       parentAA = {
         {
-          "intel/intel",
+          "intel/11.0",
+        },
+        {
+          "intel/11.2",
         },
       },
       provides = {
