@@ -796,18 +796,19 @@ end
 -- level 1 or level 2 report on particular modules.
 function SpiderCmd(...)
    dbg.start{"SpiderCmd(", concatTbl({...},", "),")"}
-   local cache       = Cache:singleton{buildCache=true}
-   local shell       = _G.Shell
-   local masterTbl   = masterTbl()
-   local spiderT,dbT = cache:build()
-   local spider      = Spider:new()
-   local argA        = pack(...)
+   local cache                  = Cache:singleton{buildCache=true}
+   local shell                  = _G.Shell
+   local masterTbl              = masterTbl()
+   local spiderT,dbT,
+         mpathMapT, providedByT = cache:build()
+   local spider                 = Spider:new()
+   local argA                   = pack(...)
    local s
    local srch
 
 
    if (argA.n < 1) then
-      s = spider:Level0(dbT)
+      s = spider:Level0(dbT, providedByT)
    else
       local a       = {}
       local helpFlg = false

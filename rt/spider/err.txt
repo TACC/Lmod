@@ -39,6 +39,7 @@ The following is a list of the modules currently available:
   mpich2: mpich2/1.0.7
   multi: multi/multi
   noweb: noweb/2.10c
+  numpy: numpy/1.16.4(P)
   openmpi: openmpi/1.2.6
   parmetis: parmetis/3.1, parmetis/4.0.1
     Parallel graph partitioning and fill-reduction matrix ordering routines
@@ -46,7 +47,9 @@ The following is a list of the modules currently available:
   phdf5: phdf5/1.8.2, phdf5/1.8.9, phdf5/1.8.10
   python2: python2/2.7
   r: r/2.1.5
+  scipy: scipy/1.2.2(P)
   unix: unix/unix
+Names marked by a trailing (P) are software packages provided by another module
 To learn more about a package execute:
    $ module spider Foo
 where "Foo" is the name of a module.
@@ -119,6 +122,8 @@ multi/
 multi/multi
 noweb/
 noweb/2.10c
+numpy/
+numpy/1.16.4
 openmpi/
 openmpi/1.2.6
 parmetis/
@@ -135,6 +140,8 @@ python2/
 python2/2.7
 r/
 r/2.1.5
+scipy/
+scipy/1.2.2
 unix/
 unix/unix
 ===========================
@@ -302,6 +309,7 @@ The following is a list of the modules currently available:
   mpich2: mpich2/1.0.7
   multi: multi/multi
   noweb: noweb/2.10c
+  numpy: numpy/1.16.4(P)
   openmpi: openmpi/1.2.6
   parmetis: parmetis/3.1, parmetis/4.0.1
     Parallel graph partitioning and fill-reduction matrix ordering routines
@@ -309,7 +317,9 @@ The following is a list of the modules currently available:
   phdf5: phdf5/1.8.2, phdf5/1.8.9, phdf5/1.8.10
   python2: python2/2.7
   r: r/2.1.5
+  scipy: scipy/1.2.2(P)
   unix: unix/unix
+Names marked by a trailing (P) are software packages provided by another module
 To learn more about a package execute:
    $ module spider Foo
 where "Foo" is the name of a module.
@@ -437,3 +447,37 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider python2/2.7
        numpy/1.16.4, scipy/1.2.2
     Help:
       This is the help message for python 2.7
+===========================
+step 36
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t spider
+===========================
+gcc/
+gcc/4.2.3
+gcc/4.2.5
+intel/
+intel/11.0
+intel/11.2
+numpy/
+numpy/1.16.4
+python2/
+python2/2.7
+python2/2.7.14
+scipy/
+scipy/1.2.2
+===========================
+step 37
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+===========================
+The following is a list of the modules currently available:
+  gcc: gcc/4.2.3, gcc/4.2.5
+  intel: intel/11.0, intel/11.2
+  numpy: numpy/1.16.4(P)
+  python2: python2/2.7, python2/2.7.14
+  scipy: scipy/1.2.2(P)
+Names marked by a trailing (P) are software packages provided by another module
+To learn more about a package execute:
+   $ module spider Foo
+where "Foo" is the name of a module.
+To find detailed information about a particular package you
+must specify the version if there is more than one version:
+   $ module spider Foo/11.1

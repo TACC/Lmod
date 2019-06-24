@@ -177,7 +177,8 @@ Pour chercher le contenu des modules pour des mots clés, exécute z
      Autres candidats possibles : 
         %{b}
 ]==],
-     m_Properties      = "    Propriétés:\n",
+     m_Properties          = "    Propriétés:\n",
+     m_ProvidedBy          = nil,
      m_Regex_Spider        = [==[%{border}  Pour trouver d'autres correspondances à votre recherche, exécutez : 
 
       $ module -r spider '.*%{name}.*'

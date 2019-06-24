@@ -188,6 +188,7 @@ local function new(self, t)
    o.quiet             = t.quiet     or false
 
    o.dbT               = {}
+   o.providedByT       = {}
    o.spiderT           = {}
    o.mpathMapT         = {}
    o.moduleDirA        = {}
@@ -392,10 +393,11 @@ end
 -- @param fast if true then only read cache files, do not build them.
 function M.build(self, fast)
    dbg.start{"Cache:build(fast=", fast,")"}
-   local spiderT   = self.spiderT
-   local dbT       = self.dbT
-   local mpathMapT = self.mpathMapT
-   local spider    = Spider:new()
+   local spiderT     = self.spiderT
+   local dbT         = self.dbT
+   local providedByT = self.providedByT
+   local mpathMapT   = self.mpathMapT
+   local spider      = Spider:new()
 
    -------------------------------------------------------------------
    -- Ctor w/o system or user MODULERC files.  We will update when
@@ -624,6 +626,7 @@ function M.build(self, fast)
    if (next(dbT) == nil or buildSpiderT) then
       local mpathA = mt:modulePathA()
       spider:buildDbT(mpathA, mpathMapT, spiderT, dbT)
+      spider:buildProvideByT(dbT, providedByT)
    end
 
    -- remove user cache file if old
@@ -642,7 +645,7 @@ function M.build(self, fast)
       mrc:update()
    end
    dbg.fini("Cache:build")
-   return spiderT, dbT, mpathMapT
+   return spiderT, dbT, mpathMapT, providedByT
 end
 
 return M

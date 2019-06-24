@@ -190,6 +190,7 @@ To search the contents of modules for matching words execute:
         %{b}
 ]==],
      m_Properties          = "    Properties:\n",
+     m_ProvidedBy          = "Names marked by a trailing (P) are software packages provided by another module\n\n",
      m_Regex_Spider        = [==[%{border}  To find other possible module matches execute:
 
       $ module -r spider '.*%{name}.*'

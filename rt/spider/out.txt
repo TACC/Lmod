@@ -405,6 +405,27 @@ This is the help message for python 2.7
         },
       },
     },
+    python2 = {
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["python2/2.7.14"]  = {
+          ["Version"] = "2.7.14",
+          ["canonical"] = "2.7.14",
+          ["fn"] = "ProjectDIR/rt/spider/mf/E_Core/python2/2.7.14.lua",
+          ["help"] = [[
+This is the help message for python 2.7
+]],
+          ["luaExt"] = 7,
+          ["mpath"] = "ProjectDIR/rt/spider/mf/E_Core",
+          ["pV"] = "000000002.000000007.000000014.*zfinal",
+          provides = {
+            "numpy/1.16.4", "scipy/1.2.2",
+          },
+          ["wV"] = "000000002.000000007.000000014.*zfinal",
+        },
+      },
+    },
   },
   ["version"] = 5,
 }
@@ -505,10 +526,10 @@ This is the help message for python 2.7
       ["pV"] = "000000002.000000007.*zfinal",
       parentAA = {
         {
-          "gcc/4.2.3",
+          "gcc/4.2.5",
         },
         {
-          "gcc/4.2.5",
+          "gcc/4.2.3",
         },
       },
       provides = {
@@ -526,16 +547,89 @@ This is the help message for python 2.7
       ["pV"] = "000000002.000000007.*zfinal",
       parentAA = {
         {
-          "intel/11.0",
+          "intel/11.2",
         },
         {
-          "intel/11.2",
+          "intel/11.0",
         },
       },
       provides = {
         "numpy/1.16.4", "scipy/1.2.2",
       },
       ["wV"] = "000000002.000000007.*zfinal",
+    },
+    ["ProjectDIR/rt/spider/mf/E_Core/python2/2.7.14.lua"]  = {
+      ["Version"] = "2.7.14",
+      ["fullName"] = "python2/2.7.14",
+      ["help"] = [[
+This is the help message for python 2.7
+]],
+      ["hidden"] = false,
+      ["pV"] = "000000002.000000007.000000014.*zfinal",
+      provides = {
+        "numpy/1.16.4", "scipy/1.2.2",
+      },
+      ["wV"] = "000000002.000000007.000000014.*zfinal",
+    },
+  },
+}
+provideByT = {
+  numpy = {
+    ["numpy/1.16.4"]  = {
+      {
+        ["fullName"] = "python2/2.7.14",
+        ["isVisible"] = true,
+        ["pV"] = "000000002.000000007.000000014.*zfinal",
+      },
+      {
+        ["fullName"] = "python2/2.7 (intel/11.2)",
+        ["isVisible"] = true,
+        ["pV"] = "000000002.000000007.*zfinal",
+      },
+      {
+        ["fullName"] = "python2/2.7 (intel/11.0)",
+        ["isVisible"] = true,
+        ["pV"] = "000000002.000000007.*zfinal",
+      },
+      {
+        ["fullName"] = "python2/2.7 (gcc/4.2.5)",
+        ["isVisible"] = true,
+        ["pV"] = "000000002.000000007.*zfinal",
+      },
+      {
+        ["fullName"] = "python2/2.7 (gcc/4.2.3)",
+        ["isVisible"] = true,
+        ["pV"] = "000000002.000000007.*zfinal",
+      },
+    },
+  },
+  scipy = {
+    ["scipy/1.2.2"]  = {
+      {
+        ["fullName"] = "python2/2.7.14",
+        ["isVisible"] = true,
+        ["pV"] = "000000002.000000007.000000014.*zfinal",
+      },
+      {
+        ["fullName"] = "python2/2.7 (intel/11.2)",
+        ["isVisible"] = true,
+        ["pV"] = "000000002.000000007.*zfinal",
+      },
+      {
+        ["fullName"] = "python2/2.7 (intel/11.0)",
+        ["isVisible"] = true,
+        ["pV"] = "000000002.000000007.*zfinal",
+      },
+      {
+        ["fullName"] = "python2/2.7 (gcc/4.2.5)",
+        ["isVisible"] = true,
+        ["pV"] = "000000002.000000007.*zfinal",
+      },
+      {
+        ["fullName"] = "python2/2.7 (gcc/4.2.3)",
+        ["isVisible"] = true,
+        ["pV"] = "000000002.000000007.*zfinal",
+      },
     },
   },
 }
@@ -545,6 +639,22 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider python2/2.7
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/spider/mf/E_Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/spider/mf/E_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/E_Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider/mf/E_Core",}';
+export _ModuleTable_;
+===========================
+step 36
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t spider
+===========================
+MODULEPATH=ProjectDIR/rt/spider/mf/E_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/E_Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider/mf/E_Core",}';
+export _ModuleTable_;
+===========================
+step 37
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+===========================
 MODULEPATH=ProjectDIR/rt/spider/mf/E_Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/E_Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider/mf/E_Core",}';
