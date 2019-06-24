@@ -234,17 +234,18 @@ end
 function Keyword(...)
    dbg.start{"Keyword(",concatTbl({...},","),")"}
 
-   local banner      = Banner:singleton()
-   local border      = banner:border(0)
-   local shell       = _G.Shell
-   local cache       = Cache:singleton{buildCache=true}
-   local moduleT,dbT = cache:build()
-   local spider      = Spider:new()
-   local a           = {}
-   local ia          = 0
-   local masterTbl   = masterTbl()
-   local terse       = masterTbl.terse
-   local kywdT       = spider:searchSpiderDB(pack(...), dbT)
+   local banner                 = Banner:singleton()
+   local border                 = banner:border(0)
+   local shell                  = _G.Shell
+   local cache                  = Cache:singleton{buildCache=true}
+   local moduleT,dbT,
+         mpathMapT, providedByT = cache:build()
+   local spider                 = Spider:new()
+   local a                      = {}
+   local ia                     = 0
+   local masterTbl              = masterTbl()
+   local terse                  = masterTbl.terse
+   local kywdT                  = spider:searchSpiderDB(pack(...), dbT)
 
    if (terse) then
       shell:echo(Spider:Level0_terse(kywdT))
@@ -256,7 +257,7 @@ function Keyword(...)
 
    dbg.printT("kywdT",kywdT)
 
-   spider:Level0Helper(kywdT,a)
+   spider:Level0Helper(kywdT,providedByT,a)
 
    shell:echo(concatTbl(a,""))
 
