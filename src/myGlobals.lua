@@ -292,9 +292,12 @@ cosmic:init{name    = "LMOD_PAGER_OPTS",
 -- LMOD_MODULERCFILE: The system RC file to specify aliases, defaults
 --                    and hidden modules.
 ------------------------------------------------------------------------
-local rc_dflt   = pathJoin(cmdDir(),"../../etc/rc.lua")
+local pkgDir    = getenv("LMOD_PKG") or pathJoin(cmdDir(), "../..")
+local etcDir    = pathJoin(pkgDir,"etc")
+local rc_dflt   = pathJoin(etcDir,"rc.lua")
+
 if (not isFile(rc_dflt)) then
-   rc_dflt   = pathJoin(cmdDir(),"../../etc/rc")
+   rc_dflt   = pathJoin(etcDir,"rc")
 end
 local rc        = getenv("LMOD_MODULERCFILE") or getenv("MODULERCFILE") or rc_dflt
 cosmic:init{name    = "LMOD_MODULERCFILE",
@@ -320,7 +323,7 @@ LMOD_RTM_TESTING = getenv("LMOD_RTM_TESTING")
 ------------------------------------------------------------------------
 -- LMOD_ADMIN_FILE: The Nag file.
 ------------------------------------------------------------------------
-local lmod_nag_default = pathJoin(cmdDir(),"../../etc/admin.list")
+local lmod_nag_default = pathJoin(etcDir,"admin.list")
 local lmod_nag         = getenv("LMOD_ADMIN_FILE") or lmod_nag_default
 cosmic:init{name    = "LMOD_ADMIN_FILE",
             default = lmod_nag_default,
