@@ -812,11 +812,9 @@ function SpiderCmd(...)
       s = spider:Level0(dbT, providedByT)
    else
       local a       = {}
-      local helpFlg = false
-      for i = 1, argA.n-1 do
-         a[#a+1] = spider:spiderSearch(dbT, argA[i], helpFlg)
+      for i = 1, argA.n do
+         a[#a+1] = spider:spiderSearch(dbT, providedByT, argA[i], i == argA.n)
       end
-      a[#a+1] = spider:spiderSearch(dbT, argA[argA.n], true)
       s = concatTbl(a,"")
    end
    if (masterTbl.terse) then

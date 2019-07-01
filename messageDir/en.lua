@@ -170,6 +170,7 @@ Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOS
 Module defaults are chosen based on Find First Rules due to Name/Version/Version modules found in the module tree.
 See https://lmod.readthedocs.io/en/latest/060_locating.html for details.
 ]==],
+     m_ModProvides         = "\n    This module provides:\n",
      m_Module_Msgs         = [==[
 %{border}
 There are messages associated with the following module(s):
@@ -191,6 +192,8 @@ To search the contents of modules for matching words execute:
 ]==],
      m_Properties          = "    Properties:\n",
      m_ProvidedBy          = "Names marked by a trailing (P) are software packages provided by another module\n\n",
+     m_ProvidedFrom        = "    This software package is provided by the following modules. To access the package you must load one. Note that any module names in parentheses show the module location in the software hierarchy\n\n",
+     m_ProvByModules       = "\n   The %{fullName} package is provide by the following modules\n",
      m_Regex_Spider        = [==[%{border}  To find other possible module matches execute:
 
       $ module -r spider '.*%{name}.*'
@@ -201,7 +204,7 @@ To search the contents of modules for matching words execute:
      m_Restore_Coll        = "Restoring modules from %{msg}\n",
      m_Reset_SysDflt       = "Resetting modules to system default. Reseting $MODULEPATH back to system default. All extra directories will be removed from $MODULEPATH.\n",
      m_Save_Coll           = "Saved current collection of modules to: \"%{a}\"%{msgTail}\n",
-     m_Spdr_L1             = [==[%{border}  For detailed information about a specific "%{key}" module (including how to load the modules) use the module's full name.
+     m_Spdr_L1             = [==[%{border}  For detailed information about a specific "%{key}" package (including how to load the modules) use the module's full name. Note that names that have a trailing (P) are software packages provided by other modules.
   For example:
 
      $ module spider %{exampleV}

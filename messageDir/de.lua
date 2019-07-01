@@ -166,6 +166,7 @@ Alternativ können Sie die Umgebungsvariable LMOD_DISABLE_SAME_NAME_AUTOSWAP auf
      m_For_System          = ", für das System: \"%{sname}\"",
      m_Inactive_Modules    = "\nInaktive Module:\n",
      m_IsNVV               = nil,
+     m_ModProvides         = nil,
      m_Module_Msgs         = [==[
 %{border}
 Es gibt Meldungen, die zu den folgenden Modulen gehören:
@@ -187,6 +188,8 @@ Um die Inhalte von Modulen nach Schlüsselwörtern zu durchsuchen, verwenden Sie
 ]==],
      m_Properties          = "    Eigenschaften:\n",
      m_ProvidedBy          = nil,
+     m_ProvidedFrom        = nil,
+     m_ProvByModules       = nil,
      m_Regex_Spider        = [==[%{border}  Um weitere Übereinstimmungen mit Modulen zu finden, verwenden Sie:
   $ module -r spider '.*%{name}.*'
 ]==],

@@ -136,6 +136,8 @@ Además, puede configurar la variable de entorno LMOD_DISABLE_SAME_NAME_AUTOSWAP
      m_Other_possible      = nil,
      m_Properties          = nil,
      m_ProvidedBy          = nil,
+     m_ProvidedFrom        = nil,
+     m_ProvByModules       = nil,
      m_Regex_Spider        = nil,
      m_Reload_Modules      = nil,
      m_Reload_Version_Chng = nil,
