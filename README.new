@@ -9,3 +9,5 @@ Lmod 8.1+
    (8.1.5)  * Issue #410: More fixes for the fish shell
    (8.1.6)  * Issue #412: More fixes for the fish shell
    (8.1.7)  * Issue #413: Support escape in things like PS1 for bash
+   (8.1.8)  * Issue #401: Use LMOD_PKG to determine where the lmod/etc directory is.
+   
