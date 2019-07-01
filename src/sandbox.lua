@@ -168,6 +168,7 @@ local sandbox_env = {
   myShellName          = myShellName,
   myShellType          = myShellType,
   userInGroup          = userInGroup,
+  colorize             = colorize,
 
 
   -- Normal modulefiles should not use these function(s):
