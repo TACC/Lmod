@@ -77,8 +77,13 @@ testdescript = {
      runLmod spider GCC                                                       #31
      runLmod spider gcc                                                       #32
      
-
-
+     unsetMT
+     export MODULEPATH=$testDir/mf/E_Core
+     runBase runSpiderCmd -o spiderT  $MODULEPATH                             #33
+     runBase runSpiderCmd -o dbT      $MODULEPATH                             #34
+     runLmod spider python2/2.7                                               #35
+     runLmod -t spider                                                        #36
+     runLmod spider                                                           #37
 
      HOME=$ORIG_HOME
 

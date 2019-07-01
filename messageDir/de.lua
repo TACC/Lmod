@@ -186,6 +186,7 @@ Um die Inhalte von Modulen nach Schlüsselwörtern zu durchsuchen, verwenden Sie
         %{b}
 ]==],
      m_Properties          = "    Eigenschaften:\n",
+     m_ProvidedBy          = nil,
      m_Regex_Spider        = [==[%{border}  Um weitere Übereinstimmungen mit Modulen zu finden, verwenden Sie:
   $ module -r spider '.*%{name}.*'
 ]==],

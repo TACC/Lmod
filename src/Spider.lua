@@ -60,6 +60,7 @@ local hook         = require("Hook")
 local i18n         = require("i18n")
 local lfs          = require("lfs")
 local access       = posix.access
+local sort         = table.sort
 
 KeyT = {Description=true, Name=true, URL=true, Version=true, Category=true, Keyword=true}
 
@@ -506,7 +507,7 @@ local function l_build_keepT(mpathA, mpathParentT, spiderT)
 end
 
 local dbT_keyA = { 'Description', 'Category', 'URL', 'Version', 'whatis', 'dirA',
-                   'family','pathA', 'lpathA', 'propT','help','pV','wV'}
+                   'family','pathA', 'lpathA', 'propT','help','pV','wV','provides'}
 
 
 function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
@@ -516,12 +517,19 @@ function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
    local parentT      = l_build_parentT(keepT, mpathMapT)
    local mrc          = MRC:singleton()
 
+   local function cmp(a,b)
+      return a[1] > b[1]
+   end
    local function buildDbT_helper(mpath, sn, v, T)
       if (v.file) then
          local t = {}
          for i = 1,#dbT_keyA do
             local key = dbT_keyA[i]
             t[key]    = v.metaModuleT[key]
+         end
+         if (parentT[mpath] and next(parentT[mpath]) ~= nil) then
+            dbg.printT("parentAA",parentT[mpath])
+            sort(parentT[mpath], cmp)
          end
          t.parentAA     = parentT[mpath]
          t.fullName     = sn
@@ -534,6 +542,10 @@ function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
             for i = 1,#dbT_keyA do
                local key = dbT_keyA[i]
                t[key]    = vv[key]
+            end
+            if (parentT[mpath] and next(parentT[mpath]) ~= nil) then
+               dbg.printT("parentAA",parentT[mpath])
+               sort(parentT[mpath], cmp)
             end
             t.parentAA   = parentT[mpath]
             t.fullName   = fullName
@@ -576,7 +588,62 @@ function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
    dbg.fini("Spider:buildDbT")
 end
 
-function M.Level0_terse(self,dbT)
+function M.buildProvideByT(self, dbT, providedByT)
+   dbg.start{"Spider:buildProvideByT(dbT, providedByT)"}
+
+   local mrc = MRC:singleton()
+   for sn, vv in pairs(dbT) do
+      dbg.print{"sn: ",sn,"\n"}
+      for fullPath, v in pairs(vv) do
+         dbg.print{"fullPath: ",fullPath,"\n"}
+         local isVisible = mrc:isVisible({fullName=v.fullName, sn=sn, fn=fullPath})
+         if (v.provides ~= nil) then
+            local providesA = v.provides
+            for i = 1, #providesA do
+               local fullName = providesA[i]
+               dbg.print{"fullName: ",fullName,"\n"}
+               local _,_, sn  = fullName:find("^([^/]*)")
+               local T        = providedByT[sn] or {}
+               local A        = T[fullName] or {}
+               local parentAA = v.parentAA
+               if (parentAA == nil) then
+                  A[#A+1] = {fullName = v.fullName, pV = v.pV, isVisible = isVisible}
+               else
+                  for j = 1,#parentAA do
+                     local hierStr = concatTbl(parentAA[j]," ")
+                     A[#A+1] = {fullName = v.fullName .. " (" .. hierStr .. ")", pV = v.pV, isVisible = isVisible}
+                  end
+               end
+               T[fullName]     = A
+               providedByT[sn] = T
+            end
+         end
+      end
+   end
+
+   local function cmp(a, b)
+      if (a.pV > b.pV) then
+         return true
+      elseif (a.pV == b.pV) then
+         return a.fullName > b.fullName
+      else
+         return false
+      end
+   end
+      
+   for sn, vv in pairs(providedByT) do
+      for fullName, v in pairs(vv) do
+         sort(v, cmp)
+      end
+   end
+   
+   dbg.fini("Spider:buildProvideByT")
+
+
+end
+
+
+function M.Level0_terse(self,dbT, providedByT)
    dbg.start{"Spider:Level0_terse()"}
    local mrc         = MRC:singleton()
    local show_hidden = masterTbl().show_hidden
@@ -597,6 +664,14 @@ function M.Level0_terse(self,dbT)
          end
       end
    end
+
+   for sn, vv in pairs(providedByT) do
+      t[sn] = t[sn] or sn .. "/"
+      for fullName, A in pairs(vv) do
+         t[fullName] = t[fullName] or fullName
+      end
+   end
+
    for k,v in pairsByKeys(t) do
       a[#a+1] = v
    end
@@ -604,14 +679,11 @@ function M.Level0_terse(self,dbT)
    return concatTbl(a,"\n")
 end
 
-function M.Level0(self, dbT)
-   local a           = {}
-   local masterTbl   = masterTbl()
-   local terse       = masterTbl.terse
+function M.Level0(self, dbT, providedByT)
+   local a = {}
 
-
-   if (terse) then
-      return self:Level0_terse(dbT)
+   if (masterTbl().terse) then
+      return self:Level0_terse(dbT, providedByT)
    end
 
    local ia     = 0
@@ -624,7 +696,7 @@ function M.Level0(self, dbT)
    ia = ia+1; a[ia] = i18n("m_Spider_Title", {})
    ia = ia+1; a[ia] = border
 
-   self:Level0Helper(dbT,a)
+   self:Level0Helper(dbT, providedByT, a)
 
    return concatTbl(a,"")
 end
@@ -644,7 +716,7 @@ local function l_case_independent_cmp_by_name(a,b)
    end
 end
 
-function M.Level0Helper(self, dbT, a)
+function M.Level0Helper(self, dbT, providedByT, a)
    local t           = {}
    local show_hidden = masterTbl().show_hidden
    local term_width  = TermWidth() - 4
@@ -659,6 +731,30 @@ function M.Level0Helper(self, dbT, a)
                t[sn] = { Description = v.Description, versionA = { }, name = sn}
             end
             t[sn].versionA[v.pV] = v.fullName
+         end
+      end
+   end
+
+   local have_providedBy = false
+   for sn, vv in pairs(providedByT) do
+      for fullName, A in pairs(vv) do
+         local isVisible = show_hidden
+         if (not show_hidden) then
+            for i = 1, #A do
+               if (A[i].isVisible) then
+                  isVisible = true
+                  break
+               end
+            end
+         end
+         if (isVisible) then
+            have_providedBy = true
+            local version = extractVersion(fullName,sn)
+            local pV      = parseVersion(version)
+            if ( t[sn] == nil) then
+               t[sn] = {versionA = { }, name = sn}
+            end
+            t[sn].versionA[pV] = fullName .. "(P)"
          end
       end
    end
@@ -687,6 +783,11 @@ function M.Level0Helper(self, dbT, a)
       end
       ia = ia + 1; a[ia] = "\n"
    end
+   if (have_providedBy) then
+      ia = ia + 1
+      a[ia] = i18n("m_ProvidedBy")
+   end
+
    local border = banner:border(0)
    ia = ia+1; a[ia] = i18n("m_Spider_Tail", {border=border})
 end
@@ -1050,6 +1151,12 @@ function M._Level2(self, sn, entryA, possibleA)
       table.sort(c)
       c[#c+1] = " "
       ia = ia + 1; a[ia] = concatTbl(c,"\n")
+   end
+
+   if (entryT and entryT.provides ~= nil) then
+      ia = ia + 1; a[ia] = "\n    This module provides:\n"
+      ia = ia + 1; a[ia] = "\n       " .. concatTbl(entryT.provides,", ")
+      ia = ia + 1; a[ia] = "\n"
    end
 
    if (entryT and entryT.help ~= nil) then

@@ -88,6 +88,13 @@ function M.help(self, ...)
 end
 
 --------------------------------------------------------------------------
+-- Print module_provides command.
+-- @param self A MasterControl object
+function M.module_provides(self, ...)
+   ShowCmd("module_provides",...)
+end
+
+--------------------------------------------------------------------------
 -- Print whatis command.
 -- @param self A MasterControl object
 -- @param value the whatis string.

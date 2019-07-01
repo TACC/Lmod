@@ -58,6 +58,7 @@ M.inherit              = MasterControl.quiet
 M.load                 = MasterControl.load
 M.load_usr             = MasterControl.load_usr
 M.message              = MasterControl.quiet
+M.module_provides      = MasterControl.quiet
 M.msg_raw              = MasterControl.quiet
 M.mgrload              = MasterControl.mgrload
 M.myFileName           = MasterControl.myFileName

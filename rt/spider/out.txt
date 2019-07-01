@@ -254,3 +254,408 @@ MODULEPATH=ProjectDIR/rt/spider/mf/D;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/D",},["systemBaseMPATH"]="ProjectDIR/rt/spider/mf/D",}';
 export _ModuleTable_;
+===========================
+step 33
+runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/E_Core
+===========================
+timestampFn = {
+  false,
+}
+mrcT = {
+  alias2modT = {
+    ["intelcompiler"] = "intel",
+  },
+  hiddenT = {
+    ["gcc/4.8"] = true,
+  },
+  version2modT = {
+    ["intel/17"] = "intel/2017.1.132",
+    ["intel/2017"] = "intel/2017.1.132",
+  },
+}
+spiderT = {
+  ["ProjectDIR/rt/spider/mf/E_Compiler/gcc/4.2"]  = {
+    python2 = {
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["python2/2.7"]  = {
+          ["Version"] = "2.7",
+          ["canonical"] = "2.7",
+          ["fn"] = "ProjectDIR/rt/spider/mf/E_Compiler/gcc/4.2/python2/2.7.lua",
+          ["help"] = [[
+This is the help message for python 2.7
+]],
+          ["luaExt"] = 4,
+          ["mpath"] = "ProjectDIR/rt/spider/mf/E_Compiler/gcc/4.2",
+          ["pV"] = "000000002.000000007.*zfinal",
+          provides = {
+            "numpy/1.16.4", "scipy/1.2.2",
+          },
+          ["wV"] = "000000002.000000007.*zfinal",
+        },
+      },
+    },
+  },
+  ["ProjectDIR/rt/spider/mf/E_Compiler/intel/11"]  = {
+    python2 = {
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["python2/2.7"]  = {
+          ["Version"] = "2.7",
+          ["canonical"] = "2.7",
+          ["fn"] = "ProjectDIR/rt/spider/mf/E_Compiler/intel/11/python2/2.7.lua",
+          ["help"] = [[
+This is the help message for python 2.7
+]],
+          ["luaExt"] = 4,
+          ["mpath"] = "ProjectDIR/rt/spider/mf/E_Compiler/intel/11",
+          ["pV"] = "000000002.000000007.*zfinal",
+          provides = {
+            "numpy/1.16.4", "scipy/1.2.2",
+          },
+          ["wV"] = "000000002.000000007.*zfinal",
+        },
+      },
+    },
+  },
+  ["ProjectDIR/rt/spider/mf/E_Core"]  = {
+    gcc = {
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["gcc/4.2.3"]  = {
+          ["Version"] = "4.2.3",
+          ["canonical"] = "4.2.3",
+          ["family"] = "compiler",
+          ["fn"] = "ProjectDIR/rt/spider/mf/E_Core/gcc/4.2.3.lua",
+          ["luaExt"] = 6,
+          ["mpath"] = "ProjectDIR/rt/spider/mf/E_Core",
+          ["pV"] = "000000004.000000002.000000003.*zfinal",
+          ["wV"] = "000000004.000000002.000000003.*zfinal",
+        },
+        ["gcc/4.2.5"]  = {
+          ["Version"] = "4.2.5",
+          ["canonical"] = "4.2.5",
+          ["family"] = "compiler",
+          ["fn"] = "ProjectDIR/rt/spider/mf/E_Core/gcc/4.2.5.lua",
+          ["luaExt"] = 6,
+          ["mpath"] = "ProjectDIR/rt/spider/mf/E_Core",
+          ["pV"] = "000000004.000000002.000000005.*zfinal",
+          ["wV"] = "000000004.000000002.000000005.*zfinal",
+        },
+      },
+    },
+    intel = {
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["intel/11.0"]  = {
+          ["Version"] = "11.0",
+          ["canonical"] = "11.0",
+          ["family"] = "compiler",
+          ["fn"] = "ProjectDIR/rt/spider/mf/E_Core/intel/11.0.lua",
+          ["help"] = [[
+        Intel Compilers
+        This module loads Intel Compiler variables.
+        { standard TACC variables: ICC_DIR,  ICC_BIN,  ICC_LIB  }
+]],
+          lpathA = {
+            ["/vol/local/intel/cc/cc/lib"] = 1,
+            ["/vol/local/intel/fc/fc/lib"] = 1,
+            ["/vol/local/intel/idb/idb/lib"] = 1,
+            ["/vol/local/intel/mkl/mkl/lib/lib"] = 1,
+          },
+          ["luaExt"] = 5,
+          ["mpath"] = "ProjectDIR/rt/spider/mf/E_Core",
+          ["pV"] = "000000011.*zfinal",
+          pathA = {
+            ["/vol/local/intel/cc/cc/bin"] = 1,
+            ["/vol/local/intel/fc/fc/bin"] = 1,
+            ["/vol/local/intel/idb/idb/bin"] = 1,
+          },
+          ["wV"] = "000000011.*zfinal",
+        },
+        ["intel/11.2"]  = {
+          ["Version"] = "11.2",
+          ["canonical"] = "11.2",
+          ["family"] = "compiler",
+          ["fn"] = "ProjectDIR/rt/spider/mf/E_Core/intel/11.2.lua",
+          ["help"] = [[
+        Intel Compilers
+        This module loads Intel Compiler variables.
+        { standard TACC variables: ICC_DIR,  ICC_BIN,  ICC_LIB  }
+]],
+          lpathA = {
+            ["/vol/local/intel/cc/cc/lib"] = 1,
+            ["/vol/local/intel/fc/fc/lib"] = 1,
+            ["/vol/local/intel/idb/idb/lib"] = 1,
+            ["/vol/local/intel/mkl/mkl/lib/lib"] = 1,
+          },
+          ["luaExt"] = 5,
+          ["mpath"] = "ProjectDIR/rt/spider/mf/E_Core",
+          ["pV"] = "000000011.000000002.*zfinal",
+          pathA = {
+            ["/vol/local/intel/cc/cc/bin"] = 1,
+            ["/vol/local/intel/fc/fc/bin"] = 1,
+            ["/vol/local/intel/idb/idb/bin"] = 1,
+          },
+          ["wV"] = "000000011.000000002.*zfinal",
+        },
+      },
+    },
+    python2 = {
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["python2/2.7.14"]  = {
+          ["Version"] = "2.7.14",
+          ["canonical"] = "2.7.14",
+          ["fn"] = "ProjectDIR/rt/spider/mf/E_Core/python2/2.7.14.lua",
+          ["help"] = [[
+This is the help message for python 2.7
+]],
+          ["luaExt"] = 7,
+          ["mpath"] = "ProjectDIR/rt/spider/mf/E_Core",
+          ["pV"] = "000000002.000000007.000000014.*zfinal",
+          provides = {
+            "numpy/1.16.4", "scipy/1.2.2",
+          },
+          ["wV"] = "000000002.000000007.000000014.*zfinal",
+        },
+      },
+    },
+  },
+  ["version"] = 5,
+}
+mpathMapT = {
+  ["ProjectDIR/rt/spider/mf/E_Compiler/gcc/4.2"]  = {
+    ["gcc/4.2.3"] = "ProjectDIR/rt/spider/mf/E_Core",
+    ["gcc/4.2.5"] = "ProjectDIR/rt/spider/mf/E_Core",
+  },
+  ["ProjectDIR/rt/spider/mf/E_Compiler/intel/11"]  = {
+    ["intel/11.0"] = "ProjectDIR/rt/spider/mf/E_Core",
+    ["intel/11.2"] = "ProjectDIR/rt/spider/mf/E_Core",
+  },
+}
+===========================
+step 34
+runSpiderCmd -o dbT ProjectDIR/rt/spider/mf/E_Core
+===========================
+timestampFn = {
+  false,
+}
+dbT = {
+  gcc = {
+    ["ProjectDIR/rt/spider/mf/E_Core/gcc/4.2.3.lua"]  = {
+      ["Version"] = "4.2.3",
+      ["family"] = "compiler",
+      ["fullName"] = "gcc/4.2.3",
+      ["hidden"] = false,
+      ["pV"] = "000000004.000000002.000000003.*zfinal",
+      ["wV"] = "000000004.000000002.000000003.*zfinal",
+    },
+    ["ProjectDIR/rt/spider/mf/E_Core/gcc/4.2.5.lua"]  = {
+      ["Version"] = "4.2.5",
+      ["family"] = "compiler",
+      ["fullName"] = "gcc/4.2.5",
+      ["hidden"] = false,
+      ["pV"] = "000000004.000000002.000000005.*zfinal",
+      ["wV"] = "000000004.000000002.000000005.*zfinal",
+    },
+  },
+  intel = {
+    ["ProjectDIR/rt/spider/mf/E_Core/intel/11.0.lua"]  = {
+      ["Version"] = "11.0",
+      ["family"] = "compiler",
+      ["fullName"] = "intel/11.0",
+      ["help"] = [[
+        Intel Compilers
+        This module loads Intel Compiler variables.
+        { standard TACC variables: ICC_DIR,  ICC_BIN,  ICC_LIB  }
+]],
+      ["hidden"] = false,
+      lpathA = {
+        ["/vol/local/intel/cc/cc/lib"] = 1,
+        ["/vol/local/intel/fc/fc/lib"] = 1,
+        ["/vol/local/intel/idb/idb/lib"] = 1,
+        ["/vol/local/intel/mkl/mkl/lib/lib"] = 1,
+      },
+      ["pV"] = "000000011.*zfinal",
+      pathA = {
+        ["/vol/local/intel/cc/cc/bin"] = 1,
+        ["/vol/local/intel/fc/fc/bin"] = 1,
+        ["/vol/local/intel/idb/idb/bin"] = 1,
+      },
+      ["wV"] = "000000011.*zfinal",
+    },
+    ["ProjectDIR/rt/spider/mf/E_Core/intel/11.2.lua"]  = {
+      ["Version"] = "11.2",
+      ["family"] = "compiler",
+      ["fullName"] = "intel/11.2",
+      ["help"] = [[
+        Intel Compilers
+        This module loads Intel Compiler variables.
+        { standard TACC variables: ICC_DIR,  ICC_BIN,  ICC_LIB  }
+]],
+      ["hidden"] = false,
+      lpathA = {
+        ["/vol/local/intel/cc/cc/lib"] = 1,
+        ["/vol/local/intel/fc/fc/lib"] = 1,
+        ["/vol/local/intel/idb/idb/lib"] = 1,
+        ["/vol/local/intel/mkl/mkl/lib/lib"] = 1,
+      },
+      ["pV"] = "000000011.000000002.*zfinal",
+      pathA = {
+        ["/vol/local/intel/cc/cc/bin"] = 1,
+        ["/vol/local/intel/fc/fc/bin"] = 1,
+        ["/vol/local/intel/idb/idb/bin"] = 1,
+      },
+      ["wV"] = "000000011.000000002.*zfinal",
+    },
+  },
+  python2 = {
+    ["ProjectDIR/rt/spider/mf/E_Compiler/gcc/4.2/python2/2.7.lua"]  = {
+      ["Version"] = "2.7",
+      ["fullName"] = "python2/2.7",
+      ["help"] = [[
+This is the help message for python 2.7
+]],
+      ["hidden"] = false,
+      ["pV"] = "000000002.000000007.*zfinal",
+      parentAA = {
+        {
+          "gcc/4.2.5",
+        },
+        {
+          "gcc/4.2.3",
+        },
+      },
+      provides = {
+        "numpy/1.16.4", "scipy/1.2.2",
+      },
+      ["wV"] = "000000002.000000007.*zfinal",
+    },
+    ["ProjectDIR/rt/spider/mf/E_Compiler/intel/11/python2/2.7.lua"]  = {
+      ["Version"] = "2.7",
+      ["fullName"] = "python2/2.7",
+      ["help"] = [[
+This is the help message for python 2.7
+]],
+      ["hidden"] = false,
+      ["pV"] = "000000002.000000007.*zfinal",
+      parentAA = {
+        {
+          "intel/11.2",
+        },
+        {
+          "intel/11.0",
+        },
+      },
+      provides = {
+        "numpy/1.16.4", "scipy/1.2.2",
+      },
+      ["wV"] = "000000002.000000007.*zfinal",
+    },
+    ["ProjectDIR/rt/spider/mf/E_Core/python2/2.7.14.lua"]  = {
+      ["Version"] = "2.7.14",
+      ["fullName"] = "python2/2.7.14",
+      ["help"] = [[
+This is the help message for python 2.7
+]],
+      ["hidden"] = false,
+      ["pV"] = "000000002.000000007.000000014.*zfinal",
+      provides = {
+        "numpy/1.16.4", "scipy/1.2.2",
+      },
+      ["wV"] = "000000002.000000007.000000014.*zfinal",
+    },
+  },
+}
+provideByT = {
+  numpy = {
+    ["numpy/1.16.4"]  = {
+      {
+        ["fullName"] = "python2/2.7.14",
+        ["isVisible"] = true,
+        ["pV"] = "000000002.000000007.000000014.*zfinal",
+      },
+      {
+        ["fullName"] = "python2/2.7 (intel/11.2)",
+        ["isVisible"] = true,
+        ["pV"] = "000000002.000000007.*zfinal",
+      },
+      {
+        ["fullName"] = "python2/2.7 (intel/11.0)",
+        ["isVisible"] = true,
+        ["pV"] = "000000002.000000007.*zfinal",
+      },
+      {
+        ["fullName"] = "python2/2.7 (gcc/4.2.5)",
+        ["isVisible"] = true,
+        ["pV"] = "000000002.000000007.*zfinal",
+      },
+      {
+        ["fullName"] = "python2/2.7 (gcc/4.2.3)",
+        ["isVisible"] = true,
+        ["pV"] = "000000002.000000007.*zfinal",
+      },
+    },
+  },
+  scipy = {
+    ["scipy/1.2.2"]  = {
+      {
+        ["fullName"] = "python2/2.7.14",
+        ["isVisible"] = true,
+        ["pV"] = "000000002.000000007.000000014.*zfinal",
+      },
+      {
+        ["fullName"] = "python2/2.7 (intel/11.2)",
+        ["isVisible"] = true,
+        ["pV"] = "000000002.000000007.*zfinal",
+      },
+      {
+        ["fullName"] = "python2/2.7 (intel/11.0)",
+        ["isVisible"] = true,
+        ["pV"] = "000000002.000000007.*zfinal",
+      },
+      {
+        ["fullName"] = "python2/2.7 (gcc/4.2.5)",
+        ["isVisible"] = true,
+        ["pV"] = "000000002.000000007.*zfinal",
+      },
+      {
+        ["fullName"] = "python2/2.7 (gcc/4.2.3)",
+        ["isVisible"] = true,
+        ["pV"] = "000000002.000000007.*zfinal",
+      },
+    },
+  },
+}
+===========================
+step 35
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider python2/2.7
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/spider/mf/E_Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/spider/mf/E_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/E_Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider/mf/E_Core",}';
+export _ModuleTable_;
+===========================
+step 36
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t spider
+===========================
+MODULEPATH=ProjectDIR/rt/spider/mf/E_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/E_Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider/mf/E_Core",}';
+export _ModuleTable_;
+===========================
+step 37
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+===========================
+MODULEPATH=ProjectDIR/rt/spider/mf/E_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/E_Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider/mf/E_Core",}';
+export _ModuleTable_;

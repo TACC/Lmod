@@ -773,6 +773,15 @@ function depends_on(...)
    dbg.fini("depends_on")
 end
    
+function module_provides(...)
+   dbg.start{"module_provides(",concatTbl({...},", "),")"}
+   if (not validateStringArgs("module_provides",...)) then return {} end
+
+   local b = mcp:module_provides(...)
+   dbg.fini("module_provides")
+end
+
+
 --- subprocess function ---
 
 function subprocess(cmd)

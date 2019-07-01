@@ -257,6 +257,7 @@ And even more help
     },
   },
 }
+provideByT = {}
 ===========================
 step 5
 runSpiderCmd -o softwarePageLua ProjectDIR/rt/softwarePage/mf

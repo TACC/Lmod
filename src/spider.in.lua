@@ -214,8 +214,8 @@ end
 -- @param moduleT
 -- @param timestampFn
 -- @param dbT
-local function rptList(mpathMapT, spiderT, timestampFn, dbT)
-   dbg.start{"rptList(mpathMapT, spiderT, timestampFn, dbT)"}
+local function rptList(mpathMapT, spiderT, timestampFn, dbT, providedByT)
+   dbg.start{"rptList(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
    local spider = Spider:new()
    local tbl    = spider:listModules(dbT)
    for k in pairsByKeys(tbl) do
@@ -224,8 +224,8 @@ local function rptList(mpathMapT, spiderT, timestampFn, dbT)
    dbg.fini("rptList")
 end
 
-local function rptSpiderT(mpathMapT, spiderT, timestampFn, dbT)
-   dbg.start{ "rptSpiderT(mpathMapT, spiderT, timestampFn, dbT)"}
+local function rptSpiderT(mpathMapT, spiderT, timestampFn, dbT, providedByT)
+   dbg.start{ "rptSpiderT(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
    local mrc = MRC:singleton() 
    local ts  = { timestampFn }
    local s1  = serializeTbl{name="timestampFn",   value=ts,         indent=true}
@@ -313,8 +313,8 @@ end
 
 
 
-local function rptReverseMapT(mpathMapT, spiderT, timestampFn, dbT)
-   dbg.start{ "rptReverseMapT(mpathMapT, spiderT, timestampFn, dbT)"}
+local function rptReverseMapT(mpathMapT, spiderT, timestampFn, dbT, providedByT)
+   dbg.start{ "rptReverseMapT(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
    local ts          = { timestampFn }
    local reverseMapT = buildReverseMapT(dbT)
    local libA        = buildLibMapA(reverseMapT)
@@ -328,8 +328,8 @@ local function rptReverseMapT(mpathMapT, spiderT, timestampFn, dbT)
    dbg.fini("rptReverseMapT")
 end
 
-local function rptReverseMapTJson(mpathMapT, spiderT, timestampFn, dbT)
-   dbg.start{ "rptReverseMapTJson(mpathMapT, spiderT, timestampFn, dbT)"}
+local function rptReverseMapTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)
+   dbg.start{ "rptReverseMapTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
    local json        = require("json")
    local reverseMapT = buildReverseMapT(dbT)
    local libA        = buildLibMapA(reverseMapT)
@@ -340,8 +340,8 @@ local function rptReverseMapTJson(mpathMapT, spiderT, timestampFn, dbT)
    dbg.fini("rptReverseMapTJson")
 end
 
-local function rptXALTRmapTJson(mpathMapT, spiderT, timestampFn, dbT)
-   dbg.start{ "rptXALTRmapTJson(mpathMapT, spiderT, timestampFn, dbT)"}
+local function rptXALTRmapTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)
+   dbg.start{ "rptXALTRmapTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
    local json        = require("json")
    local reverseMapT = buildReverseMapT(dbT)
    local libA        = buildLibMapA(reverseMapT)
@@ -352,40 +352,41 @@ local function rptXALTRmapTJson(mpathMapT, spiderT, timestampFn, dbT)
    dbg.fini("rptXALTRmapTJson")
 end
 
-local function rptSoftwarePageJson(mpathMapT, spiderT, timestampFn, dbT)
-   dbg.start{ "rptSoftwarePageJson(mpathMapT, spiderT, timestampFn, dbT)"}
+local function rptSoftwarePageJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)
+   dbg.start{ "rptSoftwarePageJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
    local json = require("json")
    local spA  = softwarePage(dbT)
    print(json.encode(spA))
    dbg.fini("rptSoftwarePageJson")
 end
 
-local function rptSoftwarePageLua(mpathMapT, spiderT, timestampFn, dbT)
-   dbg.start{ "rptSoftwarePageLua(mpathMapT, spiderT, timestampFn, dbT)"}
+local function rptSoftwarePageLua(mpathMapT, spiderT, timestampFn, dbT, providedByT)
+   dbg.start{ "rptSoftwarePageLua(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
    local spA = softwarePage(dbT)
    local s   = serializeTbl{name="spA",      value=spA,   indent=true}
    print(s)
    dbg.fini("rptSoftwarePageLua")
 end
 
-local function rptSoftwarePageXml(mpathMapT, spiderT, timestampFn, dbT)
-   dbg.start{ "rptSoftwarePageXml(mpathMapT, spiderT, timestampFn, dbT)"}
+local function rptSoftwarePageXml(mpathMapT, spiderT, timestampFn, dbT, providedByT)
+   dbg.start{ "rptSoftwarePageXml(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
    local xmlStr = xmlSoftwarePage(dbT)
    print(xmlStr)
    dbg.fini("rptSoftwarePageXml")
 end
 
-local function rptDbT(mpathMapT, spiderT, timestampFn, dbT)
-   dbg.start{ "rptDbT(mpathMapT, spiderT, timestampFn, dbT)"}
+local function rptDbT(mpathMapT, spiderT, timestampFn, dbT, providedByT)
+   dbg.start{ "rptDbT(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
    local ts = { timestampFn }
-   local s1 = serializeTbl{name="timestampFn",  value=ts,  indent=true}
-   local s2 = serializeTbl{name="dbT",          value=dbT, indent=true}
-   io.stdout:write(s1,s2,"\n")
+   local s1 = serializeTbl{name="timestampFn",  value=ts,          indent=true}
+   local s2 = serializeTbl{name="dbT",          value=dbT,         indent=true}
+   local s3 = serializeTbl{name="provideByT",   value=providedByT, indent=true}
+   io.stdout:write(s1,s2,s3,"\n")
    dbg.fini("rptDbT")
 end
 
-local function rptDbTJson(mpathMapT, spiderT, timestampFn, dbT)
-   dbg.start{ "rptDbTJson(mpathMapT, spiderT, timestampFn, dbT)"}
+local function rptDbTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)
+   dbg.start{ "rptDbTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
    local json = require("json")
    print(json.encode(dbT))
    dbg.fini("rptDbTJson")
@@ -465,7 +466,8 @@ function main()
    local cache                   = Cache:singleton{dontWrite = true, quiet = true, buildCache = true,
                                                    buildFresh = true, noMRC=true}
    local spider                  = Spider:new()
-   local spiderT, dbT, mpathMapT = cache:build()
+   local spiderT, dbT,
+         mpathMapT, providedByT  = cache:build()
 
 
    if (dbg.active()) then
@@ -498,7 +500,7 @@ function main()
    -- grap function and run with it.
    local func = interpT[masterTbl.outputStyle]
    if (func) then
-      func(mpathMapT, spiderT, masterTbl.timestampFn, dbT)
+      func(mpathMapT, spiderT, masterTbl.timestampFn, dbT, providedByT)
    end
    dbg.fini()
 end
@@ -531,6 +533,7 @@ function convertEntry(name, vv, spA)
       hidden      = "hidden",
       family      = "family",
       propT       = "properties",
+      provides    = "provides",
    }
 
 

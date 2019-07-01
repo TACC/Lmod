@@ -108,6 +108,7 @@ return {
      m_Other_matches       = nil,
      m_Other_possible      = nil,
      m_Properties          = nil,
+     m_ProvidedBy          = nil,
      m_Regex_Spider        = nil,
      m_Reload_Modules      = nil,
      m_Reload_Version_Chng = nil,

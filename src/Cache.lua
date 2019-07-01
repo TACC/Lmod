@@ -188,6 +188,7 @@ local function new(self, t)
    o.quiet             = t.quiet     or false
 
    o.dbT               = {}
+   o.providedByT       = {}
    o.spiderT           = {}
    o.mpathMapT         = {}
    o.moduleDirA        = {}
@@ -392,15 +393,16 @@ end
 -- @param fast if true then only read cache files, do not build them.
 function M.build(self, fast)
    dbg.start{"Cache:build(fast=", fast,")"}
-   local spiderT   = self.spiderT
-   local dbT       = self.dbT
-   local mpathMapT = self.mpathMapT
-   local spider    = Spider:new()
+   local spiderT     = self.spiderT
+   local dbT         = self.dbT
+   local providedByT = self.providedByT
+   local mpathMapT   = self.mpathMapT
+   local spider      = Spider:new()
 
    -------------------------------------------------------------------
    -- Ctor w/o system or user MODULERC files.  We will update when
    -- we need to.
-   local mrc       = MRC:singleton({})  
+   local mrc       = MRC:singleton({})
 
 
    dbg.print{"self.buildCache: ",self.buildCache,"\n"}
@@ -571,14 +573,14 @@ function M.build(self, fast)
             local s4 = serializeTbl{name="mpathMapT",    value=mpathMapT,   indent=true}
             f:write(s0,s1,s2,s3,s4)
             f:close()
-            local ok, message = os.rename(userSpiderTFN_new, userSpiderTFN)
+            ok, msg = os.rename(userSpiderTFN_new, userSpiderTFN)
             if (not ok) then
-               LmodError{msg="e_Unable_2_rename",from=userSpiderTFN_new,to=userSpiderTFN, errMsg=message}
+               LmodError{msg="e_Unable_2_rename",from=userSpiderTFN_new,to=userSpiderTFN, errMsg=msg}
             end
             posix.unlink(userSpiderTFN .. "~")
             dbg.print{"Wrote: ",userSpiderTFN,"\n"}
          end
-         
+
          if (LUAC_PATH ~= "") then
             if (LUAC_PATH:sub(1,1) == "@") then
                LUAC_PATH="luac"
@@ -624,6 +626,7 @@ function M.build(self, fast)
    if (next(dbT) == nil or buildSpiderT) then
       local mpathA = mt:modulePathA()
       spider:buildDbT(mpathA, mpathMapT, spiderT, dbT)
+      spider:buildProvideByT(dbT, providedByT)
    end
 
    -- remove user cache file if old
@@ -642,7 +645,7 @@ function M.build(self, fast)
       mrc:update()
    end
    dbg.fini("Cache:build")
-   return spiderT, dbT, mpathMapT
+   return spiderT, dbT, mpathMapT, providedByT
 end
 
 return M
