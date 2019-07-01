@@ -292,9 +292,9 @@ cosmic:init{name    = "LMOD_PAGER_OPTS",
 -- LMOD_MODULERCFILE: The system RC file to specify aliases, defaults
 --                    and hidden modules.
 ------------------------------------------------------------------------
-local pkgDir    = getenv("LMOD_PKG") or pathJoin(cmdDir(), "../..")
-local etcDir    = pathJoin(pkgDir,"etc")
-local rc_dflt   = pathJoin(etcDir,"rc.lua")
+local pkgRootDir = getenv("LMOD_ROOT") or pathJoin(cmdDir(), "../..")
+local etcDir     = pathJoin(pkgRootDir,"etc")
+local rc_dflt    = pathJoin(etcDir,"rc.lua")
 
 if (not isFile(rc_dflt)) then
    rc_dflt   = pathJoin(etcDir,"rc")

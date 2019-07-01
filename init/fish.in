@@ -1,6 +1,7 @@
-set -gx LMOD_PKG @PKG@
-set -gx LMOD_DIR @PKG@/libexec
-set -gx LMOD_CMD @PKG@/libexec/lmod
+set -gx LMOD_ROOT @lmod_root@
+set -gx LMOD_PKG  @PKG@
+set -gx LMOD_DIR  @PKG@/libexec
+set -gx LMOD_CMD  @PKG@/libexec/lmod
 
 set -gx MODULESHOME @PKG@
 

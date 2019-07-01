@@ -1,5 +1,6 @@
 #!/bin/bash
 
+LMOD_ROOT="@lmod_root@"
 LMOD_PKG="@PKG@"
 LMOD_DIR="@PKG@/libexec/"
 LMOD_CMD="@PKG@/libexec/lmod"

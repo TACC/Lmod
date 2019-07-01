@@ -1,4 +1,5 @@
 #!/bin/csh
+setenv LMOD_ROOT                 "@lmod_root@"
 setenv LMOD_PKG                  "@PKGV@"
 setenv LMOD_CMD                  "$LMOD_PKG/libexec/lmod"
 setenv LMOD_DIR                  "$LMOD_PKG/libexec"

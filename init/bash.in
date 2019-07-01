@@ -15,6 +15,7 @@ fi
 
 [ -n "${__lmod_vx:-}" ] && set +$__lmod_vx 
 
+export LMOD_ROOT=@lmod_root@
 export LMOD_PKG=@PKGV@
 
 if [ -n "${__lmod_vx:-}" ]; then

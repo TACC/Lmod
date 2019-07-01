@@ -7,10 +7,12 @@ endif
 PATH_TO_LUA	  	  := @PATH_TO_LUA@
 version		  	  := $(shell LUA_PATH="$(srcdir)/src/?.lua;" $(PATH_TO_LUA)/lua -e "V=require('Version'); print(V.tag())")
 SITE_CONTROLLED_PREFIX    := @SITE_CONTROLLED_PREFIX@
+LMOD_ROOT                 := $(prefix)/$(package)
 MY_PACKAGE                := $(prefix)/$(package)/$(version)
 MY_PKG_PACKAGE            := $(prefix)/$(package)/$(package)
 
 ifneq ($(SITE_CONTROLLED_PREFIX),no)
+  LMOD_ROOT               := $(prefix)/..
   MY_PACKAGE              := $(prefix)
   MY_PKG_PACKAGE          := $(prefix)
 endif
@@ -265,6 +267,7 @@ __installMe:
 	        -e 's|@cacheDirs@|$(SPIDER_CACHE_DIRS)|g'             	   	  \
 	        -e 's|@updateSystemFn@|$(UPDATE_SYSTEM_FN)|g'         	   	  \
 	        -e 's|@modulepath_root@|$(MODULEPATH_ROOT)|g'         	   	  \
+                -e 's|@lmod_root@|$(LMOD_ROOT)|g'                             	  \
                 -e 's|@PKGV@|$(PKGV)|g'                                    	  \
                 -e 's|@PKG@|$(PKG)|g'         < $$i > $(DIRLOC)/$$fn; 	   	  \
             [ "$$ext" = "in.lua" -o "$$ext" = "tcl" -o "$$ext" = "in"             \
