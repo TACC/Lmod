@@ -81,7 +81,7 @@ local sandbox_env = {
                concat = table.concat, unpack = table.unpack, sqrt = math.sqrt,
                tan = math.tan, tanh = math.tanh },
   os       = { clock = os.clock, difftime = os.difftime, time = os.time, date = os.date,
-               getenv = os.getenv, execute = os.execute},
+               getenv = os.getenv, execute = os.execute, exit = os.exit },
 
   io       = { stderr = io.stderr, open = io.open, close = io.close, write = io.write,
                stdout = io.stdout},
