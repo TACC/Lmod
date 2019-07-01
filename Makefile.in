@@ -352,24 +352,22 @@ config.status:
 
 dist:
 	GIT_BRANCH=`git status | head -n 1 | sed -e 's/^[# ]*On branch //g' -e 's/^[# ]*HEAD detached at//g'`; \
-	echo "GIT_BRANCH: $$GIT_BRANCH"                                           ; \
-	git archive --prefix=Lmod-$(version)/ $$GIT_BRANCH  > Lmod-$(version).tar ; \
+	[[ "$GIT_BRANCH" == "Not currently on any branch." ]] && GIT_BRANCH=master ; \
+	echo "GIT_BRANCH: $$GIT_BRANCH"                                            ; \
+	git archive --prefix=Lmod-$(version)/ $$GIT_BRANCH  > Lmod-$(version).tar  ; \
 	echo "ls -l Lmod-$(version).tar" ;\
         ls -l Lmod-$(version).tar        ;\
-	$(RM) -rf DIST                                                            ; \
-        mkdir DIST                                                                ; \
-        cd DIST                                                                   ; \
-	echo "1"; \
-        tar xf ../Lmod-$(version).tar                                             ; \
-	echo "2"; \
-        $(RM) ../Lmod-$(version).tar                                              ; \
-        echo "Lmod"-$(version) > .fname                                           ; \
-        sed -i.bk 's/\@git\@/$(GIT_VERSION)/g' `cat .fname`/src/Version.lua       ; \
-        rm `cat .fname`/src/Version.lua.bk                                        ; \
-	echo "3"; \
-        tar chf `cat .fname`.tar `cat .fname`                                     ; \
-        bzip2 `cat .fname`.tar                                                    ; \
-        mv `cat .fname`.tar.bz2  ..                                               ; \
+	$(RM) -rf DIST                                                             ; \
+        mkdir DIST                                                                 ; \
+        cd DIST                                                                    ; \
+        tar xf ../Lmod-$(version).tar                                              ; \
+        $(RM) ../Lmod-$(version).tar                                               ; \
+        echo "Lmod"-$(version) > .fname                                            ; \
+        sed -i.bk 's/\@git\@/$(GIT_VERSION)/g' `cat .fname`/src/Version.lua        ; \
+        rm `cat .fname`/src/Version.lua.bk                                         ; \
+        tar chf `cat .fname`.tar `cat .fname`                                      ; \
+        bzip2 `cat .fname`.tar                                                     ; \
+        mv `cat .fname`.tar.bz2  ..                                                ; \
         cd ..; $(RM) -rf DIST
 
 ml_dist:
