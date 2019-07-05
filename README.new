@@ -11,4 +11,4 @@ Lmod 8.1+
    (8.1.7)  * Issue #413: Support escape in things like PS1 for bash
    (8.1.8)  * Issue #401: Use LMOD_PKG to determine where the lmod/etc directory is.
    (8.1.9)  * Issue #401: Create and use LMOD_ROOT to be the parent lmod directory is located.
-   
+   (8.1.10) * Add colorize() and color_banner() to sandbox for better message to users.

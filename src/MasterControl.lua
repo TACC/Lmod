@@ -1421,7 +1421,7 @@ function M.inherit(self)
    dbg.fini("MasterControl:inherit")
 end
 
-function M.color_banner(color)
+function M.color_banner(self,color)
    local term_width  = TermWidth()
    local border      = colorize(color or "red",string.rep("=", term_width-1))
    io.stderr:write(border,"\n")
