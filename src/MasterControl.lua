@@ -1421,6 +1421,13 @@ function M.inherit(self)
    dbg.fini("MasterControl:inherit")
 end
 
+function M.color_banner(color)
+   local term_width  = TermWidth()
+   local border      = colorize(color or "red",string.rep("=", term_width-1))
+   io.stderr:write(border,"\n")
+end
+
+
 function M.missing_module(self,userName, showName)
    s_missingModuleT[userName] = showName
 end
