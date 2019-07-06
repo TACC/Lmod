@@ -350,6 +350,9 @@ makefile: $(srcdir)/Makefile.in ./config.status
 config.status:
 	./config.status --recheck
 
+trailing_blanks_removed:
+	find . -type d \( -path ./rt -o -path ./spec/Spider/h \) -prune -o -name '*.lua' -exec $(SED) -i -e 's/  *$$//' {} \;
+
 dist:
 	GIT_BRANCH=`git status | head -n 1 | sed -e 's/^[# ]*On branch //g' -e 's/^[# ]*HEAD detached at//g'`; \
 	[[ "$GIT_BRANCH" == "Not currently on any branch." ]] && GIT_BRANCH=master ; \
