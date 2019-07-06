@@ -127,7 +127,7 @@ end
 function M.search(self, name)
    --dbg.start{"LocationT:search(",name,")"}
    local locationT = self.__locationT
-   
+
    if (next(locationT) == nil) then
       --dbg.print{"next(locationT) == nil\n"}
       --dbg.fini("LocationT:search")

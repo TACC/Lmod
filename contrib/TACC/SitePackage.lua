@@ -69,7 +69,7 @@ local function load_hook(t)
 
    if (mode() ~= "load") then return end
    local user        = os.getenv("USER")
-   local host        = syshost 
+   local host        = syshost
    if (not host) then
       local i,j, first
       i,j, first, host = uname("%n"):find("([^.]*)%.([^.]*)%.")

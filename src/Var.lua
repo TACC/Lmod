@@ -138,7 +138,7 @@ local function l_extract(self, nodups)
       pathA = path2pathA(myValue, sep)
       for i,v in ipairs(pathA) do
          local vv       = pathTbl[v] or {num = -1, idxA = {}}
-         local num      = vv.num 
+         local num      = vv.num
          if (num == -1) then
             local refCount = false
             local vA       = refCountT[v]
@@ -153,10 +153,10 @@ local function l_extract(self, nodups)
          if (vA) then
             priority = vA[1]
          end
-         
+
          local idxA    = vv.idxA
          if (nodups) then
-            --if (self.name == ModulePath) then 
+            --if (self.name == ModulePath) then
             --   vv.num = 1
             --else
             --   vv.num = num + 1
@@ -384,7 +384,7 @@ function M.prepend(self, value, nodups, priority)
       b[#b + 1]        = " to MODULEPATH\n"
       shell:echo(concatTbl(b,""))
    end
-   
+
    local imin = min(self.imin, 0)
    local name = self.name
    for i = is, ie, iskip do
@@ -425,7 +425,7 @@ function M.append(self, value, nodups, priority)
    local pathA      = path2pathA(value, self.sep)
    local isPrepend  = false
    local adding     = true
-   
+
    local tracing  = cosmic:value("LMOD_TRACING")
    if (tracing == "yes" and name == ModulePath ) then
       local shell      = _G.Shell
@@ -649,7 +649,7 @@ function M.expand(self)
       i = i - 1
    end
    i = i + 2
-   
+
    for j = i, n do
       pathA[j] = nil
    end

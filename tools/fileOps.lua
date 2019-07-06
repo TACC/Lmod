@@ -380,7 +380,7 @@ function path_regularize(value, full)
    for dir in value:split("/") do
       aa[#aa + 1] = dir
    end
-   
+
    local first  = aa[1]
    local icnt   = 2
    local num    = #aa
@@ -399,7 +399,7 @@ function path_regularize(value, full)
       a[1] = first
    end
 
-   
+
 
    if (full) then
       for i = icnt, #aa do
@@ -420,7 +420,7 @@ function path_regularize(value, full)
          end
       end
    end
-      
+
    value = concatTbl(a,"/")
 
    return value

@@ -85,7 +85,7 @@ function M.process(self, ignoreT, oldEnvT, envT)
    local a = {}
 
    ------------------------------------------------------------
-   -- Add header to modulefile if necessary. 
+   -- Add header to modulefile if necessary.
    -- Include the "#%Module" magic string For TCL modulefiles
 
    local s = self:header()

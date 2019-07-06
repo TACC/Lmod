@@ -57,7 +57,7 @@ local function new(self)
    dbg.fini("FrameStk:new")
    return o
 end
-   
+
 function M.singleton(self)
    if (not s_frameStk) then
       s_frameStk = new(self)
@@ -130,7 +130,7 @@ function M.userName(self)
    local mname = top.mname
    return mname:userName()
 end
-   
+
 function M.fn(self)
    local top   = self.__stack[self.__count]
    local mname = top.mname
@@ -148,7 +148,7 @@ function M.version(self)
    local mname = top.mname
    return mname:version()
 end
-   
+
 function M.mt(self)
    local top   = self.__stack[self.__count]
    return top.mt
@@ -170,7 +170,7 @@ end
 function M.traceBack(self)
    local a      = {}
    local stack  = self.__stack
-   local icount = self.__count 
+   local icount = self.__count
    for i = icount, 2,-1 do
       a[#a+1] = stack[i].mname
    end

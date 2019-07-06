@@ -201,7 +201,7 @@ function mgrload(required, active)
    local status  = mcp:mgrload(required, active)
    dbg.fini("mgrload")
    return status
-end   
+end
 
 
 --- PATH functions ---
@@ -772,7 +772,7 @@ function depends_on(...)
    local b = mcp:depends_on(MName:buildA(mcp:MNameType(),...))
    dbg.fini("depends_on")
 end
-   
+
 function module_provides(...)
    dbg.start{"module_provides(",concatTbl({...},", "),")"}
    if (not validateStringArgs("module_provides",...)) then return {} end
@@ -794,4 +794,4 @@ function subprocess(cmd)
    p:close()
    return ret
 end
-   
+

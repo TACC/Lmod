@@ -85,12 +85,12 @@ describe("Testing LocationT Class #LocationT.",
                         },
                      },
                   }
-                  
+
                   mpathA          = path2pathA(getenv("MODULEPATH"))
                   local maxdepthT = paired2pathT(getenv("LMOD_MAXDEPTH"))
                   local moduleA   = ModuleA:__new(mpathA, maxdepthT)
                   local locationT = moduleA:locationT()
-                  
+
                   local rplmntA = { {projDir,"%%ProjDir%%"} }
                   local _locationT = {}
                   sanizatizeTbl(rplmntA, locationT, _locationT)

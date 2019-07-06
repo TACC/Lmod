@@ -50,7 +50,7 @@ function ModifyPath()
    if (targ == "" or targPathLoc == "empty") then
       w_targ    = ":"
    end
-   
+
    w_oldTarg = w_oldTarg:escape()
 
    if (w_oldTarg == '::' or w_path:find(w_oldTarg) == nil) then

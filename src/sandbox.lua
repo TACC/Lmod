@@ -179,7 +179,7 @@ local sandbox_env = {
                                             -- error.
 
   is_spider            = is_spider,         -- This function should not be used.
-                                            -- It is better to use 
+                                            -- It is better to use
                                             --      if (mode() == "spider") then ... end
                                             -- This function will deprecated and will be removed
 

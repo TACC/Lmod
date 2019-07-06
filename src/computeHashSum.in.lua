@@ -133,7 +133,7 @@ function main()
    fh              = io.open(tmpfn,"w")
    local i         = 1
    local masterTbl = masterTbl()
-   
+
    options()
 
    if (masterTbl.debug) then
@@ -186,7 +186,7 @@ function main()
    if (HashSum == nil) then
       LmodSystemError{msg="e_Failed_Hashsum"}
    end
-   
+
 
    local result = capture(HashSum .. " " .. tmpfn)
    os.remove(tmpfn)

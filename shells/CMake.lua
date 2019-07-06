@@ -86,12 +86,12 @@ function CMake.report_failure(self)
    local line = "set (_mlstatus FALSE)\n"
    stdout:write(line)
    dbg.print{   line}
-end   
+end
 
 function CMake.report_success(self)
    local line = "set (_mlstatus TRUE)\n"
    stdout:write(line)
    dbg.print{   line}
-end   
+end
 
 return CMake

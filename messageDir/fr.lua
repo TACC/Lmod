@@ -46,7 +46,7 @@ return {
      --------------------------------------------------------------------------
 
      ml_help   = [==[
-   ml: Une interface pratique pour la commande module : 
+   ml: Une interface pratique pour la commande module :
 
    Utilisation simplifiée :
    ------------------------
@@ -61,12 +61,12 @@ return {
    Utilisation détaillée :
    -----------------------
 
-   N'importe quelle commande de module peut être ajoutée après ml : 
+   N'importe quelle commande de module peut être ajoutée après ml :
 
    si le nom est is avail, save, restore, show, swap,...
        $ ml nom  arg1 arg2 ...
 
-   Alors le résultat est le même que : 
+   Alors le résultat est le même que :
        $ module nom arg1 arg2 ...
 
    Autrement dit, vous ne pouvez pas charger un module nommé : show, swap, etc.
@@ -99,7 +99,7 @@ La syntaxe est :
 
 Veuillez vérifier l'orthographe ou le numéro de version. Vous pouvez aussi essayer "module spider ..."
 Il est aussi possible que votre cache soit désuète. Essayez :
-  $   module --ignore-cache load %{module_list} 
+  $   module --ignore-cache load %{module_list}
 ]==],
      e_Failed_Load_2     = [==[Ce ou ces module(s) existent, mais ne peuvent pas être chargés tel que demandé: %{kA}
    Utilisez: "module spider %{kB}" pour voir la façon de les charger.
@@ -160,7 +160,7 @@ Sinon, vous pouvez définir la variable d'environnement LMOD_DISABLE_SAME_NAME_A
      m_IsNVV               = nil,
      m_Module_Msgs         = [==[
 %{border}
-Il y a des messages associés avec le(s) module(s) suivant(s) : 
+Il y a des messages associés avec le(s) module(s) suivant(s) :
 %{border}
 ]==],
      m_No_Named_Coll       = "Aucune collection nommée.\n",
@@ -174,14 +174,14 @@ Pour chercher le contenu des modules pour des mots clés, exécute z
 ]==],
      m_Other_matches       = "\n     Autres correspondances possibles :\n        %{bb}\n",
      m_Other_possible      = [==[
-     Autres candidats possibles : 
+     Autres candidats possibles :
         %{b}
 ]==],
      m_Properties          = "    Propriétés:\n",
      m_ProvidedBy          = nil,
      m_ProvidedFrom        = nil,
      m_ProvByModules       = nil,
-     m_Regex_Spider        = [==[%{border}  Pour trouver d'autres correspondances à votre recherche, exécutez : 
+     m_Regex_Spider        = [==[%{border}  Pour trouver d'autres correspondances à votre recherche, exécutez :
 
       $ module -r spider '.*%{name}.*'
 
@@ -192,13 +192,13 @@ Pour chercher le contenu des modules pour des mots clés, exécute z
      m_Reset_SysDflt       = "Restauration de l'environnement par défaut\n",
      m_Save_Coll           = "Collection de modules sauvegardée vers : \"%{a}\"%{msgTail}\n",
      m_Spdr_L1             = [==[%{border}  Pour de l'information détaillée à propos d'un module "%{key}" spécifique (incluant comment charger ce module), utilisez le nom complet.
-  Par exemple : 
+  Par exemple :
 
      $ module spider %{exampleV}
 %{border}]==],
      m_Spider_Title        = "Liste des modules disponibles présentement :\n",
      m_Spider_Tail         = [==[%{border}
-Pour en savoir davantage sur un module exécutez : 
+Pour en savoir davantage sur un module exécutez :
 
    $ module spider Foo
 
@@ -259,7 +259,7 @@ L'environnement par défaut ne contient aucun module
 
      w_Undef_MPATH     = "MODULEPATH n'est pas défini\n",
      w_Unknown_Hook      = "Crochet (hook) inconnu : %{name}\n",
-     
+
      --------------------------------------------------------------------------
      -- Usage Message
      --------------------------------------------------------------------------
@@ -287,7 +287,7 @@ L'environnement par défaut ne contient aucun module
      list4         = "Liste les modules disponibles qui contiennent \"string\".",
      list5         = "Liste tous les modules existants",
      list6         = "Liste toutes les versions d'un module",
-     list7         = "Liste tous les modules qui contiennent \"string\".",          
+     list7         = "Liste tous les modules qui contiennent \"string\".",
      list8         = "Information détaillée à propos de cette version du module.",
      list9         = "Affiche l'information \"whatis\" à propos de ce module",
      list10        = "Cherche tous les noms et descriptions (\"whatis\") qui contiennent \"string\".",
@@ -306,7 +306,7 @@ L'environnement par défaut ne contient aucun module
      collctn3      = "Identique à \"restore system\"",
      collctn4      = "Restaure les modules de la collection par défaut de l'usager si elle existe, ou du système sinon.",
      collctn5      = "Restaure les modules de la collection nommée \"name\".",
-     collctn6      = "Restaure les modules à l'état par défaut du système.",                                 
+     collctn6      = "Restaure les modules à l'état par défaut du système.",
      collctn7      = "Affiche la liste des collections sauvegardées.",
      collctn8      = "Décrit le contenu d'une collection.",
      collctn9      = nil,
@@ -331,11 +331,11 @@ L'environnement par défaut ne contient aucun module
      env1          = "Si la valeur est \"YES\" alors Lmod affichera les propriétés et avertissements en couleur.",
      web_sites     = "Sites web de Lmod",
      rpt_bug       = "  Pour rapporter un bogue, veuillez lire ",
-     
+
      --------------------------------------------------------------------------
      -- module help strings
      --------------------------------------------------------------------------
-     
+
      StickyM   = "Le module est permanent - nécessite --force pour l'enlever ou purger les modules",
      LoadedM   = "Le module est chargé",
      ExplM     = "Expérimental",

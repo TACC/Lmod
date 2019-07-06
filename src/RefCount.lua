@@ -43,7 +43,7 @@ local getenv    = os.getenv
 
 local function new(self, s)
    local o = {}
-   local 
+   local
 end
 
 
