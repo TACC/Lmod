@@ -344,6 +344,7 @@ L'environnement par défaut ne contient aucun module
      style_hlp = "Style contrôlé par le site pour \"avail\" : %{styleA} (défaut: %{default})",
      rt_hlp    = "Test de régression de Lmod",
      dbg_hlp   = "Trace du programme écrite vers stderr",
+     dbg_hlp2  = nil,
      pin_hlp   = "Lors d'une restauration, utiliser la version spécifiée, et ignorer la version par défaut",
      avail_hlp = "Affiche seulement les modules par défaut lorsque la commande avail est utilisée",
      quiet_hlp = "N'affiche pas les avertissements",

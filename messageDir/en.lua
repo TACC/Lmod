@@ -364,6 +364,7 @@ The system default contains no modules
      style_hlp = "Site controlled avail style: %{styleA} (default: %{default})",
      rt_hlp    = "Lmod regression testing",
      dbg_hlp   = "Program tracing written to stderr",
+     dbg_hlp2  = "Program tracing written to stderr (where dbglvl is a number 1,2,3)",
      pin_hlp   = "When doing a restore use specified version, do not follow defaults",
      avail_hlp = "List default modules only when used with avail",
      quiet_hlp = "Do not print out warnings",
