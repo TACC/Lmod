@@ -781,6 +781,10 @@ function module_provides(...)
    dbg.fini("module_provides")
 end
 
+function color_banner(color)
+   mcp:color_banner(color)
+end
+
 
 --- subprocess function ---
 

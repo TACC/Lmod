@@ -371,6 +371,7 @@ function main()
    if (masterTbl.debug > 0 or masterTbl.dbglvl) then
       local configuration = require("Configuration"):singleton()
       io.stderr:write(configuration:report())
+      masterTbl.dbglvl = (type(masterTbl.dbglvl) == "number") and masterTbl.dbglvl or 1
       local dbgLevel = max(masterTbl.debug, masterTbl.dbglvl or 1)
       dbg:activateDebug(dbgLevel)
    end

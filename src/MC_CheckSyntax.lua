@@ -49,6 +49,7 @@ M.always_load          = MasterControl.quiet
 M.always_unload        = MasterControl.quiet
 M.add_property         = MasterControl.add_property
 M.append_path          = MasterControl.append_path
+M.color_banner         = MasterControl.quiet
 M.conflict             = MasterControl.quiet
 M.depends_on           = MasterControl.depends_on
 M.execute              = MasterControl.quiet
