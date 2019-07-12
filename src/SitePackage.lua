@@ -7,7 +7,7 @@ require("strict")
 
 --------------------------------------------------------------------------------
 -- Anything in this file will automatically be loaded everytime the Lmod command
--- is run.  Here are two suggestions on how to use your SitePackage.lua file 
+-- is run.  Here are two suggestions on how to use your SitePackage.lua file
 --
 -- a) Install Lmod normally and then overwrite your SitePackage.lua file over
 --    this one in the install directory.
@@ -28,19 +28,19 @@ require("strict")
 --
 -----------------------------------------------------------------------------
 -- You should check to see that Lmod finds your SitePackage.lua.  If you do:
--- 
+--
 --    $ module --config
--- 
+--
 -- and it reports:
--- 
+--
 --    Modules based on Lua: Version X.Y.Z  3016-02-05 16:31
 --        by Robert McLay mclay@tacc.utexas.edu
--- 
+--
 --    Description                      Value
 --    -----------                      -----
 --    ...
 --    Site Pkg location                standard
--- 
+--
 -- Then you haven't set things up correctly.
 -----------------------------------------------------------------------------
 --  Any function here that is called by a module file must be registered with

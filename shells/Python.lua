@@ -89,18 +89,18 @@ function Python.initialize(self)
    local line = "import os\n"
    stdout:write(line)
    dbg.print{   line}
-end   
+end
 
 function Python.report_failure(self)
    local line = "_mlstatus = False\n"
    stdout:write(line)
    dbg.print{   line}
-end   
+end
 
 function Python.report_success(self)
    local line = "_mlstatus = True\n"
    stdout:write(line)
    dbg.print{   line}
-end   
+end
 
 return Python

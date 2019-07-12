@@ -315,7 +315,7 @@ end
 function M._display1(self, i, icol)
    local width = self.columnCnt[icol]
    local szA   = self.szA
-   local gap   = self.gap 
+   local gap   = self.gap
    local s     = self.tbl[i] .. blank:rep(width.prt-szA[i].prt+gap)
 
    return s

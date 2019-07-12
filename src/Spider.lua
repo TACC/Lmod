@@ -402,7 +402,7 @@ local function l_build_parentT(keepT, mpathMapT)
       --dbg.print{"mpath: ",mpath,"\n"}
       --dbg.printT("fullNameA: ",fullNameA)
       --dbg.printT("fullNameT: ",fullNameT)
-      
+
       local resultA
       if (not mpathMapT[mpath]) then
          resultA = { fullNameA }
@@ -630,13 +630,13 @@ function M.buildProvideByT(self, dbT, providedByT)
          return false
       end
    end
-      
+
    for sn, vv in pairs(providedByT) do
       for fullName, v in pairs(vv) do
          sort(v, cmp)
       end
    end
-   
+
    dbg.fini("Spider:buildProvideByT")
 
 

@@ -28,7 +28,7 @@ describe("Testing MName Class #MName.",
                   posix.setenv("LMOD_MAXDEPTH",maxdepth,true)
                   cosmic:assign("LMOD_MAXDEPTH",maxdepth)
                   __removeEnvMT()
-            
+
                   local debug = os.getenv("LMOD_DEBUG")
                   if (debug == "yes" or debug == "MName" ) then
                      dbg:activateDebug(1)
@@ -66,13 +66,13 @@ describe("Testing MName Class #MName.",
                        fn = "%ProjDir%/spec/MName/mf/bio/bt/64/3.0.lua"},
                      { value = "bio/bt/32", sn = "bio/bt", version = "32/3.0", action = "match",
                        fn = "%ProjDir%/spec/MName/mf/bio/bt/32/3.0.lua"},
-                     
+
                      { value = "mpi/impi/64/5.0.3/049", sn = "mpi/impi", version = "64/5.0.3/049",
                        action = "match", fn = "%ProjDir%/spec/MName/mf2/mpi/impi/64/5.0.3/049"},
-                     { value = "mpi/impi/64/5.0.3", sn = "mpi/impi", version = "64/5.0.3/048", 
+                     { value = "mpi/impi/64/5.0.3", sn = "mpi/impi", version = "64/5.0.3/048",
                        action = "match", fn = "%ProjDir%/spec/MName/mf/mpi/impi/64/5.0.3/048"},
                   }
-                     
+
                   for i = 1, #goldA do
                      local gold     = goldA[i]
                      dbg.print{"RTM MName:new(\"load\", ",gold.value,",", gold.action,")\n"}
@@ -85,14 +85,14 @@ describe("Testing MName Class #MName.",
                      local fullName = mname:fullName()
                      dbg.print{"RTM tests\n"}
                      local g_full   = build_fullName(gold.sn, gold.version)
-                  
+
                      assert.are.equal(gold.sn,      sn)
                      assert.are.equal(gold.fn,      fn)
                      assert.are.equal(gold.version, version)
                      assert.are.equal(g_full,       fullName)
-                  
+
                   end
-            
+
                   goldA = {
                      { value = "foo",        sn = "foo",   version = "3.0",    action = "atleast",
                        fn = "%ProjDir%/spec/MName/mf/foo/3.0.lua",  is = "2.5"},
@@ -109,7 +109,7 @@ describe("Testing MName Class #MName.",
                      { value = "icr",        sn = "icr",   version = "64/3.7", action = "between",
                        fn = "%ProjDir%/spec/MName/mf/icr/64/3.7",  is = "64/3.7", ie = "64/3.7" },
                   }
-                  
+
                   for i = 1, #goldA do
                      local gold     = goldA[i]
                      local mname    = MName:new("load", gold.value, gold.action, gold.is, gold.ie)
@@ -118,12 +118,12 @@ describe("Testing MName Class #MName.",
                      local version  = mname:version()
                      local fullName = mname:fullName()
                      local g_full   = build_fullName(gold.sn, gold.version)
-                  
+
                      assert.are.equal(g_full,       fullName)
                      assert.are.equal(gold.sn,      sn)
                      assert.are.equal(gold.fn,      fn)
                      assert.are.equal(gold.version, version)
-                  
+
                   end
                end)
             it("Test finding modules with NV modulefiles",
@@ -134,7 +134,7 @@ describe("Testing MName Class #MName.",
                      pathJoin(projDir, testDir, "nv2"),
                   }
                   local mpath = concatTbl(mpathA,":")
-                  
+
                   posix.setenv("MODULEPATH", mpath, true)
                   cosmic:assign("LMOD_MAXDEPTH",false)
                   ModuleA:__clear()
@@ -151,7 +151,7 @@ describe("Testing MName Class #MName.",
                      { value = "bio/bt",     sn = "bio/bt",version = "3.9",    action = "latest",
                        fn = "%ProjDir%/spec/MName/nv/bio/bt/3.9"},
                   }
-                     
+
                   for i = 1, #goldA do
                      local gold     = goldA[i]
                      local mname    = MName:new("load", gold.value, gold.action)
@@ -160,19 +160,19 @@ describe("Testing MName Class #MName.",
                      local version  = mname:version()
                      local fullName = mname:fullName()
                      local g_full   = build_fullName(gold.sn ,gold.version)
-            
+
                      assert.are.equal(gold.fn,      fn)
                      assert.are.equal(g_full,       fullName)
                      assert.are.equal(gold.sn,      sn)
                      assert.are.equal(gold.version, version)
-            
+
                   end
-            
+
                   goldA = {
                      { value = "foo",        sn = "foo",   version = "3.0",    action = "atleast",
                        fn = "%ProjDir%/spec/MName/nv2/foo/3.0",  is = "2.5"},
                   }
-                  
+
                   for i = 1, #goldA do
                      local gold     = goldA[i]
                      local mname    = MName:new("load", gold.value, gold.action, gold.is, gold.ie)
@@ -181,12 +181,12 @@ describe("Testing MName Class #MName.",
                      local version  = mname:version()
                      local fullName = mname:fullName()
                      local g_full   = build_fullName(gold.sn, gold.version)
-            
+
                      assert.are.equal(g_full,       fullName)
                      assert.are.equal(gold.sn,      sn)
                      assert.are.equal(gold.fn,      fn)
                      assert.are.equal(gold.version, version)
-            
+
                   end
             end)
          end

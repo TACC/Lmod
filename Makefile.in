@@ -94,6 +94,12 @@ LMOD_MF 	  	  := $(MY_PACKAGE)/modulefiles/Core
 MAN_PAGES                 := $(MY_PACKAGE)/share/man/cat1
 LMOD_MF_SOURCE            := $(patsubst %, $(srcdir)/%, MF/*.version.lua)
 SETTARG_SOURCE            := $(patsubst %, $(srcdir)/%, settarg/*.lua  settarg/targ.in)
+UNAME_S                   := $(shell uname -s)
+ifeq ($(UNAME_S),Darwin)
+  SED := gsed
+else
+  SED := sed
+endif
 
 DIRLIST		  	  := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS)      $(DESTDIR)$(SETTARG)    \
                              $(DESTDIR)$(SHELLS)  $(DESTDIR)$(INIT)       $(DESTDIR)$(LIB)        \

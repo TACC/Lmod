@@ -118,7 +118,7 @@ describe("Testing MT Class #MT.",
                   activeA       = mt:list("fullName","active")
                   resultA       = {activeA[1].name, activeA[2].name}
                   assert.are.same(goldA, resultA)
-                  
+
 
                   ------------------------------------------------------------
                   -- Test if the ModuleTable can be pushed to the environment
@@ -147,4 +147,4 @@ describe("Testing MT Class #MT.",
          end
 )
 
-                     
+

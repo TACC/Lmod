@@ -91,7 +91,7 @@ local function wrap_name(indent, name)
        name:sub(1,1):find("[0-9]")) then
       str = indent .. "[\"" .. name .. "\"] "
    else
-      str = indent .. name 
+      str = indent .. name
    end
    return str
 end

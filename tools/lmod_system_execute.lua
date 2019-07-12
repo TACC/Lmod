@@ -56,7 +56,7 @@ function lmod_system_execute(cmd)
       setenv_posix(k, v, true)
    end
 
-   os.execute(cmd) 
+   os.execute(cmd)
 
    for k, v in pairs(newT) do
       setenv_posix(k,v, true)

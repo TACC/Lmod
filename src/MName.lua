@@ -40,8 +40,8 @@ require("string_utils")
 
 local FrameStk    = require("FrameStk")
 local M           = {}
-local MRC         = require("MRC") 
-local ModuleA     = require("ModuleA") 
+local MRC         = require("MRC")
+local ModuleA     = require("ModuleA")
 local MT          = require("MT")
 local concatTbl   = table.concat
 local cosmic      = require("Cosmic"):singleton()
@@ -173,13 +173,13 @@ local function lazyEval(self)
          self.__version  = t.version
          self.__userName = build_fullName(t.sn, t.version)
       end
-      
+
       --dbg.print{"inherit\n"}
       --dbg.fini("lazyEval")
       return
    end
 
-   
+
 
 
    assert(sType == "load", "unknown sType: "..sType)
@@ -193,7 +193,7 @@ local function lazyEval(self)
    self.__sn         = sn
    self.__versionStr = versionStr
    self.__stackDepth = self.__stackDepth or frameStk:stackDepth()
-   
+
    if (not sn) then
       --dbg.print{"did not find sn\n"}
       --dbg.fini("lazyEval")
@@ -227,8 +227,8 @@ function M.valid(self)
    if (not self.__sn) then
       lazyEval(self)
    end
-   return self.__fn 
-end       
+   return self.__fn
+end
 
 
 function M.userName(self)
@@ -303,7 +303,7 @@ end
 -- the mf directory, it won't look in mf2.
 --
 -- Lmod (for NV) uses the following rules:
---    1) Find first exact match 
+--    1) Find first exact match
 --    2) Find first marked default
 --    3) Find highest.
 --
@@ -338,7 +338,7 @@ end
 --  first directory that has the sn.
 
 -- The rule is that if there is One directory that is using NVV then
--- the whole module tree is treated as NVV.  
+-- the whole module tree is treated as NVV.
 
 
 ------------------------------------------------------------------------
@@ -398,10 +398,10 @@ local function find_highest_by_key(key, fileA)
       found   = true
    end
    return found, fn, version
-end   
+end
 
 ------------------------------------------------------------------------
--- M.find_highest() finds the highest using the weighted  
+-- M.find_highest() finds the highest using the weighted
 
 
 function M.find_highest(self, fileA)

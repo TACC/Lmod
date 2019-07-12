@@ -64,7 +64,7 @@ local function buildRC(self)
    local s_propT       = {}
    local s_scDescriptT = {}
    local s_rcFileA     = {}
-   
+
    local lmodrc_env = getenv("LMOD_RC") or ""
    if (lmodrc_env:len() > 0) then
       for rc in lmodrc_env:split(":") do
@@ -77,7 +77,7 @@ local function buildRC(self)
          local f  = RCFileA[i]
          local fh = open(f)
          if (not fh) then break end
-            
+
          assert(loadfile(f))()
          s_rcFileA[#s_rcFileA+1] = f
          fh:close()

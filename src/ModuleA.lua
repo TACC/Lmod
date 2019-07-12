@@ -193,7 +193,7 @@ local function find_vB(sn, versionStr, vA)
    local vB      = {}
 
    for i = 1,#vA do
-      local v       
+      local v
       local vv   = vA[i]
       local done = (versionStr == nil)
       local idx  = 1
@@ -257,7 +257,7 @@ function M.applyWeights(self,fullNameDfltT)
          local sn, versionStr, vA = find_vA(fullName, self.__moduleA)
          if (sn == nil) then break end
          local fullStr, vB        = find_vB(sn,  versionStr, vA)
-         
+
          for i = 1, #vB do
             local v = vB[i]
             if (next(v.fileT) ~= nil) then
@@ -288,9 +288,9 @@ function M.__find_all_defaults(self)
 
    local function find_all_defaults_helper(level,isNVV, mpath, sn, v)
       local weight, keepLooking, fn, idx
-      local ext, count, myfullName 
+      local ext, count, myfullName
       local found = false
-      
+
       if (defaultT[sn]) then
          weight      = defaultT[sn].weight
          count       = defaultT[sn].count
@@ -335,7 +335,7 @@ function M.__find_all_defaults(self)
             find_all_defaults_helper(level+1,isNVV, mpath, sn, vv)
          end
       end
-   end 
+   end
 
    local isNVV      = self.__isNVV
    local level      = 0
@@ -383,7 +383,7 @@ function M.build_availA(self)
       end
    end
 
-   
+
    local moduleA = self.__moduleA
    local availA  = {}
    local cmp     = (cosmic:value("LMOD_CASE_INDEPENDENT_SORTING") == "yes") and
@@ -506,7 +506,7 @@ local function build_from_spiderT(spiderT)
       local mpath = mpathA[i]
       if (isDir(mpath)) then
          dbg.print{"pulling mpath: ",mpath," into moduleA\n"}
-         local T = spiderT[mpath] 
+         local T = spiderT[mpath]
          if (T and next(T) ~= nil) then
             moduleA[#moduleA+1] = { mpath = mpath, T = deepcopy(T) }
             if (isNV) then
@@ -520,7 +520,7 @@ local function build_from_spiderT(spiderT)
 end
 
 ------------------------------------------------------------
--- This routine updates the self.__moduleA array when 
+-- This routine updates the self.__moduleA array when
 -- MODULEPATH changes.  It has to know about how the Ctor
 -- works so any changes there might be reflected here.
 
@@ -552,7 +552,7 @@ function M.update(self, t)
 
    moduleA = {}
    for i = 1,#mpathA do
-      repeat 
+      repeat
          local mpath = mpathA[i]
          if (not isDir(mpath)) then break end
          local entry = T[mpath]
@@ -569,7 +569,7 @@ function M.update(self, t)
             end
             local mA_obj = self:__new( {mpath}, mt:maxDepthT(), getModuleRCT(), spiderT)
             local mA     = mA_obj:moduleA()
-            moduleA[#moduleA + 1] = { mpath = mA[1].mpath, T = mA[1].T} 
+            moduleA[#moduleA + 1] = { mpath = mA[1].mpath, T = mA[1].T}
 
             ------------------------------------------------------------------
             -- must transfer isNVV state over from new mpath entry.

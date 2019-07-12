@@ -49,7 +49,7 @@ function check_module(mod)
   for pkg_name, pkgT in pairs(dbT) do
     for cached_mod, modT in pairs(dbT[pkg_name]) do
       if cached_mod == mod then
-        return 
+        return
       end
     end
   end

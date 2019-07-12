@@ -182,7 +182,7 @@ describe("Testing DirTree Class: #DirTree.",
                   --dbg.printT("goldA", goldA)
                   --dbg.printT("dirA",  _dirA)
                   assert.are.same(goldA, _dirA)
-                  
+
                end
             )
          end

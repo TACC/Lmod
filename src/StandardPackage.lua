@@ -54,7 +54,7 @@ local min       = math.min
 ------------------------------------------------------------
 -- Standard version of site_name_hook:
 -- The default return LMOD unless it is overwritten by a site
--- setting LMOD_SITE_NAME.  
+-- setting LMOD_SITE_NAME.
 
 local function site_name_hook()
    return cosmic:value("LMOD_SITE_NAME") or "LMOD"

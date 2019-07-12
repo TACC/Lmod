@@ -135,7 +135,7 @@ describe("Testing Spider Class #Spider.",
                   local projDir    = getenv("PROJDIR")
                   local root_mpath = pathJoin(projDir, testDir, "h/mf")
                   local mpath      = pathJoin(root_mpath,       "Core")
-                  
+
                   posix.setenv("MODULEPATH_ROOT", root_mpath, true)
                   posix.setenv("MODULEPATH",      mpath,      true)
                   posix.setenv("LMOD_MAXDEPTH",   nil,        true)

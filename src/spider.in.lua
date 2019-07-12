@@ -226,7 +226,7 @@ end
 
 local function rptSpiderT(mpathMapT, spiderT, timestampFn, dbT, providedByT)
    dbg.start{ "rptSpiderT(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
-   local mrc = MRC:singleton() 
+   local mrc = MRC:singleton()
    local ts  = { timestampFn }
    local s1  = serializeTbl{name="timestampFn",   value=ts,         indent=true}
    local s2  = mrc:export()
@@ -282,7 +282,7 @@ local function buildXALTrmapT(reverseMapT)
    end
    return rmapT
 end
-  
+
 local function buildLibMapA(reverseMapT)
    local libT = {}
    for path,v in pairs(reverseMapT) do
@@ -417,7 +417,7 @@ function main()
    end
    local mpath = concatTbl(mpathA,":")
    posix.setenv("MODULEPATH",mpath,true)
-   
+
 
    if (masterTbl.debug > 0 or masterTbl.dbglvl) then
       local dbgLevel = math.max(masterTbl.debug, masterTbl.dbglvl or 1)
@@ -552,7 +552,7 @@ function convertEntry(name, vv, spA)
    for mfPath,v in pairs(vv) do
       a[#a+1] = { mfPath, v.wV }
    end
-   
+
    local function cmp_wV(x,y)
       return x[2] < y[2]
    end
