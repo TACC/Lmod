@@ -273,7 +273,7 @@ local function buildXALTrmapT(reverseMapT)
    local rmapT = {}
    for path,entry in pairs(reverseMapT) do
       local value  = entry.pkg
-      local flavor = entry.flavor[1]
+      local flavor = entry.flavor[1] or ""
       flavor       = flavor:gsub("default:?","")
       if (flavor ~= "") then
          value = value .. "(" .. flavor .. ")"
