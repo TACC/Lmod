@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.0.7  2019-04-23 17:47 -05:00
+Modules based on Lua: Version 8.1.9  2019-07-01 16:00 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -14,7 +14,7 @@ Options:
   -s availStyle --style=availStyle  Site controlled avail style: system (default: system)
   --regression_testing              Lmod regression testing
   -D                                Program tracing written to stderr
-  --debug=dbglvl                    Program tracing written to stderr
+  --debug=dbglvl                    Program tracing written to stderr (where dbglvl is a number 1,2,3)
   --pin_versions=pinVersions        When doing a restore use specified version, do not follow defaults
   -d --default                      List default modules only when used with avail
   -q --quiet                        Do not print out warnings
@@ -99,7 +99,7 @@ Lmod Web Sites
   Sourceforge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.0.7  2019-04-23 17:47 -05:00
+Modules based on Lua: Version 8.1.9  2019-07-01 16:00 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -111,7 +111,7 @@ Options:
   -s availStyle --style=availStyle  Site controlled avail style: system (default: system)
   --regression_testing              Lmod regression testing
   -D                                Program tracing written to stderr
-  --debug=dbglvl                    Program tracing written to stderr
+  --debug=dbglvl                    Program tracing written to stderr (where dbglvl is a number 1,2,3)
   --pin_versions=pinVersions        When doing a restore use specified version, do not follow defaults
   -d --default                      List default modules only when used with avail
   -q --quiet                        Do not print out warnings
@@ -196,7 +196,7 @@ Lmod Web Sites
   Sourceforge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.0.7  2019-04-23 17:47 -05:00
+Modules based on Lua: Version 8.1.9  2019-07-01 16:00 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -216,7 +216,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --config
 ===========================
-Modules based on Lua: Version 8.0.7  2019-04-23 17:47 -05:00
+Modules based on Lua: Version 8.1.9  2019-07-01 16:00 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                        Value
 Allow TCL modulefiles              yes

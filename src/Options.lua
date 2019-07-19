@@ -145,7 +145,7 @@ function M.singleton(self, usage)
       name   = {"--debug"},
       dest   = "dbglvl",
       action = "store",
-      help   = i18n("dbg_hlp"),
+      help   = i18n("dbg_hlp2"),
    }
 
    cmdlineParser:add_option{

@@ -260,6 +260,7 @@ No ha habido ningún cambio en los módulos cargados
      style_hlp = nil,
      rt_hlp    = nil,
      dbg_hlp   = nil,
+     dbg_hlp2  = nil,
      pin_hlp   = nil,
      avail_hlp = nil,
      quiet_hlp = nil,

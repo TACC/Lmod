@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.8.19  2019-02-11 12:34 -06:00
+Modules based on Lua: Version 8.1.10  2019-07-10 15:49 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -56,7 +56,7 @@ Options:
   -s availStyle --style=availStyle  Style contrôlé par le site pour "avail" : system (défaut: system)
   --regression_testing              Test de régression de Lmod
   -D                                Trace du programme écrite vers stderr
-  --debug=dbglvl                    Trace du programme écrite vers stderr
+  --debug=dbglvl                    Trace du programme écrite vers stderr, (ou dbglvl est 1, 2, 3, ...)
   --pin_versions=pinVersions        Lors d'une restauration, utiliser la version spécifiée, et ignorer la version par défaut
   -d --default                      Affiche seulement les modules par défaut lorsque la commande avail est utilisée
   -q --quiet                        N'affiche pas les avertissements
@@ -141,5 +141,5 @@ Sites web de Lmod
   Sourceforge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   Pour rapporter un bogue, veuillez lire http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 7.8.19  2019-02-11 12:34 -06:00
+Modules based on Lua: Version 8.1.10  2019-07-10 15:49 -05:00
     by Robert McLay mclay@tacc.utexas.edu
