@@ -342,6 +342,7 @@ Die Standard-Module des Systems enthalten keine Module.
      style_hlp = "Systemspezifischer \"avail\"-Stil: %{styleA} (Standard: %{default})",
      rt_hlp    = "Lmod Regressionstest",
      dbg_hlp   = "Programmablauf wurde nach \"stderr\" geschrieben.",
+     dbg_hlp2  = nil,
      pin_hlp   = "Beim Wiederherstellen von Modulen die angegebene Version nutzen und die Standard-Version ignorieren.",
      avail_hlp = "Zeigt Standard-Module nur in Verbindgung mit \"avail\".",
      quiet_hlp = "Zeigt keine Warnungen an.",

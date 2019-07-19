@@ -36,8 +36,10 @@ def main():
   args     = CmdLineOptions().execute()
   configFn = dbConfigFn(args.dbname)
   lmod     = LMODdb(configFn)
+  cmdFnd   = False
 
   if (args.cmdA[0] == "counts"):
+    cmdFnd   = True
     resultA = lmod.counts(args.sqlPattern, args.syshost, args.startDate, args.endDate)
     num = len(resultA) - 2
 
@@ -45,17 +47,23 @@ def main():
 
 
   if (args.cmdA[0] == "usernames"):
+    cmdFnd   = True
     resultA = lmod.usernames(args.sqlPattern, args.syshost, args.startDate, args.endDate)
     num = len(resultA) - 2
 
     bt = BeautifulTbl(tbl=resultA, gap = 4, justify = "lll")
 
   if (args.cmdA[0] == "modules_used_by"):
+    cmdFnd   = True
     resultA = lmod.modules_used_by(args.sqlPattern, args.syshost, args.startDate, args.endDate)
     num = len(resultA) - 2
 
     bt = BeautifulTbl(tbl=resultA, gap = 4, justify = "lll")
 
+  if (not cmdFnd):
+    print("Missing command: please specify a command: counts, usernames, modules_used_by")
+    sys.exit(1)
+    
   print("\n")
   print(bt.build_tbl())
   print("\n\nNumber of entries: ",num)

@@ -1011,8 +1011,6 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
 
    dbg.print{"m_count: ",m_count,", p_count: ",p_count,"\n"}
 
-
-   --FixMe!!
    if (m_count == 1 or (m_count == 0 and p_count == 1)) then
       local s = self:_Level2(sn, fullName, entryMA, entryPA, possibleA)
       dbg.fini("Spider:_Level1")

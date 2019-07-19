@@ -61,6 +61,7 @@ M.myModuleFullName  = MasterControl.myModuleFullName
 M.myModuleName      = MasterControl.myModuleName
 M.myModuleVersion   = MasterControl.myModuleVersion
 M.myModuleUsrName   = MasterControl.myModuleUsrName
+M.color_banner      = MasterControl.color_banner
 
 local function ShowCmd(name,...)
    A[#A+1] = ShowCmdStr(name, ...)

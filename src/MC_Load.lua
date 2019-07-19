@@ -49,6 +49,7 @@ M.always_load          = MasterControl.load_usr
 M.always_unload        = MasterControl.unload
 M.add_property         = MasterControl.add_property
 M.append_path          = MasterControl.append_path
+M.color_banner         = MasterControl.color_banner
 M.conflict             = MasterControl.conflict
 M.depends_on           = MasterControl.depends_on
 M.execute              = MasterControl.execute
