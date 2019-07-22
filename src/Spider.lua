@@ -948,6 +948,9 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
       LmodSystemError{msg="e_dbT_sn_fail", sn = sn}
    end
 
+   dbg.printT("providedByT",providedByT)
+
+
    local function countEntries()
       local m_count  = 0
       local p_count  = 0
@@ -959,6 +962,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
       local entryPA  = {}
       local fullName = nil
       if (T) then
+         dbg.print{"Have T\n"}
          for fn, v in pairs(T) do
             fullName = v.fullName
             if (show_hidden or mrc:isVisible({fullName=fullName,sn=sn,fn=fn})) then
@@ -979,18 +983,21 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
          entryMA = bb
       end
       if (TT) then
+         dbg.print{"Have TT\n"}
          for sn, vv in pairs(providedByT) do
-            for fullName, A in pairs(vv) do
-               dbg.print{"sn: ",sn,", fullName: ",fullName,", countE #A: ",#A,"\n"}
+            for k, A in pairs(vv) do
+               dbg.print{"sn: ",sn,", fullName: ",k,", countE #A: ",#A,"\n"}
                dbg.printT("countE A: ",A)
                for i = 1,#A do
                   local v = A[i]
                   if (v.isVisible) then
-                     if (fullName == key) then
+                     if (k == key) then
                         cc[#cc+1] = A
+                        fullName  = k
                      end
-                     if (fullName:find(key)) then
+                     if (k:find(key)) then
                         dd[#dd+1] = A
+                        fullName  = k
                      end
                   end
                end
@@ -1118,7 +1125,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
 end
 
 function M._Level2(self, sn, fullName, entryA, entryPA, possibleA)
-   dbg.start{"Spider:_Level2(",sn,", entryA, entryPA, possibleA)"}
+   dbg.start{"Spider:_Level2(\"",sn,"\", \"",fullName,"\", entryA, entryPA, possibleA)"}
    --dbg.printT("entryA",entryA)
 
    local show_hidden  = masterTbl().show_hidden
@@ -1142,7 +1149,8 @@ function M._Level2(self, sn, fullName, entryA, entryPA, possibleA)
    local haveCore = 0
    local haveHier = 0
 
-   --dbg.printT("entryA[1]", entryT)
+   dbg.printT("entryA[1]", entryT)
+   dbg.printT("entryPA", entryPA)
 
    ia = ia + 1; a[ia] = "\n"
    ia = ia + 1; a[ia] = border
@@ -1251,7 +1259,7 @@ function M._Level2(self, sn, fullName, entryA, entryPA, possibleA)
       end
       c[#c+1] = "\n"
       ia = ia + 1; a[ia] = concatTbl(c,"")
-      dbg.print{"results: ",a[ia],"\n"}
+      dbg.print{"results: \"",a[ia],"\"\n"}
       ia = ia + 1; a[ia] = "\n"
    end
 
@@ -1277,7 +1285,6 @@ function M._Level2(self, sn, fullName, entryA, entryPA, possibleA)
       ia = ia + 1; a[ia] = i18n("m_Regex_Spider",{border=border,name=name})
    end
 
-   dbg.printT("a",a)
    dbg.fini("Spider:_Level2")
    return concatTbl(a,"")
 end
