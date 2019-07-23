@@ -1056,7 +1056,6 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
                   Description = nil
                   fullVT[kk]  = { fullName = fullName .. '(P)', providedBy = true}
                   exampleV    = fullName
-                  break
                end
             end
          end
