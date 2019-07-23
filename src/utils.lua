@@ -185,7 +185,7 @@ function build_i18n_messages()
       io.stderr:write("Unable to open English message file: ",en_msg_fn,"\n")
       os.exit(1)
    end
-   
+
    local lmod_lang = cosmic:value("LMOD_LANG")
    if (lmod_lang ~= "en") then
       local msg_fn = pathJoin(cmdDir(),"../messageDir",lmod_lang .. ".lua")
@@ -205,7 +205,7 @@ function build_i18n_messages()
 end
 
 
-   
+
 ------------------------------------------------------------
 -- Only define the cmdDir function here if it hasn't already
 -- been defined. It is defined in the main program unless
@@ -242,7 +242,7 @@ function colorizePropA(style, modT, mrc, propT, legendT)
    end
 
 
-   
+
    local resultA      = { moduleName }
    for kk,vv in pairsByKeys(propDisplayT) do
       iprop            = iprop + 1
@@ -309,7 +309,7 @@ function extractVersion(fullName, sn)
    return version
 end
 
-   
+
 --------------------------------------------------------------------------
 -- Find the admin file (or nag message file).
 function findAdminFn()
@@ -469,7 +469,7 @@ function isMarked(wV)
    local i,j = wV:find(".*/")
    j = j and j+1 or 1
    local c = wV:sub(j,j)
-   return (c >= '^') 
+   return (c >= '^')
 end
 
 --------------------------------------------------------------------------
@@ -505,7 +505,7 @@ function paired2pathT(path)
       if (state == 0) then
          left = v
          state = 1
-      else 
+      else
          right = v
          state = 0
          ppathT[left] =  tonumber(right)
@@ -602,9 +602,9 @@ function sanizatizeTbl(rplmntA, inT, outT)
          end
          outT[key] = v
       else
-         outT[key] = v 
+         outT[key] = v
       end
-      
+
    end
 end
 
@@ -694,7 +694,7 @@ function ShowCmdStr(name, ...)
 
    if (hasKeys) then
       hasKeys = false
-      
+
       for k,v in pairs(t) do
          if (type(k) ~= "number") then
             local strV = tostring(v)

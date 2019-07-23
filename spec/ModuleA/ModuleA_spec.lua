@@ -156,7 +156,7 @@ describe("Testing ModuleA Class #ModuleA.",
                   assert.are.same(goldA, _mA)
 
                   local defaultT = moduleA:defaultT()
-                  
+
                   local gold_defaultT = {
                      ["%ProjDir%/spec/ModuleA/mf/bio/bowtie/64/2.0.lua"]  = {
                         ["count"] = 3,

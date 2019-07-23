@@ -128,11 +128,11 @@ local function new(self, s, restoreFn)
 
    local _ModuleTable_ = _G[s_name] or _G._ModuleTable_
 
-   
+
    ------------------------------------------------------------------------
    -- Do not call LmodError or LmodSystemError here.  It leads to an
    -- endless loop !!
-   
+
    if (not ok or type(_ModuleTable_) ~= "table" ) then
       if (restoreFn) then
          io.stderr:write(i18n("e_coll_corrupt",{fn=restoreFn}))
@@ -156,7 +156,7 @@ local function new(self, s, restoreFn)
       icount = icount + 1
    end
    s_loadOrder = icount
-      
+
    ------------------------------------------------------------
    -- No matter what the MODULEPATH was before use the current
    -- environment value. Unless it is a module restore
@@ -342,7 +342,7 @@ function M.serializeTbl(self, state)
       mt.c_rebuildTime = false
       mt.c_shortTime   = false
    end
-   
+
    setLoadOrder(mt)
    local s = serializeTbl{indent = indent, name = self.name(), value = mt}
    if (not indent) then
@@ -437,7 +437,7 @@ function M.list(self, kind, status)
 
    sort (a, loadOrder_cmp)
    sort (b, loadOrder_cmp)
-   
+
    local B = {}
 
    for i = 1, #a do
@@ -451,7 +451,7 @@ function M.list(self, kind, status)
    a = nil -- finished w/ a.
    b = nil -- finished w/ b.
    return B
-end   
+end
 
 --------------------------------------------------------------------------
 -- add a property to an active module.
@@ -624,7 +624,7 @@ function M.version(self,sn)
    end
    return extractVersion(entry.fullName, sn)
 end
-   
+
 function M.stackDepth(self,sn)
    local entry = self.mT[sn]
    if (entry == nil) then
@@ -632,14 +632,14 @@ function M.stackDepth(self,sn)
    end
    return entry.stackDepth or 0
 end
-   
+
 function M.incr_ref_count(self,sn)
    local entry = self.mT[sn]
    if (entry == nil) then
-      return 
+      return
    end
    entry.ref_count = (entry.ref_count or 0) + 1
-   return 
+   return
 end
 
 function M.decr_ref_count(self,sn)
@@ -1072,7 +1072,7 @@ function M.getMTfromFile(self,tt)
    -- Build a new MT with only the savedBaseMPATH from before.
    -- This means resetting s_mt, s_frameStk and defining
    -- MODULEPATH in the environment.  Then we can rebuild a fresh
-   -- FrameStk and MT.  
+   -- FrameStk and MT.
    local FrameStk = require("FrameStk")
    local frameStk = FrameStk:singleton()
    local mt       = frameStk:mt()
@@ -1145,7 +1145,7 @@ function M.getMTfromFile(self,tt)
    mt         = frameStk:mt()
    local varT = frameStk:varT()
    varT[ModulePath]:setRefCount(l_mt.mpathRefCountT or {})
-   
+
    -----------------------------------------------------------------------
    -- Now check to see that all requested modules got loaded.
    activeA = mt:list("userName","active")

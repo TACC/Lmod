@@ -93,10 +93,10 @@ function M.init(self, t)
 
    if (t.default ~= nil) then
       --io.stderr:write("dflt: ",tostring(t.default),"\n")
-      
+
       local defaultV = t.default
       local sedV     = t.sedV or "@"
-      local value    = t.no_env and sedV or (getenv(name) or sedV) 
+      local value    = t.no_env and sedV or (getenv(name) or sedV)
       if (t.lower) then
          value = value:lower()
       end
@@ -125,7 +125,7 @@ function M.reportChangesFromDefault(self)
 
    return (#a < 3) and {} or a
 end
-      
+
 
 
 function M.assign(self, name, value)

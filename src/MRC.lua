@@ -72,7 +72,7 @@ local pack      = (_VERSION == "Lua 5.1") and argsPack or table.pack  -- luachec
 
 ------------------------------------------------------------------------
 -- Local functions
-local l_build             
+local l_build
 local l_parseModA
 local l_buildMod2VersionT
 --------------------------------------------------------------------------
@@ -129,7 +129,7 @@ end
 function l_parseModA(self, modA, weight)
    dbg.start{"MRC l_parseModA(modA, weight)"}
    for i = 1,#modA do
-      repeat 
+      repeat
          local entry = modA[i]
          dbg.print{"entry.kind: ",entry.kind, "\n"}
 
@@ -137,14 +137,14 @@ function l_parseModA(self, modA, weight)
             local fullName = entry.module_name
             fullName = self:resolve(fullName)
             dbg.print{"self:resolve(fullName): ",fullName, "\n"}
-   
+
             local _, _, shorter, mversion = fullName:find("(.*)/(.*)")
             dbg.print{"(2) fullName: ",fullName,", shorter: ",shorter,", mversion: ",mversion,"\n"}
             if (shorter == nil) then
                LmodWarning{msg="w_Broken_FullName", fullName= fullName}
                break
             end
-            
+
             local a = entry.module_versionA
             for j = 1,#a do
                local version = a[j]
@@ -255,7 +255,7 @@ function M.parseModA_for_moduleA(self, name, modA)
          fullName = self:resolve(fullName)
          dbg.print{"resolve(fullName): ",fullName, "\n"}
          dbg.print{"(2) fullName: ",fullName, "\n"}
-   
+
          local _, _, shorter, mversion = fullName:find("(.*)/(.*)")
          local a = entry.module_versionA
          for j = 1,#a do

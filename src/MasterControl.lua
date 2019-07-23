@@ -420,7 +420,7 @@ function M.popenv(self, name, value)
    local v64 = varT[stackName]:pop()
    local v   = nil
    if (v64 == "false") then
-      v = false 
+      v = false
    elseif (v64) then
       v = decode64(v64)
    end
@@ -678,8 +678,8 @@ function M.myShellType(self)
       tcsh = "csh",
    }
    return kindT[shell] or shell
-end      
-   
+end
+
 
 --------------------------------------------------------------------------
 -- Return the current file name.
@@ -866,7 +866,7 @@ function M.reportMissingDepModules(self)
       local a           = {}
       local term_width  = TermWidth()
       local border      = colorize("red",string.rep("-", term_width-1))
-      
+
       for k,v in pairsByKeys(t) do
          local s = concatTbl(v,", ")
          a[#a+1] = k .. " (required by: "..s..")"
@@ -1038,7 +1038,7 @@ function M.mgr_unload(self, required, active)
    if (dbg.active()) then
       dbg.start{"MasterControl:mgr_unload(required: ",required,", active=",active.userName,")"}
    end
-   
+
    local status = MCP:unload(MName:new("mt", active.userName))
 
    dbg.fini("MasterControl:mgr_unload")
@@ -1222,7 +1222,7 @@ function M.familyStackTop()
    local valueN = s_moduleStk[#s_moduleStk]
    local valueO = s_moduleStk[#s_moduleStk-1]
    return valueO, valueN
-end   
+end
 
 
 --------------------------------------------------------------------------
@@ -1379,7 +1379,7 @@ function M.add_property(self, name, value)
    local mt        = frameStk:mt()
    mt:add_property(sn, name:trim(), value)
 end
-   
+
 
 --------------------------------------------------------------------------
 -- Unset a property value

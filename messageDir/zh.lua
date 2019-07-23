@@ -48,7 +48,7 @@ return {
      ml_opt                = nil,
      ml_2many              = nil,
      ml_misplaced_opt      = nil,
-     
+
      --------------------------------------------------------------------------
      -- LmodError messages
      --------------------------------------------------------------------------
@@ -65,13 +65,13 @@ return {
      e_Failed_Load_2       = nil,
      e_Family_Conflict     = nil,
      e_Illegal_Load        = nil,
-     e_LocationT_Srch      = "LocationT:search() 出现错误", 
+     e_LocationT_Srch      = "LocationT:search() 出现错误",
      e_Missing_Value       = nil,
      e_MT_corrupt          = nil,
      e_No_AutoSwap         = nil,
      e_No_Hashsum          = "找不到程序HashSum (sha1sum, shasun, md5sum or md5)",
      e_No_Matching_Mods    = nil,
-     e_No_Mod_Entry        = "%{routine}: 找不到模块条目 \"%{name}\". 这不应该发生! \n", 
+     e_No_Mod_Entry        = "%{routine}: 找不到模块条目 \"%{name}\". 这不应该发生! \n",
      e_No_Period_Allowed   = nil,
      e_No_PropT_Entry      = "%{routine}: 系统属性列表中不存在\"%{name}\"的%{location}. 请检查名字拼写以及大小写.\n",
      e_No_UUID             = nil,
@@ -81,7 +81,7 @@ return {
      e_Spdr_Timeout        = nil,
      e_Swap_Failed         = nil,
      e_Unable_2_Load       = nil,
-     e_Unable_2_parse      = "不能解析 \"%{path}\". 已退出！\n",      
+     e_Unable_2_parse      = "不能解析 \"%{path}\". 已退出！\n",
      e_Unable_2_rename     = nil,
      e_Unknown_Coll        = nil,
      e_coll_corrupt        = nil,
@@ -98,7 +98,7 @@ return {
      m_Depend_Mods         = nil,
      m_Description         = nil,
      m_Direct_Load         = nil,
-     m_Family_Swap         = "\nLmod 已经自动将 \"%{oldFullName}\" 替换为 \"%{newFullName}\"\n",   
+     m_Family_Swap         = "\nLmod 已经自动将 \"%{oldFullName}\" 替换为 \"%{newFullName}\"\n",
      m_For_System          = nil,
      m_Inactive_Modules    = nil,
      m_IsNVV               = nil,
@@ -125,7 +125,7 @@ return {
      m_Versions            = nil,
      m_Where               = nil,
 
-     
+
      --------------------------------------------------------------------------
      -- LmodWarnings
      --------------------------------------------------------------------------

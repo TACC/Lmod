@@ -918,7 +918,7 @@ function Disable(...)
       shell:echo(i18n("m_Collection_disable",{name=name}))
    end
 end
-   
+
 
 --------------------------------------------------------------------------
 --  Reload all modules.

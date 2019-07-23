@@ -31,7 +31,7 @@ describe("Testing The Avail command #Avail.",
                   local masterTbl  = masterTbl()
                   _G.mcp           = _G.MasterControl.build("load")
                   _G.MCP           = _G.MasterControl.build("load")
-                  
+
                   masterTbl.terse  = true
                   masterTbl.rt     = true
 
@@ -41,7 +41,7 @@ describe("Testing The Avail command #Avail.",
                   local a          = master:avail(pack())
                   local _a         = {}
                   sanizatizeTbl(rplmntA, a, _a)
-                  --print(serializeTbl{indent=true, name="a",   value = _a})                  
+                  --print(serializeTbl{indent=true, name="a",   value = _a})
                   local gold_terseA = {
                      "%ProjDir%/spec/Avail/mf:\n",
                      "bio/bowtie/\n",
@@ -95,7 +95,7 @@ describe("Testing The Avail command #Avail.",
                   for i = 1,#_a do
                      _a[i] = _a[i]:gsub("%-%-%-*","---")
                   end
-                  
+
                   local gold_availA = {
                      "\n",
                      "--- %ProjDir%/spec/Avail/mf ---",

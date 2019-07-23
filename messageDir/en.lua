@@ -78,7 +78,7 @@ return {
   Try ml --help for usage.
 ]==],
      ml_2many              = "ml error: too many commands\n",
-     
+
      ml_misplaced_opt      = [==[ml error: misplaced option: "%{opt}"
   Try ml --help for usage.
 ]==],
@@ -105,7 +105,7 @@ The syntax is:
 
 Please check the spelling or version number. Also try "module spider ..."
 It is also possible your cache file is out-of-date; it may help to try:
-  $   module --ignore-cache load %{module_list} 
+  $   module --ignore-cache load %{module_list}
 
 Also make sure that all modulefiles written in TCL start with the string #%Module
 ]==],
@@ -177,7 +177,7 @@ There are messages associated with the following module(s):
 %{border}
 ]==],
      m_No_Named_Coll       = "No named collections.\n",
-     m_No_Search_Cmd       = [==[The command "module search" does not exist. To list all possible modules execute: 
+     m_No_Search_Cmd       = [==[The command "module search" does not exist. To list all possible modules execute:
 
   $   module spider %{s}
 
@@ -230,7 +230,7 @@ must specify the version if there is more than one version:
      m_Versions            = "     Versions:\n",
      m_Where               = "\n  Where:\n",
 
-     
+
      --------------------------------------------------------------------------
      -- LmodWarnings
      --------------------------------------------------------------------------
@@ -305,7 +305,7 @@ The system default contains no modules
      list4                 = "List available modules that contain \"string\".",
      list5                 = "List all possible modules",
      list6                 = "List all possible version of that module file",
-     list7                 = "List all module that contain the \"string\".",          
+     list7                 = "List all module that contain the \"string\".",
      list8                 = "Detailed information about that version of the module.",
      list9                 = "Print whatis information about module",
      list10                = "Search all name and whatis that contain \"string\".",
@@ -324,7 +324,7 @@ The system default contains no modules
      collctn3              = "The same as \"restore system\"",
      collctn4              = "Restore modules from the user's \"default\" or system default.",
      collctn5              = "Restore modules from \"name\" collection.",
-     collctn6              = "Restore module state to system defaults.",                                 
+     collctn6              = "Restore module state to system defaults.",
      collctn7              = "List of saved collections.",
      collctn8              = "Describe the contents of a module collection.",
      collctn9              = "Disable a collection.",

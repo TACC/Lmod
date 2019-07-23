@@ -81,12 +81,12 @@ function Perl.report_failure(self)
    local line = "$_mlstatus = 0;\n"
    stdout:write(line)
    dbg.print{   line}
-end   
+end
 
 function Perl.report_success(self)
    local line = "$_mlstatus = 1;\n"
    stdout:write(line)
    dbg.print{   line}
-end   
+end
 
 return Perl

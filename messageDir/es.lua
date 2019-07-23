@@ -48,7 +48,7 @@ return {
      ml_opt                = nil,
      ml_2many              = nil,
      ml_misplaced_opt      = nil,
-     
+
 
      --------------------------------------------------------------------------
      -- LmodError messages
@@ -72,7 +72,7 @@ La sintaxis es:
 
 Por favor compruebe la ortografía, así como mayúsculas y minúsculas o número de versión. También intente "module spider ..."
 También es posible que su archivo de cache estea desactualizado. Intente:
-  $   module --ignore-cache load %{module_list} 
+  $   module --ignore-cache load %{module_list}
 ]==],
      e_Failed_Load_2       = [==[Estos módulos existen pero no pueden ser cargados como ha solicitado: %{kA}
    Intente: "module spider %{kB}" para ver como cargar los módulos.
@@ -94,7 +94,7 @@ Por favor, envíe un ticket si necesita más ayuda.
    $ module swap %{oldFullName} %{newFullName}
 
 Además, puede configurar la variable de entorno LMOD_DISABLE_SAME_NAME_AUTOSWAP con el valor "no"  para habilitar al intercambio automático de módulos con el mismo nombre.
-]==], -- 
+]==], --
      e_No_Hashsum          = "Imposible encontrar un programa HashSum (sha1sum, shasum, md5sum o md5)",
      e_No_Matching_Mods    = "No se encontraron módulos que coincidan.\n",
      e_No_Mod_Entry        = "%{routine}: No se encontró la entrada al módulo: \"%{name}\". ¡Esto no debería suceder!\n",
@@ -151,7 +151,7 @@ Además, puede configurar la variable de entorno LMOD_DISABLE_SAME_NAME_AUTOSWAP
      m_Sticky_Unstuck      = nil,
      m_Versions            = nil,
      m_Where               = nil,
-     
+
      --------------------------------------------------------------------------
      -- LmodWarnings
      --------------------------------------------------------------------------

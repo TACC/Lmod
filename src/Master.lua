@@ -43,7 +43,7 @@ local Banner       = require("Banner")
 local BeautifulTbl = require("BeautifulTbl")
 local ColumnTable  = require("ColumnTable")
 local FrameStk     = require("FrameStk")
-local M            = {}         
+local M            = {}
 local MRC          = require("MRC")
 local MName        = require("MName")
 local MT           = require("MT")
@@ -100,7 +100,7 @@ end
 -- @param self A Master object.
 function M.access(self, ...)
    dbg.start{"Master:access(...)"}
-   
+
    local masterTbl = masterTbl()
    local shell     = _G.Shell
    local frameStk  = FrameStk:singleton()
@@ -116,7 +116,7 @@ function M.access(self, ...)
    for i = 1, argA.n do
       local userName = argA[i]
       local mname    = mt:have(userName,"any") and MName:new("mt",userName)
-                                               or  MName:new("load",userName) 
+                                               or  MName:new("load",userName)
       local fn       = mname:fn()
       _G.ModuleFn    = fn
       _G.FullName    = mname:fullName()
@@ -262,7 +262,7 @@ function M.mgrload(self, active)
    local a       = MCP.load(mcp,{mname})
    mcp           = mcp_old
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-   
+
    dbg.fini("Master:mgrload")
    return a
 
@@ -314,7 +314,7 @@ function M.load(self, mA)
          local fullName   = mname:fullName()
          local fn         = mname:fn()
          local loaded     = false
-     
+
          if (tracing == "yes") then
             local stackDepth = frameStk:stackDepth()
             local use_cache  = (not masterTbl.terse) or (cosmic:value("LMOD_CACHED_LOADS") ~= "no")
@@ -412,7 +412,7 @@ function M.load(self, mA)
          end
       until true
    end
-      
+
    mt = frameStk:mt()
    dbg.print{"safeToUpdate(): ", self.safeToUpdate(), ",  changeMPATH: ", mt:changeMPATH(), ", frameStk:empty(): ",frameStk:empty(),"\n"}
 
@@ -448,7 +448,7 @@ function M.load(self, mA)
       s_same = true
       dbg.print{"setting s_same: true\n"}
    end
-         
+
    dbg.fini("Master:load")
    return a
 end
@@ -470,12 +470,12 @@ function M.unload(self,mA)
    local shellNm  = shell and shell:name() or "bash"
    local a        = {}
    local mt
-   
+
    local mcp_old = mcp
 
    mcp = _G.MasterControl.build("unload")
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-   
+
 
    for i = 1, #mA do
       mt             = frameStk:mt()
@@ -518,7 +518,7 @@ function M.unload(self,mA)
             dbg.print{"Adding ",sn," to sticky list\n"}
             mt:addStickyA(sn)
          end
-         
+
          mt:setStatus(sn,"pending")
          local mList = concatTbl(mt:list("both","active"),":")
 	 loadModuleFile{file=fn, mList=mList, shell=shellNm, reportErr=false}
@@ -532,7 +532,7 @@ function M.unload(self,mA)
          a[#a+1] = false
       end
    end
-   
+
    mt = frameStk:mt()
    dbg.print{"safeToUpdate(): ", self.safeToUpdate(), ",  changeMPATH: ", mt:changeMPATH(), ", frameStk:empty(): ",frameStk:empty(),"\n"}
    if (self.safeToUpdate() and mt:changeMPATH() and frameStk:empty() and next(s_stk) == nil) then
@@ -550,7 +550,7 @@ end
 --------------------------------------------------------------------------
 -- Loop over all modules in MT to see if they still
 -- can be seen.  We check every active module to see
--- if the file associated with loaded module is the= 
+-- if the file associated with loaded module is the=
 -- same as [[find_module_file()]] reports.  If not
 -- then it is unloaded and an attempt is made to reload
 -- it.  Each inactive module is re-loaded if possible.
@@ -677,7 +677,7 @@ end
 -- the aliases/shell functions in a subshell.
 function M.refresh()
    dbg.start{"Master:refresh()"}
-   local frameStk = FrameStk:singleton() 
+   local frameStk = FrameStk:singleton()
    local mt       = frameStk:mt()
    local shellNm  = _G.Shell and _G.Shell:name() or "bash"
    local mcp_old  = mcp
@@ -711,7 +711,7 @@ end
 -- modulefiles.  Just call loadModuleFile() to check the dependencies.
 function M.dependencyCk()
    dbg.start{"Master:dependencyCk()"}
-   local frameStk = FrameStk:singleton() 
+   local frameStk = FrameStk:singleton()
    local mt       = frameStk:mt()
    local shellNm  = _G.Shell and _G.Shell:name() or "bash"
    local mcp_old  = mcp
@@ -852,8 +852,8 @@ local function regroup_avail_blocks(availStyle, availA)
    dbg.start{"regroup_avail_blocks(",availStyle,", availA)"}
    local labelT       = {}
    local label2mpathT = {}
-   
-   for i = 1, #availA do         
+
+   for i = 1, #availA do
       local mpath         = availA[i].mpath
       labelT[mpath]       = mpath
    end
@@ -884,7 +884,7 @@ local function regroup_avail_blocks(availStyle, availA)
       orderA[#orderA + 1] = {vA[1], label}
    end
    sort(orderA, function(a,b) return a[1] < b[1] end )
-   
+
    if (dbg:active()) then
       for j = 1, #orderA do
          dbg.print{j,", orderA: idx: ",orderA[j][1], ", label: ",orderA[j][2],"\n"}
@@ -965,9 +965,9 @@ function M.avail(self, argA)
       for i = 1, argA.n do
          searchA[i] = argA[i]:caseIndependent()
       end
-      searchA.n = argA.n 
+      searchA.n = argA.n
    end
-   
+
    if (masterTbl.terse) then
 
       --------------------------------------------------
@@ -1008,7 +1008,7 @@ function M.avail(self, argA)
             end
          end
       end
-      
+
       dbg.fini("Master:avail")
       return a
    end
@@ -1020,7 +1020,7 @@ function M.avail(self, argA)
    local Default  = 'D'
    local numFound = 0
 
-   
+
    if (next(alias2modT) ~= nil) then
       local b = {}
       for k, v in pairsByKeys(alias2modT) do
@@ -1084,7 +1084,7 @@ function M.avail(self, argA)
                   c[3] = "(" .. c[3] .. ")"
                end
                b[#b+1] = c
-               
+
             end
          end
          numFound = numFound + #b
@@ -1119,7 +1119,7 @@ function M.avail(self, argA)
       a[#a+1] = "\n"
       a[#a+1] = i18n("m_IsNVV");
    end
-      
+
    if (not quiet()) then
       a = hook.apply("msgHook", "avail", a) or a
    end

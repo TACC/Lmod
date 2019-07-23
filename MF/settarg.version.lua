@@ -112,7 +112,7 @@ can set the appropriate compiler flags.
 
 If the environment variable LMOD_SETTARG_FULL_SUPPORT is set to "yes"
 then helpful aliases are defined to set the debug/optimize/max debug
-build scenerio 
+build scenerio
 
 If the environment variable LMOD_SETTARG_TITLE_BAR is set to "yes" then
 the xterm title will be set with along with important modules like the

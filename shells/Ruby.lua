@@ -83,18 +83,18 @@ function Ruby.unset(self, k, vType)
 end
 
 function Ruby.initialize(self)
-end   
+end
 
 function Ruby.report_failure(self)
    local line = "_mlstatus = false\n"
    stdout:write(line)
    dbg.print{   line}
-end   
+end
 
 function Ruby.report_success(self)
    local line = "_mlstatus = true\n"
    stdout:write(line)
    dbg.print{   line}
-end   
+end
 
 return Ruby

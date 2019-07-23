@@ -63,7 +63,7 @@ function loadModuleFile(t)
    local func
    local msg
    local whole
-   local userName 
+   local userName
 
    -- If the user is requesting an unload, don't complain if the file
    -- has disappeared.
@@ -101,7 +101,7 @@ function loadModuleFile(t)
       A[#A + 1]    = userName
       A[#A + 1]    = "-s"
       A[#A + 1]    = t.shell
-      
+
       local ldlib  = getenv("LD_LIBRARY_PATH")
 
       if (ldlib) then
@@ -115,7 +115,7 @@ function loadModuleFile(t)
          A[#A + 1]    = "-P"
          A[#A + 1]    = "\"" .. ld_preload .. "\""
       end
-      
+
       if (t.help) then
          A[#A + 1] = "-h"
       end

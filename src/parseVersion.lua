@@ -167,9 +167,9 @@ function parseVersionParts(versionStr)
          if (i) then
             ipos = j + 1
             results = s:sub(i,j)
-            return "/" 
+            return "/"
          end
-         
+
 
          -- grab all letters, then use replaceT table to normalize
          i,j = s:find("^%a+",ipos)

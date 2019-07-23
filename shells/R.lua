@@ -80,12 +80,12 @@ function R.report_failure(self)
    local line = "mlstatus <- FALSE\n"
    stdout:write(line)
    dbg.print{   line}
-end   
+end
 
 function R.report_success(self)
    local line = "mlstatus <- TRUE\n"
    stdout:write(line)
    dbg.print{   line}
-end   
+end
 
 return R

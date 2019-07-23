@@ -91,7 +91,7 @@ cosmic:init{name    = "SITE_CONTROLLED_PREFIX",
 
 ------------------------------------------------------------------------
 -- ModulePath: The name of the environment variable which contains the
---             directories that contain modulefiles. 
+--             directories that contain modulefiles.
 ------------------------------------------------------------------------
 
 ModulePath  = "MODULEPATH"
@@ -349,7 +349,7 @@ end
 ------------------------------------------------------------------------
 
 cosmic:init{name    = "LFS_VERSION",
-            default = "1.6.3",            
+            default = "1.6.3",
             assignV = lfs._VERSION:gsub("LuaFileSystem  *","")}
 
 ------------------------------------------------------------------------
@@ -378,7 +378,7 @@ mcp            = false
 adminA         = {}
 
 ------------------------------------------------------------------------
--- stackTraceBackA 
+-- stackTraceBackA
 ------------------------------------------------------------------------
 stackTraceBackA = {}
 
@@ -653,7 +653,7 @@ FullName        = false
 Shell          = false
 
 ------------------------------------------------------------------------
--- master: 
+-- master:
 ------------------------------------------------------------------------
 
 master         = false
