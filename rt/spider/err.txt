@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.1.7  2019-06-11 15:49 -05:00
+Modules based on Lua: Version 8.1.10  2019-07-10 15:49 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -162,12 +162,12 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider mpich2/1.0.7
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider parmetis/3.1
 ===========================
-  parmetis: parmetis/3.1
+  parmetis: parmetis/4.0.1
     Description:
       Parallel graph partitioning and fill-reduction matrix ordering routines
     Properties:
       built for host and native MIC
-    This module can be loaded directly: module load parmetis/3.1
+    This module can be loaded directly: module load parmetis/4.0.1
     Additional variants of this module can also be loaded after loading the following modules:
       gcc/4.2.3  openmpi/1.2.6
       intel/intel  openmpi/1.2.6
@@ -212,10 +212,9 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider is-dyna
   is-dyna:
      Versions:
         is-dyna/1.0
-        is-dyna/2.0
-  For detailed information about a specific "is-dyna" module (including how to load the modules) use the module's full name.
+  For detailed information about a specific "is-dyna" package (including how to load the modules) use the module's full name. Note that names that have a trailing (P) are software packages provided by other modules.
   For example:
-     $ module spider is-dyna/2.0
+     $ module spider is-dyna/1.0
 ===========================
 step 14
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider is-dyna/1.0
@@ -229,13 +228,9 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider bwa
   bwa:
      Versions:
         bwa/0.7.1
-        bwa/0.7.2
-        bwa/0.7.9a
-        bwa/0.7.9
-        bwa/0.7.10
-  For detailed information about a specific "bwa" module (including how to load the modules) use the module's full name.
+  For detailed information about a specific "bwa" package (including how to load the modules) use the module's full name. Note that names that have a trailing (P) are software packages provided by other modules.
   For example:
-     $ module spider bwa/0.7.9a
+     $ module spider bwa/0.7.1
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gromacs
@@ -243,11 +238,9 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gromacs
   apps/gromacs:
      Versions:
         apps/gromacs/4.0.7
-        apps/gromacs/4.6.3-debug
-        apps/gromacs/4.6.3
-  For detailed information about a specific "apps/gromacs" module (including how to load the modules) use the module's full name.
+  For detailed information about a specific "apps/gromacs" package (including how to load the modules) use the module's full name. Note that names that have a trailing (P) are software packages provided by other modules.
   For example:
-     $ module spider apps/gromacs/4.6.3
+     $ module spider apps/gromacs/4.0.7
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs
@@ -255,24 +248,22 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs
   apps/gromacs:
      Versions:
         apps/gromacs/4.0.7
-        apps/gromacs/4.6.3-debug
-        apps/gromacs/4.6.3
-  For detailed information about a specific "apps/gromacs" module (including how to load the modules) use the module's full name.
+  For detailed information about a specific "apps/gromacs" package (including how to load the modules) use the module's full name. Note that names that have a trailing (P) are software packages provided by other modules.
   For example:
-     $ module spider apps/gromacs/4.6.3
+     $ module spider apps/gromacs/4.0.7
 ===========================
 step 18
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6.3
 ===========================
-  apps/gromacs: apps/gromacs/4.6.3
-    You will need to load all module(s) on any one of the lines below before the "apps/gromacs/4.6.3" module is available to load.
+  apps/gromacs: apps/gromacs/4.6.3-debug
+    You will need to load all module(s) on any one of the lines below before the "apps/gromacs/4.6.3-debug" module is available to load.
       cmplrs/intel/14.0  mpi/openmpi/1.6.5
 ===========================
 step 19
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6.3-debug
 ===========================
-  apps/gromacs: apps/gromacs/4.6.3-debug
-    You will need to load all module(s) on any one of the lines below before the "apps/gromacs/4.6.3-debug" module is available to load.
+  apps/gromacs: apps/gromacs/4.0.7
+    You will need to load all module(s) on any one of the lines below before the "apps/gromacs/4.0.7" module is available to load.
       cmplrs/intel/14.0  mpi/openmpi/1.6.5
 ===========================
 step 20
@@ -333,11 +324,9 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gromacs
   apps/gromacs:
      Versions:
         apps/gromacs/4.0.7
-        apps/gromacs/4.6.3-debug
-        apps/gromacs/4.6.3
-  For detailed information about a specific "apps/gromacs" module (including how to load the modules) use the module's full name.
+  For detailed information about a specific "apps/gromacs" package (including how to load the modules) use the module's full name. Note that names that have a trailing (P) are software packages provided by other modules.
   For example:
-     $ module spider apps/gromacs/4.6.3
+     $ module spider apps/gromacs/4.0.7
 ===========================
 step 23
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs
@@ -345,31 +334,29 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs
   apps/gromacs:
      Versions:
         apps/gromacs/4.0.7
-        apps/gromacs/4.6.3-debug
-        apps/gromacs/4.6.3
-  For detailed information about a specific "apps/gromacs" module (including how to load the modules) use the module's full name.
+  For detailed information about a specific "apps/gromacs" package (including how to load the modules) use the module's full name. Note that names that have a trailing (P) are software packages provided by other modules.
   For example:
-     $ module spider apps/gromacs/4.6.3
+     $ module spider apps/gromacs/4.0.7
 ===========================
 step 24
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6.3
 ===========================
-  apps/gromacs: apps/gromacs/4.6.3
-    You will need to load all module(s) on any one of the lines below before the "apps/gromacs/4.6.3" module is available to load.
+  apps/gromacs: apps/gromacs/4.0.7
+    You will need to load all module(s) on any one of the lines below before the "apps/gromacs/4.0.7" module is available to load.
       cmplrs/intel/14.0  mpi/openmpi/1.6.5
 ===========================
 step 25
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6.3-debug
 ===========================
-  apps/gromacs: apps/gromacs/4.6.3-debug
-    You will need to load all module(s) on any one of the lines below before the "apps/gromacs/4.6.3-debug" module is available to load.
+  apps/gromacs: apps/gromacs/4.0.7
+    You will need to load all module(s) on any one of the lines below before the "apps/gromacs/4.0.7" module is available to load.
       cmplrs/intel/14.0  mpi/openmpi/1.6.5
 ===========================
 step 26
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider petsc/3.1
 ===========================
-  petsc: petsc/3.1
-    You will need to load all module(s) on any one of the lines below before the "petsc/3.1" module is available to load.
+  petsc: petsc/3.2
+    You will need to load all module(s) on any one of the lines below before the "petsc/3.2" module is available to load.
       intel/intel  mpich2/1.0.7
 ===========================
 step 27
@@ -458,11 +445,14 @@ intel/
 intel/11.0
 intel/11.2
 numpy/
+numpy/1.12
 numpy/1.16.4
 python2/
+python2/2.6.12
 python2/2.7
 python2/2.7.14
 scipy/
+scipy/1.1
 scipy/1.2.2
 ===========================
 step 37
@@ -471,9 +461,9 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 The following is a list of the modules currently available:
   gcc: gcc/4.2.3, gcc/4.2.5
   intel: intel/11.0, intel/11.2
-  numpy: numpy/1.16.4(P)
-  python2: python2/2.7, python2/2.7.14
-  scipy: scipy/1.2.2(P)
+  numpy: numpy/1.12(P), numpy/1.16.4(P)
+  python2: python2/2.6.12, python2/2.7, python2/2.7.14
+  scipy: scipy/1.1(P), scipy/1.2.2(P)
 Names marked by a trailing (P) are software packages provided by another module
 To learn more about a package execute:
    $ module spider Foo
@@ -481,3 +471,25 @@ where "Foo" is the name of a module.
 To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
+===========================
+step 38
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy
+===========================
+  numpy:
+     Versions:
+        numpy/1.12(P)
+        numpy/1.16.4(P)
+  For detailed information about a specific "numpy" package (including how to load the modules) use the module's full name. Note that names that have a trailing (P) are software packages provided by other modules.
+  For example:
+     $ module spider numpy/1.16.4
+===========================
+step 39
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy/1.16.4
+===========================
+  numpy: numpy/1.16.4
+    This software package is provided by the following modules. To access the package you must load one. Note that any module names in parentheses show the module location in the software hierarchy
+       python2/2.7.14
+       python2/2.7 (intel/11.2)
+       python2/2.7 (intel/11.0)
+       python2/2.7 (gcc/4.2.5)
+       python2/2.7 (gcc/4.2.3)

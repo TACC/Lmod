@@ -409,6 +409,21 @@ This is the help message for python 2.7
       defaultT = {},
       dirT = {},
       fileT = {
+        ["python2/2.6.12"]  = {
+          ["Version"] = "2.6.12",
+          ["canonical"] = "2.6.12",
+          ["fn"] = "ProjectDIR/rt/spider/mf/E_Core/python2/2.6.12.lua",
+          ["help"] = [[
+This is the help message for python 2.6
+]],
+          ["luaExt"] = 7,
+          ["mpath"] = "ProjectDIR/rt/spider/mf/E_Core",
+          ["pV"] = "000000002.000000006.000000012.*zfinal",
+          provides = {
+            "numpy/1.12", "scipy/1.1",
+          },
+          ["wV"] = "000000002.000000006.000000012.*zfinal",
+        },
         ["python2/2.7.14"]  = {
           ["Version"] = "2.7.14",
           ["canonical"] = "2.7.14",
@@ -558,6 +573,19 @@ This is the help message for python 2.7
       },
       ["wV"] = "000000002.000000007.*zfinal",
     },
+    ["ProjectDIR/rt/spider/mf/E_Core/python2/2.6.12.lua"]  = {
+      ["Version"] = "2.6.12",
+      ["fullName"] = "python2/2.6.12",
+      ["help"] = [[
+This is the help message for python 2.6
+]],
+      ["hidden"] = false,
+      ["pV"] = "000000002.000000006.000000012.*zfinal",
+      provides = {
+        "numpy/1.12", "scipy/1.1",
+      },
+      ["wV"] = "000000002.000000006.000000012.*zfinal",
+    },
     ["ProjectDIR/rt/spider/mf/E_Core/python2/2.7.14.lua"]  = {
       ["Version"] = "2.7.14",
       ["fullName"] = "python2/2.7.14",
@@ -575,6 +603,13 @@ This is the help message for python 2.7
 }
 provideByT = {
   numpy = {
+    ["numpy/1.12"]  = {
+      {
+        ["fullName"] = "python2/2.6.12",
+        ["isVisible"] = true,
+        ["pV"] = "000000002.000000006.000000012.*zfinal",
+      },
+    },
     ["numpy/1.16.4"]  = {
       {
         ["fullName"] = "python2/2.7.14",
@@ -604,6 +639,13 @@ provideByT = {
     },
   },
   scipy = {
+    ["scipy/1.1"]  = {
+      {
+        ["fullName"] = "python2/2.6.12",
+        ["isVisible"] = true,
+        ["pV"] = "000000002.000000006.000000012.*zfinal",
+      },
+    },
     ["scipy/1.2.2"]  = {
       {
         ["fullName"] = "python2/2.7.14",
@@ -654,6 +696,22 @@ export _ModuleTable_;
 ===========================
 step 37
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+===========================
+MODULEPATH=ProjectDIR/rt/spider/mf/E_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/E_Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider/mf/E_Core",}';
+export _ModuleTable_;
+===========================
+step 38
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy
+===========================
+MODULEPATH=ProjectDIR/rt/spider/mf/E_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/E_Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider/mf/E_Core",}';
+export _ModuleTable_;
+===========================
+step 39
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy/1.16.4
 ===========================
 MODULEPATH=ProjectDIR/rt/spider/mf/E_Core;
 export MODULEPATH;

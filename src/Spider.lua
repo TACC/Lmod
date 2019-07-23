@@ -402,7 +402,7 @@ local function l_build_parentT(keepT, mpathMapT)
       --dbg.print{"mpath: ",mpath,"\n"}
       --dbg.printT("fullNameA: ",fullNameA)
       --dbg.printT("fullNameT: ",fullNameT)
-      
+
       local resultA
       if (not mpathMapT[mpath]) then
          resultA = { fullNameA }
@@ -627,13 +627,13 @@ function M.buildProvideByT(self, dbT, providedByT)
          return false
       end
    end
-      
+
    for sn, vv in pairs(providedByT) do
       for fullName, v in pairs(vv) do
          sort(v, cmp)
       end
    end
-   
+
    dbg.fini("Spider:buildProvideByT")
 
 
@@ -948,7 +948,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
       LmodSystemError{msg="e_dbT_sn_fail", sn = sn}
    end
 
-   dbg.printT("providedByT",providedByT)
+   --dbg.printT("providedByT",providedByT)
 
 
    local function countEntries()
@@ -992,11 +992,11 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
                   local v = A[i]
                   if (v.isVisible) then
                      if (k == key) then
-                        cc[#cc+1] = A
+                        cc[#cc+1] = A[i]
                         fullName  = k
                      end
                      if (k:find(key)) then
-                        dd[#dd+1] = A
+                        dd[#dd+1] = A[i]
                         fullName  = k
                      end
                   end
@@ -1041,7 +1041,6 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
                Description = v.Description
                fullVT[kk]  = { fullName = v.fullName, Category = v.Category, propT = v.propT }
                exampleV    = v.fullName
-               break
             end
          end
       end
