@@ -414,7 +414,7 @@ This is the help message for python 2.7
           ["canonical"] = "2.6.12",
           ["fn"] = "ProjectDIR/rt/spider/mf/E_Core/python2/2.6.12.lua",
           ["help"] = [[
-This is the help message for python 2.6
+This is the help message for python 2.6.12
 ]],
           ["luaExt"] = 7,
           ["mpath"] = "ProjectDIR/rt/spider/mf/E_Core",
@@ -429,7 +429,7 @@ This is the help message for python 2.6
           ["canonical"] = "2.7.14",
           ["fn"] = "ProjectDIR/rt/spider/mf/E_Core/python2/2.7.14.lua",
           ["help"] = [[
-This is the help message for python 2.7
+This is the help message for python 2.7.14
 ]],
           ["luaExt"] = 7,
           ["mpath"] = "ProjectDIR/rt/spider/mf/E_Core",
@@ -577,7 +577,7 @@ This is the help message for python 2.7
       ["Version"] = "2.6.12",
       ["fullName"] = "python2/2.6.12",
       ["help"] = [[
-This is the help message for python 2.6
+This is the help message for python 2.6.12
 ]],
       ["hidden"] = false,
       ["pV"] = "000000002.000000006.000000012.*zfinal",
@@ -590,7 +590,7 @@ This is the help message for python 2.6
       ["Version"] = "2.7.14",
       ["fullName"] = "python2/2.7.14",
       ["help"] = [[
-This is the help message for python 2.7
+This is the help message for python 2.7.14
 ]],
       ["hidden"] = false,
       ["pV"] = "000000002.000000007.000000014.*zfinal",

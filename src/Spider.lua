@@ -829,10 +829,13 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
    local look4poss = false
    if (T or TT) then
       -- Must check for any valid modulefiles or providesBy
+      dbg.print{"Have T or TT\n"}
+      
       local found = true
       if (not show_hidden) then
          found = false
          if (T) then
+            dbg.print{"Have T\n"}
             for fn, v in pairs(T) do
                if (mrc:isVisible({fullName=v.fullName,fn=fn,sn=origUserSearchPat})) then
                   found = true
@@ -841,6 +844,7 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
             end
          end
          if (TT and not found) then
+            dbg.print{"Have TT\n"}
             for fullName, A in pairs(TT) do
                for i = 1,#A do
                   if (A[i].isVisible) then
@@ -857,6 +861,7 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
          look4poss                 = true
       end
    else
+      dbg.print{"Do not have T or TT\n"}
       -- If here then no exact match has been found in either dbT or providedByT, so
       -- Step 1 copy all sn and fullNames to fullA
 
@@ -882,8 +887,11 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
          end
       end
 
+      dbg.printT("fullA: ",fullA)
+
       -- Step 2: find matches: if exact match then place in aT,
       --         otherwise partial matches go in bT
+      local my_sn = nil
       for i = 1, #fullA do
          local mod      = fullA[i]
          local sn       = mod.sn
@@ -896,12 +904,18 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
          if (sn:find(userSearchPat) or fullName:find(userSearchPat)) then
             bT[sn] = userSearchPat
          end
+         my_sn = sn
       end
 
       -- Step 3: Prefer exact matches (aT) if any to partial matches (bT)
       matchT = (next(aT) ~= nil) and aT or bT
-      --dbg.printT("aT",aT)
-      --dbg.printT("bT",bT)
+      local matchMe = "bT"
+      if (next(aT) ~= nil) then
+         matchMe = "aT"
+      end
+
+      dbg.printT("aT",aT)
+      dbg.printT("bT",bT)
    end
 
    if (next(matchT) == nil) then
@@ -961,49 +975,60 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
       local entryMA  = {}
       local entryPA  = {}
       local fullName = nil
+      local fName2   = nil
       if (T) then
          dbg.print{"Have T\n"}
+         dbg.print{"key: ",key,"\n"}
          for fn, v in pairs(T) do
-            fullName = v.fullName
-            if (show_hidden or mrc:isVisible({fullName=fullName,sn=sn,fn=fn})) then
-               if (fullName == key) then
+            if (show_hidden or mrc:isVisible({fullName=v.fullName,sn=sn,fn=fn})) then
+               if (v.fullName == key) then
                   aa[#aa + 1] = v
                end
-               if(fullName:find(key) ) then
+               if(v.fullName:find(key) ) then
                   bb[#bb + 1] = v
+                  fullName    = v.fullName
                end
             end
          end
       end
-      if (next(aa) ~= nil) then
-         m_count = 1
-         entryMA = aa
+      if (#aa > 0) then
+         m_count  = 1
+         entryMA  = aa
+         fullName = aa[1].fullName
       else
          m_count = #bb
          entryMA = bb
       end
+
+      --io.stderr:write("m_count: ",m_count,"\n")
+      --for i = 1,#aa do
+      --   io.stderr:write("aa i:",i,": ",aa[i].fullName,"\n")
+      --end
+
       if (TT) then
          dbg.print{"Have TT\n"}
          for sn, vv in pairs(providedByT) do
             for k, A in pairs(vv) do
-               dbg.print{"sn: ",sn,", fullName: ",k,", countE #A: ",#A,"\n"}
-               dbg.printT("countE A: ",A)
                for i = 1,#A do
                   local v = A[i]
                   if (v.isVisible) then
                      if (k == key) then
                         cc[#cc+1] = A[i]
-                        fullName  = k
+                        fName2    = k
                      end
                      if (k:find(key)) then
                         dd[#dd+1] = A[i]
-                        fullName  = k
+                        fName2    = k
                      end
                   end
                end
             end
          end
       end
+
+      fullName = fullName or fName2
+
+      dbg.print{"(TT) fullName: ",fullName,"\n"}
       if (next(cc) ~= nil) then
          p_count = 1
          entryPA = cc
@@ -1016,9 +1041,10 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
 
    local m_count, entryMA, p_count, entryPA, fullName = countEntries()
 
-   dbg.print{"m_count: ",m_count,", p_count: ",p_count,"\n"}
+   dbg.print{"m_count: ",m_count,", p_count: ",p_count,", fullName: ",fullName,"\n"}
 
    if (m_count == 1 or (m_count == 0 and p_count == 1)) then
+      --io.stderr:write("going level 2: fullName: ",fullName,"\n")
       local s = self:_Level2(sn, fullName, entryMA, entryPA, possibleA)
       dbg.fini("Spider:_Level1")
       return s
@@ -1030,8 +1056,10 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
    local fullVT      = {}
    local exampleV    = nil
    local Description = nil
+   local kk0         = ""
 
    if (T) then
+      dbg.print{"Have T\n"}
       for fn, v in pairsByKeys(T) do
          local isActive, version = isActiveMFile(mrc, v.fullName, sn, fn)
          if (show_hidden or isActive) then
@@ -1040,13 +1068,17 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
                key         = sn
                Description = v.Description
                fullVT[kk]  = { fullName = v.fullName, Category = v.Category, propT = v.propT }
-               exampleV    = v.fullName
+            end
+            if (kk > kk0) then
+               kk0      = kk
+               exampleV = v.fullName
             end
          end
       end
    end
 
    if (TT) then
+      dbg.print{"Have TT\n"}
       for fullName, A in pairsByKeys(TT) do
          for i = 1,#A do
             if (A[i].isVisible) then
@@ -1055,12 +1087,20 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
                   key         = sn
                   Description = nil
                   fullVT[kk]  = { fullName = fullName .. '(P)', providedBy = true}
-                  exampleV    = fullName
+               end
+               if (kk > kk0) then
+                  kk       = kk0
+                  exampleV = fullName
                end
             end
          end
       end
    end
+
+   dbg.printT("T",T)
+   dbg.printT("entryMA",entryMA)
+   dbg.printT("fullVT", fullVT)
+
 
    if (key == nil) then
       dbg.print{"key is nil\n"}
