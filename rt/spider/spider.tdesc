@@ -87,6 +87,15 @@ testdescript = {
      runLmod    spider numpy                                                  #38
      runLmod    spider numpy/1.16.4                                           #39
 
+     unsetMT
+     export MODULEPATH=$testDir/mf/F_Core
+     runLmod    spider abcpy                                                  #40
+     runLmod    spider abcpy/2.1                                              #41
+
+     unsetMT
+     export MODULEPATH=$testDir/mf/F_Core
+
+
      HOME=$ORIG_HOME
 
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
