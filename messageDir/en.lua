@@ -327,7 +327,7 @@ The system default contains no modules
      collctn6              = "Restore module state to system defaults.",
      collctn7              = "List of saved collections.",
      collctn8              = "Describe the contents of a module collection.",
-     collctn9              = "Disable a collection.",
+     collctn9              = "Disable (i.e. remove) a collection.",
 
      depr_title            = "Deprecated commands:\n" ..
                              "--------------------",

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.1.9  2019-07-01 16:00 -05:00
+Modules based on Lua: Version 8.1.10  2019-07-10 15:49 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -78,7 +78,7 @@ Handling a collection of modules:
   restore             system        Restore module state to system defaults.
   savelist                          List of saved collections.
   describe | mcc      name          Describe the contents of a module collection.
-  disable             name          Disable a collection.
+  disable             name          Disable (i.e. remove) a collection.
 Deprecated commands:
   getdefault          [name]        load name collection of modules or user's "default" if no name given.
                                     ===> Use "restore" instead  <====
@@ -99,7 +99,7 @@ Lmod Web Sites
   Sourceforge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.1.9  2019-07-01 16:00 -05:00
+Modules based on Lua: Version 8.1.10  2019-07-10 15:49 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -175,7 +175,7 @@ Handling a collection of modules:
   restore             system        Restore module state to system defaults.
   savelist                          List of saved collections.
   describe | mcc      name          Describe the contents of a module collection.
-  disable             name          Disable a collection.
+  disable             name          Disable (i.e. remove) a collection.
 Deprecated commands:
   getdefault          [name]        load name collection of modules or user's "default" if no name given.
                                     ===> Use "restore" instead  <====
@@ -196,7 +196,7 @@ Lmod Web Sites
   Sourceforge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.1.9  2019-07-01 16:00 -05:00
+Modules based on Lua: Version 8.1.10  2019-07-10 15:49 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -216,7 +216,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --config
 ===========================
-Modules based on Lua: Version 8.1.9  2019-07-01 16:00 -05:00
+Modules based on Lua: Version 8.1.10  2019-07-10 15:49 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                        Value
 Allow TCL modulefiles              yes
