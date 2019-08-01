@@ -531,6 +531,7 @@ function main()
       vPATH:prt();
    end
 
+   hook.apply("finalize", userCmd)
    ExitHookA.apply()
    dbg.fini("lmod")
 

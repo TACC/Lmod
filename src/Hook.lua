@@ -64,6 +64,7 @@ local validT =
       avail             = false, -- Map directory names to labels
       restore           = false, -- This hook is run after restore operation
       startup           = false, -- This hook is run when Lmod is called
+      finalize          = false, -- This hook is run just before Lmod generates its output before exiting
       packagebasename   = false, -- Hook to find the patterns that spider uses for reverse map
       load_spider       = false, -- This hook is run evaluating modules for spider/avail
       listHook          = false, -- This hook gets the list of active modules

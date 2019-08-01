@@ -115,7 +115,10 @@ Hook functions
   This hook is run after restore operation
 
 **startup** (UsrCmd):
-  This hook is run when Lmod is called
+  This hook is run when Lmod is called but before any command is run.
+
+**finalize** (UsrCmd):
+  This hook is run just before Lmod generates its output and exits.
 
 **packagebasename** (s_patDir, s_patLib):
   This hook gives you a table with the current patterns that spider uses to
