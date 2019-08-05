@@ -5,7 +5,14 @@ import os, sys
 
 
 def module(command, *arguments):
-    proc = Popen(['@PKG@/libexec/lmod', 'python', command] + list(arguments), stdout=PIPE, stderr=PIPE)
+    numArgs = len(arguments)
+    A = ['@PKG@/libexec/lmod', 'python', command]
+    if (numArgs == 1):
+        A += arguments[0].split()
+    else:
+        A += list(arguments)
+
+    proc           = Popen(A, stdout=PIPE, stderr=PIPE)
     stdout, stderr = proc.communicate()
     err_out=sys.stderr
     if (os.environ.get('LMOD_REDIRECT','@redirect@') != 'no'):

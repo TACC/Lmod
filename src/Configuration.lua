@@ -84,8 +84,6 @@ local function new(self)
    local locSitePkg = locatePkg("SitePackage") or "unknown"
 
    if (locSitePkg ~= "unknown") then
-
-
       local std_sha1 = "1fa3d8f24793042217b8474904136fdde72d42dd"
       local std_md5  = "3c785db2ee60bc8878fe1b576c890a0f"
       local HashSum  = "@path_to_hashsum@"

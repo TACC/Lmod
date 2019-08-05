@@ -37,8 +37,9 @@ import os, sys
 sys.path.insert(0,"$(outputDir)/init/")
 
 from env_modules_python import module
+module("load","foobar bar")
+module("load","A","B")
 
-module("load","foobar")
 
 print ("os.environ['FOOBAR']: ",'"' + os.environ['FOOBAR'] + '"')
 print ("os.environ['M']: ", '"' + os.environ['M'] + '"')
