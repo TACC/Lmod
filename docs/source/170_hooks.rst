@@ -118,7 +118,8 @@ Hook functions
   This hook is run when Lmod is called but before any command is run.
 
 **finalize** (UsrCmd):
-  This hook is run just before Lmod generates its output and exits.
+  This hook is run just before Lmod generates its output of
+  environment variables and aliases and shell functions and exits.
 
 **packagebasename** (s_patDir, s_patLib):
   This hook gives you a table with the current patterns that spider uses to
