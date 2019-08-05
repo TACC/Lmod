@@ -275,50 +275,59 @@ function main()
    local isAvailTbl   = { name = "isAvail",     checkMPATH = false, cmd = IsAvail       }
 
    local lmodCmdA = {
-      {'^ad'          , loadTbl       },
-      {'^ap'          , keywordTbl    },
-      {'^av'          , availTbl      },
-      {'^del'         , unloadTbl     },
-      {'^des'         , mcTbl         },
-      {'^disable'     , disableTbl    },
-      {'^dis'         , showTbl       },
-      {'^era'         , unloadTbl     },
-      {'^gd'          , gdTbl         },
-      {'^getd'        , gdTbl         },
-      {'^h'           , helpTbl       },
-      {'^is[Aa]vail'  , isAvailTbl    },
-      {'^is[-_]avail' , isAvailTbl    },
-      {'^is[Ll]oaded' , isLoadedTbl   },
-      {'^is[-_]loaded', isLoadedTbl   },
-      {'^k'           , keywordTbl    },
-      {'^ld'          , savelistTbl   },
-      {'^listd'       , savelistTbl   },
-      {'^lo'          , loadTbl       },
-      {'^l'           , listTbl       },
-      {'^mc'          , mcTbl         },
-      {'^pu'          , purgeTbl      },
-      {'^refr'        , refreshTbl    },
-      {'^rel'         , updateTbl     },
-      {'^rem'         , unloadTbl     },
-      {'^rese'        , resetTbl      },
-      {'^rm'          , unloadTbl     },
-      {'^r'           , restoreTbl    },
-      {'^savel'       , savelistTbl   },
-      {'^sd'          , saveTbl       },
-      {'^sea'         , searchTbl     },
-      {'^setd'        , saveTbl       },
-      {'^sh'          , showTbl       },
-      {'^sl'          , savelistTbl   },
-      {'^sp'          , spiderTbl     },
-      {'^sw'          , swapTbl       },
-      {'^s'           , saveTbl       },
-      {'^table'       , tblLstTbl     },
-      {'^try'         , tryAddTbl     },
-      {'^unuse$'      , unuseTbl      },
-      {'^unl'         , unloadTbl     },
-      {'^up'          , updateTbl     },
-      {'^use$'        , useTbl        },
-      {'^w'           , whatisTbl     },
+      {cmd = 'add',          min = 2, action = loadTbl     },
+      {cmd = 'avail',        min = 2, action = availTbl    },
+      {cmd = 'delete',       min = 3, action = unloadTbl   },
+      {cmd = 'describe',     min = 3, action = mcTbl       },
+      {cmd = 'disable',      min = 4, action = disableTbl  },
+      {cmd = 'display',      min = 3, action = showTbl     },
+      {cmd = 'erase',        min = 3, action = unloadTbl   },
+      {cmd = 'gd',           min = 2, action = gdTbl       },
+      {cmd = 'getdefault',   min = 4, action = gdTbl       },
+      {cmd = 'help',         min = 1, action = helpTbl     },
+      {cmd = 'isAvail',      min = 3, action = isAvailTbl  },
+      {cmd = 'isavail',      min = 3, action = isAvailTbl  },
+      {cmd = 'is_avail',     min = 4, action = isAvailTbl  },
+      {cmd = 'is-avail',     min = 4, action = isAvailTbl  },
+      {cmd = 'isLoaded',     min = 3, action = isLoadedTbl },
+      {cmd = 'isloaded',     min = 3, action = isLoadedTbl },
+      {cmd = 'is_loaded',    min = 4, action = isLoadedTbl },
+      {cmd = 'is-loaded',    min = 4, action = isLoadedTbl },
+      {cmd = 'keyword',      min = 1, action = keywordTbl  },
+      {cmd = 'ld',           min = 2, action = savelistTbl },
+      {cmd = 'listdefaults', min = 5, action = savelistTbl },
+      {cmd = 'load',         min = 2, action = loadTbl     },
+      {cmd = 'list',         min = 1, action = listTbl     },
+      {cmd = 'mcc',          min = 2, action = mcTbl       },
+      {cmd = 'purge',        min = 2, action = purgeTbl    },
+      {cmd = 'refresh',      min = 4, action = refreshTbl  },
+      {cmd = 'reload',       min = 3, action = updateTbl   },
+      {cmd = 'remove',       min = 3, action = unloadTbl   },
+      {cmd = 'reset',        min = 4, action = resetTbl    },
+      {cmd = 'rm',           min = 2, action = unloadTbl   },
+      {cmd = 'restore',      min = 1, action = restoreTbl  },
+      {cmd = 'savelist',     min = 5, action = savelistTbl },
+      {cmd = 'sd',           min = 2, action = saveTbl     },
+      {cmd = 'search',       min = 3, action = searchTbl   },
+      {cmd = 'setdefault',   min = 4, action = saveTbl     },
+      {cmd = 'show',         min = 2, action = showTbl     },
+      {cmd = 'sl',           min = 2, action = savelistTbl },
+      {cmd = 'spider',       min = 2, action = spiderTbl   },
+      {cmd = 'swap',         min = 2, action = swapTbl     },
+      {cmd = 'save',         min = 1, action = saveTbl     },
+      {cmd = 'tablelist',    min = 5, action = tblLstTbl   },
+      {cmd = 'try-load',     min = 5, action = tryAddTbl   },
+      {cmd = 'try-add',      min = 5, action = tryAddTbl   },
+      {cmd = 'try_load',     min = 5, action = tryAddTbl   },
+      {cmd = 'try_add',      min = 5, action = tryAddTbl   },
+      {cmd = 'tryload',      min = 4, action = tryAddTbl   },
+      {cmd = 'tryadd',       min = 4, action = tryAddTbl   },
+      {cmd = 'try',          min = 3, action = tryAddTbl   },
+      {cmd = 'unload',       min = 3, action = unloadTbl   },
+      {cmd = 'unuse',        min = 3, action = unuseTbl    },
+      {cmd = 'update',       min = 2, action = updateTbl   },
+      {cmd = 'use',          min = 3, action = useTbl      },
+      {cmd = 'whatis',       min = 1, action = whatisTbl   },
    }
 
    build_i18n_messages()
@@ -451,17 +460,21 @@ function main()
 
    ------------------------------------------------------------
    -- Search for command, quit if command is unknown.
-   local cmdT = false
+   local cmdT    = false
+   local cmdName = false
    if (userCmd) then
+      local uLen = userCmd:len()
       for _, v in ipairs(lmodCmdA) do
-         if (userCmd:find(v[1])) then
-            cmdT = v[2]
+         local found = userCmd:find(v.cmd:sub(1,uLen),1,true)
+         if (found == 1 and uLen >= v.min) then
+            cmdT = v.action
+            cmdName = cmdT.name
             break
          end
       end
    end
 
-   hook.apply("startup", userCmd)
+   hook.apply("startup", cmdName)
 
    local checkMPATH = (cmdT) and cmdT.checkMPATH or false
    dbg.print{"Calling Master:singleton(checkMPATH) w checkMPATH: ",checkMPATH,"\n"}
@@ -531,6 +544,7 @@ function main()
       vPATH:prt();
    end
 
+   hook.apply("finalize", cmdName)
    ExitHookA.apply()
    dbg.fini("lmod")
 

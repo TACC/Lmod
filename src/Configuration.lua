@@ -84,8 +84,8 @@ local function new(self)
    local locSitePkg = locatePkg("SitePackage") or "unknown"
 
    if (locSitePkg ~= "unknown") then
-      local std_sha1 = "ed697fcb8f232ce5923c0c180d387b803b42b9f6"
-      local std_md5  = "7631181fc8ebc18d5bf6729c85af44d0"
+      local std_sha1 = "1fa3d8f24793042217b8474904136fdde72d42dd"
+      local std_md5  = "3c785db2ee60bc8878fe1b576c890a0f"
       local HashSum  = "@path_to_hashsum@"
       if (HashSum:sub(1,1) == "@") then
          local a = { "sha1sum", "shasum", "md5sum", "md5" }

@@ -179,6 +179,8 @@ Pour chercher le contenu des modules pour des mots clés, exécute z
 ]==],
      m_Properties          = "    Propriétés:\n",
      m_ProvidedBy          = nil,
+     m_ProvidedFrom        = nil,
+     m_ProvByModules       = nil,
      m_Regex_Spider        = [==[%{border}  Pour trouver d'autres correspondances à votre recherche, exécutez :
 
       $ module -r spider '.*%{name}.*'
@@ -344,7 +346,7 @@ L'environnement par défaut ne contient aucun module
      style_hlp = "Style contrôlé par le site pour \"avail\" : %{styleA} (défaut: %{default})",
      rt_hlp    = "Test de régression de Lmod",
      dbg_hlp   = "Trace du programme écrite vers stderr",
-     dbg_hlp2  = "Trace du programme écrite vers stderr, (ou dbglvl est 1, 2, 3, ...)",
+     dbg_hlp2  = "Trace du programme écrite vers stderr, (où dbglvl est 1, 2, 3, ...)",
      pin_hlp   = "Lors d'une restauration, utiliser la version spécifiée, et ignorer la version par défaut",
      avail_hlp = "Affiche seulement les modules par défaut lorsque la commande avail est utilisée",
      quiet_hlp = "N'affiche pas les avertissements",
