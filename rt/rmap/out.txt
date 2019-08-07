@@ -4,6 +4,233 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 ===========================
 step 2
+buildSpiderT ProjectDIR/rt/rmap/mf/Core
+===========================
+timestampFn = {
+  false,
+}
+mrcT = {
+  alias2modT = {},
+  hiddenT = {},
+  version2modT = {},
+}
+spiderT = {
+  ["ProjectDIR/rt/rmap/mf/Compiler/intel/13.1"]  = {
+    impi = {
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["impi/4.1"]  = {
+          ["Version"] = "4.1",
+          ["canonical"] = "4.1",
+          ["family"] = "MPI",
+          ["fn"] = "ProjectDIR/rt/rmap/mf/Compiler/intel/13.1/impi/4.1.lua",
+          lpathA = {
+            ["ProjectDIR/rt/rmap/apps/intel-13_1/impi/4.1/lib"] = 1,
+          },
+          ["luaExt"] = 4,
+          ["mpath"] = "ProjectDIR/rt/rmap/mf/Compiler/intel/13.1",
+          ["pV"] = "000000004.000000001.*zfinal",
+          pathA = {
+            ["ProjectDIR/rt/rmap/apps/intel-13_1/impi/4.1/bin"] = 1,
+          },
+          ["wV"] = "000000004.000000001.*zfinal",
+        },
+      },
+    },
+  },
+  ["ProjectDIR/rt/rmap/mf/Compiler/intel/14.0"]  = {
+    impi = {
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["impi/4.1"]  = {
+          ["Version"] = "4.1",
+          ["canonical"] = "4.1",
+          ["family"] = "MPI",
+          ["fn"] = "ProjectDIR/rt/rmap/mf/Compiler/intel/14.0/impi/4.1.lua",
+          lpathA = {
+            ["ProjectDIR/rt/rmap/apps/intel-14_0/impi/4.1/lib"] = 1,
+          },
+          ["luaExt"] = 4,
+          ["mpath"] = "ProjectDIR/rt/rmap/mf/Compiler/intel/14.0",
+          ["pV"] = "000000004.000000001.*zfinal",
+          pathA = {
+            ["ProjectDIR/rt/rmap/apps/intel-14_0/impi/4.1/bin"] = 1,
+          },
+          ["wV"] = "000000004.000000001.*zfinal",
+        },
+      },
+    },
+  },
+  ["ProjectDIR/rt/rmap/mf/Core"]  = {
+    intel = {
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["intel/13.1"]  = {
+          ["Version"] = "13.1",
+          ["canonical"] = "13.1",
+          ["family"] = "compiler",
+          ["fn"] = "ProjectDIR/rt/rmap/mf/Core/intel/13.1.lua",
+          lpathA = {
+            ["ProjectDIR/rt/rmap/apps/intel/13.1/lib"] = 1,
+          },
+          ["luaExt"] = 5,
+          ["mpath"] = "ProjectDIR/rt/rmap/mf/Core",
+          ["pV"] = "000000013.000000001.*zfinal",
+          pathA = {
+            ["ProjectDIR/rt/rmap/apps/intel/13.1/bin"] = 1,
+          },
+          ["wV"] = "000000013.000000001.*zfinal",
+        },
+        ["intel/14.0.1"]  = {
+          ["Version"] = "14.0.1",
+          ["canonical"] = "14.0.1",
+          ["family"] = "compiler",
+          ["fn"] = "ProjectDIR/rt/rmap/mf/Core/intel/14.0.1.lua",
+          lpathA = {
+            ["ProjectDIR/rt/rmap/apps/intel/14.0.1/lib"] = 1,
+          },
+          ["luaExt"] = 7,
+          ["mpath"] = "ProjectDIR/rt/rmap/mf/Core",
+          ["pV"] = "000000014.000000000.000000001.*zfinal",
+          pathA = {
+            ["ProjectDIR/rt/rmap/apps/intel/14.0.1/bin"] = 1,
+          },
+          ["wV"] = "000000014.000000000.000000001.*zfinal",
+        },
+      },
+    },
+    symlink = {
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["symlink/1.0"]  = {
+          ["Version"] = "1.0",
+          ["canonical"] = "1.0",
+          ["fn"] = "ProjectDIR/rt/rmap/mf/Core/symlink/1.0.lua",
+          ["luaExt"] = 4,
+          ["mpath"] = "ProjectDIR/rt/rmap/mf/Core",
+          ["pV"] = "000000001.*zfinal",
+          pathA = {
+            ["OutputDIR/my_bin"] = 1,
+          },
+          ["wV"] = "000000001.*zfinal",
+        },
+      },
+    },
+  },
+  ["version"] = 5,
+}
+mpathMapT = {
+  ["ProjectDIR/rt/rmap/mf/Compiler/intel/13.1"]  = {
+    ["intel/13.1"] = "ProjectDIR/rt/rmap/mf/Core",
+  },
+  ["ProjectDIR/rt/rmap/mf/Compiler/intel/14.0"]  = {
+    ["intel/14.0.1"] = "ProjectDIR/rt/rmap/mf/Core",
+  },
+  ["ProjectDIR/rt/rmap/mf/MPI/intel/13.1/impi/4.1"]  = {
+    ["impi/4.1"] = "ProjectDIR/rt/rmap/mf/Compiler/intel/13.1",
+  },
+  ["ProjectDIR/rt/rmap/mf/MPI/intel/14.0/impi/4.1"]  = {
+    ["impi/4.1"] = "ProjectDIR/rt/rmap/mf/Compiler/intel/14.0",
+  },
+}
+===========================
+step 3
+buildDbT ProjectDIR/rt/rmap/mf/Core
+===========================
+timestampFn = {
+  false,
+}
+dbT = {
+  impi = {
+    ["ProjectDIR/rt/rmap/mf/Compiler/intel/13.1/impi/4.1.lua"]  = {
+      ["Version"] = "4.1",
+      ["family"] = "MPI",
+      ["fullName"] = "impi/4.1",
+      ["hidden"] = false,
+      lpathA = {
+        ["ProjectDIR/rt/rmap/apps/intel-13_1/impi/4.1/lib"] = 1,
+      },
+      ["pV"] = "000000004.000000001.*zfinal",
+      parentAA = {
+        {
+          "intel/13.1",
+        },
+      },
+      pathA = {
+        ["ProjectDIR/rt/rmap/apps/intel-13_1/impi/4.1/bin"] = 1,
+      },
+      ["wV"] = "000000004.000000001.*zfinal",
+    },
+    ["ProjectDIR/rt/rmap/mf/Compiler/intel/14.0/impi/4.1.lua"]  = {
+      ["Version"] = "4.1",
+      ["family"] = "MPI",
+      ["fullName"] = "impi/4.1",
+      ["hidden"] = false,
+      lpathA = {
+        ["ProjectDIR/rt/rmap/apps/intel-14_0/impi/4.1/lib"] = 1,
+      },
+      ["pV"] = "000000004.000000001.*zfinal",
+      parentAA = {
+        {
+          "intel/14.0.1",
+        },
+      },
+      pathA = {
+        ["ProjectDIR/rt/rmap/apps/intel-14_0/impi/4.1/bin"] = 1,
+      },
+      ["wV"] = "000000004.000000001.*zfinal",
+    },
+  },
+  intel = {
+    ["ProjectDIR/rt/rmap/mf/Core/intel/13.1.lua"]  = {
+      ["Version"] = "13.1",
+      ["family"] = "compiler",
+      ["fullName"] = "intel/13.1",
+      ["hidden"] = false,
+      lpathA = {
+        ["ProjectDIR/rt/rmap/apps/intel/13.1/lib"] = 1,
+      },
+      ["pV"] = "000000013.000000001.*zfinal",
+      pathA = {
+        ["ProjectDIR/rt/rmap/apps/intel/13.1/bin"] = 1,
+      },
+      ["wV"] = "000000013.000000001.*zfinal",
+    },
+    ["ProjectDIR/rt/rmap/mf/Core/intel/14.0.1.lua"]  = {
+      ["Version"] = "14.0.1",
+      ["family"] = "compiler",
+      ["fullName"] = "intel/14.0.1",
+      ["hidden"] = false,
+      lpathA = {
+        ["ProjectDIR/rt/rmap/apps/intel/14.0.1/lib"] = 1,
+      },
+      ["pV"] = "000000014.000000000.000000001.*zfinal",
+      pathA = {
+        ["ProjectDIR/rt/rmap/apps/intel/14.0.1/bin"] = 1,
+      },
+      ["wV"] = "000000014.000000000.000000001.*zfinal",
+    },
+  },
+  symlink = {
+    ["ProjectDIR/rt/rmap/mf/Core/symlink/1.0.lua"]  = {
+      ["Version"] = "1.0",
+      ["fullName"] = "symlink/1.0",
+      ["hidden"] = false,
+      ["pV"] = "000000001.*zfinal",
+      pathA = {
+        ["OutputDIR/my_bin"] = 1,
+      },
+      ["wV"] = "000000001.*zfinal",
+    },
+  },
+}
+provideByT = {}
+===========================
+step 4
 buildRmapT ProjectDIR/rt/rmap/mf/Core
 ===========================
 timestampFn = {
@@ -58,10 +285,26 @@ reverseMapT = {
     ["moduleFn"] = "ProjectDIR/rt/rmap/mf/Core/intel/14.0.1.lua",
     ["pkg"] = "intel/14.0.1",
   },
+  ["OutputDIR/more_apps/bin"]  = {
+    flavor = {
+      "default",
+    },
+    ["kind"] = "bin",
+    ["moduleFn"] = "ProjectDIR/rt/rmap/mf/Core/symlink/1.0.lua",
+    ["pkg"] = "symlink/1.0",
+  },
+  ["OutputDIR/my_bin"]  = {
+    flavor = {
+      "default",
+    },
+    ["kind"] = "bin",
+    ["moduleFn"] = "ProjectDIR/rt/rmap/mf/Core/symlink/1.0.lua",
+    ["pkg"] = "symlink/1.0",
+  },
 }
 xlibmap = {}
 ===========================
-step 3
+step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/rmap/mf/Core:1;

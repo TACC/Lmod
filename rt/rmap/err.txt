@@ -2,19 +2,28 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.7.14  2017-11-16 16:23 -07:00
+Modules based on Lua: Version 8.1.13  2019-08-07 12:27 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-buildRmapT ProjectDIR/rt/rmap/mf/Core
+buildSpiderT ProjectDIR/rt/rmap/mf/Core
 ===========================
 ===========================
 step 3
+buildDbT ProjectDIR/rt/rmap/mf/Core
+===========================
+===========================
+step 4
+buildRmapT ProjectDIR/rt/rmap/mf/Core
+===========================
+===========================
+step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
 The following is a list of the modules currently available:
   impi: impi/4.1
   intel: intel/13.1, intel/14.0.1
+  symlink: symlink/1.0
 To learn more about a package execute:
    $ module spider Foo
 where "Foo" is the name of a module.

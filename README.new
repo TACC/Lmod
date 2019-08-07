@@ -19,3 +19,7 @@ Lmod 8.1+
    (8.1.12) * Issue #417: move the abspath test from building spiderT and dbT to just
               building reverseMapT
    (8.1.13) * get the tag right for issue #417
+
+WIP:
+   (8.1.14) * Added test for building reverseMap with path directories which are symlinks
+   
