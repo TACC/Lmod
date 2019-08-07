@@ -18,5 +18,4 @@ Lmod 8.1+
 	    * improved help message for disable.
    (8.1.12) * Issue #417: move the abspath test from building spiderT and dbT to just
               building reverseMapT
-	      
-	    
+   (8.1.13) * get the tag right for issue #417
