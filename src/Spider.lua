@@ -600,11 +600,13 @@ function M.buildProvideByT(self, dbT, providedByT)
                local A        = T[fullName] or {}
                local parentAA = v.parentAA
                if (parentAA == nil) then
-                  A[#A+1] = {fullName = v.fullName, pV = v.pV, isVisible = isVisible}
+                  A[#A+1] = {fullName = v.fullName, pV = v.pV, isVisible = isVisible,
+                             my_name = fullName}
                else
                   for j = 1,#parentAA do
                      local hierStr = concatTbl(parentAA[j]," ")
-                     A[#A+1] = {fullName = v.fullName .. " (" .. hierStr .. ")", pV = v.pV, isVisible = isVisible}
+                     A[#A+1] = {fullName = v.fullName .. " (" .. hierStr .. ")", pV = v.pV,
+                                isVisible = isVisible, my_name = fullName}
                   end
                end
                T[fullName]     = A
@@ -958,7 +960,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
       LmodSystemError{msg="e_dbT_sn_fail", sn = sn}
    end
 
-   --dbg.printT("providedByT",providedByT)
+   dbg.printT("providedByT",providedByT)
 
 
    local function countEntries()
@@ -1009,12 +1011,12 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
                   local v = A[i]
                   if (v.isVisible) then
                      if (k == key) then
-                        cc[#cc+1] = A[i]
-                        fName2    = k
+                        cc[#cc+1]        = A[i]
+                        fName2           = k
                      end
                      if (k:find(key)) then
-                        dd[#dd+1] = A[i]
-                        fName2    = k
+                        dd[#dd+1]        = A[i]
+                        fName2           = k
                      end
                   end
                end
@@ -1039,7 +1041,10 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
 
    dbg.print{"m_count: ",m_count,", p_count: ",p_count,", fullName: ",fullName,"\n"}
 
-   if (m_count == 1 or (m_count == 0 and p_count == 1)) then
+   dbg.printT("entryMA",entryMA)
+   dbg.printT("entryPA",entryPA)
+
+   if ((m_count == 1 and p_count == 0) or (m_count == 0 and p_count == 1)) then
       --io.stderr:write("going level 2: fullName: ",fullName,"\n")
       local s = self:_Level2(sn, fullName, entryMA, entryPA, possibleA)
       dbg.fini("Spider:_Level1")
@@ -1078,7 +1083,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
       for fullName, A in pairsByKeys(TT) do
          for i = 1,#A do
             if (A[i].isVisible) then
-               local kk = sn .. "/" .. parseVersion(extractVersion(fullName, sn))
+               local kk = sn .. "/" .. parseVersion(extractVersion(fullName, sn)) .. '(P)'
                if (fullVT[kk] == nil) then
                   key         = sn
                   Description = nil
