@@ -85,10 +85,6 @@ local function process(kind, value)
    for path in value:split(":") do
       path         = path_regularize(path)
       a[path]      = 1
-      local p2     = abspath(path)
-      if (p2 and p2 ~= path) then
-         a[p2]     = 1
-      end
    end
    moduleT[kind] = a
 end
@@ -593,15 +589,12 @@ function M.buildProvideByT(self, dbT, providedByT)
 
    local mrc = MRC:singleton()
    for sn, vv in pairs(dbT) do
-      dbg.print{"sn: ",sn,"\n"}
       for fullPath, v in pairs(vv) do
-         dbg.print{"fullPath: ",fullPath,"\n"}
          local isVisible = mrc:isVisible({fullName=v.fullName, sn=sn, fn=fullPath})
          if (v.provides ~= nil) then
             local providesA = v.provides
             for i = 1, #providesA do
                local fullName = providesA[i]
-               dbg.print{"fullName: ",fullName,"\n"}
                local _,_, sn  = fullName:find("^([^/]*)")
                local T        = providedByT[sn] or {}
                local A        = T[fullName] or {}

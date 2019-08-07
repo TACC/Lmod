@@ -176,8 +176,8 @@ end
 -- @param tbl
 -- @param rmapT
 -- @param kind
-local function add2map(entry, tbl, dirA, moduleFn, rmapT, kind)
-   dbg.start{"add2map(entry, tbl, dirA, moduleFn, rmapT, kind)"}
+local function add2map(entry, tbl, dirA, moduleFn, kind, rmapT)
+   dbg.start{"add2map(entry, tbl, dirA, moduleFn, kind, rmapT)"}
    for path in pairs(tbl) do
       local attr = lfs.attributes(path)
       local a    = attr or {}
@@ -203,6 +203,10 @@ local function add2map(entry, tbl, dirA, moduleFn, rmapT, kind)
          end
          dbg.print{"assigning rmapT for path: ",path,"\n"}
          rmapT[path] = t
+         local p2 = abspath(path)
+         if (p2 and p2 ~= path) then
+            rmapT[p2] = t
+         end
       end
    end
    dbg.fini("add2map")
@@ -244,13 +248,13 @@ local function buildReverseMapT(dbT)
       for fn, entry in pairs(vvv) do
          dbg.print{"sn: ",sn,", fn: ",fn,"\n"}
          if (entry.pathA) then
-            add2map(entry, entry.pathA,  entry.dirA, fn, reverseMapT, "bin")
+            add2map(entry, entry.pathA,  entry.dirA, fn, "bin", reverseMapT)
          end
          if (entry.lpathA) then
-            add2map(entry, entry.lpathA, entry.dirA, fn, reverseMapT, "lib")
+            add2map(entry, entry.lpathA, entry.dirA, fn, "lib", reverseMapT)
          end
          if (entry.dirA) then
-            add2map(entry, entry.dirA,   entry.dirA, fn, reverseMapT, "dir")
+            add2map(entry, entry.dirA,   entry.dirA, fn, "dir", reverseMapT)
          end
       end
    end
@@ -273,7 +277,7 @@ local function buildXALTrmapT(reverseMapT)
    local rmapT = {}
    for path,entry in pairs(reverseMapT) do
       local value  = entry.pkg
-      local flavor = entry.flavor[1] or "" 
+      local flavor = entry.flavor[1] or ""
       flavor       = flavor:gsub("default:?","")
       if (flavor ~= "") then
          value = value .. "(" .. flavor .. ")"
