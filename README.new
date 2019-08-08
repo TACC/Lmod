@@ -12,6 +12,14 @@ Lmod 8.1+
    (8.1.8)  * Issue #401: Use LMOD_PKG to determine where the lmod/etc directory is.
    (8.1.9)  * Issue #401: Create and use LMOD_ROOT to be the parent lmod directory is located.
    (8.1.10) * Add colorize() and color_banner() to sandbox for better message to users.
-   (8.1.11) * Added finalize hook to match startup hook.
-            * Improved help message for disable
-            * Changed the way that the lmod command finds its command.  Misspellings will now fail.
+   (8.1.11) * Allow init/env_modules_python.py.in to take a string or an array. 
+            * Change the way that Lmod determines the command.  Misspellings now fail.
+	    * Add finalize hook to match startup hook.
+	    * improved help message for disable.
+   (8.1.12) * Issue #417: move the abspath test from building spiderT and dbT to just
+              building reverseMapT
+   (8.1.13) * get the tag right for issue #417
+
+WIP:
+   (8.1.14) * Added test for building reverseMap with path directories which are symlinks
+   

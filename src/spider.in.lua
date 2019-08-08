@@ -99,6 +99,7 @@ require("pairsByKeys")
 require("fileOps")
 require("modfuncs")
 require("cmdfuncs")
+require("deepcopy")
 require("parseVersion")
 MasterControl       = require("MasterControl")
 Cache               = require("Cache")
@@ -185,7 +186,6 @@ local function add2map(entry, tbl, dirA, moduleFn, kind, rmapT)
       dbg.print{"path: ",path,", keep: ",keep,", attr.mode: ",a.mode,"\n"}
 
       if (keep and attr and attr.mode == "directory") then
-         path = abspath(path)
          local t       = rmapT[path] or {pkg=entry.fullName, kind = kind, moduleFn = moduleFn, flavorT = {}}
          local flavorT = t.flavorT
          if (entry.parentAA == nil) then
@@ -205,7 +205,8 @@ local function add2map(entry, tbl, dirA, moduleFn, kind, rmapT)
          rmapT[path] = t
          local p2 = abspath(path)
          if (p2 and p2 ~= path) then
-            rmapT[p2] = t
+            dbg.print{"assigning rmapT for path: ",p2,"\n"}
+            rmapT[p2] = deepcopy(t)
          end
       end
    end
