@@ -506,3 +506,23 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy/1.16.4
        python2/2.7 (intel/11.0)
        python2/2.7 (gcc/4.2.5)
        python2/2.7 (gcc/4.2.3)
+===========================
+step 40
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider abcpy
+===========================
+  abcpy:
+     Versions:
+        abcpy/2.1
+        abcpy/2.1(P)
+        abcpy/2.2(P)
+  For detailed information about a specific "abcpy" package (including how to load the modules) use the module's full name. Note that names that have a trailing (P) are software packages provided by other modules.
+  For example:
+     $ module spider abcpy/2.2
+===========================
+step 41
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider abcpy/2.1
+===========================
+  abcpy: abcpy/2.1
+    This module can be loaded directly: module load abcpy/2.1
+    This software package is provided by the following modules. To access the package you must load one. Note that any module names in parentheses show the module location in the software hierarchy
+       python3/3.7

@@ -1034,17 +1034,39 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
          p_count = #dd
          entryPA = dd
       end
-      return m_count, entryMA, p_count, entryPA, fullName
+
+      local nameT    = {}
+      local numNames = 0
+      for i = 1, #entryMA do
+         local fullName = entryMA[i].fullName
+         if (nameT[fullName] == nil ) then
+            nameT[fullName] = true
+            numNames = numNames + 1
+         end
+      end
+
+      for i = 1, #entryPA do
+         local fullName = entryPA[i].my_name
+         if (nameT[fullName] == nil ) then
+            nameT[fullName] = true
+            numNames = numNames + 1
+         end
+      end
+
+      nameT = nil
+
+      return m_count, entryMA, p_count, entryPA, numNames, fullName
    end
 
-   local m_count, entryMA, p_count, entryPA, fullName = countEntries()
+   local m_count, entryMA, p_count, entryPA, numNames, fullName = countEntries()
 
    dbg.print{"m_count: ",m_count,", p_count: ",p_count,", fullName: ",fullName,"\n"}
 
    dbg.printT("entryMA",entryMA)
    dbg.printT("entryPA",entryPA)
 
-   if ((m_count == 1 and p_count == 0) or (m_count == 0 and p_count == 1)) then
+   if ((m_count == 1 and p_count == 0) or (m_count == 0 and p_count == 1) or
+       (numNames == 1)) then
       --io.stderr:write("going level 2: fullName: ",fullName,"\n")
       local s = self:_Level2(sn, fullName, entryMA, entryPA, possibleA)
       dbg.fini("Spider:_Level1")

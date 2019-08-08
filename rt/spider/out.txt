@@ -606,34 +606,40 @@ provideByT = {
     ["numpy/1.12"]  = {
       {
         ["fullName"] = "python2/2.6.12",
-        ["isVisible"] = true,
+        ["hidden"] = false,
+        ["my_name"] = "numpy/1.12",
         ["pV"] = "000000002.000000006.000000012.*zfinal",
       },
     },
     ["numpy/1.16.4"]  = {
       {
         ["fullName"] = "python2/2.7.14",
-        ["isVisible"] = true,
+        ["hidden"] = false,
+        ["my_name"] = "numpy/1.16.4",
         ["pV"] = "000000002.000000007.000000014.*zfinal",
       },
       {
         ["fullName"] = "python2/2.7 (intel/11.2)",
-        ["isVisible"] = true,
+        ["hidden"] = false,
+        ["my_name"] = "numpy/1.16.4",
         ["pV"] = "000000002.000000007.*zfinal",
       },
       {
         ["fullName"] = "python2/2.7 (intel/11.0)",
-        ["isVisible"] = true,
+        ["hidden"] = false,
+        ["my_name"] = "numpy/1.16.4",
         ["pV"] = "000000002.000000007.*zfinal",
       },
       {
         ["fullName"] = "python2/2.7 (gcc/4.2.5)",
-        ["isVisible"] = true,
+        ["hidden"] = false,
+        ["my_name"] = "numpy/1.16.4",
         ["pV"] = "000000002.000000007.*zfinal",
       },
       {
         ["fullName"] = "python2/2.7 (gcc/4.2.3)",
-        ["isVisible"] = true,
+        ["hidden"] = false,
+        ["my_name"] = "numpy/1.16.4",
         ["pV"] = "000000002.000000007.*zfinal",
       },
     },
@@ -642,34 +648,40 @@ provideByT = {
     ["scipy/1.1"]  = {
       {
         ["fullName"] = "python2/2.6.12",
-        ["isVisible"] = true,
+        ["hidden"] = false,
+        ["my_name"] = "scipy/1.1",
         ["pV"] = "000000002.000000006.000000012.*zfinal",
       },
     },
     ["scipy/1.2.2"]  = {
       {
         ["fullName"] = "python2/2.7.14",
-        ["isVisible"] = true,
+        ["hidden"] = false,
+        ["my_name"] = "scipy/1.2.2",
         ["pV"] = "000000002.000000007.000000014.*zfinal",
       },
       {
         ["fullName"] = "python2/2.7 (intel/11.2)",
-        ["isVisible"] = true,
+        ["hidden"] = false,
+        ["my_name"] = "scipy/1.2.2",
         ["pV"] = "000000002.000000007.*zfinal",
       },
       {
         ["fullName"] = "python2/2.7 (intel/11.0)",
-        ["isVisible"] = true,
+        ["hidden"] = false,
+        ["my_name"] = "scipy/1.2.2",
         ["pV"] = "000000002.000000007.*zfinal",
       },
       {
         ["fullName"] = "python2/2.7 (gcc/4.2.5)",
-        ["isVisible"] = true,
+        ["hidden"] = false,
+        ["my_name"] = "scipy/1.2.2",
         ["pV"] = "000000002.000000007.*zfinal",
       },
       {
         ["fullName"] = "python2/2.7 (gcc/4.2.3)",
-        ["isVisible"] = true,
+        ["hidden"] = false,
+        ["my_name"] = "scipy/1.2.2",
         ["pV"] = "000000002.000000007.*zfinal",
       },
     },
@@ -716,4 +728,22 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy/1.16.4
 MODULEPATH=ProjectDIR/rt/spider/mf/E_Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/E_Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider/mf/E_Core",}';
+export _ModuleTable_;
+===========================
+step 40
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider abcpy
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/spider/mf/F_Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/spider/mf/F_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/F_Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider/mf/F_Core",}';
+export _ModuleTable_;
+===========================
+step 41
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider abcpy/2.1
+===========================
+MODULEPATH=ProjectDIR/rt/spider/mf/F_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/F_Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider/mf/F_Core",}';
 export _ModuleTable_;
