@@ -590,7 +590,7 @@ function M.buildProvideByT(self, dbT, providedByT)
    local mrc = MRC:singleton()
    for sn, vv in pairs(dbT) do
       for fullPath, v in pairs(vv) do
-         local isVisible = mrc:isVisible({fullName=v.fullName, sn=sn, fn=fullPath})
+         local hidden = not mrc:isVisible({fullName=v.fullName, sn=sn, fn=fullPath})
          if (v.provides ~= nil) then
             local providesA = v.provides
             for i = 1, #providesA do
@@ -600,13 +600,13 @@ function M.buildProvideByT(self, dbT, providedByT)
                local A        = T[fullName] or {}
                local parentAA = v.parentAA
                if (parentAA == nil) then
-                  A[#A+1] = {fullName = v.fullName, pV = v.pV, isVisible = isVisible,
+                  A[#A+1] = {fullName = v.fullName, pV = v.pV, hidden = hidden,
                              my_name = fullName}
                else
                   for j = 1,#parentAA do
                      local hierStr = concatTbl(parentAA[j]," ")
                      A[#A+1] = {fullName = v.fullName .. " (" .. hierStr .. ")", pV = v.pV,
-                                isVisible = isVisible, my_name = fullName}
+                                hidden = hidden, my_name = fullName}
                   end
                end
                T[fullName]     = A
@@ -736,7 +736,7 @@ function M.Level0Helper(self, dbT, providedByT, a)
          local isVisible = show_hidden
          if (not show_hidden) then
             for i = 1, #A do
-               if (A[i].isVisible) then
+               if (not A[i].hidden) then
                   isVisible = true
                   break
                end
@@ -845,7 +845,7 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
             dbg.print{"Have TT\n"}
             for fullName, A in pairs(TT) do
                for i = 1,#A do
-                  if (A[i].isVisible) then
+                  if (not A[i].hidden) then
                      found = true
                      break
                   end
@@ -877,7 +877,7 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
       for sn, vv in pairs(providedByT) do
          for fullName, A in pairs(vv) do
             for i = 1,#A do
-               if (show_hidden or A[i].isVisible) then
+               if (show_hidden or (not A[i].hidden)) then
                   fullA[#fullA+1] = {sn=sn, fullName=fullName}
                   break
                end
@@ -1009,7 +1009,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
             for k, A in pairs(vv) do
                for i = 1,#A do
                   local v = A[i]
-                  if (v.isVisible) then
+                  if (not v.hidden) then
                      if (k == key) then
                         cc[#cc+1]        = A[i]
                         fName2           = k
@@ -1082,7 +1082,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
       dbg.print{"Have TT\n"}
       for fullName, A in pairsByKeys(TT) do
          for i = 1,#A do
-            if (A[i].isVisible) then
+            if (not A[i].hidden) then
                local kk = sn .. "/" .. parseVersion(extractVersion(fullName, sn)) .. '(P)'
                if (fullVT[kk] == nil) then
                   key         = sn
@@ -1292,7 +1292,7 @@ function M._Level2(self, sn, fullName, entryA, entryPA, possibleA)
       for i = 1,#entryPA do
          local v = entryPA[i]
          dbg.printT("v",v)
-         if (v.isVisible) then
+         if (not v.hidden) then
             c[#c+1] = "\n       " .. v.fullName
          end
       end
