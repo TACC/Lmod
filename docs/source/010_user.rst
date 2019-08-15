@@ -184,7 +184,7 @@ then that is a bug and should be reported.
 clearLmod: Complete remove Lmod setup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-It is rare but sometimes a user might need to remove the Lmod setup
+It is rare, but sometimes a user might need to remove the Lmod setup
 from their current shell.  This command can be used with
 bash/zsh/csh/tcsh to remove the Lmod setup::
 
