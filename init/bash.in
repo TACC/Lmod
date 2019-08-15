@@ -145,7 +145,7 @@ clearMT()
 
 clearLmod()
 {
-  module purge
+  module --force purge
   eval $($LMOD_DIR/clearLMOD_cmd --shell bash --full "$@")
 }
 
