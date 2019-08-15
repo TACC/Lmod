@@ -32,7 +32,7 @@ cat > $(testName).csh << EOF
      lua $(projectDir)/src/$CMD csh purge > _stdclr.00
      eval \`cat _stdclr.00\`
 
-     lua $(projectDir)/src/clearMT_cmd.in.lua csh > _stdclr.01
+     lua $(projectDir)/src/clearLMOD_cmd.in.lua --shell csh --simple > _stdclr.01
      eval \`cat _stdclr.01\`
 
      setenv ORIG_HOME `(cd $HOME; /bin/pwd)`
