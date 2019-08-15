@@ -32,8 +32,8 @@ if ($?tcsh) then
 else
   alias module  $prefix'eval `$LMOD_CMD csh  '$midfix $histchar'*` '$postfix
 endif
-alias clearMT   'eval `'$LMOD_DIR/clearLMOD_cmd --shell csh --simple'`'
-alias clearLmod 'eval `'$LMOD_DIR/clearLMOD_cmd --shell csh --full'`'
+alias clearMT                        'eval `'$LMOD_DIR/clearLMOD_cmd --shell csh --simple'`'
+alias clearLmod  module purge $merge 'eval `'$LMOD_DIR/clearLMOD_cmd --shell csh --full'`'
 
 alias ml      'eval `'$LMOD_DIR/ml_cmd' '$histchar'*`'
 

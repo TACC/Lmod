@@ -90,6 +90,7 @@ local concatTbl    = table.concat
 local strfmt       = string.format
 local huge         = math.huge
 local master       = {}
+local Optiks       = require("Optiks")
 
 
 function masterTbl()
@@ -167,22 +168,22 @@ end
 function options()
    local masterTbl     = masterTbl()
    local usage         = "Usage: "
-   local cmdlineParser = Optiks:new{usage=usage, version=Version}
+   local cmdlineParser = Optiks:new{usage=usage, version="1.0"}
 
    cmdlineParser:add_option{ 
-      name   = {,'--simple'},
+      name   = {'--simple'},
       dest   = 'simple',
       action = 'store_true',
    }
 
    cmdlineParser:add_option{ 
-      name   = {,'--full'},
+      name   = {'--full'},
       dest   = 'full',
       action = 'store_true',
    }
 
    cmdlineParser:add_option{ 
-      name    = {,'-s','--shell'},
+      name    = {'-s','--shell'},
       dest    = 'shell',
       action  = 'store',
       default = 'bash',
@@ -223,7 +224,7 @@ function main()
    setenv("LOADEDMODULES",    "")
    setenv("_LMFILES_",        "")
 
-   if (not masterTbl().full) then
+   if (not masterTbl.full) then
       return
    end
 
