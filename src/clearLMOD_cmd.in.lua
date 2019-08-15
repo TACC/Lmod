@@ -171,6 +171,12 @@ function options()
    local cmdlineParser = Optiks:new{usage=usage, version="1.0"}
 
    cmdlineParser:add_option{ 
+      name   = {'-q','--quiet'},
+      dest   = 'quiet',
+      action = 'store_true',
+   }
+
+   cmdlineParser:add_option{ 
       name   = {'--simple'},
       dest   = 'simple',
       action = 'store_true',
@@ -227,6 +233,11 @@ function main()
    if (not masterTbl.full) then
       return
    end
+
+   if (not masterTbl.quiet) then
+      io.stderr:write("Executing a module purge and removing all Lmod environment variable and aliases/shell functions\n"
+   end
+
 
    --------------------------------------------------------------
    -- If here then remove LMOD completely from the environment
