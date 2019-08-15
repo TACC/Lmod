@@ -107,7 +107,7 @@ DIRLIST		  	  := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS)      $(DESTDIR)$(SETTAR
                              $(DESTDIR)$(I18N)    $(DESTDIR)$(FISH_TAB)
 
 STANDALONE_PRGM   	  := src/lmod.in.lua src/addto.in.lua                       \
-                             src/spider.in.lua src/clearMT_cmd.in.lua               \
+                             src/spider.in.lua src/clearLMOD_cmd.in.lua             \
                              src/ml_cmd.in.lua                                      \
                              src/spiderCacheSupport.in.lua                          \
                              src/sh_to_modulefile.in.lua                            \

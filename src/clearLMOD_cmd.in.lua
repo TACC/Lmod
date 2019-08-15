@@ -3,7 +3,7 @@
 
 --------------------------------------------------------------------------
 -- Fixme
--- @script clearMT_cmd
+-- @script clearLMOD_cmd
 
 --------------------------------------------------------------------------
 -- Lmod License
@@ -57,6 +57,7 @@ _G._DEBUG      = false
 local posix    = require("posix")
 local readlink = posix.readlink
 local stat     = posix.stat
+local getenv   = posix.getenv
 
 local st       = stat(arg_0)
 while (st.type == "link") do
@@ -87,12 +88,30 @@ require("fileOps")
 
 local concatTbl    = table.concat
 local strfmt       = string.format
-local getenv       = os.getenv
 local huge         = math.huge
+local master       = {}
+
+
+function masterTbl()
+   return master
+end
 
 function cmdDir()
    return cmd_dir
 end
+
+function bash_unset(name)
+   io.stdout:write("unset -f ",name," 2> /dev/null || true;\n")
+end
+
+function csh_unset(name)
+   io.stdout:write("unalias ",name,";\n")
+end
+
+function python_unset(name)
+end
+
+
 function bash_export(name, value)
    local a = {}
    if (value == "") then
@@ -145,14 +164,52 @@ function python_setenv(name, value)
    io.stdout:write(concatTbl(a,""))
 end
 
+function options()
+   local masterTbl     = masterTbl()
+   local usage         = "Usage: "
+   local cmdlineParser = Optiks:new{usage=usage, version=Version}
+
+   cmdlineParser:add_option{ 
+      name   = {,'--simple'},
+      dest   = 'simple',
+      action = 'store_true',
+   }
+
+   cmdlineParser:add_option{ 
+      name   = {,'--full'},
+      dest   = 'full',
+      action = 'store_true',
+   }
+
+   cmdlineParser:add_option{ 
+      name    = {,'-s','--shell'},
+      dest    = 'shell',
+      action  = 'store',
+      default = 'bash',
+   }
+   local optionTbl, pargs = cmdlineParser:parse(arg)
+
+   for v in pairs(optionTbl) do
+      masterTbl[v] = optionTbl[v]
+   end
+   masterTbl.pargs = pargs
+
+end
+
 function main()
+   local masterTbl     = masterTbl()
+   options()
+   
    local setenv = bash_export
-   if ( arg[1] == "csh" ) then
+   local unset  = bash_unset
+   if ( masterTbl.shell == "csh" ) then
       setenv = csh_setenv
+      unset  = csh_unset
    end
 
-   if ( arg[1] == "python" ) then
+   if ( masterTbl.shell == "python" ) then
       setenv = python_setenv
+      unset  = python_unset
    end
 
    for k = 1, huge do
@@ -161,9 +218,41 @@ function main()
       if (v == nil) then break end
       setenv(name,"")
    end
+
    setenv("_ModuleTable_Sz_", "")
    setenv("LOADEDMODULES",    "")
    setenv("_LMFILES_",        "")
+
+   if (not masterTbl().full) then
+      return
+   end
+
+   --------------------------------------------------------------
+   -- If here then remove LMOD completely from the environment
+
+   setenv("SETTARG_TAG1",           "")
+   setenv("SETTARG_TAG2",           "")
+   setenv("MODULESHOME",            "")
+   setenv("MODULEPATH",             "")
+   setenv("MODULEPATH_ROOT",        "")
+   setenv("MODULERCFILE",           "")   
+   setenv("TARG_TITLE_BAR_PAREN",   "")   
+   setenv("__Init_Default_Modules", "")
+   
+   unset("module")
+   unset("ml")
+   unset("clearMT")
+   unset("clearLmod")
+   unset("xSetTitleLmod")
+
+   for key, value in pairs(getenv()) do
+      if ( key:find("LMOD") or
+           key:find("_ModuleTable%d%d%d_")) then
+         
+         setenv(key,"")
+      end
+   end
+
 end
 
 main()
