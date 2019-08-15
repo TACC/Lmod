@@ -144,12 +144,11 @@ An example of how this can be done in your bash startup scripts
 All the comments above can be combined into a complete example::
 
     if [ -z "$_INIT_LMOD" ]; then
-       export _INIT_LMOD=1           # guard variable is crucial, to avoid breaking existing modules settings
        type module > /dev/null 2>&1
        if [ "$?" -eq 0 ]; then
-         module purge >2 /dev/null   # purge old modules using old module command.
-         clearMT                     # clear the stored module table (wipe _ModuleTable001_ etc.)
+         clearLmod --quiet           # Purge all modules and completely remove old Lmod setup
        fi
+       export _INIT_LMOD=1           # guard variable is crucial, to avoid breaking existing modules settings
 
        export MODULEPATH=...                         # define  MODULEPATH
        export BASH_ENV=$HOME/pkg/lmod/lmod/init/bash # Point to the new definition of Lmod
