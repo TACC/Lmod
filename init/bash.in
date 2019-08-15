@@ -140,7 +140,12 @@ unset export_module
 
 clearMT()
 {
-  eval $($LMOD_DIR/clearMT_cmd bash)
+  eval $($LMOD_DIR/clearLMOD_cmd --shell bash --simple)
+}
+
+clearLmod()
+{
+  eval $($LMOD_DIR/clearLMOD_cmd --shell bash --full)
 }
 
 xSetTitleLmod()
