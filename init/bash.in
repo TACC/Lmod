@@ -145,7 +145,8 @@ clearMT()
 
 clearLmod()
 {
-  eval $($LMOD_DIR/clearLMOD_cmd --shell bash --full)
+  module purge
+  eval $($LMOD_DIR/clearLMOD_cmd --shell bash --full "$@")
 }
 
 xSetTitleLmod()
