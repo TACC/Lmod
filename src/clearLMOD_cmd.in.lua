@@ -90,10 +90,7 @@ local concatTbl    = table.concat
 local strfmt       = string.format
 local huge         = math.huge
 local master       = {}
-<<<<<<< HEAD:src/clearLMOD_cmd.in.lua
-=======
 local Optiks       = require("Optiks")
->>>>>>> master:src/clearLMOD_cmd.in.lua
 
 
 function masterTbl()
@@ -171,12 +168,6 @@ end
 function options()
    local masterTbl     = masterTbl()
    local usage         = "Usage: "
-<<<<<<< HEAD:src/clearLMOD_cmd.in.lua
-   local cmdlineParser = Optiks:new{usage=usage, version=Version}
-
-   cmdlineParser:add_option{ 
-      name   = {,'--simple'},
-=======
    local cmdlineParser = Optiks:new{usage=usage, version="1.0"}
 
    cmdlineParser:add_option{ 
@@ -187,27 +178,18 @@ function options()
 
    cmdlineParser:add_option{ 
       name   = {'--simple'},
->>>>>>> master:src/clearLMOD_cmd.in.lua
       dest   = 'simple',
       action = 'store_true',
    }
 
    cmdlineParser:add_option{ 
-<<<<<<< HEAD:src/clearLMOD_cmd.in.lua
-      name   = {,'--full'},
-=======
       name   = {'--full'},
->>>>>>> master:src/clearLMOD_cmd.in.lua
       dest   = 'full',
       action = 'store_true',
    }
 
    cmdlineParser:add_option{ 
-<<<<<<< HEAD:src/clearLMOD_cmd.in.lua
-      name    = {,'-s','--shell'},
-=======
       name    = {'-s','--shell'},
->>>>>>> master:src/clearLMOD_cmd.in.lua
       dest    = 'shell',
       action  = 'store',
       default = 'bash',
