@@ -23,4 +23,4 @@ Lmod 8.1+
             * Added new command "clearLmod" which does a module purge and removes all
 	      Lmod aliases and env. vars.
 WIP:
-   (8.1.15) * SpiderT now ignores "." in path.
+   (8.1.15) * When building the spiderT tree, it now ignores "." in path.
