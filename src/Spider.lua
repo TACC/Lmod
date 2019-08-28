@@ -128,7 +128,9 @@ function Spider_append_path(kind, t)
       dbg.fini(kind)
    elseif (name == "PATH") then
       dbg.start{kind, "(\"",name, "\" = \"", value, "\")"}
-      processPATH(value)
+      if (value ~= ".") then
+         processPATH(value)
+      end
       dbg.fini(kind)
    elseif (name == "LD_LIBRARY_PATH" or name == "CRAY_LD_LIBRARY_PATH" ) then
       dbg.start{kind, "(\"",name, "\" = \"", value, "\")"}

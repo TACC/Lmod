@@ -22,3 +22,5 @@ Lmod 8.1+
    (8.1.14) * Added test for building reverseMap with path directories which are symlinks
             * Added new command "clearLmod" which does a module purge and removes all
 	      Lmod aliases and env. vars.
+WIP:
+   (8.1.15) * SpiderT now ignores "." in path.
