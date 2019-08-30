@@ -106,13 +106,16 @@ Cache               = require("Cache")
 MRC                 = require("MRC")
 Master              = require("Master")
 BaseShell           = require("BaseShell")
+Shell               = false
 local Optiks        = require("Optiks")
 local Spider        = require("Spider")
 local concatTbl     = table.concat
+local cosmic        = require("Cosmic"):singleton()
 local dbg           = require("Dbg"):dbg()
 local i18n          = require("i18n")
 local lfs           = require("lfs")
 local sort          = table.sort
+local pack          = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
 
 
 local ignoreA     = {
@@ -405,10 +408,10 @@ function main()
    local pargs      = masterTbl.pargs
    local mpathA     = {}
 
+   Shell            = BaseShell:build("bash")
    build_i18n_messages()
 
    local master     = Master:singleton(false)
-   --_G.Shell         = BaseShell:build("bash")
 
    for _, v in ipairs(pargs) do
       for path in v:split(":") do
@@ -432,6 +435,9 @@ function main()
    dbg.start{"Spider main()"}
    MCP = MasterControl.build("spider")
    mcp = MasterControl.build("spider")
+
+   dbg.print{"LMOD_TRACING: ",cosmic:value("LMOD_TRACING"),"\n"}
+
 
    ------------------------------------------------------------------------
    -- do not colorize output from spider
@@ -605,10 +611,25 @@ function convertEntry(name, vv, spA)
    spA[#spA+1] = entry
 end
 
+local function Error(...)
+   local argA   = pack(...)
+   for i = 1,argA.n do
+      io.stderr:write(argA[i])
+   end
+end
+
+local function prt(...)
+   stderr:write(...)
+end
+
 function options()
    local masterTbl = masterTbl()
    local usage         = "Usage: spider [options] moduledir ..."
-   local cmdlineParser = Optiks:new{usage=usage, version="1.0"}
+   local cmdlineParser = Optiks:new{usage   = usage,
+                                    version = "1.0",
+                                    error   = Error,
+                                    prt     = prt,
+   }
 
    cmdlineParser:add_option{
       name   = {'-D'},
@@ -617,6 +638,12 @@ function options()
       help   = "Program tracing written to stderr",
    }
 
+   cmdlineParser:add_option{
+      name   = {"-T", "--trace" },
+      dest   = "trace",
+      action = "store_true",
+      help   = "Tracing",
+   }
    cmdlineParser:add_option{
       name   = {'--debug'},
       dest   = 'dbglvl',
@@ -659,6 +686,10 @@ function options()
    }
 
    local optionTbl, pargs = cmdlineParser:parse(arg)
+
+   if (optionTbl.trace) then
+      cosmic:assign("LMOD_TRACING", "yes")
+   end
 
    for v in pairs(optionTbl) do
       masterTbl[v] = optionTbl[v]

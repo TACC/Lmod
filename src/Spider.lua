@@ -37,6 +37,7 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
+require("myGlobals")
 require("string_utils")
 require("fileOps")
 require("pairsByKeys")
