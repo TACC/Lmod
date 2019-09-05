@@ -282,7 +282,8 @@ function M.findAllModules(self, mpathA, spiderT)
    end
 
    local dirStk = masterTbl.dirStk
-   for _, mpath in ipairs(mpathA) do
+   for i = 1,#mpathA do
+      local mpath = mpathA[i]
       if (isDir(mpath)) then
          dirStk[#dirStk+1] = path_regularize(mpath)
       end
@@ -304,6 +305,7 @@ function M.findAllModules(self, mpathA, spiderT)
          if (not attr or attr.mode ~= "directory" or
              (not access(mpath,"rx")))               then break end
 
+         dbg.print{"RTM mpath: ", mpath,"\n"}
          local moduleA     = ModuleA:__new({mpath}, maxdepthT):moduleA()
          local T           = moduleA[1].T
          for sn, v in pairs(T) do
