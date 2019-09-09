@@ -82,6 +82,7 @@ local cosmic     = require("Cosmic"):singleton()
 local dbg        = require("Dbg"):dbg()
 local hook       = require("Hook")
 local lfs        = require("lfs")
+local sort       = table.sort
 local s_cache    = false
 local timer      = require("Timer"):singleton()
 
@@ -421,6 +422,7 @@ function M.build(self, fast)
    local Pairs       = dbg.active() and pairsByKeys or pairs
    local frameStk    = FrameStk:singleton()
    local mt          = frameStk:mt()
+   local mpathA      = mt:modulePathA()
    local masterTbl   = masterTbl()
    local T1          = epoch()
    local sysDirsRead = 0
@@ -438,14 +440,31 @@ function M.build(self, fast)
       usrDirsRead = l_readCacheFile(self, self.usrSpiderTFnA)
    end
 
+   local mpathT = {}
+   for i = 1, #mpathA do
+      mpathT[mpathA[i]] = i
+   end
+
+
    local dirA   = {}
    local numMDT = 0
    for k, v in Pairs(spiderDirT) do
       numMDT = numMDT + 1
       if (not v) then
          dbg.print{"rebuilding cache for directory: ",k,"\n"}
-         dirA[#dirA+1] = k
+         local idx = mpathT[k] or 0
+         dirA[#dirA+1] = { mpath = k, idx = idx}
       end
+   end
+   local function cmp(a,b)
+      return a.idx < b.idx
+   end
+
+   sort(dirA, cmp)
+
+   local mpA = {}
+   for i = 1, #dirA do
+      mpA[#mpA+1] = dirA[i].mpath
    end
 
    local dirsRead = sysDirsRead + usrDirsRead
@@ -475,7 +494,7 @@ function M.build(self, fast)
          local b          = {}
          b[#b + 1]        = indent
          b[#b + 1]        = "Building Spider cache for the following dir(s): "
-         b[#b + 1]        = concatTbl(dirA,", ")
+         b[#b + 1]        = concatTbl(mpA,", ")
          b[#b + 1]        = "\n"
          shell:echo(concatTbl(b,""))
       end
@@ -497,7 +516,7 @@ function M.build(self, fast)
       mcp                 = MasterControl.build("spider")
 
       local t1            = epoch()
-      local ok, msg       = pcall(Spider.findAllModules, spider, dirA, userSpiderT)
+      local ok, msg       = pcall(Spider.findAllModules, spider, mpA, userSpiderT)
       if (not ok) then
          if (msg) then io.stderr:write("Msg: ",msg,'\n') end
          LmodSystemError{msg="e_Spdr_Timeout"}
