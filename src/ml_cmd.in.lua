@@ -196,6 +196,7 @@ function main()
       show="show",
       spider="spider",
       swap="swap", sw="swap",
+      switch="swap", sw="swap",
       tablelist="tablelist",
       ['try-load'] = "try-load",
       ['is-loaded'] = "is-loaded",

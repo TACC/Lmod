@@ -24,4 +24,6 @@ Lmod 8.1+
 	      Lmod aliases and env. vars.
    (8.1.15) * When building the spiderT tree, it now ignores "." in path.
    (8.1.16) * Previous version failed to be uploaded to the world.  Bump version to fix.
+   (8.1.17) * Adding back "module switch" as an alias for "module swap"
+   
    
