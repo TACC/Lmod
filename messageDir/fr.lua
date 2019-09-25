@@ -154,6 +154,8 @@ Sinon, vous pouvez définir la variable d'environnement LMOD_DISABLE_SAME_NAME_A
      m_Depend_Mods         = "\n    Vous devrez charger tous les modules de l'un des lignes suivantes avant de pouvoir charger le module \"%{fullName}\".\n",
      m_Description         = "    Description:\n%{descript}\n\n",
      m_Direct_Load         = "\n    Ce module peut être chargé directement : module load %{fullName}\n",
+     m_Extensions_head     = nil,
+     m_Extensions_tail     = nil,
      m_Family_Swap         = "\nLmod a automatiquement remplacé \"%{oldFullName}\" par \"%{newFullName}\"\n",
      m_For_System          = ", pour le système: \"%{sname}\"",
      m_Inactive_Modules    = "\nModules inactifs:\n",

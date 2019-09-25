@@ -41,6 +41,7 @@ require("loadModuleFile")
 
 local Banner       = require("Banner")
 local BeautifulTbl = require("BeautifulTbl")
+local Cache        = require("Cache")
 local ColumnTable  = require("ColumnTable")
 local FrameStk     = require("FrameStk")
 local M            = {}
@@ -48,6 +49,7 @@ local MRC          = require("MRC")
 local MName        = require("MName")
 local MT           = require("MT")
 local ModuleA      = require("ModuleA")
+local Spider       = require("Spider")
 local Var          = require("Var")
 local concatTbl    = table.concat
 local cosmic       = require("Cosmic"):singleton()
@@ -1020,7 +1022,6 @@ function M.avail(self, argA)
    local Default  = 'D'
    local numFound = 0
 
-
    if (next(alias2modT) ~= nil) then
       local b = {}
       for k, v in pairsByKeys(alias2modT) do
@@ -1089,16 +1090,36 @@ function M.avail(self, argA)
          end
          numFound = numFound + #b
 
+
          if (next(b) ~= nil) then
             local ct = ColumnTable:new{tbl=b, gap=1, len = length, width = cwidth}
             a[#a+1] = "\n"
             a[#a+1] = banner:bannerStr(label)
             a[#a+1] = "\n"
-            a[#a+1]  = ct:build_tbl()
+            a[#a+1] = ct:build_tbl()
             a[#a+1] = "\n"
          end
       end
    end
+
+   local cache                  = Cache:singleton{buildCache=true}
+   local spiderT,dbT,
+         mpathMapT, providedByT = cache:build()
+   
+   if (providedByT and next(providedByT) ~= nil) then
+      local b = {}
+      for k in pairsByKeys(providedByT) do
+         b[#b + 1] = "(" .. k .. ")(P)"
+      end
+      local ct = ColumnTable:new{tbl=b, gap=1, len = length, width = cwidth}
+      a[#a+1] = "\n"
+      a[#a+1] = banner:bannerStr(i18n("m_Extensions_head"))
+      a[#a+1] = "\n"
+      a[#a+1] = ct:build_tbl()
+      a[#a+1] = "\n"
+      a[#a+1] = i18n("m_Extensions_tail")
+   end
+
 
    if (numFound == 0) then
       a[#a+1] = colorize("red",i18n("noModules",{}))

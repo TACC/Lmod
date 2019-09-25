@@ -125,6 +125,8 @@ Además, puede configurar la variable de entorno LMOD_DISABLE_SAME_NAME_AUTOSWAP
      m_Depend_Mods         = nil,
      m_Description         = nil,
      m_Direct_Load         = nil,
+     m_Extensions_head     = nil,
+     m_Extensions_tail     = nil,
      m_Family_Swap         = "\nLmod va a reemplazar \"%{oldFullName}\" con \"%{newFullName}\" automáticamente\n",
      m_For_System          = nil,
      m_Inactive_Modules    = nil,

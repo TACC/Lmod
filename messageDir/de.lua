@@ -162,6 +162,8 @@ Alternativ können Sie die Umgebungsvariable LMOD_DISABLE_SAME_NAME_AUTOSWAP auf
      m_Depend_Mods         = "\n    Sie müssen alle Module in einer der nachfolgenden Zeilen laden bevor Sie das Modul \"%{fullName}\" laden können.\n",
      m_Description         = "    Beschreibung:\n%{descript}\n\n",
      m_Direct_Load         = "\n    Dieses Modul kann direkt geladen werden: \"module load %{fullName}\".\n",
+     m_Extensions_head     = nil,
+     m_Extensions_tail     = nil,
      m_Family_Swap         = "\nLmod hat \"%{oldFullName}\" automatisch durch \"%{newFullName}\" ersetzt.\n",
      m_For_System          = ", für das System: \"%{sname}\"",
      m_Inactive_Modules    = "\nInaktive Module:\n",
