@@ -38,6 +38,17 @@ testdescript = {
      runBase buildRmapT   $MODULEPATH      # 4
      runLmod spider                        # 5
 
+     unsetMT
+
+     export MODULEPATH=$MODULEPATH_ROOT/2Core
+     runBase buildSpiderT $MODULEPATH      # 6
+     runBase buildDbT     $MODULEPATH      # 7
+
+     export MODULEPATH_LOOP=1
+
+     runBase buildSpiderT $MODULEPATH      # 8
+     runBase buildDbT     $MODULEPATH      # 9
+
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new

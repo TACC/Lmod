@@ -219,18 +219,17 @@ function main()
       unset  = python_unset
    end
 
-   for k = 1, huge do
-      local name = strfmt("_ModuleTable%03d_",k)
-      local v = getenv(name)
-      if (v == nil) then break end
-      setenv(name,"")
-   end
-
    setenv("_ModuleTable_Sz_", "")
    setenv("LOADEDMODULES",    "")
    setenv("_LMFILES_",        "")
 
    if (not masterTbl.full) then
+      for k = 1, huge do
+         local name = strfmt("_ModuleTable%03d_",k)
+         local v = getenv(name)
+         if (v == nil) then break end
+         setenv(name,"")
+      end
       return
    end
    if (not masterTbl.quiet) then

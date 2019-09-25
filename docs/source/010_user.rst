@@ -180,6 +180,21 @@ If you ever have to load a module name *spider* you can do::
 If you are ever forced to type the **module** command instead of **ml**
 then that is a bug and should be reported.
 
+
+clearLmod: Complete remove Lmod setup
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+It is rare, but sometimes a user might need to remove the Lmod setup
+from their current shell.  This command can be used with
+bash/zsh/csh/tcsh to remove the Lmod setup::
+
+    $ clearLmod
+
+This command prints a message telling the user what it has done.  This
+message can be silented with::
+
+    $ clearLmod --quiet
+  
 SAFETY FEATURES
 ^^^^^^^^^^^^^^^
 

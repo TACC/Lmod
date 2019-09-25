@@ -37,6 +37,7 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
+require("myGlobals")
 require("string_utils")
 require("fileOps")
 require("pairsByKeys")
@@ -128,7 +129,9 @@ function Spider_append_path(kind, t)
       dbg.fini(kind)
    elseif (name == "PATH") then
       dbg.start{kind, "(\"",name, "\" = \"", value, "\")"}
-      processPATH(value)
+      if (value ~= ".") then
+         processPATH(value)
+      end
       dbg.fini(kind)
    elseif (name == "LD_LIBRARY_PATH" or name == "CRAY_LD_LIBRARY_PATH" ) then
       dbg.start{kind, "(\"",name, "\" = \"", value, "\")"}
@@ -279,7 +282,8 @@ function M.findAllModules(self, mpathA, spiderT)
    end
 
    local dirStk = masterTbl.dirStk
-   for _, mpath in ipairs(mpathA) do
+   for i = 1,#mpathA do
+      local mpath = mpathA[i]
       if (isDir(mpath)) then
          dirStk[#dirStk+1] = path_regularize(mpath)
       end
@@ -301,6 +305,7 @@ function M.findAllModules(self, mpathA, spiderT)
          if (not attr or attr.mode ~= "directory" or
              (not access(mpath,"rx")))               then break end
 
+         dbg.print{"RTM mpath: ", mpath,"\n"}
          local moduleA     = ModuleA:__new({mpath}, maxdepthT):moduleA()
          local T           = moduleA[1].T
          for sn, v in pairs(T) do

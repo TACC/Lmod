@@ -314,6 +314,7 @@ function main()
       {cmd = 'sl',           min = 2, action = savelistTbl },
       {cmd = 'spider',       min = 2, action = spiderTbl   },
       {cmd = 'swap',         min = 2, action = swapTbl     },
+      {cmd = 'switch',       min = 2, action = swapTbl     },
       {cmd = 'save',         min = 1, action = saveTbl     },
       {cmd = 'tablelist',    min = 5, action = tblLstTbl   },
       {cmd = 'try-load',     min = 5, action = tryAddTbl   },
