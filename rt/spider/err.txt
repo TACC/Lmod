@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.1.10  2019-07-10 15:49 -05:00
+Modules based on Lua: Version 8.1.17  2019-09-24 10:10 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -12,7 +12,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/rt/sp
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
-The following is a list of the modules currently available:
+The following is a list of the modules and extensions currently available:
   PrgEnv: PrgEnv
   R: R/2.1.5
   admin: admin/admin-1.0
@@ -39,7 +39,7 @@ The following is a list of the modules currently available:
   mpich2: mpich2/1.0.7
   multi: multi/multi
   noweb: noweb/2.10c
-  numpy: numpy/1.16.4(P)
+  numpy: numpy/1.16.4(E)
   openmpi: openmpi/1.2.6
   parmetis: parmetis/3.1, parmetis/4.0.1
     Parallel graph partitioning and fill-reduction matrix ordering routines
@@ -47,9 +47,9 @@ The following is a list of the modules currently available:
   phdf5: phdf5/1.8.2, phdf5/1.8.9, phdf5/1.8.10
   python2: python2/2.7
   r: r/2.1.5
-  scipy: scipy/1.2.2(P)
+  scipy: scipy/1.2.2(E)
   unix: unix/unix
-Names marked by a trailing (P) are software packages provided by another module
+Names marked by a trailing (E) are extensions provided by another module
 To learn more about a package execute:
    $ module spider Foo
 where "Foo" is the name of a module.
@@ -213,7 +213,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider is-dyna
      Versions:
         is-dyna/1.0
         is-dyna/2.0
-  For detailed information about a specific "is-dyna" package (including how to load the modules) use the module's full name. Note that names that have a trailing (P) are software packages provided by other modules.
+  For detailed information about a specific "is-dyna" package (including how to load the modules) use the module's full name. Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider is-dyna/2.0
 ===========================
@@ -233,7 +233,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider bwa
         bwa/0.7.9a
         bwa/0.7.9
         bwa/0.7.10
-  For detailed information about a specific "bwa" package (including how to load the modules) use the module's full name. Note that names that have a trailing (P) are software packages provided by other modules.
+  For detailed information about a specific "bwa" package (including how to load the modules) use the module's full name. Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider bwa/0.7.10
 ===========================
@@ -245,7 +245,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gromacs
         apps/gromacs/4.0.7
         apps/gromacs/4.6.3-debug
         apps/gromacs/4.6.3
-  For detailed information about a specific "apps/gromacs" package (including how to load the modules) use the module's full name. Note that names that have a trailing (P) are software packages provided by other modules.
+  For detailed information about a specific "apps/gromacs" package (including how to load the modules) use the module's full name. Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider apps/gromacs/4.6.3
 ===========================
@@ -257,7 +257,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs
         apps/gromacs/4.0.7
         apps/gromacs/4.6.3-debug
         apps/gromacs/4.6.3
-  For detailed information about a specific "apps/gromacs" package (including how to load the modules) use the module's full name. Note that names that have a trailing (P) are software packages provided by other modules.
+  For detailed information about a specific "apps/gromacs" package (including how to load the modules) use the module's full name. Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider apps/gromacs/4.6.3
 ===========================
@@ -282,7 +282,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/spide
 step 21
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
-The following is a list of the modules currently available:
+The following is a list of the modules and extensions currently available:
   PrgEnv: PrgEnv
   R: R/2.1.5
   admin: admin/admin-1.0
@@ -309,7 +309,7 @@ The following is a list of the modules currently available:
   mpich2: mpich2/1.0.7
   multi: multi/multi
   noweb: noweb/2.10c
-  numpy: numpy/1.16.4(P)
+  numpy: numpy/1.16.4(E)
   openmpi: openmpi/1.2.6
   parmetis: parmetis/3.1, parmetis/4.0.1
     Parallel graph partitioning and fill-reduction matrix ordering routines
@@ -317,9 +317,9 @@ The following is a list of the modules currently available:
   phdf5: phdf5/1.8.2, phdf5/1.8.9, phdf5/1.8.10
   python2: python2/2.7
   r: r/2.1.5
-  scipy: scipy/1.2.2(P)
+  scipy: scipy/1.2.2(E)
   unix: unix/unix
-Names marked by a trailing (P) are software packages provided by another module
+Names marked by a trailing (E) are extensions provided by another module
 To learn more about a package execute:
    $ module spider Foo
 where "Foo" is the name of a module.
@@ -335,7 +335,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gromacs
         apps/gromacs/4.0.7
         apps/gromacs/4.6.3-debug
         apps/gromacs/4.6.3
-  For detailed information about a specific "apps/gromacs" package (including how to load the modules) use the module's full name. Note that names that have a trailing (P) are software packages provided by other modules.
+  For detailed information about a specific "apps/gromacs" package (including how to load the modules) use the module's full name. Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider apps/gromacs/4.6.3
 ===========================
@@ -347,7 +347,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs
         apps/gromacs/4.0.7
         apps/gromacs/4.6.3-debug
         apps/gromacs/4.6.3
-  For detailed information about a specific "apps/gromacs" package (including how to load the modules) use the module's full name. Note that names that have a trailing (P) are software packages provided by other modules.
+  For detailed information about a specific "apps/gromacs" package (including how to load the modules) use the module's full name. Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider apps/gromacs/4.6.3
 ===========================
@@ -392,7 +392,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider petsc/3.1
 step 30
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
-The following is a list of the modules currently available:
+The following is a list of the modules and extensions currently available:
   hpl: hpl/2.2
     HPL is a software package that solves a (random) dense linear system in double precision (64 bits) arithmetic on distributed-memory computers. It can thus be regarded as a portable as well as freely available implementation of the High Performance Computing Linpack Benchmark. - Homepage:
     http://www.netlib.org/benchmark/hpl/
@@ -471,13 +471,13 @@ scipy/1.2.2
 step 37
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
-The following is a list of the modules currently available:
+The following is a list of the modules and extensions currently available:
   gcc: gcc/4.2.3, gcc/4.2.5
   intel: intel/11.0, intel/11.2
-  numpy: numpy/1.12(P), numpy/1.16.4(P)
+  numpy: numpy/1.12(E), numpy/1.16.4(E)
   python2: python2/2.6.12, python2/2.7, python2/2.7.14
-  scipy: scipy/1.1(P), scipy/1.2.2(P)
-Names marked by a trailing (P) are software packages provided by another module
+  scipy: scipy/1.1(E), scipy/1.2.2(E)
+Names marked by a trailing (E) are extensions provided by another module
 To learn more about a package execute:
    $ module spider Foo
 where "Foo" is the name of a module.
@@ -490,9 +490,9 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy
 ===========================
   numpy:
      Versions:
-        numpy/1.12(P)
-        numpy/1.16.4(P)
-  For detailed information about a specific "numpy" package (including how to load the modules) use the module's full name. Note that names that have a trailing (P) are software packages provided by other modules.
+        numpy/1.12(E)
+        numpy/1.16.4(E)
+  For detailed information about a specific "numpy" package (including how to load the modules) use the module's full name. Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider numpy/1.16.4
 ===========================
@@ -500,7 +500,7 @@ step 39
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy/1.16.4
 ===========================
   numpy: numpy/1.16.4
-    This software package is provided by the following modules. To access the package you must load one. Note that any module names in parentheses show the module location in the software hierarchy
+    This extension is provided by the following modules. To access the extension you must load one. Note that any module names in parentheses show the module location in the software hierarchy.
        python2/2.7.14
        python2/2.7 (intel/11.2)
        python2/2.7 (intel/11.0)
@@ -508,21 +508,38 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy/1.16.4
        python2/2.7 (gcc/4.2.3)
 ===========================
 step 40
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+Global Aliases
+   intelcompiler -> intel
+ProjectDIR/rt/spider/mf/E_Core
+   gcc/4.2.3        intel/11.0        python2/2.6.12
+   gcc/4.2.5 (D)    intel/11.2 (D)    python2/2.7.14 (D)
+This is a list of module extensions
+   (numpy)(E)    (scipy)(E)
+These extensions cannot be loaded directly
+  Where:
+   D:  Default Module
+   E:  Extension that is provided by another module
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 41
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider abcpy
 ===========================
   abcpy:
      Versions:
         abcpy/2.1
-        abcpy/2.1(P)
-        abcpy/2.2(P)
-  For detailed information about a specific "abcpy" package (including how to load the modules) use the module's full name. Note that names that have a trailing (P) are software packages provided by other modules.
+        abcpy/2.1(E)
+        abcpy/2.2(E)
+  For detailed information about a specific "abcpy" package (including how to load the modules) use the module's full name. Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider abcpy/2.2
 ===========================
-step 41
+step 42
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider abcpy/2.1
 ===========================
   abcpy: abcpy/2.1
     This module can be loaded directly: module load abcpy/2.1
-    This software package is provided by the following modules. To access the package you must load one. Note that any module names in parentheses show the module location in the software hierarchy
+    This extension is provided by the following modules. To access the extension you must load one. Note that any module names in parentheses show the module location in the software hierarchy
        python3/3.7

@@ -186,7 +186,7 @@ There are messages associated with the following module(s):
 To search the contents of modules for matching words execute:
 
   $   module keyword %{s}
-]==],
+]==], --
      m_Other_matches       = "\n     Other possible modules matches:\n        %{bb}\n",
      m_Other_possible      = [==[
      Other possible modules matches:
@@ -194,7 +194,7 @@ To search the contents of modules for matching words execute:
 ]==],
      m_Properties          = "    Properties:\n",
      m_ProvidedBy          = "Names marked by a trailing (E) are extensions provided by another module.\n\n",
-     m_ProvidedFrom        = "    This extension is provided by the following modules. To access the extension you must load one. Note that any module names in parentheses show the module location in the software hierarchy\n\n",
+     m_ProvidedFrom        = "    This extension is provided by the following modules. To access the extension you must load one. Note that any module names in parentheses show the module location in the software hierarchy.\n\n",
      m_ProvByModules       = "\n   The %{fullName} package is provide by the following modules\n",
      m_Regex_Spider        = [==[%{border}  To find other possible module matches execute:
 
