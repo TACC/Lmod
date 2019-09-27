@@ -257,6 +257,7 @@ return {
      Inactive  = nil,
      DefaultM  = nil,
      HiddenM   = nil,
+     Extension = nil,
 
      avail     = nil,
      list      = nil,

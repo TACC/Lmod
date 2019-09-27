@@ -377,6 +377,7 @@ Die Standard-Module des Systems enthalten keine Module.
      Inactive  = "\nInaktives Modul.",
      DefaultM  = "Standard Modul.",
      HiddenM   = "Verstecktes Modul.",
+     Extension = nil,
 
      avail     = [==[Verwenden Sie "module spider" um alle verfügbaren Module anzuzeigen.
 Verwenden Sie "module keyword key1 key2 ...", um alle verfügbaren Module anzuzeigen, die mindestens eines der Schlüsselworte enthält.

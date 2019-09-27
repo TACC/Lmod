@@ -296,6 +296,7 @@ No ha habido ningún cambio en los módulos cargados
      Inactive  = nil,
      DefaultM  = nil,
      HiddenM   = nil,
+     Extension = nil,
 
      avail     = nil,
      list      = nil,

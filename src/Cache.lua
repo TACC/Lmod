@@ -410,13 +410,13 @@ function M.build(self, fast)
    if (not self.buildCache) then
       dbg.fini("Cache:build")
       mrc:update()
-      return false, false
+      return false, false, false, false
    end
 
    if (next(spiderT) ~= nil) then
       dbg.print{"Using pre-built spiderT!\n"}
       dbg.fini("Cache:build")
-      return spiderT, dbT
+      return spiderT, dbT, mpathMapT, providedByT
    end
 
    local Pairs       = dbg.active() and pairsByKeys or pairs
@@ -472,7 +472,7 @@ function M.build(self, fast)
       dbg.print{"Fast and dirsRead: ",dirsRead,"\n"}
       dbg.fini("Cache:build")
       mrc:update()
-      return nil, nil
+      return false, false, false, false
    end
 
    local userSpiderTFN = self.usrSpiderTFN

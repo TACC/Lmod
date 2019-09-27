@@ -379,6 +379,9 @@ L'environnement par défaut ne contient aucun module
 
      Where     = "\n  Où :\n",
      Inactive  = "\nModules Inactifs",
+     DefaultM  = nil,
+     HiddenM   = nil,
+     Extension = nil,
 
      avail     = [==[Utilisez "module spider" pour trouver tous les modules possibles.
 Utilisez "module keyword key1 key2 ..." pour chercher tous les modules possibles qui correspondent à l'une des clés (key1, key2).

@@ -1107,9 +1107,24 @@ function M.avail(self, argA)
          mpathMapT, providedByT = cache:build()
    
    if (providedByT and next(providedByT) ~= nil) then
+      legendT['E'] = i18n("Extension")
       local b = {}
       for k in pairsByKeys(providedByT) do
-         b[#b + 1] = "(" .. k .. ")(P)"
+         local found = false
+         if (searchA.n > 0) then
+            for i = 1, searchA.n do
+               local s = searchA[i]
+               if (k:find(s)) then
+                  found = true
+                  break
+               end
+            end
+         else
+            found = true
+         end
+         if (found) then
+            b[#b + 1] = "   (" .. k .. ")(E)"
+         end
       end
       local ct = ColumnTable:new{tbl=b, gap=1, len = length, width = cwidth}
       a[#a+1] = "\n"
