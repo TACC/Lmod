@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.7.14  2017-11-16 16:23 -07:00
+Modules based on Lua: Version 8.1.17  2019-09-24 10:10 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -36,7 +36,7 @@ Lmod has detected the following error: module avail is not possible. MODULEPATH 
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
-The following is a list of the modules currently available:
+The following is a list of the modules and extensions currently available:
 To learn more about a package execute:
    $ module spider Foo
 where "Foo" is the name of a module.

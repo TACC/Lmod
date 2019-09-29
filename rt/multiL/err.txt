@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.7.14  2017-11-16 16:23 -07:00
+Modules based on Lua: Version 8.1.17  2019-09-24 10:10 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -16,7 +16,7 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
-The following is a list of the modules currently available:
+The following is a list of the modules and extensions currently available:
   cmplr/gcc: cmplr/gcc/4.7.2
     Gnu Compiler Collection
   cmplr/intel: cmplr/intel/13.1
