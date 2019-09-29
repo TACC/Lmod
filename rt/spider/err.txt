@@ -49,7 +49,7 @@ The following is a list of the modules and extensions currently available:
   r: r/2.1.5
   scipy: scipy/1.2.2(E)
   unix: unix/unix
-Names marked by a trailing (E) are extensions provided by another module
+Names marked by a trailing (E) are extensions provided by another module.
 To learn more about a package execute:
    $ module spider Foo
 where "Foo" is the name of a module.
@@ -319,7 +319,7 @@ The following is a list of the modules and extensions currently available:
   r: r/2.1.5
   scipy: scipy/1.2.2(E)
   unix: unix/unix
-Names marked by a trailing (E) are extensions provided by another module
+Names marked by a trailing (E) are extensions provided by another module.
 To learn more about a package execute:
    $ module spider Foo
 where "Foo" is the name of a module.
@@ -477,7 +477,7 @@ The following is a list of the modules and extensions currently available:
   numpy: numpy/1.12(E), numpy/1.16.4(E)
   python2: python2/2.6.12, python2/2.7, python2/2.7.14
   scipy: scipy/1.1(E), scipy/1.2.2(E)
-Names marked by a trailing (E) are extensions provided by another module
+Names marked by a trailing (E) are extensions provided by another module.
 To learn more about a package execute:
    $ module spider Foo
 where "Foo" is the name of a module.
@@ -541,5 +541,5 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider abcpy/2.1
 ===========================
   abcpy: abcpy/2.1
     This module can be loaded directly: module load abcpy/2.1
-    This extension is provided by the following modules. To access the extension you must load one. Note that any module names in parentheses show the module location in the software hierarchy
+    This extension is provided by the following modules. To access the extension you must load one. Note that any module names in parentheses show the module location in the software hierarchy.
        python3/3.7

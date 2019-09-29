@@ -1126,13 +1126,15 @@ function M.avail(self, argA)
             b[#b + 1] = "   (" .. k .. ")(E)"
          end
       end
-      local ct = ColumnTable:new{tbl=b, gap=1, len = length, width = cwidth}
-      a[#a+1] = "\n"
-      a[#a+1] = banner:bannerStr(i18n("m_Extensions_head"))
-      a[#a+1] = "\n"
-      a[#a+1] = ct:build_tbl()
-      a[#a+1] = "\n"
-      a[#a+1] = i18n("m_Extensions_tail")
+      if (next(b) ~= nil) then
+         local ct = ColumnTable:new{tbl=b, gap=1, len = length, width = cwidth}
+         a[#a+1] = "\n"
+         a[#a+1] = banner:bannerStr(i18n("m_Extensions_head"))
+         a[#a+1] = "\n"
+         a[#a+1] = ct:build_tbl()
+         a[#a+1] = "\n"
+         a[#a+1] = i18n("m_Extensions_tail")
+      end
    end
 
 
