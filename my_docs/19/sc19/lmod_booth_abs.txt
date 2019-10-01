@@ -1,0 +1,11 @@
+Title:     Lmod: What's New with TACC's Environment Module System.
+Presentor: Robert McLay
+Length:    30 mins
+Abstract:
+
+This presentation will give a quick overview on the Environment Module
+system called Lmod.  It will discuss the features of Lmod over
+other module system.  Finally it will cover the new features of Lmod
+8.0+ like the new embedded TCL interpreter and the new module
+extensions feature and questions from the audience.
+
