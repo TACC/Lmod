@@ -60,10 +60,10 @@ function collectFileA(sn, versionStr, extended_default, v, fileA)
                vp = vp .. "."
             end
             local keyPat = pathJoin(sn,vp:gsub("%.","%%.") .. ".*")
-            dbg.print{"collectFileA: versionStr: ",versionStr,", keyPat: ",keyPat,"\n"}
             for k,vvv in pairs(v.fileT) do
                if (k:find(keyPat)) then
-                  fileA[#fileA+1] = { sn = sn, fullName = k, version = k:gsub("^" .. sn .. "/",""),
+                  fileA[#fileA+1] = { sn = sn, fullName = k,
+                                      version = k:gsub("^" .. sn .. "/",""),
                                       fn = vvv.fn, wV = vvv.wV, pV = vvv.pV }
                end
             end
