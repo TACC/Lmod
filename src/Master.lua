@@ -780,7 +780,7 @@ function M.reload_sticky(self, force)
    end
    mcp = mcp_old
 
-   if (reload) then
+   if (reload and not quiet()) then
       LmodMessage{msg="m_Sticky_Mods"}
       local b  = mt:list("fullName","active")
       local a  = {}
@@ -790,7 +790,7 @@ function M.reload_sticky(self, force)
       local ct = ColumnTable:new{tbl=a, gap=0, width=cwidth}
       io.stderr:write(ct:build_tbl(),"\n")
    end
-   if (#unstuckA > 0) then
+   if (#unstuckA > 0 and not quiet() ) then
       LmodMessage{msg="m_Sticky_Unstuck"}
       local ct = ColumnTable:new{tbl=unstuckA, gap=0, width=cwidth}
       io.stderr:write(ct:build_tbl(),"\n")
