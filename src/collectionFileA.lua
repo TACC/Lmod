@@ -46,12 +46,9 @@ function collectFileA(sn, versionStr, extended_default, v, fileA)
       if (versionStr) then
          local k  = pathJoin(sn, versionStr)
          local vv = v.fileT[k]
-         --dbg.print{"k: ",k,", vv: ",vv,"\n"}
          if (vv) then
             fileA[#fileA+1] = { sn = sn, fullName = build_fullName(sn, versionStr),
                                 version = versionStr, fn = vv.fn, wV = vv.wV, pV = vv.pV }
-            --dbg.print{"versionStr:",versionStr,"\n"}
-            --dbg.fini("collectFileA")
             return
          end
          if (extended_default == "yes") then
@@ -76,7 +73,6 @@ function collectFileA(sn, versionStr, extended_default, v, fileA)
          end
       end
    end
-   --if (v.dirT and next(v.dirT) ~= nil and versionStr == nil) then
    if (v.dirT and next(v.dirT) ~= nil) then
       for k, vv in pairs(v.dirT) do
          collectFileA(sn, nil, extended_default, vv, fileA)
