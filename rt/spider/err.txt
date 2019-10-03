@@ -508,6 +508,18 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy/1.16.4
        python2/2.7 (gcc/4.2.3)
 ===========================
 step 40
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load numpy
+===========================
+Lmod has detected the following error: These module(s) exist but cannot be loaded as requested: "numpy"
+   Try: "module spider numpy" to see how to load the module(s).
+===========================
+step 41
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load numpy/1.16.4
+===========================
+Lmod has detected the following error: These module(s) exist but cannot be loaded as requested: "numpy/1.16.4"
+   Try: "module spider numpy/1.16.4" to see how to load the module(s).
+===========================
+step 42
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 Global Aliases
@@ -524,19 +536,15 @@ These extensions cannot be loaded directly
 Use "module spider" to find all possible modules.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 41
+step 43
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider abcpy
 ===========================
-  abcpy:
-     Versions:
-        abcpy/2.1
-        abcpy/2.1(E)
-        abcpy/2.2(E)
-  For detailed information about a specific "abcpy" package (including how to load the modules) use the module's full name. Note that names that have a trailing (E) are extensions provided by other modules.
-  For example:
-     $ module spider abcpy/2.2
+  abcpy: abcpy/2.1
+    This module can be loaded directly: module load abcpy/2.1
+    This extension is provided by the following modules. To access the extension you must load one. Note that any module names in parentheses show the module location in the software hierarchy.
+       python3/3.7
 ===========================
-step 42
+step 44
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider abcpy/2.1
 ===========================
   abcpy: abcpy/2.1

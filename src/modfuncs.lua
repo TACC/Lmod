@@ -773,12 +773,12 @@ function depends_on(...)
    dbg.fini("depends_on")
 end
 
-function module_provides(...)
-   dbg.start{"module_provides(",concatTbl({...},", "),")"}
-   if (not validateStringArgs("module_provides",...)) then return {} end
+function extensions(...)
+   dbg.start{"extensions(",concatTbl({...},", "),")"}
+   if (not validateStringArgs("extensions",...)) then return {} end
 
-   local b = mcp:module_provides(...)
-   dbg.fini("module_provides")
+   local b = mcp:extensions(...)
+   dbg.fini("extensions")
 end
 
 function color_banner(color)

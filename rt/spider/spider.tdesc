@@ -86,12 +86,14 @@ testdescript = {
      runLmod    spider                                                        #37
      runLmod    spider numpy                                                  #38
      runLmod    spider numpy/1.16.4                                           #39
-     runLmod    avail                                                         #40
+     runLmod    load   numpy                                                  #40
+     runLmod    load   numpy/1.16.4                                           #41
+     runLmod    avail                                                         #42
 
      unsetMT
      export MODULEPATH=$testDir/mf/F_Core
-     runLmod    spider abcpy                                                  #41
-     runLmod    spider abcpy/2.1                                              #42
+     runLmod    spider abcpy                                                  #43
+     runLmod    spider abcpy/2.1                                              #44
 
      unsetMT
      export MODULEPATH=$testDir/mf/F_Core

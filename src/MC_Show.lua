@@ -89,10 +89,10 @@ function M.help(self, ...)
 end
 
 --------------------------------------------------------------------------
--- Print module_provides command.
+-- Print extensions command.
 -- @param self A MasterControl object
-function M.module_provides(self, ...)
-   ShowCmd("module_provides",...)
+function M.extensions(self, ...)
+   ShowCmd("extensions",...)
 end
 
 --------------------------------------------------------------------------

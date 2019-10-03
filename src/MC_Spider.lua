@@ -143,10 +143,10 @@ function M.help(self,...)
 end
 
 --------------------------------------------------------------------------
--- MC_Spider:module_provides(...): Copy the list of provides to moduleT
+-- MC_Spider:extensions(...): Copy the list of provides to moduleT
 -- @param self A MasterControl object.
-function M.module_provides(self,...)
-   dbg.start{"MC_Spider:module_provides(...)"}
+function M.extensions(self,...)
+   dbg.start{"MC_Spider:extensions(...)"}
    local moduleStack  = masterTbl().moduleStack
    local iStack       = #moduleStack
    local path         = moduleStack[iStack].path
