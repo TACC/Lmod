@@ -122,7 +122,7 @@ case $SYSHOST in
     EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN  --with-silentShellDebugging=yes"
     ;;
 
-  ls5 | maverick | stampede | wrangler | stampede2 )
+  ls5 | maverick | stampede2 | frontera | longhorn )
     base="$HOME/l/pkg"
     UPDATE_FN=/tmp/losf_last_update
     CACHEDIRS=/tmp/moduleData/cacheDir
