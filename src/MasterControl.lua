@@ -127,7 +127,7 @@ local function l_error_on_missing_loaded_modules(aa,bb)
       cmdA[#cmdA+1] = pathJoin(cmdDir(),cmdName())
       cmdA[#cmdA+1] = "bash"
       cmdA[#cmdA+1] = dbg.active() and "-D" or " "
-      cmdA[#cmdA+1] = "-r --no_redirect --spider_timeout 2.0 spider"
+      cmdA[#cmdA+1] = "--regexp --no_redirect --spider_timeout 2.0 spider"
       local count   = #cmdA
 
       local uA = {}  -- unknown names

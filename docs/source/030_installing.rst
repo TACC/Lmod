@@ -96,12 +96,15 @@ On Ubuntu Linux, the following packages will work::
 Note; Centos may require looking the EPEL repo.  At TACC we install the
 following rpms::
 
-   $ rpm -qa | grep lua
-
-   lua-posix-5.1.7-1.el6.x86_64
-   lua-5.1.4-4.1.el6.x86_64
-   lua-filesystem-1.4.2-1.el6.x86_64
-   lua-devel-5.1.4-4.1.el6.x86_64
+   lua-posix-32-2.el7.x86_64
+   lua-term-0.03-3.el7.x86_64
+   lua-bitop-1.0.2-3.el7.x86_64
+   lua-filesystem-1.6.2-2.el7.x86_64
+   lua-devel-5.1.4-15.el7.x86_64
+   lua-lpeg-0.12-1.el7.x86_64
+   lua-5.1.4-15.el7.x86_64
+   lua-json-1.3.2-2.el7.noarch
+   tcl-devel-8.5.13-8.el7.x86_64 
 
 You will also need the libtcl and tcl packages as well.
 
