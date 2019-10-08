@@ -140,8 +140,8 @@ then you'll need to do::
 
 Please change LUAROCKS_PREFIX to match your site.  The exporting of
 LUA_PATH and LUA_CPATH must be done before any module commands. It is
-very important that the trailing semicolon are there.  They are
-replaced by the built-in system path.
+very important that the double trailing semicolon are there.  They are
+replaced by the built-in system path for Lua.
 
 
 Using Ansible
