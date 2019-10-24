@@ -164,7 +164,7 @@ Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOS
      m_Description         = "    Description:\n%{descript}\n\n",
      m_Direct_Load         = "\n    This module can be loaded directly: module load %{fullName}\n",
      m_Extensions_head     = "This is a list of module extensions",
-     m_Extensions_tail     = "\nThese extensions cannot be loaded directly\n",
+     m_Extensions_tail     = "\nThese extensions cannot be loaded directly.\n",
      m_Family_Swap         = "\nLmod is automatically replacing \"%{oldFullName}\" with \"%{newFullName}\".\n",
      m_For_System          = ", for system: \"%{sname}\"",
      m_Inactive_Modules    = "\nInactive Modules:\n",
