@@ -109,7 +109,7 @@ It is also possible your cache file is out-of-date; it may help to try:
 
 Also make sure that all modulefiles written in TCL start with the string #%Module
 ]==],
-     e_Failed_Load_2       = [==[These module(s) exist but cannot be loaded as requested: %{kA}
+     e_Failed_Load_2       = [==[These module(s) or extension(s) exist but cannot be loaded as requested: %{kA}
    Try: "module spider %{kB}" to see how to load the module(s).
 ]==],
      e_Family_Conflict     = [==[You can only have one %{name} module loaded at a time.
@@ -194,7 +194,7 @@ To search the contents of modules for matching words execute:
 ]==],
      m_Properties          = "    Properties:\n",
      m_ProvidedBy          = "Names marked by a trailing (E) are extensions provided by another module.\n\n",
-     m_ProvidedFrom        = "    This extension is provided by the following modules. To access the extension you must load one. Note that any module names in parentheses show the module location in the software hierarchy.\n\n",
+     m_ProvidedFrom        = "    This extension is provided by the following modules. To access the extension you must load one of the following modules. Note that any module names in parentheses show the module location in the software hierarchy.\n\n",
      m_ProvByModules       = "\n   The %{fullName} package is provide by the following modules\n",
      m_Regex_Spider        = [==[%{border}  To find other possible module matches execute:
 
@@ -403,8 +403,8 @@ The system default contains no modules
      HiddenM   = "Hidden Module",
      Extension = "Extension that is provided by another module",
 
-     avail     = [==[Use "module spider" to find all possible modules.
-Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+     avail     = [==[Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules and extensions matching any of the "keys".
 ]==],
      list      = " ",
      spider    = " ",

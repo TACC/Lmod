@@ -754,7 +754,7 @@ function M.Level0Helper(self, dbT, providedByT, a)
             if ( t[sn] == nil) then
                t[sn] = {versionA = { }, name = sn}
             end
-            t[sn].versionA[pV] = fullName .. "(E)"
+            t[sn].versionA[pV] = fullName .. " (E)"
          end
       end
    end
@@ -1110,11 +1110,11 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
       for fullName, A in pairsByKeys(TT) do
          for i = 1,#A do
             if (not A[i].hidden) then
-               local kk = sn .. "/" .. parseVersion(extractVersion(fullName, sn)) .. '(E)'
+               local kk = sn .. "/" .. parseVersion(extractVersion(fullName, sn)) .. ' (E)'
                if (fullVT[kk] == nil) then
                   key         = sn
                   Description = nil
-                  fullVT[kk]  = { fullName = fullName .. '(E)', providedBy = true}
+                  fullVT[kk]  = { fullName = fullName .. ' (E)', providedBy = true}
                end
                if (kk > kk0) then
                   kk       = kk0
