@@ -15,7 +15,7 @@ ProjectDIR/rt/nvv/mf
    D:  Default Module
 Module defaults are chosen based on Find First Rules due to Name/Version/Version modules found in the module tree.
 See https://lmod.readthedocs.io/en/latest/060_locating.html for details.
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 3
@@ -47,7 +47,7 @@ ProjectDIR/rt/nvv/bc/cm
    D:  Default Module
 Module defaults are chosen based on Find First Rules due to Name/Version/Version modules found in the module tree.
 See https://lmod.readthedocs.io/en/latest/060_locating.html for details.
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 8
@@ -69,7 +69,7 @@ ProjectDIR/rt/nvv/mf3
    D:  Default Module
 Module defaults are chosen based on Find First Rules due to Name/Version/Version modules found in the module tree.
 See https://lmod.readthedocs.io/en/latest/060_locating.html for details.
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 11

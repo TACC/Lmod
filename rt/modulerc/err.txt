@@ -166,7 +166,7 @@ ProjectDIR/rt/modulerc/mf/Core
    D:        Default Module
    H:        Hidden Module
    L:        Module is loaded
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 18
@@ -190,7 +190,7 @@ ProjectDIR/rt/modulerc/mf/Core
    Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
    D:        Default Module
    L:        Module is loaded
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 19
@@ -214,7 +214,7 @@ ProjectDIR/rt/modulerc/mf/Core
    Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
    D:        Default Module
    L:        Module is loaded
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 20
@@ -238,7 +238,7 @@ ProjectDIR/rt/modulerc/mf/Core
    Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
    D:        Default Module
    L:        Module is loaded
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 21
@@ -266,7 +266,7 @@ ProjectDIR/rt/modulerc/mf4
    a/2.0 (D)    mpich/3.1.2-dbg    mpich/3.2-dbg
   Where:
    D:  Default Module
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 25
@@ -278,7 +278,7 @@ ProjectDIR/rt/modulerc/mf4
    a/1.0    a/3.0    mpich/3.1.2-dbg    mpich/3.1.2    mpich/3.2-dbg (D)
   Where:
    D:  Default Module
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 26
@@ -292,7 +292,7 @@ ProjectDIR/rt/modulerc/mf4
   Where:
    D:  Default Module
    H:  Hidden Module
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 27
@@ -317,7 +317,7 @@ ProjectDIR/rt/modulerc/mf4
   Where:
    D:  Default Module
    L:  Module is loaded
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 30
@@ -332,7 +332,7 @@ ProjectDIR/rt/modulerc/mf4
    D:  Default Module
    H:  Hidden Module
    L:  Module is loaded
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 31
@@ -345,7 +345,7 @@ ProjectDIR/rt/modulerc/mf4
   Where:
    D:  Default Module
    L:  Module is loaded
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 32
@@ -360,5 +360,5 @@ ProjectDIR/rt/modulerc/mf4
    D:  Default Module
    H:  Hidden Module
    L:  Module is loaded
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".

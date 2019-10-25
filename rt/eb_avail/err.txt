@@ -17,15 +17,15 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t avail
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-No modules found!
-Use "module spider" to find all possible modules.
+No module(s) or extension(s) found!
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-No modules found!
-Use "module spider" to find all possible modules.
+No module(s) or extension(s) found!
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 6

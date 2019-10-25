@@ -40,7 +40,7 @@ ProjectDIR/rt/helios/mf/Core-helios
    D:  Default Module
    L:  Module is loaded
    S:  Module is Sticky, requires --force to unload or purge
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 6
@@ -56,7 +56,7 @@ Core Modules
    D:  Default Module
    L:  Module is loaded
    S:  Module is Sticky, requires --force to unload or purge
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 7
@@ -72,7 +72,7 @@ Core Modules
    D:  Default Module
    L:  Module is loaded
    S:  Module is Sticky, requires --force to unload or purge
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 8
@@ -88,7 +88,7 @@ Modules de base
    D:  Default Module
    L:  Module is loaded
    S:  Module is Sticky, requires --force to unload or purge
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 9
@@ -104,5 +104,5 @@ Core Modules
    D:  Default Module
    L:  Module is loaded
    S:  Module is Sticky, requires --force to unload or purge
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".

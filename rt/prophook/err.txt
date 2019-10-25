@@ -12,7 +12,7 @@ ProjectDIR/rt/prophook/mf
    gcc/5.3 (t)
   Where:
    t:  Tools for a master toolmaker
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 3

@@ -32,7 +32,7 @@ ProjectDIR/rt/avail/mf/Core
    D:  Default Module
    L:  Module is loaded
    m:  built for host and native MIC
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 4
@@ -54,7 +54,7 @@ ProjectDIR/rt/avail/mf/Core
    D:  Default Module
    L:  Module is loaded
    m:  built for host and native MIC
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 5
@@ -80,7 +80,7 @@ ProjectDIR/rt/avail/mf/Core
   Where:
    D:  Default Module
    m:  built for host and native MIC
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 7
@@ -104,7 +104,7 @@ ProjectDIR/rt/avail/mf/Core
    D:  Default Module
    H:  Hidden Module
    m:  built for host and native MIC
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 8
@@ -288,7 +288,7 @@ ProjectDIR/rt/avail/mf/Core
    local/local    local/1.1    local/1.2    local/1.3 (D)    local/1.4
   Where:
    D:  Default Module
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 16
@@ -312,7 +312,7 @@ ProjectDIR/rt/avail/mf/Core
   Where:
    D:  Default Module
    m:  built for host and native MIC
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 17
@@ -331,7 +331,7 @@ ProjectDIR/rt/avail/mf/Core3
    TACC    intel/14.0.0    intel/14.0.3    intel/15.0.1 (D)    intel/15.0.2
   Where:
    D:  Default Module
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 20
@@ -363,7 +363,7 @@ ProjectDIR/rt/avail/mf/Core3
   Where:
    D:  Default Module
    L:  Module is loaded
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 25
@@ -383,7 +383,7 @@ ProjectDIR/rt/avail/mf/Core3
   Where:
    D:  Default Module
    L:  Module is loaded
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 27
@@ -405,12 +405,12 @@ ProjectDIR/rt/avail/mf/Core3
   Where:
    D:  Default Module
    L:  Module is loaded
-Use "module spider" to find all possible modules.
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 29
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail FooBar
 ===========================
-No modules found!
-Use "module spider" to find all possible modules.
+No module(s) or extension(s) found!
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".

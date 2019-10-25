@@ -34,7 +34,7 @@ The two examples are visible below and are ready to be copied in respective file
     Where:
      D:  Default Module
 
-  Use "module spider" to find all possible modules.
+  Use "module spider" to find all possible modules and extensions.
   Use "module keyword key1 key2 ..." to search for all
   possible modules matching any of the "keys".
 
