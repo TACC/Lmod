@@ -754,7 +754,7 @@ function M.Level0Helper(self, dbT, providedByT, a)
             if ( t[sn] == nil) then
                t[sn] = {versionA = { }, name = sn}
             end
-            t[sn].versionA[pV] = fullName .. " (E)"
+            t[sn].versionA[pV] = colorize("green",fullName) .. " (E)"
          end
       end
    end
@@ -961,6 +961,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
    local mrc         = MRC:singleton()
    local T           = dbT[sn]
    local TT          = providedByT[sn]
+   local tailMsg     = nil
    if (T == nil and TT == nil) then
       LmodSystemError{msg="e_dbT_sn_fail", sn = sn}
    end
@@ -1017,11 +1018,11 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
                   if (not v.hidden) then
                      if (k == key) then
                         cc[#cc+1]        = A[i]
-                        fName2           = k
+                        fName2           = colorize("green",k) .. " (E)"
                      end
                      if (k:find(key)) then
                         dd[#dd+1]        = A[i]
-                        fName2           = k
+                        fName2           = colorize("green",k) .. " (E)"
                      end
                   end
                end
@@ -1029,6 +1030,9 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
          end
       end
 
+      if (not tailMsg and fName2) then
+         tailMsg = i18n("m_ProvidedBy",{})
+      end
       fullName = fullName or fName2
 
       dbg.print{"(TT) fullName: ",fullName,"\n"}
@@ -1060,10 +1064,10 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
 
       nameT = nil
 
-      return m_count, entryMA, p_count, entryPA, numNames, fullName
+      return m_count, entryMA, p_count, entryPA, numNames, fullName, tailMsg
    end
 
-   local m_count, entryMA, p_count, entryPA, numNames, fullName = countEntries()
+   local m_count, entryMA, p_count, entryPA, numNames, fullName, tailMsg = countEntries()
 
    dbg.print{"m_count: ",m_count,", p_count: ",p_count,", fullName: ",fullName,"\n"}
 
@@ -1073,7 +1077,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
    if ((m_count == 1 and p_count == 0) or (m_count == 0 and p_count == 1) or
        (numNames == 1)) then
       --io.stderr:write("going level 2: fullName: ",fullName,"\n")
-      local s = self:_Level2(sn, fullName, entryMA, entryPA, possibleA)
+      local s = self:_Level2(sn, fullName, entryMA, entryPA, possibleA, tailMsg)
       dbg.fini("Spider:_Level1")
       return s
    end
@@ -1114,7 +1118,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
                if (fullVT[kk] == nil) then
                   key         = sn
                   Description = nil
-                  fullVT[kk]  = { fullName = fullName .. ' (E)', providedBy = true}
+                  fullVT[kk]  = { fullName = colorize("green",fullName) .. ' (E)', providedBy = true}
                end
                if (kk > kk0) then
                   kk       = kk0
@@ -1177,6 +1181,11 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
       ia = ia + 1; a[ia] = i18n("m_Other_possible",{b=concatTbl(b,"  ")})
    end
 
+   if (tailMsg) then
+      ia = ia + 1; a[ia] = "\n"
+      ia = ia + 1; a[ia] = tailMsg
+   end
+
    if (helpFlg) then
       ia = ia + 1; a[ia] = "\n"
       local name = self:getExactMatch()
@@ -1190,8 +1199,8 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
    return concatTbl(a,"")
 end
 
-function M._Level2(self, sn, fullName, entryA, entryPA, possibleA)
-   dbg.start{"Spider:_Level2(\"",sn,"\", \"",fullName,"\", entryA, entryPA, possibleA)"}
+function M._Level2(self, sn, fullName, entryA, entryPA, possibleA, tailMsg)
+   dbg.start{"Spider:_Level2(\"",sn,"\", \"",fullName,"\", entryA, entryPA, possibleA, tailMsg)"}
    --dbg.printT("entryA",entryA)
 
    local show_hidden  = masterTbl().show_hidden
@@ -1331,8 +1340,13 @@ function M._Level2(self, sn, fullName, entryA, entryPA, possibleA)
 
 
    if (entryT.provides ~= nil) then
+      local c = {}
+      for ic = 1, #entryT.provides do
+         c[ic] = colorize("green",entryT.provides[ic]) .. " (E)"
+      end
+
       ia = ia + 1; a[ia] = i18n("m_ModProvides",{})
-      ia = ia + 1; a[ia] = "\n       " .. concatTbl(entryT.provides,", ")
+      ia = ia + 1; a[ia] = "\n       " .. concatTbl(c,", ")
       ia = ia + 1; a[ia] = "\n"
    end
 
@@ -1344,6 +1358,12 @@ function M._Level2(self, sn, fullName, entryA, entryPA, possibleA)
          ia = ia + 1; a[ia] = "\n"
       end
    end
+
+   if (tailMsg) then
+      ia = ia + 1; a[ia] = "\n"
+      ia = ia + 1; a[ia] = tailMsg
+   end
+      
 
    ia = ia + 1; a[ia] = "\n"
    local name = self:getExactMatch()

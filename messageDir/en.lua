@@ -172,7 +172,7 @@ Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOS
 Module defaults are chosen based on Find First Rules due to Name/Version/Version modules found in the module tree.
 See https://lmod.readthedocs.io/en/latest/060_locating.html for details.
 ]==],
-     m_ModProvides         = "\n    This module provides:\n",
+     m_ModProvides         = "\n    This module provides the following extensions:\n",
      m_Module_Msgs         = [==[
 %{border}
 There are messages associated with the following module(s):
@@ -404,12 +404,12 @@ The system default contains no modules
      Extension = "Extension that is provided by another module",
 
      avail     = [==[Use "module spider" to find all possible modules and extensions.
-Use "module keyword key1 key2 ..." to search for all possible modules and extensions matching any of the "keys".
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ]==],
      list      = " ",
      spider    = " ",
      aliasMsg  = "Aliases exist: foo/1.2.3 (1.2) means that \"module load foo/1.2\" will load foo/1.2.3",
-     noModules = "No modules found!",
+     noModules = "No module(s) or extension(s) found!",
      noneFound = "  None found.",
 
      --------------------------------------------------------------------------

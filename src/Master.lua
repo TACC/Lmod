@@ -1107,17 +1107,19 @@ function M.avail(self, argA)
          mpathMapT, providedByT = cache:build()
    
    if (providedByT and next(providedByT) ~= nil) then
-      legendT['E'] = i18n("Extension")
       local b = {}
-      for k in pairsByKeys(providedByT) do
+      for k,v in pairsByKeys(providedByT) do
          local found = false
          if (searchA.n > 0) then
             for i = 1, searchA.n do
-               local s = searchA[i]
-               if (k:find(s)) then
-                  found = true
-                  break
+               for kk in pairs(v) do
+                  local s = searchA[i]
+                  if (kk:find(s)) then
+                     found = true
+                     break
+                  end
                end
+               if (found) then break end
             end
          else
             found = true
@@ -1127,6 +1129,8 @@ function M.avail(self, argA)
          end
       end
       if (next(b) ~= nil) then
+         legendT['E'] = i18n("Extension")
+         numFound = numFound + #b
          local ct = ColumnTable:new{tbl=b, gap=1, len = length, width = cwidth}
          a[#a+1] = "\n"
          a[#a+1] = banner:bannerStr(i18n("m_Extensions_head"))
