@@ -555,10 +555,8 @@ proc doubleQuoteEscaped {text} {
 proc cmdargs { cmd args } {
     global g_outputA
     foreach arg $args {
-	#if {$arg != ""} {
-	    set val [doubleQuoteEscaped $arg]
-	    lappend cmdArgsL "\"$val\""
-	#}
+        set val [doubleQuoteEscaped $arg]
+        lappend cmdArgsL "\"$val\""
     }
     if {[info exists cmdArgsL]} {
         set cmdArgs [join $cmdArgsL ","]
@@ -573,8 +571,12 @@ proc depends-on { args} {
 proc always-load { args} {
     eval cmdargs "depends_on" $args
 }
-proc family { var } {
-    cmdargs "family" $var
+proc family { args } {
+    eval cmdargs "family" $args
+}
+
+proc extensions { args } {
+    eval cmdargs "extensions" $args
 }
 
 proc loadcmd { args } {
@@ -815,6 +817,7 @@ proc execute-modulefile {modfile } {
     interp alias $child append-path    	{} append-path
     interp alias $child conflict       	{} conflict
     interp alias $child depends-on     	{} depends-on
+    interp alias $child extensions     	{} extensions
     interp alias $child family         	{} family
     interp alias $child initGA         	{} depends-on
     interp alias $child is-loaded      	{} is-loaded

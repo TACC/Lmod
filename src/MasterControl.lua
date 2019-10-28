@@ -856,7 +856,7 @@ function M.dependencyCk(self,mA)
       end
    end
 
-   dbg.fini("MasterControl:depends_on")
+   dbg.fini("MasterControl:dependencyCk")
    return {}
 end
 

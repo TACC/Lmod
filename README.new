@@ -30,3 +30,4 @@ Lmod 8.1+
 W.I.P:
    (8.1.19) * Get settarg's getUname function handle linux that is not intel like ibm power 9
             * Change directory search to require "rx" instead of just "x".
+            * Get tcl2lua.tcl to support the new extensions() function.
