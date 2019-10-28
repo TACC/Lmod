@@ -12,6 +12,10 @@ support the **extensions** () function::
 
    extensions("numpy/1.12", "scipy/1.1")
 
+In tcl, this can be written as::
+
+   extensions numpy/1.12 scipy/1.1
+
 The names in the string need to be of the form "name/version"
 only. The case of the name doesn't matter.  Category/Name/Version is
 not supported.  Neither is "Name/Version/Version".
@@ -22,13 +26,14 @@ available::
     $ module spider
 
       ...
-      numpy: numpy/1.12(E), numpy/1.16.4(E)
+      numpy: numpy/1.12 (E), numpy/1.16.4 (E)
       ...
-      scipy: scipy/1.1(E), scipy/1.2.2(E)
+      scipy: scipy/1.1 (E), scipy/1.2.2 (E)
       ...
 
 The trailing (E) lets users know that this software is an extension
-provided by another module and is not a module itself.
+provided by another module and is not a module itself.  Also if color
+is turned on extensions are displayed in green.
 
 To find out about what extensions exists of a particular software
 extension users can do::
@@ -38,8 +43,8 @@ extension users can do::
 
     numpy:
       Versions:
-         numpy/1.12(E)
-         numpy/1.16.4(E)
+         numpy/1.12 (E)
+         numpy/1.16.4 (E)
 
 
 To find out which modules provide the extension a user can do::
@@ -62,11 +67,13 @@ Users can find out what extensions exist by using the **module**
 
    ...
    This is a list of module extensions
-     (numpy)(E)    (scipy)(E)
+     numpy (E)    scipy (E)
 
-Note that the name of the extension is surrounded by parentheses with
-any version information.  The command **module avail** shows modules
-that can be loaded.  A user *cannot* load an extension directly.  If a
-user tries to load an extension directly, Lmod knows that it is an
-extension and directs the user to use **module** **spider** to find
-where the extension is.
+Note that the name of the extension is shown without any version
+information.  The command **module avail** shows modules that can be
+loaded.  A user *cannot* load an extension directly.  If a user tries
+to load an extension directly, Lmod knows that it is an extension and
+directs the user to use **module** **spider** to find where the
+extension is. Again if color is turned on then the names of the
+extensions are in green.
+
