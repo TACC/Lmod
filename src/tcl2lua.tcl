@@ -569,10 +569,10 @@ proc depends-on { args} {
 }
 
 proc always-load { args} {
-    eval cmdargs "depends_on" $args
+    eval cmdargs "always_load" $args
 }
-proc family { args } {
-    eval cmdargs "family" $args
+proc family { var } {
+    cmdargs "family" $var
 }
 
 proc extensions { args } {

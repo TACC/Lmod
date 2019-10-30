@@ -308,11 +308,11 @@ end
 --------------------------------------------------------------------------
 -- This function allows only module to claim the name.  It is a
 -- generalized prereq/conflict function.
-function family(...)
-   dbg.start{"family(",concatTbl({...},", "),")"}
-   if (not validateStringArgs("family",...)) then return end
+function family(name)
+   dbg.start{"family(",name,")"}
+   if (not validateStringArgs("family",name)) then return end
 
-   mcp:family(...)
+   mcp:family(name)
    dbg.fini("family")
 end
 
