@@ -1125,7 +1125,7 @@ function M.avail(self, argA)
             found = true
          end
          if (found) then
-            b[#b + 1] = {"    " .. colorize("green",k),"(E)"}
+            b[#b + 1] = {"    " .. colorize("blue",k),"(E)"}
          end
       end
       if (next(b) ~= nil) then

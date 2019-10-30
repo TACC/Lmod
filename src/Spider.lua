@@ -754,7 +754,7 @@ function M.Level0Helper(self, dbT, providedByT, a)
             if ( t[sn] == nil) then
                t[sn] = {versionA = { }, name = sn}
             end
-            t[sn].versionA[pV] = colorize("green",fullName) .. " (E)"
+            t[sn].versionA[pV] = colorize("blue",fullName) .. " (E)"
          end
       end
    end
@@ -1018,11 +1018,11 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
                   if (not v.hidden) then
                      if (k == key) then
                         cc[#cc+1]        = A[i]
-                        fName2           = colorize("green",k) .. " (E)"
+                        fName2           = colorize("blue",k) .. " (E)"
                      end
                      if (k:find(key)) then
                         dd[#dd+1]        = A[i]
-                        fName2           = colorize("green",k) .. " (E)"
+                        fName2           = colorize("blue",k) .. " (E)"
                      end
                   end
                end
@@ -1118,7 +1118,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
                if (fullVT[kk] == nil) then
                   key         = sn
                   Description = nil
-                  fullVT[kk]  = { fullName = colorize("green",fullName) .. ' (E)', providedBy = true}
+                  fullVT[kk]  = { fullName = colorize("blue",fullName) .. ' (E)', providedBy = true}
                end
                if (kk > kk0) then
                   kk       = kk0
@@ -1342,7 +1342,7 @@ function M._Level2(self, sn, fullName, entryA, entryPA, possibleA, tailMsg)
    if (entryT.provides ~= nil) then
       local c = {}
       for ic = 1, #entryT.provides do
-         c[ic] = colorize("green",entryT.provides[ic]) .. " (E)"
+         c[ic] = colorize("blue",entryT.provides[ic]) .. " (E)"
       end
 
       ia = ia + 1; a[ia] = i18n("m_ModProvides",{})
