@@ -109,6 +109,7 @@ Advanced Topics
    300_tracking_module_usage
    310_settarg
    320_improving_perf
+   330_extensions
 
 Topics yet to be written
 ^^^^^^^^^^^^^^^^^^^^^^^^
