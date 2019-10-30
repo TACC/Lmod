@@ -31,6 +31,25 @@ release at sourceforge.
 
 ## ChangeLog
 
+
+### Lmod 8.2:
+
+Features:
+
+   1. Better support for the fish shell including tab completion (Thanks Alberto!)
+
+   2. New function extensions(): This allows for modules like python to report that the extensions  numpy and scipy are part of the modules. Users can use "module spider numpy" to find which modules provide numpy etc.
+      
+   3. Added a new command "clearLmod" which does a module purge and removes all LMOD aliases and environment variables.
+
+Bug Fixes:
+
+   1. Remove asking for the absolute path for generating spiderT and dbT. It now only use when building the reverseMapT.
+
+   2. Lmod now requires "rx" other access when searching for modulefiles.
+
+   3. settarg correctly handles a power9 processor running linux.
+
 ### Lmod 8.1:
 
 Features:
