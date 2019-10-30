@@ -33,7 +33,7 @@ available::
 
 The trailing (E) lets users know that this software is an extension
 provided by another module and is not a module itself.  Also if color
-is turned on extensions are displayed in green.
+is turned on extensions are displayed in blue.
 
 To find out about what extensions exists of a particular software
 extension users can do::
@@ -75,5 +75,7 @@ loaded.  A user *cannot* load an extension directly.  If a user tries
 to load an extension directly, Lmod knows that it is an extension and
 directs the user to use **module** **spider** to find where the
 extension is. Again if color is turned on then the names of the
-extensions are in green.
+extensions are in blue. Sites or users can set the environment
+variable LMOD_COLORIZE  to "no" to turn off color.
+
 
