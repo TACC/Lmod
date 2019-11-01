@@ -36,6 +36,7 @@ require("serializeTbl")
 require("myGlobals")
 require("string_utils")
 require("lmod_system_execute")
+require("capture")
 local Dbg     = require("Dbg")
 local dbg     = Dbg:dbg()
 PkgBase       = require("PkgBase")
@@ -73,11 +74,15 @@ local function load_hook(t)
    if (not host) then
       local i,j, first
       i,j, first, host = uname("%n"):find("([^.]*)%.([^.]*)%.")
+      if (not host) then
+         local fullhost = capture("hostname -f")
+         i,j, first, host = fullhost:find("([^.]*)%.([^.]*)%.")
+      end
    end
 
    local currentTime = epoch()
    local msg         = string.format("user=%s module=%s path=%s host=%s time=%f",
-                                     user, t.modFullName, t.fn, host or "<unknown>", currentTime)
+                                     user, t.modFullName, t.fn, host or "<unknown_syshost>", currentTime)
    local a           = s_msgA
    a[#a+1]           = msg
 
