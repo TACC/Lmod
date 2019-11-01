@@ -89,27 +89,6 @@ local function load_hook(t)
    dbg.fini()
 end
 
-buildHostsT = {
-   ["build.stampede.tacc.utexas.edu"]    = 1,
-   ["c560-904.stampede.tacc.utexas.edu"] = 1,
-   ["c560-903.stampede.tacc.utexas.edu"] = 1,
-   ["c560-902.stampede.tacc.utexas.edu"] = 1,
-   ["c560-901.stampede.tacc.utexas.edu"] = 1,
-   ["build.ls4.tacc.utexas.edu"]         = 1,
-}
-
---------------------------------------------------------------------------
--- writeCache_hook(): set dontWriteCache on build machines
-
-local function writeCache_hook(t)
-   local userName = getenv("USER")
-   local host     = uname("%n")
-
-   if (buildHostsT[host]) then
-      t.dontWriteCache = true
-   end
-end
-
 local function parse_updateFn_hook(updateSystemFn, t)
    local attr = lfs.attributes(updateSystemFn)
    if (not attr or type(attr) ~= "table") then
@@ -193,7 +172,6 @@ ExitHookA.register(report_loads)
 hook.register("avail",          avail_hook)
 hook.register("load",           load_hook)
 hook.register("parse_updateFn", parse_updateFn_hook)
-hook.register("writeCache",     writeCache_hook)
 
 sandbox_registration { Pkg      = Pkg,
                        tonumber = safe_tonumber,
