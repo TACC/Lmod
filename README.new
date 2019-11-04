@@ -2,3 +2,5 @@ Lmod 8.2+
    (8.2.1)  * Reset contrib/tracking_module_usage/createDB.py back to the version found in 6.0.25
    (8.2.2)  * Use 'hostname -f' when 'uname -n' does not return a fully qualified hostname.
               (used in contrib/TACC/SitePackage.lua) 
+   (8.2.3)  * Repaired the 8.2.1 version contrib/tracking_module_usage/createDB.py to now work.
+   
