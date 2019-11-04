@@ -27,7 +27,9 @@ class CmdLineOptions(object):
   def execute(self):
     """ Specify command line arguments and parse the command line"""
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dbname",      dest='dbname', action="store",      default = "lmod", help="lmod")
+    parser.add_argument("--drop",        dest='drop',   action="store_true", default = False,     help="lmod")
+    parser.add_argument("--confFn",      dest='confFn', action="store",      default = None,      help="lmod")
+    parser.add_argument("--dbname",      dest='dbname', action="store",      default = "lmod",    help="lmod")
     args = parser.parse_args()
     return args
 
@@ -39,6 +41,8 @@ def main():
 
   args     = CmdLineOptions().execute()
   configFn = dbConfigFn(args.dbname)
+  if (args.confFn):
+    configFn = args.confFn
 
   if (not os.path.isfile(configFn)):
     dirNm, exe = os.path.split(sys.argv[0])
@@ -54,8 +58,10 @@ def main():
     conn   = lmod.connect()
     cursor = conn.cursor()
 
-    # If MySQL version < 4.1, comment out the line below
-    cursor.execute("SET SQL_MODE=\"NO_AUTO_VALUE_ON_ZERO\"")
+    # drop db if requested.
+    if (args.drop):
+      cursor.execute("DROP DATABASE IF EXISTS %s " % lmod.db())
+
     # If the database does not exist, create it, otherwise, switch to the database.
     cursor.execute("CREATE DATABASE IF NOT EXISTS %s DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci" % lmod.db())
     cursor.execute("USE "+lmod.db())
@@ -102,31 +108,11 @@ def main():
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8  COLLATE=utf8_general_ci AUTO_INCREMENT=1
         """)
 
-    cursor.execute("""
-       delimiter $$
-       create procedure CreateDataPartition (newPartValue DATETIME)
-       begin
-       DECLARE keepStmt VARCHAR(2000) DEFAULT @stmt;
-       SET @stmt = CONCAT('ALTER TABLE join_user_module ADD PARTITION (PARTITION p',
-                            DATE_FORMAT(newPartValue, '%Y_%m'),
-                            ' VALUES LESS THAN (TO_DAYS(\'',
-                            DATE_FORMAT(newPartValue, '%Y-%m-01'),
-                            '\')))');
-       PREPARE pStmt FROM @stmt;
-       execute pStmt;
-       DEALLOCATE PREPARE pStmt;
-       set @stmt = keepStmt;
-       END $$
-       delimiter ;
-    """)
-
-
-
 
     print("(%d) create join_link_object table" % idx); idx += 1
 
     cursor.close()
-  except  MySQLdb.Error, e:
+  except  MySQLdb.Error as e:
     print ("Error %d: %s" % (e.args[0], e.args[1]))
     sys.exit (1)
 
