@@ -107,8 +107,6 @@ def main():
           INDEX `index_date` (`date`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8  COLLATE=utf8_general_ci AUTO_INCREMENT=1
         """)
-
-
     print("(%d) create join_link_object table" % idx); idx += 1
 
     cursor.close()
