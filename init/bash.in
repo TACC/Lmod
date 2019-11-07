@@ -85,7 +85,7 @@ else
      
      if [ -n "${__lmod_sh_dbg:-}" ]; then
         set +$__lmod_sh_dbg 
-        echo "Shell debugging temporarily silenced: export LMOD_SH_DBG_ON=1 for Lmod's output"
+        echo "Shell debugging temporarily silenced: export LMOD_SH_DBG_ON=1 for Lmod's output" 1>&2
      fi
 
      eval $($LMOD_CMD @my_shell@ "$@") && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
@@ -164,7 +164,7 @@ fi
 
 # Restoring XTRACE and VERBOSE states.
 if [ -n "${__lmod_vx:-}" ]; then
-  echo "Shell debugging restarted"
+  echo "Shell debugging restarted" 1>&2
   set -$__lmod_vx;
   unset __lmod_vx;
 fi;
