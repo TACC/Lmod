@@ -1,0 +1,45 @@
+Things that I might talk about in the booth talk:
+
+* 8th Annual Lmod Booth Talk
+
+* Extended Default
+* Embed the TCL interpreter in Lmod.  
+  Explain why this is cool:  Old way: Exec tcl interpreter for every
+  tcl file (this includes .version or .modulerc files in each
+  directory to set the default) 
+* New function extensions(): 
+  For python and R extensions like numpy, scipy found in 8.2+
+  
+  To use do in Lua:
+
+     if (convertToCanonical(LmodVersion()) > convertToCanonical("8.2")) then
+        extensions("numpy/1.16.4","scipy/1.4")
+     then
+
+  Show "ml spider, ml spider numpy; ml spider numpy/1.16.4; ml avail "
+* Fish tab completions?
+
+* How to handle special modules
+** Use of userInGroup() function
+** color_banner()
+** Matlab example
+
+    if (userInGroup("G-XYZ")) then
+       prepend_path("PATH", "/opt/apps/acme_xyz/1.2.3/bin")
+       -- ...
+    else
+       color_banner("red")
+       LmodMessage("You do not have access to ACME XYZ.  Please see ...")
+       color_banner("red")
+       os.exit(1)
+    end
+
+** Screen shot of the above code in action.
+
+* Future work.
+
+** Lmod can optional track usage
+** Future work: make it easier to not remember loads after 1 year.
+** Get Lmod to support break.
+** A monthly discussion group?
+
