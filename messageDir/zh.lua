@@ -65,6 +65,7 @@ return {
      e_Failed_Load_2       = nil,
      e_Family_Conflict     = nil,
      e_Illegal_Load        = nil,
+     e_Illegal_option      = nil,
      e_LocationT_Srch      = "LocationT:search() 出现错误",
      e_Missing_Value       = nil,
      e_MT_corrupt          = nil,

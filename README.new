@@ -3,6 +3,5 @@ Lmod 8.2+
    (8.2.2)  * Use 'hostname -f' when 'uname -n' does not return a fully qualified hostname.
               (used in contrib/TACC/SitePackage.lua) 
    (8.2.3)  * Repaired the 8.2.1 version contrib/tracking_module_usage/createDB.py to now work.
-
-W.I.P.
    (8.2.4)  * Diagnostic messages should go to stderr.
+            * Issue #424: Make "ml - foo" and "module load - foo" report an error.

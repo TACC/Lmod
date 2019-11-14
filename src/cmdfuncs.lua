@@ -425,6 +425,11 @@ function Load_Usr(...)
    local argA = pack(...)
    for i = 1, argA.n do
       local v = argA[i]
+      if (v == "-") then
+         LmodMessage{msg="e_Illegal_option",v=v}
+         os.exit(1)
+      end
+
       if (v:sub(1,1) == "-") then
          uA[#uA+1] = MName:new("mt", v:sub(2,-1))
       else

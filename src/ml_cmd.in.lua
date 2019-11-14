@@ -250,6 +250,11 @@ function main()
             return
          end
 
+         if (v == "-") then
+            io.stderr:write(i18n("ml_opt",{v=v}))
+            os.exit(1)
+         end
+
          local num = lmodOptT[v]
          if (num) then
             if (cmdFound) then
