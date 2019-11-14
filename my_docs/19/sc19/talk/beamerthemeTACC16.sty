@@ -1,0 +1,61 @@
+%% TACC theme for beamer
+
+
+\newif\if@rightfooterOption
+\@rightfooterOptionfalse
+\DeclareOption{rightfooter}{\@rightfooterOptiontrue}
+\ProcessOptions
+
+
+\newif\ifTACCheadernav
+\DeclareOption{headernav}{\global\TACCheadernavtrue}
+
+\newif\ifTACCheadertree
+\DeclareOption{headertree}{\global\TACCheadertreetrue}
+\ProcessOptions
+
+\usepackage{xparse}
+\ExplSyntaxOn
+\NewDocumentCommand{\ifaspectratio}{mmm}
+ {
+  % Recover the option from those passed to the class
+  \keys_set:nf { zunbeltz/beameroptions } { \use:c { opt@beamer.cls } }
+  \str_if_eq:nVTF { #1 } \l_zunbeltz_aspectratio_tl { #2 } { #3 }
+ }
+\NewDocumentCommand{\xifaspectratio}{mO{}}
+ {
+  % Recover the option from those passed to the class
+  \keys_set:nf { zunbeltz/beameroptions } { \use:c { opt@beamer.cls } }
+  \str_case:VnF \l_zunbeltz_aspectratio_tl { #1 } { #2 }
+ }
+% We need to define only one key, the other are treated as `unknown'
+\keys_define:nn { zunbeltz/beameroptions }
+ {
+  aspectratio .tl_set:N = \l_zunbeltz_aspectratio_tl,
+  aspectratio .initial:n = 43,
+  unknown .code:n = {},
+ }
+
+% Generate the variants we need
+\cs_generate_variant:Nn \keys_set:nn { nf }
+\cs_generate_variant:Nn \str_if_eq:nnTF { nV }
+\cs_generate_variant:Nn \str_case:nnF { V }
+\ExplSyntaxOff
+
+\mode<presentation>
+
+\usefonttheme{TACC16}
+\useinnertheme{TACC16}
+\useoutertheme{TACC16}
+\usecolortheme{TACC16}
+
+\mode
+<all>
+
+\newcommand{\event}[1]{%
+  \makeatletter%
+  \def\TACC@eventname{#1}%
+  \makeatother}
+
+\newcommand{\sectionframe}[1]{\section{#1}\frame{\Large\textbf{#1}}}
+\newcommand{\subsectionframe}[1]{\subsection{#1}\frame{\large\textbf{#1}}}
