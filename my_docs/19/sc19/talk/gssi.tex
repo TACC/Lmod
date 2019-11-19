@@ -1,0 +1,33 @@
+\documentclass{beamer}
+
+% You can also use a 16:9 aspect ratio:
+%\documentclass[aspectratio=169]{beamer}
+\usetheme{TACC16}
+
+% It's possible to move the footer to the right:
+%\usetheme[rightfooter]{TACC16}
+
+\begin{document}
+\title[Lmod]{Lmod 8.2}
+\author{Robert McLay} 
+\date{November 20, 2019} 
+
+% page 1
+\frame{\titlepage} 
+
+%\section{Introduction}
+
+% page 1
+\begin{frame}{}
+  \center{\includegraphics[width=.5\textwidth]{Lmod-4color@2x.png}}
+  \begin{itemize}
+    \item Extended Default
+    \item The TCL interpreter is now (optionally) embedded with Lmod.
+    \item New Function: \texttt{extensions("numpy/1.16.4","scipy/1.4")}
+    \item A better way to handle special modules: \texttt{color\_banner("red")}
+    \item Learn more at the TACC Booth \#1353 \@ Wed. 2:00 - 2:30pm
+  \end{itemize}
+\end{frame}
+
+
+\end{document}

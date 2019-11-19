@@ -1,4 +1,4 @@
-TALKS    := booth_talk.pdf
+TALKS    := booth_talk.pdf gssi.pdf
 TEX_SUFS := .aux .log .nav .out .snm .toc .vrb .fdb_latexmk .fls
 
 %.pdf:%.tex
