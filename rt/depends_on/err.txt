@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.8.19  2019-02-11 12:34 -06:00
+Modules based on Lua: Version 8.2.4  2019-11-14 12:45 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -129,3 +129,7 @@ Please check the spelling or version number. Also try "module spider ..."
 It is also possible your cache file is out-of-date; it may help to try:
   $ module --ignore-cache load "Non_existant"
 Also make sure that all modulefiles written in TCL start with the string #%Module
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load foo
+===========================

@@ -540,7 +540,7 @@ end
 -- @param is the starting version
 -- @param ie the ending version.
 function between(m,is,ie)
-   dbg.start{"between(",m,is,ie,")"}
+   dbg.start{"between(","\"",m,"\",\"",is,"\",\"",ie,"\")"}
 
    local mname = MName:new("load", m, "between", is, ie)
 
@@ -734,7 +734,7 @@ end
 -- not loaded.  The reverse of an unload is a no-op.
 function unload(...)
    dbg.start{"unload(",concatTbl({...},", "),")"}
-   if (not validateStringArgs("unload",...)) then return {} end
+   if (not validateModules("unload",...)) then return {} end
 
    local b = mcp:unload(MName:buildA("mt",...))
    dbg.fini("unload")
@@ -758,7 +758,7 @@ end
 -- function is a no-op.
 function always_unload(...)
    dbg.start{"always_unload(",concatTbl({...},", "),")"}
-   if (not validateStringArgs("always_unload",...)) then return {} end
+   if (not validateModules("always_unload",...)) then return {} end
 
    local b = mcp:unload(MName:buildA("mt",...))
    dbg.fini("always_unload")
@@ -767,7 +767,7 @@ end
 
 function depends_on(...)
    dbg.start{"depends_on(",concatTbl({...},", "),")"}
-   if (not validateStringArgs("depends_on",...)) then return {} end
+   if (not validateModules("depends_on",...)) then return {} end
 
    local b = mcp:depends_on(MName:buildA(mcp:MNameType(),...))
    dbg.fini("depends_on")

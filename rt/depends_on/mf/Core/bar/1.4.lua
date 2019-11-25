@@ -1,0 +1,1 @@
+setenv("bar",myModuleVersion())
