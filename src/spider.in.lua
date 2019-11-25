@@ -619,7 +619,7 @@ local function Error(...)
 end
 
 local function prt(...)
-   stderr:write(...)
+   io.stderr:write(...)
 end
 
 function options()
