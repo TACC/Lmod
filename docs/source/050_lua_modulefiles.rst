@@ -44,7 +44,9 @@ unset during unloading.
    example " " or  ";" 
 
 **setenv** ("NAME", "*value*"):
-   assigns to the environment variable "NAME" the value.
+   assigns to the environment variable "NAME" the value.  Do not this
+   function to assign the initial to a path-like variable.  Use
+   **append_path** or **prepend_path** instead.
 
 **pushenv** ("NAME", "*value*"):
    sets **NAME** to *value* just like **setenv**.  In addition it
