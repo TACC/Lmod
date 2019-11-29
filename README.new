@@ -7,3 +7,4 @@ Lmod 8.2+
             * Issue #424: Make "ml - foo" and "module load - foo" report an error.
    (8.2.5)  * Issue #426: Change depends_on() to use validateModules() instead of
               validateStringArgs() to validate the arguments from the user
+   (8.2.6)  * Issue #426: Make the between() function set userName to the fullName when found.

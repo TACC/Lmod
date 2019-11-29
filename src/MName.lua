@@ -370,6 +370,7 @@ function M.find_exact_match(self, fileA)
          end
       end
    end
+
    return found, fn, version
 end
 
@@ -440,6 +441,9 @@ function M.find_between(self, fileA)
       fn      = a[idx].fn
       version = a[idx].version
       found   = true
+      if (found) then
+         self.__userName = build_fullName(self.__sn,version)
+      end
    end
    return found, fn, version
 end

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.2.4  2019-11-14 12:45 -06:00
+Modules based on Lua: Version 8.2.5  2019-11-25 15:29 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -131,5 +131,17 @@ It is also possible your cache file is out-of-date; it may help to try:
 Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 26
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load bar/1.0
+===========================
+===========================
+step 27
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load foo
 ===========================
+The following have been reloaded with a version change:
+  1) bar/1.0 => bar/1.4
+===========================
+step 28
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) bar/1.4   2) foo/1.0
