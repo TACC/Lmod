@@ -109,6 +109,9 @@ unset during unloading.
 **conflict** ("name1", "name2"):
      The current modulefile will only load if all listed modules are NOT loaded.
 
+**extensions** ("numpy/2.1, scipy/3.2, foo/1.3"):
+     This module provides the following extensions. Place the list of
+     extensions as a single string.
 
 Extra functions
 ~~~~~~~~~~~~~~~

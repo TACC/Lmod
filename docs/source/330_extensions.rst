@@ -10,7 +10,7 @@ numpy and scipy software.  But how would a user know that a it is
 accessible from the python module.  Sites can create modulefiles that
 support the **extensions** () function::
 
-   extensions("numpy/1.12", "scipy/1.1")
+   extensions("numpy/1.12, scipy/1.1")
 
 In tcl, this can be written as::
 

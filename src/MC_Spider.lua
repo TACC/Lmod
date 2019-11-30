@@ -85,6 +85,12 @@ M.unset_shell_function = MasterControl.quiet
 M.usrload              = MasterControl.quiet
 M.warning              = MasterControl.warning
 
+function argsPack(...)
+   local arg = { n = select("#", ...), ...}
+   return arg
+end
+pack     = (_VERSION == "Lua 5.1") and argsPack or table.pack
+
 --------------------------------------------------------------------------
 -- use the moduleStack to return the filename of the modulefile.
 -- @param self A MasterControl object.
@@ -151,7 +157,16 @@ function M.extensions(self,...)
    local iStack       = #moduleStack
    local path         = moduleStack[iStack].path
    local moduleT      = moduleStack[iStack].moduleT
-   moduleT.provides   = {...}
+
+   local argA = pack(...)
+   local a = {}
+   for i = 1, argA.n do
+      local b = argA[i]
+      for name in b:split(" *[,:] *") do
+         a[#a+1] = name
+      end
+   end
+   moduleT.provides   = a
    dbg.fini()
    return true
 end
@@ -268,9 +283,6 @@ function M.family(self, value)
    dbg.fini()
    return true
 end
-
-
-
 
 --------------------------------------------------------------------------
 -- Copy the property to moduleT

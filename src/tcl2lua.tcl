@@ -576,7 +576,14 @@ proc family { var } {
 }
 
 proc extensions { args } {
-    eval cmdargs "extensions" $args
+    foreach arg $args {
+        set val [doubleQuoteEscaped $arg]
+        lappend cmdArgsL $val
+    }
+    if {[info exists cmdArgsL]} {
+        set cmdArgs [join $cmdArgsL ","]
+	eval cmdargs "extensions" $cmdArgs
+    }
 }
 
 proc loadcmd { args } {
