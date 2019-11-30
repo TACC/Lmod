@@ -167,7 +167,7 @@ Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOS
      m_Description         = "    Description:\n%{descript}\n\n",
      m_Direct_Load         = "\n    This module can be loaded directly: module load %{fullName}\n",
      m_Extensions_head     = "This is a list of module extensions",
-     m_Extensions_tail     = "\nThese extensions cannot be loaded directly.\n",
+     m_Extensions_tail     = "\nThese extensions cannot be loaded directly, use \"module spider extension_name\" for more information.\n",
      m_Family_Swap         = "\nLmod is automatically replacing \"%{oldFullName}\" with \"%{newFullName}\".\n",
      m_For_System          = ", for system: \"%{sname}\"",
      m_Inactive_Modules    = "\nInactive Modules:\n",
@@ -209,7 +209,8 @@ To search the contents of modules for matching words execute:
      m_Restore_Coll        = "Restoring modules from %{msg}\n",
      m_Reset_SysDflt       = "Resetting modules to system default. Reseting $MODULEPATH back to system default. All extra directories will be removed from $MODULEPATH.\n",
      m_Save_Coll           = "Saved current collection of modules to: \"%{a}\"%{msgTail}\n",
-     m_Spdr_L1             = [==[%{border}  For detailed information about a specific "%{key}" package (including how to load the modules) use the module's full name. Note that names that have a trailing (E) are extensions provided by other modules.
+     m_Spdr_L1             = [==[%{border}  For detailed information about a specific "%{key}" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
 
      $ module spider %{exampleV}

@@ -78,6 +78,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider cl
      Versions:
         cluster/one
         cluster/.zero
-  For detailed information about a specific "cluster" package (including how to load the modules) use the module's full name. Note that names that have a trailing (E) are extensions provided by other modules.
+  For detailed information about a specific "cluster" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider cluster/.zero

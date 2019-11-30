@@ -87,7 +87,8 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider uapp
         uapp/7.0.8.1
         uapp/7.1.8.0
         uapp/7.1.8.1
-  For detailed information about a specific "uapp" package (including how to load the modules) use the module's full name. Note that names that have a trailing (E) are extensions provided by other modules.
+  For detailed information about a specific "uapp" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider uapp/7.1.8.1
 ===========================

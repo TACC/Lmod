@@ -49,6 +49,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider python
      Versions:
         python/2.7.3 (Application)
         python/3.3.0 (Application)
-  For detailed information about a specific "python" package (including how to load the modules) use the module's full name. Note that names that have a trailing (E) are extensions provided by other modules.
+  For detailed information about a specific "python" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider python/3.3.0
