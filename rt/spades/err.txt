@@ -25,6 +25,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider spades
         spades/py27/3.13
         spades/py36/3.13
         spades/3.12
-  For detailed information about a specific "spades" package (including how to load the modules) use the module's full name. Note that names that have a trailing (E) are extensions provided by other modules.
+  For detailed information about a specific "spades" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider spades/3.12

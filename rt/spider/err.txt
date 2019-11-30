@@ -213,7 +213,8 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider is-dyna
      Versions:
         is-dyna/1.0
         is-dyna/2.0
-  For detailed information about a specific "is-dyna" package (including how to load the modules) use the module's full name. Note that names that have a trailing (E) are extensions provided by other modules.
+  For detailed information about a specific "is-dyna" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider is-dyna/2.0
 ===========================
@@ -233,7 +234,8 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider bwa
         bwa/0.7.9a
         bwa/0.7.9
         bwa/0.7.10
-  For detailed information about a specific "bwa" package (including how to load the modules) use the module's full name. Note that names that have a trailing (E) are extensions provided by other modules.
+  For detailed information about a specific "bwa" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider bwa/0.7.10
 ===========================
@@ -245,7 +247,8 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gromacs
         apps/gromacs/4.0.7
         apps/gromacs/4.6.3-debug
         apps/gromacs/4.6.3
-  For detailed information about a specific "apps/gromacs" package (including how to load the modules) use the module's full name. Note that names that have a trailing (E) are extensions provided by other modules.
+  For detailed information about a specific "apps/gromacs" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider apps/gromacs/4.6.3
 ===========================
@@ -257,7 +260,8 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs
         apps/gromacs/4.0.7
         apps/gromacs/4.6.3-debug
         apps/gromacs/4.6.3
-  For detailed information about a specific "apps/gromacs" package (including how to load the modules) use the module's full name. Note that names that have a trailing (E) are extensions provided by other modules.
+  For detailed information about a specific "apps/gromacs" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider apps/gromacs/4.6.3
 ===========================
@@ -335,7 +339,8 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gromacs
         apps/gromacs/4.0.7
         apps/gromacs/4.6.3-debug
         apps/gromacs/4.6.3
-  For detailed information about a specific "apps/gromacs" package (including how to load the modules) use the module's full name. Note that names that have a trailing (E) are extensions provided by other modules.
+  For detailed information about a specific "apps/gromacs" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider apps/gromacs/4.6.3
 ===========================
@@ -347,7 +352,8 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs
         apps/gromacs/4.0.7
         apps/gromacs/4.6.3-debug
         apps/gromacs/4.6.3
-  For detailed information about a specific "apps/gromacs" package (including how to load the modules) use the module's full name. Note that names that have a trailing (E) are extensions provided by other modules.
+  For detailed information about a specific "apps/gromacs" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider apps/gromacs/4.6.3
 ===========================
@@ -493,7 +499,8 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy
         numpy/1.12 (E)
         numpy/1.16.4 (E)
 Names marked by a trailing (E) are extensions provided by another module.
-  For detailed information about a specific "numpy" package (including how to load the modules) use the module's full name. Note that names that have a trailing (E) are extensions provided by other modules.
+  For detailed information about a specific "numpy" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider numpy/1.16.4
 ===========================
@@ -531,7 +538,7 @@ ProjectDIR/rt/spider/mf/E_Core
    gcc/4.2.5 (D)    intel/11.2 (D)    python2/2.7.14 (D)
 This is a list of module extensions
     numpy (E)     scipy (E)
-These extensions cannot be loaded directly.
+These extensions cannot be loaded directly, use "module spider extension_name" for more information.
   Where:
    D:  Default Module
    E:  Extension that is provided by another module
