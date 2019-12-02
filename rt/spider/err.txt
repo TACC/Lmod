@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.1.18  2019-10-01 12:36 -05:00
+Modules based on Lua: Version 8.2.7  2019-11-30 09:41 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -457,6 +457,12 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider python2/2.7
 step 36
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t spider
 ===========================
+Algorithm::Dependency/
+Algorithm::Dependency/1.111
+Algorithm::Diff/
+Algorithm::Diff/1.1903
+YAML::Tiny/
+YAML::Tiny/1.73
 gcc/
 gcc/4.2.3
 gcc/4.2.5
@@ -466,6 +472,8 @@ intel/11.2
 numpy/
 numpy/1.12
 numpy/1.16.4
+perl/
+perl/5.18.4
 python2/
 python2/2.6.12
 python2/2.7
@@ -478,11 +486,15 @@ step 37
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
 The following is a list of the modules and extensions currently available:
+  Algorithm::Dependency: Algorithm::Dependency/1.111 (E)
+  Algorithm::Diff: Algorithm::Diff/1.1903 (E)
   gcc: gcc/4.2.3, gcc/4.2.5
   intel: intel/11.0, intel/11.2
   numpy: numpy/1.12 (E), numpy/1.16.4 (E)
+  perl: perl/5.18.4
   python2: python2/2.6.12, python2/2.7, python2/2.7.14
   scipy: scipy/1.1 (E), scipy/1.2.2 (E)
+  YAML::Tiny: YAML::Tiny/1.73 (E)
 Names marked by a trailing (E) are extensions provided by another module.
 To learn more about a package execute:
    $ module spider Foo
@@ -534,10 +546,11 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 Global Aliases
    intelcompiler -> intel
 ProjectDIR/rt/spider/mf/E_Core
-   gcc/4.2.3        intel/11.0        python2/2.6.12
-   gcc/4.2.5 (D)    intel/11.2 (D)    python2/2.7.14 (D)
+   gcc/4.2.3        intel/11.0        perl/5.18.4       python2/2.7.14 (D)
+   gcc/4.2.5 (D)    intel/11.2 (D)    python2/2.6.12
 This is a list of module extensions
-    numpy (E)     scipy (E)
+    Algorithm::Dependency (E)     YAML::Tiny (E)     scipy (E)
+    Algorithm::Diff       (E)     numpy      (E)
 These extensions cannot be loaded directly, use "module spider extension_name" for more information.
   Where:
    D:  Default Module

@@ -405,6 +405,24 @@ This is the help message for python 2.7
         },
       },
     },
+    perl = {
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["perl/5.18.4"]  = {
+          ["Version"] = "5.18.4",
+          ["canonical"] = "5.18.4",
+          ["fn"] = "ProjectDIR/rt/spider/mf/E_Core/perl/5.18.4.lua",
+          ["luaExt"] = 7,
+          ["mpath"] = "ProjectDIR/rt/spider/mf/E_Core",
+          ["pV"] = "000000005.000000018.000000004.*zfinal",
+          provides = {
+            "Algorithm::Dependency/1.111", "Algorithm::Diff/1.1903", "YAML::Tiny/1.73",
+          },
+          ["wV"] = "000000005.000000018.000000004.*zfinal",
+        },
+      },
+    },
     python2 = {
       defaultT = {},
       dirT = {},
@@ -530,6 +548,18 @@ dbT = {
       ["wV"] = "000000011.000000002.*zfinal",
     },
   },
+  perl = {
+    ["ProjectDIR/rt/spider/mf/E_Core/perl/5.18.4.lua"]  = {
+      ["Version"] = "5.18.4",
+      ["fullName"] = "perl/5.18.4",
+      ["hidden"] = false,
+      ["pV"] = "000000005.000000018.000000004.*zfinal",
+      provides = {
+        "Algorithm::Dependency/1.111", "Algorithm::Diff/1.1903", "YAML::Tiny/1.73",
+      },
+      ["wV"] = "000000005.000000018.000000004.*zfinal",
+    },
+  },
   python2 = {
     ["ProjectDIR/rt/spider/mf/E_Compiler/gcc/4.2/python2/2.7.lua"]  = {
       ["Version"] = "2.7",
@@ -602,6 +632,36 @@ This is the help message for python 2.7.14
   },
 }
 provideByT = {
+  ["Algorithm::Dependency"]  = {
+    ["Algorithm::Dependency/1.111"]  = {
+      {
+        ["fullName"] = "perl/5.18.4",
+        ["hidden"] = false,
+        ["my_name"] = "Algorithm::Dependency/1.111",
+        ["pV"] = "000000005.000000018.000000004.*zfinal",
+      },
+    },
+  },
+  ["Algorithm::Diff"]  = {
+    ["Algorithm::Diff/1.1903"]  = {
+      {
+        ["fullName"] = "perl/5.18.4",
+        ["hidden"] = false,
+        ["my_name"] = "Algorithm::Diff/1.1903",
+        ["pV"] = "000000005.000000018.000000004.*zfinal",
+      },
+    },
+  },
+  ["YAML::Tiny"]  = {
+    ["YAML::Tiny/1.73"]  = {
+      {
+        ["fullName"] = "perl/5.18.4",
+        ["hidden"] = false,
+        ["my_name"] = "YAML::Tiny/1.73",
+        ["pV"] = "000000005.000000018.000000004.*zfinal",
+      },
+    },
+  },
   numpy = {
     ["numpy/1.12"]  = {
       {

@@ -162,7 +162,7 @@ function M.extensions(self,...)
    local a = {}
    for i = 1, argA.n do
       local b = argA[i]
-      for name in b:split(" *[,:] *") do
+      for name in b:split(" *, *") do
          a[#a+1] = name
       end
    end
