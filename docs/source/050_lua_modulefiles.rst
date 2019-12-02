@@ -145,7 +145,10 @@ The entries below describe several useful commands that come with Lmod that can 
 **LmodError** ("string","..."):
     Print Error string and exit without loading the modulefile.
 **mode** ():
-    Returns the string "load" when a modulefile is being loaded and "unload" when unloading.
+    Returns the string "load" when a modulefile is being loaded,
+    "unload" when unloading, and "spider" when a modulefile is
+    processed builting the spider cache which is used by *module
+    avail* and *module spider*.
 **isloaded** ("NAME"):
     Return true when module "NAME" is loaded.
 **LmodVersion** ():
