@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.1.18  2019-10-01 12:36 -05:00
+Modules based on Lua: Version 8.2.8  2019-12-02 08:19 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -141,3 +141,16 @@ Lmod has detected the following error: Cannot load module "Ma" without these mod
 While processing the following module(s):
     Module fullname  Module Filename
     Ma               ProjectDIR/rt/between/mf/Core/Ma.lua
+===========================
+step 23
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a/1.1 Mb
+===========================
+===========================
+step 24
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Mc
+===========================
+Lmod has detected the following error: Cannot load module "Mc" without these module(s) loaded:
+   atleast("a","1.3")
+While processing the following module(s):
+    Module fullname  Module Filename
+    Mc               ProjectDIR/rt/between/mf/Core/Mc.lua

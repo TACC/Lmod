@@ -242,3 +242,26 @@ step 22
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Ma
 ===========================
 false
+===========================
+step 23
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a/1.1 Mb
+===========================
+A_VERSION=1.1;
+export A_VERSION;
+__LMOD_REF_COUNT_LOADEDMODULES=b/1.4:1\;M9:1\;a/1.1:1\;Mb:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=b/1.4:M9:a/1.1:Mb;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/between/mf/Core;
+export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/between/mf/Core/b/1.4.lua:1\;ProjectDIR/rt/between/mf/Core/M9.lua:1\;ProjectDIR/rt/between/mf/Core/a/1.1.lua:1\;ProjectDIR/rt/between/mf/Core/Mb.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/between/mf/Core/b/1.4.lua:ProjectDIR/rt/between/mf/Core/M9.lua:ProjectDIR/rt/between/mf/Core/a/1.1.lua:ProjectDIR/rt/between/mf/Core/Mb.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={M9={["fn"]="ProjectDIR/rt/between/mf/Core/M9.lua",["fullName"]="M9",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="M9",},Mb={["fn"]="ProjectDIR/rt/between/mf/Core/Mb.lua",["fullName"]="Mb",["loadOrder"]=4,propT={},["stackDepth"]=0,["status"]="active",["userName"]="Mb",},a={["fn"]="ProjectDIR/rt/between/mf/Core/a/1.1.lua",["fullName"]="a/1.1",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a/1.1",},b={["fn"]="ProjectDIR/rt/between/mf/Core/b/1.4.lua",["fullName"]="b/1.4",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="b/1.4",},},mpathA={"ProjectDIR/rt/between/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/between/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 24
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Mc
+===========================
+false
