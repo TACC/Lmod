@@ -12,3 +12,4 @@ Lmod 8.2+
             * issue #429: Corrected rt/between/err.txt file
 	    * issue #430: Change extensions msgs to be multi-line
    (8.2.8)  * issue #428: Make extension() function only work with ',' not comma or colon.
+   (8.2.9)  * issue #426: Make between() accept a modulefile in the range but not the "best" one.

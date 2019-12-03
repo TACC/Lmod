@@ -521,6 +521,13 @@ function M.prereq(self)
       return userName
    end
 
+   if (self.__have_range) then
+      local pV = parseVersion(mt:version(sn))
+      if ((self.__range[1] <= pV) and (pV <= self.__range[2])) then
+         return false
+      end
+   end
+      
    if (userName == sn or userName == fullName) then
       -- The userName matched the either the sn or fullName
       -- stored in the MT
