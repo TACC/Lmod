@@ -89,7 +89,8 @@ function M.new(self, sType, name, action, is, ie)
    o.__action     = action
    o.__is         = is or false
    o.__ie         = ie or false
-   o.__range      = { parseVersion(o.__is) or " ", parseVersion(o.__ie) or "~" }
+   o.__range      = { o.__is and parseVersion(o.__is) or " ", o.__ie and parseVersion(o.__ie) or "~" }
+   o.__show_range = { o.__is , o.__ie }
    o.__actionNm   = action
 
    if (sType == "entryT") then
@@ -133,7 +134,7 @@ function M.buildA(self,sType, ...)
 end
 
 local function lazyEval(self)
-   dbg.start{"lazyEval(",self.__userName,")"}
+   --dbg.start{"lazyEval(",self.__userName,")"}
 
    local found   = false
    local sType   = self.__sType
@@ -157,8 +158,8 @@ local function lazyEval(self)
          self.__version    = mt:version(sn)
          self.__stackDepth = mt:stackDepth(sn)
       end
-      dbg.print{"mt\n"}
-      dbg.fini("lazyEval")
+      --dbg.print{"mt\n"}
+      --dbg.fini("lazyEval")
       return
    end
 
@@ -174,8 +175,8 @@ local function lazyEval(self)
          self.__userName = build_fullName(t.sn, t.version)
       end
 
-      dbg.print{"inherit\n"}
-      dbg.fini("lazyEval")
+      --dbg.print{"inherit\n"}
+      --dbg.fini("lazyEval")
       return
    end
 
@@ -195,16 +196,16 @@ local function lazyEval(self)
    self.__stackDepth = self.__stackDepth or frameStk:stackDepth()
 
    if (not sn) then
-      dbg.print{"did not find sn\n"}
-      dbg.fini("lazyEval")
+      --dbg.print{"did not find sn\n"}
+      --dbg.fini("lazyEval")
       return
    end
 
    local stepA   = self:steps()
    local version
    local fn
-   dbg.printT("fileA",fileA)
-   dbg.print{"#stepA: ",#stepA,"\n"}
+   --dbg.printT("fileA",fileA)
+   --dbg.print{"#stepA: ",#stepA,"\n"}
 
    for i = 1, #stepA do
       local func = stepA[i]
@@ -218,8 +219,8 @@ local function lazyEval(self)
          break
       end
    end
-   dbg.print{"fn: ",self.__fn,"\n"}
-   dbg.fini("lazyEval")
+   --dbg.print{"fn: ",self.__fn,"\n"}
+   --dbg.fini("lazyEval")
 end
 
 
@@ -418,7 +419,7 @@ function M.find_latest(self, fileA)
 end
 
 function M.find_between(self, fileA)
-   dbg.start{"MName:find_between(fileA)"}
+   --dbg.start{"MName:find_between(fileA)"}
    local a     = fileA[1] or {}
    sort(a, function(x,y)
            return x.pV < y.pV
@@ -431,20 +432,19 @@ function M.find_between(self, fileA)
    local pV         = lowerBound
    local wV         = " "  -- this is less than the lower possible weight.
 
-   dbg.print{"lower: ",pV,"\n"}
-   dbg.print{"upper: ",upperBound,"\n"}
-   dbg.print{"wV:    ",wV,"\n"}
+   --dbg.print{"lower: ",pV,"\n"}
+   --dbg.print{"upper: ",upperBound,"\n"}
+   --dbg.print{"wV:    \"",wV,"\"\n\n"}
 
    local idx        = nil
    local found      = false
    for j = 1,#a do
       local entry = a[j]
       local v     = entry.pV
-      dbg.print{"v: ",v,", pV: ",pV,", upper: ",upperBound,"\n"}
-      dbg.print{"v >= pV: ",v >= pV, ", v <= upperBound: ",v <= upperBound,", entry.wV > wV ",entry.wV > wV,"\n"}
+      --dbg.print{"pV: ",pV,", v: ",v,", upper: \"",upperBound,"\"\n"}
+      --dbg.print{"pV <= v: ",pV <= v, ", v <= upperBound: ",v <= upperBound,", entry.wV > wV: ",entry.wV > wV,"\n"}
 
-      if (v >= pV and v <= upperBound and entry.wV > wV) then
-         dbg.print{"true\n"}
+      if (pV <= v and v <= upperBound and entry.wV > wV) then
          idx = j
          pV  = v
          wV  = entry.wV
@@ -458,7 +458,7 @@ function M.find_between(self, fileA)
          self.__userName = build_fullName(self.__sn,version)
       end
    end
-   dbg.fini("MName:find_between")
+   --dbg.fini("MName:find_between")
    return found, fn, version
 end
 

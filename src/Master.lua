@@ -296,8 +296,6 @@ function M.load(self, mA)
 
          mt               = frameStk:mt()
          local sn         = mname:sn()
-         dbg.print{"sn: ",sn or "false","\n"}
-
          if ((sn == nil) and ((i > 1) or (frameStk:stackDepth() > 0))) then
             dbg.print{"Pushing ",mname:userName()," on moduleQ\n"}
             dbg.print{"i: ",i,", stackDepth: ", frameStk:stackDepth(),"\n"}

@@ -60,10 +60,10 @@ function M.show(self)
    a[#a+1]  = self.__actionNm
    a[#a+1]  = "(\""
    a[#a+1]  = nm .. '"'
-   for i = 1, #self.__range do
-      if (self.__range[i]) then
+   for i = 1, #self.__show_range do
+      if (self.__show_range[i]) then
          a[#a+1] = ",\""
-         a[#a+1] = self.__range[i] .. '"'
+         a[#a+1] = self.__show_range[i] .. '"'
       end
    end
    a[#a+1] = ")"
