@@ -89,6 +89,7 @@ function M.new(self, sType, name, action, is, ie)
    o.__action     = action
    o.__is         = is or false
    o.__ie         = ie or false
+   o.__have_range = is or ie
    o.__range      = { o.__is and parseVersion(o.__is) or " ", o.__ie and parseVersion(o.__ie) or "~" }
    o.__show_range = { o.__is , o.__ie }
    o.__actionNm   = action
@@ -473,7 +474,7 @@ function M.isloaded(self)
    local sn        = self:sn()
    local status    = mt:status(sn)
    local sn_status = ((status == "active") or (status == "pending"))
-   if (sn_status) then
+   if (sn_status and self.__have_range) then
       local pV = parseVersion(mt:version(sn))
       if ((self.__range[1] <= pV) and (pV <= self.__range[2])) then
          return sn_status
