@@ -51,6 +51,10 @@ testdescript = {
      runLmod load bar/1.0                      #26
      runLmod load foo                          #27
      runLmod list                              #28
+     runLmod purge                             #29
+     runLmod load bar/1.2                      #30
+     runLmod load foo                          #31
+     runLmod list                              #32
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
