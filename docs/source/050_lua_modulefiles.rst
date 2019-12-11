@@ -165,11 +165,17 @@ Modifier functions to prereq and loads
 
 **atleast** ("name","version"):
     This modifier function will only succeed if the module is
-    "version" or newer.
+    "version" or newer. See the between function for adding a "<" to
+    modify the search criteria.
 
-**between** ("name","v1","v2"):
-    This modifier function will only succeed if the module's version is
-    equal to or between "v1" and "v2".
+**between** ("name","v1","v2"): This modifier function will only
+    succeed if the module's version is equal to or between "v1" and
+    "v2". Note that version "1.2" is the same as "1.2.0.0.0....".
+    This means that between("foo","2.7","3.0") would include "foo/3.0"
+    but not "foo/3.0.0.1".  You can add a "<" to either the lower or
+    upper version boundary to specify less than instead of "<=".  So
+    between("foo","2.7<","<3.0") would want any module greater than 2.7
+    and less than 3.0.
 
 **latest** ("name"):
     This modifier function will only succeed if the module has the

@@ -1,2 +1,2 @@
-depends_on(between("bar","1.2","1.4"))
+depends_on(between("bar","1.2","<1.4"))
 

@@ -79,20 +79,22 @@ function M.prereq(self)
    local userName  = self:userName()
    local status    = mt:status(sn)
    local sn_status = ((status == "active") or (status == "pending"))
+   local lowerFn   = self.__range_fnA[1]
+   local upperFn   = self.__range_fnA[2]
 
    if (not sn_status) then
       return self:show()
    end
 
    local version    = mt:version(sn)
-   local pv         = version   and parseVersion(version)   or " "
+   local pV         = version   and parseVersion(version)   or " "
    local lowerBound = self.__is and parseVersion(self.__is) or " "
    local upperBound = self.__ie and parseVersion(self.__ie) or "~"
 
-   if (pv < lowerBound or pv > upperBound) then
-      return self:show()
+   if (lowerFn(lowerBound, pV) and upperFn(pV, upperBound)) then
+      return false
    end
-   return false
+   return self:show()
 end
 
 return M

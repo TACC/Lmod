@@ -13,3 +13,5 @@ Lmod 8.2+
 	    * issue #430: Change extensions msgs to be multi-line
    (8.2.8)  * issue #428: Make extension() function only work with ',' not comma or colon.
    (8.2.9)  * issue #426: Make between() accept a modulefile in the range but not the "best" one.
+   (8.2.10) * Add support for "atleast()" and "between()" functions support a "<" to signify a 
+              less than instead of less than or equal to between range.

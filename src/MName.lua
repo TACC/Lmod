@@ -55,6 +55,16 @@ function M.className(self)
    return self.my_name
 end
 
+local function l_lessthan(a,b)
+   return a < b
+end
+
+local function l_lessthan_equal(a,b)
+   return a <= b
+end
+
+
+
 function M.new(self, sType, name, action, is, ie)
    --dbg.start{"Mname:new(",sType,")"}
 
@@ -80,6 +90,8 @@ function M.new(self, sType, name, action, is, ie)
 
    local o = s_findT[action]:create()
 
+   is             = is or false
+   ie             = ie or false
    o.__sn         = false
    o.__version    = false
    o.__fn         = false
@@ -87,16 +99,24 @@ function M.new(self, sType, name, action, is, ie)
    o.__sType      = sType
    o.__waterMark  = "MName"
    o.__action     = action
-   o.__is         = is or false
-   o.__ie         = ie or false
+   o.__range_fnA  = { l_lessthan_equal, l_lessthan_equal }
+   o.__show_range = { is, ie}
+   if (is and (is:sub(1,1) == "<" or is:sub(-1) == "<")) then
+      o.__range_fnA[1]  = l_lessthan
+      is = is:gsub("<","")
+   end
+   if (ie and (ie:sub(1,1) == "<" or ie:sub(-1) == "<")) then
+      o.__range_fnA[2]  = l_lessthan
+      ie = ie:gsub("<","")
+   end
+   o.__is         = is 
+   o.__ie         = ie 
    o.__have_range = is or ie
    o.__range      = { o.__is and parseVersion(o.__is) or " ", o.__ie and parseVersion(o.__ie) or "~" }
-   o.__show_range = { o.__is , o.__ie }
    o.__actionNm   = action
 
    if (sType == "entryT") then
-      local t = name
-      --dbg.print{"entry: sn: ",t.sn,", version: ",t.version,", fn: ",t.fn,"\n"}
+      local t      = name
       o.__sn       = t.sn
       o.__version  = t.version
       o.__userName = t.userName
@@ -430,6 +450,9 @@ function M.find_between(self, fileA)
    local version    = false
    local lowerBound = self.__range[1]
    local upperBound = self.__range[2]
+   local lowerFn    = self.__range_fnA[1]
+   local upperFn    = self.__range_fnA[2]
+
    local pV         = lowerBound
    local wV         = " "  -- this is less than the lower possible weight.
 
@@ -445,7 +468,7 @@ function M.find_between(self, fileA)
       --dbg.print{"pV: ",pV,", v: ",v,", upper: \"",upperBound,"\"\n"}
       --dbg.print{"pV <= v: ",pV <= v, ", v <= upperBound: ",v <= upperBound,", entry.wV > wV: ",entry.wV > wV,"\n"}
 
-      if (pV <= v and v <= upperBound and entry.wV > wV) then
+      if (lowerFn(pV,v) and upperFn(v,upperBound) and entry.wV > wV) then
          idx = j
          pV  = v
          wV  = entry.wV
