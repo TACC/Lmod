@@ -247,6 +247,10 @@ function sandbox_registration(t)
    end
 end
 
+function sandbox_set_os_exit(func)
+   sandbox_env.os.exit = func
+end
+
 
 
 --------------------------------------------------------------------------

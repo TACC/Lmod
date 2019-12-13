@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.2.7  2019-11-30 09:41 -06:00
+Modules based on Lua: Version 8.2.10  2019-12-11 14:21 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -575,3 +575,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider abcpy/2.1
     This extension is provided by the following modules. To access the extension you must load one of the following modules. Note that any module names in parentheses show the module location in the software hierarchy.
        python3/3.7
 Names marked by a trailing (E) are extensions provided by another module.
+===========================
+step 45
+runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/G_Core
+===========================

@@ -45,6 +45,7 @@ require("utils")
 require("serializeTbl")
 require("deepcopy")
 require("loadModuleFile")
+require("sandbox")
 
 local Banner       = require("Banner")
 local M            = {}
@@ -268,6 +269,9 @@ function M.findAllModules(self, mpathA, spiderT)
    local mList           = ""
    local exit            = os.exit
    os.exit               = nothing
+   
+   sandbox_set_os_exit(nothing)
+   dbg.print{"setting os.exit to nothing\n"}
    if (Use_Preload) then
       local a = {}
       mList   = getenv("LOADEDMODULES") or ""
@@ -315,7 +319,9 @@ function M.findAllModules(self, mpathA, spiderT)
       until true
    end
 
+   dbg.print{"Resetting os.exit back\n"}
    os.exit               = exit
+   sandbox_set_os_exit(exit)
    dbg.fini("Spider:findAllModules")
 end
 

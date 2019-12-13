@@ -15,3 +15,5 @@ Lmod 8.2+
    (8.2.9)  * issue #426: Make between() accept a modulefile in the range but not the "best" one.
    (8.2.10) * Add support for "atleast()" and "between()" functions support a "<" to signify a 
               less than instead of less than or equal to between range.
+W.I.P:
+   (8.2.11) * It is now safe to have os.exit(1) in a modulefile. Spider can now handle it.

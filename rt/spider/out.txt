@@ -825,3 +825,43 @@ MODULEPATH=ProjectDIR/rt/spider/mf/F_Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/F_Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider/mf/F_Core",}';
 export _ModuleTable_;
+===========================
+step 45
+runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/G_Core
+===========================
+timestampFn = {
+  false,
+}
+mrcT = {
+  alias2modT = {
+    ["intelcompiler"] = "intel",
+  },
+  hiddenT = {
+    ["gcc/4.8"] = true,
+  },
+  version2modT = {
+    ["intel/17"] = "intel/2017.1.132",
+    ["intel/2017"] = "intel/2017.1.132",
+  },
+}
+spiderT = {
+  ["ProjectDIR/rt/spider/mf/G_Core"]  = {
+    acme_xyz = {
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["acme_xyz/1.0"]  = {
+          ["Version"] = "1.0",
+          ["canonical"] = "1.0",
+          ["fn"] = "ProjectDIR/rt/spider/mf/G_Core/acme_xyz/1.0.lua",
+          ["luaExt"] = 4,
+          ["mpath"] = "ProjectDIR/rt/spider/mf/G_Core",
+          ["pV"] = "000000001.*zfinal",
+          ["wV"] = "000000001.*zfinal",
+        },
+      },
+    },
+  },
+  ["version"] = 5,
+}
+mpathMapT = {}

@@ -96,7 +96,8 @@ testdescript = {
      runLmod    spider abcpy/2.1                                              #44
 
      unsetMT
-     export MODULEPATH=$testDir/mf/F_Core
+     export MODULEPATH=$testDir/mf/G_Core
+     runBase runSpiderCmd -o spiderT  $MODULEPATH                             #45
 
 
      HOME=$ORIG_HOME

@@ -233,7 +233,8 @@ function main()
       return
    end
    if (not masterTbl.quiet) then
-      io.stderr:write("Executing a module purge and removing all Lmod environment variables and aliases/shell functions\n")
+      io.stderr:write("Executing a module purge and removing all Lmod environment variables, aliases and shell functions\n")
+      io.stderr:write("This includes the module and ml commands!\n")
    end
 
    --------------------------------------------------------------
