@@ -4,11 +4,12 @@
 _G._DEBUG    = false
 local posix  = require("posix")
 
-Version = "1.0"
+Version = "1.1"
 
 require("declare")
 require("strict")
 require("string_utils")
+local posix  = require("posix")
 local Optiks = require("Optiks")
 local dbg    = require("Dbg"):dbg()
 local master = {}
@@ -26,8 +27,10 @@ function main()
    local fh
 
    declare("myFullVersion")
+   declare("myDate")
    declare("myVersion")
    myFullVersion = masterTbl.version
+   myDate        = masterTbl.date
 
    local vA = {}
    for value in myFullVersion:split("%.") do
@@ -58,6 +61,10 @@ function main()
    end
 
    fh    = io.open(fn,"r")
+   if (not fh) then
+      io.stderr:write("unable to open ",fn,"\n")
+   end
+
    whole = fh:read("*all")
    fh:close()
 
@@ -93,6 +100,12 @@ function options()
       name    = {'--version'},
       dest    = 'version',
       default = '0.0.0',
+      action  = 'store',
+   }
+   cmdlineParser:add_option{ 
+      name    = {'--date'},
+      dest    = 'date',
+      default = '',
       action  = 'store',
    }
    local optionTbl, pargs = cmdlineParser:parse(arg)
