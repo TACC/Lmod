@@ -3,7 +3,7 @@
 Using the module spider command
 ===============================
 
-The module spider command is reports all the modules that can be
+The module spider command reports all the modules that can be
 loaded on a system.  In a flat module layout system, the *module
 avail* and *module spider* return similar information.  In a
 hierarchical system, *module spider* returns all the modules that are
@@ -13,7 +13,7 @@ loaded directly.
 There are three modes to module spider
 
 #. module spider: Report all modules, known as level 0.
-#. module spider <name> : report all the versions for the modules that
+#. module spider <name> : Report all the versions for the modules that
    match <name>.  This is known as level 1
 #. module spider <name/version>: Report detailed information on a
    particular module version. This is known as level 2
@@ -65,7 +65,7 @@ fullnames of the modules.  If there are more modules then can fit on
 one line, the the list is truncated.  Below is the description.  Lmod
 looks for a particular whatis command in the modulefile.  For example,
 the autotools module has a whatis function call that looks like the
-followin in a lua modulefile.::
+following in a lua modulefile::
 
     whatis("Description: Autoconf, automake, libtool")
 
@@ -74,13 +74,13 @@ In a TCL modulefile it would look like::
     module-whatis "Description: Autoconf, automake, libtool"
 
 If your output of *module spider* doesn't have a description, please
-ask your site to consider adding the an appropriate whatis line in
+ask your site to consider adding an appropriate whatis line in
 your modulefiles.
 
 Level 1: module spider name1 name2 ...
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can get more detail about particular modules by adding one or more
+You can get more details about particular modules by adding one or more
 names to the command to get a level 1 command.  For example::
 
    $ module spider hdf5
@@ -99,7 +99,7 @@ names to the command to get a level 1 command.  For example::
         Other possible modules matches:
            phdf5
 
-Since the name "hdf5" matches a module name, Lmod only report on the
+Since the name "hdf5" matches a module name, Lmod only reports on the
 hdf5 module and not the phdf5 module.  It does report that other
 matches are possible (such as phdf5).  The reason for this is some
 sites name the  R stat package as R.  This rule is to prevent getting
