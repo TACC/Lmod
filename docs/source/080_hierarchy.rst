@@ -89,6 +89,16 @@ them in another software hierarchy as follows:
 #. Compiler dependent packages: **/opt/apps/compilerName-version/pkgName/version**
 #. MPI-Compiler dependent packages: **/opt/apps/compilerName-version/mpiName-version/pkgName/version**
 
+The modulefiles also need to be stored in a software hierarchy as
+well.
+
+#. Compiler dependent modulefiles: **/opt/apps/modulefiles/Compilers/compilerName/compiler-version/pkgName/version**
+#. MPI dependent modulefiles: **/opt/apps/modulefiles/MPI/compilerName/compiler-version/mpiName/mpi-version/pkgName/version**
+
+The regression testing suite that comes with the Lmod source has many
+examples of a software hierarchy.  See the directory
+**rt/hierarchy/mf/** from the Lmod source tree.
+
 When **MODULEPATH** changes, Lmod unloads any modules which are not
 currently in the **MODULEPATH** and then tries to reload all the
 previously loaded modules. Any modules which are not available are
