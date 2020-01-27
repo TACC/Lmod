@@ -32,6 +32,20 @@ release at sourceforge.
 ## ChangeLog
 
 
+### Lmod 8.3:
+
+Features:
+
+   1. The function extensions() now takes a string of comma separated names.  This is to get around the number of arguments limit in Lua.
+
+   2. Add support for "atleast()" and "between()" functions support a "<" to signify a less than instead of less than or equal to between range.
+
+Bug Fixes:
+
+   1. Make "ml - foo" an error.
+
+   2. It is now safe to have os.exit(1) in a modulefile. Spider can now handle it.
+
 ### Lmod 8.2:
 
 Features:

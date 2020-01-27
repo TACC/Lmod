@@ -1,3 +1,22 @@
+Lmod 8.2+
+   (8.2.1)  * Reset contrib/tracking_module_usage/createDB.py back to the version found in 6.0.25
+   (8.2.2)  * Use 'hostname -f' when 'uname -n' does not return a fully qualified hostname.
+              (used in contrib/TACC/SitePackage.lua) 
+   (8.2.3)  * Repaired the 8.2.1 version contrib/tracking_module_usage/createDB.py to now work.
+   (8.2.4)  * Diagnostic messages should go to stderr.
+            * issue #424: Make "ml - foo" and "module load - foo" report an error.
+   (8.2.5)  * issue #426: Change depends_on() to use validateModules() instead of
+              validateStringArgs() to validate the arguments from the user
+   (8.2.6)  * issue #426: Make the between() function set userName to the fullName when found.
+   (8.2.7)  * issue #428: Changed extensions() function to take comma separated strings
+            * issue #429: Corrected rt/between/err.txt file
+	    * issue #430: Change extensions msgs to be multi-line
+   (8.2.8)  * issue #428: Make extension() function only work with ',' only, not both comma or colon.
+   (8.2.9)  * issue #426: Make between() accept a modulefile in the range but not the "best" one.
+   (8.2.10) * Add support for "atleast()" and "between()" functions support a "<" to signify a 
+              less than instead of less than or equal to between range.
+   (8.2.11) * It is now safe to have os.exit(1) in a modulefile. Spider can now handle it.
+
 Lmod 8.1+
    (8.1.1)  * Issue #392: include family info in spiderT and all other products based on spiderT like
               dbT and the software page.
