@@ -1,0 +1,323 @@
+% Copyright 2003 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% This program can be redistributed and/or modified under the terms
+% of the GNU Public License, version 2.
+
+\mode<presentation>
+
+% I downloaded a gimp color palette from
+% http://maururu.net/2007/latex-beamer-color-palette/
+% Which provides rgb values (I think) for several of the
+% default beamer themes.  You can open this in gimp by
+% opening the Palettes dialog, right-clicking anywhere and choosing
+% 'Import Palette'.  A color in there called 'default added blue'
+% appeared to be approximately what I wanted.  It had the triple
+% of values 141 145 208.  If you double-click on this in the
+% palette editor it gives you a bunch of information.  You can't
+% use these values directly to set a color...it just comes out white.
+% I think definecolor is expecting something normalized by 255.  Yes!
+
+
+% bluish colors
+\definecolor{defaddedblue}{rgb}{0.5529,.5686,.8157} % 141,145,208
+\definecolor{defblockheader}{rgb}{.1921,.2235,.6824} % 49,57,174
+\definecolor{flyaddedblue}{rgb}{.5961,.6118,.8431} % 152,156,215
+
+% bluish-greys
+\definecolor{beetleaddedblue1}{rgb}{.3333,.4039,.6196} % 85 103 158, dark
+\definecolor{beetleaddedblue2}{rgb}{.4510,.5098,.7020} % 115 130 179, medium
+\definecolor{beetleaddedblue3}{rgb}{.7059,.7255,.7961} % 180 185 203, light (greyest)
+
+% very light blue-greys
+\definecolor{deflightouter1}{rgb}{.7608,.7647,.9020} % 194 195 230, dark
+\definecolor{deflightouter2}{rgb}{.8   ,.8039,.9176} % 204 205 234, medium
+\definecolor{deflightouter3}{rgb}{.8392,.8431,.9373} % 214 215 239, light
+
+% reddish colors
+\definecolor{flyalertblockheader}{rgb}{.7373,.1294,.1333} % 188  33  34
+\definecolor{flyaddedred}{rgb}{.8667,.5647,.5647}% 221 144 144
+\definecolor{beaverouterframe}{rgb}{.5529,.0980,.0980}% 141  25  25
+
+% greens (green is used for 'examples' in beamer)
+\definecolor{defexblock}{rgb}{.9098,.9333,.9020} % 232 238 230, light
+\definecolor{defaddedgreen}{rgb}{.5412,.6510,.4706} % 138 166 120, medium
+\definecolor{defexblockheader}{rgb}{.1686,.3647,.0392} %  43  93  10, dark
+
+\definecolor{lightexblock}{rgb}{.9137,.9451,.9020} % 233 241 230, light
+\definecolor{lightexblockheader}{rgb}{.8235,.8980,.8} % 210 229 204, medium
+\definecolor{lightexblockheadertext}{rgb}{.2431,.5098,.0745} %  62 130  19, dark
+
+
+%%%
+% Set the normal text color
+%%%
+\setbeamercolor{normal text}{fg=black,bg=white}
+
+%%%
+% Set the alerted text color
+%%%
+% \setbeamercolor{alerted text}{fg=red}
+\setbeamercolor{alerted text}{fg=red!50!black} % half black/half red for green bg
+% \setbeamercolor{alerted text}{fg=beaverouterframe}
+% \setbeamercolor{alerted text}{fg=defblockheader} % doesn't stand out enough
+
+
+% Set the 'example' text
+\setbeamercolor{example text}{fg=green!50!black}
+
+\setbeamercolor{structure}{fg=black}
+
+\setbeamercolor{background canvas}{parent=normal text}
+\setbeamercolor{background}{parent=background canvas}
+
+\setbeamercolor{palette primary}{use=structure,fg=structure.fg}
+\setbeamercolor{palette secondary}{use=structure,fg=structure.fg!75!black}
+\setbeamercolor{palette tertiary}{use=structure,fg=structure.fg!50!black}
+\setbeamercolor{palette quaternary}{fg=black}
+
+\setbeamercolor{palette sidebar primary}{use=normal text,fg=normal text.fg}
+\setbeamercolor{palette sidebar secondary}{use=structure,fg=structure.fg}
+\setbeamercolor{palette sidebar tertiary}{use=normal text,fg=normal text.fg}
+\setbeamercolor{palette sidebar quaternary}{use=structure,fg=structure.fg}
+
+\setbeamercolor{math text}{}
+\setbeamercolor{math text inlined}{parent=math text}
+\setbeamercolor{math text displayed}{parent=math text}
+
+\setbeamercolor{normal text in math text}{}
+
+\setbeamercolor{local structure}{parent=structure}
+
+\setbeamercolor{titlelike}{parent=structure}
+
+\setbeamercolor{title}{parent=titlelike}
+\setbeamercolor{title in head/foot}{parent=palette quaternary}
+\setbeamercolor{title in sidebar}{parent=palette sidebar quaternary}
+
+\setbeamercolor{subtitle}{parent=title}
+
+\setbeamercolor{author}{}
+\setbeamercolor{author in head/foot}{parent=palette primary}
+\setbeamercolor{author in sidebar}{use=palette sidebar tertiary,fg=palette sidebar tertiary.fg}
+
+\setbeamercolor{institute}{}
+\setbeamercolor{institute in head/foot}{parent=palette tertiary}
+\setbeamercolor{institute in sidebar}{use=palette sidebar tertiary,fg=palette sidebar tertiary.fg}
+
+\setbeamercolor{date}{}
+\setbeamercolor{date in head/foot}{parent=palette secondary}
+\setbeamercolor{date in sidebar}{use=palette sidebar tertiary,fg=palette sidebar tertiary.fg}
+
+\setbeamercolor{titlegraphic}{}
+
+\setbeamercolor{part name}{}
+\setbeamercolor{part title}{parent=titlelike}
+
+\setbeamercolor{section in toc}{parent=structure}
+\setbeamercolor{section in toc shaded}{parent=section in toc}
+\setbeamercolor{section in head/foot}{parent=palette tertiary}
+\setbeamercolor{section in sidebar}{parent=palette sidebar secondary}
+\setbeamercolor{section in sidebar shaded}{use=section in sidebar,fg=section in sidebar.fg!40!bg}
+\setbeamercolor{section number projected}{parent=item projected}
+
+\setbeamercolor{subsection in toc}{}
+\setbeamercolor{subsection in toc shaded}{parent=subsection in toc}
+\setbeamercolor{subsection in head/foot}{parent=palette secondary}
+\setbeamercolor{subsection in sidebar}{parent=palette sidebar primary}
+\setbeamercolor{subsection in sidebar shaded}{use=subsection in sidebar,fg=subsection in sidebar.fg!40!bg}
+\setbeamercolor{subsection number projected}{parent={subitem projected}}
+
+\setbeamercolor{subsubsection in toc}{parent=subsection in toc}
+\setbeamercolor{subsubsection in toc shaded}{parent=subsubsection in toc}
+\setbeamercolor{subsubsection in head/foot}{parent=subsection in head/foot}
+\setbeamercolor{subsubsection in sidebar}{parent=subsection in sidebar}
+\setbeamercolor{subsubsection in sidebar shaded}{parent=subsection in sidebar shaded}
+\setbeamercolor{subsubsection number projected}{parent=subsubitem projected}
+
+\setbeamercolor{headline}{}
+\setbeamercolor{footline}{}
+
+\setbeamercolor{sidebar}{}
+\setbeamercolor{sidebar left}{parent=sidebar}
+\setbeamercolor{sidebar right}{parent=sidebar}
+
+\setbeamercolor{logo}{parent=palette secondary}
+
+\setbeamercolor{frametitle}{parent=titlelike}
+\setbeamercolor{framesubtitle}{parent=frametitle}
+
+\setbeamercolor{frametitle right}{parent=frametitle}
+
+\setbeamercolor{caption}{}
+\setbeamercolor{caption name}{parent=structure}
+
+\setbeamercolor{button}{use=local structure,bg=local structure.fg!50!bg,fg=white}
+\setbeamercolor{button border}{use=button,fg=button.bg}
+\setbeamercolor{navigation symbols}{use=structure,fg=structure.fg!40!bg}
+\setbeamercolor{navigation symbols dimmed}{use=structure,fg=structure.fg!20!bg}
+\setbeamercolor{mini frame}{parent=section in head/foot}
+
+% Color expressions are defined in the xcolor package
+%
+% Ex: Mixture of 40% green, 60% yellow: green!40!yellow
+%
+% The complement of any color can be obtained by prepending
+% a minus sign: -green!40!yellow
+%
+% One can also combine up to three colors (in differing proportions)
+% using the rgb command.  For example, the following command combines
+% 3 parts of the first color, with 2 parts of the second, and one part
+% "red"
+%
+%\color{rgb:-green!40!yellow,3;green!40!yellow,2;red,1}
+% Unfortunately, I don't think this works as an argument to setbeamercolor...
+% "Orange" bg=green!30!yellow!30!red
+% close to burnt orange: red!75!green
+% lightgray is a color, but gray!25!white looks better
+%
+% A nice pair of greens
+% (dark, a little too dark to be under black text...) -red!75!green!50!blue!25
+% (light) -red!75!green!50!blue!25!gray
+%
+% Some colors are only available via options to the xcolor package, eg.
+% x11names,DarkOliveGreen4
+% svgnames, Chartreuse
+% dvipsnames, ForestGreen
+%
+% but beamer does not seem to have any of these.
+%
+% The base color names which are always available are:
+% black 
+% blue 
+% brown 
+% cyan 
+% darkgray 
+% gray 
+% green 
+% lightgray 
+% lime 
+% magenta 
+% olive 
+% orange 
+% pink 
+% purple 
+% red 
+% teal 
+% violet 
+% white 
+% yellow 
+
+% From the beamer user guide, pg. 167
+% Inner color themes only specify the colors of elements used in inner
+% themes. Most noticably, they specify the colors used for blocks.
+% ...
+
+% Example color definition
+% beamercolorthemedefault.sty:\definecolor{beamer@blendedblue}{rgb}{0.2,0.2,0.7} 
+% beamercolorthemedefault.sty:\setbeamercolor{structure}{fg=beamer@blendedblue}
+
+% The greens
+% \setbeamercolor{block body}{bg=-red!75!green!50!blue!25!gray}
+% \setbeamercolor{block title}{parent=structure,bg=-red!75!green!50!blue!25,fg=-red!75!green!50!blue!25!gray}
+
+%%%
+% Set the block body and title background/foreground colors
+%%%
+% \setbeamercolor{block body}{bg=flyaddedblue}
+% \setbeamercolor{block title}{bg=defblockheader,fg=flyaddedblue}
+
+% Purplish blues, too dark overall
+% \setbeamercolor{block body}{bg=beetleaddedblue3}
+% \setbeamercolor{block title}{bg=beetleaddedblue2,fg=beetleaddedblue3}
+
+% Very light blue greys
+% 1. Not enough contrast  
+% \setbeamercolor{block body}{bg=deflightouter3}
+% \setbeamercolor{block title}{bg=deflightouter2,fg=deflightouter3}
+
+% 2. Not enough contrast
+% \setbeamercolor{block body}{bg=deflightouter3}
+% \setbeamercolor{block title}{bg=deflightouter1,fg=deflightouter3}
+
+% 3. Combination of deflightouter and fly.  The block bg is
+% lighter than the all-beetle color scheme I previously thought was best.
+% Currently I like this one the best
+\setbeamercolor{block body}{bg=deflightouter3}
+\setbeamercolor{block title}{bg=beetleaddedblue2,fg=deflightouter3}
+
+% 4. Greens.  Looks like a highlighter. I don't really trust greens
+% on projectors...  It's almost too bright/hurts your eyes.
+% \setbeamercolor{block body}{bg=defexblock}
+% \setbeamercolor{block title}{bg=defaddedgreen,fg=defexblock}
+
+% This looks pretty good ... it's similar to the greens we had before
+% but should be lighter.  The blocks are just a little too "mint" colored
+% though...
+% \setbeamercolor{block body}{bg=defexblock}
+% \setbeamercolor{block title}{bg=defexblockheader,fg=defexblock}
+
+% Pea Soup!
+%\setbeamercolor{block body}{bg=defaddedgreen}
+%\setbeamercolor{block title}{bg=defexblockheader,fg=defaddedgreen}
+
+
+% Changing these didn't seem to do anything...I had to change the
+% 'alerted text' color instead
+\setbeamercolor{block body alerted}{}
+\setbeamercolor{block body example}{}
+\setbeamercolor{block title alerted}{parent=alerted text}
+\setbeamercolor{block title example}{parent=example text}
+
+\setbeamercolor{item}{parent=local structure}
+\setbeamercolor{subitem}{parent=item}
+\setbeamercolor{subsubitem}{parent=subitem}
+
+\setbeamercolor{item projected}{parent=item,use=item,fg=white,bg=item.fg}
+\setbeamercolor{subitem projected}{parent=item projected}
+\setbeamercolor{subsubitem projected}{parent=subitem projected}
+
+\setbeamercolor{enumerate item}{parent=item}
+\setbeamercolor{enumerate subitem}{parent=subitem}
+\setbeamercolor{enumerate subsubitem}{parent=subsubitem}
+
+\setbeamercolor{itemize item}{parent=item}
+\setbeamercolor{itemize subitem}{parent=subitem}
+\setbeamercolor{itemize subsubitem}{parent=subsubitem}
+
+\setbeamercolor{itemize/enumerate body}{}
+\setbeamercolor{itemize/enumerate subbody}{}
+\setbeamercolor{itemize/enumerate subsubbody}{}
+
+\setbeamercolor{description item}{parent=item}
+
+\setbeamercolor{bibliography item}{parent=item}
+
+\setbeamercolor{bibliography entry author}{use=structure,fg=structure.fg}
+\setbeamercolor{bibliography entry title}{use=normal text,fg=normal text.fg}
+\setbeamercolor{bibliography entry location}{use=structure,fg=structure.fg!65!bg}
+\setbeamercolor{bibliography entry note}{use=structure,fg=structure.fg!65!bg}
+
+\setbeamercolor{separation line}{}
+
+\setbeamercolor{upper separation line head}{parent=separation line}
+\setbeamercolor{middle separation line head}{parent=separation line}
+\setbeamercolor{lower separation line head}{parent=separation line}
+
+\setbeamercolor{upper separation line foot}{parent=separation line}
+\setbeamercolor{middle separation line foot}{parent=separation line}
+\setbeamercolor{lower separation line foot}{parent=separation line}
+
+\setbeamercolor{abstract}{}
+\setbeamercolor{abstract title}{parent=structure}
+
+\setbeamercolor{verse}{}
+
+\setbeamercolor{quotation}{}
+\setbeamercolor{quote}{parent=quotation}
+
+\setbeamercolor{page number in head/foot}{fg=fg!50!bg}
+
+\setbeamercolor{qed symbol}{parent=structure}
+
+\mode
+<all>
