@@ -402,7 +402,7 @@ function indexPath(old, oldA, new, newA)
       local newEntry = newA[idxN]
 
       icnt = icnt + 1
-      if (icnt > 5) then
+      if (icnt > newN) then
          break
       end
 
@@ -416,7 +416,7 @@ function indexPath(old, oldA, new, newA)
          idxN = idxN + 2 - idxO
          idxO = 1
          if (idxN > idxM) then
-            dbg.fini("indexPath")
+            dbg.fini("(3) indexPath")
             return -1
          end
       end

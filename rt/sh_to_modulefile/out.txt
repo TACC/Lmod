@@ -8,3 +8,21 @@ lua ProjectDIR/src/sh_to_modulefile.in.lua ProjectDIR/rt/sh_to_modulefile/tstScr
 ===========================
 prepend_path("PATH","ProjectDIR/rt/sh_to_modulefile/bin")
 append_path("PATH","ProjectDIR/rt/sh_to_modulefile/sbin")
+===========================
+step 3
+lua ProjectDIR/src/sh_to_modulefile.in.lua ProjectDIR/rt/sh_to_modulefile/path_both_ends.sh
+===========================
+prepend_path("PATH","/scratch1/projects/compilers/intel20u0/debugger_2020/gdb/intel64/bin")
+prepend_path("PATH","/scratch1/projects/compilers/intel20u0/compilers_and_libraries_2020.0.166/linux/mpi/intel64/bin")
+prepend_path("PATH","/scratch1/projects/compilers/intel20u0/compilers_and_libraries_2020.0.166/linux/mpi/intel64/libfabric/bin")
+prepend_path("PATH","/scratch1/projects/compilers/intel20u0/compilers_and_libraries_2020.0.166/linux/bin")
+prepend_path("PATH","/scratch1/projects/compilers/intel20u0/compilers_and_libraries_2020.0.166/linux/bin/intel64")
+prepend_path("PATH","/scratch1/projects/compilers/intel20u0/parallel_studio_xe_2020.0.088/bin/intel64")
+prepend_path("PATH","/scratch1/projects/compilers/intel20u0/itac/2020.0.015/intel64/bin")
+prepend_path("PATH","/scratch1/projects/compilers/intel20u0/itac/2020.0.015/intel64/bin")
+prepend_path("PATH","/scratch1/projects/compilers/intel20u0/parallel_studio_xe_2020/bin64")
+prepend_path("PATH","/scratch1/projects/compilers/intel20u0/parallel_studio_xe_2020/bin64")
+prepend_path("PATH","/scratch1/projects/compilers/intel20u0/parallel_studio_xe_2020/bin64")
+prepend_path("PATH","/scratch1/projects/compilers/intel20u0/intelpython3/condabin")
+prepend_path("PATH","/scratch1/projects/compilers/intel20u0/intelpython3/bin")
+append_path("PATH","/scratch1/projects/compilers/intel20u0/parallel_studio_xe_2020.0.088/bin")
