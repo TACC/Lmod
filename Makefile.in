@@ -206,6 +206,7 @@ echo:
 	@echo IGNORE_DIRS: $(IGNORE_DIRS)
 	@echo LUA_PATH: $$LUA_PATH
 	@echo L_PATH: "$(L_PATH)"
+	@echo VDATE: $(VDATE)
 
 man_pages:
 	-$(PATH_TO_LUA)/lua $(srcdir)/src/lmod.in.lua bash --help >/dev/null 2> $(DESTDIR)$(MAN_PAGES)/module.1
