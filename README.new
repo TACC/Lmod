@@ -1,3 +1,5 @@
 Lmod 8.3+
    (8.3.1)  * Fix bug in sh_to_modulefile by removing arbitrary limit of 5 path like elements.
+   (8.3.2)  * Fix bug so that gdate instead of date is called on macOS.
+   
    
