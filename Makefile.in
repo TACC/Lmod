@@ -96,9 +96,11 @@ LMOD_MF_SOURCE            := $(patsubst %, $(srcdir)/%, MF/*.version.lua)
 SETTARG_SOURCE            := $(patsubst %, $(srcdir)/%, settarg/*.lua  settarg/targ.in)
 UNAME_S                   := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
-  SED := gsed
+  SED      := gsed
+  DATE_cmd := gdate
 else
-  SED := sed
+  SED      := sed
+  DATE_cmd := date
 endif
 
 DIRLIST		  	  := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS)      $(DESTDIR)$(SETTARG)    \
@@ -151,7 +153,7 @@ CONTRIB_DIRS           	  :=  \
 CONTRIB                   := $(patsubst %, $(srcdir)/contrib/%, $(CONTRIB_DIRS))
 lua_code	  	  := $(filter-out %.in.lua, $(wildcard $(srcdir)/src/*.lua))   \
                              $(wildcard $(srcdir)/src/*.tcl)
-VDATE		  	  := $(shell date +'%F %H:%M %:z')
+VDATE		  	  := $(shell $DATE +'%F %H:%M %:z')
 
 ComputeHashSum    	  := $(srcdir)/src/computeHashSum.in.lua
 spiderCacheSupportCMD     := $(PATH_TO_LUA)/lua $(DESTDIR)$(LIBEXEC)/spiderCacheSupport
