@@ -15,6 +15,9 @@ MODULEPATH in order::
      --------------- /opt/apps/modulefiles/Compilers -------------
      gcc/6.3  intel/17.0
 
+This is very useful and informative from the system perspective, but users
+might prefer to have more descriptive labels and have the contents of
+multiple directories displayed under the same label.
 
 Sites can replace the directory paths with any label they like.
 This is implemented by adding a SitePackage.lua file and calling the
@@ -74,7 +77,9 @@ SitePackage.lua file containing::
 
      hook.register("avail",avail_hook)
 
-And then set the LMOD_AVAIL_STYLE variable to be::
+The default style for displaying module names is the `system` style.  
+
+To use the new, grouped labeling, set the `LMOD_AVAIL_STYLE` variable to be::
 
    export LMOD_AVAIL_STYLE="system:<en_grouped>:fr_grouped"
 
@@ -84,3 +89,21 @@ en_grouped.  A user can set::
    export LMOD_AVAIL_STYLE="fr_grouped"
 
 to change to the french labels.
+
+If a site does nothing then the `system` layout will be the result.  Sites
+control the behavior by the `LMOD_AVAIL_STYLE` environment variable.  Sites
+can set it as follows::
+
+    export LMOD_AVAIL_STYLE=system:grouped
+
+The first word is assumed to be the default.  The word `system` is special
+in that Lmod will report the output in the original way.  By changing the
+order sites can make the `grouped` output the default.::
+
+   export LMOD_AVAIL_STYLE=grouped:system
+
+To get the original output then users would have to do `module -s system
+avail`.  The command `module avail` would use the `grouped` avail style.
+
+Alternately, a user may also `export LMOD_AVAIL_STYLE=system` to get the
+original output on all subsequent `module avail` invocations.
