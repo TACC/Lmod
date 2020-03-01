@@ -464,8 +464,8 @@ if test "$FAST_TCL_INTERP" = yes ; then
                    [AC_DEFINE([HAVE_TCL_H], 1, [Define to 1 if you have tcl.h])],[]) 
 
    if test "$ac_cv_header_tcl_h" != yes ; then
-      AC_MSG_ERROR([Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h])
       rm -f makefile
+      AC_MSG_ERROR([Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h])
    fi
    AC_SEARCH_LIBS(Tcl_CreateInterp,[tcl] [tcl8.8] [tcl8.7] [tcl8.6] [tcl8.5],[],
                 [rm -f makefile; AC_MSG_ERROR([Unable to build Lmod with -ltcl Please install the tcl devel package or configure --with-fastTCLInterp=no to not require the tcl library])])
