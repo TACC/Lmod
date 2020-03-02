@@ -435,6 +435,7 @@ AC_SUBST(FAST_TCL_INTERP)
 AC_ARG_WITH(fastTCLInterp,
     AC_HELP_STRING([--with-fastTCLInterp=ans],[Use the fast TCL interpreter. [[yes]]]),
     FAST_TCL_INTERP="$withval"
+    FAST_TCL_INTERP=`echo $FAST_TCL_INTERP | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     AC_MSG_RESULT([FAST_TCL_INTERP=$with_fastTCLInterp])
     AC_DEFINE_UNQUOTED(FAST_TCL_INTERP, "$with_fastTCLInterp")dnl
     ,
@@ -448,8 +449,14 @@ if test "$ALLOW_TCL_MFILES" = no ; then
   FAST_TCL_INTERP=no
 fi
 
+Broken_FAST_TCL_INTERP=yes
+if test "$FAST_TCL_INTERP" = no ; then
+   Broken_FAST_TCL_INTERP=no
+fi
+  
+
 if test "$FAST_TCL_INTERP" = yes ; then
-   
+   Broken_FAST_TCL_INTERP=no
    OS=$(uname -s)
    DIR=/usr/include/tcl
    if test "$OS" = Darwin ; then
@@ -469,6 +476,16 @@ if test "$FAST_TCL_INTERP" = yes ; then
    AC_SEARCH_LIBS(Tcl_CreateInterp,[tcl] [tcl8.8] [tcl8.7] [tcl8.6] [tcl8.5],[],
                 [AC_MSG_ERROR([Unable to build Lmod with -ltcl Please install the tcl devel package or configure --with-fastTCLInterp=no to not require the tcl library])])
 fi
+
+if test "$Broken_FAST_TCL_INTERP" = yes ; then
+  echo
+  echo "the option --with-fastTCLInterp takes either a yes or a no. Quitting!"
+  echo
+  rm -f makefile
+  exit
+fi
+
+
 AC_SUBST(SYS_LD_LIB_PATH)
 SYS_LD_LIB_PATH=$LD_LIBRARY_PATH
 
@@ -490,7 +507,7 @@ AC_SUBST(PATH_TO_TCLSH)
 AC_PATH_PROG(PS,ps, UNKNOWN_PS)
 if test "$PS" = "UNKNOWN_PS" ; then
   echo
-  echo "You must have either ps in your path. Quitting!"
+  echo "You must have valid ps in your path. Quitting!"
   echo
   rm -f makefile
   exit
@@ -499,7 +516,7 @@ fi
 AC_PATH_PROGS(EXPR,[gexpr] [expr], UNKNOWN_EXPR)
 if test "$EXPR" = "UNKNOWN_EXPR" ; then
   echo
-  echo "You must have either ps in your path. Quitting!"
+  echo "You must have valid expr or gexpr in your path. Quitting!"
   echo
   rm -f makefile
   exit
