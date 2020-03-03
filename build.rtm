@@ -174,7 +174,7 @@ if [ "$?" = 0 ]; then
 fi
 
 cmdA=("-$MAKE distclean"
-      "./configure --prefix=$BASE_DIR --with-settarg=full $EXTRA"
+      "./configure --prefix=$BASE_DIR --with-settarg=yes $EXTRA"
       "save_old_version"
       "parallel_make_install"
       "$EXTRA_CMD"

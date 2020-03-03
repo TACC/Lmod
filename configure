@@ -709,7 +709,6 @@ infodir
 docdir
 oldincludedir
 includedir
-runstatedir
 localstatedir
 sharedstatedir
 sysconfdir
@@ -816,7 +815,6 @@ datadir='${datarootdir}'
 sysconfdir='${prefix}/etc'
 sharedstatedir='${prefix}/com'
 localstatedir='${prefix}/var'
-runstatedir='${localstatedir}/run'
 includedir='${prefix}/include'
 oldincludedir='/usr/include'
 docdir='${datarootdir}/doc/${PACKAGE}'
@@ -1069,15 +1067,6 @@ do
   | -silent | --silent | --silen | --sile | --sil)
     silent=yes ;;
 
-  -runstatedir | --runstatedir | --runstatedi | --runstated \
-  | --runstate | --runstat | --runsta | --runst | --runs \
-  | --run | --ru | --r)
-    ac_prev=runstatedir ;;
-  -runstatedir=* | --runstatedir=* | --runstatedi=* | --runstated=* \
-  | --runstate=* | --runstat=* | --runsta=* | --runst=* | --runs=* \
-  | --run=* | --ru=* | --r=*)
-    runstatedir=$ac_optarg ;;
-
   -sbindir | --sbindir | --sbindi | --sbind | --sbin | --sbi | --sb)
     ac_prev=sbindir ;;
   -sbindir=* | --sbindir=* | --sbindi=* | --sbind=* | --sbin=* \
@@ -1215,7 +1204,7 @@ fi
 for ac_var in	exec_prefix prefix bindir sbindir libexecdir datarootdir \
 		datadir sysconfdir sharedstatedir localstatedir includedir \
 		oldincludedir docdir infodir htmldir dvidir pdfdir psdir \
-		libdir localedir mandir runstatedir
+		libdir localedir mandir
 do
   eval ac_val=\$$ac_var
   # Remove trailing slashes.
@@ -1368,7 +1357,6 @@ Fine tuning of the installation directories:
   --sysconfdir=DIR        read-only single-machine data [PREFIX/etc]
   --sharedstatedir=DIR    modifiable architecture-independent data [PREFIX/com]
   --localstatedir=DIR     modifiable single-machine data [PREFIX/var]
-  --runstatedir=DIR       modifiable per-process data [LOCALSTATEDIR/run]
   --libdir=DIR            object code libraries [EPREFIX/lib]
   --includedir=DIR        C header files [PREFIX/include]
   --oldincludedir=DIR     C header files for non-gcc [/usr/include]
@@ -1448,8 +1436,8 @@ Optional Packages:
   --with-tmodFindFirst=ans
                           Use Tmod Find First rule instead of Find Best for
                           defaults.[[no]]
-  --with-lua_include=ans  Save/Restore will use the current version instead of
-                          changing with the default.[[no]]
+  --with-lua_include=ans  Use Tmod Find First rule instead of Find Best for
+                          defaults.[[no]]
   --with-cachedLoads=ans  Use cache when loading modules. [[no]]
   --with-extendedDefault=ans
                           Allow for extended default. [[yes]]
@@ -2979,12 +2967,27 @@ ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $
 ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
+VALID_YN ()
+{
+  ANS=$1
+  MSG=$2
+  case $ANS in
+    yes|no)
+      ;;
+    *)
+      echo $MSG
+      exit 1
+      ;;
+  esac
+}
 
 
 
 # Check whether --with-duplicatePaths was given.
 if test "${with_duplicatePaths+set}" = set; then :
   withval=$with_duplicatePaths; DUPLICATE_PATHS="$withval"
+    DUPLICATE_PATHS=`echo $DUPLICATE_PATHS | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $DUPLICATE_PATHS "--with-duplicatePaths=ans: ans must be yes or no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: DUPLICATE_PATHS=$with_duplicatePaths" >&5
 $as_echo "DUPLICATE_PATHS=$with_duplicatePaths" >&6; }
     cat >>confdefs.h <<_ACEOF
@@ -3051,6 +3054,8 @@ fi
 # Check whether --with-caseIndependentSorting was given.
 if test "${with_caseIndependentSorting+set}" = set; then :
   withval=$with_caseIndependentSorting; CASE_INDEPENDENT_SORTING="$withval"
+    CASE_INDEPENDENT_SORTING=`echo $CASE_INDEPENDENT_SORTING | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $CASE_INDEPENDENT_SORTING "--with-caseIndependentSorting=ans: ans must be yes or no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: CASE_INDEPENDENT_SORTING=$with_caseIndependentSorting" >&5
 $as_echo "CASE_INDEPENDENT_SORTING=$with_caseIndependentSorting" >&6; }
     cat >>confdefs.h <<_ACEOF
@@ -3073,6 +3078,8 @@ fi
 # Check whether --with-colorize was given.
 if test "${with_colorize+set}" = set; then :
   withval=$with_colorize; COLORIZE="$withval"
+    COLORIZE=`echo $COLORIZE | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $COLORIZE "--with-colorize=ans: ans must be yes or no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: COLORIZE=$with_colorize" >&5
 $as_echo "COLORIZE=$with_colorize" >&6; }
     cat >>confdefs.h <<_ACEOF
@@ -3095,6 +3102,8 @@ fi
 # Check whether --with-hiddenItalic was given.
 if test "${with_hiddenItalic+set}" = set; then :
   withval=$with_hiddenItalic; HIDDEN_ITALIC="$withval"
+    HIDDEN_ITALIC=`echo $HIDDEN_ITALIC | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $HIDDEN_ITALIC "--with-hiddenItalic=ans: ans must be yes or no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: HIDDEN_ITALIC=$with_hiddenItalic" >&5
 $as_echo "HIDDEN_ITALIC=$with_hiddenItalic" >&6; }
     cat >>confdefs.h <<_ACEOF
@@ -3117,6 +3126,8 @@ fi
 # Check whether --with-exactMatch was given.
 if test "${with_exactMatch+set}" = set; then :
   withval=$with_exactMatch; EXACT_MATCH="$withval"
+    EXACT_MATCH=`echo $EXACT_MATCH | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $EXACT_MATCH "--with-exactMatch=ans: ans must be yes or no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: EXACT_MATCH=$with_exactMatch" >&5
 $as_echo "EXACT_MATCH=$with_exactMatch" >&6; }
     cat >>confdefs.h <<_ACEOF
@@ -3139,6 +3150,8 @@ fi
 # Check whether --with-autoSwap was given.
 if test "${with_autoSwap+set}" = set; then :
   withval=$with_autoSwap; AUTO_SWAP="$withval"
+    AUTO_SWAP=`echo $AUTO_SWAP | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $AUTO_SWAP "--with-autoSwap=ans: ans must be yes or no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: AUTO_SWAP=$with_autoSwap" >&5
 $as_echo "AUTO_SWAP=$with_autoSwap" >&6; }
     cat >>confdefs.h <<_ACEOF
@@ -3163,6 +3176,8 @@ if test "${with_exportedModuleCmd+set}" = set; then :
   withval=$with_exportedModuleCmd; with_exportedModuleCmd=`echo $with_exportedModuleCmd | tr '[:upper:]' '[:lower:]'`
     withval=$with_exportedModuleCmd
     EXPORT_MODULE="$withval"
+    EXPORT_MODULE=`echo $EXPORT_MODULE | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $EXPORT_MODULE "--with-exportedModuleCmd=ans: ans must be yes or no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: EXPORT_MODULE=$with_exportedModuleCmd" >&5
 $as_echo "EXPORT_MODULE=$with_exportedModuleCmd" >&6; }
     cat >>confdefs.h <<_ACEOF
@@ -3185,6 +3200,8 @@ fi
 # Check whether --with-redirect was given.
 if test "${with_redirect+set}" = set; then :
   withval=$with_redirect; REDIRECT="$withval"
+    REDIRECT=`echo $REDIRECT | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $REDIRECT "--with-redirect=ans: ans must be yes or no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: REDIRECT=$with_redirect" >&5
 $as_echo "REDIRECT=$with_redirect" >&6; }
     cat >>confdefs.h <<_ACEOF
@@ -3272,6 +3289,8 @@ fi
 # Check whether --with-useDotFiles was given.
 if test "${with_useDotFiles+set}" = set; then :
   withval=$with_useDotFiles; USE_DOT_FILES="$withval"
+    USE_DOT_FILES=`echo $USE_DOT_FILES | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $USE_DOT_FILES "--with-useDotFiles=yes/no: ans must be yes or no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: USE_DOT_FILES=$with_useDotFiles" >&5
 $as_echo "USE_DOT_FILES=$with_useDotFiles" >&6; }
     cat >>confdefs.h <<_ACEOF
@@ -3426,6 +3445,8 @@ fi
 # Check whether --with-tcl was given.
 if test "${with_tcl+set}" = set; then :
   withval=$with_tcl; ALLOW_TCL_MFILES="$withval"
+    ALLOW_TCL_MFILES=`echo $ALLOW_TCL_MFILES | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $ALLOW_TCL_MFILES "--with-tcl=ans: ans must be yes or no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: ALLOW_TCL_MFILES==$withval" >&5
 $as_echo "ALLOW_TCL_MFILES==$withval" >&6; }
     cat >>confdefs.h <<_ACEOF
@@ -3448,6 +3469,8 @@ fi
 # Check whether --with-disableNameAutoSwap was given.
 if test "${with_disableNameAutoSwap+set}" = set; then :
   withval=$with_disableNameAutoSwap; DISABLE_NAME_AUTOSWAP="$withval"
+    DISABLE_NAME_AUTOSWAP=`echo $DISABLE_NAME_AUTOSWAP | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $DISABLE_NAME_AUTOSWAP "--with-disableNameAutoSwap=ans: ans must be yes or no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: DISABLE_NAME_AUTOSWAP==$withval" >&5
 $as_echo "DISABLE_NAME_AUTOSWAP==$withval" >&6; }
     cat >>confdefs.h <<_ACEOF
@@ -3470,6 +3493,8 @@ fi
 # Check whether --with-mpathSearch was given.
 if test "${with_mpathSearch+set}" = set; then :
   withval=$with_mpathSearch; MPATH_AVAIL="$withval"
+    MPATH_AVAIL=`echo $MPATH_AVAIL | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $MPATH_AVAIL "--with-mpathSearch=ans: ans must be yes or no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: MPATH_AVAIL==$withval" >&5
 $as_echo "MPATH_AVAIL==$withval" >&6; }
     cat >>confdefs.h <<_ACEOF
@@ -3538,6 +3563,8 @@ fi
 # Check whether --with-pinVersions was given.
 if test "${with_pinVersions+set}" = set; then :
   withval=$with_pinVersions; PIN_VERSIONS="$withval"
+    PIN_VERSIONS=`echo $PIN_VERSIONS | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $PIN_VERSIONS "--with-pinVersions=ans: ans must be yes or no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: PIN_VERSIONS=$with_pinVersions" >&5
 $as_echo "PIN_VERSIONS=$with_pinVersions" >&6; }
     cat >>confdefs.h <<_ACEOF
@@ -3545,7 +3572,7 @@ $as_echo "PIN_VERSIONS=$with_pinVersions" >&6; }
 _ACEOF
 
 else
-  withval="NO"
+  withval="no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: PIN_VERSIONS=$withval" >&5
 $as_echo "PIN_VERSIONS=$withval" >&6; }
     PIN_VERSIONS="$withval"
@@ -3560,6 +3587,8 @@ fi
 # Check whether --with-tmodPathRule was given.
 if test "${with_tmodPathRule+set}" = set; then :
   withval=$with_tmodPathRule; TMOD_PATH_RULE="$withval"
+    TMOD_PATH_RULE=`echo $TMOD_PATH_RULE | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $TMOD_PATH_RULE "--with-tmodPathRule=ans: ans must be yes or no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: TMOD_PATH_RULE=$with_tmodPathRule" >&5
 $as_echo "TMOD_PATH_RULE=$with_tmodPathRule" >&6; }
     cat >>confdefs.h <<_ACEOF
@@ -3567,7 +3596,7 @@ $as_echo "TMOD_PATH_RULE=$with_tmodPathRule" >&6; }
 _ACEOF
 
 else
-  withval="NO"
+  withval="no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: TMOD_PATH_RULE=$withval" >&5
 $as_echo "TMOD_PATH_RULE=$withval" >&6; }
     TMOD_PATH_RULE="$withval"
@@ -3582,6 +3611,8 @@ fi
 # Check whether --with-tmodFindFirst was given.
 if test "${with_tmodFindFirst+set}" = set; then :
   withval=$with_tmodFindFirst; TMOD_FIND_FIRST="$withval"
+    TMOD_FIND_FIRST=`echo $TMOD_FIND_FIRST | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $TMOD_FIND_FIRST "--with-tmodFindFirst=ans: ans must be yes or no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: TMOD_FIND_FIRST=$with_tmodFindFirst" >&5
 $as_echo "TMOD_FIND_FIRST=$with_tmodFindFirst" >&6; }
     cat >>confdefs.h <<_ACEOF
@@ -3589,7 +3620,7 @@ $as_echo "TMOD_FIND_FIRST=$with_tmodFindFirst" >&6; }
 _ACEOF
 
 else
-  withval="NO"
+  withval="no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: TMOD_FIND_FIRST=$withval" >&5
 $as_echo "TMOD_FIND_FIRST=$withval" >&6; }
     TMOD_FIND_FIRST="$withval"
@@ -3611,7 +3642,7 @@ $as_echo "LUA_INCLUDE=$with_lua_include" >&6; }
 _ACEOF
 
 else
-  withval="NO"
+  withval="no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: LUA_INCLUDE=$withval" >&5
 $as_echo "LUA_INCLUDE=$withval" >&6; }
     LUA_INCLUDE="$withval"
@@ -3626,6 +3657,8 @@ fi
 # Check whether --with-cachedLoads was given.
 if test "${with_cachedLoads+set}" = set; then :
   withval=$with_cachedLoads; CACHED_LOADS="$withval"
+    CACHED_LOADS=`echo $CACHED_LOADS | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $CACHED_LOADS "--with-cachedLoads=ans: ans must be yes or no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: CACHED_LOADS=$with_cachedLoads" >&5
 $as_echo "CACHED_LOADS=$with_cachedLoads" >&6; }
     cat >>confdefs.h <<_ACEOF
@@ -3633,7 +3666,7 @@ $as_echo "CACHED_LOADS=$with_cachedLoads" >&6; }
 _ACEOF
 
 else
-  withval="NO"
+  withval="no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: CACHED_LOADS=$withval" >&5
 $as_echo "CACHED_LOADS=$withval" >&6; }
     CACHED_LOADS="$withval"
@@ -3648,6 +3681,8 @@ fi
 # Check whether --with-extendedDefault was given.
 if test "${with_extendedDefault+set}" = set; then :
   withval=$with_extendedDefault; EXTENDED_DEFAULT="$withval"
+    EXTENDED_DEFAULT=`echo $EXTENDED_DEFAULT | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $EXTENDED_DEFAULT "--with-extendedDefault=ans: ans must be yes or no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: EXTENDED_DEFAULT=$with_extendedDefault" >&5
 $as_echo "EXTENDED_DEFAULT=$with_extendedDefault" >&6; }
     cat >>confdefs.h <<_ACEOF
@@ -3692,6 +3727,8 @@ fi
 # Check whether --with-siteControlPrefix was given.
 if test "${with_siteControlPrefix+set}" = set; then :
   withval=$with_siteControlPrefix; SITE_CONTROLLED_PREFIX="$withval"
+    SITE_CONTROLLED_PREFIX=`echo $SITE_CONTROLLED_PREFIX | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $SITE_CONTROLLED_PREFIX "--with-siteControlPrefix=ans: ans must be yes or no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: SITE_CONTROLLED_PREFIX=$with_siteControlPrefix" >&5
 $as_echo "SITE_CONTROLLED_PREFIX=$with_siteControlPrefix" >&6; }
     cat >>confdefs.h <<_ACEOF
@@ -3714,6 +3751,8 @@ fi
 # Check whether --with-useBuiltinPkgs was given.
 if test "${with_useBuiltinPkgs+set}" = set; then :
   withval=$with_useBuiltinPkgs; USE_BUILT_IN_PKGS="$withval"
+    USE_BUILT_IN_PKGS=`echo $USE_BUILT_IN_PKGS | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $USE_BUILT_IN_PKGS "--with-useBuiltinPkgs=ans: ans must be yes or no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: USE_BUILT_IN_PKGS=$with_useBuiltinPkgs" >&5
 $as_echo "USE_BUILT_IN_PKGS=$with_useBuiltinPkgs" >&6; }
     cat >>confdefs.h <<_ACEOF
@@ -3736,6 +3775,8 @@ fi
 # Check whether --with-silentShellDebugging was given.
 if test "${with_silentShellDebugging+set}" = set; then :
   withval=$with_silentShellDebugging; SILENCE_SHELL_DEBUGGING="$withval"
+    SILENCE_SHELL_DEBUGGING=`echo $SILENCE_SHELL_DEBUGGING | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $SILENCE_SHELL_DEBUGGING "--with-silentShellDebugging=ans: ans must be yes or no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: SILENCE_SHELL_DEBUGGING=$with_silentShellDebugging" >&5
 $as_echo "SILENCE_SHELL_DEBUGGING=$with_silentShellDebugging" >&6; }
     cat >>confdefs.h <<_ACEOF
@@ -3759,6 +3800,7 @@ fi
 if test "${with_fastTCLInterp+set}" = set; then :
   withval=$with_fastTCLInterp; FAST_TCL_INTERP="$withval"
     FAST_TCL_INTERP=`echo $FAST_TCL_INTERP | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $FAST_TCL_INTERP "--with-fastTCLInterp=ans: ans must be yes or no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: FAST_TCL_INTERP=$with_fastTCLInterp" >&5
 $as_echo "FAST_TCL_INTERP=$with_fastTCLInterp" >&6; }
     cat >>confdefs.h <<_ACEOF
@@ -3781,14 +3823,7 @@ if test "$ALLOW_TCL_MFILES" = no ; then
   FAST_TCL_INTERP=no
 fi
 
-Broken_FAST_TCL_INTERP=yes
-if test "$FAST_TCL_INTERP" = no ; then
-   Broken_FAST_TCL_INTERP=no
-fi
-
-
 if test "$FAST_TCL_INTERP" = yes ; then
-   Broken_FAST_TCL_INTERP=no
    OS=$(uname -s)
    DIR=/usr/include/tcl
    if test "$OS" = Darwin ; then
@@ -4269,15 +4304,6 @@ else
 fi
 
 fi
-
-if test "$Broken_FAST_TCL_INTERP" = yes ; then
-  echo
-  echo "the option --with-fastTCLInterp takes either a yes or a no. Quitting!"
-  echo
-  rm -f makefile
-  exit
-fi
-
 
 
 SYS_LD_LIB_PATH=$LD_LIBRARY_PATH
