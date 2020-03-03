@@ -81,7 +81,7 @@ local function nsformat(value)
    if (type(value) == 'string') then
       value = value:gsub("\\","\\\\")
       if (value:find("\n")) then
-         local left, right = quoteValue(value)
+         local left, rght = quoteValue(value)
 	 value = left .. "\n" .. value .. "\n" .. rght
       else
          value = value:gsub('"','\\"')
