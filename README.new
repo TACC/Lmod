@@ -5,5 +5,6 @@ Lmod 8.3+
             * Make sure that --with-fastTCLInterp= yes or no
             * Issue #435: Make sure that the echo in bash.in go to stderr.
             * Issue #437: Update docs on LMOD_AVAIL_STYLE
-   (8.3.4)  * Issue #439: Add force_update argument to Master:reloadAll() to reload all
+   (8.3.4)  * Issue #438: Better handling of '[[' in values when serializing a table'
+            * Issue #439: Add force_update argument to Master:reloadAll() to reload all
               modules when doing a "module update"
