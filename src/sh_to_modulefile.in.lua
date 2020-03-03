@@ -271,7 +271,7 @@ end
 function wrtEnv(fn)
    local envT = getenv_posix()
    for k,v in pairsByKeys(envT) do
-      if (k:find("^BASH_FUNC_") or v:find("^%(%)") then
+      if (k:find("^BASH_FUNC_") or v:find("^%(%)")) then
          envT[k] = nil
       end
    end
