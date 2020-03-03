@@ -53,11 +53,36 @@ require("lmod_system_execute")
 -- Convert the string value into a quoted string of some kind and boolean
 -- into true/false.
 
+local quoteA = {
+   {'[[',']]'},
+   {'[=[',']=]'},
+   {'[==[',']==]'},
+   {'[===[',']===]'},
+   {'[====[',']====]'},
+   {'[=====[',']=====]'},
+   {'[======[',']======]'},
+   {'[=======[',']=======]'},
+   {'[========[',']========]'},
+}
+   
+local function quoteValue(value)
+   for i = 1,#quoteA do
+      local left = quoteA[i][1]
+      local rght = quoteA[i][2]
+      if (not (value:find(left,1,true) or value:find(rght,1,true))) then
+         return left, rght
+      end
+   end
+   return quoteA[1][1], quoteA[1][2]
+end
+
+
 local function nsformat(value)
    if (type(value) == 'string') then
       value = value:gsub("\\","\\\\")
       if (value:find("\n")) then
-	 value = "[[\n" .. value .. "\n]]"
+         local left, rght = quoteValue(value)
+	 value = left .. "\n" .. value .. "\n" .. rght
       else
          value = value:gsub('"','\\"')
 	 value = "\"" .. value .. "\""

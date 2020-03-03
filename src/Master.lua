@@ -556,7 +556,7 @@ end
 -- same as [[find_module_file()]] reports.  If not
 -- then it is unloaded and an attempt is made to reload
 -- it.  Each inactive module is re-loaded if possible.
-function M.reloadAll(self)
+function M.reloadAll(self, force_update)
    ReloadAllCntr = ReloadAllCntr + 1
    dbg.start{"Master:reloadAll(count: ",ReloadAllCntr ,")"}
    local frameStk = FrameStk:singleton()
@@ -608,8 +608,10 @@ function M.reloadAll(self)
             local fullName = mname:fullName()
             local userName = v.name
             local mt_uName = mt:userName(sn)
+            dbg.print{"fn_new: ",fn_new,"\n"}
+            dbg.print{"fn_old: ",fn_old,"\n"}
             -- This is #issue 394 fix: only reload when the userName has remained the same.
-            if (fn_new ~= fn_old) then
+            if (fn_new ~= fn_old or force_update) then
                dbg.print{"Master:reloadAll fn_new: \"",fn_new,"\"",
                          " mt:fileName(sn): \"",fn_old,"\"",
                          " mt:userName(sn): \"",mt_uName,"\"",

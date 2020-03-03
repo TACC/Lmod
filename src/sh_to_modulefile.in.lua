@@ -173,11 +173,16 @@ local ignoreA = {
    "HOSTTYPE",
    "LC_ALL",
    "LINES",
+   "LMOD_CMD",
+   "LMOD_DIR",
+   "LMOD_PKG",
+   "LMOD_ROOT",
    "LMOD_SETTARG_CMD",
    "LMOD_VERSION",
    "LOGNAME",
    "MACHTYPE",
    "MAILER",
+   "MODULESHOME",
    "OLDPWD",
    "OSTYPE",
    "PAGER",
@@ -496,6 +501,8 @@ function main()
          "\". " ..concatTbl(pargs," ") .. '>/dev/null 2>&1; '.. LuaCmd .. " " .. programName() .. " --saveEnv -\""
       }
    end
+
+   dbg.print{"cmd: ",concatTbl(cmdA," "),"\n"}
 
    local s = capture(concatTbl(cmdA," "))
 

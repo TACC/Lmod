@@ -928,7 +928,8 @@ end
 --  Reload all modules.
 function Update()
    local master = Master:singleton()
-   master:reloadAll()
+   local force_update = true
+   master:reloadAll(force_update)
 end
 
 --------------------------------------------------------------------------
