@@ -70,7 +70,7 @@ local function quoteValue(value)
       local left = quoteA[i][1]
       local rght = quoteA[i][2]
       if (not (value:find(left,1,true) or value:find(rght,1,true))) then
-         return left, right
+         return left, rght
       end
    end
    return quoteA[1][1], quoteA[1][2]
