@@ -270,6 +270,12 @@ end
 
 function wrtEnv(fn)
    local envT = getenv_posix()
+   for k,v in pairsByKeys(envT) do
+      if (k:find("^BASH_FUNC_") or v:find("^%(%)") then
+         envT[k] = nil
+      end
+   end
+
    local s    = serializeTbl{name="envT", value = envT, indent = true}
    if (fn == "-") then
       io.stdout:write(s)
