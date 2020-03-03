@@ -497,6 +497,8 @@ function main()
       }
    end
 
+   dbg.print{"cmd: ",concatTbl(cmdA," "),"\n"}
+
    local s = capture(concatTbl(cmdA," "))
 
    if (masterTbl.debug) then
