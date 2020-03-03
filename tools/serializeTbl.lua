@@ -69,7 +69,7 @@ local function quoteValue(value)
    for i = 1,#quoteA do
       local left = quoteA[i][1]
       local rght = quoteA[i][2]
-      if (not (value:find(left) or value:find(rght))) then
+      if (not (value:find(left,1,true) or value:find(rght,1,true))) then
          return left, right
       end
    end
