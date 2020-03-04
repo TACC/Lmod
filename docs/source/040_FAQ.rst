@@ -29,11 +29,6 @@ How does the module command work?
    current shell's environment. Any text written to stderr bypasses
    the eval and written to the terminal.
 
-   Note that the $LMOD_CMD writes message to stderr because anything
-   written to stderr bypasses the eval.  Whereas all text written to
-   stdout is evaluated by the **eval** command.
-
-
 What are the environment variables _ModuleTable001_, _ModuleTable002_,
 etc doing it in the environment?
 
