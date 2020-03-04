@@ -10,7 +10,5 @@ Lmod 8.3+
               a table'
             * Issue #439: Add force_update argument to Master:reloadAll() to 
               reload allmodules when doing a "module update"
-W.I.P:
    (8.3.5)  * Now only write s.log from sh_to_modulefile.in.lua when the debug 
               option is given.
-   

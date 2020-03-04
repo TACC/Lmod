@@ -20,7 +20,7 @@ How does the module command work?
 
        setenv("FOO", "BAR")
 
-   then "$LMOD_CMD bash load foo/1.0" produces::
+   then "$LMOD_CMD bash load foo/1.0" the following string written to stdout::
 
        export FOO=BAR
        ...
@@ -28,6 +28,10 @@ How does the module command work?
    The eval command read that output from stdout and changes the
    current shell's environment. Any text written to stderr bypasses
    the eval and written to the terminal.
+
+   Note that the $LMOD_CMD writes message to stderr because anything
+   written to stderr bypasses the eval.  Whereas all text written to
+   stdout is evaluated by the **eval** command.
 
 
 What are the environment variables _ModuleTable001_, _ModuleTable002_,
@@ -225,7 +229,7 @@ How can I get the shell functions created by modules in bash shell
 scripts such as job submission scripts?
 
    First, please make sure that shell functions and alias works
-   correctly in bash interactive subshells.  If they don't then your
+   correctly in bash interactive sub-shells.  If they don't then your
    site is not setup correctly.
 
    Once that works then change the first line of the shell script to
