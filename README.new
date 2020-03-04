@@ -1,10 +1,16 @@
 Lmod 8.3+
-   (8.3.1)  * Fix bug in sh_to_modulefile by removing arbitrary limit of 5 path like elements.
+   (8.3.1)  * Fix bug in sh_to_modulefile by removing arbitrary limit of 5 path
+              like elements.
    (8.3.2)  * Fix bug so that gdate instead of date is called on macOS.
    (8.3.3)  * Delete makefile if configure cannot find tcl.h or -ltcl
             * Make sure that --with-fastTCLInterp= yes or no
             * Issue #435: Make sure that the echo in bash.in go to stderr.
             * Issue #437: Update docs on LMOD_AVAIL_STYLE
-   (8.3.4)  * Issue #438: Better handling of '[[' in values when serializing a table'
-            * Issue #439: Add force_update argument to Master:reloadAll() to reload all
-              modules when doing a "module update"
+   (8.3.4)  * Issue #438: Better handling of '[[' in values when serializing
+              a table'
+            * Issue #439: Add force_update argument to Master:reloadAll() to 
+              reload allmodules when doing a "module update"
+W.I.P:
+   (8.3.5)  * Now only write s.log from sh_to_modulefile.in.lua when the debug 
+              option is given.
+   

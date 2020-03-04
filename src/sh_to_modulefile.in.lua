@@ -129,7 +129,6 @@ require("utils")
 MF_Base = require("MF_Base")
 
 local Version      = "0.0"
-_G._DEBUG          = false                 -- Required by luaposix 33
 local dbg          = require("Dbg"):dbg()
 local Optiks       = require("Optiks")
 local getenv       = os.getenv
@@ -178,6 +177,7 @@ local ignoreA = {
    "LMOD_PKG",
    "LMOD_ROOT",
    "LMOD_SETTARG_CMD",
+   "LMOD_SETTARG_FULL_SUPPORT",
    "LMOD_VERSION",
    "LOGNAME",
    "MACHTYPE",
@@ -506,7 +506,7 @@ function main()
 
    local s = capture(concatTbl(cmdA," "))
 
-   if (masterTbl.debug) then
+   if (masterTbl.debug > 0) then
       local f = io.open("s.log","w")
       if (f) then
          f:write(s)
