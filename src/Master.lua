@@ -961,6 +961,9 @@ function M.avail(self, argA)
 
    dbg.print{"defaultOnly: ",defaultOnly,", showSN: ",showSN,"\n"}
 
+   dbg.printT("defaultT:",defaultT)
+
+
    if (not masterTbl.regexp and argA and next(argA) ~= nil) then
       if (showSN) then
          showSN = argA.n == 0
