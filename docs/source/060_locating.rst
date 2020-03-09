@@ -156,6 +156,23 @@ Using any of the above three ways will change the default to version
     ---------- /opt/apps/modulefiles/Core -----------
     ucc/8.1   ucc/9.2   ucc/11.1 (D)   ucc/12.2
 
+
+
+Lmod Order of Marking a Default
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+As stated above, there are four files used to mark a default::
+
+#. default symlink
+#. .modulerc.lua
+#. .modulerc
+#. .version
+
+Lmod searches in this order. If it finds the a number earlier in the
+list then the other are ignored.  In other words if your site as both
+a default symlink and a .modulerc.lua file then the default file is
+used and the .modulerc.lua file is ignored.
+
 Highest Version
 ~~~~~~~~~~~~~~~
 

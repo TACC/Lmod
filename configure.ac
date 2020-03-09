@@ -445,7 +445,7 @@ AC_ARG_WITH(ModulePathInit,
 
 AC_SUBST(SITE_CONTROLLED_PREFIX)
 AC_ARG_WITH(siteControlPrefix,
-    AC_HELP_STRING([--with-siteControlPrefix=ans],[A user controlled prefix. [[no]]]),
+    AC_HELP_STRING([--with-siteControlPrefix=ans],[A site controlled prefix. [[no]]]),
     SITE_CONTROLLED_PREFIX="$withval"
     SITE_CONTROLLED_PREFIX=`echo $SITE_CONTROLLED_PREFIX | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $SITE_CONTROLLED_PREFIX "--with-siteControlPrefix=ans: ans must be yes or no"
