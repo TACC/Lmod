@@ -281,6 +281,7 @@ end
 
 
 function M.__find_all_defaults(self)
+   dbg.start{"ModuleA:__find_all_defaults()"}
    local moduleA     = self.__moduleA
    local defaultT    = self.__defaultT
    local show_hidden = masterTbl().show_hidden
@@ -352,6 +353,7 @@ function M.__find_all_defaults(self)
       t[v.fn] = { sn = k, count = v.count, fullName = v.fullName, weight = v.weight }
    end
    self.__defaultT = t
+   dbg.fini("ModuleA:__find_all_defaults")
 end
 
 
