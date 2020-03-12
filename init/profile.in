@@ -42,7 +42,7 @@ if [ -z "${USER_IS_ROOT:-}" ]; then
   {
     local Nm=$1
     local confPath=$2
-    local execNm=${confPath##*/}
+    local execNm=$3
     eval $Nm=$confPath
     if [ ! -x $confPath ]; then
       if [ -x /bin/$execNm ]; then
@@ -53,9 +53,9 @@ if [ -z "${USER_IS_ROOT:-}" ]; then
     fi
   } 
 
-  findExec PS_CMD       @ps@
-  findExec EXPR_CMD     @expr@
-  findExec BASENAME_CMD @basename@
+  findExec PS_CMD       @ps@        ps
+  findExec EXPR_CMD     @expr@      expr
+  findExec BASENAME_CMD @basename@  basename
 
   unset -f findExec
 

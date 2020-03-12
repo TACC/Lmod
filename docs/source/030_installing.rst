@@ -93,9 +93,12 @@ On Ubuntu Linux, the following packages will work::
    liblua5.1-posix-dev
    liblua5.1-posix0
    lua5.1
+   tcl
+   tcl-dev
+   libtcl
 
 Note; Centos may require looking the EPEL repo.  At TACC we install the
-following rpms::
+following rpms for our Centos based systems::
 
    lua-5.1.4-15.el7.x86_64
    lua-bitop-1.0.2-3.el7.x86_64
@@ -111,6 +114,12 @@ You will also need the tcl and tcl-devel packages as well.::
    tcl-8.5.13-8.el7.x86_64
    tcl-devel-8.5.13-8.el7.x86_64 
 
+
+Please note that the devel packages such as tcl-devel and lua-devel
+are only required to build Lmod.  They are not required to run the
+lmod package.  Note as well that the tcl-devel for Centos or tcl-dev
+for ubuntu is only required if you configure Lmod
+using --with-fastTCLInterp=yes. 
 
 Using Luarocks
 ~~~~~~~~~~~~~~
