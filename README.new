@@ -12,3 +12,4 @@ Lmod 8.3+
               reload allmodules when doing a "module update"
    (8.3.5)  * Now only write s.log from sh_to_modulefile.in.lua when the debug 
               option is given.
+   (8.3.6)  * Create findExec shell function to locate commands like ps.
