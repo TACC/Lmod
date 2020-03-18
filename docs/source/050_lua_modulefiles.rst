@@ -44,7 +44,7 @@ unset during unloading.
    example " " or  ";" 
 
 **setenv** ("NAME", "*value*"):
-   assigns to the environment variable "NAME" the value.  Do not this
+   assigns to the environment variable "NAME" the value.  Do not use this
    function to assign the initial to a path-like variable.  Use
    **append_path** or **prepend_path** instead.
 
@@ -61,7 +61,8 @@ unset during unloading.
    when the mode is unload.
 
 **whatis** ("STRING"):
-    The whatis command can be called repeatedly with different strings. See the Administrator Guide for more details.
+    The whatis command can be called repeatedly with different strings. 
+    See the Administrator Guide for more details.
 
 **help** ( [[ *help string* ]]):
      What is printed out when the help command is called. Note that
@@ -91,7 +92,7 @@ unset during unloading.
 
 
 **always_load** ("pkgA", "pkgB", "pkgC"):
-     load all modules. However when this command is reversed it does nothing.
+     load all modules. However, when this command is reversed, it does nothing.
 
 **set_alias** ("name","value"):
      define an alias to name with value.
@@ -119,8 +120,8 @@ Extra functions
 The entries below describe several useful commands that come with Lmod that can be used in modulefiles.
 
 **os.getenv** ("NAME"):
-    Ask for environment for the value of "NAME". Note that if the
-    "NAME" might not be in the environment, then it is probably best
+    Get the value for the environment variable called "NAME". Note that if 
+    "NAME" is not set in the environment, then it is probably best
     to do::
 
        local foo=os.getenv("FOO") or ""
