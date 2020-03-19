@@ -214,7 +214,7 @@ Um detaillierte Informationen über ein bestimmtes Modul zu erhalten,
 müssen Sie eine Version angeben, falls es mehr als eine Version gibt:
   $ module spider Foo/11.1
 %{border}]==],
-     m_Sticky_Mods         = [==[Die folgenden Module wurde nicht entladen:
+     m_Sticky_Mods         = [==[Die folgenden Module wurden nicht entladen:
   (Benutzen Sie "module --force purge" um alle Module zu entladen):
 ]==],
      m_Sticky_Unstuck      = "\nDie folgenden angehefteten Module konnten nicht erneut geladen werden:\n",
