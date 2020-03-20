@@ -57,7 +57,7 @@ MF_TCL.my_name   = "TCL"
 -- @param k key
 -- @param v value
 function MF_TCL.setenv(self, k, v)
-   return "setenv ".. k .. " {" .. v .. "};"
+   return "setenv ".. k .. " {" .. v .. "}"
 end
 
 --------------------------------------------------------------------------
@@ -66,7 +66,7 @@ end
 -- @param k key
 -- @param v value
 function MF_TCL.prepend_path(self, k, v)
-   return "prepend-path ".. k .. " {" .. v .. "};"
+   return "prepend-path ".. k .. " {" .. v .. "}"
 end
 
 --------------------------------------------------------------------------
@@ -76,7 +76,7 @@ end
 -- @param v value
 
 function MF_TCL.append_path(self, k, v)
-   return "append-path ".. k .. " {" .. v .. "};"
+   return "append-path ".. k .. " {" .. v .. "}"
 end
 
 function MF_TCL.header()

@@ -522,7 +522,7 @@ function main()
    if (masterTbl.outFn) then
       local f = io.open(masterTbl.outFn,"w")
       if (f) then
-         f:write(s)
+         f:write(s,"\n")
          f:close()
       else
          io.stderr:write("Unable to write modulefile named: ",masterTbl.outFn,"\n")
