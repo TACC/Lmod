@@ -1,6 +1,13 @@
+avail:
 ProjectDIR/rt/perl/mf/Core
    foobar/1.0 (L)
   Where:
    L:  Module is loaded
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+list
+Currently Loaded Modules:
+  1) foobar/1.0
+unload foobar
+list
+No modules loaded

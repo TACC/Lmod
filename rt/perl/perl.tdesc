@@ -37,7 +37,15 @@ module("load foobar");
 
 print "\\\$ENV{FOOBAR}: ".\$ENV{"FOOBAR"}."\n";
 
+print STDERR "\navail:\n";
 module("avail");
+print STDERR "\nlist\n";
+module("list");
+print  STDERR "\nunload foobar\n";
+module("unload foobar");
+print  STDERR "\nlist\n";
+module("list");
+print "\\\$ENV{FOOBAR}: ".\$ENV{"FOOBAR"}."\n";
 EOF
 
 
