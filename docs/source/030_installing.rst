@@ -362,7 +362,7 @@ file can be in a number of places but is typically in ``/etc/zshenv`` or
       for i in /etc/profile.d/*.sh; do
         if [ -r $i ]; then
           . $i
-        fip
+        fi
       setopt nomatch
       done
     fi
