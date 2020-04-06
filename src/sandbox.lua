@@ -53,6 +53,7 @@ require("capture")
 require("modfuncs")
 require("string_utils")
 require("utils")
+require("declare")
 local lfs   = require("lfs")
 
 sandbox_run = false
@@ -97,12 +98,14 @@ local sandbox_env = {
   --- Load family functions ----
 
   load                 = load_module,
+  load_any             = load_any,
   try_load             = try_load,
   try_add              = try_load,
   mgrload              = mgrload,
   unload               = unload,
   always_load          = always_load,
   depends_on           = depends_on,
+  
 
   --- Load Modify functions ---
   atleast              = atleast,
@@ -226,6 +229,9 @@ local sandbox_env = {
   capture              = capture,
   UUIDString           = UUIDString,
   execute              = execute,
+  isDefined            = isDefined,
+  isNotDefined         = isNotDefined,
+
   ------------------------------------------------------------
   -- Misc System Values
   ------------------------------------------------------------

@@ -65,6 +65,7 @@ M.error                = MasterControl.quiet
 M.execute              = MasterControl.execute
 M.inherit              = MasterControl.quiet
 M.load                 = MasterControl.quiet
+M.load_any             = MasterControl.quiet
 M.load_usr             = MasterControl.quiet
 M.message              = MasterControl.quiet
 M.msg_raw              = MasterControl.quiet

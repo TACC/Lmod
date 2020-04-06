@@ -204,6 +204,15 @@ function mgrload(required, active)
 end
 
 
+function load_any(...)
+   dbg.start{"load_any(",concatTbl({...},", "),")"}
+   if (not validateModules("load_any",...)) then return {} end
+
+   local b = mcp:load_any(MName:buildA(mcp:MNameType(), ...))
+   dbg.fini("load_any")
+   return b
+end   
+
 --- PATH functions ---
 --------------------------------------------------------------------------
 -- convert arguments into a table if necessary.

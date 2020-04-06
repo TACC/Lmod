@@ -62,6 +62,7 @@ M.family               = MasterControl.unset_family
 M.help                 = MasterControl.quiet
 M.inherit              = MasterControl.inherit
 M.load                 = MasterControl.unload
+M.load_any             = MasterControl.unload
 M.load_usr             = MasterControl.unload
 M.mgrload              = MasterControl.mgr_unload
 M.myFileName           = MasterControl.myFileName

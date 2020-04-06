@@ -13,8 +13,11 @@ Lmod 8.3+
    (8.3.5)  * Now only write s.log from sh_to_modulefile.in.lua when the debug 
               option is given.
    (8.3.6)  * Create findExec shell function to locate commands like ps.
-W.I.P:
    (8.3.7)  * Issue #442: Small fix to messageDir/de.lua
             * Remove extra semicolons from tcl output in sh_to_modulefile
             * Add trailing newline on output of modulefile written to a file
               in sh_to_modulefile.
+            * Issue #444: adding load_any() functionl. Also adding isDefined()
+              and isNotDefined() functions to make configurations easier in
+              the future.
+              

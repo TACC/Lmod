@@ -226,6 +226,14 @@ function M.load(self, mA)
 end
 
 --------------------------------------------------------------------------
+-- Print load_any command.
+-- @param self A MasterControl object
+-- @param mA An array of module names (MName objects)
+function M.load_any(self, mA)
+   A[#A+1] = ShowCmdA("load_any",mA)
+end
+
+--------------------------------------------------------------------------
 -- Print mgrload command.
 -- @param self A MasterControl object
 -- @param mA An array of module names (MName objects)

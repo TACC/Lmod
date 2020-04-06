@@ -99,6 +99,7 @@ Es ist auch möglich, dass Ihr Cache veraltet ist. Versuchen Sie:
      e_Failed_Load_2       = [==[Diese Module existieren, aber können nicht wie gewünscht geladen werden: %{kA}
    Versuchen Sie: "module spider %{kB}" um anzuzeigen, wie die Module geladen werden.
 ]==],
+     e_Failed_Load_any     = nil,
      e_Family_Conflict     = [==[Nur ein Modul von "%{name}" kann gleichzeitig geladen sein.
 Es ist bereits "%{oldName}" geladen.
 Verwenden Sie folgendes Kommando, um das Modul zu laden:

@@ -1015,6 +1015,34 @@ function M.load(self, mA)
    return a
 end
 
+function M.load_any(self, mA)
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"MasterControl:load_any(mA={"..s.."})"}
+   end
+   local b
+   local uA     = {}
+   local result = false
+
+   for i = 1, #mA do
+      local mname = mA[i]
+      b = self:try_load{mname}
+      if (mname:isloaded()) then
+         result = true
+         break
+      else
+         uA[#uA+1] = mname:userName()
+      end
+   end
+
+   if (not result) then
+      LmodError{msg="e_Failed_Load_any", module_list=concatTbl(uA," ")}
+   end
+
+   dbg.fini("MasterControl:load_any")
+   return b
+end
+
 
 
 function M.mgrload(self, required, active)

@@ -104,6 +104,7 @@ Il est aussi possible que votre cache soit désuète. Essayez :
      e_Failed_Load_2     = [==[Ce ou ces module(s) existent, mais ne peuvent pas être chargés tel que demandé: %{kA}
    Utilisez: "module spider %{kB}" pour voir la façon de les charger.
 ]==],
+     e_Failed_Load_any   = nil,
      e_Family_Conflict   = [==[Vous ne pouvez avoir qu'un module %{name} chargé à la fois.
 %{oldName} est déjà chargé.
 Pour corriger le problème, vous pouvez utiliser la commande suivante :

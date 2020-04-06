@@ -64,6 +64,7 @@ return {
      e_Failed_Hashsum      = nil,
      e_Failed_Load         = nil,
      e_Failed_Load_2       = nil,
+     e_Failed_Load_any     = nil,
      e_Family_Conflict     = nil,
      e_Illegal_Load        = nil,
      e_Illegal_option      = nil,

@@ -82,6 +82,11 @@ unset during unloading.
 **load** ("pkgA", "pkgB", "pkgC"):
      load all modules. Report error if unable to load.
 
+**load_any** ("pkgA", "pkgB", "pkgC"):
+     loads the first module found. Report error if unable to load any
+     of the modules.  When unloading all modules are marked to be
+     unloaded.
+
 **try_load** ("pkgA", "pkgB", "pkgC"):
      load all modules. No errors reported if unable to load.
 

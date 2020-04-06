@@ -176,6 +176,14 @@ function M.load_usr(self, mA)
 end
 
 --------------------------------------------------------------------------
+-- Print load_any command.
+-- @param self A MasterControl object
+-- @param mA An array of module names (MName objects)
+function M.load_any(self, mA)
+   A[#A+1] = ShowCmdA("load_any", mA)
+end
+
+--------------------------------------------------------------------------
 -- Print try_load command.
 -- @param self A MasterControl object
 -- @param mA An array of module names (MName objects)

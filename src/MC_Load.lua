@@ -58,6 +58,7 @@ M.family               = MasterControl.family
 M.help                 = MasterControl.quiet
 M.inherit              = MasterControl.inherit
 M.load                 = MasterControl.load
+M.load_any             = MasterControl.load_any
 M.load_usr             = MasterControl.load_usr
 M.message              = MasterControl.message
 M.msg_raw              = MasterControl.msg_raw
