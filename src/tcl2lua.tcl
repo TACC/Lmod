@@ -590,6 +590,10 @@ proc loadcmd { args } {
     eval cmdargs "load" $args
 }
 
+proc load_any_cmd { args } {
+    eval cmdargs "load_any" $args
+}
+
 proc swapcmd { old {new {}}} {
     if {$new == ""} {
 	set new $old
@@ -772,6 +776,9 @@ proc module { command args } {
     switch -- $command {
         load {
             eval loadcmd $args
+        }
+        load-any {
+            eval load_any_cmd $args
         }
 	switch -
 	swap {
