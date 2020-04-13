@@ -476,10 +476,11 @@ function main()
    end
 
    local LuaCmd = "@path_to_lua@/lua"
+   local found
 
    if (LuaCmd:sub(1,1) == "@") then
-      LuaCmd = findInPath("lua")
-      if (LuaCmd == nil) then
+      LuaCmd, found = findInPath("lua")
+      if (not found) then
          io.stderr:write("Unable to find lua program")
          return
       end

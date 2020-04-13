@@ -962,9 +962,9 @@ function M.setHashSum(self)
    end
 
    local path   = "@path_to_lua@:" .. os.getenv("PATH")
-   local luaCmd = findInPath("lua",path)
+   local luaCmd, found = findInPath("lua",path)
 
-   if (luaCmd == nil) then
+   if (not found) then
       LmodError{msg="e_Failed_2_Find", name = "lua"}
    end
 

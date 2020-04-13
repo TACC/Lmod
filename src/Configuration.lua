@@ -87,11 +87,12 @@ local function new(self)
       local std_sha1 = "1fa3d8f24793042217b8474904136fdde72d42dd"
       local std_md5  = "3c785db2ee60bc8878fe1b576c890a0f"
       local HashSum  = "@path_to_hashsum@"
+      local found
       if (HashSum:sub(1,1) == "@") then
          local a = { "sha1sum", "shasum", "md5sum", "md5" }
          for i = 1,#a do
-            HashSum = findInPath(a[i])
-            if (HashSum) then break end
+            HashSum, found = findInPath(a[i])
+            if (not found) then break end
          end
       end
 

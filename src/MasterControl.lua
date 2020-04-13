@@ -116,9 +116,10 @@ local function l_error_on_missing_loaded_modules(aa,bb)
 
    if (#aa > 0) then
       local luaprog = "@path_to_lua@/lua"
+      local found
       if (luaprog:sub(1,1) == "@") then
-         luaprog = find_exec_path("lua")
-         if (luaprog == nil) then
+         luaprog, found = findInPath("lua")
+         if (not found) then
             LmodError{msg="e_Failed_2_Find", name = "lua"}
          end
       end

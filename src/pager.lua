@@ -87,8 +87,9 @@ end
 function buildPager()
    local func  = bypassPager
    local pager = cosmic:value("LMOD_PAGER")
-   s_pager     = find_exec_path(pager)
-   if (s_pager) then
+   local found
+   s_pager, found = findInPath(pager)
+   if (not found) then
       func     = usePager
    end
    return func
