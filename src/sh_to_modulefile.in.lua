@@ -346,11 +346,13 @@ local function cleanPath(value)
    pathA        = {}
 
    for execName in pairs(execT) do
-      local cmd = findInPath(execName, myPath)
-      if (cmd) then
+      local cmd, found = findInPath(execName, myPath)
+      if (found) then
          local dir = dirname(cmd):gsub("/+$","")
          local p = path_regularize(dir)
-         pathT[p].keep = true
+         if (p and pathT[p]) then
+            pathT[p].keep = true
+         end
       end
    end
 

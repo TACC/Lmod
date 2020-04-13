@@ -52,6 +52,7 @@ local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack  -- luach
 -- @param path The path to use. If nil then use env PATH.
 function findInPath(exec, path)
    local result  = "unknown_path_for_" .. (exec or "unknown")
+   local found   = false
    if ( exec == nil) then return result end
    exec = exec:trim()
    local i = exec:find(" ")
@@ -64,9 +65,9 @@ function findInPath(exec, path)
 
    if (cmd:find("/")) then
       if (access(cmd,"x")) then
-         return exec
+         return exec, true
       else
-         return result
+         return result, false
       end
    end
 
@@ -75,10 +76,11 @@ function findInPath(exec, path)
       local fullcmd = pathJoin(dir, cmd)
       if (access(fullcmd,"x")) then
          result = fullcmd .. tail
+         found  = true
          break
       end
    end
-   return result
+   return result, found
 end
 
 --------------------------------------------------------------------------
