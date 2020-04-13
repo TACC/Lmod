@@ -733,7 +733,7 @@ function UUIDString(epoch)
 
    local uuidgen, found = findInPath('uuidgen')
    local uuid_str
-   if (not found) then
+   if (found) then
        uuid_str = capture('uuidgen'):sub(1,-2)
    else
       -- if uuidgen is not available, fall back to reading /proc/sys/kernel/random/uuid

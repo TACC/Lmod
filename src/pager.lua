@@ -89,7 +89,7 @@ function buildPager()
    local pager = cosmic:value("LMOD_PAGER")
    local found
    s_pager, found = findInPath(pager)
-   if (not found) then
+   if (found) then
       func     = usePager
    end
    return func

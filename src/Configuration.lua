@@ -92,7 +92,7 @@ local function new(self)
          local a = { "sha1sum", "shasum", "md5sum", "md5" }
          for i = 1,#a do
             HashSum, found = findInPath(a[i])
-            if (not found) then break end
+            if (found) then break end
          end
       end
 

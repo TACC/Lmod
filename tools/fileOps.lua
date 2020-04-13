@@ -53,7 +53,7 @@ local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack  -- luach
 function findInPath(exec, path)
    local result  = "unknown_path_for_" .. (exec or "unknown")
    local found   = false
-   if ( exec == nil) then return result end
+   if ( exec == nil) then return result, false end
    exec = exec:trim()
    local i = exec:find(" ")
    local cmd  = exec
