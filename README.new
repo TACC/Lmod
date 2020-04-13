@@ -17,9 +17,9 @@ Lmod 8.3+
             * Remove extra semicolons from tcl output in sh_to_modulefile
             * Add trailing newline on output of modulefile written to a file
               in sh_to_modulefile.
-            * Issue #444: adding load_any() functionl. Also adding isDefined()
+            * Issue #444: adding load_any() function. Also adding isDefined()
               and isNotDefined() functions to make configurations easier in
               the future.
-   (8.3.8)  * Add flag to say when findInPath found executable.
+   (8.3.8)  * Add flag to say when findInPath() found executable.
    
 	     
