@@ -21,5 +21,8 @@ Lmod 8.3+
               and isNotDefined() functions to make configurations easier in
               the future.
    (8.3.8)  * Add flag to say when findInPath() found executable.
+WIP:
+   (8.3.9)  * Added why does Lmod a static location of Lua to the FAQ.
    
+
 	     
