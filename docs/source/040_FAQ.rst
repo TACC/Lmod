@@ -86,28 +86,28 @@ allow Lmod to use the lua found in the path?
 
        "#!/usr/bin/env lua"
 
-     and all the other Lmod executable scripts to do the same then all
-     the scripts would use the lua found in the user's $PATH. There
-     are other things that would have to change as well. Lmod
-     carefully sets two env. vars: LUA_PATH and LUA_CPATH to be
-     compatible with the Lua that was used to install lmod.
+    and all the other Lmod executable scripts to do the same then all
+    the scripts would use the lua found in the user's $PATH. There
+    are other things that would have to change as well. Lmod
+    carefully sets two env. vars: LUA_PATH and LUA_CPATH to be
+    compatible with the Lua that was used to install lmod.
 
-     So why does Lmod go to this much trouble? Why doesn't Lmod just
-     use the lua found in the path and not set LUA_PATH and LUA_CPATH.
-     Earlier version of Lmod did not. The answer is users.
-     Lmod has to protect itself from every user out there. What if a user
-     installs their own Lua? What if your system install of Lua is
-     version 5.1 but your user wants to install the latest version of Lua.
-     The libraries that Lmod depends on change with version. What if a
-     user installs their own version lua but doesn't install the
-     required libraries for Lmod to work (lua-posix, lfs) or they
-     install their own library called lfs but it does something
-     completely different. Lmod would fail with very strange errors. 
+    So why does Lmod go to this much trouble? Why doesn't Lmod just
+    use the lua found in the path and not set LUA_PATH and LUA_CPATH.
+    Earlier version of Lmod did not. The answer is users.
+    Lmod has to protect itself from every user out there. What if a user
+    installs their own Lua? What if your system install of Lua is
+    version 5.1 but your user wants to install the latest version of Lua.
+    The libraries that Lmod depends on change with version. What if a
+    user installs their own version lua but doesn't install the
+    required libraries for Lmod to work (lua-posix, lfs) or they
+    install their own library called lfs but it does something
+    completely different. Lmod would fail with very strange errors. 
 
-     To sum up. Lmod is very careful to use the Lua that was used to
-     install it and the necessary libraries. Lmod is also very careful
-     to set LUA_PATH and LUA_CPATH internally so that user changes to
-     those env. variables don't affect how Lmod runs. 
+    To sum up. Lmod is very careful to use the Lua that was used to
+    install it and the necessary libraries. Lmod is also very careful
+    to set LUA_PATH and LUA_CPATH internally so that user changes to
+    those env. variables don't affect how Lmod runs. 
 
 Can I disable the pager output?
 
