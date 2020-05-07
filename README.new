@@ -26,3 +26,5 @@ Lmod 8.3+
 	      "module-version /1.7.0_143 1.7".
             * Issue #448: Remove local keyword from findExec() so that ksh
 	      won't barf.
+   (8.3.10) * Improved support for ksh: Defined FPATH for bash, sh, csh (not zsh).
+              the module, ml etc functions for ksh sub-shells
