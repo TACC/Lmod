@@ -40,7 +40,7 @@ if [ -z "${USER_IS_ROOT:-}" ]; then
     #
     # if not zsh then prepend to FPATH for ksh scripts and users
     if [ -z "${ZSH_VERSION}" ]; then
-      export FPATH=@PKGV/init/ksh:$FPATH
+      export FPATH=@PKGV/init/ksh_funcs:$FPATH
       FPATH=${FPATH%%:}  # trim trailing colon in case FPATH was previously empty
     fi
   fi

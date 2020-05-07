@@ -88,7 +88,7 @@ TOOLS                     := $(MY_PACKAGE)/tools
 I18N                      := $(MY_PACKAGE)/tools/i18n
 SETTARG                   := $(MY_PACKAGE)/settarg
 INIT		  	  := $(MY_PACKAGE)/init
-INIT_KSH	  	  := $(MY_PACKAGE)/init/ksh
+INIT_KSH_FUNCS	  	  := $(MY_PACKAGE)/init/ksh_funcs
 FISH_TAB	  	  := $(MY_PACKAGE)/init/fish_tab_completion
 MESSAGEDIR      	  := $(MY_PACKAGE)/messageDir
 LMOD_MF 	  	  := $(MY_PACKAGE)/modulefiles/Core
@@ -104,10 +104,10 @@ else
   DATE_cmd := date
 endif
 
-DIRLIST		  	  := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS)      $(DESTDIR)$(SETTARG)    \
-                             $(DESTDIR)$(SHELLS)  $(DESTDIR)$(INIT)       $(DESTDIR)$(LIB)        \
-                             $(DESTDIR)$(LMOD_MF) $(DESTDIR)$(MAN_PAGES)  $(DESTDIR)$(MESSAGEDIR) \
-                             $(DESTDIR)$(I18N)    $(DESTDIR)$(FISH_TAB)   $(DESTDIR)$(INIT_KSH)
+DIRLIST		  	  := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS)      $(DESTDIR)$(SETTARG)        \
+                             $(DESTDIR)$(SHELLS)  $(DESTDIR)$(INIT)       $(DESTDIR)$(LIB)            \
+                             $(DESTDIR)$(LMOD_MF) $(DESTDIR)$(MAN_PAGES)  $(DESTDIR)$(MESSAGEDIR)     \
+                             $(DESTDIR)$(I18N)    $(DESTDIR)$(FISH_TAB)   $(DESTDIR)$(INIT_KSH_FUNCS)
 
 STANDALONE_PRGM   	  := src/lmod.in.lua src/addto.in.lua                       \
                              src/spider.in.lua src/clearLMOD_cmd.in.lua             \
@@ -131,8 +131,7 @@ FISH_FUNCS                := module.fish
 FISH_FUNCS                := $(patsubst %, $(srcdir)/init/fish/%, $(FISH_FUNCS))
 
 KSH_FUNCS                 := clearLmod.in clearMT.in ml.in module.in settarg.in
-KSH_FUNCS                 := $(patsubst %, $(srcdir)/init/ksh/%, $(KSH_FUNCS))
-
+KSH_FUNCS                 := $(patsubst %, $(srcdir)/init/ksh_funcs/%, $(KSH_FUNCS))
 
 STARTUP		  	  := profile.in profile.fish.in cshrc.in
 STARTUP		  	  := $(patsubst %, $(srcdir)/init/%, $(STARTUP))
@@ -359,7 +358,7 @@ zsh_tab_funcs: $(ZSH_FUNCS)
         fi
 
 ksh_funcs: $(KSH_FUNCS)
-	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(INIT_KSH) __installMe
+	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(INIT_KSH_FUNCS) __installMe
 
 fish_tab_funcs: $(FISH_FUNCS)
 	cp $^ $(DESTDIR)$(FISH_TAB) 2>/dev/null
