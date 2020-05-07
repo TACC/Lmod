@@ -21,7 +21,8 @@ Lmod 8.3+
               and isNotDefined() functions to make configurations easier in
               the future.
    (8.3.8)  * Add flag to say when findInPath() found executable.
-WIP:
-   (8.3.9)  * Added why does Lmod a static location of Lua to the FAQ.
+   (8.3.9)  * Added to FAQ: Why does Lmod use a static location of Lua.
             * Protect Lmod from "module-version 1.7.0_143 1.7" when it should be
 	      "module-version /1.7.0_143 1.7".
+            * Issue #448: Remove local keyword from findExec() so that ksh
+	      won't barf.

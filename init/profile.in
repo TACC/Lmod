@@ -47,9 +47,9 @@ if [ -z "${USER_IS_ROOT:-}" ]; then
 
   findExec ()
   {
-    local Nm=$1
-    local confPath=$2
-    local execNm=$3
+    Nm=$1
+    confPath=$2
+    execNm=$3
     eval $Nm=$confPath
     if [ ! -x $confPath ]; then
       if [ -x /bin/$execNm ]; then
@@ -58,7 +58,8 @@ if [ -z "${USER_IS_ROOT:-}" ]; then
          eval $Nm=/usr/bin/$execNm
       fi
     fi
-  } 
+    unset Nm confPath execNm
+  }
 
   findExec PS_CMD       @ps@        ps
   findExec EXPR_CMD     @expr@      expr
