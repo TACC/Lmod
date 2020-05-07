@@ -1,0 +1,8 @@
+# -*- shell-script -*-
+if [ -n "${KSH_VERSION+x}" ]; then
+   ml ()
+   {
+     eval $($LMOD_DIR/ml_cmd "$@")
+   }
+fi
+

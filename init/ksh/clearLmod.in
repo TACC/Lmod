@@ -1,0 +1,9 @@
+# -*- shell-script -*-
+if [ -n "${KSH_VERSION+x}" ]; then
+   clearLmod()
+   {
+     module --force purge
+     eval $($LMOD_DIR/clearLMOD_cmd --shell bash --full "$@")
+   }
+fi
+

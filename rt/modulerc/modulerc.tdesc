@@ -94,7 +94,13 @@ EOF
      export LMOD_MODULERCFILE=$testDir/dot.modulerc.lua
      runLmod avail                    #31
      runLmod --show_hidden avail      #32
+
      
+     unset LMOD_MODULERCFILE
+     unsetMT
+     export MODULEPATH=$(testDir)/mf5
+     runLmod avail                    #33
+
 
 
 

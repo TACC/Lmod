@@ -88,6 +88,7 @@ TOOLS                     := $(MY_PACKAGE)/tools
 I18N                      := $(MY_PACKAGE)/tools/i18n
 SETTARG                   := $(MY_PACKAGE)/settarg
 INIT		  	  := $(MY_PACKAGE)/init
+INIT_KSH	  	  := $(MY_PACKAGE)/init/ksh
 FISH_TAB	  	  := $(MY_PACKAGE)/init/fish_tab_completion
 MESSAGEDIR      	  := $(MY_PACKAGE)/messageDir
 LMOD_MF 	  	  := $(MY_PACKAGE)/modulefiles/Core
@@ -106,7 +107,7 @@ endif
 DIRLIST		  	  := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS)      $(DESTDIR)$(SETTARG)    \
                              $(DESTDIR)$(SHELLS)  $(DESTDIR)$(INIT)       $(DESTDIR)$(LIB)        \
                              $(DESTDIR)$(LMOD_MF) $(DESTDIR)$(MAN_PAGES)  $(DESTDIR)$(MESSAGEDIR) \
-                             $(DESTDIR)$(I18N)    $(DESTDIR)$(FISH_TAB)
+                             $(DESTDIR)$(I18N)    $(DESTDIR)$(FISH_TAB)   $(DESTDIR)$(INIT_KSH)
 
 STANDALONE_PRGM   	  := src/lmod.in.lua src/addto.in.lua                       \
                              src/spider.in.lua src/clearLMOD_cmd.in.lua             \
@@ -128,6 +129,10 @@ ZSH_FUNCS                 := $(patsubst %, $(srcdir)/init/zsh/%, $(ZSH_FUNCS))
 
 FISH_FUNCS                := module.fish   
 FISH_FUNCS                := $(patsubst %, $(srcdir)/init/fish/%, $(FISH_FUNCS))
+
+KSH_FUNCS                 := clearLmod.in clearMT.in ml.in module.in settarg.in
+KSH_FUNCS                 := $(patsubst %, $(srcdir)/init/ksh/%, $(KSH_FUNCS))
+
 
 STARTUP		  	  := profile.in profile.fish.in cshrc.in
 STARTUP		  	  := $(patsubst %, $(srcdir)/init/%, $(STARTUP))
@@ -184,11 +189,13 @@ uninstall:
 	$(RM) -rf $(DESTDIR)$(MY_PKG_PACKAGE)
 	@echo "If you added lmod files to /etc/profile.d please remove them."
 
-pre-install: $(DIRLIST) $(PKGS) lmodrc_init shell_init startup libexec    \
-             Inst_Tools Inst_Shells Inst_Settarg Inst_Lmod_MF other_tools \
-             man_pages messageFns i18n spiderCacheSupport
+pre-install: $(DIRLIST) lmod_install_targets
 
-install: pre-install  zsh_tab_funcs fish_tab_funcs
+lmod_install_targets: $(PKGS) lmodrc_init shell_init startup libexec    \
+             Inst_Tools Inst_Shells Inst_Settarg Inst_Lmod_MF other_tools \
+             man_pages messageFns i18n spiderCacheSupport ksh_funcs
+
+install: pre-install  zsh_tab_funcs fish_tab_funcs 
 	$(MAKE) PKGV=$(PKG) shell_init startup
 	@if test "$(SITE_CONTROLLED_PREFIX)" = "no" ; then                        \
 	   echo $(RM) $(DESTDIR)$(PKG);                                           \
@@ -209,6 +216,7 @@ echo:
 	@echo LUA_PATH: $$LUA_PATH
 	@echo L_PATH: "$(L_PATH)"
 	@echo VDATE: $(VDATE)
+	@echo DIRLIST: $(DIRLIST)
 
 man_pages:
 	-$(PATH_TO_LUA)/lua $(srcdir)/src/lmod.in.lua bash --help >/dev/null 2> $(DESTDIR)$(MAN_PAGES)/module.1
@@ -349,6 +357,9 @@ zsh_tab_funcs: $(ZSH_FUNCS)
 	  done;                                                          \
 	  true;                                                          \
         fi
+
+ksh_funcs: $(KSH_FUNCS)
+	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(INIT_KSH) __installMe
 
 fish_tab_funcs: $(FISH_FUNCS)
 	cp $^ $(DESTDIR)$(FISH_TAB) 2>/dev/null

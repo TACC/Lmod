@@ -1,0 +1,2 @@
+#%Module
+setenv FOO 1.8

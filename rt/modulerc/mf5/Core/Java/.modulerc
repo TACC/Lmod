@@ -1,0 +1,4 @@
+#%Module
+module-version Core/Java/1.8.0_181 1.8
+module-version /1.7.0_143 1.7
+

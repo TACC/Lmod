@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.7.37  2018-06-26 14:30 +02:00
+Modules based on Lua: Version 8.3.8  2020-04-13 11:41 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -360,5 +360,18 @@ ProjectDIR/rt/modulerc/mf4
    D:  Default Module
    H:  Hidden Module
    L:  Module is loaded
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 33
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+Global Aliases
+   a13 -> a/13.2.345    z13 -> z/13.2.345
+ProjectDIR/rt/modulerc/mf5
+   Core/Java/1.7.0_143 (1.7)    Core/Java/1.8.0_181 (D:1.8)
+  Where:
+   Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
+   D:        Default Module
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".

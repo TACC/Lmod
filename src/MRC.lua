@@ -256,7 +256,6 @@ function M.parseModA_for_moduleA(self, name, modA)
          dbg.print{"resolve(fullName): ",fullName, "\n"}
          dbg.print{"(2) fullName: ",fullName, "\n"}
 
-         local _, _, shorter, mversion = fullName:find("(.*)/(.*)")
          local a = entry.module_versionA
          for j = 1,#a do
             local version = a[j]
@@ -265,9 +264,12 @@ function M.parseModA_for_moduleA(self, name, modA)
                dbg.print{"Setting default: ",fullName, "\n"}
                defaultV = fullName
             else
-               local key = shorter .. '/' .. version
-               self.__version2modT[key] = fullName
-               dbg.print{"v2m: key: ",key,": ",fullName,"\n"}
+               local _, _, shorter, mversion = fullName:find("(.*)/(.*)")
+               if (shorter) then
+                  local key = shorter .. '/' .. version
+                  self.__version2modT[key] = fullName
+                  dbg.print{"v2m: key: ",key,": ",fullName,"\n"}
+               end
             end
          end
       elseif (entry.kind == "set_default_version") then

@@ -1,0 +1,9 @@
+# -*- shell-script -*-
+if [ -n "${KSH_VERSION+x}" ]; then
+  if [ "${LMOD_SETTARG_CMD:-:}" != ":" ]; then
+    settarg () {
+      eval $(${LMOD_SETTARG_CMD:-:} -s sh "$@" )
+    }
+  fi
+fi
+
