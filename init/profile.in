@@ -38,9 +38,11 @@ if [ -z "${USER_IS_ROOT:-}" ]; then
     export MANPATH=$(@PKGV@/libexec/addto MANPATH @PKGV@/share/man)
 
     #
-    # if not zsh then prepend to FPATH for ksh scripts and users
-    if [ -z "${ZSH_VERSION}" ]; then
-      export FPATH=$(@PKGV@/libexec/addto FPATH @PKGV@/init/ksh_funcs)
+    # Prepend (or Append for zsh) the FPATH variable.
+    if [ -n "${ZSH_VERSION+x}" ]; then
+      export FPATH=$(@PKGV@/libexec/addto --append FPATH @PKGV@/init/ksh_funcs)
+    else
+      export FPATH=$(@PKGV@/libexec/addto          FPATH @PKGV@/init/ksh_funcs)
     fi
   fi
 
