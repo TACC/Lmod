@@ -28,3 +28,6 @@ Lmod 8.3+
 	      won't barf.
    (8.3.10) * Improved support for ksh: Defined FPATH for bash, sh, csh (not zsh).
               the module, ml etc functions for ksh sub-shells
+WIP:
+   (8.3.11) * append FPATH for fish and prepend FPATH for csh, bash, tcsh/csh.
+              Nothing for zsh as FPATH is a local variable.
