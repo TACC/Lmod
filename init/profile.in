@@ -8,6 +8,13 @@
 
 if [ -z "${USER_IS_ROOT:-}" ]; then
 
+  #
+  # Prepend the FPATH variable for ksh functions when ssh is being used,
+  # except for zsh as it breaks things there.
+  if [ -z "${ZSH_VERSION+x}" -a -n "${SSH_CLIENT+x}" ] || [ -n "${KSH_VERSION+x}" ]; then
+    export FPATH=$(@PKGV@/libexec/addto --append FPATH @PKGV@/init/ksh_funcs)
+  fi
+
   if [ -z "${MODULEPATH_ROOT:-}" ]; then
     export USER=${USER-${LOGNAME}}  # make sure $USER is set
     export LMOD_sys=`uname`
@@ -36,13 +43,6 @@ if [ -z "${USER_IS_ROOT:-}" ]; then
       export MANPATH=:
     fi
     export MANPATH=$(@PKGV@/libexec/addto MANPATH @PKGV@/share/man)
-
-    #
-    # Prepend the FPATH variable for ksh functions when ssh is being used,
-    # except for zsh as it breaks things there.
-    if [ -z "${ZSH_VERSION+x}" -a -n "${SSH_CLIENT+x}" ]; then
-      export FPATH=$(@PKGV@/libexec/addto --append FPATH @PKGV@/init/ksh_funcs)
-    fi
   fi
 
   findExec ()

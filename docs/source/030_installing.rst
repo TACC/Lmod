@@ -386,6 +386,16 @@ A site might set::
 
     $ ln -s /opt/apps/lmod/lmod/init/profile.fish /etc/fish/conf.d/z00_lmod.fish
 
+Ksh:
+~~~~
+Ksh users as of Lmod version 8.3.11 now have full support. Lmod now
+defines FPATH to be the directory for the shell function commands such
+as module and ml that provide the module commands.
+
+**Note**: Zsh users who wish to run ksh scripts that have module
+commands in them will have to export the FPATH variable as FPATH is
+normally a local variable and not exported in zsh.
+
 .. _issues-with-bash:
 
 Issues with Bash
