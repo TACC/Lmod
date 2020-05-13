@@ -349,7 +349,7 @@ pkgs:
                install;                                                    \
         fi
 
-zsh_tab_funcs: $(ZSH_FUNCS)
+zsh_tab_funcs: $(ZSH_FUNCS) $(KSH_FUNCS)
 	-if [ -n "$(ZSH_SITE_FUNCTIONS_DIRS)" ]; then                    \
           for i in `echo "$(ZSH_SITE_FUNCTIONS_DIRS)" | tr ':' ' '`; do  \
             cp $^ $(DESTDIR)$$i  2> /dev/null;                           \

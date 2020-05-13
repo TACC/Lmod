@@ -31,3 +31,7 @@ Lmod 8.3+
 WIP:
    (8.3.11) * append FPATH for fish and prepend FPATH for csh, bash, tcsh/csh.
               Nothing for zsh as FPATH is a local variable.
+	    * Only set FPATH when SSH_CLIENT is defined.  This protects zsh on
+	      local installs where bash reads /etc/profile.d/z00_lmod.sh first
+	    * Copy ksh functions to zsh site directory.
+	    
