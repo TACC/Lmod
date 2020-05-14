@@ -33,4 +33,5 @@ Lmod 8.3+
 	    * Only set FPATH when SSH_CLIENT is defined.  This protects zsh on
 	      local installs where bash reads /etc/profile.d/z00_lmod.sh first
 	    * Copy ksh functions to zsh site directory.
-	    
+   (8.3.12) * Add configure option --with-supportKsh=no as default.  Configuring
+              --with-supportKsh=yes will set FPATH for all but zsh and fish.
