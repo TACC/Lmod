@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.1.10  2019-07-10 15:49 -05:00
+Modules based on Lua: Version 8.3.11  2020-05-13 12:49 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -99,7 +99,7 @@ Lmod Web Sites
   Sourceforge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.1.10  2019-07-10 15:49 -05:00
+Modules based on Lua: Version 8.3.11  2020-05-13 12:49 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -196,7 +196,7 @@ Lmod Web Sites
   Sourceforge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.1.10  2019-07-10 15:49 -05:00
+Modules based on Lua: Version 8.3.11  2020-05-13 12:49 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -216,7 +216,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --config
 ===========================
-Modules based on Lua: Version 8.1.10  2019-07-10 15:49 -05:00
+Modules based on Lua: Version 8.3.11  2020-05-13 12:49 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                        Value
 Allow TCL modulefiles              yes
@@ -231,6 +231,7 @@ Export the module command          yes
 Allow extended default             yes
 Use attached TCL over system call  no
 Use italic instead of dim          no
+KSH Support                        no
 Language used for err/msg/warn     en
 Site message file                  <empty>
 LUA_CPATH                          @sys_lua_cpath@
