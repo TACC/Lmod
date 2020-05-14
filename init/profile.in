@@ -12,7 +12,7 @@ if [ -z "${USER_IS_ROOT:-}" ]; then
   # except for zsh as it breaks things there.
   SUPPORT_KSH="@support_ksh@" 
   if [ $SUPPORT_KSH = yes -o -n "${SSH_CLIENT+x}" -o -n "${KSH_VERSION+x}" ]; then
-    if [ -z "${ZSH_VERSION+x}" ]; then
+    if [ -z "${ZSH_VERSION+x}" -a -z "${FPATH+x}" ]; then
       export FPATH=$(@PKGV@/libexec/addto --append FPATH @PKGV@/init/ksh_funcs)
     fi
   fi
