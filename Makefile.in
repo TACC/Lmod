@@ -39,6 +39,7 @@ LMOD_HIDDEN_ITALIC        := @HIDDEN_ITALIC@
 LMOD_OVERRIDE_LANG        := @LMOD_OVERRIDE_LANG@
 SITE_MSG_FILE             := @SITE_MSG_FILE@
 SITE_NAME                 := @SITE_NAME@
+SUPPORT_KSH               := @SUPPORT_KSH@
 SYSHOST                   := @SYSHOST@
 SILENCE_SHELL_DEBUGGING   := @SILENCE_SHELL_DEBUGGING@
 SYS_LD_LIB_PATH           := @SYS_LD_LIB_PATH@
@@ -257,6 +258,7 @@ __installMe:
 	        -e 's|@tmod_find_first@|$(TMOD_FIND_FIRST)|g'            	  \
 	        -e 's|@redirect@|$(REDIRECT)|g'                       	   	  \
 	        -e 's|@basename@|$(BASENAME)|g'                       	   	  \
+	        -e 's|@support_ksh@|$(SUPPORT_KSH)|g'                  	   	  \
 	        -e 's|@cached_loads@|$(CACHED_LOADS)|g'                	   	  \
 	        -e 's|@ps@|$(PS)|g'                              	   	  \
 	        -e 's|@site_name@|$(SITE_NAME)|g'                     	   	  \

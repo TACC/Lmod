@@ -431,6 +431,20 @@ AC_ARG_WITH(extendedDefault,
     EXTENDED_DEFAULT="$withval"
     AC_DEFINE_UNQUOTED(EXTENDED_DEFAULT, "$withval"))dnl
 
+AC_SUBST(SUPPORT_KSH)
+AC_ARG_WITH(supportKsh,
+    AC_HELP_STRING([--with-supportKsh=ans],[Support KSH. [[no]]]),
+    SUPPORT_KSH="$withval"
+    SUPPORT_KSH=`echo $SUPPORT_KSH | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
+    VALID_YN $SUPPORT_KSH "--with-supportKsh=ans: ans must be yes or no"
+    AC_MSG_RESULT([SUPPORT_KSH=$with_supportKsh])
+    AC_DEFINE_UNQUOTED(SUPPORT_KSH, "$with_supportKsh")dnl
+    ,
+    withval="no"
+    AC_MSG_RESULT([SUPPORT_KSH=$withval])
+    SUPPORT_KSH="$withval"
+    AC_DEFINE_UNQUOTED(SUPPORT_KSH, "$withval"))dnl
+
 AC_SUBST(MODULEPATH_INIT)
 AC_ARG_WITH(ModulePathInit,
     AC_HELP_STRING([--with-ModulePathInit=ans],[File containing initial MODULEPATH directories]),

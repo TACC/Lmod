@@ -367,7 +367,20 @@ file can be in a number of places but is typically in ``/etc/zshenv`` or
       done
     fi
     
-    
+**Note**: Zsh users using local installs of Lmod should turn off ksh support
+(--with-supportKsh=no).  This is the default.
+
+Ksh:
+~~~~
+Ksh users as of Lmod version 8.3.12+ now have full support as long as
+the site installs Lmod with *--supportKsh=yes*. Lmod now
+defines FPATH to be the directory for the shell function commands such
+as module and ml that provide the module commands.
+
+**Note**: Zsh users who wish to run ksh scripts that have module
+commands in them will have to export the FPATH variable as FPATH is
+normally a local variable and not exported in zsh.
+
 Fish:
 ~~~~~
 
@@ -386,15 +399,6 @@ A site might set::
 
     $ ln -s /opt/apps/lmod/lmod/init/profile.fish /etc/fish/conf.d/z00_lmod.fish
 
-Ksh:
-~~~~
-Ksh users as of Lmod version 8.3.11 now have full support. Lmod now
-defines FPATH to be the directory for the shell function commands such
-as module and ml that provide the module commands.
-
-**Note**: Zsh users who wish to run ksh scripts that have module
-commands in them will have to export the FPATH variable as FPATH is
-normally a local variable and not exported in zsh.
 
 .. _issues-with-bash:
 

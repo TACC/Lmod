@@ -139,6 +139,7 @@ local function new(self)
    local uname             = capture("uname -a")
    local adminFn, readable = findAdminFn()
    local activeTerm        = haveTermSupport() and "true" or colorize("red","false")
+   local ksh_support       = cosmic:value("LMOD_KSH_SUPPORT")
    local extended_default  = cosmic:value("LMOD_EXTENDED_DEFAULT")
    local hiddenItalic      = cosmic:value("LMOD_HIDDEN_ITALIC")
    local lfsV              = cosmic:value("LFS_VERSION")
@@ -209,6 +210,7 @@ local function new(self)
    tbl.expMCmd      = { k = "Export the module command"         , v = export_module,    }
    tbl.fastTCL      = { k = "Use attached TCL over system call" , v = fast_tcl_interp,  }
    tbl.hiddenItalic = { k = "Use italic instead of dim"         , v = hiddenItalic,     }
+   tbl.ksh_support  = { k = "KSH Support"                       , v = ksh_support,      }
    tbl.lang         = { k = "Language used for err/msg/warn"    , v = lmod_lang,        }
    tbl.lang_site    = { k = "Site message file"                 , v = site_msg_file,    }
    tbl.lua_cpath    = { k = "LUA_CPATH"                         , v = "@sys_lua_cpath@",}

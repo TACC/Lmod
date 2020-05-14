@@ -69,6 +69,7 @@ echo "Use Tmod Find First rule instead of Find Best for defaults.." : $TMOD_FIND
 echo "MODULEPATH Initial file....................................." : $MODULEPATH_INIT
 echo "Use built-in lua packages instead of system provided pkgs..." : $USE_BUILT_IN_PKGS
 echo "Silence shell debugging output for bash/zsh................." : $SILENCE_SHELL_DEBUGGING
+echo "Support KSH................................................." : $SUPPORT_KSH
 echo "Use the fast TCL interpreter................................" : $FAST_TCL_INTERP
 echo "Allow for extended default.(ml intel/17 #-> intel/17.0.4)..." : $EXTENDED_DEFAULT  #"
 

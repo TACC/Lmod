@@ -133,6 +133,14 @@ cosmic:init{name = "LMOD_CASE_INDEPENDENT_SORTING",
             yn   = "no"}
 
 ------------------------------------------------------------------------
+-- LMOD_KSH_SUPPORT :  Set FPATH to support KSH users and scripts
+------------------------------------------------------------------------
+
+cosmic:init{name = "LMOD_KSH_SUPPORT",
+            sedV = "@support_ksh@",
+            yn   = "no"}
+
+------------------------------------------------------------------------
 -- LMOD_REDIRECT:  Send messages to stdout instead of stderr
 ------------------------------------------------------------------------
 cosmic:init{name = "LMOD_REDIRECT",

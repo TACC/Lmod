@@ -11,8 +11,10 @@ if [ -z "${USER_IS_ROOT:-}" ]; then
   #
   # Prepend the FPATH variable for ksh functions when ssh is being used,
   # except for zsh as it breaks things there.
-  if [ -z "${ZSH_VERSION+x}" -a -n "${SSH_CLIENT+x}" ] || [ -n "${KSH_VERSION+x}" ]; then
-    export FPATH=$(@PKGV@/libexec/addto --append FPATH @PKGV@/init/ksh_funcs)
+  if [ "@support_ksh@" = yes -o -n "${SSH_CLIENT+x}" -o -n "${KSH_VERSION+x}" ]; then
+    if [ -z "${ZSH_VERSION+x}" ]; then
+      export FPATH=$(@PKGV@/libexec/addto --append FPATH @PKGV@/init/ksh_funcs)
+    fi
   fi
 
   if [ -z "${MODULEPATH_ROOT:-}" ]; then
