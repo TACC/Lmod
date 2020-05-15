@@ -7,18 +7,6 @@
 
 if [ -z "${USER_IS_ROOT:-}" ]; then
 
-  #
-  # Prepend the FPATH variable for ksh functions when ssh is being used,
-  # except for zsh as it breaks things there.
-  SUPPORT_KSH="@support_ksh@" 
-  if [ $SUPPORT_KSH = yes -o -n "${SSH_CLIENT+x}" -o -n "${KSH_VERSION+x}" ]; then
-    if [ -z "${ZSH_VERSION+x}" -a -z "${__LMOD_SET_FPATH+x}" ]; then
-      export FPATH=$(@PKGV@/libexec/addto --append FPATH @PKGV@/init/ksh_funcs)
-      export __LMOD_SET_FPATH=1
-    fi
-  fi
-  unset SUPPORT_KSH
-
   if [ -z "${MODULEPATH_ROOT:-}" ]; then
     export USER=${USER-${LOGNAME}}  # make sure $USER is set
     export LMOD_sys=`uname`

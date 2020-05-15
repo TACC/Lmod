@@ -33,7 +33,6 @@ if ( ! $?MODULEPATH_ROOT ) then
     endif
 
     setenv BASH_ENV      "@PKGV@/init/bash"
-    setenv FPATH         `@PKGV@/libexec/addto FPATH @PKGV@/init/ksh_funcs`
 
     #
     # If MANPATH is empty, Lmod is adding a trailing ":" so that

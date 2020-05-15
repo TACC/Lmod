@@ -11,6 +11,12 @@ if ( ! $?LMOD_SETTARG_CMD ) then
   setenv LMOD_SETTARG_CMD :
 endif
 
+if ( ! $?__LMOD_SET_FPATH ) then
+    setenv __LMOD_SET_FPATH 1
+    setenv FPATH            `@PKGV@/libexec/addto FPATH @PKGV@/init/ksh_funcs`
+endif
+
+
 set prefix  = ""
 set midfix  = ""
 set postfix = ""
