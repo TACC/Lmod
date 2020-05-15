@@ -15,6 +15,10 @@ fi
 
 [ -n "${__lmod_vx:-}" ] && set +$__lmod_vx 
 
+if [ -n "${__lmod_vx:-}" ]; then
+    echo "Shell debugging temporarily silenced: export LMOD_SH_DBG_ON=1 for this output (@PKGV@/init/@my_shell@)" 1>&2
+fi
+
 #
 # Prepend the FPATH variable for ksh functions when ssh is being used,
 # except for zsh as it breaks things there.
@@ -29,11 +33,6 @@ unset SUPPORT_KSH
 
 export LMOD_ROOT=@lmod_root@
 export LMOD_PKG=@PKGV@
-
-if [ -n "${__lmod_vx:-}" ]; then
-    echo "Shell debugging temporarily silenced: export LMOD_SH_DBG_ON=1 for this output ($LMOD_PKG/init/bash)" 1>&2
-fi
-
 export LMOD_DIR=$LMOD_PKG/libexec
 export LMOD_CMD=$LMOD_PKG/libexec/lmod
 export MODULESHOME=$LMOD_PKG
