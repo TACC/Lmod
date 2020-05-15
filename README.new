@@ -28,7 +28,7 @@ Lmod 8.3+
 	      won't barf.
    (8.3.10) * Improved support for ksh: Defined FPATH for bash, sh, csh (not zsh).
               the module, ml etc functions for ksh sub-shells
-   (8.3.11) * append FPATH for fish and prepend FPATH for csh, bash, tcsh/csh.
+   (8.3.11) * Append FPATH for fish and prepend FPATH for csh, bash, tcsh/csh.
               Nothing for zsh as FPATH is a local variable.
 	    * Only set FPATH when SSH_CLIENT is defined.  This protects zsh on
 	      local installs where bash reads /etc/profile.d/z00_lmod.sh first
@@ -36,6 +36,6 @@ Lmod 8.3+
    (8.3.12) * Add configure option --with-supportKsh=no as default.  Configuring
               --with-supportKsh=yes will set FPATH for all shells but zsh and fish.
 WIP:
-   (8.3.13) * Move control of FPATH from profile.in/cshrc.in to bash.in/csh.in.
-              Sites rarely change profile/cshrc so it is better for FPATH control
-	      to be in  bash.in/csh.in/fish.in.
+   (8.3.13) * Move control of FPATH from profile.in/cshrc.in/profile.fish.in to
+              bash.in/csh.in/fish.in. Sites rarely change profile/cshrc/profile.fish
+	      so it is better for FPATH control to be in  bash.in/csh.in/fish.in.
