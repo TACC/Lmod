@@ -32,8 +32,6 @@ if test (id -u) -ne 0
 
         set -xg FISH_ENV @PKGV@/init/fish
 
-	set -xg FPATH (@PKGV@/libexec/addto --append FPATH @PKGV@/init/ksh_funcs)
-
         #
         # If MANPATH is empty, Lmod is adding a trailing ":" so that
         # the system MANPATH will be found
