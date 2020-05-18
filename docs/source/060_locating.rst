@@ -53,6 +53,9 @@ there are multiple directories specified in MODULEPATH, the rules get
 more complicated on what modulefile to load. Lmod uses the following
 rules to locate a modulefile:
 
+#. The user may specify *C/N*/default or *N*/default which is exactly
+   the same as *C/N* or *N*.  Namely Lmod removes the string
+   "/default" and then continues as if it was never there.
 #. It looks for an exact match in all ``MODULEPATH``
    directories. It picks the first match it finds.  This is true
    of hidden modules.  Specifying the fullName of a module will
@@ -211,6 +214,9 @@ The rules are different when the module layout is Name/Version/Version
 are in N/V/V format, the whole tree is searched with N/V/V rules.  Below
 are the rules that Lmod uses to locate a modulefile when in N/V/V mode:
 
+#. The user may specify *N*/default as *N/V*/default which is exactly
+   the same as *N* or *N/V*.  Namely Lmod removes the string
+   "/default" and then continues as if it was never there.
 #. It looks for an exact match in all ``MODULEPATH`` directories. It
    picks the first match it finds.
 #. If there is no exact match then Lmod finds the first match for the

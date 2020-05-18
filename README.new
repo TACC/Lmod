@@ -35,7 +35,9 @@ Lmod 8.3+
 	    * Copy ksh functions to zsh site directory.
    (8.3.12) * Add configure option --with-supportKsh=no as default.  Configuring
               --with-supportKsh=yes will set FPATH for all shells but zsh and fish.
-WIP:
    (8.3.13) * Move control of FPATH from profile.in/cshrc.in/profile.fish.in to
               bash.in/csh.in/fish.in. Sites rarely change profile/cshrc/profile.fish
 	      so it is better for FPATH control to be in  bash.in/csh.in/fish.in.
+	    * Allows the user to specify "Name/default" to load a module.  It is
+	      exactly the same as "Name". Lmod just removes the string "/default"
+	      from the userName in MName:new().
