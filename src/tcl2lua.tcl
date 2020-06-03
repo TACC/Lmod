@@ -568,6 +568,10 @@ proc depends-on { args} {
     eval cmdargs "depends_on" $args
 }
 
+proc my_exit { {code 1} } {
+    eval cmdargs "os.exit" $code
+}
+
 proc always-load { args} {
     eval cmdargs "always_load" $args
 }
@@ -831,6 +835,8 @@ proc execute-modulefile {modfile } {
     interp alias $child append-path    	{} append-path
     interp alias $child conflict       	{} conflict
     interp alias $child depends-on     	{} depends-on
+    interp alias $child exit     	{} my_exit
+    interp alias $child exxit     	{} my_exit
     interp alias $child extensions     	{} extensions
     interp alias $child family         	{} family
     interp alias $child initGA         	{} depends-on

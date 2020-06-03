@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.3.5  2020-03-04 16:45 -06:00
+Modules based on Lua: Version 8.3.13  2020-05-18 15:02 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -34,6 +34,7 @@ The following is a list of the modules and extensions currently available:
   junk/a/c: junk/a/c/1.0
   junk/b/c: junk/b/c/2.0
   junk/d: junk/d/3.0
+  lanl: lanl/1.0
   local: local/local
   mpi/openmpi: mpi/openmpi/1.6.5
   mpich2: mpich2/1.0.7
@@ -112,6 +113,8 @@ junk/b/c/
 junk/b/c/2.0
 junk/d/
 junk/d/3.0
+lanl/
+lanl/1.0
 local/
 local/local
 mpi/openmpi/
@@ -308,6 +311,7 @@ The following is a list of the modules and extensions currently available:
   junk/a/c: junk/a/c/1.0
   junk/b/c: junk/b/c/2.0
   junk/d: junk/d/3.0
+  lanl: lanl/1.0
   local: local/local
   mpi/openmpi: mpi/openmpi/1.6.5
   mpich2: mpich2/1.0.7

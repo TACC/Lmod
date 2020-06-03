@@ -1,0 +1,5 @@
+#%Module
+
+setenv A B
+exit 
+setenv C D
