@@ -41,6 +41,20 @@ zsh.  Also available for perl and python.
 It is also very easy to switch between different versions of a package
 or remove it.
 
+Lmod Web Sites
+^^^^^^^^^^^^^^
+
+    * Documentation:   http://lmod.readthedocs.org
+    * Github:          https://github.com/TACC/Lmod
+    * Sourceforge:     https://lmod.sf.net
+    * TACC Homepage:   https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
+    * Lmod Test Suite: https://github.com/rtmclay/Lmod_test_suite
+
+The most up-to-date source is at github. There is a secondary git repo
+found at Sourceforge. Both repos are the same. Stable tar files can be
+found at Sourceforce.
+
+
 Introduction to Lmod
 ^^^^^^^^^^^^^^^^^^^^
 
