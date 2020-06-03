@@ -41,3 +41,5 @@ Lmod 8.3+
 	    * Allows the user to specify "Name/default" to load a module.  It is
 	      exactly the same as "Name". Lmod just removes the string "/default"
 	      from the userName in MName:new().
+   (8.3.14) * Handle exit in a TCL modulefile.
+   

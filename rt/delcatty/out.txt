@@ -60,7 +60,6 @@ export _ModuleTable_;
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Error
 ===========================
-false
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list

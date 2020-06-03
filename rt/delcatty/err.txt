@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.7.27  2018-04-04 14:38 -05:00
+Modules based on Lua: Version 8.3.13  2020-05-18 15:02 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -22,12 +22,7 @@ Currently Loaded Modules:
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Error
 ===========================
-Lmod has detected the following error: Unable to load module because of error when evaluating modulefile: Error
-     ProjectDIR/rt/delcatty/mf/Core/Error/1.0: Non-zero status returned
-     Please check the modulefile and especially if there is a the line number specified in the above message
-While processing the following module(s):
-    Module fullname  Module Filename
-    Error/1.0        ProjectDIR/rt/delcatty/mf/Core/Error/1.0
+Big bad error message
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
