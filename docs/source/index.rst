@@ -51,8 +51,9 @@ Lmod Web Sites
     * Lmod Test Suite: https://github.com/rtmclay/Lmod_test_suite
 
 The most up-to-date source is at github. There is a secondary git repo
-found at Sourceforge. Both repos are the same. Stable tar files can be
-found at Sourceforce.
+found at Sourceforge. Both repos are the same. Stable releases in the
+form of tar files can be found at Sourceforce. All label versions found
+at the git repos have passed Lmod's regression test suite.
 
 
 Introduction to Lmod
