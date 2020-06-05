@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.7.14  2017-11-16 16:23 -07:00
+Modules based on Lua: Version 8.3.14  2020-06-03 18:02 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -82,8 +82,16 @@ prereq("F")
 load("G")
 always_load("G")
 unload("H")
+os.exit("143")
 ===========================
 step 12
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show b_tcl
+===========================
+   ProjectDIR/rt/show/mf/Core2/b_tcl/1.0:
+setenv("A","B")
+os.exit("1")
+===========================
+step 13
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show nosuchmodule
 ===========================
 Lmod Warning: Failed to find the following module(s): "nosuchmodule" in your MODULEPATH
