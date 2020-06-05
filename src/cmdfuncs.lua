@@ -791,7 +791,10 @@ function Show(...)
                      a[#a+1] = borderStr
                      return concatTbl(a,"")
                   end
+   local exit = os.exit
+   sandbox_set_os_exit(show_exit)
    master:access(...)
+   os.exit = exit
    dbg.fini("Show")
 end
 

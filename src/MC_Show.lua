@@ -107,7 +107,7 @@ end
 -- Print exit command.
 -- @param self A MasterControl object
 -- @param value the whatis string.
-function M.exit(self, value)
+function show_exit(value)
    ShowCmd("os.exit", value)
 end
 
