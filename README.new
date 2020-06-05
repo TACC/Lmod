@@ -42,4 +42,4 @@ Lmod 8.3+
 	      exactly the same as "Name". Lmod just removes the string "/default"
 	      from the userName in MName:new().
    (8.3.14) * Handle exit in a TCL modulefile.
-   
+   (8.3.15) * Print os.exit() when showing a module.
