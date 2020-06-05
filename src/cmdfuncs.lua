@@ -772,7 +772,7 @@ end
 
 --------------------------------------------------------------------------
 -- Use the show mode of MasterControl to list the active Lmod
--- commands in a module file.  Note that it is always in Lua
+-- commands in a module file.  Note that the output is always in Lua
 -- even if the modulefile is written in TCL.
 function Show(...)
    local master = Master:singleton()

@@ -104,6 +104,14 @@ function M.whatis(self, value)
 end
 
 --------------------------------------------------------------------------
+-- Print exit command.
+-- @param self A MasterControl object
+-- @param value the whatis string.
+function M.exit(self, value)
+   ShowCmd("os.exit", value)
+end
+
+--------------------------------------------------------------------------
 -- Print execute command.
 -- @param self A MasterControl object.
 -- @param t Input table describing shell command.
