@@ -91,6 +91,8 @@ local sandbox_env = {
                loadlib = package.loadlib, path = package.path, preload = package.preload,
                seeall = package.seeall },
 
+  math     = { floor = math.floor, ceil = math.ceil, min = math.min, max = math.max },
+
   ------------------------------------------------------------
   -- lmod functions
   ------------------------------------------------------------
