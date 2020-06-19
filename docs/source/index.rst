@@ -44,11 +44,12 @@ or remove it.
 Lmod Web Sites
 ^^^^^^^^^^^^^^
 
-    * Documentation:   http://lmod.readthedocs.org
-    * Github:          https://github.com/TACC/Lmod
-    * Sourceforge:     https://lmod.sf.net
-    * TACC Homepage:   https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
-    * Lmod Test Suite: https://github.com/rtmclay/Lmod_test_suite
+    * Documentation:          https://lmod.readthedocs.io/en/latest/
+    * Github:                 https://github.com/TACC/Lmod
+    * Sourceforge:            https://lmod.sf.net
+    * TACC Homepage:          https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
+    * Lmod Test Suite:        https://github.com/rtmclay/Lmod_test_suite
+    * Join Lmod Mailing list: https://sourceforge.net/projects/lmod/lists/lmod-users
 
 The most up-to-date source is at github. There is a secondary git repo
 found at Sourceforge. Both repos are the same. Stable releases in the
@@ -125,13 +126,12 @@ Advanced Topics
    310_settarg
    320_improving_perf
    330_extensions
-
+   340_inherit
 Topics yet to be written
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 #. Optional Software layout, two digit rule
 #. Advanced Topics: priority path, .modulerc tricks
-#. inherit
 #. internal structure of lmod.
 
 
