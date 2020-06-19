@@ -223,3 +223,9 @@ the name and version of a modulefile.
    Returns the hierarchy of the current module.  See the section on
    Generic Modules for more details.
 
+Special Functions
+~~~~~~~~~~~~~~~~~
+
+**inherit** (): imports the contents of exact same name module also
+   found in the module tree. (See :ref:`inherit-label` for an
+   explanation.)
