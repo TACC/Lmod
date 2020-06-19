@@ -1,13 +1,15 @@
-local version = "13.1"
+local full_version = myModuleVersion()
+local version      = full_version:gsub("%..*","")
+local compiler     = myModuleName()
 setenv("INTEL_KIND","SYSTEM")
 whatis("Name: Intel Compiler")
-whatis("Version: ".. version)
+whatis("Version: ".. full_version)
 whatis("Category: compiler, runtime support")
 whatis("Description: Intel Compiler Family (C/C++/Fortran for x86_64)")
 whatis("URL: http://software.intel.com/en-us/articles/intel-compilers/")
 prepend_path("PATH", "/unknown/apps/intel/13.1/bin/intel64")
 
-prepend_path("MODULEPATH", pathJoin(os.getenv("MODULEPATH_ROOT"),"Compiler/intel",version))
+prepend_path("MODULEPATH", pathJoin(os.getenv("MODULEPATH_ROOT"),"Compiler",compiler,version))
 
 family("compiler")
 help([[

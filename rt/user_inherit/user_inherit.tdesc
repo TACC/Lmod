@@ -1,5 +1,5 @@
 -- -*- lua -*-
-local testName = "rtm_inherit"
+local testName = "user_inherit"
 testdescript = {
    owner   = "rtm",
    product = "modules",
@@ -18,10 +18,10 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     MODULEPATH_ROOT=$(testDir)/mf;               export MODULEPATH_ROOT
-     RTM_MODULEPATH_ROOT=$MODULEPATH_ROOT/rtm_mf; export RTM_MODULEPATH_ROOT
+     MODULEPATH_ROOT=$(testDir)/mf;         export MODULEPATH_ROOT
+     MY_MODULEPATH_ROOT=$(testDir)/user_mf;  export MY_MODULEPATH_ROOT
 
-     export MODULEPATH=$(testDir)/rtm_mf/Core:$(testDir)/mf/Core
+     export MODULEPATH=$(testDir)/user_mf/Core:$(testDir)/mf/Core
 
      RTM_SETTARG_CMD=":";               export RTM_SETTARG_CMD
 
@@ -30,7 +30,10 @@ testdescript = {
      runLmod --version        # 1
      runLmod avail            # 2
      runLmod load intel       # 3
-     runLmod help intel       # 4
+     runLmod avail            # 4
+     runLmod help intel       # 5
+     runLmod load boost       # 6
+     runLmod list             # 7
 
      HOME=$ORIG_HOME
 

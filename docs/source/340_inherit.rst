@@ -58,10 +58,18 @@ need at ~/my_modules/Core/intel/19.0.5.lua you have::
 
    inherit()
    local compiler = "intel"
-   local MP_ROOT  = os.getenv("RTM_MODULEPATH_ROOT")
+   local MP_ROOT  = os.getenv("MY_MODULEPATH_ROOT")
    local version  = "19"
 
    prepend_path("MODULEPATH", pathJoin(MP_ROOT, "Compiler",compiler,version))
+
+It would be best to mark your versions of the compilers (and mpi
+modules if they exist) as defaults. Module default are chosen over the
+highest version.  The easiest way to mark module as the default is
+with a symbolic link::
+
+    $ cd ~/my_modules/Core/intel; ln -s 19.0.5.lua default
+    $ cd ~/my_modules/Core/gcc;   ln -s 9.1.lua    default
 
 Then to support your personal boost 1.9 module for gcc goes at
 **~/my_modules/Compiler/gcc/9/boost/1.9.lua**. And the boost 1.9 module
@@ -92,4 +100,8 @@ Assuming that you have an impi 19.0.5, you will place at
 
 Then your parallel application ACME version 1.3 will have a modulefile
 found at **~/my_modules/MPI/intel/19/impi/19/acme/1.3.lua**
+
+An example of setting up a user can be found in the source in the
+rt/user_inherit directory.  In the **mf** directory is the "system"
+directory and the **user_mf** directory is a user supplied tree.
 
