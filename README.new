@@ -44,4 +44,5 @@ Lmod 8.3+
    (8.3.14) * Handle exit in a TCL modulefile.
    (8.3.15) * Print os.exit() when showing a module.
    (8.3.16) * Issue #454: Ignore broken cache files.
-   
+W.I.P:   
+   (8.3.17) * Issue #451: updated documentation about user software hierarchy. 
