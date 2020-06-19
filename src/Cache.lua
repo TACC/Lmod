@@ -326,7 +326,13 @@ local function l_readCacheFile(self, spiderTFnA)
          if (valid) then
 
             -- Check for matching default MODULEPATH.
-            assert(loadfile(fn))()
+            local resultFunc = loadfile(fn)
+            if (resultFunc == nil) then
+               dbg.print{"Broken cache file: ",fn,"\n"}
+               break
+            end
+            resultFunc() --> Finish the loadfile()
+
             if (_G.mrcT == nil or next(_G.mrcT) == nil) then
                LmodError{msg="e_BrokenCacheFn",fn=fn}
             end

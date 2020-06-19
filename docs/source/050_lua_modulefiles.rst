@@ -223,6 +223,18 @@ the name and version of a modulefile.
    Returns the hierarchy of the current module.  See the section on
    Generic Modules for more details.
 
+Math Functions
+~~~~~~~~~~~~~~
+
+**math.floor** (): math floor function
+
+**math.ceil** (): math ceil function
+
+**math.max** (): math max function
+
+**math.min** (): math min function
+
+
 Special Functions
 ~~~~~~~~~~~~~~~~~
 

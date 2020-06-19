@@ -43,3 +43,5 @@ Lmod 8.3+
 	      from the userName in MName:new().
    (8.3.14) * Handle exit in a TCL modulefile.
    (8.3.15) * Print os.exit() when showing a module.
+   (8.3.16) * Issue #454: Ignore broken cache files.
+   
