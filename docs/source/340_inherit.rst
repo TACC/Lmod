@@ -32,13 +32,17 @@ To make things concrete, let's assume that are a boost developer and
 the system has a boost library as well.  The system boost version is
 1.8 and you are working on 1.9.  There is a system gcc 9.1 module.
 You create the following directory: $HOME/my_modules and under there
-you create Core and Compiler directories::
+you create Core, Compiler and MPI  directories::
 
    $ mkdir -p ~/my_modules/{Core,Compiler,MPI}
 
 You also set the following environment variable::
 
    $ export MY_MODULEPATH_ROOT=$HOME/my_modules
+
+When this is set up you will do::
+
+   $ module use ~/my_modules/Core
 
 Then in the file ~/my_modules/Core/gcc/9.1.lua you have::
 
