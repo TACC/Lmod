@@ -45,4 +45,6 @@ Lmod 8.3+
    (8.3.15) * Print os.exit() when showing a module.
    (8.3.16) * Issue #454: Ignore broken cache files.
 W.I.P:   
-   (8.3.17) * Issue #451: updated documentation about user software hierarchy. 
+   (8.3.17) * Issue #451: updated documentation about user software hierarchy.
+            * make io.stderr:write be silent when spidering modulefiles
+	    

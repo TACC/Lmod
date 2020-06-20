@@ -58,6 +58,8 @@ local lfs   = require("lfs")
 
 sandbox_run = false
 
+local old_write    = nil
+local file_methods = nil
 
 --------------------------------------------------------------------------
 -- Table containing valid functions for modulefiles.
@@ -259,7 +261,21 @@ function sandbox_set_os_exit(func)
    sandbox_env.os.exit = func
 end
 
+function turn_off_stderr()
+   file_methods = getmetatable(io.stderr).__index  -- any file will do
+   old_write    = file_methods.write
+   file_methods.write =
+      function(f,...)
+         if f ~= io.stderr then
+            return old_write(f,...)
+         end
+         return f
+      end
+end
 
+function turn_on_stderr()
+   file_methods.write = old_write
+end
 
 --------------------------------------------------------------------------
 -- This function is what actually "loads" a modulefile with protection

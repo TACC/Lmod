@@ -258,6 +258,7 @@ function M.findAllModules(self, mpathA, spiderT)
    dbg.start{"Spider:findAllModules(",concatTbl(mpathA,", "),")"}
    spiderT.version = LMOD_CACHE_VERSION
 
+   local tracing         = cosmic:value("LMOD_TRACING")
    local mt              = deepcopy(MT:singleton())
    local maxdepthT       = mt:maxDepthT()
    local masterTbl       = masterTbl()
@@ -271,7 +272,10 @@ function M.findAllModules(self, mpathA, spiderT)
    os.exit               = nothing
    
    sandbox_set_os_exit(nothing)
-   dbg.print{"setting os.exit to nothing\n"}
+   if (not tracing) then
+      turn_off_stderr()
+   end
+   dbg.print{"setting os.exit to nothing; turn off output to stderr\n"}
    if (Use_Preload) then
       local a = {}
       mList   = getenv("LOADEDMODULES") or ""
@@ -319,9 +323,12 @@ function M.findAllModules(self, mpathA, spiderT)
       until true
    end
 
-   dbg.print{"Resetting os.exit back\n"}
+   dbg.print{"Resetting os.exit back; stderr back on\n"}
    os.exit               = exit
    sandbox_set_os_exit(exit)
+   if (not tracing) then
+      turn_on_stderr()
+   end
    dbg.fini("Spider:findAllModules")
 end
 
