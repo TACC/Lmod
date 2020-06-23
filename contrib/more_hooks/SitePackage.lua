@@ -197,7 +197,8 @@ end
 
 
 local function get_avail_memory()
-    -- If a limit is set, return the maximum allowed memory, else nil
+    -- If a limit is set at the point the module is loaded,
+    -- return the maximum allowed memory, else nil
 
     -- look for the memory cgroup (if any)
     local cgroup = nil

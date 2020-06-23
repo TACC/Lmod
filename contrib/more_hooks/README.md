@@ -17,8 +17,8 @@ The version of this `SitePackage.lua` used in production can be at
 https://github.com/hpcugent/Lmod-UGent/
 
 It also contains a `get_avail_memory` function that is exported to the module sandbox. It
-can be used to find out if the memory is limited (by cgroup) in the environment of
-the module. Example usage for a Java module:
+can be used to find out if the memory is limited (by cgroups) in the environment where
+the module is loaded. Example usage for a Java module:
 
 ```lua
 local mem = get_avail_memory()
