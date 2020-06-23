@@ -196,6 +196,42 @@ local function visible_hook(modT)
 end
 
 
+local function get_avail_memory()
+    -- If a limit is set at the point the module is loaded,
+    -- return the maximum allowed memory, else nil
+
+    -- look for the memory cgroup (if any)
+    local cgroup = nil
+    for line in io.lines("/proc/self/cgroup") do
+        cgroup = line:match("^[0-9]+:memory:(.*)$")
+        if cgroup then
+            break
+        end
+    end
+
+    if not cgroup then
+        return nil
+    end
+
+    -- read of the current maximum allowed memory usage (memory + swap)
+    local memory_file = io.open("/sys/fs/cgroup/memory/" .. cgroup .. "/memory.memsw.limit_in_bytes")
+
+    if not memory_file then
+        return nil
+    end
+
+    local memory_value = tonumber(memory_file:read())
+    memory_file:close()
+
+    -- if the value is 2^63-1 (rounded down to multiples of 4096), it's unlimited
+    if memory_value == 9223372036854771712 then
+        return nil
+    end
+
+    return memory_value
+end
+
+
 hook.register("load", load_hook)
 hook.register("startup", startup_hook)
 hook.register("msgHook", msg_hook)
@@ -203,3 +239,7 @@ hook.register("SiteName", site_name_hook)
 hook.register("packagebasename", packagebasename)
 hook.register("errWarnMsgHook", errwarnmsg_hook)
 hook.register("isVisibleHook", visible_hook)
+
+sandbox_registration{
+    get_avail_memory = get_avail_memory,
+}
