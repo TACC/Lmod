@@ -13,7 +13,7 @@ if status -i
    end
 else
    function module
-      eval $LMOD_CMD --no_redirect fish $argv | source -
+      eval $LMOD_CMD fish --no_redirect $argv | source -
    end
 end
 

@@ -47,3 +47,6 @@ Lmod 8.3+
    (8.3.17) * Issue #451: updated documentation about user software hierarchy.
             * make io.stderr:write be silent when spidering modulefiles
 	    * Add a doc on community module collections.
+W.I.P.:
+   (8.3.18) * Fix order of argument for module command in fish shell when
+              non-interactive.
