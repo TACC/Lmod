@@ -1,8 +1,6 @@
 #!/bin/sh
 ########################################################################
-#  This is the system wide source file for setting up
-#  modules:
-#
+#  This is the system wide source file for setting up modules
 ########################################################################
 
 if [ -z "${USER_IS_ROOT:-}" ]; then

@@ -50,3 +50,4 @@ Lmod 8.3+
 W.I.P.:
    (8.3.18) * Fix order of argument for module command in fish shell when
               non-interactive.
+	    * Issue #458: Must change source to . because of /bin/dash
