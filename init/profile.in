@@ -63,9 +63,9 @@ if [ -z "${USER_IS_ROOT:-}" ]; then
   my_shell=$($EXPR_CMD    "$my_shell" : '-*\(.*\)')
   my_shell=$($BASENAME_CMD $my_shell)
   if [ -f @PKGV@/init/$my_shell ]; then
-     source    @PKGV@/init/$my_shell >/dev/null # Module Support
+     .    @PKGV@/init/$my_shell >/dev/null # Module Support
   else
-     source    @PKGV@/init/sh        >/dev/null # Module Support
+     .    @PKGV@/init/sh        >/dev/null # Module Support
   fi
   unset my_shell PS_CMD EXPR_CMD BASENAME_CMD MODULEPATH_INIT
 fi
