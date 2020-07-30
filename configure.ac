@@ -797,7 +797,7 @@ else
     echo "... no"
   else
     lfsV=`$luaprog getLFSVersion`
-    if test "$lfsV" -lt 1006002; then
+    if test "$lfsV" -lt 1008000; then
        echo "... Too old, using providing version"
     else
        echo "... yes"    
