@@ -1,3 +1,55 @@
+Lmod 8.3+
+   (8.3.1)  * Fix bug in sh_to_modulefile by removing arbitrary limit of 5 path
+              like elements.
+   (8.3.2)  * Fix bug so that gdate instead of date is called on macOS.
+   (8.3.3)  * Delete makefile if configure cannot find tcl.h or -ltcl
+            * Make sure that --with-fastTCLInterp= yes or no
+            * Issue #435: Make sure that the echo in bash.in go to stderr.
+            * Issue #437: Update docs on LMOD_AVAIL_STYLE
+   (8.3.4)  * Issue #438: Better handling of '[[' in values when serializing
+              a table'
+            * Issue #439: Add force_update argument to Master:reloadAll() to 
+              reload allmodules when doing a "module update"
+   (8.3.5)  * Now only write s.log from sh_to_modulefile.in.lua when the debug 
+              option is given.
+   (8.3.6)  * Create findExec shell function to locate commands like ps.
+   (8.3.7)  * Issue #442: Small fix to messageDir/de.lua
+            * Remove extra semicolons from tcl output in sh_to_modulefile
+            * Add trailing newline on output of modulefile written to a file
+              in sh_to_modulefile.
+            * Issue #444: adding load_any() function. Also adding isDefined()
+              and isNotDefined() functions to make configurations easier in
+              the future.
+   (8.3.8)  * Add flag to say when findInPath() found executable.
+   (8.3.9)  * Added to FAQ: Why does Lmod use a static location of Lua.
+            * Protect Lmod from "module-version 1.7.0_143 1.7" when it should be
+	      "module-version /1.7.0_143 1.7".
+            * Issue #448: Remove local keyword from findExec() so that ksh
+	      won't barf.
+   (8.3.10) * Improved support for ksh: Defined FPATH for bash, sh, csh (not zsh).
+              the module, ml etc functions for ksh sub-shells
+   (8.3.11) * Append FPATH for fish and prepend FPATH for csh, bash, tcsh/csh.
+              Nothing for zsh as FPATH is a local variable.
+	    * Only set FPATH when SSH_CLIENT is defined.  This protects zsh on
+	      local installs where bash reads /etc/profile.d/z00_lmod.sh first
+	    * Copy ksh functions to zsh site directory.
+   (8.3.12) * Add configure option --with-supportKsh=no as default.  Configuring
+              --with-supportKsh=yes will set FPATH for all shells but zsh and fish.
+   (8.3.13) * Move control of FPATH from profile.in/cshrc.in/profile.fish.in to
+              bash.in/csh.in/fish.in. Sites rarely change profile/cshrc/profile.fish
+	      so it is better for FPATH control to be in  bash.in/csh.in/fish.in.
+	    * Allows the user to specify "Name/default" to load a module.  It is
+	      exactly the same as "Name". Lmod just removes the string "/default"
+	      from the userName in MName:new().
+   (8.3.14) * Handle exit in a TCL modulefile.
+   (8.3.15) * Print os.exit() when showing a module.
+   (8.3.16) * Issue #454: Ignore broken cache files.
+   (8.3.17) * Issue #451: updated documentation about user software hierarchy.
+            * make io.stderr:write be silent when spidering modulefiles
+	    * Add a doc on community module collections.
+   (8.3.18) * Fix order of argument for module command in fish shell when
+              non-interactive.
+	    * Issue #458: Must change source to . because of /bin/dash
 Lmod 8.2+
    (8.2.1)  * Reset contrib/tracking_module_usage/createDB.py back to the version found in 6.0.25
    (8.2.2)  * Use 'hostname -f' when 'uname -n' does not return a fully qualified hostname.

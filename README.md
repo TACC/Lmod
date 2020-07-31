@@ -32,6 +32,25 @@ release at sourceforge.
 ## ChangeLog
 
 
+### Lmod 8.4:
+
+Features:
+
+   1. Support for Lua 5.4 added.
+
+   2. Improved support for ksh and ksh scripts.
+   
+   3. Improved documentation for software hierarchy and community module collections.
+
+Bug Fixes:
+
+   1. Handle exit in TCL modulefile; Handle os.exit() when performing spider
+
+   2. Now handles /bin/dash startup.
+
+   3. Support improved for fish shell
+   
+
 ### Lmod 8.3:
 
 Features:
