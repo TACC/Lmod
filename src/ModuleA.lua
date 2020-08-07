@@ -287,7 +287,7 @@ function M.__find_all_defaults(self)
    local show_hidden = masterTbl().show_hidden
    local mrc         = MRC:singleton()
 
-   local function find_all_defaults_helper(level,isNVV, mpath, sn, v)
+   local function l_find_all_defaults_helper(level,isNVV, mpath, sn, v)
       local weight, keepLooking, fn, idx
       local ext, count, myfullName
       local found = false
@@ -333,7 +333,7 @@ function M.__find_all_defaults(self)
       end
       if (next(v.dirT) ~= nil) then
          for name, vv in pairs(v.dirT) do
-            find_all_defaults_helper(level+1,isNVV, mpath, sn, vv)
+            l_find_all_defaults_helper(level+1,isNVV, mpath, sn, vv)
          end
       end
    end
@@ -344,7 +344,7 @@ function M.__find_all_defaults(self)
       local T      = moduleA[i].T
       local mpath  = moduleA[i].mpath
       for sn, v in pairs(T) do
-         find_all_defaults_helper(level+1,isNVV, mpath, sn, v)
+         l_find_all_defaults_helper(level+1,isNVV, mpath, sn, v)
       end
    end
 
@@ -362,7 +362,7 @@ function M.build_availA(self)
    local show_hidden = masterTbl().show_hidden
    local mrc         = MRC:singleton()
 
-   local function build_availA_helper(mpath, sn, v, A)
+   local function l_build_availA_helper(mpath, sn, v, A)
       local icnt = #A
       if (v.file ) then
          if (show_hidden or mrc:isVisible({fullName=sn,sn=sn,fn=v.file})) then
@@ -380,7 +380,7 @@ function M.build_availA(self)
       end
       if (next(v.dirT) ~= nil) then
          for name, vv in pairs(v.dirT) do
-            build_availA_helper(mpath, sn, vv, A)
+            l_build_availA_helper(mpath, sn, vv, A)
          end
       end
    end
@@ -396,7 +396,7 @@ function M.build_availA(self)
       local mpath     = moduleA[i].mpath
       availA[i]       = {mpath = mpath, A= {}}
       for sn, v in pairs(T) do
-         build_availA_helper(mpath, sn, v, availA[i].A)
+         l_build_availA_helper(mpath, sn, v, availA[i].A)
       end
       sort(availA[i].A, cmp)
    end
