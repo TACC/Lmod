@@ -35,22 +35,22 @@ describe("Testing Spider Class #Spider.",
                         TACC = {
                            defaultT = {},
                            dirT = {},
-                           ["file"] = "%ProjDir%/spec/Spider/mf/Core/TACC.lua",
-                           fileT = {},
-                           metaModuleT = {
-                              ["canonical"] = "TACC",
-                              ["fn"] = "%ProjDir%/spec/Spider/mf/Core/TACC.lua",
-                              ["luaExt"] = 5,
-                              ["mpath"] = "%ProjDir%/spec/Spider/mf/Core",
-                              ["pV"] = "~",
-                              ["wV"] = "~",
-                              propT = {
-                                 arch = {
-                                    ["mic"] = 1,
+                           fileT = {
+                              TACC = {
+                                 ["Version"] = false,
+                                 ["canonical"] = "",
+                                 ["fn"] = "%ProjDir%/spec/Spider/mf/Core/TACC.lua",
+                                 ["luaExt"] = 5,
+                                 ["mpath"] = "%ProjDir%/spec/Spider/mf/Core",
+                                 ["pV"] = "M.*zfinal",
+                                 propT = {
+                                    arch = {
+                                       ["mic"] = 1,
+                                    },
                                  },
+                                 ["wV"] = "M.*zfinal",
                               },
                            },
-                           ["mpath"] = "%ProjDir%/spec/Spider/mf/Core",
                         },
                         icr = {
                            defaultT = {

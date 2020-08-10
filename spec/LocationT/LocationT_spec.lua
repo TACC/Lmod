@@ -53,9 +53,17 @@ describe("Testing LocationT Class #LocationT.",
                      },
                      ["bio/g"]  = {
                         dirT = {},
-                        ["file"] = "%ProjDir%/spec/LocationT/nv/bio/g.lua",
-                        fileT = {},
-                        ["mpath"] = "%ProjDir%/spec/LocationT/nv",
+                        fileT = {
+                           ["bio/g"] = {
+                              ["Version"] = false,
+                              ["canonical"] = "",
+                              ["fn"] = "%ProjDir%/spec/LocationT/nv/bio/g.lua",
+                              ["luaExt"] = 2,
+                              ["mpath"] = "%ProjDir%/spec/LocationT/nv",
+                              ["pV"] = "M.*zfinal",
+                              ["wV"] = "M.*zfinal",
+                           },
+                        },
                      },
                      foo = {
                         dirT = {},

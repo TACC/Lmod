@@ -56,9 +56,10 @@ local find_first  = cosmic:value("LMOD_TMOD_FIND_FIRST")
 -- print(__FILE__() .. ':' .. __LINE__())
 ----------------------------------------------------------------------
 -- We use the trick of penalizing the parsed version string to mark defaults
--- The order is as follows:
+-- The order is as follows based on the ascii table:
 --     *     -> Words like beta start with an asterisk
 --   [0-9]   -> Numbers are zero patted to nine places
+--     M     -> A module with no version (meta-module)
 --     ^     -> Versions marked by default or .version or .modulerc
 --     s     -> Versions marked by System .modulerc
 --     u     -> Versions marked by User   .modulerc
@@ -115,10 +116,15 @@ local function GroupIntoModules(self, level, maxdepth, mpath, dirT, T)
          if (next(dirT.defaultT) ~= nil and (dirT.defaultT.value == fullName)) then
             defaultT = dirT.defaultT
          end
-         local metaModuleT = v
-         metaModuleT.pV = "~"
-         metaModuleT.wV = "~"
-         T[fullName] = {file = v.fn, metaModuleT = metaModuleT, fileT = {}, dirT = {}, defaultT = defaultT, mpath = mpath}
+         --local metaModuleT = v
+         --metaModuleT.pV = "~"
+         --metaModuleT.wV = "~"
+         --T[fullName] = {file = v.fn, metaModuleT = metaModuleT, fileT = {}, dirT = {}, defaultT = defaultT, mpath = mpath}
+
+         local fileT = {}
+         fileT[fullName] = {Version = false, canonical = "", fn = v.fn, luaExt = v.luaExt, mpath = mpath,
+                            pV = "M.*zfinal", wV = "M.*zfinal", propT = v.propT}
+         T[fullName] = { fileT = fileT, defaultT = defaultT, dirT = {}}
       end
    end
    for path, v in pairs(dirT.dirT) do

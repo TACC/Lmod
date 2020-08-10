@@ -105,18 +105,18 @@ describe("Testing ModuleA Class #ModuleA.",
                         ["bio/genomics"]  = {
                            defaultT = {},
                            dirT = {},
-                           ["file"] = "%ProjDir%/spec/ModuleA/mf/bio/genomics.lua",
-                           fileT = {},
-                           metaModuleT = {
-                              ["canonical"] = "genomics",
-                              ["fn"] = "%ProjDir%/spec/ModuleA/mf/bio/genomics.lua",
-                              ["luaExt"] = 9,
-                              ["mpath"] = "%ProjDir%/spec/ModuleA/mf",
-                              ["pV"] = "~",
-                              ["wV"] = "~",
-                              propT = { arch = { ["mic"] = 1} }
+                           fileT = {
+                              ["bio/genomics"]  = {
+                                 ["Version"] = false,
+                                 ["canonical"] = "",
+                                 ["fn"] = "%ProjDir%/spec/ModuleA/mf/bio/genomics.lua",
+                                 ["luaExt"] = 9,
+                                 ["mpath"] = "%ProjDir%/spec/ModuleA/mf",
+                                 ["pV"] = "M.*zfinal",
+                                 ["wV"] = "M.*zfinal",
+                                 propT = { arch = { ["mic"] = 1} }
+                              }
                            },
-                           ["mpath"] = "%ProjDir%/spec/ModuleA/mf",
                         },
                         boost = {
                            defaultT = {},
@@ -151,9 +151,11 @@ describe("Testing ModuleA Class #ModuleA.",
                   local rplmntA      = { {projDir,"%%ProjDir%%"} }
                   local _mA          = {}
                   sanizatizeTbl(rplmntA, mA, _mA)
-                  --print(serializeTbl{indent=true, name="mA",   value = _mA})
-                  --print(serializeTbl{indent=true, name="goldA",value = goldA})
-                  assert.are.same(goldA, _mA)
+                  local iret = assert.are.same(goldA, _mA)
+                  --if (iret) then
+                  --   print(serializeTbl{indent=true, name="mA",   value = _mA})
+                  --   print(serializeTbl{indent=true, name="goldA",value = goldA})
+                  --end
 
                   local defaultT = moduleA:defaultT()
 
@@ -168,7 +170,7 @@ describe("Testing ModuleA Class #ModuleA.",
                         ["count"] = 1,
                         ["fullName"] = "bio/genomics",
                         ["sn"] = "bio/genomics",
-                        ["weight"] = "999999999.*zfinal",
+                        ["weight"] = "M.*zfinal",
                      },
                      ["%ProjDir%/spec/ModuleA/mf/boost/1.46.0.lua"]  = {
                         ["count"] = 1,
@@ -208,7 +210,7 @@ describe("Testing ModuleA Class #ModuleA.",
                            {
                               ["fn"] = "%ProjDir%/spec/ModuleA/mf/bio/genomics.lua",
                               ["fullName"] = "bio/genomics",
-                              ["pV"] = "bio/genomics",
+                              ["pV"] = "bio/genomics/M.*zfinal",
                               ["sn"] = "bio/genomics",
                               propT = { arch = { ["mic"] = 1} }
                            },
@@ -225,8 +227,9 @@ describe("Testing ModuleA Class #ModuleA.",
 
                   local _availA = {}
                   sanizatizeTbl(rplmntA, availA, _availA)
-                  --print(serializeTbl{indent=true, name="availA",value = _availA})
                   assert.are.same(gold_availA, _availA)
+                  --print(serializeTbl{indent=true, name="availA",value = _availA})
+                  --print(serializeTbl{indent=true, name="gold_availA",value = gold_availA})
                end)
          end
 )
