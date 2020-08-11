@@ -225,6 +225,10 @@ describe("Testing LocationT Class #LocationT.",
                end
             )
             it("3rd Test of meta module and regular modules with same name",
+               -- Note: This case has a directory named Foo and a module named "Foo.lua"
+               -- Lmod choses the directory over the meta module named Foo.
+               -- This is because there is no way that a TCL module named "Foo" and
+               -- a directory named "Foo" can exist at the same time.
                function()
                   local goldT = {
                      Foo = {
