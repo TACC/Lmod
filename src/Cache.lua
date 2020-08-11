@@ -223,10 +223,11 @@ end
 -- @param t A table with possible dontWrite and quiet entries.
 -- @return A singleton Cache object.
 function M.singleton(self, t)
-   dbg.start{"Cache:cache()"}
+   dbg.start{"Cache:singleton()"}
 
    t                = t or {}
    if (not s_cache) then
+      dbg.print{"Rebuilding s_cache\n"}
       s_cache   = new(self, t)
    end
 
@@ -261,7 +262,7 @@ function M.singleton(self, t)
       end
    end
 
-   dbg.fini("Cache:cache")
+   dbg.fini("Cache:singleton")
    return s_cache
 end
 
@@ -411,14 +412,13 @@ function M.build(self, fast)
    -- we need to.
    local mrc       = MRC:singleton({})
 
-
    dbg.print{"self.buildCache: ",self.buildCache,"\n"}
    if (not self.buildCache) then
       dbg.fini("Cache:build")
       mrc:update()
       return false, false, false, false
    end
-
+   
    if (next(spiderT) ~= nil) then
       dbg.print{"Using pre-built spiderT!\n"}
       dbg.fini("Cache:build")
@@ -429,6 +429,9 @@ function M.build(self, fast)
    local frameStk    = FrameStk:singleton()
    local mt          = frameStk:mt()
    local mpathA      = mt:modulePathA()
+   dbg.printT("mpathA",mpathA)
+
+
    local masterTbl   = masterTbl()
    local T1          = epoch()
    local sysDirsRead = 0
@@ -673,4 +676,8 @@ function M.build(self, fast)
    return spiderT, dbT, mpathMapT, providedByT
 end
 
+function M.__clear()
+   dbg.print{"Clearing s_cache\n"}
+   s_cache = false
+end
 return M

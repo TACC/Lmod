@@ -8,8 +8,10 @@ require("serializeTbl")
 
 _G.MasterControl = require("MasterControl")
 local DirTree   = require("DirTree")
+local MT        = require("MT")
 local ModuleA   = require("ModuleA")
-
+local FrameStk  = require("FrameStk")
+local dbg       = require("Dbg"):dbg()
 local concatTbl = table.concat
 local cosmic    = require("Cosmic"):singleton()
 local getenv    = os.getenv
@@ -231,5 +233,79 @@ describe("Testing ModuleA Class #ModuleA.",
                   --print(serializeTbl{indent=true, name="availA",value = _availA})
                   --print(serializeTbl{indent=true, name="gold_availA",value = gold_availA})
                end)
+            it("Test of meta module and regular modules with same name",
+               function()
+                  local goldA = {
+                     {
+                        T = {
+                           Foo = {
+                              defaultT = {},
+                              dirT = {},
+                              fileT = {
+                                 Foo = {
+                                    ["Version"] = false,
+                                    ["canonical"] = "",
+                                    ["fn"] = "%ProjDir%/spec/ModuleA/mf2/Foo.lua",
+                                    ["luaExt"] = 4,
+                                    ["mpath"] = "%ProjDir%/spec/ModuleA/mf2",
+                                    ["pV"] = "M.*zfinal",
+                                    ["wV"] = "M.*zfinal",
+                                 },
+                              },
+                           },
+                        },
+                        ["mpath"] = "%ProjDir%/spec/ModuleA/mf2",
+                     },
+                     {
+                        T = {
+                           Foo = {
+                              defaultT = {},
+                              dirT = {},
+                              fileT = {
+                                 ["Foo/1.0"]  = {
+                                    ["Version"] = "1.0",
+                                    ["canonical"] = "1.0",
+                                    ["fn"] = "%ProjDir%/spec/ModuleA/mf3/Foo/1.0.lua",
+                                    ["luaExt"] = 4,
+                                    ["mpath"] = "%ProjDir%/spec/ModuleA/mf3",
+                                    ["pV"] = "000000001.*zfinal",
+                                    ["wV"] = "000000001.*zfinal",
+                                 },
+                                 ["Foo/2.0"]  = {
+                                    ["Version"] = "2.0",
+                                    ["canonical"] = "2.0",
+                                    ["fn"] = "%ProjDir%/spec/ModuleA/mf3/Foo/2.0.lua",
+                                    ["luaExt"] = 4,
+                                    ["mpath"] = "%ProjDir%/spec/ModuleA/mf3",
+                                    ["pV"] = "000000002.*zfinal",
+                                    ["wV"] = "000000002.*zfinal",
+                                 },
+                              },
+                           },
+                        },
+                        ["mpath"] = "%ProjDir%/spec/ModuleA/mf3",
+                     },
+                  }
+                  -- Secret way to wipe out the MT singleton
+                  local projDir = os.getenv("PROJDIR")
+                  local base  = pathJoin(projDir, testDir)
+                  local mpath = pathJoin(base, "mf2") .. ":" .. pathJoin(base, "mf3") 
+                  
+                  posix.setenv("HOME",base, true)
+                  posix.setenv("MODULEPATH",mpath,true)
+                  local maxdepth = pathJoin(base, "mf2") .. ":2;" .. pathJoin(base, "mf3") .. ":2;"
+                  cosmic:assign("LMOD_MAXDEPTH",maxdepth)
+                  _G.mcp             = _G.MasterControl.build("load")
+                  _G.MCP             = _G.MasterControl.build("load")
+                  --dbg:activateDebug(1)
+                  local moduleA      = ModuleA:singleton{reset=true, spider_cache=true}
+                  local mA           = moduleA:moduleA()
+                  local rplmntA      = { {projDir,"%%ProjDir%%"} }
+                  local _mA          = {}
+                  sanizatizeTbl(rplmntA, mA, _mA)
+                  --print(serializeTbl{indent=true, name="mA",   value = _mA})
+                  local iret = assert.are.same(goldA, _mA)
+               end
+            )
          end
 )

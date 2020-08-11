@@ -677,7 +677,7 @@ function M.singleton(self, t)
       local dbT      = false
 
       if (t.spider_cache) then
-         --dbg.print{"calling cache:build()\n"}
+         dbg.print{"calling cache:build()\n"}
          local cache  = require("Cache"):singleton{quiet=masterTbl().terse, buildCache=true}
          spiderT, dbT = cache:build()
       end
@@ -694,7 +694,9 @@ function M.__clear(self)
    dbg.start{"ModuleA:__clear()"}
    local MT = require("MT")
    s_moduleA = false
-   MT:__clearMT{testing=true}
+   FrameStk:__clear{testing=true}
+   local Cache = require("Cache")
+   Cache:__clear()
    dbg.fini("ModuleA:__clear")
 end
 

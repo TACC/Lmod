@@ -18,12 +18,12 @@ describe("Testing The Avail command #Avail.",
          function()
             it("Avail in terse and regular mode",
                function()
-                  ModuleA:__clear()
                   local projDir    = os.getenv("PROJDIR")
                   local mpath      = pathJoin(projDir, testDir, "mf")
                   posix.setenv("LMOD_TERM_WIDTH","160")
                   posix.setenv("MODULERCFILE",pathJoin(projDir,testDir,".modulerc"))
                   posix.setenv("MODULEPATH",mpath,true)
+                  ModuleA:__clear()
                   cosmic:init{name = "LMOD_MAXDEPTH", default=false, assign = mpath .. ":2;"}
 
                   local master     = Master:singleton()

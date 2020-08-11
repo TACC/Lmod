@@ -18,6 +18,7 @@ describe("Testing MT Class #MT.",
                   posix.setenv("MODULEPATH", mpath, true)
                   posix.setenv("LMOD_MAXDEPTH", nil, true)
                   cosmic:assign("LMOD_MAXDEPTH", false)
+                  --dbg:activateDebug(1)
                   local mt = MT:singleton{testing=true}
                   local entryA = {
                      {
@@ -81,6 +82,8 @@ describe("Testing MT Class #MT.",
                   }
                   local projDir = os.getenv("PROJDIR")
                   local rplmntA = { {projDir,"%%ProjDir%%"} }
+
+
 
                   local _mt     = deepcopy(mt)
                   local __mt    = {}

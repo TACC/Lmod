@@ -44,13 +44,14 @@ local getenv      = os.getenv
 local remove      = table.remove
 local s_frameStk  = false
 
-local function new(self)
+local function new(self, t)
    dbg.start{"FrameStk:new()"}
+   t = t or {}
    local o = {}
    setmetatable(o,self)
    self.__index = self
    o.__count    = 1
-   o.__origMT   = MT:singleton()
+   o.__origMT   = MT:singleton(t)
    o.__stack    = {
       {mname = false, mt = deepcopy(o.__origMT), varT = {} }
    }
@@ -58,9 +59,10 @@ local function new(self)
    return o
 end
 
-function M.singleton(self)
+function M.singleton(self, t)
+   t = t or {}
    if (not s_frameStk) then
-      s_frameStk = new(self)
+      s_frameStk = new(self, t)
       local mpath = getenv(ModulePath)
       local nodups = true
       if (mpath) then
@@ -71,8 +73,10 @@ function M.singleton(self)
    return s_frameStk
 end
 
-function M.__clear(self)
+function M.__clear(self,t)
+   t = t or {}
    s_frameStk = false
+   s_frameStk = self:singleton(t)
 end
 
 function M.resetMPATH2system(self)

@@ -126,10 +126,10 @@ describe("Testing Spider Class #Spider.",
 
             it("Hierarchy directory Test",
                function()
-                  local debug = os.getenv("LMOD_DEBUG")
-                  if (debug == "yes" or debug == "Spider" ) then
-                     dbg:activateDebug(1)
-                  end
+                  --local debug = os.getenv("LMOD_DEBUG")
+                  --if (debug == "yes" or debug == "Spider" ) then
+                  --   dbg:activateDebug(1)
+                  --end
 
                   local masterTbl  = masterTbl()
                   local projDir    = getenv("PROJDIR")

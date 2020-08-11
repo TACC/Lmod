@@ -170,8 +170,10 @@ local function new(self, s, restoreFn)
 end
 
 function M.singleton(self, t)
+   dbg.print{"inside MT:singleton()\n"}
    t = t or {}
    if (t.testing) then
+      dbg.print{"Clearing s_mt\n"}
       s_mt = false
       __removeEnvMT()
    end
@@ -185,6 +187,7 @@ end
 
 function M.__clearMT(self, t)
    if (t.testing == true) then
+      dbg.print{"Clearing s_mt\n"}
       s_mt  = false
    end
 end
