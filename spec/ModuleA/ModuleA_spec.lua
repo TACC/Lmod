@@ -7,15 +7,15 @@ require("fileOps")
 require("serializeTbl")
 
 _G.MasterControl = require("MasterControl")
-local DirTree   = require("DirTree")
-local MT        = require("MT")
-local ModuleA   = require("ModuleA")
-local FrameStk  = require("FrameStk")
-local dbg       = require("Dbg"):dbg()
-local concatTbl = table.concat
-local cosmic    = require("Cosmic"):singleton()
-local getenv    = os.getenv
-local testDir   = "spec/ModuleA"
+local DirTree    = require("DirTree")
+local MT         = require("MT")
+local ModuleA    = require("ModuleA")
+local FrameStk   = require("FrameStk")
+local dbg        = require("Dbg"):dbg()
+local concatTbl  = table.concat
+local cosmic     = require("Cosmic"):singleton()
+local getenv     = os.getenv
+local testDir    = "spec/ModuleA"
 describe("Testing ModuleA Class #ModuleA.",
          function()
             it("Build moduleA from mf",
