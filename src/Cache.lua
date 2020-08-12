@@ -223,7 +223,7 @@ end
 -- @param t A table with possible dontWrite and quiet entries.
 -- @return A singleton Cache object.
 function M.singleton(self, t)
-   dbg.start{"Cache:cache()"}
+   dbg.start{"Cache:singleton()"}
 
    t                = t or {}
    if (not s_cache) then
@@ -261,7 +261,7 @@ function M.singleton(self, t)
       end
    end
 
-   dbg.fini("Cache:cache")
+   dbg.fini("Cache:singleton")
    return s_cache
 end
 

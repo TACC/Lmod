@@ -185,6 +185,7 @@ end
 
 function M.__clearMT(self, t)
    if (t.testing == true) then
+      dbg.print{"Clearing s_mt\n"}
       s_mt  = false
    end
 end
