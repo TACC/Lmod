@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.0.8  2019-04-26 11:29 -05:00
+Modules based on Lua: Version 8.4  2020-07-31 12:25 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -13,7 +13,7 @@ ProjectDIR/rt/meta/mf0/Core
 ProjectDIR/rt/meta/mf1/Core
    justtarg    settarg (D)    targ/1.0
 ProjectDIR/rt/meta/mf2/Core
-   settarg/1.0    targ
+   settarg/1.0    targ (D)
   Where:
    D:  Default Module
 Use "module spider" to find all possible modules and extensions.
@@ -31,4 +31,4 @@ step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) settarg   2) targ/1.0
+  1) settarg   2) targ
