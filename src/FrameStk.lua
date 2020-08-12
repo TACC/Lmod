@@ -74,9 +74,13 @@ function M.singleton(self, t)
 end
 
 function M.__clear(self,t)
-   t = t or {}
    s_frameStk = false
-   s_frameStk = self:singleton(t)
+   t = t or {}
+   if (t.testing) then
+      dbg.start{"FrameStk:__clear(t)"}
+      s_frameStk = self:singleton(t)
+      dbg.fini("FrameStk:__clear")
+   end
 end
 
 function M.resetMPATH2system(self)

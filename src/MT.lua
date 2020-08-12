@@ -170,7 +170,6 @@ local function new(self, s, restoreFn)
 end
 
 function M.singleton(self, t)
-   dbg.print{"inside MT:singleton()\n"}
    t = t or {}
    if (t.testing) then
       dbg.print{"Clearing s_mt\n"}

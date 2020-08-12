@@ -227,7 +227,6 @@ function M.singleton(self, t)
 
    t                = t or {}
    if (not s_cache) then
-      dbg.print{"Rebuilding s_cache\n"}
       s_cache   = new(self, t)
    end
 
@@ -429,9 +428,6 @@ function M.build(self, fast)
    local frameStk    = FrameStk:singleton()
    local mt          = frameStk:mt()
    local mpathA      = mt:modulePathA()
-   dbg.printT("mpathA",mpathA)
-
-
    local masterTbl   = masterTbl()
    local T1          = epoch()
    local sysDirsRead = 0
