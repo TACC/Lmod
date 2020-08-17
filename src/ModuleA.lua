@@ -56,9 +56,10 @@ local find_first  = cosmic:value("LMOD_TMOD_FIND_FIRST")
 -- print(__FILE__() .. ':' .. __LINE__())
 ----------------------------------------------------------------------
 -- We use the trick of penalizing the parsed version string to mark defaults
--- The order is as follows:
+-- The order is as follows based on the ascii table:
 --     *     -> Words like beta start with an asterisk
 --   [0-9]   -> Numbers are zero patted to nine places
+--     M     -> A module with no version (meta-module)
 --     ^     -> Versions marked by default or .version or .modulerc
 --     s     -> Versions marked by System .modulerc
 --     u     -> Versions marked by User   .modulerc
@@ -115,10 +116,15 @@ local function GroupIntoModules(self, level, maxdepth, mpath, dirT, T)
          if (next(dirT.defaultT) ~= nil and (dirT.defaultT.value == fullName)) then
             defaultT = dirT.defaultT
          end
-         local metaModuleT = v
-         metaModuleT.pV = "~"
-         metaModuleT.wV = "~"
-         T[fullName] = {file = v.fn, metaModuleT = metaModuleT, fileT = {}, dirT = {}, defaultT = defaultT, mpath = mpath}
+         --local metaModuleT = v
+         --metaModuleT.pV = "~"
+         --metaModuleT.wV = "~"
+         --T[fullName] = {file = v.fn, metaModuleT = metaModuleT, fileT = {}, dirT = {}, defaultT = defaultT, mpath = mpath}
+
+         local fileT = {}
+         fileT[fullName] = {Version = false, canonical = "", fn = v.fn, luaExt = v.luaExt, mpath = mpath,
+                            pV = "M.*zfinal", wV = "M.*zfinal", propT = v.propT}
+         T[fullName] = { fileT = fileT, defaultT = defaultT, dirT = {}}
       end
    end
    for path, v in pairs(dirT.dirT) do
@@ -662,7 +668,7 @@ function M.singleton(self, t)
    t = t or {}
    if (t.reset or (s_moduleA and s_moduleA:spiderBuilt())) then
       --dbg.print{"Wiping out old value of s_moduleA\n"}
-      self:__clear()
+      self:__clear{testing=t.reset}
    end
    if (not s_moduleA) then
       local frameStk = FrameStk:singleton()
@@ -671,7 +677,6 @@ function M.singleton(self, t)
       local dbT      = false
 
       if (t.spider_cache) then
-         --dbg.print{"calling cache:build()\n"}
          local cache  = require("Cache"):singleton{quiet=masterTbl().terse, buildCache=true}
          spiderT, dbT = cache:build()
       end
@@ -684,10 +689,16 @@ end
 
 
 
-function M.__clear(self)
+function M.__clear(self, t)
    dbg.start{"ModuleA:__clear()"}
+   t = t or {}
    local MT = require("MT")
    s_moduleA = false
+   if (t.testing) then
+      FrameStk:__clear{testing=true}
+      local Cache = require("Cache")
+      Cache:__clear()
+   end
    MT:__clearMT{testing=true}
    dbg.fini("ModuleA:__clear")
 end

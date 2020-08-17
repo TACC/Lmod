@@ -172,6 +172,7 @@ end
 function M.singleton(self, t)
    t = t or {}
    if (t.testing) then
+      dbg.print{"Clearing s_mt\n"}
       s_mt = false
       __removeEnvMT()
    end

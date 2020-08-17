@@ -2,17 +2,17 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.0.1  2019-04-04 19:32 -05:00
+Modules based on Lua: Version 8.4  2020-07-31 12:25 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 ProjectDIR/rt/tacc/mf/TACC
-   Linux         cluster             globus/4.0.1             pgi/7.2-5
-   TACC          cluster-paths       globus/4.0.7      (D)
-   TACC-paths    cluster.orig        mvapich1/mvapich1
-   TACC.orig     empty_unload/1.0    pgi/7.1           (D)
+   Linux         cluster-paths       globus/4.0.1             pgi/7.2-5
+   TACC-paths    cluster.orig        globus/4.0.7      (D)
+   TACC.orig     cluster             mvapich1/mvapich1
+   TACC          empty_unload/1.0    pgi/7.1           (D)
   Where:
    D:  Default Module
 Use "module spider" to find all possible modules and extensions.

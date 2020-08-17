@@ -5,12 +5,14 @@ require("strict")
 require("fileOps")
 require("utils")
 require("serializeTbl")
-local DirTree   = require("DirTree")
-local ModuleA   = require("ModuleA")
-local LocationT = require("LocationT")
-local concatTbl = table.concat
-local getenv    = os.getenv
-local testDir   = "spec/LocationT"
+_G.MasterControl = require("MasterControl")
+local DirTree    = require("DirTree")
+local ModuleA    = require("ModuleA")
+local LocationT  = require("LocationT")
+local concatTbl  = table.concat
+local cosmic     = require("Cosmic"):singleton()
+local getenv     = os.getenv
+local testDir    = "spec/LocationT"
 
 describe("Testing LocationT Class #LocationT.",
          function()
@@ -53,9 +55,17 @@ describe("Testing LocationT Class #LocationT.",
                      },
                      ["bio/g"]  = {
                         dirT = {},
-                        ["file"] = "%ProjDir%/spec/LocationT/nv/bio/g.lua",
-                        fileT = {},
-                        ["mpath"] = "%ProjDir%/spec/LocationT/nv",
+                        fileT = {
+                           ["bio/g"] = {
+                              ["Version"] = false,
+                              ["canonical"] = "",
+                              ["fn"] = "%ProjDir%/spec/LocationT/nv/bio/g.lua",
+                              ["luaExt"] = 2,
+                              ["mpath"] = "%ProjDir%/spec/LocationT/nv",
+                              ["pV"] = "M.*zfinal",
+                              ["wV"] = "M.*zfinal",
+                           },
+                        },
                      },
                      foo = {
                         dirT = {},
@@ -98,5 +108,174 @@ describe("Testing LocationT Class #LocationT.",
                   --print(serializeTbl{indent=true, name="goldT",    value=goldT})
                   assert.same(goldT, _locationT)
                end)
+            it("Test of meta module and regular modules with same name",
+               function()
+                  local goldT = {
+                     Foo = {
+                        dirT = {},
+                        fileT = {
+                           Foo = {
+                              ["Version"] = false,
+                              ["canonical"] = "",
+                              ["fn"] = "%ProjDir%/spec/LocationT/mf/A/Foo.lua",
+                              ["luaExt"] = 4,
+                              ["mpath"] = "%ProjDir%/spec/LocationT/mf/A",
+                              ["pV"] = "M.*zfinal",
+                              ["wV"] = "M.*zfinal",
+                           },
+                           ["Foo/1.0"]  = {
+                              ["Version"] = "1.0",
+                              ["canonical"] = "1.0",
+                              ["fn"] = "%ProjDir%/spec/LocationT/mf/B/Foo/1.0.lua",
+                              ["luaExt"] = 4,
+                              ["mpath"] = "%ProjDir%/spec/LocationT/mf/B",
+                              ["pV"] = "000000001.*zfinal",
+                              ["wV"] = "000000001.*zfinal",
+                           },
+                           ["Foo/2.0"]  = {
+                              ["Version"] = "2.0",
+                              ["canonical"] = "2.0",
+                              ["fn"] = "%ProjDir%/spec/LocationT/mf/B/Foo/2.0.lua",
+                              ["luaExt"] = 4,
+                              ["mpath"] = "%ProjDir%/spec/LocationT/mf/B",
+                              ["pV"] = "000000002.*zfinal",
+                              ["wV"] = "000000002.*zfinal",
+                           },
+                        },
+                     },
+                  }
+                  local projDir  = os.getenv("PROJDIR")
+                  local base     = pathJoin(projDir, testDir,"mf")
+                  local mpath    = pathJoin(base, "A") .. ":" .. pathJoin(base, "B")
+                  local maxdepth = pathJoin(base, "A") .. ":2;" .. pathJoin(base, "B") .. ":2;"
+
+                  posix.setenv("HOME",base, true)
+                  posix.setenv("MODULEPATH",mpath,true)
+                  cosmic:assign("LMOD_MAXDEPTH",maxdepth)
+
+                  _G.mcp          = _G.MasterControl.build("load")
+                  _G.MCP          = _G.MasterControl.build("load")
+                  local moduleA   = ModuleA:singleton{reset=true, spider_cache=true}
+                  local locationT = moduleA:locationT()
+
+                  local rplmntA = { {projDir,"%%ProjDir%%"} }
+                  local _locationT = {}
+                  sanizatizeTbl(rplmntA, locationT, _locationT)
+                  --print(serializeTbl{indent=true, name="locationT",value=_locationT})
+                  --print(serializeTbl{indent=true, name="goldT",    value=goldT})
+                  assert.same(goldT, _locationT)
+               end
+            )
+            it("2nd Test of meta module and regular modules with same name",
+               function()
+                  local goldT = {
+                     Foo = {
+                        dirT = {},
+                        fileT = {
+                           Foo = {
+                              ["Version"] = false,
+                              ["canonical"] = "",
+                              ["fn"] = "%ProjDir%/spec/LocationT/mf/A/Foo.lua",
+                              ["luaExt"] = 4,
+                              ["mpath"] = "%ProjDir%/spec/LocationT/mf/A",
+                              ["pV"] = "M.*zfinal",
+                              ["wV"] = "M.*zfinal",
+                           },
+                           ["Foo/1.0"]  = {
+                              ["Version"] = "1.0",
+                              ["canonical"] = "1.0",
+                              ["fn"] = "%ProjDir%/spec/LocationT/mf/B/Foo/1.0.lua",
+                              ["luaExt"] = 4,
+                              ["mpath"] = "%ProjDir%/spec/LocationT/mf/B",
+                              ["pV"] = "000000001.*zfinal",
+                              ["wV"] = "000000001.*zfinal",
+                           },
+                           ["Foo/2.0"]  = {
+                              ["Version"] = "2.0",
+                              ["canonical"] = "2.0",
+                              ["fn"] = "%ProjDir%/spec/LocationT/mf/B/Foo/2.0.lua",
+                              ["luaExt"] = 4,
+                              ["mpath"] = "%ProjDir%/spec/LocationT/mf/B",
+                              ["pV"] = "000000002.*zfinal",
+                              ["wV"] = "000000002.*zfinal",
+                           },
+                        },
+                     },
+                  }
+                  local projDir  = os.getenv("PROJDIR")
+                  local base     = pathJoin(projDir, testDir,"mf")
+                  local mpath    = pathJoin(base, "B") .. ":"   .. pathJoin(base, "A")
+                  local maxdepth = pathJoin(base, "B") .. ":2;" .. pathJoin(base, "A") .. ":2;"
+
+                  posix.setenv("HOME",base, true)
+                  posix.setenv("MODULEPATH",mpath,true)
+                  cosmic:assign("LMOD_MAXDEPTH",maxdepth)
+
+                  _G.mcp          = _G.MasterControl.build("load")
+                  _G.MCP          = _G.MasterControl.build("load")
+                  local moduleA   = ModuleA:singleton{reset=true, spider_cache=true}
+                  local locationT = moduleA:locationT()
+
+                  local rplmntA = { {projDir,"%%ProjDir%%"} }
+                  local _locationT = {}
+                  sanizatizeTbl(rplmntA, locationT, _locationT)
+                  --print(serializeTbl{indent=true, name="locationT",value=_locationT})
+                  --print(serializeTbl{indent=true, name="goldT",    value=goldT})
+                  assert.same(goldT, _locationT)
+               end
+            )
+            it("3rd Test of meta module and regular modules with same name",
+               -- Note: This case has a directory named Foo and a module named "Foo.lua"
+               -- Lmod choses the directory over the meta module named Foo.
+               -- This is because there is no way that a TCL module named "Foo" and
+               -- a directory named "Foo" can exist at the same time.
+               function()
+                  local goldT = {
+                     Foo = {
+                        dirT = {},
+                        fileT = {
+                           ["Foo/1.0"]  = {
+                              ["Version"] = "1.0",
+                              ["canonical"] = "1.0",
+                              ["fn"] = "%ProjDir%/spec/LocationT/mf2/Foo/1.0.lua",
+                              ["luaExt"] = 4,
+                              ["mpath"] = "%ProjDir%/spec/LocationT/mf2",
+                              ["pV"] = "000000001.*zfinal",
+                              ["wV"] = "000000001.*zfinal",
+                           },
+                           ["Foo/2.0"]  = {
+                              ["Version"] = "2.0",
+                              ["canonical"] = "2.0",
+                              ["fn"] = "%ProjDir%/spec/LocationT/mf2/Foo/2.0.lua",
+                              ["luaExt"] = 4,
+                              ["mpath"] = "%ProjDir%/spec/LocationT/mf2",
+                              ["pV"] = "000000002.*zfinal",
+                              ["wV"] = "000000002.*zfinal",
+                           },
+                        },
+                     },
+                  }
+                  local projDir  = os.getenv("PROJDIR")
+                  local base     = pathJoin(projDir, testDir)
+                  local mpath    = pathJoin(base,    "mf2")
+                  local maxdepth = mpath .. ":2;"
+
+                  posix.setenv("HOME",base, true)
+                  posix.setenv("MODULEPATH",mpath,true)
+                  cosmic:assign("LMOD_MAXDEPTH",maxdepth)
+
+                  _G.mcp          = _G.MasterControl.build("load")
+                  _G.MCP          = _G.MasterControl.build("load")
+                  local moduleA   = ModuleA:singleton{reset=true, spider_cache=true}
+                  local locationT = moduleA:locationT()
+
+                  local rplmntA = { {projDir,"%%ProjDir%%"} }
+                  local _locationT = {}
+                  sanizatizeTbl(rplmntA, locationT, _locationT)
+                  --print(serializeTbl{indent=true, name="locationT",value=_locationT})
+                  --print(serializeTbl{indent=true, name="goldT",    value=goldT})
+                  assert.same(goldT, _locationT)
+               end
+            )
          end
 )

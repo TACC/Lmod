@@ -30,6 +30,36 @@ testdescript = {
      runLmod load targ                         # 4
      runLmod list                              # 5
 
+     runLmod purge                             # 6
+     unsetMT
+     MODULEPATH=$(testDir)/MF_FOO/A:$(testDir)/MF_FOO/B
+
+     runLmod avail                             # 7
+     runLmod load Foo                          # 8
+     runLmod list                              # 9
+     runLmod load Foo/1.0                      #10
+     runLmod list                              #11
+
+     runLmod purge                             #12
+     unsetMT
+     MODULEPATH=$(testDir)/MF_FOO/B:$(testDir)/MF_FOO/A
+
+     runLmod avail                             #13
+     runLmod load Foo                          #14
+     runLmod list                              #15
+     runLmod load Foo/1.0                      #16
+     runLmod list                              #17
+
+     runLmod purge                             #18
+     unsetMT
+     MODULEPATH=$(testDir)/MF_FOO/A:$(testDir)/MF_FOO/B
+
+     export LMOD_MODULERCFILE=$testDir/dot.modulerc.lua
+     runLmod avail                             #19
+     runLmod load Foo                          #20
+     runLmod list                              #21
+
+
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new

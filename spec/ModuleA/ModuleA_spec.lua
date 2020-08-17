@@ -7,13 +7,15 @@ require("fileOps")
 require("serializeTbl")
 
 _G.MasterControl = require("MasterControl")
-local DirTree   = require("DirTree")
-local ModuleA   = require("ModuleA")
-
-local concatTbl = table.concat
-local cosmic    = require("Cosmic"):singleton()
-local getenv    = os.getenv
-local testDir   = "spec/ModuleA"
+local DirTree    = require("DirTree")
+local MT         = require("MT")
+local ModuleA    = require("ModuleA")
+local FrameStk   = require("FrameStk")
+local dbg        = require("Dbg"):dbg()
+local concatTbl  = table.concat
+local cosmic     = require("Cosmic"):singleton()
+local getenv     = os.getenv
+local testDir    = "spec/ModuleA"
 describe("Testing ModuleA Class #ModuleA.",
          function()
             it("Build moduleA from mf",
@@ -105,18 +107,18 @@ describe("Testing ModuleA Class #ModuleA.",
                         ["bio/genomics"]  = {
                            defaultT = {},
                            dirT = {},
-                           ["file"] = "%ProjDir%/spec/ModuleA/mf/bio/genomics.lua",
-                           fileT = {},
-                           metaModuleT = {
-                              ["canonical"] = "genomics",
-                              ["fn"] = "%ProjDir%/spec/ModuleA/mf/bio/genomics.lua",
-                              ["luaExt"] = 9,
-                              ["mpath"] = "%ProjDir%/spec/ModuleA/mf",
-                              ["pV"] = "~",
-                              ["wV"] = "~",
-                              propT = { arch = { ["mic"] = 1} }
+                           fileT = {
+                              ["bio/genomics"]  = {
+                                 ["Version"] = false,
+                                 ["canonical"] = "",
+                                 ["fn"] = "%ProjDir%/spec/ModuleA/mf/bio/genomics.lua",
+                                 ["luaExt"] = 9,
+                                 ["mpath"] = "%ProjDir%/spec/ModuleA/mf",
+                                 ["pV"] = "M.*zfinal",
+                                 ["wV"] = "M.*zfinal",
+                                 propT = { arch = { ["mic"] = 1} }
+                              }
                            },
-                           ["mpath"] = "%ProjDir%/spec/ModuleA/mf",
                         },
                         boost = {
                            defaultT = {},
@@ -151,9 +153,11 @@ describe("Testing ModuleA Class #ModuleA.",
                   local rplmntA      = { {projDir,"%%ProjDir%%"} }
                   local _mA          = {}
                   sanizatizeTbl(rplmntA, mA, _mA)
-                  --print(serializeTbl{indent=true, name="mA",   value = _mA})
-                  --print(serializeTbl{indent=true, name="goldA",value = goldA})
-                  assert.are.same(goldA, _mA)
+                  local iret = assert.are.same(goldA, _mA)
+                  --if (iret) then
+                  --   print(serializeTbl{indent=true, name="mA",   value = _mA})
+                  --   print(serializeTbl{indent=true, name="goldA",value = goldA})
+                  --end
 
                   local defaultT = moduleA:defaultT()
 
@@ -168,7 +172,7 @@ describe("Testing ModuleA Class #ModuleA.",
                         ["count"] = 1,
                         ["fullName"] = "bio/genomics",
                         ["sn"] = "bio/genomics",
-                        ["weight"] = "999999999.*zfinal",
+                        ["weight"] = "M.*zfinal",
                      },
                      ["%ProjDir%/spec/ModuleA/mf/boost/1.46.0.lua"]  = {
                         ["count"] = 1,
@@ -208,7 +212,7 @@ describe("Testing ModuleA Class #ModuleA.",
                            {
                               ["fn"] = "%ProjDir%/spec/ModuleA/mf/bio/genomics.lua",
                               ["fullName"] = "bio/genomics",
-                              ["pV"] = "bio/genomics",
+                              ["pV"] = "bio/genomics/M.*zfinal",
                               ["sn"] = "bio/genomics",
                               propT = { arch = { ["mic"] = 1} }
                            },
@@ -225,8 +229,83 @@ describe("Testing ModuleA Class #ModuleA.",
 
                   local _availA = {}
                   sanizatizeTbl(rplmntA, availA, _availA)
-                  --print(serializeTbl{indent=true, name="availA",value = _availA})
                   assert.are.same(gold_availA, _availA)
+                  --print(serializeTbl{indent=true, name="availA",value = _availA})
+                  --print(serializeTbl{indent=true, name="gold_availA",value = gold_availA})
                end)
+            it("Test of meta module and regular modules with same name",
+               function()
+                  local goldA = {
+                     {
+                        T = {
+                           Foo = {
+                              defaultT = {},
+                              dirT = {},
+                              fileT = {
+                                 Foo = {
+                                    ["Version"] = false,
+                                    ["canonical"] = "",
+                                    ["fn"] = "%ProjDir%/spec/ModuleA/mf2/Foo.lua",
+                                    ["luaExt"] = 4,
+                                    ["mpath"] = "%ProjDir%/spec/ModuleA/mf2",
+                                    ["pV"] = "M.*zfinal",
+                                    ["wV"] = "M.*zfinal",
+                                 },
+                              },
+                           },
+                        },
+                        ["mpath"] = "%ProjDir%/spec/ModuleA/mf2",
+                     },
+                     {
+                        T = {
+                           Foo = {
+                              defaultT = {},
+                              dirT = {},
+                              fileT = {
+                                 ["Foo/1.0"]  = {
+                                    ["Version"] = "1.0",
+                                    ["canonical"] = "1.0",
+                                    ["fn"] = "%ProjDir%/spec/ModuleA/mf3/Foo/1.0.lua",
+                                    ["luaExt"] = 4,
+                                    ["mpath"] = "%ProjDir%/spec/ModuleA/mf3",
+                                    ["pV"] = "000000001.*zfinal",
+                                    ["wV"] = "000000001.*zfinal",
+                                 },
+                                 ["Foo/2.0"]  = {
+                                    ["Version"] = "2.0",
+                                    ["canonical"] = "2.0",
+                                    ["fn"] = "%ProjDir%/spec/ModuleA/mf3/Foo/2.0.lua",
+                                    ["luaExt"] = 4,
+                                    ["mpath"] = "%ProjDir%/spec/ModuleA/mf3",
+                                    ["pV"] = "000000002.*zfinal",
+                                    ["wV"] = "000000002.*zfinal",
+                                 },
+                              },
+                           },
+                        },
+                        ["mpath"] = "%ProjDir%/spec/ModuleA/mf3",
+                     },
+                  }
+                  -- Secret way to wipe out the MT singleton
+                  local projDir = os.getenv("PROJDIR")
+                  local base  = pathJoin(projDir, testDir)
+                  local mpath = pathJoin(base, "mf2") .. ":" .. pathJoin(base, "mf3") 
+                  
+                  posix.setenv("HOME",base, true)
+                  posix.setenv("MODULEPATH",mpath,true)
+                  local maxdepth = pathJoin(base, "mf2") .. ":2;" .. pathJoin(base, "mf3") .. ":2;"
+                  cosmic:assign("LMOD_MAXDEPTH",maxdepth)
+                  _G.mcp             = _G.MasterControl.build("load")
+                  _G.MCP             = _G.MasterControl.build("load")
+                  --dbg:activateDebug(1)
+                  local moduleA      = ModuleA:singleton{reset=true, spider_cache=true}
+                  local mA           = moduleA:moduleA()
+                  local rplmntA      = { {projDir,"%%ProjDir%%"} }
+                  local _mA          = {}
+                  sanizatizeTbl(rplmntA, mA, _mA)
+                  --print(serializeTbl{indent=true, name="mA",   value = _mA})
+                  local iret = assert.are.same(goldA, _mA)
+               end
+            )
          end
 )

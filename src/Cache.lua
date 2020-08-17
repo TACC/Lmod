@@ -411,14 +411,13 @@ function M.build(self, fast)
    -- we need to.
    local mrc       = MRC:singleton({})
 
-
    dbg.print{"self.buildCache: ",self.buildCache,"\n"}
    if (not self.buildCache) then
       dbg.fini("Cache:build")
       mrc:update()
       return false, false, false, false
    end
-
+   
    if (next(spiderT) ~= nil) then
       dbg.print{"Using pre-built spiderT!\n"}
       dbg.fini("Cache:build")
@@ -673,4 +672,8 @@ function M.build(self, fast)
    return spiderT, dbT, mpathMapT, providedByT
 end
 
+function M.__clear()
+   dbg.print{"Clearing s_cache\n"}
+   s_cache = false
+end
 return M
