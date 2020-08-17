@@ -17,6 +17,7 @@ mrcT = {
 spiderT = {
   ["ProjectDIR/rt/rmap/mf/Compiler/intel/13.1"]  = {
     impi = {
+      defaultA = {},
       defaultT = {},
       dirT = {},
       fileT = {
@@ -41,6 +42,7 @@ spiderT = {
   },
   ["ProjectDIR/rt/rmap/mf/Compiler/intel/14.0"]  = {
     impi = {
+      defaultA = {},
       defaultT = {},
       dirT = {},
       fileT = {
@@ -65,6 +67,7 @@ spiderT = {
   },
   ["ProjectDIR/rt/rmap/mf/Core"]  = {
     intel = {
+      defaultA = {},
       defaultT = {},
       dirT = {},
       fileT = {
@@ -103,6 +106,7 @@ spiderT = {
       },
     },
     symlink = {
+      defaultA = {},
       defaultT = {},
       dirT = {},
       fileT = {
@@ -328,6 +332,7 @@ mrcT = {
 spiderT = {
   ["ProjectDIR/rt/rmap/mf/2Compiler/intel/14.0"]  = {
     impi = {
+      defaultA = {},
       defaultT = {},
       dirT = {},
       fileT = {
@@ -352,6 +357,7 @@ spiderT = {
   },
   ["ProjectDIR/rt/rmap/mf/2Core"]  = {
     intel = {
+      defaultA = {},
       defaultT = {},
       dirT = {},
       fileT = {
@@ -376,6 +382,7 @@ spiderT = {
   },
   ["ProjectDIR/rt/rmap/mf/2MPI/intel/14.0/impi/4.1"]  = {
     paraview = {
+      defaultA = {},
       defaultT = {},
       dirT = {},
       fileT = {
@@ -477,6 +484,7 @@ mrcT = {
 spiderT = {
   ["ProjectDIR/rt/rmap/mf/2Compiler/intel/14.0"]  = {
     impi = {
+      defaultA = {},
       defaultT = {},
       dirT = {},
       fileT = {
@@ -501,6 +509,7 @@ spiderT = {
   },
   ["ProjectDIR/rt/rmap/mf/2Core"]  = {
     intel = {
+      defaultA = {},
       defaultT = {},
       dirT = {},
       fileT = {
@@ -525,6 +534,7 @@ spiderT = {
   },
   ["ProjectDIR/rt/rmap/mf/2MPI/intel/14.0/impi/4.1"]  = {
     paraview = {
+      defaultA = {},
       defaultT = {},
       dirT = {},
       fileT = {

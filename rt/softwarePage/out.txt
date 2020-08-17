@@ -27,8 +27,20 @@ mrcT = {
 spiderT = {
   ["ProjectDIR/rt/softwarePage/mf"]  = {
     foo = {
+      defaultA = {
+        {
+          ["barefn"] = ".modulerc.lua",
+          ["defaultIdx"] = 2,
+          ["fn"] = "ProjectDIR/rt/softwarePage/mf/foo/.modulerc.lua",
+          ["fullName"] = "foo/.modulerc",
+          ["luaExt"] = 10,
+          ["mpath"] = "ProjectDIR/rt/softwarePage/mf",
+          ["value"] = "foo/1.0",
+        },
+      },
       defaultT = {
         ["barefn"] = ".modulerc.lua",
+        ["defaultIdx"] = 2,
         ["fn"] = "ProjectDIR/rt/softwarePage/mf/foo/.modulerc.lua",
         ["fullName"] = "foo/.modulerc",
         ["luaExt"] = 10,
