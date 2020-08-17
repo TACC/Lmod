@@ -96,7 +96,7 @@ local function keepFile(fn)
    return true
 end
 
-local function checkValidModulefileReal(fn)
+local function l_checkValidModulefileReal(fn)
    local f = open(fn,"r")
    if (not f) then
       return false
@@ -104,14 +104,14 @@ local function checkValidModulefileReal(fn)
    local line = f:read(20) or ""
    f:close()
 
-   return line:find("^#%%Module")
+   return (line:find("^#%%Module") ~= nil)
 end
 
-local function checkValidModulefileFake(fn)
+local function l_checkValidModulefileFake(fn)
    return true
 end
 
-local checkValidModulefile = checkValidModulefileReal
+local l_checkValidModulefile = l_checkValidModulefileReal
 
 --------------------------------------------------------------------------
 -- Use readlink to find the link
@@ -133,42 +133,37 @@ local function walk_link(path)
 end
 
 --------------------------------------------------------------------------
--- This routine is given the absolute path to a .version
--- file.  It checks to make sure that it is a valid TCL
--- file.  It then uses the ModulesVersion.tcl script to
--- @param defaultT - A table containing: { fullName=, fn=, mpath=, luaExt=, barefn=}
+-- This routine is given the absolute path to all possible default
+-- files. 
+-- @param defaultA - An array entries that contain: { fullName=, fn=, mpath=, luaExt=, barefn=}
 
--- return what the value of "ModulesVersion" is.
-local function versionFile(mrc, defaultT)
-   local path = defaultT.fn
+-- return all possible absolute paths to the default file.
+local function l_versionFile(mrc, defaultA)
 
-   if (defaultT.barefn == "default") then
-      defaultT.value = barefilename(walk_link(defaultT.fn)):gsub("%.lua$","")
-      return defaultT
+   for i = 1,#defaultA do
+      repeat 
+         local defaultT = defaultA[i]
+         local path     = defaultT.fn
+
+         if (defaultT.barefn == "default") then
+            defaultT.value = barefilename(walk_link(defaultT.fn)):gsub("%.lua$","")
+            break
+         end
+         
+         local modA = mrc_load(path)
+         local _, _, name = defaultT.fullName:find("(.*)/.*")
+         
+         --dbg.print{"In l_versionFile\n"}
+         defaultT.value = mrc:parseModA_for_moduleA(name,modA)
+         --dbg.print{"Back in l_versionFile\n"}
+      until true
    end
 
-   local luaExt = path:find("%.lua$")
-
-   if (not luaExt and not checkValidModulefile(path)) then
-      return defaultT
-   end
-
-   local modA = mrc_load(path)
-   local _, _, name = defaultT.fullName:find("(.*)/.*")
-
-   dbg.print{"In versionFile\n"}
-
-   defaultT.value = mrc:parseModA_for_moduleA(name,modA)
-
-   dbg.print{"Back in versionFile\n"}
-
-   return defaultT
+   return defaultA
 end
 
-
 local function walk(mrc, mpath, path, dirA, fileT)
-   local defaultIdx = 1000000
-   local defaultT   = {}
+   local defaultA   = {}
    local permissions
    local uid
    local kind
@@ -176,7 +171,7 @@ local function walk(mrc, mpath, path, dirA, fileT)
    local attr       = lfs.attributes(path)
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory" or
        not access(path,"rx")) then
-      return defaultT
+      return defaultA
    end
 
 
@@ -194,43 +189,56 @@ local function walk(mrc, mpath, path, dirA, fileT)
          if (kind == "directory" and f ~= "." and f ~= "..") then
             dirA[#dirA + 1 ] = file
          elseif (kind == "file" or kind == "link") then
-            local dfltFound = defaultFnT[f]
-            local idx       = dfltFound or defaultIdx
+            local dfltIdx = defaultFnT[f]
             local fullName  = extractFullName(mpath, file)
-            if (dfltFound) then
-               if (idx < defaultIdx) then
-                  defaultIdx = idx
-                  local luaExt = f:find("%.lua$")
-                  defaultT     = { fullName = fullName, fn = file, mpath = mpath, luaExt = luaExt, barefn = f}
-                  if (f == "default" and kind == "file") then
-                     fileT[fullName] = {fn = file, canonical = f, mpath = mpath}
-                  end
+            if (dfltIdx) then
+               local luaExt = f:find("%.lua$")
+               defaultA[#defaultA+1] = { fullName = fullName, fn = file, mpath = mpath, luaExt = luaExt,
+                                         barefn = f, defaultIdx = dfltIdx }
+               if (f == "default" and kind == "file") then
+                  fileT[fullName] = {fn = file, canonical = f, mpath = mpath}
                end
             elseif (not fileT[fullName] or not fileT[fullName].luaExt) then
                local luaExt = f:find("%.lua$")
-               if (accept_fn(file) and (luaExt or checkValidModulefile(file))) then
+               if (accept_fn(file) and (luaExt or l_checkValidModulefile(file))) then
                   fileT[fullName] = {fn = file, canonical = f:gsub("%.lua$", ""), mpath = mpath,
-                                 luaExt = luaExt}
+                                     luaExt = luaExt}
                end
             end
          end
       until true
    end
-   if (next(defaultT) ~= nil) then
-      defaultT = versionFile(mrc, defaultT)
+   if (next(defaultA) ~= nil) then
+      defaultA = l_versionFile(mrc, defaultA)
    end
 
+   return defaultA
+end
+
+local function l_find_default(defaultA)
+   local defaultIdx = 1000000
+   local defaultT   = {}
+   for i = 1, #defaultA do
+      local entryT = defaultA[i]
+      if (entryT.defaultIdx < defaultIdx) then
+         defaultIdx = entryT.defaultIdx
+         defaultT   = entryT
+      end
+   end
    return defaultT
 end
+
+
 
 local function walk_tree(mrc, mpath, pathIn, dirT)
 
    local dirA     = {}
    local fileT    = {}
-   local defaultT = walk(mrc, mpath, pathIn, dirA, fileT)
+   local defaultA = walk(mrc, mpath, pathIn, dirA, fileT)
 
    dirT.fileT    = fileT
-   dirT.defaultT = defaultT
+   dirT.defaultA = defaultA
+   dirT.defaultT = l_find_default(defaultA)
    dirT.dirT     = {}
 
    for i = 1,#dirA do

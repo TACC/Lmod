@@ -113,18 +113,17 @@ local function GroupIntoModules(self, level, maxdepth, mpath, dirT, T)
    if (next(dirT.fileT) ~= nil) then
       for fullName, v in pairs(dirT.fileT) do
          local defaultT = {}
+         local defaultA = {}
          if (next(dirT.defaultT) ~= nil and (dirT.defaultT.value == fullName)) then
             defaultT = dirT.defaultT
          end
-         --local metaModuleT = v
-         --metaModuleT.pV = "~"
-         --metaModuleT.wV = "~"
-         --T[fullName] = {file = v.fn, metaModuleT = metaModuleT, fileT = {}, dirT = {}, defaultT = defaultT, mpath = mpath}
-
+         if (next(dirT.defaultA) ~= nil) then
+            defaultA = dirT.defaultA
+         end
          local fileT = {}
          fileT[fullName] = {Version = false, canonical = "", fn = v.fn, luaExt = v.luaExt, mpath = mpath,
                             pV = "M.*zfinal", wV = "M.*zfinal", propT = v.propT}
-         T[fullName] = { fileT = fileT, defaultT = defaultT, dirT = {}}
+         T[fullName] = { fileT = fileT, defaultT = defaultT, defaultA = defaultA, dirT = {}}
       end
    end
    for path, v in pairs(dirT.dirT) do

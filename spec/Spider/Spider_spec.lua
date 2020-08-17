@@ -33,6 +33,7 @@ describe("Testing Spider Class #Spider.",
                   local gold_spiderT = {
                      ["%ProjDir%/spec/Spider/mf/Core"]  = {
                         TACC = {
+                           defaultA = {},
                            defaultT = {},
                            dirT = {},
                            fileT = {
@@ -53,14 +54,27 @@ describe("Testing Spider Class #Spider.",
                            },
                         },
                         icr = {
+                           defaultA = {
+                              {
+                                 ["barefn"] = ".version",
+                                 ["defaultIdx"] = 4,
+                                 ["fn"] = "%ProjDir%/spec/Spider/mf/Core/icr/.version",
+                                 ["fullName"] = "icr/.version",
+                                 ["mpath"] = "%ProjDir%/spec/Spider/mf/Core",
+                                 ["value"] = false,
+                              },
+                           },
                            defaultT = {
                               ["barefn"] = ".version",
                               ["fn"] = "%ProjDir%/spec/Spider/mf/Core/icr/.version",
+                              ["defaultIdx"] = 4,
                               ["fullName"] = "icr/.version",
                               ["mpath"] = "%ProjDir%/spec/Spider/mf/Core",
+                              ["value"] = false,
                            },
                            dirT = {
                               ["icr/64"]  = {
+                                 defaultA = {},
                                  defaultT = {},
                                  dirT = {},
                                  fileT = {
@@ -78,6 +92,7 @@ describe("Testing Spider Class #Spider.",
                            fileT = {},
                         },
                         intel = {
+                           defaultA = {},
                            defaultT = {},
                            dirT = {},
                            fileT = {
@@ -150,6 +165,7 @@ describe("Testing Spider Class #Spider.",
                      ["%ProjDir%/spec/Spider/h/mf/Compiler/gcc/5.9"]  = {
                         mpich = {
                            defaultT = {},
+                           defaultA = {},
                            dirT = {},
                            fileT = {
                               ["mpich/17.200.3"]  = {
@@ -164,6 +180,7 @@ describe("Testing Spider Class #Spider.",
                            },
                         },
                         python = {
+                           defaultA = {},
                            defaultT = {},
                            dirT = {},
                            fileT = {
@@ -181,6 +198,7 @@ describe("Testing Spider Class #Spider.",
                      },
                      ["%ProjDir%/spec/Spider/h/mf/Core"]  = {
                         gcc = {
+                           defaultA = {},
                            defaultT = {},
                            dirT = {},
                            fileT = {
@@ -196,6 +214,7 @@ describe("Testing Spider Class #Spider.",
                            },
                         },
                         python = {
+                           defaultA = {},
                            defaultT = {},
                            dirT = {},
                            fileT = {
@@ -213,6 +232,7 @@ describe("Testing Spider Class #Spider.",
                      },
                      ["%ProjDir%/spec/Spider/h/mf/MPI/gcc/5.9/mpich/17.200"]  = {
                         parmetis = {
+                           defaultA = {},
                            defaultT = {},
                            dirT = {},
                            fileT = {
@@ -228,6 +248,7 @@ describe("Testing Spider Class #Spider.",
                            },
                         },
                         python = {
+                           defaultA = {},
                            defaultT = {},
                            dirT = {},
                            fileT = {
