@@ -185,5 +185,76 @@ describe("Testing DirTree Class: #DirTree.",
 
                end
             )
+            it("Test empty .version file",
+               function()
+                  local debug = os.getenv("LMOD_DEBUG")
+                  local projDir = os.getenv("PROJDIR")
+                  local mpathA  = { pathJoin(projDir, testDir, "mf_icr") }
+                  local dirTree = DirTree:new(mpathA)
+                  local dirA    = dirTree:dirA()
+                  local rplmntA = { {projDir,"%%ProjDir%%"} }
+                  local _dirA   = {}
+                  local goldA   = {
+                     {
+                        dirT = {
+                           defaultT = {},
+                           dirT = {
+                              icr = {
+                                 defaultT = {
+                                    ["barefn"] = ".version",
+                                    ["fn"] = "%ProjDir%/spec/DirTree/mf_icr/icr/.version",
+                                    ["fullName"] = "icr/.version",
+                                    ["mpath"] = "%ProjDir%/spec/DirTree/mf_icr",
+                                 },
+                                 dirT = {
+                                    ["icr/32"]  = {
+                                       defaultT = {},
+                                       dirT = {},
+                                       fileT = {
+                                          ["icr/32/3.7"]  = {
+                                             ["canonical"] = "3.7",
+                                             ["fn"] = "%ProjDir%/spec/DirTree/mf_icr/icr/32/3.7",
+                                             ["mpath"] = "%ProjDir%/spec/DirTree/mf_icr",
+                                          },
+                                          ["icr/32/3.8"]  = {
+                                             ["canonical"] = "3.8",
+                                             ["fn"] = "%ProjDir%/spec/DirTree/mf_icr/icr/32/3.8",
+                                             ["mpath"] = "%ProjDir%/spec/DirTree/mf_icr",
+                                          },
+                                       },
+                                    },
+                                    ["icr/64"]  = {
+                                       defaultT = {},
+                                       dirT = {},
+                                       fileT = {
+                                          ["icr/64/3.8"]  = {
+                                             ["canonical"] = "3.8",
+                                             ["fn"] = "%ProjDir%/spec/DirTree/mf_icr/icr/64/3.8",
+                                             ["mpath"] = "%ProjDir%/spec/DirTree/mf_icr",
+                                          },
+                                          ["icr/64/3.9"]  = {
+                                             ["canonical"] = "3.9",
+                                             ["fn"] = "%ProjDir%/spec/DirTree/mf_icr/icr/64/3.9",
+                                             ["mpath"] = "%ProjDir%/spec/DirTree/mf_icr",
+                                          },
+                                       },
+                                    },
+                                 },
+                                 fileT = {},
+                              },
+                           },
+                           fileT = {},
+                        },
+                        ["mpath"] = "%ProjDir%/spec/DirTree/mf_icr",
+                     },
+                  }
+                  sanizatizeTbl(rplmntA, dirA, _dirA)
+                  dbg:activateDebug(1)
+                  --dbg.printT("goldA", goldA)
+                  dbg.printT("dirA",  _dirA)
+                  assert.are.same(goldA, _dirA)
+
+               end
+            )
          end
 )
