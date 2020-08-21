@@ -51,7 +51,6 @@ M.add_property         = MasterControl.add_property
 M.append_path          = MasterControl.append_path
 M.color_banner         = MasterControl.quiet
 M.conflict             = MasterControl.quiet
-M.depends_on           = MasterControl.depends_on
 M.execute              = MasterControl.quiet
 M.extensions           = MasterControl.quiet
 M.family               = MasterControl.quiet
@@ -85,5 +84,17 @@ M.unsetenv             = MasterControl.unsetenv
 M.unset_alias          = MasterControl.unset_alias
 M.unset_shell_function = MasterControl.unset_shell_function
 M.whatis               = MasterControl.quiet
+
+
+-- Internally these function do not actually to anything when either
+-- is called inside a modulefile.  This way the original load happens
+-- and it allows for the syntax check but does nothing otherwise.
+
+M.depends_on           = MasterControl.depends_on
+M.load_usr             = MasterControl.load_usr
+
+
+
+
 
 return M
