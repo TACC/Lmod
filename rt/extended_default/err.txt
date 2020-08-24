@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.0.7  2019-04-23 17:47 -05:00
+Modules based on Lua: Version 8.4.1  2020-08-12 15:27 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -36,7 +36,12 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load petsc/3
 ===========================
 ===========================
 step 7
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc-ftn/10.1
+===========================
+===========================
+step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) abc/3.3   2) intel/17.0.3   3) mcr/64/18.0.4   4) petsc/3.10
+  1) abc/3.3        3) mcr/64/18.0.4   5) gcc-ftn/10.1.0
+  2) intel/17.0.3   4) petsc/3.10
