@@ -46,6 +46,10 @@ local concatTbl   = table.concat
 local stdout      = io.stdout
 R.my_name         = "r"
 
+function R.set_my_name(self,name)
+   self.my_name         = "r"
+end
+   
 function R.alias(self, k, v)
    -- do nothing: alias do not make sense in a R script.
 end
