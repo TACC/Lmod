@@ -929,4 +929,12 @@ if (not prepend_order) then
    build_prepend_order_function()
 end
 
+local s_checkSyntaxMode = false
+function setSyntaxMode(state)
+   s_checkSyntaxMode = state
+end
+function checkSyntaxMode()
+   return s_checkSyntaxMode
+end
 
+   

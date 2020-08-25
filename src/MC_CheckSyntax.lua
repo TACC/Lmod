@@ -42,10 +42,12 @@ local MasterControl    = require("MasterControl")
 local MC_CheckSyntax   = inheritsFrom(MasterControl)
 local M                = MC_CheckSyntax
 local dbg              = require("Dbg"):dbg()
+local A                = ShowResultsA
+
 M.my_name              = "MC_CheckSyntax"
 M.my_sType             = "load"
 M.my_tcl_mode          = "load"
-M.always_load          = MasterControl.quiet
+M.always_load          = MasterControl.load_usr
 M.always_unload        = MasterControl.quiet
 M.add_property         = MasterControl.add_property
 M.append_path          = MasterControl.append_path

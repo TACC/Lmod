@@ -484,6 +484,7 @@ function main()
    if (masterTbl.checkSyntax) then
       MCP = MasterControl.build("checkSyntax")
       mcp = MasterControl.build("checkSyntax")
+      setSyntaxMode(true)
       Shell:setActive(false)
    end
 

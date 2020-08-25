@@ -175,7 +175,7 @@ local function findModules(mpath, mt, mList, sn, v, moduleT)
          shell:echo(concatTbl(b,""))
       end
 
-      loadModuleFile{file=fn, help=true, shell=shellNm, reportErr=true, mList = mList}
+      loadModuleFile{file=fn, help=true, shell=shellNm, reportErr=false, mList = mList}
       hook.apply("load_spider",{fn = fn, modFullName = fullName, sn = sn})
       mt:setStatus(sn, "active")
    end

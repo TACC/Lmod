@@ -899,7 +899,7 @@ function M.depends_on(self, mA)
    end
 
    local frameStk = FrameStk:singleton()
-   if (masterTbl().checkSyntax and frameStk:count() > 1) then
+   if (checkSyntaxMode() and frameStk:count() > 1) then
       dbg.print{"frameStk:count(): ",frameStk:count(),"\n"}
       dbg.fini("MasterControl:depends_on")
       return {}
@@ -975,7 +975,7 @@ function M.load_usr(self, mA)
       dbg.start{"MasterControl:load_usr(mA={"..s.."})"}
    end
    local frameStk = FrameStk:singleton()
-   if (masterTbl().checkSyntax and frameStk:count() > 1) then
+   if (checkSyntaxMode() and frameStk:count() > 1) then
       dbg.print{"frameStk:count(): ",frameStk:count(),"\n"}
       dbg.fini("MasterControl:load_usr")
       return {}
@@ -1454,6 +1454,12 @@ function M.color_banner(self,color)
    local term_width  = TermWidth()
    local border      = colorize(color or "red",string.rep("=", term_width-1))
    io.stderr:write(border,"\n")
+end
+
+
+function M.set_errorFunc(self, errorFunc)
+   metaT = getmetatable(self).__index
+   metaT.error = errFunc
 end
 
 

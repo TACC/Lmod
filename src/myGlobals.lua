@@ -392,7 +392,8 @@ stackTraceBackA = {}
 
 ------------------------------------------------------------------------
 -- ShowResultsA: A place where the generated module file is written to
---               when forming a show and computing a sha1sum
+--               when forming a show and computing a sha1sum and
+--               collecting syntax errors
 ------------------------------------------------------------------------
 ShowResultsA = {}
 

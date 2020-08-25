@@ -93,6 +93,7 @@ require("strict")
 
 require("myGlobals")
 require("utils")
+require("colorize")
 require("pairsByKeys")
 require("fileOps")
 require("modfuncs")
@@ -114,20 +115,20 @@ local lfs           = require("lfs")
 local sort          = table.sort
 local pack          = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
 
-function walk_moduleA(moduleA)
+function walk_moduleA(moduleA, errorT)
    dbg.start{"walk_moduleA(moduleA)"}
    local show_hidden = masterTbl().show_hidden
    local mrc         = MRC:singleton()
 
    local function l_walk_moduleA_helper(mpath, sn, v)
       if (next(v.defaultA) ~= nil && #v.defaultA > 1) then
-         too_many_defaultA_entries(mpath, sn, v.defaultA)
+         too_many_defaultA_entries(mpath, sn, v.defaultA, errorT.defaultA)
       end
 
       if (next(v.fileT) ~= nil) then
          for fullName, vv in pairs(v.fileT) do
             if (show_hidden or mrc:isVisible({fullName=fullName,sn=sn,fn=vv.fn})) then
-               check_syntax(vv.fn)
+               check_syntax(vv.fn, errorT.syntaxA)
             end
          end
       end
@@ -141,18 +142,30 @@ function walk_moduleA(moduleA)
    dbg.fini("walk_moduleA"}
 end
 
-function too_many_defaultA_entries(mpath, sn, defaultA)
+function too_many_defaultA_entries(mpath, sn, defaultA, errorA)
+   errorA[#errorA + 1]   = pathJoin(mpath,sn)
 end
 
-function check_syntax(fn)
-
+local my_errorFn
+function check_syntax(fn, errorA)
+   my_errorFn = nil
+   loadModuleFile{file=fn, help=true, shell="bash", reportErr=true, mList = ""}
+   if (my_errorFn) then
+      errorA[#errorA + 1]   = my_errorFn
+   end
 end
+
+function check_syntax_error_handler(self, t)
+   my_errorFn = t.fn
+end
+
 function main()
 
    options()
    local masterTbl  = masterTbl()
    local pargs      = masterTbl.pargs
    local mpathA     = {}
+   local errorT     = { defaultA = {}, syntaxA = {}
 
    Shell            = BaseShell:build("bash")
    build_i18n_messages()
@@ -180,13 +193,41 @@ function main()
    dbg.start{"module_tree_check main()"}
    MCP = MasterControl.build("checkSyntax")
    mcp = MasterControl.build("checkSyntax")
+   mcp.set_errorFunc(check_syntax_error_handler)
    Shell:setActive(false)
+   setSyntaxMode(true)
    
    local moduleA = ModuleA{reset=true}
 
-   walk_moduleA(moduleA)
+   walk_moduleA(moduleA, errorT)
 
+   local ierr = 0
+   if (next(errorT.defaultA) ~= nil) then
+      io.stderr:write("\nThe following directories have more than one marked default file:\n",
+                        "-----------------------------------------------------------------\n")
+      for i in 1,#errorT.defaultA do
+         ierr = ierr + 1
+         io.stderr:write("  ",errorT.defaultA[i],"\n")
+      end
+      io.stderr:write("\n")
+   end
+
+   if (next(errorT.syntaxA) ~= nil) then
+      io.stderr:write("\nThe following modulefile(s) have a syntax error:\n",
+                        "-----------------------------------------------\n")
+      for i in 1,#errorT.syntaxA do
+         ierr = ierr + 1
+         io.stderr:write("  ",errorT.syntaxA[i],"\n")
+      end
+      io.stderr:write("\n")
+   end
+      
    dbg.fini("module_tree_check main")
+   if (ierr > 0) then
+      print(colorize("red","There were ".. tostring(ierr) .. "possible errors found!"))
+      os.exit(1)
+   end
+   print("No errors found")
 end
 
 main()
