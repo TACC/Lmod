@@ -297,9 +297,10 @@ end
 
 function M.build(self, shell_name)
    createShellTbl()
-   local o     = valid_shell(s_shellTbl, shell_name:lower()):create()
-   o._active   = true
-   o:set_my_name(shell_name)
+   local shellNm = shell_name:lower()
+   local o       = valid_shell(s_shellTbl, shellNm):create()
+   o._active     = true
+   o:set_my_name(shellNm)
    return o
 end
 
