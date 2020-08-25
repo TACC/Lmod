@@ -142,6 +142,11 @@ runSpiderCmd ()
    $LUA_EXEC $projectDir/src/spider.in.lua "$@"
 }
 
+runCkMTSyntax ()
+{
+   runBase $LUA_EXEC $projectDir/src/check_module_tree_syntax.in.lua "$@"
+}
+
 buildSpiderT ()
 {
    runSpiderCmd -o spiderT "$@"

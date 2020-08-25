@@ -121,7 +121,8 @@ function walk_moduleA(moduleA, errorT)
    local mrc         = MRC:singleton()
 
    local function l_walk_moduleA_helper(mpath, sn, v)
-      if (next(v.defaultA) ~= nil && #v.defaultA > 1) then
+      dbg.print{"in l_walk_moduleA_helper(",mpath,",",sn,")\n"}
+      if (next(v.defaultA) ~= nil and #v.defaultA > 1) then
          too_many_defaultA_entries(mpath, sn, v.defaultA, errorT.defaultA)
       end
 
@@ -139,7 +140,17 @@ function walk_moduleA(moduleA, errorT)
       end
    end
 
-   dbg.fini("walk_moduleA"}
+   dbg.print{"#moduleA: ",#moduleA,"\n"}
+
+   for i = 1, #moduleA do
+      local T     = moduleA[i].T
+      local mpath = moduleA[i].mpath
+      for sn, v in pairs(T) do
+         l_walk_moduleA_helper(mpath, sn, v)
+      end
+   end
+
+   dbg.fini("walk_moduleA")
 end
 
 function too_many_defaultA_entries(mpath, sn, defaultA, errorA)
@@ -159,19 +170,65 @@ function check_syntax_error_handler(self, t)
    my_errorFn = t.fn
 end
 
+local function Error(...)
+   local argA   = pack(...)
+   for i = 1,argA.n do
+      stderr:write(argA[i])
+   end
+end
+
+local function prt(...)
+   stderr:write(...)
+end
+
+function options()
+   local masterTbl = masterTbl()
+   local usage         = "Usage: spider [options] moduledir ..."
+   local cmdlineParser = Optiks:new{usage   = usage,
+                                    version = "1.0",
+                                    error   = Error,
+                                    prt     = prt,
+   }
+
+   cmdlineParser:add_option{
+      name   = {'-D'},
+      dest   = 'debug',
+      action = 'count',
+      help   = "Program tracing written to stderr",
+   }
+
+   cmdlineParser:add_option{
+      name   = {"-T", "--trace" },
+      dest   = "trace",
+      action = "store_true",
+      help   = "Tracing",
+   }
+   local optionTbl, pargs = cmdlineParser:parse(arg)
+
+   if (optionTbl.trace) then
+      cosmic:assign("LMOD_TRACING", "yes")
+   end
+
+   for v in pairs(optionTbl) do
+      masterTbl[v] = optionTbl[v]
+   end
+   masterTbl.pargs = pargs
+end
+   
 function main()
 
    options()
    local masterTbl  = masterTbl()
    local pargs      = masterTbl.pargs
    local mpathA     = {}
-   local errorT     = { defaultA = {}, syntaxA = {}
+   local errorT     = { defaultA = {}, syntaxA = {} }
 
    Shell            = BaseShell:build("bash")
    build_i18n_messages()
 
    local master     = Master:singleton(false)
-   for _, v in ipairs(pargs) do
+   for i = 1,#pargs do
+      local v = pargs[i]
       for path in v:split(":") do
          local my_path     = path_regularize(path)
          if (my_path:sub(1,1) ~= "/") then
@@ -193,13 +250,15 @@ function main()
    dbg.start{"module_tree_check main()"}
    MCP = MasterControl.build("checkSyntax")
    mcp = MasterControl.build("checkSyntax")
-   mcp.set_errorFunc(check_syntax_error_handler)
+   mcp.error = check_syntax_error_handler
+   MCP.error = check_syntax_error_handler
    Shell:setActive(false)
    setSyntaxMode(true)
    
-   local moduleA = ModuleA{reset=true}
+   local moduleA = ModuleA:singleton{reset=true}
+   local mA      = moduleA:moduleA()
 
-   walk_moduleA(moduleA, errorT)
+   walk_moduleA(mA, errorT)
 
    local ierr = 0
    if (next(errorT.defaultA) ~= nil) then
