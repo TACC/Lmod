@@ -30,7 +30,8 @@ testdescript = {
      runLmod load mcr/64/18                    # 5
      runLmod load petsc/3                      # 6
      runLmod load gcc-ftn/10.1                 # 7
-     runLmod list                              # 8
+     runLmod load junk/4.0.2                   # 8
+     runLmod list                              # 9
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
