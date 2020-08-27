@@ -56,11 +56,11 @@ function collectFileA(sn, versionStr, extended_default, v, fileA)
             if (vp:sub(-1) ~= ".") then
                vp = vp .. "."
             end
-            local keyPat = pathJoin(sn,vp:gsub("%.","%%.") .. ".*")
+            local keyPat = pathJoin(sn,vp):escape() .. ".*"
             for k,vvv in pairs(v.fileT) do
                if (k:find(keyPat)) then
                   fileA[#fileA+1] = { sn = sn, fullName = k,
-                                      version = k:gsub("^" .. sn .. "/",""),
+                                      version = k:gsub("^" .. sn:escape() .. "/",""),
                                       fn = vvv.fn, wV = vvv.wV, pV = vvv.pV }
                end
             end
