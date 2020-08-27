@@ -54,7 +54,8 @@ function collectFileA(sn, versionStr, extended_default, v, fileA)
          if (extended_default == "yes") then
             local vp = versionStr
             local extra = ""
-            if (vp:sub(-1) ~= "[-+_.=]") then
+            local bndPat = "[-+_.=a-zA-Z]"
+            if (not vp:sub(-1):find(bndPat)) then
                extra = "[-+_.=]"
             end
             local keyPat = pathJoin(sn,vp):escape() .. extra .. ".*"

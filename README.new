@@ -1,6 +1,5 @@
 Lmod 8.4+
    (8.4.1)  * Issue #460: Change meta modules from having a separate file= to be
               a fileT= in ModuleA
-W.I.P.:
    (8.4.2)  * Actually set shell name from the command line and not based on Shell Object.
-   
+            * Issue #462: Allow for more matches with extended default.  The last character can be: . _ - + = or letters
