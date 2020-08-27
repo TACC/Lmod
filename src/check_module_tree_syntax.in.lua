@@ -173,12 +173,12 @@ end
 local function Error(...)
    local argA   = pack(...)
    for i = 1,argA.n do
-      stderr:write(argA[i])
+      io.stderr:write(argA[i])
    end
 end
 
 local function prt(...)
-   stderr:write(...)
+   io.stderr:write(...)
 end
 
 function options()
