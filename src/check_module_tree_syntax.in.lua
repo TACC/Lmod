@@ -103,12 +103,15 @@ require("parseVersion")
 _G.MasterControl    = require("MasterControl")
 Shell               = false
 
+local BaseShell     = require("BaseShell")
+local Cache         = require("Cache")
 local MRC           = require("MRC")
+local MName         = require("MName")
+local MT            = require("MT")
 local Master        = require("Master")
 local ModuleA       = require("ModuleA")
-local Spider        = require("Spider")
-local BaseShell     = require("BaseShell")
 local Optiks        = require("Optiks")
+local Spider        = require("Spider")
 local concatTbl     = table.concat
 local cosmic        = require("Cosmic"):singleton()
 local dbg           = require("Dbg"):dbg()
@@ -117,8 +120,11 @@ local lfs           = require("lfs")
 local sort          = table.sort
 local pack          = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
 
-function walk_spiderT(spiderT, mList, errorT)
-   dbg.start{"walk_moduleA(moduleA)"}
+local function nothing()
+end
+
+function walk_spiderT(spiderT, mt, mList, errorT)
+   dbg.start{"walk_spiderT(spiderT, mList, errorT)"}
    local show_hidden = masterTbl().show_hidden
    local mrc         = MRC:singleton()
 
@@ -131,7 +137,7 @@ function walk_spiderT(spiderT, mList, errorT)
       if (next(v.fileT) ~= nil) then
          for fullName, vv in pairs(v.fileT) do
             if (show_hidden or mrc:isVisible({fullName=fullName,sn=sn,fn=vv.fn})) then
-               check_syntax(mpath, mList, sn, vv.fn, vv.fullName, vv, errorT.syntaxA)
+               check_syntax(mpath, mt, mList, sn, vv.fn, fullName, vv, errorT.syntaxA)
             end
          end
       end
@@ -143,19 +149,23 @@ function walk_spiderT(spiderT, mList, errorT)
    end
 
    for mpath, vv in pairs(spiderT) do
-      for sn, v  in pairs(vv) do
-         l_walk_moduleA_helper(mpath, sn, v)
+      if (mpath ~= "version") then
+         for sn, v  in pairs(vv) do
+            l_walk_moduleA_helper(mpath, sn, v)
+         end
       end
    end
 
-   dbg.fini("walk_moduleA")
+   dbg.fini("walk_spiderT")
 end
 
 function too_many_defaultA_entries(mpath, sn, defaultA, errorA)
    errorA[#errorA + 1]   = pathJoin(mpath,sn)
 end
 
-function check_syntax(mpath, mList, sn, fn, fullName, myModuleT, errorA)
+local my_errorFn = nil
+function check_syntax(mpath, mt, mList, sn, fn, fullName, myModuleT, errorA)
+   dbg.start{"check_syntax(mpath=\"",mpath,"\", mList=\"",mList,"\", sn=\"",sn,"\", fn= \"",fn,"\", fullName=\"",fullName,"\"...)"}
    local shell    = _G.Shell
    local tracing  = cosmic:value("LMOD_TRACING")
 
@@ -163,6 +173,8 @@ function check_syntax(mpath, mList, sn, fn, fullName, myModuleT, errorA)
       local shellNm = "bash"
       moduleStack[iStack] = { mpath = mpath, sn = sn, fullName = fullName, moduleT = myModuleT, fn = fn}
       local mname = MName:new("entryT", entryT)
+      mt:add(mname, "pending")
+      dbg.print{"mt: fullName(): ", mt:fullName(sn),", fn: ",mt:fn(sn),"\n"}
       if (tracing == "yes") then
          local b          = {}
          b[#b + 1]        = "check_syntax Loading: "
@@ -181,11 +193,12 @@ function check_syntax(mpath, mList, sn, fn, fullName, myModuleT, errorA)
    local Version     = extractVersion(fullName, sn)
    local entryT      = { fn = fn, sn = sn, userName = fullName, fullName = fullName, version = Version}
 
-   local my_errorFn = nil
+   my_errorFn = nil
    loadMe(entryT, moduleStack, iStack, myModuleT)
    if (my_errorFn) then
       errorA[#errorA + 1]   = my_errorFn
    end
+   dbg.fini("check_syntax")
 end
 
 function check_syntax_error_handler(self, t)
@@ -204,7 +217,7 @@ local function prt(...)
 end
 
 function options()
-   local masterTbl = masterTbl()
+   local masterTbl     = masterTbl()
    local usage         = "Usage: spider [options] moduledir ..."
    local cmdlineParser = Optiks:new{usage   = usage,
                                     version = "1.0",
@@ -256,6 +269,32 @@ function main()
    Shell            = BaseShell:build("bash")
    build_i18n_messages()
 
+   ------------------------------------------------------------------------
+   --  The StandardPackage is where Lmod registers hooks.  Sites may
+   --  override the hook functions in SitePackage.
+   ------------------------------------------------------------------------
+   dbg.print{"Loading StandardPackage\n"}
+   require("StandardPackage")
+
+   ------------------------------------------------------------------------
+   -- Load a SitePackage Module.
+   ------------------------------------------------------------------------
+
+   local lmodPath = os.getenv("LMOD_PACKAGE_PATH") or ""
+   for path in lmodPath:split(":") do
+      path = path .. "/"
+      path = path:gsub("//+","/")
+      package.path  = path .. "?.lua;"      ..
+                      path .. "?/init.lua;" ..
+                      package.path
+
+      package.cpath = path .. "../lib/?.so;"..
+                      package.cpath
+   end
+
+   dbg.print{"lmodPath:", lmodPath,"\n"}
+   require("SitePackage")
+
    local master     = Master:singleton(false)
    for i = 1,#pargs do
       local v = pargs[i]
@@ -270,6 +309,7 @@ function main()
    end
    local mpath = concatTbl(mpathA,":")
    posix.setenv("MODULEPATH",mpath,true)
+   setenv_lmod_version() -- push Lmod version info into env for modulefiles.
 
 
    if (masterTbl.debug > 0 or masterTbl.dbglvl) then
@@ -280,9 +320,13 @@ function main()
    dbg.start{"module_tree_check main()"}
    _G.mcp = MasterControl.build("spider")
    _G.MCP = MasterControl.build("spider")
-   local spider  = Spider:new()
-   local spiderT = {}
-   spider:findAllModules(mpathA, spiderT)
+   local remove_MRC_home         = true
+   local mrc                     = MRC:singleton(getModuleRCT(remove_MRC_home))
+   local cache                   = Cache:singleton{dontWrite = true, quiet = true, buildCache = true,
+                                                   buildFresh = true, noMRC=true}
+   local spider                  = Spider:new()
+   local spiderT, dbT,
+         mpathMapT, providedByT  = cache:build()
 
    _G.MCP = MasterControl.build("checkSyntax")
    _G.mcp = MasterControl.build("checkSyntax")
@@ -295,17 +339,17 @@ function main()
    local tracing         = cosmic:value("LMOD_TRACING")
    local mt              = deepcopy(MT:singleton())
    local maxdepthT       = mt:maxDepthT()
-   local masterTbl       = masterTbl()
    local moduleDirT      = {}
    masterTbl.moduleStack = {{}}
    masterTbl.dirStk      = {}
    masterTbl.mpathMapT   = {}
+   local exit            = os.exit
 
    sandbox_set_os_exit(nothing)
    if (not tracing) then
       turn_off_stderr()
    end
-   dbg.print{"setting os.exit to nothing; turn off output to stderr\n"}
+
    if (Use_Preload) then
       local a = {}
       mList   = getenv("LOADEDMODULES") or ""
@@ -319,41 +363,7 @@ function main()
       mList = concatTbl(a,":")
    end
 
-   local dirStk = masterTbl.dirStk
-   for i = 1,#mpathA do
-      local mpath = mpathA[i]
-      if (isDir(mpath)) then
-         dirStk[#dirStk+1] = path_regularize(mpath)
-      end
-   end
-
-   while(#dirStk > 0) do
-      repeat
-
-         -- Pop top of dirStk
-         local mpath     = dirStk[#dirStk]
-         dirStk[#dirStk] = nil
-
-         -- skip mpath directory if already walked.
-         if (spiderT[mpath]) then break end
-
-         -- skip mpath if directory does not exist
-         -- or can not be read
-         local attr  = lfs.attributes(mpath)
-         if (not attr or attr.mode ~= "directory" or
-             (not access(mpath,"rx")))               then break end
-
-         dbg.print{"RTM mpath: ", mpath,"\n"}
-         local moduleA     = ModuleA:__new({mpath}, maxdepthT):moduleA()
-         local T           = moduleA[1].T
-         for sn, v in pairs(T) do
-            findModules(mpath, mt, mList, sn, v)
-         end
-         spiderT[mpath] = moduleA[1].T
-      until true
-   end
-
-   walk_spiderT(spiderT, mList, errorT)
+   walk_spiderT(spiderT, mt, mList, errorT)
 
    sandbox_set_os_exit(exit)
    if (not tracing) then
@@ -364,7 +374,7 @@ function main()
    if (next(errorT.defaultA) ~= nil) then
       io.stderr:write("\nThe following directories have more than one marked default file:\n",
                         "-----------------------------------------------------------------\n")
-      for i in 1,#errorT.defaultA do
+      for i = 1,#errorT.defaultA do
          ierr = ierr + 1
          io.stderr:write("  ",errorT.defaultA[i],"\n")
       end
@@ -383,7 +393,7 @@ function main()
       
    dbg.fini("module_tree_check main")
    if (ierr > 0) then
-      print(colorize("red","There were ".. tostring(ierr) .. "possible errors found!"))
+      print(colorize("red","There were ".. tostring(ierr) .. " possible errors found!"))
       os.exit(1)
    end
    print("No errors found")
