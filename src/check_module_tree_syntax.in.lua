@@ -99,13 +99,15 @@ require("fileOps")
 require("modfuncs")
 require("deepcopy")
 require("parseVersion")
-MasterControl       = require("MasterControl")
-Cache               = require("Cache")
-MRC                 = require("MRC")
-Master              = require("Master")
-ModuleA             = require("ModuleA")
-BaseShell           = require("BaseShell")
+
+_G.MasterControl    = require("MasterControl")
 Shell               = false
+
+local MRC           = require("MRC")
+local Master        = require("Master")
+local ModuleA       = require("ModuleA")
+local Spider        = require("Spider")
+local BaseShell     = require("BaseShell")
 local Optiks        = require("Optiks")
 local concatTbl     = table.concat
 local cosmic        = require("Cosmic"):singleton()
@@ -115,7 +117,7 @@ local lfs           = require("lfs")
 local sort          = table.sort
 local pack          = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
 
-function walk_moduleA(moduleA, errorT)
+function walk_spiderT(spiderT, mList, errorT)
    dbg.start{"walk_moduleA(moduleA)"}
    local show_hidden = masterTbl().show_hidden
    local mrc         = MRC:singleton()
@@ -129,23 +131,19 @@ function walk_moduleA(moduleA, errorT)
       if (next(v.fileT) ~= nil) then
          for fullName, vv in pairs(v.fileT) do
             if (show_hidden or mrc:isVisible({fullName=fullName,sn=sn,fn=vv.fn})) then
-               check_syntax(mpath, sn, vv.fn, vv.fullName, vv, errorT.syntaxA)
+               check_syntax(mpath, mList, sn, vv.fn, vv.fullName, vv, errorT.syntaxA)
             end
          end
       end
       if (next(v.dirT) ~= nil) then
          for name, vv in pairs(v.dirT) do
-            l_walk_moduleA_helper(mpath, sn, vv)
+            l_walk_moduleA_helper(mpath, name, vv)
          end
       end
    end
 
-   dbg.print{"#moduleA: ",#moduleA,"\n"}
-
-   for i = 1, #moduleA do
-      local T     = moduleA[i].T
-      local mpath = moduleA[i].mpath
-      for sn, v in pairs(T) do
+   for mpath, vv in pairs(spiderT) do
+      for sn, v  in pairs(vv) do
          l_walk_moduleA_helper(mpath, sn, v)
       end
    end
@@ -157,7 +155,7 @@ function too_many_defaultA_entries(mpath, sn, defaultA, errorA)
    errorA[#errorA + 1]   = pathJoin(mpath,sn)
 end
 
-function check_syntax(mpath, sn, fn, fullName, myModuleT, errorA)
+function check_syntax(mpath, mList, sn, fn, fullName, myModuleT, errorA)
    local shell    = _G.Shell
    local tracing  = cosmic:value("LMOD_TRACING")
 
@@ -174,7 +172,7 @@ function check_syntax(mpath, sn, fn, fullName, myModuleT, errorA)
          b[#b + 1]        = ")\n"
          shell:echo(concatTbl(b,""))
       end
-      loadModuleFile{file=entryT.fn, help=true, reportErr=true, mList = ""}
+      loadModuleFile{file=entryT.fn, help=true, reportErr=true, mList = mList}
       mt:setStatus(sn, "active")
    end
 
@@ -227,6 +225,13 @@ function options()
       action = "store_true",
       help   = "Tracing",
    }
+   cmdlineParser:add_option{
+      name    = {'--preload'},
+      dest    = 'preload',
+      action  = 'store_true',
+      default = false,
+      help    = "Use preloaded modules to build reverseMapT"
+   }
    local optionTbl, pargs = cmdlineParser:parse(arg)
 
    if (optionTbl.trace) then
@@ -237,6 +242,7 @@ function options()
       masterTbl[v] = optionTbl[v]
    end
    masterTbl.pargs = pargs
+   Use_Preload     = masterTbl.preload
 end
    
 function main()
@@ -272,17 +278,87 @@ function main()
    end
 
    dbg.start{"module_tree_check main()"}
-   MCP = MasterControl.build("checkSyntax")
-   mcp = MasterControl.build("checkSyntax")
+   _G.mcp = MasterControl.build("spider")
+   _G.MCP = MasterControl.build("spider")
+   local spider  = Spider:new()
+   local spiderT = {}
+   spider:findAllModules(mpathA, spiderT)
+
+   _G.MCP = MasterControl.build("checkSyntax")
+   _G.mcp = MasterControl.build("checkSyntax")
    mcp.error = check_syntax_error_handler
    MCP.error = check_syntax_error_handler
    Shell:setActive(false)
    setSyntaxMode(true)
    
-   local moduleA = ModuleA:singleton{reset=true}
-   local mA      = moduleA:moduleA()
+   local mList           = ""
+   local tracing         = cosmic:value("LMOD_TRACING")
+   local mt              = deepcopy(MT:singleton())
+   local maxdepthT       = mt:maxDepthT()
+   local masterTbl       = masterTbl()
+   local moduleDirT      = {}
+   masterTbl.moduleStack = {{}}
+   masterTbl.dirStk      = {}
+   masterTbl.mpathMapT   = {}
 
-   walk_moduleA(mA, errorT)
+   sandbox_set_os_exit(nothing)
+   if (not tracing) then
+      turn_off_stderr()
+   end
+   dbg.print{"setting os.exit to nothing; turn off output to stderr\n"}
+   if (Use_Preload) then
+      local a = {}
+      mList   = getenv("LOADEDMODULES") or ""
+      for mod in mList:split(":") do
+         local i = mod:find("/[^/]*$")
+         if (i) then
+            a[#a+1] = mod:sub(1,i-1)
+         end
+         a[#a+1] = mod
+      end
+      mList = concatTbl(a,":")
+   end
+
+   local dirStk = masterTbl.dirStk
+   for i = 1,#mpathA do
+      local mpath = mpathA[i]
+      if (isDir(mpath)) then
+         dirStk[#dirStk+1] = path_regularize(mpath)
+      end
+   end
+
+   while(#dirStk > 0) do
+      repeat
+
+         -- Pop top of dirStk
+         local mpath     = dirStk[#dirStk]
+         dirStk[#dirStk] = nil
+
+         -- skip mpath directory if already walked.
+         if (spiderT[mpath]) then break end
+
+         -- skip mpath if directory does not exist
+         -- or can not be read
+         local attr  = lfs.attributes(mpath)
+         if (not attr or attr.mode ~= "directory" or
+             (not access(mpath,"rx")))               then break end
+
+         dbg.print{"RTM mpath: ", mpath,"\n"}
+         local moduleA     = ModuleA:__new({mpath}, maxdepthT):moduleA()
+         local T           = moduleA[1].T
+         for sn, v in pairs(T) do
+            findModules(mpath, mt, mList, sn, v)
+         end
+         spiderT[mpath] = moduleA[1].T
+      until true
+   end
+
+   walk_spiderT(spiderT, mList, errorT)
+
+   sandbox_set_os_exit(exit)
+   if (not tracing) then
+      turn_on_stderr()
+   end
 
    local ierr = 0
    if (next(errorT.defaultA) ~= nil) then
