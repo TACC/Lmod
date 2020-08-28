@@ -63,7 +63,7 @@ rules to locate a modulefile:
 #. If a site has "extended defaults" enabled and a user types in part
    of the version then that part is used select the "best" of that
    version if any exist. Note that if user enters "abc/1" then it will
-   match "abc/1.*" but not "abc/17.*"
+   match "abc/1.\*" or "abc/1-\*" but not "abc/17.\*"
 #. If the name doesn't contain a version then Lmod looks for a
    marked default in the first directory that has one. A marked
    default which is also hidden will be loaded.

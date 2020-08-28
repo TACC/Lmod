@@ -129,7 +129,7 @@ function walk_moduleA(moduleA, errorT)
       if (next(v.fileT) ~= nil) then
          for fullName, vv in pairs(v.fileT) do
             if (show_hidden or mrc:isVisible({fullName=fullName,sn=sn,fn=vv.fn})) then
-               check_syntax(vv.fn, errorT.syntaxA)
+               check_syntax(mpath, sn, vv.fn, vv.fullName, vv, errorT.syntaxA)
             end
          end
       end
@@ -157,10 +157,34 @@ function too_many_defaultA_entries(mpath, sn, defaultA, errorA)
    errorA[#errorA + 1]   = pathJoin(mpath,sn)
 end
 
-local my_errorFn
-function check_syntax(fn, errorA)
-   my_errorFn = nil
-   loadModuleFile{file=fn, help=true, shell="bash", reportErr=true, mList = ""}
+function check_syntax(mpath, sn, fn, fullName, myModuleT, errorA)
+   local shell    = _G.Shell
+   local tracing  = cosmic:value("LMOD_TRACING")
+
+   local function loadMe(entryT, moduleStack, iStack, myModuleT)
+      local shellNm = "bash"
+      moduleStack[iStack] = { mpath = mpath, sn = sn, fullName = fullName, moduleT = myModuleT, fn = fn}
+      local mname = MName:new("entryT", entryT)
+      if (tracing == "yes") then
+         local b          = {}
+         b[#b + 1]        = "check_syntax Loading: "
+         b[#b + 1]        = fullName
+         b[#b + 1]        = " (fn: "
+         b[#b + 1]        = fn or "nil"
+         b[#b + 1]        = ")\n"
+         shell:echo(concatTbl(b,""))
+      end
+      loadModuleFile{file=entryT.fn, help=true, reportErr=true, mList = ""}
+      mt:setStatus(sn, "active")
+   end
+
+   local moduleStack = masterTbl().moduleStack
+   local iStack      = #moduleStack
+   local Version     = extractVersion(fullName, sn)
+   local entryT      = { fn = fn, sn = sn, userName = fullName, fullName = fullName, version = Version}
+
+   local my_errorFn = nil
+   loadMe(entryT, moduleStack, iStack, myModuleT)
    if (my_errorFn) then
       errorA[#errorA + 1]   = my_errorFn
    end

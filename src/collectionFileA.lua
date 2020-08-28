@@ -38,7 +38,7 @@ require("utils")
 
 local dbg    = require("Dbg"):dbg()
 function collectFileA(sn, versionStr, extended_default, v, fileA)
-   --dbg.start{"collectFileA(",sn,",", versionStr,",v,fileA)"}
+   dbg.start{"collectFileA(",sn,",", versionStr,",v,fileA)"}
    if (v.file and versionStr == nil) then
       fileA[#fileA+1] = { sn = sn, version = nil, fullName = sn, fn=v.file, wV="~", pV="~" }
    end
@@ -53,11 +53,14 @@ function collectFileA(sn, versionStr, extended_default, v, fileA)
          end
          if (extended_default == "yes") then
             local vp = versionStr
-            if (vp:sub(-1) ~= ".") then
-               vp = vp .. "."
+            local extra = ""
+            local bndPat = "[-+_.=a-zA-Z]"
+            if (not vp:sub(-1):find(bndPat)) then
+               extra = "[-+_.=]"
             end
-            local keyPat = pathJoin(sn,vp):escape() .. ".*"
+            local keyPat = pathJoin(sn,vp):escape() .. extra .. ".*"
             for k,vvv in pairs(v.fileT) do
+               dbg.print{ "k: ",k,", keyPat: ",keyPat," k:find(keyPat): ",k:find(keyPat), "\n"}
                if (k:find(keyPat)) then
                   fileA[#fileA+1] = { sn = sn, fullName = k,
                                       version = k:gsub("^" .. sn:escape() .. "/",""),
@@ -78,5 +81,5 @@ function collectFileA(sn, versionStr, extended_default, v, fileA)
          collectFileA(sn, nil, extended_default, vv, fileA)
       end
    end
-   --dbg.fini("collectFileA")
+   dbg.fini("collectFileA")
 end
