@@ -157,8 +157,6 @@ local function findModules(mpath, mt, mList, sn, v, moduleT)
       local shellNm       = "bash"
       local fn            = entryT.fn
       local sn            = entryT.sn
-      local pV            = entryT.pV
-      local wV            = entryT.wV
       local fullName      = entryT.fullName
       local version       = entryT.version
       moduleStack[iStack] = { mpath = mpath, sn = sn, fullName = fullName, moduleT = myModuleT, fn = fn}
@@ -184,15 +182,14 @@ local function findModules(mpath, mt, mList, sn, v, moduleT)
    local moduleStack = masterTbl().moduleStack
    local iStack      = #moduleStack
    if (v.file) then
-      entryT   = { fn = v.file, sn = sn, userName = sn, fullName = sn, version = false,
-                   pV = v.pV, wV = v.wV }
+      entryT   = { fn = v.file, sn = sn, userName = sn, fullName = sn, version = false}
       loadMe(entryT, moduleStack, iStack, v.metaModuleT)
    end
    if (next(v.fileT) ~= nil) then
       for fullName, vv in pairs(v.fileT) do
          vv.Version = extractVersion(fullName, sn)
          entryT   = { fn = vv.fn, sn = sn, userName = fullName, fullName = fullName,
-                      version = vv.Version, pV = v.pV, wV = v.wV }
+                      version = vv.Version}
          loadMe(entryT, moduleStack, iStack, vv)
       end
    end
