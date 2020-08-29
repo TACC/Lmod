@@ -269,7 +269,7 @@ function M.findAllModules(self, mpathA, spiderT)
    os.exit               = nothing
    
    sandbox_set_os_exit(nothing)
-   if (not tracing) then
+   if (tracing == "no" and not dbg.active()) then
       turn_off_stderr()
    end
    dbg.print{"setting os.exit to nothing; turn off output to stderr\n"}
@@ -323,7 +323,7 @@ function M.findAllModules(self, mpathA, spiderT)
    dbg.print{"Resetting os.exit back; stderr back on\n"}
    os.exit               = exit
    sandbox_set_os_exit(exit)
-   if (not tracing) then
+   if (tracing == "no" and not dbg.active()) then
       turn_on_stderr()
    end
    dbg.fini("Spider:findAllModules")

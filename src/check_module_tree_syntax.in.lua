@@ -350,9 +350,6 @@ function main()
    local exit            = os.exit
 
    sandbox_set_os_exit(nothing)
-   if (not tracing and not dbg.active()) then
-      turn_off_stderr()
-   end
 
    if (Use_Preload) then
       local a = {}
@@ -367,10 +364,13 @@ function main()
       mList = concatTbl(a,":")
    end
 
+   if (tracing == "no" and not dbg.active()) then
+      turn_off_stderr()
+   end
    walk_spiderT(spiderT, mt, mList, errorT)
 
    sandbox_set_os_exit(exit)
-   if (not tracing) then
+   if (tracing == "no" and not dbg.active()) then
       turn_on_stderr()
    end
 
