@@ -10,3 +10,6 @@ lua ProjectDIR/src/check_module_tree_syntax.in.lua ProjectDIR/rt/ck_mtree_syntax
 ===========================
 The following directories have more than one marked default file:
   ProjectDIR/rt/ck_mtree_syntax/mf/A
+The following modulefile(s) have syntax errors:
+  ModuleName: A/1.0, Fn: ProjectDIR/rt/ck_mtree_syntax/mf/A/1.0.lua
+  ModuleName: A/2.0, Fn: ProjectDIR/rt/ck_mtree_syntax/mf/A/2.0

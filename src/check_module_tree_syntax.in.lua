@@ -171,6 +171,7 @@ function check_syntax(mpath, mt, mList, sn, fn, fullName, myModuleT, errorA)
 
    local function loadMe(entryT, moduleStack, iStack, myModuleT)
       dbg.start{"loadMe(entryT, moduleStack, iStack, myModuleT)"}
+      local shellNm       = "bash"
       moduleStack[iStack] = { mpath = mpath, sn = sn, fullName = fullName, moduleT = myModuleT, fn = fn}
       local mname = MName:new("entryT", entryT)
       mt:add(mname, "pending")
@@ -183,7 +184,7 @@ function check_syntax(mpath, mt, mList, sn, fn, fullName, myModuleT, errorA)
          b[#b + 1]        = ")\n"
          shell:echo(concatTbl(b,""))
       end
-      loadModuleFile{file=entryT.fn, help=true, reportErr=true, mList = mList}
+      loadModuleFile{file=entryT.fn, shell=shellNm, help=true, reportErr=true, mList = mList}
       mt:setStatus(sn, "active")
       dbg.fini("loadMe")
    end
@@ -349,7 +350,7 @@ function main()
    local exit            = os.exit
 
    sandbox_set_os_exit(nothing)
-   if (not tracing) then
+   if (not tracing and not dbg.active()) then
       turn_off_stderr()
    end
 
