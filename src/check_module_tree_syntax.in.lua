@@ -163,18 +163,17 @@ function too_many_defaultA_entries(mpath, sn, defaultA, errorA)
    errorA[#errorA + 1]   = pathJoin(mpath,sn)
 end
 
-local my_errorFn = nil
+local my_errorMsg = nil
 function check_syntax(mpath, mt, mList, sn, fn, fullName, myModuleT, errorA)
    dbg.start{"check_syntax(mpath=\"",mpath,"\", mList=\"",mList,"\", sn=\"",sn,"\", fn= \"",fn,"\", fullName=\"",fullName,"\"...)"}
    local shell    = _G.Shell
    local tracing  = cosmic:value("LMOD_TRACING")
 
    local function loadMe(entryT, moduleStack, iStack, myModuleT)
-      local shellNm = "bash"
+      dbg.start{"loadMe(entryT, moduleStack, iStack, myModuleT)"}
       moduleStack[iStack] = { mpath = mpath, sn = sn, fullName = fullName, moduleT = myModuleT, fn = fn}
       local mname = MName:new("entryT", entryT)
       mt:add(mname, "pending")
-      dbg.print{"mt: fullName(): ", mt:fullName(sn),", fn: ",mt:fn(sn),"\n"}
       if (tracing == "yes") then
          local b          = {}
          b[#b + 1]        = "check_syntax Loading: "
@@ -186,6 +185,7 @@ function check_syntax(mpath, mt, mList, sn, fn, fullName, myModuleT, errorA)
       end
       loadModuleFile{file=entryT.fn, help=true, reportErr=true, mList = mList}
       mt:setStatus(sn, "active")
+      dbg.fini("loadMe")
    end
 
    local moduleStack = masterTbl().moduleStack
@@ -193,19 +193,22 @@ function check_syntax(mpath, mt, mList, sn, fn, fullName, myModuleT, errorA)
    local Version     = extractVersion(fullName, sn)
    local entryT      = { fn = fn, sn = sn, userName = fullName, fullName = fullName, version = Version}
 
-   my_errorFn = nil
+   my_errorMsg = nil
    loadMe(entryT, moduleStack, iStack, myModuleT)
-   if (my_errorFn) then
-      errorA[#errorA + 1]   = my_errorFn
+   if (my_errorMsg) then
+      errorA[#errorA + 1]   = my_errorMsg
    end
    dbg.fini("check_syntax")
 end
 
 function check_syntax_error_handler(self, t)
-   my_errorFn = t.fn
+   dbg.start{"check_syntax_error_handler(self, t)"}
+   my_errorMsg = "ModuleName: "..myModuleFullName()..", Fn: "..myFileName()
+   dbg.print{"Setting my_errorMsg to : ",my_errorMsg,"\n"}
+   dbg.fini("check_syntax_error_handler")
 end
 
-local function Error(...)
+local function OptError(...)
    local argA   = pack(...)
    for i = 1,argA.n do
       io.stderr:write(argA[i])
@@ -221,7 +224,7 @@ function options()
    local usage         = "Usage: spider [options] moduledir ..."
    local cmdlineParser = Optiks:new{usage   = usage,
                                     version = "1.0",
-                                    error   = Error,
+                                    error   = OptError,
                                     prt     = prt,
    }
 
@@ -382,9 +385,9 @@ function main()
    end
 
    if (next(errorT.syntaxA) ~= nil) then
-      io.stderr:write("\nThe following modulefile(s) have a syntax error:\n",
+      io.stderr:write("\nThe following modulefile(s) have syntax errors:\n",
                         "-----------------------------------------------\n")
-      for i in 1,#errorT.syntaxA do
+      for i = 1,#errorT.syntaxA do
          ierr = ierr + 1
          io.stderr:write("  ",errorT.syntaxA[i],"\n")
       end
