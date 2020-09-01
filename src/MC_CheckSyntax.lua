@@ -90,71 +90,18 @@ M.whatis               = MasterControl.quiet
 M.load_usr             = MasterControl.load_usr
 
 --------------------------------------------------------------------------
--- use the moduleStack to return the filename of the modulefile.
--- @param self A MasterControl object.
-function M.myFileName(self)
-   local moduleStack = masterTbl().moduleStack
-   local iStack      = #moduleStack
-   return moduleStack[iStack].fn
-end
-
---------------------------------------------------------------------------
--- Use the moduleStack to return the full name of the module.  This is
--- typically name/version.  For Spider we assume that the user name is
--- the full name.
--- @param self A MasterControl object.
-function M.myModuleFullName(self)
-   local moduleStack = masterTbl().moduleStack
-   local iStack      = #moduleStack
-   return moduleStack[iStack].fullName
-end
-
-M.myModuleUsrName = M.myModuleFullName
-
---------------------------------------------------------------------------
--- Use the moduleStack to return the short name of the module.
--- @param self A MasterControl object.
-function M.myModuleName(self)
-   local moduleStack = masterTbl().moduleStack
-   local iStack      = #moduleStack
-   return moduleStack[iStack].sn
-end
-
---------------------------------------------------------------------------
--- Use the moduleStack to return the version of the module.  For meta
--- modules the version will be "".
--- @param self A MasterControl object.
-function M.myModuleVersion(self)
-   local moduleStack = masterTbl().moduleStack
-   local iStack      = #moduleStack
-   local fullName    = moduleStack[iStack].fullName
-   local sn          = moduleStack[iStack].sn
-   return extractVersion(fullName, sn) or ""
-end
-
-function M.family(self, value)
-   dbg.start{"MC_CheckSyntax:family(\"value=\"",value,"\")"}
-   local moduleStack   = masterTbl().moduleStack
-   local iStack        = #moduleStack
-   local path          = moduleStack[iStack].path
-   local moduleT       = moduleStack[iStack].moduleT
-   moduleT.family      = value
-   dbg.fini("MC_CheckSyntax:family")
-   return true
-end
-
---------------------------------------------------------------------------
 -- Copy the property to moduleT
 -- @param self A MasterControl object.
 -- @param name the property name.
 -- @param value the value.
 function M.add_property(self, name, value)
-   local moduleStack = masterTbl().moduleStack
-   local iStack      = #moduleStack
-   local path        = moduleStack[iStack].path
+   dbg.start{"MC_CheckSyntax:add_property(\"",name,"\", \"",value,"\")"}
    local t           = {}
+   --dbg.print{"Before ReadLmodRC:singleton() \n"}
    --local readLmodRC  = ReadLmodRC:singleton()
+   --dbg.print{"Before readLmodRC:validPropValue()\n"}
    --readLmodRC:validPropValue(name, value,t)
+   --dbg.fini("MC_CheckSyntax:add_property")
    return true
 end
 

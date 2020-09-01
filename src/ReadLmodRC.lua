@@ -138,7 +138,6 @@ end
 
 function M.singleton(self)
    dbg.start{"ReadLmodRC:singleton()"}
-   dbg.print{"in ReadLmodRC:singleton()\n"}
    if (not s_classObj) then
       s_classObj = new(self)
    end

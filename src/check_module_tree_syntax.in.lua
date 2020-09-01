@@ -138,7 +138,7 @@ function walk_spiderT(spiderT, mt, mList, errorT)
       if (next(v.fileT) ~= nil) then
          for fullName, vv in pairs(v.fileT) do
             if (show_hidden or mrc:isVisible({fullName=fullName,sn=sn,fn=vv.fn})) then
-               check_syntax(mpath, mt, mList, sn, vv.fn, fullName, vv, errorT.syntaxA)
+               check_syntax(mpath, mt, mList, sn, vv.fn, fullName, errorT.syntaxA)
             end
          end
       end
@@ -165,18 +165,18 @@ function too_many_defaultA_entries(mpath, sn, defaultA, errorA)
 end
 
 local my_errorMsg = nil
-function check_syntax(mpath, mt, mList, sn, fn, fullName, myModuleT, errorA)
+function check_syntax(mpath, mt, mList, sn, fn, fullName, errorA)
    dbg.start{"check_syntax(mpath=\"",mpath,"\", mList=\"",mList,"\", sn=\"",sn,"\", fn= \"",fn,"\", fullName=\"",fullName,"\"...)"}
    local shell    = _G.Shell
    local tracing  = cosmic:value("LMOD_TRACING")
    local frameStk = FrameStk:singleton()
    
 
-   local function loadMe(entryT, moduleStack, iStack, myModuleT)
+   local function loadMe(entryT)
       dbg.start{"loadMe(entryT, moduleStack, iStack, myModuleT)"}
       local shellNm       = "bash"
-      moduleStack[iStack] = { mpath = mpath, sn = sn, fullName = fullName, moduleT = myModuleT, fn = fn}
       local mname = MName:new("entryT", entryT)
+      frameStk:push(mname)
       mt:add(mname, "pending")
       if (tracing == "yes") then
          local b          = {}
@@ -188,21 +188,19 @@ function check_syntax(mpath, mt, mList, sn, fn, fullName, myModuleT, errorA)
          shell:echo(concatTbl(b,""))
       end
       loadModuleFile{file=entryT.fn, shell=shellNm, help=true, reportErr=true, mList = mList}
+      mt = frameStk:mt()
       mt:setStatus(sn, "active")
+      frameStk:pop()
       dbg.fini("loadMe")
    end
-
-   local moduleStack = masterTbl().moduleStack
-   local iStack      = #moduleStack + 1
-   local Version     = extractVersion(fullName, sn)
-   local entryT      = { fn = fn, sn = sn, userName = fullName, fullName = fullName, version = Version}
+   local entryT      = { fn = fn, sn = sn, userName = fullName, fullName = fullName,
+                         version = extractVersion(fullName, sn)}
 
    my_errorMsg = nil
-   loadMe(entryT, moduleStack, iStack, myModuleT)
+   loadMe(entryT)
    if (my_errorMsg) then
       errorA[#errorA + 1]   = my_errorMsg
    end
-   moduleStack[iStack] = nil
    dbg.fini("check_syntax")
 end
 
@@ -386,6 +384,8 @@ function main()
    if (next(errorT.defaultA) ~= nil) then
       io.stderr:write("\nThe following directories have more than one marked default file:\n",
                         "-----------------------------------------------------------------\n")
+      table.sort(errorT.defaultA)
+
       for i = 1,#errorT.defaultA do
          ierr = ierr + 1
          io.stderr:write("  ",errorT.defaultA[i],"\n")
@@ -396,6 +396,7 @@ function main()
    if (next(errorT.syntaxA) ~= nil) then
       io.stderr:write("\nThe following modulefile(s) have syntax errors:\n",
                         "-----------------------------------------------\n")
+      table.sort(errorT.syntaxA)
       for i = 1,#errorT.syntaxA do
          ierr = ierr + 1
          io.stderr:write("  ",errorT.syntaxA[i],"\n")
