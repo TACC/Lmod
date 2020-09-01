@@ -99,6 +99,7 @@ require("fileOps")
 require("modfuncs")
 require("deepcopy")
 require("parseVersion")
+require("TermWidth")
 
 _G.MasterControl    = require("MasterControl")
 Shell               = false
@@ -116,6 +117,7 @@ local Spider        = require("Spider")
 local concatTbl     = table.concat
 local cosmic        = require("Cosmic"):singleton()
 local dbg           = require("Dbg"):dbg()
+local hook             = require("Hook")
 local i18n          = require("i18n")
 local lfs           = require("lfs")
 local sort          = table.sort
@@ -204,12 +206,30 @@ function check_syntax(mpath, mt, mList, sn, fn, fullName, errorA)
    dbg.fini("check_syntax")
 end
 
-function check_syntax_error_handler(self, t)
-   dbg.start{"check_syntax_error_handler(self, t)"}
-   if (t and t.msg) then
-      dbg.print{"t.msg: ",t.msg,"\n"}
+function check_syntax_error_handler(self, ...)
+   dbg.start{"check_syntax_error_handler(self, ...)"}
+   local twidth = TermWidth()
+   local argA   = pack(...)
+   local kind   = "lmoderror"
+   local label  = "Error:"
+   local errMsg = ""
+   if (argA.n == 1 and type(argA[1]) == "table") then
+      local t = argA[1]
+      local key = (t.msg == "e_Unable_2_Load") and "e_Unable_2_Load_short" or t.msg
+      local msg = i18n(key, t) or "Unknown Error Message"
+      msg       = hook.apply("errWarnMsgHook", kind, key, msg, t) or msg
+      errMsg    = buildMsg(twidth, label, msg)
+   else
+      errMsg  = buildMsg(twidth, label, ...)
    end
-   my_errorMsg = "ModuleName: "..myModuleFullName()..", Fn: "..myFileName()
+
+   --if (t and t.msg) then
+   --   dbg.print{"t.msg: ",t.msg,"\n"}
+   --   if (myModuleFullName() == "mkl/mkl") then
+   --      FukMe()
+   --   end
+   --end
+   my_errorMsg = "ModuleName: "..myModuleFullName()..", Fn: "..myFileName() .. " " .. errMsg
    dbg.print{"Setting my_errorMsg to : ",my_errorMsg,"\n"}
    dbg.fini("check_syntax_error_handler")
 end

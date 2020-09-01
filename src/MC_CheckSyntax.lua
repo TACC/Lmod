@@ -41,6 +41,7 @@ require("strict")
 local MasterControl    = require("MasterControl")
 local MC_CheckSyntax   = inheritsFrom(MasterControl)
 local M                = MC_CheckSyntax
+local ReadLmodRC       = require("ReadLmodRC")
 local dbg              = require("Dbg"):dbg()
 local A                = ShowResultsA
 
@@ -97,11 +98,11 @@ M.load_usr             = MasterControl.load_usr
 function M.add_property(self, name, value)
    dbg.start{"MC_CheckSyntax:add_property(\"",name,"\", \"",value,"\")"}
    local t           = {}
-   --dbg.print{"Before ReadLmodRC:singleton() \n"}
-   --local readLmodRC  = ReadLmodRC:singleton()
-   --dbg.print{"Before readLmodRC:validPropValue()\n"}
-   --readLmodRC:validPropValue(name, value,t)
-   --dbg.fini("MC_CheckSyntax:add_property")
+   dbg.print{"Before ReadLmodRC:singleton() \n"}
+   local readLmodRC  = ReadLmodRC:singleton()
+   dbg.print{"Before readLmodRC:validPropValue()\n"}
+   readLmodRC:validPropValue(name, value,t)
+   dbg.fini("MC_CheckSyntax:add_property")
    return true
 end
 
