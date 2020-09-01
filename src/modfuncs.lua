@@ -618,7 +618,6 @@ end
 function add_property(...)
    dbg.start{"add_property(",concatTbl({...},", "),")"}
    if (not validateStringArgs("add_property",...)) then return end
-
    mcp:add_property(...)
    dbg.fini("add_property")
 end

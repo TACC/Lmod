@@ -2,14 +2,12 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.3.6  2020-03-15 20:41 -05:00
+Modules based on Lua: Version 8.4.1  2020-08-12 15:27 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-The function "load_any()" is defined!
-The function "load_anything()" is NOT defined!
 ProjectDIR/rt/load_any/mf
    A/1.0    B/1.0    Foo/1.0
 Use "module spider" to find all possible modules and extensions.

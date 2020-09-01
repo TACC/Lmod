@@ -105,6 +105,7 @@ Shell               = false
 
 local BaseShell     = require("BaseShell")
 local Cache         = require("Cache")
+local FrameStk      = require("FrameStk")
 local MRC           = require("MRC")
 local MName         = require("MName")
 local MT            = require("MT")
@@ -168,6 +169,8 @@ function check_syntax(mpath, mt, mList, sn, fn, fullName, myModuleT, errorA)
    dbg.start{"check_syntax(mpath=\"",mpath,"\", mList=\"",mList,"\", sn=\"",sn,"\", fn= \"",fn,"\", fullName=\"",fullName,"\"...)"}
    local shell    = _G.Shell
    local tracing  = cosmic:value("LMOD_TRACING")
+   local frameStk = FrameStk:singleton()
+   
 
    local function loadMe(entryT, moduleStack, iStack, myModuleT)
       dbg.start{"loadMe(entryT, moduleStack, iStack, myModuleT)"}
@@ -190,7 +193,7 @@ function check_syntax(mpath, mt, mList, sn, fn, fullName, myModuleT, errorA)
    end
 
    local moduleStack = masterTbl().moduleStack
-   local iStack      = #moduleStack
+   local iStack      = #moduleStack + 1
    local Version     = extractVersion(fullName, sn)
    local entryT      = { fn = fn, sn = sn, userName = fullName, fullName = fullName, version = Version}
 
@@ -199,11 +202,15 @@ function check_syntax(mpath, mt, mList, sn, fn, fullName, myModuleT, errorA)
    if (my_errorMsg) then
       errorA[#errorA + 1]   = my_errorMsg
    end
+   moduleStack[iStack] = nil
    dbg.fini("check_syntax")
 end
 
 function check_syntax_error_handler(self, t)
    dbg.start{"check_syntax_error_handler(self, t)"}
+   if (t and t.msg) then
+      dbg.print{"t.msg: ",t.msg,"\n"}
+   end
    my_errorMsg = "ModuleName: "..myModuleFullName()..", Fn: "..myFileName()
    dbg.print{"Setting my_errorMsg to : ",my_errorMsg,"\n"}
    dbg.fini("check_syntax_error_handler")
@@ -272,6 +279,7 @@ function main()
 
    Shell            = BaseShell:build("bash")
    build_i18n_messages()
+   dbg.set_prefix(colorize("red","Lmod"))
 
    ------------------------------------------------------------------------
    --  The StandardPackage is where Lmod registers hooks.  Sites may
@@ -344,7 +352,7 @@ function main()
    local mt              = deepcopy(MT:singleton())
    local maxdepthT       = mt:maxDepthT()
    local moduleDirT      = {}
-   masterTbl.moduleStack = {{}}
+   masterTbl.moduleStack = {}
    masterTbl.dirStk      = {}
    masterTbl.mpathMapT   = {}
    local exit            = os.exit

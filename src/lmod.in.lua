@@ -332,7 +332,6 @@ function main()
    }
 
    build_i18n_messages()
-
    dbg.set_prefix(colorize("red","Lmod"))
 
    local shellNm = barefilename(arg[1])

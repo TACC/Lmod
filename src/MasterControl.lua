@@ -898,13 +898,6 @@ function M.depends_on(self, mA)
       end
    end
 
-   local frameStk = FrameStk:singleton()
-   if (checkSyntaxMode() and frameStk:count() > 1) then
-      dbg.print{"frameStk:count(): ",frameStk:count(),"\n"}
-      dbg.fini("MasterControl:depends_on")
-      return {}
-   end
-
    registerUserLoads(mB)
    local a = self:load(mB)
 

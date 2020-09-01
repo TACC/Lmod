@@ -49,10 +49,10 @@ M.my_sType             = "load"
 M.my_tcl_mode          = "load"
 M.always_load          = MasterControl.load_usr
 M.always_unload        = MasterControl.quiet
-M.add_property         = MasterControl.quiet
 M.append_path          = MasterControl.append_path
 M.color_banner         = MasterControl.quiet
 M.conflict             = MasterControl.quiet
+M.depends_on           = MasterControl.quiet
 M.execute              = MasterControl.quiet
 M.extensions           = MasterControl.quiet
 M.family               = MasterControl.quiet
@@ -69,7 +69,7 @@ M.prereq               = MasterControl.quiet
 M.prereq_any           = MasterControl.quiet
 M.pushenv              = MasterControl.pushenv
 M.remove_path          = MasterControl.remove_path
-M.remove_property      = MasterControl.remove_property
+M.remove_property      = MasterControl.quiet
 M.report               = MasterControl.error
 M.setenv               = MasterControl.setenv
 M.set_alias            = MasterControl.set_alias
@@ -87,7 +87,6 @@ M.whatis               = MasterControl.quiet
 -- is called inside a modulefile.  This way the original load happens
 -- and it allows for the syntax check but does nothing otherwise.
 
-M.depends_on           = MasterControl.depends_on
 M.load_usr             = MasterControl.load_usr
 
 --------------------------------------------------------------------------
@@ -131,6 +130,32 @@ function M.myModuleVersion(self)
    local fullName    = moduleStack[iStack].fullName
    local sn          = moduleStack[iStack].sn
    return extractVersion(fullName, sn) or ""
+end
+
+function M.family(self, value)
+   dbg.start{"MC_CheckSyntax:family(\"value=\"",value,"\")"}
+   local moduleStack   = masterTbl().moduleStack
+   local iStack        = #moduleStack
+   local path          = moduleStack[iStack].path
+   local moduleT       = moduleStack[iStack].moduleT
+   moduleT.family      = value
+   dbg.fini("MC_CheckSyntax:family")
+   return true
+end
+
+--------------------------------------------------------------------------
+-- Copy the property to moduleT
+-- @param self A MasterControl object.
+-- @param name the property name.
+-- @param value the value.
+function M.add_property(self, name, value)
+   local moduleStack = masterTbl().moduleStack
+   local iStack      = #moduleStack
+   local path        = moduleStack[iStack].path
+   local t           = {}
+   --local readLmodRC  = ReadLmodRC:singleton()
+   --readLmodRC:validPropValue(name, value,t)
+   return true
 end
 
 

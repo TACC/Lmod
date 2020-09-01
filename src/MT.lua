@@ -471,27 +471,12 @@ function M.add_property(self, sn, name, value)
       LmodError{msg="e_No_Mod_Entry", routine = "MT:add_property()",name = sn}
    end
    local readLmodRC   = ReadLmodRC:singleton()
-   local propDisplayT = readLmodRC:propT()
-   local propKindT    = propDisplayT[name]
-
-   if (propKindT == nil) then
-      LmodError{msg="e_No_PropT_Entry", routine = "MT:add_property()", location = "entry", name = name}
-   end
-   local validT = propKindT.validT
-   if (validT == nil) then
-      LmodError{msg="e_No_PropT_Entry", routine = "MT:add_property()", location = "validT table", name = name}
-   end
 
    local propT        = entry.propT
    propT[name]        = propT[name] or {}
    local t            = propT[name]
 
-   for v in value:split(":") do
-      if (validT[v] == nil) then
-         LmodError{msg="e_No_ValidT_Entry", routine = "MT:add_property()", name = name, value = value}
-      end
-      t[v] = 1
-   end
+   readLmodRC:validPropValue(name, value, t)
    entry.propT[name]  = t
 
    dbg.fini("MT:add_property")
