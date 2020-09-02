@@ -57,6 +57,7 @@ require("utils")
 require("string_utils")
 require("parseVersion")
 require("TermWidth")
+require("declare")
 
 local BeautifulTbl = require("BeautifulTbl")
 local MName        = require("MName")
@@ -473,13 +474,17 @@ function help(...)
    dbg.fini("help")
 end
 
-function userInGroup(group)
-   dbg.start{"userInGroup(",group,")"}
-   if (not validateStringArgs("userInGroup",group)) then return end
-   local iret = mcp:userInGroup(group)
-   dbg.fini("userInGroup")
+
+function userInGroups(...)
+   dbg.start{"userInGroups(...)"}
+   if (not validateStringArgs("userInGroups",...)) then return end
+   local iret = mcp:userInGroups(...)
+   dbg.fini("userInGroups")
    return iret
 end
+
+declare("userInGroup")
+userInGroup = userInGroups
 
 --------------------------------------------------------------------------
 -- Convert version to canonical so that it can be used in a comparison.

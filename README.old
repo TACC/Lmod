@@ -340,6 +340,8 @@ Features:
 
    4. Many improvement in the generation of the lmod database for module tracking.
 
+   5. Added function userInGroup() to limit access to loading a module.
+
 Bug Fixes:
 
    1. The command module spider would fail to find a module if a site had the spider cache file dbT.lua files and a user had personal modulefiles. This is now fixed.

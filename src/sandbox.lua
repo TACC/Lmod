@@ -175,6 +175,7 @@ local sandbox_env = {
   myShellName          = myShellName,
   myShellType          = myShellType,
   userInGroup          = userInGroup,
+  userInGroups         = userInGroups,
   colorize             = colorize,
   color_banner         = color_banner,
 

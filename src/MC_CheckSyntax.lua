@@ -108,7 +108,7 @@ end
 -- For the purposes of checking syntax.  "We" are always a member of
 -- the group
 
-function M.userInGroup(self, group)
+function M.userInGroups(self, ...)
    return true
 end
 
