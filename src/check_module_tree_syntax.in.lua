@@ -430,10 +430,10 @@ function main()
       
    dbg.fini("module_tree_check main")
    if (ierr > 0) then
-      print(colorize("red","There were ".. tostring(ierr) .. " possible errors found!"))
+      print("\n",colorize("red","There were ".. tostring(ierr) .. " possible errors found!"),"\n")
       os.exit(1)
    end
-   print("No errors found")
+   print("\nNo errors found\n")
 end
 
 main()
