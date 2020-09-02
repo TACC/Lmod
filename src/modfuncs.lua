@@ -57,6 +57,7 @@ require("utils")
 require("string_utils")
 require("parseVersion")
 require("TermWidth")
+require("declare")
 
 local BeautifulTbl = require("BeautifulTbl")
 local MName        = require("MName")
@@ -473,19 +474,17 @@ function help(...)
    dbg.fini("help")
 end
 
-function userInGroup(group)
-   local grps   = capture("groups")
-   local found  = false
-   local userId = capture("id -u")
-   local isRoot = tonumber(userId) == 0
-   for g in grps:split("[ \n]") do
-      if (g == group or isRoot)  then
-         found = true
-         break
-      end
-   end
-   return found
+
+function userInGroups(...)
+   dbg.start{"userInGroups(...)"}
+   if (not validateStringArgs("userInGroups",...)) then return end
+   local iret = mcp:userInGroups(...)
+   dbg.fini("userInGroups")
+   return iret
 end
+
+declare("userInGroup")
+userInGroup = userInGroups
 
 --------------------------------------------------------------------------
 -- Convert version to canonical so that it can be used in a comparison.
@@ -618,7 +617,6 @@ end
 function add_property(...)
    dbg.start{"add_property(",concatTbl({...},", "),")"}
    if (not validateStringArgs("add_property",...)) then return end
-
    mcp:add_property(...)
    dbg.fini("add_property")
 end

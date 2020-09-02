@@ -1,0 +1,10 @@
+#%Module
+module-whatis "Name: acme"
+module-whatis "Version: 1.0"
+module-whatis "Category: system"
+module-whatis "Description: This is a descript"
+
+proc ModulesHelp { } {
+puts stderr "This is the help message for the acme 1.0 module"
+puts stderr "And even more help"
+}

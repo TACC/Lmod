@@ -90,6 +90,9 @@ unset during unloading.
 **try_load** ("pkgA", "pkgB", "pkgC"):
      load all modules. No errors reported if unable to load.
 
+**userInGroups** ("group1", "group2", ...):
+     Returns true if user is root or a member of one of the groups listed.
+
 **mgrload** (required, active_object):
      load a single module file. If required is true then error out if
      not found.  If false then no message is generated.  Returns true

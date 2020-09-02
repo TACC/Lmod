@@ -25,7 +25,7 @@ describe("Testing Spider Class #Spider.",
                   posix.setenv("LMOD_MAXDEPTH", nil, true)
                   cosmic:assign("LMOD_MAXDEPTH",false)
 
-                  local spider = Spider:new()
+                  local spider  = Spider:new()
                   local spiderT = {}
                   _G.mcp = MasterControl.build("spider")
                   _G.MCP = MasterControl.build("spider")

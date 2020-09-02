@@ -101,21 +101,47 @@ local function buildRC(self)
 end
 
 
-
 local function new(self)
+   dbg.start{"ReadLmodRC:new()"}
    local o = {}
    setmetatable(o,self)
    self.__index = self
 
    buildRC(o)
 
+   dbg.fini("ReadLmodRC:new")
    return o
 end
 
+function M.validPropValue(self,  name, value, t)
+   dbg.start{"ReadLmodRC:validPropValue(\"",name,"\", \"", value,"\", t)"}
+   local propDisplayT = self:propT()
+   local propKindT    = propDisplayT[name]
+
+   if (propKindT == nil) then
+      LmodError{msg="e_No_PropT_Entry", routine = "MT:add_property()", location = "entry", name = name}
+   end
+   local validT = propKindT.validT
+   if (validT == nil) then
+      LmodError{msg="e_No_PropT_Entry", routine = "MT:add_property()", location = "validT table", name = name}
+   end
+
+   for v in value:split(":") do
+      if (validT[v] == nil) then
+         LmodError{msg="e_No_ValidT_Entry", routine = "MT:add_property()", name = name, value = value}
+      end
+      t[v] = 1
+   end
+   dbg.fini("ReadLmodRC:validPropValue")
+end
+
+
 function M.singleton(self)
+   dbg.start{"ReadLmodRC:singleton()"}
    if (not s_classObj) then
       s_classObj = new(self)
    end
+   dbg.fini("ReadLmodRC:singleton")
    return s_classObj
 end
 

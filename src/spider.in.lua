@@ -696,8 +696,7 @@ function options()
       masterTbl[v] = optionTbl[v]
    end
    masterTbl.pargs = pargs
-
-   Use_Preload = masterTbl.preload
+   Use_Preload     = masterTbl.preload
 end
 
 function xmlSoftwarePage(dbT)

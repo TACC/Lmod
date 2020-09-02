@@ -898,13 +898,6 @@ function M.depends_on(self, mA)
       end
    end
 
-   local frameStk = FrameStk:singleton()
-   if (checkSyntaxMode() and frameStk:count() > 1) then
-      dbg.print{"frameStk:count(): ",frameStk:count(),"\n"}
-      dbg.fini("MasterControl:depends_on")
-      return {}
-   end
-
    registerUserLoads(mB)
    local a = self:load(mB)
 
@@ -1463,6 +1456,24 @@ function M.set_errorFunc(self, errorFunc)
 end
 
 
+function M.userInGroups(self, ...)
+   local grps   = capture("groups")
+   local isRoot = tonumber(capture("id -u")) == 0
+   if (isRoot) then
+      return true
+   end
+   local argA   = pack(...)
+   for g in grps:split("[ \n]") do
+      for i = 1, argA.n do
+         local group = argA[i]
+         if (g == group) then
+            return true
+         end
+      end
+   end
+   return false
+end   
+   
 function M.missing_module(self,userName, showName)
    s_missingModuleT[userName] = showName
 end

@@ -41,6 +41,7 @@ require("strict")
 local MasterControl    = require("MasterControl")
 local MC_CheckSyntax   = inheritsFrom(MasterControl)
 local M                = MC_CheckSyntax
+local ReadLmodRC       = require("ReadLmodRC")
 local dbg              = require("Dbg"):dbg()
 local A                = ShowResultsA
 
@@ -49,10 +50,10 @@ M.my_sType             = "load"
 M.my_tcl_mode          = "load"
 M.always_load          = MasterControl.load_usr
 M.always_unload        = MasterControl.quiet
-M.add_property         = MasterControl.add_property
 M.append_path          = MasterControl.append_path
 M.color_banner         = MasterControl.quiet
 M.conflict             = MasterControl.quiet
+M.depends_on           = MasterControl.quiet
 M.execute              = MasterControl.quiet
 M.extensions           = MasterControl.quiet
 M.family               = MasterControl.quiet
@@ -64,17 +65,12 @@ M.load_usr             = MasterControl.load_usr
 M.message              = MasterControl.quiet
 M.msg_raw              = MasterControl.quiet
 M.mgrload              = MasterControl.mgrload
-M.myFileName           = MasterControl.myFileName
-M.myModuleFullName     = MasterControl.myModuleFullName
-M.myModuleUsrName      = MasterControl.myModuleUsrName
-M.myModuleName         = MasterControl.myModuleName
-M.myModuleVersion      = MasterControl.myModuleVersion
 M.prepend_path         = MasterControl.prepend_path
 M.prereq               = MasterControl.quiet
 M.prereq_any           = MasterControl.quiet
 M.pushenv              = MasterControl.pushenv
 M.remove_path          = MasterControl.remove_path
-M.remove_property      = MasterControl.remove_property
+M.remove_property      = MasterControl.quiet
 M.report               = MasterControl.error
 M.setenv               = MasterControl.setenv
 M.set_alias            = MasterControl.set_alias
@@ -92,11 +88,29 @@ M.whatis               = MasterControl.quiet
 -- is called inside a modulefile.  This way the original load happens
 -- and it allows for the syntax check but does nothing otherwise.
 
-M.depends_on           = MasterControl.depends_on
 M.load_usr             = MasterControl.load_usr
 
+--------------------------------------------------------------------------
+-- Copy the property to moduleT
+-- @param self A MasterControl object.
+-- @param name the property name.
+-- @param value the value.
+function M.add_property(self, name, value)
+   dbg.start{"MC_CheckSyntax:add_property(\"",name,"\", \"",value,"\")"}
+   local t           = {}
+   local readLmodRC  = ReadLmodRC:singleton()
+   readLmodRC:validPropValue(name, value,t)
+   dbg.fini("MC_CheckSyntax:add_property")
+   return true
+end
 
+--------------------------------------------------------------------------
+-- For the purposes of checking syntax.  "We" are always a member of
+-- the group
 
+function M.userInGroups(self, ...)
+   return true
+end
 
 
 return M

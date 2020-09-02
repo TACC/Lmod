@@ -55,7 +55,7 @@ require("string_utils")
 require("utils")
 require("declare")
 local lfs   = require("lfs")
-
+local dbg   = require("Dbg"):dbg()
 sandbox_run = false
 
 local old_write    = nil
@@ -175,6 +175,7 @@ local sandbox_env = {
   myShellName          = myShellName,
   myShellType          = myShellType,
   userInGroup          = userInGroup,
+  userInGroups         = userInGroups,
   colorize             = colorize,
   color_banner         = color_banner,
 
@@ -207,6 +208,13 @@ local sandbox_env = {
   splitFileName        = splitFileName,
   abspath              = abspath,
   path_regularize      = path_regularize,
+
+  ------------------------------------------------------------
+  -- dbg functions
+  ------------------------------------------------------------
+  dbg = { active = dbg.active, fini  = dbg.fini, print = dbg.print,
+          print2D = dbg.print2D, printA = dbg.printA, printT = dbg.printT, 
+          start = dbg.start },
 
   ------------------------------------------------------------
   -- lfs functions
