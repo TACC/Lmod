@@ -6,6 +6,6 @@ Lmod 8.4+
               be: . _ - + = or letters
    (8.4.3)  * Adding userInGroups(group1,group2,...) as a replacement for userInGroup(group)
               (userInGroup calls userInGroups)
-            * Added new command check_module_tree_syntax to check for multiple defaults and that
-              all modulefiles pass the syntax test.
+            * Added new command check_module_tree_syntax to check for multiple marked defaults
+              for the same shortName module and that all modulefiles pass the syntax test.
               
