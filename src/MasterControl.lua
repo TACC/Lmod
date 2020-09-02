@@ -1456,6 +1456,23 @@ function M.set_errorFunc(self, errorFunc)
 end
 
 
+function M.userInGroup(self, group)
+   local grps   = capture("groups")
+   local found  = false
+   local isRoot = tonumber(capture("id -u")) == 0
+   if (isRoot) then
+      return true
+   end
+
+   for g in grps:split("[ \n]") do
+      if (g == group)  then
+         found = true
+         break
+      end
+   end
+   return found
+end   
+   
 function M.missing_module(self,userName, showName)
    s_missingModuleT[userName] = showName
 end

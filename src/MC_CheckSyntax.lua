@@ -98,15 +98,19 @@ M.load_usr             = MasterControl.load_usr
 function M.add_property(self, name, value)
    dbg.start{"MC_CheckSyntax:add_property(\"",name,"\", \"",value,"\")"}
    local t           = {}
-   dbg.print{"Before ReadLmodRC:singleton() \n"}
    local readLmodRC  = ReadLmodRC:singleton()
-   dbg.print{"Before readLmodRC:validPropValue()\n"}
    readLmodRC:validPropValue(name, value,t)
    dbg.fini("MC_CheckSyntax:add_property")
    return true
 end
 
+--------------------------------------------------------------------------
+-- For the purposes of checking syntax.  "We" are always a member of
+-- the group
 
+function M.userInGroup(self, group)
+   return true
+end
 
 
 return M

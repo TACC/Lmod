@@ -474,17 +474,11 @@ function help(...)
 end
 
 function userInGroup(group)
-   local grps   = capture("groups")
-   local found  = false
-   local userId = capture("id -u")
-   local isRoot = tonumber(userId) == 0
-   for g in grps:split("[ \n]") do
-      if (g == group or isRoot)  then
-         found = true
-         break
-      end
-   end
-   return found
+   dbg.start{"userInGroup(",group,")"}
+   if (not validateStringArgs("userInGroup",group)) then return end
+   local iret = mcp:userInGroup(group)
+   dbg.fini("userInGroup")
+   return iret
 end
 
 --------------------------------------------------------------------------
