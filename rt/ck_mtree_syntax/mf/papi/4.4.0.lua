@@ -14,7 +14,7 @@ setenv(      "TACC_PAPI_LIB",           pathJoin(base,"lib"))
 setenv(      "PAPI_PERFMON_EVENT_FILE", pathJoin(base,"share/papi/papi_events.csv"))
 
 whatis("PAPI: Performance Application Programming Interface")
-whatis("Version: " .. version)
+whatis("Version: " .. fullVersion)
 whatis("Category: library, performance measurement")
 whatis("Description: Interface to monitor performance counter hardware for quantifying application behavior")
 whatis("URL: http://icl.cs.utk.edu/papi/")
@@ -39,5 +39,5 @@ to run the program during future login sessions.
 
    Version ]]
 
-help(msg,fullVersion)
+help(msg,Version)
 

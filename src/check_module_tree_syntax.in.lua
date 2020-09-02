@@ -214,8 +214,10 @@ function check_syntax_error_handler(self, ...)
    local label  = "Error:"
    local errMsg = ""
    if (argA.n == 1 and type(argA[1]) == "table") then
-      local t = argA[1]
-      local key = (t.msg == "e_Unable_2_Load") and "e_Unable_2_Load_short" or t.msg
+      local t   = argA[1]
+      local key = t.msg
+      if (key == "e_Unable_2_Load")    then key = "e_Unable_2_Load_short"    end
+      if (key == "e_Args_Not_Strings") then key = "e_Args_Not_Strings_short" end
       local msg = i18n(key, t) or "Unknown Error Message"
       msg       = hook.apply("errWarnMsgHook", kind, key, msg, t) or msg
       errMsg    = buildMsg(twidth, label, msg)
@@ -360,8 +362,10 @@ function main()
 
    _G.MCP = MasterControl.build("checkSyntax")
    _G.mcp = MasterControl.build("checkSyntax")
-   mcp.error = check_syntax_error_handler
-   MCP.error = check_syntax_error_handler
+   mcp.error  = check_syntax_error_handler
+   MCP.error  = check_syntax_error_handler
+   mcp.report = check_syntax_error_handler
+   MCP.report = check_syntax_error_handler
    Shell:setActive(false)
    setSyntaxMode(true)
    
