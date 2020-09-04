@@ -1458,10 +1458,6 @@ end
 
 function M.userInGroups(self, ...)
    local grps   = capture("groups")
-   local isRoot = tonumber(capture("id -u")) == 0
-   if (isRoot) then
-      return true
-   end
    local argA   = pack(...)
    for g in grps:split("[ \n]") do
       for i = 1, argA.n do
@@ -1470,6 +1466,11 @@ function M.userInGroups(self, ...)
             return true
          end
       end
+   end
+   local userId = capture("id -u")
+   local isRoot = tonumber(userId) == 0
+   if (isRoot) then
+      return true
    end
    return false
 end   

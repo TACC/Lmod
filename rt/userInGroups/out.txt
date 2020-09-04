@@ -1,0 +1,22 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load foo
+===========================
+__LMOD_REF_COUNT_LOADEDMODULES=foo/1.1:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=foo/1.1;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/userInGroups/mf:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/userInGroups/mf;
+export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/userInGroups/mf/foo/1.1.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/userInGroups/mf/foo/1.1.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={foo={["fn"]="ProjectDIR/rt/userInGroups/mf/foo/1.1.lua",["fullName"]="foo/1.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="foo",},},mpathA={"ProjectDIR/rt/userInGroups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/userInGroups/mf",}';
+export _ModuleTable_;
