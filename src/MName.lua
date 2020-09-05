@@ -212,6 +212,10 @@ local function lazyEval(self)
    local userName              = mrc:resolve(self:userName())
    local sn, versionStr, fileA = moduleA:search(userName)
 
+   dbg.print{"sn: ",sn,", versionStr: ", versionStr,"\n"}
+   dbg.printT("fileA: ",fileA)
+
+
    self.__userName   = userName
    self.__sn         = sn
    self.__versionStr = versionStr
