@@ -1027,12 +1027,14 @@ function M.avail(self, argA)
    local Default  = 'D'
    local numFound = 0
 
+   dbg.print{"RTM Master 1030\n"}
    if (next(alias2modT) ~= nil) then
       local b  = {}
       local bb = {}
       for k, v in pairsByKeys(alias2modT) do
          local fullName = mrc:resolve(v)
          local mname    = MName:new("load",fullName)
+         dbg.print{"fullName: ",fullName,", k: ",k,"\n"}
          if (mname:sn()) then
             b[#b+1]   = { "   " .. k, "->", fullName}
          else

@@ -92,6 +92,7 @@ function M.new(self, sType, name, action, is, ie)
 
    is             = is or false
    ie             = ie or false
+   o.__evaled     = false
    o.__sn         = false
    o.__version    = false
    o.__fn         = false
@@ -182,6 +183,7 @@ local function lazyEval(self)
       end
       --dbg.print{"mt\n"}
       --dbg.fini("lazyEval")
+      self.__evaled        = true
       return
    end
 
@@ -197,13 +199,11 @@ local function lazyEval(self)
          self.__userName = build_fullName(t.sn, t.version)
       end
 
+      self.__evaled        = true
       --dbg.print{"inherit\n"}
       --dbg.fini("lazyEval")
       return
    end
-
-
-
 
    assert(sType == "load", "unknown sType: "..sType)
    local mrc                   = MRC:singleton()
@@ -218,6 +218,7 @@ local function lazyEval(self)
    self.__stackDepth = self.__stackDepth or frameStk:stackDepth()
 
    if (not sn) then
+      self.__evaled = true
       --dbg.print{"did not find sn\n"}
       --dbg.fini("lazyEval")
       return
@@ -243,11 +244,12 @@ local function lazyEval(self)
    end
    --dbg.print{"fn: ",self.__fn,"\n"}
    --dbg.fini("lazyEval")
+   self.__evaled = true
 end
 
 
 function M.valid(self)
-   if (not self.__sn) then
+   if (not self.__evaled) then
       lazyEval(self)
    end
    return self.__fn
@@ -259,7 +261,7 @@ function M.userName(self)
 end
 
 function M.sn(self)
-   if (not self.__sn) then
+   if (not self.__evaled) then
       dbg.start{"Mname:sn()"}
       lazyEval(self)
       dbg.fini("Mname:sn")
@@ -268,7 +270,7 @@ function M.sn(self)
 end
 
 function M.fn(self)
-   if (not self.__fn) then
+   if (not self.__evaled) then
       dbg.start{"Mname:fn()"}
       lazyEval(self)
       dbg.fini("Mname:fn")
@@ -277,14 +279,14 @@ function M.fn(self)
 end
 
 function M.version(self)
-   if (not self.__sn) then
+   if (not self.__evaled) then
       lazyEval(self)
    end
    return self.__version
 end
 
 function M.stackDepth(self)
-   if (not self.__sn) then
+   if (not self.__evaled) then
       lazyEval(self)
    end
    local stackDepth = self.__stackDepth == nil and 0 or self.__stackDepth
@@ -300,14 +302,14 @@ function M.setRefCount(self, count)
 end
 
 function M.ref_count(self)
-   if (not self.__sn) then
+   if (not self.__evaled) then
       lazyEval(self)
    end
    return self.__ref_count
 end
 
 function M.fullName(self)
-   if (not self.__sn) then
+   if (not self.__evaled) then
       dbg.start{"Mname:fullName()"}
       lazyEval(self)
       dbg.fini("Mname:fullName")
@@ -569,6 +571,7 @@ end
 
 -- reset the private variable to force a new lazyEval.
 function M.reset(self)
+   self.__evaled     = nil
    self.__sn         = nil
    self.__fn         = nil
    self.__version    = nil
