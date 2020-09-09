@@ -122,6 +122,7 @@ function M.new(self, sType, name, action, is, ie)
       o.__version  = t.version
       o.__userName = t.userName
       o.__fn       = t.fn
+      o.__evaled   = true
    elseif (sType == "inherit") then
       local t      = name
       o.__fullName = build_fullName(t.sn, t.version)

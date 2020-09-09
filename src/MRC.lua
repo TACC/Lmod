@@ -127,7 +127,7 @@ function l_build(self, fnA)
 end
 
 function l_parseModA(self, modA, weight)
-   dbg.start{"MRC l_parseModA(modA, weight)"}
+   dbg.start{"MRC:l_parseModA(modA, weight)"}
    for i = 1,#modA do
       repeat
          local entry = modA[i]
@@ -170,7 +170,7 @@ function l_parseModA(self, modA, weight)
          end
       until true
    end
-   dbg.fini("MRC:parseModA")
+   dbg.fini("MRC:l_parseModA")
 end
 
 function l_buildMod2VersionT(self)
@@ -216,7 +216,6 @@ function M.resolve(self, name)
       value = self:resolve(value)
    end
    return value
-
 end
 
 function M.getMod2VersionT(self, key)
@@ -280,11 +279,11 @@ function M.parseModA_for_moduleA(self, name, modA)
          if (fullName:sub(1,1) == '/') then
             fullName = name .. fullName
          end
-         fullName = self:resolve(fullName)
          local mfile = entry.mfile
-         if (mfile:sub(1,1) == '/') then
-            mfile = name .. mfile
-         end
+         --fullName = self:resolve(fullName)
+         --if (mfile:sub(1,1) == '/') then
+         --   mfile = name .. mfile
+         --end
          dbg.print{"fullName: ",fullName,", mfile: ", mfile,"\n"}
          self.__alias2modT[fullName] = mfile
       elseif (entry.kind == "hide_version") then

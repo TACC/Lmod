@@ -1,3 +1,3 @@
-module_version("/14.0.1.134", "14")
-module_version("/13.2.345",   "13")
-module_alias(  "z13",         "z/13")
+module_version("/24.0.1.134", "24")
+module_version("/23.2.345",   "23")
+module_alias(  "z23",         "z/23")

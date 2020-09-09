@@ -1027,36 +1027,20 @@ function M.avail(self, argA)
    local Default  = 'D'
    local numFound = 0
 
-   dbg.print{"RTM Master 1030\n"}
    if (next(alias2modT) ~= nil) then
       local b  = {}
       local bb = {}
       for k, v in pairsByKeys(alias2modT) do
-         local fullName = mrc:resolve(v)
-         local mname    = MName:new("load",fullName)
-         dbg.print{"fullName: ",fullName,", k: ",k,"\n"}
-         if (mname:sn()) then
-            b[#b+1]   = { "   " .. k, "->", fullName}
-         else
-            bb[#bb+1] = { "   " .. k, "->", fullName}
-         end
+         local mname    = MName:new("load",k)
+         local fullName = mname:fullName() or "<inactive>"
+         b[#b+1]   = { "   " .. k, "->", fullName}
       end
-      if (next(b) ~= nil) then
-         local ct = ColumnTable:new{tbl=b, gap=1, len=length, width = cwidth}
-         a[#a+1]  = "\n"
-         a[#a+1] = banner:bannerStr("Global Aliases - active")
-         a[#a+1] = "\n"
-         a[#a+1]  = ct:build_tbl()
-         a[#a+1] = "\n"
-      end
-      if (next(bb) ~= nil) then
-         local ct = ColumnTable:new{tbl=bb, gap=1, len=length, width = cwidth}
-         a[#a+1]  = "\n"
-         a[#a+1] = banner:bannerStr("Global Aliases - currently inactive")
-         a[#a+1] = "\n"
-         a[#a+1]  = ct:build_tbl()
-         a[#a+1] = "\n"
-      end
+      local ct = ColumnTable:new{tbl=b, gap=1, len=length, width = cwidth}
+      a[#a+1]  = "\n"
+      a[#a+1] = banner:bannerStr("Global Aliases")
+      a[#a+1] = "\n"
+      a[#a+1]  = ct:build_tbl()
+      a[#a+1] = "\n"
    end
 
 

@@ -6,7 +6,7 @@ MODULEPATH in order::
 
      $ module avail
 
-     --------------- /opt/apps/modulefiles/Common ----------------
+     --------------- /opt/apps/modulefiles/A-B ----------------
      abc/8.1   def/11.1   ghi/2.3
 
      --------------- /opt/apps/modulefiles/Core ------------------
@@ -47,12 +47,12 @@ SitePackage.lua file containing::
         en_grouped = {
            ['/Compilers$'] = "Compilers",
            ['/Core$']      = "Core Modules",
-           ['/Common$']    = "Core Modules",
+           ['/A%-B$']      = "Core Modules",
         },
         fr_grouped = {
            ['/Compilers$'] = "Compilateurs",
            ['/Core$']      = "Modules de base",
-           ['/Common$']    = "Modules de base",
+           ['/A%-B$']      = "Modules de base",
         },
      }
 
@@ -76,6 +76,9 @@ SitePackage.lua file containing::
 
 
      hook.register("avail",avail_hook)
+
+Sites must specially quote the minus sign ("**-**") with a **%**
+because it is a regex character.
 
 The default style for displaying module names is the `system` style.  
 
