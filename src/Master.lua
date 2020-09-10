@@ -1026,13 +1026,18 @@ function M.avail(self, argA)
    local legendT  = {}
    local Default  = 'D'
    local numFound = 0
+   local na       = "N/A"
+   local pna      = "("..na..")"
 
    if (next(alias2modT) ~= nil) then
       local b  = {}
       local bb = {}
       for k, v in pairsByKeys(alias2modT) do
          local mname    = MName:new("load",k)
-         local fullName = mname:fullName() or "<inactive>"
+         local fullName = mname:fullName() or pna
+         if (fullName == pna) then
+            legendT[na] = i18n("m_Global_Alias_na")
+         end
          b[#b+1]   = { "   " .. k, "->", fullName}
       end
       local ct = ColumnTable:new{tbl=b, gap=1, len=length, width = cwidth}
