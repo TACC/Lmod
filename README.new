@@ -10,3 +10,6 @@ Lmod 8.4+
               for the same shortName module and that all modulefiles pass the syntax test.              
    (8.4.4)  * Fix bug in MasterControl:userInGroups(): capture returns string and status and
               tonumber() doesn't like it.
+   (8.4.5)  * Issue #447: Report (N/A) when global alias does not resolve with current $MODULEPATH
+   
+	      
