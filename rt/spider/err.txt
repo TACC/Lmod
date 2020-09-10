@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.4.1  2020-08-12 15:27 -05:00
+Modules based on Lua: Version 8.4.4  2020-09-04 12:16 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -548,7 +548,7 @@ step 42
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 Global Aliases
-   intelcompiler -> intel
+   intelcompiler -> intel/11.2
 ProjectDIR/rt/spider/mf/E_Core
    gcc/4.2.3        intel/11.0        perl/5.18.4       python2/2.7.14 (D)
    gcc/4.2.5 (D)    intel/11.2 (D)    python2/2.6.12

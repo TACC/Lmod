@@ -183,6 +183,7 @@ Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOS
 Module defaults are chosen based on Find First Rules due to Name/Version/Version modules found in the module tree.
 See https://lmod.readthedocs.io/en/latest/060_locating.html for details.
 ]==],
+     m_Global_Alias_na     = "Alias cannot be loaded with current $MODULEPATH",
      m_ModProvides         = "\n    This module provides the following extensions:\n",
      m_Module_Msgs         = [==[
 %{border}
