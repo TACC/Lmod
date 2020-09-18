@@ -12,6 +12,7 @@ timestampFn = {
 mrcT = {
   alias2modT = {},
   hiddenT = {},
+  mpathT = {},
   version2modT = {},
 }
 spiderT = {
@@ -327,6 +328,7 @@ timestampFn = {
 mrcT = {
   alias2modT = {},
   hiddenT = {},
+  mpathT = {},
   version2modT = {},
 }
 spiderT = {
@@ -479,6 +481,7 @@ timestampFn = {
 mrcT = {
   alias2modT = {},
   hiddenT = {},
+  mpathT = {},
   version2modT = {},
 }
 spiderT = {
