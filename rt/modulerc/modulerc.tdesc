@@ -67,39 +67,40 @@ EOF
      mkdir cacheDir
      touch last_update
      buildSpiderT $MODULEPATH > cacheDir/spiderT.lua
-     runLmod avail                    #20
-     runLmod use  $(testDir)/mf2/Core #21
-     runLmod spider dum               #22
+     runBase runSpiderCmd -o spiderT $MODULEPATH #20
+     runLmod avail                               #21
+     runLmod use  $(testDir)/mf2/Core            #22
+     runLmod spider dum                          #23
 
      unsetMT
      export MODULEPATH=$(testDir)/mf/Core:$(testDir)/mf3/Core
-     runLmod load cluster             #23
+     runLmod load cluster                        #24
 
      rm .modulerc
      unsetMT
      export MODULEPATH=$(testDir)/mf4
-     runLmod avail                    #24
+     runLmod avail                               #25
 
      cp $testDir/dot.modulerc .modulerc
-     runLmod avail                    #25
-     runLmod --show_hidden avail      #26
-     runLmod load mpich a             #27
-     runLmod list                     #28
+     runLmod avail                               #26
+     runLmod --show_hidden avail                 #27
+     runLmod load mpich a                        #28
+     runLmod list                                #29
 
      rm .modulerc
      export LMOD_MODULERCFILE=$testDir/dot.modulerc
-     runLmod avail                    #29
-     runLmod --show_hidden avail      #30
+     runLmod avail                               #30
+     runLmod --show_hidden avail                 #31
 
      export LMOD_MODULERCFILE=$testDir/dot.modulerc.lua
-     runLmod avail                    #31
-     runLmod --show_hidden avail      #32
+     runLmod avail                               #32
+     runLmod --show_hidden avail                 #33
 
-     
+
      unset LMOD_MODULERCFILE
      unsetMT
      export MODULEPATH=$(testDir)/mf5
-     runLmod avail                    #33
+     runLmod avail                               #34
 
 
 

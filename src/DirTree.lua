@@ -138,7 +138,7 @@ end
 -- @param defaultA - An array entries that contain: { fullName=, fn=, mpath=, luaExt=, barefn=}
 
 -- return all possible absolute paths to the default file.
-local function l_versionFile(mrc, defaultA)
+local function l_versionFile(mrc, mpath, defaultA)
 
    for i = 1,#defaultA do
       repeat 
@@ -153,9 +153,7 @@ local function l_versionFile(mrc, defaultA)
          local modA = mrc_load(path)
          local _, _, name = defaultT.fullName:find("(.*)/.*")
          
-         --dbg.print{"In l_versionFile\n"}
-         defaultT.value = mrc:parseModA_for_moduleA(name,modA)
-         --dbg.print{"Back in l_versionFile\n"}
+         defaultT.value = mrc:parseModA_for_moduleA(name, mpath, modA)
       until true
    end
 
@@ -209,7 +207,7 @@ local function walk(mrc, mpath, path, dirA, fileT)
       until true
    end
    if (next(defaultA) ~= nil) then
-      defaultA = l_versionFile(mrc, defaultA)
+      defaultA = l_versionFile(mrc, mpath, defaultA)
    end
 
    return defaultA

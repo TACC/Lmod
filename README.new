@@ -11,3 +11,6 @@ Lmod 8.4+
    (8.4.4)  * Fix bug in MasterControl:userInGroups(): capture returns string and status and
               tonumber() doesn't like it.
    (8.4.5)  * Issue #447: Report (N/A) when global alias does not resolve with current $MODULEPATH
+W.I.P:
+   (8.4.6)  * Modify spiderT to know about mpath dependent aliases, hidden modulefiles.
+   

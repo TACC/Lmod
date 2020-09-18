@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.4.4  2020-09-04 12:16 -05:00
+Modules based on Lua: Version 8.4.5  2020-09-10 16:41 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -218,6 +218,10 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 20
+runSpiderCmd -o spiderT ProjectDIR/rt/modulerc/mf/Core
+===========================
+===========================
+step 21
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 Global Aliases
@@ -241,40 +245,37 @@ ProjectDIR/rt/modulerc/mf/Core
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 21
+step 22
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/modulerc/mf2/Core
 ===========================
 ===========================
-step 22
+step 23
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider dum
 ===========================
 Lmod has detected the following error: Unable to find: "dum".
 ===========================
-step 23
+step 24
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cluster
 ===========================
 The default cluster module cannot be determined. Please set $VSC_DEFAULT_CLUSTER_MODULE.
 Lmod has detected the following error: Unable to parse: "ProjectDIR/rt/modulerc/mf3/Core/cluster/.modulerc". Aborting!
 ===========================
-step 24
+step 25
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-Global Aliases
-   a13 -> (N/A)    z23 -> (N/A)
 ProjectDIR/rt/modulerc/mf4
    a/1.0        a/3.0              mpich/3.1.2      mpich/3.2 (D)
    a/2.0 (D)    mpich/3.1.2-dbg    mpich/3.2-dbg
   Where:
-   D:    Default Module
-   N/A:  Alias cannot be loaded with current $MODULEPATH
+   D:  Default Module
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 25
+step 26
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 Global Aliases
-   a13 -> (N/A)    a14 -> (N/A)    z23 -> (N/A)
+   a14 -> (N/A)
 ProjectDIR/rt/modulerc/mf4
    a/1.0    a/3.0    mpich/3.1.2-dbg    mpich/3.1.2    mpich/3.2-dbg (D)
   Where:
@@ -283,11 +284,11 @@ ProjectDIR/rt/modulerc/mf4
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 26
+step 27
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
 ===========================
 Global Aliases
-   a13 -> (N/A)    a14 -> (N/A)    z23 -> (N/A)
+   a14 -> (N/A)
 ProjectDIR/rt/modulerc/mf4
    a/1.0          a/3.0              mpich/3.1.2          mpich/3.2 (H)
    a/2.0 (H,D)    mpich/3.1.2-dbg    mpich/3.2-dbg (D)
@@ -298,11 +299,11 @@ ProjectDIR/rt/modulerc/mf4
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 27
+step 28
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load mpich a
 ===========================
 ===========================
-step 28
+step 29
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
@@ -310,55 +311,25 @@ Currently Loaded Modules:
   Where:
    H:  Hidden Module
 ===========================
-step 29
+step 30
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 Global Aliases
-   a13 -> (N/A)    a14 -> (N/A)    z23 -> (N/A)
+   a14 -> (N/A)
 ProjectDIR/rt/modulerc/mf4
    a/1.0    a/3.0    mpich/3.1.2-dbg    mpich/3.1.2    mpich/3.2-dbg (L,D)
   Where:
    D:    Default Module
-   L:    Module is loaded
-   N/A:  Alias cannot be loaded with current $MODULEPATH
-Use "module spider" to find all possible modules and extensions.
-Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
-===========================
-step 30
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
-===========================
-Global Aliases
-   a13 -> (N/A)    a14 -> (N/A)    z23 -> (N/A)
-ProjectDIR/rt/modulerc/mf4
-   a/1.0            a/3.0              mpich/3.1.2            mpich/3.2 (H)
-   a/2.0 (H,L,D)    mpich/3.1.2-dbg    mpich/3.2-dbg (L,D)
-  Where:
-   D:    Default Module
-   H:    Hidden Module
    L:    Module is loaded
    N/A:  Alias cannot be loaded with current $MODULEPATH
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 31
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
-===========================
-Global Aliases
-   a13 -> (N/A)    a14 -> (N/A)    z23 -> (N/A)
-ProjectDIR/rt/modulerc/mf4
-   a/1.0    a/3.0    mpich/3.1.2-dbg    mpich/3.1.2    mpich/3.2-dbg (L,D)
-  Where:
-   D:    Default Module
-   L:    Module is loaded
-   N/A:  Alias cannot be loaded with current $MODULEPATH
-Use "module spider" to find all possible modules and extensions.
-Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
-===========================
-step 32
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
 ===========================
 Global Aliases
-   a13 -> (N/A)    a14 -> (N/A)    z23 -> (N/A)
+   a14 -> (N/A)
 ProjectDIR/rt/modulerc/mf4
    a/1.0            a/3.0              mpich/3.1.2            mpich/3.2 (H)
    a/2.0 (H,L,D)    mpich/3.1.2-dbg    mpich/3.2-dbg (L,D)
@@ -370,16 +341,43 @@ ProjectDIR/rt/modulerc/mf4
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 33
+step 32
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 Global Aliases
-   a13 -> (N/A)    z23 -> (N/A)
+   a14 -> (N/A)
+ProjectDIR/rt/modulerc/mf4
+   a/1.0    a/3.0    mpich/3.1.2-dbg    mpich/3.1.2    mpich/3.2-dbg (L,D)
+  Where:
+   D:    Default Module
+   L:    Module is loaded
+   N/A:  Alias cannot be loaded with current $MODULEPATH
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 33
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
+===========================
+Global Aliases
+   a14 -> (N/A)
+ProjectDIR/rt/modulerc/mf4
+   a/1.0            a/3.0              mpich/3.1.2            mpich/3.2 (H)
+   a/2.0 (H,L,D)    mpich/3.1.2-dbg    mpich/3.2-dbg (L,D)
+  Where:
+   D:    Default Module
+   H:    Hidden Module
+   L:    Module is loaded
+   N/A:  Alias cannot be loaded with current $MODULEPATH
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 34
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
 ProjectDIR/rt/modulerc/mf5
    Core/Java/1.7.0_143 (1.7)    Core/Java/1.8.0_181 (D:1.8)
   Where:
    Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
    D:        Default Module
-   N/A:      Alias cannot be loaded with current $MODULEPATH
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".

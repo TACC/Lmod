@@ -81,6 +81,8 @@ local l_buildMod2VersionT
 
 local function new(self, fnA)
    local o         = {}
+   o.__mpathT        = {}  -- mpath dependent values for alias2modT, version2modT
+                           -- and hiddenT.
    o.__version2modT  = {}  -- Map a sn/version string to a module fullname
    o.__alias2modT    = {}  -- Map an alias string to a module name or alias
    o.__fullNameDfltT = {}
@@ -239,7 +241,18 @@ function M.getAlias2ModT(self)
    return self.__alias2modT
 end
 
-function M.parseModA_for_moduleA(self, name, modA)
+local function l_store_mpathT(self, mpath, kind, key, value)
+   if ( not self.__mpathT[mpath] ) then
+      self.__mpathT[mpath] = {}
+   end
+   if ( not self.__mpathT[mpath][kind] ) then
+      self.__mpathT[mpath][kind] = {}
+   end
+   self.__mpathT[mpath][kind][key] = value
+end
+
+
+function M.parseModA_for_moduleA(self, name, mpath, modA)
    dbg.start{"MRC:parseModA_for_moduleA(",name,", modA)"}
    local defaultV = false
    for i = 1,#modA do
@@ -267,6 +280,7 @@ function M.parseModA_for_moduleA(self, name, modA)
                if (shorter) then
                   local key = shorter .. '/' .. version
                   self.__version2modT[key] = fullName
+                  l_store_mpathT(self, mpath, "version2modT", key, fullName);
                   dbg.print{"v2m: key: ",key,": ",fullName,"\n"}
                end
             end
@@ -280,18 +294,13 @@ function M.parseModA_for_moduleA(self, name, modA)
             fullName = name .. fullName
          end
          local mfile = entry.mfile
-         --fullName = self:resolve(fullName)
-         --if (mfile:sub(1,1) == '/') then
-         --   mfile = name .. mfile
-         --end
          dbg.print{"fullName: ",fullName,", mfile: ", mfile,"\n"}
          self.__alias2modT[fullName] = mfile
-      elseif (entry.kind == "hide_version") then
+         l_store_mpathT(self, mpath, "alias2modT", fullName, mfile);
+      elseif (entry.kind == "hide_version" or entry.kind == "hide_modulefile") then
          dbg.print{"mfile: ", entry.mfile,"\n"}
          self.__hiddenT[entry.mfile] = true
-      elseif (entry.kind == "hide_modulefile") then
-         dbg.print{"mfile: ", entry.mfile,"\n"}
-         self.__hiddenT[entry.mfile] = true
+         l_store_mpathT(self, mpath, "hiddenT", entry.mfile, true);
       end
    end
    dbg.fini("MRC:parseModA_for_moduleA")
@@ -307,6 +316,7 @@ function M.export(self)
    local t = { hiddenT      = self.__hiddenT,
                version2modT = self.__version2modT,
                alias2modT   = self.__alias2modT,
+               mpathT       = self.__mpathT
    }
    return serializeTbl{indent = true, name = "mrcT", value = t }
 end
@@ -326,13 +336,26 @@ function M.getHiddenT(self,k)
    return self.__hiddenT[k]
 end
 
-function M.import(self, mrcT)
-   for kk,vv in pairs(mrcT) do
-      local key = "__" .. kk
-      local t   = self[key]
-      for k,v in pairs(vv) do
-         t[k] = v
+local function l_import_helper(self,entryT)
+   if (entryT and next(entryT) ~= nil) then
+      for kk,vv in pairs(entryT) do
+         local key = "__" .. kk
+         local t   = self[key]
+         for k,v in pairs(vv) do
+            t[k] = v
+         end
       end
+   end
+end
+
+function M.import(self, mpathA, mrcT)
+   if (mrcT.mpathT and next(mrcT.mpathT) ~= nil) then
+      for i = #mpathA, 1, -1 do
+         local mpath  = mpathA[i]
+         l_import_helper(self, mrcT.mpathT[mpath])
+      end
+   else
+      l_import_helper(self, mrcT)
    end
 end
 
