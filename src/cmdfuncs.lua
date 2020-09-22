@@ -546,7 +546,7 @@ function Reset(msg)
    default = default:gsub(" *, *",":")
    default = default:gsub(" +",":")
 
-   if (msg ~= false) then
+   if (msg ~= false and not quiet()) then
       io.stderr:write(i18n("m_Reset_SysDflt",{}))
    end
 
