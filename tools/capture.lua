@@ -64,7 +64,7 @@ function capture(cmd, envT)
    -- in Lua 5.1, p:close() does not return exit status,
    -- so we append 'echo $?' to the command to determine the exit status
    local ec_msg = "Lmod Capture Exit Code"
-   if _VERSION == "Lua 5.1" then
+   if (_VERSION == "Lua 5.1") then
       cmd = cmd .. '; echo "' .. ec_msg .. ': $?"'
    end
 

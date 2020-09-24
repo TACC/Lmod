@@ -140,9 +140,12 @@ The entries below describe several useful commands that come with Lmod that can 
     Run the "string" as a command and capture the output.  This
     function uses the value of LD_PRELOAD and LD_LIBRARY_PATH found
     when Lmod is configured. Use **subprocess** if you wish to use the
-    current values.
+    current values. There may be a trailing newline in the result which is your
+    responsibility to remove or otherwise handle.
 **subprocess** ("string")
-    Run the "string" as a command and capture the output.  
+    Run the "string" as a command and capture the output.  There may
+    be a trailing newline in the result which is your responsibility
+    to remove or otherwise handle. 
 **isFile** ("name"):
     Returns true if "name" is a file.
 **isDir** ("name"):
