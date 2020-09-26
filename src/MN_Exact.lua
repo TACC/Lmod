@@ -41,6 +41,7 @@ M.my_name   = "exact"
 
 local s_stepA = {
    MName.find_exact_match,
+   MName.find_exact_match_meta_module,
 }
 
 function M.steps()

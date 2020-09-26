@@ -42,6 +42,7 @@ M.my_name   = "match"
 local s_stepA = {
    MName.find_exact_match,
    MName.find_highest,
+   MName.find_exact_match_meta_module,
 }
 
 function M.steps()

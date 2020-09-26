@@ -160,7 +160,7 @@ end
 
 local function find_vA(name, moduleA)
    -- First find sn and collect all v's into vA
-   local versionStr = nil
+   local versionStr = false
    local vA         = {}
    local sn         = name
    local idx        = nil
@@ -200,7 +200,7 @@ local function find_vB(sn, versionStr, vA)
    for i = 1,#vA do
       local v
       local vv   = vA[i]
-      local done = (versionStr == nil)
+      local done = (versionStr == false)
       local idx  = 1
       local vStr = versionStr
       local jdx  = idx
@@ -224,7 +224,7 @@ local function find_vB(sn, versionStr, vA)
             done = true
          end
       end
-      if (versionStr == nil or next{v} == nil) then
+      if (versionStr == false or next{v} == nil) then
          vB[#vB + 1] = vv
       elseif (v) then
          vB[#vB + 1] = v

@@ -140,7 +140,7 @@ function M.search(self, name)
    -- Find sn from name by looking in locationT and if it is not there
    -- Then remove "/version" from name
 
-   local versionStr = nil
+   local versionStr = false
    local sn         = name
    local v          = nil
    local idx        = nil
@@ -179,7 +179,7 @@ function M.search(self, name)
 
    idx           = 1
    local vStr    = versionStr
-   local done    = (vStr == nil)
+   local done    = (not vStr)
    local jdx     = idx
    local fullStr = versionStr
 

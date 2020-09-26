@@ -156,7 +156,7 @@ function M.buildA(self,sType, ...)
 end
 
 local function lazyEval(self)
-   --dbg.start{"lazyEval(",self.__userName,")"}
+   dbg.start{"lazyEval(",self.__userName,")"}
 
    local found   = false
    local sType   = self.__sType
@@ -180,8 +180,7 @@ local function lazyEval(self)
          self.__version    = mt:version(sn)
          self.__stackDepth = mt:stackDepth(sn)
       end
-      --dbg.print{"mt\n"}
-      --dbg.fini("lazyEval")
+      dbg.fini("lazyEval via mt")
       return
    end
 
@@ -197,8 +196,7 @@ local function lazyEval(self)
          self.__userName = build_fullName(t.sn, t.version)
       end
 
-      --dbg.print{"inherit\n"}
-      --dbg.fini("lazyEval")
+      dbg.fini("lazyEval via inherit")
       return
    end
 
@@ -208,7 +206,7 @@ local function lazyEval(self)
    local frameStk              = FrameStk:singleton()
    local userName              = mrc:resolve(self:userName())
    local sn, versionStr, fileA = moduleA:search(userName)
-   --dbg.print{"lazyEval: userName: ",userName, ", sn: ",sn,", versionStr: ",versionStr,"\n"}
+   dbg.print{"lazyEval: userName: ",userName, ", sn: ",sn,", versionStr: ",versionStr,"\n"}
 
    self.__userName   = userName
    self.__sn         = sn
@@ -216,15 +214,14 @@ local function lazyEval(self)
    self.__stackDepth = self.__stackDepth or frameStk:stackDepth()
 
    if (not sn) then
-      --dbg.print{"did not find sn\n"}
-      --dbg.fini("lazyEval")
+      dbg.fini("lazyEval via no sn")
       return
    end
 
    local stepA   = self:steps()
    local version
    local fn
-   --dbg.printT("fileA",fileA)
+   dbg.printT("fileA",fileA)
    --dbg.print{"#stepA: ",#stepA,"\n"}
 
    for i = 1, #stepA do
@@ -239,9 +236,9 @@ local function lazyEval(self)
          break
       end
    end
-   --dbg.print{"lazyEval: sn: ",self.__sn, ", version: ",self.__version, ", fn: ",self.__fn,"\n"}
-   --dbg.print{"fn: ",self.__fn,"\n"}
-   --dbg.fini("lazyEval")
+   dbg.print{"lazyEval: sn: ",self.__sn, ", version: ",self.__version, ", fn: ",self.__fn,"\n"}
+   dbg.print{"fn: ",self.__fn,"\n"}
+   dbg.fini("lazyEval")
 end
 
 
@@ -375,18 +372,23 @@ end
 
 
 function M.find_exact_match(self, fileA)
+   dbg.start{"MName:find_exact_match(fileA)"}
    local versionStr = self.__versionStr
    local fn         = false
    local version    = false
    local pV         = " "  -- this is less than the lowest possible weight
    local found      = false
-
-
+   if (not versionStr) then
+      dbg.print{"found: ",found,", fn: ",fn,", version: ", version,"\n"}
+      dbg.fini("MName:find_exact_match")
+      return found, fn, version
+   end
+      
    for i = 1, #fileA do
       local a = fileA[i]
       for j = 1, #a do
          local entry = a[j]
-         if (entry.version == versionStr and entry.pV > pV) then
+         if (entry.version == versionStr and entry.pV > pV ) then
             pV      = entry.pV
             fn      = entry.fn
             version = entry.version or false
@@ -397,10 +399,41 @@ function M.find_exact_match(self, fileA)
       end
    end
 
+   dbg.print{"found: ",found,", fn: ",fn,", version: ", version,"\n"}
+   dbg.fini("MName:find_exact_match")
    return found, fn, version
 end
 
+function M.find_exact_match_meta_module(self, fileA)
+   dbg.start{"MName:find_exact_match_meta_module(fileA)"}
+   local versionStr = self.__versionStr
+   local fn         = false
+   local version    = false
+   local pV         = " "  -- this is less than the lowest possible weight
+   local found      = false
+   for i = 1, #fileA do
+      local a = fileA[i]
+      for j = 1, #a do
+         local entry = a[j]
+         if (entry.version == versionStr and entry.pV > pV ) then
+            pV      = entry.pV
+            fn      = entry.fn
+            version = entry.version or false
+            found   = true
+            self.__range = { pV, pV }
+            break
+         end
+      end
+   end
+
+   dbg.print{"found: ",found,", fn: ",fn,", version: ", version,"\n"}
+   dbg.fini("MName:find_exact_match_meta_module")
+   return found, fn, version
+end
+
+
 local function find_highest_by_key(self, key, fileA)
+   dbg.start{"MName:find_by_key(key:\"",key,"\",fileA)"}
    local mrc     = MRC:singleton()
    local a       = fileA[1] or {}
    local weight  = " "  -- this is less than the lower possible weight.
@@ -427,6 +460,8 @@ local function find_highest_by_key(self, key, fileA)
       found        = true
       self.__range = { pV, pV }
    end
+   dbg.print{"found: ",found,", fn: ",fn,", version: ", version,"\n"}
+   dbg.fini("MName:find_by_key")
    return found, fn, version
 end
 
