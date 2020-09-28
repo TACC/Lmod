@@ -14,3 +14,6 @@ Lmod 8.4+
    (8.4.6)  * Modify spiderT to know about mpath dependent aliases, hidden modulefiles.
             * Issue #467:  added MName:find_exact_match_meta_module() to handle hidden meta modules
 	      loading. Changed versionStr (user input) to be false and not nil   
+W.I.P:
+   (8.4.7)  * Issue #461: Modified instructions for installing lua and lua-posix on ubuntu 18.04 and 20.04
+   
