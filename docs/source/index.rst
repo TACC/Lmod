@@ -85,6 +85,8 @@ Lmod Guide.  The rest of the guides can be read as needed.
    030_installing
    045_transition
    050_lua_modulefiles
+   051_tcl_modulefiles
+   052_Environment_Variables
    055_module_names
    060_locating
    070_standard_modules

@@ -1,0 +1,109 @@
+.. _tcl_modulefile_functions-label:
+
+TCL Modulefile Functions
+========================
+
+Lmod reads modulefiles written in either Lua or TCL.  Lmod has to
+interpret the TCL modulefiles into Lua and then evaluate the Lua
+file.  So it is always faster to interpret Lua file rather than TCL
+files.
+
+Here are a list of TCL commands that are provided in addition to the
+standard TCL language.
+
+
+**add-property NAME value**  :
+   See :ref:`lmodrc-label` for how to use this command.
+
+**always-load A B C** :
+   Load one or more modules.  When this command is used in a
+   modulefile that is being unloaded, this command has does nothing.
+   See the **load** command for the 
+
+**append-path NAME path** :
+   Append **path** to environment variable **NAME**.  
+
+**conflict A B** :
+   The current modulefile will only load if all listed modules are NOT loaded.
+
+**depends-on  A B** :
+   Loads all modules.  When unloading only dependent modules are
+   unloaded.  See :ref:`dependent_modules-label` for details.
+   
+**exit** *number* :
+   Exits the module.  No changes in the environment occur if this
+   command is found.
+
+**extensions** "numpy/2.1 scipy/3.2":
+   This module provides the following extensions. Place the list of
+   extensions as a single string.
+
+**family NAME** :
+   A user can only have one family "name" loaded at a time. For
+   example family("compiler") would mean that a user could only have
+   one compiler loaded at a time. 
+
+**is-loaded NAME** :
+   Return true when module "NAME" is loaded.
+
+**module** :
+   something
+
+**module-alias** :
+   something
+  
+**module-info** *string*:
+   This command returns different things depending what *string* is:
+
+   **mode** : is the current mode: "load", "remove" or "display"
+
+   **shell** : The current shell specified by the user
+
+   **shelltype** : It has the value of "sh", "csh", "perl", "python",
+                  "lisp", "fish", "cmake", or "r".
+
+**module-whatis** *string* :
+    The whatis command can be called repeatedly with different strings. 
+    See the Administrator Guide for more details.
+
+**prepend-path NAME path** :
+   prepend to a path-like variable the value.
+
+**prereq  A B**:
+     The current modulefile will only load if **any** of the listed modules are already loaded.
+
+**pushenv NAME** *value* :
+   sets **NAME** to *value* just like **setenv**.  In addition it
+   saves the previous value in a hidden environment variable.  This
+   way the previous state can be returned when a module is unloaded.
+   **pushenv** ("FOO",false) will clear "FOO" and the pop will return
+   the previous value.
+
+**remove-path NAME** *value*:
+   remove value from a path-like variable for both load and unload modes.
+
+**remove-property NAME** *value*:
+   See :ref:`lmodrc-label` for how to use this function.
+
+**reportError** *string* :
+  Report an error and abort processing of the modulefile.
+
+**set-alias NAME** *value* :
+  Define an alias to **NAME** with *value*.
+
+**setenv NAME** *value* :
+   Assigns to the environment variable "NAME" the value.  Do not use this
+   function to assign the initial to a path-like variable.  Use
+   **append_path** or **prepend_path** instead.
+
+**unset-alias NAME** *value* :
+   Removes the **NAME** alias.
+
+**unsetenv NAME** *value* :
+   unsets the **NAME** env. var.
+
+**versioncmp** *version-string1* *version-string2*:
+   Returns -1, 0, 1 if the version string are less-than, equal or
+   greater than.  Note that this command knows that 1.10 is newer than
+   1.8.
+

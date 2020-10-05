@@ -237,7 +237,7 @@ and Tmod?
 
     #%Module
     global env
-    if { [info exists env(LMOD_VERSION_MAJOR)]} {
+    if { [info exists $env(LMOD_VERSION_MAJOR)]} {
        hide-version CUDA/8.8.8
     }
 
@@ -248,9 +248,19 @@ and Tmod?
     #%Module
     ...
     global env
-    if { [info exists env(LMOD_VERSION_MAJOR)]} {
+    if { [info exists $env(LMOD_VERSION_MAJOR)]} {
        family compiler
     }
+
+  As of Lmod 8.4.7+ you can also use the env. var $ModuleTool::
+
+    #%Module
+    ...
+    global env
+    if { $env(ModuleTool) == "Lmod" } {
+       family compiler
+    }
+
 
 How can I get the shell functions created by modules in bash shell
 scripts such as job submission scripts?

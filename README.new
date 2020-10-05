@@ -16,4 +16,6 @@ Lmod 8.4+
 	      loading. Changed versionStr (user input) to be false and not nil   
 W.I.P:
    (8.4.7)  * Issue #461: Modified instructions for installing lua and lua-posix on ubuntu 18.04 and 20.04
-   
+            * Issue #469: Use LMOD_ALLOW_ROOT_USE to control whether root uses Lmod or not
+	    * Email suggestion from Xavier Delaruelle to define ModuleTool and ModuleToolVersion env vars
+	      and versioncmp test.

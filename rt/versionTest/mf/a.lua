@@ -27,6 +27,8 @@ local nameA = {
    "LMOD_VERSION_MAJOR",
    "LMOD_VERSION_MINOR",
    "LMOD_VERSION_SUBMINOR",
+   "ModuleTool",
+   "ModuleToolVersion",
 }
 
 for i = 1,#nameA do

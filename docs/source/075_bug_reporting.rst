@@ -25,8 +25,7 @@ Steps to report a bug
    the HEAD branch.
 #. Try to reduce the problem to the fewest number of modules.  Shoot
    for 1 or 2 modulefiles if you can.
-#. Run the command that fails.  i.e. ``module -D`` `cmd module ...` 2>
-   lmod.log``
+#. Run the command that fails.  i.e. ``module -D`` `cmd modulefile ...` 2> ``lmod.log``
 #. Combine the lmod.log file, the modulefiles from step 2, and possibly
    the spider cache file into a tar file.
 #. Send the tar file to mclay@tacc.utexas.edu
