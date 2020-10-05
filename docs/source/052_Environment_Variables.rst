@@ -1,5 +1,3 @@
-.. _env_vars-label:
-
 Lmod Environment variables
 ==========================
 
