@@ -628,6 +628,9 @@ function setenv_lmod_version()
    for i = 1, #nameA do
       setenv_posix(nameA[i],numA[i] or "0", true)
    end
+
+   setenv_posix("ModuleTool",        "Lmod",     true)
+   setenv_posix("ModuleToolVersion", versionStr, true)
 end
 
 --------------------------------------------------------------------------

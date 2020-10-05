@@ -3,70 +3,74 @@
 #  This is the system wide source file for setting up modules
 ########################################################################
 
-if [ -z "${USER_IS_ROOT:-}" ]; then
-
-  if [ -z "${MODULEPATH_ROOT:-}" ]; then
-    export USER=${USER-${LOGNAME}}  # make sure $USER is set
-    export LMOD_sys=`uname`
-
-    export MODULEPATH_ROOT="@modulepath_root@"
-    MODULEPATH_INIT="@modulepath_init@"
-    if [ -f ${MODULEPATH_INIT} ]; then
-       for str in $(cat ${MODULEPATH_INIT} | sed 's/#.*$//'); do   # Allow end-of-line comments.
-          for dir in $str; do
-              if [ -d $dir ]; then
-                  export MODULEPATH=$(@PKGV@/libexec/addto --append MODULEPATH $dir)
-              fi
-	  done
-       done
-    else
-       export MODULEPATH=$(@PKGV@/libexec/addto --append MODULEPATH $MODULEPATH_ROOT/$LMOD_sys $MODULEPATH_ROOT/Core)
-       export MODULEPATH=$(@PKGV@/libexec/addto --append MODULEPATH @PKGV@/modulefiles/Core)
-    fi
-
-    export BASH_ENV=@PKGV@/init/bash
-
-    #
-    # If MANPATH is empty, Lmod is adding a trailing ":" so that
-    # the system MANPATH will be found
-    if [ -z "${MANPATH:-}" ]; then
-      export MANPATH=:
-    fi
-    export MANPATH=$(@PKGV@/libexec/addto MANPATH @PKGV@/share/man)
-  fi
-
-  findExec ()
-  {
-    Nm=$1
-    confPath=$2
-    execNm=$3
-    eval $Nm=$confPath
-    if [ ! -x $confPath ]; then
-      if [ -x /bin/$execNm ]; then
-         eval $Nm=/bin/$execNm
-      elif [ -x /usr/bin/$execNm ]; then
-         eval $Nm=/usr/bin/$execNm
-      fi
-    fi
-    unset Nm confPath execNm
-  }
-
-  findExec PS_CMD       @ps@        ps
-  findExec EXPR_CMD     @expr@      expr
-  findExec BASENAME_CMD @basename@  basename
-
-  unset -f findExec
-
-  my_shell=$($PS_CMD -p $$ -ocomm=)
-  my_shell=$($EXPR_CMD    "$my_shell" : '-*\(.*\)')
-  my_shell=$($BASENAME_CMD $my_shell)
-  if [ -f @PKGV@/init/$my_shell ]; then
-     .    @PKGV@/init/$my_shell >/dev/null # Module Support
-  else
-     .    @PKGV@/init/sh        >/dev/null # Module Support
-  fi
-  unset my_shell PS_CMD EXPR_CMD BASENAME_CMD MODULEPATH_INIT
+if [ -z "${LMOD_ALLOW_ROOT_USE+x}" ]; then
+  LMOD_ALLOW_ROOT_USE=@lmod_allow_root_use@
 fi
+
+( [ -n "${USER_IS_ROOT:-}" ] || ( [ "${LMOD_ALLOW_ROOT_USE:-}" != yes ] && [ $(id -u) = 0 ] ) ) && return
+
+
+if [ -z "${MODULEPATH_ROOT:-}" ]; then
+  export USER=${USER-${LOGNAME}}  # make sure $USER is set
+  export LMOD_sys=`uname`
+
+  export MODULEPATH_ROOT="@modulepath_root@"
+  MODULEPATH_INIT="@modulepath_init@"
+  if [ -f ${MODULEPATH_INIT} ]; then
+     for str in $(cat ${MODULEPATH_INIT} | sed 's/#.*$//'); do   # Allow end-of-line comments.
+        for dir in $str; do
+            if [ -d $dir ]; then
+                export MODULEPATH=$(@PKGV@/libexec/addto --append MODULEPATH $dir)
+            fi
+        done
+     done
+  else
+     export MODULEPATH=$(@PKGV@/libexec/addto --append MODULEPATH $MODULEPATH_ROOT/$LMOD_sys $MODULEPATH_ROOT/Core)
+     export MODULEPATH=$(@PKGV@/libexec/addto --append MODULEPATH @PKGV@/modulefiles/Core)
+  fi
+
+  export BASH_ENV=@PKGV@/init/bash
+
+  #
+  # If MANPATH is empty, Lmod is adding a trailing ":" so that
+  # the system MANPATH will be found
+  if [ -z "${MANPATH:-}" ]; then
+    export MANPATH=:
+  fi
+  export MANPATH=$(@PKGV@/libexec/addto MANPATH @PKGV@/share/man)
+fi
+
+findExec ()
+{
+  Nm=$1
+  confPath=$2
+  execNm=$3
+  eval $Nm=$confPath
+  if [ ! -x $confPath ]; then
+    if [ -x /bin/$execNm ]; then
+       eval $Nm=/bin/$execNm
+    elif [ -x /usr/bin/$execNm ]; then
+       eval $Nm=/usr/bin/$execNm
+    fi
+  fi
+  unset Nm confPath execNm
+}
+
+findExec PS_CMD       @ps@        ps
+findExec EXPR_CMD     @expr@      expr
+findExec BASENAME_CMD @basename@  basename
+
+unset -f findExec
+
+my_shell=$($PS_CMD -p $$ -ocomm=)
+my_shell=$($EXPR_CMD    "$my_shell" : '-*\(.*\)')
+my_shell=$($BASENAME_CMD $my_shell)
+if [ -f @PKGV@/init/$my_shell ]; then
+   .    @PKGV@/init/$my_shell >/dev/null # Module Support
+else
+   .    @PKGV@/init/sh        >/dev/null # Module Support
+fi
+unset my_shell PS_CMD EXPR_CMD BASENAME_CMD MODULEPATH_INIT LMOD_ALLOW_ROOT_USE
 
 # Local Variables:
 # mode: shell-script

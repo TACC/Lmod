@@ -181,6 +181,7 @@ local function new(self)
    local lua_path          = cosmic:value("PATH_TO_LUA")
    local tracing           = cosmic:value("LMOD_TRACING")
    local fast_tcl_interp   = cosmic:value("LMOD_FAST_TCL_INTERP")
+   local allow_root_use    = cosmic:value("LMOD_ALLOW_ROOT_USE")
 
    if (not rc:find(":") and not isFile(rc)) then
       rc = rc .. " -> <empty>"
@@ -198,6 +199,7 @@ local function new(self)
    end
 
    local tbl = {}
+   tbl.allowRoot    = { k = "Allow root to use Lmod"            , v = allow_root_use,   }
    tbl.allowTCL     = { k = "Allow TCL modulefiles"             , v = allow_tcl_mfiles, }
    tbl.autoSwap     = { k = "Auto swapping"                     , v = auto_swap,        }
    tbl.case         = { k = "Case Independent Sorting"          , v = case_ind_sorting, }

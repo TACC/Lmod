@@ -6,42 +6,50 @@
 #
 ########################################################################
 
-if test (id -u) -ne 0
-
-    if test -z "$MODULEPATH_ROOT"
-
-        if test -n "$USER"
-            set -gx USER "$LOGNAME"  # make sure $USER is set
-        end
-        set -gx LMOD_sys (uname)
-
-        set -gx MODULEPATH_ROOT "@modulepath_root@"
-
-        set MODULEPATH_INIT "@modulepath_init@"
-        
-        if test -e "$MODULEPATH_INIT" 
-            for str in (cat "$MODULEPATH_INIT" | sed 's/#.*$//')  # Allow end-of-line comments.
-                for dir in (@ls@ -d "$str")
-                    set -gx MODULEPATH (@PKG@/libexec/addto --append MODULEPATH $dir)
-                end
-            end
-        else
-            set -xg MODULEPATH (@PKGV@/libexec/addto --append MODULEPATH $MODULEPATH_ROOT/$LMOD_sys $MODULEPATH_ROOT/Core)
-            set -xg MODULEPATH (@PKGV@/libexec/addto --append MODULEPATH @PKGV@/modulefiles/Core)
-        end
-
-        set -xg FISH_ENV @PKGV@/init/fish
-
-        #
-        # If MANPATH is empty, Lmod is adding a trailing ":" so that
-        # the system MANPATH will be found
-        if test -z "$MANPATH"
-            set -xg MANPATH ":"
-        end
-
-        set -gx MANPATH (@PKGV@/libexec/addto MANPATH @PKGV@/share/man)
-    end
-    source  @PKGV@/init/fish >/dev/null # Module Support
-    
-    set fish_complete_path @PKGV@/init/fish_tab_completion $fish_complete_path
+if test -z "$LMOD_ALLOW_ROOT_USE"
+    set LMOD_ALLOW_ROOT_USE "@lmod_allow_root_use@"
 end
+
+if test $LMOD_ALLOW_ROOT_USE != no
+    if test (id -u) = 0
+       exit 0
+    end
+end	
+
+if test -z "$MODULEPATH_ROOT
+
+    if test -n "$USER"
+        set -gx USER "$LOGNAME"  # make sure $USER is set
+    end
+    set -gx LMOD_sys (uname)
+
+    set -gx MODULEPATH_ROOT "@modulepath_root@"
+
+    set MODULEPATH_INIT "@modulepath_init@"
+    
+    if test -e "$MODULEPATH_INIT" 
+        for str in (cat "$MODULEPATH_INIT" | sed 's/#.*$//')  # Allow end-of-line comments.
+            for dir in (@ls@ -d "$str")
+                set -gx MODULEPATH (@PKG@/libexec/addto --append MODULEPATH $dir)
+            end
+        end
+    else
+        set -xg MODULEPATH (@PKGV@/libexec/addto --append MODULEPATH $MODULEPATH_ROOT/$LMOD_sys $MODULEPATH_ROOT/Core)
+        set -xg MODULEPATH (@PKGV@/libexec/addto --append MODULEPATH @PKGV@/modulefiles/Core)
+    end
+
+    set -xg FISH_ENV @PKGV@/init/fish
+
+    #
+    # If MANPATH is empty, Lmod is adding a trailing ":" so that
+    # the system MANPATH will be found
+    if test -z "$MANPATH"
+        set -xg MANPATH ":"
+    end
+
+    set -gx MANPATH (@PKGV@/libexec/addto MANPATH @PKGV@/share/man)
+end
+source  @PKGV@/init/fish >/dev/null # Module Support
+
+set fish_complete_path @PKGV@/init/fish_tab_completion $fish_complete_path
+

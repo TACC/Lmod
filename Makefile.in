@@ -37,6 +37,7 @@ SETTARG_CMD               := settarg_cmd
 MODULEPATH_INIT           := @MODULEPATH_INIT@
 LMOD_HIDDEN_ITALIC        := @HIDDEN_ITALIC@
 LMOD_OVERRIDE_LANG        := @LMOD_OVERRIDE_LANG@
+LMOD_ALLOW_ROOT_USE       := @LMOD_ALLOW_ROOT_USE@
 SITE_MSG_FILE             := @SITE_MSG_FILE@
 SITE_NAME                 := @SITE_NAME@
 SUPPORT_KSH               := @SUPPORT_KSH@
@@ -287,6 +288,7 @@ __installMe:
 	        -e 's|@updateSystemFn@|$(UPDATE_SYSTEM_FN)|g'         	   	  \
 	        -e 's|@modulepath_root@|$(MODULEPATH_ROOT)|g'         	   	  \
                 -e 's|@lmod_root@|$(LMOD_ROOT)|g'                             	  \
+                -e 's|@lmod_allow_root_use@|$(LMOD_ALLOW_ROOT_USE)|g'          	  \
                 -e 's|@PKGV@|$(PKGV)|g'                                    	  \
                 -e 's|@PKG@|$(PKG)|g'         < $$i > $(DIRLOC)/$$fn; 	   	  \
             [ "$$ext" = "in.lua" -o "$$ext" = "tcl" -o "$$ext" = "in"             \

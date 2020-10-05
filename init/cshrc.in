@@ -8,7 +8,14 @@
 
 set MY_NAME="@PKGV@/init/cshrc"
 
+if ( ! $?LMOD_ALLOW_ROOT_USE ) then
+  set LMOD_ALLOW_ROOT_USE=@lmod_allow_root_use@
+endif
 
+set my_id = `id -u`
+if ( $LMOD_ALLOW_ROOT_USE != yes && $my_id == 0 ) then
+  exit
+endif
 
 if ( ! $?MODULEPATH_ROOT ) then
     if ( $?USER) then
@@ -43,6 +50,8 @@ if ( ! $?MODULEPATH_ROOT ) then
     setenv MANPATH `@PKGV@/libexec/addto MANPATH @PKGV@/share/man`
 
 endif
+
+unset LMOD_ALLOW_ROOT_USE my_id UNAME LMOD_sys MODULEPATH_INIT
 
 if ( -f  @PKGV@/init/csh  ) then
   source @PKGV@/init/csh

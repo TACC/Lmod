@@ -33,6 +33,20 @@ AC_ARG_WITH(duplicatePaths,
     DUPLICATE_PATHS="$withval"
     AC_DEFINE_UNQUOTED(DUPLICATE_PATHS, "$withval"))dnl
 
+AC_SUBST(LMOD_ALLOW_ROOT_USE)
+AC_ARG_WITH(allowRootUse,
+    AC_HELP_STRING([--with-allowRootUse=ans],[Allow root to use Lmod [[yes]]]),
+    LMOD_ALLOW_ROOT_USE="$withval"
+    LMOD_ALLOW_ROOT_USE=`echo $LMOD_ALLOW_ROOT_USE | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
+    VALID_YN $LMOD_ALLOW_ROOT_USE "--with-allowRootUse=ans: ans must be yes or no"
+    AC_MSG_RESULT([LMOD_ALLOW_ROOT_USE=$with_allowRootUse])
+    AC_DEFINE_UNQUOTED(LMOD_ALLOW_ROOT_USE,"$with_allowRootUse")dnl
+    ,
+    withval="yes"
+    AC_MSG_RESULT([LMOD_ALLOW_ROOT_USE=$withval])
+    LMOD_ALLOW_ROOT_USE="$withval"
+    AC_DEFINE_UNQUOTED(LMOD_ALLOW_ROOT_USE, "$withval"))dnl
+
 AC_SUBST(SITE_MSG_FILE)
 AC_ARG_WITH(siteMsgFile,
     AC_HELP_STRING([--with-siteMsgFile=ans],[Site Message File [[<empty>]]]),

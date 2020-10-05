@@ -683,6 +683,7 @@ COLORIZE
 CASE_INDEPENDENT_SORTING
 LMOD_OVERRIDE_LANG
 SITE_MSG_FILE
+LMOD_ALLOW_ROOT_USE
 DUPLICATE_PATHS
 OBJEXT
 EXEEXT
@@ -733,6 +734,7 @@ ac_subst_files=''
 ac_user_opts='
 enable_option_checking
 with_duplicatePaths
+with_allowRootUse
 with_siteMsgFile
 with_lang
 with_caseIndependentSorting
@@ -1388,6 +1390,7 @@ Optional Packages:
   --with-duplicatePaths=ans
                           Allow duplicate directories in path like variables
                           [[no]]
+  --with-allowRootUse=ans Allow root to use Lmod [[yes]]
   --with-siteMsgFile=ans  Site Message File [[<empty>]]
   --with-lang=ans         Override $LANG for Lmod errors/messsages/warnings
                           [[<empty>]]
@@ -3004,6 +3007,30 @@ $as_echo "DUPLICATE_PATHS=$withval" >&6; }
     DUPLICATE_PATHS="$withval"
     cat >>confdefs.h <<_ACEOF
 #define DUPLICATE_PATHS "$withval"
+_ACEOF
+
+fi
+
+
+
+# Check whether --with-allowRootUse was given.
+if test "${with_allowRootUse+set}" = set; then :
+  withval=$with_allowRootUse; LMOD_ALLOW_ROOT_USE="$withval"
+    LMOD_ALLOW_ROOT_USE=`echo $LMOD_ALLOW_ROOT_USE | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $LMOD_ALLOW_ROOT_USE "--with-allowRootUse=ans: ans must be yes or no"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: LMOD_ALLOW_ROOT_USE=$with_allowRootUse" >&5
+$as_echo "LMOD_ALLOW_ROOT_USE=$with_allowRootUse" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define LMOD_ALLOW_ROOT_USE "$with_allowRootUse"
+_ACEOF
+
+else
+  withval="yes"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: LMOD_ALLOW_ROOT_USE=$withval" >&5
+$as_echo "LMOD_ALLOW_ROOT_USE=$withval" >&6; }
+    LMOD_ALLOW_ROOT_USE="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define LMOD_ALLOW_ROOT_USE "$withval"
 _ACEOF
 
 fi
@@ -6464,6 +6491,7 @@ echo "Use Tmod Find First rule instead of Find Best for defaults.." : $TMOD_FIND
 echo "MODULEPATH Initial file....................................." : $MODULEPATH_INIT
 echo "Use built-in lua packages instead of system provided pkgs..." : $USE_BUILT_IN_PKGS
 echo "Silence shell debugging output for bash/zsh................." : $SILENCE_SHELL_DEBUGGING
+echo "Allow root to use Lmod......................................" : $LMOD_ALLOW_ROOT_USE
 echo "Support KSH................................................." : $SUPPORT_KSH
 echo "Use the fast TCL interpreter................................" : $FAST_TCL_INTERP
 echo "Allow for extended default.(ml intel/17 #-> intel/17.0.4)..." : $EXTENDED_DEFAULT  #"
