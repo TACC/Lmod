@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.4.6  2020-09-26 13:31 -05:00
+Modules based on Lua: Version 8.4.7  2020-10-05 21:11 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -30,3 +30,13 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load b
 I am here
 My module tool is Lmod
 My module version is newer than 8.4
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load c
+===========================
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) a   2) b   3) c/1.3

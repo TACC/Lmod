@@ -27,6 +27,8 @@ testdescript = {
      runLmod --version                                      # 1
      runLmod load a                                         # 2
      runLmod load b                                         # 3
+     runLmod load c                                         # 4
+     runLmod list                                           # 5
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
