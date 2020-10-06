@@ -858,7 +858,6 @@ proc execute-modulefile {modfile } {
     interp alias $child initGA         	{} depends-on
     interp alias $child is-loaded      	{} is-loaded
     interp alias $child module         	{} module
-    interp alias $child module-alias   	{} module-alias
     interp alias $child module-info    	{} module-info
     interp alias $child module-whatis  	{} module-whatis
     interp alias $child myPuts         	{} myPuts

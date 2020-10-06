@@ -12,7 +12,7 @@ Here are a list of TCL commands that are provided in addition to the
 standard TCL language.
 
 
-**add-property NAME value**  :
+**add-property NAME value** :
    See :ref:`lmodrc-label` for how to use this command.
 
 **always-load A B C** :
@@ -34,7 +34,7 @@ standard TCL language.
    Exits the module.  No changes in the environment occur if this
    command is found.
 
-**extensions** "numpy/2.1 scipy/3.2":
+**extensions** "numpy/2.1 scipy/3.2" :
    This module provides the following extensions. Place the list of
    extensions as a single string.
 
@@ -46,13 +46,40 @@ standard TCL language.
 **is-loaded NAME** :
    Return true when module "NAME" is loaded.
 
-**module** :
-   something
+**module** *command* *args* :
+   This command performs different actions depending on *command*:
 
-**module-alias** :
-   something
-  
-**module-info** *string*:
+   **add**  *A B* :
+      load one or more modules
+
+   **load**  *A B* :
+      load one or more modules
+
+   **load-any** *A B* :
+      load any one of the following modulefiles
+
+   **swap** *A B* :
+      unload *A* and load *B*
+
+   **switch** *A B* :
+      unload *A* and load *B*
+
+   **unload** *A B* :
+      unload one or more modules.
+
+   **del** *A B* :
+      unload one or more modules.
+
+   **rm** *A B* :
+      unload one or more modules.
+
+   **use** *path* :
+      Add *path* to MODULEPATH
+
+   **unuse** *path* :
+      remove *path* to MODULEPATH
+   
+**module-info** *string* :
    This command returns different things depending what *string* is:
 
    **mode** : is the current mode: "load", "remove" or "display"
@@ -61,6 +88,16 @@ standard TCL language.
 
    **shelltype** : It has the value of "sh", "csh", "perl", "python",
                   "lisp", "fish", "cmake", or "r".
+
+   **flags** : always returns 0
+
+   **name**  : The fullname of the module.
+
+   **user** : always returns 0.
+
+   **symbols** : always returns 0.
+
+   **specified** : User specified name on command line.
 
 **module-whatis** *string* :
     The whatis command can be called repeatedly with different strings. 
@@ -79,10 +116,10 @@ standard TCL language.
    **pushenv** ("FOO",false) will clear "FOO" and the pop will return
    the previous value.
 
-**remove-path NAME** *value*:
+**remove-path NAME** *value* :
    remove value from a path-like variable for both load and unload modes.
 
-**remove-property NAME** *value*:
+**remove-property NAME** *value* :
    See :ref:`lmodrc-label` for how to use this function.
 
 **reportError** *string* :
@@ -102,7 +139,7 @@ standard TCL language.
 **unsetenv NAME** *value* :
    unsets the **NAME** env. var.
 
-**versioncmp** *version-string1* *version-string2*:
+**versioncmp** *version-string1* *version-string2* :
    Returns -1, 0, 1 if the version string are less-than, equal or
    greater than.  Note that this command knows that 1.10 is newer than
    1.8.

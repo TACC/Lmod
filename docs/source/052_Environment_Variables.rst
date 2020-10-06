@@ -20,7 +20,7 @@ Environment variables defined by Lmod startup files
 
 **LMOD_VERSION** : The current version of Lmod.
 
-**LMOD_SETTARG_FULL_SUPPORT**: If this environment variable is set
+**LMOD_SETTARG_FULL_SUPPORT** : If this environment variable is set
    then when the settarg module is loaded several shell functions are
    defined such as "targ".  See the :ref:`settarg-label` for more details.
 
@@ -38,7 +38,7 @@ Lmod Environment variables defined when evaluating a modulefile
 
 **ModuleTool** : This environment variable is defined to be **Lmod**. (exists for Lmod 8.4.7+)
 
-**ModuleToolVersion**:  Current Version of Lmod.  (exists for Lmod 8.4.7+)
+**ModuleToolVersion** g:  Current Version of Lmod.  (exists for Lmod 8.4.7+)
 
 Environment variables to change Lmod behavior
 ---------------------------------------------
