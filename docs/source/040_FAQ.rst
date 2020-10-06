@@ -252,15 +252,13 @@ and Tmod?
        family compiler
     }
 
-  As of Lmod 8.4.7+ you can also use the env. var $ModuleTool::
+  As of Lmod 8.4.8+ you can also use the TCL global variable ModuleTool.
 
     #%Module
     ...
-    global env
-    if { $env(ModuleTool) == "Lmod" } {
+    if ( [ info exists ::ModuleTool ] && $::ModuleTool == "Lmod" } {
        family compiler
     }
-
 
 How can I get the shell functions created by modules in bash shell
 scripts such as job submission scripts?

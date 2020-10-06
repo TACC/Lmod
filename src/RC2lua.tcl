@@ -91,6 +91,12 @@ proc showResults {} {
 proc main {mRcFile} {
     global env                 # Need this for .modulerc file that access global env vars.
     global g_fast
+    global ModuleTool
+    global ModuleToolVersion
+
+    set ModuleTool        "Lmod"
+    set ModuleToolVersion $env(LMOD_VERSION)
+
     initGA
     myPuts "ModA=\{"
     set version  -1

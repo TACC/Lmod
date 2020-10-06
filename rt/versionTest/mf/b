@@ -3,15 +3,12 @@ if { [info exists ::env(LMOD_VERSION) ] } {
   puts stderr "I am here"
 }
 
-if { $env(ModuleTool) == "Lmod" } { 
-  puts stderr "My module tool is Lmod"
+if { [info exists ::ModuleTool] } {
+  puts stderr "My module tool is $::ModuleTool"
+  if { [ versioncmp $::ModuleToolVersion "8.4" ] > 0} { 
+      puts stderr "My module version is newer than 8.4"
+  }
 }
-
-if { [ versioncmp $env(ModuleToolVersion)  "8.4" ] > 0} { 
-  puts stderr "My module version is newer than 8.4"
-}
-
-
 
 # ;;; Local Variables: ***
 # ;;; mode:tcl ***

@@ -19,3 +19,5 @@ Lmod 8.4+
 	    * Suggestion from Xavier Delaruelle to define ModuleTool and ModuleToolVersion env vars
 	      and versioncmp test.
             * Updated documentation for Lmod Env. Vars and TCL module functions.
+   (8.4.8)  * To match Tmod, ModuleTool and ModuleToolVersion are also TCL global variables.
+   

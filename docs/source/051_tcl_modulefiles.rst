@@ -11,7 +11,6 @@ files.
 Here are a list of TCL commands that are provided in addition to the
 standard TCL language.
 
-
 **add-property NAME value** :
    See :ref:`lmodrc-label` for how to use this command.
 
@@ -86,8 +85,7 @@ standard TCL language.
 
    **shell** : The current shell specified by the user
 
-   **shelltype** : It has the value of "sh", "csh", "perl", "python",
-                  "lisp", "fish", "cmake", or "r".
+   **shelltype** : * * It has the value of "sh", "csh", "perl", "python", "lisp", "fish", "cmake", or "r".
 
    **flags** : always returns 0
 
@@ -144,3 +142,12 @@ standard TCL language.
    greater than.  Note that this command knows that 1.10 is newer than
    1.8.
 
+TCL Global Variables
+--------------------
+
+The following TCL global variables are set inside modulefiles and
+.modulerc and .version files.
+
+**ModuleTool** : This is the string "Lmod".
+
+**ModuleToolVersion** : This is the current version of Lmod.

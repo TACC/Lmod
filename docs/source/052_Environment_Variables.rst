@@ -38,7 +38,7 @@ Lmod Environment variables defined when evaluating a modulefile
 
 **ModuleTool** : This environment variable is defined to be **Lmod**. (exists for Lmod 8.4.7+)
 
-**ModuleToolVersion** g:  Current Version of Lmod.  (exists for Lmod 8.4.7+)
+**ModuleToolVersion** :  Current Version of Lmod.  (exists for Lmod 8.4.7+)
 
 Environment variables to change Lmod behavior
 ---------------------------------------------

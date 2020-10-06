@@ -837,9 +837,10 @@ proc reportError {message} {
 }
 
 proc execute-modulefile {modfile } {
-    global env g_help ModulesCurrentModulefile putMode g_shellType g_shellName
+    global env g_help ModulesCurrentModulefile putMode g_shellType g_shellName ModuleTool ModuleToolVersion
     set ModulesCurrentModulefile $modfile
-
+    set ModuleTool        "Lmod"
+    set ModuleToolVersion $env(LMOD_VERSION)
     set putMode "normal"
 
     if {[info exists child] && [interp exists $child]} {
@@ -881,6 +882,8 @@ proc execute-modulefile {modfile } {
 
     interp eval $child {global ModulesCurrentModulefile g_help g_shellType g_shellName}
     interp eval $child [list "set" "ModulesCurrentModulefile" $modfile]
+    interp eval $child [list "set" "ModuleTool"               "Lmod"]
+    interp eval $child [list "set" "ModuleToolVersion"        $env(LMOD_VERSION)]
     interp eval $child [list "set" "g_help"                   $g_help]
     interp eval $child [list "set" "g_shellType"              $g_shellType]
     interp eval $child [list "set" "g_shellName"              $g_shellName]
