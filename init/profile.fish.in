@@ -16,7 +16,7 @@ if test $LMOD_ALLOW_ROOT_USE != no
     end
 end	
 
-if test -z "$MODULEPATH_ROOT
+if test -z "$MODULEPATH_ROOT"
 
     if test -n "$USER"
         set -gx USER "$LOGNAME"  # make sure $USER is set
