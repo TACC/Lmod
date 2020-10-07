@@ -10,13 +10,13 @@ if test -z "$LMOD_ALLOW_ROOT_USE"
     set LMOD_ALLOW_ROOT_USE "@lmod_allow_root_use@"
 end
 
-if test $LMOD_ALLOW_ROOT_USE != no
+if test $LMOD_ALLOW_ROOT_USE != yes
     if test (id -u) = 0
        exit 0
     end
 end	
 
-if test -z "$MODULEPATH_ROOT
+if test -z "$MODULEPATH_ROOT"
 
     if test -n "$USER"
         set -gx USER "$LOGNAME"  # make sure $USER is set
