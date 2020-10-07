@@ -426,3 +426,41 @@ MODULEPATH=ProjectDIR/rt/hierarchy/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={petsc={["fn"]="ProjectDIR/rt/hierarchy/mf/MPI/gcc/6.1/impi/17.0/petsc/3.7.lua",["fullName"]="petsc/3.7",["loadOrder"]=-1,propT={},["stackDepth"]=0,["status"]="inactive",["userName"]="petsc",},},mpathA={"ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
 export _ModuleTable_;
+===========================
+step 21
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/hierarchy/mf/Core;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/hierarchy/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 22
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Default
+===========================
+__LMOD_REF_COUNT_LOADEDMODULES=moduleA:1\;moduleB:1\;Default:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=moduleA:moduleB:Default;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/hierarchy/mf2/Compiler:1\;ProjectDIR/rt/hierarchy/mf2/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/hierarchy/mf2/Compiler:ProjectDIR/rt/hierarchy/mf2/Core;
+export MODULEPATH;
+MY_NAME=moduleB;
+export MY_NAME;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/hierarchy/mf2/Core/moduleA.lua:1\;ProjectDIR/rt/hierarchy/mf2/Compiler/moduleB.lua:1\;ProjectDIR/rt/hierarchy/mf2/Core/Default.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/hierarchy/mf2/Core/moduleA.lua:ProjectDIR/rt/hierarchy/mf2/Compiler/moduleB.lua:ProjectDIR/rt/hierarchy/mf2/Core/Default.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={Default={["fn"]="ProjectDIR/rt/hierarchy/mf2/Core/Default.lua",["fullName"]="Default",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="Default",},moduleA={["fn"]="ProjectDIR/rt/hierarchy/mf2/Core/moduleA.lua",["fullName"]="moduleA",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="moduleA",},moduleB={["fn"]="ProjectDIR/rt/hierarchy/mf2/Compiler/moduleB.lua",["fullName"]="moduleB",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="moduleB",},},mpathA={"ProjectDIR/rt/hierarchy/mf2/Compiler","ProjectDIR/rt/hierarchy/mf2/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf2/Core",}';
+export _ModuleTable_;
+===========================
+step 23
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/hierarchy/mf2/Compiler:ProjectDIR/rt/hierarchy/mf2/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={Default={["fn"]="ProjectDIR/rt/hierarchy/mf2/Core/Default.lua",["fullName"]="Default",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="Default",},moduleA={["fn"]="ProjectDIR/rt/hierarchy/mf2/Core/moduleA.lua",["fullName"]="moduleA",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="moduleA",},moduleB={["fn"]="ProjectDIR/rt/hierarchy/mf2/Compiler/moduleB.lua",["fullName"]="moduleB",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="moduleB",},},mpathA={"ProjectDIR/rt/hierarchy/mf2/Compiler","ProjectDIR/rt/hierarchy/mf2/Core",},["systemBaseMPATH"]="ProjectDIR/rt/hierarchy/mf2/Core",}';
+export _ModuleTable_;

@@ -100,7 +100,7 @@ proc main {mRcFile} {
     initGA
     myPuts "ModA=\{"
     set version  -1
-    set found 0
+    set found     0
 
     source $mRcFile
 

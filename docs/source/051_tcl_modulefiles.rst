@@ -85,7 +85,7 @@ standard TCL language.
 
    **shell** : The current shell specified by the user
 
-   **shelltype** : * * It has the value of "sh", "csh", "perl", "python", "lisp", "fish", "cmake", or "r".
+   **shelltype** : It has the value of "sh", "csh", "perl", "python", "lisp", "fish", "cmake", or "r".
 
    **flags** : always returns 0
 
@@ -118,7 +118,7 @@ standard TCL language.
    remove value from a path-like variable for both load and unload modes.
 
 **remove-property NAME** *value* :
-   See :ref:`lmodrc-label` for how to use this function.
+   See :ref:`lmodrc-label` for how to use this command.
 
 **reportError** *string* :
   Report an error and abort processing of the modulefile.
@@ -148,6 +148,8 @@ TCL Global Variables
 The following TCL global variables are set inside modulefiles and
 .modulerc and .version files.
 
-**ModuleTool** : This is the string "Lmod".
+**ModuleTool** : This is the string "Lmod". This works for Lmod
+    8.4.8+.  This variable also exists in Tmod version 4.7 or greater.
 
-**ModuleToolVersion** : This is the current version of Lmod.
+**ModuleToolVersion** : This is the current version of Lmod. This
+    works for Lmod 8.4.8+ This variable also exists in Tmod version 4.7 or greater.
