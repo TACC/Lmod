@@ -381,8 +381,8 @@ file can be in a number of places but is typically in ``/etc/zshenv`` or
         if [ -r $i ]; then
           . $i
         fi
-      setopt nomatch
       done
+      setopt nomatch
     fi
     
 Ksh:
