@@ -572,9 +572,22 @@ cosmic:init{name    = "MODULEPATH_ROOT",
 ------------------------------------------------------------------------
 -- LMOD_HASHSUM_PATH
 ------------------------------------------------------------------------
+local HashSum      = "@hashsum@"
+local found        = false
+if (HashSum:sub(1,1) == "@") then
+   local a = { "sha1sum", "shasum", "md5sum", "md5" }
+   for i = 1,#a do
+      HashSum, found = findInPath(a[i])
+      if (found) then break end
+   end
+   if (not found) then
+      HashSum = nil
+   end
+end
+
 cosmic:init{name    = "LMOD_HASHSUM_PATH",
             sedV    = "@hashsum@",
-            default = "/usr/bin/sha1sum"}
+            default = HashSum}
 
 ------------------------------------------------------------------------
 -- PATH_TO_LUA

@@ -91,8 +91,6 @@ function cmdDir()
 end
 
 Version = "1.0"
-HashSum = "@path_to_hashsum@"
-
 require("strict")
 require("myGlobals")
 require("utils")
@@ -112,6 +110,7 @@ local FrameStk    = require("FrameStk")
 local MT          = require("MT")
 local MName       = require("MName")
 local Optiks      = require("Optiks")
+local cosmic      = require("Cosmic"):singleton()
 local concatTbl   = table.concat
 local dbg         = require("Dbg"):dbg()
 local fh          = nil
@@ -178,15 +177,12 @@ function main()
       io.stderr:write(s)
    end
    fh:write(s)
-   if (HashSum:sub(1,1) == "@" ) then
-      HashSum = find_exec_path("sha1sum") or find_exec_path("shasum")
-   end
    fh:close()
+   local HashSum = cosmic:value("LMOD_HASHSUM_PATH")
 
    if (HashSum == nil) then
       LmodSystemError{msg="e_Failed_Hashsum"}
    end
-
 
    local result = capture(HashSum .. " " .. tmpfn)
    os.remove(tmpfn)

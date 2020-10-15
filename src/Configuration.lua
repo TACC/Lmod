@@ -81,20 +81,12 @@ local function new(self)
    setmetatable(o,self)
    self.__index = self
 
+   local HashSum    = cosmic:value("LMOD_HASHSUM_PATH")
    local locSitePkg = locatePkg("SitePackage") or "unknown"
 
    if (locSitePkg ~= "unknown") then
       local std_sha1 = "1fa3d8f24793042217b8474904136fdde72d42dd"
       local std_md5  = "3c785db2ee60bc8878fe1b576c890a0f"
-      local HashSum  = "@path_to_hashsum@"
-      local found
-      if (HashSum:sub(1,1) == "@") then
-         local a = { "sha1sum", "shasum", "md5sum", "md5" }
-         for i = 1,#a do
-            HashSum, found = findInPath(a[i])
-            if (found) then break end
-         end
-      end
 
       local std_hashsum = (HashSum:find("md5") ~= nil) and std_md5 or std_sha1
 
