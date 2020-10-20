@@ -21,4 +21,6 @@ Lmod 8.4+
             * Updated documentation for Lmod Env. Vars and TCL module functions.
    (8.4.8)  * To match Tmod, ModuleTool and ModuleToolVersion are also TCL global variables.
    (8.4.9)  * Issue #470, Issue #471: fix fish logic w.r.t. LMOD_ALLOW_ROOT_USE
+
+W.I.P:
    (8.4.10) * User found bug where if sha1sum was not in current path, "module save" would die.
