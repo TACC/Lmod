@@ -23,3 +23,5 @@ Lmod 8.4+
    (8.4.9)  * Issue #470, Issue #471: fix fish logic w.r.t. LMOD_ALLOW_ROOT_USE
    (8.4.10) * User found bug where if sha1sum was not in current path, "module save" would die.
             * Issue #474: Updated FAQ doc on how to handle missing new modules.
+W.I.P:
+   (8.4.10) * Issue #476: Move mrcT.mpath to separate table mrcMpathT
