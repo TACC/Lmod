@@ -308,6 +308,18 @@ update_cache() {
        lua_ver=$(@path_to_lua@/lua -e 'print((_VERSION:gsub("Lua ","")))')
        @path_to_luac@ -o ${cache_file_name}.new.luac_$lua_ver ${cache_file_name}.lua
        install_new_cache luac_$lua_ver ${cache_file_name}
+
+       # also compile cache with other Lua 5.x versions, if corresponding luac is available
+       for alt_luac in $(ls @path_to_luac@-5.* 2> /dev/null); do
+           alt_lua_ver=$(basename ${alt_luac} | cut -f2 -d'-')
+           debug "Found potential alternate Lua version ${alt_lua_ver} (via ${alt_luac}"
+           # only for Lua versions different than what lua/luac commands correspond to (see above)
+           if [ "${alt_lua_ver}" != "${lua_ver}" ]; then
+               debug "Compiling cache file ${cache_file_name} for Lua ${alt_lua_ver}..."
+               ${alt_luac} -o ${cache_file_name}.new.luac_${alt_lua_ver} ${cache_file_name}.lua
+               install_new_cache luac_${alt_lua_ver} ${cache_file_name}
+           fi
+       done
     fi
 }
 
