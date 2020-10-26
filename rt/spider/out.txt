@@ -268,12 +268,12 @@ mrcT = {
   hiddenT = {
     ["gcc/4.8"] = true,
   },
-  mpathT = {},
   version2modT = {
     ["intel/17"] = "intel/2017.1.132",
     ["intel/2017"] = "intel/2017.1.132",
   },
 }
+mrcMpathT = {}
 spiderT = {
   ["ProjectDIR/rt/spider/mf/E_Compiler/gcc/4.2"]  = {
     python2 = {
@@ -834,12 +834,12 @@ mrcT = {
   hiddenT = {
     ["gcc/4.8"] = true,
   },
-  mpathT = {},
   version2modT = {
     ["intel/17"] = "intel/2017.1.132",
     ["intel/2017"] = "intel/2017.1.132",
   },
 }
+mrcMpathT = {}
 spiderT = {
   ["ProjectDIR/rt/spider/mf/G_Core"]  = {
     acme_xyz = {

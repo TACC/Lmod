@@ -22,9 +22,9 @@ timestampFn = {
 mrcT = {
   alias2modT = {},
   hiddenT = {},
-  mpathT = {},
   version2modT = {},
 }
+mrcMpathT = {}
 spiderT = {
   ["ProjectDIR/rt/softwarePage/mf"]  = {
     foo = {
