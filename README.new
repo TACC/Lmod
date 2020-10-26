@@ -24,4 +24,4 @@ Lmod 8.4+
    (8.4.10) * User found bug where if sha1sum was not in current path, "module save" would die.
             * Issue #474: Updated FAQ doc on how to handle missing new modules.
 W.I.P:
-   (8.4.10) * Issue #476: Move mrcT.mpath to separate table mrcMpathT
+   (8.4.11) * Issue #476: Move mrcT.mpath to separate table mrcMpathT
