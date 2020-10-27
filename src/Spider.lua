@@ -816,6 +816,8 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
    local show_hidden = masterTbl.show_hidden
    local mrc         = MRC:singleton()
 
+   dbg.print{"show_hidden: ",show_hidden,"\n"}
+
    --dbg.printT("dbT",dbT)
 
    local origUserSearchPat = userSearchPat
@@ -839,6 +841,10 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
    local matchT    = {}
    local T         = dbT[origUserSearchPat]
    local TT        = providedByT[origUserSearchPat]
+
+   if (T  and next(T)  ~= nil) then dbg.printT("dbT->T",T)          else dbg.print{"no T\n"} end
+   if (TT and next(TT) ~= nil) then dbg.printT("providedBy->TT",TT) else dbg.print{"no TT\n"} end
+
    local look4poss = false
    if (T or TT) then
       -- Must check for any valid modulefiles or providesBy
@@ -991,7 +997,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
       local fullName = nil
       local fName2   = nil
       if (T) then
-         dbg.print{"Have T\n"}
+         dbg.print{"Have T in countEntries\n"}
          dbg.print{"key: ",key,"\n"}
          for fn, v in pairs(T) do
             if (show_hidden or mrc:isVisible({fullName=v.fullName,sn=sn,fn=fn})) then
@@ -1020,17 +1026,20 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
       --end
 
       if (TT) then
-         dbg.print{"Have TT\n"}
+         dbg.print{"Have TT in countEntries\n"}
          for sn, vv in pairs(providedByT) do
             for k, A in pairs(vv) do
                for i = 1,#A do
                   local v = A[i]
-                  if (not v.hidden) then
+                  dbg.print{"k: ",k,", fullName of module: ",v.fullName,"\n"}
+                  if (not v.hidden or show_hidden) then
                      if (k == key) then
+                        dbg.print{"  key :",key," matches\n"}
                         cc[#cc+1]        = A[i]
                         fName2           = colorize("blue",k) .. " (E)"
                      end
                      if (k:find(key)) then
+                        dbg.print{"  key :",key," find match\n"}
                         dd[#dd+1]        = A[i]
                         fName2           = colorize("blue",k) .. " (E)"
                      end

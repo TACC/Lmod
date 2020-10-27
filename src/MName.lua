@@ -126,8 +126,8 @@ function M.new(self, sType, name, action, is, ie)
       o.__fullName = build_fullName(t.sn, t.version)
       o.__t        = t
    else
-      -- remove any trailing '/'s and any trailing .lua$. Also remove a trailing "/default".
-      o.__userName   = (name or ""):trim():gsub("/+$",""):gsub("%.lua$",""):gsub("/default$","") 
+      -- remove any trailing '/'s and any trailing .lua$
+      o.__userName   = (name or ""):trim():gsub("/+$",""):gsub("%.lua$","")
    end
 
    --dbg.fini("MName:new")
