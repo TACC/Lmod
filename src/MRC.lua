@@ -316,9 +316,11 @@ function M.export(self)
    local t = { hiddenT      = self.__hiddenT,
                version2modT = self.__version2modT,
                alias2modT   = self.__alias2modT,
-               mpathT       = self.__mpathT
    }
-   return serializeTbl{indent = true, name = "mrcT", value = t }
+   local a = {}
+   a[1] = serializeTbl{indent = true, name = "mrcT",      value = t             }
+   a[2] = serializeTbl{indent = true, name = "mrcMpathT", value = self.__mpathT }
+   return concatTbl(a,"\n")
 end
 
 local s_must_convert = true
@@ -348,11 +350,11 @@ local function l_import_helper(self,entryT)
    end
 end
 
-function M.import(self, mpathA, mrcT)
-   if (mrcT.mpathT and next(mrcT.mpathT) ~= nil) then
+function M.import(self, mpathA, mrcT, mrcMpathT)
+   if (mrcMpathT and next(mrcMpathT)) then
       for i = #mpathA, 1, -1 do
          local mpath  = mpathA[i]
-         l_import_helper(self, mrcT.mpathT[mpath])
+         l_import_helper(self, mrcMpathT[mpath])
       end
    else
       l_import_helper(self, mrcT)

@@ -235,40 +235,6 @@ mrcT = {
     ["h2/1.0"] = true,
     ["hidden/1.0"] = true,
   },
-  mpathT = {
-    ["ProjectDIR/rt/modulerc/mf/Core"]  = {
-      alias2modT = {
-        ["a13"] = "a/13",
-        ["z23"] = "z/23",
-      },
-      hiddenT = {
-        ["h2/1.0"] = true,
-        ["hidden/1.0"] = true,
-      },
-      version2modT = {
-        ["a/13"] = "a/13.2.345",
-        ["a/14"] = "a/14.0.1.134",
-        ["ab2/6"] = "ab2/6.12.3",
-        ["ab2/6.12"] = "ab2/6.12.3",
-        ["ab2/7"] = "ab2/7.4.3",
-        ["ab2/7.4"] = "ab2/7.4.3",
-        ["abinit/6"] = "abinit/6.12.3",
-        ["abinit/6.12"] = "abinit/6.12.3",
-        ["abinit/7"] = "abinit/7.4.3",
-        ["abinit/7.4"] = "abinit/7.4.3",
-        ["intel/14"] = "intel/14.0.3",
-        ["intel/14.0"] = "intel/14.0.3",
-        ["intel/15"] = "intel/15.0.2",
-        ["intel/15.0"] = "intel/15.0.2",
-        ["jtel/14"] = "jtel/14.0.3",
-        ["jtel/14.0"] = "jtel/14.0.3",
-        ["jtel/15"] = "jtel/15.0.2",
-        ["jtel/15.0"] = "jtel/15.0.2",
-        ["z/23"] = "z/23.2.345",
-        ["z/24"] = "z/24.0.1.134",
-      },
-    },
-  },
   version2modT = {
     ["a/13"] = "a/13.2.345",
     ["a/14"] = "a/14.0.1.134",
@@ -290,6 +256,40 @@ mrcT = {
     ["jtel/15.0"] = "jtel/15.0.2",
     ["z/23"] = "z/23.2.345",
     ["z/24"] = "z/24.0.1.134",
+  },
+}
+mrcMpathT = {
+  ["ProjectDIR/rt/modulerc/mf/Core"]  = {
+    alias2modT = {
+      ["a13"] = "a/13",
+      ["z23"] = "z/23",
+    },
+    hiddenT = {
+      ["h2/1.0"] = true,
+      ["hidden/1.0"] = true,
+    },
+    version2modT = {
+      ["a/13"] = "a/13.2.345",
+      ["a/14"] = "a/14.0.1.134",
+      ["ab2/6"] = "ab2/6.12.3",
+      ["ab2/6.12"] = "ab2/6.12.3",
+      ["ab2/7"] = "ab2/7.4.3",
+      ["ab2/7.4"] = "ab2/7.4.3",
+      ["abinit/6"] = "abinit/6.12.3",
+      ["abinit/6.12"] = "abinit/6.12.3",
+      ["abinit/7"] = "abinit/7.4.3",
+      ["abinit/7.4"] = "abinit/7.4.3",
+      ["intel/14"] = "intel/14.0.3",
+      ["intel/14.0"] = "intel/14.0.3",
+      ["intel/15"] = "intel/15.0.2",
+      ["intel/15.0"] = "intel/15.0.2",
+      ["jtel/14"] = "jtel/14.0.3",
+      ["jtel/14.0"] = "jtel/14.0.3",
+      ["jtel/15"] = "jtel/15.0.2",
+      ["jtel/15.0"] = "jtel/15.0.2",
+      ["z/23"] = "z/23.2.345",
+      ["z/24"] = "z/24.0.1.134",
+    },
   },
 }
 spiderT = {

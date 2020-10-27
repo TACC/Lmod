@@ -12,9 +12,9 @@ timestampFn = {
 mrcT = {
   alias2modT = {},
   hiddenT = {},
-  mpathT = {},
   version2modT = {},
 }
+mrcMpathT = {}
 spiderT = {
   ["ProjectDIR/rt/rmap/mf/Compiler/intel/13.1"]  = {
     impi = {
@@ -328,9 +328,9 @@ timestampFn = {
 mrcT = {
   alias2modT = {},
   hiddenT = {},
-  mpathT = {},
   version2modT = {},
 }
+mrcMpathT = {}
 spiderT = {
   ["ProjectDIR/rt/rmap/mf/2Compiler/intel/14.0"]  = {
     impi = {
@@ -481,9 +481,9 @@ timestampFn = {
 mrcT = {
   alias2modT = {},
   hiddenT = {},
-  mpathT = {},
   version2modT = {},
 }
+mrcMpathT = {}
 spiderT = {
   ["ProjectDIR/rt/rmap/mf/2Compiler/intel/14.0"]  = {
     impi = {
