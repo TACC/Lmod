@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.7.14  2017-11-16 16:23 -07:00
+Modules based on Lua: Version 8.4.10  2020-10-21 08:41 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -372,3 +372,35 @@ Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOS
 While processing the following module(s):
     Module fullname  Module Filename
     moduleB/1.0      ProjectDIR/rt/load/mf/Core2/moduleB/1.0.lua
+===========================
+step 47
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
+===========================
+ProjectDIR/rt/load/mf2/Core
+   .eb_builder/default (H)    a/1.2 (D)    b/default (D)    b/1.2
+   a/1.1                      a/1.3        b/1.1            b/1.3
+  Where:
+   D:  Default Module
+   H:  Hidden Module
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 48
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load .eb_builder/default
+===========================
+===========================
+step 49
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a/default
+===========================
+===========================
+step 50
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load b/default
+===========================
+===========================
+step 51
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) .eb_builder/default (H)   2) a/1.2   3) b/default
+  Where:
+   H:  Hidden Module

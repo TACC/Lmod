@@ -39,21 +39,23 @@ require("utils")
 local dbg    = require("Dbg"):dbg()
 function collectFileA(sn, versionStr, extended_default, v, fileA)
    dbg.start{"collectFileA(",sn,",", versionStr,",v,fileA)"}
-   if (v.file and versionStr == nil) then
+   if (v.file and not versionStr) then
       fileA[#fileA+1] = { sn = sn, version = nil, fullName = sn, fn=v.file, wV="~", pV="~" }
    end
    if (v.fileT and next(v.fileT) ~= nil ) then
+      local found  = false
       if (versionStr) then
          local k  = pathJoin(sn, versionStr)
          local vv = v.fileT[k]
          if (vv) then
             fileA[#fileA+1] = { sn = sn, fullName = build_fullName(sn, versionStr),
                                 version = versionStr, fn = vv.fn, wV = vv.wV, pV = vv.pV }
+            dbg.fini("collectFileA")
             return
          end
          if (extended_default == "yes") then
-            local vp = versionStr
-            local extra = ""
+            local vp     = versionStr
+            local extra  = ""
             local bndPat = "[-+_.=a-zA-Z]"
             if (not vp:sub(-1):find(bndPat)) then
                extra = "[-+_.=]"
@@ -62,18 +64,24 @@ function collectFileA(sn, versionStr, extended_default, v, fileA)
             for k,vvv in pairs(v.fileT) do
                dbg.print{ "k: ",k,", keyPat: ",keyPat," k:find(keyPat): ",k:find(keyPat), "\n"}
                if (k:find(keyPat)) then
+                  found = true
                   fileA[#fileA+1] = { sn = sn, fullName = k,
                                       version = k:gsub("^" .. sn:escape() .. "/",""),
                                       fn = vvv.fn, wV = vvv.wV, pV = vvv.pV }
                end
             end
          end
-      else
-         for fullName, vv in pairs(v.fileT) do
-            local version   = extractVersion(fullName, sn)
-            fileA[#fileA+1] = { sn = sn, fullName = fullName, version = version, fn = vv.fn,
-                                wV = vv.wV, pV = vv.pV }
+         
+         if (found or versionStr ~= "default") then
+            -- We can return if we found something or the version string is not /default
+            dbg.fini("collectFileA via found or versionStr ~= \"default\"")
+            return
          end
+      end
+      for fullName, vv in pairs(v.fileT) do
+         local version   = extractVersion(fullName, sn)
+         fileA[#fileA+1] = { sn = sn, fullName = fullName, version = version, fn = vv.fn,
+                             wV = vv.wV, pV = vv.pV }
       end
    end
    if (v.dirT and next(v.dirT) ~= nil) then

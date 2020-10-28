@@ -77,8 +77,10 @@ testdescript = {
      unsetMT
      export MODULEPATH=$(testDir)/mf2/Core
      runLmod --show_hidden avail                            # 47
-     runLmod load .eb_build/default                         # 48
+     runLmod load .eb_builder/default                       # 48
      runLmod load a/default                                 # 49
+     runLmod load b/default                                 # 50
+     runLmod list                                           # 51
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
