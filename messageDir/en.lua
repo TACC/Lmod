@@ -409,6 +409,7 @@ The system default contains no modules
      hidden_H  = "Avail and spider will report hidden modules",
      spdrT_H   = "a timeout for spider",
      trace_T   = "trace major changes such as loads",
+     nx_T      = "Do not print extensions",
 
      Where     = "\n  Where:\n",
      Inactive  = "\nInactive Modules",

@@ -82,30 +82,34 @@ testdescript = {
      runBase runSpiderCmd -o spiderT  $MODULEPATH                             #33
      runBase runSpiderCmd -o dbT      $MODULEPATH                             #34
      runLmod spider python2/2.7                                               #35
-     runLmod -t spider                                                        #36
-     runLmod    spider                                                        #37
-     runLmod    spider numpy                                                  #38
-     runLmod    spider numpy/1.16.4                                           #39
-     runLmod    load   numpy                                                  #40
-     runLmod    load   numpy/1.16.4                                           #41
-     runLmod    avail                                                         #42
+     runLmod -t   spider                                                      #36
+     runLmod      spider                                                      #37
+     runLmod      spider numpy                                                #38
+     runLmod      spider numpy/1.16.4                                         #39
+     runLmod      load   numpy                                                #40
+     runLmod      load   numpy/1.16.4                                         #41
+     runLmod      avail                                                       #42
+     runLmod --nx avail                                                       #43
+     runLmod --nx spider                                                      #44
+     runLmod --nx spider numpy                                                #45
+     runLmod --nx spider numpy/1.16.4                                         #46
 
      unsetMT
      export MODULEPATH=$testDir/mf/F_Core
-     runLmod    spider abcpy                                                  #43
-     runLmod    spider abcpy/2.1                                              #44
+     runLmod    spider abcpy                                                  #47
+     runLmod    spider abcpy/2.1                                              #48
 
      unsetMT
      export MODULEPATH=$testDir/mf/G_Core
-     runBase runSpiderCmd -o spiderT  $MODULEPATH                             #45
+     runBase runSpiderCmd -o spiderT  $MODULEPATH                             #49
 
      unsetMT
      export MODULEPATH=$testDir/mf/H_Core
-     runBase    runSpiderCmd -o spiderT  $MODULEPATH                          #46
-     runLmod                  spider                                          #47
-     runLmod    --show_hidden spider                                          #48
-     runLmod                  spider  numpy                                   #49
-     runLmod    --show_hidden spider  numpy                                   #50
+     runBase    runSpiderCmd -o spiderT  $MODULEPATH                          #50
+     runLmod                  spider                                          #51
+     runLmod    --show_hidden spider                                          #52
+     runLmod                  spider  numpy                                   #53
+     runLmod    --show_hidden spider  numpy                                   #54
 
      HOME=$ORIG_HOME
 

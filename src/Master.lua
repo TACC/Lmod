@@ -946,18 +946,19 @@ function M.avail(self, argA)
       return a
    end
 
-   local use_cache   = (not masterTbl.terse) or (cosmic:value("LMOD_CACHED_LOADS") ~= "no")
-   local moduleA     = ModuleA:singleton{spider_cache=use_cache}
-   local isNVV       = moduleA:isNVV()
-   local mrc         = MRC:singleton()
-   local availA      = moduleA:build_availA()
-   local twidth      = TermWidth()
-   local cwidth      = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or twidth
-   local defaultT    = moduleA:defaultT()
-   local searchA     = argA
-   local defaultOnly = masterTbl.defaultOnly
-   local showSN      = not defaultOnly
-   local alias2modT  = mrc:getAlias2ModT()
+   local extensions    = not masterTbl.no_extensions
+   local use_cache     = (not masterTbl.terse) or (cosmic:value("LMOD_CACHED_LOADS") ~= "no")
+   local moduleA       = ModuleA:singleton{spider_cache=use_cache}
+   local isNVV         = moduleA:isNVV()
+   local mrc           = MRC:singleton()
+   local availA        = moduleA:build_availA()
+   local twidth        = TermWidth()
+   local cwidth        = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or twidth
+   local defaultT      = moduleA:defaultT()
+   local searchA       = argA
+   local defaultOnly   = masterTbl.defaultOnly
+   local showSN        = not defaultOnly
+   local alias2modT    = mrc:getAlias2ModT()
 
    dbg.print{"defaultOnly: ",defaultOnly,", showSN: ",showSN,"\n"}
 
@@ -1118,7 +1119,7 @@ function M.avail(self, argA)
    local spiderT,dbT,
          mpathMapT, providedByT = cache:build()
    
-   if (providedByT and next(providedByT) ~= nil) then
+   if (extensions and providedByT and next(providedByT) ~= nil) then
       local b = {}
       for k,v in pairsByKeys(providedByT) do
          local found = false
