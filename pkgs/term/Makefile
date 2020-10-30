@@ -26,7 +26,7 @@ $(SONAME):
 	ln -s $(SONAMEV) $@
 
 $(LIBRARY): $(OBJ)
-	$(CC) $(CFLAGS) $(LIB_OPTION) -o $(LIBRARY) $(OBJ) -lc
+	$(CC) $(CFLAGS) $(LIB_OPTION) -o $(LIBRARY) $(OBJ) $(LDFLAGS) -lc
 
 install: $(SHARE)/term $(LIB)/term all
 	cp -a *.so* $(LIB)/term
