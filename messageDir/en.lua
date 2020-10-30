@@ -174,7 +174,7 @@ Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOS
      m_Depend_Mods         = "\n    You will need to load all module(s) on any one of the lines below before the \"%{fullName}\" module is available to load.\n",
      m_Description         = "    Description:\n%{descript}\n\n",
      m_Direct_Load         = "\n    This module can be loaded directly: module load %{fullName}\n",
-     m_Extensions_head     = "This is a list of module extensions",
+     m_Extensions_head     = "This is a list of module extensions \"module --nx avail ...\" to not show.\n",
      m_Extensions_tail     = "\nThese extensions cannot be loaded directly, use \"module spider extension_name\" for more information.\n",
      m_Family_Swap         = "\nLmod is automatically replacing \"%{oldFullName}\" with \"%{newFullName}\".\n",
      m_For_System          = ", for system: \"%{sname}\"",
@@ -409,6 +409,7 @@ The system default contains no modules
      hidden_H  = "Avail and spider will report hidden modules",
      spdrT_H   = "a timeout for spider",
      trace_T   = "trace major changes such as loads",
+     nx_T      = "Do not print extensions",
 
      Where     = "\n  Where:\n",
      Inactive  = "\nInactive Modules",

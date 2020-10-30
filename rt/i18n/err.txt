@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.1.10  2019-07-10 15:49 -05:00
+Modules based on Lua: Version 8.4.10  2020-10-21 08:41 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -83,6 +83,7 @@ Options:
   --show_hidden                     Avail et spider afficheront les modules cachés
   --spider_timeout=timeout          un délai maximal pour spider
   -T --trace
+  --nx --no_extensions
 module [options] sub-command [args ...]
 Sous-commandes d'aide :
   help                              affiche ce message
@@ -141,5 +142,5 @@ Sites web de Lmod
   Sourceforge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   Pour rapporter un bogue, veuillez lire http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.1.10  2019-07-10 15:49 -05:00
+Modules based on Lua: Version 8.4.10  2020-10-21 08:41 -05:00
     by Robert McLay mclay@tacc.utexas.edu
