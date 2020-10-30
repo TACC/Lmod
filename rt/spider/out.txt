@@ -862,3 +862,150 @@ spiderT = {
   ["version"] = 5,
 }
 mpathMapT = {}
+===========================
+step 46
+runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/H_Core
+===========================
+timestampFn = {
+  false,
+}
+mrcT = {
+  alias2modT = {
+    ["intelcompiler"] = "intel",
+  },
+  hiddenT = {
+    ["gcc/4.8"] = true,
+  },
+  version2modT = {
+    ["intel/17"] = "intel/2017.1.132",
+    ["intel/2017"] = "intel/2017.1.132",
+  },
+}
+mrcMpathT = {}
+spiderT = {
+  ["ProjectDIR/rt/spider/mf/H_Core"]  = {
+    abcpy = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["abcpy/2.1"]  = {
+          ["Version"] = "2.1",
+          ["canonical"] = "2.1",
+          ["fn"] = "ProjectDIR/rt/spider/mf/H_Core/abcpy/2.1.lua",
+          ["help"] = [[This is the help message for python 2.7.14
+]],
+          ["luaExt"] = 4,
+          ["mpath"] = "ProjectDIR/rt/spider/mf/H_Core",
+          ["pV"] = "000000002.000000001.*zfinal",
+          provides = {
+            "numpy/1.16.55", "tornado/5.0.1", "tornado/6.1",
+          },
+          ["wV"] = "000000002.000000001.*zfinal",
+        },
+      },
+    },
+    mypy = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["mypy/3.14"]  = {
+          ["Version"] = "3.14",
+          ["canonical"] = "3.14",
+          ["fn"] = "ProjectDIR/rt/spider/mf/H_Core/mypy/3.14.lua",
+          ["help"] = [[This is the help message for python 2.7.14
+]],
+          ["luaExt"] = 5,
+          ["mpath"] = "ProjectDIR/rt/spider/mf/H_Core",
+          ["pV"] = "000000003.000000014.*zfinal",
+          provides = {
+            "numpy/1.16.55", "tornado/6.1", "tornado/7.1",
+          },
+          ["wV"] = "000000003.000000014.*zfinal",
+        },
+      },
+    },
+    py = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["py/.2.7"]  = {
+          ["Version"] = ".2.7",
+          ["canonical"] = ".2.7",
+          ["fn"] = "ProjectDIR/rt/spider/mf/H_Core/py/.2.7.lua",
+          ["help"] = [[This is the help message for python 2.7.14
+]],
+          ["luaExt"] = 5,
+          ["mpath"] = "ProjectDIR/rt/spider/mf/H_Core",
+          ["pV"] = "000000000.000000002.000000007.*zfinal",
+          provides = {
+            "numpy/1.16.4", "scipy/1.2.2", "tornado/3.1.4",
+          },
+          ["wV"] = "000000000.000000002.000000007.*zfinal",
+        },
+      },
+    },
+  },
+  ["version"] = 5,
+}
+mpathMapT = {}
+===========================
+step 47
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/spider/mf/H_Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/spider/mf/H_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/H_Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider/mf/H_Core",}';
+export _ModuleTable_;
+===========================
+step 48
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider
+===========================
+MODULEPATH=ProjectDIR/rt/spider/mf/H_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/H_Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider/mf/H_Core",}';
+export _ModuleTable_;
+===========================
+step 49
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider tornado
+===========================
+MODULEPATH=ProjectDIR/rt/spider/mf/H_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/H_Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider/mf/H_Core",}';
+export _ModuleTable_;
+===========================
+step 50
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider tornado
+===========================
+MODULEPATH=ProjectDIR/rt/spider/mf/H_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/H_Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider/mf/H_Core",}';
+export _ModuleTable_;
+===========================
+step 51
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider
+===========================
+MODULEPATH=ProjectDIR/rt/spider/mf/H_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/H_Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider/mf/H_Core",}';
+export _ModuleTable_;
+===========================
+step 52
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy
+===========================
+MODULEPATH=ProjectDIR/rt/spider/mf/H_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/H_Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider/mf/H_Core",}';
+export _ModuleTable_;
+===========================
+step 53
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider numpy
+===========================
+MODULEPATH=ProjectDIR/rt/spider/mf/H_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/H_Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider/mf/H_Core",}';
+export _ModuleTable_;

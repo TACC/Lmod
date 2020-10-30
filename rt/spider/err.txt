@@ -583,3 +583,110 @@ Names marked by a trailing (E) are extensions provided by another module.
 step 45
 runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/G_Core
 ===========================
+===========================
+step 46
+runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/H_Core
+===========================
+===========================
+step 47
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+===========================
+The following is a list of the modules and extensions currently available:
+  abcpy: abcpy/2.1
+  mypy: mypy/3.14
+  numpy: numpy/1.16.55 (E)
+  tornado: tornado/5.0.1 (E), tornado/6.1 (E), tornado/7.1 (E)
+Names marked by a trailing (E) are extensions provided by another module.
+To learn more about a package execute:
+   $ module spider Foo
+where "Foo" is the name of a module.
+To find detailed information about a particular package you
+must specify the version if there is more than one version:
+   $ module spider Foo/11.1
+===========================
+step 48
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider
+===========================
+The following is a list of the modules and extensions currently available:
+  abcpy: abcpy/2.1
+  mypy: mypy/3.14
+  numpy: numpy/1.16.4 (E), numpy/1.16.55 (E)
+  py: py/.2.7
+  scipy: scipy/1.2.2 (E)
+  tornado: tornado/3.1.4 (E), tornado/5.0.1 (E), tornado/6.1 (E), tornado/7.1 (E)
+Names marked by a trailing (E) are extensions provided by another module.
+To learn more about a package execute:
+   $ module spider Foo
+where "Foo" is the name of a module.
+To find detailed information about a particular package you
+must specify the version if there is more than one version:
+   $ module spider Foo/11.1
+===========================
+step 49
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider tornado
+===========================
+  tornado:
+     Versions:
+        tornado/5.0.1 (E)
+        tornado/6.1 (E)
+        tornado/7.1 (E)
+Names marked by a trailing (E) are extensions provided by another module.
+  For detailed information about a specific "tornado" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
+  For example:
+     $ module spider tornado/7.1
+===========================
+step 50
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider tornado
+===========================
+  tornado:
+     Versions:
+        tornado/3.1.4 (E)
+        tornado/5.0.1 (E)
+        tornado/6.1 (E)
+        tornado/7.1 (E)
+Names marked by a trailing (E) are extensions provided by another module.
+  For detailed information about a specific "tornado" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
+  For example:
+     $ module spider tornado/7.1
+===========================
+step 51
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider
+===========================
+The following is a list of the modules and extensions currently available:
+  abcpy: abcpy/2.1
+  mypy: mypy/3.14
+  numpy: numpy/1.16.4 (E), numpy/1.16.55 (E)
+  py: py/.2.7
+  scipy: scipy/1.2.2 (E)
+  tornado: tornado/3.1.4 (E), tornado/5.0.1 (E), tornado/6.1 (E), tornado/7.1 (E)
+Names marked by a trailing (E) are extensions provided by another module.
+To learn more about a package execute:
+   $ module spider Foo
+where "Foo" is the name of a module.
+To find detailed information about a particular package you
+must specify the version if there is more than one version:
+   $ module spider Foo/11.1
+===========================
+step 52
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy
+===========================
+  numpy: numpy/1.16.55 (E)
+    This extension is provided by the following modules. To access the extension you must load one of the following modules. Note that any module names in parentheses show the module location in the software hierarchy.
+       mypy/3.14
+       abcpy/2.1
+Names marked by a trailing (E) are extensions provided by another module.
+===========================
+step 53
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider numpy
+===========================
+  numpy:
+     Versions:
+        numpy/1.16.4 (E)
+        numpy/1.16.55 (E)
+Names marked by a trailing (E) are extensions provided by another module.
+  For detailed information about a specific "numpy" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
+  For example:
+     $ module spider numpy/1.16.55

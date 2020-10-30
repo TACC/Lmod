@@ -1026,7 +1026,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
       --end
 
       if (TT) then
-         dbg.print{"Have TT in countEntries\n"}
+         dbg.print{"Have TT in countEntries. key: ",key,"\n"}
          for sn, vv in pairs(providedByT) do
             for k, A in pairs(vv) do
                for i = 1,#A do
@@ -1132,7 +1132,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
       dbg.print{"Have TT\n"}
       for fullName, A in pairsByKeys(TT) do
          for i = 1,#A do
-            if (not A[i].hidden) then
+            if (show_hidden or not A[i].hidden) then
                local kk = sn .. "/" .. parseVersion(extractVersion(fullName, sn)) .. ' (E)'
                if (fullVT[kk] == nil) then
                   key         = sn
@@ -1347,7 +1347,7 @@ function M._Level2(self, sn, fullName, entryA, entryPA, possibleA, tailMsg)
       for i = 1,#entryPA do
          local v = entryPA[i]
          dbg.printT("v",v)
-         if (not v.hidden) then
+         if (not v.hidden or show_hidden) then
             c[#c+1] = "\n       " .. v.fullName
          end
       end
