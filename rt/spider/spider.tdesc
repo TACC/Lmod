@@ -90,29 +90,30 @@ testdescript = {
      runLmod      load   numpy/1.16.4                                         #41
      runLmod      avail                                                       #42
      runLmod --nx avail                                                       #43
-     runLmod --nx spider                                                      #44
-     runLmod --nx spider numpy                                                #45
-     runLmod --nx spider numpy/1.16.4                                         #46
+     export  LMOD_AVAIL_EXTENSIONS=No
+     runLmod      avail                                                       #44
+     export  LMOD_AVAIL_EXTENSIONS=YeS
+     runLmod      avail                                                       #45
 
      unsetMT
      export MODULEPATH=$testDir/mf/F_Core
-     runLmod    spider abcpy                                                  #47
-     runLmod    spider abcpy/2.1                                              #48
+     runLmod    spider abcpy                                                  #46
+     runLmod    spider abcpy/2.1                                              #47
 
      unsetMT
      export MODULEPATH=$testDir/mf/G_Core
-     runBase runSpiderCmd -o spiderT  $MODULEPATH                             #49
+     runBase runSpiderCmd -o spiderT  $MODULEPATH                             #48
 
      unsetMT
      export MODULEPATH=$testDir/mf/H_Core
-     runBase    runSpiderCmd -o spiderT  $MODULEPATH                          #50
-     runLmod                  spider                                          #51
-     runLmod    --show_hidden spider                                          #52
-     runLmod                  spider  tornado                                 #53
-     runLmod    --show_hidden spider  tornado                                 #54
-     runLmod    --show_hidden spider                                          #55
-     runLmod                  spider  numpy                                   #56
-     runLmod    --show_hidden spider  numpy                                   #57
+     runBase    runSpiderCmd -o spiderT  $MODULEPATH                          #49
+     runLmod                  spider                                          #50
+     runLmod    --show_hidden spider                                          #51
+     runLmod                  spider  tornado                                 #52
+     runLmod    --show_hidden spider  tornado                                 #53
+     runLmod    --show_hidden spider                                          #54
+     runLmod                  spider  numpy                                   #55
+     runLmod    --show_hidden spider  numpy                                   #56
 
      HOME=$ORIG_HOME
 

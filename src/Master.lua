@@ -946,7 +946,7 @@ function M.avail(self, argA)
       return a
    end
 
-   local extensions    = not masterTbl.no_extensions
+   local extensions    = cosmic:value("LMOD_AVAIL_EXTENSIONS") == "yes"
    local use_cache     = (not masterTbl.terse) or (cosmic:value("LMOD_CACHED_LOADS") ~= "no")
    local moduleA       = ModuleA:singleton{spider_cache=use_cache}
    local isNVV         = moduleA:isNVV()

@@ -24,7 +24,8 @@ Lmod 8.4+
    (8.4.10) * User found bug where if sha1sum was not in current path, "module save" would die.
             * Issue #474: Updated FAQ doc on how to handle missing new modules.
    (8.4.11) * Issue #476: Move mrcT.mpath to separate table mrcMpathT
-            * Issue #476: Support finding real modules names with a version called "default"
+            * Issue #477: Support finding real modules names with a version called "default"
 	    * Show extensions from hidden modules when doing (module --show_hidden avail)
 	    * Add option (--nx, --no_extensions) to not print extensions when doing "ml avail".
-	    
+   (8.4.12) * Make --nx only remove extensions from ml avail not spider. Make it a configure option.
+   

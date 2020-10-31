@@ -390,6 +390,10 @@ function M.singleton(self, usage)
    if (optionTbl.ignoreCache) then
       cosmic:assign("LMOD_IGNORE_CACHE", true)
    end
+
+   if (optionTbl.no_extensions) then
+      cosmic:assign("LMOD_AVAIL_EXTENSIONS", "no")
+   end
 end
 
 return M

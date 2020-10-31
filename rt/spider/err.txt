@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.4.10  2020-10-21 08:41 -05:00
+Modules based on Lua: Version 8.4.11  2020-10-30 14:21 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -576,30 +576,37 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 44
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --nx spider
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-The following is a list of the modules and extensions currently available:
-  gcc: gcc/4.2.3, gcc/4.2.5
-  intel: intel/11.0, intel/11.2
-  perl: perl/5.18.4
-  python2: python2/2.6.12, python2/2.7, python2/2.7.14
-To learn more about a package execute:
-   $ module spider Foo
-where "Foo" is the name of a module.
-To find detailed information about a particular package you
-must specify the version if there is more than one version:
-   $ module spider Foo/11.1
+Global Aliases
+   intelcompiler -> intel/11.2
+ProjectDIR/rt/spider/mf/E_Core
+   gcc/4.2.3        intel/11.0        perl/5.18.4       python2/2.7.14 (D)
+   gcc/4.2.5 (D)    intel/11.2 (D)    python2/2.6.12
+  Where:
+   D:  Default Module
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 45
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --nx spider numpy
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
+Global Aliases
+   intelcompiler -> intel/11.2
+ProjectDIR/rt/spider/mf/E_Core
+   gcc/4.2.3        intel/11.0        perl/5.18.4       python2/2.7.14 (D)
+   gcc/4.2.5 (D)    intel/11.2 (D)    python2/2.6.12
+This is a list of module extensions "module --nx avail ..." to not show.
+    Algorithm::Dependency (E)     YAML::Tiny (E)     scipy (E)
+    Algorithm::Diff       (E)     numpy      (E)
+These extensions cannot be loaded directly, use "module spider extension_name" for more information.
+  Where:
+   D:  Default Module
+   E:  Extension that is provided by another module
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 46
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --nx spider numpy/1.16.4
-===========================
-Lmod has detected the following error: Unable to find: "numpy/1.16.4".
-===========================
-step 47
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider abcpy
 ===========================
   abcpy: abcpy/2.1
@@ -608,7 +615,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider abcpy
        python3/3.7
 Names marked by a trailing (E) are extensions provided by another module.
 ===========================
-step 48
+step 47
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider abcpy/2.1
 ===========================
   abcpy: abcpy/2.1
@@ -617,15 +624,15 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider abcpy/2.1
        python3/3.7
 Names marked by a trailing (E) are extensions provided by another module.
 ===========================
-step 49
+step 48
 runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/G_Core
 ===========================
 ===========================
-step 50
+step 49
 runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/H_Core
 ===========================
 ===========================
-step 51
+step 50
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
 The following is a list of the modules and extensions currently available:
@@ -641,7 +648,7 @@ To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
-step 52
+step 51
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider
 ===========================
 The following is a list of the modules and extensions currently available:
@@ -659,7 +666,7 @@ To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
-step 53
+step 52
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider tornado
 ===========================
   tornado:
@@ -673,7 +680,7 @@ Names marked by a trailing (E) are extensions provided by another module.
   For example:
      $ module spider tornado/7.1
 ===========================
-step 54
+step 53
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider tornado
 ===========================
   tornado:
@@ -688,7 +695,7 @@ Names marked by a trailing (E) are extensions provided by another module.
   For example:
      $ module spider tornado/7.1
 ===========================
-step 55
+step 54
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider
 ===========================
 The following is a list of the modules and extensions currently available:
@@ -706,7 +713,7 @@ To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
-step 56
+step 55
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy
 ===========================
   numpy: numpy/1.16.55 (E)
@@ -715,7 +722,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy
        abcpy/2.1
 Names marked by a trailing (E) are extensions provided by another module.
 ===========================
-step 57
+step 56
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider numpy
 ===========================
   numpy:

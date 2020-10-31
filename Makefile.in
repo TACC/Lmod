@@ -35,6 +35,7 @@ PREPEND_BLOCK     	  := $(shell echo "@PREPEND_BLOCK@" | tr '[:upper:]' '[:lower
 COLORIZE          	  := $(shell echo "@COLORIZE@"      | tr '[:upper:]' '[:lower:]')
 SETTARG_CMD               := settarg_cmd
 MODULEPATH_INIT           := @MODULEPATH_INIT@
+LMOD_AVAIL_EXTENSION      := @AVAIL_EXTENSION@
 LMOD_HIDDEN_ITALIC        := @HIDDEN_ITALIC@
 LMOD_OVERRIDE_LANG        := @LMOD_OVERRIDE_LANG@
 LMOD_ALLOW_ROOT_USE       := @LMOD_ALLOW_ROOT_USE@
@@ -262,6 +263,7 @@ __installMe:
 	        -e 's|@basename@|$(BASENAME)|g'                       	   	  \
 	        -e 's|@support_ksh@|$(SUPPORT_KSH)|g'                  	   	  \
 	        -e 's|@cached_loads@|$(CACHED_LOADS)|g'                	   	  \
+	        -e 's|@avail_extensions@|$(LMOD_AVAIL_EXTENSION)|g'    	   	  \
 	        -e 's|@ps@|$(PS)|g'                              	   	  \
 	        -e 's|@site_name@|$(SITE_NAME)|g'                     	   	  \
 	        -e 's|@site_controlled_prefix@|$(SITE_CONTROLLED_PREFIX)|g'       \

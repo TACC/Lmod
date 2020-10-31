@@ -658,7 +658,6 @@ function M.Level0_terse(self,dbT, providedByT)
    local mrc         = MRC:singleton()
    local masterTbl   = masterTbl()
    local show_hidden = masterTbl.show_hidden
-   local extensions  = not masterTbl.no_extensions
    local t           = {}
    local a           = {}
    for sn, vv in pairs(dbT) do
@@ -677,12 +676,10 @@ function M.Level0_terse(self,dbT, providedByT)
       end
    end
 
-   if (extensions) then
-      for sn, vv in pairs(providedByT) do
-         t[sn] = t[sn] or sn .. "/"
-         for fullName, A in pairs(vv) do
-            t[fullName] = t[fullName] or fullName
-         end
+   for sn, vv in pairs(providedByT) do
+      t[sn] = t[sn] or sn .. "/"
+      for fullName, A in pairs(vv) do
+         t[fullName] = t[fullName] or fullName
       end
    end
 
@@ -734,7 +731,6 @@ function M.Level0Helper(self, dbT, providedByT, a)
    local t           = {}
    local masterTbl   = masterTbl()
    local show_hidden = masterTbl.show_hidden
-   local extensions  = not masterTbl.no_extensions
    local term_width  = TermWidth() - 4
    local banner      = Banner:singleton()
    local mrc         = MRC:singleton()
@@ -752,27 +748,25 @@ function M.Level0Helper(self, dbT, providedByT, a)
    end
 
    local have_providedBy = false
-   if (extensions) then
-      for sn, vv in pairs(providedByT) do
-         for fullName, A in pairs(vv) do
-            local isVisible = show_hidden
-            if (not show_hidden) then
-               for i = 1, #A do
-                  if (not A[i].hidden) then
-                     isVisible = true
-                     break
-                  end
+   for sn, vv in pairs(providedByT) do
+      for fullName, A in pairs(vv) do
+         local isVisible = show_hidden
+         if (not show_hidden) then
+            for i = 1, #A do
+               if (not A[i].hidden) then
+                  isVisible = true
+                  break
                end
             end
-            if (isVisible) then
-               have_providedBy = true
-               local version = extractVersion(fullName,sn)
-               local pV      = parseVersion(version)
-               if ( t[sn] == nil) then
-                  t[sn] = {versionA = { }, name = sn}
-               end
-               t[sn].versionA[pV] = colorize("blue",fullName) .. " (E)"
+         end
+         if (isVisible) then
+            have_providedBy = true
+            local version = extractVersion(fullName,sn)
+            local pV      = parseVersion(version)
+            if ( t[sn] == nil) then
+               t[sn] = {versionA = { }, name = sn}
             end
+            t[sn].versionA[pV] = colorize("blue",fullName) .. " (E)"
          end
       end
    end
@@ -822,7 +816,6 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
    dbg.start{"Spider:spiderSearch(dbT,providedByT,\"",userSearchPat,"\",",helpFlg,")"}
    local masterTbl   = masterTbl()
    local show_hidden = masterTbl.show_hidden
-   local extensions  = not masterTbl.no_extensions
    local mrc         = MRC:singleton()
 
    dbg.print{"show_hidden: ",show_hidden,"\n"}
@@ -904,14 +897,12 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
             end
          end
       end
-      if (extensions) then
-         for sn, vv in pairs(providedByT) do
-            for fullName, A in pairs(vv) do
-               for i = 1,#A do
-                  if (show_hidden or (not A[i].hidden)) then
-                     fullA[#fullA+1] = {sn=sn, fullName=fullName}
-                     break
-                  end
+      for sn, vv in pairs(providedByT) do
+         for fullName, A in pairs(vv) do
+            for i = 1,#A do
+               if (show_hidden or (not A[i].hidden)) then
+                  fullA[#fullA+1] = {sn=sn, fullName=fullName}
+                  break
                end
             end
          end
@@ -984,7 +975,6 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
    dbg.start{"Spider:_Level1(dbT, providedByT, possibleA, sn: \"",sn,"\", key: \"",key,"\")"}
    local masterTbl   = masterTbl()
    local show_hidden = masterTbl.show_hidden
-   local extensions  = not masterTbl.no_extensions
    local term_width  = TermWidth() - 4
    local mrc         = MRC:singleton()
    local T           = dbT[sn]
@@ -993,8 +983,6 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
    if (T == nil and TT == nil) then
       LmodSystemError{msg="e_dbT_sn_fail", sn = sn}
    end
-
-   TT = extensions and providedByT[sn] or nil
 
    dbg.printT("providedByT",providedByT)
 

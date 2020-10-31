@@ -527,6 +527,20 @@ AC_ARG_WITH(fastTCLInterp,
     FAST_TCL_INTERP="$withval"
     AC_DEFINE_UNQUOTED(FAST_TCL_INTERP, "$withval"))dnl
 
+AC_SUBST(AVAIL_EXTENSIONS)
+AC_ARG_WITH(availExtensions),
+    AC_HELP_STRING([--with-availExtensions=ans],[Display extensions w/ avail. [[yes]]]),
+    AVAIL_EXTENSIONS="$withval"
+    AVAIL_EXTENSIONS=`echo $AVAIL_EXTENSIONS | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
+    VALID_YN $AVAIL_EXTENSIONS "--with-availExtensions=ans: ans must be yes or no"
+    AC_MSG_RESULT([AVAIL_EXTENSIONS=$with_availExtensions])
+    AC_DEFINE_UNQUOTED(AVAIL_EXTENSIONS, "$with_availExtensions")dnl
+    ,
+    withval="yes"
+    AC_MSG_RESULT([AVAIL_EXTENSIONS=$withval])
+    AVAIL_EXTENSIONS="$withval"
+    AC_DEFINE_UNQUOTED(AVAIL_EXTENSIONS, "$withval"))dnl
+
 
 if test "$ALLOW_TCL_MFILES" = no ; then
   FAST_TCL_INTERP=no

@@ -216,6 +216,14 @@ cosmic:init{name = "LMOD_AUTO_SWAP",
             yn   = "yes"}
 
 ------------------------------------------------------------------------
+-- LMOD_AVAIL_EXTENSIONS:  Display extensions with "module avail"
+------------------------------------------------------------------------
+
+cosmic:init{name = "LMOD_AVAIL_EXTENSIONS",
+            sedV = "@avail_extensions@",
+            yn   = "yes"}
+
+------------------------------------------------------------------------
 -- LMOD_EXACT_MATCH:  Require an exact match to load a module
 --                    a.k.a no defaults
 ------------------------------------------------------------------------
