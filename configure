@@ -1473,7 +1473,8 @@ Optional Packages:
                           [[no]]
   --with-fastTCLInterp=ans
                           Use the fast TCL interpreter. [[yes]]
-
+  --with-availExtensions=ans
+                          Use the fast TCL interpreter. [[yes]]
 
 Some influential environment variables:
   CC          C compiler command
@@ -3893,12 +3894,7 @@ fi
 
 # Check whether --with-availExtensions was given.
 if test "${with_availExtensions+set}" = set; then :
-  withval=$with_availExtensions;
-fi
-,
-      --with-availExtensions=ans
-                          Display extensions w/ avail. [[yes]],
-    AVAIL_EXTENSIONS="$withval"
+  withval=$with_availExtensions; AVAIL_EXTENSIONS="$withval"
     AVAIL_EXTENSIONS=`echo $AVAIL_EXTENSIONS | tr '[:upper:]' '[:lower:]'`
     VALID_YN $AVAIL_EXTENSIONS "--with-availExtensions=ans: ans must be yes or no"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: AVAIL_EXTENSIONS=$with_availExtensions" >&5
@@ -3906,15 +3902,18 @@ $as_echo "AVAIL_EXTENSIONS=$with_availExtensions" >&6; }
     cat >>confdefs.h <<_ACEOF
 #define AVAIL_EXTENSIONS "$with_availExtensions"
 _ACEOF
-    ,
-    withval="yes"
+
+else
+  withval="yes"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: AVAIL_EXTENSIONS=$withval" >&5
 $as_echo "AVAIL_EXTENSIONS=$withval" >&6; }
     AVAIL_EXTENSIONS="$withval"
     cat >>confdefs.h <<_ACEOF
 #define AVAIL_EXTENSIONS "$withval"
 _ACEOF
-)
+
+fi
+
 
 if test "$ALLOW_TCL_MFILES" = no ; then
   FAST_TCL_INTERP=no

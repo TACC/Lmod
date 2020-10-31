@@ -528,8 +528,8 @@ AC_ARG_WITH(fastTCLInterp,
     AC_DEFINE_UNQUOTED(FAST_TCL_INTERP, "$withval"))dnl
 
 AC_SUBST(AVAIL_EXTENSIONS)
-AC_ARG_WITH(availExtensions),
-    AC_HELP_STRING([--with-availExtensions=ans],[Display extensions w/ avail. [[yes]]]),
+AC_ARG_WITH(availExtensions,
+    AC_HELP_STRING([--with-availExtensions=ans],[Use the fast TCL interpreter. [[yes]]]),
     AVAIL_EXTENSIONS="$withval"
     AVAIL_EXTENSIONS=`echo $AVAIL_EXTENSIONS | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $AVAIL_EXTENSIONS "--with-availExtensions=ans: ans must be yes or no"
