@@ -105,6 +105,10 @@ the configuration option which will set the action.
   any modules that use the family function such as compilers and mpi
   stacks. 
 
+**LMOD_AVAIL_EXTENSIONS**:
+  [yes/no, default: yes, --with-availExtension] Display package
+  extensions when doing "module avail".
+
 **LMOD_CACHED_LOADS**:
   [yes/no, default:no, --with-cachedLoads] If "yes" then Lmod will use
   the spider cache to load modulefiles and produce a terse avail instead
