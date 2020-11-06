@@ -102,6 +102,15 @@ EOF
      export MODULEPATH=$(testDir)/mf5
      runLmod avail                               #34
 
+     unsetMT
+     export MODULEPATH=$(testDir)/mf6:$(testDir)/mf7:$(testDir)/mf4
+     runLmod avail                               #35
+
+     unsetMT
+     export MODULEPATH=$(testDir)/mf7:$(testDir)/mf6:$(testDir)/mf4
+     runLmod avail                               #36
+
+     unsetMT
 
 
 
