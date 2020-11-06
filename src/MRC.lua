@@ -253,7 +253,7 @@ end
 
 
 function M.parseModA_for_moduleA(self, name, mpath, modA)
-   dbg.start{"MRC:parseModA_for_moduleA(",name,", modA)"}
+   dbg.start{"MRC:parseModA_for_moduleA(name: ",name,", mpath: ",mpath,", modA)"}
    local defaultV = false
    for i = 1,#modA do
       local entry = modA[i]
@@ -351,6 +351,7 @@ local function l_import_helper(self,entryT)
 end
 
 function M.import(self, mpathA, mrcT, mrcMpathT)
+   dbg.start{"MRC:import()"}
    if (mrcMpathT and next(mrcMpathT)) then
       for i = #mpathA, 1, -1 do
          local mpath  = mpathA[i]
@@ -359,6 +360,7 @@ function M.import(self, mpathA, mrcT, mrcMpathT)
    else
       l_import_helper(self, mrcT)
    end
+   dbg.finid("MRC:import")
 end
 
 -- modT is a table with: sn, fullName and fn

@@ -67,48 +67,50 @@ EOF
      mkdir cacheDir
      touch last_update
      buildSpiderT $MODULEPATH > cacheDir/spiderT.lua
-     runBase runSpiderCmd -o spiderT $MODULEPATH #20
-     runLmod avail                               #21
-     runLmod use  $(testDir)/mf2/Core            #22
-     runLmod spider dum                          #23
+     runBase runSpiderCmd -o spiderT $MODULEPATH       #20
+     runLmod avail                                     #21
+     runLmod use  $(testDir)/mf2/Core                  #22
+     runLmod spider dum                                #23
 
      unsetMT
      export MODULEPATH=$(testDir)/mf/Core:$(testDir)/mf3/Core
-     runLmod load cluster                        #24
+     runLmod load cluster                              #24
 
      rm .modulerc
      unsetMT
      export MODULEPATH=$(testDir)/mf4
-     runLmod avail                               #25
+     runLmod avail                                     #25
 
      cp $testDir/dot.modulerc .modulerc
-     runLmod avail                               #26
-     runLmod --show_hidden avail                 #27
-     runLmod load mpich a                        #28
-     runLmod list                                #29
+     runLmod avail                                     #26
+     runLmod --show_hidden avail                       #27
+     runLmod load mpich a                              #28
+     runLmod list                                      #29
 
      rm .modulerc
      export LMOD_MODULERCFILE=$testDir/dot.modulerc
-     runLmod avail                               #30
-     runLmod --show_hidden avail                 #31
+     runLmod avail                                     #30
+     runLmod --show_hidden avail                       #31
 
      export LMOD_MODULERCFILE=$testDir/dot.modulerc.lua
-     runLmod avail                               #32
-     runLmod --show_hidden avail                 #33
+     runLmod avail                                     #32
+     runLmod --show_hidden avail                       #33
 
 
      unset LMOD_MODULERCFILE
      unsetMT
      export MODULEPATH=$(testDir)/mf5
-     runLmod avail                               #34
+     runLmod avail                                     #34
 
      unsetMT
      export MODULEPATH=$(testDir)/mf6:$(testDir)/mf7:$(testDir)/mf4
-     runLmod avail                               #35
+     runBase    runSpiderCmd -o spiderT  $MODULEPATH   #35
+     runLmod avail                                     #36
 
      unsetMT
      export MODULEPATH=$(testDir)/mf7:$(testDir)/mf6:$(testDir)/mf4
-     runLmod avail                               #36
+     runBase    runSpiderCmd -o spiderT  $MODULEPATH   #37
+     runLmod avail                                     #38   
 
      unsetMT
 
