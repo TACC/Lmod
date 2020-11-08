@@ -958,7 +958,7 @@ function M.avail(self, argA)
    local searchA       = argA
    local defaultOnly   = masterTbl.defaultOnly
    local showSN        = not defaultOnly
-   local alias2modT    = mrc:getAlias2ModT()
+   local alias2modT    = mrc:getAlias2ModT(mpathA)
 
    dbg.print{"defaultOnly: ",defaultOnly,", showSN: ",showSN,"\n"}
 
@@ -982,7 +982,7 @@ function M.avail(self, argA)
       -- Terse output
       dbg.printT("availA",availA)
       for k, v in pairsByKeys(alias2modT) do
-         local fullName = mrc:resolve(v)
+         local fullName = mrc:resolve(mpathA, v)
          a[#a+1] = k.."(@" .. fullName ..")\n"
       end
 
@@ -999,10 +999,10 @@ function M.avail(self, argA)
                   prtSnT[sn] = true
                   aa[#aa+1]  = sn .. "/\n"
                end
-               local aliasA = mrc:getFull2AliasesT(fullName)
+               local aliasA = mrc:getFull2AliasesT(mpathA, fullName)
                if (aliasA) then
                   for i = 1,#aliasA do
-                     local fullName = mrc:resolve(aliasA[i])
+                     local fullName = mrc:resolve(mpathA, aliasA[i])
                      aa[#aa+1]  = aliasA[i] .. "(@".. fullName ..")\n"
                   end
                end
@@ -1077,7 +1077,7 @@ function M.avail(self, argA)
                end
 
                local propStr = c[3] or ""
-               local verMapStr = mrc:getMod2VersionT(fullName)
+               local verMapStr = mrc:getMod2VersionT(mpathA, fullName)
                if (verMapStr) then
                   legendT["Aliases"] = i18n("aliasMsg",{})
                   if (dflt == Default) then

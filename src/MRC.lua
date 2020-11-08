@@ -73,7 +73,6 @@ local pack      = (_VERSION == "Lua 5.1") and argsPack or table.pack  -- luachec
 ------------------------------------------------------------------------
 -- Local functions
 local l_build
-local l_parseModA
 local l_buildMod2VersionT
 --------------------------------------------------------------------------
 -- a private ctor that is used to construct a singleton.
@@ -122,14 +121,14 @@ function l_build(self, fnA)
       if (isFile(fn)) then
          local weight = fnA[i][2]
          local modA   = mrc_load(fn)
-         l_parseModA(self, modA, weight)
+         self:parseModA(self, modA, weight)
       end
    end
    dbg.fini("MRC l_build")
 end
 
-function l_parseModA(self, modA, weight)
-   dbg.start{"MRC:l_parseModA(modA, weight)"}
+function M.parseModA(self, modA, weight)
+   dbg.start{"MRC:parseModA(modA, weight)"}
    for i = 1,#modA do
       repeat
          local entry = modA[i]
@@ -137,8 +136,8 @@ function l_parseModA(self, modA, weight)
 
          if (entry.kind == "module_version") then
             local fullName = entry.module_name
-            fullName = self:resolve(fullName)
-            dbg.print{"self:resolve(fullName): ",fullName, "\n"}
+            fullName = self:resolve({}, fullName)
+            dbg.print{"self:resolve({}, fullName): ",fullName, "\n"}
 
             local _, _, shorter, mversion = fullName:find("(.*)/(.*)")
             dbg.print{"(2) fullName: ",fullName,", shorter: ",shorter,", mversion: ",mversion,"\n"}
@@ -172,17 +171,17 @@ function l_parseModA(self, modA, weight)
          end
       until true
    end
-   dbg.fini("MRC:l_parseModA")
+   dbg.fini("MRC:parseModA")
 end
 
-function l_buildMod2VersionT(self)
-   dbg.start{"l_buildMod2VersionT(self)"}
+function l_buildMod2VersionT(self, mpathA)
+   dbg.start{"l_buildMod2VersionT(self, mpathA)"}
    local v2mT = self.__version2modT
    local m2vT = {}
    local f2aT = {}
 
    for k, v in pairs(v2mT) do
-      v       = self:resolve(v)
+      v       = self:resolve(mpathA, v)
       local t = m2vT[v] or {}
       t[k]    = true
       m2vT[v] = t
@@ -203,52 +202,71 @@ function l_buildMod2VersionT(self)
    dbg.fini("l_buildMod2VersionT")
 end
 
-function M.resolve(self, name)
-   local value = self.__alias2modT[name]
-   if (value ~= nil) then
-      name  = value
-      value = self:resolve(value)
+local function l_find_alias_value(tblName, t, mrcMpathT, mpathA, key)
+   local value = t[key]
+   if (value) then
+      return value
    end
-
-   value = self.__version2modT[name]
-   if (value == nil) then
-      value = name
-   else
-      name  = value
-      value = self:resolve(value)
+   for i = 1, #mpathA  do
+      local mpath = mpathA[i]
+      if (mrcMpathT[mpath] and mrcMpathT[mpath][tblName]) then
+         value = mrcMpathT[mpath][tblName][key]
+         if (value) then
+            return value
+         end
+      end
    end
    return value
 end
 
-function M.getMod2VersionT(self, key)
+function M.resolve(self, mpathA, name)
+   local value = l_find_alias_value("alias2modT", self.__alias2modT, self.__mpathT, mpathA, name)
+   if (value ~= nil) then
+      name  = value
+      value = self:resolve(mpathA, value)
+   end
+
+   value = l_find_alias_value("version2modT", self.__version2modT, self.__mpathT, mpathA, name)
+   if (value == nil) then
+      value = name
+   else
+      name  = value
+      value = self:resolve(mpathA, value)
+   end
+   return value
+end
+
+
+
+function M.getMod2VersionT(self, mpathA, key)
    if (next(self.__mod2versionT) == nil) then
-      l_buildMod2VersionT(self)
+      l_buildMod2VersionT(self, mpathA)
    end
    return self.__mod2versionT[key]
 end
 
-function M.getFull2AliasesT(self, key)
+function M.getFull2AliasesT(self, mpathA, key)
    if (next(self.__full2aliasesT) == nil) then
-      l_buildMod2VersionT(self)
+      l_buildMod2VersionT(self, mpathA)
    end
    return self.__full2aliasesT[key]
 end
 
-function M.getAlias2ModT(self)
+function M.getAlias2ModT(self, mpathA)
    if (next(self.__alias2modT) == nil) then
-      l_buildMod2VersionT(self)
+      l_buildMod2VersionT(self, mpathA)
    end
    return self.__alias2modT
 end
 
-local function l_store_mpathT(self, mpath, kind, key, value)
+local function l_store_mpathT(self, mpath, tblName, key, value)
    if ( not self.__mpathT[mpath] ) then
       self.__mpathT[mpath] = {}
    end
-   if ( not self.__mpathT[mpath][kind] ) then
-      self.__mpathT[mpath][kind] = {}
+   if ( not self.__mpathT[mpath][tblName] ) then
+      self.__mpathT[mpath][tblName] = {}
    end
-   self.__mpathT[mpath][kind][key] = value
+   self.__mpathT[mpath][tblName][key] = value
 end
 
 
@@ -264,7 +282,7 @@ function M.parseModA_for_moduleA(self, name, mpath, modA)
          if (fullName:sub(1,1) == '/') then
             fullName = name .. fullName
          end
-         fullName = self:resolve(fullName)
+         fullName = self:resolve({mpath}, fullName)
          dbg.print{"resolve(fullName): ",fullName, "\n"}
          dbg.print{"(2) fullName: ",fullName, "\n"}
 
@@ -279,7 +297,6 @@ function M.parseModA_for_moduleA(self, name, mpath, modA)
                local _, _, shorter, mversion = fullName:find("(.*)/(.*)")
                if (shorter) then
                   local key = shorter .. '/' .. version
-                  self.__version2modT[key] = fullName
                   l_store_mpathT(self, mpath, "version2modT", key, fullName);
                   dbg.print{"v2m: key: ",key,": ",fullName,"\n"}
                end
@@ -295,11 +312,9 @@ function M.parseModA_for_moduleA(self, name, mpath, modA)
          end
          local mfile = entry.mfile
          dbg.print{"fullName: ",fullName,", mfile: ", mfile,"\n"}
-         self.__alias2modT[fullName] = mfile
          l_store_mpathT(self, mpath, "alias2modT", fullName, mfile);
       elseif (entry.kind == "hide_version" or entry.kind == "hide_modulefile") then
          dbg.print{"mfile: ", entry.mfile,"\n"}
-         self.__hiddenT[entry.mfile] = true
          l_store_mpathT(self, mpath, "hiddenT", entry.mfile, true);
       end
    end
@@ -324,14 +339,14 @@ function M.export(self)
 end
 
 local s_must_convert = true
-function M.getHiddenT(self,k)
+function M.getHiddenT(self, mpathA, k)
    local t = {}
    if (s_must_convert) then
       s_must_convert = false
 
       local hT = self.__hiddenT
       for key in pairs(hT) do
-         t[self:resolve(key)] = true
+         t[self:resolve(mpathA, key)] = true
       end
       self.__hiddenT = t
    end
@@ -350,26 +365,28 @@ local function l_import_helper(self,entryT)
    end
 end
 
-function M.import(self, mpathA, mrcT, mrcMpathT)
+function M.import(self, mrcT, mrcMpathT)
    dbg.start{"MRC:import()"}
    if (mrcMpathT and next(mrcMpathT)) then
-      for i = #mpathA, 1, -1 do
-         local mpath  = mpathA[i]
-         l_import_helper(self, mrcMpathT[mpath])
+      for mpath, v in mrcMpathT do
+         for tblName, vv in v do
+            for key, value in vv do
+               l_store_mpathT(self, mpath, tblName, key, value)
+            end
+         end
       end
-   else
-      l_import_helper(self, mrcT)
    end
-   dbg.finid("MRC:import")
+   l_import_helper(self, mrcT)
+   dbg.fini("MRC:import")
 end
 
 -- modT is a table with: sn, fullName and fn
-function M.isVisible(self, modT)
+function M.isVisible(self, mpathA, modT)
    local name = modT.fullName
    local fn   = modT.fn
    local isVisible = true
 
-   if (self:getHiddenT(name) or self:getHiddenT(fn)) then
+   if (self:getHiddenT(mpathA, name) or self:getHiddenT(mpathA, fn)) then
       isVisible = false
    elseif (name:sub(1,1) == ".") then
       isVisible = false

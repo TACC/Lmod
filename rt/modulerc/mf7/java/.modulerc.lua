@@ -1,1 +1,1 @@
-module_version("java/1.8.0-B","java/1.8")
+module_version("java/1.8.0-B","1.8")
