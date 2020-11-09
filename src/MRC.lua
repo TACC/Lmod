@@ -325,7 +325,6 @@ function M.parseModA_for_moduleA(self, name, mpath, modA)
          l_store_mpathT(self, mpath, "hiddenT", entry.mfile, true);
       end
    end
-   dbg.printT("__mpathT",self.__mpathT)
    dbg.fini("MRC:parseModA_for_moduleA")
    return defaultV
 end
@@ -383,10 +382,11 @@ end
 
 function M.import(self, mrcT, mrcMpathT)
    dbg.start{"MRC:import()"}
-   if (mrcMpathT and next(mrcMpathT)) then
-      for mpath, v in mrcMpathT do
-         for tblName, vv in v do
-            for key, value in vv do
+   dbg.print{"mrcMpathT :",mrcMpathT,"\n"}
+   if (mrcMpathT and next(mrcMpathT) ~= nil) then
+      for mpath, v in pairs(mrcMpathT) do
+         for tblName, vv in pairs(v) do
+            for key, value in pairs(vv) do
                l_store_mpathT(self, mpath, tblName, key, value)
             end
          end
