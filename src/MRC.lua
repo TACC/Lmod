@@ -93,8 +93,7 @@ local function new(self, fnA)
    setmetatable(o,self)
    self.__index = self
 
-   fnA              = fnA or getModuleRCT()
-   l_build(o, fnA)
+   l_build(o, fnA or getModuleRCT())
    return o
 end
 
@@ -105,17 +104,24 @@ end
 
 
 function M.singleton(self, fnA)
-   --dbg.start{"MRC:singleton()"}
+   dbg.start{"MRC:singleton()"}
    if (not s_MRC) then
       s_MRC = new(self, fnA)
    end
-   --dbg.fini("MRC:singleton")
+   dbg.fini("MRC:singleton")
    return s_MRC
 end
 
 
+function M.__clear(self)
+   dbg.start{"MRC:__clear()"}
+   s_MRC = nil
+   dbg.fini("MRC:__clear")
+end
+
 function l_build(self, fnA)
    dbg.start{"MRC l_build(self,fnA)"}
+   dbg.printT("fnA",fnA)
    for i = 1, #fnA do
       local fn     = fnA[i][1]
       if (isFile(fn)) then
@@ -319,6 +325,7 @@ function M.parseModA_for_moduleA(self, name, mpath, modA)
          l_store_mpathT(self, mpath, "hiddenT", entry.mfile, true);
       end
    end
+   dbg.printT("__mpathT",self.__mpathT)
    dbg.fini("MRC:parseModA_for_moduleA")
    return defaultV
 end
@@ -328,14 +335,22 @@ function M.fullNameDfltT(self)
    return self.__fullNameDfltT
 end
 
-function M.export(self)
+function M.mrcMpathT(self)
+   return self.__mpathT
+end
+
+function M.extract(self)
    local t = { hiddenT      = self.__hiddenT,
                version2modT = self.__version2modT,
                alias2modT   = self.__alias2modT,
    }
+   return t, self.__mpathT
+end
+function M.export(self)
+   local t, mrcMpathT = self:extract()
    local a = {}
-   a[1] = serializeTbl{indent = true, name = "mrcT",      value = t             }
-   a[2] = serializeTbl{indent = true, name = "mrcMpathT", value = self.__mpathT }
+   a[1] = serializeTbl{indent = true, name = "mrcT",      value = t         }
+   a[2] = serializeTbl{indent = true, name = "mrcMpathT", value = mrcMpathT }
    return concatTbl(a,"\n")
 end
 

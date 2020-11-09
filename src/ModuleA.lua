@@ -622,8 +622,11 @@ function M.__new(self, mpathA, maxdepthT, moduleRCT, spiderT)
       local mrc       = MRC:singleton(moduleRCT)
       o:applyWeights(mrc:fullNameDfltT())
    end
+   local mrc       = MRC:singleton()
+   dbg.printT("mrcMpathT",mrc:mrcMpathT())
    o.__locationT   = false
    o.__defaultT    = {}
+   
 
    dbg.fini("ModuleA:__new")
    return o

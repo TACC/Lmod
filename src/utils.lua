@@ -429,6 +429,7 @@ end
 -- Get the table of modulerc files with proper weights
 
 function getModuleRCT(remove_MRC_home)
+   --dbg.start{"getModuleRCT(remove_MRC_home)"}
    local A            = {}
    local MRC_system   = cosmic:value("LMOD_MODULERCFILE")
    local MRC_home     = pathJoin(getenv("HOME"), ".modulerc")
@@ -452,6 +453,8 @@ function getModuleRCT(remove_MRC_home)
          A[#A+1] = { MRC_home, "u"}
       end
    end
+   --dbg.printT("fnA",A)
+   --dbg.fini("getModuleRCT")
    return A
 end
 
