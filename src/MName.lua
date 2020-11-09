@@ -203,6 +203,7 @@ local function lazyEval(self)
    assert(sType == "load", "unknown sType: "..sType)
    local mrc                   = MRC:singleton()
    local frameStk              = FrameStk:singleton()
+   local mt                    = frameStk:mt()
    local userName              = mrc:resolve(mt:modulePathA(), self:userName())
    local sn, versionStr, fileA = moduleA:search(userName)
    dbg.print{"lazyEval: userName: ",userName, ", sn: ",sn,", versionStr: ",versionStr,"\n"}
