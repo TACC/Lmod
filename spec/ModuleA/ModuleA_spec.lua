@@ -178,6 +178,7 @@ describe("Testing ModuleA Class #ModuleA.",
                   cosmic:assign("LMOD_MODULERCFILE",pathJoin(projDir,testDir,".modulerc"))
                   _G.mcp             = _G.MasterControl.build("load")
                   _G.MCP             = _G.MasterControl.build("load")
+                  --dbg:activateDebug(1)
                   local moduleA      = ModuleA:singleton{reset=true, spider_cache=true}
                   local mA           = moduleA:moduleA()
                   local rplmntA      = { {projDir,"%%ProjDir%%"} }
