@@ -121,14 +121,15 @@ function l_build(self, fnA)
       if (isFile(fn)) then
          local weight = fnA[i][2]
          local modA   = mrc_load(fn)
-         self:parseModA(self, modA, weight)
+         self:parseModA(modA, weight)
       end
    end
    dbg.fini("MRC l_build")
 end
 
 function M.parseModA(self, modA, weight)
-   dbg.start{"MRC:parseModA(modA, weight)"}
+   dbg.start{"MRC:parseModA(modA, weight: \"",weight,"\")"}
+
    for i = 1,#modA do
       repeat
          local entry = modA[i]
@@ -381,9 +382,12 @@ function M.import(self, mrcT, mrcMpathT)
 end
 
 -- modT is a table with: sn, fullName and fn
-function M.isVisible(self, mpathA, modT)
-   local name = modT.fullName
-   local fn   = modT.fn
+function M.isVisible(self, modT)
+   local frameStk  = require("FrameStk"):singleton()
+   local mt        = frameStk:mt()
+   local mpathA    = mt:modulePathA()
+   local name      = modT.fullName
+   local fn        = modT.fn
    local isVisible = true
 
    if (self:getHiddenT(mpathA, name) or self:getHiddenT(mpathA, fn)) then
