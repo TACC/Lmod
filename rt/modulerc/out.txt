@@ -227,36 +227,12 @@ timestampFn = {
   false,
 }
 mrcT = {
-  alias2modT = {
-    ["a13"] = "a/13",
-    ["z23"] = "z/23",
-  },
+  alias2modT = {},
   hiddenT = {
     ["h2/1.0"] = true,
     ["hidden/1.0"] = true,
   },
-  version2modT = {
-    ["a/13"] = "a/13.2.345",
-    ["a/14"] = "a/14.0.1.134",
-    ["ab2/6"] = "ab2/6.12.3",
-    ["ab2/6.12"] = "ab2/6.12.3",
-    ["ab2/7"] = "ab2/7.4.3",
-    ["ab2/7.4"] = "ab2/7.4.3",
-    ["abinit/6"] = "abinit/6.12.3",
-    ["abinit/6.12"] = "abinit/6.12.3",
-    ["abinit/7"] = "abinit/7.4.3",
-    ["abinit/7.4"] = "abinit/7.4.3",
-    ["intel/14"] = "intel/14.0.3",
-    ["intel/14.0"] = "intel/14.0.3",
-    ["intel/15"] = "intel/15.0.2",
-    ["intel/15.0"] = "intel/15.0.2",
-    ["jtel/14"] = "jtel/14.0.3",
-    ["jtel/14.0"] = "jtel/14.0.3",
-    ["jtel/15"] = "jtel/15.0.2",
-    ["jtel/15.0"] = "jtel/15.0.2",
-    ["z/23"] = "z/23.2.345",
-    ["z/24"] = "z/24.0.1.134",
-  },
+  version2modT = {},
 }
 mrcMpathT = {
   ["ProjectDIR/rt/modulerc/mf/Core"]  = {
@@ -881,4 +857,414 @@ export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/modulerc/mf5;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/modulerc/mf5",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf5",}';
+export _ModuleTable_;
+===========================
+step 35
+runSpiderCmd -o spiderT ProjectDIR/rt/modulerc/mf6:ProjectDIR/rt/modulerc/mf7:ProjectDIR/rt/modulerc/mf4
+===========================
+timestampFn = {
+  false,
+}
+mrcT = {
+  alias2modT = {},
+  hiddenT = {},
+  version2modT = {},
+}
+mrcMpathT = {
+  ["ProjectDIR/rt/modulerc/mf6"]  = {
+    version2modT = {
+      ["java/1.8"] = "java/1.8.0-A",
+    },
+  },
+  ["ProjectDIR/rt/modulerc/mf7"]  = {
+    version2modT = {
+      ["java/1.8"] = "java/1.8.0-B",
+    },
+  },
+}
+spiderT = {
+  ["ProjectDIR/rt/modulerc/mf4"]  = {
+    a = {
+      defaultA = {
+        {
+          ["barefn"] = ".version",
+          ["defaultIdx"] = 4,
+          ["fn"] = "ProjectDIR/rt/modulerc/mf4/a/.version",
+          ["fullName"] = "a/.version",
+          ["mpath"] = "ProjectDIR/rt/modulerc/mf4",
+          ["value"] = "2.0",
+        },
+      },
+      defaultT = {
+        ["barefn"] = ".version",
+        ["defaultIdx"] = 4,
+        ["fn"] = "ProjectDIR/rt/modulerc/mf4/a/.version",
+        ["fullName"] = "a/.version",
+        ["mpath"] = "ProjectDIR/rt/modulerc/mf4",
+        ["value"] = "2.0",
+      },
+      dirT = {},
+      fileT = {
+        ["a/1.0"]  = {
+          ["Version"] = "1.0",
+          ["canonical"] = "1.0",
+          ["fn"] = "ProjectDIR/rt/modulerc/mf4/a/1.0.lua",
+          ["luaExt"] = 4,
+          ["mpath"] = "ProjectDIR/rt/modulerc/mf4",
+          ["pV"] = "000000001.*zfinal",
+          ["wV"] = "000000001.*zfinal",
+        },
+        ["a/2.0"]  = {
+          ["Version"] = "2.0",
+          ["canonical"] = "2.0",
+          ["fn"] = "ProjectDIR/rt/modulerc/mf4/a/2.0.lua",
+          ["luaExt"] = 4,
+          ["mpath"] = "ProjectDIR/rt/modulerc/mf4",
+          ["pV"] = "000000002.*zfinal",
+          ["wV"] = "^00000002.*zfinal",
+        },
+        ["a/3.0"]  = {
+          ["Version"] = "3.0",
+          ["canonical"] = "3.0",
+          ["fn"] = "ProjectDIR/rt/modulerc/mf4/a/3.0.lua",
+          ["luaExt"] = 4,
+          ["mpath"] = "ProjectDIR/rt/modulerc/mf4",
+          ["pV"] = "000000003.*zfinal",
+          ["wV"] = "000000003.*zfinal",
+        },
+      },
+    },
+    mpich = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["mpich/3.1.2"]  = {
+          ["Version"] = "3.1.2",
+          ["canonical"] = "3.1.2",
+          ["fn"] = "ProjectDIR/rt/modulerc/mf4/mpich/3.1.2.lua",
+          ["luaExt"] = 6,
+          ["mpath"] = "ProjectDIR/rt/modulerc/mf4",
+          ["pV"] = "000000003.000000001.000000002.*zfinal",
+          ["wV"] = "000000003.000000001.000000002.*zfinal",
+        },
+        ["mpich/3.1.2-dbg"]  = {
+          ["Version"] = "3.1.2-dbg",
+          ["canonical"] = "3.1.2-dbg",
+          ["fn"] = "ProjectDIR/rt/modulerc/mf4/mpich/3.1.2-dbg.lua",
+          ["luaExt"] = 10,
+          ["mpath"] = "ProjectDIR/rt/modulerc/mf4",
+          ["pV"] = "000000003.000000001.000000002.*dbg.*zfinal",
+          ["wV"] = "000000003.000000001.000000002.*dbg.*zfinal",
+        },
+        ["mpich/3.2"]  = {
+          ["Version"] = "3.2",
+          ["canonical"] = "3.2",
+          ["fn"] = "ProjectDIR/rt/modulerc/mf4/mpich/3.2.lua",
+          ["luaExt"] = 4,
+          ["mpath"] = "ProjectDIR/rt/modulerc/mf4",
+          ["pV"] = "000000003.000000002.*zfinal",
+          ["wV"] = "000000003.000000002.*zfinal",
+        },
+        ["mpich/3.2-dbg"]  = {
+          ["Version"] = "3.2-dbg",
+          ["canonical"] = "3.2-dbg",
+          ["fn"] = "ProjectDIR/rt/modulerc/mf4/mpich/3.2-dbg.lua",
+          ["luaExt"] = 8,
+          ["mpath"] = "ProjectDIR/rt/modulerc/mf4",
+          ["pV"] = "000000003.000000002.*dbg.*zfinal",
+          ["wV"] = "000000003.000000002.*dbg.*zfinal",
+        },
+      },
+    },
+  },
+  ["ProjectDIR/rt/modulerc/mf6"]  = {
+    java = {
+      defaultA = {
+        {
+          ["barefn"] = ".modulerc.lua",
+          ["defaultIdx"] = 2,
+          ["fn"] = "ProjectDIR/rt/modulerc/mf6/java/.modulerc.lua",
+          ["fullName"] = "java/.modulerc",
+          ["luaExt"] = 10,
+          ["mpath"] = "ProjectDIR/rt/modulerc/mf6",
+          ["value"] = false,
+        },
+      },
+      defaultT = {
+        ["barefn"] = ".modulerc.lua",
+        ["defaultIdx"] = 2,
+        ["fn"] = "ProjectDIR/rt/modulerc/mf6/java/.modulerc.lua",
+        ["fullName"] = "java/.modulerc",
+        ["luaExt"] = 10,
+        ["mpath"] = "ProjectDIR/rt/modulerc/mf6",
+        ["value"] = false,
+      },
+      dirT = {},
+      fileT = {
+        ["java/1.8.0-A"]  = {
+          ["Version"] = "1.8.0-A",
+          ["canonical"] = "1.8.0-A",
+          ["fn"] = "ProjectDIR/rt/modulerc/mf6/java/1.8.0-A.lua",
+          ["luaExt"] = 8,
+          ["mpath"] = "ProjectDIR/rt/modulerc/mf6",
+          ["pV"] = "000000001.000000008.*a.*zfinal",
+          ["wV"] = "000000001.000000008.*a.*zfinal",
+        },
+      },
+    },
+  },
+  ["ProjectDIR/rt/modulerc/mf7"]  = {
+    java = {
+      defaultA = {
+        {
+          ["barefn"] = ".modulerc.lua",
+          ["defaultIdx"] = 2,
+          ["fn"] = "ProjectDIR/rt/modulerc/mf7/java/.modulerc.lua",
+          ["fullName"] = "java/.modulerc",
+          ["luaExt"] = 10,
+          ["mpath"] = "ProjectDIR/rt/modulerc/mf7",
+          ["value"] = false,
+        },
+      },
+      defaultT = {
+        ["barefn"] = ".modulerc.lua",
+        ["defaultIdx"] = 2,
+        ["fn"] = "ProjectDIR/rt/modulerc/mf7/java/.modulerc.lua",
+        ["fullName"] = "java/.modulerc",
+        ["luaExt"] = 10,
+        ["mpath"] = "ProjectDIR/rt/modulerc/mf7",
+        ["value"] = false,
+      },
+      dirT = {},
+      fileT = {
+        ["java/1.8.0-B"]  = {
+          ["Version"] = "1.8.0-B",
+          ["canonical"] = "1.8.0-B",
+          ["fn"] = "ProjectDIR/rt/modulerc/mf7/java/1.8.0-B.lua",
+          ["luaExt"] = 8,
+          ["mpath"] = "ProjectDIR/rt/modulerc/mf7",
+          ["pV"] = "000000001.000000008.*b.*zfinal",
+          ["wV"] = "000000001.000000008.*b.*zfinal",
+        },
+      },
+    },
+  },
+  ["version"] = 5,
+}
+mpathMapT = {}
+===========================
+step 36
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/modulerc/mf6:1\;ProjectDIR/rt/modulerc/mf7:1\;ProjectDIR/rt/modulerc/mf4:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/modulerc/mf6:ProjectDIR/rt/modulerc/mf7:ProjectDIR/rt/modulerc/mf4;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/modulerc/mf6","ProjectDIR/rt/modulerc/mf7","ProjectDIR/rt/modulerc/mf4",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf6:ProjectDIR/rt/modulerc/mf7:ProjectDIR/rt/modulerc/mf4",}';
+export _ModuleTable_;
+===========================
+step 37
+runSpiderCmd -o spiderT ProjectDIR/rt/modulerc/mf7:ProjectDIR/rt/modulerc/mf6:ProjectDIR/rt/modulerc/mf4
+===========================
+timestampFn = {
+  false,
+}
+mrcT = {
+  alias2modT = {},
+  hiddenT = {},
+  version2modT = {},
+}
+mrcMpathT = {
+  ["ProjectDIR/rt/modulerc/mf6"]  = {
+    version2modT = {
+      ["java/1.8"] = "java/1.8.0-A",
+    },
+  },
+  ["ProjectDIR/rt/modulerc/mf7"]  = {
+    version2modT = {
+      ["java/1.8"] = "java/1.8.0-B",
+    },
+  },
+}
+spiderT = {
+  ["ProjectDIR/rt/modulerc/mf4"]  = {
+    a = {
+      defaultA = {
+        {
+          ["barefn"] = ".version",
+          ["defaultIdx"] = 4,
+          ["fn"] = "ProjectDIR/rt/modulerc/mf4/a/.version",
+          ["fullName"] = "a/.version",
+          ["mpath"] = "ProjectDIR/rt/modulerc/mf4",
+          ["value"] = "2.0",
+        },
+      },
+      defaultT = {
+        ["barefn"] = ".version",
+        ["defaultIdx"] = 4,
+        ["fn"] = "ProjectDIR/rt/modulerc/mf4/a/.version",
+        ["fullName"] = "a/.version",
+        ["mpath"] = "ProjectDIR/rt/modulerc/mf4",
+        ["value"] = "2.0",
+      },
+      dirT = {},
+      fileT = {
+        ["a/1.0"]  = {
+          ["Version"] = "1.0",
+          ["canonical"] = "1.0",
+          ["fn"] = "ProjectDIR/rt/modulerc/mf4/a/1.0.lua",
+          ["luaExt"] = 4,
+          ["mpath"] = "ProjectDIR/rt/modulerc/mf4",
+          ["pV"] = "000000001.*zfinal",
+          ["wV"] = "000000001.*zfinal",
+        },
+        ["a/2.0"]  = {
+          ["Version"] = "2.0",
+          ["canonical"] = "2.0",
+          ["fn"] = "ProjectDIR/rt/modulerc/mf4/a/2.0.lua",
+          ["luaExt"] = 4,
+          ["mpath"] = "ProjectDIR/rt/modulerc/mf4",
+          ["pV"] = "000000002.*zfinal",
+          ["wV"] = "^00000002.*zfinal",
+        },
+        ["a/3.0"]  = {
+          ["Version"] = "3.0",
+          ["canonical"] = "3.0",
+          ["fn"] = "ProjectDIR/rt/modulerc/mf4/a/3.0.lua",
+          ["luaExt"] = 4,
+          ["mpath"] = "ProjectDIR/rt/modulerc/mf4",
+          ["pV"] = "000000003.*zfinal",
+          ["wV"] = "000000003.*zfinal",
+        },
+      },
+    },
+    mpich = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["mpich/3.1.2"]  = {
+          ["Version"] = "3.1.2",
+          ["canonical"] = "3.1.2",
+          ["fn"] = "ProjectDIR/rt/modulerc/mf4/mpich/3.1.2.lua",
+          ["luaExt"] = 6,
+          ["mpath"] = "ProjectDIR/rt/modulerc/mf4",
+          ["pV"] = "000000003.000000001.000000002.*zfinal",
+          ["wV"] = "000000003.000000001.000000002.*zfinal",
+        },
+        ["mpich/3.1.2-dbg"]  = {
+          ["Version"] = "3.1.2-dbg",
+          ["canonical"] = "3.1.2-dbg",
+          ["fn"] = "ProjectDIR/rt/modulerc/mf4/mpich/3.1.2-dbg.lua",
+          ["luaExt"] = 10,
+          ["mpath"] = "ProjectDIR/rt/modulerc/mf4",
+          ["pV"] = "000000003.000000001.000000002.*dbg.*zfinal",
+          ["wV"] = "000000003.000000001.000000002.*dbg.*zfinal",
+        },
+        ["mpich/3.2"]  = {
+          ["Version"] = "3.2",
+          ["canonical"] = "3.2",
+          ["fn"] = "ProjectDIR/rt/modulerc/mf4/mpich/3.2.lua",
+          ["luaExt"] = 4,
+          ["mpath"] = "ProjectDIR/rt/modulerc/mf4",
+          ["pV"] = "000000003.000000002.*zfinal",
+          ["wV"] = "000000003.000000002.*zfinal",
+        },
+        ["mpich/3.2-dbg"]  = {
+          ["Version"] = "3.2-dbg",
+          ["canonical"] = "3.2-dbg",
+          ["fn"] = "ProjectDIR/rt/modulerc/mf4/mpich/3.2-dbg.lua",
+          ["luaExt"] = 8,
+          ["mpath"] = "ProjectDIR/rt/modulerc/mf4",
+          ["pV"] = "000000003.000000002.*dbg.*zfinal",
+          ["wV"] = "000000003.000000002.*dbg.*zfinal",
+        },
+      },
+    },
+  },
+  ["ProjectDIR/rt/modulerc/mf6"]  = {
+    java = {
+      defaultA = {
+        {
+          ["barefn"] = ".modulerc.lua",
+          ["defaultIdx"] = 2,
+          ["fn"] = "ProjectDIR/rt/modulerc/mf6/java/.modulerc.lua",
+          ["fullName"] = "java/.modulerc",
+          ["luaExt"] = 10,
+          ["mpath"] = "ProjectDIR/rt/modulerc/mf6",
+          ["value"] = false,
+        },
+      },
+      defaultT = {
+        ["barefn"] = ".modulerc.lua",
+        ["defaultIdx"] = 2,
+        ["fn"] = "ProjectDIR/rt/modulerc/mf6/java/.modulerc.lua",
+        ["fullName"] = "java/.modulerc",
+        ["luaExt"] = 10,
+        ["mpath"] = "ProjectDIR/rt/modulerc/mf6",
+        ["value"] = false,
+      },
+      dirT = {},
+      fileT = {
+        ["java/1.8.0-A"]  = {
+          ["Version"] = "1.8.0-A",
+          ["canonical"] = "1.8.0-A",
+          ["fn"] = "ProjectDIR/rt/modulerc/mf6/java/1.8.0-A.lua",
+          ["luaExt"] = 8,
+          ["mpath"] = "ProjectDIR/rt/modulerc/mf6",
+          ["pV"] = "000000001.000000008.*a.*zfinal",
+          ["wV"] = "000000001.000000008.*a.*zfinal",
+        },
+      },
+    },
+  },
+  ["ProjectDIR/rt/modulerc/mf7"]  = {
+    java = {
+      defaultA = {
+        {
+          ["barefn"] = ".modulerc.lua",
+          ["defaultIdx"] = 2,
+          ["fn"] = "ProjectDIR/rt/modulerc/mf7/java/.modulerc.lua",
+          ["fullName"] = "java/.modulerc",
+          ["luaExt"] = 10,
+          ["mpath"] = "ProjectDIR/rt/modulerc/mf7",
+          ["value"] = false,
+        },
+      },
+      defaultT = {
+        ["barefn"] = ".modulerc.lua",
+        ["defaultIdx"] = 2,
+        ["fn"] = "ProjectDIR/rt/modulerc/mf7/java/.modulerc.lua",
+        ["fullName"] = "java/.modulerc",
+        ["luaExt"] = 10,
+        ["mpath"] = "ProjectDIR/rt/modulerc/mf7",
+        ["value"] = false,
+      },
+      dirT = {},
+      fileT = {
+        ["java/1.8.0-B"]  = {
+          ["Version"] = "1.8.0-B",
+          ["canonical"] = "1.8.0-B",
+          ["fn"] = "ProjectDIR/rt/modulerc/mf7/java/1.8.0-B.lua",
+          ["luaExt"] = 8,
+          ["mpath"] = "ProjectDIR/rt/modulerc/mf7",
+          ["pV"] = "000000001.000000008.*b.*zfinal",
+          ["wV"] = "000000001.000000008.*b.*zfinal",
+        },
+      },
+    },
+  },
+  ["version"] = 5,
+}
+mpathMapT = {}
+===========================
+step 38
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/modulerc/mf7:1\;ProjectDIR/rt/modulerc/mf6:1\;ProjectDIR/rt/modulerc/mf4:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/modulerc/mf7:ProjectDIR/rt/modulerc/mf6:ProjectDIR/rt/modulerc/mf4;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/modulerc/mf7","ProjectDIR/rt/modulerc/mf6","ProjectDIR/rt/modulerc/mf4",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf7:ProjectDIR/rt/modulerc/mf6:ProjectDIR/rt/modulerc/mf4",}';
 export _ModuleTable_;

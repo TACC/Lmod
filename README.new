@@ -28,4 +28,5 @@ Lmod 8.4+
 	    * Show extensions from hidden modules when doing (module --show_hidden avail)
 	    * Add option (--nx, --no_extensions) to not print extensions when doing "ml avail".
    (8.4.12) * Make --nx only remove extensions from ml avail not spider. Make it a configure option.
-   
+   (8.4.13) * Issue #479: Reworked MRC to fill mrcMpathT with mrc entries for each directory in
+              $MODULEPATH. Then walk each mpath directory for hidden, global aliases, and module aliases

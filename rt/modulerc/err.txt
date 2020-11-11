@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.4.10  2020-10-21 08:41 -05:00
+Modules based on Lua: Version 8.4.12  2020-10-31 10:02 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -376,6 +376,46 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 ProjectDIR/rt/modulerc/mf5
    Core/Java/1.7.0_143 (1.7)    Core/Java/1.8.0_181 (D:1.8)
+  Where:
+   Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
+   D:        Default Module
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 35
+runSpiderCmd -o spiderT ProjectDIR/rt/modulerc/mf6:ProjectDIR/rt/modulerc/mf7:ProjectDIR/rt/modulerc/mf4
+===========================
+===========================
+step 36
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+ProjectDIR/rt/modulerc/mf6
+   java/1.8.0-A (1.8)
+ProjectDIR/rt/modulerc/mf7
+   java/1.8.0-B (D)
+ProjectDIR/rt/modulerc/mf4
+   a/1.0        a/3.0              mpich/3.1.2      mpich/3.2 (D)
+   a/2.0 (D)    mpich/3.1.2-dbg    mpich/3.2-dbg
+  Where:
+   Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
+   D:        Default Module
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 37
+runSpiderCmd -o spiderT ProjectDIR/rt/modulerc/mf7:ProjectDIR/rt/modulerc/mf6:ProjectDIR/rt/modulerc/mf4
+===========================
+===========================
+step 38
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+ProjectDIR/rt/modulerc/mf7
+   java/1.8.0-B (D:1.8)
+ProjectDIR/rt/modulerc/mf6
+   java/1.8.0-A
+ProjectDIR/rt/modulerc/mf4
+   a/1.0        a/3.0              mpich/3.1.2      mpich/3.2 (D)
+   a/2.0 (D)    mpich/3.1.2-dbg    mpich/3.2-dbg
   Where:
    Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
    D:        Default Module

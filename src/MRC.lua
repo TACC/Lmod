@@ -1,4 +1,3 @@
-
 -- Site create .modulerc files to specify that certain strings can be
 -- also know as.  Here are some examples:
 --
@@ -55,6 +54,7 @@ require("strict")
 require("fileOps")
 require("utils")
 require("mrc_load")
+require("deepcopy")
 
 local M         = {}
 local dbg       = require("Dbg"):dbg()
@@ -79,17 +79,17 @@ local l_buildMod2VersionT
 -- @param self A MRC object.
 
 local function new(self, fnA)
-   local o         = {}
-   o.__mpathT        = {}  -- mpath dependent values for alias2modT, version2modT
-                           -- and hiddenT.
-   o.__version2modT  = {}  -- Map a sn/version string to a module fullname
-   o.__alias2modT    = {}  -- Map an alias string to a module name or alias
-   o.__fullNameDfltT = {}
-   o.__defaultT      = {}  -- Map module sn to fullname that is the default.
-   o.__hiddenT       = {}  -- Table of hidden module names and modulefiles.
-   o.__mod2versionT  = {}  -- Map from full module name to versions.
-   o.__full2aliasesT = {}
-
+   local o              = {}
+   o.__mpathT           = {}  -- mpath dependent values for alias2modT, version2modT
+                              -- and hiddenT.
+   o.__version2modT     = {}  -- Map a sn/version string to a module fullname
+   o.__alias2modT       = {}  -- Map an alias string to a module name or alias
+   o.__fullNameDfltT    = {}
+   o.__defaultT         = {}  -- Map module sn to fullname that is the default.
+   o.__hiddenT          = {}  -- Table of hidden module names and modulefiles.
+   o.__mod2versionT     = {}  -- Map from full module name to versions.
+   o.__full2aliasesT    = {}
+   o.__mergedAlias2modT = {}
    setmetatable(o,self)
    self.__index = self
 
@@ -183,9 +183,46 @@ end
 
 function l_buildMod2VersionT(self, mpathA)
    dbg.start{"l_buildMod2VersionT(self, mpathA)"}
-   local v2mT = self.__version2modT
+   local v2mT = {}
    local m2vT = {}
    local f2aT = {}
+   local mA2T = {}
+
+   dbg.printT("self.__version2modT", self.__version2modT)
+   dbg.printT("self.__alias2modT",   self.__alias2modT)
+   dbg.printT("mrcMpathT", self.__mpathT)
+
+
+   local t
+   for i = #mpathA, 1, -1 do
+      local mpath = mpathA[i]
+      if (self.__mpathT[mpath]) then
+         t = self.__mpathT[mpath].version2modT
+         if (t) then
+            for k, v in pairs(t) do
+               v2mT[k] = v
+            end
+         end
+         t = self.__mpathT[mpath].alias2modT
+         if (t) then
+            for k, v in pairs(t) do
+               mA2T[k] = v
+            end
+         end
+      end
+   end
+
+   local t = self.__version2modT
+   for k, v in pairs(t) do
+      v2mT[k] = v
+   end
+
+   local t = self.__alias2modT
+   for k, v in pairs(t) do
+      mA2T[k] = v
+   end
+      
+   dbg.printT("v2mT",v2mT)
 
    for k, v in pairs(v2mT) do
       v       = self:resolve(mpathA, v)
@@ -206,6 +243,10 @@ function l_buildMod2VersionT(self, mpathA)
    end
    self.__mod2versionT  = m2vT
    self.__full2aliasesT = f2aT
+   self.__mergedAlias2modT = mA2T
+   dbg.printT("full2aliasesT",    f2aT)
+   dbg.printT("mod2versionT",     m2vT)
+   dbg.printT("mergedAlias2modT", mA2T)
    dbg.fini("l_buildMod2VersionT")
 end
 
@@ -260,10 +301,10 @@ function M.getFull2AliasesT(self, mpathA, key)
 end
 
 function M.getAlias2ModT(self, mpathA)
-   if (next(self.__alias2modT) == nil) then
+   if (next(self.__mergedAlias2modT) == nil) then
       l_buildMod2VersionT(self, mpathA)
    end
-   return self.__alias2modT
+   return self.__mergedAlias2modT
 end
 
 local function l_store_mpathT(self, mpath, tblName, key, value)
@@ -359,7 +400,20 @@ function M.getHiddenT(self, mpathA, k)
    if (s_must_convert) then
       s_must_convert = false
 
-      local hT = self.__hiddenT
+      local hT
+      for i = #mpathA, 1, -1 do
+         local mpath = mpathA[i]
+         if (self.__mpathT[mpath]) then
+            hT = self.__mpathT[mpath].hiddenT
+            if (hT) then
+               for key in pairs(hT) do
+                  t[self:resolve(mpathA, key)] = true
+               end
+            end
+         end
+      end
+
+      hT = self.__hiddenT
       for key in pairs(hT) do
          t[self:resolve(mpathA, key)] = true
       end
