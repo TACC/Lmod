@@ -410,7 +410,7 @@ end
 
 local function l_usrLoad(argA, check_must_load)
    local frameStk = FrameStk:singleton()
-   dbg.start{"l_usrLoad(",concatTbl({...},", "),")"}
+   dbg.start{"l_usrLoad(argA, check_must_load: ",check_must_load,")"}
    local uA   = {}
    local lA   = {}
    for i = 1, argA.n do
