@@ -392,20 +392,9 @@ function List(...)
    dbg.fini("List")
 end
 
-
 ------------------------------------------------------------------------
--- Load modules from users but do not issue warnings if the module is
--- not there.
-function Load_Try(...)
-   dbg.start{"Load_Try(",concatTbl({...},", "),")"}
-   deactivateWarning()
-   Load_Usr(...)
-   activateWarning()
-   dbg.fini("Load_Try")
-end
-
-------------------------------------------------------------------------
--- Load modules from users.  If a module name has
+-- Load modules from users. This routine does the work for both
+-- Load_Usr() and Load_Try(). If a module name has
 -- a minus sign in front of it then unload it.  Do that
 -- before loading any other modules.  Also if the
 -- shortName of a request module is already loaded then
@@ -413,16 +402,17 @@ end
 --
 --      $ module load foo/1.1; module load foo/1.3
 --
--- the second load of "foo" will not load it twice.
+-- foo/1.1 will be loaded.  Then loading foo/1.3 will
+-- cause foo/1.1 to be unloaded and then Lmod will load foo/1.3.
 -- Finally any successful loading of a module is registered
 -- with "MT" so that when a user does the above commands
 -- it won't get the swap message.
-function Load_Usr(...)
+
+local function l_usrLoad(argA, check_must_load)
    local frameStk = FrameStk:singleton()
-   dbg.start{"Load_Usr(",concatTbl({...},", "),")"}
+   dbg.start{"l_usrLoad(",concatTbl({...},", "),")"}
    local uA   = {}
    local lA   = {}
-   local argA = pack(...)
    for i = 1, argA.n do
       local v = argA[i]
       if (v == "-") then
@@ -458,14 +448,34 @@ function Load_Usr(...)
       dbg.print{"Setting mcp to ", mcp:name(),"\n"}
       b             = mcp:load_usr(lA)
 
-      if (haveWarnings()) then
+      if (haveWarnings() and check_must_load) then
          mcp.mustLoad()
       end
       mcp           = mcp_old
    end
 
-   dbg.fini("Load_Usr")
+   dbg.fini("l_usrLoad")
    return b
+end
+
+------------------------------------------------------------------------
+-- Load modules from users but do not issue warnings if the module is
+-- not there but failures during load are reported.
+
+function Load_Try(...)
+   dbg.start{"Load_Try(",concatTbl({...},", "),")"}
+   local check_must_load = false
+   local argA            = pack(...)
+   l_usrLoad(argA, check_must_load)
+   dbg.fini("Load_Try")
+end
+
+function Load_Usr(...)
+   dbg.start{"Load_Usr(",concatTbl({...},", "),")"}
+   local check_must_load = true
+   local argA            = pack(...)
+   l_usrLoad(argA, check_must_load)
+   dbg.fini("Load_Usr")
 end
 
 function Purge_Usr()
