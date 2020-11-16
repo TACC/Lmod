@@ -69,18 +69,21 @@ testdescript = {
      runLmod load dflt                                      # 42
      runLmod list                                           # 43
      runLmod load noweb/2.10c.lua                           # 44
+     runLmod load Try/1.0                                   # 45
+     runLmod load Try/2.0                                   # 46
+ 
 
      export LMOD_DISABLE_SAME_NAME_AUTOSWAP=yes
-     runLmod load moduleA/1.0                               # 45
-     runLmod load moduleB/1.0                               # 46
+     runLmod load moduleA/1.0                               # 47
+     runLmod load moduleB/1.0                               # 48
      
      unsetMT
      export MODULEPATH=$(testDir)/mf2/Core
-     runLmod --show_hidden avail                            # 47
-     runLmod load .eb_builder/default                       # 48
-     runLmod load a/default                                 # 49
-     runLmod load b/default                                 # 50
-     runLmod list                                           # 51
+     runLmod --show_hidden avail                            # 49
+     runLmod load .eb_builder/default                       # 50
+     runLmod load a/default                                 # 51
+     runLmod load b/default                                 # 52
+     runLmod list                                           # 53
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

@@ -1075,7 +1075,7 @@ end
 -- @param mA A array of MName objects.
 function M.try_load(self, mA)
    dbg.start{"MasterControl:try_load(mA)"}
-   deactivateWarning()
+   --deactivateWarning()
    self:load(mA)
    dbg.fini("MasterControl:try_load")
 end

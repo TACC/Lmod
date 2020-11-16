@@ -32,4 +32,6 @@ Lmod 8.4+
               $MODULEPATH. Then walk each mpath directory for hidden, global aliases, and module aliases
    (8.4.14) * Issue #480: make "module try-add <module_name>" ignore failure to be found but report
               broken modules.
+   (8.4.15) * Issue #480: Fix the try_load() function to ignore failure to be found but report
+              broken modules.
  

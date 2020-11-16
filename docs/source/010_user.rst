@@ -58,7 +58,7 @@ If a module is not available then an error message is produced::
     Warning: Failed to load: packageXYZ
 
 It is possible to try to load a module with no error message if it
-does not exist::
+does not exist. Any other failures to load will be reported.::
 
     $ module try-load packageXYZ
 

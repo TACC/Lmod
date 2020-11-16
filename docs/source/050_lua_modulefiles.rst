@@ -93,7 +93,9 @@ unset during unloading.
      unloaded.
 
 **try_load** ("pkgA", "pkgB", "pkgC"):
-     load all modules. No errors reported if unable to load.
+     load all modules. No errors reported if unable to load. Any other
+     errors will be reported.
+
 
 **userInGroups** ("group1", "group2", ...):
      Returns true if user is root or a member of one of the groups listed.

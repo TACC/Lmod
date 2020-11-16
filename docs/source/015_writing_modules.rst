@@ -161,7 +161,8 @@ The second function is **load**, this function loads the modulefiles
 specified.  This function takes one or more names.  Here we are
 specifying a default compiler and mpi stack. The third function
 is **try_load**, which is similar to **load** except that there is no
-error reported if the module can't be found.
+error reported if the module can't be found. Any other errors found
+during loading will be reported.
 
 The fourth block of code shows how we set **OMP_NUM_THREADS**.  We wish
 to set **OMP_NUM_THREADS** to have a default value of 1, but only if the
