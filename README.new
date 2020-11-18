@@ -34,4 +34,6 @@ Lmod 8.4+
               broken modules.
    (8.4.15) * Issue #480: Fix the try_load() function to ignore failure to be found but report
               broken modules.
- 
+W.I.P:
+   (8.4.16) * Issue #483: Added hidden file to spider tests.  Showing that it works correctly.
+   
