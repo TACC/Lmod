@@ -115,6 +115,19 @@ testdescript = {
      runLmod                  spider  numpy                                   #55
      runLmod    --show_hidden spider  numpy                                   #56
 
+     unsetMT
+     export MODULEPATH=$testDir/mf/I_Core
+     rm -rf $HOME/.lmod.d/.??*
+     mkdir  $HOME/.lmod.d/.cache
+     buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
+     runBase    runSpiderCmd -o spiderT  $MODULEPATH                          #57
+     runLmod -t --ignore_cache --show_hidden spider  GROMACS                  #58
+     runLmod    --ignore_cache --show_hidden spider  GROMACS                  #59
+     runLmod -t                --show_hidden spider  GROMACS                  #60
+     runLmod                   --show_hidden spider  GROMACS                  #61
+     runLmod load    GROMACS/.2016.x-drude-20180214-g3f7439a                  #62
+     runLmod list                                                             #63
+
      HOME=$ORIG_HOME
 
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

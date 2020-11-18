@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.4.12  2020-10-31 10:02 -05:00
+Modules based on Lua: Version 8.4.15  2020-11-16 10:20 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -734,3 +734,59 @@ Names marked by a trailing (E) are extensions provided by another module.
   Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider numpy/1.16.55
+===========================
+step 57
+runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/I_Core
+===========================
+===========================
+step 58
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t --ignore_cache --show_hidden spider GROMACS
+===========================
+GROMACS/.2016.x-drude-20180214-g3f7439a
+GROMACS/5.1.4
+GROMACS/2016.2
+===========================
+step 59
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --ignore_cache --show_hidden spider GROMACS
+===========================
+  GROMACS:
+     Versions:
+        GROMACS/.2016.x-drude-20180214-g3f7439a
+        GROMACS/5.1.4
+        GROMACS/2016.2
+  For detailed information about a specific "GROMACS" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
+  For example:
+     $ module spider GROMACS/2016.2
+===========================
+step 60
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t --show_hidden spider GROMACS
+===========================
+GROMACS/.2016.x-drude-20180214-g3f7439a
+GROMACS/5.1.4
+GROMACS/2016.2
+===========================
+step 61
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider GROMACS
+===========================
+  GROMACS:
+     Versions:
+        GROMACS/.2016.x-drude-20180214-g3f7439a
+        GROMACS/5.1.4
+        GROMACS/2016.2
+  For detailed information about a specific "GROMACS" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
+  For example:
+     $ module spider GROMACS/2016.2
+===========================
+step 62
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load GROMACS/.2016.x-drude-20180214-g3f7439a
+===========================
+===========================
+step 63
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) GROMACS/.2016.x-drude-20180214-g3f7439a (H)
+  Where:
+   H:  Hidden Module
