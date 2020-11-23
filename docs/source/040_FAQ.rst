@@ -252,7 +252,7 @@ and Tmod?
        family compiler
     }
 
-  As of Lmod 8.4.8+ you can also use the TCL global variable ModuleTool.
+  As of Lmod 8.4.8+ you can also use the TCL global variable ModuleTool::
 
     #%Module
     ...

@@ -131,6 +131,13 @@ unset during unloading.
      This module provides the following extensions. Place the list of
      extensions as a single string.
 
+**requireFullName** ():
+     This function throws an error if module name specified by the
+     user is not the fullName. Typically used as::
+
+        if (mode() == "load") then requireFullName() end
+
+
 Extra functions
 ~~~~~~~~~~~~~~~
 
