@@ -143,7 +143,7 @@ please execute the command \" clearMT\" and reload your modules.
    $ module swap %{oldFullName} %{newFullName}
 
 Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOSWAP to "no" to re-enable same name autoswapping.
-]==],
+]==], 
      e_No_Hashsum          = "Unable to find HashSum program (sha1sum, shasum, md5sum or md5).",
      e_No_Matching_Mods    = "No matching modules found.\n",
      e_No_Mod_Entry        = "%{routine}: Did not find module entry: \"%{name}\". This should not happen!\n",
@@ -153,6 +153,11 @@ Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOS
      e_No_ValidT_Entry     = "%{routine}: The validT table for %{name} has no entry for: \"%{value}\". Make sure that all keys in displayT have a matching key in validT. \nCheck spelling and case of name.\n",
      e_Prereq              = "Cannot load module \"%{name}\" without these module(s) loaded:\n   %{module_list}\n",
      e_Prereq_Any          = "Cannot load module \"%{name}\". At least one of these module(s) must be loaded:\n   %{module_list}\n",
+     e_RequireFullName     = [==[Module "%{sn}" must be loaded with the version specified, e.g. "module load %{fullName}". Use
+
+   $ module spider %{sn}
+
+for available versions.]==],
      e_Spdr_Timeout        = "Spider search timed out.\n",
      e_Swap_Failed         = "Swap failed: \"%{name}\" is not loaded.\n",
      e_Unable_2_Load       = "Unable to load module because of error when evaluating modulefile: %{name}\n     %{fn}: %{message}\n     Please check the modulefile and especially if there is a the line number specified in the above message",
