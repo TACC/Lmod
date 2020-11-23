@@ -245,7 +245,7 @@ function Keyword(...)
    local ia                     = 0
    local masterTbl              = masterTbl()
    local terse                  = masterTbl.terse
-   local kywdT                  = spider:searchSpiderDB(pack(...), dbT)
+   local kywdT,kywdExtsT        = spider:searchSpiderDB(pack(...), dbT, providedByT)
 
    if (terse) then
       shell:echo(Spider:Level0_terse(kywdT))
@@ -257,7 +257,7 @@ function Keyword(...)
 
    dbg.printT("kywdT",kywdT)
 
-   spider:Level0Helper(kywdT,providedByT,a)
+   spider:Level0Helper(kywdT,kywdExtsT,a)
 
    shell:echo(concatTbl(a,""))
 

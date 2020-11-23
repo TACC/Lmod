@@ -200,7 +200,7 @@ local function findModules(mpath, mt, mList, sn, v, moduleT)
    end
 end
 
-function M.searchSpiderDB(self, strA, dbT)
+function M.searchSpiderDB(self, strA, dbT, providedByT)
    dbg.start{"Spider:searchSpiderDB({",concatTbl(strA,","),"},spider, dbT)"}
    local masterTbl = masterTbl()
 
@@ -210,7 +210,7 @@ function M.searchSpiderDB(self, strA, dbT)
       end
    end
 
-   local kywdT = {}
+   local kywdT     = {}
 
    for sn, vvv in pairs(dbT) do
       kywdT[sn] = {}
@@ -228,6 +228,7 @@ function M.searchSpiderDB(self, strA, dbT)
                for propN,v in pairs(vv.propT) do
                   for k in pairs(v) do
                      if (k:find(str)) then
+                        dbg.print{"k: ",k,"\n"}
                         found = true
                         break
                      end
@@ -244,8 +245,18 @@ function M.searchSpiderDB(self, strA, dbT)
       end
    end
 
+   local kywdExtsT = {}
+   for sn, vv in pairs(providedByT) do
+      for i = 1, strA.n do
+         local str = strA[i]
+         if (sn:find(str)) then
+            kywdExtsT[sn] = vv
+         end
+      end
+   end
+
    dbg.fini("Spider:searchSpiderDB")
-   return kywdT
+   return kywdT, kywdExtsT
 end
 
 
@@ -748,25 +759,27 @@ function M.Level0Helper(self, dbT, providedByT, a)
    end
 
    local have_providedBy = false
-   for sn, vv in pairs(providedByT) do
-      for fullName, A in pairs(vv) do
-         local isVisible = show_hidden
-         if (not show_hidden) then
-            for i = 1, #A do
-               if (not A[i].hidden) then
-                  isVisible = true
-                  break
+   if (next(providedByT) ~= nil) then
+      for sn, vv in pairs(providedByT) do
+         for fullName, A in pairs(vv) do
+            local isVisible = show_hidden
+            if (not show_hidden) then
+               for i = 1, #A do
+                  if (not A[i].hidden) then
+                     isVisible = true
+                     break
+                  end
                end
             end
-         end
-         if (isVisible) then
-            have_providedBy = true
-            local version = extractVersion(fullName,sn)
-            local pV      = parseVersion(version)
-            if ( t[sn] == nil) then
-               t[sn] = {versionA = { }, name = sn}
+            if (isVisible) then
+               have_providedBy = true
+               local version = extractVersion(fullName,sn)
+               local pV      = parseVersion(version)
+               if ( t[sn] == nil) then
+                  t[sn] = {versionA = { }, name = sn}
+               end
+               t[sn].versionA[pV] = colorize("blue",fullName) .. " (E)"
             end
-            t[sn].versionA[pV] = colorize("blue",fullName) .. " (E)"
          end
       end
    end
