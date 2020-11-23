@@ -706,6 +706,11 @@ function moduleStackTraceBack(msg)
    return _concatTbl(bb,"")
 end
 
+function requireFullName()
+    if (myModuleUsrName() ~= myModuleFullName()) then
+       LmodError{msg="e_RequireFullName", sn = myModuleName(), fullName= myModuleFullName()}
+    end
+end
 
 
 --------------------------------------------------------------------------
