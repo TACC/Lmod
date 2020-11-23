@@ -94,39 +94,41 @@ testdescript = {
      runLmod      avail                                                       #44
      export  LMOD_AVAIL_EXTENSIONS=YeS
      runLmod      avail                                                       #45
+     runLmod      keyword numpy                                               #46
+     runLmod      keyword foo                                                 #47
 
      unsetMT
      export MODULEPATH=$testDir/mf/F_Core
-     runLmod    spider abcpy                                                  #46
-     runLmod    spider abcpy/2.1                                              #47
+     runLmod    spider abcpy                                                  #48
+     runLmod    spider abcpy/2.1                                              #49
 
      unsetMT
      export MODULEPATH=$testDir/mf/G_Core
-     runBase runSpiderCmd -o spiderT  $MODULEPATH                             #48
+     runBase runSpiderCmd -o spiderT  $MODULEPATH                             #50
 
      unsetMT
      export MODULEPATH=$testDir/mf/H_Core
-     runBase    runSpiderCmd -o spiderT  $MODULEPATH                          #49
-     runLmod                  spider                                          #50
-     runLmod    --show_hidden spider                                          #51
-     runLmod                  spider  tornado                                 #52
-     runLmod    --show_hidden spider  tornado                                 #53
-     runLmod    --show_hidden spider                                          #54
-     runLmod                  spider  numpy                                   #55
-     runLmod    --show_hidden spider  numpy                                   #56
+     runBase    runSpiderCmd -o spiderT  $MODULEPATH                          #51
+     runLmod                  spider                                          #52
+     runLmod    --show_hidden spider                                          #53
+     runLmod                  spider  tornado                                 #54
+     runLmod    --show_hidden spider  tornado                                 #55
+     runLmod    --show_hidden spider                                          #56
+     runLmod                  spider  numpy                                   #57
+     runLmod    --show_hidden spider  numpy                                   #58
 
      unsetMT
      export MODULEPATH=$testDir/mf/I_Core
      rm -rf $HOME/.lmod.d/.??*
      mkdir  $HOME/.lmod.d/.cache
      buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
-     runBase    runSpiderCmd -o spiderT  $MODULEPATH                          #57
-     runLmod -t --ignore_cache --show_hidden spider  GROMACS                  #58
-     runLmod    --ignore_cache --show_hidden spider  GROMACS                  #59
-     runLmod -t                --show_hidden spider  GROMACS                  #60
-     runLmod                   --show_hidden spider  GROMACS                  #61
-     runLmod load    GROMACS/.2016.x-drude-20180214-g3f7439a                  #62
-     runLmod list                                                             #63
+     runBase    runSpiderCmd -o spiderT  $MODULEPATH                          #59
+     runLmod -t --ignore_cache --show_hidden spider  GROMACS                  #60
+     runLmod    --ignore_cache --show_hidden spider  GROMACS                  #61
+     runLmod -t                --show_hidden spider  GROMACS                  #62
+     runLmod                   --show_hidden spider  GROMACS                  #63
+     runLmod load    GROMACS/.2016.x-drude-20180214-g3f7439a                  #64
+     runLmod list                                                             #65
 
      HOME=$ORIG_HOME
 

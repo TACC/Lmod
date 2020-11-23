@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.4.14  2020-11-12 14:54 -06:00
+Modules based on Lua: Version 8.4.15  2020-11-16 10:20 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -424,3 +424,23 @@ Currently Loaded Modules:
   1) .eb_builder/default (H)   2) a/1.2   3) b/default
   Where:
    H:  Hidden Module
+===========================
+step 54
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A
+===========================
+Lmod has detected the following error: Module "A" must be loaded with the version specified, e.g. "module load A/1.0". Use
+   $ module spider A
+for available versions.
+While processing the following module(s):
+    Module fullname  Module Filename
+    A/1.0            ProjectDIR/rt/load/mf3/A/1.0.lua
+===========================
+step 55
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A/1.0
+===========================
+===========================
+step 56
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) A/1.0
