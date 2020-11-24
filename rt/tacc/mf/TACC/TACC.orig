@@ -71,10 +71,7 @@ if [ expr [ module-info mode load ] || [module-info mode display ] ] {
 }
 
 if [ module-info mode remove ] {
-
-
-    module del cluster
-
+    module del cluster.orig
 }
 # ;;; Local Variables: ***
 # ;;; mode:tcl ***

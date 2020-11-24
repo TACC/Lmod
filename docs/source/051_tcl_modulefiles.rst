@@ -123,6 +123,15 @@ standard TCL language.
 **reportError** *string* :
   Report an error and abort processing of the modulefile.
 
+**require-fullname** :
+  Reports an error if the user specified name is not the fullname of
+  the module (e.g. **module load gcc/10.1** vs **module load gcc**.
+  Typically used like::
+
+      if [ module-info mode load ] {
+          require-fullname
+      }
+
 **set-alias NAME** *value* :
   Define an alias to **NAME** with *value*.
 

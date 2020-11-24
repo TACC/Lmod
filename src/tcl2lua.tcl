@@ -456,6 +456,11 @@ proc unsetenv { var {val {}}} {
     cmdargs "unsetenv" $var $val
 }
 
+proc require-fullname {} {
+    cmdargs "requireFullName"
+}
+
+
 # Dictionary-style string comparison
 # Use dictionary sort of lsort proc to compare two strings in the "string
 # compare" fashion (returning -1, 0 or 1). Tcl dictionary-style comparison
@@ -578,6 +583,8 @@ proc cmdargs { cmd args } {
     if {[info exists cmdArgsL]} {
         set cmdArgs [join $cmdArgsL ","]
 	lappend g_outputA  "$cmd\($cmdArgs\)\n"
+    } else {
+	lappend g_outputA  "$cmd\(\)\n"
     }
 }
 
@@ -848,37 +855,38 @@ proc execute-modulefile {modfile } {
     }
 	
     set child [interp create]
-    interp alias $child add-property   	{} add-property
-    interp alias $child always-load    	{} always-load
-    interp alias $child append-path    	{} append-path
-    interp alias $child conflict       	{} conflict
-    interp alias $child depends-on     	{} depends-on
-    interp alias $child exit     	{} my_exit
-    interp alias $child extensions     	{} extensions
-    interp alias $child family         	{} family
-    interp alias $child initGA         	{} depends-on
-    interp alias $child is-loaded      	{} is-loaded
-    interp alias $child module         	{} module
-    interp alias $child module-info    	{} module-info
-    interp alias $child module-whatis  	{} module-whatis
-    interp alias $child myPuts         	{} myPuts
-    interp alias $child prepend-path   	{} prepend-path
-    interp alias $child prereq         	{} prereq
-    interp alias $child prereq-any     	{} prereq-any
-    interp alias $child pushenv        	{} pushenv
-    interp alias $child puts           	{} myPuts
-    interp alias $child remove-path    	{} remove-path
-    interp alias $child remove-property {} remove-property
-    interp alias $child reportError     {} reportError
-    interp alias $child set-alias       {} set-alias
-    interp alias $child setPutMode      {} setPutMode
-    interp alias $child setenv          {} setenv
-    interp alias $child showResults     {} showResults
-    interp alias $child system          {} system
-    interp alias $child uname           {} uname
-    interp alias $child unset-alias     {} unset-alias
-    interp alias $child unsetenv        {} unsetenv
-    interp alias $child versioncmp      {} versioncmp
+    interp alias $child add-property   	 {} add-property
+    interp alias $child always-load    	 {} always-load
+    interp alias $child append-path    	 {} append-path
+    interp alias $child conflict       	 {} conflict
+    interp alias $child depends-on     	 {} depends-on
+    interp alias $child exit     	 {} my_exit
+    interp alias $child extensions     	 {} extensions
+    interp alias $child family         	 {} family
+    interp alias $child initGA         	 {} initGA
+    interp alias $child is-loaded      	 {} is-loaded
+    interp alias $child module         	 {} module
+    interp alias $child module-info    	 {} module-info
+    interp alias $child module-whatis  	 {} module-whatis
+    interp alias $child myPuts         	 {} myPuts
+    interp alias $child prepend-path   	 {} prepend-path
+    interp alias $child prereq         	 {} prereq
+    interp alias $child prereq-any     	 {} prereq-any
+    interp alias $child pushenv        	 {} pushenv
+    interp alias $child puts           	 {} myPuts
+    interp alias $child remove-path    	 {} remove-path
+    interp alias $child remove-property  {} remove-property
+    interp alias $child reportError      {} reportError
+    interp alias $child require-fullname {} require-fullname
+    interp alias $child set-alias        {} set-alias
+    interp alias $child setPutMode       {} setPutMode
+    interp alias $child setenv           {} setenv
+    interp alias $child showResults      {} showResults
+    interp alias $child system           {} system
+    interp alias $child uname            {} uname
+    interp alias $child unset-alias      {} unset-alias
+    interp alias $child unsetenv         {} unsetenv
+    interp alias $child versioncmp       {} versioncmp
 
     interp eval $child {global ModulesCurrentModulefile g_help g_shellType g_shellName}
     interp eval $child [list "set" "ModulesCurrentModulefile" $modfile]
