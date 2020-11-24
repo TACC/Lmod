@@ -135,6 +135,9 @@ case $SYSHOST in
     elif [ $SYSHOST == "ls5" ]; then
       UPDATE_FN=/home1/moduleData/cacheDir/tacc_cache_timestamp.txt
       CACHEDIRS=/home1/moduleData/cacheDir/tacc
+    elif [ $SYSHOST == "longhorn" ]; then
+      UPDATE_FN=/home/moduleData/spider_cache_timestamp.txt
+      CACHEDIRS=/home/moduleData/cacheDir
     fi
     EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN --with-siteName=TACC --with-silentShellDebugging=yes"
     SITE_PKG="contrib/TACC/*.lua"
