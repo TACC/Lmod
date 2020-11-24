@@ -71,6 +71,9 @@ UPDATE_REVERSEMAPT_CACHE=0
 UPDATE_JSON_RMAPT=0
 UPDATE_XALT_JSON_RMAPT=0
 
+# find PYTHON executable
+PYTHON=
+
 #
 # Utility functions
 #
@@ -277,6 +280,14 @@ run_spider() {
     SPIDER_EXIT_CODE=$?
     debug "Exit code of spider command: $SPIDER_EXIT_CODE"
 
+    if [ -n "$PYTHON" ]; then
+      if [ $cache_type = "jsonReverseMapT" -o $cache_type = "xalt_rmapT" ]; then
+        mv  $cache_file_path $cache_file_path.new
+        $PYTHON -mjson.tool $cache_file_path.new > $cache_file_path
+        rm $cache_file_path.new
+      fi
+    fi
+
     if [ $SPIDER_EXIT_CODE -ne 0 ]; then
         error "Failed to update Lmod spider cache (exit code: $SPIDER_EXIT_CODE)"
     fi
@@ -324,6 +335,14 @@ set_defaults
 
 # check parameters (make sure they are defined)
 check_parameters
+
+# See if there is a working python
+for cmd in python3 python python2; do
+  if command -v $cmd > /dev/null ; then
+    PYTHON=$cmd
+    break
+  fi
+done
 
 if [ -z "$LMOD_REVERSEMAPT_DIR" ]; then
   LMOD_REVERSEMAPT_DIR="$LMOD_CACHE_DIR/../reverseMapD"
