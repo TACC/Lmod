@@ -126,7 +126,7 @@ standard TCL language.
 **require-fullname** :
   Reports an error if the user specified name is not the fullname of
   the module (e.g. **module load gcc/10.1** vs **module load gcc**.
-  Typically used like::
+  Typically used in TCL modulefile as follows::
 
       if [ module-info mode load ] {
           require-fullname
