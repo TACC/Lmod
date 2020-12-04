@@ -37,7 +37,6 @@ Lmod 8.4+
    (8.4.16) * Issue #483: Added hidden file to spider tests.  Showing that it works correctly.
             * Fixed bug where providedByT (a.k.a. Extensions) was always printed when doing "ml keyword ..."
 	    * added lua module function requireFullName()
-W.I.P:
    (8.4.17) * If python exists on system use $PYTHON -mjson.tool on the generation of *.json files from
               update_lmod_system_spider_cache_files script.  Note $PYTHON is found by looking for
 	      python3, python or python2
