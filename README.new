@@ -41,3 +41,5 @@ Lmod 8.4+
               update_lmod_system_spider_cache_files script.  Note $PYTHON is found by looking for
 	      python3, python or python2
 	    * added TCL module function require-fullname to match requireFullName in Lua.
+            * Do not check $cache_type twice, use $ext = lua for lua like operations in update
+              spider cache script.
