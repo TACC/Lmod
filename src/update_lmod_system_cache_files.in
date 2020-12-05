@@ -313,7 +313,7 @@ update_cache() {
     run_spider $cache_type ${cache_file_name}.new.$ext
     install_new_cache $ext ${cache_file_name}
 
-    if [ $cache_type != "jsonReverseMapT" -a $cache_type != "xalt_rmapT" ]; then
+    if [ $ext = lua ]; then
        # also install compiled Lmod cache version
        # include Lua version in filename of compiled cache, to avoid compatibility issues when Lua is upgraded
        lua_ver=$(@path_to_lua@/lua -e 'print((_VERSION:gsub("Lua ","")))')
