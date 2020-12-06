@@ -1,0 +1,367 @@
+.Dd $Mdocdate: December 6 2020 $
+.Dt MODULE 1
+.Os
+.Sh NAME
+.Nm module
+.Nd lmod environment modules manager
+.Sh SYNOPSIS
+.Nm module
+.Op options
+.Cm sub-command
+.Op args ...
+.Sh DESCRIPTION
+.Sh OPTIONS
+The following
+.Ar options
+are available:
+.Pp
+.Bl -tag -width Ds -compact
+.It Fl h , ? , H , -help
+Show the help message.
+.Pp
+.It Fl -check_syntax , -checkSyntax
+Only check the
+.Nm
+command syntax, do not load any modules.
+.Pp
+.It Fl -config
+Report
+.Sy Lmod
+configuration.
+.Pp
+.It Fl -config_json
+Report
+.Sy Lmod
+configuration in json format.
+.Pp
+.It Fl D
+Write program tracing data to stderr.
+.Pp
+.It Fl d , -default
+List default modules only when used with
+.Cm avail .
+.Pp
+.It Fl -debug Ar dbglvl
+.Sy VALUES :
+1, 2, 3.
+.Pp
+Only write trace output with proper debug levels.
+.Pp
+.It Fl -dumpversion
+Dump version in a machine readable way and quit.
+.Pp
+.It Fl -expert
+Work in expert mode.
+.Pp
+.It Fl -force
+Force removal of a sticky module or save an empty collection.
+.Pp
+.It Fl -gitversion
+Dump git version in a machine readable way and quit.
+.Pp
+.It Fl -ignore_cache
+Treat the cache file(s) as out-of-date.
+.Pp
+.It Fl -initial_load
+Loading Lmod for first time in a user shell.
+.Pp
+.It Fl -latest
+Load latest (ignore default).
+.Pp
+.It Fl -mt
+Report Module Table State.
+.Pp
+.It Fl -no_redirect
+Force output of
+.Cm list ,
+.Cm avail
+and
+.Cm spider
+to stderr.
+.Pp
+.It Fl -novice
+Turn off
+.Fl -expert
+and
+.Fl -quiet
+flags.
+.Pp
+.It Fl -nx , -no_extensions
+.Pp
+.It Fl -pin_versions Ar pinVersions
+When doing a restore use the specified version, do not follow defaults.
+.Pp
+.It Fl q , -quiet
+Do not print out warnings.
+.Pp
+.It Fl r , -regexp
+Use regular expression match.
+.Pp
+.It Fl -raw
+Print modulefile in raw output when used with show.
+.Pp
+.It Fl -redirect
+Send the output of
+.Cm list ,
+.Cm avail
+and
+.Cm spider
+to stdout (not stderr).
+.Pp
+.It Fl -regression_testing
+Lmod regression testing.
+.Pp
+.It Fl -show_hidden
+.Cm avail
+and
+.Cm spider
+will report hidden modules.
+.Pp
+.It Fl -spider_timeout Ar timeout
+A timeout for
+.Cm spider .
+.Pp
+.It Fl s , -style Ar availStyle
+.Sy DEFAULT :
+system
+Site controlled avail style.
+.Pp
+.It Fl T , -trace
+.Pp
+.It Fl t , -terse
+Write out in machine readable format for
+.Cm list ,
+.Cm avail ,
+.Cm spider
+and
+.Cm savelist .
+.Pp
+.It Fl -timer
+Report run times.
+.Pp
+.It Fl v , -version
+Print version info and quit.
+.Pp
+.It Fl -w , --width Ar twidth
+Use
+.Ar twidth
+as max term width.
+.El
+.Sh SUB-COMMANDS
+.Ss HELP
+.Bl -tag -width Ds -compact
+.It Cm help
+Print the help message.
+.Pp
+.It Cm help Ar module Op moduleX moduleY ...
+Print help messages from the given module(s).
+.El
+.Ss LOAD
+.Bl -tag -width Ds -compact
+.It Cm load , add Ar module Op moduleX moduleY ...
+Load module(s)
+.Pp
+.It Cm try-load , try-add Ar module Op moduleX module Y ...
+Load module(s), do not complain if not found
+.Pp
+.It Cm del , unload Ar module Op moduleX moduleY ...
+Unload module(s), does not complain if not found
+.Pp
+.It Cm swap , sw , switch Ar m1 m2
+.Cm unload
+.Ar m1
+and
+.Cm load
+.Ar m2
+.Pp
+.It Cm purge
+.Cm unload
+all modules
+.Pp
+.It Cm refresh
+Reload aliases from current list of modules.
+.Pp
+.It Cm update
+Reload all currently loaded modules.
+.El
+.Ss SEARCH
+.Bl -tag -width Ds -compact
+.It Cm list
+List all loaded modules.
+.Pp
+.It Cm list Ar s1 Op Ar s2 ...
+List all loaded modules that match any of the given patterns.
+.Pp
+.It Cm avail , av Op Ar string
+List all available modules.
+Restricts to modules containing
+.Ar string
+if it is provided.
+.Pp
+.It Cm spider Ar module
+List all possible versions of that
+.Ar module
+file.
+.Pp
+.It Cm spider Ar string
+List all modules that contain
+.Ar string .
+.Pp
+.It Cm spider Ar name/version
+Detailed information about that version of the module.
+.Pp
+.It Cm whatis Ar module
+Print whatis information about the module.
+.Pp
+.It Cm keyword , key Ar string
+Search all name and
+.Cm whatis
+that contain
+.Ar string .
+.El
+.Pp
+All searching commands (
+.Cm spider ,
+.Cm list ,
+.Cm avail ,
+.Cm keyword
+) support regular expressions.
+.Pp
+For example, to find all modules that start with
+.Sq p
+or
+.Sq P :
+.D1 module -r spider '^p'
+.Pp
+Find all modules that have
+.Dq mpi
+in their name:
+.D1 module -r spider mpi
+.Pp
+Find all modules that end with
+.Dq mpi
+in their name:
+.D1 module -r spider 'mpi$'
+.Ss COLLECTIONS
+.Bl -tag -width Ds -compact
+.It Cm save , s
+Save the current list of modules to a user defined
+.Dq default
+collection.
+.Pp
+.It Cm save , s Ar name
+Save the current list of modules to the
+.Ar name
+collection.
+.Pp
+.It Cm reset
+The same as
+.Cm restore
+.Ar system .
+.Pp
+.It Cm restore , r
+Restore modules from the user's
+.Dq default
+(if defined) or the system default.
+.Pp
+.It Cm restore , r Ar name
+Restore modules from
+.Ar name
+collection.
+.Pp
+.It Cm restore Ar system
+Restore module state to system defaults.
+.Pp
+.It Cm savelist
+List of saved collections.
+.Pp
+.It Cm describe , mcc Ar name
+Describe the contents of the
+.Ar name
+module collection.
+.Pp
+.It Cm disable Ar name
+Disable (i.e. remove) the
+.Ar name
+collection.
+.El
+.Ss DEPRECATED
+.Bl -tag -width Ds -compact
+.It Cm getdefault Op Ar name
+Load the
+.Ar name
+collection of modules or users
+.Dq default
+if no
+.Ar name
+given.
+.Pp
+Use
+.Cm restore
+Instead.
+.Pp
+.It Cm setdefault Op Ar name
+Save current list of modules to
+.Ar name
+if given, otherwise save as the
+.Dq default
+list for the user.
+.Pp
+Use
+.Cm save
+instead.
+.El
+.Ss MISC
+.Bl -tag -width Ds -compact
+.It Cm is-loaded Ar modulefile
+Return a true status if
+.Ar module
+is loaded.
+.Pp
+.It Cm is-avail Ar modulefile
+Return a true status if
+.Ar module
+can be loaded.
+.Pp
+.It Cm show Ar modulefile
+Show the commands in the
+.Ar module
+file.
+.Pp
+.It Cm use [-a] Ar path
+Prepend or append
+.Ar path
+to
+.Ev MODULEPATH .
+.Pp
+.It Cm unuse Ar path
+Remove
+.Ar path
+from
+.Ev MODULEPATH .
+.Pp
+.It Cm tablelist
+Output list of active modules as a lua table.
+.El
+.Sh ENVIRONMENT
+To print properties and warnings in color, set the
+.Ev LMOD_COLORIZE
+environment variable to
+.Sy YES
+.Sh SEE ALSO
+.Bd -filled -offset indent
+.TS
+allbox tab(@);
+le lw10.
+Documentation@http://lmod.readthedocs.org
+Github@https://github.com/TACC/Lmod
+Sourceforge@https://lmod.sf.net
+TACC Homepage@https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
+.TE
+.Ed
+.Pp
+To report a bug please read
+.Lk http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
+.Sh AUTHORS
+Modules based on Lua, written by
+.An Robert McLay Aq Mt mclay@tacc.utexas.edu
