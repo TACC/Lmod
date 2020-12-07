@@ -24,7 +24,7 @@ if (full_support ~= "no") then
 end
 
 local myShell = myShellName()
-local exitCmd = "eval `" .. "@path_to_lua@/lua " .. settarg_cmd .. " -s " .. myShell .. " --destroy`"
+local exitCmd = "eval `" .. "@path_to_lua@ " .. settarg_cmd .. " -s " .. myShell .. " --destroy`"
 execute{cmd=exitCmd, modeA = {"unload"}}
 
 local titlebar_support = (os.getenv("LMOD_SETTARG_TITLE_BAR") or "no"):lower()

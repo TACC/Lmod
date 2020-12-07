@@ -15,7 +15,7 @@ endif
 override CFLAGS  := $(CFLAGS) -fPIC
 
 ifneq ($(LUA_INC),)
-  override CFLAGS  := $(CFLAGS) -I$(LUA_INC)
+  override CFLAGS  := $(CFLAGS) $(LUA_INC)
 endif
 
 

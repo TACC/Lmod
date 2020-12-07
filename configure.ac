@@ -541,6 +541,30 @@ AC_ARG_WITH(availExtensions,
     AVAIL_EXTENSIONS="$withval"
     AC_DEFINE_UNQUOTED(AVAIL_EXTENSIONS, "$withval"))dnl
 
+AC_SUBST(PATH_TO_LUA)
+AC_ARG_WITH(lua,
+    AC_HELP_STRING([--with-lua=ans],[absolute path to the lua interpreter to use [[lua]]]),
+    PATH_TO_LUA="$withval"
+    AC_MSG_RESULT([PATH_TO_LUA=$with_lua])
+    AC_DEFINE_UNQUOTED(PATH_TO_LUA, "$with_lua")dnl
+    ,
+    withval="lua"
+    PATH_TO_LUA="$withval"
+    AC_MSG_RESULT([PATH_TO_LUA=$withval])
+    AC_DEFINE_UNQUOTED(PATH_TO_LUA, "$withval"))dnl
+
+AC_SUBST(PATH_TO_LUAC)
+AC_ARG_WITH(luac,
+    AC_HELP_STRING([--with-luac=ans],[absolute path to the luac interpreter to use [[luac]]]),
+    PATH_TO_LUAC="$withval"
+    AC_MSG_RESULT([PATH_TO_LUAC=$with_luac])
+    AC_DEFINE_UNQUOTED(PATH_TO_LUAC, "$with_luac")dnl
+    ,
+    withval="luac"
+    PATH_TO_LUAC="$withval"
+    AC_MSG_RESULT([PATH_TO_LUAC=$withval])
+    AC_DEFINE_UNQUOTED(PATH_TO_LUAC, "$withval"))dnl
+
 
 if test "$ALLOW_TCL_MFILES" = no ; then
   FAST_TCL_INTERP=no
@@ -553,7 +577,6 @@ if test "$FAST_TCL_INTERP" = yes ; then
      DIR=$(xcrun --show-sdk-path)
      DIR=${DIR}/usr/include
    fi
-
 
    CPPFLAGS="-I $DIR"
 
@@ -574,16 +597,19 @@ SYS_LD_LIB_PATH=$LD_LIBRARY_PATH
 AC_SUBST(SYS_LD_PRELOAD)
 SYS_LD_PRELOAD=$LD_PRELOAD
 
+AC_SUBST(PATH_TO_SRC)
+SRCDIR=$( cd $srcdir; pwd)
+PATH_TO_SRC=$SRCDIR
+
+##### UTILS -- start
+
 AC_SUBST(BASENAME)
 AC_SUBST(EXPR)
 AC_SUBST(PS)
 AC_SUBST(PATH_TO_LS)
 AC_SUBST(PATH_TO_GIT)
 AC_SUBST(PATH_TO_HASHSUM)
-AC_SUBST(PATH_TO_LUA)
-AC_SUBST(PATH_TO_LUAC)
 AC_SUBST(PATH_TO_PAGER)
-AC_SUBST(PATH_TO_SRC)
 AC_SUBST(PATH_TO_TCLSH)
 
 AC_PATH_PROG(PS,ps, UNKNOWN_PS)
@@ -592,7 +618,7 @@ if test "$PS" = "UNKNOWN_PS" ; then
   echo "You must have valid ps in your path. Quitting!"
   echo
   rm -f makefile
-  exit
+  exit 1
 fi
 
 AC_PATH_PROGS(EXPR,[gexpr] [expr], UNKNOWN_EXPR)
@@ -601,7 +627,7 @@ if test "$EXPR" = "UNKNOWN_EXPR" ; then
   echo "You must have valid expr or gexpr in your path. Quitting!"
   echo
   rm -f makefile
-  exit
+  exit 1
 fi
 
 AC_PATH_PROGS(BASENAME, [gbasename] [basename], UNKNOWN_BASENAME)
@@ -610,12 +636,8 @@ if test "$BASENAME" = "UNKNOWN_BASENAME" ; then
   echo "You must have either basename in your path. Quitting!"
   echo
   rm -f makefile
-  exit
+  exit 1
 fi
-
-
-
-
 
 AC_PATH_PROGS(PATH_TO_LS, [gls] [ls], "")
 AC_PATH_PROG(PATH_TO_GIT, git, "")
@@ -629,7 +651,7 @@ elif test "$PATH_TO_HASHSUM" = "UNKNOWN_HASHSUM" ; then
   echo "You must have either sha1sum, shasum, md5sum or md5 in your path. Quitting!"
   echo
   rm -f makefile
-  exit
+  exit 1
 fi
 
 AC_PATH_PROG(PATH_TO_TCLSH, tclsh, UNKNOWN_TCLSH)
@@ -638,62 +660,49 @@ if test "$PATH_TO_TCLSH" = "UNKNOWN_TCLSH" -a "$ALLOW_TCL_MFILES" = yes; then
   echo "The tclsh program must be in your path. Quitting!"
   echo
   rm -f makefile
-  exit
+  exit 1
 fi
 AC_PATH_PROGS(PATH_TO_TR, [gtr] [tr],"")
 
-AC_PATH_PROG(PATH_TO_LUAC, [luac])
-AC_PATH_PROG(luaprog, [lua], "")
+##### UTILS -- end
 
-if test x$luaprog = "x"; then
-  echo The program "lua" must be in your path
+##### LUA configuration -- start
+
+if ! command -v $PATH_TO_LUA &>/dev/null ; then
+  echo 'The program "lua" must be in your path'
   rm -f makefile
-  exit
+  exit 1
 fi
 
-if test x$PATH_TO_LUAC = "x"; then
-  echo The program "luac" must be in your path
-  rm -f makefile
-  exit
+if test ${PATH_TO_LUA:0:1} != '/' ; then
+  AC_PATH_PROG(FIND_PATH_TO_LUA, [lua])
+  PATH_TO_LUA=$(readlink -f $FIND_PATH_TO_LUA)
 fi
 
+if ! command -v $PATH_TO_LUAC &>/dev/null ; then
+  echo 'The program "luac" must be in your path'
+  rm -f makefile
+  exit 1
+fi
 
-
-
-oldprog=$luaprog
-while test -L $luaprog; do
-  luaprog=$(readlink $luaprog)
-  if test ${luaprog:0:1} != '/' ; then
-     d=`dirname $oldprog`
-     luaprog="$d/$luaprog"
-     CWD=`pwd`
-     d=`dirname $luaprog`
-     b=`basename $luaprog`
-     cd $d
-     d=`pwd`
-     luaprog="$d/$b"
-     cd $CWD
-  fi
-  oldprog=$luaprog
-done
-
+if test ${PATH_TO_LUAC:0:1} != '/' ; then
+  AC_PATH_PROG(FIND_PATH_TO_LUAC, [lua])
+  PATH_TO_LUA=$(readlink -f $FIND_PATH_TO_LUAC)
+fi
 
 printf "checking for valid Lua version"
 
-SRCDIR=$( cd $srcdir; pwd)
-PATH_TO_SRC=$SRCDIR
-
 ORIG_LUA_PATH="$LUA_PATH"
 export LUA_PATH="${SRCDIR}/src/?.lua;$LUA_PATH;;"
-LuaV=$( $luaprog -e 'print(_VERSION)' | sed -e 's/Lua //' )
-LmodV=$( $luaprog  -e "v=require('Version'); s=v.name():gsub(' .*','');print(s)")
+LuaV=$( $PATH_TO_LUA -e 'print(_VERSION)' | sed -e 's/Lua //' )
+LmodV=$( $PATH_TO_LUA  -e "v=require('Version'); s=v.name():gsub(' .*','');print(s)")
 if test -n "$PATH_TO_GIT" -a -d .git ; then
   lmodV=$($PATH_TO_GIT describe)
 else
-  lmodV=$($luaprog -e "v=require('Version'); s=v.git():gsub(' .*','');print(s)")
+  lmodV=$($PATH_TO_LUA -e "v=require('Version'); s=v.git():gsub(' .*','');print(s)")
 fi
 
-IntLuaV=$( $luaprog  -e "_,_,M,m=_VERSION:gsub('Lua%s+',''):find('(%d+)%.(%d)'); print(math.floor(tonumber(M)*1000+tonumber(m)))")
+IntLuaV=$( $PATH_TO_LUA  -e "_,_,M,m=_VERSION:gsub('Lua%s+',''):find('(%d+)%.(%d)'); print(math.floor(tonumber(M)*1000+tonumber(m)))")
 
 if test $IntLuaV -lt 5001 -o $IntLuaV -gt 5004; then
   echo "Error: Lmod requires versions 5.1, 5.2, 5.3, or 5.4 You have: $LuaV"
@@ -703,8 +712,6 @@ fi
 
 echo "... $LuaV"
 
-PATH_TO_LUA=$(dirname $luaprog)
-
 if test -z "$ORIG_LUA_PATH" ; then
    unset LUA_PATH
 else
@@ -713,8 +720,8 @@ fi
 
 AC_SUBST(SYS_LUA_PATH)
 AC_SUBST(SYS_LUA_CPATH)
-SYS_LUA_PATH=$($luaprog -e "print(package.path)")
-SYS_LUA_CPATH=$($luaprog -e "print(package.cpath)")
+SYS_LUA_PATH=$($PATH_TO_LUA -e "print(package.path)")
+SYS_LUA_CPATH=$($PATH_TO_LUA -e "print(package.cpath)")
 SYS_LUA_PATH=$(echo $SYS_LUA_PATH   | sed -e 's|^\./?.lua;||'       \
                                           -e 's|;\./?.lua;|;|'      \
                                           -e 's|;\./?.lua$||'       \
@@ -725,35 +732,11 @@ SYS_LUA_CPATH=$(echo $SYS_LUA_CPATH | sed -e 's|^\./?.so;||'   \
                                           -e 's|;\./?.so;|;|'  \
                                           -e 's|;\./?.so$|;|')
 
-WD=`pwd`
-
-PATH_TO_LUA_DIR=${PATH_TO_LUA}/..
-
-cd $PATH_TO_LUA_DIR
-
-PATH_TO_LUA_DIR=`pwd`
-
-cd $WD
-
-cat > luaModuleAvailable << 'EOF'
-function main()
-   for i = 1, #arg do
-      require(arg[[i]])
-      if (not package.loaded[[arg[i]]]) then
-         print (arg[[i]], "not available")
-      end
-   end
-end
-
-main()
-EOF
-
 printf "checking for lua modules: posix"
 
 missingModules=""
 for i in posix; do
-  $luaprog luaModuleAvailable $i 2> /dev/null
-  if test "$?" != 0 ; then
+  if ! $PATH_TO_LUA helpers/luaModuleAvailable $i 2> /dev/null ; then
     missingModules="$missingModules $i"
   fi
 done
@@ -770,43 +753,6 @@ else
   echo "... yes"
 fi
 
-
-cat > getLFSVersion << 'EOF'
-local lfs       = require("lfs")
-
-function string.split(self, pat)
-   pat  = pat or "%s+"
-   local st, g = 1, self:gmatch("()("..pat..")")
-   local function getter(self, segs, seps, sep, cap1, ...)
-      st = sep and seps + #sep
-      return self:sub(segs, (seps or 0) - 1), cap1 or sep, ...
-   end
-   local function splitter(self)
-      if st then return getter(self, st, g()) end
-   end
-   return splitter, self
-end
-
-function main()
-
-   local version = lfs._VERSION:lower():gsub("luafilesystem  *","")
-   local factorA = { 1000000, 1000, 1}
-
-   local idx = 0
-   local num = 0
-   for s in version:split("%.") do
-      local i,j = s:find("%d+")
-      s         = s:sub(i,j)
-      idx = idx + 1
-      num = (tonumber(s) or 0)*factorA@<:@idx@:>@ + num
-      if (idx >= #factorA) then break end
-   end
-   print(num)
-end
-
-main()
-EOF
-
 if test "$USE_BUILT_IN_PKGS" = yes ; then
   AC_SUBST(HAVE_LUAFILESYSTEM,no)
   AC_SUBST(HAVE_LUA_TERM,no)
@@ -815,8 +761,7 @@ else
 
   missingModules=""
   for i in lfs; do
-    $luaprog luaModuleAvailable $i 2> /dev/null
-    if test "$?" != 0 ; then
+    if ! $PATH_TO_LUA helpers/luaModuleAvailable $i 2> /dev/null ; then
       missingModules="$i"
     fi
   done
@@ -824,7 +769,7 @@ else
   if test -n "$missingModules" ; then
     echo "... no"
   else
-    lfsV=`$luaprog getLFSVersion`
+    lfsV=`$PATH_TO_LUA helpers/getLFSVersion`
     if test "$lfsV" -lt 1008000; then
        echo "... Too old, using providing version"
     else
@@ -833,13 +778,11 @@ else
     fi
   fi
 
-
   printf "checking for lua modules: term"
 
   missingModules=""
   for i in term; do
-    $luaprog luaModuleAvailable $i 2> /dev/null
-    if test "$?" != 0 ; then
+    if ! $PATH_TO_LUA helpers/luaModuleAvailable $i 2> /dev/null ; then
       missingModules="$missingModules $i"
     fi
   done
@@ -852,48 +795,7 @@ else
   fi
 fi
 
-
-rm luaModuleAvailable getLFSVersion
-
-if ! test -f $LUA_INCLUDE/lua.h; then
-   LUA_INCLUDE=$PATH_TO_LUA_DIR/include
-fi
-
-if ! test -f $LUA_INCLUDE/lua.h; then
-  AC_PATH_PROG(pkgConfig, pkg-config, "")
-  if  ! test x$pkgConfig = "x"; then
-    for i in lua$LuaV lua; do
-      $pkgConfig --exists $i
-      if test $? = 0; then
-        LUA_INCLUDE=`$pkgConfig --cflags $i | sed -e 's/^-I//' -e 's/ //g'`
-        break
-      fi
-    done
-  fi
-fi
-
-if ! test -f $LUA_INCLUDE/lua.h; then
-  for i in /usr/include/lua$LuaV /usr/include/lua /usr/include; do
-     if test -f $i/lua.h ; then
-        LUA_INCLUDE=$i
-        break
-     fi
-  done
-fi
-
-if ! test "$HAVE_LUA_TERM" = yes; then
-  if ! test -f $LUA_INCLUDE/lua.h; then
-    echo
-    echo Error can not find lua.h which is needed to build lua-term.
-    echo You can either install lua-term or the lua development package.
-    echo Quitting!
-    echo
-    rm -f makefile
-    exit 1
-  fi
-fi
-
-
+##### LUA configuration -- end
 
 
 AC_SUBST(ZSH_SITE_FUNCTIONS_DIRS)

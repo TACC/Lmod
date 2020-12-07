@@ -14,7 +14,7 @@ else
   DIR        := /usr/include/tcl
   LIB_OPTION := -shared -Wl,-soname,$(SONAMEV) #for Linux
 endif
-override CFLAGS   := $(CFLAGS) -DLUA_COMPAT_MODULE -fPIC -I $(LUA_INC) -I $(DIR)
+override CFLAGS   := $(CFLAGS) -DLUA_COMPAT_MODULE -fPIC $(LUA_INC) -I $(DIR)
 
 all:  $(LIBRARY) $(SONAMEV) $(SONAME)
 
