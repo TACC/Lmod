@@ -36,7 +36,7 @@ Return value is t on success, nil otherwise."
             ;; so it must go to a file and then get pulled into the log buffer
             ;; (XEmacs *can* direct stderr to buffer, but not worth special case)
             (progn
-              (apply 'call-process "@path_to_lua@/lua" nil
+              (apply 'call-process "@path_to_lua@" nil
                                    (list cmd-buffer log-scratch-file)
                                    nil          ;; don't display stdout
                                    "@PKGV@/libexec/lmod"

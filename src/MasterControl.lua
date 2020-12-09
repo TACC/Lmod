@@ -115,7 +115,7 @@ end
 local function l_error_on_missing_loaded_modules(aa,bb)
 
    if (#aa > 0) then
-      local luaprog = "@path_to_lua@/lua"
+      local luaprog = "@path_to_lua@"
       local found
       if (luaprog:sub(1,1) == "@") then
          luaprog, found = findInPath("lua")

@@ -29,7 +29,7 @@ echo "Package version............................................." : Lmod-$Lmod
 echo "Package version (git) ......................................" : $lmodV
 echo 
 echo "LUA_INCLUDE................................................." : $LUA_INCLUDE
-echo "Lua executable.............................................." : $luaprog
+echo "Lua executable.............................................." : $PATH_TO_LUA
 echo "Luac executable............................................." : $PATH_TO_LUAC
 echo "User Controlled Prefix......................................" : $SITE_CONTROLLED_PREFIX
 echo "Prefix......................................................" : $prefix

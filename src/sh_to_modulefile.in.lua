@@ -1,4 +1,4 @@
-#!@path_to_lua@/lua
+#!@path_to_lua@
 -- -*- lua -*-
 
 --------------------------------------------------------------------------
@@ -475,7 +475,7 @@ function main()
       os.exit(0)
    end
 
-   local LuaCmd = "@path_to_lua@/lua"
+   local LuaCmd = "@path_to_lua@"
    local found
 
    if (LuaCmd:sub(1,1) == "@") then

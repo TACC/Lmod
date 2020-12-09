@@ -316,7 +316,7 @@ update_cache() {
     if [ $ext = lua ]; then
        # also install compiled Lmod cache version
        # include Lua version in filename of compiled cache, to avoid compatibility issues when Lua is upgraded
-       lua_ver=$(@path_to_lua@/lua -e 'print((_VERSION:gsub("Lua ","")))')
+       lua_ver=$(@path_to_lua@ -e 'print((_VERSION:gsub("Lua ","")))')
        @path_to_luac@ -o ${cache_file_name}.new.luac_$lua_ver ${cache_file_name}.lua
        install_new_cache luac_$lua_ver ${cache_file_name}
     fi

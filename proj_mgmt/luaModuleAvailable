@@ -1,0 +1,10 @@
+function main()
+   for i = 1, #arg do
+      require(arg[i])
+      if (not package.loaded[arg[i]]) then
+         print (arg[i], "not available")
+      end
+   end
+end
+
+main()

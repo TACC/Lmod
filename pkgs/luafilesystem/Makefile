@@ -12,11 +12,7 @@ else
   LIB_OPTION := -shared -Wl,-soname,$(SONAMEV) #for Linux
 endif
 
-override CFLAGS  := $(CFLAGS) -fPIC
-
-ifneq ($(LUA_INC),)
-  override CFLAGS  := $(CFLAGS) -I$(LUA_INC)
-endif
+override CFLAGS  := $(CFLAGS) -fPIC $(LUA_INC)
 
 
 all:  $(LIBRARY) $(SONAMEV) $(SONAME)
