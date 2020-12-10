@@ -43,3 +43,9 @@ Lmod 8.4+
 	    * added TCL module function require-fullname to match requireFullName in Lua.
             * Do not check $cache_type twice, use $ext = lua for lua like operations in update
               spider cache script.
+   (8.4.18) * Issue #481 (and PR #488) are merged in.
+              New configure options to specify where lua and luac executables exist
+              (--with-lua= and --with-luac=).  It is also possible to use --with-luaSuffix=.
+              Both --with-lua= and --with-luac= must be specified if one is specified
+              The option --with-luaSuffix= can not be used with --with-lua or --with-luac
+            * PR #489 is merged in. This fixes bug with "module --terse keyword"
