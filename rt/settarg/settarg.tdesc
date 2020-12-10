@@ -33,12 +33,10 @@ testdescript = {
      cp $(testDir)/.settarg.lua .
 
 
-     PATH_TO_LUA=`type -p lua`
-     PATH_TO_LUA=${PATH_TO_LUA#lua is }
      mkdir -p mf/Core/settarg
      sed -e 's|@PKG@|$(projectDir)|g'                    \
          -e 's|@settarg_cmd@|settarg_cmd.in.lua|g'       \
-         -e "s|@path_to_lua@|$PATH_TO_LUA|g"             \
+         -e "s|@path_to_lua@|$LUA_EXEC|g"                \
           < $(projectDir)/MF/settarg.version.lua > mf/Core/settarg/1.0.lua
 
      export LMOD_SETTARG_FULL_SUPPORT=full
