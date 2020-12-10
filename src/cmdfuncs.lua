@@ -248,7 +248,7 @@ function Keyword(...)
    local kywdT,kywdExtsT        = spider:searchSpiderDB(pack(...), dbT, providedByT)
 
    if (terse) then
-      shell:echo(Spider:Level0_terse(kywdT))
+      shell:echo(Spider:Level0_terse(kywdT, providedByT))
       dbg.fini("Keyword")
       return
    end
