@@ -19,6 +19,29 @@ VALID_YN ()
   esac
 }
 
+FOLLOW_READLINK ()
+{
+  myprog=$1
+  oldprog=$1
+  while test -L $myprog; do
+    myprog=$(readlink $myprog)
+    if test ${myprog:0:1} != '/' ; then
+       d=$(dirname $oldprog)
+       myprog="$d/$myprog"
+       CWD=$(pwd)
+       d=$(dirname $myprog)
+       b=$(basename $myprog)
+       cd $d
+       d=$(pwd)
+       myprog="$d/$b"
+       cd $CWD
+     fi
+     oldprog=$myprog
+  done
+  echo $myprog
+}
+
+
 AC_SUBST(DUPLICATE_PATHS)
 AC_ARG_WITH(duplicatePaths,
     AC_HELP_STRING([--with-duplicatePaths=ans],[Allow duplicate directories in path like variables [[no]]]),
@@ -727,7 +750,7 @@ fi
 
 if test ${PATH_TO_LUA:0:1} != '/' ; then
   AC_PATH_PROG(FIND_PATH_TO_LUA, $PATH_TO_LUA)
-  PATH_TO_LUA=$(readlink -f $FIND_PATH_TO_LUA)
+  PATH_TO_LUA=$(FOLLOW_READLINK $FIND_PATH_TO_LUA)
 fi
 echo "2) PATH_TO_LUA: $PATH_TO_LUA"
 
@@ -739,7 +762,7 @@ fi
 
 if test "${PATH_TO_LUAC:0:1}" != '/' ; then
   AC_PATH_PROG(FIND_PATH_TO_LUAC, $PATH_TO_LUAC)
-  PATH_TO_LUAC=$(readlink -f $FIND_PATH_TO_LUAC)
+  PATH_TO_LUAC=$(FOLLOW_READLINK $FIND_PATH_TO_LUAC)
 fi
 
 printf "checking for valid Lua version"

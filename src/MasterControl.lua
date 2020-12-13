@@ -112,8 +112,11 @@ local function compareRequestedLoadsWithActual()
    return aa, bb
 end
 
-local function l_error_on_missing_loaded_modules(aa,bb)
+local function l_createStackName(name)
+   return "__LMOD_STACK_" .. name
+end
 
+local function l_error_on_missing_loaded_modules(aa,bb)
    if (#aa > 0) then
       local luaprog = "@path_to_lua@"
       local found
@@ -333,12 +336,18 @@ function M.unsetenv(self, name, value, respect)
       return
    end
 
-   local frameStk = FrameStk:singleton()
-   local varT     = frameStk:varT()
+   local frameStk  = FrameStk:singleton()
+   local varT      = frameStk:varT()
    if (varT[name] == nil) then
-      varT[name] = Var:new(name)
+      varT[name]   = Var:new(name)
    end
    varT[name]:unset()
+
+   -- Unset stack variable if it exists
+   local stackName = l_createStackName(name)
+   if (varT[stackName]) then
+      varT[name]:unset()
+   end
    dbg.fini("MasterControl:unsetenv")
 end
 
@@ -364,7 +373,7 @@ function M.pushenv(self, name, value)
       LmodError{msg="e_Missing_Value",func = "pushenv", name = name}
    end
 
-   local stackName = "__LMOD_STACK_" .. name
+   local stackName = l_createStackName(name)
    local v64       = nil
    local v         = getenv(name)
    if (getenv(stackName) == nil and v) then
@@ -408,7 +417,7 @@ function M.popenv(self, name, value)
    name = name:trim()
    dbg.start{"MasterControl:popenv(\"",name,"\", \"",value,"\")"}
 
-   local stackName = "__LMOD_STACK_" .. name
+   local stackName = l_createStackName(name)
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
 

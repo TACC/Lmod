@@ -49,3 +49,6 @@ Lmod 8.4+
               Both --with-lua= and --with-luac= must be specified if one is specified
               The option --with-luaSuffix= can not be used with --with-lua or --with-luac
             * PR #489 is merged in. This fixes bug with "module --terse keyword"
+   (8.4.19) * MasterControl:unsetenv(name) also clears stack if it exists.
+            * Issue #490: use old way of following readlink as "readlink -f" is not universal.
+            
