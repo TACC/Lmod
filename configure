@@ -1399,7 +1399,7 @@ Optional Packages:
                           [[no]]
   --with-allowRootUse=ans Allow root to use Lmod [[yes]]
   --with-siteMsgFile=ans  Site Message File [[<empty>]]
-  --with-lang=ans         Override $LANG for Lmod errors/messsages/warnings
+  --with-lang=ans         Override $LANG for Lmod errors/messages/warnings
                           [[<empty>]]
   --with-caseIndependentSorting=ans
                           Make avail and spider use case independent sorting
