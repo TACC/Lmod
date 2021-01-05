@@ -23,41 +23,42 @@ testdescript = {
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
-     runLmod --version                         # 1
-     runLmod avail                             # 2
+     runLmod --version                             # 1
+     runLmod avail                                 # 2
 
-     runLmod load settarg                      # 3
-     runLmod load targ                         # 4
-     runLmod list                              # 5
+     runLmod load settarg                          # 3
+     runLmod load targ                             # 4
+     runLmod list                                  # 5
 
-     runLmod purge                             # 6
+     runLmod purge                                 # 6
      unsetMT
      MODULEPATH=$(testDir)/MF_FOO/A:$(testDir)/MF_FOO/B
 
-     runLmod avail                             # 7
-     runLmod load Foo                          # 8
-     runLmod list                              # 9
-     runLmod load Foo/1.0                      #10
-     runLmod list                              #11
+     runLmod avail                                 # 7
+     runLmod load Foo                              # 8
+     runLmod list                                  # 9
+     runLmod load Foo/1.0                          #10
+     runLmod list                                  #11
 
-     runLmod purge                             #12
+     runLmod purge                                 #12
      unsetMT
      MODULEPATH=$(testDir)/MF_FOO/B:$(testDir)/MF_FOO/A
 
-     runLmod avail                             #13
-     runLmod load Foo                          #14
-     runLmod list                              #15
-     runLmod load Foo/1.0                      #16
-     runLmod list                              #17
+     runLmod avail                                 #13
+     runLmod load Foo                              #14
+     runLmod list                                  #15
+     runLmod load Foo/1.0                          #16
+     runLmod list                                  #17
 
-     runLmod purge                             #18
+     runLmod purge                                 #18
      unsetMT
      MODULEPATH=$(testDir)/MF_FOO/A:$(testDir)/MF_FOO/B
 
      export LMOD_MODULERCFILE=$testDir/dot.modulerc.lua
-     runLmod avail                             #19
-     runLmod load Foo                          #20
-     runLmod list                              #21
+     runLmod avail                                 #19
+     runLmod load Foo                              #20
+     runLmod list                                  #21
+     runBase runSpiderCmd -o spiderT $MODULEPATH   #22
 
 
      HOME=$ORIG_HOME
