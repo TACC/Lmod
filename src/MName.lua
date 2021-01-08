@@ -196,7 +196,7 @@ local function lazyEval(self)
          self.__sn       = t.sn
          self.__version  = t.version
          self.__userName = build_fullName(t.sn, t.version)
-         self.__wV         = mt:wV(sn)
+         self.__wV       = t.wV
       end
 
       dbg.fini("lazyEval via inherit")

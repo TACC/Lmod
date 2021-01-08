@@ -22,7 +22,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/rstats/mf/Core/Rstats/3.4.0.lua:1\;Proj
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/rstats/mf/Core/Rstats/3.4.0.lua:ProjectDIR/rt/rstats/mf/Core/Rpkgs/3.4.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={Rpkgs={["fn"]="ProjectDIR/rt/rstats/mf/Core/Rpkgs/3.4.0.lua",["fullName"]="Rpkgs/3.4.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="Rpkgs",},Rstats={["fn"]="ProjectDIR/rt/rstats/mf/Core/Rstats/3.4.0.lua",["fullName"]="Rstats/3.4.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="Rstats/3.4.0",},},mpathA={"ProjectDIR/rt/rstats/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/rstats/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={Rpkgs={["fn"]="ProjectDIR/rt/rstats/mf/Core/Rpkgs/3.4.0.lua",["fullName"]="Rpkgs/3.4.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="Rpkgs",["wV"]="000000003.000000004.*zfinal",},Rstats={["fn"]="ProjectDIR/rt/rstats/mf/Core/Rstats/3.4.0.lua",["fullName"]="Rstats/3.4.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="Rstats/3.4.0",["wV"]="000000003.000000004.*zfinal",},},mpathA={"ProjectDIR/rt/rstats/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/rstats/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -30,7 +30,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/rstats/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={Rpkgs={["fn"]="ProjectDIR/rt/rstats/mf/Core/Rpkgs/3.4.0.lua",["fullName"]="Rpkgs/3.4.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="Rpkgs",},Rstats={["fn"]="ProjectDIR/rt/rstats/mf/Core/Rstats/3.4.0.lua",["fullName"]="Rstats/3.4.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="Rstats/3.4.0",},},mpathA={"ProjectDIR/rt/rstats/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/rstats/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={Rpkgs={["fn"]="ProjectDIR/rt/rstats/mf/Core/Rpkgs/3.4.0.lua",["fullName"]="Rpkgs/3.4.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="Rpkgs",["wV"]="000000003.000000004.*zfinal",},Rstats={["fn"]="ProjectDIR/rt/rstats/mf/Core/Rstats/3.4.0.lua",["fullName"]="Rstats/3.4.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="Rstats/3.4.0",["wV"]="000000003.000000004.*zfinal",},},mpathA={"ProjectDIR/rt/rstats/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/rstats/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -50,5 +50,5 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/rstats/mf/Core/Rstats/3.4.0.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/rstats/mf/Core/Rstats/3.4.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={Rstats={["fn"]="ProjectDIR/rt/rstats/mf/Core/Rstats/3.4.0.lua",["fullName"]="Rstats/3.4.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="Rstats/3.4.0",},},mpathA={"ProjectDIR/rt/rstats/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/rstats/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={Rstats={["fn"]="ProjectDIR/rt/rstats/mf/Core/Rstats/3.4.0.lua",["fullName"]="Rstats/3.4.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="Rstats/3.4.0",["wV"]="000000003.000000004.*zfinal",},},mpathA={"ProjectDIR/rt/rstats/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/rstats/mf/Core",}';
 export _ModuleTable_;

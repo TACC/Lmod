@@ -26,7 +26,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/shellType/mf/myShellType/1.0:1;
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/shellType/mf/myShellType/1.0;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={myShellType={["fn"]="ProjectDIR/rt/shellType/mf/myShellType/1.0",["fullName"]="myShellType/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="myShellType/1.0",},},mpathA={"ProjectDIR/rt/shellType/mf",},["systemBaseMPATH"]="ProjectDIR/rt/shellType/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={myShellType={["fn"]="ProjectDIR/rt/shellType/mf/myShellType/1.0",["fullName"]="myShellType/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="myShellType/1.0",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/shellType/mf",},["systemBaseMPATH"]="ProjectDIR/rt/shellType/mf",}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -42,5 +42,5 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/shellType/mf/myShellType/2.0.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/shellType/mf/myShellType/2.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={myShellType={["fn"]="ProjectDIR/rt/shellType/mf/myShellType/2.0.lua",["fullName"]="myShellType/2.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="myShellType/2.0",},},mpathA={"ProjectDIR/rt/shellType/mf",},["systemBaseMPATH"]="ProjectDIR/rt/shellType/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={myShellType={["fn"]="ProjectDIR/rt/shellType/mf/myShellType/2.0.lua",["fullName"]="myShellType/2.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="myShellType/2.0",["wV"]="000000002.*zfinal",},},mpathA={"ProjectDIR/rt/shellType/mf",},["systemBaseMPATH"]="ProjectDIR/rt/shellType/mf",}';
 export _ModuleTable_;

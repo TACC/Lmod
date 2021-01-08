@@ -28,7 +28,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={admin={["fn"]="ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua",["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="admin",},},mpathA={"ProjectDIR/rt/end2end/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/end2end/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={admin={["fn"]="ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua",["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="admin",["wV"]="^admin.*zfinal-.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/end2end/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/end2end/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -44,7 +44,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua:1\;
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/end2end/mf/Core/amber/1.1;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={admin={["fn"]="ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua",["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="admin",},amber={["fn"]="ProjectDIR/rt/end2end/mf/Core/amber/1.1",["fullName"]="amber/1.1",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="amber",},},mpathA={"ProjectDIR/rt/end2end/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/end2end/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={admin={["fn"]="ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua",["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="admin",["wV"]="^admin.*zfinal-.000000001.*zfinal",},amber={["fn"]="ProjectDIR/rt/end2end/mf/Core/amber/1.1",["fullName"]="amber/1.1",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="amber",["wV"]="s00000001.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/end2end/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/end2end/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 5
@@ -66,7 +66,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua:1\;
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/end2end/mf/Core/amber/1.1:ProjectDIR/rt/end2end/mf/Core/myinfo/1.0;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={admin={["fn"]="ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua",["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="admin",},amber={["fn"]="ProjectDIR/rt/end2end/mf/Core/amber/1.1",["fullName"]="amber/1.1",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="amber",},myinfo={["fn"]="ProjectDIR/rt/end2end/mf/Core/myinfo/1.0",["fullName"]="myinfo/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="myinfo",},},mpathA={"ProjectDIR/rt/end2end/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/end2end/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={admin={["fn"]="ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua",["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="admin",["wV"]="^admin.*zfinal-.000000001.*zfinal",},amber={["fn"]="ProjectDIR/rt/end2end/mf/Core/amber/1.1",["fullName"]="amber/1.1",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="amber",["wV"]="s00000001.000000001.*zfinal",},myinfo={["fn"]="ProjectDIR/rt/end2end/mf/Core/myinfo/1.0",["fullName"]="myinfo/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="myinfo",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/end2end/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/end2end/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 7
@@ -74,7 +74,7 @@ step 7
 ===========================
 MODULEPATH=ProjectDIR/rt/end2end/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={admin={["fn"]="ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua",["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="admin",},amber={["fn"]="ProjectDIR/rt/end2end/mf/Core/amber/1.1",["fullName"]="amber/1.1",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="amber",},myinfo={["fn"]="ProjectDIR/rt/end2end/mf/Core/myinfo/1.0",["fullName"]="myinfo/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="myinfo",},},mpathA={"ProjectDIR/rt/end2end/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/end2end/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={admin={["fn"]="ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua",["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="admin",["wV"]="^admin.*zfinal-.000000001.*zfinal",},amber={["fn"]="ProjectDIR/rt/end2end/mf/Core/amber/1.1",["fullName"]="amber/1.1",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="amber",["wV"]="s00000001.000000001.*zfinal",},myinfo={["fn"]="ProjectDIR/rt/end2end/mf/Core/myinfo/1.0",["fullName"]="myinfo/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="myinfo",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/end2end/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/end2end/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 8
@@ -82,7 +82,7 @@ step 8
 ===========================
 MODULEPATH=ProjectDIR/rt/end2end/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={admin={["fn"]="ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua",["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="admin",},amber={["fn"]="ProjectDIR/rt/end2end/mf/Core/amber/1.1",["fullName"]="amber/1.1",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="amber",},myinfo={["fn"]="ProjectDIR/rt/end2end/mf/Core/myinfo/1.0",["fullName"]="myinfo/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="myinfo",},},mpathA={"ProjectDIR/rt/end2end/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/end2end/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={admin={["fn"]="ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua",["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="admin",["wV"]="^admin.*zfinal-.000000001.*zfinal",},amber={["fn"]="ProjectDIR/rt/end2end/mf/Core/amber/1.1",["fullName"]="amber/1.1",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="amber",["wV"]="s00000001.000000001.*zfinal",},myinfo={["fn"]="ProjectDIR/rt/end2end/mf/Core/myinfo/1.0",["fullName"]="myinfo/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="myinfo",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/end2end/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/end2end/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 9

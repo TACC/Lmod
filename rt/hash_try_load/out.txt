@@ -18,7 +18,7 @@ __LMOD_REF_COUNT__LMFILES_=OutputDIR/mf/Core/cluster:1\;OutputDIR/mf/Core/TACC:1
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=OutputDIR/mf/Core/cluster:OutputDIR/mf/Core/TACC;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="OutputDIR/mf/Core/TACC",["fullName"]="TACC",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="TACC",},cluster={["fn"]="OutputDIR/mf/Core/cluster",["fullName"]="cluster",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="cluster",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="OutputDIR/mf/Core/TACC",["fullName"]="TACC",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="TACC",["wV"]="M.*zfinal",},cluster={["fn"]="OutputDIR/mf/Core/cluster",["fullName"]="cluster",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="cluster",["wV"]="M.*zfinal",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -26,7 +26,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 MODULEPATH=OutputDIR/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="OutputDIR/mf/Core/TACC",["fullName"]="TACC",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="TACC",},cluster={["fn"]="OutputDIR/mf/Core/cluster",["fullName"]="cluster",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="cluster",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="OutputDIR/mf/Core/TACC",["fullName"]="TACC",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="TACC",["wV"]="M.*zfinal",},cluster={["fn"]="OutputDIR/mf/Core/cluster",["fullName"]="cluster",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="cluster",["wV"]="M.*zfinal",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -54,7 +54,7 @@ __LMOD_REF_COUNT__LMFILES_=OutputDIR/mf/Core/cluster:1\;OutputDIR/mf/Core/TACC:1
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=OutputDIR/mf/Core/cluster:OutputDIR/mf/Core/TACC;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="OutputDIR/mf/Core/TACC",["fullName"]="TACC",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="TACC",},cluster={["fn"]="OutputDIR/mf/Core/cluster",["fullName"]="cluster",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="cluster",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="OutputDIR/mf/Core/TACC",["fullName"]="TACC",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="TACC",["wV"]="M.*zfinal",},cluster={["fn"]="OutputDIR/mf/Core/cluster",["fullName"]="cluster",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="cluster",["wV"]="M.*zfinal",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
 export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__=1;
 export __LMOD_DEFAULT_MODULES_LOADED__;

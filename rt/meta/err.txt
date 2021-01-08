@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.4.1  2020-08-12 15:27 -05:00
+Modules based on Lua: Version 8.4.19  2020-12-13 13:58 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -134,3 +134,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) Foo/1.0
+===========================
+step 22
+runSpiderCmd -o spiderT ProjectDIR/rt/meta/MF_FOO/A:ProjectDIR/rt/meta/MF_FOO/B
+===========================

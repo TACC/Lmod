@@ -18,5 +18,5 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/userInGroups/mf/foo/1.1.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/userInGroups/mf/foo/1.1.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={foo={["fn"]="ProjectDIR/rt/userInGroups/mf/foo/1.1.lua",["fullName"]="foo/1.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="foo",},},mpathA={"ProjectDIR/rt/userInGroups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/userInGroups/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={foo={["fn"]="ProjectDIR/rt/userInGroups/mf/foo/1.1.lua",["fullName"]="foo/1.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="foo",["wV"]="000000001.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/userInGroups/mf",},["systemBaseMPATH"]="ProjectDIR/rt/userInGroups/mf",}';
 export _ModuleTable_;

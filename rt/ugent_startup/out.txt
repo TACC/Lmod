@@ -48,7 +48,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/ugent_startup/mf/Core/cluster/delcatty.
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/ugent_startup/mf/Core/cluster/delcatty.lua:ProjectDIR/rt/ugent_startup/mf/Core/cluster/.defaultcluster.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["cluster"]="cluster",},mT={cluster={["fn"]="ProjectDIR/rt/ugent_startup/mf/Core/cluster/delcatty.lua",["fullName"]="cluster/delcatty",["loadOrder"]=1,propT={lmod={["sticky"]=1,},},["stackDepth"]=1,["status"]="active",["userName"]="cluster/delcatty",},},mpathA={"ProjectDIR/rt/ugent_startup/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/ugent_startup/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["cluster"]="cluster",},mT={cluster={["fn"]="ProjectDIR/rt/ugent_startup/mf/Core/cluster/delcatty.lua",["fullName"]="cluster/delcatty",["loadOrder"]=1,propT={lmod={["sticky"]=1,},},["stackDepth"]=1,["status"]="active",["userName"]="cluster/delcatty",["wV"]="*delcatty.*zfinal",},},mpathA={"ProjectDIR/rt/ugent_startup/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/ugent_startup/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 5
@@ -56,5 +56,5 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/ugent_startup/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["cluster"]="cluster",},mT={cluster={["fn"]="ProjectDIR/rt/ugent_startup/mf/Core/cluster/delcatty.lua",["fullName"]="cluster/delcatty",["loadOrder"]=1,propT={lmod={["sticky"]=1,},},["stackDepth"]=1,["status"]="active",["userName"]="cluster/delcatty",},},mpathA={"ProjectDIR/rt/ugent_startup/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/ugent_startup/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["cluster"]="cluster",},mT={cluster={["fn"]="ProjectDIR/rt/ugent_startup/mf/Core/cluster/delcatty.lua",["fullName"]="cluster/delcatty",["loadOrder"]=1,propT={lmod={["sticky"]=1,},},["stackDepth"]=1,["status"]="active",["userName"]="cluster/delcatty",["wV"]="*delcatty.*zfinal",},},mpathA={"ProjectDIR/rt/ugent_startup/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/ugent_startup/mf/Core",}';
 export _ModuleTable_;

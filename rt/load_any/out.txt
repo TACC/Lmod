@@ -33,7 +33,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load_any/mf/Foo/1.0.lua:1\;ProjectDIR/r
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/load_any/mf/Foo/1.0.lua:ProjectDIR/rt/load_any/mf/A/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/load_any/mf/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",},Foo={["fn"]="ProjectDIR/rt/load_any/mf/Foo/1.0.lua",["fullName"]="Foo/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="Foo",},},mpathA={"ProjectDIR/rt/load_any/mf",},["systemBaseMPATH"]="ProjectDIR/rt/load_any/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/load_any/mf/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",["wV"]="000000001.*zfinal",},Foo={["fn"]="ProjectDIR/rt/load_any/mf/Foo/1.0.lua",["fullName"]="Foo/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="Foo",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/load_any/mf",},["systemBaseMPATH"]="ProjectDIR/rt/load_any/mf",}';
 export _ModuleTable_;
 ===========================
 step 5
@@ -41,7 +41,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/load_any/mf;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/load_any/mf/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",},Foo={["fn"]="ProjectDIR/rt/load_any/mf/Foo/1.0.lua",["fullName"]="Foo/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="Foo",},},mpathA={"ProjectDIR/rt/load_any/mf",},["systemBaseMPATH"]="ProjectDIR/rt/load_any/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/load_any/mf/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",["wV"]="000000001.*zfinal",},Foo={["fn"]="ProjectDIR/rt/load_any/mf/Foo/1.0.lua",["fullName"]="Foo/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="Foo",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/load_any/mf",},["systemBaseMPATH"]="ProjectDIR/rt/load_any/mf",}';
 export _ModuleTable_;
 ===========================
 step 6

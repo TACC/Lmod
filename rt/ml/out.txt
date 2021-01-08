@@ -26,6 +26,6 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/ml/mf/Core/ml/1.0.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/ml/mf/Core/ml/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={ml={["fn"]="ProjectDIR/rt/ml/mf/Core/ml/1.0.lua",["fullName"]="ml/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="ml",},},mpathA={"ProjectDIR/rt/ml/mf/Core",},}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={ml={["fn"]="ProjectDIR/rt/ml/mf/Core/ml/1.0.lua",["fullName"]="ml/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="ml",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/ml/mf/Core",},}';
 export _ModuleTable_;
 ml () { eval $($LMOD_DIR/ml_cmd "$@"); };

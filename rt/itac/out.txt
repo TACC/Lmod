@@ -26,7 +26,7 @@ __LMOD_REF_COUNT__LMFILES_=OutputDIR/mf/Core/intel/15.0.2.lua:1\;OutputDIR/mf/Co
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=OutputDIR/mf/Core/intel/15.0.2.lua:OutputDIR/mf/Compiler/intel/15.0/mv2/2.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mv2",["compiler"]="intel",},mT={intel={["fn"]="OutputDIR/mf/Core/intel/15.0.2.lua",["fullName"]="intel/15.0.2",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",},mv2={["fn"]="OutputDIR/mf/Compiler/intel/15.0/mv2/2.0.lua",["fullName"]="mv2/2.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mv2",},},mpathA={"OutputDIR/mf/MPI/intel/15.0/mv2/2.0","OutputDIR/mf/Compiler/intel/15.0","OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mv2",["compiler"]="intel",},mT={intel={["fn"]="OutputDIR/mf/Core/intel/15.0.2.lua",["fullName"]="intel/15.0.2",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",["wV"]="000000015.000000000.000000002.*zfinal",},mv2={["fn"]="OutputDIR/mf/Compiler/intel/15.0/mv2/2.0.lua",["fullName"]="mv2/2.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mv2",["wV"]="000000002.*zfinal",},},mpathA={"OutputDIR/mf/MPI/intel/15.0/mv2/2.0","OutputDIR/mf/Compiler/intel/15.0","OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -34,7 +34,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --ignore_cache avail
 ===========================
 MODULEPATH=OutputDIR/mf/MPI/intel/15.0/mv2/2.0:OutputDIR/mf/Compiler/intel/15.0:OutputDIR/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mv2",["compiler"]="intel",},mT={intel={["fn"]="OutputDIR/mf/Core/intel/15.0.2.lua",["fullName"]="intel/15.0.2",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",},mv2={["fn"]="OutputDIR/mf/Compiler/intel/15.0/mv2/2.0.lua",["fullName"]="mv2/2.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mv2",},},mpathA={"OutputDIR/mf/MPI/intel/15.0/mv2/2.0","OutputDIR/mf/Compiler/intel/15.0","OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mv2",["compiler"]="intel",},mT={intel={["fn"]="OutputDIR/mf/Core/intel/15.0.2.lua",["fullName"]="intel/15.0.2",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",["wV"]="000000015.000000000.000000002.*zfinal",},mv2={["fn"]="OutputDIR/mf/Compiler/intel/15.0/mv2/2.0.lua",["fullName"]="mv2/2.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mv2",["wV"]="000000002.*zfinal",},},mpathA={"OutputDIR/mf/MPI/intel/15.0/mv2/2.0","OutputDIR/mf/Compiler/intel/15.0","OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -42,7 +42,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 MODULEPATH=OutputDIR/mf/MPI/intel/15.0/mv2/2.0:OutputDIR/mf/Compiler/intel/15.0:OutputDIR/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mv2",["compiler"]="intel",},mT={intel={["fn"]="OutputDIR/mf/Core/intel/15.0.2.lua",["fullName"]="intel/15.0.2",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",},mv2={["fn"]="OutputDIR/mf/Compiler/intel/15.0/mv2/2.0.lua",["fullName"]="mv2/2.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mv2",},},mpathA={"OutputDIR/mf/MPI/intel/15.0/mv2/2.0","OutputDIR/mf/Compiler/intel/15.0","OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mv2",["compiler"]="intel",},mT={intel={["fn"]="OutputDIR/mf/Core/intel/15.0.2.lua",["fullName"]="intel/15.0.2",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",["wV"]="000000015.000000000.000000002.*zfinal",},mv2={["fn"]="OutputDIR/mf/Compiler/intel/15.0/mv2/2.0.lua",["fullName"]="mv2/2.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mv2",["wV"]="000000002.*zfinal",},},mpathA={"OutputDIR/mf/MPI/intel/15.0/mv2/2.0","OutputDIR/mf/Compiler/intel/15.0","OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 5
@@ -50,7 +50,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing show itac
 ===========================
 MODULEPATH=OutputDIR/mf/MPI/intel/15.0/mv2/2.0:OutputDIR/mf/Compiler/intel/15.0:OutputDIR/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mv2",["compiler"]="intel",},mT={intel={["fn"]="OutputDIR/mf/Core/intel/15.0.2.lua",["fullName"]="intel/15.0.2",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",},mv2={["fn"]="OutputDIR/mf/Compiler/intel/15.0/mv2/2.0.lua",["fullName"]="mv2/2.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mv2",},},mpathA={"OutputDIR/mf/MPI/intel/15.0/mv2/2.0","OutputDIR/mf/Compiler/intel/15.0","OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mv2",["compiler"]="intel",},mT={intel={["fn"]="OutputDIR/mf/Core/intel/15.0.2.lua",["fullName"]="intel/15.0.2",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",["wV"]="000000015.000000000.000000002.*zfinal",},mv2={["fn"]="OutputDIR/mf/Compiler/intel/15.0/mv2/2.0.lua",["fullName"]="mv2/2.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mv2",["wV"]="000000002.*zfinal",},},mpathA={"OutputDIR/mf/MPI/intel/15.0/mv2/2.0","OutputDIR/mf/Compiler/intel/15.0","OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 6
@@ -68,7 +68,7 @@ __LMOD_REF_COUNT__LMFILES_=OutputDIR/mf/Core/intel/15.0.2.lua:1\;OutputDIR/mf/Co
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=OutputDIR/mf/Core/intel/15.0.2.lua:OutputDIR/mf/Compiler/intel/15.0/mv2/2.0.lua:OutputDIR/mf/Core/itac/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mv2",["compiler"]="intel",},mT={intel={["fn"]="OutputDIR/mf/Core/intel/15.0.2.lua",["fullName"]="intel/15.0.2",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",},itac={["fn"]="OutputDIR/mf/Core/itac/1.0.lua",["fullName"]="itac/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="itac",},mv2={["fn"]="OutputDIR/mf/Compiler/intel/15.0/mv2/2.0.lua",["fullName"]="mv2/2.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mv2",},},mpathA={"OutputDIR/mf/MPI/intel/15.0/mv2/2.0","OutputDIR/mf/Compiler/intel/15.0","OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["MPI"]="mv2",["compiler"]="intel",},mT={intel={["fn"]="OutputDIR/mf/Core/intel/15.0.2.lua",["fullName"]="intel/15.0.2",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",["wV"]="000000015.000000000.000000002.*zfinal",},itac={["fn"]="OutputDIR/mf/Core/itac/1.0.lua",["fullName"]="itac/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="itac",["wV"]="000000001.*zfinal",},mv2={["fn"]="OutputDIR/mf/Compiler/intel/15.0/mv2/2.0.lua",["fullName"]="mv2/2.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="mv2",["wV"]="000000002.*zfinal",},},mpathA={"OutputDIR/mf/MPI/intel/15.0/mv2/2.0","OutputDIR/mf/Compiler/intel/15.0","OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 7
@@ -88,7 +88,7 @@ __LMOD_REF_COUNT__LMFILES_=OutputDIR/mf/Core/intel/15.0.2.lua:1\;OutputDIR/mf/Co
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=OutputDIR/mf/Core/intel/15.0.2.lua:OutputDIR/mf/Core/itac/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={intel={["fn"]="OutputDIR/mf/Core/intel/15.0.2.lua",["fullName"]="intel/15.0.2",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",},itac={["fn"]="OutputDIR/mf/Core/itac/1.0.lua",["fullName"]="itac/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="itac",},},mpathA={"OutputDIR/mf/Compiler/intel/15.0","OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={intel={["fn"]="OutputDIR/mf/Core/intel/15.0.2.lua",["fullName"]="intel/15.0.2",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",["wV"]="000000015.000000000.000000002.*zfinal",},itac={["fn"]="OutputDIR/mf/Core/itac/1.0.lua",["fullName"]="itac/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="itac",["wV"]="000000001.*zfinal",},},mpathA={"OutputDIR/mf/Compiler/intel/15.0","OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 8
@@ -96,5 +96,5 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=OutputDIR/mf/Compiler/intel/15.0:OutputDIR/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={intel={["fn"]="OutputDIR/mf/Core/intel/15.0.2.lua",["fullName"]="intel/15.0.2",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",},itac={["fn"]="OutputDIR/mf/Core/itac/1.0.lua",["fullName"]="itac/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="itac",},},mpathA={"OutputDIR/mf/Compiler/intel/15.0","OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compiler"]="intel",},mT={intel={["fn"]="OutputDIR/mf/Core/intel/15.0.2.lua",["fullName"]="intel/15.0.2",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",["wV"]="000000015.000000000.000000002.*zfinal",},itac={["fn"]="OutputDIR/mf/Core/itac/1.0.lua",["fullName"]="itac/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="itac",["wV"]="000000001.*zfinal",},},mpathA={"OutputDIR/mf/Compiler/intel/15.0","OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
 export _ModuleTable_;

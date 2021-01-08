@@ -20,7 +20,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/use_unuse/mf/Core/a/1.0.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/use_unuse/mf/Core/a/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/use_unuse/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",},},mpathA={"ProjectDIR/rt/use_unuse/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/use_unuse/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/use_unuse/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/use_unuse/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/use_unuse/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -33,7 +33,7 @@ unset __LMOD_REF_COUNT_MODULEPATH;
 unset MODULEPATH;
 unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/use_unuse/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=-1,propT={},["stackDepth"]=0,["status"]="inactive",["userName"]="a",},},mpathA={},["systemBaseMPATH"]="ProjectDIR/rt/use_unuse/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/use_unuse/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=-1,propT={},["stackDepth"]=0,["status"]="inactive",["userName"]="a",["wV"]="000000001.*zfinal",},},mpathA={},["systemBaseMPATH"]="ProjectDIR/rt/use_unuse/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -43,7 +43,7 @@ __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/use_unuse/mf/RTM:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/use_unuse/mf/RTM;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/use_unuse/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=-1,propT={},["stackDepth"]=0,["status"]="inactive",["userName"]="a",},},mpathA={"ProjectDIR/rt/use_unuse/mf/RTM",},["systemBaseMPATH"]="ProjectDIR/rt/use_unuse/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/use_unuse/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=-1,propT={},["stackDepth"]=0,["status"]="inactive",["userName"]="a",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/use_unuse/mf/RTM",},["systemBaseMPATH"]="ProjectDIR/rt/use_unuse/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 5
@@ -51,7 +51,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing unuse ProjectDIR/rt/use
 ===========================
 unset __LMOD_REF_COUNT_MODULEPATH;
 unset MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/use_unuse/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=-1,propT={},["stackDepth"]=0,["status"]="inactive",["userName"]="a",},},mpathA={},["systemBaseMPATH"]="ProjectDIR/rt/use_unuse/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/use_unuse/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=-1,propT={},["stackDepth"]=0,["status"]="inactive",["userName"]="a",["wV"]="000000001.*zfinal",},},mpathA={},["systemBaseMPATH"]="ProjectDIR/rt/use_unuse/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 6

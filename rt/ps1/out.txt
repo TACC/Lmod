@@ -20,7 +20,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/ps1/mf/Core/setprompt/1.0.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/ps1/mf/Core/setprompt/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={setprompt={["fn"]="ProjectDIR/rt/ps1/mf/Core/setprompt/1.0.lua",["fullName"]="setprompt/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="setprompt",},},mpathA={"ProjectDIR/rt/ps1/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/ps1/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={setprompt={["fn"]="ProjectDIR/rt/ps1/mf/Core/setprompt/1.0.lua",["fullName"]="setprompt/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="setprompt",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/ps1/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/ps1/mf/Core",}';
 export _ModuleTable_;
 __LMOD_STACK_PS1=hello> :test \u@\h> ;
 export __LMOD_STACK_PS1;

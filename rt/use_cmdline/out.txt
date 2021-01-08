@@ -16,7 +16,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/use_cmdline/mf/Core/a/1.0.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/use_cmdline/mf/Core/a/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/use_cmdline/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",},},mpathA={"ProjectDIR/rt/use_cmdline/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/use_cmdline/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/use_cmdline/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/use_cmdline/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/use_cmdline/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 2
@@ -36,7 +36,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/use_cmdline/mf/Core/use/1.0.lua:1\;Proj
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/use_cmdline/mf/Core/use/1.0.lua:ProjectDIR/rt/use_cmdline/mf/C3/a/1.1.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/use_cmdline/mf/C3/a/1.1.lua",["fullName"]="a/1.1",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",},use={["fn"]="ProjectDIR/rt/use_cmdline/mf/Core/use/1.0.lua",["fullName"]="use/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="use",},},mpathA={"ProjectDIR/rt/use_cmdline/mf/C3","ProjectDIR/rt/use_cmdline/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/use_cmdline/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/use_cmdline/mf/C3/a/1.1.lua",["fullName"]="a/1.1",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",["wV"]="000000001.000000001.*zfinal",},use={["fn"]="ProjectDIR/rt/use_cmdline/mf/Core/use/1.0.lua",["fullName"]="use/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="use",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/use_cmdline/mf/C3","ProjectDIR/rt/use_cmdline/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/use_cmdline/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -56,7 +56,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/use_cmdline/mf/Core/use/1.0.lua:1\;Proj
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/use_cmdline/mf/Core/use/1.0.lua:ProjectDIR/rt/use_cmdline/mf/C2/a/1.2.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/use_cmdline/mf/C2/a/1.2.lua",["fullName"]="a/1.2",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",},use={["fn"]="ProjectDIR/rt/use_cmdline/mf/Core/use/1.0.lua",["fullName"]="use/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="use",},},mpathA={"ProjectDIR/rt/use_cmdline/mf/C2","ProjectDIR/rt/use_cmdline/mf/C3","ProjectDIR/rt/use_cmdline/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/use_cmdline/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/use_cmdline/mf/C2/a/1.2.lua",["fullName"]="a/1.2",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",["wV"]="000000001.000000002.*zfinal",},use={["fn"]="ProjectDIR/rt/use_cmdline/mf/Core/use/1.0.lua",["fullName"]="use/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="use",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/use_cmdline/mf/C2","ProjectDIR/rt/use_cmdline/mf/C3","ProjectDIR/rt/use_cmdline/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/use_cmdline/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -64,5 +64,5 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/use_cmdline/mf/C2:ProjectDIR/rt/use_cmdline/mf/C3:ProjectDIR/rt/use_cmdline/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/use_cmdline/mf/C2/a/1.2.lua",["fullName"]="a/1.2",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",},use={["fn"]="ProjectDIR/rt/use_cmdline/mf/Core/use/1.0.lua",["fullName"]="use/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="use",},},mpathA={"ProjectDIR/rt/use_cmdline/mf/C2","ProjectDIR/rt/use_cmdline/mf/C3","ProjectDIR/rt/use_cmdline/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/use_cmdline/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/use_cmdline/mf/C2/a/1.2.lua",["fullName"]="a/1.2",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",["wV"]="000000001.000000002.*zfinal",},use={["fn"]="ProjectDIR/rt/use_cmdline/mf/Core/use/1.0.lua",["fullName"]="use/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="use",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/use_cmdline/mf/C2","ProjectDIR/rt/use_cmdline/mf/C3","ProjectDIR/rt/use_cmdline/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/use_cmdline/mf/Core",}';
 export _ModuleTable_;

@@ -22,7 +22,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/pyHier/mf/Core/python/2.7.13.lua:1\;Pro
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/pyHier/mf/Core/python/2.7.13.lua:ProjectDIR/rt/pyHier/mf/PyPkg/B/1.0.lua:ProjectDIR/rt/pyHier/mf/PyPkg/A/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/pyHier/mf/PyPkg/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",},B={["fn"]="ProjectDIR/rt/pyHier/mf/PyPkg/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B",},python={["fn"]="ProjectDIR/rt/pyHier/mf/Core/python/2.7.13.lua",["fullName"]="python/2.7.13",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/pyHier/mf/PyPkg","ProjectDIR/rt/pyHier/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pyHier/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/pyHier/mf/PyPkg/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",["wV"]="000000001.*zfinal",},B={["fn"]="ProjectDIR/rt/pyHier/mf/PyPkg/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B",["wV"]="000000001.*zfinal",},python={["fn"]="ProjectDIR/rt/pyHier/mf/Core/python/2.7.13.lua",["fullName"]="python/2.7.13",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="python",["wV"]="000000002.000000007.000000013.*zfinal",},},mpathA={"ProjectDIR/rt/pyHier/mf/PyPkg","ProjectDIR/rt/pyHier/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pyHier/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -30,7 +30,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/pyHier/mf/PyPkg:ProjectDIR/rt/pyHier/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/pyHier/mf/PyPkg/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",},B={["fn"]="ProjectDIR/rt/pyHier/mf/PyPkg/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B",},python={["fn"]="ProjectDIR/rt/pyHier/mf/Core/python/2.7.13.lua",["fullName"]="python/2.7.13",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/pyHier/mf/PyPkg","ProjectDIR/rt/pyHier/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pyHier/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/pyHier/mf/PyPkg/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",["wV"]="000000001.*zfinal",},B={["fn"]="ProjectDIR/rt/pyHier/mf/PyPkg/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B",["wV"]="000000001.*zfinal",},python={["fn"]="ProjectDIR/rt/pyHier/mf/Core/python/2.7.13.lua",["fullName"]="python/2.7.13",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="python",["wV"]="000000002.000000007.000000013.*zfinal",},},mpathA={"ProjectDIR/rt/pyHier/mf/PyPkg","ProjectDIR/rt/pyHier/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pyHier/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -46,7 +46,7 @@ MODULEPATH=ProjectDIR/rt/pyHier/mf/Core;
 export MODULEPATH;
 unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/pyHier/mf/PyPkg/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=-2,propT={},["stackDepth"]=0,["status"]="inactive",["userName"]="A",},B={["fn"]="ProjectDIR/rt/pyHier/mf/PyPkg/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=-1,propT={},["stackDepth"]=0,["status"]="inactive",["userName"]="B",},},mpathA={"ProjectDIR/rt/pyHier/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pyHier/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/pyHier/mf/PyPkg/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=-2,propT={},["stackDepth"]=0,["status"]="inactive",["userName"]="A",["wV"]="000000001.*zfinal",},B={["fn"]="ProjectDIR/rt/pyHier/mf/PyPkg/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=-1,propT={},["stackDepth"]=0,["status"]="inactive",["userName"]="B",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/pyHier/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pyHier/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 5
@@ -54,7 +54,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/pyHier/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/pyHier/mf/PyPkg/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=-2,propT={},["stackDepth"]=0,["status"]="inactive",["userName"]="A",},B={["fn"]="ProjectDIR/rt/pyHier/mf/PyPkg/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=-1,propT={},["stackDepth"]=0,["status"]="inactive",["userName"]="B",},},mpathA={"ProjectDIR/rt/pyHier/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pyHier/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/pyHier/mf/PyPkg/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=-2,propT={},["stackDepth"]=0,["status"]="inactive",["userName"]="A",["wV"]="000000001.*zfinal",},B={["fn"]="ProjectDIR/rt/pyHier/mf/PyPkg/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=-1,propT={},["stackDepth"]=0,["status"]="inactive",["userName"]="B",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/pyHier/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pyHier/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 6
@@ -76,7 +76,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/pyHier/mf/Core/python/2.7.13.lua:1\;Pro
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/pyHier/mf/Core/python/2.7.13.lua:ProjectDIR/rt/pyHier/mf/PyPkg/B/1.0.lua:ProjectDIR/rt/pyHier/mf/PyPkg/A/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/pyHier/mf/PyPkg/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",},B={["fn"]="ProjectDIR/rt/pyHier/mf/PyPkg/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B",},python={["fn"]="ProjectDIR/rt/pyHier/mf/Core/python/2.7.13.lua",["fullName"]="python/2.7.13",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/pyHier/mf/PyPkg","ProjectDIR/rt/pyHier/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pyHier/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/pyHier/mf/PyPkg/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",["wV"]="000000001.*zfinal",},B={["fn"]="ProjectDIR/rt/pyHier/mf/PyPkg/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B",["wV"]="000000001.*zfinal",},python={["fn"]="ProjectDIR/rt/pyHier/mf/Core/python/2.7.13.lua",["fullName"]="python/2.7.13",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="python",["wV"]="000000002.000000007.000000013.*zfinal",},},mpathA={"ProjectDIR/rt/pyHier/mf/PyPkg","ProjectDIR/rt/pyHier/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pyHier/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 7
@@ -84,5 +84,5 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/pyHier/mf/PyPkg:ProjectDIR/rt/pyHier/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/pyHier/mf/PyPkg/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",},B={["fn"]="ProjectDIR/rt/pyHier/mf/PyPkg/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B",},python={["fn"]="ProjectDIR/rt/pyHier/mf/Core/python/2.7.13.lua",["fullName"]="python/2.7.13",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="python",},},mpathA={"ProjectDIR/rt/pyHier/mf/PyPkg","ProjectDIR/rt/pyHier/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pyHier/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/pyHier/mf/PyPkg/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",["wV"]="000000001.*zfinal",},B={["fn"]="ProjectDIR/rt/pyHier/mf/PyPkg/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B",["wV"]="000000001.*zfinal",},python={["fn"]="ProjectDIR/rt/pyHier/mf/Core/python/2.7.13.lua",["fullName"]="python/2.7.13",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="python",["wV"]="000000002.000000007.000000013.*zfinal",},},mpathA={"ProjectDIR/rt/pyHier/mf/PyPkg","ProjectDIR/rt/pyHier/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/pyHier/mf/Core",}';
 export _ModuleTable_;

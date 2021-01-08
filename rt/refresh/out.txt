@@ -26,7 +26,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/refresh/mf/Core/a/1.0.lua:1\;ProjectDIR
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/refresh/mf/Core/a/1.0.lua:ProjectDIR/rt/refresh/mf/Core/b/1.0.lua:ProjectDIR/rt/refresh/mf/Core/c/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/refresh/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/refresh/mf/Core/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="b",},c={["fn"]="ProjectDIR/rt/refresh/mf/Core/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="c",},},mpathA={"ProjectDIR/rt/refresh/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/refresh/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/refresh/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",["wV"]="000000001.*zfinal",},b={["fn"]="ProjectDIR/rt/refresh/mf/Core/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="b",["wV"]="000000001.*zfinal",},c={["fn"]="ProjectDIR/rt/refresh/mf/Core/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="c",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/refresh/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/refresh/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -36,5 +36,5 @@ alias AA=aa;
 alias BB=bb;
 MODULEPATH=ProjectDIR/rt/refresh/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/refresh/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",},b={["fn"]="ProjectDIR/rt/refresh/mf/Core/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="b",},c={["fn"]="ProjectDIR/rt/refresh/mf/Core/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="c",},},mpathA={"ProjectDIR/rt/refresh/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/refresh/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/refresh/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",["wV"]="000000001.*zfinal",},b={["fn"]="ProjectDIR/rt/refresh/mf/Core/b/1.0.lua",["fullName"]="b/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="b",["wV"]="000000001.*zfinal",},c={["fn"]="ProjectDIR/rt/refresh/mf/Core/c/1.0.lua",["fullName"]="c/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="c",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/refresh/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/refresh/mf/Core",}';
 export _ModuleTable_;

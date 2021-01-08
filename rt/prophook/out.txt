@@ -26,7 +26,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/prophook/mf/gcc/5.3.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/prophook/mf/gcc/5.3.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={gcc={["fn"]="ProjectDIR/rt/prophook/mf/gcc/5.3.lua",["fullName"]="gcc/5.3",["loadOrder"]=1,propT={type_={["tools"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="gcc",},},mpathA={"ProjectDIR/rt/prophook/mf",},["systemBaseMPATH"]="ProjectDIR/rt/prophook/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={gcc={["fn"]="ProjectDIR/rt/prophook/mf/gcc/5.3.lua",["fullName"]="gcc/5.3",["loadOrder"]=1,propT={type_={["tools"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="gcc",["wV"]="000000005.000000003.*zfinal",},},mpathA={"ProjectDIR/rt/prophook/mf",},["systemBaseMPATH"]="ProjectDIR/rt/prophook/mf",}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -34,5 +34,5 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/prophook/mf;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={gcc={["fn"]="ProjectDIR/rt/prophook/mf/gcc/5.3.lua",["fullName"]="gcc/5.3",["loadOrder"]=1,propT={type_={["tools"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="gcc",},},mpathA={"ProjectDIR/rt/prophook/mf",},["systemBaseMPATH"]="ProjectDIR/rt/prophook/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={gcc={["fn"]="ProjectDIR/rt/prophook/mf/gcc/5.3.lua",["fullName"]="gcc/5.3",["loadOrder"]=1,propT={type_={["tools"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="gcc",["wV"]="000000005.000000003.*zfinal",},},mpathA={"ProjectDIR/rt/prophook/mf",},["systemBaseMPATH"]="ProjectDIR/rt/prophook/mf",}';
 export _ModuleTable_;

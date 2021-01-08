@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 7.8.4  2018-09-11 14:01 -05:00
+Modules based on Lua: Version 8.4.19  2020-12-13 13:58 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -38,6 +38,7 @@ _ModuleTable_ = {
       ["stackDepth"] = 1,
       ["status"] = "active",
       ["userName"] = "A",
+      ["wV"] = "000000001.*zfinal",
     },
     C = {
       ["fn"] = "ProjectDIR/rt/mgrload_func/mf/Core/C/1.0.lua",
@@ -48,6 +49,7 @@ _ModuleTable_ = {
       ["stackDepth"] = 1,
       ["status"] = "active",
       ["userName"] = "C",
+      ["wV"] = "000000001.*zfinal",
     },
     TACC = {
       ["fn"] = "ProjectDIR/rt/mgrload_func/mf/Core/TACC.lua",
@@ -57,6 +59,7 @@ _ModuleTable_ = {
       ["stackDepth"] = 0,
       ["status"] = "active",
       ["userName"] = "TACC",
+      ["wV"] = "M.*zfinal",
     },
   },
   mpathA = {
@@ -100,6 +103,7 @@ _ModuleTable_ = {
       ["stackDepth"] = 1,
       ["status"] = "active",
       ["userName"] = "A",
+      ["wV"] = "000000001.*zfinal",
     },
     C = {
       ["fn"] = "ProjectDIR/rt/mgrload_func/mf/Core/C/1.0.lua",
@@ -110,6 +114,7 @@ _ModuleTable_ = {
       ["stackDepth"] = 1,
       ["status"] = "active",
       ["userName"] = "C",
+      ["wV"] = "000000001.*zfinal",
     },
     TACC = {
       ["fn"] = "ProjectDIR/rt/mgrload_func/mf/Core/TACC.lua",
@@ -119,6 +124,7 @@ _ModuleTable_ = {
       ["stackDepth"] = 0,
       ["status"] = "active",
       ["userName"] = "TACC",
+      ["wV"] = "M.*zfinal",
     },
     avx = {
       ["fn"] = "ProjectDIR/rt/mgrload_func/mf/Core/avx.lua",
@@ -128,6 +134,7 @@ _ModuleTable_ = {
       ["stackDepth"] = 0,
       ["status"] = "active",
       ["userName"] = "avx",
+      ["wV"] = "M.*zfinal",
     },
   },
   mpathA = {

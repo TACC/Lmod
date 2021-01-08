@@ -24,7 +24,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/slash/mf/Core/admin/admin-1.0.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/slash/mf/Core/admin/admin-1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={admin={["fn"]="ProjectDIR/rt/slash/mf/Core/admin/admin-1.0.lua",["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="admin",},},mpathA={"ProjectDIR/rt/slash/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/slash/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={admin={["fn"]="ProjectDIR/rt/slash/mf/Core/admin/admin-1.0.lua",["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="admin",["wV"]="^admin.*zfinal-.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/slash/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/slash/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -34,5 +34,5 @@ __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/slash/mf/Core:2;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/slash/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={admin={["fn"]="ProjectDIR/rt/slash/mf/Core/admin/admin-1.0.lua",["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="admin",},},mpathA={"ProjectDIR/rt/slash/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/slash/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={admin={["fn"]="ProjectDIR/rt/slash/mf/Core/admin/admin-1.0.lua",["fullName"]="admin/admin-1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="admin",["wV"]="^admin.*zfinal-.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/slash/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/slash/mf/Core",}';
 export _ModuleTable_;

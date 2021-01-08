@@ -46,7 +46,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/lastName/mf/Core/git/1.7.4.3.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/lastName/mf/Core/git/1.7.4.3.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={git={["fn"]="ProjectDIR/rt/lastName/mf/Core/git/1.7.4.3.lua",["fullName"]="git/1.7.4.3",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="git",},},mpathA={"ProjectDIR/rt/lastName/mf/notDir","ProjectDIR/rt/lastName/mf/Core","ProjectDIR/rt/lastName/mf/Beta",},}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={git={["fn"]="ProjectDIR/rt/lastName/mf/Core/git/1.7.4.3.lua",["fullName"]="git/1.7.4.3",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="git",["wV"]="000000001.000000007.000000004.000000003.*zfinal",},},mpathA={"ProjectDIR/rt/lastName/mf/notDir","ProjectDIR/rt/lastName/mf/Core","ProjectDIR/rt/lastName/mf/Beta",},}';
 export _ModuleTable_;
 ===========================
 step 5
@@ -54,5 +54,5 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/lastName/mf/notDir:ProjectDIR/rt/lastName/mf/Core:ProjectDIR/rt/lastName/mf/Beta;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={git={["fn"]="ProjectDIR/rt/lastName/mf/Core/git/1.7.4.3.lua",["fullName"]="git/1.7.4.3",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="git",},},mpathA={"ProjectDIR/rt/lastName/mf/notDir","ProjectDIR/rt/lastName/mf/Core","ProjectDIR/rt/lastName/mf/Beta",},}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={git={["fn"]="ProjectDIR/rt/lastName/mf/Core/git/1.7.4.3.lua",["fullName"]="git/1.7.4.3",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="git",["wV"]="000000001.000000007.000000004.000000003.*zfinal",},},mpathA={"ProjectDIR/rt/lastName/mf/notDir","ProjectDIR/rt/lastName/mf/Core","ProjectDIR/rt/lastName/mf/Beta",},}';
 export _ModuleTable_;

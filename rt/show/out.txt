@@ -52,7 +52,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua",["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="boost/1.47.1",},},mpathA={"ProjectDIR/rt/show/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/show/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua",["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="boost/1.47.1",["wV"]="000000001.000000047.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/show/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/show/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 7
@@ -60,7 +60,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/show/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua",["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="boost/1.47.1",},},mpathA={"ProjectDIR/rt/show/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/show/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua",["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="boost/1.47.1",["wV"]="000000001.000000047.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/show/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/show/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 8
@@ -68,7 +68,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing show boost
 ===========================
 MODULEPATH=ProjectDIR/rt/show/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua",["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="boost/1.47.1",},},mpathA={"ProjectDIR/rt/show/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/show/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua",["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="boost/1.47.1",["wV"]="000000001.000000047.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/show/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/show/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 9
@@ -76,7 +76,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing show boost/1.49.0
 ===========================
 MODULEPATH=ProjectDIR/rt/show/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua",["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="boost/1.47.1",},},mpathA={"ProjectDIR/rt/show/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/show/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua",["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="boost/1.47.1",["wV"]="000000001.000000047.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/show/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/show/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 10
@@ -86,7 +86,7 @@ __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/show/mf/Core2:1\;ProjectDIR/rt/show/mf
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/show/mf/Core2:ProjectDIR/rt/show/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua",["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="boost/1.47.1",},},mpathA={"ProjectDIR/rt/show/mf/Core2","ProjectDIR/rt/show/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/show/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua",["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="boost/1.47.1",["wV"]="000000001.000000047.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/show/mf/Core2","ProjectDIR/rt/show/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/show/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 11
@@ -94,7 +94,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing show a
 ===========================
 MODULEPATH=ProjectDIR/rt/show/mf/Core2:ProjectDIR/rt/show/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua",["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="boost/1.47.1",},},mpathA={"ProjectDIR/rt/show/mf/Core2","ProjectDIR/rt/show/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/show/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua",["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="boost/1.47.1",["wV"]="000000001.000000047.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/show/mf/Core2","ProjectDIR/rt/show/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/show/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 12
@@ -102,7 +102,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing show b_tcl
 ===========================
 MODULEPATH=ProjectDIR/rt/show/mf/Core2:ProjectDIR/rt/show/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua",["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="boost/1.47.1",},},mpathA={"ProjectDIR/rt/show/mf/Core2","ProjectDIR/rt/show/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/show/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua",["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="boost/1.47.1",["wV"]="000000001.000000047.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/show/mf/Core2","ProjectDIR/rt/show/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/show/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 13
@@ -110,6 +110,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing show nosuchmodule
 ===========================
 MODULEPATH=ProjectDIR/rt/show/mf/Core2:ProjectDIR/rt/show/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua",["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="boost/1.47.1",},},mpathA={"ProjectDIR/rt/show/mf/Core2","ProjectDIR/rt/show/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/show/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={boost={["fn"]="ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua",["fullName"]="boost/1.47.1",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="boost/1.47.1",["wV"]="000000001.000000047.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/show/mf/Core2","ProjectDIR/rt/show/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/show/mf/Core",}';
 export _ModuleTable_;
 false
