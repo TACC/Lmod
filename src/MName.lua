@@ -97,6 +97,7 @@ function M.new(self, sType, name, action, is, ie)
    o.__fn         = false
    o.__versionStr = false
    o.__sType      = sType
+   o.__wV         = false
    o.__waterMark  = "MName"
    o.__action     = action
    o.__range_fnA  = { l_lessthan_equal, l_lessthan_equal }
@@ -179,6 +180,7 @@ local function lazyEval(self)
          self.__fn         = mt:fn(sn)
          self.__version    = mt:version(sn)
          self.__stackDepth = mt:stackDepth(sn)
+         self.__wV         = mt.wV(sn)
       end
       dbg.fini("lazyEval via mt")
       return
@@ -221,15 +223,17 @@ local function lazyEval(self)
    local stepA   = self:steps()
    local version
    local fn
+   local wV
    dbg.printT("fileA",fileA)
    --dbg.print{"#stepA: ",#stepA,"\n"}
 
    for i = 1, #stepA do
       local func = stepA[i]
-      found, fn, version = func(self, fileA)
+      found, fn, version, wV = func(self, fileA)
       if (found) then
-         self.__fn = fn
-         self.__version  = version
+         self.__fn      = fn
+         self.__version = version
+         self.__wV      = wV
          if (self.__actionNm == "latest") then
             self.__userName = build_fullName(self.__sn, version)
          end
@@ -277,6 +281,13 @@ function M.version(self)
       lazyEval(self)
    end
    return self.__version
+end
+
+function M.wV(self)
+   if (not self.__sn) then
+      lazyEval(self)
+   end
+   return self.__wv
 end
 
 function M.stackDepth(self)
@@ -377,6 +388,7 @@ function M.find_exact_match(self, fileA)
    local fn         = false
    local version    = false
    local pV         = " "  -- this is less than the lowest possible weight
+   local wV         = false
    local found      = false
    if (not versionStr) then
       dbg.print{"found: ",found,", fn: ",fn,", version: ", version,"\n"}
@@ -390,6 +402,7 @@ function M.find_exact_match(self, fileA)
          local entry = a[j]
          if (entry.version == versionStr and entry.pV > pV ) then
             pV      = entry.pV
+            wV      = entry.wV
             fn      = entry.fn
             version = entry.version or false
             found   = true
@@ -401,7 +414,7 @@ function M.find_exact_match(self, fileA)
 
    dbg.print{"found: ",found,", fn: ",fn,", version: ", version,"\n"}
    dbg.fini("MName:find_exact_match")
-   return found, fn, version
+   return found, fn, version, wV
 end
 
 function M.find_exact_match_meta_module(self, fileA)
@@ -410,6 +423,7 @@ function M.find_exact_match_meta_module(self, fileA)
    local fn         = false
    local version    = false
    local pV         = " "  -- this is less than the lowest possible weight
+   local wV         = false
    local found      = false
    for i = 1, #fileA do
       local a = fileA[i]
@@ -417,6 +431,7 @@ function M.find_exact_match_meta_module(self, fileA)
          local entry = a[j]
          if (entry.version == versionStr and entry.pV > pV ) then
             pV      = entry.pV
+            wV      = entry.wV
             fn      = entry.fn
             version = entry.version or false
             found   = true
@@ -428,7 +443,7 @@ function M.find_exact_match_meta_module(self, fileA)
 
    dbg.print{"found: ",found,", fn: ",fn,", version: ", version,"\n"}
    dbg.fini("MName:find_exact_match_meta_module")
-   return found, fn, version
+   return found, fn, version, wV
 end
 
 
@@ -442,6 +457,7 @@ local function find_highest_by_key(self, key, fileA)
    local found   = false
    local version = false
    local pV      = false
+   local wV      = false
 
    for j = 1,#a do
       local entry = a[j]
@@ -451,6 +467,7 @@ local function find_highest_by_key(self, key, fileA)
             idx    = j
             weight = v
             pV     = entry.pV
+            wV     = entry.wV
          end
       end
    end
@@ -462,7 +479,7 @@ local function find_highest_by_key(self, key, fileA)
    end
    dbg.print{"found: ",found,", fn: ",fn,", version: ", version,"\n"}
    dbg.fini("MName:find_by_key")
-   return found, fn, version
+   return found, fn, version, wV
 end
 
 ------------------------------------------------------------------------
@@ -521,7 +538,7 @@ function M.find_between(self, fileA)
       end
    end
    --dbg.fini("MName:find_between")
-   return found, fn, version
+   return found, fn, version, wV
 end
 
 function M.find_inherit_match(self,fileA)

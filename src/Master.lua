@@ -378,7 +378,7 @@ function M.load(self, mA)
             loadModuleFile{file = fn, shell = shellNm, mList = mList, reportErr = true}
             mt = frameStk:mt()
             mt:setStatus(sn, "active")
-            hook.apply("load",{fn = mname:fn(), modFullName = mname:fullName()})
+            hook.apply("load",{fn = mname:fn(), modFullName = mname:fullName(), mname = mname})
             frameStk:pop()
             dbg.print{"Marking ",fullName," as active and loaded\n"}
             registerLoaded(fullName, fn)
