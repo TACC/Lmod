@@ -18,7 +18,7 @@ __LMOD_REF_COUNT__LMFILES_=OutputDIR/mf/abc.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=OutputDIR/mf/abc.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={abc={["fn"]="OutputDIR/mf/abc.lua",["fullName"]="abc",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="abc",},},mpathA={"OutputDIR/mf",},["systemBaseMPATH"]="OutputDIR/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={abc={["fn"]="OutputDIR/mf/abc.lua",["fullName"]="abc",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="abc",["wV"]="M.*zfinal",},},mpathA={"OutputDIR/mf",},["systemBaseMPATH"]="OutputDIR/mf",}';
 export _ModuleTable_;
 abc=1.0;
 export abc;
@@ -28,7 +28,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=OutputDIR/mf;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={abc={["fn"]="OutputDIR/mf/abc.lua",["fullName"]="abc",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="abc",},},mpathA={"OutputDIR/mf",},["systemBaseMPATH"]="OutputDIR/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={abc={["fn"]="OutputDIR/mf/abc.lua",["fullName"]="abc",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="abc",["wV"]="M.*zfinal",},},mpathA={"OutputDIR/mf",},["systemBaseMPATH"]="OutputDIR/mf",}';
 export _ModuleTable_;
 ===========================
 step 4

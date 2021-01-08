@@ -22,7 +22,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/cnflt_except/mf/Core/B/1.0.lua:1\;Proje
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/cnflt_except/mf/Core/B/1.0.lua:ProjectDIR/rt/cnflt_except/mf/Core/C/2.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={B={["fn"]="ProjectDIR/rt/cnflt_except/mf/Core/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B",},C={["fn"]="ProjectDIR/rt/cnflt_except/mf/Core/C/2.0.lua",["fullName"]="C/2.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="C",},},mpathA={"ProjectDIR/rt/cnflt_except/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/cnflt_except/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={B={["fn"]="ProjectDIR/rt/cnflt_except/mf/Core/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B",["wV"]="000000001.*zfinal",},C={["fn"]="ProjectDIR/rt/cnflt_except/mf/Core/C/2.0.lua",["fullName"]="C/2.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="C",["wV"]="000000002.*zfinal",},},mpathA={"ProjectDIR/rt/cnflt_except/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/cnflt_except/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -59,7 +59,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/cnflt_except/mf/Core/B/1.0.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/cnflt_except/mf/Core/B/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={B={["fn"]="ProjectDIR/rt/cnflt_except/mf/Core/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B",},},mpathA={"ProjectDIR/rt/cnflt_except/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/cnflt_except/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={B={["fn"]="ProjectDIR/rt/cnflt_except/mf/Core/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/cnflt_except/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/cnflt_except/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 6
@@ -93,7 +93,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/cnflt_except/mf/Core/miniconda/1.0.lua:
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/cnflt_except/mf/Core/miniconda/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={miniconda={["fn"]="ProjectDIR/rt/cnflt_except/mf/Core/miniconda/1.0.lua",["fullName"]="miniconda/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="miniconda",},},mpathA={"ProjectDIR/rt/cnflt_except/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/cnflt_except/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={miniconda={["fn"]="ProjectDIR/rt/cnflt_except/mf/Core/miniconda/1.0.lua",["fullName"]="miniconda/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="miniconda",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/cnflt_except/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/cnflt_except/mf/Core",}';
 export _ModuleTable_;
 miniconda=1.0;
 export miniconda;
@@ -111,5 +111,5 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/cnflt_except/mf/Core/miniconda/1.0.lua:
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/cnflt_except/mf/Core/miniconda/1.0.lua:ProjectDIR/rt/cnflt_except/mf/Core/A/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/cnflt_except/mf/Core/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",},miniconda={["fn"]="ProjectDIR/rt/cnflt_except/mf/Core/miniconda/1.0.lua",["fullName"]="miniconda/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="miniconda",},},mpathA={"ProjectDIR/rt/cnflt_except/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/cnflt_except/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/cnflt_except/mf/Core/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",["wV"]="000000001.*zfinal",},miniconda={["fn"]="ProjectDIR/rt/cnflt_except/mf/Core/miniconda/1.0.lua",["fullName"]="miniconda/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="miniconda",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/cnflt_except/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/cnflt_except/mf/Core",}';
 export _ModuleTable_;

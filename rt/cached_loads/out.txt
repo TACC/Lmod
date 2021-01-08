@@ -18,7 +18,7 @@ __LMOD_REF_COUNT__LMFILES_=OutputDIR/mf/Core/C/1.2.lua:1\;OutputDIR/mf/cae/openf
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=OutputDIR/mf/Core/C/1.2.lua:OutputDIR/mf/cae/openfoam/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={C={["fn"]="OutputDIR/mf/Core/C/1.2.lua",["fullName"]="C/1.2",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="C",},openfoam={["fn"]="OutputDIR/mf/cae/openfoam/1.0.lua",["fullName"]="openfoam/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="openfoam",},},mpathA={"OutputDIR/mf/cae","OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={C={["fn"]="OutputDIR/mf/Core/C/1.2.lua",["fullName"]="C/1.2",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="C",["wV"]="000000001.000000002.*zfinal",},openfoam={["fn"]="OutputDIR/mf/cae/openfoam/1.0.lua",["fullName"]="openfoam/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="openfoam",["wV"]="000000001.*zfinal",},},mpathA={"OutputDIR/mf/cae","OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
 export _ModuleTable_;
 openfoam=openfoam/1.0;
 export openfoam;
@@ -53,7 +53,7 @@ __LMOD_REF_COUNT__LMFILES_=OutputDIR/mf/Core/A/1.0.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=OutputDIR/mf/Core/A/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="OutputDIR/mf/Core/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="OutputDIR/mf/Core/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",["wV"]="000000001.*zfinal",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 5
@@ -71,7 +71,7 @@ __LMOD_REF_COUNT__LMFILES_=OutputDIR/mf/Core/A/1.0.lua:1\;OutputDIR/mf/Core/B/1.
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=OutputDIR/mf/Core/A/1.0.lua:OutputDIR/mf/Core/B/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="OutputDIR/mf/Core/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",},B={["fn"]="OutputDIR/mf/Core/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="OutputDIR/mf/Core/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",["wV"]="000000001.*zfinal",},B={["fn"]="OutputDIR/mf/Core/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B",["wV"]="000000001.*zfinal",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 6
@@ -79,7 +79,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=OutputDIR/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="OutputDIR/mf/Core/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",},B={["fn"]="OutputDIR/mf/Core/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="OutputDIR/mf/Core/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",["wV"]="000000001.*zfinal",},B={["fn"]="OutputDIR/mf/Core/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B",["wV"]="000000001.*zfinal",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 7
@@ -96,7 +96,7 @@ __LMOD_REF_COUNT__LMFILES_=OutputDIR/mf/Core/A/1.0.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=OutputDIR/mf/Core/A/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="OutputDIR/mf/Core/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="OutputDIR/mf/Core/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",["wV"]="000000001.*zfinal",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 8
@@ -109,7 +109,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=OutputDIR/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="OutputDIR/mf/Core/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="OutputDIR/mf/Core/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",["wV"]="000000001.*zfinal",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 10
@@ -127,7 +127,7 @@ __LMOD_REF_COUNT__LMFILES_=OutputDIR/mf/Core/A/1.0.lua:1\;OutputDIR/mf/Core/B/1.
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=OutputDIR/mf/Core/A/1.0.lua:OutputDIR/mf/Core/B/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="OutputDIR/mf/Core/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",},B={["fn"]="OutputDIR/mf/Core/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="OutputDIR/mf/Core/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",["wV"]="000000001.*zfinal",},B={["fn"]="OutputDIR/mf/Core/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B",["wV"]="000000001.*zfinal",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 11
@@ -135,5 +135,5 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=OutputDIR/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="OutputDIR/mf/Core/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",},B={["fn"]="OutputDIR/mf/Core/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="OutputDIR/mf/Core/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",["wV"]="000000001.*zfinal",},B={["fn"]="OutputDIR/mf/Core/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B",["wV"]="000000001.*zfinal",},},mpathA={"OutputDIR/mf/Core",},["systemBaseMPATH"]="OutputDIR/mf/Core",}';
 export _ModuleTable_;

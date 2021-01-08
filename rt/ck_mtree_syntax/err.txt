@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.4.1  2020-08-12 15:27 -05:00
+Modules based on Lua: Version 8.4.19  2020-12-13 13:58 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -15,3 +15,7 @@ The following modulefile(s) have syntax errors:
   ModuleName: A/2.0, Fn: ProjectDIR/rt/ck_mtree_syntax/mf/A/2.0 Error: ProjectDIR/rt/ck_mtree_syntax/mf/A/2.0: (A/2.0): invalid command name "nonExistantCmd"
   ModuleName: hashrf/6.0.1, Fn: ProjectDIR/rt/ck_mtree_syntax/mf/hashrf/6.0.1.lua Error: [string "local name = "hashrf"..."]:16:
   ModuleName: papi/4.4.0, Fn: ProjectDIR/rt/ck_mtree_syntax/mf/papi/4.4.0.lua Error: command: help, one or more arguments are not strings.
+===========================
+step 3
+runSpiderCmd -o spiderT ProjectDIR/rt/ck_mtree_syntax/mf
+===========================

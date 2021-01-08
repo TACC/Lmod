@@ -30,7 +30,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={init_lua={["fn"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["fullName"]="init_lua/5.1.4",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="init_lua",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={init_lua={["fn"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["fullName"]="init_lua/5.1.4",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="init_lua",["wV"]="000000005.000000001.000000004.*zfinal",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -54,7 +54,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua:1\;Pro
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua:ProjectDIR/rt/delim/mf/Core/luaposix/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={init_lua={["fn"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["fullName"]="init_lua/5.1.4",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="init_lua",},luaposix={["fn"]="ProjectDIR/rt/delim/mf/Core/luaposix/1.0.lua",["fullName"]="luaposix/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="luaposix",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={init_lua={["fn"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["fullName"]="init_lua/5.1.4",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="init_lua",["wV"]="000000005.000000001.000000004.*zfinal",},luaposix={["fn"]="ProjectDIR/rt/delim/mf/Core/luaposix/1.0.lua",["fullName"]="luaposix/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="luaposix",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 5
@@ -76,7 +76,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={init_lua={["fn"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["fullName"]="init_lua/5.1.4",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="init_lua",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={init_lua={["fn"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["fullName"]="init_lua/5.1.4",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="init_lua",["wV"]="000000005.000000001.000000004.*zfinal",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 6
@@ -92,7 +92,7 @@ RTM_LUA_PATH=\;\;;
 export RTM_LUA_PATH;
 _LMFILES_=ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={init_lua={["fn"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["fullName"]="init_lua/5.1.4",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="init_lua",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={init_lua={["fn"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["fullName"]="init_lua/5.1.4",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="init_lua",["wV"]="000000005.000000001.000000004.*zfinal",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 7
@@ -116,7 +116,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua:1\;Pro
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua:ProjectDIR/rt/delim/mf/Core/luaposix/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={init_lua={["fn"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["fullName"]="init_lua/5.1.4",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="init_lua",},luaposix={["fn"]="ProjectDIR/rt/delim/mf/Core/luaposix/1.0.lua",["fullName"]="luaposix/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="luaposix",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={init_lua={["fn"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["fullName"]="init_lua/5.1.4",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="init_lua",["wV"]="000000005.000000001.000000004.*zfinal",},luaposix={["fn"]="ProjectDIR/rt/delim/mf/Core/luaposix/1.0.lua",["fullName"]="luaposix/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="luaposix",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 8
@@ -124,7 +124,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/delim/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={init_lua={["fn"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["fullName"]="init_lua/5.1.4",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="init_lua",},luaposix={["fn"]="ProjectDIR/rt/delim/mf/Core/luaposix/1.0.lua",["fullName"]="luaposix/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="luaposix",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={init_lua={["fn"]="ProjectDIR/rt/delim/mf/Core/init_lua/5.1.4.lua",["fullName"]="init_lua/5.1.4",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="init_lua",["wV"]="000000005.000000001.000000004.*zfinal",},luaposix={["fn"]="ProjectDIR/rt/delim/mf/Core/luaposix/1.0.lua",["fullName"]="luaposix/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="luaposix",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 9
@@ -168,7 +168,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={ncarIntel={["fn"]="ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua",["fullName"]="ncarIntel/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="ncarIntel",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={ncarIntel={["fn"]="ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua",["fullName"]="ncarIntel/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="ncarIntel",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 12
@@ -188,7 +188,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua:1\;Proj
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua:ProjectDIR/rt/delim/mf/Core/ncarNetcdf/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={ncarIntel={["fn"]="ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua",["fullName"]="ncarIntel/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="ncarIntel",},ncarNetcdf={["fn"]="ProjectDIR/rt/delim/mf/Core/ncarNetcdf/1.0.lua",["fullName"]="ncarNetcdf/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="ncarNetcdf",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={ncarIntel={["fn"]="ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua",["fullName"]="ncarIntel/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="ncarIntel",["wV"]="000000001.*zfinal",},ncarNetcdf={["fn"]="ProjectDIR/rt/delim/mf/Core/ncarNetcdf/1.0.lua",["fullName"]="ncarNetcdf/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="ncarNetcdf",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 13
@@ -208,5 +208,5 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={ncarIntel={["fn"]="ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua",["fullName"]="ncarIntel/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="ncarIntel",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={ncarIntel={["fn"]="ProjectDIR/rt/delim/mf/Core/ncarIntel/1.0.lua",["fullName"]="ncarIntel/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="ncarIntel",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/delim/mf/Core",},}';
 export _ModuleTable_;

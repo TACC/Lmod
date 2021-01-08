@@ -7,3 +7,309 @@ step 2
 lua ProjectDIR/src/check_module_tree_syntax.in.lua ProjectDIR/rt/ck_mtree_syntax/mf
 ===========================
 	There were 5 possible errors found!	
+===========================
+step 3
+runSpiderCmd -o spiderT ProjectDIR/rt/ck_mtree_syntax/mf
+===========================
+timestampFn = {
+  false,
+}
+mrcT = {
+  alias2modT = {},
+  hiddenT = {},
+  version2modT = {},
+}
+mrcMpathT = {}
+spiderT = {
+  ["ProjectDIR/rt/ck_mtree_syntax/mf"]  = {
+    A = {
+      defaultA = {
+        {
+          ["barefn"] = "default",
+          ["defaultIdx"] = 1,
+          ["fn"] = "ProjectDIR/rt/ck_mtree_syntax/mf/A/default",
+          ["fullName"] = "A/default",
+          ["mpath"] = "ProjectDIR/rt/ck_mtree_syntax/mf",
+          ["value"] = "1.0",
+        },
+        {
+          ["barefn"] = ".version",
+          ["defaultIdx"] = 4,
+          ["fn"] = "ProjectDIR/rt/ck_mtree_syntax/mf/A/.version",
+          ["fullName"] = "A/.version",
+          ["mpath"] = "ProjectDIR/rt/ck_mtree_syntax/mf",
+          ["value"] = "2.0",
+        },
+      },
+      defaultT = {
+        ["barefn"] = "default",
+        ["defaultIdx"] = 1,
+        ["fn"] = "ProjectDIR/rt/ck_mtree_syntax/mf/A/default",
+        ["fullName"] = "A/default",
+        ["mpath"] = "ProjectDIR/rt/ck_mtree_syntax/mf",
+        ["value"] = "1.0",
+      },
+      dirT = {},
+      fileT = {
+        ["A/.version.2.0"]  = {
+          ["Version"] = ".version.2.0",
+          ["canonical"] = ".version.2.0",
+          ["fn"] = "ProjectDIR/rt/ck_mtree_syntax/mf/A/.version.2.0",
+          ["mpath"] = "ProjectDIR/rt/ck_mtree_syntax/mf",
+          ["pV"] = "*version.000000002.*zfinal",
+          ["wV"] = "*version.000000002.*zfinal",
+        },
+        ["A/1.0"]  = {
+          ["Version"] = "1.0",
+          ["canonical"] = "1.0",
+          ["fn"] = "ProjectDIR/rt/ck_mtree_syntax/mf/A/1.0.lua",
+          ["luaExt"] = 4,
+          ["mpath"] = "ProjectDIR/rt/ck_mtree_syntax/mf",
+          ["pV"] = "000000001.*zfinal",
+          ["wV"] = "^00000001.*zfinal",
+        },
+        ["A/2.0"]  = {
+          ["Version"] = "2.0",
+          ["canonical"] = "2.0",
+          ["fn"] = "ProjectDIR/rt/ck_mtree_syntax/mf/A/2.0",
+          ["mpath"] = "ProjectDIR/rt/ck_mtree_syntax/mf",
+          ["pV"] = "000000002.*zfinal",
+          ["wV"] = "000000002.*zfinal",
+        },
+        ["A/3.0"]  = {
+          ["Version"] = "3.0",
+          ["canonical"] = "3.0",
+          ["fn"] = "ProjectDIR/rt/ck_mtree_syntax/mf/A/3.0",
+          ["mpath"] = "ProjectDIR/rt/ck_mtree_syntax/mf",
+          ["pV"] = "000000003.*zfinal",
+          ["wV"] = "000000003.*zfinal",
+        },
+      },
+    },
+    StdEnv = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        StdEnv = {
+          ["Description"] = "Standard Environment for this system.",
+          ["Version"] = false,
+          ["canonical"] = "",
+          ["fn"] = "ProjectDIR/rt/ck_mtree_syntax/mf/StdEnv.lua",
+          ["luaExt"] = 7,
+          ["mpath"] = "ProjectDIR/rt/ck_mtree_syntax/mf",
+          ["pV"] = "M.*zfinal",
+          ["wV"] = "M.*zfinal",
+          whatis = {
+            "Description: Standard Environment for this system.",
+          },
+        },
+      },
+    },
+    acme = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["acme/1.0"]  = {
+          ["Category"] = "system ",
+          ["Description"] = "This is a descript ",
+          ["Name"] = "acme ",
+          ["Version"] = "1.0 ",
+          ["canonical"] = "1.0",
+          ["fn"] = "ProjectDIR/rt/ck_mtree_syntax/mf/acme/1.0",
+          ["help"] = [[This is the help message for the acme 1.0 module
+And even more help
+]],
+          ["mpath"] = "ProjectDIR/rt/ck_mtree_syntax/mf",
+          ["pV"] = "000000001.*zfinal",
+          ["wV"] = "000000001.*zfinal",
+          whatis = {
+            "Name: acme ", "Version: 1.0 ", "Category: system ", "Description: This is a descript ",
+          },
+        },
+      },
+    },
+    hashrf = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["hashrf/6.0.1"]  = {
+          ["Category"] = "phylogenetics",
+          ["Description"] = "hash phylo trees",
+          ["Name"] = "hashrf",
+          ["Version"] = "6.0.1",
+          ["canonical"] = "6.0.1",
+          ["fn"] = "ProjectDIR/rt/ck_mtree_syntax/mf/hashrf/6.0.1.lua",
+          ["luaExt"] = 6,
+          ["mpath"] = "ProjectDIR/rt/ck_mtree_syntax/mf",
+          ["pV"] = "000000006.000000000.000000001.*zfinal",
+          pathA = {
+            ["/opt/apps/hashrf/6.0.1/bin"] = 1,
+          },
+          ["wV"] = "000000006.000000000.000000001.*zfinal",
+          whatis = {
+            "Name: hashrf", "Version: 6.0.1", "Category: phylogenetics", "Description: hash phylo trees",
+          },
+        },
+      },
+    },
+    mkl = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["mkl/mkl"]  = {
+          ["Description"] = "Intel Math Kernel Library",
+          ["Version"] = "mkl",
+          ["canonical"] = "mkl",
+          ["fn"] = "ProjectDIR/rt/ck_mtree_syntax/mf/mkl/mkl.lua",
+          ["help"] = [[This module loads the intel mkl library and environment variables
+]],
+          ["luaExt"] = 4,
+          ["mpath"] = "ProjectDIR/rt/ck_mtree_syntax/mf",
+          ["pV"] = "*mkl.*zfinal",
+          propT = {
+            arch = {
+              ["mic:offload"] = 1,
+            },
+          },
+          ["wV"] = "*mkl.*zfinal",
+          whatis = {
+            "Description: Intel Math Kernel Library",
+          },
+        },
+      },
+    },
+    papi = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["papi/4.1.4"]  = {
+          ["Category"] = "library, performance measurement",
+          ["Description"] = "Interface to monitor performance counter hardware for quantifying application behavior",
+          ["URL"] = "http://icl.cs.utk.edu/papi/",
+          ["Version"] = "4.1.4",
+          ["canonical"] = "4.1.4",
+          ["fn"] = "ProjectDIR/rt/ck_mtree_syntax/mf/papi/4.1.4.lua",
+          ["help"] = [[The PAPI module file defines the following environment variables:
+TACC_PAPI_DIR, TACC_PAPI_LIB, and TACC_PAPI_INC for
+the location of the papi distribution, libraries,
+and include files, respectively.
+To use the PAPI library, compile the source code with the option:
+        -I$TACC_PAPI_INC
+and add the following options to the link step:
+        -Wl,-rpath,$TACC_PAPI_LIB -L$TACC_PAPI_LIB -lpapi
+The -Wl,-rpath,$TACC_PAPI_LIB option is not required, however,
+if it is used, then this module will not have to be loaded
+to run the program during future login sessions.
+   Version 4.1.4]],
+          lpathA = {
+            ["/opt/apps/papi/4.1.4/lib"] = 1,
+          },
+          ["luaExt"] = 6,
+          ["mpath"] = "ProjectDIR/rt/ck_mtree_syntax/mf",
+          ["pV"] = "000000004.000000001.000000004.*zfinal",
+          pathA = {
+            ["/opt/apps/papi/4.1.4/bin"] = 1,
+          },
+          ["wV"] = "000000004.000000001.000000004.*zfinal",
+          whatis = {
+            "PAPI: Performance Application Programming Interface", "Version: 4.1.4", "Category: library, performance measurement", "Description: Interface to monitor performance counter hardware for quantifying application behavior", "URL: http://icl.cs.utk.edu/papi/",
+          },
+        },
+        ["papi/4.4.0"]  = {
+          ["Category"] = "library, performance measurement",
+          ["Description"] = "Interface to monitor performance counter hardware for quantifying application behavior",
+          ["URL"] = "http://icl.cs.utk.edu/papi/",
+          ["Version"] = "4.4.0",
+          ["canonical"] = "4.4.0",
+          ["fn"] = "ProjectDIR/rt/ck_mtree_syntax/mf/papi/4.4.0.lua",
+          lpathA = {
+            ["/opt/apps/papi/4.4.0/lib"] = 1,
+          },
+          ["luaExt"] = 6,
+          ["mpath"] = "ProjectDIR/rt/ck_mtree_syntax/mf",
+          ["pV"] = "000000004.000000004.*zfinal",
+          pathA = {
+            ["/opt/apps/papi/4.4.0/bin"] = 1,
+          },
+          ["wV"] = "000000004.000000004.*zfinal",
+          whatis = {
+            "PAPI: Performance Application Programming Interface", "Version: 4.4.0", "Category: library, performance measurement", "Description: Interface to monitor performance counter hardware for quantifying application behavior", "URL: http://icl.cs.utk.edu/papi/",
+          },
+        },
+      },
+    },
+    valkyrie = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["valkyrie/2.0.1"]  = {
+          ["Category"] = "tools",
+          ["Description"] = "GUI frontend for valgrind",
+          ["Name"] = "valkyrie",
+          ["URL"] = "http://www.valgrind.org/downloads/guis.html/",
+          ["Version"] = "2.0.1",
+          ["canonical"] = "2.0.1",
+          ["fn"] = "ProjectDIR/rt/ck_mtree_syntax/mf/valkyrie/2.0.1.lua",
+          ["luaExt"] = 6,
+          ["mpath"] = "ProjectDIR/rt/ck_mtree_syntax/mf",
+          ["pV"] = "000000002.000000000.000000001.*zfinal",
+          pathA = {
+            ["/opt/apps/valkyrie/2.0.1/bin"] = 1,
+          },
+          ["wV"] = "000000002.000000000.000000001.*zfinal",
+          whatis = {
+            "Name: valkyrie", "Version: 2.0.1", "Category: tools", "URL: http://www.valgrind.org/downloads/guis.html/", "Description: GUI frontend for valgrind",
+          },
+        },
+      },
+    },
+    vasp = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["vasp/5.4.4"]  = {
+          ["Category"] = "application, chemistry",
+          ["Description"] = "Vienna Ab-Initio Simulation Package",
+          ["URL"] = "https://www.vasp.at/",
+          ["Version"] = "5.4.4",
+          ["canonical"] = "5.4.4",
+          ["fn"] = "ProjectDIR/rt/ck_mtree_syntax/mf/vasp/5.4.4.lua",
+          ["help"] = [[The TACC VASP module appends the path to the vasp executables
+to the PATH environment variable.  Also TACC_VASP_DIR, and
+TACC_VASP_BIN are set to VASP home and bin directories.
+Users have to show their licenses and be confirmed by
+VASP team that they are registered users under that licenses
+Scan a copy of the license with the license number and send to hliu@tacc.utexas.edu
+The VASP executables are
+vasp_std: compiled with pre processing flag: -DNGZhalf
+vasp_gam: compiled with pre processing flag: -DNGZhalf -DwNGZhalf
+vasp_ncl: compiled without above pre processing flags
+vasp_std_vtst: vasp_std with VTST
+vasp_gam_vtst: vasp_gam with VTST
+vasp_ncl_vtst: vasp_ncl with VTST
+vtstscripts-947/: utility scripts of VTST
+bee: BEEF analysis code
+This the VASP.5.4.4 release.
+Version 5.4.4
+]],
+          ["luaExt"] = 6,
+          ["mpath"] = "ProjectDIR/rt/ck_mtree_syntax/mf",
+          ["pV"] = "000000005.000000004.000000004.*zfinal",
+          ["wV"] = "000000005.000000004.000000004.*zfinal",
+          whatis = {
+            "Version: 5.4.4", "Category: application, chemistry", "Keywords: Chemistry, Density Functional Theory, Molecular Dynamics", "URL:https://www.vasp.at/", "Description: Vienna Ab-Initio Simulation Package",
+          },
+        },
+      },
+    },
+  },
+  ["version"] = 5,
+}
+mpathMapT = {}
