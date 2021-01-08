@@ -243,7 +243,7 @@ function M.add(self, mname, status, loadOrder)
       status     = status,
       loadOrder  = loadOrder,
       propT      = {},
-      wV         = mname:wV(),
+      wV         = mname:wV() or false,
    }
 end
 

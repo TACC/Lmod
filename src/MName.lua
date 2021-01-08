@@ -241,7 +241,7 @@ local function lazyEval(self)
          break
       end
    end
-   dbg.print{"lazyEval: sn: ",self.__sn, ", version: ",self.__version, ", fn: ",self.__fn,"\n"}
+   dbg.print{"lazyEval: sn: ",self.__sn, ", version: ",self.__version, ", fn: ",self.__fn,", wV: ",self.__wV,"\n"}
    dbg.print{"fn: ",self.__fn,"\n"}
    dbg.fini("lazyEval")
 end
@@ -288,7 +288,7 @@ function M.wV(self)
    if (not self.__sn) then
       lazyEval(self)
    end
-   return self.__wv
+   return self.__wV
 end
 
 function M.stackDepth(self)
@@ -478,7 +478,7 @@ local function find_highest_by_key(self, key, fileA)
       found        = true
       self.__range = { pV, pV }
    end
-   dbg.print{"found: ",found,", fn: ",fn,", version: ", version,"\n"}
+   dbg.print{"found: ",found,", fn: ",fn,", version: ", version,", wV: ",wV,"\n"}
    dbg.fini("MName:find_by_key")
    return found, fn, version, wV
 end
