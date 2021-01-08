@@ -180,7 +180,7 @@ local function lazyEval(self)
          self.__fn         = mt:fn(sn)
          self.__version    = mt:version(sn)
          self.__stackDepth = mt:stackDepth(sn)
-         self.__wV         = mt.wV(sn)
+         self.__wV         = mt:wV(sn)
       end
       dbg.fini("lazyEval via mt")
       return
@@ -196,6 +196,7 @@ local function lazyEval(self)
          self.__sn       = t.sn
          self.__version  = t.version
          self.__userName = build_fullName(t.sn, t.version)
+         self.__wV         = mt:wV(sn)
       end
 
       dbg.fini("lazyEval via inherit")

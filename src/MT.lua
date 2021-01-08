@@ -598,6 +598,14 @@ function M.fullName(self, sn)
    return entry.fullName
 end
 
+function M.wV(self, sn)
+   local entry = self.mT[sn]
+   if (entry == nil) then
+      return nil
+   end
+   return entry.wV
+end
+
 function M.fn(self, sn)
    local entry = self.mT[sn]
    if (entry == nil) then
