@@ -583,6 +583,18 @@ function M.isPending(self)
    return false
 end
 
+function M.defaultKind(self)
+   local kindT = { 
+      ["^"] = "marked",
+      s     = "system",
+      u     = "user",
+   }
+
+   local kind = self:wV():gsub("^.*/",""):sub(1,1)
+   return kindT[kind] or "none"
+end
+
+
 
 -- Do a prereq check to see name and/or version is loaded.
 -- @param self A MName object
