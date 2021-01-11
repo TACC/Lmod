@@ -22,15 +22,17 @@ testdescript = {
      export MODULEPATH=$(testDir)/mf/Core
      export LMOD_PACKAGE_PATH=$(testDir)
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .modulerc.lua
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d system.modulerc.lua
 
      runLmod --version                         # 1
      runLmod load StdEnv                       # 2
      runLmod list                              # 3
 
-     cat > .modulerc.lua << 'EOF'
+     cat > system.modulerc.lua << 'EOF'
      module_version("StdEnv/2016.4","default")
 EOF
+     export LMOD_MODULERCFILE=$(outputDir)/system.modulerc.lua 
+
      runLmod load StdEnv                       # 4
      runLmod list                              # 5
      runLmod load StdEnv/2016.4                # 6
