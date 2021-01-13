@@ -1,10 +1,8 @@
 require("strict")
-require("serializeTbl")
 local MName = require("MName")
 local hook  = require("Hook")
 
 function load_hook(t)
-   --io.stderr:write("module name: ",t.modName," full module name: ", t.modFullName, " fn: ", t.fn, "\n")
    local mname = t.mname
    local sn    = mname:sn()
 

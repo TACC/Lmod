@@ -51,4 +51,5 @@ Lmod 8.4+
             * PR #489 is merged in. This fixes bug with "module --terse keyword"
    (8.4.19) * MasterControl:unsetenv(name) also clears stack if it exists.
             * Issue #490: use old way of following readlink as "readlink -f" is not universal.
-            
+   (8.4.20) * Adding wV field to MName and MT class (Merged wV branch)
+            * This allows users to tell how (if any) default is set.
