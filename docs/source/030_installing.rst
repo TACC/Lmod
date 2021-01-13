@@ -325,8 +325,29 @@ like::
     fi
 
 Similarly, the system BASHRC file should source all the \*.sh files in
-``/etc/profile.d`` as well.  Here is where things can get complicated.
-See the next section for details.
+``/etc/profile.d`` as well.
+
+
+
+Bash under Ubuntu:
+~~~~~~~~~~~~~~~~~~
+
+Sites that run Ubuntu and have bash users should consider adding the
+following to their /etc/bash.bashrc::
+
+    if ! shopt -q login_shell; then
+      if [ -d /etc/profile.d ]; then
+        for i in /etc/profile.d/*.sh; do
+          if [ -r $i ]; then
+            . $i
+          fi
+        done
+      fi
+    fi
+
+This is useful because non-login interactive shells only source
+/etc/bash.bashrc and this file doesn't normally source the files in
+/etc/profile.d/*.sh.
 
 Bash Shell Scripts:
 ~~~~~~~~~~~~~~~~~~~
