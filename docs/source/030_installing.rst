@@ -59,8 +59,10 @@ downloaded from https://sourceforge.net/projects/lmod/files/::
 
     $ wget https://sourceforge.net/projects/lmod/files/lua-5.1.4.9.tar.bz2
 
-The current version is 5.1.4.9 but it may change in the future. This
-can be installed using the following commands::
+The current version is 5.1.4.9 but it may change in the future. If the
+above wget doesn't work then please go to sourceforce.net and down
+from the web interface. The lua package can be installed using the
+following commands::
 
     $ tar xf lua-X.Y.Z.tar.bz2
     $ cd lua-X.Y.Z
