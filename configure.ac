@@ -84,7 +84,7 @@ AC_ARG_WITH(siteMsgFile,
 
 AC_SUBST(LMOD_OVERRIDE_LANG)
 AC_ARG_WITH(lang,
-    AC_HELP_STRING([--with-lang=ans],[Override $LANG for Lmod errors/messsages/warnings [[<empty>]]]),
+    AC_HELP_STRING([--with-lang=ans],[Override $LANG for Lmod errors/messages/warnings [[<empty>]]]),
     LMOD_OVERRIDE_LANG="$withval"
     AC_MSG_RESULT([LMOD_OVERRIDE_LANG=$with_lang])
     AC_DEFINE_UNQUOTED(LMOD_OVERRIDE_LANG,"$with_lang")dnl
