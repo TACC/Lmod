@@ -57,7 +57,7 @@ One choice is to install the lua-X.Y.Z.tar.gz file.  This tar ball
 contains lua and the required libraries. This can be
 downloaded from https://sourceforge.net/projects/lmod/files/::
 
-    $ wget https://sourceforge.net/projects/lmod/files/lua-5.1.4.9.tar.gz
+    $ wget https://sourceforge.net/projects/lmod/files/lua-5.1.4.9.tar.bz2
 
 The current version is 5.1.4.9 but it may change in the future. This
 can be installed using the following commands::
