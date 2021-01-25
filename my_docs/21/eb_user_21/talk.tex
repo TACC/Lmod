@@ -104,11 +104,11 @@
 \begin{frame}{Extended Default}
   \begin{itemize}
     \item Long version number are a pain. (e.g. intel/18.0.4)
-%    \item With Extended Default: module load intel/18 will load the
-%      ``highest'' or marked default.
-%    \item Useful: Want to load intel/17 but don't
-%      remember which is the latest 17.0.* and intel/19.0.5 is the default.
-%  \end{itemize}
+    \item With Extended Default: module load intel/18 will load the
+      ``highest'' or marked default.
+    \item Useful: Want to load intel/17 but don't
+      remember which is the latest 17.0.* and intel/19.0.5 is the default.
+  \end{itemize}
 \end{frame}
 
 % page 9
@@ -147,20 +147,20 @@
     \item A user does ``\texttt{module load Foo}''
     \item With Version Foo/foo and Foo/3.12
     \item Lmod must pick something.  
-    \item Suppose version 3.12 is the marked default.
+    \item Suppose version 3.12 is the default.
   \end{itemize}
 \end{frame}
 
 % page 13
-\begin{frame}{Knowing what kind of default your module is (I)}
+\begin{frame}{Knowing what kind of default your module is (II)}
   \begin{itemize}
     \item Lmod uses ``loose version'' idea from python.
-    \item Version 3.12 $Rightarrow$ ``00003.00012.*zf''
-    \item Version foo $Rightarrow$ ``*foo.*zf''
-    \item Marked default $Rightarrow$ ``\^{}0003.00012.*zf''
-    \item System Modulerc $Rightarrow$ ``s0003.00012.*zf''
-    \item User Modulerc $Rightarrow$ ``u0003.00012.*zf''
-    \item Ascii order: *, 0,1,2, ..., \^{}, s, u
+    \item Version 3.12 $\Rightarrow$ ``00003.00012.*zf''
+    \item Version foo $\Rightarrow$ ``*foo.*zf''
+    \item Marked default $\Rightarrow$ ``\^{}0003.00012.*zf''
+    \item System Modulerc $\Rightarrow$ ``s0003.00012.*zf''
+    \item User Modulerc $\Rightarrow$ ``u0003.00012.*zf''
+    \item Ascii order: *, 0,1,2, ..., 9, \^{}, s, u
   \end{itemize}
 \end{frame}
 
@@ -172,7 +172,7 @@
       user env.
     \item Show example of ``ml --mt'' from Lmod 8.4.20
     \item New function Mname:defaultKind() available in SitePackage.lua:
-    \item  none, marked, system, user
+    \item Returns: none, marked, system, user
   \end{itemize}
 \end{frame}
 

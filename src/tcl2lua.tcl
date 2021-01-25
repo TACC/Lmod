@@ -818,6 +818,9 @@ proc module { command args } {
         try-add {
             eval tryloadcmd $args
         }
+        try-load {
+            eval tryloadcmd $args
+        }
         unload {
             eval unload $args
         }
