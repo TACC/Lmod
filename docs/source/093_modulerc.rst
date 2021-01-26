@@ -16,7 +16,7 @@ A default can be specified in three ways:
 
 #. **default**, **.version**,  **.modulerc.lua** or **.modulerc** file
    in the module tree as describe earlier.
-#. One or more system MODULERC files.
+#. One or more system MODULERC files: $LMOD_MODULERCFILE or $MODULERC or <INSTALL_DIR>/../etc/rc.lua
 #. A **~/.modulerc.lua** or **~/.modulerc**
 
 The highest priority for defaults are the user MODULERC files, followed by the
