@@ -1453,6 +1453,9 @@ function M.inherit(self)
 end
 
 function M.color_banner(self,color)
+   if (quiet()) then
+      return
+   end
    local term_width  = TermWidth()
    local border      = colorize(color or "red",string.rep("=", term_width-1))
    io.stderr:write(border,"\n")

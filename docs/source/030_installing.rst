@@ -280,7 +280,9 @@ files to ``/etc/profile.d``, and optionally the fish file to ``/etc/fish/conf.d`
     $ ln -s /opt/apps/lmod/lmod/init/cshrc          /etc/profile.d/z00_lmod.csh
     $ ln -s /opt/apps/lmod/lmod/init/profile.fish   /etc/fish/conf.d/z00_lmod.fish
 
-To test the setup, you just need to login as a user. The module
+To test the setup, you just need to login as a user. Or if you are
+already logged in, please logout and log back in so that the startup
+files in ``/etc/profile.d/*.sh'' will be sourced. The module
 command should be set and ``MODULEPATH`` should be defined. Bash or Zsh
 users should see something like::
 

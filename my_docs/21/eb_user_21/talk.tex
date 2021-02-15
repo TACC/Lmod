@@ -142,6 +142,17 @@
 \end{frame}
 
 % page 12
+\begin{frame}{Checking your module tree 8.4.3+}
+  \begin{itemize}
+    \item New command added: \texttt{\$LMOD\_DIR/check\_module\_tree\_syntax}
+    \item Reports syntax errors across the entire \texttt{\$MODULEPATH}
+    \item Report which modules have multiple marked defaults sets
+    \item Precedent order: default symlink, .modulerc.lua, .modulerc, .version
+    \item Does not check SYSTEM MODULERCFILE for defaults.
+  \end{itemize}
+\end{frame}
+
+% page 13
 \begin{frame}{Knowing what kind of default your module is (I)}
   \begin{itemize}
     \item A user does ``\texttt{module load Foo}''
@@ -151,7 +162,7 @@
   \end{itemize}
 \end{frame}
 
-% page 13
+% page 14
 \begin{frame}{Knowing what kind of default your module is (II)}
   \begin{itemize}
     \item Lmod uses ``loose version'' idea from python.
@@ -164,7 +175,7 @@
   \end{itemize}
 \end{frame}
 
-% page 14
+% page 15
 \begin{frame}{Knowing what kind of default your module is (III)}
   \begin{itemize}
     \item Lmod sorts loose version strings to find the highest.
@@ -176,7 +187,7 @@
   \end{itemize}
 \end{frame}
 
-% page 15
+% page 16
 \begin{frame}{Future Work}
   \begin{itemize}
     \item Lmod can optionally track usage.
@@ -189,19 +200,19 @@
 \end{frame}
 
 
-% page 16
+% page 17
 \begin{frame}[fragile]
     \frametitle{Lmod Doc usage by Country}
     \center{\includegraphics[width=.9\textwidth]{Lmod_usage_by_country}}
 \end{frame}
 
-% page 17
+% page 18
 \begin{frame}[fragile]
     \frametitle{Lmod Doc usage by City}
     \center{\includegraphics[width=.9\textwidth]{Lmod_usage_by_city}}
 \end{frame}
 
-% page 18
+% page 19
 \begin{frame}{Conclusions: Lmod 8+}
   \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
   \begin{itemize}
