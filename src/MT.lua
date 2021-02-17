@@ -958,13 +958,7 @@ function M.setHashSum(self)
       LmodError{msg="e_Failed_2_Find", name = "computeHashSum"}
    end
 
-   local path   = "@path_to_lua@:" .. os.getenv("PATH")
-   local luaCmd, found = findInPath("lua",path)
-
-   if (not found) then
-      LmodError{msg="e_Failed_2_Find", name = "lua"}
-   end
-
+   local luaCmd = findLuaProg()
    local cmdA = {}
    cmdA[#cmdA+1] = luaCmd
    cmdA[#cmdA+1] = cmdSum

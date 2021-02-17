@@ -218,6 +218,21 @@ if (not _G.cmdDir) then
 end
 
 --------------------------------------------------------------------------
+-- findLuaProg: Return the path to the lua command or die
+function findLuaProg()
+   local luaprog, found = "@path_to_lua@", false
+   if (luaprog:sub(1,1) == "@") then
+      luaprog, found = findInPath("lua")
+   else
+      found = isFile(luaCmd) and posix.access(luaCmd, "x")
+   end
+   if (not found) then
+      LmodError{msg="e_Failed_2_Find", name = "lua"}
+   end
+   return luaprog
+end
+
+--------------------------------------------------------------------------
 -- Use the *propT* table to colorize the module name when requested by
 -- *propT*.
 -- @param style How to colorize

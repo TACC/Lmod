@@ -475,16 +475,7 @@ function main()
       os.exit(0)
    end
 
-   local LuaCmd = "@path_to_lua@"
-   local found
-
-   if (LuaCmd:sub(1,1) == "@") then
-      LuaCmd, found = findInPath("lua")
-      if (not found) then
-         io.stderr:write("Unable to find lua program")
-         return
-      end
-   end
+   local LuaCmd = findLuaProg()
 
    if (masterTbl.cleanEnv) then
       cleanEnv()
