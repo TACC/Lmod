@@ -21,7 +21,7 @@
 local term = require 'term.core'
 
 return {
-  goto    = term.maketermfunc '%d;%dH',
+  ['goto']= term.maketermfunc '%d;%dH',
   goup    = term.maketermfunc '%d;A',
   godown  = term.maketermfunc '%d;B',
   goright = term.maketermfunc '%d;C',
