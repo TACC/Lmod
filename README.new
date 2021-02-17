@@ -55,5 +55,4 @@ Lmod 8.4+
             * This allows users to tell how (if any) default is set.
    (8.4.21) * Issue #496: Add findLuaProg() or die
    (8.4.22) * Issue #496: Fix luaCmd -> luaprog.
-   
-
+   (8.4.23) * Issue #496: Fix goto in luaterm pkg.
