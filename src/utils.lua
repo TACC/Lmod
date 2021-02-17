@@ -224,7 +224,7 @@ function findLuaProg()
    if (luaprog:sub(1,1) == "@") then
       luaprog, found = findInPath("lua")
    else
-      found = isFile(luaCmd) and posix.access(luaCmd, "x")
+      found = isFile(luaprog) and posix.access(luaprog, "x")
    end
    if (not found) then
       LmodError{msg="e_Failed_2_Find", name = "lua"}
