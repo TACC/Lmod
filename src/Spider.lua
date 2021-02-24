@@ -1413,7 +1413,9 @@ function M.listModules(self, dbT)
    local listT = {}
    for sn, vv in pairs(dbT) do
       for fn, v in pairs(vv) do
-         listT[fn] = true
+         if (not v.hidden) then
+            listT[fn] = true
+         end
       end
    end
    return listT

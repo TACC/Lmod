@@ -1,5 +1,20 @@
-#!/usr/bin/env python
+#!/bin/sh
 # -*- python -*-
+
+################################################################################
+# This file is python 2/3 bilingual. 
+# The line """:" starts a comment in python and is a no-op in shell.
+""":"
+# Shell code to find and run a suitable python interpreter.
+for cmd in python3 python python2; do
+   command -v > /dev/null $cmd && exec $cmd $0 "$@"
+done
+
+echo "Error: Could not find a valid python interpreter --> exiting!" >&2
+exit 2
+":""" # this line ends the python comment and is a no-op in shell.
+################################################################################
+
 from __future__ import print_function
 import os, sys, re, time, datetime, argparse
 from LMODdb       import LMODdb
@@ -15,12 +30,13 @@ class CmdLineOptions(object):
   def execute(self):
     """ Specify command line arguments and parse the command line"""
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dbname",     dest='dbname',     action="store", default = "lmod",    help="lmod db name")
-    parser.add_argument("--syshost",    dest='syshost',    action="store", default = "%",       help="system host name")
-    parser.add_argument("--start",      dest='startDate',  action="store", default = "unknown", help="start date")
-    parser.add_argument("--end",        dest='endDate',    action="store", default = "unknown", help="end date")
-    parser.add_argument("--sqlPattern", dest='sqlPattern', action="store", default = "/opt/%",  help="sql pattern for matching")
-    parser.add_argument("cmdA",         nargs="+",         help="commands: counts, usernames, modules_used_by")
+    parser.add_argument("--dbname",       dest='dbname',       action="store", default = "lmod",    help="lmod db name")
+    parser.add_argument("--syshost",      dest='syshost',      action="store", default = "%",       help="system host name")
+    parser.add_argument("--start",        dest='startDate',    action="store", default = "unknown", help="start date")
+    parser.add_argument("--end",          dest='endDate',      action="store", default = "unknown", help="end date")
+    parser.add_argument("--allmodulesFn", dest='allmodulesFn', action="store", default = None,      help="File containing all modules")
+    parser.add_argument("--sqlPattern",   dest='sqlPattern',   action="store", default = "/opt/%",  help="sql pattern for matching")
+    parser.add_argument("cmdA",           nargs="+",           help="commands: counts, usernames, modules_used_by")
 
     args = parser.parse_args()
     return args
@@ -40,7 +56,7 @@ def main():
 
   if (args.cmdA[0] == "counts"):
     cmdFnd   = True
-    resultA = lmod.counts(args.sqlPattern, args.syshost, args.startDate, args.endDate)
+    resultA = lmod.counts(args.sqlPattern, args.syshost, args.startDate, args.endDate, args.allmodulesFn)
     num = len(resultA) - 2
 
     bt = BeautifulTbl(tbl=resultA, gap = 4, justify = "llr")
