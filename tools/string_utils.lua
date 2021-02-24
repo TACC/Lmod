@@ -107,18 +107,10 @@ function string.multiEscaped(self)
    if (type(self) ~= 'string') then
       self = tostring(self)
    end
-   self = self:gsub("[ \\\t{}|<>!;#^$&*\"'`()~]","\\%1")
+   self = self:gsub("[? \\\t{}|<>!;#^$&*\"'`()~]","\\%1")
    return self
 end
 
-function string.cshEscaped(self)
-   if (type(self) ~= 'string') then
-      self = tostring(self)
-   else
-      self = self:gsub("[ \"\\\t{}|<>!;#^$&*'`()]","\\%1")
-   end
-   return self
-end
 --------------------------------------------------------------------------
 -- Wrap input string with double quotes
 -- @param  self Input string

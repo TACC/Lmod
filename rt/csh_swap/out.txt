@@ -5,6 +5,7 @@ step 0
 step 1
 ===========================
 setenv ADMIN_MODULE_LOADED 1;
+setenv BAR ab\?c;
 setenv FOO aa,bb\$bb,\$cc,dd\ plus\ spaces;
 setenv __LMOD_REF_COUNT_INFOPATH /local/info:1\;/usr/share/info:1;
 setenv INFOPATH /local/info:/usr/share/info;
