@@ -54,6 +54,7 @@ spiderT = {
         ["A/.version.2.0"]  = {
           ["Version"] = ".version.2.0",
           ["canonical"] = ".version.2.0",
+          ["dot_version"] = 1,
           ["fn"] = "ProjectDIR/rt/ck_mtree_syntax/mf/A/.version.2.0",
           ["mpath"] = "ProjectDIR/rt/ck_mtree_syntax/mf",
           ["pV"] = "*version.000000002.*zfinal",
