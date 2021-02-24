@@ -298,7 +298,7 @@ class LMODdb(object):
       print("data_to_db(): ",e)
       sys.exit(1)
 
-  def counts(self, sqlPattern, syshost, startDate, endDate):
+  def counts(self, sqlPattern, syshost, startDate, endDate, allmodulesFn):
     query = ""
     try:
       conn   = self.connect()
@@ -323,13 +323,30 @@ class LMODdb(object):
       cursor.execute(query,( sqlPattern, syshost))
       numRows = cursor.rowcount
 
+      resultT = {}
+
+      if (allmodulesFn):
+        with open(allmodulesFn) as fp:
+          lineA = fp.readlines()
+          for moduleNm in lineA:
+            resultT[moduleNm] = { 'syshost' : syshost, 'nUsers' : 0 }
+      
+      sT = {}
+
+      for i in xrange(numRows):
+        row = cursor.fetchone()
+        moduleNm = row[0]
+        resultT[moduleNm] = { 'syshost' : row[1], 'nUsers' : row[2] }
+        sT[moduleNm] = row[2]
+
       resultA = []
 
       resultA.append(["Module path", "Syshost", "Distinct Users" ])
       resultA.append(["-----------", "-------", "--------------"])
-      for i in xrange(numRows):
-        row = cursor.fetchone()
-        resultA.append([row[0],row[1],row[2]])
+      sT_view = [ (v,k) for k,v in sT.items() ]
+      sT_view.sort(reverse=True)
+      for v,k in sT_view:
+        resultA.append(k, resultT[k]['syshost'],, resultT[k]['nUsers'])
 
       conn.close()
 
