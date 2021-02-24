@@ -28,10 +28,10 @@ class BeautifulTbl(object):
     # build justifyT
     nc = len(justify)
     justifyT = []
-    for icol in xrange(nc):
+    for icol in range(nc):
       justifyT.append((justify[icol].lower() == "r") and "r" or "l")
 
-    for i in xrange(nc, maxnc):
+    for i in range(nc, maxnc):
       justifyT.append("l")
 
     for irow, row in enumerate(tblIn):
@@ -63,7 +63,7 @@ class BeautifulTbl(object):
     justifyT   = self.__justifyT
 
     if (self.__wrapped and self.__column > 0):
-      for icol in xrange(len(columnCnt)-1):
+      for icol in range(len(columnCnt)-1):
         width += columnCnt[icol] + gap
       last = columnCnt[-1]
       simple = (width > column - 10) or (width + last < column)
@@ -96,7 +96,7 @@ class BeautifulTbl(object):
       nc  = len(row)
       nc1 = min(nc, maxnc1)
 
-      for i in xrange(nc1):
+      for i in range(nc1):
         aa.append(row[i])
 
       # Now word wrap last column
