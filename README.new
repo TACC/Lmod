@@ -57,4 +57,5 @@ Lmod 8.4+
    (8.4.22) * Issue #496: Fix luaCmd -> luaprog.
    (8.4.23) * Issue #496: Fix goto in luaterm pkg.
    (8.4.24) * Issue #497: Need to quote '?' in csh.
-   
+            * Make list of modules from spider only print non-hidden modules
+	    * analyzeLmodDB now takes a list of all modules so that zero module usage can be reported.
