@@ -70,6 +70,14 @@ describe("Testing LocationT Class #LocationT.",
                      foo = {
                         dirT = {},
                         fileT = {
+                           ["foo/.version.1.0"]  = {
+                              ["canonical"] = ".version.1.0",
+                              ["dot_version"] = 1,
+                              ["fn"] = "%ProjDir%/spec/LocationT/nv/foo/.version.1.0",
+                              ["mpath"] = "%ProjDir%/spec/LocationT/nv",
+                              ["pV"] = "*version.000000001.*zfinal",
+                              ["wV"] = "*version.000000001.*zfinal",
+                           },
                            ["foo/1.0"]  = {
                               ["canonical"] = "1.0",
                               ["fn"] = "%ProjDir%/spec/LocationT/nv/foo/1.0",
@@ -104,8 +112,8 @@ describe("Testing LocationT Class #LocationT.",
                   local rplmntA = { {projDir,"%%ProjDir%%"} }
                   local _locationT = {}
                   sanizatizeTbl(rplmntA, locationT, _locationT)
-                  --print(serializeTbl{indent=true, name="locationT",value=_locationT})
-                  --print(serializeTbl{indent=true, name="goldT",    value=goldT})
+                  -- print(serializeTbl{indent=true, name="locationT",value=_locationT})
+                  -- print(serializeTbl{indent=true, name="goldT",    value=goldT})
                   assert.same(goldT, _locationT)
                end)
             it("Test of meta module and regular modules with same name",

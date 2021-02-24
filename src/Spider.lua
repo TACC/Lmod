@@ -572,7 +572,9 @@ function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
             t.parentAA   = parentT[mpath]
             t.fullName   = fullName
             t.hidden     = not mrc:isVisible({fullName=fullName, sn=sn, fn=vv.fn})
-            T[vv.fn]     = t
+            if (not vv.dot_version) then
+               T[vv.fn]  = t
+            end
          end
       end
       if (next(v.dirT) ~= nil) then
@@ -1413,9 +1415,7 @@ function M.listModules(self, dbT)
    local listT = {}
    for sn, vv in pairs(dbT) do
       for fn, v in pairs(vv) do
-         if (not v.hidden) then
-            listT[fn] = true
-         end
+         listT[fn] = true
       end
    end
    return listT

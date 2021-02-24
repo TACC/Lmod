@@ -199,8 +199,9 @@ local function walk(mrc, mpath, path, dirA, fileT)
             elseif (not fileT[fullName] or not fileT[fullName].luaExt) then
                local luaExt = f:find("%.lua$")
                if (accept_fn(file) and (luaExt or l_checkValidModulefile(file))) then
-                  fileT[fullName] = {fn = file, canonical = f:gsub("%.lua$", ""), mpath = mpath,
-                                     luaExt = luaExt}
+                  local dot_version = f:find("^%.version") or f:find("^%.modulerc")
+                  fileT[fullName]   = {fn = file, canonical = f:gsub("%.lua$", ""), mpath = mpath,
+                                       luaExt = luaExt, dot_version = dot_version}
                end
             end
          end
