@@ -6,7 +6,9 @@ step 1
 ===========================
 setenv ADMIN_MODULE_LOADED 1;
 setenv BAR ab\?c;
+setenv BAZ ab-c;
 setenv FOO aa,bb\$bb,\$cc,dd\ plus\ spaces;
+setenv GZ a\[b-c\];
 setenv __LMOD_REF_COUNT_INFOPATH /local/info:1\;/usr/share/info:1;
 setenv INFOPATH /local/info:/usr/share/info;
 setenv __LMOD_REF_COUNT_LD_LIBRARY_PATH /vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/lib:1\;/vol/local/intel/mkl/mkl/lib/lib:1\;/vol/local/intel/idb/idb/lib:1\;/vol/local/intel/fc/fc/lib:1\;/vol/local/intel/cc/cc/lib:1;
