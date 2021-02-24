@@ -56,7 +56,7 @@ def main():
 
   if (args.cmdA[0] == "counts"):
     cmdFnd   = True
-    resultA = lmod.counts(args.sqlPattern, args.syshost, args.startDate, args.endDate, args.allModulesFn)
+    resultA = lmod.counts(args.sqlPattern, args.syshost, args.startDate, args.endDate, args.allmodulesFn)
     num = len(resultA) - 2
 
     bt = BeautifulTbl(tbl=resultA, gap = 4, justify = "llr")

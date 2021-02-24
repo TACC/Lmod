@@ -73,7 +73,7 @@ class LMODdb(object):
       self.__user    = config.get("MYSQL","USER")
       self.__passwd  = base64.b64decode(config.get("MYSQL","PASSWD").encode()).decode()
       self.__db      = config.get("MYSQL","DB")
-    except ConfigParser.NoOptionError, err:
+    except ConfigParser.NoOptionError as err:
       sys.stderr.write("\nCannot parse the config file\n")
       sys.stderr.write("Switch to user input mode...\n\n")
       self.__readFromUser()
@@ -102,7 +102,7 @@ class LMODdb(object):
         break
 
 
-      except MySQLdb.Error, e:
+      except MySQLdb.Error as e:
         if (i < n):
           sleep(i*0.1)
           print ("failed to connect trying again: ",i)
@@ -324,20 +324,22 @@ class LMODdb(object):
       numRows = cursor.rowcount
 
       resultT = {}
+      sT = {}
 
       if (allmodulesFn):
         with open(allmodulesFn) as fp:
           lineA = fp.readlines()
           for moduleNm in lineA:
+            moduleNm          = moduleNm.strip()
             resultT[moduleNm] = { 'syshost' : syshost, 'nUsers' : 0 }
+            sT[moduleNm]      = 0
       
-      sT = {}
 
       for i in xrange(numRows):
         row = cursor.fetchone()
         moduleNm = row[0]
         resultT[moduleNm] = { 'syshost' : row[1], 'nUsers' : row[2] }
-        sT[moduleNm] = row[2]
+        sT[moduleNm]      = row[2]
 
       resultA = []
 
@@ -346,7 +348,7 @@ class LMODdb(object):
       sT_view = [ (v,k) for k,v in sT.items() ]
       sT_view.sort(reverse=True)
       for v,k in sT_view:
-        resultA.append(k, resultT[k]['syshost'],, resultT[k]['nUsers'])
+        resultA.append([k, resultT[k]['syshost'], resultT[k]['nUsers'] ])
 
       conn.close()
 
