@@ -615,7 +615,14 @@ if test "$ALLOW_TCL_MFILES" = no ; then
 fi
 
 if test "$FAST_TCL_INTERP" = yes ; then
-   # todo: use M4 pkg-config macros instead?
+   TCL_INCLUDE=/usr/include/tcl
+   TCL_LIBS="-ltcl"
+   OS=$(uname -s)
+   if test "$OS" = Darwin ; then
+     TCL_INCLUDE=$(xcrun --show-sdk-path)
+     TCL_INCLUDE=${DIR}/usr/include
+   fi
+
    AC_PATH_PROG(pkgConfig, pkg-config, "")
    if  ! test x$pkgConfig = "x"; then
        for i in tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
@@ -623,8 +630,6 @@ if test "$FAST_TCL_INTERP" = yes ; then
            if test $? = 0; then
                TCL_INCLUDE=`$pkgConfig --cflags $i | sed -e 's/^-I//' -e 's/ //g'`
                TCL_LIBS=`$pkgConfig --libs $i`
-               AC_SUBST(TCL_INCLUDE, "$TCL_INCLUDE")
-               AC_SUBST(TCL_LIBS, "$TCL_LIBS")
                break
            fi
        done
@@ -641,6 +646,9 @@ if test "$FAST_TCL_INTERP" = yes ; then
    fi
    AC_SEARCH_LIBS(Tcl_CreateInterp,[tcl] [tcl8.8] [tcl8.7] [tcl8.6] [tcl8.5],[],
                 [rm -f makefile; AC_MSG_ERROR([Unable to build Lmod with -ltcl Please install the tcl devel package or configure --with-fastTCLInterp=no to not require the tcl library])], [$TCL_LIBS])
+
+   AC_SUBST(TCL_INCLUDE, "$TCL_INCLUDE")
+   AC_SUBST(TCL_LIBS, "$TCL_LIBS")
 fi
 
 AC_SUBST(SYS_LD_LIB_PATH)

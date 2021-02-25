@@ -642,11 +642,11 @@ BASENAME
 PATH_TO_SRC
 SYS_LD_PRELOAD
 SYS_LD_LIB_PATH
+TCL_LIBS
+TCL_INCLUDE
 EGREP
 GREP
 CPP
-TCL_LIBS
-TCL_INCLUDE
 pkgConfig
 LUA_SUFFIX
 PATH_TO_LUAC
@@ -4016,7 +4016,14 @@ if test "$ALLOW_TCL_MFILES" = no ; then
 fi
 
 if test "$FAST_TCL_INTERP" = yes ; then
-   # todo: use M4 pkg-config macros instead?
+   TCL_INCLUDE=/usr/include/tcl
+   TCL_LIBS="-ltcl"
+   OS=$(uname -s)
+   if test "$OS" = Darwin ; then
+     TCL_INCLUDE=$(xcrun --show-sdk-path)
+     TCL_INCLUDE=${DIR}/usr/include
+   fi
+
    # Extract the first word of "pkg-config", so it can be a program name with args.
 set dummy pkg-config; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
@@ -4064,10 +4071,6 @@ fi
            if test $? = 0; then
                TCL_INCLUDE=`$pkgConfig --cflags $i | sed -e 's/^-I//' -e 's/ //g'`
                TCL_LIBS=`$pkgConfig --libs $i`
-               TCL_INCLUDE="$TCL_INCLUDE"
-
-               TCL_LIBS="$TCL_LIBS"
-
                break
            fi
        done
@@ -4543,6 +4546,11 @@ if test "$ac_res" != no; then :
 else
   rm -f makefile; as_fn_error $? "Unable to build Lmod with -ltcl Please install the tcl devel package or configure --with-fastTCLInterp=no to not require the tcl library" "$LINENO" 5
 fi
+
+
+   TCL_INCLUDE="$TCL_INCLUDE"
+
+   TCL_LIBS="$TCL_LIBS"
 
 fi
 
