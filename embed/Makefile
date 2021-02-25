@@ -6,7 +6,7 @@ OBJ      := $(patsubst %.c, %.o, $(SRC))
 LUAINC   := /opt/apps/lua/lua/include
 OS       := $(shell uname -s)
 
-override CFLAGS   := $(CFLAGS) -DLUA_COMPAT_MODULE -fPIC -I $(LUAINC) -I /usr/include/tcl
+override CFLAGS   := $(CFLAGS) -DLUA_COMPAT_MODULE -fPIC -I $(LUAINC) -I $(TCL_INCLUDE)
 
 ifeq ($(OS),Darwin)
   LIB_OPTION= -bundle -undefined dynamic_lookup #for MacOS X
@@ -23,7 +23,7 @@ $(SONAME):
 	ln -s $(SONAMEV) $@
 
 $(LIBRARY): $(OBJ)
-	$(CC) $(CFLAGS) $(LIB_OPTION) -o $(LIBRARY) $(OBJ) -lc -ltcl
+	$(CC) $(CFLAGS) $(LIB_OPTION) -o $(LIBRARY) $(OBJ) -lc $(TCL_LIBS)
 
 install: all
 	cp $(LIBRARY) $(LUA_LIB)
