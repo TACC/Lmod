@@ -776,7 +776,6 @@ if test ${PATH_TO_LUA:0:1} != '/' ; then
   AC_PATH_PROG(FIND_PATH_TO_LUA, $PATH_TO_LUA)
   PATH_TO_LUA=$(FOLLOW_READLINK $FIND_PATH_TO_LUA)
 fi
-echo "2) PATH_TO_LUA: $PATH_TO_LUA"
 
 if ! command -v $PATH_TO_LUAC &>/dev/null ; then
   echo 'The program "'$PATH_TO_LUAC'" must be in your path'
