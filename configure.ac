@@ -615,24 +615,32 @@ if test "$ALLOW_TCL_MFILES" = no ; then
 fi
 
 if test "$FAST_TCL_INTERP" = yes ; then
-   TCL_INCLUDE=/usr/include/tcl
    TCL_LIBS="-ltcl"
    OS=$(uname -s)
    if test "$OS" = Darwin ; then
      TCL_INCLUDE=$(xcrun --show-sdk-path)
      TCL_INCLUDE=${DIR}/usr/include
+   else
+     for i in "" tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
+        if test -f /usr/include/$i/tcl.h ; then
+	   TCL_INCLUDE=/usr/include/$i
+	   break;
+	fi
+     done
    fi
-
-   AC_PATH_PROG(pkgConfig, pkg-config, "")
-   if  ! test x$pkgConfig = "x"; then
-       for i in tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
-           $pkgConfig --exists $i
-           if test $? = 0; then
-               TCL_INCLUDE=`$pkgConfig --cflags $i | sed -e 's/^-I//' -e 's/ //g'`
-               TCL_LIBS=`$pkgConfig --libs $i`
-               break
-           fi
-       done
+	   
+   if test -z "$TCL_INCLUDE" ; then
+       AC_PATH_PROG(pkgConfig, pkg-config, "")
+       if  ! test x$pkgConfig = "x"; then
+           for i in tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
+               $pkgConfig --exists $i
+               if test $? = 0; then
+                   TCL_INCLUDE=`$pkgConfig --cflags $i | sed -e 's/^-I//' -e 's/ //g'`
+                   TCL_LIBS=`$pkgConfig --libs $i`
+                   break
+               fi
+           done
+       fi  
    fi
 
    CPPFLAGS="-I $TCL_INCLUDE"

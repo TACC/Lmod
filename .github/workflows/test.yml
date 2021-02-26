@@ -16,7 +16,7 @@ jobs:
         run: brew install coreutils
       - name: install dependencies Linux
         if: matrix.os == 'ubuntu-latest'
-        run: sudo apt install tcsh tcl8.6 tcl8.6-dev uuid r-base r-base-dev cmake fish tclsh zsh
+        run: sudo apt install tcsh tcl8.6 tcl8.6-dev tcl-dev uuid r-base r-base-dev cmake fish tclsh zsh
       - name: set up lua
         uses: leafo/gh-actions-lua@v8.0.0
         with:
