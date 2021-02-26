@@ -98,13 +98,12 @@ LMOD_MF                   := $(MY_PACKAGE)/modulefiles/Core
 MAN_PAGES                 := $(MY_PACKAGE)/share/man/cat1
 LMOD_MF_SOURCE            := $(patsubst %, $(srcdir)/%, MF/*.version.lua)
 SETTARG_SOURCE            := $(patsubst %, $(srcdir)/%, settarg/*.lua  settarg/targ.in)
+DATE_cmd                  := $(srcdir)/proj_mgmt/DATE_cmd.sh
 UNAME_S                   := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
   SED      := gsed
-  DATE_cmd := gdate
 else
   SED      := sed
-  DATE_cmd := date
 endif
 
 ifeq ($(LUA_INCLUDE),no)
