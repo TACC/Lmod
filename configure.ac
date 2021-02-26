@@ -615,14 +615,35 @@ if test "$ALLOW_TCL_MFILES" = no ; then
 fi
 
 if test "$FAST_TCL_INTERP" = yes ; then
+   TCL_LIBS="-ltcl"
    OS=$(uname -s)
-   DIR=/usr/include/tcl
    if test "$OS" = Darwin ; then
-     DIR=$(xcrun --show-sdk-path)
-     DIR=${DIR}/usr/include
+     TCL_INCLUDE=$(xcrun --show-sdk-path)
+     TCL_INCLUDE=${DIR}/usr/include
+   else
+     for i in "" tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
+        if test -f /usr/include/$i/tcl.h ; then
+	   TCL_INCLUDE=/usr/include/$i
+	   break;
+	fi
+     done
+   fi
+	   
+   if test -z "$TCL_INCLUDE" ; then
+       AC_PATH_PROG(pkgConfig, pkg-config, "")
+       if  ! test x$pkgConfig = "x"; then
+           for i in tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
+               $pkgConfig --exists $i
+               if test $? = 0; then
+                   TCL_INCLUDE=`$pkgConfig --cflags $i | sed -e 's/^-I//' -e 's/ //g'`
+                   TCL_LIBS=`$pkgConfig --libs $i`
+                   break
+               fi
+           done
+       fi  
    fi
 
-   CPPFLAGS="-I $DIR"
+   CPPFLAGS="-I $TCL_INCLUDE"
 
    AC_CHECK_HEADER(tcl.h,
                    [AC_DEFINE([HAVE_TCL_H], 1, [Define to 1 if you have tcl.h])],[]) 
@@ -632,7 +653,10 @@ if test "$FAST_TCL_INTERP" = yes ; then
       AC_MSG_ERROR([Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h])
    fi
    AC_SEARCH_LIBS(Tcl_CreateInterp,[tcl] [tcl8.8] [tcl8.7] [tcl8.6] [tcl8.5],[],
-                [rm -f makefile; AC_MSG_ERROR([Unable to build Lmod with -ltcl Please install the tcl devel package or configure --with-fastTCLInterp=no to not require the tcl library])])
+                [rm -f makefile; AC_MSG_ERROR([Unable to build Lmod with -ltcl Please install the tcl devel package or configure --with-fastTCLInterp=no to not require the tcl library])], [$TCL_LIBS])
+
+   AC_SUBST(TCL_INCLUDE, "$TCL_INCLUDE")
+   AC_SUBST(TCL_LIBS, "$TCL_LIBS")
 fi
 
 AC_SUBST(SYS_LD_LIB_PATH)
@@ -752,7 +776,6 @@ if test ${PATH_TO_LUA:0:1} != '/' ; then
   AC_PATH_PROG(FIND_PATH_TO_LUA, $PATH_TO_LUA)
   PATH_TO_LUA=$(FOLLOW_READLINK $FIND_PATH_TO_LUA)
 fi
-echo "2) PATH_TO_LUA: $PATH_TO_LUA"
 
 if ! command -v $PATH_TO_LUAC &>/dev/null ; then
   echo 'The program "'$PATH_TO_LUAC'" must be in your path'

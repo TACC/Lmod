@@ -11,7 +11,7 @@ ifeq ($(OS),Darwin)
   DIR        := $(DIR)/usr/include
   LIB_OPTION := -bundle -undefined dynamic_lookup #for MacOS X
 else
-  DIR        := /usr/include/tcl
+  DIR        := $(TCL_INCLUDE)
   LIB_OPTION := -shared -Wl,-soname,$(SONAMEV) #for Linux
 endif
 override CFLAGS   := $(CFLAGS) -DLUA_COMPAT_MODULE -fPIC $(LUA_INC) -I $(DIR)
@@ -25,7 +25,7 @@ $(SONAME):
 	ln -s $(SONAMEV) $@
 
 $(LIBRARY): $(OBJ)
-	$(CC) $(CFLAGS) $(LIB_OPTION) -o $(LIBRARY) $(OBJ) $(LDFLAGS) -lc $(LIBS)
+	$(CC) $(CFLAGS) $(LIB_OPTION) -o $(LIBRARY) $(OBJ) $(LDFLAGS) -lc $(LIBS) $(TCL_LIBS)
 
 install: all
 	cp -a *.so* $(LIB)

@@ -624,7 +624,6 @@ ac_subst_vars='LTLIBOBJS
 LIBOBJS
 ZSH
 ZSH_SITE_FUNCTIONS_DIRS
-pkgConfig
 HAVE_LUA_TERM
 HAVE_LUAFILESYSTEM
 SYS_LUA_CPATH
@@ -643,9 +642,12 @@ BASENAME
 PATH_TO_SRC
 SYS_LD_PRELOAD
 SYS_LD_LIB_PATH
+TCL_LIBS
+TCL_INCLUDE
 EGREP
 GREP
 CPP
+pkgConfig
 LUA_SUFFIX
 PATH_TO_LUAC
 PATH_TO_LUA
@@ -714,6 +716,7 @@ infodir
 docdir
 oldincludedir
 includedir
+runstatedir
 localstatedir
 sharedstatedir
 sysconfdir
@@ -826,6 +829,7 @@ datadir='${datarootdir}'
 sysconfdir='${prefix}/etc'
 sharedstatedir='${prefix}/com'
 localstatedir='${prefix}/var'
+runstatedir='${localstatedir}/run'
 includedir='${prefix}/include'
 oldincludedir='/usr/include'
 docdir='${datarootdir}/doc/${PACKAGE}'
@@ -1078,6 +1082,15 @@ do
   | -silent | --silent | --silen | --sile | --sil)
     silent=yes ;;
 
+  -runstatedir | --runstatedir | --runstatedi | --runstated \
+  | --runstate | --runstat | --runsta | --runst | --runs \
+  | --run | --ru | --r)
+    ac_prev=runstatedir ;;
+  -runstatedir=* | --runstatedir=* | --runstatedi=* | --runstated=* \
+  | --runstate=* | --runstat=* | --runsta=* | --runst=* | --runs=* \
+  | --run=* | --ru=* | --r=*)
+    runstatedir=$ac_optarg ;;
+
   -sbindir | --sbindir | --sbindi | --sbind | --sbin | --sbi | --sb)
     ac_prev=sbindir ;;
   -sbindir=* | --sbindir=* | --sbindi=* | --sbind=* | --sbin=* \
@@ -1215,7 +1228,7 @@ fi
 for ac_var in	exec_prefix prefix bindir sbindir libexecdir datarootdir \
 		datadir sysconfdir sharedstatedir localstatedir includedir \
 		oldincludedir docdir infodir htmldir dvidir pdfdir psdir \
-		libdir localedir mandir
+		libdir localedir mandir runstatedir
 do
   eval ac_val=\$$ac_var
   # Remove trailing slashes.
@@ -1368,6 +1381,7 @@ Fine tuning of the installation directories:
   --sysconfdir=DIR        read-only single-machine data [PREFIX/etc]
   --sharedstatedir=DIR    modifiable architecture-independent data [PREFIX/com]
   --localstatedir=DIR     modifiable single-machine data [PREFIX/var]
+  --runstatedir=DIR       modifiable per-process data [LOCALSTATEDIR/run]
   --libdir=DIR            object code libraries [EPREFIX/lib]
   --includedir=DIR        C header files [PREFIX/include]
   --oldincludedir=DIR     C header files for non-gcc [/usr/include]
@@ -4014,14 +4028,75 @@ if test "$ALLOW_TCL_MFILES" = no ; then
 fi
 
 if test "$FAST_TCL_INTERP" = yes ; then
+   TCL_LIBS="-ltcl"
    OS=$(uname -s)
-   DIR=/usr/include/tcl
    if test "$OS" = Darwin ; then
-     DIR=$(xcrun --show-sdk-path)
-     DIR=${DIR}/usr/include
+     TCL_INCLUDE=$(xcrun --show-sdk-path)
+     TCL_INCLUDE=${DIR}/usr/include
+   else
+     for i in "" tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
+        if test -f /usr/include/$i/tcl.h ; then
+	   TCL_INCLUDE=/usr/include/$i
+	   break;
+	fi
+     done
    fi
 
-   CPPFLAGS="-I $DIR"
+   if test -z "$TCL_INCLUDE" ; then
+       # Extract the first word of "pkg-config", so it can be a program name with args.
+set dummy pkg-config; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_path_pkgConfig+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $pkgConfig in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_pkgConfig="$pkgConfig" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_pkgConfig="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  test -z "$ac_cv_path_pkgConfig" && ac_cv_path_pkgConfig=""""
+  ;;
+esac
+fi
+pkgConfig=$ac_cv_path_pkgConfig
+if test -n "$pkgConfig"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $pkgConfig" >&5
+$as_echo "$pkgConfig" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+       if  ! test x$pkgConfig = "x"; then
+           for i in tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
+               $pkgConfig --exists $i
+               if test $? = 0; then
+                   TCL_INCLUDE=`$pkgConfig --cflags $i | sed -e 's/^-I//' -e 's/ //g'`
+                   TCL_LIBS=`$pkgConfig --libs $i`
+                   break
+               fi
+           done
+       fi
+   fi
+
+   CPPFLAGS="-I $TCL_INCLUDE"
 
 
 ac_ext=c
@@ -4463,7 +4538,7 @@ for ac_lib in '' tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
     ac_res="none required"
   else
     ac_res=-l$ac_lib
-    LIBS="-l$ac_lib  $ac_func_search_save_LIBS"
+    LIBS="-l$ac_lib $TCL_LIBS $ac_func_search_save_LIBS"
   fi
   if ac_fn_c_try_link "$LINENO"; then :
   ac_cv_search_Tcl_CreateInterp=$ac_res
@@ -4491,6 +4566,11 @@ if test "$ac_res" != no; then :
 else
   rm -f makefile; as_fn_error $? "Unable to build Lmod with -ltcl Please install the tcl devel package or configure --with-fastTCLInterp=no to not require the tcl library" "$LINENO" 5
 fi
+
+
+   TCL_INCLUDE="$TCL_INCLUDE"
+
+   TCL_LIBS="$TCL_LIBS"
 
 fi
 
@@ -5040,7 +5120,6 @@ fi
 
   PATH_TO_LUA=$(FOLLOW_READLINK $FIND_PATH_TO_LUA)
 fi
-echo "2) PATH_TO_LUA: $PATH_TO_LUA"
 
 if ! command -v $PATH_TO_LUAC &>/dev/null ; then
   echo 'The program "'$PATH_TO_LUAC'" must be in your path'
