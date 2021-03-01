@@ -1,0 +1,15 @@
+name: test creation of the documentation
+on: [push, pull_request]
+
+jobs:
+  test_documentation:
+      runs-on: ubuntu-latest
+      steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: install sphinx
+        run: sudo apt install python3-sphinx
+      - name: Build documentation
+        run: |
+          cd docs
+          make
