@@ -760,9 +760,29 @@ _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]=
 export _ModuleTable_;
 ===========================
 step 58
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load tex
+===========================
+__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;PrgEnv:1\;intel/intel:1\;gotoblas/1.32:1\;_a/1.0:1\;boost/1.49.0:1\;alex/2.0:1\;D/1.0:1\;A/1.1.1:1\;B/1.4:1\;C/1.8.5:1\;rtm_intel/11.1:1\;go/1.5.1:1\;dflt/default:1\;noweb/2.10c:1\;Try/1.0:1\;moduleA/1.0:1\;.eb_builder/default:1\;a/1.2:1\;b/default:1\;A/1.0:1\;B/2.0:1\;tex/1.0:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:PrgEnv:intel/intel:gotoblas/1.32:_a/1.0:boost/1.49.0:alex/2.0:D/1.0:A/1.1.1:B/1.4:C/1.8.5:rtm_intel/11.1:go/1.5.1:dflt/default:noweb/2.10c:Try/1.0:moduleA/1.0:.eb_builder/default:a/1.2:b/default:A/1.0:B/2.0:tex/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/load/mf3;
+export MODULEPATH;
+__LMOD_REF_COUNT_TEXINPUTS=/a/b/c//:1;
+export __LMOD_REF_COUNT_TEXINPUTS;
+TEXINPUTS=/a/b/c//;
+export TEXINPUTS;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:1\;ProjectDIR/rt/load/mf/Core/_a/1.0.lua:1\;ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:1\;ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:1\;ProjectDIR/rt/load/mf/Core2/D/1.0.lua:1\;ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:1\;ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:1\;ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:1\;ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:1\;ProjectDIR/rt/load/mf/Core2/go/1.5.1:1\;ProjectDIR/rt/load/mf/Core2/dflt/default:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/Try/1.0.lua:1\;ProjectDIR/rt/load/mf/Core2/moduleA/1.0.lua:1\;ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua:1\;ProjectDIR/rt/load/mf2/Core/a/1.2.lua:1\;ProjectDIR/rt/load/mf2/Core/b/default:1\;ProjectDIR/rt/load/mf3/A/1.0.lua:1\;ProjectDIR/rt/load/mf3/B/2.0:1\;ProjectDIR/rt/load/mf3/tex/1.0.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/rt/load/mf/Core/_a/1.0.lua:ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:ProjectDIR/rt/load/mf/Core2/D/1.0.lua:ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:ProjectDIR/rt/load/mf/Core2/go/1.5.1:ProjectDIR/rt/load/mf/Core2/dflt/default:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/Try/1.0.lua:ProjectDIR/rt/load/mf/Core2/moduleA/1.0.lua:ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua:ProjectDIR/rt/load/mf2/Core/a/1.2.lua:ProjectDIR/rt/load/mf2/Core/b/default:ProjectDIR/rt/load/mf3/A/1.0.lua:ProjectDIR/rt/load/mf3/B/2.0:ProjectDIR/rt/load/mf3/tex/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/load/mf3/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A/1.0",["wV"]="000000001.*zfinal",},B={["fn"]="ProjectDIR/rt/load/mf3/B/2.0",["fullName"]="B/2.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B/2.0",["wV"]="000000002.*zfinal",},tex={["fn"]="ProjectDIR/rt/load/mf3/tex/1.0.lua",["fullName"]="tex/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="tex",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf3",},["systemBaseMPATH"]="ProjectDIR/rt/load/mf3",}';
+export _ModuleTable_;
+===========================
+step 59
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/load/mf3;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/load/mf3/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A/1.0",["wV"]="000000001.*zfinal",},B={["fn"]="ProjectDIR/rt/load/mf3/B/2.0",["fullName"]="B/2.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B/2.0",["wV"]="000000002.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf3",},["systemBaseMPATH"]="ProjectDIR/rt/load/mf3",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/load/mf3/A/1.0.lua",["fullName"]="A/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A/1.0",["wV"]="000000001.*zfinal",},B={["fn"]="ProjectDIR/rt/load/mf3/B/2.0",["fullName"]="B/2.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B/2.0",["wV"]="000000002.*zfinal",},tex={["fn"]="ProjectDIR/rt/load/mf3/tex/1.0.lua",["fullName"]="tex/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="tex",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf3",},["systemBaseMPATH"]="ProjectDIR/rt/load/mf3",}';
 export _ModuleTable_;

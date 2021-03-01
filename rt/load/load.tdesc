@@ -90,7 +90,8 @@ testdescript = {
      runLmod load A/1.0                                     # 55
      runLmod load B                                         # 56
      runLmod load B/2.0                                     # 57
-     runLmod list                                           # 58
+     runLmod load tex                                       # 58
+     runLmod list                                           # 59
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
