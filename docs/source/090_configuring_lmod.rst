@@ -216,7 +216,7 @@ the configuration option which will set the action.
 Configuration only settings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
---**with-silentShellDebug**:
+--**with-silentShellDebugging**:
   [yes/no, default: no] If yes then the module command will silence its output under shell debug.
 
 
