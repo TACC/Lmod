@@ -615,7 +615,6 @@ if test "$ALLOW_TCL_MFILES" = no ; then
 fi
 
 if test "$FAST_TCL_INTERP" = yes ; then
-   TCL_LIBS="-ltcl"
    OS=$(uname -s)
    if test "$OS" = Darwin ; then
      TCL_INCLUDE=$(xcrun --show-sdk-path)
@@ -652,7 +651,7 @@ if test "$FAST_TCL_INTERP" = yes ; then
       rm -f makefile
       AC_MSG_ERROR([Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h])
    fi
-   AC_SEARCH_LIBS(Tcl_CreateInterp,[tcl] [tcl8.8] [tcl8.7] [tcl8.6] [tcl8.5],[],
+   AC_SEARCH_LIBS(Tcl_CreateInterp, [tcl] [tcl8.8] [tcl8.7] [tcl8.6] [tcl8.5],[],
                 [rm -f makefile; AC_MSG_ERROR([Unable to build Lmod with -ltcl Please install the tcl devel package or configure --with-fastTCLInterp=no to not require the tcl library])], [$TCL_LIBS])
 
    AC_SUBST(TCL_INCLUDE, "$TCL_INCLUDE")

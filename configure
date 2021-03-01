@@ -4028,7 +4028,6 @@ if test "$ALLOW_TCL_MFILES" = no ; then
 fi
 
 if test "$FAST_TCL_INTERP" = yes ; then
-   TCL_LIBS="-ltcl"
    OS=$(uname -s)
    if test "$OS" = Darwin ; then
      TCL_INCLUDE=$(xcrun --show-sdk-path)
