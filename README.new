@@ -59,5 +59,6 @@ Lmod 8.4+
    (8.4.24) * Issue #497: Need to quote '?' in csh.
             * Make list of modules from spider skip .version* and .modulerc*
 	    * analyzeLmodDB now takes a list of all modules so that zero module usage can be reported.
-   (8.4.25) * Issue #503: Fix bug with building on Suse linux
+   (8.4.25) * Drop travis CI and switch to github actions.
+   (8.4.26) * Issue #503: Fix bug with building on Suse linux
             * Issue #501: Allow all paths (but MODULEPATH) to have trailing double slashes.
