@@ -104,7 +104,8 @@ local function new(self, s, restoreFn)
    dbg.print{"currentMPATH: ",currentMPATH,"\n"}
    if (not s) then
       if (currentMPATH) then
-         o.mpathA          = path2pathA(currentMPATH)
+         local clearDblSlash = true
+         o.mpathA          = path2pathA(currentMPATH,':',clearDblSlash)
          o.systemBaseMPATH = concatTbl(o.mpathA,":")
       end
       local maxdepth    = cosmic:value("LMOD_MAXDEPTH")
@@ -162,7 +163,8 @@ local function new(self, s, restoreFn)
    -- environment value. Unless it is a module restore
 
    if (not restoreFn) then
-      o.mpathA = path2pathA(currentMPATH)
+      local clearDblSlash = true
+      o.mpathA            = path2pathA(currentMPATH,':',clearDblSlash)
    end
 
    dbg.fini("MT new")
@@ -659,7 +661,8 @@ end
 
 function M.updateMPathA(self, value)
    if (type(value) == "string") then
-      self.mpathA = path2pathA(value)
+      local clearDblSlash = true
+      self.mpathA         = path2pathA(value,':',clearDblSlash)
    elseif (type(value) == "table") then
       self.mpathA = value
    elseif (type(value) == "nil") then
@@ -1216,7 +1219,8 @@ function M.hideMpathRefCountT(self, refCountT)
 end
 
 function M.resetMPATH2system(self)
-   self.mpathA = path2pathA(self.systemBaseMPATH)
+   local clearDblSlash = true
+   self.mpathA         = path2pathA(self.systemBaseMPATH,':',clearDblSlash)
    return self.systemBaseMPATH
 end
 

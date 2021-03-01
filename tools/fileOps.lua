@@ -367,6 +367,7 @@ end
 -- @return A clean canonical path.
 function path_regularize(value, full)
    if value == nil then return nil end
+   local doubleSlash = value:find("[^/]//$")
    value = value:gsub("^%s+", "")
    value = value:gsub("%s+$", "")
    value = value:gsub("//+" , "/")
@@ -424,6 +425,10 @@ function path_regularize(value, full)
    end
 
    value = concatTbl(a,"/")
+
+   if (doubleSlash) then
+      value = value .. '//'
+   end
 
    return value
 end

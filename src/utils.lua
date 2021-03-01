@@ -549,7 +549,7 @@ end
 -- @param path A string of *sep* separated paths.
 -- @param sep  The separator character.  It is usually
 --             a colon.
-function path2pathA(path, sep)
+function path2pathA(path, sep, clearDoubleSlash)
    sep = sep or ":"
    if (not path) then
       return {}
@@ -562,7 +562,12 @@ function path2pathA(path, sep)
 
    local pathA = {}
    for v  in path:split(sep) do
-      pathA[#pathA + 1] = path_regularize(v)
+      local path = path_regularize(v)
+      if (clearDoubleSlash) then
+         path = path:gsub("//+" , "/")
+         path = path:gsub("/$"  , "")
+      end
+      pathA[#pathA + 1] = path
    end
 
    local n = #pathA

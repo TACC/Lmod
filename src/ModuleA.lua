@@ -533,14 +533,15 @@ end
 -- works so any changes there might be reflected here.
 
 function M.update(self, t)
-   t                  = t or {}
-   dbg.start{"ModuleA:update(spider_cache=",t.spider_cache,")"}
-   local frameStk     = FrameStk:singleton()
-   local mt           = frameStk:mt()
-   local varT         = frameStk:varT()
-   local currentMPATH = varT[ModulePath]:expand()
-   local mpathA       = path2pathA(currentMPATH)
-   local terse        = masterTbl().terse
+   t                   = t or {}
+   dbg.start{"ModuleA:update(spider_cache = ",t.spider_cache,")"}
+   local frameStk      = FrameStk:singleton()
+   local mt            = frameStk:mt()
+   local varT          = frameStk:varT()
+   local currentMPATH  = varT[ModulePath]:expand()
+   local clearDblSlash = true
+   local mpathA        = path2pathA(currentMPATH,':', clearDblSlash)
+   local terse         = masterTbl().terse
 
    ------------------------------------------------------------
    -- Store away the old moduleA entries in T (hash table).

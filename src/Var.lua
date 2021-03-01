@@ -125,17 +125,19 @@ end
 -- however, the set function mark the type as "var" and not
 -- "path".  Other functions work similarly.
 local function l_extract(self, nodups)
-   local myValue   = self.value or getenv(self.name)
-   local pathTbl   = {}
-   local imax      = 0
-   local imin      = 1
-   local pathA     = {}
-   local sep       = self.sep
-   local priorityT = l_extract_Lmod_var_table(self, envPrtyName)
-   local refCountT = l_extract_Lmod_var_table(self, envRefCountName)
+   local myValue       = self.value or getenv(self.name)
+   local pathTbl       = {}
+   local name          = self.name
+   local clearDblSlash = name == "MODULEPATH"
+   local imax          = 0
+   local imin          = 1
+   local pathA         = {}
+   local sep           = self.sep
+   local priorityT     = l_extract_Lmod_var_table(self, envPrtyName)
+   local refCountT     = l_extract_Lmod_var_table(self, envRefCountName)
 
    if (myValue and myValue ~= '') then
-      pathA = path2pathA(myValue, sep)
+      pathA = path2pathA(myValue, sep, clearDblSlash)
       for i,v in ipairs(pathA) do
          local vv       = pathTbl[v] or {num = -1, idxA = {}}
          local num      = vv.num
@@ -267,7 +269,8 @@ function M.remove(self, value, where, priority, nodups, force)
    end
 
    where = allow_dups(true) and where or "all"
-   local pathA   = path2pathA(value, self.sep)
+   local clearDblSlash = self.name == "MODULEPATH"
+   local pathA   = path2pathA(value, self.sep, clearDblSlash)
    local tbl     = self.tbl
    local adding  = false
 
@@ -363,7 +366,9 @@ function M.prepend(self, value, nodups, priority)
    end
    self.type           = 'path'
    priority            = priority or 0
-   local pathA         = path2pathA(value, self.sep)
+   local name          = self.name
+   local clearDblSlash = name == "MODULEPATH"
+   local pathA         = path2pathA(value, self.sep, clearDblSlash)
    local is, ie, iskip = prepend_order(#pathA)
    local isPrepend     = true
    local adding        = true
@@ -372,7 +377,7 @@ function M.prepend(self, value, nodups, priority)
    local tbl  = self.tbl
 
    local tracing  = cosmic:value("LMOD_TRACING")
-   if (tracing == "yes" and self.name == ModulePath ) then
+   if (tracing == "yes" and name == ModulePath ) then
       local shell      = _G.Shell
       local frameStk   = require("FrameStk"):singleton()
       local stackDepth = frameStk:stackDepth()
@@ -420,11 +425,13 @@ function M.append(self, value, nodups, priority)
       l_extract(self, nodups)
    end
 
-   self.type        = 'path'
-   priority         = tonumber(priority or "0")
-   local pathA      = path2pathA(value, self.sep)
-   local isPrepend  = false
-   local adding     = true
+   self.type           = 'path'
+   priority            = tonumber(priority or "0")
+   local name          = self.name
+   local clearDblSlash = name == "MODULEPATH"
+   local pathA         = path2pathA(value, self.sep, clearDblSlash)
+   local isPrepend     = false
+   local adding        = true
 
    local tracing  = cosmic:value("LMOD_TRACING")
    if (tracing == "yes" and name == ModulePath ) then
@@ -444,6 +451,10 @@ function M.append(self, value, nodups, priority)
    local imax = self.imax
    for i = 1, #pathA do
       local path = pathA[i]
+      if (name == "MODULEPATH") then
+         path = path:gsub("//+" , "/")
+         path = path:gsub("/$"  , "")
+      end
       imax       = imax + 1
       local vv   = tbl[path]
       tbl[path]  = insertFunc(vv or {num = 0, idxA = {}}, imax, isPrepend, nodups, priority)
