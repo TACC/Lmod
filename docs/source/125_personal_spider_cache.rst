@@ -18,7 +18,7 @@ Personal Cache rules:
 #. If it can't find a valid cache then Lmod walks the tree to find all
    available modules and builds the spider cache in memory.
 #. If the time it takes to build the cache is longer than the contents
-   of env var. LMOD_SHORT_TIME (default 10 seconds) then Lmod writes
+   of env var. LMOD_SHORT_TIME (default 2 seconds) then Lmod writes
    the cache file into the ~/.lmod.d/.cache directory.
 #. A user's cache is assumed to be valid for the contents of
    LMOD_ANCIENT_TIME (default 86400 seconds or 24 hours) based on the
