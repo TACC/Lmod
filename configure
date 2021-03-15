@@ -3417,7 +3417,7 @@ if test "${with_spiderCacheDescript+set}" = set; then :
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: SPIDER_CACHE_DESCRIPT_FN=$with_spiderCacheDescript" >&5
 $as_echo "SPIDER_CACHE_DESCRIPT_FN=$with_spiderCacheDescript" >&6; }
     cat >>confdefs.h <<_ACEOF
-#define SHORT_TIME "$with_spiderCacheDescript"
+#define SPIDER_CACHE_DESCRIPT_FN "$with_spiderCacheDescript"
 _ACEOF
 
 else
@@ -3439,7 +3439,7 @@ if test "${with_updateSystemFn+set}" = set; then :
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: UPDATE_SYSTEM_FN=$with_updateSystemFn" >&5
 $as_echo "UPDATE_SYSTEM_FN=$with_updateSystemFn" >&6; }
     cat >>confdefs.h <<_ACEOF
-#define SHORT_TIME "$with_updateSystemFn"
+#define UPDATE_SYSTEM_FN "$with_updateSystemFn"
 _ACEOF
 
 else
