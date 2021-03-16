@@ -24,6 +24,7 @@ for dir in $PATH; do
   fi
 done
 IFS=$OLD_IFS
+PATH=${NEW_PATH#:}
 
 pathA=( /scratch1/projects/compilers/intel20u0/intelpython3/bin
         /scratch1/projects/compilers/intel20u0/intelpython3/condabin

@@ -24,4 +24,9 @@ for dir in $PATH; do
 done
 IFS=$OLD_IFS
 
+NEW_PATH=${NEW_PATH#:}
+
+
+
+
 PATH=$testDir/bin:$NEW_PATH:$testDir/sbin
