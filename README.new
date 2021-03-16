@@ -62,6 +62,7 @@ Lmod 8.4+
    (8.4.25) * Drop travis CI and switch to github actions.
    (8.4.26) * Issue #503: Fix bug with building on Suse linux
             * Issue #501: Allow all paths (but MODULEPATH) to have trailing double slashes.
-W.I.P:
    (8.4.27) * Issue #504: Fix default for SHORT_TIME
-   
+            * Adding isAvail() function for Lua modulefiles
+            * Now reporting that is-avail() is not working for TCL modulefiles
+            
