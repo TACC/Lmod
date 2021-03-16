@@ -43,6 +43,6 @@ Lmod Environment variables defined when evaluating a modulefile
 Environment variables to change Lmod behavior
 ---------------------------------------------
 
-See :ref:`env_var-label` for the list of env. variables that change
+See :ref:`env_vars-label` for the list of env. variables that change
 the behavior of Lmod.
 
