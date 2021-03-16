@@ -50,6 +50,6 @@ jobs:
          echo ">>>> sh_to_modulefile output"
          cat rt/sh_to_modulefile/t1/*/t1.log
          echo ">>>> sh_to_modulefile.out output"
-         cat  rt/sh_to_modulefile/t1/*/out.txt
+         cat  rt/sh_to_modulefile/t1/*/_stdout.orig
          echo ">>>> sh_to_modulefile.err output"
          cat  rt/sh_to_modulefile/t1/*/err.txt
