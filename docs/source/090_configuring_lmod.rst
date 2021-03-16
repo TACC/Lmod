@@ -62,6 +62,11 @@ configuration step.
   [string] This variable is used to where a site is using shared home
   files systems. See :ref:`shared_home_file_system` for more details.
 
+**LMOD_SYSTEM_DEFAULT_MODULEFILES**:
+  [string] This variable to define a list of colon separated standard
+  modules when the **module reset** command is issued by or for the
+  user. 
+
 **LMOD_TRACING**:
    [yes/no] If set to yes then Lmod will trace the loads/unloads while
    the module command is running.
@@ -77,8 +82,6 @@ configuration step.
    specify the system MODULERC file.  **LMOD_MODULERCFILE** can also be
    used but only **LMOD_MODULERCFILE** is used if both are specified.
    See :ref:`modulerc-label` for more details.
-   
-
 
 Configuration time settings that can be overridden by env. vars.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

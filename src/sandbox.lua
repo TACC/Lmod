@@ -164,6 +164,7 @@ local sandbox_env = {
   hierarchyA           = hierarchyA,
   isPending            = isPending,
   isloaded             = isloaded,
+  isAvail              = isAvail,
   loaded_modules       = loaded_modules,
   mode                 = mode,
   moduleStackTraceBack = moduleStackTraceBack,

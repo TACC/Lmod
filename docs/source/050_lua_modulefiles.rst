@@ -192,6 +192,14 @@ The entries below describe several useful commands that come with Lmod that can 
 **isloaded** ("NAME"):
     Return true when module "NAME" is loaded.
 
+**isAvail** ("NAME"):
+    Return true when "NAME" is possible to load.  Note that it
+    probably better to use the **try_load** () instead::
+
+       if ( not isloaded("foo") ) then try_load("foo") end
+      
+      
+
 **LmodVersion** ():
     The version of lmod.
 

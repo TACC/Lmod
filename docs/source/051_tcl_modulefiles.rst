@@ -151,6 +151,27 @@ standard TCL language.
    greater than.  Note that this command knows that 1.10 is newer than
    1.8.
 
+
+TCL Modulefile Functions NOT SUPPORTED
+--------------------------------------
+**is-avail** :
+   It is not possible to support is-avail from a TCL modulefile.
+   There is a isAvail() function available in Lua modulefiles.
+   Consider using something like the following instead::
+
+       if { ! [ is-loaded foo ] } { module try-add foo }
+
+**atleast** :
+   It is not possible to use the atleast function inside a TCL modulefile
+
+**between** :
+   It is not possible to use the between function inside a TCL modulefile
+
+**latest** :
+   It is not possible to use the latest function inside a TCL modulefile
+
+
+
 TCL Global Variables
 --------------------
 
@@ -162,3 +183,4 @@ The following TCL global variables are set inside modulefiles and
 
 **ModuleToolVersion** : This is the current version of Lmod. This
     works for Lmod 8.4.8+ This variable also exists in Tmod version 4.7 or greater.
+

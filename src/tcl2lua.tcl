@@ -800,6 +800,10 @@ proc is-loaded { arg } {
     return [info exists g_loadT($arg)]
 }
 
+proc is-avail { arg } {
+    reportError "This function is NOT supported in TCL modulefiles, Use a Lua modulefile with isAvail() or rework your logic to use module try-add ..."
+}
+
 proc module { command args } {
     switch -- $command {
         load {
@@ -868,6 +872,7 @@ proc execute-modulefile {modfile } {
     interp alias $child family         	 {} family
     interp alias $child initGA         	 {} initGA
     interp alias $child is-loaded      	 {} is-loaded
+    interp alias $child is-avail      	 {} is-avail
     interp alias $child module         	 {} module
     interp alias $child module-info    	 {} module-info
     interp alias $child module-whatis  	 {} module-whatis

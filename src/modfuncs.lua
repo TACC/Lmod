@@ -374,6 +374,15 @@ function isloaded(m)
    return mname:isloaded()
 end
 
+function isAvail(m)
+   dbg.start{"isAvail(",m,")"}
+   if (not validateStringArgs("isAvail",m)) then return false end
+   local mname = MName:new("load", m)
+   dbg.fini("isAvail")
+   return mname:valid()
+end
+
+
 function myFileName()
    return mcp:myFileName()
 end

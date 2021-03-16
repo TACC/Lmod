@@ -3,12 +3,16 @@ on: [push, pull_request]
 
 jobs:
   test_documentation:
-      runs-on: ubuntu-18.04
+      runs-on: ubuntu-latest
       steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - Set up Python 3.8
+        uses actions/setup-python@v1
+        with:
+          python-version 3.8
       - name: install sphinx
-        run: sudo apt-get install python3-sphinx
+        run: pip install sphinx
       - name: Build documentation
         run: |
           cd docs

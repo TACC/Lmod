@@ -64,6 +64,14 @@ testdescript = {
      runLmod avail                    #28
      runLmod avail FooBar             #29
 
+     runLmod purge                    #30
+     unsetMT
+     unset MODULEPATH
+     runLmod use $(testDir)/mf/Core7  #31
+     runLmod avail                    #32
+     runLmod load A                   #33
+     runLmod load B                   #34
+     runLmod list                     #35
 
 
      HOME=$ORIG_HOME
