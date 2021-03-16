@@ -351,7 +351,7 @@ following to their /etc/bash.bashrc::
 
 This is useful because non-login interactive shells only source
 /etc/bash.bashrc and this file doesn't normally source the files in
-/etc/profile.d/*.sh.
+/etc/profile.d/\*.sh.
 
 Bash Shell Scripts:
 ~~~~~~~~~~~~~~~~~~~
