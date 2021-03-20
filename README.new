@@ -65,4 +65,5 @@ Lmod 8.4+
    (8.4.27) * Issue #504: Fix default for SHORT_TIME
             * Adding isAvail() function for Lua modulefiles
             * Now reporting that is-avail() is not working for TCL modulefiles
-            
+   (8.4.28) * Issue #505: Use now converts relative paths to abspath
+            * Issue #507: Allow print statement in modulefiles.

@@ -977,6 +977,9 @@ function Use(...)
       iarg = iarg + 1
    end
    for _,v in ipairs(a) do
+      if (v:sub(1,1) ~= '/') then
+         v = abspath(v)
+      end
       op(mcp, { ModulePath,  v, delim = ":", nodups=true, priority=priority })
    end
 
