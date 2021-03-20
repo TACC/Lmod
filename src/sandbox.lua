@@ -175,6 +175,7 @@ local sandbox_env = {
   myModuleVersion      = myModuleVersion,
   myShellName          = myShellName,
   myShellType          = myShellType,
+  print                = print,
   requireFullName      = requireFullName,
   userInGroup          = userInGroup,
   userInGroups         = userInGroups,
