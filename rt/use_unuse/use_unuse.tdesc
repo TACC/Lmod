@@ -28,13 +28,15 @@ testdescript = {
      runLmod use   $(testDir)/mf/RTM     # 3
      runLmod unuse $(testDir)/mf/RTM     # 4
 
-     unsetMT
-     export MODULEPATH=$(testDir)/mf/RTM
-     runLmod unuse $(testDir)/mf/RTM     # 5
+     runLmod use   ../../mf/RTM          # 5
 
      unsetMT
-     runLmod use $(testDir)/mf/RTM2
-     runLmod unuse $(testDir)/mf/RTM2    # 6
+     export MODULEPATH=$(testDir)/mf/RTM
+     runLmod unuse $(testDir)/mf/RTM     # 6
+
+     unsetMT
+     runLmod use   $(testDir)/mf/RTM2
+     runLmod unuse $(testDir)/mf/RTM2    # 7
 
      HOME=$ORIG_HOME
 

@@ -55,13 +55,24 @@ _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]=
 export _ModuleTable_;
 ===========================
 step 6
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ../../mf/RTM
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/use_unuse/mf/RTM:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/use_unuse/mf/RTM;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/use_unuse/mf/Core/a/1.0.lua",["fullName"]="a/1.0",["loadOrder"]=-1,propT={},["stackDepth"]=0,["status"]="inactive",["userName"]="a",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/use_unuse/mf/RTM",},["systemBaseMPATH"]="ProjectDIR/rt/use_unuse/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unuse ProjectDIR/rt/use_unuse/mf/RTM
 ===========================
+unset __LMOD_REF_COUNT_MODULEPATH;
 unset MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={},["systemBaseMPATH"]="ProjectDIR/rt/use_unuse/mf/RTM",}';
 export _ModuleTable_;
 ===========================
-step 7
+step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/use_unuse/mf/RTM2
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/use_unuse/mf/RTM2:1;
@@ -71,7 +82,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/use_unuse/mf/RTM2",},}';
 export _ModuleTable_;
 ===========================
-step 8
+step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unuse ProjectDIR/rt/use_unuse/mf/RTM2
 ===========================
 unset __LMOD_REF_COUNT_MODULEPATH;

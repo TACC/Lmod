@@ -978,7 +978,13 @@ function Use(...)
    end
    for _,v in ipairs(a) do
       if (v:sub(1,1) ~= '/') then
-         v = abspath(v)
+         local old = v
+         -- If relative convert to try to convert to absolute path
+         v          = abspath(v)
+         -- If it doesn't exist then build path with current directory and relative path.
+         if (not v) then
+            v = pathJoin(posix.getcwd(), old)
+         end
       end
       op(mcp, { ModulePath,  v, delim = ":", nodups=true, priority=priority })
    end
