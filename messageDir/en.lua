@@ -73,6 +73,20 @@ return {
        $ module name arg1 arg2 ...
 
    In other words you can not load a module named: show swap etc.
+
+   Shorthand:
+   ----------
+       ml r  -> ml restore
+       ml s  -> ml save
+       ml sl -> ml savelist
+       ml sw -> ml swap
+   
+   Loading modules same as commands:
+   ---------------------------------
+
+      If you want to load a module that has the same name then for example for "spider":
+
+         ml load spider  # instead ml spider
 ]==],
      ml_opt                = [==[Option: "%{v}" is unknown.
   Try ml --help for usage.
