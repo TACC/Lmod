@@ -54,6 +54,10 @@ standard TCL language.
    **load**  *A B* :
       load one or more modules
 
+   **try-load**  *A B* :
+      load one or more modules but does not report an error
+      if not found.
+
    **load-any** *A B* :
       load any one of the following modulefiles
 
@@ -179,7 +183,8 @@ The following TCL global variables are set inside modulefiles and
 .modulerc and .version files.
 
 **ModuleTool** : This is the string "Lmod". This works for Lmod
-    8.4.8+.  This variable also exists in Tmod version 4.7 or greater.
+    8.4.8+.  This variable also exists in Tmod version 4.7 or greater
+    and reports "Modules".
 
 **ModuleToolVersion** : This is the current version of Lmod. This
     works for Lmod 8.4.8+ This variable also exists in Tmod version 4.7 or greater.

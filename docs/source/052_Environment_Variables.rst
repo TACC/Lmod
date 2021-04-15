@@ -28,17 +28,21 @@ Lmod Environment variables defined when evaluating a modulefile
 ---------------------------------------------------------------
 
 **LMOD_VERSION_MAJOR** : The current major version.  If it is X.Y.Z
-     then X is returned (i.e.  10.14.17 -> 10)
+     then X is returned (i.e.  10.14.17 -> 10) (exists for Lmod 5.1.5+)
 
 **LMOD_VERSION_MINOR** : The current minor version.  If it is X.Y.Z
-     then Y is returned (i.e.  10.14.17 -> 14)
+     then Y is returned (i.e.  10.14.17 -> 14) (exists for Lmod 5.1.5+)
 
 **LMOD_VERSION_SUBMINOR** : The current subminor version.  If it is X.Y.Z
-     then Z is returned (i.e.  10.14.17 -> 17)
+     then Z is returned (i.e.  10.14.17 -> 17) (exists for Lmod 5.1.5+)
 
-**ModuleTool** : This environment variable is defined to be **Lmod**. (exists for Lmod 8.4.7+)
-
-**ModuleToolVersion** :  Current Version of Lmod.  (exists for Lmod 8.4.7+)
+**ModuleTool** : This environment variable is defined to be
+     **Lmod**. (exists for Lmod 8.4.7+)  It is defined in Tmod
+     version 4.7+ as "Modules"
+  
+**ModuleToolVersion** :  Current Version of Lmod (exists for Lmod
+     8.4.7+). It also reports the version of Tmod as of version 4.7 or
+     later. 
 
 Environment variables to change Lmod behavior
 ---------------------------------------------
