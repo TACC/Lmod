@@ -94,7 +94,7 @@ Die korrekte Syntax ist:
      e_Failed_Load         = [==[Die folgenden Module konnten nicht gefunden werden: %{module_list}
 Bitte überprüfen Sie die Schreibweise oder Versionsnummer. Sie können auch "module spider ..." versuchen.
 Es ist auch möglich, dass Ihr Cache veraltet ist. Versuchen Sie:
-  $ module --ignore-cache load %{module_list}
+  $ module --ignore_cache load %{module_list}
 ]==],
      e_Failed_Load_2       = [==[Diese Module existieren, aber können nicht wie gewünscht geladen werden: %{kA}
    Versuchen Sie: "module spider %{kB}" um anzuzeigen, wie die Module geladen werden.

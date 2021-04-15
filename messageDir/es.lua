@@ -72,7 +72,7 @@ La sintaxis es:
 
 Por favor compruebe la ortografía, así como mayúsculas y minúsculas o número de versión. También intente "module spider ..."
 También es posible que su archivo de cache estea desactualizado. Intente:
-  $   module --ignore-cache load %{module_list}
+  $   module --ignore_cache load %{module_list}
 ]==],
      e_Failed_Load_2       = [==[Estos módulos existen pero no pueden ser cargados como ha solicitado: %{kA}
    Intente: "module spider %{kB}" para ver como cargar los módulos.

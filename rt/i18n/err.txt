@@ -45,7 +45,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load unknown
 Lmod a détecté l'erreur suivante : Le ou les module(s) suivants sont inconnus: "unknown"
 Veuillez vérifier l'orthographe ou le numéro de version. Vous pouvez aussi essayer "module spider ..."
 Il est aussi possible que votre cache soit désuète. Essayez :
-  $ module --ignore-cache load "unknown"
+  $ module --ignore_cache load "unknown"
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --help

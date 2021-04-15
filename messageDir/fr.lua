@@ -99,7 +99,7 @@ La syntaxe est :
 
 Veuillez vérifier l'orthographe ou le numéro de version. Vous pouvez aussi essayer "module spider ..."
 Il est aussi possible que votre cache soit désuète. Essayez :
-  $   module --ignore-cache load %{module_list}
+  $   module --ignore_cache load %{module_list}
 ]==],
      e_Failed_Load_2     = [==[Ce ou ces module(s) existent, mais ne peuvent pas être chargés tel que demandé: %{kA}
    Utilisez: "module spider %{kB}" pour voir la façon de les charger.

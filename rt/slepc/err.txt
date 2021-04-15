@@ -11,7 +11,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load petsc slepc
 Lmod has detected the following error: The following module(s) are unknown: "petsc"
 Please check the spelling or version number. Also try "module spider ..."
 It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore-cache load "petsc"
+  $ module --ignore_cache load "petsc"
 Also make sure that all modulefiles written in TCL start with the string #%Module
 While processing the following module(s):
     Module fullname  Module Filename

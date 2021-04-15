@@ -127,7 +127,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Z
 Lmod has detected the following error: The following module(s) are unknown: "Non_existant"
 Please check the spelling or version number. Also try "module spider ..."
 It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore-cache load "Non_existant"
+  $ module --ignore_cache load "Non_existant"
 Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 26
