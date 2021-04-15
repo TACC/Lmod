@@ -113,8 +113,6 @@ local function chkMP(name, value, adding)
 
       -- Check to see if there are any currently loaded or pending modules 
       -- before looking to rebuild the caches.
-
-      dbg.print{"mt:empty(): ",mt:empty(), "\n"}
       if (not mt:empty()) then
          local cached_loads = cosmic:value("LMOD_CACHED_LOADS")
          local spider_cache = (cached_loads ~= 'no')
