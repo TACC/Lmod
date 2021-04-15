@@ -12,7 +12,6 @@ MODULEPATH=ProjectDIR/rt/broken_modulerc/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/broken_modulerc/mf/Core",},}';
 export _ModuleTable_;
-false
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load git hdf5/1.8.15

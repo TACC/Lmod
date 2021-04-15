@@ -11,7 +11,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel/1
 Lmod has detected the following error: The following module(s) are unknown: "intel/1"
 Please check the spelling or version number. Also try "module spider ..."
 It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore-cache load "intel/1"
+  $ module --ignore_cache load "intel/1"
 Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 3
@@ -20,7 +20,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load mcr/64/1
 Lmod has detected the following error: The following module(s) are unknown: "mcr/64/1"
 Please check the spelling or version number. Also try "module spider ..."
 It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore-cache load "mcr/64/1"
+  $ module --ignore_cache load "mcr/64/1"
 Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 4

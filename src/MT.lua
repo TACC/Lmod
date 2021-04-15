@@ -459,6 +459,13 @@ function M.list(self, kind, status)
    return B
 end
 
+function M.empty(self)
+   local mT    = self.mT
+   return next(mT) == nil
+end
+
+
+
 --------------------------------------------------------------------------
 -- add a property to an active module.
 -- @param self An MT object.
@@ -666,7 +673,7 @@ function M.updateMPathA(self, value)
    elseif (type(value) == "table") then
       self.mpathA = value
    elseif (type(value) == "nil") then
-      self.mpathA = path2pathA("")
+      self.mpathA = {} -- path2pathA("")
    end
 end
 

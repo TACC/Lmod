@@ -110,10 +110,17 @@ local function chkMP(name, value, adding)
       local mt = require("FrameStk"):singleton():mt()
       mt:set_MPATH_change_flag()
       mt:updateMPathA(value)
-      local cached_loads = cosmic:value("LMOD_CACHED_LOADS")
-      local spider_cache = (cached_loads ~= 'no')
-      local moduleA      = require("ModuleA"):singleton{spider_cache = spider_cache}
-      moduleA:update{spider_cache = spider_cache}
+
+      -- Check to see if there are any currently loaded modules before looking to
+      -- rebuild the caches.
+
+      dbg.print{"mt:empty(): ",mt:empty(), "\n"}
+      if (not mt:empty()) then
+         local cached_loads = cosmic:value("LMOD_CACHED_LOADS")
+         local spider_cache = (cached_loads ~= 'no')
+         local moduleA      = require("ModuleA"):singleton{spider_cache = spider_cache}
+         moduleA:update{spider_cache = spider_cache}
+      end
       dbg.fini("chkMP")
    end
 end

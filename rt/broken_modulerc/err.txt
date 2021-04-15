@@ -2,13 +2,12 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.4.19  2020-12-13 13:58 -06:00
+Modules based on Lua: Version 8.4.28  2021-03-20 19:48 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/broken_modulerc/mf/Core
 ===========================
-Lmod Warning: Badly formed module-version line: module-name must be fully qualified: hdf5 is not.
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load git hdf5/1.8.15
