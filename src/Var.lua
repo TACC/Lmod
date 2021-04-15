@@ -111,8 +111,8 @@ local function chkMP(name, value, adding)
       mt:set_MPATH_change_flag()
       mt:updateMPathA(value)
 
-      -- Check to see if there are any currently loaded modules before looking to
-      -- rebuild the caches.
+      -- Check to see if there are any currently loaded or pending modules 
+      -- before looking to rebuild the caches.
 
       dbg.print{"mt:empty(): ",mt:empty(), "\n"}
       if (not mt:empty()) then
