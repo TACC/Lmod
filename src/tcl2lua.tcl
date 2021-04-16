@@ -630,16 +630,37 @@ proc swapcmd { old {new {}}} {
     eval cmdargs "load"   $new
 }
 
-proc system { args } {
-    global g_outputA
-    foreach arg $args {
-        lappend cmdArgsL "$arg"
-    }
-    if {[info exists cmdArgsL]} {
-        set cmdArgs [join $cmdArgsL " "]
-	lappend g_outputA  "execute\{cmd=\"$cmdArgs\",modeA = \{\"all\"\}\}\n"
-    }
+proc system {args} {
+   set mode [currentState]
+   set status {}
+
+   switch -- $mode {
+      load - unload {
+         # run through the appropriate shell
+          set shell /bin/sh
+          set shellarg -c
+         if {[catch {exec >&@stderr $shell $shellarg [join $args]}]} {
+             # non-zero exit status, get it:
+             set status [lindex $::errorCode 2]
+         } else {
+             # exit status was 0
+             set status 0
+         }
+      }
+   }
+   return $status
 }
+
+#proc system { args } {
+#    global g_outputA
+#    foreach arg $args {
+#        lappend cmdArgsL "$arg"
+#    }
+#    if {[info exists cmdArgsL]} {
+#        set cmdArgs [join $cmdArgsL " "]
+#	lappend g_outputA  "execute\{cmd=\"$cmdArgs\",modeA = \{\"all\"\}\}\n"
+#    }
+#}
 
 proc tryloadcmd { args } {
     eval cmdargs "try_load" $args
