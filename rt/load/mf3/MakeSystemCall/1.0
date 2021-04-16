@@ -4,7 +4,7 @@ if { [ system which make_system_command_test.sh > /dev/null 2> /dev/null ] != 0 
     exit 1
 }    
 
-if { [ system which I_should_not_find_this_command.sh > /dev/null 2> /dev/null ] != 0 } {
+if { [ system which /I_should_not_find_this_command.sh > /dev/null 2> /dev/null ] != 0 } {
     puts stderr "I did not find the command I should not find."
 }    
    
