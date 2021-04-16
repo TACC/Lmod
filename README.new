@@ -69,4 +69,6 @@ Lmod 8.4+
             * Issue #507: Allow print statement in modulefiles.
    (8.4.29) * Change messages to use --ignore_cache instead of --ignore-cache.
             * Issue #511: Only rebuild spider caches if there are any loaded or pending modules.
+   (8.4.30) * Issue #511: Make TCL system call run in place rather than with an execute via Lmod.
+   
             

@@ -631,15 +631,12 @@ proc swapcmd { old {new {}}} {
 }
 
 proc system {args} {
-   set mode [currentState]
+   set mode [currentMode]
    set status {}
 
    switch -- $mode {
       load - unload {
-         # run through the appropriate shell
-          set shell /bin/sh
-          set shellarg -c
-         if {[catch {exec >&@stderr $shell $shellarg [join $args]}]} {
+         if {[catch {exec /bin/sh -c [join $args]}]} {
              # non-zero exit status, get it:
              set status [lindex $::errorCode 2]
          } else {
@@ -650,17 +647,6 @@ proc system {args} {
    }
    return $status
 }
-
-#proc system { args } {
-#    global g_outputA
-#    foreach arg $args {
-#        lappend cmdArgsL "$arg"
-#    }
-#    if {[info exists cmdArgsL]} {
-#        set cmdArgs [join $cmdArgsL " "]
-#	lappend g_outputA  "execute\{cmd=\"$cmdArgs\",modeA = \{\"all\"\}\}\n"
-#    }
-#}
 
 proc tryloadcmd { args } {
     eval cmdargs "try_load" $args
