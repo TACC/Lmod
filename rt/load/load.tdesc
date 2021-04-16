@@ -91,7 +91,12 @@ testdescript = {
      runLmod load B                                         # 56
      runLmod load B/2.0                                     # 57
      runLmod load tex                                       # 58
-     runLmod list                                           # 59
+
+     export PATH=$(testDir):$PATH
+     runLmod load MakeSystemCall                            # 59
+     runLmod list                                           # 60
+
+
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
