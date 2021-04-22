@@ -145,7 +145,7 @@ function main()
       ["--initial_load"] = 0,  ["--initial-load"] = 0,
       ["--latest"] = 0,
       ["--localvar"]=1,
-      ["--location"]=0,
+      ["--location"]=0,  ["--loc"] = 0,
       ["--pin_versions"]=0, ["--pin-versions"]=0,
       ["--mt"] = 0,
       ["--quiet"] = 0,  ["-q"] = 0,
