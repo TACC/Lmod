@@ -35,6 +35,7 @@ testdescript = {
      runLmod show a                  #11
      runLmod show b_tcl              #12
      runLmod show nosuchmodule       #13
+     runLmod --location show a       #14
 
      HOME=$ORIG_HOME
 

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.4.19  2020-12-13 13:58 -06:00
+Modules based on Lua: Version 8.4.30  2021-04-16 12:06 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -98,3 +98,8 @@ Lmod Warning: Failed to find the following module(s): "nosuchmodule" in your MOD
 Try:
     $ module spider nosuchmodule
 to see if the module(s) are available across all compilers and MPI implementations.
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --location show a
+===========================
+ProjectDIR/rt/show/mf/Core2/a/1.0.lua

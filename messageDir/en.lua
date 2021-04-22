@@ -408,6 +408,7 @@ The system default contains no modules
      exprt_hlp = "Expert mode",
      terse_hlp = "Write out in machine readable format for commands: list, avail, spider, savelist",
      initL_hlp = "loading Lmod for first time in a user shell",
+     location_H = "Just print the file location when using show ",
      latest_H  = "Load latest (ignore default)",
      cache_hlp = "Treat the cache file(s) as out-of-date",
      novice_H  = "Turn off expert and quiet flag",

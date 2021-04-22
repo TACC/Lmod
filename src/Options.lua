@@ -340,6 +340,14 @@ function M.singleton(self, usage)
       default = 0.0
    }
 
+   cmdlineParser:add_option{
+      name   = {"--loc", "--location"},
+      dest   = "location",
+      action = "store_true",
+      help   = i18n("location_H"),
+      default = 0.0
+   }
+
    local optionTbl, pargs = cmdlineParser:parse(arg)
    local masterTbl        = masterTbl()
    masterTbl.pargs        = pargs

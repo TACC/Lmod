@@ -145,6 +145,7 @@ function main()
       ["--initial_load"] = 0,  ["--initial-load"] = 0,
       ["--latest"] = 0,
       ["--localvar"]=1,
+      ["--location"]=0,
       ["--pin_versions"]=0, ["--pin-versions"]=0,
       ["--mt"] = 0,
       ["--quiet"] = 0,  ["-q"] = 0,
@@ -164,6 +165,7 @@ function main()
    }
 
    local translateT = {
+      ["--loc"]="--location",
       ["--versoin"]="--version",
       ["--ver"]="--version",
       ["--v"]="--version",
