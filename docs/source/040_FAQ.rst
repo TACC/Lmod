@@ -320,3 +320,14 @@ What to do if new modules are missing when doing ``module avail``?
    system spider cache.  This issue can happen with a user's personal
    spider cache.  Please see :ref:`user-spider-cache-label` for more
    details.
+
+How to edit a modulefile?
+
+   Lmod does not provide a way to directly edit modulefiles.
+   Typically modulefiles are owned by the system so cannot be editted
+   by users.  However, Lmod does provide a convenient way to locate
+   modules which could be used for a bash/zsh shell function::
+
+       function edit_modulefile () {
+          $EDITOR $(module --redirect --location $1)
+       }
