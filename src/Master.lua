@@ -115,6 +115,15 @@ function M.access(self, ...)
    local result, t
 
    local argA = pack(...)
+   if (masterTbl.location) then
+      local userName = argA[1]
+      local mname    = mt:have(userName,"any") and MName:new("mt",userName)
+                                               or  MName:new("load",userName)
+      local fn       = mname:fn()
+      shell:echo(fn .. "\n")
+      return
+   end
+
    for i = 1, argA.n do
       local userName = argA[i]
       local mname    = mt:have(userName,"any") and MName:new("mt",userName)
