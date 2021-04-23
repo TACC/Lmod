@@ -141,7 +141,35 @@ and **gcc** as the **shortName**.  We also call what the user asked
 for as the **userName** which could either be the **fullName** or the
 **shortName** depending on what the user typed on the command line.
 
+Showing the contents of a module
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+There are several ways to use the show sub-command to show the
+contents of a modulefile.  The first is to show the module functions
+instead of executing them::
+
+    $ module show gcc
+
+This shows the functions such as **setenv** () or **prepend_path** ()
+but nothing else.  If you want to know the contents of the modulefile
+you can use::
+
+    $ module --raw show gcc
+
+This will show the raw text of the modulefile.  If you want to know
+the location of a modulefile do::
+
+    $ module --redirect --location show gcc
+
+You will probably use the --redirect option so that the output goes to
+stdout and not stderr.
+
+If you want to know how Lmod will parse a TCL modulefile you can do::
+
+    $ tclsh $LMOD_DIR/tcl2lua.tcl  <path_to_TCL_modulefile>
+
+This useful when there is some question on how Lmod will treat a TCL
+modulefile.
 
 ml: A convenient tool
 ^^^^^^^^^^^^^^^^^^^^^
