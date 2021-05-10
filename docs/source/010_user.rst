@@ -156,8 +156,9 @@ you can use::
 
     $ module --raw show gcc
 
-This will show the raw text of the modulefile.  If you want to know
-the location of a modulefile do::
+This will show the raw text of the modulefile. This is same as
+printing the modulefile, but here Lmod will find the modulefile for
+you. If you want to know just the location of a modulefile do::
 
     $ module --redirect --location show gcc
 
