@@ -980,20 +980,38 @@ function M.avail(self, argA)
       end
       searchA = {}
       for i = 1, argA.n do
-         searchA[i] = argA[i]:caseIndependent()
+         local s  = argA[i]
+         local ss = mrc:resolve(mpathA, s)
+         if (ss and ss ~= s) then
+            searchA[i] = ss
+         else
+            searchA[i] = s:caseIndependent()
+         end
       end
       searchA.n = argA.n
    end
 
    if (masterTbl.terse) then
-
       --------------------------------------------------
       -- Terse output
       dbg.printT("availA",availA)
-      for k, v in pairsByKeys(alias2modT) do
-         local fullName = mrc:resolve(mpathA, v)
-         a[#a+1] = k.."(@" .. fullName ..")\n"
+      if (searchA.n > 0) then
+         for k, v in pairsByKeys(alias2modT) do
+            local fullName = mrc:resolve(mpathA, v)
+            for i = 1, searchA.n do
+               local s = searchA[i]
+               if (fullName:find(s)) then
+                  a[#a+1] = k.."(@" .. fullName ..")\n"
+               end
+            end
+         end
+      else
+         for k, v in pairsByKeys(alias2modT) do
+            local fullName = mrc:resolve(mpathA, v)
+            a[#a+1] = k.."(@" .. fullName ..")\n"
+         end
       end
+
 
       for j = 1,#availA do
          local A      = availA[j].A
@@ -1042,13 +1060,31 @@ function M.avail(self, argA)
    if (next(alias2modT) ~= nil) then
       local b  = {}
       local bb = {}
-      for k, v in pairsByKeys(alias2modT) do
-         local mname    = MName:new("load",k)
-         local fullName = mname:fullName() or pna
-         if (fullName == pna) then
-            legendT[na] = i18n("m_Global_Alias_na")
+      if (searchA.n > 0) then
+         for k, v in pairsByKeys(alias2modT) do
+            local fullName = mrc:resolve(mpathA,v)
+            for i = 1, searchA.n do
+               local s = searchA[i]
+               if (fullName:find(s)) then
+                  local mname    = MName:new("load",k)
+                  fullName = mname:fullName() or pna
+                  if (fullName == pna) then
+                     legendT[na] = i18n("m_Global_Alias_na")
+                  end
+                  b[#b+1]   = { "   " .. k, "->", fullName}
+                  break
+               end
+            end
          end
-         b[#b+1]   = { "   " .. k, "->", fullName}
+      else
+         for k, v in pairsByKeys(alias2modT) do
+            local mname    = MName:new("load",k)
+            local fullName = mname:fullName() or pna
+            if (fullName == pna) then
+               legendT[na] = i18n("m_Global_Alias_na")
+            end
+            b[#b+1]   = { "   " .. k, "->", fullName}
+         end
       end
       local ct = ColumnTable:new{tbl=b, gap=1, len=length, width = cwidth}
       a[#a+1]  = "\n"
