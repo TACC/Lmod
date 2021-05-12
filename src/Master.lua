@@ -982,7 +982,7 @@ function M.avail(self, argA)
       for i = 1, argA.n do
          local s  = argA[i]
          local ss = mrc:resolve(mpathA, s)
-         if (ss and ss ~= s) then
+         if (ss ~= s) then
             searchA[i] = ss
          else
             searchA[i] = s:caseIndependent()

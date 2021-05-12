@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.4.19  2020-12-13 13:58 -06:00
+Modules based on Lua: Version 8.5  2021-05-10 13:40 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -421,3 +421,42 @@ ProjectDIR/rt/modulerc/mf4
    D:        Default Module
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 39
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+Global Aliases
+   a13 -> (N/A)    compiler/intel/2019.5 -> compiler/intel/19.0
+ProjectDIR/rt/modulerc/mf8
+   compiler/intel/18.0.5.241 (18)    compiler/intel/19.0 (D)
+  Where:
+   Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
+   D:        Default Module
+   N/A:      Alias cannot be loaded with current $MODULEPATH
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 40
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t avail
+===========================
+a13(@a/13.0)
+compiler/intel/2019.5(@compiler/intel/19.0)
+ProjectDIR/rt/modulerc/mf8:
+compiler/intel/
+compiler/intel/18(@compiler/intel/18.0.5.241)
+compiler/intel/18.0.5.241
+compiler/intel/19.0
+===========================
+step 41
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t avail compiler/intel/19.0
+===========================
+compiler/intel/2019.5(@compiler/intel/19.0)
+ProjectDIR/rt/modulerc/mf8:
+compiler/intel/19.0
+===========================
+step 42
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t avail compiler/intel/2019.5
+===========================
+compiler/intel/2019.5(@compiler/intel/19.0)
+ProjectDIR/rt/modulerc/mf8:
+compiler/intel/19.0

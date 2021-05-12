@@ -110,12 +110,14 @@ EOF
      unsetMT
      export MODULEPATH=$(testDir)/mf7:$(testDir)/mf6:$(testDir)/mf4
      runBase    runSpiderCmd -o spiderT  $MODULEPATH   #37
-     runLmod avail                                     #38   
+     runLmod avail                                     #38
 
      unsetMT
-
-
-
+     export MODULEPATH=$(testDir)/mf8
+     runLmod    avail                                  #39
+     runLmod -t avail                                  #40
+     runLmod -t avail  compiler/intel/19.0             #41
+     runLmod -t avail  compiler/intel/2019.5           #42
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
