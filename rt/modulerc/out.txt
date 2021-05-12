@@ -1268,3 +1268,37 @@ MODULEPATH=ProjectDIR/rt/modulerc/mf7:ProjectDIR/rt/modulerc/mf6:ProjectDIR/rt/m
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/modulerc/mf7","ProjectDIR/rt/modulerc/mf6","ProjectDIR/rt/modulerc/mf4",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf7:ProjectDIR/rt/modulerc/mf6:ProjectDIR/rt/modulerc/mf4",}';
 export _ModuleTable_;
+===========================
+step 39
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/modulerc/mf8:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/modulerc/mf8;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/modulerc/mf8",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf8",}';
+export _ModuleTable_;
+===========================
+step 40
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t avail
+===========================
+MODULEPATH=ProjectDIR/rt/modulerc/mf8;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/modulerc/mf8",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf8",}';
+export _ModuleTable_;
+===========================
+step 41
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t avail compiler/intel/19.0
+===========================
+MODULEPATH=ProjectDIR/rt/modulerc/mf8;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/modulerc/mf8",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf8",}';
+export _ModuleTable_;
+===========================
+step 42
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t avail compiler/intel/2019.5
+===========================
+MODULEPATH=ProjectDIR/rt/modulerc/mf8;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/modulerc/mf8",},["systemBaseMPATH"]="ProjectDIR/rt/modulerc/mf8",}';
+export _ModuleTable_;

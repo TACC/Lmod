@@ -1,1 +1,3 @@
 Lmod 8.5+
+   (8.5.1)  * Issue #513:  module avail <name1> <name2> ... now only prints matching aliases.  Search names are resolved.
+              Tests added to the rt/modulerc directory.
