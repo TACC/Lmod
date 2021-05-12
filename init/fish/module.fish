@@ -24,7 +24,7 @@ end
 
 
 function __fish_lmod_av
-    echo (module -t av 2>&1 | sed '/^\//d')
+    echo (module -t av 2>&1 | sed '/^\//d' | sed -e 's/(@.*//' )
 end
 
 function __fish_lmod_list
