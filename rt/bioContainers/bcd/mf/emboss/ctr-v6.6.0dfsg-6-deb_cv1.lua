@@ -290,7 +290,7 @@ whatis("Name: emboss")
 whatis("Version: ctr-v6.6.0dfsg-6-deb_cv1")
 whatis("Category: ['Sequence analysis', 'Local alignment', 'Sequence alignment analysis', 'Global alignment', 'Sequence alignment']")
 whatis("Keywords: ['Molecular biology', 'Sequence analysis', 'Biology']")
-whatis("Description: Diverse suite of tools for sequence analysis; many programs analagous to GCG; context-sensitive help for each tool.")
+whatis("Description: Diverse suite of tools for sequence analysis; many programs analogous to GCG; context-sensitive help for each tool.")
 whatis("URL: https://hub.docker.com/r/biocontainers/emboss")
 
 set_shell_function("aaindexextract",'singularity exec ${BIOCONTAINER_DIR}/biocontainers/emboss/emboss-v6.6.0dfsg-6-deb_cv1.simg aaindexextract $@','singularity exec ${BIOCONTAINER_DIR}/biocontainers/emboss/emboss-v6.6.0dfsg-6-deb_cv1.simg aaindexextract $*')

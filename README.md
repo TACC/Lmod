@@ -11,8 +11,8 @@ It is a new implementation of environment modules.
 ## Lmod Web Sites
 
 * Documentation:   http://lmod.readthedocs.org
-* Github:          https://github.com/TACC/Lmod
-* Sourceforge:     https://lmod.sf.net
+* GitHub:          https://github.com/TACC/Lmod
+* SourceForge:     https://lmod.sf.net
 * TACC Homepage:   https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
 * Lmod Test Suite: https://github.com/rtmclay/Lmod_test_suite
 

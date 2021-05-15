@@ -49,7 +49,7 @@ function string:trim()
 end
 
 --------------------------------------------------------------------------
--- Return iterator generator for spliting a string into pieces.
+-- Return iterator generator for splitting a string into pieces.
 function string:split(pat)
    pat  = pat or "%s+"
    local st, g = 1, self:gmatch("()("..pat..")")

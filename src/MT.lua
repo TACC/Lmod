@@ -582,7 +582,7 @@ end
 -- @param self An MT object.
 -- @param sn the short module name.
 -- @param status The status.
--- @return existance.
+-- @return existence.
 function M.have(self, sn, status)
    local entry = self.mT[sn]
    if (entry == nil) then
@@ -1168,7 +1168,7 @@ function M.getMTfromFile(self,tt)
       if (not activeT[sn]) then
          dbg.print{"did not find activeT sn: ",sn,"\n"}
          aa[#aa+1] = sn
-         t[sn]     = nil -- do not need to check hash for a non-existant module
+         t[sn]     = nil -- do not need to check hash for a non-existent module
       end
    end
 

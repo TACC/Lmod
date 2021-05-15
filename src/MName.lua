@@ -331,7 +331,7 @@ end
 -- for an exact version match.  It stops at the first exact
 -- match it finds.
 --
--- For chosing a default (either marked or highest) it stops
+-- For choosing a default (either marked or highest) it stops
 -- looking in any other directories after it finds the first
 -- match.  So if the user looks for "icr" and there is one in
 -- the mf directory, it won't look in mf2.

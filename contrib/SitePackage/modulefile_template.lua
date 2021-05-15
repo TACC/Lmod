@@ -17,7 +17,7 @@ whatis("Version: " .. pkg.version)
 whatis("Category: Application")  -- Application, Development, Library
 whatis("Keyword: ")              -- Compiler, Chemistry, ...
 whatis("URL: ")
-whatis("License: unkown")
+whatis("License: unknown")
 whatis([[Description: ]])
 
 checkRestrictedGroup(pkg, nil)
