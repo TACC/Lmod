@@ -97,8 +97,8 @@ Important Environment Variables:
   LMOD_COLORIZE                     If defined to be "YES" then Lmod prints properties and warning in color.
 Lmod Web Sites
   Documentation:    http://lmod.readthedocs.org
-  Github:           https://github.com/TACC/Lmod
-  Sourceforge:      https://lmod.sf.net
+  GitHub:           https://github.com/TACC/Lmod
+  SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
 Modules based on Lua: Version 8.4.30  2021-04-16 12:06 -05:00
@@ -196,8 +196,8 @@ Important Environment Variables:
   LMOD_COLORIZE                     If defined to be "YES" then Lmod prints properties and warning in color.
 Lmod Web Sites
   Documentation:    http://lmod.readthedocs.org
-  Github:           https://github.com/TACC/Lmod
-  Sourceforge:      https://lmod.sf.net
+  GitHub:           https://github.com/TACC/Lmod
+  SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
 Modules based on Lua: Version 8.4.30  2021-04-16 12:06 -05:00

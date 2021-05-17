@@ -2,7 +2,7 @@ Lmod is a modern tool for consuming module files, with a strong focus on providi
 easy access to their (scientific) software stack, without hindering experts. It is the
 handshake between the system administrators and end users, and delivers a powerful yet
 flexible way of configuring and managing their working software stack. Lmod is feature-rich,
-well supported, continously enhanced, and comes with a vibrant
+well supported, continuously enhanced, and comes with a vibrant
 community.   This tutorial will cover the main concepts in a module
 system, the choice of module layout (hierarchical vs. flat),  The
 basics in installing Lmod and how to leverage the module system to

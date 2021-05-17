@@ -65,7 +65,7 @@ function mrc_load(fn)
          status, msg = mrc_sandbox_run(whole)
       else
          status = nil
-         msg    = "Empty or non-existant file"
+         msg    = "Empty or non-existent file"
       end
       if (not status) then
          LmodError{msg="e_Unable_2_Load", name = "<unknown>", fn = fn, message = msg}

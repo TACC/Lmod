@@ -25,7 +25,7 @@ set mach       [uname machine]
 set node       [uname node]
 
 #
-# Load default enviroment
+# Load default environment
 #
 
 #
@@ -43,7 +43,7 @@ setenv 	        PURGE 	    168
 prepend-path    MANPATH     /usr/local/man:/usr/share/man:/usr/X11R6/man:/opt/ganglia/man:/opt/rocks/man:/usr/kerberos/man:/usr/man
 
 # Ranger has a separate /scratch file system for each user.
-# Ammended on 2/2/08 (ks)
+# Amended on 2/2/08 (ks)
 
 #setenv          SCRATCH     /tmp
 #if { [file exists /scratch] } {

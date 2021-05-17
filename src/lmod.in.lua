@@ -212,8 +212,8 @@ function Usage()
    a[#a+1] = { i18n("web_sites") }
    a[#a+1] = { "" }
    a[#a+1] = { "  Documentation:    http://lmod.readthedocs.org"}
-   a[#a+1] = { "  Github:           https://github.com/TACC/Lmod"}
-   a[#a+1] = { "  Sourceforge:      https://lmod.sf.net"}
+   a[#a+1] = { "  GitHub:           https://github.com/TACC/Lmod"}
+   a[#a+1] = { "  SourceForge:      https://lmod.sf.net"}
    a[#a+1] = { "  TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod"}
    a[#a+1] = { "" }
    a[#a+1] = { i18n("rpt_bug")..webBR }

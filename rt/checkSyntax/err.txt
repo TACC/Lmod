@@ -14,7 +14,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --checkSyntax load 3.8
 ===========================
 Lmod has detected the following error: Unable to load module because of error when evaluating modulefile:
      ProjectDIR/rt/checkSyntax/mf/3.8.lua: [string "# comment..."]:1: unexpected symbol near '#'
-     Please check the modulefile and especially if there is a the line number specified in the above message
+     Please check the modulefile and especially if there is a line number specified in the above message
 While processing the following module(s):
     Module fullname  Module Filename
     3.8              ProjectDIR/rt/checkSyntax/mf/3.8.lua

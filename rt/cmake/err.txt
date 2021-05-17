@@ -13,7 +13,7 @@ ENV{FOO}:
 ENV{BAR}: 3.4.5
 Lmod has detected the following error: Unable to load module because of error when evaluating modulefile:
      ProjectDIR/rt/cmake/mf/Core/bad/1.0.lua: [string "WTF("FOO")..."]:1:
-     Please check the modulefile and especially if there is a the line number specified in the above message
+     Please check the modulefile and especially if there is a line number specified in the above message
 While processing the following module(s):
     Module fullname  Module Filename
     bad/1.0          ProjectDIR/rt/cmake/mf/Core/bad/1.0.lua

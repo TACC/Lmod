@@ -176,7 +176,7 @@ Lmod 8.1+
             * Get tcl2lua.tcl to support the new extensions() function.
 
 Lmod 8.0+
-   (8.0.1)  * Change to use AC_SEARCH_LIBS for tcl, tcl8.8, tcl8.7, tcl8.6  tcl8.5 to accomodate SUSE's decision
+   (8.0.1)  * Change to use AC_SEARCH_LIBS for tcl, tcl8.8, tcl8.7, tcl8.6  tcl8.5 to accommodate SUSE's decision
               not to include libtcl.so to point to the current tcl implementation.
             * issue #401: change tcl2lua.c to copy output string into an internal buffer. This avoids problems 
               found with some tcl interpreter (8.5.13 and earlier.
@@ -248,7 +248,7 @@ Lmod 7.7+
             be found when it should.
 	    Fixed issue #321 Changed LMOD_TARGPATHLOC to LMOD_SETTARG_TARG_PATH_LOCATION
 	    changed LMOD_FULL_SETTARG_SUPPORT to LMOD_SETTARG_FULL_SUPPORT. (Lmod supports both)
-	    Fixed issue #322 where non-existant directory would cause problems
+	    Fixed issue #322 where non-existent directory would cause problems
    (7.7.8)  Fix bug in settarg module for csh.
    (7.7.9)  Fix bug in Csh.lua where semicolons inside an alias were removed.  Only remove the
             trailing semicolon.
@@ -379,7 +379,7 @@ Bug Fixes:
 
    4. Lmod would sometimes miss a symlink to a directory with module use.  This is now fixed.
 
-   5. Lmod now correctly ignores a valid .version/.modulerc file that points to a non-existant modulefile.
+   5. Lmod now correctly ignores a valid .version/.modulerc file that points to a non-existent modulefile.
 
    6. Allow the use of md5 -r as an alternative to sha1sum and md5sum
 
@@ -635,7 +635,7 @@ Bug Fixes:
 Lmod Version 5.6.2
 Bug Fixes:
    a) LMOD_EXPERT is now also turns on quiet mode.  It was removed
-      accidently in 5.6.1 and is now restored.
+      accidentally in 5.6.1 and is now restored.
    b) Lmod had a bug where it tracked prereq, conflict and family
       commands in module collections where it didn't need to.
       This means that some users will have to rebuild their module
@@ -695,7 +695,7 @@ Feature:
 
 Bug Fixes:
    a) Configuring on a system where tclsh is not found is handled better.
-   b) When doing module avail where MODULEPATH points only to non-existant
+   b) When doing module avail where MODULEPATH points only to non-existent
       path it now reports that Lmod can not do a module avail.
 
 
@@ -1219,7 +1219,7 @@ Version 3.4.2:
       the same as a load() EXCEPT that it will not produce an error
       if the module does NOT exist.
 
-   2) Similarily a TCL modulefile can have:
+   2) Similarly a TCL modulefile can have:
 
         module try-add foo
 

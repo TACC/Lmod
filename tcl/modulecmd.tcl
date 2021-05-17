@@ -3908,7 +3908,7 @@ proc cmdModuleSearch {{mod {}} {search {}}} {
                }
             }
             {invalid} - {accesserr} {
-               # register any error occuring on element matching search
+               # register any error occurring on element matching search
                if {$elt eq $mod} {
                   set err_list($elt) $mod_list($elt)
                }
@@ -3995,7 +3995,7 @@ proc cmdModuleSave {{coll {}}} {
       reportErrorAndExit "Nothing to save in a collection"
    }
 
-   # get coresponding filename and its directory
+   # get corresponding filename and its directory
    lassign [getCollectionFilename $coll] collfile colldesc
    set colldir [file dirname $collfile]
 
@@ -4024,7 +4024,7 @@ proc cmdModuleRestore {{coll {}}} {
    }
    reportDebug "cmdModuleRestore: $coll"
 
-   # get coresponding filename
+   # get corresponding filename
    lassign [getCollectionFilename $coll] collfile colldesc
 
    if {![file exists $collfile]} {
@@ -4115,7 +4115,7 @@ proc cmdModuleSaverm {{coll {}}} {
          filepath"
    }
 
-   # get coresponding filename
+   # get corresponding filename
    lassign [getCollectionFilename $coll] collfile colldesc
 
    if {![file exists $collfile]} {
@@ -4137,7 +4137,7 @@ proc cmdModuleSaveshow {{coll {}}} {
    }
    reportDebug "cmdModuleSaveshow: $coll"
 
-   # get coresponding filename
+   # get corresponding filename
    lassign [getCollectionFilename $coll] collfile colldesc
 
    if {![file exists $collfile]} {
@@ -4457,7 +4457,7 @@ proc cmdModuleUse {args} {
             set stuff_path "prepend"
          }\
          elseif {[file isdirectory $path]} {
-            # tranform given path in an absolute path to avoid dependency to
+            # transform given path in an absolute path to avoid dependency to
             # the current work directory.
             set path [getAbsolutePath $path]
 

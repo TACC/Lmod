@@ -67,7 +67,7 @@ code:
 
 Some sites use a naming convention of category/name/version.  Every
 thing is similar except that it makes sense to use the category name
-instead of a the fixed "MPI" string and flip the compiler and mpi
+instead of a fixed "MPI" string and flip the compiler and mpi
 names. The package and modulefile paths are:
 
   $prefix/mpi-$MN-$MV/compiler-$CN-$CV/$category/$pkg/$version

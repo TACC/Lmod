@@ -92,8 +92,8 @@ B) Now with version 5.+ of Lmod, it is now very important that sites with large
          is time to start building a cache file when you start getting complains
          how long it take to do any module commands.
 
-      2) If you have a formal proceedure for installing packages on your system
-         then I recommend you do the following.  Have the install proceedure run
+      2) If you have a formal procedure for installing packages on your system
+         then I recommend you do the following.  Have the install procedure run
          the createSystemCache.sh file.  This will create file called "system.txt"
          which marks the time that the system was last updated, so Lmod knows that
          the cache is still good.

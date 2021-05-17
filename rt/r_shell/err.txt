@@ -18,7 +18,7 @@ lua ProjectDIR/src/lmod.in.lua R --regression_testing load bad
 ===========================
 Lmod has detected the following error: Unable to load module because of error when evaluating modulefile:
      ProjectDIR/rt/r_shell/mf/Core/bad/1.0.lua: [string "WTF("foo")..."]:1:
-     Please check the modulefile and especially if there is a the line number specified in the above message
+     Please check the modulefile and especially if there is a line number specified in the above message
 While processing the following module(s):
     Module fullname  Module Filename
     bad/1.0          ProjectDIR/rt/r_shell/mf/Core/bad/1.0.lua

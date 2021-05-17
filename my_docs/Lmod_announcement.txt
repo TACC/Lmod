@@ -33,7 +33,7 @@ language that not many have heard of.
 Well there are many reasons why but the first is that I'm not fond of
 TCL and the problem I'm trying to solve would probably require a
 complete rewrite of the module system, so starting from scratch was
-much simplier than trying to figure out either of the three current
+much simpler than trying to figure out either of the three current
 versions of modules (Modules 3.+, TCL Modules, C-Modules).
 
 

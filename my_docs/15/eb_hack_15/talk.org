@@ -41,7 +41,7 @@ Wanted to mark modules that were MIC aware
 the contents of every modulefile. This is slow to read every file. 
 => Spider Cache
 
-*** Chosing a Default module is was complex before.
+*** Choosing a Default module is was complex before.
 
 How Lmod Picks the Default when there are multiple directories listed
 in MODULEPATH
@@ -63,7 +63,7 @@ With ~/.modulerc (or the system one) can change the default.  That
 currently doesn't work in Lmod.
 
 In order for this to work there has to be enough information recorded
-in the spider cache to make it so that the default can be choosen
+in the spider cache to make it so that the default can be chosen
 WITHOUT walking the directory tree again.
 
 

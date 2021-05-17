@@ -413,7 +413,7 @@ neverclean		?= *.pdf
 # Chris Monson (2008-04-09):
 # * Bumped version to 2.1.18
 # * issue 16: fixed pstex build problems, seems nondeterministic.  Added
-#     gratuitious hack for testing: set PSTEX_BUILD_ALL_HACK=1.
+#     gratuitous hack for testing: set PSTEX_BUILD_ALL_HACK=1.
 # Chris Monson (2008-04-09):
 # * Bumped version to 2.1.17
 # * issue 20: fixed accumulation of <pid>*.make files - wildcard was
@@ -2570,7 +2570,7 @@ endif
 # matches *.gpi, then use that to determine which include files we need to
 # build.
 #
-# Thus, we invoke make recursively with better arugments instead, restarting
+# Thus, we invoke make recursively with better arguments instead, restarting
 # all of the appropriate machinery.
 .PHONY: $(default_stems_ss)
 $(default_stems_ss): %: %.pdf ;
