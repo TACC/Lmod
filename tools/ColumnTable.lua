@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------
--- This class is takes a array of strings and produced a multi-column output.
+-- This class takes an array of strings and produced a multi-column output.
 -- Standard usage is:
 --
 --     local ct = ColumnTable:new{tbl=a, gap=2}
