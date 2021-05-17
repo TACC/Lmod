@@ -44,7 +44,7 @@
 # And then the convience functions:
 #   module_list(out_var)        - Retrieve the currently loaded modules,
 #                                 making the output available as a properly
-#                                 formatted CMake ;-seperated list variable.
+#                                 formatted CMake ;-separated list variable.
 #                                 This is functionally equivalent to calling
 #                                 module(list OUTPUT_VARIABLE out_var) but
 #                                 with additional code to properly parse the
@@ -52,9 +52,9 @@
 #   module_swap(out_mod in_mod) - Swap one module out for another.
 #                                 This is functionally equivalent to calling
 #                                 module(swap out_mod in_mod).
-#   module_avail(out_var)       - Retrieve the availabe modules that can be
+#   module_avail(out_var)       - Retrieve the available modules that can be
 #                                 loaded, making the output available as a
-#                                 properly formatted CMake ;-seperated list
+#                                 properly formatted CMake ;-separated list
 #                                 variable.
 #                                 This is functionally equivalent to calling
 #                                 module(avail OUTPUT_VARIABLE out_var) but

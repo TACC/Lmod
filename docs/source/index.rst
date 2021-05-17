@@ -45,14 +45,14 @@ Lmod Web Sites
 ^^^^^^^^^^^^^^
 
     * Documentation:          https://lmod.readthedocs.io/en/latest/
-    * Github:                 https://github.com/TACC/Lmod
-    * Sourceforge:            https://lmod.sf.net
+    * GitHub:                 https://github.com/TACC/Lmod
+    * SourceForge:            https://lmod.sf.net
     * TACC Homepage:          https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
     * Lmod Test Suite:        https://github.com/rtmclay/Lmod_test_suite
     * Join Lmod Mailing list: https://sourceforge.net/projects/lmod/lists/lmod-users
 
 The most up-to-date source is at github. There is a secondary git repo
-found at Sourceforge. Both repos are the same. Stable releases in the
+found at SourceForge. Both repos are the same. Stable releases in the
 form of tar files can be found at Sourceforce. All label versions found
 at the git repos have passed Lmod's regression test suite.
 

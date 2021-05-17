@@ -10,7 +10,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load bad_syntax
 ===========================
 Lmod has detected the following error: Unable to load module because of error when evaluating modulefile:
      ProjectDIR/rt/errHandler/mf/bad_syntax/1.0.lua: [string "setenv("BAD_SYNTAX","1.0")..."]:2: unexpected symbol near '#'
-     Please check the modulefile and especially if there is a the line number specified in the above message
+     Please check the modulefile and especially if there is a line number specified in the above message
 While processing the following module(s):
     Module fullname  Module Filename
     bad_syntax/1.0   ProjectDIR/rt/errHandler/mf/bad_syntax/1.0.lua

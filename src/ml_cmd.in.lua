@@ -102,7 +102,7 @@ local concatTbl = table.concat
 
 --------------------------------------------------------------------------
 -- Wrap an entity in single quotes.
--- @param a a entity to wrap in quotes.
+-- @param a an entity to wrap in quotes.
 local function quoteWrap(a)
    return "'" .. tostring(a) .. "'"
 end

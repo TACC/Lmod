@@ -133,7 +133,7 @@ function loadModuleFile(t)
       status, msg = sandbox_run(whole)
    else
       status = nil
-      msg    = "Empty or non-existant file"
+      msg    = "Empty or non-existent file"
    end
 
    -- report any errors

@@ -161,7 +161,7 @@ Note that TCL modules are converted inside of *loadModulefile()* to be lua funct
 The evaluation of
 
 
-The command line actions are in src/cmdfuncs.lua.  Similarily, functions specified in module
+The command line actions are in src/cmdfuncs.lua.  Similarly, functions specified in module
 files are in src/modfuncs.lua.  Explain why they are similar but not the same and maintained
 separately.
 

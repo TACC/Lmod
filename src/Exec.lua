@@ -83,7 +83,7 @@ function M.register(self, ...)
 end
 
 --------------------------------------------------------------------------
--- Send the registered commands to stdout so that they can be evalated
+-- Send the registered commands to stdout so that they can be evaluated
 -- by the module command.
 -- @param self A Exec object
 function M.expand(self)

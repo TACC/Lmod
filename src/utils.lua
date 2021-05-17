@@ -585,7 +585,7 @@ end
 
 local __quiet = false
 --------------------------------------------------------------------------
--- Return ture if in quiet mode.
+-- Return true if in quiet mode.
 function quiet()
    if (__quiet == false) then
       __quiet = getenv("LMOD_QUIET") or getenv("LMOD_EXPERT")

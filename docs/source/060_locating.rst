@@ -171,7 +171,7 @@ As stated above, there are four files used to mark a default::
 #. .modulerc
 #. .version
 
-Lmod searches in this order. If it finds the a number earlier in the
+Lmod searches in this order. If it finds a number earlier in the
 list then the other are ignored.  In other words if your site as both
 a default symlink and a .modulerc.lua file then the default file is
 used and the .modulerc.lua file is ignored.

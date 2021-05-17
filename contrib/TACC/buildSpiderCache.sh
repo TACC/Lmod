@@ -107,7 +107,7 @@ buildNewDB()
 }
 
 ########################################################################
-#  Make directores and file be world readable
+#  Make directories and file be world readable
 umask 022
 
 

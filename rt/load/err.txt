@@ -373,7 +373,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Try/2.0
 ===========================
 Lmod has detected the following error: Unable to load module because of error when evaluating modulefile:
      ProjectDIR/rt/load/mf/Core/Bad/1.0.lua: [string "setenv("foo","bar")..."]:2: unexpected symbol near '#'
-     Please check the modulefile and especially if there is a the line number specified in the above message
+     Please check the modulefile and especially if there is a line number specified in the above message
 While processing the following module(s):
     Module fullname  Module Filename
     Bad/1.0          ProjectDIR/rt/load/mf/Core/Bad/1.0.lua
