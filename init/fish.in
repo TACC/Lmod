@@ -5,6 +5,8 @@ set -gx LMOD_CMD  @PKG@/libexec/lmod
 
 set -gx MODULESHOME @PKG@
 
+set -gx LMOD_VERSION "@lmod_version@"
+
 set -gx FPATH (@PKGV@/libexec/addto --append FPATH @PKGV@/init/ksh_funcs)
 
 if status -i
