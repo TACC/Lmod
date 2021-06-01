@@ -43,10 +43,12 @@ All lua modulerc files support the following commands:
 **hide_version** ("fullName"):
    This command will hide all "fullName" modules. So if there are
    multiple phdf5/1.8.6 module, then all will be marked as hidden.
+   See isVisible hook in :ref:`hooks` to do more complicated hiding.
 
 **hide_modulefile** ("full_path"):
    This command will hide just one module located at "full_path"
    modules. This way only modulefile can be hidden.
+   See isVisible hook in :ref:`hooks` to do more complicated hiding.
 
 The TCL files support similar commands:
 
