@@ -2,7 +2,5 @@ Lmod 8.5+
    (8.5.1)  * Issue #513:  module avail <name1> <name2> ... now only prints matching aliases.  Search names are resolved.
               Tests added to the rt/modulerc directory.
    (8.5.2)  * Failed to register new version with github.  Pushing a new version to fix that.
-W.I.P:
    (8.5.3)  * Issue #515: Set LMOD_VERSION for fish shell
             * Add link to isVisible() hook in documentation for hide_version() function.
-	    
