@@ -328,3 +328,11 @@ c) modules_used_by:  Report the modules used by a particular user::
      /opt/apps/intel13/modulefiles/mvapich2/1.9a2                           mclay
 
 
+Tracking user loads and not dependent loads
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Some sites would like to track the modules loaded by users
+directly and not the dependent loads.  If your site wished to do that
+then look at the directory in the source tree:
+**contrib/more_hooks**.  In that directory is a SitePackage.lua file
+as well as README.md which explains how to just track user loads.
