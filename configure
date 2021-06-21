@@ -4087,7 +4087,7 @@ fi
            for i in tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
                $pkgConfig --exists $i
                if test $? = 0; then
-                   TCL_INCLUDE=`$pkgConfig --cflags $i | sed -e 's/^-I//' -e 's/ //g'`
+                   TCL_INCLUDE=`$pkgConfig --cflags-only-I $i 2> /dev/null`
                    TCL_LIBS=`$pkgConfig --libs $i`
                    break
                fi
@@ -4095,7 +4095,7 @@ fi
        fi
    fi
 
-   CPPFLAGS="-I $TCL_INCLUDE"
+   CPPFLAGS="$TCL_INCLUDE"
 
 
 ac_ext=c
@@ -5339,7 +5339,7 @@ fi
     for i in lua$LuaV lua; do
       $pkgConfig --exists $i
       if test $? = 0; then
-        LUA_INCLUDE=`$pkgConfig --cflags $i | sed -e 's/^-I//' -e 's/ //g'`
+        LUA_INCLUDE=`$pkgConfig --cflags-only-I $i 2> /dev/null`
         break
       fi
     done
