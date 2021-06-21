@@ -642,7 +642,6 @@ if test "$FAST_TCL_INTERP" = yes ; then
        fi  
    fi
 
-   echo "RTM: TCL_INCLUDE: $TCL_INCLUDE"
    CPPFLAGS="$TCL_INCLUDE"
 
    AC_CHECK_HEADER(tcl.h,
