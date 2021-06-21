@@ -634,7 +634,7 @@ if test "$FAST_TCL_INTERP" = yes ; then
            for i in tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
                $pkgConfig --exists $i
                if test $? = 0; then
-                   TCL_INCLUDE=`$pkgConfig --cflags $i | sed -e 's/^-I//' -e 's/ //g'`
+                   TCL_INCLUDE=`$pkgConfig --cflags-only-I $i 2> /dev/null`
                    TCL_LIBS=`$pkgConfig --libs $i`
                    break
                fi
@@ -642,7 +642,7 @@ if test "$FAST_TCL_INTERP" = yes ; then
        fi  
    fi
 
-   CPPFLAGS="-I $TCL_INCLUDE"
+   CPPFLAGS="$TCL_INCLUDE"
 
    AC_CHECK_HEADER(tcl.h,
                    [AC_DEFINE([HAVE_TCL_H], 1, [Define to 1 if you have tcl.h])],[]) 
@@ -912,7 +912,7 @@ if ! test -f $LUA_INCLUDE/lua.h; then
     for i in lua$LuaV lua; do
       $pkgConfig --exists $i
       if test $? = 0; then
-        LUA_INCLUDE=`$pkgConfig --cflags $i | sed -e 's/^-I//' -e 's/ //g'`
+        LUA_INCLUDE=`$pkgConfig --cflags-only-I $i 2> /dev/null`
         break
       fi
     done
