@@ -4095,7 +4095,6 @@ fi
        fi
    fi
 
-   echo "RTM: TCL_INCLUDE: $TCL_INCLUDE"
    CPPFLAGS="$TCL_INCLUDE"
 
 
