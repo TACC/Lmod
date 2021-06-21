@@ -617,12 +617,12 @@ fi
 if test "$FAST_TCL_INTERP" = yes ; then
    OS=$(uname -s)
    if test "$OS" = Darwin ; then
-     TCL_INCLUDE=$(xcrun --show-sdk-path)
-     TCL_INCLUDE=${DIR}/usr/include
+     DIR=$(xcrun --show-sdk-path)
+     TCL_INCLUDE="-I${DIR}/usr/include"
    else
      for i in "" tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
         if test -f /usr/include/$i/tcl.h ; then
-	   TCL_INCLUDE=/usr/include/$i
+	   TCL_INCLUDE="-I/usr/include/$i"
 	   break;
 	fi
      done
@@ -642,6 +642,7 @@ if test "$FAST_TCL_INTERP" = yes ; then
        fi  
    fi
 
+   echo "RTM: TCL_INCLUDE: $TCL_INCLUDE"
    CPPFLAGS="$TCL_INCLUDE"
 
    AC_CHECK_HEADER(tcl.h,
