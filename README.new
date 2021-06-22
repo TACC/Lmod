@@ -5,3 +5,4 @@ Lmod 8.5+
    (8.5.3)  * Issue #515: Set LMOD_VERSION for fish shell
             * Add link to isVisible() hook in documentation for hide_version() function.
    (8.5.4)  * Issue #517: use pkg-config --cflags-only-I option and do not post-process the results.
+   (8.5.5)  * Issue #517: use pkg-config --cflags-only-I option and post-process the results for LUA_INCLUDE

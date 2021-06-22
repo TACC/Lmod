@@ -912,7 +912,7 @@ if ! test -f $LUA_INCLUDE/lua.h; then
     for i in lua$LuaV lua; do
       $pkgConfig --exists $i
       if test $? = 0; then
-        LUA_INCLUDE=`$pkgConfig --cflags-only-I $i 2> /dev/null`
+        LUA_INCLUDE=`$pkgConfig --cflags-only-I $i 2> /dev/null | sed -e 's/^-I//' -e 's/ //g'`
         break
       fi
     done
