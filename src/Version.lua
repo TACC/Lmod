@@ -1,5 +1,5 @@
 local M={}
-function M.tag()  return "8.5.6"   end
+function M.tag()  return "8.5.7"   end
 function M.git()
    local s = "@git@"
    if (s == "@" .. "git@")     then s = "" end
