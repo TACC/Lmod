@@ -634,7 +634,7 @@ if test "$FAST_TCL_INTERP" = yes ; then
            for i in tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
                $pkgConfig --exists $i
                if test $? = 0; then
-                   TCL_INCLUDE=`$pkgConfig --cflags-only-I $i 2> /dev/null`
+                   TCL_INCLUDE=`PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 $pkgConfig --cflags-only-I $i 2> /dev/null`
                    TCL_LIBS=`$pkgConfig --libs $i`
                    break
                fi
@@ -910,9 +910,9 @@ if ! test -f $LUA_INCLUDE/lua.h; then
   AC_PATH_PROG(pkgConfig, pkg-config, "")
   if  ! test x$pkgConfig = "x"; then
     for i in lua$LuaV lua; do
-      $pkgConfig --exists $i
+      PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 $pkgConfig --exists $i
       if test $? = 0; then
-        LUA_INCLUDE=`$pkgConfig --cflags-only-I $i 2> /dev/null | sed -e 's/^-I//' -e 's/ //g'`
+        LUA_INCLUDE=`PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 $pkgConfig --cflags-only-I $i 2> /dev/null | sed -e 's/^-I//' -e 's/ //g'`
         break
       fi
     done
