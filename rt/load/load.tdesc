@@ -69,32 +69,35 @@ testdescript = {
      runLmod load dflt                                      # 42
      runLmod list                                           # 43
      runLmod load noweb/2.10c.lua                           # 44
-     runLmod load Try/1.0                                   # 45
-     runLmod load Try/2.0                                   # 46
+     runLmod load   Try/1.0                                 # 45
+     runLmod load   Try/2.0                                 # 47
+     runLmod unload B/2.3.4                                 # 48
+     runLmod list                                           # 49
+
 
      export LMOD_DISABLE_SAME_NAME_AUTOSWAP=yes
-     runLmod load moduleA/1.0                               # 47
-     runLmod load moduleB/1.0                               # 48
+     runLmod load moduleA/1.0                               # 50
+     runLmod load moduleB/1.0                               # 51
      
      unsetMT
      export MODULEPATH=$(testDir)/mf2/Core
-     runLmod --show_hidden avail                            # 49
-     runLmod load .eb_builder/default                       # 50
-     runLmod load a/default                                 # 51
-     runLmod load b/default                                 # 52
-     runLmod list                                           # 53
+     runLmod --show_hidden avail                            # 52
+     runLmod load .eb_builder/default                       # 53
+     runLmod load a/default                                 # 54
+     runLmod load b/default                                 # 55
+     runLmod list                                           # 56
 
      unsetMT
      export MODULEPATH=$(testDir)/mf3
-     runLmod load A                                         # 54
-     runLmod load A/1.0                                     # 55
-     runLmod load B                                         # 56
-     runLmod load B/2.0                                     # 57
-     runLmod load tex                                       # 58
+     runLmod load A                                         # 57
+     runLmod load A/1.0                                     # 58
+     runLmod load B                                         # 59
+     runLmod load B/2.0                                     # 60
+     runLmod load tex                                       # 61
 
      export PATH=$(testDir):$PATH
-     runLmod load MakeSystemCall                            # 59
-     runLmod list                                           # 60
+     runLmod load MakeSystemCall                            # 62
+     runLmod list                                           # 63
 
 
 
