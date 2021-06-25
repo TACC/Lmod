@@ -1,3 +1,5 @@
+.. _avail_style:
+
 Providing Custom Labels for Avail
 =================================
 

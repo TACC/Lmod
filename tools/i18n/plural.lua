@@ -215,7 +215,7 @@ local f20 = function(n)
          (between(n_100, 11, 19) and 'many') or
          'other'
 end
-pluralization[f20] = {'mt'}
+pluralization[f20] = {"mt"}
 
 local f21 = function(n)
   if n == 1 then return 'one' end

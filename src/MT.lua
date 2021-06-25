@@ -591,6 +591,24 @@ function M.have(self, sn, status)
    return ((status == "any") or (status == entry.status))
 end
 
+function M.lookup_w_userName(self,userName)
+   -- Check if userName is an 
+   if (self:exists(userName)) then
+      return userName
+   end
+   -- Check to see if userName is fullName by looping over entries.
+   local mT = self.mT
+   dbg.printT("lookup_w: mT",mT)
+   for sn, v in pairs(mT) do
+      if (userName == self:fullName(sn)) then
+         return sn
+      end
+   end
+
+   return false
+end
+
+
 function M.userName(self, sn)
    local entry = self.mT[sn]
    if (entry == nil) then

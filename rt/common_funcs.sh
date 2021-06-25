@@ -234,6 +234,7 @@ initStdEnvVars()
   unset MODULEPATH
   unset MODULEPATH_ROOT
   unset MODULERCFILE
+  unset TEXINPUTS
   unset NLSPATH
   unset OMP_NUM_THREADS
   unset PYTHONPATH

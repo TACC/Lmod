@@ -30,6 +30,14 @@ _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]=
 export _ModuleTable_;
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/nvv_prereq/mf;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/nvv_prereq/mf/a/sub/1.0",["fullName"]="a/sub/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",["wV"]="*sub/^00000001.*zfinal",},},mpathA={"ProjectDIR/rt/nvv_prereq/mf",},["systemBaseMPATH"]="ProjectDIR/rt/nvv_prereq/mf",}';
+export _ModuleTable_;
+===========================
+step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load d
 ===========================
 __LMOD_REF_COUNT_LOADEDMODULES=a/sub/1.0:1\;d/1.0:1;
@@ -45,7 +53,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={a={["fn"]="ProjectDIR/rt/nvv_prereq/mf/a/sub/1.0",["fullName"]="a/sub/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="a",["wV"]="*sub/^00000001.*zfinal",},d={["fn"]="ProjectDIR/rt/nvv_prereq/mf/d/1.0",["fullName"]="d/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="d",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/nvv_prereq/mf",},["systemBaseMPATH"]="ProjectDIR/rt/nvv_prereq/mf",}';
 export _ModuleTable_;
 ===========================
-step 5
+step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/nvv_prereq/mf;

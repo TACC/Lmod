@@ -44,6 +44,15 @@ configuration step.
   this variable has no value, then Lmod looks for
   ``<install_dir>/../etc/admin.list`` 
 
+**LMOD_AVAIL_STYLE**:
+  Used by the avail hook to control how avail output
+  is handled.   This is a colon separated list of
+  names.  Note that the default choice is marked by
+  angle brackets:  A:B:<C> ==> C is the default.
+  If no angle brackets are specified then the first
+  entry is the default (i.e. A:B:C => A is default).
+  See :ref:`avail_style` for more details.
+
 **LMOD_IGNORE_CACHE**:
   [yes/no] If set to yes then Lmod will bypass all cachefile and walk
   the directories in MODULEPATH instead.

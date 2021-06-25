@@ -159,23 +159,13 @@ end
 local function lazyEval(self)
    dbg.start{"lazyEval(",self.__userName,")"}
 
-   local found   = false
    local sType   = self.__sType
    if (sType == "mt") then
       local frameStk = FrameStk:singleton()
       local mt       = frameStk:mt()
-      local sn       = self.__userName
-      found          = false
-      while true do
-         if (mt:exists(sn)) then
-            found = true
-            break
-         end
-         local idx = sn:match("^.*()/")
-         if (idx == nil) then break end
-         sn        = sn:sub(1,idx-1)
-      end
-      if (found) then
+      local sn       = mt:lookup_w_userName(self.__userName)
+      dbg.print{"sn: ",sn,"\n"}
+      if (sn) then
          self.__sn         = sn
          self.__fn         = mt:fn(sn)
          self.__version    = mt:version(sn)
@@ -225,6 +215,7 @@ local function lazyEval(self)
    local version
    local fn
    local wV
+   local found
    dbg.printT("fileA",fileA)
    --dbg.print{"#stepA: ",#stepA,"\n"}
 

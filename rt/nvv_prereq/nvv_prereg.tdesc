@@ -26,8 +26,9 @@ testdescript = {
      runLmod --version                     # 1
      runLmod avail                         # 2
      runLmod load a                        # 3
-     runLmod load d                        # 4
-     runLmod list                          # 5
+     runLmod list                          # 4
+     runLmod load d                        # 5
+     runLmod list                          # 6
 
 
      HOME=$ORIG_HOME

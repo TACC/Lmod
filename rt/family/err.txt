@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.4.19  2020-12-13 13:58 -06:00
+Modules based on Lua: Version 8.5.6  2021-06-22 08:18 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -38,10 +38,10 @@ running: module --regression_testing -T load gccA
     Appending: ProjectDIR/rt/family/mf/Compiler/gcc/7 to MODULEPATH
 Lmod is automatically replacing "ibmA/13.1.6" with "gccA/7.1.0".
   (5)(0)Unloading: ibmA (status: active) (fn: ProjectDIR/rt/family/mf/Core/ibmA/13.1.6.lua)
-    (6)(0)Unloading: compiler-common/.ibm (status: active) (fn: ProjectDIR/rt/family/mf/Core/compiler-common/.gcc.lua)
+    (6)(0)Unloading: compiler-common/.ibm (status: ) (fn: nil)
     Removing: ProjectDIR/rt/family/mf/Compiler/ibm/13 from MODULEPATH
   (7)(0)Unloading: gccA (status: active) (fn: ProjectDIR/rt/family/mf/Core/gccA/7.1.0.lua)
-    (8)(0)Unloading: compiler-common/.gcc (status: ) (fn: nil)
+    (8)(0)Unloading: compiler-common/.gcc (status: active) (fn: ProjectDIR/rt/family/mf/Core/compiler-common/.gcc.lua)
     Removing: ProjectDIR/rt/family/mf/Compiler/gcc/7 from MODULEPATH
   (9)(0)Loading: gccA (fn: ProjectDIR/rt/family/mf/Core/gccA/7.1.0.lua, using Find-Best)
     (10)(0)Loading: compiler-common/.gcc (fn: ProjectDIR/rt/family/mf/Core/compiler-common/.gcc.lua, using Find-Best)
@@ -87,10 +87,10 @@ running: module --regression_testing -T load ibmA
     Appending: ProjectDIR/rt/family/mf/Compiler/ibm/13 to MODULEPATH
 Lmod is automatically replacing "gccA/7.1.0" with "ibmA/13.1.6".
   (5)(0)Unloading: gccA (status: active) (fn: ProjectDIR/rt/family/mf/Core/gccA/7.1.0.lua)
-    (6)(0)Unloading: compiler-common/.gcc (status: active) (fn: ProjectDIR/rt/family/mf/Core/compiler-common/.ibm.lua)
+    (6)(0)Unloading: compiler-common/.gcc (status: ) (fn: nil)
     Removing: ProjectDIR/rt/family/mf/Compiler/gcc/7 from MODULEPATH
   (7)(0)Unloading: ibmA (status: active) (fn: ProjectDIR/rt/family/mf/Core/ibmA/13.1.6.lua)
-    (8)(0)Unloading: compiler-common/.ibm (status: ) (fn: nil)
+    (8)(0)Unloading: compiler-common/.ibm (status: active) (fn: ProjectDIR/rt/family/mf/Core/compiler-common/.ibm.lua)
     Removing: ProjectDIR/rt/family/mf/Compiler/ibm/13 from MODULEPATH
   (9)(0)Loading: ibmA (fn: ProjectDIR/rt/family/mf/Core/ibmA/13.1.6.lua, using Find-Best)
     (10)(0)Loading: compiler-common/.ibm (fn: ProjectDIR/rt/family/mf/Core/compiler-common/.ibm.lua, using Find-Best)
@@ -110,46 +110,3 @@ Due to MODULEPATH changes, the following have been reloaded:
   1) openmpi/2.1.1     2) phdf5/1.8.18
 The following have been reloaded with a version change:
   1) compiler-common/.gcc => compiler-common/.ibm
-===========================
-step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T load gccA mpich
-===========================
-running: module --regression_testing -T load gccA mpich
-  (1)(0)Loading: gccA (fn: ProjectDIR/rt/family/mf/Core/gccA/7.1.0.lua, using Find-Best)
-    (2)(0)Loading: compiler-common/.gcc (fn: ProjectDIR/rt/family/mf/Core/compiler-common/.gcc.lua, using Find-Best)
-    (3)(0)Unloading: compiler-common (status: active) (fn: ProjectDIR/rt/family/mf/Core/compiler-common/.ibm.lua)
-    (4)(0)Loading: compiler-common/.gcc (fn: ProjectDIR/rt/family/mf/Core/compiler-common/.gcc.lua, using Find-Best)
-    Appending: ProjectDIR/rt/family/mf/Compiler/gcc/7 to MODULEPATH
-Lmod is automatically replacing "ibmA/13.1.6" with "gccA/7.1.0".
-  (5)(0)Unloading: ibmA (status: active) (fn: ProjectDIR/rt/family/mf/Core/ibmA/13.1.6.lua)
-    (6)(0)Unloading: compiler-common/.ibm (status: active) (fn: ProjectDIR/rt/family/mf/Core/compiler-common/.gcc.lua)
-    Removing: ProjectDIR/rt/family/mf/Compiler/ibm/13 from MODULEPATH
-  (7)(0)Unloading: gccA (status: active) (fn: ProjectDIR/rt/family/mf/Core/gccA/7.1.0.lua)
-    (8)(0)Unloading: compiler-common/.gcc (status: ) (fn: nil)
-    Removing: ProjectDIR/rt/family/mf/Compiler/gcc/7 from MODULEPATH
-  (9)(0)Loading: gccA (fn: ProjectDIR/rt/family/mf/Core/gccA/7.1.0.lua, using Find-Best)
-    (10)(0)Loading: compiler-common/.gcc (fn: ProjectDIR/rt/family/mf/Core/compiler-common/.gcc.lua, using Find-Best)
-    Appending: ProjectDIR/rt/family/mf/Compiler/gcc/7 to MODULEPATH
-  (11)(0)Loading: mpich (fn: ProjectDIR/rt/family/mf/Compiler/gcc/7/mpich/3.2.1.lua, using Find-Best)
-    Appending: ProjectDIR/rt/family/mf/MPI/gcc/7/mpich/3.2 to MODULEPATH
-    (12)(0)Loading: mpi-common/.mpich (fn: ProjectDIR/rt/family/mf/Core/mpi-common/.mpich.lua, using Find-Best)
-    (13)(0)Unloading: mpi-common (status: active) (fn: ProjectDIR/rt/family/mf/Core/mpi-common/.openmpi.lua)
-    (14)(0)Loading: mpi-common/.mpich (fn: ProjectDIR/rt/family/mf/Core/mpi-common/.mpich.lua, using Find-Best)
-Lmod is automatically replacing "openmpi/2.1.1" with "mpich/3.2.1".
-  (15)(0)Unloading: openmpi (status: active) (fn: ProjectDIR/rt/family/mf/Compiler/ibm/13/openmpi/2.1.1.lua)
-    Removing: ProjectDIR/rt/family/mf/MPI/ibm/13/openmpi/2.1 from MODULEPATH
-    (16)(0)Unloading: mpi-common/.openmpi (status: active) (fn: ProjectDIR/rt/family/mf/Core/mpi-common/.mpich.lua)
-  (17)(0)Unloading: mpich (status: active) (fn: ProjectDIR/rt/family/mf/Compiler/gcc/7/mpich/3.2.1.lua)
-    Removing: ProjectDIR/rt/family/mf/MPI/gcc/7/mpich/3.2 from MODULEPATH
-    (18)(0)Unloading: mpi-common/.mpich (status: ) (fn: nil)
-  (19)(0)Loading: mpich (fn: ProjectDIR/rt/family/mf/Compiler/gcc/7/mpich/3.2.1.lua, using Find-Best)
-    Appending: ProjectDIR/rt/family/mf/MPI/gcc/7/mpich/3.2 to MODULEPATH
-    (20)(0)Loading: mpi-common/.mpich (fn: ProjectDIR/rt/family/mf/Core/mpi-common/.mpich.lua, using Find-Best)
-  reloadAll(1)(phdf5, compiler-common/.gcc, gccA, mpi-common/.mpich, mpich)
-  (21)(1)Unloading: phdf5 (status: active) (fn: ProjectDIR/rt/family/mf/MPI/ibm/13/openmpi/2.1/phdf5/1.8.18.lua)
-  (22)(1)Loading: phdf5 (fn: ProjectDIR/rt/family/mf/MPI/gcc/7/mpich/3.2/phdf5/1.8.18.lua, using Find-Best)
-Due to MODULEPATH changes, the following have been reloaded:
-  1) phdf5/1.8.18
-The following have been reloaded with a version change:
-  1) compiler-common/.ibm => compiler-common/.gcc
-  2) mpi-common/.openmpi => mpi-common/.mpich

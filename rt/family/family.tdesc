@@ -30,7 +30,9 @@ testdescript = {
      runLmod -T load gccA                      # 4
      runLmod avail                             # 5
      runLmod -T load ibmA                      # 6
-     runLmod -T load gccA mpich                # 7
+
+     
+
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
