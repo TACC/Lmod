@@ -7,3 +7,5 @@ Lmod 8.5+
    (8.5.4)  * Issue #517: use pkg-config --cflags-only-I option and do not post-process the results.
    (8.5.5)  * Issue #517: use pkg-config --cflags-only-I option and post-process the results for LUA_INCLUDE
    (8.5.6)  * Issue #517: Add PKG_CONFIG_ALLOW_SYSTEM_CFLAGS to pkg-config tests
+   (8.5.7)  * Issue #518: Change lazyEval "mt" to use exact match of userName to either sn or fullName.
+            * Issue #519: Add docs for LMOD_AVAIL_STYLE in docs/sources/090_configuring_lmod.rst
