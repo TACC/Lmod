@@ -1,6 +1,6 @@
 from __future__ import print_function
 from time       import sleep
-import os, sys, re, base64, time, json
+import os, sys, re, base64, time, json, traceback
 dirNm, execName = os.path.split(os.path.realpath(sys.argv[0]))
 sys.path.append(os.path.realpath(dirNm))
 
@@ -183,7 +183,7 @@ class LMODdb(object):
       sys.exit(1)
 
 
-  def data_to_db(self, dataT):
+  def data_to_db(self, debug, dataT):
     """
     Store data into database.
     @param dataT: The data table.
@@ -191,6 +191,7 @@ class LMODdb(object):
 
     query = ""
     try:
+      if (debug): print("  --> Trying to connect to database")
       conn   = self.connect()
       cursor = conn.cursor()
       query  = "USE "+self.db()
@@ -202,6 +203,7 @@ class LMODdb(object):
       # build userT if necessary.
 
       if (LMODdb.s_build_userT):
+        if (debug): print("  --> Build userT")
         LMODdb.s_build_userT = False
 
         query = "SELECT user_id, user from userT"
@@ -222,6 +224,7 @@ class LMODdb(object):
       if (user_id == None):
         
         try:
+          if (debug): print("  --> Insert into userT")
           query = "INSERT INTO userT VALUES(NULL, %s)"
           cursor.execute(query,[user])
           user_id = cursor.lastrowid
@@ -232,6 +235,7 @@ class LMODdb(object):
             user_id = int(cursor.fetchone()[0])
           else:
             print("Failed to insert \"%s\" into userT, Aborting!" % user)
+            print(traceback.format_exc())
             sys.exit(1)
 
         LMODdb.userT[user] = user_id
@@ -240,6 +244,7 @@ class LMODdb(object):
       # build moduleT
 
       if (LMODdb.s_build_moduleT):
+        if (debug): print("  --> build moduleT")
         LMODdb.s_build_moduleT = False
 
         query = "SELECT mod_id, path, module, syshost FROM moduleT"
@@ -263,6 +268,7 @@ class LMODdb(object):
       mod_id  = LMODdb.moduleT.get(key)
       if (mod_id == None):
 
+        if (debug): print("  --> get mod_id")
         module = dataT['module']
         try:
           query = "INSERT INTO moduleT VALUES(NULL, %s, %s, %s)"
@@ -274,6 +280,7 @@ class LMODdb(object):
           if (cursor.rowcount > 0):
             mod_id = int(cursor.fetchone()[0])
           else:
+            print(traceback.format_exc())
             print("Failed to insert (\"%s\",\"%s\") moduleT, Aborting!" % (syshost, path))
             sys.exit(1)
 
@@ -283,6 +290,7 @@ class LMODdb(object):
       ############################################################
       # Insert into join_user_module table
       
+      if (debug): print("  --> Insert into join_user_module Table for user:", user)
       dateTm = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(float(dataT['time'])))
       query  = "INSERT into join_user_module VALUES(NULL, %s, %s, %s) "
       cursor.execute(query,(user_id, mod_id, dateTm))
@@ -295,6 +303,8 @@ class LMODdb(object):
       conn.close()
 
     except Exception as e:
+      print("query: ",query)
+      print(traceback.format_exc())
       print("data_to_db(): ",e)
       sys.exit(1)
 

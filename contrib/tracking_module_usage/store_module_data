@@ -1,8 +1,40 @@
-#!/usr/bin/env python
+#!/bin/sh
 # -*- python -*-
+
+################################################################################
+# This file is python 2/3 bilingual. 
+# The line """:" starts a comment in python and is a no-op in shell.
+""":"
+# Shell code to find and run a suitable python interpreter.
+for cmd in python3 python python2; do
+   command -v > /dev/null $cmd && exec $cmd $0 "$@"
+done
+
+echo "Error: Could not find a valid python interpreter --> exiting!" >&2
+exit 2
+":""" # this line ends the python comment and is a no-op in shell.
+################################################################################
+
 from __future__ import print_function
-import os, sys, re, time
+import os, sys, re, time, argparse
 from LMODdb import LMODdb
+
+class CmdLineOptions(object):
+  """ Command line Options class """
+
+  def __init__(self):
+    """ Empty Ctor """
+    pass
+  
+  def execute(self):
+    """ Specify command line arguments and parse the command line"""
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-D",            dest='debug',    action="store_true",                         help="Debug Flag")
+    parser.add_argument("--confFn",      dest='confFn',   action="store",      default="lmod_db.conf", help="Name of the database")
+    parser.add_argument("syslog_fn",                                                                   help="Syslog file name")
+    args = parser.parse_args()
+    return args
+
 
 def syshost(name):
   hostA = name.split('.')
@@ -13,12 +45,11 @@ def syshost(name):
 
 def main():
 
-  ConfigBaseNm = "lmod_db"
-  ConfigFn     = ConfigBaseNm + ".conf"
+  args = CmdLineOptions().execute()
 
-  lmod = LMODdb(ConfigFn)
+  lmod = LMODdb(args.confFn)
 
-  f = open(sys.argv[1],"r")
+  f = open(args.syslog_fn,"r")
   for line in f:
     line  = line.rstrip("\n")
     idx   = line.find("ModuleUsageTracking: ")
@@ -29,7 +60,7 @@ def main():
 
     dataT['syshost'] = syshost(dataT['host'])
 
-    lmod.data_to_db(dataT)
+    lmod.data_to_db(args.debug, dataT)
 
   f.close()
 
