@@ -183,7 +183,7 @@ class LMODdb(object):
       sys.exit(1)
 
 
-  def data_to_db(self, debug, dataT):
+  def data_to_db(self, debug, count, dataT):
     """
     Store data into database.
     @param dataT: The data table.
@@ -266,10 +266,10 @@ class LMODdb(object):
       path    = dataT['path']
       key     = (syshost, path)
       mod_id  = LMODdb.moduleT.get(key)
+      module  = dataT['module']
       if (mod_id == None):
 
         if (debug): print("  --> get mod_id")
-        module = dataT['module']
         try:
           query = "INSERT INTO moduleT VALUES(NULL, %s, %s, %s)"
           cursor.execute(query,(path, module, syshost))
@@ -290,7 +290,7 @@ class LMODdb(object):
       ############################################################
       # Insert into join_user_module table
       
-      if (debug): print("  --> Insert into join_user_module Table for user:", user)
+      if (debug): print("  --> Insert into join_user_module Table for user:", user,", line:",count+1,", module:",module)
       dateTm = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(float(dataT['time'])))
       query  = "INSERT into join_user_module VALUES(NULL, %s, %s, %s) "
       cursor.execute(query,(user_id, mod_id, dateTm))

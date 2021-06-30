@@ -50,7 +50,7 @@ def main():
   lmod = LMODdb(args.confFn)
 
   f = open(args.syslog_fn,"r")
-  for line in f:
+  for count, line in enumerate(f):
     line  = line.rstrip("\n")
     idx   = line.find("ModuleUsageTracking: ")
     dataT = dict(re.findall(r'(\S+)=(".*?"|\S+)', line[idx+6:]))
@@ -60,7 +60,7 @@ def main():
 
     dataT['syshost'] = syshost(dataT['host'])
 
-    lmod.data_to_db(args.debug, dataT)
+    lmod.data_to_db(args.debug, count, dataT)
 
   f.close()
 
