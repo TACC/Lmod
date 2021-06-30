@@ -304,6 +304,8 @@ class LMODdb(object):
 
     except Exception as e:
       print("query: ",query)
+      for k in dataT:
+        print(" ",k,":",dataT[k])
       print(traceback.format_exc())
       print("data_to_db(): ",e)
       sys.exit(1)

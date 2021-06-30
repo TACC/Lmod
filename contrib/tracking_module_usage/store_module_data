@@ -60,6 +60,7 @@ def main():
 
     dataT['syshost'] = syshost(dataT['host'])
 
+    if (args.debug): print("\nCall lmod.data_to_db")
     lmod.data_to_db(args.debug, count, dataT)
 
   f.close()
