@@ -183,7 +183,7 @@ class LMODdb(object):
       sys.exit(1)
 
 
-  def data_to_db(self, debug, count, dataT):
+  def data_to_db(self, debug, count, dataT, line):
     """
     Store data into database.
     @param dataT: The data table.
@@ -304,6 +304,7 @@ class LMODdb(object):
 
     except Exception as e:
       print("query: ",query)
+      print("line: ",line)
       for k in dataT:
         print(" ",k,":",dataT[k])
       print(traceback.format_exc())
