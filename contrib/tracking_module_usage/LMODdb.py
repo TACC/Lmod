@@ -294,6 +294,7 @@ class LMODdb(object):
       dateTm = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(float(dataT['time'])))
       query  = "INSERT into join_user_module VALUES(NULL, %s, %s, %s) "
       cursor.execute(query,(user_id, mod_id, dateTm))
+      if (debug): print("  --> Done")
 
       ##################################################################
       # Step 4: Commit everything to db.
