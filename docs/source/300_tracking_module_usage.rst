@@ -194,6 +194,8 @@ a) Install MySQL db. Create a mysql root password.  Then create an account in th
 
        mysql> GRANT ALL ON lmod.* TO 'lmod'@'localhost';
 
+       mysql> flush privileges;
+
        mysql> quit;
 
    You will want to change 'test623' to some other password.  You'll also probably want to allow access
