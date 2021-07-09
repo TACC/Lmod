@@ -258,6 +258,7 @@ __installMe:
 	        -e 's|@modulepath_init@|$(MODULEPATH_INIT)|g'                     \
 	        -e 's|@sys_lua_cpath@|$(SYS_LUA_CPATH)|g'                         \
 	        -e 's|@path_to_luac@|$(PATH_TO_LUAC)|g'                           \
+	        -e 's|@path_to_lmod@|$(LIBEXEC)/lmod|g'                           \
 	        -e 's|@have_lua_term@|$(HAVE_LUA_TERM)|g'                         \
 	        -e 's|@silence_shell_debugging@|$(SILENCE_SHELL_DEBUGGING)|g'     \
 	        -e 's|@fast_tcl_interp@|$(FAST_TCL_INTERP)|g'                     \

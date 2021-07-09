@@ -1,0 +1,30 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A
+===========================
+__LMOD_REF_COUNT_LOADEDMODULES=B/1.0:1\;E/1.0:1\;A/1.0:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=B/1.0:E/1.0:A/1.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/isavail/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/isavail/mf/Core;
+export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/isavail/mf/Core/B/1.0:1\;ProjectDIR/rt/isavail/mf/Core/E/1.0:1\;ProjectDIR/rt/isavail/mf/Core/A/1.0:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/isavail/mf/Core/B/1.0:ProjectDIR/rt/isavail/mf/Core/E/1.0:ProjectDIR/rt/isavail/mf/Core/A/1.0;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/isavail/mf/Core/A/1.0",["fullName"]="A/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",["wV"]="000000001.*zfinal",},B={["fn"]="ProjectDIR/rt/isavail/mf/Core/B/1.0",["fullName"]="B/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="B",["wV"]="000000001.*zfinal",},E={["fn"]="ProjectDIR/rt/isavail/mf/Core/E/1.0",["fullName"]="E/1.0",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="E/1.0",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/isavail/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/isavail/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/isavail/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/isavail/mf/Core/A/1.0",["fullName"]="A/1.0",["loadOrder"]=3,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",["wV"]="000000001.*zfinal",},B={["fn"]="ProjectDIR/rt/isavail/mf/Core/B/1.0",["fullName"]="B/1.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="B",["wV"]="000000001.*zfinal",},E={["fn"]="ProjectDIR/rt/isavail/mf/Core/E/1.0",["fullName"]="E/1.0",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="E/1.0",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/isavail/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/isavail/mf/Core",}';
+export _ModuleTable_;
