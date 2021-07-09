@@ -352,7 +352,7 @@ class LMODdb(object):
       for i in range(numRows):
         row = cursor.fetchone()
         moduleNm = row[0]
-        resultT[moduleNm] = { 'syshost' : row[1], 'nUsers' : row[2] }
+        resultT[moduleNm] = { 'syshost' : syshost, 'nUsers' : row[2] }
         sT[moduleNm]      = row[2]
 
       resultA = []
