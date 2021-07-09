@@ -1,6 +1,6 @@
 #%Module
 
-if { [is-avail B ] } {
+if { ! [is-loaded B] && [is-avail B ] } {
    module load B
    puts stderr "loading B"
 }

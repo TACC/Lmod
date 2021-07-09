@@ -132,7 +132,7 @@ standard TCL language.
   the module (e.g. **module load gcc/10.1** vs **module load gcc**.
   Typically used in TCL modulefile as follows::
 
-      if [ module-info mode load ] {
+      if { [ module-info mode load ] } {
           require-fullname
       }
 
@@ -155,15 +155,12 @@ standard TCL language.
    greater than.  Note that this command knows that 1.10 is newer than
    1.8.
 
+**is-avail** *name* :
+  Return 1 if the name is available for loading, 0 if not. (As of Lmod 8.6+)
+
 
 TCL Modulefile Functions NOT SUPPORTED
 --------------------------------------
-**is-avail** :
-   It is not possible to support is-avail from a TCL modulefile.
-   There is a isAvail() function available in Lua modulefiles.
-   Consider using something like the following instead::
-
-       if { ! [ is-loaded foo ] } { module try-add foo }
 
 **atleast** :
    It is not possible to use the atleast function inside a TCL modulefile

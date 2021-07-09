@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.4.27  2021-03-16 15:47 -05:00
+Modules based on Lua: Version 8.5.8  2021-06-30 14:16 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -434,10 +434,6 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
 step 33
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A
 ===========================
-Lmod has detected the following error: ProjectDIR/rt/avail/mf/Core7/A/1.2: (A/1.2): This function is NOT supported in TCL modulefiles, Use a Lua modulefile with isAvail() or rework your logic to use module try-add ...
-While processing the following module(s):
-    Module fullname  Module Filename
-    A/1.2            ProjectDIR/rt/avail/mf/Core7/A/1.2
 ===========================
 step 34
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load B
@@ -449,4 +445,4 @@ step 35
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) B/1.0
+  1) A/1.2   2) B/1.0

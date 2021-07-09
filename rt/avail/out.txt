@@ -346,22 +346,33 @@ export _ModuleTable_;
 step 33
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A
 ===========================
-false
+__LMOD_REF_COUNT_LOADEDMODULES=A/1.2:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=A/1.2;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/avail/mf/Core7;
+export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/avail/mf/Core7/A/1.2:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/avail/mf/Core7/A/1.2;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/avail/mf/Core7/A/1.2",["fullName"]="A/1.2",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",["wV"]="000000001.000000002.*zfinal",},},mpathA={"ProjectDIR/rt/avail/mf/Core7",},}';
+export _ModuleTable_;
 ===========================
 step 34
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load B
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=B/1.0:1;
+__LMOD_REF_COUNT_LOADEDMODULES=A/1.2:1\;B/1.0:1;
 export __LMOD_REF_COUNT_LOADEDMODULES;
-LOADEDMODULES=B/1.0;
+LOADEDMODULES=A/1.2:B/1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/avail/mf/Core7;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/avail/mf/Core7/B/1.0.lua:1;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/avail/mf/Core7/A/1.2:1\;ProjectDIR/rt/avail/mf/Core7/B/1.0.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
-_LMFILES_=ProjectDIR/rt/avail/mf/Core7/B/1.0.lua;
+_LMFILES_=ProjectDIR/rt/avail/mf/Core7/A/1.2:ProjectDIR/rt/avail/mf/Core7/B/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={B={["fn"]="ProjectDIR/rt/avail/mf/Core7/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/avail/mf/Core7",},}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/avail/mf/Core7/A/1.2",["fullName"]="A/1.2",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",["wV"]="000000001.000000002.*zfinal",},B={["fn"]="ProjectDIR/rt/avail/mf/Core7/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/avail/mf/Core7",},}';
 export _ModuleTable_;
 ===========================
 step 35
@@ -369,5 +380,5 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/avail/mf/Core7;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={B={["fn"]="ProjectDIR/rt/avail/mf/Core7/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/avail/mf/Core7",},}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/avail/mf/Core7/A/1.2",["fullName"]="A/1.2",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",["wV"]="000000001.000000002.*zfinal",},B={["fn"]="ProjectDIR/rt/avail/mf/Core7/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/avail/mf/Core7",},}';
 export _ModuleTable_;
