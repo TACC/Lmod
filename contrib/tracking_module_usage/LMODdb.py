@@ -404,7 +404,7 @@ class LMODdb(object):
       resultA.append(["-----------", "-------", "---------------"])
       for i in range(numRows):
         row = cursor.fetchone()
-        resultA.append([row[0],row[1],row[2]])
+        resultA.append([row[0],syshost,row[2]])
 
       conn.close()
 
@@ -448,7 +448,7 @@ class LMODdb(object):
 
       for i in range(numRows):
         row = cursor.fetchone()
-        resultA.append([row[0],row[1],row[2]])
+        resultA.append([row[0],syshost,row[2]])
 
       conn.close()
 
@@ -490,7 +490,7 @@ class LMODdb(object):
 
       for i in range(numRows):
         row = cursor.fetchone()
-        resultA.append([row[0],row[1],row[2]])
+        resultA.append([row[0],syshost,row[2]])
 
       conn.close()
 
