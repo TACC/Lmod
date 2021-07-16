@@ -626,6 +626,8 @@ Bug Fixes:
       "puts --nonewline ..."
    b) TCL whatis with multiple arguments is now correctly handled.
    c) Changed require("posix")  to local posix=require("posix")
+   d) TCL "puts" and "puts stdout" goes to stdout.  TCL "puts stderr"
+      goes to stderr.
 
 Lmod Version 5.6.3
 Bug Fixes:
