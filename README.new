@@ -10,6 +10,7 @@ Lmod 8.5+
    (8.5.7)  * Issue #518: Change lazyEval "mt" to use exact match of userName to either sn or fullName.
             * Issue #519: Add docs for LMOD_AVAIL_STYLE in docs/sources/090_configuring_lmod.rst
    (8.5.8)  * Issue #520: Adding debugging style stmts from XALT for store_module_data and LMODdb.py
-W.I.P.:
    (8.5.9)  * Issue #520: Also report line number and module name
             * Issue #520: Print dataT table when there is an Exception.
+W.I.P:
+   (8.5.10) * When evaluating modules under spider now block both stdout and stderr (instead of just stderr).

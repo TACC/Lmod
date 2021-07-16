@@ -281,7 +281,7 @@ function M.findAllModules(self, mpathA, spiderT)
    
    sandbox_set_os_exit(nothing)
    if (tracing == "no" and not dbg.active()) then
-      turn_off_stderr()
+      turn_off_stdio()
    end
    dbg.print{"setting os.exit to nothing; turn off output to stderr\n"}
    if (Use_Preload) then
@@ -335,7 +335,7 @@ function M.findAllModules(self, mpathA, spiderT)
    os.exit               = exit
    sandbox_set_os_exit(exit)
    if (tracing == "no" and not dbg.active()) then
-      turn_on_stderr()
+      turn_on_stdio()
    end
    dbg.fini("Spider:findAllModules")
 end

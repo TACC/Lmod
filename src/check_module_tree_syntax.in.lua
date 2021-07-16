@@ -395,13 +395,13 @@ function main()
    end
 
    if (tracing == "no" and not dbg.active()) then
-      turn_off_stderr()
+      turn_off_stdio()
    end
    walk_spiderT(spiderT, mt, mList, errorT)
 
    sandbox_set_os_exit(exit)
    if (tracing == "no" and not dbg.active()) then
-      turn_on_stderr()
+      turn_on_stdio()
    end
 
    local ierr = 0

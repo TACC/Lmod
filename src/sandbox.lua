@@ -272,19 +272,19 @@ function sandbox_set_os_exit(func)
    sandbox_env.os.exit = func
 end
 
-function turn_off_stderr()
-   file_methods = getmetatable(io.stderr).__index  -- any file will do
+function turn_off_stdio()
+   file_methods = getmetatable(io.stdout).__index  -- any file will do
    old_write    = file_methods.write
    file_methods.write =
       function(f,...)
-         if f ~= io.stderr then
+         if (f ~= io.stdout and f ~= io.stderr) then
             return old_write(f,...)
          end
          return f
       end
 end
 
-function turn_on_stderr()
+function turn_on_stdio()
    file_methods.write = old_write
 end
 
