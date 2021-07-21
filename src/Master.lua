@@ -930,6 +930,65 @@ local function regroup_avail_blocks(availStyle, availA)
    return newAvailA
 end
 
+function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaultT, a)
+   dbg.start{"Master:terse_avail()"}
+   local mrc         = MRC:singleton()
+   local masterTbl   = masterTbl()
+   local defaultOnly = masterTbl.defaultOnly
+
+   if (searchA.n > 0) then
+      for k, v in pairsByKeys(alias2modT) do
+         local fullName = mrc:resolve(mpathA, v)
+         for i = 1, searchA.n do
+            local s = searchA[i]
+            if (fullName:find(s)) then
+               a[#a+1] = k.."(@" .. fullName ..")\n"
+            end
+         end
+      end
+   else
+      for k, v in pairsByKeys(alias2modT) do
+         local fullName = mrc:resolve(mpathA, v)
+         a[#a+1] = k.."(@" .. fullName ..")\n"
+      end
+   end
+
+
+   for j = 1,#availA do
+      local A      = availA[j].A
+      local label  = availA[j].mpath
+      local aa     = {}
+      local prtSnT = {}  -- Mark if we have printed the sn?
+      
+      for i = 1,#A do
+         local sn, fullName, fn = availEntry(defaultOnly, label, searchA, defaultT, A[i])
+         if (sn) then
+            if (not prtSnT[sn] and sn ~= fullName and showSN) then
+               prtSnT[sn] = true
+               aa[#aa+1]  = sn .. "/\n"
+            end
+            local aliasA = mrc:getFull2AliasesT(mpathA, fullName)
+            if (aliasA) then
+               for i = 1,#aliasA do
+                  local fullName = mrc:resolve(mpathA, aliasA[i])
+                  aa[#aa+1]  = aliasA[i] .. "(@".. fullName ..")\n"
+               end
+            end
+            aa[#aa+1]     = fullName .. "\n"
+         end
+      end
+      if (next(aa) ~= nil) then
+         a[#a+1]  = label .. ":\n"
+         for i = 1,#aa do
+            a[#a+1] = aa[i]
+         end
+      end
+   end
+
+   dbg.fini("Master:terse_avail")
+   return a
+end
+
 
 function M.avail(self, argA)
    dbg.start{"Master:avail(",concatTbl(argA,", "),")"}
@@ -994,55 +1053,7 @@ function M.avail(self, argA)
    if (masterTbl.terse) then
       --------------------------------------------------
       -- Terse output
-      dbg.printT("availA",availA)
-      if (searchA.n > 0) then
-         for k, v in pairsByKeys(alias2modT) do
-            local fullName = mrc:resolve(mpathA, v)
-            for i = 1, searchA.n do
-               local s = searchA[i]
-               if (fullName:find(s)) then
-                  a[#a+1] = k.."(@" .. fullName ..")\n"
-               end
-            end
-         end
-      else
-         for k, v in pairsByKeys(alias2modT) do
-            local fullName = mrc:resolve(mpathA, v)
-            a[#a+1] = k.."(@" .. fullName ..")\n"
-         end
-      end
-
-
-      for j = 1,#availA do
-         local A      = availA[j].A
-         local label  = availA[j].mpath
-         local aa     = {}
-         local prtSnT = {}  -- Mark if we have printed the sn?
-
-         for i = 1,#A do
-            local sn, fullName, fn = availEntry(defaultOnly, label, searchA, defaultT, A[i])
-            if (sn) then
-               if (not prtSnT[sn] and sn ~= fullName and showSN) then
-                  prtSnT[sn] = true
-                  aa[#aa+1]  = sn .. "/\n"
-               end
-               local aliasA = mrc:getFull2AliasesT(mpathA, fullName)
-               if (aliasA) then
-                  for i = 1,#aliasA do
-                     local fullName = mrc:resolve(mpathA, aliasA[i])
-                     aa[#aa+1]  = aliasA[i] .. "(@".. fullName ..")\n"
-                  end
-               end
-               aa[#aa+1]     = fullName .. "\n"
-            end
-         end
-         if (next(aa) ~= nil) then
-            a[#a+1]  = label .. ":\n"
-            for i = 1,#aa do
-               a[#a+1] = aa[i]
-            end
-         end
-      end
+      self:terse_avail(mpathA, availA, alias2modT, searchA, showSN, defaultT, a)
 
       dbg.fini("Master:avail")
       return a
