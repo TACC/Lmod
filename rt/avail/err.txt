@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.5.8  2021-06-30 14:16 -05:00
+Modules based on Lua: Version 8.5.9  2021-07-09 14:42 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -316,15 +316,25 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 17
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing overview
+===========================
+ProjectDIR/rt/avail/mf/Core2
+local (1)
+ProjectDIR/rt/avail/mf/Core
+PrgEnv (1) bar (3) gcc      (2) intel    (2) junk/d (2) noweb    (2)
+admin  (2) baz (3) git      (6) junk/a/c (2) local  (6) parmetis (2)
+alex   (2) foo (3) gotoblas (4) junk/b/c (2) multi  (2) ucc      (4)
+===========================
+step 18
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 ===========================
-step 18
+step 19
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 Lmod has detected the following error: module avail is not possible. MODULEPATH is not set or not set with valid paths.
 ===========================
-step 19
+step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 ProjectDIR/rt/avail/mf/Core3
@@ -334,25 +344,25 @@ ProjectDIR/rt/avail/mf/Core3
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 20
+step 21
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load TACC
 ===========================
 ===========================
-step 21
+step 22
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel/15.0.2
 ===========================
 ===========================
-step 22
+step 23
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel
 ===========================
 The following have been reloaded with a version change:
   1) intel/15.0.2 => intel/15.0.1
 ===========================
-step 23
+step 24
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/avail/mf/Core4
 ===========================
 ===========================
-step 24
+step 25
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 ProjectDIR/rt/avail/mf/Core4
@@ -366,11 +376,11 @@ ProjectDIR/rt/avail/mf/Core3
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 25
+step 26
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/avail/mf/Order
 ===========================
 ===========================
-step 26
+step 27
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 ProjectDIR/rt/avail/mf/Order
@@ -386,11 +396,11 @@ ProjectDIR/rt/avail/mf/Core3
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 27
+step 28
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/avail/mf/Core6
 ===========================
 ===========================
-step 28
+step 29
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 ProjectDIR/rt/avail/mf/Core6
@@ -408,22 +418,22 @@ ProjectDIR/rt/avail/mf/Core3
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 29
+step 30
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail FooBar
 ===========================
 No module(s) or extension(s) found!
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 30
+step 31
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 ===========================
-step 31
+step 32
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/avail/mf/Core7
 ===========================
 ===========================
-step 32
+step 33
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 ProjectDIR/rt/avail/mf/Core7
@@ -431,17 +441,17 @@ ProjectDIR/rt/avail/mf/Core7
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 33
+step 34
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A
 ===========================
 ===========================
-step 34
+step 35
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load B
 ===========================
 Found C
 D Not found
 ===========================
-step 35
+step 36
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:

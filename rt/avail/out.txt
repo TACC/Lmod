@@ -174,7 +174,7 @@ _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={
 export _ModuleTable_;
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing overview
 ===========================
 MODULEPATH=ProjectDIR/rt/avail/mf/Core2:ProjectDIR/rt/avail/mf/Core;
 export MODULEPATH;
@@ -182,11 +182,19 @@ _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={
 export _ModuleTable_;
 ===========================
 step 18
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+MODULEPATH=ProjectDIR/rt/avail/mf/Core2:ProjectDIR/rt/avail/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/avail/mf/Core2","ProjectDIR/rt/avail/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/avail/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 19
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 false
 ===========================
-step 19
+step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/avail/mf/Core3:1;
@@ -196,7 +204,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/avail/mf/Core3",},["systemBaseMPATH"]="ProjectDIR/rt/avail/mf/Core3",}';
 export _ModuleTable_;
 ===========================
-step 20
+step 21
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load TACC
 ===========================
 __LMOD_REF_COUNT_LOADEDMODULES=TACC:1;
@@ -214,7 +222,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="ProjectDIR/rt/avail/mf/Core3/TACC.lua",["fullName"]="TACC",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="TACC",["wV"]="M.*zfinal",},},mpathA={"ProjectDIR/rt/avail/mf/Core3",},["systemBaseMPATH"]="ProjectDIR/rt/avail/mf/Core3",}';
 export _ModuleTable_;
 ===========================
-step 21
+step 22
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel/15.0.2
 ===========================
 __LMOD_REF_COUNT_LOADEDMODULES=TACC:1\;intel/15.0.2:1;
@@ -232,7 +240,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="ProjectDIR/rt/avail/mf/Core3/TACC.lua",["fullName"]="TACC",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="TACC",["wV"]="M.*zfinal",},intel={["fn"]="ProjectDIR/rt/avail/mf/Core3/intel/15.0.2.lua",["fullName"]="intel/15.0.2",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel/15.0.2",["wV"]="000000015.000000000.000000002.*zfinal",},},mpathA={"ProjectDIR/rt/avail/mf/Core3",},["systemBaseMPATH"]="ProjectDIR/rt/avail/mf/Core3",}';
 export _ModuleTable_;
 ===========================
-step 22
+step 23
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel
 ===========================
 __LMOD_REF_COUNT_LOADEDMODULES=TACC:1\;intel/15.0.1:1;
@@ -250,7 +258,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="ProjectDIR/rt/avail/mf/Core3/TACC.lua",["fullName"]="TACC",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="TACC",["wV"]="M.*zfinal",},intel={["fn"]="ProjectDIR/rt/avail/mf/Core3/intel/15.0.1.lua",["fullName"]="intel/15.0.1",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",["wV"]="^00000015.000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/avail/mf/Core3",},["systemBaseMPATH"]="ProjectDIR/rt/avail/mf/Core3",}';
 export _ModuleTable_;
 ===========================
-step 23
+step 24
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/avail/mf/Core4
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/avail/mf/Core4:1\;ProjectDIR/rt/avail/mf/Core3:1;
@@ -260,7 +268,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="ProjectDIR/rt/avail/mf/Core3/TACC.lua",["fullName"]="TACC",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="TACC",["wV"]="M.*zfinal",},intel={["fn"]="ProjectDIR/rt/avail/mf/Core3/intel/15.0.1.lua",["fullName"]="intel/15.0.1",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",["wV"]="^00000015.000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/avail/mf/Core4","ProjectDIR/rt/avail/mf/Core3",},["systemBaseMPATH"]="ProjectDIR/rt/avail/mf/Core3",}';
 export _ModuleTable_;
 ===========================
-step 24
+step 25
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 MODULEPATH=ProjectDIR/rt/avail/mf/Core4:ProjectDIR/rt/avail/mf/Core3;
@@ -268,7 +276,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="ProjectDIR/rt/avail/mf/Core3/TACC.lua",["fullName"]="TACC",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="TACC",["wV"]="M.*zfinal",},intel={["fn"]="ProjectDIR/rt/avail/mf/Core3/intel/15.0.1.lua",["fullName"]="intel/15.0.1",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",["wV"]="^00000015.000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/avail/mf/Core4","ProjectDIR/rt/avail/mf/Core3",},["systemBaseMPATH"]="ProjectDIR/rt/avail/mf/Core3",}';
 export _ModuleTable_;
 ===========================
-step 25
+step 26
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/avail/mf/Order
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/avail/mf/Order:1\;ProjectDIR/rt/avail/mf/Core4:1\;ProjectDIR/rt/avail/mf/Core3:1;
@@ -278,7 +286,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="ProjectDIR/rt/avail/mf/Core3/TACC.lua",["fullName"]="TACC",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="TACC",["wV"]="M.*zfinal",},intel={["fn"]="ProjectDIR/rt/avail/mf/Core3/intel/15.0.1.lua",["fullName"]="intel/15.0.1",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",["wV"]="^00000015.000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/avail/mf/Order","ProjectDIR/rt/avail/mf/Core4","ProjectDIR/rt/avail/mf/Core3",},["systemBaseMPATH"]="ProjectDIR/rt/avail/mf/Core3",}';
 export _ModuleTable_;
 ===========================
-step 26
+step 27
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 MODULEPATH=ProjectDIR/rt/avail/mf/Order:ProjectDIR/rt/avail/mf/Core4:ProjectDIR/rt/avail/mf/Core3;
@@ -286,7 +294,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="ProjectDIR/rt/avail/mf/Core3/TACC.lua",["fullName"]="TACC",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="TACC",["wV"]="M.*zfinal",},intel={["fn"]="ProjectDIR/rt/avail/mf/Core3/intel/15.0.1.lua",["fullName"]="intel/15.0.1",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",["wV"]="^00000015.000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/avail/mf/Order","ProjectDIR/rt/avail/mf/Core4","ProjectDIR/rt/avail/mf/Core3",},["systemBaseMPATH"]="ProjectDIR/rt/avail/mf/Core3",}';
 export _ModuleTable_;
 ===========================
-step 27
+step 28
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/avail/mf/Core6
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/avail/mf/Core6:1\;ProjectDIR/rt/avail/mf/Order:1\;ProjectDIR/rt/avail/mf/Core4:1\;ProjectDIR/rt/avail/mf/Core3:1;
@@ -296,7 +304,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="ProjectDIR/rt/avail/mf/Core3/TACC.lua",["fullName"]="TACC",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="TACC",["wV"]="M.*zfinal",},intel={["fn"]="ProjectDIR/rt/avail/mf/Core3/intel/15.0.1.lua",["fullName"]="intel/15.0.1",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",["wV"]="^00000015.000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/avail/mf/Core6","ProjectDIR/rt/avail/mf/Order","ProjectDIR/rt/avail/mf/Core4","ProjectDIR/rt/avail/mf/Core3",},["systemBaseMPATH"]="ProjectDIR/rt/avail/mf/Core3",}';
 export _ModuleTable_;
 ===========================
-step 28
+step 29
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 MODULEPATH=ProjectDIR/rt/avail/mf/Core6:ProjectDIR/rt/avail/mf/Order:ProjectDIR/rt/avail/mf/Core4:ProjectDIR/rt/avail/mf/Core3;
@@ -304,7 +312,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="ProjectDIR/rt/avail/mf/Core3/TACC.lua",["fullName"]="TACC",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="TACC",["wV"]="M.*zfinal",},intel={["fn"]="ProjectDIR/rt/avail/mf/Core3/intel/15.0.1.lua",["fullName"]="intel/15.0.1",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",["wV"]="^00000015.000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/avail/mf/Core6","ProjectDIR/rt/avail/mf/Order","ProjectDIR/rt/avail/mf/Core4","ProjectDIR/rt/avail/mf/Core3",},["systemBaseMPATH"]="ProjectDIR/rt/avail/mf/Core3",}';
 export _ModuleTable_;
 ===========================
-step 29
+step 30
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail FooBar
 ===========================
 MODULEPATH=ProjectDIR/rt/avail/mf/Core6:ProjectDIR/rt/avail/mf/Order:ProjectDIR/rt/avail/mf/Core4:ProjectDIR/rt/avail/mf/Core3;
@@ -312,7 +320,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={TACC={["fn"]="ProjectDIR/rt/avail/mf/Core3/TACC.lua",["fullName"]="TACC",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="TACC",["wV"]="M.*zfinal",},intel={["fn"]="ProjectDIR/rt/avail/mf/Core3/intel/15.0.1.lua",["fullName"]="intel/15.0.1",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="intel",["wV"]="^00000015.000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/avail/mf/Core6","ProjectDIR/rt/avail/mf/Order","ProjectDIR/rt/avail/mf/Core4","ProjectDIR/rt/avail/mf/Core3",},["systemBaseMPATH"]="ProjectDIR/rt/avail/mf/Core3",}';
 export _ModuleTable_;
 ===========================
-step 30
+step 31
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 unset __LMOD_REF_COUNT_LOADEDMODULES;
@@ -325,7 +333,7 @@ unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/avail/mf/Core6","ProjectDIR/rt/avail/mf/Order","ProjectDIR/rt/avail/mf/Core4","ProjectDIR/rt/avail/mf/Core3",},["systemBaseMPATH"]="ProjectDIR/rt/avail/mf/Core3",}';
 export _ModuleTable_;
 ===========================
-step 31
+step 32
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/avail/mf/Core7
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/avail/mf/Core7:1;
@@ -335,7 +343,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/avail/mf/Core7",},}';
 export _ModuleTable_;
 ===========================
-step 32
+step 33
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 MODULEPATH=ProjectDIR/rt/avail/mf/Core7;
@@ -343,7 +351,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/avail/mf/Core7",},}';
 export _ModuleTable_;
 ===========================
-step 33
+step 34
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A
 ===========================
 __LMOD_REF_COUNT_LOADEDMODULES=A/1.2:1;
@@ -359,7 +367,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/avail/mf/Core7/A/1.2",["fullName"]="A/1.2",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",["wV"]="000000001.000000002.*zfinal",},},mpathA={"ProjectDIR/rt/avail/mf/Core7",},}';
 export _ModuleTable_;
 ===========================
-step 34
+step 35
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load B
 ===========================
 __LMOD_REF_COUNT_LOADEDMODULES=A/1.2:1\;B/1.0:1;
@@ -375,7 +383,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={A={["fn"]="ProjectDIR/rt/avail/mf/Core7/A/1.2",["fullName"]="A/1.2",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="A",["wV"]="000000001.000000002.*zfinal",},B={["fn"]="ProjectDIR/rt/avail/mf/Core7/B/1.0.lua",["fullName"]="B/1.0",["loadOrder"]=2,propT={},["stackDepth"]=0,["status"]="active",["userName"]="B",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/avail/mf/Core7",},}';
 export _ModuleTable_;
 ===========================
-step 35
+step 36
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/avail/mf/Core7;
