@@ -1,0 +1,188 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load StdEnv
+===========================
+AR=/software6/compilers/intel/composer_xe_2013_sp1/bin/xiar;
+export AR;
+CC=/software6/compilers/intel/composer_xe_2013_sp1/bin/icc;
+export CC;
+__LMOD_REF_COUNT_CPATH=/software6/mpi/openmpi/1.6.5_intel/include:1\;/software6/apps/buildtools/20140527/include:1;
+export __LMOD_REF_COUNT_CPATH;
+CPATH=/software6/mpi/openmpi/1.6.5_intel/include:/software6/apps/buildtools/20140527/include;
+export CPATH;
+CXX=/software6/compilers/intel/composer_xe_2013_sp1/bin/icpc;
+export CXX;
+F77=/software6/compilers/intel/composer_xe_2013_sp1/bin/ifort;
+export F77;
+FC=/software6/compilers/intel/composer_xe_2013_sp1/bin/ifort;
+export FC;
+INTEL_LICENSE_FILE=28519@10.225.3.12;
+export INTEL_LICENSE_FILE;
+LD=/software6/compilers/intel/composer_xe_2013_sp1/bin/xild;
+export LD;
+__LMOD_REF_COUNT_LD_LIBRARY_PATH=/software6/mpi/openmpi/1.6.5_intel/lib:1\;/software6/compilers/intel/composer_xe_2013_sp1/lib/intel64:1\;/software6/apps/buildtools/20140527/lib64:1\;/software6/apps/buildtools/20140527/lib:1;
+export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
+LD_LIBRARY_PATH=/software6/mpi/openmpi/1.6.5_intel/lib:/software6/compilers/intel/composer_xe_2013_sp1/lib/intel64:/software6/apps/buildtools/20140527/lib64:/software6/apps/buildtools/20140527/lib;
+export LD_LIBRARY_PATH;
+__LMOD_REF_COUNT_LIBRARY_PATH=/software6/mpi/openmpi/1.6.5_intel/lib:1\;/software6/compilers/intel/composer_xe_2013_sp1/lib/intel64:1\;/software6/apps/buildtools/20140527/lib64:1\;/software6/apps/buildtools/20140527/lib:1;
+export __LMOD_REF_COUNT_LIBRARY_PATH;
+LIBRARY_PATH=/software6/mpi/openmpi/1.6.5_intel/lib:/software6/compilers/intel/composer_xe_2013_sp1/lib/intel64:/software6/apps/buildtools/20140527/lib64:/software6/apps/buildtools/20140527/lib;
+export LIBRARY_PATH;
+LMOD_FAMILY_COMPILERS=compilers/intel;
+export LMOD_FAMILY_COMPILERS;
+LMOD_FAMILY_COMPILERS_VERSION=14.0;
+export LMOD_FAMILY_COMPILERS_VERSION;
+LMOD_FAMILY_MOAB=apps/moab;
+export LMOD_FAMILY_MOAB;
+LMOD_FAMILY_MOAB_VERSION=false;
+export LMOD_FAMILY_MOAB_VERSION;
+LMOD_FAMILY_MPI=mpi/openmpi;
+export LMOD_FAMILY_MPI;
+LMOD_FAMILY_MPI_VERSION=1.6.5;
+export LMOD_FAMILY_MPI_VERSION;
+__LMOD_REF_COUNT_LOADEDMODULES=apps/moab:1\;apps/buildtools/20140527:1\;compilers/intel/14.0:1\;mpi/openmpi/1.6.5:1\;StdEnv:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=apps/moab:apps/buildtools/20140527:compilers/intel/14.0:mpi/openmpi/1.6.5:StdEnv;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MANPATH=/software6/mpi/openmpi/1.6.5_intel/share/man:1\;/software6/compilers/intel/composer_xe_2013_sp1/man/en_US:1\;/software6/apps/buildtools/20140527/share/man:1\;/software6/apps/moab/moab/share/man:1;
+export __LMOD_REF_COUNT_MANPATH;
+MANPATH=/software6/mpi/openmpi/1.6.5_intel/share/man:/software6/compilers/intel/composer_xe_2013_sp1/man/en_US:/software6/apps/buildtools/20140527/share/man:/software6/apps/moab/moab/share/man;
+export MANPATH;
+MOABHOMEDIR=/software6/apps/moab/config_colosse;
+export MOABHOMEDIR;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/hook_avail/mf/MPI/intel14.0/openmpi1.6.5:1\;ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0:1\;ProjectDIR/rt/hook_avail/mf/Core:1\;ProjectDIR/rt/hook_avail/mf/Core-helios:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/hook_avail/mf/MPI/intel14.0/openmpi1.6.5:ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0:ProjectDIR/rt/hook_avail/mf/Core:ProjectDIR/rt/hook_avail/mf/Core-helios;
+export MODULEPATH;
+OMPI_MCA_plm_rsh_num_concurrent=960;
+export OMPI_MCA_plm_rsh_num_concurrent;
+__LMOD_REF_COUNT_PATH=/software6/mpi/openmpi/1.6.5_intel/bin:1\;/software6/compilers/intel/composer_xe_2013_sp1/bin:1\;/software6/apps/buildtools/20140527/bin:1\;/software6/apps/moab/moab/bin:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=/software6/mpi/openmpi/1.6.5_intel/bin:/software6/compilers/intel/composer_xe_2013_sp1/bin:/software6/apps/buildtools/20140527/bin:/software6/apps/moab/moab/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/hook_avail/mf/Core-helios/apps/moab.lua:1\;ProjectDIR/rt/hook_avail/mf/Core/apps/buildtools/20140527.lua:1\;ProjectDIR/rt/hook_avail/mf/Core-helios/compilers/intel/14.0.lua:1\;ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0/mpi/openmpi/1.6.5.lua:1\;ProjectDIR/rt/hook_avail/mf/Core/StdEnv.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/hook_avail/mf/Core-helios/apps/moab.lua:ProjectDIR/rt/hook_avail/mf/Core/apps/buildtools/20140527.lua:ProjectDIR/rt/hook_avail/mf/Core-helios/compilers/intel/14.0.lua:ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0/mpi/openmpi/1.6.5.lua:ProjectDIR/rt/hook_avail/mf/Core/StdEnv.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compilers"]="compilers/intel",["moab"]="apps/moab",["mpi"]="mpi/openmpi",},mT={StdEnv={["fn"]="ProjectDIR/rt/hook_avail/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=5,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",["wV"]="M.*zfinal",},["apps/buildtools"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Core/apps/buildtools/20140527.lua",["fullName"]="apps/buildtools/20140527",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="apps/buildtools",["wV"]="020140527.*zfinal",},["apps/moab"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Core-helios/apps/moab.lua",["fullName"]="apps/moab",["loadOrder"]=1,propT={lmod={["sticky"]=1,},},["stackDepth"]=1,["status"]="active",["userName"]="apps/moab",["wV"]="M.*zfinal",},["compilers/intel"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Core-helios/compilers/intel/14.0.lua",["fullName"]="compilers/intel/14.0",["loadOrder"]=3,propT={},["stackDepth"]=1,["status"]="active",["userName"]="compilers/intel",["wV"]="000000014.*zfinal",},["mpi/openmpi"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0/mpi/openmpi/1.6.5.lua",["fullName"]="mpi/openmpi/1.6.5",["loadOrder"]=4,propT={},["stackDepth"]=1,["status"]="active",["userName"]="mpi/openmpi/1.6.5",["wV"]="^00000001.000000006.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/hook_avail/mf/MPI/intel14.0/openmpi1.6.5","ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0","ProjectDIR/rt/hook_avail/mf/Core","ProjectDIR/rt/hook_avail/mf/Core-helios",},["systemBaseMPATH"]="ProjectDIR/rt/hook_avail/mf/Core:ProjectDIR/rt/hook_avail/mf/Core-helios",}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/hook_avail/mf/MPI/intel14.0/openmpi1.6.5:ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0:ProjectDIR/rt/hook_avail/mf/Core:ProjectDIR/rt/hook_avail/mf/Core-helios;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compilers"]="compilers/intel",["moab"]="apps/moab",["mpi"]="mpi/openmpi",},mT={StdEnv={["fn"]="ProjectDIR/rt/hook_avail/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=5,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",["wV"]="M.*zfinal",},["apps/buildtools"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Core/apps/buildtools/20140527.lua",["fullName"]="apps/buildtools/20140527",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="apps/buildtools",["wV"]="020140527.*zfinal",},["apps/moab"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Core-helios/apps/moab.lua",["fullName"]="apps/moab",["loadOrder"]=1,propT={lmod={["sticky"]=1,},},["stackDepth"]=1,["status"]="active",["userName"]="apps/moab",["wV"]="M.*zfinal",},["compilers/intel"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Core-helios/compilers/intel/14.0.lua",["fullName"]="compilers/intel/14.0",["loadOrder"]=3,propT={},["stackDepth"]=1,["status"]="active",["userName"]="compilers/intel",["wV"]="000000014.*zfinal",},["mpi/openmpi"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0/mpi/openmpi/1.6.5.lua",["fullName"]="mpi/openmpi/1.6.5",["loadOrder"]=4,propT={},["stackDepth"]=1,["status"]="active",["userName"]="mpi/openmpi/1.6.5",["wV"]="^00000001.000000006.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/hook_avail/mf/MPI/intel14.0/openmpi1.6.5","ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0","ProjectDIR/rt/hook_avail/mf/Core","ProjectDIR/rt/hook_avail/mf/Core-helios",},["systemBaseMPATH"]="ProjectDIR/rt/hook_avail/mf/Core:ProjectDIR/rt/hook_avail/mf/Core-helios",}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+AR=/software6/compilers/intel/composer_xe_2013_sp1/bin/xiar;
+export AR;
+CC=/software6/compilers/intel/composer_xe_2013_sp1/bin/icc;
+export CC;
+CPATH=/software6/mpi/openmpi/1.6.5_intel/include:/software6/apps/buildtools/20140527/include;
+export CPATH;
+CXX=/software6/compilers/intel/composer_xe_2013_sp1/bin/icpc;
+export CXX;
+F77=/software6/compilers/intel/composer_xe_2013_sp1/bin/ifort;
+export F77;
+FC=/software6/compilers/intel/composer_xe_2013_sp1/bin/ifort;
+export FC;
+INTEL_LICENSE_FILE=28519@10.225.3.12;
+export INTEL_LICENSE_FILE;
+LD=/software6/compilers/intel/composer_xe_2013_sp1/bin/xild;
+export LD;
+LD_LIBRARY_PATH=/software6/mpi/openmpi/1.6.5_intel/lib:/software6/compilers/intel/composer_xe_2013_sp1/lib/intel64:/software6/apps/buildtools/20140527/lib64:/software6/apps/buildtools/20140527/lib;
+export LD_LIBRARY_PATH;
+LIBRARY_PATH=/software6/mpi/openmpi/1.6.5_intel/lib:/software6/compilers/intel/composer_xe_2013_sp1/lib/intel64:/software6/apps/buildtools/20140527/lib64:/software6/apps/buildtools/20140527/lib;
+export LIBRARY_PATH;
+LMOD_FAMILY_COMPILERS=compilers/intel;
+export LMOD_FAMILY_COMPILERS;
+LMOD_FAMILY_COMPILERS_VERSION=14.0;
+export LMOD_FAMILY_COMPILERS_VERSION;
+LMOD_FAMILY_MOAB=apps/moab;
+export LMOD_FAMILY_MOAB;
+LMOD_FAMILY_MOAB_VERSION=false;
+export LMOD_FAMILY_MOAB_VERSION;
+LMOD_FAMILY_MPI=mpi/openmpi;
+export LMOD_FAMILY_MPI;
+LMOD_FAMILY_MPI_VERSION=1.6.5;
+export LMOD_FAMILY_MPI_VERSION;
+__LMOD_REF_COUNT_LOADEDMODULES=apps/buildtools/20140527:1\;compilers/intel/14.0:1\;mpi/openmpi/1.6.5:1\;StdEnv:1\;apps/moab:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=apps/buildtools/20140527:compilers/intel/14.0:mpi/openmpi/1.6.5:StdEnv:apps/moab;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MANPATH=/software6/apps/moab/moab/share/man:1\;/software6/mpi/openmpi/1.6.5_intel/share/man:1\;/software6/compilers/intel/composer_xe_2013_sp1/man/en_US:1\;/software6/apps/buildtools/20140527/share/man:1;
+export __LMOD_REF_COUNT_MANPATH;
+MANPATH=/software6/apps/moab/moab/share/man:/software6/mpi/openmpi/1.6.5_intel/share/man:/software6/compilers/intel/composer_xe_2013_sp1/man/en_US:/software6/apps/buildtools/20140527/share/man;
+export MANPATH;
+MOABHOMEDIR=/software6/apps/moab/config_colosse;
+export MOABHOMEDIR;
+MODULEPATH=ProjectDIR/rt/hook_avail/mf/MPI/intel14.0/openmpi1.6.5:ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0:ProjectDIR/rt/hook_avail/mf/Core:ProjectDIR/rt/hook_avail/mf/Core-helios;
+export MODULEPATH;
+OMPI_MCA_plm_rsh_num_concurrent=960;
+export OMPI_MCA_plm_rsh_num_concurrent;
+__LMOD_REF_COUNT_PATH=/software6/apps/moab/moab/bin:1\;/software6/mpi/openmpi/1.6.5_intel/bin:1\;/software6/compilers/intel/composer_xe_2013_sp1/bin:1\;/software6/apps/buildtools/20140527/bin:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=/software6/apps/moab/moab/bin:/software6/mpi/openmpi/1.6.5_intel/bin:/software6/compilers/intel/composer_xe_2013_sp1/bin:/software6/apps/buildtools/20140527/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/hook_avail/mf/Core/apps/buildtools/20140527.lua:1\;ProjectDIR/rt/hook_avail/mf/Core-helios/compilers/intel/14.0.lua:1\;ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0/mpi/openmpi/1.6.5.lua:1\;ProjectDIR/rt/hook_avail/mf/Core/StdEnv.lua:1\;ProjectDIR/rt/hook_avail/mf/Core-helios/apps/moab.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/hook_avail/mf/Core/apps/buildtools/20140527.lua:ProjectDIR/rt/hook_avail/mf/Core-helios/compilers/intel/14.0.lua:ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0/mpi/openmpi/1.6.5.lua:ProjectDIR/rt/hook_avail/mf/Core/StdEnv.lua:ProjectDIR/rt/hook_avail/mf/Core-helios/apps/moab.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compilers"]="compilers/intel",["moab"]="apps/moab",["mpi"]="mpi/openmpi",},mT={StdEnv={["fn"]="ProjectDIR/rt/hook_avail/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=4,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",["wV"]="M.*zfinal",},["apps/buildtools"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Core/apps/buildtools/20140527.lua",["fullName"]="apps/buildtools/20140527",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="apps/buildtools",["wV"]="020140527.*zfinal",},["apps/moab"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Core-helios/apps/moab.lua",["fullName"]="apps/moab",["loadOrder"]=5,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="apps/moab",["wV"]="M.*zfinal",},["compilers/intel"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Core-helios/compilers/intel/14.0.lua",["fullName"]="compilers/intel/14.0",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="compilers/intel",["wV"]="000000014.*zfinal",},["mpi/openmpi"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0/mpi/openmpi/1.6.5.lua",["fullName"]="mpi/openmpi/1.6.5",["loadOrder"]=3,propT={},["stackDepth"]=1,["status"]="active",["userName"]="mpi/openmpi/1.6.5",["wV"]="^00000001.000000006.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/hook_avail/mf/MPI/intel14.0/openmpi1.6.5","ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0","ProjectDIR/rt/hook_avail/mf/Core","ProjectDIR/rt/hook_avail/mf/Core-helios",},["systemBaseMPATH"]="ProjectDIR/rt/hook_avail/mf/Core:ProjectDIR/rt/hook_avail/mf/Core-helios",}';
+export _ModuleTable_;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+MODULEPATH=ProjectDIR/rt/hook_avail/mf/MPI/intel14.0/openmpi1.6.5:ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0:ProjectDIR/rt/hook_avail/mf/Core:ProjectDIR/rt/hook_avail/mf/Core-helios;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compilers"]="compilers/intel",["moab"]="apps/moab",["mpi"]="mpi/openmpi",},mT={StdEnv={["fn"]="ProjectDIR/rt/hook_avail/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=4,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",["wV"]="M.*zfinal",},["apps/buildtools"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Core/apps/buildtools/20140527.lua",["fullName"]="apps/buildtools/20140527",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="apps/buildtools",["wV"]="020140527.*zfinal",},["apps/moab"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Core-helios/apps/moab.lua",["fullName"]="apps/moab",["loadOrder"]=5,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="apps/moab",["wV"]="M.*zfinal",},["compilers/intel"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Core-helios/compilers/intel/14.0.lua",["fullName"]="compilers/intel/14.0",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="compilers/intel",["wV"]="000000014.*zfinal",},["mpi/openmpi"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0/mpi/openmpi/1.6.5.lua",["fullName"]="mpi/openmpi/1.6.5",["loadOrder"]=3,propT={},["stackDepth"]=1,["status"]="active",["userName"]="mpi/openmpi/1.6.5",["wV"]="^00000001.000000006.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/hook_avail/mf/MPI/intel14.0/openmpi1.6.5","ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0","ProjectDIR/rt/hook_avail/mf/Core","ProjectDIR/rt/hook_avail/mf/Core-helios",},["systemBaseMPATH"]="ProjectDIR/rt/hook_avail/mf/Core:ProjectDIR/rt/hook_avail/mf/Core-helios",}';
+export _ModuleTable_;
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing -s en_grouped avail
+===========================
+MODULEPATH=ProjectDIR/rt/hook_avail/mf/MPI/intel14.0/openmpi1.6.5:ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0:ProjectDIR/rt/hook_avail/mf/Core:ProjectDIR/rt/hook_avail/mf/Core-helios;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compilers"]="compilers/intel",["moab"]="apps/moab",["mpi"]="mpi/openmpi",},mT={StdEnv={["fn"]="ProjectDIR/rt/hook_avail/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=4,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",["wV"]="M.*zfinal",},["apps/buildtools"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Core/apps/buildtools/20140527.lua",["fullName"]="apps/buildtools/20140527",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="apps/buildtools",["wV"]="020140527.*zfinal",},["apps/moab"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Core-helios/apps/moab.lua",["fullName"]="apps/moab",["loadOrder"]=5,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="apps/moab",["wV"]="M.*zfinal",},["compilers/intel"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Core-helios/compilers/intel/14.0.lua",["fullName"]="compilers/intel/14.0",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="compilers/intel",["wV"]="000000014.*zfinal",},["mpi/openmpi"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0/mpi/openmpi/1.6.5.lua",["fullName"]="mpi/openmpi/1.6.5",["loadOrder"]=3,propT={},["stackDepth"]=1,["status"]="active",["userName"]="mpi/openmpi/1.6.5",["wV"]="^00000001.000000006.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/hook_avail/mf/MPI/intel14.0/openmpi1.6.5","ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0","ProjectDIR/rt/hook_avail/mf/Core","ProjectDIR/rt/hook_avail/mf/Core-helios",},["systemBaseMPATH"]="ProjectDIR/rt/hook_avail/mf/Core:ProjectDIR/rt/hook_avail/mf/Core-helios",}';
+export _ModuleTable_;
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+MODULEPATH=ProjectDIR/rt/hook_avail/mf/MPI/intel14.0/openmpi1.6.5:ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0:ProjectDIR/rt/hook_avail/mf/Core:ProjectDIR/rt/hook_avail/mf/Core-helios;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compilers"]="compilers/intel",["moab"]="apps/moab",["mpi"]="mpi/openmpi",},mT={StdEnv={["fn"]="ProjectDIR/rt/hook_avail/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=4,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",["wV"]="M.*zfinal",},["apps/buildtools"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Core/apps/buildtools/20140527.lua",["fullName"]="apps/buildtools/20140527",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="apps/buildtools",["wV"]="020140527.*zfinal",},["apps/moab"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Core-helios/apps/moab.lua",["fullName"]="apps/moab",["loadOrder"]=5,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="apps/moab",["wV"]="M.*zfinal",},["compilers/intel"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Core-helios/compilers/intel/14.0.lua",["fullName"]="compilers/intel/14.0",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="compilers/intel",["wV"]="000000014.*zfinal",},["mpi/openmpi"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0/mpi/openmpi/1.6.5.lua",["fullName"]="mpi/openmpi/1.6.5",["loadOrder"]=3,propT={},["stackDepth"]=1,["status"]="active",["userName"]="mpi/openmpi/1.6.5",["wV"]="^00000001.000000006.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/hook_avail/mf/MPI/intel14.0/openmpi1.6.5","ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0","ProjectDIR/rt/hook_avail/mf/Core","ProjectDIR/rt/hook_avail/mf/Core-helios",},["systemBaseMPATH"]="ProjectDIR/rt/hook_avail/mf/Core:ProjectDIR/rt/hook_avail/mf/Core-helios",}';
+export _ModuleTable_;
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+MODULEPATH=ProjectDIR/rt/hook_avail/mf/MPI/intel14.0/openmpi1.6.5:ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0:ProjectDIR/rt/hook_avail/mf/Core:ProjectDIR/rt/hook_avail/mf/Core-helios;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compilers"]="compilers/intel",["moab"]="apps/moab",["mpi"]="mpi/openmpi",},mT={StdEnv={["fn"]="ProjectDIR/rt/hook_avail/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=4,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",["wV"]="M.*zfinal",},["apps/buildtools"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Core/apps/buildtools/20140527.lua",["fullName"]="apps/buildtools/20140527",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="apps/buildtools",["wV"]="020140527.*zfinal",},["apps/moab"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Core-helios/apps/moab.lua",["fullName"]="apps/moab",["loadOrder"]=5,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="apps/moab",["wV"]="M.*zfinal",},["compilers/intel"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Core-helios/compilers/intel/14.0.lua",["fullName"]="compilers/intel/14.0",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="compilers/intel",["wV"]="000000014.*zfinal",},["mpi/openmpi"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0/mpi/openmpi/1.6.5.lua",["fullName"]="mpi/openmpi/1.6.5",["loadOrder"]=3,propT={},["stackDepth"]=1,["status"]="active",["userName"]="mpi/openmpi/1.6.5",["wV"]="^00000001.000000006.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/hook_avail/mf/MPI/intel14.0/openmpi1.6.5","ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0","ProjectDIR/rt/hook_avail/mf/Core","ProjectDIR/rt/hook_avail/mf/Core-helios",},["systemBaseMPATH"]="ProjectDIR/rt/hook_avail/mf/Core:ProjectDIR/rt/hook_avail/mf/Core-helios",}';
+export _ModuleTable_;
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+MODULEPATH=ProjectDIR/rt/hook_avail/mf/MPI/intel14.0/openmpi1.6.5:ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0:ProjectDIR/rt/hook_avail/mf/Core:ProjectDIR/rt/hook_avail/mf/Core-helios;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compilers"]="compilers/intel",["moab"]="apps/moab",["mpi"]="mpi/openmpi",},mT={StdEnv={["fn"]="ProjectDIR/rt/hook_avail/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=4,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",["wV"]="M.*zfinal",},["apps/buildtools"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Core/apps/buildtools/20140527.lua",["fullName"]="apps/buildtools/20140527",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="apps/buildtools",["wV"]="020140527.*zfinal",},["apps/moab"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Core-helios/apps/moab.lua",["fullName"]="apps/moab",["loadOrder"]=5,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="apps/moab",["wV"]="M.*zfinal",},["compilers/intel"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Core-helios/compilers/intel/14.0.lua",["fullName"]="compilers/intel/14.0",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="compilers/intel",["wV"]="000000014.*zfinal",},["mpi/openmpi"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0/mpi/openmpi/1.6.5.lua",["fullName"]="mpi/openmpi/1.6.5",["loadOrder"]=3,propT={},["stackDepth"]=1,["status"]="active",["userName"]="mpi/openmpi/1.6.5",["wV"]="^00000001.000000006.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/hook_avail/mf/MPI/intel14.0/openmpi1.6.5","ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0","ProjectDIR/rt/hook_avail/mf/Core","ProjectDIR/rt/hook_avail/mf/Core-helios",},["systemBaseMPATH"]="ProjectDIR/rt/hook_avail/mf/Core:ProjectDIR/rt/hook_avail/mf/Core-helios",}';
+export _ModuleTable_;
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing overview
+===========================
+MODULEPATH=ProjectDIR/rt/hook_avail/mf/MPI/intel14.0/openmpi1.6.5:ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0:ProjectDIR/rt/hook_avail/mf/Core:ProjectDIR/rt/hook_avail/mf/Core-helios;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={["compilers"]="compilers/intel",["moab"]="apps/moab",["mpi"]="mpi/openmpi",},mT={StdEnv={["fn"]="ProjectDIR/rt/hook_avail/mf/Core/StdEnv.lua",["fullName"]="StdEnv",["loadOrder"]=4,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="StdEnv",["wV"]="M.*zfinal",},["apps/buildtools"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Core/apps/buildtools/20140527.lua",["fullName"]="apps/buildtools/20140527",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="apps/buildtools",["wV"]="020140527.*zfinal",},["apps/moab"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Core-helios/apps/moab.lua",["fullName"]="apps/moab",["loadOrder"]=5,propT={lmod={["sticky"]=1,},},["stackDepth"]=0,["status"]="active",["userName"]="apps/moab",["wV"]="M.*zfinal",},["compilers/intel"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Core-helios/compilers/intel/14.0.lua",["fullName"]="compilers/intel/14.0",["loadOrder"]=2,propT={},["stackDepth"]=1,["status"]="active",["userName"]="compilers/intel",["wV"]="000000014.*zfinal",},["mpi/openmpi"]={["fn"]="ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0/mpi/openmpi/1.6.5.lua",["fullName"]="mpi/openmpi/1.6.5",["loadOrder"]=3,propT={},["stackDepth"]=1,["status"]="active",["userName"]="mpi/openmpi/1.6.5",["wV"]="^00000001.000000006.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/hook_avail/mf/MPI/intel14.0/openmpi1.6.5","ProjectDIR/rt/hook_avail/mf/Compilers/intel14.0","ProjectDIR/rt/hook_avail/mf/Core","ProjectDIR/rt/hook_avail/mf/Core-helios",},["systemBaseMPATH"]="ProjectDIR/rt/hook_avail/mf/Core:ProjectDIR/rt/hook_avail/mf/Core-helios",}';
+export _ModuleTable_;

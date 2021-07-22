@@ -1,5 +1,5 @@
 -- -*- lua -*-
-local testName = "helios"
+local testName = "hook_avail"
 
 testdescript = {
    owner   = "rtm",
@@ -39,6 +39,7 @@ testdescript = {
      export LMOD_CASE_INDEPENDENT_SORTING=1
      export LMOD_AVAIL_STYLE="system:<en_grouped>"
      runLmod            avail              # 9
+     runLmod            overview           #10
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
