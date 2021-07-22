@@ -135,6 +135,18 @@ function Avail(...)
    end
 end
 
+------------------------------------------------------------------------
+-- Just convert the vararg into an actual array and call
+-- master.overview to do the real work.
+
+function Overview(...)
+   local shell = _G.Shell
+   local a     = master:overview(pack(...))
+   if (next(a) ~= nil) then
+      shell:echo(concatTbl(a,""))
+   end
+end
+
 --------------------------------------------------------------------------
 -- Report the modules in the requested collection
 function CollectionLst(collection)

@@ -930,11 +930,113 @@ local function regroup_avail_blocks(availStyle, availA)
    return newAvailA
 end
 
-function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaultT, a)
+function M.overview(self,argA)
+   dbg.start{"Master:overview(",concatTbl(argA,", "),")"}
+   local aa          = {}
+   local masterTbl   = masterTbl()
+   local mt          = FrameStk:singleton():mt()
+   local mpathA      = mt:modulePathA()
+   local availStyle  = masterTbl.availStyle
+   
+   local numDirs = 0
+   for i = 1,#mpathA do
+      local mpath = mpathA[i]
+      if (isDir(mpath)) then
+         numDirs = numDirs + 1
+      end
+   end
+
+   if (numDirs < 1) then
+      if (masterTbl.terse) then
+         return a
+      end
+      LmodError{msg="e_Avail_No_MPATH", name="overview"}
+      return a
+   end
+
+   local mrc         = MRC:singleton()
+   local availA      = moduleA:build_availA()
+   local twidth      = TermWidth()
+   local cwidth      = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or twidth
+   local defaultT    = moduleA:defaultT()
+   local searchA     = argA
+   local showSN      = true
+   local defaultOnly = false
+   local alias2modT  = mrc:getAlias2ModT(mpathA)
+   local banner      = Banner:singleton()
+   
+   if (not masterTbl.regexp and argA and next(argA) ~= nil) then
+      searchA = {}
+      for i = 1, argA.n do
+         local s  = argA[i]
+         local ss = mrc:resolve(mpathA, s)
+         if (ss ~= s) then
+            searchA[i] = ss
+         else
+            searchA[i] = s:caseIndependent()
+         end
+      end
+      searchA.n = argA.n
+   end
+
+   availA = regroup_avail_blocks(availStyle, availA)
+   self:terse_avail(mpathA, availA, alias2modT, searchA, showSN, defaultOnly, defaultT, aa)
+
+   local label = ""
+   local a     = {}
+   local b     = {}
+   local sn    = false
+   local count = 0
+
+   for entry = 1,#a do
+      repeat 
+         if (entry:find("(@")) then break end
+         if (entry:find(":$")) then
+            if (next(b) ~= nil) then
+               -- Write this block of overview
+               local ct = ColumnTable:new{tbl=b, gap=1, len = length, width = cwidth}
+               a[#a+1] = "\n"
+               a[#a+1] = banner:bannerStr(label)
+               a[#a+1] = "\n"
+               a[#a+1] = ct:build_tbl()
+               a[#a+1] = "\n"
+               b       = {}
+            end
+            label = entry(1,-2) -- strip trailing colon
+            break
+         end
+
+         if (entry:find("/$")) then
+            if (count > 0 ) then
+               b[#b+1] = { sn, "(" .. tostring(count) .. ")"}
+            end
+            count = 1
+            sn    = entry(1,-2)
+            break
+         end
+
+         count = count + 1
+      until(false)
+   end
+
+   if (next(b) ~= nil) then
+      local ct = ColumnTable:new{tbl=b, gap=1, len = length, width = cwidth}
+      a[#a+1] = "\n"
+      a[#a+1] = banner:bannerStr(label)
+      a[#a+1] = "\n"
+      a[#a+1] = ct:build_tbl()
+      a[#a+1] = "\n"
+      b       = {}
+   end
+
+   dbg.fini("Master:overview")
+   return a
+end
+
+function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaultOnly, defaultT, a)
    dbg.start{"Master:terse_avail()"}
    local mrc         = MRC:singleton()
    local masterTbl   = masterTbl()
-   local defaultOnly = masterTbl.defaultOnly
 
    if (searchA.n > 0) then
       for k, v in pairsByKeys(alias2modT) do
@@ -1010,7 +1112,7 @@ function M.avail(self, argA)
       if (masterTbl.terse) then
          return a
       end
-      LmodError{msg="e_Avail_No_MPATH"}
+      LmodError{msg="e_Avail_No_MPATH",name = "avail"}
       return a
    end
 
@@ -1025,18 +1127,19 @@ function M.avail(self, argA)
    local defaultT      = moduleA:defaultT()
    local searchA       = argA
    local defaultOnly   = masterTbl.defaultOnly
-   local showSN        = not defaultOnly
    local alias2modT    = mrc:getAlias2ModT(mpathA)
+   local showSN        = not defaultOnly
 
-   dbg.print{"defaultOnly: ",defaultOnly,", showSN: ",showSN,"\n"}
+   if (showSN) then
+      showSN = argA.n == 0
+   end
+
+   dbg.print{"defaultOnly: ",defaultOnly,"\n"}
 
    dbg.printT("defaultT:",defaultT)
 
 
    if (not masterTbl.regexp and argA and next(argA) ~= nil) then
-      if (showSN) then
-         showSN = argA.n == 0
-      end
       searchA = {}
       for i = 1, argA.n do
          local s  = argA[i]
@@ -1053,7 +1156,7 @@ function M.avail(self, argA)
    if (masterTbl.terse) then
       --------------------------------------------------
       -- Terse output
-      self:terse_avail(mpathA, availA, alias2modT, searchA, showSN, defaultT, a)
+      self:terse_avail(mpathA, availA, alias2modT, searchA, showSN, defaultOnly, defaultT, a)
 
       dbg.fini("Master:avail")
       return a
@@ -1238,6 +1341,8 @@ function M.avail(self, argA)
    dbg.fini("Master:avail")
    return a
 end
+
+
 
 
 return M

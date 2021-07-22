@@ -161,16 +161,18 @@ function Usage()
    a[#a+1] = { "  update",             "",              i18n("load7")}
    a[#a+1] = { "" }
    a[#a+1] = { i18n("list_title") }
-   a[#a+1] = { "  list",         "",             i18n("list1")  }
-   a[#a+1] = { "  list",         "s1 s2 ...",    i18n("list2")  }
-   a[#a+1] = { "  avail | av",   "",             i18n("list3")  }
-   a[#a+1] = { "  avail | av",   "string",       i18n("list4")  }
-   a[#a+1] = { "  spider",       "",             i18n("list5")  }
-   a[#a+1] = { "  spider",       "module",       i18n("list6")  }
-   a[#a+1] = { "  spider",       "string",       i18n("list7")  }
-   a[#a+1] = { "  spider",       "name/version", i18n("list8")  }
-   a[#a+1] = { "  whatis",       "module",       i18n("list9")  }
-   a[#a+1] = { "  keyword | key","string",       i18n("list10") }
+   a[#a+1] = { "  list",          "",             i18n("list1")  }
+   a[#a+1] = { "  list",          "s1 s2 ...",    i18n("list2")  }
+   a[#a+1] = { "  avail | av",    "",             i18n("list3")  }
+   a[#a+1] = { "  avail | av",    "string",       i18n("list4")  }
+   a[#a+1] = { "  overview | ov", "",             i18n("ov1")    }
+   a[#a+1] = { "  overview | av", "string",       i18n("ov2")    }
+   a[#a+1] = { "  spider",        "",             i18n("list5")  }
+   a[#a+1] = { "  spider",        "module",       i18n("list6")  }
+   a[#a+1] = { "  spider",        "string",       i18n("list7")  }
+   a[#a+1] = { "  spider",        "name/version", i18n("list8")  }
+   a[#a+1] = { "  whatis",        "module",       i18n("list9")  }
+   a[#a+1] = { "  keyword | key", "string",       i18n("list10") }
    a[#a+1] = { "" }
    a[#a+1] = { i18n("srch_title") }
    a[#a+1] = { i18n("srch0") }
@@ -254,6 +256,7 @@ function main()
    local loadTbl      = { name = "load",        checkMPATH = true,  cmd = Load_Usr      }
    local mcTbl        = { name = "describe",    checkMPATH = false, cmd = CollectionLst }
    local purgeTbl     = { name = "purge",       checkMPATH = true,  cmd = Purge_Usr     }
+   local overviewTbl  = { name = "overview",    checkMPATH = false, cmd = Overview      }
    local refreshTbl   = { name = "refresh",     checkMPATH = false, cmd = Refresh       }
    local resetTbl     = { name = "reset",       checkMPATH = true,  cmd = Reset         }
    local restoreTbl   = { name = "restore",     checkMPATH = false, cmd = Restore       }
@@ -299,6 +302,7 @@ function main()
       {cmd = 'load',         min = 2, action = loadTbl     },
       {cmd = 'list',         min = 1, action = listTbl     },
       {cmd = 'mcc',          min = 2, action = mcTbl       },
+      {cmd = 'overview',     min = 2, action = overviewTbl },
       {cmd = 'purge',        min = 2, action = purgeTbl    },
       {cmd = 'refresh',      min = 4, action = refreshTbl  },
       {cmd = 'reload',       min = 3, action = updateTbl   },
