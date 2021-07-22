@@ -1000,8 +1000,13 @@ function M.overview(self,argA)
             break
          end
          if (entry:find(":$")) then
+            if (sn and count > 0) then
+               b[#b+1] = { sn, "(" .. tostring(count) .. ")  "}
+            end
+               
             if (next(b) ~= nil) then
                -- Write this block of overview
+               dbg.print{"printing overview block\n"}
                local ct = ColumnTable:new{tbl=b, gap=1, len = length, width = cwidth}
                a[#a+1] = "\n"
                a[#a+1] = banner:bannerStr(label)
@@ -1010,7 +1015,11 @@ function M.overview(self,argA)
                a[#a+1] = "\n"
                b       = {}
             end
-            label = entry:sub(1,-2) -- strip trailing colon
+            label    = entry:sub(1,-2) -- strip trailing colon
+            sn       = false
+            sn_slash = false
+            count    = 0
+            dbg.print{"found label: ",label,"\n"}
             break
          end
 
@@ -1018,15 +1027,18 @@ function M.overview(self,argA)
             if (count > 0 ) then
                b[#b+1] = { sn, "(" .. tostring(count) .. ")  "}
             end
-            count    = 1
+            count    = 0
             sn_slash = entry:escape()
             sn       = entry:sub(1,-2)
+            dbg.print{"found sn:", sn,"\n"}
             break
          end
          if (sn_slash and entry:find(sn_slash)) then
+            dbg.print{"found another entry: ", entry, " for sn: ",sn,"\n"}
             count = count + 1
             break
          end
+         dbg.print{"found meta module: ", entry, "\n"}
          b[#b+1] = { entry, "(1)  "}
       until(true)
    end

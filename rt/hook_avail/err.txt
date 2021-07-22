@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.5.9  2021-07-09 14:42 -05:00
+Modules based on Lua: Version 8.5.10  2021-07-22 15:57 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -111,7 +111,7 @@ step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing overview
 ===========================
 Complr Dep.
-mpi/mvapich2 (2)
+mpi/mvapich2 (1)   mpi/openmpi (2)
 Core Modules
-mpi/openmpi     (3)   apps/moab (1)   compilers/intel (2)
-apps/buildtools (2)   apps/lua  (2)   StdEnv          (1)
+apps/buildtools (1)   apps/lua        (1)   StdEnv (1)
+apps/moab       (1)   compilers/intel (1)

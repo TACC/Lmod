@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.5.9  2021-07-09 14:42 -05:00
+Modules based on Lua: Version 8.5.10  2021-07-22 15:57 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -321,10 +321,10 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing overview
 ProjectDIR/rt/avail/mf/Core2
 local (1)
 ProjectDIR/rt/avail/mf/Core
-PrgEnv (1)   baz (3)   gotoblas (4)   junk/d (2)   parmetis (2)
-admin  (2)   foo (3)   intel    (2)   local  (6)   ucc      (4)
-alex   (2)   gcc (2)   junk/a/c (2)   multi  (2)
-bar    (3)   git (6)   junk/b/c (2)   noweb  (2)
+PrgEnv (1)   baz (2)   gotoblas (3)   junk/d (1)   parmetis (1)
+admin  (1)   foo (2)   intel    (1)   local  (5)   ucc      (3)
+alex   (1)   gcc (1)   junk/a/c (1)   multi  (1)
+bar    (2)   git (5)   junk/b/c (1)   noweb  (1)
 ===========================
 step 18
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
