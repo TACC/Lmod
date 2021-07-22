@@ -948,6 +948,7 @@ function M.overview(self,argA)
 
    if (numDirs < 1) then
       if (masterTbl.terse) then
+         dbg.fini("Master:overview")
          return a
       end
       LmodError{msg="e_Avail_No_MPATH", name="overview"}
@@ -984,15 +985,22 @@ function M.overview(self,argA)
    availA = regroup_avail_blocks(availStyle, availA)
    self:terse_avail(mpathA, availA, alias2modT, searchA, showSN, defaultOnly, defaultT, aa)
 
-   local label = ""
-   local a     = {}
-   local b     = {}
-   local sn    = false
-   local count = 0
+   local label    = ""
+   local a        = {}
+   local b        = {}
+   local sn       = false
+   local sn_slash = false
+   local count    = 0
 
-   for entry = 1,#a do
+   for i = 1,#aa do
+      local entry = aa[i]
+      dbg.print{"entry: ",entry,"\n"}
+      entry = entry:sub(1,-2)
       repeat 
-         if (entry:find("(@")) then break end
+         if (entry:find("(@")) then
+            dbg.print{"found @\n"}
+            break
+         end
          if (entry:find(":$")) then
             if (next(b) ~= nil) then
                -- Write this block of overview
@@ -1004,7 +1012,8 @@ function M.overview(self,argA)
                a[#a+1] = "\n"
                b       = {}
             end
-            label = entry(1,-2) -- strip trailing colon
+            label = entry:sub(1,-2) -- strip trailing colon
+            dbg.print{"found label: ",label,"\n"}
             break
          end
 
@@ -1012,13 +1021,20 @@ function M.overview(self,argA)
             if (count > 0 ) then
                b[#b+1] = { sn, "(" .. tostring(count) .. ")"}
             end
-            count = 1
-            sn    = entry(1,-2)
+            count    = 1
+            sn_slash = entry:escape()
+            sn       = entry:sub(1,-2)
+            dbg.print{"found sn: ",sn,"\n"}
             break
          end
-
-         count = count + 1
-      until(false)
+         if (sn_slash and entry:find(sn_slash)) then
+            count = count + 1
+            dbg.print{"found another: ",sn,"\n"}
+            break
+         end
+         dbg.print{"found meta module: ",entry,"\n"}
+         b[#b+1] = { entry, "(1)"}
+      until(true)
    end
 
    if (next(b) ~= nil) then
@@ -1112,6 +1128,7 @@ function M.avail(self, argA)
 
    if (numDirs < 1) then
       if (masterTbl.terse) then
+         dbg.fini("Master:avail")
          return a
       end
       LmodError{msg="e_Avail_No_MPATH",name = "avail"}

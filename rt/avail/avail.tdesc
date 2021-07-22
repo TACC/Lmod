@@ -43,35 +43,36 @@ testdescript = {
      runLmod use $(testDir)/mf/Core2  #14
      runLmod avail local              #15
      runLmod --ignore_cache avail     #16
+     runLmod overview                 #17
 
-     runLmod purge                    #17
+     runLmod purge                    #18
      unsetMT
      unset MODULEPATH
-     runLmod avail                    #18
+     runLmod avail                    #19
 
      export MODULEPATH=$(testDir)/mf/Core3
-     runLmod avail                    #19
-     runLmod load TACC                #20
-     runLmod load intel/15.0.2        #21
-     runLmod load intel               #22
+     runLmod avail                    #20
+     runLmod load TACC                #21
+     runLmod load intel/15.0.2        #22
+     runLmod load intel               #23
 
-     runLmod use $(testDir)/mf/Core4  #23
-     runLmod avail                    #24
+     runLmod use $(testDir)/mf/Core4  #24
+     runLmod avail                    #25
 
-     runLmod use $(testDir)/mf/Order  #25
-     runLmod avail                    #26
-     runLmod use $(testDir)/mf/Core6  #27
-     runLmod avail                    #28
-     runLmod avail FooBar             #29
+     runLmod use $(testDir)/mf/Order  #26
+     runLmod avail                    #27
+     runLmod use $(testDir)/mf/Core6  #28
+     runLmod avail                    #29
+     runLmod avail FooBar             #30
 
-     runLmod purge                    #30
+     runLmod purge                    #31
      unsetMT
      unset MODULEPATH
-     runLmod use $(testDir)/mf/Core7  #31
-     runLmod avail                    #32
-     runLmod load A                   #33
-     runLmod load B                   #34
-     runLmod list                     #35
+     runLmod use $(testDir)/mf/Core7  #32
+     runLmod avail                    #33
+     runLmod load A                   #34
+     runLmod load B                   #35
+     runLmod list                     #36
 
 
      HOME=$ORIG_HOME
