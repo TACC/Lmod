@@ -994,11 +994,9 @@ function M.overview(self,argA)
 
    for i = 1,#aa do
       local entry = aa[i]
-      dbg.print{"entry: ",entry,"\n"}
       entry = entry:sub(1,-2)
       repeat 
          if (entry:find("(@")) then
-            dbg.print{"found @\n"}
             break
          end
          if (entry:find(":$")) then
@@ -1013,7 +1011,6 @@ function M.overview(self,argA)
                b       = {}
             end
             label = entry:sub(1,-2) -- strip trailing colon
-            dbg.print{"found label: ",label,"\n"}
             break
          end
 
@@ -1024,15 +1021,12 @@ function M.overview(self,argA)
             count    = 1
             sn_slash = entry:escape()
             sn       = entry:sub(1,-2)
-            dbg.print{"found sn: ",sn,"\n"}
             break
          end
          if (sn_slash and entry:find(sn_slash)) then
             count = count + 1
-            dbg.print{"found another: ",sn,"\n"}
             break
          end
-         dbg.print{"found meta module: ",entry,"\n"}
          b[#b+1] = { entry, "(1)  "}
       until(true)
    end
