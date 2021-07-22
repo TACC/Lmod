@@ -1038,6 +1038,12 @@ function M.overview(self,argA)
             count = count + 1
             break
          end
+         if (sn and count > 0) then
+            b[#b+1]  = { sn, "(" .. tostring(count) .. ")  "}
+            sn       = false
+            sn_slash = false
+            count    = 0
+         end
          dbg.print{"found meta module: ", entry, "\n"}
          b[#b+1] = { entry, "(1)  "}
       until(true)
