@@ -190,6 +190,7 @@ function main()
       r="restore", restore="restore",
       refresh="refresh",
       reset="reset",
+      overview="overview", ov="overview",
       s="save",
       save="save",
       savelist="savelist", sl="savelist",
