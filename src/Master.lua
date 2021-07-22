@@ -955,6 +955,8 @@ function M.overview(self,argA)
    end
 
    local mrc         = MRC:singleton()
+   local use_cache   = false
+   local moduleA     = ModuleA:singleton{spider_cache=use_cache}
    local availA      = moduleA:build_availA()
    local twidth      = TermWidth()
    local cwidth      = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or twidth
