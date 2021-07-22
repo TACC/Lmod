@@ -1043,6 +1043,9 @@ function M.overview(self,argA)
       until(true)
    end
 
+   if (sn and count > 0) then
+      b[#b+1] = { sn, "(" .. tostring(count) .. ")  "}
+   end
    if (next(b) ~= nil) then
       local ct = ColumnTable:new{tbl=b, gap=1, len = length, width = cwidth}
       a[#a+1] = "\n"
