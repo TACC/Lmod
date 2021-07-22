@@ -113,5 +113,5 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing overview
 Complr Dep.
 mpi/mvapich2 (2)
 Core Modules
-mpi/openmpi     (3) apps/moab (1) compilers/intel (2)
-apps/buildtools (2) apps/lua  (2) StdEnv          (1)
+mpi/openmpi     (3)   apps/moab (1)   compilers/intel (2)
+apps/buildtools (2)   apps/lua  (2)   StdEnv          (1)

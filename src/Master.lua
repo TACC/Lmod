@@ -1019,7 +1019,7 @@ function M.overview(self,argA)
 
          if (entry:find("/$")) then
             if (count > 0 ) then
-               b[#b+1] = { sn, "(" .. tostring(count) .. ")"}
+               b[#b+1] = { sn, "(" .. tostring(count) .. ")  "}
             end
             count    = 1
             sn_slash = entry:escape()
@@ -1033,7 +1033,7 @@ function M.overview(self,argA)
             break
          end
          dbg.print{"found meta module: ",entry,"\n"}
-         b[#b+1] = { entry, "(1)"}
+         b[#b+1] = { entry, "(1)  "}
       until(true)
    end
 

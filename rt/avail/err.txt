@@ -321,9 +321,10 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing overview
 ProjectDIR/rt/avail/mf/Core2
 local (1)
 ProjectDIR/rt/avail/mf/Core
-PrgEnv (1) bar (3) gcc      (2) intel    (2) junk/d (2) noweb    (2)
-admin  (2) baz (3) git      (6) junk/a/c (2) local  (6) parmetis (2)
-alex   (2) foo (3) gotoblas (4) junk/b/c (2) multi  (2) ucc      (4)
+PrgEnv (1)   baz (3)   gotoblas (4)   junk/d (2)   parmetis (2)
+admin  (2)   foo (3)   intel    (2)   local  (6)   ucc      (4)
+alex   (2)   gcc (2)   junk/a/c (2)   multi  (2)
+bar    (3)   git (6)   junk/b/c (2)   noweb  (2)
 ===========================
 step 18
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
