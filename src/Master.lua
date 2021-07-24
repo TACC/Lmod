@@ -1004,14 +1004,18 @@ function M.overview(self,argA)
       b       = {}
    end
 
+   ---------------------------------------------------------------
+   -- This local function stores the current sn and count into the
+   -- b array and if the current entry is true then define the next 
+   -- sn to be entry (minus the trailing slash) and zero count.
    local function register_sn_count_in_b(entry)
       if (sn and count > 0) then
          b[#b+1] = { sn, "(" .. tostring(count) .. ")  "}
-         count    = 0
       end
       if (entry) then
          sn_slash = entry:escape()
          sn       = entry:sub(1,-2) --> strip trailing slash
+         count    = 0
       else
          sn       = false
          sn_slash = false
