@@ -1004,25 +1004,29 @@ function M.overview(self,argA)
       b       = {}
    end
 
-   local function register_sn_count_in_b()
+   local function register_sn_count_in_b(entry)
       if (sn and count > 0) then
          b[#b+1] = { sn, "(" .. tostring(count) .. ")  "}
+         count    = 0
+      end
+      if (entry) then
+         sn_slash = entry:escape()
+         sn       = entry:sub(1,-2) --> strip trailing slash
+      else
          sn       = false
          sn_slash = false
-         count    = 0
       end
    end
 
    for i = 1,#aa do
-      local entry = aa[i]
-      entry = entry:sub(1,-2)
+      local entry = aa[i]:sub(1,-2) --> strip trailing newline
       repeat 
          if (entry:find("(@")) then
             break
          end
+         dbg.print{"entry: ",entry,"\n"}
          if (entry:find(":$")) then
-            register_sn_count_in_b()
-               
+            register_sn_count_in_b(false)
             if (next(b) ~= nil) then
                print_overview_block()
             end
@@ -1032,9 +1036,7 @@ function M.overview(self,argA)
          end
 
          if (entry:find("/$")) then
-            register_sn_count_in_b()
-            sn_slash = entry:escape()
-            sn       = entry:sub(1,-2)
+            register_sn_count_in_b(entry)
             dbg.print{"found sn:", sn,"\n"}
             break
          end
@@ -1043,13 +1045,13 @@ function M.overview(self,argA)
             count = count + 1
             break
          end
-         register_sn_count_in_b()
+         register_sn_count_in_b(false)
          dbg.print{"found meta module: ", entry, "\n"}
          b[#b+1] = { entry, "(1)  "}
       until(true)
    end
 
-   register_sn_count_in_b()
+   register_sn_count_in_b(false)
    if (next(b) ~= nil) then
       print_overview_block()
    end
