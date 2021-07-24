@@ -42,15 +42,34 @@ A user may wish to go back to an initial set of modules::
 
 This will unload all currently loaded modules, including the sticky
 ones, then load the list of modules specified by
-LMOD_SYSTEM_DEFAULT_MODULES. There is a related 
-command::
+LMOD_SYSTEM_DEFAULT_MODULES. There is a related command::
 
     $ module restore
+
 
 This command will also unload all currently loaded modules, including
 the sticky ones, and then load the system default unless the user has
 a default collection. See :ref:`user_collections-label` for more
 details. 
+
+If there are many modules on a system, it can be difficult to see what
+modules are available to load.  Lmod provides the overview command to
+provide a concise listing.  For example::
+
+    $ module overview
+
+    ------------------ /opt/apps/modulefiles/Core -----------------
+    StdEnv    (1)   hashrf    (2)   papi        (2)   xalt     (1)
+    ddt       (1)   intel     (2)   singularity (2)   
+    git       (1)   noweb     (1)   valgrind    (1)
+
+    --------------- /opt/apps/lmod/lmod/modulefiles/Core ----------
+    lmod (1)   settarg (1)
+
+This shows the short name of the module (i.e. git, or singularity)
+and the number in the parenthesis is the number of versions for each.
+This list above shows that there is one version of git and two
+versions of singularity.
 
 If a module is not available then an error message is produced::
 

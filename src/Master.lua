@@ -992,6 +992,27 @@ function M.overview(self,argA)
    local sn_slash = false
    local count    = 0
 
+   local function print_overview_block()
+      -- Write this block of overview
+      dbg.print{"printing overview block\n"}
+      local ct = ColumnTable:new{tbl=b, gap=1, len = length, width = cwidth}
+      a[#a+1] = "\n"
+      a[#a+1] = banner:bannerStr(label)
+      a[#a+1] = "\n"
+      a[#a+1] = ct:build_tbl()
+      a[#a+1] = "\n"
+      b       = {}
+   end
+
+   local function register_sn_count_in_b()
+      if (sn and count > 0) then
+         b[#b+1] = { sn, "(" .. tostring(count) .. ")  "}
+         sn       = false
+         sn_slash = false
+         count    = 0
+      end
+   end
+
    for i = 1,#aa do
       local entry = aa[i]
       entry = entry:sub(1,-2)
@@ -1000,34 +1021,18 @@ function M.overview(self,argA)
             break
          end
          if (entry:find(":$")) then
-            if (sn and count > 0) then
-               b[#b+1] = { sn, "(" .. tostring(count) .. ")  "}
-            end
+            register_sn_count_in_b()
                
             if (next(b) ~= nil) then
-               -- Write this block of overview
-               dbg.print{"printing overview block\n"}
-               local ct = ColumnTable:new{tbl=b, gap=1, len = length, width = cwidth}
-               a[#a+1] = "\n"
-               a[#a+1] = banner:bannerStr(label)
-               a[#a+1] = "\n"
-               a[#a+1] = ct:build_tbl()
-               a[#a+1] = "\n"
-               b       = {}
+               print_overview_block()
             end
             label    = entry:sub(1,-2) -- strip trailing colon
-            sn       = false
-            sn_slash = false
-            count    = 0
             dbg.print{"found label: ",label,"\n"}
             break
          end
 
          if (entry:find("/$")) then
-            if (count > 0 ) then
-               b[#b+1] = { sn, "(" .. tostring(count) .. ")  "}
-            end
-            count    = 0
+            register_sn_count_in_b()
             sn_slash = entry:escape()
             sn       = entry:sub(1,-2)
             dbg.print{"found sn:", sn,"\n"}
@@ -1038,28 +1043,15 @@ function M.overview(self,argA)
             count = count + 1
             break
          end
-         if (sn and count > 0) then
-            b[#b+1]  = { sn, "(" .. tostring(count) .. ")  "}
-            sn       = false
-            sn_slash = false
-            count    = 0
-         end
+         register_sn_count_in_b()
          dbg.print{"found meta module: ", entry, "\n"}
          b[#b+1] = { entry, "(1)  "}
       until(true)
    end
 
-   if (sn and count > 0) then
-      b[#b+1] = { sn, "(" .. tostring(count) .. ")  "}
-   end
+   register_sn_count_in_b()
    if (next(b) ~= nil) then
-      local ct = ColumnTable:new{tbl=b, gap=1, len = length, width = cwidth}
-      a[#a+1] = "\n"
-      a[#a+1] = banner:bannerStr(label)
-      a[#a+1] = "\n"
-      a[#a+1] = ct:build_tbl()
-      a[#a+1] = "\n"
-      b       = {}
+      print_overview_block()
    end
 
    dbg.fini("Master:overview")
