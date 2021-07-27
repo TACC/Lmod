@@ -440,7 +440,12 @@ The system default contains no modules
      HiddenM   = "Hidden Module",
      Extension = "Extension that is provided by another module",
 
-     avail     = [==[Use "module spider" to find all possible modules and extensions.
+     avail     = [==[If the avail list is too long consider trying:
+
+"module --default avail" or "ml -d av"  to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+
+Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ]==],
      list      = " ",

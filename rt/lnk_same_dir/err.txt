@@ -14,6 +14,9 @@ ProjectDIR/rt/lnk_same_dir/mf
    a/3.3        b/2.5        c/7.2        git/1.8.4
   Where:
    D:  Default Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
@@ -26,5 +29,8 @@ ProjectDIR/rt/lnk_same_dir/mf
    a/3.3        b/2.5        c/7.2        git/1.8.4
   Where:
    D:  Default Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".

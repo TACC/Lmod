@@ -14,4 +14,5 @@ Lmod 8.5+
             * Issue #520: Print dataT table when there is an Exception.
    (8.5.10) * When evaluating modules under spider now block both stdout and stderr (instead of just stderr).
             * New command added: "module overview"
-            
+W.I.P.:
+   (8.5.11) * Added msg to avail to point to "ml -d av" and "ml ov"

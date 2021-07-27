@@ -20,6 +20,9 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --ignore_cache avail
    intel/15.0.2 (L)    itac/1.0
   Where:
    L:  Module is loaded
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
@@ -34,6 +37,9 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
    intel/15.0.2 (L)
   Where:
    L:  Module is loaded
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================

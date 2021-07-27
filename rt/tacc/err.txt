@@ -15,6 +15,9 @@ ProjectDIR/rt/tacc/mf/TACC
    TACC          empty_unload/1.0    pgi/7.1           (D)
   Where:
    D:  Default Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================

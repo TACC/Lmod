@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.1.18  2019-10-01 12:36 -05:00
+Modules based on Lua: Version 8.5.10  2021-07-22 17:06 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -16,6 +16,11 @@ ProjectDIR/rt/colorize/mf
    apps/git/1.8.4.1   ([1;31mt[0m)    libs/gcc/4.8.1         ([1;31mt[0m)
   Where:
    [1;31mt[0m:  Tools for development
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the
+default modules.
+"module overview" or "ml ov" to display the number of
+modules for each name.
 Use "module spider" to find all possible modules and
 extensions.
 Use "module keyword key1 key2 ..." to search for all
@@ -32,6 +37,11 @@ ProjectDIR/rt/colorize/mf
    apps/git/1.8.4.1   ([1;31mt[0m)    libs/gcc/4.8.1         ([1;31mt[0m)
   Where:
    [1;31mt[0m:  Tools for development
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default
+modules.
+"module overview" or "ml ov" to display the number of modules for each
+name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules
 matching any of the "keys".
@@ -47,6 +57,10 @@ ProjectDIR/rt/colorize/mf
    apps/git/1.8.4.1   ([1;31mt[0m)    libs/gcc/4.8.1         ([1;31mt[0m)
   Where:
    [1;31mt[0m:  Tools for development
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each
+name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules
 matching any of the "keys".
@@ -62,6 +76,9 @@ ProjectDIR/rt/colorize/mf
    apps/git/1.8.4.1   ([1;31mt[0m)    libs/gcc/4.8.1         ([1;31mt[0m)
   Where:
    [1;31mt[0m:  Tools for development
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any
 of the "keys".
@@ -77,6 +94,9 @@ ProjectDIR/rt/colorize/mf
    apps/git/1.8.4.1   ([1;31mt[0m)    libs/gcc/4.8.1         ([1;31mt[0m)
   Where:
    [1;31mt[0m:  Tools for development
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the
 "keys".
@@ -92,6 +112,9 @@ ProjectDIR/rt/colorize/mf
    apps/git/1.8.4.1   ([1;31mt[0m)    libs/gcc/4.8.1         ([1;31mt[0m)
   Where:
    [1;31mt[0m:  Tools for development
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
@@ -106,5 +129,8 @@ ProjectDIR/rt/colorize/mf
    apps/git/1.8.4.1   ([1;31mt[0m)    libs/gcc/4.8.1         ([1;31mt[0m)
   Where:
    [1;31mt[0m:  Tools for development
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".

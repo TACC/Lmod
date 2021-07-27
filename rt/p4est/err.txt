@@ -14,6 +14,9 @@ ProjectDIR/rt/p4est/mf/User
    local/1.1    local/1.2
   Where:
    D:  Default Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
@@ -27,6 +30,9 @@ ProjectDIR/rt/p4est/mf/User
   Where:
    D:  Default Module
    H:  Hidden Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================

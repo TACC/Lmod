@@ -12,6 +12,9 @@ ProjectDIR/rt/ugent_startup/mf/Core
    cluster/delcatty (S)    cluster/golett (S)    cluster/swalet (S)
   Where:
    S:  Module is Sticky, requires --force to unload or purge
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
@@ -25,6 +28,9 @@ ProjectDIR/rt/ugent_startup/mf/Core
    D:  Default Module
    H:  Hidden Module
    S:  Module is Sticky, requires --force to unload or purge
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================

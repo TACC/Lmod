@@ -2,46 +2,47 @@
 Hermes.db,18
 ProjectData 3,52
 
-configure.ac,1019
+configure.ac,1059
 FOLLOW_READLINK 22,275
 AC_SUBST(45,672
-    AC_MSG_RESULT(575,22839
-    AC_MSG_RESULT(591,23353
-  FAST_TCL_INTERP=614,24118
-   OS=618,24183
-     TCL_INCLUDE=620,24234
-	   TCL_INCLUDE=625,24421
-       AC_PATH_PROG(632,24525
-                   TCL_INCLUDE=637,24744
-      AC_MSG_ERROR(652,25172
-AC_PATH_PROGS(691,26234
-AC_PATH_PROGS(700,26434
-AC_PATH_PROG(709,26655
-  PATH_TO_HASHSUM=714,26899
-AC_PATH_PROG(723,27124
-AC_PATH_PROGS(731,27354
-   PATH_TO_LUA=750,27866
-      mismatch=756,28064
-      mismatch=759,28168
-  AC_PATH_PROG(775,28528
-  AC_PATH_PROG(786,28813
-  lmodV=797,29242
-   LUA_PATH=815,29741
-    missingModules=837,30639
-  AC_SUBST(854,30975
-      missingModules=862,31210
-    lfsV=869,31314
-       AC_SUBST(874,31498
-      missingModules=883,31720
-    AC_SUBST(890,31840
-PATH_TO_LUA_DIR=901,31977
-   LUA_INCLUDE=906,32046
-  AC_PATH_PROG(910,32128
-        LUA_INCLUDE=915,32293
-        LUA_INCLUDE=925,32547
-AC_SUBST(946,32933
-  resultA=952,33071
-     result=966,33322
+    AC_MSG_RESULT(575,22859
+    AC_MSG_RESULT(591,23373
+  FAST_TCL_INTERP=614,24138
+   OS=618,24203
+     DIR=620,24254
+	   TCL_INCLUDE=625,24437
+       AC_PATH_PROG(632,24545
+                   TCL_INCLUDE=637,24764
+      AC_MSG_ERROR(652,25211
+AC_PATH_PROGS(691,26273
+AC_PATH_PROGS(700,26473
+AC_PATH_PROG(709,26694
+  PATH_TO_HASHSUM=714,26938
+AC_PATH_PROG(723,27163
+AC_PATH_PROGS(731,27393
+   PATH_TO_LUA=750,27905
+      mismatch=756,28103
+      mismatch=759,28207
+  AC_PATH_PROG(775,28567
+  AC_PATH_PROG(786,28852
+  lmodV=797,29281
+   LUA_PATH=815,29780
+    missingModules=837,30678
+  AC_SUBST(854,31014
+      missingModules=862,31249
+    lfsV=869,31353
+       AC_SUBST(874,31537
+      missingModules=883,31759
+    AC_SUBST(890,31879
+PATH_TO_LUA_DIR=901,32016
+   LUA_INCLUDE=906,32085
+  AC_PATH_PROG(910,32167
+      PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=913,32276
+        LUA_INCLUDE=915,32365
+        LUA_INCLUDE=925,32672
+AC_SUBST(946,33058
+  resultA=952,33196
+     result=966,33447
 
 docs/Makefile,1466
 SPHINXOPTS 5,92
@@ -90,8 +91,9 @@ function call.call25,848
 docs/source/045_transition.rst,35
        export _INIT_LMOD=151,4853
 
-docs/source/040_FAQ.rst,23
+docs/source/040_FAQ.rst,66
    function in 12,381
+       function edit_modulefile 331,12139
 
 docs/source/index.rst,42
 Lmod: A New Environment Module System2,1
@@ -100,7 +102,7 @@ docs/source/080_hierarchy.rst,44
 How to use a Software Module hierarchy3,31
 
 docs/source/051_tcl_modulefiles.rst,25
-   function to 140,4096
+   function to 144,4206
 
 docs/source/190_Integration_of_EasyBuild_and_Lmod.rst,38
 Integration of EasyBuild and Lmod1,0
@@ -119,19 +121,16 @@ docs/source/240_sticky_modules.rst,20
 Sticky Modules3,27
 
 docs/source/010_user.rst,280
-It is rare,187,5274
-second load,215,6010
-    family(229,6527
-       export BASHRC_READ=378,12330
-then "**module restore**" will load the default A,483,15715
-then "**module restore**" will load the default A, B,483,15715
-If your site has a shared home file system,503,16461
+It is rare,235,7029
+second load,263,7765
+    family(277,8282
+       export BASHRC_READ=426,14085
+then "**module restore**" will load the default A,531,17470
+then "**module restore**" will load the default A, B,531,17470
+If your site has a shared home file system,551,18216
 
-docs/source/090_configuring_lmod.rst,140
-is lowercased first,27,977
-is lowercased first, so NO,27,977
-is lowercased first, so NO, No,27,977
-  this variable has no value,44,1502
+docs/source/090_configuring_lmod.rst,20
+  entry is 53,1870
 
 docs/source/136_spider.rst,21
 The spider tool3,24
@@ -180,7 +179,7 @@ function parses 196,8677
 function returns 208,9305
 
 docs/source/200_avail_custom.rst,34
-     function avail_hook(60,1802
+     function avail_hook(62,1820
 
 docs/source/340_inherit.rst,113
 .. _inherit-label:label1,0
@@ -204,8 +203,8 @@ set of modules 112,4144
 docs/source/060_locating.rst,169
 How Lmod Picks which Modulefiles to Load3,23
     module_version(136,4864
-    $ module purge; module load intel boost;346,12145
-    $ module swap intel gcc;368,12718
+    $ module purge; module load intel boost;346,12141
+    $ module swap intel gcc;368,12714
 
 docs/source/310_settarg.rst,471
 .. _settarg-label:label1,0
@@ -326,43 +325,43 @@ function M.searchSpiderDB(203,6626
 function M.searchSpiderDB(searchSpiderDB203,6626
 function M.findAllModules(265,8173
 function M.findAllModules(findAllModules265,8173
-function extend(343,10478
-function reverse(351,10601
-function copy(360,10728
-local function l_build_parentT(417,12874
-   local function l_build_parentT_helper(422,13046
-local function l_build_mpathParentT(471,14487
-local function l_search_mpathParentT(498,15174
-local function l_build_keepT(514,15520
-function M.buildDbT(535,16077
-function M.buildDbT(buildDbT535,16077
-   local function cmp(542,16416
-   local function buildDbT_helper(545,16475
-function M.buildProvideByT(615,18616
-function M.buildProvideByT(buildProvideByT615,18616
-   local function cmp(647,19889
-function M.Level0_terse(669,20253
-function M.Level0_terse(Level0_terse669,20253
-function M.Level0(706,21312
-function M.Level0(Level0706,21312
-local function l_case_independent_cmp_by_name(732,21939
-function M.Level0Helper(743,22153
-function M.Level0Helper(Level0Helper743,22153
-function M.setExactMatch(822,24676
-function M.setExactMatch(setExactMatch822,24676
-function M.getExactMatch(826,24741
-function M.getExactMatch(getExactMatch826,24741
-function M.spiderSearch(830,24799
-function M.spiderSearch(spiderSearch830,24799
-function M._Level1(989,29600
-function M._Level1(_Level1989,29600
-   local function countEntries(1005,30160
-function M._Level2(1238,37090
-function M._Level2(_Level21238,37090
-function M.listModules(1414,42256
-function M.listModules(listModules1414,42256
-function M.dictModules(1425,42438
-function M.dictModules(dictModules1425,42438
+function extend(343,10476
+function reverse(351,10599
+function copy(360,10726
+local function l_build_parentT(417,12872
+   local function l_build_parentT_helper(422,13044
+local function l_build_mpathParentT(471,14485
+local function l_search_mpathParentT(498,15172
+local function l_build_keepT(514,15518
+function M.buildDbT(535,16075
+function M.buildDbT(buildDbT535,16075
+   local function cmp(542,16414
+   local function buildDbT_helper(545,16473
+function M.buildProvideByT(615,18614
+function M.buildProvideByT(buildProvideByT615,18614
+   local function cmp(647,19887
+function M.Level0_terse(669,20251
+function M.Level0_terse(Level0_terse669,20251
+function M.Level0(706,21310
+function M.Level0(Level0706,21310
+local function l_case_independent_cmp_by_name(732,21937
+function M.Level0Helper(743,22151
+function M.Level0Helper(Level0Helper743,22151
+function M.setExactMatch(822,24674
+function M.setExactMatch(setExactMatch822,24674
+function M.getExactMatch(826,24739
+function M.getExactMatch(getExactMatch826,24739
+function M.spiderSearch(830,24797
+function M.spiderSearch(spiderSearch830,24797
+function M._Level1(989,29598
+function M._Level1(_Level1989,29598
+   local function countEntries(1005,30158
+function M._Level2(1238,37088
+function M._Level2(_Level21238,37088
+function M.listModules(1414,42254
+function M.listModules(listModules1414,42254
+function M.dictModules(1425,42436
+function M.dictModules(dictModules1425,42436
 
 src/MasterControl.lua,5940
 local function registerUserLoads(76,3187
@@ -529,10 +528,10 @@ src/lmod.in.lua,128
 function cmdDir(97,3490
 function cmdName(103,3648
 function Usage(139,4806
-function version(232,9106
-function main(241,9452
+function version(234,9250
+function main(243,9596
 
-src/modfuncs.lua,2067
+src/modfuncs.lua,2095
 local function concatTbl(75,3162
 local function validateStringArgs(97,3740
 local function validateStringTable(112,4235
@@ -555,48 +554,49 @@ function inherit(343,11074
 function mode(352,11291
 function is_spider(359,11485
 function isloaded(369,11744
-function myFileName(377,11956
-function myModuleFullName(383,12123
-function myModuleName(389,12312
-function myModuleUsrName(395,12503
-function myModuleVersion(401,12679
-function isPending(408,12907
-function LmodError(416,13170
-function LmodWarning(423,13358
-function LmodMessage(430,13525
-function LmodMsgRaw(437,13692
-function LmodVersion(444,13871
-function myShellName(450,14032
-function myShellType(454,14088
-function whatis(460,14252
-function help(470,14528
-function userInGroups(478,14675
-function convertToCanonical(491,15087
-function prereq(501,15383
-function prereq_any(512,15792
-function conflict(522,16150
-function atleast(535,16565
-function between(550,16983
-function latest(562,17337
-function set_alias(575,17622
-function unset_alias(585,17929
-function set_shell_function(595,18263
-function unset_shell_function(605,18614
-function add_property(617,18998
-function remove_property(626,19315
-function hierarchyA(638,19750
-function moduleStackTraceBack(684,20784
-function requireFullName(709,21439
-function LmodErrorExit(718,21739
-function LmodSystemError(725,21920
-function try_load(734,22353
-function unload(747,22866
-function always_load(758,23210
-function always_unload(771,23627
-function depends_on(780,23875
-function extensions(788,24114
-function color_banner(796,24326
-function subprocess(803,24417
+function isAvail(377,11956
+function myFileName(386,12164
+function myModuleFullName(392,12331
+function myModuleName(398,12520
+function myModuleUsrName(404,12711
+function myModuleVersion(410,12887
+function isPending(417,13115
+function LmodError(425,13378
+function LmodWarning(432,13566
+function LmodMessage(439,13733
+function LmodMsgRaw(446,13900
+function LmodVersion(453,14079
+function myShellName(459,14240
+function myShellType(463,14296
+function whatis(469,14460
+function help(479,14736
+function userInGroups(487,14883
+function convertToCanonical(500,15295
+function prereq(510,15591
+function prereq_any(521,16000
+function conflict(531,16358
+function atleast(544,16773
+function between(559,17191
+function latest(571,17545
+function set_alias(584,17830
+function unset_alias(594,18137
+function set_shell_function(604,18471
+function unset_shell_function(614,18822
+function add_property(626,19206
+function remove_property(635,19523
+function hierarchyA(647,19958
+function moduleStackTraceBack(693,20992
+function requireFullName(718,21647
+function LmodErrorExit(727,21947
+function LmodSystemError(734,22128
+function try_load(743,22561
+function unload(756,23074
+function always_load(767,23418
+function always_unload(780,23835
+function depends_on(789,24083
+function extensions(797,24322
+function color_banner(805,24534
+function subprocess(812,24625
 
 src/MC_CheckSyntax.lua,160
 function M.add_property(98,4302
@@ -604,46 +604,52 @@ function M.add_property(add_property98,4302
 function M.userInGroups(111,4755
 function M.userInGroups(userInGroups111,4755
 
-src/Master.lua,1097
+src/Master.lua,1355
 local function new(71,2764
 function M.singleton(84,3048
 function M.singleton(singleton84,3048
 function M.access(103,3787
 function M.access(access103,3787
-local function registerLoaded(161,5635
-local function registerUnloaded(187,6409
-function M.inheritModule(211,6991
-function M.inheritModule(inheritModule211,6991
-function M.mgrload(255,8220
-function M.mgrload(mgrload255,8220
-function M.load(273,8736
-function M.load(load273,8736
-function M.unload(463,16033
-function M.unload(unload463,16033
-function M.reloadAll(559,19393
-function M.reloadAll(reloadAll559,19393
-function M.refresh(682,24331
-function M.refresh(refresh682,24331
-function M.dependencyCk(716,25550
-function M.dependencyCk(dependencyCk716,25550
-function M.reload_sticky(749,26626
-function M.reload_sticky(reload_sticky749,26626
-function M.safeToUpdate(809,28444
-function M.safeToUpdate(safeToUpdate809,28444
-local function availEntry(813,28501
-local function mark_as_default(846,29245
-local function regroup_avail_blocks(851,29391
-function M.avail(925,31243
-function M.avail(avail925,31243
+local function registerLoaded(170,5936
+local function registerUnloaded(196,6710
+function M.inheritModule(220,7292
+function M.inheritModule(inheritModule220,7292
+function M.mgrload(264,8521
+function M.mgrload(mgrload264,8521
+function M.load(282,9037
+function M.load(load282,9037
+function M.unload(472,16334
+function M.unload(unload472,16334
+function M.reloadAll(568,19694
+function M.reloadAll(reloadAll568,19694
+function M.refresh(691,24632
+function M.refresh(refresh691,24632
+function M.dependencyCk(725,25851
+function M.dependencyCk(dependencyCk725,25851
+function M.reload_sticky(758,26927
+function M.reload_sticky(reload_sticky758,26927
+function M.safeToUpdate(818,28745
+function M.safeToUpdate(safeToUpdate818,28745
+local function availEntry(822,28802
+local function mark_as_default(855,29546
+local function regroup_avail_blocks(860,29692
+function M.overview(933,31543
+function M.overview(overview933,31543
+   local function print_overview_block(995,33337
+   local function register_sn_count_in_b(1011,33966
+function M.terse_avail(1067,35500
+function M.terse_avail(terse_avail1067,35500
+function M.avail(1126,37245
+function M.avail(avail1126,37245
 
-src/sandbox.lua,249
-function sandbox_registration(260,10312
-function sandbox_set_os_exit(269,10502
-function turn_off_stderr(273,10572
-      function(f,(f277,10731
-function turn_on_stderr(285,10867
-local function run5_1(295,11219
-local function run5_2(308,11885
+src/sandbox.lua,247
+function sandbox_registration(262,10378
+function sandbox_set_os_exit(271,10568
+function turn_off_stdio(275,10638
+      function(f,(f279,10796
+function turn_on_stdio(287,10953
+local function run5_1(297,11304
+local function run5_2(310,11970
 
 src/DirTree.lua,458
 local function keepFile(78,2584
@@ -730,9 +736,9 @@ function M.count(count174,4813
 function M.traceBack(178,4864
 function M.traceBack(traceBack178,4864
 
-src/tcl2lua.tcl,124
+src/tcl2lua.tcl,125
 global g_loadT g_varsT g_fullName g_usrName g_shellName g_mode g_shellType g_outputA,37,1659
-set g_help $params(965,25503
+set g_help $params(1034,27021
 
 src/loadModuleFile.lua,33
 function loadModuleFile(58,2520
@@ -853,22 +859,22 @@ local function l_checkforNV(497,16018
 local function build_from_spiderT(506,16174
 function M.update(535,17147
 function M.update(update535,17147
-function M.__new(599,19368
-function M.__new(__new599,19368
-function M.moduleA(637,20483
-function M.moduleA(moduleA637,20483
-function M.isNVV(641,20538
-function M.isNVV(isNVV641,20538
-function M.spiderBuilt(645,20589
-function M.spiderBuilt(spiderBuilt645,20589
-function M.locationT(649,20652
-function M.locationT(locationT649,20652
-function M.defaultT(659,20868
-function M.defaultT(defaultT659,20868
-function M.singleton(670,21078
-function M.singleton(singleton670,21078
-function M.__clear(696,21823
-function M.__clear(__clear696,21823
+function M.__new(599,19341
+function M.__new(__new599,19341
+function M.moduleA(637,20456
+function M.moduleA(moduleA637,20456
+function M.isNVV(641,20511
+function M.isNVV(isNVV641,20511
+function M.spiderBuilt(645,20562
+function M.spiderBuilt(spiderBuilt645,20562
+function M.locationT(649,20625
+function M.locationT(locationT649,20625
+function M.defaultT(659,20841
+function M.defaultT(defaultT659,20841
+function M.singleton(670,21051
+function M.singleton(singleton670,21051
+function M.__clear(696,21796
+function M.__clear(__clear696,21796
 
 src/MN_Exact.lua,58
 function M.steps(47,1865
@@ -926,121 +932,125 @@ function full_colorize(66,2621
 function plain(97,3395
 function colorize_kind(109,3597
 
-src/MT.lua,4445
+src/MT.lua,4605
 function M.name(76,2921
 function M.name(name76,2921
 local function mt_version(80,2965
 local function new(85,3011
-function M.singleton(174,5279
-function M.singleton(singleton174,5279
-function M.__clearMT(189,5583
-function M.__clearMT(__clearMT189,5583
-function M.__convertMT(196,5711
-function M.__convertMT(__convertMT196,5711
-function __removeEnvMT(220,6401
-function M.add(234,6816
-function M.add(add234,6816
-function M.reportContents(255,7485
-function M.reportContents(reportContents255,7485
-function M.changeMPATH(280,8191
-function M.changeMPATH(changeMPATH280,8191
-function M.set_MPATH_change_flag(284,8254
-function M.set_MPATH_change_flag(set_MPATH_change_flag284,8254
-function M.reset_MPATH_change_flag(289,8376
-function M.reset_MPATH_change_flag(reset_MPATH_change_flag289,8376
-function M.setStatus(294,8453
-function M.setStatus(setStatus294,8453
-function M.status(305,8714
-function M.status(status305,8714
-function M.exists(313,8849
-function M.exists(exists313,8849
-function M.setRebuildTime(322,9179
-function M.setRebuildTime(setRebuildTime322,9179
-local function setLoadOrder(332,9542
-function M.serializeTbl(343,9738
-function M.serializeTbl(serializeTbl343,9738
-function M.encodeMT(360,10144
-function M.encodeMT(encodeMT360,10144
-function M.remove(369,10423
-function M.remove(remove369,10423
-local function build_AB(374,10498
-function M.list(399,11411
-function M.list(list399,11411
-   local function loadOrder_cmp(436,12788
-function M.add_property(468,13440
-function M.add_property(add_property468,13440
-function M.remove_property(495,14250
-function M.remove_property(remove_property495,14250
-function M.list_property(537,15646
-function M.list_property(list_property537,15646
-function M.haveProperty(565,16539
-function M.haveProperty(haveProperty565,16539
-function M.have(579,17018
-function M.have(have579,17018
-function M.userName(587,17196
-function M.userName(userName587,17196
-function M.fullName(595,17335
-function M.fullName(fullName595,17335
-function M.wV(603,17474
-function M.wV(wV603,17474
-function M.fn(611,17601
-function M.fn(fn611,17601
-function M.version(619,17728
-function M.version(version619,17728
-function M.stackDepth(627,17885
-function M.stackDepth(stackDepth627,17885
-function M.incr_ref_count(635,18032
-function M.incr_ref_count(incr_ref_count635,18032
-function M.decr_ref_count(644,18205
-function M.decr_ref_count(decr_ref_count644,18205
-function M.get_ref_count(654,18440
-function M.get_ref_count(get_ref_count654,18440
-function M.updateMPathA(662,18608
-function M.updateMPathA(updateMPathA662,18608
-function M.modulePathA(673,18922
-function M.modulePathA(modulePathA673,18922
-function M.maxDepthT(677,18978
-function M.maxDepthT(maxDepthT677,18978
-function M.getShortTime(684,19166
-function M.getShortTime(getShortTime684,19166
-function M.getRebuildTime(691,19360
-function M.getRebuildTime(getRebuildTime691,19360
-function M.setRebuildTime(700,19685
-function M.setRebuildTime(setRebuildTime700,19685
-function M.addStickyA(711,20063
-function M.addStickyA(addStickyA711,20063
-function M.getStickyA(721,20438
-function M.getStickyA(getStickyA721,20438
-function M.userLoad(734,20927
-function M.userLoad(userLoad734,20927
-local function columnList(742,21181
-function M.reportChanges(761,21844
-function M.reportChanges(reportChanges761,21844
-local function buildFamilyPrefix(826,23792
-function M.setfamily(844,24231
-function M.setfamily(setfamily844,24231
-function M.unsetfamily(860,24710
-function M.unsetfamily(unsetfamily860,24710
-function M.getfamily(874,25108
-function M.getfamily(getfamily874,25108
-function M.pushInheritFn(886,25446
-function M.pushInheritFn(pushInheritFn886,25446
-function M.popInheritFn(901,26032
-function M.popInheritFn(popInheritFn901,26032
-function M.hideHash(918,26568
-function M.hideHash(hideHash918,26568
-function M.getHash(932,26926
-function M.getHash(getHash932,26926
-function M.setHashSum(944,27254
-function M.setHashSum(setHashSum944,27254
-function M.getMTfromFile(1011,29459
-function M.getMTfromFile(getMTfromFile1011,29459
-function M.setMpathRefCountT(1214,36215
-function M.setMpathRefCountT(setMpathRefCountT1214,36215
-function M.hideMpathRefCountT(1217,36300
-function M.hideMpathRefCountT(hideMpathRefCountT1217,36300
-function M.resetMPATH2system(1221,36381
-function M.resetMPATH2system(resetMPATH2system1221,36381
+function M.singleton(174,5263
+function M.singleton(singleton174,5263
+function M.__clearMT(189,5567
+function M.__clearMT(__clearMT189,5567
+function M.__convertMT(196,5695
+function M.__convertMT(__convertMT196,5695
+function __removeEnvMT(220,6385
+function M.add(234,6800
+function M.add(add234,6800
+function M.reportContents(255,7469
+function M.reportContents(reportContents255,7469
+function M.changeMPATH(280,8175
+function M.changeMPATH(changeMPATH280,8175
+function M.set_MPATH_change_flag(284,8238
+function M.set_MPATH_change_flag(set_MPATH_change_flag284,8238
+function M.reset_MPATH_change_flag(289,8360
+function M.reset_MPATH_change_flag(reset_MPATH_change_flag289,8360
+function M.setStatus(294,8437
+function M.setStatus(setStatus294,8437
+function M.status(305,8698
+function M.status(status305,8698
+function M.exists(313,8833
+function M.exists(exists313,8833
+function M.setRebuildTime(322,9163
+function M.setRebuildTime(setRebuildTime322,9163
+local function setLoadOrder(332,9526
+function M.serializeTbl(343,9722
+function M.serializeTbl(serializeTbl343,9722
+function M.encodeMT(360,10128
+function M.encodeMT(encodeMT360,10128
+function M.remove(369,10407
+function M.remove(remove369,10407
+local function build_AB(374,10482
+function M.list(399,11395
+function M.list(list399,11395
+   local function loadOrder_cmp(436,12772
+function M.empty(462,13171
+function M.empty(empty462,13171
+function M.add_property(475,13505
+function M.add_property(add_property475,13505
+function M.remove_property(502,14315
+function M.remove_property(remove_property502,14315
+function M.list_property(544,15711
+function M.list_property(list_property544,15711
+function M.haveProperty(572,16604
+function M.haveProperty(haveProperty572,16604
+function M.have(586,17083
+function M.have(have586,17083
+function M.lookup_w_userName(594,17261
+function M.lookup_w_userName(lookup_w_userName594,17261
+function M.userName(612,17657
+function M.userName(userName612,17657
+function M.fullName(620,17796
+function M.fullName(fullName620,17796
+function M.wV(628,17935
+function M.wV(wV628,17935
+function M.fn(636,18062
+function M.fn(fn636,18062
+function M.version(644,18189
+function M.version(version644,18189
+function M.stackDepth(652,18346
+function M.stackDepth(stackDepth652,18346
+function M.incr_ref_count(660,18493
+function M.incr_ref_count(incr_ref_count660,18493
+function M.decr_ref_count(669,18666
+function M.decr_ref_count(decr_ref_count669,18666
+function M.get_ref_count(679,18901
+function M.get_ref_count(get_ref_count679,18901
+function M.updateMPathA(687,19069
+function M.updateMPathA(updateMPathA687,19069
+function M.modulePathA(698,19397
+function M.modulePathA(modulePathA698,19397
+function M.maxDepthT(702,19453
+function M.maxDepthT(maxDepthT702,19453
+function M.getShortTime(709,19641
+function M.getShortTime(getShortTime709,19641
+function M.getRebuildTime(716,19835
+function M.getRebuildTime(getRebuildTime716,19835
+function M.setRebuildTime(725,20160
+function M.setRebuildTime(setRebuildTime725,20160
+function M.addStickyA(736,20538
+function M.addStickyA(addStickyA736,20538
+function M.getStickyA(746,20913
+function M.getStickyA(getStickyA746,20913
+function M.userLoad(759,21402
+function M.userLoad(userLoad759,21402
+local function columnList(767,21656
+function M.reportChanges(786,22319
+function M.reportChanges(reportChanges786,22319
+local function buildFamilyPrefix(851,24267
+function M.setfamily(869,24706
+function M.setfamily(setfamily869,24706
+function M.unsetfamily(885,25185
+function M.unsetfamily(unsetfamily885,25185
+function M.getfamily(899,25583
+function M.getfamily(getfamily899,25583
+function M.pushInheritFn(911,25921
+function M.pushInheritFn(pushInheritFn911,25921
+function M.popInheritFn(926,26507
+function M.popInheritFn(popInheritFn926,26507
+function M.hideHash(943,27043
+function M.hideHash(hideHash943,27043
+function M.getHash(957,27401
+function M.getHash(getHash957,27401
+function M.setHashSum(969,27729
+function M.setHashSum(setHashSum969,27729
+function M.getMTfromFile(1036,29934
+function M.getMTfromFile(getMTfromFile1036,29934
+function M.setMpathRefCountT(1239,36690
+function M.setMpathRefCountT(setMpathRefCountT1239,36690
+function M.hideMpathRefCountT(1242,36775
+function M.hideMpathRefCountT(hideMpathRefCountT1242,36775
+function M.resetMPATH2system(1246,36856
+function M.resetMPATH2system(resetMPATH2system1246,36856
 
 src/StandardPackage.lua,101
 local function site_name_hook(59,2453
@@ -1056,38 +1066,39 @@ function M._build_pkgBase(_build_pkgBase49,1913
 src/collectionFileA.lua,31
 function collectFileA(40,1743
 
-src/cmdfuncs.lua,882
+src/cmdfuncs.lua,911
 local function Access(76,3289
 local function findNamedCollections(102,4155
 function Avail(130,5128
-function CollectionLst(140,5414
-function GetDefault(178,6858
-function Help(192,7423
-function IsAvail(209,7808
-function IsLoaded(220,8024
-function Keyword(234,8404
-function List(269,9525
-local function l_usrLoad(411,13342
-function Load_Try(465,14740
-function Load_Usr(473,14950
-function Purge_Usr(481,15159
-function Purge(491,15421
-function Refresh(522,16289
-function Reset(535,16776
-function Restore(580,17946
-function Save(658,20246
-function SaveList(727,22080
-function SearchCmd(779,23453
-function Show(787,23798
-function SpiderCmd(815,24713
-function Swap(854,25903
-function TableList(899,27074
-function Disable(919,27671
-function Update(942,28270
-function Use(952,28627
-function UnUse(996,29825
-function UnLoad(1014,30353
-function Whatis(1022,30634
+function Overview(142,5460
+function CollectionLst(152,5752
+function GetDefault(190,7196
+function Help(204,7761
+function IsAvail(221,8146
+function IsLoaded(232,8362
+function Keyword(246,8742
+function List(281,9863
+local function l_usrLoad(423,13680
+function Load_Try(477,15078
+function Load_Usr(485,15288
+function Purge_Usr(493,15497
+function Purge(503,15759
+function Refresh(534,16627
+function Reset(547,17114
+function Restore(592,18284
+function Save(670,20584
+function SaveList(739,22418
+function SearchCmd(791,23791
+function Show(799,24136
+function SpiderCmd(827,25051
+function Swap(866,26241
+function TableList(911,27412
+function Disable(931,28009
+function Update(954,28608
+function Use(964,28965
+function UnUse(1017,30504
+function UnLoad(1035,31032
+function Whatis(1043,31313
 
 src/MN_Between.lua,174
 function M.steps(50,1930
@@ -1107,53 +1118,53 @@ function M.new(new68,2326
 function M.buildA(144,4578
 function M.buildA(buildA144,4578
 local function lazyEval(159,4887
-function M.valid(250,7624
-function M.valid(valid250,7624
-function M.userName(258,7728
-function M.userName(userName258,7728
-function M.sn(262,7785
-function M.sn(sn262,7785
-function M.fn(271,7942
-function M.fn(fn271,7942
-function M.version(280,8099
-function M.version(version280,8099
-function M.wV(287,8209
-function M.wV(wV287,8209
-function M.stackDepth(294,8309
-function M.stackDepth(stackDepth294,8309
-function M.setStackDepth(302,8492
-function M.setStackDepth(setStackDepth302,8492
-function M.setRefCount(306,8564
-function M.setRefCount(setRefCount306,8564
-function M.ref_count(310,8633
-function M.ref_count(ref_count310,8633
-function M.fullName(317,8747
-function M.fullName(fullName317,8747
-function M.find_exact_match(386,11469
-function M.find_exact_match(find_exact_match386,11469
-function M.find_exact_match_meta_module(421,12535
-function M.find_exact_match_meta_module(find_exact_match_meta_module421,12535
-local function find_highest_by_key(451,13450
-function M.find_highest(490,14630
-function M.find_highest(find_highest490,14630
-function M.find_latest(494,14720
-function M.find_latest(find_latest494,14720
-function M.find_between(498,14808
-function M.find_between(find_between498,14808
-function M.find_inherit_match(545,16170
-function M.find_inherit_match(find_inherit_match545,16170
-function M.isloaded(549,16245
-function M.isloaded(isloaded549,16245
-function M.isPending(573,16947
-function M.isPending(isPending573,16947
-function M.defaultKind(586,17296
-function M.defaultKind(defaultKind586,17296
-function M.prereq(601,17600
-function M.prereq(prereq601,17600
-function M.reset(638,18616
-function M.reset(reset638,18616
-function M.show(648,18910
-function M.show(show648,18910
+function M.valid(241,7400
+function M.valid(valid241,7400
+function M.userName(249,7504
+function M.userName(userName249,7504
+function M.sn(253,7561
+function M.sn(sn253,7561
+function M.fn(262,7718
+function M.fn(fn262,7718
+function M.version(271,7875
+function M.version(version271,7875
+function M.wV(278,7985
+function M.wV(wV278,7985
+function M.stackDepth(285,8085
+function M.stackDepth(stackDepth285,8085
+function M.setStackDepth(293,8268
+function M.setStackDepth(setStackDepth293,8268
+function M.setRefCount(297,8340
+function M.setRefCount(setRefCount297,8340
+function M.ref_count(301,8409
+function M.ref_count(ref_count301,8409
+function M.fullName(308,8523
+function M.fullName(fullName308,8523
+function M.find_exact_match(377,11246
+function M.find_exact_match(find_exact_match377,11246
+function M.find_exact_match_meta_module(412,12312
+function M.find_exact_match_meta_module(find_exact_match_meta_module412,12312
+local function find_highest_by_key(442,13227
+function M.find_highest(481,14407
+function M.find_highest(find_highest481,14407
+function M.find_latest(485,14497
+function M.find_latest(find_latest485,14497
+function M.find_between(489,14585
+function M.find_between(find_between489,14585
+function M.find_inherit_match(536,15947
+function M.find_inherit_match(find_inherit_match536,15947
+function M.isloaded(540,16022
+function M.isloaded(isloaded540,16022
+function M.isPending(564,16724
+function M.isPending(isPending564,16724
+function M.defaultKind(577,17073
+function M.defaultKind(defaultKind577,17073
+function M.prereq(592,17377
+function M.prereq(prereq592,17377
+function M.reset(629,18393
+function M.reset(reset629,18393
+function M.show(639,18687
+function M.show(show639,18687
 
 src/check_module_tree_syntax.in.lua,412
 function cmdDir(88,3125
@@ -1233,41 +1244,41 @@ local function mrc_run5_2(90,4085
 src/Var.lua,1293
 local function l_extract_Lmod_var_table(74,2963
 local function chkMP(107,3857
-local function l_extract(127,4771
-function M.new(194,6803
-function M.new(new194,6803
-function M.myName(210,7160
-function M.myName(myName210,7160
-local function l_remFunc(219,7515
-function M.remove(261,8853
-function M.remove(remove261,8853
-local function insertFunc(311,10569
-function M.prepend(354,11872
-function M.prepend(prepend354,11872
-function M.append(418,13832
-function M.append(append418,13832
-function M.set(472,15521
-function M.set(set472,15521
-function M.pop(486,15959
-function M.pop(pop486,15959
-function M.prt(536,17260
-function M.prt(prt536,17260
-function M.setRefCount(568,18236
-function M.setRefCount(setRefCount568,18236
-function M.refCountT(575,18375
-function M.refCountT(refCountT575,18375
-function M.unset(589,18680
-function M.unset(unset589,18680
-function M.expand(610,19341
-function M.expand(expand610,19341
-function M.setAlias(743,22675
-function M.setAlias(setAlias743,22675
-function M.unsetAlias(752,22923
-function M.unsetAlias(unsetAlias752,22923
-function M.setShellFunction(762,23241
-function M.setShellFunction(setShellFunction762,23241
-function M.unsetShellFunction(770,23520
-function M.unsetShellFunction(unsetShellFunction770,23520
+local function l_extract(132,4948
+function M.new(201,7108
+function M.new(new201,7108
+function M.myName(217,7465
+function M.myName(myName217,7465
+local function l_remFunc(226,7820
+function M.remove(268,9158
+function M.remove(remove268,9158
+local function insertFunc(319,10940
+function M.prepend(362,12243
+function M.prepend(prepend362,12243
+function M.append(424,14170
+function M.append(append424,14170
+function M.set(479,15969
+function M.set(set479,15969
+function M.pop(493,16407
+function M.pop(pop493,16407
+function M.prt(543,17708
+function M.prt(prt543,17708
+function M.setRefCount(575,18684
+function M.setRefCount(setRefCount575,18684
+function M.refCountT(582,18823
+function M.refCountT(refCountT582,18823
+function M.unset(596,19128
+function M.unset(unset596,19128
+function M.expand(617,19789
+function M.expand(expand617,19789
+function M.setAlias(750,23123
+function M.setAlias(setAlias750,23123
+function M.unsetAlias(759,23371
+function M.unsetAlias(unsetAlias759,23371
+function M.setShellFunction(769,23689
+function M.setShellFunction(setShellFunction769,23689
+function M.unsetShellFunction(777,23968
+function M.unsetShellFunction(unsetShellFunction777,23968
 
 src/Exec.lua,211
 local function new(49,2022
@@ -1275,8 +1286,8 @@ function M.exec(62,2312
 function M.exec(exec62,2312
 function M.register(74,2608
 function M.register(register74,2608
-function M.expand(89,2987
-function M.expand(expand89,2987
+function M.expand(89,2988
+function M.expand(expand89,2988
 
 src/Options.lua,158
 local function new(62,2686
@@ -1287,9 +1298,9 @@ function M.singleton(singleton90,3466
 
 src/ml_cmd.in.lua,109
 function cmdDir(92,3409
-local function quoteWrap(106,3717
-function usage(112,3886
-function main(123,4264
+local function quoteWrap(106,3718
+function usage(112,3887
+function main(123,4265
 
 src/utils.lua,1572
 function argsPack(68,2664
@@ -1535,9 +1546,6 @@ config.ld,41
 project 1,0
 topics 8,194
 format=9,288
-
-README.new,80
-   (8.4.1)  * Issue #460: Change meta modules from having a separate file=2,10
 
 tools/pairsByKeys.lua,29
 function pairsByKeys 18,714
@@ -1852,27 +1860,27 @@ function MF_Lmod.append_path(74,2873
 function MF_Lmod.append_path(append_path74,2873
 
 tools/ColumnTable.lua,848
-local function sizeMe(66,2589
-function M.new(84,3040
-function M.new(new84,3040
-function M._clearEmptyColumns2D(129,4166
-function M._clearEmptyColumns2D(_clearEmptyColumns2D129,4166
-function M._entry_width1(171,5123
-function M._entry_width1(_entry_width1171,5123
-function M._entry_width2(201,6018
-function M._entry_width2(_entry_width2201,6018
-function M._columnSum1(254,7695
-function M._columnSum1(_columnSum1254,7695
-function M._columnSum2(274,8356
-function M._columnSum2(_columnSum2274,8356
-function M._display1(315,9560
-function M._display1(_display1315,9560
-function M._display2(330,10058
-function M._display2(_display2330,10058
-function M._number_of_columns_rows(368,11073
-function M._number_of_columns_rows(_number_of_columns_rows368,11073
-function M.build_tbl(480,14657
-function M.build_tbl(build_tbl480,14657
+local function sizeMe(66,2587
+function M.new(84,3038
+function M.new(new84,3038
+function M._clearEmptyColumns2D(129,4164
+function M._clearEmptyColumns2D(_clearEmptyColumns2D129,4164
+function M._entry_width1(171,5121
+function M._entry_width1(_entry_width1171,5121
+function M._entry_width2(201,6016
+function M._entry_width2(_entry_width2201,6016
+function M._columnSum1(254,7693
+function M._columnSum1(_columnSum1254,7693
+function M._columnSum2(274,8354
+function M._columnSum2(_columnSum2274,8354
+function M._display1(315,9558
+function M._display1(_display1315,9558
+function M._display2(330,10056
+function M._display2(_display2330,10056
+function M._number_of_columns_rows(368,11071
+function M._number_of_columns_rows(_number_of_columns_rows368,11071
+function M.build_tbl(480,14655
+function M.build_tbl(build_tbl480,14655
 
 tools/inherits.lua,116
 function inheritsFrom(38,1646
@@ -2182,49 +2190,49 @@ echo:echo225,10666
 man_pages:man_pages233,10840
 $(DIRLIST)$(DIRLIST236,10953
 __installMe:__installMe239,10980
-generate_doc:generate_doc315,16621
-shell_init:shell_init318,16644
-lmodrc_init:lmodrc_init321,16734
-messageFns:messageFns324,16826
-i18n:i18n327,16915
-startup:startup330,16994
-other_tools:other_tools333,17078
-spiderCacheSupport:spiderCacheSupport336,17192
-src/computeHashSum:src/computeHashSum342,17543
-tcl2lua:tcl2lua346,17668
-           $(MAKE) -C $(srcdir)/pkgs/tcl2lua  LUA_INC=$(MAKE) -C $(srcdir)/pkgs/tcl2lua  LUA_INC348,17747
-                LIB=350,17894
-                SHARE=351,17971
-lfs:lfs355,18137
-           $(MAKE) -C $(srcdir)/pkgs/luafilesystem  LUA_INC=$(MAKE) -C $(srcdir)/pkgs/luafilesystem  LUA_INC357,18212
-                LIB=358,18289
-pkgs:pkgs361,18454
-           $(MAKE) -C $(srcdir)/pkgs LUA_INC=$(MAKE) -C $(srcdir)/pkgs LUA_INC363,18530
-               LIB=364,18607
-zsh_tab_funcs:zsh_tab_funcs368,18773
-ksh_funcs:ksh_funcs382,19600
-fish_tab_funcs:fish_tab_funcs385,19695
-makefile:makefile388,19767
-config.status:config.status391,19836
-trailing_blanks_removed:trailing_blanks_removed394,19879
-dist:dist397,20024
-ml_dist:ml_dist417,21440
-_ml_dist:_ml_dist420,21479
-test:test429,21925
-tags:tags432,21963
-build_tags:build_tags435,22000
-busted:busted496,25451
-luachk:luachk503,25758
-libexec:libexec507,25917
-Inst_Tools:Inst_Tools510,26003
-Inst_Shells:Inst_Shells513,26089
-Inst_Settarg:Inst_Settarg516,26188
-Inst_Lmod_MF:Inst_Lmod_MF520,26285
-clean:clean523,26381
-clobber:clobber529,26625
-distclean:distclean531,26641
-world_update:world_update534,26691
-gittag:gittag562,28797
+generate_doc:generate_doc316,16698
+shell_init:shell_init319,16721
+lmodrc_init:lmodrc_init322,16811
+messageFns:messageFns325,16903
+i18n:i18n328,16992
+startup:startup331,17071
+other_tools:other_tools334,17155
+spiderCacheSupport:spiderCacheSupport337,17269
+src/computeHashSum:src/computeHashSum343,17620
+tcl2lua:tcl2lua347,17745
+           $(MAKE) -C $(srcdir)/pkgs/tcl2lua  LUA_INC=$(MAKE) -C $(srcdir)/pkgs/tcl2lua  LUA_INC349,17824
+                LIB=351,17971
+                SHARE=352,18048
+lfs:lfs356,18214
+           $(MAKE) -C $(srcdir)/pkgs/luafilesystem  LUA_INC=$(MAKE) -C $(srcdir)/pkgs/luafilesystem  LUA_INC358,18289
+                LIB=359,18366
+pkgs:pkgs362,18531
+           $(MAKE) -C $(srcdir)/pkgs LUA_INC=$(MAKE) -C $(srcdir)/pkgs LUA_INC364,18607
+               LIB=365,18684
+zsh_tab_funcs:zsh_tab_funcs369,18850
+ksh_funcs:ksh_funcs383,19677
+fish_tab_funcs:fish_tab_funcs386,19772
+makefile:makefile389,19844
+config.status:config.status392,19913
+trailing_blanks_removed:trailing_blanks_removed395,19956
+dist:dist398,20101
+ml_dist:ml_dist418,21517
+_ml_dist:_ml_dist421,21556
+test:test430,22002
+tags:tags433,22040
+build_tags:build_tags436,22077
+busted:busted497,25528
+luachk:luachk504,25835
+libexec:libexec508,25994
+Inst_Tools:Inst_Tools511,26080
+Inst_Shells:Inst_Shells514,26166
+Inst_Settarg:Inst_Settarg517,26265
+Inst_Lmod_MF:Inst_Lmod_MF521,26362
+clean:clean524,26458
+clobber:clobber530,26702
+distclean:distclean532,26718
+world_update:world_update535,26768
+gittag:gittag563,28874
 
 .luacheckrc,290
 std 1,0
@@ -2293,8 +2301,8 @@ with no prompt command, no changing the title bar,9,184
 
 cookbook/Generic_Module_files.txt,91
 function is 52,2199
-  function loadPkgDefaults(124,5176
-   function setPkgInfo(211,7750
+  function loadPkgDefaults(124,5172
+   function setPkgInfo(211,7746
 
 cookbook/inherit.txt,104
 I now think I understand the question.  Suppose a user has their own version of a parallel library 5,4
@@ -2306,12 +2314,12 @@ function main(16,419
 proj_mgmt/ignore_dirs_converter,252
 function string:trim(41,1850
 function string:trim(trim41,1850
-function string:split(53,2176
-function string:split(split53,2176
-   local function getter(56,2275
-   local function splitter(60,2435
-function wrapper(70,2668
-function main(76,2863
+function string:split(53,2177
+function string:split(split53,2177
+   local function getter(56,2276
+   local function splitter(60,2436
+function wrapper(70,2669
+function main(76,2864
 
 proj_mgmt/joinBase64Results,337
 function argsPack(64,2447
@@ -2491,27 +2499,24 @@ static void set_info(1142,25987
 static const struct luaL_Reg fslib[fslib1156,26482
 LFS_EXPORT int luaopen_lfs(1173,26923
 
-pkgs/tcl2lua/Makefile,372
+pkgs/tcl2lua/Makefile,330
 SONAME 1,0
 SONAMEV 2,23
 LIBRARY 3,47
 SRC 4,74
 OBJ 5,96
 OS 6,137
-  DIR 10,189
-  DIR 11,236
-  LIB_OPTION 12,271
-  DIR 14,339
-  LIB_OPTION 15,370
-override CFLAGS override CFLAGS17,434
-all:all19,513
-$(SONAMEV)$(SONAMEV21,552
-$(SONAME)$(SONAME24,586
-$(LIBRARY)$(LIBRARY27,619
-install:install30,726
-clean:clean33,760
-neat:neat35,811
-echo:echo38,832
+  LIB_OPTION 10,189
+  LIB_OPTION 12,257
+override CFLAGS override CFLAGS14,321
+all:all16,405
+$(SONAMEV)$(SONAMEV18,444
+$(SONAME)$(SONAME21,478
+$(LIBRARY)$(LIBRARY24,511
+install:install27,618
+clean:clean30,652
+neat:neat32,703
+echo:echo35,724
 
 pkgs/tcl2lua/tcl2lua.c,258
 #define MYNAME 8,134
@@ -2625,9 +2630,9 @@ spec/DirTree/DirTree_spec.lua,178
 spec/LocationT/LocationT_spec.lua,176
          function()(18,485
                function()(20,551
-               function()(120,5726
-               function()(178,8674
-               function()(240,11943
+               function()(121,5801
+               function()(179,8749
+               function()(241,12018
 
 spec/MT/MT_spec.lua,64
          function()(14,326
@@ -2685,25 +2690,28 @@ class CreateConf(55,1979
 def main(89,2962
 
 contrib/tracking_module_usage/LMODdb.py,372
-def __LINE__(16,425
-def __FILE__(22,545
-def convertToInt(27,692
-class LMODdb(39,927
-  def __init__(49,1158
-  def __readFromUser(58,1403
-  def __readConfig(66,1688
-  def connect(81,2311
-  def db(116,3237
-  def dump_db(121,3305
-  def data_to_db(186,5254
-  def counts(301,8764
-  def numtimes(362,10593
-  def usernames(404,11795
-  def modules_used_by(449,13068
+def __LINE__(16,436
+def __FILE__(22,556
+def convertToInt(27,703
+class LMODdb(39,938
+  def __init__(49,1169
+  def __readFromUser(58,1414
+  def __readConfig(66,1699
+  def connect(81,2322
+  def db(116,3248
+  def dump_db(121,3316
+  def data_to_db(186,5265
+  def counts(315,9445
+  def numtimes(376,11275
+  def usernames(418,12478
+  def modules_used_by(463,13752
 
-contrib/tracking_module_usage/store_module_data,36
-def syshost(7,129
-def main(14,242
+contrib/tracking_module_usage/store_module_data,120
+import os,19,645
+import os, sys,19,645
+import os, sys, re,19,645
+import os, sys, re, time,19,645
+    parser 31,922
 
 contrib/tracking_module_usage/write_usage_to_influx,51
 function saveRecords(11,195
@@ -2727,12 +2735,12 @@ import os, sys, re, time,19,645
 import os, sys, re, time, datetime,19,645
     parser 32,974
 
-contrib/tracking_module_usage/createDB.py,115
-def dbConfigFn(13,265
-class CmdLineOptions(20,394
-  def __init__(23,462
-  def execute(27,517
-def main(37,1028
+contrib/tracking_module_usage/createDB.py,117
+def dbConfigFn(27,832
+class CmdLineOptions(34,961
+  def __init__(37,1029
+  def execute(41,1084
+def main(51,1595
 
 contrib/tracking_module_usage/SitePackage.lua,59
 function load_hook(47,2050
@@ -2856,7 +2864,7 @@ a=90,2072
 
 contrib/TACC/rpm,28
 writeTS(12,241
-arg=34,796
+arg=34,797
 
 contrib/TACC/checkModuleSyntax,68
 usage(6,87
@@ -2870,12 +2878,12 @@ force=19,583
 readTS(45,1141
 getModifyTime(55,1355
 buildNewDB(68,1584
-    LmodVersion=119,2783
-      export LMOD_DIR=121,2927
-RmapDir=127,2983
-    MPATH=142,3428
-  XSEDE_dir=153,3852
-  timeStamp=157,3950
+    LmodVersion=119,2784
+      export LMOD_DIR=121,2928
+RmapDir=127,2984
+    MPATH=142,3429
+  XSEDE_dir=153,3853
+  timeStamp=157,3951
 
 contrib/TACC/SitePackage.lua,179
 local function load_hook(57,2300
@@ -3084,579 +3092,579 @@ version	33,1433
 BUILD_STRATEGY		?=BUILD_STRATEGY		?48,2063
 export LC_ALL		?=export LC_ALL		?52,2228
 neverclean		?=neverclean		?86,3062
-CAT		?=CAT		?669,31015
-CP		?=CP		?670,31027
-DIFF		?=DIFF		?671,31040
-ECHO		?=ECHO		?672,31054
-EGREP		?=EGREP		?673,31068
-ENV		?=ENV		?674,31084
-EXPR		?=EXPR		?675,31096
-MV		?=MV		?676,31110
-SED		?=SED		?677,31123
-SORT		?=SORT		?678,31135
-TOUCH		?=TOUCH		?679,31149
-UNIQ		?=UNIQ		?680,31165
-WHICH		?=WHICH		?681,31179
-XARGS		?=XARGS		?682,31195
-SLEEP		?=SLEEP		?683,31211
-BIBTEX		?=BIBTEX		?685,31258
-DVIPS		?=DVIPS		?686,31276
-LATEX		?=LATEX		?687,31292
-PDFLATEX	?=PDFLATEX	?688,31308
-XELATEX		?=XELATEX		?689,31329
-EPSTOPDF	?=EPSTOPDF	?690,31349
-MAKEINDEX	?=MAKEINDEX	?691,31370
-XINDY		?=XINDY		?692,31393
-KPSEWHICH	?=KPSEWHICH	?693,31409
-GS		?=GS		?694,31432
-CYGPATH		?=CYGPATH		?697,31520
-TPUT		?=TPUT		?699,31570
-PERL		?=PERL		?701,31607
-PYTHON		?=PYTHON		?702,31621
-RST2LATEX	?=RST2LATEX	?703,31639
-CONVERT		?=CONVERT		?705,31688
-DOT		?=DOT		?706,31722
-DOT2TEX		?=DOT2TEX		?707,31746
-FIG2DEV		?=FIG2DEV		?708,31809
-GNUPLOT		?=GNUPLOT		?709,31836
-INKSCAPE	?=INKSCAPE	?710,31866
-XMGRACE		?=XMGRACE		?711,31912
-PNGTOPNM	?=PNGTOPNM	?712,31942
-PPMTOPGM	?=PPMTOPGM	?713,32001
-PNMTOPS		?=PNMTOPS		?714,32067
-GUNZIP		?=GUNZIP		?715,32125
-PSNUP		?=PSNUP		?717,32188
-VIEW_POSTSCRIPT	?=VIEW_POSTSCRIPT	?719,32226
-VIEW_PDF	?=VIEW_PDF	?720,32248
-VIEW_GRAPHICS	?=VIEW_GRAPHICS	?721,32265
-XINDYLANG	?=XINDYLANG	?724,32310
-XINDYENC	?=XINDYENC	?725,32331
-USE_CYGPATH 729,32490
-PS_EMBED_OPTIONS	?=PS_EMBED_OPTIONS	?741,32807
-PS_COMPATIBILITY	?=PS_COMPATIBILITY	?742,32909
-KEEP_TEMP	?=KEEP_TEMP	?745,33014
-DEFAULT_GPI_EPS_FONTSIZE	?=DEFAULT_GPI_EPS_FONTSIZE	?748,33047
-DEFAULT_GPI_PDF_FONTSIZE	?=DEFAULT_GPI_PDF_FONTSIZE	?749,33078
-RST_STYLE_FILE			?=RST_STYLE_FILE			?752,33132
-FIXED_ECHO	756,33314
-ECHO	757,33399
-GNUPLOT_OUTPUT_EXTENSION	?=GNUPLOT_OUTPUT_EXTENSION	?766,33666
-GPI_OUTPUT_EXTENSION 771,33925
-GPI_FSIZE_SYNTAX 776,34180
-    $(findstring fsize:$(findstring fsize780,34268
-BINARY_TARGET_DIR	?=BINARY_TARGET_DIR	?798,34819
-RESTARTS	800,34847
-GRAY	?=GRAY	?854,36736
-remove-files-helper	862,36915
-remove-files	865,37002
-clean-files	870,37228
-remove-temporary-files	899,38203
-cleanse-filename	903,38346
-escape-fname-regex	907,38443
-test-exists	911,38551
-move-if-exists	914,38619
-copy-if-different	918,38792
-copy-if-exists	919,38860
-move-if-different	920,38920
-replace-if-different-and-remove	921,38988
-test-different	928,39214
-test-exists-and-different	929,39271
-get-default	934,39475
-space	962,40278
-colon	963,40306
-comma	964,40319
-sh_true	967,40359
-sh_false	968,40373
-.SUFFIXES:.SUFFIXES971,40441
-RM	975,40522
-QUIET	980,40599
-SHELL	+=SHELL	+986,40736
-this_file	992,40922
-this_file	994,40991
-REAL_TPUT 999,41083
-get-term-code 1004,41216
-black	1006,41278
-red	1007,41317
-green	1008,41354
-yellow	1009,41393
-blue	1010,41433
-magenta	1011,41471
-cyan	1012,41512
-white	1013,41550
-bold	1014,41589
-uline	1015,41624
-reset	1016,41660
-LATEX_COLOR_WARNING	?=LATEX_COLOR_WARNING	?1021,41729
-LATEX_COLOR_ERROR	?=LATEX_COLOR_ERROR	?1022,41760
-LATEX_COLOR_INFO	?=LATEX_COLOR_INFO	?1023,41785
-LATEX_COLOR_UNDERFULL	?=LATEX_COLOR_UNDERFULL	?1024,41811
-LATEX_COLOR_OVERFULL	?=LATEX_COLOR_OVERFULL	?1025,41844
-LATEX_COLOR_PAGES	?=LATEX_COLOR_PAGES	?1026,41877
-LATEX_COLOR_BUILD	?=LATEX_COLOR_BUILD	?1027,41903
-LATEX_COLOR_GRAPHIC	?=LATEX_COLOR_GRAPHIC	?1028,41929
-LATEX_COLOR_DEP		?=LATEX_COLOR_DEP		?1029,41959
-LATEX_COLOR_SUCCESS	?=LATEX_COLOR_SUCCESS	?1030,41985
-LATEX_COLOR_FAILURE	?=LATEX_COLOR_FAILURE	?1031,42019
-get-color	1036,42198
-C_WARNING	1041,42289
-C_ERROR	1042,42328
-C_INFO	1043,42364
-C_UNDERFULL	1044,42398
-C_OVERFULL	1045,42441
-C_PAGES	1046,42482
-C_BUILD	1047,42518
-C_GRAPHIC	1048,42554
-C_DEP	1049,42593
-C_SUCCESS	1050,42625
-C_FAILURE	1051,42664
-C_RESET	1052,42703
-hascleangoals	1060,42866
-hasbuildgoals	1061,42939
-GNUPLOT_SED	1073,43267
-GNUPLOT_GLOBAL	1074,43309
-default_graphic_extension	?=default_graphic_extension	?1077,43406
-latex_build_program		?=latex_build_program		?1078,43439
-build_target_extension		?=build_target_extension		?1079,43472
-hyperref_driver_pattern		?=hyperref_driver_pattern		?1080,43503
-hyperref_driver_error		?=hyperref_driver_error		?1081,43538
-default_graphic_extension	?=default_graphic_extension	?1085,43669
-latex_build_program		?=latex_build_program		?1086,43702
-build_target_extension		?=build_target_extension		?1087,43738
-hyperref_driver_pattern		?=hyperref_driver_pattern		?1088,43769
-hyperref_driver_error		?=hyperref_driver_error		?1089,43804
-default_graphic_extension	?=default_graphic_extension	?1093,43957
-latex_build_program		?=latex_build_program		?1094,43990
-build_target_extension		?=build_target_extension		?1095,44025
-hyperref_driver_pattern		?=hyperref_driver_pattern		?1096,44056
-hyperref_driver_error		?=hyperref_driver_error		?1097,44094
-all_files.tex		?=all_files.tex		?1101,44223
-all_files.tex.sh	?=all_files.tex.sh	?1102,44259
-all_files.tex.pl	?=all_files.tex.pl	?1103,44300
-all_files.tex.py	?=all_files.tex.py	?1104,44341
-all_files.rst		?=all_files.rst		?1105,44382
-all_files.fig		?=all_files.fig		?1106,44418
-all_files.gpi		?=all_files.gpi		?1107,44454
-all_files.dot		?=all_files.dot		?1108,44490
-all_files.xvg		?=all_files.xvg		?1109,44526
-all_files.svg		?=all_files.svg		?1110,44562
-all_files.png		?=all_files.png		?1111,44598
-all_files.jpg		?=all_files.jpg		?1112,44634
-all_files.jpeg		?=all_files.jpeg		?1113,44670
-all_files.eps.gz	?=all_files.eps.gz	?1114,44708
-all_files.eps		?=all_files.eps		?1115,44749
-cleanable-files 1120,44977
-ignore_files 1125,45204
-ignore_patterns	1130,45365
-nodefault_patterns 1133,45467
-filter-buildable	1137,45612
-filter-default	1143,45826
-files.tex	1148,46017
-files.tex.sh	1149,46059
-files.tex.pl	1150,46107
-files.tex.py	1151,46155
-files.rst	1152,46203
-files.gpi	1153,46245
-files.dot	1154,46287
-files.fig	1155,46329
-files.xvg	1156,46371
-files.svg	1157,46413
-files.png	1158,46455
-files.jpg	1159,46497
-files.jpeg	1160,46539
-files.eps.gz	1161,46583
-files.eps	1162,46631
-.SECONDARY:.SECONDARY1169,46998
-default_files.tex	1172,47104
-default_files.tex.sh	1173,47152
-default_files.tex.pl	1174,47206
-default_files.tex.py	1175,47260
-default_files.rst	1176,47314
-default_files.gpi	1177,47362
-default_files.dot	1178,47410
-default_files.fig	1179,47458
-default_files.xvg	1180,47506
-default_files.svg	1181,47554
-default_files.png	1182,47602
-default_files.jpg	1183,47650
-default_files.jpeg	1184,47698
-default_files.eps.gz	1185,47748
-default_files.eps	1186,47802
-concat-files	1190,47946
-all_files_source	1193,48027
-all_files_scripts	1194,48076
-.PHONY:.PHONY1196,48148
-default_files_source	1198,48178
-default_files_scripts	1199,48235
-files_source	1201,48315
-files_scripts	1202,48356
-get-stems	1206,48495
-all_stems.tex	1209,48617
-all_stems.tex.sh	1210,48661
-all_stems.tex.pl	1211,48710
-all_stems.tex.py	1212,48759
-all_stems.rst	1213,48808
-all_stems.fig	1214,48852
-all_stems.gpi	1215,48896
-all_stems.dot	1216,48940
-all_stems.xvg	1217,48984
-all_stems.svg	1218,49028
-all_stems.png	1219,49072
-all_stems.jpg	1220,49116
-all_stems.jpeg	1221,49160
-all_stems.eps.gz	1222,49206
-all_stems.eps	1223,49255
-default_stems.tex	1226,49355
-default_stems.tex.sh	1227,49407
-default_stems.tex.pl	1228,49465
-default_stems.tex.py	1229,49523
-default_stems.rst	1230,49581
-default_stems.fig	1231,49633
-default_stems.gpi	1232,49685
-default_stems.dot	1233,49737
-default_stems.xvg	1234,49789
-default_stems.svg	1235,49841
-default_stems.png	1236,49893
-default_stems.jpg	1237,49945
-default_stems.jpeg	1238,49997
-default_stems.eps.gz	1239,50051
-default_stems.eps	1240,50109
-stems.tex	1243,50228
-stems.tex.sh	1244,50264
-stems.tex.pl	1245,50306
-stems.tex.py	1246,50348
-stems.rst	1247,50390
-stems.fig	1248,50426
-stems.gpi	1249,50462
-stems.dot	1250,50498
-stems.xvg	1251,50534
-stems.svg	1252,50570
-stems.png	1253,50606
-stems.jpg	1254,50642
-stems.jpeg	1255,50678
-stems.eps.gz	1256,50716
-stems.eps	1257,50758
-concat-stems	1261,50890
-graphic_source_extensions	1264,51020
-graphic_source_extensions	+=graphic_source_extensions	+1272,51164
-graphic_target_extensions	1273,51206
-graphic_source_extensions	+=graphic_source_extensions	+1277,51294
-graphic_target_extensions	1278,51327
-graphic_source_extensions	+=graphic_source_extensions	+1282,51432
-graphic_target_extensions	1283,51465
-all_stems_source	1286,51526
-all_stems_script	1287,51575
-all_stems_graphic	1288,51645
-all_stems_ss	1289,51720
-all_stems_sg	1290,51785
-all_stems_ssg	1291,51830
-default_stems_source	1293,51873
-default_stems_script	1294,51930
-default_stems_ss	1295,52008
-default_stems_sg	1296,52084
-default_stems_ssg	1297,52136
-stems_source	1299,52186
-stems_script	1300,52228
-stems_graphic	1301,52291
-stems_gg	1302,52359
-stems_ss	1303,52397
-stems_sg	1304,52450
-stems_ssg	1305,52487
-allowed_source_suffixes	1310,52699
-allowed_source_patterns	1323,52828
-allowed_graphic_suffixes	1325,52900
-allowed_graphic_patterns	1330,52967
-allowed_source_targets	1333,53081
-allowed_graphic_targets	1338,53232
-allowed_batch_source_targets	1343,53401
-allowed_batch_graphic_targets	1355,53594
-real_goals	1362,53765
-specified_source_targets	1365,53849
-specified_batch_source_targets	1369,53957
-specified_graphic_targets	1373,54064
-specified_batch_graphic_targets	1377,54161
-specified_gpi_targets	1381,54270
-source_stems_to_include	1391,54843
-graphic_stems_to_include	1404,55286
-all_pdf_targets	1415,55569
-all_ps_targets	1416,55620
-all_dvi_targets	1417,55669
-all_tex_targets	1418,55720
-all_d_targets	1419,55770
-all_graphics_targets	1420,55817
-all_pstex_targets	1421,55896
-all_dot2tex_targets	1422,55952
-all_known_graphics	1424,56009
-default_pdf_targets	1426,56107
-default_ps_targets	1429,56211
-default_dvi_targets	1430,56270
-pre_pdf_extensions	1431,56331
-rm_ext	1435,56444
-backup_patterns	1438,56609
-graph_stem	1440,56665
-rm_tex 1444,56743
-gpi_sed	1456,57351
-gpi_global	1458,57431
--e 's/[[:-e 's/[[1474,57882
--e ':-e '1482,58100
--e 's!.*!$2:-e 's!.*!$21483,58119
--e '/^:-e '/^1504,58469
--e '  s//:-e '  s//1505,58497
--e '/^:-e '/^1510,58559
--e '  s//:-e '  s//1511,58576
--e ':-e '1515,58630
--e 's/^/:-e 's/^/1516,58650
--e ':-e '1520,58695
--e 's/^/:-e 's/^/1521,58715
--e ':-e '1525,58761
--e 's/^/:-e 's/^/1526,58783
--e ':-e '1530,58830
--e '/^! LaTeX Error:-e '/^! LaTeX Error1531,58844
--e '/^:-e '/^1534,58909
--e '  /Default extension:-e '  /Default extension1536,58948
--e '  s/[[:-e '  s/[[1538,59035
--e '  s/[[:-e '  s/[[1540,59088
--e '  s!^.*!$2:-e '  s!^.*!$21546,59239
--e '/^File:-e '/^File1598,61235
--e '/^:-e '/^1616,61522
--e '  s//:-e '  s//1617,61550
--e '/^:-e '/^1622,61612
--e '  s//:-e '  s//1623,61629
--e ':-e '1627,61683
--e 's/^/:-e 's/^/1628,61703
--e ':-e '1632,61748
--e 's/^/:-e 's/^/1633,61768
--e ':-e '1637,61814
--e 's/^/:-e 's/^/1638,61836
--e ':-e '1642,61883
--e '/^[^[:-e '/^[^[1643,61897
--e '/^:-e '/^1647,62011
--e '    s/^:-e '    s/^1649,62070
--e '  s/[[:-e '  s/[[1653,62152
--e '  s/'"'"' not found\..*extensions:-e '  s/'"'"' not found\..*extensions1655,62208
--e '  s/\(.*\)-e '  s/\(.*\1657,62289
--e '  s/:-e '  s/1660,62434
--e ':-e '1664,62494
--e 's/[[:-e 's/[[1665,62513
--e 's!.*!$1.d:-e 's!.*!$1.d1670,62601
--e 's!.*!$1.$(build_target_extension) $1._graphics:-e 's!.*!$1.$(build_target_extension) $1._graphics1674,62681
-if $(EGREP) -q '^! LaTeX Error:if $(EGREP) -q '^! LaTeX Error1684,62934
-if $(EGREP) -q ' LaTeX Error:if $(EGREP) -q ' LaTeX Error1708,63730
--e 's/^No file \(.*\.ind\)\.$$/TARGETS=-e 's/^No file \(.*\.ind\)\.$$/TARGETS1736,64687
--e 's/^No file \(.*\.[gn]ls\)\.$$/TARGETS=-e 's/^No file \(.*\.[gn]ls\)\.$$/TARGETS1737,64733
--e 's/[[:-e 's/[[1738,64782
--e '/^TARGETS=-e '/^TARGETS1739,64809
--e '  s!^TARGETS=-e '  s!^TARGETS1741,64840
--e '  s!^TARGETS=-e '  s!^TARGETS1743,64879
--e 's/[[:-e 's/[[1770,65858
--e 's!^!$2:-e 's!^!$21775,65975
-$(ECHO) '# vim:$(ECHO) '# vim1798,66503
-$(ECHO) 'INCLUDED_$(call cleanse-filename,$2)$(ECHO) 'INCLUDED_$(call cleanse-filename,$21800,66599
-$(call get-gpi-deps,$1,$(addprefix $(2:$(call get-gpi-deps,$1,$(addprefix $(21801,66660
--e '/^[[:-e '/^[[1819,67446
--e '  s/^[[:-e '  s/^[[1825,67574
--e '  s/[[:-e '  s/[[1826,67652
--e '  s/.*:-e '  s/.*1829,67860
--e '  s!.*!$2:-e '  s!.*!$21830,67936
--e 's/^[[:-e 's/^[[1835,67997
--e '/^:-e '/^1869,68949
--e '  s//:-e '  s//1870,68977
--e '/^:-e '/^1875,69039
--e '  s//:-e '  s//1876,69056
--e ':-e '1880,69110
--e 's/^/:-e 's/^/1881,69130
--e ':-e '1885,69175
--e 's/^/:-e 's/^/1886,69195
--e ':-e '1890,69241
--e 's/^/:-e 's/^/1891,69263
--e ':-e '1895,69310
--e '/^! LaTeX Error:-e '/^! LaTeX Error1896,69324
--e 's/^[^[:-e 's/^[^[1900,69405
--e 's/^\(.*\n\)\([^[:-e 's/^\(.*\n\)\([^[1901,69456
--e '/^!!! .* LaTeX Error:-e '/^!!! .* LaTeX Error1902,69525
--e '/^:-e '/^1906,69611
--e '    s/^:-e '    s/^1908,69669
--e '  s/^:-e '  s/^1911,69727
--e '  s/^\(.*not found.\).*Enter file name:-e '  s/^\(.*not found.\).*Enter file name1912,69749
--e '/^:-e '/^1915,69875
--e '    s/^:-e '    s/^1917,69937
--e '  s/:-e '  s/1920,69995
--e '  /could not locate.*any of these extensions:-e '  /could not locate.*any of these extensions1921,70018
--e '/^\(.* LaTeX Error:-e '/^\(.* LaTeX Error1927,70156
--e '/.*\(!!! .*Undefined control sequence\)[^[:-e '/.*\(!!! .*Undefined control sequence\)[^[1931,70303
--e '  s//\1:-e '  s//\11932,70371
--e '  s/\nl\.[[:-e '  s/\nl\.[[1933,70391
--e '/^\(!pdfTeX error:-e '/^\(!pdfTeX error1936,70485
--e '  s/[[:-e '  s/[[1941,70584
--e '  s/[[:-e '  s/[[1942,70609
--e ':-e '1946,70671
--e 's/^xindy:-e 's/^xindy1969,71085
--e '/^Error:-e '/^Error1979,71265
--e '  /^Execution stack:-e '  /^Execution stack1980,71303
--e '/, line [0-9]*:-e '/, line [0-9]*1993,71524
--e '/, line [0-9]*:-e '/, line [0-9]*1999,71624
--e '/^Error:-e '/^Error2028,72277
--e 's/^Warning:-e 's/^Warning2029,72333
--e     's![.:-e     's![.2042,72657
--e     's!.*!\\:-e     's!.*!\\2044,72694
-color_tex 2085,73738
--e '    s/[[:-e '    s/[[2102,74048
--e '  / *LaTeX Error:-e '  / *LaTeX Error2107,74233
--e '    s/.*\( *LaTeX Error:-e '    s/.*\( *LaTeX Error2108,74262
--e '  /.*Warning:-e '  /.*Warning2111,74350
--e ' -e '2124,74672
-color_bib 2129,74731
--e '/---/,/^.[^:-e '/---/,/^.[^2133,74811
--e '  /^.[^:-e '  /^.[^2135,74845
-enlarge_beamer	2150,75167
-test-run-again	2153,75263
-| $(EGREP) -q '^(.*Rerun .*|No file $1\.[^.]+\.|No file .+\.tex\.|LaTeX Warning:| $(EGREP) -q '^(.*Rerun .*|No file $1\.[^.]+\.|No file .+\.tex\.|LaTeX Warning2162,75591
-run-latex	2168,75760
-latex-color-log	2171,75903
-success=2175,76028
-[ "$$success" [ "$$success"2182,76218
-success=2188,76347
-if ! $(XINDY) -q -o $2 -L $(XINDYLANG) -C $(XINDYENC) -I xindy -M $3 -t $4 $1 > /dev/null || $(EGREP) -q '^xindy:if ! $(XINDY) -q -o $2 -L $(XINDYLANG) -C $(XINDYENC) -I xindy -M $3 -t $4 $1 > /dev/null || $(EGREP) -q '^xindy2189,76360
-[ "$$success" [ "$$success"2194,76561
-[ ! -e '$2.cookie' ] && $(ECHO) "restarts=[ ! -e '$2.cookie' ] && $(ECHO) "restarts2203,76857
-restarts=2204,76972
-level=2205,77027
-if $(EXPR) $(MAKELEVEL) '<=if $(EXPR) $(MAKELEVEL) '<2206,77076
-run-bibtex	2217,77397
-$(EPSTOPDF) '$1.cookie' --outfile=$(EPSTOPDF) '$1.cookie' --outfile2224,77705
-default-gpi-fontsize 2232,77943
-$(strip $(if $2,monochrome,$(if $(shell $(EGREP) '^\#\#[[:$(strip $(if $2,monochrome,$(if $(shell $(EGREP) '^\#\#[[2248,78537
-gpi-font-entry 2255,78862
-fnames=2289,79841
-success=2294,79964
-[ "$$success" [ "$$success"2307,80336
-$(CONVERT) $(if $3,-type Grayscale,) '$1' eps2:$(CONVERT) $(if $3,-type Grayscale,) '$1' eps22334,81070
-convert-fig	2339,81224
-convert-fig-pstex	2343,81400
-convert-fig-pstex-t	2347,81578
-convert-dot-tex	2351,81745
-convert-svg	2356,81882
-convert-xvg	2361,82074
-convert-epsgz	2366,82263
-convert-eps	2371,82470
-gray_eps_file	2374,82600
-make-ps	2497,86948
-make-pdf	2503,87189
-echo-build	2508,87380
-echo-graphic	2509,87452
-echo-dep	2510,87513
-echo-list	2514,87626
-.PHONY:.PHONY2520,87697
-all:all2521,87709
-.PHONY:.PHONY2523,87740
-all-pdf:all-pdf2524,87756
-.PHONY:.PHONY2527,87833
-all-ps:all-ps2528,87848
-.PHONY:.PHONY2530,87881
-all-dvi:all-dvi2531,87897
-.PHONY:.PHONY2537,87959
-show:show2538,87972
-source_includes	2546,88089
-graphic_includes 2547,88151
-.PHONY:.PHONY2575,89162
-$(default_stems_ss)$(default_stems_ss2576,89190
-.PHONY:.PHONY2579,89267
-$(addsuffix ._show,$(stems_ssg)$(addsuffix ._show,$(stems_ssg2580,89308
-.SECONDARY:.SECONDARY2584,89426
-%.pdf:%.pdf2585,89457
-.SECONDARY:.SECONDARY2600,89883
-%.ps:%.ps2601,89913
-.SECONDARY:.SECONDARY2660,91834
-%.$(build_target_extension)%.$(build_target_extension2662,91871
-%.bbl:%.bbl2726,93989
-%.ind:%.ind2753,95068
-%.gls:%.gls2758,95202
-%.gls:%.gls2763,95380
-%.gls:%.gls2768,95535
-%.nls:%.nls2773,95688
-.SECONDARY:.SECONDARY2780,95901
-%.tex:%.tex2782,95933
-%.tex:%.tex2785,95994
-%.tex:%.tex2788,96056
-%.tex:%.tex2791,96116
-.PHONY:.PHONY2800,96314
-all-graphics:all-graphics2801,96335
-.PHONY:.PHONY2804,96417
-all-pstex:all-pstex2805,96435
-.PHONY:.PHONY2808,96475
-all-dot2tex:all-dot2tex2809,96495
-.PHONY:.PHONY2811,96533
-show-graphics:show-graphics2812,96555
-$(gray_eps_file)$(gray_eps_file2815,96624
-%.pdf:%.pdf2820,96763
-%.pdf:%.pdf2825,96940
-%.pdf:%.pdf2830,97072
-%.pdf:%.pdf2834,97165
-%.pdf:%.pdf2840,97308
-%.pdf:%.pdf2845,97485
-%.pdf:%.pdf2850,97617
-%.eps:%.eps2857,97718
-%.eps:%.eps2861,97844
-%.eps:%.eps2865,97937
-%.eps:%.eps2869,98068
-%.eps:%.eps2876,98384
-%.eps:%.eps2882,98592
-%.eps:%.eps2886,98716
-%.eps:%.eps2890,98841
-%.eps:%.eps2895,98971
-%.pstex:%.pstex2899,99100
-%.pstex_t:%.pstex_t2903,99201
-%.dot_t:%.dot_t2907,99323
-%.$(build_target_extension).1st.make %.d %.aux %.aux.make %.fls:%.$(build_target_extension).1st.make %.d %.aux %.aux.make %.fls2950,100723
-.SECONDARY:.SECONDARY2980,102123
-%.auxbbl.make:%.auxbbl.make2981,102174
-%.gpi.d:%.gpi.d2990,102554
-%.paper.make:%.paper.make2999,102928
-%.embed.make:%.embed.make3028,103676
-.PHONY:.PHONY3037,103846
-_all_programs:_all_programs3038,103868
-.PHONY:.PHONY3042,103973
-_check_programs:_check_programs3043,103997
-.PHONY:.PHONY3072,104750
-_check_gpi_files:_check_gpi_files3073,104775
-.PHONY:.PHONY3088,105210
-_all_stems:_all_stems3089,105229
-.PHONY:.PHONY3093,105332
-_includes:_includes3094,105350
-.PHONY:.PHONY3101,105581
-_all_sources:_all_sources3102,105602
-.PHONY:.PHONY3106,105706
-_dependency_graph:_dependency_graph3107,105732
-.PHONY:.PHONY3111,105841
-_show_dependency_graph:_show_dependency_graph3112,105872
-.PHONY:.PHONY3118,106118
-_sources:_sources3119,106135
-.PHONY:.PHONY3123,106227
-_scripts:_scripts3124,106244
-.PHONY:.PHONY3128,106340
-_graphic_outputs:_graphic_outputs3129,106365
-.PHONY:.PHONY3133,106484
-_env:_env3134,106497
-.PHONY:.PHONY3150,107020
-clean-generated:clean-generated3151,107044
-.PHONY:.PHONY3155,107190
-clean-deps:clean-deps3156,107209
-.PHONY:.PHONY3159,107296
-clean-tex:clean-tex3160,107314
-.PHONY:.PHONY3163,107376
-clean-graphics:clean-graphics3170,107814
-.PHONY:.PHONY3173,107918
-clean-backups:clean-backups3174,107940
-.PHONY:.PHONY3177,108011
-clean-auxiliary:clean-auxiliary3178,108035
-.PHONY:.PHONY3181,108098
-clean-nographics:clean-nographics3182,108123
-.PHONY:.PHONY3184,108195
-clean:clean3185,108209
-.PHONY:.PHONY3191,108321
-help:help3192,108334
-.PHONY:.PHONY3195,108355
-version:version3196,108371
-.PHONY:.PHONY3887,134631
+CAT		?=CAT		?669,31014
+CP		?=CP		?670,31026
+DIFF		?=DIFF		?671,31039
+ECHO		?=ECHO		?672,31053
+EGREP		?=EGREP		?673,31067
+ENV		?=ENV		?674,31083
+EXPR		?=EXPR		?675,31095
+MV		?=MV		?676,31109
+SED		?=SED		?677,31122
+SORT		?=SORT		?678,31134
+TOUCH		?=TOUCH		?679,31148
+UNIQ		?=UNIQ		?680,31164
+WHICH		?=WHICH		?681,31178
+XARGS		?=XARGS		?682,31194
+SLEEP		?=SLEEP		?683,31210
+BIBTEX		?=BIBTEX		?685,31257
+DVIPS		?=DVIPS		?686,31275
+LATEX		?=LATEX		?687,31291
+PDFLATEX	?=PDFLATEX	?688,31307
+XELATEX		?=XELATEX		?689,31328
+EPSTOPDF	?=EPSTOPDF	?690,31348
+MAKEINDEX	?=MAKEINDEX	?691,31369
+XINDY		?=XINDY		?692,31392
+KPSEWHICH	?=KPSEWHICH	?693,31408
+GS		?=GS		?694,31431
+CYGPATH		?=CYGPATH		?697,31519
+TPUT		?=TPUT		?699,31569
+PERL		?=PERL		?701,31606
+PYTHON		?=PYTHON		?702,31620
+RST2LATEX	?=RST2LATEX	?703,31638
+CONVERT		?=CONVERT		?705,31687
+DOT		?=DOT		?706,31721
+DOT2TEX		?=DOT2TEX		?707,31745
+FIG2DEV		?=FIG2DEV		?708,31808
+GNUPLOT		?=GNUPLOT		?709,31835
+INKSCAPE	?=INKSCAPE	?710,31865
+XMGRACE		?=XMGRACE		?711,31911
+PNGTOPNM	?=PNGTOPNM	?712,31941
+PPMTOPGM	?=PPMTOPGM	?713,32000
+PNMTOPS		?=PNMTOPS		?714,32066
+GUNZIP		?=GUNZIP		?715,32124
+PSNUP		?=PSNUP		?717,32187
+VIEW_POSTSCRIPT	?=VIEW_POSTSCRIPT	?719,32225
+VIEW_PDF	?=VIEW_PDF	?720,32247
+VIEW_GRAPHICS	?=VIEW_GRAPHICS	?721,32264
+XINDYLANG	?=XINDYLANG	?724,32309
+XINDYENC	?=XINDYENC	?725,32330
+USE_CYGPATH 729,32489
+PS_EMBED_OPTIONS	?=PS_EMBED_OPTIONS	?741,32806
+PS_COMPATIBILITY	?=PS_COMPATIBILITY	?742,32908
+KEEP_TEMP	?=KEEP_TEMP	?745,33013
+DEFAULT_GPI_EPS_FONTSIZE	?=DEFAULT_GPI_EPS_FONTSIZE	?748,33046
+DEFAULT_GPI_PDF_FONTSIZE	?=DEFAULT_GPI_PDF_FONTSIZE	?749,33077
+RST_STYLE_FILE			?=RST_STYLE_FILE			?752,33131
+FIXED_ECHO	756,33313
+ECHO	757,33398
+GNUPLOT_OUTPUT_EXTENSION	?=GNUPLOT_OUTPUT_EXTENSION	?766,33665
+GPI_OUTPUT_EXTENSION 771,33924
+GPI_FSIZE_SYNTAX 776,34179
+    $(findstring fsize:$(findstring fsize780,34267
+BINARY_TARGET_DIR	?=BINARY_TARGET_DIR	?798,34818
+RESTARTS	800,34846
+GRAY	?=GRAY	?854,36735
+remove-files-helper	862,36914
+remove-files	865,37001
+clean-files	870,37227
+remove-temporary-files	899,38202
+cleanse-filename	903,38345
+escape-fname-regex	907,38442
+test-exists	911,38550
+move-if-exists	914,38618
+copy-if-different	918,38791
+copy-if-exists	919,38859
+move-if-different	920,38919
+replace-if-different-and-remove	921,38987
+test-different	928,39213
+test-exists-and-different	929,39270
+get-default	934,39474
+space	962,40277
+colon	963,40305
+comma	964,40318
+sh_true	967,40358
+sh_false	968,40372
+.SUFFIXES:.SUFFIXES971,40440
+RM	975,40521
+QUIET	980,40598
+SHELL	+=SHELL	+986,40735
+this_file	992,40921
+this_file	994,40990
+REAL_TPUT 999,41082
+get-term-code 1004,41215
+black	1006,41277
+red	1007,41316
+green	1008,41353
+yellow	1009,41392
+blue	1010,41432
+magenta	1011,41470
+cyan	1012,41511
+white	1013,41549
+bold	1014,41588
+uline	1015,41623
+reset	1016,41659
+LATEX_COLOR_WARNING	?=LATEX_COLOR_WARNING	?1021,41728
+LATEX_COLOR_ERROR	?=LATEX_COLOR_ERROR	?1022,41759
+LATEX_COLOR_INFO	?=LATEX_COLOR_INFO	?1023,41784
+LATEX_COLOR_UNDERFULL	?=LATEX_COLOR_UNDERFULL	?1024,41810
+LATEX_COLOR_OVERFULL	?=LATEX_COLOR_OVERFULL	?1025,41843
+LATEX_COLOR_PAGES	?=LATEX_COLOR_PAGES	?1026,41876
+LATEX_COLOR_BUILD	?=LATEX_COLOR_BUILD	?1027,41902
+LATEX_COLOR_GRAPHIC	?=LATEX_COLOR_GRAPHIC	?1028,41928
+LATEX_COLOR_DEP		?=LATEX_COLOR_DEP		?1029,41958
+LATEX_COLOR_SUCCESS	?=LATEX_COLOR_SUCCESS	?1030,41984
+LATEX_COLOR_FAILURE	?=LATEX_COLOR_FAILURE	?1031,42018
+get-color	1036,42197
+C_WARNING	1041,42288
+C_ERROR	1042,42327
+C_INFO	1043,42363
+C_UNDERFULL	1044,42397
+C_OVERFULL	1045,42440
+C_PAGES	1046,42481
+C_BUILD	1047,42517
+C_GRAPHIC	1048,42553
+C_DEP	1049,42592
+C_SUCCESS	1050,42624
+C_FAILURE	1051,42663
+C_RESET	1052,42702
+hascleangoals	1060,42865
+hasbuildgoals	1061,42938
+GNUPLOT_SED	1073,43266
+GNUPLOT_GLOBAL	1074,43308
+default_graphic_extension	?=default_graphic_extension	?1077,43405
+latex_build_program		?=latex_build_program		?1078,43438
+build_target_extension		?=build_target_extension		?1079,43471
+hyperref_driver_pattern		?=hyperref_driver_pattern		?1080,43502
+hyperref_driver_error		?=hyperref_driver_error		?1081,43537
+default_graphic_extension	?=default_graphic_extension	?1085,43668
+latex_build_program		?=latex_build_program		?1086,43701
+build_target_extension		?=build_target_extension		?1087,43737
+hyperref_driver_pattern		?=hyperref_driver_pattern		?1088,43768
+hyperref_driver_error		?=hyperref_driver_error		?1089,43803
+default_graphic_extension	?=default_graphic_extension	?1093,43956
+latex_build_program		?=latex_build_program		?1094,43989
+build_target_extension		?=build_target_extension		?1095,44024
+hyperref_driver_pattern		?=hyperref_driver_pattern		?1096,44055
+hyperref_driver_error		?=hyperref_driver_error		?1097,44093
+all_files.tex		?=all_files.tex		?1101,44222
+all_files.tex.sh	?=all_files.tex.sh	?1102,44258
+all_files.tex.pl	?=all_files.tex.pl	?1103,44299
+all_files.tex.py	?=all_files.tex.py	?1104,44340
+all_files.rst		?=all_files.rst		?1105,44381
+all_files.fig		?=all_files.fig		?1106,44417
+all_files.gpi		?=all_files.gpi		?1107,44453
+all_files.dot		?=all_files.dot		?1108,44489
+all_files.xvg		?=all_files.xvg		?1109,44525
+all_files.svg		?=all_files.svg		?1110,44561
+all_files.png		?=all_files.png		?1111,44597
+all_files.jpg		?=all_files.jpg		?1112,44633
+all_files.jpeg		?=all_files.jpeg		?1113,44669
+all_files.eps.gz	?=all_files.eps.gz	?1114,44707
+all_files.eps		?=all_files.eps		?1115,44748
+cleanable-files 1120,44976
+ignore_files 1125,45203
+ignore_patterns	1130,45364
+nodefault_patterns 1133,45466
+filter-buildable	1137,45611
+filter-default	1143,45825
+files.tex	1148,46016
+files.tex.sh	1149,46058
+files.tex.pl	1150,46106
+files.tex.py	1151,46154
+files.rst	1152,46202
+files.gpi	1153,46244
+files.dot	1154,46286
+files.fig	1155,46328
+files.xvg	1156,46370
+files.svg	1157,46412
+files.png	1158,46454
+files.jpg	1159,46496
+files.jpeg	1160,46538
+files.eps.gz	1161,46582
+files.eps	1162,46630
+.SECONDARY:.SECONDARY1169,46997
+default_files.tex	1172,47103
+default_files.tex.sh	1173,47151
+default_files.tex.pl	1174,47205
+default_files.tex.py	1175,47259
+default_files.rst	1176,47313
+default_files.gpi	1177,47361
+default_files.dot	1178,47409
+default_files.fig	1179,47457
+default_files.xvg	1180,47505
+default_files.svg	1181,47553
+default_files.png	1182,47601
+default_files.jpg	1183,47649
+default_files.jpeg	1184,47697
+default_files.eps.gz	1185,47747
+default_files.eps	1186,47801
+concat-files	1190,47945
+all_files_source	1193,48026
+all_files_scripts	1194,48075
+.PHONY:.PHONY1196,48147
+default_files_source	1198,48177
+default_files_scripts	1199,48234
+files_source	1201,48314
+files_scripts	1202,48355
+get-stems	1206,48494
+all_stems.tex	1209,48616
+all_stems.tex.sh	1210,48660
+all_stems.tex.pl	1211,48709
+all_stems.tex.py	1212,48758
+all_stems.rst	1213,48807
+all_stems.fig	1214,48851
+all_stems.gpi	1215,48895
+all_stems.dot	1216,48939
+all_stems.xvg	1217,48983
+all_stems.svg	1218,49027
+all_stems.png	1219,49071
+all_stems.jpg	1220,49115
+all_stems.jpeg	1221,49159
+all_stems.eps.gz	1222,49205
+all_stems.eps	1223,49254
+default_stems.tex	1226,49354
+default_stems.tex.sh	1227,49406
+default_stems.tex.pl	1228,49464
+default_stems.tex.py	1229,49522
+default_stems.rst	1230,49580
+default_stems.fig	1231,49632
+default_stems.gpi	1232,49684
+default_stems.dot	1233,49736
+default_stems.xvg	1234,49788
+default_stems.svg	1235,49840
+default_stems.png	1236,49892
+default_stems.jpg	1237,49944
+default_stems.jpeg	1238,49996
+default_stems.eps.gz	1239,50050
+default_stems.eps	1240,50108
+stems.tex	1243,50227
+stems.tex.sh	1244,50263
+stems.tex.pl	1245,50305
+stems.tex.py	1246,50347
+stems.rst	1247,50389
+stems.fig	1248,50425
+stems.gpi	1249,50461
+stems.dot	1250,50497
+stems.xvg	1251,50533
+stems.svg	1252,50569
+stems.png	1253,50605
+stems.jpg	1254,50641
+stems.jpeg	1255,50677
+stems.eps.gz	1256,50715
+stems.eps	1257,50757
+concat-stems	1261,50889
+graphic_source_extensions	1264,51019
+graphic_source_extensions	+=graphic_source_extensions	+1272,51163
+graphic_target_extensions	1273,51205
+graphic_source_extensions	+=graphic_source_extensions	+1277,51293
+graphic_target_extensions	1278,51326
+graphic_source_extensions	+=graphic_source_extensions	+1282,51431
+graphic_target_extensions	1283,51464
+all_stems_source	1286,51525
+all_stems_script	1287,51574
+all_stems_graphic	1288,51644
+all_stems_ss	1289,51719
+all_stems_sg	1290,51784
+all_stems_ssg	1291,51829
+default_stems_source	1293,51872
+default_stems_script	1294,51929
+default_stems_ss	1295,52007
+default_stems_sg	1296,52083
+default_stems_ssg	1297,52135
+stems_source	1299,52185
+stems_script	1300,52227
+stems_graphic	1301,52290
+stems_gg	1302,52358
+stems_ss	1303,52396
+stems_sg	1304,52449
+stems_ssg	1305,52486
+allowed_source_suffixes	1310,52698
+allowed_source_patterns	1323,52827
+allowed_graphic_suffixes	1325,52899
+allowed_graphic_patterns	1330,52966
+allowed_source_targets	1333,53080
+allowed_graphic_targets	1338,53231
+allowed_batch_source_targets	1343,53400
+allowed_batch_graphic_targets	1355,53593
+real_goals	1362,53764
+specified_source_targets	1365,53848
+specified_batch_source_targets	1369,53956
+specified_graphic_targets	1373,54063
+specified_batch_graphic_targets	1377,54160
+specified_gpi_targets	1381,54269
+source_stems_to_include	1391,54842
+graphic_stems_to_include	1404,55285
+all_pdf_targets	1415,55568
+all_ps_targets	1416,55619
+all_dvi_targets	1417,55668
+all_tex_targets	1418,55719
+all_d_targets	1419,55769
+all_graphics_targets	1420,55816
+all_pstex_targets	1421,55895
+all_dot2tex_targets	1422,55951
+all_known_graphics	1424,56008
+default_pdf_targets	1426,56106
+default_ps_targets	1429,56210
+default_dvi_targets	1430,56269
+pre_pdf_extensions	1431,56330
+rm_ext	1435,56443
+backup_patterns	1438,56608
+graph_stem	1440,56664
+rm_tex 1444,56742
+gpi_sed	1456,57350
+gpi_global	1458,57430
+-e 's/[[:-e 's/[[1474,57881
+-e ':-e '1482,58099
+-e 's!.*!$2:-e 's!.*!$21483,58118
+-e '/^:-e '/^1504,58468
+-e '  s//:-e '  s//1505,58496
+-e '/^:-e '/^1510,58558
+-e '  s//:-e '  s//1511,58575
+-e ':-e '1515,58629
+-e 's/^/:-e 's/^/1516,58649
+-e ':-e '1520,58694
+-e 's/^/:-e 's/^/1521,58714
+-e ':-e '1525,58760
+-e 's/^/:-e 's/^/1526,58782
+-e ':-e '1530,58829
+-e '/^! LaTeX Error:-e '/^! LaTeX Error1531,58843
+-e '/^:-e '/^1534,58908
+-e '  /Default extension:-e '  /Default extension1536,58947
+-e '  s/[[:-e '  s/[[1538,59034
+-e '  s/[[:-e '  s/[[1540,59087
+-e '  s!^.*!$2:-e '  s!^.*!$21546,59238
+-e '/^File:-e '/^File1598,61234
+-e '/^:-e '/^1616,61521
+-e '  s//:-e '  s//1617,61549
+-e '/^:-e '/^1622,61611
+-e '  s//:-e '  s//1623,61628
+-e ':-e '1627,61682
+-e 's/^/:-e 's/^/1628,61702
+-e ':-e '1632,61747
+-e 's/^/:-e 's/^/1633,61767
+-e ':-e '1637,61813
+-e 's/^/:-e 's/^/1638,61835
+-e ':-e '1642,61882
+-e '/^[^[:-e '/^[^[1643,61896
+-e '/^:-e '/^1647,62010
+-e '    s/^:-e '    s/^1649,62069
+-e '  s/[[:-e '  s/[[1653,62151
+-e '  s/'"'"' not found\..*extensions:-e '  s/'"'"' not found\..*extensions1655,62207
+-e '  s/\(.*\)-e '  s/\(.*\1657,62288
+-e '  s/:-e '  s/1660,62433
+-e ':-e '1664,62493
+-e 's/[[:-e 's/[[1665,62512
+-e 's!.*!$1.d:-e 's!.*!$1.d1670,62600
+-e 's!.*!$1.$(build_target_extension) $1._graphics:-e 's!.*!$1.$(build_target_extension) $1._graphics1674,62680
+if $(EGREP) -q '^! LaTeX Error:if $(EGREP) -q '^! LaTeX Error1684,62933
+if $(EGREP) -q ' LaTeX Error:if $(EGREP) -q ' LaTeX Error1708,63729
+-e 's/^No file \(.*\.ind\)\.$$/TARGETS=-e 's/^No file \(.*\.ind\)\.$$/TARGETS1736,64686
+-e 's/^No file \(.*\.[gn]ls\)\.$$/TARGETS=-e 's/^No file \(.*\.[gn]ls\)\.$$/TARGETS1737,64732
+-e 's/[[:-e 's/[[1738,64781
+-e '/^TARGETS=-e '/^TARGETS1739,64808
+-e '  s!^TARGETS=-e '  s!^TARGETS1741,64839
+-e '  s!^TARGETS=-e '  s!^TARGETS1743,64878
+-e 's/[[:-e 's/[[1770,65857
+-e 's!^!$2:-e 's!^!$21775,65974
+$(ECHO) '# vim:$(ECHO) '# vim1798,66502
+$(ECHO) 'INCLUDED_$(call cleanse-filename,$2)$(ECHO) 'INCLUDED_$(call cleanse-filename,$21800,66598
+$(call get-gpi-deps,$1,$(addprefix $(2:$(call get-gpi-deps,$1,$(addprefix $(21801,66659
+-e '/^[[:-e '/^[[1819,67445
+-e '  s/^[[:-e '  s/^[[1825,67573
+-e '  s/[[:-e '  s/[[1826,67651
+-e '  s/.*:-e '  s/.*1829,67859
+-e '  s!.*!$2:-e '  s!.*!$21830,67935
+-e 's/^[[:-e 's/^[[1835,67996
+-e '/^:-e '/^1869,68948
+-e '  s//:-e '  s//1870,68976
+-e '/^:-e '/^1875,69038
+-e '  s//:-e '  s//1876,69055
+-e ':-e '1880,69109
+-e 's/^/:-e 's/^/1881,69129
+-e ':-e '1885,69174
+-e 's/^/:-e 's/^/1886,69194
+-e ':-e '1890,69240
+-e 's/^/:-e 's/^/1891,69262
+-e ':-e '1895,69309
+-e '/^! LaTeX Error:-e '/^! LaTeX Error1896,69323
+-e 's/^[^[:-e 's/^[^[1900,69404
+-e 's/^\(.*\n\)\([^[:-e 's/^\(.*\n\)\([^[1901,69455
+-e '/^!!! .* LaTeX Error:-e '/^!!! .* LaTeX Error1902,69524
+-e '/^:-e '/^1906,69610
+-e '    s/^:-e '    s/^1908,69668
+-e '  s/^:-e '  s/^1911,69726
+-e '  s/^\(.*not found.\).*Enter file name:-e '  s/^\(.*not found.\).*Enter file name1912,69748
+-e '/^:-e '/^1915,69874
+-e '    s/^:-e '    s/^1917,69936
+-e '  s/:-e '  s/1920,69994
+-e '  /could not locate.*any of these extensions:-e '  /could not locate.*any of these extensions1921,70017
+-e '/^\(.* LaTeX Error:-e '/^\(.* LaTeX Error1927,70155
+-e '/.*\(!!! .*Undefined control sequence\)[^[:-e '/.*\(!!! .*Undefined control sequence\)[^[1931,70302
+-e '  s//\1:-e '  s//\11932,70370
+-e '  s/\nl\.[[:-e '  s/\nl\.[[1933,70390
+-e '/^\(!pdfTeX error:-e '/^\(!pdfTeX error1936,70484
+-e '  s/[[:-e '  s/[[1941,70583
+-e '  s/[[:-e '  s/[[1942,70608
+-e ':-e '1946,70670
+-e 's/^xindy:-e 's/^xindy1969,71084
+-e '/^Error:-e '/^Error1979,71264
+-e '  /^Execution stack:-e '  /^Execution stack1980,71302
+-e '/, line [0-9]*:-e '/, line [0-9]*1993,71523
+-e '/, line [0-9]*:-e '/, line [0-9]*1999,71623
+-e '/^Error:-e '/^Error2028,72276
+-e 's/^Warning:-e 's/^Warning2029,72332
+-e     's![.:-e     's![.2042,72656
+-e     's!.*!\\:-e     's!.*!\\2044,72693
+color_tex 2085,73737
+-e '    s/[[:-e '    s/[[2102,74047
+-e '  / *LaTeX Error:-e '  / *LaTeX Error2107,74232
+-e '    s/.*\( *LaTeX Error:-e '    s/.*\( *LaTeX Error2108,74261
+-e '  /.*Warning:-e '  /.*Warning2111,74349
+-e ' -e '2124,74671
+color_bib 2129,74730
+-e '/---/,/^.[^:-e '/---/,/^.[^2133,74810
+-e '  /^.[^:-e '  /^.[^2135,74844
+enlarge_beamer	2150,75166
+test-run-again	2153,75262
+| $(EGREP) -q '^(.*Rerun .*|No file $1\.[^.]+\.|No file .+\.tex\.|LaTeX Warning:| $(EGREP) -q '^(.*Rerun .*|No file $1\.[^.]+\.|No file .+\.tex\.|LaTeX Warning2162,75590
+run-latex	2168,75759
+latex-color-log	2171,75902
+success=2175,76027
+[ "$$success" [ "$$success"2182,76217
+success=2188,76346
+if ! $(XINDY) -q -o $2 -L $(XINDYLANG) -C $(XINDYENC) -I xindy -M $3 -t $4 $1 > /dev/null || $(EGREP) -q '^xindy:if ! $(XINDY) -q -o $2 -L $(XINDYLANG) -C $(XINDYENC) -I xindy -M $3 -t $4 $1 > /dev/null || $(EGREP) -q '^xindy2189,76359
+[ "$$success" [ "$$success"2194,76560
+[ ! -e '$2.cookie' ] && $(ECHO) "restarts=[ ! -e '$2.cookie' ] && $(ECHO) "restarts2203,76856
+restarts=2204,76971
+level=2205,77026
+if $(EXPR) $(MAKELEVEL) '<=if $(EXPR) $(MAKELEVEL) '<2206,77075
+run-bibtex	2217,77396
+$(EPSTOPDF) '$1.cookie' --outfile=$(EPSTOPDF) '$1.cookie' --outfile2224,77704
+default-gpi-fontsize 2232,77942
+$(strip $(if $2,monochrome,$(if $(shell $(EGREP) '^\#\#[[:$(strip $(if $2,monochrome,$(if $(shell $(EGREP) '^\#\#[[2248,78536
+gpi-font-entry 2255,78861
+fnames=2289,79840
+success=2294,79963
+[ "$$success" [ "$$success"2307,80335
+$(CONVERT) $(if $3,-type Grayscale,) '$1' eps2:$(CONVERT) $(if $3,-type Grayscale,) '$1' eps22334,81069
+convert-fig	2339,81223
+convert-fig-pstex	2343,81399
+convert-fig-pstex-t	2347,81577
+convert-dot-tex	2351,81744
+convert-svg	2356,81881
+convert-xvg	2361,82073
+convert-epsgz	2366,82262
+convert-eps	2371,82469
+gray_eps_file	2374,82599
+make-ps	2497,86947
+make-pdf	2503,87188
+echo-build	2508,87379
+echo-graphic	2509,87451
+echo-dep	2510,87512
+echo-list	2514,87625
+.PHONY:.PHONY2520,87696
+all:all2521,87708
+.PHONY:.PHONY2523,87739
+all-pdf:all-pdf2524,87755
+.PHONY:.PHONY2527,87832
+all-ps:all-ps2528,87847
+.PHONY:.PHONY2530,87880
+all-dvi:all-dvi2531,87896
+.PHONY:.PHONY2537,87958
+show:show2538,87971
+source_includes	2546,88088
+graphic_includes 2547,88150
+.PHONY:.PHONY2575,89161
+$(default_stems_ss)$(default_stems_ss2576,89189
+.PHONY:.PHONY2579,89266
+$(addsuffix ._show,$(stems_ssg)$(addsuffix ._show,$(stems_ssg2580,89307
+.SECONDARY:.SECONDARY2584,89425
+%.pdf:%.pdf2585,89456
+.SECONDARY:.SECONDARY2600,89882
+%.ps:%.ps2601,89912
+.SECONDARY:.SECONDARY2660,91833
+%.$(build_target_extension)%.$(build_target_extension2662,91870
+%.bbl:%.bbl2726,93988
+%.ind:%.ind2753,95067
+%.gls:%.gls2758,95201
+%.gls:%.gls2763,95379
+%.gls:%.gls2768,95534
+%.nls:%.nls2773,95687
+.SECONDARY:.SECONDARY2780,95900
+%.tex:%.tex2782,95932
+%.tex:%.tex2785,95993
+%.tex:%.tex2788,96055
+%.tex:%.tex2791,96115
+.PHONY:.PHONY2800,96313
+all-graphics:all-graphics2801,96334
+.PHONY:.PHONY2804,96416
+all-pstex:all-pstex2805,96434
+.PHONY:.PHONY2808,96474
+all-dot2tex:all-dot2tex2809,96494
+.PHONY:.PHONY2811,96532
+show-graphics:show-graphics2812,96554
+$(gray_eps_file)$(gray_eps_file2815,96623
+%.pdf:%.pdf2820,96762
+%.pdf:%.pdf2825,96939
+%.pdf:%.pdf2830,97071
+%.pdf:%.pdf2834,97164
+%.pdf:%.pdf2840,97307
+%.pdf:%.pdf2845,97484
+%.pdf:%.pdf2850,97616
+%.eps:%.eps2857,97717
+%.eps:%.eps2861,97843
+%.eps:%.eps2865,97936
+%.eps:%.eps2869,98067
+%.eps:%.eps2876,98383
+%.eps:%.eps2882,98591
+%.eps:%.eps2886,98715
+%.eps:%.eps2890,98840
+%.eps:%.eps2895,98970
+%.pstex:%.pstex2899,99099
+%.pstex_t:%.pstex_t2903,99200
+%.dot_t:%.dot_t2907,99322
+%.$(build_target_extension).1st.make %.d %.aux %.aux.make %.fls:%.$(build_target_extension).1st.make %.d %.aux %.aux.make %.fls2950,100722
+.SECONDARY:.SECONDARY2980,102122
+%.auxbbl.make:%.auxbbl.make2981,102173
+%.gpi.d:%.gpi.d2990,102553
+%.paper.make:%.paper.make2999,102927
+%.embed.make:%.embed.make3028,103675
+.PHONY:.PHONY3037,103845
+_all_programs:_all_programs3038,103867
+.PHONY:.PHONY3042,103972
+_check_programs:_check_programs3043,103996
+.PHONY:.PHONY3072,104749
+_check_gpi_files:_check_gpi_files3073,104774
+.PHONY:.PHONY3088,105209
+_all_stems:_all_stems3089,105228
+.PHONY:.PHONY3093,105331
+_includes:_includes3094,105349
+.PHONY:.PHONY3101,105580
+_all_sources:_all_sources3102,105601
+.PHONY:.PHONY3106,105705
+_dependency_graph:_dependency_graph3107,105731
+.PHONY:.PHONY3111,105840
+_show_dependency_graph:_show_dependency_graph3112,105871
+.PHONY:.PHONY3118,106117
+_sources:_sources3119,106134
+.PHONY:.PHONY3123,106226
+_scripts:_scripts3124,106243
+.PHONY:.PHONY3128,106339
+_graphic_outputs:_graphic_outputs3129,106364
+.PHONY:.PHONY3133,106483
+_env:_env3134,106496
+.PHONY:.PHONY3150,107019
+clean-generated:clean-generated3151,107043
+.PHONY:.PHONY3155,107189
+clean-deps:clean-deps3156,107208
+.PHONY:.PHONY3159,107295
+clean-tex:clean-tex3160,107313
+.PHONY:.PHONY3163,107375
+clean-graphics:clean-graphics3170,107813
+.PHONY:.PHONY3173,107917
+clean-backups:clean-backups3174,107939
+.PHONY:.PHONY3177,108010
+clean-auxiliary:clean-auxiliary3178,108034
+.PHONY:.PHONY3181,108097
+clean-nographics:clean-nographics3182,108122
+.PHONY:.PHONY3184,108194
+clean:clean3185,108208
+.PHONY:.PHONY3191,108320
+help:help3192,108333
+.PHONY:.PHONY3195,108354
+version:version3196,108370
+.PHONY:.PHONY3887,134630
 
 my_docs/17/pearc_17/Makefile,102
 TALKS 1,0
@@ -3834,579 +3842,579 @@ version	33,1433
 BUILD_STRATEGY		?=BUILD_STRATEGY		?48,2063
 export LC_ALL		?=export LC_ALL		?52,2228
 neverclean		?=neverclean		?86,3062
-CAT		?=CAT		?669,31015
-CP		?=CP		?670,31027
-DIFF		?=DIFF		?671,31040
-ECHO		?=ECHO		?672,31054
-EGREP		?=EGREP		?673,31068
-ENV		?=ENV		?674,31084
-EXPR		?=EXPR		?675,31096
-MV		?=MV		?676,31110
-SED		?=SED		?677,31123
-SORT		?=SORT		?678,31135
-TOUCH		?=TOUCH		?679,31149
-UNIQ		?=UNIQ		?680,31165
-WHICH		?=WHICH		?681,31179
-XARGS		?=XARGS		?682,31195
-SLEEP		?=SLEEP		?683,31211
-BIBTEX		?=BIBTEX		?685,31258
-DVIPS		?=DVIPS		?686,31276
-LATEX		?=LATEX		?687,31292
-PDFLATEX	?=PDFLATEX	?688,31308
-XELATEX		?=XELATEX		?689,31329
-EPSTOPDF	?=EPSTOPDF	?690,31349
-MAKEINDEX	?=MAKEINDEX	?691,31370
-XINDY		?=XINDY		?692,31393
-KPSEWHICH	?=KPSEWHICH	?693,31409
-GS		?=GS		?694,31432
-CYGPATH		?=CYGPATH		?697,31520
-TPUT		?=TPUT		?699,31570
-PERL		?=PERL		?701,31607
-PYTHON		?=PYTHON		?702,31621
-RST2LATEX	?=RST2LATEX	?703,31639
-CONVERT		?=CONVERT		?705,31688
-DOT		?=DOT		?706,31722
-DOT2TEX		?=DOT2TEX		?707,31746
-FIG2DEV		?=FIG2DEV		?708,31809
-GNUPLOT		?=GNUPLOT		?709,31836
-INKSCAPE	?=INKSCAPE	?710,31866
-XMGRACE		?=XMGRACE		?711,31912
-PNGTOPNM	?=PNGTOPNM	?712,31942
-PPMTOPGM	?=PPMTOPGM	?713,32001
-PNMTOPS		?=PNMTOPS		?714,32067
-GUNZIP		?=GUNZIP		?715,32125
-PSNUP		?=PSNUP		?717,32188
-VIEW_POSTSCRIPT	?=VIEW_POSTSCRIPT	?719,32226
-VIEW_PDF	?=VIEW_PDF	?720,32248
-VIEW_GRAPHICS	?=VIEW_GRAPHICS	?721,32265
-XINDYLANG	?=XINDYLANG	?724,32310
-XINDYENC	?=XINDYENC	?725,32331
-USE_CYGPATH 729,32490
-PS_EMBED_OPTIONS	?=PS_EMBED_OPTIONS	?741,32807
-PS_COMPATIBILITY	?=PS_COMPATIBILITY	?742,32909
-KEEP_TEMP	?=KEEP_TEMP	?745,33014
-DEFAULT_GPI_EPS_FONTSIZE	?=DEFAULT_GPI_EPS_FONTSIZE	?748,33047
-DEFAULT_GPI_PDF_FONTSIZE	?=DEFAULT_GPI_PDF_FONTSIZE	?749,33078
-RST_STYLE_FILE			?=RST_STYLE_FILE			?752,33132
-FIXED_ECHO	756,33314
-ECHO	757,33399
-GNUPLOT_OUTPUT_EXTENSION	?=GNUPLOT_OUTPUT_EXTENSION	?766,33666
-GPI_OUTPUT_EXTENSION 771,33925
-GPI_FSIZE_SYNTAX 776,34180
-    $(findstring fsize:$(findstring fsize780,34268
-BINARY_TARGET_DIR	?=BINARY_TARGET_DIR	?798,34819
-RESTARTS	800,34847
-GRAY	?=GRAY	?854,36736
-remove-files-helper	862,36915
-remove-files	865,37002
-clean-files	870,37228
-remove-temporary-files	899,38203
-cleanse-filename	903,38346
-escape-fname-regex	907,38443
-test-exists	911,38551
-move-if-exists	914,38619
-copy-if-different	918,38792
-copy-if-exists	919,38860
-move-if-different	920,38920
-replace-if-different-and-remove	921,38988
-test-different	928,39214
-test-exists-and-different	929,39271
-get-default	934,39475
-space	962,40278
-colon	963,40306
-comma	964,40319
-sh_true	967,40359
-sh_false	968,40373
-.SUFFIXES:.SUFFIXES971,40441
-RM	975,40522
-QUIET	980,40599
-SHELL	+=SHELL	+986,40736
-this_file	992,40922
-this_file	994,40991
-REAL_TPUT 999,41083
-get-term-code 1004,41216
-black	1006,41278
-red	1007,41317
-green	1008,41354
-yellow	1009,41393
-blue	1010,41433
-magenta	1011,41471
-cyan	1012,41512
-white	1013,41550
-bold	1014,41589
-uline	1015,41624
-reset	1016,41660
-LATEX_COLOR_WARNING	?=LATEX_COLOR_WARNING	?1021,41729
-LATEX_COLOR_ERROR	?=LATEX_COLOR_ERROR	?1022,41760
-LATEX_COLOR_INFO	?=LATEX_COLOR_INFO	?1023,41785
-LATEX_COLOR_UNDERFULL	?=LATEX_COLOR_UNDERFULL	?1024,41811
-LATEX_COLOR_OVERFULL	?=LATEX_COLOR_OVERFULL	?1025,41844
-LATEX_COLOR_PAGES	?=LATEX_COLOR_PAGES	?1026,41877
-LATEX_COLOR_BUILD	?=LATEX_COLOR_BUILD	?1027,41903
-LATEX_COLOR_GRAPHIC	?=LATEX_COLOR_GRAPHIC	?1028,41929
-LATEX_COLOR_DEP		?=LATEX_COLOR_DEP		?1029,41959
-LATEX_COLOR_SUCCESS	?=LATEX_COLOR_SUCCESS	?1030,41985
-LATEX_COLOR_FAILURE	?=LATEX_COLOR_FAILURE	?1031,42019
-get-color	1036,42198
-C_WARNING	1041,42289
-C_ERROR	1042,42328
-C_INFO	1043,42364
-C_UNDERFULL	1044,42398
-C_OVERFULL	1045,42441
-C_PAGES	1046,42482
-C_BUILD	1047,42518
-C_GRAPHIC	1048,42554
-C_DEP	1049,42593
-C_SUCCESS	1050,42625
-C_FAILURE	1051,42664
-C_RESET	1052,42703
-hascleangoals	1060,42866
-hasbuildgoals	1061,42939
-GNUPLOT_SED	1073,43267
-GNUPLOT_GLOBAL	1074,43309
-default_graphic_extension	?=default_graphic_extension	?1077,43406
-latex_build_program		?=latex_build_program		?1078,43439
-build_target_extension		?=build_target_extension		?1079,43472
-hyperref_driver_pattern		?=hyperref_driver_pattern		?1080,43503
-hyperref_driver_error		?=hyperref_driver_error		?1081,43538
-default_graphic_extension	?=default_graphic_extension	?1085,43669
-latex_build_program		?=latex_build_program		?1086,43702
-build_target_extension		?=build_target_extension		?1087,43738
-hyperref_driver_pattern		?=hyperref_driver_pattern		?1088,43769
-hyperref_driver_error		?=hyperref_driver_error		?1089,43804
-default_graphic_extension	?=default_graphic_extension	?1093,43957
-latex_build_program		?=latex_build_program		?1094,43990
-build_target_extension		?=build_target_extension		?1095,44025
-hyperref_driver_pattern		?=hyperref_driver_pattern		?1096,44056
-hyperref_driver_error		?=hyperref_driver_error		?1097,44094
-all_files.tex		?=all_files.tex		?1101,44223
-all_files.tex.sh	?=all_files.tex.sh	?1102,44259
-all_files.tex.pl	?=all_files.tex.pl	?1103,44300
-all_files.tex.py	?=all_files.tex.py	?1104,44341
-all_files.rst		?=all_files.rst		?1105,44382
-all_files.fig		?=all_files.fig		?1106,44418
-all_files.gpi		?=all_files.gpi		?1107,44454
-all_files.dot		?=all_files.dot		?1108,44490
-all_files.xvg		?=all_files.xvg		?1109,44526
-all_files.svg		?=all_files.svg		?1110,44562
-all_files.png		?=all_files.png		?1111,44598
-all_files.jpg		?=all_files.jpg		?1112,44634
-all_files.jpeg		?=all_files.jpeg		?1113,44670
-all_files.eps.gz	?=all_files.eps.gz	?1114,44708
-all_files.eps		?=all_files.eps		?1115,44749
-cleanable-files 1120,44977
-ignore_files 1125,45204
-ignore_patterns	1130,45365
-nodefault_patterns 1133,45467
-filter-buildable	1137,45612
-filter-default	1143,45826
-files.tex	1148,46017
-files.tex.sh	1149,46059
-files.tex.pl	1150,46107
-files.tex.py	1151,46155
-files.rst	1152,46203
-files.gpi	1153,46245
-files.dot	1154,46287
-files.fig	1155,46329
-files.xvg	1156,46371
-files.svg	1157,46413
-files.png	1158,46455
-files.jpg	1159,46497
-files.jpeg	1160,46539
-files.eps.gz	1161,46583
-files.eps	1162,46631
-.SECONDARY:.SECONDARY1169,46998
-default_files.tex	1172,47104
-default_files.tex.sh	1173,47152
-default_files.tex.pl	1174,47206
-default_files.tex.py	1175,47260
-default_files.rst	1176,47314
-default_files.gpi	1177,47362
-default_files.dot	1178,47410
-default_files.fig	1179,47458
-default_files.xvg	1180,47506
-default_files.svg	1181,47554
-default_files.png	1182,47602
-default_files.jpg	1183,47650
-default_files.jpeg	1184,47698
-default_files.eps.gz	1185,47748
-default_files.eps	1186,47802
-concat-files	1190,47946
-all_files_source	1193,48027
-all_files_scripts	1194,48076
-.PHONY:.PHONY1196,48148
-default_files_source	1198,48178
-default_files_scripts	1199,48235
-files_source	1201,48315
-files_scripts	1202,48356
-get-stems	1206,48495
-all_stems.tex	1209,48617
-all_stems.tex.sh	1210,48661
-all_stems.tex.pl	1211,48710
-all_stems.tex.py	1212,48759
-all_stems.rst	1213,48808
-all_stems.fig	1214,48852
-all_stems.gpi	1215,48896
-all_stems.dot	1216,48940
-all_stems.xvg	1217,48984
-all_stems.svg	1218,49028
-all_stems.png	1219,49072
-all_stems.jpg	1220,49116
-all_stems.jpeg	1221,49160
-all_stems.eps.gz	1222,49206
-all_stems.eps	1223,49255
-default_stems.tex	1226,49355
-default_stems.tex.sh	1227,49407
-default_stems.tex.pl	1228,49465
-default_stems.tex.py	1229,49523
-default_stems.rst	1230,49581
-default_stems.fig	1231,49633
-default_stems.gpi	1232,49685
-default_stems.dot	1233,49737
-default_stems.xvg	1234,49789
-default_stems.svg	1235,49841
-default_stems.png	1236,49893
-default_stems.jpg	1237,49945
-default_stems.jpeg	1238,49997
-default_stems.eps.gz	1239,50051
-default_stems.eps	1240,50109
-stems.tex	1243,50228
-stems.tex.sh	1244,50264
-stems.tex.pl	1245,50306
-stems.tex.py	1246,50348
-stems.rst	1247,50390
-stems.fig	1248,50426
-stems.gpi	1249,50462
-stems.dot	1250,50498
-stems.xvg	1251,50534
-stems.svg	1252,50570
-stems.png	1253,50606
-stems.jpg	1254,50642
-stems.jpeg	1255,50678
-stems.eps.gz	1256,50716
-stems.eps	1257,50758
-concat-stems	1261,50890
-graphic_source_extensions	1264,51020
-graphic_source_extensions	+=graphic_source_extensions	+1272,51164
-graphic_target_extensions	1273,51206
-graphic_source_extensions	+=graphic_source_extensions	+1277,51294
-graphic_target_extensions	1278,51327
-graphic_source_extensions	+=graphic_source_extensions	+1282,51432
-graphic_target_extensions	1283,51465
-all_stems_source	1286,51526
-all_stems_script	1287,51575
-all_stems_graphic	1288,51645
-all_stems_ss	1289,51720
-all_stems_sg	1290,51785
-all_stems_ssg	1291,51830
-default_stems_source	1293,51873
-default_stems_script	1294,51930
-default_stems_ss	1295,52008
-default_stems_sg	1296,52084
-default_stems_ssg	1297,52136
-stems_source	1299,52186
-stems_script	1300,52228
-stems_graphic	1301,52291
-stems_gg	1302,52359
-stems_ss	1303,52397
-stems_sg	1304,52450
-stems_ssg	1305,52487
-allowed_source_suffixes	1310,52699
-allowed_source_patterns	1323,52828
-allowed_graphic_suffixes	1325,52900
-allowed_graphic_patterns	1330,52967
-allowed_source_targets	1333,53081
-allowed_graphic_targets	1338,53232
-allowed_batch_source_targets	1343,53401
-allowed_batch_graphic_targets	1355,53594
-real_goals	1362,53765
-specified_source_targets	1365,53849
-specified_batch_source_targets	1369,53957
-specified_graphic_targets	1373,54064
-specified_batch_graphic_targets	1377,54161
-specified_gpi_targets	1381,54270
-source_stems_to_include	1391,54843
-graphic_stems_to_include	1404,55286
-all_pdf_targets	1415,55569
-all_ps_targets	1416,55620
-all_dvi_targets	1417,55669
-all_tex_targets	1418,55720
-all_d_targets	1419,55770
-all_graphics_targets	1420,55817
-all_pstex_targets	1421,55896
-all_dot2tex_targets	1422,55952
-all_known_graphics	1424,56009
-default_pdf_targets	1426,56107
-default_ps_targets	1429,56211
-default_dvi_targets	1430,56270
-pre_pdf_extensions	1431,56331
-rm_ext	1435,56444
-backup_patterns	1438,56609
-graph_stem	1440,56665
-rm_tex 1444,56743
-gpi_sed	1456,57351
-gpi_global	1458,57431
--e 's/[[:-e 's/[[1474,57882
--e ':-e '1482,58100
--e 's!.*!$2:-e 's!.*!$21483,58119
--e '/^:-e '/^1504,58469
--e '  s//:-e '  s//1505,58497
--e '/^:-e '/^1510,58559
--e '  s//:-e '  s//1511,58576
--e ':-e '1515,58630
--e 's/^/:-e 's/^/1516,58650
--e ':-e '1520,58695
--e 's/^/:-e 's/^/1521,58715
--e ':-e '1525,58761
--e 's/^/:-e 's/^/1526,58783
--e ':-e '1530,58830
--e '/^! LaTeX Error:-e '/^! LaTeX Error1531,58844
--e '/^:-e '/^1534,58909
--e '  /Default extension:-e '  /Default extension1536,58948
--e '  s/[[:-e '  s/[[1538,59035
--e '  s/[[:-e '  s/[[1540,59088
--e '  s!^.*!$2:-e '  s!^.*!$21546,59239
--e '/^File:-e '/^File1598,61235
--e '/^:-e '/^1616,61522
--e '  s//:-e '  s//1617,61550
--e '/^:-e '/^1622,61612
--e '  s//:-e '  s//1623,61629
--e ':-e '1627,61683
--e 's/^/:-e 's/^/1628,61703
--e ':-e '1632,61748
--e 's/^/:-e 's/^/1633,61768
--e ':-e '1637,61814
--e 's/^/:-e 's/^/1638,61836
--e ':-e '1642,61883
--e '/^[^[:-e '/^[^[1643,61897
--e '/^:-e '/^1647,62011
--e '    s/^:-e '    s/^1649,62070
--e '  s/[[:-e '  s/[[1653,62152
--e '  s/'"'"' not found\..*extensions:-e '  s/'"'"' not found\..*extensions1655,62208
--e '  s/\(.*\)-e '  s/\(.*\1657,62289
--e '  s/:-e '  s/1660,62434
--e ':-e '1664,62494
--e 's/[[:-e 's/[[1665,62513
--e 's!.*!$1.d:-e 's!.*!$1.d1670,62601
--e 's!.*!$1.$(build_target_extension) $1._graphics:-e 's!.*!$1.$(build_target_extension) $1._graphics1674,62681
-if $(EGREP) -q '^! LaTeX Error:if $(EGREP) -q '^! LaTeX Error1684,62934
-if $(EGREP) -q ' LaTeX Error:if $(EGREP) -q ' LaTeX Error1708,63730
--e 's/^No file \(.*\.ind\)\.$$/TARGETS=-e 's/^No file \(.*\.ind\)\.$$/TARGETS1736,64687
--e 's/^No file \(.*\.[gn]ls\)\.$$/TARGETS=-e 's/^No file \(.*\.[gn]ls\)\.$$/TARGETS1737,64733
--e 's/[[:-e 's/[[1738,64782
--e '/^TARGETS=-e '/^TARGETS1739,64809
--e '  s!^TARGETS=-e '  s!^TARGETS1741,64840
--e '  s!^TARGETS=-e '  s!^TARGETS1743,64879
--e 's/[[:-e 's/[[1770,65858
--e 's!^!$2:-e 's!^!$21775,65975
-$(ECHO) '# vim:$(ECHO) '# vim1798,66503
-$(ECHO) 'INCLUDED_$(call cleanse-filename,$2)$(ECHO) 'INCLUDED_$(call cleanse-filename,$21800,66599
-$(call get-gpi-deps,$1,$(addprefix $(2:$(call get-gpi-deps,$1,$(addprefix $(21801,66660
--e '/^[[:-e '/^[[1819,67446
--e '  s/^[[:-e '  s/^[[1825,67574
--e '  s/[[:-e '  s/[[1826,67652
--e '  s/.*:-e '  s/.*1829,67860
--e '  s!.*!$2:-e '  s!.*!$21830,67936
--e 's/^[[:-e 's/^[[1835,67997
--e '/^:-e '/^1869,68949
--e '  s//:-e '  s//1870,68977
--e '/^:-e '/^1875,69039
--e '  s//:-e '  s//1876,69056
--e ':-e '1880,69110
--e 's/^/:-e 's/^/1881,69130
--e ':-e '1885,69175
--e 's/^/:-e 's/^/1886,69195
--e ':-e '1890,69241
--e 's/^/:-e 's/^/1891,69263
--e ':-e '1895,69310
--e '/^! LaTeX Error:-e '/^! LaTeX Error1896,69324
--e 's/^[^[:-e 's/^[^[1900,69405
--e 's/^\(.*\n\)\([^[:-e 's/^\(.*\n\)\([^[1901,69456
--e '/^!!! .* LaTeX Error:-e '/^!!! .* LaTeX Error1902,69525
--e '/^:-e '/^1906,69611
--e '    s/^:-e '    s/^1908,69669
--e '  s/^:-e '  s/^1911,69727
--e '  s/^\(.*not found.\).*Enter file name:-e '  s/^\(.*not found.\).*Enter file name1912,69749
--e '/^:-e '/^1915,69875
--e '    s/^:-e '    s/^1917,69937
--e '  s/:-e '  s/1920,69995
--e '  /could not locate.*any of these extensions:-e '  /could not locate.*any of these extensions1921,70018
--e '/^\(.* LaTeX Error:-e '/^\(.* LaTeX Error1927,70156
--e '/.*\(!!! .*Undefined control sequence\)[^[:-e '/.*\(!!! .*Undefined control sequence\)[^[1931,70303
--e '  s//\1:-e '  s//\11932,70371
--e '  s/\nl\.[[:-e '  s/\nl\.[[1933,70391
--e '/^\(!pdfTeX error:-e '/^\(!pdfTeX error1936,70485
--e '  s/[[:-e '  s/[[1941,70584
--e '  s/[[:-e '  s/[[1942,70609
--e ':-e '1946,70671
--e 's/^xindy:-e 's/^xindy1969,71085
--e '/^Error:-e '/^Error1979,71265
--e '  /^Execution stack:-e '  /^Execution stack1980,71303
--e '/, line [0-9]*:-e '/, line [0-9]*1993,71524
--e '/, line [0-9]*:-e '/, line [0-9]*1999,71624
--e '/^Error:-e '/^Error2028,72277
--e 's/^Warning:-e 's/^Warning2029,72333
--e     's![.:-e     's![.2042,72657
--e     's!.*!\\:-e     's!.*!\\2044,72694
-color_tex 2085,73738
--e '    s/[[:-e '    s/[[2102,74048
--e '  / *LaTeX Error:-e '  / *LaTeX Error2107,74233
--e '    s/.*\( *LaTeX Error:-e '    s/.*\( *LaTeX Error2108,74262
--e '  /.*Warning:-e '  /.*Warning2111,74350
--e ' -e '2124,74672
-color_bib 2129,74731
--e '/---/,/^.[^:-e '/---/,/^.[^2133,74811
--e '  /^.[^:-e '  /^.[^2135,74845
-enlarge_beamer	2150,75167
-test-run-again	2153,75263
-| $(EGREP) -q '^(.*Rerun .*|No file $1\.[^.]+\.|No file .+\.tex\.|LaTeX Warning:| $(EGREP) -q '^(.*Rerun .*|No file $1\.[^.]+\.|No file .+\.tex\.|LaTeX Warning2162,75591
-run-latex	2168,75760
-latex-color-log	2171,75903
-success=2175,76028
-[ "$$success" [ "$$success"2182,76218
-success=2188,76347
-if ! $(XINDY) -q -o $2 -L $(XINDYLANG) -C $(XINDYENC) -I xindy -M $3 -t $4 $1 > /dev/null || $(EGREP) -q '^xindy:if ! $(XINDY) -q -o $2 -L $(XINDYLANG) -C $(XINDYENC) -I xindy -M $3 -t $4 $1 > /dev/null || $(EGREP) -q '^xindy2189,76360
-[ "$$success" [ "$$success"2194,76561
-[ ! -e '$2.cookie' ] && $(ECHO) "restarts=[ ! -e '$2.cookie' ] && $(ECHO) "restarts2203,76857
-restarts=2204,76972
-level=2205,77027
-if $(EXPR) $(MAKELEVEL) '<=if $(EXPR) $(MAKELEVEL) '<2206,77076
-run-bibtex	2217,77397
-$(EPSTOPDF) '$1.cookie' --outfile=$(EPSTOPDF) '$1.cookie' --outfile2224,77705
-default-gpi-fontsize 2232,77943
-$(strip $(if $2,monochrome,$(if $(shell $(EGREP) '^\#\#[[:$(strip $(if $2,monochrome,$(if $(shell $(EGREP) '^\#\#[[2248,78537
-gpi-font-entry 2255,78862
-fnames=2289,79841
-success=2294,79964
-[ "$$success" [ "$$success"2307,80336
-$(CONVERT) $(if $3,-type Grayscale,) '$1' eps2:$(CONVERT) $(if $3,-type Grayscale,) '$1' eps22334,81070
-convert-fig	2339,81224
-convert-fig-pstex	2343,81400
-convert-fig-pstex-t	2347,81578
-convert-dot-tex	2351,81745
-convert-svg	2356,81882
-convert-xvg	2361,82074
-convert-epsgz	2366,82263
-convert-eps	2371,82470
-gray_eps_file	2374,82600
-make-ps	2497,86948
-make-pdf	2503,87189
-echo-build	2508,87380
-echo-graphic	2509,87452
-echo-dep	2510,87513
-echo-list	2514,87626
-.PHONY:.PHONY2520,87697
-all:all2521,87709
-.PHONY:.PHONY2523,87740
-all-pdf:all-pdf2524,87756
-.PHONY:.PHONY2527,87833
-all-ps:all-ps2528,87848
-.PHONY:.PHONY2530,87881
-all-dvi:all-dvi2531,87897
-.PHONY:.PHONY2537,87959
-show:show2538,87972
-source_includes	2546,88089
-graphic_includes 2547,88151
-.PHONY:.PHONY2575,89162
-$(default_stems_ss)$(default_stems_ss2576,89190
-.PHONY:.PHONY2579,89267
-$(addsuffix ._show,$(stems_ssg)$(addsuffix ._show,$(stems_ssg2580,89308
-.SECONDARY:.SECONDARY2584,89426
-%.pdf:%.pdf2585,89457
-.SECONDARY:.SECONDARY2600,89883
-%.ps:%.ps2601,89913
-.SECONDARY:.SECONDARY2660,91834
-%.$(build_target_extension)%.$(build_target_extension2662,91871
-%.bbl:%.bbl2726,93989
-%.ind:%.ind2753,95068
-%.gls:%.gls2758,95202
-%.gls:%.gls2763,95380
-%.gls:%.gls2768,95535
-%.nls:%.nls2773,95688
-.SECONDARY:.SECONDARY2780,95901
-%.tex:%.tex2782,95933
-%.tex:%.tex2785,95994
-%.tex:%.tex2788,96056
-%.tex:%.tex2791,96116
-.PHONY:.PHONY2800,96314
-all-graphics:all-graphics2801,96335
-.PHONY:.PHONY2804,96417
-all-pstex:all-pstex2805,96435
-.PHONY:.PHONY2808,96475
-all-dot2tex:all-dot2tex2809,96495
-.PHONY:.PHONY2811,96533
-show-graphics:show-graphics2812,96555
-$(gray_eps_file)$(gray_eps_file2815,96624
-%.pdf:%.pdf2820,96763
-%.pdf:%.pdf2825,96940
-%.pdf:%.pdf2830,97072
-%.pdf:%.pdf2834,97165
-%.pdf:%.pdf2840,97308
-%.pdf:%.pdf2845,97485
-%.pdf:%.pdf2850,97617
-%.eps:%.eps2857,97718
-%.eps:%.eps2861,97844
-%.eps:%.eps2865,97937
-%.eps:%.eps2869,98068
-%.eps:%.eps2876,98384
-%.eps:%.eps2882,98592
-%.eps:%.eps2886,98716
-%.eps:%.eps2890,98841
-%.eps:%.eps2895,98971
-%.pstex:%.pstex2899,99100
-%.pstex_t:%.pstex_t2903,99201
-%.dot_t:%.dot_t2907,99323
-%.$(build_target_extension).1st.make %.d %.aux %.aux.make %.fls:%.$(build_target_extension).1st.make %.d %.aux %.aux.make %.fls2950,100723
-.SECONDARY:.SECONDARY2980,102123
-%.auxbbl.make:%.auxbbl.make2981,102174
-%.gpi.d:%.gpi.d2990,102554
-%.paper.make:%.paper.make2999,102928
-%.embed.make:%.embed.make3028,103676
-.PHONY:.PHONY3037,103846
-_all_programs:_all_programs3038,103868
-.PHONY:.PHONY3042,103973
-_check_programs:_check_programs3043,103997
-.PHONY:.PHONY3072,104750
-_check_gpi_files:_check_gpi_files3073,104775
-.PHONY:.PHONY3088,105210
-_all_stems:_all_stems3089,105229
-.PHONY:.PHONY3093,105332
-_includes:_includes3094,105350
-.PHONY:.PHONY3101,105581
-_all_sources:_all_sources3102,105602
-.PHONY:.PHONY3106,105706
-_dependency_graph:_dependency_graph3107,105732
-.PHONY:.PHONY3111,105841
-_show_dependency_graph:_show_dependency_graph3112,105872
-.PHONY:.PHONY3118,106118
-_sources:_sources3119,106135
-.PHONY:.PHONY3123,106227
-_scripts:_scripts3124,106244
-.PHONY:.PHONY3128,106340
-_graphic_outputs:_graphic_outputs3129,106365
-.PHONY:.PHONY3133,106484
-_env:_env3134,106497
-.PHONY:.PHONY3150,107020
-clean-generated:clean-generated3151,107044
-.PHONY:.PHONY3155,107190
-clean-deps:clean-deps3156,107209
-.PHONY:.PHONY3159,107296
-clean-tex:clean-tex3160,107314
-.PHONY:.PHONY3163,107376
-clean-graphics:clean-graphics3170,107814
-.PHONY:.PHONY3173,107918
-clean-backups:clean-backups3174,107940
-.PHONY:.PHONY3177,108011
-clean-auxiliary:clean-auxiliary3178,108035
-.PHONY:.PHONY3181,108098
-clean-nographics:clean-nographics3182,108123
-.PHONY:.PHONY3184,108195
-clean:clean3185,108209
-.PHONY:.PHONY3191,108321
-help:help3192,108334
-.PHONY:.PHONY3195,108355
-version:version3196,108371
-.PHONY:.PHONY3887,134631
+CAT		?=CAT		?669,31014
+CP		?=CP		?670,31026
+DIFF		?=DIFF		?671,31039
+ECHO		?=ECHO		?672,31053
+EGREP		?=EGREP		?673,31067
+ENV		?=ENV		?674,31083
+EXPR		?=EXPR		?675,31095
+MV		?=MV		?676,31109
+SED		?=SED		?677,31122
+SORT		?=SORT		?678,31134
+TOUCH		?=TOUCH		?679,31148
+UNIQ		?=UNIQ		?680,31164
+WHICH		?=WHICH		?681,31178
+XARGS		?=XARGS		?682,31194
+SLEEP		?=SLEEP		?683,31210
+BIBTEX		?=BIBTEX		?685,31257
+DVIPS		?=DVIPS		?686,31275
+LATEX		?=LATEX		?687,31291
+PDFLATEX	?=PDFLATEX	?688,31307
+XELATEX		?=XELATEX		?689,31328
+EPSTOPDF	?=EPSTOPDF	?690,31348
+MAKEINDEX	?=MAKEINDEX	?691,31369
+XINDY		?=XINDY		?692,31392
+KPSEWHICH	?=KPSEWHICH	?693,31408
+GS		?=GS		?694,31431
+CYGPATH		?=CYGPATH		?697,31519
+TPUT		?=TPUT		?699,31569
+PERL		?=PERL		?701,31606
+PYTHON		?=PYTHON		?702,31620
+RST2LATEX	?=RST2LATEX	?703,31638
+CONVERT		?=CONVERT		?705,31687
+DOT		?=DOT		?706,31721
+DOT2TEX		?=DOT2TEX		?707,31745
+FIG2DEV		?=FIG2DEV		?708,31808
+GNUPLOT		?=GNUPLOT		?709,31835
+INKSCAPE	?=INKSCAPE	?710,31865
+XMGRACE		?=XMGRACE		?711,31911
+PNGTOPNM	?=PNGTOPNM	?712,31941
+PPMTOPGM	?=PPMTOPGM	?713,32000
+PNMTOPS		?=PNMTOPS		?714,32066
+GUNZIP		?=GUNZIP		?715,32124
+PSNUP		?=PSNUP		?717,32187
+VIEW_POSTSCRIPT	?=VIEW_POSTSCRIPT	?719,32225
+VIEW_PDF	?=VIEW_PDF	?720,32247
+VIEW_GRAPHICS	?=VIEW_GRAPHICS	?721,32264
+XINDYLANG	?=XINDYLANG	?724,32309
+XINDYENC	?=XINDYENC	?725,32330
+USE_CYGPATH 729,32489
+PS_EMBED_OPTIONS	?=PS_EMBED_OPTIONS	?741,32806
+PS_COMPATIBILITY	?=PS_COMPATIBILITY	?742,32908
+KEEP_TEMP	?=KEEP_TEMP	?745,33013
+DEFAULT_GPI_EPS_FONTSIZE	?=DEFAULT_GPI_EPS_FONTSIZE	?748,33046
+DEFAULT_GPI_PDF_FONTSIZE	?=DEFAULT_GPI_PDF_FONTSIZE	?749,33077
+RST_STYLE_FILE			?=RST_STYLE_FILE			?752,33131
+FIXED_ECHO	756,33313
+ECHO	757,33398
+GNUPLOT_OUTPUT_EXTENSION	?=GNUPLOT_OUTPUT_EXTENSION	?766,33665
+GPI_OUTPUT_EXTENSION 771,33924
+GPI_FSIZE_SYNTAX 776,34179
+    $(findstring fsize:$(findstring fsize780,34267
+BINARY_TARGET_DIR	?=BINARY_TARGET_DIR	?798,34818
+RESTARTS	800,34846
+GRAY	?=GRAY	?854,36735
+remove-files-helper	862,36914
+remove-files	865,37001
+clean-files	870,37227
+remove-temporary-files	899,38202
+cleanse-filename	903,38345
+escape-fname-regex	907,38442
+test-exists	911,38550
+move-if-exists	914,38618
+copy-if-different	918,38791
+copy-if-exists	919,38859
+move-if-different	920,38919
+replace-if-different-and-remove	921,38987
+test-different	928,39213
+test-exists-and-different	929,39270
+get-default	934,39474
+space	962,40277
+colon	963,40305
+comma	964,40318
+sh_true	967,40358
+sh_false	968,40372
+.SUFFIXES:.SUFFIXES971,40440
+RM	975,40521
+QUIET	980,40598
+SHELL	+=SHELL	+986,40735
+this_file	992,40921
+this_file	994,40990
+REAL_TPUT 999,41082
+get-term-code 1004,41215
+black	1006,41277
+red	1007,41316
+green	1008,41353
+yellow	1009,41392
+blue	1010,41432
+magenta	1011,41470
+cyan	1012,41511
+white	1013,41549
+bold	1014,41588
+uline	1015,41623
+reset	1016,41659
+LATEX_COLOR_WARNING	?=LATEX_COLOR_WARNING	?1021,41728
+LATEX_COLOR_ERROR	?=LATEX_COLOR_ERROR	?1022,41759
+LATEX_COLOR_INFO	?=LATEX_COLOR_INFO	?1023,41784
+LATEX_COLOR_UNDERFULL	?=LATEX_COLOR_UNDERFULL	?1024,41810
+LATEX_COLOR_OVERFULL	?=LATEX_COLOR_OVERFULL	?1025,41843
+LATEX_COLOR_PAGES	?=LATEX_COLOR_PAGES	?1026,41876
+LATEX_COLOR_BUILD	?=LATEX_COLOR_BUILD	?1027,41902
+LATEX_COLOR_GRAPHIC	?=LATEX_COLOR_GRAPHIC	?1028,41928
+LATEX_COLOR_DEP		?=LATEX_COLOR_DEP		?1029,41958
+LATEX_COLOR_SUCCESS	?=LATEX_COLOR_SUCCESS	?1030,41984
+LATEX_COLOR_FAILURE	?=LATEX_COLOR_FAILURE	?1031,42018
+get-color	1036,42197
+C_WARNING	1041,42288
+C_ERROR	1042,42327
+C_INFO	1043,42363
+C_UNDERFULL	1044,42397
+C_OVERFULL	1045,42440
+C_PAGES	1046,42481
+C_BUILD	1047,42517
+C_GRAPHIC	1048,42553
+C_DEP	1049,42592
+C_SUCCESS	1050,42624
+C_FAILURE	1051,42663
+C_RESET	1052,42702
+hascleangoals	1060,42865
+hasbuildgoals	1061,42938
+GNUPLOT_SED	1073,43266
+GNUPLOT_GLOBAL	1074,43308
+default_graphic_extension	?=default_graphic_extension	?1077,43405
+latex_build_program		?=latex_build_program		?1078,43438
+build_target_extension		?=build_target_extension		?1079,43471
+hyperref_driver_pattern		?=hyperref_driver_pattern		?1080,43502
+hyperref_driver_error		?=hyperref_driver_error		?1081,43537
+default_graphic_extension	?=default_graphic_extension	?1085,43668
+latex_build_program		?=latex_build_program		?1086,43701
+build_target_extension		?=build_target_extension		?1087,43737
+hyperref_driver_pattern		?=hyperref_driver_pattern		?1088,43768
+hyperref_driver_error		?=hyperref_driver_error		?1089,43803
+default_graphic_extension	?=default_graphic_extension	?1093,43956
+latex_build_program		?=latex_build_program		?1094,43989
+build_target_extension		?=build_target_extension		?1095,44024
+hyperref_driver_pattern		?=hyperref_driver_pattern		?1096,44055
+hyperref_driver_error		?=hyperref_driver_error		?1097,44093
+all_files.tex		?=all_files.tex		?1101,44222
+all_files.tex.sh	?=all_files.tex.sh	?1102,44258
+all_files.tex.pl	?=all_files.tex.pl	?1103,44299
+all_files.tex.py	?=all_files.tex.py	?1104,44340
+all_files.rst		?=all_files.rst		?1105,44381
+all_files.fig		?=all_files.fig		?1106,44417
+all_files.gpi		?=all_files.gpi		?1107,44453
+all_files.dot		?=all_files.dot		?1108,44489
+all_files.xvg		?=all_files.xvg		?1109,44525
+all_files.svg		?=all_files.svg		?1110,44561
+all_files.png		?=all_files.png		?1111,44597
+all_files.jpg		?=all_files.jpg		?1112,44633
+all_files.jpeg		?=all_files.jpeg		?1113,44669
+all_files.eps.gz	?=all_files.eps.gz	?1114,44707
+all_files.eps		?=all_files.eps		?1115,44748
+cleanable-files 1120,44976
+ignore_files 1125,45203
+ignore_patterns	1130,45364
+nodefault_patterns 1133,45466
+filter-buildable	1137,45611
+filter-default	1143,45825
+files.tex	1148,46016
+files.tex.sh	1149,46058
+files.tex.pl	1150,46106
+files.tex.py	1151,46154
+files.rst	1152,46202
+files.gpi	1153,46244
+files.dot	1154,46286
+files.fig	1155,46328
+files.xvg	1156,46370
+files.svg	1157,46412
+files.png	1158,46454
+files.jpg	1159,46496
+files.jpeg	1160,46538
+files.eps.gz	1161,46582
+files.eps	1162,46630
+.SECONDARY:.SECONDARY1169,46997
+default_files.tex	1172,47103
+default_files.tex.sh	1173,47151
+default_files.tex.pl	1174,47205
+default_files.tex.py	1175,47259
+default_files.rst	1176,47313
+default_files.gpi	1177,47361
+default_files.dot	1178,47409
+default_files.fig	1179,47457
+default_files.xvg	1180,47505
+default_files.svg	1181,47553
+default_files.png	1182,47601
+default_files.jpg	1183,47649
+default_files.jpeg	1184,47697
+default_files.eps.gz	1185,47747
+default_files.eps	1186,47801
+concat-files	1190,47945
+all_files_source	1193,48026
+all_files_scripts	1194,48075
+.PHONY:.PHONY1196,48147
+default_files_source	1198,48177
+default_files_scripts	1199,48234
+files_source	1201,48314
+files_scripts	1202,48355
+get-stems	1206,48494
+all_stems.tex	1209,48616
+all_stems.tex.sh	1210,48660
+all_stems.tex.pl	1211,48709
+all_stems.tex.py	1212,48758
+all_stems.rst	1213,48807
+all_stems.fig	1214,48851
+all_stems.gpi	1215,48895
+all_stems.dot	1216,48939
+all_stems.xvg	1217,48983
+all_stems.svg	1218,49027
+all_stems.png	1219,49071
+all_stems.jpg	1220,49115
+all_stems.jpeg	1221,49159
+all_stems.eps.gz	1222,49205
+all_stems.eps	1223,49254
+default_stems.tex	1226,49354
+default_stems.tex.sh	1227,49406
+default_stems.tex.pl	1228,49464
+default_stems.tex.py	1229,49522
+default_stems.rst	1230,49580
+default_stems.fig	1231,49632
+default_stems.gpi	1232,49684
+default_stems.dot	1233,49736
+default_stems.xvg	1234,49788
+default_stems.svg	1235,49840
+default_stems.png	1236,49892
+default_stems.jpg	1237,49944
+default_stems.jpeg	1238,49996
+default_stems.eps.gz	1239,50050
+default_stems.eps	1240,50108
+stems.tex	1243,50227
+stems.tex.sh	1244,50263
+stems.tex.pl	1245,50305
+stems.tex.py	1246,50347
+stems.rst	1247,50389
+stems.fig	1248,50425
+stems.gpi	1249,50461
+stems.dot	1250,50497
+stems.xvg	1251,50533
+stems.svg	1252,50569
+stems.png	1253,50605
+stems.jpg	1254,50641
+stems.jpeg	1255,50677
+stems.eps.gz	1256,50715
+stems.eps	1257,50757
+concat-stems	1261,50889
+graphic_source_extensions	1264,51019
+graphic_source_extensions	+=graphic_source_extensions	+1272,51163
+graphic_target_extensions	1273,51205
+graphic_source_extensions	+=graphic_source_extensions	+1277,51293
+graphic_target_extensions	1278,51326
+graphic_source_extensions	+=graphic_source_extensions	+1282,51431
+graphic_target_extensions	1283,51464
+all_stems_source	1286,51525
+all_stems_script	1287,51574
+all_stems_graphic	1288,51644
+all_stems_ss	1289,51719
+all_stems_sg	1290,51784
+all_stems_ssg	1291,51829
+default_stems_source	1293,51872
+default_stems_script	1294,51929
+default_stems_ss	1295,52007
+default_stems_sg	1296,52083
+default_stems_ssg	1297,52135
+stems_source	1299,52185
+stems_script	1300,52227
+stems_graphic	1301,52290
+stems_gg	1302,52358
+stems_ss	1303,52396
+stems_sg	1304,52449
+stems_ssg	1305,52486
+allowed_source_suffixes	1310,52698
+allowed_source_patterns	1323,52827
+allowed_graphic_suffixes	1325,52899
+allowed_graphic_patterns	1330,52966
+allowed_source_targets	1333,53080
+allowed_graphic_targets	1338,53231
+allowed_batch_source_targets	1343,53400
+allowed_batch_graphic_targets	1355,53593
+real_goals	1362,53764
+specified_source_targets	1365,53848
+specified_batch_source_targets	1369,53956
+specified_graphic_targets	1373,54063
+specified_batch_graphic_targets	1377,54160
+specified_gpi_targets	1381,54269
+source_stems_to_include	1391,54842
+graphic_stems_to_include	1404,55285
+all_pdf_targets	1415,55568
+all_ps_targets	1416,55619
+all_dvi_targets	1417,55668
+all_tex_targets	1418,55719
+all_d_targets	1419,55769
+all_graphics_targets	1420,55816
+all_pstex_targets	1421,55895
+all_dot2tex_targets	1422,55951
+all_known_graphics	1424,56008
+default_pdf_targets	1426,56106
+default_ps_targets	1429,56210
+default_dvi_targets	1430,56269
+pre_pdf_extensions	1431,56330
+rm_ext	1435,56443
+backup_patterns	1438,56608
+graph_stem	1440,56664
+rm_tex 1444,56742
+gpi_sed	1456,57350
+gpi_global	1458,57430
+-e 's/[[:-e 's/[[1474,57881
+-e ':-e '1482,58099
+-e 's!.*!$2:-e 's!.*!$21483,58118
+-e '/^:-e '/^1504,58468
+-e '  s//:-e '  s//1505,58496
+-e '/^:-e '/^1510,58558
+-e '  s//:-e '  s//1511,58575
+-e ':-e '1515,58629
+-e 's/^/:-e 's/^/1516,58649
+-e ':-e '1520,58694
+-e 's/^/:-e 's/^/1521,58714
+-e ':-e '1525,58760
+-e 's/^/:-e 's/^/1526,58782
+-e ':-e '1530,58829
+-e '/^! LaTeX Error:-e '/^! LaTeX Error1531,58843
+-e '/^:-e '/^1534,58908
+-e '  /Default extension:-e '  /Default extension1536,58947
+-e '  s/[[:-e '  s/[[1538,59034
+-e '  s/[[:-e '  s/[[1540,59087
+-e '  s!^.*!$2:-e '  s!^.*!$21546,59238
+-e '/^File:-e '/^File1598,61234
+-e '/^:-e '/^1616,61521
+-e '  s//:-e '  s//1617,61549
+-e '/^:-e '/^1622,61611
+-e '  s//:-e '  s//1623,61628
+-e ':-e '1627,61682
+-e 's/^/:-e 's/^/1628,61702
+-e ':-e '1632,61747
+-e 's/^/:-e 's/^/1633,61767
+-e ':-e '1637,61813
+-e 's/^/:-e 's/^/1638,61835
+-e ':-e '1642,61882
+-e '/^[^[:-e '/^[^[1643,61896
+-e '/^:-e '/^1647,62010
+-e '    s/^:-e '    s/^1649,62069
+-e '  s/[[:-e '  s/[[1653,62151
+-e '  s/'"'"' not found\..*extensions:-e '  s/'"'"' not found\..*extensions1655,62207
+-e '  s/\(.*\)-e '  s/\(.*\1657,62288
+-e '  s/:-e '  s/1660,62433
+-e ':-e '1664,62493
+-e 's/[[:-e 's/[[1665,62512
+-e 's!.*!$1.d:-e 's!.*!$1.d1670,62600
+-e 's!.*!$1.$(build_target_extension) $1._graphics:-e 's!.*!$1.$(build_target_extension) $1._graphics1674,62680
+if $(EGREP) -q '^! LaTeX Error:if $(EGREP) -q '^! LaTeX Error1684,62933
+if $(EGREP) -q ' LaTeX Error:if $(EGREP) -q ' LaTeX Error1708,63729
+-e 's/^No file \(.*\.ind\)\.$$/TARGETS=-e 's/^No file \(.*\.ind\)\.$$/TARGETS1736,64686
+-e 's/^No file \(.*\.[gn]ls\)\.$$/TARGETS=-e 's/^No file \(.*\.[gn]ls\)\.$$/TARGETS1737,64732
+-e 's/[[:-e 's/[[1738,64781
+-e '/^TARGETS=-e '/^TARGETS1739,64808
+-e '  s!^TARGETS=-e '  s!^TARGETS1741,64839
+-e '  s!^TARGETS=-e '  s!^TARGETS1743,64878
+-e 's/[[:-e 's/[[1770,65857
+-e 's!^!$2:-e 's!^!$21775,65974
+$(ECHO) '# vim:$(ECHO) '# vim1798,66502
+$(ECHO) 'INCLUDED_$(call cleanse-filename,$2)$(ECHO) 'INCLUDED_$(call cleanse-filename,$21800,66598
+$(call get-gpi-deps,$1,$(addprefix $(2:$(call get-gpi-deps,$1,$(addprefix $(21801,66659
+-e '/^[[:-e '/^[[1819,67445
+-e '  s/^[[:-e '  s/^[[1825,67573
+-e '  s/[[:-e '  s/[[1826,67651
+-e '  s/.*:-e '  s/.*1829,67859
+-e '  s!.*!$2:-e '  s!.*!$21830,67935
+-e 's/^[[:-e 's/^[[1835,67996
+-e '/^:-e '/^1869,68948
+-e '  s//:-e '  s//1870,68976
+-e '/^:-e '/^1875,69038
+-e '  s//:-e '  s//1876,69055
+-e ':-e '1880,69109
+-e 's/^/:-e 's/^/1881,69129
+-e ':-e '1885,69174
+-e 's/^/:-e 's/^/1886,69194
+-e ':-e '1890,69240
+-e 's/^/:-e 's/^/1891,69262
+-e ':-e '1895,69309
+-e '/^! LaTeX Error:-e '/^! LaTeX Error1896,69323
+-e 's/^[^[:-e 's/^[^[1900,69404
+-e 's/^\(.*\n\)\([^[:-e 's/^\(.*\n\)\([^[1901,69455
+-e '/^!!! .* LaTeX Error:-e '/^!!! .* LaTeX Error1902,69524
+-e '/^:-e '/^1906,69610
+-e '    s/^:-e '    s/^1908,69668
+-e '  s/^:-e '  s/^1911,69726
+-e '  s/^\(.*not found.\).*Enter file name:-e '  s/^\(.*not found.\).*Enter file name1912,69748
+-e '/^:-e '/^1915,69874
+-e '    s/^:-e '    s/^1917,69936
+-e '  s/:-e '  s/1920,69994
+-e '  /could not locate.*any of these extensions:-e '  /could not locate.*any of these extensions1921,70017
+-e '/^\(.* LaTeX Error:-e '/^\(.* LaTeX Error1927,70155
+-e '/.*\(!!! .*Undefined control sequence\)[^[:-e '/.*\(!!! .*Undefined control sequence\)[^[1931,70302
+-e '  s//\1:-e '  s//\11932,70370
+-e '  s/\nl\.[[:-e '  s/\nl\.[[1933,70390
+-e '/^\(!pdfTeX error:-e '/^\(!pdfTeX error1936,70484
+-e '  s/[[:-e '  s/[[1941,70583
+-e '  s/[[:-e '  s/[[1942,70608
+-e ':-e '1946,70670
+-e 's/^xindy:-e 's/^xindy1969,71084
+-e '/^Error:-e '/^Error1979,71264
+-e '  /^Execution stack:-e '  /^Execution stack1980,71302
+-e '/, line [0-9]*:-e '/, line [0-9]*1993,71523
+-e '/, line [0-9]*:-e '/, line [0-9]*1999,71623
+-e '/^Error:-e '/^Error2028,72276
+-e 's/^Warning:-e 's/^Warning2029,72332
+-e     's![.:-e     's![.2042,72656
+-e     's!.*!\\:-e     's!.*!\\2044,72693
+color_tex 2085,73737
+-e '    s/[[:-e '    s/[[2102,74047
+-e '  / *LaTeX Error:-e '  / *LaTeX Error2107,74232
+-e '    s/.*\( *LaTeX Error:-e '    s/.*\( *LaTeX Error2108,74261
+-e '  /.*Warning:-e '  /.*Warning2111,74349
+-e ' -e '2124,74671
+color_bib 2129,74730
+-e '/---/,/^.[^:-e '/---/,/^.[^2133,74810
+-e '  /^.[^:-e '  /^.[^2135,74844
+enlarge_beamer	2150,75166
+test-run-again	2153,75262
+| $(EGREP) -q '^(.*Rerun .*|No file $1\.[^.]+\.|No file .+\.tex\.|LaTeX Warning:| $(EGREP) -q '^(.*Rerun .*|No file $1\.[^.]+\.|No file .+\.tex\.|LaTeX Warning2162,75590
+run-latex	2168,75759
+latex-color-log	2171,75902
+success=2175,76027
+[ "$$success" [ "$$success"2182,76217
+success=2188,76346
+if ! $(XINDY) -q -o $2 -L $(XINDYLANG) -C $(XINDYENC) -I xindy -M $3 -t $4 $1 > /dev/null || $(EGREP) -q '^xindy:if ! $(XINDY) -q -o $2 -L $(XINDYLANG) -C $(XINDYENC) -I xindy -M $3 -t $4 $1 > /dev/null || $(EGREP) -q '^xindy2189,76359
+[ "$$success" [ "$$success"2194,76560
+[ ! -e '$2.cookie' ] && $(ECHO) "restarts=[ ! -e '$2.cookie' ] && $(ECHO) "restarts2203,76856
+restarts=2204,76971
+level=2205,77026
+if $(EXPR) $(MAKELEVEL) '<=if $(EXPR) $(MAKELEVEL) '<2206,77075
+run-bibtex	2217,77396
+$(EPSTOPDF) '$1.cookie' --outfile=$(EPSTOPDF) '$1.cookie' --outfile2224,77704
+default-gpi-fontsize 2232,77942
+$(strip $(if $2,monochrome,$(if $(shell $(EGREP) '^\#\#[[:$(strip $(if $2,monochrome,$(if $(shell $(EGREP) '^\#\#[[2248,78536
+gpi-font-entry 2255,78861
+fnames=2289,79840
+success=2294,79963
+[ "$$success" [ "$$success"2307,80335
+$(CONVERT) $(if $3,-type Grayscale,) '$1' eps2:$(CONVERT) $(if $3,-type Grayscale,) '$1' eps22334,81069
+convert-fig	2339,81223
+convert-fig-pstex	2343,81399
+convert-fig-pstex-t	2347,81577
+convert-dot-tex	2351,81744
+convert-svg	2356,81881
+convert-xvg	2361,82073
+convert-epsgz	2366,82262
+convert-eps	2371,82469
+gray_eps_file	2374,82599
+make-ps	2497,86947
+make-pdf	2503,87188
+echo-build	2508,87379
+echo-graphic	2509,87451
+echo-dep	2510,87512
+echo-list	2514,87625
+.PHONY:.PHONY2520,87696
+all:all2521,87708
+.PHONY:.PHONY2523,87739
+all-pdf:all-pdf2524,87755
+.PHONY:.PHONY2527,87832
+all-ps:all-ps2528,87847
+.PHONY:.PHONY2530,87880
+all-dvi:all-dvi2531,87896
+.PHONY:.PHONY2537,87958
+show:show2538,87971
+source_includes	2546,88088
+graphic_includes 2547,88150
+.PHONY:.PHONY2575,89161
+$(default_stems_ss)$(default_stems_ss2576,89189
+.PHONY:.PHONY2579,89266
+$(addsuffix ._show,$(stems_ssg)$(addsuffix ._show,$(stems_ssg2580,89307
+.SECONDARY:.SECONDARY2584,89425
+%.pdf:%.pdf2585,89456
+.SECONDARY:.SECONDARY2600,89882
+%.ps:%.ps2601,89912
+.SECONDARY:.SECONDARY2660,91833
+%.$(build_target_extension)%.$(build_target_extension2662,91870
+%.bbl:%.bbl2726,93988
+%.ind:%.ind2753,95067
+%.gls:%.gls2758,95201
+%.gls:%.gls2763,95379
+%.gls:%.gls2768,95534
+%.nls:%.nls2773,95687
+.SECONDARY:.SECONDARY2780,95900
+%.tex:%.tex2782,95932
+%.tex:%.tex2785,95993
+%.tex:%.tex2788,96055
+%.tex:%.tex2791,96115
+.PHONY:.PHONY2800,96313
+all-graphics:all-graphics2801,96334
+.PHONY:.PHONY2804,96416
+all-pstex:all-pstex2805,96434
+.PHONY:.PHONY2808,96474
+all-dot2tex:all-dot2tex2809,96494
+.PHONY:.PHONY2811,96532
+show-graphics:show-graphics2812,96554
+$(gray_eps_file)$(gray_eps_file2815,96623
+%.pdf:%.pdf2820,96762
+%.pdf:%.pdf2825,96939
+%.pdf:%.pdf2830,97071
+%.pdf:%.pdf2834,97164
+%.pdf:%.pdf2840,97307
+%.pdf:%.pdf2845,97484
+%.pdf:%.pdf2850,97616
+%.eps:%.eps2857,97717
+%.eps:%.eps2861,97843
+%.eps:%.eps2865,97936
+%.eps:%.eps2869,98067
+%.eps:%.eps2876,98383
+%.eps:%.eps2882,98591
+%.eps:%.eps2886,98715
+%.eps:%.eps2890,98840
+%.eps:%.eps2895,98970
+%.pstex:%.pstex2899,99099
+%.pstex_t:%.pstex_t2903,99200
+%.dot_t:%.dot_t2907,99322
+%.$(build_target_extension).1st.make %.d %.aux %.aux.make %.fls:%.$(build_target_extension).1st.make %.d %.aux %.aux.make %.fls2950,100722
+.SECONDARY:.SECONDARY2980,102122
+%.auxbbl.make:%.auxbbl.make2981,102173
+%.gpi.d:%.gpi.d2990,102553
+%.paper.make:%.paper.make2999,102927
+%.embed.make:%.embed.make3028,103675
+.PHONY:.PHONY3037,103845
+_all_programs:_all_programs3038,103867
+.PHONY:.PHONY3042,103972
+_check_programs:_check_programs3043,103996
+.PHONY:.PHONY3072,104749
+_check_gpi_files:_check_gpi_files3073,104774
+.PHONY:.PHONY3088,105209
+_all_stems:_all_stems3089,105228
+.PHONY:.PHONY3093,105331
+_includes:_includes3094,105349
+.PHONY:.PHONY3101,105580
+_all_sources:_all_sources3102,105601
+.PHONY:.PHONY3106,105705
+_dependency_graph:_dependency_graph3107,105731
+.PHONY:.PHONY3111,105840
+_show_dependency_graph:_show_dependency_graph3112,105871
+.PHONY:.PHONY3118,106117
+_sources:_sources3119,106134
+.PHONY:.PHONY3123,106226
+_scripts:_scripts3124,106243
+.PHONY:.PHONY3128,106339
+_graphic_outputs:_graphic_outputs3129,106364
+.PHONY:.PHONY3133,106483
+_env:_env3134,106496
+.PHONY:.PHONY3150,107019
+clean-generated:clean-generated3151,107043
+.PHONY:.PHONY3155,107189
+clean-deps:clean-deps3156,107208
+.PHONY:.PHONY3159,107295
+clean-tex:clean-tex3160,107313
+.PHONY:.PHONY3163,107375
+clean-graphics:clean-graphics3170,107813
+.PHONY:.PHONY3173,107917
+clean-backups:clean-backups3174,107939
+.PHONY:.PHONY3177,108010
+clean-auxiliary:clean-auxiliary3178,108034
+.PHONY:.PHONY3181,108097
+clean-nographics:clean-nographics3182,108122
+.PHONY:.PHONY3184,108194
+clean:clean3185,108208
+.PHONY:.PHONY3191,108320
+help:help3192,108333
+.PHONY:.PHONY3195,108354
+version:version3196,108370
+.PHONY:.PHONY3887,134630
 
 my_docs/17/hpckp_17/Makefile,102
 TALKS 1,0
@@ -5047,7 +5055,7 @@ my_docs/16/ugent_16/talk.tex,355
 \newcommand{\lap}\lap34,1124
 \section{Lmod}Lmod42,1219
 \section{A Transition Strategy}A97,3076
-\section{Works in progress}Works178,5775
+\section{Works in progress}Works178,5774
 
 my_docs/16/fosdem16/Makefile,102
 TALKS 1,0
@@ -5077,10 +5085,10 @@ my_docs/16/fosdem16/talk.tex,493
 \newcommand{\curl}\curl33,1139
 \newcommand{\lap}\lap34,1181
 \section{Environment Modules}Environment96,4021
-\section{Using Lua Features}Using212,7348
-\section{Building a Community}Building317,10169
-\section{Tech Solutions for reliable programs}Tech391,12665
-\section{Conclusions}Conclusions495,15358
+\section{Using Lua Features}Using212,7349
+\section{Building a Community}Building317,10170
+\section{Tech Solutions for reliable programs}Tech391,12666
+\section{Conclusions}Conclusions495,15359
 
 my_docs/Lmod_5.0_lua_ml.txt,225
 Environment module systems helps user manage their environments on Unix systems.  The applications,20,251
@@ -5170,8 +5178,8 @@ my_docs/15/star15/talk.tex,383
 \newcommand{\lap}\lap34,1131
 \section{Lmod}Lmod42,1226
 \section{A Transition Strategy}A116,3556
-\section{XALT}XALT191,6100
-\section{Conclusion}Conclusion274,8514
+\section{XALT}XALT191,6099
+\section{Conclusion}Conclusion274,8513
 
 my_docs/15/ugent_15/Makefile,102
 TALKS 1,0
@@ -5213,7 +5221,7 @@ my_docs/15/eb_hack_15/lmod_talk.tex,360
 \newcommand{\lap}\lap34,1124
 \section{Lmod}Lmod42,1219
 \section{A Transition Strategy}A104,3233
-\section{Topics for Hackathon}Topics185,5932
+\section{Topics for Hackathon}Topics185,5931
 
 my_docs/12/sc12_bof/sc12_bof.tex,438
 \newcommand{\bfnabla}\bfnabla19,475
@@ -7972,13 +7980,17 @@ set_shell_function(104,3830
 rt/sh_to_modulefile/sh_to_modulefile.tdesc,21
 local testName 2,15
 
-rt/sh_to_modulefile/tstScript.sh,12
-PATH=8,131
+rt/sh_to_modulefile/tstScript.sh,50
+OLD_IFS=11,168
+    NEW_PATH=22,353
+PATH=32,432
 
-rt/sh_to_modulefile/path_both_ends.sh,43
-pathA=9,132
-  PATH=25,1291
-PATH=28,1323
+rt/sh_to_modulefile/path_both_ends.sh,81
+OLD_IFS=12,169
+    NEW_PATH=23,354
+pathA=29,425
+  PATH=45,1584
+PATH=48,1616
 
 rt/spider_dot/spider_dot.tdesc,21
 local testName 2,15
@@ -8591,10 +8603,31 @@ export MODULEPATH;36,1585
 _ModuleTable_=37,1604
 export _ModuleTable_;38,1774
 
+rt/isavail/isavail.tdesc,19
+testdescript 3,16
+
+rt/isavail/out.txt,473
+export __LMOD_REF_COUNT_LOADEDMODULES;10,315
+LOADEDMODULES=11,354
+export LOADEDMODULES;12,387
+__LMOD_REF_COUNT_MODULEPATH=13,409
+export __LMOD_REF_COUNT_MODULEPATH;14,470
+MODULEPATH=15,506
+export MODULEPATH;16,548
+__LMOD_REF_COUNT__LMFILES_=17,567
+export __LMOD_REF_COUNT__LMFILES_;18,711
+_LMFILES_=19,746
+export _LMFILES_;20,865
+_ModuleTable_=21,883
+export _ModuleTable_;22,1588
+export MODULEPATH;28,1777
+_ModuleTable_=29,1796
+export _ModuleTable_;30,2501
+
 rt/family/family.tdesc,21
 local testName 2,15
 
-rt/family/out.txt,6121
+rt/family/out.txt,4585
 export CC;10,285
 __LMOD_REF_COUNT_LD_LIBRARY_PATH=11,296
 export __LMOD_REF_COUNT_LD_LIBRARY_PATH;12,378
@@ -8742,53 +8775,6 @@ _LMFILES_=173,14642
 export _LMFILES_;174,14927
 _ModuleTable_=175,14945
 export _ModuleTable_;176,16436
-export CC;182,16605
-__LMOD_REF_COUNT_LD_LIBRARY_PATH=183,16616
-export __LMOD_REF_COUNT_LD_LIBRARY_PATH;184,16695
-LD_LIBRARY_PATH=185,16736
-export LD_LIBRARY_PATH;186,16796
-LMOD_FAMILY_COMPILER=187,16820
-export LMOD_FAMILY_COMPILER;188,16847
-LMOD_FAMILY_COMPILER_VERSION=189,16876
-export LMOD_FAMILY_COMPILER_VERSION;190,16912
-LMOD_FAMILY_HDF5=191,16949
-export LMOD_FAMILY_HDF5;192,16973
-LMOD_FAMILY_HDF5_VERSION=193,16998
-export LMOD_FAMILY_HDF5_VERSION;194,17031
-LMOD_FAMILY_MPI=195,17064
-export LMOD_FAMILY_MPI;196,17087
-LMOD_FAMILY_MPI_VERSION=197,17111
-export LMOD_FAMILY_MPI_VERSION;198,17142
-__LMOD_REF_COUNT_LOADEDMODULES=199,17174
-export __LMOD_REF_COUNT_LOADEDMODULES;200,17295
-LOADEDMODULES=201,17334
-export LOADEDMODULES;202,17424
-__LMOD_REF_COUNT_MODULEPATH=203,17446
-export __LMOD_REF_COUNT_MODULEPATH;204,17595
-MODULEPATH=205,17631
-export MODULEPATH;206,17755
-MyMPI_Type=207,17774
-export MyMPI_Type;208,17792
-__LMOD_REF_COUNT_PATH=209,17811
-export __LMOD_REF_COUNT_PATH;210,17952
-PATH=211,17982
-export PATH;212,18095
-TACC_HDF5_BIN=213,18108
-export TACC_HDF5_BIN;214,18166
-TACC_HDF5_DIR=215,18188
-export TACC_HDF5_DIR;216,18242
-TACC_HDF5_DOC=217,18264
-export TACC_HDF5_DOC;218,18322
-TACC_HDF5_INC=219,18344
-export TACC_HDF5_INC;220,18406
-TACC_HDF5_LIB=221,18428
-export TACC_HDF5_LIB;222,18486
-__LMOD_REF_COUNT__LMFILES_=223,18508
-export __LMOD_REF_COUNT__LMFILES_;224,18815
-_LMFILES_=225,18850
-export _LMFILES_;226,19126
-_ModuleTable_=227,19144
-export _ModuleTable_;228,20597
 
 rt/common_funcs.sh,388
 pathmunge 1,0
@@ -8808,9 +8794,9 @@ buildRmapT 161,5789
 buildNewDB(166,5844
 EPOCH(206,6681
 initStdEnvVars(211,6742
-clearTARG(259,7801
-unsetMT 274,8032
-unsetSTT 306,8668
+clearTARG(260,7819
+unsetMT 275,8050
+unsetSTT 307,8686
 
 rt/perl/perl.tdesc,19
 testdescript 3,16
@@ -9268,17 +9254,17 @@ MODULEPATH=11,360
 export MODULEPATH;12,408
 _ModuleTable_=13,427
 export _ModuleTable_;14,609
-export __LMOD_REF_COUNT_MODULEPATH;20,845
-MODULEPATH=21,881
-export MODULEPATH;22,939
-_ModuleTable_=23,958
-export _ModuleTable_;24,1152
-export MODULEPATH;30,1359
-_ModuleTable_=31,1378
-export _ModuleTable_;32,1572
-export MODULEPATH;38,1778
-_ModuleTable_=39,1797
-export _ModuleTable_;40,1991
+export __LMOD_REF_COUNT_MODULEPATH;20,855
+MODULEPATH=21,891
+export MODULEPATH;22,959
+_ModuleTable_=23,978
+export _ModuleTable_;24,1182
+export MODULEPATH;30,1399
+_ModuleTable_=31,1418
+export _ModuleTable_;32,1622
+export MODULEPATH;38,1838
+_ModuleTable_=39,1857
+export _ModuleTable_;40,2061
 
 rt/itac/out.txt,1877
 export LMOD_FAMILY_COMPILER;10,293
@@ -9349,7 +9335,7 @@ local testName 2,15
 rt/load/load.tdesc,19
 testdescript 3,16
 
-rt/load/out.txt,14992
+rt/load/out.txt,15945
 export __LMOD_REF_COUNT_MODULEPATH;10,399
 MODULEPATH=11,435
 export MODULEPATH;12,501
@@ -9746,97 +9732,127 @@ _LMFILES_=617,140776
 export _LMFILES_;618,141549
 _ModuleTable_=619,141567
 export _ModuleTable_;620,145552
-export __LMOD_REF_COUNT_LOADEDMODULES;631,146137
-LOADEDMODULES=632,146176
-export LOADEDMODULES;633,146388
-MODULEPATH=634,146410
-export MODULEPATH;635,146646
-__LMOD_REF_COUNT__LMFILES_=636,146665
-export __LMOD_REF_COUNT__LMFILES_;637,147555
-_LMFILES_=638,147590
-export _LMFILES_;639,148407
-_ModuleTable_=640,148425
-export _ModuleTable_;641,152618
-moduleA=642,152640
-export moduleA;643,152661
-export __LMOD_REF_COUNT_MODULEPATH;654,153021
-MODULEPATH=655,153057
-export MODULEPATH;656,153097
-_ModuleTable_=657,153116
-export _ModuleTable_;658,153282
-export __LMOD_REF_COUNT_LOADEDMODULES;664,153758
-LOADEDMODULES=665,153797
-export LOADEDMODULES;666,154029
-MODULEPATH=667,154051
-export MODULEPATH;668,154091
-MY_NAME=669,154110
-export MY_NAME;670,154139
-__LMOD_REF_COUNT__LMFILES_=671,154155
-export __LMOD_REF_COUNT__LMFILES_;672,155100
-_LMFILES_=673,155135
-export _LMFILES_;674,156004
-_ModuleTable_=675,156022
-export _ModuleTable_;676,156426
-export __LMOD_REF_COUNT_LOADEDMODULES;682,156901
-LOADEDMODULES=683,156940
-export LOADEDMODULES;684,157178
-MODULEPATH=685,157200
-export MODULEPATH;686,157240
-__LMOD_REF_COUNT__LMFILES_=687,157259
-export __LMOD_REF_COUNT__LMFILES_;688,158245
-_LMFILES_=689,158280
-export _LMFILES_;690,159187
-_ModuleTable_=691,159205
-export _ModuleTable_;692,159806
-export __LMOD_REF_COUNT_LOADEDMODULES;698,160294
-LOADEDMODULES=699,160333
-export LOADEDMODULES;700,160581
-MODULEPATH=701,160603
-export MODULEPATH;702,160643
-__LMOD_REF_COUNT__LMFILES_=703,160662
-export __LMOD_REF_COUNT__LMFILES_;704,161689
-_LMFILES_=705,161724
-export _LMFILES_;706,162669
-_ModuleTable_=707,162687
-export _ModuleTable_;708,163478
-export MODULEPATH;714,163666
-_ModuleTable_=715,163685
-export _ModuleTable_;716,164476
-export __LMOD_REF_COUNT_LOADEDMODULES;727,165103
-LOADEDMODULES=728,165142
-export LOADEDMODULES;729,165396
-__LMOD_REF_COUNT_MODULEPATH=730,165418
-export __LMOD_REF_COUNT_MODULEPATH;731,165472
-MODULEPATH=732,165508
-export MODULEPATH;733,165543
-__LMOD_REF_COUNT__LMFILES_=734,165562
-export __LMOD_REF_COUNT__LMFILES_;735,166625
-_LMFILES_=736,166660
-export _LMFILES_;737,167638
-_ModuleTable_=738,167656
-export _ModuleTable_;739,167990
-export __LMOD_REF_COUNT_LOADEDMODULES;750,168626
-LOADEDMODULES=751,168665
-export LOADEDMODULES;752,168925
-MODULEPATH=753,168947
-export MODULEPATH;754,168982
-__LMOD_REF_COUNT__LMFILES_=755,169001
-export __LMOD_REF_COUNT__LMFILES_;756,170096
-_LMFILES_=757,170131
-export _LMFILES_;758,171138
-_ModuleTable_=759,171156
-export _ModuleTable_;760,171664
-export MODULEPATH;766,171847
-_ModuleTable_=767,171866
-export _ModuleTable_;768,172374
+export MODULEPATH;631,146086
+_ModuleTable_=632,146105
+export _ModuleTable_;633,150090
+export MODULEPATH;639,150474
+_ModuleTable_=640,150493
+export _ModuleTable_;641,154478
+export __LMOD_REF_COUNT_LOADEDMODULES;647,154923
+LOADEDMODULES=648,154962
+export LOADEDMODULES;649,155174
+MODULEPATH=650,155196
+export MODULEPATH;651,155432
+__LMOD_REF_COUNT__LMFILES_=652,155451
+export __LMOD_REF_COUNT__LMFILES_;653,156341
+_LMFILES_=654,156376
+export _LMFILES_;655,157193
+_ModuleTable_=656,157211
+export _ModuleTable_;657,161404
+moduleA=658,161426
+export moduleA;659,161447
+export __LMOD_REF_COUNT_MODULEPATH;670,161807
+MODULEPATH=671,161843
+export MODULEPATH;672,161883
+_ModuleTable_=673,161902
+export _ModuleTable_;674,162068
+export __LMOD_REF_COUNT_LOADEDMODULES;680,162544
+LOADEDMODULES=681,162583
+export LOADEDMODULES;682,162815
+MODULEPATH=683,162837
+export MODULEPATH;684,162877
+MY_NAME=685,162896
+export MY_NAME;686,162925
+__LMOD_REF_COUNT__LMFILES_=687,162941
+export __LMOD_REF_COUNT__LMFILES_;688,163886
+_LMFILES_=689,163921
+export _LMFILES_;690,164790
+_ModuleTable_=691,164808
+export _ModuleTable_;692,165212
+export __LMOD_REF_COUNT_LOADEDMODULES;698,165687
+LOADEDMODULES=699,165726
+export LOADEDMODULES;700,165964
+MODULEPATH=701,165986
+export MODULEPATH;702,166026
+__LMOD_REF_COUNT__LMFILES_=703,166045
+export __LMOD_REF_COUNT__LMFILES_;704,167031
+_LMFILES_=705,167066
+export _LMFILES_;706,167973
+_ModuleTable_=707,167991
+export _ModuleTable_;708,168592
+export __LMOD_REF_COUNT_LOADEDMODULES;714,169080
+LOADEDMODULES=715,169119
+export LOADEDMODULES;716,169367
+MODULEPATH=717,169389
+export MODULEPATH;718,169429
+__LMOD_REF_COUNT__LMFILES_=719,169448
+export __LMOD_REF_COUNT__LMFILES_;720,170475
+_LMFILES_=721,170510
+export _LMFILES_;722,171455
+_ModuleTable_=723,171473
+export _ModuleTable_;724,172264
+export MODULEPATH;730,172452
+_ModuleTable_=731,172471
+export _ModuleTable_;732,173262
+export __LMOD_REF_COUNT_LOADEDMODULES;743,173889
+LOADEDMODULES=744,173928
+export LOADEDMODULES;745,174182
+__LMOD_REF_COUNT_MODULEPATH=746,174204
+export __LMOD_REF_COUNT_MODULEPATH;747,174258
+MODULEPATH=748,174294
+export MODULEPATH;749,174329
+__LMOD_REF_COUNT__LMFILES_=750,174348
+export __LMOD_REF_COUNT__LMFILES_;751,175411
+_LMFILES_=752,175446
+export _LMFILES_;753,176424
+_ModuleTable_=754,176442
+export _ModuleTable_;755,176776
+export __LMOD_REF_COUNT_LOADEDMODULES;766,177412
+LOADEDMODULES=767,177451
+export LOADEDMODULES;768,177711
+MODULEPATH=769,177733
+export MODULEPATH;770,177768
+__LMOD_REF_COUNT__LMFILES_=771,177787
+export __LMOD_REF_COUNT__LMFILES_;772,178882
+_LMFILES_=773,178917
+export _LMFILES_;774,179924
+_ModuleTable_=775,179942
+export _ModuleTable_;776,180450
+export __LMOD_REF_COUNT_LOADEDMODULES;782,180961
+LOADEDMODULES=783,181000
+export LOADEDMODULES;784,181268
+MODULEPATH=785,181290
+export MODULEPATH;786,181325
+__LMOD_REF_COUNT_TEXINPUTS=787,181344
+TEXINPUTS=789,181418
+__LMOD_REF_COUNT__LMFILES_=791,181456
+export __LMOD_REF_COUNT__LMFILES_;792,182589
+_LMFILES_=793,182624
+export _LMFILES_;794,183666
+_ModuleTable_=795,183684
+export _ModuleTable_;796,184374
+export __LMOD_REF_COUNT_LOADEDMODULES;802,184918
+LOADEDMODULES=803,184957
+export LOADEDMODULES;804,185244
+MODULEPATH=805,185266
+export MODULEPATH;806,185301
+__LMOD_REF_COUNT__LMFILES_=807,185320
+export __LMOD_REF_COUNT__LMFILES_;808,186498
+_LMFILES_=809,186533
+export _LMFILES_;810,187617
+_ModuleTable_=811,187635
+export _ModuleTable_;812,188547
+export MODULEPATH;818,188730
+_ModuleTable_=819,188749
+export _ModuleTable_;820,189661
 
 rt/load/err.txt,591
-Also make sure that all modulefiles written in TCL start with the string #%ModuleModule126,5341
-Also make sure that all modulefiles written in TCL start with the string #%ModuleModule135,5845
-Also make sure that all modulefiles written in TCL start with the string #%ModuleModule211,8838
-Also make sure that all modulefiles written in TCL start with the string #%ModuleModule326,13379
-Also make sure that all modulefiles written in TCL start with the string #%ModuleModule335,13862
-Also make sure that all modulefiles written in TCL start with the string #%ModuleModule344,14366
+Also make sure that all modulefiles written in TCL start with the string #%ModuleModule126,5340
+Also make sure that all modulefiles written in TCL start with the string #%ModuleModule135,5844
+Also make sure that all modulefiles written in TCL start with the string #%ModuleModule211,8837
+Also make sure that all modulefiles written in TCL start with the string #%ModuleModule326,13378
+Also make sure that all modulefiles written in TCL start with the string #%ModuleModule335,13861
+Also make sure that all modulefiles written in TCL start with the string #%ModuleModule344,14365
 
 rt/modulerc/modulerc.tdesc,21
 local testName 2,15
@@ -9844,7 +9860,7 @@ local testName 2,15
 rt/modulerc/dot.modulerc,36
    set modulepath_root  $env(9,203
 
-rt/modulerc/out.txt,5753
+rt/modulerc/out.txt,6179
 export __LMOD_REF_COUNT_LOADEDMODULES;10,308
 LOADEDMODULES=11,347
 export LOADEDMODULES;12,375
@@ -10044,6 +10060,20 @@ MODULEPATH=1267,61984
 export MODULEPATH;1268,62077
 _ModuleTable_=1269,62096
 export _ModuleTable_;1270,62372
+export __LMOD_REF_COUNT_MODULEPATH;1276,62579
+MODULEPATH=1277,62615
+export MODULEPATH;1278,62654
+_ModuleTable_=1279,62673
+export _ModuleTable_;1280,62837
+export MODULEPATH;1286,63028
+_ModuleTable_=1287,63047
+export _ModuleTable_;1288,63211
+export MODULEPATH;1294,63422
+_ModuleTable_=1295,63441
+export _ModuleTable_;1296,63605
+export MODULEPATH;1302,63818
+_ModuleTable_=1303,63837
+export _ModuleTable_;1304,64001
 
 rt/arch_swap/arch_swap.tdesc,21
 local testName 2,15
@@ -10262,6 +10292,153 @@ export _ModuleTable_;90,45426
 
 rt/errHandler/errHander.tdesc,21
 local testName 2,15
+
+rt/hook_avail/hook_avail.tdesc,21
+local testName 2,15
+
+rt/hook_avail/SitePackage.lua,28
+function avail_hook(20,318
+
+rt/hook_avail/out.txt,4029
+export AR;10,323
+CC=11,334
+export CC;12,394
+__LMOD_REF_COUNT_CPATH=13,405
+export __LMOD_REF_COUNT_CPATH;14,521
+CPATH=15,552
+export CPATH;16,646
+CXX=17,660
+export CXX;18,722
+F77=19,734
+export F77;20,797
+FC=21,809
+export FC;22,871
+INTEL_LICENSE_FILE=23,882
+export INTEL_LICENSE_FILE;24,920
+LD=25,947
+export LD;26,1008
+__LMOD_REF_COUNT_LD_LIBRARY_PATH=27,1019
+export __LMOD_REF_COUNT_LD_LIBRARY_PATH;28,1245
+LD_LIBRARY_PATH=29,1286
+export LD_LIBRARY_PATH;30,1484
+__LMOD_REF_COUNT_LIBRARY_PATH=31,1508
+export __LMOD_REF_COUNT_LIBRARY_PATH;32,1731
+LIBRARY_PATH=33,1769
+export LIBRARY_PATH;34,1964
+LMOD_FAMILY_COMPILERS=35,1985
+export LMOD_FAMILY_COMPILERS;36,2024
+LMOD_FAMILY_COMPILERS_VERSION=37,2054
+export LMOD_FAMILY_COMPILERS_VERSION;38,2090
+LMOD_FAMILY_MOAB=39,2128
+export LMOD_FAMILY_MOAB;40,2156
+LMOD_FAMILY_MOAB_VERSION=41,2181
+export LMOD_FAMILY_MOAB_VERSION;42,2213
+LMOD_FAMILY_MPI=43,2246
+export LMOD_FAMILY_MPI;44,2275
+LMOD_FAMILY_MPI_VERSION=45,2299
+export LMOD_FAMILY_MPI_VERSION;46,2330
+__LMOD_REF_COUNT_LOADEDMODULES=47,2362
+export __LMOD_REF_COUNT_LOADEDMODULES;48,2489
+LOADEDMODULES=49,2528
+export LOADEDMODULES;50,2624
+__LMOD_REF_COUNT_MANPATH=51,2646
+export __LMOD_REF_COUNT_MANPATH;52,2868
+MANPATH=53,2901
+export MANPATH;54,3095
+MOABHOMEDIR=55,3111
+export MOABHOMEDIR;56,3160
+__LMOD_REF_COUNT_MODULEPATH=57,3180
+export __LMOD_REF_COUNT_MODULEPATH;58,3396
+MODULEPATH=59,3432
+export MODULEPATH;60,3620
+OMPI_MCA_plm_rsh_num_concurrent=61,3639
+export OMPI_MCA_plm_rsh_num_concurrent;62,3676
+__LMOD_REF_COUNT_PATH=63,3716
+export __LMOD_REF_COUNT_PATH;64,3949
+PATH=65,3979
+export PATH;66,4178
+__LMOD_REF_COUNT__LMFILES_=67,4191
+export __LMOD_REF_COUNT__LMFILES_;68,4528
+_LMFILES_=69,4563
+export _LMFILES_;70,4869
+_ModuleTable_=71,4887
+export _ModuleTable_;72,6548
+export MODULEPATH;78,6883
+_ModuleTable_=79,6902
+export _ModuleTable_;80,8563
+export AR;86,8772
+CC=87,8783
+export CC;88,8843
+CPATH=89,8854
+export CPATH;90,8948
+CXX=91,8962
+export CXX;92,9024
+F77=93,9036
+export F77;94,9099
+FC=95,9111
+export FC;96,9173
+INTEL_LICENSE_FILE=97,9184
+export INTEL_LICENSE_FILE;98,9222
+LD=99,9249
+export LD;100,9310
+LD_LIBRARY_PATH=101,9321
+export LD_LIBRARY_PATH;102,9519
+LIBRARY_PATH=103,9543
+export LIBRARY_PATH;104,9738
+LMOD_FAMILY_COMPILERS=105,9759
+export LMOD_FAMILY_COMPILERS;106,9798
+LMOD_FAMILY_COMPILERS_VERSION=107,9828
+export LMOD_FAMILY_COMPILERS_VERSION;108,9864
+LMOD_FAMILY_MOAB=109,9902
+export LMOD_FAMILY_MOAB;110,9930
+LMOD_FAMILY_MOAB_VERSION=111,9955
+export LMOD_FAMILY_MOAB_VERSION;112,9987
+LMOD_FAMILY_MPI=113,10020
+export LMOD_FAMILY_MPI;114,10049
+LMOD_FAMILY_MPI_VERSION=115,10073
+export LMOD_FAMILY_MPI_VERSION;116,10104
+__LMOD_REF_COUNT_LOADEDMODULES=117,10136
+export __LMOD_REF_COUNT_LOADEDMODULES;118,10263
+LOADEDMODULES=119,10302
+export LOADEDMODULES;120,10398
+__LMOD_REF_COUNT_MANPATH=121,10420
+export __LMOD_REF_COUNT_MANPATH;122,10642
+MANPATH=123,10675
+export MANPATH;124,10869
+MOABHOMEDIR=125,10885
+export MOABHOMEDIR;126,10934
+MODULEPATH=127,10954
+export MODULEPATH;128,11142
+OMPI_MCA_plm_rsh_num_concurrent=129,11161
+export OMPI_MCA_plm_rsh_num_concurrent;130,11198
+__LMOD_REF_COUNT_PATH=131,11238
+export __LMOD_REF_COUNT_PATH;132,11471
+PATH=133,11501
+export PATH;134,11700
+__LMOD_REF_COUNT__LMFILES_=135,11713
+export __LMOD_REF_COUNT__LMFILES_;136,12050
+_LMFILES_=137,12085
+export _LMFILES_;138,12391
+_ModuleTable_=139,12409
+export _ModuleTable_;140,14070
+export MODULEPATH;146,14406
+_ModuleTable_=147,14425
+export _ModuleTable_;148,16086
+export MODULEPATH;154,16436
+_ModuleTable_=155,16455
+export _ModuleTable_;156,18116
+export MODULEPATH;162,18452
+_ModuleTable_=163,18471
+export _ModuleTable_;164,20132
+export MODULEPATH;170,20468
+_ModuleTable_=171,20487
+export _ModuleTable_;172,22148
+export MODULEPATH;178,22484
+_ModuleTable_=179,22503
+export _ModuleTable_;180,24164
+export MODULEPATH;186,24504
+_ModuleTable_=187,24523
+export _ModuleTable_;188,26184
 
 rt/lars/lars.tdesc,21
 local testName=2,15
@@ -13225,150 +13402,6 @@ export _ModuleTable_;46,2449
 rt/empty/empty.tdesc,21
 local testName 3,16
 
-rt/helios/helios.tdesc,21
-local testName 2,15
-
-rt/helios/SitePackage.lua,28
-function avail_hook(20,318
-
-rt/helios/out.txt,3938
-export AR;10,323
-CC=11,334
-export CC;12,394
-__LMOD_REF_COUNT_CPATH=13,405
-export __LMOD_REF_COUNT_CPATH;14,521
-CPATH=15,552
-export CPATH;16,646
-CXX=17,660
-export CXX;18,722
-F77=19,734
-export F77;20,797
-FC=21,809
-export FC;22,871
-INTEL_LICENSE_FILE=23,882
-export INTEL_LICENSE_FILE;24,920
-LD=25,947
-export LD;26,1008
-__LMOD_REF_COUNT_LD_LIBRARY_PATH=27,1019
-export __LMOD_REF_COUNT_LD_LIBRARY_PATH;28,1245
-LD_LIBRARY_PATH=29,1286
-export LD_LIBRARY_PATH;30,1484
-__LMOD_REF_COUNT_LIBRARY_PATH=31,1508
-export __LMOD_REF_COUNT_LIBRARY_PATH;32,1731
-LIBRARY_PATH=33,1769
-export LIBRARY_PATH;34,1964
-LMOD_FAMILY_COMPILERS=35,1985
-export LMOD_FAMILY_COMPILERS;36,2024
-LMOD_FAMILY_COMPILERS_VERSION=37,2054
-export LMOD_FAMILY_COMPILERS_VERSION;38,2090
-LMOD_FAMILY_MOAB=39,2128
-export LMOD_FAMILY_MOAB;40,2156
-LMOD_FAMILY_MOAB_VERSION=41,2181
-export LMOD_FAMILY_MOAB_VERSION;42,2213
-LMOD_FAMILY_MPI=43,2246
-export LMOD_FAMILY_MPI;44,2275
-LMOD_FAMILY_MPI_VERSION=45,2299
-export LMOD_FAMILY_MPI_VERSION;46,2330
-__LMOD_REF_COUNT_LOADEDMODULES=47,2362
-export __LMOD_REF_COUNT_LOADEDMODULES;48,2489
-LOADEDMODULES=49,2528
-export LOADEDMODULES;50,2624
-__LMOD_REF_COUNT_MANPATH=51,2646
-export __LMOD_REF_COUNT_MANPATH;52,2868
-MANPATH=53,2901
-export MANPATH;54,3095
-MOABHOMEDIR=55,3111
-export MOABHOMEDIR;56,3160
-__LMOD_REF_COUNT_MODULEPATH=57,3180
-export __LMOD_REF_COUNT_MODULEPATH;58,3380
-MODULEPATH=59,3416
-export MODULEPATH;60,3588
-OMPI_MCA_plm_rsh_num_concurrent=61,3607
-export OMPI_MCA_plm_rsh_num_concurrent;62,3644
-__LMOD_REF_COUNT_PATH=63,3684
-export __LMOD_REF_COUNT_PATH;64,3917
-PATH=65,3947
-export PATH;66,4146
-__LMOD_REF_COUNT__LMFILES_=67,4159
-export __LMOD_REF_COUNT__LMFILES_;68,4476
-_LMFILES_=69,4511
-export _LMFILES_;70,4797
-_ModuleTable_=71,4815
-export _ModuleTable_;72,6432
-export MODULEPATH;78,6751
-_ModuleTable_=79,6770
-export _ModuleTable_;80,8387
-export AR;86,8596
-CC=87,8607
-export CC;88,8667
-CPATH=89,8678
-export CPATH;90,8772
-CXX=91,8786
-export CXX;92,8848
-F77=93,8860
-export F77;94,8923
-FC=95,8935
-export FC;96,8997
-INTEL_LICENSE_FILE=97,9008
-export INTEL_LICENSE_FILE;98,9046
-LD=99,9073
-export LD;100,9134
-LD_LIBRARY_PATH=101,9145
-export LD_LIBRARY_PATH;102,9343
-LIBRARY_PATH=103,9367
-export LIBRARY_PATH;104,9562
-LMOD_FAMILY_COMPILERS=105,9583
-export LMOD_FAMILY_COMPILERS;106,9622
-LMOD_FAMILY_COMPILERS_VERSION=107,9652
-export LMOD_FAMILY_COMPILERS_VERSION;108,9688
-LMOD_FAMILY_MOAB=109,9726
-export LMOD_FAMILY_MOAB;110,9754
-LMOD_FAMILY_MOAB_VERSION=111,9779
-export LMOD_FAMILY_MOAB_VERSION;112,9811
-LMOD_FAMILY_MPI=113,9844
-export LMOD_FAMILY_MPI;114,9873
-LMOD_FAMILY_MPI_VERSION=115,9897
-export LMOD_FAMILY_MPI_VERSION;116,9928
-__LMOD_REF_COUNT_LOADEDMODULES=117,9960
-export __LMOD_REF_COUNT_LOADEDMODULES;118,10087
-LOADEDMODULES=119,10126
-export LOADEDMODULES;120,10222
-__LMOD_REF_COUNT_MANPATH=121,10244
-export __LMOD_REF_COUNT_MANPATH;122,10466
-MANPATH=123,10499
-export MANPATH;124,10693
-MOABHOMEDIR=125,10709
-export MOABHOMEDIR;126,10758
-MODULEPATH=127,10778
-export MODULEPATH;128,10950
-OMPI_MCA_plm_rsh_num_concurrent=129,10969
-export OMPI_MCA_plm_rsh_num_concurrent;130,11006
-__LMOD_REF_COUNT_PATH=131,11046
-export __LMOD_REF_COUNT_PATH;132,11279
-PATH=133,11309
-export PATH;134,11508
-__LMOD_REF_COUNT__LMFILES_=135,11521
-export __LMOD_REF_COUNT__LMFILES_;136,11838
-_LMFILES_=137,11873
-export _LMFILES_;138,12159
-_ModuleTable_=139,12177
-export _ModuleTable_;140,13794
-export MODULEPATH;146,14114
-_ModuleTable_=147,14133
-export _ModuleTable_;148,15750
-export MODULEPATH;154,16084
-_ModuleTable_=155,16103
-export _ModuleTable_;156,17720
-export MODULEPATH;162,18040
-_ModuleTable_=163,18059
-export _ModuleTable_;164,19676
-export MODULEPATH;170,19996
-_ModuleTable_=171,20015
-export _ModuleTable_;172,21632
-export MODULEPATH;178,21952
-_ModuleTable_=179,21971
-export _ModuleTable_;180,23588
-
 rt/i18n/i18n.tdesc,21
 local testName 2,15
 
@@ -15139,30 +15172,29 @@ Names marked by a trailing 330,11193
 rt/broken_modulerc/broken_modulerc.tdesc,21
 local testName 3,16
 
-rt/broken_modulerc/out.txt,605
+rt/broken_modulerc/out.txt,591
 export __LMOD_REF_COUNT_MODULEPATH;10,361
 MODULEPATH=11,397
 export MODULEPATH;12,447
 _ModuleTable_=13,466
 export _ModuleTable_;14,592
-false15,614
-export __LMOD_REF_COUNT_LOADEDMODULES;21,820
-LOADEDMODULES=22,859
-export LOADEDMODULES;23,896
-MODULEPATH=24,918
-export MODULEPATH;25,968
-VERSION=26,987
-export VERSION;27,1003
-__LMOD_REF_COUNT__LMFILES_=28,1019
-export __LMOD_REF_COUNT__LMFILES_;29,1158
-_LMFILES_=30,1193
-export _LMFILES_;31,1310
-_ModuleTable_=32,1328
-export _ModuleTable_;33,1915
-false34,1937
-export MODULEPATH;40,2118
-_ModuleTable_=41,2137
-export _ModuleTable_;42,2724
+export __LMOD_REF_COUNT_LOADEDMODULES;20,814
+LOADEDMODULES=21,853
+export LOADEDMODULES;22,890
+MODULEPATH=23,912
+export MODULEPATH;24,962
+VERSION=25,981
+export VERSION;26,997
+__LMOD_REF_COUNT__LMFILES_=27,1013
+export __LMOD_REF_COUNT__LMFILES_;28,1152
+_LMFILES_=29,1187
+export _LMFILES_;30,1304
+_ModuleTable_=31,1322
+export _ModuleTable_;32,1909
+false33,1931
+export MODULEPATH;39,2112
+_ModuleTable_=40,2131
+export _ModuleTable_;41,2718
 
 rt/slash/slash.tdesc,19
 testdescript 2,15
@@ -16538,7 +16570,7 @@ proc ModulesHelp 2,9
 rt/avail/mf/Core4/ncurses/.5.9-GCC-4.7.2,22
 proc ModulesHelp 2,9
 
-rt/avail/out.txt,5000
+rt/avail/out.txt,6338
 export __LMOD_REF_COUNT_LD_LIBRARY_PATH;10,422
 LD_LIBRARY_PATH=11,463
 export LD_LIBRARY_PATH;12,596
@@ -16634,80 +16666,124 @@ export _ModuleTable_;166,8892
 export MODULEPATH;172,9125
 _ModuleTable_=173,9144
 export _ModuleTable_;174,9341
-export MODULEPATH;180,9559
-_ModuleTable_=181,9578
-export _ModuleTable_;182,9775
-export __LMOD_REF_COUNT_MODULEPATH;193,10117
-MODULEPATH=194,10153
-export MODULEPATH;195,10194
-_ModuleTable_=196,10213
-export _ModuleTable_;197,10381
-export __LMOD_REF_COUNT_LOADEDMODULES;203,10573
-LOADEDMODULES=204,10612
-export LOADEDMODULES;205,10632
-MODULEPATH=206,10654
-export MODULEPATH;207,10695
-Version=208,10714
-export Version;209,10728
-__LMOD_REF_COUNT__LMFILES_=210,10744
-export __LMOD_REF_COUNT__LMFILES_;211,10812
-_LMFILES_=212,10847
-export _LMFILES_;213,10896
-_ModuleTable_=214,10914
-export _ModuleTable_;215,11258
-export __LMOD_REF_COUNT_LOADEDMODULES;221,11474
-LOADEDMODULES=222,11513
-export LOADEDMODULES;223,11546
-MODULEPATH=224,11568
-export MODULEPATH;225,11609
-Version=226,11628
-export Version;227,11644
-__LMOD_REF_COUNT__LMFILES_=228,11660
-export __LMOD_REF_COUNT__LMFILES_;229,11777
-_LMFILES_=230,11812
-export _LMFILES_;231,11907
-_ModuleTable_=232,11925
-export _ModuleTable_;233,12498
-export __LMOD_REF_COUNT_LOADEDMODULES;239,12707
-LOADEDMODULES=240,12746
-export LOADEDMODULES;241,12779
-MODULEPATH=242,12801
-export MODULEPATH;243,12842
-Version=244,12861
-export Version;245,12877
-__LMOD_REF_COUNT__LMFILES_=246,12893
-export __LMOD_REF_COUNT__LMFILES_;247,13010
-_LMFILES_=248,13045
-export _LMFILES_;249,13140
-_ModuleTable_=250,13158
-export _ModuleTable_;251,13724
-export __LMOD_REF_COUNT_MODULEPATH;257,13992
-MODULEPATH=258,14028
-export MODULEPATH;259,14098
-_ModuleTable_=260,14117
-export _ModuleTable_;261,14714
-export MODULEPATH;267,14933
-_ModuleTable_=268,14952
-export _ModuleTable_;269,15549
-export __LMOD_REF_COUNT_MODULEPATH;275,15849
-MODULEPATH=276,15885
-export MODULEPATH;277,15984
-_ModuleTable_=278,16003
-export _ModuleTable_;279,16631
-export MODULEPATH;285,16879
-_ModuleTable_=286,16898
-export _ModuleTable_;287,17526
-export __LMOD_REF_COUNT_MODULEPATH;293,17858
-MODULEPATH=294,17894
-export MODULEPATH;295,18022
-_ModuleTable_=296,18041
-export _ModuleTable_;297,18700
-export MODULEPATH;303,18977
-_ModuleTable_=304,18996
-export _ModuleTable_;305,19655
-export MODULEPATH;311,19939
-_ModuleTable_=312,19958
-export _ModuleTable_;313,20617
+export MODULEPATH;180,9562
+_ModuleTable_=181,9581
+export _ModuleTable_;182,9778
+export MODULEPATH;188,9996
+_ModuleTable_=189,10015
+export _ModuleTable_;190,10212
+export __LMOD_REF_COUNT_MODULEPATH;201,10554
+MODULEPATH=202,10590
+export MODULEPATH;203,10631
+_ModuleTable_=204,10650
+export _ModuleTable_;205,10818
+export __LMOD_REF_COUNT_LOADEDMODULES;211,11010
+LOADEDMODULES=212,11049
+export LOADEDMODULES;213,11069
+MODULEPATH=214,11091
+export MODULEPATH;215,11132
+Version=216,11151
+export Version;217,11165
+__LMOD_REF_COUNT__LMFILES_=218,11181
+export __LMOD_REF_COUNT__LMFILES_;219,11249
+_LMFILES_=220,11284
+export _LMFILES_;221,11333
+_ModuleTable_=222,11351
+export _ModuleTable_;223,11695
+export __LMOD_REF_COUNT_LOADEDMODULES;229,11911
+LOADEDMODULES=230,11950
+export LOADEDMODULES;231,11983
+MODULEPATH=232,12005
+export MODULEPATH;233,12046
+Version=234,12065
+export Version;235,12081
+__LMOD_REF_COUNT__LMFILES_=236,12097
+export __LMOD_REF_COUNT__LMFILES_;237,12214
+_LMFILES_=238,12249
+export _LMFILES_;239,12344
+_ModuleTable_=240,12362
+export _ModuleTable_;241,12935
+export __LMOD_REF_COUNT_LOADEDMODULES;247,13144
+LOADEDMODULES=248,13183
+export LOADEDMODULES;249,13216
+MODULEPATH=250,13238
+export MODULEPATH;251,13279
+Version=252,13298
+export Version;253,13314
+__LMOD_REF_COUNT__LMFILES_=254,13330
+export __LMOD_REF_COUNT__LMFILES_;255,13447
+_LMFILES_=256,13482
+export _LMFILES_;257,13577
+_ModuleTable_=258,13595
+export _ModuleTable_;259,14161
+export __LMOD_REF_COUNT_MODULEPATH;265,14429
+MODULEPATH=266,14465
+export MODULEPATH;267,14535
+_ModuleTable_=268,14554
+export _ModuleTable_;269,15151
+export MODULEPATH;275,15370
+_ModuleTable_=276,15389
+export _ModuleTable_;277,15986
+export __LMOD_REF_COUNT_MODULEPATH;283,16286
+MODULEPATH=284,16322
+export MODULEPATH;285,16421
+_ModuleTable_=286,16440
+export _ModuleTable_;287,17068
+export MODULEPATH;293,17316
+_ModuleTable_=294,17335
+export _ModuleTable_;295,17963
+export __LMOD_REF_COUNT_MODULEPATH;301,18295
+MODULEPATH=302,18331
+export MODULEPATH;303,18459
+_ModuleTable_=304,18478
+export _ModuleTable_;305,19137
+export MODULEPATH;311,19414
+_ModuleTable_=312,19433
+export _ModuleTable_;313,20092
+export MODULEPATH;319,20376
+_ModuleTable_=320,20395
+export _ModuleTable_;321,21054
+unset LOADEDMODULES;327,21241
+MODULEPATH=328,21262
+export MODULEPATH;329,21390
+unset Version;330,21409
+unset __LMOD_REF_COUNT__LMFILES_;331,21424
+unset _LMFILES_;332,21458
+_ModuleTable_=333,21475
+export _ModuleTable_;334,21736
+export __LMOD_REF_COUNT_MODULEPATH;340,21972
+MODULEPATH=341,22008
+export MODULEPATH;342,22049
+_ModuleTable_=343,22068
+export _ModuleTable_;344,22185
+export MODULEPATH;350,22375
+_ModuleTable_=351,22394
+export _ModuleTable_;352,22511
+export __LMOD_REF_COUNT_LOADEDMODULES;358,22701
+LOADEDMODULES=359,22740
+export LOADEDMODULES;360,22761
+MODULEPATH=361,22783
+export MODULEPATH;362,22824
+__LMOD_REF_COUNT__LMFILES_=363,22843
+export __LMOD_REF_COUNT__LMFILES_;364,22908
+_LMFILES_=365,22943
+export _LMFILES_;366,22989
+_ModuleTable_=367,23007
+export _ModuleTable_;368,23310
+export __LMOD_REF_COUNT_LOADEDMODULES;374,23509
+LOADEDMODULES=375,23548
+export LOADEDMODULES;376,23575
+MODULEPATH=377,23597
+export MODULEPATH;378,23638
+__LMOD_REF_COUNT__LMFILES_=379,23657
+export __LMOD_REF_COUNT__LMFILES_;380,23764
+_LMFILES_=381,23799
+export _LMFILES_;382,23884
+_ModuleTable_=383,23902
+export _ModuleTable_;384,24385
+export MODULEPATH;390,24574
+_ModuleTable_=391,24593
+export _ModuleTable_;392,25076
 
 rt/mgrload_func/mgrload_func.tdesc,21
 local testName 2,15
@@ -17688,7 +17764,7 @@ set -x -g _LMFILES_ ProjectDIR/rt/fish/mf/Core/intel/intel.lua;lua24,1730
 rt/show/show.tdesc,19
 testdescript 2,15
 
-rt/show/out.txt,1385
+rt/show/out.txt,1483
 export __LMOD_REF_COUNT_MODULEPATH;10,317
 MODULEPATH=11,353
 export MODULEPATH;12,392
@@ -17739,6 +17815,10 @@ export _ModuleTable_;106,6619
 export MODULEPATH;112,6847
 _ModuleTable_=113,6866
 export _ModuleTable_;114,7287
+false115,7309
+export MODULEPATH;121,7521
+_ModuleTable_=122,7540
+export _ModuleTable_;123,7961
 
 rt/personal_mf/personal_mf.tdesc,21
 local testName 3,16
@@ -17830,7 +17910,7 @@ export _ModuleTable_;50,4651
 rt/nvv_prereq/nvv_prereg.tdesc,21
 local testName 2,15
 
-rt/nvv_prereq/out.txt,860
+rt/nvv_prereq/out.txt,940
 export __LMOD_REF_COUNT_MODULEPATH;10,315
 MODULEPATH=11,351
 export MODULEPATH;12,391
@@ -17847,20 +17927,23 @@ _LMFILES_=27,1017
 export _LMFILES_;28,1066
 _ModuleTable_=29,1084
 export _ModuleTable_;30,1438
-export __LMOD_REF_COUNT_LOADEDMODULES;36,1640
-LOADEDMODULES=37,1679
-export LOADEDMODULES;38,1710
-MODULEPATH=39,1732
-export MODULEPATH;40,1772
-__LMOD_REF_COUNT__LMFILES_=41,1791
-export __LMOD_REF_COUNT__LMFILES_;42,1896
-_LMFILES_=43,1931
-export _LMFILES_;44,2014
-_ModuleTable_=45,2032
-export _ModuleTable_;46,2561
-export MODULEPATH;52,2748
-_ModuleTable_=53,2767
-export _ModuleTable_;54,3296
+export MODULEPATH;36,1625
+_ModuleTable_=37,1644
+export _ModuleTable_;38,1998
+export __LMOD_REF_COUNT_LOADEDMODULES;44,2200
+LOADEDMODULES=45,2239
+export LOADEDMODULES;46,2270
+MODULEPATH=47,2292
+export MODULEPATH;48,2332
+__LMOD_REF_COUNT__LMFILES_=49,2351
+export __LMOD_REF_COUNT__LMFILES_;50,2456
+_LMFILES_=51,2491
+export _LMFILES_;52,2574
+_ModuleTable_=53,2592
+export _ModuleTable_;54,3121
+export MODULEPATH;60,3308
+_ModuleTable_=61,3327
+export _ModuleTable_;62,3856
 
 rt/disappear/disappear.tdesc,21
 local testName 2,15
@@ -17968,7 +18051,7 @@ export _ModuleTable_;48,2936
 rt/use_unuse/use_unuse.tdesc,19
 testdescript 2,15
 
-rt/use_unuse/out.txt,1212
+rt/use_unuse/out.txt,1382
 export A;10,264
 __LMOD_REF_COUNT_LOADEDMODULES=11,274
 export __LMOD_REF_COUNT_LOADEDMODULES;12,314
@@ -18000,16 +18083,22 @@ export _ModuleTable_;47,2467
 unset MODULEPATH;53,2681
 _ModuleTable_=54,2699
 export _ModuleTable_;55,3025
-_ModuleTable_=61,3222
-export _ModuleTable_;62,3361
-export __LMOD_REF_COUNT_MODULEPATH;68,3602
-MODULEPATH=69,3638
-export MODULEPATH;70,3682
-_ModuleTable_=71,3701
-export _ModuleTable_;72,3821
-unset MODULEPATH;78,4036
-_ModuleTable_=79,4054
-export _ModuleTable_;80,4140
+export __LMOD_REF_COUNT_MODULEPATH;61,3246
+MODULEPATH=62,3282
+export MODULEPATH;63,3325
+_ModuleTable_=64,3344
+export _ModuleTable_;65,3703
+unset MODULEPATH;71,3917
+_ModuleTable_=72,3935
+export _ModuleTable_;73,4074
+export __LMOD_REF_COUNT_MODULEPATH;79,4315
+MODULEPATH=80,4351
+export MODULEPATH;81,4395
+_ModuleTable_=82,4414
+export _ModuleTable_;83,4534
+unset MODULEPATH;89,4749
+_ModuleTable_=90,4767
+export _ModuleTable_;91,4853
 
 init/profile.in,165
   LMOD_ALLOW_ROOT_USE=7,262
@@ -18020,21 +18109,21 @@ init/profile.in,165
 my_shell=65,1843
 
 init/cmake.in,288
-function(73,3533
-  else(89,4037
-  endif(91,4085
-    file(113,4618
-  endif(119,4809
-  endif(122,4913
-  list(136,5281
-    list(138,5349
-endfunction(142,5458
-endfunction(147,5611
-  foreach(160,5939
-      list(170,6271
-    else(172,6365
-    endif(174,6413
-endfunction(178,6486
+function(73,3534
+  else(89,4038
+  endif(91,4086
+    file(113,4619
+  endif(119,4810
+  endif(122,4914
+  list(136,5282
+    list(138,5350
+endfunction(142,5459
+endfunction(147,5612
+  foreach(160,5940
+      list(170,6272
+    else(172,6366
+    endif(174,6414
+endfunction(178,6487
 
 init/sh.in,43
 LMOD_ROOT=3,13
@@ -18140,10 +18229,10 @@ _ml_whatis(249,6520
 _ml_spider(255,6602
 
 init/fish.in,95
-   function module11,239
-   function module15,313
-function ml20,401
-function clearMT24,460
+   function module13,278
+   function module17,352
+function ml22,440
+function clearMT26,499
 
 init/R.in,23
   args <- paste(6,130
@@ -18160,20 +18249,21 @@ init/lisp.in,578
 init/fish/module.fish,261
 function __fish_lmod_commands5,51
 function __fish_lmod_av26,543
-function __fish_lmod_list30,616
-function __fish_lmod_savelist39,823
-function _get_commandline_list48,1041
-function __fish_lmod_needs_command53,1146
-function __fish_lmod_using_command64,1353
+function __fish_lmod_list30,637
+function __fish_lmod_savelist39,844
+function _get_commandline_list48,1062
+function __fish_lmod_needs_command53,1167
+function __fish_lmod_using_command64,1374
 
-README.old,344
-         t 497,27719
-         t 502,27876
-   f) New option,511,28207
-   f) New option, --show_hidden,show_hidden511,28207
-    prepend-path --delim ";" LUA_PATH  "/a/lua/share/5.1/?.lua;lua1228,56110
-    prepend_path("LUA_PATH",  "/a/lua/share/5.1/?.lua;lua1233,56326
-    append_path( "LUA_CPATH", "/a/lua/share/5.1/?.so"so1234,56407
+README.old,424
+   (8.4.1)  * Issue #460: Change meta modules from having a separate file=2,10
+         t 571,33330
+         t 576,33487
+   f) New option,585,33818
+   f) New option, --show_hidden,show_hidden585,33818
+    prepend-path --delim ";" LUA_PATH  "/a/lua/share/5.1/?.lua;lua1304,61814
+    prepend_path("LUA_PATH",  "/a/lua/share/5.1/?.lua;lua1309,62030
+    append_path( "LUA_CPATH", "/a/lua/share/5.1/?.so"so1310,62111
 
 tcl/modulecmd.tcl,153
 set g_debug 38,1355
@@ -19484,6 +19574,12 @@ rt/avail/mf/Order/a/5.10.lua,0
 
 rt/avail/mf/Order/a/9.0.lua,0
 
+rt/avail/mf/Core7/A/1.2,0
+
+rt/avail/mf/Core7/B/1.0.lua,0
+
+rt/avail/mf/Core7/C/3.2.lua,0
+
 rt/lastName/err.txt,0
 
 rt/lastName/mf/Beta/gotoblas/1.30-beta.lua,0
@@ -20478,28 +20574,6 @@ rt/i18n/mf/Core/intel/17.0.lua,0
 
 rt/i18n/mf/Core/gcc/5.4.lua,0
 
-rt/helios/err.txt,0
-
-rt/helios/mf/Core-helios/apps/lua/5.1.4.6.lua,0
-
-rt/helios/mf/Core-helios/apps/moab.lua,0
-
-rt/helios/mf/Core-helios/foo/1.1.lua,0
-
-rt/helios/mf/Core-helios/compilers/intel/14.0.lua,0
-
-rt/helios/mf/Compilers/intel14.0/mpi/openmpi/1.6.5.lua,0
-
-rt/helios/mf/Compilers/intel14.0/mpi/openmpi/1.8.1.lua,0
-
-rt/helios/mf/Compilers/intel14.0/mpi/mvapich2/1.9.lua,0
-
-rt/helios/mf/Core/apps/buildtools/20140527.lua,0
-
-rt/helios/mf/Core/foo/1.0.lua,0
-
-rt/helios/mf/Core/StdEnv.lua,0
-
 rt/empty/err.txt,0
 
 rt/empty/out.txt,0
@@ -21194,6 +21268,28 @@ rt/lars/mf/Core/TACC.lua,0
 
 rt/lars/mf/Core/Linux.lua,0
 
+rt/hook_avail/err.txt,0
+
+rt/hook_avail/mf/Core-helios/apps/lua/5.1.4.6.lua,0
+
+rt/hook_avail/mf/Core-helios/apps/moab.lua,0
+
+rt/hook_avail/mf/Core-helios/foo/1.1.lua,0
+
+rt/hook_avail/mf/Core-helios/compilers/intel/14.0.lua,0
+
+rt/hook_avail/mf/Compilers/intel14.0/mpi/openmpi/1.6.5.lua,0
+
+rt/hook_avail/mf/Compilers/intel14.0/mpi/openmpi/1.8.1.lua,0
+
+rt/hook_avail/mf/Compilers/intel14.0/mpi/mvapich2/1.9.lua,0
+
+rt/hook_avail/mf/Core/apps/buildtools/20140527.lua,0
+
+rt/hook_avail/mf/Core/foo/1.0.lua,0
+
+rt/hook_avail/mf/Core/StdEnv.lua,0
+
 rt/errHandler/err.txt,0
 
 rt/errHandler/out.txt,0
@@ -21772,6 +21868,12 @@ rt/modulerc/mf6/java/1.8.0-A.lua,0
 
 rt/modulerc/mf2/Core/dummy/.2.0,0
 
+rt/modulerc/mf8/compiler/intel/.modulerc.lua,0
+
+rt/modulerc/mf8/compiler/intel/19.0.lua,0
+
+rt/modulerc/mf8/compiler/intel/18.0.5.241.lua,0
+
 rt/modulerc/mf4/mpich/3.1.2.lua,0
 
 rt/modulerc/mf4/mpich/3.2.lua,0
@@ -21932,7 +22034,13 @@ rt/load/mf/Core2/C/1.8.5.lua,0
 
 rt/load/mf3/A/1.0.lua,0
 
+rt/load/mf3/tex/1.0.lua,0
+
+rt/load/mf3/MakeSystemCall/1.0,0
+
 rt/load/mf3/B/2.0,0
+
+rt/load/make_system_command_test.sh,0
 
 rt/load/mf2/Core/.eb_builder/default.lua,0
 
@@ -22153,6 +22261,16 @@ rt/family/mf/Core/mpi-common/.openmpi.lua,0
 rt/family/mf/Core/mpi-common/.mpich.lua,0
 
 rt/family/mf/Core/gcc/7.1.0.lua,0
+
+rt/isavail/err.txt,0
+
+rt/isavail/mf/Core/A/1.0,0
+
+rt/isavail/mf/Core/E/1.0,0
+
+rt/isavail/mf/Core/B/1.0,0
+
+rt/isavail/mf/Core/C/1.0,0
 
 rt/gccCore/err.txt,0
 
@@ -23275,6 +23393,8 @@ settarg/csh.settarg,0
 settarg/targ.in,0
 
 tools/i18n/version.lua,0
+
+README.new,0
 
 src/SitePackage.lua,0
 

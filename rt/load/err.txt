@@ -87,6 +87,9 @@ ProjectDIR/rt/load/mf/Core2
    L:  Module is loaded
    m:  built for host and native MIC
    o:  built for offload to the MIC only
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
@@ -109,6 +112,9 @@ ProjectDIR/rt/load/mf/Core2
    L:  Module is loaded
    m:  built for host and native MIC
    o:  built for offload to the MIC only
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
@@ -183,6 +189,9 @@ ProjectDIR/rt/load/mf/Scratch
    A/1.1.1 (D)    B/1.0    B/1.4 (D)
   Where:
    D:  Default Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
@@ -273,6 +282,9 @@ ProjectDIR/rt/load/mf/Scratch
    L:  Module is loaded
    m:  built for host and native MIC
    o:  built for offload to the MIC only
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
@@ -288,6 +300,9 @@ ProjectDIR/rt/load/mf/Core2
    C/1.8.5
   Where:
    L:  Module is loaded
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
@@ -419,6 +434,9 @@ ProjectDIR/rt/load/mf2/Core
   Where:
    D:  Default Module
    H:  Hidden Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================

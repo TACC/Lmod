@@ -4,6 +4,9 @@ ProjectDIR/rt/python/mf/Core
    A/1.0 (L)    B/1.1 (L)    bad/1.0    bar/2.0 (L)    foobar/1.0 (L)
   Where:
    L:  Module is loaded
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 Lmod has detected the following error: Unable to load module because of error when evaluating modulefile:

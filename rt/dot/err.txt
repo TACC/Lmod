@@ -22,6 +22,9 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 ProjectDIR/rt/dot/mf
    b/1.0
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
@@ -102,6 +105,9 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 ProjectDIR/rt/dot/mf
    b/1.0
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================

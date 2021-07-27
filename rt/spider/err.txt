@@ -559,6 +559,9 @@ These extensions cannot be loaded directly, use "module spider extension_name" f
   Where:
    D:  Default Module
    E:  Extension that is provided by another module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
@@ -572,6 +575,9 @@ ProjectDIR/rt/spider/mf/E_Core
    gcc/4.2.5 (D)    intel/11.2 (D)    python2/2.6.12
   Where:
    D:  Default Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
@@ -585,6 +591,9 @@ ProjectDIR/rt/spider/mf/E_Core
    gcc/4.2.5 (D)    intel/11.2 (D)    python2/2.6.12
   Where:
    D:  Default Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
@@ -603,6 +612,9 @@ These extensions cannot be loaded directly, use "module spider extension_name" f
   Where:
    D:  Default Module
    E:  Extension that is provided by another module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
