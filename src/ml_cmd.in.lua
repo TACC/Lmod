@@ -141,7 +141,7 @@ function main()
       ["--expert"]=0,   ["--novice"]=0,
       ["--force"] = 0,
       ["--gitversion"] = 0,
-      ["--ignore_cache"] = 0,  ["--ignore-cache"] = 0,
+      ["--ignore_cache"] = 0,  ["--ignore-cache"] = 0, ["-I"] = 0,
       ["--initial_load"] = 0,  ["--initial-load"] = 0,
       ["--latest"] = 0,
       ["--localvar"]=1,
@@ -165,6 +165,7 @@ function main()
    }
 
    local translateT = {
+      ["-I"]="--ignore_cache",
       ["--loc"]="--location",
       ["--versoin"]="--version",
       ["--ver"]="--version",
