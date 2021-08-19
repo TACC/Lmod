@@ -4,6 +4,44 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load abc
+===========================
+__LMOD_REF_COUNT_LOADEDMODULES=abc/.cpu/2.0:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=abc/.cpu/2.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/ref_count/mf2:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/ref_count/mf2;
+export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/ref_count/mf2/abc/.cpu/2.0.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/ref_count/mf2/abc/.cpu/2.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={abc={["fn"]="ProjectDIR/rt/ref_count/mf2/abc/.cpu/2.0.lua",["fullName"]="abc/.cpu/2.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="abc/.cpu/2.0",["wV"]="*cpu/000000002.*zfinal",},},mpathA={"ProjectDIR/rt/ref_count/mf2",},["systemBaseMPATH"]="ProjectDIR/rt/ref_count/mf2",}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/ref_count/mf2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={abc={["fn"]="ProjectDIR/rt/ref_count/mf2/abc/.cpu/2.0.lua",["fullName"]="abc/.cpu/2.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="abc/.cpu/2.0",["wV"]="*cpu/000000002.*zfinal",},},mpathA={"ProjectDIR/rt/ref_count/mf2",},["systemBaseMPATH"]="ProjectDIR/rt/ref_count/mf2",}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload abc
+===========================
+unset __LMOD_REF_COUNT_LOADEDMODULES;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/ref_count/mf2;
+export MODULEPATH;
+unset __LMOD_REF_COUNT__LMFILES_;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/ref_count/mf2",},["systemBaseMPATH"]="ProjectDIR/rt/ref_count/mf2",}';
+export _ModuleTable_;
+===========================
+step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load rtm
 ===========================
 __LMOD_REF_COUNT_LOADEDMODULES=rtm/1.0:1;
@@ -27,7 +65,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={rtm={["fn"]="ProjectDIR/rt/ref_count/mf/Core/rtm/1.0.lua",["fullName"]="rtm/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="rtm",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/ref_count/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/ref_count/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 3
+step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload rtm
 ===========================
 unset __LMOD_REF_COUNT_LOADEDMODULES;

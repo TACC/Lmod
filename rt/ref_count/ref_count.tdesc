@@ -19,15 +19,24 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     export MODULEPATH=$(testDir)/mf/Core
+     export MODULEPATH=$(testDir)/mf2
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
      export RTM_PATH=/usr/local/mybin:/mybin:/usr/local/mybin:/mybin
 
      runLmod --version                         # 1
-     runLmod load rtm                          # 2
-     runLmod unload rtm                        # 3
+
+     export MODULEPATH=$(testDir)/mf2
+     export NODE_TYPE=cpu
+     runLmod load   abc                        # 2
+     runLmod list                              # 3
+     runLmod unload abc                        # 4
+
+     unsetMT
+     export MODULEPATH=$(testDir)/mf/Core
+     runLmod load rtm                          # 5
+     runLmod unload rtm                        # 6
 
 
      HOME=$ORIG_HOME

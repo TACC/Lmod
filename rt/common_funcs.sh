@@ -302,6 +302,11 @@ unsetMT ()
       fi
       unset _ModuleTable_${num}_
    done
+   while IFS='=' read -r name value ; do
+     if [[ $name =~ __LMOD_REF_COUNT_ ]]; then
+       unset $name
+     fi
+   done < <(env)
 }
 
 unsetSTT ()

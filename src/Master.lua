@@ -386,11 +386,17 @@ function M.load(self, mA)
             mt:add(mname,"pending")
             loadModuleFile{file = fn, shell = shellNm, mList = mList, reportErr = true}
             mt = frameStk:mt()
-            mt:setStatus(sn, "active")
-            hook.apply("load",{fn = mname:fn(), modFullName = mname:fullName(), mname = mname})
+
+            -- A modulefile could the same named module over top of the current modulefile
+            -- Say modulefile abc/2.0 loads abc/.cpu/2.0.  Then in the case of abc/2.0 the filename
+            -- won't match.
+            if (mt:fn(sn) == fn) then
+               mt:setStatus(sn, "active")
+               hook.apply("load",{fn = mname:fn(), modFullName = mname:fullName(), mname = mname})
+               dbg.print{"Marking ",fullName," as active and loaded\n"}
+               registerLoaded(fullName, fn)
+            end
             frameStk:pop()
-            dbg.print{"Marking ",fullName," as active and loaded\n"}
-            registerLoaded(fullName, fn)
             loaded = true
          end
          mt = frameStk:mt()

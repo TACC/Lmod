@@ -230,6 +230,11 @@ function main()
          if (v == nil) then break end
          setenv(name,"")
       end
+      for key, value in pairs(getenv()) do
+         if ( key:find("^__LMOD_REF_COUNT_")) then
+            setenv(key,"")
+         end
+      end
       return
    end
    if (not masterTbl.quiet) then
@@ -256,13 +261,11 @@ function main()
    unset("xSetTitleLmod")
 
    for key, value in pairs(getenv()) do
-      if ( key:find("LMOD") or
-           key:find("_ModuleTable%d%d%d_")) then
-         
+      if ( key:find("^LMOD")                   or
+              key:find("^_ModuleTable%d%d%d_")   ) then
          setenv(key,"")
       end
    end
-
 end
 
 main()
