@@ -67,7 +67,6 @@ export _ModuleTable_;
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unuse ProjectDIR/rt/use_unuse/mf/RTM
 ===========================
-unset __LMOD_REF_COUNT_MODULEPATH;
 unset MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={},["systemBaseMPATH"]="ProjectDIR/rt/use_unuse/mf/RTM",}';
 export _ModuleTable_;

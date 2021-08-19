@@ -102,6 +102,8 @@ export _ModuleTable_;
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/changeMPATH/mf/Core2
 ===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/changeMPATH/mf/Core2:1\;ProjectDIR/rt/changeMPATH/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/changeMPATH/mf/Core2:ProjectDIR/rt/changeMPATH/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/changeMPATH/mf/Core2","ProjectDIR/rt/changeMPATH/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/changeMPATH/mf/Core",}';

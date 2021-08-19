@@ -15,3 +15,5 @@ Lmod 8.5+
    (8.5.10) * When evaluating modules under spider now block both stdout and stderr (instead of just stderr).
             * New command added: "module overview"
    (8.5.11) * Added msg to avail to point to "ml -d av" and "ml ov"
+   (8.5.12) * Issue #524: Only register one sn when different modulefiles with the same sn
+              load on top of each other.  See test rt/ref_count and loading module abc.
