@@ -1,4 +1,6 @@
 # -*- shell-script -*-
+# This file defines a ksh alias.
+# It sometimes ends up in a zsh directory # so that zsh users can run this shell function with ksh scripts
 if [ -n "${KSH_VERSION+x}" ]; then
    ml ()
    {
