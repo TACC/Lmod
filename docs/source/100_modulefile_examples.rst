@@ -317,7 +317,7 @@ is::
     prepend_path("MODULEPATH", mpath)
     setenv(      "TACC_MPICH_DIR", base)
     setenv(      "TACC_MPICH_LIB", pathJoin(base,"lib"))
-    setenv(      "TACC_MPICH_BIN", pathJoin(base,"bin"))p
+    setenv(      "TACC_MPICH_BIN", pathJoin(base,"bin"))
     setenv(      "TACC_MPICH_INC", pathJoin(base,"include"))
 
     whatis("Name: "..pkgName)
