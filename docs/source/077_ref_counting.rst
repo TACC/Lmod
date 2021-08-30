@@ -79,6 +79,8 @@ greater than 1. Also a user can always clear $MODULEPATH with::
 
    $ module unuse $MODULEPATH
 
+.. _path_priority-label:
+
 Specifying Priorities for PATH entries
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

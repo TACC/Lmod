@@ -22,6 +22,12 @@ standard TCL language.
 **append-path NAME path** :
    Append **path** to environment variable **NAME**.  
 
+**append-path** *--delim char* **NAME path** *priority* :
+   Append **path** to environment variable **NAME**.  
+   Using the option *--delim char* to change the separator from ':' to
+   *char* . Also the last optional argument can specify a priority. 
+   (See :ref:`path_priority-label` for details.)
+
 **conflict A B** :
    The current modulefile will only load if all listed modules are NOT loaded.
 
@@ -107,6 +113,12 @@ standard TCL language.
 
 **prepend-path NAME path** :
    prepend to a path-like variable the value.
+
+**prepend-path** *--delim char* **NAME path** *priority* :
+   prepend **path** to environment variable **NAME**.  
+   Using the option *--delim char* to change the separator from ':' to
+   *char*. Also the last optional argument can specify a priority
+   which is a number.    (See :ref:`path_priority-label` for details.)
 
 **prereq  A B**:
      The current modulefile will only load if **any** of the listed modules are already loaded.

@@ -18,29 +18,39 @@ is the element that was added to the PATH during loading, is removed
 during unloading. The environment variables set during loading are
 unset during unloading.
 
-**prepend_path** ("PATH","*/path/to/pkg/bin*"):
+**prepend_path** ("*PATH*","*/path/to/pkg/bin*"):
    prepend to a path-like variable the value.
 
-**prepend_path** ("PATH","*/path/to/pkg/bin*", "*sep*" ):
+**prepend_path** ("*PATH*","*/path/to/pkg/bin*", "*delim*" ):
    prepend to a path-like variable the value. It is possible to add a
-   third argument to be the separator.  By default is is "*:*", the
-   separator can be any single character for example " " or  ";"
+   third argument to be the delimiter.  By default is is "*:*", the
+   delimiter can be any single character for example " " or  ";"
 
-**append_path** ("PATH","*/path/to/pkg/bin*"):
+**prepend_path** {"*PATH*","*/path/to/pkg/bin*", priority=*num* delim="*delim*" }:
+   prepend to a path-like variable the value. One can use this form
+   **with braces {} instead of parens ()** to specify both a priority
+   a non-default delimiter.
+
+**append_path** ("*PATH*","*/path/to/pkg/bin*"):
    append to a path-like variable the value.
 
-**append_path** ("PATH","*/path/to/pkg/bin*", "*sep*" ):
+**append_path** ("*PATH*","*/path/to/pkg/bin*", "*delim*" ):
    append to a path-like variable the value. It is possible to add a
-   third argument to be the separator.  By default is is "*:*", the
-   separator can be any single character for example " " or  ";"
+   third argument to be the delimiter.  By default is is "*:*", the
+   delimiter can be any single character for example " " or  ";"
 
-**remove_path** ("PATH","*/path/to/pkg/bin*"):
+**append_path** {"*PATH*","*/path/to/pkg/bin*", priority=*num* delim="*delim*" }:
+   append to a path-like variable the value. One can use this form
+   **with braces {} instead of parens ()** to specify both a priority
+   a non-default delimiter.
+
+**remove_path** ("*PATH*","*/path/to/pkg/bin*"):
    remove value from a path-like variable for both load and unload modes.
 
-**remove_path** ("PATH","*/path/to/pkg/bin*" , "*sep*" ):
+**remove_path** ("*PATH*","*/path/to/pkg/bin*" , "*delim*" ):
    remove value from a path-like variable for both load and unload modes.
-   It is possible to add a third argument to be the separator.  By
-   default is is "*:*", the separator can be any single character for
+   It is possible to add a third argument to be the delimiter.  By
+   default is is "*:*", the delimiter can be any single character for
    example " " or  ";" 
 
 **setenv** ("NAME", "*value*"):
