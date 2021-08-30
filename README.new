@@ -20,3 +20,4 @@ Lmod 8.5+
 W.I.P:
    (8.5.13) * Added comments to the ksh_funcs files because they can be copied to a
               zsh function directory.
+            * Issue #527 Changed docs to use the word "delim" instead of "sep"
