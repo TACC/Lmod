@@ -1,0 +1,31 @@
+#!/usr/bin/env rc
+
+#LMOD_ROOT='@lmod_root@'
+LMOD_PKG='@PKG@'
+LMOD_DIR='@PKG@/libexec'
+LMOD_CMD='@PKG@/libexec/lmod'
+MODULESHOME='@PKG@'
+
+fn module {
+  eval `{$LMOD_CMD rc $*}
+}
+
+fn clearMT {
+  eval `{$LMOD_DIR/clearMT_cmd rc}
+}
+
+########################################################################
+#  ml is a shorthand tool for people who can't type moduel, err, module
+#  It is also a combination command:
+#     ml            -> module list
+#     ml gcc        -> module load gcc
+#     ml -gcc intel -> module unload gcc; module load intel
+#  It does much more do: "ml --help" for more information.
+fn ml {
+  eval `{$LMOD_DIR/ml_cmd $*}
+}
+
+# Local Variables:
+# mode: shell-script
+# indent-tabs-mode: nil
+# End:

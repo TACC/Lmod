@@ -264,6 +264,7 @@ local function createShellTbl()
       local Perl         = require('Perl')
       local Python       = require('Python')
       local R            = require('R')
+      local Rc           = require('Rc')
       local Ruby         = require('Ruby')
       s_shellTbl = {
          ["sh"]     = Bash,
@@ -281,6 +282,7 @@ local function createShellTbl()
          ["bare"]   = Bare,
          ["r"]      = R,
          ["R"]      = R,
+         ["rc"]     = Rc,
          ["ruby"]   = Ruby,
       }
    end

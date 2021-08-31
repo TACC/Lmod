@@ -1,0 +1,67 @@
+#!/bin/rc
+########################################################################
+#  This is the system wide source file for setting up modules
+########################################################################
+
+if(! ~ @lmod_allow_root_use@ yes)
+  { ! test -z $"USER_IS_ROOT || ~ `{id -u} 0 } && exit 0
+
+
+if(~ $#MODULEPATH_ROOT 0) {
+  if(~ $#USER 0) USER=$LOGNAME # make sure $USER is set
+  LMOD_sys=`{uname}
+
+  MODULEPATH_ROOT=@modulepath_root@
+  MODULEPATH_INIT=@modulepath_init@
+  if(test -f $MODULEPATH_INIT) {
+     for(dir in `{cat $MODULEPATH_INIT | sed 's/#.*$//'}) { # Allow end-of-line comments.
+        if(test -d $dir)
+           MODULEPATH=`{@PKGV@/libexec/addto --append MODULEPATH $dir}
+     }
+  }
+  if not {
+     MODULEPATH=`{@PKGV@/libexec/addto --append MODULEPATH $MODULEPATH_ROOT/$LMOD_sys $MODULEPATH_ROOT/Core}
+     MODULEPATH=`{@PKGV@/libexec/addto --append MODULEPATH @PKGV@/modulefiles/Core}
+  }
+
+  BASH_ENV=@PKGV@/init/bash
+
+  #
+  # If MANPATH is empty, Lmod is adding a trailing ":" so that
+  # the system MANPATH will be found
+  if(~ $#MANPATH 0)
+    MANPATH=:
+  MANPATH=`{@PKGV@/libexec/addto MANPATH @PKGV@/share/man}
+}
+
+fn findExec {
+  Nm=$1
+  confPath=$2
+  execNm=$3
+  $Nm=$confPath
+  if( ! test -x $confPath) {
+    if(test -x /bin/$execNm)
+       $Nm=/bin/$execNm
+    if not {
+      if(test -x /usr/bin/$execNm)
+       $Nm=/usr/bin/$execNm
+    }
+  }
+  Nm=(); confPath=(); execNm=()
+}
+
+findExec PS_CMD       @ps@        ps
+findExec EXPR_CMD     @expr@      expr
+findExec BASENAME_CMD @basename@  basename
+
+fn findExec
+
+if(test -f @PKGV@/init/rc)
+   . @PKGV@/init/rc >/dev/null # Module Support
+my_shell=()
+MODULEPATH_INIT=()
+
+# Local Variables:
+# mode: shell-script
+# indent-tabs-mode: nil
+# End:

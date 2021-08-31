@@ -1076,6 +1076,9 @@ switch -regexp -- $g_shellName {
     ^(r)$ {
 	set g_shellType r
     }
+    ^(rc)$ {
+	set g_shellType rc
+    }
     . {
 	set g_shellType broken
     }

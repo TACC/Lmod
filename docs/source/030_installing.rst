@@ -273,7 +273,7 @@ If this file exists then MODULEPATH_ROOT method is not used.
 
 The ``profile`` file is the Lmod initialization script for the bash and zsh
 shells, the ``cshrc`` file is for tcsh and csh shells, and the ``profile.fish``
-file is for the fish shell. Please copy or link the ``profile`` and ``cshrc``
+file is for the fish shell, etc. Please copy or link the ``profile`` and ``cshrc``
 files to ``/etc/profile.d``, and optionally the fish file to ``/etc/fish/conf.d``::
 
     $ ln -s /opt/apps/lmod/lmod/init/profile        /etc/profile.d/z00_lmod.sh
@@ -420,6 +420,20 @@ as module and ml that provide the module commands.
 **Note**: Zsh users who wish to run ksh scripts that have module
 commands in them will have to export the FPATH variable as FPATH is
 normally a local variable and not exported in zsh.
+
+Rc:
+~~~~
+Rc shells ignore the `/etc/profile.d` directory and source `/lib/rcmain` on startup.
+Global initialization should be placed in that file.
+Login shells (started with `rc -l`) additionally
+read the user's `$HOME/.rcrc` file.
+
+Running the following line on startup will setup the module
+commands for rc users:
+
+```
+mod=/opt/apps/lmod/lmod/init/profile.rc if(test -r $mod) . $mod
+```
 
 Fish:
 ~~~~~
