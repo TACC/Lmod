@@ -35,8 +35,8 @@ variables that specify where the library and header files can be
 found.
 
 Packages can be loaded and unloaded cleanly through the module
-system. All the popular shells are supported: bash, ksh, csh, tcsh,
-zsh.  Also available for perl and python.
+system. All the popular shells are supported: bash, ksh, rc, csh, tcsh,
+fish, zsh.  Also available for perl, python, lisp, cmake, and R.
 
 It is also very easy to switch between different versions of a package
 or remove it.
