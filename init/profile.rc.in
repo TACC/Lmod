@@ -47,7 +47,7 @@ fn findExec {
        $Nm=/usr/bin/$execNm
     }
   }
-  unset Nm confPath execNm
+  Nm=(); confPath=(); execNm=()
 }
 
 findExec PS_CMD       @ps@        ps
