@@ -137,12 +137,12 @@ local function l_extract(self, nodups)
    local imax          = 0
    local imin          = 1
    local pathA         = {}
-   local sep           = self.sep
+   local delim         = self.delim
    local priorityT     = l_extract_Lmod_var_table(self, envPrtyName)
    local refCountT     = l_extract_Lmod_var_table(self, envRefCountName)
 
    if (myValue and myValue ~= '') then
-      pathA = path2pathA(myValue, sep, clearDblSlash)
+      pathA = path2pathA(myValue, delim, clearDblSlash)
       for i,v in ipairs(pathA) do
          local vv       = pathTbl[v] or {num = -1, idxA = {}}
          local num      = vv.num
@@ -197,14 +197,14 @@ end
 -- @param name The name of the variable.
 -- @param value The value assigned to the variable.
 -- @param nodup If true then no duplicate entries in path like variable.
--- @param sep The separator character.  (By default it is ":")
-function M.new(self, name, value, nodup, sep)
+-- @param delim The delimiter character.  (By default it is ":")
+function M.new(self, name, value, nodup, delim)
    local o = {}
    setmetatable(o,self)
    self.__index = self
    o.value      = value
    o.name       = name
-   o.sep        = sep or ":"
+   o.delim      = delim or ":"
    if (name == ModulePath) then
       nodup = true
    end
@@ -275,7 +275,7 @@ function M.remove(self, value, where, priority, nodups, force)
 
    where = allow_dups(true) and where or "all"
    local clearDblSlash = self.name == "MODULEPATH"
-   local pathA   = path2pathA(value, self.sep, clearDblSlash)
+   local pathA   = path2pathA(value, self.delim, clearDblSlash)
    local tbl     = self.tbl
    local adding  = false
 
@@ -373,13 +373,13 @@ function M.prepend(self, value, nodups, priority)
    priority            = priority or 0
    local name          = self.name
    local clearDblSlash = name == "MODULEPATH"
-   local pathA         = path2pathA(value, self.sep, clearDblSlash)
+   local pathA         = path2pathA(value, self.delim, clearDblSlash)
    local is, ie, iskip = prepend_order(#pathA)
    local isPrepend     = true
    local adding        = true
-   local p2A           ={}
+   local p2A           = {}
 
-   local tbl  = self.tbl
+   local tbl = self.tbl
 
    local tracing  = cosmic:value("LMOD_TRACING")
    if (tracing == "yes" and name == ModulePath ) then
@@ -434,7 +434,7 @@ function M.append(self, value, nodups, priority)
    priority            = tonumber(priority or "0")
    local name          = self.name
    local clearDblSlash = name == "MODULEPATH"
-   local pathA         = path2pathA(value, self.sep, clearDblSlash)
+   local pathA         = path2pathA(value, self.delim, clearDblSlash)
    local isPrepend     = false
    local adding        = true
 
@@ -623,7 +623,7 @@ function M.expand(self)
    local t         = {}
    local pathA     = {}
    local pathStr   = false
-   local sep       = self.sep
+   local delim     = self.delim
    local prT       = {}
    local maxV      = max(abs(self.imin), self.imax) + 1
    local factor    = 10^ceil(log(maxV)*ln10_inv+1)
@@ -681,14 +681,14 @@ function M.expand(self)
       end
    end
 
-   -- Step 3: convert pathA array into "sep" separated string.
+   -- Step 3: convert pathA array into "delim" separated string.
    --         Also Handle "" at end of "path"
    if (n == 1 and pathA[1] == "") then
-      pathStr = sep .. sep
+      pathStr = delim .. delim
    else
-      pathStr = concatTbl(pathA,sep)
+      pathStr = concatTbl(pathA,delim)
       if (pathA[#pathA] == "") then
-         pathStr = pathStr .. sep
+         pathStr = pathStr .. delim
       end
    end
 

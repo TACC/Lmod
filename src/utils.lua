@@ -546,11 +546,11 @@ end
 -- To handle that, the path component is converted to
 -- a single space.  This single space is later removed
 -- when expanding.
--- @param path A string of *sep* separated paths.
--- @param sep  The separator character.  It is usually
---             a colon.
-function path2pathA(path, sep, clearDoubleSlash)
-   sep = sep or ":"
+-- @param path A string of *delim* separated paths.
+-- @param delim  The separator character.  It is usually
+--               a colon.
+function path2pathA(path, delim, clearDoubleSlash)
+   delim = delim or ":"
    if (not path) then
       return {}
    end
@@ -561,7 +561,7 @@ function path2pathA(path, sep, clearDoubleSlash)
    local is, ie
 
    local pathA = {}
-   for v  in path:split(sep) do
+   for v  in path:split(delim) do
       local path = path_regularize(v)
       if (clearDoubleSlash) then
          path = path:gsub("//+" , "/")

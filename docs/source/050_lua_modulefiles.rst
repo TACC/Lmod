@@ -18,36 +18,36 @@ is the element that was added to the PATH during loading, is removed
 during unloading. The environment variables set during loading are
 unset during unloading.
 
-**prepend_path** ("*PATH*","*/path/to/pkg/bin*"):
+**prepend_path** ("*PATH*", "*/path/to/pkg/bin*"):
    prepend to a path-like variable the value.
 
-**prepend_path** ("*PATH*","*/path/to/pkg/bin*", "*delim*" ):
+**prepend_path** ("*PATH*", "*/path/to/pkg/bin*", "*delim*"):
    prepend to a path-like variable the value. It is possible to add a
    third argument to be the delimiter.  By default is is "*:*", the
    delimiter can be any single character for example " " or  ";"
 
-**prepend_path** {"*PATH*","*/path/to/pkg/bin*", priority=*num* delim="*delim*" }:
+**prepend_path** {"*PATH*", "*/path/to/pkg/bin*", delim="*delim*", priority=*num*}:
    prepend to a path-like variable the value. One can use this form
    **with braces {} instead of parens ()** to specify both a priority
    a non-default delimiter.
 
-**append_path** ("*PATH*","*/path/to/pkg/bin*"):
+**append_path** ("*PATH*", "*/path/to/pkg/bin*"):
    append to a path-like variable the value.
 
-**append_path** ("*PATH*","*/path/to/pkg/bin*", "*delim*" ):
+**append_path** ("*PATH*", "*/path/to/pkg/bin*", "*delim*"):
    append to a path-like variable the value. It is possible to add a
    third argument to be the delimiter.  By default is is "*:*", the
    delimiter can be any single character for example " " or  ";"
 
-**append_path** {"*PATH*","*/path/to/pkg/bin*", priority=*num* delim="*delim*" }:
+**append_path** {"*PATH*", "*/path/to/pkg/bin*", delim="*delim*", priority=*num*}:
    append to a path-like variable the value. One can use this form
    **with braces {} instead of parens ()** to specify both a priority
    a non-default delimiter.
 
-**remove_path** ("*PATH*","*/path/to/pkg/bin*"):
+**remove_path** ("*PATH*", "*/path/to/pkg/bin*"):
    remove value from a path-like variable for both load and unload modes.
 
-**remove_path** ("*PATH*","*/path/to/pkg/bin*" , "*delim*" ):
+**remove_path** ("*PATH*", "*/path/to/pkg/bin*" , "*delim*"):
    remove value from a path-like variable for both load and unload modes.
    It is possible to add a third argument to be the delimiter.  By
    default is is "*:*", the delimiter can be any single character for
@@ -83,11 +83,11 @@ unset during unloading.
      What is printed out when the help command is called. Note that
      the *help string* can be multi-lined.
 
-**pathJoin** ("/a","b/c/","d/"):
+**pathJoin** ("/a", "b/c/", "d/"):
      builds a path: "/a/b/c/d", It combines any number of strings with
      one slash and removes excess slashes. Note that trailing slash is
      removed. If you need a trailing slash then do
-     **pathJoin("/a","b/c") .. "/"** to get "/a/b/c/".
+     **pathJoin("/a", "b/c") .. "/"** to get "/a/b/c/".
 
 **depends_on** ("pkgA", "pkgB", "pkgC"):
      Loads all modules.  When unloading only dependent modules are
@@ -119,7 +119,7 @@ unset during unloading.
 **always_load** ("pkgA", "pkgB", "pkgC"):
      load all modules. However, when this command is reversed, it does nothing.
 
-**set_alias** ("name","value"):
+**set_alias** ("name", "value"):
      define an alias to name with value.
 
 **unload** ("pkgA", "pkgB"):
@@ -187,10 +187,10 @@ The entries below describe several useful commands that come with Lmod that can 
 **splitFileName** ("name"):
     Returns both the directory and the file name. ``local d,f=splitFileName("/a/b/c.ext")``. Then ``d="/a/b"``, ``f="c.ext"``
 
-**LmodMessage** ("string",...):
+**LmodMessage** ("string", ...):
     Prints a message to the user.
 
-**LmodError** ("string","..."):
+**LmodError** ("string", "..."):
     Print Error string and exit without loading the modulefile.
 
 **mode** ():
@@ -213,7 +213,7 @@ The entries below describe several useful commands that come with Lmod that can 
 **LmodVersion** ():
     The version of lmod.
 
-**execute** {cmd="*<any command>*",modeA={"load"}}
+**execute** {cmd="*<any command>*", modeA={"load"}}
     Run any command with a certain mode.  For example
     **execute** {cmd="ulimit -s unlimited",modeA={"load"}} will run
     the command **ulimit -s unlimited** as the last thing that the
@@ -223,12 +223,12 @@ The entries below describe several useful commands that come with Lmod that can 
 Modifier functions to prereq and loads
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**atleast** ("name","version"):
+**atleast** ("name", "version"):
     This modifier function will only succeed if the module is
     "version" or newer. See the between function for adding a "<" to
     modify the search criteria.
 
-**between** ("name","v1","v2"): This modifier function will only
+**between** ("name", "v1", "v2"): This modifier function will only
     succeed if the module's version is equal to or between "v1" and
     "v2". Note that version "1.2" is the same as "1.2.0.0.0....".
     This means that between("foo","2.7","3.0") would include "foo/3.0"

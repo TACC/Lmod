@@ -174,15 +174,15 @@ local function registerLoaded(fullName, fn)
    local modFn    = "_LMFILES_"
    local nodups   = true
    local priority = 0
-   local sep      = ":"
+   local delim    = ":"
    if (varT[modList] == nil) then
-      varT[modList] = Var:new(modList, nil, nodups, sep)
+      varT[modList] = Var:new(modList, nil, nodups, delim)
    end
 
    varT[modList]:append(fullName, nodups, priority)
 
    if (varT[modFn] == nil) then
-      varT[modFn] = Var:new(modFn, nil, nodups, sep)
+      varT[modFn] = Var:new(modFn, nil, nodups, delim)
    end
 
    varT[modFn]:append(fn, nodups, priority)
@@ -200,18 +200,18 @@ local function registerUnloaded(fullName, fn)
    local modFn    = "_LMFILES_"
    local where    = "all"
    local nodups   = true
-   local sep      = ":"
+   local delim    = ":"
    local priority = 0
 
    if (varT[modList] == nil) then
-      varT[modList] = Var:new(modList, nil, nodups, sep)
+      varT[modList] = Var:new(modList, nil, nodups, delim)
    end
 
    varT[modList]:remove(fullName, where, priority)
 
 
    if (varT[modFn] == nil) then
-      varT[modFn] = Var:new(modFn, nil, nodups, sep)
+      varT[modFn] = Var:new(modFn, nil, nodups, delim)
    end
 
    varT[modFn]:remove(fn, where, priority)

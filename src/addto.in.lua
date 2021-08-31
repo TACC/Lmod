@@ -167,7 +167,7 @@ function main()
    local masterTbl = masterTbl()
    local pargs     = masterTbl.pargs
    local cleanFlg  = masterTbl.cleanFlg
-   local sep       = masterTbl.sep
+   local delim     = masterTbl.delim
 
    local envVar    = os.getenv(pargs[1])
    local insert    = myInsert(masterTbl.appendFlg, masterTbl.existFlg)
@@ -228,7 +228,7 @@ function main()
       insert(newA, v)
    end
 
-   io.stdout:write(concat(newA,sep),"\n")
+   io.stdout:write(concat(newA,delim),"\n")
 end
 
 
@@ -273,11 +273,11 @@ function options()
    }
 
    cmdlineParser:add_option{
-      name   = {'--sep'},
-      dest   = 'sep',
+      name   = {'--sep', '--delim'},
+      dest   = 'delim',
       action = 'store',
       default = ":",
-      help    = "separator (default is ':')"
+      help    = "delimiter (default is ':')"
    }
 
    local optionTbl, pargs = cmdlineParser:parse(arg)
