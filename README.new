@@ -24,4 +24,4 @@ W.I.P:
             * Issue #529: Rename "sep" to "delim" internally as well.
             * Change MasterControl:myShellType() to use Shell:type() and change shells to report
               have local variable myType.
-              
+            * Issue #528: Added support for the RC shell.
