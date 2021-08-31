@@ -44,13 +44,14 @@ require("strict")
 require("pairsByKeys")
 
 local BaseShell    = require("BaseShell")
-local Rc          = inheritsFrom(BaseShell)
+local Rc           = inheritsFrom(BaseShell)
 local dbg          = require("Dbg"):dbg()
 local concatTbl    = table.concat
 local stdout       = io.stdout
 local posix_setenv = posix.setenv
 local cosmic       = require("Cosmic"):singleton()
-Rc.my_name        = 'rc'
+Rc.my_name         = 'rc'
+Rc.myType          = 'rc'
 
 --------------------------------------------------------------------------
 -- Rc:alias(): Either define or undefine an Rc shell alias. Remove any
