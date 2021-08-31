@@ -449,7 +449,7 @@ end
 -- @param t A table containing { name, value, nodups=v1, priority=v2}
 function M.prepend_path(self, t)
    dbg.start{"MasterControl:prepend_path(t)"}
-   local sep      = t.delim or ":"
+   local delim    = t.delim or ":"
    local name     = t[1]
    local value    = t[2]
    local nodups   = not allow_dups( not t.nodups)
@@ -460,11 +460,11 @@ function M.prepend_path(self, t)
 
 
    dbg.print{"name:\"",name,"\", value: \"",value,
-             "\", delim=\"",sep,"\", nodups=\"",nodups,
+             "\", delim=\"",delim,"\", nodups=\"",nodups,
              "\", priority=",priority,"\n"}
 
    if (varT[name] == nil) then
-      varT[name] = Var:new(name, nil, nodups, sep)
+      varT[name] = Var:new(name, nil, nodups, delim)
    end
 
    -- Do not allow dups on MODULEPATH like env vars.
@@ -479,7 +479,7 @@ end
 -- @param self A MasterControl object
 -- @param t A table containing { name, value, nodups=v1, priority=v2}
 function M.append_path(self, t)
-   local sep      = t.delim or ":"
+   local delim    = t.delim or ":"
    local name     = t[1]
    local value    = t[2]
    local nodups   = not allow_dups( not t.nodups)
@@ -488,7 +488,7 @@ function M.append_path(self, t)
    local varT     = frameStk:varT()
 
    dbg.start{"MasterControl:append_path{\"",name,"\", \"",value,
-             "\", delim=\"",sep,"\", nodups=\"",nodups,
+             "\", delim=\"",delim,"\", nodups=\"",nodups,
              "\", priority=",priority,
              "}"}
 
@@ -496,7 +496,7 @@ function M.append_path(self, t)
    nodups = name == ModulePath or nodups
 
    if (varT[name] == nil) then
-      varT[name] = Var:new(name, false, nodups, sep)
+      varT[name] = Var:new(name, false, nodups, delim)
    end
 
    varT[name]:append(tostring(value), nodups, priority)
@@ -508,7 +508,7 @@ end
 -- @param self A MasterControl object
 -- @param t A table containing { name, value, nodups=v1, priority=v2, where=v3, force=v4}
 function M.remove_path(self, t)
-   local sep      = t.delim or ":"
+   local delim    = t.delim or ":"
    local name     = t[1]
    local value    = t[2]
    local nodups   = not allow_dups( not t.nodups)
@@ -519,7 +519,7 @@ function M.remove_path(self, t)
    local force    = t.force
 
    dbg.start{"MasterControl:remove_path{\"",name,"\", \"",value,
-             "\", delim=\"",sep,"\", nodups=\"",nodups,
+             "\", delim=\"",delim,"\", nodups=\"",nodups,
              "\", priority=",priority,
              ", where=",where,
              ", force=",force,
@@ -529,7 +529,7 @@ function M.remove_path(self, t)
    nodups = (name == ModulePath) or nodups
 
    if (varT[name] == nil) then
-      varT[name] = Var:new(name,nil, nodups, sep)
+      varT[name] = Var:new(name,nil, nodups, delim)
    end
    varT[name]:remove(tostring(value), where, priority, nodups, force)
    dbg.fini("MasterControl:remove_path")

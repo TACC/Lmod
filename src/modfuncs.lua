@@ -71,8 +71,8 @@ local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luach
 --------------------------------------------------------------------------
 -- Special table concat function that knows about strings and numbers.
 -- @param aa  Input array
--- @param sep output separator.
-local function concatTbl(aa,sep)
+-- @param delim output separator.
+local function concatTbl(aa,delim)
    if (not dbg.active()) then
       return ""
    end
@@ -88,7 +88,7 @@ local function concatTbl(aa,sep)
          a[i] = vType
       end
    end
-   return _concatTbl(a, sep)
+   return _concatTbl(a, delim)
 end
 
 --------------------------------------------------------------------------

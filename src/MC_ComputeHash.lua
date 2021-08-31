@@ -122,7 +122,7 @@ end
 function M.prepend_path(self, t)
    local name = t[1]
    if (name ~= "MODULEPATH") then return end
-   ShowCmd("prepend_path", name, t[2], t.sep)
+   ShowCmd("prepend_path", name, t[2], t.delim)
 end
 
 --------------------------------------------------------------------------
@@ -132,7 +132,7 @@ end
 function M.append_path(self, t)
    local name = t[1]
    if (name ~= "MODULEPATH") then return end
-   ShowCmd("append_path", name, t[2], t.sep)
+   ShowCmd("append_path", name, t[2], t.delim)
 end
 
 --------------------------------------------------------------------------
@@ -142,7 +142,7 @@ end
 function M.remove_path(self, t)
    local name = t[1]
    if (name ~= "MODULEPATH") then return end
-   ShowCmd("remove_path", name, t[2], t.sep)
+   ShowCmd("remove_path", name, t[2], t.delim)
 end
 
 --------------------------------------------------------------------------

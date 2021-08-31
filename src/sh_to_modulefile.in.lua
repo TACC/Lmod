@@ -312,7 +312,7 @@ function path_regularize(value)
 end
 
 function path2pathA(path)
-   local sep = ":"
+   local delim = ":"
    if (not path) then
       return {}
    end
@@ -321,7 +321,7 @@ function path2pathA(path)
    end
 
    local pathA = {}
-   for v  in path:split(sep) do
+   for v  in path:split(delim) do
       pathA[#pathA + 1] = path_regularize(v)
    end
    return pathA
