@@ -130,7 +130,7 @@ STANDALONE_PRGM           := src/lmod.in.lua src/addto.in.lua                   
 STANDALONE_PRGM           := $(patsubst %, $(srcdir)/%, $(STANDALONE_PRGM))
 SHELL_INIT                := bash.in cmake.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in R.in \
                              env_modules_python.py.in lmod_bash_completions fish.in           \
-                             lisp.in env_modules_ruby.rb.in
+                             lisp.in env_modules_ruby.rb.in rc.in
 SHELL_INIT                := $(patsubst %, $(srcdir)/init/%, $(SHELL_INIT))
 LMODRC_INIT               := $(patsubst %, $(srcdir)/init/%, lmodrc.lua)
 
@@ -144,7 +144,7 @@ FISH_FUNCS                := $(patsubst %, $(srcdir)/init/fish/%, $(FISH_FUNCS))
 KSH_FUNCS                 := clearLmod.in clearMT.in ml.in module.in settarg.in
 KSH_FUNCS                 := $(patsubst %, $(srcdir)/init/ksh_funcs/%, $(KSH_FUNCS))
 
-STARTUP                   := profile.in profile.fish.in cshrc.in
+STARTUP                   := profile.in profile.fish.in profile.rc.in cshrc.in
 STARTUP                   := $(patsubst %, $(srcdir)/init/%, $(STARTUP))
 
 MSGFNs                    := $(wildcard $(srcdir)/messageDir/*.lua)
