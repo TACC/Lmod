@@ -46,6 +46,7 @@ local Var       = require("Var")
 local concatTbl = table.concat
 local stdout    = io.stdout
 Ruby.my_name    = "ruby"
+Ruby.myType     = Ruby.my_name
 
 function Ruby.alias(self, k, v)
    -- do nothing: alias do not make sense in a python script

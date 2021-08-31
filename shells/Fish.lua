@@ -47,6 +47,7 @@ local Var       = require("Var")
 local concatTbl = table.concat
 local stdout    = io.stdout
 Fish.my_name    = "fish"
+Fish.myType     = Fish.my_name
 
 --------------------------------------------------------------------------
 -- Fish:alias(): Either define or undefine a fish shell alias.

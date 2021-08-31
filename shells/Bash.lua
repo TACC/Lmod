@@ -47,6 +47,7 @@ local Var       = require("Var")
 local concatTbl = table.concat
 local stdout    = io.stdout
 Bash.my_name    = "bash"
+Bash.myType     = "sh"
 
 --------------------------------------------------------------------------
 -- Bash:alias(): Either define or undefine a bash shell alias.

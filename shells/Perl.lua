@@ -45,6 +45,7 @@ local dbg       = require("Dbg"):dbg()
 local concatTbl = table.concat
 local stdout    = io.stdout
 Perl.my_name    = "perl"
+Perl.myType     = Perl.my_name
 
 function Perl.alias(self, k, v)
    -- do nothing: alias do not make sense in a perl script.

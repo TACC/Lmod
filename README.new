@@ -18,6 +18,10 @@ Lmod 8.5+
    (8.5.12) * Issue #524: Only register one sn when different modulefiles with the same sn
               load on top of each other.  See test rt/ref_count and loading module abc.
 W.I.P:
-   (8.5.13) * Added comments to the ksh_funcs files because they can be copied to a
+   (8.5.13) * Added comments to the ksh_funcs files because they are copied to a
               zsh function directory.
-            * Issue #527 Changed docs to use the word "delim" instead of "sep"
+            * Issue #527: Changed docs to use the word "delim" instead of "sep"
+            * Issue #529: Rename "sep" to "delim" internally as well.
+            * Change MasterControl:myShellType() to use Shell:type() and change shells to report
+              have local variable myType.
+              

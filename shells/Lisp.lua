@@ -47,6 +47,7 @@ local Var       = require("Var")
 local concatTbl = table.concat
 local stdout    = io.stdout
 Lisp.my_name    = "lisp"
+Lisp.myType     = Lisp.my_name
 
 --------------------------------------------------------------------------
 -- Bash:alias(): Either define or undefine a bash shell alias.

@@ -673,14 +673,8 @@ function M.myShellName(self)
 end
 
 function M.myShellType(self)
-   local shell = Shell and Shell:name() or "bash"
-   local kindT = {
-      bash = "sh",
-      zsh  = "sh",
-      ksh  = "sh",
-      tcsh = "csh",
-   }
-   return kindT[shell] or shell
+   local myType = Shell and Shell:type() or "sh"
+   return myType
 end
 
 

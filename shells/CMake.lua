@@ -41,12 +41,13 @@
 require("strict")
 
 local BaseShell = require("BaseShell")
-local CMake    = inheritsFrom(BaseShell)
+local CMake     = inheritsFrom(BaseShell)
 local dbg       = require("Dbg"):dbg()
 local Var       = require("Var")
 local concatTbl = table.concat
 local stdout    = io.stdout
-CMake.my_name  = "cmake"
+CMake.my_name   = "cmake"
+CMake.myType    = "cmake"
 
 function CMake.alias(self, k, v)
    -- do nothing: alias do not make sense in a cmake script

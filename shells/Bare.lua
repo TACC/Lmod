@@ -40,6 +40,7 @@ require("strict")
 local BaseShell = require("BaseShell")
 Bare	        = inheritsFrom(BaseShell)
 Bare.my_name    = 'bare'
+Bare.myType     = 'bare'
 
 function Bare.expand(self,tbl)
    local a = {}

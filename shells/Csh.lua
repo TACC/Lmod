@@ -49,6 +49,7 @@ local concatTbl    = table.concat
 local setenv_posix = posix.setenv
 local stdout       = io.stdout
 Csh.my_name        = 'csh'
+Csh.myType         = 'csh'
 
 --------------------------------------------------------------------------
 -- Csh:alias(): Either define or undefine a Csh shell alias. Remove any

@@ -72,6 +72,10 @@ function M.name(self)
    return self.my_name
 end
 
+function M.type(self)
+   return self.myType or self:name()
+end
+
 function M.set_my_name(self, name)
    self.my_name = name
 end
