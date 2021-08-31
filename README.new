@@ -17,7 +17,6 @@ Lmod 8.5+
    (8.5.11) * Added msg to avail to point to "ml -d av" and "ml ov"
    (8.5.12) * Issue #524: Only register one sn when different modulefiles with the same sn
               load on top of each other.  See test rt/ref_count and loading module abc.
-W.I.P:
    (8.5.13) * Added comments to the ksh_funcs files because they are copied to a
               zsh function directory.
             * Issue #527: Changed docs to use the word "delim" instead of "sep"
