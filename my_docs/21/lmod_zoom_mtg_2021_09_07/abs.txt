@@ -1,0 +1,26 @@
+Title: Lmod and XALT: Updates
+
+-----
+Lmod
+-----
+
+Lmod is the modern Environment Module Tool.  Sysadmins define packages
+and let users choice which package and which version of that package.
+This part of the talk will include a brief overview of  Lmod.  This
+will be followed up with the new features such as extensions for
+connecting modules to packages.  (e.g. the python module and packages
+such as numpy and scipy).  This is also include a discussion of the
+changes to Lmod 8+
+
+----
+XALT
+----
+
+XALT is a tool to take the census of what programs and libraries are
+run on your cluster.  This talk will briefly cover what XALT does and
+how it does it.  It will include some "war" stories of XALT
+usage. Finally I'll cover XALT move to version 3 namely tracking usage
+in containers and package tracking from R, Python and MATLAB.
+
+
+

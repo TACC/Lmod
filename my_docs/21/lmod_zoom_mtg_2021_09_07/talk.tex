@@ -1,0 +1,142 @@
+\documentclass{beamer}
+
+% You can also use a 16:9 aspect ratio:
+%\documentclass[aspectratio=169]{beamer}
+\usetheme{TACC16}
+
+% It's possible to move the footer to the right:
+%\usetheme[rightfooter]{TACC16}
+
+\begin{document}
+\title[Lmod]{Lmod hooks}
+\author{Robert McLay} 
+\date{Sept. 7, 2021}
+
+% page 1
+\frame{\titlepage} 
+
+\section{Introduction}
+
+% page 2
+\begin{frame}{Lmod Hooks Discussion}
+  \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
+  \begin{itemize}
+    \item History: How to track module usage?
+    \item How do hooks work?
+    \item What Hooks are available?
+  \end{itemize}
+\end{frame}
+
+% page 3
+\begin{frame}{How to track module usage?}
+  \begin{itemize}
+    \item No extra code in modulefiles.
+    \item Must work with modulefiles written in Lua or TCL.
+    \item Must not be built-in to Lmod.
+    \item $\Rightarrow$ Hooks
+  \end{itemize}
+\end{frame}
+
+% page 4
+\begin{frame}{Hooks}
+  \begin{itemize}
+    \item I am an emacs user 
+    \item Is there any other editor worth using?
+    \item Emacs has hooks to modify behavior
+    \item Hooks and SitePackage.lua was born.
+  \end{itemize}
+\end{frame}
+
+% page 5
+\begin{frame}{SitePackage.lua}
+  \begin{itemize}
+    \item SitePackage.lua is ``sourced'' on every module command.
+    \item It provides functions available for every Lua module file.
+    \item Site should set LMOD_PACKAGE_PATH to the directory
+      containing it.
+  \end{itemize}
+\end{frame}
+
+% page 6
+\begin{frame}{Hooks}
+  \begin{itemize}
+    \item Functions name can be stored in variable, arrays, etc.
+    \item In particular, Lua can store strings and a matching function
+    \item Lmod has default implementations that do nothing
+    \item Site can override hooks with their own implementation.
+  \end{itemize}
+\end{frame}
+
+% page 7
+\begin{frame}[fragile]
+  \frametitle{Hooks in SitePackage.lua}
+  \begin{itemize}
+    {\tiny
+\begin{semiverbatim}
+local function load_hook(t)
+   -- ...
+   -- ...
+end
+
+local hook = require("hook")
+hook.register("load", load_hook)
+\end{semiverbatim}
+    }
+    \end{itemize}
+\end{frame}
+
+
+% page 8
+\begin{frame}{What can a site do with a load hook?}
+  \begin{itemize}
+    \item The load hooks is called on every load.
+    \item TACC uses the load hook to track module usage
+    \item Many EasyBuild sites track only ``user'' loads 
+    \item Compute Canada track usage, set properties, and much more
+  \end{itemize}
+\end{frame}
+
+% page 9
+%\begin{frame}[fragile]
+%  \frametitle{Contrib/more\_hooks/SitePackage.lua}
+%  \begin{itemize}
+%    {\tiny
+%\begin{semiverbatim}
+%    local frameStk = FrameStk:singleton()
+%    local userload = (frameStk:atTop()) and "yes" or "no"
+%
+%    local logTbl      = {}
+%    logTbl[\#logTbl+1] = {"userload", userload}
+%    logTbl[\#logTbl+1] = {"module", t.modFullName}
+%    logTbl[\#logTbl+1] = {"fn", t.fn}
+%
+%    logmsg(logTbl)
+%\end{semiverbatim}
+%    }
+%    \end{itemize}
+%\end{frame}
+
+% page 10
+\begin{frame}[fragile]
+  \frametitle{Compute Canada}
+  \begin{itemize}
+    \item https://github.com/ComputeCanada/software-stack-config/blob/main/lmod/SitePackage.lua#L261-L272
+    {\tiny
+\begin{semiverbatim}
+     local function load\_hook(t)
+        local valid = validate\_license(t)
+        set\_props(t)
+        set\_family(t)
+        default\_module\_change\_warning(t)
+        log\_module\_load(t,true)
+        set\_local\_paths(t)
+     end
+\end{semiverbatim}
+    }
+    \end{itemize}
+\end{frame}
+
+
+
+
+\end{document}

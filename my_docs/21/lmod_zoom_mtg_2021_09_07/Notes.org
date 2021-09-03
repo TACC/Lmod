@@ -1,0 +1,102 @@
+Notes about Lmod hooks:
+
+* Question: How to track module usage w/o modifying each modulefile?
+** I am an emacs user 
+   (Is there any other editor worth using?)
+   Emacs allows for hooks to modify the editor's behavior
+   Why not let Lmod do the same thing
+** SitePackage.lua was born
+   Emacs has a .emacs file
+   Lmod has SitePackage.lua
+   There is a default one that comes with the distribution
+   Sites can have their own
+** Lmod use the environment variable LMOD_PACKAGE_PATH to find SitePackage.lua
+   It also uses standard Lua locations specified by LUA_PATH env. var.
+
+* How do hooks work?
+** Site creates SitePackage.lua file 
+** Sets env. var.  LMOD_PACKAGE_PATH the directory that contains SitePackage.lua
+    Do not replace the SitePackage.lua in the installation directory
+    The SitePackage.lua in $LMOD_PACKAGE_PATH is found before the one
+    in the installation directory
+** SitePackage.lua looks like:
+
+local hook = require("hook")
+
+local function load_hook(t)
+   -- ...
+   -- ...
+end
+
+hook.register("load", load_hook)
+
+* What can you do with a load hook?
+** The load hook is called for every module load statement
+  This is true for all modulefiles no matter if their are written in
+  Lua or TCL
+** Your site can do anything it likes in the load hook:
+*** TACC uses the load hook to track module usage 
+*** Many sites using Easybuild (EB) only register modulefile loaded directly by users
+    not the dependent modulefile
+
+https://github.com/TACC/Lmod/blob/master/contrib/more_hooks/SitePackage.lua#L44-L52
+
+    local frameStk = FrameStk:singleton()
+    local userload = (frameStk:atTop()) and "yes" or "no"
+
+    local logTbl      = {}
+    logTbl[#logTbl+1] = {"userload", userload}
+    logTbl[#logTbl+1] = {"module", t.modFullName}
+    logTbl[#logTbl+1] = {"fn", t.fn}
+
+    logmsg(logTbl)
+*** Compute Canada Sites have their load hook do:
+
+https://github.com/ComputeCanada/software-stack-config/blob/main/lmod/SitePackage.lua#L261-L272
+
+     local function load_hook(t)
+        local valid = validate_license(t)
+        set_props(t)
+        set_family(t)
+        default_module_change_warning(t)
+        log_module_load(t,true)
+        set_local_paths(t)
+     end
+
+   So that their individual modulefiles can be simplier.
+
+* What hooks are available?
+** Basic hooks
+*** load 
+    Called every time after a modulefile is loaded.
+*** avail
+    Map directory names to labels
+*** startup
+    This hook is run when Lmod is started.
+*** finalize
+    This hook is run when Lmod is about to finish.
+*** isVisibleHook
+    Reports whether a module should be visible or not.
+*** SiteName
+    Hook to specify Site Name (<site>_FAMILY_<...>) for family prefix
+** Shared Home Filesystem hooks
+*** groupName
+    This hook adds the arch and os name to moduleT.lua to make it safe on
+    shared filesystems.
+** Advanced Hooks
+*** unload
+    Call on unload
+*** msgHook
+    Hook to print message after avail, list, spider
+*** errWarnMsgHook
+    Hook to print messages after LmodError LmodWarning, LmodMessage    
+*** restore
+    Hook to run after a restore operation.
+*** load_spider
+    This hook is run for evaluating modules for spider/avail.
+*** listHook
+    This hook gets the list of active modules
+*** spider_decoration
+    This hook adds decoration to spider level one output.
+    It can be the category or a property.
+* Questions?
