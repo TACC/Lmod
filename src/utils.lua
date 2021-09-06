@@ -475,7 +475,7 @@ end
 
 function isActiveMFile(mrc, full, sn, fn)
    local version = extractVersion(full, sn) or ""
-   return mrc:isVisible({fullName=full, sn=sn, fn=fn}), version
+   return mrc:isVisible{fullName=full, sn=sn, fn=fn}, version
 end
 
 -----------------------------------------------------------------------
