@@ -147,12 +147,14 @@ hook.register("load", load_hook)
 \begin{frame}{Basic hooks}
   \begin{itemize}
     \item load hook - Called on every load
-    \item avail - Map directories into labels: https://lmod.readthedocs.io/en/latest/200\_avail\_custom.html
+    \item avail - Map directories into labels
     \item startup - called at startup
     \item finalize - called just before Lmod is about to finish
     \item isVisibleHook - Reports whether a module should be visible
       to avail and spider.
-    \item SiteName - Hook to specify Site Name (\emph{site}\_FAMILY\_\emph{something}) for family prefix
+    \item SiteName - Hook to specify Site Name
+      (\emph{site}\_FAMILY\_\emph{something}) for family prefix for
+      hierarchical module layout: TACC\_FAMILY\_COMPILER
   \end{itemize}
 \end{frame}
 
