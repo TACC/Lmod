@@ -71,6 +71,8 @@ local validT =
       isVisibleHook     = false, -- Called to evalate if a module should be hidden or not
       spider_decoration = false, -- This hook adds decoration to spider level one output.
                                  -- It can be the category or a property.
+      spiderPathFilter  = false, -- This hook returns two arrays keepA, ignoreA to keep or
+                                 -- ignore a path in the spider cache
 }
 
 --------------------------------------------------------------------------

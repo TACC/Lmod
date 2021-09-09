@@ -109,4 +109,28 @@ end
 
 hook.register("groupName",groupName)
 
+local ignoreA     = {
+   "^$",
+   "^%.$",
+   "^%$",
+   "^%%",
+   "^/bin/",
+   "^/bin$",
+   "^/sbin$",
+   "^/usr/bin$",
+   "^/usr/sbin$",
+   "^/usr/local/share/bin$",
+   "^/usr/lib/?",
+   "^/opt/local/bin$",
+}
+
+local keepA = {}
+
+local function spiderPathFilterHook(keepA, ignoreA)
+   return 
+end
+   
+hook.register("spiderPathFilter",spiderPathFilterHook)
+
+
 sandbox_registration { Pkg = Pkg }

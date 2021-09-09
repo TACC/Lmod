@@ -113,38 +113,26 @@ local Spider        = require("Spider")
 local concatTbl     = table.concat
 local cosmic        = require("Cosmic"):singleton()
 local dbg           = require("Dbg"):dbg()
+local hook          = require("Hook")
 local i18n          = require("i18n")
 local lfs           = require("lfs")
 local sort          = table.sort
 local pack          = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
 
 
-local ignoreA     = {
-   "^$",
-   "^%.$",
-   "^%$",
-   "^%%",
-   "^/bin/",
-   "^/bin$",
-   "^/sbin$",
-   "^/usr/bin$",
-   "^/usr/sbin$",
-   "^/usr/local/share/bin$",
-   "^/usr/lib/?",
-   "^/opt/local/bin$",
-}
-
 --      key:  /opt/apps/gcc-4_8/mpich/3.1.1,
 --      path: /opt/apps/gcc-4_8/mpich/3.1.1/lib, i: nil, j: nil
 
-
+local keepA   = {}
+local ignoreA = {}
+hook.apply("spiderPathFilter", keepA,ignoreA)
 
 --------------------------------------------------------------------------
 -- Check path against the *ignoreT* table.  Also it must be "in" dirA if
 -- dirA exists.
 -- @param path input path.
-local function keepThisPath2(path, dirA)
-   dbg.start{"keepThisPath2(",path,", dirA)"}
+local function l_keepThisPath(path, dirA)
+   dbg.start{"l_keepThisPath(",path,", dirA)"}
 
    if (dirA) then
       local match = false
@@ -158,20 +146,28 @@ local function keepThisPath2(path, dirA)
       end
       if (not match) then
          dbg.print{"No match\n"}
-         dbg.fini("keepThisPath2")
+         dbg.fini("l_keepThisPath")
          return false
+      end
+   end
+   
+   for i = 1, #keepA do
+      if (path:find(keepA[i])) then
+         dbg.print{"In keepA list: path:",path,"\n"}
+         dbg.fini("l_keepThisPath")
+         return true
       end
    end
 
    for i = 1, #ignoreA do
       if (path:find(ignoreA[i])) then
-         dbg.print{"In ignore list\n"}
-         dbg.fini("keepThisPath2")
+         dbg.print{"In ignore list: path:",path,"\n"}
+         dbg.fini("l_keepThisPath")
          return false
       end
    end
    dbg.print{"Keep: true\n"}
-   dbg.fini("keepThisPath2")
+   dbg.fini("l_keepThisPath")
    return true
 end
 
@@ -186,7 +182,7 @@ local function add2map(entry, tbl, dirA, moduleFn, kind, rmapT)
    for path in pairs(tbl) do
       local attr = lfs.attributes(path)
       local a    = attr or {}
-      local keep = keepThisPath2(path,dirA)
+      local keep = l_keepThisPath(path,dirA)
       dbg.print{"path: ",path,", keep: ",keep,", attr.mode: ",a.mode,"\n"}
 
       if (keep and attr and attr.mode == "directory") then
