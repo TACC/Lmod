@@ -312,11 +312,11 @@ function M.__find_all_defaults(self)
       end
 
       if (keepLooking) then
-         if (v.file and (show_hidden or mrc:isVisible({fullName=sn, sn=sn, fn=v.file}))) then
+         if (v.file and (show_hidden or mrc:isVisible{fullName=sn, sn=sn, fn=v.file})) then
             defaultT[sn] = {weight = "999999999.*zfinal", fullName = sn, fn = v.file, count = 1}
          elseif (next(v.fileT) ~= nil) then
             for fullName, vv in pairs(v.fileT) do
-               local vis = mrc:isVisible({fullName=fullName, sn=sn, fn=vv.fn}) or isMarked(vv.wV)
+               local vis = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn} or isMarked(vv.wV)
                if (show_hidden or vis) then
                   count = count + 1
                   if (vis and (vv.wV > weight)) then
@@ -371,14 +371,14 @@ function M.build_availA(self)
    local function l_build_availA_helper(mpath, sn, v, A)
       local icnt = #A
       if (v.file ) then
-         if (show_hidden or mrc:isVisible({fullName=sn,sn=sn,fn=v.file})) then
+         if (show_hidden or mrc:isVisible{fullName=sn,sn=sn,fn=v.file}) then
             local metaModuleT = v.metaModuleT or {}
             A[icnt+1] = { fullName = sn, pV = sn, fn = v.file, sn = sn, propT = metaModuleT.propT}
          end
       end
       if (next(v.fileT) ~= nil) then
          for fullName, vv in pairs(v.fileT) do
-            if (show_hidden or mrc:isVisible({fullName=fullName,sn=sn,fn=vv.fn})) then
+            if (show_hidden or mrc:isVisible{fullName=fullName,sn=sn,fn=vv.fn}) then
                icnt    = icnt + 1
                A[icnt] = { fullName = fullName, pV = pathJoin(sn,vv.pV), fn = vv.fn, sn = sn, propT = vv.propT}
             end

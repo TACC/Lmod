@@ -454,7 +454,7 @@ local function find_highest_by_key(self, key, fileA)
    for j = 1,#a do
       local entry = a[j]
       local v     = entry[key]
-      if (mrc:isVisible({fullName=entry.fullName,sn=entry.sn,fn=entry.fn}) or isMarked(v)) then
+      if (mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn} or isMarked(v)) then
          if (v > weight) then
             idx    = j
             weight = v

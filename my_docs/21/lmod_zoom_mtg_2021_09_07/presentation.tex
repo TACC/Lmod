@@ -119,7 +119,7 @@ hook.register("load", load_hook)
   \frametitle{Compute Canada}
   \begin{itemize}
     \item https://github.com/ComputeCanada/software-stack-config/blob/main/lmod/SitePackage.lua\#L261-L272
-    {\small
+    {\tiny
 \begin{semiverbatim}
      local function load\_hook(t)
         local valid = validate\_license(t)
@@ -131,6 +131,11 @@ hook.register("load", load_hook)
      end
 \end{semiverbatim}
     }
+    \item Setting families: https://github.com/ComputeCanada/software-stack-config/blob/main/lmod/SitePackage\_families.lua
+    \item Logging code:
+      https://github.com/ComputeCanada/software-stack-config/blob/main/lmod/SitePackage\_logging.lua
+    \item  Module properties https://github.com/ComputeCanada/software-stack-config/blob/main/lmod/SitePackage\_properties.lua
+    \item https://github.com/ComputeCanada/software-stack-config/blob/main/lmod/SitePackage\_visible.lua
     \end{itemize}
 \end{frame}
 
@@ -147,16 +152,28 @@ hook.register("load", load_hook)
 \begin{frame}{Basic hooks}
   \begin{itemize}
     \item load hook - Called on every load
-    \item avail - Map directories into labels: https://lmod.readthedocs.io/en/latest/200\_avail\_custom.html
+    \item avail - Map directories into labels
     \item startup - called at startup
     \item finalize - called just before Lmod is about to finish
     \item isVisibleHook - Reports whether a module should be visible
-      or not to avail and spider.
-    \item SiteName - Hook to specify Site Name (\emph{site}\_FAMILY\_\emph{something}) for family prefix
+      to avail and spider.
+    \item SiteName - Hook to specify Site Name
+      (\emph{site}\_FAMILY\_\emph{something}) for family prefix for
+      hierarchical module layout: TACC\_FAMILY\_COMPILER
   \end{itemize}
 \end{frame}
 
 % page 13
+\begin{frame}{isVisibleHook}
+  \begin{itemize}
+    \item isVisibleHook(modT): Reports whether a module should be visible
+      to avail and spider.
+    \item modT=\{fullName=..., sn=..., fn=...\}
+    \item Where fullName is name/version, sn = name and fn is fileName
+  \end{itemize}
+\end{frame}
+
+% page 14
 \begin{frame}{Shared Home Filesystem hook}
   \begin{itemize}
     \item groupName - This hook adds the arch and os name to
@@ -164,7 +181,7 @@ hook.register("load", load_hook)
   \end{itemize}
 \end{frame}
 
-% page 14
+% page 15
 \begin{frame}{Advanced Hooks}
   \begin{itemize}
     \item unload - Called on every unload
@@ -179,7 +196,7 @@ hook.register("load", load_hook)
   \end{itemize}
 \end{frame}
 
-% page 15
+% page 16
 \begin{frame}{HookArray}
   \begin{itemize}
     \item A module can load other modules
@@ -190,7 +207,7 @@ hook.register("load", load_hook)
   \end{itemize}
 \end{frame}
 
-% page 16
+% page 17
 \begin{frame}[fragile]
   \frametitle{Contrib/TACC/SitePackage.lua: }
     {\tiny
@@ -224,12 +241,13 @@ hook.register("load",           load_hook)
 \end{frame}
 
 
-% page 17
+% page 18
 \begin{frame}{Other hooks in the documentation}
   \begin{itemize}
-    \item Avail: https://lmod.readthedocs.io/en/latest/200_avail_custom.html
-    \item msgHook: https://lmod.readthedocs.io/en/latest/170_hooks.html
+    \item Avail: https://lmod.readthedocs.io/en/latest/200\_avail\_custom.html
+    \item msgHook: https://lmod.readthedocs.io/en/latest/170\_hooks.html
   \end{itemize}
 \end{frame}
+
 
 \end{document}

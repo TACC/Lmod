@@ -555,7 +555,7 @@ function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
          end
          t.parentAA     = parentT[mpath]
          t.fullName     = sn
-         t.hidden       = not mrc:isVisible({fullName=sn, sn=sn, fn=v.file})
+         t.hidden       = not mrc:isVisible{fullName=sn, sn=sn, fn=v.file}
          T[v.file]      = t
       end
       if (next(v.fileT) ~= nil) then
@@ -571,7 +571,7 @@ function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
             end
             t.parentAA   = parentT[mpath]
             t.fullName   = fullName
-            t.hidden     = not mrc:isVisible({fullName=fullName, sn=sn, fn=vv.fn})
+            t.hidden     = not mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn}
             if (not vv.dot_version) then
                T[vv.fn]  = t
             end
@@ -618,7 +618,7 @@ function M.buildProvideByT(self, dbT, providedByT)
    local mrc = MRC:singleton()
    for sn, vv in pairs(dbT) do
       for fullPath, v in pairs(vv) do
-         local hidden = not mrc:isVisible({fullName=v.fullName, sn=sn, fn=fullPath})
+         local hidden = not mrc:isVisible{fullName=v.fullName, sn=sn, fn=fullPath}
          if (v.provides ~= nil) then
             local providesA = v.provides
             for i = 1, #providesA do
@@ -873,7 +873,7 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
          if (T) then
             dbg.print{"Have T\n"}
             for fn, v in pairs(T) do
-               if (mrc:isVisible({fullName=v.fullName,fn=fn,sn=origUserSearchPat})) then
+               if (mrc:isVisible{fullName=v.fullName,fn=fn,sn=origUserSearchPat}) then
                   found = true
                   break
                end
@@ -907,7 +907,7 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
       local fullA = {}
       for sn, vv in pairs(dbT) do
          for fn, v in pairs(vv) do
-            if (show_hidden or mrc:isVisible({fullName=v.fullName,sn=sn,fn=fn})) then
+            if (show_hidden or mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn}) then
                 fullA[#fullA+1] = {sn=sn, fullName=v.fullName}
             end
          end
@@ -1017,7 +1017,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
          dbg.print{"Have T in countEntries\n"}
          dbg.print{"key: ",key,"\n"}
          for fn, v in pairs(T) do
-            if (show_hidden or mrc:isVisible({fullName=v.fullName,sn=sn,fn=fn})) then
+            if (show_hidden or mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn}) then
                if (v.fullName == key) then
                   aa[#aa + 1] = v
                end

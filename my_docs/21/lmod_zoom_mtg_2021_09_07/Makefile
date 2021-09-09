@@ -1,4 +1,4 @@
-TALKS    := talk.pdf
+TALKS    := presentation.pdf
 TEX_SUFS := .aux .log .nav .out .snm .toc .vrb .fdb_latexmk .fls
 
 %.pdf:%.tex
