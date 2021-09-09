@@ -25,4 +25,4 @@ Lmod 8.5+
               have local variable myType.
             * Issue #528: Added support for the RC shell.
    (8.5.14) * Added spiderPathFilter hook so that sites can control what paths are kept or ignored.
-   
+    

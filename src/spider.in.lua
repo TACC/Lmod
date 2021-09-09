@@ -131,7 +131,7 @@ hook.apply("spiderPathFilter", keepA,ignoreA)
 -- Check path against the *ignoreT* table.  Also it must be "in" dirA if
 -- dirA exists.
 -- @param path input path.
-local function l_keepThisPath(path, dirA)
+local function l_keepThisPath(path, dirA, keepA, ignoreA)
    dbg.start{"l_keepThisPath(",path,", dirA)"}
 
    if (dirA) then
@@ -179,10 +179,22 @@ end
 -- @param kind
 local function add2map(entry, tbl, dirA, moduleFn, kind, rmapT)
    dbg.start{"add2map(entry, tbl, dirA, moduleFn, kind, rmapT)"}
+   local keepA   = {}
+   local ignoreA = {}
+   hook.apply("spiderPathFilter", keepA, ignoreA)
+
+   if (type(keepA) ~= "table" ) then
+      LmodError{msg="e_No_table", name = "keepA"}
+   end
+   if (type(ignoreA) ~= "table" ) then
+      LmodError{msg="e_No_table", name = "ignoreA"}
+   end
+
+
    for path in pairs(tbl) do
       local attr = lfs.attributes(path)
       local a    = attr or {}
-      local keep = l_keepThisPath(path,dirA)
+      local keep = l_keepThisPath(path,dirA, keepA, ignoreA)
       dbg.print{"path: ",path,", keep: ",keep,", attr.mode: ",a.mode,"\n"}
 
       if (keep and attr and attr.mode == "directory") then

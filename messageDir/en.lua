@@ -152,6 +152,7 @@ Lmod does not support modulefiles that start with two or more underscores
      e_MT_corrupt          = [==[The module table stored in the environment is corrupt.
 please execute the command \" clearMT\" and reload your modules.
 ]==],
+     e_No_table            = "%{name} is not table",
      e_No_AutoSwap         = [==[Your site prevents the automatic swapping of modules with same name. You must explicitly unload the loaded version of "%{oldFullName}" before you can load the new one. Use swap to do this:
 
    $ module swap %{oldFullName} %{newFullName}
