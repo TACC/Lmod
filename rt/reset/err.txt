@@ -52,7 +52,7 @@ Currently Loaded Modules:
 step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing reset
 ===========================
-Resetting modules to system default. Reseting $MODULEPATH back to system default. All extra directories will be removed from $MODULEPATH.
+Resetting modules to system default. Resetting $MODULEPATH back to system default. All extra directories will be removed from $MODULEPATH.
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
