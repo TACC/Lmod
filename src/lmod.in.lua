@@ -166,7 +166,7 @@ function Usage()
    a[#a+1] = { "  avail | av",    "",             i18n("list3")  }
    a[#a+1] = { "  avail | av",    "string",       i18n("list4")  }
    a[#a+1] = { "  overview | ov", "",             i18n("ov1")    }
-   a[#a+1] = { "  overview | av", "string",       i18n("ov2")    }
+   a[#a+1] = { "  overview | ov", "string",       i18n("ov2")    }
    a[#a+1] = { "  spider",        "",             i18n("list5")  }
    a[#a+1] = { "  spider",        "module",       i18n("list6")  }
    a[#a+1] = { "  spider",        "string",       i18n("list7")  }
