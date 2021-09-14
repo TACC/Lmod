@@ -102,8 +102,8 @@ Sous-commandes pour lister / chercher :
   list                s1 s2 ...     Liste les modules chargés qui correspondent à la recherche
   avail | av                        Liste les modules disponibles
   avail | av          string        Liste les modules disponibles qui contiennent "string".
-  overview | ov                     List all available modules by short names with number of versions
-  overview | av       string        List available modules by short names with number of versions that contain "string"
+  overview | ov                     Liste tous les modules disponibles par noms courts avec nombre de versions
+  overview | ov       string        Liste les modules disponibles par noms courts avec nombre de versions qui contiennent "string"
   spider                            Liste tous les modules existants
   spider              module        Liste toutes les versions d'un module
   spider              string        Liste tous les modules qui contiennent "string".
