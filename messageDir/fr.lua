@@ -296,6 +296,9 @@ L'environnement par défaut ne contient aucun module
      list9         = "Affiche l'information \"whatis\" à propos de ce module",
      list10        = "Cherche tous les noms et descriptions (\"whatis\") qui contiennent \"string\".",
 
+     ov1           = "Liste tous les modules disponibles par noms courts avec nombre de versions",
+     ov2           = "Liste les modules disponibles par noms courts avec nombre de versions qui contiennent \"string\"",
+
      srch_title    = "Chercher avec Lmod:\n" ..
                      "-------------------",
      srch0         = "  Toutes les sous-commandes de recherche (spider, list, avail, keyword) supportent les expressions régulières :",
