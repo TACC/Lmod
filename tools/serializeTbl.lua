@@ -126,14 +126,14 @@ end
 -- This is the work-horse for this collections.  It is recursively for
 -- sub-tables.  It also ignores keys that start with "__".
 
-local function outputTblHelper(indentIdx, name, T, a, level)
+local function outputTblHelper(indentIdx, name, T, keepDUnderScore, a, level)
 
    -------------------------------------------------
    -- Remove all keys in table that start with "__"
 
    local t = {}
    for key in pairs(T) do
-      if (type(key) == "number" or key:sub(1,2) ~= '__') then
+      if (type(key) == "number" or keepDUnderScore or key:sub(1,2) ~= '__') then
          t[key] = T[key]
       end
    end
@@ -233,11 +233,12 @@ end
 -- if no file name is given.
 -- @param options input table.
 function serializeTbl(options)
-   local a         = {}
-   local n         = options.name
-   local level     = 0
-   local value     = options.value
-   local indentIdx = -1
+   local a               = {}
+   local n               = options.name
+   local level           = 0
+   local value           = options.value
+   local keepDUnderScore = options.keep_double_underscore
+   local indentIdx       = -1
    if (options.indent) then
       indentIdx = 0
       if (type(options.indent) == 'string' and options.indent:find("^  *$")) then
@@ -246,7 +247,7 @@ function serializeTbl(options)
    end
 
    if (type(value) == "table") then
-      outputTblHelper(indentIdx, options.name, options.value, a, level)
+      outputTblHelper(indentIdx, options.name, options.value, keepDUnderScore, a, level)
    else
       a[#a+1] = wrap_name("",n)
       a[#a+1] = " = "
