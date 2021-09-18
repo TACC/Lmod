@@ -69,10 +69,8 @@ function main()
          envT[k] = nil
       end
    end
-
    local s    = serializeTbl{name="envT", value = envT, indent = true, keep_double_underscore = true}
-
-   io.stdout:write(s,"\n")
+   io.stdout:write(s)
 end
 
 main()

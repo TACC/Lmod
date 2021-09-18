@@ -1,0 +1,34 @@
+Here is a brain dump for ideas for slides for 10/05 mtg:
+
+* Goals of this talk
+** What are the goals of environment module systems (Lmod, Tmod4)?
+** How many ways are modulefiles evaluated?
+** There are 3 main ways: loading, unloading, showing
+** There are 10 ways total that modulefiles are evaluated.
+** How does Lmod handle the multiple ways that modulefiles are evaluated?
+
+
+* Modules have a few simple goals:
+** One text file independent of shell (bash, zsh, tcsh, rc, fish, ...)
+** Change User's environment:
+*** by setting env. vars, adding to path, set alias or shell functions
+*** Loading other modules
+** Great trick: The environment can go back by re-evaluating the modulefile.
+
+* Example module file phdf5:
+
+setenv("TACC_HDF5_DIR","/apps/.../phdf5/1.12.1")
+setenv("TACC_HDF5_INC","/apps/.../phdf5/1.12.1/include")
+setenv("TACC_HDF5_LIB","/apps/.../phdf5/1.12.1/lib")
+prepend_path("PATH","/apps/.../phdf5/1.10.4/bin")
+prepend_path("LD_LIBRARY_PATH","/apps/.../phdf5/1.10.4//lib")
+help([[...]])
+
+* What happens when you "module load phdf5/1.12.1"?
+
+* What happens when you "module show phdf5/1.12.1"?
+
+* What happens when you "module unload phdf5/1.12.1"?
+
+* How does Lmod handle these various "modes" of evaluations?
+
