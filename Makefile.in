@@ -141,7 +141,7 @@ ZSH_FUNCS                 := $(patsubst %, $(srcdir)/init/zsh/%, $(ZSH_FUNCS))
 FISH_FUNCS                := module.fish   
 FISH_FUNCS                := $(patsubst %, $(srcdir)/init/fish/%, $(FISH_FUNCS))
 
-KSH_FUNCS                 := clearLmod.in clearMT.in ml.in module.in settarg.in
+KSH_FUNCS                 := clearLmod clearMT ml module settarg
 KSH_FUNCS                 := $(patsubst %, $(srcdir)/init/ksh_funcs/%, $(KSH_FUNCS))
 
 STARTUP                   := profile.in profile.fish.in profile.rc.in cshrc.in

@@ -206,7 +206,7 @@ local function outputTblHelper(indentIdx, name, T, keepDUnderScore, a, level)
    else
       for key, value in pairsByKeys(t) do
          if (type(value) == 'table') then
-            outputTblHelper(indentIdx, key, t[key], a, level+1)
+            outputTblHelper(indentIdx, key, t[key], keepDUnderScore, a, level+1)
          else
             if (type(key) == "string") then
                str = indent .. '[\"'..key ..'\"] = '

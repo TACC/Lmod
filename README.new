@@ -25,3 +25,7 @@ Lmod 8.5+
               have local variable myType.
             * Issue #528: Added support for the RC shell.
    (8.5.14) * Added spiderPathFilter hook so that sites can control what paths are kept or ignored.
+   (8.5.15) * Issue #530 update fr.lua for overview description.
+            * Start of upgrade to sh_to_modulefile support for aliases and functions
+            * Change ksh_funcs files like module and ml to not be executable
+	    
