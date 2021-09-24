@@ -79,6 +79,15 @@ function MF_TCL.append_path(self, k, v)
    return "append-path ".. k .. " {" .. v .. "}"
 end
 
+function MF_TCL.alias(self, k, v)
+   return "set-alias ".. k .. " {" .. v .. "}"
+end
+
+function MF_TCL.shell_function(self, k, v)
+   return "set-function" .. k .. " {" .. v .. "}"
+end
+
+
 function MF_TCL.header()
    return "#%Module"
 end

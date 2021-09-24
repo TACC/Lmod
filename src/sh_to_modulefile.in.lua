@@ -135,6 +135,7 @@ local getenv       = os.getenv
 local getenv_posix = posix.getenv
 local setenv_posix = posix.setenv
 local concatTbl    = table.concat
+local replaceStr   = require("replaceStr")
 local s_master     = {}
 local load         = (_VERSION == "Lua 5.1") and loadstring or load
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
@@ -469,50 +470,94 @@ function main()
       dbg:activateDebug(masterTbl.debug)
    end
 
-
-   if (masterTbl.saveEnvFn) then
-      wrtEnv(masterTbl.saveEnvFn)
-      os.exit(0)
-   end
-
    local LuaCmd = findLuaProg()
 
    if (masterTbl.cleanEnv) then
       cleanEnv()
    end
 
-   local oldEnvT = getenv_posix()
-   local cmdA    = false
-
-   if(masterTbl.inStyle:lower() == "csh") then
-      cmdA    = {
-         "csh", "-f","-c",
-         "\"source " ..concatTbl(pargs," ") .. '>& /dev/null; '.. LuaCmd .. " " .. programName() .. " --saveEnv -\""
+   local shellTemplateT =
+      {
+         csh  = { args = "-f -c",                source = "source", redirect = ">& /dev/stdout", alias = "alias", funcs = "" },
+         bash = { args = "--noprofile -norc -c", source = ".",      redirect = "2>&1",           alias = "alias", funcs = "declare -f" },
       }
-   else -- Assume bash unless told otherwise
-      cmdA    = {
-         "bash", "--noprofile","--norc","-c",
-         "\". " ..concatTbl(pargs," ") .. '>/dev/null 2>&1; '.. LuaCmd .. " " .. programName() .. " --saveEnv -\""
-      }
-   end
+   local shellName = masterTbl.inStyle:lower()
 
-   dbg.print{"cmd: ",concatTbl(cmdA," "),"\n"}
+   local shellT = shellTemplateT[shellName] or shellTemplateT.bash
+   local sep    = "%__________blk_divider__________%"
 
-   local s = capture(concatTbl(cmdA," "))
+   local cmdA    = {
+      "%{shell}",
+      "%{shellArgs}",
+      "\"",
+      "%{printEnvT} oldEnvT;",
+      "echo %{sep};",
+      "%{alias};",
+      "echo %{sep};",
+      "%{funcs};",
+      "echo %{sep};",
+      "%{source} %{script} %{redirect};",
+      "echo %{sep};",
+      "%{printEnvT} envT;",
+      "echo %{sep};",
+      "%{alias};",
+      "echo %{sep};",
+      "%{funcs};",
+      "echo %{sep};",
+      "\"",
+   }
+
+   local t     = {}
+
+   t.shell     = findInPath(shellName)
+   t.shellArgs = shellT.args
+   t.printEnvT = LuaCmd .. " " .. pathJoin(cmdDir(),"printEnvT.lua")
+   t.sep       = sep
+   t.alias     = shellT.alias
+   t.funcs     = shellT.funcs
+   t.source    = shellT.source
+   t.script    = concatTbl(pargs," "):gsub("\"","\\\\\"")
+   t.redirect  = shellT.redirect
+
+   local cmd   = replaceStr(concatTbl(cmdA," "), t)
+
+   local output = capture(cmd)
 
    if (masterTbl.debug > 0) then
       local f = io.open("s.log","w")
       if (f) then
-         f:write(s)
+         f:write(cmd,"\n")
+         f:write(output)
          f:close()
       end
    end
 
+   local processOrderA = { {"Vars", 1}, {"Aliases", 1}, {"Funcs", 1}, {"SourceScriptOutput", 0},
+                           {"Vars", 2}, {"Aliases", 2}, {"Funcs", 2}}
+
+   local resultT = { Vars    = {{},{}},
+                     Aliases = {{},{}},
+                     Funcs   = {{},{}},
+                   }
+   sep = sep:escape()
+
+
+   for i = 1, #processOrderA do
+      repeat
+         local idx,endIdx  = output:find(sep)
+         local blk         = output:sub(1,idx-1)
+         output            = output:sub(endIdx+1,-1)
+         local blkName     = processOrderA[i][1]
+         local irstIdx     = processOrderA[i][2]
+         blk               = blk:gsub("^%s+","")
+         if (irstIdx == 0) then break end
+         resultT[blkName][irstIdx] = blk
+      until (true)
+   end
+   
    local factory = MF_Base.build(masterTbl.style)
 
-   assert(load(s))()
-
-   s = concatTbl(factory:process(ignoreT, oldEnvT, envT),"\n")
+   s = concatTbl(factory:process(shellName, ignoreT, resultT),"\n")
    if (masterTbl.outFn) then
       local f = io.open(masterTbl.outFn,"w")
       if (f) then

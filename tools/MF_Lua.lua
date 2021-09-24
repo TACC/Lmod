@@ -75,5 +75,16 @@ function MF_Lmod.append_path(self, k, v)
    return "append_path(" .. k:doubleQuoteString() .. "," .. v:doubleQuoteString() .. ")"
 end
 
+function MF_Lmod.alias(self, k, v)
+   return "set_alias(" .. k:doubleQuoteString() .. "," .. v:doubleQuoteString() .. ")"
+end
+
+function MF_Lmod.shell_function(self, k, v)
+   return "set_shell_function(" .. k:doubleQuoteString() .. "," .. v:doubleQuoteString() .. ",\"\")"
+end
+
+
+
+
 return MF_Lmod
 

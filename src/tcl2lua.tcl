@@ -567,6 +567,13 @@ proc unset-alias { var } {
     cmdargs "unset_alias" $var
 }
 
+proc set-function { var val } {
+    cmdargs "set_shell_funcion" $var $val
+}
+proc unset-function { var } {
+    cmdargs "unset_shell_function" $var
+}
+
 proc add-property { var val } {
     cmdargs "add_property" $var $val
 }
@@ -951,12 +958,14 @@ proc execute-modulefile {modfile } {
     interp alias $child reportError      {} reportError
     interp alias $child require-fullname {} require-fullname
     interp alias $child set-alias        {} set-alias
+    interp alias $child set-function     {} set-function
     interp alias $child setPutMode       {} setPutMode
     interp alias $child setenv           {} setenv
     interp alias $child showResults      {} showResults
     interp alias $child system           {} system
     interp alias $child uname            {} uname
     interp alias $child unset-alias      {} unset-alias
+    interp alias $child unset-function   {} unset-function
     interp alias $child unsetenv         {} unsetenv
     interp alias $child versioncmp       {} versioncmp
 

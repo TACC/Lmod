@@ -38,11 +38,13 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
+require("declare")
 require("inherits")
 require("string_utils")
 
 local M            = {}
 
+local load         = (_VERSION == "Lua 5.1") and loadstring or load
 local dbg          = require("Dbg"):dbg()
 local concatTbl    = table.concat
 local pairsByKeys  = pairsByKeys
@@ -80,9 +82,110 @@ end
 -- @param ignoreT table of env. vars to ignore.
 -- @param oldEnvT The original user environment.
 -- @param envT The new user environment.
-function M.process(self, ignoreT, oldEnvT, envT)
-   dbg.start{"MF_Base:process(ignoreT, oldEnvT, envT)"}
+function M.process(self, shellName, ignoreT, resultT)
+   dbg.start{"MF_Base:process(shellName, ignoreT, resultT)"}
    local a = {}
+   
+   -- load oldEnvT and envT environment
+   declare("oldEnvT")
+   declare("envT")
+   assert(load(resultT["Vars"][1]))()
+   assert(load(resultT["Vars"][2]))()
+   
+   self:processVars(ignoreT, oldEnvT, envT, a)
+   
+   self:processAliases(shellName, resultT["Aliases"][1], resultT["Aliases"][2], a)
+
+   self:processFuncs(  shellName, resultT["Funcs"][1],   resultT["funcs"][2],   a)
+
+   dbg.fini("MF_Base:process")
+   return a
+end
+
+local shellAliasPatt = {
+   bash = { namePatt  = "alias ([a-zA-Z0-9_.?']+)='", trailingPatt = "'\n" },
+   csh  = { namePatt  = "([a-zA-Z0-9_.?']+)\t",       trailingPatt = "\n"  },
+}
+
+
+local function l_extractAliases(shellName, aliases)
+   local aliasT       = {}
+   local namePatt     = shellAliasPatt[shellName].namePatt
+   local trailingPatt = shellAliasPatt[shellName].trailingPatt
+
+   while (true) do
+      local is, ie, Nm = aliases:find(namePatt)
+      if (not is) then break end
+      local js, je     = aliases:find(trailingPatt, ie+1)
+      aliasT[Nm]       = aliases:sub(ie+1,js-1)
+      aliases          = aliases:sub(je+1,-1)
+   end
+
+   return aliasT
+end
+      
+   
+
+
+
+function M.processAliases(self, shellName, old, new, a)
+   dbg.start{"MF_Base:processAliases(shellName, old, new, a)"}
+
+   local oldAliasT = l_extractAliases(shellName, old)
+   local aliasT    = l_extractAliases(shellName, new)
+
+   for k,v in pairsByKeys(aliasT) do
+      local oldV = oldAliasT[k]
+      if (oldV == nil or oldV ~= v) then
+         a[#a+1] = self:alias(k,v)
+      end
+   end
+   dbg.fini("MF_Base:processAliases")
+end
+
+local shellFuncPatt = {
+   bash = { namePatt  = "([a-zA-Z0-9_.?']+) %(%)%s+({)'", trailingPatt = "(})\n" },
+}
+
+local function l_extractFuncs(shellName, funcs)
+   local funcT        = {}
+   local namePatt     = shellFuncPatt[shellName].namePatt
+   local trailingPatt = shellFuncPatt[shellName].trailingPatt
+
+   while (true) do
+      local is, ie, Nm, Strt = funcs:find(namePatt)
+      if (not is) then break end
+      local js, je, End      = funcs:find(trailingPatt, ie+1)
+      funcT[Nm]              = Strt .. funcs:sub(ie+1,js-1) .. End
+      funcs                  = funcs:sub(je+1,-1)
+   end
+
+   return funcT
+end
+      
+   
+function M.processFuncs(self, shellName, old, new, a)
+   dbg.start{"MF_Base:processFuncs(shellName, old, new, a)"}
+   if (not shellFuncPatt[shellName] ) then return end
+
+   local oldFuncT = l_extractFuncs(shellName, old)
+   local funcT    = l_extractFuncs(shellName, new)
+   
+   for k,v in pairsByKeys(funcT) do
+      local oldV = oldFuncT[k]
+      if (oldV == nil or oldV ~= v) then
+         a[#a+1] = self:shell_function(k,v)
+      end
+   end
+
+   dbg.fini("MF_Base:processFuncs")
+end
+
+
+
+
+function M.processVars(self, ignoreT, oldEnvT, envT, a)
+   dbg.start{"MF_Base:processVars(ignoreT, oldEnvT, envT, a)"}
 
    ------------------------------------------------------------
    -- Add header to modulefile if necessary.
@@ -98,7 +201,7 @@ function M.process(self, ignoreT, oldEnvT, envT)
    local mt_pat = "^_ModuleTable"
    for k, v in pairsByKeys(envT) do
       local i = k:find(mt_pat)
-      if (not ignoreT[k] and not i and not k:find("^BASH_FUNC_") and not v:find("^%(%)")) then
+      if (not ignoreT[k] and not i) then
          dbg.print{"k: ", k, ", v: ", v, ", oldV: ",oldEnvT[k],"\n"}
          local oldV = oldEnvT[k]
          if (not oldV) then
@@ -122,8 +225,7 @@ function M.process(self, ignoreT, oldEnvT, envT)
       end
    end
 
-   dbg.fini("MF_Base:process")
-   return a
+   dbg.fini("MF_Base:processVars")
 end
 
 function M.header(self)
