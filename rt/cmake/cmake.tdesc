@@ -40,7 +40,7 @@ testdescript = {
      rm -rf init
      mkdir init
      sed -e 's|@PKG@/libexec/lmod|lua;$(projectDir)/src/lmod.in.lua|g' \
-              < $(projectDir)/init/cmake.in > init/cmake
+              < $(projectDir)/init/cmake > init/cmake
 
 cat > $(testName).cmake << EOF
 include("$(outputDir)/init/cmake")

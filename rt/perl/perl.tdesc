@@ -25,7 +25,7 @@ testdescript = {
 
      mkdir init
      sed -e 's|@PKG@/libexec/lmod|lua $(projectDir)/src/lmod.in.lua|g' \
-              < $(projectDir)/init/perl.in > init/perl
+              < $(projectDir)/init/perl > init/perl
 
 cat > $(testName).pl << EOF
 #!/usr/bin/env perl
