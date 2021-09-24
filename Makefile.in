@@ -128,9 +128,9 @@ STANDALONE_PRGM           := src/lmod.in.lua src/addto.in.lua                   
                              src/check_module_tree_syntax.in.lua                    \
                              sh_src/print_os.sh.in 
 STANDALONE_PRGM           := $(patsubst %, $(srcdir)/%, $(STANDALONE_PRGM))
-SHELL_INIT                := bash.in cmake.in csh.in ksh.in tcsh.in zsh.in sh.in perl.in R.in \
-                             env_modules_python.py.in lmod_bash_completions fish.in           \
-                             lisp.in env_modules_ruby.rb.in rc.in
+SHELL_INIT                := bash.in cmake csh.in ksh.in tcsh.in zsh.in sh.in perl R \
+                             env_modules_python.py.in lmod_bash_completions fish     \
+                             lisp env_modules_ruby.rb.in rc.in
 SHELL_INIT                := $(patsubst %, $(srcdir)/init/%, $(SHELL_INIT))
 LMODRC_INIT               := $(patsubst %, $(srcdir)/init/%, lmodrc.lua)
 

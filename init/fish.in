@@ -1,3 +1,4 @@
+#!/usr/bin/env fish
 set -gx LMOD_ROOT @lmod_root@
 set -gx LMOD_PKG  @PKG@
 set -gx LMOD_DIR  @PKG@/libexec
