@@ -557,7 +557,7 @@ function main()
    
    local factory = MF_Base.build(masterTbl.style)
 
-   s = concatTbl(factory:process(shellName, ignoreT, resultT),"\n")
+   local s = concatTbl(factory:process(shellName, ignoreT, resultT),"\n")
    if (masterTbl.outFn) then
       local f = io.open(masterTbl.outFn,"w")
       if (f) then

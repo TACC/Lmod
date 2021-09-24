@@ -96,7 +96,7 @@ function M.process(self, shellName, ignoreT, resultT)
    
    self:processAliases(shellName, resultT["Aliases"][1], resultT["Aliases"][2], a)
 
-   self:processFuncs(  shellName, resultT["Funcs"][1],   resultT["funcs"][2],   a)
+   self:processFuncs(  shellName, resultT["Funcs"][1],   resultT["Funcs"][2],   a)
 
    dbg.fini("MF_Base:process")
    return a
