@@ -8,6 +8,10 @@ lua ProjectDIR/src/sh_to_modulefile.in.lua ProjectDIR/rt/sh_to_modulefile/tstScr
 ===========================
 prepend_path("PATH","ProjectDIR/rt/sh_to_modulefile/bin")
 append_path("PATH","ProjectDIR/rt/sh_to_modulefile/sbin")
+set_alias("fooAlias","foobin -q -l")
+set_shell_function("fooFunc","{ \
+    echo \"arg1: $1\"\
+}","")
 ===========================
 step 3
 lua ProjectDIR/src/sh_to_modulefile.in.lua ProjectDIR/rt/sh_to_modulefile/path_both_ends.sh

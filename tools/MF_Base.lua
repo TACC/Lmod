@@ -144,7 +144,7 @@ function M.processAliases(self, shellName, old, new, a)
 end
 
 local shellFuncPatt = {
-   bash = { namePatt  = "([a-zA-Z0-9_.?']+) %(%)%s+({)'", trailingPatt = "(})\n" },
+   bash = { namePatt  = "([a-zA-Z0-9_.?']+) %(%)%s+({)", trailingPatt = "(})\n" },
 }
 
 local function l_extractFuncs(shellName, funcs)
@@ -180,9 +180,6 @@ function M.processFuncs(self, shellName, old, new, a)
 
    dbg.fini("MF_Base:processFuncs")
 end
-
-
-
 
 function M.processVars(self, ignoreT, oldEnvT, envT, a)
    dbg.start{"MF_Base:processVars(ignoreT, oldEnvT, envT, a)"}

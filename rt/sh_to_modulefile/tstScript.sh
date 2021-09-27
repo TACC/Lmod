@@ -26,7 +26,11 @@ IFS=$OLD_IFS
 
 NEW_PATH=${NEW_PATH#:}
 
+fooFunc ()
+{
+  echo "arg1: $1"
+}
 
-
+alias fooAlias='foobin -q -l'
 
 PATH=$testDir/bin:$NEW_PATH:$testDir/sbin
