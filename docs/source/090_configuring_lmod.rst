@@ -118,7 +118,7 @@ the configuration option which will set the action.
   stacks. 
 
 **LMOD_AVAIL_EXTENSIONS**:
-  [yes/no, default: yes, --with-availExtension] Display package
+  [yes/no, default: yes, --with-availExtensions] Display package
   extensions when doing "module avail".
 
 **LMOD_CACHED_LOADS**:
