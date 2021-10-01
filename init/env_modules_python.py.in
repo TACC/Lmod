@@ -14,9 +14,11 @@ def module(command, *arguments):
 
     proc           = Popen(A, stdout=PIPE, stderr=PIPE)
     stdout, stderr = proc.communicate()
-    err_out=sys.stderr
+    stdout         = stdout.decode("utf-8")
+    stderr         = stderr.decode("utf-8")
+    err_out        = sys.stderr
     if (os.environ.get('LMOD_REDIRECT','@redirect@') != 'no'):
         err_out=sys.stdout
 
-    print(stderr.decode(),file=err_out)
-    exec(stdout.decode())
+    print(stderr,file=err_out)
+    exec(stdout)
