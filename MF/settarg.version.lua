@@ -32,7 +32,7 @@ local term             = os.getenv("TERM") or " "
 
 if (titlebar_support == "yes") then
    if (myShellName() == "bash" or myShellName() == "zsh") then
-      local precmd = [==[{
+      local precmd = [==[
              local tilde="~";
              local H=${HOSTNAME-$(hostname)};
              H=${H%%.*};
@@ -40,7 +40,6 @@ if (titlebar_support == "yes") then
              eval $(${LMOD_SETTARG_CMD:-:} -s bash);
              ${SET_TITLE_BAR:-:} "${TARG_TITLE_BAR_PAREN}${USER}@${SHOST}:${PWD/#$HOME/$tilde}";
              ${USER_PROMPT_CMD:-:};
-           }
       ]==]
       set_shell_function("precmd",precmd,"")
       if (term:find("xterm")) then
