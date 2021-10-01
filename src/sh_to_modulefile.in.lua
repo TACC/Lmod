@@ -175,6 +175,7 @@ local ignoreA = {
    "LINES",
    "LMOD_CMD",
    "LMOD_DIR",
+   "LMOD_FULL_SETTARG_SUPPORT",
    "LMOD_PKG",
    "LMOD_ROOT",
    "LMOD_SETTARG_CMD",
@@ -480,6 +481,7 @@ function main()
       {
          csh  = { args = "-f -c",                source = "source", redirect = ">& /dev/stdout", alias = "alias", funcs = "" },
          bash = { args = "--noprofile -norc -c", source = ".",      redirect = "2>&1",           alias = "alias", funcs = "declare -f" },
+         bash = { args = "-f -c",                source = ".",      redirect = "2>&1",           alias = "alias", funcs = "declare -f" },
       }
    local shellName = masterTbl.inStyle:lower()
 
@@ -523,7 +525,7 @@ function main()
 
    local output = capture(cmd)
 
-   if (masterTbl.debug > 0) then
+   if (masterTbl.debug > 0 or true) then
       local f = io.open("s.log","w")
       if (f) then
          f:write(cmd,"\n")

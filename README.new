@@ -30,3 +30,5 @@ Lmod 8.5+
             * Change ksh_funcs files like module and ml to not be executable
    (8.5.16) * Fix bugs with cmake and perl test because of the renaming of cmake.in
               and perl.in to cmake and perl.
+W.I.P.:
+   (8.5.17) * Issue #532: Change AVAIL_EXTENSION to AVAIL_EXTENSIONS in Makefile.in

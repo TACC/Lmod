@@ -104,7 +104,8 @@ end
 
 local shellAliasPatt = {
    bash = { namePatt  = "alias ([a-zA-Z0-9_.?']+)='", trailingPatt = "'\n" },
-   csh  = { namePatt  = "([a-zA-Z0-9_.?']+)\t",       trailingPatt = "\n"  },
+   csh  = { namePatt  = "([a-zA-Z0-9_.?']+)\t%(?",       trailingPatt = "%)?\n"  },
+   zsh  = { namePatt  = "([a-zA-Z0-9_.?']+)='", trailingPatt = "'\n" },
 }
 
 
@@ -123,11 +124,7 @@ local function l_extractAliases(shellName, aliases)
 
    return aliasT
 end
-      
    
-
-
-
 function M.processAliases(self, shellName, old, new, a)
    dbg.start{"MF_Base:processAliases(shellName, old, new, a)"}
 
@@ -145,6 +142,7 @@ end
 
 local shellFuncPatt = {
    bash = { namePatt  = "([a-zA-Z0-9_.?']+) %(%)%s+({)", trailingPatt = "(})\n" },
+   zsh  = { namePatt  = "([a-zA-Z0-9_.?']+) %(%)%s+({)", trailingPatt = "(})\n" },
 }
 
 local function l_extractFuncs(shellName, funcs)
@@ -156,7 +154,7 @@ local function l_extractFuncs(shellName, funcs)
       local is, ie, Nm, Strt = funcs:find(namePatt)
       if (not is) then break end
       local js, je, End      = funcs:find(trailingPatt, ie+1)
-      funcT[Nm]              = Strt .. funcs:sub(ie+1,js-1) .. End
+      funcT[Nm]              = funcs:sub(ie+1,js-1)
       funcs                  = funcs:sub(je+1,-1)
    end
 

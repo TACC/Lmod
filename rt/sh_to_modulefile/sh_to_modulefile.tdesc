@@ -22,9 +22,11 @@ testdescript = {
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
-     runLmod --version                      # 1
-     runSh2MF  $(testDir)/tstScript.sh      # 2
-     runSh2MF  $(testDir)/path_both_ends.sh # 3
+     runLmod --version                                 # 1
+     runSh2MF             $(testDir)/tstScript.sh      # 2
+     runSh2MF             $(testDir)/path_both_ends.sh # 3        
+     runSh2MF  --from csh $(testDir)/cshScript.csh     # 4
+     runSh2MF  --from zsh $(testDir)/tstScript.sh      # 5
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
