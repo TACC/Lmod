@@ -1,0 +1,40 @@
+\documentclass{beamer}
+
+% You can also use a 16:9 aspect ratio:
+%\documentclass[aspectratio=169]{beamer}
+\usetheme{TACC16}
+
+% It's possible to move the footer to the right:
+%\usetheme[rightfooter]{TACC16}
+
+\begin{document}
+\title[Lmod]{Lmod hooks}
+\author{Robert McLay} 
+\date{Sept. 7, 2021}
+
+% page 1
+\frame{\titlepage} 
+
+\section{Introduction}
+
+% page 2
+\begin{frame}{Debugging Modulefiles \& How are Modulefiles evaluated? }
+  \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
+  \begin{itemize}
+    \item Debugging Modulefiles Tricks
+    \item How are Modulefile evaluated?
+  \end{itemize}
+\end{frame}
+
+% page 3
+\begin{frame}{Debugging Modulefiles Tricks}
+  \begin{itemize}
+    \item https://lmod.readthedocs.io/en/latest/160\_debugging\_modulefiles.html
+    \item Trick 1: Printing: \texttt{\$LMOD\_CMD bash load} \emph{module}
+    \item Trick 2: Tracing:  \texttt{ml -T } \emph{module}
+  \end{itemize}
+\end{frame}
+
+
+
+\end{document}

@@ -1,0 +1,196 @@
+% Copyright 2003 by Till Tantau <tantau@users.sourceforge.net>
+%
+% This program can be redistributed and/or modified under the terms
+% of the GNU Public License, version 2.
+
+\mode<presentation>
+
+\setbeamertemplate{frametitle}[default][center]
+\addtobeamertemplate{frametitle}{\vskip 4ex minus 4ex}{}
+
+% Here we define what appears at the bottom of each slide: the "footline".
+\setbeamertemplate{footline}{%
+  \leavevmode%
+
+  % Horizontal line dividing the rest of the slide from the footer?
+  % hrule goes all the way across...
+  % \hrule height.3pt%
+  % With \rule, you can specify the thickness
+  % \rule[raise-height]{width}{thickness}
+  \hspace{.025\textwidth}\rule{.95\textwidth}{.5pt}
+
+  \hbox{%
+    % On the left half of the footer, insert the TACC logo
+    \begin{minipage}{.5\textwidth}%
+      \hskip .033\textwidth%Give horizontal space else this will set on the left edge of the slide!
+      % TACC logo with custom viewport!
+      \includegraphics[viewport=1 -1 135 35, clip=true, width=.4\textwidth]{figures/TACC_logo}
+    \end{minipage}
+    %
+    \begin{minipage}{.5\textwidth}%
+      \vskip .023\textheight%
+      \raggedleft%
+      \setlength{\rightskip}{.033\textwidth}
+      %
+      % If we are not on the first page, insert a page number
+      % For some reason, insertframenumber is buggy when you have fragile
+      % slides with verbatim environments in them... it tends to skip numbers
+      % for some reason!  On the other hand, the pagenumber is incremented
+      % for *every* slide, including transition slides...
+      \ifnum \thepage>1
+      % \insertshorttitle
+      \insertframenumber
+      % \insertframenumber/\inserttotalframenumber
+      % \insertpagenumber
+       \else % Do a phantom of whatever you do on other pages, so spacing matches
+       %$\phantom{\insertshorttitle}$
+       $\phantom{\insertframenumber}$
+       %$\phantom{\insertframenumber/\inserttotalframenumber}$
+       %$\phantom{\insertpagenumber}$
+      \fi
+      \hfill\includegraphics[width=.5\textwidth]{figures/UT_logo}%
+    \end{minipage}%
+  }%
+  \vskip .023\textheight%
+}
+
+
+
+
+\ifTACCheadernav
+
+\usesectionheadtemplate
+{\hfill\insertsectionhead}
+{\hfill\color{fg!50!bg}\insertsectionhead}
+
+% Head
+\ifbeamer@compress
+
+% Here we define how the top of the frame looks, the "headline".
+\setbeamertemplate{headline}
+{%
+  \ifnum \thepage>1
+    \leavevmode%
+    \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex]{%
+        section in head/foot}%
+      \insertsectionnavigationhorizontal{.5\paperwidth}{\hskip0pt plus1filll}{}%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex]{%
+        subsection in head/foot}%
+      \insertsubsectionnavigationhorizontal{%
+        .5\paperwidth}{}{\hskip0pt plus1filll}%
+    \end{beamercolorbox}%
+  \fi %\thepage>1
+}
+
+\else% Not compressed
+
+\setbeamertemplate{headline}
+{%
+  \ifnum \thepage>1
+    \leavevmode%
+    \@tempdimb=2.4375ex%
+    \ifnum\beamer@subsectionmax<\beamer@sectionmax%
+      \multiply\@tempdimb by\beamer@sectionmax%
+    \else%
+      \multiply\@tempdimb by\beamer@subsectionmax%
+    \fi%
+    \ifdim\@tempdimb>0pt%
+      \advance\@tempdimb by 1.125ex%
+      \begin{beamercolorbox}[wd=.5\paperwidth,ht=\@tempdimb]{%
+          section in head/foot}%
+        \vbox to\@tempdimb{\vfil\insertsectionnavigation{.5\paperwidth}\vfil}%
+      \end{beamercolorbox}%
+      \begin{beamercolorbox}[wd=.5\paperwidth,ht=\@tempdimb]{%
+          subsection in head/foot}%
+        \vbox to\@tempdimb{\vfil\insertsubsectionnavigation{.5\paperwidth}\vfil}%
+      \end{beamercolorbox}%
+    \fi%
+  \fi % \thepage>1
+}
+
+\fi % end if compressed
+\fi % TACCheadernav
+
+
+\ifTACCheadertree
+
+\setbeamertemplate{headline}
+{
+ \begin{beamercolorbox}[wd=\paperwidth,colsep=1.5pt
+   ]{upper separation line head}
+ \end{beamercolorbox}
+ %
+ % Place short title
+ %
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex,%
+    leftskip=.3cm,rightskip=.3cm plus1fil]{title in head/foot}
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}
+
+ %
+ % Place section
+ %
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex,%
+    leftskip=.3cm,rightskip=.3cm plus1fil]{section in head/foot}
+   \usebeamerfont{section in head/foot}%
+   %\ifbeamer@tree@showhooks
+   \setbox\beamer@tempbox=\hbox{\insertsectionhead}%
+   \ifdim\wd\beamer@tempbox>1pt%
+   \hskip2pt\raise1.9pt\hbox{\vrule width0.4pt height1.875ex\vrule width 5pt height0.4pt}%
+   \hskip1pt%
+   \fi% \ifdim
+   %\else%
+   %\hskip6pt%
+   %\fi% \ifbeamer
+   \insertsectionhead
+  \end{beamercolorbox}
+
+%
+% Place subsection
+%
+\begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex,%
+  leftskip=.3cm,rightskip=.3cm plus1fil]{subsection in head/foot}
+  \usebeamerfont{subsection in head/foot}%
+  %\ifbeamer@tree@showhooks
+  \setbox\beamer@tempbox=\hbox{\insertsubsectionhead}%
+  \ifdim\wd\beamer@tempbox>1pt%
+  \hskip9.4pt\raise1.9pt\hbox{\vrule width0.4pt height1.875ex\vrule width 5pt height0.4pt}%
+  \hskip1pt%
+  \fi% \ifdim
+  %\else%
+  %\hskip12pt%
+  %\fi% \ifbeamer
+  \insertsubsectionhead
+\end{beamercolorbox}
+
+%
+% Place final separation box
+%
+ \begin{beamercolorbox}[wd=\paperwidth,colsep=1.5pt
+   ]{lower separation line head}
+ \end{beamercolorbox}
+
+ %
+ % Another matching rule which helps to frame the content
+ %
+ \hspace{.025\textwidth}\rule{.95\textwidth}{.5pt}
+}
+\fi % TACCheadertree
+
+
+% The following command suppresses all navigation symbols.  This is
+% necessary in the TACC theme, since it overlaps where we want the
+% logo to be.
+\setbeamertemplate{navigation symbols}{}
+
+% Align the navigation symbols vertically (still overlaps our logo!)
+%\setbeamertemplate{navigation symbols}[vertical]{}
+
+% Only places the slide-forward and slide-back symbol, but yes,
+% this still overlaps our logo!
+%\setbeamertemplate{navigation symbols}[only frame symbol]{}
+
+
+\mode
+<all>
