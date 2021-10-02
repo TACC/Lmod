@@ -519,8 +519,8 @@ function M.build(self, fast)
       local cTimer    = CTimer:singleton("Rebuilding cache, please wait ...",
                                          threshold, prtRbMsg, masterTbl.timeout)
       local mcp_old   = mcp
+      mcp             = MasterControl.build("spider")
       dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-      mcp                 = MasterControl.build("spider")
 
       local t1            = epoch()
       local ok, msg       = pcall(Spider.findAllModules, spider, mpA, userSpiderT)

@@ -895,7 +895,7 @@ function M.depends_on(self, mA)
    end
 
    registerUserLoads(mB)
-   local a = self:load(mB)
+   local a = mcp:load(mB)
 
    --------------------------------------------
    -- Bump ref count on ALL dependent modules
@@ -971,7 +971,7 @@ function M.load_usr(self, mA)
    end
 
    registerUserLoads(mA)
-   local a = self:load(mA)
+   local a = mcp:load(mA)
    dbg.fini("MasterControl:load_usr")
    return a
 end
@@ -998,7 +998,7 @@ function M.load(self, mA)
    local a      = master:load(mA)
 
    if (not quiet()) then
-      self:registerAdminMsg(mA)
+      mcp:registerAdminMsg(mA)
    end
 
    dbg.fini("MasterControl:load")
@@ -1016,7 +1016,7 @@ function M.load_any(self, mA)
 
    for i = 1, #mA do
       local mname = mA[i]
-      b = self:try_load{mname}
+      b = mcp:try_load{mname}
       if (mname:isloaded()) then
          result = true
          break
@@ -1072,7 +1072,7 @@ end
 function M.try_load(self, mA)
    dbg.start{"MasterControl:try_load(mA)"}
    --deactivateWarning()
-   self:load(mA)
+   mcp:load(mA)
    dbg.fini("MasterControl:try_load")
 end
 
@@ -1104,7 +1104,7 @@ end
 function M.unload_usr(self, mA, force)
    dbg.start{"MasterControl:unload_usr(mA)"}
 
-   self:unload(mA)
+   mcp:unload(mA)
    local master = Master:singleton()
    local aa = master:reload_sticky(force)
 

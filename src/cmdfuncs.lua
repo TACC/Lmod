@@ -78,7 +78,9 @@ local function Access(mode, ...)
    local shell     = _G.Shell
    local masterTbl = masterTbl()
    dbg.start{"Access(", concatTbl({...},", "),")"}
+   local mcp_old = mcp
    mcp = MasterControl.build("access", mode)
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    mcp:setAccessMode(mode,true)
 
    local n = select('#',...)
@@ -90,6 +92,8 @@ local function Access(mode, ...)
 
    master:access(...)
    mcp:setAccessMode(mode,false)
+   mcp = mcp_old
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    dbg.fini("Access")
 end
 
@@ -492,6 +496,7 @@ end
 
 function Purge_Usr()
    dbg.start{"Purge_Usr()"}
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    Purge()
    dbg.fini("Purge_Usr")
 end
@@ -514,8 +519,12 @@ function Purge(force)
       mA[#mA+1] = MName:new("mt",totalA[i])
    end
    dbg.start{"Purge(",concatTbl(totalA,", "),")"}
-
-   MCP:unload_usr(mA,force)
+   local mcp_old = mcp
+   mcp = MasterControl.build("unload")
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
+   MCP:unload_usr(mA, force)
+   mcp = mcp_old
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
 
    -- Make Default Path be the new MODULEPATH
    -- mt:buildMpathA(mt:getBaseMPATH())
@@ -800,8 +809,9 @@ function Show(...)
    local master = Master:singleton()
    local banner = Banner:singleton()
    dbg.start{"Show(", concatTbl({...},", "),")"}
-
+   local mcp_old = mcp
    mcp = MasterControl.build("show")
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    local borderStr = banner:border(0)
 
    _G.prtHdr     = function()
@@ -817,6 +827,8 @@ function Show(...)
    sandbox_set_os_exit(show_exit)
    master:access(...)
    os.exit = exit
+   mcp = mcp_old
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    dbg.fini("Show")
 end
 
@@ -967,6 +979,7 @@ function Use(...)
    local a = {}
    local mcp_old = mcp
    local mcp     = MCP
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    local op = mcp.prepend_path
 
    local argA     = pack(...)
@@ -1007,6 +1020,7 @@ function Use(...)
       master.reloadAll()
    end
    mcp = mcp_old
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    dbg.fini("Use")
 end
 
@@ -1034,7 +1048,12 @@ end
 -- Unload all requested modules
 function UnLoad(...)
    dbg.start{"UnLoad(",concatTbl({...},", "),")"}
+   local mcp_old = mcp
+   mcp = MasterControl.build("unload")
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    MCP:unload_usr(MName:buildA("mt", ...))
+   mcp = mcp_old
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    dbg.fini("UnLoad")
 end
 
