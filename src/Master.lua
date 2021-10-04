@@ -488,10 +488,10 @@ function M.unload(self,mA)
    local a        = {}
    local mt
 
-   --local mcp_old = mcp
+   local mcp_old = mcp
 
-   --mcp = _G.MasterControl.build("unload")
-   --dbg.print{"Setting mcp to ", mcp:name(),"\n"}
+   mcp = _G.MasterControl.build("unload")
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
 
 
    for i = 1, #mA do
@@ -558,8 +558,8 @@ function M.unload(self,mA)
       self:reloadAll()
    end
 
-   --mcp = mcp_old
-   --dbg.print{"Setting mcp to ", mcp:name(),"\n"}
+   mcp = mcp_old
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    dbg.fini("Master:unload")
    return a
 end
@@ -701,7 +701,6 @@ function M.refresh()
    local shellNm  = _G.Shell and _G.Shell:name() or "bash"
    local mcp_old  = mcp
    mcp            = MasterControl.build("refresh","load")
-   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
 
    local activeA  = mt:list("short","active")
    local mList    = concatTbl(mt:list("both","active"),":")
@@ -779,7 +778,6 @@ function M.reload_sticky(self, force)
    local stickyA  = mt:getStickyA()
    local mcp_old  = mcp
    mcp            = MCP
-   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    local reload   = false
    for i = 1, #stickyA do
       local entry = stickyA[i]
@@ -800,7 +798,6 @@ function M.reload_sticky(self, force)
       end
    end
    mcp = mcp_old
-   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
 
    if (reload and not quiet()) then
       LmodMessage{msg="m_Sticky_Mods"}
