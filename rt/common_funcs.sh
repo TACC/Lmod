@@ -71,7 +71,7 @@ cleanUp ()
        -e "s| *----* *||g"                                \
        -e "s|^--* *| |g"                                  \
        -e "s|--* *$||g"                                   \
-       -e "s|\\\9|\t|g"                                   \
+       -e "s|\\\9|	|g"                               \
        -e "s|$old|$new|g"                                 \
        -e "s|^ *OutputDIR| OutputDIR|"                    \
        -e "s|^ *OutputDIR| OutputDIR|"                    \
