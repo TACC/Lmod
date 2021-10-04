@@ -12,3 +12,11 @@ lua ProjectDIR/src/sh_to_modulefile.in.lua ProjectDIR/rt/sh_to_modulefile/tstScr
 step 3
 lua ProjectDIR/src/sh_to_modulefile.in.lua ProjectDIR/rt/sh_to_modulefile/path_both_ends.sh
 ===========================
+===========================
+step 4
+lua ProjectDIR/src/sh_to_modulefile.in.lua --from csh ProjectDIR/rt/sh_to_modulefile/cshScript.csh
+===========================
+===========================
+step 5
+lua ProjectDIR/src/sh_to_modulefile.in.lua --from zsh ProjectDIR/rt/sh_to_modulefile/tstScript.sh
+===========================
