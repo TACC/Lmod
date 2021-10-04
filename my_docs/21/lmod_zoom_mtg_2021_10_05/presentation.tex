@@ -99,29 +99,8 @@ export LD\_LIB\_PATH=...
     }
 \end{frame}
 
+
 % page 9
-\begin{frame}{Lua Object Oriented Programing}
-  \begin{itemize}
-    \item Lua's OOP model is OOP lite
-    \item It is simplier than Python's
-    \item There is very little Magic
-    \item It is an extension of Lua's Hash Tables (AKA Dictionaries)
-    \item Functions are First Class Object
-    \item They can be assigned to variables
-  \end{itemize}
-\end{frame}
-
-% page 10
-\begin{frame}{How does Lmod evaluate modulefile functions etc}
-  \begin{itemize}
-    \item Note that TCL modules are converted to Lua automatically
-    \item Each module function calls Lua functions (like setenv() )
-    \item Inside each function dynamically calls the correct operation
-      for load, unload, etc.
-  \end{itemize}
-\end{frame}
-
-% page 11
 \begin{frame}{Lmod finds and reads phdf5/1.12.1.lua}
   \begin{itemize}
     \item loadModuleFile.lua reads modulefile into a string \emph{whole}
@@ -130,16 +109,8 @@ export LD\_LIB\_PATH=...
   \end{itemize}
 \end{frame}
 
-% page 12
-\begin{frame}{How does Lmod handle setenv()?}
-  \begin{itemize}
-    \item Lmod could have check the mode() in each function
-    \item Instead Lmod builds MasterControl object (mcp) based on mode()
-    \item There is a derived class for Load, Unload, Show etc.
-  \end{itemize}
-\end{frame}
 
-% page 13
+% page 10
 \begin{frame}[fragile]
   \frametitle{How does Lmod handle setenv()?}
     {\tiny
@@ -172,7 +143,7 @@ end
     }
 \end{frame}
 
-% page 14
+% page 11
 \begin{frame}[fragile]
   \frametitle{What is mcp? How does load work?}
     {\tiny
@@ -196,7 +167,7 @@ M.setenv               = MasterControl.setenv
     }
 \end{frame}
 
-% page 15
+% page 12
 \begin{frame}[fragile]
   \frametitle{How does unload work?}
     {\tiny
@@ -214,16 +185,6 @@ end
 M.setenv               = MasterControl.unsetenv
 \end{semiverbatim}
     }
-\end{frame}
-
-% page 16
-\begin{frame}{Other internal Lmod Topics}
-  \begin{itemize}
-    \item Rules for finding modulefiles for load?
-    \item The MName object?
-    \item The ModuleTable stored in the Environment
-    \item The Sandbox
-  \end{itemize}
 \end{frame}
 
 
