@@ -203,7 +203,10 @@ M.setenv               = MasterControl.setenv
 \begin{semiverbatim}
 --src/cmdfuncs.lua
 function UnLoad(...)
-   MCP:unload(...)
+   local mcp\_old = mcp
+   mcp = MasterControl.build("unload")
+   mcp:unload(...)
+   mcp = mcp\_old
 end
 
 --src/MC_Unload.lua
@@ -219,9 +222,7 @@ M.setenv               = MasterControl.unsetenv
     \item Rules for finding modulefiles for load?
     \item The MName object?
     \item The ModuleTable stored in the Environment
-    \item sandbox() ?
-    \item FrameStk?
-    \item tcl to lua translation?
+    \item The Sandbox
   \end{itemize}
 \end{frame}
 
