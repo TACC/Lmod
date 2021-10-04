@@ -204,7 +204,7 @@ M.setenv               = MasterControl.setenv
 --src/cmdfuncs.lua
 function UnLoad(...)
    local mcp\_old = mcp
-   mcp = MCP
+   mcp = MasterControl.build("unload")
    MCP:unload\_usr(...)
    mcp = mcp\_old
 end
@@ -228,8 +228,5 @@ M.setenv               = MasterControl.unsetenv
     \item Lmod testing system? 
   \end{itemize}
 \end{frame}
-
-
-
 
 \end{document}
