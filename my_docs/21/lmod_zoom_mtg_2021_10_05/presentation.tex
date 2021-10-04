@@ -203,7 +203,10 @@ M.setenv               = MasterControl.setenv
 \begin{semiverbatim}
 --src/cmdfuncs.lua
 function UnLoad(...)
-   MCP:unload(...)
+   local mcp\_old = mcp
+   mcp = MCP
+   MCP:unload\_usr(...)
+   mcp = mcp\_old
 end
 
 --src/MC_Unload.lua
@@ -222,6 +225,7 @@ M.setenv               = MasterControl.unsetenv
     \item sandbox() ?
     \item FrameStk?
     \item tcl to lua translation?
+    \item Lmod testing system? 
   \end{itemize}
 \end{frame}
 
