@@ -46,5 +46,5 @@ prepend_path("PATH","ProjectDIR/rt/sh_to_modulefile/bin")
 append_path("PATH","ProjectDIR/rt/sh_to_modulefile/sbin")
 set_alias("fooAlias","foobin -q -l")
 set_shell_function("fooFunc","\
-\9echo \"arg1: $1\"\
+	echo \"arg1: $1\"\
 ","")
