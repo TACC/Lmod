@@ -8,7 +8,7 @@
 %\usetheme[rightfooter]{TACC16}
 
 \begin{document}
-\title[Lmod]{Lmod hooks}
+\title[Lmod]{Lmod Debugging \& Module evaluation}
 \author{Robert McLay} 
 \date{Sept. 7, 2021}
 
@@ -34,6 +34,197 @@
     \item Trick 2: Tracing:  \texttt{ml -T } \emph{module}
   \end{itemize}
 \end{frame}
+
+% page 4
+\begin{frame}{How many ways are Modules evaluated?}
+  \begin{itemize}
+    \item There are 3 main ways: load, unload, show
+    \item There are 10 total ways (src/MC\_*)
+    \item How does Lmod handle this mess?
+  \end{itemize}
+\end{frame}
+
+% page 5
+\begin{frame}{The simple goals of an Env. Module System}
+  \begin{itemize}
+    \item Change User's environment
+    \item One text file that's independent of shell (bash, zsh, csh, ...)
+    \item Instead of separate shell scripts for each shell (like intel scripts)
+    \item Great Feature: Unloading a module restores User's env. (kinda?!)
+  \end{itemize}
+\end{frame}
+
+% page 6
+\begin{frame}[fragile]
+  \frametitle{Example Modulefile: phdf5}
+    {\tiny
+\begin{semiverbatim}
+
+setenv("TACC\_HDF5\_DIR","/apps/.../phdf5/1.12.1")
+setenv("TACC\_HDF5\_INC","/apps/.../phdf5/1.12.1/inc")
+setenv("TACC\_HDF5\_INC","/apps/.../phdf5/1.12.1/inc")
+setenv("TACC\_HDF5\_LIB","/apps/.../phdf5/1.12.1/lib")
+prepend\_path("PATH","/apps/.../phdf5/1.10.4/bin")
+prepend\_path("LD\_LIB\_PATH","/apps/.../phdf5/1.10.4/lib")
+help([[Help Message for Parallel HDF5 ...]])
+\end{semiverbatim}
+    }
+\end{frame}
+
+% page 7
+\begin{frame}[fragile]
+  \frametitle{\texttt{Bash: Module load phdf5}}
+    {\small
+\begin{semiverbatim}
+export TACC\_HDF5\_DIR=/apps/.../phdf5/1.12.1
+export TACC\_HDF5\_INC=/apps/.../phdf5/1.12.1/inc
+export TACC\_HDF5\_LIB=/apps/.../phdf5/1.12.1/lib
+export PATH=/apps/.../phdf5/1.10.4/bin:/usr/bin:/bin
+export LD\_LIB\_PATH=/apps/.../phdf5/1.10.4/lib:...
+\end{semiverbatim}
+    }
+\end{frame}
+
+% page 8
+\begin{frame}[fragile]
+  \frametitle{\texttt{Bash: Module unload phdf5}}
+    {\small
+\begin{semiverbatim}
+unset TACC\_HDF5\_DIR
+unset TACC\_HDF5\_INC
+unset TACC\_HDF5\_LIB
+export PATH=/usr/bin:/bin
+export LD\_LIB\_PATH=...
+\end{semiverbatim}
+    }
+\end{frame}
+
+% page 9
+\begin{frame}{Lua Object Oriented Programing}
+  \begin{itemize}
+    \item Lua's OOP model is OOP lite
+    \item It is simplier than Python's
+    \item There is very little Magic
+    \item It is an extension of Lua's Hash Tables (AKA Dictionaries)
+    \item Functions are First Class Object
+    \item They can be assigned to variables
+  \end{itemize}
+\end{frame}
+
+% page 10
+\begin{frame}{How does Lmod evaluate modulefile functions etc}
+  \begin{itemize}
+    \item Note that TCL modules are converted to Lua automatically
+    \item Each module function calls Lua functions (like setenv() )
+    \item Inside each function dynamically calls the correct operation
+      for load, unload, etc.
+  \end{itemize}
+\end{frame}
+
+% page 11
+\begin{frame}{Lmod finds and reads phdf5/1.12.1.lua}
+  \begin{itemize}
+    \item loadModuleFile.lua reads modulefile into a string \emph{whole}
+    \item \texttt{status, msg = sandbox\_run(whole)}
+    \item Each line in sandbox is evaluated by the lua interpreter
+  \end{itemize}
+\end{frame}
+
+% page 12
+\begin{frame}{How does Lmod handle setenv()?}
+  \begin{itemize}
+    \item Lmod could have check the mode() in each function
+    \item Instead Lmod builds MasterControl object (mcp) based on mode()
+    \item There is a derived class for Load, Unload, Show etc.
+  \end{itemize}
+\end{frame}
+
+% page 13
+\begin{frame}[fragile]
+  \frametitle{How does Lmod handle setenv()?}
+    {\tiny
+\begin{semiverbatim}
+--src/modfunc.lua
+function setenv(...)
+    -- check args
+    mcp:setenv(...)
+end
+
+--src/MasterControl.lua
+function M.setenv(self, name, value)
+   local frameStk = FrameStk:singleton()
+   local varT     = frameStk:varT()
+   if (varT[name] == nil) then
+      varT[name] = Var:new(name)
+   end
+   varT[name]:set(tostring(value))
+end
+
+function M.unsetenv(self, name, value)
+   local frameStk  = FrameStk:singleton()
+   local varT      = frameStk:varT()
+   if (varT[name] == nil) then
+      varT[name]   = Var:new(name)
+   end
+   varT[name]:unset()
+end
+\end{semiverbatim}
+    }
+\end{frame}
+
+% page 14
+\begin{frame}[fragile]
+  \frametitle{What is mcp? How does load work?}
+    {\tiny
+\begin{semiverbatim}
+--src/lmod.in.lua
+   MCP = MasterControl.build("load")
+   mcp = MasterControl.build("load")
+
+--src/cmdfuncs.lua
+function Load\_Usr(...)
+   local mcp\_old = mcp
+   mcp = MCP
+   mcp:load\_usr(...)
+   mcp = mcp\_old
+end
+
+--src/MC\_Load.lua
+...
+M.setenv               = MasterControl.setenv
+\end{semiverbatim}
+    }
+\end{frame}
+
+% page 15
+\begin{frame}[fragile]
+  \frametitle{How does unload work?}
+    {\tiny
+\begin{semiverbatim}
+--src/cmdfuncs.lua
+function UnLoad(...)
+   MCP:unload(...)
+end
+
+--src/MC_Unload.lua
+...
+M.setenv               = MasterControl.unsetenv
+\end{semiverbatim}
+    }
+\end{frame}
+
+% page 16
+\begin{frame}{Other internal Lmod Topics}
+  \begin{itemize}
+    \item Rules for finding modulefiles for load?
+    \item The MName object?
+    \item The ModuleTable stored in the Environment
+    \item sandbox() ?
+    \item FrameStk?
+    \item tcl to lua translation?
+  \end{itemize}
+\end{frame}
+
 
 
 

@@ -403,6 +403,7 @@ function main()
    end
    -- dumpversion and quit if requested.
 
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    -- Build Shell object from shellNm
    Shell = BaseShell:build(shellNm)
    dbg.print{"shellNm: ",shellNm,", Shell:name(): ",Shell:name(),"\n"}
@@ -487,6 +488,7 @@ function main()
    if (masterTbl.checkSyntax) then
       MCP = MasterControl.build("checkSyntax")
       mcp = MasterControl.build("checkSyntax")
+      dbg.print{"Setting mcp to ", mcp:name(),"\n"}
       setSyntaxMode(true)
       Shell:setActive(false)
    end
