@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.4.19  2020-12-13 13:58 -06:00
+Modules based on Lua: Version 8.5.16  2021-09-24 13:35 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -101,15 +101,13 @@ set_shell_function("empty","settarg "$@" empty","settarg $* empty")
 set_shell_function("opt","settarg "$@" opt","settarg $* opt")
 set_shell_function("mdbg","settarg "$@" mdbg","settarg $* mdbg")
 execute{cmd="eval `lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --destroy`", modeA={"unload"}}
-set_shell_function("precmd","{
-             local tilde="~";
+set_shell_function("precmd","             local tilde="~";
              local H=${HOSTNAME-$(hostname)};
              H=${H%%.*};
              local SHOST=${SHOST-$H};
              eval $(${LMOD_SETTARG_CMD:-:} -s bash);
              ${SET_TITLE_BAR:-:} "${TARG_TITLE_BAR_PAREN}${USER}@${SHOST}:${PWD/#$HOME/$tilde}";
              ${USER_PROMPT_CMD:-:};
-           }
       ","")
 pushenv("PROMPT_COMMAND","precmd")
 help([[The settarg module dynamically and automatically updates "$TARG" and a

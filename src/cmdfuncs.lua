@@ -1049,11 +1049,11 @@ end
 function UnLoad(...)
    dbg.start{"UnLoad(",concatTbl({...},", "),")"}
    local mcp_old = mcp
-   --mcp = MasterControl.build("unload")
-   --dbg.print{"Setting mcp to ", mcp:name(),"\n"}
+   mcp = MasterControl.build("unload")
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    MCP:unload_usr(MName:buildA("mt", ...))
-   --mcp = mcp_old
-   --dbg.print{"Setting mcp to ", mcp:name(),"\n"}
+   mcp = mcp_old
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    dbg.fini("UnLoad")
 end
 

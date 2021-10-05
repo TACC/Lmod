@@ -9,9 +9,9 @@ lua ProjectDIR/src/sh_to_modulefile.in.lua ProjectDIR/rt/sh_to_modulefile/tstScr
 prepend_path("PATH","ProjectDIR/rt/sh_to_modulefile/bin")
 append_path("PATH","ProjectDIR/rt/sh_to_modulefile/sbin")
 set_alias("fooAlias","foobin -q -l")
-set_shell_function("fooFunc","{ \
+set_shell_function("fooFunc"," \
     echo \"arg1: $1\"\
-}","")
+","")
 ===========================
 step 3
 lua ProjectDIR/src/sh_to_modulefile.in.lua ProjectDIR/rt/sh_to_modulefile/path_both_ends.sh
@@ -30,3 +30,21 @@ prepend_path("PATH","/scratch1/projects/compilers/intel20u0/parallel_studio_xe_2
 prepend_path("PATH","/scratch1/projects/compilers/intel20u0/intelpython3/condabin")
 prepend_path("PATH","/scratch1/projects/compilers/intel20u0/intelpython3/bin")
 append_path("PATH","/scratch1/projects/compilers/intel20u0/parallel_studio_xe_2020.0.088/bin")
+===========================
+step 4
+lua ProjectDIR/src/sh_to_modulefile.in.lua --from csh ProjectDIR/rt/sh_to_modulefile/cshScript.csh
+===========================
+setenv("FOO_BAR","1")
+setenv("TST_SCRIPT","tst_script")
+set_alias("fB","ls -aFC")
+set_alias("fooBar","ls -aFC")
+===========================
+step 5
+lua ProjectDIR/src/sh_to_modulefile.in.lua --from zsh ProjectDIR/rt/sh_to_modulefile/tstScript.sh
+===========================
+prepend_path("PATH","ProjectDIR/rt/sh_to_modulefile/bin")
+append_path("PATH","ProjectDIR/rt/sh_to_modulefile/sbin")
+set_alias("fooAlias","foobin -q -l")
+set_shell_function("fooFunc","\
+	echo \"arg1: $1\"\
+","")
