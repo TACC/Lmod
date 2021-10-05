@@ -337,13 +337,13 @@ function List(...)
       return
    end
 
-   b[#b+1] = "\n"
-   b[#b+1] = msg
-   b[#b+1] = msg2
-   b[#b+1] = "\n"
-
-   local kk = 0
+   b[#b+1]       = "\n"
+   b[#b+1]       = msg
+   b[#b+1]       = msg2
+   b[#b+1]       = "\n"
+   local kk      = 0
    local legendT = {}
+
    for i = 1, #activeA do
       local entry    = activeA[i]
       local fullName = entry.fullName
