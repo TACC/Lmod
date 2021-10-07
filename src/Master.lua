@@ -552,7 +552,6 @@ function M.unload(self,mA)
       self:reloadAll()
    end
 
-   mcp = mcp_old
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    dbg.fini("Master:unload")
    return a
