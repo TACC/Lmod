@@ -30,8 +30,9 @@ Lmod 8.5+
             * Change ksh_funcs files like module and ml to not be executable
    (8.5.16) * Fix bugs with cmake and perl test because of the renaming of cmake.in
               and perl.in to cmake and perl.
-W.I.P.:
    (8.5.17) * Issue #532: Change AVAIL_EXTENSION to AVAIL_EXTENSIONS in Makefile.in
             * Now use unload_internal and unload_usr_internal for all unloads
 	    * Use MasterControl:build_unload() and MasterControl:do_not_build_unload() to control when
 	      unload_internal switches mcp to be MC_Unload.
+	    * Update TACC/SitePackage.lua and docs to use s_msgT instead of s_msgA to
+	      avoid reporting duplicate modules when reloads happen.
