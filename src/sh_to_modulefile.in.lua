@@ -481,11 +481,15 @@ function main()
       {
          csh  = { args = "-f -c",                source = "source", redirect = ">& /dev/stdout", alias = "alias", funcs = "" },
          bash = { args = "--noprofile -norc -c", source = ".",      redirect = "2>&1",           alias = "alias", funcs = "declare -f" },
-         bash = { args = "-f -c",                source = ".",      redirect = "2>&1",           alias = "alias", funcs = "declare -f" },
+         zsh  = { args = "-f -c",                source = ".",      redirect = "2>&1",           alias = "alias", funcs = "declare -f" },
       }
    local shellName = masterTbl.inStyle:lower()
+   local shellT    = shellTemplateT[shellName]
+   if (shellT == nil) then
+      shellT    = shellTemplateT.bash
+      shellName = "bash"
+   end
 
-   local shellT = shellTemplateT[shellName] or shellTemplateT.bash
    local sep    = "%__________blk_divider__________%"
 
    local cmdA    = {
