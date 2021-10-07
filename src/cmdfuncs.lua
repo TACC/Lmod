@@ -333,13 +333,13 @@ function List(...)
       return
    end
 
-   b[#b+1] = "\n"
-   b[#b+1] = msg
-   b[#b+1] = msg2
-   b[#b+1] = "\n"
-
-   local kk = 0
+   b[#b+1]       = "\n"
+   b[#b+1]       = msg
+   b[#b+1]       = msg2
+   b[#b+1]       = "\n"
+   local kk      = 0
    local legendT = {}
+
    for i = 1, #activeA do
       local entry    = activeA[i]
       local fullName = entry.fullName
@@ -443,7 +443,8 @@ local function l_usrLoad(argA, check_must_load)
    end
 
    if (#uA > 0) then
-      MCP:unload_usr(uA)
+      local force = false
+      unload_usr_internal(uA, force)
    end
 
    local varT     = frameStk:varT()
@@ -514,11 +515,7 @@ function Purge(force)
       mA[#mA+1] = MName:new("mt",totalA[i])
    end
    dbg.start{"Purge(",concatTbl(totalA,", "),")"}
-
-   MCP:unload_usr(mA,force)
-
-   -- Make Default Path be the new MODULEPATH
-   -- mt:buildMpathA(mt:getBaseMPATH())
+   unload_usr_internal(mA, force)
 
    -- A purge should not set the warning flag.
    clearWarningFlag()
@@ -882,12 +879,10 @@ function Swap(...)
       LmodError{msg="e_Swap_Failed", name = a}
    end
 
-   local mA      = {}
-   local mcp_old = mcp
-   mcp           = MCP
-   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-   mA[1]         = mname
-   mcp:unload(mA)
+   local mA      = {mname}
+
+   local force   = false
+   unload_internal(mA, force)
    mA[1]         = MName:new("load",b)
    local status = mcp:load_usr(mA)
    if (not status) then
@@ -901,8 +896,6 @@ function Swap(...)
    sn          = mname:sn()
    local usrN  = (not masterTbl().latest) and b or mt:fullName(sn)
    mt:userLoad(sn,usrN)
-   mcp = mcp_old
-   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    dbg.fini("Swap")
 end
 
@@ -1034,7 +1027,8 @@ end
 -- Unload all requested modules
 function UnLoad(...)
    dbg.start{"UnLoad(",concatTbl({...},", "),")"}
-   MCP:unload_usr(MName:buildA("mt", ...))
+   local force = false
+   unload_usr_internal(MName:buildA("mt", ...), force)
    dbg.fini("UnLoad")
 end
 

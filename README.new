@@ -32,3 +32,6 @@ Lmod 8.5+
               and perl.in to cmake and perl.
 W.I.P.:
    (8.5.17) * Issue #532: Change AVAIL_EXTENSION to AVAIL_EXTENSIONS in Makefile.in
+            * Now use unload_internal and unload_usr_internal for all unloads
+	    * Use MasterControl:build_unload() and MasterControl:do_not_build_unload() to control when
+	      unload_internal switches mcp to be MC_Unload.

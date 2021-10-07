@@ -363,7 +363,7 @@ function M.load(self, mA)
             local mcp_old = mcp
             local mcp     = MCP
             dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-            mcp:unload{MName:new("mt",sn)}
+            unload_internal{MName:new("mt",sn)}
             mname:reset()  -- force a new lazyEval
             local status = mcp:load_usr{mname}
             mcp          = mcp_old
@@ -422,7 +422,7 @@ function M.load(self, mA)
             local force = true
             for j = 1,#b do
                s_stk[#s_stk + 1] = "stuff"
-               mcp:unload_usr(b[j].umA, force)
+               unload_usr_internal(b[j].umA, force)
                mcp:load(b[j].lmA)
                remove(s_stk)
             end
@@ -487,12 +487,6 @@ function M.unload(self,mA)
    local shellNm  = shell and shell:name() or "bash"
    local a        = {}
    local mt
-
-   local mcp_old = mcp
-
-   mcp = _G.MasterControl.build("unload")
-   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-
 
    for i = 1, #mA do
       mt             = frameStk:mt()
@@ -633,7 +627,7 @@ function M.reloadAll(self, force_update)
                          " a[i].userName: \"",userName,"\"",
                          "\n"}
                dbg.print{"Master:reloadAll(",ReloadAllCntr,"): Unloading module: \"",sn,"\"\n"}
-               mcp:unload({mname_old})
+               unload_internal{mname_old}
                mt_uName = mt:userName(sn)
                dbg.print{"Master:reloadAll(",ReloadAllCntr,"): mt:userName(sn): \"",mt_uName,"\"\n"}
                mname    = MName:new("load", mt:userName(sn))

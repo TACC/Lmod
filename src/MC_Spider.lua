@@ -58,6 +58,7 @@ local M                = MC_Spider
 
 M.always_load          = MasterControl.quiet
 M.always_unload        = MasterControl.quiet
+M.build_unload         = MasterControl.do_not_build_unload
 M.conflict             = MasterControl.quiet
 M.color_banner         = MasterControl.quiet
 M.depends_on           = MasterControl.quiet

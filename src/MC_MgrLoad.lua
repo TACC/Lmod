@@ -49,6 +49,7 @@ M.my_tcl_mode          = "load"
 M.always_load          = MasterControl.fake_load
 M.always_unload        = MasterControl.fake_load
 M.add_property         = MasterControl.add_property
+M.build_unload         = MasterControl.do_not_build_unload
 M.append_path          = MasterControl.append_path
 M.color_banner         = MasterControl.color_banner
 M.conflict             = MasterControl.conflict

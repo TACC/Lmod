@@ -203,9 +203,7 @@ end
 -- Set the type (or mode) of the current MasterControl object.
 -- @param self A MasterControl object
 function M._setMode(self, mode)
-   dbg.start{"MasterControl:_setMode(\"",mode,"\")"}
    self._mode = mode
-   dbg.fini("MasterControl:_setMode")
 end
 
 --------------------------------------------------------------------------
@@ -250,7 +248,7 @@ function M.build(name,mode)
    o.__last    = -1
    o.__moduleQ = {}
 
-   dbg.print{"Setting mcp to ", o:name(),"\n"}
+   dbg.print{"MC:build: Setting mcp to ", o:name(),"\n"}
    return o
 end
 
@@ -945,7 +943,7 @@ function M.forgo(self,mA)
    end
 
    unRegisterUserLoads(mB)
-   local aa     = master:unload(mB)
+   local aa     = unload_internal(mB)
    dbg.fini("MasterControl:forgo")
    return aa
 end
@@ -1056,9 +1054,7 @@ function M.mgr_unload(self, required, active)
    if (dbg.active()) then
       dbg.start{"MasterControl:mgr_unload(required: ",required,", active=",active.userName,")"}
    end
-
-   local status = MCP:unload(MName:new("mt", active.userName))
-
+   local status = unload_internal(MName:new("mt", active.userName))
    dbg.fini("MasterControl:mgr_unload")
    return status
 end
@@ -1084,6 +1080,7 @@ end
 function M.unload(self, mA)
    local master = Master:singleton()
 
+
    if (dbg.active()) then
       local s = mAList(mA)
       dbg.start{"MasterControl:unload(mA={"..s.."})"}
@@ -1095,6 +1092,17 @@ function M.unload(self, mA)
    return aa
 end
 
+function M.build_unload(self)
+   local mcp = MasterControl.build("unload")
+   dbg.print{"MC:build_unload: Setting mcp to ", mcp:name(),"\n"}
+   return mcp
+end
+
+function M.do_not_build_unload(self)
+   return self
+end
+
+
 -------------------------------------------------------------------
 -- Unload a user requested list of modules.
 -- @param self A MasterControl object
@@ -1104,7 +1112,7 @@ end
 function M.unload_usr(self, mA, force)
    dbg.start{"MasterControl:unload_usr(mA)"}
 
-   self:unload(mA)
+   M.unload(self,mA)
    local master = Master:singleton()
    local aa = master:reload_sticky(force)
 
