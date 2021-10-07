@@ -51,6 +51,7 @@ M.my_tcl_mode          = "load"
 M.always_load          = MasterControl.load_usr
 M.always_unload        = MasterControl.quiet
 M.append_path          = MasterControl.append_path
+M.build_unload         = MasterControl.do_not_build_unload
 M.color_banner         = MasterControl.quiet
 M.conflict             = MasterControl.quiet
 M.depends_on           = MasterControl.quiet

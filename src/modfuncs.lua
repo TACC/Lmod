@@ -12,6 +12,7 @@
 -- load, unload, show, etc.  See MC_Load.lua and the other MC_*.lua files
 -- As well as the base class MasterControl.lua for more details.
 --
+-- UnLoad
 -- See tools/Dbg.lua for details on how this debugging tool works.
 -- @module modfuncs
 
@@ -321,6 +322,9 @@ end
 function family(name)
    dbg.start{"family(",name,")"}
    if (not validateStringArgs("family",name)) then return end
+
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
+
 
    mcp:family(name)
    dbg.fini("family")
@@ -749,6 +753,34 @@ function try_load(...)
    return b
 end
 
+function unload_usr_internal(mA, force)
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"unload_usr_internal(mA={"..s.."},force=",force,")"}
+   end
+   local mcp_old = mcp
+   mcp = MasterControl.build("unload")
+   local b = MasterControl.unload_usr(mcp, mA, force)
+   mcp = mcp_old
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
+   dbg.fini("unload_usr_internal")
+   return b
+end
+
+function unload_internal(mA)
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"unload_internal(mA={"..s.."})"}
+   end
+   local mcp_old = mcp
+   mcp = mcp:build_unload()
+   local b = mcp:unload(mA)
+   mcp = mcp_old
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
+   dbg.fini("unload_internal")
+   return b
+end
+
 --------------------------------------------------------------------------
 -- The unload function reads a module file and reverses all the commands
 -- in the modulefile.  It is not an error to unload a module which is
@@ -756,8 +788,7 @@ end
 function unload(...)
    dbg.start{"unload(",concatTbl({...},", "),")"}
    if (not validateModules("unload",...)) then return {} end
-
-   local b = mcp:unload(MName:buildA("mt",...))
+   local b = unload_internal(MName:buildA("mt",...))
    dbg.fini("unload")
    return b
 end
@@ -779,9 +810,7 @@ end
 -- function is a no-op.
 function always_unload(...)
    dbg.start{"always_unload(",concatTbl({...},", "),")"}
-   if (not validateModules("always_unload",...)) then return {} end
-
-   local b = mcp:unload(MName:buildA("mt",...))
+   local b = unload(...)
    dbg.fini("always_unload")
    return b
 end

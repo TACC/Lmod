@@ -68,6 +68,7 @@ local function ShowCmd(name, ...)
 end
 
 M.add_property         = MasterControl.quiet
+M.build_unload         = MasterControl.do_not_build_unload
 M.color_banner         = MasterControl.quiet
 M.conflict             = MasterControl.quiet
 M.error                = MasterControl.quiet
