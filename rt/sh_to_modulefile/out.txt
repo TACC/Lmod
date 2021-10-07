@@ -40,7 +40,7 @@ set_alias("fB","ls -aFC")
 set_alias("fooBar","ls -aFC")
 ===========================
 step 5
-lua ProjectDIR/src/sh_to_modulefile.in.lua --from zsh ProjectDIR/rt/sh_to_modulefile/tstScript.sh
+lua ProjectDIR/src/sh_to_modulefile.in.lua --from zsh ProjectDIR/rt/sh_to_modulefile/tstScript.zsh
 ===========================
 prepend_path("PATH","ProjectDIR/rt/sh_to_modulefile/bin")
 append_path("PATH","ProjectDIR/rt/sh_to_modulefile/sbin")

@@ -275,18 +275,6 @@ function masterTbl()
    return s_master
 end
 
-function splice(a, is, ie)
-   local b = {}
-   for i = 1, is-1 do
-      b[i] = a[i]
-   end
-
-   for i = ie+1, #a do
-      b[#b+1] = a[i]
-   end
-   return b
-end
-
 local function cleanPath(value)
 
    local pathT  = {}
@@ -342,60 +330,6 @@ local function cleanPath(value)
    return concatTbl(pathA,':')
 end
 
-function indexPath(old, oldA, new, newA)
-   --dbg.start{"indexPath(",old, ", ", new,")"}
-   local oldN = #oldA
-   local newN = #newA
-   local idxM = newN - oldN + 1
-
-   if (oldN >= newN or newN == 1) then
-      if (old == new) then
-         --dbg.fini("(1) indexPath")
-         return 1
-      end
-      --dbg.fini("(2) indexPath")
-      return -1
-   end
-
-   local icnt = 1
-
-   local idxO = 1
-   local idxN = 1
-
-   while (true) do
-      local oldEntry = oldA[idxO]
-      local newEntry = newA[idxN]
-
-      icnt = icnt + 1
-      if (icnt > newN) then
-         break
-      end
-
-
-      if (oldEntry == newEntry) then
-         idxO = idxO + 1
-         idxN = idxN + 1
-
-         if (idxO > oldN) then break end
-      else
-         idxN = idxN + 2 - idxO
-         idxO = 1
-         if (idxN > idxM) then
-            --dbg.fini("(3) indexPath")
-            return -1
-         end
-      end
-   end
-
-   idxN = idxN - idxO + 1
-
-   --dbg.print{"idxN: ", idxN, "\n"}
-
-   --dbg.fini("indexPath")
-   return idxN
-
-end
-
 function cleanEnv()
    local envT = getenv_posix()
 
@@ -413,8 +347,8 @@ function sh_to_mf(shellName, style, script)
 
    local validShellT =
       {
-         tcsh = "csh",
-         csh  = "csh",
+         tcsh = "tcsh",
+         csh  = "tcsh",
          sh   = "sh",
          dash = "sh",
          bash = "bash",
@@ -428,10 +362,10 @@ function sh_to_mf(shellName, style, script)
 
    local shellTemplateT =
       {
-         csh  = { args = "-f -c",                source = "source", redirect = ">& /dev/stdout", alias = "alias", funcs = "" },
-         bash = { args = "--noprofile -norc -c", source = ".",      redirect = "2>&1",           alias = "alias", funcs = "declare -f" },
-         zsh  = { args = "-f -c",                source = ".",      redirect = "2>&1",           alias = "alias", funcs = "declare -f" },
-         ksh  = { args = "-c",                   source = ".",      redirect = "2>&1",           alias = "alias", funcs = "typeset +f | while read f; do typeset -f ${f%\\(\\)}; echo; done" },
+         tcsh = { args = "-e -f -c",             flgErr = "",                source = "source", redirect = ">& /dev/stdout", alias = "alias", funcs = "" },
+         bash = { args = "--noprofile -norc -c", flgErr = "set -e;",         source = ".",      redirect = "2>&1",           alias = "alias", funcs = "declare -f" },
+         ksh  = { args = "-c",                   flgErr = "set -e;",         source = ".",      redirect = "2>&1",           alias = "alias", funcs = "typeset +f | while read f; do typeset -f ${f%\\(\\)}; echo; done" },
+         zsh  = { args = "-f -c",                flgErr = "setopt errexit;", source = ".",      redirect = "2>&1",           alias = "alias", funcs = "declare -f" },
       }
    local shellT    = shellTemplateT[shellName]
    if (shellT == nil) then
@@ -447,10 +381,11 @@ function sh_to_mf(shellName, style, script)
    local sep    = "%__________blk_divider__________%"
 
    local LuaCmd = findLuaProg()
-   local cmdA    = {
+   local cmdA   = {
       "%{shell}",
       "%{shellArgs}",
       "\"",
+      "%{flgErr}",
       "%{printEnvT} oldEnvT;",
       "echo %{sep};",
       "%{alias};",
@@ -474,6 +409,7 @@ function sh_to_mf(shellName, style, script)
    t.shellArgs = shellT.args
    t.printEnvT = LuaCmd .. " " .. pathJoin(cmdDir(),"printEnvT.lua")
    t.sep       = sep
+   t.flgErr    = shellT.flgErr
    t.alias     = shellT.alias
    t.funcs     = shellT.funcs
    t.source    = shellT.source
@@ -482,7 +418,7 @@ function sh_to_mf(shellName, style, script)
 
    local cmd   = replaceStr(concatTbl(cmdA," "), t)
 
-   local output = capture(cmd)
+   local output,status = capture(cmd)
 
    if (dbg.active()) then
       local f = io.open("s.log","w")
@@ -492,6 +428,12 @@ function sh_to_mf(shellName, style, script)
          f:close()
       end
    end
+
+   if (not status) then
+      io.stderr:write("status: ",tostring(status)," Error in script!\n")
+      os.exit(-1)
+   end
+
 
    local processOrderA = { {"Vars", 1}, {"Aliases", 1}, {"Funcs", 1}, {"SourceScriptOutput", 0},
                            {"Vars", 2}, {"Aliases", 2}, {"Funcs", 2}}
@@ -518,6 +460,10 @@ function sh_to_mf(shellName, style, script)
    local factory = MF_Base.build(style)
 
    local a, b = factory:process(shellName, ignoreT, resultT)
+
+   if (dbg.active()) then
+      io.stderr:write(concatTbl(b,"\n"),"\n")
+   end
 
    return concatTbl(a,"\n")
 end

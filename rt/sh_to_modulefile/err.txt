@@ -18,7 +18,7 @@ lua ProjectDIR/src/sh_to_modulefile.in.lua --from csh ProjectDIR/rt/sh_to_module
 ===========================
 ===========================
 step 5
-lua ProjectDIR/src/sh_to_modulefile.in.lua --from zsh ProjectDIR/rt/sh_to_modulefile/tstScript.sh
+lua ProjectDIR/src/sh_to_modulefile.in.lua --from zsh ProjectDIR/rt/sh_to_modulefile/tstScript.zsh
 ===========================
 ===========================
 step 6
