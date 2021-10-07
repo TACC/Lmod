@@ -52,7 +52,7 @@ Pkg = PkgBase.build("PkgTACC")
 --------------------------------------------------------------------------
 -- load_hook(): Here we record the any modules loaded.
 
-local s_msgA = {}
+local s_msgT = {}
 
 local function load_hook(t)
    -- the arg t is a table:
@@ -83,9 +83,7 @@ local function load_hook(t)
    local currentTime = epoch()
    local msg         = string.format("user=%s module=%s path=%s host=%s time=%f",
                                      user, t.modFullName, t.fn, host or "<unknown_syshost>", currentTime)
-   local a           = s_msgA
-   a[#a+1]           = msg
-
+   s_msgT[t.modFullName] = msg
    dbg.fini()
 end
 
@@ -135,7 +133,6 @@ function avail_hook(t)
       return
    end
 
-
    for k,v in pairs(t) do
       for pat,label in pairs(styleT) do
          if (k:find(pat)) then
@@ -147,11 +144,8 @@ function avail_hook(t)
 end
 
 local function report_loads()
-
-   local a = s_msgA
-   for i = 1,#a do
-      local msg = a[i]
-      lmod_system_execute("logger -t ModuleUsageTracking -p local0.info " .. msg)
+   for k,msg in pairs(s_msgT) do
+      lmod_system_execute("logger -t ModuleUsageTracking -p local0.info " .. msg)      
    end
 end
 
