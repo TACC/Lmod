@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.5.16  2021-09-24 13:35 -05:00
+Modules based on Lua: Version 8.5.17  2021-10-07 11:32 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -19,4 +19,8 @@ lua ProjectDIR/src/sh_to_modulefile.in.lua --from csh ProjectDIR/rt/sh_to_module
 ===========================
 step 5
 lua ProjectDIR/src/sh_to_modulefile.in.lua --from zsh ProjectDIR/rt/sh_to_modulefile/tstScript.sh
+===========================
+===========================
+step 6
+lua ProjectDIR/src/sh_to_modulefile.in.lua --from ksh ProjectDIR/rt/sh_to_modulefile/kshScript.ksh
 ===========================

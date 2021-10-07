@@ -226,9 +226,9 @@ function capture(cmd, envT)
    envT = envT or {}
 
    for k, v in pairs(envT) do
-      dbg.print{"envT[",k,"]=",v,"\n"}
+      --dbg.print{"envT[",k,"]=",v,"\n"}
       newT[k] = getenv(k)
-      dbg.print{"newT[",k,"]=",newT[k],"\n"}
+      --dbg.print{"newT[",k,"]=",newT[k],"\n"}
       setenv_posix(k, v, true)
    end
 
@@ -343,19 +343,17 @@ local function cleanPath(value)
 end
 
 function indexPath(old, oldA, new, newA)
-   dbg.start{"indexPath(",old, ", ", new,")"}
+   --dbg.start{"indexPath(",old, ", ", new,")"}
    local oldN = #oldA
    local newN = #newA
    local idxM = newN - oldN + 1
 
-   dbg.print{"oldN: ",oldN,", newN: ",newN,"\n"}
-
    if (oldN >= newN or newN == 1) then
       if (old == new) then
-         dbg.fini("(1) indexPath")
+         --dbg.fini("(1) indexPath")
          return 1
       end
-      dbg.fini("(2) indexPath")
+      --dbg.fini("(2) indexPath")
       return -1
    end
 
@@ -383,7 +381,7 @@ function indexPath(old, oldA, new, newA)
          idxN = idxN + 2 - idxO
          idxO = 1
          if (idxN > idxM) then
-            dbg.fini("(3) indexPath")
+            --dbg.fini("(3) indexPath")
             return -1
          end
       end
@@ -391,9 +389,9 @@ function indexPath(old, oldA, new, newA)
 
    idxN = idxN - idxO + 1
 
-   dbg.print{"idxN: ", idxN, "\n"}
+   --dbg.print{"idxN: ", idxN, "\n"}
 
-   dbg.fini("indexPath")
+   --dbg.fini("indexPath")
    return idxN
 
 end
@@ -411,12 +409,29 @@ function cleanEnv()
    end
 end
 
-function sh_to_mf(shellName, script)
+function sh_to_mf(shellName, style, script)
+
+   local validShellT =
+      {
+         tcsh = "csh",
+         csh  = "csh",
+         sh   = "sh",
+         dash = "sh",
+         bash = "bash",
+         zsh  = "zsh",
+         fish = "fish",
+         rc   = "rc",
+         ksh  = "ksh",
+      }
+         
+   shellName = validShellT[shellName] or "bash"
+
    local shellTemplateT =
       {
          csh  = { args = "-f -c",                source = "source", redirect = ">& /dev/stdout", alias = "alias", funcs = "" },
          bash = { args = "--noprofile -norc -c", source = ".",      redirect = "2>&1",           alias = "alias", funcs = "declare -f" },
          zsh  = { args = "-f -c",                source = ".",      redirect = "2>&1",           alias = "alias", funcs = "declare -f" },
+         ksh  = { args = "-c",                   source = ".",      redirect = "2>&1",           alias = "alias", funcs = "typeset +f | while read f; do typeset -f ${f%\\(\\)}; echo; done" },
       }
    local shellT    = shellTemplateT[shellName]
    if (shellT == nil) then
@@ -500,9 +515,11 @@ function sh_to_mf(shellName, script)
       until (true)
    end
    
-   local factory = MF_Base.build(masterTbl.style)
+   local factory = MF_Base.build(style)
 
-   local s = concatTbl(factory:process(shellName, ignoreT, resultT),"\n")
+   local a, b = factory:process(shellName, ignoreT, resultT)
+
+   return concatTbl(a,"\n")
 end
 
 function main()
@@ -523,7 +540,7 @@ function main()
 
    local shellName = masterTbl.inStyle:lower()
 
-   local s = sh_to_mf(shellName, script)
+   local s = sh_to_mf(shellName, masterTbl.style, script)
 
    if (masterTbl.outFn) then
       local f = io.open(masterTbl.outFn,"w")

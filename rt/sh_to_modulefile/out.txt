@@ -48,3 +48,13 @@ set_alias("fooAlias","foobin -q -l")
 set_shell_function("fooFunc","\
 	echo \"arg1: $1\"\
 ","")
+===========================
+step 6
+lua ProjectDIR/src/sh_to_modulefile.in.lua --from ksh ProjectDIR/rt/sh_to_modulefile/kshScript.ksh
+===========================
+prepend_path("PATH","ProjectDIR/rt/sh_to_modulefile/sbin")
+prepend_path("PATH","ProjectDIR/rt/sh_to_modulefile/bin")
+set_alias("fooAlias","echo foobin -q -l")
+set_shell_function("fooFunc","\
+  echo \"arg1: $1\"\
+","")

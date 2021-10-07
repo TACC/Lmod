@@ -106,6 +106,7 @@ local shellAliasPatt = {
    bash = { namePatt  = "alias ([a-zA-Z0-9_.?']+)='", trailingPatt = "'\n" },
    csh  = { namePatt  = "([a-zA-Z0-9_.?']+)\t%(?",       trailingPatt = "%)?\n"  },
    zsh  = { namePatt  = "([a-zA-Z0-9_.?']+)='", trailingPatt = "'\n" },
+   ksh  = { namePatt  = "([a-zA-Z0-9_.?']+)='", trailingPatt = "'\n" },
 }
 
 
@@ -141,8 +142,9 @@ function M.processAliases(self, shellName, old, new, a)
 end
 
 local shellFuncPatt = {
-   bash = { namePatt  = "([a-zA-Z0-9_.?']+) %(%)%s+({)", trailingPatt = "(})\n" },
-   zsh  = { namePatt  = "([a-zA-Z0-9_.?']+) %(%)%s+({)", trailingPatt = "(})\n" },
+   bash = { namePatt  = "([a-zA-Z0-9_.?']+) ?%(%)%s+({)", trailingPatt = "(})\n" },
+   zsh  = { namePatt  = "([a-zA-Z0-9_.?']+) ?%(%)%s+({)", trailingPatt = "(})\n" },
+   ksh  = { namePatt  = "([a-zA-Z0-9_.?']+) ?%(%)%s+({)", trailingPatt = "(})\n" },
 }
 
 local function l_extractFuncs(shellName, funcs)
