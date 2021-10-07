@@ -459,6 +459,9 @@ build_tags:
 	    -e 's|.*\.pdf$$||g'                                  \
 	    -e 's|.*\.pyc$$||g'                                  \
 	    -e 's|.*db\.conf$$||g'                               \
+	    -e 's|.*\.o$$||g'                                    \
+	    -e 's|.*\.so\.$$||g'                                 \
+	    -e 's|.*\.so$$||g'                                   \
 	    -e 's|.*\.pyo$$||g'                                  \
 	    -e 's|.*\.snm$$||g'                                  \
 	    -e 's|.*\.toc$$||g'                                  \

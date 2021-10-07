@@ -275,20 +275,6 @@ function masterTbl()
    return s_master
 end
 
-function wrtEnv(fn)
-   local envT = getenv_posix()
-   local s    = serializeTbl{name="envT", value = envT, indent = true}
-   if (fn == "-") then
-      io.stdout:write(s)
-   else
-      local f    = io.open(fn,"w")
-      if (f) then
-         f:write(s,"\n")
-         f:close()
-      end
-   end
-end
-
 function splice(a, is, ie)
    local b = {}
    for i = 1, is-1 do
@@ -299,34 +285,6 @@ function splice(a, is, ie)
       b[#b+1] = a[i]
    end
    return b
-end
-
-function path_regularize(value)
-   if (value == nil) then return nil end
-   local tail = (value:sub(-1,-1) == "/") and "/" or ""
-
-   value = value:gsub("^%s+","")
-   value = value:gsub("%s+$","")
-   value = value:gsub("//+","/")
-   value = value:gsub("/%./","/")
-   value = value:gsub("/$","")
-   return value .. tail
-end
-
-function path2pathA(path)
-   local delim = ":"
-   if (not path) then
-      return {}
-   end
-   if (path == '') then
-      return { '' }
-   end
-
-   local pathA = {}
-   for v  in path:split(delim) do
-      pathA[#pathA + 1] = path_regularize(v)
-   end
-   return pathA
 end
 
 local function cleanPath(value)
@@ -453,45 +411,27 @@ function cleanEnv()
    end
 end
 
-
-
-function main()
-   ------------------------------------------------------------------------
-   -- evaluate command line arguments
-   options()
-   local masterTbl = masterTbl()
-   local pargs     = masterTbl.pargs
-
-   local ignoreT = {}
-   for i = 1, #ignoreA do
-      ignoreT[ignoreA[i]] = true
-   end
-
-   if (masterTbl.debug > 0) then
-      dbg:activateDebug(masterTbl.debug)
-   end
-
-   local LuaCmd = findLuaProg()
-
-   if (masterTbl.cleanEnv) then
-      cleanEnv()
-   end
-
+function sh_to_mf(shellName, script)
    local shellTemplateT =
       {
          csh  = { args = "-f -c",                source = "source", redirect = ">& /dev/stdout", alias = "alias", funcs = "" },
          bash = { args = "--noprofile -norc -c", source = ".",      redirect = "2>&1",           alias = "alias", funcs = "declare -f" },
          zsh  = { args = "-f -c",                source = ".",      redirect = "2>&1",           alias = "alias", funcs = "declare -f" },
       }
-   local shellName = masterTbl.inStyle:lower()
    local shellT    = shellTemplateT[shellName]
    if (shellT == nil) then
       shellT    = shellTemplateT.bash
       shellName = "bash"
    end
+   
+   local ignoreT = {}
+   for i = 1, #ignoreA do
+      ignoreT[ignoreA[i]] = true
+   end
 
    local sep    = "%__________blk_divider__________%"
 
+   local LuaCmd = findLuaProg()
    local cmdA    = {
       "%{shell}",
       "%{shellArgs}",
@@ -522,14 +462,14 @@ function main()
    t.alias     = shellT.alias
    t.funcs     = shellT.funcs
    t.source    = shellT.source
-   t.script    = concatTbl(pargs," "):gsub("\"","\\\\\"")
+   t.script    = script:gsub("\"","\\\\\"")
    t.redirect  = shellT.redirect
 
    local cmd   = replaceStr(concatTbl(cmdA," "), t)
 
    local output = capture(cmd)
 
-   if (masterTbl.debug > 0 or true) then
+   if (dbg.active()) then
       local f = io.open("s.log","w")
       if (f) then
          f:write(cmd,"\n")
@@ -547,7 +487,6 @@ function main()
                    }
    sep = sep:escape()
 
-
    for i = 1, #processOrderA do
       repeat
          local idx,endIdx  = output:find(sep)
@@ -564,6 +503,28 @@ function main()
    local factory = MF_Base.build(masterTbl.style)
 
    local s = concatTbl(factory:process(shellName, ignoreT, resultT),"\n")
+end
+
+function main()
+   ------------------------------------------------------------------------
+   -- evaluate command line arguments
+   options()
+   local masterTbl = masterTbl()
+   local pargs     = masterTbl.pargs
+   local script    = concatTbl(pargs," ")
+
+   if (masterTbl.debug > 0) then
+      dbg:activateDebug(masterTbl.debug)
+   end
+
+   if (masterTbl.cleanEnv) then
+      cleanEnv()
+   end
+
+   local shellName = masterTbl.inStyle:lower()
+
+   local s = sh_to_mf(shellName, script)
+
    if (masterTbl.outFn) then
       local f = io.open(masterTbl.outFn,"w")
       if (f) then

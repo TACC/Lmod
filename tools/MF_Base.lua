@@ -191,13 +191,13 @@ function M.processVars(self, ignoreT, oldEnvT, envT, a)
       a[#a+1] = s
    end
 
-   dbg.print{"name: ",self:name(), "\n"}
+   --dbg.print{"name: ",self:name(), "\n"}
 
    local mt_pat = "^_ModuleTable"
    for k, v in pairsByKeys(envT) do
       local i = k:find(mt_pat)
       if (not ignoreT[k] and not i) then
-         dbg.print{"k: ", k, ", v: ", v, ", oldV: ",oldEnvT[k],"\n"}
+         --dbg.print{"k: ", k, ", v: ", v, ", oldV: ",oldEnvT[k],"\n"}
          local oldV = oldEnvT[k]
          if (not oldV) then
             a[#a+1] = self:setenv(k,v)
