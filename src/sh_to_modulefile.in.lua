@@ -354,7 +354,6 @@ function sh_to_mf(shellName, style, script)
          bash = "bash",
          zsh  = "zsh",
          fish = "fish",
-         rc   = "rc",
          ksh  = "ksh",
       }
          
@@ -459,13 +458,9 @@ function sh_to_mf(shellName, style, script)
    
    local factory = MF_Base.build(style)
 
-   local a, b = factory:process(shellName, ignoreT, resultT)
+   local a = factory:process(shellName, ignoreT, resultT)
 
-   if (dbg.active()) then
-      io.stderr:write(concatTbl(b,"\n"),"\n")
-   end
-
-   return concatTbl(a,"\n")
+   return concatTbl(a,"\n"), concatTbl(a,"\\n"):doubleQuoteString()
 end
 
 function main()
@@ -486,7 +481,7 @@ function main()
 
    local shellName = masterTbl.inStyle:lower()
 
-   local s = sh_to_mf(shellName, masterTbl.style, script)
+   local s, ss = sh_to_mf(shellName, masterTbl.style, script)
 
    if (masterTbl.outFn) then
       local f = io.open(masterTbl.outFn,"w")
@@ -499,6 +494,7 @@ function main()
       end
    else
       print(s)
+      --print(ss)
    end
 end
 
