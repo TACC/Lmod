@@ -277,10 +277,10 @@ sub-shells.
 
 
 Also sites can set the environment variable $LMOD_SITE_MODULEPATH with
-a colon separate list of directories to $MODULEPATH.  This variable is
-used in /etc/profile.d/z00_lmod.\* So it must be defined before the
-z00_lmod.\* file is source.  ($LMOD_SITE_MODULEPATH is new in Lmod
-8.5.18)
+a colon separate list of directories which will be prepended to
+$MODULEPATH.  This variable is used in /etc/profile.d/z00_lmod.\* So
+it must be defined before the z00_lmod.\* file is source.
+($LMOD_SITE_MODULEPATH is new in Lmod 8.5.18)
 
 
 .. note ::
