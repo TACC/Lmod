@@ -76,6 +76,7 @@ cleanUp ()
        -e "s|^ *OutputDIR| OutputDIR|"                    \
        -e "s|^ *OutputDIR| OutputDIR|"                    \
        -e "s|  *$||g"                                     \
+       -e "s|.*_AST_FEATURES.*||"                         \
        -e "/^Changes from Default Configuration.*/d"      \
        -e "/^Name * Default *Value.*/d"                   \
        -e "/^LFS_VERSION.*/d"                             \
