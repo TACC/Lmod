@@ -91,6 +91,7 @@ M.remove_property      = MasterControl.quiet
 M.report               = MasterControl.quiet
 M.set_alias            = MasterControl.quiet
 M.set_shell_function   = MasterControl.quiet
+M.source_sh            = MasterControl.quiet
 M.setenv               = MasterControl.quiet
 M.unset_alias          = MasterControl.quiet
 M.unset_alias          = MasterControl.quiet

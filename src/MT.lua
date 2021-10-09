@@ -291,6 +291,21 @@ function M.reset_MPATH_change_flag(self)
 end
 
 
+function M.add_sh2mf_cmds(self, sn, mcmdA)
+   local entry = self.mT[sn]
+   if (entry ~= nil) then
+      entry.mcmdA = deepcopy(mcmdA)
+   end
+end
+
+function M.get_sh2mf_cmds(self, sn)
+   local entry = self.mT[sn]
+   if (entry ~= nil) then
+      return entry.mcmdA
+   end
+   return nil
+end
+   
 function M.setStatus(self, sn, status)
    local entry = self.mT[sn]
    if (entry ~= nil) then

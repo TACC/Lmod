@@ -836,6 +836,14 @@ function color_banner(color)
 end
 
 
+function source_sh(...)
+   dbg.start{"source_sh(",concatTbl({...},", "),")"}
+   if (not validateStringArgs("source_sh", ...)) then return end
+   mcp:source_sh(...)
+   dbg.fini("source_sh")
+end
+
+
 --- subprocess function ---
 
 function subprocess(cmd)

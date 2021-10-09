@@ -121,23 +121,18 @@ function programName()
 end
 
 require("string_utils")
-require("serializeTbl")
 require("pairsByKeys")
 require("fileOps")
-require("capture")
 require("utils")
-MF_Base = require("MF_Base")
 
 local Version      = "0.0"
 local dbg          = require("Dbg"):dbg()
 local Optiks       = require("Optiks")
+local concatTbl    = table.concat
 local getenv       = os.getenv
 local getenv_posix = posix.getenv
 local setenv_posix = posix.setenv
-local concatTbl    = table.concat
-local replaceStr   = require("replaceStr")
 local s_master     = {}
-local load         = (_VERSION == "Lua 5.1") and loadstring or load
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
 envT               = false
 
@@ -158,124 +153,12 @@ local execT = {
    bash   = 'keep',
 }
 
-local ignoreA = {
-   "BASH_ENV",
-   "COLUMNS",
-   "DISPLAY",
-   "EDITOR",
-   "ENV",
-   "ENV2",
-   "GROUP",
-   "HISTFILE",
-   "HISTSIZE",
-   "HOME",
-   "HOST",
-   "HOSTTYPE",
-   "LC_ALL",
-   "LINES",
-   "LMOD_CMD",
-   "LMOD_DIR",
-   "LMOD_FULL_SETTARG_SUPPORT",
-   "LMOD_PKG",
-   "LMOD_ROOT",
-   "LMOD_SETTARG_CMD",
-   "LMOD_SETTARG_FULL_SUPPORT",
-   "LMOD_VERSION",
-   "LOGNAME",
-   "MACHTYPE",
-   "MAILER",
-   "MODULESHOME",
-   "OLDPWD",
-   "OSTYPE",
-   "PAGER",
-   "PRINTER",
-   "PS1",
-   "PS2",
-   "PWD",
-   "REMOTEHOST",
-   "REPLYTO",
-   "SHELL",
-   "SHLVL",
-   "SSH_ASKPASS",
-   "SSH_CLIENT",
-   "SSH_CONNECTION",
-   "SSH_TTY",
-   "TERM",
-   "TTY",
-   "TZ",
-   "USER",
-   "VENDOR",
-   "VISUAL",
-   "_",
-   "module",
-}
-
-
-
---------------------------------------------------------------------------
--- Capture output and exit status from *cmd*
--- @param cmd A string that contains a unix command.
--- @param envT A table that contains environment variables to be set/restored when running *cmd*.
-function capture(cmd, envT)
-   dbg.start{"capture(",cmd,")"}
-   if (dbg.active()) then
-      dbg.print{"cwd: ",posix.getcwd(),"\n",level=2}
-   end
-
-   local newT = {}
-   envT = envT or {}
-
-   for k, v in pairs(envT) do
-      --dbg.print{"envT[",k,"]=",v,"\n"}
-      newT[k] = getenv(k)
-      --dbg.print{"newT[",k,"]=",newT[k],"\n"}
-      setenv_posix(k, v, true)
-   end
-
-   -- in Lua 5.1, p:close() does not return exit status,
-   -- so we append 'echo $?' to the command to determine the exit status
-   local ec_msg = "Lmod Capture Exit Code"
-   if _VERSION == "Lua 5.1" then
-      cmd = cmd .. '; echo "' .. ec_msg .. ': $?"'
-   end
-
-   local out
-   local status
-   local p   = io.popen(cmd)
-   if (p ~= nil) then
-      out    = p:read("*all")
-      status = p:close()
-   end
-
-   -- trim 'exit code: <value>' from the end of the output and determine exit status
-   if _VERSION == "Lua 5.1" then
-      local exit_code = out:match(ec_msg .. ": (%d+)\n$")
-      if not exit_code then
-         LmodError("Failed to find '" .. ec_msg .. "' in output: " .. out)
-      end
-      status = exit_code == '0'
-      out = out:gsub(ec_msg .. ": %d+\n$", '')
-   end
-
-   for k, v in pairs(newT) do
-      setenv_posix(k,v, true)
-   end
-
-   if (dbg.active()) then
-      dbg.start{"capture output()",level=2}
-      dbg.print{out}
-      dbg.fini("capture output")
-   end
-   dbg.print{"status: ",status,", type(status): ",type(status),"\n"}
-   dbg.fini("capture")
-   return out, status
-end
 
 function masterTbl()
    return s_master
 end
 
-local function cleanPath(value)
+local function l_cleanPath(value)
 
    local pathT  = {}
    local pathA  = {}
@@ -330,7 +213,7 @@ local function cleanPath(value)
    return concatTbl(pathA,':')
 end
 
-function cleanEnv()
+function l_cleanEnv()
    local envT = getenv_posix()
 
    for k, v in pairs(envT) do
@@ -338,150 +221,32 @@ function cleanEnv()
       if (not keep) then
          setenv_posix(k, nil, true)
       elseif (keep == 'neat') then
-         setenv_posix(k, cleanPath(v), true)
+         setenv_posix(k, l_cleanPath(v), true)
       end
    end
-end
-
-function sh_to_mf(shellName, style, script)
-
-   local validShellT =
-      {
-         tcsh = "tcsh",
-         csh  = "tcsh",
-         sh   = "sh",
-         dash = "sh",
-         bash = "bash",
-         zsh  = "zsh",
-         fish = "fish",
-         ksh  = "ksh",
-      }
-         
-   shellName = validShellT[shellName] or "bash"
-
-   local shellTemplateT =
-      {
-         tcsh = { args = "-e -f -c",             flgErr = "",                source = "source", redirect = ">& /dev/stdout", alias = "alias", funcs = "" },
-         bash = { args = "--noprofile -norc -c", flgErr = "set -e;",         source = ".",      redirect = "2>&1",           alias = "alias", funcs = "declare -f" },
-         ksh  = { args = "-c",                   flgErr = "set -e;",         source = ".",      redirect = "2>&1",           alias = "alias", funcs = "typeset +f | while read f; do typeset -f ${f%\\(\\)}; echo; done" },
-         zsh  = { args = "-f -c",                flgErr = "setopt errexit;", source = ".",      redirect = "2>&1",           alias = "alias", funcs = "declare -f" },
-      }
-   local shellT    = shellTemplateT[shellName]
-   if (shellT == nil) then
-      shellT    = shellTemplateT.bash
-      shellName = "bash"
-   end
-   
-   local ignoreT = {}
-   for i = 1, #ignoreA do
-      ignoreT[ignoreA[i]] = true
-   end
-
-   local sep    = "%__________blk_divider__________%"
-
-   local LuaCmd = findLuaProg()
-   local cmdA   = {
-      "%{shell}",
-      "%{shellArgs}",
-      "\"",
-      "%{flgErr}",
-      "%{printEnvT} oldEnvT;",
-      "echo %{sep};",
-      "%{alias};",
-      "echo %{sep};",
-      "%{funcs};",
-      "echo %{sep};",
-      "%{source} %{script} %{redirect};",
-      "echo %{sep};",
-      "%{printEnvT} envT;",
-      "echo %{sep};",
-      "%{alias};",
-      "echo %{sep};",
-      "%{funcs};",
-      "echo %{sep};",
-      "\"",
-   }
-
-   local t     = {}
-
-   t.shell     = findInPath(shellName)
-   t.shellArgs = shellT.args
-   t.printEnvT = LuaCmd .. " " .. pathJoin(cmdDir(),"printEnvT.lua")
-   t.sep       = sep
-   t.flgErr    = shellT.flgErr
-   t.alias     = shellT.alias
-   t.funcs     = shellT.funcs
-   t.source    = shellT.source
-   t.script    = script:gsub("\"","\\\\\"")
-   t.redirect  = shellT.redirect
-
-   local cmd   = replaceStr(concatTbl(cmdA," "), t)
-
-   local output,status = capture(cmd)
-
-   if (dbg.active()) then
-      local f = io.open("s.log","w")
-      if (f) then
-         f:write(cmd,"\n")
-         f:write(output)
-         f:close()
-      end
-   end
-
-   if (not status) then
-      io.stderr:write("status: ",tostring(status)," Error in script!\n")
-      os.exit(-1)
-   end
-
-
-   local processOrderA = { {"Vars", 1}, {"Aliases", 1}, {"Funcs", 1}, {"SourceScriptOutput", 0},
-                           {"Vars", 2}, {"Aliases", 2}, {"Funcs", 2}}
-
-   local resultT = { Vars    = {{},{}},
-                     Aliases = {{},{}},
-                     Funcs   = {{},{}},
-                   }
-   sep = sep:escape()
-
-   for i = 1, #processOrderA do
-      repeat
-         local idx,endIdx  = output:find(sep)
-         local blk         = output:sub(1,idx-1)
-         output            = output:sub(endIdx+1,-1)
-         local blkName     = processOrderA[i][1]
-         local irstIdx     = processOrderA[i][2]
-         blk               = blk:gsub("^%s+","")
-         if (irstIdx == 0) then break end
-         resultT[blkName][irstIdx] = blk
-      until (true)
-   end
-   
-   local factory = MF_Base.build(style)
-
-   local a = factory:process(shellName, ignoreT, resultT)
-
-   return concatTbl(a,"\n"), concatTbl(a,"\\n"):doubleQuoteString()
 end
 
 function main()
    ------------------------------------------------------------------------
    -- evaluate command line arguments
    options()
-   local masterTbl = masterTbl()
-   local pargs     = masterTbl.pargs
-   local script    = concatTbl(pargs," ")
+   local masterTbl    = masterTbl()
+   local pargs        = masterTbl.pargs
+   local script       = concatTbl(pargs," ")
+   local convertSh2MF = require("convertSh2MF")
 
    if (masterTbl.debug > 0) then
       dbg:activateDebug(masterTbl.debug)
    end
 
    if (masterTbl.cleanEnv) then
-      cleanEnv()
+      l_cleanEnv()
    end
 
    local shellName = masterTbl.inStyle:lower()
 
-   local s, ss = sh_to_mf(shellName, masterTbl.style, script)
+   local a = convertSh2MF(shellName, masterTbl.style, script)
+   local s = concatTbl(a,"\n")
 
    if (masterTbl.outFn) then
       local f = io.open(masterTbl.outFn,"w")
@@ -494,7 +259,6 @@ function main()
       end
    else
       print(s)
-      --print(ss)
    end
 end
 

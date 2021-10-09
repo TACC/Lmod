@@ -79,6 +79,7 @@ M.report               = MasterControl.error
 M.setenv               = MasterControl.setenv
 M.set_alias            = MasterControl.set_alias
 M.set_shell_function   = MasterControl.set_shell_function
+M.source_sh            = MasterControl.source_sh
 M.try_load             = MasterControl.try_load
 M.unload               = MasterControl.unload
 M.unload_usr           = MasterControl.unload_usr

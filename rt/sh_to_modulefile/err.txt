@@ -24,3 +24,13 @@ lua ProjectDIR/src/sh_to_modulefile.in.lua --from zsh ProjectDIR/rt/sh_to_module
 step 6
 lua ProjectDIR/src/sh_to_modulefile.in.lua --from ksh ProjectDIR/rt/sh_to_modulefile/kshScript.ksh
 ===========================
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load wrapperSh/1.0
+===========================
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) wrapperSh/1.0

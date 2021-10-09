@@ -81,6 +81,7 @@ M.report               = MasterControl.warning
 M.setenv               = MasterControl.unsetenv
 M.set_alias            = MasterControl.unset_alias
 M.set_shell_function   = MasterControl.unset_shell_function
+M.source_sh            = MasterControl.un_source_sh
 M.try_load             = MasterControl.unload
 M.unload               = MasterControl.unload
 M.unload_usr           = MasterControl.unload_usr

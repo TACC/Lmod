@@ -135,6 +135,7 @@ M.report               = MasterControl.warning
 M.setenv               = MasterControl.quiet
 M.set_alias            = MasterControl.quiet
 M.set_shell_function   = MasterControl.quiet
+M.source_sh            = MasterControl.quiet
 M.try_load             = MasterControl.quiet
 M.unload               = MasterControl.quiet
 M.unload_usr           = MasterControl.quiet

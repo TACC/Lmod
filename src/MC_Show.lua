@@ -63,6 +63,7 @@ M.myModuleVersion   = MasterControl.myModuleVersion
 M.myModuleUsrName   = MasterControl.myModuleUsrName
 M.build_unload      = MasterControl.do_not_build_unload
 M.color_banner      = MasterControl.color_banner
+M.source_sh         = MasterControl.quiet
 
 local function ShowCmd(name,...)
    A[#A+1] = ShowCmdStr(name, ...)

@@ -1447,6 +1447,42 @@ function M.inherit(self)
    dbg.fini("MasterControl:inherit")
 end
 
+function M.source_sh(self, shellName, script)
+   dbg.start{"MasterControl:source_sh(shellName: \"",shellName,", script: \"",script,"\")"}
+   local frameStk     = FrameStk:singleton()
+   local sn           = frameStk:sn()
+   local mt           = frameStk:mt()
+   local convertSh2MF = require("convertSh2MF")
+
+   local mcmdA        = mt:get_sh2mf_cmds(sn)
+   if (mcmdA == nil) then
+      mcmdA = convertSh2MF(shellName, "lua", script)
+      mt:add_sh2mf_cmds(sn, mcmdA)
+   end
+   local whole = concatTbl(mcmdA,"\n")
+   dbg.print{"whole:\n ",whole,"\n"}
+   local status, msg = sandbox_run(whole)
+   if (not status) then
+      LmodError{msg="e_Unable_2_Load", name = mt:userName(sn), fn = mt:nf(sn), message = msg}
+   end
+   dbg.fini("MasterControl:source_sh")
+end
+
+function M.un_source_sh(self, shellName, script)
+   dbg.start{"MasterControl:un_source_sh(shellName: \"",shellName,", script: \"",script,"\")"}
+   local frameStk    = FrameStk:singleton()
+   local sn          = frameStk:sn()
+   local mt          = frameStk:mt()
+   local mcmdA       = mt:get_sh2mf_cmds(sn)
+   local whole       = concatTbl(mcmdA,"\n")
+   dbg.print{"whole:\n ",whole,"\n"}
+   local status, msg = sandbox_run(whole)
+   if (not status) then
+      LmodError{msg="e_Unable_2_Load", name = mt:userName(sn), fn = mt:nf(sn), message = msg}
+   end
+   dbg.fini("MasterControl:un_source_sh")
+end
+
 function M.color_banner(self,color)
    if (quiet()) then
       return
