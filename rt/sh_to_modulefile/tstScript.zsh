@@ -26,5 +26,4 @@ fooFunc ()
 
 
 alias fooAlias='foobin -q -l'
-
 PATH=$testDir/bin:$NEW_PATH:$testDir/sbin

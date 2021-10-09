@@ -226,9 +226,9 @@ function capture(cmd, envT)
    envT = envT or {}
 
    for k, v in pairs(envT) do
-      dbg.print{"envT[",k,"]=",v,"\n"}
+      --dbg.print{"envT[",k,"]=",v,"\n"}
       newT[k] = getenv(k)
-      dbg.print{"newT[",k,"]=",newT[k],"\n"}
+      --dbg.print{"newT[",k,"]=",newT[k],"\n"}
       setenv_posix(k, v, true)
    end
 
@@ -273,60 +273,6 @@ end
 
 function masterTbl()
    return s_master
-end
-
-function wrtEnv(fn)
-   local envT = getenv_posix()
-   local s    = serializeTbl{name="envT", value = envT, indent = true}
-   if (fn == "-") then
-      io.stdout:write(s)
-   else
-      local f    = io.open(fn,"w")
-      if (f) then
-         f:write(s,"\n")
-         f:close()
-      end
-   end
-end
-
-function splice(a, is, ie)
-   local b = {}
-   for i = 1, is-1 do
-      b[i] = a[i]
-   end
-
-   for i = ie+1, #a do
-      b[#b+1] = a[i]
-   end
-   return b
-end
-
-function path_regularize(value)
-   if (value == nil) then return nil end
-   local tail = (value:sub(-1,-1) == "/") and "/" or ""
-
-   value = value:gsub("^%s+","")
-   value = value:gsub("%s+$","")
-   value = value:gsub("//+","/")
-   value = value:gsub("/%./","/")
-   value = value:gsub("/$","")
-   return value .. tail
-end
-
-function path2pathA(path)
-   local delim = ":"
-   if (not path) then
-      return {}
-   end
-   if (path == '') then
-      return { '' }
-   end
-
-   local pathA = {}
-   for v  in path:split(delim) do
-      pathA[#pathA + 1] = path_regularize(v)
-   end
-   return pathA
 end
 
 local function cleanPath(value)
@@ -384,62 +330,6 @@ local function cleanPath(value)
    return concatTbl(pathA,':')
 end
 
-function indexPath(old, oldA, new, newA)
-   dbg.start{"indexPath(",old, ", ", new,")"}
-   local oldN = #oldA
-   local newN = #newA
-   local idxM = newN - oldN + 1
-
-   dbg.print{"oldN: ",oldN,", newN: ",newN,"\n"}
-
-   if (oldN >= newN or newN == 1) then
-      if (old == new) then
-         dbg.fini("(1) indexPath")
-         return 1
-      end
-      dbg.fini("(2) indexPath")
-      return -1
-   end
-
-   local icnt = 1
-
-   local idxO = 1
-   local idxN = 1
-
-   while (true) do
-      local oldEntry = oldA[idxO]
-      local newEntry = newA[idxN]
-
-      icnt = icnt + 1
-      if (icnt > newN) then
-         break
-      end
-
-
-      if (oldEntry == newEntry) then
-         idxO = idxO + 1
-         idxN = idxN + 1
-
-         if (idxO > oldN) then break end
-      else
-         idxN = idxN + 2 - idxO
-         idxO = 1
-         if (idxN > idxM) then
-            dbg.fini("(3) indexPath")
-            return -1
-         end
-      end
-   end
-
-   idxN = idxN - idxO + 1
-
-   dbg.print{"idxN: ", idxN, "\n"}
-
-   dbg.fini("indexPath")
-   return idxN
-
-end
-
 function cleanEnv()
    local envT = getenv_posix()
 
@@ -453,45 +343,48 @@ function cleanEnv()
    end
 end
 
+function sh_to_mf(shellName, style, script)
 
+   local validShellT =
+      {
+         tcsh = "tcsh",
+         csh  = "tcsh",
+         sh   = "sh",
+         dash = "sh",
+         bash = "bash",
+         zsh  = "zsh",
+         fish = "fish",
+         ksh  = "ksh",
+      }
+         
+   shellName = validShellT[shellName] or "bash"
 
-function main()
-   ------------------------------------------------------------------------
-   -- evaluate command line arguments
-   options()
-   local masterTbl = masterTbl()
-   local pargs     = masterTbl.pargs
-
+   local shellTemplateT =
+      {
+         tcsh = { args = "-e -f -c",             flgErr = "",                source = "source", redirect = ">& /dev/stdout", alias = "alias", funcs = "" },
+         bash = { args = "--noprofile -norc -c", flgErr = "set -e;",         source = ".",      redirect = "2>&1",           alias = "alias", funcs = "declare -f" },
+         ksh  = { args = "-c",                   flgErr = "set -e;",         source = ".",      redirect = "2>&1",           alias = "alias", funcs = "typeset +f | while read f; do typeset -f ${f%\\(\\)}; echo; done" },
+         zsh  = { args = "-f -c",                flgErr = "setopt errexit;", source = ".",      redirect = "2>&1",           alias = "alias", funcs = "declare -f" },
+      }
+   local shellT    = shellTemplateT[shellName]
+   if (shellT == nil) then
+      shellT    = shellTemplateT.bash
+      shellName = "bash"
+   end
+   
    local ignoreT = {}
    for i = 1, #ignoreA do
       ignoreT[ignoreA[i]] = true
    end
 
-   if (masterTbl.debug > 0) then
-      dbg:activateDebug(masterTbl.debug)
-   end
-
-   local LuaCmd = findLuaProg()
-
-   if (masterTbl.cleanEnv) then
-      cleanEnv()
-   end
-
-   local shellTemplateT =
-      {
-         csh  = { args = "-f -c",                source = "source", redirect = ">& /dev/stdout", alias = "alias", funcs = "" },
-         bash = { args = "--noprofile -norc -c", source = ".",      redirect = "2>&1",           alias = "alias", funcs = "declare -f" },
-         bash = { args = "-f -c",                source = ".",      redirect = "2>&1",           alias = "alias", funcs = "declare -f" },
-      }
-   local shellName = masterTbl.inStyle:lower()
-
-   local shellT = shellTemplateT[shellName] or shellTemplateT.bash
    local sep    = "%__________blk_divider__________%"
 
-   local cmdA    = {
+   local LuaCmd = findLuaProg()
+   local cmdA   = {
       "%{shell}",
       "%{shellArgs}",
       "\"",
+      "%{flgErr}",
       "%{printEnvT} oldEnvT;",
       "echo %{sep};",
       "%{alias};",
@@ -515,17 +408,18 @@ function main()
    t.shellArgs = shellT.args
    t.printEnvT = LuaCmd .. " " .. pathJoin(cmdDir(),"printEnvT.lua")
    t.sep       = sep
+   t.flgErr    = shellT.flgErr
    t.alias     = shellT.alias
    t.funcs     = shellT.funcs
    t.source    = shellT.source
-   t.script    = concatTbl(pargs," "):gsub("\"","\\\\\"")
+   t.script    = script:gsub("\"","\\\\\"")
    t.redirect  = shellT.redirect
 
    local cmd   = replaceStr(concatTbl(cmdA," "), t)
 
-   local output = capture(cmd)
+   local output,status = capture(cmd)
 
-   if (masterTbl.debug > 0 or true) then
+   if (dbg.active()) then
       local f = io.open("s.log","w")
       if (f) then
          f:write(cmd,"\n")
@@ -533,6 +427,12 @@ function main()
          f:close()
       end
    end
+
+   if (not status) then
+      io.stderr:write("status: ",tostring(status)," Error in script!\n")
+      os.exit(-1)
+   end
+
 
    local processOrderA = { {"Vars", 1}, {"Aliases", 1}, {"Funcs", 1}, {"SourceScriptOutput", 0},
                            {"Vars", 2}, {"Aliases", 2}, {"Funcs", 2}}
@@ -542,7 +442,6 @@ function main()
                      Funcs   = {{},{}},
                    }
    sep = sep:escape()
-
 
    for i = 1, #processOrderA do
       repeat
@@ -557,9 +456,33 @@ function main()
       until (true)
    end
    
-   local factory = MF_Base.build(masterTbl.style)
+   local factory = MF_Base.build(style)
 
-   local s = concatTbl(factory:process(shellName, ignoreT, resultT),"\n")
+   local a = factory:process(shellName, ignoreT, resultT)
+
+   return concatTbl(a,"\n"), concatTbl(a,"\\n"):doubleQuoteString()
+end
+
+function main()
+   ------------------------------------------------------------------------
+   -- evaluate command line arguments
+   options()
+   local masterTbl = masterTbl()
+   local pargs     = masterTbl.pargs
+   local script    = concatTbl(pargs," ")
+
+   if (masterTbl.debug > 0) then
+      dbg:activateDebug(masterTbl.debug)
+   end
+
+   if (masterTbl.cleanEnv) then
+      cleanEnv()
+   end
+
+   local shellName = masterTbl.inStyle:lower()
+
+   local s, ss = sh_to_mf(shellName, masterTbl.style, script)
+
    if (masterTbl.outFn) then
       local f = io.open(masterTbl.outFn,"w")
       if (f) then
@@ -571,6 +494,7 @@ function main()
       end
    else
       print(s)
+      --print(ss)
    end
 end
 

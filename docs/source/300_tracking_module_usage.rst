@@ -50,7 +50,7 @@ Use SitePackage.lua to send a message to syslog.::
    local cosmic  = require("Cosmic"):singleton()
    local syshost = cosmic:value("LMOD_SYSHOST")
 
-   local s_msgA = {}
+   local s_msgT = {}
 
    local function load_hook(t)
       -- the arg t is a table:
@@ -71,17 +71,14 @@ Use SitePackage.lua to send a message to syslog.::
       local msg         = string.format("user=%s module=%s path=%s host=%s time=%f",
                                         os.getenv("USER"), t.modFullName, t.fn, uname("%n"),
 					epoch())
-      local a           = s_msgA
-      a[#a+1]           = msg
+      s_msgT[t.modFullName] = msg                                        
    end
 
    hook.register("load", load_hook)
 
    local function report_loads()
-      local a = s_msgA
-      for i = 1,#a do
-         local msg = a[i]
-         lmod_system_execute("logger -t ModuleUsageTracking -p local0.info " .. msg)
+      for k,msg in pairs(s_msgT) do
+         lmod_system_execute("logger -t ModuleUsageTracking -p local0.info " .. msg)      
       end
    end
 

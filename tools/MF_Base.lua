@@ -103,9 +103,10 @@ function M.process(self, shellName, ignoreT, resultT)
 end
 
 local shellAliasPatt = {
-   bash = { namePatt  = "alias ([a-zA-Z0-9_.?']+)='", trailingPatt = "'\n" },
-   csh  = { namePatt  = "([a-zA-Z0-9_.?']+)\t%(?",       trailingPatt = "%)?\n"  },
-   zsh  = { namePatt  = "([a-zA-Z0-9_.?']+)='", trailingPatt = "'\n" },
+   bash = { namePatt  = "alias ([a-zA-Z0-9_.?']+)='", trailingPatt = "'\n"  },
+   tcsh = { namePatt  = "([a-zA-Z0-9_.?']+)\t%(?",    trailingPatt = "%)?\n"},
+   zsh  = { namePatt  = "([a-zA-Z0-9_.?']+)='",       trailingPatt = "'\n"  },
+   ksh  = { namePatt  = "([a-zA-Z0-9_.?']+)='",       trailingPatt = "'\n"  },
 }
 
 
@@ -141,8 +142,9 @@ function M.processAliases(self, shellName, old, new, a)
 end
 
 local shellFuncPatt = {
-   bash = { namePatt  = "([a-zA-Z0-9_.?']+) %(%)%s+({)", trailingPatt = "(})\n" },
-   zsh  = { namePatt  = "([a-zA-Z0-9_.?']+) %(%)%s+({)", trailingPatt = "(})\n" },
+   bash = { namePatt  = "([a-zA-Z0-9_.?']+) ?%(%)%s+({)", trailingPatt = "(})\n" },
+   zsh  = { namePatt  = "([a-zA-Z0-9_.?']+) ?%(%)%s+({)", trailingPatt = "(})\n" },
+   ksh  = { namePatt  = "([a-zA-Z0-9_.?']+) ?%(%)%s+({)", trailingPatt = "(})\n" },
 }
 
 local function l_extractFuncs(shellName, funcs)
@@ -179,6 +181,73 @@ function M.processFuncs(self, shellName, old, new, a)
    dbg.fini("MF_Base:processFuncs")
 end
 
+function l_indexPath(old, oldA, new, newA)
+   --dbg.start{"l_indexPath(",old, ", ", new,")"}
+   local oldN = #oldA
+   local newN = #newA
+   local idxM = newN - oldN + 1
+
+   if (oldN >= newN or newN == 1) then
+      if (old == new) then
+         --dbg.fini("(1) l_indexPath")
+         return 1
+      end
+      --dbg.fini("(2) l_indexPath")
+      return -1
+   end
+
+   local icnt = 1
+
+   local idxO = 1
+   local idxN = 1
+
+   while (true) do
+      local oldEntry = oldA[idxO]
+      local newEntry = newA[idxN]
+
+      icnt = icnt + 1
+      if (icnt > newN) then
+         break
+      end
+
+
+      if (oldEntry == newEntry) then
+         idxO = idxO + 1
+         idxN = idxN + 1
+
+         if (idxO > oldN) then break end
+      else
+         idxN = idxN + 2 - idxO
+         idxO = 1
+         if (idxN > idxM) then
+            --dbg.fini("(3) l_indexPath")
+            return -1
+         end
+      end
+   end
+
+   idxN = idxN - idxO + 1
+
+   --dbg.print{"idxN: ", idxN, "\n"}
+
+   --dbg.fini("l_indexPath")
+   return idxN
+
+end
+
+
+function l_splice(a, is, ie)
+   local b = {}
+   for i = 1, is-1 do
+      b[i] = a[i]
+   end
+
+   for i = ie+1, #a do
+      b[#b+1] = a[i]
+   end
+   return b
+end
+
 function M.processVars(self, ignoreT, oldEnvT, envT, a)
    dbg.start{"MF_Base:processVars(ignoreT, oldEnvT, envT, a)"}
 
@@ -191,24 +260,24 @@ function M.processVars(self, ignoreT, oldEnvT, envT, a)
       a[#a+1] = s
    end
 
-   dbg.print{"name: ",self:name(), "\n"}
+   --dbg.print{"name: ",self:name(), "\n"}
 
    local mt_pat = "^_ModuleTable"
    for k, v in pairsByKeys(envT) do
       local i = k:find(mt_pat)
       if (not ignoreT[k] and not i) then
-         dbg.print{"k: ", k, ", v: ", v, ", oldV: ",oldEnvT[k],"\n"}
+         --dbg.print{"k: ", k, ", v: ", v, ", oldV: ",oldEnvT[k],"\n"}
          local oldV = oldEnvT[k]
          if (not oldV) then
             a[#a+1] = self:setenv(k,v)
          else
             local oldA = path2pathA(oldV)
             local newA = path2pathA(v)
-            local idx  = indexPath(oldV, oldA, v, newA)
+            local idx  = l_indexPath(oldV, oldA, v, newA)
             if (idx < 0) then
                a[#a+1] = self:setenv(k,v)
             else
-               newA = splice(newA, idx, #oldA + idx - 1)
+               newA = l_splice(newA, idx, #oldA + idx - 1)
                for j = idx-1, 1, -1 do
                   a[#a+1] = self:prepend_path(k,newA[j])
                end
