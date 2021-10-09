@@ -29,6 +29,19 @@ if [ -z "${MODULEPATH_ROOT:-}" ]; then
      export MODULEPATH=$(@PKGV@/libexec/addto --append MODULEPATH @PKGV@/modulefiles/Core)
   fi
 
+  #################################################################
+  # Prepend any directories in LMOD_SITE_MODULEPATH to $MODULEPATH
+  #################################################################
+
+  if [ -n "${LMOD_SITE_MODULEPATH:-}" ]; then
+    OLD_IFS=$IFS
+    IFS=:
+    for dir in $LMOD_SITE_MODULEPATH; do
+      export MODULEPATH=$(@PKGV@/libexec/addto MODULEPATH $dir)
+    done
+    IFS=$OLD_IFS
+  fi
+
   export BASH_ENV=@PKGV@/init/bash
 
   #
