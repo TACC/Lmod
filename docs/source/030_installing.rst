@@ -270,6 +270,17 @@ format of this file is::
 
 If this file exists then MODULEPATH_ROOT method is not used.
 
+Also sites can set the environment variable LMOD_SITE_MODULEPATH with
+a colon separate list of directories to $MODULEPATH.  This variable is
+used in /etc/profile.d/z00_lmod.* So it must be defined before the
+z00_lmod.* file is source.
+
+.. note ::
+   It is important to define $MODULEPATH before z00_lmod.\* is run.  Do
+   not use ``module use ...'' statements in later /etc/profile.d/\*
+   files. This is because ``module reset'' returns $MODULEPATH to the 
+   value defined when lmod is first run which will be when z00_lmod\*
+   is run.
 
 The ``profile`` file is the Lmod initialization script for the bash and zsh
 shells, the ``cshrc`` file is for tcsh and csh shells, and the ``profile.fish``

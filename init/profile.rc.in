@@ -24,6 +24,14 @@ if(~ $#MODULEPATH_ROOT 0) {
      MODULEPATH=`{@PKGV@/libexec/addto --append MODULEPATH @PKGV@/modulefiles/Core}
   }
 
+  #################################################################
+  # Prepend any directories in LMOD_SITE_MODULEPATH to $MODULEPATH
+  #################################################################
+  if(! ~ $#LMOD_SITE_MODULEPATH 0) {
+    MODULEPATH=`{@PKGV@/libexec/addto MODULEPATH $LMOD_SITE_MODULEPATH}
+  }
+
+
   BASH_ENV=@PKGV@/init/bash
 
   #

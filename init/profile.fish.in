@@ -38,6 +38,13 @@ if test -z "$MODULEPATH_ROOT"
         set -xg MODULEPATH (@PKGV@/libexec/addto --append MODULEPATH @PKGV@/modulefiles/Core)
     end
 
+    #################################################################
+    # Prepend any directories in LMOD_SITE_MODULEPATH to $MODULEPATH
+    #################################################################
+    if test -n "$LMOD_SITE_MODULEPATH"
+      set -gx MODULEPATH (@PKG@/libexec/addto MODULEPATH $LMOD_SITE_MODULEPATH)
+    end
+
     set -xg FISH_ENV @PKGV@/init/fish
 
     #
