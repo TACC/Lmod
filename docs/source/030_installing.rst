@@ -270,7 +270,7 @@ format of this file is::
 
 If this file exists then MODULEPATH_ROOT method is not used.
 
-Another way for site to add their own directories $MODULEPATH is to
+Another way for a site to add their own directories $MODULEPATH is to
 define it before z00_lmod.\* is sourced. Care is required so that
 $MODULEPATH is changed on the login shell but not subsequent
 sub-shells.
@@ -285,11 +285,11 @@ it must be defined before the z00_lmod.\* file is source.
 
 .. note ::
    It is important to define $MODULEPATH before z00_lmod.\* is run by
-   either using ``.modulepath`` or setting $LMOD_SITE_MODULEPATH .  Do
-   not use **module use ...** statements in later /etc/profile.d/\*
-   files. This is because **module reset** returns $MODULEPATH to the 
-   value defined when lmod is first executed,which will be when z00_lmod.\*
-   is run.
+   either using ``.modulepath`` or setting $LMOD_SITE_MODULEPATH or
+   $MODULEPATH.  Do not use **module use ...** statements in later
+   /etc/profile.d/\* files. This is because **module reset** returns
+   $MODULEPATH to the  value defined when lmod is first executed, which
+   will be when z00_lmod.\* is run.
 
 The ``profile`` file is the Lmod initialization script for the bash and zsh
 shells, the ``cshrc`` file is for tcsh and csh shells, and the ``profile.fish``
