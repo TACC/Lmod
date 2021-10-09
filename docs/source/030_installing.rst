@@ -265,21 +265,30 @@ Lmod to use `--with-ModulePathInit=...`` to point to any file.  The
 format of this file is::
 
     # comments are allowed as well as wildcards
-    /apps/modulefiles/*
+    /apps/modulefiles/\*
     /apps/other_modulefiles
 
 If this file exists then MODULEPATH_ROOT method is not used.
 
-Also sites can set the environment variable LMOD_SITE_MODULEPATH with
+Another way for site to add their own directories $MODULEPATH is to
+define it before z00_lmod.\* is sourced. Care is required so that
+$MODULEPATH is changed on the login shell but not subsequent
+sub-shells.
+
+
+Also sites can set the environment variable $LMOD_SITE_MODULEPATH with
 a colon separate list of directories to $MODULEPATH.  This variable is
-used in /etc/profile.d/z00_lmod.* So it must be defined before the
-z00_lmod.* file is source.
+used in /etc/profile.d/z00_lmod.\* So it must be defined before the
+z00_lmod.\* file is source.  ($LMOD_SITE_MODULEPATH is new in Lmod
+8.5.18)
+
 
 .. note ::
-   It is important to define $MODULEPATH before z00_lmod.\* is run.  Do
-   not use ``module use ...'' statements in later /etc/profile.d/\*
-   files. This is because ``module reset'' returns $MODULEPATH to the 
-   value defined when lmod is first run which will be when z00_lmod\*
+   It is important to define $MODULEPATH before z00_lmod.\* is run by
+   either using ``.modulepath`` or setting $LMOD_SITE_MODULEPATH .  Do
+   not use **module use ...** statements in later /etc/profile.d/\*
+   files. This is because **module reset** returns $MODULEPATH to the 
+   value defined when lmod is first executed,which will be when z00_lmod.\*
    is run.
 
 The ``profile`` file is the Lmod initialization script for the bash and zsh
@@ -293,7 +302,7 @@ files to ``/etc/profile.d``, and optionally the fish file to ``/etc/fish/conf.d`
 
 To test the setup, you just need to login as a user. Or if you are
 already logged in, please logout and log back in so that the startup
-files in ``/etc/profile.d/*.sh'' will be sourced. The module
+files in ``/etc/profile.d/*.sh`` will be sourced. The module
 command should be set and ``MODULEPATH`` should be defined. Bash or Zsh
 users should see something like::
 
