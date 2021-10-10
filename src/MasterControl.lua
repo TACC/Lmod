@@ -1459,11 +1459,13 @@ function M.source_sh(self, shellName, script)
       mcmdA = convertSh2MF(shellName, "lua", script)
       mt:add_sh2mf_cmds(sn, mcmdA)
    end
+ 
    local whole = concatTbl(mcmdA,"\n")
+   io.stderr:write("whole: ",whole,"\n")
    dbg.print{"whole:\n ",whole,"\n"}
    local status, msg = sandbox_run(whole)
    if (not status) then
-      LmodError{msg="e_Unable_2_Load", name = mt:userName(sn), fn = mt:nf(sn), message = msg}
+      LmodError{msg="e_Unable_2_Load", name = mt:userName(sn), fn = mt:fn(sn), message = msg}
    end
    dbg.fini("MasterControl:source_sh")
 end
