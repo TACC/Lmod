@@ -19,11 +19,12 @@ IFS=$OLD_IFS
 
 NEW_PATH=${NEW_PATH#:}
 
-fooFunc ()
-{
-  echo "arg1: $1"
-}
-
+if [ "${NO_SHELL_FUNCTIONS:-}" != yes ]; then
+   fooFunc ()
+   {
+     echo "arg1: $1"
+   }  
+fi
 
 alias fooAlias='foobin -q -l'
 
