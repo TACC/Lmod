@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.5.17  2021-10-07 11:32 -05:00
+Modules based on Lua: Version 8.5.18  2021-10-09 12:49 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -26,6 +26,44 @@ lua ProjectDIR/src/sh_to_modulefile.in.lua --from ksh ProjectDIR/rt/sh_to_module
 ===========================
 ===========================
 step 7
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show wrapperSh/1.0
+===========================
+whole: prepend_path("PATH","ProjectDIR/rt/sh_to_modulefile/bin")
+append_path("PATH","ProjectDIR/rt/sh_to_modulefile/sbin")
+set_alias("fooAlias","foobin -q -l")
+set_shell_function("fooFunc"," \
+    echo \"arg1: $1\"\
+","")
+   ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua:
+ source_sh("bash","ProjectDIR/rt/sh_to_modulefile/tstScript.sh")
+prepend_path("PATH","ProjectDIR/rt/sh_to_modulefile/bin")
+append_path("PATH","ProjectDIR/rt/sh_to_modulefile/sbin")
+set_alias("fooAlias","foobin -q -l")
+set_shell_function("fooFunc","
+    echo "arg1: $1"
+","")
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load wrapperSh/1.0
+===========================
+whole: prepend_path("PATH","ProjectDIR/rt/sh_to_modulefile/bin")
+append_path("PATH","ProjectDIR/rt/sh_to_modulefile/sbin")
+set_alias("fooAlias","foobin -q -l")
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show wrapperSh/1.0
+===========================
+whole: prepend_path("PATH","ProjectDIR/rt/sh_to_modulefile/bin")
+append_path("PATH","ProjectDIR/rt/sh_to_modulefile/sbin")
+set_alias("fooAlias","foobin -q -l")
+   ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua:
+ source_sh("bash","ProjectDIR/rt/sh_to_modulefile/tstScript.sh")
+prepend_path("PATH","ProjectDIR/rt/sh_to_modulefile/bin")
+append_path("PATH","ProjectDIR/rt/sh_to_modulefile/sbin")
+set_alias("fooAlias","foobin -q -l")
+===========================
+step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-No modules loaded
+Currently Loaded Modules:
+  1) wrapperSh/1.0
