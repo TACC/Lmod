@@ -37,4 +37,9 @@ Lmod 8.5+
 	    * Update TACC/SitePackage.lua and docs to use s_msgT instead of s_msgA to
 	      avoid reporting duplicate modules when reloads happen.
    (8.5.18) * Added $LMOD_SITE_MODULEPATH support to prepend to MODULEPATH
+W.I.P:
+   (8.5.19) * Added support for sh_to_modulefile to support zsh, ksh,
+              bash and tcsh with aliases and shell functions
+            * Added prelim support for source_sh
+            
    
