@@ -28,42 +28,74 @@ lua ProjectDIR/src/sh_to_modulefile.in.lua --from ksh ProjectDIR/rt/sh_to_module
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show wrapperSh/1.0
 ===========================
-whole: prepend_path("PATH","ProjectDIR/rt/sh_to_modulefile/bin")
-append_path("PATH","ProjectDIR/rt/sh_to_modulefile/sbin")
-set_alias("fooAlias","foobin -q -l")
-set_shell_function("fooFunc"," \
-    echo \"arg1: $1\"\
-","")
    ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua:
  source_sh("bash","ProjectDIR/rt/sh_to_modulefile/tstScript.sh")
 prepend_path("PATH","ProjectDIR/rt/sh_to_modulefile/bin")
 append_path("PATH","ProjectDIR/rt/sh_to_modulefile/sbin")
+setenv("TST_SCRIPT","1")
 set_alias("fooAlias","foobin -q -l")
-set_shell_function("fooFunc","
-    echo "arg1: $1"
-","")
+set_shell_function("fooFunc"," \
+    echo \"arg1: $1\"\
+")
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load wrapperSh/1.0
 ===========================
-whole: prepend_path("PATH","ProjectDIR/rt/sh_to_modulefile/bin")
-append_path("PATH","ProjectDIR/rt/sh_to_modulefile/sbin")
-set_alias("fooAlias","foobin -q -l")
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show wrapperSh/1.0
 ===========================
-whole: prepend_path("PATH","ProjectDIR/rt/sh_to_modulefile/bin")
-append_path("PATH","ProjectDIR/rt/sh_to_modulefile/sbin")
-set_alias("fooAlias","foobin -q -l")
    ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua:
  source_sh("bash","ProjectDIR/rt/sh_to_modulefile/tstScript.sh")
 prepend_path("PATH","ProjectDIR/rt/sh_to_modulefile/bin")
 append_path("PATH","ProjectDIR/rt/sh_to_modulefile/sbin")
+setenv("TST_SCRIPT","1")
 set_alias("fooAlias","foobin -q -l")
+set_shell_function("fooFunc"," \
+    echo \"arg1: $1\"\
+")
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) wrapperSh/1.0
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --mt
+===========================
+_ModuleTable_ = {
+  ["MTversion"] = 3,
+  ["c_rebuildTime"] = false,
+  ["c_shortTime"] = false,
+  depthT = {},
+  family = {},
+  mT = {
+    wrapperSh = {
+      ["fn"] = "ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",
+      ["fullName"] = "wrapperSh/1.0",
+      ["loadOrder"] = 1,
+      mcmdA = {
+        "prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")", "append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")", "setenv(\"TST_SCRIPT\",\"1\")", "set_alias(\"fooAlias\",\"foobin -q -l\")", [[set_shell_function("fooFunc"," \\
+    echo \\"arg1: $1\\"\\
+","")]],
+      },
+      mcmdA_64 = {
+        "cHJlcGVuZF9wYXRoKCJQQVRIIiwiL2hvbWUvbWNsYXkvdy9sbW9kL3J0L3NoX3RvX21vZHVsZWZpbGUvYmluIik=", "YXBwZW5kX3BhdGgoIlBBVEgiLCIvaG9tZS9tY2xheS93L2xtb2QvcnQvc2hfdG9fbW9kdWxlZmlsZS9zYmluIik=", "c2V0ZW52KCJUU1RfU0NSSVBUIiwiMSIp", "c2V0X2FsaWFzKCJmb29BbGlhcyIsImZvb2JpbiAtcSAtbCIp", "c2V0X3NoZWxsX2Z1bmN0aW9uKCJmb29GdW5jIiwiIFwKICAgIGVjaG8gXCJhcmcxOiAkMVwiXAoiLCIiKQ==",
+      },
+      propT = {},
+      ["stackDepth"] = 0,
+      ["status"] = "active",
+      ["userName"] = "wrapperSh/1.0",
+      ["wV"] = "000000001.*zfinal",
+    },
+  },
+  mpathA = {
+    "ProjectDIR/rt/sh_to_modulefile/mf",
+  },
+  ["systemBaseMPATH"] = "ProjectDIR/rt/sh_to_modulefile/mf",
+}
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload wrapperSh/1.0
+===========================

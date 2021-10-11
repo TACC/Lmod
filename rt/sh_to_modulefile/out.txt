@@ -8,6 +8,7 @@ lua ProjectDIR/src/sh_to_modulefile.in.lua ProjectDIR/rt/sh_to_modulefile/tstScr
 ===========================
 prepend_path("PATH","ProjectDIR/rt/sh_to_modulefile/bin")
 append_path("PATH","ProjectDIR/rt/sh_to_modulefile/sbin")
+setenv("TST_SCRIPT","1")
 set_alias("fooAlias","foobin -q -l")
 set_shell_function("fooFunc"," \
     echo \"arg1: $1\"\
@@ -82,20 +83,25 @@ __LMOD_REF_COUNT_PATH=ProjectDIR/rt/sh_to_modulefile/bin:1\;ProjectDIR/proj_mgmt
 export __LMOD_REF_COUNT_PATH;
 PATH=ProjectDIR/rt/sh_to_modulefile/bin:ProjectDIR/proj_mgmt:PATH_to_TM:ProjectDIR/rt/sh_to_modulefile/sbin;
 export PATH;
+TST_SCRIPT=1;
+export TST_SCRIPT;
 __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={wrapperSh={["fn"]="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",["fullName"]="wrapperSh/1.0",["loadOrder"]=1,mcmdA={"prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")","append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")","set_alias(\"fooAlias\",\"foobin-q-l\")",},propT={},["stackDepth"]=0,["status"]="active",["userName"]="wrapperSh/1.0",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},["systemBaseMPATH"]="ProjectDIR/rt/sh_to_modulefile/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={wrapperSh={["fn"]="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",["fullName"]="wrapperSh/1.0",["loadOrder"]=1,mcmdA_64={"cHJlcGVuZF9wYXRoKCJQQVRIIiwiL2hvbWUvbWNsYXkvdy9sbW9kL3J0L3NoX3RvX21vZHVsZWZpbGUvYmluIik=","YXBwZW5kX3BhdGgoIlBBVEgiLCIvaG9tZS9tY2xheS93L2xtb2QvcnQvc2hfdG9fbW9kdWxlZmlsZS9zYmluIik=","c2V0ZW52KCJUU1RfU0NSSVBUIiwiMSIp","c2V0X2FsaWFzKCJmb29BbGlhcyIsImZvb2JpbiAtcSAtbCIp","c2V0X3NoZWxsX2Z1bmN0aW9uKCJmb29GdW5jIiwiIFwKICAgIGVjaG8gXCJhcmcxOiAkMVwiXAoiLCIiKQ==",},propT={},["stackDepth"]=0,["status"]="active",["userName"]="wrapperSh/1.0",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},["systemBaseMPATH"]="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
 alias fooAlias=foobin\ -q\ -l;
+fooFunc () {
+    echo "arg1: $1"
+; };
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show wrapperSh/1.0
 ===========================
 MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={wrapperSh={["fn"]="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",["fullName"]="wrapperSh/1.0",["loadOrder"]=1,mcmdA={"prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")","append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")","set_alias(\"fooAlias\",\"foobin-q-l\")",},propT={},["stackDepth"]=0,["status"]="active",["userName"]="wrapperSh/1.0",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},["systemBaseMPATH"]="ProjectDIR/rt/sh_to_modulefile/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={wrapperSh={["fn"]="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",["fullName"]="wrapperSh/1.0",["loadOrder"]=1,mcmdA_64={"cHJlcGVuZF9wYXRoKCJQQVRIIiwiL2hvbWUvbWNsYXkvdy9sbW9kL3J0L3NoX3RvX21vZHVsZWZpbGUvYmluIik=","YXBwZW5kX3BhdGgoIlBBVEgiLCIvaG9tZS9tY2xheS93L2xtb2QvcnQvc2hfdG9fbW9kdWxlZmlsZS9zYmluIik=","c2V0ZW52KCJUU1RfU0NSSVBUIiwiMSIp","c2V0X2FsaWFzKCJmb29BbGlhcyIsImZvb2JpbiAtcSAtbCIp","c2V0X3NoZWxsX2Z1bmN0aW9uKCJmb29GdW5jIiwiIFwKICAgIGVjaG8gXCJhcmcxOiAkMVwiXAoiLCIiKQ==",},propT={},["stackDepth"]=0,["status"]="active",["userName"]="wrapperSh/1.0",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},["systemBaseMPATH"]="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
 ===========================
 step 10
@@ -103,5 +109,28 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={wrapperSh={["fn"]="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",["fullName"]="wrapperSh/1.0",["loadOrder"]=1,mcmdA={"prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")","append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")","set_alias(\"fooAlias\",\"foobin-q-l\")",},propT={},["stackDepth"]=0,["status"]="active",["userName"]="wrapperSh/1.0",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},["systemBaseMPATH"]="ProjectDIR/rt/sh_to_modulefile/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={wrapperSh={["fn"]="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",["fullName"]="wrapperSh/1.0",["loadOrder"]=1,mcmdA_64={"cHJlcGVuZF9wYXRoKCJQQVRIIiwiL2hvbWUvbWNsYXkvdy9sbW9kL3J0L3NoX3RvX21vZHVsZWZpbGUvYmluIik=","YXBwZW5kX3BhdGgoIlBBVEgiLCIvaG9tZS9tY2xheS93L2xtb2QvcnQvc2hfdG9fbW9kdWxlZmlsZS9zYmluIik=","c2V0ZW52KCJUU1RfU0NSSVBUIiwiMSIp","c2V0X2FsaWFzKCJmb29BbGlhcyIsImZvb2JpbiAtcSAtbCIp","c2V0X3NoZWxsX2Z1bmN0aW9uKCJmb29GdW5jIiwiIFwKICAgIGVjaG8gXCJhcmcxOiAkMVwiXAoiLCIiKQ==",},propT={},["stackDepth"]=0,["status"]="active",["userName"]="wrapperSh/1.0",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},["systemBaseMPATH"]="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --mt
+===========================
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload wrapperSh/1.0
+===========================
+unset __LMOD_REF_COUNT_LOADEDMODULES;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf;
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH=ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+unset TST_SCRIPT;
+unset __LMOD_REF_COUNT__LMFILES_;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},["systemBaseMPATH"]="ProjectDIR/rt/sh_to_modulefile/mf",}';
+export _ModuleTable_;
+unalias fooAlias 2> /dev/null || true;
+unset -f fooFunc 2> /dev/null || true;

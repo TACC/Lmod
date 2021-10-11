@@ -1461,7 +1461,6 @@ function M.source_sh(self, shellName, script)
    end
  
    local whole = concatTbl(mcmdA,"\n")
-   io.stderr:write("whole: ",whole,"\n")
    dbg.print{"whole:\n ",whole,"\n"}
    local status, msg = sandbox_run(whole)
    if (not status) then

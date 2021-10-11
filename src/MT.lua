@@ -297,7 +297,7 @@ function M.add_sh2mf_cmds(self, sn, mcmdA)
    if (entry ~= nil) then
       local a64 = {}
       for i =1, #mcmdA do
-         a64[i] = encode64(mcmdA[i])
+         a64[i] = encode64(mcmdA[i]) --:doubleQuoteString())
       end
       entry.mcmdA_64 = a64
    end
@@ -305,7 +305,7 @@ end
 
 function M.get_sh2mf_cmds(self, sn)
    local entry = self.mT[sn]
-   if (entry ~= nil) then
+   if (entry ~= nil and entry.mcmdA_64 ~= nil) then
       local a   = {}
       local a64 = entry.mcmdA_64
       for i = 1,#a64 do
@@ -383,7 +383,7 @@ function M.serializeTbl(self, state)
             for i = 1,#mcmdA_64 do
                a[i] = decode64(mcmdA_64[i])
             end
-            mT.mcmdA    = a
+            mT[sn].mcmdA = a
          end
       end
    end
