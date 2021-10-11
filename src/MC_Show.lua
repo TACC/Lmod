@@ -336,11 +336,12 @@ end
 --------------------------------------------------------------------------
 -- Print set shell function
 -- @param self A MasterControl object
-function M.set_shell_function(self, name, value)
+function M.set_shell_function(self, name, bashStr, cshStr)
    local a = {}
    a[#a+1] = "set_shell_function("
    a[#a+1] = '"'..name..'",'
-   a[#a+1] = value:doubleQuoteString()..')'
+   a[#a+1] = bashStr:doubleQuoteString()..','
+   a[#a+1] = cshStr:doubleQuoteString()..')\n'
    A[#A+1] = concatTbl(a,"")
 end
 
