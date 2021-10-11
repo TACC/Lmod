@@ -329,7 +329,7 @@ function M.report(self)
    b[#b+1]  = str
    b[#b+1]  = border
    b[#b+1]  = "\n"
-   b[#b+1]  = serializeTbl{ indent = true, name="propT", value = readLmodRC:propT() }
+   b[#b+1]  = serializeTbl{indent = true, name="propT", value = readLmodRC:propT() }
    b[#b+1]  = "\n"
 
    return concatTbl(b,"\n")

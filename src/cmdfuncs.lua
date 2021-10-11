@@ -718,7 +718,7 @@ function Save(...)
       f:write("-- -*- lua -*-\n")
       f:write("-- created: ",os.date()," --\n")
       local s0 = "-- Lmod ".. Version.name() .. "\n"
-      local s1 = serializeTbl{name=mt:name(), value=mt, indent = true}
+      local s1 = mt:serializeTbl("pretty")
       f:write(s0,s1)
       f:close()
    end

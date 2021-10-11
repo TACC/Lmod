@@ -206,7 +206,7 @@ function M.expandMT(self, vstr)
       local frameStk = require("FrameStk"):singleton()
       local mt       = frameStk:mt()
       local indent   = dbg.indent()
-      local s        = serializeTbl{indent=true, name="_ModuleTable_", value=mt}
+      local s        = mt:serializeTbl("pretty")
       for line in s:split("\n") do
          io.stderr:write(indent,line,"\n")
       end

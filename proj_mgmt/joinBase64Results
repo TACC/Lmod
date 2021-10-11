@@ -122,7 +122,7 @@ function removeUnwantedFields(s)
          mt[k] = nil
       end
    end
-   local s = serializeTbl{ indent=false, name=s_name, value=mt}
+   local s = serializeTbl{indent=false, name=s_name, value=mt}
    return s:gsub("[ \n]","")
 end
 

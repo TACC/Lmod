@@ -53,8 +53,11 @@ local ColumnTable  = require("ColumnTable")
 local M            = {}
 local MRC          = require("MRC")
 local ReadLmodRC   = require("ReadLmodRC")
+local base64       = require("base64")
 local concatTbl    = table.concat
 local cosmic       = require("Cosmic"):singleton()
+local decode64     = base64.decode64
+local encode64     = base64.encode64
 local dbg          = require("Dbg"):dbg()
 local floor        = math.floor
 local getenv       = os.getenv
@@ -292,14 +295,23 @@ end
 function M.add_sh2mf_cmds(self, sn, mcmdA)
    local entry = self.mT[sn]
    if (entry ~= nil) then
-      entry.mcmdA = deepcopy(mcmdA)
+      local a64 = {}
+      for i =1, #mcmdA do
+         a64[i] = encode64(mcmdA[i])
+      end
+      entry.mcmdA_64 = a64
    end
 end
 
 function M.get_sh2mf_cmds(self, sn)
    local entry = self.mT[sn]
    if (entry ~= nil) then
-      return entry.mcmdA
+      local a   = {}
+      local a64 = entry.mcmdA_64
+      for i = 1,#a64 do
+         a[i] = decode64(a64[i])
+      end
+      return a
    end
    return nil
 end
@@ -354,19 +366,29 @@ local function setLoadOrder(self)
 end
 
 function M.serializeTbl(self, state)
-   local indent = (state == "pretty")
-   local mt     = self
+   local pretty = (state == "pretty")
+   local mt     = deepcopy(self)
    if (masterTbl().rt) then
-      mt               = deepcopy(self)
       mt.c_rebuildTime = false
       mt.c_shortTime   = false
    end
-
    setLoadOrder(mt)
-   local s = serializeTbl{indent = indent, name = self.name(), value = mt}
-   if (not indent) then
-      s = s:gsub("%s+","")
+
+   if (pretty) then
+      local mT = mt.mT
+      for sn, v in pairs(mT) do
+         local mcmdA_64 = mT[sn].mcmdA_64 
+         if (mcmdA_64 and next(mcmdA_64) ~= nil) then
+            local a = {}
+            for i = 1,#mcmdA_64 do
+               a[i] = decode64(mcmdA_64[i])
+            end
+            mT.mcmdA    = a
+         end
+      end
    end
+
+   local s = serializeTbl{indent = pretty, name = self.name(), value = mt}
    return s
 end
 
@@ -1117,8 +1139,11 @@ function M.getMTfromFile(self,tt)
 
    dbg.print{"(1) mt.systemBaseMPATH: ",mt.systemBaseMPATH,"\n"}
    dbg.print{"savedBaseMPATH: ",savedBaseMPATH,"\n"}
-   s              = serializeTbl{indent=true, name=s_name, value=mt}
-   dbg.print{"mt after purge",s,"\n"}
+   s              = self:serializeTbl()
+   if (dbg.active()) then
+      local ss = self:serializeTbl("pretty")
+      dbg.print{"mt after purge",ss,"\n"}
+   end
    local envMT = build_MT_envT(s)
    for k,v in pairs(envMT) do
       posix_setenv(k,v,true)

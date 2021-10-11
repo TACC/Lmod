@@ -539,6 +539,8 @@ function main()
       mt:reportChanges()
    end
 
+   -- Convert MT into a variable _ModuleTable_
+
    local varT     = frameStk:varT()
    local n        = mt:name()
    varT[n]        = Var:new(n)
