@@ -364,9 +364,9 @@ function M.serializeTbl(self, state)
 
    setLoadOrder(mt)
    local s = serializeTbl{indent = indent, name = self.name(), value = mt}
-   if (not indent) then
-      s = s:gsub("%s+","")
-   end
+   --if (not indent) then
+   --   s = s:gsub("%s+","")
+   --end
    return s
 end
 
