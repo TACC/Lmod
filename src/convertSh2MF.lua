@@ -145,32 +145,43 @@ local function convertSh2MF(shellName, style, script)
       end
    end
 
+   local processOrderA = { {"Vars", 1}, {"Aliases", 1}, {"Funcs", 1}, {"SourceScriptOutput", 0},
+                           {"Vars", 2}, {"Aliases", 2}, {"Funcs", 2}}
+
+   local blkA = {}
+   sep        = sep:escape()
+   for i = 1, #processOrderA do
+      local idx, endIdx = output:find(sep)
+      if (idx == nil) then
+         blkA[i] = output
+         break
+      end
+      blkA[i] = output:sub(1,idx-1):gsub("^%s+","")
+      output  = output:sub(endIdx+1,-1)
+   end
+
    if (not status) then
-      io.stderr:write("status: ",tostring(status)," Error in script!\n")
+      io.stderr:write("Error in script:",blkA[4],"\n")
       os.exit(-1)
    end
 
-
-   local processOrderA = { {"Vars", 1}, {"Aliases", 1}, {"Funcs", 1}, {"SourceScriptOutput", 0},
-                           {"Vars", 2}, {"Aliases", 2}, {"Funcs", 2}}
+   if (#blkA ~= 7) then
+      io.stderr:write("convertSh2MF script failed to produce 7 blocks\n")
+      os.exit(-1)
+   end
+      
 
    local resultT = { Vars    = {{},{}},
                      Aliases = {{},{}},
                      Funcs   = {{},{}},
                    }
-   sep = sep:escape()
 
    for i = 1, #processOrderA do
-      repeat
-         local idx,endIdx  = output:find(sep)
-         local blk         = output:sub(1,idx-1)
-         output            = output:sub(endIdx+1,-1)
-         local blkName     = processOrderA[i][1]
-         local irstIdx     = processOrderA[i][2]
-         blk               = blk:gsub("^%s+","")
-         if (irstIdx == 0) then break end
-         resultT[blkName][irstIdx] = blk
-      until (true)
+      local blkName     = processOrderA[i][1]
+      local irstIdx     = processOrderA[i][2]
+      if (irstIdx ~= 0) then
+         resultT[blkName][irstIdx] = blkA[i]
+      end
    end
    
    local factory = MF_Base.build(style)

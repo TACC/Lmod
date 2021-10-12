@@ -61,6 +61,10 @@ set_shell_function("fooFunc","\
 ","")
 ===========================
 step 7
+lua ProjectDIR/src/sh_to_modulefile.in.lua ProjectDIR/rt/sh_to_modulefile/broken.sh
+===========================
+===========================
+step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show wrapperSh/1.0
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf:1;
@@ -70,7 +74,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},["systemBaseMPATH"]="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
 ===========================
-step 8
+step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load wrapperSh/1.0
 ===========================
 __LMOD_REF_COUNT_LOADEDMODULES=wrapperSh/1.0:1;
@@ -89,34 +93,34 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua:1
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={wrapperSh={["fn"]="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",["fullName"]="wrapperSh/1.0",["loadOrder"]=1,mcmdA_64={"cHJlcGVuZF9wYXRoKCJQQVRIIiwiL2hvbWUvbWNsYXkvdy9sbW9kL3J0L3NoX3RvX21vZHVsZWZpbGUvYmluIik=","YXBwZW5kX3BhdGgoIlBBVEgiLCIvaG9tZS9tY2xheS93L2xtb2QvcnQvc2hfdG9fbW9kdWxlZmlsZS9zYmluIik=","c2V0ZW52KCJUU1RfU0NSSVBUIiwiMSIp","c2V0X2FsaWFzKCJmb29BbGlhcyIsImZvb2JpbiAtcSAtbCIp","c2V0X3NoZWxsX2Z1bmN0aW9uKCJmb29GdW5jIiwiIFwKICAgIGVjaG8gXCJhcmcxOiAkMVwiXAoiLCIiKQ==",},propT={},["stackDepth"]=0,["status"]="active",["userName"]="wrapperSh/1.0",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},["systemBaseMPATH"]="ProjectDIR/rt/sh_to_modulefile/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={wrapperSh={["fn"]="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",["fullName"]="wrapperSh/1.0",["loadOrder"]=1,mcmdA_64={"cHJlcGVuZF9wYXRoKCJQQVRIIiwiL1VzZXJzL21jbGF5L3cvbG1vZC9ydC9zaF90b19tb2R1bGVmaWxlL2JpbiIp","YXBwZW5kX3BhdGgoIlBBVEgiLCIvVXNlcnMvbWNsYXkvdy9sbW9kL3J0L3NoX3RvX21vZHVsZWZpbGUvc2JpbiIp","c2V0ZW52KCJUU1RfU0NSSVBUIiwiMSIp","c2V0X2FsaWFzKCJmb29BbGlhcyIsImZvb2JpbiAtcSAtbCIp","c2V0X3NoZWxsX2Z1bmN0aW9uKCJmb29GdW5jIiwiIFwKICAgIGVjaG8gXCJhcmcxOiAkMVwiXAoiLCIiKQ==",},propT={},["stackDepth"]=0,["status"]="active",["userName"]="wrapperSh/1.0",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},["systemBaseMPATH"]="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
 alias fooAlias=foobin\ -q\ -l;
 fooFunc () {
     echo "arg1: $1"
 ; };
 ===========================
-step 9
+step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show wrapperSh/1.0
 ===========================
 MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={wrapperSh={["fn"]="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",["fullName"]="wrapperSh/1.0",["loadOrder"]=1,mcmdA_64={"cHJlcGVuZF9wYXRoKCJQQVRIIiwiL2hvbWUvbWNsYXkvdy9sbW9kL3J0L3NoX3RvX21vZHVsZWZpbGUvYmluIik=","YXBwZW5kX3BhdGgoIlBBVEgiLCIvaG9tZS9tY2xheS93L2xtb2QvcnQvc2hfdG9fbW9kdWxlZmlsZS9zYmluIik=","c2V0ZW52KCJUU1RfU0NSSVBUIiwiMSIp","c2V0X2FsaWFzKCJmb29BbGlhcyIsImZvb2JpbiAtcSAtbCIp","c2V0X3NoZWxsX2Z1bmN0aW9uKCJmb29GdW5jIiwiIFwKICAgIGVjaG8gXCJhcmcxOiAkMVwiXAoiLCIiKQ==",},propT={},["stackDepth"]=0,["status"]="active",["userName"]="wrapperSh/1.0",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},["systemBaseMPATH"]="ProjectDIR/rt/sh_to_modulefile/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={wrapperSh={["fn"]="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",["fullName"]="wrapperSh/1.0",["loadOrder"]=1,mcmdA_64={"cHJlcGVuZF9wYXRoKCJQQVRIIiwiL1VzZXJzL21jbGF5L3cvbG1vZC9ydC9zaF90b19tb2R1bGVmaWxlL2JpbiIp","YXBwZW5kX3BhdGgoIlBBVEgiLCIvVXNlcnMvbWNsYXkvdy9sbW9kL3J0L3NoX3RvX21vZHVsZWZpbGUvc2JpbiIp","c2V0ZW52KCJUU1RfU0NSSVBUIiwiMSIp","c2V0X2FsaWFzKCJmb29BbGlhcyIsImZvb2JpbiAtcSAtbCIp","c2V0X3NoZWxsX2Z1bmN0aW9uKCJmb29GdW5jIiwiIFwKICAgIGVjaG8gXCJhcmcxOiAkMVwiXAoiLCIiKQ==",},propT={},["stackDepth"]=0,["status"]="active",["userName"]="wrapperSh/1.0",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},["systemBaseMPATH"]="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
 ===========================
-step 10
+step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={wrapperSh={["fn"]="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",["fullName"]="wrapperSh/1.0",["loadOrder"]=1,mcmdA_64={"cHJlcGVuZF9wYXRoKCJQQVRIIiwiL2hvbWUvbWNsYXkvdy9sbW9kL3J0L3NoX3RvX21vZHVsZWZpbGUvYmluIik=","YXBwZW5kX3BhdGgoIlBBVEgiLCIvaG9tZS9tY2xheS93L2xtb2QvcnQvc2hfdG9fbW9kdWxlZmlsZS9zYmluIik=","c2V0ZW52KCJUU1RfU0NSSVBUIiwiMSIp","c2V0X2FsaWFzKCJmb29BbGlhcyIsImZvb2JpbiAtcSAtbCIp","c2V0X3NoZWxsX2Z1bmN0aW9uKCJmb29GdW5jIiwiIFwKICAgIGVjaG8gXCJhcmcxOiAkMVwiXAoiLCIiKQ==",},propT={},["stackDepth"]=0,["status"]="active",["userName"]="wrapperSh/1.0",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},["systemBaseMPATH"]="ProjectDIR/rt/sh_to_modulefile/mf",}';
+_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={wrapperSh={["fn"]="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",["fullName"]="wrapperSh/1.0",["loadOrder"]=1,mcmdA_64={"cHJlcGVuZF9wYXRoKCJQQVRIIiwiL1VzZXJzL21jbGF5L3cvbG1vZC9ydC9zaF90b19tb2R1bGVmaWxlL2JpbiIp","YXBwZW5kX3BhdGgoIlBBVEgiLCIvVXNlcnMvbWNsYXkvdy9sbW9kL3J0L3NoX3RvX21vZHVsZWZpbGUvc2JpbiIp","c2V0ZW52KCJUU1RfU0NSSVBUIiwiMSIp","c2V0X2FsaWFzKCJmb29BbGlhcyIsImZvb2JpbiAtcSAtbCIp","c2V0X3NoZWxsX2Z1bmN0aW9uKCJmb29GdW5jIiwiIFwKICAgIGVjaG8gXCJhcmcxOiAkMVwiXAoiLCIiKQ==",},propT={},["stackDepth"]=0,["status"]="active",["userName"]="wrapperSh/1.0",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},["systemBaseMPATH"]="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
 ===========================
-step 11
+step 12
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --mt
 ===========================
 ===========================
-step 12
+step 13
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload wrapperSh/1.0
 ===========================
 unset __LMOD_REF_COUNT_LOADEDMODULES;
