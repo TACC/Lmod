@@ -10,7 +10,7 @@ __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/build_cache/mf/Common:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/build_cache/mf/Common;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/build_cache/mf/Common",},["systemBaseMPATH"]="ProjectDIR/rt/build_cache/mf/Common",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/build_cache/mf/Common",},systemBaseMPATH="ProjectDIR/rt/build_cache/mf/Common",}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -20,7 +20,7 @@ __LMOD_REF_COUNT_MODULEPATH=OutputDIR/broken_mf:1\;ProjectDIR/rt/build_cache/mf/
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=OutputDIR/broken_mf:ProjectDIR/rt/build_cache/mf/Common;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"OutputDIR/broken_mf","ProjectDIR/rt/build_cache/mf/Common",},["systemBaseMPATH"]="ProjectDIR/rt/build_cache/mf/Common",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"OutputDIR/broken_mf","ProjectDIR/rt/build_cache/mf/Common",},systemBaseMPATH="ProjectDIR/rt/build_cache/mf/Common",}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -28,7 +28,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
 MODULEPATH=OutputDIR/broken_mf:ProjectDIR/rt/build_cache/mf/Common;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"OutputDIR/broken_mf","ProjectDIR/rt/build_cache/mf/Common",},["systemBaseMPATH"]="ProjectDIR/rt/build_cache/mf/Common",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"OutputDIR/broken_mf","ProjectDIR/rt/build_cache/mf/Common",},systemBaseMPATH="ProjectDIR/rt/build_cache/mf/Common",}';
 export _ModuleTable_;
 ===========================
 step 5
@@ -36,5 +36,5 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 MODULEPATH=OutputDIR/broken_mf:ProjectDIR/rt/build_cache/mf/Common;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"OutputDIR/broken_mf","ProjectDIR/rt/build_cache/mf/Common",},["systemBaseMPATH"]="ProjectDIR/rt/build_cache/mf/Common",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"OutputDIR/broken_mf","ProjectDIR/rt/build_cache/mf/Common",},systemBaseMPATH="ProjectDIR/rt/build_cache/mf/Common",}';
 export _ModuleTable_;

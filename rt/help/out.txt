@@ -14,7 +14,7 @@ __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/help/mf:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/help/mf;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/help/mf",},["systemBaseMPATH"]="ProjectDIR/rt/help/mf",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/help/mf",},systemBaseMPATH="ProjectDIR/rt/help/mf",}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -22,7 +22,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing help amber
 ===========================
 MODULEPATH=ProjectDIR/rt/help/mf;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/help/mf",},["systemBaseMPATH"]="ProjectDIR/rt/help/mf",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/help/mf",},systemBaseMPATH="ProjectDIR/rt/help/mf",}';
 export _ModuleTable_;
 ===========================
 step 5

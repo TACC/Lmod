@@ -10,7 +10,7 @@ __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/spider_dot/mf/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/spider_dot/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider_dot/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider_dot/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider_dot/mf/Core",},systemBaseMPATH="ProjectDIR/rt/spider_dot/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -18,7 +18,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider
 ===========================
 MODULEPATH=ProjectDIR/rt/spider_dot/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider_dot/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider_dot/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider_dot/mf/Core",},systemBaseMPATH="ProjectDIR/rt/spider_dot/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -26,7 +26,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden -t spider
 ===========================
 MODULEPATH=ProjectDIR/rt/spider_dot/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider_dot/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider_dot/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider_dot/mf/Core",},systemBaseMPATH="ProjectDIR/rt/spider_dot/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 5
@@ -34,7 +34,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider fftw
 ===========================
 MODULEPATH=ProjectDIR/rt/spider_dot/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider_dot/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider_dot/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider_dot/mf/Core",},systemBaseMPATH="ProjectDIR/rt/spider_dot/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 6
@@ -42,7 +42,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider fft
 ===========================
 MODULEPATH=ProjectDIR/rt/spider_dot/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider_dot/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider_dot/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider_dot/mf/Core",},systemBaseMPATH="ProjectDIR/rt/spider_dot/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 7
@@ -52,7 +52,7 @@ __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/spider_dot/mf2/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/spider_dot/mf2/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider_dot/mf2/Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider_dot/mf2/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider_dot/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/spider_dot/mf2/Core",}';
 export _ModuleTable_;
 ===========================
 step 8
@@ -60,7 +60,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider te
 ===========================
 MODULEPATH=ProjectDIR/rt/spider_dot/mf2/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider_dot/mf2/Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider_dot/mf2/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider_dot/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/spider_dot/mf2/Core",}';
 export _ModuleTable_;
 ===========================
 step 9
@@ -68,7 +68,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider cluster
 ===========================
 MODULEPATH=ProjectDIR/rt/spider_dot/mf2/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider_dot/mf2/Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider_dot/mf2/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider_dot/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/spider_dot/mf2/Core",}';
 export _ModuleTable_;
 ===========================
 step 10
@@ -76,5 +76,5 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider cl
 ===========================
 MODULEPATH=ProjectDIR/rt/spider_dot/mf2/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider_dot/mf2/Core",},["systemBaseMPATH"]="ProjectDIR/rt/spider_dot/mf2/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider_dot/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/spider_dot/mf2/Core",}';
 export _ModuleTable_;

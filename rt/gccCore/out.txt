@@ -10,7 +10,7 @@ __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/gccCore/mf/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/gccCore/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/gccCore/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/gccCore/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/gccCore/mf/Core",},systemBaseMPATH="ProjectDIR/rt/gccCore/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -18,7 +18,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider boost/1.60.0
 ===========================
 MODULEPATH=ProjectDIR/rt/gccCore/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/gccCore/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/gccCore/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/gccCore/mf/Core",},systemBaseMPATH="ProjectDIR/rt/gccCore/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -26,7 +26,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider
 ===========================
 MODULEPATH=ProjectDIR/rt/gccCore/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/gccCore/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/gccCore/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/gccCore/mf/Core",},systemBaseMPATH="ProjectDIR/rt/gccCore/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 5
@@ -34,7 +34,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider GC
 ===========================
 MODULEPATH=ProjectDIR/rt/gccCore/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/gccCore/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/gccCore/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/gccCore/mf/Core",},systemBaseMPATH="ProjectDIR/rt/gccCore/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 6

@@ -109,7 +109,6 @@ local keywordT = {
    ['true']   = true,  ['until']  = true,    ['while']    = true,
 }
 
-
 local function wrap_name(indent, name)
    local str
    if (name:find("[-+:./=]") or keywordT[name] or name == " " or
@@ -209,7 +208,7 @@ local function outputTblHelper(indentIdx, name, T, keepDUnderScore, a, level)
             outputTblHelper(indentIdx, key, t[key], keepDUnderScore, a, level+1)
          else
             if (type(key) == "string") then
-               str = indent .. '[\"'..key ..'\"] = '
+               str = wrap_name(indent, key) .. ' = '
             else
                str = indent
             end

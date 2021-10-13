@@ -10,7 +10,7 @@ __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/spades/mf:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/spades/mf;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spades/mf",},["systemBaseMPATH"]="ProjectDIR/rt/spades/mf",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spades/mf",},systemBaseMPATH="ProjectDIR/rt/spades/mf",}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -18,5 +18,5 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider spades
 ===========================
 MODULEPATH=ProjectDIR/rt/spades/mf;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spades/mf",},["systemBaseMPATH"]="ProjectDIR/rt/spades/mf",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spades/mf",},systemBaseMPATH="ProjectDIR/rt/spades/mf",}';
 export _ModuleTable_;

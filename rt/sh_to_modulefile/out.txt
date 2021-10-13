@@ -71,7 +71,7 @@ __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},["systemBaseMPATH"]="ProjectDIR/rt/sh_to_modulefile/mf",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
 ===========================
 step 9
@@ -93,7 +93,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua:1
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={wrapperSh={["fn"]="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",["fullName"]="wrapperSh/1.0",["loadOrder"]=1,mcmdT_64={["L1VzZXJzL21jbGF5L3cvbG1vZC9ydC9zaF90b19tb2R1bGVmaWxlL3RzdFNjcmlwdC5zaA=="]={"cHJlcGVuZF9wYXRoKCJQQVRIIiwiL1VzZXJzL21jbGF5L3cvbG1vZC9ydC9zaF90b19tb2R1bGVmaWxlL2JpbiIp","YXBwZW5kX3BhdGgoIlBBVEgiLCIvVXNlcnMvbWNsYXkvdy9sbW9kL3J0L3NoX3RvX21vZHVsZWZpbGUvc2JpbiIp","c2V0ZW52KCJUU1RfU0NSSVBUIiwiMSIp","c2V0X2FsaWFzKCJmb29BbGlhcyIsImZvb2JpbiAtcSAtbCIp","c2V0X3NoZWxsX2Z1bmN0aW9uKCJmb29GdW5jIiwiIFwKICAgIGVjaG8gXCJhcmcxOiAkMVwiXAoiLCIiKQ==",},},propT={},["stackDepth"]=0,["status"]="active",["userName"]="wrapperSh/1.0",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},["systemBaseMPATH"]="ProjectDIR/rt/sh_to_modulefile/mf",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT_64={["L1VzZXJzL21jbGF5L3cvbG1vZC9ydC9zaF90b19tb2R1bGVmaWxlL3RzdFNjcmlwdC5zaA=="]={"cHJlcGVuZF9wYXRoKCJQQVRIIiwiL1VzZXJzL21jbGF5L3cvbG1vZC9ydC9zaF90b19tb2R1bGVmaWxlL2JpbiIp","YXBwZW5kX3BhdGgoIlBBVEgiLCIvVXNlcnMvbWNsYXkvdy9sbW9kL3J0L3NoX3RvX21vZHVsZWZpbGUvc2JpbiIp","c2V0ZW52KCJUU1RfU0NSSVBUIiwiMSIp","c2V0X2FsaWFzKCJmb29BbGlhcyIsImZvb2JpbiAtcSAtbCIp","c2V0X3NoZWxsX2Z1bmN0aW9uKCJmb29GdW5jIiwiIFwKICAgIGVjaG8gXCJhcmcxOiAkMVwiXAoiLCIiKQ==",},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
 alias fooAlias=foobin\ -q\ -l;
 fooFunc () {
@@ -105,7 +105,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing show wrapperSh/1.0
 ===========================
 MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={wrapperSh={["fn"]="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",["fullName"]="wrapperSh/1.0",["loadOrder"]=1,mcmdT_64={["L1VzZXJzL21jbGF5L3cvbG1vZC9ydC9zaF90b19tb2R1bGVmaWxlL3RzdFNjcmlwdC5zaA=="]={"cHJlcGVuZF9wYXRoKCJQQVRIIiwiL1VzZXJzL21jbGF5L3cvbG1vZC9ydC9zaF90b19tb2R1bGVmaWxlL2JpbiIp","YXBwZW5kX3BhdGgoIlBBVEgiLCIvVXNlcnMvbWNsYXkvdy9sbW9kL3J0L3NoX3RvX21vZHVsZWZpbGUvc2JpbiIp","c2V0ZW52KCJUU1RfU0NSSVBUIiwiMSIp","c2V0X2FsaWFzKCJmb29BbGlhcyIsImZvb2JpbiAtcSAtbCIp","c2V0X3NoZWxsX2Z1bmN0aW9uKCJmb29GdW5jIiwiIFwKICAgIGVjaG8gXCJhcmcxOiAkMVwiXAoiLCIiKQ==",},},propT={},["stackDepth"]=0,["status"]="active",["userName"]="wrapperSh/1.0",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},["systemBaseMPATH"]="ProjectDIR/rt/sh_to_modulefile/mf",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT_64={["L1VzZXJzL21jbGF5L3cvbG1vZC9ydC9zaF90b19tb2R1bGVmaWxlL3RzdFNjcmlwdC5zaA=="]={"cHJlcGVuZF9wYXRoKCJQQVRIIiwiL1VzZXJzL21jbGF5L3cvbG1vZC9ydC9zaF90b19tb2R1bGVmaWxlL2JpbiIp","YXBwZW5kX3BhdGgoIlBBVEgiLCIvVXNlcnMvbWNsYXkvdy9sbW9kL3J0L3NoX3RvX21vZHVsZWZpbGUvc2JpbiIp","c2V0ZW52KCJUU1RfU0NSSVBUIiwiMSIp","c2V0X2FsaWFzKCJmb29BbGlhcyIsImZvb2JpbiAtcSAtbCIp","c2V0X3NoZWxsX2Z1bmN0aW9uKCJmb29GdW5jIiwiIFwKICAgIGVjaG8gXCJhcmcxOiAkMVwiXAoiLCIiKQ==",},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
 ===========================
 step 11
@@ -113,7 +113,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={wrapperSh={["fn"]="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",["fullName"]="wrapperSh/1.0",["loadOrder"]=1,mcmdT_64={["L1VzZXJzL21jbGF5L3cvbG1vZC9ydC9zaF90b19tb2R1bGVmaWxlL3RzdFNjcmlwdC5zaA=="]={"cHJlcGVuZF9wYXRoKCJQQVRIIiwiL1VzZXJzL21jbGF5L3cvbG1vZC9ydC9zaF90b19tb2R1bGVmaWxlL2JpbiIp","YXBwZW5kX3BhdGgoIlBBVEgiLCIvVXNlcnMvbWNsYXkvdy9sbW9kL3J0L3NoX3RvX21vZHVsZWZpbGUvc2JpbiIp","c2V0ZW52KCJUU1RfU0NSSVBUIiwiMSIp","c2V0X2FsaWFzKCJmb29BbGlhcyIsImZvb2JpbiAtcSAtbCIp","c2V0X3NoZWxsX2Z1bmN0aW9uKCJmb29GdW5jIiwiIFwKICAgIGVjaG8gXCJhcmcxOiAkMVwiXAoiLCIiKQ==",},},propT={},["stackDepth"]=0,["status"]="active",["userName"]="wrapperSh/1.0",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},["systemBaseMPATH"]="ProjectDIR/rt/sh_to_modulefile/mf",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT_64={["L1VzZXJzL21jbGF5L3cvbG1vZC9ydC9zaF90b19tb2R1bGVmaWxlL3RzdFNjcmlwdC5zaA=="]={"cHJlcGVuZF9wYXRoKCJQQVRIIiwiL1VzZXJzL21jbGF5L3cvbG1vZC9ydC9zaF90b19tb2R1bGVmaWxlL2JpbiIp","YXBwZW5kX3BhdGgoIlBBVEgiLCIvVXNlcnMvbWNsYXkvdy9sbW9kL3J0L3NoX3RvX21vZHVsZWZpbGUvc2JpbiIp","c2V0ZW52KCJUU1RfU0NSSVBUIiwiMSIp","c2V0X2FsaWFzKCJmb29BbGlhcyIsImZvb2JpbiAtcSAtbCIp","c2V0X3NoZWxsX2Z1bmN0aW9uKCJmb29GdW5jIiwiIFwKICAgIGVjaG8gXCJhcmcxOiAkMVwiXAoiLCIiKQ==",},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
 ===========================
 step 12
@@ -134,7 +134,7 @@ export PATH;
 unset TST_SCRIPT;
 unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},["systemBaseMPATH"]="ProjectDIR/rt/sh_to_modulefile/mf",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
 unalias fooAlias 2> /dev/null || true;
 unset -f fooFunc 2> /dev/null || true;

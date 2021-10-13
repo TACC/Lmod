@@ -53,15 +53,15 @@ step 13
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --stt dbg
 ===========================
 _SettargTable_ = {
-  ["buildScenarioState"] = "dbg",
+  buildScenarioState = "dbg",
   extraT = {
     ["b:b"] = true,
-    ["f_f"] = true,
+    f_f = true,
   },
   targA = {
     "TARG", "TARG_BUILD_SCENARIO", "TARG_COMPILER", "TARG_COMPILER_FAMILY", "TARG_EXTRA", "TARG_HOST", "TARG_MACH", "TARG_MACH_DESCRIPT", "TARG_MPI", "TARG_MPI_FAMILY", "TARG_OS", "TARG_OS_FAMILY", "TARG_SUMMARY", "TARG_TITLE_BAR", "TARG_TITLE_BAR_PAREN",
   },
-  ["version"] = 1,
+  version = 1,
 }
 ===========================
 step 14

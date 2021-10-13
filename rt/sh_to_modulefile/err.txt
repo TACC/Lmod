@@ -71,16 +71,16 @@ step 12
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --mt
 ===========================
 _ModuleTable_ = {
-  ["MTversion"] = 3,
-  ["c_rebuildTime"] = false,
-  ["c_shortTime"] = false,
+  MTversion = 3,
+  c_rebuildTime = false,
+  c_shortTime = false,
   depthT = {},
   family = {},
   mT = {
     wrapperSh = {
-      ["fn"] = "ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",
-      ["fullName"] = "wrapperSh/1.0",
-      ["loadOrder"] = 1,
+      fn = "ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",
+      fullName = "wrapperSh/1.0",
+      loadOrder = 1,
       mcmdT = {
         ["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"] = {
           "prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")", "append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")", "setenv(\"TST_SCRIPT\",\"1\")", "set_alias(\"fooAlias\",\"foobin -q -l\")", [[set_shell_function("fooFunc"," \\
@@ -94,16 +94,16 @@ _ModuleTable_ = {
         },
       },
       propT = {},
-      ["stackDepth"] = 0,
-      ["status"] = "active",
-      ["userName"] = "wrapperSh/1.0",
-      ["wV"] = "000000001.*zfinal",
+      stackDepth = 0,
+      status = "active",
+      userName = "wrapperSh/1.0",
+      wV = "000000001.*zfinal",
     },
   },
   mpathA = {
     "ProjectDIR/rt/sh_to_modulefile/mf",
   },
-  ["systemBaseMPATH"] = "ProjectDIR/rt/sh_to_modulefile/mf",
+  systemBaseMPATH = "ProjectDIR/rt/sh_to_modulefile/mf",
 }
 ===========================
 step 13

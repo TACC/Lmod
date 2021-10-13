@@ -18,7 +18,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/ref_count/mf2/abc/.cpu/2.0.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/ref_count/mf2/abc/.cpu/2.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={abc={["fn"]="ProjectDIR/rt/ref_count/mf2/abc/.cpu/2.0.lua",["fullName"]="abc/.cpu/2.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="abc/.cpu/2.0",["wV"]="*cpu/000000002.*zfinal",},},mpathA={"ProjectDIR/rt/ref_count/mf2",},["systemBaseMPATH"]="ProjectDIR/rt/ref_count/mf2",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={abc={fn="ProjectDIR/rt/ref_count/mf2/abc/.cpu/2.0.lua",fullName="abc/.cpu/2.0",loadOrder=1,propT={},stackDepth=1,status="active",userName="abc/.cpu/2.0",wV="*cpu/000000002.*zfinal",},},mpathA={"ProjectDIR/rt/ref_count/mf2",},systemBaseMPATH="ProjectDIR/rt/ref_count/mf2",}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -26,7 +26,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/ref_count/mf2;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={abc={["fn"]="ProjectDIR/rt/ref_count/mf2/abc/.cpu/2.0.lua",["fullName"]="abc/.cpu/2.0",["loadOrder"]=1,propT={},["stackDepth"]=1,["status"]="active",["userName"]="abc/.cpu/2.0",["wV"]="*cpu/000000002.*zfinal",},},mpathA={"ProjectDIR/rt/ref_count/mf2",},["systemBaseMPATH"]="ProjectDIR/rt/ref_count/mf2",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={abc={fn="ProjectDIR/rt/ref_count/mf2/abc/.cpu/2.0.lua",fullName="abc/.cpu/2.0",loadOrder=1,propT={},stackDepth=1,status="active",userName="abc/.cpu/2.0",wV="*cpu/000000002.*zfinal",},},mpathA={"ProjectDIR/rt/ref_count/mf2",},systemBaseMPATH="ProjectDIR/rt/ref_count/mf2",}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -38,7 +38,7 @@ MODULEPATH=ProjectDIR/rt/ref_count/mf2;
 export MODULEPATH;
 unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/ref_count/mf2",},["systemBaseMPATH"]="ProjectDIR/rt/ref_count/mf2",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/ref_count/mf2",},systemBaseMPATH="ProjectDIR/rt/ref_count/mf2",}';
 export _ModuleTable_;
 ===========================
 step 5
@@ -62,7 +62,7 @@ __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/ref_count/mf/Core/rtm/1.0.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/ref_count/mf/Core/rtm/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={rtm={["fn"]="ProjectDIR/rt/ref_count/mf/Core/rtm/1.0.lua",["fullName"]="rtm/1.0",["loadOrder"]=1,propT={},["stackDepth"]=0,["status"]="active",["userName"]="rtm",["wV"]="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/ref_count/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/ref_count/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={rtm={fn="ProjectDIR/rt/ref_count/mf/Core/rtm/1.0.lua",fullName="rtm/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="rtm",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/ref_count/mf/Core",},systemBaseMPATH="ProjectDIR/rt/ref_count/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 6
@@ -79,5 +79,5 @@ RTM_PATH=/usr/local/mybin:/mybin;
 export RTM_PATH;
 unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/ref_count/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/ref_count/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/ref_count/mf/Core",},systemBaseMPATH="ProjectDIR/rt/ref_count/mf/Core",}';
 export _ModuleTable_;

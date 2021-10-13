@@ -10,5 +10,5 @@ __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/funny_files/mf:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/funny_files/mf;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/funny_files/mf",},["systemBaseMPATH"]="ProjectDIR/rt/funny_files/mf",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/funny_files/mf",},systemBaseMPATH="ProjectDIR/rt/funny_files/mf",}';
 export _ModuleTable_;

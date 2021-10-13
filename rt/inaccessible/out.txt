@@ -10,7 +10,7 @@ __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/inaccessible/mf/path1:1\;ProjectDIR/rt
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/inaccessible/mf/path1:ProjectDIR/rt/inaccessible/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/inaccessible/mf/path1","ProjectDIR/rt/inaccessible/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/inaccessible/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/inaccessible/mf/path1","ProjectDIR/rt/inaccessible/mf/Core",},systemBaseMPATH="ProjectDIR/rt/inaccessible/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -18,7 +18,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --ignore_cache spider
 ===========================
 MODULEPATH=ProjectDIR/rt/inaccessible/mf/path1:ProjectDIR/rt/inaccessible/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/inaccessible/mf/path1","ProjectDIR/rt/inaccessible/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/inaccessible/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/inaccessible/mf/path1","ProjectDIR/rt/inaccessible/mf/Core",},systemBaseMPATH="ProjectDIR/rt/inaccessible/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -26,7 +26,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --ignore_cache spider i
 ===========================
 MODULEPATH=ProjectDIR/rt/inaccessible/mf/path1:ProjectDIR/rt/inaccessible/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/inaccessible/mf/path1","ProjectDIR/rt/inaccessible/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/inaccessible/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/inaccessible/mf/path1","ProjectDIR/rt/inaccessible/mf/Core",},systemBaseMPATH="ProjectDIR/rt/inaccessible/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 5
@@ -36,7 +36,7 @@ __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/inaccessible/mf/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/inaccessible/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/inaccessible/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/inaccessible/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/inaccessible/mf/Core",},systemBaseMPATH="ProjectDIR/rt/inaccessible/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 6
@@ -54,7 +54,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 MODULEPATH=ProjectDIR/rt/inaccessible/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/inaccessible/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/inaccessible/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/inaccessible/mf/Core",},systemBaseMPATH="ProjectDIR/rt/inaccessible/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 9
@@ -64,5 +64,5 @@ __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/inaccessible/mf2/Stages/2017a/UI/Compi
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/inaccessible/mf2/Stages/2017a/UI/Compilers;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/inaccessible/mf2/Stages/2017a/UI/Compilers",},["systemBaseMPATH"]="ProjectDIR/rt/inaccessible/mf2/Stages/2017a/UI/Compilers",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/inaccessible/mf2/Stages/2017a/UI/Compilers",},systemBaseMPATH="ProjectDIR/rt/inaccessible/mf2/Stages/2017a/UI/Compilers",}';
 export _ModuleTable_;

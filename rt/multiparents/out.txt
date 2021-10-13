@@ -10,7 +10,7 @@ __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/multiparents/mf/core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/multiparents/mf/core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/multiparents/mf/core",},}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/multiparents/mf/core",},}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -18,5 +18,5 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider pmetis/4.1
 ===========================
 MODULEPATH=ProjectDIR/rt/multiparents/mf/core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/multiparents/mf/core",},}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/multiparents/mf/core",},}';
 export _ModuleTable_;

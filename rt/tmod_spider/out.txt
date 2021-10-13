@@ -10,5 +10,5 @@ __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/tmod_spider/mf/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/tmod_spider/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={["MTversion"]=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/tmod_spider/mf/Core",},["systemBaseMPATH"]="ProjectDIR/rt/tmod_spider/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/tmod_spider/mf/Core",},systemBaseMPATH="ProjectDIR/rt/tmod_spider/mf/Core",}';
 export _ModuleTable_;
