@@ -266,7 +266,7 @@ mrcT = {
 }
 mrcMpathT = {}
 spiderT = {
-  ["ProjectDIR/rt/meta/MF_FOO/A"]  = {
+  ["ProjectDIR/rt/meta/MF_FOO/A"] = {
     Foo = {
       defaultA = {},
       defaultT = {},
@@ -283,13 +283,13 @@ spiderT = {
       },
     },
   },
-  ["ProjectDIR/rt/meta/MF_FOO/B"]  = {
+  ["ProjectDIR/rt/meta/MF_FOO/B"] = {
     Foo = {
       defaultA = {},
       defaultT = {},
       dirT = {},
       fileT = {
-        ["Foo/1.0"]  = {
+        ["Foo/1.0"] = {
           ["Version"] = "1.0",
           ["canonical"] = "1.0",
           ["fn"] = "ProjectDIR/rt/meta/MF_FOO/B/Foo/1.0.lua",
@@ -298,7 +298,7 @@ spiderT = {
           ["pV"] = "000000001.*zfinal",
           ["wV"] = "000000001.*zfinal",
         },
-        ["Foo/2.0"]  = {
+        ["Foo/2.0"] = {
           ["Version"] = "2.0",
           ["canonical"] = "2.0",
           ["fn"] = "ProjectDIR/rt/meta/MF_FOO/B/Foo/2.0.lua",

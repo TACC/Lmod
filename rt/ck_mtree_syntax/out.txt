@@ -21,7 +21,7 @@ mrcT = {
 }
 mrcMpathT = {}
 spiderT = {
-  ["ProjectDIR/rt/ck_mtree_syntax/mf"]  = {
+  ["ProjectDIR/rt/ck_mtree_syntax/mf"] = {
     A = {
       defaultA = {
         {
@@ -51,7 +51,7 @@ spiderT = {
       },
       dirT = {},
       fileT = {
-        ["A/.version.2.0"]  = {
+        ["A/.version.2.0"] = {
           ["Version"] = ".version.2.0",
           ["canonical"] = ".version.2.0",
           ["dot_version"] = 1,
@@ -60,7 +60,7 @@ spiderT = {
           ["pV"] = "*version.000000002.*zfinal",
           ["wV"] = "*version.000000002.*zfinal",
         },
-        ["A/1.0"]  = {
+        ["A/1.0"] = {
           ["Version"] = "1.0",
           ["canonical"] = "1.0",
           ["fn"] = "ProjectDIR/rt/ck_mtree_syntax/mf/A/1.0.lua",
@@ -69,7 +69,7 @@ spiderT = {
           ["pV"] = "000000001.*zfinal",
           ["wV"] = "^00000001.*zfinal",
         },
-        ["A/2.0"]  = {
+        ["A/2.0"] = {
           ["Version"] = "2.0",
           ["canonical"] = "2.0",
           ["fn"] = "ProjectDIR/rt/ck_mtree_syntax/mf/A/2.0",
@@ -77,7 +77,7 @@ spiderT = {
           ["pV"] = "000000002.*zfinal",
           ["wV"] = "000000002.*zfinal",
         },
-        ["A/3.0"]  = {
+        ["A/3.0"] = {
           ["Version"] = "3.0",
           ["canonical"] = "3.0",
           ["fn"] = "ProjectDIR/rt/ck_mtree_syntax/mf/A/3.0",
@@ -112,7 +112,7 @@ spiderT = {
       defaultT = {},
       dirT = {},
       fileT = {
-        ["acme/1.0"]  = {
+        ["acme/1.0"] = {
           ["Category"] = "system ",
           ["Description"] = "This is a descript ",
           ["Name"] = "acme ",
@@ -136,7 +136,7 @@ And even more help
       defaultT = {},
       dirT = {},
       fileT = {
-        ["hashrf/6.0.1"]  = {
+        ["hashrf/6.0.1"] = {
           ["Category"] = "phylogenetics",
           ["Description"] = "hash phylo trees",
           ["Name"] = "hashrf",
@@ -161,7 +161,7 @@ And even more help
       defaultT = {},
       dirT = {},
       fileT = {
-        ["mkl/mkl"]  = {
+        ["mkl/mkl"] = {
           ["Description"] = "Intel Math Kernel Library",
           ["Version"] = "mkl",
           ["canonical"] = "mkl",
@@ -188,7 +188,7 @@ And even more help
       defaultT = {},
       dirT = {},
       fileT = {
-        ["papi/4.1.4"]  = {
+        ["papi/4.1.4"] = {
           ["Category"] = "library, performance measurement",
           ["Description"] = "Interface to monitor performance counter hardware for quantifying application behavior",
           ["URL"] = "http://icl.cs.utk.edu/papi/",
@@ -221,7 +221,7 @@ to run the program during future login sessions.
             "PAPI: Performance Application Programming Interface", "Version: 4.1.4", "Category: library, performance measurement", "Description: Interface to monitor performance counter hardware for quantifying application behavior", "URL: http://icl.cs.utk.edu/papi/",
           },
         },
-        ["papi/4.4.0"]  = {
+        ["papi/4.4.0"] = {
           ["Category"] = "library, performance measurement",
           ["Description"] = "Interface to monitor performance counter hardware for quantifying application behavior",
           ["URL"] = "http://icl.cs.utk.edu/papi/",
@@ -249,7 +249,7 @@ to run the program during future login sessions.
       defaultT = {},
       dirT = {},
       fileT = {
-        ["valkyrie/2.0.1"]  = {
+        ["valkyrie/2.0.1"] = {
           ["Category"] = "tools",
           ["Description"] = "GUI frontend for valgrind",
           ["Name"] = "valkyrie",
@@ -275,7 +275,7 @@ to run the program during future login sessions.
       defaultT = {},
       dirT = {},
       fileT = {
-        ["vasp/5.4.4"]  = {
+        ["vasp/5.4.4"] = {
           ["Category"] = "application, chemistry",
           ["Description"] = "Vienna Ab-Initio Simulation Package",
           ["URL"] = "https://www.vasp.at/",

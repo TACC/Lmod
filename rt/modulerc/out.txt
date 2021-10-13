@@ -235,7 +235,7 @@ mrcT = {
   version2modT = {},
 }
 mrcMpathT = {
-  ["ProjectDIR/rt/modulerc/mf/Core"]  = {
+  ["ProjectDIR/rt/modulerc/mf/Core"] = {
     alias2modT = {
       ["a13"] = "a/13",
       ["z23"] = "z/23",
@@ -269,13 +269,13 @@ mrcMpathT = {
   },
 }
 spiderT = {
-  ["ProjectDIR/rt/modulerc/mf/Core"]  = {
+  ["ProjectDIR/rt/modulerc/mf/Core"] = {
     Rstats = {
       defaultA = {},
       defaultT = {},
       dirT = {},
       fileT = {
-        ["Rstats/2.1.5"]  = {
+        ["Rstats/2.1.5"] = {
           ["Version"] = "2.1.5",
           ["canonical"] = "2.1.5",
           ["fn"] = "ProjectDIR/rt/modulerc/mf/Core/Rstats/2.1.5.lua",
@@ -307,7 +307,7 @@ spiderT = {
       },
       dirT = {},
       fileT = {
-        ["a/13.1.23"]  = {
+        ["a/13.1.23"] = {
           ["Version"] = "13.1.23",
           ["canonical"] = "13.1.23",
           ["fn"] = "ProjectDIR/rt/modulerc/mf/Core/a/13.1.23.lua",
@@ -316,7 +316,7 @@ spiderT = {
           ["pV"] = "000000013.000000001.000000023.*zfinal",
           ["wV"] = "000000013.000000001.000000023.*zfinal",
         },
-        ["a/13.2.345"]  = {
+        ["a/13.2.345"] = {
           ["Version"] = "13.2.345",
           ["canonical"] = "13.2.345",
           ["fn"] = "ProjectDIR/rt/modulerc/mf/Core/a/13.2.345.lua",
@@ -325,7 +325,7 @@ spiderT = {
           ["pV"] = "000000013.000000002.000000345.*zfinal",
           ["wV"] = "000000013.000000002.000000345.*zfinal",
         },
-        ["a/14.0.1.134"]  = {
+        ["a/14.0.1.134"] = {
           ["Version"] = "14.0.1.134",
           ["canonical"] = "14.0.1.134",
           ["fn"] = "ProjectDIR/rt/modulerc/mf/Core/a/14.0.1.134.lua",
@@ -359,7 +359,7 @@ spiderT = {
       },
       dirT = {},
       fileT = {
-        ["ab2/6.12.3"]  = {
+        ["ab2/6.12.3"] = {
           ["Version"] = "6.12.3",
           ["canonical"] = "6.12.3",
           ["fn"] = "ProjectDIR/rt/modulerc/mf/Core/ab2/6.12.3",
@@ -367,7 +367,7 @@ spiderT = {
           ["pV"] = "000000006.000000012.000000003.*zfinal",
           ["wV"] = "000000006.000000012.000000003.*zfinal",
         },
-        ["ab2/7.4.3"]  = {
+        ["ab2/7.4.3"] = {
           ["Version"] = "7.4.3",
           ["canonical"] = "7.4.3",
           ["fn"] = "ProjectDIR/rt/modulerc/mf/Core/ab2/7.4.3",
@@ -398,7 +398,7 @@ spiderT = {
       },
       dirT = {},
       fileT = {
-        ["abinit/6.12.3"]  = {
+        ["abinit/6.12.3"] = {
           ["Version"] = "6.12.3",
           ["canonical"] = "6.12.3",
           ["fn"] = "ProjectDIR/rt/modulerc/mf/Core/abinit/6.12.3",
@@ -406,7 +406,7 @@ spiderT = {
           ["pV"] = "000000006.000000012.000000003.*zfinal",
           ["wV"] = "000000006.000000012.000000003.*zfinal",
         },
-        ["abinit/7.4.3"]  = {
+        ["abinit/7.4.3"] = {
           ["Version"] = "7.4.3",
           ["canonical"] = "7.4.3",
           ["fn"] = "ProjectDIR/rt/modulerc/mf/Core/abinit/7.4.3",
@@ -416,12 +416,12 @@ spiderT = {
         },
       },
     },
-    ["arpack/.common.96"]  = {
+    ["arpack/.common.96"] = {
       defaultA = {},
       defaultT = {},
       dirT = {},
       fileT = {
-        ["arpack/.common.96"]  = {
+        ["arpack/.common.96"] = {
           ["Version"] = false,
           ["canonical"] = "",
           ["fn"] = "ProjectDIR/rt/modulerc/mf/Core/arpack/.common.96",
@@ -431,12 +431,12 @@ spiderT = {
         },
       },
     },
-    ["arpack/openmpi"]  = {
+    ["arpack/openmpi"] = {
       defaultA = {},
       defaultT = {},
       dirT = {},
       fileT = {
-        ["arpack/openmpi/3.1.4"]  = {
+        ["arpack/openmpi/3.1.4"] = {
           ["Version"] = "3.1.4",
           ["canonical"] = "3.1.4",
           ["fn"] = "ProjectDIR/rt/modulerc/mf/Core/arpack/openmpi/3.1.4.lua",
@@ -452,7 +452,7 @@ spiderT = {
       defaultT = {},
       dirT = {},
       fileT = {
-        ["b/3.14"]  = {
+        ["b/3.14"] = {
           ["Version"] = "3.14",
           ["canonical"] = "3.14",
           ["fn"] = "ProjectDIR/rt/modulerc/mf/Core/b/3.14",
@@ -467,7 +467,7 @@ spiderT = {
       defaultT = {},
       dirT = {},
       fileT = {
-        ["dummy/2.0"]  = {
+        ["dummy/2.0"] = {
           ["Version"] = "2.0",
           ["canonical"] = "2.0",
           ["fn"] = "ProjectDIR/rt/modulerc/mf/Core/dummy/2.0.lua",
@@ -501,7 +501,7 @@ spiderT = {
       },
       dirT = {},
       fileT = {
-        ["h2/1.0"]  = {
+        ["h2/1.0"] = {
           ["Version"] = "1.0",
           ["canonical"] = "1.0",
           ["fn"] = "ProjectDIR/rt/modulerc/mf/Core/h2/1.0.lua",
@@ -510,7 +510,7 @@ spiderT = {
           ["pV"] = "000000001.*zfinal",
           ["wV"] = "000000001.*zfinal",
         },
-        ["h2/2.0"]  = {
+        ["h2/2.0"] = {
           ["Version"] = "2.0",
           ["canonical"] = "2.0",
           ["fn"] = "ProjectDIR/rt/modulerc/mf/Core/h2/2.0.lua",
@@ -542,7 +542,7 @@ spiderT = {
       },
       dirT = {},
       fileT = {
-        ["hidden/1.0"]  = {
+        ["hidden/1.0"] = {
           ["Version"] = "1.0",
           ["canonical"] = "1.0",
           ["fn"] = "ProjectDIR/rt/modulerc/mf/Core/hidden/1.0.lua",
@@ -551,7 +551,7 @@ spiderT = {
           ["pV"] = "000000001.*zfinal",
           ["wV"] = "000000001.*zfinal",
         },
-        ["hidden/2.0"]  = {
+        ["hidden/2.0"] = {
           ["Version"] = "2.0",
           ["canonical"] = "2.0",
           ["fn"] = "ProjectDIR/rt/modulerc/mf/Core/hidden/2.0.lua",
@@ -583,7 +583,7 @@ spiderT = {
       },
       dirT = {},
       fileT = {
-        ["intel/14.0.2"]  = {
+        ["intel/14.0.2"] = {
           ["Version"] = "14.0.2",
           ["canonical"] = "14.0.2",
           ["fn"] = "ProjectDIR/rt/modulerc/mf/Core/intel/14.0.2.lua",
@@ -592,7 +592,7 @@ spiderT = {
           ["pV"] = "000000014.000000000.000000002.*zfinal",
           ["wV"] = "000000014.000000000.000000002.*zfinal",
         },
-        ["intel/14.0.3"]  = {
+        ["intel/14.0.3"] = {
           ["Version"] = "14.0.3",
           ["canonical"] = "14.0.3",
           ["fn"] = "ProjectDIR/rt/modulerc/mf/Core/intel/14.0.3.lua",
@@ -601,7 +601,7 @@ spiderT = {
           ["pV"] = "000000014.000000000.000000003.*zfinal",
           ["wV"] = "^00000014.000000000.000000003.*zfinal",
         },
-        ["intel/15.0.1"]  = {
+        ["intel/15.0.1"] = {
           ["Version"] = "15.0.1",
           ["canonical"] = "15.0.1",
           ["fn"] = "ProjectDIR/rt/modulerc/mf/Core/intel/15.0.1.lua",
@@ -610,7 +610,7 @@ spiderT = {
           ["pV"] = "000000015.000000000.000000001.*zfinal",
           ["wV"] = "000000015.000000000.000000001.*zfinal",
         },
-        ["intel/15.0.2"]  = {
+        ["intel/15.0.2"] = {
           ["Version"] = "15.0.2",
           ["canonical"] = "15.0.2",
           ["fn"] = "ProjectDIR/rt/modulerc/mf/Core/intel/15.0.2.lua",
@@ -644,7 +644,7 @@ spiderT = {
       },
       dirT = {},
       fileT = {
-        ["jtel/14.0.2"]  = {
+        ["jtel/14.0.2"] = {
           ["Version"] = "14.0.2",
           ["canonical"] = "14.0.2",
           ["fn"] = "ProjectDIR/rt/modulerc/mf/Core/jtel/14.0.2.lua",
@@ -653,7 +653,7 @@ spiderT = {
           ["pV"] = "000000014.000000000.000000002.*zfinal",
           ["wV"] = "000000014.000000000.000000002.*zfinal",
         },
-        ["jtel/14.0.3"]  = {
+        ["jtel/14.0.3"] = {
           ["Version"] = "14.0.3",
           ["canonical"] = "14.0.3",
           ["fn"] = "ProjectDIR/rt/modulerc/mf/Core/jtel/14.0.3.lua",
@@ -662,7 +662,7 @@ spiderT = {
           ["pV"] = "000000014.000000000.000000003.*zfinal",
           ["wV"] = "^00000014.000000000.000000003.*zfinal",
         },
-        ["jtel/15.0.1"]  = {
+        ["jtel/15.0.1"] = {
           ["Version"] = "15.0.1",
           ["canonical"] = "15.0.1",
           ["fn"] = "ProjectDIR/rt/modulerc/mf/Core/jtel/15.0.1.lua",
@@ -671,7 +671,7 @@ spiderT = {
           ["pV"] = "000000015.000000000.000000001.*zfinal",
           ["wV"] = "000000015.000000000.000000001.*zfinal",
         },
-        ["jtel/15.0.2"]  = {
+        ["jtel/15.0.2"] = {
           ["Version"] = "15.0.2",
           ["canonical"] = "15.0.2",
           ["fn"] = "ProjectDIR/rt/modulerc/mf/Core/jtel/15.0.2.lua",
@@ -705,7 +705,7 @@ spiderT = {
       },
       dirT = {},
       fileT = {
-        ["z/23.1.23"]  = {
+        ["z/23.1.23"] = {
           ["Version"] = "23.1.23",
           ["canonical"] = "23.1.23",
           ["fn"] = "ProjectDIR/rt/modulerc/mf/Core/z/23.1.23.lua",
@@ -714,7 +714,7 @@ spiderT = {
           ["pV"] = "000000023.000000001.000000023.*zfinal",
           ["wV"] = "000000023.000000001.000000023.*zfinal",
         },
-        ["z/23.2.345"]  = {
+        ["z/23.2.345"] = {
           ["Version"] = "23.2.345",
           ["canonical"] = "23.2.345",
           ["fn"] = "ProjectDIR/rt/modulerc/mf/Core/z/23.2.345.lua",
@@ -723,7 +723,7 @@ spiderT = {
           ["pV"] = "000000023.000000002.000000345.*zfinal",
           ["wV"] = "000000023.000000002.000000345.*zfinal",
         },
-        ["z/24.0.1.134"]  = {
+        ["z/24.0.1.134"] = {
           ["Version"] = "24.0.1.134",
           ["canonical"] = "24.0.1.134",
           ["fn"] = "ProjectDIR/rt/modulerc/mf/Core/z/24.0.1.134.lua",
@@ -871,19 +871,19 @@ mrcT = {
   version2modT = {},
 }
 mrcMpathT = {
-  ["ProjectDIR/rt/modulerc/mf6"]  = {
+  ["ProjectDIR/rt/modulerc/mf6"] = {
     version2modT = {
       ["java/1.8"] = "java/1.8.0-A",
     },
   },
-  ["ProjectDIR/rt/modulerc/mf7"]  = {
+  ["ProjectDIR/rt/modulerc/mf7"] = {
     version2modT = {
       ["java/1.8"] = "java/1.8.0-B",
     },
   },
 }
 spiderT = {
-  ["ProjectDIR/rt/modulerc/mf4"]  = {
+  ["ProjectDIR/rt/modulerc/mf4"] = {
     a = {
       defaultA = {
         {
@@ -905,7 +905,7 @@ spiderT = {
       },
       dirT = {},
       fileT = {
-        ["a/1.0"]  = {
+        ["a/1.0"] = {
           ["Version"] = "1.0",
           ["canonical"] = "1.0",
           ["fn"] = "ProjectDIR/rt/modulerc/mf4/a/1.0.lua",
@@ -914,7 +914,7 @@ spiderT = {
           ["pV"] = "000000001.*zfinal",
           ["wV"] = "000000001.*zfinal",
         },
-        ["a/2.0"]  = {
+        ["a/2.0"] = {
           ["Version"] = "2.0",
           ["canonical"] = "2.0",
           ["fn"] = "ProjectDIR/rt/modulerc/mf4/a/2.0.lua",
@@ -923,7 +923,7 @@ spiderT = {
           ["pV"] = "000000002.*zfinal",
           ["wV"] = "^00000002.*zfinal",
         },
-        ["a/3.0"]  = {
+        ["a/3.0"] = {
           ["Version"] = "3.0",
           ["canonical"] = "3.0",
           ["fn"] = "ProjectDIR/rt/modulerc/mf4/a/3.0.lua",
@@ -939,7 +939,7 @@ spiderT = {
       defaultT = {},
       dirT = {},
       fileT = {
-        ["mpich/3.1.2"]  = {
+        ["mpich/3.1.2"] = {
           ["Version"] = "3.1.2",
           ["canonical"] = "3.1.2",
           ["fn"] = "ProjectDIR/rt/modulerc/mf4/mpich/3.1.2.lua",
@@ -948,7 +948,7 @@ spiderT = {
           ["pV"] = "000000003.000000001.000000002.*zfinal",
           ["wV"] = "000000003.000000001.000000002.*zfinal",
         },
-        ["mpich/3.1.2-dbg"]  = {
+        ["mpich/3.1.2-dbg"] = {
           ["Version"] = "3.1.2-dbg",
           ["canonical"] = "3.1.2-dbg",
           ["fn"] = "ProjectDIR/rt/modulerc/mf4/mpich/3.1.2-dbg.lua",
@@ -957,7 +957,7 @@ spiderT = {
           ["pV"] = "000000003.000000001.000000002.*dbg.*zfinal",
           ["wV"] = "000000003.000000001.000000002.*dbg.*zfinal",
         },
-        ["mpich/3.2"]  = {
+        ["mpich/3.2"] = {
           ["Version"] = "3.2",
           ["canonical"] = "3.2",
           ["fn"] = "ProjectDIR/rt/modulerc/mf4/mpich/3.2.lua",
@@ -966,7 +966,7 @@ spiderT = {
           ["pV"] = "000000003.000000002.*zfinal",
           ["wV"] = "000000003.000000002.*zfinal",
         },
-        ["mpich/3.2-dbg"]  = {
+        ["mpich/3.2-dbg"] = {
           ["Version"] = "3.2-dbg",
           ["canonical"] = "3.2-dbg",
           ["fn"] = "ProjectDIR/rt/modulerc/mf4/mpich/3.2-dbg.lua",
@@ -978,7 +978,7 @@ spiderT = {
       },
     },
   },
-  ["ProjectDIR/rt/modulerc/mf6"]  = {
+  ["ProjectDIR/rt/modulerc/mf6"] = {
     java = {
       defaultA = {
         {
@@ -1002,7 +1002,7 @@ spiderT = {
       },
       dirT = {},
       fileT = {
-        ["java/1.8.0-A"]  = {
+        ["java/1.8.0-A"] = {
           ["Version"] = "1.8.0-A",
           ["canonical"] = "1.8.0-A",
           ["fn"] = "ProjectDIR/rt/modulerc/mf6/java/1.8.0-A.lua",
@@ -1014,7 +1014,7 @@ spiderT = {
       },
     },
   },
-  ["ProjectDIR/rt/modulerc/mf7"]  = {
+  ["ProjectDIR/rt/modulerc/mf7"] = {
     java = {
       defaultA = {
         {
@@ -1038,7 +1038,7 @@ spiderT = {
       },
       dirT = {},
       fileT = {
-        ["java/1.8.0-B"]  = {
+        ["java/1.8.0-B"] = {
           ["Version"] = "1.8.0-B",
           ["canonical"] = "1.8.0-B",
           ["fn"] = "ProjectDIR/rt/modulerc/mf7/java/1.8.0-B.lua",
@@ -1076,19 +1076,19 @@ mrcT = {
   version2modT = {},
 }
 mrcMpathT = {
-  ["ProjectDIR/rt/modulerc/mf6"]  = {
+  ["ProjectDIR/rt/modulerc/mf6"] = {
     version2modT = {
       ["java/1.8"] = "java/1.8.0-A",
     },
   },
-  ["ProjectDIR/rt/modulerc/mf7"]  = {
+  ["ProjectDIR/rt/modulerc/mf7"] = {
     version2modT = {
       ["java/1.8"] = "java/1.8.0-B",
     },
   },
 }
 spiderT = {
-  ["ProjectDIR/rt/modulerc/mf4"]  = {
+  ["ProjectDIR/rt/modulerc/mf4"] = {
     a = {
       defaultA = {
         {
@@ -1110,7 +1110,7 @@ spiderT = {
       },
       dirT = {},
       fileT = {
-        ["a/1.0"]  = {
+        ["a/1.0"] = {
           ["Version"] = "1.0",
           ["canonical"] = "1.0",
           ["fn"] = "ProjectDIR/rt/modulerc/mf4/a/1.0.lua",
@@ -1119,7 +1119,7 @@ spiderT = {
           ["pV"] = "000000001.*zfinal",
           ["wV"] = "000000001.*zfinal",
         },
-        ["a/2.0"]  = {
+        ["a/2.0"] = {
           ["Version"] = "2.0",
           ["canonical"] = "2.0",
           ["fn"] = "ProjectDIR/rt/modulerc/mf4/a/2.0.lua",
@@ -1128,7 +1128,7 @@ spiderT = {
           ["pV"] = "000000002.*zfinal",
           ["wV"] = "^00000002.*zfinal",
         },
-        ["a/3.0"]  = {
+        ["a/3.0"] = {
           ["Version"] = "3.0",
           ["canonical"] = "3.0",
           ["fn"] = "ProjectDIR/rt/modulerc/mf4/a/3.0.lua",
@@ -1144,7 +1144,7 @@ spiderT = {
       defaultT = {},
       dirT = {},
       fileT = {
-        ["mpich/3.1.2"]  = {
+        ["mpich/3.1.2"] = {
           ["Version"] = "3.1.2",
           ["canonical"] = "3.1.2",
           ["fn"] = "ProjectDIR/rt/modulerc/mf4/mpich/3.1.2.lua",
@@ -1153,7 +1153,7 @@ spiderT = {
           ["pV"] = "000000003.000000001.000000002.*zfinal",
           ["wV"] = "000000003.000000001.000000002.*zfinal",
         },
-        ["mpich/3.1.2-dbg"]  = {
+        ["mpich/3.1.2-dbg"] = {
           ["Version"] = "3.1.2-dbg",
           ["canonical"] = "3.1.2-dbg",
           ["fn"] = "ProjectDIR/rt/modulerc/mf4/mpich/3.1.2-dbg.lua",
@@ -1162,7 +1162,7 @@ spiderT = {
           ["pV"] = "000000003.000000001.000000002.*dbg.*zfinal",
           ["wV"] = "000000003.000000001.000000002.*dbg.*zfinal",
         },
-        ["mpich/3.2"]  = {
+        ["mpich/3.2"] = {
           ["Version"] = "3.2",
           ["canonical"] = "3.2",
           ["fn"] = "ProjectDIR/rt/modulerc/mf4/mpich/3.2.lua",
@@ -1171,7 +1171,7 @@ spiderT = {
           ["pV"] = "000000003.000000002.*zfinal",
           ["wV"] = "000000003.000000002.*zfinal",
         },
-        ["mpich/3.2-dbg"]  = {
+        ["mpich/3.2-dbg"] = {
           ["Version"] = "3.2-dbg",
           ["canonical"] = "3.2-dbg",
           ["fn"] = "ProjectDIR/rt/modulerc/mf4/mpich/3.2-dbg.lua",
@@ -1183,7 +1183,7 @@ spiderT = {
       },
     },
   },
-  ["ProjectDIR/rt/modulerc/mf6"]  = {
+  ["ProjectDIR/rt/modulerc/mf6"] = {
     java = {
       defaultA = {
         {
@@ -1207,7 +1207,7 @@ spiderT = {
       },
       dirT = {},
       fileT = {
-        ["java/1.8.0-A"]  = {
+        ["java/1.8.0-A"] = {
           ["Version"] = "1.8.0-A",
           ["canonical"] = "1.8.0-A",
           ["fn"] = "ProjectDIR/rt/modulerc/mf6/java/1.8.0-A.lua",
@@ -1219,7 +1219,7 @@ spiderT = {
       },
     },
   },
-  ["ProjectDIR/rt/modulerc/mf7"]  = {
+  ["ProjectDIR/rt/modulerc/mf7"] = {
     java = {
       defaultA = {
         {
@@ -1243,7 +1243,7 @@ spiderT = {
       },
       dirT = {},
       fileT = {
-        ["java/1.8.0-B"]  = {
+        ["java/1.8.0-B"] = {
           ["Version"] = "1.8.0-B",
           ["canonical"] = "1.8.0-B",
           ["fn"] = "ProjectDIR/rt/modulerc/mf7/java/1.8.0-B.lua",

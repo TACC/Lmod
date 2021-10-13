@@ -16,13 +16,13 @@ mrcT = {
 }
 mrcMpathT = {}
 spiderT = {
-  ["ProjectDIR/rt/rmap/mf/Compiler/intel/13.1"]  = {
+  ["ProjectDIR/rt/rmap/mf/Compiler/intel/13.1"] = {
     impi = {
       defaultA = {},
       defaultT = {},
       dirT = {},
       fileT = {
-        ["impi/4.1"]  = {
+        ["impi/4.1"] = {
           ["Version"] = "4.1",
           ["canonical"] = "4.1",
           ["family"] = "MPI",
@@ -41,13 +41,13 @@ spiderT = {
       },
     },
   },
-  ["ProjectDIR/rt/rmap/mf/Compiler/intel/14.0"]  = {
+  ["ProjectDIR/rt/rmap/mf/Compiler/intel/14.0"] = {
     impi = {
       defaultA = {},
       defaultT = {},
       dirT = {},
       fileT = {
-        ["impi/4.1"]  = {
+        ["impi/4.1"] = {
           ["Version"] = "4.1",
           ["canonical"] = "4.1",
           ["family"] = "MPI",
@@ -66,13 +66,13 @@ spiderT = {
       },
     },
   },
-  ["ProjectDIR/rt/rmap/mf/Core"]  = {
+  ["ProjectDIR/rt/rmap/mf/Core"] = {
     intel = {
       defaultA = {},
       defaultT = {},
       dirT = {},
       fileT = {
-        ["intel/13.1"]  = {
+        ["intel/13.1"] = {
           ["Version"] = "13.1",
           ["canonical"] = "13.1",
           ["family"] = "compiler",
@@ -88,7 +88,7 @@ spiderT = {
           },
           ["wV"] = "000000013.000000001.*zfinal",
         },
-        ["intel/14.0.1"]  = {
+        ["intel/14.0.1"] = {
           ["Version"] = "14.0.1",
           ["canonical"] = "14.0.1",
           ["family"] = "compiler",
@@ -111,7 +111,7 @@ spiderT = {
       defaultT = {},
       dirT = {},
       fileT = {
-        ["symlink/1.0"]  = {
+        ["symlink/1.0"] = {
           ["Version"] = "1.0",
           ["canonical"] = "1.0",
           ["fn"] = "ProjectDIR/rt/rmap/mf/Core/symlink/1.0.lua",
@@ -129,16 +129,16 @@ spiderT = {
   ["version"] = 5,
 }
 mpathMapT = {
-  ["ProjectDIR/rt/rmap/mf/Compiler/intel/13.1"]  = {
+  ["ProjectDIR/rt/rmap/mf/Compiler/intel/13.1"] = {
     ["intel/13.1"] = "ProjectDIR/rt/rmap/mf/Core",
   },
-  ["ProjectDIR/rt/rmap/mf/Compiler/intel/14.0"]  = {
+  ["ProjectDIR/rt/rmap/mf/Compiler/intel/14.0"] = {
     ["intel/14.0.1"] = "ProjectDIR/rt/rmap/mf/Core",
   },
-  ["ProjectDIR/rt/rmap/mf/MPI/intel/13.1/impi/4.1"]  = {
+  ["ProjectDIR/rt/rmap/mf/MPI/intel/13.1/impi/4.1"] = {
     ["impi/4.1"] = "ProjectDIR/rt/rmap/mf/Compiler/intel/13.1",
   },
-  ["ProjectDIR/rt/rmap/mf/MPI/intel/14.0/impi/4.1"]  = {
+  ["ProjectDIR/rt/rmap/mf/MPI/intel/14.0/impi/4.1"] = {
     ["impi/4.1"] = "ProjectDIR/rt/rmap/mf/Compiler/intel/14.0",
   },
 }
@@ -151,7 +151,7 @@ timestampFn = {
 }
 dbT = {
   impi = {
-    ["ProjectDIR/rt/rmap/mf/Compiler/intel/13.1/impi/4.1.lua"]  = {
+    ["ProjectDIR/rt/rmap/mf/Compiler/intel/13.1/impi/4.1.lua"] = {
       ["Version"] = "4.1",
       ["family"] = "MPI",
       ["fullName"] = "impi/4.1",
@@ -170,7 +170,7 @@ dbT = {
       },
       ["wV"] = "000000004.000000001.*zfinal",
     },
-    ["ProjectDIR/rt/rmap/mf/Compiler/intel/14.0/impi/4.1.lua"]  = {
+    ["ProjectDIR/rt/rmap/mf/Compiler/intel/14.0/impi/4.1.lua"] = {
       ["Version"] = "4.1",
       ["family"] = "MPI",
       ["fullName"] = "impi/4.1",
@@ -191,7 +191,7 @@ dbT = {
     },
   },
   intel = {
-    ["ProjectDIR/rt/rmap/mf/Core/intel/13.1.lua"]  = {
+    ["ProjectDIR/rt/rmap/mf/Core/intel/13.1.lua"] = {
       ["Version"] = "13.1",
       ["family"] = "compiler",
       ["fullName"] = "intel/13.1",
@@ -205,7 +205,7 @@ dbT = {
       },
       ["wV"] = "000000013.000000001.*zfinal",
     },
-    ["ProjectDIR/rt/rmap/mf/Core/intel/14.0.1.lua"]  = {
+    ["ProjectDIR/rt/rmap/mf/Core/intel/14.0.1.lua"] = {
       ["Version"] = "14.0.1",
       ["family"] = "compiler",
       ["fullName"] = "intel/14.0.1",
@@ -221,7 +221,7 @@ dbT = {
     },
   },
   symlink = {
-    ["ProjectDIR/rt/rmap/mf/Core/symlink/1.0.lua"]  = {
+    ["ProjectDIR/rt/rmap/mf/Core/symlink/1.0.lua"] = {
       ["Version"] = "1.0",
       ["fullName"] = "symlink/1.0",
       ["hidden"] = false,
@@ -242,7 +242,7 @@ timestampFn = {
   false,
 }
 reverseMapT = {
-  ["ProjectDIR/rt/rmap/apps/intel-13_1/impi/4.1/bin"]  = {
+  ["ProjectDIR/rt/rmap/apps/intel-13_1/impi/4.1/bin"] = {
     flavor = {
       "default:intel/13.1",
     },
@@ -250,7 +250,7 @@ reverseMapT = {
     ["moduleFn"] = "ProjectDIR/rt/rmap/mf/Compiler/intel/13.1/impi/4.1.lua",
     ["pkg"] = "impi/4.1",
   },
-  ["ProjectDIR/rt/rmap/apps/intel-13_1/impi/4.1/lib"]  = {
+  ["ProjectDIR/rt/rmap/apps/intel-13_1/impi/4.1/lib"] = {
     flavor = {
       "default:intel/13.1",
     },
@@ -258,7 +258,7 @@ reverseMapT = {
     ["moduleFn"] = "ProjectDIR/rt/rmap/mf/Compiler/intel/13.1/impi/4.1.lua",
     ["pkg"] = "impi/4.1",
   },
-  ["ProjectDIR/rt/rmap/apps/intel/13.1/bin"]  = {
+  ["ProjectDIR/rt/rmap/apps/intel/13.1/bin"] = {
     flavor = {
       "default",
     },
@@ -266,7 +266,7 @@ reverseMapT = {
     ["moduleFn"] = "ProjectDIR/rt/rmap/mf/Core/intel/13.1.lua",
     ["pkg"] = "intel/13.1",
   },
-  ["ProjectDIR/rt/rmap/apps/intel/13.1/lib"]  = {
+  ["ProjectDIR/rt/rmap/apps/intel/13.1/lib"] = {
     flavor = {
       "default",
     },
@@ -274,7 +274,7 @@ reverseMapT = {
     ["moduleFn"] = "ProjectDIR/rt/rmap/mf/Core/intel/13.1.lua",
     ["pkg"] = "intel/13.1",
   },
-  ["ProjectDIR/rt/rmap/apps/intel/14.0.1/bin"]  = {
+  ["ProjectDIR/rt/rmap/apps/intel/14.0.1/bin"] = {
     flavor = {
       "default",
     },
@@ -282,7 +282,7 @@ reverseMapT = {
     ["moduleFn"] = "ProjectDIR/rt/rmap/mf/Core/intel/14.0.1.lua",
     ["pkg"] = "intel/14.0.1",
   },
-  ["ProjectDIR/rt/rmap/apps/intel/14.0.1/lib"]  = {
+  ["ProjectDIR/rt/rmap/apps/intel/14.0.1/lib"] = {
     flavor = {
       "default",
     },
@@ -290,7 +290,7 @@ reverseMapT = {
     ["moduleFn"] = "ProjectDIR/rt/rmap/mf/Core/intel/14.0.1.lua",
     ["pkg"] = "intel/14.0.1",
   },
-  ["OutputDIR/more_apps/bin"]  = {
+  ["OutputDIR/more_apps/bin"] = {
     flavor = {
       "default",
     },
@@ -298,7 +298,7 @@ reverseMapT = {
     ["moduleFn"] = "ProjectDIR/rt/rmap/mf/Core/symlink/1.0.lua",
     ["pkg"] = "symlink/1.0",
   },
-  ["OutputDIR/my_bin"]  = {
+  ["OutputDIR/my_bin"] = {
     flavor = {
       "default",
     },
@@ -332,13 +332,13 @@ mrcT = {
 }
 mrcMpathT = {}
 spiderT = {
-  ["ProjectDIR/rt/rmap/mf/2Compiler/intel/14.0"]  = {
+  ["ProjectDIR/rt/rmap/mf/2Compiler/intel/14.0"] = {
     impi = {
       defaultA = {},
       defaultT = {},
       dirT = {},
       fileT = {
-        ["impi/4.1"]  = {
+        ["impi/4.1"] = {
           ["Version"] = "4.1",
           ["canonical"] = "4.1",
           ["family"] = "MPI",
@@ -357,13 +357,13 @@ spiderT = {
       },
     },
   },
-  ["ProjectDIR/rt/rmap/mf/2Core"]  = {
+  ["ProjectDIR/rt/rmap/mf/2Core"] = {
     intel = {
       defaultA = {},
       defaultT = {},
       dirT = {},
       fileT = {
-        ["intel/14.0.1"]  = {
+        ["intel/14.0.1"] = {
           ["Version"] = "14.0.1",
           ["canonical"] = "14.0.1",
           ["family"] = "compiler",
@@ -382,13 +382,13 @@ spiderT = {
       },
     },
   },
-  ["ProjectDIR/rt/rmap/mf/2MPI/intel/14.0/impi/4.1"]  = {
+  ["ProjectDIR/rt/rmap/mf/2MPI/intel/14.0/impi/4.1"] = {
     paraview = {
       defaultA = {},
       defaultT = {},
       dirT = {},
       fileT = {
-        ["paraview/5.6"]  = {
+        ["paraview/5.6"] = {
           ["Version"] = "5.6",
           ["canonical"] = "5.6",
           ["fn"] = "ProjectDIR/rt/rmap/mf/2MPI/intel/14.0/impi/4.1/paraview/5.6.lua",
@@ -403,10 +403,10 @@ spiderT = {
   ["version"] = 5,
 }
 mpathMapT = {
-  ["ProjectDIR/rt/rmap/mf/2Compiler/intel/14.0"]  = {
+  ["ProjectDIR/rt/rmap/mf/2Compiler/intel/14.0"] = {
     ["intel/14.0.1"] = "ProjectDIR/rt/rmap/mf/2Core",
   },
-  ["ProjectDIR/rt/rmap/mf/2MPI/intel/14.0/impi/4.1"]  = {
+  ["ProjectDIR/rt/rmap/mf/2MPI/intel/14.0/impi/4.1"] = {
     ["impi/4.1"] = "ProjectDIR/rt/rmap/mf/2Compiler/intel/14.0",
   },
 }
@@ -419,7 +419,7 @@ timestampFn = {
 }
 dbT = {
   impi = {
-    ["ProjectDIR/rt/rmap/mf/2Compiler/intel/14.0/impi/4.1.lua"]  = {
+    ["ProjectDIR/rt/rmap/mf/2Compiler/intel/14.0/impi/4.1.lua"] = {
       ["Version"] = "4.1",
       ["family"] = "MPI",
       ["fullName"] = "impi/4.1",
@@ -440,7 +440,7 @@ dbT = {
     },
   },
   intel = {
-    ["ProjectDIR/rt/rmap/mf/2Core/intel/14.0.1.lua"]  = {
+    ["ProjectDIR/rt/rmap/mf/2Core/intel/14.0.1.lua"] = {
       ["Version"] = "14.0.1",
       ["family"] = "compiler",
       ["fullName"] = "intel/14.0.1",
@@ -456,7 +456,7 @@ dbT = {
     },
   },
   paraview = {
-    ["ProjectDIR/rt/rmap/mf/2MPI/intel/14.0/impi/4.1/paraview/5.6.lua"]  = {
+    ["ProjectDIR/rt/rmap/mf/2MPI/intel/14.0/impi/4.1/paraview/5.6.lua"] = {
       ["Version"] = "5.6",
       ["fullName"] = "paraview/5.6",
       ["hidden"] = false,
@@ -485,13 +485,13 @@ mrcT = {
 }
 mrcMpathT = {}
 spiderT = {
-  ["ProjectDIR/rt/rmap/mf/2Compiler/intel/14.0"]  = {
+  ["ProjectDIR/rt/rmap/mf/2Compiler/intel/14.0"] = {
     impi = {
       defaultA = {},
       defaultT = {},
       dirT = {},
       fileT = {
-        ["impi/4.1"]  = {
+        ["impi/4.1"] = {
           ["Version"] = "4.1",
           ["canonical"] = "4.1",
           ["family"] = "MPI",
@@ -510,13 +510,13 @@ spiderT = {
       },
     },
   },
-  ["ProjectDIR/rt/rmap/mf/2Core"]  = {
+  ["ProjectDIR/rt/rmap/mf/2Core"] = {
     intel = {
       defaultA = {},
       defaultT = {},
       dirT = {},
       fileT = {
-        ["intel/14.0.1"]  = {
+        ["intel/14.0.1"] = {
           ["Version"] = "14.0.1",
           ["canonical"] = "14.0.1",
           ["family"] = "compiler",
@@ -535,13 +535,13 @@ spiderT = {
       },
     },
   },
-  ["ProjectDIR/rt/rmap/mf/2MPI/intel/14.0/impi/4.1"]  = {
+  ["ProjectDIR/rt/rmap/mf/2MPI/intel/14.0/impi/4.1"] = {
     paraview = {
       defaultA = {},
       defaultT = {},
       dirT = {},
       fileT = {
-        ["paraview/5.6"]  = {
+        ["paraview/5.6"] = {
           ["Version"] = "5.6",
           ["canonical"] = "5.6",
           ["fn"] = "ProjectDIR/rt/rmap/mf/2MPI/intel/14.0/impi/4.1/paraview/5.6.lua",
@@ -556,13 +556,13 @@ spiderT = {
   ["version"] = 5,
 }
 mpathMapT = {
-  ["ProjectDIR/rt/rmap/mf/2Compiler/intel/14.0"]  = {
+  ["ProjectDIR/rt/rmap/mf/2Compiler/intel/14.0"] = {
     ["intel/14.0.1"] = "ProjectDIR/rt/rmap/mf/2Core",
   },
-  ["ProjectDIR/rt/rmap/mf/2Core"]  = {
+  ["ProjectDIR/rt/rmap/mf/2Core"] = {
     ["paraview/5.6"] = "ProjectDIR/rt/rmap/mf/2MPI/intel/14.0/impi/4.1",
   },
-  ["ProjectDIR/rt/rmap/mf/2MPI/intel/14.0/impi/4.1"]  = {
+  ["ProjectDIR/rt/rmap/mf/2MPI/intel/14.0/impi/4.1"] = {
     ["impi/4.1"] = "ProjectDIR/rt/rmap/mf/2Compiler/intel/14.0",
   },
 }
@@ -575,7 +575,7 @@ timestampFn = {
 }
 dbT = {
   impi = {
-    ["ProjectDIR/rt/rmap/mf/2Compiler/intel/14.0/impi/4.1.lua"]  = {
+    ["ProjectDIR/rt/rmap/mf/2Compiler/intel/14.0/impi/4.1.lua"] = {
       ["Version"] = "4.1",
       ["family"] = "MPI",
       ["fullName"] = "impi/4.1",
@@ -592,7 +592,7 @@ dbT = {
     },
   },
   intel = {
-    ["ProjectDIR/rt/rmap/mf/2Core/intel/14.0.1.lua"]  = {
+    ["ProjectDIR/rt/rmap/mf/2Core/intel/14.0.1.lua"] = {
       ["Version"] = "14.0.1",
       ["family"] = "compiler",
       ["fullName"] = "intel/14.0.1",
@@ -609,7 +609,7 @@ dbT = {
     },
   },
   paraview = {
-    ["ProjectDIR/rt/rmap/mf/2MPI/intel/14.0/impi/4.1/paraview/5.6.lua"]  = {
+    ["ProjectDIR/rt/rmap/mf/2MPI/intel/14.0/impi/4.1/paraview/5.6.lua"] = {
       ["Version"] = "5.6",
       ["fullName"] = "paraview/5.6",
       ["hidden"] = false,

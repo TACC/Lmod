@@ -26,7 +26,7 @@ mrcT = {
 }
 mrcMpathT = {}
 spiderT = {
-  ["ProjectDIR/rt/softwarePage/mf"]  = {
+  ["ProjectDIR/rt/softwarePage/mf"] = {
     foo = {
       defaultA = {
         {
@@ -50,7 +50,7 @@ spiderT = {
       },
       dirT = {},
       fileT = {
-        ["foo/.2.0"]  = {
+        ["foo/.2.0"] = {
           ["Category"] = "foo",
           ["Description"] = "foo description",
           ["Version"] = "1.0",
@@ -66,7 +66,7 @@ spiderT = {
             "Description: foo description", "Version: 1.0", "Category: foo",
           },
         },
-        ["foo/.modulerc.1.0"]  = {
+        ["foo/.modulerc.1.0"] = {
           ["Version"] = ".modulerc.1.0",
           ["canonical"] = ".modulerc.1.0",
           ["dot_version"] = 1,
@@ -76,7 +76,7 @@ spiderT = {
           ["pV"] = "*modulerc.000000001.*zfinal",
           ["wV"] = "*modulerc.000000001.*zfinal",
         },
-        ["foo/.pkginfo"]  = {
+        ["foo/.pkginfo"] = {
           ["Version"] = ".pkginfo",
           ["canonical"] = ".pkginfo",
           ["fn"] = "ProjectDIR/rt/softwarePage/mf/foo/.pkginfo.lua",
@@ -85,7 +85,7 @@ spiderT = {
           ["pV"] = "*pkginfo.*zfinal",
           ["wV"] = "*pkginfo.*zfinal",
         },
-        ["foo/.version.1.1"]  = {
+        ["foo/.version.1.1"] = {
           ["Version"] = ".version.1.1",
           ["canonical"] = ".version.1.1",
           ["dot_version"] = 1,
@@ -94,7 +94,7 @@ spiderT = {
           ["pV"] = "*version.000000001.000000001.*zfinal",
           ["wV"] = "*version.000000001.000000001.*zfinal",
         },
-        ["foo/1.0"]  = {
+        ["foo/1.0"] = {
           ["Category"] = "foo",
           ["Description"] = "foo description",
           ["Version"] = "1.0",
@@ -115,7 +115,7 @@ spiderT = {
             "Description: foo description", "Version: 1.0", "Category: foo",
           },
         },
-        ["foo/1.1"]  = {
+        ["foo/1.1"] = {
           ["Category"] = "foo",
           ["Description"] = "foo description",
           ["Version"] = "1.1",
@@ -136,7 +136,7 @@ spiderT = {
             "Description: foo description", "Version: 1.1", "Category: foo",
           },
         },
-        ["foo/1.3"]  = {
+        ["foo/1.3"] = {
           ["Category"] = "system ",
           ["Description"] = "This is a descript ",
           ["Name"] = "foo ",
@@ -174,7 +174,7 @@ timestampFn = {
 }
 dbT = {
   foo = {
-    ["ProjectDIR/rt/softwarePage/mf/foo/.2.0.lua"]  = {
+    ["ProjectDIR/rt/softwarePage/mf/foo/.2.0.lua"] = {
       ["Category"] = "foo",
       ["Description"] = "foo description",
       ["Version"] = "1.0",
@@ -188,14 +188,14 @@ dbT = {
         "Description: foo description", "Version: 1.0", "Category: foo",
       },
     },
-    ["ProjectDIR/rt/softwarePage/mf/foo/.pkginfo.lua"]  = {
+    ["ProjectDIR/rt/softwarePage/mf/foo/.pkginfo.lua"] = {
       ["Version"] = ".pkginfo",
       ["fullName"] = "foo/.pkginfo",
       ["hidden"] = true,
       ["pV"] = "*pkginfo.*zfinal",
       ["wV"] = "*pkginfo.*zfinal",
     },
-    ["ProjectDIR/rt/softwarePage/mf/foo/1.0.lua"]  = {
+    ["ProjectDIR/rt/softwarePage/mf/foo/1.0.lua"] = {
       ["Category"] = "foo",
       ["Description"] = "foo description",
       ["Version"] = "1.0",
@@ -214,7 +214,7 @@ dbT = {
         "Description: foo description", "Version: 1.0", "Category: foo",
       },
     },
-    ["ProjectDIR/rt/softwarePage/mf/foo/1.1.lua"]  = {
+    ["ProjectDIR/rt/softwarePage/mf/foo/1.1.lua"] = {
       ["Category"] = "foo",
       ["Description"] = "foo description",
       ["Version"] = "1.1",
@@ -233,7 +233,7 @@ dbT = {
         "Description: foo description", "Version: 1.1", "Category: foo",
       },
     },
-    ["ProjectDIR/rt/softwarePage/mf/foo/1.3"]  = {
+    ["ProjectDIR/rt/softwarePage/mf/foo/1.3"] = {
       ["Category"] = "system ",
       ["Description"] = "This is a descript ",
       ["Version"] = "1.3 ",
