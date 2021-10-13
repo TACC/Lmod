@@ -81,13 +81,17 @@ _ModuleTable_ = {
       ["fn"] = "ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",
       ["fullName"] = "wrapperSh/1.0",
       ["loadOrder"] = 1,
-      mcmdA = {
-        "prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")", "append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")", "setenv(\"TST_SCRIPT\",\"1\")", "set_alias(\"fooAlias\",\"foobin -q -l\")", [[set_shell_function("fooFunc"," \\
+      mcmdT = {
+        ["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"]  = {
+          "prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")", "append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")", "setenv(\"TST_SCRIPT\",\"1\")", "set_alias(\"fooAlias\",\"foobin -q -l\")", [[set_shell_function("fooFunc"," \\
     echo \\"arg1: $1\\"\\
 ","")]],
+        },
       },
-      mcmdA_64 = {
-        "cHJlcGVuZF9wYXRoKCJQQVRIIiwiL1VzZXJzL21jbGF5L3cvbG1vZC9ydC9zaF90b19tb2R1bGVmaWxlL2JpbiIp", "YXBwZW5kX3BhdGgoIlBBVEgiLCIvVXNlcnMvbWNsYXkvdy9sbW9kL3J0L3NoX3RvX21vZHVsZWZpbGUvc2JpbiIp", "c2V0ZW52KCJUU1RfU0NSSVBUIiwiMSIp", "c2V0X2FsaWFzKCJmb29BbGlhcyIsImZvb2JpbiAtcSAtbCIp", "c2V0X3NoZWxsX2Z1bmN0aW9uKCJmb29GdW5jIiwiIFwKICAgIGVjaG8gXCJhcmcxOiAkMVwiXAoiLCIiKQ==",
+      mcmdT_64 = {
+        ["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"]  = {
+          "cHJlcGVuZF9wYXRoKCJQQVRIIiwiL1VzZXJzL21jbGF5L3cvbG1vZC9ydC9zaF90b19tb2R1bGVmaWxlL2JpbiIp", "YXBwZW5kX3BhdGgoIlBBVEgiLCIvVXNlcnMvbWNsYXkvdy9sbW9kL3J0L3NoX3RvX21vZHVsZWZpbGUvc2JpbiIp", "c2V0ZW52KCJUU1RfU0NSSVBUIiwiMSIp", "c2V0X2FsaWFzKCJmb29BbGlhcyIsImZvb2JpbiAtcSAtbCIp", "c2V0X3NoZWxsX2Z1bmN0aW9uKCJmb29GdW5jIiwiIFwKICAgIGVjaG8gXCJhcmcxOiAkMVwiXAoiLCIiKQ==",
+        },
       },
       propT = {},
       ["stackDepth"] = 0,

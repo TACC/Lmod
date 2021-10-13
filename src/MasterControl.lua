@@ -1454,10 +1454,10 @@ function M.source_sh(self, shellName, script)
    local mt           = frameStk:mt()
    local convertSh2MF = require("convertSh2MF")
 
-   local mcmdA        = mt:get_sh2mf_cmds(sn)
+   local mcmdA        = mt:get_sh2mf_cmds(sn, script)
    if (mcmdA == nil) then
       mcmdA = convertSh2MF(shellName, "lua", script)
-      mt:add_sh2mf_cmds(sn, mcmdA)
+      mt:add_sh2mf_cmds(sn, script, mcmdA)
    end
  
    local whole = concatTbl(mcmdA,"\n")
@@ -1474,7 +1474,7 @@ function M.un_source_sh(self, shellName, script)
    local frameStk    = FrameStk:singleton()
    local sn          = frameStk:sn()
    local mt          = frameStk:mt()
-   local mcmdA       = mt:get_sh2mf_cmds(sn)
+   local mcmdA       = mt:get_sh2mf_cmds(sn, script)
    local whole       = concatTbl(mcmdA,"\n")
    dbg.print{"whole:\n ",whole,"\n"}
    local status, msg = sandbox_run(whole)

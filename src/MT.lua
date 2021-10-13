@@ -292,22 +292,27 @@ function M.reset_MPATH_change_flag(self)
 end
 
 
-function M.add_sh2mf_cmds(self, sn, mcmdA)
+function M.add_sh2mf_cmds(self, sn, fn, mcmdA)
    local entry = self.mT[sn]
    if (entry ~= nil) then
       local a64 = {}
       for i =1, #mcmdA do
          a64[i] = encode64(mcmdA[i]) --:doubleQuoteString())
       end
-      entry.mcmdA_64 = a64
+      if (entry.mcmdT_64 == nil) then
+         entry.mcmdT_64 = {}
+      end
+      entry.mcmdT_64[fn] = a64
    end
 end
 
-function M.get_sh2mf_cmds(self, sn)
+function M.get_sh2mf_cmds(self, sn, fn)
    local entry = self.mT[sn]
-   if (entry ~= nil and entry.mcmdA_64 ~= nil) then
+   if (entry ~= nil and entry.mcmdT_64  ~= nil
+          and next(entry.mcmdT_64)      ~= nil
+          and entry.mcmdT_64[fn]        ~= nil ) then
       local a   = {}
-      local a64 = entry.mcmdA_64
+      local a64 = entry.mcmdT_64[fn]
       for i = 1,#a64 do
          a[i] = decode64(a64[i])
       end
@@ -377,13 +382,17 @@ function M.serializeTbl(self, state)
    if (pretty) then
       local mT = mt.mT
       for sn, v in pairs(mT) do
-         local mcmdA_64 = mT[sn].mcmdA_64 
-         if (mcmdA_64 and next(mcmdA_64) ~= nil) then
-            local a = {}
-            for i = 1,#mcmdA_64 do
-               a[i] = decode64(mcmdA_64[i])
+         local mcmdT_64 = mT[sn].mcmdT_64 
+         if (mcmdT_64 and next(mcmdT_64) ~= nil) then
+            local t = {}
+            for fn, mcmdA_64 in pairsByKeys(mcmdT_64) do
+               local a = {}
+               for i = 1,#mcmdA_64 do
+                  a[i] = decode64(mcmdA_64[i])
+               end
+               t[fn] = a
             end
-            mT[sn].mcmdA = a
+            mT[sn].mcmdT = t
          end
       end
    end

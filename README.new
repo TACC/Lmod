@@ -41,5 +41,4 @@ W.I.P:
    (8.5.19) * Added support for sh_to_modulefile to support zsh, ksh,
               bash and tcsh with aliases and shell functions
             * Added prelim support for source_sh
-            
-   
+            * Now support more than one shell script per modulefile            
