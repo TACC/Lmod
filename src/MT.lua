@@ -153,6 +153,12 @@ local function new(self, s, restoreFn)
       end
    end
 
+   -- remove any mcmdT connected to a mT entry
+   local mT = o.mT
+   for sn, entry in pairs(mT) do
+      entry.mcmdT = nil
+   end
+
    local icount = 0
    for k in pairs(o.mT) do
       icount = icount + 1
