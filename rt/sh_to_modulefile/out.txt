@@ -138,3 +138,8 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 unalias fooAlias 2> /dev/null || true;
 unset -f fooFunc 2> /dev/null || true;
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load brokenSh/1.0
+===========================
+false

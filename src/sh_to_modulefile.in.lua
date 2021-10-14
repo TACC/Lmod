@@ -239,13 +239,20 @@ function main()
       dbg:activateDebug(masterTbl.debug)
    end
 
+   build_i18n_messages()
    if (masterTbl.cleanEnv) then
       l_cleanEnv()
    end
 
    local shellName = masterTbl.inStyle:lower()
 
-   local a = convertSh2MF(shellName, masterTbl.style, script)
+   local success, msg, a = convertSh2MF(shellName, masterTbl.style, script)
+   if (not success) then
+      io.stderr:write(msg,"\n")
+      os.exit(1)
+   end
+
+
    local s = concatTbl(a,"\n")
 
    if (masterTbl.outFn) then
@@ -263,7 +270,7 @@ function main()
 end
 
 function usage()
-   return "Usage: sh_to_modulefile [options] bash_shell_script [script_options]"
+   return "Usage: $LMOD_DIR/sh_to_modulefile [options] bash_shell_script [script_options]"
 end
 
 

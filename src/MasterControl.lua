@@ -1455,8 +1455,11 @@ function M.source_sh(self, shellName, script)
    local convertSh2MF = require("convertSh2MF")
 
    local mcmdA        = mt:get_sh2mf_cmds(sn, script)
+   local success
+   local msg
    if (mcmdA == nil) then
-      mcmdA = convertSh2MF(shellName, "lua", script)
+      success, msg, mcmdA = convertSh2MF(shellName, "lua", script)
+      if (not success) then LmodError(msg) end
       mt:add_sh2mf_cmds(sn, script, mcmdA)
    end
  

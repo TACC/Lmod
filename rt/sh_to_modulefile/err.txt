@@ -28,7 +28,7 @@ lua ProjectDIR/src/sh_to_modulefile.in.lua --from ksh ProjectDIR/rt/sh_to_module
 step 7
 lua ProjectDIR/src/sh_to_modulefile.in.lua ProjectDIR/rt/sh_to_modulefile/broken.sh
 ===========================
-Error in script:
+Error in script "ProjectDIR/rt/sh_to_modulefile/broken.sh":
 ProjectDIR/rt/sh_to_modulefile/broken.sh: line 3: fooBar: command not found
 ===========================
 step 8
@@ -104,3 +104,12 @@ _ModuleTable_ = {
 step 13
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload wrapperSh/1.0
 ===========================
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load brokenSh/1.0
+===========================
+Lmod has detected the following error: Error in script "ProjectDIR/rt/sh_to_modulefile/broken.sh":
+ProjectDIR/rt/sh_to_modulefile/broken.sh: line 3: fooBar: command not found
+While processing the following module(s):
+    Module fullname  Module Filename
+    brokenSh/1.0     ProjectDIR/rt/sh_to_modulefile/mf/brokenSh/1.0.lua
