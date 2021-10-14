@@ -404,7 +404,7 @@ function M.serializeTbl(self, state)
             end
             mT[sn].mcmdT = t
             if (rTest) then
-               mcmdT_64 = nil
+               mT[sn].mcmdT_64 = nil
             end
          end
       end
