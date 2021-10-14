@@ -104,13 +104,13 @@ end
 
 
 _ModuleTable_ = false
-function removeUnwantedFields(s)
+function fixMT(s)
    if (s == nil) then return "" end
    local func, msg = load(s)
    if (func) then
       func()
    else
-      io.stderr:write("Found syntax error: ",msg,"\n")
+      io.stderr:write("joinBase64Results:fixMT:Found syntax error: ",msg,"\n")
       io.stderr:write(s,"\n")
       return ""
    end
@@ -122,6 +122,27 @@ function removeUnwantedFields(s)
          mt[k] = nil
       end
    end
+
+   local mT = mt.mT
+   for sn, v in pairs(mT) do
+      local mcmdT_64 = mT[sn].mcmdT_64 
+      if (mcmdT_64 and next(mcmdT_64) ~= nil) then
+         local t = {}
+         for script64, mcmdA_64 in pairsByKeys(mcmdT_64) do
+            local a = {}
+            for i = 1,#mcmdA_64 do
+               a[i] = decode64(mcmdA_64[i])
+            end
+            local script = decode64(script64)
+            t[script] = a
+         end
+         mT[sn].mcmdT    = t
+         mT[sn].mcmdT_64 = nil
+      end
+   end
+
+
+
    local s = serializeTbl{indent=false, name=s_name, value=mt}
    return s:gsub("[ \n]","")
 end
@@ -130,12 +151,12 @@ function sectionEnd(sType,A, a1, a2, a3)
    local b = {}
    if (#a2 > 0) then
       if (sType == "bash") then
-         b[1] = s_name .."='" .. removeUnwantedFields(decode64(table.concat(a2,""))) .. "';"
+         b[1] = s_name .."='" .. fixMT(decode64(table.concat(a2,""))) .. "';"
          b[2] = "export ".. s_name ..";"
       elseif (sType == "csh") then
-         b[1] = "setenv " .. s_name .. " '" .. removeUnwantedFields(decode64(table.concat(a2,""))) .. "';"
+         b[1] = "setenv " .. s_name .. " '" .. fixMT(decode64(table.concat(a2,""))) .. "';"
       elseif (sType == "fish") then
-         b[1] = "set -x -g " .. s_name .. " '" .. removeUnwantedFields(decode64(table.concat(a2,""))) .. "';"
+         b[1] = "set -x -g " .. s_name .. " '" .. fixMT(decode64(table.concat(a2,""))) .. "';"
       end
    end
    joinArrays(A, a1, b, a3)
