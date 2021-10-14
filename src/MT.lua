@@ -381,7 +381,8 @@ end
 function M.serializeTbl(self, state)
    local pretty = (state == "pretty")
    local mt     = deepcopy(self)
-   if (masterTbl().rt) then
+   local rTest  = masterTbl().rt
+   if (rTest) then
       mt.c_rebuildTime = false
       mt.c_shortTime   = false
    end
@@ -402,6 +403,9 @@ function M.serializeTbl(self, state)
                t[script] = a
             end
             mT[sn].mcmdT = t
+            if (rTest) then
+               mcmdT_64 = nil
+            end
          end
       end
    end
