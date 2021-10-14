@@ -379,7 +379,7 @@ local function setLoadOrder(self)
 end
 
 function M.serializeTbl(self, state)
-   local pretty = (state == "pretty")
+   local make_pretty = (state == "pretty")
    local mt     = deepcopy(self)
    local rTest  = masterTbl().rt
    if (rTest) then
@@ -388,7 +388,7 @@ function M.serializeTbl(self, state)
    end
    setLoadOrder(mt)
 
-   if (pretty) then
+   if (make_pretty)  then
       local mT = mt.mT
       for sn, v in pairs(mT) do
          local mcmdT_64 = mT[sn].mcmdT_64 
@@ -410,7 +410,7 @@ function M.serializeTbl(self, state)
       end
    end
 
-   local s = serializeTbl{indent = pretty, name = self.name(), value = mt}
+   local s = serializeTbl{indent = make_pretty, name = self.name(), value = mt}
    return s
 end
 
