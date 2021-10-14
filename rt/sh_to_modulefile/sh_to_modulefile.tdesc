@@ -35,6 +35,8 @@ testdescript = {
      runLmod  list                                     #11
      runLmod  --mt                                     #12
      runLmod  unload wrapperSh/1.0                     #13
+     runLmod  load   brokenSh/1.0                      #14
+
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

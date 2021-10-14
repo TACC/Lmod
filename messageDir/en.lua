@@ -173,6 +173,8 @@ Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOS
    $ module spider %{sn}
 
 for available versions.]==],
+     e_Sh_Error            = "Error in script \"%{script}\": %{errorMsg}",
+     e_Sh_convertSh2MF     = "convertSh2MF script failed to produce 7 blocks\n",
      e_Spdr_Timeout        = "Spider search timed out.\n",
      e_Swap_Failed         = "Swap failed: \"%{name}\" is not loaded.\n",
      e_Unable_2_Load       = "Unable to load module because of error when evaluating modulefile: %{name}\n     %{fn}: %{message}\n     Please check the modulefile and especially if there is a line number specified in the above message",
@@ -185,6 +187,7 @@ for available versions.]==],
      e_missing_table       = "sandbox_registration: The argument passed is: \"%{kind}\". It should be a table.",
      e_setStandardPaths    = "Unknown Key: \"%{key}\" in setStandardPaths.\n",
 
+     
      --------------------------------------------------------------------------
      -- LmodMessages
      --------------------------------------------------------------------------

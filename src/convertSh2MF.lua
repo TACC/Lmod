@@ -5,6 +5,7 @@ require("fileOps")
 MF_Base            = require("MF_Base")
 local concatTbl    = table.concat
 local dbg          = require("Dbg"):dbg()
+local i18n         = require("i18n")
 local replaceStr   = require("replaceStr")
 
 local validShellT =
@@ -160,14 +161,18 @@ local function convertSh2MF(shellName, style, script)
       output  = output:sub(endIdx+1,-1)
    end
 
+   local success = true
+
    if (not status) then
-      io.stderr:write("Error in script:",blkA[4],"\n")
-      os.exit(-1)
+      success = false
+      local msg = i18n("e_Sh_Error",{script=script,errorMsg=blkA[4]})
+      return success, msg, {}
    end
 
    if (#blkA ~= 7) then
-      io.stderr:write("convertSh2MF script failed to produce 7 blocks\n")
-      os.exit(-1)
+      success = false
+      local msg = i18n("e_Sh_convertSh2MF",{})
+      return success, msg, {}
    end
       
 
@@ -186,7 +191,7 @@ local function convertSh2MF(shellName, style, script)
    
    local factory = MF_Base.build(style)
 
-   return factory:process(shellName, ignoreT, resultT)
+   return success, "", factory:process(shellName, ignoreT, resultT)
 end
 
 return convertSh2MF
