@@ -63,7 +63,7 @@ return {
 
    Any module command can be given after ml:
 
-   if name is a subcommand like avail, save, restore, show, swap,...
+   if name is a subcommand like avail, save, load, restore, show, swap,...
        $ ml name  arg1 arg2 ...
 
    All options must go before the subcommand:
@@ -72,8 +72,6 @@ return {
    Then this is the same :
        $ module name arg1 arg2 ...
 
-   In other words you can not load a module named: show swap etc.
-
    Shorthand:
    ----------
        ml r  -> ml restore
@@ -81,20 +79,13 @@ return {
        ml sl -> ml savelist
        ml sw -> ml swap
    
-   Loading Modules named "r" or "spider"
-   -------------------------------------
+   Loading Modules named "r" or "spider" or other module commands
+   --------------------------------------------------------------
 
    Any modules named "r" or any other module commands must be loaded like this:
 
       ml load r
       ml load spider
-
-   Loading modules same as commands:
-   ---------------------------------
-
-      If you want to load a module that has the same name then for example for "spider":
-
-         ml load spider  # instead ml spider
 ]==],
      ml_opt                = [==[Option: "%{v}" is unknown.
   Try ml --help for usage.
