@@ -81,6 +81,14 @@ return {
        ml sl -> ml savelist
        ml sw -> ml swap
    
+   Loading Modules named "r" or "spider"
+   -------------------------------------
+
+   Any modules named "r" or any other module commands must be loaded like this:
+
+      ml load r
+      ml load spider
+
    Loading modules same as commands:
    ---------------------------------
 

@@ -16,7 +16,6 @@ local validShellT =
       dash = "sh",
       bash = "bash",
       zsh  = "zsh",
-      fish = "fish",
       ksh  = "ksh",
    }
 
@@ -26,6 +25,7 @@ local shellTemplateT =
       bash = { args = "--noprofile -norc -c", flgErr = "set -e;",         source = ".",      redirect = "2>&1",           alias = "alias", funcs = "declare -f" },
       ksh  = { args = "-c",                   flgErr = "set -e;",         source = ".",      redirect = "2>&1",           alias = "alias", funcs = "typeset +f | while read f; do typeset -f ${f%\\(\\)}; echo; done" },
       zsh  = { args = "-f -c",                flgErr = "setopt errexit;", source = ".",      redirect = "2>&1",           alias = "alias", funcs = "declare -f" },
+      sh   = { args = "-c",                   flgErr = "set -e;",         source = ".",      redirect = "2>&1",           alias = "alias", funcs = "" },
    }
 
 local ignoreA = {
