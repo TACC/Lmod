@@ -3,11 +3,8 @@
 Converting shell scripts to modulefiles
 =======================================
 
-As it is stated in :ref:`faq-label`, site should convert a shell
-script into a modulefile.  This way the environment initialization can
-be reversed when the module unloaded.  Lmod provides a script called
-*sh_to_modulefile* which will convert a script to a modulefile.  An
-example is::
+Lmod provides a script called *sh_to_modulefile* which will convert a
+script to a modulefile.  An example is::
 
     % $LMOD_DIR/sh_to_modulefile  ./foo.sh > foo_1.0.lua
 
@@ -31,5 +28,10 @@ the script.  The program then compares the initial environment and
 generate environment.  The output is a report of the environment
 changes.
 
-Note that it doesn't know about any aliases or shell functions that
-the script creates.  They will have to added by hand.
+As of version 8.6, Lmod now tracks changes to shell aliases and shell
+functions and writes them to the generated modulefile.
+
+Converting scripts once with this command is usually best.  However,
+some scripts depend on dynamic environment variable that change
+between users such as the values of $HOME or $USER. In this case, the
+use of the **source_sh** () modulefile function can be helpful.

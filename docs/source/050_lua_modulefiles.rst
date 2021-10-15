@@ -107,6 +107,26 @@ unset during unloading.
      errors will be reported.
 
 
+**source_sh** ("shellName","shell_script arg1 ...")
+     source a shell script as part of a module. Supported shellNames
+     are *sh*, *dash*, *bash*, *zsh*, *csh*, *tcsh*, *ksh*.  When
+     loading, Lmod automatically converts the shell script into module
+     commands and saves the module commands in the environment.  It
+     does this by sourcing the shell script string in a subshell and
+     comparing the environment before and after sourcing the shell
+     script string. When unloading, the saved module commands from the
+     environment are used.
+
+     Note that shell script string must not change between loading and
+     unloading as the full string is used to reference the saved
+     module commands.
+
+     Other shells could be supported with help from the community that
+     uses that shell.  (New in version 8.6) 
+
+     This feature was introduced in Tmod 4.6 and was shamelessly
+     studied and re-implemented in Lmod 8.6+.
+
 **userInGroups** ("group1", "group2", ...):
      Returns true if user is root or a member of one of the groups listed.
 
