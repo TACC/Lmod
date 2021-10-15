@@ -62,7 +62,7 @@ local setenv_posix = posix.setenv
 function main()
    local envT = getenv_posix()
    for k,v in pairs(envT) do
-      if (k:find("%%$") and v:sub(1,2) == "()") then
+      if ((k:find("^BASH_FUNC_.*()$") or k:find("%%$")) and v:sub(1,2) == "()") then
          envT[k] = nil
       end
    end
