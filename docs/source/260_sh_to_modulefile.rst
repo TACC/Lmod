@@ -102,6 +102,14 @@ is important however that this string be the same for both load and
 unload because this string is part of the access method to extract the
 commands from the module table.
 
+Assumptions that Lmod makes about scripts used by **source_sh** ()
+------------------------------------------------------------------
+
+Lmod assumes that these scripts **DO NOT** have module commands or
+change $MODULEPATH.
+
+
+
 Calling the shell script directly inside a modulefile
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

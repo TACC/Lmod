@@ -32,10 +32,11 @@ testdescript = {
      runLmod  show wrapperSh/1.0                       # 8
      runLmod  load wrapperSh/1.0                       # 9
      runLmod  show wrapperSh/1.0                       #10
-     runLmod  list                                     #11
-     runLmod  --mt                                     #12
-     runLmod  unload wrapperSh/1.0                     #13
-     runLmod  load   brokenSh/1.0                      #14
+     runLmod refresh                                   #11
+     runLmod  list                                     #12
+     runLmod  --mt                                     #13
+     runLmod  unload wrapperSh/1.0                     #14
+     runLmod  load   brokenSh/1.0                      #15
 
 
      HOME=$ORIG_HOME
