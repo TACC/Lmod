@@ -1,3 +1,5 @@
 local testDir = os.getenv("testDir")
 local script  = pathJoin(testDir,"tstScript.sh")
 source_sh("bash",script)
+local secondSh = pathJoin(testDir,"second.sh arg1")
+source_sh("bash",secondSh)
