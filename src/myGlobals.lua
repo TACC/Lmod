@@ -332,6 +332,15 @@ cosmic:init{name    = "LMOD_EXTENDED_DEFAULT",
             yn      = "yes"}
 
 ------------------------------------------------------------------------
+-- LMOD_QUARANTINE_VARS: A colon separated list of variable
+--                       that Lmod will not change.  Note
+--                       path like variables are excluded.
+------------------------------------------------------------------------
+
+
+LMOD_QUARANTINE_VARS = getenv("LMOD_QUARANTINE_VARS")
+
+------------------------------------------------------------------------
 -- LMOD_RTM_TESTING: If set then the author is testing Lmod
 ------------------------------------------------------------------------
 LMOD_RTM_TESTING = getenv("LMOD_RTM_TESTING")

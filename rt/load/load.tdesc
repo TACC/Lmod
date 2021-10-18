@@ -94,10 +94,15 @@ testdescript = {
      runLmod load B                                         # 59
      runLmod load B/2.0                                     # 60
      runLmod load tex                                       # 61
+     export LMOD_QUARANTINE_VARS=RTM_A:RTM_B:RTM_C
+     export RTM_A="I like this variable the way it is"
+     export RTM_B="You can't change me"
+     export RTM_B="You are not the boss of me"
+     runLmod load rtmTest                                   # 62
 
      export PATH=$(testDir):$PATH
-     runLmod load MakeSystemCall                            # 62
-     runLmod list                                           # 63
+     runLmod load MakeSystemCall                            # 63
+     runLmod list                                           # 64
 
 
      HOME=$ORIG_HOME
