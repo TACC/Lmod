@@ -190,7 +190,7 @@ How do I use the initializing shell script that comes with this application with
   "shell_script arg1 ...") to source a shell script by automatically
   converting it into module commands. Sites can use
   $LMOD_DIR/sh_to_modulefile to convert the script once.  See
-  :ref:`sh_to_modulefile:label` for details.
+  :ref:`sh_to_modulefile-label` for details.
 
 Why is the output of ``module avail`` not filling the width of the terminal?
 
