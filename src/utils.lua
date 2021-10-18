@@ -971,7 +971,7 @@ local function l_build_quarantineT()
    QuarantineT = {}
    if (LMOD_QUARANTINE_VARS) then
       local qA = path2pathA(LMOD_QUARANTINE_VARS)
-      for i = 1,qA do
+      for i = 1,#qA do
          QuarantineT[qA[i]] = true
       end
    end

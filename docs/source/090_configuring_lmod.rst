@@ -92,6 +92,14 @@ configuration step.
    used but only **LMOD_MODULERCFILE** is used if both are specified.
    See :ref:`modulerc-label` for more details.
 
+**LMOD_QUARANTINE_VARS**:
+   A colon separated list of environment variables that Lmod will not
+   change. Note that only non-path like variable can be added to this
+   list. Having variables like PATH and LD_LIBRARY_PATH  in this list
+   are ignored.  In other words, they can be changed by Lmod. New in
+   Version 8.6+.
+
+
 Configuration time settings that can be overridden by env. vars.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

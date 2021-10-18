@@ -42,4 +42,8 @@ Lmod 8.5+
             * Support for source_sh added.
             * Now support more than one shell script per modulefile            
             * Docs added for source_sh
-            
+W.I.P:
+   (8.5.20) * The command module refresh now correctly handles source_sh()
+            * Added LMOD_QUARANTINE_VARS env. vars.  A list of variables that
+              Lmod won't change.
+              
