@@ -71,6 +71,7 @@ how to have their own personal modules should read the Advanced User Guide.
    015_writing_modules
    040_FAQ
    020_advanced
+   025_new
 
 Installing Lmod
 ^^^^^^^^^^^^^^^

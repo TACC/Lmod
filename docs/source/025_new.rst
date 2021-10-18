@@ -1,0 +1,65 @@
+New Features in Lmod
+====================
+
+**LMOD_QUARANTINE_VARS**:
+
+    This is an environment variable containing a list of environment
+    variables that Lmod will not change the value of.  Note that this
+    only applies to non-path variables.  Variables such as PATH or
+    LD_LIBRARY_PATH are ignored in this variable.  In other words,
+    Lmod could change any path like variables.  New in Lmod 8.6+
+
+**source_sh** ("shellName","shell_script arg1 ..."):
+     source a shell script as part of a module. Supported shellNames
+     are *sh*, *dash*, *bash*, *zsh*, *csh*, *tcsh*, *ksh*.  When
+     loading, Lmod automatically converts the shell script into module
+     commands and saves the module commands in the environment.  It
+     does this by sourcing the shell script string in a subshell and
+     comparing the environment before and after sourcing the shell
+     script string. When unloading, the saved module commands from the
+     environment are used.
+
+     Note that shell script string must not change between loading and
+     unloading as the full string is used to reference the saved
+     module commands.
+
+     Other shells could be supported with help from the community that
+     uses that shell.  (New in version 8.6) 
+
+     This feature was introduced in Tmod 4.6 and was shamelessly
+     studied and re-implemented in Lmod 8.6+.
+
+**module overview**:
+     Similar to **module avail**, this command prints the just
+     module name and not the name and the version.  The number of
+     versions is printed next to the module name:  For example::
+
+        $ module overview
+
+        ------------ /apps/modulefiles/Core -------------
+        StdEnv    (1)   hashrf    (2)   papi        (2)  
+        ddt       (1)   intel     (2)   singularity (2)   
+        git       (1)   noweb     (1)   valgrind    (1)
+
+    New in version 8.5.10+
+
+**LMOD_SITE_MODULEPATH**:
+    An colon separated list of directories to be prepended to
+    $MODULEPATH before the first call to the Lmod command.
+    See :ref:`lmod_site_modulepath-label` for details
+    New in version 8.5.18
+
+**sh_to_modulefile**:
+   New in version 8.6, it now track converts alias and shell functions
+   as well as environment variables into a modulefile.
+
+**extension()**:
+   New in version 8.2.5+, Lmod provides a module function which says
+   that these packages available when this module is loaded.  See
+   :ref:`extensions-label` for details.
+      
+**depends_on()**:
+  A safe way to have one module load another.  See
+  :ref:`dependent_modules-label` for details.  New in version 7.5.12+
+     
+     
