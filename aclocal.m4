@@ -34,6 +34,7 @@ echo "Luac executable............................................." : $PATH_TO_L
 echo "User Controlled Prefix......................................" : $SITE_CONTROLLED_PREFIX
 echo "Prefix......................................................" : $prefix
 echo "Actual Install dir.........................................." : $MY_PACKAGE
+echo "Lmod config dir............................................." : $LMOD_CONFIG_DIR
 echo 
 echo "MODULEPATH_ROOT............................................." : $MODULEPATH_ROOT
 echo "Wait (s) before rebuilding cache............................" : $ANCIENT

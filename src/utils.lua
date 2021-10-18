@@ -56,6 +56,7 @@ local encode64     = base64.encode64
 local floor        = math.floor
 local getenv       = os.getenv
 local huge         = math.huge
+local load         = (_VERSION == "Lua 5.1") and loadstring or load
 local min          = math.min
 local open         = io.open
 local readlink     = posix.readlink
@@ -79,6 +80,48 @@ end
 function __LINE__()
    return debug.getinfo(2, 'l').currentline
 end
+
+------------------------------------------------------------
+-- Initialize Lmod 
+
+function initialize_lmod()
+   -- Push Lmod version into environment
+   setenv_lmod_version()
+
+   ------------------------------------------------------------------------
+   --  The StandardPackage is where Lmod registers hooks.  Sites may
+   --  override the hook functions in SitePackage.
+   ------------------------------------------------------------------------
+   require("StandardPackage")
+
+   ------------------------------------------------------------------------
+   -- Load a SitePackage Module.
+   ------------------------------------------------------------------------
+
+   local configDir = cosmic:value("LMOD_CONFIG_DIR")
+   local fn        = pathJoin(configDir,"lmod_config.lua")
+   if (isFile(fn)) then
+      assert(loadfile(fn))()
+   end
+
+   local lmodPath = getenv("LMOD_PACKAGE_PATH") or ""
+   for path in lmodPath:split(":") do
+      path = path .. "/"
+      path = path:gsub("//+","/")
+      package.path  = path .. "?.lua;"      ..
+                      path .. "?/init.lua;" ..
+                      package.path
+
+      package.cpath = path .. "../lib/?.so;"..
+                      package.cpath
+   end
+
+   require("SitePackage")
+
+
+end
+
+
 
 --------------------------------------------------------------------------
 -- Generate a message that will fix the available terminal width.

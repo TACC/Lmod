@@ -349,32 +349,9 @@ function main()
    MCP = MasterControl.build("load")
    mcp = MasterControl.build("load")
 
-   -- Push Lmod version into environment
-   setenv_lmod_version()
-
-   ------------------------------------------------------------------------
-   --  The StandardPackage is where Lmod registers hooks.  Sites may
-   --  override the hook functions in SitePackage.
-   ------------------------------------------------------------------------
-   require("StandardPackage")
-
-   ------------------------------------------------------------------------
-   -- Load a SitePackage Module.
-   ------------------------------------------------------------------------
-
-   local lmodPath = getenv("LMOD_PACKAGE_PATH") or ""
-   for path in lmodPath:split(":") do
-      path = path .. "/"
-      path = path:gsub("//+","/")
-      package.path  = path .. "?.lua;"      ..
-                      path .. "?/init.lua;" ..
-                      package.path
-
-      package.cpath = path .. "../lib/?.so;"..
-                      package.cpath
-   end
-
-   require("SitePackage")
+   ------------------------------------------------------------
+   -- initialize lmod with SitePackage and /etc/lmod/lmod_config.lua
+   initialize_lmod()
 
    local cmdLineUsage = "Usage: module [options] sub-command [args ...]"
    Options:singleton(cmdLineUsage)

@@ -131,6 +131,7 @@ local function new(self)
    local uname             = capture("uname -a")
    local adminFn, readable = findAdminFn()
    local activeTerm        = haveTermSupport() and "true" or colorize("red","false")
+   local lmod_configDir    = cosmic:value("LMOD_CONFIG_DIR")
    local ksh_support       = cosmic:value("LMOD_KSH_SUPPORT")
    local extended_default  = cosmic:value("LMOD_EXTENDED_DEFAULT")
    local avail_extensions  = cosmic:value("LMOD_AVAIL_EXTENSIONS")
@@ -197,6 +198,7 @@ local function new(self)
    tbl.autoSwap     = { k = "Auto swapping"                     , v = auto_swap,        }
    tbl.case         = { k = "Case Independent Sorting"          , v = case_ind_sorting, }
    tbl.colorize     = { k = "Colorize Lmod"                     , v = lmod_colorize,    }
+   tbl.configDir    = { k = "Configuration dir"                 , v = lmod_configDir,   }
    tbl.disable1N    = { k = "Disable Same Name AutoSwap"        , v = disable1N,        }
    tbl.disp_av_ext  = { k = "Display Extension w/ avail"        , v = avail_extensions, }
    tbl.dot_files    = { k = "Using dotfiles"                    , v = using_dotfiles,   }
