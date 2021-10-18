@@ -38,6 +38,7 @@ require("strict")
 --------------------------------------------------------------------------
 
 require("capture")
+require("declare")
 require("fileOps")
 require("myGlobals")
 require("pairsByKeys")
@@ -895,7 +896,7 @@ if (not allow_dups) then
    build_allow_dups_function()
 end
 
-local function build_epoch_function()
+local function l_build_epoch_function()
    if (posix.gettimeofday) then
       local gettimeofday = posix.gettimeofday
       local x1, x2 = gettimeofday()
@@ -922,7 +923,7 @@ local function build_epoch_function()
 end
 
 if (not epoch) then
-   build_epoch_function()
+   l_build_epoch_function()
 end
 
 
@@ -930,7 +931,7 @@ end
 -- Return the *prepend_order* function.  This function control which order
 -- are prepends handled when there are multiple paths passed to a single
 -- call.
-local function build_prepend_order_function()
+local function l_build_prepend_order_function()
    local ansT = {
       no      = "reverse",
       reverse = "reverse",
@@ -952,7 +953,7 @@ local function build_prepend_order_function()
 end
 
 if (not prepend_order) then
-   build_prepend_order_function()
+   l_build_prepend_order_function()
 end
 
 local s_checkSyntaxMode = false
@@ -963,4 +964,21 @@ function checkSyntaxMode()
    return s_checkSyntaxMode
 end
 
+declare("QuarantineT")
+
+local function l_build_quarantineT()
    
+   QuarantineT = {}
+   if (LMOD_QUARANTINE_VARS) then
+      local qA = path2pathA(LMOD_QUARANTINE_VARS)
+      for i = 1,qA do
+         QuarantineT[qA[i]] = true
+      end
+   end
+end
+
+if (not QuarantineT) then
+   l_build_quarantineT()
+end
+
+      

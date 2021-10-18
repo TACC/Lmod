@@ -171,7 +171,9 @@ function M.expand(self, tbl)
       elseif (k == "_ModuleTable_") then
          self:expandMT(vstr)
       else
-         self:expandVar(k,vstr,vType)
+         if (not QuarantineT[k]) then
+            self:expandVar(k,vstr,vType)
+         end
       end
    end
    self:report_success()
