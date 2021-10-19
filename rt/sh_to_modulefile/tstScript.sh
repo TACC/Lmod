@@ -24,6 +24,15 @@ if [ "${NO_SHELL_FUNCTIONS:-}" != yes ]; then
    {
      echo "arg1: $1"
    }  
+
+   banner ()
+   {
+     local str="$1"
+     local RED=$'\033[1;31m'
+     local NONE=$'\033[0m'
+     echo "${RED}${str}${NONE}"
+   }  
+
 fi
 
 alias fooAlias='foobin -q -l'
