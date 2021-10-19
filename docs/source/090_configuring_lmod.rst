@@ -239,7 +239,6 @@ Configuration only settings
 --**with-silentShellDebugging**:
   [yes/no, default: no] If yes then the module command will silence its output under shell debug.
 
-
 .. _lmod_config-label:
 
 Configuring Lmod with **/etc/lmod/lmod_config.lua**:

@@ -13,7 +13,6 @@ New Features in Lmod
 
      See :ref:`lmod_config-label` for details.  New in Lmod 8.6+
 
-
 **LMOD_QUARANTINE_VARS**:
 
      This is an environment variable containing a list of environment
@@ -37,10 +36,12 @@ New Features in Lmod
      module commands.
 
      Other shells could be supported with help from the community that
-     uses that shell.  (New in version 8.6) 
+     uses that shell.  See :ref:`sh_to_modulefile-label` for details
+     (New in version 8.6) 
 
      This feature was introduced in Tmod 4.6 and was shamelessly
      studied and re-implemented in Lmod 8.6+.
+     
 
 **module overview**:
      Similar to **module avail**, this command prints the just
@@ -59,7 +60,7 @@ New Features in Lmod
 **LMOD_SITE_MODULEPATH**:
     An colon separated list of directories to be prepended to
     $MODULEPATH before the first call to the Lmod command.
-    See :ref:`lmod_site_modulepath-label` for details
+    See :ref:`installing_lmod-label` for details
     New in version 8.5.18
 
 **sh_to_modulefile**:
@@ -74,5 +75,3 @@ New Features in Lmod
 **depends_on()**:
   A safe way to have one module load another.  See
   :ref:`dependent_modules-label` for details.  New in version 7.5.12+
-     
-     

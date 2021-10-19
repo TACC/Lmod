@@ -275,8 +275,6 @@ define it before z00_lmod.\* is sourced. Care is required so that
 $MODULEPATH is changed on the login shell but not subsequent
 sub-shells.
 
-.. _lmod_site_modulepath-label:
-
 Also sites can set the environment variable $LMOD_SITE_MODULEPATH with
 a colon separate list of directories which will be prepended to
 $MODULEPATH.  This variable is used in /etc/profile.d/z00_lmod.\* So
