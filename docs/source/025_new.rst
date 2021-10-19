@@ -31,16 +31,7 @@ New Features in Lmod
      script string. When unloading, the saved module commands from the
      environment are used.
 
-     Note that shell script string must not change between loading and
-     unloading as the full string is used to reference the saved
-     module commands.
-
-     Other shells could be supported with help from the community that
-     uses that shell.  See :ref:`sh_to_modulefile-label` for details
-     (New in version 8.6) 
-
-     This feature was introduced in Tmod 4.6 and was shamelessly
-     studied and re-implemented in Lmod 8.6+.
+     See :ref:`sh_to_modulefile-label` for details (New in version 8.6) 
      
 
 **module overview**:
