@@ -1,5 +1,4 @@
 .. _installing-lmod-label:
-
 Installing Lua and Lmod
 =======================
 
