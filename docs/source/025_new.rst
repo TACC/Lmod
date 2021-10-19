@@ -1,13 +1,26 @@
 New Features in Lmod
 ====================
 
+**/etc/lmod/lmod_config.lua**:
+
+     Lmod looks for a file named lmod_config.lua in the
+     LMOD_CONFIG_DIR which is by default /etc/lmod/lmod_config.lua.
+     This file allows sites configure lmod through lua instead
+     of setting environment variables by using the cosmit:assigin()
+     functions::
+         
+         cosmit:assign("LMOD_SITE_NAME","XYZZY")
+
+     See :ref:`lmod_config-label` for details.  New in Lmod 8.6+
+
+
 **LMOD_QUARANTINE_VARS**:
 
-    This is an environment variable containing a list of environment
-    variables that Lmod will not change the value of.  Note that this
-    only applies to non-path variables.  Variables such as PATH or
-    LD_LIBRARY_PATH are ignored in this variable.  In other words,
-    Lmod could change any path like variables.  New in Lmod 8.6+
+     This is an environment variable containing a list of environment
+     variables that Lmod will not change the value of.  Note that this
+     only applies to non-path variables.  Variables such as PATH or
+     LD_LIBRARY_PATH are ignored in this variable.  In other words,
+     Lmod could change any path like variables.  New in Lmod 8.6+
 
 **source_sh** ("shellName","shell_script arg1 ..."):
      source a shell script as part of a module. Supported shellNames

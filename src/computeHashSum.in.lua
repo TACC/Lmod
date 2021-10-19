@@ -140,24 +140,10 @@ function main()
    end
    dbg.start{"computeHashSum()"}
 
-   setenv_lmod_version()    -- push Lmod version info into env for modulefiles.
-
-   require("StandardPackage")
-   local lmodPath = os.getenv("LMOD_PACKAGE_PATH") or ""
-   for path in lmodPath:split(":") do
-      path = path .. "/"
-      path = path:gsub("//+","/")
-      package.path  = path .. "?.lua;"      ..
-         path .. "?/init.lua;" ..
-         package.path
-
-      package.cpath = path .. "../lib/?.so;"..
-         package.cpath
-   end
-
-   dbg.print{"lmodPath: \"", lmodPath,"\"\n"}
-   require("SitePackage")
-
+   ------------------------------------------------------------------
+   -- initialize lmod with SitePackage and /etc/lmod/lmod_config.lua
+   initialize_lmod()
+   
    MCP           = MasterControl.build("computeHash","load")
    mcp           = MasterControl.build("computeHash","load")
 

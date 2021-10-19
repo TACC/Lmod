@@ -26,6 +26,8 @@ testdescript = {
      runLmod --version                         # 1
      export LMOD_CONFIG_DIR=$(testDir)/lmod_cfg_dir
      runLmod --config                          # 2
+     runLmod load tryThis                      # 3
+
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

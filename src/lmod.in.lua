@@ -349,7 +349,7 @@ function main()
    MCP = MasterControl.build("load")
    mcp = MasterControl.build("load")
 
-   ------------------------------------------------------------
+   ------------------------------------------------------------------
    -- initialize lmod with SitePackage and /etc/lmod/lmod_config.lua
    initialize_lmod()
 

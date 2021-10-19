@@ -174,3 +174,8 @@ propT = {
     },
   },
 }
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load tryThis
+===========================
+This is kewl
