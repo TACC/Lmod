@@ -399,7 +399,7 @@ trailing_blanks_removed:
 
 dist:
 	GIT_BRANCH=`git status | head -n 1 | sed -e 's/^[# ]*On branch //g' -e 's/^[# ]*HEAD detached at//g'`; \
-	[[ "$GIT_BRANCH" == "Not currently on any branch." ]] && GIT_BRANCH=master ; \
+	if [ "$$GIT_BRANCH" = "Not currently on any branch." ]; then GIT_BRANCH=master; fi; \
 	echo "GIT_BRANCH: $$GIT_BRANCH"                                            ; \
 	git archive --prefix=Lmod-$(version)/ $$GIT_BRANCH  > Lmod-$(version).tar  ; \
 	echo "ls -l Lmod-$(version).tar"                                           ; \

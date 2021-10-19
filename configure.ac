@@ -126,7 +126,7 @@ AC_SUBST(HIDDEN_ITALIC)
 AC_ARG_WITH(hiddenItalic,
     AC_HELP_STRING([--with-hiddenItalic=ans],[Use italic for hidden module instead of faint[[no]]]),
     HIDDEN_ITALIC="$withval"
-    HIDDEN_ITALIC=`echo $HIDDEN_ITALIC | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@
+    HIDDEN_ITALIC=`echo $HIDDEN_ITALIC | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $HIDDEN_ITALIC "--with-hiddenItalic=ans: ans must be yes or no"
     AC_MSG_RESULT([HIDDEN_ITALIC=$with_hiddenItalic])
     AC_DEFINE_UNQUOTED(HIDDEN_ITALIC, "$with_hiddenItalic")dnl
@@ -151,7 +151,7 @@ AC_ARG_WITH(exactMatch,
     AC_DEFINE_UNQUOTED(EXACT_MATCH, "$withval"))dnl
 
 AC_SUBST(LMOD_CFG_DIR)
-AC_ARG_WITH(lmodConfigDir
+AC_ARG_WITH(lmodConfigDir,
     AC_HELP_STRING([--with-lmodConfigDir=ans],[Location of Lmod Config Dir [[/etc/lmod]]]),
     LMOD_CFG_DIR="$withval"
     AC_MSG_RESULT([LMOD_CFG_DIR=$with_lmodConfigDir])
