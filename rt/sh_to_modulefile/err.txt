@@ -36,13 +36,21 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing show wrapperSh/1.0
 ===========================
    ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua:
  source_sh("bash","ProjectDIR/rt/sh_to_modulefile/tstScript.sh")
+setenv("MY_NAME","tstScript.sh")
 prepend_path("PATH","ProjectDIR/rt/sh_to_modulefile/bin")
 append_path("PATH","ProjectDIR/rt/sh_to_modulefile/sbin")
 setenv("TST_SCRIPT","1")
 set_alias("fooAlias","foobin -q -l")
+set_shell_function("banner"," \
+    local str=\"$1\";\
+    local RED='\033[1;31m';\
+    local NONE='\033[0m';\
+    echo \"${RED}${str}${NONE}\"\
+","")
 set_shell_function("fooFunc"," \
     echo \"arg1: $1\"\
 ","")
+setenv("MY_NAME","unknown")
  source_sh("bash","ProjectDIR/rt/sh_to_modulefile/second.sh arg1")
 setenv("SECOND","FOO_BAR")
 ===========================
@@ -55,13 +63,21 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing show wrapperSh/1.0
 ===========================
    ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua:
  source_sh("bash","ProjectDIR/rt/sh_to_modulefile/tstScript.sh")
+setenv("MY_NAME","tstScript.sh")
 prepend_path("PATH","ProjectDIR/rt/sh_to_modulefile/bin")
 append_path("PATH","ProjectDIR/rt/sh_to_modulefile/sbin")
 setenv("TST_SCRIPT","1")
 set_alias("fooAlias","foobin -q -l")
+set_shell_function("banner"," \
+    local str=\"$1\";\
+    local RED='\033[1;31m';\
+    local NONE='\033[0m';\
+    echo \"${RED}${str}${NONE}\"\
+","")
 set_shell_function("fooFunc"," \
     echo \"arg1: $1\"\
 ","")
+setenv("MY_NAME","tstScript.sh")
  source_sh("bash","ProjectDIR/rt/sh_to_modulefile/second.sh arg1")
 setenv("SECOND","FOO_BAR")
 ===========================
@@ -94,7 +110,13 @@ _ModuleTable_ = {
           "setenv(\"SECOND\",\"FOO_BAR\")",
         },
         ["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"] = {
-          "prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")", "append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")", "setenv(\"TST_SCRIPT\",\"1\")", "set_alias(\"fooAlias\",\"foobin -q -l\")", [[set_shell_function("fooFunc"," \\
+          "setenv(\"MY_NAME\",\"tstScript.sh\")", "prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")", "append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")", "setenv(\"TST_SCRIPT\",\"1\")", "set_alias(\"fooAlias\",\"foobin -q -l\")"
+          , [[set_shell_function("banner"," \\
+    local str=\\"$1\\";\\
+    local RED='\\033[1;31m';\\
+    local NONE='\\033[0m';\\
+    echo \\"${RED}${str}${NONE}\\"\\
+","")]], [[set_shell_function("fooFunc"," \\
     echo \\"arg1: $1\\"\\
 ","")]],
         },
