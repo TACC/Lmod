@@ -19,8 +19,18 @@ cleanUp ()
    old="Lmod Warning: Syntax error in file: ProjectDIR"
    new="Lmod Warning: Syntax error in file:\nProjectDIR"
 
+   local SED
+   local osType
+   SED=sed
+   osType=$(uname -s)
+   if [ ${osType:-} = "Darwin" ]; then
+     SED=gsed
+   fi
 
-   sed                                                    \
+
+   $SED                                                   \
+       -e "s|\o033|\\033|g"                               \
+       -e "s|\\027|\\033|g"                               \
        -e "s|\@git\@|$gitV|g"                             \
        -e "s|/usr/.*/sha1sum|PATH_to_HASHSUM|g"           \
        -e "s|/bin/.*/sha1sum|PATH_to_HASHSUM|g"           \
