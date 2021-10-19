@@ -260,7 +260,10 @@ Here is an a full example::
     local cosmic       = require("Cosmic"):singleton()
 
     cosmic:assign("LMOD_SITE_NAME",   "XYZZY")
+
+    -- Note that this directory could be anything including /etc/lmod
     cosmic:assign("LMOD_PACKAGE_DIR", "/path/to/SitePackage_Dir/")
+    
 
     local function echoString(s)
        io.stderr:write(s,"\n")
