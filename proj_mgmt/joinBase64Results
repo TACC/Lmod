@@ -141,8 +141,6 @@ function fixMT(s)
       end
    end
 
-
-
    local s = serializeTbl{indent=false, name=s_name, value=mt}
    return s:gsub("[\n]",""):gsub(" = ","="):gsub("  *"," "):gsub(", ",",")
 end
