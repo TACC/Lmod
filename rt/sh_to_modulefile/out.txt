@@ -13,8 +13,8 @@ setenv("TST_SCRIPT","1")
 set_alias("fooAlias","foobin -q -l")
 set_shell_function("banner"," \
     local str=\"$1\";\
-    local RED='\033[1;31m';\
-    local NONE='\033[0m';\
+    local RED='\\033[1;31m';\
+    local NONE='\\033[0m';\
     echo \"${RED}${str}${NONE}\"\
 ","")
 set_shell_function("fooFunc"," \
@@ -108,8 +108,8 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn=
 export _ModuleTable_;
 banner () {
     local str="$1";
-    local RED='\033[1;31m';
-    local NONE='\033[0m';
+    local RED='\\033[1;31m';
+    local NONE='\\033[0m';
     echo "${RED}${str}${NONE}"
 ; };
 alias fooAlias=foobin\ -q\ -l;
@@ -134,8 +134,8 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn=
 export _ModuleTable_;
 banner () {
     local str="$1";
-    local RED='\033[1;31m';
-    local NONE='\033[0m';
+    local RED='\\033[1;31m';
+    local NONE='\\033[0m';
     echo "${RED}${str}${NONE}"
 ; };
 alias fooAlias=foobin\ -q\ -l;
@@ -209,8 +209,8 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn=
 export _ModuleTable_;
 banner () {
     local str="$1";
-    local RED='\033[1;31m';
-    local NONE='\033[0m';
+    local RED='\\033[1;31m';
+    local NONE='\\033[0m';
     echo "${RED}${str}${NONE}"
 ; };
 alias fooAlias=foobin\ -q\ -l;
@@ -249,8 +249,8 @@ __LMOD_DEFAULT_MODULES_LOADED__=1;
 export __LMOD_DEFAULT_MODULES_LOADED__;
 banner () {
     local str="$1";
-    local RED='\033[1;31m';
-    local NONE='\033[0m';
+    local RED='\\033[1;31m';
+    local NONE='\\033[0m';
     echo "${RED}${str}${NONE}"
 ; };
 alias fooAlias=foobin\ -q\ -l;
