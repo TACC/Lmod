@@ -19,8 +19,16 @@ cleanUp ()
    old="Lmod Warning: Syntax error in file: ProjectDIR"
    new="Lmod Warning: Syntax error in file:\nProjectDIR"
 
+   local SED
+   local osType
+   SED=sed
+   osType=$(uname -s)
+   if [ ${osType:-} = "Darwin" ]; then
+     SED=gsed
+   fi
 
-   sed                                                    \
+
+   $SED                                                   \
        -e "s|\o033|\\\033|g"                              \
        -e "s|[\\]27|\\\033|g"                             \
        -e "s|='\\\\033|='\\\\\\\\033|g"                   \
@@ -249,6 +257,17 @@ initStdEnvVars()
   PATH_to_LUA=`findcmd --pathOnly lua`
   PATH_to_TM=`findcmd --pathOnly tm`
   PATH_to_SHA1=`findcmd --pathOnly sha1sum`
+
+  local SED
+  local osType
+  SED=sed
+  osType=$(uname -s)
+  if [ ${osType:-} = "Darwin" ]; then
+    SED=gsed
+  fi
+
+  PATH_TO_SED=`findcmd --pathOnly $SED`
+
   LUA_EXEC=$PATH_to_LUA/lua
   numStep=0
   COUNT=0
@@ -257,7 +276,7 @@ initStdEnvVars()
   export LMOD_TERM_WIDTH=300
 
   PATH=/usr/bin:/bin
-  for i in $PATH_to_SHA1 $PATH_to_TM $PATH_to_LUA $projectDir/proj_mgmt; do
+  for i in $PATH_to_SHA1 $PATH_to_TM $PATH_to_LUA $PATH_TO_SED $projectDir/proj_mgmt; do
     pathmunge $i 
   done
 }
