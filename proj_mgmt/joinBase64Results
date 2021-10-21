@@ -69,6 +69,7 @@ pack     = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
 require("string_utils")
 require("serializeTbl")
+require("declare")
 local s_name    = "_ModuleTable_"
 local base64    = require("base64")
 local cosmic    = require("Cosmic"):singleton()
@@ -103,7 +104,8 @@ local function grabFish(line,b)
 end   
 
 
-_ModuleTable_ = false
+
+declare("_ModuleTable_",false)
 function fixMT(s)
    if (s == nil) then return "" end
    local func, msg = load(s)
