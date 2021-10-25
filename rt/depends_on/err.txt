@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.5.18  2021-10-09 12:49 -05:00
+Modules based on Lua: Version 8.5.21  2021-10-22 09:54 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -155,11 +155,987 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load bar/1.2
 ===========================
 ===========================
 step 31
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load foo
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing -D load foo
 ===========================
+Description                        Value
+Allow root to use Lmod             yes
+Allow TCL modulefiles              yes
+Auto swapping                      yes
+Case Independent Sorting           no
+Colorize Lmod                      yes
+Disable Same Name AutoSwap         no
+Display Extension w/ avail         yes
+Using dotfiles                     yes
+Allow duplicate paths              no
+Require Exact Match/no defaults    no
+Export the module command          yes
+Allow extended default             yes
+Use attached TCL over system call  no
+Use italic instead of dim          no
+KSH Support                        no
+Language used for err/msg/warn     en
+Site message file                  <empty>
+LUA_CPATH                          @sys_lua_cpath@
+LUA_PATH                           @sys_lua_path@
+System lua-term                    no
+avail: Include modulepath dir      no
+MODULEPATH_INIT                    @PKG@/init/.modulespath -> <empty>
+MODULEPATH_ROOT
+number of cache dirs               0
+OS Name                            <N/A>
+Pager                              less
+Pager Options                      -XqMREF
+Path to HashSum                    PATH_to_HASHSUM
+Path to Lua                        lua
+Pin Versions in restore            no
+Pkg Class name                     Pkg
+Lmod prefix                        @PREFIX@
+Site controlled prefix             no
+Prepend order                      normal
+Redirect to stdout                 no
+Supporting Full Settarg Use        no
+User shell                         bash
+Site Name                          <empty>
+Site Pkg location                  standard
+Ignore Cache                       no
+Cached loads                       no
+System Name                        <empty>
+SYSHOST (cluster name)             <empty>
+TCL Version                        <N/A>
+User cache valid time(sec)         86400
+Write cache after (sec)            2
+Threshold (sec)                    1
+Tmod find first rule               no
+Tmod prepend PATH Rule             no
+Tracing                            no
+uname -a
+Active RC file(s):
+ProjectDIR/src/../init/lmodrc.lua
+ Lmod Property Table:
+propT = {
+  arch = {
+    displayT = {
+      gpu = {
+        color = "red",
+        doc = "built for GPU",
+        full_color = false,
+        long = "(g)",
+        short = "(g)",
+      },
+      ["gpu:mic"] = {
+        color = "red",
+        doc = "built natively for MIC and GPU",
+        full_color = false,
+        long = "(g,m)",
+        short = "(gm)",
+      },
+      ["gpu:mic:offload"] = {
+        color = "red",
+        doc = "built natively for MIC and GPU and offload to the MIC",
+        full_color = false,
+        long = "(g,m,o)",
+        short = "(@)",
+      },
+      mic = {
+        color = "blue",
+        doc = "built for host and native MIC",
+        full_color = false,
+        long = "(m)",
+        short = "(m)",
+      },
+      ["mic:offload"] = {
+        color = "blue",
+        doc = "built for host, native MIC and offload to the MIC",
+        full_color = false,
+        long = "(m,o)",
+        short = "(*)",
+      },
+      offload = {
+        color = "blue",
+        doc = "built for offload to the MIC only",
+        full_color = false,
+        long = "(o)",
+        short = "(o)",
+      },
+    },
+    validT = {
+      gpu = 1,
+      mic = 1,
+      offload = 1,
+    },
+  },
+  lmod = {
+    displayT = {
+      sticky = {
+        color = "red",
+        doc = "Module is Sticky, requires --force to unload or purge",
+        long = "(S)",
+        short = "(S)",
+      },
+    },
+    validT = {
+      sticky = 1,
+    },
+  },
+  state = {
+    displayT = {
+      experimental = {
+        color = "blue",
+        doc = "Experimental",
+        long = "(E)",
+        short = "(E)",
+      },
+      obsolete = {
+        color = "red",
+        doc = "Obsolete",
+        long = "(O)",
+        short = "(O)",
+      },
+      testing = {
+        color = "green",
+        doc = "Testing",
+        long = "(T)",
+        short = "(T)",
+      },
+    },
+    validT = {
+      experimental = 1,
+      obsolete = 1,
+      testing = 1,
+    },
+  },
+  status = {
+    displayT = {
+      active = {
+        color = "yellow",
+        doc = "Module is loaded",
+        long = "(L)",
+        short = "(L)",
+      },
+    },
+    validT = {
+      active = 1,
+    },
+  },
+}
+lmod(--regression_testing -D load foo){
+  Date: Mon Oct 25 12:21:13 2021
+  Hostname: jedrik
+  System: Linux 5.4.0-89-generic
+  Version: #100-Ubuntu SMP Fri Sep 24 14:50:10 UTC 2021
+  Lua Version: 5.4
+  Lmod Version: 8.5.21  2021-10-22 09:54 -05:00
+  package.path: /?.lua;/?/init.lua;ProjectDIR/src/?.lua;ProjectDIR/src/../tools/?.lua;ProjectDIR/src/../tools/?/init.lua;ProjectDIR/src/../shells/?.lua;ProjectDIR/src/?/init.lua;/opt/apps/luarocks/luarocks/share/lua/5.4/?.lua;/opt/apps/luarocks/luarocks/share/lua/5.4/?/init.lua;/opt/apps/luatools/5.4.2/share/lua/5.4/?.lua;/opt/apps/luatools/5.4.2/share/lua/5.4/?/init.lua;/opt/apps/lua/5.4.0.1-rtm/share/lua/5.4/?.lua;/opt/apps/lua/5.4.0.1-rtm/share/lua/5.4/?/init.lua;/opt/apps/lua/5.4.0.1-rtm/lib/lua/5.4/?.lua;/opt/apps/lua/5.4.0.1-rtm/lib/lua/5.4/?/init.lua;./?.lua;./?/init.lua
+  package.cpath: /../lib/?.so;ProjectDIR/src/../lib/?.so;/opt/apps/luarocks/luarocks/lib/lua/5.4/?.so;/opt/apps/luatools/5.4.2/lib/lua/5.4/?.so;/opt/apps/lua/5.4.0.1-rtm/lib/lua/5.4/?.so;/opt/apps/lua/5.4.0.1-rtm/lib/lua/5.4/loadall.so;./?.so
+  lmodPath: ''
+  shellNm: bash, Shell:name(): bash
+  Calling Master:singleton(checkMPATH) w checkMPATH: true
+  Master:singleton(safe: true){
+    s_master: table: 0x562f20051ab0, safe: true
+  } Master:singleton
+  cmd name: load
+  Load_Usr(foo){
+    FrameStk:new(){
+      MT:singleton(){
+        getMT s: _ModuleTable_ = {
+        MTversion = 3,
+        c_rebuildTime = false,
+        c_shortTime = false,
+        depthT = {},
+        family = {},
+        mT = {
+        bar = {
+        fn = "ProjectDIR/rt/depends_on/mf/Core/bar/1.2.lua",
+        fullName = "bar/1.2",
+        loadOrder = 1,
+        propT = {},
+        stackDepth = 0,
+        status = "active",
+        userName = "bar/1.2",
+        wV = "000000001.000000002.*zfinal",
+        },
+        },
+        mpathA = {
+        "ProjectDIR/rt/depends_on/mf/Core",
+        },
+        systemBaseMPATH = "ProjectDIR/rt/depends_on/mf/Core",
+        }
+        MT new(s,restoreFn:nil){
+          currentMPATH: ProjectDIR/rt/depends_on/mf/Core
+        } MT new
+      } MT:singleton
+    } FrameStk:new
+    __LMOD_REF_COUNT_MODULEPATH: ProjectDIR/rt/depends_on/mf/Core:1
+    l_usrLoad(argA, check_must_load: true){
+      Setting mcp to MC_Load
+      MasterControl:load_usr(mA={foo}){
+        registerUserLoads(mA){
+          userName: foo
+        } registerUserLoads
+        MasterControl:load(mA={foo}){
+          Master:singleton(safe: nil){
+            s_master: table: 0x562f20051ab0, safe: true
+          } Master:singleton
+          Master:load(mA={foo}){
+            Master:load i: 1, userName: foo
+            Mname:sn(){
+              lazyEval(foo){
+                ModuleA:__new(){
+                  calling DirTree:new()
+                  MRC:singleton(){
+                    MRC l_build(self,fnA){
+                      fnA = {}
+                    } MRC l_build
+                  } MRC:singleton
+                  ModuleA build(){
+                    #dirA: 1
+                    mpath: ProjectDIR/rt/depends_on/mf/Core
+                  } ModuleA build
+                  ["moduleA:"] = {
+                    {
+                      T = {
+                        A = {
+                          defaultA = {},
+                          defaultT = {},
+                          dirT = {},
+                          fileT = {
+                            A = {
+                              Version = false,
+                              canonical = "",
+                              fn = "ProjectDIR/rt/depends_on/mf/Core/A.lua",
+                              luaExt = 2,
+                              mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                              pV = "M.*zfinal",
+                              wV = "M.*zfinal",
+                            },
+                          },
+                        },
+                        B = {
+                          defaultA = {},
+                          defaultT = {},
+                          dirT = {},
+                          fileT = {
+                            B = {
+                              Version = false,
+                              canonical = "",
+                              fn = "ProjectDIR/rt/depends_on/mf/Core/B.lua",
+                              luaExt = 2,
+                              mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                              pV = "M.*zfinal",
+                              wV = "M.*zfinal",
+                            },
+                          },
+                        },
+                        X = {
+                          defaultA = {},
+                          defaultT = {},
+                          dirT = {},
+                          fileT = {
+                            X = {
+                              Version = false,
+                              canonical = "",
+                              fn = "ProjectDIR/rt/depends_on/mf/Core/X.lua",
+                              luaExt = 2,
+                              mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                              pV = "M.*zfinal",
+                              wV = "M.*zfinal",
+                            },
+                          },
+                        },
+                        Y = {
+                          defaultA = {},
+                          defaultT = {},
+                          dirT = {},
+                          fileT = {
+                            Y = {
+                              Version = false,
+                              canonical = "",
+                              fn = "ProjectDIR/rt/depends_on/mf/Core/Y.lua",
+                              luaExt = 2,
+                              mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                              pV = "M.*zfinal",
+                              wV = "M.*zfinal",
+                            },
+                          },
+                        },
+                        Z = {
+                          defaultA = {},
+                          defaultT = {},
+                          dirT = {},
+                          fileT = {
+                            Z = {
+                              Version = false,
+                              canonical = "",
+                              fn = "ProjectDIR/rt/depends_on/mf/Core/Z.lua",
+                              luaExt = 2,
+                              mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                              pV = "M.*zfinal",
+                              wV = "M.*zfinal",
+                            },
+                          },
+                        },
+                        bar = {
+                          defaultA = {},
+                          defaultT = {},
+                          dirT = {},
+                          fileT = {
+                            ["bar/1.0"] = {
+                              canonical = "1.0",
+                              fn = "ProjectDIR/rt/depends_on/mf/Core/bar/1.0.lua",
+                              luaExt = 4,
+                              mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                              pV = "000000001.*zfinal",
+                              wV = "000000001.*zfinal",
+                            },
+                            ["bar/1.2"] = {
+                              canonical = "1.2",
+                              fn = "ProjectDIR/rt/depends_on/mf/Core/bar/1.2.lua",
+                              luaExt = 4,
+                              mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                              pV = "000000001.000000002.*zfinal",
+                              wV = "000000001.000000002.*zfinal",
+                            },
+                            ["bar/1.4"] = {
+                              canonical = "1.4",
+                              fn = "ProjectDIR/rt/depends_on/mf/Core/bar/1.4.lua",
+                              luaExt = 4,
+                              mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                              pV = "000000001.000000004.*zfinal",
+                              wV = "000000001.000000004.*zfinal",
+                            },
+                          },
+                        },
+                        foo = {
+                          defaultA = {},
+                          defaultT = {},
+                          dirT = {},
+                          fileT = {
+                            ["foo/1.0"] = {
+                              canonical = "1.0",
+                              fn = "ProjectDIR/rt/depends_on/mf/Core/foo/1.0.lua",
+                              luaExt = 4,
+                              mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                              pV = "000000001.*zfinal",
+                              wV = "000000001.*zfinal",
+                            },
+                          },
+                        },
+                      },
+                      mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                    },
+                  }
+                  isNVV: false
+                  MRC:singleton(){
+                  } MRC:singleton
+                  mrcMpathT = {}
+                } ModuleA:__new
+                MRC:singleton(){
+                } MRC:singleton
+                LocationT:new(moduleA){
+                  LocationT build(moduleA){
+                  } LocationT build
+                } LocationT:new
+                locationT = {
+                  A = {
+                    dirT = {},
+                    fileT = {
+                      A = {
+                        Version = false,
+                        canonical = "",
+                        fn = "ProjectDIR/rt/depends_on/mf/Core/A.lua",
+                        luaExt = 2,
+                        mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                        pV = "M.*zfinal",
+                        wV = "M.*zfinal",
+                      },
+                    },
+                  },
+                  B = {
+                    dirT = {},
+                    fileT = {
+                      B = {
+                        Version = false,
+                        canonical = "",
+                        fn = "ProjectDIR/rt/depends_on/mf/Core/B.lua",
+                        luaExt = 2,
+                        mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                        pV = "M.*zfinal",
+                        wV = "M.*zfinal",
+                      },
+                    },
+                  },
+                  X = {
+                    dirT = {},
+                    fileT = {
+                      X = {
+                        Version = false,
+                        canonical = "",
+                        fn = "ProjectDIR/rt/depends_on/mf/Core/X.lua",
+                        luaExt = 2,
+                        mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                        pV = "M.*zfinal",
+                        wV = "M.*zfinal",
+                      },
+                    },
+                  },
+                  Y = {
+                    dirT = {},
+                    fileT = {
+                      Y = {
+                        Version = false,
+                        canonical = "",
+                        fn = "ProjectDIR/rt/depends_on/mf/Core/Y.lua",
+                        luaExt = 2,
+                        mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                        pV = "M.*zfinal",
+                        wV = "M.*zfinal",
+                      },
+                    },
+                  },
+                  Z = {
+                    dirT = {},
+                    fileT = {
+                      Z = {
+                        Version = false,
+                        canonical = "",
+                        fn = "ProjectDIR/rt/depends_on/mf/Core/Z.lua",
+                        luaExt = 2,
+                        mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                        pV = "M.*zfinal",
+                        wV = "M.*zfinal",
+                      },
+                    },
+                  },
+                  bar = {
+                    dirT = {},
+                    fileT = {
+                      ["bar/1.0"] = {
+                        canonical = "1.0",
+                        fn = "ProjectDIR/rt/depends_on/mf/Core/bar/1.0.lua",
+                        luaExt = 4,
+                        mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                        pV = "000000001.*zfinal",
+                        wV = "000000001.*zfinal",
+                      },
+                      ["bar/1.2"] = {
+                        canonical = "1.2",
+                        fn = "ProjectDIR/rt/depends_on/mf/Core/bar/1.2.lua",
+                        luaExt = 4,
+                        mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                        pV = "000000001.000000002.*zfinal",
+                        wV = "000000001.000000002.*zfinal",
+                      },
+                      ["bar/1.4"] = {
+                        canonical = "1.4",
+                        fn = "ProjectDIR/rt/depends_on/mf/Core/bar/1.4.lua",
+                        luaExt = 4,
+                        mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                        pV = "000000001.000000004.*zfinal",
+                        wV = "000000001.000000004.*zfinal",
+                      },
+                    },
+                  },
+                  foo = {
+                    dirT = {},
+                    fileT = {
+                      ["foo/1.0"] = {
+                        canonical = "1.0",
+                        fn = "ProjectDIR/rt/depends_on/mf/Core/foo/1.0.lua",
+                        luaExt = 4,
+                        mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                        pV = "000000001.*zfinal",
+                        wV = "000000001.*zfinal",
+                      },
+                    },
+                  },
+                }
+                collectFileA(foo,false,v,fileA){
+                } collectFileA
+                lazyEval: userName: foo, sn: foo, versionStr: false
+                fileA = {
+                  {
+                    {
+                      fn = "ProjectDIR/rt/depends_on/mf/Core/foo/1.0.lua",
+                      fullName = "foo/1.0",
+                      pV = "000000001.*zfinal",
+                      sn = "foo",
+                      version = "1.0",
+                      wV = "000000001.*zfinal",
+                    },
+                  },
+                }
+                MName:find_exact_match(fileA){
+                  found: false, fn: false, version: false
+                } MName:find_exact_match
+                MName:find_by_key(key:"wV",fileA){
+                  MRC:singleton(){
+                  } MRC:singleton
+                  found: true, fn: ProjectDIR/rt/depends_on/mf/Core/foo/1.0.lua, version: 1.0, wV: 000000001.*zfinal
+                } MName:find_by_key
+                lazyEval: sn: foo, version: 1.0, fn: ProjectDIR/rt/depends_on/mf/Core/foo/1.0.lua, wV: 000000001.*zfinal
+                fn: ProjectDIR/rt/depends_on/mf/Core/foo/1.0.lua
+              } lazyEval
+            } Mname:sn
+            Master:load i: 1 sn: foo fn: ProjectDIR/rt/depends_on/mf/Core/foo/1.0.lua
+            Master:loading: "foo" from file: "ProjectDIR/rt/depends_on/mf/Core/foo/1.0.lua"
+            loadModuleFile(ProjectDIR/rt/depends_on/mf/Core/foo/1.0.lua){
+              ModuleFile{
+                depends_on(between("bar","1.2","<1.4"))
+              } ModuleFile
+              between("bar","1.2","<1.4"){
+              } between
+              depends_on(table){
+                cmd: depends_on argA.n: 1
+                MasterControl:depends_on(mA={bar}){
+                  MName:isloaded(){
+                    Mname:sn(){
+                      lazyEval(bar){
+                        MRC:singleton(){
+                        } MRC:singleton
+                        locationT = {
+                          A = {
+                            dirT = {},
+                            fileT = {
+                              A = {
+                                Version = false,
+                                canonical = "",
+                                fn = "ProjectDIR/rt/depends_on/mf/Core/A.lua",
+                                luaExt = 2,
+                                mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                                pV = "M.*zfinal",
+                                wV = "M.*zfinal",
+                              },
+                            },
+                          },
+                          B = {
+                            dirT = {},
+                            fileT = {
+                              B = {
+                                Version = false,
+                                canonical = "",
+                                fn = "ProjectDIR/rt/depends_on/mf/Core/B.lua",
+                                luaExt = 2,
+                                mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                                pV = "M.*zfinal",
+                                wV = "M.*zfinal",
+                              },
+                            },
+                          },
+                          X = {
+                            dirT = {},
+                            fileT = {
+                              X = {
+                                Version = false,
+                                canonical = "",
+                                fn = "ProjectDIR/rt/depends_on/mf/Core/X.lua",
+                                luaExt = 2,
+                                mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                                pV = "M.*zfinal",
+                                wV = "M.*zfinal",
+                              },
+                            },
+                          },
+                          Y = {
+                            dirT = {},
+                            fileT = {
+                              Y = {
+                                Version = false,
+                                canonical = "",
+                                fn = "ProjectDIR/rt/depends_on/mf/Core/Y.lua",
+                                luaExt = 2,
+                                mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                                pV = "M.*zfinal",
+                                wV = "M.*zfinal",
+                              },
+                            },
+                          },
+                          Z = {
+                            dirT = {},
+                            fileT = {
+                              Z = {
+                                Version = false,
+                                canonical = "",
+                                fn = "ProjectDIR/rt/depends_on/mf/Core/Z.lua",
+                                luaExt = 2,
+                                mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                                pV = "M.*zfinal",
+                                wV = "M.*zfinal",
+                              },
+                            },
+                          },
+                          bar = {
+                            dirT = {},
+                            fileT = {
+                              ["bar/1.0"] = {
+                                canonical = "1.0",
+                                fn = "ProjectDIR/rt/depends_on/mf/Core/bar/1.0.lua",
+                                luaExt = 4,
+                                mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                                pV = "000000001.*zfinal",
+                                wV = "000000001.*zfinal",
+                              },
+                              ["bar/1.2"] = {
+                                canonical = "1.2",
+                                fn = "ProjectDIR/rt/depends_on/mf/Core/bar/1.2.lua",
+                                luaExt = 4,
+                                mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                                pV = "000000001.000000002.*zfinal",
+                                wV = "000000001.000000002.*zfinal",
+                              },
+                              ["bar/1.4"] = {
+                                canonical = "1.4",
+                                fn = "ProjectDIR/rt/depends_on/mf/Core/bar/1.4.lua",
+                                luaExt = 4,
+                                mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                                pV = "000000001.000000004.*zfinal",
+                                wV = "000000001.000000004.*zfinal",
+                              },
+                            },
+                          },
+                          foo = {
+                            dirT = {},
+                            fileT = {
+                              ["foo/1.0"] = {
+                                canonical = "1.0",
+                                fn = "ProjectDIR/rt/depends_on/mf/Core/foo/1.0.lua",
+                                luaExt = 4,
+                                mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                                pV = "000000001.*zfinal",
+                                wV = "000000001.*zfinal",
+                              },
+                            },
+                          },
+                        }
+                        collectFileA(bar,false,v,fileA){
+                        } collectFileA
+                        lazyEval: userName: bar, sn: bar, versionStr: false
+                        fileA = {
+                          {
+                            {
+                              fn = "ProjectDIR/rt/depends_on/mf/Core/bar/1.2.lua",
+                              fullName = "bar/1.2",
+                              pV = "000000001.000000002.*zfinal",
+                              sn = "bar",
+                              version = "1.2",
+                              wV = "000000001.000000002.*zfinal",
+                            },
+                            {
+                              fn = "ProjectDIR/rt/depends_on/mf/Core/bar/1.0.lua",
+                              fullName = "bar/1.0",
+                              pV = "000000001.*zfinal",
+                              sn = "bar",
+                              version = "1.0",
+                              wV = "000000001.*zfinal",
+                            },
+                            {
+                              fn = "ProjectDIR/rt/depends_on/mf/Core/bar/1.4.lua",
+                              fullName = "bar/1.4",
+                              pV = "000000001.000000004.*zfinal",
+                              sn = "bar",
+                              version = "1.4",
+                              wV = "000000001.000000004.*zfinal",
+                            },
+                          },
+                        }
+                        lazyEval: sn: bar, version: 1.2, fn: ProjectDIR/rt/depends_on/mf/Core/bar/1.2.lua, wV: 000000001.000000002.*zfinal
+                        fn: ProjectDIR/rt/depends_on/mf/Core/bar/1.2.lua
+                      } lazyEval
+                    } Mname:sn
+                    registerUserLoads(mA){
+                    } registerUserLoads
+                    MasterControl:load(mA={}){
+                      Master:singleton(safe: nil){
+                        s_master: table: 0x562f20051ab0, safe: true
+                      } Master:singleton
+                      Master:load(mA={}){
+                        safeToUpdate(): true,  changeMPATH: false, frameStk:empty(): false
+                      } Master:load
+                      MasterControl:registerAdminMsg(mA){
+                      } MasterControl:registerAdminMsg
+                    } MasterControl:load
+                  } MasterControl:depends_on
+                } depends_on
+              } loadModuleFile
+              Marking foo/1.0 as active and loaded
+              safeToUpdate(): true,  changeMPATH: false, frameStk:empty(): true
+            } Master:load
+            MasterControl:registerAdminMsg(mA){
+            } MasterControl:registerAdminMsg
+          } MasterControl:load
+        } MasterControl:load_usr
+        MasterControl:mustLoad(){
+          compareRequestedLoadsWithActual(){
+          } compareRequestedLoadsWithActual
+        } MasterControl:mustLoad
+      } l_usrLoad
+    } Load_Usr
+    MasterControl:reportAdminMsgs(){
+    } MasterControl:reportAdminMsgs
+    MasterControl:performDependencyCk(){
+      Master:singleton(safe: nil){
+        s_master: table: 0x562f20051ab0, safe: true
+      } Master:singleton
+      Master:dependencyCk(){
+        MC:build: Setting mcp to MC_DependencyCk
+        loading: bar fn: ProjectDIR/rt/depends_on/mf/Core/bar/1.2.lua
+        loadModuleFile(ProjectDIR/rt/depends_on/mf/Core/bar/1.2.lua){
+          ModuleFile{
+            setenv("bar",myModuleVersion())
+          } ModuleFile
+          lazyEval(bar){
+            sn: bar
+          } lazyEval via mt
+          setenv(bar, 1.2){
+          } setenv
+        } loadModuleFile
+        loading: foo fn: ProjectDIR/rt/depends_on/mf/Core/foo/1.0.lua
+        loadModuleFile(ProjectDIR/rt/depends_on/mf/Core/foo/1.0.lua){
+          ModuleFile{
+            depends_on(between("bar","1.2","<1.4"))
+          } ModuleFile
+          between("bar","1.2","<1.4"){
+          } between
+          depends_on(table){
+            cmd: depends_on argA.n: 1
+            MasterControl:dependencyCk(mA={bar}){
+              Mname:fullName(){
+                lazyEval(foo){
+                  sn: foo
+                } lazyEval via mt
+              } Mname:fullName
+              Mname:sn(){
+                lazyEval(bar){
+                  MRC:singleton(){
+                  } MRC:singleton
+                  locationT = {
+                    A = {
+                      dirT = {},
+                      fileT = {
+                        A = {
+                          Version = false,
+                          canonical = "",
+                          fn = "ProjectDIR/rt/depends_on/mf/Core/A.lua",
+                          luaExt = 2,
+                          mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                          pV = "M.*zfinal",
+                          wV = "M.*zfinal",
+                        },
+                      },
+                    },
+                    B = {
+                      dirT = {},
+                      fileT = {
+                        B = {
+                          Version = false,
+                          canonical = "",
+                          fn = "ProjectDIR/rt/depends_on/mf/Core/B.lua",
+                          luaExt = 2,
+                          mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                          pV = "M.*zfinal",
+                          wV = "M.*zfinal",
+                        },
+                      },
+                    },
+                    X = {
+                      dirT = {},
+                      fileT = {
+                        X = {
+                          Version = false,
+                          canonical = "",
+                          fn = "ProjectDIR/rt/depends_on/mf/Core/X.lua",
+                          luaExt = 2,
+                          mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                          pV = "M.*zfinal",
+                          wV = "M.*zfinal",
+                        },
+                      },
+                    },
+                    Y = {
+                      dirT = {},
+                      fileT = {
+                        Y = {
+                          Version = false,
+                          canonical = "",
+                          fn = "ProjectDIR/rt/depends_on/mf/Core/Y.lua",
+                          luaExt = 2,
+                          mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                          pV = "M.*zfinal",
+                          wV = "M.*zfinal",
+                        },
+                      },
+                    },
+                    Z = {
+                      dirT = {},
+                      fileT = {
+                        Z = {
+                          Version = false,
+                          canonical = "",
+                          fn = "ProjectDIR/rt/depends_on/mf/Core/Z.lua",
+                          luaExt = 2,
+                          mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                          pV = "M.*zfinal",
+                          wV = "M.*zfinal",
+                        },
+                      },
+                    },
+                    bar = {
+                      dirT = {},
+                      fileT = {
+                        ["bar/1.0"] = {
+                          canonical = "1.0",
+                          fn = "ProjectDIR/rt/depends_on/mf/Core/bar/1.0.lua",
+                          luaExt = 4,
+                          mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                          pV = "000000001.*zfinal",
+                          wV = "000000001.*zfinal",
+                        },
+                        ["bar/1.2"] = {
+                          canonical = "1.2",
+                          fn = "ProjectDIR/rt/depends_on/mf/Core/bar/1.2.lua",
+                          luaExt = 4,
+                          mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                          pV = "000000001.000000002.*zfinal",
+                          wV = "000000001.000000002.*zfinal",
+                        },
+                        ["bar/1.4"] = {
+                          canonical = "1.4",
+                          fn = "ProjectDIR/rt/depends_on/mf/Core/bar/1.4.lua",
+                          luaExt = 4,
+                          mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                          pV = "000000001.000000004.*zfinal",
+                          wV = "000000001.000000004.*zfinal",
+                        },
+                      },
+                    },
+                    foo = {
+                      dirT = {},
+                      fileT = {
+                        ["foo/1.0"] = {
+                          canonical = "1.0",
+                          fn = "ProjectDIR/rt/depends_on/mf/Core/foo/1.0.lua",
+                          luaExt = 4,
+                          mpath = "ProjectDIR/rt/depends_on/mf/Core",
+                          pV = "000000001.*zfinal",
+                          wV = "000000001.*zfinal",
+                        },
+                      },
+                    },
+                  }
+                  collectFileA(bar,false,v,fileA){
+                  } collectFileA
+                  lazyEval: userName: bar, sn: bar, versionStr: false
+                  fileA = {
+                    {
+                      {
+                        fn = "ProjectDIR/rt/depends_on/mf/Core/bar/1.2.lua",
+                        fullName = "bar/1.2",
+                        pV = "000000001.000000002.*zfinal",
+                        sn = "bar",
+                        version = "1.2",
+                        wV = "000000001.000000002.*zfinal",
+                      },
+                      {
+                        fn = "ProjectDIR/rt/depends_on/mf/Core/bar/1.0.lua",
+                        fullName = "bar/1.0",
+                        pV = "000000001.*zfinal",
+                        sn = "bar",
+                        version = "1.0",
+                        wV = "000000001.*zfinal",
+                      },
+                      {
+                        fn = "ProjectDIR/rt/depends_on/mf/Core/bar/1.4.lua",
+                        fullName = "bar/1.4",
+                        pV = "000000001.000000004.*zfinal",
+                        sn = "bar",
+                        version = "1.4",
+                        wV = "000000001.000000004.*zfinal",
+                      },
+                    },
+                  }
+                  lazyEval: sn: bar, version: 1.2, fn: ProjectDIR/rt/depends_on/mf/Core/bar/1.2.lua, wV: 000000001.000000002.*zfinal
+                  fn: ProjectDIR/rt/depends_on/mf/Core/bar/1.2.lua
+                } lazyEval
+              } Mname:sn
+              RTM: sn: bar, userName: bar/1.2 mt:userName(sn): bar/1.2
+            } MasterControl:dependencyCk
+          } depends_on
+        } loadModuleFile
+        Setting mcp to : MC_Load
+      } Master:dependencyCk
+    } MasterControl:performDependencyCk
+    MT:reportChanges(){
+    } MT:reportChanges
+  } lmod
+  BaseShell:expand(tbl){
+    __LMOD_REF_COUNT_LOADEDMODULES=bar/1.2:1\;foo/1.0:1;
+    export __LMOD_REF_COUNT_LOADEDMODULES;
+    LOADEDMODULES=bar/1.2:foo/1.0;
+    export LOADEDMODULES;
+    MODULEPATH=ProjectDIR/rt/depends_on/mf/Core;
+    export MODULEPATH;
+    __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/depends_on/mf/Core/bar/1.2.lua:1\;ProjectDIR/rt/depends_on/mf/Core/foo/1.0.lua:1;
+    export __LMOD_REF_COUNT__LMFILES_;
+    _LMFILES_=ProjectDIR/rt/depends_on/mf/Core/bar/1.2.lua:ProjectDIR/rt/depends_on/mf/Core/foo/1.0.lua;
+    export _LMFILES_;
+    BaseShell:expandMT(vstr){
+      _ModuleTable_ = {
+        MTversion = 3,
+        c_rebuildTime = false,
+        c_shortTime = false,
+        depthT = {},
+        family = {},
+        mT = {
+          bar = {
+            fn = "ProjectDIR/rt/depends_on/mf/Core/bar/1.2.lua",
+            fullName = "bar/1.2",
+            loadOrder = 1,
+            propT = {},
+            stackDepth = 0,
+            status = "active",
+            userName = "bar/1.2",
+            wV = "000000001.000000002.*zfinal",
+          },
+          foo = {
+            fn = "ProjectDIR/rt/depends_on/mf/Core/foo/1.0.lua",
+            fullName = "foo/1.0",
+            loadOrder = 2,
+            propT = {},
+            stackDepth = 0,
+            status = "active",
+            userName = "foo",
+            wV = "000000001.*zfinal",
+          },
+        },
+        mpathA = {
+          "ProjectDIR/rt/depends_on/mf/Core",
+        },
+        systemBaseMPATH = "ProjectDIR/rt/depends_on/mf/Core",
+      }
+    } BaseShell:expandMT
+  } BaseShell:expand
+  Exec:exec(){
+  } Exec:exec
 ===========================
 step 32
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) bar/1.2   2) foo/1.0
+===========================
+step 33
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+===========================
+step 34
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load SomeSoftware OtherSoftware
+===========================
+Processing Dependency/3.4
+Processing Dependency/3.4
+Processing Dependency/5.6
+The following dependent module(s) are not currently loaded: Dependency/3.4 (required by: SomeSoftware/1.2)
+===========================
+step 35
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) SomeSoftware/1.2   2) Dependency/5.6   3) OtherSoftware/3.4

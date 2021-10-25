@@ -61,9 +61,8 @@ testdescript = {
      unsetMT
      export MODULEPATH=$(testDir)/mf/Core2
      export LMOD_PIN_VERSIONS=yes
-     runLmod load  A                           #34
-     runLmod load  SomeSoftware OtherSoftware  #35
-     runLmod list                              #36
+     runLmod load  SomeSoftware OtherSoftware  #34
+     runLmod list                              #35
 
 
      HOME=$ORIG_HOME
