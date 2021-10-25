@@ -36,10 +36,14 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/reset
 ===========================
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load foo
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/reset/mf/User2
 ===========================
 ===========================
 step 9
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load foo
+===========================
+===========================
+step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
@@ -49,12 +53,12 @@ Currently Loaded Modules:
   Where:
    m:  built for host and native MIC
 ===========================
-step 10
+step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing reset
 ===========================
-Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: ProjectDIR/rt/reset/mf/User
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: ProjectDIR/rt/reset/mf/User2 ProjectDIR/rt/reset/mf/User
 ===========================
-step 11
+step 12
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:

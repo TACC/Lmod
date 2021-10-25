@@ -38,10 +38,11 @@ testdescript = {
      runLmod load admin PrgEnv openmpi parmetis # 5
      runLmod list                               # 6
      runLmod use $MODULEPATH_ROOT/User          # 7
-     runLmod load foo                           # 8
-     runLmod list                               # 9
-     runLmod reset                              #10
-     runLmod list                               #11
+     runLmod use $MODULEPATH_ROOT/User2         # 8 
+     runLmod load foo                           # 9
+     runLmod list                               #10
+     runLmod reset                              #11
+     runLmod list                               #12
 
      HOME=$ORIG_HOME
      PATH=$ORIGINAL_PATH
