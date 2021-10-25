@@ -366,7 +366,7 @@ bar=1.2;
 export bar;
 ===========================
 step 31
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -D load foo
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load foo
 ===========================
 __LMOD_REF_COUNT_LOADEDMODULES=bar/1.2:1\;foo/1.0:1;
 export __LMOD_REF_COUNT_LOADEDMODULES;
