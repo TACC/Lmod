@@ -238,7 +238,7 @@ To search the contents of modules for matching words execute:
      m_Reload_Modules      = "\nDue to MODULEPATH changes, the following have been reloaded:\n",
      m_Reload_Version_Chng = "\nThe following have been reloaded with a version change:\n",
      m_Restore_Coll        = "Restoring modules from %{msg}\n",
-     m_Reset_SysDflt       = "Resetting modules to system default. Resetting $MODULEPATH back to system default. All extra directories will be removed from $MODULEPATH.\n",
+     m_Reset_SysDflt       = "Running \"module reset\". Resetting modules to system default. The following $MODULEPATH directories have been removed: %{pathA}\n",
      m_Save_Coll           = "Saved current collection of modules to: \"%{a}\"%{msgTail}\n",
      m_Spdr_L1             = [==[%{border}  For detailed information about a specific "%{key}" package (including how to load the modules) use the module's full name.
   Note that names that have a trailing (E) are extensions provided by other modules.

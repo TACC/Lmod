@@ -46,4 +46,7 @@ Lmod 8.5+
             * Added LMOD_QUARANTINE_VARS env. vars.  A list of variables that
               Lmod won't change.
    (8.5.21) * Handle gsed/sed for testing on macOS.
+W.I.P:
+   (8.5.22) * Report missing MODULEPATH directories remove when "ml reset"
    
+

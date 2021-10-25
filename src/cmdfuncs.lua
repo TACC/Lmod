@@ -62,6 +62,7 @@ local getenv       = os.getenv
 local hook         = require("Hook")
 local i18n         = require("i18n")
 local lfs          = require("lfs")
+local sort         = table.sort
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack  -- luacheck: compat
 local unpack       = (_VERSION == "Lua 5.1") and unpack or table.unpack  -- luacheck: compat
 
@@ -555,10 +556,48 @@ function Reset(msg)
 
    local force = true
    Purge(force)
+   local frameStk  = FrameStk:singleton()
+   local mt        = frameStk:mt()
+   local oldMpathA = mt:modulePathA()
 
    -- Change MODULEPATH back to systemBaseMPATH
-   FrameStk:singleton():resetMPATH2system()
+   frameStk:resetMPATH2system()
 
+   local newMpathA = mt:modulePathA()
+
+   local oldMpathT = {}
+   for i = 1, #oldMpathA do
+      oldMpathT[oldMpathA[i]] = i
+   end
+
+   local b = {}
+
+   for i = 1, #newMpathA do
+      oldMpathT[newMpathA[i]] = false
+   end
+
+   for k,v in pairs(oldMpathT) do
+      if (v) then
+         b[#b+1] = {k,v}
+      end
+   end
+   
+   local function cmp(a,b)
+      return a[2] < b[2]
+   end
+
+   sort(b,cmp)
+   local a = {}
+   for i = 1,#b do
+      a[#a+1] = b[i][1]
+   end
+
+   local pathA = "None"
+   if (next(a) ~= nil) then
+      pathA = concatTbl(a," ")
+   end
+
+   
    dbg.print{"default: \"",default,"\"\n"}
 
    default = default:trim()
@@ -566,7 +605,7 @@ function Reset(msg)
    default = default:gsub(" +",":")
 
    if (msg ~= false and not quiet()) then
-      io.stderr:write(i18n("m_Reset_SysDflt",{}))
+      io.stderr:write(i18n("m_Reset_SysDflt",{pathA=pathA}))
    end
 
 
