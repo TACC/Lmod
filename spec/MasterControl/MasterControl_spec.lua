@@ -92,7 +92,7 @@ describe("Testing MasterControl Class #MasterControl.",
                   varT     = frameStk:varT()
                   assert.are.equal("BLUE",varT["BAZ_COLOR"]:expand())
                   assert.are.equal("bash",varT["MY_SHELL"]:expand())
-                  mcp:unload{mname}
+                  unload_internal{mname}
                   assert.are.equal("GREEN",getenv("BAZ_COLOR"))
                end)
          end
