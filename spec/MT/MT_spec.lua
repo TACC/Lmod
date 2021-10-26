@@ -93,6 +93,8 @@ describe("Testing MT Class #MT.",
 
                   local goldA = {
                      {input = "icr",        expected = "64/3.8"},
+                     {input = "icr/64",     expected = "64/3.8"},
+                     {input = "icr/64/",    expected = "64/3.8"},
                      {input = "icr/64/3.8", expected = "64/3.8"},
                      {input = "TACC",       expected = false   },
                   }

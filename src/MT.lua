@@ -649,19 +649,40 @@ function M.have(self, sn, status)
 end
 
 function M.lookup_w_userName(self,userName)
-   -- Check if userName is an 
-   if (self:exists(userName)) then
-      return userName
-   end
-   -- Check to see if userName is fullName by looping over entries.
-   local mT = self.mT
-   dbg.printT("lookup_w: mT",mT)
-   for sn, v in pairs(mT) do
-      if (userName == self:fullName(sn)) then
-         return sn
+   -- Check if userName is a sn
+
+   local sn_match = false
+   local sn = userName
+   while true do
+      if (self:exists(sn)) then
+         sn_match = true
+         break
       end
+      local idx = sn:match("^.*()/")
+      if (idx == nil) then break end
+      sn = sn:sub(1,idx-1)
    end
 
+   if (not sn_match) then return false end
+
+   -- Case 1:  userName -> sn ?
+   if (userName == sn) then
+      return sn
+   end
+   
+   -- Case 2:  userName -> fullName ?
+   local fullName = self:fullName(sn)
+   if (userName == fullName) then
+      return sn
+   end
+
+   local partial_match = ("^"..userName:escape().."/"):gsub('//+','/')
+
+   -- Case 3: Partial match?
+   local i,j      = fullName:find("^"..userName:escape().."/")
+   if (i) then
+      return sn
+   end
    return false
 end
 
