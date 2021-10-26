@@ -50,6 +50,6 @@ jobs:
          done
       - name: run busted tests
         run: |
-          PROJDIR=`pwd` busted --verbose -m "$PROJDIR/src/?.lua;$PROJDIR/tools/?.lua;$PROJDIR/tools/?/init.lua"
+          PROJDIR=`pwd` busted --verbose -m "./src/?.lua;./tools/?.lua;./tools/?/init.lua"
           
         
