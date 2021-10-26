@@ -48,5 +48,9 @@ Lmod 8.5+
    (8.5.21) * Handle gsed/sed for testing on macOS.
 W.I.P:
    (8.5.22) * Report missing MODULEPATH directories remove when "ml reset"
+            * Change MT:lookup_w_userName(userName) to support partial version string matches.
+              This is an update to Issue #518 fix in 8.5.7
+            * Modify test.yml to support running "make busted"
+            
    
 
