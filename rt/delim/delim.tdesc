@@ -6,7 +6,7 @@ testdescript = {
    description = [[
 	 Test initial module load
    ]],
-   keywords = {"load" },
+   keywords = {"delim" },
 
    active = 1,
    testName = "delim",
