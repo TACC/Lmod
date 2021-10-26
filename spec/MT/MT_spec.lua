@@ -93,22 +93,13 @@ describe("Testing MT Class #MT.",
 
                   local goldA = {
                      {input = "icr",        expected = "64/3.8"},
-                     {input = "icr/64",     expected = "64/3.8"},
                      {input = "icr/64/3.8", expected = "64/3.8"},
                      {input = "TACC",       expected = false   },
                   }
-
-
-
-
-                  dbg:activateDebug(1)
                   for i = 1,#goldA do
                      local gold    = goldA[i]
                      local mname   = MName:new("mt", gold.input)
-                     dbg.printT("mname_"..tostring(i), mname)
-
                      local version = mname:version()
-
                      assert.are.equal(gold.expected, version)
                   end
 
