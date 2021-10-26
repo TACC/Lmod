@@ -50,6 +50,6 @@ jobs:
          done
       - name: run busted tests
         run: |
-          ls 
-          make busted
+          PROJDIR=$PWD busted --verbose -m "$PWD/src/?.lua;$PWD/tools/?.lua;$PWD/tools/?/init.lua
+          
         
