@@ -37,7 +37,7 @@ jobs:
          echo "$PWD/Hermes/bin" >> $GITHUB_PATH
          cd -
       - name: Run tests
-        run: tm
+        run: tm -k load
       - name: show output of failed tests
         if: ${{ failure() }}
         run: |
@@ -50,6 +50,6 @@ jobs:
          done
       - name: run busted tests
         run: |
-          PROJDIR=$PWD busted --verbose -m "$PWD/src/?.lua;$PWD/tools/?.lua;$PWD/tools/?/init.lua
+          PROJDIR=$PWD busted --verbose -m "$PWD/src/?.lua;$PWD/tools/?.lua;$PWD/tools/?/init.lua"
           
         
