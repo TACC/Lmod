@@ -16,6 +16,7 @@ local concatTbl  = table.concat
 local cosmic     = require("Cosmic"):singleton()
 local getenv     = os.getenv
 local testDir    = "spec/ModuleA"
+setenv_lmod_version()
 describe("Testing ModuleA Class #ModuleA.",
          function()
             it("Build moduleA from mf",

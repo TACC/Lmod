@@ -10,6 +10,7 @@ local cosmic    = require("Cosmic"):singleton()
 local dbg       = require("Dbg"):dbg()
 local testDir   = "spec/MT"
 
+setenv_lmod_version()
 describe("Testing MT Class #MT.",
          function()
             it("Test fake loading a module",

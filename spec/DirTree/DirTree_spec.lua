@@ -8,7 +8,7 @@ require("serializeTbl")
 local DirTree = require("DirTree")
 local dbg     = require("Dbg"):dbg()
 local testDir = "spec/DirTree"
-
+setenv_lmod_version()
 describe("Testing DirTree Class: #DirTree.",
          function()
             it("build dirA from mf/bio directory",

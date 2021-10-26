@@ -14,6 +14,7 @@ local cosmic     = require("Cosmic"):singleton()
 local getenv     = os.getenv
 local testDir    = "spec/LocationT"
 
+setenv_lmod_version()
 describe("Testing LocationT Class #LocationT.",
          function()
             it("build locationT and compare",

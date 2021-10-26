@@ -14,6 +14,7 @@ local cosmic     = require("Cosmic"):singleton()
 local concatTbl  = table.concat
 local getenv     = os.getenv
 local testDir    = "spec/Avail"
+setenv_lmod_version()
 describe("Testing The Avail command #Avail.",
          function()
             it("Avail in terse and regular mode",

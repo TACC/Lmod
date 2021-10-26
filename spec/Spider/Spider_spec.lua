@@ -15,6 +15,7 @@ local cosmic     = require("Cosmic"):singleton()
 local dbg        = require("Dbg"):dbg()
 local getenv     = os.getenv
 local testDir    = "spec/Spider"
+setenv_lmod_version()
 describe("Testing Spider Class #Spider.",
          function()
             it("Core directory Test",

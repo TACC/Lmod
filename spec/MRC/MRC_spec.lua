@@ -12,6 +12,7 @@ local ModuleA    = require("ModuleA")
 local cosmic     = require("Cosmic"):singleton()
 local dbg        = require("Dbg"):dbg()
 local testDir    = "spec/MRC"
+setenv_lmod_version()
 
 describe("Testing MRC class #MRC.",
          function()

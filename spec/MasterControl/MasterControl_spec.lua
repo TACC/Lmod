@@ -18,6 +18,7 @@ local dbg           = require("Dbg")
 local getenv        = os.getenv
 local testDir       = "spec/MasterControl"
 
+setenv_lmod_version()
 describe("Testing MasterControl Class #MasterControl.",
          function()
             it("Building mcp",
