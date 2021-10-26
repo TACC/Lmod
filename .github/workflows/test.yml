@@ -29,6 +29,7 @@ jobs:
           luarocks install luafileSystem
           luarocks install luajson
           luarocks install lua-term
+          luarocks install busted
       - name: set up Hermes
         run: |
          cd /tmp
@@ -47,3 +48,6 @@ jobs:
            echo ">>>> ${dir}/out.txt"
            diff -c ${dir}/out.txt ${dir}/t1/*/out.txt || echo
          done
+      - name: run busted tests
+        run: make busted
+        
