@@ -591,6 +591,7 @@ proc cmdargs { cmd args } {
     global g_outputA
     foreach arg $args {
         set val [doubleQuoteEscaped $arg]
+	set val [string trimright $val "\r\n"]
         lappend cmdArgsL "\"$val\""
     }
     if {[info exists cmdArgsL]} {

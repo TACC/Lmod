@@ -51,6 +51,5 @@ W.I.P:
             * Change MT:lookup_w_userName(userName) to support partial version string matches.
               This is an update to Issue #518 fix in 8.5.7
             * Modify test.yml to support running "make busted"
-            
-   
-
+	    * Issue #537: Remove all trailing newlines from TCL arguments
+	    
