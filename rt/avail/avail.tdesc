@@ -43,7 +43,10 @@ testdescript = {
      runLmod use $(testDir)/mf/Core2  #14
      runLmod avail local              #15
      runLmod --ignore_cache avail     #16
+
+     export LMOD_MODULERCFILE=$testDir/dot.modulerc.lua
      runLmod overview                 #17
+     unset LMOD_MODULERCFILE
 
      runLmod purge                    #18
      unsetMT

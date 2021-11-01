@@ -1024,10 +1024,10 @@ function M.overview(self,argA)
    for i = 1,#aa do
       local entry = aa[i]:sub(1,-2) --> strip trailing newline
       repeat 
-         if (entry:find("(@")) then
+         dbg.print{"RTM: entry: ",entry,"\n"}
+         if (entry:find("%(@")) then
             break
          end
-         dbg.print{"entry: ",entry,"\n"}
          if (entry:find(":$")) then
             register_sn_count_in_b(false)
             if (next(b) ~= nil) then

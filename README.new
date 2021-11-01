@@ -31,7 +31,7 @@ Lmod 8.5+
    (8.5.16) * Fix bugs with cmake and perl test because of the renaming of cmake.in
               and perl.in to cmake and perl.
    (8.5.17) * Issue #532: Change AVAIL_EXTENSION to AVAIL_EXTENSIONS in Makefile.in
-            * Now use unload_internal and unload_usr_internal for all unlLoads
+            * Now use unload_internal and unload_usr_internal for all unloads
 	    * Use MasterControl:build_unload() and MasterControl:do_not_build_unload() to control when
 	      unload_internal switches mcp to be MC_Unload.
 	    * Update TACC/SitePackage.lua and docs to use s_msgT instead of s_msgA to
@@ -52,4 +52,4 @@ W.I.P:
               This is an update to Issue #518 fix in 8.5.7
             * Modify test.yml to support running "make busted"
 	    * Issue #537: Remove all trailing newlines from TCL arguments
-	    
+	    * Issue #538: Fixed regex from "(@" to "%(@" when doing "ml overview".
