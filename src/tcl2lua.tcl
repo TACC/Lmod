@@ -425,14 +425,14 @@ proc module-whatis { args } {
     lappend g_outputA  "whatis(\[===\[$msg2\]===\])\n"
 }
 
-#proc myBreak { args } {
-#    set msg ""
-#    foreach item $args {
-#       append msg $item
-#       append msg " "
-#    }
-#    cmdargs "break" $msg
-#}
+proc myBreak { args } {
+    set msg ""
+    foreach item $args {
+       append msg $item
+       append msg " "
+    }
+    cmdargs "break" $msg
+}
 
 
 proc setenv { var val args } {
@@ -948,7 +948,7 @@ proc execute-modulefile {modfile } {
     interp alias $child add-property   	 {} add-property
     interp alias $child always-load    	 {} always-load
     interp alias $child append-path    	 {} append-path
-#    interp alias $child break       	 {} myBreak
+    interp alias $child break       	 {} myBreak
     interp alias $child conflict       	 {} conflict
     interp alias $child depends-on     	 {} depends-on
     interp alias $child exit     	 {} my_exit
