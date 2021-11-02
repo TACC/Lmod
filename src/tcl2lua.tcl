@@ -425,6 +425,16 @@ proc module-whatis { args } {
     lappend g_outputA  "whatis(\[===\[$msg2\]===\])\n"
 }
 
+proc myBreak { args } {
+    set msg ""
+    foreach item $args {
+       append msg $item
+       append msg " "
+    }
+    cmdargs "break" $msg
+}
+
+
 proc setenv { var val args } {
     global env g_varsT
     set mode [currentMode]
@@ -591,9 +601,10 @@ proc cmdargs { cmd args } {
     global g_outputA
     foreach arg $args {
         set val [doubleQuoteEscaped $arg]
-	set val [string trimright $val "\r\n"]
+	set val [string trimright $val "\r\n "]
         lappend cmdArgsL "\"$val\""
     }
+
     if {[info exists cmdArgsL]} {
         set cmdArgs [join $cmdArgsL ","]
 	lappend g_outputA  "$cmd\($cmdArgs\)\n"
@@ -937,6 +948,7 @@ proc execute-modulefile {modfile } {
     interp alias $child add-property   	 {} add-property
     interp alias $child always-load    	 {} always-load
     interp alias $child append-path    	 {} append-path
+    interp alias $child break       	 {} myBreak
     interp alias $child conflict       	 {} conflict
     interp alias $child depends-on     	 {} depends-on
     interp alias $child exit     	 {} my_exit
