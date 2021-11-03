@@ -1,13 +1,20 @@
 New Features in Lmod
 ====================
 
+**LmodBreak(msg)**:
+     LmodBreak() modulefile function causes the evaluation of the
+     current modulefile to stop and all changed in the user's
+     environment to be ignored.  In TCL modulefiles it is **break**.
+     New in Lmod 8.6+
+
+
 **LMOD_QUARANTINE_VARS**:
 
-    This is an environment variable containing a list of environment
-    variables that Lmod will not change the value of.  Note that this
-    only applies to non-path variables.  Variables such as PATH or
-    LD_LIBRARY_PATH are ignored in this variable.  In other words,
-    Lmod could change any path like variables.  New in Lmod 8.6+
+     This is an environment variable containing a list of environment
+     variables that Lmod will not change the value of.  Note that this
+     only applies to non-path variables.  Variables such as PATH or
+     LD_LIBRARY_PATH are ignored in this variable.  In other words,
+     Lmod could change any path like variables.  New in Lmod 8.6+
 
 **source_sh** ("shellName","shell_script arg1 ..."):
      source a shell script as part of a module. Supported shellNames
