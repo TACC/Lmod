@@ -73,30 +73,30 @@ local s_missingFlg     = false
 -- is the usrName from the command line.  So we use the *usrName* to be
 -- the key and not *sn*.
 -- @param mA The array of MName objects.
-local function registerUserLoads(mA)
-   dbg.start{"registerUserLoads(mA)"}
+local function l_registerUserLoads(mA)
+   dbg.start{"l_registerUserLoads(mA)"}
    for i = 1, #mA do
       local mname       = mA[i]
       local userName    = mname:userName()
       s_loadT[userName] = mname
       dbg.print{"userName: ",userName,"\n"}
    end
-   dbg.fini("registerUserLoads")
+   dbg.fini("l_registerUserLoads")
 end
 
-local function unRegisterUserLoads(mA)
-   dbg.start{"unRegisterUserLoads(mA)"}
+local function l_unRegisterUserLoads(mA)
+   dbg.start{"l_unRegisterUserLoads(mA)"}
    for i = 1, #mA do
       local mname       = mA[i]
       local userName    = mname:userName()
       s_loadT[userName] = nil
       dbg.print{"userName: ",userName,"\n"}
    end
-   dbg.fini("unRegisterUserLoads")
+   dbg.fini("l_unRegisterUserLoads")
 end
 
-local function compareRequestedLoadsWithActual()
-   dbg.start{"compareRequestedLoadsWithActual()"}
+local function l_compareRequestedLoadsWithActual()
+   dbg.start{"l_compareRequestedLoadsWithActual()"}
    local mt = FrameStk:singleton():mt()
 
    local aa = {}
@@ -108,7 +108,7 @@ local function compareRequestedLoadsWithActual()
          bb[#bb+1] = userName
       end
    end
-   dbg.fini("compareRequestedLoadsWithActual")
+   dbg.fini("l_compareRequestedLoadsWithActual")
    return aa, bb
 end
 
@@ -195,7 +195,7 @@ end
 -- Convert MC name to MC Object.
 -- @param nameTbl Name to MC object table.
 -- @param name    Name of an MC objects.
-local function valid_name(nameTbl, name)
+local function l_valid_name(nameTbl, name)
    return nameTbl[name] or nameTbl.default
 end
 
@@ -242,7 +242,7 @@ function M.build(name,mode)
       }
    end
 
-   local o                = valid_name(s_nameTbl, name):create()
+   local o                = l_valid_name(s_nameTbl, name):create()
    o:_setMode(mode or name)
    o.__first   =  0
    o.__last    = -1
@@ -825,7 +825,7 @@ end
 function M.mustLoad(self)
    dbg.start{"MasterControl:mustLoad()"}
 
-   local aa, bb = compareRequestedLoadsWithActual()
+   local aa, bb = l_compareRequestedLoadsWithActual()
    l_error_on_missing_loaded_modules(aa,bb)
 
    dbg.fini("MasterControl:mustLoad")
@@ -892,7 +892,7 @@ function M.depends_on(self, mA)
       end
    end
 
-   registerUserLoads(mB)
+   l_registerUserLoads(mB)
    local a = self:load(mB)
 
    --------------------------------------------
@@ -942,7 +942,7 @@ function M.forgo(self,mA)
       until true
    end
 
-   unRegisterUserLoads(mB)
+   l_unRegisterUserLoads(mB)
    local aa     = unload_internal(mB)
    dbg.fini("MasterControl:forgo")
    return aa
@@ -968,7 +968,7 @@ function M.load_usr(self, mA)
       return {}
    end
 
-   registerUserLoads(mA)
+   l_registerUserLoads(mA)
    local a = self:load(mA)
    dbg.fini("MasterControl:load_usr")
    return a
@@ -1086,7 +1086,7 @@ function M.unload(self, mA)
       dbg.start{"MasterControl:unload(mA={"..s.."})"}
    end
 
-   unRegisterUserLoads(mA)
+   l_unRegisterUserLoads(mA)
    local aa     = master:unload(mA)
    dbg.fini("MasterControl:unload")
    return aa
@@ -1508,6 +1508,12 @@ function M.LmodBreak(self, msg)
    if (msg and msg ~= "") then
       LmodMessage(msg)
    end
+
+   -- Remove this module from the list of user requested modules to load.
+   local sn    = frameStk:sn()
+   local mname = MName:new("mt",sn)
+   l_unRegisterUserLoads{mname}
+
    -- Copy the previous frameStk on top of the current stack
    -- Then throw an error to stop execution of the current module.
    frameStk:LmodBreak()
