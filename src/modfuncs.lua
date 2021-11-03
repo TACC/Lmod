@@ -848,8 +848,8 @@ end
 
 function LmodBreak(msg)
    dbg.start{"LmodBreak(",msg,")"}
-   if (not validateStringArgs("LmodBreak", ...)) then return end
-   mcp:LmodBreak(...)
+   if (not validateStringArgs("LmodBreak", msg)) then return end
+   mcp:LmodBreak(msg)
    dbg.fini("LmodBreak")
 end
 
