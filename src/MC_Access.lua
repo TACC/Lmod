@@ -142,5 +142,6 @@ M.unload_usr           = MasterControl.quiet
 M.unsetenv             = MasterControl.quiet
 M.unset_shell_function = MasterControl.quiet
 M.usrload              = MasterControl.quiet
+M.LmodBreak            = MasterControl.quiet
 
 return M

@@ -84,6 +84,7 @@ M.unsetenv             = MasterControl.unsetenv
 M.unset_alias          = MasterControl.unset_alias
 M.unset_shell_function = MasterControl.unset_shell_function
 M.whatis               = MasterControl.quiet
+M.LmodBreak            = MasterControl.quiet
 
 
 -- Internally these function do not actually to anything when either

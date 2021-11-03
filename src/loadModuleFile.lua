@@ -137,6 +137,8 @@ function loadModuleFile(t)
    end
 
    -- report any errors
+   -- Note: When a module calls LmodBreak() msg will be a table
+   --       so do not error out then.
    if (not status and t.reportErr and type(msg) == string) then
       local n = userName or ""
       LmodError{msg="e_Unable_2_Load", name = n, fn = t.file, message = msg}

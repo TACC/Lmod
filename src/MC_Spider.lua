@@ -87,6 +87,7 @@ M.unset_alias          = MasterControl.quiet
 M.unset_shell_function = MasterControl.quiet
 M.usrload              = MasterControl.quiet
 M.warning              = MasterControl.warning
+M.LmodBreak            = MasterControl.quiet
 
 function argsPack(...)
    local arg = { n = select("#", ...), ...}

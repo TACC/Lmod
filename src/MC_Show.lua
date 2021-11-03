@@ -352,6 +352,9 @@ function M.unset_shell_function(self, ...)
    ShowCmd("set_shell_function", ...)
 end
 
+function M.LmodBreak(self, msg)
+   ShowCmd("LmodBreak", msg)
+end
 
 function M.source_sh(self, shell, script)
    ShowCmd("--source_sh", shell, script)

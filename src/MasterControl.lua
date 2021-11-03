@@ -1504,6 +1504,14 @@ end
 
 function M.LmodBreak(self, msg)
    dbg.start{"MasterControl:LmodBreak(msg=\"",msg,"\")"}
+   local frameStk    = FrameStk:singleton()
+   if (msg and msg ~= "") then
+      LmodMessage(msg)
+   end
+   -- Copy the previous frameStk on top of the current stack
+   -- Then throw an error to stop execution of the current module.
+   frameStk:LmodBreak()
+   error({code="LmodBreak"})
    dbg.fini("MasterControl:LmodBreak")
 end
 

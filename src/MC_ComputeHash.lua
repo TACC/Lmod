@@ -98,6 +98,7 @@ M.unset_alias          = MasterControl.quiet
 M.unset_shell_function = MasterControl.quiet
 M.unsetenv             = MasterControl.quiet
 M.whatis               = MasterControl.quiet
+M.LmodBreak            = MasterControl.quiet
 
 
 
