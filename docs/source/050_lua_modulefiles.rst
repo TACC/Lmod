@@ -127,6 +127,16 @@ unset during unloading.
      This feature was introduced in Tmod 4.6 and was shamelessly
      studied and re-implemented in Lmod 8.6+.
 
+**LmodBreak** (msg):
+     LmodBreak() modulefile function causes the evaluation of the
+     current modulefile to stop and all changed in the user's
+     environment to be ignored from the current modulefile.  However,
+     all other modulefiles are evaluated.  In TCL modulefiles it is
+     **break**.  
+
+     In other words, this function does not stop, where as
+     **LmodError()** stops all evaluations. New in Lmod 8.6+
+
 **userInGroups** ("group1", "group2", ...):
      Returns true if user is root or a member of one of the groups listed.
 

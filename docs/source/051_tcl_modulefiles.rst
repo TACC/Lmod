@@ -35,6 +35,15 @@ standard TCL language.
    Loads all modules.  When unloading only dependent modules are
    unloaded.  See :ref:`dependent_modules-label` for details.
    
+**break** msg :
+   This command causes the evaluation of the
+   current modulefile to stop and all changed in the user's
+   environment to be ignored from the current modulefile.  However,
+   all other modulefiles are evaluated.  
+
+   In other words, this command does not stop the operation, where as
+   **exit** stops all evaluations. New in Lmod 8.6+
+
 **exit** *number* :
    Exits the module.  No changes in the environment occur if this
    command is found.
