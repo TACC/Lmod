@@ -431,7 +431,7 @@ proc myBreak { args } {
        append msg $item
        append msg " "
     }
-    cmdargs "break" $msg
+    cmdargs "LmodBreak" $msg
 }
 
 

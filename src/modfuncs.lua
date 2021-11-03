@@ -805,6 +805,8 @@ function always_load(...)
 end
 
 
+
+
 --------------------------------------------------------------------------
 -- This function always unloads and never loads. The reverse of this
 -- function is a no-op.
@@ -841,6 +843,14 @@ function source_sh(...)
    if (not validateStringArgs("source_sh", ...)) then return end
    mcp:source_sh(...)
    dbg.fini("source_sh")
+end
+
+
+function LmodBreak(msg)
+   dbg.start{"LmodBreak(",msg,")"}
+   if (not validateStringArgs("LmodBreak", ...)) then return end
+   mcp:LmodBreak(...)
+   dbg.fini("LmodBreak")
 end
 
 

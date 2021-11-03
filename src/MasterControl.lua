@@ -1502,6 +1502,12 @@ function M.set_errorFunc(self, errorFunc)
    metaT.error = errFunc
 end
 
+function M.LmodBreak(self, msg)
+   dbg.start{"MasterControl:LmodBreak(msg=\"",msg,"\")"}
+   dbg.fini("MasterControl:LmodBreak")
+end
+
+
 
 function M.userInGroups(self, ...)
    local grps   = capture("groups")

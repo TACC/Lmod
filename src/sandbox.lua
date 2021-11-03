@@ -155,6 +155,7 @@ local sandbox_env = {
   extensions           = extensions,
 
   -- Misc --
+  LmodBreak            = LmodBreak,
   source_sh            = source_sh,
   LmodMsgRaw           = LmodMsgRaw,
   LmodError            = LmodError,

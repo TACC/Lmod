@@ -137,7 +137,7 @@ function loadModuleFile(t)
    end
 
    -- report any errors
-   if (not status and t.reportErr) then
+   if (not status and t.reportErr and type(msg) == string) then
       local n = userName or ""
       LmodError{msg="e_Unable_2_Load", name = n, fn = t.file, message = msg}
    end

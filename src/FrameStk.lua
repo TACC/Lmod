@@ -103,6 +103,13 @@ function M.push(self, mname)
    --dbg.fini("FrameStk:push")
 end
 
+function M.LmodBreak(self)
+   local stack           = self.__stack
+   local count           = self.__count
+   stack[count].mt       = deepcopy(stack[count-1].mt)
+   stack[count].varT     = deepcopy(stack[count-1].varT)
+end
+
 function M.pop(self)
    --dbg.start{"FrameStk:pop()"}
    local stack           = self.__stack
