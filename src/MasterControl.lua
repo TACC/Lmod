@@ -1504,7 +1504,20 @@ end
 
 function M.LmodBreak(self, msg)
    dbg.start{"MasterControl:LmodBreak(msg=\"",msg,"\")"}
-   local frameStk    = FrameStk:singleton()
+   local frameStk  = FrameStk:singleton()
+   local tracing   = cosmic:value("LMOD_TRACING")
+   local shell     = _G.Shell
+
+   if (tracing == "yes") then
+      local stackDepth = frameStk:stackDepth()
+      local indent     = ("  "):rep(stackDepth+1)
+      local b          = {}
+      b[#b + 1]        = indent
+      b[#b + 1]        = "LmodBreak called"
+      shell:echo(concatTbl(b,""))
+   end
+
+
    if (msg and msg ~= "") then
       LmodMessage(msg)
    end

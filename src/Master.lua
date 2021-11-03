@@ -384,13 +384,13 @@ function M.load(self, mA)
             frameStk:push(mname)
             mt = frameStk:mt()
             mt:add(mname,"pending")
-            loadModuleFile{file = fn, shell = shellNm, mList = mList, reportErr = true}
+            local status = loadModuleFile{file = fn, shell = shellNm, mList = mList, reportErr = true}
             mt = frameStk:mt()
 
             -- A modulefile could the same named module over top of the current modulefile
             -- Say modulefile abc/2.0 loads abc/.cpu/2.0.  Then in the case of abc/2.0 the filename
             -- won't match.
-            if (mt:fn(sn) == fn) then
+            if (mt:fn(sn) == fn and status) then
                mt:setStatus(sn, "active")
                hook.apply("load",{fn = mname:fn(), modFullName = mname:fullName(), mname = mname})
                dbg.print{"Marking ",fullName," as active and loaded\n"}
@@ -531,14 +531,16 @@ function M.unload(self,mA)
          end
 
          mt:setStatus(sn,"pending")
-         local mList = concatTbl(mt:list("both","active"),":")
-	 loadModuleFile{file=fn, mList=mList, shell=shellNm, reportErr=false}
-         mt = frameStk:mt()
-         mt:remove(sn)
-         registerUnloaded(fullName, fn)
-         hook.apply("unload",{fn = mname:fn(), modFullName = mname:fullName()})
+         local mList  = concatTbl(mt:list("both","active"),":")
+	 local status = loadModuleFile{file=fn, mList=mList, shell=shellNm, reportErr=false}
+         if (status) then
+            mt = frameStk:mt()
+            mt:remove(sn)
+            registerUnloaded(fullName, fn)
+            hook.apply("unload",{fn = mname:fn(), modFullName = mname:fullName()})
+         end
          frameStk:pop()
-         a[#a+1] = true
+         a[#a+1] = status
       else
          a[#a+1] = false
       end

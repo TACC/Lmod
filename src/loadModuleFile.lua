@@ -143,6 +143,12 @@ function loadModuleFile(t)
       local n = userName or ""
       LmodError{msg="e_Unable_2_Load", name = n, fn = t.file, message = msg}
    end
+   local status = true
+   if (type(msg) == "table" and msg.code == "LmodBreak") then
+      status = false
+   end
+
 
    dbg.fini("loadModuleFile")
+   return status
 end
