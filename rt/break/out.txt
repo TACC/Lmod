@@ -4,6 +4,16 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show BRK
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/break/mf:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/break/mf;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/break/mf",},systemBaseMPATH="ProjectDIR/rt/break/mf",}';
+export _ModuleTable_;
+===========================
+step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load StdEnv
 ===========================
 A=1.0;
@@ -16,8 +26,6 @@ __LMOD_REF_COUNT_LOADEDMODULES=A/1.0:1\;B/2.0:1\;C/3.0:1\;StdEnv:1;
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=A/1.0:B/2.0:C/3.0:StdEnv;
 export LOADEDMODULES;
-__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/break/mf:1;
-export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/break/mf;
 export MODULEPATH;
 __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/break/mf/A/1.0:1\;ProjectDIR/rt/break/mf/B/2.0:1\;ProjectDIR/rt/break/mf/C/3.0.lua:1\;ProjectDIR/rt/break/mf/StdEnv.lua:1;
@@ -27,10 +35,118 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/break/mf/A/1.0",fullName="A/1.0",loadOrder=1,propT={},stackDepth=1,status="active",userName="A",wV="000000001.*zfinal",},B={fn="ProjectDIR/rt/break/mf/B/2.0",fullName="B/2.0",loadOrder=2,propT={},stackDepth=1,status="active",userName="B",wV="000000002.*zfinal",},C={fn="ProjectDIR/rt/break/mf/C/3.0.lua",fullName="C/3.0",loadOrder=3,propT={},stackDepth=1,status="active",userName="C",wV="000000003.*zfinal",},StdEnv={fn="ProjectDIR/rt/break/mf/StdEnv.lua",fullName="StdEnv",loadOrder=4,propT={},stackDepth=0,status="active",userName="StdEnv",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/break/mf",},systemBaseMPATH="ProjectDIR/rt/break/mf",}';
 export _ModuleTable_;
 ===========================
-step 3
+step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/break/mf;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/break/mf/A/1.0",fullName="A/1.0",loadOrder=1,propT={},stackDepth=1,status="active",userName="A",wV="000000001.*zfinal",},B={fn="ProjectDIR/rt/break/mf/B/2.0",fullName="B/2.0",loadOrder=2,propT={},stackDepth=1,status="active",userName="B",wV="000000002.*zfinal",},C={fn="ProjectDIR/rt/break/mf/C/3.0.lua",fullName="C/3.0",loadOrder=3,propT={},stackDepth=1,status="active",userName="C",wV="000000003.*zfinal",},StdEnv={fn="ProjectDIR/rt/break/mf/StdEnv.lua",fullName="StdEnv",loadOrder=4,propT={},stackDepth=0,status="active",userName="StdEnv",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/break/mf",},systemBaseMPATH="ProjectDIR/rt/break/mf",}';
+export _ModuleTable_;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload StdEnv
+===========================
+unset A;
+unset B;
+unset C;
+unset __LMOD_REF_COUNT_LOADEDMODULES;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/break/mf;
+export MODULEPATH;
+unset __LMOD_REF_COUNT__LMFILES_;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/break/mf",},systemBaseMPATH="ProjectDIR/rt/break/mf",}';
+export _ModuleTable_;
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/break/mf;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/break/mf",},systemBaseMPATH="ProjectDIR/rt/break/mf",}';
+export _ModuleTable_;
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T load StdEnv
+===========================
+A=1.0;
+export A;
+B=2.0;
+export B;
+C=3.0;
+export C;
+__LMOD_REF_COUNT_LOADEDMODULES=A/1.0:1\;B/2.0:1\;C/3.0:1\;StdEnv:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=A/1.0:B/2.0:C/3.0:StdEnv;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/break/mf;
+export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/break/mf/A/1.0:1\;ProjectDIR/rt/break/mf/B/2.0:1\;ProjectDIR/rt/break/mf/C/3.0.lua:1\;ProjectDIR/rt/break/mf/StdEnv.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/break/mf/A/1.0:ProjectDIR/rt/break/mf/B/2.0:ProjectDIR/rt/break/mf/C/3.0.lua:ProjectDIR/rt/break/mf/StdEnv.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/break/mf/A/1.0",fullName="A/1.0",loadOrder=1,propT={},stackDepth=1,status="active",userName="A",wV="000000001.*zfinal",},B={fn="ProjectDIR/rt/break/mf/B/2.0",fullName="B/2.0",loadOrder=2,propT={},stackDepth=1,status="active",userName="B",wV="000000002.*zfinal",},C={fn="ProjectDIR/rt/break/mf/C/3.0.lua",fullName="C/3.0",loadOrder=3,propT={},stackDepth=1,status="active",userName="C",wV="000000003.*zfinal",},StdEnv={fn="ProjectDIR/rt/break/mf/StdEnv.lua",fullName="StdEnv",loadOrder=4,propT={},stackDepth=0,status="active",userName="StdEnv",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/break/mf",},systemBaseMPATH="ProjectDIR/rt/break/mf",}';
+export _ModuleTable_;
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T unload StdEnv
+===========================
+unset A;
+unset B;
+unset C;
+unset __LMOD_REF_COUNT_LOADEDMODULES;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/break/mf;
+export MODULEPATH;
+unset __LMOD_REF_COUNT__LMFILES_;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/break/mf",},systemBaseMPATH="ProjectDIR/rt/break/mf",}';
+export _ModuleTable_;
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load brk2
+===========================
+__LMOD_REF_COUNT_LOADEDMODULES=brk2/1.0:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=brk2/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/break/mf;
+export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/break/mf/brk2/1.0.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/break/mf/brk2/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={brk2={fn="ProjectDIR/rt/break/mf/brk2/1.0.lua",fullName="brk2/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="brk2",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/break/mf",},systemBaseMPATH="ProjectDIR/rt/break/mf",}';
+export _ModuleTable_;
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T unload brk2
+===========================
+MODULEPATH=ProjectDIR/rt/break/mf;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={brk2={fn="ProjectDIR/rt/break/mf/brk2/1.0.lua",fullName="brk2/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="brk2",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/break/mf",},systemBaseMPATH="ProjectDIR/rt/break/mf",}';
+export _ModuleTable_;
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/break/mf;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={brk2={fn="ProjectDIR/rt/break/mf/brk2/1.0.lua",fullName="brk2/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="brk2",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/break/mf",},systemBaseMPATH="ProjectDIR/rt/break/mf",}';
+export _ModuleTable_;
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load BRK
+===========================
+MODULEPATH=ProjectDIR/rt/break/mf;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={brk2={fn="ProjectDIR/rt/break/mf/brk2/1.0.lua",fullName="brk2/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="brk2",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/break/mf",},systemBaseMPATH="ProjectDIR/rt/break/mf",}';
+export _ModuleTable_;
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/break/mf;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={brk2={fn="ProjectDIR/rt/break/mf/brk2/1.0.lua",fullName="brk2/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="brk2",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/break/mf",},systemBaseMPATH="ProjectDIR/rt/break/mf",}';
 export _ModuleTable_;

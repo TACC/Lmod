@@ -533,6 +533,7 @@ function M.unload(self,mA)
          mt:setStatus(sn,"pending")
          local mList  = concatTbl(mt:list("both","active"),":")
 	 local status = loadModuleFile{file=fn, mList=mList, shell=shellNm, reportErr=false}
+         dbg.print{"status from loadModulefile: ",status,"\n"}
          if (status) then
             mt = frameStk:mt()
             mt:remove(sn)
