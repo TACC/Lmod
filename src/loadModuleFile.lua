@@ -60,7 +60,7 @@ function loadModuleFile(t)
 
    local myType   = extname(t.file)
    local status   = true
-   local flag     = true
+   local lmodBrk  = false
    local func
    local msg
    local whole
@@ -71,7 +71,7 @@ function loadModuleFile(t)
 
    if (mode() == "unload" and not isFile(t.file)) then
       dbg.fini("loadModuleFile")
-      return flag
+      return not lmodBrk
    end
 
    if (myType == ".lua") then
@@ -145,10 +145,10 @@ function loadModuleFile(t)
       LmodError{msg="e_Unable_2_Load", name = n, fn = t.file, message = msg}
    end
    if (type(msg) == "table" and msg.code == "LmodBreak") then
-      flag = false
+      lmodBrk = true
    end
 
 
    dbg.fini("loadModuleFile")
-   return flag
+   return not lmodBrk
 end

@@ -99,12 +99,12 @@ local randomseed = math.randomseed
 -- figure out the timestamps.
 -- @param self A Cache object
 -- @param t A table with possible dontWrite and quiet entries.
-local function new(self, t)
+local function l_new(self, t)
    local o = {}
    setmetatable(o,self)
    self.__index = self
 
-   dbg.start{"Cache:new()"}
+   dbg.start{"Cache:l_new()"}
 
    local readLmodRC  = ReadLmodRC:singleton()
    local scDescriptT = readLmodRC:scDescriptT()
@@ -193,11 +193,11 @@ local function new(self, t)
    o.spiderT           = {}
    o.mpathMapT         = {}
    o.moduleDirA        = {}
-   dbg.fini("Cache.new")
+   dbg.fini("Cache:l_new")
    return o
 end
 
-local function uuid()
+local function l_uuid()
    local time = epoch()
    local seed = math.floor((time - math.floor(time))*1.0e+6)
    if (seed == 0) then
@@ -227,7 +227,7 @@ function M.singleton(self, t)
 
    t                = t or {}
    if (not s_cache) then
-      s_cache   = new(self, t)
+      s_cache   = l_new(self, t)
    end
 
    s_cache.quiet    = t.quiet or s_cache.quiet
@@ -463,11 +463,11 @@ function M.build(self, fast)
          dirA[#dirA+1] = { mpath = k, idx = idx}
       end
    end
-   local function cmp(a,b)
+   local function l_cmp(a,b)
       return a.idx < b.idx
    end
 
-   sort(dirA, cmp)
+   sort(dirA, l_cmp)
 
    local mpA = {}
    for i = 1, #dirA do
@@ -588,7 +588,7 @@ function M.build(self, fast)
          doneMsg = " (not written to file) done"
       else
          mkdir_recursive(self.usrCacheDir)
-         local userSpiderTFN_new = userSpiderTFN .. "_" .. uuid()
+         local userSpiderTFN_new = userSpiderTFN .. "_" .. l_uuid()
          local f                 = io.open(userSpiderTFN_new,"w")
          if (f) then
             os.rename(userSpiderTFN, userSpiderTFN .. "~")

@@ -677,7 +677,7 @@ end
 --------------------------------------------------------------------------
 -- Convert number and string to a quoted string.
 -- @param v input number or string.
-local function arg2str(v)
+local function l_arg2str(v)
    if (v == nil) then return v end
    local s = tostring(v)
    if (type(v) ~= "boolean") then
@@ -713,7 +713,7 @@ function ShowCmdStr(name, ...)
       hasKeys = true
    end
    for i = 1, n do
-      local s = arg2str(t[i])
+      local s = l_arg2str(t[i])
       if (s ~= nil) then
          a[#a + 1] = s
       end
@@ -727,7 +727,7 @@ function ShowCmdStr(name, ...)
             local strV = tostring(v)
             if (s_defaultsT[k] ~= strV) then
                hasKeys = true
-               a[#a+1] = k.."="..arg2str(v)
+               a[#a+1] = k.."="..l_arg2str(v)
             end
          end
       end
@@ -846,7 +846,7 @@ end
 --------------------------------------------------------------------------
 -- determine which version of runTCLprog to use
 
-local function build_runTCLprog()
+local function l_build_runTCLprog()
    local fast_tcl_interp = cosmic:value("LMOD_FAST_TCL_INTERP")
    if (fast_tcl_interp == "no") then
       _G.runTCLprog = l_runTCLprog
@@ -856,12 +856,12 @@ local function build_runTCLprog()
 end
 
 if (not runTCLprog) then
-   build_runTCLprog()
+   l_build_runTCLprog()
 end
 
 --------------------------------------------------------------------------
 -- Create the accept functions to allow or ignore TCL modulefiles.
-local function build_accept_function()
+local function l_build_accept_function()
    local allow_tcl = cosmic:value("LMOD_ALLOW_TCL_MFILES")
 
    if (allow_tcl == "no") then
@@ -876,10 +876,10 @@ local function build_accept_function()
 end
 
 if (not accept_fn) then
-   build_accept_function()
+   l_build_accept_function()
 end
 
-local function build_allow_dups_function()
+local function l_build_allow_dups_function()
    local dups = cosmic:value("LMOD_DUPLICATE_PATHS")
    if (dups == "yes") then
       _G.allow_dups = function (dupsIn)
@@ -893,7 +893,7 @@ local function build_allow_dups_function()
 end
 
 if (not allow_dups) then
-   build_allow_dups_function()
+   l_build_allow_dups_function()
 end
 
 local function l_build_epoch_function()

@@ -43,7 +43,7 @@ local M        = {}
 local dbg      = require("Dbg"):dbg()
 local cosmic   = require("Cosmic"):singleton()
 
-local function merge_locationT(origT, lctnT, v)
+local function l_merge_locationT(origT, lctnT, v)
    if (v.file) then
       if (origT == nil) then
          lctnT = {file = v.file }
@@ -67,7 +67,7 @@ local function merge_locationT(origT, lctnT, v)
          for k, vv in pairs(v.dirT) do
             local new_origT = lctnT.dirT[k]
             local new_lctnT = new_origT or {}
-            lctnT.dirT[k]   = merge_locationT(new_origT, new_lctnT, vv)
+            lctnT.dirT[k]   = l_merge_locationT(new_origT, new_lctnT, vv)
          end
       end
    end
@@ -75,14 +75,14 @@ local function merge_locationT(origT, lctnT, v)
 end
 
 
-local function build(moduleA)
-   dbg.start{"LocationT build(moduleA)"}
+local function l_build(moduleA)
+   dbg.start{"LocationT l_build(moduleA)"}
 
    local locationT = {}
 
    if (next(moduleA) == nil or #moduleA < 1) then
       dbg.print{"next(moduleA) == nil or #moduleA < 1\n"}
-      dbg.fini("LocationT build")
+      dbg.fini("LocationT l_build")
       return locationT
    end
    local T = moduleA[1].T or {}
@@ -102,11 +102,11 @@ local function build(moduleA)
       for sn, v in pairs(T) do
          local origT   = locationT[sn]
          local lctnT   = locationT[sn] or {}
-         locationT[sn] = merge_locationT(origT, lctnT, v)
+         locationT[sn] = l_merge_locationT(origT, lctnT, v)
       end
    end
 
-   dbg.fini("LocationT build")
+   dbg.fini("LocationT l_build")
    return locationT
 end
 
@@ -114,7 +114,7 @@ function M.new(self, moduleA)
    dbg.start{"LocationT:new(moduleA)"}
    local o = {}
    setmetatable(o,self)
-   o.__locationT = build(deepcopy(moduleA))
+   o.__locationT = l_build(deepcopy(moduleA))
    self.__index = self
    dbg.fini("LocationT:new")
    return o

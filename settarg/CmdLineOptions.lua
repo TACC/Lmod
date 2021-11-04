@@ -48,7 +48,7 @@ local M            = {}
 
 local s_CmdLineOptions = {}
 
-local function new(self)
+local function l_new(self)
    local o = {}
 
    setmetatable(o,self)
@@ -60,7 +60,7 @@ end
 function  M.options(self)
    if ( next(s_CmdLineOptions) ) then return s_CmdLineOptions end
 
-   s_CmdLineOptions = new(self)
+   s_CmdLineOptions = l_new(self)
 
    local Optiks = require("Optiks")
 

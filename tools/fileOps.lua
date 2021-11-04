@@ -41,11 +41,11 @@ local concatTbl = table.concat
 local dbg       = require("Dbg"):dbg()
 
 
-local function argsPack(...)
+local function l_argsPack(...)
    local argA = { n = select("#", ...), ...}
    return argA
 end
-local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack  -- luacheck: compat
+local pack        = (_VERSION == "Lua 5.1") and l_argsPack or table.pack  -- luacheck: compat
 --------------------------------------------------------------------------
 -- find the absolute path to an executable.
 -- @param exec Name of executable
@@ -433,7 +433,7 @@ function path_regularize(value, full)
    return value
 end
 
-local function _walk_dir(path)
+local function l_walk_dir(path)
    local dirA  = {}
    local fileA = {}
    local attr = lfs.attributes(path)
@@ -454,14 +454,14 @@ local function _walk_dir(path)
    return dirA, fileA
 end
 
-local function _walker(root)
-   local dirA, fileA = _walk_dir(root)
+local function l_walker(root)
+   local dirA, fileA = l_walk_dir(root)
    coroutine.yield(root,dirA,fileA)
    for i = 1, #dirA do
-      _walker(pathJoin(root,dirA[i]))
+      l_walker(pathJoin(root,dirA[i]))
    end
 end
 
 function dir_walk(path)
-   return coroutine.wrap(function () _walker(path) end)
+   return coroutine.wrap(function () l_walker(path) end)
 end

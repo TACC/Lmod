@@ -27,7 +27,7 @@ require("strict")
 --------------------------------------------------------------------------
 
 
-local function replaceStrValue(s, varT)
+local function l_replaceStrValue(s, varT)
    return s:gsub("(.?)%%{%s*(.-)%s*}",
                  function(prev, key)
                     if (prev == '%') then
@@ -39,9 +39,9 @@ local function replaceStrValue(s, varT)
 end
 
 
-local function replaceStr(s, varT)
-   local msg = replaceStrValue(s, varT or {})
+local function l_replaceStr(s, varT)
+   local msg = l_replaceStrValue(s, varT or {})
    return  msg
 end
 
-return replaceStr
+return l_replaceStr

@@ -63,7 +63,7 @@ local M                    = MC_ComputeHash
 local dbg                  = require("Dbg"):dbg()
 local A                    = ShowResultsA
 
-local function ShowCmd(name, ...)
+local function l_ShowCmd(name, ...)
    A[#A+1] = ShowCmdStr(name, ...)
 end
 
@@ -125,7 +125,7 @@ end
 function M.prepend_path(self, t)
    local name = t[1]
    if (name ~= "MODULEPATH") then return end
-   ShowCmd("prepend_path", name, t[2], t.delim)
+   l_ShowCmd("prepend_path", name, t[2], t.delim)
 end
 
 --------------------------------------------------------------------------
@@ -135,7 +135,7 @@ end
 function M.append_path(self, t)
    local name = t[1]
    if (name ~= "MODULEPATH") then return end
-   ShowCmd("append_path", name, t[2], t.delim)
+   l_ShowCmd("append_path", name, t[2], t.delim)
 end
 
 --------------------------------------------------------------------------
@@ -145,7 +145,7 @@ end
 function M.remove_path(self, t)
    local name = t[1]
    if (name ~= "MODULEPATH") then return end
-   ShowCmd("remove_path", name, t[2], t.delim)
+   l_ShowCmd("remove_path", name, t[2], t.delim)
 end
 
 --------------------------------------------------------------------------
@@ -160,7 +160,7 @@ end
 -- @param self A MasterControl object
 -- @param mA An array of module names (MName objects)
 function M.mgrload(self, required, active)
-   A[#A+1] = ShowCmd("mgrload", required, active)
+   A[#A+1] = l_ShowCmd("mgrload", required, active)
 end
 --------------------------------------------------------------------------
 -- Print depends_on command.
@@ -200,7 +200,7 @@ M.try_add = M.try_load
 -- Print the inherit command.
 -- @param self A MasterControl object
 function M.inherit(self, ...)
-   ShowCmd("inherit",...)
+   l_ShowCmd("inherit",...)
 end
 
 --------------------------------------------------------------------------

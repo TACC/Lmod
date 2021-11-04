@@ -30,11 +30,11 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
-local function argsPack(...)
+local function l_argsPack(...)
    local argA = { n = select("#", ...), ...}
    return argA
 end
-local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
+local pack        = (_VERSION == "Lua 5.1") and l_argsPack or table.pack -- luacheck: compat
 local ProgName    = ""
 
 --------------------------------------------------------------------------
@@ -78,11 +78,11 @@ local tostring     = tostring
 local type         = type
 local stdout       = io.stdout
 
-local function Prt(...)
+local function l_prt(...)
    stdout:write(...)
 end
 
-local function PrtEnd()
+local function l_prtend()
 end
 
 --------------------------------------------------------------------------
@@ -106,8 +106,8 @@ function M.new(self, t)
       envArg   = t.envArg
 
       Error    = t.error or Error
-      Prt      = t.prt or Prt
-      PrtEnd   = t.prtEnd or PrtEnd
+      l_prt    = t.prt or l_prt
+      l_prtend = t.prtEnd or l_prtend
       Exit     = t.exit or Exit
    end
 
@@ -118,8 +118,8 @@ function M.new(self, t)
    end
 
    o.exit     = Exit
-   o.prt      = Prt
-   o.prtEnd   = PrtEnd
+   o.prt      = l_prt
+   o.prtEnd   = l_prtend
    o.usage    = usage
    o.version  = version
    o.envArg   = envArg

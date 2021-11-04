@@ -104,9 +104,9 @@ end
 -- @param name The variable name
 -- @param adding True if adding to path.
 -- @param pathEntry The new value.
-local function chkMP(name, value, adding)
+local function l_chkMP(name, value, adding)
    if (name == ModulePath) then
-      dbg.start{"chkMP(\"MODULEPATH\", value: ",value,", adding:",adding,")"}
+      dbg.start{"l_chkMP(\"MODULEPATH\", value: ",value,", adding:",adding,")"}
       local mt = require("FrameStk"):singleton():mt()
       mt:set_MPATH_change_flag()
       mt:updateMPathA(value)
@@ -119,7 +119,7 @@ local function chkMP(name, value, adding)
          local moduleA      = require("ModuleA"):singleton{spider_cache = spider_cache}
          moduleA:update{spider_cache = spider_cache}
       end
-      dbg.fini("chkMP")
+      dbg.fini("l_chkMP")
    end
 end
 
@@ -303,7 +303,7 @@ function M.remove(self, value, where, priority, nodups, force)
    self.value = v
    if (not v) then v = nil end
    setenv_posix(self.name, v, true)
-   chkMP(self.name, v, adding)
+   l_chkMP(self.name, v, adding)
 end
 
 --------------------------------------------------------------------------
@@ -316,7 +316,7 @@ end
 -- @param isPrepend True if a prepend.
 -- @param nodups True if no duplications are allowed.
 -- @param priority The priority value.
-local function insertFunc(vv, idx, isPrepend, nodups, priority)
+local function l_insertFunc(vv, idx, isPrepend, nodups, priority)
    local num  = vv.num
    local idxA = vv.idxA
    if (nodups or abs(priority) > 0) then
@@ -351,7 +351,7 @@ end
 
 --------------------------------------------------------------------------
 -- Prepend an entry into a path. [[nodups]] controls
--- policies on duplication by setting [[insertFunc]].
+-- policies on duplication by setting [[l_insertFunc]].
 --
 -- Report an error/warning when appending/prepending a path element
 -- without the same priority
@@ -401,8 +401,8 @@ function M.prepend(self, value, nodups, priority)
       local path = pathA[i]
       imin       = imin - 1
       local vv   = tbl[path]
-      tbl[path]  = insertFunc(vv or {num = 0, idxA = {}},
-                              imin, isPrepend, nodups, priority)
+      tbl[path]  = l_insertFunc(vv or {num = 0, idxA = {}},
+                                imin, isPrepend, nodups, priority)
    end
    self.imin = imin
 
@@ -411,7 +411,7 @@ function M.prepend(self, value, nodups, priority)
    if (not v) then v = nil end
    setenv_posix(self.name, v, true)
 
-   chkMP(self.name, v, adding)
+   l_chkMP(self.name, v, adding)
 end
 
 --------------------------------------------------------------------------
@@ -462,14 +462,14 @@ function M.append(self, value, nodups, priority)
       end
       imax       = imax + 1
       local vv   = tbl[path]
-      tbl[path]  = insertFunc(vv or {num = 0, idxA = {}}, imax, isPrepend, nodups, priority)
+      tbl[path]  = l_insertFunc(vv or {num = 0, idxA = {}}, imax, isPrepend, nodups, priority)
    end
    self.imax   = imax
    local value = self:expand()
    self.value  = value
    if (not value) then value = nil end
    setenv_posix(name, value, true)
-   chkMP(name, value, adding)
+   l_chkMP(name, value, adding)
 end
 
 --------------------------------------------------------------------------
@@ -483,7 +483,7 @@ function M.set(self,value)
    if (not value) then value = nil end
    setenv_posix(self.name, value, true)
    local adding = true
-   chkMP(self.name, value, adding)
+   l_chkMP(self.name, value, adding)
 end
 
 --------------------------------------------------------------------------
@@ -532,7 +532,7 @@ function M.pop(self)
    if (not v) then v = nil end
    setenv_posix(self.name, v, true)
    local adding = false
-   chkMP(self.name, v, adding)
+   l_chkMP(self.name, v, adding)
    return result
 end
 
@@ -598,7 +598,7 @@ function M.unset(self)
    self.type  = 'var'
    setenv_posix(self.name, nil, true)
    local adding = false
-   chkMP(self.name, nil, adding)
+   l_chkMP(self.name, nil, adding)
 end
 
 

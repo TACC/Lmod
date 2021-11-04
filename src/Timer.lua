@@ -52,7 +52,7 @@ s_timer            = false
 --------------------------------------------------------------------------
 -- A private Ctor for the Timer singleton class.
 -- @param self An Timer object.
-local function new(self)
+local function l_new(self)
    local o = {}
    setmetatable(o,self)
    self.__index = self
@@ -65,7 +65,7 @@ end
 -- @param self An Timer object.
 function M.singleton(self)
    if (not s_timer) then
-      s_timer = new(self)
+      s_timer = l_new(self)
    end
    return s_timer
 end

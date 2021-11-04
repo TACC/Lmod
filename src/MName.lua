@@ -156,8 +156,8 @@ function M.buildA(self,sType, ...)
    return a
 end
 
-local function lazyEval(self)
-   dbg.start{"lazyEval(",self.__userName,")"}
+local function l_lazyEval(self)
+   dbg.start{"l_lazyEval(",self.__userName,")"}
 
    local sType   = self.__sType
    if (sType == "mt") then
@@ -172,7 +172,7 @@ local function lazyEval(self)
          self.__stackDepth = mt:stackDepth(sn)
          self.__wV         = mt:wV(sn)
       end
-      dbg.fini("lazyEval via mt")
+      dbg.fini("l_lazyEval via mt")
       return
    end
 
@@ -189,7 +189,7 @@ local function lazyEval(self)
          self.__wV       = t.wV
       end
 
-      dbg.fini("lazyEval via inherit")
+      dbg.fini("l_lazyEval via inherit")
       return
    end
 
@@ -199,7 +199,7 @@ local function lazyEval(self)
    local mt                    = frameStk:mt()
    local userName              = mrc:resolve(mt:modulePathA(), self:userName())
    local sn, versionStr, fileA = moduleA:search(userName)
-   dbg.print{"lazyEval: userName: ",userName, ", sn: ",sn,", versionStr: ",versionStr,"\n"}
+   dbg.print{"l_lazyEval: userName: ",userName, ", sn: ",sn,", versionStr: ",versionStr,"\n"}
 
    self.__userName   = userName
    self.__sn         = sn
@@ -207,7 +207,7 @@ local function lazyEval(self)
    self.__stackDepth = self.__stackDepth or frameStk:stackDepth()
 
    if (not sn) then
-      dbg.fini("lazyEval via no sn")
+      dbg.fini("l_lazyEval via no sn")
       return
    end
 
@@ -232,15 +232,15 @@ local function lazyEval(self)
          break
       end
    end
-   dbg.print{"lazyEval: sn: ",self.__sn, ", version: ",self.__version, ", fn: ",self.__fn,", wV: ",self.__wV,"\n"}
+   dbg.print{"l_lazyEval: sn: ",self.__sn, ", version: ",self.__version, ", fn: ",self.__fn,", wV: ",self.__wV,"\n"}
    dbg.print{"fn: ",self.__fn,"\n"}
-   dbg.fini("lazyEval")
+   dbg.fini("l_lazyEval")
 end
 
 
 function M.valid(self)
    if (not self.__sn) then
-      lazyEval(self)
+      l_lazyEval(self)
    end
    return self.__fn
 end
@@ -253,7 +253,7 @@ end
 function M.sn(self)
    if (not self.__sn) then
       dbg.start{"Mname:sn()"}
-      lazyEval(self)
+      l_lazyEval(self)
       dbg.fini("Mname:sn")
    end
    return self.__sn
@@ -262,7 +262,7 @@ end
 function M.fn(self)
    if (not self.__fn) then
       dbg.start{"Mname:fn()"}
-      lazyEval(self)
+      l_lazyEval(self)
       dbg.fini("Mname:fn")
    end
    return self.__fn
@@ -270,21 +270,21 @@ end
 
 function M.version(self)
    if (not self.__sn) then
-      lazyEval(self)
+      l_lazyEval(self)
    end
    return self.__version
 end
 
 function M.wV(self)
    if (not self.__sn) then
-      lazyEval(self)
+      l_lazyEval(self)
    end
    return self.__wV
 end
 
 function M.stackDepth(self)
    if (not self.__sn) then
-      lazyEval(self)
+      l_lazyEval(self)
    end
    local stackDepth = self.__stackDepth == nil and 0 or self.__stackDepth
    return stackDepth
@@ -300,7 +300,7 @@ end
 
 function M.ref_count(self)
    if (not self.__sn) then
-      lazyEval(self)
+      l_lazyEval(self)
    end
    return self.__ref_count
 end
@@ -308,7 +308,7 @@ end
 function M.fullName(self)
    if (not self.__sn) then
       dbg.start{"Mname:fullName()"}
-      lazyEval(self)
+      l_lazyEval(self)
       dbg.fini("Mname:fullName")
       if (not self.__fn) then
          return nil
@@ -439,7 +439,7 @@ function M.find_exact_match_meta_module(self, fileA)
 end
 
 
-local function find_highest_by_key(self, key, fileA)
+local function l_find_highest_by_key(self, key, fileA)
    dbg.start{"MName:find_by_key(key:\"",key,"\",fileA)"}
    local mrc     = MRC:singleton()
    local a       = fileA[1] or {}
@@ -479,11 +479,11 @@ end
 
 
 function M.find_highest(self, fileA)
-   return find_highest_by_key(self, "wV",fileA)
+   return l_find_highest_by_key(self, "wV",fileA)
 end
 
 function M.find_latest(self, fileA)
-   return find_highest_by_key(self,"pV",fileA)
+   return l_find_highest_by_key(self,"pV",fileA)
 end
 
 function M.find_between(self, fileA)
@@ -625,7 +625,7 @@ function M.prereq(self)
    return userName
 end
 
--- reset the private variable to force a new lazyEval.
+-- reset the private variable to force a new l_lazyEval.
 function M.reset(self)
    self.__sn         = nil
    self.__fn         = nil

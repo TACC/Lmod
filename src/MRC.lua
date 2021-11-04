@@ -64,11 +64,11 @@ local load      = (_VERSION == "Lua 5.1") and loadstring or load
 local s_MRC     = false
 local hook      = require("Hook")
 
-local function argsPack(...)
+local function l_argsPack(...)
    local argA = { n = select("#", ...), ...}
    return argA
 end
-local pack      = (_VERSION == "Lua 5.1") and argsPack or table.pack  -- luacheck: compat
+local pack      = (_VERSION == "Lua 5.1") and l_argsPack or table.pack  -- luacheck: compat
 
 ------------------------------------------------------------------------
 -- Local functions
@@ -78,7 +78,7 @@ local l_buildMod2VersionT
 -- a private ctor that is used to construct a singleton.
 -- @param self A MRC object.
 
-local function new(self, fnA)
+local function l_new(self, fnA)
    local o              = {}
    o.__mpathT           = {}  -- mpath dependent values for alias2modT, version2modT
                               -- and hiddenT.
@@ -106,7 +106,7 @@ end
 function M.singleton(self, fnA)
    dbg.start{"MRC:singleton()"}
    if (not s_MRC) then
-      s_MRC = new(self, fnA)
+      s_MRC = l_new(self, fnA)
    end
    dbg.fini("MRC:singleton")
    return s_MRC

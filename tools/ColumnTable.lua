@@ -63,7 +63,7 @@ local blank = ' '
 -- compute the number of dimension in input table.
 -- @param a
 -- @return an array with the number of entries of a in each dimension
-local function sizeMe(a)
+local function l_sizeMe(a)
    local dim = {}
    local rows = #a
    dim[1] = rows
@@ -101,7 +101,7 @@ function M.new(self,t)
 
    o.length        = o.len or strlen
    o.term_width    = width
-   o.dim           = sizeMe(tbl)
+   o.dim           = l_sizeMe(tbl)
    o._entry_width  = M._entry_width1
    o._display      = M._display1
    o._columnSum    = M._columnSum1
@@ -112,7 +112,7 @@ function M.new(self,t)
       o._display      = M._display2
       o._columnSum    = M._columnSum2
       tbl             = o:_clearEmptyColumns2D(tbl)
-      o.dim           = sizeMe(tbl)
+      o.dim           = l_sizeMe(tbl)
    end
    o:_number_of_columns_rows(tbl)
    o.tbl        = tbl

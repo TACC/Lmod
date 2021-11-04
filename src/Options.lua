@@ -59,18 +59,18 @@ local M = {}
 --------------------------------------------------------------------------
 -- Private Ctor for Option class.
 -- @param self An Option object
-local function new(self)
-   local o = {}
-
-   setmetatable(o,self)
-   self.__index = self
-   return o
-end
+--local function l_new(self)
+--   local o = {}
+--
+--   setmetatable(o,self)
+--   self.__index = self
+--   return o
+--end
 
 --------------------------------------------------------------------------
 -- This function forces the option parser to write to stderr instead of
 -- stdout.
-local function prt(...)
+local function l_prt(...)
    stderr:write(...)
 end
 
@@ -78,7 +78,7 @@ end
 --------------------------------------------------------------------------
 -- This function prevents the option parser from exiting when it finds an
 -- error.
-local function nothing()
+local function l_nothing()
 end
 
 
@@ -92,8 +92,8 @@ function M.singleton(self, usage)
    local Optiks = require("Optiks")
    local cmdlineParser  = Optiks:new{usage   = usage,
                                      error   = LmodWarning,
-                                     exit    = nothing,
-                                     prt     = prt,
+                                     exit    = l_nothing,
+                                     prt     = l_prt,
                                      envArg  = os.getenv("LMOD_OPTIONS"),
    }
 

@@ -159,8 +159,8 @@ function M.default_BUILD_SCENARIO(tbl)
    return v
 end
 
-local function string2Tbl(s,tbl)
-   dbg.start{"string2Tbl(\"",s,"\", tbl)"}
+local function l_string2Tbl(s,tbl)
+   dbg.start{"l_string2Tbl(\"",s,"\", tbl)"}
    local stt           = STT:stt()
    local stringKindTbl = masterTbl().stringKindTbl
    for v in s:split("%s+") do
@@ -181,7 +181,7 @@ local function string2Tbl(s,tbl)
          end
       end
    end
-   dbg.fini("string2Tbl")
+   dbg.fini("l_string2Tbl")
 end
 
 function M.buildTbl(targetTbl)
@@ -241,7 +241,7 @@ function M.buildTbl(targetTbl)
    return tbl
 end
 
-local function readDotFiles()
+local function l_readDotFiles()
    local masterTbl = masterTbl()
 
    -------------------------------------------------------
@@ -359,7 +359,7 @@ function M.exec(shell)
 
    masterTbl.envVarsTbl  = envVarsTbl
 
-   readDotFiles()
+   l_readDotFiles()
    local targetList = masterTbl.targetList
    local familyTbl  = masterTbl.familyTbl
    local targetTbl = {}
@@ -371,7 +371,7 @@ function M.exec(shell)
 
    local tbl = M.buildTbl(targetTbl)
 
-   string2Tbl(concatTbl(masterTbl.pargs," ") or '',tbl)
+   l_string2Tbl(concatTbl(masterTbl.pargs," ") or '',tbl)
    processModuleTable(shell:getMT(), targetTbl, tbl)
 
 

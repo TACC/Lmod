@@ -74,24 +74,24 @@ local system_name  = cosmic:value("LMOD_SYSTEM_NAME")
 -- and M.access.  The mcp.accessMode function activates one or the other
 -- depending on what mode Access is called with.
 -- @param mode Whether this function has be called via *Help* or *Whatis*.
-local function Access(mode, ...)
+local function l_Access(mode, ...)
    local master    = Master:singleton()
    local shell     = _G.Shell
    local masterTbl = masterTbl()
-   dbg.start{"Access(", concatTbl({...},", "),")"}
+   dbg.start{"l_Access(", concatTbl({...},", "),")"}
    mcp = MasterControl.build("access", mode)
    mcp:setAccessMode(mode,true)
 
    local n = select('#',...)
    if (n < 1) then
       shell:echo(masterTbl.cmdHelpMsg, "\n", Usage(), "\n", version())
-      dbg.fini("Access")
+      dbg.fini("l_Access")
       return
    end
 
    master:access(...)
    mcp:setAccessMode(mode,false)
-   dbg.fini("Access")
+   dbg.fini("l_Access")
 end
 
 --------------------------------------------------------------------------
@@ -216,7 +216,7 @@ function Help(...)
       return concatTbl(a,"")
    end
 
-   Access("help",...)
+   l_Access("help",...)
 end
 
 function IsAvail(...)
@@ -1075,5 +1075,5 @@ end
 -- Run whatis on all request modules given the the command line.
 function Whatis(...)
    prtHdr    = function () return "" end
-   Access("whatis",...)
+   l_Access("whatis",...)
 end

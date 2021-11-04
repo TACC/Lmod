@@ -250,7 +250,7 @@ end
 -- valid_shell:  returns the valid shell name if it is in the shellTbl or
 --               bare otherwise.
 
-local function valid_shell(shellTbl, shell_name)
+local function l_valid_shell(shellTbl, shell_name)
    if (not shellTbl[shell_name]) then
       return shellTbl.bare
    end
@@ -259,7 +259,7 @@ end
 
 local s_shellTbl = false
 
-local function createShellTbl()
+local function l_createShellTbl()
    if (not s_shellTbl) then
       local CMake        = require('CMake')
       local Csh          = require('Csh')
@@ -296,7 +296,7 @@ end
 
 
 function M.isValid(shell_name)
-   createShellTbl()
+   l_createShellTbl()
    return s_shellTbl[shell_name]
 end
 
@@ -304,9 +304,9 @@ end
 -- BaseShell:build():  This is the factory that builds the derived shell.
 
 function M.build(self, shell_name)
-   createShellTbl()
+   l_createShellTbl()
    local shellNm = shell_name:lower()
-   local o       = valid_shell(s_shellTbl, shellNm):create()
+   local o       = l_valid_shell(s_shellTbl, shellNm):create()
    o._active     = true
    o:set_my_name(shellNm)
    return o

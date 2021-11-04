@@ -123,7 +123,7 @@ local lfs           = require("lfs")
 local sort          = table.sort
 local pack          = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
 
-local function nothing()
+local function l_nothing()
 end
 
 function walk_spiderT(spiderT, mt, mList, errorT)
@@ -174,7 +174,7 @@ function check_syntax(mpath, mt, mList, sn, fn, fullName, errorA)
    local frameStk = FrameStk:singleton()
    
 
-   local function loadMe(entryT)
+   local function l_loadMe(entryT)
       dbg.start{"loadMe(entryT, moduleStack, iStack, myModuleT)"}
       local shellNm       = "bash"
       local mname = MName:new("entryT", entryT)
@@ -199,7 +199,7 @@ function check_syntax(mpath, mt, mList, sn, fn, fullName, errorA)
                          version = extractVersion(fullName, sn)}
 
    my_errorMsg = nil
-   loadMe(entryT)
+   l_loadMe(entryT)
    if (my_errorMsg) then
       errorA[#errorA + 1]   = my_errorMsg
    end
@@ -236,14 +236,14 @@ function check_syntax_error_handler(self, ...)
    dbg.fini("check_syntax_error_handler")
 end
 
-local function OptError(...)
+local function l_OptError(...)
    local argA   = pack(...)
    for i = 1,argA.n do
       io.stderr:write(argA[i])
    end
 end
 
-local function prt(...)
+local function l_prt(...)
    io.stderr:write(...)
 end
 
@@ -252,8 +252,8 @@ function options()
    local usage         = "Usage: spider [options] moduledir ..."
    local cmdlineParser = Optiks:new{usage   = usage,
                                     version = "1.0",
-                                    error   = OptError,
-                                    prt     = prt,
+                                    error   = l_OptError,
+                                    prt     = l_prt,
    }
 
    cmdlineParser:add_option{
@@ -379,7 +379,7 @@ function main()
    masterTbl.mpathMapT   = {}
    local exit            = os.exit
 
-   sandbox_set_os_exit(nothing)
+   sandbox_set_os_exit(l_nothing)
 
    if (Use_Preload) then
       local a = {}

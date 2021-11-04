@@ -46,7 +46,7 @@ local M    = {}
 
 s_exec = false
 
-local function new(self)
+local function l_new(self)
    local o = {}
    o.a     = {}
 
@@ -62,7 +62,7 @@ end
 function M.exec(self)
    if (not s_exec) then
       dbg.start{"Exec:exec()"}
-      s_exec = new(self)
+      s_exec = l_new(self)
       dbg.fini("Exec:exec")
    end
    return s_exec

@@ -44,7 +44,7 @@ local dbg     = require("Dbg"):dbg()
 
 s_cTimer = false
 
-local function new(self, msg, threshold, active, timeout)
+local function l_new(self, msg, threshold, active, timeout)
    local o = {}
    setmetatable(o,self)
    self.__index = self
@@ -68,7 +68,7 @@ end
 -- @return A CTimer singleton object.
 function M.singleton(self, msg, threshold, active, timeout)
    if (not s_cTimer) then
-      s_cTimer = new(self, msg, threshold, active, timeout)
+      s_cTimer = l_new(self, msg, threshold, active, timeout)
    end
    return s_cTimer
 end

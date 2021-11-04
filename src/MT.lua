@@ -78,19 +78,19 @@ function M.name(self)
    return s_name
 end
 
-local function mt_version()
+local function l_mt_version()
    return 3
 end
 
 
-local function new(self, s, restoreFn)
-   dbg.start{"MT new(s,restoreFn:",restoreFn,")"}
+local function l_new(self, s, restoreFn)
+   dbg.start{"MT l_new(s,restoreFn:",restoreFn,")"}
    local o         = {}
 
    o.c_rebuildTime   = false
    o.c_shortTime     = false
    o.mT              = {}
-   o.MTversion       = mt_version()
+   o.MTversion       = l_mt_version()
    o.family          = {}
    o.mpathA          = {}
    o.depthT          = {}
@@ -113,7 +113,7 @@ local function new(self, s, restoreFn)
       o.depthT          = paired2pathT(maxdepth)
       dbg.print{"LMOD_MAXDEPTH: ",maxdepth,"\n"}
       dbg.print{"s is nil\n"}
-      dbg.fini("MT new")
+      dbg.fini("MT l_new")
       return o
    end
 
@@ -174,7 +174,7 @@ local function new(self, s, restoreFn)
       o.mpathA            = path2pathA(currentMPATH,':',clearDblSlash)
    end
 
-   dbg.fini("MT new")
+   dbg.fini("MT l_new")
    return o
 end
 
@@ -187,7 +187,7 @@ function M.singleton(self, t)
    end
    if (not s_mt) then
       dbg.start{"MT:singleton()"}
-      s_mt        = new(self, getMT())
+      s_mt        = l_new(self, getMT())
       dbg.fini("MT:singleton")
    end
    return s_mt
@@ -268,7 +268,7 @@ function M.reportContents(self, t)
       return a
    end
    local s            = f:read("*all")
-   local l_mt         = new(self, s, t.fn)
+   local l_mt         = l_new(self, s, t.fn)
    local pin_versions = cosmic:value("LMOD_PIN_VERSIONS")
    local kind         = (pin_versions == "no") and "userName" or "fullName"
    local activeA      = l_mt:list(kind, "active")
@@ -367,7 +367,7 @@ end
 --------------------------------------------------------------------------
 -- Set the load order by using MT:list()
 -- @param self An MT object.
-local function setLoadOrder(self)
+local function l_setLoadOrder(self)
    local a  = self:list("short","active")
    local mT = self.mT
    local sz = #a
@@ -386,7 +386,7 @@ function M.serializeTbl(self, state)
       mt.c_rebuildTime = false
       mt.c_shortTime   = false
    end
-   setLoadOrder(mt)
+   l_setLoadOrder(mt)
 
    if (make_pretty)  then
       local mT = mt.mT
@@ -428,7 +428,7 @@ function M.remove(self, sn)
    mT[sn]    = nil
 end
 
-local function build_AB(a,b, loadOrder, name, value)
+local function l_build_AB(a,b, loadOrder, name, value)
    if (loadOrder > 0) then
       a[#a+1] = { loadOrder, name, value }
    else
@@ -462,7 +462,7 @@ function M.list(self, kind, status)
       for k, v in pairs(mT) do
          if ((status == "any" or status == v.status) and
              (v.status ~= "pending")) then
-            a, b = build_AB(a, b,  v.loadOrder , k, k)
+            a, b = l_build_AB(a, b,  v.loadOrder , k, k)
          end
       end
    elseif (kind == "userName" or kind == "fullName") then
@@ -472,25 +472,25 @@ function M.list(self, kind, status)
             local obj = { sn = k, fullName = v.fullName, userName = v.userName,
                           name = v[kind], fn = v.fn, loadOrder = v.loadOrder,
                           stackDepth = v.stackDepth, ref_count = v.ref_count}
-            a, b = build_AB(a, b, v.loadOrder, v[kind], obj )
+            a, b = l_build_AB(a, b, v.loadOrder, v[kind], obj )
          end
       end
    elseif (kind == "both") then
       for k, v in pairs(mT) do
          if ((status == "any" or status == v.status) and
              (v.status ~= "pending")) then
-            a, b = build_AB(a, b, v.loadOrder, v.userName, v.userName )
+            a, b = l_build_AB(a, b, v.loadOrder, v.userName, v.userName )
             if (v.userName ~= k) then
-               a, b = build_AB(a, b, v.loadOrder, k, k)
+               a, b = l_build_AB(a, b, v.loadOrder, k, k)
             end
             if (v.userName ~= v.fullName) then
-               a, b = build_AB(a, b, v.loadOrder, v.fullName, v.fullName )
+               a, b = l_build_AB(a, b, v.loadOrder, v.fullName, v.fullName )
             end
          end
       end
    end
 
-   local function loadOrder_cmp(x,y)
+   local function l_loadOrder_cmp(x,y)
       if (x[1] == y[1]) then
          return x[2] < y[2]
       else
@@ -498,8 +498,8 @@ function M.list(self, kind, status)
       end
    end
 
-   sort (a, loadOrder_cmp)
-   sort (b, loadOrder_cmp)
+   sort (a, l_loadOrder_cmp)
+   sort (b, l_loadOrder_cmp)
 
    local B = {}
 
@@ -846,7 +846,7 @@ end
 
 --------------------------------------------------------------------------
 -- Generate a columeTable with a title.
-local function columnList(stream, msg, a)
+local function l_columnList(stream, msg, a)
    local cwidth = masterTbl().rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
    local t      = {}
    sort(a)
@@ -906,19 +906,19 @@ function M.reportChanges(self)
 
    if (#inactiveA > 0) then
       entries = true
-      columnList(io.stderr,i18n("m_Inactive_Modules",{}), inactiveA)
+      l_columnList(io.stderr,i18n("m_Inactive_Modules",{}), inactiveA)
    end
    if (#activeA > 0) then
       entries = true
-      columnList(io.stderr,i18n("m_Activate_Modules",{}), activeA)
+      l_columnList(io.stderr,i18n("m_Activate_Modules",{}), activeA)
    end
    if (#reloadA > 0) then
       entries = true
-      columnList(io.stderr,i18n("m_Reload_Modules",{}), reloadA)
+      l_columnList(io.stderr,i18n("m_Reload_Modules",{}), reloadA)
    end
    if (#changedA > 0) then
       entries = true
-      columnList(io.stderr,i18n("m_Reload_Version_Chng",{}), changedA)
+      l_columnList(io.stderr,i18n("m_Reload_Version_Chng",{}), changedA)
    end
 
    if (entries) then
@@ -930,7 +930,7 @@ end
 
 --------------------------------------------------------------------------
 -- Build the name of the *family* env. variable.
-local function buildFamilyPrefix()
+local function l_buildFamilyPrefix()
    if (not s_familyA) then
       s_familyA    = {}
       s_familyA[1] = "LMOD_FAMILY_"
@@ -951,7 +951,7 @@ end
 function M.setfamily(self,familyNm,mName)
    local results = self.family[familyNm]
    self.family[familyNm] = mName
-   local familyA = buildFamilyPrefix()
+   local familyA = l_buildFamilyPrefix()
    for i = 1,#familyA do
       local n = familyA[i] .. familyNm:upper()
       MCP:setenv(n, mName)
@@ -965,7 +965,7 @@ end
 -- @param self An MT object
 -- @param familyNm
 function M.unsetfamily(self,familyNm)
-   local familyA = buildFamilyPrefix()
+   local familyA = l_buildFamilyPrefix()
    for i = 1,#familyA do
       local n = familyA[i] .. familyNm:upper()
       MCP:unsetenv(n, "")
@@ -1136,7 +1136,7 @@ function M.getMTfromFile(self,tt)
 
    local restoreFn = tt.fn
    dbg.print{"s: ",s,"\n"}
-   local l_mt       = new(self, s, restoreFn)
+   local l_mt       = l_new(self, s, restoreFn)
    local activeA    = l_mt:list("userName","active")
    local savedMPATH = concatTbl(l_mt.mpathA,":")
    local tracing    = cosmic:value("LMOD_TRACING")

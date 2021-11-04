@@ -65,11 +65,11 @@ M.build_unload      = MasterControl.do_not_build_unload
 M.color_banner      = MasterControl.color_banner
 
 
-local function ShowCmd(name,...)
+local function l_ShowCmd(name,...)
    A[#A+1] = ShowCmdStr(name, ...)
 end
 
-local function Show_help(...)
+local function l_Show_help(...)
    local argA = pack(...)
    local a    = {}
    local b    = {}
@@ -87,14 +87,14 @@ end
 -- Print help command.
 -- @param self A MasterControl object
 function M.help(self, ...)
-   Show_help(...)
+   l_Show_help(...)
 end
 
 --------------------------------------------------------------------------
 -- Print extensions command.
 -- @param self A MasterControl object
 function M.extensions(self, ...)
-   ShowCmd("extensions",...)
+   l_ShowCmd("extensions",...)
 end
 
 --------------------------------------------------------------------------
@@ -102,7 +102,7 @@ end
 -- @param self A MasterControl object
 -- @param value the whatis string.
 function M.whatis(self, value)
-   ShowCmd("whatis", value)
+   l_ShowCmd("whatis", value)
 end
 
 --------------------------------------------------------------------------
@@ -110,7 +110,7 @@ end
 -- @param self A MasterControl object
 -- @param value the whatis string.
 function show_exit(value)
-   ShowCmd("os.exit", value)
+   l_ShowCmd("os.exit", value)
 end
 
 --------------------------------------------------------------------------
@@ -132,7 +132,7 @@ end
 -- @param self A MasterControl object
 -- @param t input table
 function M.prepend_path(self, t)
-   ShowCmd("prepend_path", t)
+   l_ShowCmd("prepend_path", t)
 end
 
 --------------------------------------------------------------------------
@@ -141,7 +141,7 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.add_property(self, name,value)
-   ShowCmd("add_property", name, value)
+   l_ShowCmd("add_property", name, value)
 end
 
 --------------------------------------------------------------------------
@@ -150,21 +150,21 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.remove_property(self, name,value)
-   ShowCmd("remove_property", name, value)
+   l_ShowCmd("remove_property", name, value)
 end
 
 --------------------------------------------------------------------------
 -- Print message command.
 -- @param self A MasterControl object.
 function M.message(self, ...)
-   ShowCmd("LmodMessage", ...)
+   l_ShowCmd("LmodMessage", ...)
 end
 
 --------------------------------------------------------------------------
 -- Print message raw command.
 -- @param self A MasterControl object.
 function M.msg_raw(self, ...)
-   ShowCmd("LmodMsgRaw", ...)
+   l_ShowCmd("LmodMsgRaw", ...)
 end
 
 --------------------------------------------------------------------------
@@ -173,7 +173,7 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.set_alias(self, name,value)
-   ShowCmd("set_alias", name, value)
+   l_ShowCmd("set_alias", name, value)
 end
 
 --------------------------------------------------------------------------
@@ -182,7 +182,7 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.pushenv(self, name,value)
-   ShowCmd("pushenv", name, value)
+   l_ShowCmd("pushenv", name, value)
 end
 
 --------------------------------------------------------------------------
@@ -190,7 +190,7 @@ end
 -- @param self A MasterControl object
 -- @param name the environment variable name.
 function M.unset_alias(self, name)
-   ShowCmd("unset_alias",name)
+   l_ShowCmd("unset_alias",name)
 end
 
 --------------------------------------------------------------------------
@@ -198,7 +198,7 @@ end
 -- @param self A MasterControl object
 -- @param t input table
 function M.append_path(self, t)
-   ShowCmd("append_path", t)
+   l_ShowCmd("append_path", t)
 end
 
 --------------------------------------------------------------------------
@@ -207,7 +207,7 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.setenv(self, name,value)
-   ShowCmd("setenv", name, value)
+   l_ShowCmd("setenv", name, value)
 end
 
 --------------------------------------------------------------------------
@@ -216,7 +216,7 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.unsetenv(self, name,value)
-   ShowCmd("unsetenv", name, value)
+   l_ShowCmd("unsetenv", name, value)
 end
 
 --------------------------------------------------------------------------
@@ -224,7 +224,7 @@ end
 -- @param self A MasterControl object
 -- @param t input table
 function M.remove_path(self, t)
-   ShowCmd("remove_path", t)
+   l_ShowCmd("remove_path", t)
 end
 
 --------------------------------------------------------------------------
@@ -248,7 +248,7 @@ end
 -- @param self A MasterControl object
 -- @param mA An array of module names (MName objects)
 function M.mgrload(self, required, active)
-   A[#A+1] = ShowCmd("mgrload",required, active)
+   A[#A+1] = l_ShowCmd("mgrload",required, active)
 end
 
 --------------------------------------------------------------------------
@@ -275,14 +275,14 @@ M.try_add = M.try_load
 -- Print inherit command.
 -- @param self A MasterControl object
 function M.inherit(self, ...)
-   ShowCmd("inherit",...)
+   l_ShowCmd("inherit",...)
 end
 
 --------------------------------------------------------------------------
 -- Print family command.
 -- @param self A MasterControl object
 function M.family(self, ...)
-   ShowCmd("family",...)
+   l_ShowCmd("family",...)
 end
 
 --------------------------------------------------------------------------
@@ -349,15 +349,15 @@ end
 -- Print unset shell function
 -- @param self A MasterControl object
 function M.unset_shell_function(self, ...)
-   ShowCmd("set_shell_function", ...)
+   l_ShowCmd("set_shell_function", ...)
 end
 
 function M.LmodBreak(self, msg)
-   ShowCmd("LmodBreak", msg)
+   l_ShowCmd("LmodBreak", msg)
 end
 
 function M.source_sh(self, shell, script)
-   ShowCmd("--source_sh", shell, script)
+   l_ShowCmd("--source_sh", shell, script)
    MasterControl.source_sh(self, shell, script)
 end
 

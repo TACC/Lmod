@@ -75,7 +75,7 @@ local defaultFnT = {
    ['.version']      = 4,
 }
 
-local function keepFile(fn)
+local function l_keepFile(fn)
    local firstChar = fn:sub(1,1)
    local lastChar  = fn:sub(-1,-1)
    local firstTwo  = fn:sub(1,2)
@@ -117,7 +117,7 @@ local l_checkValidModulefile = l_checkValidModulefileReal
 --------------------------------------------------------------------------
 -- Use readlink to find the link
 -- @param path the path to the module file.
-local function walk_link(path)
+local function l_walk_link(path)
    local attr   = lfs.symlinkattributes(path)
    if (attr == nil) then
       return nil
@@ -147,7 +147,7 @@ local function l_versionFile(mrc, mpath, defaultA)
          local path     = defaultT.fn
 
          if (defaultT.barefn == "default") then
-            defaultT.value = barefilename(walk_link(defaultT.fn)):gsub("%.lua$","")
+            defaultT.value = barefilename(l_walk_link(defaultT.fn)):gsub("%.lua$","")
             break
          end
          
@@ -161,7 +161,7 @@ local function l_versionFile(mrc, mpath, defaultA)
    return defaultA
 end
 
-local function walk(mrc, mpath, path, dirA, fileT)
+local function l_walk(mrc, mpath, path, dirA, fileT)
    local defaultA   = {}
    local permissions
    local uid
@@ -177,7 +177,7 @@ local function walk(mrc, mpath, path, dirA, fileT)
    for f in lfs.dir(path) do
       repeat
          local file = pathJoin(path, f)
-         if (not keepFile(f)) then break end
+         if (not l_keepFile(f)) then break end
 
          local attr = (f == "default") and lfs.symlinkattributes(file) or lfs.attributes(file)
          if (attr == nil) then break end
@@ -232,11 +232,11 @@ end
 
 
 
-local function walk_tree(mrc, mpath, pathIn, dirT)
+local function l_walk_tree(mrc, mpath, pathIn, dirT)
 
    local dirA     = {}
    local fileT    = {}
-   local defaultA = walk(mrc, mpath, pathIn, dirA, fileT)
+   local defaultA = l_walk(mrc, mpath, pathIn, dirA, fileT)
 
    dirT.fileT    = fileT
    dirT.defaultA = defaultA
@@ -248,7 +248,7 @@ local function walk_tree(mrc, mpath, pathIn, dirT)
       local fullName = extractFullName(mpath, path)
 
       dirT.dirT[fullName] = {}
-      walk_tree(mrc, mpath, path, dirT.dirT[fullName])
+      l_walk_tree(mrc, mpath, path, dirT.dirT[fullName])
 
       ----------------------------------------------------------------
       -- if the directory is empty or bad symlinks then do not save it
@@ -259,7 +259,7 @@ local function walk_tree(mrc, mpath, pathIn, dirT)
    end
 end
 
-local function build(mpathA)
+local function l_build(mpathA)
    local dirA = {}
    local mrc  = MRC:singleton()
 
@@ -267,7 +267,7 @@ local function build(mpathA)
       local mpath = mpathA[i]
       if (isDir(mpath)) then
          local dirT  = {}
-         walk_tree(mrc, mpath, mpath, dirT)
+         l_walk_tree(mrc, mpath, mpath, dirT)
          dirA[#dirA+1] = {mpath=mpath, dirT=dirT}
       end
    end
@@ -278,7 +278,7 @@ function M.new(self, mpathA)
    local o = {}
    setmetatable(o,self)
    self.__index = self
-   self.__dirA  = build(mpathA)
+   self.__dirA  = l_build(mpathA)
    return o
 end
 

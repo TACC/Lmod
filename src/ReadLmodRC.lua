@@ -56,8 +56,8 @@ local RCFileA = {
 
 local s_classObj    = false
 
-local function buildRC(self)
-   dbg.start{"buildRC(self)"}
+local function l_buildRC(self)
+   dbg.start{"l_buildRC(self)"}
 
    declare("propT",       false)
    declare("scDescriptT", false)
@@ -97,19 +97,19 @@ local function buildRC(self)
    self.__scDescriptT = s_scDescriptT
    self.__rcFileA     = s_rcFileA
 
-   dbg.fini("buildRC")
+   dbg.fini("l_buildRC")
 end
 
 
-local function new(self)
-   dbg.start{"ReadLmodRC:new()"}
+local function l_new(self)
+   dbg.start{"ReadLmodRC:l_new()"}
    local o = {}
    setmetatable(o,self)
    self.__index = self
 
-   buildRC(o)
+   l_buildRC(o)
 
-   dbg.fini("ReadLmodRC:new")
+   dbg.fini("ReadLmodRC:l_new")
    return o
 end
 
@@ -139,7 +139,7 @@ end
 function M.singleton(self)
    dbg.start{"ReadLmodRC:singleton()"}
    if (not s_classObj) then
-      s_classObj = new(self)
+      s_classObj = l_new(self)
    end
    dbg.fini("ReadLmodRC:singleton")
    return s_classObj

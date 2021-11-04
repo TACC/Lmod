@@ -75,7 +75,7 @@ function M.getMT(self)
 end
 
 
-local function valid_shell(shellTbl, shell_name)
+local function l_valid_shell(shellTbl, shell_name)
    if (not shellTbl[shell_name]) then
       return shellTbl.bare
    end
@@ -95,7 +95,7 @@ function M.build(shell_name)
    shellTbl["tcsh"] = Csh
    shellTbl.bare    = Bare
 
-   local o     = valid_shell(shellTbl, shell_name):create()
+   local o     = l_valid_shell(shellTbl, shell_name):create()
    return o
 end
 

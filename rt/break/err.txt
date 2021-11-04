@@ -40,7 +40,8 @@ running: module --regression_testing -T load StdEnv
     (2)(0)Loading: A (fn: ProjectDIR/rt/break/mf/A/1.0, using Find-Best)
     (3)(0)Loading: B (fn: ProjectDIR/rt/break/mf/B/2.0, using Find-Best)
     (4)(0)Loading: BRK (fn: ProjectDIR/rt/break/mf/BRK/1.0, using Find-Best)
-      LmodBreak calledBreak in BRK/1.0
+      LmodBreak called
+Break in BRK/1.0
     (5)(0)Loading: C (fn: ProjectDIR/rt/break/mf/C/3.0.lua, using Find-Best)
 ===========================
 step 8
@@ -62,7 +63,8 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T unload brk2
 ===========================
 running: module --regression_testing -T unload brk2
   (1)(0)Unloading: brk2 (status: active) (fn: ProjectDIR/rt/break/mf/brk2/1.0.lua)
-    LmodBreak calledunload break
+    LmodBreak called
+unload break
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list

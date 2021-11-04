@@ -1513,7 +1513,7 @@ function M.LmodBreak(self, msg)
       local indent     = ("  "):rep(stackDepth+1)
       local b          = {}
       b[#b + 1]        = indent
-      b[#b + 1]        = "LmodBreak called"
+      b[#b + 1]        = "LmodBreak called\n"
       shell:echo(concatTbl(b,""))
    end
 

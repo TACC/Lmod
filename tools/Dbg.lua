@@ -83,16 +83,16 @@ s_currentLevel  = huge
 s_levelA        = {}
 s_isActive      = false
 s_prefix        = ""
-local function prtTbl(a)
-   io.stderr:write("table:\n")
-   for _,v in ipairs(a) do
-      if (type(a) == "table") then
-	 prtTbl(v)
-      else
-	 io.stderr:write(v)
-      end
-   end
-end
+--local function l_prtTbl(a)
+--   io.stderr:write("table:\n")
+--   for _,v in ipairs(a) do
+--      if (type(a) == "table") then
+--	 l_prtTbl(v)
+--      else
+--	 io.stderr:write(v)
+--      end
+--   end
+--end
 
 --[[ rPrint(struct, [limit], [indent])   Recursively print arbitrary data.
 Set limit (default 100) to stanch infinite loops.
@@ -101,7 +101,7 @@ Set indent ("") to prefix each line:    Mytable [KEY] [KEY]...[KEY] VALUE
 
 Taken from https://gist.github.com/stuby/5445834
 --]]
-local function rPrint(s, l, i)
+local function l_rPrint(s, l, i)
     -- recursive Print (structure, limit, indent)
     l = (l) or 100; i = i or "";	-- default item limit, indent string
     if (l<1) then io.stderr:write("ERROR: Item limit reached.", "\n"); return l-1 end;
@@ -112,24 +112,24 @@ local function rPrint(s, l, i)
     end
     io.stderr:write(i," ", ts,"\n");  -- print "table"
     for k,v in pairs(s) do  -- print "[KEY] VALUE"
-        l = rPrint(v, l, i.."\t["..tostring(k).."]");
+        l = l_rPrint(v, l, i.."\t["..tostring(k).."]");
         if (l < 0) then break end
     end
     return l
 end
 
-local function argsPack(...)
+local function l_argsPack(...)
    local argA = { n = select("#", ...), ...}
    return argA
 end
-local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
+local pack        = (_VERSION == "Lua 5.1") and l_argsPack or table.pack -- luacheck: compat
 
-local function changeIndentLevel(i)
+local function l_changeIndentLevel(i)
    s_indentLevel  = s_indentLevel + i
    s_indentString = blank:rep(s_indentLevel*2)
 end
 
-local function new(self)
+local function l_new(self)
    local o = {}
    setmetatable(o,self)
    self.__index = self
@@ -152,7 +152,7 @@ end
 -- @param self Dbg object.
 function M.dbg(self)
    if (s_dbg == nil) then
-      s_dbg = new(self)
+      s_dbg = l_new(self)
    end
    return s_dbg
 end
@@ -244,12 +244,12 @@ end
 
 --------------------------------------------------------------------------
 -- extract the verbosity level
-local function extractVPL(t)
+local function l_extractVPL(t)
    local vpl = t.level or s_vpl
    return vpl
 end
 
-local function startExtractVPL(t)
+local function l_startExtractVPL(t)
    local vpl = t.level or s_vpl
    s_levelA[#s_levelA+1] = vpl
    return vpl
@@ -258,7 +258,7 @@ end
 --------------------------------------------------------------------------
 -- Start of a routine
 function M._start(t)
-   s_vpl = startExtractVPL(t)
+   s_vpl = l_startExtractVPL(t)
    if (s_vpl > s_currentLevel) then return end
 
    io.stderr:write(s_indentString)
@@ -266,7 +266,7 @@ function M._start(t)
       io.stderr:write(tostring(t[i]))
    end
    io.stderr:write("{\n")
-   changeIndentLevel(1)
+   l_changeIndentLevel(1)
 
 end
 
@@ -347,7 +347,7 @@ end
 -- @param t input table.
 
 function M._print(t)
-   local vpl = extractVPL(t)
+   local vpl = l_extractVPL(t)
    if (vpl > s_currentLevel) then
       return
    end
@@ -356,7 +356,7 @@ function M._print(t)
    for i = 1, #t do
       local v = t[i]
       if (type(v) == "table") then
-         rPrint(v, nil, s_indentString)
+         l_rPrint(v, nil, s_indentString)
       else
          if (type(v) ~= "string") then
             v = tostring(v)
@@ -392,11 +392,11 @@ function M._textA(t)
       io.stderr:write(t.name,":\n")
    end
 
-   changeIndentLevel(1)
+   l_changeIndentLevel(1)
    for i = 1, #a do
       io.stderr:write(s_indentString, a[i])
    end
-   changeIndentLevel(-1)
+   l_changeIndentLevel(-1)
 end
 
 --------------------------------------------------------------------------

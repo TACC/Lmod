@@ -47,7 +47,7 @@ local rep       = string.rep
 
 local s_bannerT = false
 
-local function new(self)
+local function l_new(self)
    local o = {}
    setmetatable(o,self)
    self.__index  = self
@@ -62,7 +62,7 @@ end
 
 function M.singleton(self)
    if (not s_bannerT) then
-      s_bannerT = new(self)
+      s_bannerT = l_new(self)
    end
 
    return s_bannerT

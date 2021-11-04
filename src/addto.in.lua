@@ -176,7 +176,7 @@ function main()
 
    remove(pargs,1)
 
-   local function build_array(s,A)
+   local function l_build_array(s,A)
       if (s == ":") then
          A[#A + 1] = false
       else
@@ -191,14 +191,14 @@ function main()
    -- Also separate colons into separate arguments
    local valueA    = {}
    for j = 1,#pargs do
-      build_array(pargs[j], valueA)
+      l_build_array(pargs[j], valueA)
    end
 
 
    ------------------------------------------------------------------------
    -- Convert empty string envVar values into false and clean path if requested
    if (envVar) then
-      build_array(envVar, envVarA)
+      l_build_array(envVar, envVarA)
    end
 
    ------------------------------------------------------------------------

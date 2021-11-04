@@ -56,16 +56,16 @@ local min       = math.min
 -- The default return LMOD unless it is overwritten by a site
 -- setting LMOD_SITE_NAME.
 
-local function site_name_hook()
+local function l_site_name_hook()
    return cosmic:value("LMOD_SITE_NAME") or "LMOD"
 end
 
-hook.register("SiteName",site_name_hook)
+hook.register("SiteName",l_site_name_hook)
 
 ------------------------------------------------------------
 -- Standard version of msg
 
-local function msg(kind, a)
+local function l_msg(kind, a)
    local twidth = TermWidth()
 
    local s      = i18n(kind,{}) or ""
@@ -80,12 +80,12 @@ local function msg(kind, a)
    return a
 end
 
-hook.register("msgHook",msg)
+hook.register("msgHook",l_msg)
 
 ------------------------------------------------------------
 -- Standard version of groupName
 
-local function groupName(fn)
+local function l_groupName(fn)
    local base  = removeExt(fn)
    local ext   = extname(fn)
    local sname = cosmic:value("LMOD_SYSTEM_NAME")
@@ -107,7 +107,7 @@ local function groupName(fn)
    return concatTbl(a,"")
 end
 
-hook.register("groupName",groupName)
+hook.register("groupName",l_groupName)
 
 local ignoreA     = {
    "^$",
@@ -126,11 +126,11 @@ local ignoreA     = {
 
 local keepA = {}
 
-local function spiderPathFilterHook(keepA, ignoreA)
+local function l_spiderPathFilterHook(keepA, ignoreA)
    return 
 end
    
-hook.register("spiderPathFilter",spiderPathFilterHook)
+hook.register("spiderPathFilter",l_spiderPathFilterHook)
 
 
 sandbox_registration { Pkg = Pkg }

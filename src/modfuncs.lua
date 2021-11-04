@@ -73,7 +73,7 @@ local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luach
 -- Special table concat function that knows about strings and numbers.
 -- @param aa  Input array
 -- @param delim output separator.
-local function concatTbl(aa,delim)
+local function l_concatTbl(aa,delim)
    if (not dbg.active()) then
       return ""
    end
@@ -188,7 +188,7 @@ end
 --  The load function.  It can be found in the following forms:
 -- "load('name'); load('name/1.2'); load(atleast('name','3.2'))",
 function load_module(...)
-   dbg.start{"load_module(",concatTbl({...},", "),")"}
+   dbg.start{"load_module(",l_concatTbl({...},", "),")"}
    if (not validateModules("load",...)) then return {} end
 
    dbg.print{"mcp:name(): ",mcp:name(),"\n"}
@@ -207,7 +207,7 @@ end
 
 
 function load_any(...)
-   dbg.start{"load_any(",concatTbl({...},", "),")"}
+   dbg.start{"load_any(",l_concatTbl({...},", "),")"}
    if (not validateModules("load_any",...)) then return {} end
 
    local b = mcp:load_any(MName:buildA(mcp:MNameType(), ...))
@@ -238,7 +238,7 @@ end
 -- Prepend a value to a path like variable.
 function prepend_path(...)
    local t = convert2table(...)
-   dbg.start{"prepend_path(",concatTbl(t,", "),")"}
+   dbg.start{"prepend_path(",l_concatTbl(t,", "),")"}
    if (not validateStringTable(2, "prepend_path",t)) then return end
 
    mcp:prepend_path(t)
@@ -249,7 +249,7 @@ end
 -- Append a value to a path like variable.
 function append_path(...)
    local t = convert2table(...)
-   dbg.start{"append_path(",concatTbl(t,", "),")"}
+   dbg.start{"append_path(",l_concatTbl(t,", "),")"}
    if (not validateStringTable(2, "append_path",t)) then return end
 
    mcp:append_path(t)
@@ -260,7 +260,7 @@ end
 -- Remove a value from a path like variable.
 function remove_path(...)
    local t = convert2table(...)
-   dbg.start{"remove_path(",concatTbl(t,", "),")"}
+   dbg.start{"remove_path(",l_concatTbl(t,", "),")"}
    if (not validateStringTable(2, "remove_path",t)) then return end
 
    mcp:remove_path(t)
@@ -272,7 +272,7 @@ end
 --------------------------------------------------------------------------
 -- Set the value of environment variable and maintain a stack.
 function pushenv(...)
-   dbg.start{"pushenv(",concatTbl({...},", "),")"}
+   dbg.start{"pushenv(",l_concatTbl({...},", "),")"}
    if (not validateArgsWithValue("pushenv",...)) then return end
 
    mcp:pushenv(...)
@@ -283,7 +283,7 @@ end
 --------------------------------------------------------------------------
 -- Set the value of environment variable.
 function setenv(...)
-   dbg.start{"setenv(",concatTbl({...},", "),")"}
+   dbg.start{"setenv(",l_concatTbl({...},", "),")"}
    if (not validateArgsWithValue("setenv",...)) then return end
 
    mcp:setenv(...)
@@ -294,7 +294,7 @@ end
 --------------------------------------------------------------------------
 -- Unset the value of environment variable.
 function unsetenv(...)
-   dbg.start{"unsetenv(",concatTbl({...},", "),")"}
+   dbg.start{"unsetenv(",l_concatTbl({...},", "),")"}
    if (not validateArgsWithValue("unsetenv",...)) then return end
 
    mcp:unsetenv(...)
@@ -345,7 +345,7 @@ end
 -- This function finds the same named module in the MODULEPATH and
 -- loads it.
 function inherit(...)
-   dbg.start{"inherit(",concatTbl({...},", "),")"}
+   dbg.start{"inherit(",l_concatTbl({...},", "),")"}
 
    mcp:inherit(...)
    dbg.fini("inherit")
@@ -471,7 +471,7 @@ end
 --------------------------------------------------------------------------
 -- The whatis database function.
 function whatis(...)
-   dbg.start{"whatis(",concatTbl({...},", "),")"}
+   dbg.start{"whatis(",l_concatTbl({...},", "),")"}
    if (not validateStringArgs("whatis",...)) then return end
 
    mcp:whatis(...)
@@ -512,7 +512,7 @@ end
 -- Test to see if a prereq module is loaded.  Fail if it is not.
 -- If more than one module is listed then it is an and condition.
 function prereq(...)
-   dbg.start{"prereq(",concatTbl({...},", "),")"}
+   dbg.start{"prereq(",l_concatTbl({...},", "),")"}
    if (not validateModules("prereq", ...)) then return end
 
    mcp:prereq(MName:buildA("mt", ...))
@@ -523,7 +523,7 @@ end
 -- Test to see if any of prereq modules are loaded.  Fail if it is not.
 -- If more than one module is listed then it is an or condition.
 function prereq_any(...)
-   dbg.start{"prereq_any(",concatTbl({...},", "),")"}
+   dbg.start{"prereq_any(",l_concatTbl({...},", "),")"}
    if (not validateModules("prereq_any",...)) then return end
 
    mcp:prereq_any(MName:buildA("mt",...))
@@ -533,7 +533,7 @@ end
 --------------------------------------------------------------------------
 -- Test to see if a conflict module is loaded.  Fail if it is loaded.
 function conflict(...)
-   dbg.start{"conflict(",concatTbl({...},", "),")"}
+   dbg.start{"conflict(",l_concatTbl({...},", "),")"}
    if (not validateStringArgs("conflict",...)) then return end
 
    mcp:conflict(MName:buildA("mt",...))
@@ -586,7 +586,7 @@ end
 --------------------------------------------------------------------------
 -- Set an alias for bash and csh
 function set_alias(...)
-   dbg.start{"set_alias(",concatTbl({...},", "),")"}
+   dbg.start{"set_alias(",l_concatTbl({...},", "),")"}
    if (not validateArgsWithValue("set_alias",...)) then return end
 
    mcp:set_alias(...)
@@ -596,7 +596,7 @@ end
 --------------------------------------------------------------------------
 -- Unset an alias for bash and csh
 function unset_alias(...)
-   dbg.start{"unset_alias(",concatTbl({...},", "),")"}
+   dbg.start{"unset_alias(",l_concatTbl({...},", "),")"}
    if (not validateStringArgs("unset_alias",...)) then return end
 
    mcp:unset_alias(...)
@@ -606,7 +606,7 @@ end
 --------------------------------------------------------------------------
 -- Set an shell function for bash and an alias for csh
 function set_shell_function(...)
-   dbg.start{"set_shell_function(",concatTbl({...},", "),")"}
+   dbg.start{"set_shell_function(",l_concatTbl({...},", "),")"}
    if (not validateStringArgs("set_shell_function",...)) then return end
 
    mcp:set_shell_function(...)
@@ -616,7 +616,7 @@ end
 --------------------------------------------------------------------------
 -- Unset an shell function for bash and an alias for csh
 function unset_shell_function(...)
-   dbg.start{"unset_shell_function(",concatTbl({...},", "),")"}
+   dbg.start{"unset_shell_function(",l_concatTbl({...},", "),")"}
    if (not validateStringArgs("unset_shell_function",...)) then return end
 
    mcp:unset_shell_function(...)
@@ -628,7 +628,7 @@ end
 --------------------------------------------------------------------------
 -- Add a property to a module.
 function add_property(...)
-   dbg.start{"add_property(",concatTbl({...},", "),")"}
+   dbg.start{"add_property(",l_concatTbl({...},", "),")"}
    if (not validateStringArgs("add_property",...)) then return end
    mcp:add_property(...)
    dbg.fini("add_property")
@@ -637,7 +637,7 @@ end
 --------------------------------------------------------------------------
 -- Remove a property to a module.
 function remove_property(...)
-   dbg.start{"remove_property(",concatTbl({...},", "),")"}
+   dbg.start{"remove_property(",l_concatTbl({...},", "),")"}
    if (not validateStringArgs("remove_property",...)) then return end
 
    mcp:remove_property(...)
@@ -745,7 +745,7 @@ end
 -- The only difference between 'load' and 'try_load' is that a 'try_load'
 -- will not produce a warning if the specified modulefile(s) do not exist.
 function try_load(...)
-   dbg.start{"try_load(",concatTbl({...},", "),")"}
+   dbg.start{"try_load(",l_concatTbl({...},", "),")"}
    if (not validateModules("try_load",...)) then return {} end
 
    local b = mcp:try_load(MName:buildA(mcp:MNameType(), ...))
@@ -786,7 +786,7 @@ end
 -- in the modulefile.  It is not an error to unload a module which is
 -- not loaded.  The reverse of an unload is a no-op.
 function unload(...)
-   dbg.start{"unload(",concatTbl({...},", "),")"}
+   dbg.start{"unload(",l_concatTbl({...},", "),")"}
    if (not validateModules("unload",...)) then return {} end
    local b = unload_internal(MName:buildA("mt",...))
    dbg.fini("unload")
@@ -796,7 +796,7 @@ end
 --------------------------------------------------------------------------
 -- This function always loads and never unloads.
 function always_load(...)
-   dbg.start{"always_load(",concatTbl({...},", "),")"}
+   dbg.start{"always_load(",l_concatTbl({...},", "),")"}
    if (not validateModules("always_load",...)) then return {} end
 
    local b  = mcp:always_load(MName:buildA("load",...))
@@ -811,14 +811,14 @@ end
 -- This function always unloads and never loads. The reverse of this
 -- function is a no-op.
 function always_unload(...)
-   dbg.start{"always_unload(",concatTbl({...},", "),")"}
+   dbg.start{"always_unload(",l_concatTbl({...},", "),")"}
    local b = unload(...)
    dbg.fini("always_unload")
    return b
 end
 
 function depends_on(...)
-   dbg.start{"depends_on(",concatTbl({...},", "),")"}
+   dbg.start{"depends_on(",l_concatTbl({...},", "),")"}
    if (not validateModules("depends_on",...)) then return {} end
 
    local b = mcp:depends_on(MName:buildA(mcp:MNameType(),...))
@@ -826,7 +826,7 @@ function depends_on(...)
 end
 
 function extensions(...)
-   dbg.start{"extensions(",concatTbl({...},", "),")"}
+   dbg.start{"extensions(",l_concatTbl({...},", "),")"}
    if (not validateStringArgs("extensions",...)) then return {} end
 
    local b = mcp:extensions(...)
@@ -839,7 +839,7 @@ end
 
 
 function source_sh(...)
-   dbg.start{"source_sh(",concatTbl({...},", "),")"}
+   dbg.start{"source_sh(",l_concatTbl({...},", "),")"}
    if (not validateStringArgs("source_sh", ...)) then return end
    mcp:source_sh(...)
    dbg.fini("source_sh")

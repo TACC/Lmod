@@ -61,11 +61,11 @@ require("strict")
 -- This is 5.1 Lua function to cover the table.pack function
 -- that is in Lua 5.2 and later.
 
-function argsPack(...)
+local function l_argsPack(...)
    local arg = { n = select("#", ...), ...}
    return arg
 end
-pack     = (_VERSION == "Lua 5.1") and argsPack or table.pack
+pack     = (_VERSION == "Lua 5.1") and l_argsPack or table.pack
 
 require("string_utils")
 require("serializeTbl")
@@ -81,13 +81,13 @@ cosmic:init{name = "LMOD_LD_LIBRARY_PATH", default = false, assignV = false}
 cosmic:init{name = "LMOD_LD_PRELOAD",      default = false, assignV = false}
 
 
-local function grab(line, b)
+local function l_grab(line, b)
    local eqIdx = line:find("=")
    local scIdx = line:find(";")
    b[#b+1]     = line:sub(eqIdx+1,scIdx-1):gsub("\"","")
 end
 
-local function grabCsh(line,b)
+local function l_grabCsh(line,b)
    local a = {}
    for v in line:split(' ') do
       a[#a + 1] = v
@@ -95,7 +95,7 @@ local function grabCsh(line,b)
    b[#b+1] = a[3]:gsub(";","")
 end   
 
-local function grabFish(line,b)
+local function l_grabFish(line,b)
    local a = {}
    for v in line:split(' ') do
       a[#a + 1] = v
@@ -190,7 +190,7 @@ function joinMT_fish(whole)
             state = "mt"
          end
          a = a3
-         grabFish(s, a2)
+         l_grabFish(s, a2)
       elseif (state == "init") then
          local i,j, name, str = s:find("^(set -x -g __LMOD_STACK[^ ]*)%s+\"(.*)\"")
          if (not i) then
@@ -234,7 +234,7 @@ function joinMT_bash(whole)
             state = "mt"
          end
          a = a3
-         grab(s, a2)
+         l_grab(s, a2)
          haveMT = true
       elseif (s:find("^export " .. n2 ) or
               s:find("^unset "  .. n2 ) or
@@ -282,7 +282,7 @@ function joinMT_csh(whole)
             state = "mt"
          end
          a = a3
-         grabCsh(s, a2)
+         l_grabCsh(s, a2)
       elseif (state == "init") then
          local i,j, name, str = s:find("^(setenv __LMOD_STACK[^ ]*)%s+\"(.*)\"")
          if (not i) then

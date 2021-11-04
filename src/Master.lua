@@ -68,7 +68,7 @@ local mpath_avail  = cosmic:value("LMOD_MPATH_AVAIL")
 
 local s_master = false
 
-local function new(self, safe)
+local function l_new(self, safe)
    local o = {}
 
    setmetatable(o,self)
@@ -84,7 +84,7 @@ end
 function M.singleton(self, safe)
    dbg.start{"Master:singleton(safe: ",safe,")"}
    if (not s_master) then
-      s_master = new(self, safe)
+      s_master = l_new(self, safe)
    end
    dbg.print{"s_master: ",tostring(s_master), ", safe: ",s_master.__safe,"\n"}
    dbg.fini("Master:singleton")
@@ -167,7 +167,7 @@ end
 -- This function marks a module name as loaded and saves
 -- it to LOADEDMODULES and _LMFILES_.   This is only for
 -- compatibility with Tmod.
-local function registerLoaded(fullName, fn)
+local function l_registerLoaded(fullName, fn)
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
    local modList  = "LOADEDMODULES"
@@ -193,7 +193,7 @@ end
 -- This function marks a module name as unloaded and
 -- saves it to LOADEDMODULES and _LMFILES_.   This is
 -- only for compatibility with Tmod.
-local function registerUnloaded(fullName, fn)
+local function l_registerUnloaded(fullName, fn)
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
    local modList  = "LOADEDMODULES"
@@ -394,7 +394,7 @@ function M.load(self, mA)
                mt:setStatus(sn, "active")
                hook.apply("load",{fn = mname:fn(), modFullName = mname:fullName(), mname = mname})
                dbg.print{"Marking ",fullName," as active and loaded\n"}
-               registerLoaded(fullName, fn)
+               l_registerLoaded(fullName, fn)
             end
             frameStk:pop()
             loaded = true
@@ -519,7 +519,7 @@ function M.unload(self,mA)
       if (mt:have(sn,"inactive")) then
          dbg.print{"Removing inactive module: ", userName, "\n"}
          mt:remove(sn)
-         registerUnloaded(mt:fullName(sn), mt:fn(sn))
+         l_registerUnloaded(mt:fullName(sn), mt:fn(sn))
          a[#a + 1] = true
       elseif (mt:have(sn,"active")) then
          dbg.print{"Master:unload: \"",userName,"\" from file: \"",fn,"\"\n"}
@@ -537,7 +537,7 @@ function M.unload(self,mA)
          if (status) then
             mt = frameStk:mt()
             mt:remove(sn)
-            registerUnloaded(fullName, fn)
+            l_registerUnloaded(fullName, fn)
             hook.apply("unload",{fn = mname:fn(), modFullName = mname:fullName()})
          end
          frameStk:pop()
@@ -821,7 +821,7 @@ function M.safeToUpdate()
    return s_master.__safe
 end
 
-local function availEntry(defaultOnly, label, searchA, defaultT, entry)
+local function l_availEntry(defaultOnly, label, searchA, defaultT, entry)
    if (defaultOnly) then
       local fn    = entry.fn
       if (not defaultT[fn]) then
@@ -1096,7 +1096,7 @@ function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaul
       local prtSnT = {}  -- Mark if we have printed the sn?
       
       for i = 1,#A do
-         local sn, fullName, fn = availEntry(defaultOnly, label, searchA, defaultT, A[i])
+         local sn, fullName, fn = l_availEntry(defaultOnly, label, searchA, defaultT, A[i])
          if (sn) then
             if (not prtSnT[sn] and sn ~= fullName and showSN) then
                prtSnT[sn] = true
@@ -1250,7 +1250,7 @@ function M.avail(self, argA)
          local b = {}
          for j = 1,#A do
             local entry = A[j]
-            local sn, fullName, fn = availEntry(defaultOnly, label, searchA, defaultT, entry)
+            local sn, fullName, fn = l_availEntry(defaultOnly, label, searchA, defaultT, entry)
             if (sn) then
                local dflt = false
                if (not defaultOnly and mark_as_default(entry, defaultT)) then

@@ -74,7 +74,7 @@ local mrc_sandbox_env = {
 -- of any kind.
 -- @param untrusted_code A string containing lua code
 
-local function mrc_run5_1(untrusted_code)
+local function l_mrc_run5_1(untrusted_code)
   if untrusted_code:byte(1) == 27 then return nil, "binary bytecode prohibited" end
   local untrusted_function, message = loadstring(untrusted_code)
   if not untrusted_function then return nil, message end
@@ -87,7 +87,7 @@ end
 -- against modulefiles call functions they shouldn't or syntax errors
 -- of any kind. This run codes under environment [Lua 5.2] or later.
 -- @param untrusted_code A string containing lua code
-local function mrc_run5_2(untrusted_code)
+local function l_mrc_run5_2(untrusted_code)
   local untrusted_function, message = load(untrusted_code, nil, 't', mrc_sandbox_env)
   if not untrusted_function then return nil, message end
   return pcall(untrusted_function)
@@ -97,4 +97,4 @@ end
 -- Define two version: Lua 5.1 or 5.2.  It is likely that
 -- The 5.2 version will be good for many new versions of
 -- Lua but time will only tell.
-mrc_sandbox_run = (_VERSION == "Lua 5.1") and mrc_run5_1 or mrc_run5_2
+mrc_sandbox_run = (_VERSION == "Lua 5.1") and l_mrc_run5_1 or l_mrc_run5_2

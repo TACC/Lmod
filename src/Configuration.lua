@@ -61,7 +61,7 @@ local M            = {}
 
 local s_configuration = false
 
-local function locatePkg(pkg)
+local function l_locatePkg(pkg)
    local result = nil
    for path in package.path:split(";") do
       local s = path:gsub("?",pkg)
@@ -76,13 +76,13 @@ local function locatePkg(pkg)
 end
 
 
-local function new(self)
+local function l_new(self)
    local o = {}
    setmetatable(o,self)
    self.__index = self
 
    local HashSum    = cosmic:value("LMOD_HASHSUM_PATH")
-   local locSitePkg = locatePkg("SitePackage") or "unknown"
+   local locSitePkg = l_locatePkg("SitePackage") or "unknown"
 
    if (locSitePkg ~= "unknown") then
       local std_sha1 = "1fa3d8f24793042217b8474904136fdde72d42dd"
@@ -262,7 +262,7 @@ end
 -- @return A Configuration Singleton.
 function M.singleton(self)
    if (not s_configuration) then
-      s_configuration = new(self)
+      s_configuration = l_new(self)
    end
    return s_configuration
 end

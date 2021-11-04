@@ -41,7 +41,7 @@ end
 
 colormt.__metatable = {}
 
-local function makecolor(value)
+local function l_makecolor(value)
     return setmetatable({ value = schar(27) .. '[' .. tostring(value) .. 'm' }, colormt)
 end
 
@@ -78,7 +78,7 @@ local colorvalues = {
 }
 
 for c, v in pairs(colorvalues) do
-    colors[c] = makecolor(v)
+    colors[c] = l_makecolor(v)
 end
 
 return colors

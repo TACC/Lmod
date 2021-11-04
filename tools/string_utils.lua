@@ -59,14 +59,14 @@ end
 function string.split(self, pat)
    pat  = pat or "%s+"
    local st, g = 1, self:gmatch("()("..pat..")")
-   local function getter(myself, segs, seps, sep, cap1, ...)
+   local function l_getter(myself, segs, seps, sep, cap1, ...)
       st = sep and seps + #sep
       return myself:sub(segs, (seps or 0) - 1), cap1 or sep, ...
    end
-   local function splitter(myself)
-      if st then return getter(myself, st, g()) end
+   local function l_splitter(myself)
+      if st then return l_getter(myself, st, g()) end
    end
-   return splitter, self
+   return l_splitter, self
 end
 
 function string.trim(self)

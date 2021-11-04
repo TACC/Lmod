@@ -46,7 +46,7 @@ local s_DFLT  = 80
 ------------------------------------------------------------------------
 -- Ask system for width.
 
-local function askSystem(width)
+local function l_askSystem(width)
 
    -- try stty size
    local r_c = capture("stty size 2> /dev/null")
@@ -83,7 +83,7 @@ function TermWidth()
    s_DFLT    = ltw or s_DFLT
    s_width   = s_DFLT
    if (haveTermSupport()) then
-      s_width = askSystem(s_width)
+      s_width = l_askSystem(s_width)
    end
 
    local maxW = ltw or math.huge

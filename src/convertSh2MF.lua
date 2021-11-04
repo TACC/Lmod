@@ -81,7 +81,7 @@ local ignoreA = {
 }
 
 
-local function convertSh2MF(shellName, style, script)
+local function l_convertSh2MF(shellName, style, script)
    shellName = validShellT[shellName] or "bash"
 
    local shellT    = shellTemplateT[shellName]
@@ -194,5 +194,5 @@ local function convertSh2MF(shellName, style, script)
    return success, "", factory:process(shellName, ignoreT, resultT)
 end
 
-return convertSh2MF
+return l_convertSh2MF
 

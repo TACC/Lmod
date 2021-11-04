@@ -74,10 +74,10 @@ function M.new(self)
    return o
 end
 
-local function nothing()
+local function l_nothing()
 end
 
-local function process(kind, value)
+local function l_process(kind, value)
    if (value == nil) then return end
    local moduleStack = masterTbl().moduleStack
    local iStack      = #moduleStack
@@ -92,18 +92,18 @@ local function process(kind, value)
 end
 
 function processLPATH(value)
-   process("lpathA",value)
+   l_process("lpathA",value)
 end
 
 function processPATH(value)
-   process("pathA",value)
+   l_process("pathA",value)
 end
 
 function processDIR(value)
-   process("dirA",value)
+   l_process("dirA",value)
 end
 
-local function processNewModulePATH(path)
+local function l_processNewModulePATH(path)
    local masterTbl   = masterTbl()
    local dirStk      = masterTbl.dirStk
    local mpath_new   = path_regularize(path)
@@ -126,7 +126,7 @@ function Spider_append_path(kind, t)
    local value = t[2]
    if (name == "MODULEPATH") then
       dbg.start{kind, "(\"",name, "\" = \"", value, "\")"}
-      processNewModulePATH(value)
+      l_processNewModulePATH(value)
       dbg.fini(kind)
    elseif (name == "PATH") then
       dbg.start{kind, "(\"",name, "\" = \"", value, "\")"}
@@ -149,11 +149,11 @@ function Spider_append_path(kind, t)
 end
 
 
-local function findModules(mpath, mt, mList, sn, v, moduleT)
+local function l_findModules(mpath, mt, mList, sn, v, moduleT)
 
    local shell    = _G.Shell
    local tracing  = cosmic:value("LMOD_TRACING")
-   local function loadMe(entryT, moduleStack, iStack, myModuleT)
+   local function l_loadMe(entryT, moduleStack, iStack, myModuleT)
       local shellNm       = "bash"
       local fn            = entryT.fn
       local sn            = entryT.sn
@@ -183,19 +183,19 @@ local function findModules(mpath, mt, mList, sn, v, moduleT)
    local iStack      = #moduleStack
    if (v.file) then
       entryT   = { fn = v.file, sn = sn, userName = sn, fullName = sn, version = false}
-      loadMe(entryT, moduleStack, iStack, v.metaModuleT)
+      l_loadMe(entryT, moduleStack, iStack, v.metaModuleT)
    end
    if (next(v.fileT) ~= nil) then
       for fullName, vv in pairs(v.fileT) do
          vv.Version = extractVersion(fullName, sn)
          entryT   = { fn = vv.fn, sn = sn, userName = fullName, fullName = fullName,
                       version = vv.Version }
-         loadMe(entryT, moduleStack, iStack, vv)
+         l_loadMe(entryT, moduleStack, iStack, vv)
       end
    end
    if (next(v.dirT) ~= nil) then
       for name, vv in pairs(v.dirT) do
-         findModules(mpath, mt, mList, sn, vv)
+         l_findModules(mpath, mt, mList, sn, vv)
       end
    end
 end
@@ -277,13 +277,13 @@ function M.findAllModules(self, mpathA, spiderT)
 
    local mList           = ""
    local exit            = os.exit
-   os.exit               = nothing
+   os.exit               = l_nothing
    
-   sandbox_set_os_exit(nothing)
+   sandbox_set_os_exit(l_nothing)
    if (tracing == "no" and not dbg.active()) then
       turn_off_stdio()
    end
-   dbg.print{"setting os.exit to nothing; turn off output to stderr\n"}
+   dbg.print{"setting os.exit to l_nothing; turn off output to stderr\n"}
    if (Use_Preload) then
       local a = {}
       mList   = getenv("LOADEDMODULES") or ""
@@ -325,7 +325,7 @@ function M.findAllModules(self, mpathA, spiderT)
          local moduleA     = ModuleA:__new({mpath}, maxdepthT):moduleA()
          local T           = moduleA[1].T
          for sn, v in pairs(T) do
-            findModules(mpath, mt, mList, sn, v)
+            l_findModules(mpath, mt, mList, sn, v)
          end
          spiderT[mpath] = moduleA[1].T
       until true
@@ -539,10 +539,10 @@ function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
    local parentT      = l_build_parentT(keepT, mpathMapT)
    local mrc          = MRC:singleton()
 
-   local function cmp(a,b)
+   local function l_cmp(a,b)
       return a[1] > b[1]
    end
-   local function buildDbT_helper(mpath, sn, v, T)
+   local function l_buildDbT_helper(mpath, sn, v, T)
       if (v.file) then
          local t = {}
          for i = 1,#dbT_keyA do
@@ -551,7 +551,7 @@ function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
          end
          if (parentT[mpath] and next(parentT[mpath]) ~= nil) then
             dbg.printT("parentAA",parentT[mpath])
-            sort(parentT[mpath], cmp)
+            sort(parentT[mpath], l_cmp)
          end
          t.parentAA     = parentT[mpath]
          t.fullName     = sn
@@ -567,7 +567,7 @@ function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
             end
             if (parentT[mpath] and next(parentT[mpath]) ~= nil) then
                dbg.printT("parentAA",parentT[mpath])
-               sort(parentT[mpath], cmp)
+               sort(parentT[mpath], l_cmp)
             end
             t.parentAA   = parentT[mpath]
             t.fullName   = fullName
@@ -579,7 +579,7 @@ function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
       end
       if (next(v.dirT) ~= nil) then
          for name, vv in pairs(v.dirT) do
-            buildDbT_helper(mpath, sn, vv, T)
+            l_buildDbT_helper(mpath, sn, vv, T)
          end
       end
    end
@@ -603,7 +603,7 @@ function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
       if (mpath ~= 'version' and keepT[mpath]) then
          for sn, v in pairs(vv) do
             local T = dbT[sn] or {}
-            buildDbT_helper(mpath, sn, v, T)
+            l_buildDbT_helper(mpath, sn, v, T)
             dbT[sn] = T
          end
       end
@@ -644,7 +644,7 @@ function M.buildProvideByT(self, dbT, providedByT)
       end
    end
 
-   local function cmp(a, b)
+   local function l_cmp(a, b)
       if (a.pV > b.pV) then
          return true
       elseif (a.pV == b.pV) then
@@ -656,7 +656,7 @@ function M.buildProvideByT(self, dbT, providedByT)
 
    for sn, vv in pairs(providedByT) do
       for fullName, v in pairs(vv) do
-         sort(v, cmp)
+         sort(v, l_cmp)
       end
    end
 
@@ -1002,7 +1002,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
    dbg.printT("providedByT",providedByT)
 
 
-   local function countEntries()
+   local function l_countEntries()
       local m_count  = 0
       local p_count  = 0
       local aa       = {}
@@ -1014,7 +1014,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
       local fullName = nil
       local fName2   = nil
       if (T) then
-         dbg.print{"Have T in countEntries\n"}
+         dbg.print{"Have T in l_countEntries\n"}
          dbg.print{"key: ",key,"\n"}
          for fn, v in pairs(T) do
             if (show_hidden or mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn}) then
@@ -1043,7 +1043,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
       --end
 
       if (TT) then
-         dbg.print{"Have TT in countEntries. key: ",key,"\n"}
+         dbg.print{"Have TT in l_countEntries. key: ",key,"\n"}
          for sn, vv in pairs(providedByT) do
             for k, A in pairs(vv) do
                for i = 1,#A do
@@ -1103,7 +1103,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
       return m_count, entryMA, p_count, entryPA, numNames, fullName, tailMsg
    end
 
-   local m_count, entryMA, p_count, entryPA, numNames, fullName, tailMsg = countEntries()
+   local m_count, entryMA, p_count, entryPA, numNames, fullName, tailMsg = l_countEntries()
 
    dbg.print{"m_count: ",m_count,", p_count: ",p_count,", fullName: ",fullName,"\n"}
 

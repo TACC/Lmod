@@ -65,7 +65,7 @@ local quoteA = {
    {'[========[',']========]'},
 }
    
-local function quoteValue(value)
+local function l_quoteValue(value)
    for i = 1,#quoteA do
       local left = quoteA[i][1]
       local rght = quoteA[i][2]
@@ -77,11 +77,11 @@ local function quoteValue(value)
 end
 
 
-local function nsformat(value)
+local function l_nsformat(value)
    if (type(value) == 'string') then
       value = value:gsub("\\","\\\\")
       if (value:find("\n")) then
-         local left, rght = quoteValue(value)
+         local left, rght = l_quoteValue(value)
 	 value = left .. value .. rght
       else
          value = value:gsub('"','\\"')
@@ -189,7 +189,7 @@ local function outputTblHelper(indentIdx, name, T, keepDUnderScore, a, level)
       a[#a+1] = indent
       w       = w + indent:len()
       for i = 1,#t-1 do
-         a[#a+1] = nsformat(t[i])
+         a[#a+1] = l_nsformat(t[i])
          w       = w + tostring(a[#a]):len()
          a[#a+1] = ", "
          w       = w + a[#a]:len()
@@ -199,7 +199,7 @@ local function outputTblHelper(indentIdx, name, T, keepDUnderScore, a, level)
          end
       end
       if (#t > 0) then
-         a[#a+1] = nsformat(t[#t])
+         a[#a+1] = l_nsformat(t[#t])
          a[#a+1] = ",\n"
       end
    else
@@ -213,7 +213,7 @@ local function outputTblHelper(indentIdx, name, T, keepDUnderScore, a, level)
                str = indent
             end
             a[#a+1] = str
-            a[#a+1] = nsformat(t[key])
+            a[#a+1] = l_nsformat(t[key])
             a[#a+1] = ",\n"
          end
       end
