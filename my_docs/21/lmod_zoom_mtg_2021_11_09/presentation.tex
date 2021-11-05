@@ -35,7 +35,7 @@
 % page 3
 \begin{frame}{New Features in Lmod web page}
   \begin{itemize}
-    \item https://lmod.readthedocs.io/en/latest/025_new.html
+    \item https://lmod.readthedocs.io/en/latest/025\_new.html
     \item A place where new features are and will continue to be announced.
   \end{itemize}
 \end{frame}
@@ -47,6 +47,12 @@
     \item This \!\@\#\%\& module made me mad.
     \item Tmod has a new feature kinda like this.
     \item \$LMOD\_QUARANTINE\_VARS was invented.
+  \end{itemize}
+\end{frame}
+
+% page 5
+\begin{frame}{\$LMOD\_QUARANTINE\_VARS (II)}
+  \begin{itemize}
     \item export LMOD\_QUARANTINE\_VARS=LMOD\_PAGER:LMOD\_REDIRECT
     \item This means that a module can't change those variables.
     \item This only works with regular env. vars.
@@ -58,202 +64,169 @@
   \end{itemize}
 \end{frame}
 
-% page 5
-\begin{frame}{/etc/lmod/lmod\_config.lua configuration file}
+% page 6
+\begin{frame}[fragile]
+  \frametitle{/etc/lmod/lmod\_config.lua configuration file}
   \begin{itemize}
     \item This file is evaluated during Lmod startup. 
     \item This location is the default during configuration.
-    \item A site can change this location.
+    \item A site can change this location at configuration.
   \end{itemize}
-    {\tiny
+    {\small
 \begin{semiverbatim}
-    require("strict")
-    local cosmic       = require("Cosmic"):singleton()
+-- Example /etc/lmod/lmod\_config.lua
+require("strict")
+local cosmic = require("Cosmic"):singleton()
 
-    cosmic:assign("LMOD_SITE_NAME",   "XYZZY")
-    local function foo()
-      ...
-    end
-    sandbox\_registration {
-       foo = foo,
-    }
+cosmic:assign("LMOD\_SITE\_NAME", "XYZZY")
+local function foo()
+  ...
+end
+sandbox\_registration \{ foo = foo \}
 \end{semiverbatim}
 }
 \end{frame}
 
-% page 6
-%\begin{frame}[fragile]
-%  \frametitle{Example Modulefile: phdf5}
-%    {\tiny
-%\begin{semiverbatim}
-%
-%setenv("TACC\_HDF5\_DIR","/apps/.../phdf5/1.12.1")
-%setenv("TACC\_HDF5\_INC","/apps/.../phdf5/1.12.1/inc")
-%setenv("TACC\_HDF5\_INC","/apps/.../phdf5/1.12.1/inc")
-%setenv("TACC\_HDF5\_LIB","/apps/.../phdf5/1.12.1/lib")
-%prepend\_path("PATH","/apps/.../phdf5/1.10.4/bin")
-%prepend\_path("LD\_LIB\_PATH","/apps/.../phdf5/1.10.4/lib")
-%help([[Help Message for Parallel HDF5 ...]])
-%\end{semiverbatim}
-%    }
-%\end{frame}
-%
-%% page 7
-%\begin{frame}[fragile]
-%  \frametitle{\texttt{Bash: Module load phdf5}}
-%    {\small
-%\begin{semiverbatim}
-%export TACC\_HDF5\_DIR=/apps/.../phdf5/1.12.1
-%export TACC\_HDF5\_INC=/apps/.../phdf5/1.12.1/inc
-%export TACC\_HDF5\_LIB=/apps/.../phdf5/1.12.1/lib
-%export PATH=/apps/.../phdf5/1.10.4/bin:/usr/bin:/bin
-%export LD\_LIB\_PATH=/apps/.../phdf5/1.10.4/lib:...
-%\end{semiverbatim}
-%    }
-%\end{frame}
-%
-%% page 8
-%\begin{frame}[fragile]
-%  \frametitle{\texttt{Bash: Module unload phdf5}}
-%    {\small
-%\begin{semiverbatim}
-%unset TACC\_HDF5\_DIR
-%unset TACC\_HDF5\_INC
-%unset TACC\_HDF5\_LIB
-%export PATH=/usr/bin:/bin
-%export LD\_LIB\_PATH=...
-%\end{semiverbatim}
-%    }
-%\end{frame}
-%
-%% page 9
-%\begin{frame}{Lua Object Oriented Programing}
-%  \begin{itemize}
-%    \item Lua's OOP model is OOP lite
-%    \item It is simplier than Python's
-%    \item There is very little Magic
-%    \item It is an extension of Lua's Hash Tables (AKA Dictionaries)
-%    \item Functions are First Class Object
-%    \item They can be assigned to variables
-%  \end{itemize}
-%\end{frame}
-%
-%% page 10
-%\begin{frame}{How does Lmod evaluate modulefile functions etc}
-%  \begin{itemize}
-%    \item Note that TCL modules are converted to Lua automatically
-%    \item Each module function calls Lua functions (like setenv() )
-%    \item Inside each function dynamically calls the correct operation
-%      for load, unload, etc.
-%  \end{itemize}
-%\end{frame}
-%
-%% page 11
-%\begin{frame}{Lmod finds and reads phdf5/1.12.1.lua}
-%  \begin{itemize}
-%    \item loadModuleFile.lua reads modulefile into a string \emph{whole}
-%    \item \texttt{status, msg = sandbox\_run(whole)}
-%    \item Each line in sandbox is evaluated by the lua interpreter
-%  \end{itemize}
-%\end{frame}
-%
-%% page 12
-%\begin{frame}{How does Lmod handle setenv()?}
-%  \begin{itemize}
-%    \item Lmod could have check the mode() in each function
-%    \item Instead Lmod builds MasterControl object (mcp) based on mode()
-%    \item There is a derived class for Load, Unload, Show etc.
-%  \end{itemize}
-%\end{frame}
-%
-%% page 13
-%\begin{frame}[fragile]
-%  \frametitle{How does Lmod handle setenv()?}
-%    {\tiny
-%\begin{semiverbatim}
-%--src/modfunc.lua
-%function setenv(...)
-%    -- check args
-%    mcp:setenv(...)
-%end
-%
-%--src/MasterControl.lua
-%function M.setenv(self, name, value)
-%   local frameStk = FrameStk:singleton()
-%   local varT     = frameStk:varT()
-%   if (varT[name] == nil) then
-%      varT[name] = Var:new(name)
-%   end
-%   varT[name]:set(tostring(value))
-%end
-%
-%function M.unsetenv(self, name, value)
-%   local frameStk  = FrameStk:singleton()
-%   local varT      = frameStk:varT()
-%   if (varT[name] == nil) then
-%      varT[name]   = Var:new(name)
-%   end
-%   varT[name]:unset()
-%end
-%\end{semiverbatim}
-%    }
-%\end{frame}
-%
-%% page 14
-%\begin{frame}[fragile]
-%  \frametitle{What is mcp? How does load work?}
-%    {\tiny
-%\begin{semiverbatim}
-%--src/lmod.in.lua
-%   MCP = MasterControl.build("load")
-%   mcp = MasterControl.build("load")
-%
-%--src/cmdfuncs.lua
-%function Load\_Usr(...)
-%   local mcp\_old = mcp
-%   mcp = MCP
-%   mcp:load\_usr(...)
-%   mcp = mcp\_old
-%end
-%
-%--src/MC\_Load.lua
-%...
-%M.setenv               = MasterControl.setenv
-%\end{semiverbatim}
-%    }
-%\end{frame}
-%
-%% page 15
-%\begin{frame}[fragile]
-%  \frametitle{How does unload work?}
-%    {\tiny
-%\begin{semiverbatim}
-%--src/cmdfuncs.lua
-%function UnLoad(...)
-%   local mcp\_old = mcp
-%   mcp = MasterControl.build("unload")
-%   MCP:unload\_usr(...)
-%   mcp = mcp\_old
-%end
-%
-%--src/MC_Unload.lua
-%...
-%M.setenv               = MasterControl.unsetenv
-%\end{semiverbatim}
-%    }
-%\end{frame}
-%
-%% page 16
-%\begin{frame}{Other internal Lmod Topics}
-%  \begin{itemize}
-%    \item Rules for finding modulefiles for load?
-%    \item The MName object?
-%    \item The ModuleTable stored in the Environment
-%    \item sandbox() ?
-%    \item FrameStk?
-%    \item tcl to lua translation?
-%    \item Lmod testing system? 
-%  \end{itemize}
-%\end{frame}
+% page 7
+\begin{frame}{Sourcing shell scripts inside a modulefile w/ source\_sh()}
+  \begin{itemize}
+    \item This was implemented in Tmod 4.7
+    \item Xavier told me that he did this during Covid Lockdown in France.
+    \item Lmod 8.6 re-implements this feature in a similar way.
+    \item It knows about env. vars and shell functions and aliases.
+  \end{itemize}
+\end{frame}
+
+% page 8
+\begin{frame}{source\_sh() Implementation}
+  \begin{itemize}
+    \item It captures the env. vars/functions/alias before and after
+      the running the shell script.
+    \item It computes the difference and saves it into the ModuleTable
+      in env.
+    \item It can be safely unloaded, shown.
+    \item script path and arguments must not change between load and unload.
+    \item \texttt{module refresh} works
+    \item Obvious points:
+      \begin{itemize}
+        \item It is better to use sh\_to\_modulefile and convert once.
+        \item But sh\_to\_modulefile is not dynamic (e.g. \$HOME)
+        \item Can't have run the script in the user environment before
+          loading the script.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+% page 9
+\begin{frame}[fragile]
+  \frametitle{ml --mt}
+    {\tiny
+\begin{semiverbatim}
+\_ModuleTable\_ = \{
+  MTversion = 3,
+  mT = \{
+    wrapperSh = \{
+      fn = "/Users/mclay/w/lmod/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",
+      fullName = "wrapperSh/1.0",
+      loadOrder = 1,
+      mcmdT = {
+        ["/home/user/w/lmod/rt/sh_to_modulefile/second.sh arg1"] = \{
+          "setenv(\\"SECOND\",\\"FOO_BAR\\")",
+        \},
+        ["/Users/mclay/w/lmod/rt/sh_to_modulefile/tstScript.sh"] = \{
+          "setenv(\\"MY_NAME\",\\"tstScript.sh\\")",
+          "prepend_path(\\"PATH\\",\\"/Users/mclay/w/lmod/rt/sh_to_modulefile/bin\\")",
+          "set_alias(\\"fooAlias\\",\\"foobin -q -l\\")"
+          , [[set_shell_function("banner"," \\
+    local str=\\"$1\\";\\
+    local RED='\\27[1;31m';\\
+    local NONE='\\27[0m';\\
+    echo \\"${RED}${str}${NONE}\\"\\
+")]], 
+        \},
+      \},
+    \},
+  \},
+}
+\end{semiverbatim}
+    }
+\end{frame}
+
+% page 10
+\begin{frame}{LmodBreak()}
+  \begin{itemize}
+    \item Tmod3 had a function called \texttt{break}
+    \item It stop processing current module
+    \item But it kept going otherwise.
+    \item So it is different than erroring out.
+    \item Lmod: If there is an error, no modules are loaded.
+  \end{itemize}
+\end{frame}
+
+% page 11
+\begin{frame}{LmodBreak() (II)}
+  \begin{itemize}
+    \item Lmod 8.6 adds \texttt{LmodBreak(msg)} function. 
+    \item TCL Modules use \texttt{break msg}
+    \item No changes to environment from current module are kept.
+    \item All other changes are kept.
+  \end{itemize}
+\end{frame}
+
+% page 12
+\begin{frame}[fragile]
+  \frametitle{LmodBreak() (III)}
+    {\tiny
+\begin{semiverbatim}
+--Stdenv.lua
+load(A)
+load(BRK)
+load(C)
+
+--A/1.0.lua
+setenv("A","1.0")
+
+--BRK/1.0.lua
+setenv("BRK","1.0")
+LmodBreak()
+
+--C/1.0.lua
+setenv("C","1.0")
+\end{semiverbatim}
+    }
+\end{frame}
+
+% page 13
+\begin{frame}[fragile]
+  \frametitle{ml StdEnv}
+    {\tiny
+\begin{semiverbatim}
+    export A=1.0
+    export C=1.0
+\end{semiverbatim}
+    }
+\end{frame}
+
+% page 14
+\begin{frame}{Conclusions}
+  \begin{itemize}
+    \item Many new features added to Lmod 8.6
+    \item \$LMOD\_QUARANTINE\_VARS
+    \item \texttt{/etc/lmod/lmod\_config.lua} configuration file
+    \item \texttt{source\_sh()} 
+    \item \texttt{LmodBreak()}: 
+  \end{itemize}
+\end{frame}
+
+% page 15
+\begin{frame}{Future Topics}
+  \begin{itemize}
+    \item Lmod Testing System?
+    \item More internals of Lmod?
+    \item Settarg?
+    \item collections?
+    \item Guest Presentation of special issues?
+  \end{itemize}
+\end{frame}
 
 \end{document}
