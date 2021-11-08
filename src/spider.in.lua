@@ -452,33 +452,10 @@ function main()
    -- do not colorize output from spider
    colorize = plain
 
-   setenv_lmod_version() -- push Lmod version info into env for modulefiles.
+   ------------------------------------------------------------------
+   -- initialize lmod with SitePackage and /etc/lmod/lmod_config.lua
+   initialize_lmod()
 
-   ------------------------------------------------------------------------
-   --  The StandardPackage is where Lmod registers hooks.  Sites may
-   --  override the hook functions in SitePackage.
-   ------------------------------------------------------------------------
-   dbg.print{"Loading StandardPackage\n"}
-   require("StandardPackage")
-
-   ------------------------------------------------------------------------
-   -- Load a SitePackage Module.
-   ------------------------------------------------------------------------
-
-   local lmodPath = os.getenv("LMOD_PACKAGE_PATH") or ""
-   for path in lmodPath:split(":") do
-      path = path .. "/"
-      path = path:gsub("//+","/")
-      package.path  = path .. "?.lua;"      ..
-                      path .. "?/init.lua;" ..
-                      package.path
-
-      package.cpath = path .. "../lib/?.so;"..
-                      package.cpath
-   end
-
-   dbg.print{"lmodPath:", lmodPath,"\n"}
-   require("SitePackage")
 
    -- Make sure that MRC uses $MODULERCFILE and ignores ~/.modulerc when building the cache
    local remove_MRC_home         = true

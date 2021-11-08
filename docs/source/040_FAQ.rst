@@ -187,8 +187,8 @@ Why doesn't the module command work in shell scripts?
 How do I use the initializing shell script that comes with this application with Lmod?
 
   New in Lmod 8.6+, a modulefile can contain **source_sh** ("shell",
-  "shell_script arg1 ...") to source a shell script by automatically
-  converting it into module commands. Sites can use
+  "shell_script arg1 arg2 ...") to source a shell script by
+  automatically converting it into module commands. Sites can use
   $LMOD_DIR/sh_to_modulefile to convert the script once.  See
   :ref:`sh_to_modulefile-label` for details.
 

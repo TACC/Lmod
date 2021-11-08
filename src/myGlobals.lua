@@ -163,6 +163,13 @@ cosmic:init{name    = "LMOD_SITE_NAME",
             default = false}
 
 ------------------------------------------------------------------------
+-- LMOD_CONFIG_DIR: The location of the Lmod config dir
+------------------------------------------------------------------------
+cosmic:init{name    = "LMOD_CONFIG_DIR",
+            sedV    = "@lmod_config_dir@",
+            default = "/etc/lmod"}
+
+------------------------------------------------------------------------
 -- LMOD_SYSHOST: The cluster name: (e.g. stampede)
 ------------------------------------------------------------------------
 

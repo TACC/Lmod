@@ -682,6 +682,7 @@ MODULEPATH_ROOT
 REDIRECT
 EXPORT_MODULE
 AUTO_SWAP
+LMOD_CFG_DIR
 EXACT_MATCH
 HIDDEN_ITALIC
 COLORIZE
@@ -747,6 +748,7 @@ with_caseIndependentSorting
 with_colorize
 with_hiddenItalic
 with_exactMatch
+with_lmodConfigDir
 with_autoSwap
 with_exportedModuleCmd
 with_redirect
@@ -1421,6 +1423,8 @@ Optional Packages:
   --with-colorize=ans     allow for colorized output [[yes]]
   --with-hiddenItalic=ans Use italic for hidden module instead of faint[[no]]
   --with-exactMatch=ans   require exact match, disable defaults [[no]]
+  --with-lmodConfigDir=ans
+                          Location of Lmod Config Dir [[/etc/lmod]]
   --with-autoSwap=ans     Allow auto swapping of compiler etc. [[yes]]
   --with-exportedModuleCmd=ans
                           Export the module command. [[yes]]
@@ -3220,6 +3224,28 @@ $as_echo "EXACT_MATCH=$withval" >&6; }
     EXACT_MATCH="$withval"
     cat >>confdefs.h <<_ACEOF
 #define EXACT_MATCH "$withval"
+_ACEOF
+
+fi
+
+
+
+# Check whether --with-lmodConfigDir was given.
+if test "${with_lmodConfigDir+set}" = set; then :
+  withval=$with_lmodConfigDir; LMOD_CFG_DIR="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: LMOD_CFG_DIR=$with_lmodConfigDir" >&5
+$as_echo "LMOD_CFG_DIR=$with_lmodConfigDir" >&6; }
+    cat >>confdefs.h <<_ACEOF
+#define LMOD_CFG_DIR "$with_lmodConfigDir"
+_ACEOF
+
+else
+  withval="/etc/lmod"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: LMOD_CFG_DIR=$withval" >&5
+$as_echo "LMOD_CFG_DIR=$withval" >&6; }
+    LMOD_CFG_DIR="$withval"
+    cat >>confdefs.h <<_ACEOF
+#define LMOD_CFG_DIR "$withval"
 _ACEOF
 
 fi
@@ -6624,6 +6650,7 @@ echo "Luac executable............................................." : $PATH_TO_L
 echo "User Controlled Prefix......................................" : $SITE_CONTROLLED_PREFIX
 echo "Prefix......................................................" : $prefix
 echo "Actual Install dir.........................................." : $MY_PACKAGE
+echo "Lmod config dir............................................." : $LMOD_CONFIG_DIR
 echo
 echo "MODULEPATH_ROOT............................................." : $MODULEPATH_ROOT
 echo "Wait (s) before rebuilding cache............................" : $ANCIENT

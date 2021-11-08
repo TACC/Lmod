@@ -52,5 +52,7 @@ Lmod 8.5+
             * Modify test.yml to support running "make busted"
 	    * Issue #537: Remove all trailing newlines from TCL arguments
 	    * Issue #538: Fixed regex from "(@" to "%(@" when doing "ml overview".
-   (8.5.22) * Now register request to check dependency with any modules that do a "load" or "depends_on"
+   (8.5.23) * Issue #531: Now register request to check dependency with any modules that do a "load" or "depends_on"
+	    * Support for /etc/lmod/lmod_config.lua file to configure Lmod for a site.
+            
 

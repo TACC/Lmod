@@ -301,31 +301,9 @@ function main()
    build_i18n_messages()
    dbg.set_prefix(colorize("red","Lmod"))
 
-   ------------------------------------------------------------------------
-   --  The StandardPackage is where Lmod registers hooks.  Sites may
-   --  override the hook functions in SitePackage.
-   ------------------------------------------------------------------------
-   dbg.print{"Loading StandardPackage\n"}
-   require("StandardPackage")
-
-   ------------------------------------------------------------------------
-   -- Load a SitePackage Module.
-   ------------------------------------------------------------------------
-
-   local lmodPath = os.getenv("LMOD_PACKAGE_PATH") or ""
-   for path in lmodPath:split(":") do
-      path = path .. "/"
-      path = path:gsub("//+","/")
-      package.path  = path .. "?.lua;"      ..
-                      path .. "?/init.lua;" ..
-                      package.path
-
-      package.cpath = path .. "../lib/?.so;"..
-                      package.cpath
-   end
-
-   dbg.print{"lmodPath:", lmodPath,"\n"}
-   require("SitePackage")
+   ------------------------------------------------------------------
+   -- initialize lmod with SitePackage and /etc/lmod/lmod_config.lua
+   initialize_lmod()
 
    local master     = Master:singleton(false)
    for i = 1,#pargs do
