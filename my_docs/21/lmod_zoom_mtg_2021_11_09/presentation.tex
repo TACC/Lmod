@@ -29,6 +29,7 @@
       modulefile
     \item \texttt{LmodBreak()}: Stop processing modulefile but keep
       going!
+    \item Now released as Lmod 8.5.23
   \end{itemize}
 \end{frame}
 
@@ -57,7 +58,7 @@
     \item This means that a module can't change those variables.
     \item This only works with regular env. vars.
     \item You can't quarantine PATH like variables.
-    \item A user sets this variable in their ~/.bashrc or similar
+    \item A user sets this variable in their $\sim$/.bashrc or similar
       file.
     \item This obviously won't work for modules loaded during the
       processing of /etc/profile.d/*.sh files
@@ -126,16 +127,16 @@ sandbox\_registration \{ foo = foo \}
   MTversion = 3,
   mT = \{
     wrapperSh = \{
-      fn = "/Users/mclay/w/lmod/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",
+      fn = "/home/user/w/lmod/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",
       fullName = "wrapperSh/1.0",
       loadOrder = 1,
       mcmdT = {
         ["/home/user/w/lmod/rt/sh_to_modulefile/second.sh arg1"] = \{
-          "setenv(\\"SECOND\",\\"FOO_BAR\\")",
+          "setenv(\\"SECOND\\",\\"FOO_BAR\\")",
         \},
-        ["/Users/mclay/w/lmod/rt/sh_to_modulefile/tstScript.sh"] = \{
+        ["/home/user/w/lmod/rt/sh_to_modulefile/tstScript.sh"] = \{
           "setenv(\\"MY_NAME\",\\"tstScript.sh\\")",
-          "prepend_path(\\"PATH\\",\\"/Users/mclay/w/lmod/rt/sh_to_modulefile/bin\\")",
+          "prepend_path(\\"PATH\\",\\"/home/user/w/lmod/rt/sh_to_modulefile/bin\\")",
           "set_alias(\\"fooAlias\\",\\"foobin -q -l\\")"
           , [[set_shell_function("banner"," \\
     local str=\\"$1\\";\\
