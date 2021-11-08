@@ -62,6 +62,7 @@ local remove           = table.remove
 local s_adminT         = {}
 local s_loadT          = {}
 local s_moduleStk      = {}
+local s_performDepCk   = false
 local s_missDepT       = {}
 local s_missingModuleT = {}
 local s_missingFlg     = false
@@ -832,6 +833,20 @@ function M.mustLoad(self)
 end
 
 
+function M.registerDependencyCk(self)
+   s_performDepCk = true
+end
+
+function M.performDependencyCk(self)
+   if (not s_performDepCk) then return end
+   dbg.start{"MasterControl:performDependencyCk()"}
+   
+   local master = Master:singleton()
+   master:dependencyCk()
+   self:reportMissingDepModules()
+   dbg.fini("MasterControl:performDependencyCk")
+end
+
 function M.dependencyCk(self,mA)
    if (dbg.active()) then
       local s = mAList(mA)
@@ -843,8 +858,7 @@ function M.dependencyCk(self,mA)
    local fullName = frameStk:fullName()
    for i = 1,#mA do
       local mname = mA[i]
-      local sn    = mname:sn()
-      if (not mt:have(sn,"active")) then
+      if (not mt:haveUserName(mname,"active")) then
          local a = s_missDepT[mname:userName()] or {}
          a[#a+1] = fullName
          s_missDepT[mname:userName()] = a
@@ -906,6 +920,8 @@ function M.depends_on(self, mA)
          mt:incr_ref_count(sn)
       end
    end
+
+   self:registerDependencyCk()
 
    dbg.fini("MasterControl:depends_on")
    return a
@@ -1116,12 +1132,12 @@ function M.unload_usr(self, mA, force)
    local master = Master:singleton()
    local aa = master:reload_sticky(force)
 
-   master:dependencyCk()
+   self:registerDependencyCk()
+   --master:dependencyCk()
 
    dbg.fini("MasterControl:unload_usr")
    return aa
 end
-
 
 -------------------------------------------------------------------
 -- This load is used by Manager Load to ignore load inside a

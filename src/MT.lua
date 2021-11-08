@@ -648,6 +648,16 @@ function M.have(self, sn, status)
    return ((status == "any") or (status == entry.status))
 end
 
+function M.haveUserName(self, mname, status)
+   local sn     = mname:sn()
+   local result = self:have(sn, status)
+   if (not result) then
+      return false
+   end
+
+   return self:userName(sn) == mname:userName()
+end
+
 function M.lookup_w_userName(self,userName)
    -- Check if userName is a sn
 

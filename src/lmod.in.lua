@@ -532,7 +532,7 @@ function main()
    --------------------------------------------------------
    -- Report any missing dependent modules
    -- Note that is safe to run every time.
-   mcp:reportMissingDepModules()
+   mcp:performDependencyCk()
 
    -- Report any changes (worth reporting from original MT)
    if (not quiet()) then

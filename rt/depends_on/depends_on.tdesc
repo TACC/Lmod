@@ -56,6 +56,15 @@ testdescript = {
      runLmod load foo                          #31
      runLmod list                              #32
 
+     
+     runLmod purge                             #33
+     unsetMT
+     export MODULEPATH=$(testDir)/mf/Core2
+     export LMOD_PIN_VERSIONS=yes
+     runLmod load  SomeSoftware OtherSoftware  #34
+     runLmod list                              #35
+
+
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new
