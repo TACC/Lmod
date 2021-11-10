@@ -130,6 +130,10 @@ end
 
 function M.assign(self, name, value)
    local T       = self.__T
+   if (not T[name]) then
+      T[name] = {}
+   end
+
    T[name].value = value
 end
 

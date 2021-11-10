@@ -1,7 +1,10 @@
 require("strict")
 local cosmic       = require("Cosmic"):singleton()
 
+cosmic:assign("LMOD_PACKAGE_DIR", "/etc/lmod")
+
 cosmic:assign("LMOD_SITE_NAME", "XYZZY")
+
 
 local function echoString(s)
    io.stderr:write(s,"\n")
