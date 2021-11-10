@@ -117,8 +117,6 @@ function initialize_lmod()
    end
 
    require("SitePackage")
-
-
 end
 
 
