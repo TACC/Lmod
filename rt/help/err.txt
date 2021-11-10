@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.5.19  2021-10-15 14:23 -05:00
+Modules based on Lua: Version 8.5.24  2021-11-10 09:41 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -103,7 +103,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.5.19  2021-10-15 14:23 -05:00
+Modules based on Lua: Version 8.5.24  2021-11-10 09:41 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -204,7 +204,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.5.19  2021-10-15 14:23 -05:00
+Modules based on Lua: Version 8.5.24  2021-11-10 09:41 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -224,7 +224,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --config
 ===========================
-Modules based on Lua: Version 8.5.19  2021-10-15 14:23 -05:00
+Modules based on Lua: Version 8.5.24  2021-11-10 09:41 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                        Value
 Allow root to use Lmod             yes
@@ -279,6 +279,7 @@ Tmod find first rule               no
 Tmod prepend PATH Rule             no
 Tracing                            no
 uname -a
+LMOD_PACKAGE_PATH  nil
 Active RC file(s):
 ProjectDIR/src/../init/lmodrc.lua
  OutputDIR/.lmodrc.lua

@@ -170,12 +170,20 @@ cosmic:init{name    = "LMOD_CONFIG_DIR",
             default = "/etc/lmod"}
 
 ------------------------------------------------------------------------
+-- LMOD_PACKAGE_PATH: Colon separated list of directories to search for
+--                    SitePackage.lua
+------------------------------------------------------------------------
+cosmic:assign("LMOD_PACKAGE_PATH",getenv("LMOD_PACKAGE_PATH") or "")
+
+------------------------------------------------------------------------
 -- LMOD_SYSHOST: The cluster name: (e.g. stampede)
 ------------------------------------------------------------------------
 
 cosmic:init{name    = "LMOD_SYSHOST",
             sedV    = "@syshost@",
             default = false}
+
+
 
 ------------------------------------------------------------------------
 -- LMOD_SYSTEM_NAME:  When on a shared file system, use this to

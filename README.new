@@ -55,4 +55,4 @@ Lmod 8.5+
    (8.5.23) * Issue #531: Now register request to check dependency with any modules that do a "load" or "depends_on"
 	    * Support for /etc/lmod/lmod_config.lua file to configure Lmod for a site.
    (8.5.24) * Fix bug in Cosmic.lua.  Cosmic.lua now makes sure that the name exists before assigning a value.
-   
+   (8.5.25) * Fix bug in utils.lua.  Now use cosmic:value for LMOD_PACKAGE_PATH instead of getenv().

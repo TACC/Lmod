@@ -104,7 +104,7 @@ function initialize_lmod()
       assert(loadfile(fn))()
    end
 
-   local lmodPath = getenv("LMOD_PACKAGE_PATH") or ""
+   local lmodPath = cosmic:value("LMOD_PACKAGE_PATH")
    for path in lmodPath:split(":") do
       path = path .. "/"
       path = path:gsub("//+","/")
