@@ -245,7 +245,7 @@ Configuring Lmod with **/etc/lmod/lmod_config.lua**:
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Lmod looks for a file named lmod_config.lua in the LMOD_CONFIG_DIR,
-which is by default /etc/lmod/. So nornally the file is found here:
+which is by default /etc/lmod/. So normally the file is found here:
 /etc/lmod/lmod_config.lua.  It can be configured to any value with the
 configure option (--with-configDir=) or setting the environment
 variable LMOD_CONFIG_DIR.  This file is used optionally.  It is not
@@ -253,8 +253,8 @@ required.
 
 This file allows sites configure Lmod through Lua instead
 of setting environment variables for each shell. By using the
-cosmit:assigin() functions this can be accomplished in one file.
-Here is an a full example::
+cosmic:assign() functions this can be accomplished in one file.
+Here is a full example::
 
     require("strict")
     local cosmic       = require("Cosmic"):singleton()
@@ -263,7 +263,6 @@ Here is an a full example::
 
     -- Note that this directory could be anything including /etc/lmod
     cosmic:assign("LMOD_PACKAGE_DIR", "/path/to/SitePackage_Dir/")
-    
 
     local function echoString(s)
        io.stderr:write(s,"\n")
@@ -275,14 +274,14 @@ Here is an a full example::
 
 In the above example a site is setting its name and providing the path
 to the location directory where the SitePackage.lua file is.  Also the
-simple **echoString** function has been added and is collable from
+simple **echoString** function has been added and is callable from
 modulefiles because it has been registered in the sandbox.
 
 
 Sites wishing to change the default values of other Lmod configuration
 variables should study the src/myGlobals.lua file to see what the name
 of the variable is and then use the cosmic:assign() function to set
-the new value.  For exanple::
+the new value.  For example::
 
     cosmic:assign("LMOD_PIN_VERSIONS","yes")
     cosmic:assign("LMOD_CACHED_LOADS","yes")
