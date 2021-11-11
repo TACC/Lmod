@@ -122,7 +122,7 @@ end
 -- The main program.  Process options and generate module command.
 function main()
 
-   build_i18n_messages()
+   initialize_lmod()
    local argA     = {}
    local optA     = {}
    local cmdA     = {}

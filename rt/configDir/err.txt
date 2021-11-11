@@ -2,13 +2,13 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.5.24  2021-11-10 09:41 -06:00
+Modules based on Lua: Version 8.5.26  2021-11-10 17:28 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --config
 ===========================
-Modules based on Lua: Version 8.5.24  2021-11-10 09:41 -06:00
+Modules based on Lua: Version 8.5.26  2021-11-10 17:28 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                        Value
 Allow root to use Lmod             yes
@@ -28,7 +28,7 @@ Use attached TCL over system call  no
 Use italic instead of dim          no
 KSH Support                        no
 Language used for err/msg/warn     en
-Site message file                  <empty>
+Site message file                  ProjectDIR/rt/configDir/lmod_cfg_dir/lang.lua
 LUA_CPATH                          @sys_lua_cpath@
 LUA_PATH                           @sys_lua_path@
 System lua-term                    no
@@ -63,9 +63,10 @@ Tmod find first rule               no
 Tmod prepend PATH Rule             no
 Tracing                            no
 uname -a
-LMOD_CONFIG_DIR    /etc/lmod  ProjectDIR/rt/configDir/lmod_cfg_dir
-LMOD_PACKAGE_PATH  nil        ProjectDIR/rt/configDir/lmod_cfg_dir
-LMOD_SITE_NAME     false      XYZZY
+LMOD_CONFIG_DIR     /etc/lmod  ProjectDIR/rt/configDir/lmod_cfg_dir
+LMOD_PACKAGE_PATH   nil        ProjectDIR/rt/configDir/lmod_cfg_dir
+LMOD_SITE_MSG_FILE  false      ProjectDIR/rt/configDir/lmod_cfg_dir/lang.lua
+LMOD_SITE_NAME      false      XYZZY
 Active RC file(s):
 ProjectDIR/src/../init/lmodrc.lua
  Lmod Property Table:
@@ -180,3 +181,12 @@ step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load tryThis
 ===========================
 This is kewl
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load w
+===========================
+Lmod Warning: The module w/1.0 is outdated. Please use a version from 2019a or newer.
+If there is no newer version, request one at hpc@vub.ac.be.
+While processing the following module(s):
+    Module fullname  Module Filename
+    w/1.0            ProjectDIR/rt/configDir/mf/w/1.0.lua

@@ -298,7 +298,6 @@ function main()
    local errorT     = { defaultA = {}, syntaxA = {} }
 
    Shell            = BaseShell:build("bash")
-   build_i18n_messages()
    dbg.set_prefix(colorize("red","Lmod"))
 
    ------------------------------------------------------------------

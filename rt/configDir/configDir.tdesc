@@ -27,6 +27,8 @@ testdescript = {
      export LMOD_CONFIG_DIR=$(testDir)/lmod_cfg_dir
      runLmod --config                          # 2
      runLmod load tryThis                      # 3
+     runLmod load w                            # 4
+
 
 
      HOME=$ORIG_HOME

@@ -239,7 +239,7 @@ function main()
       dbg:activateDebug(masterTbl.debug)
    end
 
-   build_i18n_messages()
+   initialize_lmod()
    if (masterTbl.cleanEnv) then
       l_cleanEnv()
    end

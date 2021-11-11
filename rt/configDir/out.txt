@@ -24,3 +24,20 @@ _LMFILES_=ProjectDIR/rt/configDir/mf/tryThis/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={tryThis={fn="ProjectDIR/rt/configDir/mf/tryThis/1.0.lua",fullName="tryThis/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="tryThis",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/configDir/mf",},systemBaseMPATH="ProjectDIR/rt/configDir/mf",}';
 export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load w
+===========================
+__LMOD_REF_COUNT_LOADEDMODULES=tryThis/1.0:1\;w/1.0:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=tryThis/1.0:w/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/configDir/mf;
+export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/configDir/mf/tryThis/1.0.lua:1\;ProjectDIR/rt/configDir/mf/w/1.0.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/configDir/mf/tryThis/1.0.lua:ProjectDIR/rt/configDir/mf/w/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={tryThis={fn="ProjectDIR/rt/configDir/mf/tryThis/1.0.lua",fullName="tryThis/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="tryThis",wV="000000001.*zfinal",},w={fn="ProjectDIR/rt/configDir/mf/w/1.0.lua",fullName="w/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="w",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/configDir/mf",},systemBaseMPATH="ProjectDIR/rt/configDir/mf",}';
+export _ModuleTable_;
+false

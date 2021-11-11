@@ -418,7 +418,6 @@ function main()
    local mpathA     = {}
 
    Shell            = BaseShell:build("bash")
-   build_i18n_messages()
 
    local master     = Master:singleton(false)
 

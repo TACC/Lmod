@@ -81,45 +81,6 @@ function __LINE__()
    return debug.getinfo(2, 'l').currentline
 end
 
-------------------------------------------------------------
--- Initialize Lmod 
-
-function initialize_lmod()
-   -- Push Lmod version into environment
-   setenv_lmod_version()
-
-   ------------------------------------------------------------------------
-   --  The StandardPackage is where Lmod registers hooks.  Sites may
-   --  override the hook functions in SitePackage.
-   ------------------------------------------------------------------------
-   require("StandardPackage")
-
-   ------------------------------------------------------------------------
-   -- Load a SitePackage Module.
-   ------------------------------------------------------------------------
-
-   local configDir = cosmic:value("LMOD_CONFIG_DIR")
-   local fn        = pathJoin(configDir,"lmod_config.lua")
-   if (isFile(fn)) then
-      assert(loadfile(fn))()
-   end
-
-   local lmodPath = cosmic:value("LMOD_PACKAGE_PATH")
-   for path in lmodPath:split(":") do
-      path = path .. "/"
-      path = path:gsub("//+","/")
-      package.path  = path .. "?.lua;"      ..
-                      path .. "?/init.lua;" ..
-                      package.path
-
-      package.cpath = path .. "../lib/?.so;"..
-                      package.cpath
-   end
-
-   require("SitePackage")
-end
-
-
 
 --------------------------------------------------------------------------
 -- Generate a message that will fix the available terminal width.
@@ -896,10 +857,6 @@ local function l_build_runTCLprog()
    end
 end
 
-if (not runTCLprog) then
-   l_build_runTCLprog()
-end
-
 --------------------------------------------------------------------------
 -- Create the accept functions to allow or ignore TCL modulefiles.
 local function l_build_accept_function()
@@ -916,10 +873,6 @@ local function l_build_accept_function()
    end
 end
 
-if (not accept_fn) then
-   l_build_accept_function()
-end
-
 local function l_build_allow_dups_function()
    local dups = cosmic:value("LMOD_DUPLICATE_PATHS")
    if (dups == "yes") then
@@ -931,10 +884,6 @@ local function l_build_allow_dups_function()
          return false
       end
    end
-end
-
-if (not allow_dups) then
-   l_build_allow_dups_function()
 end
 
 local function l_build_epoch_function()
@@ -993,10 +942,6 @@ local function l_build_prepend_order_function()
    end
 end
 
-if (not prepend_order) then
-   l_build_prepend_order_function()
-end
-
 local s_checkSyntaxMode = false
 function setSyntaxMode(state)
    s_checkSyntaxMode = state
@@ -1018,8 +963,49 @@ local function l_build_quarantineT()
    end
 end
 
-if (not QuarantineT) then
-   l_build_quarantineT()
-end
+------------------------------------------------------------
+-- Initialize Lmod 
 
-      
+function initialize_lmod()
+   -- Push Lmod version into environment
+   setenv_lmod_version()
+
+   ------------------------------------------------------------------------
+   --  The StandardPackage is where Lmod registers hooks.  Sites may
+   --  override the hook functions in SitePackage.
+   ------------------------------------------------------------------------
+   require("StandardPackage")
+
+   ------------------------------------------------------------------------
+   -- Load a SitePackage Module.
+   ------------------------------------------------------------------------
+
+   local configDir = cosmic:value("LMOD_CONFIG_DIR")
+   local fn        = pathJoin(configDir,"lmod_config.lua")
+   if (isFile(fn)) then
+      assert(loadfile(fn))()
+   end
+
+   build_i18n_messages()
+   l_build_runTCLprog()
+   l_build_accept_function()   
+   l_build_allow_dups_function()
+   l_build_prepend_order_function()
+   if (not QuarantineT) then
+      l_build_quarantineT()
+   end
+
+   local lmodPath = cosmic:value("LMOD_PACKAGE_PATH")
+   for path in lmodPath:split(":") do
+      path = path .. "/"
+      path = path:gsub("//+","/")
+      package.path  = path .. "?.lua;"      ..
+                      path .. "?/init.lua;" ..
+                      package.path
+
+      package.cpath = path .. "../lib/?.so;"..
+                      package.cpath
+   end
+
+   require("SitePackage")
+end
