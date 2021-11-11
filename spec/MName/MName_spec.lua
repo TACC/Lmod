@@ -3,6 +3,7 @@ local posix     = require("posix")
 
 require("strict")
 require("utils")
+initialize_lmod()
 require("fileOps")
 
 local MName     = require("MName")

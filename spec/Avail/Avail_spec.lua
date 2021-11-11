@@ -3,6 +3,7 @@ local posix      = require("posix")
 
 require("strict")
 require("utils")
+initialize_lmod()
 require("fileOps")
 
 _G.MasterControl = require("MasterControl")
@@ -89,6 +90,7 @@ describe("Testing The Avail command #Avail.",
                   -------------------------------------------------------
                   -- Test 5 avail output in regular mode
 
+                  posix.setenv("LMOD_QUIET","yes")
                   masterTbl.terse       = nil
                   a  = master:avail(pack()) or {}
                   _a = {}
@@ -104,10 +106,13 @@ describe("Testing The Avail command #Avail.",
                      "   bio/bowtie/32/1.0    bio/bowtie/64/2.0 (D)\n" ..
                      "   bio/bowtie/32/2.0    bio/genomics",
                      "\n",
+                     "\n  Where:\n",
+                     "   D:  Default Module",
                      "\n",
+                     "\n",
+                     "Module defaults are chosen based on Find First Rules due to Name/Version/Version modules found in the module tree.\n" ..
+                     "See https://lmod.readthedocs.io/en/latest/060_locating.html for details.\n",
                   }
-                  --print("availA:\n", concatTbl(_a,""))
-                  --print("gold_availA:\n", concatTbl(gold_availA,""))
                   assert.are.same(gold_availA, _a)
                end)
          end

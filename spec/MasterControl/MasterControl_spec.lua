@@ -2,7 +2,8 @@ _G._DEBUG=false
 local posix         = require("posix")
 
 require("strict")
-require("myGlobals")
+require("utils")
+initialize_lmod()
 
 require("fileOps")
 require("loadModuleFile")

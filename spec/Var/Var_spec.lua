@@ -4,6 +4,7 @@ local posix        = require("posix")
 require("strict")
 
 local Var          = require("Var")
+initialize_lmod()
 local setenv_posix = posix.setenv
 local testDir      = "spec/Var"
 

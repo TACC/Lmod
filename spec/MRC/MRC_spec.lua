@@ -2,6 +2,8 @@ _G._DEBUG=false
 local posix   = require("posix")
 
 require("strict")
+require("utils")
+initialize_lmod()
 
 _G.MasterControl = require("MasterControl")
 local DirTree    = require("DirTree")

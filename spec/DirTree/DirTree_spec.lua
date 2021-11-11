@@ -4,11 +4,12 @@ local posix   = require("posix")
 require("strict")
 require("fileOps")
 require("utils")
+setenv_lmod_version()
+initialize_lmod()
 require("serializeTbl")
 local DirTree = require("DirTree")
 local dbg     = require("Dbg"):dbg()
 local testDir = "spec/DirTree"
-setenv_lmod_version()
 describe("Testing DirTree Class: #DirTree.",
          function()
             it("build dirA from mf/bio directory",
