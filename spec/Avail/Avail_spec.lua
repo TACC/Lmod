@@ -109,9 +109,6 @@ describe("Testing The Avail command #Avail.",
                      "\n  Where:\n",
                      "   D:  Default Module",
                      "\n",
-                     "\n",
-                     "Module defaults are chosen based on Find First Rules due to Name/Version/Version modules found in the module tree.\n" ..
-                     "See https://lmod.readthedocs.io/en/latest/060_locating.html for details.\n",
                   }
                   assert.are.same(gold_availA, _a)
                end)
