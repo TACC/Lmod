@@ -113,7 +113,7 @@ case $SYSHOST in
     fi
     ;; 
 
-  rios | jedrik | vato | devo | xalt-lmod )
+  rios | jedrik | vato | devo | xalt-lmod | bt)
     SUDO="sudo"
     base="/opt/apps"
     ADMIN_DIR=/opt/moduleData
