@@ -1363,12 +1363,12 @@ function M.avail(self, argA)
       a[#a+1]  = "\n"
    end
 
-   if (isNVV) then
-      a[#a+1] = "\n"
-      a[#a+1] = i18n("m_IsNVV");
-   end
 
    if (not quiet()) then
+      if (isNVV) then
+         a[#a+1] = "\n"
+         a[#a+1] = i18n("m_IsNVV");
+      end
       a = hook.apply("msgHook", "avail", a) or a
    end
 
