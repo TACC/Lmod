@@ -775,7 +775,7 @@ function M.reload_sticky(self, force)
    local mcp_old  = mcp
    mcp            = MCP
    local reload   = false
-   for i = 1, #stickyA do
+   for i = #stickyA, 1, -1 do
       local entry = stickyA[i]
       local mname = MName:new("load",entry.userName)
       local fn    = mname:fn()
