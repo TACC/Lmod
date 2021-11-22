@@ -113,7 +113,7 @@ case $SYSHOST in
     fi
     ;; 
 
-  rios | jedrik | vato | devo | xalt-lmod )
+  rios | jedrik | vato | devo | xalt-lmod | bt)
     SUDO="sudo"
     base="/opt/apps"
     ADMIN_DIR=/opt/moduleData
@@ -122,20 +122,11 @@ case $SYSHOST in
     EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN  --with-silentShellDebugging=yes --with-supportKsh=no"
     ;;
 
-  ls5 | maverick | stampede2 | frontera | longhorn )
+  ls6 | maverick2 | stampede2 | frontera | longhorn )
     base="$HOME/l/pkg"
     UPDATE_FN=/tmp/losf_last_update
     CACHEDIRS=/tmp/moduleData/cacheDir
-    if [ $SYSHOST == "stampede" ]; then
-       if [ -x $HOME/.up/bin/arch.py ]; then
-	   base="$base/$($HOME/.up/bin/arch.py)"
-       else
-	   base="$base/$(uname -m)"
-       fi
-    elif [ $SYSHOST == "ls5" ]; then
-      UPDATE_FN=/home1/moduleData/cacheDir/tacc_cache_timestamp.txt
-      CACHEDIRS=/home1/moduleData/cacheDir/tacc
-    elif [ $SYSHOST == "longhorn" ]; then
+    if [ $SYSHOST == "longhorn" ]; then
       UPDATE_FN=/home/moduleData/spider_cache_timestamp.txt
       CACHEDIRS=/home/moduleData/cacheDir
     fi
