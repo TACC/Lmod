@@ -38,7 +38,8 @@ TitleTbl = {
 
 ModuleTbl = {
    build_scenario     = { "mdbg", "dbg", "opt", "gopt", "empty"},
-   mpi                = { "mpich", "mpich2", "openmpi", "mvapich2", "impi", "MPICH", "MPICH2", "MVAPICH2",
+   mpi                = { "mpich", "mpich2", "openmpi", "mvapich2", "impi", "spectrum_mpi",
+                          "MPICH", "MPICH2", "MVAPICH2",
                           "OpenMPI", "QLogicMPI", "psmpi", "psmpi2","cray_mpich"},
    compiler           = { "intel", "pgi", "gcc", "xl", "sun", "clang", "Clang", "GCC", "LLVM", "PGI", "PCC", "TCC", "SDCC", "ispc", "Go"},
    blas               = { "gotoblas", "mkl", "imkl", "OpenBLAS", "GotoBLAS", "GotoBLAS2", "ATLAS"},
