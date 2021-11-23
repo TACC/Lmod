@@ -7,6 +7,12 @@ Notes on Settarg talk
 ** Report status in titlebar
 ** Integrate with Lmod!!
 
+* Show examples
+** dbg/opt/mdbg -> $TARG
+** ml -impi;    -> $TARG
+** ml -intel;   -> $TARG
+** Built xalt w/ explicit TARG usage
+
 * History
 ** Worked on a system with different architectures
 ** Wanted to support dbg/opt as well.
@@ -20,5 +26,12 @@ Notes on Settarg talk
 ** TARG_COMPILER gcc-9.3.0
 ** TARG_MPI   mpich-3.3.2
 
+* Explain about how $PATH works
+** Relative paths are DYNAMIC!
+
+
+* Example w/ Makefile
+** Show contrib/settarg/make_example
+*** make -f Makefile.simple
 
    
