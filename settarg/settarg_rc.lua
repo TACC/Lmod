@@ -25,6 +25,7 @@ TitleTbl = {
    hdf5                   = "H5",
    phdf5                  = "H5",
    xl                     = "XL",
+   petsc                  = "Psc",
    spectrum_mpi           = "SM",
    MVAPICH2               = 'M',
    OpenMPI                = "O",
