@@ -33,5 +33,13 @@ Notes on Settarg talk
 * Example w/ Makefile
 ** Show contrib/settarg/make_example
 *** make -f Makefile.simple
+*** make 
+** Show what happens when changing compiler, dbg, etc.
+
+* Show TARG under ~/w/dao/mgf
+** Talk about .settarg.lua
+
+* settarg --report
+  
 
    
