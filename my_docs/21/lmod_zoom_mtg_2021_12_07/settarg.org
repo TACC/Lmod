@@ -40,6 +40,9 @@ Notes on Settarg talk
 ** Talk about .settarg.lua
 
 * settarg --report
-  
+** Merging multiple .settarg.lua files
+   explain how that works.
+
+   
 
    
