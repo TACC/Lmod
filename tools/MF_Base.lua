@@ -76,6 +76,22 @@ function M.build(kind)
    return mkind:create()
 end
 
+local function l_safe_eval(name, s)
+   local f, err = load(s)
+   if (not f) then
+      io.stderr:write(name, ": Syntax error: ",err,"\n")
+      io.stderr:write(s,"\n")
+      os.exit(1)
+   end
+   local ok, result = pcall(f)
+   if (not ok) then
+      io.stderr:write(name,": run error: ",tostring(result),"\n")
+      io.stderr:write(s,"\n")
+      os.exit(1)
+   end
+end
+
+
 --------------------------------------------------------------------------
 -- Compare the old env table with the new and generate differences.
 -- @param self MF_Base object
@@ -89,8 +105,8 @@ function M.process(self, shellName, ignoreT, resultT)
    -- load oldEnvT and envT environment
    declare("oldEnvT")
    declare("envT")
-   assert(load(resultT["Vars"][1]))()
-   assert(load(resultT["Vars"][2]))()
+   l_safe_eval("oldEnvT",resultT["Vars"][1])
+   l_safe_eval("envT",   resultT["Vars"][2])
    
    self:processVars(ignoreT, oldEnvT, envT, a)
    
