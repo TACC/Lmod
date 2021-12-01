@@ -701,6 +701,15 @@ if test "$PS" = "UNKNOWN_PS" ; then
   exit 1
 fi
 
+AC_PATH_PROG(READLINK,readlink, UNKNOWN_READLINK)
+if test "$READLINK" = "UNKNOWN_READLINK" ; then
+  echo
+  echo "You must have valid ps in your path. Quitting!"
+  echo
+  rm -f makefile
+  exit 1
+fi
+
 AC_PATH_PROGS(EXPR,[gexpr] [expr], UNKNOWN_EXPR)
 if test "$EXPR" = "UNKNOWN_EXPR" ; then
   echo
