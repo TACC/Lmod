@@ -1,5 +1,17 @@
 Notes on Settarg talk
 
+* Story
+** CFDLAB: worked on a shared home file system with different arch.
+** Wanted to build programs w/o make clean in-between
+** Wanted Dbg and Opt, Later MDbg
+** Wanted to support different compilers (e.g. intel or gcc)
+** It grew from there: MPI Stack
+** Wanted to know what module are loaded
+** I am unable to change modules and remember to change $TARG
+** Settarg became part of Lmod.
+
+
+
 * Goals
 ** Make software devel easier by switch to different kinds of builds (dbg/opt etc) (and do it frequently!)
 ** Switching compilers can be helpful:
