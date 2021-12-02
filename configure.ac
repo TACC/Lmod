@@ -685,6 +685,7 @@ PATH_TO_SRC=$SRCDIR
 AC_SUBST(BASENAME)
 AC_SUBST(EXPR)
 AC_SUBST(PS)
+AC_SUBST(READLINK)
 AC_SUBST(PATH_TO_LS)
 AC_SUBST(PATH_TO_GIT)
 AC_SUBST(PATH_TO_HASHSUM)
@@ -693,6 +694,15 @@ AC_SUBST(PATH_TO_TCLSH)
 
 AC_PATH_PROG(PS,ps, UNKNOWN_PS)
 if test "$PS" = "UNKNOWN_PS" ; then
+  echo
+  echo "You must have valid ps in your path. Quitting!"
+  echo
+  rm -f makefile
+  exit 1
+fi
+
+AC_PATH_PROG(READLINK,readlink, UNKNOWN_READLINK)
+if test "$READLINK" = "UNKNOWN_READLINK" ; then
   echo
   echo "You must have valid ps in your path. Quitting!"
   echo

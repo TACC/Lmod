@@ -71,6 +71,7 @@ EXPORT_MODULE             := @EXPORT_MODULE@
 BASENAME                  := @BASENAME@
 UPDATE_VERSION            := $(srcdir)/proj_mgmt/updateVersion
 PS                        := @PS@
+READLINK                  := @READLINK@
 EXPR                      := @EXPR@
 PATH_TO_HASHSUM           := @PATH_TO_HASHSUM@
 PATH_TO_LUAC              := @PATH_TO_LUAC@
@@ -277,6 +278,7 @@ __installMe:
 	        -e 's|@cached_loads@|$(CACHED_LOADS)|g'                           \
 	        -e 's|@avail_extensions@|$(LMOD_AVAIL_EXTENSIONS)|g'              \
 	        -e 's|@ps@|$(PS)|g'                                               \
+	        -e 's|@readlink@|$(READLINK)|g'                                   \
 	        -e 's|@site_name@|$(SITE_NAME)|g'                                 \
 	        -e 's|@site_controlled_prefix@|$(SITE_CONTROLLED_PREFIX)|g'       \
 	        -e 's|@syshost@|$(SYSHOST)|g'                                     \

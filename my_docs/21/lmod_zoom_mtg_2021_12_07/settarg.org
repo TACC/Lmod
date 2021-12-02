@@ -1,11 +1,17 @@
 Notes on Settarg talk
 
 * Goals
-** Make software devel easier by switch to different kinds of builds (dbg/opt etc)
+** Make software devel easier by switch to different kinds of builds (dbg/opt etc) (and do it frequently!)
+** Switching compilers can be helpful:
+    C++ error message can be hard to understand.
+    Different compiler do report compiler errors differently.
+    One might be clearer than another.
+    Debugging with gcc. Use Intel for performance. 
 ** Create Env. Vars. to control type of software build
 ** Manage $PATH
 ** Report status in titlebar
 ** Integrate with Lmod!!
+** Not all loaded modules affect $TARG.
 
 * Show examples
 ** dbg/opt/mdbg -> $TARG
@@ -18,6 +24,12 @@ Notes on Settarg talk
 ** Wanted to support dbg/opt as well.
 ** Didn't want to have make clobber and start over everytime
    
+* Settarg does 3 things:
+** Reads the state of loaded modules
+** Builds $TARG variables
+** Changes $PATH with new $TARG
+** (Optionally) Changes the titlebar on xterm
+
 * What are the important TARG Vars:
 ** TARG: OBJ/_x86_64_opt_gcc-9.3.0_mpich-3.3.2
 ** TARG_BUILD_SCENARIO: dbg
@@ -42,7 +54,3 @@ Notes on Settarg talk
 * settarg --report
 ** Merging multiple .settarg.lua files
    explain how that works.
-
-   
-
-   
