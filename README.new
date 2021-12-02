@@ -62,5 +62,8 @@ Lmod 8.5+
    (8.5.27) * Change lmod initialize from utils.lua file based to use initialize_lmod() function
    (8.5.28) * Issue #544: Use readlink /proc/$$/exe on linux.  Only allow bash, zsh and sh as possible shells
               when sourcing z00_lmod.sh
-              
+W.I.P:
+   (8.5.29) * Issue #543: Wrap names with @ % $ ^ * when forming serialized table.
+   
+   
    
