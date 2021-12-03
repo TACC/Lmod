@@ -22,7 +22,7 @@ Notes on Settarg talk
 ** Create Env. Vars. to control type of software build
 ** Manage $PATH
 ** Report status in titlebar
-** Integrate with Lmod!!
+** Integrate with Lmod!
 ** Not all loaded modules affect $TARG.
 
 * Show examples
@@ -36,7 +36,7 @@ Notes on Settarg talk
 ** Wanted to support dbg/opt as well.
 ** Didn't want to have make clobber and start over everytime
    
-* Settarg does 3 things:
+* Settarg does 4 things:
 ** Reads the state of loaded modules
 ** Builds $TARG variables
 ** Changes $PATH with new $TARG

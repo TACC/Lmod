@@ -1,0 +1,66 @@
+\documentclass{beamer}
+
+% You can also use a 16:9 aspect ratio:
+%\documentclass[aspectratio=169]{beamer}
+\usetheme{TACC16}
+
+% It's possible to move the footer to the right:
+%\usetheme[rightfooter]{TACC16}
+
+\begin{document}
+\title[Lmod]{Settarg}
+\author{Robert McLay} 
+\date{Dec. 7, 2021}
+
+% page 1
+\frame{\titlepage} 
+
+% page 2
+\begin{frame}{Settarg}
+  \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
+  \begin{itemize}
+    \item How settarg got started.
+    \item What are the goals of settarg?
+    \item A surprising feature of \$PATH
+    \item What does settarg actually do.
+    \item Examples
+    \item Personalizing settarg: user, projects
+    \item settarg --report
+    \item Conclusions
+  \end{itemize}
+\end{frame}
+
+% page 3
+\begin{frame}{Story: What lead to settarg}
+  \begin{itemize}
+    \item When processor speeds where measured in MHz and not GHz
+    \item Worked in a lab that had incompatible architectures.
+    \item Wanted to build programs w/o {\color{red}{\texttt{make
+            clean}} in-between.
+      \item 
+  \end{itemize}
+\end{frame}
+
+% page 14
+\begin{frame}{Conclusions}
+  \begin{itemize}
+    \item Many new features added to Lmod 8.6
+    \item \$LMOD\_QUARANTINE\_VARS
+    \item \texttt{/etc/lmod/lmod\_config.lua} configuration file
+    \item \texttt{source\_sh()} 
+    \item \texttt{LmodBreak()}: 
+  \end{itemize}
+\end{frame}
+
+% page 15
+\begin{frame}{Future Topics}
+  \begin{itemize}
+    \item Lmod Testing System?
+    \item More internals of Lmod?
+    \item Settarg?
+    \item collections?
+    \item Guest Presentation of special issues?
+  \end{itemize}
+\end{frame}
+
+\end{document}
