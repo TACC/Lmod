@@ -2,13 +2,13 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.5.18  2021-10-09 12:49 -05:00
+Modules based on Lua: Version 8.5.28  2021-12-01 12:20 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
  OutputDIR/lmod/lmod/libexec/lmod --version
 ===========================
-Modules based on Lua: Version 8.5.18 (8.5.18-16-g66315459) 2021-10-09 12:49 -05:00
+Modules based on Lua: Version 8.5.28 (8.5.28-7-gaabdac4d) 2021-12-01 12:20 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -74,11 +74,9 @@ step 9
 invalid command name "m-version"
     while executing
 "m-version amber/1.1 default"
-    (file "OutputDIR/lmod/lmod/libexec/../../etc/rc" line 2)
     invoked from within
 "source $mRcFile"
     (procedure "main" line 15)
     invoked from within
 "main $fn"
-    (file "OutputDIR/lmod/lmod/libexec/RC2lua.tcl" line 137)
 Lmod has detected the following error: Unable to parse: "OutputDIR/lmod/lmod/libexec/../../etc/rc". Aborting!

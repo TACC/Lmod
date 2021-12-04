@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.5.18  2021-10-09 12:49 -05:00
+Modules based on Lua: Version 8.5.28  2021-12-01 12:20 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -27,8 +27,7 @@ The following is a list of the modules and extensions currently available:
   gotoblas: gotoblas/1.20, gotoblas/1.26, gotoblas/1.30-beta, gotoblas/1.30, gotoblas/1.31, gotoblas/1.32, gotoblas/1.33
     Blas Level 1, 2, 3 routines
   greenlet: greenlet/0.4.0
-    The greenlet package is a spin-off of Stackless, a version of CPython that supports micro-threads called "tasklets". Tasklets run pseudo-concurrently (typically in a single or a few OS-level threads) and are synchronized with data exchanges on "channels". A "greenlet", on the other hand, is
-    a still more primitive notion of micro-thread with no implicit scheduling; coroutines, in other words. This is useful when you want to control exactly when your code runs. - Homepage: https://github.com/python-greenlet/greenlet
+    The greenlet package is a spin-off of Stackless, a version of CPython that supports micro-threads called "tasklets". Tasklets run pseudo-concurrently (typically in a single or a few OS-level threads) and are synchronized with data exchanges on "channels". A "greenlet", on the other hand, is a still more primitive notion of micro-thread with no implicit scheduling; coroutines, in other words. This is useful when you want to control exactly when your code runs. - Homepage: https://github.com/python-greenlet/greenlet
   intel: intel/intel
   is-dyna: is-dyna/1.0, is-dyna/2.0
   junk/a/c: junk/a/c/1.0
@@ -304,8 +303,7 @@ The following is a list of the modules and extensions currently available:
   gotoblas: gotoblas/1.20, gotoblas/1.26, gotoblas/1.30-beta, gotoblas/1.30, gotoblas/1.31, gotoblas/1.32, gotoblas/1.33
     Blas Level 1, 2, 3 routines
   greenlet: greenlet/0.4.0
-    The greenlet package is a spin-off of Stackless, a version of CPython that supports micro-threads called "tasklets". Tasklets run pseudo-concurrently (typically in a single or a few OS-level threads) and are synchronized with data exchanges on "channels". A "greenlet", on the other hand, is
-    a still more primitive notion of micro-thread with no implicit scheduling; coroutines, in other words. This is useful when you want to control exactly when your code runs. - Homepage: https://github.com/python-greenlet/greenlet
+    The greenlet package is a spin-off of Stackless, a version of CPython that supports micro-threads called "tasklets". Tasklets run pseudo-concurrently (typically in a single or a few OS-level threads) and are synchronized with data exchanges on "channels". A "greenlet", on the other hand, is a still more primitive notion of micro-thread with no implicit scheduling; coroutines, in other words. This is useful when you want to control exactly when your code runs. - Homepage: https://github.com/python-greenlet/greenlet
   intel: intel/intel
   is-dyna: is-dyna/1.0, is-dyna/2.0
   junk/a/c: junk/a/c/1.0
@@ -404,11 +402,9 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
 The following is a list of the modules and extensions currently available:
   hpl: hpl/2.2
-    HPL is a software package that solves a (random) dense linear system in double precision (64 bits) arithmetic on distributed-memory computers. It can thus be regarded as a portable as well as freely available implementation of the High Performance Computing Linpack Benchmark. - Homepage:
-    http://www.netlib.org/benchmark/hpl/
+    HPL is a software package that solves a (random) dense linear system in double precision (64 bits) arithmetic on distributed-memory computers. It can thus be regarded as a portable as well as freely available implementation of the High Performance Computing Linpack Benchmark. - Homepage: http://www.netlib.org/benchmark/hpl/
   imkl: imkl/2017.1.132
-    Intel Math Kernel Library is a library of highly optimized, extensively threaded math routines for science, engineering, and financial applications that require maximum performance. Core math functions include BLAS, LAPACK, ScaLAPACK, Sparse Solvers, Fast Fourier Transforms, Vector Math,
-    and more. - Homepage: http://software.intel.com/en-us/intel-mkl/
+    Intel Math Kernel Library is a library of highly optimized, extensively threaded math routines for science, engineering, and financial applications that require maximum performance. Core math functions include BLAS, LAPACK, ScaLAPACK, Sparse Solvers, Fast Fourier Transforms, Vector Math, and more. - Homepage: http://software.intel.com/en-us/intel-mkl/
   intel: intel/2017.1.132
     Intel Cluster Toolkit Compiler Edition provides Intel C,C++ and fortran compilers, Intel MPI and Intel MKL - Homepage: http://software.intel.com/en-us/intel-cluster-toolkit-compiler/
   openmpi: openmpi/2.0.1
