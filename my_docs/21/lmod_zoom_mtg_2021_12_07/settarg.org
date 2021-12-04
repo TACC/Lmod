@@ -66,3 +66,4 @@ Notes on Settarg talk
 * settarg --report
 ** Merging multiple .settarg.lua files
    explain how that works.
+* settarg --stt
