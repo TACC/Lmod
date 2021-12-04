@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.5.20  2021-10-20 10:04 -05:00
+Modules based on Lua: Version 8.5.28  2021-12-01 12:20 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -110,8 +110,7 @@ _ModuleTable_ = {
           "setenv(\"SECOND\",\"FOO_BAR\")",
         },
         ["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"] = {
-          "setenv(\"MY_NAME\",\"tstScript.sh\")", "prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")", "append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")", "setenv(\"TST_SCRIPT\",\"1\")", "set_alias(\"fooAlias\",\"foobin -q -l\")"
-          , [[set_shell_function("banner"," \\
+          "setenv(\"MY_NAME\",\"tstScript.sh\")", "prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")", "append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")", "setenv(\"TST_SCRIPT\",\"1\")", "set_alias(\"fooAlias\",\"foobin -q -l\")", [[set_shell_function("banner"," \\
     local str=\\"$1\\";\\
     local RED='\\033[1;31m';\\
     local NONE='\\033[0m';\\
@@ -180,8 +179,7 @@ _ModuleTable_ = {
           "setenv(\"SECOND\",\"FOO_BAR\")",
         },
         ["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"] = {
-          "setenv(\"MY_NAME\",\"tstScript.sh\")", "prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")", "append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")", "setenv(\"TST_SCRIPT\",\"1\")", "set_alias(\"fooAlias\",\"foobin -q -l\")"
-          , [[set_shell_function("banner"," \\
+          "setenv(\"MY_NAME\",\"tstScript.sh\")", "prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")", "append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")", "setenv(\"TST_SCRIPT\",\"1\")", "set_alias(\"fooAlias\",\"foobin -q -l\")", [[set_shell_function("banner"," \\
     local str=\\"$1\\";\\
     local RED='\\033[1;31m';\\
     local NONE='\\033[0m';\\

@@ -1,5 +1,17 @@
 Notes on Settarg talk
 
+* Story
+** CFDLAB: worked on a shared home file system with different arch.
+** Wanted to build programs w/o make clean in-between
+** Wanted Dbg and Opt, Later MDbg
+** Wanted to support different compilers (e.g. intel or gcc)
+** It grew from there: MPI Stack
+** Wanted to know what module are loaded
+** I am unable to change modules and remember to change $TARG
+** Settarg became part of Lmod.
+
+
+
 * Goals
 ** Make software devel easier by switch to different kinds of builds (dbg/opt etc) (and do it frequently!)
 ** Switching compilers can be helpful:
@@ -10,7 +22,7 @@ Notes on Settarg talk
 ** Create Env. Vars. to control type of software build
 ** Manage $PATH
 ** Report status in titlebar
-** Integrate with Lmod!!
+** Integrate with Lmod!
 ** Not all loaded modules affect $TARG.
 
 * Show examples
@@ -24,7 +36,7 @@ Notes on Settarg talk
 ** Wanted to support dbg/opt as well.
 ** Didn't want to have make clobber and start over everytime
    
-* Settarg does 3 things:
+* Settarg does 4 things:
 ** Reads the state of loaded modules
 ** Builds $TARG variables
 ** Changes $PATH with new $TARG
@@ -54,3 +66,4 @@ Notes on Settarg talk
 * settarg --report
 ** Merging multiple .settarg.lua files
    explain how that works.
+* settarg --stt

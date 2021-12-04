@@ -102,8 +102,8 @@ function M.bannerStr(self, str)
    local a       = {}
    local myWidth = self:width()
    local len     = str:len() + 2
-   local lcount  = floor((myWidth - len)/2)
-   local rcount  = myWidth - lcount - len
+   local lcount  = max(floor((myWidth - len)/2),4)
+   local rcount  = max(myWidth - lcount - len,4)
    a[#a+1] = rep("-",lcount)
    a[#a+1] = " "
    a[#a+1] = str
