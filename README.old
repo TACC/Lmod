@@ -1,3 +1,69 @@
+Lmod 8.5+
+   (8.5.1)  * Issue #513:  module avail <name1> <name2> ... now only prints matching aliases.  Search names are resolved.
+              Tests added to the rt/modulerc directory.
+   (8.5.2)  * Failed to register new version with github.  Pushing a new version to fix that.
+   (8.5.3)  * Issue #515: Set LMOD_VERSION for fish shell
+            * Add link to isVisible() hook in documentation for hide_version() function.
+   (8.5.4)  * Issue #517: use pkg-config --cflags-only-I option and do not post-process the results.
+   (8.5.5)  * Issue #517: use pkg-config --cflags-only-I option and post-process the results for LUA_INCLUDE
+   (8.5.6)  * Issue #517: Add PKG_CONFIG_ALLOW_SYSTEM_CFLAGS to pkg-config tests
+   (8.5.7)  * Issue #518: Change lazyEval "mt" to use exact match of userName to either sn or fullName.
+            * Issue #519: Add docs for LMOD_AVAIL_STYLE in docs/sources/090_configuring_lmod.rst
+   (8.5.8)  * Issue #520: Adding debugging style stmts from XALT for store_module_data and LMODdb.py
+   (8.5.9)  * Issue #520: Also report line number and module name
+            * Issue #520: Print dataT table when there is an Exception.
+   (8.5.10) * When evaluating modules under spider now block both stdout and stderr (instead of just stderr).
+            * New command added: "module overview"
+   (8.5.11) * Added msg to avail to point to "ml -d av" and "ml ov"
+   (8.5.12) * Issue #524: Only register one sn when different modulefiles with the same sn
+              load on top of each other.  See test rt/ref_count and loading module abc.
+   (8.5.13) * Added comments to the ksh_funcs files because they are copied to a
+              zsh function directory.
+            * Issue #527: Changed docs to use the word "delim" instead of "sep"
+            * Issue #529: Rename "sep" to "delim" internally as well.
+            * Change MasterControl:myShellType() to use Shell:type() and change shells to report
+              have local variable myType.
+            * Issue #528: Added support for the RC shell.
+   (8.5.14) * Added spiderPathFilter hook so that sites can control what paths are kept or ignored.
+   (8.5.15) * Issue #530 update fr.lua for overview description.
+            * Start of upgrade to sh_to_modulefile support for aliases and functions
+            * Change ksh_funcs files like module and ml to not be executable
+   (8.5.16) * Fix bugs with cmake and perl test because of the renaming of cmake.in
+              and perl.in to cmake and perl.
+   (8.5.17) * Issue #532: Change AVAIL_EXTENSION to AVAIL_EXTENSIONS in Makefile.in
+            * Now use unload_internal and unload_usr_internal for all unloads
+	    * Use MasterControl:build_unload() and MasterControl:do_not_build_unload() to control when
+	      unload_internal switches mcp to be MC_Unload.
+	    * Update TACC/SitePackage.lua and docs to use s_msgT instead of s_msgA to
+	      avoid reporting duplicate modules when reloads happen.
+   (8.5.18) * Added $LMOD_SITE_MODULEPATH support to prepend to MODULEPATH
+   (8.5.19) * Added support for sh_to_modulefile to support zsh, ksh,
+              bash and tcsh with aliases and shell functions
+            * Support for source_sh added.
+            * Now support more than one shell script per modulefile            
+            * Docs added for source_sh
+   (8.5.20) * The command module refresh now correctly handles source_sh()
+            * Added LMOD_QUARANTINE_VARS env. vars.  A list of variables that
+              Lmod won't change.
+   (8.5.21) * Handle gsed/sed for testing on macOS.
+   (8.5.22) * Report missing MODULEPATH directories remove when "ml reset"
+            * Change MT:lookup_w_userName(userName) to support partial version string matches.
+              This is an update to Issue #518 fix in 8.5.7
+            * Modify test.yml to support running "make busted"
+	    * Issue #537: Remove all trailing newlines from TCL arguments
+	    * Issue #538: Fixed regex from "(@" to "%(@" when doing "ml overview".
+   (8.5.23) * Issue #531: Now register request to check dependency with any modules that do a "load" or "depends_on"
+	    * Support for /etc/lmod/lmod_config.lua file to configure Lmod for a site.
+   (8.5.24) * Fix bug in Cosmic.lua.  Cosmic.lua now makes sure that the name exists before assigning a value.
+   (8.5.25) * Fix bug in utils.lua.  Now use cosmic:value for LMOD_PACKAGE_PATH instead of getenv().
+   (8.5.26) * Fix bug in lmod.in.lua. Using cosmic value for LMOD_PACKAGE_PATH
+	      (lmodPath doesn't exist any more in lmod.in.lua)
+	    * Report unknown key if there it cannot be found in i18n(key,...)
+   (8.5.27) * Change lmod initialize from utils.lua file based to use initialize_lmod() function
+   (8.5.28) * Issue #544: Use readlink /proc/$$/exe on linux.  Only allow bash, zsh and sh as possible shells
+              when sourcing z00_lmod.sh
+   (8.5.29) * Issue #543: Wrap names with @ % $ ^ * when forming serialized table.
+            * Fix bug where the titleBar was wrong when module name was not in TitleTbl table.
 Lmod 8.4+
    (8.4.1)  * Issue #460: Change meta modules from having a separate file= to be
               a fileT= in ModuleA
