@@ -76,6 +76,7 @@
     \item Optionally report status in titlebar
     \item Settarg became part of Lmod (because I can't remember to do
       two things at once!?)
+    \item Currently works in bash, zsh and tcsh
   \end{itemize}
 \end{frame}
 
@@ -146,15 +147,15 @@
 % page 13
 \begin{frame}{The settarg module defines the following commands}
   \begin{itemize}
-    \item dbg $\Rightarrow$ debug
-    \item opt $\Rightarrow$ optimize
-    \item mdbg $\Rightarrow$ max debug
-    \item empty $\Rightarrow$ no build scenario 
-    \item cdt   $\Rightarrow$ cd \$TARG
-    \item targ   $\Rightarrow$ echo \$TARG
-    \item settarg --stt $\Rightarrow$ settarg state stored in
+    \item \texttt{dbg} $\Rightarrow$ debug
+    \item \texttt{opt} $\Rightarrow$ optimize
+    \item \texttt{mdbg} $\Rightarrow$ max debug
+    \item \texttt{empty} $\Rightarrow$ no build scenario 
+    \item \texttt{cdt}   $\Rightarrow$ cd \$TARG
+    \item \texttt{targ}   $\Rightarrow$ echo \$TARG
+    \item \texttt{settarg --stt} $\Rightarrow$ settarg state stored in
       environment
-    \item settarg --report $\Rightarrow$ how settarg is configured.
+    \item \texttt{settarg --report} $\Rightarrow$ how settarg is configured.
   \end{itemize}
 \end{frame}
 
