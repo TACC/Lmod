@@ -53,8 +53,6 @@
           clean}} in-between.
     \item How about different optimization levels? (dbg, opt, mdbg?)
     \item Different compilers or MPI stacks?
-    \item Settarg became part of Lmod (because I can't remember to do
-      two things at once!?)
   \end{itemize}
 \end{frame}
 
@@ -76,7 +74,8 @@
     \item Integrate with Build process via Env. Vars.
     \item Integrate with \$PATH
     \item Optionally report status in titlebar
-    \item Integrate with Lmod!
+    \item Settarg became part of Lmod (because I can't remember to do
+      two things at once!?)
   \end{itemize}
 \end{frame}
 
@@ -105,24 +104,24 @@
 % page 9
 \begin{frame}{Typical \$TARG variables in dbg state}
   \begin{itemize}
-    \item TARG: OBJ/\_x86\_64\_dbg\_gcc-9.3.0\_mpich-3.3.2
-    \item TARG\_BUILD\_SCENARIO: dbg
-    \item TARG\_COMPILER\_FAMILY: gcc
-    \item TARG\_MPI\_FAMILY: mpich
-    \item TARG\_COMPILER: gcc-9.3.0
-    \item TARG\_MPI:   mpich-3.3.2
+    \item \$TARG $\Rightarrow$ OBJ/\_x86\_64\_dbg\_gcc-9.3.0\_mpich-3.3.2
+    \item \$TARG\_BUILD\_SCENARIO $\Rightarrow$  dbg
+    \item \$TARG\_COMPILER\_FAMILY $\Rightarrow$  gcc
+    \item \$TARG\_MPI\_FAMILY $\Rightarrow$  mpich
+    \item \$TARG\_COMPILER $\Rightarrow$  gcc-9.3.0
+    \item \$TARG\_MPI $\Rightarrow$    mpich-3.3.2
   \end{itemize}
 \end{frame}
 
 % page 10
 \begin{frame}{Typical \$TARG variables in opt state}
   \begin{itemize}
-    \item TARG: OBJ/\_x86\_64\_opt\_gcc-9.3.0\_mpich-3.3.2
-    \item TARG\_BUILD\_SCENARIO: opt
-    \item TARG\_COMPILER\_FAMILY: gcc
-    \item TARG\_MPI\_FAMILY: mpich
-    \item TARG\_COMPILER: gcc-9.3.0
-    \item TARG\_MPI:   mpich-3.3.2
+    \item \$TARG $\Rightarrow$  OBJ/\_x86\_64\_opt\_gcc-9.3.0\_mpich-3.3.2
+    \item \$TARG\_BUILD\_SCENARIO\ $\Rightarrow$  opt
+    \item \$TARG\_COMPILER\_FAMILY $\Rightarrow$  gcc
+    \item \$TARG\_MPI\_FAMILY $\Rightarrow$ mpich
+    \item \$TARG\_COMPILER $\Rightarrow$ gcc-9.3.0
+    \item \$TARG\_MPI  $\Rightarrow$   mpich-3.3.2
   \end{itemize}
 \end{frame}
 
@@ -214,7 +213,10 @@ endif
 ifneq (\$(TARG),)
   override O\_DIR := \$(TARG)/
 endif
-
+CFLAGS := -O3
+ifeq (\$(TARG\_BUILD_SCENARIO),dbg)
+   CFLAGS := -g -O0
+endif 
 EXEC := \$(O\_DIR)hello
 SRC  := main.c hello.c
 OBJS := \$(O\_DIR)main.o \$(O\_DIR)hello.o

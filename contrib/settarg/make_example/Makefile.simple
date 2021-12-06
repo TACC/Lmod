@@ -18,8 +18,21 @@ ifneq ($(TARG),)
   override O_DIR := $(TARG)/
 endif
 
-EXEC := $(O_DIR)hello
-SRC  := main.c hello.c
+########################################################################
+#  Use TARG_BUILD_SCENARIO to set the compiler options for either
+#  debug or optimize.
+
+ifeq ($(TARG_BUILD_SCENARIO),dbg)
+  CF := -g -O0
+endif
+
+ifeq ($(TARG_BUILD_SCENARIO),opt)
+  CF := -O3
+endif
+
+EXEC              := $(O_DIR)hello
+SRC               := main.c hello.c
+override CFLAGS   := $(CFLAGS) $(CF)
 
 OBJS := $(O_DIR)main.o $(O_DIR)hello.o
 
