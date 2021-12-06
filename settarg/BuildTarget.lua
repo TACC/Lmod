@@ -461,8 +461,8 @@ function M.exec(shell)
    for i = 1,#entryA do
       local t     = entryA[i]:value()
       local name  = t.value or t.sn
-      local tname = TitleTbl[name]
-      local s     = tname or name
+      local tname = TitleTbl[name] or name
+      local s     = tname
       if (s) then
          if (tname and t.version and t.version ~= "") then
             s = tname .. "/" .. t.version
@@ -470,20 +470,6 @@ function M.exec(shell)
          aa[#aa+1] = s
       end
    end
-
-   --local aa = {}
-   --for _,v in ipairs(a) do
-   --   local _, _, name, version = v:find("([^-]*)-?(.*)")
-   --   if (v:len() > 0) then
-   --      local s = TitleTbl[name] or v
-   --      if (s) then
-   --         if (TitleTbl[name] and version ~= "" ) then
-   --            s = TitleTbl[name] .. "/" .. version
-   --         end
-   --         aa[#aa+1] = s
-   --      end
-   --   end
-   --end
    local s                          = concatTbl(aa," "):trim()
    local paren_s                    = ""
    if (s ~= "") then
