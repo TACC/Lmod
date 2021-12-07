@@ -36,7 +36,7 @@ release at sourceforge.
 
 Features:
 
-   1. New command "module overview" which list names and the number of versions for each.
+   1. New command "module overview" which lists names and the number of versions for each.
 
    2. Added spiderPathFilter hook so that sites can control which directories are ignored.
       
