@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.5.18  2021-10-09 12:49 -05:00
+Modules based on Lua: Version 8.6  2021-12-06 17:19 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -73,18 +73,22 @@ echo TARG_RTM: Is Great
 ===========================
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload gcc mpich
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload mpich
 ===========================
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cmplr/clang
-===========================
-===========================
-step 18
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model
 ===========================
 ===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload gcc
+===========================
+===========================
 step 19
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cmplr/clang
+===========================
+===========================
+step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show settarg
 ===========================
  OutputDIR/mf/Core/settarg/1.0.lua:
@@ -155,6 +159,6 @@ compiler and mpi stack.
 Settarg can do more.  Please see the Lmod website for more details.
 ]])
 ===========================
-step 20
+step 21
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload settarg
 ===========================

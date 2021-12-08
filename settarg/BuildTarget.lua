@@ -197,6 +197,7 @@ function M.buildTbl(targetTbl)
       if (v == nil) then
          local ss = "default_" .. K
          if (M[ss]) then
+            dbg.print{"Calling ss: ",ss,"\n"}
             v = M[ss](tbl)
          end
          dbg.print{"ss: ", ss," v: ",v,"\n"}
@@ -394,8 +395,11 @@ function M.exec(shell)
       local K     = "TARG_" .. v:upper()
       local KK    = K .. "_FAMILY"
       local entry = tbl[K]
+      dbg.print{"K:  ",K,"\n"}
+      dbg.print{"KK: ",KK,"\n"}
       if (not entry) then
          envVarsTbl[KK] = false
+         dbg.print{"removing KK: ",KK,"\n"}
       else
          entryA[#entryA + 1] = entry
          a[#a+1]             = entry:display(true)  -- The true says change '/' into '-'
@@ -406,12 +410,16 @@ function M.exec(shell)
       end
    end
 
+   dbg.print{"1. envVarsTbl.TARG_OS: ",envVarsTbl.TARG_OS,"\n"}
+
 
    for k in pairs(tbl) do
       if (tbl[k]) then
          envVarsTbl[k] = tbl[k]:display()
       end
    end
+
+   dbg.print{"2. envVarsTbl.TARG_OS: ",envVarsTbl.TARG_OS,"\n"}
 
    target = concatTbl(a,"_")
    target = target:gsub("_+","_")
@@ -457,6 +465,7 @@ function M.exec(shell)
       end
    end
 
+   dbg.print{"3. envVarsTbl.TARG_OS: ",envVarsTbl.TARG_OS,"\n"}
    local aa = {}
    for i = 1,#entryA do
       local t     = entryA[i]:value()
@@ -491,9 +500,22 @@ function M.exec(shell)
       envVarsTbl.TARG_TITLE_BAR_PAREN = " "
    end
 
+   local targA = stt:get_targA()
+   for i = 1,#targA do
+      local v = targA[i]
+      if (not envVarsTbl[v]) then
+         envVarsTbl[v] = false
+      end
+   end
+
+   dbg.print{"3. envVarsTbl.TARG_OS: ",envVarsTbl.TARG_OS,"\n"}
+   
    stt:registerVars(envVarsTbl)
    local old_stt = getSTT() or ""
    local new_stt = stt:serializeTbl()
+   dbg.print{"old_stt: ",old_stt,"\n"}
+   dbg.print{"new_stt: ",new_stt,"\n"}
+
    if (old_stt ~= new_stt) then
       envVarsTbl._SettargTable_ = new_stt
    end
