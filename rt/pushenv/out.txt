@@ -336,7 +336,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={intel={fn="Pro
 export _ModuleTable_;
 __LMOD_STACK_LEWIS=:test;
 export __LMOD_STACK_LEWIS;
-__LMOD_STACK_RTM= :test;
+__LMOD_STACK_RTM=\ :test;
 export __LMOD_STACK_RTM;
 ===========================
 step 18
