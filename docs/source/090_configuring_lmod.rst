@@ -247,7 +247,7 @@ Configuring Lmod with **/etc/lmod/lmod_config.lua**:
 Lmod looks for a file named lmod_config.lua in the LMOD_CONFIG_DIR,
 which is by default /etc/lmod/. So normally the file is found here:
 /etc/lmod/lmod_config.lua.  It can be configured to any value with the
-configure option (--with-configDir=) or setting the environment
+configure option (--with-lmodConfigDir=) or setting the environment
 variable LMOD_CONFIG_DIR.  This file is used optionally.  It is not
 required.
 
