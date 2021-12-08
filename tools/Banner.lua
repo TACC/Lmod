@@ -43,6 +43,7 @@ local concatTbl = table.concat
 local dbg       = require("Dbg"):dbg()
 local floor     = math.floor
 local max       = math.max
+local min       = math.min
 local rep       = string.rep
 
 local s_bannerT = false
