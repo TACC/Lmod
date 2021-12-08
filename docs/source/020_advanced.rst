@@ -22,10 +22,12 @@ module path::
 
 This will prepend ``/path/to/personal/modulefiles`` to the ``MODULEPATH``
 environment variable. This means that any modulefiles defined here
-will be used instead of the system modules.
+will be used instead of the system modules. There is a possible exception
+where defaults will override this selection. (See the next section
+:ref:`finding_w_same_name-label` for more details). 
 
 Suppose that the user creates a directory called ``$HOME/modulefiles``
-and they want a personal copy of the "git" package and they do the
+and they want a personal copy of the "git" package. They do the
 usual "tar, configure, make, make install" steps::
 
     $ wget https://www.kernel.org/pub/software/scm/git/git-2.6.2.tar.gz
@@ -51,8 +53,8 @@ modulefile for git one does::
     ^D
 
 Starting first from the name: git/2.6.2.lua, modulefiles with the .lua
-extension are assumed to be written in lua and files without are
-assumed to be written in TCL.
+extension are assumed to be written in lua and files without this
+extension are assumed to be written in TCL.
 This modulefile for git adds ``~/pkg/git/2.6.2/bin`` to the user's
 path so that the personal version of git can be found.  Note that the
 use of the functions **myModuleName()** and  **myModuleVersion()**
@@ -86,6 +88,8 @@ are listed in an earlier directory are found before ones in later
 directories. This is similar to command searching in the ``PATH``
 variable. There can be several versions of a command. The first one
 found in the ``PATH`` is used.
+
+.. _finding_w_same_name-label:
 
 Finding Modules With Same Name
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
