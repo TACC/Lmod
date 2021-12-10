@@ -46,6 +46,7 @@ require("myGlobals")
 
 local M       = {}
 local dbg     = require("Dbg"):dbg()
+local cosmic  = require("Cosmic"):singleton()
 local getenv  = os.getenv
 local open    = io.open
 
