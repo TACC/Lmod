@@ -30,6 +30,7 @@ then Lmod searches for the property information in the following order:
 
 #. /apps/lmod/X.Y.Z/init/lmodrc.lua
 #. /apps/lmod/etc/lmodrc.lua
+#. $LMOD_CONFIG_DIR/lmodrc.lua (default /etc/lmod/lmodrc.lua)
 #. /etc/lmodrc.lua
 #. $HOME/.lmodrc.lua
 #. $LMOD_RC

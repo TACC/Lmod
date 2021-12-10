@@ -148,6 +148,14 @@ cosmic:init{name = "LMOD_REDIRECT",
             yn   = "no"}
 
 ------------------------------------------------------------------------
+-- LMOD_RC:  Lmod RC list of colon separated files 
+------------------------------------------------------------------------
+local rcfiles = getenv("LMOD_RC")
+cosmic:init{name    = "LMOD_RC",
+            default = "",
+            assignV = rcfiles}
+
+------------------------------------------------------------------------
 -- LMOD_FAST_TCL_INTERP:  Send messages to stdout instead of stderr
 ------------------------------------------------------------------------
 cosmic:init{name = "LMOD_FAST_TCL_INTERP",

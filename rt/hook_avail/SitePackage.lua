@@ -15,8 +15,6 @@ local mapT =
    
 }
 
-
-
 function avail_hook(t)
    local availStyle = masterTbl().availStyle
    dbg.print{"avail hook called: availStyle: ",availStyle,"\n"}
