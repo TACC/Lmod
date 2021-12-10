@@ -262,7 +262,7 @@ Here is a full example::
     cosmic:assign("LMOD_SITE_NAME",   "XYZZY")
 
     -- Note that this directory could be anything including /etc/lmod
-    cosmic:assign("LMOD_PACKAGE_DIR", "/path/to/SitePackage_Dir/")
+    cosmic:assign("LMOD_PACKAGE_PATH", "/path/to/SitePackage_Dir/")
 
     local function echoString(s)
        io.stderr:write(s,"\n")
