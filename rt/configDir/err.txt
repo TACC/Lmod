@@ -47,6 +47,7 @@ Pkg Class name                     Pkg
 Lmod prefix                        @PREFIX@
 Site controlled prefix             no
 Prepend order                      normal
+LMOD_RC                            <empty>
 Redirect to stdout                 no
 Supporting Full Settarg Use        no
 User shell                         bash
