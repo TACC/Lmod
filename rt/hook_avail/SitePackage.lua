@@ -10,7 +10,7 @@ local mapT =
    },
    fr_grouped = {
       ['/Compilers/'] = "Compilateurs",
-      ['/Core.*']      = "Modules de base",
+      ['/Core.*']     = "Modules de base",
    },
    
 }

@@ -131,6 +131,7 @@ local function l_new(self)
    local uname             = capture("uname -a")
    local adminFn, readable = findAdminFn()
    local activeTerm        = haveTermSupport() and "true" or colorize("red","false")
+   local avail_style       = cosmic:value("LMOD_AVAIL_STYLE")
    local lmod_configDir    = cosmic:value("LMOD_CONFIG_DIR")
    local ksh_support       = cosmic:value("LMOD_KSH_SUPPORT")
    local extended_default  = cosmic:value("LMOD_EXTENDED_DEFAULT")
@@ -195,6 +196,7 @@ local function l_new(self)
    local tbl = {}
    tbl.allowRoot    = { k = "Allow root to use Lmod"            , v = allow_root_use,   }
    tbl.allowTCL     = { k = "Allow TCL modulefiles"             , v = allow_tcl_mfiles, }
+   tbl.avail_style  = { k = "Avail Style"                       , v = avail_style,      }
    tbl.autoSwap     = { k = "Auto swapping"                     , v = auto_swap,        }
    tbl.case         = { k = "Case Independent Sorting"          , v = case_ind_sorting, }
    tbl.colorize     = { k = "Colorize Lmod"                     , v = lmod_colorize,    }
