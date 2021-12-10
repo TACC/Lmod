@@ -1,6 +1,8 @@
 -- -*- lua -*-
 local testName = "sh_to_modulefile"
 
+local zsh_path, found = findInPath("zsh", os.getenv("PATH"))
+
 testdescript = {
    owner   = "rtm",
    product = "modules",
@@ -8,7 +10,7 @@ testdescript = {
    ]],
    keywords = {testName },
 
-   active   = true,
+   active   = found,
    testName = testName,
    job_submit_method = "INTERACTIVE",
 
@@ -23,22 +25,7 @@ testdescript = {
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d s.log
 
      runLmod --version                                 # 1
-     runSh2MF             $(testDir)/tstScript.sh      # 2
-     runSh2MF             $(testDir)/path_both_ends.sh # 3        
-     runSh2MF  --from csh $(testDir)/cshScript.csh     # 4
-     runSh2MF             $(testDir)/broken.sh         # 5
-     runLmod  show wrapperSh/1.0                       # 6
-     runLmod  load wrapperSh/1.0                       # 7
-     runLmod  show wrapperSh/1.0                       # 8
-     runLmod  refresh                                  # 9
-     runLmod  list                                     #10
-     runLmod  --mt                                     #11
-     runLmod  unload wrapperSh/1.0                     #12
-     runLmod  load   brokenSh/1.0                      #13
-     runLmod  load   wrapperSh/1.0                     #14
-     runLmod  save                                     #15
-     runLmod  restore                                  #16
-     runLmod  --mt                                     #17
+     runSh2MF  --from zsh $(testDir)/tstScript.zsh     # 2
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
