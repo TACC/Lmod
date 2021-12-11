@@ -654,8 +654,9 @@ function M.haveUserName(self, mname, status)
    if (not result) then
       return false
    end
+   local userName = mname:userName()
 
-   return self:userName(sn) == mname:userName()
+   return self:userName(sn) == userName or self:fullName(sn) == userName
 end
 
 function M.lookup_w_userName(self,userName)

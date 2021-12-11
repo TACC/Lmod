@@ -2,18 +2,19 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.5.26  2021-11-10 17:28 -06:00
+Modules based on Lua: Version 8.6  2021-12-06 17:19 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --config
 ===========================
-Modules based on Lua: Version 8.5.26  2021-11-10 17:28 -06:00
+Modules based on Lua: Version 8.6  2021-12-06 17:19 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                        Value
 Allow root to use Lmod             yes
 Allow TCL modulefiles              yes
 Auto swapping                      yes
+Avail Style                        <system>
 Case Independent Sorting           no
 Colorize Lmod                      yes
 Configuration dir                  ProjectDIR/rt/configDir/lmod_cfg_dir
@@ -46,6 +47,7 @@ Pkg Class name                     Pkg
 Lmod prefix                        @PREFIX@
 Site controlled prefix             no
 Prepend order                      normal
+LMOD_RC                            <empty>
 Redirect to stdout                 no
 Supporting Full Settarg Use        no
 User shell                         bash

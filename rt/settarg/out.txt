@@ -53,99 +53,93 @@ targ () { builtin echo $TARG; };
 step 3
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model dbg
 ===========================
-PATH='OBJ/_x86_64_dbg:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM:/bin';
+PATH=OBJ/_x86_64_dbg:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-TARG='OBJ/_x86_64_dbg';
+TARG=OBJ/_x86_64_dbg;
 export TARG;
-TARG_BUILD_SCENARIO='dbg';
+TARG_BUILD_SCENARIO=dbg;
 export TARG_BUILD_SCENARIO;
-unset 'TARG_COMPILER_FAMILY';
-unset 'TARG_EXTRA';
-TARG_HOST=''
+unset TARG_COMPILER_FAMILY;
+unset TARG_EXTRA;
+TARG_HOST='some_host';
 export TARG_HOST;
-TARG_MACH='x86_64';
+TARG_MACH=x86_64;
 export TARG_MACH;
-TARG_MACH_DESCRIPT=''
+TARG_MACH_DESCRIPT='some_descript';
 export TARG_MACH_DESCRIPT;
-unset 'TARG_MPI_FAMILY';
-TARG_OS=''
+unset TARG_MPI_FAMILY;
+TARG_OS='some_os';
 export TARG_OS;
-TARG_OS_FAMILY=''
+TARG_OS_FAMILY='some_os_family';
 export TARG_OS_FAMILY;
-TARG_SUMMARY='x86_64_dbg';
+TARG_SUMMARY=x86_64_dbg;
 export TARG_SUMMARY;
-TARG_TITLE_BAR='D';
+TARG_TITLE_BAR=D;
 export TARG_TITLE_BAR;
-TARG_TITLE_BAR_PAREN='(D)';
+TARG_TITLE_BAR_PAREN=\(D\);
 export TARG_TITLE_BAR_PAREN;
-_SettargTable001_='X1NldHRhcmdUYWJsZV89e2J1aWxkU2NlbmFyaW9TdGF0ZT0iZGJnIixleHRyYVQ9e30sdGFyZ0E9eyJUQVJHIiwiVEFSR19CVUlMRF9TQ0VOQVJJTyIsIlRBUkdfQ09NUElMRVJfRkFNSUxZIiwiVEFSR19FWFRSQSIsIlRBUkdfSE9TVCIsIlRBUkdfTUFDSCIsIlRBUkdfTUFDSF9ERVNDUklQVCIsIlRBUkdfTVBJX0ZBTUlMWSIsIlRBUkdfT1MiLCJUQVJHX09TX0ZBTUlMWSIsIlRBUkdfU1VNTUFSWSIsIlRBUkdfVElUTEVfQkFSIiwiVEFSR19USVRMRV9CQVJfUEFSRU4iLH0sdmVyc2lvbj0xLH0=';
-export _SettargTable001_;
-_SettargTable_Sz_='1';
-export _SettargTable_Sz_;
+_SettargTable_='_SettargTable_={buildScenarioState="dbg",extraT={},targA={"TARG","TARG_BUILD_SCENARIO","TARG_EXTRA","TARG_HOST","TARG_MACH","TARG_MACH_DESCRIPT","TARG_OS","TARG_OS_FAMILY","TARG_SUMMARY","TARG_TITLE_BAR","TARG_TITLE_BAR_PAREN",},version=1,}';
+export _SettargTable_;
 ===========================
 step 4
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model opt
 ===========================
-PATH='obj/__x86_64_opt:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM:/bin';
+PATH=obj/__x86_64_opt:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-TARG='obj/__x86_64_opt';
+TARG=obj/__x86_64_opt;
 export TARG;
-TARG_BUILD_SCENARIO='opt';
+TARG_BUILD_SCENARIO=opt;
 export TARG_BUILD_SCENARIO;
-unset 'TARG_COMPILER_FAMILY';
-unset 'TARG_EXTRA';
-TARG_HOST=''
+unset TARG_COMPILER_FAMILY;
+unset TARG_EXTRA;
+TARG_HOST='some_host';
 export TARG_HOST;
-TARG_MACH='x86_64';
+TARG_MACH=x86_64;
 export TARG_MACH;
-TARG_MACH_DESCRIPT=''
+TARG_MACH_DESCRIPT='some_descript';
 export TARG_MACH_DESCRIPT;
-unset 'TARG_MPI_FAMILY';
-TARG_OS=''
+unset TARG_MPI_FAMILY;
+TARG_OS='some_os';
 export TARG_OS;
-TARG_OS_FAMILY=''
+TARG_OS_FAMILY='some_os_family';
 export TARG_OS_FAMILY;
-TARG_SUMMARY='x86_64_opt';
+TARG_SUMMARY=x86_64_opt;
 export TARG_SUMMARY;
-TARG_TITLE_BAR='O';
+TARG_TITLE_BAR=O;
 export TARG_TITLE_BAR;
-TARG_TITLE_BAR_PAREN='(O)';
+TARG_TITLE_BAR_PAREN=\(O\);
 export TARG_TITLE_BAR_PAREN;
-_SettargTable001_='X1NldHRhcmdUYWJsZV89e2J1aWxkU2NlbmFyaW9TdGF0ZT0ib3B0IixleHRyYVQ9e30sdGFyZ0E9eyJUQVJHIiwiVEFSR19CVUlMRF9TQ0VOQVJJTyIsIlRBUkdfQ09NUElMRVJfRkFNSUxZIiwiVEFSR19FWFRSQSIsIlRBUkdfSE9TVCIsIlRBUkdfTUFDSCIsIlRBUkdfTUFDSF9ERVNDUklQVCIsIlRBUkdfTVBJX0ZBTUlMWSIsIlRBUkdfT1MiLCJUQVJHX09TX0ZBTUlMWSIsIlRBUkdfU1VNTUFSWSIsIlRBUkdfVElUTEVfQkFSIiwiVEFSR19USVRMRV9CQVJfUEFSRU4iLH0sdmVyc2lvbj0xLH0=';
-export _SettargTable001_;
-_SettargTable_Sz_='1';
-export _SettargTable_Sz_;
+_SettargTable_='_SettargTable_={buildScenarioState="opt",extraT={},targA={"TARG","TARG_BUILD_SCENARIO","TARG_EXTRA","TARG_HOST","TARG_MACH","TARG_MACH_DESCRIPT","TARG_OS","TARG_OS_FAMILY","TARG_SUMMARY","TARG_TITLE_BAR","TARG_TITLE_BAR_PAREN",},version=1,}';
+export _SettargTable_;
 ===========================
 step 5
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model empty
 ===========================
-PATH='obj/__x86_64:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM:/bin';
+PATH=obj/__x86_64:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-TARG='obj/__x86_64';
+TARG=obj/__x86_64;
 export TARG;
-unset 'TARG_BUILD_SCENARIO';
-unset 'TARG_COMPILER_FAMILY';
-unset 'TARG_EXTRA';
-TARG_HOST=''
+unset TARG_BUILD_SCENARIO;
+unset TARG_COMPILER_FAMILY;
+unset TARG_EXTRA;
+TARG_HOST='some_host';
 export TARG_HOST;
-TARG_MACH='x86_64';
+TARG_MACH=x86_64;
 export TARG_MACH;
-TARG_MACH_DESCRIPT=''
+TARG_MACH_DESCRIPT='some_descript';
 export TARG_MACH_DESCRIPT;
-unset 'TARG_MPI_FAMILY';
-TARG_OS=''
+unset TARG_MPI_FAMILY;
+TARG_OS='some_os';
 export TARG_OS;
-TARG_OS_FAMILY=''
+TARG_OS_FAMILY='some_os_family';
 export TARG_OS_FAMILY;
-TARG_SUMMARY='x86_64';
+TARG_SUMMARY=x86_64;
 export TARG_SUMMARY;
-unset 'TARG_TITLE_BAR';
-TARG_TITLE_BAR_PAREN=' ';
+unset TARG_TITLE_BAR;
+TARG_TITLE_BAR_PAREN=\ ;
 export TARG_TITLE_BAR_PAREN;
-_SettargTable001_='X1NldHRhcmdUYWJsZV89e2J1aWxkU2NlbmFyaW9TdGF0ZT0iZW1wdHkiLGV4dHJhVD17fSx0YXJnQT17IlRBUkciLCJUQVJHX0JVSUxEX1NDRU5BUklPIiwiVEFSR19DT01QSUxFUl9GQU1JTFkiLCJUQVJHX0VYVFJBIiwiVEFSR19IT1NUIiwiVEFSR19NQUNIIiwiVEFSR19NQUNIX0RFU0NSSVBUIiwiVEFSR19NUElfRkFNSUxZIiwiVEFSR19PUyIsIlRBUkdfT1NfRkFNSUxZIiwiVEFSR19TVU1NQVJZIiwiVEFSR19USVRMRV9CQVIiLCJUQVJHX1RJVExFX0JBUl9QQVJFTiIsfSx2ZXJzaW9uPTEsfQ==';
-export _SettargTable001_;
-_SettargTable_Sz_='1';
-export _SettargTable_Sz_;
+_SettargTable_='_SettargTable_={buildScenarioState="empty",extraT={},targA={"TARG","TARG_BUILD_SCENARIO","TARG_EXTRA","TARG_HOST","TARG_MACH","TARG_MACH_DESCRIPT","TARG_OS","TARG_OS_FAMILY","TARG_SUMMARY","TARG_TITLE_BAR","TARG_TITLE_BAR_PAREN",},version=1,}';
+export _SettargTable_;
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc mpich
@@ -192,313 +186,297 @@ export _ModuleTable_;
 step 7
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model
 ===========================
-PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_gcc-4.7.2_mpich-3.0.4:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM:/bin';
+PATH=/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_gcc-4.7.2_mpich-3.0.4:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-TARG='obj/__x86_64_gcc-4.7.2_mpich-3.0.4';
+TARG=obj/__x86_64_gcc-4.7.2_mpich-3.0.4;
 export TARG;
-unset 'TARG_BUILD_SCENARIO';
-TARG_COMPILER='gcc/4.7.2';
+unset TARG_BUILD_SCENARIO;
+TARG_COMPILER=gcc/4.7.2;
 export TARG_COMPILER;
-TARG_COMPILER_FAMILY='gcc';
+TARG_COMPILER_FAMILY=gcc;
 export TARG_COMPILER_FAMILY;
-unset 'TARG_EXTRA';
-TARG_HOST=''
+unset TARG_EXTRA;
+TARG_HOST='some_host';
 export TARG_HOST;
-TARG_MACH='x86_64';
+TARG_MACH=x86_64;
 export TARG_MACH;
-TARG_MACH_DESCRIPT=''
+TARG_MACH_DESCRIPT='some_descript';
 export TARG_MACH_DESCRIPT;
-TARG_MPI='mpich/3.0.4';
+TARG_MPI=mpich/3.0.4;
 export TARG_MPI;
-TARG_MPI_FAMILY='mpich';
+TARG_MPI_FAMILY=mpich;
 export TARG_MPI_FAMILY;
-TARG_OS=''
+TARG_OS='some_os';
 export TARG_OS;
-TARG_OS_FAMILY=''
+TARG_OS_FAMILY='some_os_family';
 export TARG_OS_FAMILY;
-TARG_SUMMARY='x86_64_gcc-4.7.2_mpich-3.0.4';
+TARG_SUMMARY=x86_64_gcc-4.7.2_mpich-3.0.4;
 export TARG_SUMMARY;
-TARG_TITLE_BAR='G/4.7.2 M/3.0.4';
+TARG_TITLE_BAR=G/4.7.2\ M/3.0.4;
 export TARG_TITLE_BAR;
-TARG_TITLE_BAR_PAREN='(G/4.7.2 M/3.0.4)';
+TARG_TITLE_BAR_PAREN=\(G/4.7.2\ M/3.0.4\);
 export TARG_TITLE_BAR_PAREN;
-_SettargTable001_='X1NldHRhcmdUYWJsZV89e2J1aWxkU2NlbmFyaW9TdGF0ZT0iZW1wdHkiLGV4dHJhVD17fSx0YXJnQT17IlRBUkciLCJUQVJHX0JVSUxEX1NDRU5BUklPIiwiVEFSR19DT01QSUxFUiIsIlRBUkdfQ09NUElMRVJfRkFNSUxZIiwiVEFSR19FWFRSQSIsIlRBUkdfSE9TVCIsIlRBUkdfTUFDSCIsIlRBUkdfTUFDSF9ERVNDUklQVCIsIlRBUkdfTVBJIiwiVEFSR19NUElfRkFNSUxZIiwiVEFSR19PUyIsIlRBUkdfT1NfRkFNSUxZIiwiVEFSR19TVU1NQVJZIiwiVEFSR19USVRMRV9CQVIiLCJUQVJHX1RJVExFX0JBUl9QQVJFTiIsfSx2ZXJzaW9uPTEsfQ==';
-export _SettargTable001_;
-_SettargTable_Sz_='1';
-export _SettargTable_Sz_;
+_SettargTable_='_SettargTable_={buildScenarioState="empty",extraT={},targA={"TARG","TARG_BUILD_SCENARIO","TARG_COMPILER","TARG_COMPILER_FAMILY","TARG_EXTRA","TARG_HOST","TARG_MACH","TARG_MACH_DESCRIPT","TARG_MPI","TARG_MPI_FAMILY","TARG_OS","TARG_OS_FAMILY","TARG_SUMMARY","TARG_TITLE_BAR","TARG_TITLE_BAR_PAREN",},version=1,}';
+export _SettargTable_;
 ===========================
 step 8
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model f_f
 ===========================
-PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_gcc-4.7.2_mpich-3.0.4_f_f:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM:/bin';
+PATH=/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_gcc-4.7.2_mpich-3.0.4_f_f:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-TARG='obj/__x86_64_gcc-4.7.2_mpich-3.0.4_f_f';
+TARG=obj/__x86_64_gcc-4.7.2_mpich-3.0.4_f_f;
 export TARG;
-unset 'TARG_BUILD_SCENARIO';
-TARG_COMPILER='gcc/4.7.2';
+unset TARG_BUILD_SCENARIO;
+TARG_COMPILER=gcc/4.7.2;
 export TARG_COMPILER;
-TARG_COMPILER_FAMILY='gcc';
+TARG_COMPILER_FAMILY=gcc;
 export TARG_COMPILER_FAMILY;
-TARG_EXTRA='f_f';
+TARG_EXTRA=f_f;
 export TARG_EXTRA;
-TARG_HOST=''
+TARG_HOST='some_host';
 export TARG_HOST;
-TARG_MACH='x86_64';
+TARG_MACH=x86_64;
 export TARG_MACH;
-TARG_MACH_DESCRIPT=''
+TARG_MACH_DESCRIPT='some_descript';
 export TARG_MACH_DESCRIPT;
-TARG_MPI='mpich/3.0.4';
+TARG_MPI=mpich/3.0.4;
 export TARG_MPI;
-TARG_MPI_FAMILY='mpich';
+TARG_MPI_FAMILY=mpich;
 export TARG_MPI_FAMILY;
-TARG_OS=''
+TARG_OS='some_os';
 export TARG_OS;
-TARG_OS_FAMILY=''
+TARG_OS_FAMILY='some_os_family';
 export TARG_OS_FAMILY;
-TARG_SUMMARY='x86_64_gcc-4.7.2_mpich-3.0.4_f_f';
+TARG_SUMMARY=x86_64_gcc-4.7.2_mpich-3.0.4_f_f;
 export TARG_SUMMARY;
-TARG_TITLE_BAR='G/4.7.2 M/3.0.4 f_f';
+TARG_TITLE_BAR=G/4.7.2\ M/3.0.4\ f_f;
 export TARG_TITLE_BAR;
-TARG_TITLE_BAR_PAREN='(G/4.7.2 M/3.0.4 f_f)';
+TARG_TITLE_BAR_PAREN=\(G/4.7.2\ M/3.0.4\ f_f\);
 export TARG_TITLE_BAR_PAREN;
-_SettargTable001_='X1NldHRhcmdUYWJsZV89e2J1aWxkU2NlbmFyaW9TdGF0ZT0iZW1wdHkiLGV4dHJhVD17Zl9mPXRydWUsfSx0YXJnQT17IlRBUkciLCJUQVJHX0JVSUxEX1NDRU5BUklPIiwiVEFSR19DT01QSUxFUiIsIlRBUkdfQ09NUElMRVJfRkFNSUxZIiwiVEFSR19FWFRSQSIsIlRBUkdfSE9TVCIsIlRBUkdfTUFDSCIsIlRBUkdfTUFDSF9ERVNDUklQVCIsIlRBUkdfTVBJIiwiVEFSR19NUElfRkFNSUxZIiwiVEFSR19PUyIsIlRBUkdfT1NfRkFNSUxZIiwiVEFSR19TVU1NQVJZIiwiVEFSR19USVRMRV9CQVIiLCJUQVJHX1RJVExFX0JBUl9QQVJFTiIsfSx2ZXJzaW9uPTEsfQ==';
-export _SettargTable001_;
-_SettargTable_Sz_='1';
-export _SettargTable_Sz_;
+_SettargTable_='_SettargTable_={buildScenarioState="empty",extraT={f_f=true,},targA={"TARG","TARG_BUILD_SCENARIO","TARG_COMPILER","TARG_COMPILER_FAMILY","TARG_EXTRA","TARG_HOST","TARG_MACH","TARG_MACH_DESCRIPT","TARG_MPI","TARG_MPI_FAMILY","TARG_OS","TARG_OS_FAMILY","TARG_SUMMARY","TARG_TITLE_BAR","TARG_TITLE_BAR_PAREN",},version=1,}';
+export _SettargTable_;
 ===========================
 step 9
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model b:b
 ===========================
-PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM:/bin';
+PATH=/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-TARG='obj/__x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f';
+TARG=obj/__x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f;
 export TARG;
-unset 'TARG_BUILD_SCENARIO';
-TARG_COMPILER='gcc/4.7.2';
+unset TARG_BUILD_SCENARIO;
+TARG_COMPILER=gcc/4.7.2;
 export TARG_COMPILER;
-TARG_COMPILER_FAMILY='gcc';
+TARG_COMPILER_FAMILY=gcc;
 export TARG_COMPILER_FAMILY;
-TARG_EXTRA='b:b_f_f';
+TARG_EXTRA=b:b_f_f;
 export TARG_EXTRA;
-TARG_HOST=''
+TARG_HOST='some_host';
 export TARG_HOST;
-TARG_MACH='x86_64';
+TARG_MACH=x86_64;
 export TARG_MACH;
-TARG_MACH_DESCRIPT=''
+TARG_MACH_DESCRIPT='some_descript';
 export TARG_MACH_DESCRIPT;
-TARG_MPI='mpich/3.0.4';
+TARG_MPI=mpich/3.0.4;
 export TARG_MPI;
-TARG_MPI_FAMILY='mpich';
+TARG_MPI_FAMILY=mpich;
 export TARG_MPI_FAMILY;
-TARG_OS=''
+TARG_OS='some_os';
 export TARG_OS;
-TARG_OS_FAMILY=''
+TARG_OS_FAMILY='some_os_family';
 export TARG_OS_FAMILY;
-TARG_SUMMARY='x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f';
+TARG_SUMMARY=x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f;
 export TARG_SUMMARY;
-TARG_TITLE_BAR='G/4.7.2 M/3.0.4 b:b_f_f';
+TARG_TITLE_BAR=G/4.7.2\ M/3.0.4\ b:b_f_f;
 export TARG_TITLE_BAR;
-TARG_TITLE_BAR_PAREN='(G/4.7.2 M/3.0.4 b:b_f_f)';
+TARG_TITLE_BAR_PAREN=\(G/4.7.2\ M/3.0.4\ b:b_f_f\);
 export TARG_TITLE_BAR_PAREN;
-_SettargTable001_='X1NldHRhcmdUYWJsZV89e2J1aWxkU2NlbmFyaW9TdGF0ZT0iZW1wdHkiLGV4dHJhVD17WyJiOmIiXT10cnVlLGZfZj10cnVlLH0sdGFyZ0E9eyJUQVJHIiwiVEFSR19CVUlMRF9TQ0VOQVJJTyIsIlRBUkdfQ09NUElMRVIiLCJUQVJHX0NPTVBJTEVSX0ZBTUlMWSIsIlRBUkdfRVhUUkEiLCJUQVJHX0hPU1QiLCJUQVJHX01BQ0giLCJUQVJHX01BQ0hfREVTQ1JJUFQiLCJUQVJHX01QSSIsIlRBUkdfTVBJX0ZBTUlMWSIsIlRBUkdfT1MiLCJUQVJHX09TX0ZBTUlMWSIsIlRBUkdfU1VNTUFSWSIsIlRBUkdfVElUTEVfQkFSIiwiVEFSR19USVRMRV9CQVJfUEFSRU4iLH0sdmVyc2lvbj0xLH0=';
-export _SettargTable001_;
-_SettargTable_Sz_='1';
-export _SettargTable_Sz_;
+_SettargTable_='_SettargTable_={buildScenarioState="empty",extraT={["b:b"]=true,f_f=true,},targA={"TARG","TARG_BUILD_SCENARIO","TARG_COMPILER","TARG_COMPILER_FAMILY","TARG_EXTRA","TARG_HOST","TARG_MACH","TARG_MACH_DESCRIPT","TARG_MPI","TARG_MPI_FAMILY","TARG_OS","TARG_OS_FAMILY","TARG_SUMMARY","TARG_TITLE_BAR","TARG_TITLE_BAR_PAREN",},version=1,}';
+export _SettargTable_;
 ===========================
 step 10
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model -r f_f
 ===========================
-PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_gcc-4.7.2_mpich-3.0.4_b:b:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM:/bin';
+PATH=/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_gcc-4.7.2_mpich-3.0.4_b:b:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-TARG='obj/__x86_64_gcc-4.7.2_mpich-3.0.4_b:b';
+TARG=obj/__x86_64_gcc-4.7.2_mpich-3.0.4_b:b;
 export TARG;
-unset 'TARG_BUILD_SCENARIO';
-TARG_COMPILER='gcc/4.7.2';
+unset TARG_BUILD_SCENARIO;
+TARG_COMPILER=gcc/4.7.2;
 export TARG_COMPILER;
-TARG_COMPILER_FAMILY='gcc';
+TARG_COMPILER_FAMILY=gcc;
 export TARG_COMPILER_FAMILY;
-TARG_EXTRA='b:b';
+TARG_EXTRA=b:b;
 export TARG_EXTRA;
-TARG_HOST=''
+TARG_HOST='some_host';
 export TARG_HOST;
-TARG_MACH='x86_64';
+TARG_MACH=x86_64;
 export TARG_MACH;
-TARG_MACH_DESCRIPT=''
+TARG_MACH_DESCRIPT='some_descript';
 export TARG_MACH_DESCRIPT;
-TARG_MPI='mpich/3.0.4';
+TARG_MPI=mpich/3.0.4;
 export TARG_MPI;
-TARG_MPI_FAMILY='mpich';
+TARG_MPI_FAMILY=mpich;
 export TARG_MPI_FAMILY;
-TARG_OS=''
+TARG_OS='some_os';
 export TARG_OS;
-TARG_OS_FAMILY=''
+TARG_OS_FAMILY='some_os_family';
 export TARG_OS_FAMILY;
-TARG_SUMMARY='x86_64_gcc-4.7.2_mpich-3.0.4_b:b';
+TARG_SUMMARY=x86_64_gcc-4.7.2_mpich-3.0.4_b:b;
 export TARG_SUMMARY;
-TARG_TITLE_BAR='G/4.7.2 M/3.0.4 b:b';
+TARG_TITLE_BAR=G/4.7.2\ M/3.0.4\ b:b;
 export TARG_TITLE_BAR;
-TARG_TITLE_BAR_PAREN='(G/4.7.2 M/3.0.4 b:b)';
+TARG_TITLE_BAR_PAREN=\(G/4.7.2\ M/3.0.4\ b:b\);
 export TARG_TITLE_BAR_PAREN;
-_SettargTable001_='X1NldHRhcmdUYWJsZV89e2J1aWxkU2NlbmFyaW9TdGF0ZT0iZW1wdHkiLGV4dHJhVD17WyJiOmIiXT10cnVlLH0sdGFyZ0E9eyJUQVJHIiwiVEFSR19CVUlMRF9TQ0VOQVJJTyIsIlRBUkdfQ09NUElMRVIiLCJUQVJHX0NPTVBJTEVSX0ZBTUlMWSIsIlRBUkdfRVhUUkEiLCJUQVJHX0hPU1QiLCJUQVJHX01BQ0giLCJUQVJHX01BQ0hfREVTQ1JJUFQiLCJUQVJHX01QSSIsIlRBUkdfTVBJX0ZBTUlMWSIsIlRBUkdfT1MiLCJUQVJHX09TX0ZBTUlMWSIsIlRBUkdfU1VNTUFSWSIsIlRBUkdfVElUTEVfQkFSIiwiVEFSR19USVRMRV9CQVJfUEFSRU4iLH0sdmVyc2lvbj0xLH0=';
-export _SettargTable001_;
-_SettargTable_Sz_='1';
-export _SettargTable_Sz_;
+_SettargTable_='_SettargTable_={buildScenarioState="empty",extraT={["b:b"]=true,},targA={"TARG","TARG_BUILD_SCENARIO","TARG_COMPILER","TARG_COMPILER_FAMILY","TARG_EXTRA","TARG_HOST","TARG_MACH","TARG_MACH_DESCRIPT","TARG_MPI","TARG_MPI_FAMILY","TARG_OS","TARG_OS_FAMILY","TARG_SUMMARY","TARG_TITLE_BAR","TARG_TITLE_BAR_PAREN",},version=1,}';
+export _SettargTable_;
 ===========================
 step 11
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model -r b:b
 ===========================
-PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_gcc-4.7.2_mpich-3.0.4:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM:/bin';
+PATH=/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_gcc-4.7.2_mpich-3.0.4:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-TARG='obj/__x86_64_gcc-4.7.2_mpich-3.0.4';
+TARG=obj/__x86_64_gcc-4.7.2_mpich-3.0.4;
 export TARG;
-unset 'TARG_BUILD_SCENARIO';
-TARG_COMPILER='gcc/4.7.2';
+unset TARG_BUILD_SCENARIO;
+TARG_COMPILER=gcc/4.7.2;
 export TARG_COMPILER;
-TARG_COMPILER_FAMILY='gcc';
+TARG_COMPILER_FAMILY=gcc;
 export TARG_COMPILER_FAMILY;
-unset 'TARG_EXTRA';
-TARG_HOST=''
+unset TARG_EXTRA;
+TARG_HOST='some_host';
 export TARG_HOST;
-TARG_MACH='x86_64';
+TARG_MACH=x86_64;
 export TARG_MACH;
-TARG_MACH_DESCRIPT=''
+TARG_MACH_DESCRIPT='some_descript';
 export TARG_MACH_DESCRIPT;
-TARG_MPI='mpich/3.0.4';
+TARG_MPI=mpich/3.0.4;
 export TARG_MPI;
-TARG_MPI_FAMILY='mpich';
+TARG_MPI_FAMILY=mpich;
 export TARG_MPI_FAMILY;
-TARG_OS=''
+TARG_OS='some_os';
 export TARG_OS;
-TARG_OS_FAMILY=''
+TARG_OS_FAMILY='some_os_family';
 export TARG_OS_FAMILY;
-TARG_SUMMARY='x86_64_gcc-4.7.2_mpich-3.0.4';
+TARG_SUMMARY=x86_64_gcc-4.7.2_mpich-3.0.4;
 export TARG_SUMMARY;
-TARG_TITLE_BAR='G/4.7.2 M/3.0.4';
+TARG_TITLE_BAR=G/4.7.2\ M/3.0.4;
 export TARG_TITLE_BAR;
-TARG_TITLE_BAR_PAREN='(G/4.7.2 M/3.0.4)';
+TARG_TITLE_BAR_PAREN=\(G/4.7.2\ M/3.0.4\);
 export TARG_TITLE_BAR_PAREN;
-_SettargTable001_='X1NldHRhcmdUYWJsZV89e2J1aWxkU2NlbmFyaW9TdGF0ZT0iZW1wdHkiLGV4dHJhVD17fSx0YXJnQT17IlRBUkciLCJUQVJHX0JVSUxEX1NDRU5BUklPIiwiVEFSR19DT01QSUxFUiIsIlRBUkdfQ09NUElMRVJfRkFNSUxZIiwiVEFSR19FWFRSQSIsIlRBUkdfSE9TVCIsIlRBUkdfTUFDSCIsIlRBUkdfTUFDSF9ERVNDUklQVCIsIlRBUkdfTVBJIiwiVEFSR19NUElfRkFNSUxZIiwiVEFSR19PUyIsIlRBUkdfT1NfRkFNSUxZIiwiVEFSR19TVU1NQVJZIiwiVEFSR19USVRMRV9CQVIiLCJUQVJHX1RJVExFX0JBUl9QQVJFTiIsfSx2ZXJzaW9uPTEsfQ==';
-export _SettargTable001_;
-_SettargTable_Sz_='1';
-export _SettargTable_Sz_;
+_SettargTable_='_SettargTable_={buildScenarioState="empty",extraT={},targA={"TARG","TARG_BUILD_SCENARIO","TARG_COMPILER","TARG_COMPILER_FAMILY","TARG_EXTRA","TARG_HOST","TARG_MACH","TARG_MACH_DESCRIPT","TARG_MPI","TARG_MPI_FAMILY","TARG_OS","TARG_OS_FAMILY","TARG_SUMMARY","TARG_TITLE_BAR","TARG_TITLE_BAR_PAREN",},version=1,}';
+export _SettargTable_;
 ===========================
 step 12
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model f_f b:b
 ===========================
-PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM:/bin';
+PATH=/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-TARG='obj/__x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f';
+TARG=obj/__x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f;
 export TARG;
-unset 'TARG_BUILD_SCENARIO';
-TARG_COMPILER='gcc/4.7.2';
+unset TARG_BUILD_SCENARIO;
+TARG_COMPILER=gcc/4.7.2;
 export TARG_COMPILER;
-TARG_COMPILER_FAMILY='gcc';
+TARG_COMPILER_FAMILY=gcc;
 export TARG_COMPILER_FAMILY;
-TARG_EXTRA='b:b_f_f';
+TARG_EXTRA=b:b_f_f;
 export TARG_EXTRA;
-TARG_HOST=''
+TARG_HOST='some_host';
 export TARG_HOST;
-TARG_MACH='x86_64';
+TARG_MACH=x86_64;
 export TARG_MACH;
-TARG_MACH_DESCRIPT=''
+TARG_MACH_DESCRIPT='some_descript';
 export TARG_MACH_DESCRIPT;
-TARG_MPI='mpich/3.0.4';
+TARG_MPI=mpich/3.0.4;
 export TARG_MPI;
-TARG_MPI_FAMILY='mpich';
+TARG_MPI_FAMILY=mpich;
 export TARG_MPI_FAMILY;
-TARG_OS=''
+TARG_OS='some_os';
 export TARG_OS;
-TARG_OS_FAMILY=''
+TARG_OS_FAMILY='some_os_family';
 export TARG_OS_FAMILY;
-TARG_SUMMARY='x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f';
+TARG_SUMMARY=x86_64_gcc-4.7.2_mpich-3.0.4_b:b_f_f;
 export TARG_SUMMARY;
-TARG_TITLE_BAR='G/4.7.2 M/3.0.4 b:b_f_f';
+TARG_TITLE_BAR=G/4.7.2\ M/3.0.4\ b:b_f_f;
 export TARG_TITLE_BAR;
-TARG_TITLE_BAR_PAREN='(G/4.7.2 M/3.0.4 b:b_f_f)';
+TARG_TITLE_BAR_PAREN=\(G/4.7.2\ M/3.0.4\ b:b_f_f\);
 export TARG_TITLE_BAR_PAREN;
-_SettargTable001_='X1NldHRhcmdUYWJsZV89e2J1aWxkU2NlbmFyaW9TdGF0ZT0iZW1wdHkiLGV4dHJhVD17WyJiOmIiXT10cnVlLGZfZj10cnVlLH0sdGFyZ0E9eyJUQVJHIiwiVEFSR19CVUlMRF9TQ0VOQVJJTyIsIlRBUkdfQ09NUElMRVIiLCJUQVJHX0NPTVBJTEVSX0ZBTUlMWSIsIlRBUkdfRVhUUkEiLCJUQVJHX0hPU1QiLCJUQVJHX01BQ0giLCJUQVJHX01BQ0hfREVTQ1JJUFQiLCJUQVJHX01QSSIsIlRBUkdfTVBJX0ZBTUlMWSIsIlRBUkdfT1MiLCJUQVJHX09TX0ZBTUlMWSIsIlRBUkdfU1VNTUFSWSIsIlRBUkdfVElUTEVfQkFSIiwiVEFSR19USVRMRV9CQVJfUEFSRU4iLH0sdmVyc2lvbj0xLH0=';
-export _SettargTable001_;
-_SettargTable_Sz_='1';
-export _SettargTable_Sz_;
+_SettargTable_='_SettargTable_={buildScenarioState="empty",extraT={["b:b"]=true,f_f=true,},targA={"TARG","TARG_BUILD_SCENARIO","TARG_COMPILER","TARG_COMPILER_FAMILY","TARG_EXTRA","TARG_HOST","TARG_MACH","TARG_MACH_DESCRIPT","TARG_MPI","TARG_MPI_FAMILY","TARG_OS","TARG_OS_FAMILY","TARG_SUMMARY","TARG_TITLE_BAR","TARG_TITLE_BAR_PAREN",},version=1,}';
+export _SettargTable_;
 ===========================
 step 13
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --stt dbg
 ===========================
-PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_dbg_gcc-4.7.2_mpich-3.0.4_b:b_f_f:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM:/bin';
+PATH=/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_dbg_gcc-4.7.2_mpich-3.0.4_b:b_f_f:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-TARG='obj/__x86_64_dbg_gcc-4.7.2_mpich-3.0.4_b:b_f_f';
+TARG=obj/__x86_64_dbg_gcc-4.7.2_mpich-3.0.4_b:b_f_f;
 export TARG;
-TARG_BUILD_SCENARIO='dbg';
+TARG_BUILD_SCENARIO=dbg;
 export TARG_BUILD_SCENARIO;
-TARG_COMPILER='gcc/4.7.2';
+TARG_COMPILER=gcc/4.7.2;
 export TARG_COMPILER;
-TARG_COMPILER_FAMILY='gcc';
+TARG_COMPILER_FAMILY=gcc;
 export TARG_COMPILER_FAMILY;
-TARG_EXTRA='b:b_f_f';
+TARG_EXTRA=b:b_f_f;
 export TARG_EXTRA;
-TARG_HOST=''
+TARG_HOST='some_host';
 export TARG_HOST;
-TARG_MACH='x86_64';
+TARG_MACH=x86_64;
 export TARG_MACH;
-TARG_MACH_DESCRIPT=''
+TARG_MACH_DESCRIPT='some_descript';
 export TARG_MACH_DESCRIPT;
-TARG_MPI='mpich/3.0.4';
+TARG_MPI=mpich/3.0.4;
 export TARG_MPI;
-TARG_MPI_FAMILY='mpich';
+TARG_MPI_FAMILY=mpich;
 export TARG_MPI_FAMILY;
-TARG_OS=''
+TARG_OS='some_os';
 export TARG_OS;
-TARG_OS_FAMILY=''
+TARG_OS_FAMILY='some_os_family';
 export TARG_OS_FAMILY;
-TARG_SUMMARY='x86_64_dbg_gcc-4.7.2_mpich-3.0.4_b:b_f_f';
+TARG_SUMMARY=x86_64_dbg_gcc-4.7.2_mpich-3.0.4_b:b_f_f;
 export TARG_SUMMARY;
-TARG_TITLE_BAR='D G/4.7.2 M/3.0.4 b:b_f_f';
+TARG_TITLE_BAR=D\ G/4.7.2\ M/3.0.4\ b:b_f_f;
 export TARG_TITLE_BAR;
-TARG_TITLE_BAR_PAREN='(D G/4.7.2 M/3.0.4 b:b_f_f)';
+TARG_TITLE_BAR_PAREN=\(D\ G/4.7.2\ M/3.0.4\ b:b_f_f\);
 export TARG_TITLE_BAR_PAREN;
-_SettargTable001_='X1NldHRhcmdUYWJsZV89e2J1aWxkU2NlbmFyaW9TdGF0ZT0iZGJnIixleHRyYVQ9e1siYjpiIl09dHJ1ZSxmX2Y9dHJ1ZSx9LHRhcmdBPXsiVEFSRyIsIlRBUkdfQlVJTERfU0NFTkFSSU8iLCJUQVJHX0NPTVBJTEVSIiwiVEFSR19DT01QSUxFUl9GQU1JTFkiLCJUQVJHX0VYVFJBIiwiVEFSR19IT1NUIiwiVEFSR19NQUNIIiwiVEFSR19NQUNIX0RFU0NSSVBUIiwiVEFSR19NUEkiLCJUQVJHX01QSV9GQU1JTFkiLCJUQVJHX09TIiwiVEFSR19PU19GQU1JTFkiLCJUQVJHX1NVTU1BUlkiLCJUQVJHX1RJVExFX0JBUiIsIlRBUkdfVElUTEVfQkFSX1BBUkVOIix9LHZlcnNpb249MSx9';
-export _SettargTable001_;
-_SettargTable_Sz_='1';
-export _SettargTable_Sz_;
+_SettargTable_='_SettargTable_={buildScenarioState="dbg",extraT={["b:b"]=true,f_f=true,},targA={"TARG","TARG_BUILD_SCENARIO","TARG_COMPILER","TARG_COMPILER_FAMILY","TARG_EXTRA","TARG_HOST","TARG_MACH","TARG_MACH_DESCRIPT","TARG_MPI","TARG_MPI_FAMILY","TARG_OS","TARG_OS_FAMILY","TARG_SUMMARY","TARG_TITLE_BAR","TARG_TITLE_BAR_PAREN",},version=1,}';
+export _SettargTable_;
 ===========================
 step 14
 lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --purge
 ===========================
-PATH='/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_dbg_gcc-4.7.2_mpich-3.0.4:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM:/bin';
+PATH=/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/__x86_64_dbg_gcc-4.7.2_mpich-3.0.4:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-TARG='obj/__x86_64_dbg_gcc-4.7.2_mpich-3.0.4';
+TARG=obj/__x86_64_dbg_gcc-4.7.2_mpich-3.0.4;
 export TARG;
-TARG_BUILD_SCENARIO='dbg';
+TARG_BUILD_SCENARIO=dbg;
 export TARG_BUILD_SCENARIO;
-TARG_COMPILER='gcc/4.7.2';
+TARG_COMPILER=gcc/4.7.2;
 export TARG_COMPILER;
-TARG_COMPILER_FAMILY='gcc';
+TARG_COMPILER_FAMILY=gcc;
 export TARG_COMPILER_FAMILY;
-unset 'TARG_EXTRA';
-TARG_HOST=''
+unset TARG_EXTRA;
+TARG_HOST='some_host';
 export TARG_HOST;
-TARG_MACH='x86_64';
+TARG_MACH=x86_64;
 export TARG_MACH;
-TARG_MACH_DESCRIPT=''
+TARG_MACH_DESCRIPT='some_descript';
 export TARG_MACH_DESCRIPT;
-TARG_MPI='mpich/3.0.4';
+TARG_MPI=mpich/3.0.4;
 export TARG_MPI;
-TARG_MPI_FAMILY='mpich';
+TARG_MPI_FAMILY=mpich;
 export TARG_MPI_FAMILY;
-TARG_OS=''
+TARG_OS='some_os';
 export TARG_OS;
-TARG_OS_FAMILY=''
+TARG_OS_FAMILY='some_os_family';
 export TARG_OS_FAMILY;
-TARG_SUMMARY='x86_64_dbg_gcc-4.7.2_mpich-3.0.4';
+TARG_SUMMARY=x86_64_dbg_gcc-4.7.2_mpich-3.0.4;
 export TARG_SUMMARY;
-TARG_TITLE_BAR='D G/4.7.2 M/3.0.4';
+TARG_TITLE_BAR=D\ G/4.7.2\ M/3.0.4;
 export TARG_TITLE_BAR;
-TARG_TITLE_BAR_PAREN='(D G/4.7.2 M/3.0.4)';
+TARG_TITLE_BAR_PAREN=\(D\ G/4.7.2\ M/3.0.4\);
 export TARG_TITLE_BAR_PAREN;
-_SettargTable001_='X1NldHRhcmdUYWJsZV89e2J1aWxkU2NlbmFyaW9TdGF0ZT0iZGJnIixleHRyYVQ9e30sdGFyZ0E9eyJUQVJHIiwiVEFSR19CVUlMRF9TQ0VOQVJJTyIsIlRBUkdfQ09NUElMRVIiLCJUQVJHX0NPTVBJTEVSX0ZBTUlMWSIsIlRBUkdfRVhUUkEiLCJUQVJHX0hPU1QiLCJUQVJHX01BQ0giLCJUQVJHX01BQ0hfREVTQ1JJUFQiLCJUQVJHX01QSSIsIlRBUkdfTVBJX0ZBTUlMWSIsIlRBUkdfT1MiLCJUQVJHX09TX0ZBTUlMWSIsIlRBUkdfU1VNTUFSWSIsIlRBUkdfVElUTEVfQkFSIiwiVEFSR19USVRMRV9CQVJfUEFSRU4iLH0sdmVyc2lvbj0xLH0=';
-export _SettargTable001_;
-_SettargTable_Sz_='1';
-export _SettargTable_Sz_;
+_SettargTable_='_SettargTable_={buildScenarioState="dbg",extraT={},targA={"TARG","TARG_BUILD_SCENARIO","TARG_COMPILER","TARG_COMPILER_FAMILY","TARG_EXTRA","TARG_HOST","TARG_MACH","TARG_MACH_DESCRIPT","TARG_MPI","TARG_MPI_FAMILY","TARG_OS","TARG_OS_FAMILY","TARG_SUMMARY","TARG_TITLE_BAR","TARG_TITLE_BAR_PAREN",},version=1,}';
+export _SettargTable_;
 ===========================
 step 15
 echo TARG_RTM: Is Great
@@ -506,23 +484,21 @@ echo TARG_RTM: Is Great
 TARG_RTM: Is Great
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload gcc mpich
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload mpich
 ===========================
 unset __LMOD_REF_COUNT_LD_LIBRARY_PATH;
 unset LD_LIBRARY_PATH;
-unset LMOD_FAMILY_COMPILER;
-unset LMOD_FAMILY_COMPILER_VERSION;
 unset LMOD_FAMILY_MPI;
 unset LMOD_FAMILY_MPI_VERSION;
-__LMOD_REF_COUNT_LOADEDMODULES=settarg/1.0:1;
+__LMOD_REF_COUNT_LOADEDMODULES=settarg/1.0:1\;gcc/4.7.2:1;
 export __LMOD_REF_COUNT_LOADEDMODULES;
-LOADEDMODULES=settarg/1.0;
+LOADEDMODULES=settarg/1.0:gcc/4.7.2;
 export LOADEDMODULES;
 unset __LMOD_REF_COUNT_MANPATH;
 unset MANPATH;
-__LMOD_REF_COUNT_MODULEPATH=OutputDIR/mf/Core:1\;ProjectDIR/rt/settarg/mf/Core:1;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7:1\;OutputDIR/mf/Core:1\;ProjectDIR/rt/settarg/mf/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
-MODULEPATH=OutputDIR/mf/Core:ProjectDIR/rt/settarg/mf/Core;
+MODULEPATH=ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7:OutputDIR/mf/Core:ProjectDIR/rt/settarg/mf/Core;
 export MODULEPATH;
 unset MPICH_HOME;
 unset MPIHOME;
@@ -530,6 +506,61 @@ __LMOD_REF_COUNT_PATH=obj/__x86_64_dbg_gcc-4.7.2_mpich-3.0.4:1\;ProjectDIR/setta
 export __LMOD_REF_COUNT_PATH;
 PATH=obj/__x86_64_dbg_gcc-4.7.2_mpich-3.0.4:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
+__LMOD_REF_COUNT__LMFILES_=OutputDIR/mf/Core/settarg/1.0.lua:1\;ProjectDIR/rt/settarg/mf/Core/gcc/4.7.2.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=OutputDIR/mf/Core/settarg/1.0.lua:ProjectDIR/rt/settarg/mf/Core/gcc/4.7.2.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT={gcc={fn="ProjectDIR/rt/settarg/mf/Core/gcc/4.7.2.lua",fullName="gcc/4.7.2",loadOrder=2,propT={},stackDepth=0,status="active",userName="gcc",wV="000000004.000000007.000000002.*zfinal",},settarg={fn="OutputDIR/mf/Core/settarg/1.0.lua",fullName="settarg/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="settarg",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7","OutputDIR/mf/Core","ProjectDIR/rt/settarg/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core:ProjectDIR/rt/settarg/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 17
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model
+===========================
+PATH=obj/__x86_64_dbg_gcc-4.7.2:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+TARG=obj/__x86_64_dbg_gcc-4.7.2;
+export TARG;
+TARG_BUILD_SCENARIO=dbg;
+export TARG_BUILD_SCENARIO;
+TARG_COMPILER=gcc/4.7.2;
+export TARG_COMPILER;
+TARG_COMPILER_FAMILY=gcc;
+export TARG_COMPILER_FAMILY;
+unset TARG_EXTRA;
+TARG_HOST='some_host';
+export TARG_HOST;
+TARG_MACH=x86_64;
+export TARG_MACH;
+TARG_MACH_DESCRIPT='some_descript';
+export TARG_MACH_DESCRIPT;
+unset TARG_MPI;
+unset TARG_MPI_FAMILY;
+TARG_OS='some_os';
+export TARG_OS;
+TARG_OS_FAMILY='some_os_family';
+export TARG_OS_FAMILY;
+TARG_SUMMARY=x86_64_dbg_gcc-4.7.2;
+export TARG_SUMMARY;
+TARG_TITLE_BAR=D\ G/4.7.2;
+export TARG_TITLE_BAR;
+TARG_TITLE_BAR_PAREN=\(D\ G/4.7.2\);
+export TARG_TITLE_BAR_PAREN;
+_SettargTable_='_SettargTable_={buildScenarioState="dbg",extraT={},targA={"TARG","TARG_BUILD_SCENARIO","TARG_COMPILER","TARG_COMPILER_FAMILY","TARG_EXTRA","TARG_HOST","TARG_MACH","TARG_MACH_DESCRIPT","TARG_OS","TARG_OS_FAMILY","TARG_SUMMARY","TARG_TITLE_BAR","TARG_TITLE_BAR_PAREN",},version=1,}';
+export _SettargTable_;
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload gcc
+===========================
+unset LMOD_FAMILY_COMPILER;
+unset LMOD_FAMILY_COMPILER_VERSION;
+__LMOD_REF_COUNT_LOADEDMODULES=settarg/1.0:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=settarg/1.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=OutputDIR/mf/Core:1\;ProjectDIR/rt/settarg/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=OutputDIR/mf/Core:ProjectDIR/rt/settarg/mf/Core;
+export MODULEPATH;
 __LMOD_REF_COUNT__LMFILES_=OutputDIR/mf/Core/settarg/1.0.lua:1;
 export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=OutputDIR/mf/Core/settarg/1.0.lua;
@@ -537,7 +568,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={settarg={fn="OutputDIR/mf/Core/settarg/1.0.lua",fullName="settarg/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="settarg",wV="000000001.*zfinal",},},mpathA={"OutputDIR/mf/Core","ProjectDIR/rt/settarg/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core:ProjectDIR/rt/settarg/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 17
+step 19
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cmplr/clang
 ===========================
 LMOD_FAMILY_COMPILER=cmplr/clang;
@@ -559,43 +590,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={Compiler="cmplr/clang",},mT={["cmplr/clang"]={fn="ProjectDIR/rt/settarg/mf/Core/cmplr/clang/9.1.lua",fullName="cmplr/clang/9.1",loadOrder=2,propT={},stackDepth=0,status="active",userName="cmplr/clang",wV="000000009.000000001.*zfinal",},settarg={fn="OutputDIR/mf/Core/settarg/1.0.lua",fullName="settarg/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="settarg",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/settarg/mf/Compiler/cmplr/clang/9.1","OutputDIR/mf/Core","ProjectDIR/rt/settarg/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core:ProjectDIR/rt/settarg/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 18
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model
-===========================
-PATH='obj/__x86_64_dbg_cmplr-clang-9.1:ProjectDIR/settarg:ProjectDIR/proj_mgmt:PATH_to_TM:/bin';
-export PATH;
-TARG='obj/__x86_64_dbg_cmplr-clang-9.1';
-export TARG;
-TARG_BUILD_SCENARIO='dbg';
-export TARG_BUILD_SCENARIO;
-TARG_COMPILER='cmplr/clang/9.1';
-export TARG_COMPILER;
-TARG_COMPILER_FAMILY='cmplr/clang';
-export TARG_COMPILER_FAMILY;
-unset 'TARG_EXTRA';
-TARG_HOST=''
-export TARG_HOST;
-TARG_MACH='x86_64';
-export TARG_MACH;
-TARG_MACH_DESCRIPT=''
-export TARG_MACH_DESCRIPT;
-unset 'TARG_MPI_FAMILY';
-TARG_OS=''
-export TARG_OS;
-TARG_OS_FAMILY=''
-export TARG_OS_FAMILY;
-TARG_SUMMARY='x86_64_dbg_cmplr-clang-9.1';
-export TARG_SUMMARY;
-TARG_TITLE_BAR='D cmplrC/9.1';
-export TARG_TITLE_BAR;
-TARG_TITLE_BAR_PAREN='(D cmplrC/9.1)';
-export TARG_TITLE_BAR_PAREN;
-_SettargTable001_='X1NldHRhcmdUYWJsZV89e2J1aWxkU2NlbmFyaW9TdGF0ZT0iZGJnIixleHRyYVQ9e30sdGFyZ0E9eyJUQVJHIiwiVEFSR19CVUlMRF9TQ0VOQVJJTyIsIlRBUkdfQ09NUElMRVIiLCJUQVJHX0NPTVBJTEVSX0ZBTUlMWSIsIlRBUkdfRVhUUkEiLCJUQVJHX0hPU1QiLCJUQVJHX01BQ0giLCJUQVJHX01BQ0hfREVTQ1JJUFQiLCJUQVJHX01QSV9GQU1JTFkiLCJUQVJHX09TIiwiVEFSR19PU19GQU1JTFkiLCJUQVJHX1NVTU1BUlkiLCJUQVJHX1RJVExFX0JBUiIsIlRBUkdfVElUTEVfQkFSX1BBUkVOIix9LHZlcnNpb249MSx9';
-export _SettargTable001_;
-_SettargTable_Sz_='1';
-export _SettargTable_Sz_;
-===========================
-step 19
+step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show settarg
 ===========================
 MODULEPATH=ProjectDIR/rt/settarg/mf/Compiler/cmplr/clang/9.1:OutputDIR/mf/Core:ProjectDIR/rt/settarg/mf/Core;
@@ -603,7 +598,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={Compiler="cmplr/clang",},mT={["cmplr/clang"]={fn="ProjectDIR/rt/settarg/mf/Core/cmplr/clang/9.1.lua",fullName="cmplr/clang/9.1",loadOrder=2,propT={},stackDepth=0,status="active",userName="cmplr/clang",wV="000000009.000000001.*zfinal",},settarg={fn="OutputDIR/mf/Core/settarg/1.0.lua",fullName="settarg/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="settarg",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/settarg/mf/Compiler/cmplr/clang/9.1","OutputDIR/mf/Core","ProjectDIR/rt/settarg/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core:ProjectDIR/rt/settarg/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 20
+step 21
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload settarg
 ===========================
 unset LMOD_SETTARG_CMD;
@@ -613,9 +608,9 @@ LOADEDMODULES=cmplr/clang/9.1;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/settarg/mf/Compiler/cmplr/clang/9.1:OutputDIR/mf/Core:ProjectDIR/rt/settarg/mf/Core;
 export MODULEPATH;
-__LMOD_REF_COUNT_PATH=obj/__x86_64_dbg_cmplr-clang-9.1:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+__LMOD_REF_COUNT_PATH=obj/__x86_64_dbg_gcc-4.7.2:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
 export __LMOD_REF_COUNT_PATH;
-PATH=obj/__x86_64_dbg_cmplr-clang-9.1:ProjectDIR/proj_mgmt:PATH_to_TM;
+PATH=obj/__x86_64_dbg_gcc-4.7.2:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
 unset PROMPT_COMMAND;
 __LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/settarg/mf/Core/cmplr/clang/9.1.lua:1;

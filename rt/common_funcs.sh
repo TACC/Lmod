@@ -61,10 +61,10 @@ cleanUp ()
        -e "s|^LuaFileSystem version.*||g"                 \
        -e "s|^Lua Version.*||g"                           \
        -e "s|^\(uname -a\).*|\1|g"                        \
-       -e "s|^\(TARG_HOST=\).*|\1''|g"                    \
-       -e "s|^\(TARG_OS_FAMILY=\).*|\1''|g"               \
-       -e "s|^\(TARG_OS=\).*|\1''|g"                      \
-       -e "s|^\(TARG_MACH_DESCRIPT=\).*|\1''|g"           \
+       -e "s|^\(TARG_HOST=\).*|\1'some_host';|g"          \
+       -e "s|^\(TARG_OS_FAMILY=\).*|\1'some_os_family';|g"\
+       -e "s|^\(TARG_OS=\).*|\1'some_os';|g"              \
+       -e "s|^\(TARG_MACH_DESCRIPT=\).*|\1'some_descript';|g" \
        -e "s|$PATH_to_TM|PATH_to_TM|g"                    \
        -e "s|^LD_PRELOAD at config time.*$||g"            \
        -e "s|^LD_LIBRARY_PATH at config time.*$||g"       \
@@ -258,6 +258,7 @@ initStdEnvVars()
   unset SHLIB_PATH
   unset TERM
   unset _LMFILES_
+
   PATH_to_LUA=`findcmd --pathOnly lua`
   PATH_to_TM=`findcmd --pathOnly tm`
   PATH_to_SHA1=`findcmd --pathOnly sha1sum`

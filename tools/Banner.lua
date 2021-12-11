@@ -43,6 +43,7 @@ local concatTbl = table.concat
 local dbg       = require("Dbg"):dbg()
 local floor     = math.floor
 local max       = math.max
+local min       = math.min
 local rep       = string.rep
 
 local s_bannerT = false
@@ -100,7 +101,7 @@ end
 -- @param str input string.
 function M.bannerStr(self, str)
    local a       = {}
-   local myWidth = self:width()
+   local myWidth = min(self:width(), 1000)
    local len     = str:len() + 2
    local lcount  = max(floor((myWidth - len)/2),4)
    local rcount  = max(myWidth - lcount - len,4)

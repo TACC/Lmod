@@ -247,7 +247,7 @@ Configuring Lmod with **/etc/lmod/lmod_config.lua**:
 Lmod looks for a file named lmod_config.lua in the LMOD_CONFIG_DIR,
 which is by default /etc/lmod/. So normally the file is found here:
 /etc/lmod/lmod_config.lua.  It can be configured to any value with the
-configure option (--with-configDir=) or setting the environment
+configure option (--with-lmodConfigDir=) or setting the environment
 variable LMOD_CONFIG_DIR.  This file is used optionally.  It is not
 required.
 
@@ -262,7 +262,7 @@ Here is a full example::
     cosmic:assign("LMOD_SITE_NAME",   "XYZZY")
 
     -- Note that this directory could be anything including /etc/lmod
-    cosmic:assign("LMOD_PACKAGE_DIR", "/path/to/SitePackage_Dir/")
+    cosmic:assign("LMOD_PACKAGE_PATH", "/path/to/SitePackage_Dir/")
 
     local function echoString(s)
        io.stderr:write(s,"\n")

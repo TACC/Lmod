@@ -61,11 +61,13 @@ local function l_new(self, s)
    local o   = {}
 
    if (not s) then
+      dbg.print{"No _SettargTable_ in the env.\n"}
       o.buildScenarioState = "unknown"
       o.targA              = {}
       o.extraT             = {}
       o.version            = l_stt_version()
    else
+      dbg.print{"_SettargTable_: ",s,"\n"}
       assert(load(s))()
       local _SettargTable_ = _G._SettargTable_
       for k, v in pairs(_SettargTable_) do
@@ -85,6 +87,10 @@ local function l_new(self, s)
    self.__index  = self
    dbg.fini("STT:l_new")
    return o
+end
+
+function M.get_targA(self)
+   return self.targA
 end
 
 function M.add2ExtraT(self,key)
@@ -137,8 +143,10 @@ end
 
 function M.registerVars(self,tbl)
    local a = {}
-   for k in pairsByKeys(tbl) do
-      a[#a+1] = k
+   for k,v in pairsByKeys(tbl) do
+      if (v) then
+         a[#a+1] = k
+      end
    end
    self.targA = a
 end

@@ -150,17 +150,17 @@ AC_ARG_WITH(exactMatch,
     EXACT_MATCH="$withval"
     AC_DEFINE_UNQUOTED(EXACT_MATCH, "$withval"))dnl
 
-AC_SUBST(LMOD_CFG_DIR)
+AC_SUBST(LMOD_CONFIG_DIR)
 AC_ARG_WITH(lmodConfigDir,
     AC_HELP_STRING([--with-lmodConfigDir=ans],[Location of Lmod Config Dir [[/etc/lmod]]]),
-    LMOD_CFG_DIR="$withval"
-    AC_MSG_RESULT([LMOD_CFG_DIR=$with_lmodConfigDir])
-    AC_DEFINE_UNQUOTED(LMOD_CFG_DIR, "$with_lmodConfigDir")dnl
+    LMOD_CONFIG_DIR="$withval"
+    AC_MSG_RESULT([LMOD_CONFIG_DIR=$with_lmodConfigDir])
+    AC_DEFINE_UNQUOTED(LMOD_CONFIG_DIR, "$with_lmodConfigDir")dnl
     ,
     withval="/etc/lmod"
-    AC_MSG_RESULT([LMOD_CFG_DIR=$withval])
-    LMOD_CFG_DIR="$withval"
-    AC_DEFINE_UNQUOTED(LMOD_CFG_DIR, "$withval"))dnl
+    AC_MSG_RESULT([LMOD_CONFIG_DIR=$withval])
+    LMOD_CONFIG_DIR="$withval"
+    AC_DEFINE_UNQUOTED(LMOD_CONFIG_DIR, "$withval"))dnl
 
 AC_SUBST(AUTO_SWAP)
 AC_ARG_WITH(autoSwap,

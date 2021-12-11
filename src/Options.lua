@@ -100,8 +100,10 @@ function M.singleton(self, usage)
    local styleA       = {}
    local icnt         = 0
    local defaultStyle = "system"
+   
+   local style = cosmic:value("LMOD_AVAIL_STYLE")
 
-   for s in LMOD_AVAIL_STYLE:split(":") do
+   for s in style:split(":") do
       icnt = icnt + 1
       if (s:sub(1,1) == "<" and s:sub(-1,-1) == ">") then
          s            = s:sub(2,-2)

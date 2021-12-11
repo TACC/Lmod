@@ -70,7 +70,6 @@ pack     = (_VERSION == "Lua 5.1") and l_argsPack or table.pack
 require("string_utils")
 require("serializeTbl")
 require("declare")
-local s_name    = "_ModuleTable_"
 local base64    = require("base64")
 local cosmic    = require("Cosmic"):singleton()
 local concatTbl = table.concat
@@ -106,18 +105,21 @@ end
 
 
 declare("_ModuleTable_",false)
-function fixMT(s)
+declare("_SettargTable_",false)
+function fixB64(name, s)
    if (s == nil) then return "" end
    local func, msg = load(s)
    if (func) then
       func()
    else
-      io.stderr:write("joinBase64Results:fixMT:Found syntax error: ",msg,"\n")
+      io.stderr:write("joinBase64Results:fixB64:Found syntax error: ",msg,"\n")
+      io.stderr:write("--------------\n")
       io.stderr:write(s,"\n")
+      io.stderr:write("--------------\n")
       return ""
    end
 
-   local mt = _G._ModuleTable_ 
+   local mt = _G[name]
 
    for k,v in pairs(mt) do
       if (k:sub(1,2) == "c_") then
@@ -143,20 +145,26 @@ function fixMT(s)
       end
    end
 
-   local s = serializeTbl{indent=false, name=s_name, value=mt}
+   local s = serializeTbl{indent=false, name=name, value=mt}
    return s:gsub("[\n]",""):gsub(" = ","="):gsub("  *"," "):gsub(", ",",")
 end
 
-function sectionEnd(sType,A, a1, a2, a3)
+function sectionEnd(sType, name, A, a1, a2, a3)
    local b = {}
    if (#a2 > 0) then
+      local s64 = concatTbl(a2,"")
+      local s   = decode64(s64)
+      local v   = s
+      if (name == "_ModuleTable_") then
+         v      = fixB64(name,s)
+      end
       if (sType == "bash") then
-         b[1] = s_name .."='" .. fixMT(decode64(table.concat(a2,""))) .. "';"
-         b[2] = "export ".. s_name ..";"
+         b[1] = name .."='" .. v .. "';"
+         b[2] = "export ".. name ..";"
       elseif (sType == "csh") then
-         b[1] = "setenv " .. s_name .. " '" .. fixMT(decode64(table.concat(a2,""))) .. "';"
+         b[1] = "setenv " .. name .. " '" .. v .. "';"
       elseif (sType == "fish") then
-         b[1] = "set -x -g " .. s_name .. " '" .. fixMT(decode64(table.concat(a2,""))) .. "';"
+         b[1] = "set -x -g " .. name .. " '" .. v .. "';"
       end
    end
    joinArrays(A, a1, b, a3)
@@ -176,8 +184,7 @@ function joinArrays(A,...)
    end
 end
 
-function joinMT_fish(whole)
-   local n2 = "_ModuleTable"
+function joinB64_fish(name, whole)
    local A  = {}
    local a1 = {}
    local a2 = {}
@@ -185,91 +192,61 @@ function joinMT_fish(whole)
    local a  = a1
    local state = "init"
    for s in whole:split("\n") do
-      if (s:find("^set %-x %-g ".. n2 .. "%d%d%d_")) then
+      if (s:find("^set %-x %-g ".. name .. "%d%d%d_")) then
          if (state == "init") then
             state = "mt"
          end
          a = a3
          l_grabFish(s, a2)
       elseif (state == "init") then
-         local i,j, name, str = s:find("^(set -x -g __LMOD_STACK[^ ]*)%s+\"(.*)\"")
-         if (not i) then
-            a[#a + 1] = s
-         else
-            local b = {}
-            b[#b+1] = name
-            b[#b+1] = " \""
-            for v in str:split(":") do
-               v = (v ~= "false") and decode64(v) or "false"
-               b[#b+1] = v
-               b[#b+1] = ":"
-            end
-            b[#b]   = "\";"
-            a[#a+1] = concatTbl(b,"")
-         end
+         a[#a + 1] = s
       else
-         a1, a2, a3 = sectionEnd("fish", A,a1,a2,a3)
+         a1, a2, a3 = sectionEnd("fish",name.."_",A,a1,a2,a3)
          state   = "init"
          a       = a1
          a[#a+1] = s
       end
    end
-   sectionEnd("fish",A,a1,a2,a3)
+   sectionEnd("fish",name.."_",A,a1,a2,a3)
    return A
 end
 
-function joinMT_bash(whole)
+function joinB64_bash(name, whole)
    local A  = {}
    local a1 = {}
    local a2 = {}
    local a3 = {}
    local a  = a1
    local haveMT = false
-   local n2 = "_ModuleTable"
 
    for s in whole:split("\n") do
       local state = "init"
-      if (s:find("^" .. n2 .."%d%d%d_=")) then
+      if (s:find("^" .. name .."%d%d%d_=")) then
          if (state == "init") then
             state = "mt"
          end
          a = a3
          l_grab(s, a2)
          haveMT = true
-      elseif (s:find("^export " .. n2 ) or
-              s:find("^unset "  .. n2 ) or
-              s:find("^" .. n2 .. "Sz")) then
+      elseif (s:find("^export " .. name ) or
+              s:find("^unset "  .. name ) or
+              s:find("^" .. name .. "_Sz")) then
          state = "ignore"
       elseif (haveMT and s:find("^===========================")) then
-         a1, a2, a3 = sectionEnd("bash", A, a1, a2, a3)
+         a1, a2, a3 = sectionEnd("bash", name.."_", A, a1, a2, a3)
          state   = "init"
          a       = a1
          haveMT  = false
       end
       if (state == "init") then
-         local i,j, name, str = s:find("^(__LMOD_STACK[^=]*)=([^;]*);")
-         if (not i) then
-            a[#a + 1] = s
-         else
-            local b = {}
-            b[#b+1] = name
-            b[#b+1] = "="
-            for v in str:split(":") do
-               v = (v ~= "false") and decode64(v) or "false"
-               b[#b+1] = v
-               b[#b+1] = ":"
-            end
-            b[#b] = ";"
-            a[#a+1] = concatTbl(b,"")
-         end
+         a[#a + 1] = s
       end
    end
-   sectionEnd("bash", A, a1, a2, a3)
+   sectionEnd("bash", name.."_", A, a1, a2, a3)
    return A
 end
 
-function joinMT_csh(whole)
-   local n2 = "_ModuleTable"
+function joinB64_csh(name, whole)
    local A  = {}
    local a1 = {}
    local a2 = {}
@@ -277,48 +254,68 @@ function joinMT_csh(whole)
    local a  = a1
    local state = "init"
    for s in whole:split("\n") do
-      if (s:find("^setenv ".. n2 .. "%d%d%d_")) then
+      if (s:find("^setenv ".. name .. "%d%d%d_")) then
          if (state == "init") then
             state = "mt"
          end
          a = a3
          l_grabCsh(s, a2)
       elseif (state == "init") then
-         local i,j, name, str = s:find("^(setenv __LMOD_STACK[^ ]*)%s+\"(.*)\"")
-         if (not i) then
-            a[#a + 1] = s
-         else
-            local b = {}
-            b[#b+1] = name
-            b[#b+1] = " \""
-            for v in str:split(":") do
-               v = (v ~= "false") and decode64(v) or "false"
-               b[#b+1] = v
-               b[#b+1] = ":"
-            end
-            b[#b]   = "\";"
-            a[#a+1] = concatTbl(b,"")
-         end
+         a[#a + 1] = s
       else
-         a1, a2, a3 = sectionEnd("csh", A,a1,a2,a3)
+         a1, a2, a3 = sectionEnd("csh", name.."_", A,a1,a2,a3)
          state   = "init"
          a       = a1
          a[#a+1] = s
       end
    end
-   sectionEnd("csh",A,a1,a2,a3)
+   sectionEnd("csh", name.."_",A,a1,a2,a3)
    return A
+end
+
+function lmod_stack(shell, whole)
+   local pattT =
+      { 
+         csh  = {"^(setenv __LMOD_STACK[^ ]*)%s+([^;]*);?",   " "},
+         bash = {"^(__LMOD_STACK[^=]*)=([^;]*);",             "="},
+         fish = {"^(set -x -g __LMOD_STACK[^ ]*)%s+\"(.*)\"", " "},
+      }
+   local a = {}
+   local patt = pattT[shell][1]
+   local sep  = pattT[shell][2]
+   for s in whole:split("\n") do
+      local i,j, name, str = s:find(patt)
+      if (not i) then
+         a[#a + 1] = s
+      else
+         local b = {}
+         b[#b+1] = name
+         b[#b+1] = sep
+         for v in str:split(":") do
+            v = (v ~= "false") and decode64(v) or "false"
+            b[#b+1] = v:multiEscaped()
+            b[#b+1] = ":"
+         end
+         b[#b] = ";"
+         a[#a+1] = concatTbl(b,"")
+      end
+   end
+   return concatTbl(a,"\n")
 end
 
 function main()
    local resultA
-   local joinMT = joinMT_csh
+   local resultB
+   local joinB64 = joinB64_csh
+   local shell   = "csh"
    if ( arg[1]:sub(1,1) == "-") then
       if (arg[1] == "-bash") then
-         joinMT = joinMT_bash
+         joinB64 = joinB64_bash
+         shell   = "bash"
       end
       if (arg[1] == "-fish") then
-         joinMT = joinMT_fish
+         joinB64 = joinB64_fish
+         shell   = "fish"
       end
       table.remove(arg,1)
    end
@@ -328,10 +325,13 @@ function main()
    if (f) then
       local whole = f:read("*all")
       f:close()
-      resultA = joinMT(whole)
+      local s = lmod_stack(shell,whole)
+      resultA = joinB64("_ModuleTable", s)
+      local s = concatTbl(resultA,"\n")
+      resultB = joinB64("_SettargTable", s)
       fn = arg[2]
       f = io.open(fn,"w")
-      for _,v in ipairs(resultA) do
+      for _,v in ipairs(resultB) do
          if (v:len() > 0) then
             f:write(v,"\n")
          end

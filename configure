@@ -683,7 +683,7 @@ MODULEPATH_ROOT
 REDIRECT
 EXPORT_MODULE
 AUTO_SWAP
-LMOD_CFG_DIR
+LMOD_CONFIG_DIR
 EXACT_MATCH
 HIDDEN_ITALIC
 COLORIZE
@@ -3233,20 +3233,20 @@ fi
 
 # Check whether --with-lmodConfigDir was given.
 if test "${with_lmodConfigDir+set}" = set; then :
-  withval=$with_lmodConfigDir; LMOD_CFG_DIR="$withval"
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: LMOD_CFG_DIR=$with_lmodConfigDir" >&5
-$as_echo "LMOD_CFG_DIR=$with_lmodConfigDir" >&6; }
+  withval=$with_lmodConfigDir; LMOD_CONFIG_DIR="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: LMOD_CONFIG_DIR=$with_lmodConfigDir" >&5
+$as_echo "LMOD_CONFIG_DIR=$with_lmodConfigDir" >&6; }
     cat >>confdefs.h <<_ACEOF
-#define LMOD_CFG_DIR "$with_lmodConfigDir"
+#define LMOD_CONFIG_DIR "$with_lmodConfigDir"
 _ACEOF
 
 else
   withval="/etc/lmod"
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: LMOD_CFG_DIR=$withval" >&5
-$as_echo "LMOD_CFG_DIR=$withval" >&6; }
-    LMOD_CFG_DIR="$withval"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: LMOD_CONFIG_DIR=$withval" >&5
+$as_echo "LMOD_CONFIG_DIR=$withval" >&6; }
+    LMOD_CONFIG_DIR="$withval"
     cat >>confdefs.h <<_ACEOF
-#define LMOD_CFG_DIR "$withval"
+#define LMOD_CONFIG_DIR "$withval"
 _ACEOF
 
 fi
@@ -6740,6 +6740,7 @@ echo "Silence shell debugging output for bash/zsh................." : $SILENCE_S
 echo "Allow root to use Lmod......................................" : $LMOD_ALLOW_ROOT_USE
 echo "Support KSH................................................." : $SUPPORT_KSH
 echo "Use the fast TCL interpreter................................" : $FAST_TCL_INTERP
+echo "LMOD_CONFIG_DIR............................................." : $LMOD_CONFIG_DIR
 echo "Display Extensions w/ module avail.........................." : $AVAIL_EXTENSIONS
 echo "Allow for extended default.(ml intel/17 #-> intel/17.0.4)..." : $EXTENDED_DEFAULT  #"
 

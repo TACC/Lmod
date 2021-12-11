@@ -2,7 +2,7 @@
 
 require("fileOps")
 
--- Skip the CMake test if we can't find a new enough version fo CMake
+-- Skip the CMake test if we can't find a new enough version of CMake
 local skip_test = true
 local cmake_path = "/bin/false"
 local cmake_ret = os.execute([[echo "cmake_minimum_required(VERSION 3.6)" > version_check.cmake && cmake -P version_check.cmake 2>/dev/null]])

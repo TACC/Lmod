@@ -1,2 +1,6 @@
-Lmod 8.6+
-   (8.6.1)  *
+Lmod 8.6+ 
+   (8.6.1)  * Issue #547: fix LMOD_CONFIG_DIR and --with-lmodConfigDir to be consistent
+            * Issue #550: Fix LMOD_RC to use cosmic interface and Add /etc/lmod/lmodrc.lua
+	      to search path
+	    * Issue #549: LMOD_AVAIL_STYLE can now be overridden in the lmod_config.lua file.
+	    * Issue #548: Fix dependency check to check both sn and fullname of loaded module.
