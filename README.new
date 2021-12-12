@@ -4,3 +4,9 @@ Lmod 8.6+
 	      to search path
 	    * Issue #549: LMOD_AVAIL_STYLE can now be overridden in the lmod_config.lua file.
 	    * Issue #548: Fix dependency check to check both sn and fullname of loaded module.
+W.I.P:s
+   (8.6.2)  * loading the settarg module  always set precmd and
+              (PROMPT_COMMAND=precmd for bash).  Now use LMOD_SETTARG_FUNCTIONS=yes
+              LMOD_SETTARG_IN_PROMPT=yes env. var conttrol.
+              
+   
