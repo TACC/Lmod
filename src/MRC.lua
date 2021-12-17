@@ -453,6 +453,7 @@ end
 -- modT is a table with: sn, fullName and fn
 function M.isVisible(self, modT)
    local frameStk  = require("FrameStk"):singleton()
+   local mname     = frameStk:mname()
    local mt        = frameStk:mt()
    local mpathA    = mt:modulePathA()
    local name      = modT.fullName
@@ -468,7 +469,9 @@ function M.isVisible(self, modT)
       isVisible = idx == nil
    end
 
-   modT['isVisible'] = isVisible
+   modT.isVisible = isVisible
+   modT.mname     = mname
+   modT.mt        = mt
    hook.apply("isVisibleHook", modT)
 
    return modT.isVisible
