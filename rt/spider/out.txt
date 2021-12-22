@@ -1167,3 +1167,331 @@ MODULEPATH=ProjectDIR/rt/spider/mf/I_Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={GROMACS={fn="ProjectDIR/rt/spider/mf/I_Core/GROMACS/.2016.x-drude-20180214-g3f7439a.lua",fullName="GROMACS/.2016.x-drude-20180214-g3f7439a",loadOrder=1,propT={},stackDepth=0,status="active",userName="GROMACS/.2016.x-drude-20180214-g3f7439a",wV="000000000.000002016.*x.*drude.*zfinal-.020180214.*g.000000003.*f.000007439.*a.*zfinal",},},mpathA={"ProjectDIR/rt/spider/mf/I_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/I_Core",}';
 export _ModuleTable_;
+===========================
+step 66
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/spider/mf2/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/spider/mf2/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf2/Core",}';
+export _ModuleTable_;
+===========================
+step 67
+runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf2/Core
+===========================
+timestampFn = {
+  false,
+}
+mrcT = {
+  alias2modT = {
+    intelcompiler = "intel",
+  },
+  hiddenT = {
+    ["gcc/4.8"] = true,
+  },
+  version2modT = {
+    ["intel/17"] = "intel/2017.1.132",
+    ["intel/2017"] = "intel/2017.1.132",
+  },
+}
+mrcMpathT = {}
+spiderT = {
+  ["ProjectDIR/rt/spider/mf2/Compiler/gcc/10"] = {
+    GROMACS = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["GROMACS/2018"] = {
+          Description = [[GROMACS(CPU/2018) is a versatile package to perform molecular dynamics,
+ i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles.
+This is a CPU enabled build, containing both MPI and threadMPI binaries for 2018.
+]],
+          Version = "2018",
+          canonical = "2018",
+          fn = "ProjectDIR/rt/spider/mf2/Compiler/gcc/10/GROMACS/2018.lua",
+          help = [[
+HELP Description
+================
+GROMACS(CPU/2018) is a versatile package to perform molecular dynamics,
+ i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles.
+This is a CPU enabled build, containing both MPI and threadMPI binaries for 2018.
+More information
+================
+ - Homepage: http://www.gromacs.org
+]],
+          luaExt = 5,
+          mpath = "ProjectDIR/rt/spider/mf2/Compiler/gcc/10",
+          pV = "000002018.*zfinal",
+          wV = "000002018.*zfinal",
+          whatis = {
+            [[Description:
+GROMACS(CPU/2018) is a versatile package to perform molecular dynamics,
+ i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles.
+This is a CPU enabled build, containing both MPI and threadMPI binaries for 2018.
+]],
+          },
+        },
+        ["GROMACS/2019"] = {
+          Description = [[GROMACS(CPU/2019) is a versatile package to perform molecular dynamics,
+ i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles.
+This is a CPU enabled build, containing both MPI and threadMPI binaries for 2019.
+]],
+          Version = "2019",
+          canonical = "2019",
+          fn = "ProjectDIR/rt/spider/mf2/Compiler/gcc/10/GROMACS/2019.lua",
+          help = [[
+HELP Description
+================
+GROMACS(CPU/2019) is a versatile package to perform molecular dynamics,
+ i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles.
+This is a CPU enabled build, containing both MPI and threadMPI binaries for 2019.
+More information
+================
+ - Homepage: http://www.gromacs.org
+]],
+          luaExt = 5,
+          mpath = "ProjectDIR/rt/spider/mf2/Compiler/gcc/10",
+          pV = "000002019.*zfinal",
+          wV = "000002019.*zfinal",
+          whatis = {
+            [[Description:
+GROMACS(CPU/2019) is a versatile package to perform molecular dynamics,
+ i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles.
+This is a CPU enabled build, containing both MPI and threadMPI binaries for 2019.
+]],
+          },
+        },
+      },
+    },
+  },
+  ["ProjectDIR/rt/spider/mf2/Compiler/zuda/10"] = {
+    GROMACS = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["GROMACS/2019"] = {
+          Description = [[GROMACS(GPU/2019) is a versatile package to perform molecular dynamics,
+ i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles.
+This is a GPU only build, containing both MPI and threadMPI builds for 2019.
+]],
+          Version = "2019",
+          canonical = "2019",
+          fn = "ProjectDIR/rt/spider/mf2/Compiler/zuda/10/GROMACS/2019.lua",
+          help = [[
+HELP Description
+================
+GROMACS(GPU/2019) is a versatile package to perform molecular dynamics,
+ i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles.
+This is a GPU only build, containing both MPI and threadMPI builds for 2019.
+More information
+================
+ - Homepage: http://www.gromacs.org
+]],
+          luaExt = 5,
+          mpath = "ProjectDIR/rt/spider/mf2/Compiler/zuda/10",
+          pV = "000002019.*zfinal",
+          wV = "000002019.*zfinal",
+          whatis = {
+            [[Description:
+GROMACS(GPU/2019) is a versatile package to perform molecular dynamics,
+ i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles.
+This is a GPU only build, containing both MPI and threadMPI builds for 2019.
+]],
+          },
+        },
+      },
+    },
+  },
+  ["ProjectDIR/rt/spider/mf2/Core"] = {
+    gcc = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["gcc/10.1"] = {
+          Version = "10.1",
+          canonical = "10.1",
+          fn = "ProjectDIR/rt/spider/mf2/Core/gcc/10.1.lua",
+          luaExt = 5,
+          mpath = "ProjectDIR/rt/spider/mf2/Core",
+          pV = "000000010.000000001.*zfinal",
+          wV = "000000010.000000001.*zfinal",
+        },
+      },
+    },
+    zuda = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["zuda/10.1"] = {
+          Version = "10.1",
+          canonical = "10.1",
+          fn = "ProjectDIR/rt/spider/mf2/Core/zuda/10.1.lua",
+          luaExt = 5,
+          mpath = "ProjectDIR/rt/spider/mf2/Core",
+          pV = "000000010.000000001.*zfinal",
+          wV = "000000010.000000001.*zfinal",
+        },
+      },
+    },
+  },
+  version = 5,
+}
+mpathMapT = {
+  ["ProjectDIR/rt/spider/mf2/Compiler/gcc/10"] = {
+    ["gcc/10.1"] = "ProjectDIR/rt/spider/mf2/Core",
+  },
+  ["ProjectDIR/rt/spider/mf2/Compiler/zuda/10"] = {
+    ["zuda/10.1"] = "ProjectDIR/rt/spider/mf2/Core",
+  },
+}
+===========================
+step 68
+runSpiderCmd -o dbT ProjectDIR/rt/spider/mf2/Core
+===========================
+timestampFn = {
+  false,
+}
+dbT = {
+  GROMACS = {
+    ["ProjectDIR/rt/spider/mf2/Compiler/gcc/10/GROMACS/2018.lua"] = {
+      Description = [[GROMACS(CPU/2018) is a versatile package to perform molecular dynamics,
+ i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles.
+This is a CPU enabled build, containing both MPI and threadMPI binaries for 2018.
+]],
+      Version = "2018",
+      fullName = "GROMACS/2018",
+      help = [[
+HELP Description
+================
+GROMACS(CPU/2018) is a versatile package to perform molecular dynamics,
+ i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles.
+This is a CPU enabled build, containing both MPI and threadMPI binaries for 2018.
+More information
+================
+ - Homepage: http://www.gromacs.org
+]],
+      hidden = false,
+      pV = "000002018.*zfinal",
+      parentAA = {
+        {
+          "gcc/10.1",
+        },
+      },
+      wV = "000002018.*zfinal",
+      whatis = {
+        [[Description:
+GROMACS(CPU/2018) is a versatile package to perform molecular dynamics,
+ i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles.
+This is a CPU enabled build, containing both MPI and threadMPI binaries for 2018.
+]],
+      },
+    },
+    ["ProjectDIR/rt/spider/mf2/Compiler/gcc/10/GROMACS/2019.lua"] = {
+      Description = [[GROMACS(CPU/2019) is a versatile package to perform molecular dynamics,
+ i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles.
+This is a CPU enabled build, containing both MPI and threadMPI binaries for 2019.
+]],
+      Version = "2019",
+      fullName = "GROMACS/2019",
+      help = [[
+HELP Description
+================
+GROMACS(CPU/2019) is a versatile package to perform molecular dynamics,
+ i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles.
+This is a CPU enabled build, containing both MPI and threadMPI binaries for 2019.
+More information
+================
+ - Homepage: http://www.gromacs.org
+]],
+      hidden = false,
+      pV = "000002019.*zfinal",
+      parentAA = {
+        {
+          "gcc/10.1",
+        },
+      },
+      wV = "000002019.*zfinal",
+      whatis = {
+        [[Description:
+GROMACS(CPU/2019) is a versatile package to perform molecular dynamics,
+ i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles.
+This is a CPU enabled build, containing both MPI and threadMPI binaries for 2019.
+]],
+      },
+    },
+    ["ProjectDIR/rt/spider/mf2/Compiler/zuda/10/GROMACS/2019.lua"] = {
+      Description = [[GROMACS(GPU/2019) is a versatile package to perform molecular dynamics,
+ i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles.
+This is a GPU only build, containing both MPI and threadMPI builds for 2019.
+]],
+      Version = "2019",
+      fullName = "GROMACS/2019",
+      help = [[
+HELP Description
+================
+GROMACS(GPU/2019) is a versatile package to perform molecular dynamics,
+ i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles.
+This is a GPU only build, containing both MPI and threadMPI builds for 2019.
+More information
+================
+ - Homepage: http://www.gromacs.org
+]],
+      hidden = false,
+      pV = "000002019.*zfinal",
+      parentAA = {
+        {
+          "zuda/10.1",
+        },
+      },
+      wV = "000002019.*zfinal",
+      whatis = {
+        [[Description:
+GROMACS(GPU/2019) is a versatile package to perform molecular dynamics,
+ i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles.
+This is a GPU only build, containing both MPI and threadMPI builds for 2019.
+]],
+      },
+    },
+  },
+  gcc = {
+    ["ProjectDIR/rt/spider/mf2/Core/gcc/10.1.lua"] = {
+      Version = "10.1",
+      fullName = "gcc/10.1",
+      hidden = false,
+      pV = "000000010.000000001.*zfinal",
+      wV = "000000010.000000001.*zfinal",
+    },
+  },
+  zuda = {
+    ["ProjectDIR/rt/spider/mf2/Core/zuda/10.1.lua"] = {
+      Version = "10.1",
+      fullName = "zuda/10.1",
+      hidden = false,
+      pV = "000000010.000000001.*zfinal",
+      wV = "000000010.000000001.*zfinal",
+    },
+  },
+}
+provideByT = {}
+===========================
+step 69
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GROMACS/2018
+===========================
+MODULEPATH=ProjectDIR/rt/spider/mf2/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf2/Core",}';
+export _ModuleTable_;
+===========================
+step 70
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GROMACS/2019
+===========================
+MODULEPATH=ProjectDIR/rt/spider/mf2/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf2/Core",}';
+export _ModuleTable_;

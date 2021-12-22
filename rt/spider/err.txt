@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.5.28  2021-12-01 12:20 -06:00
+Modules based on Lua: Version 8.6.1  2021-12-10 14:46 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -822,3 +822,63 @@ Currently Loaded Modules:
   1) GROMACS/.2016.x-drude-20180214-g3f7439a (H)
   Where:
    H:  Hidden Module
+===========================
+step 66
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+===========================
+The following is a list of the modules and extensions currently available:
+  gcc: gcc/10.1
+  GROMACS: GROMACS/2018, GROMACS/2019
+    GROMACS(CPU/2018) is a versatile package to perform molecular dynamics, i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles. This is a CPU enabled build, containing both MPI and threadMPI binaries for 2018.
+  zuda: zuda/10.1
+To learn more about a package execute:
+   $ module spider Foo
+where "Foo" is the name of a module.
+To find detailed information about a particular package you
+must specify the version if there is more than one version:
+   $ module spider Foo/11.1
+===========================
+step 67
+runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf2/Core
+===========================
+===========================
+step 68
+runSpiderCmd -o dbT ProjectDIR/rt/spider/mf2/Core
+===========================
+===========================
+step 69
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GROMACS/2018
+===========================
+  GROMACS: GROMACS/2018
+    Description:
+      GROMACS(CPU/2018) is a versatile package to perform molecular dynamics, i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles. This is a CPU enabled build, containing both MPI and threadMPI binaries for 2018.
+    You will need to load all module(s) on any one of the lines below before the "GROMACS/2018" module is available to load.
+      gcc/10.1
+    Help:
+      HELP Description
+      ================
+      GROMACS(CPU/2018) is a versatile package to perform molecular dynamics,
+       i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles.
+      This is a CPU enabled build, containing both MPI and threadMPI binaries for 2018.
+      More information
+      ================
+       - Homepage: http://www.gromacs.org
+===========================
+step 70
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GROMACS/2019
+===========================
+  GROMACS: GROMACS/2019
+    Description:
+      GROMACS(CPU/2019) is a versatile package to perform molecular dynamics, i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles. This is a CPU enabled build, containing both MPI and threadMPI binaries for 2019.
+    You will need to load all module(s) on any one of the lines below before the "GROMACS/2019" module is available to load.
+      gcc/10.1
+      zuda/10.1
+    Help:
+      HELP Description
+      ================
+      GROMACS(CPU/2019) is a versatile package to perform molecular dynamics,
+       i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles.
+      This is a CPU enabled build, containing both MPI and threadMPI binaries for 2019.
+      More information
+      ================
+       - Homepage: http://www.gromacs.org

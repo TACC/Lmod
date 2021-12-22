@@ -128,4 +128,7 @@ along with important modules like the compiler and mpi stack.
 Settarg can do more.  Please see the Lmod website for more details.
 ]]
 
+whatis([==[Description:
+The settarg module provides a way to connect the loaded modules with your build system by setting environment variables.
+]==])
 help(helpMsg)

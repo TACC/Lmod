@@ -321,7 +321,7 @@ function M.findAllModules(self, mpathA, spiderT)
          if (not attr or attr.mode ~= "directory" or
              (not access(mpath,"rx")))               then break end
 
-         dbg.print{"RTM mpath: ", mpath,"\n"}
+         dbg.print{"mpath: ", mpath,"\n"}
          local moduleA     = ModuleA:__new({mpath}, maxdepthT):moduleA()
          local T           = moduleA[1].T
          for sn, v in pairs(T) do
@@ -995,6 +995,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
    local T           = dbT[sn]
    local TT          = providedByT[sn]
    local tailMsg     = nil
+   local sort        = table.sort
    if (T == nil and TT == nil) then
       LmodSystemError{msg="e_dbT_sn_fail", sn = sn}
    end
@@ -1018,6 +1019,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
          dbg.print{"key: ",key,"\n"}
          for fn, v in pairs(T) do
             if (show_hidden or mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn}) then
+               v.fn=fn
                if (v.fullName == key) then
                   aa[#aa + 1] = v
                end
@@ -1036,6 +1038,12 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
          m_count = #bb
          entryMA = bb
       end
+
+      local function cmp(a,b)
+         return a.fn < b.fn
+      end
+
+      sort(entryMA,cmp)
 
       --io.stderr:write("m_count: ",m_count,"\n")
       --for i = 1,#aa do
@@ -1307,16 +1315,16 @@ function M._Level2(self, sn, fullName, entryA, entryPA, possibleA, tailMsg)
       titleIdx = ia
 
       for k = 1, #entryA do
-         entryT = entryA[k]
-         if (not entryT.parentAA) then
+         local my_entryT = entryA[k]
+         if (not my_entryT.parentAA) then
             haveCore = 1
          else
             b[#b+1] = "      "
             haveHier = 2
          end
-         if (entryT.parentAA) then
-            for j = 1, #entryT.parentAA do
-               local parentA = entryT.parentAA[j]
+         if (my_entryT.parentAA) then
+            for j = 1, #my_entryT.parentAA do
+               local parentA = my_entryT.parentAA[j]
                for i = 1, #parentA do
                   b[#b+1] = parentA[i]
                   b[#b+1] = '  '

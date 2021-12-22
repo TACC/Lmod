@@ -85,11 +85,11 @@ end
 function M.border(self, nspaces)
    if (not self.__borderG or nspaces ~= self.__nspacesG) then
       self.__nspacesG = nspaces
-      local myWidth   = self:width() - 4 - nspaces
+      local myWidth   = min(self:width() - 4 - nspaces,1000)
       local a = {}
-      a[1] = rep("  ", nspaces)
-      a[2] = rep('-', myWidth)
-      a[3] = "\n"
+      a[#a+1] = rep("  ", nspaces)
+      a[#a+1] = rep('-', myWidth)
+      a[#a+1] = "\n"
       self.__borderG  =  concatTbl(a,"")
    end
    return self.__borderG
