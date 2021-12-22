@@ -9,5 +9,7 @@ Lmod 8.6+
               LMOD_SETTARG_IN_PROMPT=yes env. var conttrol.
 	    * Issue #551: Fix the output of level 2 spider output to not mix the description and help from
 	      different modulefiles
+            * Issue #552: Send mt and mname as part of table to isVisibleHook
+
               
    
