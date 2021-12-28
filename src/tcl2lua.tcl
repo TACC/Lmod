@@ -578,10 +578,10 @@ proc unset-alias { var } {
 }
 
 proc set-function { var val } {
-    cmdargs "set_shell_funcion" $var $val
+    cmdargs "set_shell_function" $var $val ""
 }
 proc unset-function { var } {
-    cmdargs "unset_shell_function" $var
+    cmdargs "unset_shell_function" $var "" ""
 }
 
 proc add-property { var val } {
@@ -594,15 +594,16 @@ proc remove-property { var val } {
 
 proc doubleQuoteEscaped {text} {
     regsub -all "\"" $text "\\\"" text
+    regsub -all \n   $text "\\\n"  text
     return $text
 }
 
 proc cmdargs { cmd args } {
     global g_outputA
     foreach arg $args {
-        set val [doubleQuoteEscaped $arg]
-	set val [string trimright $val "\r\n "]
-        lappend cmdArgsL "\"$val\""
+	set val [string trimright $arg "\r\n "]
+        set val [doubleQuoteEscaped $val]
+	lappend cmdArgsL "\"$val\""
     }
 
     if {[info exists cmdArgsL]} {

@@ -4,7 +4,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/sh_to_modulefile.in.lua --from zsh ProjectDIR/rt/zsh_to_modulefile/tstScript.zsh
+buildSh2MF --from zsh ProjectDIR/rt/zsh_to_modulefile/tstScript.zsh
 ===========================
 prepend_path("PATH","ProjectDIR/rt/zsh_to_modulefile/bin")
 append_path("PATH","ProjectDIR/rt/zsh_to_modulefile/sbin")

@@ -152,7 +152,12 @@ runSettargBash()
 
 runSh2MF ()
 {
-   runBase $LUA_EXEC $projectDir/src/sh_to_modulefile.in.lua "$@"
+   runBase buildSh2MF "$@"
+}
+
+buildSh2MF ()
+{
+  $LUA_EXEC $projectDir/src/sh_to_modulefile.in.lua "$@"
 }
 
 runSpiderCmd ()

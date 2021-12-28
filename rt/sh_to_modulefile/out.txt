@@ -4,7 +4,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/sh_to_modulefile.in.lua ProjectDIR/rt/sh_to_modulefile/tstScript.sh
+buildSh2MF ProjectDIR/rt/sh_to_modulefile/tstScript.sh
 ===========================
 setenv("MY_NAME","tstScript.sh")
 prepend_path("PATH","ProjectDIR/rt/sh_to_modulefile/bin")
@@ -22,7 +22,26 @@ set_shell_function("fooFunc"," \
 ","")
 ===========================
 step 3
-lua ProjectDIR/src/sh_to_modulefile.in.lua ProjectDIR/rt/sh_to_modulefile/path_both_ends.sh
+buildSh2MF --to TCL ProjectDIR/rt/sh_to_modulefile/tstScript.sh
+===========================
+#%Module
+setenv MY_NAME {tstScript.sh}
+prepend-path PATH {ProjectDIR/rt/sh_to_modulefile/bin}
+append-path PATH {ProjectDIR/rt/sh_to_modulefile/sbin}
+setenv TST_SCRIPT {1}
+set-alias fooAlias {foobin -q -l}
+set-function banner {
+    local str="$1";
+    local RED='\\033[1;31m';
+    local NONE='\\033[0m';
+    echo "${RED}${str}${NONE}"
+}
+set-function fooFunc {
+    echo "arg1: $1"
+}
+===========================
+step 4
+buildSh2MF ProjectDIR/rt/sh_to_modulefile/path_both_ends.sh
 ===========================
 prepend_path("PATH","/scratch1/projects/compilers/intel20u0/debugger_2020/gdb/intel64/bin")
 prepend_path("PATH","/scratch1/projects/compilers/intel20u0/compilers_and_libraries_2020.0.166/linux/mpi/intel64/bin")
@@ -39,19 +58,19 @@ prepend_path("PATH","/scratch1/projects/compilers/intel20u0/intelpython3/condabi
 prepend_path("PATH","/scratch1/projects/compilers/intel20u0/intelpython3/bin")
 append_path("PATH","/scratch1/projects/compilers/intel20u0/parallel_studio_xe_2020.0.088/bin")
 ===========================
-step 4
-lua ProjectDIR/src/sh_to_modulefile.in.lua --from csh ProjectDIR/rt/sh_to_modulefile/cshScript.csh
+step 5
+buildSh2MF --from csh ProjectDIR/rt/sh_to_modulefile/cshScript.csh
 ===========================
 setenv("FOO_BAR","1")
 setenv("TST_SCRIPT","tst_script")
 set_alias("fB","ls -aFC")
 set_alias("fooBar","ls -aFC")
 ===========================
-step 5
-lua ProjectDIR/src/sh_to_modulefile.in.lua ProjectDIR/rt/sh_to_modulefile/broken.sh
-===========================
-===========================
 step 6
+buildSh2MF ProjectDIR/rt/sh_to_modulefile/broken.sh
+===========================
+===========================
+step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show wrapperSh/1.0
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf:1;
@@ -61,7 +80,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
 ===========================
-step 7
+step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load wrapperSh/1.0
 ===========================
 __LMOD_REF_COUNT_LOADEDMODULES=wrapperSh/1.0:1;
@@ -97,7 +116,7 @@ fooFunc () {
     echo "arg1: $1"
 ; };
 ===========================
-step 8
+step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show wrapperSh/1.0
 ===========================
 MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf;
@@ -105,7 +124,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/sh_to_modulefile/second.sh arg1"]={"setenv(\"SECOND\",\"FOO_BAR\")",},["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"]={"setenv(\"MY_NAME\",\"tstScript.sh\")","prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")","append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")","setenv(\"TST_SCRIPT\",\"1\")","set_alias(\"fooAlias\",\"foobin -q -l\")",[[set_shell_function("banner"," \\ local str=\\"$1\\";\\ local RED='\\033[1;31m';\\ local NONE='\\033[0m';\\ echo \\"${RED}${str}${NONE}\\"\\","")]],[[set_shell_function("fooFunc"," \\ echo \\"arg1: $1\\"\\","")]],},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
 ===========================
-step 9
+step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing refresh
 ===========================
 MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf;
@@ -123,7 +142,7 @@ fooFunc () {
     echo "arg1: $1"
 ; };
 ===========================
-step 10
+step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf;
@@ -131,11 +150,11 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/sh_to_modulefile/second.sh arg1"]={"setenv(\"SECOND\",\"FOO_BAR\")",},["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"]={"setenv(\"MY_NAME\",\"tstScript.sh\")","prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")","append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")","setenv(\"TST_SCRIPT\",\"1\")","set_alias(\"fooAlias\",\"foobin -q -l\")",[[set_shell_function("banner"," \\ local str=\\"$1\\";\\ local RED='\\033[1;31m';\\ local NONE='\\033[0m';\\ echo \\"${RED}${str}${NONE}\\"\\","")]],[[set_shell_function("fooFunc"," \\ echo \\"arg1: $1\\"\\","")]],},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
 ===========================
-step 11
+step 12
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --mt
 ===========================
 ===========================
-step 12
+step 13
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload wrapperSh/1.0
 ===========================
 unset __LMOD_REF_COUNT_LOADEDMODULES;
@@ -157,12 +176,12 @@ unset -f banner 2> /dev/null || true;
 unalias fooAlias 2> /dev/null || true;
 unset -f fooFunc 2> /dev/null || true;
 ===========================
-step 13
+step 14
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load brokenSh/1.0
 ===========================
 false
 ===========================
-step 14
+step 15
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load wrapperSh/1.0
 ===========================
 __LMOD_REF_COUNT_LOADEDMODULES=wrapperSh/1.0:1;
@@ -198,7 +217,19 @@ fooFunc () {
     echo "arg1: $1"
 ; };
 ===========================
-step 15
+step 16
+type banner
+===========================
+banner is a function
+banner ()
+{
+    local str="$1";
+    local RED='\\033[1;31m';
+    local NONE='\\033[0m';
+    echo "${RED}${str}${NONE}"
+}
+===========================
+step 17
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf;
@@ -206,7 +237,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/sh_to_modulefile/second.sh arg1"]={"setenv(\"SECOND\",\"FOO_BAR\")",},["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"]={"setenv(\"MY_NAME\",\"tstScript.sh\")","prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")","append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")","setenv(\"TST_SCRIPT\",\"1\")","set_alias(\"fooAlias\",\"foobin -q -l\")",[[set_shell_function("banner"," \\ local str=\\"$1\\";\\ local RED='\\033[1;31m';\\ local NONE='\\033[0m';\\ echo \\"${RED}${str}${NONE}\\"\\","")]],[[set_shell_function("fooFunc"," \\ echo \\"arg1: $1\\"\\","")]],},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
 ===========================
-step 16
+step 18
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 LOADEDMODULES=wrapperSh/1.0;
@@ -238,6 +269,56 @@ fooFunc () {
     echo "arg1: $1"
 ; };
 ===========================
-step 17
+step 19
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --mt
 ===========================
+===========================
+step 20
+type banner
+===========================
+banner is a function
+banner ()
+{
+    local str="$1";
+    local RED='\\033[1;31m';
+    local NONE='\\033[0m';
+    echo "${RED}${str}${NONE}"
+}
+===========================
+step 21
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A
+===========================
+__LMOD_REF_COUNT_LOADEDMODULES=wrapperSh/1.0:1\;A/1.0:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=wrapperSh/1.0:A/1.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=OutputDIR/mf:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=OutputDIR/mf;
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH=ProjectDIR/rt/sh_to_modulefile/bin:2\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1\;ProjectDIR/rt/sh_to_modulefile/sbin:2;
+export __LMOD_REF_COUNT_PATH;
+PATH=ProjectDIR/rt/sh_to_modulefile/bin:ProjectDIR/proj_mgmt:PATH_to_TM:ProjectDIR/rt/sh_to_modulefile/sbin;
+export PATH;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua:1\;OutputDIR/mf/A/1.0:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua:OutputDIR/mf/A/1.0;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="OutputDIR/mf/A/1.0",fullName="A/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},},mpathA={"OutputDIR/mf",},systemBaseMPATH="OutputDIR/mf",}';
+export _ModuleTable_;
+banner () {
+    local str="$1";
+    local RED='\\033[1;31m';
+    local NONE='\\033[0m';
+    echo "${RED}${str}${NONE}"; };
+alias fooAlias=foobin\ -q\ -l;
+fooFunc () {
+    echo "arg1: $1"; };
+===========================
+step 22
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH=OutputDIR/mf;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="OutputDIR/mf/A/1.0",fullName="A/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},},mpathA={"OutputDIR/mf",},systemBaseMPATH="OutputDIR/mf",}';
+export _ModuleTable_;

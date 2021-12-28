@@ -20,25 +20,37 @@ testdescript = {
      initStdEnvVars
      MODULEPATH=$(testDir)/mf; export MODULEPATH
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d s.log
+     rm -fr mf _stderr.* _stdout.* err.* out.* .lmod.d s.log
 
      runLmod --version                                 # 1
      runSh2MF             $(testDir)/tstScript.sh      # 2
-     runSh2MF             $(testDir)/path_both_ends.sh # 3        
-     runSh2MF  --from csh $(testDir)/cshScript.csh     # 4
-     runSh2MF             $(testDir)/broken.sh         # 5
-     runLmod  show wrapperSh/1.0                       # 6
-     runLmod  load wrapperSh/1.0                       # 7
-     runLmod  show wrapperSh/1.0                       # 8
-     runLmod  refresh                                  # 9
-     runLmod  list                                     #10
-     runLmod  --mt                                     #11
-     runLmod  unload wrapperSh/1.0                     #12
-     runLmod  load   brokenSh/1.0                      #13
-     runLmod  load   wrapperSh/1.0                     #14
-     runLmod  save                                     #15
-     runLmod  restore                                  #16
-     runLmod  --mt                                     #17
+     runSh2MF  --to TCL   $(testDir)/tstScript.sh      # 3 
+     runSh2MF             $(testDir)/path_both_ends.sh # 4        
+     runSh2MF  --from csh $(testDir)/cshScript.csh     # 5
+     runSh2MF             $(testDir)/broken.sh         # 6
+     runLmod  show wrapperSh/1.0                       # 7
+     runLmod  load wrapperSh/1.0                       # 8
+     runLmod  show wrapperSh/1.0                       # 9
+     runLmod  refresh                                  #10
+     runLmod  list                                     #11
+     runLmod  --mt                                     #12
+     runLmod  unload wrapperSh/1.0                     #13
+     runLmod  load   brokenSh/1.0                      #14
+     runLmod  load   wrapperSh/1.0                     #15
+     runBase  type banner                              #16
+     runLmod  save                                     #17
+     runLmod  restore                                  #18
+     runLmod  --mt                                     #19
+     runBase  type banner                              #20
+
+     unsetMT
+
+     MODULEPATH=$(outputDir)/mf; export MODULEPATH
+     mkdir -p $MODULEPATH/A
+
+     buildSh2MF  --to TCL   $(testDir)/tstScript.sh > $MODULEPATH/A/1.0
+     runLmod load A                                    #21
+     runLmod list                                      #22
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
