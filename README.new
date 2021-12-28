@@ -10,6 +10,4 @@ Lmod 8.6+
 	    * Issue #551: Fix the output of level 2 spider output to not mix the description and help from
 	      different modulefiles
             * Issue #552: Send mt and mname as part of table to isVisibleHook
-
-              
-   
+   (8.6.3)  * Fix bugs in tcl2lua.tcl and MF_TCL.lua w.r.t. shell function output.
