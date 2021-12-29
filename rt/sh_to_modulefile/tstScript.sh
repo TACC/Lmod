@@ -25,6 +25,13 @@ if [ "${NO_SHELL_FUNCTIONS:-}" != yes ]; then
      echo "arg1: $1"
    }  
 
+   junk ()
+   {
+     if [ -n "${ZSH_VERSION:-}" ]; then
+       echo "junk"
+     fi
+   }
+
    banner ()
    {
      local str="$1"
