@@ -28,7 +28,7 @@ if [ "${NO_SHELL_FUNCTIONS:-}" != yes ]; then
    junk ()
    {
      if [ -n "${ZSH_VERSION:-}" ]; then
-       echo "junk"
+       \echo "junk"
      fi
    }
 
