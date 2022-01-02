@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.2  2021-12-21 19:39 -06:00
+Modules based on Lua: Version 8.6.3  2021-12-28 15:43 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -46,6 +46,11 @@ set_shell_function("banner"," \
 set_shell_function("fooFunc"," \
     echo \"arg1: $1\"\
 ","")
+set_shell_function("junk"," \
+    if [ -n \"${ZSH_VERSION:-}\" ]; then\
+        \\echo \"junk\";\
+    fi\
+","")
 setenv("MY_NAME","unknown")
  source_sh("bash","ProjectDIR/rt/sh_to_modulefile/second.sh arg1")
 setenv("SECOND","FOO_BAR")
@@ -73,6 +78,11 @@ set_shell_function("banner"," \
 set_shell_function("fooFunc"," \
     echo \"arg1: $1\"\
 ","")
+set_shell_function("junk"," \
+    if [ -n \"${ZSH_VERSION:-}\" ]; then\
+        \\echo \"junk\";\
+    fi\
+","")
 setenv("MY_NAME","tstScript.sh")
  source_sh("bash","ProjectDIR/rt/sh_to_modulefile/second.sh arg1")
 setenv("SECOND","FOO_BAR")
@@ -82,12 +92,16 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing refresh
 ===========================
 ===========================
 step 11
+type junk
+===========================
+===========================
+step 12
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) wrapperSh/1.0
 ===========================
-step 12
+step 13
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --mt
 ===========================
 _ModuleTable_ = {
@@ -113,6 +127,10 @@ _ModuleTable_ = {
     echo \\"${RED}${str}${NONE}\\"\\
 ","")]], [[set_shell_function("fooFunc"," \\
     echo \\"arg1: $1\\"\\
+","")]], [[set_shell_function("junk"," \\
+    if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\
+        \\\\echo \\"junk\\";\\
+    fi\\
 ","")]],
         },
       },
@@ -129,11 +147,11 @@ _ModuleTable_ = {
   systemBaseMPATH = "ProjectDIR/rt/sh_to_modulefile/mf",
 }
 ===========================
-step 13
+step 14
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload wrapperSh/1.0
 ===========================
 ===========================
-step 14
+step 15
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load brokenSh/1.0
 ===========================
 Lmod has detected the following error: Error in script "ProjectDIR/rt/sh_to_modulefile/broken.sh":
@@ -142,25 +160,25 @@ While processing the following module(s):
     Module fullname  Module Filename
     brokenSh/1.0     ProjectDIR/rt/sh_to_modulefile/mf/brokenSh/1.0.lua
 ===========================
-step 15
+step 16
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load wrapperSh/1.0
 ===========================
 ===========================
-step 16
+step 17
 type banner
 ===========================
 ===========================
-step 17
+step 18
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 Saved current collection of modules to: "default"
 ===========================
-step 18
+step 19
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 Restoring modules from user's default
 ===========================
-step 19
+step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --mt
 ===========================
 _ModuleTable_ = {
@@ -186,6 +204,10 @@ _ModuleTable_ = {
     echo \\"${RED}${str}${NONE}\\"\\
 ","")]], [[set_shell_function("fooFunc"," \\
     echo \\"arg1: $1\\"\\
+","")]], [[set_shell_function("junk"," \\
+    if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\
+        \\\\echo \\"junk\\";\\
+    fi\\
 ","")]],
         },
       },
@@ -202,15 +224,15 @@ _ModuleTable_ = {
   systemBaseMPATH = "ProjectDIR/rt/sh_to_modulefile/mf",
 }
 ===========================
-step 20
+step 21
 type banner
 ===========================
 ===========================
-step 21
+step 22
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A
 ===========================
 ===========================
-step 22
+step 23
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
