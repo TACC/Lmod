@@ -11,3 +11,5 @@ Lmod 8.6+
 	      different modulefiles
             * Issue #552: Send mt and mname as part of table to isVisibleHook
    (8.6.3)  * Fix bugs in tcl2lua.tcl and MF_TCL.lua w.r.t. shell function output.
+   (8.6.4)  * Must handle sh_to_modulefile to TCL where \export in shell script is used.
+   
