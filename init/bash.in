@@ -22,14 +22,17 @@ fi
 #
 # Prepend the FPATH variable for ksh functions when ssh is being used,
 # except for zsh as it breaks things there.
-SUPPORT_KSH="@support_ksh@" 
+
+if [ -z "${SUPPORT_KSH}" ]; then
+  SUPPORT_KSH="@support_ksh@"
+fi
+
 if [ $SUPPORT_KSH = yes -o -n "${SSH_CLIENT+x}" -o -n "${KSH_VERSION+x}" ]; then
   if [ -z "${ZSH_VERSION+x}" -a -z "${__LMOD_SET_FPATH+x}" ]; then
     export FPATH=$(@PKGV@/libexec/addto FPATH @PKGV@/init/ksh_funcs)
     export __LMOD_SET_FPATH=1
   fi
 fi
-unset SUPPORT_KSH
 
 export LMOD_ROOT=@lmod_root@
 export LMOD_PKG=@PKGV@

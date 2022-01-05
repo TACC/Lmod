@@ -21,6 +21,7 @@ Notes for 2022-01-11 Lmod Zoom Mtg:
     The wanted mpi modules sets it then the unwanted one deletes it
 ** Since all loaded modules are known the load() can be ignored
 
+* Rule: The user env should be the same whether using a collection or loaded on command line.
 * Problem: Meta modules can later add a new module
   Or add paths to MODULEPATH
 
@@ -52,3 +53,14 @@ Notes for 2022-01-11 Lmod Zoom Mtg:
      -impi removes it.
      Shared env. var is NOT set in user env.
      
+
+* So Mgr Load.  (ignore load() function!)
+* Checking that module contents have not changed in ways that matter
+** Track changes to MODULEPATH
+** Track load() and load() like function
+** ignore all other changes
+* Compute sha1 of each module during save step
+* Compute sha1 of each module during restore step
+* Die if ALL don't match
+* This means reorder will cause a diff in sha1
+  
