@@ -1,0 +1,337 @@
+\documentclass{beamer}
+
+% You can also use a 16:9 aspect ratio:
+%\documentclass[aspectratio=169]{beamer}
+\usetheme{TACC16}
+
+% It's possible to move the footer to the right:
+%\usetheme[rightfooter]{TACC16}
+
+\begin{document}
+\title[Lmod]{How Collections work}
+\author{Robert McLay} 
+\date{Jan. 11, 2022}
+
+% page 1
+\frame{\titlepage} 
+
+
+% page 2
+\begin{frame}{Collections}
+  \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
+  \begin{itemize}
+    \item What: A saved list of modules that can be restored
+    \item Rules on what gets loaded.
+    \item How collections work
+    \item General Principle: Restoring collection is the same as by hand
+    \item Conclusions
+    \item Future Topics
+  \end{itemize}
+\end{frame}
+
+% page 3
+\begin{frame}{Basics}
+  \begin{itemize}
+    \item As many named collections as you like.
+    \item A collection named ``default'' overrides site default
+      (assuming correct startup setup)
+    \item Collection replace current modules not an addition.
+    \item \texttt{module load foo/1.1} always load \texttt{foo/1.1}
+      indepentent of current default.
+    \item \texttt{module load foo} always restores the default
+      \texttt{foo}
+    \item Unless LMOD_PIN_VERSION=yes is set. 
+    \item In this case Lmod restore version when stored.
+  \end{itemize}
+\end{frame}
+
+
+% page 4
+\begin{frame}{Story: How collections started.}
+  \begin{itemize}
+    \item A colleague, Bill Barth, asked if there could be a way to
+      save the current list of modules.
+    \item This was a time when the default modules were not great.
+    \item This idea sounded simple to implement but ...
+    \item There be dragons in that idea.
+    \item It took more than a year to work out the ``right way'' to do it.
+  \end{itemize}
+\end{frame}
+
+% page 5
+\begin{frame}{Collection original implementation}
+  \begin{itemize}
+    \item Save the module table into a file ($\sim$/.lmod.d/default)
+    \item Restore steps:
+      \begin{enumerate}
+        \item Purge ALL modules (including sticky ones)
+        \item set \$MODULEPATH to one stored in collection
+        \item Loop over list of modules in collection (They are in
+          load order)
+        \item Remove module not in the list {\color{red} (DRAGONS!!)}
+      \end{enumerate}
+    \item This does work right in certain cases.
+  \end{itemize}
+\end{frame}
+
+% page 6
+\begin{frame}{Why this does not work}
+  \begin{itemize}
+    \item Assume simple 4 module system: Meta, icc, impi, openmpi
+    \item Default module: Meta (which loads icc, impi)
+    \item User collection: Meta, icc, openmpi
+    \item Assume no family() functions in use
+  \end{itemize}
+\end{frame}
+
+% page 7
+\begin{frame}[fragile]
+  \frametitle{Why this does not work (II)}
+    {\small
+\begin{semiverbatim}
+User does this:
+   \$ ml purge; ml Meta; ml -impi openmpi
+Original Collection impl:
+   3a) load Meta -> load Meta, icc impi
+   3b) load icc (again)
+   3c) load openmpi
+   4a) unload impi
+\end{semiverbatim}
+    }
+\end{frame}
+
+% page 8
+\begin{frame}{Why this does not work (III)}
+  \begin{itemize}
+    \item At our site, both icc and openmpi set \$MPI\_MODE
+    \item \$MPI\_MODE is used in our local mpirun command
+    \item Step 4a unload impi which unset \$MPI\_MODE
+    \item Disaster!!!, User cannot launch mpi programs.
+  \end{itemize}
+\end{frame}
+
+% page 9
+\begin{frame}{Why this does not work (IV)}
+  \begin{itemize}
+    \item The problem is that setenv() is not pushenv()
+    \item Thought about making all setenv() work like pushenv()
+    \item Ultimately came up with a different design. 
+    \item It took several iterations to get here.
+  \end{itemize}
+\end{frame}
+
+% page 10
+\begin{frame}{Current collection restore implementation}
+  \begin{enumerate}
+    \item Purge ALL modules
+    \item Load all modules in list order BUT ignore load() like
+      functions inside module
+  \end{enumerate}
+\end{frame}
+
+% page 11
+\begin{frame}[fragile]
+  \frametitle{How does this help?}
+    {\small
+\begin{semiverbatim}
+   
+   3a) load Meta -> load Meta only (ignore loading icc, impi)
+   3b) load icc
+   3c) load openmpi
+
+=> no modules to unload!!
+\end{semiverbatim}
+    }
+\end{frame}
+
+% page 11
+\begin{frame}{\$PATH and \$TARG}
+  \begin{itemize}
+    \item settarg inserts \$TARG into \$PATH.
+    \item dbg $\Rightarrow$ PATH=OBJ/\_x86\_64\_dbg:$\sim$/bin:.:/usr/local/bin:/bin
+    \item opt $\Rightarrow$ PATH=OBJ/\_x86\_64\_opt:$\sim$/bin:.:/usr/local/bin:/bin
+  \end{itemize}
+\end{frame}
+
+% page 12
+\begin{frame}{\$PATH searching can be dynamic!}
+  \begin{itemize}
+    \item Normally shells build a table of all exec's in path
+    \item rehash can be required for new exec's
+    \item But relative paths are evaluated \emph{everytime}.
+  \end{itemize}
+\end{frame}
+
+% page 13
+\begin{frame}{The settarg module defines the following commands}
+  \begin{itemize}
+    \item \texttt{dbg} $\Rightarrow$ debug
+    \item \texttt{opt} $\Rightarrow$ optimize
+    \item \texttt{mdbg} $\Rightarrow$ max debug
+    \item \texttt{empty} $\Rightarrow$ no build scenario 
+    \item \texttt{cdt}   $\Rightarrow$ cd \$TARG
+    \item \texttt{targ}   $\Rightarrow$ echo \$TARG
+    \item \texttt{settarg --stt} $\Rightarrow$ settarg state stored in
+      environment
+    \item \texttt{settarg --report} $\Rightarrow$ how settarg is configured.
+  \end{itemize}
+\end{frame}
+
+% page 14
+\begin{frame}{How is settarg connected to Lmod?}
+  \begin{itemize}
+    \item The settarg command is part of the module command.
+    \item module () \{ eval \$(\$LMOD\_CMD bash "\$@") \&\&
+             eval \$(\$\{LMOD\_SETTARG\_CMD:-:\} -s sh) \}
+    \item Normally \$LMOD\_SETTARG\_CMD is ``:'' or ``'' so 2nd cmd is a
+      no-op.
+    \item With settarg loaded it becomes: \$LMOD\_DIR/settarg\_cmd
+  \end{itemize}
+\end{frame}
+
+% page 15
+\begin{frame}{What do dbg/opt/mdbg do?}
+  \begin{itemize}
+    \item They all set \$TARG\_BUILD\_SCENARIO
+    \item It is up to the Makefile to interpret
+    \item dbg $\Rightarrow$ CFLAGS = -g -O0
+    \item opt $\Rightarrow$ CFLAGS = -O3
+    \item mdbg $\Rightarrow$ CFLAGS = -g -O0 and array subscript checking
+  \end{itemize}
+\end{frame}
+
+% page 16
+\begin{frame}{Show examples}
+  \begin{itemize}
+    \item dbg/opt/mdbg $\Rightarrow$ \$TARG, \$PATH
+    \item ml -impi $\Rightarrow$ \$TARG
+    \item ml -intel $\Rightarrow$ \$TARG
+  \end{itemize}
+\end{frame}
+
+% page 17
+\begin{frame}{Example w/o Makefile changes}
+  \begin{itemize}
+    \item cd xalt; mkdir -p \$TARG; cdt; 
+    \item ../../configure ...
+    \item make install
+  \end{itemize}
+\end{frame}
+
+% page 18
+\begin{frame}[fragile]
+  \frametitle{contrib/settarg/make\_example/Makefile.simple}
+    {\tiny
+\begin{semiverbatim}
+ifeq (\$(TARG\_COMPILER\_FAMILY),gcc)
+   CC := gcc
+endif
+ifeq (\$(TARG\_COMPILER\_FAMILY),intel)
+   CC := icc
+endif
+ifneq (\$(TARG),)
+  override O\_DIR := \$(TARG)/
+endif
+CFLAGS := -O3
+ifeq (\$(TARG\_BUILD_SCENARIO),dbg)
+   CFLAGS := -g -O0
+endif 
+EXEC := \$(O\_DIR)hello
+SRC  := main.c hello.c
+OBJS := \$(O\_DIR)main.o \$(O\_DIR)hello.o
+
+all: \$(O\_DIR) \$(EXEC)
+\$(O\_DIR):
+        mkdir -p \$(O\_DIR)
+\$(EXEC): \$(OBJS)
+        \$(LINK.c) -o \$@ \$^
+
+\$(O\_DIR)%.o : %.c
+        \$(COMPILE.c) -o \$@ -c \$<
+
+\$(O\_DIR)main.o : main.c hello.h
+\$(O\_DIR)hello.o: hello.c hello.h
+\end{semiverbatim}
+    }
+\end{frame}
+
+% page 19
+\begin{frame}{Show examples with Makefile.simple }
+  \begin{itemize}
+    \item dbg; make -f Makefile.simple; type hello
+    \item opt; make -f Makefile.simple; type hello
+    \item ml gcc; dbg; make -f Makefile.simple; type hello
+  \end{itemize}
+\end{frame}
+
+% page 20
+\begin{frame}{Show examples with Makefile }
+  \begin{itemize}
+    \item rm -rf OBJ/
+    \item dbg; make -f Makefile; type hello
+    \item opt; make -f Makefile; type hello
+    \item ml gcc; dbg; make -f Makefile.simple; type hello
+  \end{itemize}
+\end{frame}
+
+% page 21
+\begin{frame}{Personal/Directory setting of settarg}
+  \begin{itemize}
+    \item Loading order of all settarg config files:
+    \item System settarg lmod/settarg/settarg\_rc.lua
+    \item $\sim$/.settarg.lua
+    \item Current or parent directory .settarg.lua
+    \item all are loaded with over-write of table entries.
+  \end{itemize}
+\end{frame}
+
+% page 22
+\begin{frame}{settarg --report}
+  \begin{itemize}
+    \item Reports the current state of rules for settarg
+    \item Show example with a directory .settarg.lua
+  \end{itemize}
+\end{frame}
+
+% page 23
+\begin{frame}[fragile]
+  \frametitle{a directory .settarg.lua}
+    {\small
+\begin{semiverbatim}
+TargetList  = \{ "mach", "build\_scenario", "compiler", 
+                   "mpi","solver", "file\_io "\}
+\end{semiverbatim}
+    }
+\end{frame}
+
+% page 24
+\begin{frame}{Show example of \$TARG with above .settarg.lua}
+  \begin{itemize}
+    \item \$TARG 
+    \item cd w/dao; $\Rightarrow$ \$TARG
+    \item ml petsc; $\Rightarrow$ \$TARG
+  \end{itemize}
+\end{frame}
+
+% page 25
+\begin{frame}{Conclusions for Settarg modules}
+  \begin{itemize}
+    \item A way to switch between different kinds of builds: dbg/opt/mdbg
+    \item Avoiding make clean in-between.
+    \item Highly customizable for your needs.
+    \item Can be made to work where you have settarg and other don't
+    \item More detail: https://lmod.readthedocs.io/en/latest/310\_settarg.html
+  \end{itemize}
+\end{frame}
+
+% page 26
+\begin{frame}{Future Topics}
+  \begin{itemize}
+    \item Lmod Testing System?
+    \item More internals of Lmod?
+    \item collections?
+    \item Guest Presentation of special issues?
+  \end{itemize}
+\end{frame}
+
+\end{document}
