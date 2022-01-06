@@ -12,8 +12,6 @@ Lmod 8.6+
             * Issue #552: Send mt and mname as part of table to isVisibleHook
    (8.6.3)  * Fix bugs in tcl2lua.tcl and MF_TCL.lua w.r.t. shell function output.
    (8.6.4)  * Must handle sh_to_modulefile to TCL where \export in shell script is used.
-W.I.P
    (8.6.5)  * Issue #555: Allow bash users to export SUPPORT_KSH=no so that they can avoid bash startup
               setting FPATH
-              
-
+	    * Issue #553: Update env_modules_python.py.
