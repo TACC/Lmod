@@ -43,4 +43,4 @@ def module(command, *arguments, **kwargs):
     if 'show_environ_updates' in kwargs:
         print(stdout.decode())
     exec(stdout.decode())
-    return status, stderr.decode())
+    return status, stderr.decode()
