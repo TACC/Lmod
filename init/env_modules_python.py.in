@@ -32,6 +32,7 @@ def module(command, *arguments, **kwargs):
         A += list(arguments)
 
     proc           = Popen(A, stdout=PIPE, stderr=PIPE)
+    status         = proc.returncode 
     stdout, stderr = proc.communicate()
     err_out        = sys.stderr
     if (os.environ.get('LMOD_REDIRECT','@redirect@') != 'no'):
@@ -42,3 +43,4 @@ def module(command, *arguments, **kwargs):
     if 'show_environ_updates' in kwargs:
         print(stdout.decode())
     exec(stdout.decode())
+    return status, stderr.decode())

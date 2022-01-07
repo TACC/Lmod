@@ -593,8 +593,8 @@ proc remove-property { var val } {
 }
 
 proc doubleQuoteEscaped {text} {
-    regsub -all {([^\\]|^)\\([a-zA-Z0-9])} $text {\1\\\\\2} text
     regsub -all "\"" $text "\\\"" text
+    regsub -all {([^\\]|^)\\([a-zA-Z0-9])} $text {\1\\\\\2} text
     regsub -all \n   $text "\\\n"  text
     return $text
 }
