@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.3  2021-12-28 15:43 -06:00
+Modules based on Lua: Version 8.6.4  2022-01-02 15:26 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -51,6 +51,16 @@ set_shell_function("junk"," \
         \\echo \"junk\";\
     fi\
 ","")
+set_shell_function("my_help"," \
+    echo \"do not forget \\\"foo\\\"\"\
+","")
+set_shell_function("save_args"," \
+    for arg in \"$@\";\
+    do\
+        printf \"%s\\n\" \"$arg\" | sed -e \"s/'/'\\\\\\\\''/g\" -e \"1s/^/'/\" -e \"\\$s/\\$/' \\\\\\\\/\";\
+    done;\
+    echo \" \"\
+","")
 setenv("MY_NAME","unknown")
  source_sh("bash","ProjectDIR/rt/sh_to_modulefile/second.sh arg1")
 setenv("SECOND","FOO_BAR")
@@ -82,6 +92,16 @@ set_shell_function("junk"," \
     if [ -n \"${ZSH_VERSION:-}\" ]; then\
         \\echo \"junk\";\
     fi\
+","")
+set_shell_function("my_help"," \
+    echo \"do not forget \\\"foo\\\"\"\
+","")
+set_shell_function("save_args"," \
+    for arg in \"$@\";\
+    do\
+        printf \"%s\\n\" \"$arg\" | sed -e \"s/'/'\\\\\\\\''/g\" -e \"1s/^/'/\" -e \"\\$s/\\$/' \\\\\\\\/\";\
+    done;\
+    echo \" \"\
 ","")
 setenv("MY_NAME","tstScript.sh")
  source_sh("bash","ProjectDIR/rt/sh_to_modulefile/second.sh arg1")
@@ -131,6 +151,14 @@ _ModuleTable_ = {
     if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\
         \\\\echo \\"junk\\";\\
     fi\\
+","")]], [[set_shell_function("my_help"," \\
+    echo \\"do not forget \\\\\\"foo\\\\\\"\\"\\
+","")]], [[set_shell_function("save_args"," \\
+    for arg in \\"$@\\";\\
+    do\\
+        printf \\"%s\\\\n\\" \\"$arg\\" | sed -e \\"s/'/'\\\\\\\\\\\\\\\\''/g\\" -e \\"1s/^/'/\\" -e \\"\\\\$s/\\\\$/' \\\\\\\\\\\\\\\\/\\";\\
+    done;\\
+    echo \\" \\"\\
 ","")]],
         },
       },
@@ -208,6 +236,14 @@ _ModuleTable_ = {
     if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\
         \\\\echo \\"junk\\";\\
     fi\\
+","")]], [[set_shell_function("my_help"," \\
+    echo \\"do not forget \\\\\\"foo\\\\\\"\\"\\
+","")]], [[set_shell_function("save_args"," \\
+    for arg in \\"$@\\";\\
+    do\\
+        printf \\"%s\\\\n\\" \\"$arg\\" | sed -e \\"s/'/'\\\\\\\\\\\\\\\\''/g\\" -e \\"1s/^/'/\\" -e \\"\\\\$s/\\\\$/' \\\\\\\\\\\\\\\\/\\";\\
+    done;\\
+    echo \\" \\"\\
 ","")]],
         },
       },
