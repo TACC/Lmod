@@ -40,7 +40,7 @@ def module(command, *arguments, **kwargs):
 
     print(stderr.decode(),file=err_out)
     
-    if 'show_environ_updates' in kwargs:
+    if ('show_environ_updates' in kwargs):
         print(stdout.decode())
     exec(stdout.decode())
     return status, stderr.decode()
