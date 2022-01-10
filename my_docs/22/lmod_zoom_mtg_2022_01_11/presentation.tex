@@ -8,7 +8,7 @@
 %\usetheme[rightfooter]{TACC16}
 
 \begin{document}
-\title[Lmod]{How Collections work}
+\title[Lmod]{How Collections work \& ml spider output}
 \author{Robert McLay} 
 \date{Jan. 11, 2022}
 
@@ -40,7 +40,7 @@
       independent of current default.
     \item \texttt{module load foo} always restores the default
       \texttt{foo}
-    \item Unless LMOD_PIN_VERSION=yes is set. 
+    \item Unless LMOD\_PIN\_VERSION=yes is set. 
     \item In this case Lmod restore module version when stored.
   \end{itemize}
 \end{frame}
@@ -51,7 +51,7 @@
   \begin{itemize}
     \item A colleague, Bill Barth, asked if there could be a way to
       save the current list of modules.
-    \item This was a time when the default modules were not great.
+    \item The default modules were not what I wanted.
     \item This idea sounded simple to implement but ...
     \item There be dragons in that idea.
     \item It took more than a year to work out the ``right way'' to do it.
@@ -59,7 +59,7 @@
 \end{frame}
 
 % page 5
-\begin{frame}{Collection original implementation}
+\begin{frame}{Original Implementation for Collections}
   \begin{itemize}
     \item Save the module table into a file ($\sim$/.lmod.d/default)
     \item Restore steps:
@@ -90,9 +90,9 @@
     {\small
 \begin{semiverbatim}
 User does this:
-   \$ ml purge; ml Meta; ml -impi openmpi
+   \$ ml purge; ml Meta; ml -impi openmpi; ml save
 Original Collection impl:
-   3a) load Meta -> load Meta, icc impiih
+   3a) load Meta -> load Meta, icc impi
    3b) load icc (again)
    3c) load openmpi
    4a) unload impi
@@ -106,13 +106,14 @@ Original Collection impl:
     \item At our site, both icc and openmpi set \$MPI\_MODE
     \item \$MPI\_MODE is used in our local mpirun command
     \item Step 4a unload impi which unset \$MPI\_MODE
-    \item Disaster!!!, User cannot launch mpi programs.
+    \item Disaster!!! $\Rightarrow$ User cannot launch mpi programs.
   \end{itemize}
 \end{frame}
 
 % page 9
 \begin{frame}{Why this does not work (IV)}
   \begin{itemize}
+    \item If any modules share an env. var. $\Rightarrow$ TROUBLE!
     \item The problem is that setenv() is not pushenv()
     \item Thought about making all setenv() work like pushenv()
     \item Ultimately came up with a different design. 
@@ -135,9 +136,10 @@ Original Collection impl:
     {\small
 \begin{semiverbatim}
    
-   3a) load Meta -> load Meta only (ignore loading icc, impi)
-   3b) load icc
-   3c) load openmpi
+3a) load Meta
+    -> load Meta only (ignore load("icc", "impi"))
+3b) load icc
+3c) load openmpi
 
 => no modules to unload!!
 \end{semiverbatim}
@@ -148,10 +150,10 @@ Original Collection impl:
 \begin{frame}{What are the drawbacks to the solution?}
   \begin{itemize}
     \item This works fine until ``Meta'' gets another ``load()''
-    \item Since all load() are ignored, the user doesn't get the same
-      modules
+    \item In collections, all load() are ignored,
+      the user doesn't get the same modules
     \item Solution: error out when modules get new load() or changes
-      to \$MODULEPATH.
+      via prepend\_path() or append\_path() to \$MODULEPATH.
   \end{itemize}
 \end{frame}
 
@@ -172,10 +174,10 @@ Original Collection impl:
     \item set \$MODULEPATH to one stored in collection
     \item Loop over list of modules in collection (They are in
       load order)
-    \item Compute sha1 of each module with only load() and changes to
+    \item Compute sha1sum of each module with only load() and changes to
       \$MODULEPATH shown
-    \item Compare sha1 value with stored value in collection
-    \item Error out if sha1 values do not match.
+    \item Compare sha1sum value with stored value in collection
+    \item Error out if sha1sum values do not match.
   \end{enumerate}
 \end{frame}
 
