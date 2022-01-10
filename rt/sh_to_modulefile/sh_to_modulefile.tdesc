@@ -32,17 +32,14 @@ testdescript = {
      runLmod  load wrapperSh/1.0                       # 8
      runLmod  show wrapperSh/1.0                       # 9
      runLmod  refresh                                  #10
-     runBase  type junk                                #11
      runLmod  list                                     #12
      runLmod  --mt                                     #13
      runLmod  unload wrapperSh/1.0                     #14
      runLmod  load   brokenSh/1.0                      #15
      runLmod  load   wrapperSh/1.0                     #16
-     runBase  type banner                              #17
      runLmod  save                                     #18
      runLmod  restore                                  #19
      runLmod  --mt                                     #20
-     runBase  type banner                              #21
 
      unsetMT
 
