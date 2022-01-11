@@ -331,3 +331,20 @@ How to edit a modulefile?
        function edit_modulefile () {
           $EDITOR $(module --redirect --location $1)
        }
+
+
+If my startup shell is bash or tcsh and I start zsh, why do I get a
+message that is like: "/etc/zsh/zshrc:48: compinit: function definition file not found"
+
+   Lmod supports both zsh and ksh. Both these shell use shell
+   var. FPATH but in very different ways.  The issue is that some bash
+   or tcsh users run ksh scripts and need access to the module
+   command. In the K-shell, the env. var. FPATH is exported and is the
+   path to where the module shell function is found.  Z-shell also
+   uses FPATH to point to tool like compinit and others.  By exporting
+   FPATH, Z-shell does not change the value of FPATH which means that
+   the zsh user can not find all the functions that make it work.
+
+   The solution is to either add "export SUPPORT_KSH=no" or "unset FPATH" in
+   your bash startup files before "exec zsh".
+
