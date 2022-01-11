@@ -77,9 +77,9 @@
 % page 6
 \begin{frame}{Why this does not work}
   \begin{itemize}
-    \item Assume simple 4 module system: Meta, icc, impi, openmpi
-    \item Default module: Meta (which loads icc, impi)
-    \item User collection: Meta, icc, openmpi
+    \item Assume simple 4 module system: Meta, intel, impi, openmpi
+    \item Default module: Meta (which loads intel, impi)
+    \item User collection: Meta, intel, openmpi
     \item Assume no family() functions in use
   \end{itemize}
 \end{frame}
@@ -92,8 +92,8 @@
 User does this:
    \$ ml purge; ml Meta; ml -impi openmpi; ml save
 Original Collection impl:
-   3a) load Meta -> load Meta, icc impi
-   3b) load icc (again)
+   3a) load Meta -> load Meta, intel impi
+   3b) load intel (again)
    3c) load openmpi
    4a) unload impi
 \end{semiverbatim}
@@ -103,7 +103,7 @@ Original Collection impl:
 % page 8
 \begin{frame}{Why this does not work (III)}
   \begin{itemize}
-    \item At our site, both icc and openmpi set \$MPI\_MODE
+    \item At our site, both impi and openmpi set \$MPI\_MODE
     \item \$MPI\_MODE is used in our local mpirun command
     \item Step 4a unload impi which unset \$MPI\_MODE
     \item Disaster!!! $\Rightarrow$ User cannot launch mpi programs.
@@ -137,8 +137,8 @@ Original Collection impl:
 \begin{semiverbatim}
    
 3a) load Meta
-    -> load Meta only (ignore load("icc", "impi"))
-3b) load icc
+    -> load Meta only (ignore load("intel", "impi"))
+3b) load intel
 3c) load openmpi
 
 => no modules to unload!!
