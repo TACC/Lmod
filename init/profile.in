@@ -83,24 +83,19 @@ else
 fi
 my_shell=$($EXPR_CMD    "$my_shell" : '-*\(.*\)')
 my_shell=$($BASENAME_CMD $my_shell)
-found=""
-for i in bash sh zsh; do
-  if [ "${my_shell:-}" = $i ]; then
-    found=$i
-    break
-  fi
-done
 
-if [ -z "$found" ]; then
-  my_shell=sh
-fi
+case ${my_shell} in
+   bash|zsh|sh) ;;
+   ksh*) my_shell="ksh";;
+   *) my_shell="sh";;
+esac
 
 if [ -f @PKGV@/init/$my_shell ]; then
    .    @PKGV@/init/$my_shell >/dev/null # Module Support
 else
    .    @PKGV@/init/sh        >/dev/null # Module Support
 fi
-unset my_shell PS_CMD EXPR_CMD BASENAME_CMD MODULEPATH_INIT LMOD_ALLOW_ROOT_USE READLINK_CMD found
+unset my_shell PS_CMD EXPR_CMD BASENAME_CMD MODULEPATH_INIT LMOD_ALLOW_ROOT_USE READLINK_CMD
 
 # Local Variables:
 # mode: shell-script
