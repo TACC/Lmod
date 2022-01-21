@@ -1143,7 +1143,8 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
             if (fullVT[kk] == nil) then
                key         = sn
                Description = v.Description
-               fullVT[kk]  = { fullName = v.fullName, Category = v.Category, propT = v.propT }
+               fullVT[kk]  = { fullName = v.fullName, Category = v.Category,
+                               propT = v.propT, parentAA = v.parentAA }
             end
             if (kk > kk0) then
                kk0      = kk

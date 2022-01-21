@@ -16,4 +16,8 @@ Lmod 8.6+
               setting FPATH
 	    * Issue #553: Update env_modules_python.py.
             * Issue #554: fixed source_sh of spack setup-env.sh script.
-            
+   (8.6.6)  * Issue #555: Remove export SUPPORT_KSH=no hack as it does not work. The file init/bash is
+              read during system startup (/etc/profile.d/*.sh) before user bash startup files are read
+              (~/.bashrc etc).  Updated FAQ entry to say that bash users starting zsh must unset FPATH.
+            * Issue #382: Add parentAA to fullVT to pass to spider_decoration hook
+	    
