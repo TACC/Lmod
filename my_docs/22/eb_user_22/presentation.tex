@@ -30,6 +30,7 @@
 % page 3
 \begin{frame}{Features}
   \begin{itemize}
+    \item Current version is Lmod 8.6.6
     \item Reads for TCL and Lua modulefiles
     \item One name rule.
     \item Support Software Hierarchy (but not required!)
@@ -39,11 +40,12 @@
     \item Optional Tracking: What modules are loaded?
     \item Many other features: ml, collections, hooks,
       extended default, nag ...
+    \item Google analytics report about 1000 user read docs.
   \end{itemize}
 \end{frame}
 
 % page 4
-\begin{frame}{\texttt{Recent Feature of Lmod 8+}
+\begin{frame}{\texttt{Recent Feature of Lmod 8+}}
   \begin{itemize}
     \item The TCL interpreter is now (optionally) embedded with Lmod.
     \item \texttt{depends\_on()}
@@ -72,7 +74,7 @@
   \end{itemize}
 \end{frame}
 
-% page 8
+% page 7
 \begin{frame}{extensions() function (II)}
   \begin{itemize}
     \item Users can use spider to find extensions.
@@ -80,7 +82,7 @@
   \end{itemize}
 \end{frame}
 
-% page 9
+% page 8
 \begin{frame}{Checking your module tree 8.4.3+}
   \begin{itemize}
     \item New command added: \texttt{\$LMOD\_DIR/check\_module\_tree\_syntax}
@@ -91,16 +93,16 @@
   \end{itemize}
 \end{frame}
 
-% page 10
+% page 9
 \begin{frame}{Lmod 8.6+ Features}
   \begin{itemize}
     \item New Features now reported:
-      https://lmod.readthedocs.io/en/latest/025_new.html
+      https://lmod.readthedocs.io/en/latest/025\_new.html
     \item \texttt{module overview}
     \item New config file: /etc/lmod/lmod\_config.lua
-    \item LMOD_QUARANTINE_VARS
-    \item updates to sh_to_modulefile
-    \item source_sh(): source a shell script inside a modulefile
+    \item LMOD\_QUARANTINE\_VARS
+    \item updates to sh\_to\_modulefile
+    \item source\_sh(): source a shell script inside a modulefile
   \end{itemize}
 \end{frame}
 
@@ -155,7 +157,7 @@ sandbox\_registration \{ foo = foo \}
 % page 13
 \begin{frame}{Sourcing shell scripts inside a modulefile w/ source\_sh()}
   \begin{itemize}
-    \item This was implemented in Tmod 4.7
+    \item This was first implemented in Tmod 4.7
     \item Xavier told me that he did this during Covid Lockdown in France.
     \item Lmod 8.6 re-implements this feature in a similar way.
     \item It knows about env. vars and shell functions and aliases.
@@ -217,49 +219,53 @@ sandbox\_registration \{ foo = foo \}
     }
 \end{frame}
 
-% page 15
+% page 16
 \begin{frame}[fragile]
   \frametitle{Interesting Bug in Bash and shell functions}
     {\tiny
 \begin{semiverbatim}
-    set_shell_function("_some_spack_func" "\
-       local ARG1=\$1\
-       if [[ \$ARG1 == {\color{red}[a-z]*} ]]; then\
-         echo ...\
-         fi\
+    set_shell_function("_some_spack_func" "\textbackslash
+       local ARG1=\$1\textbackslash
+       if [[ \$ARG1 == {\color{red}[a-z]*} ]]; then\textbackslash
+         echo ...\textbackslash
+       fi\textbackslash
     ","")
 \end{semiverbatim}
     }
+  \begin{itemize}
+    \item This works fine in zsh but not bash
+    \item All bash versions expand [a-z]\** to files in current directory
+    \item I see no way to fix this
+    \item I am going to change the default to ignore {\color{blue}\_func() \{ \}}
+  \end{itemize}
 \end{frame}
 
+% page 17
+\begin{frame}{Lmod Monthly Zoom Mtg}
+  \begin{itemize}
+    \item Previous Topics
+      \begin{enumerate}
+        \item Lmod Hooks Discussion
+        \item Debugging Modulefiles
+        \item Lmod 8.6 new features
+        \item Settarg and integrating Lmod with build system
+        \item How Module collections works 
+      \end{enumerate}
+    \item Future Topics
+      \begin{enumerate}
+        \item How to get current module info into hooks
+        \item How Lmod testing works
+      \end{enumerate}
+  \end{itemize}
+\end{frame}
 
-
-
-
-
-% page 16
+% page 18
 \begin{frame}{Future Work}
   \begin{itemize}
     \item Lmod can optionally track usage.
     \item Future: Make it easier to not remember loads after 1 year.
-    \item Get Lmod to support the break function.
-    \item Support for Tmod4's advanced version specifiers
-      \texttt{module load foo@2.4:2.8}
-    \item A monthly discussion group?
+    \item A monthly discussion group? (YES!!)
   \end{itemize}
-\end{frame}
-
-
-% page 17
-\begin{frame}[fragile]
-    \frametitle{Lmod Doc usage by Country}
-    \center{\includegraphics[width=.9\textwidth]{Lmod_usage_by_country}}
-\end{frame}
-
-% page 18
-\begin{frame}[fragile]
-    \frametitle{Lmod Doc usage by City}
-    \center{\includegraphics[width=.9\textwidth]{Lmod_usage_by_city}}
 \end{frame}
 
 % page 19
