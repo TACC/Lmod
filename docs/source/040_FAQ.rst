@@ -345,6 +345,5 @@ message that is like: "/etc/zsh/zshrc:48: compinit: function definition file not
    FPATH, Z-shell does not change the value of FPATH which means that
    the zsh user can not find all the functions that make it work.
 
-   The solution is to either add "export SUPPORT_KSH=no" or "unset FPATH" in
-   your bash startup files before "exec zsh".
-
+   The solution is to add "unset FPATH" in your startup files before
+   "exec zsh".

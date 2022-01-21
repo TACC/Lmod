@@ -1,0 +1,37 @@
+Notes for EB User Mtg slides
+
+* What is Lmod?
+** Current version Lmod 8.6.5
+
+* New features from last year and reminders of cool features
+** Extensions
+** Check your module tree (8.4.3+)
+** Nag Message
+** depends_on
+
+* Recent Changes to Lmod
+** New Features in Lmod web page
+** module overview
+** LmodBreak
+** /etc/lmod/lmod_config.lua
+** LMOD_QUARANTINE_VARS
+** updates to sh_to_modulefile
+** source_sh
+
+* Interesting bug with bash and shell functions
+
+* Lmod Monthly Zoom Mtg
+** Starting Sept. 7, 2021 meeting
+** Topics
+*** Lmod Hooks Discussion
+*** Debugging Modulefiles
+*** Lmod 8.6 new featues
+*** Settarg and integrating Lmod with build systems
+*** How module collection work
+** Future Topics
+*** How to get module information to hooks?
+*** How Lmod testing works
+
+* Future work
+** Possibly simplify the DB for Lmod's module tracking
+

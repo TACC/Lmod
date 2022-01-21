@@ -11,7 +11,9 @@ if ( ! $?LMOD_SETTARG_CMD ) then
   setenv LMOD_SETTARG_CMD :
 endif
 
-if ( ! $?__LMOD_SET_FPATH ) then
+set SUPPORT_KSH = "@support_ksh@"
+
+if ( $SUPPORT_KSH == yes && ! $?__LMOD_SET_FPATH ) then
     setenv __LMOD_SET_FPATH 1
     setenv FPATH            `@PKGV@/libexec/addto FPATH @PKGV@/init/ksh_funcs`
 endif
@@ -45,6 +47,7 @@ alias ml      'eval `'$LMOD_DIR/ml_cmd' '$histchar'*`'
 
 setenv LMOD_VERSION '@lmod_version@'
 
+unset SUPPORT_KSH
 unset prefix
 unset midfix
 unset postfix
