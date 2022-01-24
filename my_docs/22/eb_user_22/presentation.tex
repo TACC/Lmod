@@ -254,8 +254,10 @@ sandbox\_registration \{ foo = foo \}
     \item This works fine in zsh but not bash
     \item All bash versions expand [a-z]\** to files in current directory
     \item I see no way to fix this
+    \item This fails because of the eval step
     \item I am going to change the default to ignore {\color{blue}\_func...() \{ \}}
     \item This fails for Tmod 4+ as well.
+    \item Bash always expands {\color{blue}A='[a-z]\**'}
   \end{itemize}
 \end{frame}
 
@@ -270,11 +272,15 @@ sandbox\_registration \{ foo = foo \}
         \item Settarg and integrating Lmod with build system
         \item How Module collections works 
       \end{enumerate}
-    \item Future Topics
+    \item Future Topics: 
       \begin{enumerate}
         \item How to get current module info into hooks
         \item How Lmod testing works
       \end{enumerate}
+    \item Zoom Mtg Usually 1st Tuesday at 15:30 UTC (9:30 US Central)
+    \item See Mailing list or https://github.com/TACC/Lmod/wiki for
+      details
+    \item Next Meeting Feb 8 at 15:30 UTC (9:30 US Central)
   \end{itemize}
 \end{frame}
 
