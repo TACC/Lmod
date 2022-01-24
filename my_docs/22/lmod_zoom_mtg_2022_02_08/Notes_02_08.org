@@ -1,0 +1,26 @@
+Notes for 2/8 Talk about Passing current module data to isVisibleHook
+routine.
+
+* How to pass current module data to a hook
+This can be done by the hooks themselves but I did it for you.
+
+* Three Concepts
+** There is a stack of the currently loaded modules => FrameStk in code
+   It needs to be a stack because modules can load other modules
+** This is true anytime a module is "loaded"
+   this means it is true when evaluating modules in spyder operations.
+** This stack contains "mname" objects
+** Modules have three kinds of names: sn, usrName, fullName
+** The Module Table contains the currently loaded modules and info about each one
+** The module table is stored in the user env.
+** The Module table is a Lua Table that contains key-value pairs
+** The keys are the sn and the value is contents of the module info
+** The MT contains the props stored with the module.
+
+* So the soln was to:
+** Ask for an instants of the frameStk Singleton
+** Ask for the mname object from the top of the stack
+** Ask for the mt    object from the top of the stack
+** The user can get the sn from mname:sn()
+** The user can get the properties from mt
+   mt:haveProperty(sn, propName, propValue)
