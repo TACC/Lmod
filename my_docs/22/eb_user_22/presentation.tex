@@ -99,11 +99,29 @@
     \item New Features now reported:
       https://lmod.readthedocs.io/en/latest/025\_new.html
     \item \texttt{module overview}
+    \item \texttt{module -d avail}
     \item New config file: /etc/lmod/lmod\_config.lua
     \item LMOD\_QUARANTINE\_VARS
     \item updates to sh\_to\_modulefile
     \item source\_sh(): source a shell script inside a modulefile
   \end{itemize}
+\end{frame}
+
+% page 9a
+\begin{frame}[fragile]
+  \frametitle{module overview}
+    {\tiny
+\begin{semiverbatim}
+% module overview
+------------------ /opt/apps/modulefiles/Core -----------------
+StdEnv    (1)   hashrf    (2)   papi        (2)   xalt     (1)
+ddt       (1)   intel     (2)   singularity (2)
+git       (1)   noweb     (1)   valgrind    (1)
+
+--------------- /opt/apps/lmod/lmod/modulefiles/Core ----------
+lmod (1)   settarg (1)    
+\end{semiverbatim}
+    }
 \end{frame}
 
 % page 10
@@ -232,10 +250,12 @@ sandbox\_registration \{ foo = foo \}
     ","")
 \end{semiverbatim}
     }
+  \begin{itemize}
     \item This works fine in zsh but not bash
     \item All bash versions expand [a-z]\** to files in current directory
     \item I see no way to fix this
-    \item I am going to change the default to ignore {\color{blue}\_func() \{ \}}
+    \item I am going to change the default to ignore {\color{blue}\_func...() \{ \}}
+    \item This fails for Tmod 4+ as well.
   \end{itemize}
 \end{frame}
 
