@@ -32,7 +32,7 @@ help(help_message,"\n")
 
 
 local group = "G-802400"
-found = userInGroup(group)
+local found = true
 
 
 local err_message = [[
