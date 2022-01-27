@@ -147,7 +147,7 @@ runLmod ()
 
 runSettargBash()
 {
-  runMe $LUA_EXEC $projectDir/settarg/settarg_cmd.in.lua -s bash --no_cpu_model "$@"
+  runMe $LUA_EXEC $projectDir/settarg/settarg_cmd.in.lua -s bash --generic_arch "$@"
 }
 
 runSh2MF ()

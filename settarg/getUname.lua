@@ -79,7 +79,11 @@ function getUname()
    local machFamilyName   = machName
    local machDescript     = machName
    osName                 = string.gsub(osName,"[ /]","_")
-   if (osName == "Linux" and ( machName == "x86_64" or machName:find("i[3-6]86" )) and not masterTbl.noCpuModel) then
+   if (masterTbl.genericArch) then
+      machName       = "_generic"
+      machDescript   = "generic"
+      machFamilyName = "generic"
+   elseif (osName == "Linux" and ( machName == "x86_64" or machName:find("i[3-6]86" )) and not masterTbl.noCpuModel) then
       local cpu_family
       local model
       local count = 0
