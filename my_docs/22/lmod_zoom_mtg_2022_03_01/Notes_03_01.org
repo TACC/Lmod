@@ -1,0 +1,49 @@
+Ideas for testing talk
+
+* I believe that a good part of Lmod success is the testing procedure
+  I developed hermes/tm as part of another project so it has been part
+  of Lmod since the beginning
+
+* tm is the testing manager as part of the hermes tool set.
+* The main function of tm is to select tests and run them
+* Each test is responsible for telling tm that a test passed/failed/diffed
+* failed is that the test failed to run all the way
+* diffed is that the test ran but did not match the "gold" results
+
+* Deciding if test passed is tricky and must be decided for each project.
+
+* Lmod used "diff" as it tool to decide if a test passed
+
+* This is a main pain because Lmod's output is will depend on what directories
+* Lmod also use base64 encoding
+* Soln:
+** each hest writes to _stderr.$NUM and _stdout.$NUM where $NUM is the test number
+** After all tests are run
+*** combine steps into one file   
+    cat _stderr.$NUM > _stderr.orig
+    cat _stdout.$NUM > _stdout.orig
+*** Convert base64 output to plain text
+*** Run a sed cleanup script to normalize and produce err.txt and out.txt
+*** Use wrapperDiff tool to run diff on gold version with test version
+*** Use testFinish tool produce test result file that tm is looking for    
+
+
+* Topics to talk about
+** joinBase64Results?
+** cleanup
+  How the cleanup script converts $testDir etc to standard names
+** What you are looking at with the different file names
+
+* Tools I use to work individual tests
+** run_script?
+** zsh vs. bash?
+
+* What I do when something is broken
+** Add the -D flag
+** Add even more  dbg.print{} and dbg.printT() lines to code
+** Run the same test between different version of Lmod
+   Use meld or emacs diff to compare result between versions
+   
+* Why I use dbg.print instead debugger
+  
+    
