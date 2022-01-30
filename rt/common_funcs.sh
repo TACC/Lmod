@@ -263,6 +263,7 @@ initStdEnvVars()
   unset SHLIB_PATH
   unset TERM
   unset _LMFILES_
+  unset LMOD_SET_NOGLOB
 
   PATH_to_LUA=`findcmd --pathOnly lua`
   PATH_to_TM=`findcmd --pathOnly tm`

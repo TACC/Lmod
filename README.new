@@ -22,3 +22,4 @@ Lmod 8.6+
             * Issue #382: Add parentAA to fullVT to pass to spider_decoration hook
    (8.6.7)  * Issue #559: Force settarg arch to be '_generic'
    (8.6.8)  * Issue #558: Convert "module swap n/v" to "module swap n n/v"
+   (8.6.9)  * Issue #554: Use set -f func() {...}; set +f to prevent file globbing during eval

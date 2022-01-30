@@ -135,31 +135,31 @@ _LMFILES_=ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/sh_to_modulefile/second.sh arg1"]={"setenv(\"SECOND\",\"FOO_BAR\")",},["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"]={"setenv(\"MY_NAME\",\"tstScript.sh\")","prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")","append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")","setenv(\"TST_SCRIPT\",\"1\")","set_alias(\"fooAlias\",\"foobin -q -l\")",[[set_shell_function("banner"," \\ local str=\\"$1\\";\\ local RED='\\033[1;31m';\\ local NONE='\\033[0m';\\ echo \\"${RED}${str}${NONE}\\"\\","")]],[[set_shell_function("fooFunc"," \\ echo \\"arg1: $1\\"\\","")]],[[set_shell_function("junk"," \\ if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\ \\\\echo \\"junk\\";\\ fi\\","")]],[[set_shell_function("my_help"," \\ echo \\"do not forget \\\\\\"foo\\\\\\"\\"\\","")]],[[set_shell_function("save_args"," \\ for arg in \\"$@\\";\\ do\\ printf \\"%s\\\\n\\" \\"$arg\\" | sed -e \\"s/'/'\\\\\\\\\\\\\\\\''/g\\" -e \\"1s/^/'/\\" -e \\"\\\\$s/\\\\$/' \\\\\\\\\\\\\\\\/\\";\\ done;\\ echo \\" \\"\\","")]],},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
-banner () {
+set -f;banner () {
     local str="$1";
     local RED='\\033[1;31m';
     local NONE='\\033[0m';
     echo "${RED}${str}${NONE}"
-; };
+; }; set +f;
 alias fooAlias=foobin\ -q\ -l;
-fooFunc () {
+set -f;fooFunc () {
     echo "arg1: $1"
-; };
-junk () {
+; }; set +f;
+set -f;junk () {
     if [ -n "${ZSH_VERSION:-}" ]; then
         \echo "junk";
     fi
-; };
-my_help () {
+; }; set +f;
+set -f;my_help () {
     echo "do not forget \"foo\""
-; };
-save_args () {
+; }; set +f;
+set -f;save_args () {
     for arg in "$@";
     do
         printf "%s\n" "$arg" | sed -e "s/'/'\\\\''/g" -e "1s/^/'/" -e "\$s/\$/' \\\\/";
     done;
     echo " "
-; };
+; }; set +f;
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show wrapperSh/1.0
@@ -176,31 +176,31 @@ MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/sh_to_modulefile/second.sh arg1"]={"setenv(\"SECOND\",\"FOO_BAR\")",},["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"]={"setenv(\"MY_NAME\",\"tstScript.sh\")","prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")","append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")","setenv(\"TST_SCRIPT\",\"1\")","set_alias(\"fooAlias\",\"foobin -q -l\")",[[set_shell_function("banner"," \\ local str=\\"$1\\";\\ local RED='\\033[1;31m';\\ local NONE='\\033[0m';\\ echo \\"${RED}${str}${NONE}\\"\\","")]],[[set_shell_function("fooFunc"," \\ echo \\"arg1: $1\\"\\","")]],[[set_shell_function("junk"," \\ if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\ \\\\echo \\"junk\\";\\ fi\\","")]],[[set_shell_function("my_help"," \\ echo \\"do not forget \\\\\\"foo\\\\\\"\\"\\","")]],[[set_shell_function("save_args"," \\ for arg in \\"$@\\";\\ do\\ printf \\"%s\\\\n\\" \\"$arg\\" | sed -e \\"s/'/'\\\\\\\\\\\\\\\\''/g\\" -e \\"1s/^/'/\\" -e \\"\\\\$s/\\\\$/' \\\\\\\\\\\\\\\\/\\";\\ done;\\ echo \\" \\"\\","")]],},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
-banner () {
+set -f;banner () {
     local str="$1";
     local RED='\\033[1;31m';
     local NONE='\\033[0m';
     echo "${RED}${str}${NONE}"
-; };
+; }; set +f;
 alias fooAlias=foobin\ -q\ -l;
-fooFunc () {
+set -f;fooFunc () {
     echo "arg1: $1"
-; };
-junk () {
+; }; set +f;
+set -f;junk () {
     if [ -n "${ZSH_VERSION:-}" ]; then
         \echo "junk";
     fi
-; };
-my_help () {
+; }; set +f;
+set -f;my_help () {
     echo "do not forget \"foo\""
-; };
-save_args () {
+; }; set +f;
+set -f;save_args () {
     for arg in "$@";
     do
         printf "%s\n" "$arg" | sed -e "s/'/'\\\\''/g" -e "1s/^/'/" -e "\$s/\$/' \\\\/";
     done;
     echo " "
-; };
+; }; set +f;
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
@@ -269,31 +269,31 @@ _LMFILES_=ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/sh_to_modulefile/second.sh arg1"]={"setenv(\"SECOND\",\"FOO_BAR\")",},["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"]={"setenv(\"MY_NAME\",\"tstScript.sh\")","prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")","append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")","setenv(\"TST_SCRIPT\",\"1\")","set_alias(\"fooAlias\",\"foobin -q -l\")",[[set_shell_function("banner"," \\ local str=\\"$1\\";\\ local RED='\\033[1;31m';\\ local NONE='\\033[0m';\\ echo \\"${RED}${str}${NONE}\\"\\","")]],[[set_shell_function("fooFunc"," \\ echo \\"arg1: $1\\"\\","")]],[[set_shell_function("junk"," \\ if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\ \\\\echo \\"junk\\";\\ fi\\","")]],[[set_shell_function("my_help"," \\ echo \\"do not forget \\\\\\"foo\\\\\\"\\"\\","")]],[[set_shell_function("save_args"," \\ for arg in \\"$@\\";\\ do\\ printf \\"%s\\\\n\\" \\"$arg\\" | sed -e \\"s/'/'\\\\\\\\\\\\\\\\''/g\\" -e \\"1s/^/'/\\" -e \\"\\\\$s/\\\\$/' \\\\\\\\\\\\\\\\/\\";\\ done;\\ echo \\" \\"\\","")]],},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
-banner () {
+set -f;banner () {
     local str="$1";
     local RED='\\033[1;31m';
     local NONE='\\033[0m';
     echo "${RED}${str}${NONE}"
-; };
+; }; set +f;
 alias fooAlias=foobin\ -q\ -l;
-fooFunc () {
+set -f;fooFunc () {
     echo "arg1: $1"
-; };
-junk () {
+; }; set +f;
+set -f;junk () {
     if [ -n "${ZSH_VERSION:-}" ]; then
         \echo "junk";
     fi
-; };
-my_help () {
+; }; set +f;
+set -f;my_help () {
     echo "do not forget \"foo\""
-; };
-save_args () {
+; }; set +f;
+set -f;save_args () {
     for arg in "$@";
     do
         printf "%s\n" "$arg" | sed -e "s/'/'\\\\''/g" -e "1s/^/'/" -e "\$s/\$/' \\\\/";
     done;
     echo " "
-; };
+; }; set +f;
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
@@ -324,31 +324,31 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn=
 export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__=1;
 export __LMOD_DEFAULT_MODULES_LOADED__;
-banner () {
+set -f;banner () {
     local str="$1";
     local RED='\\033[1;31m';
     local NONE='\\033[0m';
     echo "${RED}${str}${NONE}"
-; };
+; }; set +f;
 alias fooAlias=foobin\ -q\ -l;
-fooFunc () {
+set -f;fooFunc () {
     echo "arg1: $1"
-; };
-junk () {
+; }; set +f;
+set -f;junk () {
     if [ -n "${ZSH_VERSION:-}" ]; then
         \echo "junk";
     fi
-; };
-my_help () {
+; }; set +f;
+set -f;my_help () {
     echo "do not forget \"foo\""
-; };
-save_args () {
+; }; set +f;
+set -f;save_args () {
     for arg in "$@";
     do
         printf "%s\n" "$arg" | sed -e "s/'/'\\\\''/g" -e "1s/^/'/" -e "\$s/\$/' \\\\/";
     done;
     echo " "
-; };
+; }; set +f;
 ===========================
 step 18
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --mt
@@ -375,26 +375,26 @@ _LMFILES_=ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua:OutputDIR/mf/A/1.0
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="OutputDIR/mf/A/1.0",fullName="A/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},},mpathA={"OutputDIR/mf",},systemBaseMPATH="OutputDIR/mf",}';
 export _ModuleTable_;
-banner () {
+set -f;banner () {
     local str="$1";
     local RED='\\033[1;31m';
     local NONE='\\033[0m';
-    echo "${RED}${str}${NONE}"; };
+    echo "${RED}${str}${NONE}"; }; set +f;
 alias fooAlias=foobin\ -q\ -l;
-fooFunc () {
-    echo "arg1: $1"; };
-junk () {
+set -f;fooFunc () {
+    echo "arg1: $1"; }; set +f;
+set -f;junk () {
     if [ -n "${ZSH_VERSION:-}" ]; then
         \echo "junk";
-    fi; };
-my_help () {
-    echo "do not forget \"foo\""; };
-save_args () {
+    fi; }; set +f;
+set -f;my_help () {
+    echo "do not forget \"foo\""; }; set +f;
+set -f;save_args () {
     for arg in "$@";
     do
         printf "%s\n" "$arg" | sed -e "s/'/'\\\\''/g" -e "1s/^/'/" -e "\$s/\$/' \\\\/";
     done;
-    echo " "; };
+    echo " "; }; set +f;
 ===========================
 step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list

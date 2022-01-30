@@ -148,6 +148,11 @@ cosmic:init{name = "LMOD_REDIRECT",
             yn   = "no"}
 
 ------------------------------------------------------------------------
+-- LMOD_SET_NOGLOB:  do not reset back to file globbing 
+------------------------------------------------------------------------
+cosmic:assign("LMOD_SET_NOGLOB",getenv("LMOD_SET_NOGLOB") or "no")
+
+------------------------------------------------------------------------
 -- LMOD_RC:  Lmod RC list of colon separated files 
 ------------------------------------------------------------------------
 local rcfiles = getenv("LMOD_RC")

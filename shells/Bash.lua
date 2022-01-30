@@ -45,6 +45,7 @@ local Bash      = inheritsFrom(BaseShell)
 local dbg       = require("Dbg"):dbg()
 local Var       = require("Var")
 local concatTbl = table.concat
+local cosmic    = require("Cosmic"):singleton()
 local stdout    = io.stdout
 Bash.my_name    = "bash"
 Bash.myType     = "sh"
@@ -66,6 +67,21 @@ function Bash.alias(self, k, v)
    end
 end
 
+function Bash.build_shell_func(self, name, func)
+   local glob = cosmic:value("LMOD_SET_NOGLOB") ~= "yes"
+   local a = {}
+   a[#a+1] = "set -f;"
+   a[#a+1] = name
+   a[#a+1] = " () { ";
+   a[#a+1] = func
+   a[#a+1] = "; }"
+   if (glob ) then
+      a[#a+1] = "; set +f;\n"
+   end
+   return concatTbl(a,"")
+end
+
+
 --------------------------------------------------------------------------
 -- Bash:shellFunc(): Either define or undefine a bash shell function.
 --                   Modify module definition of function so that there is
@@ -77,8 +93,9 @@ function Bash.shellFunc(self, k, v)
       dbg.print{   "unset -f ",k," 2> /dev/null || true;\n"}
    else
       local func = v[1]:gsub(";%s*$","")
-      stdout:write("set -f; ",k," () { ",func,"; };set +f;\n")
-      dbg.print{   k," () { ",func,"; };\n"}
+      local str  = self:build_shell_func(k, func);
+      stdout:write(str)
+      dbg.print{   str}
    end
 end
 
