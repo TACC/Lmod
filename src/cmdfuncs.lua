@@ -900,18 +900,21 @@ end
 --  loaded then it is registered with MT so that it won't be
 --  reported in a swap message.
 function Swap(...)
-   local a = select(1, ...) or ""
-   local b = select(2, ...) or ""
-   local s = {}
+   local a  = select(1, ...) or ""
+   local b  = select(2, ...) or ""
+   local s  = {}
+   local mt = FrameStk:singleton():mt()
 
    dbg.start{"Swap(",concatTbl({...},", "),")"}
 
    local n = select("#", ...)
    if (n ~= 2) then
       b = a
+      -- Trim any version info from a
+      local sn_match, sn = mt:find_possible_sn(a)
+      a = sn
    end
 
-   local mt    = FrameStk:singleton():mt()
    local mname = MName:new("mt", a)
    local sn    = mname:sn()
    if (not mt:have(sn,"any")) then

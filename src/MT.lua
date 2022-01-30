@@ -659,9 +659,7 @@ function M.haveUserName(self, mname, status)
    return self:userName(sn) == userName or self:fullName(sn) == userName
 end
 
-function M.lookup_w_userName(self,userName)
-   -- Check if userName is a sn
-
+function M.find_possible_sn(self, userName)
    local sn_match = false
    local sn = userName
    while true do
@@ -673,6 +671,17 @@ function M.lookup_w_userName(self,userName)
       if (idx == nil) then break end
       sn = sn:sub(1,idx-1)
    end
+   if (not sn_match) then
+      sn = userName
+   end
+   return sn_match, sn
+end
+
+
+function M.lookup_w_userName(self,userName)
+   -- Check if userName is a sn
+
+   local sn_match, sn = self:find_possible_sn(userName)
 
    if (not sn_match) then return false end
 

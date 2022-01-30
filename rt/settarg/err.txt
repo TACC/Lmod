@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.1  2021-12-10 14:46 -06:00
+Modules based on Lua: Version 8.6.6  2022-01-21 15:09 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -10,15 +10,15 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load settarg
 ===========================
 ===========================
 step 3
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model dbg
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --generic_arch dbg
 ===========================
 ===========================
 step 4
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model opt
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --generic_arch opt
 ===========================
 ===========================
 step 5
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model empty
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --generic_arch empty
 ===========================
 ===========================
 step 6
@@ -26,31 +26,31 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc mpich
 ===========================
 ===========================
 step 7
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --generic_arch
 ===========================
 ===========================
 step 8
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model f_f
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --generic_arch f_f
 ===========================
 ===========================
 step 9
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model b:b
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --generic_arch b:b
 ===========================
 ===========================
 step 10
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model -r f_f
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --generic_arch -r f_f
 ===========================
 ===========================
 step 11
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model -r b:b
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --generic_arch -r b:b
 ===========================
 ===========================
 step 12
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model f_f b:b
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --generic_arch f_f b:b
 ===========================
 ===========================
 step 13
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --stt dbg
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --generic_arch --stt dbg
 ===========================
 _SettargTable_ = {
   buildScenarioState = "dbg",
@@ -65,7 +65,7 @@ _SettargTable_ = {
 }
 ===========================
 step 14
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --purge
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --generic_arch --purge
 ===========================
 ===========================
 step 15
@@ -77,7 +77,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload mpich
 ===========================
 ===========================
 step 17
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --generic_arch
 ===========================
 ===========================
 step 18
