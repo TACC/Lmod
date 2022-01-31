@@ -113,6 +113,13 @@ function M.initialize(self)
    -- normalize nothing happens here on most shells
 end
 
+--------------------------------------------------------------------------
+-- BaseShell:finalize(): Do this first.
+
+function M.finalize(self)
+   -- normalize nothing happens here on most shells
+end
+
 function M.report_failure(self)
    local line = "\nfalse\n"
    stdout:write(line)
@@ -176,6 +183,7 @@ function M.expand(self, tbl)
          end
       end
    end
+   self:finalize()
    self:report_success()
    dbg.fini("BaseShell:expand")
 end

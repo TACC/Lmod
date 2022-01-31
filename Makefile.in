@@ -36,6 +36,7 @@ PREPEND_BLOCK             := $(shell echo "@PREPEND_BLOCK@" | tr '[:upper:]' '[:
 COLORIZE                  := $(shell echo "@COLORIZE@"      | tr '[:upper:]' '[:lower:]')
 SETTARG_CMD               := settarg_cmd
 MODULEPATH_INIT           := @MODULEPATH_INIT@
+BASH_INITIALIZE           := @BASH_INITIALIZE@
 LMOD_AVAIL_EXTENSIONS     := @AVAIL_EXTENSIONS@
 LMOD_HIDDEN_ITALIC        := @HIDDEN_ITALIC@
 LMOD_OVERRIDE_LANG        := @LMOD_OVERRIDE_LANG@
@@ -258,6 +259,7 @@ __installMe:
 	        -e 's|@sys_lua_path@|$(SYS_LUA_PATH)|g'                           \
 	        -e 's|@hidden_italic@|$(LMOD_HIDDEN_ITALIC)|g'                    \
 	        -e 's|@modulepath_init@|$(MODULEPATH_INIT)|g'                     \
+	        -e 's|@bash_initialize@|$(BASH_INITIALIZE)|g'                     \
 	        -e 's|@sys_lua_cpath@|$(SYS_LUA_CPATH)|g'                         \
 	        -e 's|@path_to_luac@|$(PATH_TO_LUAC)|g'                           \
 	        -e 's|@path_to_lmod@|$(LIBEXEC)/lmod|g'                           \

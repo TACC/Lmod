@@ -67,17 +67,12 @@ function Bash.alias(self, k, v)
    end
 end
 
-function Bash.build_shell_func(self, name, func)
-   local glob = cosmic:value("LMOD_SET_NOGLOB") ~= "yes"
+local function l_build_shell_func(name, func)
    local a = {}
-   a[#a+1] = "set -f;"
    a[#a+1] = name
    a[#a+1] = " () { ";
    a[#a+1] = func
    a[#a+1] = "; }"
-   if (glob ) then
-      a[#a+1] = "; set +f;\n"
-   end
    return concatTbl(a,"")
 end
 
@@ -93,7 +88,7 @@ function Bash.shellFunc(self, k, v)
       dbg.print{   "unset -f ",k," 2> /dev/null || true;\n"}
    else
       local func = v[1]:gsub(";%s*$","")
-      local str  = self:build_shell_func(k, func);
+      local str  = l_build_shell_func(k, func);
       stdout:write(str)
       dbg.print{   str}
    end
@@ -141,6 +136,36 @@ end
 -- Bash:real_shell(): Return true if the output shell is "real" or not.
 --                    This base function returns false.  Bash, Csh
 --                    and Fish should return true.
+
+
+function M.initialize(self)
+   local run_init = bcosmic:value("LMOD_BASH_INITIALIZE") == "yes"
+   if (not run_init) then return end
+   lineA = {}
+   lineA[#lineA+1] = "_mlshopt=\"f\";"
+   lineA[#lineA+1] = "case \"$-\" in "
+   lineA[#lineA+1] = "  *f*) unset _mlshopt;;"
+   lineA[#lineA+1] = "esac;"
+   lineA[#lineA+1] = "if [ -n \"${_mlshopt:-}\" ]; then"
+   lineA[#lineA+1] = "  set -$_mlshopt;"
+   lineA[#lineA+1] = "fi;"
+   local line = concatTbl(lineA,"\n")
+   stdout:write(line,"\n")
+   dbg.print{line,"\n"}
+end
+
+function M.finalize(self)
+   local run_init = bcosmic:value("LMOD_BASH_INITIALIZE") == "yes"
+   if (not run_init) then return end
+   lineA = {}
+   lineA[#lineA+1] = "if [ -n \"${_mlshopt:-}\" ]; then"
+   lineA[#lineA+1] = "  set +$_mlshopt;"
+   lineA[#lineA+1] = "fi;"
+   lineA[#lineA+1] = "unset _mlshopt;"
+   local line = concatTbl(lineA,"\n")
+   stdout:write(line,"\n")
+   dbg.print{line,"\n"}
+end
 
 function Bash.real_shell(self)
    return true

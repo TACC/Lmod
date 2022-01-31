@@ -129,11 +129,9 @@ the configuration option which will set the action.
   [yes/no, default: yes, --with-availExtensions] Display package
   extensions when doing "module avail".
 
-**LMOD_CACHED_LOADS**:
-  [yes/no, default:no, --with-cachedLoads] If "yes" then Lmod will use
-  the spider cache to load modulefiles and produce a terse avail instead
-  of walking all the directories in MODULEPATH as long as
-  LMOD_IGNORE_CACHE is not set.
+**LMOD_BASH_INITIALIZE**:
+  [yes/no, default:yes, --with-bashInitialize] If "yes" then Lmod will
+  disable file globbing when eval'ing the output from Lmod.
 
 **LMOD_CASE_INDEPENDENT_SORTING**:
   [yes/no, default: no, --with-caseIndependentSorting] Make avail and

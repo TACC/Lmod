@@ -176,6 +176,20 @@ AC_ARG_WITH(autoSwap,
     AUTO_SWAP="$withval"
     AC_DEFINE_UNQUOTED(AUTO_SWAP, "$withval"))dnl
 
+AC_SUBST(BASH_INITIALIZE)
+AC_ARG_WITH(bashInitialize,
+    AC_HELP_STRING([--with-bashInitialize=ans],[Allow bash to initialize no file globbing during eval. [[yes]]]),
+    BASH_INITIALIZE="$withval"
+    BASH_INITIALIZE=`echo $BASH_INITIALIZE | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
+    VALID_YN $BASH_INITIALIZE "--with-bashInitialize=ans: ans must be yes or no"
+    AC_MSG_RESULT([BASH_INITIALIZE=$with_bashInitialize])
+    AC_DEFINE_UNQUOTED(BASH_INITIALIZE, "$with_bashInitialize")dnl
+    ,
+    withval="yes"
+    AC_MSG_RESULT([BASH_INITIALIZE=$withval])
+    BASH_INITIALIZE="$withval"
+    AC_DEFINE_UNQUOTED(BASH_INITIALIZE, "$withval"))dnl
+
 AC_SUBST(EXPORT_MODULE)
 AC_ARG_WITH(exportedModuleCmd,
     AC_HELP_STRING([--with-exportedModuleCmd=ans],[Export the module command. [[yes]]]),
