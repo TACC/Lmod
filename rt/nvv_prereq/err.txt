@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.5.18  2021-10-09 12:49 -05:00
+Modules based on Lua: Version 8.6.8  2022-01-27 14:20 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -19,23 +19,62 @@ If the avail list is too long consider trying:
 "module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-Currently Loaded Modules:
-  1) a/sub/1.0
+No modules loaded
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load d
 ===========================
+Lmod has detected the following error: Cannot load module "d/1.0". At least one of these module(s) must be loaded:
+   a
+While processing the following module(s):
+    Module fullname  Module Filename
+    d/1.0            ProjectDIR/rt/nvv_prereq/mf/d/1.0
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-Currently Loaded Modules:
-  1) a/sub/1.0   2) d/1.0
+No modules loaded
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?

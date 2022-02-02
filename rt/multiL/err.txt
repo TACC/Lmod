@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.5.18  2021-10-09 12:49 -05:00
+Modules based on Lua: Version 8.6.8  2022-01-27 14:20 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -15,6 +15,15 @@ If the avail list is too long consider trying:
 "module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
@@ -32,103 +41,190 @@ where "Foo" is the name of a module.
 To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cmplr/gcc
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-ProjectDIR/rt/multiL/mf/cmplr/gcc/4.7
-   mpi/mpich2/1.5.2
 ProjectDIR/rt/multiL/mf/Core
-   cmplr/gcc/4.7.2 (L)    cmplr/intel/13.1
-  Where:
-   L:  Module is loaded
+   cmplr/gcc/4.7.2    cmplr/intel/13.1
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
 "module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load mpi/mpich2
 ===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "mpi/mpich2"
+   Try: "module spider mpi/mpich2" to see how to load the module(s).
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load parLib/petsc
 ===========================
+Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "parLib/petsc"
+   Try: "module spider parLib/petsc" to see how to load the module(s).
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-Currently Loaded Modules:
-  1) cmplr/gcc/4.7.2   2) mpi/mpich2/1.5.2   3) parLib/petsc/3.3
+No modules loaded
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-ProjectDIR/rt/multiL/mf/mpi/mpich2/1.5/cmplr/gcc/4.7
-   parLib/petsc/3.3 (L)
-ProjectDIR/rt/multiL/mf/cmplr/gcc/4.7
-   mpi/mpich2/1.5.2 (L)
 ProjectDIR/rt/multiL/mf/Core
-   cmplr/gcc/4.7.2 (L)    cmplr/intel/13.1
-  Where:
-   L:  Module is loaded
+   cmplr/gcc/4.7.2    cmplr/intel/13.1
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
 "module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload cmplr/gcc
 ===========================
-Inactive Modules:
-  1) mpi/mpich2     2) parLib/petsc
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cmplr/gcc
 ===========================
-Activating Modules:
-  1) mpi/mpich2/1.5.2     2) parLib/petsc/3.3
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 12
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap cmplr/gcc cmplr/intel
 ===========================
-Due to MODULEPATH changes, the following have been reloaded:
-  1) mpi/mpich2/1.5.2     2) parLib/petsc/3.3
+Lmod has detected the following error: Swap failed: "cmplr/gcc" is not loaded.
 ===========================
 step 13
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-Currently Loaded Modules:
-  1) cmplr/intel/13.1   2) mpi/mpich2/1.5.2   3) parLib/petsc/3.3
+No modules loaded
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 14
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload cmplr/intel/13.1
 ===========================
-Inactive Modules:
-  1) mpi/mpich2     2) parLib/petsc
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 15
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-Currently Loaded Modules:
-  None found.
-Inactive Modules:
-  1) mpi/mpich2   2) parLib/petsc
+No modules loaded
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cmplr/intel/13.1
 ===========================
-Activating Modules:
-  1) mpi/mpich2/1.5.2     2) parLib/petsc/3.3
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-Currently Loaded Modules:
-  1) cmplr/intel/13.1   2) mpi/mpich2/1.5.2   3) parLib/petsc/3.3
+No modules loaded
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?

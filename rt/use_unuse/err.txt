@@ -2,39 +2,109 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.5.18  2021-10-09 12:49 -05:00
+Modules based on Lua: Version 8.6.8  2022-01-27 14:20 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unuse ProjectDIR/rt/use_unuse/mf/Core
 ===========================
-Inactive Modules:
-  1) a
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/use_unuse/mf/RTM
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unuse ProjectDIR/rt/use_unuse/mf/RTM
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ../../mf/RTM
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unuse ProjectDIR/rt/use_unuse/mf/RTM
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/use_unuse/mf/RTM2
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unuse ProjectDIR/rt/use_unuse/mf/RTM2
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?

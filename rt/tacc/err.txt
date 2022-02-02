@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.5.18  2021-10-09 12:49 -05:00
+Modules based on Lua: Version 8.6.8  2022-01-27 14:20 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -20,10 +20,28 @@ If the avail list is too long consider trying:
 "module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load TACC
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing help mvapich1
@@ -37,94 +55,208 @@ Module Specific Help for "mvapich1/mvapich1"
 	mpicc        ( C  source)
 	mpiCC/mpicxx (C++ source)
 	Version 1.0.1
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-Currently Loaded Modules:
-  1) Linux     3) mvapich1/mvapich1   5) cluster-paths   7) TACC-paths
-  2) pgi/7.1   4) globus/4.0.7        6) cluster         8) TACC
+No modules loaded
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --latest load pgi
 ===========================
-The following have been reloaded with a version change:
-  1) pgi/7.1 => pgi/7.2-5
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-Currently Loaded Modules:
-  1) Linux               3) globus/4.0.7    5) cluster      7) TACC
-  2) mvapich1/mvapich1   4) cluster-paths   6) TACC-paths   8) pgi/7.2-5
+No modules loaded
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load pgi
 ===========================
-The following have been reloaded with a version change:
-  1) pgi/7.2-5 => pgi/7.1
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-Currently Loaded Modules:
-  1) Linux               3) globus/4.0.7    5) cluster      7) TACC
-  2) mvapich1/mvapich1   4) cluster-paths   6) TACC-paths   8) pgi/7.1
+No modules loaded
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --latest swap pgi pgi
 ===========================
-The following have been reloaded with a version change:
-  1) pgi/7.1 => pgi/7.2-5
+Lmod has detected the following error: Swap failed: "pgi" is not loaded.
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-Currently Loaded Modules:
-  1) Linux               3) globus/4.0.7    5) cluster      7) TACC
-  2) mvapich1/mvapich1   4) cluster-paths   6) TACC-paths   8) pgi/7.2-5
+No modules loaded
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 12
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload cluster
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 13
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 14
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/tacc/mf/Base
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 15
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show gatk
 ===========================
-   ProjectDIR/rt/tacc/mf/Base/gatk/1.0:
-prepend_path("PATH","/unknown/apps/gatk/1.0/bin")
+Lmod Warning: Failed to find the following module(s): "gatk" in your MODULEPATH
+Try:
+    $ module spider gatk
+to see if the module(s) are available across all compilers and MPI implementations.
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gatk
 ===========================
-To execute GATK run: java -jar /unknown/apps/gatk/1.0/java/GenomeAnalysisTK.jar
-Test of brackets [foo]
+Lmod has detected the following error: The following module(s) are unknown: "gatk"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "gatk"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload gatk
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 18
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load stir
 ===========================
-mod is stir/default
-mod is stir/2.1
+Lmod has detected the following error: The following module(s) are unknown: "stir"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "stir"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 19
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load foo
 ===========================
-The next line has a two blanks.   Please don't error out.
-The next line has a single blank. Please don't error out.
-The next line has a zero blanks.  Please don't error out.
+Lmod has detected the following error: The following module(s) are unknown: "foo"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "foo"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load empty_unload
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?

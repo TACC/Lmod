@@ -2,22 +2,48 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.5.18  2021-10-09 12:49 -05:00
+Modules based on Lua: Version 8.6.8  2022-01-27 14:20 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load TACC
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload B
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-Currently Loaded Modules:
-  1) A/1.0   2) C/1.0   3) TACC
+No modules loaded
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --mt
@@ -28,40 +54,7 @@ _ModuleTable_ = {
   c_shortTime = false,
   depthT = {},
   family = {},
-  mT = {
-    A = {
-      fn = "ProjectDIR/rt/mgrload_func/mf/Core/A/1.0.lua",
-      fullName = "A/1.0",
-      loadOrder = 1,
-      propT = {},
-      ref_count = 1,
-      stackDepth = 1,
-      status = "active",
-      userName = "A",
-      wV = "000000001.*zfinal",
-    },
-    C = {
-      fn = "ProjectDIR/rt/mgrload_func/mf/Core/C/1.0.lua",
-      fullName = "C/1.0",
-      loadOrder = 2,
-      propT = {},
-      ref_count = 1,
-      stackDepth = 1,
-      status = "active",
-      userName = "C",
-      wV = "000000001.*zfinal",
-    },
-    TACC = {
-      fn = "ProjectDIR/rt/mgrload_func/mf/Core/TACC.lua",
-      fullName = "TACC",
-      loadOrder = 3,
-      propT = {},
-      stackDepth = 0,
-      status = "active",
-      userName = "TACC",
-      wV = "M.*zfinal",
-    },
-  },
+  mT = {},
   mpathA = {
     "ProjectDIR/rt/mgrload_func/mf/Core",
   },
@@ -71,18 +64,29 @@ _ModuleTable_ = {
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load avx
 ===========================
-Unloading: A
-Unloading: C
-Unloading: TACC
-loading: A
-loading: C
-loading: TACC
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-Currently Loaded Modules:
-  1) A/1.0   2) C/1.0   3) TACC   4) avx
+No modules loaded
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --mt
@@ -93,50 +97,7 @@ _ModuleTable_ = {
   c_shortTime = false,
   depthT = {},
   family = {},
-  mT = {
-    A = {
-      fn = "ProjectDIR/rt/mgrload_func/mf/Core/A/1.0.lua",
-      fullName = "A/1.0",
-      loadOrder = 1,
-      propT = {},
-      ref_count = 1,
-      stackDepth = 1,
-      status = "active",
-      userName = "A",
-      wV = "000000001.*zfinal",
-    },
-    C = {
-      fn = "ProjectDIR/rt/mgrload_func/mf/Core/C/1.0.lua",
-      fullName = "C/1.0",
-      loadOrder = 2,
-      propT = {},
-      ref_count = 1,
-      stackDepth = 1,
-      status = "active",
-      userName = "C",
-      wV = "000000001.*zfinal",
-    },
-    TACC = {
-      fn = "ProjectDIR/rt/mgrload_func/mf/Core/TACC.lua",
-      fullName = "TACC",
-      loadOrder = 3,
-      propT = {},
-      stackDepth = 0,
-      status = "active",
-      userName = "TACC",
-      wV = "M.*zfinal",
-    },
-    avx = {
-      fn = "ProjectDIR/rt/mgrload_func/mf/Core/avx.lua",
-      fullName = "avx",
-      loadOrder = 4,
-      propT = {},
-      stackDepth = 0,
-      status = "active",
-      userName = "avx",
-      wV = "M.*zfinal",
-    },
-  },
+  mT = {},
   mpathA = {
     "ProjectDIR/rt/mgrload_func/mf/Core",
   },

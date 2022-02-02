@@ -2,129 +2,182 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.5.19  2021-10-15 14:23 -05:00
+Modules based on Lua: Version 8.6.8  2022-01-27 14:20 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/rt/load/mf/Core ProjectDIR/rt/load/mf/Beta
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/load/mf/notDir OutputDIR/mf
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load admin PrgEnv
 ===========================
+Lmod Warning: MODULEPATH is undefined.
+Lmod has detected the following error: The following module(s) are unknown: "admin"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "admin"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gotoblas/1.30-beta
 ===========================
+Lmod Warning: MODULEPATH is undefined.
+Lmod has detected the following error: The following module(s) are unknown: "gotoblas/1.30-beta"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "gotoblas/1.30-beta"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing rm gotoblas/1.30-beta
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing try-add gotoblas123 intel
 ===========================
+Lmod Warning: MODULEPATH is undefined.
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gotoblas
 ===========================
+Lmod Warning: MODULEPATH is undefined.
+Lmod has detected the following error: The following module(s) are unknown: "gotoblas"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "gotoblas"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load multi
 ===========================
+Lmod Warning: MODULEPATH is undefined.
+Lmod has detected the following error: The following module(s) are unknown: "multi"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "multi"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload multi
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load boost
 ===========================
+Lmod Warning: MODULEPATH is undefined.
+Lmod has detected the following error: The following module(s) are unknown: "boost"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "boost"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 12
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/rt/load/mf/Core2
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 13
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load _a
 ===========================
+Lmod Warning: MODULEPATH is undefined.
+Lmod has detected the following error: The following module(s) are unknown: "_a"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "_a"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 14
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load __b
 ===========================
+Lmod Warning: MODULEPATH is undefined.
 Lmod has detected the following error: The following module(s) are illegal: __b
 Lmod does not support modulefiles that start with two or more underscores
 ===========================
 step 15
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-ProjectDIR/rt/load/mf/Compiler/intel/10.1
-   gotoblas/1.31          gotoblas/1.33    openmpi/1.2.6
-   gotoblas/1.32 (L,D)    mpich2/1.0.7
-ProjectDIR/rt/load/mf/Core
-   Bad/1.0                boost/1.49.0  (o,L,D)    junk/a/c/1.0
-   PrgEnv          (L)    gcc/4.2.3                junk/b/c/2.0
-   Try/1.0                git/1.6.3.1              junk/d/3.0
-   Try/2.0         (D)    git/1.7.4                local/local  (L)
-   _a/1.0          (L)    git/1.7.4.3   (D)        multi/multi
-   admin/admin-1.0 (L)    gotoblas/1.20            noweb/2.10c  (L)
-   alex/1.0               gotoblas/1.26            parmetis/3.1 (m)
-   boost/1.46.0           gotoblas/1.30            unix/unix    (L)
-   boost/1.47.1           intel/intel   (L)
-ProjectDIR/rt/load/mf/Beta
-   gotoblas/1.30-beta
-ProjectDIR/rt/load/mf/Core2
-   A/1.0        B/1.1    (D)    dflt/default        moduleB/1.0
-   A/1.1        C/1.8.5         go/1.5.1            rtm_intel/11.1 (D)
-   A/1.2 (D)    D/1.0           moduleA/1.0         rtm_intel/12.1
-   B/1.0        alex/2.0 (D)    moduleA/2.0  (D)
-  Where:
-   D:  Default Module
-   L:  Module is loaded
-   m:  built for host and native MIC
-   o:  built for offload to the MIC only
-If the avail list is too long consider trying:
-"module --default avail" or "ml -d av" to just list the default modules.
-"module overview" or "ml ov" to display the number of modules for each name.
-Use "module spider" to find all possible modules and extensions.
-Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+Lmod has detected the following error: module avail is not possible. MODULEPATH is not set or not set with valid paths.
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -d avail
 ===========================
-ProjectDIR/rt/load/mf/Compiler/intel/10.1
-   gotoblas/1.32 (L)    mpich2/1.0.7    openmpi/1.2.6
-ProjectDIR/rt/load/mf/Core
-   Bad/1.0                  gcc/4.2.3           local/local  (L)
-   PrgEnv          (L)      git/1.7.4.3         multi/multi
-   Try/2.0                  intel/intel  (L)    noweb/2.10c  (L)
-   _a/1.0          (L)      junk/a/c/1.0        parmetis/3.1 (m)
-   admin/admin-1.0 (L)      junk/b/c/2.0        unix/unix    (L)
-   boost/1.49.0    (o,L)    junk/d/3.0
-ProjectDIR/rt/load/mf/Core2
-   A/1.2    C/1.8.5    alex/2.0        go/1.5.1       moduleB/1.0
-   B/1.1    D/1.0      dflt/default    moduleA/2.0    rtm_intel/11.1
-  Where:
-   L:  Module is loaded
-   m:  built for host and native MIC
-   o:  built for offload to the MIC only
-If the avail list is too long consider trying:
-"module --default avail" or "ml -d av" to just list the default modules.
-"module overview" or "ml ov" to display the number of modules for each name.
-Use "module spider" to find all possible modules and extensions.
-Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+Lmod has detected the following error: module avail is not possible. MODULEPATH is not set or not set with valid paths.
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload boost
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 18
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load boost/1.33.0
 ===========================
+Lmod Warning: MODULEPATH is undefined.
 Lmod has detected the following error: The following module(s) are unknown: "boost/1.33.0"
 Please check the spelling or version number. Also try "module spider ..."
 It is also possible your cache file is out-of-date; it may help to try:
@@ -134,6 +187,7 @@ Also make sure that all modulefiles written in TCL start with the string #%Modul
 step 19
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load boost/1.57.0
 ===========================
+Lmod Warning: MODULEPATH is undefined.
 Lmod has detected the following error: The following module(s) are unknown: "boost/1.57.0"
 Please check the spelling or version number. Also try "module spider ..."
 It is also possible your cache file is out-of-date; it may help to try:
@@ -143,76 +197,116 @@ Also make sure that all modulefiles written in TCL start with the string #%Modul
 step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load boost
 ===========================
+Lmod Warning: MODULEPATH is undefined.
+Lmod has detected the following error: The following module(s) are unknown: "boost"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "boost"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 21
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load alex
 ===========================
+Lmod Warning: MODULEPATH is undefined.
+Lmod has detected the following error: The following module(s) are unknown: "alex"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "alex"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 22
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load D
 ===========================
+Lmod Warning: MODULEPATH is undefined.
+Lmod has detected the following error: The following module(s) are unknown: "D"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "D"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 23
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --latest load rtm_intel
 ===========================
+Lmod Warning: MODULEPATH is undefined.
+Lmod has detected the following error: The following module(s) are unknown: latest("")
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load latest("")
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 24
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-Currently Loaded Modules:
-  1) admin/admin-1.0   5) PrgEnv          9) boost/1.49.0   (o)
-  2) unix/unix         6) intel/intel    10) alex/2.0
-  3) local/local       7) gotoblas/1.32  11) D/1.0
-  4) noweb/2.10c       8) _a/1.0         12) rtm_intel/12.1
-  Where:
-   o:  built for offload to the MIC only
+No modules loaded
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 25
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/load/mf/Share
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 26
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/rt/load/mf/Scratch
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 27
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -r avail A B
 ===========================
-ProjectDIR/rt/load/mf/Share
-   A/1.3    B/1.0    B/1.1
-ProjectDIR/rt/load/mf/Core
-   Bad/1.0
-ProjectDIR/rt/load/mf/Core2
-   A/1.0    A/1.2    B/1.1          moduleA/2.0 (D)
-   A/1.1    B/1.0    moduleA/1.0    moduleB/1.0
-ProjectDIR/rt/load/mf/Scratch
-   A/1.1.1 (D)    B/1.0    B/1.4 (D)
-  Where:
-   D:  Default Module
-If the avail list is too long consider trying:
-"module --default avail" or "ml -d av" to just list the default modules.
-"module overview" or "ml ov" to display the number of modules for each name.
-Use "module spider" to find all possible modules and extensions.
-Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+Lmod has detected the following error: module avail is not possible. MODULEPATH is not set or not set with valid paths.
 ===========================
 step 28
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A B
 ===========================
+Lmod Warning: MODULEPATH is undefined.
+Lmod has detected the following error: The following module(s) are unknown: "A"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "A"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 29
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-Currently Loaded Modules:
-  1) admin/admin-1.0   5) PrgEnv          9) boost/1.49.0   (o)  13) A/1.1.1
-  2) unix/unix         6) intel/intel    10) alex/2.0            14) B/1.4
-  3) local/local       7) gotoblas/1.32  11) D/1.0
-  4) noweb/2.10c       8) _a/1.0         12) rtm_intel/12.1
-  Where:
-   o:  built for offload to the MIC only
+No modules loaded
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 30
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load DoesNotExist
 ===========================
+Lmod Warning: MODULEPATH is undefined.
 Lmod has detected the following error: The following module(s) are unknown: "DoesNotExist"
 Please check the spelling or version number. Also try "module spider ..."
 It is also possible your cache file is out-of-date; it may help to try:
@@ -222,118 +316,89 @@ Also make sure that all modulefiles written in TCL start with the string #%Modul
 step 31
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-Currently Loaded Modules:
-  1) admin/admin-1.0   5) PrgEnv          9) boost/1.49.0   (o)  13) A/1.1.1
-  2) unix/unix         6) intel/intel    10) alex/2.0            14) B/1.4
-  3) local/local       7) gotoblas/1.32  11) D/1.0
-  4) noweb/2.10c       8) _a/1.0         12) rtm_intel/12.1
-  Where:
-   o:  built for offload to the MIC only
+No modules loaded
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 32
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing tablelist
 ===========================
-activeList = {
-  A = "1.1.1",
-  B = "1.4",
-  D = "1.0",
-  PrgEnv = "",
-  _a = "1.0",
-  admin = "admin-1.0",
-  alex = "2.0",
-  boost = "1.49.0",
-  gotoblas = "1.32",
-  intel = "intel",
-  ["local"] = "local",
-  noweb = "2.10c",
-  rtm_intel = "12.1",
-  unix = "unix",
-}
+activeList = {}
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 33
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-ProjectDIR/rt/load/mf/Share
-   A/1.3    B/1.0    B/1.1
-ProjectDIR/rt/load/mf/Compiler/intel/10.1
-   gotoblas/1.31          gotoblas/1.33    openmpi/1.2.6
-   gotoblas/1.32 (L,D)    mpich2/1.0.7
-ProjectDIR/rt/load/mf/Core
-   Bad/1.0                boost/1.49.0  (o,L,D)    junk/a/c/1.0
-   PrgEnv          (L)    gcc/4.2.3                junk/b/c/2.0
-   Try/1.0                git/1.6.3.1              junk/d/3.0
-   Try/2.0         (D)    git/1.7.4                local/local  (L)
-   _a/1.0          (L)    git/1.7.4.3   (D)        multi/multi
-   admin/admin-1.0 (L)    gotoblas/1.20            noweb/2.10c  (L)
-   alex/1.0               gotoblas/1.26            parmetis/3.1 (m)
-   boost/1.46.0           gotoblas/1.30            unix/unix    (L)
-   boost/1.47.1           intel/intel   (L)
-ProjectDIR/rt/load/mf/Beta
-   gotoblas/1.30-beta
-ProjectDIR/rt/load/mf/Core2
-   A/1.0    B/1.1             dflt/default        moduleB/1.0
-   A/1.1    C/1.8.5           go/1.5.1            rtm_intel/11.1 (D)
-   A/1.2    D/1.0    (L)      moduleA/1.0         rtm_intel/12.1 (L)
-   B/1.0    alex/2.0 (L,D)    moduleA/2.0  (D)
-ProjectDIR/rt/load/mf/Scratch
-   A/1.1.1 (L,D)    B/1.0    B/1.4 (L,D)
-  Where:
-   D:  Default Module
-   L:  Module is loaded
-   m:  built for host and native MIC
-   o:  built for offload to the MIC only
-If the avail list is too long consider trying:
-"module --default avail" or "ml -d av" to just list the default modules.
-"module overview" or "ml ov" to display the number of modules for each name.
-Use "module spider" to find all possible modules and extensions.
-Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+Lmod has detected the following error: module avail is not possible. MODULEPATH is not set or not set with valid paths.
 ===========================
 step 34
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail C
 ===========================
-ProjectDIR/rt/load/mf/Compiler/intel/10.1
-   mpich2/1.0.7
-ProjectDIR/rt/load/mf/Core
-   gcc/4.2.3       junk/b/c/2.0        noweb/2.10c (L)
-   junk/a/c/1.0    local/local  (L)
-ProjectDIR/rt/load/mf/Core2
-   C/1.8.5
-  Where:
-   L:  Module is loaded
-If the avail list is too long consider trying:
-"module --default avail" or "ml -d av" to just list the default modules.
-"module overview" or "ml ov" to display the number of modules for each name.
-Use "module spider" to find all possible modules and extensions.
-Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+Lmod has detected the following error: module avail is not possible. MODULEPATH is not set or not set with valid paths.
 ===========================
 step 35
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load C
 ===========================
+Lmod Warning: MODULEPATH is undefined.
+Lmod has detected the following error: The following module(s) are unknown: "C"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "C"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 36
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-Currently Loaded Modules:
-  1) admin/admin-1.0   5) PrgEnv          9) boost/1.49.0   (o)  13) A/1.1.1
-  2) unix/unix         6) intel/intel    10) alex/2.0            14) B/1.4
-  3) local/local       7) gotoblas/1.32  11) D/1.0               15) C/1.8.5
-  4) noweb/2.10c       8) _a/1.0         12) rtm_intel/12.1
-  Where:
-   o:  built for offload to the MIC only
+No modules loaded
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 37
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load rtm_intel
 ===========================
-The following have been reloaded with a version change:
-  1) rtm_intel/12.1 => rtm_intel/11.1
+Lmod Warning: MODULEPATH is undefined.
+Lmod has detected the following error: The following module(s) are unknown: "rtm_intel"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "rtm_intel"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 38
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load go
 ===========================
+Lmod Warning: MODULEPATH is undefined.
+Lmod has detected the following error: The following module(s) are unknown: "go"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "go"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 39
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load bad_symlink
 ===========================
+Lmod Warning: MODULEPATH is undefined.
 Lmod has detected the following error: The following module(s) are unknown: "bad_symlink"
 Please check the spelling or version number. Also try "module spider ..."
 It is also possible your cache file is out-of-date; it may help to try:
@@ -343,6 +408,7 @@ Also make sure that all modulefiles written in TCL start with the string #%Modul
 step 40
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load empty
 ===========================
+Lmod Warning: MODULEPATH is undefined.
 Lmod has detected the following error: The following module(s) are unknown: "empty"
 Please check the spelling or version number. Also try "module spider ..."
 It is also possible your cache file is out-of-date; it may help to try:
@@ -352,6 +418,7 @@ Also make sure that all modulefiles written in TCL start with the string #%Modul
 step 41
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load version_only
 ===========================
+Lmod Warning: MODULEPATH is undefined.
 Lmod has detected the following error: The following module(s) are unknown: "version_only"
 Please check the spelling or version number. Also try "module spider ..."
 It is also possible your cache file is out-of-date; it may help to try:
@@ -361,69 +428,103 @@ Also make sure that all modulefiles written in TCL start with the string #%Modul
 step 42
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load dflt
 ===========================
+Lmod Warning: MODULEPATH is undefined.
+Lmod has detected the following error: The following module(s) are unknown: "dflt"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "dflt"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 43
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-Currently Loaded Modules:
-  1) admin/admin-1.0   7) gotoblas/1.32      13) B/1.4
-  2) unix/unix         8) _a/1.0             14) C/1.8.5
-  3) local/local       9) boost/1.49.0  (o)  15) rtm_intel/11.1
-  4) noweb/2.10c      10) alex/2.0           16) go/1.5.1
-  5) PrgEnv           11) D/1.0              17) dflt/default
-  6) intel/intel      12) A/1.1.1
-  Where:
-   o:  built for offload to the MIC only
+No modules loaded
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 44
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load noweb/2.10c.lua
 ===========================
+Lmod Warning: MODULEPATH is undefined.
+Lmod has detected the following error: The following module(s) are unknown: "noweb/2.10c"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "noweb/2.10c"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 45
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Try/1.0
 ===========================
+Lmod Warning: MODULEPATH is undefined.
+Lmod has detected the following error: The following module(s) are unknown: "Try/1.0"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "Try/1.0"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 46
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Try/2.0
 ===========================
-Lmod has detected the following error: Unable to load module because of error when evaluating modulefile:
-     ProjectDIR/rt/load/mf/Core/Bad/1.0.lua: [string "setenv("foo","bar")..."]:2: unexpected symbol near '#'
-     Please check the modulefile and especially if there is a line number specified in the above message
-While processing the following module(s):
-    Module fullname  Module Filename
-    Bad/1.0          ProjectDIR/rt/load/mf/Core/Bad/1.0.lua
-    Try/2.0          ProjectDIR/rt/load/mf/Core/Try/2.0.lua
+Lmod Warning: MODULEPATH is undefined.
+Lmod has detected the following error: The following module(s) are unknown: "Try/2.0"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "Try/2.0"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 47
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload B/2.3.4
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 48
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-Currently Loaded Modules:
-  1) admin/admin-1.0   7) _a/1.0            13) C/1.8.5
-  2) unix/unix         8) boost/1.49.0 (o)  14) rtm_intel/11.1
-  3) local/local       9) alex/2.0          15) go/1.5.1
-  4) PrgEnv           10) D/1.0             16) dflt/default
-  5) intel/intel      11) A/1.1.1           17) noweb/2.10c
-  6) gotoblas/1.32    12) B/1.4             18) Try/1.0
-  Where:
-   o:  built for offload to the MIC only
+No modules loaded
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 49
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load moduleA/1.0
 ===========================
+Lmod Warning: MODULEPATH is undefined.
+Lmod has detected the following error: The following module(s) are unknown: "moduleA/1.0"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "moduleA/1.0"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 50
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load moduleB/1.0
 ===========================
-Lmod has detected the following error: Your site prevents the automatic swapping of modules with same name. You must explicitly unload the loaded version of "moduleA/1.0" before you can load the new one. Use swap to do this:
-   $ module swap moduleA/1.0 moduleA/2.0
-Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOSWAP to "no" to re-enable same name autoswapping.
-While processing the following module(s):
-    Module fullname  Module Filename
-    moduleB/1.0      ProjectDIR/rt/load/mf/Core2/moduleB/1.0.lua
+Lmod Warning: MODULEPATH is undefined.
+Lmod has detected the following error: The following module(s) are unknown: "moduleB/1.0"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "moduleB/1.0"
+Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 51
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
@@ -439,26 +540,68 @@ If the avail list is too long consider trying:
 "module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 52
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load .eb_builder/default
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 53
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a/default
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 54
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load b/default
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 55
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-Currently Loaded Modules:
-  1) .eb_builder/default (H)   2) a/1.2   3) b/default
-  Where:
-   H:  Hidden Module
+No modules loaded
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 56
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A
@@ -473,6 +616,15 @@ While processing the following module(s):
 step 57
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A/1.0
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 58
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load B
@@ -487,22 +639,66 @@ While processing the following module(s):
 step 59
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load B/2.0
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 60
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load tex
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 61
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load rtmTest
 ===========================
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 62
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load MakeSystemCall
 ===========================
 I did not find the command I should not find.
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 63
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-Currently Loaded Modules:
-  1) A/1.0   2) B/2.0   3) tex/1.0   4) rtmTest/1.0   5) MakeSystemCall/1.0
+No modules loaded
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?

@@ -67,7 +67,6 @@ Tracing                            no
 uname -a
 LMOD_CONFIG_DIR     /etc/lmod  ProjectDIR/rt/configDir/lmod_cfg_dir
 LMOD_PACKAGE_PATH   nil        ProjectDIR/rt/configDir/lmod_cfg_dir
-LMOD_SET_NOGLOB     nil        no
 LMOD_SITE_MSG_FILE  false      ProjectDIR/rt/configDir/lmod_cfg_dir/lang.lua
 LMOD_SITE_NAME      false      XYZZY
 Active RC file(s):
@@ -184,6 +183,15 @@ step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load tryThis
 ===========================
 This is kewl
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load w
@@ -193,3 +201,12 @@ If there is no newer version, request one at hpc@vub.ac.be.
 While processing the following module(s):
     Module fullname  Module Filename
     w/1.0            ProjectDIR/rt/configDir/mf/w/1.0.lua
+lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
+stack traceback:
+	[C]: in function 'error'
+	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
+	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
+	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
+	ProjectDIR/src/lmod.in.lua:544: in function 'main'
+	ProjectDIR/src/lmod.in.lua:561: in main chunk
+	[C]: in ?

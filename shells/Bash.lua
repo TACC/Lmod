@@ -72,10 +72,9 @@ local function l_build_shell_func(name, func)
    a[#a+1] = name
    a[#a+1] = " () { ";
    a[#a+1] = func
-   a[#a+1] = "; }"
+   a[#a+1] = "; };\n"
    return concatTbl(a,"")
 end
-
 
 --------------------------------------------------------------------------
 -- Bash:shellFunc(): Either define or undefine a bash shell function.
@@ -138,10 +137,11 @@ end
 --                    and Fish should return true.
 
 
-function M.initialize(self)
-   local run_init = bcosmic:value("LMOD_BASH_INITIALIZE") == "yes"
+function Bash.initialize(self)
+   local run_init = cosmic:value("LMOD_BASH_INITIALIZE") == "yes"
+   run_init = true
    if (not run_init) then return end
-   lineA = {}
+   local lineA = {}
    lineA[#lineA+1] = "_mlshopt=\"f\";"
    lineA[#lineA+1] = "case \"$-\" in "
    lineA[#lineA+1] = "  *f*) unset _mlshopt;;"
@@ -154,10 +154,11 @@ function M.initialize(self)
    dbg.print{line,"\n"}
 end
 
-function M.finalize(self)
-   local run_init = bcosmic:value("LMOD_BASH_INITIALIZE") == "yes"
+function Bash.finalize(self)
+   local run_init = cosmic:value("LMOD_BASH_INITIALIZE") == "yes"
+   run_init = true
    if (not run_init) then return end
-   lineA = {}
+   local lineA = {}
    lineA[#lineA+1] = "if [ -n \"${_mlshopt:-}\" ]; then"
    lineA[#lineA+1] = "  set +$_mlshopt;"
    lineA[#lineA+1] = "fi;"
