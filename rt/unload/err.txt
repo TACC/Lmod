@@ -20,104 +20,52 @@ where "Foo" is the name of a module.
 To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel
 ===========================
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load mpich2 petsc
 ===========================
-Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "mpich2"
-   Try: "module spider mpich2" to see how to load the module(s).
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
+ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5
+   petsc/3.2 (L)
+ProjectDIR/rt/unload/mf/Compiler/intel/13.0
+   mpich2/1.5.2 (L)
 ProjectDIR/rt/unload/mf/Core
-   B/2.0    gcc/4.7.2    intel/13.0
+   B/2.0    gcc/4.7.2    intel/13.0 (L)
+  Where:
+   L:  Module is loaded
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
 "module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-No modules loaded
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
+Currently Loaded Modules:
+  1) intel/13.0   2) mpich2/1.5.2   3) petsc/3.2
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload intel
 ===========================
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
+Inactive Modules:
+  1) mpich2     2) petsc
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load B
 ===========================
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload B
 ===========================
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
+Lmod has detected the following error: Error in unload of B/2.0
+While processing the following module(s):
+    Module fullname  Module Filename
+    B/2.0            ProjectDIR/rt/unload/mf/Core/B/2.0.lua

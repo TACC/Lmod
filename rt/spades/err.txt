@@ -19,15 +19,6 @@ If the avail list is too long consider trying:
 "module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider spades
@@ -41,12 +32,3 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider spades
   Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider spades/3.12
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?

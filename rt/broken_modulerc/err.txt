@@ -8,37 +8,15 @@ Modules based on Lua: Version 8.6.8  2022-01-27 14:20 -06:00
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/broken_modulerc/mf/Core
 ===========================
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load git hdf5/1.8.15
 ===========================
-Lmod Warning: MODULEPATH is undefined.
 Lmod Warning: Badly formed module-version line: module-name must be fully qualified: hdf5 is not.
-Lmod has detected the following error: The following module(s) are unknown: "git/2.0.3"
-Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore_cache load "git/2.0.3"
-Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-No modules loaded
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
+Lmod Warning: Badly formed module-version line: module-name must be fully qualified: hdf5 is not.
+Currently Loaded Modules:
+  1) git/2.0.3   2) hdf5/1.8.15

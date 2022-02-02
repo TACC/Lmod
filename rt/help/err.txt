@@ -206,15 +206,6 @@ Lmod Web Sites
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
 Modules based on Lua: Version 8.6.8  2022-01-27 14:20 -06:00
     by Robert McLay mclay@tacc.utexas.edu
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing help amber
@@ -229,15 +220,6 @@ and $AMBERHOME/exe is included in the PATH variable.
 Here is an example command for executing the Sander module:
 sander.LES -i tes.in -o tes.out -p tes.prmtop.save -c tes.x -r tes.rst
 Version 9
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --config

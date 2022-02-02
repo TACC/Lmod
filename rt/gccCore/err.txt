@@ -16,15 +16,6 @@ where "Foo" is the name of a module.
 To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider boost/1.60.0
@@ -32,15 +23,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider boost/1.60.0
   boost: boost/1.60.0
     You will need to load all module(s) on any one of the lines below before the "boost/1.60.0" module is available to load.
       GCCcore/.6.3
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider
@@ -54,30 +36,12 @@ where "Foo" is the name of a module.
 To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider GCCcore
 ===========================
   GCCcore: GCCcore/.6.3
     This module can be loaded directly: module load GCCcore/.6.3
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GCCcore

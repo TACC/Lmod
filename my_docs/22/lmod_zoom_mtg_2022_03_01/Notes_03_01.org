@@ -27,6 +27,11 @@ Ideas for testing talk
 *** Use wrapperDiff tool to run diff on gold version with test version
 *** Use testFinish tool produce test result file that tm is looking for    
 
+* Gold files are in $testDir not $outputDir
+
+* outputDir is typically t1/$TARG_date_testname
+  
+
 
 * Topics to talk about
 ** joinBase64Results?

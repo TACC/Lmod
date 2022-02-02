@@ -11,14 +11,65 @@ false
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t avail
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/eb_avail/not/there/yet:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/eb_avail/not/there/yet;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/eb_avail/not/there/yet",},systemBaseMPATH="ProjectDIR/rt/eb_avail/not/there/yet",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/eb_avail/mf/Core:1\;ProjectDIR/rt/eb_avail/not/there/yet:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/eb_avail/mf/Core:ProjectDIR/rt/eb_avail/not/there/yet;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/eb_avail/mf/Core","ProjectDIR/rt/eb_avail/not/there/yet",},systemBaseMPATH="ProjectDIR/rt/eb_avail/mf/Core:ProjectDIR/rt/eb_avail/not/there/yet",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/eb_avail/not/there/yet:1\;ProjectDIR/rt/eb_avail/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/eb_avail/not/there/yet:ProjectDIR/rt/eb_avail/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/eb_avail/not/there/yet","ProjectDIR/rt/eb_avail/mf/Core",},systemBaseMPATH="ProjectDIR/rt/eb_avail/not/there/yet:ProjectDIR/rt/eb_avail/mf/Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
@@ -28,3 +79,20 @@ false
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/eb_avail/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/eb_avail/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/eb_avail/mf/Core",},systemBaseMPATH="ProjectDIR/rt/eb_avail/mf/Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;

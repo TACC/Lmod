@@ -8,56 +8,23 @@ Modules based on Lua: Version 8.6.8  2022-01-27 14:20 -06:00
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load PrgEnv
 ===========================
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/isloaded/mf/Core2
 ===========================
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load foo/1.0
 ===========================
-Lmod has detected the following error: The following module(s) are unknown: "foo/1.0"
-Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore_cache load "foo/1.0"
-Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load isloaded
 ===========================
-Lmod has detected the following error: The following module(s) are unknown: "isloaded"
-Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore_cache load "isloaded"
-Also make sure that all modulefiles written in TCL start with the string #%Module
+Found intel
+Found foo
+Found foo/1.0
+Found baz
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing del isloaded
 ===========================
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?

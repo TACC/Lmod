@@ -8,63 +8,171 @@ Modules based on Lua: Version 8.6.8  2022-01-27 14:20 -06:00
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/rt/spider/mf/Core ProjectDIR/rt/spider/mf/Beta ProjectDIR/rt/spider/mf/Base ProjectDIR/rt/spider/mf/Core2
 ===========================
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
 The following is a list of the modules and extensions currently available:
+  PrgEnv: PrgEnv
+  R: R/2.1.5
+  admin: admin/admin-1.0
+  alex: alex/1.0
+  apps: apps/moabdev
+  apps/gromacs: apps/gromacs/4.0.7, apps/gromacs/4.6.3-debug, apps/gromacs/4.6.3
+  boost: boost/1.46.0, boost/1.47.1, boost/1.49.0
+  bwa: bwa/0.7.1, bwa/0.7.2, bwa/0.7.9a, bwa/0.7.9, bwa/0.7.10
+  cmplrs/intel: cmplrs/intel/14.0
+  gcc: gcc/4.2.3
+  git: git/1.6.3.1, git/1.7.4, git/1.7.4.3
+  gotoblas: gotoblas/1.20, gotoblas/1.26, gotoblas/1.30-beta, gotoblas/1.30, gotoblas/1.31, gotoblas/1.32, gotoblas/1.33
+    Blas Level 1, 2, 3 routines
+  greenlet: greenlet/0.4.0
+    The greenlet package is a spin-off of Stackless, a version of CPython that supports micro-threads called "tasklets". Tasklets run pseudo-concurrently (typically in a single or a few OS-level threads) and are synchronized with data exchanges on "channels". A "greenlet", on the other hand, is a still more primitive notion of micro-thread with no implicit scheduling; coroutines, in other words. This is useful when you want to control exactly when your code runs. - Homepage: https://github.com/python-greenlet/greenlet
+  intel: intel/intel
+  is-dyna: is-dyna/1.0, is-dyna/2.0
+  junk/a/c: junk/a/c/1.0
+  junk/b/c: junk/b/c/2.0
+  junk/d: junk/d/3.0
+  lanl: lanl/1.0
+  local: local/local
+  mpi/openmpi: mpi/openmpi/1.6.5
+  mpich2: mpich2/1.0.7
+  multi: multi/multi
+  noweb: noweb/2.10c
+  numpy: numpy/1.16.4 (E)
+  openmpi: openmpi/1.2.6
+  parmetis: parmetis/3.1, parmetis/4.0.1
+    Parallel graph partitioning and fill-reduction matrix ordering routines
+  petsc: petsc/3.1, petsc/3.2
+  phdf5: phdf5/1.8.2, phdf5/1.8.9, phdf5/1.8.10
+  python2: python2/2.7
+  r: r/2.1.5
+  scipy: scipy/1.2.2 (E)
+  unix: unix/unix
+Names marked by a trailing (E) are extensions provided by another module.
 To learn more about a package execute:
    $ module spider Foo
 where "Foo" is the name of a module.
 To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t spider
 ===========================
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
+PrgEnv
+R/
+R/2.1.5
+admin/
+admin/admin-1.0
+alex/
+alex/1.0
+apps/
+apps/moabdev
+apps/gromacs/
+apps/gromacs/4.0.7
+apps/gromacs/4.6.3-debug
+apps/gromacs/4.6.3
+boost/
+boost/1.46.0
+boost/1.47.1
+boost/1.49.0
+bwa/
+bwa/0.7.1
+bwa/0.7.2
+bwa/0.7.9a
+bwa/0.7.9
+bwa/0.7.10
+cmplrs/intel/
+cmplrs/intel/14.0
+gcc/
+gcc/4.2.3
+git/
+git/1.6.3.1
+git/1.7.4
+git/1.7.4.3
+gotoblas/
+gotoblas/1.20
+gotoblas/1.26
+gotoblas/1.30-beta
+gotoblas/1.30
+gotoblas/1.31
+gotoblas/1.32
+gotoblas/1.33
+greenlet/
+greenlet/0.4.0
+intel/
+intel/intel
+is-dyna/
+is-dyna/1.0
+is-dyna/2.0
+junk/a/c/
+junk/a/c/1.0
+junk/b/c/
+junk/b/c/2.0
+junk/d/
+junk/d/3.0
+lanl/
+lanl/1.0
+local/
+local/local
+mpi/openmpi/
+mpi/openmpi/1.6.5
+mpich2/
+mpich2/1.0.7
+multi/
+multi/multi
+noweb/
+noweb/2.10c
+numpy/
+numpy/1.16.4
+openmpi/
+openmpi/1.2.6
+parmetis/
+parmetis/3.1
+parmetis/4.0.1
+petsc/
+petsc/3.1
+petsc/3.2
+phdf5/
+phdf5/1.8.2
+phdf5/1.8.9
+phdf5/1.8.10
+python2/
+python2/2.7
+r/
+r/2.1.5
+scipy/
+scipy/1.2.2
+unix/
+unix/unix
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider mpich2
 ===========================
-Lmod has detected the following error: Unable to find: "mpich2".
+  mpich2: mpich2/1.0.7
+    You will need to load all module(s) on any one of the lines below before the "mpich2/1.0.7" module is available to load.
+      intel/intel
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider mpich2/1.0.7
 ===========================
-Lmod has detected the following error: Unable to find: "mpich2/1.0.7".
+  mpich2: mpich2/1.0.7
+    You will need to load all module(s) on any one of the lines below before the "mpich2/1.0.7" module is available to load.
+      intel/intel
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider parmetis/3.1
 ===========================
-Lmod has detected the following error: Unable to find: "parmetis/3.1".
+  parmetis: parmetis/3.1
+    Description:
+      Parallel graph partitioning and fill-reduction matrix ordering routines
+    Properties:
+      built for host and native MIC
+    This module can be loaded directly: module load parmetis/3.1
+    Additional variants of this module can also be loaded after loading the following modules:
+      gcc/4.2.3  openmpi/1.2.6
+      intel/intel  openmpi/1.2.6
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider mpich2me
@@ -74,17 +182,26 @@ Lmod has detected the following error: Unable to find: "mpich2me".
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider R
 ===========================
-Lmod has detected the following error: Unable to find: "R".
+  R: R/2.1.5
+     Other possible modules matches:
+        PrgEnv, apps/gromacs, cmplrs/intel, greenlet, parmetis, r
+    This module can be loaded directly: module load R/2.1.5
+  To find other possible module matches execute:
+      $ module -r spider '.*R.*'
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -r spider ^R
 ===========================
-Lmod has detected the following error: Unable to find: "^R".
+  R: R/2.1.5
+    This module can be loaded directly: module load R/2.1.5
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -r spider ^[Rr]
 ===========================
-Lmod has detected the following error: Unable to find: "^[Rr]".
+  R: R/2.1.5
+    This module can be loaded directly: module load R/2.1.5
+  r: r/2.1.5
+    This module can be loaded directly: module load r/2.1.5
 ===========================
 step 12
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider mpich2/1.0.5
@@ -94,118 +211,191 @@ Lmod has detected the following error: Unable to find: "mpich2/1.0.5".
 step 13
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider is-dyna
 ===========================
-Lmod has detected the following error: Unable to find: "is-dyna".
+  is-dyna:
+     Versions:
+        is-dyna/1.0
+        is-dyna/2.0
+  For detailed information about a specific "is-dyna" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
+  For example:
+     $ module spider is-dyna/2.0
 ===========================
 step 14
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider is-dyna/1.0
 ===========================
-Lmod has detected the following error: Unable to find: "is-dyna/1.0".
+  is-dyna: is-dyna/1.0
+    This module can be loaded directly: module load is-dyna/1.0
 ===========================
 step 15
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider bwa
 ===========================
-Lmod has detected the following error: Unable to find: "bwa".
+  bwa:
+     Versions:
+        bwa/0.7.1
+        bwa/0.7.2
+        bwa/0.7.9a
+        bwa/0.7.9
+        bwa/0.7.10
+  For detailed information about a specific "bwa" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
+  For example:
+     $ module spider bwa/0.7.10
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gromacs
 ===========================
-Lmod has detected the following error: Unable to find: "gromacs".
+  apps/gromacs:
+     Versions:
+        apps/gromacs/4.0.7
+        apps/gromacs/4.6.3-debug
+        apps/gromacs/4.6.3
+  For detailed information about a specific "apps/gromacs" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
+  For example:
+     $ module spider apps/gromacs/4.6.3
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs
 ===========================
-Lmod has detected the following error: Unable to find: "apps/gromacs".
+  apps/gromacs:
+     Versions:
+        apps/gromacs/4.0.7
+        apps/gromacs/4.6.3-debug
+        apps/gromacs/4.6.3
+  For detailed information about a specific "apps/gromacs" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
+  For example:
+     $ module spider apps/gromacs/4.6.3
 ===========================
 step 18
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6.3
 ===========================
-Lmod has detected the following error: Unable to find: "apps/gromacs/4.6.3".
+  apps/gromacs: apps/gromacs/4.6.3
+    You will need to load all module(s) on any one of the lines below before the "apps/gromacs/4.6.3" module is available to load.
+      cmplrs/intel/14.0  mpi/openmpi/1.6.5
 ===========================
 step 19
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6.3-debug
 ===========================
-Lmod has detected the following error: Unable to find: "apps/gromacs/4.6.3-debug".
+  apps/gromacs: apps/gromacs/4.6.3-debug
+    You will need to load all module(s) on any one of the lines below before the "apps/gromacs/4.6.3-debug" module is available to load.
+      cmplrs/intel/14.0  mpi/openmpi/1.6.5
 ===========================
 step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/spider/mf/UNKNOWN
 ===========================
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 21
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
 The following is a list of the modules and extensions currently available:
+  PrgEnv: PrgEnv
+  R: R/2.1.5
+  admin: admin/admin-1.0
+  alex: alex/1.0
+  apps: apps/moabdev
+  apps/gromacs: apps/gromacs/4.0.7, apps/gromacs/4.6.3-debug, apps/gromacs/4.6.3
+  boost: boost/1.46.0, boost/1.47.1, boost/1.49.0
+  bwa: bwa/0.7.1, bwa/0.7.2, bwa/0.7.9a, bwa/0.7.9, bwa/0.7.10
+  cmplrs/intel: cmplrs/intel/14.0
+  gcc: gcc/4.2.3
+  git: git/1.6.3.1, git/1.7.4, git/1.7.4.3
+  gotoblas: gotoblas/1.20, gotoblas/1.26, gotoblas/1.30-beta, gotoblas/1.30, gotoblas/1.31, gotoblas/1.32, gotoblas/1.33
+    Blas Level 1, 2, 3 routines
+  greenlet: greenlet/0.4.0
+    The greenlet package is a spin-off of Stackless, a version of CPython that supports micro-threads called "tasklets". Tasklets run pseudo-concurrently (typically in a single or a few OS-level threads) and are synchronized with data exchanges on "channels". A "greenlet", on the other hand, is a still more primitive notion of micro-thread with no implicit scheduling; coroutines, in other words. This is useful when you want to control exactly when your code runs. - Homepage: https://github.com/python-greenlet/greenlet
+  intel: intel/intel
+  is-dyna: is-dyna/1.0, is-dyna/2.0
+  junk/a/c: junk/a/c/1.0
+  junk/b/c: junk/b/c/2.0
+  junk/d: junk/d/3.0
+  lanl: lanl/1.0
+  local: local/local
+  mpi/openmpi: mpi/openmpi/1.6.5
+  mpich2: mpich2/1.0.7
+  multi: multi/multi
+  noweb: noweb/2.10c
+  numpy: numpy/1.16.4 (E)
+  openmpi: openmpi/1.2.6
+  parmetis: parmetis/3.1, parmetis/4.0.1
+    Parallel graph partitioning and fill-reduction matrix ordering routines
+  petsc: petsc/3.1, petsc/3.2
+  phdf5: phdf5/1.8.2, phdf5/1.8.9, phdf5/1.8.10
+  python2: python2/2.7
+  r: r/2.1.5
+  scipy: scipy/1.2.2 (E)
+  unix: unix/unix
+Names marked by a trailing (E) are extensions provided by another module.
 To learn more about a package execute:
    $ module spider Foo
 where "Foo" is the name of a module.
 To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 22
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gromacs
 ===========================
-Lmod has detected the following error: Unable to find: "gromacs".
+  apps/gromacs:
+     Versions:
+        apps/gromacs/4.0.7
+        apps/gromacs/4.6.3-debug
+        apps/gromacs/4.6.3
+  For detailed information about a specific "apps/gromacs" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
+  For example:
+     $ module spider apps/gromacs/4.6.3
 ===========================
 step 23
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs
 ===========================
-Lmod has detected the following error: Unable to find: "apps/gromacs".
+  apps/gromacs:
+     Versions:
+        apps/gromacs/4.0.7
+        apps/gromacs/4.6.3-debug
+        apps/gromacs/4.6.3
+  For detailed information about a specific "apps/gromacs" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
+  For example:
+     $ module spider apps/gromacs/4.6.3
 ===========================
 step 24
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6.3
 ===========================
-Lmod has detected the following error: Unable to find: "apps/gromacs/4.6.3".
+  apps/gromacs: apps/gromacs/4.6.3
+    You will need to load all module(s) on any one of the lines below before the "apps/gromacs/4.6.3" module is available to load.
+      cmplrs/intel/14.0  mpi/openmpi/1.6.5
 ===========================
 step 25
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6.3-debug
 ===========================
-Lmod has detected the following error: Unable to find: "apps/gromacs/4.6.3-debug".
+  apps/gromacs: apps/gromacs/4.6.3-debug
+    You will need to load all module(s) on any one of the lines below before the "apps/gromacs/4.6.3-debug" module is available to load.
+      cmplrs/intel/14.0  mpi/openmpi/1.6.5
 ===========================
 step 26
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider petsc/3.1
 ===========================
-Lmod has detected the following error: Unable to find: "petsc/3.1".
+  petsc: petsc/3.1
+    You will need to load all module(s) on any one of the lines below before the "petsc/3.1" module is available to load.
+      intel/intel  mpich2/1.0.7
 ===========================
 step 27
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/spider/mf/Core3
 ===========================
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 28
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider smrt
 ===========================
-Lmod has detected the following error: Unable to find: "smrt".
+  smrt: smrt/2.3
+    This module can be loaded directly: module load smrt/2.3
 ===========================
 step 29
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider petsc/3.1
 ===========================
-Lmod has detected the following error: Unable to find: "petsc/3.1".
+  petsc: petsc/3.1
+    You will need to load all module(s) on any one of the lines below before the "petsc/3.1" module is available to load.
+      intel/intel  mpich2/1.0.7
 ===========================
 step 30
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
@@ -225,15 +415,6 @@ where "Foo" is the name of a module.
 To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 31
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GCC
@@ -244,30 +425,12 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GCC
     This module can be loaded directly: module load GCC/6.3.0
   To find other possible module matches execute:
       $ module -r spider '.*GCC.*'
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 32
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gcc
 ===========================
   GCC: GCC/6.3.0
     This module can be loaded directly: module load GCC/6.3.0
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 33
 runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/E_Core
@@ -290,15 +453,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider python2/2.7
        numpy/1.16.4 (E), scipy/1.2.2 (E)
     Help:
       This is the help message for python 2.7
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 36
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t spider
@@ -327,15 +481,6 @@ python2/2.7.14
 scipy/
 scipy/1.1
 scipy/1.2.2
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 37
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
@@ -357,15 +502,6 @@ where "Foo" is the name of a module.
 To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 38
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy
@@ -379,15 +515,6 @@ Names marked by a trailing (E) are extensions provided by another module.
   Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider numpy/1.16.4
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 39
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy/1.16.4
@@ -400,15 +527,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy/1.16.4
        python2/2.7 (gcc/4.2.5)
        python2/2.7 (gcc/4.2.3)
 Names marked by a trailing (E) are extensions provided by another module.
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 40
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load numpy
@@ -442,15 +560,6 @@ If the avail list is too long consider trying:
 "module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 43
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --nx avail
@@ -467,15 +576,6 @@ If the avail list is too long consider trying:
 "module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 44
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
@@ -492,15 +592,6 @@ If the avail list is too long consider trying:
 "module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 45
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
@@ -522,15 +613,6 @@ If the avail list is too long consider trying:
 "module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 46
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing keyword numpy
@@ -544,15 +626,6 @@ where "Foo" is the name of a module.
 To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 47
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing keyword foo
@@ -564,15 +637,6 @@ where "Foo" is the name of a module.
 To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 48
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider abcpy
@@ -582,15 +646,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider abcpy
     This extension is provided by the following modules. To access the extension you must load one of the following modules. Note that any module names in parentheses show the module location in the software hierarchy.
        python3/3.7
 Names marked by a trailing (E) are extensions provided by another module.
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 49
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider abcpy/2.1
@@ -600,15 +655,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider abcpy/2.1
     This extension is provided by the following modules. To access the extension you must load one of the following modules. Note that any module names in parentheses show the module location in the software hierarchy.
        python3/3.7
 Names marked by a trailing (E) are extensions provided by another module.
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 50
 runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/G_Core
@@ -633,15 +679,6 @@ where "Foo" is the name of a module.
 To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 53
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider
@@ -660,15 +697,6 @@ where "Foo" is the name of a module.
 To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 54
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider tornado
@@ -683,15 +711,6 @@ Names marked by a trailing (E) are extensions provided by another module.
   Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider tornado/7.1
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 55
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider tornado
@@ -707,15 +726,6 @@ Names marked by a trailing (E) are extensions provided by another module.
   Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider tornado/7.1
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 56
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider
@@ -734,15 +744,6 @@ where "Foo" is the name of a module.
 To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 57
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy
@@ -752,15 +753,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy
        mypy/3.14
        abcpy/2.1
 Names marked by a trailing (E) are extensions provided by another module.
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 58
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider numpy
@@ -774,15 +766,6 @@ Names marked by a trailing (E) are extensions provided by another module.
   Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider numpy/1.16.55
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 59
 runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/I_Core
@@ -794,15 +777,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t --ignore_cache --sho
 GROMACS/.2016.x-drude-20180214-g3f7439a
 GROMACS/5.1.4
 GROMACS/2016.2
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 61
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --ignore_cache --show_hidden spider GROMACS
@@ -816,15 +790,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --ignore_cache --show_h
   Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider GROMACS/2016.2
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 62
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t --show_hidden spider GROMACS
@@ -832,15 +797,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t --show_hidden spider
 GROMACS/.2016.x-drude-20180214-g3f7439a
 GROMACS/5.1.4
 GROMACS/2016.2
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 63
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider GROMACS
@@ -854,42 +810,18 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider GR
   Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider GROMACS/2016.2
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 64
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load GROMACS/.2016.x-drude-20180214-g3f7439a
 ===========================
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 65
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-No modules loaded
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
+Currently Loaded Modules:
+  1) GROMACS/.2016.x-drude-20180214-g3f7439a (H)
+  Where:
+   H:  Hidden Module
 ===========================
 step 66
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
@@ -905,15 +837,6 @@ where "Foo" is the name of a module.
 To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 67
 runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf2/Core
@@ -940,15 +863,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GROMACS/2018
       More information
       ================
        - Homepage: http://www.gromacs.org
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 70
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GROMACS/2019
@@ -968,12 +882,3 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GROMACS/2019
       More information
       ================
        - Homepage: http://www.gromacs.org
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?

@@ -18,107 +18,73 @@ where "Foo" is the name of a module.
 To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ucc/9.0
 ===========================
 Module ucc/9.0 loaded
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
+ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0
+   umpi/8.0    umpi/8.1 (D)
 ProjectDIR/rt/tamu/mf/Core
-   ucc/1.0    ucc/9.0 (D)
+   ucc/1.0    ucc/9.0 (L,D)
   Where:
    D:  Default Module
+   L:  Module is loaded
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
 "module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load umpi
 ===========================
-Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "umpi"
-   Try: "module spider umpi" to see how to load the module(s).
+Module umpi/8.1 loaded
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
+ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1
+   uapp/7.0.8.1    uapp/7.1.8.1 (D)
+ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0
+   umpi/8.0    umpi/8.1 (L,D)
 ProjectDIR/rt/tamu/mf/Core
-   ucc/1.0    ucc/9.0 (D)
+   ucc/1.0    ucc/9.0 (L,D)
   Where:
    D:  Default Module
+   L:  Module is loaded
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
 "module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load uapp
 ===========================
-Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "uapp"
-   Try: "module spider uapp" to see how to load the module(s).
+Module uapp/7.1 loaded
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
+ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1
+   uapp/7.0.8.1    uapp/7.1.8.1 (L,D)
+ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0
+   umpi/8.0    umpi/8.1 (L,D)
 ProjectDIR/rt/tamu/mf/Core
-   ucc/1.0    ucc/9.0 (D)
+   ucc/1.0    ucc/9.0 (L,D)
   Where:
    D:  Default Module
+   L:  Module is loaded
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
 "module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider uapp
@@ -134,15 +100,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider uapp
   Note that names that have a trailing (E) are extensions provided by other modules.
   For example:
      $ module spider uapp/7.1.8.1
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider uapp/7.0.8.1
@@ -150,12 +107,3 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider uapp/7.0.8.1
   uapp: uapp/7.0.8.1
     You will need to load all module(s) on any one of the lines below before the "uapp/7.0.8.1" module is available to load.
       ucc/9.0  umpi/8.1
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?

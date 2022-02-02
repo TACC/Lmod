@@ -8,77 +8,82 @@ Modules based on Lua: Version 8.6.8  2022-01-27 14:20 -06:00
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc mpich
 ===========================
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load boost pmetis
 ===========================
-Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "boost"
-   Try: "module spider boost" to see how to load the module(s).
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show boost
 ===========================
-Lmod Warning: Failed to find the following module(s): "boost" in your MODULEPATH
-Try:
-    $ module spider boost
-to see if the module(s) are available across all compilers and MPI implementations.
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
+   ProjectDIR/rt/pkg/mf/Compiler/gcc/4.7/boost/1.53.0.lua:
+whatis("Name: Boost")
+whatis("Version: 1.53.0")
+whatis("Category: System Environment/Base")
+whatis("Description: Boost provides free peer-reviewed  portable C++ source libraries.")
+whatis("URL: http://www.boost.org")
+help([[The boost module file defines the following environment variables:
+TACC_BOOST_DIR, TACC_BOOST_LIB, and TACC_BOOST_INC for
+the location of the boost distribution.
+]], [[
+Version 1.53.0
+]])
+setenv("LMOD_BOOST_LIB","/opt/apps/gcc-4_7/boost/1.53.0/lib")
+setenv("LMOD_BOOST_INC","/opt/apps/gcc-4_7/boost/1.53.0/include")
+add_property("arch","mic")
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show pmetis
 ===========================
-Lmod Warning: Failed to find the following module(s): "pmetis" in your MODULEPATH
-Try:
-    $ module spider pmetis
-to see if the module(s) are available across all compilers and MPI implementations.
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
+   ProjectDIR/rt/pkg/mf/MPI/gcc/4.7/mpich/3.0/pmetis/4.0.3.lua:
+whatis("Name: PMETIS")
+whatis("Version: 4.0.3")
+whatis("Category: Library, Mathematics")
+whatis("Description: Parallel graph partitioning and fill-reduction matrix ordering routines")
+whatis("URL: http://glaros.dtc.umn.edu/gkhome/views/metis")
+whatis("Keywords: Library, Parallel, Mathematics, Graph Partitioning")
+help([[The pmetis module defines the following environment variables:
+TACC_PMETIS_DIR, TACC_PMETIS_DOC, TACC_PMETIS_BIN,
+TACC_PMETIS_LIB, and TACC_PMETIS_INC for the location
+of the ParMetis distribution, documentation, binaries,
+libraries, and include files.
+To use the parmetis library, include compilation and link directives
+of the form: -L$TACC_PMETIS_LIB -I$TACC_PMETIS_INC -lparmetis -lmetis
+Here is an example command to compile pmetis_test.c:
+mpicc -I$TACC_PMETIS_INC pmetis_test.c -L$TACC_PMETIS_LIB -lparmetis
+]], [[
+Version 4.0.3
+]])
+setenv("LMOD_PMETIS_DIR","/opt/apps/gcc-4_7/mpich-3_0/pmetis/4.0.3")
+setenv("LMOD_PMETIS_INC","/opt/apps/gcc-4_7/mpich-3_0/pmetis/4.0.3/include")
+setenv("LMOD_PMETIS_LIB","/opt/apps/gcc-4_7/mpich-3_0/pmetis/4.0.3/lib")
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show mpich
 ===========================
-Lmod Warning: Failed to find the following module(s): "mpich" in your MODULEPATH
-Try:
-    $ module spider mpich
-to see if the module(s) are available across all compilers and MPI implementations.
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
+   ProjectDIR/rt/pkg/mf/Compiler/gcc/4.7/mpich/3.0.4.lua:
+whatis("Name: mpich")
+whatis("Version: 3.0.4")
+whatis("Category: MPI")
+whatis("Description: Message Passing Interface Library version 3")
+whatis("URL: http://www.mpich.org")
+help([[Mpich implementation MPI 3.0
+]], [[
+Version 3.0.4
+]])
+prepend_path("MODULEPATH","ProjectDIR/rt/pkg/mf/MPI/gcc/4.7/mpich/3.0")
+prepend_path("PATH","/opt/apps/gcc-4_7/mpich/3.0.4/bin")
+prepend_path("MANPATH","/opt/apps/gcc-4_7/mpich/3.0.4/man")
+setenv("MPIHOME","/opt/apps/gcc-4_7/mpich/3.0.4")
+setenv("MPICH_HOME","/opt/apps/gcc-4_7/mpich/3.0.4")
+prepend_path("LD_LIBRARY_PATH","/opt/apps/gcc-4_7/mpich/3.0.4/lib")
+family("MPI")
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap gcc intel
 ===========================
-Lmod has detected the following error: Swap failed: "gcc" is not loaded.
+Due to MODULEPATH changes, the following have been reloaded:
+  1) boost/1.53.0     2) mpich/3.0.4     3) pmetis/4.0.3
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show intel
@@ -146,26 +151,11 @@ prepend_path("PATH","/opt/apps/intel/13.1.0/vtune_amplifier_xe_2013/bin64")
 prepend_path("PATH","/opt/apps/intel/13.1.0/inspector_xe_2013/bin64")
 prepend_path("MODULEPATH","ProjectDIR/rt/pkg/mf/Compiler/intel/13.1")
 family("compiler")
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-No modules loaded
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
+Currently Loaded Modules:
+  1) intel/13.1.0   2) mpich/3.0.4   3) boost/1.53.0 (m)   4) pmetis/4.0.3
+  Where:
+   m:  built for host and native MIC

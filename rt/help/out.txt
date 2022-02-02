@@ -10,10 +10,42 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --help
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing help
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/help/mf:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/help/mf;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/help/mf",},systemBaseMPATH="ProjectDIR/rt/help/mf",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing help amber
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/help/mf;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/help/mf",},systemBaseMPATH="ProjectDIR/rt/help/mf",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --config

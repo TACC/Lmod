@@ -8,54 +8,31 @@ Modules based on Lua: Version 8.6.8  2022-01-27 14:20 -06:00
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/inaccessible/mf/path1
 ===========================
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --ignore_cache spider
 ===========================
 The following is a list of the modules and extensions currently available:
   StdEnv: StdEnv
+  extend: extend/1.0
+  inaccessible: inaccessible/1.0
 To learn more about a package execute:
    $ module spider Foo
 where "Foo" is the name of a module.
 To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --ignore_cache spider inaccessible
 ===========================
-Lmod has detected the following error: Unable to find: "inaccessible".
+  inaccessible: inaccessible/1.0
+    You will need to load all module(s) on any one of the lines below before the "inaccessible/1.0" module is available to load.
+      extend/1.0
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unuse ProjectDIR/rt/inaccessible/mf/path1
 ===========================
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider inaccessible
@@ -74,15 +51,6 @@ Also make sure that all modulefiles written in TCL start with the string #%Modul
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider software1
@@ -90,12 +58,3 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider software1
   software1: software1/1.0
     You will need to load all module(s) on any one of the lines below before the "software1/1.0" module is available to load.
       compiler1/1.0
-lua: ProjectDIR/src/../shells/Bash.lua:141: variable 'bcosmic' is not declared
-stack traceback:
-	[C]: in function 'error'
-	ProjectDIR/src/../tools/strict.lua:36: in metamethod 'index'
-	ProjectDIR/src/../shells/Bash.lua:141: in function 'Bash.initialize'
-	ProjectDIR/src/../shells/BaseShell.lua:154: in function 'BaseShell.expand'
-	ProjectDIR/src/lmod.in.lua:544: in function 'main'
-	ProjectDIR/src/lmod.in.lua:561: in main chunk
-	[C]: in ?

@@ -312,6 +312,23 @@ xlibmap = {}
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/rmap/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/rmap/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/rmap/mf/Core",},systemBaseMPATH="ProjectDIR/rt/rmap/mf/Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 6
 buildSpiderT ProjectDIR/rt/rmap/mf/2Core

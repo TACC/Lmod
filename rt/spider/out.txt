@@ -6,29 +6,118 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/rt/spider/mf/Core ProjectDIR/rt/spider/mf/Beta ProjectDIR/rt/spider/mf/Base ProjectDIR/rt/spider/mf/Core2
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/spider/mf/Core:1\;ProjectDIR/rt/spider/mf/Beta:1\;ProjectDIR/rt/spider/mf/Base:1\;ProjectDIR/rt/spider/mf/Core2:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t spider
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider mpich2
 ===========================
-false
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider mpich2/1.0.7
 ===========================
-false
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider parmetis/3.1
 ===========================
-false
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider mpich2me
@@ -38,17 +127,59 @@ false
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider R
 ===========================
-false
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -r spider ^R
 ===========================
-false
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -r spider ^[Rr]
 ===========================
-false
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 12
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider mpich2/1.0.5
@@ -58,96 +189,390 @@ false
 step 13
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider is-dyna
 ===========================
-false
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 14
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider is-dyna/1.0
 ===========================
-false
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 15
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider bwa
 ===========================
-false
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gromacs
 ===========================
-false
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs
 ===========================
-false
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 18
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6.3
 ===========================
-false
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 19
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6.3-debug
 ===========================
-false
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/spider/mf/UNKNOWN
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/spider/mf/UNKNOWN:1\;ProjectDIR/rt/spider/mf/Core:1\;ProjectDIR/rt/spider/mf/Beta:1\;ProjectDIR/rt/spider/mf/Base:1\;ProjectDIR/rt/spider/mf/Core2:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/spider/mf/UNKNOWN:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/UNKNOWN","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 21
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/UNKNOWN:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/UNKNOWN","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 22
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gromacs
 ===========================
-false
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/UNKNOWN:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/UNKNOWN","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 23
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs
 ===========================
-false
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/UNKNOWN:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/UNKNOWN","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 24
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6.3
 ===========================
-false
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/UNKNOWN:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/UNKNOWN","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 25
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6.3-debug
 ===========================
-false
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/UNKNOWN:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/UNKNOWN","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 26
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider petsc/3.1
 ===========================
-false
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/UNKNOWN:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/UNKNOWN","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 27
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/spider/mf/Core3
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/spider/mf/Core3:1\;ProjectDIR/rt/spider/mf/UNKNOWN:1\;ProjectDIR/rt/spider/mf/Core:1\;ProjectDIR/rt/spider/mf/Beta:1\;ProjectDIR/rt/spider/mf/Base:1\;ProjectDIR/rt/spider/mf/Core2:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/spider/mf/Core3:ProjectDIR/rt/spider/mf/UNKNOWN:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core3","ProjectDIR/rt/spider/mf/UNKNOWN","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 28
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider smrt
 ===========================
-false
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/Core3:ProjectDIR/rt/spider/mf/UNKNOWN:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core3","ProjectDIR/rt/spider/mf/UNKNOWN","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 29
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider petsc/3.1
 ===========================
-false
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/Core3:ProjectDIR/rt/spider/mf/UNKNOWN:ProjectDIR/rt/spider/mf/Core:ProjectDIR/rt/spider/mf/Beta:ProjectDIR/rt/spider/mf/Base:ProjectDIR/rt/spider/mf/Core2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/Core3","ProjectDIR/rt/spider/mf/UNKNOWN","ProjectDIR/rt/spider/mf/Core","ProjectDIR/rt/spider/mf/Beta","ProjectDIR/rt/spider/mf/Base","ProjectDIR/rt/spider/mf/Core2",},}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 30
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/spider/mf/CQ/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/spider/mf/CQ/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/CQ/Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/CQ/Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 31
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GCC
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/spider/mf/D:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/spider/mf/D;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/D",},systemBaseMPATH="ProjectDIR/rt/spider/mf/D",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 32
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gcc
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/D;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/D",},systemBaseMPATH="ProjectDIR/rt/spider/mf/D",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 33
 runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/E_Core
@@ -640,22 +1065,99 @@ provideByT = {
 step 35
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider python2/2.7
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/spider/mf/E_Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/spider/mf/E_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/E_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/E_Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 36
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t spider
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/E_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/E_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/E_Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 37
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/E_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/E_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/E_Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 38
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/E_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/E_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/E_Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 39
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy/1.16.4
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/E_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/E_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/E_Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 40
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load numpy
@@ -670,34 +1172,156 @@ false
 step 42
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/E_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/E_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/E_Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 43
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --nx avail
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/E_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/E_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/E_Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 44
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/E_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/E_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/E_Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 45
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/E_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/E_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/E_Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 46
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing keyword numpy
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/E_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/E_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/E_Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 47
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing keyword foo
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/E_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/E_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/E_Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 48
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider abcpy
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/spider/mf/F_Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/spider/mf/F_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/F_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/F_Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 49
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider abcpy/2.1
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/F_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/F_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/F_Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 50
 runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/G_Core
@@ -833,30 +1457,137 @@ mpathMapT = {}
 step 52
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/spider/mf/H_Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/spider/mf/H_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/H_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/H_Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 53
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/H_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/H_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/H_Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 54
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider tornado
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/H_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/H_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/H_Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 55
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider tornado
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/H_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/H_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/H_Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 56
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/H_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/H_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/H_Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 57
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/H_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/H_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/H_Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 58
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider numpy
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/H_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/H_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/H_Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 59
 runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/I_Core
@@ -921,30 +1652,147 @@ mpathMapT = {}
 step 60
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t --ignore_cache --show_hidden spider GROMACS
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/spider/mf/I_Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/spider/mf/I_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/I_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/I_Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 61
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --ignore_cache --show_hidden spider GROMACS
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/I_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/I_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/I_Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 62
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t --show_hidden spider GROMACS
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/I_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/I_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/I_Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 63
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider GROMACS
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/I_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf/I_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/I_Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 64
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load GROMACS/.2016.x-drude-20180214-g3f7439a
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+__LMOD_REF_COUNT_LOADEDMODULES=GROMACS/.2016.x-drude-20180214-g3f7439a:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=GROMACS/.2016.x-drude-20180214-g3f7439a;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/spider/mf/I_Core;
+export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/spider/mf/I_Core/GROMACS/.2016.x-drude-20180214-g3f7439a.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/spider/mf/I_Core/GROMACS/.2016.x-drude-20180214-g3f7439a.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={GROMACS={fn="ProjectDIR/rt/spider/mf/I_Core/GROMACS/.2016.x-drude-20180214-g3f7439a.lua",fullName="GROMACS/.2016.x-drude-20180214-g3f7439a",loadOrder=1,propT={},stackDepth=0,status="active",userName="GROMACS/.2016.x-drude-20180214-g3f7439a",wV="000000000.000002016.*x.*drude.*zfinal-.020180214.*g.000000003.*f.000007439.*a.*zfinal",},},mpathA={"ProjectDIR/rt/spider/mf/I_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/I_Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 65
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf/I_Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={GROMACS={fn="ProjectDIR/rt/spider/mf/I_Core/GROMACS/.2016.x-drude-20180214-g3f7439a.lua",fullName="GROMACS/.2016.x-drude-20180214-g3f7439a",loadOrder=1,propT={},stackDepth=0,status="active",userName="GROMACS/.2016.x-drude-20180214-g3f7439a",wV="000000000.000002016.*x.*drude.*zfinal-.020180214.*g.000000003.*f.000007439.*a.*zfinal",},},mpathA={"ProjectDIR/rt/spider/mf/I_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/I_Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 66
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/spider/mf2/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/spider/mf2/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf2/Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 67
 runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf2/Core
@@ -1251,7 +2099,37 @@ provideByT = {}
 step 69
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GROMACS/2018
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf2/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf2/Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
 ===========================
 step 70
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GROMACS/2019
 ===========================
+_mlshopt="f";
+case "$-" in
+  *f*) unset _mlshopt;;
+esac;
+if [ -n "${_mlshopt:-}" ]; then
+  set -$_mlshopt;
+fi;
+MODULEPATH=ProjectDIR/rt/spider/mf2/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf2/Core",}';
+export _ModuleTable_;
+if [ -n "${_mlshopt:-}" ]; then
+  set +$_mlshopt;
+fi;
+unset _mlshopt;
