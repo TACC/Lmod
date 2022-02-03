@@ -10,13 +10,6 @@ step 2
 step 3
  OutputDIR/lmod/lmod/libexec/lmod load admin
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 ADMIN_MODULE_LOADED=1;
 export ADMIN_MODULE_LOADED;
 __LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1;
@@ -37,21 +30,10 @@ _LMFILES_=ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={admin={fn="ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/end2end/mf/Core",},systemBaseMPATH="ProjectDIR/rt/end2end/mf/Core",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 4
  OutputDIR/lmod/lmod/libexec/lmod load amber
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 __LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;amber/1.1:1;
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=admin/admin-1.0:amber/1.1;
@@ -64,10 +46,6 @@ _LMFILES_=ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/end2en
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={admin={fn="ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},amber={fn="ProjectDIR/rt/end2end/mf/Core/amber/1.1",fullName="amber/1.1",loadOrder=2,propT={},stackDepth=0,status="active",userName="amber",wV="s00000001.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/end2end/mf/Core",},systemBaseMPATH="ProjectDIR/rt/end2end/mf/Core",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 5
  OutputDIR/lmod/lmod/libexec/lmod load bad
@@ -78,13 +56,6 @@ step 6
  OutputDIR/lmod/lmod/libexec/lmod load myinfo
 ===========================
 export MYINFO="Foo and Bar"
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 __LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;amber/1.1:1\;myinfo/1.0:1;
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=admin/admin-1.0:amber/1.1:myinfo/1.0;
@@ -97,48 +68,22 @@ _LMFILES_=ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/end2en
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={admin={fn="ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},amber={fn="ProjectDIR/rt/end2end/mf/Core/amber/1.1",fullName="amber/1.1",loadOrder=2,propT={},stackDepth=0,status="active",userName="amber",wV="s00000001.000000001.*zfinal",},myinfo={fn="ProjectDIR/rt/end2end/mf/Core/myinfo/1.0",fullName="myinfo/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="myinfo",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/end2end/mf/Core",},systemBaseMPATH="ProjectDIR/rt/end2end/mf/Core",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 7
  OutputDIR/lmod/lmod/libexec/lmod list
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 MODULEPATH=ProjectDIR/rt/end2end/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={admin={fn="ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},amber={fn="ProjectDIR/rt/end2end/mf/Core/amber/1.1",fullName="amber/1.1",loadOrder=2,propT={},stackDepth=0,status="active",userName="amber",wV="s00000001.000000001.*zfinal",},myinfo={fn="ProjectDIR/rt/end2end/mf/Core/myinfo/1.0",fullName="myinfo/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="myinfo",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/end2end/mf/Core",},systemBaseMPATH="ProjectDIR/rt/end2end/mf/Core",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 8
  OutputDIR/lmod/lmod/libexec/lmod avail
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 MODULEPATH=ProjectDIR/rt/end2end/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={admin={fn="ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},amber={fn="ProjectDIR/rt/end2end/mf/Core/amber/1.1",fullName="amber/1.1",loadOrder=2,propT={},stackDepth=0,status="active",userName="amber",wV="s00000001.000000001.*zfinal",},myinfo={fn="ProjectDIR/rt/end2end/mf/Core/myinfo/1.0",fullName="myinfo/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="myinfo",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/end2end/mf/Core",},systemBaseMPATH="ProjectDIR/rt/end2end/mf/Core",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 9
  OutputDIR/lmod/lmod/libexec/lmod avail
