@@ -23,3 +23,7 @@ Lmod 8.6+
    (8.6.7)  * Issue #559: Force settarg arch to be '_generic'
    (8.6.8)  * Issue #558: Convert "module swap n/v" to "module swap n n/v"
    (8.6.9)  * Issue #554: Use preamble and epilog to turn off file globbing during eval
+   (8.6.10) * Issue #554: Put preamble and epilog in module command not inside Lmod
+   (8.6.11) * Issue #563: Remove debug line from module def.
+   
+   
