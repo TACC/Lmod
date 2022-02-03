@@ -6,34 +6,16 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/meta/mf0/Core:1\;ProjectDIR/rt/meta/mf1/Core:1\;ProjectDIR/rt/meta/mf2/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/meta/mf0/Core:ProjectDIR/rt/meta/mf1/Core:ProjectDIR/rt/meta/mf2/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/meta/mf0/Core","ProjectDIR/rt/meta/mf1/Core","ProjectDIR/rt/meta/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/meta/mf0/Core:ProjectDIR/rt/meta/mf1/Core:ProjectDIR/rt/meta/mf2/Core",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load settarg
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 __LMOD_REF_COUNT_LOADEDMODULES=settarg:1;
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=settarg;
@@ -46,21 +28,10 @@ _LMFILES_=ProjectDIR/rt/meta/mf1/Core/settarg.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={settarg={fn="ProjectDIR/rt/meta/mf1/Core/settarg.lua",fullName="settarg",loadOrder=1,propT={},stackDepth=0,status="active",userName="settarg",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/meta/mf0/Core","ProjectDIR/rt/meta/mf1/Core","ProjectDIR/rt/meta/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/meta/mf0/Core:ProjectDIR/rt/meta/mf1/Core:ProjectDIR/rt/meta/mf2/Core",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load targ
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 __LMOD_REF_COUNT_LOADEDMODULES=settarg:1\;targ:1;
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=settarg:targ;
@@ -73,40 +44,18 @@ _LMFILES_=ProjectDIR/rt/meta/mf1/Core/settarg.lua:ProjectDIR/rt/meta/mf2/Core/ta
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={settarg={fn="ProjectDIR/rt/meta/mf1/Core/settarg.lua",fullName="settarg",loadOrder=1,propT={},stackDepth=0,status="active",userName="settarg",wV="M.*zfinal",},targ={fn="ProjectDIR/rt/meta/mf2/Core/targ.lua",fullName="targ",loadOrder=2,propT={},stackDepth=0,status="active",userName="targ",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/meta/mf0/Core","ProjectDIR/rt/meta/mf1/Core","ProjectDIR/rt/meta/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/meta/mf0/Core:ProjectDIR/rt/meta/mf1/Core:ProjectDIR/rt/meta/mf2/Core",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 MODULEPATH=ProjectDIR/rt/meta/mf0/Core:ProjectDIR/rt/meta/mf1/Core:ProjectDIR/rt/meta/mf2/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={settarg={fn="ProjectDIR/rt/meta/mf1/Core/settarg.lua",fullName="settarg",loadOrder=1,propT={},stackDepth=0,status="active",userName="settarg",wV="M.*zfinal",},targ={fn="ProjectDIR/rt/meta/mf2/Core/targ.lua",fullName="targ",loadOrder=2,propT={},stackDepth=0,status="active",userName="targ",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/meta/mf0/Core","ProjectDIR/rt/meta/mf1/Core","ProjectDIR/rt/meta/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/meta/mf0/Core:ProjectDIR/rt/meta/mf1/Core:ProjectDIR/rt/meta/mf2/Core",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/meta/mf0/Core:ProjectDIR/rt/meta/mf1/Core:ProjectDIR/rt/meta/mf2/Core;
@@ -115,42 +64,20 @@ unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/meta/mf0/Core","ProjectDIR/rt/meta/mf1/Core","ProjectDIR/rt/meta/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/meta/mf0/Core:ProjectDIR/rt/meta/mf1/Core:ProjectDIR/rt/meta/mf2/Core",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/meta/MF_FOO/A:1\;ProjectDIR/rt/meta/MF_FOO/B:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/meta/MF_FOO/A:ProjectDIR/rt/meta/MF_FOO/B;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/meta/MF_FOO/A","ProjectDIR/rt/meta/MF_FOO/B",},systemBaseMPATH="ProjectDIR/rt/meta/MF_FOO/A:ProjectDIR/rt/meta/MF_FOO/B",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Foo
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 Foo=Meta;
 export Foo;
 __LMOD_REF_COUNT_LOADEDMODULES=Foo:1;
@@ -165,40 +92,18 @@ _LMFILES_=ProjectDIR/rt/meta/MF_FOO/A/Foo;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={Foo={fn="ProjectDIR/rt/meta/MF_FOO/A/Foo",fullName="Foo",loadOrder=1,propT={},stackDepth=0,status="active",userName="Foo",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/meta/MF_FOO/A","ProjectDIR/rt/meta/MF_FOO/B",},systemBaseMPATH="ProjectDIR/rt/meta/MF_FOO/A:ProjectDIR/rt/meta/MF_FOO/B",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 MODULEPATH=ProjectDIR/rt/meta/MF_FOO/A:ProjectDIR/rt/meta/MF_FOO/B;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={Foo={fn="ProjectDIR/rt/meta/MF_FOO/A/Foo",fullName="Foo",loadOrder=1,propT={},stackDepth=0,status="active",userName="Foo",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/meta/MF_FOO/A","ProjectDIR/rt/meta/MF_FOO/B",},systemBaseMPATH="ProjectDIR/rt/meta/MF_FOO/A:ProjectDIR/rt/meta/MF_FOO/B",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Foo/1.0
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 unset Foo;
 __LMOD_REF_COUNT_LOADEDMODULES=Foo/1.0:1;
 export __LMOD_REF_COUNT_LOADEDMODULES;
@@ -214,40 +119,18 @@ _LMFILES_=ProjectDIR/rt/meta/MF_FOO/B/Foo/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={Foo={fn="ProjectDIR/rt/meta/MF_FOO/B/Foo/1.0.lua",fullName="Foo/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="Foo/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/meta/MF_FOO/A","ProjectDIR/rt/meta/MF_FOO/B",},systemBaseMPATH="ProjectDIR/rt/meta/MF_FOO/A:ProjectDIR/rt/meta/MF_FOO/B",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 MODULEPATH=ProjectDIR/rt/meta/MF_FOO/A:ProjectDIR/rt/meta/MF_FOO/B;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={Foo={fn="ProjectDIR/rt/meta/MF_FOO/B/Foo/1.0.lua",fullName="Foo/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="Foo/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/meta/MF_FOO/A","ProjectDIR/rt/meta/MF_FOO/B",},systemBaseMPATH="ProjectDIR/rt/meta/MF_FOO/A:ProjectDIR/rt/meta/MF_FOO/B",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 12
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/meta/MF_FOO/A:ProjectDIR/rt/meta/MF_FOO/B;
@@ -257,42 +140,20 @@ unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/meta/MF_FOO/A","ProjectDIR/rt/meta/MF_FOO/B",},systemBaseMPATH="ProjectDIR/rt/meta/MF_FOO/A:ProjectDIR/rt/meta/MF_FOO/B",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 13
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/meta/MF_FOO/B:1\;ProjectDIR/rt/meta/MF_FOO/A:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/meta/MF_FOO/B:ProjectDIR/rt/meta/MF_FOO/A;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/meta/MF_FOO/B","ProjectDIR/rt/meta/MF_FOO/A",},systemBaseMPATH="ProjectDIR/rt/meta/MF_FOO/B:ProjectDIR/rt/meta/MF_FOO/A",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 14
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Foo
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 Foo=Meta;
 export Foo;
 __LMOD_REF_COUNT_LOADEDMODULES=Foo:1;
@@ -307,40 +168,18 @@ _LMFILES_=ProjectDIR/rt/meta/MF_FOO/A/Foo;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={Foo={fn="ProjectDIR/rt/meta/MF_FOO/A/Foo",fullName="Foo",loadOrder=1,propT={},stackDepth=0,status="active",userName="Foo",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/meta/MF_FOO/B","ProjectDIR/rt/meta/MF_FOO/A",},systemBaseMPATH="ProjectDIR/rt/meta/MF_FOO/B:ProjectDIR/rt/meta/MF_FOO/A",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 15
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 MODULEPATH=ProjectDIR/rt/meta/MF_FOO/B:ProjectDIR/rt/meta/MF_FOO/A;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={Foo={fn="ProjectDIR/rt/meta/MF_FOO/A/Foo",fullName="Foo",loadOrder=1,propT={},stackDepth=0,status="active",userName="Foo",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/meta/MF_FOO/B","ProjectDIR/rt/meta/MF_FOO/A",},systemBaseMPATH="ProjectDIR/rt/meta/MF_FOO/B:ProjectDIR/rt/meta/MF_FOO/A",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Foo/1.0
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 unset Foo;
 __LMOD_REF_COUNT_LOADEDMODULES=Foo/1.0:1;
 export __LMOD_REF_COUNT_LOADEDMODULES;
@@ -356,40 +195,18 @@ _LMFILES_=ProjectDIR/rt/meta/MF_FOO/B/Foo/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={Foo={fn="ProjectDIR/rt/meta/MF_FOO/B/Foo/1.0.lua",fullName="Foo/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="Foo/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/meta/MF_FOO/B","ProjectDIR/rt/meta/MF_FOO/A",},systemBaseMPATH="ProjectDIR/rt/meta/MF_FOO/B:ProjectDIR/rt/meta/MF_FOO/A",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 MODULEPATH=ProjectDIR/rt/meta/MF_FOO/B:ProjectDIR/rt/meta/MF_FOO/A;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={Foo={fn="ProjectDIR/rt/meta/MF_FOO/B/Foo/1.0.lua",fullName="Foo/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="Foo/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/meta/MF_FOO/B","ProjectDIR/rt/meta/MF_FOO/A",},systemBaseMPATH="ProjectDIR/rt/meta/MF_FOO/B:ProjectDIR/rt/meta/MF_FOO/A",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 18
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/meta/MF_FOO/B:ProjectDIR/rt/meta/MF_FOO/A;
@@ -399,42 +216,20 @@ unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/meta/MF_FOO/B","ProjectDIR/rt/meta/MF_FOO/A",},systemBaseMPATH="ProjectDIR/rt/meta/MF_FOO/B:ProjectDIR/rt/meta/MF_FOO/A",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 19
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/meta/MF_FOO/A:1\;ProjectDIR/rt/meta/MF_FOO/B:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/meta/MF_FOO/A:ProjectDIR/rt/meta/MF_FOO/B;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/meta/MF_FOO/A","ProjectDIR/rt/meta/MF_FOO/B",},systemBaseMPATH="ProjectDIR/rt/meta/MF_FOO/A:ProjectDIR/rt/meta/MF_FOO/B",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Foo
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 __LMOD_REF_COUNT_LOADEDMODULES=Foo/1.0:1;
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=Foo/1.0;
@@ -449,29 +244,14 @@ _LMFILES_=ProjectDIR/rt/meta/MF_FOO/B/Foo/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={Foo={fn="ProjectDIR/rt/meta/MF_FOO/B/Foo/1.0.lua",fullName="Foo/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="Foo",wV="s00000001.*zfinal",},},mpathA={"ProjectDIR/rt/meta/MF_FOO/A","ProjectDIR/rt/meta/MF_FOO/B",},systemBaseMPATH="ProjectDIR/rt/meta/MF_FOO/A:ProjectDIR/rt/meta/MF_FOO/B",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 21
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 MODULEPATH=ProjectDIR/rt/meta/MF_FOO/A:ProjectDIR/rt/meta/MF_FOO/B;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={Foo={fn="ProjectDIR/rt/meta/MF_FOO/B/Foo/1.0.lua",fullName="Foo/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="Foo",wV="s00000001.*zfinal",},},mpathA={"ProjectDIR/rt/meta/MF_FOO/A","ProjectDIR/rt/meta/MF_FOO/B",},systemBaseMPATH="ProjectDIR/rt/meta/MF_FOO/A:ProjectDIR/rt/meta/MF_FOO/B",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 22
 runSpiderCmd -o spiderT ProjectDIR/rt/meta/MF_FOO/A:ProjectDIR/rt/meta/MF_FOO/B

@@ -16,13 +16,6 @@ false
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel/17
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 __LMOD_REF_COUNT_LOADEDMODULES=abc/3.3:1\;intel/17.0.3:1;
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=abc/3.3:intel/17.0.3;
@@ -37,21 +30,10 @@ _LMFILES_=ProjectDIR/rt/extended_default/mf/Core/abc/3.3.lua:ProjectDIR/rt/exten
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={abc={fn="ProjectDIR/rt/extended_default/mf/Core/abc/3.3.lua",fullName="abc/3.3",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="abc/3",wV="000000003.000000003.*zfinal",},intel={fn="ProjectDIR/rt/extended_default/mf/Core/intel/17.0.3.lua",fullName="intel/17.0.3",loadOrder=2,propT={},stackDepth=0,status="active",userName="intel/17",wV="000000017.000000000.000000003.*zfinal",},},mpathA={"ProjectDIR/rt/extended_default/mf/Core",},systemBaseMPATH="ProjectDIR/rt/extended_default/mf/Core",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load mcr/64/18
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 __LMOD_REF_COUNT_LOADEDMODULES=abc/3.3:1\;intel/17.0.3:1\;mcr/64/18.0.4:1;
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=abc/3.3:intel/17.0.3:mcr/64/18.0.4;
@@ -64,21 +46,10 @@ _LMFILES_=ProjectDIR/rt/extended_default/mf/Core/abc/3.3.lua:ProjectDIR/rt/exten
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={abc={fn="ProjectDIR/rt/extended_default/mf/Core/abc/3.3.lua",fullName="abc/3.3",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="abc/3",wV="000000003.000000003.*zfinal",},intel={fn="ProjectDIR/rt/extended_default/mf/Core/intel/17.0.3.lua",fullName="intel/17.0.3",loadOrder=2,propT={},stackDepth=0,status="active",userName="intel/17",wV="000000017.000000000.000000003.*zfinal",},mcr={fn="ProjectDIR/rt/extended_default/mf/Core/mcr/64/18.0.4.lua",fullName="mcr/64/18.0.4",loadOrder=3,propT={},stackDepth=0,status="active",userName="mcr/64/18",wV="000000064/^00000018.000000000.000000004.*zfinal",},},mpathA={"ProjectDIR/rt/extended_default/mf/Core",},systemBaseMPATH="ProjectDIR/rt/extended_default/mf/Core",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load petsc/3
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 __LMOD_REF_COUNT_LOADEDMODULES=abc/3.3:1\;intel/17.0.3:1\;mcr/64/18.0.4:1\;petsc/3.10:1;
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=abc/3.3:intel/17.0.3:mcr/64/18.0.4:petsc/3.10;
@@ -91,21 +62,10 @@ _LMFILES_=ProjectDIR/rt/extended_default/mf/Core/abc/3.3.lua:ProjectDIR/rt/exten
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={abc={fn="ProjectDIR/rt/extended_default/mf/Core/abc/3.3.lua",fullName="abc/3.3",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="abc/3",wV="000000003.000000003.*zfinal",},intel={fn="ProjectDIR/rt/extended_default/mf/Core/intel/17.0.3.lua",fullName="intel/17.0.3",loadOrder=2,propT={},stackDepth=0,status="active",userName="intel/17",wV="000000017.000000000.000000003.*zfinal",},mcr={fn="ProjectDIR/rt/extended_default/mf/Core/mcr/64/18.0.4.lua",fullName="mcr/64/18.0.4",loadOrder=3,propT={},stackDepth=0,status="active",userName="mcr/64/18",wV="000000064/^00000018.000000000.000000004.*zfinal",},petsc={fn="ProjectDIR/rt/extended_default/mf/Core/petsc/3.10.lua",fullName="petsc/3.10",loadOrder=4,propT={},stackDepth=0,status="active",userName="petsc/3",wV="000000003.000000010.*zfinal",},},mpathA={"ProjectDIR/rt/extended_default/mf/Core",},systemBaseMPATH="ProjectDIR/rt/extended_default/mf/Core",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc-ftn/10.1
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 __LMOD_REF_COUNT_LOADEDMODULES=abc/3.3:1\;intel/17.0.3:1\;mcr/64/18.0.4:1\;petsc/3.10:1\;gcc-ftn/10.1.0:1;
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=abc/3.3:intel/17.0.3:mcr/64/18.0.4:petsc/3.10:gcc-ftn/10.1.0;
@@ -120,21 +80,10 @@ _LMFILES_=ProjectDIR/rt/extended_default/mf/Core/abc/3.3.lua:ProjectDIR/rt/exten
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={abc={fn="ProjectDIR/rt/extended_default/mf/Core/abc/3.3.lua",fullName="abc/3.3",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="abc/3",wV="000000003.000000003.*zfinal",},["gcc-ftn"]={fn="ProjectDIR/rt/extended_default/mf/Core/gcc-ftn/10.1.0.lua",fullName="gcc-ftn/10.1.0",loadOrder=5,propT={},stackDepth=0,status="active",userName="gcc-ftn/10.1",wV="000000010.000000001.*zfinal",},intel={fn="ProjectDIR/rt/extended_default/mf/Core/intel/17.0.3.lua",fullName="intel/17.0.3",loadOrder=2,propT={},stackDepth=0,status="active",userName="intel/17",wV="000000017.000000000.000000003.*zfinal",},mcr={fn="ProjectDIR/rt/extended_default/mf/Core/mcr/64/18.0.4.lua",fullName="mcr/64/18.0.4",loadOrder=3,propT={},stackDepth=0,status="active",userName="mcr/64/18",wV="000000064/^00000018.000000000.000000004.*zfinal",},petsc={fn="ProjectDIR/rt/extended_default/mf/Core/petsc/3.10.lua",fullName="petsc/3.10",loadOrder=4,propT={},stackDepth=0,status="active",userName="petsc/3",wV="000000003.000000010.*zfinal",},},mpathA={"ProjectDIR/rt/extended_default/mf/Core",},systemBaseMPATH="ProjectDIR/rt/extended_default/mf/Core",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load junk/4.0.2
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 __LMOD_REF_COUNT_LOADEDMODULES=abc/3.3:1\;intel/17.0.3:1\;mcr/64/18.0.4:1\;petsc/3.10:1\;gcc-ftn/10.1.0:1\;junk/4.0.2-z:1;
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=abc/3.3:intel/17.0.3:mcr/64/18.0.4:petsc/3.10:gcc-ftn/10.1.0:junk/4.0.2-z;
@@ -147,40 +96,18 @@ _LMFILES_=ProjectDIR/rt/extended_default/mf/Core/abc/3.3.lua:ProjectDIR/rt/exten
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={abc={fn="ProjectDIR/rt/extended_default/mf/Core/abc/3.3.lua",fullName="abc/3.3",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="abc/3",wV="000000003.000000003.*zfinal",},["gcc-ftn"]={fn="ProjectDIR/rt/extended_default/mf/Core/gcc-ftn/10.1.0.lua",fullName="gcc-ftn/10.1.0",loadOrder=5,propT={},stackDepth=0,status="active",userName="gcc-ftn/10.1",wV="000000010.000000001.*zfinal",},intel={fn="ProjectDIR/rt/extended_default/mf/Core/intel/17.0.3.lua",fullName="intel/17.0.3",loadOrder=2,propT={},stackDepth=0,status="active",userName="intel/17",wV="000000017.000000000.000000003.*zfinal",},junk={fn="ProjectDIR/rt/extended_default/mf/Core/junk/4.0.2-z.lua",fullName="junk/4.0.2-z",loadOrder=6,propT={},stackDepth=0,status="active",userName="junk/4.0.2",wV="000000004.000000000.000000002.*z.*zfinal",},mcr={fn="ProjectDIR/rt/extended_default/mf/Core/mcr/64/18.0.4.lua",fullName="mcr/64/18.0.4",loadOrder=3,propT={},stackDepth=0,status="active",userName="mcr/64/18",wV="000000064/^00000018.000000000.000000004.*zfinal",},petsc={fn="ProjectDIR/rt/extended_default/mf/Core/petsc/3.10.lua",fullName="petsc/3.10",loadOrder=4,propT={},stackDepth=0,status="active",userName="petsc/3",wV="000000003.000000010.*zfinal",},},mpathA={"ProjectDIR/rt/extended_default/mf/Core",},systemBaseMPATH="ProjectDIR/rt/extended_default/mf/Core",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 MODULEPATH=ProjectDIR/rt/extended_default/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={abc={fn="ProjectDIR/rt/extended_default/mf/Core/abc/3.3.lua",fullName="abc/3.3",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="abc/3",wV="000000003.000000003.*zfinal",},["gcc-ftn"]={fn="ProjectDIR/rt/extended_default/mf/Core/gcc-ftn/10.1.0.lua",fullName="gcc-ftn/10.1.0",loadOrder=5,propT={},stackDepth=0,status="active",userName="gcc-ftn/10.1",wV="000000010.000000001.*zfinal",},intel={fn="ProjectDIR/rt/extended_default/mf/Core/intel/17.0.3.lua",fullName="intel/17.0.3",loadOrder=2,propT={},stackDepth=0,status="active",userName="intel/17",wV="000000017.000000000.000000003.*zfinal",},junk={fn="ProjectDIR/rt/extended_default/mf/Core/junk/4.0.2-z.lua",fullName="junk/4.0.2-z",loadOrder=6,propT={},stackDepth=0,status="active",userName="junk/4.0.2",wV="000000004.000000000.000000002.*z.*zfinal",},mcr={fn="ProjectDIR/rt/extended_default/mf/Core/mcr/64/18.0.4.lua",fullName="mcr/64/18.0.4",loadOrder=3,propT={},stackDepth=0,status="active",userName="mcr/64/18",wV="000000064/^00000018.000000000.000000004.*zfinal",},petsc={fn="ProjectDIR/rt/extended_default/mf/Core/petsc/3.10.lua",fullName="petsc/3.10",loadOrder=4,propT={},stackDepth=0,status="active",userName="petsc/3",wV="000000003.000000010.*zfinal",},},mpathA={"ProjectDIR/rt/extended_default/mf/Core",},systemBaseMPATH="ProjectDIR/rt/extended_default/mf/Core",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load junk/4.0.2-i
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 __LMOD_REF_COUNT_LOADEDMODULES=abc/3.3:1\;intel/17.0.3:1\;mcr/64/18.0.4:1\;petsc/3.10:1\;gcc-ftn/10.1.0:1\;junk/4.0.2-ivybridge:1;
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=abc/3.3:intel/17.0.3:mcr/64/18.0.4:petsc/3.10:gcc-ftn/10.1.0:junk/4.0.2-ivybridge;
@@ -193,26 +120,11 @@ _LMFILES_=ProjectDIR/rt/extended_default/mf/Core/abc/3.3.lua:ProjectDIR/rt/exten
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={abc={fn="ProjectDIR/rt/extended_default/mf/Core/abc/3.3.lua",fullName="abc/3.3",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="abc/3",wV="000000003.000000003.*zfinal",},["gcc-ftn"]={fn="ProjectDIR/rt/extended_default/mf/Core/gcc-ftn/10.1.0.lua",fullName="gcc-ftn/10.1.0",loadOrder=5,propT={},stackDepth=0,status="active",userName="gcc-ftn/10.1",wV="000000010.000000001.*zfinal",},intel={fn="ProjectDIR/rt/extended_default/mf/Core/intel/17.0.3.lua",fullName="intel/17.0.3",loadOrder=2,propT={},stackDepth=0,status="active",userName="intel/17",wV="000000017.000000000.000000003.*zfinal",},junk={fn="ProjectDIR/rt/extended_default/mf/Core/junk/4.0.2-ivybridge.lua",fullName="junk/4.0.2-ivybridge",loadOrder=6,propT={},stackDepth=0,status="active",userName="junk/4.0.2-i",wV="000000004.000000000.000000002.*ivybridge.*zfinal",},mcr={fn="ProjectDIR/rt/extended_default/mf/Core/mcr/64/18.0.4.lua",fullName="mcr/64/18.0.4",loadOrder=3,propT={},stackDepth=0,status="active",userName="mcr/64/18",wV="000000064/^00000018.000000000.000000004.*zfinal",},petsc={fn="ProjectDIR/rt/extended_default/mf/Core/petsc/3.10.lua",fullName="petsc/3.10",loadOrder=4,propT={},stackDepth=0,status="active",userName="petsc/3",wV="000000003.000000010.*zfinal",},},mpathA={"ProjectDIR/rt/extended_default/mf/Core",},systemBaseMPATH="ProjectDIR/rt/extended_default/mf/Core",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 MODULEPATH=ProjectDIR/rt/extended_default/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={abc={fn="ProjectDIR/rt/extended_default/mf/Core/abc/3.3.lua",fullName="abc/3.3",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="abc/3",wV="000000003.000000003.*zfinal",},["gcc-ftn"]={fn="ProjectDIR/rt/extended_default/mf/Core/gcc-ftn/10.1.0.lua",fullName="gcc-ftn/10.1.0",loadOrder=5,propT={},stackDepth=0,status="active",userName="gcc-ftn/10.1",wV="000000010.000000001.*zfinal",},intel={fn="ProjectDIR/rt/extended_default/mf/Core/intel/17.0.3.lua",fullName="intel/17.0.3",loadOrder=2,propT={},stackDepth=0,status="active",userName="intel/17",wV="000000017.000000000.000000003.*zfinal",},junk={fn="ProjectDIR/rt/extended_default/mf/Core/junk/4.0.2-ivybridge.lua",fullName="junk/4.0.2-ivybridge",loadOrder=6,propT={},stackDepth=0,status="active",userName="junk/4.0.2-i",wV="000000004.000000000.000000002.*ivybridge.*zfinal",},mcr={fn="ProjectDIR/rt/extended_default/mf/Core/mcr/64/18.0.4.lua",fullName="mcr/64/18.0.4",loadOrder=3,propT={},stackDepth=0,status="active",userName="mcr/64/18",wV="000000064/^00000018.000000000.000000004.*zfinal",},petsc={fn="ProjectDIR/rt/extended_default/mf/Core/petsc/3.10.lua",fullName="petsc/3.10",loadOrder=4,propT={},stackDepth=0,status="active",userName="petsc/3",wV="000000003.000000010.*zfinal",},},mpathA={"ProjectDIR/rt/extended_default/mf/Core",},systemBaseMPATH="ProjectDIR/rt/extended_default/mf/Core",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;

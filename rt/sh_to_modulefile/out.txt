@@ -103,34 +103,16 @@ buildSh2MF ProjectDIR/rt/sh_to_modulefile/broken.sh
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show wrapperSh/1.0
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load wrapperSh/1.0
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 __LMOD_REF_COUNT_LOADEDMODULES=wrapperSh/1.0:1;
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=wrapperSh/1.0;
@@ -178,40 +160,18 @@ save_args () {
     done;
     echo " "
 ; };
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show wrapperSh/1.0
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/sh_to_modulefile/second.sh arg1"]={"setenv(\"SECOND\",\"FOO_BAR\")",},["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"]={"setenv(\"MY_NAME\",\"tstScript.sh\")","prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")","append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")","setenv(\"TST_SCRIPT\",\"1\")","set_alias(\"fooAlias\",\"foobin -q -l\")",[[set_shell_function("banner"," \\ local str=\\"$1\\";\\ local RED='\\033[1;31m';\\ local NONE='\\033[0m';\\ echo \\"${RED}${str}${NONE}\\"\\","")]],[[set_shell_function("fooFunc"," \\ echo \\"arg1: $1\\"\\","")]],[[set_shell_function("junk"," \\ if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\ \\\\echo \\"junk\\";\\ fi\\","")]],[[set_shell_function("my_help"," \\ echo \\"do not forget \\\\\\"foo\\\\\\"\\"\\","")]],[[set_shell_function("save_args"," \\ for arg in \\"$@\\";\\ do\\ printf \\"%s\\\\n\\" \\"$arg\\" | sed -e \\"s/'/'\\\\\\\\\\\\\\\\''/g\\" -e \\"1s/^/'/\\" -e \\"\\\\$s/\\\\$/' \\\\\\\\\\\\\\\\/\\";\\ done;\\ echo \\" \\"\\","")]],},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing refresh
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/sh_to_modulefile/second.sh arg1"]={"setenv(\"SECOND\",\"FOO_BAR\")",},["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"]={"setenv(\"MY_NAME\",\"tstScript.sh\")","prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")","append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")","setenv(\"TST_SCRIPT\",\"1\")","set_alias(\"fooAlias\",\"foobin -q -l\")",[[set_shell_function("banner"," \\ local str=\\"$1\\";\\ local RED='\\033[1;31m';\\ local NONE='\\033[0m';\\ echo \\"${RED}${str}${NONE}\\"\\","")]],[[set_shell_function("fooFunc"," \\ echo \\"arg1: $1\\"\\","")]],[[set_shell_function("junk"," \\ if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\ \\\\echo \\"junk\\";\\ fi\\","")]],[[set_shell_function("my_help"," \\ echo \\"do not forget \\\\\\"foo\\\\\\"\\"\\","")]],[[set_shell_function("save_args"," \\ for arg in \\"$@\\";\\ do\\ printf \\"%s\\\\n\\" \\"$arg\\" | sed -e \\"s/'/'\\\\\\\\\\\\\\\\''/g\\" -e \\"1s/^/'/\\" -e \\"\\\\$s/\\\\$/' \\\\\\\\\\\\\\\\/\\";\\ done;\\ echo \\" \\"\\","")]],},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
@@ -241,29 +201,14 @@ save_args () {
     done;
     echo " "
 ; };
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/sh_to_modulefile/second.sh arg1"]={"setenv(\"SECOND\",\"FOO_BAR\")",},["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"]={"setenv(\"MY_NAME\",\"tstScript.sh\")","prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")","append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")","setenv(\"TST_SCRIPT\",\"1\")","set_alias(\"fooAlias\",\"foobin -q -l\")",[[set_shell_function("banner"," \\ local str=\\"$1\\";\\ local RED='\\033[1;31m';\\ local NONE='\\033[0m';\\ echo \\"${RED}${str}${NONE}\\"\\","")]],[[set_shell_function("fooFunc"," \\ echo \\"arg1: $1\\"\\","")]],[[set_shell_function("junk"," \\ if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\ \\\\echo \\"junk\\";\\ fi\\","")]],[[set_shell_function("my_help"," \\ echo \\"do not forget \\\\\\"foo\\\\\\"\\"\\","")]],[[set_shell_function("save_args"," \\ for arg in \\"$@\\";\\ do\\ printf \\"%s\\\\n\\" \\"$arg\\" | sed -e \\"s/'/'\\\\\\\\\\\\\\\\''/g\\" -e \\"1s/^/'/\\" -e \\"\\\\$s/\\\\$/' \\\\\\\\\\\\\\\\/\\";\\ done;\\ echo \\" \\"\\","")]],},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 12
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --mt
@@ -272,13 +217,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --mt
 step 13
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload wrapperSh/1.0
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf;
@@ -300,10 +238,6 @@ unset -f fooFunc 2> /dev/null || true;
 unset -f junk 2> /dev/null || true;
 unset -f my_help 2> /dev/null || true;
 unset -f save_args 2> /dev/null || true;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 14
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load brokenSh/1.0
@@ -313,13 +247,6 @@ false
 step 15
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load wrapperSh/1.0
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 __LMOD_REF_COUNT_LOADEDMODULES=wrapperSh/1.0:1;
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=wrapperSh/1.0;
@@ -367,40 +294,18 @@ save_args () {
     done;
     echo " "
 ; };
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/sh_to_modulefile/second.sh arg1"]={"setenv(\"SECOND\",\"FOO_BAR\")",},["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"]={"setenv(\"MY_NAME\",\"tstScript.sh\")","prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")","append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")","setenv(\"TST_SCRIPT\",\"1\")","set_alias(\"fooAlias\",\"foobin -q -l\")",[[set_shell_function("banner"," \\ local str=\\"$1\\";\\ local RED='\\033[1;31m';\\ local NONE='\\033[0m';\\ echo \\"${RED}${str}${NONE}\\"\\","")]],[[set_shell_function("fooFunc"," \\ echo \\"arg1: $1\\"\\","")]],[[set_shell_function("junk"," \\ if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\ \\\\echo \\"junk\\";\\ fi\\","")]],[[set_shell_function("my_help"," \\ echo \\"do not forget \\\\\\"foo\\\\\\"\\"\\","")]],[[set_shell_function("save_args"," \\ for arg in \\"$@\\";\\ do\\ printf \\"%s\\\\n\\" \\"$arg\\" | sed -e \\"s/'/'\\\\\\\\\\\\\\\\''/g\\" -e \\"1s/^/'/\\" -e \\"\\\\$s/\\\\$/' \\\\\\\\\\\\\\\\/\\";\\ done;\\ echo \\" \\"\\","")]],},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 LOADEDMODULES=wrapperSh/1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf;
@@ -444,10 +349,6 @@ save_args () {
     done;
     echo " "
 ; };
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 18
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --mt
@@ -456,13 +357,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --mt
 step 19
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 __LMOD_REF_COUNT_LOADEDMODULES=wrapperSh/1.0:1\;A/1.0:1;
 export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=wrapperSh/1.0:A/1.0;
@@ -501,26 +395,11 @@ save_args () {
         printf "%s\n" "$arg" | sed -e "s/'/'\\\\''/g" -e "1s/^/'/" -e "\$s/\$/' \\\\/";
     done;
     echo " "; };
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;
 ===========================
 step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-_mlshopt="f";
-case "$-" in
-  *f*) unset _mlshopt;;
-esac;
-if [ -n "${_mlshopt:-}" ]; then
-  set -$_mlshopt;
-fi;
 MODULEPATH=OutputDIR/mf;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="OutputDIR/mf/A/1.0",fullName="A/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},},mpathA={"OutputDIR/mf",},systemBaseMPATH="OutputDIR/mf",}';
 export _ModuleTable_;
-if [ -n "${_mlshopt:-}" ]; then
-  set +$_mlshopt;
-fi;
-unset _mlshopt;

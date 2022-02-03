@@ -136,38 +136,6 @@ end
 --                    This base function returns false.  Bash, Csh
 --                    and Fish should return true.
 
-
-function Bash.initialize(self)
-   local run_init = cosmic:value("LMOD_BASH_INITIALIZE") == "yes"
-   run_init = true
-   if (not run_init) then return end
-   local lineA = {}
-   lineA[#lineA+1] = "_mlshopt=\"f\";"
-   lineA[#lineA+1] = "case \"$-\" in "
-   lineA[#lineA+1] = "  *f*) unset _mlshopt;;"
-   lineA[#lineA+1] = "esac;"
-   lineA[#lineA+1] = "if [ -n \"${_mlshopt:-}\" ]; then"
-   lineA[#lineA+1] = "  set -$_mlshopt;"
-   lineA[#lineA+1] = "fi;"
-   local line = concatTbl(lineA,"\n")
-   stdout:write(line,"\n")
-   dbg.print{line,"\n"}
-end
-
-function Bash.finalize(self)
-   local run_init = cosmic:value("LMOD_BASH_INITIALIZE") == "yes"
-   run_init = true
-   if (not run_init) then return end
-   local lineA = {}
-   lineA[#lineA+1] = "if [ -n \"${_mlshopt:-}\" ]; then"
-   lineA[#lineA+1] = "  set +$_mlshopt;"
-   lineA[#lineA+1] = "fi;"
-   lineA[#lineA+1] = "unset _mlshopt;"
-   local line = concatTbl(lineA,"\n")
-   stdout:write(line,"\n")
-   dbg.print{line,"\n"}
-end
-
 function Bash.real_shell(self)
    return true
 end

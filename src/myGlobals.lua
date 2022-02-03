@@ -148,15 +148,6 @@ cosmic:init{name = "LMOD_REDIRECT",
             yn   = "no"}
 
 ------------------------------------------------------------------------
--- LMOD_BASH_INITIALIZE: Normally bash is allowed to initialize
---                       no file globbing.
-------------------------------------------------------------------------
-cosmic:init{name = "LMOD_BASH_INITIALIZE",
-            sedV = "@bash_initialize@",
-            yn   = "yes"}
-
-
-------------------------------------------------------------------------
 -- LMOD_RC:  Lmod RC list of colon separated files 
 ------------------------------------------------------------------------
 local rcfiles = getenv("LMOD_RC")

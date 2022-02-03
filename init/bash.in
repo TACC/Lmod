@@ -80,7 +80,20 @@ export LMOD_SETTARG_FULL_SUPPORT=@lmod_settarg_full_support@
 if [ "@silence_shell_debugging@" = "no" ]; then
    module()
    {
+     _mlshopt="f";
+     case "$-" in 
+       *f*) unset _mlshopt;;
+     esac;
+     if [ -n "${_mlshopt:-}" ]; then
+       set -$_mlshopt;
+     fi;
+
      eval $($LMOD_CMD @my_shell@ "$@") && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
+     if [ -n "${_mlshopt:-}" ]; then
+       set +$_mlshopt;
+       echo "unsetting noglob";
+     fi;
+     unset _mlshopt;
    }
 else
    module()
@@ -100,8 +113,27 @@ else
         echo "Shell debugging temporarily silenced: export LMOD_SH_DBG_ON=1 for Lmod's output" 1>&2
      fi
 
+     ############################################################
+     # turn off file globbing if it is not already off
+     _mlshopt="f";
+     case "$-" in 
+       *f*) unset _mlshopt;;
+     esac;
+     if [ -n "${_mlshopt:-}" ]; then
+       set -$_mlshopt;
+     fi;
+
+     ############################################################
+     # Run Lmod and eval results
      eval $($LMOD_CMD @my_shell@ "$@") && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
      __lmod_my_status=$?
+
+     ############################################################
+     # turn on file globbing for users who want it.
+     if [ -n "${_mlshopt:-}" ]; then
+       set +$_mlshopt;
+     fi;
+     unset _mlshopt;
 
      ############################################################
      # Un-silence shell debug after module command
