@@ -550,7 +550,7 @@ AC_ARG_WITH(useBuiltinPkgs,
 
 AC_SUBST(SILENCE_SHELL_DEBUGGING)
 AC_ARG_WITH(silentShellDebugging,
-    AC_HELP_STRING([--with-silentShellDebugging=ans],[Use Built-in lua package instead of system ones. [[no]]]),
+    AC_HELP_STRING([--with-silentShellDebugging=ans],[When using set -xv in bash silence the output from lmod. [[no]]]),
     SILENCE_SHELL_DEBUGGING="$withval"
     SILENCE_SHELL_DEBUGGING=`echo $SILENCE_SHELL_DEBUGGING | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $SILENCE_SHELL_DEBUGGING "--with-silentShellDebugging=ans: ans must be yes or no"

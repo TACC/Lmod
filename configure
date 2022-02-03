@@ -1505,8 +1505,8 @@ Optional Packages:
                           Use Built-in lua package instead of system ones.
                           [[no]]
   --with-silentShellDebugging=ans
-                          Use Built-in lua package instead of system ones.
-                          [[no]]
+                          When using set -xv in bash silence the output from
+                          lmod. [[no]]
   --with-fastTCLInterp=ans
                           Use the fast TCL interpreter. [[yes]]
   --with-availExtensions=ans
