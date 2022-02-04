@@ -26,4 +26,4 @@ Lmod 8.6+
    (8.6.10) * Issue #554: Put preamble and epilog in module command not inside Lmod
    (8.6.11) * Issue #563: Remove debug line from module def.
    W.I.P:
-   (8.6.11) * Make SILENT_SHELL_DEBUGGING=yes the default.
+   (8.6.12) * Make SILENT_SHELL_DEBUGGING=yes the default.
