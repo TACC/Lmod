@@ -185,8 +185,107 @@ end
   \end{itemize}
 \end{frame}
 
-
 % page 12
+\begin{frame}[fragile]
+  \frametitle{Issue \#554: Interesting Bug in Bash and shell functions}
+    {\tiny
+\begin{semiverbatim}
+    set_shell_function("_some_spack_func" "\textbackslash
+       local ARG1=\$1\textbackslash
+       if [[ \$ARG1 == {\color{red}[a-z]*} ]]; then\textbackslash
+         echo ...\textbackslash
+       fi\textbackslash
+    ","")
+\end{semiverbatim}
+    }
+  \begin{itemize}
+    \item This works fine in zsh but not bash
+    \item All bash versions expand [a-z]\** to files in current directory
+    \item I didn't see a way to fix this
+    \item Bash always expands {\color{blue}A='[a-z]\**'}
+    \item Xavier Delaruelle commented on Issue \#554
+    \item He suggested turning off file globbing
+  \end{itemize}
+\end{frame}
+
+% page 13
+\begin{frame}[fragile]
+  \frametitle{Xavier Delaruelle's Two Ideas}
+    {\tiny
+\begin{semiverbatim}
+# Before eval
+     _mlshopt="f";
+     case "$-" in 
+       *f*) unset _mlshopt;;
+     esac;
+     if [ -n "${_mlshopt:-}" ]; then
+       set -$_mlshopt;
+     fi;
+
+# After eval:
+     if [ -n "${_mlshopt:-}" ]; then
+       set +$_mlshopt;
+     fi;
+     unset _mlshopt;
+\end{semiverbatim}
+    }
+  \begin{itemize}
+    \item Use \$- to know if user already has globbing off
+    \item If "f" is in string: File Globbing on
+    \item set -f turns File Globbing off, adds f to \$-
+    \item set +f turns File Globbing on, removes f from \$-
+  \end{itemize}
+\end{frame}
+
+
+% page 14
+\begin{frame}{Where do you have to turn off file globbing }
+  \begin{itemize}
+    \item I thought that you could have the generated Lmod shell
+      commands disable file globbing
+    \item This \emph{does not work!}
+    \item Instead the disabling of file globbing  has to be part of the module
+      command definition
+    \item Next version of Lmod's module will automatically turn off
+      shell debugging when doing: set -xv
+  \end{itemize}
+\end{frame}
+
+% page 15
+\begin{frame}[fragile]
+  \frametitle{Updated module command for bash like shells}
+    {\tiny
+\begin{semiverbatim}
+   module()
+   \{
+     ############################################################
+     # Silence shell debug UNLESS $LMOD\_SH\_DBG\_ON has a value
+     ...
+
+     ############################################################
+     # turn off file globbing if it is not already off
+     ...
+
+     ############################################################
+     # Run Lmod and eval results
+     eval $($LMOD\_CMD bash "$@") && eval $(${LMOD\_SETTARG\_CMD:-:} -s sh)
+     \_\_lmod_my_status=$?
+
+     ############################################################
+     # turn on file globbing for users who want it.
+     ...
+
+     ############################################################
+     # Un-silence shell debug after module command
+     ...
+
+     return $\_\_lmod_my_status
+   \}
+\end{semiverbatim}
+    }
+\end{frame}
+
+% page 16
 \begin{frame}{Next Topic}
   \begin{itemize}
     \item Lmod Testing System
@@ -194,10 +293,9 @@ end
   \end{itemize}
 \end{frame}
 
-% page 12
+% page 17
 \begin{frame}{Future Topics}
   \begin{itemize}
-    \item Lmod Testing System?
     \item More internals of Lmod?
     \item Guest Presentation of special issues?
   \end{itemize}
