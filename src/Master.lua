@@ -1312,23 +1312,49 @@ function M.avail(self, argA)
    local spiderT,dbT,
          mpathMapT, providedByT = cache:build()
    
+   dbg.printT("providedByT", providedByT)
+
+
+
    if (extensions and providedByT and next(providedByT) ~= nil) then
+      local mpathT = {}
+      for i = 1, #mpathA do
+         mpathT[mpathA[i]] = true
+      end
+
+      dbg.printT("mpathT",mpathT)
+      dbg.printT("providedByT",providedByT)
+
       local b = {}
       for k,v in pairsByKeys(providedByT) do
          local found = false
          if (searchA.n > 0) then
             for i = 1, searchA.n do
-               for kk in pairs(v) do
-                  local s = searchA[i]
-                  if (kk:find(s)) then
+               for kk,vv in pairs(v) do
+                  local s        = searchA[i]
+                  for i = 1,#vv do
+                     local vvv = vv[i]
+                     if (kk:find(s) and mpathT[vvv.mpath]) then
+                        found = true
+                        break
+                     end
+                  end
+                  if (found) then break end
+               end
+               if (found) then break end
+            end
+         else
+            for kk,vv in pairs(v) do
+               for i = 1,#vv do
+                  local vvv = vv[i]
+                  dbg.print{"kk: ",kk,", vvv.mpath: ",vvv.mpath,"\n"}
+                  if (mpathT[vvv.mpath]) then
                      found = true
                      break
                   end
                end
                if (found) then break end
             end
-         else
-            found = true
          end
          if (found) then
             b[#b + 1] = {"    " .. colorize("blue",k),"(E)"}
