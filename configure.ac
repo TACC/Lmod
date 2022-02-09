@@ -176,20 +176,6 @@ AC_ARG_WITH(autoSwap,
     AUTO_SWAP="$withval"
     AC_DEFINE_UNQUOTED(AUTO_SWAP, "$withval"))dnl
 
-AC_SUBST(BASH_INITIALIZE)
-AC_ARG_WITH(bashInitialize,
-    AC_HELP_STRING([--with-bashInitialize=ans],[Allow bash to initialize no file globbing during eval. [[yes]]]),
-    BASH_INITIALIZE="$withval"
-    BASH_INITIALIZE=`echo $BASH_INITIALIZE | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
-    VALID_YN $BASH_INITIALIZE "--with-bashInitialize=ans: ans must be yes or no"
-    AC_MSG_RESULT([BASH_INITIALIZE=$with_bashInitialize])
-    AC_DEFINE_UNQUOTED(BASH_INITIALIZE, "$with_bashInitialize")dnl
-    ,
-    withval="yes"
-    AC_MSG_RESULT([BASH_INITIALIZE=$withval])
-    BASH_INITIALIZE="$withval"
-    AC_DEFINE_UNQUOTED(BASH_INITIALIZE, "$withval"))dnl
-
 AC_SUBST(EXPORT_MODULE)
 AC_ARG_WITH(exportedModuleCmd,
     AC_HELP_STRING([--with-exportedModuleCmd=ans],[Export the module command. [[yes]]]),
@@ -550,14 +536,14 @@ AC_ARG_WITH(useBuiltinPkgs,
 
 AC_SUBST(SILENCE_SHELL_DEBUGGING)
 AC_ARG_WITH(silentShellDebugging,
-    AC_HELP_STRING([--with-silentShellDebugging=ans],[Use Built-in lua package instead of system ones. [[no]]]),
+    AC_HELP_STRING([--with-silentShellDebugging=ans],[When using set -xv in bash silence the output from lmod. [[yes]]]),
     SILENCE_SHELL_DEBUGGING="$withval"
     SILENCE_SHELL_DEBUGGING=`echo $SILENCE_SHELL_DEBUGGING | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $SILENCE_SHELL_DEBUGGING "--with-silentShellDebugging=ans: ans must be yes or no"
     AC_MSG_RESULT([SILENCE_SHELL_DEBUGGING=$with_silentShellDebugging])
     AC_DEFINE_UNQUOTED(SILENCE_SHELL_DEBUGGING, "$with_silentShellDebugging")dnl
     ,
-    withval="no"
+    withval="yes"
     AC_MSG_RESULT([SILENCE_SHELL_DEBUGGING=$withval])
     SILENCE_SHELL_DEBUGGING="$withval"
     AC_DEFINE_UNQUOTED(SILENCE_SHELL_DEBUGGING, "$withval"))dnl

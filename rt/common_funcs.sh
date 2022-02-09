@@ -141,8 +141,25 @@ runMe ()
 }
 runLmod ()
 {
+   ############################################################
+   # turn off file globbing if it is not already off
+   _mlshopt="f";
+   case "$-" in 
+     *f*) unset _mlshopt;;
+   esac;
+   if [ -n "${_mlshopt:-}" ]; then
+     set -$_mlshopt;
+   fi;
+
    runBase $LUA_EXEC $projectDir/src/lmod.in.lua bash --regression_testing "$@"
    eval `cat _stdout.$NUM`
+
+   ############################################################
+   # turn on file globbing for users who want it.
+   if [ -n "${_mlshopt:-}" ]; then
+     set +$_mlshopt;
+   fi;
+   unset _mlshopt;
 }
 
 runSettargBash()

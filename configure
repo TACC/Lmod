@@ -705,7 +705,6 @@ ANCIENT
 MODULEPATH_ROOT
 REDIRECT
 EXPORT_MODULE
-BASH_INITIALIZE
 AUTO_SWAP
 LMOD_CONFIG_DIR
 EXACT_MATCH
@@ -775,7 +774,6 @@ with_hiddenItalic
 with_exactMatch
 with_lmodConfigDir
 with_autoSwap
-with_bashInitialize
 with_exportedModuleCmd
 with_redirect
 with_module_root_path
@@ -1449,9 +1447,6 @@ Optional Packages:
   --with-lmodConfigDir=ans
                           Location of Lmod Config Dir [[/etc/lmod]]
   --with-autoSwap=ans     Allow auto swapping of compiler etc. [[yes]]
-  --with-bashInitialize=ans
-                          Allow bash to initialize no file globbing during
-                          eval. [[yes]]
   --with-exportedModuleCmd=ans
                           Export the module command. [[yes]]
   --with-redirect=ans     redirect messages to stdout [[no]]
@@ -1505,8 +1500,8 @@ Optional Packages:
                           Use Built-in lua package instead of system ones.
                           [[no]]
   --with-silentShellDebugging=ans
-                          Use Built-in lua package instead of system ones.
-                          [[no]]
+                          When using set -xv in bash silence the output from
+                          lmod. [[yes]]
   --with-fastTCLInterp=ans
                           Use the fast TCL interpreter. [[yes]]
   --with-availExtensions=ans
@@ -3645,27 +3640,6 @@ fi
 
 
 
-# Check whether --with-bashInitialize was given.
-if test ${with_bashInitialize+y}
-then :
-  withval=$with_bashInitialize; BASH_INITIALIZE="$withval"
-    BASH_INITIALIZE=`echo $BASH_INITIALIZE | tr '[:upper:]' '[:lower:]'`
-    VALID_YN $BASH_INITIALIZE "--with-bashInitialize=ans: ans must be yes or no"
-    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: BASH_INITIALIZE=$with_bashInitialize" >&5
-printf "%s\n" "BASH_INITIALIZE=$with_bashInitialize" >&6; }
-    printf "%s\n" "#define BASH_INITIALIZE \"$with_bashInitialize\"" >>confdefs.h
-
-else $as_nop
-  withval="yes"
-    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: BASH_INITIALIZE=$withval" >&5
-printf "%s\n" "BASH_INITIALIZE=$withval" >&6; }
-    BASH_INITIALIZE="$withval"
-    printf "%s\n" "#define BASH_INITIALIZE \"$withval\"" >>confdefs.h
-
-fi
-
-
-
 # Check whether --with-exportedModuleCmd was given.
 if test ${with_exportedModuleCmd+y}
 then :
@@ -4223,7 +4197,7 @@ printf "%s\n" "SILENCE_SHELL_DEBUGGING=$with_silentShellDebugging" >&6; }
     printf "%s\n" "#define SILENCE_SHELL_DEBUGGING \"$with_silentShellDebugging\"" >>confdefs.h
 
 else $as_nop
-  withval="no"
+  withval="yes"
     { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: SILENCE_SHELL_DEBUGGING=$withval" >&5
 printf "%s\n" "SILENCE_SHELL_DEBUGGING=$withval" >&6; }
     SILENCE_SHELL_DEBUGGING="$withval"
@@ -6737,7 +6711,6 @@ echo "Support KSH................................................." : $SUPPORT_K
 echo "Use the fast TCL interpreter................................" : $FAST_TCL_INTERP
 echo "LMOD_CONFIG_DIR............................................." : $LMOD_CONFIG_DIR
 echo "Display Extensions w/ module avail.........................." : $AVAIL_EXTENSIONS
-echo "Allow Bash to disable file globbing during eval............." : $BASH_INITIALIZE
 echo "Allow for extended default.(ml intel/17 #-> intel/17.0.4)..." : $EXTENDED_DEFAULT  #"
 
 echo

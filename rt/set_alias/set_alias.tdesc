@@ -20,8 +20,9 @@ testdescript = {
      MODULEPATH_ROOT=$(testDir);        export MODULEPATH_ROOT
      MODULEPATH=$(testDir)/mf;          export MODULEPATH
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d a b c
 
+     touch a b c
      runLmod --version      # 1
      runLmod load test1     # 2
      runLmod load test2     # 3
