@@ -80,10 +80,10 @@
 \begin{frame}{Hermes/tm Testing system}
   \begin{itemize}
     \item Hermes is a group of tools to help with testing
-    \item tm is the testing manager.
-    \item The main function of tm is to select tests and run them.
+    \item \texttt{tm} is the testing manager program.
+    \item The main function of \texttt{tm} is to select tests and run them.
     \item Each test is independent!
-    \item tm knows \emph{nothhing} about what is being tested.
+    \item \texttt{tm} knows \emph{nothing} about what is being tested.
     \item Must tell if test passed via special file (Lua file named
       t1.results)
     \item Three kinds of results
@@ -306,6 +306,27 @@ runBase ()
       \item And many other fixes.
     \end{itemize}
 \end{frame}
+
+% page 18
+\begin{frame}[fragile]
+  \frametitle{Deciding if a test passes}
+    {\tiny
+\begin{semiverbatim}
+rm -f results.csv
+wrapperDiff --csv results.csv \$(testDir)/out.txt out.txt
+wrapperDiff --csv results.csv \$(testDir)/err.txt err.txt
+testFinish -r \$(resultFn) -t \$(runtimeFn) results.csv
+\end{semiverbatim}
+    }
+    \begin{itemize}
+      \item \texttt{wrapperDiff} is a hermes tool that runs diff and
+        generates a csv file (results.csv)
+      \item \texttt{testFinish} is another hermes tool that converts
+        results.csv into \$resultFn
+      \item Then \texttt{tm} reads \$resultFn to decide if this test passes
+    \end{itemize}
+\end{frame}
+
 
 
 
