@@ -22,7 +22,9 @@ testdescript = {
      export MODULEPATH_ROOT=$(testDir)/mf
      export MODULEPATH=$MODULEPATH_ROOT/Core
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .modulerc.lua
+
+     cp $(testDir)/dot.modulerc.lua .modulerc.lua
 
      runLmod --version                         # 1
 
