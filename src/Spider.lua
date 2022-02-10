@@ -570,6 +570,7 @@ function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
                sort(parentT[mpath], l_cmp)
             end
             t.parentAA   = parentT[mpath]
+            t.mpath      = vv.mpath
             t.fullName   = fullName
             t.hidden     = not mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn}
             if (not vv.dot_version) then
@@ -629,12 +630,12 @@ function M.buildProvideByT(self, dbT, providedByT)
                local parentAA = v.parentAA
                if (parentAA == nil) then
                   A[#A+1] = {fullName = v.fullName, pV = v.pV, hidden = hidden,
-                             my_name = fullName}
+                             my_name = fullName, mpath = v.mpath}
                else
                   for j = 1,#parentAA do
                      local hierStr = concatTbl(parentAA[j]," ")
                      A[#A+1] = {fullName = v.fullName .. " (" .. hierStr .. ")", pV = v.pV,
-                                hidden = hidden, my_name = fullName}
+                                hidden = hidden, my_name = fullName, mpath = v.mpath}
                   end
                end
                T[fullName]     = A
