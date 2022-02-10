@@ -1,0 +1,155 @@
+\documentclass{beamer}
+
+% You can also use a 16:9 aspect ratio:
+%\documentclass[aspectratio=169]{beamer}
+\usetheme{TACC16}
+
+% It's possible to move the footer to the right:
+%\usetheme[rightfooter]{TACC16}
+
+\begin{document}
+\title[Lmod]{Lmod Testing System}
+\author{Robert McLay} 
+\date{March. 1, 2022}
+
+% page 1
+\frame{\titlepage} 
+
+
+% page 2
+\begin{frame}{Lmod Testing System}
+  \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
+  \begin{itemize}
+    \item Testing philosophy in Lmod
+    \item Goals of testing Lmod
+    \item Hermes/tm basic operations
+    \item Details of how an Lmod test works
+    \item Future Topics
+  \end{itemize}
+\end{frame}
+
+% page 3
+\begin{frame}{Testing philosophy in Lmod}
+  \begin{itemize}
+    \item Lmod's success relies heavily on the testing system.
+    \item Passing all the tests usually means a new version can be released.
+    \item I don't think that anyone is using it beside Lmod (But it is
+      very useful)
+    \item My philosophy is to test features in general
+    \item Not to setup a torture test
+    \item No way I can test every possible scenario.
+    \item My imagination is not that good.
+  \end{itemize}
+\end{frame}
+
+
+% page 4
+\begin{frame}{Goals of testing Lmod}
+  \begin{itemize}
+    \item Test various features of Lmod.
+    \item New feature won't break old features.
+    \item Test Lmod on Linux/MacOS, Lua 5.1 to 5.4
+    \item Make development of Lmod easier.
+    \item Add tests of new bugs $\Rightarrow$ Don't repeat them!
+  \end{itemize}
+\end{frame}
+
+% page 5
+\begin{frame}{It is hard to test everything}
+  \begin{itemize}
+    \item Testing Old data with new versions(Collections, spiderT.lua)
+    \item One test (end2end) builds Lmod and tests the built version
+    \item All other tests use the source code directly
+    \item Special hacks to use configuration options. 
+    \item Environment variable are checked NOT configuration options
+  \end{itemize}
+\end{frame}
+
+% page 6
+\begin{frame}{Hermes/tm Testing system}
+  \begin{itemize}
+    \item Hermes is a group of tools to help with testing
+    \item tm is the testing manager.
+    \item The main function of tm is to select tests and run them.
+    \item Each test is independent!
+    \item tm knows \emph{nothhing} about what is being tested.
+    \item Must tell if test passed via special file (Lua file named
+      t1.results)
+    \item Three kinds of results
+      \begin{enumerate}
+        \item Passed: All steps passed
+        \item Failed: Did not produce a t1.results file
+        \item Diffed: Produced diffs between gold files and test
+          result files.
+      \end{enumerate}
+  \end{itemize}
+\end{frame}
+
+% page 7
+\begin{frame}{\texttt{tm} flow}
+  \begin{itemize}
+    \item \texttt{tm} searches for tests from the current directory
+      down
+    \item It is looking for files with the *.tdesc extension (testDir)
+    \item Once all tests have been selected, it runs them all
+    \item For each test directory a sub-dir tree is created.
+    \item Typically: t1/$<$\$TARG$>$-$<$date\_time$>$-$<$uname
+      -s$>$-$<$arch$>$-$<$test\_name$>$
+    \item The above dir is the outputDir
+    \item The test is run in \$outputDir
+  \end{itemize}
+\end{frame}
+
+% page 8 
+\begin{frame}{Every project using tm must have a \emph{diff} tool}
+  \begin{itemize}
+    \item There must be an automatic way to decide a test passed.
+    \item A numerical code can use an $L^2$ norm. 
+    \item The new answer can be different but close w/ numerical codes.
+    \item Lmod use diff on stdout and stderr between gold and test
+      results
+    \item Filtering is required to deal with OS and file location
+      differences
+    \item To pass the filtered result {\color{blue} \emph{must}} be
+      the same.
+  \end{itemize}
+\end{frame}
+
+% page 9
+\begin{frame}{*.tdesc file key-value pairs}
+  \begin{itemize}
+    \item The testDescript is a parameterized bash script
+    \item Some special parameters are:
+      \begin{enumerate}
+        \item \$(testDir): where the *.tdesc is located
+        \item \$(projectDir): where Hermes.db is located (top of the
+          project)
+        \item \$(outputDir): where the test is run
+        \item \$(resultFn): The name of the results lua file.
+      \end{enumerate}
+  \end{itemize}
+\end{frame}
+
+
+
+% page 9
+\begin{frame}{Lmod tests}
+  \begin{itemize}
+    \item 
+    \item 
+  \end{itemize}
+\end{frame}
+
+
+
+
+% page 19
+\begin{frame}{Future Topics}
+  \begin{itemize}
+    \item Write one new test.
+    \item Explain how Mname object converts names into a filename.
+    \item More internals of Lmod?
+  \end{itemize}
+\end{frame}
+
+\end{document}
