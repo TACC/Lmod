@@ -28,6 +28,17 @@
   \end{itemize}
 \end{frame}
 
+% page 2a
+\begin{frame}{Alternative story}
+  \begin{itemize}
+    \item How I used a testing tool I already had
+    \item How to shoehorn the Lmod testing to use \texttt{tm}
+    \item Why I'm using a system testing method, not unit tests.
+    \item System tests came first for me, unit testing later.
+    \item Lmod uses some unit tests as well.
+  \end{itemize}
+\end{frame}
+
 % page 3
 \begin{frame}{Testing philosophy in Lmod}
   \begin{itemize}
@@ -101,7 +112,7 @@
 \end{frame}
 
 % page 8 
-\begin{frame}{Every project using tm must have a \emph{diff} tool}
+\begin{frame}{Every project using \texttt{tm} must have an \emph{acceptance} tool}
   \begin{itemize}
     \item There must be an automatic way to decide a test passed.
     \item A numerical code can use an $L^2$ norm. 
@@ -112,13 +123,14 @@
       differences
     \item To pass the filtered result {\color{blue} \emph{must}} be
       the same.
+    \item This is a major pain but it has been worth the effort.
   \end{itemize}
 \end{frame}
 
 % page 9
-\begin{frame}{*.tdesc file key-value pairs}
+\begin{frame}{Test files (*.tdesc)}
   \begin{itemize}
-    \item The testDescript is a parameterized bash script
+    \item The testDescript is a table describing the the test
     \item Some special parameters are:
       \begin{enumerate}
         \item \$(testDir): where the *.tdesc is located
@@ -130,16 +142,170 @@
   \end{itemize}
 \end{frame}
 
-
-
-% page 9
+% page 10
 \begin{frame}{Lmod tests}
   \begin{itemize}
-    \item 
-    \item 
+    \item Uptil now this talk has been about \texttt{tm}
+    \item Now lets talk about Lmod tests:
+      \begin{itemize}
+        \item Each test contains multiple steps
+        \item Each step generates \_stderr.\#\#\# and \_stdout.\#\#\# files
+        \item These are combined and filtered into err.txt and out.txt
+        \item These file are compared with the gold files in \$testDir
+        \item Result file is generated.
+        \item To pass all steps must be the same!
+      \end{itemize}
   \end{itemize}
 \end{frame}
 
+% page 11
+\begin{frame}[fragile]
+  \frametitle{\texttt{extension.tdesc}}
+    {\tiny
+\begin{semiverbatim}
+local testName = "extensions"
+testdescript = \{
+   keywords = \{testName \},
+   active   = true,
+   testName = testName,
+
+   runScript = [[
+     . $(projectDir)/rt/common\_funcs.sh
+     unsetMT;  initStdEnvVars
+     export MODULEPATH\_ROOT=$(testDir)/mf
+     export MODULEPATH=$MODULEPATH\_ROOT/Core
+     rm -rf \_stderr.* \_stdout.* err.* out.* .lmod.d
+
+     runLmod --version                         # 1
+     runLmod avail                             # 2
+     
+     # combine \_stdout.[0-9][0-9][0-9] -> \_stdout.orig
+     # cleanup \_stdout.orig -> out.txt
+
+     # combine \_stderr.[0-9][0-9][0-9] -> \_stderr.orig
+     # cleanup \_stderr.orig -> out.txt
+
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+   tests = \{
+      \{ id='t1'\},
+   \},
+\}
+\end{semiverbatim}
+    }
+\end{frame}
+
+% page 12
+\begin{frame}{\$(projectDir)/rt/common\_funcs.sh}
+  \begin{itemize}
+    \item Common bash shell functions are in this file
+    \item runLmod: runs the Lmod command 
+    \item runBase: base command (explained later)
+    \item cleanup: Makes output generic (canonical?)
+    \item initStdEnvVars: set standard env vars, cleans up my env
+    \item unsetMT: remove moduletable from env
+  \end{itemize}
+\end{frame}
+
+% page 13
+\begin{frame}[fragile]
+  \frametitle{\texttt{runLmod}}
+    {\tiny
+\begin{semiverbatim}
+runLmod ()
+\{
+   ############################################################
+   # turn off file globbing if it is not already off
+   ...
+
+   runBase \$LUA\_EXEC \$projectDir/src/lmod.in.lua bash --regression\_testing "\$@"
+   eval `cat \_stdout.\$NUM`
+
+   ############################################################
+   # turn on file globbing for users who want it.
+   ...
+\}
+\end{semiverbatim}
+    }
+\end{frame}
+
+% page 14
+\begin{frame}[fragile]
+  \frametitle{\texttt{runBase}}
+    {\tiny
+\begin{semiverbatim}
+runBase ()
+\{
+   COUNT=\$((\$COUNT + 1))
+   numStep=\$((\$numStep+1)) 
+   NUM=`printf "\%03d" \$numStep`
+   echo "===========================" >  \_stderr.\$NUM
+   echo "step \$COUNT"                 >> \_stderr.\$NUM
+   echo "\$@"                          >> \_stderr.\$NUM
+   echo "===========================" >> \_stderr.\$NUM
+
+   echo "===========================" >  \_stdout.\$NUM
+   echo "step \$COUNT"                 >> \_stdout.\$NUM
+   echo "\$@"                          >> \_stdout.\$NUM
+   echo "===========================" >> \_stdout.\$NUM
+
+   numStep=\$((\$numStep+1))
+   NUM=`printf "\%03d" \$numStep`
+   "\$@" > \_stdout.\$NUM 2>> \_stderr.\$NUM
+\}
+\end{semiverbatim}
+    }
+\end{frame}
+
+
+% page 15
+\begin{frame}[fragile]
+  \frametitle{Cleanup for stderr}
+    {\tiny
+\begin{semiverbatim}
+     cat \_stderr.[0-9][0-9][0-9] > \_stderr.orig
+     cleanUp \_stderr.orig err.txt
+\end{semiverbatim}
+    }
+    \begin{itemize}
+      \item Combine all stderr files into \_stderr.orig
+      \item Use the cleanup shell function to canonicalize err.txt output
+    \end{itemize}
+\end{frame}
+
+% page 16
+\begin{frame}[fragile]
+  \frametitle{Cleanup for stdout}
+    {\tiny
+\begin{semiverbatim}
+     cat \_stdout.[0-9][0-9][0-9] > \_stdout.orig
+     joinBase64Results  -bash  \_stdout.orig \_stdout.new
+     cleanUp \_stdout.new out.txt
+\end{semiverbatim}
+    }
+    \begin{itemize}
+      \item Combine all stdout files into \_stdout.orig
+      \item Convert all base64 text into regular text
+      \item Use the cleanup shell function to canonicalize out.txt output
+    \end{itemize}
+\end{frame}
+
+% page 17
+\begin{frame}[fragile]
+  \frametitle{Cleanup script}
+    {\small
+\begin{semiverbatim}
+\end{semiverbatim}
+    }
+    \begin{itemize}
+      \item converts local path names into ``ProjectDIR''
+      \item converts path to lua or sha1 to generic names
+      \item Cleans up error msgs 
+      \item And many other fixes.
+    \end{itemize}
+\end{frame}
 
 
 
