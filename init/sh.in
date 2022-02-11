@@ -14,11 +14,10 @@ module()
 {
   eval `$LMOD_CMD sh "$@"`
 }
-export LMOD_DIR
 
 clearMT()
 {
-  eval $($LMOD_DIR/clearMT_cmd bash)
+  eval $($LMOD_DIR/clearLMOD_cmd --shell bash --simple)
 }
 
 ########################################################################
