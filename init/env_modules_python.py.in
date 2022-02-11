@@ -4,7 +4,26 @@ from subprocess import PIPE, Popen
 import os, sys 
 
 
-def module(command, *arguments):
+def module(command, *arguments, **kwargs):
+    """
+    Execute a regular Lmod command and apply environment changes to
+    the current Python environment (i.e. os.environ).
+    
+    In case len(arguments) == 1 the string will be split on whitespace into 
+    separate arguments. Pass a list of strings to avoid this.
+    
+    Raises an exception in case Lmod execution returned a non-zero
+    exit code.
+    
+    Use with keyword argument show_environ_updates=True to show the actual
+    changes made to os.environ (mostly for debugging).
+    
+    Examples:
+    module('list')
+    module('load', 'gcc')
+    module('load', 'gcc cmake')
+    module('load', 'gcc cmake', show_environ_updates=True)
+    """
     numArgs = len(arguments)
     A = ['@PKG@/libexec/lmod', 'python', command]
     if (numArgs == 1):
@@ -13,12 +32,15 @@ def module(command, *arguments):
         A += list(arguments)
 
     proc           = Popen(A, stdout=PIPE, stderr=PIPE)
+    status         = proc.returncode 
     stdout, stderr = proc.communicate()
-    stdout         = stdout.decode("utf-8")
-    stderr         = stderr.decode("utf-8")
     err_out        = sys.stderr
     if (os.environ.get('LMOD_REDIRECT','@redirect@') != 'no'):
         err_out=sys.stdout
 
-    print(stderr,file=err_out)
-    exec(stdout)
+    print(stderr.decode(),file=err_out)
+    
+    if ('show_environ_updates' in kwargs):
+        print(stdout.decode())
+    exec(stdout.decode())
+    return status, stderr.decode()

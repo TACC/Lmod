@@ -1,0 +1,319 @@
+\documentclass{beamer}
+
+% You can also use a 16:9 aspect ratio:
+%\documentclass[aspectratio=169]{beamer}
+\usetheme{TACC16}
+
+% It's possible to move the footer to the right:
+%\usetheme[rightfooter]{TACC16}
+
+\begin{document}
+\title[Lmod]{Settarg}
+\author{Robert McLay} 
+\date{Dec. 7, 2021}
+
+% page 1
+\frame{\titlepage} 
+
+% page 2
+\begin{frame}{Settarg}
+  \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
+  \begin{itemize}
+    \item What is settarg and how did it get started?
+    \item What are the goals of settarg?
+    \item What does settarg actually do?
+    \item Examples
+    \item Personalizing settarg: user, projects
+    \item Conclusions
+  \end{itemize}
+\end{frame}
+
+% page 3
+\begin{frame}{What is settarg?}
+  \begin{itemize}
+    \item The settarg module connects the build system to:
+      \begin{itemize}
+        \item What modules are loaded: compiler, mpi, ...
+        \item Type of build: debug/optimize/...
+        \item Machine Arch: x86\_64, ppc64le, arm64, ...
+      \end{itemize}
+    \item Provides environment variables to connnect to the build system
+    \item Makes it easy to switch between different builds
+    \item Integrated with Lmod and is installed with it.
+  \end{itemize}
+\end{frame}
+
+% page 4
+\begin{frame}{Story: What led to settarg}
+  \begin{itemize}
+    \item When processor speeds where measured in MHz and not GHz
+    \item Worked in a lab that had incompatible architectures with a
+      shared home file system.
+    \item Wanted to build programs w/o doing a {\color{blue}\texttt{make
+          clean}} in-between.
+    \item How about different optimization levels? (dbg, opt, mdbg?)
+    \item Different compilers or MPI stacks?
+  \end{itemize}
+\end{frame}
+
+% page 5
+\begin{frame}{Where the settarg name came from}
+  \begin{itemize}
+    \item Originally wanted \$TARGET
+    \item But many other projects (PETSc, etc) already use that
+    \item \$TARGET shorten to \$TARG
+    \item This tool was designed to set \$TARG $\Rightarrow$ {\color{blue}settarg}
+  \end{itemize}
+\end{frame}
+
+% page 6
+\begin{frame}{Goals of settarg}
+  \begin{itemize}
+    \item Make switching between DBG/OPT builds easier.
+    \item Make switching between compiler/mpi and cmplr/mpi versions easier
+    \item Integrate with Build process via Env. Vars.
+    \item Integrate with \$PATH
+    \item Optionally report status in titlebar
+    \item Settarg became part of Lmod (because I can't remember to do
+      two things at once!?)
+    \item Currently works in bash, zsh and tcsh
+  \end{itemize}
+\end{frame}
+
+% page 7
+\begin{frame}{The 4 things that settarg does}
+  \begin{itemize}
+    \item Reads the state of the loaded modules
+    \item Build \$TARG variables
+    \item Change \$PATH with new \$TARG
+    \item Optionally changes the titlebar
+  \end{itemize}
+\end{frame}
+
+% page 8
+\begin{frame}{Reasons to use settarg}
+  \begin{itemize}
+    \item Switching compiler can be helpful.
+    \item C++ error msgs are confusing,
+    \item Different compilers might make better sense.
+    \item Debugging with gcc; Use intel for performance
+    \item Comparing two different version of a compiler with your
+      application.
+  \end{itemize}
+\end{frame}
+
+% page 9
+\begin{frame}{Typical \$TARG variables in dbg state}
+  \begin{itemize}
+    \item \$TARG $\Rightarrow$ OBJ/\_x86\_64\_dbg\_gcc-9.3.0\_mpich-3.3.2
+    \item \$TARG\_BUILD\_SCENARIO $\Rightarrow$  dbg
+    \item \$TARG\_COMPILER\_FAMILY $\Rightarrow$  gcc
+    \item \$TARG\_MPI\_FAMILY $\Rightarrow$  mpich
+    \item \$TARG\_COMPILER $\Rightarrow$  gcc-9.3.0
+    \item \$TARG\_MPI $\Rightarrow$    mpich-3.3.2
+  \end{itemize}
+\end{frame}
+
+% page 10
+\begin{frame}{Typical \$TARG variables in opt state}
+  \begin{itemize}
+    \item \$TARG $\Rightarrow$  OBJ/\_x86\_64\_opt\_gcc-9.3.0\_mpich-3.3.2
+    \item \$TARG\_BUILD\_SCENARIO\ $\Rightarrow$  opt
+    \item \$TARG\_COMPILER\_FAMILY $\Rightarrow$  gcc
+    \item \$TARG\_MPI\_FAMILY $\Rightarrow$ mpich
+    \item \$TARG\_COMPILER $\Rightarrow$ gcc-9.3.0
+    \item \$TARG\_MPI  $\Rightarrow$   mpich-3.3.2
+  \end{itemize}
+\end{frame}
+
+% page 11
+\begin{frame}{\$PATH and \$TARG}
+  \begin{itemize}
+    \item settarg inserts \$TARG into \$PATH.
+    \item dbg $\Rightarrow$ PATH=OBJ/\_x86\_64\_dbg:$\sim$/bin:.:/usr/local/bin:/bin
+    \item opt $\Rightarrow$ PATH=OBJ/\_x86\_64\_opt:$\sim$/bin:.:/usr/local/bin:/bin
+  \end{itemize}
+\end{frame}
+
+% page 12
+\begin{frame}{\$PATH searching can be dynamic!}
+  \begin{itemize}
+    \item Normally shells build a table of all exec's in path
+    \item rehash can be required for new exec's
+    \item But relative paths are evaluated \emph{everytime}.
+  \end{itemize}
+\end{frame}
+
+% page 13
+\begin{frame}{The settarg module defines the following commands}
+  \begin{itemize}
+    \item \texttt{dbg} $\Rightarrow$ debug
+    \item \texttt{opt} $\Rightarrow$ optimize
+    \item \texttt{mdbg} $\Rightarrow$ max debug
+    \item \texttt{empty} $\Rightarrow$ no build scenario 
+    \item \texttt{cdt}   $\Rightarrow$ cd \$TARG
+    \item \texttt{targ}   $\Rightarrow$ echo \$TARG
+    \item \texttt{settarg --stt} $\Rightarrow$ settarg state stored in
+      environment
+    \item \texttt{settarg --report} $\Rightarrow$ how settarg is configured.
+  \end{itemize}
+\end{frame}
+
+% page 14
+\begin{frame}{How is settarg connected to Lmod?}
+  \begin{itemize}
+    \item The settarg command is part of the module command.
+    \item module () \{ eval \$(\$LMOD\_CMD bash "\$@") \&\&
+             eval \$(\$\{LMOD\_SETTARG\_CMD:-:\} -s sh) \}
+    \item Normally \$LMOD\_SETTARG\_CMD is ``:'' or ``'' so 2nd cmd is a
+      no-op.
+    \item With settarg loaded it becomes: \$LMOD\_DIR/settarg\_cmd
+  \end{itemize}
+\end{frame}
+
+% page 15
+\begin{frame}{What do dbg/opt/mdbg do?}
+  \begin{itemize}
+    \item They all set \$TARG\_BUILD\_SCENARIO
+    \item It is up to the Makefile to interpret
+    \item dbg $\Rightarrow$ CFLAGS = -g -O0
+    \item opt $\Rightarrow$ CFLAGS = -O3
+    \item mdbg $\Rightarrow$ CFLAGS = -g -O0 and array subscript checking
+  \end{itemize}
+\end{frame}
+
+% page 16
+\begin{frame}{Show examples}
+  \begin{itemize}
+    \item dbg/opt/mdbg $\Rightarrow$ \$TARG, \$PATH
+    \item ml -impi $\Rightarrow$ \$TARG
+    \item ml -intel $\Rightarrow$ \$TARG
+  \end{itemize}
+\end{frame}
+
+% page 17
+\begin{frame}{Example w/o Makefile changes}
+  \begin{itemize}
+    \item cd xalt; mkdir -p \$TARG; cdt; 
+    \item ../../configure ...
+    \item make install
+  \end{itemize}
+\end{frame}
+
+% page 18
+\begin{frame}[fragile]
+  \frametitle{contrib/settarg/make\_example/Makefile.simple}
+    {\tiny
+\begin{semiverbatim}
+ifeq (\$(TARG\_COMPILER\_FAMILY),gcc)
+   CC := gcc
+endif
+ifeq (\$(TARG\_COMPILER\_FAMILY),intel)
+   CC := icc
+endif
+ifneq (\$(TARG),)
+  override O\_DIR := \$(TARG)/
+endif
+CFLAGS := -O3
+ifeq (\$(TARG\_BUILD_SCENARIO),dbg)
+   CFLAGS := -g -O0
+endif 
+EXEC := \$(O\_DIR)hello
+SRC  := main.c hello.c
+OBJS := \$(O\_DIR)main.o \$(O\_DIR)hello.o
+
+all: \$(O\_DIR) \$(EXEC)
+\$(O\_DIR):
+        mkdir -p \$(O\_DIR)
+\$(EXEC): \$(OBJS)
+        \$(LINK.c) -o \$@ \$^
+
+\$(O\_DIR)%.o : %.c
+        \$(COMPILE.c) -o \$@ -c \$<
+
+\$(O\_DIR)main.o : main.c hello.h
+\$(O\_DIR)hello.o: hello.c hello.h
+\end{semiverbatim}
+    }
+\end{frame}
+
+% page 19
+\begin{frame}{Show examples with Makefile.simple }
+  \begin{itemize}
+    \item dbg; make -f Makefile.simple; type hello
+    \item opt; make -f Makefile.simple; type hello
+    \item ml gcc; dbg; make -f Makefile.simple; type hello
+  \end{itemize}
+\end{frame}
+
+% page 20
+\begin{frame}{Show examples with Makefile }
+  \begin{itemize}
+    \item rm -rf OBJ/
+    \item dbg; make -f Makefile; type hello
+    \item opt; make -f Makefile; type hello
+    \item ml gcc; dbg; make -f Makefile.simple; type hello
+  \end{itemize}
+\end{frame}
+
+% page 21
+\begin{frame}{Personal/Directory setting of settarg}
+  \begin{itemize}
+    \item Loading order of all settarg config files:
+    \item System settarg lmod/settarg/settarg\_rc.lua
+    \item $\sim$/.settarg.lua
+    \item Current or parent directory .settarg.lua
+    \item all are loaded with over-write of table entries.
+  \end{itemize}
+\end{frame}
+
+% page 22
+\begin{frame}{settarg --report}
+  \begin{itemize}
+    \item Reports the current state of rules for settarg
+    \item Show example with a directory .settarg.lua
+  \end{itemize}
+\end{frame}
+
+% page 23
+\begin{frame}[fragile]
+  \frametitle{a directory .settarg.lua}
+    {\small
+\begin{semiverbatim}
+TargetList  = \{ "mach", "build\_scenario", "compiler", 
+                   "mpi","solver", "file\_io "\}
+\end{semiverbatim}
+    }
+\end{frame}
+
+% page 24
+\begin{frame}{Show example of \$TARG with above .settarg.lua}
+  \begin{itemize}
+    \item \$TARG 
+    \item cd w/dao; $\Rightarrow$ \$TARG
+    \item ml petsc; $\Rightarrow$ \$TARG
+  \end{itemize}
+\end{frame}
+
+% page 25
+\begin{frame}{Conclusions for Settarg modules}
+  \begin{itemize}
+    \item A way to switch between different kinds of builds: dbg/opt/mdbg
+    \item Avoiding make clean in-between.
+    \item Highly customizable for your needs.
+    \item Can be made to work where you have settarg and other don't
+    \item More detail: https://lmod.readthedocs.io/en/latest/310\_settarg.html
+  \end{itemize}
+\end{frame}
+
+% page 26
+\begin{frame}{Future Topics}
+  \begin{itemize}
+    \item Lmod Testing System?
+    \item More internals of Lmod?
+    \item collections?
+    \item Guest Presentation of special issues?
+  \end{itemize}
+\end{frame}
+
+\end{document}

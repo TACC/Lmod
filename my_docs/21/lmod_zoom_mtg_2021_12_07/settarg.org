@@ -1,0 +1,69 @@
+Notes on Settarg talk
+
+* Story
+** CFDLAB: worked on a shared home file system with different arch.
+** Wanted to build programs w/o make clean in-between
+** Wanted Dbg and Opt, Later MDbg
+** Wanted to support different compilers (e.g. intel or gcc)
+** It grew from there: MPI Stack
+** Wanted to know what module are loaded
+** I am unable to change modules and remember to change $TARG
+** Settarg became part of Lmod.
+
+
+
+* Goals
+** Make software devel easier by switch to different kinds of builds (dbg/opt etc) (and do it frequently!)
+** Switching compilers can be helpful:
+    C++ error message can be hard to understand.
+    Different compiler do report compiler errors differently.
+    One might be clearer than another.
+    Debugging with gcc. Use Intel for performance. 
+** Create Env. Vars. to control type of software build
+** Manage $PATH
+** Report status in titlebar
+** Integrate with Lmod!
+** Not all loaded modules affect $TARG.
+
+* Show examples
+** dbg/opt/mdbg -> $TARG
+** ml -impi;    -> $TARG
+** ml -intel;   -> $TARG
+** Built xalt w/ explicit TARG usage
+
+* History
+** Worked on a system with different architectures
+** Wanted to support dbg/opt as well.
+** Didn't want to have make clobber and start over everytime
+   
+* Settarg does 4 things:
+** Reads the state of loaded modules
+** Builds $TARG variables
+** Changes $PATH with new $TARG
+** (Optionally) Changes the titlebar on xterm
+
+* What are the important TARG Vars:
+** TARG: OBJ/_x86_64_opt_gcc-9.3.0_mpich-3.3.2
+** TARG_BUILD_SCENARIO: dbg
+** TARG_COMPILER_FAMILY: gcc
+** TARG_MPI_FAMILY: mpich
+** TARG_COMPILER gcc-9.3.0
+** TARG_MPI   mpich-3.3.2
+
+* Explain about how $PATH works
+** Relative paths are DYNAMIC!
+
+
+* Example w/ Makefile
+** Show contrib/settarg/make_example
+*** make -f Makefile.simple
+*** make 
+** Show what happens when changing compiler, dbg, etc.
+
+* Show TARG under ~/w/dao/mgf
+** Talk about .settarg.lua
+
+* settarg --report
+** Merging multiple .settarg.lua files
+   explain how that works.
+* settarg --stt

@@ -131,6 +131,7 @@ local function l_new(self)
    local uname             = capture("uname -a")
    local adminFn, readable = findAdminFn()
    local activeTerm        = haveTermSupport() and "true" or colorize("red","false")
+   local avail_style       = cosmic:value("LMOD_AVAIL_STYLE")
    local lmod_configDir    = cosmic:value("LMOD_CONFIG_DIR")
    local ksh_support       = cosmic:value("LMOD_KSH_SUPPORT")
    local extended_default  = cosmic:value("LMOD_EXTENDED_DEFAULT")
@@ -176,6 +177,11 @@ local function l_new(self)
    local tracing           = cosmic:value("LMOD_TRACING")
    local fast_tcl_interp   = cosmic:value("LMOD_FAST_TCL_INTERP")
    local allow_root_use    = cosmic:value("LMOD_ALLOW_ROOT_USE")
+   local lmodrc            = cosmic:value("LMOD_RC")
+
+   if (lmodrc == "") then
+      lmodrc = "<empty>"
+   end
 
    if (not rc:find(":") and not isFile(rc)) then
       rc = rc .. " -> <empty>"
@@ -195,6 +201,7 @@ local function l_new(self)
    local tbl = {}
    tbl.allowRoot    = { k = "Allow root to use Lmod"            , v = allow_root_use,   }
    tbl.allowTCL     = { k = "Allow TCL modulefiles"             , v = allow_tcl_mfiles, }
+   tbl.avail_style  = { k = "Avail Style"                       , v = avail_style,      }
    tbl.autoSwap     = { k = "Auto swapping"                     , v = auto_swap,        }
    tbl.case         = { k = "Case Independent Sorting"          , v = case_ind_sorting, }
    tbl.colorize     = { k = "Colorize Lmod"                     , v = lmod_colorize,    }
@@ -235,6 +242,7 @@ local function l_new(self)
    tbl.prefix       = { k = "Lmod prefix"                       , v = "@PREFIX@",       }
    tbl.prefix_site  = { k = "Site controlled prefix"            , v = site_prefix,      }
    tbl.prpnd_blk    = { k = "Prepend order"                     , v = prepend_block,    }
+   tbl.rc           = { k = "LMOD_RC"                           , v = lmodrc,           }
    tbl.settarg      = { k = "Supporting Full Settarg Use"       , v = settarg_support,  }
    tbl.shell        = { k = "User shell"                        , v = myShellName(),    }
    tbl.sitePkg      = { k = "Site Pkg location"                 , v = locSitePkg,       }

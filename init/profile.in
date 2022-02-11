@@ -69,21 +69,33 @@ findExec ()
   unset Nm confPath execNm
 }
 
+findExec READLINK_CMD @readlink@  readlink
 findExec PS_CMD       @ps@        ps
 findExec EXPR_CMD     @expr@      expr
 findExec BASENAME_CMD @basename@  basename
 
 unset -f findExec
 
-my_shell=$($PS_CMD -p $$ -ocomm=)
+if [ -f /proc/$$/exe ]; then
+  my_shell=$($READLINK_CMD /proc/$$/exe)
+else
+  my_shell=$($PS_CMD -p $$ -ocomm=)
+fi
 my_shell=$($EXPR_CMD    "$my_shell" : '-*\(.*\)')
 my_shell=$($BASENAME_CMD $my_shell)
+
+case ${my_shell} in
+   bash|zsh|sh) ;;
+   ksh*) my_shell="ksh";;
+   *) my_shell="sh";;
+esac
+
 if [ -f @PKGV@/init/$my_shell ]; then
    .    @PKGV@/init/$my_shell >/dev/null # Module Support
 else
    .    @PKGV@/init/sh        >/dev/null # Module Support
 fi
-unset my_shell PS_CMD EXPR_CMD BASENAME_CMD MODULEPATH_INIT LMOD_ALLOW_ROOT_USE
+unset my_shell PS_CMD EXPR_CMD BASENAME_CMD MODULEPATH_INIT LMOD_ALLOW_ROOT_USE READLINK_CMD
 
 # Local Variables:
 # mode: shell-script

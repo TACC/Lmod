@@ -232,6 +232,12 @@ The entries below describe several useful commands that come with Lmod that can 
 **isloaded** ("NAME"):
     Return true when module "NAME" is loaded.
 
+**isPending** ("NAME"):
+    Return true when module "NAME" is in the middle of a load().
+    This function is rarely needed.  It can be useful when checking
+    if one depends_on() package is currently being loaded.
+
+
 **isAvail** ("NAME"):
     Return true when "NAME" is possible to load.  Note that it
     probably better to use the **try_load** () instead::

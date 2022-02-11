@@ -7,11 +7,10 @@ BuildScenarioTbl = {
 HostnameTbl = { 2 }  -- extracts the 2nd part of `hostname -f` output, towards variable $TARG_HOST
 
 TitleTbl = {
-   mic                    = "MIC",
    dbg                    = "D",
    mdbg                   = "M",
    opt                    = "O",
-   gopt                   = "G",
+   gopt                   = "Og",
    impi                   = "IM",
    mvapich2               = "M",
    openmpi                = "O",
@@ -23,6 +22,11 @@ TitleTbl = {
    clang                  = "C",
    tau                    = "Tau",
    pgi                    = "P",
+   hdf5                   = "H5",
+   phdf5                  = "H5",
+   xl                     = "XL",
+   petsc                  = "Psc",
+   spectrum_mpi           = "SM",
    MVAPICH2               = 'M',
    OpenMPI                = "O",
    MPICH                  = "M",
@@ -36,9 +40,10 @@ TitleTbl = {
 
 ModuleTbl = {
    build_scenario     = { "mdbg", "dbg", "opt", "gopt", "empty"},
-   mpi                = { "mpich", "mpich2", "openmpi", "mvapich2", "impi", "MPICH", "MPICH2", "MVAPICH2",
+   mpi                = { "mpich", "mpich2", "openmpi", "mvapich2", "impi", "spectrum_mpi",
+                          "MPICH", "MPICH2", "MVAPICH2",
                           "OpenMPI", "QLogicMPI", "psmpi", "psmpi2","cray_mpich"},
-   compiler           = { "intel", "pgi", "gcc", "sun", "clang", "Clang", "GCC", "LLVM", "PGI", "PCC", "TCC", "SDCC", "ispc", "Go"},
+   compiler           = { "intel", "pgi", "gcc", "xl", "sun", "clang", "Clang", "GCC", "LLVM", "PGI", "PCC", "TCC", "SDCC", "ispc", "Go"},
    blas               = { "gotoblas", "mkl", "imkl", "OpenBLAS", "GotoBLAS", "GotoBLAS2", "ATLAS"},
    toolchain          = { "ClangGCC", "CrayCCE", "CrayGNU", "CrayIntel", "CrayPGI", "GCCcore",
                           "GNU", "PGI", "cgmpich", "cgmpolf", "cgmvapich2", "cgmvolf", "cgompi", "cgoolf",

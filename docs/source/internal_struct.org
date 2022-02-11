@@ -1,0 +1,24 @@
+Ideas for internal structure doc
+
+* Overview of Lmod structure.
+** The work of main() in lmod (or lmod.in.lua in source tree) breaks into 3 parts
+*** Process command line and options
+**** commands are read in an evaluated.  Command can be abbreviated.  
+      So the avail command can be any number of character with a
+      minimum of 2. So "av" or "ava" will work as avail but "avi" will
+      not because it doesn't match "avail".  See the array lmodCmdA for
+      details.
+**** Some options like --version, --dumpversion and --help  
+      require no command processing so they are evaluated immediately
+      and Lmod exits.
+**** unknown commands output the usage printout to stderr
+*** Evaluate module command
+    The actions of load, unloading etc are collected in the VarT
+    table.  The individual statements like setenv etc produce no
+    output at this stage.
+*** Output the results or error out.
+    The output of all the changes to the environment, stored in VarT,  are written to
+    stdout in alphabetical order.
+
+    Or lmod errors out.
+

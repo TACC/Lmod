@@ -79,6 +79,7 @@ local l_buildMod2VersionT
 -- @param self A MRC object.
 
 local function l_new(self, fnA)
+   --dbg.start{"MRC l_new(fnA)"}
    local o              = {}
    o.__mpathT           = {}  -- mpath dependent values for alias2modT, version2modT
                               -- and hiddenT.
@@ -94,6 +95,7 @@ local function l_new(self, fnA)
    self.__index = self
 
    l_build(o, fnA or getModuleRCT())
+   --dbg.fini("MRC l_new")
    return o
 end
 
@@ -453,11 +455,16 @@ end
 -- modT is a table with: sn, fullName and fn
 function M.isVisible(self, modT)
    local frameStk  = require("FrameStk"):singleton()
+   local mname     = frameStk:mname()
    local mt        = frameStk:mt()
    local mpathA    = mt:modulePathA()
    local name      = modT.fullName
    local fn        = modT.fn
    local isVisible = true
+
+   ------------------------------------------------------------
+   -- Must self:update() to read in .modulerc etc files.
+   self:update()
 
    if (self:getHiddenT(mpathA, name) or self:getHiddenT(mpathA, fn)) then
       isVisible = false
@@ -468,7 +475,9 @@ function M.isVisible(self, modT)
       isVisible = idx == nil
    end
 
-   modT['isVisible'] = isVisible
+   modT.isVisible = isVisible
+   modT.mname     = mname
+   modT.mt        = mt
    hook.apply("isVisibleHook", modT)
 
    return modT.isVisible

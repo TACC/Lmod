@@ -113,6 +113,13 @@ function M.initialize(self)
    -- normalize nothing happens here on most shells
 end
 
+--------------------------------------------------------------------------
+-- BaseShell:finalize(): Do this first.
+
+function M.finalize(self)
+   -- normalize nothing happens here on most shells
+end
+
 function M.report_failure(self)
    local line = "\nfalse\n"
    stdout:write(line)
@@ -140,9 +147,14 @@ function M.expand(self, tbl)
       return
    end
 
-   self:initialize()
+   local init = false
 
    for k,v in pairsByKeys(tbl) do
+      if (not init) then
+         self:initialize()
+         init = true
+      end
+
       local vstr, vType, priorityStrT, refCountT = v:expand()
       if (next(priorityStrT) ~= nil) then
          for prtyKey,prtyStr in pairs(priorityStrT) do
@@ -175,6 +187,9 @@ function M.expand(self, tbl)
             self:expandVar(k,vstr,vType)
          end
       end
+   end
+   if (init) then
+      self:finalize()
    end
    self:report_success()
    dbg.fini("BaseShell:expand")

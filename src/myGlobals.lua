@@ -148,6 +148,14 @@ cosmic:init{name = "LMOD_REDIRECT",
             yn   = "no"}
 
 ------------------------------------------------------------------------
+-- LMOD_RC:  Lmod RC list of colon separated files 
+------------------------------------------------------------------------
+local rcfiles = getenv("LMOD_RC")
+cosmic:init{name    = "LMOD_RC",
+            default = "",
+            assignV = rcfiles}
+
+------------------------------------------------------------------------
 -- LMOD_FAST_TCL_INTERP:  Send messages to stdout instead of stderr
 ------------------------------------------------------------------------
 cosmic:init{name = "LMOD_FAST_TCL_INTERP",
@@ -379,10 +387,13 @@ cosmic:init{name    = "LMOD_ADMIN_FILE",
 --                   entry is the default (i.e. A:B:C => A is default).
 ------------------------------------------------------------------------
 
-LMOD_AVAIL_STYLE = getenv("LMOD_AVAIL_STYLE") or "<system>"
-if (LMOD_AVAIL_STYLE == "") then
-   LMOD_AVAIL_STYLE = "<system>"
+local style = getenv("LMOD_AVAIL_STYLE") or "<system>"
+if (style == "") then
+   style = "<system>"
 end
+cosmic:init{name    = "LMOD_AVAIL_STYLE",
+            default = "<system>",
+            assignV = style}
 
 ------------------------------------------------------------------------
 -- LFS_VERSION: The version of luafilesystem being used

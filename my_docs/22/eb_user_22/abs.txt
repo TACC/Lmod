@@ -1,0 +1,24 @@
+Title: Lmod and XALT: Updates
+
+-----
+Lmod
+-----
+
+Lmod is the modern Environment Module Tool.  Sysadmins define packages
+and let users choice which package and which version of that package.
+This part of the talk will include a brief overview of  Lmod.  This
+will be followed up with the new features such as module overview,
+updates to sh_to_modulefile and sourcing shell scripts inside
+modulefiles with source_sh() plus other recent changes to Lmod.
+
+----
+XALT
+----
+
+XALT is a tool to take the census of what programs and libraries are
+run on your cluster.  This talk will briefly cover what XALT does and
+how it does it.  It will include some "war" stories of XALT
+usage. Finally I'll cover recent changes to XALT. These include better
+container support, a pre-ingestion filter, more compiler detection
+(rust, chapel, etc) and better debugging support.
+

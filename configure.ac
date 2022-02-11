@@ -150,17 +150,17 @@ AC_ARG_WITH(exactMatch,
     EXACT_MATCH="$withval"
     AC_DEFINE_UNQUOTED(EXACT_MATCH, "$withval"))dnl
 
-AC_SUBST(LMOD_CFG_DIR)
+AC_SUBST(LMOD_CONFIG_DIR)
 AC_ARG_WITH(lmodConfigDir,
     AC_HELP_STRING([--with-lmodConfigDir=ans],[Location of Lmod Config Dir [[/etc/lmod]]]),
-    LMOD_CFG_DIR="$withval"
-    AC_MSG_RESULT([LMOD_CFG_DIR=$with_lmodConfigDir])
-    AC_DEFINE_UNQUOTED(LMOD_CFG_DIR, "$with_lmodConfigDir")dnl
+    LMOD_CONFIG_DIR="$withval"
+    AC_MSG_RESULT([LMOD_CONFIG_DIR=$with_lmodConfigDir])
+    AC_DEFINE_UNQUOTED(LMOD_CONFIG_DIR, "$with_lmodConfigDir")dnl
     ,
     withval="/etc/lmod"
-    AC_MSG_RESULT([LMOD_CFG_DIR=$withval])
-    LMOD_CFG_DIR="$withval"
-    AC_DEFINE_UNQUOTED(LMOD_CFG_DIR, "$withval"))dnl
+    AC_MSG_RESULT([LMOD_CONFIG_DIR=$withval])
+    LMOD_CONFIG_DIR="$withval"
+    AC_DEFINE_UNQUOTED(LMOD_CONFIG_DIR, "$withval"))dnl
 
 AC_SUBST(AUTO_SWAP)
 AC_ARG_WITH(autoSwap,
@@ -536,14 +536,14 @@ AC_ARG_WITH(useBuiltinPkgs,
 
 AC_SUBST(SILENCE_SHELL_DEBUGGING)
 AC_ARG_WITH(silentShellDebugging,
-    AC_HELP_STRING([--with-silentShellDebugging=ans],[Use Built-in lua package instead of system ones. [[no]]]),
+    AC_HELP_STRING([--with-silentShellDebugging=ans],[When using set -xv in bash silence the output from lmod. [[yes]]]),
     SILENCE_SHELL_DEBUGGING="$withval"
     SILENCE_SHELL_DEBUGGING=`echo $SILENCE_SHELL_DEBUGGING | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $SILENCE_SHELL_DEBUGGING "--with-silentShellDebugging=ans: ans must be yes or no"
     AC_MSG_RESULT([SILENCE_SHELL_DEBUGGING=$with_silentShellDebugging])
     AC_DEFINE_UNQUOTED(SILENCE_SHELL_DEBUGGING, "$with_silentShellDebugging")dnl
     ,
-    withval="no"
+    withval="yes"
     AC_MSG_RESULT([SILENCE_SHELL_DEBUGGING=$withval])
     SILENCE_SHELL_DEBUGGING="$withval"
     AC_DEFINE_UNQUOTED(SILENCE_SHELL_DEBUGGING, "$withval"))dnl
@@ -685,6 +685,7 @@ PATH_TO_SRC=$SRCDIR
 AC_SUBST(BASENAME)
 AC_SUBST(EXPR)
 AC_SUBST(PS)
+AC_SUBST(READLINK)
 AC_SUBST(PATH_TO_LS)
 AC_SUBST(PATH_TO_GIT)
 AC_SUBST(PATH_TO_HASHSUM)
@@ -693,6 +694,15 @@ AC_SUBST(PATH_TO_TCLSH)
 
 AC_PATH_PROG(PS,ps, UNKNOWN_PS)
 if test "$PS" = "UNKNOWN_PS" ; then
+  echo
+  echo "You must have valid ps in your path. Quitting!"
+  echo
+  rm -f makefile
+  exit 1
+fi
+
+AC_PATH_PROG(READLINK,readlink, UNKNOWN_READLINK)
+if test "$READLINK" = "UNKNOWN_READLINK" ; then
   echo
   echo "You must have valid ps in your path. Quitting!"
   echo

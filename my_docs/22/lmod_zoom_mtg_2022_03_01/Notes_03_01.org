@@ -1,0 +1,144 @@
+Ideas for testing talk
+
+* I believe that a good part of Lmod success is the testing procedure
+  I developed hermes/tm as part of another project before so it has been part
+  of Lmod since the beginning
+* I don't know if anyone is using tm for anything else.
+  I don't think so, No one has ever sent a tm bug report or feature
+  request.
+* My philosophy about designing tests is to ensure that the new feature works
+  as intented.  But Not to torture test.  The trouble is that no
+  matter how hard I test, there will cases I have never thought of.
+  For example A=[a-z]* as part of a  shell function.
+
+* Goals of testing Lmod. 
+** Test various features of Lmod   
+** Make sure that new code doesn't break old feature
+** Make sure that Lmod works across different version of Unix(Linux/MacOs)
+** Make development of Lmod easier
+** Make lmod reliable to users/admins
+** A place to record new bugs.  Don't repeat them.
+
+* It is hard to test everything   
+** Making things work with older version
+** There is one test called end2end which builds lmod and runs some steps against it
+** All other tests use the version of Lmod in the src directory
+   Special hacks to deal with configure options.
+
+
+* tm is the testing manager as part of the hermes tool set.
+* The main function of tm is to select tests and run them
+* Each test is responsible for telling tm that a test passed/failed/diffed
+* failed is that the test failed to run all the way
+* diffed is that the test ran but did not match the "gold" results
+
+* Flow:
+** tm searches for test from the current directory down.
+** It is looking for files with the *.tdesc extension
+** Once all tests are found it runs them all.
+** Below each directory where a *.tdesc file is found, it creates a directory structure
+   typically: t1/<$TARG>-<date_time>-<uname -s>-<arch>-<test_name>
+** Test is started from there.
+* lmod/rt/common_funcs.sh
+  Contains all the bash shell functions that are used for all bash
+  tests.
+* There is one and only one test that it written in csh.
+  A bash script is used to generate a csh script
+  I hope and pray that I don't have to work in csh very often.
+
+* A test is made up of 1 or more steps:
+     runLmod --version                # 1
+     runLmod load intel               # 2
+     runLmod avail                    # 3
+* runLmod is:
+runLmod ()
+{
+   ############################################################
+   # turn off file globbing if it is not already off
+   ...
+   runBase $LUA_EXEC $projectDir/src/lmod.in.lua bash --regression_testing "$@"
+   eval `cat _stdout.$NUM`
+
+   ############################################################
+   # turn on file globbing for users who want it.
+   ...
+}
+  
+* Runbase is:
+
+runBase ()
+{
+   COUNT=$(($COUNT + 1))
+   numStep=$(($numStep+1)) 
+   NUM=`printf "%03d" $numStep`
+   echo "===========================" >  _stderr.$NUM
+   echo "step $COUNT"                 >> _stderr.$NUM
+   echo "$@"                          >> _stderr.$NUM
+   echo "===========================" >> _stderr.$NUM
+
+   echo "===========================" >  _stdout.$NUM
+   echo "step $COUNT"                 >> _stdout.$NUM
+   echo "$@"                          >> _stdout.$NUM
+   echo "===========================" >> _stdout.$NUM
+
+   numStep=$(($numStep+1))
+   NUM=`printf "%03d" $numStep`
+   "$@" > _stdout.$NUM 2>> _stderr.$NUM
+}
+
+  
+   
+
+* *.tdesc files have several key-value pairs.
+** The most important part is the testDescript value.
+** This is a parameterized script that used to create a bash script to run
+** Some Special names found here are:
+    $(testDir)    : Where the *.tdesc file is located
+    $(projectDir) : Where the Hermes.db file is found.  Typically the
+                    top of a project. 
+    $(outputDir)  : Where the test is run.
+    $(resultFn)   : The name of the file that tm expects to find to know
+                    if the test Passed/Failed/Diffed.
+
+
+* Deciding if test passed is tricky and must be decided for each project.
+
+* Lmod used "diff" as it tool to decide if a test passed
+
+* This is a major pain because Lmod's output is will depend on what directories
+* Lmod also use base64 encoding
+* Basic pattern for running testDscipt
+** each test-step writes to _stderr.$NUM and _stdout.$NUM where $NUM is the test number
+** After all steps are run
+*** combine steps into one file
+    cat _stderr.$NUM > _stderr.orig
+    cat _stdout.$NUM > _stdout.orig
+*** Convert base64 output to plain text
+*** Run a sed cleanup script to normalize and produce err.txt and out.txt
+*** Use wrapperDiff tool to run diff on gold version with test version
+*** Both stderr and stdout must match char for char (on filtered/cleanup output).
+*** Use testFinish tool produce test result file that tm is looking for    
+
+* Gold files are in $testDir not $outputDir
+
+
+
+* Topics to talk about
+** joinBase64Results?
+** cleanup
+  How the cleanup script converts $testDir etc to standard names
+** What you are looking at with the different file names
+
+* Tools I use to work individual tests
+** run_script?
+** zsh vs. bash?
+
+* What I do when something is broken
+** Add the -D flag
+** Add even more  dbg.print{} and dbg.printT() lines to code
+** Run the same test with -D flag between different version of Lmod
+   Use meld or emacs diff to compare result between versions
+   
+* Why I use dbg.print instead debugger
+  
+    

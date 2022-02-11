@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.5.18  2021-10-09 12:49 -05:00
+Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -10,15 +10,15 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load settarg
 ===========================
 ===========================
 step 3
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model dbg
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --generic_arch dbg
 ===========================
 ===========================
 step 4
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model opt
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --generic_arch opt
 ===========================
 ===========================
 step 5
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model empty
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --generic_arch empty
 ===========================
 ===========================
 step 6
@@ -26,31 +26,31 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc mpich
 ===========================
 ===========================
 step 7
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --generic_arch
 ===========================
 ===========================
 step 8
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model f_f
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --generic_arch f_f
 ===========================
 ===========================
 step 9
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model b:b
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --generic_arch b:b
 ===========================
 ===========================
 step 10
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model -r f_f
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --generic_arch -r f_f
 ===========================
 ===========================
 step 11
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model -r b:b
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --generic_arch -r b:b
 ===========================
 ===========================
 step 12
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model f_f b:b
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --generic_arch f_f b:b
 ===========================
 ===========================
 step 13
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --stt dbg
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --generic_arch --stt dbg
 ===========================
 _SettargTable_ = {
   buildScenarioState = "dbg",
@@ -65,7 +65,7 @@ _SettargTable_ = {
 }
 ===========================
 step 14
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model --purge
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --generic_arch --purge
 ===========================
 ===========================
 step 15
@@ -73,18 +73,22 @@ echo TARG_RTM: Is Great
 ===========================
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload gcc mpich
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload mpich
 ===========================
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cmplr/clang
+lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --generic_arch
 ===========================
 ===========================
 step 18
-lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --no_cpu_model
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload gcc
 ===========================
 ===========================
 step 19
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cmplr/clang
+===========================
+===========================
+step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show settarg
 ===========================
  OutputDIR/mf/Core/settarg/1.0.lua:
@@ -110,6 +114,9 @@ set_shell_function("precmd","             local tilde=\"~\";\
              ${USER_PROMPT_CMD:-:};\
       ","")
 pushenv("PROMPT_COMMAND","precmd")
+whatis("Description:
+The settarg module provides a way to connect the loaded modules with your build system by setting environment variables.
+")
 help([[The settarg module dynamically and automatically updates "$TARG" and a
 host of other environment variables. These new environment variables
 encapsulate the state of the modules loaded.
@@ -146,15 +153,18 @@ One way that these variables can be used is part of a build system where
 the executables and object files are placed in $TARG.  You can also use
 $TARG_COMPILER_FAMILY to know which compiler you are using so that you
 can set the appropriate compiler flags.
-If the environment variable LMOD_SETTARG_FULL_SUPPORT is set to "yes"
+If the environment variable LMOD_SETTARG_FUNCTIONS is set to "yes"
 then helpful aliases are defined to set the debug/optimize/max debug
 build scenerio
-If the environment variable LMOD_SETTARG_TITLE_BAR is set to "yes" then
-the xterm title will be set with along with important modules like the
-compiler and mpi stack.
+If the environment variable LMOD_SETTARG_IN_PROMPT is NOT set to "no",
+then the settarg module will define the PROMPT_COMMAND in bash and
+precmd in zsh
+If the environment variable LMOD_SETTARG_TITLE_BAR is set to "yes" and
+LMOD_SETTARG_IN_PROMPT is not "no", then the xterm title will be set with
+along with important modules like the compiler and mpi stack.
 Settarg can do more.  Please see the Lmod website for more details.
 ]])
 ===========================
-step 20
+step 21
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload settarg
 ===========================

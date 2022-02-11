@@ -43,6 +43,7 @@ local concatTbl = table.concat
 local dbg       = require("Dbg"):dbg()
 local floor     = math.floor
 local max       = math.max
+local min       = math.min
 local rep       = string.rep
 
 local s_bannerT = false
@@ -84,11 +85,11 @@ end
 function M.border(self, nspaces)
    if (not self.__borderG or nspaces ~= self.__nspacesG) then
       self.__nspacesG = nspaces
-      local myWidth   = self:width() - 4 - nspaces
+      local myWidth   = min(self:width() - 4 - nspaces,1000)
       local a = {}
-      a[1] = rep("  ", nspaces)
-      a[2] = rep('-', myWidth)
-      a[3] = "\n"
+      a[#a+1] = rep("  ", nspaces)
+      a[#a+1] = rep('-', myWidth)
+      a[#a+1] = "\n"
       self.__borderG  =  concatTbl(a,"")
    end
    return self.__borderG
@@ -100,10 +101,10 @@ end
 -- @param str input string.
 function M.bannerStr(self, str)
    local a       = {}
-   local myWidth = self:width()
+   local myWidth = min(self:width(), 1000)
    local len     = str:len() + 2
-   local lcount  = floor((myWidth - len)/2)
-   local rcount  = myWidth - lcount - len
+   local lcount  = max(floor((myWidth - len)/2),4)
+   local rcount  = max(myWidth - lcount - len,4)
    a[#a+1] = rep("-",lcount)
    a[#a+1] = " "
    a[#a+1] = str

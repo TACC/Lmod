@@ -71,6 +71,7 @@ EXPORT_MODULE             := @EXPORT_MODULE@
 BASENAME                  := @BASENAME@
 UPDATE_VERSION            := $(srcdir)/proj_mgmt/updateVersion
 PS                        := @PS@
+READLINK                  := @READLINK@
 EXPR                      := @EXPR@
 PATH_TO_HASHSUM           := @PATH_TO_HASHSUM@
 PATH_TO_LUAC              := @PATH_TO_LUAC@
@@ -277,6 +278,7 @@ __installMe:
 	        -e 's|@cached_loads@|$(CACHED_LOADS)|g'                           \
 	        -e 's|@avail_extensions@|$(LMOD_AVAIL_EXTENSIONS)|g'              \
 	        -e 's|@ps@|$(PS)|g'                                               \
+	        -e 's|@readlink@|$(READLINK)|g'                                   \
 	        -e 's|@site_name@|$(SITE_NAME)|g'                                 \
 	        -e 's|@site_controlled_prefix@|$(SITE_CONTROLLED_PREFIX)|g'       \
 	        -e 's|@syshost@|$(SYSHOST)|g'                                     \
@@ -350,7 +352,7 @@ tcl2lua:
 	if [ -d $(srcdir)/pkgs/tcl2lua ]; then                             \
            $(MAKE) -C $(srcdir)/pkgs/tcl2lua  LUA_INC=$(LUA_INCLUDE)       \
 	        TCL_INCLUDE=$(TCL_INCLUDE) TCL_LIBS=$(TCL_LIBS)            \
-                LIB=$(DESTDIR)$(LIB) LIBS=@LIBS@ CC=$(CC)                  \
+                LIB=$(DESTDIR)$(LIB) LIBS=@LIBS@ CC="$(CC)"                \
                 SHARE=$(DESTDIR)$(LIBEXEC)                                 \
                 install;                                                   \
         fi
@@ -358,13 +360,13 @@ tcl2lua:
 lfs:
 	if [ -d $(srcdir)/pkgs/luafilesystem ]; then                       \
            $(MAKE) -C $(srcdir)/pkgs/luafilesystem  LUA_INC=$(LUA_INCLUDE) \
-                LIB=$(DESTDIR)$(LIB) SHARE=$(DESTDIR)$(LIBEXEC) CC=$(CC)   \
+                LIB=$(DESTDIR)$(LIB) SHARE=$(DESTDIR)$(LIBEXEC) CC="$(CC)" \
                 install;                                                   \
         fi
 pkgs:
 	if [ -d $(srcdir)/pkgs ]; then                                     \
            $(MAKE) -C $(srcdir)/pkgs LUA_INC=$(LUA_INCLUDE)                \
-               LIB=$(DESTDIR)$(LIB) SHARE=$(DESTDIR)$(LIBEXEC) CC=$(CC)    \
+               LIB=$(DESTDIR)$(LIB) SHARE=$(DESTDIR)$(LIBEXEC) CC="$(CC)"  \
                install;                                                    \
         fi
 

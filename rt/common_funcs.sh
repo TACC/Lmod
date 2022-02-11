@@ -57,13 +57,14 @@ cleanUp ()
        -e "s| $PATH_to_SHA1||g"                           \
        -e "s|\\\;$PATH_to_SHA1:[0-9]\\\;|\\\;|g"          \
        -e "s|^Lmod version.*||g"                          \
+       -e "s|^LMOD_LD_PRELOAD.*||g"                       \
        -e "s|^LuaFileSystem version.*||g"                 \
        -e "s|^Lua Version.*||g"                           \
        -e "s|^\(uname -a\).*|\1|g"                        \
-       -e "s|^\(TARG_HOST=\).*|\1''|g"                    \
-       -e "s|^\(TARG_OS_FAMILY=\).*|\1''|g"               \
-       -e "s|^\(TARG_OS=\).*|\1''|g"                      \
-       -e "s|^\(TARG_MACH_DESCRIPT=\).*|\1''|g"           \
+       -e "s|^\(TARG_HOST=\).*|\1'some_host';|g"          \
+       -e "s|^\(TARG_OS_FAMILY=\).*|\1'some_os_family';|g"\
+       -e "s|^\(TARG_OS=\).*|\1'some_os';|g"              \
+       -e "s|^\(TARG_MACH_DESCRIPT=\).*|\1'some_descript';|g" \
        -e "s|$PATH_to_TM|PATH_to_TM|g"                    \
        -e "s|^LD_PRELOAD at config time.*$||g"            \
        -e "s|^LD_LIBRARY_PATH at config time.*$||g"       \
@@ -75,11 +76,14 @@ cleanUp ()
        -e "s|unset _ModuleTable..._;||g"                  \
        -e "s|$outputDir|OutputDIR|g"                      \
        -e "s|$projectDir|ProjectDIR|g"                    \
+       -e "s|(file \"ProjectDIR/rt/end2end.*)||g"         \
+       -e "s|(file \"OutputDIR/lmod/lmod/.*)||g"          \
        -e "s|^Admin file.*||g"                            \
        -e "s|^MODULERCFILE.*||g"                          \
        -e "s|$HOME|~|g"                                   \
        -e "s|\-%%\-.*||g"                                 \
        -e "s| *----* *||g"                                \
+       -e "s|^ *=============================* *|=============================|g" \
        -e "s|^--* *| |g"                                  \
        -e "s|--* *$||g"                                   \
        -e "s|\\\9|	|g"                               \
@@ -137,18 +141,40 @@ runMe ()
 }
 runLmod ()
 {
+   ############################################################
+   # turn off file globbing if it is not already off
+   _mlshopt="f";
+   case "$-" in 
+     *f*) unset _mlshopt;;
+   esac;
+   if [ -n "${_mlshopt:-}" ]; then
+     set -$_mlshopt;
+   fi;
+
    runBase $LUA_EXEC $projectDir/src/lmod.in.lua bash --regression_testing "$@"
    eval `cat _stdout.$NUM`
+
+   ############################################################
+   # turn on file globbing for users who want it.
+   if [ -n "${_mlshopt:-}" ]; then
+     set +$_mlshopt;
+   fi;
+   unset _mlshopt;
 }
 
 runSettargBash()
 {
-  runMe $LUA_EXEC $projectDir/settarg/settarg_cmd.in.lua -s bash --no_cpu_model "$@"
+  runMe $LUA_EXEC $projectDir/settarg/settarg_cmd.in.lua -s bash --generic_arch "$@"
 }
 
 runSh2MF ()
 {
-   runBase $LUA_EXEC $projectDir/src/sh_to_modulefile.in.lua "$@"
+   runBase buildSh2MF "$@"
+}
+
+buildSh2MF ()
+{
+  $LUA_EXEC $projectDir/src/sh_to_modulefile.in.lua "$@"
 }
 
 runSpiderCmd ()
@@ -254,6 +280,8 @@ initStdEnvVars()
   unset SHLIB_PATH
   unset TERM
   unset _LMFILES_
+  unset LMOD_SET_NOGLOB
+
   PATH_to_LUA=`findcmd --pathOnly lua`
   PATH_to_TM=`findcmd --pathOnly tm`
   PATH_to_SHA1=`findcmd --pathOnly sha1sum`
@@ -273,7 +301,7 @@ initStdEnvVars()
   COUNT=0
   ORIG_HOME=`(cd $HOME; /bin/pwd)`
   HOME=`/bin/pwd`
-  export LMOD_TERM_WIDTH=300
+  export LMOD_TERM_WIDTH=100000
 
   PATH=/usr/bin:/bin
   for i in $PATH_to_SHA1 $PATH_to_TM $PATH_to_LUA $PATH_TO_SED $projectDir/proj_mgmt; do

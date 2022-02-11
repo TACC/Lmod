@@ -25,6 +25,13 @@ if [ "${NO_SHELL_FUNCTIONS:-}" != yes ]; then
      echo "arg1: $1"
    }  
 
+   junk ()
+   {
+     if [ -n "${ZSH_VERSION:-}" ]; then
+       \echo "junk"
+     fi
+   }
+
    banner ()
    {
      local str="$1"
@@ -33,6 +40,17 @@ if [ "${NO_SHELL_FUNCTIONS:-}" != yes ]; then
      echo "${RED}${str}${NONE}"
    }  
 
+   save_args() {
+     for arg do
+       printf "%s\n" "$arg" | sed -e "s/'/'\\\\''/g" -e "1s/^/'/" -e "\$s/\$/' \\\\/" ;
+     done
+     echo " "
+   }  
+
+   my_help ()
+   {
+     echo "do not forget \"foo\""
+   }
 fi
 
 alias fooAlias='foobin -q -l'

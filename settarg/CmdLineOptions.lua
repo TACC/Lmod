@@ -146,6 +146,12 @@ function  M.options(self)
    }
 
    cmdlineParser:add_option{
+      name   = {'--generic_arch'},
+      dest   = 'genericArch',
+      action = 'store_true',
+   }
+
+   cmdlineParser:add_option{
       name   = {'--no_grouping'},
       dest   = 'noGrouping',
       action = 'store_true',

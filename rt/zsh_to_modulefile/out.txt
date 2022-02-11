@@ -1,0 +1,14 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+===========================
+===========================
+step 2
+buildSh2MF --from zsh ProjectDIR/rt/zsh_to_modulefile/tstScript.zsh
+===========================
+prepend_path("PATH","ProjectDIR/rt/zsh_to_modulefile/bin")
+append_path("PATH","ProjectDIR/rt/zsh_to_modulefile/sbin")
+set_alias("fooAlias","foobin -q -l")
+set_shell_function("fooFunc","\
+	echo \"arg1: $1\"\
+","")

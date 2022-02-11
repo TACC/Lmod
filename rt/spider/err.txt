@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.5.18  2021-10-09 12:49 -05:00
+Modules based on Lua: Version 8.6.11  2022-02-03 16:59 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -27,8 +27,7 @@ The following is a list of the modules and extensions currently available:
   gotoblas: gotoblas/1.20, gotoblas/1.26, gotoblas/1.30-beta, gotoblas/1.30, gotoblas/1.31, gotoblas/1.32, gotoblas/1.33
     Blas Level 1, 2, 3 routines
   greenlet: greenlet/0.4.0
-    The greenlet package is a spin-off of Stackless, a version of CPython that supports micro-threads called "tasklets". Tasklets run pseudo-concurrently (typically in a single or a few OS-level threads) and are synchronized with data exchanges on "channels". A "greenlet", on the other hand, is
-    a still more primitive notion of micro-thread with no implicit scheduling; coroutines, in other words. This is useful when you want to control exactly when your code runs. - Homepage: https://github.com/python-greenlet/greenlet
+    The greenlet package is a spin-off of Stackless, a version of CPython that supports micro-threads called "tasklets". Tasklets run pseudo-concurrently (typically in a single or a few OS-level threads) and are synchronized with data exchanges on "channels". A "greenlet", on the other hand, is a still more primitive notion of micro-thread with no implicit scheduling; coroutines, in other words. This is useful when you want to control exactly when your code runs. - Homepage: https://github.com/python-greenlet/greenlet
   intel: intel/intel
   is-dyna: is-dyna/1.0, is-dyna/2.0
   junk/a/c: junk/a/c/1.0
@@ -304,8 +303,7 @@ The following is a list of the modules and extensions currently available:
   gotoblas: gotoblas/1.20, gotoblas/1.26, gotoblas/1.30-beta, gotoblas/1.30, gotoblas/1.31, gotoblas/1.32, gotoblas/1.33
     Blas Level 1, 2, 3 routines
   greenlet: greenlet/0.4.0
-    The greenlet package is a spin-off of Stackless, a version of CPython that supports micro-threads called "tasklets". Tasklets run pseudo-concurrently (typically in a single or a few OS-level threads) and are synchronized with data exchanges on "channels". A "greenlet", on the other hand, is
-    a still more primitive notion of micro-thread with no implicit scheduling; coroutines, in other words. This is useful when you want to control exactly when your code runs. - Homepage: https://github.com/python-greenlet/greenlet
+    The greenlet package is a spin-off of Stackless, a version of CPython that supports micro-threads called "tasklets". Tasklets run pseudo-concurrently (typically in a single or a few OS-level threads) and are synchronized with data exchanges on "channels". A "greenlet", on the other hand, is a still more primitive notion of micro-thread with no implicit scheduling; coroutines, in other words. This is useful when you want to control exactly when your code runs. - Homepage: https://github.com/python-greenlet/greenlet
   intel: intel/intel
   is-dyna: is-dyna/1.0, is-dyna/2.0
   junk/a/c: junk/a/c/1.0
@@ -404,11 +402,9 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
 The following is a list of the modules and extensions currently available:
   hpl: hpl/2.2
-    HPL is a software package that solves a (random) dense linear system in double precision (64 bits) arithmetic on distributed-memory computers. It can thus be regarded as a portable as well as freely available implementation of the High Performance Computing Linpack Benchmark. - Homepage:
-    http://www.netlib.org/benchmark/hpl/
+    HPL is a software package that solves a (random) dense linear system in double precision (64 bits) arithmetic on distributed-memory computers. It can thus be regarded as a portable as well as freely available implementation of the High Performance Computing Linpack Benchmark. - Homepage: http://www.netlib.org/benchmark/hpl/
   imkl: imkl/2017.1.132
-    Intel Math Kernel Library is a library of highly optimized, extensively threaded math routines for science, engineering, and financial applications that require maximum performance. Core math functions include BLAS, LAPACK, ScaLAPACK, Sparse Solvers, Fast Fourier Transforms, Vector Math,
-    and more. - Homepage: http://software.intel.com/en-us/intel-mkl/
+    Intel Math Kernel Library is a library of highly optimized, extensively threaded math routines for science, engineering, and financial applications that require maximum performance. Core math functions include BLAS, LAPACK, ScaLAPACK, Sparse Solvers, Fast Fourier Transforms, Vector Math, and more. - Homepage: http://software.intel.com/en-us/intel-mkl/
   intel: intel/2017.1.132
     Intel Cluster Toolkit Compiler Edition provides Intel C,C++ and fortran compilers, Intel MPI and Intel MKL - Homepage: http://software.intel.com/en-us/intel-cluster-toolkit-compiler/
   openmpi: openmpi/2.0.1
@@ -826,3 +822,63 @@ Currently Loaded Modules:
   1) GROMACS/.2016.x-drude-20180214-g3f7439a (H)
   Where:
    H:  Hidden Module
+===========================
+step 66
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+===========================
+The following is a list of the modules and extensions currently available:
+  gcc: gcc/10.1
+  GROMACS: GROMACS/2018, GROMACS/2019
+    GROMACS(CPU/2018) is a versatile package to perform molecular dynamics, i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles. This is a CPU enabled build, containing both MPI and threadMPI binaries for 2018.
+  zuda: zuda/10.1
+To learn more about a package execute:
+   $ module spider Foo
+where "Foo" is the name of a module.
+To find detailed information about a particular package you
+must specify the version if there is more than one version:
+   $ module spider Foo/11.1
+===========================
+step 67
+runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf2/Core
+===========================
+===========================
+step 68
+runSpiderCmd -o dbT ProjectDIR/rt/spider/mf2/Core
+===========================
+===========================
+step 69
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GROMACS/2018
+===========================
+  GROMACS: GROMACS/2018
+    Description:
+      GROMACS(CPU/2018) is a versatile package to perform molecular dynamics, i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles. This is a CPU enabled build, containing both MPI and threadMPI binaries for 2018.
+    You will need to load all module(s) on any one of the lines below before the "GROMACS/2018" module is available to load.
+      gcc/10.1
+    Help:
+      HELP Description
+      ================
+      GROMACS(CPU/2018) is a versatile package to perform molecular dynamics,
+       i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles.
+      This is a CPU enabled build, containing both MPI and threadMPI binaries for 2018.
+      More information
+      ================
+       - Homepage: http://www.gromacs.org
+===========================
+step 70
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GROMACS/2019
+===========================
+  GROMACS: GROMACS/2019
+    Description:
+      GROMACS(CPU/2019) is a versatile package to perform molecular dynamics, i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles. This is a CPU enabled build, containing both MPI and threadMPI binaries for 2019.
+    You will need to load all module(s) on any one of the lines below before the "GROMACS/2019" module is available to load.
+      gcc/10.1
+      zuda/10.1
+    Help:
+      HELP Description
+      ================
+      GROMACS(CPU/2019) is a versatile package to perform molecular dynamics,
+       i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles.
+      This is a CPU enabled build, containing both MPI and threadMPI binaries for 2019.
+      More information
+      ================
+       - Homepage: http://www.gromacs.org

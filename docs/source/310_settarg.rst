@@ -112,6 +112,19 @@ settarg changes your path to include $TARG by removing the old value
 of $TARG and replacing it with the new value of $TARG.  This way you
 can set $TARG, build, then run the new executable.
 
+Settarg integration witn prompt commands
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Tbe bash shell support an environment variable called "PROMPT_COMMAND".
+If this variable is set to the name of a shell function, then for each
+new shell prompt, this command is run.  Similarly, zsh will run the
+"precmd" on every new prompt.  By default the settarg module defines a
+shell function called precmd and if the user is using the bash shell,
+the PROMPT_COMMAND variable is set to "precmd".
+
+If users have their own prompt command then, they can prevent settarg
+from overriding their prompt command by LMOD_SETTARG_IN_PROMPT to "no".
+
 Xterm title bar support
 ~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -176,7 +189,7 @@ possible .settarg.lua files.
 
 For those of you who like short commands, please configure Lmod with
 --with_settarg=full or set the environment variable 
-LMOD_SETTARG_FULL_SUPPORT=full before loading the settarg module.
+LMOD_SETTARG_FUNCTIONS=yes before loading the settarg module.
 One useful command is::
 
     $ targ

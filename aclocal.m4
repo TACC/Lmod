@@ -73,6 +73,7 @@ echo "Silence shell debugging output for bash/zsh................." : $SILENCE_S
 echo "Allow root to use Lmod......................................" : $LMOD_ALLOW_ROOT_USE
 echo "Support KSH................................................." : $SUPPORT_KSH
 echo "Use the fast TCL interpreter................................" : $FAST_TCL_INTERP
+echo "LMOD_CONFIG_DIR............................................." : $LMOD_CONFIG_DIR
 echo "Display Extensions w/ module avail.........................." : $AVAIL_EXTENSIONS
 echo "Allow for extended default.(ml intel/17 #-> intel/17.0.4)..." : $EXTENDED_DEFAULT  #"
 

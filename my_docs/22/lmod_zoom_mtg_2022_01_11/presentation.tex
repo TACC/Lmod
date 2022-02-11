@@ -1,0 +1,233 @@
+\documentclass{beamer}
+
+% You can also use a 16:9 aspect ratio:
+%\documentclass[aspectratio=169]{beamer}
+\usetheme{TACC16}
+
+% It's possible to move the footer to the right:
+%\usetheme[rightfooter]{TACC16}
+
+\begin{document}
+\title[Lmod]{How Collections work \& ml spider output}
+\author{Robert McLay} 
+\date{Jan. 11, 2022}
+
+% page 1
+\frame{\titlepage} 
+
+
+% page 2
+\begin{frame}{Collections}
+  \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
+  \begin{itemize}
+    \item What: A saved list of modules that can be restored
+    \item Rules on what gets loaded.
+    \item How collections work
+    \item General Principle: Restoring collection is the same as by hand
+    \item Conclusions
+    \item Future Topics
+  \end{itemize}
+\end{frame}
+
+% page 3
+\begin{frame}{Basics}
+  \begin{itemize}
+    \item As many named collections as you like.
+    \item A collection named ``default'' overrides site default
+      (assuming correct startup setup)
+    \item Collection replace current modules not an addition.
+    \item \texttt{module load foo/1.1} always load \texttt{foo/1.1}
+      independent of current default.
+    \item \texttt{module load foo} always restores the default
+      \texttt{foo}
+    \item Unless LMOD\_PIN\_VERSION=yes is set. 
+    \item In this case Lmod restore module version when stored.
+  \end{itemize}
+\end{frame}
+
+
+% page 4
+\begin{frame}{Story: How collections started.}
+  \begin{itemize}
+    \item A colleague, Bill Barth, asked if there could be a way to
+      save the current list of modules.
+    \item The default modules were not what I wanted.
+    \item This idea sounded simple to implement but ...
+    \item There be dragons in that idea.
+    \item It took more than a year to work out the ``right way'' to do it.
+  \end{itemize}
+\end{frame}
+
+% page 5
+\begin{frame}{Original Implementation for Collections}
+  \begin{itemize}
+    \item Save the module table into a file ($\sim$/.lmod.d/default)
+    \item Restore steps:
+      \begin{enumerate}
+        \item Purge ALL modules (including sticky ones)
+        \item set \$MODULEPATH to one stored in collection
+        \item Loop over list of modules in collection (They are in
+          load order)
+        \item Remove module not in the list {\color{red} (DRAGONS!!)}
+      \end{enumerate}
+    \item This does work right in certain cases.
+  \end{itemize}
+\end{frame}
+
+% page 6
+\begin{frame}{Why this does not work}
+  \begin{itemize}
+    \item Assume simple 4 module system: Meta, intel, impi, openmpi
+    \item Default module: Meta (which loads intel, impi)
+    \item User collection: Meta, intel, openmpi
+    \item Assume no family() functions in use
+  \end{itemize}
+\end{frame}
+
+% page 7
+\begin{frame}[fragile]
+  \frametitle{Why this does not work (II)}
+    {\small
+\begin{semiverbatim}
+User does this:
+   \$ ml purge; ml Meta; ml -impi openmpi; ml save
+Original Collection impl:
+   3a) load Meta -> load Meta, intel impi
+   3b) load intel (again)
+   3c) load openmpi
+   4a) unload impi
+\end{semiverbatim}
+    }
+\end{frame}
+
+% page 8
+\begin{frame}{Why this does not work (III)}
+  \begin{itemize}
+    \item At our site, both impi and openmpi set \$MPI\_MODE
+    \item \$MPI\_MODE is used in our local mpirun command
+    \item Step 4a unload impi which unset \$MPI\_MODE
+    \item Disaster!!! $\Rightarrow$ User cannot launch mpi programs.
+  \end{itemize}
+\end{frame}
+
+% page 9
+\begin{frame}{Why this does not work (IV)}
+  \begin{itemize}
+    \item If any modules share an env. var. $\Rightarrow$ TROUBLE!
+    \item The problem is that setenv() is not pushenv()
+    \item Thought about making all setenv() work like pushenv()
+    \item Ultimately came up with a different design. 
+    \item It took several iterations to get here.
+  \end{itemize}
+\end{frame}
+
+% page 10
+\begin{frame}{Current collection restore implementation}
+  \begin{enumerate}
+    \item Purge ALL modules
+    \item Load all modules in list order BUT ignore load() like
+      functions inside a modulefile.
+  \end{enumerate}
+\end{frame}
+
+% page 11
+\begin{frame}[fragile]
+  \frametitle{How does this help?}
+    {\small
+\begin{semiverbatim}
+   
+3a) load Meta
+    -> load Meta only (ignore load("intel", "impi"))
+3b) load intel
+3c) load openmpi
+
+=> no modules to unload!!
+\end{semiverbatim}
+    }
+\end{frame}
+
+% page 12
+\begin{frame}{What are the drawbacks to the solution?}
+  \begin{itemize}
+    \item This works fine until ``Meta'' gets another ``load()''
+    \item In collections, all load() are ignored,
+      the user doesn't get the same modules
+    \item Solution: error out when modules get new load() or changes
+      via prepend\_path() or append\_path() to \$MODULEPATH.
+  \end{itemize}
+\end{frame}
+
+% page 13
+\begin{frame}{Saving modules in collections}
+  \begin{itemize}
+    \item Saving causes a ``show'' for each module
+    \item But only for load() like functions and changes to \$MODULEPATH
+    \item All other Lmod functions are ignored. 
+    \item A sha1 of the resulting string is computed and saved.
+  \end{itemize}
+\end{frame}
+
+% page 14
+\begin{frame}{Restoring a collection}
+  \begin{enumerate}
+    \item Lmod purges all modules
+    \item set \$MODULEPATH to one stored in collection
+    \item Loop over list of modules in collection (They are in
+      load order)
+    \item Compute sha1sum of each module with only load() and changes to
+      \$MODULEPATH shown
+    \item Compare sha1sum value with stored value in collection
+    \item Error out if sha1sum values do not match.
+  \end{enumerate}
+\end{frame}
+
+% page 15
+\begin{frame}{Drawbacks to this solution}
+  \begin{itemize}
+    \item Most modules are null strings
+    \item But Meta, compiler and mpi modules changes can trigger
+      invalid collection $\Rightarrow$ rebuild collection message.
+  \end{itemize}
+\end{frame}
+
+% page 16
+\begin{frame}{Issue 388: Forcibly loading a collection}
+  \begin{itemize}
+    \item The drawback to users is that their job might die when
+      a ``Meta'' module changes
+    \item Issue 338 (2018) requested that a collection be loaded anyway.
+    \item I won't do it because it won't be the same modules.
+  \end{itemize}
+\end{frame}
+
+% page 17
+\begin{frame}{Conclusions}
+  \begin{itemize}
+    \item Collections provide a convenient way to group modules together
+    \item Rather than users creating their own ``Meta'' modules
+    \item Collection have to be rebuilt as ``Meta'' modules change.
+  \end{itemize}
+\end{frame}
+
+% page 18
+\begin{frame}{New Topic: Issue 551: Handling Descriptions: ml spider GROMACS/2019}
+  \begin{itemize}
+    \item Level 2 output shows module help and description
+    \item Lmod picks one modules's help and description.
+    \item Might be confusing when there are GPU and CPU versions.
+    \item Lmod is only going to pick one.
+    \item Comments?
+  \end{itemize}
+\end{frame}
+
+% page 19
+\begin{frame}{Future Topics}
+  \begin{itemize}
+    \item Lmod Testing System?
+    \item Explain how to pass module info to hooks(Issue 552)
+    \item More internals of Lmod?
+    \item Guest Presentation of special issues?
+  \end{itemize}
+\end{frame}
+
+\end{document}

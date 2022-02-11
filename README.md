@@ -32,6 +32,26 @@ release at sourceforge.
 ## ChangeLog
 
 
+### Lmod 8.6:
+
+Features:
+
+   1. New command "module overview" which lists names and the number of versions for each.
+
+   2. Added spiderPathFilter hook so that sites can control which directories are ignored.
+      
+   3. updated sh\_to\_modulefile script to capture shell functions and shell aliases.
+
+   4. New module function source_sh() to source a shell script inside a modulefile.
+
+   5. Added new env. var. LMOD\_QUARANTINE\_VARS.  All names in this colon separated list cannot be changed by Lmod.
+      
+   6. New file /etc/lmod/lmod_config.lua is used to configure Lmod.
+
+Bug Fixes:
+
+   1. Changed docs to use the word "delim" instead of "sep".
+   
 ### Lmod 8.5:
 
 Features:

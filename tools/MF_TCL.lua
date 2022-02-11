@@ -84,7 +84,7 @@ function MF_TCL.alias(self, k, v)
 end
 
 function MF_TCL.shell_function(self, k, v)
-   return "set-function" .. k .. " {" .. v .. "}"
+   return "set-function " .. k .. " {" .. v .. "}"
 end
 
 

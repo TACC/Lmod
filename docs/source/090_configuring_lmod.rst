@@ -129,11 +129,9 @@ the configuration option which will set the action.
   [yes/no, default: yes, --with-availExtensions] Display package
   extensions when doing "module avail".
 
-**LMOD_CACHED_LOADS**:
-  [yes/no, default:no, --with-cachedLoads] If "yes" then Lmod will use
-  the spider cache to load modulefiles and produce a terse avail instead
-  of walking all the directories in MODULEPATH as long as
-  LMOD_IGNORE_CACHE is not set.
+**LMOD_BASH_INITIALIZE**:
+  [yes/no, default:yes, --with-bashInitialize] If "yes" then Lmod will
+  disable file globbing when eval'ing the output from Lmod.
 
 **LMOD_CASE_INDEPENDENT_SORTING**:
   [yes/no, default: no, --with-caseIndependentSorting] Make avail and
@@ -247,7 +245,7 @@ Configuring Lmod with **/etc/lmod/lmod_config.lua**:
 Lmod looks for a file named lmod_config.lua in the LMOD_CONFIG_DIR,
 which is by default /etc/lmod/. So normally the file is found here:
 /etc/lmod/lmod_config.lua.  It can be configured to any value with the
-configure option (--with-configDir=) or setting the environment
+configure option (--with-lmodConfigDir=) or setting the environment
 variable LMOD_CONFIG_DIR.  This file is used optionally.  It is not
 required.
 
@@ -262,7 +260,7 @@ Here is a full example::
     cosmic:assign("LMOD_SITE_NAME",   "XYZZY")
 
     -- Note that this directory could be anything including /etc/lmod
-    cosmic:assign("LMOD_PACKAGE_DIR", "/path/to/SitePackage_Dir/")
+    cosmic:assign("LMOD_PACKAGE_PATH", "/path/to/SitePackage_Dir/")
 
     local function echoString(s)
        io.stderr:write(s,"\n")

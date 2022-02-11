@@ -303,6 +303,9 @@ Version 5.4.4
           luaExt = 6,
           mpath = "ProjectDIR/rt/ck_mtree_syntax/mf",
           pV = "000000005.000000004.000000004.*zfinal",
+          pathA = {
+            ["/home1/apps/intel19/impi19_0/vasp/5.4.4/bin"] = 1,
+          },
           wV = "000000005.000000004.000000004.*zfinal",
           whatis = {
             "Version: 5.4.4", "Category: application, chemistry", "Keywords: Chemistry, Density Functional Theory, Molecular Dynamics", "URL:https://www.vasp.at/", "Description: Vienna Ab-Initio Simulation Package",

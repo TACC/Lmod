@@ -59,13 +59,14 @@ testdescript = {
      runSettargBash --stt dbg                       #13
      runSettargBash --purge                         #14
      runBase echo "TARG_RTM: $TARG_RTM"             #15
-     runLmod unload gcc mpich                       #16
-     runLmod load   cmplr/clang                     #17
-     runSettargBash                                 #18
+     runLmod unload mpich                           #16
+     runSettargBash                                 #17
+     runLmod unload gcc                             #18
+     runLmod load   cmplr/clang                     #19
 
 
-     runLmod show settarg                           #19
-     runLmod unload settarg                         #20
+     runLmod show settarg                           #20
+     runLmod unload settarg                         #21
 
      HOME=$ORIG_HOME
 

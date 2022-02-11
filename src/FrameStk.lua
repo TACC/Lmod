@@ -140,6 +140,11 @@ function M.fullName(self)
    return mname:fullName()
 end
 
+function M.mname(self)
+   local top   = self.__stack[self.__count]
+   return top.mname
+end
+
 function M.userName(self)
    local top   = self.__stack[self.__count]
    local mname = top.mname

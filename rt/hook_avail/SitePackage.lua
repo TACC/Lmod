@@ -10,12 +10,10 @@ local mapT =
    },
    fr_grouped = {
       ['/Compilers/'] = "Compilateurs",
-      ['/Core.*']      = "Modules de base",
+      ['/Core.*']     = "Modules de base",
    },
    
 }
-
-
 
 function avail_hook(t)
    local availStyle = masterTbl().availStyle

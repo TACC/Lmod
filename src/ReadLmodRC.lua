@@ -41,18 +41,14 @@ require("strict")
 --
 --------------------------------------------------------------------------
 require("utils")
+require("myGlobals")
 
 
 local M       = {}
 local dbg     = require("Dbg"):dbg()
+local cosmic  = require("Cosmic"):singleton()
 local getenv  = os.getenv
 local open    = io.open
-local RCFileA = {
-   pathJoin(cmdDir(),"../init/lmodrc.lua"),
-   pathJoin(cmdDir(),"../../etc/lmodrc.lua"),
-   pathJoin("/etc/lmodrc.lua"),
-   pathJoin(getenv("HOME"),".lmodrc.lua"),
-}
 
 local s_classObj    = false
 
@@ -64,8 +60,16 @@ local function l_buildRC(self)
    local s_propT       = {}
    local s_scDescriptT = {}
    local s_rcFileA     = {}
+   local configDir     = cosmic:value("LMOD_CONFIG_DIR")
+   local RCFileA       = {
+      pathJoin(cmdDir(),"../init/lmodrc.lua"),
+      pathJoin(cmdDir(),"../../etc/lmodrc.lua"),
+      pathJoin(configDir, "lmodrc.lua"),
+      "/etc/lmodrc.lua",
+      pathJoin(getenv("HOME"),".lmodrc.lua"),
+   }
 
-   local lmodrc_env = getenv("LMOD_RC") or ""
+   local lmodrc_env = cosmic:value("LMOD_RC")
    if (lmodrc_env:len() > 0) then
       for rc in lmodrc_env:split(":") do
          RCFileA[#RCFileA+1] = rc

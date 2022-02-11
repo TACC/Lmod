@@ -1,0 +1,304 @@
+\documentclass{beamer}
+
+% You can also use a 16:9 aspect ratio:
+%\documentclass[aspectratio=169]{beamer}
+\usetheme{TACC16}
+
+% It's possible to move the footer to the right:
+%\usetheme[rightfooter]{TACC16}
+
+\begin{document}
+\title[Lmod]{Providing Current Module Data to Hooks}
+\author{Robert McLay} 
+\date{Feb. 8, 2022}
+
+% page 1
+\frame{\titlepage} 
+
+
+% page 2
+\begin{frame}{Providing Current Module Data to Hooks}
+  \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
+  \begin{itemize}
+    \item Here we explore some core concepts in how Lmod works
+    \item The FrameStk: A stack of modules in the load process
+    \item The ModuleTable(MT): The currently loaded modules
+      ($\neq$ frameStk)
+    \item MName: ModuleName objects
+  \end{itemize}
+\end{frame}
+
+
+% page 3
+\begin{frame}{Core Lmod Concept: sn, fullName, version}
+  \begin{itemize}
+    \item The FullName of the module is the shortname/version
+    \item N/V: FullName: gcc/9.4.0: sn: gcc, version: 9.4.0
+    \item C/N/V: FullName: cmplr/gcc/11.2, sn: cmplr/gcc, version: 11.2
+    \item N/V/V: FullName: bowtie/64/22.1, sn: bowtie, version: 64/22.1
+    \item N/V/V: FullName: bio/bowtie/64/22.1, sn: bio/bowtie, version: 64/22.1
+  \end{itemize}
+\end{frame}
+
+% page 4
+\begin{frame}{Core concept: Singleton}
+  \begin{itemize}
+    \item The Lmod code uses the Design Pattern: Singleton
+    \item A singleton will build an object only once 
+    \item No matter how many times it is asked for
+  \end{itemize}
+\end{frame}
+
+% page 5
+\begin{frame}{MName: userName $\Rightarrow$ sn, fullName }
+  \begin{itemize}
+    \item {\color{blue}\texttt{module load} \emph{foo}}
+    \item {\color{blue}\emph{foo}} is the userName
+    \item The userName might be an sn or a fullName
+    \item Or somewhere in between for N/V/V
+    \item The MName class builds an mname object that knows sn,
+      fullName, etc
+  \end{itemize}
+\end{frame}
+
+% page 6
+\begin{frame}{FrameStk}
+  \begin{itemize}
+    \item Named borrowed from StackFrame 
+    \item It is a stack of mname object that are in the process of
+      being loaded
+    \item It also contains the current ModuleTable
+  \end{itemize}
+\end{frame}
+
+% page 7
+\begin{frame}{ModuleTable A.K.A. mt}
+  \begin{itemize}
+    \item This is a hashtable or dict of the currently loaded modules
+    \item This table is stored in the user environment to store the
+      state
+    \item This is how {\color{blue}\texttt{module load}} can work
+    \item The MT is split into 256 character blocks when saved in
+      user's environment
+    \item And stored as \$\_ModuleTable001\_ ...
+    \item The module properties are stored in mt.
+  \end{itemize}
+\end{frame}
+
+% page 7a
+\begin{frame}[fragile]
+  \frametitle{\texttt{ml --mt}}
+    {\tiny
+\begin{semiverbatim}
+\_ModuleTable\_ = \{
+  MTversion = 3,
+  mT = \{
+   mkl = \{
+      fn = "/opt/apps/modulefiles/Core/mkl/mkl.lua",
+      fullName = "mkl/mkl",
+      loadOrder = 1,
+      propT = \{
+        arch = \{
+          gpu = 1,
+        \},
+      \},
+      stackDepth = 0,
+      status = "active",
+      userName = "mkl",
+      wV = "*mkl.*zfinal",
+    \},
+  \},
+\},
+\end{semiverbatim}
+    }
+\end{frame}
+
+% page 8
+\begin{frame}{Steps to load a module}
+  \begin{enumerate}
+    \item Convert userName to mname object
+    \item Push mname object onto frameStk stack.
+    \item Get current mt from frameStk
+    \item Add mname to mt and mark as {\color{blue} pending}
+    \item Load current modulefile by evaluating as a lua program
+    \item If no errors then change status in mt to {\color{blue}
+        active} for current module.
+    \item Pop top entry from frameStk
+  \end{enumerate}
+\end{frame}
+
+% page 9
+\begin{frame}{How can size(frameStk) $>$ 1? }
+  \begin{itemize}
+    \item A modulefile can load other modulefiles
+    \item This stack is only as deep as there are pending modules
+    \item Direct user loads have a stack size of 1.
+    \item Dependent loads will have a stack size $>$ 1
+    \item Some sites use this for module tracking
+    \item They only record a modulefile if the stack size is 1.
+  \end{itemize}
+\end{frame}
+
+% page 10
+\begin{frame}{How to get current module data in a hook}
+  \begin{itemize}
+    \item {\color{blue} Pay-off slide}
+    \item Ask for frameStk object from the singleton
+    \item Ask for the current mname object from frameStk
+    \item Ask for the current mt object from frameStk
+    \item Ask for the sn from mname
+    \item Ask mt:haveProperty(sn, propname, propvalue)
+  \end{itemize}
+\end{frame}
+
+% page 10a
+\begin{frame}[fragile]
+  \frametitle{ml --mt}
+    {\tiny
+\begin{semiverbatim}
+function M.isVisible(self, modT)
+   local frameStk  = require("FrameStk"):singleton()
+   local mname     = frameStk:mname()
+   local mt        = frameStk:mt()
+   local mpathA    = mt:modulePathA()
+   local name      = modT.fullName
+   ...
+
+   modT.isVisible = isVisible
+   modT.mname     = mname
+   modT.sn        = mname:sn()
+   modT.mt        = mt
+   hook.apply("isVisibleHook", modT)
+   return modT.isVisible
+end
+\end{semiverbatim}
+    }
+\end{frame}
+
+
+% page 11
+\begin{frame}{Side notes}
+  \begin{itemize}
+    \item Note that the mt table is key'ed by sn
+    \item This is why Lmod has the one name rule.
+    \item It is really the one sn rule.
+  \end{itemize}
+\end{frame}
+
+% page 12
+\begin{frame}[fragile]
+  \frametitle{Issue \#554: Interesting Bug in Bash and shell functions}
+    {\tiny
+\begin{semiverbatim}
+    set_shell_function("_some_spack_func" "\textbackslash
+       local ARG1=\$1\textbackslash
+       if [[ \$ARG1 == {\color{red}[a-z]*} ]]; then\textbackslash
+         echo ...\textbackslash
+       fi\textbackslash
+    ","")
+\end{semiverbatim}
+    }
+  \begin{itemize}
+    \item This works fine in zsh but not bash
+    \item All bash versions expand [a-z]\** to files in current directory
+    \item I didn't see a way to fix this
+    \item Bash always expands {\color{blue}A='[a-z]\**'}
+    \item Xavier Delaruelle commented on Issue \#554
+    \item He suggested turning off file globbing
+  \end{itemize}
+\end{frame}
+
+% page 13
+\begin{frame}[fragile]
+  \frametitle{Xavier Delaruelle's Two Ideas}
+    {\tiny
+\begin{semiverbatim}
+# Before eval
+     _mlshopt="f";
+     case "$-" in 
+       *f*) unset _mlshopt;;
+     esac;
+     if [ -n "${_mlshopt:-}" ]; then
+       set -$_mlshopt;
+     fi;
+
+# After eval:
+     if [ -n "${_mlshopt:-}" ]; then
+       set +$_mlshopt;
+     fi;
+     unset _mlshopt;
+\end{semiverbatim}
+    }
+  \begin{itemize}
+    \item Use \$- to know if user already has globbing off
+    \item If "f" is in string: File Globbing on
+    \item set -f turns File Globbing off, adds f to \$-
+    \item set +f turns File Globbing on, removes f from \$-
+  \end{itemize}
+\end{frame}
+
+
+% page 14
+\begin{frame}{Where do you have to turn off file globbing }
+  \begin{itemize}
+    \item I thought that you could have the generated Lmod shell
+      commands disable file globbing
+    \item This \emph{does not work!}
+    \item Instead the disabling of file globbing  has to be part of the module
+      command definition
+    \item Next version of Lmod's module will automatically turn off
+      shell debugging when doing: set -xv
+  \end{itemize}
+\end{frame}
+
+% page 15
+\begin{frame}[fragile]
+  \frametitle{Updated module command for bash like shells}
+    {\tiny
+\begin{semiverbatim}
+   module()
+   \{
+     ############################################################
+     # Silence shell debug UNLESS $LMOD\_SH\_DBG\_ON has a value
+     ...
+
+     ############################################################
+     # turn off file globbing if it is not already off
+     ...
+
+     ############################################################
+     # Run Lmod and eval results
+     eval $($LMOD\_CMD bash "$@") && eval $(${LMOD\_SETTARG\_CMD:-:} -s sh)
+     \_\_lmod_my_status=$?
+
+     ############################################################
+     # turn on file globbing for users who want it.
+     ...
+
+     ############################################################
+     # Un-silence shell debug after module command
+     ...
+
+     return $\_\_lmod_my_status
+   \}
+\end{semiverbatim}
+    }
+\end{frame}
+
+% page 16
+\begin{frame}{Next Topic}
+  \begin{itemize}
+    \item Lmod Testing System
+    \item Monday March 1st at 15:30 UTC (9:30am US Central)
+  \end{itemize}
+\end{frame}
+
+% page 17
+\begin{frame}{Future Topics}
+  \begin{itemize}
+    \item More internals of Lmod?
+    \item Guest Presentation of special issues?
+  \end{itemize}
+\end{frame}
+
+\end{document}

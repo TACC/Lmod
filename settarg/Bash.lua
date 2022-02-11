@@ -34,6 +34,7 @@
 
 require("strict")
 require("pairsByKeys")
+require("string_utils")
 local concat      = table.concat
 Bash              = inheritsFrom(BaseShell)
 Bash.my_name      = 'bash'
@@ -42,12 +43,13 @@ function Bash.expandVar(self, k, v)
 
    local lineA = {}
    if (v == '' or not v) then
-      io.stdout:write("unset '",k,"';\n")
+      io.stdout:write("unset ",k,";\n")
    else
+      v = tostring(v):multiEscaped()
       lineA[#lineA + 1] = k
-      lineA[#lineA + 1] = "='"
+      lineA[#lineA + 1] = "="
       lineA[#lineA + 1] = v
-      lineA[#lineA + 1] = "';\n"
+      lineA[#lineA + 1] = ";\n"
       lineA[#lineA + 1] = "export "
       lineA[#lineA + 1] = k
       lineA[#lineA + 1] = ";\n"

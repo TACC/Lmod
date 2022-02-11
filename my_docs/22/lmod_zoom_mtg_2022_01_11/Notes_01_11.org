@@ -1,0 +1,66 @@
+Notes for 2022-01-11 Lmod Zoom Mtg:
+
+* How collections work:
+** Collections are just the written out moduleTable.
+*** Does a collection work with a source_sh array in it?
+*** When writing out the moduleTable, Lmod builds a special sha1 hash sum of each module text
+    More on this later.
+** Writing out the collection:
+*** Lmod loops over the list of modules and builds hash sum of all the modules in a special way
+*** Writes out the collection
+** Loading a collection:
+*** first purge all modules.
+*** The module table lists the modules in load order
+*** Lmod loads each module in load order
+*** But the load function in each module is ignored!!!!
+** Why are load() ignored
+*** 1st implemeation: Load all modules listed and remove all extra modules
+*** Remember that a module can load other modules
+    A user might replace the default compiler or mpi stack
+*** Suppose an mpi modules sets the same env. var.
+    The wanted mpi modules sets it then the unwanted one deletes it
+** Since all loaded modules are known the load() can be ignored
+
+* Rule: The user env should be the same whether using a collection or loaded on command line.
+* Problem: Meta modules can later add a new module
+  Or add paths to MODULEPATH
+
+* This is why collection "fail" to load and require rebuilding
+  Lmod requires that when a collection is loaded that the environment
+  will be the same as if loaded by hand.
+
+* Use example to explain:
+
+     Meta loads icc impi
+
+     User wants collection with icc openmpi
+
+     User does:
+
+        ml Meta
+        ml -impi openmpi
+
+     Simple Collection Algorithm:
+
+        +Meta
+        +icc
+        +impi
+        +openmpi
+        -impi
+
+     What if openmpi and impi share an env. var.
+     +openmpi sets it
+     -impi removes it.
+     Shared env. var is NOT set in user env.
+     
+
+* So Mgr Load.  (ignore load() function!)
+* Checking that module contents have not changed in ways that matter
+** Track changes to MODULEPATH
+** Track load() and load() like function
+** ignore all other changes
+* Compute sha1 of each module during save step
+* Compute sha1 of each module during restore step
+* Die if ALL don't match
+* This means reorder will cause a diff in sha1
+  

@@ -114,3 +114,25 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={alias={fn="Pro
 export _ModuleTable_;
 alias drmi=docker\ images\ \|\ awk\ \'/\<none\>/\ \{print\ \$3\}\'\ \|\ xargs\ docker\ rmi;
 alias module_alias=eval\ \`\$LMOD_DIR/lmod\ bash\ \"\$@\"\`;
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load spack
+===========================
+__LMOD_REF_COUNT_LOADEDMODULES=test1/1.0:1\;sfunc/1.0:1\;alias/1.0:1\;spack/1.0:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=test1/1.0:sfunc/1.0:alias/1.0:spack/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/set_alias/mf;
+export MODULEPATH;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/set_alias/mf/test1/1.0.lua:1\;ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua:1\;ProjectDIR/rt/set_alias/mf/alias/1.0:1\;ProjectDIR/rt/set_alias/mf/spack/1.0.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/set_alias/mf/test1/1.0.lua:ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua:ProjectDIR/rt/set_alias/mf/alias/1.0:ProjectDIR/rt/set_alias/mf/spack/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={alias={fn="ProjectDIR/rt/set_alias/mf/alias/1.0",fullName="alias/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="alias",wV="000000001.*zfinal",},sfunc={fn="ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua",fullName="sfunc/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="sfunc",wV="000000001.*zfinal",},spack={fn="ProjectDIR/rt/set_alias/mf/spack/1.0.lua",fullName="spack/1.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="spack",wV="000000001.*zfinal",},test1={fn="ProjectDIR/rt/set_alias/mf/test1/1.0.lua",fullName="test1/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="test1",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/set_alias/mf",},systemBaseMPATH="ProjectDIR/rt/set_alias/mf",}';
+export _ModuleTable_;
+_some_spack_func () {
+   local ARG1=$1;
+   if [[ $ARG1 == [a-z]* ]]; then
+     echo found;
+   fi
+; };
