@@ -105,7 +105,7 @@ Lmod will return a true status if all modules are loaded and a false
 status if one is not.  Note that Lmod is setting the status bit, there is
 nothing printed out. This means that one can do the following::
 
-    $ if module is-loaded pkg ; then "echo pkg is loaded"; fi
+    $ if module is-loaded pkg ; then echo "pkg is loaded"; fi
 
 Users also may wish to test whether certain modules can be loaded with
 the current $MODULEPATH::
