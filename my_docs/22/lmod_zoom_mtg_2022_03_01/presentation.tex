@@ -108,6 +108,9 @@
       -s$>$-$<$arch$>$-$<$test\_name$>$
     \item The above dir is the outputDir
     \item The test is run in \$outputDir
+    \item The generated bash test script is named {\color{blue} t1.script}
+    \item The log of the run is {\color{blue} t1.log}
+    \item The results file are {\color{blue} t1.result} and {\color{blue} t1.runtime}
   \end{itemize}
 \end{frame}
 
@@ -295,7 +298,7 @@ runBase ()
 % page 17
 \begin{frame}[fragile]
   \frametitle{Cleanup script}
-    {\small
+    {\tiny
 \begin{semiverbatim}
 \end{semiverbatim}
     }
@@ -304,6 +307,37 @@ runBase ()
       \item converts path to lua or sha1 to generic names
       \item Cleans up error msgs 
       \item And many other fixes.
+    \end{itemize}
+\end{frame}
+
+% page 18
+\begin{frame}[fragile]
+  \frametitle{Cleanup script (II)}
+    {\tiny
+\begin{semiverbatim}
+{\color{blue} \_stderr.orig}:
+===========================
+step 8
+/opt/apps/lua/lua/bin/lua /Users/mclay/w/lmod/src/lmod.in.lua bash --rtesting -t avail
+===========================
+/Users/mclay/w/lmod/rt/avail/mf/Core:
+PrgEnv
+admin/
+admin/admin-1.0
+    
+{\color{blue} err.txt}:
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash --rtesting -t avail
+===========================
+ProjectDIR/rt/avail/mf/Core:
+PrgEnv
+admin/
+admin/admin-1.0
+\end{semiverbatim}
+    }
+    \begin{itemize}
+      \item Cleanup: \_stderr.orig $\Rightarrow$ err.txt
     \end{itemize}
 \end{frame}
 
@@ -321,14 +355,12 @@ testFinish -r \$(resultFn) -t \$(runtimeFn) results.csv
     \begin{itemize}
       \item \texttt{wrapperDiff} is a hermes tool that runs diff and
         generates a csv file (results.csv)
+      \item It also removes the Lmod version info from err.txt
       \item \texttt{testFinish} is another hermes tool that converts
         results.csv into \$resultFn
       \item Then \texttt{tm} reads \$resultFn to decide if this test passes
     \end{itemize}
 \end{frame}
-
-
-
 
 % page 19
 \begin{frame}{Future Topics}
