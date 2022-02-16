@@ -1334,7 +1334,7 @@ function M.avail(self, argA)
                   local s        = searchA[i]
                   for i = 1,#vv do
                      local vvv = vv[i]
-                     if (kk:find(s) and mpathT[vvv.mpath]) then
+                     if (kk:find(s) and mpathT[vvv.mpath] and (not vvv.hidden)) then
                         found = true
                         break
                      end
@@ -1347,8 +1347,7 @@ function M.avail(self, argA)
             for kk,vv in pairs(v) do
                for i = 1,#vv do
                   local vvv = vv[i]
-                  dbg.print{"kk: ",kk,", vvv.mpath: ",vvv.mpath,"\n"}
-                  if (mpathT[vvv.mpath]) then
+                  if (mpathT[vvv.mpath] and (not vvv.hidden)) then
                      found = true
                      break
                   end
