@@ -71,6 +71,11 @@ testdescript = {
      runLmod load  A                           #37
      runLmod list                              #38
 
+     runLmod purge                             #39
+     unsetMT
+     export MODULEPATH=$(testDir)/mf/Core4
+     runLmod load ipykernel                    #40
+     runLmod list                              #41
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

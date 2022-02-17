@@ -465,3 +465,43 @@ MODULEPATH=ProjectDIR/rt/depends_on/mf/Core3;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/depends_on/mf/Core3/A/1.0.lua",fullName="A/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},B={fn="ProjectDIR/rt/depends_on/mf/Core3/B/2.0.lua",fullName="B/2.0",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="B/2.0",wV="000000002.*zfinal",},},mpathA={"ProjectDIR/rt/depends_on/mf/Core3",},systemBaseMPATH="ProjectDIR/rt/depends_on/mf/Core3",}';
 export _ModuleTable_;
+===========================
+step 39
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+unset __LMOD_REF_COUNT_LOADEDMODULES;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/depends_on/mf/Core3;
+export MODULEPATH;
+unset __LMOD_REF_COUNT__LMFILES_;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/depends_on/mf/Core3",},systemBaseMPATH="ProjectDIR/rt/depends_on/mf/Core3",}';
+export _ModuleTable_;
+===========================
+step 40
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ipykernel
+===========================
+__LMOD_REF_COUNT_LOADEDMODULES=python/3.9.6:1\;ipykernel/2022a:1;
+export __LMOD_REF_COUNT_LOADEDMODULES;
+LOADEDMODULES=python/3.9.6:ipykernel/2022a;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/depends_on/mf/Core4:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/depends_on/mf/Core4;
+export MODULEPATH;
+MY_VERSION=3.9.6;
+export MY_VERSION;
+__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/depends_on/mf/Core4/python/3.9.6.lua:1\;ProjectDIR/rt/depends_on/mf/Core4/ipykernel/2022a.lua:1;
+export __LMOD_REF_COUNT__LMFILES_;
+_LMFILES_=ProjectDIR/rt/depends_on/mf/Core4/python/3.9.6.lua:ProjectDIR/rt/depends_on/mf/Core4/ipykernel/2022a.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ipykernel={fn="ProjectDIR/rt/depends_on/mf/Core4/ipykernel/2022a.lua",fullName="ipykernel/2022a",loadOrder=2,propT={},stackDepth=0,status="active",userName="ipykernel",wV="000002022.*a.*zfinal",},python={fn="ProjectDIR/rt/depends_on/mf/Core4/python/3.9.6.lua",fullName="python/3.9.6",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="python/3.9.6",wV="000000003.000000009.000000006.*zfinal",},},mpathA={"ProjectDIR/rt/depends_on/mf/Core4",},systemBaseMPATH="ProjectDIR/rt/depends_on/mf/Core4",}';
+export _ModuleTable_;
+===========================
+step 41
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/depends_on/mf/Core4;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ipykernel={fn="ProjectDIR/rt/depends_on/mf/Core4/ipykernel/2022a.lua",fullName="ipykernel/2022a",loadOrder=2,propT={},stackDepth=0,status="active",userName="ipykernel",wV="000002022.*a.*zfinal",},python={fn="ProjectDIR/rt/depends_on/mf/Core4/python/3.9.6.lua",fullName="python/3.9.6",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="python/3.9.6",wV="000000003.000000009.000000006.*zfinal",},},mpathA={"ProjectDIR/rt/depends_on/mf/Core4",},systemBaseMPATH="ProjectDIR/rt/depends_on/mf/Core4",}';
+export _ModuleTable_;
