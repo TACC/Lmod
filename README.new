@@ -27,7 +27,7 @@ Lmod 8.6+
    (8.6.11) * Issue #563: Remove debug line from module def.
    (8.6.12) * Make SILENT_SHELL_DEBUGGING=yes the default.
             * Issue #560: When doing "ml avail" only show extensions for the modules that are shown in avail
-W.I.P:
    (8.6.13) * Issue #560: Make sure that extensions in hidden modules only show up when doing
               "ml --show_hidden av" and not when doing "ml av"
-              
+            * Issue #564: Added Test for depends_on(between())
+            
