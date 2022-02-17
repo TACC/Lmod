@@ -662,6 +662,7 @@ function M.buildProvideByT(self, dbT, providedByT)
       end
    end
 
+   dbg.printT("providedByT",providedByT)
    dbg.fini("Spider:buildProvideByT")
 
 
