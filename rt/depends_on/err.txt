@@ -202,7 +202,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 ===========================
 step 40
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ipykernel
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ipykernel/2022a
 ===========================
 ===========================
 step 41

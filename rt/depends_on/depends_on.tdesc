@@ -74,7 +74,7 @@ testdescript = {
      runLmod purge                             #39
      unsetMT
      export MODULEPATH=$(testDir)/mf/Core4
-     runLmod load ipykernel                    #40
+     runLmod load ipykernel/2022a              #40
      runLmod list                              #41
 
      HOME=$ORIG_HOME
