@@ -616,10 +616,11 @@ end
 function M.buildProvideByT(self, dbT, providedByT)
    dbg.start{"Spider:buildProvideByT(dbT, providedByT)"}
 
+   local show_hidden = masterTbl().show_hidden
    local mrc = MRC:singleton()
    for sn, vv in pairs(dbT) do
       for fullPath, v in pairs(vv) do
-         local hidden = not mrc:isVisible{fullName=v.fullName, sn=sn, fn=fullPath}
+         local hidden = not (show_hidden or mrc:isVisible{fullName=v.fullName, sn=sn, fn=fullPath})
          if (v.provides ~= nil) then
             local providesA = v.provides
             for i = 1, #providesA do
@@ -661,6 +662,7 @@ function M.buildProvideByT(self, dbT, providedByT)
       end
    end
 
+   dbg.printT("providedByT",providedByT)
    dbg.fini("Spider:buildProvideByT")
 
 

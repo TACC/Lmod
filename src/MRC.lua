@@ -79,6 +79,7 @@ local l_buildMod2VersionT
 -- @param self A MRC object.
 
 local function l_new(self, fnA)
+   --dbg.start{"MRC l_new(fnA)"}
    local o              = {}
    o.__mpathT           = {}  -- mpath dependent values for alias2modT, version2modT
                               -- and hiddenT.
@@ -94,6 +95,7 @@ local function l_new(self, fnA)
    self.__index = self
 
    l_build(o, fnA or getModuleRCT())
+   --dbg.fini("MRC l_new")
    return o
 end
 
