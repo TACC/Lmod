@@ -80,6 +80,7 @@ export LMOD_SETTARG_FULL_SUPPORT=@lmod_settarg_full_support@
 if [ "@silence_shell_debugging@" = "no" ]; then
    module()
    {
+     local __lmod_my_status
      ############################################################
      # turn off file globbing if it is not already off
      _mlshopt="f";
@@ -93,6 +94,7 @@ if [ "@silence_shell_debugging@" = "no" ]; then
      ############################################################
      # Run Lmod and eval results
      eval $($LMOD_CMD @my_shell@ "$@") && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
+     __lmod_my_status=$?
 
      ############################################################
      # turn on file globbing for users who want it.
@@ -100,10 +102,12 @@ if [ "@silence_shell_debugging@" = "no" ]; then
        set +$_mlshopt;
      fi;
      unset _mlshopt;
+     return $__lmod_my_status
    }
 else
    module()
    {
+     local __lmod_my_status
      ############################################################
      # Silence shell debug UNLESS $LMOD_SH_DBG_ON has a value
      if [ -z "${LMOD_SH_DBG_ON+x}" ]; then
@@ -169,7 +173,7 @@ fi
 #     ml            -> module list
 #     ml gcc        -> module load gcc
 #     ml -gcc intel -> module unload gcc; module load intel
-#  It does much more do: "ml --help" for more information.
+#  It does much more. Do: "ml --help" for more information.
 
 
 unalias ml 2> /dev/null || true
