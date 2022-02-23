@@ -8,16 +8,12 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a
 ===========================
 A=1.0;
 export A;
-__LMOD_REF_COUNT_LOADEDMODULES=a/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=a/1.0;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/use_unuse/mf/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/use_unuse/mf/Core;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/use_unuse/mf/Core/a/1.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/use_unuse/mf/Core/a/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="ProjectDIR/rt/use_unuse/mf/Core/a/1.0.lua",fullName="a/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="a",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/use_unuse/mf/Core",},systemBaseMPATH="ProjectDIR/rt/use_unuse/mf/Core",}';
@@ -27,11 +23,9 @@ step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unuse ProjectDIR/rt/use_unuse/mf/Core
 ===========================
 unset A;
-unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
 unset __LMOD_REF_COUNT_MODULEPATH;
 unset MODULEPATH;
-unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="ProjectDIR/rt/use_unuse/mf/Core/a/1.0.lua",fullName="a/1.0",loadOrder=-1,propT={},stackDepth=0,status="inactive",userName="a",wV="000000001.*zfinal",},},mpathA={},systemBaseMPATH="ProjectDIR/rt/use_unuse/mf/Core",}';
 export _ModuleTable_;

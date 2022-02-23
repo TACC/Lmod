@@ -30,8 +30,6 @@ __LMOD_REF_COUNT_LIBPATH=/share/apps/teragrid/globus-4.0.7-r1/lib:1\;/share/apps
 export __LMOD_REF_COUNT_LIBPATH;
 LIBPATH=/share/apps/teragrid/globus-4.0.7-r1/lib:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib;
 export LIBPATH;
-__LMOD_REF_COUNT_LOADEDMODULES=TACC_symbols:1\;cluster_symbols:1\;pgi/7.1:1\;mvapich1/mvapich1:1\;globus/4.0.7:1\;cluster:1\;TACC:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=TACC_symbols:cluster_symbols:pgi/7.1:mvapich1/mvapich1:globus/4.0.7:cluster:TACC;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MANPATH=/share/apps/teragrid/globus-4.0.7-r1/man:1\;/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:1\;/unknown/apps/intel10_1/mvapich/1.0.1/man:1\;/unknown/apps/pgi/7.1/linux86-64/7.1-2/man:1\;/usr/local/man:1\;/usr/share/man:1\;/usr/X11R6/man:1\;/opt/ganglia/man:1\;/opt/rocks/man:1\;/usr/kerberos/man:1\;/usr/man:1\;/unknown/apps/pki_apps/man:1;
@@ -64,8 +62,6 @@ __LMOD_REF_COUNT_SHLIB_PATH=/share/apps/teragrid/globus-4.0.7-r1/lib:1\;/share/a
 export __LMOD_REF_COUNT_SHLIB_PATH;
 SHLIB_PATH=/share/apps/teragrid/globus-4.0.7-r1/lib:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib;
 export SHLIB_PATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/saverestore/TACC/TACC_symbols:1\;ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua:1\;ProjectDIR/rt/saverestore/TACC/pgi/7.1:1\;ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1:1\;ProjectDIR/rt/saverestore/TACC/globus/4.0.7:1\;ProjectDIR/rt/saverestore/TACC/cluster:1\;ProjectDIR/rt/saverestore/TACC/TACC:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/saverestore/TACC/TACC_symbols:ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua:ProjectDIR/rt/saverestore/TACC/pgi/7.1:ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1:ProjectDIR/rt/saverestore/TACC/globus/4.0.7:ProjectDIR/rt/saverestore/TACC/cluster:ProjectDIR/rt/saverestore/TACC/TACC;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={TACC={fn="ProjectDIR/rt/saverestore/TACC/TACC",fullName="TACC",loadOrder=7,propT={},stackDepth=0,status="active",userName="TACC",wV="M.*zfinal",},TACC_symbols={fn="ProjectDIR/rt/saverestore/TACC/TACC_symbols",fullName="TACC_symbols",loadOrder=1,propT={},stackDepth=1,status="active",userName="TACC_symbols",wV="M.*zfinal",},cluster={fn="ProjectDIR/rt/saverestore/TACC/cluster",fullName="cluster",loadOrder=6,propT={},stackDepth=1,status="active",userName="cluster",wV="M.*zfinal",},cluster_symbols={fn="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",fullName="cluster_symbols",loadOrder=2,propT={},stackDepth=2,status="active",userName="cluster_symbols",wV="M.*zfinal",},globus={fn="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",fullName="globus/4.0.7",loadOrder=5,propT={},stackDepth=2,status="active",userName="globus",wV="000000004.000000000.000000007.*zfinal",},mvapich1={fn="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",fullName="mvapich1/mvapich1",loadOrder=4,propT={},stackDepth=2,status="active",userName="mvapich1",wV="*mvapich.000000001.*zfinal",},pgi={fn="ProjectDIR/rt/saverestore/TACC/pgi/7.1",fullName="pgi/7.1",loadOrder=3,propT={},stackDepth=2,status="active",userName="pgi",wV="^00000007.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.1","ProjectDIR/rt/saverestore/TACC",},systemBaseMPATH="ProjectDIR/rt/saverestore/TACC",}';
@@ -78,8 +74,6 @@ __LMOD_REF_COUNT_LD_LIBRARY_PATH=/unknown/apps/pgi/7.2/linux86-64/7.2-5/libso:1\
 export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
 LD_LIBRARY_PATH=/unknown/apps/pgi/7.2/linux86-64/7.2-5/libso:/share/apps/teragrid/globus-4.0.7-r1/lib:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:/unknown/apps/intel10_1/mvapich/1.0.1/lib:/unknown/apps/intel10_1/mvapich/1.0.1/lib/shared;
 export LD_LIBRARY_PATH;
-__LMOD_REF_COUNT_LOADEDMODULES=TACC_symbols:1\;cluster_symbols:1\;mvapich1/mvapich1:1\;globus/4.0.7:1\;cluster:1\;TACC:1\;pgi/7.2-5:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=TACC_symbols:cluster_symbols:mvapich1/mvapich1:globus/4.0.7:cluster:TACC:pgi/7.2-5;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MANPATH=/unknown/apps/pgi/7.2/linux86-64/7.2-5/man:1\;/share/apps/teragrid/globus-4.0.7-r1/man:1\;/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:1\;/unknown/apps/intel10_1/mvapich/1.0.1/man:1\;/usr/local/man:1\;/usr/share/man:1\;/usr/X11R6/man:1\;/opt/ganglia/man:1\;/opt/rocks/man:1\;/usr/kerberos/man:1\;/usr/man:1\;/unknown/apps/pki_apps/man:1;
@@ -96,8 +90,6 @@ PATH=/unknown/apps/pgi/7.2/linux86-64/7.2-5/bin:/share/apps/teragrid/globus-4.0.
 export PATH;
 PGI=/unknown/apps/pgi/7.2-5;
 export PGI;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/saverestore/TACC/TACC_symbols:1\;ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua:1\;ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1:1\;ProjectDIR/rt/saverestore/TACC/globus/4.0.7:1\;ProjectDIR/rt/saverestore/TACC/cluster:1\;ProjectDIR/rt/saverestore/TACC/TACC:1\;ProjectDIR/rt/saverestore/TACC/pgi/7.2-5:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/saverestore/TACC/TACC_symbols:ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua:ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1:ProjectDIR/rt/saverestore/TACC/globus/4.0.7:ProjectDIR/rt/saverestore/TACC/cluster:ProjectDIR/rt/saverestore/TACC/TACC:ProjectDIR/rt/saverestore/TACC/pgi/7.2-5;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={TACC={fn="ProjectDIR/rt/saverestore/TACC/TACC",fullName="TACC",loadOrder=6,propT={},stackDepth=0,status="active",userName="TACC",wV="M.*zfinal",},TACC_symbols={fn="ProjectDIR/rt/saverestore/TACC/TACC_symbols",fullName="TACC_symbols",loadOrder=1,propT={},stackDepth=1,status="active",userName="TACC_symbols",wV="M.*zfinal",},cluster={fn="ProjectDIR/rt/saverestore/TACC/cluster",fullName="cluster",loadOrder=5,propT={},stackDepth=1,status="active",userName="cluster",wV="M.*zfinal",},cluster_symbols={fn="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",fullName="cluster_symbols",loadOrder=2,propT={},stackDepth=2,status="active",userName="cluster_symbols",wV="M.*zfinal",},globus={fn="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",fullName="globus/4.0.7",loadOrder=4,propT={},stackDepth=2,status="active",userName="globus",wV="000000004.000000000.000000007.*zfinal",},mvapich1={fn="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",fullName="mvapich1/mvapich1",loadOrder=3,propT={},stackDepth=2,status="active",userName="mvapich1",wV="*mvapich.000000001.*zfinal",},pgi={fn="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",fullName="pgi/7.2-5",loadOrder=7,propT={},stackDepth=0,status="active",userName="pgi/7.2-5",wV="000000007.000000002.*zfinal-.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},systemBaseMPATH="ProjectDIR/rt/saverestore/TACC",}';
@@ -140,8 +132,6 @@ LD_LIBRARY_PATH=/unknown/apps/pgi/7.2/linux86-64/7.2-5/libso:/share/apps/teragri
 export LD_LIBRARY_PATH;
 LIBPATH=/share/apps/teragrid/globus-4.0.7-r1/lib:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib;
 export LIBPATH;
-LOADEDMODULES=TACC_symbols:cluster_symbols:mvapich1/mvapich1:globus/4.0.7:cluster:TACC:pgi/7.2-5;
-export LOADEDMODULES;
 MANPATH=/unknown/apps/pgi/7.2/linux86-64/7.2-5/man:/share/apps/teragrid/globus-4.0.7-r1/man:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:/unknown/apps/intel10_1/mvapich/1.0.1/man:/usr/local/man:/usr/share/man:/usr/X11R6/man:/opt/ganglia/man:/opt/rocks/man:/usr/kerberos/man:/usr/man:/unknown/apps/pki_apps/man;
 export MANPATH;
 MODULEPATH=ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC;
@@ -164,8 +154,6 @@ SASL_PATH=/share/apps/teragrid/globus-4.0.7-r1/sasl;
 export SASL_PATH;
 SHLIB_PATH=/share/apps/teragrid/globus-4.0.7-r1/lib:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib;
 export SHLIB_PATH;
-_LMFILES_=ProjectDIR/rt/saverestore/TACC/TACC_symbols:ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua:ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1:ProjectDIR/rt/saverestore/TACC/globus/4.0.7:ProjectDIR/rt/saverestore/TACC/cluster:ProjectDIR/rt/saverestore/TACC/TACC:ProjectDIR/rt/saverestore/TACC/pgi/7.2-5;
-export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={TACC={fn="ProjectDIR/rt/saverestore/TACC/TACC",fullName="TACC",loadOrder=6,propT={},stackDepth=0,status="active",userName="TACC",wV="M.*zfinal",},TACC_symbols={fn="ProjectDIR/rt/saverestore/TACC/TACC_symbols",fullName="TACC_symbols",loadOrder=1,propT={},stackDepth=1,status="active",userName="TACC_symbols",wV="M.*zfinal",},cluster={fn="ProjectDIR/rt/saverestore/TACC/cluster",fullName="cluster",loadOrder=5,propT={},stackDepth=1,status="active",userName="cluster",wV="M.*zfinal",},cluster_symbols={fn="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",fullName="cluster_symbols",loadOrder=2,propT={},stackDepth=2,status="active",userName="cluster_symbols",wV="M.*zfinal",},globus={fn="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",fullName="globus/4.0.7",loadOrder=4,propT={},stackDepth=2,status="active",userName="globus",wV="000000004.000000000.000000007.*zfinal",},mvapich1={fn="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",fullName="mvapich1/mvapich1",loadOrder=3,propT={},stackDepth=2,status="active",userName="mvapich1",wV="*mvapich.000000001.*zfinal",},pgi={fn="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",fullName="pgi/7.2-5",loadOrder=7,propT={},stackDepth=0,status="active",userName="pgi/7.2-5",wV="000000007.000000002.*zfinal-.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},systemBaseMPATH="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__=1;
@@ -194,16 +182,12 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a
 ===========================
 FOO=1.0.0.1;
 export FOO;
-__LMOD_REF_COUNT_LOADEDMODULES=TACC_symbols:1\;cluster_symbols:1\;mvapich1/mvapich1:1\;globus/4.0.7:1\;cluster:1\;TACC:1\;pgi/7.2-5:1\;a/a:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=TACC_symbols:cluster_symbols:mvapich1/mvapich1:globus/4.0.7:cluster:TACC:pgi/7.2-5:a/a;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC;
 export MODULEPATH;
 RTM=/a/b/c/d;
 export RTM;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/saverestore/TACC/TACC_symbols:1\;ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua:1\;ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1:1\;ProjectDIR/rt/saverestore/TACC/globus/4.0.7:1\;ProjectDIR/rt/saverestore/TACC/cluster:1\;ProjectDIR/rt/saverestore/TACC/TACC:1\;ProjectDIR/rt/saverestore/TACC/pgi/7.2-5:1\;ProjectDIR/rt/saverestore/TACC2/a/a.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/saverestore/TACC/TACC_symbols:ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua:ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1:ProjectDIR/rt/saverestore/TACC/globus/4.0.7:ProjectDIR/rt/saverestore/TACC/cluster:ProjectDIR/rt/saverestore/TACC/TACC:ProjectDIR/rt/saverestore/TACC/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC2/a/a.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={TACC={fn="ProjectDIR/rt/saverestore/TACC/TACC",fullName="TACC",loadOrder=6,propT={},stackDepth=0,status="active",userName="TACC",wV="M.*zfinal",},TACC_symbols={fn="ProjectDIR/rt/saverestore/TACC/TACC_symbols",fullName="TACC_symbols",loadOrder=1,propT={},stackDepth=1,status="active",userName="TACC_symbols",wV="M.*zfinal",},a={fn="ProjectDIR/rt/saverestore/TACC2/a/a.lua",fullName="a/a",loadOrder=8,propT={},stackDepth=0,status="active",userName="a",wV="*a.*zfinal",},cluster={fn="ProjectDIR/rt/saverestore/TACC/cluster",fullName="cluster",loadOrder=5,propT={},stackDepth=1,status="active",userName="cluster",wV="M.*zfinal",},cluster_symbols={fn="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",fullName="cluster_symbols",loadOrder=2,propT={},stackDepth=2,status="active",userName="cluster_symbols",wV="M.*zfinal",},globus={fn="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",fullName="globus/4.0.7",loadOrder=4,propT={},stackDepth=2,status="active",userName="globus",wV="000000004.000000000.000000007.*zfinal",},mvapich1={fn="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",fullName="mvapich1/mvapich1",loadOrder=3,propT={},stackDepth=2,status="active",userName="mvapich1",wV="*mvapich.000000001.*zfinal",},pgi={fn="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",fullName="pgi/7.2-5",loadOrder=7,propT={},stackDepth=0,status="active",userName="pgi/7.2-5",wV="000000007.000000002.*zfinal-.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},systemBaseMPATH="ProjectDIR/rt/saverestore/TACC",}';
@@ -249,7 +233,6 @@ unset __LMOD_REF_COUNT_LD_LIBRARY_PATH;
 unset LD_LIBRARY_PATH;
 unset __LMOD_REF_COUNT_LIBPATH;
 unset LIBPATH;
-unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
 unset __LMOD_REF_COUNT_MANPATH;
 unset MANPATH;
@@ -270,7 +253,6 @@ unset RTM;
 unset SASL_PATH;
 unset __LMOD_REF_COUNT_SHLIB_PATH;
 unset SHLIB_PATH;
-unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},systemBaseMPATH="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
@@ -304,8 +286,6 @@ __LMOD_REF_COUNT_LIBPATH=/share/apps/teragrid/globus-4.0.7-r1/lib:1\;/share/apps
 export __LMOD_REF_COUNT_LIBPATH;
 LIBPATH=/share/apps/teragrid/globus-4.0.7-r1/lib:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib;
 export LIBPATH;
-__LMOD_REF_COUNT_LOADEDMODULES=TACC_symbols:1\;cluster_symbols:1\;mvapich1/mvapich1:1\;globus/4.0.7:1\;cluster:1\;TACC:1\;pgi/7.2-5:1\;a/a:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=TACC_symbols:cluster_symbols:mvapich1/mvapich1:globus/4.0.7:cluster:TACC:pgi/7.2-5:a/a;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MANPATH=/unknown/apps/pgi/7.2/linux86-64/7.2-5/man:1\;/share/apps/teragrid/globus-4.0.7-r1/man:1\;/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/man:1\;/unknown/apps/intel10_1/mvapich/1.0.1/man:1\;/usr/local/man:1\;/usr/share/man:1\;/usr/X11R6/man:1\;/opt/ganglia/man:1\;/opt/rocks/man:1\;/usr/kerberos/man:1\;/usr/man:1\;/unknown/apps/pki_apps/man:1;
@@ -338,8 +318,6 @@ __LMOD_REF_COUNT_SHLIB_PATH=/share/apps/teragrid/globus-4.0.7-r1/lib:1\;/share/a
 export __LMOD_REF_COUNT_SHLIB_PATH;
 SHLIB_PATH=/share/apps/teragrid/globus-4.0.7-r1/lib:/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib;
 export SHLIB_PATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/saverestore/TACC/TACC_symbols:1\;ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua:1\;ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1:1\;ProjectDIR/rt/saverestore/TACC/globus/4.0.7:1\;ProjectDIR/rt/saverestore/TACC/cluster:1\;ProjectDIR/rt/saverestore/TACC/TACC:1\;ProjectDIR/rt/saverestore/TACC/pgi/7.2-5:1\;ProjectDIR/rt/saverestore/TACC2/a/a.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/saverestore/TACC/TACC_symbols:ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua:ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1:ProjectDIR/rt/saverestore/TACC/globus/4.0.7:ProjectDIR/rt/saverestore/TACC/cluster:ProjectDIR/rt/saverestore/TACC/TACC:ProjectDIR/rt/saverestore/TACC/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC2/a/a.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={TACC={fn="ProjectDIR/rt/saverestore/TACC/TACC",fullName="TACC",loadOrder=6,propT={},stackDepth=0,status="active",userName="TACC",wV="M.*zfinal",},TACC_symbols={fn="ProjectDIR/rt/saverestore/TACC/TACC_symbols",fullName="TACC_symbols",loadOrder=1,propT={},stackDepth=1,status="active",userName="TACC_symbols",wV="M.*zfinal",},a={fn="ProjectDIR/rt/saverestore/TACC2/a/a.lua",fullName="a/a",loadOrder=8,propT={},stackDepth=0,status="active",userName="a",wV="*a.*zfinal",},cluster={fn="ProjectDIR/rt/saverestore/TACC/cluster",fullName="cluster",loadOrder=5,propT={},stackDepth=1,status="active",userName="cluster",wV="M.*zfinal",},cluster_symbols={fn="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",fullName="cluster_symbols",loadOrder=2,propT={},stackDepth=2,status="active",userName="cluster_symbols",wV="M.*zfinal",},globus={fn="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",fullName="globus/4.0.7",loadOrder=4,propT={},stackDepth=2,status="active",userName="globus",wV="000000004.000000000.000000007.*zfinal",},mvapich1={fn="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",fullName="mvapich1/mvapich1",loadOrder=3,propT={},stackDepth=2,status="active",userName="mvapich1",wV="*mvapich.000000001.*zfinal",},pgi={fn="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",fullName="pgi/7.2-5",loadOrder=7,propT={},stackDepth=0,status="active",userName="pgi/7.2-5",wV="000000007.000000002.*zfinal-.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},systemBaseMPATH="ProjectDIR/rt/saverestore/TACC",}';
@@ -379,7 +357,6 @@ unset __LMOD_REF_COUNT_LD_LIBRARY_PATH;
 unset LD_LIBRARY_PATH;
 unset __LMOD_REF_COUNT_LIBPATH;
 unset LIBPATH;
-unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
 unset __LMOD_REF_COUNT_MANPATH;
 unset MANPATH;
@@ -400,7 +377,6 @@ unset RTM;
 unset SASL_PATH;
 unset __LMOD_REF_COUNT_SHLIB_PATH;
 unset SHLIB_PATH;
-unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},systemBaseMPATH="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
@@ -450,8 +426,6 @@ LMOD_FAMILY_SCHEDULER=M;
 export LMOD_FAMILY_SCHEDULER;
 LMOD_FAMILY_SCHEDULER_VERSION=7.2.6;
 export LMOD_FAMILY_SCHEDULER_VERSION;
-__LMOD_REF_COUNT_LOADEDMODULES=M/7.2.6:1\;T/4.2.6:1\;A/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=M/7.2.6:T/4.2.6:A/1.0;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MANPATH=/apps/T/share/man:1\;/apps/M/share/man:1;
@@ -464,8 +438,6 @@ __LMOD_REF_COUNT_PATH=/apps/T/sbin:1\;/apps/T/bin:1\;/apps/M/sbin:1\;/apps/M/bin
 export __LMOD_REF_COUNT_PATH;
 PATH=/apps/T/sbin:/apps/T/bin:/apps/M/sbin:/apps/M/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua:1\;ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua:1\;ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua:ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua:ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={resourcemgr="T",scheduler="M",},mT={A={fn="ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua",fullName="A/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},M={fn="ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua",fullName="M/7.2.6",loadOrder=1,propT={},stackDepth=0,status="active",userName="M",wV="000000007.000000002.000000006.*zfinal",},T={fn="ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua",fullName="T/4.2.6",loadOrder=2,propT={},stackDepth=0,status="active",userName="T",wV="000000004.000000002.000000006.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
@@ -500,16 +472,12 @@ LMOD_FAMILY_SCHEDULER=M;
 export LMOD_FAMILY_SCHEDULER;
 LMOD_FAMILY_SCHEDULER_VERSION=7.2.6;
 export LMOD_FAMILY_SCHEDULER_VERSION;
-LOADEDMODULES=M/7.2.6:T/4.2.6:A/1.0;
-export LOADEDMODULES;
 MANPATH=/apps/T/share/man:/apps/M/share/man;
 export MANPATH;
 MODULEPATH=ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core;
 export MODULEPATH;
 PATH=/apps/T/sbin:/apps/T/bin:/apps/M/sbin:/apps/M/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-_LMFILES_=ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua:ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua:ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua;
-export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={resourcemgr="T",scheduler="M",},mT={A={fn="ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua",fullName="A/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},M={fn="ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua",fullName="M/7.2.6",loadOrder=1,propT={},stackDepth=0,status="active",userName="M",wV="000000007.000000002.000000006.*zfinal",},T={fn="ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua",fullName="T/4.2.6",loadOrder=2,propT={},stackDepth=0,status="active",userName="T",wV="000000004.000000002.000000006.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
 export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__=1;
@@ -532,7 +500,6 @@ unset LMOD_FAMILY_RESOURCEMGR;
 unset LMOD_FAMILY_RESOURCEMGR_VERSION;
 unset LMOD_FAMILY_SCHEDULER;
 unset LMOD_FAMILY_SCHEDULER_VERSION;
-unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
 unset __LMOD_REF_COUNT_MANPATH;
 unset MANPATH;
@@ -542,7 +509,6 @@ __LMOD_REF_COUNT_PATH=ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
 export __LMOD_REF_COUNT_PATH;
 PATH=ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
 export _ModuleTable_;
@@ -550,8 +516,6 @@ export _ModuleTable_;
 step 28
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a b
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=a/2.0:1\;b/3.3:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=a/2.0:b/3.3;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MANPATH=OutputDIR/local/b/3.3/man:1\;OutputDIR/local/a/2.0/man:1;
@@ -564,8 +528,6 @@ __LMOD_REF_COUNT_PATH=OutputDIR/local/b/3.3/bin:1\;OutputDIR/local/a/2.0/bin:1\;
 export __LMOD_REF_COUNT_PATH;
 PATH=OutputDIR/local/b/3.3/bin:OutputDIR/local/a/2.0/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-__LMOD_REF_COUNT__LMFILES_=OutputDIR/Core/a/2.0:1\;OutputDIR/Core/b/3.3:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=OutputDIR/Core/a/2.0:OutputDIR/Core/b/3.3;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="OutputDIR/Core/a/2.0",fullName="a/2.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="a",wV="^00000002.*zfinal",},b={fn="OutputDIR/Core/b/3.3",fullName="b/3.3",loadOrder=2,propT={},stackDepth=0,status="active",userName="b",wV="000000003.000000003.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
@@ -582,8 +544,6 @@ export _ModuleTable_;
 step 30
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=a/3.0:1\;b/3.3:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=a/3.0:b/3.3;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MANPATH=OutputDIR/local/b/3.3/man:1\;OutputDIR/local/a/3.0/man:1;
@@ -596,8 +556,6 @@ __LMOD_REF_COUNT_PATH=OutputDIR/local/b/3.3/bin:1\;OutputDIR/local/a/3.0/bin:1\;
 export __LMOD_REF_COUNT_PATH;
 PATH=OutputDIR/local/b/3.3/bin:OutputDIR/local/a/3.0/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-__LMOD_REF_COUNT__LMFILES_=OutputDIR/Core/a/3.0:1\;OutputDIR/Core/b/3.3:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=OutputDIR/Core/a/3.0:OutputDIR/Core/b/3.3;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="OutputDIR/Core/a/3.0",fullName="a/3.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="a",wV="^00000003.*zfinal",},b={fn="OutputDIR/Core/b/3.3",fullName="b/3.3",loadOrder=2,propT={},stackDepth=0,status="active",userName="b",wV="000000003.000000003.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
@@ -616,7 +574,6 @@ export _ModuleTable_;
 step 32
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
-unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
 unset __LMOD_REF_COUNT_MANPATH;
 unset MANPATH;
@@ -626,7 +583,6 @@ __LMOD_REF_COUNT_PATH=ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
 export __LMOD_REF_COUNT_PATH;
 PATH=ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
 export _ModuleTable_;
@@ -634,8 +590,6 @@ export _ModuleTable_;
 step 33
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=a/2.0:1\;b/3.3:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=a/2.0:b/3.3;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MANPATH=OutputDIR/local/b/3.3/man:1\;OutputDIR/local/a/2.0/man:1;
@@ -648,8 +602,6 @@ __LMOD_REF_COUNT_PATH=OutputDIR/local/b/3.3/bin:1\;OutputDIR/local/a/2.0/bin:1\;
 export __LMOD_REF_COUNT_PATH;
 PATH=OutputDIR/local/b/3.3/bin:OutputDIR/local/a/2.0/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-__LMOD_REF_COUNT__LMFILES_=OutputDIR/Core/a/2.0:1\;OutputDIR/Core/b/3.3:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=OutputDIR/Core/a/2.0:OutputDIR/Core/b/3.3;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="OutputDIR/Core/a/2.0",fullName="a/2.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="a/2.0",wV="000000002.*zfinal",},b={fn="OutputDIR/Core/b/3.3",fullName="b/3.3",loadOrder=2,propT={},stackDepth=0,status="active",userName="b/3.3",wV="000000003.000000003.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
@@ -668,7 +620,6 @@ export _ModuleTable_;
 step 35
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
-unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
 unset __LMOD_REF_COUNT_MANPATH;
 unset MANPATH;
@@ -678,7 +629,6 @@ __LMOD_REF_COUNT_PATH=ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
 export __LMOD_REF_COUNT_PATH;
 PATH=ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
 export _ModuleTable_;
@@ -696,14 +646,10 @@ export _ModuleTable_;
 step 37
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc/5.4
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=binutils/.2.26:1\;numactl/.2.0.11:1\;gcc/5.4:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=binutils/.2.26:numactl/.2.0.11:gcc/5.4;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/saverestore/EB:ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/saverestore/EB/binutils/.2.26.lua:1\;ProjectDIR/rt/saverestore/EB/numactl/.2.0.11.lua:1\;ProjectDIR/rt/saverestore/EB/gcc/5.4.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/saverestore/EB/binutils/.2.26.lua:ProjectDIR/rt/saverestore/EB/numactl/.2.0.11.lua:ProjectDIR/rt/saverestore/EB/gcc/5.4.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={binutils={fn="ProjectDIR/rt/saverestore/EB/binutils/.2.26.lua",fullName="binutils/.2.26",loadOrder=1,propT={},stackDepth=1,status="active",userName="binutils/.2.26",wV="000000000.000000002.000000026.*zfinal",},gcc={fn="ProjectDIR/rt/saverestore/EB/gcc/5.4.lua",fullName="gcc/5.4",loadOrder=3,propT={},stackDepth=0,status="active",userName="gcc/5.4",wV="000000005.000000004.*zfinal",},numactl={fn="ProjectDIR/rt/saverestore/EB/numactl/.2.0.11.lua",fullName="numactl/.2.0.11",loadOrder=2,propT={},stackDepth=1,status="active",userName="numactl/.2.0.11",wV="000000000.000000002.000000000.000000011.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/EB","ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
@@ -732,12 +678,8 @@ export _ModuleTable_;
 step 40
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore foss
 ===========================
-LOADEDMODULES=binutils/.2.26:numactl/.2.0.11:gcc/5.4;
-export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/saverestore/EB:ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core;
 export MODULEPATH;
-_LMFILES_=ProjectDIR/rt/saverestore/EB/binutils/.2.26.lua:ProjectDIR/rt/saverestore/EB/numactl/.2.0.11.lua:ProjectDIR/rt/saverestore/EB/gcc/5.4.lua;
-export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={binutils={fn="ProjectDIR/rt/saverestore/EB/binutils/.2.26.lua",fullName="binutils/.2.26",loadOrder=1,propT={},stackDepth=1,status="active",userName="binutils/.2.26",wV="000000000.000000002.000000026.*zfinal",},gcc={fn="ProjectDIR/rt/saverestore/EB/gcc/5.4.lua",fullName="gcc/5.4",loadOrder=3,propT={},stackDepth=0,status="active",userName="gcc/5.4",wV="000000005.000000004.*zfinal",},numactl={fn="ProjectDIR/rt/saverestore/EB/numactl/.2.0.11.lua",fullName="numactl/.2.0.11",loadOrder=2,propT={},stackDepth=1,status="active",userName="numactl/.2.0.11",wV="000000000.000000002.000000000.000000011.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/EB","ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
 export _ModuleTable_;
 binutils=.2.26;
@@ -756,11 +698,9 @@ export _ModuleTable_;
 step 42
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
-unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/saverestore/EB:ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core;
 export MODULEPATH;
-unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/EB","ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
 export _ModuleTable_;
@@ -770,8 +710,6 @@ unset numactl;
 step 43
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=a/2.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=a/2.0;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MANPATH=OutputDIR/local/a/2.0/man:1;
@@ -786,8 +724,6 @@ __LMOD_REF_COUNT_PATH=OutputDIR/local/a/2.0/bin:1\;ProjectDIR/proj_mgmt:1\;PATH_
 export __LMOD_REF_COUNT_PATH;
 PATH=OutputDIR/local/a/2.0/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/saverestore/Core/a/2.0:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/saverestore/Core/a/2.0;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="ProjectDIR/rt/saverestore/Core/a/2.0",fullName="a/2.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="a",wV="^00000002.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/Core",},systemBaseMPATH="ProjectDIR/rt/saverestore/Core",}';
@@ -804,7 +740,6 @@ export _ModuleTable_;
 step 45
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
-unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
 unset __LMOD_REF_COUNT_MANPATH;
 unset MANPATH;
@@ -814,7 +749,6 @@ __LMOD_REF_COUNT_PATH=ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
 export __LMOD_REF_COUNT_PATH;
 PATH=ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/Core",},systemBaseMPATH="ProjectDIR/rt/saverestore/Core",}';
 export _ModuleTable_;
@@ -822,8 +756,6 @@ export _ModuleTable_;
 step 46
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore my_A
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=a/2.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=a/2.0;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MANPATH=OutputDIR/local/a/2.0/man:1;
@@ -836,8 +768,6 @@ __LMOD_REF_COUNT_PATH=OutputDIR/local/a/2.0/bin:1\;ProjectDIR/proj_mgmt:1\;PATH_
 export __LMOD_REF_COUNT_PATH;
 PATH=OutputDIR/local/a/2.0/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/saverestore/Core/a/2.0:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/saverestore/Core/a/2.0;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="ProjectDIR/rt/saverestore/Core/a/2.0",fullName="a/2.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="a/2.0",wV="^00000002.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/Core",},systemBaseMPATH="ProjectDIR/rt/saverestore/Core",}';
@@ -846,7 +776,6 @@ export _ModuleTable_;
 step 47
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
-unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
 unset __LMOD_REF_COUNT_MANPATH;
 unset MANPATH;
@@ -856,7 +785,6 @@ __LMOD_REF_COUNT_PATH=ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
 export __LMOD_REF_COUNT_PATH;
 PATH=ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/Core",},systemBaseMPATH="ProjectDIR/rt/saverestore/Core",}';
 export _ModuleTable_;
@@ -868,8 +796,6 @@ __LMOD_REF_COUNT_LD_LIBRARY_PATH=/unknown/apps/ifort/18.0.1/lib:1\;/unknown/apps
 export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
 LD_LIBRARY_PATH=/unknown/apps/ifort/18.0.1/lib:/unknown/apps/icc/18.0.1/lib;
 export LD_LIBRARY_PATH;
-__LMOD_REF_COUNT_LOADEDMODULES=icc/18.0.1:1\;ifort/18.0.1:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=icc/18.0.1:ifort/18.0.1;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/saverestore/Compiler/intel/18.0:2\;ProjectDIR/rt/saverestore/Core:1;
@@ -880,8 +806,6 @@ __LMOD_REF_COUNT_PATH=/unknown/apps/ifort/18.0.1/bin:1\;/unknown/apps/icc/18.0.1
 export __LMOD_REF_COUNT_PATH;
 PATH=/unknown/apps/ifort/18.0.1/bin:/unknown/apps/icc/18.0.1/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/saverestore/Core/icc/18.0.1.lua:1\;ProjectDIR/rt/saverestore/Core/ifort/18.0.1.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/saverestore/Core/icc/18.0.1.lua:ProjectDIR/rt/saverestore/Core/ifort/18.0.1.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={icc={fn="ProjectDIR/rt/saverestore/Core/icc/18.0.1.lua",fullName="icc/18.0.1",loadOrder=1,propT={},stackDepth=0,status="active",userName="icc",wV="000000018.000000000.000000001.*zfinal",},ifort={fn="ProjectDIR/rt/saverestore/Core/ifort/18.0.1.lua",fullName="ifort/18.0.1",loadOrder=2,propT={},stackDepth=0,status="active",userName="ifort",wV="000000018.000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/Compiler/intel/18.0","ProjectDIR/rt/saverestore/Core",},systemBaseMPATH="ProjectDIR/rt/saverestore/Core",}';
@@ -900,7 +824,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 unset __LMOD_REF_COUNT_LD_LIBRARY_PATH;
 unset LD_LIBRARY_PATH;
-unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/saverestore/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
@@ -910,7 +833,6 @@ __LMOD_REF_COUNT_PATH=ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
 export __LMOD_REF_COUNT_PATH;
 PATH=ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/Core",},systemBaseMPATH="ProjectDIR/rt/saverestore/Core",}';
 export _ModuleTable_;
@@ -922,8 +844,6 @@ __LMOD_REF_COUNT_LD_LIBRARY_PATH=/unknown/apps/ifort/18.0.1/lib:1\;/unknown/apps
 export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
 LD_LIBRARY_PATH=/unknown/apps/ifort/18.0.1/lib:/unknown/apps/icc/18.0.1/lib;
 export LD_LIBRARY_PATH;
-__LMOD_REF_COUNT_LOADEDMODULES=icc/18.0.1:1\;ifort/18.0.1:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=icc/18.0.1:ifort/18.0.1;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/saverestore/Compiler/intel/18.0:2\;ProjectDIR/rt/saverestore/Core:1;
@@ -934,8 +854,6 @@ __LMOD_REF_COUNT_PATH=/unknown/apps/ifort/18.0.1/bin:1\;/unknown/apps/icc/18.0.1
 export __LMOD_REF_COUNT_PATH;
 PATH=/unknown/apps/ifort/18.0.1/bin:/unknown/apps/icc/18.0.1/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/saverestore/Core/icc/18.0.1.lua:1\;ProjectDIR/rt/saverestore/Core/ifort/18.0.1.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/saverestore/Core/icc/18.0.1.lua:ProjectDIR/rt/saverestore/Core/ifort/18.0.1.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={icc={fn="ProjectDIR/rt/saverestore/Core/icc/18.0.1.lua",fullName="icc/18.0.1",loadOrder=1,propT={},stackDepth=0,status="active",userName="icc/18.0.1",wV="000000018.000000000.000000001.*zfinal",},ifort={fn="ProjectDIR/rt/saverestore/Core/ifort/18.0.1.lua",fullName="ifort/18.0.1",loadOrder=2,propT={},stackDepth=0,status="active",userName="ifort/18.0.1",wV="000000018.000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/Compiler/intel/18.0","ProjectDIR/rt/saverestore/Core",},systemBaseMPATH="ProjectDIR/rt/saverestore/Core",}';

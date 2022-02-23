@@ -787,16 +787,6 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 67
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
-===========================
-__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/load/mf4:1;
-export __LMOD_REF_COUNT_MODULEPATH;
-MODULEPATH=ProjectDIR/rt/load/mf4;
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load/mf4",},systemBaseMPATH="ProjectDIR/rt/load/mf4",}';
-export _ModuleTable_;
-===========================
-step 68
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load compiler/intel
 ===========================
 INTEL_VERSION=19.1.3;
@@ -815,6 +805,8 @@ __LMOD_REF_COUNT_MANPATH=/opt/hlrs/non-spack/2022-02/compiler/intel/19.1.3.304/c
 export __LMOD_REF_COUNT_MANPATH;
 MANPATH=/opt/hlrs/non-spack/2022-02/compiler/intel/19.1.3.304/compilers_and_libraries_2020.4.304/linux/man/common:/opt/hlrs/non-spack/2022-02/compiler/gcc/11.2.0/share/man;
 export MANPATH;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/load/mf4:1;
+export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/load/mf4;
 export MODULEPATH;
 __LMOD_REF_COUNT_PATH=/opt/hlrs/non-spack/2022-02/compiler/intel/19.1.3.304/compilers_and_libraries_2020.4.304/linux/bin/intel64:1\;/opt/hlrs/non-spack/2022-02/compiler/gcc/11.2.0/bin:1\;ProjectDIR/rt/load:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
@@ -828,7 +820,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={["compiler/intel"]={fn="ProjectDIR/rt/load/mf4/compiler/intel/19.1.3",fullName="compiler/intel/19.1.3",loadOrder=1,propT={},stackDepth=0,status="active",userName="compiler/intel",wV="000000019.000000001.000000003.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf4",},systemBaseMPATH="ProjectDIR/rt/load/mf4",}';
 export _ModuleTable_;
 ===========================
-step 69
+step 68
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload compiler/intel
 ===========================
 unset INTEL_VERSION;
@@ -850,7 +842,8 @@ unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load/mf4",},systemBaseMPATH="ProjectDIR/rt/load/mf4",}';
 export _ModuleTable_;
 ===========================
-step 70
+step 69
 cat diff.env.txt
 ===========================
+> __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/load/mf4:1
 > __LMOD_REF_COUNT_PATH=ProjectDIR/rt/load:1;ProjectDIR/proj_mgmt:1;PATH_to_TM:1;/bin:1

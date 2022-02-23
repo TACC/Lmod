@@ -34,8 +34,6 @@ LMOD_FAMILY_MPI=mvapich2;
 export LMOD_FAMILY_MPI;
 LMOD_FAMILY_MPI_VERSION=1.9;
 export LMOD_FAMILY_MPI_VERSION;
-__LMOD_REF_COUNT_LOADEDMODULES=intel/13.1:1\;mvapich2/1.9:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=intel/13.1:mvapich2/1.9;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MANPATH=/unknown/apps/intel-13_1/mvapich2/1.9/man:1\;/unknown/apps/intel/13.1/composer_xe_2013.2.146/man/en_US:1;
@@ -58,8 +56,6 @@ __LMOD_REF_COUNT_PATH=/unknown/apps/intel-13_1/mvapich2/1.9/bin:1\;/unknown/apps
 export __LMOD_REF_COUNT_PATH;
 PATH=/unknown/apps/intel-13_1/mvapich2/1.9/bin:/unknown/apps/intel/13.1/inspector_xe_2013/bin64:/unknown/apps/intel/13.1/vtune_amplifier_xe_2013/bin64:/unknown/apps/intel/13.1/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/petsc/mf/Core/intel/13.1.lua:1\;ProjectDIR/rt/petsc/mf/Compiler/intel/13.1/mvapich2/1.9.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/petsc/mf/Core/intel/13.1.lua:ProjectDIR/rt/petsc/mf/Compiler/intel/13.1/mvapich2/1.9.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mvapich2",compiler="intel",},mT={intel={fn="ProjectDIR/rt/petsc/mf/Core/intel/13.1.lua",fullName="intel/13.1",loadOrder=1,propT={},stackDepth=0,status="active",userName="intel",wV="000000013.000000001.*zfinal",},mvapich2={fn="ProjectDIR/rt/petsc/mf/Compiler/intel/13.1/mvapich2/1.9.lua",fullName="mvapich2/1.9",loadOrder=2,propT={},stackDepth=0,status="active",userName="mvapich2",wV="000000001.000000009.*zfinal",},},mpathA={"ProjectDIR/rt/petsc/mf/MPI/intel/13.1/mvapich2/1.9","ProjectDIR/rt/petsc/mf/Compiler/intel/13.1","ProjectDIR/rt/petsc/mf/Core",},systemBaseMPATH="ProjectDIR/rt/petsc/mf/Core",}';

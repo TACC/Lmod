@@ -14,16 +14,12 @@ LMOD_FAMILY_MPI=mv2;
 export LMOD_FAMILY_MPI;
 LMOD_FAMILY_MPI_VERSION=2.0;
 export LMOD_FAMILY_MPI_VERSION;
-__LMOD_REF_COUNT_LOADEDMODULES=intel/15.0.2:1\;mv2/2.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=intel/15.0.2:mv2/2.0;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=OutputDIR/mf/MPI/intel/15.0/mv2/2.0:1\;OutputDIR/mf/Compiler/intel/15.0:1\;OutputDIR/mf/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=OutputDIR/mf/MPI/intel/15.0/mv2/2.0:OutputDIR/mf/Compiler/intel/15.0:OutputDIR/mf/Core;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=OutputDIR/mf/Core/intel/15.0.2.lua:1\;OutputDIR/mf/Compiler/intel/15.0/mv2/2.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=OutputDIR/mf/Core/intel/15.0.2.lua:OutputDIR/mf/Compiler/intel/15.0/mv2/2.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mv2",compiler="intel",},mT={intel={fn="OutputDIR/mf/Core/intel/15.0.2.lua",fullName="intel/15.0.2",loadOrder=1,propT={},stackDepth=0,status="active",userName="intel",wV="000000015.000000000.000000002.*zfinal",},mv2={fn="OutputDIR/mf/Compiler/intel/15.0/mv2/2.0.lua",fullName="mv2/2.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="mv2",wV="000000002.*zfinal",},},mpathA={"OutputDIR/mf/MPI/intel/15.0/mv2/2.0","OutputDIR/mf/Compiler/intel/15.0","OutputDIR/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core",}';
@@ -58,14 +54,10 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load itac
 ===========================
 ITAC_VERSION=1.0;
 export ITAC_VERSION;
-__LMOD_REF_COUNT_LOADEDMODULES=intel/15.0.2:1\;mv2/2.0:1\;itac/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=intel/15.0.2:mv2/2.0:itac/1.0;
 export LOADEDMODULES;
 MODULEPATH=OutputDIR/mf/MPI/intel/15.0/mv2/2.0:OutputDIR/mf/Compiler/intel/15.0:OutputDIR/mf/Core;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=OutputDIR/mf/Core/intel/15.0.2.lua:1\;OutputDIR/mf/Compiler/intel/15.0/mv2/2.0.lua:1\;OutputDIR/mf/Core/itac/1.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=OutputDIR/mf/Core/intel/15.0.2.lua:OutputDIR/mf/Compiler/intel/15.0/mv2/2.0.lua:OutputDIR/mf/Core/itac/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mv2",compiler="intel",},mT={intel={fn="OutputDIR/mf/Core/intel/15.0.2.lua",fullName="intel/15.0.2",loadOrder=1,propT={},stackDepth=0,status="active",userName="intel",wV="000000015.000000000.000000002.*zfinal",},itac={fn="OutputDIR/mf/Core/itac/1.0.lua",fullName="itac/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="itac",wV="000000001.*zfinal",},mv2={fn="OutputDIR/mf/Compiler/intel/15.0/mv2/2.0.lua",fullName="mv2/2.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="mv2",wV="000000002.*zfinal",},},mpathA={"OutputDIR/mf/MPI/intel/15.0/mv2/2.0","OutputDIR/mf/Compiler/intel/15.0","OutputDIR/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core",}';
@@ -76,16 +68,12 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload mv2
 ===========================
 unset LMOD_FAMILY_MPI;
 unset LMOD_FAMILY_MPI_VERSION;
-__LMOD_REF_COUNT_LOADEDMODULES=intel/15.0.2:1\;itac/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=intel/15.0.2:itac/1.0;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=OutputDIR/mf/Compiler/intel/15.0:1\;OutputDIR/mf/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=OutputDIR/mf/Compiler/intel/15.0:OutputDIR/mf/Core;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=OutputDIR/mf/Core/intel/15.0.2.lua:1\;OutputDIR/mf/Core/itac/1.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=OutputDIR/mf/Core/intel/15.0.2.lua:OutputDIR/mf/Core/itac/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={intel={fn="OutputDIR/mf/Core/intel/15.0.2.lua",fullName="intel/15.0.2",loadOrder=1,propT={},stackDepth=0,status="active",userName="intel",wV="000000015.000000000.000000002.*zfinal",},itac={fn="OutputDIR/mf/Core/itac/1.0.lua",fullName="itac/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="itac",wV="000000001.*zfinal",},},mpathA={"OutputDIR/mf/Compiler/intel/15.0","OutputDIR/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core",}';

@@ -6,8 +6,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cluster/delcatty
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=cluster/delcatty:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=cluster/delcatty;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=/apps/gent/SL6/sandybridge/modules/all:1\;ProjectDIR/rt/delcatty/mf/Core:1;
@@ -24,8 +22,6 @@ VSC_INSTITUTE_LOCAL=gent;
 export VSC_INSTITUTE_LOCAL;
 VSC_OS_LOCAL=SL6;
 export VSC_OS_LOCAL;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/delcatty/mf/Core/cluster/delcatty:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/delcatty/mf/Core/cluster/delcatty;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={cluster={fn="ProjectDIR/rt/delcatty/mf/Core/cluster/delcatty",fullName="cluster/delcatty",loadOrder=1,propT={},stackDepth=0,status="active",userName="cluster/delcatty",wV="*delcatty.*zfinal",},},mpathA={"/apps/gent/SL6/sandybridge/modules/all","ProjectDIR/rt/delcatty/mf/Core",},systemBaseMPATH="ProjectDIR/rt/delcatty/mf/Core",}';
@@ -34,16 +30,12 @@ export _ModuleTable_;
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load VSC-tools
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=cluster/delcatty:1\;VSC-tools/1.17:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=cluster/delcatty:VSC-tools/1.17;
 export LOADEDMODULES;
 MODULEPATH=/apps/gent/SL6/sandybridge/modules/all:ProjectDIR/rt/delcatty/mf/Core;
 export MODULEPATH;
 VSC_tools_version=1.17;
 export VSC_tools_version;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/delcatty/mf/Core/cluster/delcatty:1\;ProjectDIR/rt/delcatty/mf/Core/VSC-tools/1.17:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/delcatty/mf/Core/cluster/delcatty:ProjectDIR/rt/delcatty/mf/Core/VSC-tools/1.17;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={["VSC-tools"]={fn="ProjectDIR/rt/delcatty/mf/Core/VSC-tools/1.17",fullName="VSC-tools/1.17",loadOrder=2,propT={},stackDepth=0,status="active",userName="VSC-tools",wV="^00000001.000000017.*zfinal",},cluster={fn="ProjectDIR/rt/delcatty/mf/Core/cluster/delcatty",fullName="cluster/delcatty",loadOrder=1,propT={},stackDepth=0,status="active",userName="cluster/delcatty",wV="*delcatty.*zfinal",},},mpathA={"/apps/gent/SL6/sandybridge/modules/all","ProjectDIR/rt/delcatty/mf/Core",},systemBaseMPATH="ProjectDIR/rt/delcatty/mf/Core",}';

@@ -26,8 +26,6 @@ export _ModuleTable_;
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load git
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=git/1.7.4.3:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=git/1.7.4.3;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/lastName/mf/notDir:ProjectDIR/rt/lastName/mf/Core:ProjectDIR/rt/lastName/mf/Beta;
@@ -42,8 +40,6 @@ TACC_GIT_DIR=/unknown/apps/git/1.7.4.3/;
 export TACC_GIT_DIR;
 TACC_GIT_LIB=/unknown/apps/git/1.7.4.3/lib;
 export TACC_GIT_LIB;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/lastName/mf/Core/git/1.7.4.3.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/lastName/mf/Core/git/1.7.4.3.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={git={fn="ProjectDIR/rt/lastName/mf/Core/git/1.7.4.3.lua",fullName="git/1.7.4.3",loadOrder=1,propT={},stackDepth=0,status="active",userName="git",wV="000000001.000000007.000000004.000000003.*zfinal",},},mpathA={"ProjectDIR/rt/lastName/mf/notDir","ProjectDIR/rt/lastName/mf/Core","ProjectDIR/rt/lastName/mf/Beta",},}';

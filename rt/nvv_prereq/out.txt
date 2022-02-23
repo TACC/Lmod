@@ -16,14 +16,10 @@ export _ModuleTable_;
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=a/sub/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=a/sub/1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/nvv_prereq/mf;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/nvv_prereq/mf/a/sub/1.0:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/nvv_prereq/mf/a/sub/1.0;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="ProjectDIR/rt/nvv_prereq/mf/a/sub/1.0",fullName="a/sub/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="a",wV="*sub/^00000001.*zfinal",},},mpathA={"ProjectDIR/rt/nvv_prereq/mf",},systemBaseMPATH="ProjectDIR/rt/nvv_prereq/mf",}';
@@ -40,14 +36,10 @@ export _ModuleTable_;
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load d
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=a/sub/1.0:1\;d/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=a/sub/1.0:d/1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/nvv_prereq/mf;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/nvv_prereq/mf/a/sub/1.0:1\;ProjectDIR/rt/nvv_prereq/mf/d/1.0:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/nvv_prereq/mf/a/sub/1.0:ProjectDIR/rt/nvv_prereq/mf/d/1.0;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="ProjectDIR/rt/nvv_prereq/mf/a/sub/1.0",fullName="a/sub/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="a",wV="*sub/^00000001.*zfinal",},d={fn="ProjectDIR/rt/nvv_prereq/mf/d/1.0",fullName="d/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="d",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/nvv_prereq/mf",},systemBaseMPATH="ProjectDIR/rt/nvv_prereq/mf",}';

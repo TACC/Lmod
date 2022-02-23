@@ -520,18 +520,13 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 ===========================
 step 67
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
-===========================
-No modules loaded
-===========================
-step 68
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load compiler/intel
 ===========================
 ===========================
-step 69
+step 68
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload compiler/intel
 ===========================
 ===========================
-step 70
+step 69
 cat diff.env.txt
 ===========================

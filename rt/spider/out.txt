@@ -1171,14 +1171,10 @@ export _ModuleTable_;
 step 64
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load GROMACS/.2016.x-drude-20180214-g3f7439a
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=GROMACS/.2016.x-drude-20180214-g3f7439a:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=GROMACS/.2016.x-drude-20180214-g3f7439a;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/spider/mf/I_Core;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/spider/mf/I_Core/GROMACS/.2016.x-drude-20180214-g3f7439a.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/spider/mf/I_Core/GROMACS/.2016.x-drude-20180214-g3f7439a.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={GROMACS={fn="ProjectDIR/rt/spider/mf/I_Core/GROMACS/.2016.x-drude-20180214-g3f7439a.lua",fullName="GROMACS/.2016.x-drude-20180214-g3f7439a",loadOrder=1,propT={},stackDepth=0,status="active",userName="GROMACS/.2016.x-drude-20180214-g3f7439a",wV="000000000.000002016.*x.*drude.*zfinal-.020180214.*g.000000003.*f.000007439.*a.*zfinal",},},mpathA={"ProjectDIR/rt/spider/mf/I_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/I_Core",}';
@@ -1195,10 +1191,12 @@ export _ModuleTable_;
 step 66
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
+unset LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/spider/mf2/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/spider/mf2/Core;
 export MODULEPATH;
+unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf2/Core",}';
 export _ModuleTable_;
 ===========================
