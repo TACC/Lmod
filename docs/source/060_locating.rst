@@ -217,6 +217,9 @@ are the rules that Lmod uses to locate a modulefile when in N/V/V mode:
 #. The user may specify *N*/default as *N/V*/default which is exactly
    the same as *N* or *N/V*.  Namely Lmod removes the string
    "/default" and then continues as if it was never there.
+#. If there is an exact match and the exact match is marked default
+   then this marked default is chosen no matter which directory
+   it is in.
 #. It looks for an exact match in all ``MODULEPATH`` directories. It
    picks the first match it finds.
 #. If there is no exact match then Lmod finds the first match for the
