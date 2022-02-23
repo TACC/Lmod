@@ -394,7 +394,7 @@ function M.load(self, mA)
                mt:setStatus(sn, "active")
                hook.apply("load",{fn = mname:fn(), modFullName = mname:fullName(), mname = mname})
                dbg.print{"Marking ",fullName," as active and loaded\n"}
-               l_registerLoaded(fullName, fn)
+               --l_registerLoaded(fullName, fn)
             end
             frameStk:pop()
             loaded = true
@@ -519,7 +519,7 @@ function M.unload(self,mA)
       if (mt:have(sn,"inactive")) then
          dbg.print{"Removing inactive module: ", userName, "\n"}
          mt:remove(sn)
-         l_registerUnloaded(mt:fullName(sn), mt:fn(sn))
+         --l_registerUnloaded(mt:fullName(sn), mt:fn(sn))
          a[#a + 1] = true
       elseif (mt:have(sn,"active")) then
          dbg.print{"Master:unload: \"",userName,"\" from file: \"",fn,"\"\n"}
@@ -537,7 +537,7 @@ function M.unload(self,mA)
          if (status) then
             mt = frameStk:mt()
             mt:remove(sn)
-            l_registerUnloaded(fullName, fn)
+            --l_registerUnloaded(fullName, fn)
             hook.apply("unload",{fn = mname:fn(), modFullName = mname:fullName()})
          end
          frameStk:pop()

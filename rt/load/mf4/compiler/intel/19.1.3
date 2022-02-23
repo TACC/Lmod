@@ -27,10 +27,7 @@ prepend-path  PATH               $INTEL_BASE/bin/intel64
 prepend-path  LD_LIBRARY_PATH    $INTEL_BASE/compiler/lib/intel64
 prepend-path  MANPATH            $INTEL_BASE/man/common:$BASE_PREFIX/$RELEASE/$CAT/gcc/$GCC_VERSION/share/man
 prepend-path  LM_LICENSE_FILE    "26000@X.X.X.X"
-# -----------------------------------------------------------------
-## intel expects error messages on english
-setenv        LC_MESSAGES      en_US.UTF-8
-setenv        LC_CTYPE         en_US.UTF-8
+
 # --------------------------------------------------------------------
 module-whatis "Intel Parallel Studio XE for Linux version : $COMP_VERSION"
 # --------------------------------------------------------------------

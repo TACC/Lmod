@@ -121,7 +121,7 @@ testdescript = {
      env | sort > end.env.txt
      diff start.env.txt end.env.txt | $SED \
           -e 's/^.*_ModuleTable.*//'       \
-          -e 's/^[0-9]\+a[0-9]\+.*//'      \
+          -e 's/^[0-9]\+[ac][0-9]\+.*//'      \
           -e '/^ *$/d'                     \
           > diff.env.txt
 

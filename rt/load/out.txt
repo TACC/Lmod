@@ -40,8 +40,6 @@ LMOD_FAMILY_COMPILER=intel;
 export LMOD_FAMILY_COMPILER;
 LMOD_FAMILY_COMPILER_VERSION=intel;
 export LMOD_FAMILY_COMPILER_VERSION;
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;intel/intel:1\;noweb/2.10c:1\;PrgEnv:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:intel/intel:noweb/2.10c:PrgEnv;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MANPATH=/vol/local/noweb/noweb/man:1\;/vol/local/intel/mkl/mkl/man:1\;/vol/local/intel/idb/idb/man:1\;/vol/local/intel/fc/fc/man:1\;/vol/local/intel/cc/cc/man:1\;/usr/share/man:1;
@@ -60,8 +58,6 @@ __LMOD_REF_COUNT_PATH=/vol/local/noweb/icon/bin:1\;/vol/local/noweb/2.10c/bin:1\
 export __LMOD_REF_COUNT_PATH;
 PATH=/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/usr/local/share/bin:/usr/sbin:/sbin:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={PrgEnv={fn="ProjectDIR/rt/load/mf/Core/PrgEnv.lua",fullName="PrgEnv",loadOrder=6,propT={},stackDepth=0,status="active",userName="PrgEnv",wV="M.*zfinal",},admin={fn="ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},intel={fn="ProjectDIR/rt/load/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=4,propT={},stackDepth=1,status="active",userName="intel",wV="*intel.*zfinal",},["local"]={fn="ProjectDIR/rt/load/mf/Core/local/local.lua",fullName="local/local",loadOrder=3,propT={},stackDepth=1,status="active",userName="local",wV="*local.*zfinal",},noweb={fn="ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua",fullName="noweb/2.10c",loadOrder=5,propT={},stackDepth=1,status="active",userName="noweb",wV="000000002.000000010.*c.*zfinal",},unix={fn="ProjectDIR/rt/load/mf/Core/unix/unix.lua",fullName="unix/unix",loadOrder=2,propT={},stackDepth=1,status="active",userName="unix",wV="*unix.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf/Compiler/intel/10.1","OutputDIR/mf","ProjectDIR/rt/load/mf/notDir","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Beta",},}';
@@ -70,8 +66,6 @@ export _ModuleTable_;
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gotoblas/1.30-beta
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;intel/intel:1\;noweb/2.10c:1\;PrgEnv:1\;gotoblas/1.30-beta:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:intel/intel:noweb/2.10c:PrgEnv:gotoblas/1.30-beta;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/load/mf/Compiler/intel/10.1:OutputDIR/mf:ProjectDIR/rt/load/mf/notDir:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Beta;
@@ -80,8 +74,6 @@ TACC_GOTOBLAS_DIR=/vol/pkg/mf/Beta/gotoblas/1.30-beta;
 export TACC_GOTOBLAS_DIR;
 TACC_GOTOBLAS_LIB=/vol/pkg/mf/Beta/gotoblas/1.30-beta;
 export TACC_GOTOBLAS_LIB;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Beta/gotoblas/1.30-beta.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Beta/gotoblas/1.30-beta.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={PrgEnv={fn="ProjectDIR/rt/load/mf/Core/PrgEnv.lua",fullName="PrgEnv",loadOrder=6,propT={},stackDepth=0,status="active",userName="PrgEnv",wV="M.*zfinal",},admin={fn="ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},gotoblas={fn="ProjectDIR/rt/load/mf/Beta/gotoblas/1.30-beta.lua",fullName="gotoblas/1.30-beta",loadOrder=7,propT={},stackDepth=0,status="active",userName="gotoblas/1.30-beta",wV="000000001.000000030.*beta.*zfinal",},intel={fn="ProjectDIR/rt/load/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=4,propT={},stackDepth=1,status="active",userName="intel",wV="*intel.*zfinal",},["local"]={fn="ProjectDIR/rt/load/mf/Core/local/local.lua",fullName="local/local",loadOrder=3,propT={},stackDepth=1,status="active",userName="local",wV="*local.*zfinal",},noweb={fn="ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua",fullName="noweb/2.10c",loadOrder=5,propT={},stackDepth=1,status="active",userName="noweb",wV="000000002.000000010.*c.*zfinal",},unix={fn="ProjectDIR/rt/load/mf/Core/unix/unix.lua",fullName="unix/unix",loadOrder=2,propT={},stackDepth=1,status="active",userName="unix",wV="*unix.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf/Compiler/intel/10.1","OutputDIR/mf","ProjectDIR/rt/load/mf/notDir","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Beta",},}';
@@ -90,16 +82,12 @@ export _ModuleTable_;
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing rm gotoblas/1.30-beta
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;intel/intel:1\;noweb/2.10c:1\;PrgEnv:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:intel/intel:noweb/2.10c:PrgEnv;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/load/mf/Compiler/intel/10.1:OutputDIR/mf:ProjectDIR/rt/load/mf/notDir:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Beta;
 export MODULEPATH;
 unset TACC_GOTOBLAS_DIR;
 unset TACC_GOTOBLAS_LIB;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={PrgEnv={fn="ProjectDIR/rt/load/mf/Core/PrgEnv.lua",fullName="PrgEnv",loadOrder=6,propT={},stackDepth=0,status="active",userName="PrgEnv",wV="M.*zfinal",},admin={fn="ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},intel={fn="ProjectDIR/rt/load/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=4,propT={},stackDepth=1,status="active",userName="intel",wV="*intel.*zfinal",},["local"]={fn="ProjectDIR/rt/load/mf/Core/local/local.lua",fullName="local/local",loadOrder=3,propT={},stackDepth=1,status="active",userName="local",wV="*local.*zfinal",},noweb={fn="ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua",fullName="noweb/2.10c",loadOrder=5,propT={},stackDepth=1,status="active",userName="noweb",wV="000000002.000000010.*c.*zfinal",},unix={fn="ProjectDIR/rt/load/mf/Core/unix/unix.lua",fullName="unix/unix",loadOrder=2,propT={},stackDepth=1,status="active",userName="unix",wV="*unix.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf/Compiler/intel/10.1","OutputDIR/mf","ProjectDIR/rt/load/mf/notDir","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Beta",},}';
@@ -114,8 +102,6 @@ LMOD_FAMILY_COMPILER=intel;
 export LMOD_FAMILY_COMPILER;
 LMOD_FAMILY_COMPILER_VERSION=intel;
 export LMOD_FAMILY_COMPILER_VERSION;
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;noweb/2.10c:1\;PrgEnv:1\;intel/intel:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:noweb/2.10c:PrgEnv:intel/intel;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MANPATH=/vol/local/intel/mkl/mkl/man:1\;/vol/local/intel/idb/idb/man:1\;/vol/local/intel/fc/fc/man:1\;/vol/local/intel/cc/cc/man:1\;/vol/local/noweb/noweb/man:1\;/usr/share/man:1;
@@ -132,8 +118,6 @@ __LMOD_REF_COUNT_PATH=/vol/local/intel/idb/idb/bin:1\;/vol/local/intel/fc/fc/bin
 export __LMOD_REF_COUNT_PATH;
 PATH=/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/usr/local/share/bin:/usr/sbin:/sbin:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={PrgEnv={fn="ProjectDIR/rt/load/mf/Core/PrgEnv.lua",fullName="PrgEnv",loadOrder=5,propT={},stackDepth=0,status="active",userName="PrgEnv",wV="M.*zfinal",},admin={fn="ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},intel={fn="ProjectDIR/rt/load/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=6,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},["local"]={fn="ProjectDIR/rt/load/mf/Core/local/local.lua",fullName="local/local",loadOrder=3,propT={},stackDepth=1,status="active",userName="local",wV="*local.*zfinal",},noweb={fn="ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua",fullName="noweb/2.10c",loadOrder=4,propT={},stackDepth=1,status="active",userName="noweb",wV="000000002.000000010.*c.*zfinal",},unix={fn="ProjectDIR/rt/load/mf/Core/unix/unix.lua",fullName="unix/unix",loadOrder=2,propT={},stackDepth=1,status="active",userName="unix",wV="*unix.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf/Compiler/intel/10.1","OutputDIR/mf","ProjectDIR/rt/load/mf/notDir","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Beta",},}';
@@ -146,8 +130,6 @@ __LMOD_REF_COUNT_LD_LIBRARY_PATH=/vol/pkg/intel/10.1/gotoblas/1.32:1\;/vol/local
 export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
 LD_LIBRARY_PATH=/vol/pkg/intel/10.1/gotoblas/1.32:/vol/local/intel/mkl/mkl/lib/lib:/vol/local/intel/idb/idb/lib:/vol/local/intel/fc/fc/lib:/vol/local/intel/cc/cc/lib;
 export LD_LIBRARY_PATH;
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;noweb/2.10c:1\;PrgEnv:1\;intel/intel:1\;gotoblas/1.32:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:noweb/2.10c:PrgEnv:intel/intel:gotoblas/1.32;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/load/mf/Compiler/intel/10.1:OutputDIR/mf:ProjectDIR/rt/load/mf/notDir:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Beta;
@@ -156,8 +138,6 @@ TACC_GOTOBLAS_DIR=/vol/pkg/intel/10.1/gotoblas/1.32;
 export TACC_GOTOBLAS_DIR;
 TACC_GOTOBLAS_LIB=/vol/pkg/intel/10.1/gotoblas/1.32;
 export TACC_GOTOBLAS_LIB;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={PrgEnv={fn="ProjectDIR/rt/load/mf/Core/PrgEnv.lua",fullName="PrgEnv",loadOrder=5,propT={},stackDepth=0,status="active",userName="PrgEnv",wV="M.*zfinal",},admin={fn="ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},gotoblas={fn="ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua",fullName="gotoblas/1.32",loadOrder=7,propT={},stackDepth=0,status="active",userName="gotoblas",wV="^00000001.000000032.*zfinal",},intel={fn="ProjectDIR/rt/load/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=6,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},["local"]={fn="ProjectDIR/rt/load/mf/Core/local/local.lua",fullName="local/local",loadOrder=3,propT={},stackDepth=1,status="active",userName="local",wV="*local.*zfinal",},noweb={fn="ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua",fullName="noweb/2.10c",loadOrder=4,propT={},stackDepth=1,status="active",userName="noweb",wV="000000002.000000010.*c.*zfinal",},unix={fn="ProjectDIR/rt/load/mf/Core/unix/unix.lua",fullName="unix/unix",loadOrder=2,propT={},stackDepth=1,status="active",userName="unix",wV="*unix.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf/Compiler/intel/10.1","OutputDIR/mf","ProjectDIR/rt/load/mf/notDir","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Beta",},}';
@@ -166,8 +146,6 @@ export _ModuleTable_;
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load multi
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;noweb/2.10c:1\;PrgEnv:1\;intel/intel:1\;gotoblas/1.32:1\;multi/multi:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:noweb/2.10c:PrgEnv:intel/intel:gotoblas/1.32:multi/multi;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/load/mf/Compiler/intel/10.1:OutputDIR/mf:ProjectDIR/rt/load/mf/notDir:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Beta;
@@ -176,8 +154,6 @@ __LMOD_REF_COUNT_PATH=/a/b/c:1\;/d/e/f:1\;/g/h/i:1\;/vol/local/intel/idb/idb/bin
 export __LMOD_REF_COUNT_PATH;
 PATH=/a/b/c:/d/e/f:/g/h/i:/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/usr/local/share/bin:/usr/sbin:/sbin:ProjectDIR/proj_mgmt:PATH_to_TM:/abc/def:/qrs/tuv;
 export PATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:1\;ProjectDIR/rt/load/mf/Core/multi/multi.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/rt/load/mf/Core/multi/multi.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={PrgEnv={fn="ProjectDIR/rt/load/mf/Core/PrgEnv.lua",fullName="PrgEnv",loadOrder=5,propT={},stackDepth=0,status="active",userName="PrgEnv",wV="M.*zfinal",},admin={fn="ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},gotoblas={fn="ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua",fullName="gotoblas/1.32",loadOrder=7,propT={},stackDepth=0,status="active",userName="gotoblas",wV="^00000001.000000032.*zfinal",},intel={fn="ProjectDIR/rt/load/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=6,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},["local"]={fn="ProjectDIR/rt/load/mf/Core/local/local.lua",fullName="local/local",loadOrder=3,propT={},stackDepth=1,status="active",userName="local",wV="*local.*zfinal",},multi={fn="ProjectDIR/rt/load/mf/Core/multi/multi.lua",fullName="multi/multi",loadOrder=8,propT={},stackDepth=0,status="active",userName="multi",wV="*multi.*zfinal",},noweb={fn="ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua",fullName="noweb/2.10c",loadOrder=4,propT={},stackDepth=1,status="active",userName="noweb",wV="000000002.000000010.*c.*zfinal",},unix={fn="ProjectDIR/rt/load/mf/Core/unix/unix.lua",fullName="unix/unix",loadOrder=2,propT={},stackDepth=1,status="active",userName="unix",wV="*unix.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf/Compiler/intel/10.1","OutputDIR/mf","ProjectDIR/rt/load/mf/notDir","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Beta",},}';
@@ -186,8 +162,6 @@ export _ModuleTable_;
 step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload multi
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;noweb/2.10c:1\;PrgEnv:1\;intel/intel:1\;gotoblas/1.32:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:noweb/2.10c:PrgEnv:intel/intel:gotoblas/1.32;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/load/mf/Compiler/intel/10.1:OutputDIR/mf:ProjectDIR/rt/load/mf/notDir:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Beta;
@@ -196,8 +170,6 @@ __LMOD_REF_COUNT_PATH=/vol/local/intel/idb/idb/bin:1\;/vol/local/intel/fc/fc/bin
 export __LMOD_REF_COUNT_PATH;
 PATH=/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/usr/local/share/bin:/usr/sbin:/sbin:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={PrgEnv={fn="ProjectDIR/rt/load/mf/Core/PrgEnv.lua",fullName="PrgEnv",loadOrder=5,propT={},stackDepth=0,status="active",userName="PrgEnv",wV="M.*zfinal",},admin={fn="ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},gotoblas={fn="ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua",fullName="gotoblas/1.32",loadOrder=7,propT={},stackDepth=0,status="active",userName="gotoblas",wV="^00000001.000000032.*zfinal",},intel={fn="ProjectDIR/rt/load/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=6,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},["local"]={fn="ProjectDIR/rt/load/mf/Core/local/local.lua",fullName="local/local",loadOrder=3,propT={},stackDepth=1,status="active",userName="local",wV="*local.*zfinal",},noweb={fn="ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua",fullName="noweb/2.10c",loadOrder=4,propT={},stackDepth=1,status="active",userName="noweb",wV="000000002.000000010.*c.*zfinal",},unix={fn="ProjectDIR/rt/load/mf/Core/unix/unix.lua",fullName="unix/unix",loadOrder=2,propT={},stackDepth=1,status="active",userName="unix",wV="*unix.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf/Compiler/intel/10.1","OutputDIR/mf","ProjectDIR/rt/load/mf/notDir","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Beta",},}';
@@ -206,16 +178,12 @@ export _ModuleTable_;
 step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load boost
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;noweb/2.10c:1\;PrgEnv:1\;intel/intel:1\;gotoblas/1.32:1\;boost/1.49.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:noweb/2.10c:PrgEnv:intel/intel:gotoblas/1.32:boost/1.49.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/load/mf/Compiler/intel/10.1:OutputDIR/mf:ProjectDIR/rt/load/mf/notDir:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Beta;
 export MODULEPATH;
 TACC_BOOST_DIR=/unknown/apps/boost/1.49.0;
 export TACC_BOOST_DIR;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:1\;ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={PrgEnv={fn="ProjectDIR/rt/load/mf/Core/PrgEnv.lua",fullName="PrgEnv",loadOrder=5,propT={},stackDepth=0,status="active",userName="PrgEnv",wV="M.*zfinal",},admin={fn="ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},boost={fn="ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua",fullName="boost/1.49.0",loadOrder=8,propT={arch={offload=1,},},stackDepth=0,status="active",userName="boost",wV="000000001.000000049.*zfinal",},gotoblas={fn="ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua",fullName="gotoblas/1.32",loadOrder=7,propT={},stackDepth=0,status="active",userName="gotoblas",wV="^00000001.000000032.*zfinal",},intel={fn="ProjectDIR/rt/load/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=6,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},["local"]={fn="ProjectDIR/rt/load/mf/Core/local/local.lua",fullName="local/local",loadOrder=3,propT={},stackDepth=1,status="active",userName="local",wV="*local.*zfinal",},noweb={fn="ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua",fullName="noweb/2.10c",loadOrder=4,propT={},stackDepth=1,status="active",userName="noweb",wV="000000002.000000010.*c.*zfinal",},unix={fn="ProjectDIR/rt/load/mf/Core/unix/unix.lua",fullName="unix/unix",loadOrder=2,propT={},stackDepth=1,status="active",userName="unix",wV="*unix.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf/Compiler/intel/10.1","OutputDIR/mf","ProjectDIR/rt/load/mf/notDir","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Beta",},}';
@@ -234,14 +202,10 @@ export _ModuleTable_;
 step 13
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load _a
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;noweb/2.10c:1\;PrgEnv:1\;intel/intel:1\;gotoblas/1.32:1\;boost/1.49.0:1\;_a/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:noweb/2.10c:PrgEnv:intel/intel:gotoblas/1.32:boost/1.49.0:_a/1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/load/mf/Compiler/intel/10.1:OutputDIR/mf:ProjectDIR/rt/load/mf/notDir:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Beta:ProjectDIR/rt/load/mf/Core2;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:1\;ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:1\;ProjectDIR/rt/load/mf/Core/_a/1.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:ProjectDIR/rt/load/mf/Core/_a/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={PrgEnv={fn="ProjectDIR/rt/load/mf/Core/PrgEnv.lua",fullName="PrgEnv",loadOrder=5,propT={},stackDepth=0,status="active",userName="PrgEnv",wV="M.*zfinal",},_a={fn="ProjectDIR/rt/load/mf/Core/_a/1.0.lua",fullName="_a/1.0",loadOrder=9,propT={},stackDepth=0,status="active",userName="_a",wV="000000001.*zfinal",},admin={fn="ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},boost={fn="ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua",fullName="boost/1.49.0",loadOrder=8,propT={arch={offload=1,},},stackDepth=0,status="active",userName="boost",wV="000000001.000000049.*zfinal",},gotoblas={fn="ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua",fullName="gotoblas/1.32",loadOrder=7,propT={},stackDepth=0,status="active",userName="gotoblas",wV="^00000001.000000032.*zfinal",},intel={fn="ProjectDIR/rt/load/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=6,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},["local"]={fn="ProjectDIR/rt/load/mf/Core/local/local.lua",fullName="local/local",loadOrder=3,propT={},stackDepth=1,status="active",userName="local",wV="*local.*zfinal",},noweb={fn="ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua",fullName="noweb/2.10c",loadOrder=4,propT={},stackDepth=1,status="active",userName="noweb",wV="000000002.000000010.*c.*zfinal",},unix={fn="ProjectDIR/rt/load/mf/Core/unix/unix.lua",fullName="unix/unix",loadOrder=2,propT={},stackDepth=1,status="active",userName="unix",wV="*unix.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf/Compiler/intel/10.1","OutputDIR/mf","ProjectDIR/rt/load/mf/notDir","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Beta","ProjectDIR/rt/load/mf/Core2",},}';
@@ -271,15 +235,11 @@ export _ModuleTable_;
 step 17
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload boost
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;noweb/2.10c:1\;PrgEnv:1\;intel/intel:1\;gotoblas/1.32:1\;_a/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:noweb/2.10c:PrgEnv:intel/intel:gotoblas/1.32:_a/1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/load/mf/Compiler/intel/10.1:OutputDIR/mf:ProjectDIR/rt/load/mf/notDir:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Beta:ProjectDIR/rt/load/mf/Core2;
 export MODULEPATH;
 unset TACC_BOOST_DIR;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:1\;ProjectDIR/rt/load/mf/Core/_a/1.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/rt/load/mf/Core/_a/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={PrgEnv={fn="ProjectDIR/rt/load/mf/Core/PrgEnv.lua",fullName="PrgEnv",loadOrder=5,propT={},stackDepth=0,status="active",userName="PrgEnv",wV="M.*zfinal",},_a={fn="ProjectDIR/rt/load/mf/Core/_a/1.0.lua",fullName="_a/1.0",loadOrder=8,propT={},stackDepth=0,status="active",userName="_a",wV="000000001.*zfinal",},admin={fn="ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},gotoblas={fn="ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua",fullName="gotoblas/1.32",loadOrder=7,propT={},stackDepth=0,status="active",userName="gotoblas",wV="^00000001.000000032.*zfinal",},intel={fn="ProjectDIR/rt/load/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=6,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},["local"]={fn="ProjectDIR/rt/load/mf/Core/local/local.lua",fullName="local/local",loadOrder=3,propT={},stackDepth=1,status="active",userName="local",wV="*local.*zfinal",},noweb={fn="ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua",fullName="noweb/2.10c",loadOrder=4,propT={},stackDepth=1,status="active",userName="noweb",wV="000000002.000000010.*c.*zfinal",},unix={fn="ProjectDIR/rt/load/mf/Core/unix/unix.lua",fullName="unix/unix",loadOrder=2,propT={},stackDepth=1,status="active",userName="unix",wV="*unix.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf/Compiler/intel/10.1","OutputDIR/mf","ProjectDIR/rt/load/mf/notDir","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Beta","ProjectDIR/rt/load/mf/Core2",},}';
@@ -298,16 +258,12 @@ false
 step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load boost
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;noweb/2.10c:1\;PrgEnv:1\;intel/intel:1\;gotoblas/1.32:1\;_a/1.0:1\;boost/1.49.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:noweb/2.10c:PrgEnv:intel/intel:gotoblas/1.32:_a/1.0:boost/1.49.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/load/mf/Compiler/intel/10.1:OutputDIR/mf:ProjectDIR/rt/load/mf/notDir:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Beta:ProjectDIR/rt/load/mf/Core2;
 export MODULEPATH;
 TACC_BOOST_DIR=/unknown/apps/boost/1.49.0;
 export TACC_BOOST_DIR;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:1\;ProjectDIR/rt/load/mf/Core/_a/1.0.lua:1\;ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/rt/load/mf/Core/_a/1.0.lua:ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={PrgEnv={fn="ProjectDIR/rt/load/mf/Core/PrgEnv.lua",fullName="PrgEnv",loadOrder=5,propT={},stackDepth=0,status="active",userName="PrgEnv",wV="M.*zfinal",},_a={fn="ProjectDIR/rt/load/mf/Core/_a/1.0.lua",fullName="_a/1.0",loadOrder=8,propT={},stackDepth=0,status="active",userName="_a",wV="000000001.*zfinal",},admin={fn="ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},boost={fn="ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua",fullName="boost/1.49.0",loadOrder=9,propT={arch={offload=1,},},stackDepth=0,status="active",userName="boost",wV="000000001.000000049.*zfinal",},gotoblas={fn="ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua",fullName="gotoblas/1.32",loadOrder=7,propT={},stackDepth=0,status="active",userName="gotoblas",wV="^00000001.000000032.*zfinal",},intel={fn="ProjectDIR/rt/load/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=6,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},["local"]={fn="ProjectDIR/rt/load/mf/Core/local/local.lua",fullName="local/local",loadOrder=3,propT={},stackDepth=1,status="active",userName="local",wV="*local.*zfinal",},noweb={fn="ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua",fullName="noweb/2.10c",loadOrder=4,propT={},stackDepth=1,status="active",userName="noweb",wV="000000002.000000010.*c.*zfinal",},unix={fn="ProjectDIR/rt/load/mf/Core/unix/unix.lua",fullName="unix/unix",loadOrder=2,propT={},stackDepth=1,status="active",userName="unix",wV="*unix.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf/Compiler/intel/10.1","OutputDIR/mf","ProjectDIR/rt/load/mf/notDir","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Beta","ProjectDIR/rt/load/mf/Core2",},}';
@@ -320,16 +276,12 @@ ABC=3.0;
 export ABC;
 ALEX=2.0;
 export ALEX;
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;noweb/2.10c:1\;PrgEnv:1\;intel/intel:1\;gotoblas/1.32:1\;_a/1.0:1\;boost/1.49.0:1\;alex/2.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:noweb/2.10c:PrgEnv:intel/intel:gotoblas/1.32:_a/1.0:boost/1.49.0:alex/2.0;
 export LOADEDMODULES;
 MANPATH2=::;
 export MANPATH2;
 MODULEPATH=ProjectDIR/rt/load/mf/Compiler/intel/10.1:OutputDIR/mf:ProjectDIR/rt/load/mf/notDir:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Beta:ProjectDIR/rt/load/mf/Core2;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:1\;ProjectDIR/rt/load/mf/Core/_a/1.0.lua:1\;ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:1\;ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/rt/load/mf/Core/_a/1.0.lua:ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:ProjectDIR/rt/load/mf/Core2/alex/2.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={PrgEnv={fn="ProjectDIR/rt/load/mf/Core/PrgEnv.lua",fullName="PrgEnv",loadOrder=5,propT={},stackDepth=0,status="active",userName="PrgEnv",wV="M.*zfinal",},_a={fn="ProjectDIR/rt/load/mf/Core/_a/1.0.lua",fullName="_a/1.0",loadOrder=8,propT={},stackDepth=0,status="active",userName="_a",wV="000000001.*zfinal",},admin={fn="ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},alex={fn="ProjectDIR/rt/load/mf/Core2/alex/2.0.lua",fullName="alex/2.0",loadOrder=10,propT={},stackDepth=0,status="active",userName="alex",wV="^00000002.*zfinal",},boost={fn="ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua",fullName="boost/1.49.0",loadOrder=9,propT={arch={offload=1,},},stackDepth=0,status="active",userName="boost",wV="000000001.000000049.*zfinal",},gotoblas={fn="ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua",fullName="gotoblas/1.32",loadOrder=7,propT={},stackDepth=0,status="active",userName="gotoblas",wV="^00000001.000000032.*zfinal",},intel={fn="ProjectDIR/rt/load/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=6,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},["local"]={fn="ProjectDIR/rt/load/mf/Core/local/local.lua",fullName="local/local",loadOrder=3,propT={},stackDepth=1,status="active",userName="local",wV="*local.*zfinal",},noweb={fn="ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua",fullName="noweb/2.10c",loadOrder=4,propT={},stackDepth=1,status="active",userName="noweb",wV="000000002.000000010.*c.*zfinal",},unix={fn="ProjectDIR/rt/load/mf/Core/unix/unix.lua",fullName="unix/unix",loadOrder=2,propT={},stackDepth=1,status="active",userName="unix",wV="*unix.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf/Compiler/intel/10.1","OutputDIR/mf","ProjectDIR/rt/load/mf/notDir","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Beta","ProjectDIR/rt/load/mf/Core2",},}';
@@ -338,8 +290,6 @@ export _ModuleTable_;
 step 22
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load D
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;noweb/2.10c:1\;PrgEnv:1\;intel/intel:1\;gotoblas/1.32:1\;_a/1.0:1\;boost/1.49.0:1\;alex/2.0:1\;D/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:noweb/2.10c:PrgEnv:intel/intel:gotoblas/1.32:_a/1.0:boost/1.49.0:alex/2.0:D/1.0;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MANPATH2=/usr/local/man2:1;
@@ -348,8 +298,6 @@ MANPATH2=/usr/local/man2::;
 export MANPATH2;
 MODULEPATH=ProjectDIR/rt/load/mf/Compiler/intel/10.1:OutputDIR/mf:ProjectDIR/rt/load/mf/notDir:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Beta:ProjectDIR/rt/load/mf/Core2;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:1\;ProjectDIR/rt/load/mf/Core/_a/1.0.lua:1\;ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:1\;ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:1\;ProjectDIR/rt/load/mf/Core2/D/1.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/rt/load/mf/Core/_a/1.0.lua:ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:ProjectDIR/rt/load/mf/Core2/D/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={D={fn="ProjectDIR/rt/load/mf/Core2/D/1.0.lua",fullName="D/1.0",loadOrder=11,propT={},stackDepth=0,status="active",userName="D",wV="000000001.*zfinal",},PrgEnv={fn="ProjectDIR/rt/load/mf/Core/PrgEnv.lua",fullName="PrgEnv",loadOrder=5,propT={},stackDepth=0,status="active",userName="PrgEnv",wV="M.*zfinal",},_a={fn="ProjectDIR/rt/load/mf/Core/_a/1.0.lua",fullName="_a/1.0",loadOrder=8,propT={},stackDepth=0,status="active",userName="_a",wV="000000001.*zfinal",},admin={fn="ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},alex={fn="ProjectDIR/rt/load/mf/Core2/alex/2.0.lua",fullName="alex/2.0",loadOrder=10,propT={},stackDepth=0,status="active",userName="alex",wV="^00000002.*zfinal",},boost={fn="ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua",fullName="boost/1.49.0",loadOrder=9,propT={arch={offload=1,},},stackDepth=0,status="active",userName="boost",wV="000000001.000000049.*zfinal",},gotoblas={fn="ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua",fullName="gotoblas/1.32",loadOrder=7,propT={},stackDepth=0,status="active",userName="gotoblas",wV="^00000001.000000032.*zfinal",},intel={fn="ProjectDIR/rt/load/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=6,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},["local"]={fn="ProjectDIR/rt/load/mf/Core/local/local.lua",fullName="local/local",loadOrder=3,propT={},stackDepth=1,status="active",userName="local",wV="*local.*zfinal",},noweb={fn="ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua",fullName="noweb/2.10c",loadOrder=4,propT={},stackDepth=1,status="active",userName="noweb",wV="000000002.000000010.*c.*zfinal",},unix={fn="ProjectDIR/rt/load/mf/Core/unix/unix.lua",fullName="unix/unix",loadOrder=2,propT={},stackDepth=1,status="active",userName="unix",wV="*unix.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf/Compiler/intel/10.1","OutputDIR/mf","ProjectDIR/rt/load/mf/notDir","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Beta","ProjectDIR/rt/load/mf/Core2",},}';
@@ -358,16 +306,12 @@ export _ModuleTable_;
 step 23
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --latest load rtm_intel
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;noweb/2.10c:1\;PrgEnv:1\;intel/intel:1\;gotoblas/1.32:1\;_a/1.0:1\;boost/1.49.0:1\;alex/2.0:1\;D/1.0:1\;rtm_intel/12.1:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:noweb/2.10c:PrgEnv:intel/intel:gotoblas/1.32:_a/1.0:boost/1.49.0:alex/2.0:D/1.0:rtm_intel/12.1;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/load/mf/Compiler/intel/10.1:OutputDIR/mf:ProjectDIR/rt/load/mf/notDir:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Beta:ProjectDIR/rt/load/mf/Core2;
 export MODULEPATH;
 RTM_INTEL_VERSION=12.1;
 export RTM_INTEL_VERSION;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:1\;ProjectDIR/rt/load/mf/Core/_a/1.0.lua:1\;ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:1\;ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:1\;ProjectDIR/rt/load/mf/Core2/D/1.0.lua:1\;ProjectDIR/rt/load/mf/Core2/rtm_intel/12.1.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/rt/load/mf/Core/_a/1.0.lua:ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:ProjectDIR/rt/load/mf/Core2/D/1.0.lua:ProjectDIR/rt/load/mf/Core2/rtm_intel/12.1.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={D={fn="ProjectDIR/rt/load/mf/Core2/D/1.0.lua",fullName="D/1.0",loadOrder=11,propT={},stackDepth=0,status="active",userName="D",wV="000000001.*zfinal",},PrgEnv={fn="ProjectDIR/rt/load/mf/Core/PrgEnv.lua",fullName="PrgEnv",loadOrder=5,propT={},stackDepth=0,status="active",userName="PrgEnv",wV="M.*zfinal",},_a={fn="ProjectDIR/rt/load/mf/Core/_a/1.0.lua",fullName="_a/1.0",loadOrder=8,propT={},stackDepth=0,status="active",userName="_a",wV="000000001.*zfinal",},admin={fn="ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},alex={fn="ProjectDIR/rt/load/mf/Core2/alex/2.0.lua",fullName="alex/2.0",loadOrder=10,propT={},stackDepth=0,status="active",userName="alex",wV="^00000002.*zfinal",},boost={fn="ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua",fullName="boost/1.49.0",loadOrder=9,propT={arch={offload=1,},},stackDepth=0,status="active",userName="boost",wV="000000001.000000049.*zfinal",},gotoblas={fn="ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua",fullName="gotoblas/1.32",loadOrder=7,propT={},stackDepth=0,status="active",userName="gotoblas",wV="^00000001.000000032.*zfinal",},intel={fn="ProjectDIR/rt/load/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=6,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},["local"]={fn="ProjectDIR/rt/load/mf/Core/local/local.lua",fullName="local/local",loadOrder=3,propT={},stackDepth=1,status="active",userName="local",wV="*local.*zfinal",},noweb={fn="ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua",fullName="noweb/2.10c",loadOrder=4,propT={},stackDepth=1,status="active",userName="noweb",wV="000000002.000000010.*c.*zfinal",},rtm_intel={fn="ProjectDIR/rt/load/mf/Core2/rtm_intel/12.1.lua",fullName="rtm_intel/12.1",loadOrder=12,propT={},stackDepth=0,status="active",userName="rtm_intel/12.1",wV="000000012.000000001.*zfinal",},unix={fn="ProjectDIR/rt/load/mf/Core/unix/unix.lua",fullName="unix/unix",loadOrder=2,propT={},stackDepth=1,status="active",userName="unix",wV="*unix.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf/Compiler/intel/10.1","OutputDIR/mf","ProjectDIR/rt/load/mf/notDir","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Beta","ProjectDIR/rt/load/mf/Core2",},}';
@@ -416,14 +360,10 @@ A_VERSION=1.1.1;
 export A_VERSION;
 B_VERSION=1.4;
 export B_VERSION;
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;noweb/2.10c:1\;PrgEnv:1\;intel/intel:1\;gotoblas/1.32:1\;_a/1.0:1\;boost/1.49.0:1\;alex/2.0:1\;D/1.0:1\;rtm_intel/12.1:1\;A/1.1.1:1\;B/1.4:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:noweb/2.10c:PrgEnv:intel/intel:gotoblas/1.32:_a/1.0:boost/1.49.0:alex/2.0:D/1.0:rtm_intel/12.1:A/1.1.1:B/1.4;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/load/mf/Share:ProjectDIR/rt/load/mf/Compiler/intel/10.1:OutputDIR/mf:ProjectDIR/rt/load/mf/notDir:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Beta:ProjectDIR/rt/load/mf/Core2:ProjectDIR/rt/load/mf/Scratch;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:1\;ProjectDIR/rt/load/mf/Core/_a/1.0.lua:1\;ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:1\;ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:1\;ProjectDIR/rt/load/mf/Core2/D/1.0.lua:1\;ProjectDIR/rt/load/mf/Core2/rtm_intel/12.1.lua:1\;ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:1\;ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/rt/load/mf/Core/_a/1.0.lua:ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:ProjectDIR/rt/load/mf/Core2/D/1.0.lua:ProjectDIR/rt/load/mf/Core2/rtm_intel/12.1.lua:ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:ProjectDIR/rt/load/mf/Scratch/B/1.4.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={A={fn="ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua",fullName="A/1.1.1",loadOrder=13,propT={},stackDepth=0,status="active",userName="A",wV="^00000001.000000001.000000001.*zfinal",},B={fn="ProjectDIR/rt/load/mf/Scratch/B/1.4.lua",fullName="B/1.4",loadOrder=14,propT={},stackDepth=0,status="active",userName="B",wV="000000001.000000004.*zfinal",},D={fn="ProjectDIR/rt/load/mf/Core2/D/1.0.lua",fullName="D/1.0",loadOrder=11,propT={},stackDepth=0,status="active",userName="D",wV="000000001.*zfinal",},PrgEnv={fn="ProjectDIR/rt/load/mf/Core/PrgEnv.lua",fullName="PrgEnv",loadOrder=5,propT={},stackDepth=0,status="active",userName="PrgEnv",wV="M.*zfinal",},_a={fn="ProjectDIR/rt/load/mf/Core/_a/1.0.lua",fullName="_a/1.0",loadOrder=8,propT={},stackDepth=0,status="active",userName="_a",wV="000000001.*zfinal",},admin={fn="ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},alex={fn="ProjectDIR/rt/load/mf/Core2/alex/2.0.lua",fullName="alex/2.0",loadOrder=10,propT={},stackDepth=0,status="active",userName="alex",wV="^00000002.*zfinal",},boost={fn="ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua",fullName="boost/1.49.0",loadOrder=9,propT={arch={offload=1,},},stackDepth=0,status="active",userName="boost",wV="000000001.000000049.*zfinal",},gotoblas={fn="ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua",fullName="gotoblas/1.32",loadOrder=7,propT={},stackDepth=0,status="active",userName="gotoblas",wV="^00000001.000000032.*zfinal",},intel={fn="ProjectDIR/rt/load/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=6,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},["local"]={fn="ProjectDIR/rt/load/mf/Core/local/local.lua",fullName="local/local",loadOrder=3,propT={},stackDepth=1,status="active",userName="local",wV="*local.*zfinal",},noweb={fn="ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua",fullName="noweb/2.10c",loadOrder=4,propT={},stackDepth=1,status="active",userName="noweb",wV="000000002.000000010.*c.*zfinal",},rtm_intel={fn="ProjectDIR/rt/load/mf/Core2/rtm_intel/12.1.lua",fullName="rtm_intel/12.1",loadOrder=12,propT={},stackDepth=0,status="active",userName="rtm_intel/12.1",wV="000000012.000000001.*zfinal",},unix={fn="ProjectDIR/rt/load/mf/Core/unix/unix.lua",fullName="unix/unix",loadOrder=2,propT={},stackDepth=1,status="active",userName="unix",wV="*unix.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf/Share","ProjectDIR/rt/load/mf/Compiler/intel/10.1","OutputDIR/mf","ProjectDIR/rt/load/mf/notDir","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Beta","ProjectDIR/rt/load/mf/Core2","ProjectDIR/rt/load/mf/Scratch",},}';
@@ -479,14 +419,10 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load C
 ===========================
 C_VERSION=1.8.5;
 export C_VERSION;
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;noweb/2.10c:1\;PrgEnv:1\;intel/intel:1\;gotoblas/1.32:1\;_a/1.0:1\;boost/1.49.0:1\;alex/2.0:1\;D/1.0:1\;rtm_intel/12.1:1\;A/1.1.1:1\;B/1.4:1\;C/1.8.5:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:noweb/2.10c:PrgEnv:intel/intel:gotoblas/1.32:_a/1.0:boost/1.49.0:alex/2.0:D/1.0:rtm_intel/12.1:A/1.1.1:B/1.4:C/1.8.5;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/load/mf/Share:ProjectDIR/rt/load/mf/Compiler/intel/10.1:OutputDIR/mf:ProjectDIR/rt/load/mf/notDir:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Beta:ProjectDIR/rt/load/mf/Core2:ProjectDIR/rt/load/mf/Scratch;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:1\;ProjectDIR/rt/load/mf/Core/_a/1.0.lua:1\;ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:1\;ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:1\;ProjectDIR/rt/load/mf/Core2/D/1.0.lua:1\;ProjectDIR/rt/load/mf/Core2/rtm_intel/12.1.lua:1\;ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:1\;ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:1\;ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/rt/load/mf/Core/_a/1.0.lua:ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:ProjectDIR/rt/load/mf/Core2/D/1.0.lua:ProjectDIR/rt/load/mf/Core2/rtm_intel/12.1.lua:ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={A={fn="ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua",fullName="A/1.1.1",loadOrder=13,propT={},stackDepth=0,status="active",userName="A",wV="^00000001.000000001.000000001.*zfinal",},B={fn="ProjectDIR/rt/load/mf/Scratch/B/1.4.lua",fullName="B/1.4",loadOrder=14,propT={},stackDepth=0,status="active",userName="B",wV="000000001.000000004.*zfinal",},C={fn="ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua",fullName="C/1.8.5",loadOrder=15,propT={},stackDepth=0,status="active",userName="C",wV="000000001.000000008.000000005.*zfinal",},D={fn="ProjectDIR/rt/load/mf/Core2/D/1.0.lua",fullName="D/1.0",loadOrder=11,propT={},stackDepth=0,status="active",userName="D",wV="000000001.*zfinal",},PrgEnv={fn="ProjectDIR/rt/load/mf/Core/PrgEnv.lua",fullName="PrgEnv",loadOrder=5,propT={},stackDepth=0,status="active",userName="PrgEnv",wV="M.*zfinal",},_a={fn="ProjectDIR/rt/load/mf/Core/_a/1.0.lua",fullName="_a/1.0",loadOrder=8,propT={},stackDepth=0,status="active",userName="_a",wV="000000001.*zfinal",},admin={fn="ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},alex={fn="ProjectDIR/rt/load/mf/Core2/alex/2.0.lua",fullName="alex/2.0",loadOrder=10,propT={},stackDepth=0,status="active",userName="alex",wV="^00000002.*zfinal",},boost={fn="ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua",fullName="boost/1.49.0",loadOrder=9,propT={arch={offload=1,},},stackDepth=0,status="active",userName="boost",wV="000000001.000000049.*zfinal",},gotoblas={fn="ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua",fullName="gotoblas/1.32",loadOrder=7,propT={},stackDepth=0,status="active",userName="gotoblas",wV="^00000001.000000032.*zfinal",},intel={fn="ProjectDIR/rt/load/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=6,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},["local"]={fn="ProjectDIR/rt/load/mf/Core/local/local.lua",fullName="local/local",loadOrder=3,propT={},stackDepth=1,status="active",userName="local",wV="*local.*zfinal",},noweb={fn="ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua",fullName="noweb/2.10c",loadOrder=4,propT={},stackDepth=1,status="active",userName="noweb",wV="000000002.000000010.*c.*zfinal",},rtm_intel={fn="ProjectDIR/rt/load/mf/Core2/rtm_intel/12.1.lua",fullName="rtm_intel/12.1",loadOrder=12,propT={},stackDepth=0,status="active",userName="rtm_intel/12.1",wV="000000012.000000001.*zfinal",},unix={fn="ProjectDIR/rt/load/mf/Core/unix/unix.lua",fullName="unix/unix",loadOrder=2,propT={},stackDepth=1,status="active",userName="unix",wV="*unix.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf/Share","ProjectDIR/rt/load/mf/Compiler/intel/10.1","OutputDIR/mf","ProjectDIR/rt/load/mf/notDir","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Beta","ProjectDIR/rt/load/mf/Core2","ProjectDIR/rt/load/mf/Scratch",},}';
@@ -505,16 +441,12 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load rtm_intel
 ===========================
 EMPTY_STRING=;
 export EMPTY_STRING;
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;noweb/2.10c:1\;PrgEnv:1\;intel/intel:1\;gotoblas/1.32:1\;_a/1.0:1\;boost/1.49.0:1\;alex/2.0:1\;D/1.0:1\;A/1.1.1:1\;B/1.4:1\;C/1.8.5:1\;rtm_intel/11.1:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:noweb/2.10c:PrgEnv:intel/intel:gotoblas/1.32:_a/1.0:boost/1.49.0:alex/2.0:D/1.0:A/1.1.1:B/1.4:C/1.8.5:rtm_intel/11.1;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/load/mf/Share:ProjectDIR/rt/load/mf/Compiler/intel/10.1:OutputDIR/mf:ProjectDIR/rt/load/mf/notDir:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Beta:ProjectDIR/rt/load/mf/Core2:ProjectDIR/rt/load/mf/Scratch;
 export MODULEPATH;
 RTM_INTEL_VERSION=11.1;
 export RTM_INTEL_VERSION;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:1\;ProjectDIR/rt/load/mf/Core/_a/1.0.lua:1\;ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:1\;ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:1\;ProjectDIR/rt/load/mf/Core2/D/1.0.lua:1\;ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:1\;ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:1\;ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:1\;ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/rt/load/mf/Core/_a/1.0.lua:ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:ProjectDIR/rt/load/mf/Core2/D/1.0.lua:ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={A={fn="ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua",fullName="A/1.1.1",loadOrder=12,propT={},stackDepth=0,status="active",userName="A",wV="^00000001.000000001.000000001.*zfinal",},B={fn="ProjectDIR/rt/load/mf/Scratch/B/1.4.lua",fullName="B/1.4",loadOrder=13,propT={},stackDepth=0,status="active",userName="B",wV="000000001.000000004.*zfinal",},C={fn="ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua",fullName="C/1.8.5",loadOrder=14,propT={},stackDepth=0,status="active",userName="C",wV="000000001.000000008.000000005.*zfinal",},D={fn="ProjectDIR/rt/load/mf/Core2/D/1.0.lua",fullName="D/1.0",loadOrder=11,propT={},stackDepth=0,status="active",userName="D",wV="000000001.*zfinal",},PrgEnv={fn="ProjectDIR/rt/load/mf/Core/PrgEnv.lua",fullName="PrgEnv",loadOrder=5,propT={},stackDepth=0,status="active",userName="PrgEnv",wV="M.*zfinal",},_a={fn="ProjectDIR/rt/load/mf/Core/_a/1.0.lua",fullName="_a/1.0",loadOrder=8,propT={},stackDepth=0,status="active",userName="_a",wV="000000001.*zfinal",},admin={fn="ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},alex={fn="ProjectDIR/rt/load/mf/Core2/alex/2.0.lua",fullName="alex/2.0",loadOrder=10,propT={},stackDepth=0,status="active",userName="alex",wV="^00000002.*zfinal",},boost={fn="ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua",fullName="boost/1.49.0",loadOrder=9,propT={arch={offload=1,},},stackDepth=0,status="active",userName="boost",wV="000000001.000000049.*zfinal",},gotoblas={fn="ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua",fullName="gotoblas/1.32",loadOrder=7,propT={},stackDepth=0,status="active",userName="gotoblas",wV="^00000001.000000032.*zfinal",},intel={fn="ProjectDIR/rt/load/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=6,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},["local"]={fn="ProjectDIR/rt/load/mf/Core/local/local.lua",fullName="local/local",loadOrder=3,propT={},stackDepth=1,status="active",userName="local",wV="*local.*zfinal",},noweb={fn="ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua",fullName="noweb/2.10c",loadOrder=4,propT={},stackDepth=1,status="active",userName="noweb",wV="000000002.000000010.*c.*zfinal",},rtm_intel={fn="ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua",fullName="rtm_intel/11.1",loadOrder=15,propT={},stackDepth=0,status="active",userName="rtm_intel",wV="^00000011.000000001.*zfinal",},unix={fn="ProjectDIR/rt/load/mf/Core/unix/unix.lua",fullName="unix/unix",loadOrder=2,propT={},stackDepth=1,status="active",userName="unix",wV="*unix.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf/Share","ProjectDIR/rt/load/mf/Compiler/intel/10.1","OutputDIR/mf","ProjectDIR/rt/load/mf/notDir","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Beta","ProjectDIR/rt/load/mf/Core2","ProjectDIR/rt/load/mf/Scratch",},}';
@@ -525,14 +457,10 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load go
 ===========================
 GO_VERSION=1.5.1;
 export GO_VERSION;
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;noweb/2.10c:1\;PrgEnv:1\;intel/intel:1\;gotoblas/1.32:1\;_a/1.0:1\;boost/1.49.0:1\;alex/2.0:1\;D/1.0:1\;A/1.1.1:1\;B/1.4:1\;C/1.8.5:1\;rtm_intel/11.1:1\;go/1.5.1:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:noweb/2.10c:PrgEnv:intel/intel:gotoblas/1.32:_a/1.0:boost/1.49.0:alex/2.0:D/1.0:A/1.1.1:B/1.4:C/1.8.5:rtm_intel/11.1:go/1.5.1;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/load/mf/Share:ProjectDIR/rt/load/mf/Compiler/intel/10.1:OutputDIR/mf:ProjectDIR/rt/load/mf/notDir:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Beta:ProjectDIR/rt/load/mf/Core2:ProjectDIR/rt/load/mf/Scratch;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:1\;ProjectDIR/rt/load/mf/Core/_a/1.0.lua:1\;ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:1\;ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:1\;ProjectDIR/rt/load/mf/Core2/D/1.0.lua:1\;ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:1\;ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:1\;ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:1\;ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:1\;ProjectDIR/rt/load/mf/Core2/go/1.5.1:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/rt/load/mf/Core/_a/1.0.lua:ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:ProjectDIR/rt/load/mf/Core2/D/1.0.lua:ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:ProjectDIR/rt/load/mf/Core2/go/1.5.1;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={A={fn="ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua",fullName="A/1.1.1",loadOrder=12,propT={},stackDepth=0,status="active",userName="A",wV="^00000001.000000001.000000001.*zfinal",},B={fn="ProjectDIR/rt/load/mf/Scratch/B/1.4.lua",fullName="B/1.4",loadOrder=13,propT={},stackDepth=0,status="active",userName="B",wV="000000001.000000004.*zfinal",},C={fn="ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua",fullName="C/1.8.5",loadOrder=14,propT={},stackDepth=0,status="active",userName="C",wV="000000001.000000008.000000005.*zfinal",},D={fn="ProjectDIR/rt/load/mf/Core2/D/1.0.lua",fullName="D/1.0",loadOrder=11,propT={},stackDepth=0,status="active",userName="D",wV="000000001.*zfinal",},PrgEnv={fn="ProjectDIR/rt/load/mf/Core/PrgEnv.lua",fullName="PrgEnv",loadOrder=5,propT={},stackDepth=0,status="active",userName="PrgEnv",wV="M.*zfinal",},_a={fn="ProjectDIR/rt/load/mf/Core/_a/1.0.lua",fullName="_a/1.0",loadOrder=8,propT={},stackDepth=0,status="active",userName="_a",wV="000000001.*zfinal",},admin={fn="ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},alex={fn="ProjectDIR/rt/load/mf/Core2/alex/2.0.lua",fullName="alex/2.0",loadOrder=10,propT={},stackDepth=0,status="active",userName="alex",wV="^00000002.*zfinal",},boost={fn="ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua",fullName="boost/1.49.0",loadOrder=9,propT={arch={offload=1,},},stackDepth=0,status="active",userName="boost",wV="000000001.000000049.*zfinal",},go={fn="ProjectDIR/rt/load/mf/Core2/go/1.5.1",fullName="go/1.5.1",loadOrder=16,propT={},stackDepth=0,status="active",userName="go",wV="000000001.000000005.000000001.*zfinal",},gotoblas={fn="ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua",fullName="gotoblas/1.32",loadOrder=7,propT={},stackDepth=0,status="active",userName="gotoblas",wV="^00000001.000000032.*zfinal",},intel={fn="ProjectDIR/rt/load/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=6,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},["local"]={fn="ProjectDIR/rt/load/mf/Core/local/local.lua",fullName="local/local",loadOrder=3,propT={},stackDepth=1,status="active",userName="local",wV="*local.*zfinal",},noweb={fn="ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua",fullName="noweb/2.10c",loadOrder=4,propT={},stackDepth=1,status="active",userName="noweb",wV="000000002.000000010.*c.*zfinal",},rtm_intel={fn="ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua",fullName="rtm_intel/11.1",loadOrder=15,propT={},stackDepth=0,status="active",userName="rtm_intel",wV="^00000011.000000001.*zfinal",},unix={fn="ProjectDIR/rt/load/mf/Core/unix/unix.lua",fullName="unix/unix",loadOrder=2,propT={},stackDepth=1,status="active",userName="unix",wV="*unix.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf/Share","ProjectDIR/rt/load/mf/Compiler/intel/10.1","OutputDIR/mf","ProjectDIR/rt/load/mf/notDir","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Beta","ProjectDIR/rt/load/mf/Core2","ProjectDIR/rt/load/mf/Scratch",},}';
@@ -558,14 +486,10 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load dflt
 ===========================
 DEFAULT=junk;
 export DEFAULT;
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;noweb/2.10c:1\;PrgEnv:1\;intel/intel:1\;gotoblas/1.32:1\;_a/1.0:1\;boost/1.49.0:1\;alex/2.0:1\;D/1.0:1\;A/1.1.1:1\;B/1.4:1\;C/1.8.5:1\;rtm_intel/11.1:1\;go/1.5.1:1\;dflt/default:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:noweb/2.10c:PrgEnv:intel/intel:gotoblas/1.32:_a/1.0:boost/1.49.0:alex/2.0:D/1.0:A/1.1.1:B/1.4:C/1.8.5:rtm_intel/11.1:go/1.5.1:dflt/default;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/load/mf/Share:ProjectDIR/rt/load/mf/Compiler/intel/10.1:OutputDIR/mf:ProjectDIR/rt/load/mf/notDir:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Beta:ProjectDIR/rt/load/mf/Core2:ProjectDIR/rt/load/mf/Scratch;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:1\;ProjectDIR/rt/load/mf/Core/_a/1.0.lua:1\;ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:1\;ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:1\;ProjectDIR/rt/load/mf/Core2/D/1.0.lua:1\;ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:1\;ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:1\;ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:1\;ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:1\;ProjectDIR/rt/load/mf/Core2/go/1.5.1:1\;ProjectDIR/rt/load/mf/Core2/dflt/default:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/rt/load/mf/Core/_a/1.0.lua:ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:ProjectDIR/rt/load/mf/Core2/D/1.0.lua:ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:ProjectDIR/rt/load/mf/Core2/go/1.5.1:ProjectDIR/rt/load/mf/Core2/dflt/default;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={A={fn="ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua",fullName="A/1.1.1",loadOrder=12,propT={},stackDepth=0,status="active",userName="A",wV="^00000001.000000001.000000001.*zfinal",},B={fn="ProjectDIR/rt/load/mf/Scratch/B/1.4.lua",fullName="B/1.4",loadOrder=13,propT={},stackDepth=0,status="active",userName="B",wV="000000001.000000004.*zfinal",},C={fn="ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua",fullName="C/1.8.5",loadOrder=14,propT={},stackDepth=0,status="active",userName="C",wV="000000001.000000008.000000005.*zfinal",},D={fn="ProjectDIR/rt/load/mf/Core2/D/1.0.lua",fullName="D/1.0",loadOrder=11,propT={},stackDepth=0,status="active",userName="D",wV="000000001.*zfinal",},PrgEnv={fn="ProjectDIR/rt/load/mf/Core/PrgEnv.lua",fullName="PrgEnv",loadOrder=5,propT={},stackDepth=0,status="active",userName="PrgEnv",wV="M.*zfinal",},_a={fn="ProjectDIR/rt/load/mf/Core/_a/1.0.lua",fullName="_a/1.0",loadOrder=8,propT={},stackDepth=0,status="active",userName="_a",wV="000000001.*zfinal",},admin={fn="ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},alex={fn="ProjectDIR/rt/load/mf/Core2/alex/2.0.lua",fullName="alex/2.0",loadOrder=10,propT={},stackDepth=0,status="active",userName="alex",wV="^00000002.*zfinal",},boost={fn="ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua",fullName="boost/1.49.0",loadOrder=9,propT={arch={offload=1,},},stackDepth=0,status="active",userName="boost",wV="000000001.000000049.*zfinal",},dflt={fn="ProjectDIR/rt/load/mf/Core2/dflt/default",fullName="dflt/default",loadOrder=17,propT={},stackDepth=0,status="active",userName="dflt",wV="^default.*zfinal",},go={fn="ProjectDIR/rt/load/mf/Core2/go/1.5.1",fullName="go/1.5.1",loadOrder=16,propT={},stackDepth=0,status="active",userName="go",wV="000000001.000000005.000000001.*zfinal",},gotoblas={fn="ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua",fullName="gotoblas/1.32",loadOrder=7,propT={},stackDepth=0,status="active",userName="gotoblas",wV="^00000001.000000032.*zfinal",},intel={fn="ProjectDIR/rt/load/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=6,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},["local"]={fn="ProjectDIR/rt/load/mf/Core/local/local.lua",fullName="local/local",loadOrder=3,propT={},stackDepth=1,status="active",userName="local",wV="*local.*zfinal",},noweb={fn="ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua",fullName="noweb/2.10c",loadOrder=4,propT={},stackDepth=1,status="active",userName="noweb",wV="000000002.000000010.*c.*zfinal",},rtm_intel={fn="ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua",fullName="rtm_intel/11.1",loadOrder=15,propT={},stackDepth=0,status="active",userName="rtm_intel",wV="^00000011.000000001.*zfinal",},unix={fn="ProjectDIR/rt/load/mf/Core/unix/unix.lua",fullName="unix/unix",loadOrder=2,propT={},stackDepth=1,status="active",userName="unix",wV="*unix.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf/Share","ProjectDIR/rt/load/mf/Compiler/intel/10.1","OutputDIR/mf","ProjectDIR/rt/load/mf/notDir","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Beta","ProjectDIR/rt/load/mf/Core2","ProjectDIR/rt/load/mf/Scratch",},}';
@@ -582,8 +506,6 @@ export _ModuleTable_;
 step 44
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load noweb/2.10c.lua
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;PrgEnv:1\;intel/intel:1\;gotoblas/1.32:1\;_a/1.0:1\;boost/1.49.0:1\;alex/2.0:1\;D/1.0:1\;A/1.1.1:1\;B/1.4:1\;C/1.8.5:1\;rtm_intel/11.1:1\;go/1.5.1:1\;dflt/default:1\;noweb/2.10c:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:PrgEnv:intel/intel:gotoblas/1.32:_a/1.0:boost/1.49.0:alex/2.0:D/1.0:A/1.1.1:B/1.4:C/1.8.5:rtm_intel/11.1:go/1.5.1:dflt/default:noweb/2.10c;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MANPATH=/vol/local/noweb/noweb/man:1\;/vol/local/intel/mkl/mkl/man:1\;/vol/local/intel/idb/idb/man:1\;/vol/local/intel/fc/fc/man:1\;/vol/local/intel/cc/cc/man:1\;/usr/share/man:1;
@@ -596,8 +518,6 @@ __LMOD_REF_COUNT_PATH=/vol/local/noweb/icon/bin:1\;/vol/local/noweb/2.10c/bin:1\
 export __LMOD_REF_COUNT_PATH;
 PATH=/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/usr/local/share/bin:/usr/sbin:/sbin:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:1\;ProjectDIR/rt/load/mf/Core/_a/1.0.lua:1\;ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:1\;ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:1\;ProjectDIR/rt/load/mf/Core2/D/1.0.lua:1\;ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:1\;ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:1\;ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:1\;ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:1\;ProjectDIR/rt/load/mf/Core2/go/1.5.1:1\;ProjectDIR/rt/load/mf/Core2/dflt/default:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/rt/load/mf/Core/_a/1.0.lua:ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:ProjectDIR/rt/load/mf/Core2/D/1.0.lua:ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:ProjectDIR/rt/load/mf/Core2/go/1.5.1:ProjectDIR/rt/load/mf/Core2/dflt/default:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={A={fn="ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua",fullName="A/1.1.1",loadOrder=11,propT={},stackDepth=0,status="active",userName="A",wV="^00000001.000000001.000000001.*zfinal",},B={fn="ProjectDIR/rt/load/mf/Scratch/B/1.4.lua",fullName="B/1.4",loadOrder=12,propT={},stackDepth=0,status="active",userName="B",wV="000000001.000000004.*zfinal",},C={fn="ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua",fullName="C/1.8.5",loadOrder=13,propT={},stackDepth=0,status="active",userName="C",wV="000000001.000000008.000000005.*zfinal",},D={fn="ProjectDIR/rt/load/mf/Core2/D/1.0.lua",fullName="D/1.0",loadOrder=10,propT={},stackDepth=0,status="active",userName="D",wV="000000001.*zfinal",},PrgEnv={fn="ProjectDIR/rt/load/mf/Core/PrgEnv.lua",fullName="PrgEnv",loadOrder=4,propT={},stackDepth=0,status="active",userName="PrgEnv",wV="M.*zfinal",},_a={fn="ProjectDIR/rt/load/mf/Core/_a/1.0.lua",fullName="_a/1.0",loadOrder=7,propT={},stackDepth=0,status="active",userName="_a",wV="000000001.*zfinal",},admin={fn="ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},alex={fn="ProjectDIR/rt/load/mf/Core2/alex/2.0.lua",fullName="alex/2.0",loadOrder=9,propT={},stackDepth=0,status="active",userName="alex",wV="^00000002.*zfinal",},boost={fn="ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua",fullName="boost/1.49.0",loadOrder=8,propT={arch={offload=1,},},stackDepth=0,status="active",userName="boost",wV="000000001.000000049.*zfinal",},dflt={fn="ProjectDIR/rt/load/mf/Core2/dflt/default",fullName="dflt/default",loadOrder=16,propT={},stackDepth=0,status="active",userName="dflt",wV="^default.*zfinal",},go={fn="ProjectDIR/rt/load/mf/Core2/go/1.5.1",fullName="go/1.5.1",loadOrder=15,propT={},stackDepth=0,status="active",userName="go",wV="000000001.000000005.000000001.*zfinal",},gotoblas={fn="ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua",fullName="gotoblas/1.32",loadOrder=6,propT={},stackDepth=0,status="active",userName="gotoblas",wV="^00000001.000000032.*zfinal",},intel={fn="ProjectDIR/rt/load/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=5,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},["local"]={fn="ProjectDIR/rt/load/mf/Core/local/local.lua",fullName="local/local",loadOrder=3,propT={},stackDepth=1,status="active",userName="local",wV="*local.*zfinal",},noweb={fn="ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua",fullName="noweb/2.10c",loadOrder=17,propT={},stackDepth=0,status="active",userName="noweb/2.10c",wV="000000002.000000010.*c.*zfinal",},rtm_intel={fn="ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua",fullName="rtm_intel/11.1",loadOrder=14,propT={},stackDepth=0,status="active",userName="rtm_intel",wV="^00000011.000000001.*zfinal",},unix={fn="ProjectDIR/rt/load/mf/Core/unix/unix.lua",fullName="unix/unix",loadOrder=2,propT={},stackDepth=1,status="active",userName="unix",wV="*unix.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf/Share","ProjectDIR/rt/load/mf/Compiler/intel/10.1","OutputDIR/mf","ProjectDIR/rt/load/mf/notDir","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Beta","ProjectDIR/rt/load/mf/Core2","ProjectDIR/rt/load/mf/Scratch",},}';
@@ -606,14 +526,10 @@ export _ModuleTable_;
 step 45
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Try/1.0
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;PrgEnv:1\;intel/intel:1\;gotoblas/1.32:1\;_a/1.0:1\;boost/1.49.0:1\;alex/2.0:1\;D/1.0:1\;A/1.1.1:1\;B/1.4:1\;C/1.8.5:1\;rtm_intel/11.1:1\;go/1.5.1:1\;dflt/default:1\;noweb/2.10c:1\;Try/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:PrgEnv:intel/intel:gotoblas/1.32:_a/1.0:boost/1.49.0:alex/2.0:D/1.0:A/1.1.1:B/1.4:C/1.8.5:rtm_intel/11.1:go/1.5.1:dflt/default:noweb/2.10c:Try/1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/load/mf/Share:ProjectDIR/rt/load/mf/Compiler/intel/10.1:OutputDIR/mf:ProjectDIR/rt/load/mf/notDir:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Beta:ProjectDIR/rt/load/mf/Core2:ProjectDIR/rt/load/mf/Scratch;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:1\;ProjectDIR/rt/load/mf/Core/_a/1.0.lua:1\;ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:1\;ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:1\;ProjectDIR/rt/load/mf/Core2/D/1.0.lua:1\;ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:1\;ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:1\;ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:1\;ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:1\;ProjectDIR/rt/load/mf/Core2/go/1.5.1:1\;ProjectDIR/rt/load/mf/Core2/dflt/default:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/Try/1.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/rt/load/mf/Core/_a/1.0.lua:ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:ProjectDIR/rt/load/mf/Core2/D/1.0.lua:ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:ProjectDIR/rt/load/mf/Core2/go/1.5.1:ProjectDIR/rt/load/mf/Core2/dflt/default:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/Try/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={A={fn="ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua",fullName="A/1.1.1",loadOrder=11,propT={},stackDepth=0,status="active",userName="A",wV="^00000001.000000001.000000001.*zfinal",},B={fn="ProjectDIR/rt/load/mf/Scratch/B/1.4.lua",fullName="B/1.4",loadOrder=12,propT={},stackDepth=0,status="active",userName="B",wV="000000001.000000004.*zfinal",},C={fn="ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua",fullName="C/1.8.5",loadOrder=13,propT={},stackDepth=0,status="active",userName="C",wV="000000001.000000008.000000005.*zfinal",},D={fn="ProjectDIR/rt/load/mf/Core2/D/1.0.lua",fullName="D/1.0",loadOrder=10,propT={},stackDepth=0,status="active",userName="D",wV="000000001.*zfinal",},PrgEnv={fn="ProjectDIR/rt/load/mf/Core/PrgEnv.lua",fullName="PrgEnv",loadOrder=4,propT={},stackDepth=0,status="active",userName="PrgEnv",wV="M.*zfinal",},Try={fn="ProjectDIR/rt/load/mf/Core/Try/1.0.lua",fullName="Try/1.0",loadOrder=18,propT={},stackDepth=0,status="active",userName="Try/1.0",wV="000000001.*zfinal",},_a={fn="ProjectDIR/rt/load/mf/Core/_a/1.0.lua",fullName="_a/1.0",loadOrder=7,propT={},stackDepth=0,status="active",userName="_a",wV="000000001.*zfinal",},admin={fn="ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},alex={fn="ProjectDIR/rt/load/mf/Core2/alex/2.0.lua",fullName="alex/2.0",loadOrder=9,propT={},stackDepth=0,status="active",userName="alex",wV="^00000002.*zfinal",},boost={fn="ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua",fullName="boost/1.49.0",loadOrder=8,propT={arch={offload=1,},},stackDepth=0,status="active",userName="boost",wV="000000001.000000049.*zfinal",},dflt={fn="ProjectDIR/rt/load/mf/Core2/dflt/default",fullName="dflt/default",loadOrder=16,propT={},stackDepth=0,status="active",userName="dflt",wV="^default.*zfinal",},go={fn="ProjectDIR/rt/load/mf/Core2/go/1.5.1",fullName="go/1.5.1",loadOrder=15,propT={},stackDepth=0,status="active",userName="go",wV="000000001.000000005.000000001.*zfinal",},gotoblas={fn="ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua",fullName="gotoblas/1.32",loadOrder=6,propT={},stackDepth=0,status="active",userName="gotoblas",wV="^00000001.000000032.*zfinal",},intel={fn="ProjectDIR/rt/load/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=5,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},["local"]={fn="ProjectDIR/rt/load/mf/Core/local/local.lua",fullName="local/local",loadOrder=3,propT={},stackDepth=1,status="active",userName="local",wV="*local.*zfinal",},noweb={fn="ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua",fullName="noweb/2.10c",loadOrder=17,propT={},stackDepth=0,status="active",userName="noweb/2.10c",wV="000000002.000000010.*c.*zfinal",},rtm_intel={fn="ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua",fullName="rtm_intel/11.1",loadOrder=14,propT={},stackDepth=0,status="active",userName="rtm_intel",wV="^00000011.000000001.*zfinal",},unix={fn="ProjectDIR/rt/load/mf/Core/unix/unix.lua",fullName="unix/unix",loadOrder=2,propT={},stackDepth=1,status="active",userName="unix",wV="*unix.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf/Share","ProjectDIR/rt/load/mf/Compiler/intel/10.1","OutputDIR/mf","ProjectDIR/rt/load/mf/notDir","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Beta","ProjectDIR/rt/load/mf/Core2","ProjectDIR/rt/load/mf/Scratch",},}';
@@ -643,14 +559,10 @@ export _ModuleTable_;
 step 49
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load moduleA/1.0
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;PrgEnv:1\;intel/intel:1\;gotoblas/1.32:1\;_a/1.0:1\;boost/1.49.0:1\;alex/2.0:1\;D/1.0:1\;A/1.1.1:1\;B/1.4:1\;C/1.8.5:1\;rtm_intel/11.1:1\;go/1.5.1:1\;dflt/default:1\;noweb/2.10c:1\;Try/1.0:1\;moduleA/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:PrgEnv:intel/intel:gotoblas/1.32:_a/1.0:boost/1.49.0:alex/2.0:D/1.0:A/1.1.1:B/1.4:C/1.8.5:rtm_intel/11.1:go/1.5.1:dflt/default:noweb/2.10c:Try/1.0:moduleA/1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/load/mf/Share:ProjectDIR/rt/load/mf/Compiler/intel/10.1:OutputDIR/mf:ProjectDIR/rt/load/mf/notDir:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Beta:ProjectDIR/rt/load/mf/Core2:ProjectDIR/rt/load/mf/Scratch;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:1\;ProjectDIR/rt/load/mf/Core/_a/1.0.lua:1\;ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:1\;ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:1\;ProjectDIR/rt/load/mf/Core2/D/1.0.lua:1\;ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:1\;ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:1\;ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:1\;ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:1\;ProjectDIR/rt/load/mf/Core2/go/1.5.1:1\;ProjectDIR/rt/load/mf/Core2/dflt/default:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/Try/1.0.lua:1\;ProjectDIR/rt/load/mf/Core2/moduleA/1.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/rt/load/mf/Core/_a/1.0.lua:ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:ProjectDIR/rt/load/mf/Core2/D/1.0.lua:ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:ProjectDIR/rt/load/mf/Core2/go/1.5.1:ProjectDIR/rt/load/mf/Core2/dflt/default:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/Try/1.0.lua:ProjectDIR/rt/load/mf/Core2/moduleA/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={A={fn="ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua",fullName="A/1.1.1",loadOrder=11,propT={},stackDepth=0,status="active",userName="A",wV="^00000001.000000001.000000001.*zfinal",},B={fn="ProjectDIR/rt/load/mf/Scratch/B/1.4.lua",fullName="B/1.4",loadOrder=12,propT={},stackDepth=0,status="active",userName="B",wV="000000001.000000004.*zfinal",},C={fn="ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua",fullName="C/1.8.5",loadOrder=13,propT={},stackDepth=0,status="active",userName="C",wV="000000001.000000008.000000005.*zfinal",},D={fn="ProjectDIR/rt/load/mf/Core2/D/1.0.lua",fullName="D/1.0",loadOrder=10,propT={},stackDepth=0,status="active",userName="D",wV="000000001.*zfinal",},PrgEnv={fn="ProjectDIR/rt/load/mf/Core/PrgEnv.lua",fullName="PrgEnv",loadOrder=4,propT={},stackDepth=0,status="active",userName="PrgEnv",wV="M.*zfinal",},Try={fn="ProjectDIR/rt/load/mf/Core/Try/1.0.lua",fullName="Try/1.0",loadOrder=18,propT={},stackDepth=0,status="active",userName="Try/1.0",wV="000000001.*zfinal",},_a={fn="ProjectDIR/rt/load/mf/Core/_a/1.0.lua",fullName="_a/1.0",loadOrder=7,propT={},stackDepth=0,status="active",userName="_a",wV="000000001.*zfinal",},admin={fn="ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},alex={fn="ProjectDIR/rt/load/mf/Core2/alex/2.0.lua",fullName="alex/2.0",loadOrder=9,propT={},stackDepth=0,status="active",userName="alex",wV="^00000002.*zfinal",},boost={fn="ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua",fullName="boost/1.49.0",loadOrder=8,propT={arch={offload=1,},},stackDepth=0,status="active",userName="boost",wV="000000001.000000049.*zfinal",},dflt={fn="ProjectDIR/rt/load/mf/Core2/dflt/default",fullName="dflt/default",loadOrder=16,propT={},stackDepth=0,status="active",userName="dflt",wV="^default.*zfinal",},go={fn="ProjectDIR/rt/load/mf/Core2/go/1.5.1",fullName="go/1.5.1",loadOrder=15,propT={},stackDepth=0,status="active",userName="go",wV="000000001.000000005.000000001.*zfinal",},gotoblas={fn="ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua",fullName="gotoblas/1.32",loadOrder=6,propT={},stackDepth=0,status="active",userName="gotoblas",wV="^00000001.000000032.*zfinal",},intel={fn="ProjectDIR/rt/load/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=5,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},["local"]={fn="ProjectDIR/rt/load/mf/Core/local/local.lua",fullName="local/local",loadOrder=3,propT={},stackDepth=1,status="active",userName="local",wV="*local.*zfinal",},moduleA={fn="ProjectDIR/rt/load/mf/Core2/moduleA/1.0.lua",fullName="moduleA/1.0",loadOrder=19,propT={},stackDepth=0,status="active",userName="moduleA/1.0",wV="000000001.*zfinal",},noweb={fn="ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua",fullName="noweb/2.10c",loadOrder=17,propT={},stackDepth=0,status="active",userName="noweb/2.10c",wV="000000002.000000010.*c.*zfinal",},rtm_intel={fn="ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua",fullName="rtm_intel/11.1",loadOrder=14,propT={},stackDepth=0,status="active",userName="rtm_intel",wV="^00000011.000000001.*zfinal",},unix={fn="ProjectDIR/rt/load/mf/Core/unix/unix.lua",fullName="unix/unix",loadOrder=2,propT={},stackDepth=1,status="active",userName="unix",wV="*unix.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf/Share","ProjectDIR/rt/load/mf/Compiler/intel/10.1","OutputDIR/mf","ProjectDIR/rt/load/mf/notDir","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Beta","ProjectDIR/rt/load/mf/Core2","ProjectDIR/rt/load/mf/Scratch",},}';
@@ -664,6 +576,48 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load moduleB/1.0
 false
 ===========================
 step 51
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+unset ABC;
+unset ADMIN_MODULE_LOADED;
+unset ALEX;
+unset A_VERSION;
+unset B_VERSION;
+unset C_VERSION;
+unset DEFAULT;
+unset EMPTY_STRING;
+unset GO_VERSION;
+unset __LMOD_REF_COUNT_INFOPATH;
+unset INFOPATH;
+unset __LMOD_REF_COUNT_LD_LIBRARY_PATH;
+unset LD_LIBRARY_PATH;
+unset LMOD_FAMILY_COMPILER;
+unset LMOD_FAMILY_COMPILER_VERSION;
+unset LOADEDMODULES;
+unset __LMOD_REF_COUNT_MANPATH;
+unset MANPATH;
+unset __LMOD_REF_COUNT_MANPATH2;
+unset MANPATH2;
+unset MKL_DIR;
+unset MKL_INCLUDE;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/load/mf/Share:1\;OutputDIR/mf:1\;ProjectDIR/rt/load/mf/notDir:1\;ProjectDIR/rt/load/mf/Core:1\;ProjectDIR/rt/load/mf/Beta:1\;ProjectDIR/rt/load/mf/Core2:1\;ProjectDIR/rt/load/mf/Scratch:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/load/mf/Share:OutputDIR/mf:ProjectDIR/rt/load/mf/notDir:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Beta:ProjectDIR/rt/load/mf/Core2:ProjectDIR/rt/load/mf/Scratch;
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH=ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+unset RTM_INTEL_VERSION;
+unset TACC_BOOST_DIR;
+unset TACC_GOTOBLAS_DIR;
+unset TACC_GOTOBLAS_LIB;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load/mf/Share","OutputDIR/mf","ProjectDIR/rt/load/mf/notDir","ProjectDIR/rt/load/mf/Core","ProjectDIR/rt/load/mf/Beta","ProjectDIR/rt/load/mf/Core2","ProjectDIR/rt/load/mf/Scratch",},}';
+export _ModuleTable_;
+unset moduleA;
+===========================
+step 52
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/load/mf2/Core:1;
@@ -673,57 +627,45 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/load/mf2/Core",}';
 export _ModuleTable_;
 ===========================
-step 52
+step 53
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load .eb_builder/default
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;PrgEnv:1\;intel/intel:1\;gotoblas/1.32:1\;_a/1.0:1\;boost/1.49.0:1\;alex/2.0:1\;D/1.0:1\;A/1.1.1:1\;B/1.4:1\;C/1.8.5:1\;rtm_intel/11.1:1\;go/1.5.1:1\;dflt/default:1\;noweb/2.10c:1\;Try/1.0:1\;moduleA/1.0:1\;.eb_builder/default:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
-LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:PrgEnv:intel/intel:gotoblas/1.32:_a/1.0:boost/1.49.0:alex/2.0:D/1.0:A/1.1.1:B/1.4:C/1.8.5:rtm_intel/11.1:go/1.5.1:dflt/default:noweb/2.10c:Try/1.0:moduleA/1.0:.eb_builder/default;
+LOADEDMODULES=.eb_builder/default;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/load/mf2/Core;
 export MODULEPATH;
 MY_NAME=.eb_builder/default;
 export MY_NAME;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:1\;ProjectDIR/rt/load/mf/Core/_a/1.0.lua:1\;ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:1\;ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:1\;ProjectDIR/rt/load/mf/Core2/D/1.0.lua:1\;ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:1\;ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:1\;ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:1\;ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:1\;ProjectDIR/rt/load/mf/Core2/go/1.5.1:1\;ProjectDIR/rt/load/mf/Core2/dflt/default:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/Try/1.0.lua:1\;ProjectDIR/rt/load/mf/Core2/moduleA/1.0.lua:1\;ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
-_LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/rt/load/mf/Core/_a/1.0.lua:ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:ProjectDIR/rt/load/mf/Core2/D/1.0.lua:ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:ProjectDIR/rt/load/mf/Core2/go/1.5.1:ProjectDIR/rt/load/mf/Core2/dflt/default:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/Try/1.0.lua:ProjectDIR/rt/load/mf/Core2/moduleA/1.0.lua:ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua;
+_LMFILES_=ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={[".eb_builder"]={fn="ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua",fullName=".eb_builder/default",loadOrder=1,propT={},stackDepth=0,status="active",userName=".eb_builder/default",wV="*default.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/load/mf2/Core",}';
 export _ModuleTable_;
 ===========================
-step 53
+step 54
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a/default
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;PrgEnv:1\;intel/intel:1\;gotoblas/1.32:1\;_a/1.0:1\;boost/1.49.0:1\;alex/2.0:1\;D/1.0:1\;A/1.1.1:1\;B/1.4:1\;C/1.8.5:1\;rtm_intel/11.1:1\;go/1.5.1:1\;dflt/default:1\;noweb/2.10c:1\;Try/1.0:1\;moduleA/1.0:1\;.eb_builder/default:1\;a/1.2:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
-LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:PrgEnv:intel/intel:gotoblas/1.32:_a/1.0:boost/1.49.0:alex/2.0:D/1.0:A/1.1.1:B/1.4:C/1.8.5:rtm_intel/11.1:go/1.5.1:dflt/default:noweb/2.10c:Try/1.0:moduleA/1.0:.eb_builder/default:a/1.2;
+LOADEDMODULES=.eb_builder/default:a/1.2;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/load/mf2/Core;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:1\;ProjectDIR/rt/load/mf/Core/_a/1.0.lua:1\;ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:1\;ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:1\;ProjectDIR/rt/load/mf/Core2/D/1.0.lua:1\;ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:1\;ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:1\;ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:1\;ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:1\;ProjectDIR/rt/load/mf/Core2/go/1.5.1:1\;ProjectDIR/rt/load/mf/Core2/dflt/default:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/Try/1.0.lua:1\;ProjectDIR/rt/load/mf/Core2/moduleA/1.0.lua:1\;ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua:1\;ProjectDIR/rt/load/mf2/Core/a/1.2.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
-_LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/rt/load/mf/Core/_a/1.0.lua:ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:ProjectDIR/rt/load/mf/Core2/D/1.0.lua:ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:ProjectDIR/rt/load/mf/Core2/go/1.5.1:ProjectDIR/rt/load/mf/Core2/dflt/default:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/Try/1.0.lua:ProjectDIR/rt/load/mf/Core2/moduleA/1.0.lua:ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua:ProjectDIR/rt/load/mf2/Core/a/1.2.lua;
+_LMFILES_=ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua:ProjectDIR/rt/load/mf2/Core/a/1.2.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={[".eb_builder"]={fn="ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua",fullName=".eb_builder/default",loadOrder=1,propT={},stackDepth=0,status="active",userName=".eb_builder/default",wV="*default.*zfinal",},a={fn="ProjectDIR/rt/load/mf2/Core/a/1.2.lua",fullName="a/1.2",loadOrder=2,propT={},stackDepth=0,status="active",userName="a/default",wV="^00000001.000000002.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/load/mf2/Core",}';
 export _ModuleTable_;
 ===========================
-step 54
+step 55
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load b/default
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;PrgEnv:1\;intel/intel:1\;gotoblas/1.32:1\;_a/1.0:1\;boost/1.49.0:1\;alex/2.0:1\;D/1.0:1\;A/1.1.1:1\;B/1.4:1\;C/1.8.5:1\;rtm_intel/11.1:1\;go/1.5.1:1\;dflt/default:1\;noweb/2.10c:1\;Try/1.0:1\;moduleA/1.0:1\;.eb_builder/default:1\;a/1.2:1\;b/default:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
-LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:PrgEnv:intel/intel:gotoblas/1.32:_a/1.0:boost/1.49.0:alex/2.0:D/1.0:A/1.1.1:B/1.4:C/1.8.5:rtm_intel/11.1:go/1.5.1:dflt/default:noweb/2.10c:Try/1.0:moduleA/1.0:.eb_builder/default:a/1.2:b/default;
+LOADEDMODULES=.eb_builder/default:a/1.2:b/default;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/load/mf2/Core;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:1\;ProjectDIR/rt/load/mf/Core/_a/1.0.lua:1\;ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:1\;ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:1\;ProjectDIR/rt/load/mf/Core2/D/1.0.lua:1\;ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:1\;ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:1\;ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:1\;ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:1\;ProjectDIR/rt/load/mf/Core2/go/1.5.1:1\;ProjectDIR/rt/load/mf/Core2/dflt/default:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/Try/1.0.lua:1\;ProjectDIR/rt/load/mf/Core2/moduleA/1.0.lua:1\;ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua:1\;ProjectDIR/rt/load/mf2/Core/a/1.2.lua:1\;ProjectDIR/rt/load/mf2/Core/b/default:1;
-export __LMOD_REF_COUNT__LMFILES_;
-_LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/rt/load/mf/Core/_a/1.0.lua:ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:ProjectDIR/rt/load/mf/Core2/D/1.0.lua:ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:ProjectDIR/rt/load/mf/Core2/go/1.5.1:ProjectDIR/rt/load/mf/Core2/dflt/default:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/Try/1.0.lua:ProjectDIR/rt/load/mf/Core2/moduleA/1.0.lua:ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua:ProjectDIR/rt/load/mf2/Core/a/1.2.lua:ProjectDIR/rt/load/mf2/Core/b/default;
+_LMFILES_=ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua:ProjectDIR/rt/load/mf2/Core/a/1.2.lua:ProjectDIR/rt/load/mf2/Core/b/default;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={[".eb_builder"]={fn="ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua",fullName=".eb_builder/default",loadOrder=1,propT={},stackDepth=0,status="active",userName=".eb_builder/default",wV="*default.*zfinal",},a={fn="ProjectDIR/rt/load/mf2/Core/a/1.2.lua",fullName="a/1.2",loadOrder=2,propT={},stackDepth=0,status="active",userName="a/default",wV="^00000001.000000002.*zfinal",},b={fn="ProjectDIR/rt/load/mf2/Core/b/default",fullName="b/default",loadOrder=3,propT={},stackDepth=0,status="active",userName="b/default",wV="^default.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/load/mf2/Core",}';
 export _ModuleTable_;
 ===========================
-step 55
+step 56
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/load/mf2/Core;
@@ -731,56 +673,57 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={[".eb_builder"]={fn="ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua",fullName=".eb_builder/default",loadOrder=1,propT={},stackDepth=0,status="active",userName=".eb_builder/default",wV="*default.*zfinal",},a={fn="ProjectDIR/rt/load/mf2/Core/a/1.2.lua",fullName="a/1.2",loadOrder=2,propT={},stackDepth=0,status="active",userName="a/default",wV="^00000001.000000002.*zfinal",},b={fn="ProjectDIR/rt/load/mf2/Core/b/default",fullName="b/default",loadOrder=3,propT={},stackDepth=0,status="active",userName="b/default",wV="^default.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/load/mf2/Core",}';
 export _ModuleTable_;
 ===========================
-step 56
+step 57
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/load/mf2/Core;
+export MODULEPATH;
+unset MY_NAME;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/load/mf2/Core",}';
+export _ModuleTable_;
+===========================
+step 58
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A
 ===========================
 false
 ===========================
-step 57
+step 59
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A/1.0
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;PrgEnv:1\;intel/intel:1\;gotoblas/1.32:1\;_a/1.0:1\;boost/1.49.0:1\;alex/2.0:1\;D/1.0:1\;A/1.1.1:1\;B/1.4:1\;C/1.8.5:1\;rtm_intel/11.1:1\;go/1.5.1:1\;dflt/default:1\;noweb/2.10c:1\;Try/1.0:1\;moduleA/1.0:1\;.eb_builder/default:1\;a/1.2:1\;b/default:1\;A/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
-LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:PrgEnv:intel/intel:gotoblas/1.32:_a/1.0:boost/1.49.0:alex/2.0:D/1.0:A/1.1.1:B/1.4:C/1.8.5:rtm_intel/11.1:go/1.5.1:dflt/default:noweb/2.10c:Try/1.0:moduleA/1.0:.eb_builder/default:a/1.2:b/default:A/1.0;
+LOADEDMODULES=A/1.0;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/load/mf3:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/load/mf3;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:1\;ProjectDIR/rt/load/mf/Core/_a/1.0.lua:1\;ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:1\;ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:1\;ProjectDIR/rt/load/mf/Core2/D/1.0.lua:1\;ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:1\;ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:1\;ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:1\;ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:1\;ProjectDIR/rt/load/mf/Core2/go/1.5.1:1\;ProjectDIR/rt/load/mf/Core2/dflt/default:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/Try/1.0.lua:1\;ProjectDIR/rt/load/mf/Core2/moduleA/1.0.lua:1\;ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua:1\;ProjectDIR/rt/load/mf2/Core/a/1.2.lua:1\;ProjectDIR/rt/load/mf2/Core/b/default:1\;ProjectDIR/rt/load/mf3/A/1.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
-_LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/rt/load/mf/Core/_a/1.0.lua:ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:ProjectDIR/rt/load/mf/Core2/D/1.0.lua:ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:ProjectDIR/rt/load/mf/Core2/go/1.5.1:ProjectDIR/rt/load/mf/Core2/dflt/default:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/Try/1.0.lua:ProjectDIR/rt/load/mf/Core2/moduleA/1.0.lua:ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua:ProjectDIR/rt/load/mf2/Core/a/1.2.lua:ProjectDIR/rt/load/mf2/Core/b/default:ProjectDIR/rt/load/mf3/A/1.0.lua;
+_LMFILES_=ProjectDIR/rt/load/mf3/A/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/load/mf3/A/1.0.lua",fullName="A/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="A/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf3",},systemBaseMPATH="ProjectDIR/rt/load/mf3",}';
 export _ModuleTable_;
 ===========================
-step 58
+step 60
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load B
 ===========================
 false
 ===========================
-step 59
+step 61
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load B/2.0
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;PrgEnv:1\;intel/intel:1\;gotoblas/1.32:1\;_a/1.0:1\;boost/1.49.0:1\;alex/2.0:1\;D/1.0:1\;A/1.1.1:1\;B/1.4:1\;C/1.8.5:1\;rtm_intel/11.1:1\;go/1.5.1:1\;dflt/default:1\;noweb/2.10c:1\;Try/1.0:1\;moduleA/1.0:1\;.eb_builder/default:1\;a/1.2:1\;b/default:1\;A/1.0:1\;B/2.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
-LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:PrgEnv:intel/intel:gotoblas/1.32:_a/1.0:boost/1.49.0:alex/2.0:D/1.0:A/1.1.1:B/1.4:C/1.8.5:rtm_intel/11.1:go/1.5.1:dflt/default:noweb/2.10c:Try/1.0:moduleA/1.0:.eb_builder/default:a/1.2:b/default:A/1.0:B/2.0;
+LOADEDMODULES=A/1.0:B/2.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/load/mf3;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:1\;ProjectDIR/rt/load/mf/Core/_a/1.0.lua:1\;ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:1\;ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:1\;ProjectDIR/rt/load/mf/Core2/D/1.0.lua:1\;ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:1\;ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:1\;ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:1\;ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:1\;ProjectDIR/rt/load/mf/Core2/go/1.5.1:1\;ProjectDIR/rt/load/mf/Core2/dflt/default:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/Try/1.0.lua:1\;ProjectDIR/rt/load/mf/Core2/moduleA/1.0.lua:1\;ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua:1\;ProjectDIR/rt/load/mf2/Core/a/1.2.lua:1\;ProjectDIR/rt/load/mf2/Core/b/default:1\;ProjectDIR/rt/load/mf3/A/1.0.lua:1\;ProjectDIR/rt/load/mf3/B/2.0:1;
-export __LMOD_REF_COUNT__LMFILES_;
-_LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/rt/load/mf/Core/_a/1.0.lua:ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:ProjectDIR/rt/load/mf/Core2/D/1.0.lua:ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:ProjectDIR/rt/load/mf/Core2/go/1.5.1:ProjectDIR/rt/load/mf/Core2/dflt/default:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/Try/1.0.lua:ProjectDIR/rt/load/mf/Core2/moduleA/1.0.lua:ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua:ProjectDIR/rt/load/mf2/Core/a/1.2.lua:ProjectDIR/rt/load/mf2/Core/b/default:ProjectDIR/rt/load/mf3/A/1.0.lua:ProjectDIR/rt/load/mf3/B/2.0;
+_LMFILES_=ProjectDIR/rt/load/mf3/A/1.0.lua:ProjectDIR/rt/load/mf3/B/2.0;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/load/mf3/A/1.0.lua",fullName="A/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="A/1.0",wV="000000001.*zfinal",},B={fn="ProjectDIR/rt/load/mf3/B/2.0",fullName="B/2.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="B/2.0",wV="000000002.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf3",},systemBaseMPATH="ProjectDIR/rt/load/mf3",}';
 export _ModuleTable_;
 ===========================
-step 60
+step 62
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load tex
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;PrgEnv:1\;intel/intel:1\;gotoblas/1.32:1\;_a/1.0:1\;boost/1.49.0:1\;alex/2.0:1\;D/1.0:1\;A/1.1.1:1\;B/1.4:1\;C/1.8.5:1\;rtm_intel/11.1:1\;go/1.5.1:1\;dflt/default:1\;noweb/2.10c:1\;Try/1.0:1\;moduleA/1.0:1\;.eb_builder/default:1\;a/1.2:1\;b/default:1\;A/1.0:1\;B/2.0:1\;tex/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
-LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:PrgEnv:intel/intel:gotoblas/1.32:_a/1.0:boost/1.49.0:alex/2.0:D/1.0:A/1.1.1:B/1.4:C/1.8.5:rtm_intel/11.1:go/1.5.1:dflt/default:noweb/2.10c:Try/1.0:moduleA/1.0:.eb_builder/default:a/1.2:b/default:A/1.0:B/2.0:tex/1.0;
+LOADEDMODULES=A/1.0:B/2.0:tex/1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/load/mf3;
 export MODULEPATH;
@@ -788,51 +731,126 @@ __LMOD_REF_COUNT_TEXINPUTS=/a/b/c//:1;
 export __LMOD_REF_COUNT_TEXINPUTS;
 TEXINPUTS=/a/b/c//;
 export TEXINPUTS;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:1\;ProjectDIR/rt/load/mf/Core/_a/1.0.lua:1\;ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:1\;ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:1\;ProjectDIR/rt/load/mf/Core2/D/1.0.lua:1\;ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:1\;ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:1\;ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:1\;ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:1\;ProjectDIR/rt/load/mf/Core2/go/1.5.1:1\;ProjectDIR/rt/load/mf/Core2/dflt/default:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/Try/1.0.lua:1\;ProjectDIR/rt/load/mf/Core2/moduleA/1.0.lua:1\;ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua:1\;ProjectDIR/rt/load/mf2/Core/a/1.2.lua:1\;ProjectDIR/rt/load/mf2/Core/b/default:1\;ProjectDIR/rt/load/mf3/A/1.0.lua:1\;ProjectDIR/rt/load/mf3/B/2.0:1\;ProjectDIR/rt/load/mf3/tex/1.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
-_LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/rt/load/mf/Core/_a/1.0.lua:ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:ProjectDIR/rt/load/mf/Core2/D/1.0.lua:ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:ProjectDIR/rt/load/mf/Core2/go/1.5.1:ProjectDIR/rt/load/mf/Core2/dflt/default:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/Try/1.0.lua:ProjectDIR/rt/load/mf/Core2/moduleA/1.0.lua:ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua:ProjectDIR/rt/load/mf2/Core/a/1.2.lua:ProjectDIR/rt/load/mf2/Core/b/default:ProjectDIR/rt/load/mf3/A/1.0.lua:ProjectDIR/rt/load/mf3/B/2.0:ProjectDIR/rt/load/mf3/tex/1.0.lua;
+_LMFILES_=ProjectDIR/rt/load/mf3/A/1.0.lua:ProjectDIR/rt/load/mf3/B/2.0:ProjectDIR/rt/load/mf3/tex/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/load/mf3/A/1.0.lua",fullName="A/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="A/1.0",wV="000000001.*zfinal",},B={fn="ProjectDIR/rt/load/mf3/B/2.0",fullName="B/2.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="B/2.0",wV="000000002.*zfinal",},tex={fn="ProjectDIR/rt/load/mf3/tex/1.0.lua",fullName="tex/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="tex",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf3",},systemBaseMPATH="ProjectDIR/rt/load/mf3",}';
 export _ModuleTable_;
 ===========================
-step 61
+step 63
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load rtmTest
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;PrgEnv:1\;intel/intel:1\;gotoblas/1.32:1\;_a/1.0:1\;boost/1.49.0:1\;alex/2.0:1\;D/1.0:1\;A/1.1.1:1\;B/1.4:1\;C/1.8.5:1\;rtm_intel/11.1:1\;go/1.5.1:1\;dflt/default:1\;noweb/2.10c:1\;Try/1.0:1\;moduleA/1.0:1\;.eb_builder/default:1\;a/1.2:1\;b/default:1\;A/1.0:1\;B/2.0:1\;tex/1.0:1\;rtmTest/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
-LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:PrgEnv:intel/intel:gotoblas/1.32:_a/1.0:boost/1.49.0:alex/2.0:D/1.0:A/1.1.1:B/1.4:C/1.8.5:rtm_intel/11.1:go/1.5.1:dflt/default:noweb/2.10c:Try/1.0:moduleA/1.0:.eb_builder/default:a/1.2:b/default:A/1.0:B/2.0:tex/1.0:rtmTest/1.0;
+LOADEDMODULES=A/1.0:B/2.0:tex/1.0:rtmTest/1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/load/mf3;
 export MODULEPATH;
 RTM_D=4;
 export RTM_D;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:1\;ProjectDIR/rt/load/mf/Core/_a/1.0.lua:1\;ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:1\;ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:1\;ProjectDIR/rt/load/mf/Core2/D/1.0.lua:1\;ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:1\;ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:1\;ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:1\;ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:1\;ProjectDIR/rt/load/mf/Core2/go/1.5.1:1\;ProjectDIR/rt/load/mf/Core2/dflt/default:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/Try/1.0.lua:1\;ProjectDIR/rt/load/mf/Core2/moduleA/1.0.lua:1\;ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua:1\;ProjectDIR/rt/load/mf2/Core/a/1.2.lua:1\;ProjectDIR/rt/load/mf2/Core/b/default:1\;ProjectDIR/rt/load/mf3/A/1.0.lua:1\;ProjectDIR/rt/load/mf3/B/2.0:1\;ProjectDIR/rt/load/mf3/tex/1.0.lua:1\;ProjectDIR/rt/load/mf3/rtmTest/1.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
-_LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/rt/load/mf/Core/_a/1.0.lua:ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:ProjectDIR/rt/load/mf/Core2/D/1.0.lua:ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:ProjectDIR/rt/load/mf/Core2/go/1.5.1:ProjectDIR/rt/load/mf/Core2/dflt/default:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/Try/1.0.lua:ProjectDIR/rt/load/mf/Core2/moduleA/1.0.lua:ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua:ProjectDIR/rt/load/mf2/Core/a/1.2.lua:ProjectDIR/rt/load/mf2/Core/b/default:ProjectDIR/rt/load/mf3/A/1.0.lua:ProjectDIR/rt/load/mf3/B/2.0:ProjectDIR/rt/load/mf3/tex/1.0.lua:ProjectDIR/rt/load/mf3/rtmTest/1.0.lua;
+_LMFILES_=ProjectDIR/rt/load/mf3/A/1.0.lua:ProjectDIR/rt/load/mf3/B/2.0:ProjectDIR/rt/load/mf3/tex/1.0.lua:ProjectDIR/rt/load/mf3/rtmTest/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/load/mf3/A/1.0.lua",fullName="A/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="A/1.0",wV="000000001.*zfinal",},B={fn="ProjectDIR/rt/load/mf3/B/2.0",fullName="B/2.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="B/2.0",wV="000000002.*zfinal",},rtmTest={fn="ProjectDIR/rt/load/mf3/rtmTest/1.0.lua",fullName="rtmTest/1.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="rtmTest",wV="000000001.*zfinal",},tex={fn="ProjectDIR/rt/load/mf3/tex/1.0.lua",fullName="tex/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="tex",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf3",},systemBaseMPATH="ProjectDIR/rt/load/mf3",}';
 export _ModuleTable_;
 ===========================
-step 62
+step 64
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load MakeSystemCall
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=admin/admin-1.0:1\;unix/unix:1\;local/local:1\;PrgEnv:1\;intel/intel:1\;gotoblas/1.32:1\;_a/1.0:1\;boost/1.49.0:1\;alex/2.0:1\;D/1.0:1\;A/1.1.1:1\;B/1.4:1\;C/1.8.5:1\;rtm_intel/11.1:1\;go/1.5.1:1\;dflt/default:1\;noweb/2.10c:1\;Try/1.0:1\;moduleA/1.0:1\;.eb_builder/default:1\;a/1.2:1\;b/default:1\;A/1.0:1\;B/2.0:1\;tex/1.0:1\;rtmTest/1.0:1\;MakeSystemCall/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
-LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:PrgEnv:intel/intel:gotoblas/1.32:_a/1.0:boost/1.49.0:alex/2.0:D/1.0:A/1.1.1:B/1.4:C/1.8.5:rtm_intel/11.1:go/1.5.1:dflt/default:noweb/2.10c:Try/1.0:moduleA/1.0:.eb_builder/default:a/1.2:b/default:A/1.0:B/2.0:tex/1.0:rtmTest/1.0:MakeSystemCall/1.0;
+LOADEDMODULES=A/1.0:B/2.0:tex/1.0:rtmTest/1.0:MakeSystemCall/1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/load/mf3;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:1\;ProjectDIR/rt/load/mf/Core/unix/unix.lua:1\;ProjectDIR/rt/load/mf/Core/local/local.lua:1\;ProjectDIR/rt/load/mf/Core/PrgEnv.lua:1\;ProjectDIR/rt/load/mf/Core/intel/intel.lua:1\;ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:1\;ProjectDIR/rt/load/mf/Core/_a/1.0.lua:1\;ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:1\;ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:1\;ProjectDIR/rt/load/mf/Core2/D/1.0.lua:1\;ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:1\;ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:1\;ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:1\;ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:1\;ProjectDIR/rt/load/mf/Core2/go/1.5.1:1\;ProjectDIR/rt/load/mf/Core2/dflt/default:1\;ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:1\;ProjectDIR/rt/load/mf/Core/Try/1.0.lua:1\;ProjectDIR/rt/load/mf/Core2/moduleA/1.0.lua:1\;ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua:1\;ProjectDIR/rt/load/mf2/Core/a/1.2.lua:1\;ProjectDIR/rt/load/mf2/Core/b/default:1\;ProjectDIR/rt/load/mf3/A/1.0.lua:1\;ProjectDIR/rt/load/mf3/B/2.0:1\;ProjectDIR/rt/load/mf3/tex/1.0.lua:1\;ProjectDIR/rt/load/mf3/rtmTest/1.0.lua:1\;ProjectDIR/rt/load/mf3/MakeSystemCall/1.0:1;
-export __LMOD_REF_COUNT__LMFILES_;
-_LMFILES_=ProjectDIR/rt/load/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/load/mf/Core/unix/unix.lua:ProjectDIR/rt/load/mf/Core/local/local.lua:ProjectDIR/rt/load/mf/Core/PrgEnv.lua:ProjectDIR/rt/load/mf/Core/intel/intel.lua:ProjectDIR/rt/load/mf/Compiler/intel/10.1/gotoblas/1.32.lua:ProjectDIR/rt/load/mf/Core/_a/1.0.lua:ProjectDIR/rt/load/mf/Core/boost/1.49.0.lua:ProjectDIR/rt/load/mf/Core2/alex/2.0.lua:ProjectDIR/rt/load/mf/Core2/D/1.0.lua:ProjectDIR/rt/load/mf/Scratch/A/1.1.1.lua:ProjectDIR/rt/load/mf/Scratch/B/1.4.lua:ProjectDIR/rt/load/mf/Core2/C/1.8.5.lua:ProjectDIR/rt/load/mf/Core2/rtm_intel/11.1.lua:ProjectDIR/rt/load/mf/Core2/go/1.5.1:ProjectDIR/rt/load/mf/Core2/dflt/default:ProjectDIR/rt/load/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/load/mf/Core/Try/1.0.lua:ProjectDIR/rt/load/mf/Core2/moduleA/1.0.lua:ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua:ProjectDIR/rt/load/mf2/Core/a/1.2.lua:ProjectDIR/rt/load/mf2/Core/b/default:ProjectDIR/rt/load/mf3/A/1.0.lua:ProjectDIR/rt/load/mf3/B/2.0:ProjectDIR/rt/load/mf3/tex/1.0.lua:ProjectDIR/rt/load/mf3/rtmTest/1.0.lua:ProjectDIR/rt/load/mf3/MakeSystemCall/1.0;
+_LMFILES_=ProjectDIR/rt/load/mf3/A/1.0.lua:ProjectDIR/rt/load/mf3/B/2.0:ProjectDIR/rt/load/mf3/tex/1.0.lua:ProjectDIR/rt/load/mf3/rtmTest/1.0.lua:ProjectDIR/rt/load/mf3/MakeSystemCall/1.0;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/load/mf3/A/1.0.lua",fullName="A/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="A/1.0",wV="000000001.*zfinal",},B={fn="ProjectDIR/rt/load/mf3/B/2.0",fullName="B/2.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="B/2.0",wV="000000002.*zfinal",},MakeSystemCall={fn="ProjectDIR/rt/load/mf3/MakeSystemCall/1.0",fullName="MakeSystemCall/1.0",loadOrder=5,propT={},stackDepth=0,status="active",userName="MakeSystemCall",wV="000000001.*zfinal",},rtmTest={fn="ProjectDIR/rt/load/mf3/rtmTest/1.0.lua",fullName="rtmTest/1.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="rtmTest",wV="000000001.*zfinal",},tex={fn="ProjectDIR/rt/load/mf3/tex/1.0.lua",fullName="tex/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="tex",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf3",},systemBaseMPATH="ProjectDIR/rt/load/mf3",}';
 export _ModuleTable_;
 ===========================
-step 63
+step 65
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/load/mf3;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/load/mf3/A/1.0.lua",fullName="A/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="A/1.0",wV="000000001.*zfinal",},B={fn="ProjectDIR/rt/load/mf3/B/2.0",fullName="B/2.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="B/2.0",wV="000000002.*zfinal",},MakeSystemCall={fn="ProjectDIR/rt/load/mf3/MakeSystemCall/1.0",fullName="MakeSystemCall/1.0",loadOrder=5,propT={},stackDepth=0,status="active",userName="MakeSystemCall",wV="000000001.*zfinal",},rtmTest={fn="ProjectDIR/rt/load/mf3/rtmTest/1.0.lua",fullName="rtmTest/1.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="rtmTest",wV="000000001.*zfinal",},tex={fn="ProjectDIR/rt/load/mf3/tex/1.0.lua",fullName="tex/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="tex",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf3",},systemBaseMPATH="ProjectDIR/rt/load/mf3",}';
 export _ModuleTable_;
+===========================
+step 66
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/load/mf3;
+export MODULEPATH;
+unset RTM_A;
+unset RTM_B;
+unset RTM_C;
+unset RTM_D;
+unset __LMOD_REF_COUNT_TEXINPUTS;
+unset TEXINPUTS;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load/mf3",},systemBaseMPATH="ProjectDIR/rt/load/mf3",}';
+export _ModuleTable_;
+===========================
+step 67
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/load/mf4:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/load/mf4;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load/mf4",},systemBaseMPATH="ProjectDIR/rt/load/mf4",}';
+export _ModuleTable_;
+===========================
+step 68
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load compiler/intel
+===========================
+INTEL_VERSION=19.1.3;
+export INTEL_VERSION;
+__LMOD_REF_COUNT_LD_LIBRARY_PATH=/opt/hlrs/non-spack/2022-02/compiler/intel/19.1.3.304/compilers_and_libraries_2020.4.304/linux/compiler/lib/intel64:1\;/opt/hlrs/non-spack/2022-02/compiler/gcc/11.2.0/lib:1\;/opt/hlrs/non-spack/2022-02/compiler/gcc/11.2.0/lib64:1;
+export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
+LD_LIBRARY_PATH=/opt/hlrs/non-spack/2022-02/compiler/intel/19.1.3.304/compilers_and_libraries_2020.4.304/linux/compiler/lib/intel64:/opt/hlrs/non-spack/2022-02/compiler/gcc/11.2.0/lib:/opt/hlrs/non-spack/2022-02/compiler/gcc/11.2.0/lib64;
+export LD_LIBRARY_PATH;
+__LMOD_REF_COUNT_LM_LICENSE_FILE=26000@X.X.X.X:1;
+export __LMOD_REF_COUNT_LM_LICENSE_FILE;
+LM_LICENSE_FILE=26000@X.X.X.X;
+export LM_LICENSE_FILE;
+LOADEDMODULES=compiler/intel/19.1.3;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MANPATH=/opt/hlrs/non-spack/2022-02/compiler/intel/19.1.3.304/compilers_and_libraries_2020.4.304/linux/man/common:1\;/opt/hlrs/non-spack/2022-02/compiler/gcc/11.2.0/share/man:1;
+export __LMOD_REF_COUNT_MANPATH;
+MANPATH=/opt/hlrs/non-spack/2022-02/compiler/intel/19.1.3.304/compilers_and_libraries_2020.4.304/linux/man/common:/opt/hlrs/non-spack/2022-02/compiler/gcc/11.2.0/share/man;
+export MANPATH;
+MODULEPATH=ProjectDIR/rt/load/mf4;
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH=/opt/hlrs/non-spack/2022-02/compiler/intel/19.1.3.304/compilers_and_libraries_2020.4.304/linux/bin/intel64:1\;/opt/hlrs/non-spack/2022-02/compiler/gcc/11.2.0/bin:1\;ProjectDIR/rt/load:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=/opt/hlrs/non-spack/2022-02/compiler/intel/19.1.3.304/compilers_and_libraries_2020.4.304/linux/bin/intel64:/opt/hlrs/non-spack/2022-02/compiler/gcc/11.2.0/bin:ProjectDIR/rt/load:ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+SITE_INTEL_HOME=/opt/hlrs/non-spack/2022-02/compiler/intel/19.1.3.304/compilers_and_libraries_2020.4.304/linux;
+export SITE_INTEL_HOME;
+_LMFILES_=ProjectDIR/rt/load/mf4/compiler/intel/19.1.3;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={["compiler/intel"]={fn="ProjectDIR/rt/load/mf4/compiler/intel/19.1.3",fullName="compiler/intel/19.1.3",loadOrder=1,propT={},stackDepth=0,status="active",userName="compiler/intel",wV="000000019.000000001.000000003.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf4",},systemBaseMPATH="ProjectDIR/rt/load/mf4",}';
+export _ModuleTable_;
+===========================
+step 69
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload compiler/intel
+===========================
+unset INTEL_VERSION;
+unset __LMOD_REF_COUNT_LD_LIBRARY_PATH;
+unset LD_LIBRARY_PATH;
+unset __LMOD_REF_COUNT_LM_LICENSE_FILE;
+unset LM_LICENSE_FILE;
+unset LOADEDMODULES;
+unset __LMOD_REF_COUNT_MANPATH;
+unset MANPATH;
+MODULEPATH=ProjectDIR/rt/load/mf4;
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH=ProjectDIR/rt/load:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=ProjectDIR/rt/load:ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+unset SITE_INTEL_HOME;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load/mf4",},systemBaseMPATH="ProjectDIR/rt/load/mf4",}';
+export _ModuleTable_;
+===========================
+step 70
+cat diff.env.txt
+===========================
+> __LMOD_REF_COUNT_PATH=ProjectDIR/rt/load:1;ProjectDIR/proj_mgmt:1;PATH_to_TM:1;/bin:1

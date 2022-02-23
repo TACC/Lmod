@@ -8,6 +8,18 @@ couple of ``setenv()`` and a ``prepend_path()`` or two and don't
 require much in the way of debugging.  However modulefiles are a
 program and might need debugging.
 
+Using `module show` to check a modulefile
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can check how Lmod will evaluate a module file by using `module
+show`. Lmod evaluates a modulefile and prints out the module
+commands.  If the modulefile is syntactically then `module show` will
+report the module commands such as `setenv()` and `prepend_path()`
+etc.
+
+Note that if the originally modulefile is written in TCL, the output
+will be in Lua.
+
 TCL modulefiles
 ~~~~~~~~~~~~~~~
 
