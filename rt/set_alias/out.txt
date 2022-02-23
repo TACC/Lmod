@@ -110,3 +110,11 @@ _some_spack_func () {
      echo found;
    fi
 ; };
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show showMe
+===========================
+MODULEPATH=ProjectDIR/rt/set_alias/mf;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={alias={fn="ProjectDIR/rt/set_alias/mf/alias/1.0",fullName="alias/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="alias",wV="000000001.*zfinal",},sfunc={fn="ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua",fullName="sfunc/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="sfunc",wV="000000001.*zfinal",},spack={fn="ProjectDIR/rt/set_alias/mf/spack/1.0.lua",fullName="spack/1.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="spack",wV="000000001.*zfinal",},test1={fn="ProjectDIR/rt/set_alias/mf/test1/1.0.lua",fullName="test1/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="test1",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/set_alias/mf",},systemBaseMPATH="ProjectDIR/rt/set_alias/mf",}';
+export _ModuleTable_;
