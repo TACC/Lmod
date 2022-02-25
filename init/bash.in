@@ -80,29 +80,9 @@ export LMOD_SETTARG_FULL_SUPPORT=@lmod_settarg_full_support@
 if [ "@silence_shell_debugging@" = "no" ]; then
    module()
    {
-     local __lmod_my_status
-     #############################################################
-     ## turn off file globbing if it is not already off
-     #_mlshopt="f";
-     #case "$-" in 
-     #  *f*) unset _mlshopt;;
-     #esac;
-     #if [ -n "${_mlshopt:-}" ]; then
-     #  set -$_mlshopt;
-     #fi;
-
      ############################################################
      # Run Lmod and eval results
      eval "$($LMOD_CMD @my_shell@ "$@")" && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
-     __lmod_my_status=$?
-
-     ############################################################
-     # turn on file globbing for users who want it.
-     #if [ -n "${_mlshopt:-}" ]; then
-     #  set +$_mlshopt;
-     #fi;
-     #unset _mlshopt;
-     return $__lmod_my_status
    }
 else
    module()
@@ -124,26 +104,9 @@ else
      fi
 
      ############################################################
-     # turn off file globbing if it is not already off
-     #_mlshopt="f";
-     #case "$-" in 
-     #  *f*) unset _mlshopt;;
-     #esac;
-     #if [ -n "${_mlshopt:-}" ]; then
-     #  set -$_mlshopt;
-     #fi;
-
-     ############################################################
      # Run Lmod and eval results
      eval "$($LMOD_CMD @my_shell@ "$@")" && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
      __lmod_my_status=$?
-
-     ############################################################
-     # turn on file globbing for users who want it.
-     #if [ -n "${_mlshopt:-}" ]; then
-     #  set +$_mlshopt;
-     #fi;
-     #unset _mlshopt;
 
      ############################################################
      # Un-silence shell debug after module command
