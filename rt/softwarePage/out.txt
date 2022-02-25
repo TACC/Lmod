@@ -137,10 +137,10 @@ spiderT = {
           },
         },
         ["foo/1.3"] = {
-          Category = "system ",
-          Description = "This is a descript ",
-          Name = "foo ",
-          Version = "1.3 ",
+          Category = "system",
+          Description = "This is a descript",
+          Name = "foo",
+          Version = "1.3",
           canonical = "1.3",
           family = "bar",
           fn = "ProjectDIR/rt/softwarePage/mf/foo/1.3",
@@ -156,7 +156,7 @@ And even more help
           },
           wV = "000000001.000000003.*zfinal",
           whatis = {
-            "Name: foo ", "Version: 1.3 ", "Category: system ", "Description: This is a descript ",
+            "Name: foo", "Version: 1.3", "Category: system", "Description: This is a descript",
           },
         },
       },
@@ -238,9 +238,9 @@ dbT = {
       },
     },
     ["ProjectDIR/rt/softwarePage/mf/foo/1.3"] = {
-      Category = "system ",
-      Description = "This is a descript ",
-      Version = "1.3 ",
+      Category = "system",
+      Description = "This is a descript",
+      Version = "1.3",
       family = "bar",
       fullName = "foo/1.3",
       help = [[This is the help message for the foo 1.3 module
@@ -256,7 +256,7 @@ And even more help
       },
       wV = "000000001.000000003.*zfinal",
       whatis = {
-        "Name: foo ", "Version: 1.3 ", "Category: system ", "Description: This is a descript ",
+        "Name: foo", "Version: 1.3", "Category: system", "Description: This is a descript",
       },
     },
   },
@@ -291,7 +291,7 @@ spA = {
       },
       {
         canonicalVersionString = "000000001.000000003.*zfinal",
-        description = "This is a descript ",
+        description = "This is a descript",
         family = "bar",
         full = "foo/1.3",
         help = [[This is the help message for the foo 1.3 module
@@ -304,7 +304,7 @@ And even more help
             testing = 1,
           },
         },
-        versionName = "1.3 ",
+        versionName = "1.3",
         wV = "000000001.000000003.*zfinal",
       },
       {

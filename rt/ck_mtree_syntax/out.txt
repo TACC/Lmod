@@ -113,10 +113,10 @@ spiderT = {
       dirT = {},
       fileT = {
         ["acme/1.0"] = {
-          Category = "system ",
-          Description = "This is a descript ",
-          Name = "acme ",
-          Version = "1.0 ",
+          Category = "system",
+          Description = "This is a descript",
+          Name = "acme",
+          Version = "1.0",
           canonical = "1.0",
           fn = "ProjectDIR/rt/ck_mtree_syntax/mf/acme/1.0",
           help = [[This is the help message for the acme 1.0 module
@@ -126,7 +126,7 @@ And even more help
           pV = "000000001.*zfinal",
           wV = "000000001.*zfinal",
           whatis = {
-            "Name: acme ", "Version: 1.0 ", "Category: system ", "Description: This is a descript ",
+            "Name: acme", "Version: 1.0", "Category: system", "Description: This is a descript",
           },
         },
       },
