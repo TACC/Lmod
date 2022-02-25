@@ -376,6 +376,7 @@ function main()
       dbg.print{"package.path: ",package.path,"\n"}
       dbg.print{"package.cpath: ",package.cpath,"\n"}
       dbg.print{"lmodPath: ", cosmic:value("LMOD_PACKAGE_PATH"),"\n"}
+      dbg.print{"LOADEDMODULES: ",getenv("LOADEDMODULES"),"\n"}
    end
 
    -- dumpversion and quit if requested.
@@ -530,6 +531,17 @@ function main()
    local n        = mt:name()
    varT[n]        = Var:new(n)
    varT[n]:set(mt:serializeTbl())
+
+   -- Extract Loaded modules and filenames into
+   -- LOADEDMODULES and _LMFILES_
+   local status, loadedmodules, lmfiles = mt:extractModulesFiles()
+   dbg.print{"status: ",status,", loadedmodules: \"",loadedmodules,"\"\n"}
+   if (status) then 
+      varT['LOADEDMODULES'] = Var:new('LOADEDMODULES')
+      varT['LOADEDMODULES']:set(loadedmodules)
+      varT['_LMFILES_'] = Var:new('_LMFILES_')
+      varT['_LMFILES_']:set(lmfiles)
+   end
 
    local vPATH = varT["PATH"]
    if (vPATH) then

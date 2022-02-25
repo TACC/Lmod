@@ -6,8 +6,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a b
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=a:1\;b:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=a:b;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/conflict/mf:1;
@@ -18,8 +16,6 @@ TEST_A=1;
 export TEST_A;
 TEST_B=1;
 export TEST_B;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/conflict/mf/a.lua:1\;ProjectDIR/rt/conflict/mf/b.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/conflict/mf/a.lua:ProjectDIR/rt/conflict/mf/b.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="ProjectDIR/rt/conflict/mf/a.lua",fullName="a",loadOrder=1,propT={},stackDepth=0,status="active",userName="a",wV="M.*zfinal",},b={fn="ProjectDIR/rt/conflict/mf/b.lua",fullName="b",loadOrder=2,propT={},stackDepth=0,status="active",userName="b",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/conflict/mf",},systemBaseMPATH="ProjectDIR/rt/conflict/mf",}';
@@ -54,14 +50,10 @@ export _ModuleTable_;
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load e/2.0
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=a:1\;b:1\;e/2.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=a:b:e/2.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/conflict/mf;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/conflict/mf/a.lua:1\;ProjectDIR/rt/conflict/mf/b.lua:1\;ProjectDIR/rt/conflict/mf/e/2.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/conflict/mf/a.lua:ProjectDIR/rt/conflict/mf/b.lua:ProjectDIR/rt/conflict/mf/e/2.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="ProjectDIR/rt/conflict/mf/a.lua",fullName="a",loadOrder=1,propT={},stackDepth=0,status="active",userName="a",wV="M.*zfinal",},b={fn="ProjectDIR/rt/conflict/mf/b.lua",fullName="b",loadOrder=2,propT={},stackDepth=0,status="active",userName="b",wV="M.*zfinal",},e={fn="ProjectDIR/rt/conflict/mf/e/2.0.lua",fullName="e/2.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="e/2.0",wV="000000002.*zfinal",},},mpathA={"ProjectDIR/rt/conflict/mf",},systemBaseMPATH="ProjectDIR/rt/conflict/mf",}';
@@ -77,14 +69,10 @@ false
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load e/1.0
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=a:1\;b:1\;e/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=a:b:e/1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/conflict/mf;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/conflict/mf/a.lua:1\;ProjectDIR/rt/conflict/mf/b.lua:1\;ProjectDIR/rt/conflict/mf/e/1.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/conflict/mf/a.lua:ProjectDIR/rt/conflict/mf/b.lua:ProjectDIR/rt/conflict/mf/e/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="ProjectDIR/rt/conflict/mf/a.lua",fullName="a",loadOrder=1,propT={},stackDepth=0,status="active",userName="a",wV="M.*zfinal",},b={fn="ProjectDIR/rt/conflict/mf/b.lua",fullName="b",loadOrder=2,propT={},stackDepth=0,status="active",userName="b",wV="M.*zfinal",},e={fn="ProjectDIR/rt/conflict/mf/e/1.0.lua",fullName="e/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="e/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/conflict/mf",},systemBaseMPATH="ProjectDIR/rt/conflict/mf",}';
@@ -95,14 +83,10 @@ export e;
 step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load d
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=a:1\;b:1\;e/1.0:1\;d/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=a:b:e/1.0:d/1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/conflict/mf;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/conflict/mf/a.lua:1\;ProjectDIR/rt/conflict/mf/b.lua:1\;ProjectDIR/rt/conflict/mf/e/1.0.lua:1\;ProjectDIR/rt/conflict/mf/d/1.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/conflict/mf/a.lua:ProjectDIR/rt/conflict/mf/b.lua:ProjectDIR/rt/conflict/mf/e/1.0.lua:ProjectDIR/rt/conflict/mf/d/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="ProjectDIR/rt/conflict/mf/a.lua",fullName="a",loadOrder=1,propT={},stackDepth=0,status="active",userName="a",wV="M.*zfinal",},b={fn="ProjectDIR/rt/conflict/mf/b.lua",fullName="b",loadOrder=2,propT={},stackDepth=0,status="active",userName="b",wV="M.*zfinal",},d={fn="ProjectDIR/rt/conflict/mf/d/1.0.lua",fullName="d/1.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="d",wV="000000001.*zfinal",},e={fn="ProjectDIR/rt/conflict/mf/e/1.0.lua",fullName="e/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="e/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/conflict/mf",},systemBaseMPATH="ProjectDIR/rt/conflict/mf",}';
@@ -111,14 +95,10 @@ export _ModuleTable_;
 step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load f
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=a:1\;b:1\;e/1.0:1\;d/1.0:1\;f:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=a:b:e/1.0:d/1.0:f;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/conflict/mf;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/conflict/mf/a.lua:1\;ProjectDIR/rt/conflict/mf/b.lua:1\;ProjectDIR/rt/conflict/mf/e/1.0.lua:1\;ProjectDIR/rt/conflict/mf/d/1.0.lua:1\;ProjectDIR/rt/conflict/mf/f.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/conflict/mf/a.lua:ProjectDIR/rt/conflict/mf/b.lua:ProjectDIR/rt/conflict/mf/e/1.0.lua:ProjectDIR/rt/conflict/mf/d/1.0.lua:ProjectDIR/rt/conflict/mf/f.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="ProjectDIR/rt/conflict/mf/a.lua",fullName="a",loadOrder=1,propT={},stackDepth=0,status="active",userName="a",wV="M.*zfinal",},b={fn="ProjectDIR/rt/conflict/mf/b.lua",fullName="b",loadOrder=2,propT={},stackDepth=0,status="active",userName="b",wV="M.*zfinal",},d={fn="ProjectDIR/rt/conflict/mf/d/1.0.lua",fullName="d/1.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="d",wV="000000001.*zfinal",},e={fn="ProjectDIR/rt/conflict/mf/e/1.0.lua",fullName="e/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="e/1.0",wV="000000001.*zfinal",},f={fn="ProjectDIR/rt/conflict/mf/f.lua",fullName="f",loadOrder=5,propT={},stackDepth=0,status="active",userName="f",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/conflict/mf",},systemBaseMPATH="ProjectDIR/rt/conflict/mf",}';

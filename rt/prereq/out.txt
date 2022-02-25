@@ -6,8 +6,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load petsc
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=petsc/3.1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=petsc/3.1.0;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/prereq/mf:1;
@@ -16,8 +14,6 @@ MODULEPATH=ProjectDIR/rt/prereq/mf;
 export MODULEPATH;
 PETSC_DIR=foo;
 export PETSC_DIR;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/prereq/mf/petsc/3.1.0:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/prereq/mf/petsc/3.1.0;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={petsc={fn="ProjectDIR/rt/prereq/mf/petsc/3.1.0",fullName="petsc/3.1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="petsc",wV="000000003.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/prereq/mf",},systemBaseMPATH="ProjectDIR/rt/prereq/mf",}';
@@ -39,12 +35,10 @@ export _ModuleTable_;
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload petsc
 ===========================
-unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/prereq/mf;
 export MODULEPATH;
 unset PETSC_DIR;
-unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/prereq/mf",},systemBaseMPATH="ProjectDIR/rt/prereq/mf",}';
 export _ModuleTable_;
@@ -57,16 +51,12 @@ false
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load petsc/2.9.0
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=petsc/2.9.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=petsc/2.9.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/prereq/mf;
 export MODULEPATH;
 PETSC_DIR=foo;
 export PETSC_DIR;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/prereq/mf/petsc/2.9.0:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/prereq/mf/petsc/2.9.0;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={petsc={fn="ProjectDIR/rt/prereq/mf/petsc/2.9.0",fullName="petsc/2.9.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="petsc/2.9.0",wV="000000002.000000009.*zfinal",},},mpathA={"ProjectDIR/rt/prereq/mf",},systemBaseMPATH="ProjectDIR/rt/prereq/mf",}';
@@ -80,14 +70,10 @@ false
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load slepc/2.9.0
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=petsc/2.9.0:1\;slepc/2.9.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=petsc/2.9.0:slepc/2.9.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/prereq/mf;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/prereq/mf/petsc/2.9.0:1\;ProjectDIR/rt/prereq/mf/slepc/2.9.0:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/prereq/mf/petsc/2.9.0:ProjectDIR/rt/prereq/mf/slepc/2.9.0;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={petsc={fn="ProjectDIR/rt/prereq/mf/petsc/2.9.0",fullName="petsc/2.9.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="petsc/2.9.0",wV="000000002.000000009.*zfinal",},slepc={fn="ProjectDIR/rt/prereq/mf/slepc/2.9.0",fullName="slepc/2.9.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="slepc/2.9.0",wV="000000002.000000009.*zfinal",},},mpathA={"ProjectDIR/rt/prereq/mf",},systemBaseMPATH="ProjectDIR/rt/prereq/mf",}';
@@ -96,16 +82,12 @@ export _ModuleTable_;
 step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load petsc/3.1.0
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=slepc/2.9.0:1\;petsc/3.1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=slepc/2.9.0:petsc/3.1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/prereq/mf;
 export MODULEPATH;
 PETSC_DIR=foo;
 export PETSC_DIR;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/prereq/mf/slepc/2.9.0:1\;ProjectDIR/rt/prereq/mf/petsc/3.1.0:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/prereq/mf/slepc/2.9.0:ProjectDIR/rt/prereq/mf/petsc/3.1.0;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={petsc={fn="ProjectDIR/rt/prereq/mf/petsc/3.1.0",fullName="petsc/3.1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="petsc/3.1.0",wV="000000003.000000001.*zfinal",},slepc={fn="ProjectDIR/rt/prereq/mf/slepc/2.9.0",fullName="slepc/2.9.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="slepc/2.9.0",wV="000000002.000000009.*zfinal",},},mpathA={"ProjectDIR/rt/prereq/mf",},systemBaseMPATH="ProjectDIR/rt/prereq/mf",}';
@@ -114,14 +96,10 @@ export _ModuleTable_;
 step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load slepc
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=petsc/3.1.0:1\;slepc/3.1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=petsc/3.1.0:slepc/3.1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/prereq/mf;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/prereq/mf/petsc/3.1.0:1\;ProjectDIR/rt/prereq/mf/slepc/3.1.0:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/prereq/mf/petsc/3.1.0:ProjectDIR/rt/prereq/mf/slepc/3.1.0;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={petsc={fn="ProjectDIR/rt/prereq/mf/petsc/3.1.0",fullName="petsc/3.1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="petsc/3.1.0",wV="000000003.000000001.*zfinal",},slepc={fn="ProjectDIR/rt/prereq/mf/slepc/3.1.0",fullName="slepc/3.1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="slepc",wV="000000003.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/prereq/mf",},systemBaseMPATH="ProjectDIR/rt/prereq/mf",}';
@@ -130,12 +108,10 @@ export _ModuleTable_;
 step 12
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload slepc petsc
 ===========================
-unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/prereq/mf;
 export MODULEPATH;
 unset PETSC_DIR;
-unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/prereq/mf",},systemBaseMPATH="ProjectDIR/rt/prereq/mf",}';
 export _ModuleTable_;
@@ -143,16 +119,12 @@ export _ModuleTable_;
 step 13
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load petsc/3.1.0
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=petsc/3.1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=petsc/3.1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/prereq/mf;
 export MODULEPATH;
 PETSC_DIR=foo;
 export PETSC_DIR;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/prereq/mf/petsc/3.1.0:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/prereq/mf/petsc/3.1.0;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={petsc={fn="ProjectDIR/rt/prereq/mf/petsc/3.1.0",fullName="petsc/3.1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="petsc/3.1.0",wV="000000003.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/prereq/mf",},systemBaseMPATH="ProjectDIR/rt/prereq/mf",}';
@@ -161,14 +133,10 @@ export _ModuleTable_;
 step 14
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load slepc/2.9.0
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=petsc/3.1.0:1\;slepc/2.9.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=petsc/3.1.0:slepc/2.9.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/prereq/mf;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/prereq/mf/petsc/3.1.0:1\;ProjectDIR/rt/prereq/mf/slepc/2.9.0:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/prereq/mf/petsc/3.1.0:ProjectDIR/rt/prereq/mf/slepc/2.9.0;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={petsc={fn="ProjectDIR/rt/prereq/mf/petsc/3.1.0",fullName="petsc/3.1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="petsc/3.1.0",wV="000000003.000000001.*zfinal",},slepc={fn="ProjectDIR/rt/prereq/mf/slepc/2.9.0",fullName="slepc/2.9.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="slepc/2.9.0",wV="000000002.000000009.*zfinal",},},mpathA={"ProjectDIR/rt/prereq/mf",},systemBaseMPATH="ProjectDIR/rt/prereq/mf",}';
@@ -184,14 +152,10 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load jdk32
 ===========================
 JDK32=1;
 export JDK32;
-__LMOD_REF_COUNT_LOADEDMODULES=petsc/3.1.0:1\;slepc/2.9.0:1\;jdk32/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=petsc/3.1.0:slepc/2.9.0:jdk32/1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/prereq/mf;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/prereq/mf/petsc/3.1.0:1\;ProjectDIR/rt/prereq/mf/slepc/2.9.0:1\;ProjectDIR/rt/prereq/mf/jdk32/1.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/prereq/mf/petsc/3.1.0:ProjectDIR/rt/prereq/mf/slepc/2.9.0:ProjectDIR/rt/prereq/mf/jdk32/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={jdk32={fn="ProjectDIR/rt/prereq/mf/jdk32/1.0.lua",fullName="jdk32/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="jdk32",wV="000000001.*zfinal",},petsc={fn="ProjectDIR/rt/prereq/mf/petsc/3.1.0",fullName="petsc/3.1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="petsc/3.1.0",wV="000000003.000000001.*zfinal",},slepc={fn="ProjectDIR/rt/prereq/mf/slepc/2.9.0",fullName="slepc/2.9.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="slepc/2.9.0",wV="000000002.000000009.*zfinal",},},mpathA={"ProjectDIR/rt/prereq/mf",},systemBaseMPATH="ProjectDIR/rt/prereq/mf",}';
@@ -200,14 +164,10 @@ export _ModuleTable_;
 step 17
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load junk/1.0
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=petsc/3.1.0:1\;slepc/2.9.0:1\;jdk32/1.0:1\;junk/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=petsc/3.1.0:slepc/2.9.0:jdk32/1.0:junk/1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/prereq/mf;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/prereq/mf/petsc/3.1.0:1\;ProjectDIR/rt/prereq/mf/slepc/2.9.0:1\;ProjectDIR/rt/prereq/mf/jdk32/1.0.lua:1\;ProjectDIR/rt/prereq/mf/junk/1.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/prereq/mf/petsc/3.1.0:ProjectDIR/rt/prereq/mf/slepc/2.9.0:ProjectDIR/rt/prereq/mf/jdk32/1.0.lua:ProjectDIR/rt/prereq/mf/junk/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={jdk32={fn="ProjectDIR/rt/prereq/mf/jdk32/1.0.lua",fullName="jdk32/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="jdk32",wV="000000001.*zfinal",},junk={fn="ProjectDIR/rt/prereq/mf/junk/1.0.lua",fullName="junk/1.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="junk/1.0",wV="000000001.*zfinal",},petsc={fn="ProjectDIR/rt/prereq/mf/petsc/3.1.0",fullName="petsc/3.1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="petsc/3.1.0",wV="000000003.000000001.*zfinal",},slepc={fn="ProjectDIR/rt/prereq/mf/slepc/2.9.0",fullName="slepc/2.9.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="slepc/2.9.0",wV="000000002.000000009.*zfinal",},},mpathA={"ProjectDIR/rt/prereq/mf",},systemBaseMPATH="ProjectDIR/rt/prereq/mf",}';

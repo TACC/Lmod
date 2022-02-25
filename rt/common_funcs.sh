@@ -137,7 +137,7 @@ runR ()
 runMe ()
 {
    runBase "$@"
-   eval `cat _stdout.$NUM`
+   eval "$(cat _stdout.$NUM)"
 }
 runLmod ()
 {

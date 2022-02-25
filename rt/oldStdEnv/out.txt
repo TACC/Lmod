@@ -6,8 +6,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load StdEnv
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=StdEnv/2020:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=StdEnv/2020;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/oldStdEnv/mf/Core:1;
@@ -16,8 +14,6 @@ MODULEPATH=ProjectDIR/rt/oldStdEnv/mf/Core;
 export MODULEPATH;
 MY_FULL_NAME=StdEnv/2020;
 export MY_FULL_NAME;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/oldStdEnv/mf/Core/StdEnv/2020.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/oldStdEnv/mf/Core/StdEnv/2020.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={StdEnv={fn="ProjectDIR/rt/oldStdEnv/mf/Core/StdEnv/2020.lua",fullName="StdEnv/2020",loadOrder=1,propT={},stackDepth=0,status="active",userName="StdEnv",wV="000002020.*zfinal",},},mpathA={"ProjectDIR/rt/oldStdEnv/mf/Core",},systemBaseMPATH="ProjectDIR/rt/oldStdEnv/mf/Core",}';
@@ -34,16 +30,12 @@ export _ModuleTable_;
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load StdEnv
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=StdEnv/2016.4:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=StdEnv/2016.4;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/oldStdEnv/mf/Core;
 export MODULEPATH;
 MY_FULL_NAME=StdEnv/2016.4;
 export MY_FULL_NAME;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/oldStdEnv/mf/Core/StdEnv/2016.4.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/oldStdEnv/mf/Core/StdEnv/2016.4.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={StdEnv={fn="ProjectDIR/rt/oldStdEnv/mf/Core/StdEnv/2016.4.lua",fullName="StdEnv/2016.4",loadOrder=1,propT={},stackDepth=0,status="active",userName="StdEnv",wV="s00002016.000000004.*zfinal",},},mpathA={"ProjectDIR/rt/oldStdEnv/mf/Core",},systemBaseMPATH="ProjectDIR/rt/oldStdEnv/mf/Core",}';
@@ -60,14 +52,10 @@ export _ModuleTable_;
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load StdEnv/2016.4
 ===========================
-LOADEDMODULES=StdEnv/2016.4;
-export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/oldStdEnv/mf/Core;
 export MODULEPATH;
 MY_FULL_NAME=StdEnv/2016.4;
 export MY_FULL_NAME;
-_LMFILES_=ProjectDIR/rt/oldStdEnv/mf/Core/StdEnv/2016.4.lua;
-export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={StdEnv={fn="ProjectDIR/rt/oldStdEnv/mf/Core/StdEnv/2016.4.lua",fullName="StdEnv/2016.4",loadOrder=1,propT={},stackDepth=0,status="active",userName="StdEnv/2016.4",wV="s00002016.000000004.*zfinal",},},mpathA={"ProjectDIR/rt/oldStdEnv/mf/Core",},systemBaseMPATH="ProjectDIR/rt/oldStdEnv/mf/Core",}';
 export _ModuleTable_;
 ===========================

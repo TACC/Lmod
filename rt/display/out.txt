@@ -18,14 +18,10 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load junk
 ===========================
 JUNK=1.0;
 export JUNK;
-__LMOD_REF_COUNT_LOADEDMODULES=junk/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=junk/1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/display/mf/Core;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/display/mf/Core/junk/1.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/display/mf/Core/junk/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={junk={fn="ProjectDIR/rt/display/mf/Core/junk/1.0.lua",fullName="junk/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="junk",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/display/mf/Core",},}';

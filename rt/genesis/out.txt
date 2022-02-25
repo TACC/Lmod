@@ -8,16 +8,12 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load genesis
 ===========================
 CPUTYPE=x86_64;
 export CPUTYPE;
-__LMOD_REF_COUNT_LOADEDMODULES=genesis/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=genesis/1.0;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/genesis/mf/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/genesis/mf/Core;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/genesis/mf/Core/genesis/1.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/genesis/mf/Core/genesis/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={genesis={fn="ProjectDIR/rt/genesis/mf/Core/genesis/1.0.lua",fullName="genesis/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="genesis",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/genesis/mf/Core",},systemBaseMPATH="ProjectDIR/rt/genesis/mf/Core",}';
@@ -26,16 +22,12 @@ export _ModuleTable_;
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load common
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=genesis/1.0:1\;common:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=genesis/1.0:common;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/genesis/mf/Core;
 export MODULEPATH;
 TESTTEST=x86_64;
 export TESTTEST;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/genesis/mf/Core/genesis/1.0.lua:1\;ProjectDIR/rt/genesis/mf/Core/common.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/genesis/mf/Core/genesis/1.0.lua:ProjectDIR/rt/genesis/mf/Core/common.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={common={fn="ProjectDIR/rt/genesis/mf/Core/common.lua",fullName="common",loadOrder=2,propT={},stackDepth=0,status="active",userName="common",wV="M.*zfinal",},genesis={fn="ProjectDIR/rt/genesis/mf/Core/genesis/1.0.lua",fullName="genesis/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="genesis",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/genesis/mf/Core",},systemBaseMPATH="ProjectDIR/rt/genesis/mf/Core",}';

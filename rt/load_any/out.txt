@@ -21,16 +21,12 @@ false
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=Foo/1.0:1\;A/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=Foo/1.0:A/1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/load_any/mf;
 export MODULEPATH;
 NAME=Foo;
 export NAME;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/load_any/mf/Foo/1.0.lua:1\;ProjectDIR/rt/load_any/mf/A/1.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/load_any/mf/Foo/1.0.lua:ProjectDIR/rt/load_any/mf/A/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/load_any/mf/A/1.0.lua",fullName="A/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},Foo={fn="ProjectDIR/rt/load_any/mf/Foo/1.0.lua",fullName="Foo/1.0",loadOrder=1,propT={},stackDepth=1,status="active",userName="Foo",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/load_any/mf",},systemBaseMPATH="ProjectDIR/rt/load_any/mf",}';
@@ -47,12 +43,10 @@ export _ModuleTable_;
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing rm A
 ===========================
-unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/load_any/mf;
 export MODULEPATH;
 unset NAME;
-unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_any/mf",},systemBaseMPATH="ProjectDIR/rt/load_any/mf",}';
 export _ModuleTable_;

@@ -28,8 +28,6 @@ export _ModuleTable_;
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load priority
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=priority/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=priority/1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core;
@@ -40,8 +38,6 @@ __LMOD_REF_COUNT_RTM_PATH=/top/dog10:1;
 export __LMOD_REF_COUNT_RTM_PATH;
 RTM_PATH=/top/dog10;
 export RTM_PATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/priority/mf/Core/priority/1.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/priority/mf/Core/priority/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={priority={fn="ProjectDIR/rt/priority/mf/Core/priority/1.0.lua",fullName="priority/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="priority",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},systemBaseMPATH="ProjectDIR/rt/priority/mf/Core",}';
@@ -50,8 +46,6 @@ export _ModuleTable_;
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=priority/1.0:1\;a/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=priority/1.0:a/1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core;
@@ -60,8 +54,6 @@ __LMOD_REF_COUNT_RTM_PATH=/top/dog10:1\;/d/e/f:1\;/a/b/c:1;
 export __LMOD_REF_COUNT_RTM_PATH;
 RTM_PATH=/top/dog10:/d/e/f:/a/b/c;
 export RTM_PATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/priority/mf/Core/priority/1.0.lua:1\;ProjectDIR/rt/priority/mf/Core/a/1.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/priority/mf/Core/priority/1.0.lua:ProjectDIR/rt/priority/mf/Core/a/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="ProjectDIR/rt/priority/mf/Core/a/1.0.lua",fullName="a/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="a",wV="000000001.*zfinal",},priority={fn="ProjectDIR/rt/priority/mf/Core/priority/1.0.lua",fullName="priority/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="priority",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},systemBaseMPATH="ProjectDIR/rt/priority/mf/Core",}';
@@ -70,8 +62,6 @@ export _ModuleTable_;
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load tdog
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=priority/1.0:1\;a/1.0:1\;tdog/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=priority/1.0:a/1.0:tdog/1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core;
@@ -82,8 +72,6 @@ __LMOD_REF_COUNT_RTM_PATH=/top/dog100:1\;/top/dog10:1\;/top/dog0:1\;/d/e/f:1\;/a
 export __LMOD_REF_COUNT_RTM_PATH;
 RTM_PATH=/top/dog100:/top/dog10:/top/dog0:/d/e/f:/a/b/c;
 export RTM_PATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/priority/mf/Core/priority/1.0.lua:1\;ProjectDIR/rt/priority/mf/Core/a/1.0.lua:1\;ProjectDIR/rt/priority/mf/Core/tdog/1.0:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/priority/mf/Core/priority/1.0.lua:ProjectDIR/rt/priority/mf/Core/a/1.0.lua:ProjectDIR/rt/priority/mf/Core/tdog/1.0;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="ProjectDIR/rt/priority/mf/Core/a/1.0.lua",fullName="a/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="a",wV="000000001.*zfinal",},priority={fn="ProjectDIR/rt/priority/mf/Core/priority/1.0.lua",fullName="priority/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="priority",wV="000000001.*zfinal",},tdog={fn="ProjectDIR/rt/priority/mf/Core/tdog/1.0",fullName="tdog/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="tdog",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},systemBaseMPATH="ProjectDIR/rt/priority/mf/Core",}';
@@ -100,8 +88,6 @@ export _ModuleTable_;
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload priority
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=a/1.0:1\;tdog/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=a/1.0:tdog/1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core;
@@ -112,8 +98,6 @@ __LMOD_REF_COUNT_RTM_PATH=/top/dog100:1\;/top/dog0:1\;/d/e/f:1\;/a/b/c:1;
 export __LMOD_REF_COUNT_RTM_PATH;
 RTM_PATH=/top/dog100:/top/dog0:/d/e/f:/a/b/c;
 export RTM_PATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/priority/mf/Core/a/1.0.lua:1\;ProjectDIR/rt/priority/mf/Core/tdog/1.0:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/priority/mf/Core/a/1.0.lua:ProjectDIR/rt/priority/mf/Core/tdog/1.0;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="ProjectDIR/rt/priority/mf/Core/a/1.0.lua",fullName="a/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="a",wV="000000001.*zfinal",},tdog={fn="ProjectDIR/rt/priority/mf/Core/tdog/1.0",fullName="tdog/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="tdog",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},systemBaseMPATH="ProjectDIR/rt/priority/mf/Core",}';

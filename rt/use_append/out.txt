@@ -6,16 +6,12 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load append
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=append:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=append;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/use_append/mf/Core:1\;ProjectDIR/rt/use_append/mf/Append:1\;ProjectDIR/rt/use_append/mf/Append2:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/use_append/mf/Core:ProjectDIR/rt/use_append/mf/Append:ProjectDIR/rt/use_append/mf/Append2;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/use_append/mf/Core/append:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/use_append/mf/Core/append;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={append={fn="ProjectDIR/rt/use_append/mf/Core/append",fullName="append",loadOrder=1,propT={},stackDepth=0,status="active",userName="append",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/use_append/mf/Core","ProjectDIR/rt/use_append/mf/Append","ProjectDIR/rt/use_append/mf/Append2",},systemBaseMPATH="ProjectDIR/rt/use_append/mf/Core",}';

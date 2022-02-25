@@ -6,16 +6,12 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load abc
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=abc:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=abc;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=OutputDIR/mf:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=OutputDIR/mf;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=OutputDIR/mf/abc.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=OutputDIR/mf/abc.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={abc={fn="OutputDIR/mf/abc.lua",fullName="abc",loadOrder=1,propT={},stackDepth=0,status="active",userName="abc",wV="M.*zfinal",},},mpathA={"OutputDIR/mf",},systemBaseMPATH="OutputDIR/mf",}';
@@ -34,11 +30,9 @@ export _ModuleTable_;
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload abc
 ===========================
-unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
 MODULEPATH=OutputDIR/mf;
 export MODULEPATH;
-unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"OutputDIR/mf",},systemBaseMPATH="OutputDIR/mf",}';
 export _ModuleTable_;
