@@ -81,15 +81,15 @@ if [ "@silence_shell_debugging@" = "no" ]; then
    module()
    {
      local __lmod_my_status
-     ############################################################
-     # turn off file globbing if it is not already off
-     _mlshopt="f";
-     case "$-" in 
-       *f*) unset _mlshopt;;
-     esac;
-     if [ -n "${_mlshopt:-}" ]; then
-       set -$_mlshopt;
-     fi;
+     #############################################################
+     ## turn off file globbing if it is not already off
+     #_mlshopt="f";
+     #case "$-" in 
+     #  *f*) unset _mlshopt;;
+     #esac;
+     #if [ -n "${_mlshopt:-}" ]; then
+     #  set -$_mlshopt;
+     #fi;
 
      ############################################################
      # Run Lmod and eval results
@@ -98,10 +98,10 @@ if [ "@silence_shell_debugging@" = "no" ]; then
 
      ############################################################
      # turn on file globbing for users who want it.
-     if [ -n "${_mlshopt:-}" ]; then
-       set +$_mlshopt;
-     fi;
-     unset _mlshopt;
+     #if [ -n "${_mlshopt:-}" ]; then
+     #  set +$_mlshopt;
+     #fi;
+     #unset _mlshopt;
      return $__lmod_my_status
    }
 else
@@ -125,13 +125,13 @@ else
 
      ############################################################
      # turn off file globbing if it is not already off
-     _mlshopt="f";
-     case "$-" in 
-       *f*) unset _mlshopt;;
-     esac;
-     if [ -n "${_mlshopt:-}" ]; then
-       set -$_mlshopt;
-     fi;
+     #_mlshopt="f";
+     #case "$-" in 
+     #  *f*) unset _mlshopt;;
+     #esac;
+     #if [ -n "${_mlshopt:-}" ]; then
+     #  set -$_mlshopt;
+     #fi;
 
      ############################################################
      # Run Lmod and eval results
@@ -140,10 +140,10 @@ else
 
      ############################################################
      # turn on file globbing for users who want it.
-     if [ -n "${_mlshopt:-}" ]; then
-       set +$_mlshopt;
-     fi;
-     unset _mlshopt;
+     #if [ -n "${_mlshopt:-}" ]; then
+     #  set +$_mlshopt;
+     #fi;
+     #unset _mlshopt;
 
      ############################################################
      # Un-silence shell debug after module command
