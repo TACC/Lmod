@@ -5,7 +5,7 @@
 if [ -n "${KSH_VERSION+x}" ]; then
    ml ()
    {
-     eval $($LMOD_DIR/ml_cmd "$@")
+     eval "$($LMOD_DIR/ml_cmd "$@")"
    }
 fi
 
