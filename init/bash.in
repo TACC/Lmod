@@ -147,7 +147,6 @@ ml()
 
 if [ -n "${BASH_VERSION:-}" -a "@export_module@" != no ]; then
   export -f module
-  export -f __lmod_file_glob_on
   export -f ml
 fi
 unset export_module

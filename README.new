@@ -31,4 +31,5 @@ Lmod 8.6+
               "ml --show_hidden av" and not when doing "ml av"
             * Issue #564: Added Test for depends_on(between())
             * Issue #566: Directly report LOADEDMODULES and _LMFILES_ rather than doing incrementally.
-            
+   (8.6.14) * Issue #571: remove export -f __lmod_file_glob_on
+   
