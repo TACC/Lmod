@@ -30,4 +30,5 @@ Lmod 8.6+
    (8.6.13) * Issue #560: Make sure that extensions in hidden modules only show up when doing
               "ml --show_hidden av" and not when doing "ml av"
             * Issue #564: Added Test for depends_on(between())
+            * Issue #566: Directly report LOADEDMODULES and _LMFILES_ rather than doing incrementally.
             
