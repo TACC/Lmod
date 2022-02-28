@@ -861,7 +861,7 @@ function M.dependencyCk(self,mA)
    local fullName = frameStk:fullName()
    for i = 1,#mA do
       local mname = mA[i]
-      if (not mt:haveUserName(mname,"active")) then
+      if (not mname:isloaded() ) then
          local a = s_missDepT[mname:userName()] or {}
          a[#a+1] = fullName
          s_missDepT[mname:userName()] = a

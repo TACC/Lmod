@@ -552,11 +552,13 @@ function M.isloaded(self)
    end
 
    local userName  = self:userName()
-   if (userName == sn            or
+   if (userName == sn              or
+       userName == mt:userName(sn) or
        userName == mt:fullName(sn)) then
       dbg.fini("MName:isloaded")
       return sn_status
    end
+
    dbg.fini("MName:isloaded")
    return false
 end
