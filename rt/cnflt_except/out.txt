@@ -10,16 +10,12 @@ B=1.0;
 export B;
 C=2.0;
 export C;
-__LMOD_REF_COUNT_LOADEDMODULES=B/1.0:1\;C/2.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=B/1.0:C/2.0;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/cnflt_except/mf/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/cnflt_except/mf/Core;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/cnflt_except/mf/Core/B/1.0.lua:1\;ProjectDIR/rt/cnflt_except/mf/Core/C/2.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/cnflt_except/mf/Core/B/1.0.lua:ProjectDIR/rt/cnflt_except/mf/Core/C/2.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={B={fn="ProjectDIR/rt/cnflt_except/mf/Core/B/1.0.lua",fullName="B/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="B",wV="000000001.*zfinal",},C={fn="ProjectDIR/rt/cnflt_except/mf/Core/C/2.0.lua",fullName="C/2.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="C",wV="000000002.*zfinal",},},mpathA={"ProjectDIR/rt/cnflt_except/mf/Core",},systemBaseMPATH="ProjectDIR/rt/cnflt_except/mf/Core",}';
@@ -35,11 +31,9 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 unset B;
 unset C;
-unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/cnflt_except/mf/Core;
 export MODULEPATH;
-unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/cnflt_except/mf/Core",},systemBaseMPATH="ProjectDIR/rt/cnflt_except/mf/Core",}';
 export _ModuleTable_;
@@ -49,14 +43,10 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load B
 ===========================
 B=1.0;
 export B;
-__LMOD_REF_COUNT_LOADEDMODULES=B/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=B/1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/cnflt_except/mf/Core;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/cnflt_except/mf/Core/B/1.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/cnflt_except/mf/Core/B/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={B={fn="ProjectDIR/rt/cnflt_except/mf/Core/B/1.0.lua",fullName="B/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="B",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/cnflt_except/mf/Core",},systemBaseMPATH="ProjectDIR/rt/cnflt_except/mf/Core",}';
@@ -71,11 +61,9 @@ step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 unset B;
-unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/cnflt_except/mf/Core;
 export MODULEPATH;
-unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/cnflt_except/mf/Core",},systemBaseMPATH="ProjectDIR/rt/cnflt_except/mf/Core",}';
 export _ModuleTable_;
@@ -83,14 +71,10 @@ export _ModuleTable_;
 step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load miniconda
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=miniconda/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=miniconda/1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/cnflt_except/mf/Core;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/cnflt_except/mf/Core/miniconda/1.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/cnflt_except/mf/Core/miniconda/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={miniconda={fn="ProjectDIR/rt/cnflt_except/mf/Core/miniconda/1.0.lua",fullName="miniconda/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="miniconda",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/cnflt_except/mf/Core",},systemBaseMPATH="ProjectDIR/rt/cnflt_except/mf/Core",}';
@@ -101,14 +85,10 @@ export miniconda;
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=miniconda/1.0:1\;A/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=miniconda/1.0:A/1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/cnflt_except/mf/Core;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/cnflt_except/mf/Core/miniconda/1.0.lua:1\;ProjectDIR/rt/cnflt_except/mf/Core/A/1.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/cnflt_except/mf/Core/miniconda/1.0.lua:ProjectDIR/rt/cnflt_except/mf/Core/A/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/cnflt_except/mf/Core/A/1.0.lua",fullName="A/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},miniconda={fn="ProjectDIR/rt/cnflt_except/mf/Core/miniconda/1.0.lua",fullName="miniconda/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="miniconda",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/cnflt_except/mf/Core",},systemBaseMPATH="ProjectDIR/rt/cnflt_except/mf/Core",}';

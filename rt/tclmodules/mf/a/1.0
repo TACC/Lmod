@@ -1,0 +1,9 @@
+#%Module
+
+global env
+set home $env(HOME)
+set pkg "$home/foo"
+prepend-path PATH $pkg/bin
+setenv FOO_DIR $pkg
+
+module-whatis "This $pkg"

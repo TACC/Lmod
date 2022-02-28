@@ -22,8 +22,6 @@ LMOD_FAMILY_COMPILER=intel;
 export LMOD_FAMILY_COMPILER;
 LMOD_FAMILY_COMPILER_VERSION=13.1;
 export LMOD_FAMILY_COMPILER_VERSION;
-__LMOD_REF_COUNT_LOADEDMODULES=intel/13.1:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=intel/13.1;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13:1\;ProjectDIR/rt/user_inherit/mf/Compiler/intel/13:1\;ProjectDIR/rt/user_inherit/user_mf/Core:1\;ProjectDIR/rt/user_inherit/mf/Core:1;
@@ -34,8 +32,6 @@ __LMOD_REF_COUNT_PATH=/unknown/apps/intel/13.1/bin/intel64:1\;ProjectDIR/proj_mg
 export __LMOD_REF_COUNT_PATH;
 PATH=/unknown/apps/intel/13.1/bin/intel64:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/user_inherit/user_mf/Core/intel/13.1.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/user_inherit/user_mf/Core/intel/13.1.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={intel={fn="ProjectDIR/rt/user_inherit/user_mf/Core/intel/13.1.lua",fullName="intel/13.1",loadOrder=1,mnameA={{fn="ProjectDIR/rt/user_inherit/mf/Core/intel/13.1.lua",sn="intel",userName="intel/13.1",version="13.1",},},propT={},stackDepth=0,status="active",userName="intel",wV="^00000013.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13","ProjectDIR/rt/user_inherit/mf/Compiler/intel/13","ProjectDIR/rt/user_inherit/user_mf/Core","ProjectDIR/rt/user_inherit/mf/Core",},systemBaseMPATH="ProjectDIR/rt/user_inherit/user_mf/Core:ProjectDIR/rt/user_inherit/mf/Core",}';
@@ -60,16 +56,12 @@ export _ModuleTable_;
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load boost
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=intel/13.1:1\;boost/1.9:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=intel/13.1:boost/1.9;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13:ProjectDIR/rt/user_inherit/mf/Compiler/intel/13:ProjectDIR/rt/user_inherit/user_mf/Core:ProjectDIR/rt/user_inherit/mf/Core;
 export MODULEPATH;
 MY_VERSION=1.9;
 export MY_VERSION;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/user_inherit/user_mf/Core/intel/13.1.lua:1\;ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13/boost/1.9.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/user_inherit/user_mf/Core/intel/13.1.lua:ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13/boost/1.9.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={boost={fn="ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13/boost/1.9.lua",fullName="boost/1.9",loadOrder=2,propT={},stackDepth=0,status="active",userName="boost",wV="000000001.000000009.*zfinal",},intel={fn="ProjectDIR/rt/user_inherit/user_mf/Core/intel/13.1.lua",fullName="intel/13.1",loadOrder=1,mnameA={{fn="ProjectDIR/rt/user_inherit/mf/Core/intel/13.1.lua",sn="intel",userName="intel/13.1",version="13.1",},},propT={},stackDepth=0,status="active",userName="intel",wV="^00000013.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13","ProjectDIR/rt/user_inherit/mf/Compiler/intel/13","ProjectDIR/rt/user_inherit/user_mf/Core","ProjectDIR/rt/user_inherit/mf/Core",},systemBaseMPATH="ProjectDIR/rt/user_inherit/user_mf/Core:ProjectDIR/rt/user_inherit/mf/Core",}';

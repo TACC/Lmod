@@ -7,11 +7,9 @@ step 2
 lua ProjectDIR/src/lmod.in.lua R --regression_testing load a
 ===========================
 Sys.setenv("A_VERSION"="1.0");
-Sys.setenv("__LMOD_REF_COUNT_LOADEDMODULES"="a/1.0:1");
 Sys.setenv("LOADEDMODULES"="a/1.0");
 Sys.setenv("__LMOD_REF_COUNT_MODULEPATH"="ProjectDIR/rt/r_shell/mf/Core:1");
 Sys.setenv("MODULEPATH"="ProjectDIR/rt/r_shell/mf/Core");
-Sys.setenv("__LMOD_REF_COUNT__LMFILES_"="ProjectDIR/rt/r_shell/mf/Core/a/1.0:1");
 Sys.setenv("_LMFILES_"="ProjectDIR/rt/r_shell/mf/Core/a/1.0");
 mlstatus <- TRUE
 ===========================
@@ -19,11 +17,9 @@ step 3
 lua ProjectDIR/src/lmod.in.lua R --regression_testing load b
 ===========================
 Sys.setenv("B_VERSION"="1.0");
-Sys.setenv("__LMOD_REF_COUNT_LOADEDMODULES"="b/1.0:1");
 Sys.setenv("LOADEDMODULES"="b/1.0");
 Sys.setenv("__LMOD_REF_COUNT_MODULEPATH"="ProjectDIR/rt/r_shell/mf/Core:1");
 Sys.setenv("MODULEPATH"="ProjectDIR/rt/r_shell/mf/Core");
-Sys.setenv("__LMOD_REF_COUNT__LMFILES_"="ProjectDIR/rt/r_shell/mf/Core/b/1.0.lua:1");
 Sys.setenv("_LMFILES_"="ProjectDIR/rt/r_shell/mf/Core/b/1.0.lua");
 mlstatus <- TRUE
 ===========================

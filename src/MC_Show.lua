@@ -338,6 +338,10 @@ end
 -- @param self A MasterControl object
 function M.set_shell_function(self, name, bashStr, cshStr)
    local a = {}
+   name    = name    or "<unknown>"
+   bashStr = bashStr or ""
+   cshStr  = cshStr  or ""
+   
    a[#a+1] = "set_shell_function("
    a[#a+1] = '"'..name..'",'
    a[#a+1] = bashStr:doubleQuoteString()..','

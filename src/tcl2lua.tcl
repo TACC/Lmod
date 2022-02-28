@@ -422,6 +422,7 @@ proc module-whatis { args } {
     }
 
     regsub -all {[\n]} $msg  " " msg2
+    set msg2 [string trimright $msg2]
     lappend g_outputA  "whatis(\[===\[$msg2\]===\])\n"
 }
 

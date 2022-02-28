@@ -16,14 +16,10 @@ export _ModuleTable_;
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load .system
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=.system:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=.system;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/hidden/mf;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/hidden/mf/.system.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/hidden/mf/.system.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={[".system"]={fn="ProjectDIR/rt/hidden/mf/.system.lua",fullName=".system",loadOrder=1,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName=".system",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/hidden/mf",},systemBaseMPATH="ProjectDIR/rt/hidden/mf",}';

@@ -6,16 +6,12 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load TACC
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=cluster:1\;TACC:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=cluster:TACC;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=OutputDIR/mf/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=OutputDIR/mf/Core;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=OutputDIR/mf/Core/cluster:1\;OutputDIR/mf/Core/TACC:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=OutputDIR/mf/Core/cluster:OutputDIR/mf/Core/TACC;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={TACC={fn="OutputDIR/mf/Core/TACC",fullName="TACC",loadOrder=2,propT={},stackDepth=0,status="active",userName="TACC",wV="M.*zfinal",},cluster={fn="OutputDIR/mf/Core/cluster",fullName="cluster",loadOrder=1,propT={},stackDepth=1,status="active",userName="cluster",wV="M.*zfinal",},},mpathA={"OutputDIR/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core",}';
@@ -32,11 +28,9 @@ export _ModuleTable_;
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
-unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
 MODULEPATH=OutputDIR/mf/Core;
 export MODULEPATH;
-unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"OutputDIR/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core",}';
 export _ModuleTable_;
@@ -44,16 +38,12 @@ export _ModuleTable_;
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=cluster:1\;TACC:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=cluster:TACC;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=OutputDIR/mf/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=OutputDIR/mf/Core;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=OutputDIR/mf/Core/cluster:1\;OutputDIR/mf/Core/TACC:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=OutputDIR/mf/Core/cluster:OutputDIR/mf/Core/TACC;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={TACC={fn="OutputDIR/mf/Core/TACC",fullName="TACC",loadOrder=2,propT={},stackDepth=0,status="active",userName="TACC",wV="M.*zfinal",},cluster={fn="OutputDIR/mf/Core/cluster",fullName="cluster",loadOrder=1,propT={},stackDepth=1,status="active",userName="cluster",wV="M.*zfinal",},},mpathA={"OutputDIR/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core",}';
@@ -64,11 +54,9 @@ export __LMOD_DEFAULT_MODULES_LOADED__;
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
-unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
 MODULEPATH=OutputDIR/mf/Core;
 export MODULEPATH;
-unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"OutputDIR/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core",}';
 export _ModuleTable_;

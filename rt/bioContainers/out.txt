@@ -24,16 +24,12 @@ __LMOD_REF_COUNT_LMOD_RC=ProjectDIR/rt/bioContainers/bcd/lmod/lmodrc.lua:1\;Proj
 export __LMOD_REF_COUNT_LMOD_RC;
 LMOD_RC=ProjectDIR/rt/bioContainers/bcd/lmod/lmodrc.lua:ProjectDIR/rt/bioContainers/lmodrc.lua;
 export LMOD_RC;
-__LMOD_REF_COUNT_LOADEDMODULES=bioContainers/0.1:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=bioContainers/0.1;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/bioContainers/bcd/mf:1\;ProjectDIR/rt/bioContainers/mf/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/bioContainers/bcd/mf:ProjectDIR/rt/bioContainers/mf/Core;
 export MODULEPATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/bioContainers/mf/Core/bioContainers/0.1.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/bioContainers/mf/Core/bioContainers/0.1.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={bioContainers={fn="ProjectDIR/rt/bioContainers/mf/Core/bioContainers/0.1.lua",fullName="bioContainers/0.1",loadOrder=1,propT={},stackDepth=0,status="active",userName="bioContainers",wV="000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/bioContainers/bcd/mf","ProjectDIR/rt/bioContainers/mf/Core",},systemBaseMPATH="ProjectDIR/rt/bioContainers/mf/Core",}';

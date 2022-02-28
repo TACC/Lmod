@@ -462,10 +462,6 @@ function M.isVisible(self, modT)
    local fn        = modT.fn
    local isVisible = true
 
-   ------------------------------------------------------------
-   -- Must self:update() to read in .modulerc etc files.
-   self:update()
-
    if (self:getHiddenT(mpathA, name) or self:getHiddenT(mpathA, fn)) then
       isVisible = false
    elseif (name:sub(1,1) == ".") then

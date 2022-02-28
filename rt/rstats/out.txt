@@ -6,8 +6,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T load Rpkgs
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=Rstats/3.4.0:1\;Rpkgs/3.4.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=Rstats/3.4.0:Rpkgs/3.4.0;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/rstats/mf/Core:1;
@@ -18,8 +16,6 @@ __LMOD_REF_COUNT_PATH=/opt/apps/intel17/impi17_0/RstatsPackages/3.4.0/packages/s
 export __LMOD_REF_COUNT_PATH;
 PATH=/opt/apps/intel17/impi17_0/RstatsPackages/3.4.0/packages/snow:/opt/apps/intel17/impi17_0/Rstats/3.4.0/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/rstats/mf/Core/Rstats/3.4.0.lua:1\;ProjectDIR/rt/rstats/mf/Core/Rpkgs/3.4.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/rstats/mf/Core/Rstats/3.4.0.lua:ProjectDIR/rt/rstats/mf/Core/Rpkgs/3.4.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={Rpkgs={fn="ProjectDIR/rt/rstats/mf/Core/Rpkgs/3.4.0.lua",fullName="Rpkgs/3.4.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="Rpkgs",wV="000000003.000000004.*zfinal",},Rstats={fn="ProjectDIR/rt/rstats/mf/Core/Rstats/3.4.0.lua",fullName="Rstats/3.4.0",loadOrder=1,propT={},stackDepth=1,status="active",userName="Rstats/3.4.0",wV="000000003.000000004.*zfinal",},},mpathA={"ProjectDIR/rt/rstats/mf/Core",},systemBaseMPATH="ProjectDIR/rt/rstats/mf/Core",}';
@@ -36,8 +32,6 @@ export _ModuleTable_;
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T unload Rpkgs
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=Rstats/3.4.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=Rstats/3.4.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/rstats/mf/Core;
@@ -46,8 +40,6 @@ __LMOD_REF_COUNT_PATH=/opt/apps/intel17/impi17_0/Rstats/3.4.0/bin:1\;ProjectDIR/
 export __LMOD_REF_COUNT_PATH;
 PATH=/opt/apps/intel17/impi17_0/Rstats/3.4.0/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/rstats/mf/Core/Rstats/3.4.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/rstats/mf/Core/Rstats/3.4.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={Rstats={fn="ProjectDIR/rt/rstats/mf/Core/Rstats/3.4.0.lua",fullName="Rstats/3.4.0",loadOrder=1,propT={},stackDepth=1,status="active",userName="Rstats/3.4.0",wV="000000003.000000004.*zfinal",},},mpathA={"ProjectDIR/rt/rstats/mf/Core",},systemBaseMPATH="ProjectDIR/rt/rstats/mf/Core",}';

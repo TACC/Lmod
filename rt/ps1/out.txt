@@ -6,8 +6,6 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load setprompt
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=setprompt/1.0:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=setprompt/1.0;
 export LOADEDMODULES;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/ps1/mf/Core:1;
@@ -16,8 +14,6 @@ MODULEPATH=ProjectDIR/rt/ps1/mf/Core;
 export MODULEPATH;
 PS1=hello\>\ ;
 export PS1;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/ps1/mf/Core/setprompt/1.0.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/ps1/mf/Core/setprompt/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={setprompt={fn="ProjectDIR/rt/ps1/mf/Core/setprompt/1.0.lua",fullName="setprompt/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="setprompt",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/ps1/mf/Core",},systemBaseMPATH="ProjectDIR/rt/ps1/mf/Core",}';
@@ -28,13 +24,11 @@ export __LMOD_STACK_PS1;
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing rm setprompt
 ===========================
-unset __LMOD_REF_COUNT_LOADEDMODULES;
 unset LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/ps1/mf/Core;
 export MODULEPATH;
 PS1=test\ \\u@\\h\>\ ;
 export PS1;
-unset __LMOD_REF_COUNT__LMFILES_;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/ps1/mf/Core",},systemBaseMPATH="ProjectDIR/rt/ps1/mf/Core",}';
 export _ModuleTable_;

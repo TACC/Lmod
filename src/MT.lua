@@ -1341,6 +1341,35 @@ function M.getMTfromFile(self,tt)
    return true
 end
 
+function M.extractModulesFiles(self)
+   local a = self:list("fullName","active")
+   local loadA = {}
+   local fileA = {}
+   local status = true
+   for i = 1,#a do
+      loadA[#loadA+1] = a[i].fullName
+      fileA[#fileA+1] = a[i].fn
+   end
+   local loadStr = nil
+   local fileStr = nil
+   if (next (loadA) ~= nil) then
+      loadStr = concatTbl(loadA,":")
+      fileStr = concatTbl(fileA,":")
+   end
+
+   local oldV = getenv("LOADEDMODULES") 
+   dbg.print{"RTM: oldV: ",oldV,", loadStr: ",loadStr,"\n"}
+
+   if (oldV == loadStr) then
+      status = false
+   elseif (oldV and not loadStr) then
+      loadStr = nil
+      fileStr = nil
+   end
+   return status, loadStr, fileStr
+end
+
+
 function M.setMpathRefCountT(self, refCountT)
    self.mpathRefCountT = refCountT
 end

@@ -16,16 +16,12 @@ export _ModuleTable_;
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load git hdf5/1.8.15
 ===========================
-__LMOD_REF_COUNT_LOADEDMODULES=git/2.0.3:1\;hdf5/1.8.15:1;
-export __LMOD_REF_COUNT_LOADEDMODULES;
 LOADEDMODULES=git/2.0.3:hdf5/1.8.15;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/broken_modulerc/mf/Core;
 export MODULEPATH;
 VERSION=1.8.15;
 export VERSION;
-__LMOD_REF_COUNT__LMFILES_=ProjectDIR/rt/broken_modulerc/mf/Core/git/2.0.3.lua:1\;ProjectDIR/rt/broken_modulerc/mf/Core/hdf5/1.8.15.lua:1;
-export __LMOD_REF_COUNT__LMFILES_;
 _LMFILES_=ProjectDIR/rt/broken_modulerc/mf/Core/git/2.0.3.lua:ProjectDIR/rt/broken_modulerc/mf/Core/hdf5/1.8.15.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={git={fn="ProjectDIR/rt/broken_modulerc/mf/Core/git/2.0.3.lua",fullName="git/2.0.3",loadOrder=1,propT={},stackDepth=0,status="active",userName="git/2.0.3",wV="000000002.000000000.000000003.*zfinal",},hdf5={fn="ProjectDIR/rt/broken_modulerc/mf/Core/hdf5/1.8.15.lua",fullName="hdf5/1.8.15",loadOrder=2,propT={},stackDepth=0,status="active",userName="hdf5/1.8.15",wV="000000001.000000008.000000015.*zfinal",},},mpathA={"ProjectDIR/rt/broken_modulerc/mf/Core",},}';
