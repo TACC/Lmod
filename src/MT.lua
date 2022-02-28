@@ -648,17 +648,6 @@ function M.have(self, sn, status)
    return ((status == "any") or (status == entry.status))
 end
 
-function M.haveUserName(self, mname, status)
-   local sn     = mname:sn()
-   local result = self:have(sn, status)
-   if (not result) then
-      return false
-   end
-   local userName = mname:userName()
-
-   return self:userName(sn) == userName or self:fullName(sn) == userName
-end
-
 function M.find_possible_sn(self, userName)
    local sn_match = false
    local sn = userName
