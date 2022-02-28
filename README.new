@@ -30,4 +30,4 @@ Lmod 8.6+
 W.I.P:
    (8.6.13) * Issue #560: Make sure that extensions in hidden modules only show up when doing
               "ml --show_hidden av" and not when doing "ml av"
-              
+            * Update clearMT shell function for init/sh.in

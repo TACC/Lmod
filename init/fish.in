@@ -23,7 +23,3 @@ end
 function ml
    eval $LMOD_DIR/ml_cmd $argv | source -
 end
-
-function clearMT
-   eval $LMOD_DIR/clearMT_cmd bash | source -
-end
