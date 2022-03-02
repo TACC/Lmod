@@ -28,7 +28,7 @@
   \end{itemize}
 \end{frame}
 
-% page 2a
+% page 3
 \begin{frame}{Alternative story}
   \begin{itemize}
     \item How I used a testing tool I already had
@@ -39,8 +39,8 @@
   \end{itemize}
 \end{frame}
 
-% page 3
-\begin{frame}{Testing philosophy in Lmod}
+% page 4
+\begin{rame}{Testing philosophy in Lmod}
   \begin{itemize}
     \item Lmod's success relies heavily on the testing system.
     \item Passing all the tests usually means a new version can be released.
@@ -54,7 +54,7 @@
 \end{frame}
 
 
-% page 4
+% page 5
 \begin{frame}{Goals of testing Lmod}
   \begin{itemize}
     \item Test various features of Lmod.
@@ -65,7 +65,7 @@
   \end{itemize}
 \end{frame}
 
-% page 5
+% page 6
 \begin{frame}{It is hard to test everything}
   \begin{itemize}
     \item Testing Old data with new versions(Collections, spiderT.lua)
@@ -76,7 +76,7 @@
   \end{itemize}
 \end{frame}
 
-% page 6
+% page 7
 \begin{frame}{Hermes/tm Testing system}
   \begin{itemize}
     \item Hermes is a group of tools to help with testing
@@ -96,7 +96,7 @@
   \end{itemize}
 \end{frame}
 
-% page 7
+% page 8
 \begin{frame}{\texttt{tm} flow}
   \begin{itemize}
     \item \texttt{tm} searches for tests from the current directory
@@ -114,7 +114,7 @@
   \end{itemize}
 \end{frame}
 
-% page 8 
+% page 9 
 \begin{frame}{Every project using \texttt{tm} must have an \emph{acceptance} tool}
   \begin{itemize}
     \item There must be an automatic way to decide a test passed.
@@ -130,7 +130,7 @@
   \end{itemize}
 \end{frame}
 
-% page 9
+% page 10
 \begin{frame}{Test files (*.tdesc)}
   \begin{itemize}
     \item The testDescript is a table describing the the test
@@ -145,7 +145,7 @@
   \end{itemize}
 \end{frame}
 
-% page 10
+% page 11
 \begin{frame}{Lmod tests}
   \begin{itemize}
     \item Uptil now this talk has been about \texttt{tm}
@@ -161,7 +161,7 @@
   \end{itemize}
 \end{frame}
 
-% page 11
+% page 12
 \begin{frame}[fragile]
   \frametitle{\texttt{extension.tdesc}}
     {\tiny
@@ -186,7 +186,7 @@ testdescript = \{
      # cleanup \_stdout.orig -> out.txt
 
      # combine \_stderr.[0-9][0-9][0-9] -> \_stderr.orig
-     # cleanup \_stderr.orig -> out.txt
+     # cleanup \_stderr.orig -> err.txt
 
      wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
      wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
@@ -199,8 +199,8 @@ testdescript = \{
 \end{semiverbatim}
     }
 \end{frame}
-
-% page 12
+%$
+% page 13
 \begin{frame}{\$(projectDir)/rt/common\_funcs.sh}
   \begin{itemize}
     \item Common bash shell functions are in this file
@@ -212,29 +212,21 @@ testdescript = \{
   \end{itemize}
 \end{frame}
 
-% page 13
+% page 14
 \begin{frame}[fragile]
   \frametitle{\texttt{runLmod}}
     {\tiny
 \begin{semiverbatim}
 runLmod ()
 \{
-   ############################################################
-   # turn off file globbing if it is not already off
-   ...
-
    runBase \$LUA\_EXEC \$projectDir/src/lmod.in.lua bash --regression\_testing "\$@"
-   eval `cat \_stdout.\$NUM`
-
-   ############################################################
-   # turn on file globbing for users who want it.
-   ...
+   eval "`cat \_stdout.\$NUM`"
 \}
 \end{semiverbatim}
     }
 \end{frame}
 
-% page 14
+% page 15
 \begin{frame}[fragile]
   \frametitle{\texttt{runBase}}
     {\tiny
@@ -263,7 +255,7 @@ runBase ()
 \end{frame}
 
 
-% page 15
+% page 16
 \begin{frame}[fragile]
   \frametitle{Cleanup for stderr}
     {\tiny
@@ -278,7 +270,7 @@ runBase ()
     \end{itemize}
 \end{frame}
 
-% page 16
+% page 17
 \begin{frame}[fragile]
   \frametitle{Cleanup for stdout}
     {\tiny
@@ -295,7 +287,7 @@ runBase ()
     \end{itemize}
 \end{frame}
 
-% page 17
+% page 18
 \begin{frame}[fragile]
   \frametitle{Cleanup script}
     {\tiny
@@ -310,7 +302,7 @@ runBase ()
     \end{itemize}
 \end{frame}
 
-% page 18
+% page 19
 \begin{frame}[fragile]
   \frametitle{Cleanup script (II)}
     {\tiny
@@ -341,7 +333,7 @@ admin/admin-1.0
     \end{itemize}
 \end{frame}
 
-% page 18
+% page 20
 \begin{frame}[fragile]
   \frametitle{Deciding if a test passes}
     {\tiny
@@ -362,7 +354,7 @@ testFinish -r \$(resultFn) -t \$(runtimeFn) results.csv
     \end{itemize}
 \end{frame}
 
-% page 19
+% page 21
 \begin{frame}{Future Topics}
   \begin{itemize}
     \item Write one new test.
