@@ -116,7 +116,7 @@ function Bash.expandVar(self, k, v, vType)
    local line = concatTbl(lineA,"")
    stdout:write(line)
    if (k:find('^_ModuleTable') == nil) then
-      dbg.print{   line}
+      dbg.print{line}
    end
 end
 
@@ -130,6 +130,25 @@ function Bash.unset(self, k, vType)
    stdout:write("unset ",k,";\n")
    dbg.print{   "unset ",k,";\n"}
 end
+
+function Bash.complete(self, name, value)
+   local lineA = {}
+   if (value) then
+      lineA[#lineA + 1]  = "complete "
+      lineA[#lineA + 1]  = value
+      lineA[#lineA + 1]  = " "
+      lineA[#lineA + 1]  = name
+      lineA[#lineA + 1]  = ";\n"
+   else
+      lineA[#lineA + 1]  = "complete -r "
+      lineA[#lineA + 1]  = name
+      lineA[#lineA + 1]  = ";\n"
+   end
+   local line = concatTbl(lineA,"")
+   stdout:write(line)
+   dbg.print{   line}
+end
+
 
 --------------------------------------------------------------------------
 -- Bash:real_shell(): Return true if the output shell is "real" or not.

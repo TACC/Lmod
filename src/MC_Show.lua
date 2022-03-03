@@ -365,4 +365,12 @@ function M.source_sh(self, shell, script)
    MasterControl.source_sh(self, shell, script)
 end
 
+function M.complete(self, ...)
+   l_ShowCmd("complete", ...)
+end
+
+function M.uncomplete(self, ...)
+   l_ShowCmd("uncomplete", ...)
+end
+
 return M

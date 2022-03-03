@@ -70,6 +70,7 @@ end
 M.add_property         = MasterControl.quiet
 M.build_unload         = MasterControl.do_not_build_unload
 M.color_banner         = MasterControl.quiet
+M.complete             = MasterControl.quiet
 M.conflict             = MasterControl.quiet
 M.error                = MasterControl.quiet
 M.execute              = MasterControl.quiet
@@ -93,6 +94,7 @@ M.set_alias            = MasterControl.quiet
 M.set_shell_function   = MasterControl.quiet
 M.source_sh            = MasterControl.quiet
 M.setenv               = MasterControl.quiet
+M.uncomplete           = MasterControl.quiet
 M.unset_alias          = MasterControl.quiet
 M.unset_alias          = MasterControl.quiet
 M.unset_shell_function = MasterControl.quiet

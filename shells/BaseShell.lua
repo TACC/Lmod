@@ -178,6 +178,8 @@ function M.expand(self, tbl)
          self:alias(k,vstr)
       elseif (vType == "shell_function") then
          self:shellFunc(k,vstr)
+      elseif (vType == "complete") then
+         self:complete(k,vstr)
       elseif (not vstr) then
          self:unset(k, vType)
       elseif (k == "_ModuleTable_") then
@@ -232,6 +234,12 @@ function M.expandMT(self, vstr)
    dbg.fini("BaseShell:expandMT")
 end
 
+
+function M.complete(self, name, value)
+   -- This base function does nothing.
+   -- The shell functions must do something with it
+   -- if they want anything to happen.
+end
 
 function M.echo(self, ...)
    local LMOD_REDIRECT = cosmic:value("LMOD_REDIRECT")

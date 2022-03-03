@@ -181,13 +181,13 @@ local function l_extract(self, nodups)
       end
    end
 
-   self.nodups = nodups
-   self.value  = myValue
-   self.type   = 'path'
-   self.tbl    = pathTbl
-   self.imin   = imin
-   self.imax   = imax
-   self.export = true
+   self.nodups    = nodups
+   self.value     = myValue
+   self.type      = 'path'
+   self.tbl       = pathTbl
+   self.imin      = imin
+   self.imax      = imax
+   self.export    = true
 end
 
 --------------------------------------------------------------------------
@@ -471,6 +471,18 @@ function M.append(self, value, nodups, priority)
    setenv_posix(name, value, true)
    l_chkMP(name, value, adding)
 end
+
+function M.complete(self, args)
+   if (not value) then value = false end
+   self.type      = "complete"
+   self.value     = args
+end
+
+function M.uncomplete(self)
+   self.type      = "complete"
+   self.value     = false
+end
+
 
 --------------------------------------------------------------------------
 -- Set the environment variable to *value*
