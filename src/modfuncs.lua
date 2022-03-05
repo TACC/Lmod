@@ -847,14 +847,14 @@ end
 
 function complete(shellName, cmd, args)
    dbg.start{"complete(shellName, cmd, args)"}
-   if (not validateStringArgs("complete", ...)) then return end
+   if (not validateStringArgs("complete", shellName, cmd, args)) then return end
    mcp:complete(shellName:trim():lower(), cmd:trim():lower(), args)
    dbg.fini("complete")
 end
 
 function uncomplete(shellName, cmd, args)
    dbg.start{"uncomplete(shellName, cmd, args)"}
-   if (not validateStringArgs("uncomplete", ...)) then return end
+   if (not validateStringArgs("uncomplete", shellName, cmd, args)) then return end
    mcp:uncomplete(shellName:lower(), cmd, args)
    dbg.fini("uncomplete")
 end

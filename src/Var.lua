@@ -473,7 +473,7 @@ function M.append(self, value, nodups, priority)
 end
 
 function M.complete(self, args)
-   if (not value) then value = false end
+   if (not args) then value = false end
    self.type      = "complete"
    self.value     = args
 end

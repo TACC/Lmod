@@ -1517,7 +1517,7 @@ function M.complete(self, shellName, name, args)
    if (varT[name] == nil) then
       varT[name] = Var:new(name)
    end
-   varT[name]:complete(shellName, args)
+   varT[name]:complete(args)
    dbg.fini("MasterControl:complete")
 end
 
