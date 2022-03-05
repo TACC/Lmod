@@ -61,3 +61,55 @@ step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load broken_complete
 ===========================
 false
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load tcl_spack
+===========================
+LOADEDMODULES=tcl_spack/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/complete/mf;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/complete/mf/tcl_spack/1.0;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={tcl_spack={fn="ProjectDIR/rt/complete/mf/tcl_spack/1.0",fullName="tcl_spack/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="tcl_spack",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/complete/mf",},systemBaseMPATH="ProjectDIR/rt/complete/mf",}';
+export _ModuleTable_;
+_bash_completion_spack () {
+    local -a COMP_WORDS_NO_FLAGS;
+    local index=0;
+    while [[ "$index" -lt "$COMP_CWORD" ]]; do
+        if [[ "${COMP_WORDS[$index]}" == [a-z]* ]]; then
+            COMP_WORDS_NO_FLAGS+=("${COMP_WORDS[$index]}");
+        fi;
+        let index++;
+    done;
+    local subfunction=$(IFS='_'; echo "_${COMP_WORDS_NO_FLAGS[*]}");
+    subfunction=${subfunction//-/_};
+    COMP_WORDS_NO_FLAGS+=("${COMP_WORDS[$COMP_CWORD]}");
+    local COMP_CWORD_NO_FLAGS=$((${#COMP_WORDS_NO_FLAGS[@]} - 1));
+    local list_options=false;
+    if [[ "${COMP_WORDS[$COMP_CWORD]}" == -* || "$COMP_POINT" -ne "${#COMP_LINE}" ]]; then
+        list_options=true;
+    fi;
+    local cur=${COMP_WORDS_NO_FLAGS[$COMP_CWORD_NO_FLAGS]};
+    if [[ "${COMP_LINE:$COMP_POINT:1}" == " " ]]; then
+        cur="";
+    fi;
+    local rgx;
+    rgx="$subfunction.*function.* ";
+    if [[ "$(type $subfunction 2>&1)" =~ $rgx ]]; then
+        $subfunction;
+        COMPREPLY=($(compgen -W "$SPACK_COMPREPLY" -- "$cur"));
+    fi; };
+complete -o bashdefault -o default -F _bash_completion_spack spack;
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload tcl_spack
+===========================
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/complete/mf;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/complete/mf",},systemBaseMPATH="ProjectDIR/rt/complete/mf",}';
+export _ModuleTable_;
+unset -f _bash_completion_spack 2> /dev/null || true;
+complete -r spack;

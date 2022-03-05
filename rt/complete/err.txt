@@ -21,3 +21,11 @@ Lmod has detected the following error: Syntax error in file: ProjectDIR/rt/compl
 While processing the following module(s):
     Module fullname      Module Filename
     broken_complete/1.0  ProjectDIR/rt/complete/mf/broken_complete/1.0.lua
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load tcl_spack
+===========================
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload tcl_spack
+===========================

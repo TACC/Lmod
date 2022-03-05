@@ -27,6 +27,9 @@ testdescript = {
      runLmod load   spack                      # 2
      runLmod unload spack                      # 3
      runLmod load   broken_complete            # 4
+     runLmod load   tcl_spack                  # 5
+     runLmod unload tcl_spack                  # 6
+
 
 
 
