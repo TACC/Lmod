@@ -134,13 +134,13 @@ end
 function Bash.complete(self, name, value)
    local lineA = {}
    if (value) then
-      lineA[#lineA + 1]  = "complete "
+      lineA[#lineA + 1]  = "[[ -n \"${BASH_VERSION:-}\" ]] && complete "
       lineA[#lineA + 1]  = value:multiEscaped()
       lineA[#lineA + 1]  = " "
       lineA[#lineA + 1]  = name
       lineA[#lineA + 1]  = ";\n"
    else
-      lineA[#lineA + 1]  = "complete -r "
+      lineA[#lineA + 1]  = "[[ -n \"${BASH_VERSION:-}\" ]] && complete -r "
       lineA[#lineA + 1]  = name
       lineA[#lineA + 1]  = ";\n"
    end
