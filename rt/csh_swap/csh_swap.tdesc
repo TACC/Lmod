@@ -131,8 +131,30 @@ cat > $(testName).csh << EOF
      echo "step 7"
      echo "==========================="
 
-     lua $(projectDir)/src/$CMD csh swap gcc  intel > _stdout.15
+     lua $(projectDir)/src/$CMD csh load complete > _stdout.15
      eval \`cat _stdout.15\`
+
+     echo "===========================" >  _stdout.16
+     echo "step 8"                      >> _stdout.16
+     echo "===========================" >> _stdout.16
+
+     echo "==========================="
+     echo "step 8"
+     echo "==========================="
+
+     lua $(projectDir)/src/$CMD csh unload complete > _stdout.17
+     eval \`cat _stdout.17\`
+
+     echo "===========================" >  _stdout.18
+     echo "step 9"                      >> _stdout.18
+     echo "===========================" >> _stdout.18
+
+     echo "==========================="
+     echo "step 9"
+     echo "==========================="
+
+     lua $(projectDir)/src/$CMD csh swap gcc  intel > _stdout.19
+     eval \`cat _stdout.19\`
 
      cat _stdout.[01][0-9] > _stdout.orig
 

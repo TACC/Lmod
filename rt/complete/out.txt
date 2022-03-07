@@ -43,7 +43,7 @@ _bash_completion_spack () {     local -a COMP_WORDS_NO_FLAGS;
         COMPREPLY=($(compgen -W "$SPACK_COMPREPLY" -- "$cur"));
     fi
 ; };
-complete -o bashdefault -o default -F _bash_completion_spack spack;
+complete -o\ bashdefault\ -o\ default\ -F\ _bash_completion_spack spack;
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload spack
@@ -100,7 +100,7 @@ _bash_completion_spack () {
         $subfunction;
         COMPREPLY=($(compgen -W "$SPACK_COMPREPLY" -- "$cur"));
     fi; };
-complete -o bashdefault -o default -F _bash_completion_spack spack;
+complete -o\ bashdefault\ -o\ default\ -F\ _bash_completion_spack spack;
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload tcl_spack
@@ -113,3 +113,19 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 unset -f _bash_completion_spack 2> /dev/null || true;
 complete -r spack;
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show spack
+===========================
+MODULEPATH=ProjectDIR/rt/complete/mf;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/complete/mf",},systemBaseMPATH="ProjectDIR/rt/complete/mf",}';
+export _ModuleTable_;
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show tcl_spack
+===========================
+MODULEPATH=ProjectDIR/rt/complete/mf;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/complete/mf",},systemBaseMPATH="ProjectDIR/rt/complete/mf",}';
+export _ModuleTable_;

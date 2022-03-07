@@ -21,11 +21,11 @@ local validShellT =
 
 local shellTemplateT =
    {
-      tcsh = { args = "-e -f -c",             flgErr = "",                source = "source", redirect = ">& /dev/stdout", alias = "alias", funcs = "" },
-      bash = { args = "--noprofile -norc -c", flgErr = "set -e;",         source = ".",      redirect = "2>&1",           alias = "alias", funcs = "declare -f" },
-      ksh  = { args = "-c",                   flgErr = "set -e;",         source = ".",      redirect = "2>&1",           alias = "alias", funcs = "typeset +f | while read f; do typeset -f ${f%\\(\\)}; echo; done" },
-      zsh  = { args = "-f -c",                flgErr = "setopt errexit;", source = ".",      redirect = "2>&1",           alias = "alias", funcs = "declare -f" },
-      sh   = { args = "-c",                   flgErr = "set -e;",         source = ".",      redirect = "2>&1",           alias = "alias", funcs = "" },
+      tcsh = { args = "-e -f -c",             flgErr = "",                source = "source", redirect = ">& /dev/stdout", complete = "complete", alias = "alias", funcs = "" },
+      bash = { args = "--noprofile -norc -c", flgErr = "set -e;",         source = ".",      redirect = "2>&1",           complete = "complete", alias = "alias", funcs = "declare -f" },
+      ksh  = { args = "-c",                   flgErr = "set -e;",         source = ".",      redirect = "2>&1",           complete = "",         alias = "alias", funcs = "typeset +f | while read f; do typeset -f ${f%\\(\\)}; echo; done" },
+      zsh  = { args = "-f -c",                flgErr = "setopt errexit;", source = ".",      redirect = "2>&1",           complete = "",         alias = "alias", funcs = "declare -f" },
+      sh   = { args = "-c",                   flgErr = "set -e;",         source = ".",      redirect = "2>&1",           complete = "",         alias = "alias", funcs = "" },
    }
 
 local ignoreA = {
@@ -109,6 +109,8 @@ local function l_convertSh2MF(shellName, style, script)
       "echo %{sep};",
       "%{funcs};",
       "echo %{sep};",
+      "%{complete};",
+      "echo %{sep};",
       "%{source} %{script} %{redirect};",
       "echo %{sep};",
       "%{printEnvT} envT;",
@@ -116,6 +118,8 @@ local function l_convertSh2MF(shellName, style, script)
       "%{alias};",
       "echo %{sep};",
       "%{funcs};",
+      "echo %{sep};",
+      "%{complete};",
       "echo %{sep};",
       "\"",
    }
@@ -130,6 +134,7 @@ local function l_convertSh2MF(shellName, style, script)
    t.alias     = shellT.alias
    t.funcs     = shellT.funcs
    t.source    = shellT.source
+   t.complete  = shellT.complete
    t.script    = script:gsub("\"","\\\\\"")
    t.redirect  = shellT.redirect
 
@@ -146,8 +151,8 @@ local function l_convertSh2MF(shellName, style, script)
       end
    end
 
-   local processOrderA = { {"Vars", 1}, {"Aliases", 1}, {"Funcs", 1}, {"SourceScriptOutput", 0},
-                           {"Vars", 2}, {"Aliases", 2}, {"Funcs", 2}}
+   local processOrderA = { {"Vars", 1}, {"Aliases", 1}, {"Funcs", 1}, {"Complete", 1}, {"SourceScriptOutput", 0},
+                           {"Vars", 2}, {"Aliases", 2}, {"Funcs", 2}, {"Complete", 2}, }
 
    local blkA = {}
    sep        = sep:escape()
@@ -165,20 +170,21 @@ local function l_convertSh2MF(shellName, style, script)
 
    if (not status) then
       success = false
-      local msg = i18n("e_Sh_Error",{script=script,errorMsg=blkA[4]})
+      local msg = i18n("e_Sh_Error",{script=script,errorMsg=blkA[5]})
       return success, msg, {}
    end
 
-   if (#blkA ~= 7) then
+   if (#blkA ~= 9) then
       success = false
       local msg = i18n("e_Sh_convertSh2MF",{})
       return success, msg, {}
    end
       
 
-   local resultT = { Vars    = {{},{}},
-                     Aliases = {{},{}},
-                     Funcs   = {{},{}},
+   local resultT = { Vars     = {{},{}},
+                     Aliases  = {{},{}},
+                     Funcs    = {{},{}},
+                     Complete = {{},{}},
                    }
 
    for i = 1, #processOrderA do

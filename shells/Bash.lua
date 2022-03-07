@@ -135,7 +135,7 @@ function Bash.complete(self, name, value)
    local lineA = {}
    if (value) then
       lineA[#lineA + 1]  = "complete "
-      lineA[#lineA + 1]  = value
+      lineA[#lineA + 1]  = value:multiEscaped()
       lineA[#lineA + 1]  = " "
       lineA[#lineA + 1]  = name
       lineA[#lineA + 1]  = ";\n"
