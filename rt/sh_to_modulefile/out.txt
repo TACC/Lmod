@@ -158,7 +158,7 @@ save_args () {
     done;
     echo " "
 ; };
-complete -F\ _xyz123 xyz123;
+[[ -n "${BASH_VERSION:-}" ]] && complete -F\ _xyz123 xyz123;
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show wrapperSh/1.0
@@ -200,7 +200,7 @@ save_args () {
     done;
     echo " "
 ; };
-complete -F\ _xyz123 xyz123;
+[[ -n "${BASH_VERSION:-}" ]] && complete -F\ _xyz123 xyz123;
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
@@ -236,7 +236,7 @@ unset -f fooFunc 2> /dev/null || true;
 unset -f junk 2> /dev/null || true;
 unset -f my_help 2> /dev/null || true;
 unset -f save_args 2> /dev/null || true;
-complete -r xyz123;
+[[ -n "${BASH_VERSION:-}" ]] && complete -r xyz123;
 ===========================
 step 14
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load brokenSh/1.0
@@ -289,7 +289,7 @@ save_args () {
     done;
     echo " "
 ; };
-complete -F\ _xyz123 xyz123;
+[[ -n "${BASH_VERSION:-}" ]] && complete -F\ _xyz123 xyz123;
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
@@ -341,7 +341,7 @@ save_args () {
     done;
     echo " "
 ; };
-complete -F\ _xyz123 xyz123;
+[[ -n "${BASH_VERSION:-}" ]] && complete -F\ _xyz123 xyz123;
 ===========================
 step 18
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --mt
@@ -384,7 +384,7 @@ save_args () {
         printf "%s\n" "$arg" | sed -e "s/'/'\\\\''/g" -e "1s/^/'/" -e "\$s/\$/' \\\\/";
     done;
     echo " "; };
-complete -F\ _xyz123 xyz123;
+[[ -n "${BASH_VERSION:-}" ]] && complete -F\ _xyz123 xyz123;
 ===========================
 step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
