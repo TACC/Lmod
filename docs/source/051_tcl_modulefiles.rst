@@ -28,6 +28,12 @@ standard TCL language.
    *char* . Also the last optional argument can specify a priority. 
    (See :ref:`path_priority-label` for details.)
 
+**complete shell name arg1 arg2 ...** "
+   Bash and tcsh support the complete function.  Note that the
+   shellName must match the name of the shell given on the Lmod
+   command.  There is no error if the shell names do not match. The
+   command is ignored.  See rt/complete/mf/tcl_spack/1.0.lua for an example.
+
 **conflict A B** :
    The current modulefile will only load if all listed modules are NOT loaded.
 
