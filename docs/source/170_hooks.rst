@@ -139,13 +139,13 @@ Hook functions
   property table.  See *rt/uitSitePkg/mf/site_scripts/SitePackage.lua*
   for a complete example.
   
-**spiderPathFilter** (keepA, ignoreA):
+**reverseMapPathFilter** (keepA, ignoreA):
   This hook returns two arrays: *keepA* and *ignoreA*.  The *keepA* is
   an array of paths patterns that a site wishes to be stored in the spider
   cache. The *ignoreA* is an array of path patterns to ignore in the
   cache. See *src/StandardPackage.lua* has an example on how to
-  implement this hook.
-
+  implement this hook.  This hook is used to control the directories
+  that are included/excluded in the reverseMap.
 
 Example Hook: msgHook
 ---------------------
