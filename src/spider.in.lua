@@ -123,10 +123,6 @@ local pack          = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luac
 --      key:  /opt/apps/gcc-4_8/mpich/3.1.1,
 --      path: /opt/apps/gcc-4_8/mpich/3.1.1/lib, i: nil, j: nil
 
-local keepA   = {}
-local ignoreA = {}
-hook.apply("spiderPathFilter", keepA,ignoreA)
-
 --------------------------------------------------------------------------
 -- Check path against the *ignoreT* table.  Also it must be "in" dirA if
 -- dirA exists.
@@ -152,7 +148,7 @@ local function l_keepThisPath(path, dirA, keepA, ignoreA)
    end
    
    for i = 1, #keepA do
-      if (path:find(keepA[i])) then
+      if (path:find(keepA[i],1,true) == 1) then
          dbg.print{"In keepA list: path:",path,"\n"}
          dbg.fini("l_keepThisPath")
          return true
@@ -160,8 +156,9 @@ local function l_keepThisPath(path, dirA, keepA, ignoreA)
    end
 
    for i = 1, #ignoreA do
-      if (path:find(ignoreA[i])) then
+      if (path:find(ignoreA[i],1,true) == 1) then
          dbg.print{"In ignore list: path:",path,"\n"}
+         dbg.print{"Keep: false\n"}
          dbg.fini("l_keepThisPath")
          return false
       end
@@ -177,19 +174,17 @@ end
 -- @param tbl
 -- @param rmapT
 -- @param kind
-local function add2map(entry, tbl, dirA, moduleFn, kind, rmapT)
-   dbg.start{"add2map(entry, tbl, dirA, moduleFn, kind, rmapT)"}
-   local keepA   = {}
-   local ignoreA = {}
-   hook.apply("spiderPathFilter", keepA, ignoreA)
+local function l_add2map(entry, tbl, dirA, moduleFn, kind, rmapT)
+   dbg.start{"l_add2map(entry, tbl, dirA, moduleFn, kind, rmapT)"}
+   local keepA, ignoreA = hook.apply("reverseMapPathFilter")
 
+   dbg.printT("ignoreA",ignoreA)
    if (type(keepA) ~= "table" ) then
       LmodError{msg="e_No_table", name = "keepA"}
    end
    if (type(ignoreA) ~= "table" ) then
       LmodError{msg="e_No_table", name = "ignoreA"}
    end
-
 
    for path in pairs(tbl) do
       local attr = lfs.attributes(path)
@@ -222,7 +217,7 @@ local function add2map(entry, tbl, dirA, moduleFn, kind, rmapT)
          end
       end
    end
-   dbg.fini("add2map")
+   dbg.fini("l_add2map")
 end
 
 --------------------------------------------------------------------------
@@ -231,18 +226,18 @@ end
 -- @param moduleT
 -- @param timestampFn
 -- @param dbT
-local function rptList(mpathMapT, spiderT, timestampFn, dbT, providedByT)
-   dbg.start{"rptList(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
+local function l_rptList(mpathMapT, spiderT, timestampFn, dbT, providedByT)
+   dbg.start{"l_rptList(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
    local spider = Spider:new()
    local tbl    = spider:listModules(dbT)
    for k in pairsByKeys(tbl) do
       print(k)
    end
-   dbg.fini("rptList")
+   dbg.fini("l_rptList")
 end
 
-local function rptSpiderT(mpathMapT, spiderT, timestampFn, dbT, providedByT)
-   dbg.start{ "rptSpiderT(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
+local function l_rptSpiderT(mpathMapT, spiderT, timestampFn, dbT, providedByT)
+   dbg.start{ "l_rptSpiderT(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
    local mrc = MRC:singleton()
    local ts  = { timestampFn }
    local s1  = serializeTbl{name="timestampFn",   value=ts,         indent=true}
@@ -250,24 +245,24 @@ local function rptSpiderT(mpathMapT, spiderT, timestampFn, dbT, providedByT)
    local s3  = serializeTbl{name="spiderT",       value=spiderT,    indent=true}
    local s4  = serializeTbl{name="mpathMapT",     value=mpathMapT,  indent=true}
    io.stdout:write(s1,s2,s3,s4,"\n")
-   dbg.fini("rptSpiderT")
+   dbg.fini("l_rptSpiderT")
 end
 
-local function buildReverseMapT(dbT)
-   dbg.start{"buildReverseMapT(dbT)"}
+local function l_buildReverseMapT(dbT)
+   dbg.start{"l_buildReverseMapT(dbT)"}
    local reverseMapT = {}
 
    for sn,vvv in pairs(dbT) do
       for fn, entry in pairs(vvv) do
          dbg.print{"sn: ",sn,", fn: ",fn,"\n"}
          if (entry.pathA) then
-            add2map(entry, entry.pathA,  entry.dirA, fn, "bin", reverseMapT)
+            l_add2map(entry, entry.pathA,  entry.dirA, fn, "bin", reverseMapT)
          end
          if (entry.lpathA) then
-            add2map(entry, entry.lpathA, entry.dirA, fn, "lib", reverseMapT)
+            l_add2map(entry, entry.lpathA, entry.dirA, fn, "lib", reverseMapT)
          end
          if (entry.dirA) then
-            add2map(entry, entry.dirA,   entry.dirA, fn, "dir", reverseMapT)
+            l_add2map(entry, entry.dirA,   entry.dirA, fn, "dir", reverseMapT)
          end
       end
    end
@@ -282,11 +277,11 @@ local function buildReverseMapT(dbT)
       sort(flavor)
       vv.flavor  = flavor
    end
-   dbg.fini("buildReverseMapT")
+   dbg.fini("l_buildReverseMapT")
    return reverseMapT
 end
 
-local function buildXALTrmapT(reverseMapT)
+local function l_buildXALTrmapT(reverseMapT)
    local rmapT = {}
    for path,entry in pairs(reverseMapT) do
       local value  = entry.pkg
@@ -300,7 +295,7 @@ local function buildXALTrmapT(reverseMapT)
    return rmapT
 end
 
-local function buildLibMapA(reverseMapT)
+local function l_buildLibMapA(reverseMapT)
    local libT = {}
    for path,v in pairs(reverseMapT) do
       local kind = v.kind
@@ -330,11 +325,11 @@ end
 
 
 
-local function rptReverseMapT(mpathMapT, spiderT, timestampFn, dbT, providedByT)
-   dbg.start{ "rptReverseMapT(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
+local function l_rptReverseMapT(mpathMapT, spiderT, timestampFn, dbT, providedByT)
+   dbg.start{ "l_rptReverseMapT(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
    local ts          = { timestampFn }
-   local reverseMapT = buildReverseMapT(dbT)
-   local libA        = buildLibMapA(reverseMapT)
+   local reverseMapT = l_buildReverseMapT(dbT)
+   local libA        = l_buildLibMapA(reverseMapT)
    local s1          = serializeTbl{name="timestampFn",   value=ts,
                                     indent=true}
    local s2          = serializeTbl{name="reverseMapT",
@@ -342,71 +337,71 @@ local function rptReverseMapT(mpathMapT, spiderT, timestampFn, dbT, providedByT)
    local s3          = serializeTbl{name="xlibmap", value = libA,
                                     indent = true}
    io.stdout:write(s1,s2,s3,"\n")
-   dbg.fini("rptReverseMapT")
+   dbg.fini("l_rptReverseMapT")
 end
 
-local function rptReverseMapTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)
-   dbg.start{ "rptReverseMapTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
+local function l_rptReverseMapTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)
+   dbg.start{ "l_rptReverseMapTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
    local json        = require("json")
-   local reverseMapT = buildReverseMapT(dbT)
-   local libA        = buildLibMapA(reverseMapT)
+   local reverseMapT = l_buildReverseMapT(dbT)
+   local libA        = l_buildLibMapA(reverseMapT)
    local t           = { timestampFn = timestampFn,
                          reverseMapT = reverseMapT,
                          xlibmap     = libA}
    print(json.encode(t))
-   dbg.fini("rptReverseMapTJson")
+   dbg.fini("l_rptReverseMapTJson")
 end
 
-local function rptXALTRmapTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)
-   dbg.start{ "rptXALTRmapTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
+local function l_rptXALTRmapTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)
+   dbg.start{ "l_rptXALTRmapTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
    local json        = require("json")
-   local reverseMapT = buildReverseMapT(dbT)
-   local libA        = buildLibMapA(reverseMapT)
-   local rmapT       = buildXALTrmapT(reverseMapT)
+   local reverseMapT = l_buildReverseMapT(dbT)
+   local libA        = l_buildLibMapA(reverseMapT)
+   local rmapT       = l_buildXALTrmapT(reverseMapT)
    local t           = { reverseMapT = rmapT,
                          xlibmap     = libA}
    print(json.encode(t))
-   dbg.fini("rptXALTRmapTJson")
+   dbg.fini("l_rptXALTRmapTJson")
 end
 
-local function rptSoftwarePageJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)
-   dbg.start{ "rptSoftwarePageJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
+local function l_rptSoftwarePageJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)
+   dbg.start{ "l_rptSoftwarePageJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
    local json = require("json")
    local spA  = softwarePage(dbT)
    print(json.encode(spA))
-   dbg.fini("rptSoftwarePageJson")
+   dbg.fini("l_rptSoftwarePageJson")
 end
 
-local function rptSoftwarePageLua(mpathMapT, spiderT, timestampFn, dbT, providedByT)
-   dbg.start{ "rptSoftwarePageLua(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
+local function l_rptSoftwarePageLua(mpathMapT, spiderT, timestampFn, dbT, providedByT)
+   dbg.start{ "l_rptSoftwarePageLua(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
    local spA = softwarePage(dbT)
    local s   = serializeTbl{name="spA",      value=spA,   indent=true}
    print(s)
-   dbg.fini("rptSoftwarePageLua")
+   dbg.fini("l_rptSoftwarePageLua")
 end
 
-local function rptSoftwarePageXml(mpathMapT, spiderT, timestampFn, dbT, providedByT)
-   dbg.start{ "rptSoftwarePageXml(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
+local function l_rptSoftwarePageXml(mpathMapT, spiderT, timestampFn, dbT, providedByT)
+   dbg.start{ "l_rptSoftwarePageXml(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
    local xmlStr = xmlSoftwarePage(dbT)
    print(xmlStr)
-   dbg.fini("rptSoftwarePageXml")
+   dbg.fini("l_rptSoftwarePageXml")
 end
 
-local function rptDbT(mpathMapT, spiderT, timestampFn, dbT, providedByT)
-   dbg.start{ "rptDbT(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
+local function l_rptDbT(mpathMapT, spiderT, timestampFn, dbT, providedByT)
+   dbg.start{ "l_rptDbT(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
    local ts = { timestampFn }
    local s1 = serializeTbl{name="timestampFn",  value=ts,          indent=true}
    local s2 = serializeTbl{name="dbT",          value=dbT,         indent=true}
    local s3 = serializeTbl{name="provideByT",   value=providedByT, indent=true}
    io.stdout:write(s1,s2,s3,"\n")
-   dbg.fini("rptDbT")
+   dbg.fini("l_rptDbT")
 end
 
-local function rptDbTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)
-   dbg.start{ "rptDbTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
+local function l_rptDbTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)
+   dbg.start{ "l_rptDbTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
    local json = require("json")
    print(json.encode(dbT))
-   dbg.fini("rptDbTJson")
+   dbg.fini("l_rptDbTJson")
 end
 
 
@@ -476,21 +471,21 @@ function main()
    -- This interpT converts user outputstyle into a function call.
 
    local interpT = {
-      list             = rptList,
-      moduleT          = rptSpiderT,
-      spiderT          = rptSpiderT,
-      softwarePage     = rptSoftwarePageJson,
-      jsonSoftwarePage = rptSoftwarePageJson,
-      xmlSoftwarePage  = rptSoftwarePageXml,
-      softwarePageLua  = rptSoftwarePageLua,
-      reverseMapT      = rptReverseMapT,
-      reverseMap       = rptReverseMapT,
-      jsonReverseMapT  = rptReverseMapTJson,
-      jsonReverseMap   = rptReverseMapTJson,
-      xalt_rmapT       = rptXALTRmapTJson,
-      xalt_rmap        = rptXALTRmapTJson,
-      ["spider-json"]  = rptDbTJson,
-      dbT              = rptDbT,
+      list             = l_rptList,
+      moduleT          = l_rptSpiderT,
+      spiderT          = l_rptSpiderT,
+      softwarePage     = l_rptSoftwarePageJson,
+      jsonSoftwarePage = l_rptSoftwarePageJson,
+      xmlSoftwarePage  = l_rptSoftwarePageXml,
+      softwarePageLua  = l_rptSoftwarePageLua,
+      reverseMapT      = l_rptReverseMapT,
+      reverseMap       = l_rptReverseMapT,
+      jsonReverseMapT  = l_rptReverseMapTJson,
+      jsonReverseMap   = l_rptReverseMapTJson,
+      xalt_rmapT       = l_rptXALTRmapTJson,
+      xalt_rmap        = l_rptXALTRmapTJson,
+      ["spider-json"]  = l_rptDbTJson,
+      dbT              = l_rptDbT,
    }
 
    -- grap function and run with it.
@@ -549,10 +544,10 @@ function convertEntry(name, vv, spA)
       a[#a+1] = { mfPath, v.wV }
    end
 
-   local function cmp_wV(x,y)
+   local function l_cmp_wV(x,y)
       return x[2] < y[2]
    end
-   sort(a,cmp_wV)
+   sort(a,l_cmp_wV)
 
    ------------------------------------------------------------
    -- Loop over version from lowest to highest version in pv
@@ -596,14 +591,14 @@ function convertEntry(name, vv, spA)
    spA[#spA+1] = entry
 end
 
-local function Error(...)
+local function l_Error(...)
    local argA   = pack(...)
    for i = 1,argA.n do
       stderr:write(argA[i])
    end
 end
 
-local function prt(...)
+local function l_prt(...)
    stderr:write(...)
 end
 
@@ -612,8 +607,8 @@ function options()
    local usage         = "Usage: spider [options] moduledir ..."
    local cmdlineParser = Optiks:new{usage   = usage,
                                     version = "1.0",
-                                    error   = Error,
-                                    prt     = prt,
+                                    error   = l_Error,
+                                    prt     = l_prt,
    }
 
    cmdlineParser:add_option{

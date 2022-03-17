@@ -110,27 +110,22 @@ end
 hook.register("groupName",l_groupName)
 
 local ignoreA     = {
-   "^$",
-   "^%.$",
-   "^%$",
-   "^%%",
-   "^/bin/",
-   "^/bin$",
-   "^/sbin$",
-   "^/usr/bin$",
-   "^/usr/sbin$",
-   "^/usr/local/share/bin$",
-   "^/usr/lib/?",
-   "^/opt/local/bin$",
+   "/bin",
+   "/sbin",
+   "/usr/bin",
+   "/usr/sbin",
+   "/usr/local/share/bin",
+   "/usr/lib",
+   "/opt/local/bin",
 }
 
 local keepA = {}
 
-local function l_spiderPathFilterHook(keepA, ignoreA)
-   return 
+local function l_reverseMapPathFilterHook()
+   return keepA, ignoreA
 end
    
-hook.register("spiderPathFilter",l_spiderPathFilterHook)
+hook.register("reverseMapPathFilter",l_reverseMapPathFilterHook)
 
 
 sandbox_registration { Pkg = Pkg }
