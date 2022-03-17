@@ -107,6 +107,12 @@ unset during unloading.
      errors will be reported.
 
 
+**complete** ("shellName","name","args"):
+     Bash and tcsh support the complete function.  Note that the
+     shellName must match the name of the shell given on the Lmod
+     command.  There is no error if the shell names do not match. The
+     command is ignored.
+
 **source_sh** ("shellName","shell_script arg1 ...")
      source a shell script as part of a module. Supported shellNames
      are *sh*, *dash*, *bash*, *zsh*, *csh*, *tcsh*, *ksh*.  When
