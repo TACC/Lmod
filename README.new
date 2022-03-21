@@ -35,5 +35,5 @@ Lmod 8.6+
    (8.6.15) * Issue #564: Switch to using MName:isloaded() instead of MT:haveUserName()
               in MasterControl:dependencyCk(mA)
             * Rename spiderPathFilterHook to reverseMapPathFilterHook
-   
-   
+   (8.6.16) * Unloading a module should NEVER error out: LmodError() calls MasterControl:warning()
+              not MasterControl:error()
