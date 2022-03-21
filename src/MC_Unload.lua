@@ -58,6 +58,7 @@ M.color_banner         = MasterControl.color_banner
 M.complete             = MasterControl.uncomplete
 M.conflict             = MasterControl.quiet
 M.depends_on           = MasterControl.forgo
+M.error                = MasterControl.warning
 M.execute              = MasterControl.execute
 M.extensions           = MasterControl.quiet
 M.family               = MasterControl.unset_family
