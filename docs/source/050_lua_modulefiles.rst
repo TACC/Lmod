@@ -143,6 +143,9 @@ unset during unloading.
      In other words, this function does not stop, where as
      **LmodError()** stops all evaluations. New in Lmod 8.6+
 
+     **Note** As of Lmod 8.6.16: LmodBreak() does nothing when unloading.
+
+
 **userInGroups** ("group1", "group2", ...):
      Returns true if user is root or a member of one of the groups listed.
 

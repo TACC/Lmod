@@ -50,6 +50,8 @@ standard TCL language.
    In other words, this command does not stop the operation, where as
    **exit** stops all evaluations. New in Lmod 8.6+
 
+   **Note** As of Lmod 8.6.16: break does nothing when unloading.
+
 **exit** *number* :
    Exits the module.  No changes in the environment occur if this
    command is found.
