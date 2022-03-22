@@ -93,6 +93,6 @@ M.unset_alias          = MasterControl.quiet
 M.unset_shell_function = MasterControl.quiet
 M.usrload              = MasterControl.unload
 M.whatis               = MasterControl.quiet
-M.LmodBreak            = MasterControl.LmodBreak
+M.LmodBreak            = MasterControl.quiet
 
 return M

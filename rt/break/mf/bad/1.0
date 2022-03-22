@@ -1,0 +1,8 @@
+#%Module
+
+catch {set foo $env(FOO)}
+if { [info exists foo] } {
+  puts stderr "already set"
+  break
+}
+setenv FOO "just me"

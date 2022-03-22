@@ -31,11 +31,11 @@ testdescript = {
      runLmod list                              # 6
      runLmod -T   load StdEnv                  # 7
      runLmod -T unload StdEnv                  # 8
-     runLmod load   brk2                       # 9
-     runLmod -T unload   brk2                  #10
      runLmod list                              #11
      runLmod load   BRK                        #12
-     runLmod list                              #13
+     runLmod load   bad                        #13
+     runLmod unload bad                        #14
+     runLmod list                              #15
 
 
      HOME=$ORIG_HOME
