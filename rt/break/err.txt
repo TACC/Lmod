@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
+Modules based on Lua: Version 8.6.14  2022-02-25 21:25 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -55,30 +55,25 @@ running: module --regression_testing -T unload StdEnv
     (5)(0)Unloading: C (status: active) (fn: ProjectDIR/rt/break/mf/C/3.0.lua)
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load brk2
-===========================
-===========================
-step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T unload brk2
-===========================
-running: module --regression_testing -T unload brk2
-  (1)(0)Unloading: brk2 (status: active) (fn: ProjectDIR/rt/break/mf/brk2/1.0.lua)
-    LmodBreak called
-unload break
-===========================
-step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-Currently Loaded Modules:
-  1) brk2/1.0
+No modules loaded
 ===========================
-step 12
+step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load BRK
 ===========================
 Break in BRK/1.0
 ===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load bad
+===========================
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload bad
+===========================
+already set
+===========================
 step 13
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
-Currently Loaded Modules:
-  1) brk2/1.0
+No modules loaded

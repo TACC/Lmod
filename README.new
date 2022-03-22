@@ -35,5 +35,6 @@ Lmod 8.6+
    (8.6.15) * Issue #564: Switch to using MName:isloaded() instead of MT:haveUserName()
               in MasterControl:dependencyCk(mA)
    (8.6.16) * Rename spiderPathFilterHook to reverseMapPathFilterHook
-   
-   
+            * The following two changes are so that when a user is unloading it shouldn't fail.
+              - Make M.error=MasterControl.warning in src/MC_Unload.lua
+              - Make M.LmodBreak=MasterControl.quiet in src/MC_Unload.lua
