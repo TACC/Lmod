@@ -156,6 +156,10 @@ standard TCL language.
 **reportError** *string* :
   Report an error and abort processing of the modulefile.
 
+  **Note**: During unloading, this command reports the error message
+  but does not abort the processing of the modulefile. (as of Lmod 8.6.16+)
+
+
 **require-fullname** :
   Reports an error if the user specified name is not the fullname of
   the module (e.g. **module load gcc/10.1** vs **module load gcc**.

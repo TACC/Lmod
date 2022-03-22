@@ -229,8 +229,14 @@ The entries below describe several useful commands that come with Lmod that can 
 **LmodMessage** ("string", ...):
     Prints a message to the user.
 
+**LmodWarning** ("string", ...):
+    Prints a warning message to the user.
+
 **LmodError** ("string", "..."):
     Print Error string and exit without loading the modulefile.
+
+    **Note** that LmodError() is treated as a warning when unloading
+    as of Lmod 8.6.16
 
 **mode** ():
     Returns the string "load" when a modulefile is being loaded,
