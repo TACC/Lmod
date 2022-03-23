@@ -8,6 +8,10 @@ New Features in Lmod
      all other modulefiles are evaluated.  In TCL modulefiles, this
      command is **break**.  New in Lmod 8.6+
 
+     **Note** As of Lmod 8.6.16: LmodBreak()/break does nothing when
+     unloading. 
+
+
 **/etc/lmod/lmod_config.lua**:
      Lmod looks for a file named lmod_config.lua in the
      LMOD_CONFIG_DIR which is by default /etc/lmod/lmod_config.lua.

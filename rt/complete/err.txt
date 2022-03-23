@@ -1,0 +1,97 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+===========================
+Modules based on Lua: Version 8.6.14  2022-02-25 21:25 -06:00
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load spack
+===========================
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload spack
+===========================
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load broken_complete
+===========================
+Lmod has detected the following error: Syntax error in file: ProjectDIR/rt/complete/mf/broken_complete/1.0.lua
+ with command: complete, one or more arguments are not strings.
+While processing the following module(s):
+    Module fullname      Module Filename
+    broken_complete/1.0  ProjectDIR/rt/complete/mf/broken_complete/1.0.lua
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load tcl_spack
+===========================
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload tcl_spack
+===========================
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show spack
+===========================
+   ProjectDIR/rt/complete/mf/spack/1.0.lua:
+complete("bash","spack","-o bashdefault -o default -F _bash_completion_spack")
+set_shell_function("_bash_completion_spack","    local -a COMP_WORDS_NO_FLAGS;\
+    local index=0;\
+    while [[ \"$index\" -lt \"$COMP_CWORD\" ]]; do\
+        if [[ \"${COMP_WORDS[$index]}\" == [a-z]* ]]; then\
+            COMP_WORDS_NO_FLAGS+=(\"${COMP_WORDS[$index]}\");\
+        fi;\
+        let index++;\
+    done;\
+    local subfunction=$(IFS='_'; echo \"_${COMP_WORDS_NO_FLAGS[*]}\");\
+    subfunction=${subfunction//-/_};\
+    COMP_WORDS_NO_FLAGS+=(\"${COMP_WORDS[$COMP_CWORD]}\");\
+    local COMP_CWORD_NO_FLAGS=$((${#COMP_WORDS_NO_FLAGS[@]} - 1));\
+    local list_options=false;\
+    if [[ \"${COMP_WORDS[$COMP_CWORD]}\" == -* || \"$COMP_POINT\" -ne \"${#COMP_LINE}\" ]]; then\
+        list_options=true;\
+    fi;\
+    local cur=${COMP_WORDS_NO_FLAGS[$COMP_CWORD_NO_FLAGS]};\
+    if [[ \"${COMP_LINE:$COMP_POINT:1}\" == \" \" ]]; then\
+        cur=\"\";\
+    fi;\
+    local rgx;\
+    rgx=\"$subfunction.*function.* \";\
+    if [[ \"$(type $subfunction 2>&1)\" =~ $rgx ]]; then\
+        $subfunction;\
+        COMPREPLY=($(compgen -W \"$SPACK_COMPREPLY\" -- \"$cur\"));\
+    fi\
+","")
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show tcl_spack
+===========================
+   ProjectDIR/rt/complete/mf/tcl_spack/1.0:
+complete("bash","spack","-o bashdefault -o default -F _bash_completion_spack")
+set_shell_function("_bash_completion_spack","\
+    local -a COMP_WORDS_NO_FLAGS;\
+    local index=0;\
+    while [[ \"$index\" -lt \"$COMP_CWORD\" ]]; do\
+        if [[ \"${COMP_WORDS[$index]}\" == [a-z]* ]]; then\
+            COMP_WORDS_NO_FLAGS+=(\"${COMP_WORDS[$index]}\");\
+        fi;\
+        let index++;\
+    done;\
+    local subfunction=$(IFS='_'; echo \"_${COMP_WORDS_NO_FLAGS[*]}\");\
+    subfunction=${subfunction//-/_};\
+    COMP_WORDS_NO_FLAGS+=(\"${COMP_WORDS[$COMP_CWORD]}\");\
+    local COMP_CWORD_NO_FLAGS=$((${#COMP_WORDS_NO_FLAGS[@]} - 1));\
+    local list_options=false;\
+    if [[ \"${COMP_WORDS[$COMP_CWORD]}\" == -* || \"$COMP_POINT\" -ne \"${#COMP_LINE}\" ]]; then\
+        list_options=true;\
+    fi;\
+    local cur=${COMP_WORDS_NO_FLAGS[$COMP_CWORD_NO_FLAGS]};\
+    if [[ \"${COMP_LINE:$COMP_POINT:1}\" == \" \" ]]; then\
+        cur=\"\";\
+    fi;\
+    local rgx;\
+    rgx=\"$subfunction.*function.* \";\
+    if [[ \"$(type $subfunction 2>&1)\" =~ $rgx ]]; then\
+        $subfunction;\
+        COMPREPLY=($(compgen -W \"$SPACK_COMPREPLY\" -- \"$cur\"));\
+    fi","")

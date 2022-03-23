@@ -845,6 +845,19 @@ function source_sh(...)
    dbg.fini("source_sh")
 end
 
+function complete(shellName, cmd, args)
+   dbg.start{"complete(shellName, cmd, args)"}
+   if (not validateStringArgs("complete", shellName, cmd, args)) then return end
+   mcp:complete(shellName:trim():lower(), cmd:trim():lower(), args)
+   dbg.fini("complete")
+end
+
+function uncomplete(shellName, cmd, args)
+   dbg.start{"uncomplete(shellName, cmd, args)"}
+   if (not validateStringArgs("uncomplete", shellName, cmd, args)) then return end
+   mcp:uncomplete(shellName:lower(), cmd, args)
+   dbg.fini("uncomplete")
+end
 
 function LmodBreak(msg)
    dbg.start{"LmodBreak(",msg,")"}

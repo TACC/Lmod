@@ -325,6 +325,17 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 6
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/rmap/mf/2Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/rmap/mf/2Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/rmap/mf/2Core",},systemBaseMPATH="ProjectDIR/rt/rmap/mf/2Core",}';
+export _ModuleTable_;
+false
+===========================
+step 7
 buildSpiderT ProjectDIR/rt/rmap/mf/2Core
 ===========================
 timestampFn = {
@@ -416,7 +427,7 @@ mpathMapT = {
   },
 }
 ===========================
-step 7
+step 8
 buildDbT ProjectDIR/rt/rmap/mf/2Core
 ===========================
 timestampFn = {
@@ -480,7 +491,7 @@ dbT = {
 }
 provideByT = {}
 ===========================
-step 8
+step 9
 buildSpiderT ProjectDIR/rt/rmap/mf/2Core
 ===========================
 timestampFn = {
@@ -575,7 +586,7 @@ mpathMapT = {
   },
 }
 ===========================
-step 9
+step 10
 buildDbT ProjectDIR/rt/rmap/mf/2Core
 ===========================
 timestampFn = {
@@ -631,3 +642,63 @@ dbT = {
   },
 }
 provideByT = {}
+===========================
+step 11
+buildRmapT ProjectDIR/rt/rmap/mf/2Core
+===========================
+timestampFn = {
+  false,
+}
+reverseMapT = {
+  ["ProjectDIR/rt/rmap/apps/intel/14.0.1/bin"] = {
+    flavor = {
+      "default",
+    },
+    kind = "bin",
+    moduleFn = "ProjectDIR/rt/rmap/mf/2Core/intel/14.0.1.lua",
+    pkg = "intel/14.0.1",
+  },
+  ["ProjectDIR/rt/rmap/apps/intel/14.0.1/lib"] = {
+    flavor = {
+      "default",
+    },
+    kind = "lib",
+    moduleFn = "ProjectDIR/rt/rmap/mf/2Core/intel/14.0.1.lua",
+    pkg = "intel/14.0.1",
+  },
+  ["OutputDIR/otherBin"] = {
+    flavor = {
+      "default",
+    },
+    kind = "bin",
+    moduleFn = "ProjectDIR/rt/rmap/mf/2Core/intel/14.0.1.lua",
+    pkg = "intel/14.0.1",
+  },
+}
+xlibmap = {}
+===========================
+step 12
+buildRmapT ProjectDIR/rt/rmap/mf/2Core
+===========================
+timestampFn = {
+  false,
+}
+reverseMapT = {
+  ["ProjectDIR/rt/rmap/apps/intel/14.0.1/bin"] = {
+    flavor = {
+      "default",
+    },
+    kind = "bin",
+    moduleFn = "ProjectDIR/rt/rmap/mf/2Core/intel/14.0.1.lua",
+    pkg = "intel/14.0.1",
+  },
+  ["ProjectDIR/rt/rmap/apps/intel/14.0.1/lib"] = {
+    flavor = {
+      "default",
+    },
+    kind = "lib",
+    moduleFn = "ProjectDIR/rt/rmap/mf/2Core/intel/14.0.1.lua",
+    pkg = "intel/14.0.1",
+  },
+}
+xlibmap = {}

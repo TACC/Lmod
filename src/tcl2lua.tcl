@@ -619,6 +619,21 @@ proc depends-on { args} {
     eval cmdargs "depends_on" $args
 }
 
+proc complete { shellName name args } {
+    global g_outputA
+    foreach arg $args {
+	set val [string trimright $arg "\r\n "]
+        set val [doubleQuoteEscaped $val]
+	lappend cmdArgsL $val
+    }
+    if {[info exists cmdArgsL]} {
+        set cmdArgs [join $cmdArgsL " "]
+	lappend g_outputA  "complete\(\"$shellName\",\"$name\",\"$cmdArgs\"\)\n"
+    } else {
+	lappend g_outputA  "complete\(\"$shellName\",\"$name\"\)\n"
+    }
+}
+
 proc my_exit { {code 1} } {
     eval cmdargs "os.exit" $code
 }
@@ -951,6 +966,7 @@ proc execute-modulefile {modfile } {
     interp alias $child always-load    	 {} always-load
     interp alias $child append-path    	 {} append-path
     interp alias $child break       	 {} myBreak
+    interp alias $child complete       	 {} complete
     interp alias $child conflict       	 {} conflict
     interp alias $child depends-on     	 {} depends-on
     interp alias $child exit     	 {} my_exit

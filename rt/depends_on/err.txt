@@ -202,11 +202,15 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
 ===========================
 ===========================
 step 40
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ipykernel/2022a
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load python/3.9.6
 ===========================
 ===========================
 step 41
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ipykernel/2022a
+===========================
+===========================
+step 42
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) python/3.8.10   2) ipykernel/2022a
+  1) python/3.9.6   2) ipykernel/2022a

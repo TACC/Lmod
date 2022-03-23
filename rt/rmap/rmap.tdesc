@@ -24,7 +24,7 @@ testdescript = {
      export APPS_DIR=$(testDir)/apps
      export MY_BIN=$(outputDir)/my_bin
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d more_apps
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d more_apps otherBin
 
      mkdir -p more_apps/bin
      cp $(testDir)/echo_this.sh more_apps/bin
@@ -41,13 +41,23 @@ testdescript = {
      unsetMT
 
      export MODULEPATH=$MODULEPATH_ROOT/2Core
-     runBase buildSpiderT $MODULEPATH      # 6
-     runBase buildDbT     $MODULEPATH      # 7
+     runLmod spider                        # 6
+     runBase buildSpiderT $MODULEPATH      # 7
+     runBase buildDbT     $MODULEPATH      # 8
 
      export MODULEPATH_LOOP=1
 
-     runBase buildSpiderT $MODULEPATH      # 8
-     runBase buildDbT     $MODULEPATH      # 9
+     runBase buildSpiderT $MODULEPATH      # 9
+     runBase buildDbT     $MODULEPATH      #10
+
+     unset MODULEPATH_LOOP
+     mkdir -p $(outputDir)/otherBin
+     export OTHERBIN=$(outputDir)/otherBin
+     runBase buildRmapT   $MODULEPATH      #11
+     export LMOD_PACKAGE_PATH=$(testDir)/site;
+     runBase buildRmapT   $MODULEPATH      #12
+
+
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

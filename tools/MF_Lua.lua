@@ -83,7 +83,9 @@ function MF_Lmod.shell_function(self, k, v)
    return "set_shell_function(" .. k:doubleQuoteString() .. "," .. v:doubleQuoteString() .. ",\"\")"
 end
 
-
+function MF_Lmod.complete(self, shellName, k, v)
+   return "complete(" .. shellName:doubleQuoteString() .. "," .. k:doubleQuoteString() .. "," .. v:doubleQuoteString() .. ")"
+end
 
 
 return MF_Lmod

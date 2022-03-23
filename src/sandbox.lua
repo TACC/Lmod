@@ -154,6 +154,11 @@ local sandbox_env = {
   -- meta data foo ---
   extensions           = extensions,
 
+  -- Shell script foo --
+  source_sh            = source_sh,
+  complete             = complete,
+  uncomplete           = uncomplete,
+
   -- Misc --
   LmodBreak            = LmodBreak,
   source_sh            = source_sh,

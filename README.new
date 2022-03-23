@@ -33,4 +33,8 @@ Lmod 8.6+
             * Issue #566: Directly report LOADEDMODULES and _LMFILES_ rather than doing incrementally.
    (8.6.14) * Issue #571: remove export -f __lmod_file_glob_on
    (8.6.15) * Issue #564: Switch to using MName:isloaded() instead of MT:haveUserName()
-              in MasterControl:dependencyCk(mA
+              in MasterControl:dependencyCk(mA)
+            * Rename spiderPathFilterHook to reverseMapPathFilterHook
+   (8.6.16) * The following two changes are so that when a user is unloading it shouldn't fail.
+              - Make M.error=MasterControl.warning in src/MC_Unload.lua
+              - Make M.LmodBreak=MasterControl.quiet in src/MC_Unload.lua

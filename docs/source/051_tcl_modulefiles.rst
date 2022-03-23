@@ -28,6 +28,12 @@ standard TCL language.
    *char* . Also the last optional argument can specify a priority. 
    (See :ref:`path_priority-label` for details.)
 
+**complete shell name arg1 arg2 ...** "
+   Bash and tcsh support the complete function.  Note that the
+   shellName must match the name of the shell given on the Lmod
+   command.  There is no error if the shell names do not match. The
+   command is ignored.  See rt/complete/mf/tcl_spack/1.0.lua for an example.
+
 **conflict A B** :
    The current modulefile will only load if all listed modules are NOT loaded.
 
@@ -43,6 +49,8 @@ standard TCL language.
 
    In other words, this command does not stop the operation, where as
    **exit** stops all evaluations. New in Lmod 8.6+
+
+   **Note** As of Lmod 8.6.16: break does nothing when unloading.
 
 **exit** *number* :
    Exits the module.  No changes in the environment occur if this
@@ -147,6 +155,10 @@ standard TCL language.
 
 **reportError** *string* :
   Report an error and abort processing of the modulefile.
+
+  **Note**: During unloading, this command reports the error message
+  but does not abort the processing of the modulefile. (as of Lmod 8.6.16+)
+
 
 **require-fullname** :
   Reports an error if the user specified name is not the fullname of

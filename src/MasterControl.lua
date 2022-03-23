@@ -1467,7 +1467,7 @@ function M.inherit(self)
 end
 
 function M.source_sh(self, shellName, script)
-   dbg.start{"MasterControl:source_sh(shellName: \"",shellName,", script: \"",script,"\")"}
+   dbg.start{"MasterControl:source_sh(shellName: \"",shellName,"\", script: \"",script,"\")"}
    local frameStk     = FrameStk:singleton()
    local sn           = frameStk:sn()
    local mt           = frameStk:mt()
@@ -1492,7 +1492,7 @@ function M.source_sh(self, shellName, script)
 end
 
 function M.un_source_sh(self, shellName, script)
-   dbg.start{"MasterControl:un_source_sh(shellName: \"",shellName,", script: \"",script,"\")"}
+   dbg.start{"MasterControl:un_source_sh(shellName: \"",shellName,"\", script: \"",script,"\")"}
    local frameStk    = FrameStk:singleton()
    local sn          = frameStk:sn()
    local mt          = frameStk:mt()
@@ -1505,6 +1505,38 @@ function M.un_source_sh(self, shellName, script)
    end
    dbg.fini("MasterControl:un_source_sh")
 end
+
+function M.complete(self, shellName, name, args)
+   dbg.start{"MasterControl:complete(shellName: \"",shellName,"\", name: \"",name,"\", args: \"",args,"\""}
+   if (myShellName() ~= shellName) then
+      dbg.fini("MasterControl:complete")
+      return
+   end
+   
+   local varT     = FrameStk:singleton():varT()
+   if (varT[name] == nil) then
+      varT[name] = Var:new(name)
+   end
+   varT[name]:complete(args)
+   dbg.fini("MasterControl:complete")
+end
+
+function M.uncomplete(self, shellName, name, args)
+   dbg.start{"MasterControl:uncomplete(shellName: \"",shellName,"\", name: \"",name,"\", args: \"",args,"\""}
+   if (myShellName() ~= shellName) then
+      dbg.fini("MasterControl:complete")
+      return
+   end
+   local varT     = FrameStk:singleton():varT()
+   if (varT[name] == nil) then
+      varT[name] = Var:new(name)
+   end
+   varT[name]:uncomplete()
+
+   dbg.fini("MasterControl:uncomplete")
+end
+
+
 
 function M.color_banner(self,color)
    if (quiet()) then

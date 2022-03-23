@@ -55,8 +55,10 @@ M.add_property         = MasterControl.remove_property
 M.append_path          = MasterControl.remove_path_last
 M.build_unload         = MasterControl.do_not_build_unload
 M.color_banner         = MasterControl.color_banner
+M.complete             = MasterControl.uncomplete
 M.conflict             = MasterControl.quiet
 M.depends_on           = MasterControl.forgo
+M.error                = MasterControl.warning
 M.execute              = MasterControl.execute
 M.extensions           = MasterControl.quiet
 M.family               = MasterControl.unset_family
@@ -83,6 +85,7 @@ M.set_alias            = MasterControl.unset_alias
 M.set_shell_function   = MasterControl.unset_shell_function
 M.source_sh            = MasterControl.un_source_sh
 M.try_load             = MasterControl.unload
+M.uncomplete           = MasterControl.uncomplete
 M.unload               = MasterControl.unload
 M.unload_usr           = MasterControl.unload_usr
 M.unsetenv             = MasterControl.quiet
@@ -90,6 +93,6 @@ M.unset_alias          = MasterControl.quiet
 M.unset_shell_function = MasterControl.quiet
 M.usrload              = MasterControl.unload
 M.whatis               = MasterControl.quiet
-M.LmodBreak            = MasterControl.LmodBreak
+M.LmodBreak            = MasterControl.quiet
 
 return M

@@ -1,7 +1,6 @@
 -- -*- lua -*-
 local testName = "ksh_to_modulefile"
 
-
 local ksh_path, found = findInPath("ksh", os.getenv("PATH"))
 
 testdescript = {

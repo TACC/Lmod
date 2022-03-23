@@ -59,3 +59,5 @@ PATH=$testDir/bin:$NEW_PATH:$testDir/sbin
 
 export TST_SCRIPT=1
 export MY_NAME="tstScript.sh"
+
+complete -F _xyz123 XyZ123

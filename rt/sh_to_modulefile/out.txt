@@ -35,6 +35,7 @@ set_shell_function("save_args"," \
     done;\
     echo \" \"\
 ","")
+complete("bash","XyZ123","-F _xyz123")
 ===========================
 step 3
 buildSh2MF --to TCL ProjectDIR/rt/sh_to_modulefile/tstScript.sh
@@ -69,6 +70,7 @@ set-function save_args {
     done;
     echo " "
 }
+complete bash XyZ123 {-F _xyz123}
 ===========================
 step 4
 buildSh2MF ProjectDIR/rt/sh_to_modulefile/path_both_ends.sh
@@ -129,7 +131,7 @@ TST_SCRIPT=1;
 export TST_SCRIPT;
 _LMFILES_=ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/sh_to_modulefile/second.sh arg1"]={"setenv(\"SECOND\",\"FOO_BAR\")",},["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"]={"setenv(\"MY_NAME\",\"tstScript.sh\")","prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")","append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")","setenv(\"TST_SCRIPT\",\"1\")","set_alias(\"fooAlias\",\"foobin -q -l\")",[[set_shell_function("banner"," \\ local str=\\"$1\\";\\ local RED='\\033[1;31m';\\ local NONE='\\033[0m';\\ echo \\"${RED}${str}${NONE}\\"\\","")]],[[set_shell_function("fooFunc"," \\ echo \\"arg1: $1\\"\\","")]],[[set_shell_function("junk"," \\ if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\ \\\\echo \\"junk\\";\\ fi\\","")]],[[set_shell_function("my_help"," \\ echo \\"do not forget \\\\\\"foo\\\\\\"\\"\\","")]],[[set_shell_function("save_args"," \\ for arg in \\"$@\\";\\ do\\ printf \\"%s\\\\n\\" \\"$arg\\" | sed -e \\"s/'/'\\\\\\\\\\\\\\\\''/g\\" -e \\"1s/^/'/\\" -e \\"\\\\$s/\\\\$/' \\\\\\\\\\\\\\\\/\\";\\ done;\\ echo \\" \\"\\","")]],},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/sh_to_modulefile/second.sh arg1"]={"setenv(\"SECOND\",\"FOO_BAR\")",},["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"]={"setenv(\"MY_NAME\",\"tstScript.sh\")","prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")","append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")","setenv(\"TST_SCRIPT\",\"1\")","set_alias(\"fooAlias\",\"foobin -q -l\")",[[set_shell_function("banner"," \\ local str=\\"$1\\";\\ local RED='\\033[1;31m';\\ local NONE='\\033[0m';\\ echo \\"${RED}${str}${NONE}\\"\\","")]],[[set_shell_function("fooFunc"," \\ echo \\"arg1: $1\\"\\","")]],[[set_shell_function("junk"," \\ if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\ \\\\echo \\"junk\\";\\ fi\\","")]],[[set_shell_function("my_help"," \\ echo \\"do not forget \\\\\\"foo\\\\\\"\\"\\","")]],[[set_shell_function("save_args"," \\ for arg in \\"$@\\";\\ do\\ printf \\"%s\\\\n\\" \\"$arg\\" | sed -e \\"s/'/'\\\\\\\\\\\\\\\\''/g\\" -e \\"1s/^/'/\\" -e \\"\\\\$s/\\\\$/' \\\\\\\\\\\\\\\\/\\";\\ done;\\ echo \\" \\"\\","")]],"complete(\"bash\",\"XyZ123\",\"-F _xyz123\")",},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
 banner () {
     local str="$1";
@@ -156,13 +158,14 @@ save_args () {
     done;
     echo " "
 ; };
+[[ -n "${BASH_VERSION:-}" ]] && complete -F\ _xyz123 xyz123;
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show wrapperSh/1.0
 ===========================
 MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/sh_to_modulefile/second.sh arg1"]={"setenv(\"SECOND\",\"FOO_BAR\")",},["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"]={"setenv(\"MY_NAME\",\"tstScript.sh\")","prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")","append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")","setenv(\"TST_SCRIPT\",\"1\")","set_alias(\"fooAlias\",\"foobin -q -l\")",[[set_shell_function("banner"," \\ local str=\\"$1\\";\\ local RED='\\033[1;31m';\\ local NONE='\\033[0m';\\ echo \\"${RED}${str}${NONE}\\"\\","")]],[[set_shell_function("fooFunc"," \\ echo \\"arg1: $1\\"\\","")]],[[set_shell_function("junk"," \\ if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\ \\\\echo \\"junk\\";\\ fi\\","")]],[[set_shell_function("my_help"," \\ echo \\"do not forget \\\\\\"foo\\\\\\"\\"\\","")]],[[set_shell_function("save_args"," \\ for arg in \\"$@\\";\\ do\\ printf \\"%s\\\\n\\" \\"$arg\\" | sed -e \\"s/'/'\\\\\\\\\\\\\\\\''/g\\" -e \\"1s/^/'/\\" -e \\"\\\\$s/\\\\$/' \\\\\\\\\\\\\\\\/\\";\\ done;\\ echo \\" \\"\\","")]],},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/sh_to_modulefile/second.sh arg1"]={"setenv(\"SECOND\",\"FOO_BAR\")",},["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"]={"setenv(\"MY_NAME\",\"tstScript.sh\")","prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")","append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")","setenv(\"TST_SCRIPT\",\"1\")","set_alias(\"fooAlias\",\"foobin -q -l\")",[[set_shell_function("banner"," \\ local str=\\"$1\\";\\ local RED='\\033[1;31m';\\ local NONE='\\033[0m';\\ echo \\"${RED}${str}${NONE}\\"\\","")]],[[set_shell_function("fooFunc"," \\ echo \\"arg1: $1\\"\\","")]],[[set_shell_function("junk"," \\ if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\ \\\\echo \\"junk\\";\\ fi\\","")]],[[set_shell_function("my_help"," \\ echo \\"do not forget \\\\\\"foo\\\\\\"\\"\\","")]],[[set_shell_function("save_args"," \\ for arg in \\"$@\\";\\ do\\ printf \\"%s\\\\n\\" \\"$arg\\" | sed -e \\"s/'/'\\\\\\\\\\\\\\\\''/g\\" -e \\"1s/^/'/\\" -e \\"\\\\$s/\\\\$/' \\\\\\\\\\\\\\\\/\\";\\ done;\\ echo \\" \\"\\","")]],"complete(\"bash\",\"XyZ123\",\"-F _xyz123\")",},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
 ===========================
 step 10
@@ -170,7 +173,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing refresh
 ===========================
 MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/sh_to_modulefile/second.sh arg1"]={"setenv(\"SECOND\",\"FOO_BAR\")",},["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"]={"setenv(\"MY_NAME\",\"tstScript.sh\")","prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")","append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")","setenv(\"TST_SCRIPT\",\"1\")","set_alias(\"fooAlias\",\"foobin -q -l\")",[[set_shell_function("banner"," \\ local str=\\"$1\\";\\ local RED='\\033[1;31m';\\ local NONE='\\033[0m';\\ echo \\"${RED}${str}${NONE}\\"\\","")]],[[set_shell_function("fooFunc"," \\ echo \\"arg1: $1\\"\\","")]],[[set_shell_function("junk"," \\ if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\ \\\\echo \\"junk\\";\\ fi\\","")]],[[set_shell_function("my_help"," \\ echo \\"do not forget \\\\\\"foo\\\\\\"\\"\\","")]],[[set_shell_function("save_args"," \\ for arg in \\"$@\\";\\ do\\ printf \\"%s\\\\n\\" \\"$arg\\" | sed -e \\"s/'/'\\\\\\\\\\\\\\\\''/g\\" -e \\"1s/^/'/\\" -e \\"\\\\$s/\\\\$/' \\\\\\\\\\\\\\\\/\\";\\ done;\\ echo \\" \\"\\","")]],},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/sh_to_modulefile/second.sh arg1"]={"setenv(\"SECOND\",\"FOO_BAR\")",},["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"]={"setenv(\"MY_NAME\",\"tstScript.sh\")","prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")","append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")","setenv(\"TST_SCRIPT\",\"1\")","set_alias(\"fooAlias\",\"foobin -q -l\")",[[set_shell_function("banner"," \\ local str=\\"$1\\";\\ local RED='\\033[1;31m';\\ local NONE='\\033[0m';\\ echo \\"${RED}${str}${NONE}\\"\\","")]],[[set_shell_function("fooFunc"," \\ echo \\"arg1: $1\\"\\","")]],[[set_shell_function("junk"," \\ if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\ \\\\echo \\"junk\\";\\ fi\\","")]],[[set_shell_function("my_help"," \\ echo \\"do not forget \\\\\\"foo\\\\\\"\\"\\","")]],[[set_shell_function("save_args"," \\ for arg in \\"$@\\";\\ do\\ printf \\"%s\\\\n\\" \\"$arg\\" | sed -e \\"s/'/'\\\\\\\\\\\\\\\\''/g\\" -e \\"1s/^/'/\\" -e \\"\\\\$s/\\\\$/' \\\\\\\\\\\\\\\\/\\";\\ done;\\ echo \\" \\"\\","")]],"complete(\"bash\",\"XyZ123\",\"-F _xyz123\")",},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
 banner () {
     local str="$1";
@@ -197,13 +200,14 @@ save_args () {
     done;
     echo " "
 ; };
+[[ -n "${BASH_VERSION:-}" ]] && complete -F\ _xyz123 xyz123;
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/sh_to_modulefile/second.sh arg1"]={"setenv(\"SECOND\",\"FOO_BAR\")",},["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"]={"setenv(\"MY_NAME\",\"tstScript.sh\")","prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")","append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")","setenv(\"TST_SCRIPT\",\"1\")","set_alias(\"fooAlias\",\"foobin -q -l\")",[[set_shell_function("banner"," \\ local str=\\"$1\\";\\ local RED='\\033[1;31m';\\ local NONE='\\033[0m';\\ echo \\"${RED}${str}${NONE}\\"\\","")]],[[set_shell_function("fooFunc"," \\ echo \\"arg1: $1\\"\\","")]],[[set_shell_function("junk"," \\ if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\ \\\\echo \\"junk\\";\\ fi\\","")]],[[set_shell_function("my_help"," \\ echo \\"do not forget \\\\\\"foo\\\\\\"\\"\\","")]],[[set_shell_function("save_args"," \\ for arg in \\"$@\\";\\ do\\ printf \\"%s\\\\n\\" \\"$arg\\" | sed -e \\"s/'/'\\\\\\\\\\\\\\\\''/g\\" -e \\"1s/^/'/\\" -e \\"\\\\$s/\\\\$/' \\\\\\\\\\\\\\\\/\\";\\ done;\\ echo \\" \\"\\","")]],},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/sh_to_modulefile/second.sh arg1"]={"setenv(\"SECOND\",\"FOO_BAR\")",},["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"]={"setenv(\"MY_NAME\",\"tstScript.sh\")","prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")","append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")","setenv(\"TST_SCRIPT\",\"1\")","set_alias(\"fooAlias\",\"foobin -q -l\")",[[set_shell_function("banner"," \\ local str=\\"$1\\";\\ local RED='\\033[1;31m';\\ local NONE='\\033[0m';\\ echo \\"${RED}${str}${NONE}\\"\\","")]],[[set_shell_function("fooFunc"," \\ echo \\"arg1: $1\\"\\","")]],[[set_shell_function("junk"," \\ if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\ \\\\echo \\"junk\\";\\ fi\\","")]],[[set_shell_function("my_help"," \\ echo \\"do not forget \\\\\\"foo\\\\\\"\\"\\","")]],[[set_shell_function("save_args"," \\ for arg in \\"$@\\";\\ do\\ printf \\"%s\\\\n\\" \\"$arg\\" | sed -e \\"s/'/'\\\\\\\\\\\\\\\\''/g\\" -e \\"1s/^/'/\\" -e \\"\\\\$s/\\\\$/' \\\\\\\\\\\\\\\\/\\";\\ done;\\ echo \\" \\"\\","")]],"complete(\"bash\",\"XyZ123\",\"-F _xyz123\")",},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
 ===========================
 step 12
@@ -232,6 +236,7 @@ unset -f fooFunc 2> /dev/null || true;
 unset -f junk 2> /dev/null || true;
 unset -f my_help 2> /dev/null || true;
 unset -f save_args 2> /dev/null || true;
+[[ -n "${BASH_VERSION:-}" ]] && complete -r xyz123;
 ===========================
 step 14
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load brokenSh/1.0
@@ -257,7 +262,7 @@ TST_SCRIPT=1;
 export TST_SCRIPT;
 _LMFILES_=ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/sh_to_modulefile/second.sh arg1"]={"setenv(\"SECOND\",\"FOO_BAR\")",},["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"]={"setenv(\"MY_NAME\",\"tstScript.sh\")","prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")","append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")","setenv(\"TST_SCRIPT\",\"1\")","set_alias(\"fooAlias\",\"foobin -q -l\")",[[set_shell_function("banner"," \\ local str=\\"$1\\";\\ local RED='\\033[1;31m';\\ local NONE='\\033[0m';\\ echo \\"${RED}${str}${NONE}\\"\\","")]],[[set_shell_function("fooFunc"," \\ echo \\"arg1: $1\\"\\","")]],[[set_shell_function("junk"," \\ if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\ \\\\echo \\"junk\\";\\ fi\\","")]],[[set_shell_function("my_help"," \\ echo \\"do not forget \\\\\\"foo\\\\\\"\\"\\","")]],[[set_shell_function("save_args"," \\ for arg in \\"$@\\";\\ do\\ printf \\"%s\\\\n\\" \\"$arg\\" | sed -e \\"s/'/'\\\\\\\\\\\\\\\\''/g\\" -e \\"1s/^/'/\\" -e \\"\\\\$s/\\\\$/' \\\\\\\\\\\\\\\\/\\";\\ done;\\ echo \\" \\"\\","")]],},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/sh_to_modulefile/second.sh arg1"]={"setenv(\"SECOND\",\"FOO_BAR\")",},["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"]={"setenv(\"MY_NAME\",\"tstScript.sh\")","prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")","append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")","setenv(\"TST_SCRIPT\",\"1\")","set_alias(\"fooAlias\",\"foobin -q -l\")",[[set_shell_function("banner"," \\ local str=\\"$1\\";\\ local RED='\\033[1;31m';\\ local NONE='\\033[0m';\\ echo \\"${RED}${str}${NONE}\\"\\","")]],[[set_shell_function("fooFunc"," \\ echo \\"arg1: $1\\"\\","")]],[[set_shell_function("junk"," \\ if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\ \\\\echo \\"junk\\";\\ fi\\","")]],[[set_shell_function("my_help"," \\ echo \\"do not forget \\\\\\"foo\\\\\\"\\"\\","")]],[[set_shell_function("save_args"," \\ for arg in \\"$@\\";\\ do\\ printf \\"%s\\\\n\\" \\"$arg\\" | sed -e \\"s/'/'\\\\\\\\\\\\\\\\''/g\\" -e \\"1s/^/'/\\" -e \\"\\\\$s/\\\\$/' \\\\\\\\\\\\\\\\/\\";\\ done;\\ echo \\" \\"\\","")]],"complete(\"bash\",\"XyZ123\",\"-F _xyz123\")",},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
 banner () {
     local str="$1";
@@ -284,13 +289,14 @@ save_args () {
     done;
     echo " "
 ; };
+[[ -n "${BASH_VERSION:-}" ]] && complete -F\ _xyz123 xyz123;
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 MODULEPATH=ProjectDIR/rt/sh_to_modulefile/mf;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/sh_to_modulefile/second.sh arg1"]={"setenv(\"SECOND\",\"FOO_BAR\")",},["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"]={"setenv(\"MY_NAME\",\"tstScript.sh\")","prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")","append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")","setenv(\"TST_SCRIPT\",\"1\")","set_alias(\"fooAlias\",\"foobin -q -l\")",[[set_shell_function("banner"," \\ local str=\\"$1\\";\\ local RED='\\033[1;31m';\\ local NONE='\\033[0m';\\ echo \\"${RED}${str}${NONE}\\"\\","")]],[[set_shell_function("fooFunc"," \\ echo \\"arg1: $1\\"\\","")]],[[set_shell_function("junk"," \\ if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\ \\\\echo \\"junk\\";\\ fi\\","")]],[[set_shell_function("my_help"," \\ echo \\"do not forget \\\\\\"foo\\\\\\"\\"\\","")]],[[set_shell_function("save_args"," \\ for arg in \\"$@\\";\\ do\\ printf \\"%s\\\\n\\" \\"$arg\\" | sed -e \\"s/'/'\\\\\\\\\\\\\\\\''/g\\" -e \\"1s/^/'/\\" -e \\"\\\\$s/\\\\$/' \\\\\\\\\\\\\\\\/\\";\\ done;\\ echo \\" \\"\\","")]],},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/sh_to_modulefile/second.sh arg1"]={"setenv(\"SECOND\",\"FOO_BAR\")",},["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"]={"setenv(\"MY_NAME\",\"tstScript.sh\")","prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")","append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")","setenv(\"TST_SCRIPT\",\"1\")","set_alias(\"fooAlias\",\"foobin -q -l\")",[[set_shell_function("banner"," \\ local str=\\"$1\\";\\ local RED='\\033[1;31m';\\ local NONE='\\033[0m';\\ echo \\"${RED}${str}${NONE}\\"\\","")]],[[set_shell_function("fooFunc"," \\ echo \\"arg1: $1\\"\\","")]],[[set_shell_function("junk"," \\ if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\ \\\\echo \\"junk\\";\\ fi\\","")]],[[set_shell_function("my_help"," \\ echo \\"do not forget \\\\\\"foo\\\\\\"\\"\\","")]],[[set_shell_function("save_args"," \\ for arg in \\"$@\\";\\ do\\ printf \\"%s\\\\n\\" \\"$arg\\" | sed -e \\"s/'/'\\\\\\\\\\\\\\\\''/g\\" -e \\"1s/^/'/\\" -e \\"\\\\$s/\\\\$/' \\\\\\\\\\\\\\\\/\\";\\ done;\\ echo \\" \\"\\","")]],"complete(\"bash\",\"XyZ123\",\"-F _xyz123\")",},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
 ===========================
 step 17
@@ -306,7 +312,7 @@ SECOND=FOO_BAR;
 export SECOND;
 TST_SCRIPT=1;
 export TST_SCRIPT;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/sh_to_modulefile/second.sh arg1"]={"setenv(\"SECOND\",\"FOO_BAR\")",},["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"]={"setenv(\"MY_NAME\",\"tstScript.sh\")","prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")","append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")","setenv(\"TST_SCRIPT\",\"1\")","set_alias(\"fooAlias\",\"foobin -q -l\")",[[set_shell_function("banner"," \\ local str=\\"$1\\";\\ local RED='\\033[1;31m';\\ local NONE='\\033[0m';\\ echo \\"${RED}${str}${NONE}\\"\\","")]],[[set_shell_function("fooFunc"," \\ echo \\"arg1: $1\\"\\","")]],[[set_shell_function("junk"," \\ if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\ \\\\echo \\"junk\\";\\ fi\\","")]],[[set_shell_function("my_help"," \\ echo \\"do not forget \\\\\\"foo\\\\\\"\\"\\","")]],[[set_shell_function("save_args"," \\ for arg in \\"$@\\";\\ do\\ printf \\"%s\\\\n\\" \\"$arg\\" | sed -e \\"s/'/'\\\\\\\\\\\\\\\\''/g\\" -e \\"1s/^/'/\\" -e \\"\\\\$s/\\\\$/' \\\\\\\\\\\\\\\\/\\";\\ done;\\ echo \\" \\"\\","")]],},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/sh_to_modulefile/second.sh arg1"]={"setenv(\"SECOND\",\"FOO_BAR\")",},["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"]={"setenv(\"MY_NAME\",\"tstScript.sh\")","prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")","append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")","setenv(\"TST_SCRIPT\",\"1\")","set_alias(\"fooAlias\",\"foobin -q -l\")",[[set_shell_function("banner"," \\ local str=\\"$1\\";\\ local RED='\\033[1;31m';\\ local NONE='\\033[0m';\\ echo \\"${RED}${str}${NONE}\\"\\","")]],[[set_shell_function("fooFunc"," \\ echo \\"arg1: $1\\"\\","")]],[[set_shell_function("junk"," \\ if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\ \\\\echo \\"junk\\";\\ fi\\","")]],[[set_shell_function("my_help"," \\ echo \\"do not forget \\\\\\"foo\\\\\\"\\"\\","")]],[[set_shell_function("save_args"," \\ for arg in \\"$@\\";\\ do\\ printf \\"%s\\\\n\\" \\"$arg\\" | sed -e \\"s/'/'\\\\\\\\\\\\\\\\''/g\\" -e \\"1s/^/'/\\" -e \\"\\\\$s/\\\\$/' \\\\\\\\\\\\\\\\/\\";\\ done;\\ echo \\" \\"\\","")]],"complete(\"bash\",\"XyZ123\",\"-F _xyz123\")",},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_modulefile/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_modulefile/mf",}';
 export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__=1;
 export __LMOD_DEFAULT_MODULES_LOADED__;
@@ -335,6 +341,7 @@ save_args () {
     done;
     echo " "
 ; };
+[[ -n "${BASH_VERSION:-}" ]] && complete -F\ _xyz123 xyz123;
 ===========================
 step 18
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --mt
@@ -377,6 +384,7 @@ save_args () {
         printf "%s\n" "$arg" | sed -e "s/'/'\\\\''/g" -e "1s/^/'/" -e "\$s/\$/' \\\\/";
     done;
     echo " "; };
+[[ -n "${BASH_VERSION:-}" ]] && complete -F\ _xyz123 xyz123;
 ===========================
 step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list

@@ -107,6 +107,12 @@ unset during unloading.
      errors will be reported.
 
 
+**complete** ("shellName","name","args"):
+     Bash and tcsh support the complete function.  Note that the
+     shellName must match the name of the shell given on the Lmod
+     command.  There is no error if the shell names do not match. The
+     command is ignored.  See rt/complete/mf/spack/1.0.lua for an example.
+
 **source_sh** ("shellName","shell_script arg1 ...")
      source a shell script as part of a module. Supported shellNames
      are *sh*, *dash*, *bash*, *zsh*, *csh*, *tcsh*, *ksh*.  When
@@ -136,6 +142,9 @@ unset during unloading.
 
      In other words, this function does not stop, where as
      **LmodError()** stops all evaluations. New in Lmod 8.6+
+
+     **Note** As of Lmod 8.6.16: LmodBreak() does nothing when unloading.
+
 
 **userInGroups** ("group1", "group2", ...):
      Returns true if user is root or a member of one of the groups listed.
@@ -220,8 +229,14 @@ The entries below describe several useful commands that come with Lmod that can 
 **LmodMessage** ("string", ...):
     Prints a message to the user.
 
+**LmodWarning** ("string", ...):
+    Prints a warning message to the user.
+
 **LmodError** ("string", "..."):
     Print Error string and exit without loading the modulefile.
+
+    **Note** that LmodError() is treated as a warning when unloading
+    as of Lmod 8.6.16
 
 **mode** ():
     Returns the string "load" when a modulefile is being loaded,

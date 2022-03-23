@@ -562,8 +562,6 @@ world_update:
 	    TOKEN=$$(cat ~/c/lmod_github_token.txt);                                   \
 	    curl --user rtmclay:token -H "Authorization: token $$TOKEN" -X POST        \
 	         --data @/tmp/json_$$pid $$URL;                                        \
-	    git push        sf     $$branchName;                                       \
-	    git push --tags sf     $$branchName;                                       \
 	fi;                                                                            \
 	rm -f /tmp/json_$$pid /tmp/git_st_$$$$;
 

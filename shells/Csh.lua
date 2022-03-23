@@ -131,6 +131,27 @@ function Csh.unset(self, k, vType)
    dbg.print{   line}
 end
 
+function Csh.complete(self, name, value)
+   local lineA = {}
+   if (value) then
+      lineA[#lineA + 1]  = "complete "
+      lineA[#lineA + 1]  = name
+      lineA[#lineA + 1]  = " "
+      lineA[#lineA + 1]  = value:multiEscaped()
+      lineA[#lineA + 1]  = ";\n"
+   else
+      lineA[#lineA + 1]  = "uncomplete "
+      lineA[#lineA + 1]  = name
+      lineA[#lineA + 1]  = ";\n"
+   end
+   local line = concatTbl(lineA,"")
+   stdout:write(line)
+   dbg.print{   line}
+end
+
+
+
+
 --------------------------------------------------------------------------
 -- Csh:real_shell(): Return true if the output shell is "real" or not.
 --                   This base function returns false.  Bash, Csh

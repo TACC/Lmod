@@ -110,9 +110,11 @@ function M.process(self, shellName, ignoreT, resultT)
    
    self:processVars(ignoreT, oldEnvT, envT, a)
    
-   self:processAliases(shellName, resultT["Aliases"][1], resultT["Aliases"][2], a)
+   self:processAliases(  shellName, resultT["Aliases"][1],  resultT["Aliases"][2],  a)
 
-   self:processFuncs(  shellName, resultT["Funcs"][1],   resultT["Funcs"][2],   a)
+   self:processFuncs(    shellName, resultT["Funcs"][1],    resultT["Funcs"][2],    a)
+
+   self:processComplete( shellName, resultT["Complete"][1], resultT["Complete"][2], a)
 
    dbg.fini("MF_Base:process")
    return a
@@ -158,9 +160,9 @@ function M.processAliases(self, shellName, old, new, a)
 end
 
 local shellFuncPatt = {
-   bash = { namePatt  = "([a-zA-Z0-9_.?']+) ?%(%)%s+({)", trailingPatt = "(})\n" },
-   zsh  = { namePatt  = "([a-zA-Z0-9_.?']+) ?%(%)%s+({)", trailingPatt = "(})\n" },
-   ksh  = { namePatt  = "([a-zA-Z0-9_.?']+) ?%(%)%s+({)", trailingPatt = "(})\n" },
+   bash = { namePatt  = "([-a-zA-Z0-9_.?']+) ?%(%)%s+({)", trailingPatt = "(})\n" },
+   zsh  = { namePatt  = "([-a-zA-Z0-9_.?']+) ?%(%)%s+({)", trailingPatt = "(})\n" },
+   ksh  = { namePatt  = "([-a-zA-Z0-9_.?']+) ?%(%)%s+({)", trailingPatt = "(})\n" },
 }
 
 local function l_extractFuncs(shellName, funcs)
@@ -196,6 +198,52 @@ function M.processFuncs(self, shellName, old, new, a)
 
    dbg.fini("MF_Base:processFuncs")
 end
+
+local shellCompletePatt = {
+   bash = { namePatt = "([a-zA-Z0-9_.?']+)$",  frontPatt = "^complete  *", bodyPatt = "(.*)"},
+   tcsh = { namePatt = "^([a-zA-Z0-9_.?']+) ", frontPatt = "",             bodyPatt = "'([^']*)'"},
+}
+
+local function l_extractComplete(shellName, complete)
+   local completeT = {}
+   local namePatt  = shellCompletePatt[shellName].namePatt
+   local bodyPatt  = shellCompletePatt[shellName].bodyPatt
+   local frontPatt = shellCompletePatt[shellName].frontPatt
+   local Nm
+   local body
+   while (true) do
+      local is, ie     = complete:find("\n")
+      if (not is) then break end
+      local s          = complete:sub(1, is-1)
+      complete         = complete:sub(ie+1, -1)
+      s                = s:gsub(frontPatt,"")
+      is, ie, Nm       = s:find(namePatt)
+      s                = s:sub(1,is-1) .. s:sub(ie+1,-1)
+      s                = s:trim()
+      is, ie, body     = s:find(bodyPatt)
+      completeT[Nm]    = body
+   end
+   return completeT
+end
+
+
+
+function M.processComplete(self, shellName, old, new, a)
+   dbg.start{"MF_Base:processComplete(shellName, old, new, a)"}
+   if (not shellCompletePatt[shellName] ) then return end
+   local oldCompleteT = l_extractComplete(shellName, old)
+   local completeT    = l_extractComplete(shellName, new)
+   for k,v in pairsByKeys(completeT) do
+      local oldV = oldCompleteT[k]
+      if (oldV == nil or oldV ~= v) then
+         a[#a+1] = self:complete(shellName,k, v)
+      end
+   end
+
+   dbg.fini("MF_Base:processComplete")
+end
+
+
 
 function l_indexPath(old, oldA, new, newA)
    --dbg.start{"l_indexPath(",old, ", ", new,")"}
@@ -306,6 +354,9 @@ function M.processVars(self, ignoreT, oldEnvT, envT, a)
    end
 
    dbg.fini("MF_Base:processVars")
+end
+
+function M.complete(self, shellName, name, value)
 end
 
 function M.header(self)

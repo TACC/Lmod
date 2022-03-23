@@ -92,39 +92,44 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load brk2
-===========================
-LOADEDMODULES=brk2/1.0;
-export LOADEDMODULES;
-MODULEPATH=ProjectDIR/rt/break/mf;
-export MODULEPATH;
-_LMFILES_=ProjectDIR/rt/break/mf/brk2/1.0.lua;
-export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={brk2={fn="ProjectDIR/rt/break/mf/brk2/1.0.lua",fullName="brk2/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="brk2",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/break/mf",},systemBaseMPATH="ProjectDIR/rt/break/mf",}';
-export _ModuleTable_;
-===========================
-step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T unload brk2
-===========================
-MODULEPATH=ProjectDIR/rt/break/mf;
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={brk2={fn="ProjectDIR/rt/break/mf/brk2/1.0.lua",fullName="brk2/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="brk2",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/break/mf",},systemBaseMPATH="ProjectDIR/rt/break/mf",}';
-export _ModuleTable_;
-===========================
-step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/break/mf;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={brk2={fn="ProjectDIR/rt/break/mf/brk2/1.0.lua",fullName="brk2/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="brk2",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/break/mf",},systemBaseMPATH="ProjectDIR/rt/break/mf",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/break/mf",},systemBaseMPATH="ProjectDIR/rt/break/mf",}';
 export _ModuleTable_;
 ===========================
-step 12
+step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load BRK
 ===========================
 MODULEPATH=ProjectDIR/rt/break/mf;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={brk2={fn="ProjectDIR/rt/break/mf/brk2/1.0.lua",fullName="brk2/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="brk2",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/break/mf",},systemBaseMPATH="ProjectDIR/rt/break/mf",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/break/mf",},systemBaseMPATH="ProjectDIR/rt/break/mf",}';
+export _ModuleTable_;
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load bad
+===========================
+FOO=just\ me;
+export FOO;
+LOADEDMODULES=bad/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/break/mf;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/break/mf/bad/1.0;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={bad={fn="ProjectDIR/rt/break/mf/bad/1.0",fullName="bad/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="bad",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/break/mf",},systemBaseMPATH="ProjectDIR/rt/break/mf",}';
+export _ModuleTable_;
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload bad
+===========================
+unset FOO;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/break/mf;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/break/mf",},systemBaseMPATH="ProjectDIR/rt/break/mf",}';
 export _ModuleTable_;
 ===========================
 step 13
@@ -132,5 +137,5 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/break/mf;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={brk2={fn="ProjectDIR/rt/break/mf/brk2/1.0.lua",fullName="brk2/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="brk2",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/break/mf",},systemBaseMPATH="ProjectDIR/rt/break/mf",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/break/mf",},systemBaseMPATH="ProjectDIR/rt/break/mf",}';
 export _ModuleTable_;
