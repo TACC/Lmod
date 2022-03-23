@@ -137,28 +137,28 @@ banner () {
     local str="$1";
     local RED='\\033[1;31m';
     local NONE='\\033[0m';
-    echo "${RED}${str}${NONE}"
-; };
+    echo "${RED}${str}${NONE}";
+};
 alias fooAlias=foobin\ -q\ -l;
 fooFunc () {
-    echo "arg1: $1"
-; };
+    echo "arg1: $1";
+};
 junk () {
     if [ -n "${ZSH_VERSION:-}" ]; then
         \echo "junk";
-    fi
-; };
+    fi;
+};
 my_help () {
-    echo "do not forget \"foo\""
-; };
+    echo "do not forget \"foo\"";
+};
 save_args () {
     for arg in "$@";
     do
         printf "%s\n" "$arg" | sed -e "s/'/'\\\\''/g" -e "1s/^/'/" -e "\$s/\$/' \\\\/";
     done;
-    echo " "
-; };
-[[ -n "${BASH_VERSION:-}" ]] && complete -F\ _xyz123 xyz123;
+    echo " ";
+};
+[[ -n "${BASH_VERSION:-}" ]] && complete -F _xyz123 xyz123;
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show wrapperSh/1.0
@@ -179,28 +179,28 @@ banner () {
     local str="$1";
     local RED='\\033[1;31m';
     local NONE='\\033[0m';
-    echo "${RED}${str}${NONE}"
-; };
+    echo "${RED}${str}${NONE}";
+};
 alias fooAlias=foobin\ -q\ -l;
 fooFunc () {
-    echo "arg1: $1"
-; };
+    echo "arg1: $1";
+};
 junk () {
     if [ -n "${ZSH_VERSION:-}" ]; then
         \echo "junk";
-    fi
-; };
+    fi;
+};
 my_help () {
-    echo "do not forget \"foo\""
-; };
+    echo "do not forget \"foo\"";
+};
 save_args () {
     for arg in "$@";
     do
         printf "%s\n" "$arg" | sed -e "s/'/'\\\\''/g" -e "1s/^/'/" -e "\$s/\$/' \\\\/";
     done;
-    echo " "
-; };
-[[ -n "${BASH_VERSION:-}" ]] && complete -F\ _xyz123 xyz123;
+    echo " ";
+};
+[[ -n "${BASH_VERSION:-}" ]] && complete -F _xyz123 xyz123;
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
@@ -268,28 +268,28 @@ banner () {
     local str="$1";
     local RED='\\033[1;31m';
     local NONE='\\033[0m';
-    echo "${RED}${str}${NONE}"
-; };
+    echo "${RED}${str}${NONE}";
+};
 alias fooAlias=foobin\ -q\ -l;
 fooFunc () {
-    echo "arg1: $1"
-; };
+    echo "arg1: $1";
+};
 junk () {
     if [ -n "${ZSH_VERSION:-}" ]; then
         \echo "junk";
-    fi
-; };
+    fi;
+};
 my_help () {
-    echo "do not forget \"foo\""
-; };
+    echo "do not forget \"foo\"";
+};
 save_args () {
     for arg in "$@";
     do
         printf "%s\n" "$arg" | sed -e "s/'/'\\\\''/g" -e "1s/^/'/" -e "\$s/\$/' \\\\/";
     done;
-    echo " "
-; };
-[[ -n "${BASH_VERSION:-}" ]] && complete -F\ _xyz123 xyz123;
+    echo " ";
+};
+[[ -n "${BASH_VERSION:-}" ]] && complete -F _xyz123 xyz123;
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
@@ -320,28 +320,28 @@ banner () {
     local str="$1";
     local RED='\\033[1;31m';
     local NONE='\\033[0m';
-    echo "${RED}${str}${NONE}"
-; };
+    echo "${RED}${str}${NONE}";
+};
 alias fooAlias=foobin\ -q\ -l;
 fooFunc () {
-    echo "arg1: $1"
-; };
+    echo "arg1: $1";
+};
 junk () {
     if [ -n "${ZSH_VERSION:-}" ]; then
         \echo "junk";
-    fi
-; };
+    fi;
+};
 my_help () {
-    echo "do not forget \"foo\""
-; };
+    echo "do not forget \"foo\"";
+};
 save_args () {
     for arg in "$@";
     do
         printf "%s\n" "$arg" | sed -e "s/'/'\\\\''/g" -e "1s/^/'/" -e "\$s/\$/' \\\\/";
     done;
-    echo " "
-; };
-[[ -n "${BASH_VERSION:-}" ]] && complete -F\ _xyz123 xyz123;
+    echo " ";
+};
+[[ -n "${BASH_VERSION:-}" ]] && complete -F _xyz123 xyz123;
 ===========================
 step 18
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --mt
@@ -368,23 +368,28 @@ banner () {
     local str="$1";
     local RED='\\033[1;31m';
     local NONE='\\033[0m';
-    echo "${RED}${str}${NONE}"; };
+    echo "${RED}${str}${NONE}";
+};
 alias fooAlias=foobin\ -q\ -l;
 fooFunc () {
-    echo "arg1: $1"; };
+    echo "arg1: $1";
+};
 junk () {
     if [ -n "${ZSH_VERSION:-}" ]; then
         \echo "junk";
-    fi; };
+    fi;
+};
 my_help () {
-    echo "do not forget \"foo\""; };
+    echo "do not forget \"foo\"";
+};
 save_args () {
     for arg in "$@";
     do
         printf "%s\n" "$arg" | sed -e "s/'/'\\\\''/g" -e "1s/^/'/" -e "\$s/\$/' \\\\/";
     done;
-    echo " "; };
-[[ -n "${BASH_VERSION:-}" ]] && complete -F\ _xyz123 xyz123;
+    echo " ";
+};
+[[ -n "${BASH_VERSION:-}" ]] && complete -F _xyz123 xyz123;
 ===========================
 step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list

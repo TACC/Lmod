@@ -72,7 +72,7 @@ local function l_build_shell_func(name, func)
    a[#a+1] = name
    a[#a+1] = " () { ";
    a[#a+1] = func:gsub("\n$","")
-   a[#a+1] = "; };\n"
+   a[#a+1] = "; \n};\n"
    return concatTbl(a,"")
 end
 
@@ -135,7 +135,7 @@ function Bash.complete(self, name, value)
    local lineA = {}
    if (value) then
       lineA[#lineA + 1]  = "[[ -n \"${BASH_VERSION:-}\" ]] && complete "
-      lineA[#lineA + 1]  = value:multiEscaped()
+      lineA[#lineA + 1]  = value
       lineA[#lineA + 1]  = " "
       lineA[#lineA + 1]  = name
       lineA[#lineA + 1]  = ";\n"

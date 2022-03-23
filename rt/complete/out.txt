@@ -41,9 +41,9 @@ _bash_completion_spack () {     local -a COMP_WORDS_NO_FLAGS;
     if [[ "$(type $subfunction 2>&1)" =~ $rgx ]]; then
         $subfunction;
         COMPREPLY=($(compgen -W "$SPACK_COMPREPLY" -- "$cur"));
-    fi
-; };
-[[ -n "${BASH_VERSION:-}" ]] && complete -o\ bashdefault\ -o\ default\ -F\ _bash_completion_spack spack;
+    fi;
+};
+[[ -n "${BASH_VERSION:-}" ]] && complete -o bashdefault -o default -F _bash_completion_spack spack;
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload spack
@@ -99,8 +99,9 @@ _bash_completion_spack () {
     if [[ "$(type $subfunction 2>&1)" =~ $rgx ]]; then
         $subfunction;
         COMPREPLY=($(compgen -W "$SPACK_COMPREPLY" -- "$cur"));
-    fi; };
-[[ -n "${BASH_VERSION:-}" ]] && complete -o\ bashdefault\ -o\ default\ -F\ _bash_completion_spack spack;
+    fi;
+};
+[[ -n "${BASH_VERSION:-}" ]] && complete -o bashdefault -o default -F _bash_completion_spack spack;
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload tcl_spack
