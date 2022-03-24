@@ -55,11 +55,12 @@ jobs:
          done             
       - name: Lmod_test_suite
         run: |
+         set -e
          mkdir b0
          cd b0
          ../configure --prefix=/tmp
          make install
-         sudo if [ ! -d /etc/profile.d ]; then mkdir -p /etc/profile.d; fi
+         sudo mkdir -p /etc/profile.d
          sudo cp /tmp/lmod/lmod/init/profile /etc/profile.d/z00_lmod.sh
          cd -
          cd /tmp
