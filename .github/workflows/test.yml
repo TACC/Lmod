@@ -53,7 +53,7 @@ jobs:
         run: |
          cd /tmp/Lmod_test_suite 
          for dir in $(ls -pd rt/* | grep '/$'); do
-           diff -c ${dir}t1/*/_err.left ${dir}/t1/*/_err.right > /dev/null 2>&1
+           diff -c ${dir}t1/*/_err.left ${dir}/t1/*/_err.right || echo > /dev/null 2>&1
            if [ $? -ne 0 ]; then
              echo ">>>> ${dir}/err.txt"
              diff -c ${dir}t1/*/_err.left ${dir}/t1/*/_err.right || echo
