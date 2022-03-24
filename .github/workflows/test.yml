@@ -59,11 +59,14 @@ jobs:
          cd b0
          ../configure --prefix=/tmp
          make install
+         sudo if [ ! -d /etc/profile.d ]; then mkdir -p /etc/profile.d; fi
+         sudo cp /tmp/lmod/lmod/init/profile /etc/profile.d/z00_lmod.sh
          cd -
          cd /tmp
          git clone https://github.com/rtmclay/Lmod_test_suite.git
          cd -
          cd /tmp/Lmod_test_suite
+         sudo cp z98_StdEnv.sh /etc/profile.d
          tm -k normal 
       - name: show output of failed suite tests
         if: ${{ failure() }}
