@@ -38,7 +38,7 @@ jobs:
          cd -
       - name: Run tests
         run: tm 
-      - name: show output of failed tests
+      - name: show output of failed Lmod tests
         if: ${{ failure() }}
         run: |
          set +e
@@ -65,7 +65,7 @@ jobs:
          cd -
          cd /tmp/Lmod_test_suite
          tm -k normal 
-      - name: show output of failed tests
+      - name: show output of failed suite tests
         if: ${{ failure() }}
         run: |
          cd /tmp/Lmod_test_suite 
