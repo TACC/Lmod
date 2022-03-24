@@ -47,7 +47,7 @@ jobs:
          git clone https://github.com/rtmclay/Lmod_test_suite.git
          cd -
          cd /tmp/Lmod_test_suite
-         tm -k normal
+         tm -k normal 
       - name: show output of failed tests
         if: ${{ failure() }}
         run: |
