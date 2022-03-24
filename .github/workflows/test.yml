@@ -53,11 +53,11 @@ jobs:
         run: |
          cd /tmp/Lmod_test_suite
          dir=rt/subshell/
-         echo "\n>>>> ${dir}t1.log"
+         echo ">>>> ${dir}t1.log"
          cat ${dir}t1/*/t1.log
-         echo "\n>>>> ${dir}_stderr.orig
+         echo ">>>> ${dir}_stderr.orig"
          cat ${dir}t1/*/_stderr.orig
-         echo "\n>>>> ${dir}err.txt
+         echo ">>>> ${dir}err.txt"
          cat ${dir}err.txt
          
          
