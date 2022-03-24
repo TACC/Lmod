@@ -51,5 +51,12 @@ jobs:
       - name: run busted tests
         run: |
           PROJDIR=`pwd` busted --verbose -m "./src/?.lua;./tools/?.lua;./tools/?/init.lua"
-          
+      - name: Lmod_test_suite
+        run: |
+         
+         cd /tmp
+         git clone https://github.com/rtmclay/Lmod_test_suite.git
+         cd -
+         
+         
         
