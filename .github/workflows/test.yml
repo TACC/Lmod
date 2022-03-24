@@ -8,7 +8,7 @@ jobs:
         matrix:
           os: [ubuntu-latest, macos-latest]
           #luaVersion: ["5.1", "5.2", "5.3", "5.4"]
-          luaVersion: ["5.1"]
+          luaVersion: ["5.4"]
       steps:
       - name: Checkout code
         uses: actions/checkout@v2
