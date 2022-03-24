@@ -42,13 +42,12 @@ jobs:
          cd b0
          ../configure --prefix=/tmp
          make install
-         ln -s /tmp/lmod/lmod/init/profile /etc/profile.d/z00_lmod.sh
          cd -
          cd /tmp
          git clone https://github.com/rtmclay/Lmod_test_suite.git
          cd -
          cd /tmp/Lmod_test_suite
-         tm -k normal
+         .   /tmp/lmod/lmod/init/profile ; tm -k normal
          cd -
          
         
