@@ -7,7 +7,8 @@ jobs:
       strategy:
         matrix:
           os: [ubuntu-latest, macos-latest]
-          luaVersion: ["5.1", "5.2", "5.3", "5.4"]
+          #luaVersion: ["5.1", "5.2", "5.3", "5.4"]
+          luaVersion: ["5.1"]
       steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -37,7 +38,7 @@ jobs:
          echo "$PWD/Hermes/bin" >> $GITHUB_PATH
          cd -
       - name: Run tests
-        run: tm 
+        run: tm -k avail
       - name: show output of failed Lmod tests
         if: ${{ failure() }}
         run: |
@@ -59,6 +60,7 @@ jobs:
          cd b0
          ../configure --prefix=/tmp
          make install
+         sudo cp /tmp/lmod/lmod/init/profile /etc/profile.d/z00_lmod.sh
          cd -
          cd /tmp
          git clone https://github.com/rtmclay/Lmod_test_suite.git
