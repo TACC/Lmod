@@ -7,7 +7,7 @@ jobs:
       strategy:
         matrix:
           os: [ubuntu-latest, macos-latest]
-          luaVersion: ["5.1"]
+          luaVersion: ["5.1", "5.2", "5.3", "5.4"]
       steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -36,19 +36,27 @@ jobs:
          git clone https://github.com/rtmclay/Hermes.git
          echo "$PWD/Hermes/bin" >> $GITHUB_PATH
          cd -
+      - name: Run tests
+        run: tm 
+      - name: show output of failed tests
+        if: ${{ failure() }}
+        run: |
+         # diff stdout/stderr for all tests in case of failure
+         for dir in $(ls -pd rt/* | grep '/$'); do
+           echo ">>>> ${dir}/err.txt"
+           diff -c ${dir}t1/*/_err.left ${dir}/t1/*/_err.right || echo
+           echo ">>>> ${dir}/out.txt"
+           diff -c ${dir}/out.txt ${dir}/t1/*/out.txt || echo
+         done
+      - name: run busted tests
+        run: |
+          PROJDIR=`pwd` busted --verbose -m "./src/?.lua;./tools/?.lua;./tools/?/init.lua"
       - name: Lmod_test_suite
         run: |
-         mkdir b0
-         cd b0
-         ../configure --prefix=/tmp
-         make install
-         ln -s /tmp/lmod/lmod/init/profile /etc/profile.d/z00_lmod.sh
-         cd -
+         
          cd /tmp
          git clone https://github.com/rtmclay/Lmod_test_suite.git
          cd -
-         cd /tmp/Lmod_test_suite
-         tm -k normal
-         cd -
+         
          
         
