@@ -52,12 +52,9 @@ jobs:
         if: ${{ failure() }}
         run: |
          cd /tmp/Lmod_test_suite
-         # diff stdout/stderr for all tests in case of failure
-         for dir in $(ls -pd rt/* | grep '/$'); do
-           echo ">>>> ${dir}/err.txt"
-           #diff -c ${dir}t1/*/_err.left ${dir}/t1/*/_err.right || echo
-           cat ${dir}t1/*/t1.log
-           cat ${dir}t1/*/_err.right
-         done
+         dir=rt/subshell/
+         echo ">>>> ${dir}err.txt"
+         cat ${dir}t1/*/t1.log
+         cat ${dir}t1/*/_err.right
          
         
