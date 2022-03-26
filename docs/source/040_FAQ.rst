@@ -361,4 +361,5 @@ Why doesn't setting CC in compiler and mpi modulefiles work reliably?
 
    Depending on modules to set CC correctly every time is not safe.
    It is better to use the value of LMOD_FAMILY_COMPILER and/or
-   LMOD_FAMILY_MPI to set CC.
+   LMOD_FAMILY_MPI to set CC in the user's build system.
+   
