@@ -38,7 +38,5 @@ Lmod 8.6+
    (8.6.16) * The following two changes are so that when a user is unloading it shouldn't fail.
               - Make M.error=MasterControl.warning in src/MC_Unload.lua
               - Make M.LmodBreak=MasterControl.quiet in src/MC_Unload.lua
-W.I.P:
    (8.6.17) * Adding Lmod_testing_suite to test.yml
-
-
+            * Added FAQ: Why setting CC doesn't work
