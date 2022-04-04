@@ -352,12 +352,13 @@ Why doesn't setting CC in compiler and mpi modulefiles work reliably?
 
    Suppose a user has intel and openmpi in a hierarchical module
    setup. This user loads gcc and there is no equivalent openmpi for
-   gcc to load.  In this case the following happens::
+   gcc to load.  In this case the following happens:
 
-      #. gcc is loaded with  pushenv("CC","gcc") => CC=gcc
-      #. intel is unloaded because the family("COMPILER") function call
-      #. openmpi is unloaded because it is not "avail"able.  The
-         pushenv("CC","mpicc") causes "CC=gcc" to be popped.
+   #. gcc is loaded with  pushenv("CC","gcc") => CC=gcc
+   #. intel is unloaded because the family("COMPILER") function call
+   #. openmpi is unloaded because it is not "avail"able.  The
+      pushenv("CC","mpicc") in openmpi when unloaded causes "CC=gcc"
+      to be popped.
 
    Depending on modules to set CC correctly every time is not safe.
    It is better to use the value of LMOD_FAMILY_COMPILER and/or

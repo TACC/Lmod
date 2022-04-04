@@ -1,0 +1,30 @@
+Ideas for 4/19 Lmod mtg
+
+Title: Writing new Tests or Modifying tests
+* New test tclmodules
+** A user on the Lmod mailing list pointed out that there was an extra space after their message.
+** New test created called tclmodules
+** Create a tcl module a/1.0
+** Copy nvv/nvv.tdesc to tclmodules.tdesc
+** Edit to fit.
+** Add steps
+** Test
+** update *.txt files
+
+* New principal: An unload can't fail   
+** Even if the modulefile has errors
+
+* Case 1: unloading a module lead to an error   
+** Show error
+** Make LmodError() be a warning during unload
+** Make change to src/MC_Unload.lua
+** Show unloading a broken module
+** Show how the tests needed to be updated
+
+* Case 2: break on reload becomes an endless loop
+** What is LmodBreak or (TCL break)?
+*** Support for LmodBreak added in Lmod 8.6+   
+** Show endless loop
+** Show Fix: Change LmodBreak -> MasterControl:quiet() in src/MC_Unload.lua
+** Show change in test(s)
+

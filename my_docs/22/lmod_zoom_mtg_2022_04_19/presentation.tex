@@ -1,0 +1,366 @@
+\documentclass{beamer}
+
+% You can also use a 16:9 aspect ratio:
+%\documentclass[aspectratio=169]{beamer}
+\usetheme{TACC16}
+
+% It's possible to move the footer to the right:
+%\usetheme[rightfooter]{TACC16}
+
+\begin{document}
+\title[Lmod]{Lmod Testing System}
+\author{Robert McLay} 
+\date{March. 1, 2022}
+
+% page 1
+\frame{\titlepage} 
+
+
+% page 2
+\begin{frame}{Lmod Testing System}
+  \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
+  \begin{itemize}
+    \item Testing philosophy in Lmod
+    \item Goals of testing Lmod
+    \item Hermes/tm basic operations
+    \item Details of how an Lmod test works
+    \item Future Topics
+  \end{itemize}
+\end{frame}
+
+% page 3
+\begin{frame}{Alternative story}
+  \begin{itemize}
+    \item How I used a testing tool I already had
+    \item How to shoehorn the Lmod testing to use \texttt{tm}
+    \item Why I'm using a system testing method, not unit tests.
+    \item System tests came first for me, unit testing later.
+    \item Lmod uses some unit tests as well.
+  \end{itemize}
+\end{frame}
+
+% page 4
+\begin{rame}{Testing philosophy in Lmod}
+  \begin{itemize}
+    \item Lmod's success relies heavily on the testing system.
+    \item Passing all the tests usually means a new version can be released.
+    \item I don't think that anyone is using it beside Lmod (But it is
+      very useful)
+    \item My philosophy is to test features in general
+    \item Not to setup a torture test
+    \item No way I can test every possible scenario.
+    \item My imagination is not that good.
+  \end{itemize}
+\end{frame}
+
+
+% page 5
+\begin{frame}{Goals of testing Lmod}
+  \begin{itemize}
+    \item Test various features of Lmod.
+    \item New feature won't break old features.
+    \item Test Lmod on Linux/MacOS, Lua 5.1 to 5.4
+    \item Make development of Lmod easier.
+    \item Add tests of new bugs $\Rightarrow$ Don't repeat them!
+  \end{itemize}
+\end{frame}
+
+% page 6
+\begin{frame}{It is hard to test everything}
+  \begin{itemize}
+    \item Testing Old data with new versions(Collections, spiderT.lua)
+    \item One test (end2end) builds Lmod and tests the built version
+    \item All other tests use the source code directly
+    \item Special hacks to use configuration options. 
+    \item Environment variable are checked NOT configuration options
+  \end{itemize}
+\end{frame}
+
+% page 7
+\begin{frame}{Hermes/tm Testing system}
+  \begin{itemize}
+    \item Hermes is a group of tools to help with testing
+    \item \texttt{tm} is the testing manager program.
+    \item The main function of \texttt{tm} is to select tests and run them.
+    \item Each test is independent!
+    \item \texttt{tm} knows \emph{nothing} about what is being tested.
+    \item Must tell if test passed via special file (Lua file named
+      t1.results)
+    \item Three kinds of results
+      \begin{enumerate}
+        \item Passed: All steps passed
+        \item Failed: Did not produce a t1.results file
+        \item Diffed: Produced diffs between gold files and test
+          result files.
+      \end{enumerate}
+  \end{itemize}
+\end{frame}
+
+% page 8
+\begin{frame}{\texttt{tm} flow}
+  \begin{itemize}
+    \item \texttt{tm} searches for tests from the current directory
+      down
+    \item It is looking for files with the *.tdesc extension (testDir)
+    \item Once all tests have been selected, it runs them all
+    \item For each test directory a sub-dir tree is created.
+    \item Typically: t1/$<$\$TARG$>$-$<$date\_time$>$-$<$uname
+      -s$>$-$<$arch$>$-$<$test\_name$>$
+    \item The above dir is the outputDir
+    \item The test is run in \$outputDir
+    \item The generated bash test script is named {\color{blue} t1.script}
+    \item The log of the run is {\color{blue} t1.log}
+    \item The results file are {\color{blue} t1.result} and {\color{blue} t1.runtime}
+  \end{itemize}
+\end{frame}
+
+% page 9 
+\begin{frame}{Every project using \texttt{tm} must have an \emph{acceptance} tool}
+  \begin{itemize}
+    \item There must be an automatic way to decide a test passed.
+    \item A numerical code can use an $L^2$ norm. 
+    \item The new answer can be different but close w/ numerical codes.
+    \item Lmod use diff on stdout and stderr between gold and test
+      results
+    \item Filtering is required to deal with OS and file location
+      differences
+    \item To pass the filtered result {\color{blue} \emph{must}} be
+      the same.
+    \item This is a major pain but it has been worth the effort.
+  \end{itemize}
+\end{frame}
+
+% page 10
+\begin{frame}{Test files (*.tdesc)}
+  \begin{itemize}
+    \item The testDescript is a table describing the the test
+    \item Some special parameters are:
+      \begin{enumerate}
+        \item \$(testDir): where the *.tdesc is located
+        \item \$(projectDir): where Hermes.db is located (top of the
+          project)
+        \item \$(outputDir): where the test is run
+        \item \$(resultFn): The name of the results lua file.
+      \end{enumerate}
+  \end{itemize}
+\end{frame}
+
+% page 11
+\begin{frame}{Lmod tests}
+  \begin{itemize}
+    \item Uptil now this talk has been about \texttt{tm}
+    \item Now lets talk about Lmod tests:
+      \begin{itemize}
+        \item Each test contains multiple steps
+        \item Each step generates \_stderr.\#\#\# and \_stdout.\#\#\# files
+        \item These are combined and filtered into err.txt and out.txt
+        \item These file are compared with the gold files in \$testDir
+        \item Result file is generated.
+        \item To pass all steps must be the same!
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+% page 12
+\begin{frame}[fragile]
+  \frametitle{\texttt{extension.tdesc}}
+    {\tiny
+\begin{semiverbatim}
+local testName = "extensions"
+testdescript = \{
+   keywords = \{testName \},
+   active   = true,
+   testName = testName,
+
+   runScript = [[
+     . $(projectDir)/rt/common\_funcs.sh
+     unsetMT;  initStdEnvVars
+     export MODULEPATH\_ROOT=$(testDir)/mf
+     export MODULEPATH=$MODULEPATH\_ROOT/Core
+     rm -rf \_stderr.* \_stdout.* err.* out.* .lmod.d
+
+     runLmod --version                         # 1
+     runLmod avail                             # 2
+     
+     # combine \_stdout.[0-9][0-9][0-9] -> \_stdout.orig
+     # cleanup \_stdout.orig -> out.txt
+
+     # combine \_stderr.[0-9][0-9][0-9] -> \_stderr.orig
+     # cleanup \_stderr.orig -> err.txt
+
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+   tests = \{
+      \{ id='t1'\},
+   \},
+\}
+\end{semiverbatim}
+    }
+\end{frame}
+%$
+% page 13
+\begin{frame}{\$(projectDir)/rt/common\_funcs.sh}
+  \begin{itemize}
+    \item Common bash shell functions are in this file
+    \item runLmod: runs the Lmod command 
+    \item runBase: base command (explained later)
+    \item cleanup: Makes output generic (canonical?)
+    \item initStdEnvVars: set standard env vars, cleans up my env
+    \item unsetMT: remove moduletable from env
+  \end{itemize}
+\end{frame}
+
+% page 14
+\begin{frame}[fragile]
+  \frametitle{\texttt{runLmod}}
+    {\tiny
+\begin{semiverbatim}
+runLmod ()
+\{
+   runBase \$LUA\_EXEC \$projectDir/src/lmod.in.lua bash --regression\_testing "\$@"
+   eval "`cat \_stdout.\$NUM`"
+\}
+\end{semiverbatim}
+    }
+\end{frame}
+
+% page 15
+\begin{frame}[fragile]
+  \frametitle{\texttt{runBase}}
+    {\tiny
+\begin{semiverbatim}
+runBase ()
+\{
+   COUNT=\$((\$COUNT + 1))
+   numStep=\$((\$numStep+1)) 
+   NUM=`printf "\%03d" \$numStep`
+   echo "===========================" >  \_stderr.\$NUM
+   echo "step \$COUNT"                 >> \_stderr.\$NUM
+   echo "\$@"                          >> \_stderr.\$NUM
+   echo "===========================" >> \_stderr.\$NUM
+
+   echo "===========================" >  \_stdout.\$NUM
+   echo "step \$COUNT"                 >> \_stdout.\$NUM
+   echo "\$@"                          >> \_stdout.\$NUM
+   echo "===========================" >> \_stdout.\$NUM
+
+   numStep=\$((\$numStep+1))
+   NUM=`printf "\%03d" \$numStep`
+   "\$@" > \_stdout.\$NUM 2>> \_stderr.\$NUM
+\}
+\end{semiverbatim}
+    }
+\end{frame}
+
+
+% page 16
+\begin{frame}[fragile]
+  \frametitle{Cleanup for stderr}
+    {\tiny
+\begin{semiverbatim}
+     cat \_stderr.[0-9][0-9][0-9] > \_stderr.orig
+     cleanUp \_stderr.orig err.txt
+\end{semiverbatim}
+    }
+    \begin{itemize}
+      \item Combine all stderr files into \_stderr.orig
+      \item Use the cleanup shell function to canonicalize err.txt output
+    \end{itemize}
+\end{frame}
+
+% page 17
+\begin{frame}[fragile]
+  \frametitle{Cleanup for stdout}
+    {\tiny
+\begin{semiverbatim}
+     cat \_stdout.[0-9][0-9][0-9] > \_stdout.orig
+     joinBase64Results  -bash  \_stdout.orig \_stdout.new
+     cleanUp \_stdout.new out.txt
+\end{semiverbatim}
+    }
+    \begin{itemize}
+      \item Combine all stdout files into \_stdout.orig
+      \item Convert all base64 text into regular text
+      \item Use the cleanup shell function to canonicalize out.txt output
+    \end{itemize}
+\end{frame}
+
+% page 18
+\begin{frame}[fragile]
+  \frametitle{Cleanup script}
+    {\tiny
+\begin{semiverbatim}
+\end{semiverbatim}
+    }
+    \begin{itemize}
+      \item converts local path names into ``ProjectDIR''
+      \item converts path to lua or sha1 to generic names
+      \item Cleans up error msgs 
+      \item And many other fixes.
+    \end{itemize}
+\end{frame}
+
+% page 19
+\begin{frame}[fragile]
+  \frametitle{Cleanup script (II)}
+    {\tiny
+\begin{semiverbatim}
+{\color{blue} \_stderr.orig}:
+===========================
+step 8
+/opt/apps/lua/lua/bin/lua /Users/mclay/w/lmod/src/lmod.in.lua bash --rtesting -t avail
+===========================
+/Users/mclay/w/lmod/rt/avail/mf/Core:
+PrgEnv
+admin/
+admin/admin-1.0
+    
+{\color{blue} err.txt}:
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash --rtesting -t avail
+===========================
+ProjectDIR/rt/avail/mf/Core:
+PrgEnv
+admin/
+admin/admin-1.0
+\end{semiverbatim}
+    }
+    \begin{itemize}
+      \item Cleanup: \_stderr.orig $\Rightarrow$ err.txt
+    \end{itemize}
+\end{frame}
+
+% page 20
+\begin{frame}[fragile]
+  \frametitle{Deciding if a test passes}
+    {\tiny
+\begin{semiverbatim}
+rm -f results.csv
+wrapperDiff --csv results.csv \$(testDir)/out.txt out.txt
+wrapperDiff --csv results.csv \$(testDir)/err.txt err.txt
+testFinish -r \$(resultFn) -t \$(runtimeFn) results.csv
+\end{semiverbatim}
+    }
+    \begin{itemize}
+      \item \texttt{wrapperDiff} is a hermes tool that runs diff and
+        generates a csv file (results.csv)
+      \item It also removes the Lmod version info from err.txt
+      \item \texttt{testFinish} is another hermes tool that converts
+        results.csv into \$resultFn
+      \item Then \texttt{tm} reads \$resultFn to decide if this test passes
+    \end{itemize}
+\end{frame}
+
+% page 21
+\begin{frame}{Future Topics}
+  \begin{itemize}
+    \item Write one new test.
+    \item Explain how Mname object converts names into a filename.
+    \item More internals of Lmod?
+  \end{itemize}
+\end{frame}
+
+\end{document}
