@@ -4,7 +4,7 @@ Module Naming
 ~~~~~~~~~~~~~
 
 FullName -> shortname/version
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^t
 
 One Name Rule
 ~~~~~~~~~~~~~
@@ -43,5 +43,19 @@ Base64 encoding is used a great deal
 
 Encoding text strings can be converted to base64 encoding.  This
 means that all spaces and quotes are hidden from shell interpretation.
+
+The ModuleTable is encoded as:
+_ModuleTable001_ and _ModuleTable_Sz_
+
+Other environment variables used by Lmod internally all start with
+__LMOD_
+
+Lmod communicates with users via a group of env. vars
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Thing like LMOD_CMD and LMOD_DIR etc.
+
+
+
 
 
