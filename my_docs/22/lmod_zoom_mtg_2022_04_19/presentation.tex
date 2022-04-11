@@ -112,24 +112,110 @@ module-whatis "This \$pkg"
 }
 \end{frame}
 
-% page 
+% page 6
 \begin{frame}[fragile]
-    \frametitle{}
+    \frametitle{How to validate new test}
+  \begin{itemize}
+    \item tcl2lua.tcl mf/a/1.0
+    \item There is an extra space
+  \end{itemize}
  {\tiny
     \begin{semiverbatim}
+tcl2lua.tcl mf/a/1.0                
+prepend_path{"PATH","/Users/mclay/foo/bin",delim=":",priority="0"}
+setenv("FOO_DIR","/Users/mclay/foo")
+whatis([===[This /Users/mclay/foo ]===])
     \end{semiverbatim}
 }
-  \begin{itemize}
-    \item
-  \end{itemize}
-
 \end{frame}
 
+% page 7
+\begin{frame}[fragile]
+    \frametitle{Change tcl2lua.tcl to use trimright}
+  \begin{itemize}
+    \item The Tcl version appends the args together w/ a space
+    \item Need to trim the trailing space
+  \end{itemize}
+ {\tiny
+    \begin{semiverbatim}
+proc module-whatis \{ args \} \{
+    global g\_outputA
+    set msg ""
+    foreach item $args \{
+       append msg $item
+       append msg " "
+    \}
 
-% page 21
+    regsub -all \{[\textbackslash{}n]\} \$msg  " " msg2
+    {\color{blue}{}set msg2 [string trimright \$msg2]  # <=== add this line}
+    lappend g\_outputA  "whatis(\textbackslash{}[===\textbackslash{}[\$msg2\textbackslash{}]===\textbackslash{}])\textbackslash{}n"
+\}
+    \end{semiverbatim}
+}
+\end{frame}
+
+% page 8
+\begin{frame}{Run all tests}
+  \begin{itemize}
+    \item Problems with tests: ck\_mtree\_syntax and softwarePage 
+    \item Show diffs
+    \item update *.txt gold files
+  \end{itemize}
+\end{frame}
+
+% page 9
+\begin{frame}[fragile]
+    \frametitle{New Principal: Unload can never fail}
+  \begin{itemize}
+    \item A TACC colleague pointed out this problem
+    \item In trying to unload a module it failed
+    \item It has never been reported to me before
+    \item $\Rightarrow$ module unload should \emph{never} fail
+  \end{itemize}
+ {\tiny
+    \begin{semiverbatim}
+% ml init\_opencl/2021.4.0
+% unset INTELFPGAOCLSDKROOT
+% ml -init\_opencl/2021.4.0
+Lmod has detected the following error:
+/scratch1/projects/compilers/oneapi\_2021.4.0.3422/modulefiles/init\_opencl/2021.4.0:
+(init\_opencl/2021.4.0): can't read "::env(INTELFPGAOCLSDKROOT)": no such variable
+    \end{semiverbatim}
+}
+\end{frame}
+
+% page 10
+\begin{frame}[fragile]
+    \frametitle{Change LmodError when unloading}
+  \begin{itemize}
+    \item src/MC_Unload.lua controls what happens during unload
+    \item Need to change M.error to MasterControl.warning
+  \end{itemize}
+\end{frame}
+
+% page 11
+\begin{frame}[fragile]
+    \frametitle{Fix test unload}
+  \begin{itemize}
+    \item This module previously failed to unload
+    \item Now it produces a warning.
+  \end{itemize}
+
+ {\small
+    \begin{semiverbatim}
+setenv("TOTO","set\_in\_B/2.0")
+if (mode() == "unload") then
+   LmodError("Error in unload of B/2.0")
+end
+    \end{semiverbatim}
+}
+\end{frame}
+
+% page 12
 \begin{frame}{Future Topics}
   \begin{itemize}
-    \item Write one new test.
+    \item What does break mean when unloading a module
+    \item pushenv("CC", "gcc") in a partial software hierarchy
     \item Explain how Mname object converts names into a filename.
     \item More internals of Lmod?
   \end{itemize}
