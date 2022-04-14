@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.14  2022-02-25 21:25 -06:00
+Modules based on Lua: Version 8.6.17  2022-03-25 19:53 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -10,12 +10,15 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing show BRK
 ===========================
    ProjectDIR/rt/break/mf/BRK/1.0:
 setenv("BRK","1.0")
-LmodBreak("Break in BRK/1.0")
+LmodBreak("")
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load StdEnv
 ===========================
-Break in BRK/1.0
+0
+1
+2
+3
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
@@ -26,6 +29,10 @@ Currently Loaded Modules:
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload StdEnv
 ===========================
+0
+1
+2
+3
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
@@ -39,9 +46,12 @@ running: module --regression_testing -T load StdEnv
   (1)(0)Loading: StdEnv (fn: ProjectDIR/rt/break/mf/StdEnv.lua, using Find-Best)
     (2)(0)Loading: A (fn: ProjectDIR/rt/break/mf/A/1.0, using Find-Best)
     (3)(0)Loading: B (fn: ProjectDIR/rt/break/mf/B/2.0, using Find-Best)
+0
+1
+2
+3
     (4)(0)Loading: BRK (fn: ProjectDIR/rt/break/mf/BRK/1.0, using Find-Best)
       LmodBreak called
-Break in BRK/1.0
     (5)(0)Loading: C (fn: ProjectDIR/rt/break/mf/C/3.0.lua, using Find-Best)
 ===========================
 step 8
@@ -51,6 +61,10 @@ running: module --regression_testing -T unload StdEnv
   (1)(0)Unloading: StdEnv (status: active) (fn: ProjectDIR/rt/break/mf/StdEnv.lua)
     (2)(0)Unloading: A (status: active) (fn: ProjectDIR/rt/break/mf/A/1.0)
     (3)(0)Unloading: B (status: active) (fn: ProjectDIR/rt/break/mf/B/2.0)
+0
+1
+2
+3
     (4)(0)Unloading: BRK (status: ) (fn: nil)
     (5)(0)Unloading: C (status: active) (fn: ProjectDIR/rt/break/mf/C/3.0.lua)
 ===========================
@@ -62,7 +76,6 @@ No modules loaded
 step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load BRK
 ===========================
-Break in BRK/1.0
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load bad
