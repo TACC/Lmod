@@ -979,6 +979,7 @@ proc execute-modulefile {modfile } {
     interp alias $child module-info    	 {} module-info
     interp alias $child module-whatis  	 {} module-whatis
     interp alias $child myPuts         	 {} myPuts
+    interp alias $child myBreak      	 {} myBreak
     interp alias $child prepend-path   	 {} prepend-path
     interp alias $child prereq         	 {} prereq
     interp alias $child prereq-any     	 {} prereq-any
@@ -1018,7 +1019,6 @@ proc execute-modulefile {modfile } {
         }
         
 	set sourceFailed [catch {source $ModulesCurrentModulefile } errorMsg]
-
         if { $g_help && [info procs "ModulesHelp"] == "ModulesHelp" } {
             set start "help(\[===\["
             set end   "\]===\])"
@@ -1029,17 +1029,16 @@ proc execute-modulefile {modfile } {
             setPutMode "normal"
         }
         if {$sourceFailed} {
-            ##Handle errors from evaluation of the module
-            #if { $errorMsg eq {invoked "continue" outside of a loop}  || $sourceFailed == 4} {
-            #    set returnVal 0
-            #    showResults
-            #    return $returnVal
-            #} elseif $errorMsg eq {invoked "break" outside of a loop} || $sourceFailed == 3} {
-            #    set returnVal 1
-            #    myBreak 
-            #    showResults
-            #    return $returnVal
-            #}
+	    if { $sourceFailed == 4 || $errorMsg == {invoked "continue" outside of a loop}} {
+		set returnVal 0
+		showResults
+		return $returnVal
+	    } elseif { $sourceFailed == 3 || $errorMsg == {invoked "break" outside of a loop}} {
+		set returnVal 1
+		myBreak
+		showResults
+		return $returnVal
+	    }
             reportError $errorMsg
 	    set returnVal 1
         }

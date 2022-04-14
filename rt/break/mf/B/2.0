@@ -1,3 +1,9 @@
 #%Module
+for {set i 0} {$i < 5} {incr i} {
+    puts stderr "$i"
+    if { $i == 3 } {
+	break
+    }
+}
 setenv B 2.0
 
