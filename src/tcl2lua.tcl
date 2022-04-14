@@ -432,6 +432,7 @@ proc myBreak { args } {
        append msg $item
        append msg " "
     }
+    set msg [string trimright $msg]
     cmdargs "LmodBreak" $msg
 }
 
@@ -965,7 +966,6 @@ proc execute-modulefile {modfile } {
     interp alias $child add-property   	 {} add-property
     interp alias $child always-load    	 {} always-load
     interp alias $child append-path    	 {} append-path
-    interp alias $child break       	 {} myBreak
     interp alias $child complete       	 {} complete
     interp alias $child conflict       	 {} conflict
     interp alias $child depends-on     	 {} depends-on
@@ -1018,6 +1018,7 @@ proc execute-modulefile {modfile } {
         }
         
 	set sourceFailed [catch {source $ModulesCurrentModulefile } errorMsg]
+
         if { $g_help && [info procs "ModulesHelp"] == "ModulesHelp" } {
             set start "help(\[===\["
             set end   "\]===\])"
@@ -1028,6 +1029,17 @@ proc execute-modulefile {modfile } {
             setPutMode "normal"
         }
         if {$sourceFailed} {
+            ##Handle errors from evaluation of the module
+            #if { $errorMsg eq {invoked "continue" outside of a loop}  || $sourceFailed == 4} {
+            #    set returnVal 0
+            #    showResults
+            #    return $returnVal
+            #} elseif $errorMsg eq {invoked "break" outside of a loop} || $sourceFailed == 3} {
+            #    set returnVal 1
+            #    myBreak 
+            #    showResults
+            #    return $returnVal
+            #}
             reportError $errorMsg
 	    set returnVal 1
         }
