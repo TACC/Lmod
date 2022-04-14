@@ -295,7 +295,7 @@ How to use module commands inside a Makefile?
 
 
       module_list:
-             source $$MODULESHOME/init/bash; module list
+             source $$MODULESHOME/init/bash; module listt
 
 What to do if new modules are missing when doing ``module avail``?
 
@@ -348,18 +348,19 @@ message that is like: "/etc/zsh/zshrc:48: compinit: function definition file not
    The solution is to add "unset FPATH" in your startup files before
    "exec zsh".
 
-Why doesn't setting CC in compiler and mpi modulefiles work reliably?
+Why doesn't setting CC in compiler and mpi modulefiles work always
+work reliably in a software hierarchy?
 
-   Suppose a user has intel and openmpi in a hierarchical module
-   setup. This user loads gcc and there is no equivalent openmpi for
-   gcc to load.  In this case the following happens::
+   When Lmod sees changes to $MODULEPATH it immediately checks to
+   see whether all the currently loaded modules should still be
+   loaded.  This means that setting CC with a pushenv() before
+   modifying $MODULEPATH is unsafe.  The correct way to modify
+   $MODULEPATH is in the beginning of the modulefile.  So for the gcc
+   modulefile you might have::
 
-      #. gcc is loaded with  pushenv("CC","gcc") => CC=gcc
-      #. intel is unloaded because the family("COMPILER") function call
-      #. openmpi is unloaded because it is not "avail"able.  The
-         pushenv("CC","mpicc") causes "CC=gcc" to be popped.
+       prepend_path("MODULEPATH","...")
+       pushenv("CC","gcc")
 
-   Depending on modules to set CC correctly every time is not safe.
-   It is better to use the value of LMOD_FAMILY_COMPILER and/or
-   LMOD_FAMILY_MPI to set CC in the user's build system.
+   and not the other way around.
+
    

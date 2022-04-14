@@ -1,0 +1,224 @@
+\documentclass{beamer}
+
+% You can also use a 16:9 aspect ratio:
+%\documentclass[aspectratio=169]{beamer}
+\usetheme{TACC16}
+
+% It's possible to move the footer to the right:
+%\usetheme[rightfooter]{TACC16}
+
+%% page 
+%\begin{frame}{}
+%  \begin{itemize}
+%    \item
+%  \end{itemize}
+%\end{frame}
+%
+%% page 
+%\begin{frame}[fragile]
+%    \frametitle{}
+% {\tiny
+%    \begin{semiverbatim}
+%    \end{semiverbatim}
+%}
+%  \begin{itemize}
+%    \item
+%  \end{itemize}
+%
+%\end{frame}
+
+\begin{document}
+\title[Lmod]{Creating new tests for Lmod}
+\author{Robert McLay} 
+\date{April. 19, 2022}
+
+% page 1
+\frame{\titlepage} 
+
+
+% page 2
+\begin{frame}{Outline}
+  \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
+  \begin{itemize}
+    \item Showing how to create a test for Lmod
+    \item Tclmodule test
+    \item New Principal: An unload cannot fail!
+    \item An intel module failing on unload
+    \item Break on unload?
+    \item Future Topics
+  \end{itemize}
+\end{frame}
+
+% page 3
+\begin{frame}{A Tclmodule test}
+  \begin{itemize}
+    \item A user reported that there was an extra space from a TCL
+      modulefile
+    \item This calls for a new test
+    \item The following slides outline the steps
+  \end{itemize}
+\end{frame}
+
+% page 4
+\begin{frame}[fragile]
+    \frametitle{Create a new tclmodule test}
+  \begin{itemize}
+    \item Create directory rt/tclmodule/mf
+    \item Create a new tcl file a/1.0
+  \end{itemize}
+
+ {\small
+    \begin{semiverbatim}
+#%Module
+
+global env
+set home \$env(HOME)
+set pkg "\$home/foo"
+prepend-path PATH \$pkg/bin
+setenv FOO\_DIR \$pkg
+
+module-whatis "This \$pkg"
+    \end{semiverbatim}
+}
+\end{frame}
+
+% page 5
+\begin{frame}[fragile]
+    \frametitle{Create a tclmodule.tdesc}
+  \begin{itemize}
+    \item Copy rt/nvv/nvv.tdesc to rt/tclmodule/tclmodule.tdesc
+    \item Edit to fit
+    \item Add steps
+    \item Test tclmodules
+    \item update *.txt files
+    \item run all tests
+    \item update *.txt files when necessary
+  \end{itemize}
+ {\tiny
+    \begin{semiverbatim}
+   runScript = [[
+
+     . \$(projectDir)/rt/common\_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     export MODULEPATH=$(testDir)/mf
+
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+
+     runLmod --version                         # 1
+     runLmod whatis a                          # 2
+    \end{semiverbatim}
+}
+\end{frame}
+
+% page 6
+\begin{frame}[fragile]
+    \frametitle{How to validate new test}
+  \begin{itemize}
+    \item tcl2lua.tcl mf/a/1.0
+    \item There is an extra space
+  \end{itemize}
+ {\tiny
+    \begin{semiverbatim}
+tcl2lua.tcl mf/a/1.0                
+prepend_path{"PATH","/Users/mclay/foo/bin",delim=":",priority="0"}
+setenv("FOO_DIR","/Users/mclay/foo")
+whatis([===[This /Users/mclay/foo ]===])
+    \end{semiverbatim}
+}
+\end{frame}
+
+% page 7
+\begin{frame}[fragile]
+    \frametitle{Change tcl2lua.tcl to use trimright}
+  \begin{itemize}
+    \item The Tcl version appends the args together w/ a space
+    \item Need to trim the trailing space
+  \end{itemize}
+ {\tiny
+    \begin{semiverbatim}
+proc module-whatis \{ args \} \{
+    global g\_outputA
+    set msg ""
+    foreach item $args \{
+       append msg $item
+       append msg " "
+    \}
+
+    regsub -all \{[\textbackslash{}n]\} \$msg  " " msg2
+    {\color{blue}{}set msg2 [string trimright \$msg2]  # <=== add this line}
+    lappend g\_outputA  "whatis(\textbackslash{}[===\textbackslash{}[\$msg2\textbackslash{}]===\textbackslash{}])\textbackslash{}n"
+\}
+    \end{semiverbatim}
+}
+\end{frame}
+
+% page 8
+\begin{frame}{Run all tests}
+  \begin{itemize}
+    \item Problems with tests: ck\_mtree\_syntax and softwarePage 
+    \item Show diffs
+    \item update *.txt gold files
+  \end{itemize}
+\end{frame}
+
+% page 9
+\begin{frame}[fragile]
+    \frametitle{New Principal: Unload can never fail}
+  \begin{itemize}
+    \item A TACC colleague pointed out this problem
+    \item In trying to unload a module it failed
+    \item It has never been reported to me before
+    \item $\Rightarrow$ module unload should \emph{never} fail
+  \end{itemize}
+ {\tiny
+    \begin{semiverbatim}
+% ml init\_opencl/2021.4.0
+% unset INTELFPGAOCLSDKROOT
+% ml -init\_opencl/2021.4.0
+Lmod has detected the following error:
+/scratch1/projects/compilers/oneapi\_2021.4.0.3422/modulefiles/init\_opencl/2021.4.0:
+(init\_opencl/2021.4.0): can't read "::env(INTELFPGAOCLSDKROOT)": no such variable
+    \end{semiverbatim}
+}
+\end{frame}
+
+% page 10
+\begin{frame}[fragile]
+    \frametitle{Change LmodError when unloading}
+  \begin{itemize}
+    \item src/MC_Unload.lua controls what happens during unload
+    \item Need to change M.error to MasterControl.warning
+  \end{itemize}
+\end{frame}
+
+% page 11
+\begin{frame}[fragile]
+    \frametitle{Fix test unload}
+  \begin{itemize}
+    \item This module previously failed to unload
+    \item Now it produces a warning.
+  \end{itemize}
+
+ {\small
+    \begin{semiverbatim}
+setenv("TOTO","set\_in\_B/2.0")
+if (mode() == "unload") then
+   LmodError("Error in unload of B/2.0")
+end
+    \end{semiverbatim}
+}
+\end{frame}
+
+% page 12
+\begin{frame}{Future Topics}
+  \begin{itemize}
+    \item What does break mean when unloading a module
+    \item pushenv("CC", "gcc") in a partial software hierarchy
+    \item Explain how Mname object converts names into a filename.
+    \item More internals of Lmod?
+  \end{itemize}
+\end{frame}
+
+\end{document}
