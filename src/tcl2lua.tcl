@@ -804,7 +804,7 @@ proc myPuts args {
         }
     }
     if { $putMode != "inHelp" } {
-        if { $nonewline == 0 } {
+        if { $nonewline == 0 && $channel  != "stdout" } {
             set text "$text\n"
         }
         set nonewline 0
