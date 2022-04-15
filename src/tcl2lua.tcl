@@ -337,6 +337,16 @@ proc currentMode {} {
     return $mode
 }
 
+proc currentModeLmod {} {
+    global g_modeStack
+    set mode [lindex $g_modeStack end]
+    set returnVal "load"
+    if { $mode == "remove" } {
+	set returnVal "unload"
+    }
+    return $returnVal
+}
+
 proc pushMode {mode} {
     global g_modeStack
     lappend g_modeStack $mode
@@ -762,6 +772,7 @@ proc myPuts args {
 
     foreach {a b c} $args break
     set nonewline 0
+    set text "This string should never be seen!"
     switch [llength $args] {
         1 {
             set channel stdout
@@ -800,6 +811,9 @@ proc myPuts args {
         if { $channel == "stderr" } {
             set text "LmodMsgRaw(\[===\[$text\]===\])"
         } elseif { $channel == "stdout" } {
+	    set lmodMode [currentModeLmod]
+            set text "execute{cmd=\[===\[$text\]===\],modeA={\"$lmodMode\"}}"
+        } elseif { $channel == "prestdout" } {
             set text "io.stdout:write(\[===\[$text\]===\])"
         }
     }

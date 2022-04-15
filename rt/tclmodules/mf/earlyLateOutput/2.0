@@ -1,0 +1,7 @@
+#%Module
+puts stdout "echo source conda1.sh"
+puts        "echo source conda2.sh"
+setenv ONE 1
+setenv TWO 2
+
+puts prestdout "echo early output"
