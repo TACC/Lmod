@@ -1,3 +1,48 @@
+Lmod 8.6+
+   (8.6.1)  * Issue #547: fix LMOD_CONFIG_DIR and --with-lmodConfigDir to be consistent
+            * Issue #550: Fix LMOD_RC to use cosmic interface and Add /etc/lmod/lmodrc.lua
+	      to search path
+	    * Issue #549: LMOD_AVAIL_STYLE can now be overridden in the lmod_config.lua file.
+	    * Issue #548: Fix dependency check to check both sn and fullname of loaded module.
+   (8.6.2)  * loading the settarg module  always set precmd and
+              (PROMPT_COMMAND=precmd for bash).  Now use LMOD_SETTARG_FUNCTIONS=yes
+              LMOD_SETTARG_IN_PROMPT=yes env. var conttrol.
+	    * Issue #551: Fix the output of level 2 spider output to not mix the description and help from
+	      different modulefiles
+            * Issue #552: Send mt and mname as part of table to isVisibleHook
+   (8.6.3)  * Fix bugs in tcl2lua.tcl and MF_TCL.lua w.r.t. shell function output.
+   (8.6.4)  * Must handle sh_to_modulefile to TCL where \export in shell script is used.
+   (8.6.5)  * Issue #555: Allow bash users to export SUPPORT_KSH=no so that they can avoid bash startup
+              setting FPATH
+	    * Issue #553: Update env_modules_python.py.
+            * Issue #554: fixed source_sh of spack setup-env.sh script.
+   (8.6.6)  * Issue #555: Remove export SUPPORT_KSH=no hack as it does not work. The file init/bash is
+              read during system startup (/etc/profile.d/*.sh) before user bash startup files are read
+              (~/.bashrc etc).  Updated FAQ entry to say that bash users starting zsh must unset FPATH.
+            * Issue #382: Add parentAA to fullVT to pass to spider_decoration hook
+   (8.6.7)  * Issue #559: Force settarg arch to be '_generic'
+   (8.6.8)  * Issue #558: Convert "module swap n/v" to "module swap n n/v"
+   (8.6.9)  * Issue #554: Use preamble and epilog to turn off file globbing during eval
+   (8.6.10) * Issue #554: Put preamble and epilog in module command not inside Lmod
+   (8.6.11) * Issue #563: Remove debug line from module def.
+   (8.6.12) * Make SILENT_SHELL_DEBUGGING=yes the default.
+            * Issue #560: When doing "ml avail" only show extensions for the modules that are shown in avail
+   (8.6.13) * Issue #560: Make sure that extensions in hidden modules only show up when doing
+              "ml --show_hidden av" and not when doing "ml av"
+            * Issue #564: Added Test for depends_on(between())
+            * Issue #566: Directly report LOADEDMODULES and _LMFILES_ rather than doing incrementally.
+   (8.6.14) * Issue #571: remove export -f __lmod_file_glob_on
+   (8.6.15) * Issue #564: Switch to using MName:isloaded() instead of MT:haveUserName()
+              in MasterControl:dependencyCk(mA)
+            * Rename spiderPathFilterHook to reverseMapPathFilterHook
+   (8.6.16) * The following two changes are so that when a user is unloading it shouldn't fail.
+              - Make M.error=MasterControl.warning in src/MC_Unload.lua
+              - Make M.LmodBreak=MasterControl.quiet in src/MC_Unload.lua
+   (8.6.17) * Adding Lmod_testing_suite to test.yml
+            * Added FAQ: Why setting CC doesn't work
+   (8.6.18) * TCL Break in loop now works and doesn't force an LmodBreak.
+   (8.6.19) * TCL puts stdout    is converted to execute{cmd="...",modeA={"..."}}
+            * TCL puts prestdout is converted to io.stdout:write()
 Lmod 8.5+
    (8.5.1)  * Issue #513:  module avail <name1> <name2> ... now only prints matching aliases.  Search names are resolved.
               Tests added to the rt/modulerc directory.
