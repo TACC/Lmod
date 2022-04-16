@@ -2,13 +2,13 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
+Modules based on Lua: Version 8.6.18  2022-04-14 15:15 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
  OutputDIR/lmod/lmod/libexec/lmod --version
 ===========================
-Modules based on Lua: Version 8.6.9 (8.6.9-2-gf96e5402) 2022-02-02 11:25 -04:00
+Modules based on Lua: Version 8.6.18 (8.6.18-4-g9315ba70) 2022-04-14 15:15 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
