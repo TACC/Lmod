@@ -32,6 +32,31 @@ release at sourceforge.
 ## ChangeLog
 
 
+### Lmod 8.7:
+
+Features:
+
+   1. Module unload can never fail: module eval errors are warning durning unload.
+
+   2. break (in TCL) and LmodBreak (in Lua) are ignored during unload.
+
+   3. In TCL puts stdout are now delayed until the end of the module evaluation. (Matches Tmod 4.1)
+
+   4. In TCL puts prestdout are now printed out at the beginning of module output. (Matched Tmod 5.1)
+
+Bug Fixes
+
+   1. Convert "module swap n/v" to "module swap n n/v"
+
+   2. *break* in TCL modules now breaks out of looks.  It only stops the evaluation of the current module when outside a loop.
+
+   3. Many fixes to sh\_to\_module script and source_sh() function to better handle
+
+   4. Support for depends_on(between()) repaired.
+
+   5. The command "module avail" only shows extensions that are currently available rather than all modules.
+   
+
 ### Lmod 8.6:
 
 Features:
@@ -160,186 +185,6 @@ Features:
 
    4. Allow MODULERCFILE to be a colon separated list.
 
-### Lmod 7.8:
 
-Features:
 
-   1. Always use ref. counting for MODULEPATH.
-
-   2. Make LMOD_RC support a colon separated list of possible lmodrc.lua files.
-
-   3. General support for "MODULERC" files written in lua.
-   
-
-Bug Fixes:
-
-   1. Just use lua_json provided with Lmod distribution
-
-   2. Change ml so that ml av --terse is an error.
-
-   3. Allow sites to completely control prefix location of lmod.
-
-   4. Support "make -j install"
-
-### Lmod 7.7:
-
-Features:
-
-   1. Lmod now uses reference counting for PATH-like variables
-
-   2. Support for MODULEPATH_INIT. If found use <install_dir>/init/.modulespath
-      to specify initial MODULEPATH.
-
-   3. Tracing now reports changes to MODULEPATH
-
-   4. Support for ml keyword <prop_name> added
-
-Bug Fixes:
-
-   1. Lmod now uses the spider cache when restoring when LMOD_CACHED_LOAD=yes
-
-   2. Lmod now supports a module with a single leading underscore. It reports an
-      error if there are two or more.
-
-### Lmod 7.6:
-
-Features:
-
-   1. Support for disable <collection_name>
-
-   2. A marked default is honored even if it is hidden
-
-   3. Support for depends_on() as a better way to handle module dependencies.
-
-### Lmod 7.5:
-
-Features:
-
-   1. Added -T, --trace option to report restore, load, unloads and spider.
-
-   2. Report both global and version aliases with module --terse
-      Add Global Aliases output to module avail if they exist.
-
-   3. Support for isVisibleHook (Thanks @wpoely86!) to control whether
-      a module is hidden or not.
-
-   4. Support for "spider -o spider-json" to set the key "hidden"
-      to true or false for each module.
-
-   5. Setting LMOD_EXACT_MATCH=yes also turns off the display of (D) with avail.
-
-   6. CMake "shell" added.
-
-   7. Added feature that LMOD_TMOD_FIND_FIRST.  A site can decide to force
-      FIND_FIRST instead FIND_BEST for NV module layouts.
-
-Bug Fixes:
-
-   1. Fix bug where Lmod would be unable to load a module where NV and
-      NVV module layouts were mixed.
-
-   2. Fix bug where LMOD_CASE_INDEPENDENT_SORTING=yes wasn't case
-      independent when using avail hook.
-
-### Lmod 7.4:
-
-Features:
-
-   1. Using built-in luafilesystem if system version doesn't exist or < 1.6.2
-
-   2. Support for setting LMOD_SYSHOST with configure.
-
-   3. Sites or users can use italic instead of dim for hidden modules
-
-   4. Detailed spider output reports all dependencies hidden or not.
-
-   5. Support for fish shell
-
-   6. Move almost all configuration variables from profile.in to bash.in and similarly for tcsh.
-
-Bug Fixes:
-
-   1. Fixed bug that caused LMOD env vars to be lower cased.
-
-   2. Fixed bug where tcsh/csh exit status was not returned.
-    
-   3. bash and zsh tab completions works when LMOD_REDIRECT is yes.
-
-   4. Can now conflict with a version.
-
-   5. Fixed bug with addto a:b:c 
-
-   6. Fixed bugs in computeHashSum, generating softwarePage.
-
-### Lmod 7.3:
-
-Bug Fixes:
-
-   1. The isloaded() function has been repaired.
-
-   2. Updated French, German and Spanish translations.
-
-   3. Two error message related to missing modules are now available for translations.
-
-### Lmod 7.2.1:
-
-Features:
-
-   1. A test suite for testing the Lmod installation has been added. See https://github.com/rtmclay/Lmod_test_suite for details.
-
-   2. Added support for localization of errors and warnings and messages.
-
-   3. Language Translations complete: ES, Partial: FR, ZH, DE
-
-   4. Introduced "errWarnMsgHook" to take advantage of the new message handling.
-
-Bug Fixes:
-
-   1. Several bug fixes related to Spider Cache and LMOD_CACHED_LOADS=1
-
-   2. Repaired zsh tab completion.
-
-   3. Minimize the output of Lmod's BASH_ENV when debugging Bash shell scripts.
-
-   4. Allow colons as well as spaces for the path used in the addto command.
-
-   5. Handles module directories that are empty or bad symlink or a .version file only.
-
-   6. Fix bug in module describe.
-
-### Lmod 7.1:
-
-Features:
-
-   1. The commands "module --show_hidden avail" and "module --show_hidden" list now show "hidden" modules with the (H) property.  Also they are displayed as dim.  This works better on black backgrounds.
-
-   2. Added the command "module --config_json" to generate a json output of Lmod's configuration.
-
-   3. Add support for env. var. LMOD_SITE_NAME to set a site's name.  This is also a configure option.
-
-Bug Fixes:
-
-   1. Hidden module now will not be marked as default.
-
-   2. Now check permission of a directory before trying to open it.
-
-   3. Lmod now does not pollute the configure time value of LD_LIBRARY_PATH and LD_PRELOAD into the users env.
-
-   4. Lmod now handles illegal values of $TERM.
-
-### Lmod 7.0:
-
-   1. This version support N/V/V. (e.g. fftw/64/3.3.4).  Put a .version file in with the "64" directory to tell Lmod where the version starts.
-
-   2. Marking a default in the MODULERC is now supported.
-
-   3. User ~/.modulerc has priority over system MODULERC.
-
-   4. System MODULERC  has priority over marking a default in the module tree.
-
-   5. Installed Modules can be hidden by "hide-version foo/3.2.1" in any modulerc file.
-
-   6. The system spider cache has changed.  Please update your scripts to build spiderT.lua instead of moduleT.lua
-
-
-For information to version changes for Lmod before 7.0 see [README.old](README.old)
+For information to version changes for Lmod before 8.0 see [README.old](README.old)

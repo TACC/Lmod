@@ -40,3 +40,8 @@ Lmod 8.6+
               - Make M.LmodBreak=MasterControl.quiet in src/MC_Unload.lua
    (8.6.17) * Adding Lmod_testing_suite to test.yml
             * Added FAQ: Why setting CC doesn't work
+   (8.6.18) * TCL Break in loop now works and doesn't force an LmodBreak.
+   (8.6.19) * TCL puts stdout    is converted to execute{cmd="...",modeA={"..."}}
+            * TCL puts prestdout is converted to io.stdout:write()
+	    
+            
