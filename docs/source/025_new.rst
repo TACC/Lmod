@@ -1,12 +1,27 @@
 New Features in Lmod
 ====================
 
+**An unload cannot fail**:
+     As of Lmod 8.7+, an error found during unload is treated as an
+     error.
+
+**puts stdout**:
+     This TCL modulefile will generate its output at the end of the
+     modulefile evaluation and not the beginning. New in Lmod 8.7.
+     This matches Tmod 4.1
+
+**puts prestdout**:
+     This TCL modulefile will generate its output at the beginning of the
+     modulefile evaluation. New in Lmod 8.7. This matches Tmod 5.1.
+
 **LmodBreak** (msg):
      LmodBreak() modulefile function causes the evaluation of the
      current modulefile to stop and all changed in the user's
      environment to be ignored from the current modulefile.  However,
      all other modulefiles are evaluated.  In TCL modulefiles, this
-     command is **break**.  New in Lmod 8.6+
+     command is **break**.  Break works normally inside a loop.  If a
+     bare break is found outside a loop, it cause the current
+     modulefile stop its processing. New in Lmod 8.7+
 
      **Note** As of Lmod 8.6.16: LmodBreak()/break does nothing when
      unloading. 
