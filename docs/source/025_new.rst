@@ -2,8 +2,8 @@ New Features in Lmod
 ====================
 
 **An unload cannot fail**:
-     As of Lmod 8.7+, an error found during unload is treated as an
-     error.
+     As of Lmod 8.7+, an error found during unload is treated as a
+     warning.
 
 **puts stdout**:
      This TCL modulefile will generate its output at the end of the
