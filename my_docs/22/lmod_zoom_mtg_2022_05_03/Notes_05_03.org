@@ -1,0 +1,129 @@
+Here are some notes for May 3rd presentation
+
+* Let's talk about break
+* The original Tmod 3.2.10 (and earlier I think) had "break"
+* What is break mean in TCL
+** "break" is part of the TCL language
+** Normally break breaks out of a loop
+
+   for {set i 0} {$i < 5} {incr i} {
+     puts stderr "$i"
+     if { $i == 3 } {
+         break
+     }
+   }
+
+   So when $i is 3 this loop stops.  
+   This is the same as other languages like C or python
+
+** A break that is not inside a loop is an error in TCL.
+** Tmod captures this error and stops processing the current module
+   This is not the same as an error.  Namely an error stops processing 
+   the current module AND it aborts any other module that was trying
+   to load. 
+** "module load A B C D"  
+   if there is an error in load the C modulefile. then Lmod errors out
+   and A and B are not loaded.
+
+** "module load A B C D"
+   if C has a break, then A and B are loaded and any changes caused by
+   module C are ignored. D is not loaded.
+
+* Up until Lmod 6, there was no way to support break
+* Let's remember how Lmod works
+** The basic module command is for bash is:
+
+     module () { eval "$($LMOD_CMD bash "$@")"; }
+** This means that the $LMOD_CMD create text which is "eval"ed by the shell
+* Lmod does all its processing and is silent until the end
+* So Lmod generates either a successful evaluation of the modulefiles requested
+* Or it produces an error
+* Implementing Break broke the Lmod 6 implementation
+* Lmod 7 was a complete re-write of Lmod because the core design changed
+** It was needed to support Name/Version/Version modulefiles
+** It also implemented the frameStk (AKA the stack-frame)
+* Lmod has a stack which contains varT, and mt.
+** The varT is the table of key-value pairs that represent the new env. var values
+** mt is the module table.  
+   That is the table containing the current loaded modules and other
+   things maintained by the moduleTable
+* Everytime that modulefile is about to be loaded the frameStk is changed.
+  The current value of mt and varT are deepcopy'ed on to the stack.
+* All changes to environment variables and the module table are made to varT and mt at the top of the stack
+* When the current modulefile is finished being evaluated, the framestack is pop'ed 
+  That is the values at the top of the stack are saved in the values
+  at the next lower value and height of the stack is lowered by one.
+* When an LmodBreak (or break in TCL), the frameStk ignores the current values.
+  The previous value of mt and varT become the current values so that 
+  when the frameStk is pop'ed the old value remain.
+  (show code from FrameStk.lua:)
+      function M.LmodBreak(self)
+         local stack           = self.__stack
+         local count           = self.__count
+         stack[count].mt       = deepcopy(stack[count-1].mt)
+         stack[count].varT     = deepcopy(stack[count-1].varT)
+      end
+
+      function M.pop(self)
+         local stack           = self.__stack
+         local count           = self.__count
+         stack[count-1].mt     = stack[count].mt
+         stack[count-1].varT   = stack[count].varT
+         stack[count]          = nil
+         self.__count          = count - 1
+      end
+
+* Lmod 8.6 kinda supported TCL break/LmodBreak
+* Lmod 8.7 really supports break.  
+  It knows how to handle TCL break inside a loop 
+  It knows when it is a bare break and it is caught by tcl2lua.tcl and
+  generates am LmodBreak
+
+** Tmod does this by catching the "error" 
+   (show code from tcl2lua.tcl):
+	set sourceFailed [catch {source $ModulesCurrentModulefile } errorMsg]
+        if { $g_help && [info procs "ModulesHelp"] == "ModulesHelp" } {
+           # handle module help
+           ... 
+        }
+        if {$sourceFailed} {
+	    if { $sourceFailed == 3 || $errorMsg == {invoked "break" outside of a loop}} {
+		set returnVal 1
+		myBreak
+		showResults
+		return $returnVal
+	    }
+            reportError $errorMsg
+	    set returnVal 1
+        }
+        showResults
+	return $returnVal
+
+* An Lmod user showed that break could create an endless loop:
+
+% cat foo3/1.0
+
+#%Module
+
+catch {set foo $env(FOO)}
+if { [info exists foo] } {
+  puts stderr "already set"
+  break
+}
+setenv FOO "just me"
+
+% module load foo3/1.0
+% module load foo3/1.0
+already set
+already set
+already set
+already set
+already set
+already set
+...continues until crtl+C ...
+
+* Lmod Now treats "(TCL) break" or "LmodBreak" as a no-op when unloading
+  This means when Lmod tries to unload foo3/1.0 it can.  Then it can
+  load it again.
+
+
