@@ -90,7 +90,7 @@ break \Rightarrow LmodBreak() -- Only for bare breaks
     \frametitle{TCL Break}
  {\small
    \begin{semiverbatim}
-for \{set i 0\} \{\$i $<$ 5\} \{incr i\} \{
+for \{set i 0\} \{\$i < 5\} \{incr i\} \{
   puts stderr "\$i"
   if \{ \$i == 3 \} \{
       break  # This breaks out of the loop
@@ -131,7 +131,7 @@ break # This causes the modulefile
     \item Then Lmod generates shell command output.
     \item Lmod 6 and earlier wouldn't know what changes to ignore when
       processing a break.
-    \item All Lmod's produce either an error or environment changes
+    \item Lmod's produces either an error or environment changes
       not both.
   \end{itemize}
 \end{frame}
@@ -164,7 +164,7 @@ break # This causes the modulefile
     \frametitle{assignment versus deepcopy() in Lua}
  {\small
     \begin{semiverbatim}
-  a = {}
+  a = \{\}
   a[1] = "foo"
   b    = a
   b[1] = "bar"
@@ -250,7 +250,7 @@ end
     \frametitle{TCL Break strangeness}
  {\small
    \begin{semiverbatim}
-for \{set i 0\} \{\$i $<$ 5\} \{incr i\} \{
+for \{set i 0\} \{\$i < 5\} \{incr i\} \{
   puts stderr "\$i"
   if \{ \$i == 3 \} \{
       break  # This breaks out of the loop
@@ -312,9 +312,7 @@ if \{ [info exists foo] \} \{
 \}
 setenv FOO "just me"
 
-% module load foo3/1.0
-% module load foo3/1.0
-already set
+% module load foo3/1.0; module load foo3/1.0
 already set
 already set
 ...continues until crtl+C ...
