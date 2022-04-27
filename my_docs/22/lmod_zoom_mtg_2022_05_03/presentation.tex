@@ -73,7 +73,7 @@
     \item Internally Lmod knows when a file is a TCL modulefile 
     \item No *.lua extension $\Rightarrow$ TCL modulefile 
     \item The program tcl2lua.tcl is called to process the tcl 
-    \item It converts TCL module command into Lua with Lmod module
+    \item It converts TCL modulefile into Lua with Lmod module
       commands
   \end{itemize}
  {\tiny
@@ -329,7 +329,7 @@ already set
 % page 19
 \begin{frame}{LmodBreak() is a no-op on unload}
   \begin{itemize}
-    \item A bare break becomes an LmodBreak() when translated.
+    \item A bare TCL break becomes an LmodBreak() when translated.
     \item LmodBreak() does nothing during unload.
     \item This prevents the endless loop shown above. (Lmod 8.7+)
   \end{itemize}
@@ -348,7 +348,9 @@ already set
 \begin{frame}{Future Topics}
   \begin{itemize}
     \item Next Meeting: June 7th 9:30 US Central (14:30 UTC)
-    \item Show how Lmod processes a module load command, stepping through the codebase.
+    \item Show how Lmod processes a module load command, stepping
+      through the codebase.
+    \item Suggestions.
   \end{itemize}
 \end{frame}
 
