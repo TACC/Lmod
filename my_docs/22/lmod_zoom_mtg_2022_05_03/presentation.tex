@@ -160,11 +160,32 @@ break # This causes the modulefile
 \end{frame}
 
 % page 11
+\begin{frame}[fragile]
+    \frametitle{assignment versus deepcopy() in Lua}
+ {\small
+    \begin{semiverbatim}
+  a = {}
+  a[1] = "foo"
+  b    = a
+  b[1] = "bar"
+  print(a[1])  -> ``bar'' not ``foo''
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item Lua tries to be efficent
+    \item It just copies reference
+    \item As shown above.
+    \item Lmod provides deepcopy() function.
+    \item This creates a new table
+  \end{itemize}
+\end{frame}
+
+% page 12
 \begin{frame}{FrameStk}
   \begin{itemize}
-    \item Before each module: Deep Copy previous varT and mt to top of
+    \item Before each module: Deep Copy copies the previous varT and mt to top of
       FrameStk.
-    \item Normal assignment copy references.
+    \item In Lua, normal assignment copy references.
     \item A deepcopy() is required for a new array.
     \item Each evaluation of modulefile is updated on the top of the
       FrameStk
@@ -174,7 +195,7 @@ break # This causes the modulefile
   \end{itemize}
 \end{frame}
 
-% page 12
+% page 13
 \begin{frame}{FrameStk implications}
   \begin{itemize}
     \item Cannot trust local values of mt
@@ -184,9 +205,7 @@ break # This causes the modulefile
   \end{itemize}
 \end{frame}
 
-
-
-% page 13
+% page 14
 \begin{frame}[fragile]
     \frametitle{LmodBreak or TCL break}
   \begin{itemize}
@@ -217,7 +236,7 @@ end
 }
 \end{frame}
 
-% page 14
+% page 15
 \begin{frame}{Support for TCL break}
   \begin{itemize}
     \item Lmod 8.6+ added support LmodBreak()
@@ -226,7 +245,7 @@ end
   \end{itemize}
 \end{frame}
 
-% page 15
+% page 16
 \begin{frame}[fragile]
     \frametitle{TCL Break strangeness}
  {\small
@@ -247,7 +266,7 @@ break # This causes the modulefile
   \end{itemize}
 \end{frame}
 
-% page 16
+% page 17
 \begin{frame}[fragile]
     \frametitle{To support regular and bare break in TCL in tcl2lua.tcl}
  {\tiny
@@ -279,7 +298,7 @@ return $returnVal
   \end{itemize}
 \end{frame}
 
-% page 17
+% page 18
 \begin{frame}[fragile]
     \frametitle{Lmod 8.6.15 could create an endless loop}
  {\small
@@ -310,7 +329,7 @@ already set
 
 \end{frame}
 
-% page 18
+% page 19
 \begin{frame}{LmodBreak() is a no-op on unload}
   \begin{itemize}
     \item A bare break becomes an LmodBreak() when translated.
@@ -319,7 +338,7 @@ already set
   \end{itemize}
 \end{frame}
 
-% page 19
+% page 20
 \begin{frame}{Conclusions}
   \begin{itemize}
     \item Implementing break is trickier then you might think.
@@ -328,15 +347,12 @@ already set
   \end{itemize}
 \end{frame}
 
-% page 
+% page 21
 \begin{frame}{Future Topics}
   \begin{itemize}
     \item Next Meeting: June 7th 9:30 US Central (14:30 UTC)
     \item Show how Lmod processes a module load command, stepping through the codebase.
   \end{itemize}
 \end{frame}
-
-
-
 
 \end{document}
