@@ -228,11 +228,11 @@ for \{set i 0\} \{\$i $<$ 5\} \{incr i\} \{
 break # This causes the modulefile
       # to stop being processed.       
     \end{semiverbatim}
+}
   \begin{itemize}
     \item TCL treats a bare break as an error
     \item Tmod 3, 4 and 5 catch the error
   \end{itemize}
-}
 \end{frame}
 
 % page 15
@@ -240,7 +240,7 @@ break # This causes the modulefile
     \frametitle{To support regular and bare break in TCL in tcl2lua.tcl}
  {\tiny
     \begin{semiverbatim}
-set sourceFailed [catch \{source \$ModulesCurrentModulefile \} errorMsg] #(1)
+set sourceFailed [catch \{source \$ModulesCurrentModulefile \} errorMsg] # (1) 
 set returnval 0
 if \{ $g\_help && [info procs "ModulesHelp"] == "ModulesHelp" \} \{
    # handle module help
@@ -258,19 +258,13 @@ if \{\$sourceFailed\} \{
 \}
 showResults
 return $returnVal
-}
     \end{semiverbatim}
+}
   \begin{itemize}
     \item line 1 evaluate the TCL modulefile
     \item \$sourceFailed will be non-zero for TCL errors
     \item \$sourceFailed == 3 means a bare break has been found.
   \end{itemize}
-}
-
 \end{frame}
-
-
-
-
 
 \end{document}
