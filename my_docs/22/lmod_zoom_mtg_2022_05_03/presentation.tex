@@ -263,6 +263,7 @@ break # This causes the modulefile
   \begin{itemize}
     \item TCL treats a bare break as an error
     \item Tmod 3, 4 and 5 catch the error
+    \item Lmod 8.7+ now catch the error too!
   \end{itemize}
 \end{frame}
 
@@ -301,7 +302,7 @@ return $returnVal
 % page 18
 \begin{frame}[fragile]
     \frametitle{Lmod 8.6.15 could create an endless loop}
- {\small
+ {\tiny
     \begin{semiverbatim}
 % cat foo3/1.0
 #%Module
