@@ -131,7 +131,7 @@ break # This causes the modulefile
     \item Then Lmod generates shell command output.
     \item Lmod 6 and earlier wouldn't know what changes to ignore when
       processing a break.
-    \item Lmod's produces either an error or environment changes
+    \item Lmod produces either an error or environment changes
       not both.
   \end{itemize}
 \end{frame}
@@ -141,8 +141,8 @@ break # This causes the modulefile
   \begin{itemize}
     \item It was needed to support Name/Version/Version (N/V/V) modulefiles
     \item Before Lmod only supported N/V or C/N/V
-    \item Lmod 7+ now has a frameStk (AKA the stack-frame)
-    \item The frameStk contains a stack of the environment var table (varT) and the
+    \item Lmod 7+ now has a FrameStk (AKA the stack-frame)
+    \item The FrameStk contains a stack of the environment var table (varT) and the
       module table (mt)
   \end{itemize}
 \end{frame}
@@ -185,8 +185,6 @@ break # This causes the modulefile
   \begin{itemize}
     \item Before each module: Deep Copy copies the previous varT and mt to top of
       FrameStk.
-    \item In Lua, normal assignment copy references.
-    \item A deepcopy() is required for a new array.
     \item Each evaluation of modulefile is updated on the top of the
       FrameStk
     \item When the current modulefile evaluation is completed
@@ -213,7 +211,7 @@ break # This causes the modulefile
       ignored
     \item LmodBreak() causes the previous values to be current
     \item FrameStk:pop() pops the stack.
-    \item The code is shown below:
+    \item The FrameStk code is shown below:
   \end{itemize}
  {\tiny
     \begin{semiverbatim}
