@@ -28,9 +28,9 @@
 %\end{frame}
 
 \begin{document}
-\title[Lmod]{Creating new tests for Lmod}
+\title[Lmod]{The complicated story about TCL break}
 \author{Robert McLay} 
-\date{April. 19, 2022}
+\date{May. 3, 2022}
 
 % page 1
 \frame{\titlepage} 
@@ -40,21 +40,62 @@
 \begin{frame}{Outline}
   \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
   \begin{itemize}
-    \item Showing how to create a test for Lmod
-    \item Tclmodule test
-    \item New Principal: An unload cannot fail!
-    \item An intel module failing on unload
-    \item Break on unload?
-    \item Future Topics
+    \item Let's talk about TCL break (and LmodBreak)
+    \item Lmod didn't really support TCL break at all until Lmod 8.6
+      (really Lmod 8.7)
+    \item Years ago mailing list question: support for break
+    \item Lmod 6 and below could not support break
+    \item Why?
   \end{itemize}
 \end{frame}
 
 % page 3
-\begin{frame}{A Tclmodule test}
+\begin{frame}[fragile]
+    \frametitle{Reminder: How Lmod works}
   \begin{itemize}
-    \item A user reported that there was an extra space from a TCL
-      modulefile
-    \item This calls for a new test
+    \item In order to have a command effect the current shell
+    \item A simple module command for bash is given below
+    \item The \$LMOD\_CMD command generate shell commands as text
+    \item The eval "..." evaluate the text to change the current shell
+    \item For the rest of this talk: focus on what \$LMOD\_CMD produces
+  \end{itemize}
+ {\small
+    \begin{semiverbatim}
+     module () \{ eval "\$(\$LMOD\_CMD bash "\$@")"; \}
+    \end{semiverbatim}
+}
+\end{frame}
+
+% page 
+\begin{frame}[fragile]
+    \frametitle{Reminder: How Lmod TCL processing works}
+  \begin{itemize}
+    \item Internally Lmod knows when a file is a TCL modulefile 
+    \item No *.lua extension
+    \item The program tcl2lua.tcl is called to process the tcl 
+    \item It converts TCL module command into Lua with Lmod module
+      commands
+  \end{itemize}
+ {\tiny
+    \begin{semiverbatim}
+setenv FOO bar $\Rightarrow$ setenv("FOO","bar")
+prepend-path PATH /path/to/prgm/bin $\Rightarrow$ prepend_path("PATH","/path/to/prgm/bin")
+    \end{semiverbatim}
+}
+\end{frame}
+
+% page 4
+\begin{frame}{Reminder: How Lmod TCL processing works}
+  \begin{itemize}
+    \item 
+  \end{itemize}
+\end{frame}
+
+% page 3
+\begin{frame}{Lmod works differently than the original Tmod}
+  \begin{itemize}
+    \item I have never understood the TCL/C version of Tmod
+    \item But I believe that it generated output
     \item The following slides outline the steps
   \end{itemize}
 \end{frame}

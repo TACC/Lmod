@@ -21,11 +21,11 @@ Here are some notes for May 3rd presentation
    This is not the same as an error.  Namely an error stops processing 
    the current module AND it aborts any other module that was trying
    to load. 
-** "module load A B C D"  
+** module error: "module load A B C D"
    if there is an error in load the C modulefile. then Lmod errors out
    and A and B are not loaded.
 
-** "module load A B C D"
+** module break: "module load A B C D"
    if C has a break, then A and B are loaded and any changes caused by
    module C are ignored. D is not loaded.
 
