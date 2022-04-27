@@ -214,9 +214,33 @@ end
   \end{itemize}
 \end{frame}
 
-% page 
+% page 14
 \begin{frame}[fragile]
-    \frametitle{To support regular and bare break in TCL}
+    \frametitle{TCL Break strangeness}
+ {\small
+   \begin{semiverbatim}
+for \{set i 0\} \{\$i $<$ 5\} \{incr i\} \{
+  puts stderr "\$i"
+  if \{ \$i == 3 \} \{
+      break  # This breaks out of the loop
+  \}
+\}
+break # This causes the modulefile
+      # to stop being processed.       
+    \end{semiverbatim}
+  \begin{itemize}
+    \item Tmod 3, 4 and 5 catch the error
+  \end{itemize}
+}
+\end{frame}
+
+
+
+
+
+% page 15
+\begin{frame}[fragile]
+    \frametitle{To support regular and bare break in TCL in tcl2lua.tcl}
  {\tiny
     \begin{semiverbatim}
 set sourceFailed [catch \{source \$ModulesCurrentModulefile \} errorMsg]
