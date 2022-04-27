@@ -71,7 +71,7 @@
     \frametitle{Reminder: How Lmod TCL processing works}
   \begin{itemize}
     \item Internally Lmod knows when a file is a TCL modulefile 
-    \item No *.lua extension
+    \item No *.lua extension $\Rightarrow$ TCL modulefile 
     \item The program tcl2lua.tcl is called to process the tcl 
     \item It converts TCL module command into Lua with Lmod module
       commands
@@ -85,6 +85,23 @@ prepend-path PATH /prgm/bin \Rightarrow prepend_path("PATH","/prgm/bin")
 \end{frame}
 
 % page 5
+\begin{frame}[fragile]
+    \frametitle{TCL Break}
+ {\small
+   \begin{semiverbatim}
+for \{set i 0\} \{\$i $<$ 5\} \{incr i\} \{
+  puts stderr "\$i"
+  if \{ \$i == 3 \} \{
+      break  # This breaks out of the loop
+  \}
+\}
+break # This causes the modulefile
+      # to stop being processed.       
+    \end{semiverbatim}
+}
+\end{frame}
+
+% page 6
 \begin{frame}{Why was TCL break such a problem for Lmod?}
   \begin{itemize}
     \item TCL break stops processing the current module
@@ -96,7 +113,7 @@ prepend-path PATH /prgm/bin \Rightarrow prepend_path("PATH","/prgm/bin")
   \end{itemize}
 \end{frame}
 
-% page 6
+% page 7
 \begin{frame}{LmodError is different}
   \begin{itemize}
     \item {\color{blue} \texttt{module load A B C D}} 
@@ -105,7 +122,7 @@ prepend-path PATH /prgm/bin \Rightarrow prepend_path("PATH","/prgm/bin")
   \end{itemize}
 \end{frame}
 
-% page 7
+% page 8
 \begin{frame}{Lmod waits to produce output}
   \begin{itemize}
     \item When loading several modules, Lmod waits
@@ -115,6 +132,38 @@ prepend-path PATH /prgm/bin \Rightarrow prepend_path("PATH","/prgm/bin")
       processing a break.
     \item All Lmod's produce either an error or environment changes
       not both.
+  \end{itemize}
+\end{frame}
+
+% page 9
+\begin{frame}{Lmod 7+ was a complete re-write of Lmod}
+  \begin{itemize}
+    \item It was needed to support Name/Version/Version modulefiles
+    \item Before Lmod only supported N/V or C/N/V
+    \item Lmod 7+ now has a frameStk (AKA the stack-frame)
+    \item The frameStk contains a stack of the environment var table (varT) and the
+      module table (mt)
+  \end{itemize}
+\end{frame}
+
+% page 10
+\begin{frame}{FrameStk: varT and mt}
+  \begin{itemize}
+    \item The table varT contains key-value pairs that represent the
+      new env. var values
+    \item The table mt is the module table containing the currently
+      loaded modules among other things
+    \item The Module Table is stored in the environment via
+      \$\_ModuleTable001\_ etc.
+  \end{itemize}
+\end{frame}
+
+% page 11
+\begin{frame}{FrameStk}
+  \begin{itemize}
+    \item Each evaluation of modulefile is updated on the top of the
+      FrameStk
+    \item 
   \end{itemize}
 \end{frame}
 
