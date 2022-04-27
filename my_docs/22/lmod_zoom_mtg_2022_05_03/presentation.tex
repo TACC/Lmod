@@ -175,6 +175,18 @@ break # This causes the modulefile
 \end{frame}
 
 % page 12
+\begin{frame}{FrameStk implications}
+  \begin{itemize}
+    \item Cannot trust local values of mt
+    \item Lmod constantly has to refresh mt:
+    \item {\color{blue}mt = frameStk:mt()}
+    \item Because a module load might have updated it.
+  \end{itemize}
+\end{frame}
+
+
+
+% page 13
 \begin{frame}[fragile]
     \frametitle{LmodBreak or TCL break}
   \begin{itemize}
@@ -205,7 +217,7 @@ end
 }
 \end{frame}
 
-% page 13
+% page 14
 \begin{frame}{Support for TCL break}
   \begin{itemize}
     \item Lmod 8.6+ added support LmodBreak()
@@ -214,7 +226,7 @@ end
   \end{itemize}
 \end{frame}
 
-% page 14
+% page 15
 \begin{frame}[fragile]
     \frametitle{TCL Break strangeness}
  {\small
@@ -235,7 +247,7 @@ break # This causes the modulefile
   \end{itemize}
 \end{frame}
 
-% page 15
+% page 16
 \begin{frame}[fragile]
     \frametitle{To support regular and bare break in TCL in tcl2lua.tcl}
  {\tiny
@@ -266,5 +278,65 @@ return $returnVal
     \item \$sourceFailed == 3 means a bare break has been found.
   \end{itemize}
 \end{frame}
+
+% page 17
+\begin{frame}[fragile]
+    \frametitle{Lmod 8.6.15 could create an endless loop}
+ {\small
+    \begin{semiverbatim}
+% cat foo3/1.0
+#%Module
+catch \{set foo \$env(FOO)\}
+if \{ [info exists foo] \} \{
+  puts stderr "already set"
+  break
+\}
+setenv FOO "just me"
+
+% module load foo3/1.0
+% module load foo3/1.0
+already set
+already set
+already set
+...continues until crtl+C ...
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item Loading foo3/1.0 twice causes an endless loop
+    \item Why?
+    \item The second load forces foo3/1.0 to unload (which it can't)
+    \item Lmod then tries to re-load foo3/1.0 which causes the unload etc.
+  \end{itemize}
+
+\end{frame}
+
+% page 18
+\begin{frame}{LmodBreak() is a no-op on unload}
+  \begin{itemize}
+    \item A bare break becomes an LmodBreak() when translated.
+    \item LmodBreak() does nothing during unload.
+    \item This prevents the endless loop shown above. (Lmod 8.7+)
+  \end{itemize}
+\end{frame}
+
+% page 19
+\begin{frame}{Conclusions}
+  \begin{itemize}
+    \item Implementing break is trickier then you might think.
+    \item Lmod now can support bare breaks finally in Lmod 8.7
+    \item The FrameStk is the price to be paid to support break.
+  \end{itemize}
+\end{frame}
+
+% page 
+\begin{frame}{Future Topics}
+  \begin{itemize}
+    \item Next Meeting: June 7th 9:30 US Central (14:30 UTC)
+    \item Show how Lmod processes a module load command, stepping through the codebase.
+  \end{itemize}
+\end{frame}
+
+
+
 
 \end{document}
