@@ -251,10 +251,10 @@ if \{ $g\_help && [info procs "ModulesHelp"] == "ModulesHelp" \} \{
 \}
 if \{\$sourceFailed\} \{
     if \{ \$sourceFailed == 3 || \$errorMsg == \{invoked "break" outside of a loop\}\} \{
-	set returnVal 1
-	myBreak
-	showResults
-	return \$returnVal
+       set returnVal 1
+       myBreak
+       showResults
+       return \$returnVal
     \}
     reportError \$errorMsg
     set returnVal 1
