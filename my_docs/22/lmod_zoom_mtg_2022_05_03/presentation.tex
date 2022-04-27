@@ -80,6 +80,7 @@
     \begin{semiverbatim}
 setenv FOO bar \Rightarrow setenv("FOO","bar")
 prepend-path PATH /prgm/bin \Rightarrow prepend_path("PATH","/prgm/bin")
+break \Rightarrow LmodBreak() -- Only for bare breaks
     \end{semiverbatim}
 }
 \end{frame}
@@ -138,7 +139,7 @@ break # This causes the modulefile
 % page 9
 \begin{frame}{Lmod 7+ was a complete re-write of Lmod}
   \begin{itemize}
-    \item It was needed to support Name/Version/Version modulefiles
+    \item It was needed to support Name/Version/Version (N/V/V) modulefiles
     \item Before Lmod only supported N/V or C/N/V
     \item Lmod 7+ now has a frameStk (AKA the stack-frame)
     \item The frameStk contains a stack of the environment var table (varT) and the
@@ -161,11 +162,49 @@ break # This causes the modulefile
 % page 11
 \begin{frame}{FrameStk}
   \begin{itemize}
+    \item Before each module: Deep Copy previous varT and mt to top of
+      FrameStk.
+    \item Normal assignment copy references.
+    \item A deepcopy() is required for a new array.
     \item Each evaluation of modulefile is updated on the top of the
       FrameStk
-    \item 
+    \item When the current modulefile evaluation is completed
+    \item The FrameStk is pop'ed
+    \item The previous stack values are replaced with current
   \end{itemize}
 \end{frame}
+
+% page 12
+\begin{frame}[fragile]
+    \frametitle{LmodBreak or TCL break}
+  \begin{itemize}
+    \item If LmodBreak() is called, the current module changes are
+      ignored
+    \item The code is shown below:
+  \end{itemize}
+ {\tiny
+    \begin{semiverbatim}
+function M.LmodBreak(self)
+   local stack           = self.\_\_stack
+   local count           = self.\_\_count
+   stack[count].mt       = deepcopy(stack[count-1].mt)
+   stack[count].varT     = deepcopy(stack[count-1].varT)
+end
+
+function M.pop(self)
+   local stack           = self.\_\_stack
+   local count           = self.\_\_count
+   stack[count-1].mt     = stack[count].mt
+   stack[count-1].varT   = stack[count].varT
+   stack[count]          = nil
+   self.__count          = count - 1
+end
+    \end{semiverbatim}
+}
+\end{frame}
+
+
+
 
 
 \end{document}
