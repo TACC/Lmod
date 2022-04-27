@@ -66,7 +66,7 @@
 }
 \end{frame}
 
-% page 
+% page 4
 \begin{frame}[fragile]
     \frametitle{Reminder: How Lmod TCL processing works}
   \begin{itemize}
@@ -76,12 +76,46 @@
     \item It converts TCL module command into Lua with Lmod module
       commands
   \end{itemize}
- {\small
+ {\tiny
     \begin{semiverbatim}
 setenv FOO bar \Rightarrow setenv("FOO","bar")
-prepend-path PATH /prgm/bin \Rightarrow prepend_path("PATH","prgm/bin")
+prepend-path PATH /prgm/bin \Rightarrow prepend_path("PATH","/prgm/bin")
     \end{semiverbatim}
 }
+\end{frame}
+
+% page 5
+\begin{frame}{Why was TCL break such a problem for Lmod?}
+  \begin{itemize}
+    \item TCL break stops processing the current module
+    \item It ignores any changes in a module that has a break
+    \item But it keeps all other modules loaded.
+    \item {\color{blue} \texttt{module load A B C D}} 
+    \item Where C has a break
+    \item Then A B are loaded but C and D are not.
+  \end{itemize}
+\end{frame}
+
+% page 6
+\begin{frame}{LmodError is different}
+  \begin{itemize}
+    \item {\color{blue} \texttt{module load A B C D}} 
+    \item Where C has an LmodError()
+    \item No modules are loaded.
+  \end{itemize}
+\end{frame}
+
+% page 7
+\begin{frame}{Lmod waits to produce output}
+  \begin{itemize}
+    \item When loading several modules, Lmod waits
+    \item All module actions are completed internally
+    \item Then Lmod generates shell command output.
+    \item Lmod 6 and earlier wouldn't know what changes to ignore when
+      processing a break.
+    \item All Lmod's produce either an error or environment changes
+      not both.
+  \end{itemize}
 \end{frame}
 
 
