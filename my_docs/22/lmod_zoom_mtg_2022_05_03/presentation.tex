@@ -205,6 +205,43 @@ end
 }
 \end{frame}
 
+% page 13
+\begin{frame}{Support for TCL break}
+  \begin{itemize}
+    \item Lmod 8.6+ added support LmodBreak()
+    \item Lmod 8.6+ added support a bare TCL break
+    \item Lmod 8.7+ added support for regular break and bare break
+  \end{itemize}
+\end{frame}
+
+% page 
+\begin{frame}[fragile]
+    \frametitle{To support regular and bare break in TCL}
+ {\tiny
+    \begin{semiverbatim}
+set sourceFailed [catch \{source \$ModulesCurrentModulefile \} errorMsg]
+set returnval 0
+if \{ $g\_help && [info procs "ModulesHelp"] == "ModulesHelp" \} \{
+   # handle module help
+   ... 
+\}
+if \{\$sourceFailed\} \{
+    if \{ \$sourceFailed == 3 || \$errorMsg == \{invoked "break" outside of a loop\}\} \{
+	set returnVal 1
+	myBreak
+	showResults
+	return \$returnVal
+    \}
+    reportError \$errorMsg
+    set returnVal 1
+\}
+showResults
+return $returnVal
+    \end{semiverbatim}
+}
+
+\end{frame}
+
 
 
 
