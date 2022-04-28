@@ -236,7 +236,7 @@ To search the contents of modules for matching words execute:
 
 ]==], --
      m_Reload_Modules      = "\nDue to MODULEPATH changes, the following have been reloaded:\n",
-     m_Reload_Version_Chng = "\nThe following have been reloaded with a version change:\n",
+     m_Reload_Version_Chng = "\nThe following have been reloaded with a version change:\n", --
      m_Restore_Coll        = "Restoring modules from %{msg}\n",
      m_Reset_SysDflt       = "Running \"module reset\". Resetting modules to system default. The following $MODULEPATH directories have been removed: %{pathA}\n",
      m_Save_Coll           = "Saved current collection of modules to: \"%{a}\"%{msgTail}\n",
@@ -264,6 +264,7 @@ must specify the version if there is more than one version:
   (Use "module --force purge" to unload all):
 ]==],
      m_Sticky_Unstuck      = "\nThe following sticky modules could not be reloaded:\n",
+     m_Unload_unknown      = "Note: the module \"%{modName}\" cannot be unloaded because it was not loaded.",
      m_Versions            = "     Versions:\n",
      m_Where               = "\n  Where:\n",
 

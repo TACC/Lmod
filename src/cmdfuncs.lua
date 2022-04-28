@@ -65,6 +65,7 @@ local lfs          = require("lfs")
 local sort         = table.sort
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack  -- luacheck: compat
 local unpack       = (_VERSION == "Lua 5.1") and unpack or table.unpack  -- luacheck: compat
+local s_purgeFlg   = false
 
 local system_name  = cosmic:value("LMOD_SYSTEM_NAME")
 
@@ -195,7 +196,7 @@ function GetDefault(collection)
    local sname = (not system_name) and "" or "." .. system_name
    local path  = pathJoin(os.getenv("HOME"), ".lmod.d", collection .. sname)
    local mt    = FrameStk:singleton():mt()
-   mt:getMTfromFile{fn=path, name=collection, }
+   mt:getMTfromFile{fn=path, name=collection}
    dbg.fini("GetDefault")
 end
 
@@ -499,6 +500,9 @@ function Purge_Usr()
 end
 
 
+function purgeFlg()
+   return s_purgeFlg
+end
 --------------------------------------------------------------------------
 -- Unload all loaded modules.
 -- @param force If true then sticky modules are unloaded as well.
@@ -516,7 +520,9 @@ function Purge(force)
       mA[#mA+1] = MName:new("mt",totalA[i])
    end
    dbg.start{"Purge(",concatTbl(totalA,", "),")"}
+   s_purgeFlg = true
    unload_usr_internal(mA, force)
+   s_purgeFlg = false
 
    -- A purge should not set the warning flag.
    clearWarningFlag()

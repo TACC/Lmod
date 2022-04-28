@@ -543,6 +543,10 @@ function M.unload(self,mA)
          frameStk:pop()
          a[#a+1] = status
       else
+         frameStk = FrameStk:singleton()
+         if (frameStk:stackDepth() == 0 and not purgeFlg()) then
+            LmodMessage{msg="m_Unload_unknown", modName = userName}
+         end
          a[#a+1] = false
       end
    end
