@@ -299,6 +299,29 @@ return $returnVal
 
 % page 18
 \begin{frame}[fragile]
+    \frametitle{What happens when?}
+ {\tiny
+    \begin{semiverbatim}
+% cat C.lua
+load("X","Y")
+LmodBreak()
+
+% module load A B C D
+% module list 
+Currently Loaded Modules:
+  1) A    2) B
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item Module A and B are loaded internally
+    \item When loading C, modules X and Y are loaded internally
+    \item When LmodBreak() is encounter, processing of C stops
+    \item Also the effects of X and Y are ignored.
+  \end{itemize}
+\end{frame}
+
+% page 19
+\begin{frame}[fragile]
     \frametitle{Lmod 8.6.15 could create an endless loop}
  {\tiny
     \begin{semiverbatim}
@@ -326,7 +349,7 @@ already set
 
 \end{frame}
 
-% page 19
+% page 20
 \begin{frame}{LmodBreak() is a no-op on unload}
   \begin{itemize}
     \item A bare TCL break becomes an LmodBreak() when translated.
@@ -335,7 +358,7 @@ already set
   \end{itemize}
 \end{frame}
 
-% page 20
+% page 21
 \begin{frame}{Conclusions}
   \begin{itemize}
     \item Implementing break is trickier then you might think.
@@ -344,13 +367,13 @@ already set
   \end{itemize}
 \end{frame}
 
-% page 21
+% page 22
 \begin{frame}{Future Topics}
   \begin{itemize}
     \item Next Meeting: June 7th 9:30 US Central (14:30 UTC)
     \item Show how Lmod processes a module load command, stepping
       through the codebase.
-    \item Suggestions.
+    \item Suggestions?
   \end{itemize}
 \end{frame}
 
