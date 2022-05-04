@@ -264,7 +264,7 @@ must specify the version if there is more than one version:
   (Use "module --force purge" to unload all):
 ]==],
      m_Sticky_Unstuck      = "\nThe following sticky modules could not be reloaded:\n",
-     m_Unload_unknown      = "Note: the module \"%{modName}\" cannot be unloaded because it was not loaded.",
+     m_Unload_unknown      = "\nNote: the module \"%{modName}\" cannot be unloaded because it was not loaded.\n",
      m_Versions            = "     Versions:\n",
      m_Where               = "\n  Where:\n",
 
