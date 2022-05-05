@@ -7,7 +7,7 @@ that are rarely used, and you can find out which users are using the
 modules. Once you have decided which modules are marked for removal,
 you can make a message be printed when the module is loaded.
 
-Suppose you want to mark a module for later removal.  You can setup a
+Suppose you want to mark a module for later removal.  You can set up a
 message that is reported to the user *Every time the module is
 loaded*.
 
