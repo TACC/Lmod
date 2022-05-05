@@ -454,7 +454,7 @@ User Collections
 User defined initial list of login modules:
 
 Assuming that the system administrators have installed Lmod correctly,
-there is a second way which is much easier to setup. A user logs in
+there is a second way which is much easier to set up. A user logs in
 with the standard modules loaded. Then the user modifies the default
 setup through the standard module commands::
 
