@@ -1,0 +1,380 @@
+\documentclass{beamer}
+
+% You can also use a 16:9 aspect ratio:
+%\documentclass[aspectratio=169]{beamer}
+\usetheme{TACC16}
+
+% It's possible to move the footer to the right:
+%\usetheme[rightfooter]{TACC16}
+
+%% page 
+%\begin{frame}{}
+%  \begin{itemize}
+%    \item
+%  \end{itemize}
+%\end{frame}
+%
+%% page 
+%\begin{frame}[fragile]
+%    \frametitle{}
+% {\tiny
+%    \begin{semiverbatim}
+%    \end{semiverbatim}
+%}
+%  \begin{itemize}
+%    \item
+%  \end{itemize}
+%
+%\end{frame}
+
+\begin{document}
+\title[Lmod]{The complicated story about TCL break}
+\author{Robert McLay} 
+\date{May. 3, 2022}
+
+% page 1
+\frame{\titlepage} 
+
+
+% page 2
+\begin{frame}{Outline}
+  \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
+  \begin{itemize}
+    \item Let's talk about TCL break (and LmodBreak)
+    \item Lmod didn't really support TCL break at all until Lmod 8.6
+      (really Lmod 8.7)
+    \item Years ago mailing list question: support for break
+    \item Lmod 6 and below could not support break
+    \item Why?
+  \end{itemize}
+\end{frame}
+
+% page 3
+\begin{frame}[fragile]
+    \frametitle{Reminder: How Lmod works}
+  \begin{itemize}
+    \item In order to have a command effect the current shell
+    \item A simple module command for bash is given below
+    \item The \$LMOD\_CMD command generate shell commands as text
+    \item The eval "..." evaluate the text to change the current shell
+    \item For the rest of this talk: focus on what \$LMOD\_CMD produces
+  \end{itemize}
+ {\small
+    \begin{semiverbatim}
+     module () \{ eval "\$(\$LMOD\_CMD bash "\$@")"; \}
+    \end{semiverbatim}
+}
+\end{frame}
+
+% page 4
+\begin{frame}[fragile]
+    \frametitle{Reminder: How Lmod TCL processing works}
+  \begin{itemize}
+    \item Internally Lmod knows when a file is a TCL modulefile 
+    \item No *.lua extension $\Rightarrow$ TCL modulefile 
+    \item The program tcl2lua.tcl is called to process the tcl 
+    \item It converts TCL modulefile into Lua with Lmod module
+      commands
+  \end{itemize}
+ {\tiny
+    \begin{semiverbatim}
+setenv FOO bar \Rightarrow setenv("FOO","bar")
+prepend-path PATH /prgm/bin \Rightarrow prepend_path("PATH","/prgm/bin")
+break \Rightarrow LmodBreak() -- Only for bare breaks
+    \end{semiverbatim}
+}
+\end{frame}
+
+% page 5
+\begin{frame}[fragile]
+    \frametitle{TCL Break}
+ {\small
+   \begin{semiverbatim}
+for \{set i 0\} \{\$i < 5\} \{incr i\} \{
+  puts stderr "\$i"
+  if \{ \$i == 3 \} \{
+      break  # This breaks out of the loop
+  \}
+\}
+break # This causes the modulefile
+      # to stop being processed.       
+    \end{semiverbatim}
+}
+\end{frame}
+
+% page 6
+\begin{frame}{Why was TCL break such a problem for Lmod?}
+  \begin{itemize}
+    \item TCL break stops processing the current module
+    \item It ignores any changes in a module that has a break
+    \item But it keeps all other modules loaded.
+    \item {\color{blue} \texttt{module load A B C D}} 
+    \item Where C has a break
+    \item Then A B are loaded but C and D are not.
+  \end{itemize}
+\end{frame}
+
+% page 7
+\begin{frame}{LmodError is different}
+  \begin{itemize}
+    \item {\color{blue} \texttt{module load A B C D}} 
+    \item Where C has an LmodError()
+    \item No modules are loaded.
+  \end{itemize}
+\end{frame}
+
+% page 8
+\begin{frame}{Lmod waits to produce output}
+  \begin{itemize}
+    \item When loading several modules, Lmod waits
+    \item All module actions are completed internally
+    \item Then Lmod generates shell command output.
+    \item Lmod 6 and earlier wouldn't know what changes to ignore when
+      processing a break.
+    \item Lmod produces either an error or environment changes
+      not both.
+  \end{itemize}
+\end{frame}
+
+% page 9
+\begin{frame}{Lmod 7+ was a complete re-write of Lmod}
+  \begin{itemize}
+    \item It was needed to support Name/Version/Version (N/V/V) modulefiles
+    \item Before Lmod only supported N/V or C/N/V
+    \item Lmod 7+ now has a FrameStk (AKA the stack-frame)
+    \item The FrameStk contains a stack of the environment var table (varT) and the
+      module table (mt)
+  \end{itemize}
+\end{frame}
+
+% page 10
+\begin{frame}{FrameStk: varT and mt}
+  \begin{itemize}
+    \item The table varT contains key-value pairs that represent the
+      new env. var values
+    \item The table mt is the module table containing the currently
+      loaded modules among other things
+    \item The Module Table is stored in the environment via
+      \$\_ModuleTable001\_ etc.
+  \end{itemize}
+\end{frame}
+
+% page 11
+\begin{frame}[fragile]
+    \frametitle{assignment versus deepcopy() in Lua}
+ {\small
+    \begin{semiverbatim}
+  a = \{\}
+  a[1] = "foo"
+  b    = a
+  b[1] = "bar"
+  print(a[1])  -> ``bar'' not ``foo''
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item Lua tries to be efficent
+    \item It just copies reference
+    \item As shown above.
+    \item Lmod provides deepcopy() function.
+    \item This creates a new table
+  \end{itemize}
+\end{frame}
+
+% page 12
+\begin{frame}{FrameStk}
+  \begin{itemize}
+    \item Before each module: Deep Copy copies the previous varT and mt to top of
+      FrameStk.
+    \item Each evaluation of modulefile is updated on the top of the
+      FrameStk
+    \item When the current modulefile evaluation is completed
+    \item The FrameStk is pop'ed
+    \item The previous stack values are replaced with current
+  \end{itemize}
+\end{frame}
+
+% page 13
+\begin{frame}{FrameStk implications}
+  \begin{itemize}
+    \item Cannot trust local values of mt
+    \item Lmod constantly has to refresh mt:
+    \item {\color{blue}mt = frameStk:mt()}
+    \item Because a module load might have updated it.
+  \end{itemize}
+\end{frame}
+
+% page 14
+\begin{frame}[fragile]
+    \frametitle{LmodBreak or TCL break}
+  \begin{itemize}
+    \item If LmodBreak() is called, the current module changes are
+      ignored
+    \item LmodBreak() causes the previous values to be current
+    \item FrameStk:pop() pops the stack.
+    \item The FrameStk code is shown below:
+  \end{itemize}
+ {\tiny
+    \begin{semiverbatim}
+function M.LmodBreak(self)
+   local stack           = self.\_\_stack
+   local count           = self.\_\_count
+   stack[count].mt       = deepcopy(stack[count-1].mt)
+   stack[count].varT     = deepcopy(stack[count-1].varT)
+end
+
+function M.pop(self)
+   local stack           = self.\_\_stack
+   local count           = self.\_\_count
+   stack[count-1].mt     = stack[count].mt
+   stack[count-1].varT   = stack[count].varT
+   stack[count]          = nil
+   self.__count          = count - 1
+end
+    \end{semiverbatim}
+}
+\end{frame}
+
+% page 15
+\begin{frame}{Support for TCL break}
+  \begin{itemize}
+    \item Lmod 8.6+ added support LmodBreak()
+    \item Lmod 8.6+ added support a bare TCL break
+    \item Lmod 8.7+ added support for regular break and bare break
+  \end{itemize}
+\end{frame}
+
+% page 16
+\begin{frame}[fragile]
+    \frametitle{TCL Break strangeness}
+ {\small
+   \begin{semiverbatim}
+for \{set i 0\} \{\$i < 5\} \{incr i\} \{
+  puts stderr "\$i"
+  if \{ \$i == 3 \} \{
+      break  # This breaks out of the loop
+  \}
+\}
+break # This causes the modulefile
+      # to stop being processed.       
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item TCL treats a bare break as an error
+    \item Tmod 3, 4 and 5 catch the error
+    \item Lmod 8.7+ now catch the error too!
+  \end{itemize}
+\end{frame}
+
+% page 17
+\begin{frame}[fragile]
+    \frametitle{To support regular and bare break in TCL in tcl2lua.tcl}
+ {\tiny
+    \begin{semiverbatim}
+set sourceFailed [catch \{source \$ModulesCurrentModulefile \} errorMsg] # (1) 
+set returnval 0
+if \{ $g\_help && [info procs "ModulesHelp"] == "ModulesHelp" \} \{
+   # handle module help
+   ... 
+\}
+if \{\$sourceFailed\} \{
+    if \{ \$sourceFailed == 3 || \$errorMsg == \{invoked "break" outside of a loop\}\} \{
+       set returnVal 1
+       myBreak
+       showResults
+       return \$returnVal
+    \}
+    reportError \$errorMsg
+    set returnVal 1
+\}
+showResults
+return $returnVal
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item line 1 evaluate the TCL modulefile
+    \item \$sourceFailed will be non-zero for TCL errors
+    \item \$sourceFailed == 3 means a bare break has been found.
+  \end{itemize}
+\end{frame}
+
+% page 18
+\begin{frame}[fragile]
+    \frametitle{What happens when?}
+ {\tiny
+    \begin{semiverbatim}
+% cat C.lua
+load("X","Y")
+LmodBreak()
+
+% module load A B C D
+% module list 
+Currently Loaded Modules:
+  1) A    2) B
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item Module A and B are loaded internally
+    \item When loading C, modules X and Y are loaded internally
+    \item When LmodBreak() is encounter, processing of C stops
+    \item Also the effects of X and Y are ignored.
+  \end{itemize}
+\end{frame}
+
+% page 19
+\begin{frame}[fragile]
+    \frametitle{Lmod 8.6.15 could create an endless loop}
+ {\tiny
+    \begin{semiverbatim}
+% cat foo3/1.0
+#%Module
+catch \{set foo \$env(FOO)\}
+if \{ [info exists foo] \} \{
+  puts stderr "already set"
+  break
+\}
+setenv FOO "just me"
+
+% module load foo3/1.0; module load foo3/1.0
+already set
+already set
+...continues until crtl+C ...
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item Loading foo3/1.0 twice causes an endless loop
+    \item Why?
+    \item The second load forces foo3/1.0 to unload (which it can't)
+    \item Lmod then tries to re-load foo3/1.0 which causes the unload etc.
+  \end{itemize}
+
+\end{frame}
+
+% page 20
+\begin{frame}{LmodBreak() is a no-op on unload}
+  \begin{itemize}
+    \item A bare TCL break becomes an LmodBreak() when translated.
+    \item LmodBreak() does nothing during unload.
+    \item This prevents the endless loop shown above. (Lmod 8.7+)
+  \end{itemize}
+\end{frame}
+
+% page 21
+\begin{frame}{Conclusions}
+  \begin{itemize}
+    \item Implementing break is trickier then you might think.
+    \item Lmod now can support bare breaks finally in Lmod 8.7
+    \item The FrameStk is the price to be paid to support break.
+  \end{itemize}
+\end{frame}
+
+% page 22
+\begin{frame}{Future Topics}
+  \begin{itemize}
+    \item Next Meeting: June 7th 9:30 US Central (14:30 UTC)
+    \item Show how Lmod processes a module load command, stepping
+      through the codebase.
+    \item Suggestions?
+  \end{itemize}
+\end{frame}
+
+\end{document}
