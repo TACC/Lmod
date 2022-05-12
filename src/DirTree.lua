@@ -102,6 +102,7 @@ local function l_checkValidModulefileReal(fn)
    if (not f) then
       return false
    end
+
    local line = f:read(20) or ""
    f:close()
 
@@ -140,7 +141,6 @@ end
 
 -- return all possible absolute paths to the default file.
 local function l_versionFile(mrc, mpath, defaultA)
-
    for i = 1,#defaultA do
       repeat 
          local defaultT = defaultA[i]
@@ -192,6 +192,8 @@ local function l_walk(mrc, mpath, path, dirA, fileT,regularFn)
             local fullName  = extractFullName(mpath, file)
             if (dfltIdx) then
                local luaExt = f:find("%.lua$")
+               local sizeFn = lfs.attributes(file,"size")
+               if (not luaExt and sizeFn > 0 and (not l_checkValidModulefile(file))) then break end
                defaultA[#defaultA+1] = { fullName = fullName, fn = file, mpath = mpath, luaExt = luaExt,
                                          barefn = f, defaultIdx = dfltIdx }
                if (f == "default" and kind == "file") then
@@ -264,6 +266,7 @@ local function l_walk_tree(mrc, mpath, pathIn, dirT, regularFn)
 end
 
 local function l_build(mpathA)
+   --dbg.start{"l_build(mpathA)"}
    local dirA      = {}
    local mrc       = MRC:singleton()
 
@@ -279,6 +282,7 @@ local function l_build(mpathA)
          dirA[#dirA+1] = {mpath=mpath, dirT=dirT}
       end
    end
+   --dbg.fini("l_build")
    return dirA
 end
 
