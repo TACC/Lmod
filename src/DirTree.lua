@@ -193,7 +193,7 @@ local function l_walk(mrc, mpath, path, dirA, fileT,regularFn)
             if (dfltIdx) then
                local luaExt = f:find("%.lua$")
                local sizeFn = lfs.attributes(file,"size")
-               --if (not luaExt and sizeFn > 0 and (not l_checkValidModulefile(file))) then break end
+               if (f ~= "default" and not luaExt and sizeFn > 0 and (not l_checkValidModulefile(file))) then break end
                defaultA[#defaultA+1] = { fullName = fullName, fn = file, mpath = mpath, luaExt = luaExt,
                                          barefn = f, defaultIdx = dfltIdx }
                if (f == "default" and kind == "file") then
