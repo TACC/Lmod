@@ -173,3 +173,6 @@ end
 ** Rules for module sn names?
 
 
+* Changes to Lmod:
+** Warning when DirTree sees too many non-modulefiles
+** Ignore .version files that are not Lmod files
