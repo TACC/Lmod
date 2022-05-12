@@ -161,7 +161,7 @@ local function l_versionFile(mrc, mpath, defaultA)
    return defaultA
 end
 
-local function l_walk(mrc, mpath, path, dirA, fileT)
+local function l_walk(mrc, mpath, path, dirA, fileT,regularFn)
    local defaultA   = {}
    local permissions
    local uid
@@ -170,7 +170,7 @@ local function l_walk(mrc, mpath, path, dirA, fileT)
    local attr       = lfs.attributes(path)
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory" or
        not access(path,"rx")) then
-      return defaultA
+      return defaultA, regularFn
    end
 
 
@@ -203,6 +203,8 @@ local function l_walk(mrc, mpath, path, dirA, fileT)
                   local dot_version = f:find("^%.version") or f:find("^%.modulerc")
                   fileT[fullName]   = {fn = file, canonical = f:gsub("%.lua$", ""), mpath = mpath,
                                        luaExt = luaExt, dot_version = dot_version}
+               else
+                  regularFn = regularFn + 1
                end
             end
          end
@@ -215,7 +217,7 @@ local function l_walk(mrc, mpath, path, dirA, fileT)
                      end)
    end
 
-   return defaultA
+   return defaultA, regularFn
 end
 
 ----------------------------------------------------------------------
@@ -232,11 +234,12 @@ end
 
 
 
-local function l_walk_tree(mrc, mpath, pathIn, dirT)
+local function l_walk_tree(mrc, mpath, pathIn, dirT, regularFn)
 
-   local dirA     = {}
-   local fileT    = {}
-   local defaultA = l_walk(mrc, mpath, pathIn, dirA, fileT)
+   local defaultA 
+   local dirA          = {}
+   local fileT         = {}
+   defaultA, regularFn = l_walk(mrc, mpath, pathIn, dirA, fileT, regularFn)
 
    dirT.fileT    = fileT
    dirT.defaultA = defaultA
@@ -248,7 +251,7 @@ local function l_walk_tree(mrc, mpath, pathIn, dirT)
       local fullName = extractFullName(mpath, path)
 
       dirT.dirT[fullName] = {}
-      l_walk_tree(mrc, mpath, path, dirT.dirT[fullName])
+      regularFn = l_walk_tree(mrc, mpath, path, dirT.dirT[fullName], regularFn)
 
       ----------------------------------------------------------------
       -- if the directory is empty or bad symlinks then do not save it
@@ -257,17 +260,22 @@ local function l_walk_tree(mrc, mpath, pathIn, dirT)
          dirT.dirT[fullName] = nil
       end
    end
+   return regularFn
 end
 
 local function l_build(mpathA)
-   local dirA = {}
-   local mrc  = MRC:singleton()
+   local dirA      = {}
+   local mrc       = MRC:singleton()
 
    for i = 1,#mpathA do
-      local mpath = mpathA[i]
+      local regularFn = 0
+      local mpath     = mpathA[i]
       if (isDir(mpath)) then
          local dirT  = {}
-         l_walk_tree(mrc, mpath, mpath, dirT)
+         regularFn = l_walk_tree(mrc, mpath, mpath, dirT, regularFn)
+         if (regularFn > 100) then
+            LmodWarning{msg="w_Too_Many_RegularFn",mpath=mpath,regularFn=tostring(regularFn)}
+         end
          dirA[#dirA+1] = {mpath=mpath, dirT=dirT}
       end
    end
