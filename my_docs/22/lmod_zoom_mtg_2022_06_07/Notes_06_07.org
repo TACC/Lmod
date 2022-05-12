@@ -1,0 +1,175 @@
+Notes for how Lmod loads a modulefile
+
+* Main:
+  The main program source starts with lmod.in.lua (installed as lmod)
+  The command "module load foo"
+** To parse  it Lmod takes the 2nd word "lood" to activate  
+** Lmod searches lmodCmdA to figure out what command to do
+** lmodCmdA an array of tables
+   local lmodCmdA = {
+      {cmd = 'add',          min = 2, action = loadTbl     },
+      {cmd = 'avail',        min = 2, action = availTbl    },
+      {cmd = 'isLoaded',     min = 3, action = isLoadedTbl },
+      {cmd = 'isloaded',     min = 3, action = isLoadedTbl },
+      {cmd = 'is_loaded',    min = 4, action = isLoadedTbl },
+      {cmd = 'is-loaded',    min = 4, action = isLoadedTbl },
+      {cmd = 'listdefaults', min = 5, action = savelistTbl },
+      {cmd = 'load',         min = 2, action = loadTbl     },
+      ...
+   }
+   local loadTbl      = { name = "load",        checkMPATH = true,  cmd = Load_Usr      }
+
+** So "load" matches "load" with more than 2 characters
+   Sets cmdT to loadTbl
+   sets cmdName to cmdT.name
+** Extract command and run it
+   cmd = cmdT.cmd
+   cmd(unpack(masterTbl.pargs))
+
+* Calling Load_Usr
+** All function implementing commands are in src/cmdfunc.lua
+function Load_Try(...)
+   dbg.start{"Load_Try(",concatTbl({...},", "),")"}
+   local check_must_load = false
+   local argA            = pack(...)
+   l_usrLoad(argA, check_must_load)
+   dbg.fini("Load_Try")
+end
+
+function Load_Usr(...)
+   dbg.start{"Load_Usr(",concatTbl({...},", "),")"}
+   local check_must_load = true
+   local argA            = pack(...)
+   l_usrLoad(argA, check_must_load)
+   dbg.fini("Load_Usr")
+end
+
+* l_usrLoad(argA, check_must_load)
+  Split loads from unloads
+  Anything with a minus (and not an option is an unload)
+     unload_usr_internal(uA,force)
+
+
+  Both uA (unloads) and lA (loads) are an array of MName objects.
+  lA[#lA+1] = MName:new("load",v)
+
+  Load all loads
+    
+     mcp:load_usr(lA)
+
+* MName are a core concept to Lmod code.
+** What Mname class does is try to map the name of the module "foo"
+   to a file name
+** There are two major types of searching: "load" or "mt"
+*** "load" means that Lmod must look to the file system somehow
+    This is either a direct walk of the file system
+    or it looks thru the spider cache
+** Issues
+  issues: Because of the possible software hierarchy
+  knowing where "foo" is located may not be possible
+  For example "module load gcc mpich" mpich might only be in the
+  module path after gcc is loaded. -> lazy evaluation
+
+* MName key concepts
+** userName: the name given on the command line
+   This could be the sn (gcc) or the fullName "gcc/9.3.0"
+   or somewhere inbetween for NVV ("gcc/x86_64")
+** sn: the short name 
+** fullName: The fullName of the module
+   gcc/9.3.0 (sn: gcc)  or gcc/x86_64/9.3.0 (sn:gcc)  or
+   compiler/gcc/9.3.0 (sn: compiler/gcc)
+   N/V, N/V/V or C/N/V
+
+
+* We have talked about mcp (main control program)
+  We know in this case that mcp:load_usr(lA) this is a load so
+  -> MasterControl:load_usr(mA)
+** User load registers the load as something we expect to be there when done
+** Self:load(mA)
+
+* MasterControl:load(mA)
+function M.load(self, mA)
+   local master = Master:singleton()
+   local a      = master:load(mA)
+
+   if (not quiet()) then
+      self:registerAdminMsg(mA)
+   end
+   return a
+end
+** MasterControl -> Master:load(mA)
+
+* Master:load(mA)
+  src/Master.lua is where the "heavy lifting" is done by Lmod
+
+  function M.load(mA)
+
+  for i = 1, #mA do
+     repeat
+        mname = mA[i]
+        sn = mname:sn()  -- shortName
+        fn = mname:fn()  -- file name
+        -- if blank sn -> pushModule (might have to wait until
+        -- compiler or mpi is loaded.
+        -- and break (really continue)
+
+        -- Check for previously load module with same sn
+        if (mt:have(sn,"active)) then
+           -- if disable_same_name_autoswap -> error out
+           -- Otherwise: unload previous module
+            local mcp_old = mcp
+            local mcp     = MCP
+            unload_internal{MName:new("mt",sn)}
+            mname:reset()  -- force a new lazyEval
+            local status = mcp:load_usr{mname}
+            mcp          = mcp_old
+         
+        -- Check for empty fn --> error out
+
+        elseif (fn) then
+            frameStk:push(mname)
+            mt = frameStk:mt()
+            mt:add(mname,"pending")
+            local status = loadModuleFile{file = fn, shell = shellNm, mList = mList, reportErr = true}
+            frameStk:pop()
+            loaded = true
+         end
+
+         -- Check for family stack (e.g. compiler, mpi etc)
+         if (mcp.processFamilyStack(fullName)) then
+            -- Suppose gcc is loaded and it was "replaced" by intel
+            -- unload gcc and reload intel
+         end
+      until true
+   end         
+     
+   -- Reload every module if change in MODULEPATH.
+     
+   -- load any modules on module stack
+end
+
+* loadModuleFile(t)
+** This is where Lmod handle either *.lua files or TCL Modulefiles
+** Once either read in as a block (for *.lua) or converted (TCL modulefile-> Lua)
+** Core code:
+   -- Use the sandbox to evaluate modulefile text.
+   if (whole) then
+      status, msg = sandbox_run(whole)
+   else
+      status = nil
+      msg    = "Empty or non-existent file"
+   end
+
+** Report any errors  
+
+
+* This is just the highlights there are many things not explained in detail.
+  This will just give me more to talk about.
+
+* Possible topics
+** MName
+** dirT?
+** locationT?
+** Rules for module sn names?
+
+
