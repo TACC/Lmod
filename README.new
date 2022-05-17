@@ -1,4 +1,7 @@
 Lmod 8.7+
    (8.7.1)  * Updates on 5/3 presentation.
-W.I.P:
    (8.7.2)  * Print message when unloading an unknown module (but not in a purge or dependent module)
+W.I.P:
+   (8.7.3)  * Report warning when an MODULEPATH directory has too many non-modulefiles
+            * A .version or .modulerc that has non-zero file length and doesn't start
+              with "#%Module" is ignored.
