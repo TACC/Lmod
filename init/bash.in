@@ -87,8 +87,6 @@ if [ "@silence_shell_debugging@" = "no" ]; then
 else
    module()
    {
-     local __lmod_my_status
-     local __lmod_sh_dbg
      ############################################################
      # Silence shell debug UNLESS $LMOD_SH_DBG_ON has a value
      if [ -z "${LMOD_SH_DBG_ON+x}" ]; then
@@ -115,6 +113,7 @@ else
        echo "Shell debugging restarted" 1>&2
        set -$__lmod_sh_dbg;
      fi;
+     unset __lmod_sh_dbg
      return $__lmod_my_status
    }
 fi
