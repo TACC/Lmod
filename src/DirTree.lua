@@ -162,6 +162,7 @@ local function l_versionFile(mrc, mpath, defaultA)
 end
 
 local function l_walk(mrc, mpath, path, dirA, fileT,regularFn)
+   dbg.start{"l_walk(mrc,mpath:\"",mpath,"\", path:\"",path,"\", dirA, fileT, regularFn"}
    local defaultA   = {}
    local permissions
    local uid
@@ -170,6 +171,7 @@ local function l_walk(mrc, mpath, path, dirA, fileT,regularFn)
    local attr       = lfs.attributes(path)
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory" or
        not access(path,"rx")) then
+      dbg.fini("l_walk")
       return defaultA, regularFn
    end
 
@@ -184,6 +186,8 @@ local function l_walk(mrc, mpath, path, dirA, fileT,regularFn)
          local kind = attr.mode
 
          if (attr.uid == 0 and user_uid == 0 and not attr.permissions:find("......r..")) then break end
+
+         dbg.print{"file: ",file,", kind: ",kind,"\n"}
 
          if (kind == "directory" and f ~= "." and f ~= "..") then
             dirA[#dirA + 1 ] = file
@@ -219,6 +223,7 @@ local function l_walk(mrc, mpath, path, dirA, fileT,regularFn)
                      end)
    end
 
+   dbg.fini("l_walk")
    return defaultA, regularFn
 end
 

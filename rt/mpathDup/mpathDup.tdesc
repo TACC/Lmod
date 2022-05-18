@@ -9,7 +9,7 @@ testdescript = {
    ]],
    keywords = {testName },
 
-   active   = false,
+   active   = true,
    testName = testName,
    job_submit_method = "INTERACTIVE",
 
@@ -25,7 +25,9 @@ testdescript = {
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
 
      runLmod --version                         # 1
-     runLmod spider                            # 2
+     runLmod load gcc                          # 2
+     runLmod load B                            # 3
+     runLmod spider                            # 4
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
