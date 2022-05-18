@@ -1522,3 +1522,29 @@ MODULEPATH=ProjectDIR/rt/spider/mf2/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf2/Core",}';
 export _ModuleTable_;
+===========================
+step 71
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/spider/mf3/system:1\;ProjectDIR/rt/spider/mf3/init-modules:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/spider/mf3/system:ProjectDIR/rt/spider/mf3/init-modules;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf3/system","ProjectDIR/rt/spider/mf3/init-modules",},systemBaseMPATH="ProjectDIR/rt/spider/mf3/system:ProjectDIR/rt/spider/mf3/init-modules",}';
+export _ModuleTable_;
+===========================
+step 72
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider Appl1
+===========================
+MODULEPATH=ProjectDIR/rt/spider/mf3/system:ProjectDIR/rt/spider/mf3/init-modules;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf3/system","ProjectDIR/rt/spider/mf3/init-modules",},systemBaseMPATH="ProjectDIR/rt/spider/mf3/system:ProjectDIR/rt/spider/mf3/init-modules",}';
+export _ModuleTable_;
+===========================
+step 73
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider Appl1
+===========================
+MODULEPATH=ProjectDIR/rt/spider/mf3/system:ProjectDIR/rt/spider/mf3/init-modules;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf3/system","ProjectDIR/rt/spider/mf3/init-modules",},systemBaseMPATH="ProjectDIR/rt/spider/mf3/system:ProjectDIR/rt/spider/mf3/init-modules",}';
+export _ModuleTable_;
