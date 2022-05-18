@@ -117,7 +117,9 @@ local function l_processNewModulePATH(path)
    local t           = mpathMapT[mpath_new] or {}
    t[fullName]       = mpath_old
 
-   mpathMapT[mpath_new] = t
+   if (mpath_new ~= mpath_old) then
+      mpathMapT[mpath_new] = t
+   end
 
 end
 

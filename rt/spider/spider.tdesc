@@ -141,8 +141,8 @@ testdescript = {
      runLmod      spider GROMACS/2018                                         #69
      runLmod      spider GROMACS/2019                                         #70
 
-     # Case from Kurt where spider failed when switching
-     # $MODULEPATH
+     # Case from U. of Antwerp where spider failed when adding a 
+     # path of itself to $MODULEPATH
 
      unsetMT
      export MODULEPATH=$testDir/mf3/system:$testDir/mf3/init-modules
