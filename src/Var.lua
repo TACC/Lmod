@@ -395,19 +395,6 @@ function M.prepend(self, value, nodups, priority)
       shell:echo(concatTbl(b,""))
    end
 
-   --------------------------------------------------
-   -- Error out if module is trying to enter a dup
-   -- directory into $MODULEPATH
-   --if (name == ModulePath) then
-   --   for i = is, ie, iskip do
-   --      local path = pathA[i]
-   --      if (tbl[path] ~= nil) then
-   --         LmodError{msg="e_DupMpath",value = path}
-   --         return
-   --      end
-   --   end
-   --end
-
    local imin = min(self.imin, 0)
    for i = is, ie, iskip do
       local path = pathA[i]
@@ -466,19 +453,6 @@ function M.append(self, value, nodups, priority)
 
    local tbl  = self.tbl
    local imax = self.imax
-
-   --------------------------------------------------
-   -- Error out if module is trying to enter a dup
-   -- directory into $MODULEPATH
-   --if (name == ModulePath) then
-   --   for i = 1,#pathA do
-   --      local path = pathA[i]
-   --      if (tbl[path] ~= nil) then
-   --         LmodError{msg="e_DupMpath",value = path}
-   --         return
-   --      end
-   --   end
-   --end
 
    for i = 1, #pathA do
       local path = pathA[i]

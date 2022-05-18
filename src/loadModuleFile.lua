@@ -51,6 +51,9 @@ local dbg             = require("Dbg"):dbg()
 local concatTbl       = table.concat
 local getenv          = os.getenv
 
+local s_mfileCountT   = {}
+local s_count         = 0
+
 ------------------------------------------------------------------------
 -- loadModuleFile(t): read a modulefile in via sandbox_run
 -- @param t The input table naming the file to be loaded plus other
@@ -66,12 +69,24 @@ function loadModuleFile(t)
    local whole
    local userName
 
+
+
    -- If the user is requesting an unload, don't complain if the file
    -- has disappeared.
 
    if (mode() == "unload" and not isFile(t.file)) then
       dbg.fini("loadModuleFile")
       return not lmodBrk
+   end
+
+   -- Check for infinite loop
+
+   if (mcp:mode() == "load" and t.file) then
+      s_count = s_count + 1
+      s_mfileCountT[t.file] = ( s_mfileCountT[t.file] or 0) + 1
+      if (s_mfileCountT[t.file] > 500) then
+         LmodError{msg="e_Inf_Loop",file=t.file, fullName = myModuleFullName()}
+      end
    end
 
    if (myType == ".lua") then

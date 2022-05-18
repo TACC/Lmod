@@ -141,6 +141,24 @@ testdescript = {
      runLmod      spider GROMACS/2018                                         #69
      runLmod      spider GROMACS/2019                                         #70
 
+     # Case from Kurt where spider failed when switching
+     # $MODULEPATH
+
+     unsetMT
+     export MODULEPATH=$testDir/mf3/system:$testDir/mf3/init-modules
+     unset LMOD_SYSTEM_DEFAULT_MODULES
+     unset LMOD_RC
+     unset LMOD_ADMIN_FILE
+     unset LMOD_PACKAGE_PATH
+
+     runLmod avail                                                            #71
+
+     unset TRIGGER_BUG
+     runLmod spider Appl1                                                     #72
+     export TRIGGER_BUG=
+     runLmod spider Appl1                                                     #73
+     
+
 
      HOME=$ORIG_HOME
 

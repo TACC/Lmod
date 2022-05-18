@@ -1,11 +1,11 @@
 -- -*- lua -*-
-local testName = "mpathDup"
+local testName = "infiniteLoop"
 
 testdescript = {
    owner   = "rtm",
    product = "modules",
    description = [[
-	 mpathDup
+	 infiniteLoop
    ]],
    keywords = {testName },
 
@@ -26,8 +26,6 @@ testdescript = {
 
      runLmod --version                         # 1
      runLmod load gcc                          # 2
-     runLmod load B                            # 3
-     runLmod spider                            # 4
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
