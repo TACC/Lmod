@@ -44,10 +44,10 @@ Then you haven't set things up correctly.
 Possible functions for your SitePackage.lua file
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-There are two common reason a site might setup this file. The main
+There are two common reason a site might set up this file. The main
 reason is to specify hook functions.  If your site wishes to track
 module usage, you can use the load hook to have a message sent to
-syslog.  The details are in contrib/track_module_usage/README.  
+syslog.  The details are in contrib/track_module_usage/README.
 
 The second reason is to provide common functions that all your
 modulefiles can use.  These functions must be registered.  To prevent

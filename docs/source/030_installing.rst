@@ -450,7 +450,7 @@ Global initialization should be placed in that file.
 Login shells (started with `rc -l`) additionally
 read the user's `$HOME/.rcrc` file.
 
-Running the following line on startup will setup the module
+Running the following line on startup will set up the module
 commands for rc users:
 
 ```
