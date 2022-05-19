@@ -113,12 +113,14 @@ local function l_processNewModulePATH(path)
    local moduleStack = masterTbl.moduleStack
    local iStack      = #moduleStack
    local mpath_old   = moduleStack[iStack].mpath
+   local moduleT     = moduleStack[iStack].moduleT
    local fullName    = moduleStack[iStack].fullName
    local t           = mpathMapT[mpath_new] or {}
    t[fullName]       = mpath_old
 
    if (mpath_new ~= mpath_old) then
       mpathMapT[mpath_new] = t
+      moduleT.changeMPATH = true
    end
 
 end
