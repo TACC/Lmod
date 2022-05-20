@@ -493,6 +493,10 @@ function M.build(self, fast)
    local short     = mt:getShortTime()
    if (not buildSpiderT) then
       mt:setRebuildTime(ancient, short)
+
+      -- Reload modulefiles that change $MODULEPATH
+      spider:reload_modulefiles_changeMPATH(spiderT)
+
    else
       local tracing  = cosmic:value("LMOD_TRACING")
       if (tracing == "yes") then
@@ -645,16 +649,13 @@ function M.build(self, fast)
          local k = dirA[i]
          spiderDirT[k] = t2
       end
-
    end
 
 
-   -- With a valid spiderT build dbT if necessary:
-   if (next(dbT) == nil or buildSpiderT) then
-      local mpathA = mt:modulePathA()
-      spider:buildDbT(mpathA, mpathMapT, spiderT, dbT)
-      spider:buildProvideByT(dbT, providedByT)
-   end
+   -- With a valid spiderT build dbT
+   local mpathA = mt:modulePathA()
+   spider:buildDbT(mpathA, mpathMapT, spiderT, dbT)
+   spider:buildProvideByT(dbT, providedByT)
 
    -- remove user cache file if old
    if (isFile(userSpiderTFN)) then
