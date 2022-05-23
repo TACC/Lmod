@@ -152,49 +152,48 @@ function Spider_append_path(kind, t)
    end
 end
 
+local shellNm = "bash"
 
-local function l_findModules(mpath, mt, mList, sn, v, moduleT)
+local function l_loadMe(entryT, moduleStack, iStack, myModuleT, mt, mList, mpath, sn)
+   local shell         = _G.Shell
+   local tracing       = cosmic:value("LMOD_TRACING")
+   local fn            = entryT.fn
+   local sn            = entryT.sn
+   local fullName      = entryT.fullName
+   local version       = entryT.version
+   moduleStack[iStack] = { mpath = mpath, sn = sn, fullName = fullName, moduleT = myModuleT, fn = fn}
+   local mname         = MName:new("entryT", entryT)
+   mt:add(mname, "pending")
 
-   local shell    = _G.Shell
-   local tracing  = cosmic:value("LMOD_TRACING")
-   local function l_loadMe(entryT, moduleStack, iStack, myModuleT)
-      local shellNm       = "bash"
-      local fn            = entryT.fn
-      local sn            = entryT.sn
-      local fullName      = entryT.fullName
-      local version       = entryT.version
-      moduleStack[iStack] = { mpath = mpath, sn = sn, fullName = fullName, moduleT = myModuleT, fn = fn}
-      local mname         = MName:new("entryT", entryT)
-      mt:add(mname, "pending")
-
-      if (tracing == "yes") then
-         local b          = {}
-         b[#b + 1]        = "Spider Loading: "
-         b[#b + 1]        = fullName
-         b[#b + 1]        = " (fn: "
-         b[#b + 1]        = fn or "nil"
-         b[#b + 1]        = ")\n"
-         shell:echo(concatTbl(b,""))
-      end
-
-      loadModuleFile{file=fn, help=true, shell=shellNm, reportErr=false, mList = mList}
-      hook.apply("load_spider",{fn = fn, modFullName = fullName, sn = sn})
-      mt:setStatus(sn, "active")
+   if (tracing == "yes") then
+      local b          = {}
+      b[#b + 1]        = "Spider Loading: "
+      b[#b + 1]        = fullName
+      b[#b + 1]        = " (fn: "
+      b[#b + 1]        = fn or "nil"
+      b[#b + 1]        = ")\n"
+      shell:echo(concatTbl(b,""))
    end
 
+   loadModuleFile{file=fn, help=true, shell=shellNm, reportErr=false, mList = mList}
+   hook.apply("load_spider",{fn = fn, modFullName = fullName, sn = sn})
+   mt:setStatus(sn, "active")
+end
+
+local function l_findModules(mpath, mt, mList, sn, v, moduleT)
    local entryT
    local moduleStack = masterTbl().moduleStack
    local iStack      = #moduleStack
    if (v.file) then
       entryT   = { fn = v.file, sn = sn, userName = sn, fullName = sn, version = false}
-      l_loadMe(entryT, moduleStack, iStack, v.metaModuleT)
+      l_loadMe(entryT, moduleStack, iStack, v.metaModuleT, mt, mList, mpath, sn)
    end
    if (next(v.fileT) ~= nil) then
       for fullName, vv in pairs(v.fileT) do
          vv.Version = extractVersion(fullName, sn)
          entryT   = { fn = vv.fn, sn = sn, userName = fullName, fullName = fullName,
                       version = vv.Version }
-         l_loadMe(entryT, moduleStack, iStack, vv)
+         l_loadMe(entryT, moduleStack, iStack, vv, mt, mList, mpath, sn)
       end
    end
    if (next(v.dirT) ~= nil) then
@@ -263,8 +262,52 @@ function M.searchSpiderDB(self, strA, dbT, providedByT)
    return kywdT, kywdExtsT
 end
 
+function M.reload_modulefiles_changeMPATH(self, spiderT, mpathA, mpathMapT)
+   dbg.start{"Spider:reload_modulefiles_changeMPATH(spiderT)"}
+   local tracing         = cosmic:value("LMOD_TRACING")
+   local mt              = deepcopy(MT:singleton())
+   local maxdepthT       = mt:maxDepthT()
+   local masterTbl       = masterTbl()
+   local moduleDirT      = {}
+   masterTbl.moduleStack = {{}}
+   masterTbl.dirStk      = {}
+   masterTbl.mpathMapT   = mpathMapT
+
+   local mList           = ""
+   local exit            = os.exit
+   os.exit               = l_nothing
+   
+   sandbox_set_os_exit(l_nothing)
+   if (tracing == "no" and not dbg.active()) then
+      turn_off_stdio()
+   end
+   dbg.print{"setting os.exit to l_nothing; turn off output to stderr\n"}
+   if (Use_Preload) then
+      local a = {}
+      mList   = getenv("LOADEDMODULES") or ""
+      for mod in mList:split(":") do
+         local i = mod:find("/[^/]*$")
+         if (i) then
+            a[#a+1] = mod:sub(1,i-1)
+         end
+         a[#a+1] = mod
+      end
+      mList = concatTbl(a,":")
+   end
+
+   local dirStk = masterTbl.dirStk
+   for i = 1,#mpathA do
+      local mpath = mpathA[i]
+      if (isDir(mpath)) then
+         dirStk[#dirStk+1] = path_regularize(mpath)
+      end
+   end
+   
 
 
+
+   dbg.fini("Spider:reload_modulefiles_changeMPATH")
+end
 
 function M.findAllModules(self, mpathA, spiderT)
    dbg.start{"Spider:findAllModules(",concatTbl(mpathA,", "),")"}
