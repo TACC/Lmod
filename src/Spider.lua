@@ -203,6 +203,30 @@ local function l_findModules(mpath, mt, mList, sn, v, moduleT)
    end
 end
 
+local function l_findChangeMPATH_modules(mpath, mt, mList, sn, v, moduleT)
+   local entryT
+   local moduleStack = masterTbl().moduleStack
+   local iStack      = #moduleStack
+   if (v.file) then
+      LmodError("Calling l_findChangeMPATH_modules w v.file")
+   end
+   if (next(v.fileT) ~= nil) then
+      for fullName, vv in pairs(v.fileT) do
+         if (vv.changeMPATH == true) then
+            vv.Version = extractVersion(fullName, sn)
+            entryT   = { fn = vv.fn, sn = sn, userName = fullName, fullName = fullName,
+                         version = vv.Version }
+            l_loadMe(entryT, moduleStack, iStack, vv, mt, mList, mpath, sn)
+         end
+      end
+   end
+   if (next(v.dirT) ~= nil) then
+      for name, vv in pairs(v.dirT) do
+         l_findChangeMPATH_modules(mpath, mt, mList, sn, vv)
+      end
+   end
+end
+
 function M.searchSpiderDB(self, strA, dbT, providedByT)
    dbg.start{"Spider:searchSpiderDB({",concatTbl(strA,","),"},spider, dbT)"}
    local masterTbl = masterTbl()
@@ -262,53 +286,6 @@ function M.searchSpiderDB(self, strA, dbT, providedByT)
    return kywdT, kywdExtsT
 end
 
-function M.reload_modulefiles_changeMPATH(self, spiderT, mpathA, mpathMapT)
-   dbg.start{"Spider:reload_modulefiles_changeMPATH(spiderT)"}
-   local tracing         = cosmic:value("LMOD_TRACING")
-   local mt              = deepcopy(MT:singleton())
-   local maxdepthT       = mt:maxDepthT()
-   local masterTbl       = masterTbl()
-   local moduleDirT      = {}
-   masterTbl.moduleStack = {{}}
-   masterTbl.dirStk      = {}
-   masterTbl.mpathMapT   = mpathMapT
-
-   local mList           = ""
-   local exit            = os.exit
-   os.exit               = l_nothing
-   
-   sandbox_set_os_exit(l_nothing)
-   if (tracing == "no" and not dbg.active()) then
-      turn_off_stdio()
-   end
-   dbg.print{"setting os.exit to l_nothing; turn off output to stderr\n"}
-   if (Use_Preload) then
-      local a = {}
-      mList   = getenv("LOADEDMODULES") or ""
-      for mod in mList:split(":") do
-         local i = mod:find("/[^/]*$")
-         if (i) then
-            a[#a+1] = mod:sub(1,i-1)
-         end
-         a[#a+1] = mod
-      end
-      mList = concatTbl(a,":")
-   end
-
-   local dirStk = masterTbl.dirStk
-   for i = 1,#mpathA do
-      local mpath = mpathA[i]
-      if (isDir(mpath)) then
-         dirStk[#dirStk+1] = path_regularize(mpath)
-      end
-   end
-   
-
-
-
-   dbg.fini("Spider:reload_modulefiles_changeMPATH")
-end
-
 function M.findAllModules(self, mpathA, spiderT)
    dbg.start{"Spider:findAllModules(",concatTbl(mpathA,", "),")"}
    spiderT.version = LMOD_CACHE_VERSION
@@ -352,6 +329,8 @@ function M.findAllModules(self, mpathA, spiderT)
       end
    end
 
+   local seenT = {}
+
    while(#dirStk > 0) do
       repeat
 
@@ -359,22 +338,30 @@ function M.findAllModules(self, mpathA, spiderT)
          local mpath     = dirStk[#dirStk]
          dirStk[#dirStk] = nil
 
-         -- skip mpath directory if already walked.
-         if (spiderT[mpath]) then break end
-
          -- skip mpath if directory does not exist
          -- or can not be read
          local attr  = lfs.attributes(mpath)
          if (not attr or attr.mode ~= "directory" or
              (not access(mpath,"rx")))               then break end
 
-         dbg.print{"mpath: ", mpath,"\n"}
-         local moduleA     = ModuleA:__new({mpath}, maxdepthT):moduleA()
-         local T           = moduleA[1].T
-         for sn, v in pairs(T) do
-            l_findModules(mpath, mt, mList, sn, v)
+         -- skip mpath directory if already walked.
+         if (seenT[mpath]) then break end
+
+         if (spiderT[mpath] == nil) then
+            dbg.print{"new mpath: ", mpath,"\n"}
+            local moduleA     = ModuleA:__new({mpath}, maxdepthT):moduleA()
+            local T           = moduleA[1].T
+            for sn, v in pairs(T) do
+               l_findModules(mpath, mt, mList, sn, v)
+            end
+            spiderT[mpath] = moduleA[1].T
+         else
+            dbg.print{"old mpath: ", mpath,"\n"}
+            for sn, v in pairs(spiderT[mpath]) do
+               l_findChangeMPATH_modules(mpath, mt, mList, sn, v)
+            end
          end
-         spiderT[mpath] = moduleA[1].T
+         seenT[mpath]   = true
       until true
    end
 

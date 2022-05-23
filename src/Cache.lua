@@ -495,8 +495,7 @@ function M.build(self, fast)
       mt:setRebuildTime(ancient, short)
 
       -- Reload modulefiles that change $MODULEPATH
-      spider:reload_modulefiles_changeMPATH(spiderT, mpathA, mpathMapT)
-
+      spider:findAllModules(mpathA, spiderT)
    else
       local tracing  = cosmic:value("LMOD_TRACING")
       if (tracing == "yes") then
