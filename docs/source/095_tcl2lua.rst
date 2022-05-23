@@ -9,7 +9,7 @@ TCL interpreter.  This is *NOT* a source to source translation.
 
 The purpose of **tcl2lua.tcl** is to evaluate the regular TCL command
 but replace "module functions", such as **prepend-path** or
-**setenv**, and converted to Lua.  For example, suppose you have
+**setenv**, and converted to Lua functions.  For example, suppose you have
 the following simple TCL modulefile for git::
 
     #%Module

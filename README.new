@@ -6,4 +6,8 @@ W.I.P:
             * A .version or .modulerc that has non-zero file length and doesn't start
               with "#%Module" is ignored.
 	    * Report an Infinite loop error if loading the same modulefile 500 times.
+	    * Add note to 095_tcl2lua.tcl about the whole TCL modulefile being evaluated by TCL.
+	      Note also that this is not a SOURCE-to-SOURCE translation.
+	    * Cannot use local with KSH
+	    * Only add to mpathMapT when mpath_old ~= mpath_new in l_processNewModulePath(path).
 	    
