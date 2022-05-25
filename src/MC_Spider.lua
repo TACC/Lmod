@@ -154,6 +154,12 @@ function M.help(self,...)
    return true
 end
 
+function M.haveDynamicMPATH(self)
+   dbg.start{"MC_Spider:haveDynamicMPATH()"}
+   Spider_dynamic_mpath()
+   dbg.fini("MC_Spider:haveDynamicMPATH")
+end
+
 --------------------------------------------------------------------------
 -- MC_Spider:extensions(...): Copy the list of provides to moduleT
 -- @param self A MasterControl object.

@@ -1610,4 +1610,8 @@ function M.missing_module(self,userName, showName)
    s_missingModuleT[userName] = showName
 end
 
+function M.haveDynamicMPATH(self)
+   -- This function is non-empty when in Spider mode only
+end
+
 return M

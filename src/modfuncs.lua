@@ -358,6 +358,13 @@ function mode()
    return b
 end
 
+function haveDynamicMPATH()
+   dbg.start{"haveDynamicMPATH()"}
+   mcp:haveDynamicMPATH()
+   dbg.fini("haveDynamicMPATH")
+end
+   
+
 --------------------------------------------------------------------------
 -- Return true if in spider mode.  Use mode function instead.
 function is_spider()

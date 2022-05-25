@@ -490,24 +490,28 @@ function M.build(self, fast)
 
    dbg.print{"mt: ", tostring(mt), "\n",level=2}
 
+   local threshold = cosmic:value("LMOD_THRESHOLD")
    local short     = mt:getShortTime()
+   local prtRbMsg  = ((not quiet())                        and
+                      (not masterTbl.initial)              and
+                      ((not short) or (short > shortTime)) and
+                      (not self.quiet)
+                     )
+   local cTimer    = CTimer:singleton("Rebuilding cache, please wait ...",
+                                       threshold, prtRbMsg, masterTbl.timeout)
+   dbg.print{"short:    ", short,  ", shortTime: ", shortTime,"\n", level=2}
+   dbg.print{"quiet:    ", quiet(),", initial:   ", masterTbl.initial,"\n"}
+   dbg.print{"prtRbMsg: ",prtRbMsg,", quiet:     ",self.quiet,"\n"}
+
    if (not buildSpiderT) then
       mt:setRebuildTime(ancient, short)
 
       -- Reload modulefiles that change $MODULEPATH
-      local mcp_old   = mcp
-      dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-      mcp = MasterControl.build("spider")
-      spider:findAllModules(mpathA, spiderT)
-      mcp = mcp_old
-      dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-      local t = masterTbl.mpathMapT
-      if (next(t) ~= nil) then
-         for k,v in pairs(t) do
-            mpathMapT[k] = v
-         end
+      local ok, msg       = pcall(Spider.findAllModules, spider, mpathA, spiderT, mpathMapT)
+      if (not ok) then
+         if (msg) then io.stderr:write("Msg: ",msg,'\n') end
+         LmodSystemError{msg="e_Spdr_Timeout"}
       end
-      dbg.printT("mpathMapT",mpathMapT)
    else
       local tracing  = cosmic:value("LMOD_TRACING")
       if (tracing == "yes") then
@@ -522,38 +526,13 @@ function M.build(self, fast)
          shell:echo(concatTbl(b,""))
       end
 
-      local prtRbMsg = ((not quiet())                        and
-                        (not masterTbl.initial)              and
-                        ((not short) or (short > shortTime)) and
-                        (not self.quiet)
-                       )
-      dbg.print{"short:    ", short,  ", shortTime: ", shortTime,"\n", level=2}
-      dbg.print{"quiet:    ", quiet(),", initial:   ", masterTbl.initial,"\n"}
-      dbg.print{"prtRbMsg: ",prtRbMsg,", quiet:     ",self.quiet,"\n"}
-
-      local threshold = cosmic:value("LMOD_THRESHOLD")
-      local cTimer    = CTimer:singleton("Rebuilding cache, please wait ...",
-                                         threshold, prtRbMsg, masterTbl.timeout)
-      local mcp_old       = mcp; dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-      mcp                 = MasterControl.build("spider")
       local t1            = epoch()
-      local ok, msg       = pcall(Spider.findAllModules, spider, mpA, userSpiderT)
+      local ok, msg       = pcall(Spider.findAllModules, spider, mpA, userSpiderT, mpathMapT)
       if (not ok) then
          if (msg) then io.stderr:write("Msg: ",msg,'\n') end
          LmodSystemError{msg="e_Spdr_Timeout"}
       end
-      local t = masterTbl.mpathMapT
-      if (next(t) ~= nil) then
-         for k,v in pairs(t) do
-            mpathMapT[k] = v
-         end
-      end
-
       local t2       = epoch()
-      local mcp_old  = mcp
-      mcp            = mcp_old
-      dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-
       dbg.print{"t2-t1: ",t2-t1, " shortTime: ", shortTime, "\n", level=2}
 
       local r = {}

@@ -125,6 +125,14 @@ local function l_processNewModulePATH(path)
 
 end
 
+function Spider_dynamic_mpath()
+   local masterTbl   = masterTbl()
+   local moduleStack = masterTbl.moduleStack
+   local iStack      = #moduleStack
+   local moduleT     = moduleStack[iStack].moduleT
+   moduleT.changeMPATH = true
+end
+
 function Spider_append_path(kind, t)
    local name  = t[1]
    local value = t[2]
@@ -286,7 +294,7 @@ function M.searchSpiderDB(self, strA, dbT, providedByT)
    return kywdT, kywdExtsT
 end
 
-function M.findAllModules(self, mpathA, spiderT)
+function M.findAllModules(self, mpathA, spiderT, mpathMapT)
    dbg.start{"Spider:findAllModules(",concatTbl(mpathA,", "),")"}
    spiderT.version = LMOD_CACHE_VERSION
 
@@ -303,8 +311,11 @@ function M.findAllModules(self, mpathA, spiderT)
    local exit            = os.exit
    os.exit               = l_nothing
    
-   dbg.print{"mcp:mode(): ",mcp:mode(),"\n"}
-   dbg.print{"setting os.exit to l_nothing\n"}
+   local mcp_old   = mcp
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
+   mcp = MasterControl.build("spider")
+
+
    sandbox_set_os_exit(l_nothing)
    if (tracing == "no" and not dbg.active()) then
       dbg.print{"Turning off stdio\n"}
@@ -374,7 +385,17 @@ function M.findAllModules(self, mpathA, spiderT)
       turn_on_stdio()
       dbg.print{"stderr back on\n"}
    end
+
+   local t = masterTbl.mpathMapT
+   if (next(t) ~= nil) then
+      for k,v in pairs(t) do
+         mpathMapT[k] = v
+      end
+   end
+
    dbg.fini("Spider:findAllModules")
+   mcp = mcp_old
+   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
 end
 
 function extend(a,b)
