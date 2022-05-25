@@ -495,7 +495,19 @@ function M.build(self, fast)
       mt:setRebuildTime(ancient, short)
 
       -- Reload modulefiles that change $MODULEPATH
+      local mcp_old   = mcp
+      dbg.print{"Setting mcp to ", mcp:name(),"\n"}
+      mcp = MasterControl.build("spider")
       spider:findAllModules(mpathA, spiderT)
+      mcp = mcp_old
+      dbg.print{"Setting mcp to ", mcp:name(),"\n"}
+      local t = masterTbl.mpathMapT
+      if (next(t) ~= nil) then
+         for k,v in pairs(t) do
+            mpathMapT[k] = v
+         end
+      end
+      dbg.printT("mpathMapT",mpathMapT)
    else
       local tracing  = cosmic:value("LMOD_TRACING")
       if (tracing == "yes") then
@@ -522,10 +534,8 @@ function M.build(self, fast)
       local threshold = cosmic:value("LMOD_THRESHOLD")
       local cTimer    = CTimer:singleton("Rebuilding cache, please wait ...",
                                          threshold, prtRbMsg, masterTbl.timeout)
-      local mcp_old   = mcp
-      dbg.print{"Setting mcp to ", mcp:name(),"\n"}
+      local mcp_old       = mcp; dbg.print{"Setting mcp to ", mcp:name(),"\n"}
       mcp                 = MasterControl.build("spider")
-
       local t1            = epoch()
       local ok, msg       = pcall(Spider.findAllModules, spider, mpA, userSpiderT)
       if (not ok) then
@@ -540,6 +550,7 @@ function M.build(self, fast)
       end
 
       local t2       = epoch()
+      local mcp_old  = mcp
       mcp            = mcp_old
       dbg.print{"Setting mcp to ", mcp:name(),"\n"}
 

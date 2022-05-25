@@ -303,11 +303,13 @@ function M.findAllModules(self, mpathA, spiderT)
    local exit            = os.exit
    os.exit               = l_nothing
    
+   dbg.print{"mcp:mode(): ",mcp:mode(),"\n"}
+   dbg.print{"setting os.exit to l_nothing\n"}
    sandbox_set_os_exit(l_nothing)
    if (tracing == "no" and not dbg.active()) then
+      dbg.print{"Turning off stdio\n"}
       turn_off_stdio()
    end
-   dbg.print{"setting os.exit to l_nothing; turn off output to stderr\n"}
    if (Use_Preload) then
       local a = {}
       mList   = getenv("LOADEDMODULES") or ""
@@ -365,11 +367,12 @@ function M.findAllModules(self, mpathA, spiderT)
       until true
    end
 
-   dbg.print{"Resetting os.exit back; stderr back on\n"}
+   dbg.print{"Resetting os.exit back\n"}
    os.exit               = exit
    sandbox_set_os_exit(exit)
    if (tracing == "no" and not dbg.active()) then
       turn_on_stdio()
+      dbg.print{"stderr back on\n"}
    end
    dbg.fini("Spider:findAllModules")
 end
