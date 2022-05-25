@@ -4,10 +4,13 @@ How does Lmod convert TCL modulefile into Lua
 =============================================
 
 Lmod uses a TCL program called **tcl2lua.tcl** to read TCL modulefiles
-and convert them to lua.  The whole TCL modulefile is run through.
-However instead of executing the "module functions" they are converted
-to Lua.  For example, suppose you have the following simple TCL
-modulefile for git::
+and convert them to lua.  The whole TCL modulefile evaluated by the
+TCL interpreter.  This is *NOT* a source to source translation.
+
+The purpose of **tcl2lua.tcl** is to evaluate the regular TCL command
+but replace "module functions", such as **prepend-path** or
+**setenv**, and converted to Lua functions.  For example, suppose you have
+the following simple TCL modulefile for git::
 
     #%Module
     set appDir          $env(APP_DIR)
@@ -15,8 +18,8 @@ modulefile for git::
 
     prepend-path        PATH "$appDir/git/$version/bin"
 
-Assuming that the environment variable APP_DIR is */apps* then the output of the
-**tcl2lua.tcl** program would be::
+Assuming that the environment variable APP_DIR is */apps* then the
+entire output of the **tcl2lua.tcl** program would be::
 
    prepend_path("PATH", "/apps/git/2.0.3/bin")
 
