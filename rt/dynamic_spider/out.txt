@@ -28,3 +28,21 @@ MODULEPATH=ProjectDIR/rt/dynamic_spider/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dynamic_spider/mf/Core",},systemBaseMPATH="ProjectDIR/rt/dynamic_spider/mf/Core",}';
 export _ModuleTable_;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dynamic_spider/mf2/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/dynamic_spider/mf2/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dynamic_spider/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/dynamic_spider/mf2/Core",}';
+export _ModuleTable_;
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+===========================
+MODULEPATH=ProjectDIR/rt/dynamic_spider/mf2/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dynamic_spider/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/dynamic_spider/mf2/Core",}';
+export _ModuleTable_;

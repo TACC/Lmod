@@ -160,7 +160,7 @@ local sandbox_env = {
   uncomplete           = uncomplete,
 
   -- Misc --
-  haveDynamicMPATH     = haveDynamicMPATH
+  haveDynamicMPATH     = haveDynamicMPATH,
   LmodBreak            = LmodBreak,
   source_sh            = source_sh,
   LmodMsgRaw           = LmodMsgRaw,
