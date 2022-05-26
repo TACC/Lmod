@@ -370,6 +370,108 @@ local function l_readCacheFile(self, mpathA, spiderTFnA)
 end
 
 --------------------------------------------------------------------------
+-- Write out spider cache to user space if it takes too much time.
+
+local function l_writeSpiderCacheWhenNecessary(self, delta_t, mpathA, spiderT, mpathMapT)
+   local doneMsg
+   local masterTbl = masterTbl()
+   local mrc       = MRC:singleton()
+   local frameStk  = FrameStk:singleton()
+   local mt        = frameStk:mt()
+   local short     = mt:getShortTime()
+   local threshold = cosmic:value("LMOD_THRESHOLD")
+   local prtRbMsg  = ((not quiet())                        and
+                      (not masterTbl.initial)              and
+                      ((not short) or (short > shortTime)) and
+                      (not self.quiet)
+                     )
+   local cTimer    = CTimer:singleton("Rebuilding cache, please wait ...",
+                                       threshold, prtRbMsg, masterTbl.timeout)
+   dbg.print{"short:    ", short,  ", shortTime: ", shortTime,"\n", level=2}
+   dbg.print{"quiet:    ", quiet(),", initial:   ", masterTbl.initial,"\n"}
+   dbg.print{"prtRbMsg: ",prtRbMsg,", quiet:     ",self.quiet,"\n"}
+
+   
+   local r = {}
+   hook.apply("writeCache",r)
+   
+   dbg.print{"self.dontWrite: ", self.dontWrite, ", r.dontWriteCache: ",
+                r.dontWriteCache, "\n"}
+
+   local dontWrite = self.dontWrite or r.dontWriteCache or cosmic:value("LMOD_IGNORE_CACHE")
+
+   if (delta_t < shortTime or dontWrite) then
+      ancient = shortLifeCache
+
+      ------------------------------------------------------------------------
+      -- This is a bit of a hack.  Lmod needs to know the time it takes to
+      -- build the cache and it needs to store it in the ModuleTable.  The
+      -- trouble is with regression testing.  The module table is only written
+      -- out when it value changes.  We do not want a new module written out
+      -- if the only thing that has changed is the slight variation that it
+      -- took to build the cache between Lmod command runs during a regression
+      -- test.  So if the previous t2-t1 is also less than shortTime DO NOT
+      -- reset short to the new value.
+
+      local newShortTime = delta_t
+      if (short and short < shortTime) then
+         newShortTime = short
+      end
+      mt:setRebuildTime(ancient, newShortTime)
+      dbg.print{"mt: ", tostring(mt), "\n", level=2}
+      doneMsg = " (not written to file) done"
+   else
+      local userSpiderTFN = self.usrSpiderTFN
+      mkdir_recursive(self.usrCacheDir)
+      local userSpiderTFN_new = userSpiderTFN .. "_" .. l_uuid()
+      local f                 = io.open(userSpiderTFN_new,"w")
+      if (f) then
+         os.rename(userSpiderTFN, userSpiderTFN .. "~")
+         local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
+         local s1 = "ancient = " .. tostring(math.floor(ancient)) .."\n"
+         local s2 = mrc:export()
+         local s3 = serializeTbl{name="spiderT",      value=spiderT,   indent=true}
+         local s4 = serializeTbl{name="mpathMapT",    value=mpathMapT, indent=true}
+         f:write(s0,s1,s2,s3,s4)
+         f:close()
+         local ok, msg = os.rename(userSpiderTFN_new, userSpiderTFN)
+         if (not ok) then
+            LmodError{msg="e_Unable_2_rename",from=userSpiderTFN_new,to=userSpiderTFN, errMsg=msg}
+         end
+         posix.unlink(userSpiderTFN .. "~")
+         dbg.print{"Wrote: ",userSpiderTFN,"\n"}
+      end
+      if (LUAC_PATH ~= "") then
+         if (LUAC_PATH:sub(1,1) == "@") then
+            LUAC_PATH="luac"
+         end
+         local ext = ".luac_"..LuaV
+         local fn = userSpiderTFN:gsub(".lua$",ext)
+         local a  = {}
+         a[#a+1]  = LUAC_PATH
+         a[#a+1]  = "-o"
+         a[#a+1]  = fn
+         a[#a+1]  = userSpiderTFN
+         lmod_system_execute(concatTbl(a," "))
+      end
+      if (isFile(self.usrCacheInvalidFn)) then
+         dbg.print{"unlinking: ",self.usrCacheInvalidFn,"\n"}
+         posix.unlink(self.usrCacheInvalidFn)
+      end
+
+      local ancient2 = math.min(delta_t * 120, ancient)
+
+      mt:setRebuildTime(ancient2, delta_t)
+      dbg.print{"mt: ", tostring(mt), "\n"}
+      doneMsg = " (written to file) done."
+
+   end
+   cTimer:done(doneMsg)
+end
+
+
+
+--------------------------------------------------------------------------
 -- This is the client code interface to getting the cache
 -- files.  It is also responsible for writing the user cache
 -- file if it takes to long to build the cache data.  If the
@@ -490,19 +592,6 @@ function M.build(self, fast)
 
    dbg.print{"mt: ", tostring(mt), "\n",level=2}
 
-   local threshold = cosmic:value("LMOD_THRESHOLD")
-   local short     = mt:getShortTime()
-   local prtRbMsg  = ((not quiet())                        and
-                      (not masterTbl.initial)              and
-                      ((not short) or (short > shortTime)) and
-                      (not self.quiet)
-                     )
-   local cTimer    = CTimer:singleton("Rebuilding cache, please wait ...",
-                                       threshold, prtRbMsg, masterTbl.timeout)
-   dbg.print{"short:    ", short,  ", shortTime: ", shortTime,"\n", level=2}
-   dbg.print{"quiet:    ", quiet(),", initial:   ", masterTbl.initial,"\n"}
-   dbg.print{"prtRbMsg: ",prtRbMsg,", quiet:     ",self.quiet,"\n"}
-
    if (not buildSpiderT) then
       mt:setRebuildTime(ancient, short)
 
@@ -515,15 +604,8 @@ function M.build(self, fast)
    else
       local tracing  = cosmic:value("LMOD_TRACING")
       if (tracing == "yes") then
-         local shell      = _G.Shell
-         local stackDepth = FrameStk:singleton():stackDepth()
-         local indent     = ("  "):rep(stackDepth+1)
-         local b          = {}
-         b[#b + 1]        = indent
-         b[#b + 1]        = "Building Spider cache for the following dir(s): "
-         b[#b + 1]        = concatTbl(mpA,", ")
-         b[#b + 1]        = "\n"
-         shell:echo(concatTbl(b,""))
+         trace_msg{"Building Spider cache for the following dir(s): ",
+                   concatTbl(mpA,", ")}
       end
 
       local t1            = epoch()
@@ -535,103 +617,18 @@ function M.build(self, fast)
       local t2       = epoch()
       dbg.print{"t2-t1: ",t2-t1, " shortTime: ", shortTime, "\n", level=2}
 
-      local r = {}
-      hook.apply("writeCache",r)
-
-      dbg.print{"self.dontWrite: ", self.dontWrite, ", r.dontWriteCache: ",
-                r.dontWriteCache, "\n"}
-
-      local dontWrite = self.dontWrite or r.dontWriteCache or cosmic:value("LMOD_IGNORE_CACHE")
-
       if (tracing == "yes") then
-         local shell      = _G.Shell
-         local stackDepth = FrameStk:singleton():stackDepth()
-         local indent     = ("  "):rep(stackDepth+1)
-         local b          = {}
-         b[#b + 1]        = indent
-         b[#b + 1]        = "completed building cache. Saving cache: "
-         b[#b + 1]        = tostring(not(t2 - t1 < shortTime or dontWrite))
-         b[#b + 1]        = "\n"
-         shell:echo(concatTbl(b,""))
+         tracing_msg{"completed building cache. Saving cache: ",
+                     tostring(not(t2 - t1 < shortTime or dontWrite))}
       end
 
-
-
-      local doneMsg
-      mrc = MRC:singleton()
-
-      if (t2 - t1 < shortTime or dontWrite) then
-         ancient = shortLifeCache
-
-         ------------------------------------------------------------------------
-         -- This is a bit of a hack.  Lmod needs to know the time it takes to
-         -- build the cache and it needs to store it in the ModuleTable.  The
-         -- trouble is with regression testing.  The module table is only written
-         -- out when it value changes.  We do not want a new module written out
-         -- if the only thing that has changed is the slight variation that it
-         -- took to build the cache between Lmod command runs during a regression
-         -- test.  So if the previous t2-t1 is also less than shortTime DO NOT
-         -- reset short to the new value.
-
-         local newShortTime = t2-t1
-         if (short and short < shortTime) then
-            newShortTime = short
-         end
-         mt:setRebuildTime(ancient, newShortTime)
-         dbg.print{"mt: ", tostring(mt), "\n", level=2}
-         doneMsg = " (not written to file) done"
-      else
-         mkdir_recursive(self.usrCacheDir)
-         local userSpiderTFN_new = userSpiderTFN .. "_" .. l_uuid()
-         local f                 = io.open(userSpiderTFN_new,"w")
-         if (f) then
-            os.rename(userSpiderTFN, userSpiderTFN .. "~")
-            local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
-            local s1 = "ancient = " .. tostring(math.floor(ancient)) .."\n"
-            local s2 = mrc:export()
-            local s3 = serializeTbl{name="spiderT",      value=userSpiderT, indent=true}
-            local s4 = serializeTbl{name="mpathMapT",    value=mpathMapT,   indent=true}
-            f:write(s0,s1,s2,s3,s4)
-            f:close()
-            ok, msg = os.rename(userSpiderTFN_new, userSpiderTFN)
-            if (not ok) then
-               LmodError{msg="e_Unable_2_rename",from=userSpiderTFN_new,to=userSpiderTFN, errMsg=msg}
-            end
-            posix.unlink(userSpiderTFN .. "~")
-            dbg.print{"Wrote: ",userSpiderTFN,"\n"}
-         end
-
-         if (LUAC_PATH ~= "") then
-            if (LUAC_PATH:sub(1,1) == "@") then
-               LUAC_PATH="luac"
-            end
-            local ext = ".luac_"..LuaV
-            local fn = userSpiderTFN:gsub(".lua$",ext)
-            local a  = {}
-            a[#a+1]  = LUAC_PATH
-            a[#a+1]  = "-o"
-            a[#a+1]  = fn
-            a[#a+1]  = userSpiderTFN
-            lmod_system_execute(concatTbl(a," "))
-         end
-         if (isFile(self.usrCacheInvalidFn)) then
-            dbg.print{"unlinking: ",self.usrCacheInvalidFn,"\n"}
-            posix.unlink(self.usrCacheInvalidFn)
-         end
-
-         local buildT   = t2-t1
-         local ancient2 = math.min(buildT * 120, ancient)
-
-         mt:setRebuildTime(ancient2, buildT)
-         dbg.print{"mt: ", tostring(mt), "\n"}
-         doneMsg = " (written to file) done."
-      end
-      cTimer:done(doneMsg)
       dbg.print{"Transfer from userSpiderT to spiderT\n"}
       for k in Pairs(userSpiderT) do
          dbg.print{"k: ",k,"\n"}
          spiderT[k] = userSpiderT[k]
       end
+      l_writeSpiderCacheWhenNecessary(self, t2-t1, mpA, spiderT, mpathMapT)
+
       dbg.print{"Show that these directories have been walked\n"}
       t2 = epoch()
       for i = 1,#dirA do
