@@ -594,8 +594,8 @@ function M.build(self, fast)
 
    local tracing  = cosmic:value("LMOD_TRACING")
    if (tracing == "yes") then
-      trace_msg{"Building Spider cache for the following dir(s): ",
-                concatTbl(mpA,", ")}
+      tracing_msg{"Building Spider cache for the following dir(s): ",
+                  concatTbl(mpA,", ")}
    end
 
    local t1            = epoch()

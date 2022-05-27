@@ -1013,7 +1013,7 @@ function initialize_lmod()
    require("SitePackage")
 end
 
-function trace_msg(msgA)
+function tracing_msg(msgA)
    local FrameStk   = require("FrameStk")
    local shell      = _G.Shell
    local stackDepth = FrameStk:singleton():stackDepth()

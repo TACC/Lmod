@@ -361,18 +361,17 @@ function M.findAllModules(self, mpathA, spiderT, mpathMapT)
          if (seenT[mpath]) then break end
 
          if (spiderT[mpath] == nil) then
-            dbg.print{"new mpath: ", mpath,"\n"}
+            dbg.print{"Running l_findModules on: ", mpath,"\n"}
             local moduleA     = ModuleA:__new({mpath}, maxdepthT):moduleA()
             local T           = moduleA[1].T
             for sn, v in pairs(T) do
                l_findModules(mpath, mt, mList, sn, v)
             end
             spiderT[mpath] = moduleA[1].T
-         else
-            dbg.print{"old mpath: ", mpath,"\n"}
-            for sn, v in pairs(spiderT[mpath]) do
-               l_findChangeMPATH_modules(mpath, mt, mList, sn, v)
-            end
+         end
+         dbg.print{"Running l_findChangeMPATH_modules on: ", mpath,"\n"}
+         for sn, v in pairs(spiderT[mpath]) do
+            l_findChangeMPATH_modules(mpath, mt, mList, sn, v)
          end
          seenT[mpath]   = true
       until true
