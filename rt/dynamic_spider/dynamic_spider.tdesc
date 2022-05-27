@@ -38,12 +38,21 @@ testdescript = {
      export MODULEPATH_ROOT=$(testDir)/mf2
      export MODULEPATH=$MODULEPATH_ROOT/Core
 
-     rm -rf myModules
      buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
      runLmod spider                            # 5
 
      cp -r ../../myModules .
      runLmod spider                            # 6
+
+     unsetMT
+     export MODULEPATH_ROOT=$(testDir)/mf3
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+     rm -rf myModules
+
+     runLmod spider                            # 7
+
+     cp -r ../../myModules2 .
+     runLmod spider                            # 8
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

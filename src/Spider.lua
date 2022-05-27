@@ -174,13 +174,7 @@ local function l_loadMe(entryT, moduleStack, iStack, myModuleT, mt, mList, mpath
    mt:add(mname, "pending")
 
    if (tracing == "yes") then
-      local b          = {}
-      b[#b + 1]        = "Spider Loading: "
-      b[#b + 1]        = fullName
-      b[#b + 1]        = " (fn: "
-      b[#b + 1]        = fn or "nil"
-      b[#b + 1]        = ")\n"
-      shell:echo(concatTbl(b,""))
+      tracing_msg{"Spider Loading: ", fullName, " (fn: ", fn or "nil", ")"}
    end
 
    loadModuleFile{file=fn, help=true, shell=shellNm, reportErr=false, mList = mList}
