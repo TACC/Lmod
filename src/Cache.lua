@@ -372,7 +372,7 @@ end
 --------------------------------------------------------------------------
 -- Write out spider cache to user space if it takes too much time.
 
-local function l_writeSpiderCacheWhenNecessary(self, delta_t, mpathA, spiderT, mpathMapT)
+local function l_writeUserSpiderCacheWhenNecessary(self, delta_t, mpathA, spiderT, mpathMapT)
    local doneMsg
    local masterTbl = masterTbl()
    local mrc       = MRC:singleton()
@@ -592,54 +592,52 @@ function M.build(self, fast)
 
    dbg.print{"mt: ", tostring(mt), "\n",level=2}
 
+   local tracing  = cosmic:value("LMOD_TRACING")
+   if (tracing == "yes") then
+      trace_msg{"Building Spider cache for the following dir(s): ",
+                concatTbl(mpA,", ")}
+   end
+
+   local t1            = epoch()
+   local ok, msg
+
    if (not buildSpiderT) then
-      mt:setRebuildTime(ancient, short)
-
-      -- Reload modulefiles that change $MODULEPATH
-      local ok, msg       = pcall(Spider.findAllModules, spider, mpathA, spiderT, mpathMapT)
-      if (not ok) then
-         if (msg) then io.stderr:write("Msg: ",msg,'\n') end
-         LmodSystemError{msg="e_Spdr_Timeout"}
-      end
+      mpA           = mpathA
+      ok, msg       = pcall(Spider.findAllModules, spider, mpA, spiderT, mpathMapT)
    else
-      local tracing  = cosmic:value("LMOD_TRACING")
-      if (tracing == "yes") then
-         trace_msg{"Building Spider cache for the following dir(s): ",
-                   concatTbl(mpA,", ")}
-      end
+      ok, msg       = pcall(Spider.findAllModules, spider, mpA, userSpiderT, mpathMapT)
+   end
+   if (not ok) then
+      if (msg) then io.stderr:write("Msg: ",msg,'\n') end
+      LmodSystemError{msg="e_Spdr_Timeout"}
+   end
+   local t2       = epoch()
+   dbg.print{"t2-t1: ",t2-t1, " shortTime: ", shortTime, "\n", level=2}
 
-      local t1            = epoch()
-      local ok, msg       = pcall(Spider.findAllModules, spider, mpA, userSpiderT, mpathMapT)
-      if (not ok) then
-         if (msg) then io.stderr:write("Msg: ",msg,'\n') end
-         LmodSystemError{msg="e_Spdr_Timeout"}
-      end
-      local t2       = epoch()
-      dbg.print{"t2-t1: ",t2-t1, " shortTime: ", shortTime, "\n", level=2}
+   if (tracing == "yes") then
+      tracing_msg{"completed building cache. Saving cache: ",
+                  tostring(not(t2 - t1 < shortTime or dontWrite))}
+   end
 
-      if (tracing == "yes") then
-         tracing_msg{"completed building cache. Saving cache: ",
-                     tostring(not(t2 - t1 < shortTime or dontWrite))}
-      end
-
+   if (buildSpiderT) then
       dbg.print{"Transfer from userSpiderT to spiderT\n"}
       for k in Pairs(userSpiderT) do
          dbg.print{"k: ",k,"\n"}
          spiderT[k] = userSpiderT[k]
       end
-      l_writeSpiderCacheWhenNecessary(self, t2-t1, mpA, spiderT, mpathMapT)
-
-      dbg.print{"Show that these directories have been walked\n"}
-      t2 = epoch()
-      for i = 1,#dirA do
-         local k = dirA[i]
-         spiderDirT[k] = t2
-      end
    end
 
+   l_writeUserSpiderCacheWhenNecessary(self, t2-t1, mpA, spiderT, mpathMapT)
+
+   dbg.print{"Show that these directories have been walked\n"}
+   t2 = epoch()
+   for i = 1,#mpathA do
+      local k = mpathA[i]
+      spiderDirT[k] = t2
+   end
 
    -- With a valid spiderT build dbT
-   local mpathA = mt:modulePathA()
+   mpathA = mt:modulePathA()
    spider:buildDbT(mpathA, mpathMapT, spiderT, dbT)
    spider:buildProvideByT(dbT, providedByT)
 

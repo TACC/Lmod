@@ -144,7 +144,7 @@ testdescript = {
      # Test writing of user cache
 
      export LMOD_SHORT_TIME=0
-     rm $HOME/.lmod.d/.cache/spiderT.lua*
+     rm $HOME/.lmod.d/.cache/*
      runLmod      spider                                                      #71
 
 
