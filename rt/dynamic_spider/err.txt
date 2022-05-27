@@ -52,6 +52,8 @@ step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
 ===========================
 The following is a list of the modules and extensions currently available:
+  A: A/2.0
+  D: D/3.0
   gcc: gcc/9.3.0
 To learn more about a package execute:
    $ module spider Foo
@@ -67,6 +69,32 @@ The following is a list of the modules and extensions currently available:
   A: A/2.0
   D: D/3.0
   gcc: gcc/9.3.0
+To learn more about a package execute:
+   $ module spider Foo
+where "Foo" is the name of a module.
+To find detailed information about a particular package you
+must specify the version if there is more than one version:
+   $ module spider Foo/11.1
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+===========================
+The following is a list of the modules and extensions currently available:
+  StdEnv: StdEnv
+To learn more about a package execute:
+   $ module spider Foo
+where "Foo" is the name of a module.
+To find detailed information about a particular package you
+must specify the version if there is more than one version:
+   $ module spider Foo/11.1
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+===========================
+The following is a list of the modules and extensions currently available:
+  StdEnv: StdEnv
+  gsl: gsl/1.27
+  tcc: tcc/4.0
 To learn more about a package execute:
    $ module spider Foo
 where "Foo" is the name of a module.
