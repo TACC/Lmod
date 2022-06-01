@@ -101,3 +101,52 @@ where "Foo" is the name of a module.
 To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --terse spider
+===========================
+gcc/
+gcc/9.3.0
+gcc/10.3.0
+gsl/
+gsl/1.16
+gsl/2.6
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --terse spider
+===========================
+gcc/
+gcc/9.3.0
+gcc/10.3.0
+gsl/
+gsl/1.16
+gsl/2.6
+gsl/2.7
+gsl/2.8
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc/9.3.0
+===========================
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --terse spider
+===========================
+gcc/
+gcc/9.3.0
+gcc/10.3.0
+gsl/
+gsl/1.16
+gsl/2.6
+gsl/2.7
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing --terse spider
+===========================
+gcc/
+gcc/9.3.0
+gcc/10.3.0
+gsl/
+gsl/1.16
+gsl/2.6
+gsl/2.7
+gsl/2.8
