@@ -586,3 +586,41 @@ MODULEPATH=ProjectDIR/rt/sticky/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={base="old",},mT={StdEnv={fn="ProjectDIR/rt/sticky/mf/Core/StdEnv.lua",fullName="StdEnv",loadOrder=3,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="StdEnv",wV="M.*zfinal",},a={fn="ProjectDIR/rt/sticky/mf/Core/a/1.0.lua",fullName="a/1.0",loadOrder=1,propT={},stackDepth=1,status="active",userName="a",wV="000000001.*zfinal",},b={fn="ProjectDIR/rt/sticky/mf/Core/b/1.1.lua",fullName="b/1.1",loadOrder=2,propT={},stackDepth=1,status="active",userName="b",wV="000000001.000000001.*zfinal",},old={fn="ProjectDIR/rt/sticky/mf/Core/old.lua",fullName="old",loadOrder=4,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="old",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/sticky/mf/Core",},systemBaseMPATH="ProjectDIR/rt/sticky/mf/Core",}';
 export _ModuleTable_;
+===========================
+step 53
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load top second
+===========================
+LOADEDMODULES=top/1.0:second/1.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/sticky/mf2/Lev2:1\;ProjectDIR/rt/sticky/mf2/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/sticky/mf2/Lev2:ProjectDIR/rt/sticky/mf2/Core;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/sticky/mf2/Core/top/1.0.lua:ProjectDIR/rt/sticky/mf2/Lev2/second/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={second={fn="ProjectDIR/rt/sticky/mf2/Lev2/second/1.0.lua",fullName="second/1.0",loadOrder=2,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="second",wV="000000001.*zfinal",},top={fn="ProjectDIR/rt/sticky/mf2/Core/top/1.0.lua",fullName="top/1.0",loadOrder=1,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="top",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sticky/mf2/Lev2","ProjectDIR/rt/sticky/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/sticky/mf2/Core",}';
+export _ModuleTable_;
+===========================
+step 54
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/sticky/mf2/Lev2:ProjectDIR/rt/sticky/mf2/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={second={fn="ProjectDIR/rt/sticky/mf2/Lev2/second/1.0.lua",fullName="second/1.0",loadOrder=2,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="second",wV="000000001.*zfinal",},top={fn="ProjectDIR/rt/sticky/mf2/Core/top/1.0.lua",fullName="top/1.0",loadOrder=1,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="top",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sticky/mf2/Lev2","ProjectDIR/rt/sticky/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/sticky/mf2/Core",}';
+export _ModuleTable_;
+===========================
+step 55
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+MODULEPATH=ProjectDIR/rt/sticky/mf2/Lev2:ProjectDIR/rt/sticky/mf2/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={second={fn="ProjectDIR/rt/sticky/mf2/Lev2/second/1.0.lua",fullName="second/1.0",loadOrder=2,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="second",wV="000000001.*zfinal",},top={fn="ProjectDIR/rt/sticky/mf2/Core/top/1.0.lua",fullName="top/1.0",loadOrder=1,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="top",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sticky/mf2/Lev2","ProjectDIR/rt/sticky/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/sticky/mf2/Core",}';
+export _ModuleTable_;
+===========================
+step 56
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/sticky/mf2/Lev2:ProjectDIR/rt/sticky/mf2/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={second={fn="ProjectDIR/rt/sticky/mf2/Lev2/second/1.0.lua",fullName="second/1.0",loadOrder=2,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="second",wV="000000001.*zfinal",},top={fn="ProjectDIR/rt/sticky/mf2/Core/top/1.0.lua",fullName="top/1.0",loadOrder=1,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="top",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sticky/mf2/Lev2","ProjectDIR/rt/sticky/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/sticky/mf2/Core",}';
+export _ModuleTable_;
