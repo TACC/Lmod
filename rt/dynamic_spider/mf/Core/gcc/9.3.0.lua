@@ -9,4 +9,3 @@ local userDir = pathJoin(hroot,cmplr)
 if (isDir(userDir)) then
    prepend_path("MODULEPATH",userDir)
 end
-   
