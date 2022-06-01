@@ -22,7 +22,7 @@ testdescript = {
      export MODULEPATH_ROOT=$(testDir)/mf
      export MODULEPATH=$MODULEPATH_ROOT/Core
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d myModules
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d myModules{,2,4}
 
      runLmod --version                         # 1
      runLmod spider                            # 2
@@ -49,10 +49,28 @@ testdescript = {
      export MODULEPATH=$MODULEPATH_ROOT/Core
      rm -rf myModules
 
+     buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
      runLmod spider                            # 7
 
      cp -r ../../myModules2 .
      runLmod spider                            # 8
+
+     unsetMT
+     export MODULEPATH_ROOT=$(testDir)/mf4
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+     rm -rf myModules2
+
+     buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
+     runLmod --terse spider                    # 9
+
+     cp -r ../../myModules4 .
+     runLmod --terse spider                    #10
+
+     runLmod load gcc/9.3.0                    #11
+     runLmod --terse spider                    #12
+
+     rm $HOME/.lmod.d/.cache/spiderT.lua
+     runLmod --terse spider                    #13
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
