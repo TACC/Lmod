@@ -82,6 +82,15 @@ testdescript = {
      runLmod list               #51
      runLmod avail              #52
 
+     unsetMT
+     export MODULEPATH=$(testDir)/mf2/Core
+     runLmod load top second    #53
+     runLmod list               #54
+     runLmod purge              #55
+     runLmod list               #56
+      
+
+
 
      HOME=$ORIG_HOME
 
