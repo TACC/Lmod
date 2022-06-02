@@ -162,7 +162,7 @@ end
 
 local shellNm = "bash"
 
-local function l_loadMe(entryT, moduleStack, iStack, myModuleT, mt, mList, mpath, sn)
+local function l_loadMe(entryT, moduleStack, iStack, myModuleT, mt, mList, mpath, sn, msg)
    local shell         = _G.Shell
    local tracing       = cosmic:value("LMOD_TRACING")
    local fn            = entryT.fn
@@ -174,7 +174,7 @@ local function l_loadMe(entryT, moduleStack, iStack, myModuleT, mt, mList, mpath
    mt:add(mname, "pending")
 
    if (tracing == "yes") then
-      tracing_msg{"Spider Loading: ", fullName, " (fn: ", fn or "nil", ")"}
+      tracing_msg{msg, fullName, " (fn: ", fn or "nil", ")"}
    end
 
    loadModuleFile{file=fn, help=true, shell=shellNm, reportErr=false, mList = mList}
@@ -188,14 +188,14 @@ local function l_findModules(mpath, mt, mList, sn, v, moduleT)
    local iStack      = #moduleStack
    if (v.file) then
       entryT   = { fn = v.file, sn = sn, userName = sn, fullName = sn, version = false}
-      l_loadMe(entryT, moduleStack, iStack, v.metaModuleT, mt, mList, mpath, sn)
+      l_loadMe(entryT, moduleStack, iStack, v.metaModuleT, mt, mList, mpath, sn, "Spider Loading:       ")
    end
    if (next(v.fileT) ~= nil) then
       for fullName, vv in pairs(v.fileT) do
          vv.Version = extractVersion(fullName, sn)
          entryT   = { fn = vv.fn, sn = sn, userName = fullName, fullName = fullName,
                       version = vv.Version }
-         l_loadMe(entryT, moduleStack, iStack, vv, mt, mList, mpath, sn)
+         l_loadMe(entryT, moduleStack, iStack, vv, mt, mList, mpath, sn, "Spider Loading:       ")
       end
    end
    if (next(v.dirT) ~= nil) then
@@ -218,7 +218,7 @@ local function l_findChangeMPATH_modules(mpath, mt, mList, sn, v, moduleT)
             vv.Version = extractVersion(fullName, sn)
             entryT   = { fn = vv.fn, sn = sn, userName = fullName, fullName = fullName,
                          version = vv.Version }
-            l_loadMe(entryT, moduleStack, iStack, vv, mt, mList, mpath, sn)
+            l_loadMe(entryT, moduleStack, iStack, vv, mt, mList, mpath, sn,"Spider Loading again: ")
          end
       end
    end
@@ -352,9 +352,9 @@ function M.findAllModules(self, mpathA, spiderT, mpathMapT)
              (not access(mpath,"rx")))               then break end
 
          -- skip mpath directory if already walked.
-         if (seenT[mpath]) then break end
+         if (seenT[mpath] or not isDir(mpath)) then break end
 
-         if (spiderT[mpath] == nil) then
+         if (spiderT[mpath] == nil ) then
             dbg.print{"Running l_findModules on: ", mpath,"\n"}
             local moduleA     = ModuleA:__new({mpath}, maxdepthT):moduleA()
             local T           = moduleA[1].T
