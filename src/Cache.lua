@@ -308,7 +308,7 @@ local function l_readCacheFile(self, mpathA, spiderTFnA)
                found = true
                break
             else
-               dbg.print{"Did not find: ",fn,"\n"}
+               dbg.print{"Did not find:    ",fn,"\n"}
             end
          end
 
@@ -536,6 +536,7 @@ function M.build(self, fast)
    local masterTbl   = masterTbl()
    local T1          = epoch()
    local sysDirsRead = 0
+
    dbg.print{"buildFresh: ",self.buildFresh,"\n"}
    if (not (self.buildFresh or masterTbl.checkSyntax)) then
       sysDirsRead = l_readCacheFile(self, mpathA, self.systemDirA)
@@ -587,11 +588,7 @@ function M.build(self, fast)
 
    local userSpiderTFN = self.usrSpiderTFN
    local buildSpiderT  = (#dirA > 0)
-   local userSpiderT   = {}
    dbg.print{"buildSpiderT: ",buildSpiderT,"\n"}
-
-   dbg.print{"mt: ", tostring(mt), "\n",level=2}
-
    local tracing  = cosmic:value("LMOD_TRACING")
    if (tracing == "yes") then
       tracing_msg{"Building Spider cache for the following dir(s): ",
@@ -601,12 +598,7 @@ function M.build(self, fast)
    local t1            = epoch()
    local ok, msg
 
-   if (not buildSpiderT) then
-      mpA           = mpathA
-      ok, msg       = pcall(Spider.findAllModules, spider, mpA, spiderT, mpathMapT)
-   else
-      ok, msg       = pcall(Spider.findAllModules, spider, mpA, userSpiderT, mpathMapT)
-   end
+   ok, msg       = pcall(Spider.findAllModules, spider, mpathA, spiderT, mpathMapT)
    if (not ok) then
       if (msg) then io.stderr:write("Msg: ",msg,'\n') end
       LmodSystemError{msg="e_Spdr_Timeout"}
@@ -619,15 +611,7 @@ function M.build(self, fast)
                   tostring(not(t2 - t1 < shortTime or dontWrite))}
    end
 
-   if (buildSpiderT) then
-      dbg.print{"Transfer from userSpiderT to spiderT\n"}
-      for k in Pairs(userSpiderT) do
-         dbg.print{"k: ",k,"\n"}
-         spiderT[k] = userSpiderT[k]
-      end
-   end
-
-   l_writeUserSpiderCacheWhenNecessary(self, t2-t1, mpA, spiderT, mpathMapT)
+   l_writeUserSpiderCacheWhenNecessary(self, t2-t1, mpathA, spiderT, mpathMapT)
 
    dbg.print{"Show that these directories have been walked\n"}
    t2 = epoch()

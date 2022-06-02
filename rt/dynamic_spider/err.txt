@@ -138,15 +138,4 @@ gsl/
 gsl/1.16
 gsl/2.6
 gsl/2.7
-===========================
-step 13
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --terse spider
-===========================
-gcc/
-gcc/9.3.0
-gcc/10.3.0
-gsl/
-gsl/1.16
-gsl/2.6
-gsl/2.7
 gsl/2.8
