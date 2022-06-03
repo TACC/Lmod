@@ -28,9 +28,9 @@
 %\end{frame}
 
 \begin{document}
-\title[Lmod]{The complicated story about TCL break}
+\title[Lmod]{How Lmod Loads a Modulefile, Part 1}
 \author{Robert McLay} 
-\date{May. 3, 2022}
+\date{June. 7, 2022}
 
 % page 1
 \frame{\titlepage} 
@@ -40,340 +40,334 @@
 \begin{frame}{Outline}
   \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
   \begin{itemize}
-    \item Let's talk about TCL break (and LmodBreak)
-    \item Lmod didn't really support TCL break at all until Lmod 8.6
-      (really Lmod 8.7)
-    \item Years ago mailing list question: support for break
-    \item Lmod 6 and below could not support break
-    \item Why?
+    \item Talk: How Lmod finds a modulefile to load
+    \item Next Time: Part 2: How Lmod actually evaluates a modulefile
+    \item There is a surprising amount to talk about before the
+      modulefile gets evaluated.
+    \item We will be talking about a user requested load.
+    \item A module requested load is slightly different. 
   \end{itemize}
 \end{frame}
 
 % page 3
 \begin{frame}[fragile]
-    \frametitle{Reminder: How Lmod works}
+    \frametitle{Outline (II)}
   \begin{itemize}
-    \item In order to have a command effect the current shell
-    \item A simple module command for bash is given below
-    \item The \$LMOD\_CMD command generate shell commands as text
-    \item The eval "..." evaluate the text to change the current shell
-    \item For the rest of this talk: focus on what \$LMOD\_CMD produces
+    \item \texttt{main()}: How main() parses the command line
+    \item \texttt{Load\_Usr()}: Starts working your modules to load
+    \item \texttt{l\_usrLoad()}: Splits modules to loads or unloads
+    \item \texttt{MName Class}: Maps module name to a filename
+    \item \texttt{mcp}: Object to control kind of evaluation
+    \item \texttt{MasterControl:load(mA)}: We are loading a modulefile
+    \item \texttt{Master:load(mA)}: Where the heavy lifting is done
+    \item \texttt{loadModuleFile()}: Where the modulefile is actually evaluated
   \end{itemize}
- {\small
-    \begin{semiverbatim}
-     module () \{ eval "\$(\$LMOD\_CMD bash "\$@")"; \}
-    \end{semiverbatim}
-}
 \end{frame}
 
 % page 4
 \begin{frame}[fragile]
-    \frametitle{Reminder: How Lmod TCL processing works}
+    \frametitle{\texttt{main()}: parsing command line}
   \begin{itemize}
-    \item Internally Lmod knows when a file is a TCL modulefile 
-    \item No *.lua extension $\Rightarrow$ TCL modulefile 
-    \item The program tcl2lua.tcl is called to process the tcl 
-    \item It converts TCL modulefile into Lua with Lmod module
-      commands
+    \item main() is located in lmod.in.lua (installed as lmod)
+    \item The command is: {\color{blue}\emph{module load foo}}
+    \item To parse Lmod uses the 2nd argument w/o a minus: {\color{blue}\emph{load}}
+    \item Lmod searches \texttt{lmodCmdA} to map string to command
   \end{itemize}
- {\tiny
-    \begin{semiverbatim}
-setenv FOO bar \Rightarrow setenv("FOO","bar")
-prepend-path PATH /prgm/bin \Rightarrow prepend_path("PATH","/prgm/bin")
-break \Rightarrow LmodBreak() -- Only for bare breaks
-    \end{semiverbatim}
-}
 \end{frame}
 
 % page 5
+\begin{frame}{A side note on Lmod Coding Conventions}
+  \begin{itemize}
+    \item A variable w/ a trailing ``A'' means that an array
+    \item A variable w/ a trailing ``T'' means that an table (or dictionary)
+    \item A variable w/ a trailing ``Tbl'' means that an table (or dictionary)
+    \item A routine with a l\_name is a local function (file scope)
+    \item Class Name are in CamelCase
+  \end{itemize}
+\end{frame}
+
+% page 6
 \begin{frame}[fragile]
-    \frametitle{TCL Break}
- {\small
+    \frametitle{lmodCmdA}
+ {\tiny
    \begin{semiverbatim}
-for \{set i 0\} \{\$i < 5\} \{incr i\} \{
-  puts stderr "\$i"
-  if \{ \$i == 3 \} \{
-      break  # This breaks out of the loop
-  \}
-\}
-break # This causes the modulefile
-      # to stop being processed.       
+   local lmodCmdA = \{
+      \{cmd = 'add',          min = 2, action = loadTbl     \},
+      \{cmd = 'avail',        min = 2, action = availTbl    \},
+      \{cmd = 'isloaded',     min = 3, action = isLoadedTbl \},
+      \{cmd = 'is_loaded',    min = 4, action = isLoadedTbl \},
+      \{cmd = 'is-loaded',    min = 4, action = isLoadedTbl \},
+      \{cmd = 'load',         min = 2, action = loadTbl     \},
+      ...
+   \}
+   local loadTbl      = \{ name = "load", cmd = Load_Usr    \}
+    \end{semiverbatim}
+  \begin{itemize}
+    \item So ``load'' matches ``load'' with more than 2 chars
+  \end{itemize}
+}
+\end{frame}
+
+% page 7
+\begin{frame}[fragile]
+    \frametitle{Going from lmodCmdA to Load\_Usr()}
+  \begin{itemize}
+    \item Sets cmdT to loadTbl
+    \item Sets cmdName to cmdT.name (forces standard name not user
+      command name)
+    \item cmdT.cmd(unpack(masterTbl.pargs)) $\Rightarrow$ Load\_Usr
+  \end{itemize}
+
+\end{frame}
+
+% page 8
+\begin{frame}[fragile]
+    \frametitle{Calling Load\_Usr()}
+  \begin{itemize}
+    \item All functions implementing user commands are in src/cmdfunc.lua
+  \end{itemize}
+
+ {\tiny
+    \begin{semiverbatim}
+function Load\_Try(...)
+   dbg.start{"Load\_Try(",concatTbl(\{...\},", "),")"}
+   local check\_must\_load = false
+   local argA            = pack(...)
+   l\_usrLoad(argA, check\_must\_load)
+   dbg.fini("Load\_Try")
+end
+
+function Load\_Usr(...)
+   dbg.start{"Load\_Usr(",concatTbl(\{...\},", "),")"}
+   local check\_must\_load = true
+   local argA            = pack(...)
+   l\_usrLoad(argA, check\_must\_load)
+   dbg.fini("Load\_Usr")
+end
     \end{semiverbatim}
 }
 \end{frame}
 
-% page 6
-\begin{frame}{Why was TCL break such a problem for Lmod?}
-  \begin{itemize}
-    \item TCL break stops processing the current module
-    \item It ignores any changes in a module that has a break
-    \item But it keeps all other modules loaded.
-    \item {\color{blue} \texttt{module load A B C D}} 
-    \item Where C has a break
-    \item Then A B are loaded but C and D are not.
-  \end{itemize}
-\end{frame}
-
-% page 7
-\begin{frame}{LmodError is different}
-  \begin{itemize}
-    \item {\color{blue} \texttt{module load A B C D}} 
-    \item Where C has an LmodError()
-    \item No modules are loaded.
-  \end{itemize}
-\end{frame}
-
-% page 8
-\begin{frame}{Lmod waits to produce output}
-  \begin{itemize}
-    \item When loading several modules, Lmod waits
-    \item All module actions are completed internally
-    \item Then Lmod generates shell command output.
-    \item Lmod 6 and earlier wouldn't know what changes to ignore when
-      processing a break.
-    \item Lmod produces either an error or environment changes
-      not both.
-  \end{itemize}
-\end{frame}
-
 % page 9
-\begin{frame}{Lmod 7+ was a complete re-write of Lmod}
+\begin{frame}[fragile]
+    \frametitle{l\_usrLoad(argA, check\_must\_load)}
   \begin{itemize}
-    \item It was needed to support Name/Version/Version (N/V/V) modulefiles
-    \item Before Lmod only supported N/V or C/N/V
-    \item Lmod 7+ now has a FrameStk (AKA the stack-frame)
-    \item The FrameStk contains a stack of the environment var table (varT) and the
-      module table (mt)
+    \item Split argA into loads in lA, unloads in uA (-foo)
+    \item Both uA and lA are an array of MName objects.
+    \item unload modules in uA 
+    \item {\color{blue} \texttt{lA[\#lA+1] = MName:new("load",module\_name)}}
+    \item {\color{blue} \texttt{mcp:load\_usr(lA)}}
+    \item src: src/cmdfunc.lua
   \end{itemize}
 \end{frame}
 
 % page 10
-\begin{frame}{FrameStk: varT and mt}
-  \begin{itemize}
-    \item The table varT contains key-value pairs that represent the
-      new env. var values
-    \item The table mt is the module table containing the currently
-      loaded modules among other things
-    \item The Module Table is stored in the environment via
-      \$\_ModuleTable001\_ etc.
-  \end{itemize}
-\end{frame}
-
-% page 11
 \begin{frame}[fragile]
-    \frametitle{assignment versus deepcopy() in Lua}
- {\small
+    \frametitle{MName class: Module Name class}
+ {\tiny
     \begin{semiverbatim}
-  a = \{\}
-  a[1] = "foo"
-  b    = a
-  b[1] = "bar"
-  print(a[1])  -> ``bar'' not ``foo''
     \end{semiverbatim}
 }
   \begin{itemize}
-    \item Lua tries to be efficent
-    \item It just copies reference
-    \item As shown above.
-    \item Lmod provides deepcopy() function.
-    \item This creates a new table
+    \item Maps name (``foo'' or ``foo/1.1'') to filename
+    \item There are two kinds of searching ``load'' or ``mt''
+    \item Load: must search file system. 
+    \item mt: filename is in moduletable
+    \item Evaluation must be lazy or just-in-time
+    \item Software hierarchy means that 
+    \item {\color{blue}\texttt{module load gcc mpich}}
+    \item mpich might not be in \$MODULEPATH until after gcc is loaded
+    \item src: src/MName.lua
+  \end{itemize}
+
+\end{frame}
+
+% page 11
+\begin{frame}{MName key concepts}
+  \begin{itemize}
+    \item \textbf{userName}: name on the command line
+    \item It might be gcc or gcc/9.3.0
+    \item \textbf{sn}: the shortName or a name without a version
+    \item \textbf{fullName}: The full name of the module (sn/version)
+    \item Examples:
+      \begin{enumerate}
+        \item gcc/9.3.0 (sn: gcc, N/V)
+        \item gcc/x86\_64/9.3.0 (sn: gcc, N/V/V)
+        \item compiler/gcc/9.3.0 (sn: compiler/gcc, C/N/V)
+        \item compiler/gcc/x86\_64/9.3.0 (sn: compiler/gcc, N/V/V)
+      \end{enumerate}
   \end{itemize}
 \end{frame}
 
 % page 12
-\begin{frame}{FrameStk}
+\begin{frame}[fragile]
+    \frametitle{mcp and MasterControl class}
   \begin{itemize}
-    \item Before each module: Deep Copy copies the previous varT and mt to top of
-      FrameStk.
-    \item Each evaluation of modulefile is updated on the top of the
-      FrameStk
-    \item When the current modulefile evaluation is completed
-    \item The FrameStk is pop'ed
-    \item The previous stack values are replaced with current
+    \item MasterControl class is what controls whether a "load" in a
+      modulefile is a load or unload
+    \item mcp is a global variable that is built to be in a mode()
+      like load, unload, spider, etc.
+    \item We talked about this in an earlier presentation.
   \end{itemize}
 \end{frame}
 
 % page 13
-\begin{frame}{FrameStk implications}
+\begin{frame}[fragile]
+    \frametitle{MasterControl:load(mA)}
+ {\tiny
+    \begin{semiverbatim}
+function M.load(self, mA)
+   local master = Master:singleton()
+   local a      = master:load(mA)
+
+   if (not quiet()) then
+      self:registerAdminMsg(mA) -- nag msg registration.
+   end
+   return a
+end
+    \end{semiverbatim}
+}
   \begin{itemize}
-    \item Cannot trust local values of mt
-    \item Lmod constantly has to refresh mt:
-    \item {\color{blue}mt = frameStk:mt()}
-    \item Because a module load might have updated it.
+    \item MasterControl functions call Master Functions to do the work.
+    \item src: src/MasterControl.lua
   \end{itemize}
 \end{frame}
 
 % page 14
 \begin{frame}[fragile]
-    \frametitle{LmodBreak or TCL break}
-  \begin{itemize}
-    \item If LmodBreak() is called, the current module changes are
-      ignored
-    \item LmodBreak() causes the previous values to be current
-    \item FrameStk:pop() pops the stack.
-    \item The FrameStk code is shown below:
-  \end{itemize}
+    \frametitle{Master:load(mA)}
  {\tiny
     \begin{semiverbatim}
-function M.LmodBreak(self)
-   local stack           = self.\_\_stack
-   local count           = self.\_\_count
-   stack[count].mt       = deepcopy(stack[count-1].mt)
-   stack[count].varT     = deepcopy(stack[count-1].varT)
-end
+function M.load(mA)
+  for i = 1, #mA do
+     repeat
+        mname = mA[i]
+        sn = mname:sn()  -- shortName
+        fn = mname:fn()  -- file name
+        -- if blank sn -> pushModule (might have to wait until
+        -- compiler or mpi is loaded.
+        -- and break (really continue)
 
-function M.pop(self)
-   local stack           = self.\_\_stack
-   local count           = self.\_\_count
-   stack[count-1].mt     = stack[count].mt
-   stack[count-1].varT   = stack[count].varT
-   stack[count]          = nil
-   self.__count          = count - 1
+        if (mt:have(sn,"active)) then
+           -- Block 1: Check for previously loaded module with same sn
+
+        elseif (fn) then
+           -- Block 2: Load modulefile
+
+        -- Check for family stack (e.g. compiler, mpi etc)
+        if (mcp.processFamilyStack(fullName)) then
+            -- Suppose gcc is loaded and it was "replaced" by intel
+            -- unload gcc and reload intel
+         end
+      until true
+   end         
+     
+   -- Reload every module if change in MODULEPATH.
+     
+   -- load any modules on module stack
 end
     \end{semiverbatim}
 }
+  \begin{itemize}
+    \item This is where the heavy lifting is done.
+    \item src: src/Master.lua
+  \end{itemize}
+
 \end{frame}
 
 % page 15
-\begin{frame}{Support for TCL break}
+\begin{frame}[fragile]
+    \frametitle{Block 1: Check for previous loaded module w/same sn}
+ {\tiny
+    \begin{semiverbatim}
+ if (mt:have(sn,"active)) then
+    -- if disable_same_name_autoswap -> error out
+    -- Otherwise: unload previous module
+     local mcp_old = mcp
+     local mcp     = MCP
+     unload_internal{MName:new("mt",sn)}
+     mname:reset()  -- force a new lazyEval
+     local status = mcp:load_usr\{mname\}
+     mcp          = mcp_old
+    \end{semiverbatim}
+}
   \begin{itemize}
-    \item Lmod 8.6+ added support LmodBreak()
-    \item Lmod 8.6+ added support a bare TCL break
-    \item Lmod 8.7+ added support for regular break and bare break
+    \item Here we guarantee the right mcp
+    \item Unload the old module 
+    \item Recursively mcp:load\_usr{mname} 
   \end{itemize}
 \end{frame}
 
 % page 16
 \begin{frame}[fragile]
-    \frametitle{TCL Break strangeness}
- {\small
-   \begin{semiverbatim}
-for \{set i 0\} \{\$i < 5\} \{incr i\} \{
-  puts stderr "\$i"
-  if \{ \$i == 3 \} \{
-      break  # This breaks out of the loop
-  \}
-\}
-break # This causes the modulefile
-      # to stop being processed.       
+    \frametitle{Block 2: Load modulefile}
+ {\tiny
+    \begin{semiverbatim}
+elseif (fn) then
+   frameStk:push(mname)
+   mt = frameStk:mt()
+   mt:add(mname,"pending")
+   local status = loadModuleFile\{file = fn, shell = shellNm,
+                   mList = mList, reportErr = true\}
+   frameStk:pop()
+   loaded = true
+end
     \end{semiverbatim}
 }
-  \begin{itemize}
-    \item TCL treats a bare break as an error
-    \item Tmod 3, 4 and 5 catch the error
-    \item Lmod 8.7+ now catch the error too!
-  \end{itemize}
 \end{frame}
 
 % page 17
 \begin{frame}[fragile]
-    \frametitle{To support regular and bare break in TCL in tcl2lua.tcl}
+    \frametitle{loadModuleFile(t)}
+  \begin{itemize}
+    \item This is where Lmod handle either *.lua files or TCL Modulefiles
+    \item Once either read in as a block (for *.lua) or converted (TCL
+      modulefile $\Rightarrow$ Lua)
+    \item src: src/loadModulefile.lua
+  \end{itemize}
  {\tiny
     \begin{semiverbatim}
-set sourceFailed [catch \{source \$ModulesCurrentModulefile \} errorMsg] # (1) 
-set returnval 0
-if \{ $g\_help && [info procs "ModulesHelp"] == "ModulesHelp" \} \{
-   # handle module help
-   ... 
-\}
-if \{\$sourceFailed\} \{
-    if \{ \$sourceFailed == 3 || \$errorMsg == \{invoked "break" outside of a loop\}\} \{
-       set returnVal 1
-       myBreak
-       showResults
-       return \$returnVal
-    \}
-    reportError \$errorMsg
-    set returnVal 1
-\}
-showResults
-return $returnVal
+   -- Use the sandbox to evaluate modulefile text.
+   if (whole) then
+      status, msg = sandbox_run(whole)
+   else
+      status = nil
+      msg    = "Empty or non-existent file"
+   end
+   -- report any errors
     \end{semiverbatim}
 }
-  \begin{itemize}
-    \item line 1 evaluate the TCL modulefile
-    \item \$sourceFailed will be non-zero for TCL errors
-    \item \$sourceFailed == 3 means a bare break has been found.
-  \end{itemize}
+
 \end{frame}
 
 % page 18
-\begin{frame}[fragile]
-    \frametitle{What happens when?}
- {\tiny
-    \begin{semiverbatim}
-% cat C.lua
-load("X","Y")
-LmodBreak()
-
-% module load A B C D
-% module list 
-Currently Loaded Modules:
-  1) A    2) B
-    \end{semiverbatim}
-}
+\begin{frame}{Next time}
   \begin{itemize}
-    \item Module A and B are loaded internally
-    \item When loading C, modules X and Y are loaded internally
-    \item When LmodBreak() is encounter, processing of C stops
-    \item Also the effects of X and Y are ignored.
+    \item What is a sandbox and how does it work?
+    \item Why I want a sandbox?
+    \item Next time handing control to modulefile
   \end{itemize}
 \end{frame}
 
+
+
 % page 19
-\begin{frame}[fragile]
-    \frametitle{Lmod 8.6.15 could create an endless loop}
- {\tiny
-    \begin{semiverbatim}
-% cat foo3/1.0
-#%Module
-catch \{set foo \$env(FOO)\}
-if \{ [info exists foo] \} \{
-  puts stderr "already set"
-  break
-\}
-setenv FOO "just me"
-
-% module load foo3/1.0; module load foo3/1.0
-already set
-already set
-...continues until crtl+C ...
-    \end{semiverbatim}
-}
+\begin{frame}{Conclusions}
   \begin{itemize}
-    \item Loading foo3/1.0 twice causes an endless loop
-    \item Why?
-    \item The second load forces foo3/1.0 to unload (which it can't)
-    \item Lmod then tries to re-load foo3/1.0 which causes the unload etc.
+    \item It takes a lot to get to the point where Lmod is evaluating
+      your modulefile.
+    \item Lmod uses several ``classes'' to manage the loading of a
+      module
+    \item Plus a couple of Design Patterns such as Singletons  
   \end{itemize}
-
 \end{frame}
 
 % page 20
-\begin{frame}{LmodBreak() is a no-op on unload}
-  \begin{itemize}
-    \item A bare TCL break becomes an LmodBreak() when translated.
-    \item LmodBreak() does nothing during unload.
-    \item This prevents the endless loop shown above. (Lmod 8.7+)
-  \end{itemize}
-\end{frame}
-
-% page 21
-\begin{frame}{Conclusions}
-  \begin{itemize}
-    \item Implementing break is trickier then you might think.
-    \item Lmod now can support bare breaks finally in Lmod 8.7
-    \item The FrameStk is the price to be paid to support break.
-  \end{itemize}
-\end{frame}
-
-% page 22
 \begin{frame}{Future Topics}
   \begin{itemize}
-    \item Next Meeting: June 7th 9:30 US Central (14:30 UTC)
-    \item Show how Lmod processes a module load command, stepping
-      through the codebase.
-    \item Suggestions?
+    \item Next Meeting: July 5th 9:30 US Central (14:30 UTC)
+    \item What happens from the loadModulefile(t).
+    \item This is where Lmod hands off control to the user.
   \end{itemize}
 \end{frame}
 
