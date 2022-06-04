@@ -274,8 +274,9 @@ end
 -- @return the number of directories read.
 local function l_readCacheFile(self, mpathA, spiderTFnA)
    dbg.start{"Cache l_readCacheFile(mpathA, spiderTFnA)"}
-   local dirsRead  = 0
+   local dirsRead     = 0
    local ignore_cache = cosmic:value("LMOD_IGNORE_CACHE")
+   local tracing      = cosmic:value("LMOD_TRACING")
    if (masterTbl().ignoreCache or ignore_cache) then
       dbg.print{"LMOD_IGNORE_CACHE is true\n"}
       dbg.fini("Cache l_readCacheFile")
@@ -318,6 +319,9 @@ local function l_readCacheFile(self, mpathA, spiderTFnA)
          end
 
          dbg.print{"cacheFile found: ",fn,"\n"}
+         if (tracing == "yes") then  
+            tracing_msg{"Using Cache file: ",fn}
+         end
 
          -- Check Time
 
@@ -375,6 +379,7 @@ end
 local function l_writeUserSpiderCacheWhenNecessary(self, delta_t, mpathA, spiderT, mpathMapT)
    local doneMsg
    local masterTbl = masterTbl()
+   local tracing   = cosmic:value("LMOD_TRACING")
    local mrc       = MRC:singleton()
    local frameStk  = FrameStk:singleton()
    local mt        = frameStk:mt()
@@ -399,6 +404,11 @@ local function l_writeUserSpiderCacheWhenNecessary(self, delta_t, mpathA, spider
                 r.dontWriteCache, "\n"}
 
    local dontWrite = self.dontWrite or r.dontWriteCache or cosmic:value("LMOD_IGNORE_CACHE")
+
+   if (tracing == "yes") then
+      tracing_msg{"completed building cache. Saving cache: ",
+                  tostring(not(delta_t < shortTime or dontWrite))}
+   end
 
    if (delta_t < shortTime or dontWrite) then
       ancient = shortLifeCache
@@ -605,11 +615,6 @@ function M.build(self, fast)
    end
    local t2       = epoch()
    dbg.print{"t2-t1: ",t2-t1, " shortTime: ", shortTime, "\n", level=2}
-
-   if (tracing == "yes") then
-      tracing_msg{"completed building cache. Saving cache: ",
-                  tostring(not(t2 - t1 < shortTime or dontWrite))}
-   end
 
    l_writeUserSpiderCacheWhenNecessary(self, t2-t1, mpathA, spiderT, mpathMapT)
 
