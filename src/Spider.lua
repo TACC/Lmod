@@ -366,13 +366,14 @@ function M.findAllModules(self, mpathA, spiderT, mpathMapT)
                l_findModules(mpath, mt, mList, sn, v)
             end
             spiderT[mpath] = moduleA[1].T
-         end
-         dbg.print{"Running l_findChangeMPATH_modules on: ", mpath,"\n"}
-         if (tracing == "yes") then
-            tracing_msg{"dynamic spider search on ",mpath}
-         end
-         for sn, v in pairs(spiderT[mpath]) do
-            l_findChangeMPATH_modules(mpath, mt, mList, sn, v)
+         else
+            dbg.print{"Running l_findChangeMPATH_modules on: ", mpath,"\n"}
+            if (tracing == "yes") then
+               tracing_msg{"dynamic spider search on ",mpath}
+            end
+            for sn, v in pairs(spiderT[mpath]) do
+               l_findChangeMPATH_modules(mpath, mt, mList, sn, v)
+            end
          end
          seenT[mpath]   = true
       until true

@@ -28,7 +28,6 @@ running: module --regression_testing -T avail
   Building Spider cache for the following dir(s): ProjectDIR/rt/bioContainers/mf/Core
   Full spider search on ProjectDIR/rt/bioContainers/mf/Core
   Spider Loading:       bioContainers/0.1 (fn: ProjectDIR/rt/bioContainers/mf/Core/bioContainers/0.1.lua)
-  dynamic spider search on ProjectDIR/rt/bioContainers/mf/Core
   dynamic spider search on ProjectDIR/rt/bioContainers/bcd/mf
   completed building cache. Saving cache: false
 ProjectDIR/rt/bioContainers/bcd/mf
