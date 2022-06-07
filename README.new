@@ -11,3 +11,5 @@ Lmod 8.7+
 	    * Only add to mpathMapT when mpath_old ~= mpath_new in l_processNewModulePath(path).
 W.I.P:
    (8.7.4)  * Issue #578: Dynamic Spider Cache supported. 
+            * Change Regular files counter to ignore files that start with "."
+            
