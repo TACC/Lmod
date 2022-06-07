@@ -9,7 +9,6 @@ Lmod 8.7+
 	      Note also that this is not a SOURCE-to-SOURCE translation from TCL to Lua.
 	    * Cannot use local with KSH
 	    * Only add to mpathMapT when mpath_old ~= mpath_new in l_processNewModulePath(path).
-W.I.P:
    (8.7.4)  * Issue #578: Dynamic Spider Cache supported. 
-            * Change Regular files counter to ignore files that start with "."
-            
+            * Change Regular files counter to ignore files that start with "." when counting non-modulefiles in
+              src/DirTree.lua
