@@ -2,6 +2,9 @@
 Lmod: A New Environment Module System
 =====================================
 
+Monthly Zoom Meeting
+====================
+
       **NOTE**
       Lmod is holding Monthly Zoom meeting to discuss various topics.
       Typically the first Tuesday of the Month at 9:30 U.S. Central. Which

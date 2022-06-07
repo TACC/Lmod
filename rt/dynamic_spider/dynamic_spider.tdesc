@@ -63,11 +63,13 @@ testdescript = {
      buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
      runLmod --terse spider                    # 9
 
-     -- Find user modulefiles
+     ############################################################
+     # Find user modulefiles
      cp -r ../../myModules4 .
      runLmod --terse spider                    #10
 
-     -- Don't find user modulefiles because dynamic spider cache is off.
+     ############################################################
+     # Don't find user modulefiles because dynamic spider cache is off.
      export LMOD_DYNAMIC_SPIDER_CACHE=No
      runLmod --terse spider                    #11
 

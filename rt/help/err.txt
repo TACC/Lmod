@@ -238,6 +238,7 @@ Disable Same Name AutoSwap         no
 Display Extension w/ avail         yes
 Using dotfiles                     yes
 Allow duplicate paths              no
+Dynamic Spider Cache               yes
 Require Exact Match/no defaults    no
 Export the module command          yes
 Allow extended default             yes
