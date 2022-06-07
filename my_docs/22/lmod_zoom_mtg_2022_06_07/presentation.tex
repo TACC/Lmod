@@ -130,7 +130,7 @@
  {\tiny
     \begin{semiverbatim}
 function Load\_Try(...)
-   dbg.start{"Load\_Try(",concatTbl(\{...\},", "),")"}
+   dbg.start\{"Load\_Try(",concatTbl(\{...\},", "),")"\}
    local check\_must\_load = false
    local argA            = pack(...)
    l\_usrLoad(argA, check\_must\_load)
@@ -138,7 +138,7 @@ function Load\_Try(...)
 end
 
 function Load\_Usr(...)
-   dbg.start{"Load\_Usr(",concatTbl(\{...\},", "),")"}
+   dbg.start\{"Load\_Usr(",concatTbl(\{...\},", "),")"\}
    local check\_must\_load = true
    local argA            = pack(...)
    l\_usrLoad(argA, check\_must\_load)
@@ -285,7 +285,7 @@ end
     -- Otherwise: unload previous module
      local mcp_old = mcp
      local mcp     = MCP
-     unload_internal{MName:new("mt",sn)}
+     unload_internal\{MName:new("mt",sn)\}
      mname:reset()  -- force a new lazyEval
      local status = mcp:load_usr\{mname\}
      mcp          = mcp_old
