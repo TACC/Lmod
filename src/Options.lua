@@ -200,7 +200,7 @@ function M.singleton(self, usage)
    }
 
    cmdlineParser:add_option{
-      name   = {"--ignore_cache"},
+      name   = {"-I", "--ignore_cache"},
       dest   = "ignoreCache",
       action = "store_true",
       help   = i18n("cache_hlp"),

@@ -330,6 +330,7 @@ spiderT = {
         ["gcc/4.2.3"] = {
           Version = "4.2.3",
           canonical = "4.2.3",
+          changeMPATH = true,
           family = "compiler",
           fn = "ProjectDIR/rt/spider/mf/E_Core/gcc/4.2.3.lua",
           luaExt = 6,
@@ -340,6 +341,7 @@ spiderT = {
         ["gcc/4.2.5"] = {
           Version = "4.2.5",
           canonical = "4.2.5",
+          changeMPATH = true,
           family = "compiler",
           fn = "ProjectDIR/rt/spider/mf/E_Core/gcc/4.2.5.lua",
           luaExt = 6,
@@ -357,6 +359,7 @@ spiderT = {
         ["intel/11.0"] = {
           Version = "11.0",
           canonical = "11.0",
+          changeMPATH = true,
           family = "compiler",
           fn = "ProjectDIR/rt/spider/mf/E_Core/intel/11.0.lua",
           help = [[        Intel Compilers
@@ -382,6 +385,7 @@ spiderT = {
         ["intel/11.2"] = {
           Version = "11.2",
           canonical = "11.2",
+          changeMPATH = true,
           family = "compiler",
           fn = "ProjectDIR/rt/spider/mf/E_Core/intel/11.2.lua",
           help = [[        Intel Compilers
@@ -1337,6 +1341,7 @@ This is a GPU only build, containing both MPI and threadMPI builds for 2019.
         ["gcc/10.1"] = {
           Version = "10.1",
           canonical = "10.1",
+          changeMPATH = true,
           fn = "ProjectDIR/rt/spider/mf2/Core/gcc/10.1.lua",
           luaExt = 5,
           mpath = "ProjectDIR/rt/spider/mf2/Core",
@@ -1353,6 +1358,7 @@ This is a GPU only build, containing both MPI and threadMPI builds for 2019.
         ["zuda/10.1"] = {
           Version = "10.1",
           canonical = "10.1",
+          changeMPATH = true,
           fn = "ProjectDIR/rt/spider/mf2/Core/zuda/10.1.lua",
           luaExt = 5,
           mpath = "ProjectDIR/rt/spider/mf2/Core",
@@ -1524,6 +1530,14 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 71
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+===========================
+MODULEPATH=ProjectDIR/rt/spider/mf2/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf2/Core",}';
+export _ModuleTable_;
+===========================
+step 72
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/spider/mf3/system:1\;ProjectDIR/rt/spider/mf3/init-modules:1;
@@ -1533,7 +1547,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf3/system","ProjectDIR/rt/spider/mf3/init-modules",},systemBaseMPATH="ProjectDIR/rt/spider/mf3/system:ProjectDIR/rt/spider/mf3/init-modules",}';
 export _ModuleTable_;
 ===========================
-step 72
+step 73
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider Appl1
 ===========================
 MODULEPATH=ProjectDIR/rt/spider/mf3/system:ProjectDIR/rt/spider/mf3/init-modules;
@@ -1541,7 +1555,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf3/system","ProjectDIR/rt/spider/mf3/init-modules",},systemBaseMPATH="ProjectDIR/rt/spider/mf3/system:ProjectDIR/rt/spider/mf3/init-modules",}';
 export _ModuleTable_;
 ===========================
-step 73
+step 74
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider Appl1
 ===========================
 MODULEPATH=ProjectDIR/rt/spider/mf3/system:ProjectDIR/rt/spider/mf3/init-modules;

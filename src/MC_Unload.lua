@@ -62,6 +62,7 @@ M.error                = MasterControl.warning
 M.execute              = MasterControl.execute
 M.extensions           = MasterControl.quiet
 M.family               = MasterControl.unset_family
+M.haveDynamicMPATH     = MasterControl.quiet
 M.help                 = MasterControl.quiet
 M.inherit              = MasterControl.inherit
 M.load                 = MasterControl.unload

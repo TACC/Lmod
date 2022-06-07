@@ -334,6 +334,14 @@ function M.conflict(self, mA)
 end
 
 --------------------------------------------------------------------------
+-- Print conflict command.
+-- @param self A MasterControl object
+-- @param mA An array of module names (MName objects)
+function M.haveDynamicMPATH(self, mA)
+   A[#A+1] = ShowCmdA("haveDynamicMPATH",mA)
+end
+
+--------------------------------------------------------------------------
 -- Print set shell function
 -- @param self A MasterControl object
 function M.set_shell_function(self, name, bashStr, cshStr)

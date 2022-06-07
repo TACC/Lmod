@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
+Modules based on Lua: Version 8.7.3  2022-05-23 14:19 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -22,7 +22,7 @@ Options:
   -t --terse                        Write out in machine readable format for commands: list, avail, spider, savelist
   --initial_load                    loading Lmod for first time in a user shell
   --latest                          Load latest (ignore default)
-  --ignore_cache                    Treat the cache file(s) as out-of-date
+  -I --ignore_cache                 Treat the cache file(s) as out-of-date
   --novice                          Turn off expert and quiet flag
   --raw                             Print modulefile in raw output when used with show
   -w twidth --width=twidth          Use this as max term width
@@ -103,7 +103,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
+Modules based on Lua: Version 8.7.3  2022-05-23 14:19 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -123,7 +123,7 @@ Options:
   -t --terse                        Write out in machine readable format for commands: list, avail, spider, savelist
   --initial_load                    loading Lmod for first time in a user shell
   --latest                          Load latest (ignore default)
-  --ignore_cache                    Treat the cache file(s) as out-of-date
+  -I --ignore_cache                 Treat the cache file(s) as out-of-date
   --novice                          Turn off expert and quiet flag
   --raw                             Print modulefile in raw output when used with show
   -w twidth --width=twidth          Use this as max term width
@@ -204,7 +204,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
+Modules based on Lua: Version 8.7.3  2022-05-23 14:19 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -224,7 +224,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --config
 ===========================
-Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
+Modules based on Lua: Version 8.7.3  2022-05-23 14:19 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                        Value
 Allow root to use Lmod             yes
@@ -238,6 +238,7 @@ Disable Same Name AutoSwap         no
 Display Extension w/ avail         yes
 Using dotfiles                     yes
 Allow duplicate paths              no
+Dynamic Spider Cache               yes
 Require Exact Match/no defaults    no
 Export the module command          yes
 Allow extended default             yes

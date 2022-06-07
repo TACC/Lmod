@@ -161,7 +161,7 @@ local function l_versionFile(mrc, mpath, defaultA)
    return defaultA
 end
 
-local function l_walk(mrc, mpath, path, dirA, fileT,regularFn)
+local function l_walk(mrc, mpath, path, dirA, fileT, regularFn)
    dbg.start{"l_walk(mrc,mpath:\"",mpath,"\", path:\"",path,"\", dirA, fileT, regularFn"}
    local defaultA   = {}
    local permissions
@@ -210,7 +210,9 @@ local function l_walk(mrc, mpath, path, dirA, fileT,regularFn)
                   fileT[fullName]   = {fn = file, canonical = f:gsub("%.lua$", ""), mpath = mpath,
                                        luaExt = luaExt, dot_version = dot_version}
                else
-                  regularFn = regularFn + 1
+                  if (f:sub(1,1) ~= ".") then
+                     regularFn = regularFn + 1
+                  end
                end
             end
          end
@@ -281,6 +283,7 @@ local function l_build(mpathA)
       if (isDir(mpath)) then
          local dirT  = {}
          regularFn = l_walk_tree(mrc, mpath, mpath, dirT, regularFn)
+         --dbg.print{"regularFn: ",tostring(regularFn),"\n"}
          if (regularFn > 100) then
             LmodWarning{msg="w_Too_Many_RegularFn",mpath=mpath,regularFn=tostring(regularFn)}
          end

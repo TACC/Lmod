@@ -56,7 +56,7 @@ cleanUp ()
        -e "s|;$PATH_to_SHA1:[0-9];|;|g"                   \
        -e "s| $PATH_to_SHA1||g"                           \
        -e "s|\\\;$PATH_to_SHA1:[0-9]\\\;|\\\;|g"          \
-       -e "s|^Lmod version.*||g"                          \
+       -e "s|^ *Lmod version.*||g"                        \
        -e "s|^LMOD_LD_PRELOAD.*||g"                       \
        -e "s|^LuaFileSystem version.*||g"                 \
        -e "s|^Lua Version.*||g"                           \

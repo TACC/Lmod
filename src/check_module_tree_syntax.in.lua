@@ -181,13 +181,7 @@ function check_syntax(mpath, mt, mList, sn, fn, fullName, errorA)
       frameStk:push(mname)
       mt:add(mname, "pending")
       if (tracing == "yes") then
-         local b          = {}
-         b[#b + 1]        = "check_syntax Loading: "
-         b[#b + 1]        = fullName
-         b[#b + 1]        = " (fn: "
-         b[#b + 1]        = fn or "nil"
-         b[#b + 1]        = ")\n"
-         shell:echo(concatTbl(b,""))
+         tracing_msg{"check_syntax Loading: ", fullName, " (fn: ", fn or "nil",")"}
       end
       loadModuleFile{file=entryT.fn, shell=shellNm, help=true, reportErr=true, mList = mList}
       mt = frameStk:mt()

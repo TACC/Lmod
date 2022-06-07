@@ -44,6 +44,7 @@ SITE_MSG_FILE             := @SITE_MSG_FILE@
 SITE_NAME                 := @SITE_NAME@
 SUPPORT_KSH               := @SUPPORT_KSH@
 SYSHOST                   := @SYSHOST@
+DYNAMIC_SPIDER_CACHE      := @DYNAMIC_SPIDER_CACHE@
 SILENCE_SHELL_DEBUGGING   := @SILENCE_SHELL_DEBUGGING@
 SYS_LD_LIB_PATH           := @SYS_LD_LIB_PATH@
 SYS_LD_PRELOAD            := @SYS_LD_PRELOAD@
@@ -263,6 +264,7 @@ __installMe:
 	        -e 's|@path_to_lmod@|$(LIBEXEC)/lmod|g'                           \
 	        -e 's|@have_lua_term@|$(HAVE_LUA_TERM)|g'                         \
 	        -e 's|@silence_shell_debugging@|$(SILENCE_SHELL_DEBUGGING)|g'     \
+	        -e 's|@dynamic_spider_cache@|$(DYNAMIC_SPIDER_CACHE)|g'           \
 	        -e 's|@fast_tcl_interp@|$(FAST_TCL_INTERP)|g'                     \
 	        -e 's|@settarg_cmd@|$(SETTARG_CMD)|g'                             \
 	        -e 's|@lmod_config_dir@|$(LMOD_CONFIG_DIR)|g'                     \

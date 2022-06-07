@@ -116,7 +116,7 @@ the configuration option which will set the action.
   setting this to no means that your site will have to use either the
   "default" symlink or ".modulerc.lua" to specify defaults.
 
-**LMOD_ANCIENT**:
+**LMOD_ANCIENT_TIME**:
   [number, default:86400, --with-ancient].  The number of seconds that
   the user's personal cache is considered valid.
 

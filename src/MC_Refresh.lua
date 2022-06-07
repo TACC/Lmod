@@ -62,6 +62,7 @@ M.execute              = MasterControl.execute
 M.extensions           = MasterControl.quiet
 M.family               = MasterControl.quiet
 M.help                 = MasterControl.quiet
+M.haveDynamicMPATH     = MasterControl.quiet
 M.inherit              = MasterControl.quiet
 M.load                 = MasterControl.quiet
 M.load_any             = MasterControl.quiet

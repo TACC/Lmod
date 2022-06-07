@@ -310,14 +310,7 @@ function M.load(self, mA)
             dbg.print{"i: ",i,", stackDepth: ", frameStk:stackDepth(),"\n"}
             mcp:pushModule(mname)
             if (tracing == "yes") then
-               local stackDepth = frameStk:stackDepth()
-               local indent     = ("  "):rep(stackDepth+1)
-               local b          = {}
-               b[#b + 1]        = indent
-               b[#b + 1]        = "Pushing "
-               b[#b + 1]        = userName
-               b[#b + 1]        = " on moduleQ\n"
-               shell:echo(concatTbl(b,""))
+               tracing_msg{"Pushing ", userName, " on moduleQ"}
             end
             break
          end
@@ -327,23 +320,15 @@ function M.load(self, mA)
          local loaded     = false
 
          if (tracing == "yes") then
-            local stackDepth = frameStk:stackDepth()
             local use_cache  = (not masterTbl.terse) or (cosmic:value("LMOD_CACHED_LOADS") ~= "no")
             local moduleA    = ModuleA:singleton{spider_cache=use_cache}
             local isNVV      = moduleA:isNVV()
-            local indent     = ("  "):rep(stackDepth+1)
-            local b          = {}
             TraceCounter     = TraceCounter + 1
-            b[#b + 1]        = indent
-            b[#b + 1]        = "(" .. tostring(TraceCounter) .. ")"
-            b[#b + 1]        = "(" .. tostring(ReloadAllCntr) .. ")"
-            b[#b + 1]        = "Loading: "
-            b[#b + 1]        = userName
-            b[#b + 1]        = " (fn: "
-            b[#b + 1]        = fn or "nil"
-            b[#b + 1]        = isNVV and ", using Find-First" or ", using Find-Best"
-            b[#b + 1]        = ")\n"
-            shell:echo(concatTbl(b,""))
+            tracing_msg{"(" .. tostring(TraceCounter) .. ")",
+                        "(" .. tostring(ReloadAllCntr) .. ")",
+                        "Loading: ", userName, " (fn: ", fn or "nil",
+                        isNVV and ", using Find-First" or ", using Find-Best",
+                        ")" }
          end
 
          dbg.print{"Master:load i: ",i," sn: ",sn," fn: ",fn,"\n"}
@@ -497,21 +482,11 @@ function M.unload(self,mA)
       local fn       = mname:fn()
       local status   = mt:status(sn)
       if (tracing == "yes") then
-         local stackDepth = frameStk:stackDepth()
-         local indent     = ("  "):rep(stackDepth+1)
-         local b          = {}
          TraceCounter     = TraceCounter + 1
-         b[#b + 1]        = indent
-         b[#b + 1]        = "(" .. tostring(TraceCounter) .. ")"
-         b[#b + 1]        = "(" .. tostring(ReloadAllCntr) .. ")"
-         b[#b + 1]        = "Unloading: "
-         b[#b + 1]        = userName
-         b[#b + 1]        = " (status: "
-         b[#b + 1]        = status
-         b[#b + 1]        = ") (fn: "
-         b[#b + 1]        = fn or "nil"
-         b[#b + 1]        = ")\n"
-         shell:echo(concatTbl(b,""))
+         tracing_msg{"(" .. tostring(TraceCounter) .. ")",
+                     "(" .. tostring(ReloadAllCntr) .. ")",
+                     "Unloading: ", userName, " (status: ",
+                     status, ") (fn: ", fn or "nil", ")" }
       end
 
       dbg.print{"Trying to unload: ", userName, " sn: ", sn,"\n"}
@@ -587,20 +562,12 @@ function M.reloadAll(self, force_update)
    local mA       = {}
 
    if (tracing == "yes") then
-      local stackDepth = frameStk:stackDepth()
-      local indent     = ("  "):rep(stackDepth+1)
       local nameA      = {}
       for i = 1, #a do
          nameA[#nameA + 1 ] = a[i].userName
       end
-      local b          = {}
-      b[#b + 1]        = indent
-      b[#b + 1]        = "reloadAll("
-      b[#b + 1]        = tostring(ReloadAllCntr)
-      b[#b + 1]        = ")("
-      b[#b + 1]        = concatTbl(nameA, ", ")
-      b[#b + 1]        = ")\n"
-      shell:echo(concatTbl(b,""))
+      tracing_msg{"reloadAll(", tostring(ReloadAllCntr),")(",
+                  concatTbl(nameA, ", "), ")"}
    end
 
    for i = 1, #a do

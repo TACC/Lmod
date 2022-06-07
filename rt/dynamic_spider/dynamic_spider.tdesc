@@ -1,0 +1,102 @@
+-- -*- lua -*-
+local testName = "dynamic_spider"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	dynamic_spider
+   ]],
+   keywords = {testName },
+
+   active   = true,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     export MODULEPATH_ROOT=$(testDir)/mf
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d myModules{,2,4}
+
+     runLmod --version                         # 1
+     runLmod spider                            # 2
+     mkdir -p $HOME/.lmod.d/.cache
+     buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
+     runLmod spider                            # 3
+
+     cp -r ../../myModules .
+     runLmod spider                            # 4
+
+
+     unsetMT
+     export MODULEPATH_ROOT=$(testDir)/mf2
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+
+     buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
+     runLmod spider                            # 5
+
+     cp -r ../../myModules .
+     runLmod spider                            # 6
+
+     unsetMT
+     export MODULEPATH_ROOT=$(testDir)/mf3
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+     rm -rf myModules
+
+     buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
+     runLmod spider                            # 7
+
+     cp -r ../../myModules2 .
+     runLmod spider                            # 8
+
+     unsetMT
+     export MODULEPATH_ROOT=$(testDir)/mf4
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+     rm -rf myModules2
+
+     buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
+     runLmod --terse spider                    # 9
+
+     ############################################################
+     # Find user modulefiles
+     cp -r ../../myModules4 .
+     runLmod --terse spider                    #10
+
+     ############################################################
+     # Don't find user modulefiles because dynamic spider cache is off.
+     export LMOD_DYNAMIC_SPIDER_CACHE=No
+     runLmod --terse spider                    #11
+
+     runLmod load gcc/9.3.0                    #12
+     runLmod --terse spider                    #13
+
+     HOME=$ORIG_HOME
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

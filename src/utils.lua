@@ -601,6 +601,9 @@ function regular_cmp(x,y)
 end
 
 
+
+
+
 function sanizatizeTbl(rplmntA, inT, outT)
    for k, v in pairs(inT) do
       local key = k
@@ -1009,3 +1012,19 @@ function initialize_lmod()
 
    require("SitePackage")
 end
+
+function tracing_msg(msgA)
+   local FrameStk   = require("FrameStk")
+   local shell      = _G.Shell
+   local stackDepth = FrameStk:singleton():stackDepth()
+   local indent     = ("  "):rep(stackDepth+1)
+   local b          = {}
+   b[#b + 1]        = indent
+   for i = 1,#msgA do
+      b[#b+1] = msgA[i]
+   end
+   b[#b + 1]        = "\n"
+   shell:echo(concatTbl(b,""))
+end
+
+   

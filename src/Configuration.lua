@@ -133,6 +133,7 @@ local function l_new(self)
    local activeTerm        = haveTermSupport() and "true" or colorize("red","false")
    local avail_style       = cosmic:value("LMOD_AVAIL_STYLE")
    local lmod_configDir    = cosmic:value("LMOD_CONFIG_DIR")
+   local dynamic_cache     = cosmic:value("LMOD_DYNAMIC_SPIDER_CACHE")
    local ksh_support       = cosmic:value("LMOD_KSH_SUPPORT")
    local extended_default  = cosmic:value("LMOD_EXTENDED_DEFAULT")
    local avail_extensions  = cosmic:value("LMOD_AVAIL_EXTENSIONS")
@@ -210,6 +211,7 @@ local function l_new(self)
    tbl.disp_av_ext  = { k = "Display Extension w/ avail"        , v = avail_extensions, }
    tbl.dot_files    = { k = "Using dotfiles"                    , v = using_dotfiles,   }
    tbl.dupPaths     = { k = "Allow duplicate paths"             , v = duplicate_paths,  }
+   tbl.dynamicC     = { k = "Dynamic Spider Cache"              , v = dynamic_cache,    }
    tbl.extendDflt   = { k = "Allow extended default"            , v = extended_default, }
    tbl.exactMatch   = { k = "Require Exact Match/no defaults"   , v = exactMatch,       }
    tbl.expMCmd      = { k = "Export the module command"         , v = export_module,    }

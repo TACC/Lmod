@@ -2,6 +2,17 @@
 Lmod: A New Environment Module System
 =====================================
 
+Monthly Zoom Meeting
+====================
+
+      **NOTE**
+      Lmod is holding Monthly Zoom meeting to discuss various topics.
+      Typically the first Tuesday of the Month at 9:30 U.S. Central. Which
+      is 14:30 UTC or 15:30 UTC in the winter months.
+
+      See: https://github.com/TACC/Lmod/wiki for details
+
+
 PURPOSE
 ^^^^^^^
 

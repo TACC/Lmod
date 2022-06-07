@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
+Modules based on Lua: Version 8.7.3  2022-05-23 14:19 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -64,7 +64,7 @@ Options:
   -t --terse                        Affichage dans un format lisible par l'ordinateur pour les commandes: list, avail, spider, savelist
   --initial_load                    Chargement de Lmod pour la première fois dans une session d'usager
   --latest                          Charge la version la plus récente (ignore la version par défaut)
-  --ignore_cache                    Considère la cache comme étant désuète
+  -I --ignore_cache                 Considère la cache comme étant désuète
   --novice                          Désactive le mode expert
   --raw                             Lorsqu'utilisé avec la sous-commande show, affiche le contenu du fichier de module de façon non formattée
   -w twidth --width=twidth          Change la largeur de l'affichage
@@ -145,5 +145,5 @@ Sites web de Lmod
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   Pour rapporter un bogue, veuillez lire http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
+Modules based on Lua: Version 8.7.3  2022-05-23 14:19 -05:00
     by Robert McLay mclay@tacc.utexas.edu

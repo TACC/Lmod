@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
+Modules based on Lua: Version 8.7.3  2022-05-23 14:19 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -24,8 +24,11 @@ step 4
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T avail
 ===========================
 running: module --regression_testing -T avail
+  Using Cache file: OutputDIR/bcd/cacheDir/spiderT.lua
   Building Spider cache for the following dir(s): ProjectDIR/rt/bioContainers/mf/Core
-Spider Loading: bioContainers/0.1 (fn: ProjectDIR/rt/bioContainers/mf/Core/bioContainers/0.1.lua)
+  Full spider search on ProjectDIR/rt/bioContainers/mf/Core
+  Spider Loading:       bioContainers/0.1 (fn: ProjectDIR/rt/bioContainers/mf/Core/bioContainers/0.1.lua)
+  dynamic spider search on ProjectDIR/rt/bioContainers/bcd/mf
   completed building cache. Saving cache: false
 ProjectDIR/rt/bioContainers/bcd/mf
    eagle/ctr-0.9.0--py34_0

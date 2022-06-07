@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.2  2022-05-04 13:42 -05:00
+Modules based on Lua: Version 8.7.3  2022-05-23 14:19 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -884,6 +884,21 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GROMACS/2019
        - Homepage: http://www.gromacs.org
 ===========================
 step 71
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+===========================
+The following is a list of the modules and extensions currently available:
+  gcc: gcc/10.1
+  GROMACS: GROMACS/2018, GROMACS/2019
+    GROMACS(CPU/2018) is a versatile package to perform molecular dynamics, i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles. This is a CPU enabled build, containing both MPI and threadMPI binaries for 2018.
+  zuda: zuda/10.1
+To learn more about a package execute:
+   $ module spider Foo
+where "Foo" is the name of a module.
+To find detailed information about a particular package you
+must specify the version if there is more than one version:
+   $ module spider Foo/11.1
+===========================
+step 72
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 Global Aliases
@@ -900,7 +915,7 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 72
+step 73
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider Appl1
 ===========================
   Appl1: Appl1/1
@@ -908,7 +923,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider Appl1
       init-cluster/1.0  MyStack/2021
       init-cluster/1.0  MyStack/2022
 ===========================
-step 73
+step 74
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider Appl1
 ===========================
   Appl1: Appl1/1
