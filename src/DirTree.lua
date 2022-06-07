@@ -273,7 +273,7 @@ local function l_walk_tree(mrc, mpath, pathIn, dirT, regularFn)
 end
 
 local function l_build(mpathA)
-   dbg.start{"l_build(mpathA)"}
+   --dbg.start{"l_build(mpathA)"}
    local dirA      = {}
    local mrc       = MRC:singleton()
 
@@ -283,14 +283,14 @@ local function l_build(mpathA)
       if (isDir(mpath)) then
          local dirT  = {}
          regularFn = l_walk_tree(mrc, mpath, mpath, dirT, regularFn)
-         dbg.print{"regularFn: ",tostring(regularFn),"\n"}
+         --dbg.print{"regularFn: ",tostring(regularFn),"\n"}
          if (regularFn > 100) then
             LmodWarning{msg="w_Too_Many_RegularFn",mpath=mpath,regularFn=tostring(regularFn)}
          end
          dirA[#dirA+1] = {mpath=mpath, dirT=dirT}
       end
    end
-   dbg.fini("l_build")
+   --dbg.fini("l_build")
    return dirA
 end
 

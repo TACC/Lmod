@@ -75,6 +75,7 @@ echo "Support KSH................................................." : $SUPPORT_K
 echo "Use the fast TCL interpreter................................" : $FAST_TCL_INTERP
 echo "LMOD_CONFIG_DIR............................................." : $LMOD_CONFIG_DIR
 echo "Display Extensions w/ module avail.........................." : $AVAIL_EXTENSIONS
+echo "Dynamic Spider Cache support................................" : $DYNAMIC_SPIDER_CACHE
 echo "Allow for extended default.(ml intel/17 #-> intel/17.0.4)..." : $EXTENDED_DEFAULT  #"
 
 echo

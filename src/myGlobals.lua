@@ -124,6 +124,14 @@ cosmic:init{name    = "LMOD_TRACING",
 
 
 ------------------------------------------------------------------------
+-- LMOD_DYNAMIC_SPIDER_CACHE :  Support for Dynamic Spider Caches
+------------------------------------------------------------------------
+
+cosmic:init{name = "LMOD_DYNAMIC_SPIDER_CACHE",
+            sedV = "@dynamic_spider_cache@",
+            yn   = "yes"}
+
+------------------------------------------------------------------------
 -- LMOD_CASE_INDEPENDENT_SORTING :  make avail and spider use case
 --                                  independent sorting.
 ------------------------------------------------------------------------

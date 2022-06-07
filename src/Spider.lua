@@ -293,6 +293,7 @@ function M.findAllModules(self, mpathA, spiderT, mpathMapT)
    spiderT.version = LMOD_CACHE_VERSION
 
    local tracing         = cosmic:value("LMOD_TRACING")
+   local dynamicCache    = (cosmic:value("LMOD_DYNAMIC_SPIDER_CACHE") ~= "no")
    local mt              = deepcopy(MT:singleton())
    local maxdepthT       = mt:maxDepthT()
    local masterTbl       = masterTbl()
@@ -366,7 +367,7 @@ function M.findAllModules(self, mpathA, spiderT, mpathMapT)
                l_findModules(mpath, mt, mList, sn, v)
             end
             spiderT[mpath] = moduleA[1].T
-         else
+         elseif (dynamicCache) then
             dbg.print{"Running l_findChangeMPATH_modules on: ", mpath,"\n"}
             if (tracing == "yes") then
                tracing_msg{"dynamic spider search on ",mpath}

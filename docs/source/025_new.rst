@@ -1,6 +1,24 @@
 New Features in Lmod
 ====================
 
+**Dynamic Spider Cache Support**:
+     (Lmod 8.7.4+): If a modulefile changes $MODULEPATH, it is marked
+     as dynamic and is re-read when performing a *module spider*.
+     This is to allow sites to dynamically add in modulefiles in user
+     directories.  This can be turned off at configure time or with by
+     setting LMOD_DYNAMIC_SPIDER_CACHE=no.
+
+**Warning when reading too many non-modulefile**:
+     Lmod (8.7.4+): To catch directory that are full of
+     non-modulefiles, Lmod count the number of regular files that do
+     not start with a ".". If there are more than 100, Lmod reports
+     a warning.
+
+**Loading a modulefile too many times**:
+     (Lmod 8.7.3+): Lmod throws an error if any modulefile is loaded
+     500 time or more in a single module command.  This is to prevent
+     infinite load loops.
+
 **An unload cannot fail**:
      As of Lmod 8.7+, an error found during unload is treated as a
      warning.
@@ -14,7 +32,7 @@ New Features in Lmod
      This TCL modulefile will generate its output at the beginning of the
      modulefile evaluation. New in Lmod 8.7. This matches Tmod 5.1.
 
-**LmodBreak** (msg):
+**LmodBreak**:
      LmodBreak() modulefile function causes the evaluation of the
      current modulefile to stop and all changed in the user's
      environment to be ignored from the current modulefile.  However,

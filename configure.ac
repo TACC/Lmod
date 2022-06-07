@@ -122,6 +122,20 @@ AC_ARG_WITH(colorize,
     COLORIZE="$withval"
     AC_DEFINE_UNQUOTED(COLORIZE, "$withval"))dnl
 
+AC_SUBST(DYNAMIC_SPIDER_CACHE)
+AC_ARG_WITH(dynamicSpiderCache,
+    AC_HELP_STRING([--with-dynamicSpiderCache=ans],[allow for Dynamic Spider Cache usage [[yes]]]),
+    DYNAMIC_SPIDER_CACHE="$withval"
+    DYNAMIC_SPIDER_CACHE=`echo $DYNAMIC_SPIDER_CACHE | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
+    VALID_YN $DYNAMIC_SPIDER_CACHE "--with-dynamicSpiderCache=ans: ans must be yes or no"
+    AC_MSG_RESULT([DYNAMIC_SPIDER_CACHE=$with_dynamicSpiderCache])
+    AC_DEFINE_UNQUOTED(DYNAMIC_SPIDER_CACHE, "$with_dynamicSpiderCache")dnl
+    ,
+    withval="yes"
+    AC_MSG_RESULT([DYNAMIC_SPIDER_CACHE=$withval])
+    DYNAMIC_SPIDER_CACHE="$withval"
+    AC_DEFINE_UNQUOTED(DYNAMIC_SPIDER_CACHE, "$withval"))dnl
+
 AC_SUBST(HIDDEN_ITALIC)
 AC_ARG_WITH(hiddenItalic,
     AC_HELP_STRING([--with-hiddenItalic=ans],[Use italic for hidden module instead of faint[[no]]]),
