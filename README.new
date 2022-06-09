@@ -12,3 +12,7 @@ Lmod 8.7+
    (8.7.4)  * Issue #578: Dynamic Spider Cache supported. 
             * Change Regular files counter to ignore files that start with "." when counting non-modulefiles in
               src/DirTree.lua
+W.I.P:
+   (8.7.5)  * Issue #580: Add check for valid env. names for family(), setenv() etc.
+            * Issue #580: Add check for valid alias and shell function names.
+            
