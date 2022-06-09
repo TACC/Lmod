@@ -7,7 +7,7 @@ Monthly Zoom Meeting
 
       **NOTE**
       Lmod is holding Monthly Zoom meeting to discuss various topics.
-      Typically the first Tuesday of the Month at 9:30 U.S. Central (which
+      Typically it is the first Tuesday of the Month at 9:30 U.S. Central (which
       is 14:30 UTC or 15:30 UTC in the winter months). Beginners are
       welcome.  There is always a Q/A session at the beginning. Topic
       announcements are sent to the Lmod mailing list.
