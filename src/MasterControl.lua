@@ -121,6 +121,12 @@ local function l_check_for_valid_name(kind, name)
    end
 end
 
+local function l_check_for_valid_alias_name(kind, name)
+   if (name:find("[ \t]")) then
+      LmodError{msg="e_BadName",kind=kind, name=name}
+   end
+end
+
 local function l_createStackName(name)
    return "__LMOD_STACK_" .. name
 end
@@ -586,6 +592,9 @@ function M.set_alias(self, name, value)
    name = name:trim()
    dbg.start{"MasterControl:set_alias(\"",name,"\", \"",value,"\")"}
 
+   l_check_for_valid_alias_name("set_alias",name)
+
+
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
 
@@ -626,6 +635,8 @@ function M.set_shell_function(self, name, bash_function, csh_function)
    dbg.start{"MasterControl:set_shell_function(\"",name,"\", \"",bash_function,"\"",
              "\", \"",csh_function,"\""}
 
+
+   l_check_for_valid_alias_name("set_shell_function",name)
 
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
