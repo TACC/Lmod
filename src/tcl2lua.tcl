@@ -488,7 +488,10 @@ proc require-fullname {} {
     cmdargs "requireFullName"
 }
 
-
+proc haveDynamicMPATH {} {
+    cmdargs "haveDynamicMPATH"
+}
+    
 # Dictionary-style string comparison
 # Use dictionary sort of lsort proc to compare two strings in the "string
 # compare" fashion (returning -1, 0 or 1). Tcl dictionary-style comparison
@@ -986,6 +989,7 @@ proc execute-modulefile {modfile } {
     interp alias $child exit     	 {} my_exit
     interp alias $child extensions     	 {} extensions
     interp alias $child family         	 {} family
+    interp alias $child haveDynamicMPATH {} haveDynamicMPATH
     interp alias $child initGA         	 {} initGA
     interp alias $child is-loaded      	 {} is-loaded
     interp alias $child is-avail      	 {} is-avail

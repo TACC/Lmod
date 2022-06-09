@@ -212,6 +212,11 @@ standard TCL language.
   Return 1 if the name is available for loading, 0 if not. (As of Lmod 8.6+)
 
 
+**haveDynamicMPATH** :
+     This function tells that Lmod that this module has a dynamic
+     $MODULEPATH when building the spider cache.  See
+     :ref:`spider_tool-label` for details.
+
 TCL Modulefile Functions NOT SUPPORTED
 --------------------------------------
 

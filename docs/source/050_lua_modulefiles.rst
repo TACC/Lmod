@@ -186,6 +186,11 @@ unset during unloading.
 
         if (mode() == "load") then requireFullName() end
 
+**haveDynamicMPATH** ():
+     This function tells that Lmod that this module has a dynamic
+     $MODULEPATH when building the spider cache.  See
+     :ref:`spider_tool-label` for details.
+
 
 Extra functions
 ~~~~~~~~~~~~~~~

@@ -42,6 +42,49 @@ Lmod looks for special whatis calls to know what the description for a
 module is.  See :ref:`module_spider_cmd-label` for details.
 
 
+Dynamic Spider Cache Support
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Lmod 8.8+ supports for spidering user modulefiles that
+compiler/MPI/cuda modules could support.  Suppose your site uses the
+software hierarchy and your site wants to allow users to be able to
+use **module spider** to find their modules as well.  To do this
+something like this to your compiler/MPI/cuda modules.  Suppose in
+your sites gcc/10.3.0 module you have:
+
+    prepend_path("MODULEPATH", "...") -- System compiler dependent modules
+    local home_root = pathJoin(os.getenv("HOME"),"myModules")
+    local userDir   = pathJoin(home_root,"Compiler/gcc10")
+    if (isDir(userDir)) then
+      prepend_path("MODULEPATH",userDir)
+    end
+
+Where users know to define their personal hierarchical for gcc/10.*
+packages in say *$HOME/myModules/Compiler/gcc10/*.
+
+If your site uses a spider cache (and you rebuild this cache with Lmod
+8.8+ then Lmod will reread modulefiles that modify $MODULEPATH. This
+rereading can be turned with configure time options.
+
+When building the spider cache, Lmod will not find modulefiles that
+conditionally add to $MODULEPATH.  Suppose your standard module (say
+StdEnv.lua) wants to allow users to have "Core" modules then you might
+have::
+
+    local home_root = pathJoin(os.getenv("HOME"),"myModules")
+    local userDir = pathJoin(hroot,"Core")
+    if (isDir(userDir)) then
+       prepend_path("MODULEPATH",userDir)
+    end
+    haveDynamicMPATH()
+
+The point is that since at the time of building the system spider
+cache, the user's home directory won't be known.  In this case, your
+StdEnv.lua file will need the **haveDynamicMPATH()** function.  Thus
+telling Lmod that the "StdEnv.lua" module will be reread when
+performing a "module spider" command and allow any user's Core modules
+to be found when spidering.
+
 Software page generation
 ~~~~~~~~~~~~~~~~~~~~~~~~
 

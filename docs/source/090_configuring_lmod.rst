@@ -152,6 +152,14 @@ the configuration option which will set the action.
   Note that if LMOD_TMOD_PATH_RULE is "yes" then LMOD_DUPLICATE_PATH
   is set to "no".
 
+**LMOD_DYNAMIC_SPIDER_CACHE**:
+  [yes/no, default: yes, --with-dynamicSpiderCache] Allow Lmod to
+  re-evaluate modules that change $MODULEPATH that are already in the
+  system spider cache. This will allow for user modulefiles that are
+  in a matching software hierarchy.  There is a small speed cost to
+  support this feature. Sites that do not use this feature may wish to
+  disable this.
+
 **LMOD_EXTENDED_DEFAULT**:
   [yes/no, default: yes, --with-extendedDefault] Allow users to
   specify a partial match of a version. So abc/17 will try to match
