@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
+Modules based on Lua: Version 8.7.4  2022-06-07 18:23 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -66,7 +66,7 @@ step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 ===========================
 ProjectDIR/rt/family/mf/Core
-   gcc/7.1.0    gccA/7.1.0 (L)    ibm/13.1.6    ibmA/13.1.6
+   gcc/7.1.0    gccA/7.1.0 (L)    ibm/13.1.6    ibmA/13.1.6    tcc/1.0
 ProjectDIR/rt/family/mf/Compiler/gcc/7
    mpich/3.2.1    openmpi/2.1.1 (L)
 ProjectDIR/rt/family/mf/MPI/gcc/7/openmpi/2.1
@@ -113,3 +113,11 @@ Due to MODULEPATH changes, the following have been reloaded:
   1) openmpi/2.1.1     2) phdf5/1.8.18
 The following have been reloaded with a version change:
   1) compiler-common/.gcc => compiler-common/.ibm
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load tcc
+===========================
+Lmod has detected the following error: family names must be start with a letter followed letters, numbers and underscores (Not; "tcc-compiler")
+While processing the following module(s):
+    Module fullname  Module Filename
+    tcc/1.0          ProjectDIR/rt/family/mf/Core/tcc/1.0.lua

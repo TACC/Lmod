@@ -113,6 +113,14 @@ local function l_compareRequestedLoadsWithActual()
    return aa, bb
 end
 
+local function l_check_for_valid_name(kind, name)
+   local l    = name:len()
+   local i, j = name:find("^[a-zA-Z][a-zA-Z0-9_]*")
+   if (j ~= l) then
+      LmodError{msg="e_BadName",kind=kind, name=name}
+   end
+end
+
 local function l_createStackName(name)
    return "__LMOD_STACK_" .. name
 end
@@ -292,6 +300,8 @@ function M.setenv(self, name, value, respect)
    dbg.start{"MasterControl:setenv(\"",name,"\", \"",value,"\", \"",
               respect,"\")"}
 
+   l_check_for_valid_name("setenv",name)
+
    if (value == nil) then
       LmodError{msg="e_Missing_Value", func = "setenv", name = name}
    end
@@ -321,6 +331,8 @@ end
 function M.unsetenv(self, name, value, respect)
    name = name:trim()
    dbg.start{"MasterControl:unsetenv(\"",name,"\", \"",value,"\")"}
+
+   l_check_for_valid_name("unsetenv",name)
 
    if (respect and getenv(name) ~= value) then
       dbg.print{"Respecting old value"}
@@ -356,6 +368,7 @@ function M.pushenv(self, name, value)
    name = name:trim()
    dbg.start{"MasterControl:pushenv(\"",name,"\", \"",value,"\")"}
 
+   l_check_for_valid_name("pushenv",name)
    ----------------------------------------------------------------
    -- If name exists in the env and the stack version of the name
    -- doesn't exist then use the name's value as the initial value
@@ -408,6 +421,8 @@ end
 function M.popenv(self, name, value)
    name = name:trim()
    dbg.start{"MasterControl:popenv(\"",name,"\", \"",value,"\")"}
+
+   l_check_for_valid_name("popenv",name)
 
    local stackName = l_createStackName(name)
    local frameStk = FrameStk:singleton()
@@ -462,6 +477,8 @@ function M.prepend_path(self, t)
              "\", delim=\"",delim,"\", nodups=\"",nodups,
              "\", priority=",priority,"\n"}
 
+   l_check_for_valid_name("prepend_path",name)
+
    if (varT[name] == nil) then
       varT[name] = Var:new(name, nil, nodups, delim)
    end
@@ -490,6 +507,8 @@ function M.append_path(self, t)
              "\", delim=\"",delim,"\", nodups=\"",nodups,
              "\", priority=",priority,
              "}"}
+
+   l_check_for_valid_name("append_path",name)
 
    -- Do not allow dups on MODULEPATH like env vars.
    nodups = name == ModulePath or nodups
@@ -523,6 +542,8 @@ function M.remove_path(self, t)
              ", where=",where,
              ", force=",force,
              "}"}
+
+   l_check_for_valid_name("remove_path",name)
 
    -- Do not allow dups on MODULEPATH like env vars.
    nodups = (name == ModulePath) or nodups
@@ -564,6 +585,7 @@ end
 function M.set_alias(self, name, value)
    name = name:trim()
    dbg.start{"MasterControl:set_alias(\"",name,"\", \"",value,"\")"}
+   l_check_for_valid_name("set_alias",name)
 
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
@@ -605,6 +627,8 @@ function M.set_shell_function(self, name, bash_function, csh_function)
    dbg.start{"MasterControl:set_shell_function(\"",name,"\", \"",bash_function,"\"",
              "\", \"",csh_function,"\""}
 
+
+   l_check_for_valid_name("set_shell_function",name)
 
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
@@ -1313,6 +1337,8 @@ function M.family(self, name)
    local masterTbl = masterTbl()
    local auto_swap = cosmic:value("LMOD_AUTO_SWAP")
 
+   l_check_for_valid_name("family",name)
+
    local oldName = mt:getfamily(name)
    if (oldName ~= nil and oldName ~= sn and not expert() ) then
       if (auto_swap ~= "no") then
@@ -1422,6 +1448,7 @@ function M.add_property(self, name, value)
    local frameStk  = FrameStk:singleton()
    local sn        = frameStk:sn()
    local mt        = frameStk:mt()
+   l_check_for_valid_name("add_property",name)
    mt:add_property(sn, name:trim(), value)
 end
 
@@ -1435,6 +1462,7 @@ function M.remove_property(self, name, value)
    local frameStk  = FrameStk:singleton()
    local sn        = frameStk:sn()
    local mt        = frameStk:mt()
+   l_check_for_valid_name("remove_property",name)
    mt:remove_property(sn, name:trim(), value)
 end
 

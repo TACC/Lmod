@@ -162,3 +162,8 @@ _LMFILES_=ProjectDIR/rt/family/mf/Core/compiler-common/.ibm.lua:ProjectDIR/rt/fa
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={HDF5="phdf5",compiler="ibmA",mpi="openmpi",},mT={["compiler-common"]={fn="ProjectDIR/rt/family/mf/Core/compiler-common/.ibm.lua",fullName="compiler-common/.ibm",loadOrder=1,propT={},stackDepth=1,status="active",userName="compiler-common/.ibm",wV="*ibm.*zfinal",},ibmA={fn="ProjectDIR/rt/family/mf/Core/ibmA/13.1.6.lua",fullName="ibmA/13.1.6",loadOrder=2,propT={},stackDepth=0,status="active",userName="ibmA",wV="000000013.000000001.000000006.*zfinal",},["mpi-common"]={fn="ProjectDIR/rt/family/mf/Core/mpi-common/.openmpi.lua",fullName="mpi-common/.openmpi",loadOrder=3,propT={},stackDepth=1,status="active",userName="mpi-common/.openmpi",wV="*openmpi.*zfinal",},openmpi={fn="ProjectDIR/rt/family/mf/Compiler/ibm/13/openmpi/2.1.1.lua",fullName="openmpi/2.1.1",loadOrder=4,propT={},stackDepth=0,status="active",userName="openmpi",wV="000000002.000000001.000000001.*zfinal",},phdf5={fn="ProjectDIR/rt/family/mf/MPI/ibm/13/openmpi/2.1/phdf5/1.8.18.lua",fullName="phdf5/1.8.18",loadOrder=5,propT={},stackDepth=0,status="active",userName="phdf5",wV="000000001.000000008.000000018.*zfinal",},},mpathA={"ProjectDIR/rt/family/mf/Core","ProjectDIR/rt/family/mf/Compiler/ibm/13","ProjectDIR/rt/family/mf/MPI/ibm/13/openmpi/2.1",},systemBaseMPATH="ProjectDIR/rt/family/mf/Core",}';
 export _ModuleTable_;
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load tcc
+===========================
+false
