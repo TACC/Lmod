@@ -104,7 +104,7 @@ return {
 ]==], --
      e_Args_Not_Strings_short = "command: %{cmdName}, one or more arguments are not strings.",
      e_Avail_No_MPATH      = "module %{name} is not possible. MODULEPATH is not set or not set with valid paths.\n",
-     e_BadAlias            = "%{kind} names not contain spaces (Not: \"%{name}\")\n",
+     e_BadAlias            = "%{kind} names cannot contain spaces (Not: \"%{name}\")\n",
      e_BadName             = "%{kind} names must be start with a letter followed letters, numbers and underscores (Not: \"%{name}\")\n",
      e_BrokenCacheFn       = "Spider cache fn: \"%{fn}\" appears broken",
      e_BrokenQ             = "Internal error: broken module Q\n",
