@@ -1,0 +1,374 @@
+\documentclass{beamer}
+
+% You can also use a 16:9 aspect ratio:
+%\documentclass[aspectratio=169]{beamer}
+\usetheme{TACC16}
+
+% It's possible to move the footer to the right:
+%\usetheme[rightfooter]{TACC16}
+
+%% page 
+%\begin{frame}{}
+%  \begin{itemize}
+%    \item
+%  \end{itemize}
+%\end{frame}
+%
+%% page 
+%\begin{frame}[fragile]
+%    \frametitle{}
+% {\tiny
+%    \begin{semiverbatim}
+%    \end{semiverbatim}
+%}
+%  \begin{itemize}
+%    \item
+%  \end{itemize}
+%
+%\end{frame}
+
+\begin{document}
+\title[Lmod]{How Lmod Loads a Modulefile, Part 1}
+\author{Robert McLay} 
+\date{June. 7, 2022}
+
+% page 1
+\frame{\titlepage} 
+
+
+% page 2
+\begin{frame}{Outline}
+  \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
+  \begin{itemize}
+    \item Talk: How Lmod finds a modulefile to load
+    \item Next Time: Part 2: How Lmod actually evaluates a modulefile
+    \item There is a surprising amount to talk about before the
+      modulefile gets evaluated.
+    \item We will be talking about a user requested load.
+    \item A module requested load is slightly different. 
+  \end{itemize}
+\end{frame}
+
+% page 3
+\begin{frame}[fragile]
+    \frametitle{Outline (II)}
+  \begin{itemize}
+    \item \texttt{main()}: How main() parses the command line
+    \item \texttt{Load\_Usr()}: Starts working your modules to load
+    \item \texttt{l\_usrLoad()}: Splits modules to loads or unloads
+    \item \texttt{MName Class}: Maps module name to a filename
+    \item \texttt{mcp}: Object to control kind of evaluation
+    \item \texttt{MasterControl:load(mA)}: We are loading a modulefile
+    \item \texttt{Master:load(mA)}: Where the heavy lifting is done
+    \item \texttt{loadModuleFile()}: Where the modulefile is actually evaluated
+  \end{itemize}
+\end{frame}
+
+% page 4
+\begin{frame}[fragile]
+    \frametitle{\texttt{main()}: parsing command line}
+  \begin{itemize}
+    \item main() is located in lmod.in.lua (installed as lmod)
+    \item The command is: {\color{blue}\emph{module load foo}}
+    \item To parse Lmod uses the 2nd argument w/o a minus: {\color{blue}\emph{load}}
+    \item Lmod searches \texttt{lmodCmdA} to map string to command
+  \end{itemize}
+\end{frame}
+
+% page 5
+\begin{frame}{A side note on Lmod Coding Conventions}
+  \begin{itemize}
+    \item A variable w/ a trailing ``A'' means that an array
+    \item A variable w/ a trailing ``T'' means that an table (or dictionary)
+    \item A variable w/ a trailing ``Tbl'' means that an table (or dictionary)
+    \item A routine with a l\_name is a local function (file scope)
+    \item Class Name are in CamelCase
+  \end{itemize}
+\end{frame}
+
+% page 6
+\begin{frame}[fragile]
+    \frametitle{lmodCmdA}
+ {\tiny
+   \begin{semiverbatim}
+   local lmodCmdA = \{
+      \{cmd = 'add',          min = 2, action = loadTbl     \},
+      \{cmd = 'avail',        min = 2, action = availTbl    \},
+      \{cmd = 'isloaded',     min = 3, action = isLoadedTbl \},
+      \{cmd = 'is_loaded',    min = 4, action = isLoadedTbl \},
+      \{cmd = 'is-loaded',    min = 4, action = isLoadedTbl \},
+      \{cmd = 'load',         min = 2, action = loadTbl     \},
+      ...
+   \}
+   local loadTbl      = \{ name = "load", cmd = Load_Usr    \}
+    \end{semiverbatim}
+  \begin{itemize}
+    \item So ``load'' matches ``load'' with more than 2 chars
+  \end{itemize}
+}
+\end{frame}
+
+% page 7
+\begin{frame}[fragile]
+    \frametitle{Going from lmodCmdA to Load\_Usr()}
+  \begin{itemize}
+    \item Sets cmdT to loadTbl
+    \item Sets cmdName to cmdT.name (forces standard name not user
+      command name)
+    \item cmdT.cmd(unpack(masterTbl.pargs)) $\Rightarrow$ Load\_Usr
+  \end{itemize}
+
+\end{frame}
+
+% page 8
+\begin{frame}[fragile]
+    \frametitle{Calling Load\_Usr()}
+  \begin{itemize}
+    \item All functions implementing user commands are in src/cmdfunc.lua
+  \end{itemize}
+
+ {\tiny
+    \begin{semiverbatim}
+function Load\_Try(...)
+   dbg.start\{"Load\_Try(",concatTbl(\{...\},", "),")"\}
+   local check\_must\_load = false
+   local argA            = pack(...)
+   l\_usrLoad(argA, check\_must\_load)
+   dbg.fini("Load\_Try")
+end
+
+function Load\_Usr(...)
+   dbg.start\{"Load\_Usr(",concatTbl(\{...\},", "),")"\}
+   local check\_must\_load = true
+   local argA            = pack(...)
+   l\_usrLoad(argA, check\_must\_load)
+   dbg.fini("Load\_Usr")
+end
+    \end{semiverbatim}
+}
+\end{frame}
+
+% page 9
+\begin{frame}[fragile]
+    \frametitle{l\_usrLoad(argA, check\_must\_load)}
+  \begin{itemize}
+    \item Split argA into loads in lA, unloads in uA (-foo)
+    \item Both uA and lA are an array of MName objects.
+    \item unload modules in uA 
+    \item {\color{blue} \texttt{lA[\#lA+1] = MName:new("load",module\_name)}}
+    \item {\color{blue} \texttt{mcp:load\_usr(lA)}}
+    \item src: src/cmdfunc.lua
+  \end{itemize}
+\end{frame}
+
+% page 10
+\begin{frame}[fragile]
+    \frametitle{MName class: Module Name class}
+ {\tiny
+    \begin{semiverbatim}
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item Maps name (``foo'' or ``foo/1.1'') to filename
+    \item There are two kinds of searching ``load'' or ``mt''
+    \item Load: must search file system. 
+    \item mt: filename is in moduletable
+    \item Evaluation must be lazy or just-in-time
+    \item Software hierarchy means that 
+    \item {\color{blue}\texttt{module load gcc mpich}}
+    \item mpich might not be in \$MODULEPATH until after gcc is loaded
+    \item src: src/MName.lua
+  \end{itemize}
+
+\end{frame}
+
+% page 11
+\begin{frame}{MName key concepts}
+  \begin{itemize}
+    \item \textbf{userName}: name on the command line
+    \item It might be gcc or gcc/9.3.0
+    \item \textbf{sn}: the shortName or a name without a version
+    \item \textbf{fullName}: The full name of the module (sn/version)
+    \item Examples:
+      \begin{enumerate}
+        \item gcc/9.3.0 (sn: gcc, N/V)
+        \item gcc/x86\_64/9.3.0 (sn: gcc, N/V/V)
+        \item compiler/gcc/9.3.0 (sn: compiler/gcc, C/N/V)
+        \item compiler/gcc/x86\_64/9.3.0 (sn: compiler/gcc, N/V/V)
+      \end{enumerate}
+  \end{itemize}
+\end{frame}
+
+% page 12
+\begin{frame}[fragile]
+    \frametitle{mcp and MasterControl class}
+  \begin{itemize}
+    \item MasterControl class is what controls whether a "load" in a
+      modulefile is a load or unload
+    \item mcp is a global variable that is built to be in a mode()
+      like load, unload, spider, etc.
+    \item We talked about this in an earlier presentation.
+  \end{itemize}
+\end{frame}
+
+% page 13
+\begin{frame}[fragile]
+    \frametitle{MasterControl:load(mA)}
+ {\tiny
+    \begin{semiverbatim}
+function M.load(self, mA)
+   local master = Master:singleton()
+   local a      = master:load(mA)
+
+   if (not quiet()) then
+      self:registerAdminMsg(mA) -- nag msg registration.
+   end
+   return a
+end
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item MasterControl functions call Master Functions to do the work.
+    \item src: src/MasterControl.lua
+  \end{itemize}
+\end{frame}
+
+% page 14
+\begin{frame}[fragile]
+    \frametitle{Master:load(mA)}
+ {\tiny
+    \begin{semiverbatim}
+function M.load(mA)
+  for i = 1, #mA do
+     repeat
+        mname = mA[i]
+        sn = mname:sn()  -- shortName
+        fn = mname:fn()  -- file name
+        -- if blank sn -> pushModule (might have to wait until
+        -- compiler or mpi is loaded.
+        -- and break (really continue)
+
+        if (mt:have(sn,"active)) then
+           -- Block 1: Check for previously loaded module with same sn
+
+        elseif (fn) then
+           -- Block 2: Load modulefile
+
+        -- Check for family stack (e.g. compiler, mpi etc)
+        if (mcp.processFamilyStack(fullName)) then
+            -- Suppose gcc is loaded and it was "replaced" by intel
+            -- unload gcc and reload intel
+         end
+      until true
+   end         
+     
+   -- Reload every module if change in MODULEPATH.
+     
+   -- load any modules on module stack
+end
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item This is where the heavy lifting is done.
+    \item src: src/Master.lua
+  \end{itemize}
+
+\end{frame}
+
+% page 15
+\begin{frame}[fragile]
+    \frametitle{Block 1: Check for previous loaded module w/same sn}
+ {\tiny
+    \begin{semiverbatim}
+ if (mt:have(sn,"active)) then
+    -- if disable_same_name_autoswap -> error out
+    -- Otherwise: unload previous module
+     local mcp_old = mcp
+     local mcp     = MCP
+     unload_internal\{MName:new("mt",sn)\}
+     mname:reset()  -- force a new lazyEval
+     local status = mcp:load_usr\{mname\}
+     mcp          = mcp_old
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item Here we guarantee the right mcp
+    \item Unload the old module 
+    \item Recursively mcp:load\_usr{mname} 
+  \end{itemize}
+\end{frame}
+
+% page 16
+\begin{frame}[fragile]
+    \frametitle{Block 2: Load modulefile}
+ {\tiny
+    \begin{semiverbatim}
+elseif (fn) then
+   frameStk:push(mname)
+   mt = frameStk:mt()
+   mt:add(mname,"pending")
+   local status = loadModuleFile\{file = fn, shell = shellNm,
+                   mList = mList, reportErr = true\}
+   frameStk:pop()
+   loaded = true
+end
+    \end{semiverbatim}
+}
+\end{frame}
+
+% page 17
+\begin{frame}[fragile]
+    \frametitle{loadModuleFile(t)}
+  \begin{itemize}
+    \item This is where Lmod handle either *.lua files or TCL Modulefiles
+    \item Once either read in as a block (for *.lua) or converted (TCL
+      modulefile $\Rightarrow$ Lua)
+    \item src: src/loadModulefile.lua
+  \end{itemize}
+ {\tiny
+    \begin{semiverbatim}
+   -- Use the sandbox to evaluate modulefile text.
+   if (whole) then
+      status, msg = sandbox_run(whole)
+   else
+      status = nil
+      msg    = "Empty or non-existent file"
+   end
+   -- report any errors
+    \end{semiverbatim}
+}
+
+\end{frame}
+
+% page 18
+\begin{frame}{Next time}
+  \begin{itemize}
+    \item What is a sandbox and how does it work?
+    \item Why I want a sandbox?
+    \item Next time handing control to modulefile
+  \end{itemize}
+\end{frame}
+
+
+
+% page 19
+\begin{frame}{Conclusions}
+  \begin{itemize}
+    \item It takes a lot to get to the point where Lmod is evaluating
+      your modulefile.
+    \item Lmod uses several ``classes'' to manage the loading of a
+      module
+    \item Plus a couple of Design Patterns such as Singletons  
+  \end{itemize}
+\end{frame}
+
+% page 20
+\begin{frame}{Future Topics}
+  \begin{itemize}
+    \item Next Meeting: July 5th 9:30 US Central (14:30 UTC)
+    \item What happens from the loadModulefile(t).
+    \item This is where Lmod hands off control to the user.
+  \end{itemize}
+\end{frame}
+
+\end{document}
