@@ -123,7 +123,7 @@ end
 
 local function l_check_for_valid_alias_name(kind, name)
    if (name:find("[ \t]")) then
-      LmodError{msg="e_BadName",kind=kind, name=name}
+      LmodError{msg="e_BadAlias",kind=kind, name=name}
    end
 end
 
