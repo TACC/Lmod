@@ -17,18 +17,99 @@ This is the second half of what Lmod does to load a module.
 ** Note that we passed an anonymous table in Master.lua.   
 ** The result is that there is a single argument "t" to the function.
 * function loadModuleFile(t)
+function loadModuleFile(t)
+   
+   ----------------------------------------------------------------------
+   -- Don't complain if t.file has disappeared when mode() == "unload"
+
+
+   ----------------------------------------------------------------------
+   -- Check for infinite loop on mode() == "load"
+
+   ----------------------------------------------------------------------
+   -- Read modulefile into string "whole"
+   if (t.ext == ".lua") then
+      -- Read complete Lua modulefile into "whole"
+   else
+      -- Convert TCL modulefile into Lua
+   end
+
+   ----------------------------------------------------------------------
+   -- Use sandbox to evaluate modulefile
+
+   ----------------------------------------------------------------------
+   -- Report any errors and error out
+
+   ----------------------------------------------------------------------
+   -- Mark lmodBrk is LmodBreak() is called inside moduleFile
+
+   return not lmodBrk
+end
+
+
+** Read the complete Lua modulefile into "whole":
+      local f = io.open(t.file)
+      if (f) then
+         whole = f:read("*all")
+         f:close()
+      end
+
+** Convert TCL modulefile into Lua (into "whole"):
+   ------------------------------------------------------------
+   -- Build TCL command line (mode, fullName, userName, shell)
+
+   ------------------------------------------------------------
+   -- Convert TCL to Lua
+   whole, status = runTCLprog(pathJoin(cmdDir(),"tcl2lua.tcl"), cmdLine)
+   if (not status) then
+      -- handle TCL conversion error
+   end
+
+** Use sandbox to evaluate modulefile
+   if (whole) then
+      status, msg = sandbox_run(whole)
+   else
+      status = nil
+      msg    = "Empty or non-existent file"
+   end
+
+** Report any errors and error out
+  if (not status and t.reportErr and type(msg) ~= "table") then
+      local n = userName or ""
+      LmodError{msg="e_Unable_2_Load", name = n, fn = t.file, message = msg}
+  end
+
+** Mark lmodBrk is LmodBreak() is called inside moduleFile
+   if (type(msg) == "table" and msg.code == "LmodBreak") then
+      lmodBrk = true
+   end
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+* runTCLprog("/path/to/tcl2lua" .. command_line_options)
+** Converting TCL to Lua  (Another talk)
+** TL;DR: TCL is run.  
+All module commands like setenv and prepend-path are converted to
+strings that say: setenv("A","B), prepend_path("PATH","/...") etc
+** Show example
+
 
 * Once the loadModuleFile function returns
 ** We must mark the module as active and cleanup
-* 
-
-
-
-
-
      -- Now fn is loaded 
 
-     mt = frameStk:mt()
+     mt = frameStk:mt() -- Why?
 
      -- A modulefile could the same named module over top of the current modulefile
      -- Say modulefile abc/2.0 loads abc/.cpu/2.0.  Then in the case of abc/2.0 the filename
