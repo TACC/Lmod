@@ -103,7 +103,37 @@ end
 All module commands like setenv and prepend-path are converted to
 strings that say: setenv("A","B), prepend_path("PATH","/...") etc
 ** Show example
+Input:
 
+global env
+proc ModulesHelp { } {
+puts stderr "Help message..."
+}
+set modulepath_root  $env(MODULEPATH_ROOT)
+set moduleshome     "$modulepath_root/TACC"
+
+module load Linux
+module try-add cluster
+module load TACC-paths
+
+Output:
+load("Linux")
+try_load("cluster")
+load("TACC-paths")
+
+
+* status, msg = sandbox_run(whole)
+local function l_run5_2(untrusted_code)
+  local untrusted_function, message = load(untrusted_code, nil, 't', sandbox_env)
+  if not untrusted_function then return nil, message end
+  return pcall(untrusted_function)
+end
+
+--------------------------------------------------------------------------
+-- Define two version: Lua 5.1 or 5.2.  It is likely that
+-- The 5.2 version will be good for many new versions of
+-- Lua but time will only tell.
+sandbox_run = (_VERSION == "Lua 5.1") and l_run5_1 or l_run5_2
 
 * Once the loadModuleFile function returns
 ** We must mark the module as active and cleanup
@@ -120,3 +150,19 @@ strings that say: setenv("A","B), prepend_path("PATH","/...") etc
      end
      frameStk:pop()
      loaded = true
+
+
+* Notes about loadModuleFile()
+** Almost all commands will eval one or more modules
+** Does not: module list, module -t avail
+** Does:   module load, module unload, module help, module whatis, ...
+
+* Modulefile evaluation,  Lmod is NOT processing your modules, Lua is
+** Lmod code is run when setenv, prepend_path, etc
+
+* The sandbox() function gets called with a "sandbox_env" table
+** Those functions are the only ones that a modulefile can run
+** Sites may run their own special function
+** BUT: They must be registered with the sandbox 
+
+* 
