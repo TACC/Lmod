@@ -83,20 +83,7 @@ end
    if (type(msg) == "table" and msg.code == "LmodBreak") then
       lmodBrk = true
    end
-
-
-
-
-
     
-
-
-
-
-
-
-
-
 * runTCLprog("/path/to/tcl2lua" .. command_line_options)
 ** Converting TCL to Lua  (Another talk)
 ** TL;DR: TCL is run.  
@@ -157,6 +144,7 @@ sandbox_run = (_VERSION == "Lua 5.1") and l_run5_1 or l_run5_2
 ** Does not: module list, module -t avail
 ** Does:   module load, module unload, module help, module whatis, ...
 
+** Even if your site uses a system spider cache, you will re-eval modulefiles that change $MODULEPATH (New)
 * Modulefile evaluation,  Lmod is NOT processing your modules, Lua is
 ** Lmod code is run when setenv, prepend_path, etc
 
@@ -164,5 +152,124 @@ sandbox_run = (_VERSION == "Lua 5.1") and l_run5_1 or l_run5_2
 ** Those functions are the only ones that a modulefile can run
 ** Sites may run their own special function
 ** BUT: They must be registered with the sandbox 
+** The sandbox_env looks like:
 
-* 
+local sandbox_env = {
+  assert   = assert,
+  loadfile = loadfile,
+  require  = require,
+  ipairs   = ipairs,
+  next     = next,
+  pairs    = pairs,
+  pcall    = pcall,
+  tonumber = tonumber,
+  tostring = tostring,
+  type     = type,
+  load                 = load_module,
+  load_any             = load_any,
+
+  --- PATH functions ---
+  prepend_path         = prepend_path,
+  append_path          = append_path,
+  remove_path          = remove_path,
+
+  --- Set Environment functions ----
+  setenv               = setenv,
+  pushenv              = pushenv,
+  unsetenv             = unsetenv,
+
+  ...
+}
+** Sites can use the SitePackage.lua or /etc/lmod/lmod_config.lua to register functions
+* Once the evaluation starts Lua is in-charge.  
+* Now suppose your modulefile calls setenv()
+** module commands are implemented in src/modfuncs.lua
+** function setenv()
+function setenv(...)
+   dbg.start{"setenv(",l_concatTbl({...},", "),")"}
+   if (not l_validateArgsWithValue("setenv",...)) then return end
+
+   mcp:setenv(...)
+   dbg.fini("setenv")
+   return
+end
+** So the arguments are check to be strings and/or numbers with l_validateArgsWithValue()
+** Then the start of the work happens with mcp:setenv(...)
+
+* mcp:setenv(...)
+The action of this member function depends on what kind of object mcp.
+** If mode() == "load" then
+   MasterControl:setenv()
+** If mode() == "unload" then
+   MasterControl:unsetenv()
+** If mode() ==  "show"
+   Then the command is printed, no other action
+* There are ten different kinds of MasterControl Classes
+** MC_Access -> whatis, help
+** MC_CheckSyntax -> for checking the syntax of a modulefile.
+** MC_ComputeHash -> Computing the hash value used in user collections.
+** MC_DependencyCk -> reloading modules to report any problems with the dependencies.
+** MC_Load -> loading modules
+** MC_Mgrload -> the loading method when loading a collection (ignore load() functions inside modulefiles)
+** MC_Refresh -> reload all currently loaded modules but only run set_alias() set_shell_function and nothing else   
+** MC_Show  -> Just print out commands
+** MC_Spider  -> How to process modules when in spider mode
+** MC_Unload  -> How Lmod unloads modules (setenv -> unsetenv, prepend_path() -> remove_path() etc)
+
+* Assume we are loading the module then mcp:setenv() -> MasterControl:setenv()
+
+function M.setenv(self, name, value, respect)
+   name = name:trim()
+   dbg.start{"MasterControl:setenv(\"",name,"\", \"",value,"\", \"",
+              respect,"\")"}
+
+   l_check_for_valid_name("setenv",name)
+
+   if (value == nil) then
+      LmodError{msg="e_Missing_Value", func = "setenv", name = name}
+   end
+
+   if (respect and getenv(name)) then
+      dbg.print{"Respecting old value"}
+
+      dbg.fini("MasterControl:setenv")
+      return
+   end
+
+   local frameStk = FrameStk:singleton()
+   local varT     = frameStk:varT()
+   if (varT[name] == nil) then
+      varT[name] = Var:new(name)
+   end
+   varT[name]:set(tostring(value))
+   dbg.fini("MasterControl:setenv")
+end
+
+* Assume we are unloading a module then mcp:setenv() -> MasterControl:unsetenv()
+function M.unsetenv(self, name, value, respect)
+   name = name:trim()
+   dbg.start{"MasterControl:unsetenv(\"",name,"\", \"",value,"\")"}
+
+   l_check_for_valid_name("unsetenv",name)
+
+   if (respect and getenv(name) ~= value) then
+      dbg.print{"Respecting old value"}
+      dbg.fini("MasterControl:unsetenv")
+      return
+   end
+
+   local frameStk  = FrameStk:singleton()
+   local varT      = frameStk:varT()
+   if (varT[name] == nil) then
+      varT[name]   = Var:new(name)
+   end
+   varT[name]:unset()
+
+   -- Unset stack variable if it exists
+   local stackName = l_createStackName(name)
+   if (varT[stackName]) then
+      varT[name]:unset()
+   end
+   dbg.fini("MasterControl:unsetenv")
+end
+
