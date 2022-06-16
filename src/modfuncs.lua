@@ -95,7 +95,7 @@ end
 --------------------------------------------------------------------------
 -- Validate a function with only string arguments.
 -- @param cmdName The command which is getting its arguments validated.
-local function validateStringArgs(cmdName, ...)
+local function l_validateStringArgs(cmdName, ...)
    local argA = pack(...)
    for i = 1, argA.n do
       local v = argA[i]
@@ -110,7 +110,7 @@ end
 --------------------------------------------------------------------------
 -- Validate a function with only string table.
 -- @param cmdName The command which is getting its arguments validated.
-local function validateStringTable(n, cmdName, t)
+local function l_validateStringTable(n, cmdName, t)
    n = max(n,#t)
    for i = 1, n do
       local v = t[i]
@@ -139,7 +139,7 @@ end
 --------------------------------------------------------------------------
 -- Validate a function with only string module names table.
 -- @param cmdName The command which is getting its arguments validated.
-local function validateArgsWithValue(cmdName, ...)
+local function l_validateArgsWithValue(cmdName, ...)
    local argA = pack(...)
 
    for i = 1, argA.n -1 do
@@ -161,7 +161,7 @@ end
 --------------------------------------------------------------------------
 -- Validate a function with only string module names table.
 -- @param cmdName The command which is getting its arguments validated.
-local function validateModules(cmdName, ...)
+local function l_validateModules(cmdName, ...)
    local argA = pack(...)
    dbg.print{"cmd: ",cmdName, " argA.n: ",argA.n,"\n"}
    local allGood = true
@@ -189,7 +189,7 @@ end
 -- "load('name'); load('name/1.2'); load(atleast('name','3.2'))",
 function load_module(...)
    dbg.start{"load_module(",l_concatTbl({...},", "),")"}
-   if (not validateModules("load",...)) then return {} end
+   if (not l_validateModules("load",...)) then return {} end
 
    dbg.print{"mcp:name(): ",mcp:name(),"\n"}
    local b  = mcp:load_usr(MName:buildA(mcp:MNameType(), ...))
@@ -208,7 +208,7 @@ end
 
 function load_any(...)
    dbg.start{"load_any(",l_concatTbl({...},", "),")"}
-   if (not validateModules("load_any",...)) then return {} end
+   if (not l_validateModules("load_any",...)) then return {} end
 
    local b = mcp:load_any(MName:buildA(mcp:MNameType(), ...))
    dbg.fini("load_any")
@@ -218,7 +218,7 @@ end
 --- PATH functions ---
 --------------------------------------------------------------------------
 -- convert arguments into a table if necessary.
-local function convert2table(...)
+local function l_convert2table(...)
    local argA = pack(...)
    local t    = {}
 
@@ -237,9 +237,9 @@ end
 --------------------------------------------------------------------------
 -- Prepend a value to a path like variable.
 function prepend_path(...)
-   local t = convert2table(...)
+   local t = l_convert2table(...)
    dbg.start{"prepend_path(",l_concatTbl(t,", "),")"}
-   if (not validateStringTable(2, "prepend_path",t)) then return end
+   if (not l_validateStringTable(2, "prepend_path",t)) then return end
 
    mcp:prepend_path(t)
    dbg.fini("prepend_path")
@@ -248,9 +248,9 @@ end
 --------------------------------------------------------------------------
 -- Append a value to a path like variable.
 function append_path(...)
-   local t = convert2table(...)
+   local t = l_convert2table(...)
    dbg.start{"append_path(",l_concatTbl(t,", "),")"}
-   if (not validateStringTable(2, "append_path",t)) then return end
+   if (not l_validateStringTable(2, "append_path",t)) then return end
 
    mcp:append_path(t)
    dbg.fini("append_path")
@@ -259,9 +259,9 @@ end
 --------------------------------------------------------------------------
 -- Remove a value from a path like variable.
 function remove_path(...)
-   local t = convert2table(...)
+   local t = l_convert2table(...)
    dbg.start{"remove_path(",l_concatTbl(t,", "),")"}
-   if (not validateStringTable(2, "remove_path",t)) then return end
+   if (not l_validateStringTable(2, "remove_path",t)) then return end
 
    mcp:remove_path(t)
    dbg.fini("remove_path")
@@ -273,7 +273,7 @@ end
 -- Set the value of environment variable and maintain a stack.
 function pushenv(...)
    dbg.start{"pushenv(",l_concatTbl({...},", "),")"}
-   if (not validateArgsWithValue("pushenv",...)) then return end
+   if (not l_validateArgsWithValue("pushenv",...)) then return end
 
    mcp:pushenv(...)
    dbg.fini("pushenv")
@@ -284,7 +284,7 @@ end
 -- Set the value of environment variable.
 function setenv(...)
    dbg.start{"setenv(",l_concatTbl({...},", "),")"}
-   if (not validateArgsWithValue("setenv",...)) then return end
+   if (not l_validateArgsWithValue("setenv",...)) then return end
 
    mcp:setenv(...)
    dbg.fini("setenv")
@@ -295,7 +295,7 @@ end
 -- Unset the value of environment variable.
 function unsetenv(...)
    dbg.start{"unsetenv(",l_concatTbl({...},", "),")"}
-   if (not validateArgsWithValue("unsetenv",...)) then return end
+   if (not l_validateArgsWithValue("unsetenv",...)) then return end
 
    mcp:unsetenv(...)
    dbg.fini("unsetenv")
@@ -321,7 +321,7 @@ end
 -- generalized prereq/conflict function.
 function family(name)
    dbg.start{"family(",name,")"}
-   if (not validateStringArgs("family",name)) then return end
+   if (not l_validateStringArgs("family",name)) then return end
 
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
 
@@ -379,7 +379,7 @@ end
 -- @param m module name
 function isloaded(m)
    dbg.start{"isloaded(",m,")"}
-   if (not validateStringArgs("isloaded",m)) then return false end
+   if (not l_validateStringArgs("isloaded",m)) then return false end
    local mname = MName:new("mt", m)
    dbg.fini("isloaded")
    return mname:isloaded()
@@ -387,7 +387,7 @@ end
 
 function isAvail(m)
    dbg.start{"isAvail(",m,")"}
-   if (not validateStringArgs("isAvail",m)) then return false end
+   if (not l_validateStringArgs("isAvail",m)) then return false end
    local mname = MName:new("load", m)
    dbg.fini("isAvail")
    return mname:valid()
@@ -426,7 +426,7 @@ end
 -- Return true if the module is in the pending state for a load.
 -- @param m module name
 function isPending(m)
-   if (not validateStringArgs("isPending",m)) then return false end
+   if (not l_validateStringArgs("isPending",m)) then return false end
    local mname = MName:new("mt", m)
    return mname:isPending()
 end
@@ -479,7 +479,7 @@ end
 -- The whatis database function.
 function whatis(...)
    dbg.start{"whatis(",l_concatTbl({...},", "),")"}
-   if (not validateStringArgs("whatis",...)) then return end
+   if (not l_validateStringArgs("whatis",...)) then return end
 
    mcp:whatis(...)
    dbg.fini("whatis")
@@ -489,7 +489,7 @@ end
 -- the help function.
 function help(...)
    dbg.start{"help(...)"}
-   if (not validateStringArgs("help",...)) then return end
+   if (not l_validateStringArgs("help",...)) then return end
    mcp:help(...)
    dbg.fini("help")
 end
@@ -497,7 +497,7 @@ end
 
 function userInGroups(...)
    dbg.start{"userInGroups(...)"}
-   if (not validateStringArgs("userInGroups",...)) then return end
+   if (not l_validateStringArgs("userInGroups",...)) then return end
    local iret = mcp:userInGroups(...)
    dbg.fini("userInGroups")
    return iret
@@ -520,7 +520,7 @@ end
 -- If more than one module is listed then it is an and condition.
 function prereq(...)
    dbg.start{"prereq(",l_concatTbl({...},", "),")"}
-   if (not validateModules("prereq", ...)) then return end
+   if (not l_validateModules("prereq", ...)) then return end
 
    mcp:prereq(MName:buildA("mt", ...))
    dbg.fini("prereq")
@@ -531,7 +531,7 @@ end
 -- If more than one module is listed then it is an or condition.
 function prereq_any(...)
    dbg.start{"prereq_any(",l_concatTbl({...},", "),")"}
-   if (not validateModules("prereq_any",...)) then return end
+   if (not l_validateModules("prereq_any",...)) then return end
 
    mcp:prereq_any(MName:buildA("mt",...))
    dbg.fini("conflict")
@@ -541,7 +541,7 @@ end
 -- Test to see if a conflict module is loaded.  Fail if it is loaded.
 function conflict(...)
    dbg.start{"conflict(",l_concatTbl({...},", "),")"}
-   if (not validateStringArgs("conflict",...)) then return end
+   if (not l_validateStringArgs("conflict",...)) then return end
 
    mcp:conflict(MName:buildA("mt",...))
    dbg.fini()
@@ -594,7 +594,7 @@ end
 -- Set an alias for bash and csh
 function set_alias(...)
    dbg.start{"set_alias(",l_concatTbl({...},", "),")"}
-   if (not validateArgsWithValue("set_alias",...)) then return end
+   if (not l_validateArgsWithValue("set_alias",...)) then return end
 
    mcp:set_alias(...)
    dbg.fini("set_alias")
@@ -604,7 +604,7 @@ end
 -- Unset an alias for bash and csh
 function unset_alias(...)
    dbg.start{"unset_alias(",l_concatTbl({...},", "),")"}
-   if (not validateStringArgs("unset_alias",...)) then return end
+   if (not l_validateStringArgs("unset_alias",...)) then return end
 
    mcp:unset_alias(...)
    dbg.fini("unset_alias")
@@ -614,7 +614,7 @@ end
 -- Set an shell function for bash and an alias for csh
 function set_shell_function(...)
    dbg.start{"set_shell_function(",l_concatTbl({...},", "),")"}
-   if (not validateStringArgs("set_shell_function",...)) then return end
+   if (not l_validateStringArgs("set_shell_function",...)) then return end
 
    mcp:set_shell_function(...)
    dbg.fini()
@@ -624,7 +624,7 @@ end
 -- Unset an shell function for bash and an alias for csh
 function unset_shell_function(...)
    dbg.start{"unset_shell_function(",l_concatTbl({...},", "),")"}
-   if (not validateStringArgs("unset_shell_function",...)) then return end
+   if (not l_validateStringArgs("unset_shell_function",...)) then return end
 
    mcp:unset_shell_function(...)
    dbg.fini("unset_shell_function")
@@ -636,7 +636,7 @@ end
 -- Add a property to a module.
 function add_property(...)
    dbg.start{"add_property(",l_concatTbl({...},", "),")"}
-   if (not validateStringArgs("add_property",...)) then return end
+   if (not l_validateStringArgs("add_property",...)) then return end
    mcp:add_property(...)
    dbg.fini("add_property")
 end
@@ -645,7 +645,7 @@ end
 -- Remove a property to a module.
 function remove_property(...)
    dbg.start{"remove_property(",l_concatTbl({...},", "),")"}
-   if (not validateStringArgs("remove_property",...)) then return end
+   if (not l_validateStringArgs("remove_property",...)) then return end
 
    mcp:remove_property(...)
    dbg.fini("remove_property")
@@ -753,7 +753,7 @@ end
 -- will not produce a warning if the specified modulefile(s) do not exist.
 function try_load(...)
    dbg.start{"try_load(",l_concatTbl({...},", "),")"}
-   if (not validateModules("try_load",...)) then return {} end
+   if (not l_validateModules("try_load",...)) then return {} end
 
    local b = mcp:try_load(MName:buildA(mcp:MNameType(), ...))
    dbg.fini("try_load")
@@ -794,7 +794,7 @@ end
 -- not loaded.  The reverse of an unload is a no-op.
 function unload(...)
    dbg.start{"unload(",l_concatTbl({...},", "),")"}
-   if (not validateModules("unload",...)) then return {} end
+   if (not l_validateModules("unload",...)) then return {} end
    local b = unload_internal(MName:buildA("mt",...))
    dbg.fini("unload")
    return b
@@ -804,7 +804,7 @@ end
 -- This function always loads and never unloads.
 function always_load(...)
    dbg.start{"always_load(",l_concatTbl({...},", "),")"}
-   if (not validateModules("always_load",...)) then return {} end
+   if (not l_validateModules("always_load",...)) then return {} end
 
    local b  = mcp:always_load(MName:buildA("load",...))
    dbg.fini("always_load")
@@ -826,7 +826,7 @@ end
 
 function depends_on(...)
    dbg.start{"depends_on(",l_concatTbl({...},", "),")"}
-   if (not validateModules("depends_on",...)) then return {} end
+   if (not l_validateModules("depends_on",...)) then return {} end
 
    local b = mcp:depends_on(MName:buildA(mcp:MNameType(),...))
    dbg.fini("depends_on")
@@ -834,7 +834,7 @@ end
 
 function extensions(...)
    dbg.start{"extensions(",l_concatTbl({...},", "),")"}
-   if (not validateStringArgs("extensions",...)) then return {} end
+   if (not l_validateStringArgs("extensions",...)) then return {} end
 
    local b = mcp:extensions(...)
    dbg.fini("extensions")
@@ -847,28 +847,28 @@ end
 
 function source_sh(...)
    dbg.start{"source_sh(",l_concatTbl({...},", "),")"}
-   if (not validateStringArgs("source_sh", ...)) then return end
+   if (not l_validateStringArgs("source_sh", ...)) then return end
    mcp:source_sh(...)
    dbg.fini("source_sh")
 end
 
 function complete(shellName, cmd, args)
    dbg.start{"complete(shellName, cmd, args)"}
-   if (not validateStringArgs("complete", shellName, cmd, args)) then return end
+   if (not l_validateStringArgs("complete", shellName, cmd, args)) then return end
    mcp:complete(shellName:trim():lower(), cmd:trim():lower(), args)
    dbg.fini("complete")
 end
 
 function uncomplete(shellName, cmd, args)
    dbg.start{"uncomplete(shellName, cmd, args)"}
-   if (not validateStringArgs("uncomplete", shellName, cmd, args)) then return end
+   if (not l_validateStringArgs("uncomplete", shellName, cmd, args)) then return end
    mcp:uncomplete(shellName:lower(), cmd, args)
    dbg.fini("uncomplete")
 end
 
 function LmodBreak(msg)
    dbg.start{"LmodBreak(",msg,")"}
-   if (not validateStringArgs("LmodBreak", msg)) then return end
+   if (not l_validateStringArgs("LmodBreak", msg)) then return end
    mcp:LmodBreak(msg)
    dbg.fini("LmodBreak")
 end
