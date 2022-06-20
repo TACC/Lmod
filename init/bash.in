@@ -138,7 +138,7 @@ else
 
      ############################################################
      # Run Lmod and eval results
-     eval "$($LMOD_CMD $LMOD_SHELL_PRGM "$@")" && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
+     eval "$($LMOD_CMD $LMOD_SHELL_PRGM "$@")" && eval "$(${LMOD_SETTARG_CMD:-:} -s sh)"
      __lmod_my_status=$?
 
      ############################################################
