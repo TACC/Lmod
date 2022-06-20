@@ -26,7 +26,7 @@ To use do the following:
  - modify the bug_report_template.sh script to show your issue
  - Run the script this way:
 
- $ env -i LMOD_ROOT=$LMOD_ROOT ./bug_report_template.sh
+ $ env -i LMOD_ROOT=$LMOD_ROOT USER=$USER ./bug_report_template.sh
 
 **Expected behavior**
 A clear and concise description of what you expected to happen.
