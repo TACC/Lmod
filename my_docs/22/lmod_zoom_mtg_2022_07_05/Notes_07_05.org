@@ -273,3 +273,12 @@ function M.unsetenv(self, name, value, respect)
    dbg.fini("MasterControl:unsetenv")
 end
 
+* We have assume the command "module load foo" what if it was "module show foo"
+** Since foo contains: 
+setenv("FOO","foo")
+** Then every thing is the same for show except when setenv is run it becomes:
+function M.setenv(self, name,value)
+   l_ShowCmd("setenv", name, value)
+end
+
+
