@@ -834,13 +834,42 @@ function getWarningFlag()
    return s_warning
 end
 
+local function l_restoreEnv(oldEnvT, newEnvT)
+   local envT = {}
+   for k,v in newEnvT do
+      local old = origEnvT[k]
+      if (old == nil) then
+         envT[k] = false
+      elseif (v ~= old)
+         envT[k] = v
+      end
+      origEnvT[k] = nil
+   end
+
+   for k,v in origEnvT do
+      local new = newEnvT[k]
+      if (new == nil) then
+         envT[k] = v
+      end
+   end
+
+   for k,v in envT do
+      setenv_posix(k,v or nil, true)
+   end
+end   
+
+
 local function l_runTCLprog(TCLprog, tcl_args)
-   local a   = {}
-   a[#a + 1] = cosmic:value("LMOD_TCLSH")
-   a[#a + 1] = TCLprog
-   a[#a + 1] = tcl_args or ""
-   local cmd = concatTbl(a," ")
+   local a        = {}
+   local origEnvT = posix.getenv()
+   a[#a + 1]      = cosmic:value("LMOD_TCLSH")
+   a[#a + 1]      = TCLprog
+   a[#a + 1]      = tcl_args or ""
+   local cmd      = concatTbl(a," ")
    local whole, status = capture(cmd)
+   local newEnvT  = posix.getenv()
+   --l_restoreEnv(oldEnvT, newEnvT)
+
    return whole, status
 end
 
