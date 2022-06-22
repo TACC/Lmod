@@ -21,7 +21,7 @@ Steps to reproduce the behavior:
 If you are having an issue with a moduletree that is using the hierarchy consider using the moduletree provided in the source repo: 
 To use do the following:
 
- - copy bugReport directry tree to your own directory
+ - copy bugReport directory tree from the repo to your own directory
  - modify as necessary the modules under the my_modules directory
  - modify the bug_report_template.sh script to show your issue
  - Run the script this way:
@@ -34,7 +34,7 @@ A clear and concise description of what you expected to happen.
 **Desktop (please complete the following information):**
  - OS: [Linux, macOS]
  - Linux distribution:
- - XALT Version:
+ - Lmod Version:
 
 **Additional context**
 Add any other context about the problem here.

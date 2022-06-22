@@ -31,6 +31,11 @@ testdescript = {
      runLmod --version                  # 1
      runLmod load a b c                 # 2
      runLmod refresh                    # 3
+     runLmod purge                      # 4
+     runLmod load marco/1.0             # 5
+     runLmod refresh                    # 6
+
+
 
      HOME=$ORIG_HOME
 

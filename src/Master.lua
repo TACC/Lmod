@@ -673,11 +673,12 @@ function M.refresh()
    local mList    = concatTbl(mt:list("both","active"),":")
 
    for i = 1,#activeA do
-      local sn       = activeA[i]
-      local fn       = mt:fn(sn)
+      local sn        = activeA[i]
+      local fn        = mt:fn(sn)
+      local userName  = mt:userName(sn)
       if (isFile(fn)) then
-         frameStk:push(MName:new("mt",sn))
-         dbg.print{"loading: ",sn," fn: ", fn,"\n"}
+         frameStk:push(MName:new("mt",userName))
+         dbg.print{"loading: ",sn,", userName: ",myModuleUsrName(),", fn: ", fn,"\n"}
          loadModuleFile{file = fn, shell = shellNm, mList = mList,
                         reportErr=true}
          frameStk:pop()
