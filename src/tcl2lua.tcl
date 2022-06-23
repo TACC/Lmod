@@ -42,6 +42,9 @@ set g_setup_moduleT 0
 set g_lua_cmd       "@path_to_lua@"
 set g_lmod_cmd      "@path_to_lmod@"
 set g_my_cmd        $argv0
+set g_envT          [dict create]
+set g_envClrT       [dict create]
+
 namespace eval ::cmdline {
     namespace export getArgv0 getopt getKnownOpt getfiles getoptions \
 	    getKnownOptions usage
@@ -1068,22 +1071,21 @@ proc execute-modulefile {modfile } {
     return $errorVal
 }
 
-proc set-env {var value} {
-    global g_envT g_envClrT
-    if { ! [info exists env($var)] && ! [info exists g_envT($var)] } {
-	set g_envClrT($var) 1
-    } else {
-	set g_envT($var) env($var)
-    }
-    set env($var) $value
-}
-
 proc unset-env {var} {
     global env
 
     if {[info exists env($var)]} {
 	unset env($var)
     }
+}
+proc set-env {var value} {
+    global g_envT g_envClrT env
+    if { ! [info exists env($var)] && ! [info exists g_envT($var)] } {
+	dict set g_envClrT $var 1
+    } else {
+	dict set g_envT $var env($var)
+    }
+    set env($var) $value
 }
 
 proc reset-env {} {
