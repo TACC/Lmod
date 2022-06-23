@@ -835,12 +835,13 @@ function getWarningFlag()
 end
 
 local function l_restoreEnv(oldEnvT, newEnvT)
+   dbg.start{"l_restoreEnv(oldEnvT, newEnvT)"}
    local envT = {}
    for k,v in newEnvT do
       local old = origEnvT[k]
       if (old == nil) then
          envT[k] = false
-      elseif (v ~= old)
+      elseif (v ~= old) then
          envT[k] = v
       end
       origEnvT[k] = nil
@@ -853,9 +854,11 @@ local function l_restoreEnv(oldEnvT, newEnvT)
       end
    end
 
+   dbg.printT("envT",envT)
    for k,v in envT do
       setenv_posix(k,v or nil, true)
    end
+   dbg.fini("l_restoreEnv")
 end   
 
 
@@ -868,7 +871,6 @@ local function l_runTCLprog(TCLprog, tcl_args)
    local cmd      = concatTbl(a," ")
    local whole, status = capture(cmd)
    local newEnvT  = posix.getenv()
-   --l_restoreEnv(oldEnvT, newEnvT)
 
    return whole, status
 end
