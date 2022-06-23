@@ -1,7 +1,8 @@
 dnl Process this file with autoconf to produce a configure script.
 dnl This is for lmod
 
-AC_INIT(Makefile.in)
+AC_INIT
+AC_CONFIG_SRCDIR([Makefile.in])
 AC_PREFIX_DEFAULT(/usr/local)
 AC_PROG_CC
 
@@ -44,7 +45,7 @@ FOLLOW_READLINK ()
 
 AC_SUBST(DUPLICATE_PATHS)
 AC_ARG_WITH(duplicatePaths,
-    AC_HELP_STRING([--with-duplicatePaths=ans],[Allow duplicate directories in path like variables [[no]]]),
+    AS_HELP_STRING([--with-duplicatePaths=ans],[Allow duplicate directories in path like variables [[no]]]),
     DUPLICATE_PATHS="$withval"
     DUPLICATE_PATHS=`echo $DUPLICATE_PATHS | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $DUPLICATE_PATHS "--with-duplicatePaths=ans: ans must be yes or no"
@@ -58,7 +59,7 @@ AC_ARG_WITH(duplicatePaths,
 
 AC_SUBST(LMOD_ALLOW_ROOT_USE)
 AC_ARG_WITH(allowRootUse,
-    AC_HELP_STRING([--with-allowRootUse=ans],[Allow root to use Lmod [[yes]]]),
+    AS_HELP_STRING([--with-allowRootUse=ans],[Allow root to use Lmod [[yes]]]),
     LMOD_ALLOW_ROOT_USE="$withval"
     LMOD_ALLOW_ROOT_USE=`echo $LMOD_ALLOW_ROOT_USE | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $LMOD_ALLOW_ROOT_USE "--with-allowRootUse=ans: ans must be yes or no"
@@ -72,7 +73,7 @@ AC_ARG_WITH(allowRootUse,
 
 AC_SUBST(SITE_MSG_FILE)
 AC_ARG_WITH(siteMsgFile,
-    AC_HELP_STRING([--with-siteMsgFile=ans],[Site Message File [[<empty>]]]),
+    AS_HELP_STRING([--with-siteMsgFile=ans],[Site Message File [[<empty>]]]),
     SITE_MSG_FILE="$withval"
     AC_MSG_RESULT([SITE_MSG_FILE=$with_siteMsgFile])
     AC_DEFINE_UNQUOTED(SITE_MSG_FILE,"$with_siteMsgFile")dnl
@@ -84,7 +85,7 @@ AC_ARG_WITH(siteMsgFile,
 
 AC_SUBST(LMOD_OVERRIDE_LANG)
 AC_ARG_WITH(lang,
-    AC_HELP_STRING([--with-lang=ans],[Override $LANG for Lmod errors/messages/warnings [[<empty>]]]),
+    AS_HELP_STRING([--with-lang=ans],[Override $LANG for Lmod errors/messages/warnings [[<empty>]]]),
     LMOD_OVERRIDE_LANG="$withval"
     AC_MSG_RESULT([LMOD_OVERRIDE_LANG=$with_lang])
     AC_DEFINE_UNQUOTED(LMOD_OVERRIDE_LANG,"$with_lang")dnl
@@ -96,7 +97,7 @@ AC_ARG_WITH(lang,
 
 AC_SUBST(CASE_INDEPENDENT_SORTING)
 AC_ARG_WITH(caseIndependentSorting,
-    AC_HELP_STRING([--with-caseIndependentSorting=ans],[Make avail and spider use case independent sorting [[no]]]),
+    AS_HELP_STRING([--with-caseIndependentSorting=ans],[Make avail and spider use case independent sorting [[no]]]),
     CASE_INDEPENDENT_SORTING="$withval"
     CASE_INDEPENDENT_SORTING=`echo $CASE_INDEPENDENT_SORTING | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $CASE_INDEPENDENT_SORTING "--with-caseIndependentSorting=ans: ans must be yes or no"
@@ -110,7 +111,7 @@ AC_ARG_WITH(caseIndependentSorting,
 
 AC_SUBST(COLORIZE)
 AC_ARG_WITH(colorize,
-    AC_HELP_STRING([--with-colorize=ans],[allow for colorized output [[yes]]]),
+    AS_HELP_STRING([--with-colorize=ans],[allow for colorized output [[yes]]]),
     COLORIZE="$withval"
     COLORIZE=`echo $COLORIZE | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $COLORIZE "--with-colorize=ans: ans must be yes or no"
@@ -124,7 +125,7 @@ AC_ARG_WITH(colorize,
 
 AC_SUBST(DYNAMIC_SPIDER_CACHE)
 AC_ARG_WITH(dynamicSpiderCache,
-    AC_HELP_STRING([--with-dynamicSpiderCache=ans],[allow for Dynamic Spider Cache usage [[yes]]]),
+    AS_HELP_STRING([--with-dynamicSpiderCache=ans],[allow for Dynamic Spider Cache usage [[yes]]]),
     DYNAMIC_SPIDER_CACHE="$withval"
     DYNAMIC_SPIDER_CACHE=`echo $DYNAMIC_SPIDER_CACHE | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $DYNAMIC_SPIDER_CACHE "--with-dynamicSpiderCache=ans: ans must be yes or no"
@@ -138,7 +139,7 @@ AC_ARG_WITH(dynamicSpiderCache,
 
 AC_SUBST(HIDDEN_ITALIC)
 AC_ARG_WITH(hiddenItalic,
-    AC_HELP_STRING([--with-hiddenItalic=ans],[Use italic for hidden module instead of faint[[no]]]),
+    AS_HELP_STRING([--with-hiddenItalic=ans],[Use italic for hidden module instead of faint[[no]]]),
     HIDDEN_ITALIC="$withval"
     HIDDEN_ITALIC=`echo $HIDDEN_ITALIC | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $HIDDEN_ITALIC "--with-hiddenItalic=ans: ans must be yes or no"
@@ -152,7 +153,7 @@ AC_ARG_WITH(hiddenItalic,
 
 AC_SUBST(EXACT_MATCH)
 AC_ARG_WITH(exactMatch,
-    AC_HELP_STRING([--with-exactMatch=ans],[require exact match, disable defaults [[no]]]),
+    AS_HELP_STRING([--with-exactMatch=ans],[require exact match, disable defaults [[no]]]),
     EXACT_MATCH="$withval"
     EXACT_MATCH=`echo $EXACT_MATCH | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $EXACT_MATCH "--with-exactMatch=ans: ans must be yes or no"
@@ -166,7 +167,7 @@ AC_ARG_WITH(exactMatch,
 
 AC_SUBST(LMOD_CONFIG_DIR)
 AC_ARG_WITH(lmodConfigDir,
-    AC_HELP_STRING([--with-lmodConfigDir=ans],[Location of Lmod Config Dir [[/etc/lmod]]]),
+    AS_HELP_STRING([--with-lmodConfigDir=ans],[Location of Lmod Config Dir [[/etc/lmod]]]),
     LMOD_CONFIG_DIR="$withval"
     AC_MSG_RESULT([LMOD_CONFIG_DIR=$with_lmodConfigDir])
     AC_DEFINE_UNQUOTED(LMOD_CONFIG_DIR, "$with_lmodConfigDir")dnl
@@ -178,7 +179,7 @@ AC_ARG_WITH(lmodConfigDir,
 
 AC_SUBST(AUTO_SWAP)
 AC_ARG_WITH(autoSwap,
-    AC_HELP_STRING([--with-autoSwap=ans],[Allow auto swapping of compiler etc. [[yes]]]),
+    AS_HELP_STRING([--with-autoSwap=ans],[Allow auto swapping of compiler etc. [[yes]]]),
     AUTO_SWAP="$withval"
     AUTO_SWAP=`echo $AUTO_SWAP | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $AUTO_SWAP "--with-autoSwap=ans: ans must be yes or no"
@@ -192,7 +193,7 @@ AC_ARG_WITH(autoSwap,
 
 AC_SUBST(EXPORT_MODULE)
 AC_ARG_WITH(exportedModuleCmd,
-    AC_HELP_STRING([--with-exportedModuleCmd=ans],[Export the module command. [[yes]]]),
+    AS_HELP_STRING([--with-exportedModuleCmd=ans],[Export the module command. [[yes]]]),
     with_exportedModuleCmd=`echo $with_exportedModuleCmd | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     withval=$with_exportedModuleCmd
     EXPORT_MODULE="$withval"
@@ -208,7 +209,7 @@ AC_ARG_WITH(exportedModuleCmd,
 
 AC_SUBST(REDIRECT)
 AC_ARG_WITH(redirect,
-    AC_HELP_STRING([--with-redirect=ans],[redirect messages to stdout [[no]]]),
+    AS_HELP_STRING([--with-redirect=ans],[redirect messages to stdout [[no]]]),
     REDIRECT="$withval"
     REDIRECT=`echo $REDIRECT | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $REDIRECT "--with-redirect=ans: ans must be yes or no"
@@ -222,7 +223,7 @@ AC_ARG_WITH(redirect,
 
 AC_SUBST(MODULEPATH_ROOT)dnl
 AC_ARG_WITH(module-root-path,
-    AC_HELP_STRING([--with-module-root-path=<path>],[use module root path=<path> [[PREFIX/modulefiles]]]),
+    AS_HELP_STRING([--with-module-root-path=<path>],[use module root path=<path> [[PREFIX/modulefiles]]]),
     MODULEPATH_ROOT="$withval"
     AC_MSG_RESULT([MODULEPATH_ROOT=$with_module_root_path])
     AC_DEFINE_UNQUOTED(MODULEPATH_ROOT, "$with_module_root_path")dnl
@@ -234,7 +235,7 @@ AC_ARG_WITH(module-root-path,
 
 AC_SUBST(ANCIENT)
 AC_ARG_WITH(ancient,
-    AC_HELP_STRING([--with-ancient=num_secs],[How long to wait before rebuilding spider cache file=num_secs [[86400]]]),
+    AS_HELP_STRING([--with-ancient=num_secs],[How long to wait before rebuilding spider cache file=num_secs [[86400]]]),
     ANCIENT="$withval"
     AC_MSG_RESULT([ANCIENT=$with_ancient])
     AC_DEFINE_UNQUOTED(ANCIENT, "$with_ancient")dnl
@@ -246,7 +247,7 @@ AC_ARG_WITH(ancient,
 
 AC_SUBST(SHORT_TIME)
 AC_ARG_WITH(shortTime,
-    AC_HELP_STRING([--with-shortTime=seconds],[if spider build time < shortTime then no spider cache file [[2]]]),
+    AS_HELP_STRING([--with-shortTime=seconds],[if spider build time < shortTime then no spider cache file [[2]]]),
     SHORT_TIME="$withval"
     AC_MSG_RESULT([SHORT_TIME=$with_shortTime])
     AC_DEFINE_UNQUOTED(SHORT_TIME, "$with_shortTime")dnl
@@ -258,7 +259,7 @@ AC_ARG_WITH(shortTime,
 
 AC_SUBST(USE_DOT_FILES)
 AC_ARG_WITH(useDotFiles,
-    AC_HELP_STRING([--with-useDotFiles=yes/no],[If yes use ~/.lmod.d/.cache, if no use ~/.lmod.d/__cache__]),
+    AS_HELP_STRING([--with-useDotFiles=yes/no],[If yes use ~/.lmod.d/.cache, if no use ~/.lmod.d/__cache__]),
     USE_DOT_FILES="$withval"
     USE_DOT_FILES=`echo $USE_DOT_FILES | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $USE_DOT_FILES "--with-useDotFiles=yes/no: ans must be yes or no"
@@ -272,7 +273,7 @@ AC_ARG_WITH(useDotFiles,
 
 AC_SUBST(SPIDER_CACHE_DIRS)
 AC_ARG_WITH(spiderCacheDir,
-    AC_HELP_STRING([--with-spiderCacheDir=dir1:dir2],[use these directories to hold a spider cache file [[]]]),
+    AS_HELP_STRING([--with-spiderCacheDir=dir1:dir2],[use these directories to hold a spider cache file [[]]]),
     SPIDER_CACHE_DIRS="$withval"
     AC_MSG_RESULT([SPIDER_CACHE_DIRS=$with_spiderCacheDir])
     AC_DEFINE_UNQUOTED(SPIDER_CACHE_DIRS, "$with_spiderCacheDir")dnl
@@ -284,7 +285,7 @@ AC_ARG_WITH(spiderCacheDir,
 
 AC_SUBST(SPIDER_CACHE_DESCRIPT_FN)
 AC_ARG_WITH(spiderCacheDescript,
-    AC_HELP_STRING([--with-spiderCacheDescript=fn],[Use specified file to describe cache directory and timestamp files [[]]]),
+    AS_HELP_STRING([--with-spiderCacheDescript=fn],[Use specified file to describe cache directory and timestamp files [[]]]),
     SPIDER_CACHE_DESCRIPT_FN="$withval"
     AC_MSG_RESULT([SPIDER_CACHE_DESCRIPT_FN=$with_spiderCacheDescript])
     AC_DEFINE_UNQUOTED(SPIDER_CACHE_DESCRIPT_FN, "$with_spiderCacheDescript")dnl
@@ -296,7 +297,7 @@ AC_ARG_WITH(spiderCacheDescript,
 
 AC_SUBST(UPDATE_SYSTEM_FN)
 AC_ARG_WITH(updateSystemFn,
-    AC_HELP_STRING([--with-updateSystemFn=file],[This file is touched when the system has been updated [[]]]),
+    AS_HELP_STRING([--with-updateSystemFn=file],[This file is touched when the system has been updated [[]]]),
     UPDATE_SYSTEM_FN="$withval"
     AC_MSG_RESULT([UPDATE_SYSTEM_FN=$with_updateSystemFn])
     AC_DEFINE_UNQUOTED(UPDATE_SYSTEM_FN, "$with_updateSystemFn")dnl
@@ -308,7 +309,7 @@ AC_ARG_WITH(updateSystemFn,
 
 AC_SUBST(PREPEND_BLOCK)
 AC_ARG_WITH(prependBlock,
-    AC_HELP_STRING([--with-prependBlock=ans],[Treat multiple directories passed to prepend in normal order/ not reversed [[NORMAL]]]),
+    AS_HELP_STRING([--with-prependBlock=ans],[Treat multiple directories passed to prepend in normal order/ not reversed [[NORMAL]]]),
     PREPEND_BLOCK="$withval"
     AC_MSG_RESULT([PREPEND_BLOCK=$with_prependBlock])
     AC_DEFINE_UNQUOTED(PREPEND_BLOCK, "$with_prependBlock")dnl
@@ -320,7 +321,7 @@ AC_ARG_WITH(prependBlock,
 
 AC_SUBST(SITE_NAME)
 AC_ARG_WITH(siteName,
-    AC_HELP_STRING([--with-siteName=ans],[Site Name [[<empty>]]]),
+    AS_HELP_STRING([--with-siteName=ans],[Site Name [[<empty>]]]),
     SITE_NAME="$withval"
     AC_MSG_RESULT([SITE_NAME=$with_siteName])
     AC_DEFINE_UNQUOTED(SITE_NAME, "$with_siteName")dnl
@@ -332,7 +333,7 @@ AC_ARG_WITH(siteName,
 
 AC_SUBST(SYSHOST)
 AC_ARG_WITH(syshost,
-    AC_HELP_STRING([--with-syshost=ans],[Site Name [[<empty>]]]),
+    AS_HELP_STRING([--with-syshost=ans],[Site Name [[<empty>]]]),
     SYSHOST="$withval"
     AC_MSG_RESULT([SYSHOST=$with_syshost])
     AC_DEFINE_UNQUOTED(SYSHOST, "$with_syshost")dnl
@@ -344,7 +345,7 @@ AC_ARG_WITH(syshost,
 
 AC_SUBST(ALLOW_TCL_MFILES)
 AC_ARG_WITH(tcl,
-    AC_HELP_STRING([--with-tcl=ans],[Allow TCL modulefiles [[yes]]]),
+    AS_HELP_STRING([--with-tcl=ans],[Allow TCL modulefiles [[yes]]]),
     ALLOW_TCL_MFILES="$withval"
     ALLOW_TCL_MFILES=`echo $ALLOW_TCL_MFILES | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $ALLOW_TCL_MFILES "--with-tcl=ans: ans must be yes or no"
@@ -358,7 +359,7 @@ AC_ARG_WITH(tcl,
 
 AC_SUBST(DISABLE_NAME_AUTOSWAP)
 AC_ARG_WITH(disableNameAutoSwap,
-    AC_HELP_STRING([--with-disableNameAutoSwap=ans],[disable one name rule autoswapping [[no]]]),
+    AS_HELP_STRING([--with-disableNameAutoSwap=ans],[disable one name rule autoswapping [[no]]]),
     DISABLE_NAME_AUTOSWAP="$withval"
     DISABLE_NAME_AUTOSWAP=`echo $DISABLE_NAME_AUTOSWAP | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $DISABLE_NAME_AUTOSWAP "--with-disableNameAutoSwap=ans: ans must be yes or no"
@@ -372,7 +373,7 @@ AC_ARG_WITH(disableNameAutoSwap,
 
 AC_SUBST(MPATH_AVAIL)
 AC_ARG_WITH(mpathSearch,
-    AC_HELP_STRING([--with-mpathSearch=ans],[include modulepath directory name in avail searching [[no]]]),
+    AS_HELP_STRING([--with-mpathSearch=ans],[include modulepath directory name in avail searching [[no]]]),
     MPATH_AVAIL="$withval"
     MPATH_AVAIL=`echo $MPATH_AVAIL | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $MPATH_AVAIL "--with-mpathSearch=ans: ans must be yes or no"
@@ -386,7 +387,7 @@ AC_ARG_WITH(mpathSearch,
 
 AC_SUBST(SETTARG)
 AC_ARG_WITH(settarg,
-    AC_HELP_STRING([--with-settarg=ans],[startup files fully support settarg [[no]]]),
+    AS_HELP_STRING([--with-settarg=ans],[startup files fully support settarg [[no]]]),
     SETTARG="$withval"
     SETTARG=`echo $SETTARG | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $SETTARG "--with-settarg=ans: ans must be yes or no"
@@ -402,7 +403,7 @@ DFLT_IGNORE_DIRS=".svn,.git,.hg,.bzr"
 
 AC_SUBST(IGNORE_DIRS)
 AC_ARG_WITH(ignoreDirs,
-    AC_HELP_STRING([--with-ignoreDirs=ans],[list of directories to ignore [[.svn,.git,.hg,.bzr]]]),
+    AS_HELP_STRING([--with-ignoreDirs=ans],[list of directories to ignore [[.svn,.git,.hg,.bzr]]]),
     IGNORE_DIRS="$withval"
     AC_MSG_RESULT([IGNORE_DIRS=$with_ignoreDirs])
     AC_DEFINE_UNQUOTED(IGNORE_DIRS, "$with_ignoreDirs")dnl
@@ -414,7 +415,7 @@ AC_ARG_WITH(ignoreDirs,
 
 AC_SUBST(PIN_VERSIONS)
 AC_ARG_WITH(pinVersions,
-    AC_HELP_STRING([--with-pinVersions=ans],[Save/Restore will use the current version instead of changing with the default.[[no]]]),
+    AS_HELP_STRING([--with-pinVersions=ans],[Save/Restore will use the current version instead of changing with the default.[[no]]]),
     PIN_VERSIONS="$withval"
     PIN_VERSIONS=`echo $PIN_VERSIONS | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $PIN_VERSIONS "--with-pinVersions=ans: ans must be yes or no"
@@ -428,7 +429,7 @@ AC_ARG_WITH(pinVersions,
 
 AC_SUBST(TMOD_PATH_RULE)
 AC_ARG_WITH(tmodPathRule,
-    AC_HELP_STRING([--with-tmodPathRule=ans],[If path entry is already there then do not append/prepend.[[no]]]),
+    AS_HELP_STRING([--with-tmodPathRule=ans],[If path entry is already there then do not append/prepend.[[no]]]),
     TMOD_PATH_RULE="$withval"
     TMOD_PATH_RULE=`echo $TMOD_PATH_RULE | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $TMOD_PATH_RULE "--with-tmodPathRule=ans: ans must be yes or no"
@@ -442,7 +443,7 @@ AC_ARG_WITH(tmodPathRule,
 
 AC_SUBST(TMOD_FIND_FIRST)
 AC_ARG_WITH(tmodFindFirst,
-    AC_HELP_STRING([--with-tmodFindFirst=ans],[Use Tmod Find First rule instead of Find Best for defaults.[[no]]]),
+    AS_HELP_STRING([--with-tmodFindFirst=ans],[Use Tmod Find First rule instead of Find Best for defaults.[[no]]]),
     TMOD_FIND_FIRST="$withval"
     TMOD_FIND_FIRST=`echo $TMOD_FIND_FIRST | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $TMOD_FIND_FIRST "--with-tmodFindFirst=ans: ans must be yes or no"
@@ -456,7 +457,7 @@ AC_ARG_WITH(tmodFindFirst,
 
 AC_SUBST(LUA_INCLUDE)
 AC_ARG_WITH(lua_include,
-    AC_HELP_STRING([--with-lua_include=ans],[Specify the lua include directory[[no]]]),
+    AS_HELP_STRING([--with-lua_include=ans],[Specify the lua include directory[[no]]]),
     LUA_INCLUDE="$withval"
     AC_MSG_RESULT([LUA_INCLUDE=$with_lua_include])
     AC_DEFINE_UNQUOTED(LUA_INCLUDE, "$with_lua_include")dnl
@@ -468,7 +469,7 @@ AC_ARG_WITH(lua_include,
 
 AC_SUBST(CACHED_LOADS)
 AC_ARG_WITH(cachedLoads,
-    AC_HELP_STRING([--with-cachedLoads=ans],[Use cache when loading modules. [[no]]]),
+    AS_HELP_STRING([--with-cachedLoads=ans],[Use cache when loading modules. [[no]]]),
     CACHED_LOADS="$withval"
     CACHED_LOADS=`echo $CACHED_LOADS | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $CACHED_LOADS "--with-cachedLoads=ans: ans must be yes or no"
@@ -482,7 +483,7 @@ AC_ARG_WITH(cachedLoads,
 
 AC_SUBST(EXTENDED_DEFAULT)
 AC_ARG_WITH(extendedDefault,
-    AC_HELP_STRING([--with-extendedDefault=ans],[Allow for extended default. [[yes]]]),
+    AS_HELP_STRING([--with-extendedDefault=ans],[Allow for extended default. [[yes]]]),
     EXTENDED_DEFAULT="$withval"
     EXTENDED_DEFAULT=`echo $EXTENDED_DEFAULT | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $EXTENDED_DEFAULT "--with-extendedDefault=ans: ans must be yes or no"
@@ -496,7 +497,7 @@ AC_ARG_WITH(extendedDefault,
 
 AC_SUBST(SUPPORT_KSH)
 AC_ARG_WITH(supportKsh,
-    AC_HELP_STRING([--with-supportKsh=ans],[Support KSH. [[no]]]),
+    AS_HELP_STRING([--with-supportKsh=ans],[Support KSH. [[no]]]),
     SUPPORT_KSH="$withval"
     SUPPORT_KSH=`echo $SUPPORT_KSH | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $SUPPORT_KSH "--with-supportKsh=ans: ans must be yes or no"
@@ -510,7 +511,7 @@ AC_ARG_WITH(supportKsh,
 
 AC_SUBST(MODULEPATH_INIT)
 AC_ARG_WITH(ModulePathInit,
-    AC_HELP_STRING([--with-ModulePathInit=ans],[File containing initial MODULEPATH directories]),
+    AS_HELP_STRING([--with-ModulePathInit=ans],[File containing initial MODULEPATH directories]),
     MODULEPATH_INIT="$withval"
     AC_MSG_RESULT([MODULEPATH_INIT=$with_ModulePathInit])
     AC_DEFINE_UNQUOTED(MODULEPATH_INIT, "$with_ModulePathInit")dnl
@@ -522,7 +523,7 @@ AC_ARG_WITH(ModulePathInit,
 
 AC_SUBST(SITE_CONTROLLED_PREFIX)
 AC_ARG_WITH(siteControlPrefix,
-    AC_HELP_STRING([--with-siteControlPrefix=ans],[A site controlled prefix. [[no]]]),
+    AS_HELP_STRING([--with-siteControlPrefix=ans],[A site controlled prefix. [[no]]]),
     SITE_CONTROLLED_PREFIX="$withval"
     SITE_CONTROLLED_PREFIX=`echo $SITE_CONTROLLED_PREFIX | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $SITE_CONTROLLED_PREFIX "--with-siteControlPrefix=ans: ans must be yes or no"
@@ -536,7 +537,7 @@ AC_ARG_WITH(siteControlPrefix,
 
 AC_SUBST(USE_BUILT_IN_PKGS)
 AC_ARG_WITH(useBuiltinPkgs,
-    AC_HELP_STRING([--with-useBuiltinPkgs=ans],[Use Built-in lua package instead of system ones. [[no]]]),
+    AS_HELP_STRING([--with-useBuiltinPkgs=ans],[Use Built-in lua package instead of system ones. [[no]]]),
     USE_BUILT_IN_PKGS="$withval"
     USE_BUILT_IN_PKGS=`echo $USE_BUILT_IN_PKGS | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $USE_BUILT_IN_PKGS "--with-useBuiltinPkgs=ans: ans must be yes or no"
@@ -550,7 +551,7 @@ AC_ARG_WITH(useBuiltinPkgs,
 
 AC_SUBST(SILENCE_SHELL_DEBUGGING)
 AC_ARG_WITH(silentShellDebugging,
-    AC_HELP_STRING([--with-silentShellDebugging=ans],[When using set -xv in bash silence the output from lmod. [[yes]]]),
+    AS_HELP_STRING([--with-silentShellDebugging=ans],[When using set -xv in bash silence the output from lmod. [[yes]]]),
     SILENCE_SHELL_DEBUGGING="$withval"
     SILENCE_SHELL_DEBUGGING=`echo $SILENCE_SHELL_DEBUGGING | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $SILENCE_SHELL_DEBUGGING "--with-silentShellDebugging=ans: ans must be yes or no"
@@ -564,7 +565,7 @@ AC_ARG_WITH(silentShellDebugging,
 
 AC_SUBST(FAST_TCL_INTERP)
 AC_ARG_WITH(fastTCLInterp,
-    AC_HELP_STRING([--with-fastTCLInterp=ans],[Use the fast TCL interpreter. [[yes]]]),
+    AS_HELP_STRING([--with-fastTCLInterp=ans],[Use the fast TCL interpreter. [[yes]]]),
     FAST_TCL_INTERP="$withval"
     FAST_TCL_INTERP=`echo $FAST_TCL_INTERP | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $FAST_TCL_INTERP "--with-fastTCLInterp=ans: ans must be yes or no"
@@ -578,7 +579,7 @@ AC_ARG_WITH(fastTCLInterp,
 
 AC_SUBST(AVAIL_EXTENSIONS)
 AC_ARG_WITH(availExtensions,
-    AC_HELP_STRING([--with-availExtensions=ans],[Use the fast TCL interpreter. [[yes]]]),
+    AS_HELP_STRING([--with-availExtensions=ans],[Use the fast TCL interpreter. [[yes]]]),
     AVAIL_EXTENSIONS="$withval"
     AVAIL_EXTENSIONS=`echo $AVAIL_EXTENSIONS | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $AVAIL_EXTENSIONS "--with-availExtensions=ans: ans must be yes or no"
@@ -592,7 +593,7 @@ AC_ARG_WITH(availExtensions,
 
 AC_SUBST(PATH_TO_LUA)
 AC_ARG_WITH(lua,
-    AC_HELP_STRING([--with-lua=ans],[absolute path to the lua interpreter to use [[lua]]]),
+    AS_HELP_STRING([--with-lua=ans],[absolute path to the lua interpreter to use [[lua]]]),
     PATH_TO_LUA="$withval"
     if test ${PATH_TO_LUA:0:1} != '/' ; then
       echo "Path to lua must be absolute"
@@ -608,7 +609,7 @@ AC_ARG_WITH(lua,
 
 AC_SUBST(PATH_TO_LUAC)
 AC_ARG_WITH(luac,
-    AC_HELP_STRING([--with-luac=ans],[absolute path to the luac interpreter to use [[luac]]]),
+    AS_HELP_STRING([--with-luac=ans],[absolute path to the luac interpreter to use [[luac]]]),
     PATH_TO_LUAC="$withval"
     if test ${PATH_TO_LUAC:0:1} != '/' ; then
       echo "Path to luac must be absolute"
@@ -625,7 +626,7 @@ AC_ARG_WITH(luac,
 
 AC_SUBST(LUA_SUFFIX)
 AC_ARG_WITH(luaSuffix,
-    AC_HELP_STRING([--with-luaSuffix=],[Specify a suffix for lua and luac[[no]]]),
+    AS_HELP_STRING([--with-luaSuffix=],[Specify a suffix for lua and luac[[no]]]),
     LUA_SUFFIX="$withval"
     LUA_SUFFIX=`echo $LUA_SUFFIX | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     AC_MSG_RESULT([LUA_SUFFIX=$with_luaSuffic])
@@ -1012,6 +1013,7 @@ EOF
    rm conftest.zsh
 fi
 
-AC_OUTPUT(makefile:Makefile.in)
+AC_CONFIG_FILES([makefile:Makefile.in])
+AC_OUTPUT
 
 AX_SUMMARIZE_CONFIG
