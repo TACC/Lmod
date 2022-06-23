@@ -1083,7 +1083,7 @@ proc set-env {var value} {
     if { ! [info exists env($var)] && ! [info exists g_envT($var)] } {
 	dict set g_envClrT $var 1
     } else {
-	dict set g_envT $var env($var)
+	dict set g_envT $var $env($var)
     }
     set env($var) $value
 }
