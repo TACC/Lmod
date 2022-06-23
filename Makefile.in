@@ -84,7 +84,7 @@ VERSION_SRC               := $(srcdir)/src/Version.lua
 LUA_INCLUDE               := @LUA_INCLUDE@
 UPDATE_SYSTEM_FN          := @UPDATE_SYSTEM_FN@
 GIT_PROG                  := @PATH_TO_GIT@
-GIT_VERSION               := $(shell if [ -n "$(GIT_PROG)" -a -d $(srcdir)/.git ]; then lmodV=`echo "git describe"; git describe --always; echo "end git describe";`; echo "$$lmodV"; else echo "$(version)"; fi)
+GIT_VERSION               := $(shell if [ -n "$(GIT_PROG)" -a -d $(srcdir)/.git ]; then lmodV=`git describe --always;`; echo "$$lmodV"; else echo "$(version)"; fi)
 PKG                       := $(MY_PKG_PACKAGE)
 PKGV                      := $(MY_PACKAGE)
 LIB                       := $(MY_PACKAGE)/lib
@@ -122,7 +122,7 @@ DIRLIST                   := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS)      $(DEST
                              $(DESTDIR)$(LMOD_MF) $(DESTDIR)$(MAN_PAGES)  $(DESTDIR)$(MESSAGEDIR)     \
                              $(DESTDIR)$(I18N)    $(DESTDIR)$(FISH_TAB)   $(DESTDIR)$(INIT_KSH_FUNCS)
 
-STANDALONE_PRGM           := src/lmod.in.lua src/addto.in.lua                       \
+STANDALONE_PRGM           := src/lmod.in.lua src/addto.in.lua       p                \
                              src/spider.in.lua src/clearLMOD_cmd.in.lua             \
                              src/ml_cmd.in.lua                                      \
                              src/spiderCacheSupport.in.lua                          \
@@ -249,7 +249,7 @@ __installMe:
 	        -e 's|@use_dot_files@|$(USE_DOT_FILES)|g'                         \
 	        -e 's|@lang@|$(LMOD_OVERRIDE_LANG)|g'                             \
 	        -e 's|@site_msg_file@|$(SITE_MSG_FILE)|g'                         \
-	        -e 's|@git@|$(GIT_VERSION)|g'                                     \
+	        -e 's|@git@|($(GIT_VERSION))|g'                                   \
 	        -e 's|--@ignore_dirs@--|$(IGNORE_DIRS)|g'                         \
 	        -e 's|@sys_lua_path@|$(SYS_LUA_PATH)|g'                           \
 	        -e 's|@hidden_italic@|$(LMOD_HIDDEN_ITALIC)|g'                    \
