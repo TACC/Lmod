@@ -15,9 +15,9 @@ Lmod 8.7+
    (8.7.5)  * Issue #583: Using userName instead of sn when refreshing.
             * Issue #580: Add check for valid env. names for family(), setenv() etc.
             * Issue #580: Add check for valid alias and shell function names.
-W.I.P.:
    (8.7.6)  * Change the way GIT_VERSION is found when installing Lmod
 	    * Issue #584: Modify tcl2lua.tcl to reset the changes made to the environment when using
 	      setenv and pushenv.
 	    * Issue #587: Fix bug created with #580 namely that env vars can start with "_"
-	    
+	    * Recalculate LMOD_SHELL_PGRM in bash.in to make sure that the Lmod shell matches the current
+	      shell
