@@ -19,3 +19,5 @@ W.I.P.:
    (8.7.6)  * Change the way GIT_VERSION is found when installing Lmod
 	    * Issue #584: Modify tcl2lua.tcl to reset the changes made to the environment when using
 	      setenv and pushenv.
+	    * Issue #587: Fix bug created with #580 namely that env vars can start with "_"
+	    
