@@ -115,7 +115,7 @@ end
 
 local function l_check_for_valid_name(kind, name)
    local l    = name:len()
-   local i, j = name:find("^[a-zA-Z][a-zA-Z0-9_]*")
+   local i, j = name:find("^[a-zA-Z_][a-zA-Z0-9_]*")
    if (j ~= l) then
       LmodError{msg="e_BadName",kind=kind, name=name}
    end
