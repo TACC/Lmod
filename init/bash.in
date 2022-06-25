@@ -47,13 +47,18 @@ findExec ()
   fi
   unset Nm confPath execNm
 }
+findExec READLINK_CMD @readlink@  readlink
 findExec PS_CMD       @ps@        ps
 findExec EXPR_CMD     @expr@      expr
 findExec BASENAME_CMD @basename@  basename
 
 export LMOD_SHELL_PRGM=@my_shell@
-if [ -x $PS_CMD -a -x $EXPR_CMD -a -x $BASENAME_CMD ]; then
-  my_shell=$($PS_CMD -p $$ -ocomm=)
+if [ -x $PS_CMD -a -x $EXPR_CMD -a -x $BASENAME_CMD -a -x $READLINK_CMD ]; then
+  if [ -f /proc/$$/exe ]; then
+     my_shell=$($READLINK_CMD /proc/$$/exe)
+  else
+     my_shell=$($PS_CMD -p $$ -ocomm=)
+  fi 
   my_shell=$($EXPR_CMD    "$my_shell" : '-*\(.*\)')
   my_shell=$($BASENAME_CMD $my_shell)
   case ${my_shell} in
