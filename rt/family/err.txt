@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.4  2022-06-07 18:23 -05:00
+Modules based on Lua: Version 8.7.6  2022-06-25 15:58 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -117,7 +117,7 @@ The following have been reloaded with a version change:
 step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load tcc
 ===========================
-Lmod has detected the following error: family names must be start with a letter followed letters, numbers and underscores (Not: "tcc-compiler")
+Lmod has detected the following error: family names must be start with a letter or underscore followed letters, numbers and underscores (Not: "tcc-compiler")
 While processing the following module(s):
     Module fullname  Module Filename
     tcc/1.0          ProjectDIR/rt/family/mf/Core/tcc/1.0.lua
