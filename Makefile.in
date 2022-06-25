@@ -123,7 +123,7 @@ DIRLIST                   := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS)      $(DEST
                              $(DESTDIR)$(LMOD_MF) $(DESTDIR)$(MAN_PAGES)  $(DESTDIR)$(MESSAGEDIR)     \
                              $(DESTDIR)$(I18N)    $(DESTDIR)$(FISH_TAB)   $(DESTDIR)$(INIT_KSH_FUNCS)
 
-STANDALONE_PRGM           := src/lmod.in.lua src/addto.in.lua       p                \
+STANDALONE_PRGM           := src/lmod.in.lua src/addto.in.lua                       \
                              src/spider.in.lua src/clearLMOD_cmd.in.lua             \
                              src/ml_cmd.in.lua                                      \
                              src/spiderCacheSupport.in.lua                          \
