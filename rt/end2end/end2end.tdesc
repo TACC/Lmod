@@ -67,6 +67,13 @@ testdescript = {
      runMe $LMOD_EXEC load myinfo
      runMe $LMOD_EXEC list
      runMe $LMOD_EXEC avail
+     export TEST=0
+     runMe $LMOD_EXEC load b
+     runMe echo "TEST: $TEST
+     runMe $LMOD_EXEC unload b
+     runMe echo "TEST: $TEST
+
+
 
      cp $(testDir)/bad_modulerc ${dir}/etc/rc
      runMe $LMOD_EXEC avail
