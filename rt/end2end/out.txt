@@ -74,6 +74,48 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={admin={fn="Pro
 export _ModuleTable_;
 ===========================
 step 9
+ OutputDIR/lmod/lmod/libexec/lmod load b
+===========================
+LOADEDMODULES=admin/admin-1.0:amber/1.1:myinfo/1.0:b/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/end2end/mf/Core;
+export MODULEPATH;
+TEST=123;
+export TEST;
+_LMFILES_=ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/end2end/mf/Core/amber/1.1:ProjectDIR/rt/end2end/mf/Core/myinfo/1.0:ProjectDIR/rt/end2end/mf/Core/b/1.0;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={admin={fn="ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},amber={fn="ProjectDIR/rt/end2end/mf/Core/amber/1.1",fullName="amber/1.1",loadOrder=2,propT={},stackDepth=0,status="active",userName="amber",wV="s00000001.000000001.*zfinal",},b={fn="ProjectDIR/rt/end2end/mf/Core/b/1.0",fullName="b/1.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="b",wV="000000001.*zfinal",},myinfo={fn="ProjectDIR/rt/end2end/mf/Core/myinfo/1.0",fullName="myinfo/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="myinfo",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/end2end/mf/Core",},systemBaseMPATH="ProjectDIR/rt/end2end/mf/Core",}';
+export _ModuleTable_;
+__LMOD_STACK_TEST=123:0;
+export __LMOD_STACK_TEST;
+===========================
+step 10
+echo TEST: 123
+===========================
+TEST: 123
+===========================
+step 11
+ OutputDIR/lmod/lmod/libexec/lmod unload b
+===========================
+LOADEDMODULES=admin/admin-1.0:amber/1.1:myinfo/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/end2end/mf/Core;
+export MODULEPATH;
+TEST=0;
+export TEST;
+_LMFILES_=ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/end2end/mf/Core/amber/1.1:ProjectDIR/rt/end2end/mf/Core/myinfo/1.0;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={admin={fn="ProjectDIR/rt/end2end/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},amber={fn="ProjectDIR/rt/end2end/mf/Core/amber/1.1",fullName="amber/1.1",loadOrder=2,propT={},stackDepth=0,status="active",userName="amber",wV="s00000001.000000001.*zfinal",},myinfo={fn="ProjectDIR/rt/end2end/mf/Core/myinfo/1.0",fullName="myinfo/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="myinfo",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/end2end/mf/Core",},systemBaseMPATH="ProjectDIR/rt/end2end/mf/Core",}';
+export _ModuleTable_;
+__LMOD_STACK_TEST=0;
+export __LMOD_STACK_TEST;
+===========================
+step 12
+echo TEST: 0
+===========================
+TEST: 0
+===========================
+step 13
  OutputDIR/lmod/lmod/libexec/lmod avail
 ===========================
 false

@@ -2,13 +2,13 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.18  2022-04-14 15:15 -05:00
+Modules based on Lua: Version 8.7.6  2022-06-25 15:58 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
  OutputDIR/lmod/lmod/libexec/lmod --version
 ===========================
-Modules based on Lua: Version 8.6.18 (8.6.18-4-g9315ba70) 2022-04-14 15:15 -05:00
+Modules based on Lua: Version 8.7.6 8.7.6-2-g0b268900 2022-06-25 15:58 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -58,7 +58,7 @@ step 8
  OutputDIR/lmod/lmod/libexec/lmod avail
 ===========================
 ProjectDIR/rt/end2end/mf/Core
-   admin/admin-1.0 (L)    amber/1.1 (L,D)    amber/1.3    amber/1.5    bad/9    myinfo/1.0 (L)
+   admin/admin-1.0 (L)    amber/1.1 (L,D)    amber/1.3    amber/1.5    b/1.0    bad/9    myinfo/1.0 (L)
   Where:
    D:  Default Module
    L:  Module is loaded
@@ -69,6 +69,22 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 9
+ OutputDIR/lmod/lmod/libexec/lmod load b
+===========================
+===========================
+step 10
+echo TEST: 123
+===========================
+===========================
+step 11
+ OutputDIR/lmod/lmod/libexec/lmod unload b
+===========================
+===========================
+step 12
+echo TEST: 0
+===========================
+===========================
+step 13
  OutputDIR/lmod/lmod/libexec/lmod avail
 ===========================
 invalid command name "m-version"
