@@ -28,9 +28,9 @@
 %\end{frame}
 
 \begin{document}
-\title[Lmod]{How Lmod Loads a Modulefile, Part 1}
+\title[Lmod]{How Lmod Loads a Modulefile, Part 2}
 \author{Robert McLay} 
-\date{June. 7, 2022}
+\date{July. 5, 2022}
 
 % page 1
 \frame{\titlepage} 
@@ -40,12 +40,10 @@
 \begin{frame}{Outline}
   \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
   \begin{itemize}
-    \item Talk: How Lmod finds a modulefile to load
-    \item Next Time: Part 2: How Lmod actually evaluates a modulefile
-    \item There is a surprising amount to talk about before the
-      modulefile gets evaluated.
-    \item We will be talking about a user requested load.
-    \item A module requested load is slightly different. 
+    \item Part 1 took us to Master:load() and loadModuleFile(t)
+    \item This part will start with Master:load() and loadModuleFile(t)
+    \item This talk will be about handing off your modulefile to the
+      Lua interpreter and Lmod routines.
   \end{itemize}
 \end{frame}
 
@@ -54,11 +52,7 @@
     \frametitle{Outline (II)}
   \begin{itemize}
     \item \texttt{main()}: How main() parses the command line
-    \item \texttt{Load\_Usr()}: Starts working your modules to load
-    \item \texttt{l\_usrLoad()}: Splits modules to loads or unloads
-    \item \texttt{MName Class}: Maps module name to a filename
-    \item \texttt{mcp}: Object to control kind of evaluation
-    \item \texttt{MasterControl:load(mA)}: We are loading a modulefile
+    \item \texttt{...}
     \item \texttt{Master:load(mA)}: Where the heavy lifting is done
     \item \texttt{loadModuleFile()}: Where the modulefile is actually evaluated
   \end{itemize}
@@ -66,63 +60,233 @@
 
 % page 4
 \begin{frame}[fragile]
-    \frametitle{\texttt{main()}: parsing command line}
+    \frametitle{\texttt{Master:load()}: getting ready to call loadModuleFile(t)}
   \begin{itemize}
-    \item main() is located in lmod.in.lua (installed as lmod)
-    \item The command is: {\color{blue}\emph{module load foo}}
-    \item To parse Lmod uses the 2nd argument w/o a minus: {\color{blue}\emph{load}}
-    \item Lmod searches \texttt{lmodCmdA} to map string to command
+    \item src: src/Master.lua
+    \item There is no duplicate sn so we can load the modulefile {\color{blue}\emph{foo}}.
   \end{itemize}
+ {\tiny
+    \begin{semiverbatim}
+elseif (fn) then
+   frameStk:push(mname)
+   mt = frameStk:mt()
+   mt:add(mname,"pending")
+   local status = loadModuleFile\{file = fn, shell = shellNm,
+                   mList = mList, reportErr = true\}
+   -- part 2
+
+    \end{semiverbatim}
+}
 \end{frame}
 
 % page 5
-\begin{frame}{A side note on Lmod Coding Conventions}
-  \begin{itemize}
-    \item A variable w/ a trailing ``A'' means that an array
-    \item A variable w/ a trailing ``T'' means that an table (or dictionary)
-    \item A variable w/ a trailing ``Tbl'' means that an table (or dictionary)
-    \item A routine with a l\_name is a local function (file scope)
-    \item Class Name are in CamelCase
-  \end{itemize}
+\begin{frame}[fragile]
+    \frametitle{After loading modulefile}
+ {\tiny
+    \begin{semiverbatim}
+     -- Now fn is loaded 
+
+     mt = frameStk:mt() -- Why?
+
+     -- A modulefile could the same named module over top of the current modulefile
+     -- Say modulefile abc/2.0 loads abc/.cpu/2.0.  Then in the case of abc/2.0 the filename
+     -- won't match.
+     if (mt:fn(sn) == fn and status) then
+        mt:setStatus(sn, "active")
+        hook.apply("load",{fn = mname:fn(), modFullName = mname:fullName(), mname = mname})
+     end
+     frameStk:pop()
+     loaded = true
+    \end{semiverbatim}
+}
 \end{frame}
 
 % page 6
-\begin{frame}[fragile]
-    \frametitle{lmodCmdA}
- {\tiny
-   \begin{semiverbatim}
-   local lmodCmdA = \{
-      \{cmd = 'add',          min = 2, action = loadTbl     \},
-      \{cmd = 'avail',        min = 2, action = availTbl    \},
-      \{cmd = 'isloaded',     min = 3, action = isLoadedTbl \},
-      \{cmd = 'is_loaded',    min = 4, action = isLoadedTbl \},
-      \{cmd = 'is-loaded',    min = 4, action = isLoadedTbl \},
-      \{cmd = 'load',         min = 2, action = loadTbl     \},
-      ...
-   \}
-   local loadTbl      = \{ name = "load", cmd = Load_Usr    \}
-    \end{semiverbatim}
+\begin{frame}{Notes about loadModuleFile(t) function}
   \begin{itemize}
-    \item So ``load'' matches ``load'' with more than 2 chars
+    \item Almost all commands will eval one or more modules
+    \item Does not: module list, module -t avail
+    \item Does:   module load, module unload, module help, module whatis, ...
+    \item Even if your site uses a system spider cache, you will re-eval modulefiles that change \$MODULEPATH (New)
   \end{itemize}
-}
 \end{frame}
 
 % page 7
 \begin{frame}[fragile]
-    \frametitle{Going from lmodCmdA to Load\_Usr()}
-  \begin{itemize}
-    \item Sets cmdT to loadTbl
-    \item Sets cmdName to cmdT.name (forces standard name not user
-      command name)
-    \item cmdT.cmd(unpack(masterTbl.pargs)) $\Rightarrow$ Load\_Usr
-  \end{itemize}
+    \frametitle{Let's load the modulefile w/ \texttt{loadModuleFile(t)}}
+ {\tiny
+    \begin{semiverbatim}
+function loadModuleFile(t)
+   ----------------------------------------------------------------------
+   -- Don't complain if t.file has disappeared when mode() == "unload"
+   ----------------------------------------------------------------------
+   -- Check for infinite loop on mode() == "load"
+   ----------------------------------------------------------------------
+   -- Read modulefile into string "whole"
 
-\end{frame}
+   if (t.ext == ".lua") then
+      -- Read complete Lua modulefile into "whole"
+   else
+      -- Convert TCL modulefile into Lua
+   end
+
+   ----------------------------------------------------------------------
+   -- Use sandbox to evaluate modulefile
+
+   ----------------------------------------------------------------------
+   -- Report any errors and error out
+
+   ----------------------------------------------------------------------
+   -- Mark lmodBrk is LmodBreak() is called inside moduleFile
+   return not lmodBrk
+end
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item Note that we passed an anonymous table in Master.lua.   
+    \item The result is that there is a single argument "t" to the function.
+  \end{itemize}
 
 % page 8
 \begin{frame}[fragile]
-    \frametitle{Calling Load\_Usr()}
+    \frametitle{Reading entire modulefile}
+ {\tiny
+    \begin{semiverbatim}
+    if (t.ext == ".lua") then
+      -- Read in lua module file into a [[whole]] string.
+      local f = io.open(t.file)
+      if (f) then
+         whole = f:read("*all")
+         f:close()
+      end
+   \end{semiverbatim}
+}
+\end{frame}
+
+% page 9
+\begin{frame}{Converting TCL to Lua} 
+  \begin{itemize}
+    \item This will be another talk. But TL; DR
+    \item The TCL interpreter run on the TCL modulefile
+    \item But \texttt{setenv FOO BAR} is converted to the string
+      \texttt{setenv("FOO","BAR")}
+    \item \texttt{prepend-path PATH /...} $\Rightarrow$
+      \texttt{prepend_path("PATH","/..."}
+    \item etc
+  \end{itemize}
+\end{frame}
+
+% page 10
+\begin{frame}[fragile]
+    \frametitle{TCL conversion example}
+ {\tiny
+   \begin{semiverbatim}
+---------- Input: -----------------
+
+global env
+proc ModulesHelp { } {
+puts stderr "Help message..."
+}
+set modulepath\_root  \$env(MODULEPATH\_ROOT)
+set moduleshome     "\$modulepath\_root/TACC"
+
+module load Linux
+module try-add cluster
+module load TACC-paths
+
+---------- Output: -----------------
+
+load("Linux")
+try_load("cluster")
+load("TACC-paths")
+    \end{semiverbatim}
+}
+\end{frame}
+
+
+% page 11
+\begin{frame}{What is the sandbox?}
+  \begin{itemize}
+    \item Lua offers the ability to evaluate a string containing Lua
+      code
+    \item \emph{WITH} the possibility of a limited choice of
+      functions.
+    \item Otherwise your modulefiles could accidentally run my Lmod
+      internal routines.
+    \item I did this once testing Lmod and realized the problem.
+    \item Sites may run their own special function
+    \item BUT: They must be registered with the sandbox 
+    \item Sites can use the SitePackage.lua or
+      /etc/lmod/lmod\_config.lua to register their own functions
+  \end{itemize}
+\end{frame}
+
+% page 12
+\begin{frame}[fragile]
+    \frametitle{status, msg = sandbox\_run(whole)}
+ {\tiny
+    \begin{semiverbatim}
+local function l\_run5\_2(untrusted\_code)
+  local untrusted\_function, message = load(untrusted\_code, nil, 't', sandbox\_env)
+  if not untrusted\_function then return nil, message end
+  return pcall(untrusted\_function)
+end
+
+--------------------------------------------------------------------------
+-- Define two version: Lua 5.1 or 5.2.  It is likely that
+-- The 5.2 version will be good for many new versions of
+-- Lua but time will only tell.
+sandbox\_run = (\_VERSION == "Lua 5.1") and l\_run5\_1 or l\_run5\_2
+    \end{semiverbatim}
+}
+\end{frame}
+
+
+% page 13
+\begin{frame}[fragile]
+    \frametitle{What is sandbox\_env (src/sandbox.lua?}
+ {\tiny
+    \begin{semiverbatim}
+local sandbox\_env = \{
+  assert   = assert,
+  loadfile = loadfile,
+  require  = require,
+  ipairs   = ipairs,
+  next     = next,
+  pairs    = pairs,
+  pcall    = pcall,
+  tonumber = tonumber,
+  tostring = tostring,
+  type     = type,
+  load      = load\_module,
+  load\_any = load\_any,
+
+  --- PATH functions ---
+  prepend\_path         = prepend\_path,
+  append\_path          = append\_path,
+  remove\_path          = remove\_path,
+
+  --- Set Environment functions ----
+  setenv               = setenv,
+  pushenv              = pushenv,
+  unsetenv             = unsetenv,
+
+  ...
+\}
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item Modulefiles can only execute functions in sandbox\_env
+  \end{itemize}
+\end{frame}
+
+
+
+
+
+% page 9
+\begin{frame}[fragile]
+    \frametitle{}
   \begin{itemize}
     \item All functions implementing user commands are in src/cmdfunc.lua
   \end{itemize}

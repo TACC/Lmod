@@ -294,7 +294,7 @@ end
   \begin{itemize}
     \item Here we guarantee the right mcp
     \item Unload the old module 
-    \item Recursively mcp:load\_usr{mname} 
+    \item Recursively mcp:load\_usr\{mname\}
   \end{itemize}
 \end{frame}
 
@@ -309,6 +309,8 @@ elseif (fn) then
    mt:add(mname,"pending")
    local status = loadModuleFile\{file = fn, shell = shellNm,
                    mList = mList, reportErr = true\}
+   mt = frameStk:mt()
+   mt:setStatus(sn,"active")                   
    frameStk:pop()
    loaded = true
 end
