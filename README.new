@@ -22,4 +22,4 @@ Lmod 8.7+
 	    * Recalculate LMOD_SHELL_PGRM in bash.in to make sure that the Lmod shell matches the current
 	      shell
 W.I.P.:
-   (8.7.7)  * Add option --miniConfig to report configurations differences from default.
+   (8.7.7)  * Add option --miniConfig to report configuration differences from default.
