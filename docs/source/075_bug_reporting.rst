@@ -6,7 +6,7 @@ How to report a bug in Lmod
 Lmod has some built-in tools to make debugging possible on your site.
 The first feature of Lmod is the configuration report::
 
-   $ module --config
+   $ module --miniConfig
 
 This reports how Lmod has been configured at build time as well as any
 ``LMOD_*`` environment variables set.  The second tool is the debug

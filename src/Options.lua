@@ -270,6 +270,13 @@ function M.singleton(self, usage)
    }
 
    cmdlineParser:add_option{
+      name   = {"--miniConfig" },
+      dest   = "miniConfig",
+      action = "store_true",
+      help   = i18n("miniConfig_H"),
+   }
+
+   cmdlineParser:add_option{
        name   = {"--config_json" },
        dest   = "configjson",
        action = "store_true",

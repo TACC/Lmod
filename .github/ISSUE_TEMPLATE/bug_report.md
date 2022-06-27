@@ -35,6 +35,8 @@ A clear and concise description of what you expected to happen.
  - OS: [Linux, macOS]
  - Linux distribution:
  - Lmod Version:
+ - For Lmod Versions 8.7.7+, please run "module --miniConfig" and
+   include the output here.
 
 **Additional context**
 Add any other context about the problem here.

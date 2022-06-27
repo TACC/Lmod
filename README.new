@@ -21,3 +21,5 @@ Lmod 8.7+
 	    * Issue #587: Fix bug created with #580 namely that env vars can start with "_"
 	    * Recalculate LMOD_SHELL_PGRM in bash.in to make sure that the Lmod shell matches the current
 	      shell
+W.I.P.:
+   (8.7.7)  * Add option --miniConfig to report configurations difference from default.

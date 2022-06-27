@@ -433,6 +433,7 @@ MODULEPATH directory: "%{mpath}" has too many non-modulefiles (%{regularFn}). Pl
      dumpV_hlp = "Dump version in a machine readable way and quit",
      chkSyn_H  = "Checking module command syntax: do not load",
      config_H  = "Report Lmod Configuration",
+     miniConfig_H  = "Report Lmod Configuration differences",
      jcnfig_H  = "Report Lmod Configuration in json format",
      MT_hlp    = "Report Module Table State",
      timer_hlp = "report run times",

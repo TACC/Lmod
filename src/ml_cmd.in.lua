@@ -156,6 +156,7 @@ function main()
       ["--trace"] = 0,  ["-T"] = 0,
       ["--version"]=0,  ["--versoin"]=0, ["--ver"]=0, ["--v"]=0, ["-v"]=0,
       ['--config'] = 0,
+      ['--miniConfig'] = 0,
       ['--config-json'] = 0,
       ['--raw'] = 0,
       ['--regexp'] = 0, ['-r'] = 0,
