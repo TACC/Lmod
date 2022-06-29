@@ -218,7 +218,7 @@ class LMODdb(object):
           
       ############################################################
       # Get user_id
-      user    = dataT['user']
+      user    = dataT.get('user','unknown')
       user_id = LMODdb.userT.get(user)
 
       if (user_id == None):

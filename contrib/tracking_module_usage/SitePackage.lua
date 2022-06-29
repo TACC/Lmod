@@ -65,7 +65,9 @@ function load_hook(t)
    local msg         = string.format("user=%s module=%s path=%s host=%s time=%f",
                                      user, t.modFullName, t.fn, host, currentTime)
    local a           = s_msgA
-   a[#a+1]           = msg
+   if (user) then
+      a[#a+1]        = msg
+   end
 end
 
 hook.register("load",load_hook)
