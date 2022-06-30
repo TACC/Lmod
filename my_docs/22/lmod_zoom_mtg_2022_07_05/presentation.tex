@@ -428,6 +428,61 @@ end
 \end{frame}
 
 % page 21
+\begin{frame}[fragile]
+    \frametitle{\texttt{module unload foo}}
+ {\tiny
+    \begin{semiverbatim}
+function M.unsetenv(self, name, value, respect)
+   name = name:trim()
+   dbg.start{"MasterControl:unsetenv(\"",name,"\", \"",value,"\")"}
+
+   l_check_for_valid_name("unsetenv",name)
+
+   if (respect and getenv(name) ~= value) then
+      dbg.print{"Respecting old value"}
+      dbg.fini("MasterControl:unsetenv")
+      return
+   end
+
+   local frameStk  = FrameStk:singleton()
+   local varT      = frameStk:varT()
+   if (varT[name] == nil) then
+      varT[name]   = Var:new(name)
+   end
+   varT[name]:unset()
+
+   -- Unset stack variable if it exists
+   local stackName = l_createStackName(name)
+   if (varT[stackName]) then
+      varT[name]:unset()
+   end
+   dbg.fini("MasterControl:unsetenv")
+end
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item Here we unsetenv() by calling varT[name]:unset()
+  \end{itemize}
+
+\end{frame}
+
+% page 22
+\begin{frame}[fragile]
+    \frametitle{\texttt{module show foo}}
+ {\tiny
+    \begin{semiverbatim}
+function M.setenv(self, name,value)
+   l_ShowCmd("setenv", name, value)
+end
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item In src/MC_show.lua the setenv command is printed.
+  \end{itemize}
+
+\end{frame}
+
+% page 23
 \begin{frame}{Next time}
   \begin{itemize}
     \item How the translation from TCL to Lua is handled
@@ -435,9 +490,7 @@ end
   \end{itemize}
 \end{frame}
 
-
-
-% page 22
+% page 24
 \begin{frame}{Conclusions}
   \begin{itemize}
     \item Lmod provide a way to evaluate your modulefile.
@@ -446,7 +499,7 @@ end
   \end{itemize}
 \end{frame}
 
-% page 23
+% page 25
 \begin{frame}{Future Topics}
   \begin{itemize}
     \item Next Meeting: August 2nd 9:30 US Central (14:30 UTC)
