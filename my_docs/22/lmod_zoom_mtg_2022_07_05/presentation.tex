@@ -211,13 +211,15 @@ load("TACC-paths")
       code
     \item \emph{WITH} the possibility of a limited choice of
       functions.
-    \item Otherwise your modulefiles could accidentally run my Lmod
-      internal routines.
+    \item In other words, Modulefile evaluation has a limited set of functions.
+    \item They cannot call internal routines Lmod functions.
     \item I did this once testing Lmod and realized the problem.
     \item Sites may run their own special function
     \item BUT: They must be registered with the sandbox 
     \item Sites can use the SitePackage.lua or
       /etc/lmod/lmod\_config.lua to register their own functions
+    \item Note that the sandbox controls what the modulefiles can call
+    \item Once inside however all functions can be called.
   \end{itemize}
 \end{frame}
 
@@ -280,99 +282,103 @@ local sandbox\_env = \{
   \end{itemize}
 \end{frame}
 
-
-
-
-
-% page 9
+% page 13
 \begin{frame}[fragile]
-    \frametitle{}
+    \frametitle{Modulefile Evaluation:  Who is in charge?}
   \begin{itemize}
-    \item All functions implementing user commands are in src/cmdfunc.lua
+    \item Once \texttt{sandbox_run()} is called then Lua is in charge
+    \item Not Lmod!
+    \item All normal Lua statements are run by Lua.
+    \item Lmod never sees if () stmts etc.
+    \item Lmod code is called when executing setenv(), prepend\_path() etc.
   \end{itemize}
+}
+\end{frame}
 
+% page 14
+\begin{frame}[fragile]
+    \frametitle{Suppose your modulefile calls \texttt{setenv()}}
+  \begin{itemize}
+    \item Module command functions are implemented in src/modfuncs.lua
+    \item Below is the modfunc.lua function setenv()
+    \item So the arguments are check to be strings and/or numbers with l\_validateArgsWithValue()
+    \item  Then the start of the work happens with mcp:setenv(...)
+  \end{itemize}
  {\tiny
     \begin{semiverbatim}
-function Load\_Try(...)
-   dbg.start\{"Load\_Try(",concatTbl(\{...\},", "),")"\}
-   local check\_must\_load = false
-   local argA            = pack(...)
-   l\_usrLoad(argA, check\_must\_load)
-   dbg.fini("Load\_Try")
-end
+function setenv(...)
+   dbg.start{"setenv(",l_concatTbl({...},", "),")"}
+   if (not l_validateArgsWithValue("setenv",...)) then return end
 
-function Load\_Usr(...)
-   dbg.start\{"Load\_Usr(",concatTbl(\{...\},", "),")"\}
-   local check\_must\_load = true
-   local argA            = pack(...)
-   l\_usrLoad(argA, check\_must\_load)
-   dbg.fini("Load\_Usr")
+   mcp:setenv(...)
+   dbg.fini("setenv")
+   return
 end
     \end{semiverbatim}
 }
 \end{frame}
 
-% page 9
+% page 15
 \begin{frame}[fragile]
-    \frametitle{l\_usrLoad(argA, check\_must\_load)}
+    \frametitle{\texttt{mcp:setenv() what is it gonna do?}}
   \begin{itemize}
-    \item Split argA into loads in lA, unloads in uA (-foo)
-    \item Both uA and lA are an array of MName objects.
-    \item unload modules in uA 
-    \item {\color{blue} \texttt{lA[\#lA+1] = MName:new("load",module\_name)}}
-    \item {\color{blue} \texttt{mcp:load\_usr(lA)}}
-    \item src: src/cmdfunc.lua
+    \item \texttt{mode() == "load"} $\Rightarrow$ MasterControl:setenv()
+    \item \texttt{mode() == "unload"} $\Rightarrow$ MasterControl:unsetenv()
+    \item \texttt{mode() == "show"} $\Rightarrow$ MC_Show:setenv()
+    \item \texttt{mode() == "refresh"} $\Rightarrow$ MasterControl:quiet()
+    \item Note that there is NOT if block making these choices
+    \item It depends on which object type \texttt{mcp} was build as. 
   \end{itemize}
 \end{frame}
 
-% page 10
-\begin{frame}[fragile]
-    \frametitle{MName class: Module Name class}
- {\tiny
-    \begin{semiverbatim}
-    \end{semiverbatim}
-}
-  \begin{itemize}
-    \item Maps name (``foo'' or ``foo/1.1'') to filename
-    \item There are two kinds of searching ``load'' or ``mt''
-    \item Load: must search file system. 
-    \item mt: filename is in moduletable
-    \item Evaluation must be lazy or just-in-time
-    \item Software hierarchy means that 
-    \item {\color{blue}\texttt{module load gcc mpich}}
-    \item mpich might not be in \$MODULEPATH until after gcc is loaded
-    \item src: src/MName.lua
-  \end{itemize}
-
-\end{frame}
-
-% page 11
-\begin{frame}{MName key concepts}
+% page 16
+\begin{frame}{There are ten different types of MasterControl classes
   \begin{itemize}
     \item \textbf{userName}: name on the command line
-    \item It might be gcc or gcc/9.3.0
-    \item \textbf{sn}: the shortName or a name without a version
-    \item \textbf{fullName}: The full name of the module (sn/version)
-    \item Examples:
-      \begin{enumerate}
-        \item gcc/9.3.0 (sn: gcc, N/V)
-        \item gcc/x86\_64/9.3.0 (sn: gcc, N/V/V)
-        \item compiler/gcc/9.3.0 (sn: compiler/gcc, C/N/V)
-        \item compiler/gcc/x86\_64/9.3.0 (sn: compiler/gcc, N/V/V)
-      \end{enumerate}
+    \item MC_Access $\Rightarrow$ whatis, help
+    \item MC_CheckSyntax $\Rightarrow$ for checking the syntax of a modulefile.
+    \item MC_ComputeHash $\Rightarrow$ Computing the hash value used in user collections.
+    \item MC_DependencyCk $\Rightarrow$ reloading modules to report any problems with the dependencies.
+    \item MC_Load $\Rightarrow$ loading modules
+    \item MC_Mgrload $\Rightarrow$ the loading method when loading a collection (ignore load() type functions inside modulefiles)
+    \item MC_Refresh $\Rightarrow$ reload all currently loaded modules but only run set_alias() set_shell_function and nothing else   
+    \item MC_Show  $\Rightarrow$ Just print out commands
+    \item MC_Spider  $\Rightarrow$ How to process modules when in spider mode
+    \item MC_Unload  $\Rightarrow$ How Lmod unloads modules (setenv $\Rightarrow$ unsetenv, prepend_path() $\Rightarrow$ remove_path() etc)
   \end{itemize}
 \end{frame}
 
-% page 12
+% page 17
 \begin{frame}[fragile]
-    \frametitle{mcp and MasterControl class}
-  \begin{itemize}
-    \item MasterControl class is what controls whether a "load" in a
-      modulefile is a load or unload
-    \item mcp is a global variable that is built to be in a mode()
-      like load, unload, spider, etc.
-    \item We talked about this in an earlier presentation.
-  \end{itemize}
+    \frametitle{MasterControl:setenv()}
+ {\tiny
+    \begin{semiverbatim}
+function M.setenv(self, name, value, respect)
+   dbg.start{"MasterControl:setenv(\"",name,"\", \"",value,"\", \"",
+              respect,"\")"}
+   l_check_for_valid_name("setenv",name)
+
+   if (value == nil) then
+      LmodError{msg="e_Missing_Value", func = "setenv", name = name}
+   end
+
+   if (respect and getenv(name)) then
+      dbg.print{"Respecting old value"}
+
+      dbg.fini("MasterControl:setenv")
+      return
+   end
+
+   local frameStk = FrameStk:singleton()
+   local varT     = frameStk:varT()
+   if (varT[name] == nil) then
+      varT[name] = Var:new(name)
+   end
+   varT[name]:set(tostring(value))
+   dbg.fini("MasterControl:setenv")
+end
+    \end{semiverbatim}
+}
 \end{frame}
 
 % page 13
