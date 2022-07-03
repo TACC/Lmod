@@ -215,7 +215,9 @@ The entries below describe several useful commands that come with Lmod that can 
     function uses the value of LD_PRELOAD and LD_LIBRARY_PATH found
     when Lmod is configured. Use **subprocess** if you wish to use the
     current values. There may be a trailing newline in the result which is your
-    responsibility to remove or otherwise handle.
+    responsibility to remove or otherwise handle.::
+
+       local nprocs = capture("nprocs"):gsub("\n$","")
 
 **subprocess** ("string")
     Run the "string" as a command and capture the output.  There may
