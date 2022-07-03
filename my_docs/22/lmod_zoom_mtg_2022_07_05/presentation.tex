@@ -89,11 +89,12 @@ elseif (fn) then
      mt = frameStk:mt() -- Why?
 
      -- A modulefile could the same named module over top of the current modulefile
-     -- Say modulefile abc/2.0 loads abc/.cpu/2.0.  Then in the case of abc/2.0 the filename
-     -- won't match.
+     -- Say modulefile abc/2.0 loads abc/.cpu/2.0.  Then in the case of abc/2.0
+     -- the filename won't match.
      if (mt:fn(sn) == fn and status) then
         mt:setStatus(sn, "active")
-        hook.apply("load",{fn = mname:fn(), modFullName = mname:fullName(), mname = mname})
+        hook.apply("load",\{fn = mname:fn(), modFullName =
+                   mname:fullName(), mname = mname\})
      end
      frameStk:pop()
      loaded = true
@@ -104,9 +105,10 @@ elseif (fn) then
 % page 6
 \begin{frame}{Notes about loadModuleFile(t) function}
   \begin{itemize}
-    \item Almost all commands will eval one or more modules
+    \item Almost all module commands will eval one or more modules
+    \item This means that loadModuleFile(t) will be called.
     \item Does not: module list, module -t avail
-    \item Does:   module load, module unload, module help, module whatis, ...
+    \item Does: ~~~~module load, module unload, module help, module whatis, ...
     \item Even if your site uses a system spider cache, you will re-eval modulefiles that change \$MODULEPATH (New)
   \end{itemize}
 \end{frame}
@@ -146,6 +148,7 @@ end
     \item Note that we passed an anonymous table in Master.lua.   
     \item The result is that there is a single argument "t" to the function.
   \end{itemize}
+\end{frame}
 
 % page 8
 \begin{frame}[fragile]
@@ -171,7 +174,7 @@ end
     \item But \texttt{setenv FOO BAR} is converted to the string
       \texttt{setenv("FOO","BAR")}
     \item \texttt{prepend-path PATH /...} $\Rightarrow$
-      \texttt{prepend_path("PATH","/..."}
+      \texttt{prepend\_path("PATH","/..."}
     \item etc
   \end{itemize}
 \end{frame}
@@ -282,20 +285,42 @@ local sandbox\_env = \{
   \end{itemize}
 \end{frame}
 
-% page 13
+% page 14
 \begin{frame}[fragile]
     \frametitle{Modulefile Evaluation:  Who is in charge?}
   \begin{itemize}
-    \item Once \texttt{sandbox_run()} is called then Lua is in charge
+    \item Once \texttt{sandbox\_run()} is called then Lua is in charge
     \item Not Lmod!
     \item All normal Lua statements are run by Lua.
     \item Lmod never sees if () stmts etc.
     \item Lmod code is called when executing setenv(), prepend\_path() etc.
   \end{itemize}
-}
 \end{frame}
 
-% page 14
+% page 15
+\begin{frame}[fragile]
+    \frametitle{Example: StdEnv.lua}
+ {\tiny
+    \begin{semiverbatim}
+local hroot   = pathJoin(os.getenv("HOME") or "","myModules")
+local userDir = pathJoin(hroot,"Core")
+if (isDir(userDir)) then
+   prepend_path("MODULEPATH",userDir)
+end
+haveDynamicMPATH()
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item Recent change in Lmod 8.7.4: Dynamic Spider Cache
+    \item Lmod remember modules that change \texttt{\$MODULEPATH}
+    \item If $\sim$/myModules doesn't exist then Lmod will never know
+      that this module could change \texttt{\$MODULEPATH}
+    \item That is why this module needs \texttt{haveDynamicMPATH()}.
+  \end{itemize}
+
+\end{frame}
+
+% page 16
 \begin{frame}[fragile]
     \frametitle{Suppose your modulefile calls \texttt{setenv()}}
   \begin{itemize}
@@ -307,7 +332,7 @@ local sandbox\_env = \{
  {\tiny
     \begin{semiverbatim}
 function setenv(...)
-   dbg.start{"setenv(",l_concatTbl({...},", "),")"}
+   dbg.start\{"setenv(",l_concatTbl({...},", "),")"\}
    if (not l_validateArgsWithValue("setenv",...)) then return end
 
    mcp:setenv(...)
@@ -318,44 +343,43 @@ end
 }
 \end{frame}
 
-% page 15
+% page 17
 \begin{frame}[fragile]
     \frametitle{\texttt{mcp:setenv() what is it gonna do?}}
   \begin{itemize}
     \item \texttt{mode() == "load"} $\Rightarrow$ MasterControl:setenv()
     \item \texttt{mode() == "unload"} $\Rightarrow$ MasterControl:unsetenv()
-    \item \texttt{mode() == "show"} $\Rightarrow$ MC_Show:setenv()
+    \item \texttt{mode() == "show"} $\Rightarrow$ MC\_Show:setenv()
     \item \texttt{mode() == "refresh"} $\Rightarrow$ MasterControl:quiet()
     \item Note that there is NOT if block making these choices
     \item It depends on which object type \texttt{mcp} was build as. 
   \end{itemize}
 \end{frame}
 
-% page 16
-\begin{frame}{There are ten different types of MasterControl classes
+% page 18
+\begin{frame}{There are ten different types of MasterControl classes}
   \begin{itemize}
-    \item \textbf{userName}: name on the command line
-    \item MC_Access $\Rightarrow$ whatis, help
-    \item MC_CheckSyntax $\Rightarrow$ for checking the syntax of a modulefile.
-    \item MC_ComputeHash $\Rightarrow$ Computing the hash value used in user collections.
-    \item MC_DependencyCk $\Rightarrow$ reloading modules to report any problems with the dependencies.
-    \item MC_Load $\Rightarrow$ loading modules
-    \item MC_Mgrload $\Rightarrow$ the loading method when loading a collection (ignore load() type functions inside modulefiles)
-    \item MC_Refresh $\Rightarrow$ reload all currently loaded modules but only run set_alias() set_shell_function and nothing else   
-    \item MC_Show  $\Rightarrow$ Just print out commands
-    \item MC_Spider  $\Rightarrow$ How to process modules when in spider mode
-    \item MC_Unload  $\Rightarrow$ How Lmod unloads modules (setenv $\Rightarrow$ unsetenv, prepend_path() $\Rightarrow$ remove_path() etc)
+    \item MC\_Access.lua $\Rightarrow$ whatis, help
+    \item MC\_CheckSyntax.lua  $\Rightarrow$ for checking the syntax of a modulefile.
+    \item MC\_ComputeHash lua $\Rightarrow$ Computing the hash value used in user collections.
+    \item MC\_DependencyCk.lua  $\Rightarrow$ reloading modules to report any problems with the dependencies.
+    \item MC\_Load.lua $\Rightarrow$ loading modules
+    \item MC\_Mgrload $\Rightarrow$ the loading method when loading a collection (ignore load() type functions inside modulefiles)
+    \item MC\_Refresh $\Rightarrow$ reload all currently loaded modules but only run set\_alias() set\_shell\_function() and nothing else   
+    \item MC\_Show  $\Rightarrow$ Just print out commands
+    \item MC\_Spider  $\Rightarrow$ How to process modules when in spider mode
+    \item MC\_Unload  $\Rightarrow$ How Lmod unloads modules (setenv $\Rightarrow$ unsetenv, prepend\_path() $\Rightarrow$ remove\_path() etc)
   \end{itemize}
 \end{frame}
 
-% page 17
+% page 19
 \begin{frame}[fragile]
     \frametitle{MasterControl:setenv()}
  {\tiny
     \begin{semiverbatim}
 function M.setenv(self, name, value, respect)
-   dbg.start{"MasterControl:setenv(\"",name,"\", \"",value,"\", \"",
-              respect,"\")"}
+   dbg.start\{"MasterControl:setenv(\"",name,"\", \"",value,"\", \"",
+              respect,"\")"\}
    l_check_for_valid_name("setenv",name)
 
    if (value == nil) then
@@ -381,163 +405,106 @@ end
 }
 \end{frame}
 
-% page 13
+% page 20
 \begin{frame}[fragile]
-    \frametitle{MasterControl:load(mA)}
+    \frametitle{Lmod changing your Environment in lmod.in.lua}
  {\tiny
     \begin{semiverbatim}
-function M.load(self, mA)
-   local master = Master:singleton()
-   local a      = master:load(mA)
+   -- Output all newly created path and variables.
+   Shell:expand(varT)
 
-   if (not quiet()) then
-      self:registerAdminMsg(mA) -- nag msg registration.
+   -- Expand any execute\{\} cmds
+   if (Shell:real\_shell())then
+      Exec:exec():expand()
    end
-   return a
-end
     \end{semiverbatim}
 }
   \begin{itemize}
-    \item MasterControl functions call Master Functions to do the work.
-    \item src: src/MasterControl.lua
-  \end{itemize}
-\end{frame}
-
-% page 14
-\begin{frame}[fragile]
-    \frametitle{Master:load(mA)}
- {\tiny
-    \begin{semiverbatim}
-function M.load(mA)
-  for i = 1, #mA do
-     repeat
-        mname = mA[i]
-        sn = mname:sn()  -- shortName
-        fn = mname:fn()  -- file name
-        -- if blank sn -> pushModule (might have to wait until
-        -- compiler or mpi is loaded.
-        -- and break (really continue)
-
-        if (mt:have(sn,"active)) then
-           -- Block 1: Check for previously loaded module with same sn
-
-        elseif (fn) then
-           -- Block 2: Load modulefile
-
-        -- Check for family stack (e.g. compiler, mpi etc)
-        if (mcp.processFamilyStack(fullName)) then
-            -- Suppose gcc is loaded and it was "replaced" by intel
-            -- unload gcc and reload intel
-         end
-      until true
-   end         
-     
-   -- Reload every module if change in MODULEPATH.
-     
-   -- load any modules on module stack
-end
-    \end{semiverbatim}
-}
-  \begin{itemize}
-    \item This is where the heavy lifting is done.
-    \item src: src/Master.lua
+    \item Assuming no errors
+    \item Then Lmod prints out the changes to your env.
+    \item With the above code.
+    \item All changes are in \texttt{varT}
   \end{itemize}
 
 \end{frame}
 
-% page 15
+% page 21
 \begin{frame}[fragile]
-    \frametitle{Block 1: Check for previous loaded module w/same sn}
+    \frametitle{\texttt{module unload foo}}
  {\tiny
     \begin{semiverbatim}
- if (mt:have(sn,"active)) then
-    -- if disable_same_name_autoswap -> error out
-    -- Otherwise: unload previous module
-     local mcp_old = mcp
-     local mcp     = MCP
-     unload_internal\{MName:new("mt",sn)\}
-     mname:reset()  -- force a new lazyEval
-     local status = mcp:load_usr\{mname\}
-     mcp          = mcp_old
-    \end{semiverbatim}
-}
-  \begin{itemize}
-    \item Here we guarantee the right mcp
-    \item Unload the old module 
-    \item Recursively mcp:load\_usr{mname} 
-  \end{itemize}
-\end{frame}
+function M.unsetenv(self, name, value, respect)
+   name = name:trim()
+   dbg.start\{"MasterControl:unsetenv(\"",name,"\", \"",value,"\")"\}
 
-% page 16
-\begin{frame}[fragile]
-    \frametitle{Block 2: Load modulefile}
- {\tiny
-    \begin{semiverbatim}
-elseif (fn) then
-   frameStk:push(mname)
-   mt = frameStk:mt()
-   mt:add(mname,"pending")
-   local status = loadModuleFile\{file = fn, shell = shellNm,
-                   mList = mList, reportErr = true\}
-   frameStk:pop()
-   loaded = true
-end
-    \end{semiverbatim}
-}
-\end{frame}
+   l_check_for_valid_name("unsetenv",name)
 
-% page 17
-\begin{frame}[fragile]
-    \frametitle{loadModuleFile(t)}
-  \begin{itemize}
-    \item This is where Lmod handle either *.lua files or TCL Modulefiles
-    \item Once either read in as a block (for *.lua) or converted (TCL
-      modulefile $\Rightarrow$ Lua)
-    \item src: src/loadModulefile.lua
-  \end{itemize}
- {\tiny
-    \begin{semiverbatim}
-   -- Use the sandbox to evaluate modulefile text.
-   if (whole) then
-      status, msg = sandbox_run(whole)
-   else
-      status = nil
-      msg    = "Empty or non-existent file"
+   if (respect and getenv(name) ~= value) then
+      dbg.print{"Respecting old value"}
+      dbg.fini("MasterControl:unsetenv")
+      return
    end
-   -- report any errors
+
+   local frameStk  = FrameStk:singleton()
+   local varT      = frameStk:varT()
+   if (varT[name] == nil) then
+      varT[name]   = Var:new(name)
+   end
+   varT[name]:unset()
+
+   -- Unset stack variable if it exists
+   local stackName = l_createStackName(name)
+   if (varT[stackName]) then
+      varT[name]:unset()
+   end
+   dbg.fini("MasterControl:unsetenv")
+end
     \end{semiverbatim}
 }
+  \begin{itemize}
+    \item Here we unsetenv() by calling varT[name]:unset()
+  \end{itemize}
 
 \end{frame}
 
-% page 18
+% page 22
+\begin{frame}[fragile]
+    \frametitle{\texttt{module show foo}}
+ {\tiny
+    \begin{semiverbatim}
+function M.setenv(self, name,value)
+   l_ShowCmd("setenv", name, value)
+end
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item In src/MC\_Show.lua the setenv command is printed.
+  \end{itemize}
+
+\end{frame}
+
+% page 23
 \begin{frame}{Next time}
   \begin{itemize}
-    \item What is a sandbox and how does it work?
-    \item Why I want a sandbox?
-    \item Next time handing control to modulefile
+    \item How the translation from TCL to Lua is handled
+    \item Why it is not perfect.
   \end{itemize}
 \end{frame}
 
-
-
-% page 19
+% page 24
 \begin{frame}{Conclusions}
   \begin{itemize}
-    \item It takes a lot to get to the point where Lmod is evaluating
-      your modulefile.
-    \item Lmod uses several ``classes'' to manage the loading of a
-      module
-    \item Plus a couple of Design Patterns such as Singletons  
+    \item Lmod provide a way to evaluate your modulefile.
+    \item It does so through the sandbox\_run() function
+    \item And hands off the evaluation to Lua.
   \end{itemize}
 \end{frame}
 
-% page 20
+% page 25
 \begin{frame}{Future Topics}
   \begin{itemize}
-    \item Next Meeting: July 5th 9:30 US Central (14:30 UTC)
-    \item What happens from the loadModulefile(t).
-    \item This is where Lmod hands off control to the user.
+    \item Next Meeting: August 2nd 9:30 US Central (14:30 UTC)
+    \item How the translation from TCL to Lua is handled
   \end{itemize}
 \end{frame}
 

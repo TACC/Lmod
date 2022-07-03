@@ -559,6 +559,7 @@ function main()
    -- Output all newly created path and variables.
    Shell:expand(varT)
 
+   -- Expand any execute\{\} cmds
    if (Shell:real_shell())then
       Exec:exec():expand()
    end
