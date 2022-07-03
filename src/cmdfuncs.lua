@@ -615,15 +615,17 @@ function Reset(msg)
    end
 
 
-   local a = {}
-   for m in default:split(":") do
-      dbg.print{"m: ",m,"\n"}
-      a[#a + 1] = m
+   if (default ~= "__NO_SYSTEM_DEFAULT_MODULES__") then
+      local a = {}
+      for m in default:split(":") do
+         dbg.print{"m: ",m,"\n"}
+         a[#a + 1] = m
+      end
+      if (#a > 0) then
+         Load_Usr(unpack(a))
+      end
+      dbg.fini("Reset")
    end
-   if (#a > 0) then
-      Load_Usr(unpack(a))
-   end
-   dbg.fini("Reset")
 end
 
 --------------------------------------------------------------------------

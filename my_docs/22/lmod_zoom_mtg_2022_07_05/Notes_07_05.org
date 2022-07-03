@@ -143,7 +143,6 @@ sandbox_run = (_VERSION == "Lua 5.1") and l_run5_1 or l_run5_2
 ** Almost all commands will eval one or more modules
 ** Does not: module list, module -t avail
 ** Does:   module load, module unload, module help, module whatis, ...
-
 ** Even if your site uses a system spider cache, you will re-eval modulefiles that change $MODULEPATH (New)
 * Modulefile evaluation,  Lmod is NOT processing your modules, Lua is
 ** Lmod code is run when setenv, prepend_path, etc
@@ -195,7 +194,6 @@ function setenv(...)
 end
 ** So the arguments are check to be strings and/or numbers with l_validateArgsWithValue()
 ** Then the start of the work happens with mcp:setenv(...)
-
 * mcp:setenv(...)
 The action of this member function depends on what kind of object mcp.
 ** If mode() == "load" then
@@ -219,10 +217,6 @@ The action of this member function depends on what kind of object mcp.
 * Assume we are loading the module then mcp:setenv() -> MasterControl:setenv()
 
 function M.setenv(self, name, value, respect)
-   name = name:trim()
-   dbg.start{"MasterControl:setenv(\"",name,"\", \"",value,"\", \"",
-              respect,"\")"}
-
    l_check_for_valid_name("setenv",name)
 
    if (value == nil) then

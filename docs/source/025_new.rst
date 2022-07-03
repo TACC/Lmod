@@ -1,6 +1,12 @@
 New Features in Lmod
 ====================
 
+**LMOD_SYSTEM_DEFAULT_MODULES**:
+     (Lmod 8.7.7+) If a site has no system default modules they can set this
+     variable to **__NO_SYSTEM_DEFAULT_MODULES__**.  This will
+     allow **module reset** to purge all modules and reset $MODULEPATH
+     to the system default.
+     
 **Dynamic Spider Cache Support**:
      (Lmod 8.7.4+): If a modulefile changes $MODULEPATH, it is marked
      as dynamic and is re-read when performing a *module spider*.

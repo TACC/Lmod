@@ -71,10 +71,11 @@ configuration step.
   [string] This variable is used to where a site is using shared home
   files systems. See :ref:`shared_home_file_system` for more details.
 
-**LMOD_SYSTEM_DEFAULT_MODULEFILES**:
+**LMOD_SYSTEM_DEFAULT_MODULES**:
   [string] This variable to define a list of colon separated standard
   modules when the **module reset** command is issued by or for the
-  user. 
+  user.  If a site has no default modules then they should set this
+  module to **__NO_SYSTEM_DEFAULT_MODULES__**.
 
 **LMOD_TRACING**:
    [yes/no] If set to yes then Lmod will trace the loads/unloads while
