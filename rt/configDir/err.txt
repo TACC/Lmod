@@ -71,7 +71,7 @@ LMOD_CONFIG_DIR              /etc/lmod    ProjectDIR/rt/configDir/lmod_cfg_dir
 LMOD_PACKAGE_PATH            nil          ProjectDIR/rt/configDir/lmod_cfg_dir
 LMOD_SITE_MSG_FILE           false        ProjectDIR/rt/configDir/lmod_cfg_dir/lang.lua
 LMOD_SITE_NAME               false        XYZZY
-LMOD_SYSTEM_DEFAULT_MODULES  __unknown__
+LMOD_SYSTEM_DEFAULT_MODULES  __unknown__  <empty>
 Active RC file(s):
 ProjectDIR/src/../init/lmodrc.lua
  Lmod Property Table:
