@@ -2,13 +2,13 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.3  2022-05-23 14:19 -05:00
+Modules based on Lua: Version 8.7.6  2022-06-25 15:58 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --config
 ===========================
-Modules based on Lua: Version 8.7.3  2022-05-23 14:19 -05:00
+Modules based on Lua: Version 8.7.6  2022-06-25 15:58 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                        Value
 Allow root to use Lmod             yes
@@ -56,6 +56,7 @@ Site Name                          XYZZY
 Site Pkg location                  ProjectDIR/rt/configDir/lmod_cfg_dir/SitePackage.lua
 Ignore Cache                       no
 Cached loads                       no
+System Default Modules             <empty>
 System Name                        <empty>
 SYSHOST (cluster name)             <empty>
 TCL Version                        <N/A>
@@ -66,10 +67,11 @@ Tmod find first rule               no
 Tmod prepend PATH Rule             no
 Tracing                            no
 uname -a
-LMOD_CONFIG_DIR     /etc/lmod  ProjectDIR/rt/configDir/lmod_cfg_dir
-LMOD_PACKAGE_PATH   nil        ProjectDIR/rt/configDir/lmod_cfg_dir
-LMOD_SITE_MSG_FILE  false      ProjectDIR/rt/configDir/lmod_cfg_dir/lang.lua
-LMOD_SITE_NAME      false      XYZZY
+LMOD_CONFIG_DIR              /etc/lmod    ProjectDIR/rt/configDir/lmod_cfg_dir
+LMOD_PACKAGE_PATH            nil          ProjectDIR/rt/configDir/lmod_cfg_dir
+LMOD_SITE_MSG_FILE           false        ProjectDIR/rt/configDir/lmod_cfg_dir/lang.lua
+LMOD_SITE_NAME               false        XYZZY
+LMOD_SYSTEM_DEFAULT_MODULES  __unknown__
 Active RC file(s):
 ProjectDIR/src/../init/lmodrc.lua
  Lmod Property Table:

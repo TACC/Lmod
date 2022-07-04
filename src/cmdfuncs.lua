@@ -550,7 +550,7 @@ end
 -- @param msg If true then print resetting message.
 function Reset(msg)
    dbg.start{"Reset()"}
-   local default = os.getenv("LMOD_SYSTEM_DEFAULT_MODULES") or ""
+   local default = cosmic:value("LMOD_SYSTEM_DEFAULT_MODULES")
    if (default == "") then
       if (not quiet()) then
          io.stderr:write(i18n("w_SYS_DFLT_EMPTY",{}))

@@ -179,6 +179,11 @@ local function l_new(self)
    local fast_tcl_interp   = cosmic:value("LMOD_FAST_TCL_INTERP")
    local allow_root_use    = cosmic:value("LMOD_ALLOW_ROOT_USE")
    local lmodrc            = cosmic:value("LMOD_RC")
+   local dfltModules       = cosmic:value("LMOD_SYSTEM_DEFAULT_MODULES")
+
+   if (dfltModules == "") then
+      dfltModules = "<empty>"
+   end
 
    if (lmodrc == "") then
       lmodrc = "<empty>"
@@ -251,6 +256,7 @@ local function l_new(self)
    tbl.siteName     = { k = "Site Name"                         , v = site_name,        }
    tbl.spdr_ignore  = { k = "Ignore Cache"                      , v = ignore_cache,     }
    tbl.spdr_loads   = { k = "Cached loads"                      , v = cached_loads,     }
+   tbl.sysDfltM     = { k = "System Default Modules"            , v = dfltModules,      }
    tbl.sysName      = { k = "System Name"                       , v = system_name,      }
    tbl.syshost      = { k = "SYSHOST (cluster name)"            , v = syshost,          }
    tbl.tcl_version  = { k = "TCL Version"                       , v = tcl_version,      }

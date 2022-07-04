@@ -264,6 +264,7 @@ initStdEnvVars()
   unset TERM
   unset _LMFILES_
   unset LMOD_SET_NOGLOB
+  unset LMOD_SYSTEM_DEFAULT_MODULES
 
   PATH_to_LUA=`findcmd --pathOnly lua`
   PATH_to_TM=`findcmd --pathOnly tm`

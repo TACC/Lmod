@@ -336,6 +336,16 @@ cosmic:init{name    = "LMOD_PAGER_OPTS",
             default = "-XqMREF"}
 
 ------------------------------------------------------------------------
+-- LMOD_SYSTEM_DEFAULT_MODULES: 
+------------------------------------------------------------------------
+local defaultModules = getenv("LMOD_SYSTEM_DEFAULT_MODULES") or ""
+
+cosmic:init{name    = "LMOD_SYSTEM_DEFAULT_MODULES",
+            assignV = defaultModules,
+            default = "__unknown__" }
+
+
+------------------------------------------------------------------------
 -- LMOD_MODULERCFILE: The system RC file to specify aliases, defaults
 --                    and hidden modules.
 ------------------------------------------------------------------------

@@ -274,6 +274,7 @@ Site Name                          <empty>
 Site Pkg location                  standard
 Ignore Cache                       no
 Cached loads                       no
+System Default Modules             <empty>
 System Name                        <empty>
 SYSHOST (cluster name)             <empty>
 TCL Version                        <N/A>
@@ -284,7 +285,8 @@ Tmod find first rule               no
 Tmod prepend PATH Rule             no
 Tracing                            no
 uname -a
-LMOD_PACKAGE_PATH  nil
+LMOD_PACKAGE_PATH            nil
+LMOD_SYSTEM_DEFAULT_MODULES  __unknown__
 Active RC file(s):
 ProjectDIR/src/../init/lmodrc.lua
  OutputDIR/.lmodrc.lua
@@ -401,7 +403,8 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --miniConfig
 ===========================
 Modules based on Lua: Version 8.7.6  2022-06-25 15:58 -05:00
     by Robert McLay mclay@tacc.utexas.edu
-LMOD_PACKAGE_PATH  nil
+LMOD_PACKAGE_PATH            nil
+LMOD_SYSTEM_DEFAULT_MODULES  __unknown__
 ===========================
 step 7
 lua ProjectDIR/src/chkJson
