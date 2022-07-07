@@ -1079,6 +1079,7 @@ function UnLoad(...)
    dbg.start{"UnLoad(",concatTbl({...},", "),")"}
    local force = false
    unload_usr_internal(MName:buildA("mt", ...), force)
+   mcp:mustLoad()
    dbg.fini("UnLoad")
 end
 

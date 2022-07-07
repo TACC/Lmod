@@ -25,3 +25,8 @@ Lmod 8.7+
             * Setting LMOD_SYSTEM_DEFAULT_MODULES to __NO_SYSTEM_DEFAULT_MODULES__ will allow
 	      module reset to purge and reset $MODULEPATH to the system one.
 	    * Make LMOD_SYSTEM_DEFAULT_MODULES a cosmic variable.
+W.I.P:
+   (8.7.8)  * Add mcp:mustLoad() in cmdfuncs.lua: Unload(...).  Must catch case where
+              reloading a replacement module depend on a module which is not there
+              (See comments in test rt/depends_on/depends_on.tdesc about oneapi and impi)
+              

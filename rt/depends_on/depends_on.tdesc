@@ -78,6 +78,23 @@ testdescript = {
      runLmod load ipykernel/2022a              #41
      runLmod list                              #42
 
+
+     ##############################################
+     # Case where unloading the oneapi module
+     # cause the impi module to be reloaded
+     # and this impi depends_on("ucx") which does
+     # not exist.
+
+     runLmod purge                             #43
+     unsetMT
+     export MODULEPATH=$(testDir)/mf/Core5
+     runLmod use $(testDir)/mf/special         #44
+     runLmod load oneapi impi                  #45
+     runLmod unload oneapi                     #46
+
+
+     
+
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new

@@ -433,3 +433,43 @@ MODULEPATH=ProjectDIR/rt/depends_on/mf/Core4;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ipykernel={fn="ProjectDIR/rt/depends_on/mf/Core4/ipykernel/2022a.lua",fullName="ipykernel/2022a",loadOrder=2,propT={},stackDepth=0,status="active",userName="ipykernel/2022a",wV="000002022.*a.*zfinal",},python={fn="ProjectDIR/rt/depends_on/mf/Core4/python/3.9.6.lua",fullName="python/3.9.6",loadOrder=1,propT={},stackDepth=0,status="active",userName="python/3.9.6",wV="000000003.000000009.000000006.*zfinal",},},mpathA={"ProjectDIR/rt/depends_on/mf/Core4",},systemBaseMPATH="ProjectDIR/rt/depends_on/mf/Core4",}';
 export _ModuleTable_;
+===========================
+step 43
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/depends_on/mf/Core4;
+export MODULEPATH;
+unset MY_VERSION;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/depends_on/mf/Core4",},systemBaseMPATH="ProjectDIR/rt/depends_on/mf/Core4",}';
+export _ModuleTable_;
+===========================
+step 44
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/depends_on/mf/special
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/depends_on/mf/special:1\;ProjectDIR/rt/depends_on/mf/Core5:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/depends_on/mf/special:ProjectDIR/rt/depends_on/mf/Core5;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/depends_on/mf/special","ProjectDIR/rt/depends_on/mf/Core5",},systemBaseMPATH="ProjectDIR/rt/depends_on/mf/Core5",}';
+export _ModuleTable_;
+===========================
+step 45
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load oneapi impi
+===========================
+LOADEDMODULES=oneapi/22.1:impi/22.1;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/depends_on/mf/special/oneapi22:1\;ProjectDIR/rt/depends_on/mf/special:1\;ProjectDIR/rt/depends_on/mf/Core5:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/depends_on/mf/special/oneapi22:ProjectDIR/rt/depends_on/mf/special:ProjectDIR/rt/depends_on/mf/Core5;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/depends_on/mf/special/oneapi/22.1.lua:ProjectDIR/rt/depends_on/mf/special/oneapi22/impi/22.1.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={impi={fn="ProjectDIR/rt/depends_on/mf/special/oneapi22/impi/22.1.lua",fullName="impi/22.1",loadOrder=2,propT={},stackDepth=0,status="active",userName="impi",wV="000000022.000000001.*zfinal",},oneapi={fn="ProjectDIR/rt/depends_on/mf/special/oneapi/22.1.lua",fullName="oneapi/22.1",loadOrder=1,propT={},stackDepth=0,status="active",userName="oneapi",wV="000000022.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/depends_on/mf/special/oneapi22","ProjectDIR/rt/depends_on/mf/special","ProjectDIR/rt/depends_on/mf/Core5",},systemBaseMPATH="ProjectDIR/rt/depends_on/mf/Core5",}';
+export _ModuleTable_;
+===========================
+step 46
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload oneapi
+===========================
+false

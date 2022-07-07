@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.14  2022-02-25 21:25 -06:00
+Modules based on Lua: Version 8.7.7  2022-07-05 10:00 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -214,3 +214,24 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) python/3.9.6   2) ipykernel/2022a
+===========================
+step 43
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+===========================
+step 44
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/depends_on/mf/special
+===========================
+===========================
+step 45
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load oneapi impi
+===========================
+===========================
+step 46
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload oneapi
+===========================
+Lmod has detected the following error: The following module(s) are unknown: "ucx"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "ucx"
+Also make sure that all modulefiles written in TCL start with the string #%Module
