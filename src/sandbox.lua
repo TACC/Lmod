@@ -58,8 +58,8 @@ local lfs   = require("lfs")
 local dbg   = require("Dbg"):dbg()
 sandbox_run = false
 
-local old_write    = nil
-local file_methods = nil
+local s_old_write    = nil
+local s_file_methods = nil
 
 --------------------------------------------------------------------------
 -- Table containing valid functions for modulefiles.
@@ -281,19 +281,19 @@ function sandbox_set_os_exit(func)
 end
 
 function turn_off_stdio()
-   file_methods = getmetatable(io.stdout).__index  -- any file will do
-   old_write    = file_methods.write
-   file_methods.write =
+   s_file_methods = getmetatable(io.stdout).__index  -- any file will do
+   s_old_write    = s_file_methods.write
+   s_file_methods.write =
       function(f,...)
          if (f ~= io.stdout and f ~= io.stderr) then
-            return old_write(f,...)
+            return s_old_write(f,...)
          end
          return f
       end
 end
 
 function turn_on_stdio()
-   file_methods.write = old_write
+   s_file_methods.write = s_old_write
 end
 
 --------------------------------------------------------------------------
