@@ -1,0 +1,2 @@
+#%Module
+setenv B B_loaded
