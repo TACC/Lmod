@@ -52,7 +52,7 @@ local MasterControl    = require("MasterControl")
 MC_Spider              = inheritsFrom(MasterControl)
 MC_Spider.my_name      = "MC_Spider"
 MC_Spider.my_sType     = "load"
-MC_Spider.my_tcl_mode  = "display"
+MC_Spider.my_tcl_mode  = "load"
 
 local M                = MC_Spider
 
