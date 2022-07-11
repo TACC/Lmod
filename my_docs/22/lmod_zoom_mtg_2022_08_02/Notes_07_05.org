@@ -1,0 +1,278 @@
+This is the second half of what Lmod does to load a module.
+
+* Part 1 took us to a section of code in Master.lua M.load (AKA Master:load())
+** We are now read to use the loadModuleFile(): 
+
+  elseif (fn) then
+     local mList = concatTbl(mt:list("both","active"),":")
+     frameStk:push(mname)
+     mt = frameStk:mt()
+     mt:add(mname,"pending")
+     local status = loadModuleFile{file = fn, shell = shellNm, mList = mList, reportErr = true}
+
+     -- Now fn is loaded mark active and run load hook then cleanup
+  end
+
+* We are ready to go to loadModuleFile(t)
+** Note that we passed an anonymous table in Master.lua.   
+** The result is that there is a single argument "t" to the function.
+* function loadModuleFile(t)
+function loadModuleFile(t)
+   
+   ----------------------------------------------------------------------
+   -- Don't complain if t.file has disappeared when mode() == "unload"
+
+
+   ----------------------------------------------------------------------
+   -- Check for infinite loop on mode() == "load"
+
+   ----------------------------------------------------------------------
+   -- Read modulefile into string "whole"
+   if (t.ext == ".lua") then
+      -- Read complete Lua modulefile into "whole"
+   else
+      -- Convert TCL modulefile into Lua
+   end
+
+   ----------------------------------------------------------------------
+   -- Use sandbox to evaluate modulefile
+
+   ----------------------------------------------------------------------
+   -- Report any errors and error out
+
+   ----------------------------------------------------------------------
+   -- Mark lmodBrk is LmodBreak() is called inside moduleFile
+
+   return not lmodBrk
+end
+
+
+** Read the complete Lua modulefile into "whole":
+      local f = io.open(t.file)
+      if (f) then
+         whole = f:read("*all")
+         f:close()
+      end
+
+** Convert TCL modulefile into Lua (into "whole"):
+   ------------------------------------------------------------
+   -- Build TCL command line (mode, fullName, userName, shell)
+
+   ------------------------------------------------------------
+   -- Convert TCL to Lua
+   whole, status = runTCLprog(pathJoin(cmdDir(),"tcl2lua.tcl"), cmdLine)
+   if (not status) then
+      -- handle TCL conversion error
+   end
+
+** Use sandbox to evaluate modulefile
+   if (whole) then
+      status, msg = sandbox_run(whole)
+   else
+      status = nil
+      msg    = "Empty or non-existent file"
+   end
+
+** Report any errors and error out
+  if (not status and t.reportErr and type(msg) ~= "table") then
+      local n = userName or ""
+      LmodError{msg="e_Unable_2_Load", name = n, fn = t.file, message = msg}
+  end
+
+** Mark lmodBrk is LmodBreak() is called inside moduleFile
+   if (type(msg) == "table" and msg.code == "LmodBreak") then
+      lmodBrk = true
+   end
+    
+* runTCLprog("/path/to/tcl2lua" .. command_line_options)
+** Converting TCL to Lua  (Another talk)
+** TL;DR: TCL is run.  
+All module commands like setenv and prepend-path are converted to
+strings that say: setenv("A","B), prepend_path("PATH","/...") etc
+** Show example
+Input:
+
+global env
+proc ModulesHelp { } {
+puts stderr "Help message..."
+}
+set modulepath_root  $env(MODULEPATH_ROOT)
+set moduleshome     "$modulepath_root/TACC"
+
+module load Linux
+module try-add cluster
+module load TACC-paths
+
+Output:
+load("Linux")
+try_load("cluster")
+load("TACC-paths")
+
+
+* status, msg = sandbox_run(whole)
+local function l_run5_2(untrusted_code)
+  local untrusted_function, message = load(untrusted_code, nil, 't', sandbox_env)
+  if not untrusted_function then return nil, message end
+  return pcall(untrusted_function)
+end
+
+--------------------------------------------------------------------------
+-- Define two version: Lua 5.1 or 5.2.  It is likely that
+-- The 5.2 version will be good for many new versions of
+-- Lua but time will only tell.
+sandbox_run = (_VERSION == "Lua 5.1") and l_run5_1 or l_run5_2
+
+* Once the loadModuleFile function returns
+** We must mark the module as active and cleanup
+     -- Now fn is loaded 
+
+     mt = frameStk:mt() -- Why?
+
+     -- A modulefile could the same named module over top of the current modulefile
+     -- Say modulefile abc/2.0 loads abc/.cpu/2.0.  Then in the case of abc/2.0 the filename
+     -- won't match.
+     if (mt:fn(sn) == fn and status) then
+        mt:setStatus(sn, "active")
+        hook.apply("load",{fn = mname:fn(), modFullName = mname:fullName(), mname = mname})
+     end
+     frameStk:pop()
+     loaded = true
+
+
+* Notes about loadModuleFile()
+** Almost all commands will eval one or more modules
+** Does not: module list, module -t avail
+** Does:   module load, module unload, module help, module whatis, ...
+** Even if your site uses a system spider cache, you will re-eval modulefiles that change $MODULEPATH (New)
+* Modulefile evaluation,  Lmod is NOT processing your modules, Lua is
+** Lmod code is run when setenv, prepend_path, etc
+
+* The sandbox() function gets called with a "sandbox_env" table
+** Those functions are the only ones that a modulefile can run
+** Sites may run their own special function
+** BUT: They must be registered with the sandbox 
+** The sandbox_env looks like:
+
+local sandbox_env = {
+  assert   = assert,
+  loadfile = loadfile,
+  require  = require,
+  ipairs   = ipairs,
+  next     = next,
+  pairs    = pairs,
+  pcall    = pcall,
+  tonumber = tonumber,
+  tostring = tostring,
+  type     = type,
+  load                 = load_module,
+  load_any             = load_any,
+
+  --- PATH functions ---
+  prepend_path         = prepend_path,
+  append_path          = append_path,
+  remove_path          = remove_path,
+
+  --- Set Environment functions ----
+  setenv               = setenv,
+  pushenv              = pushenv,
+  unsetenv             = unsetenv,
+
+  ...
+}
+** Sites can use the SitePackage.lua or /etc/lmod/lmod_config.lua to register functions
+* Once the evaluation starts Lua is in-charge.  
+* Now suppose your modulefile calls setenv()
+** module commands are implemented in src/modfuncs.lua
+** function setenv()
+function setenv(...)
+   dbg.start{"setenv(",l_concatTbl({...},", "),")"}
+   if (not l_validateArgsWithValue("setenv",...)) then return end
+
+   mcp:setenv(...)
+   dbg.fini("setenv")
+   return
+end
+** So the arguments are check to be strings and/or numbers with l_validateArgsWithValue()
+** Then the start of the work happens with mcp:setenv(...)
+* mcp:setenv(...)
+The action of this member function depends on what kind of object mcp.
+** If mode() == "load" then
+   MasterControl:setenv()
+** If mode() == "unload" then
+   MasterControl:unsetenv()
+** If mode() ==  "show"
+   Then the command is printed, no other action
+* There are ten different kinds of MasterControl Classes
+** MC_Access -> whatis, help
+** MC_CheckSyntax -> for checking the syntax of a modulefile.
+** MC_ComputeHash -> Computing the hash value used in user collections.
+** MC_DependencyCk -> reloading modules to report any problems with the dependencies.
+** MC_Load -> loading modules
+** MC_Mgrload -> the loading method when loading a collection (ignore load() functions inside modulefiles)
+** MC_Refresh -> reload all currently loaded modules but only run set_alias() set_shell_function and nothing else   
+** MC_Show  -> Just print out commands
+** MC_Spider  -> How to process modules when in spider mode
+** MC_Unload  -> How Lmod unloads modules (setenv -> unsetenv, prepend_path() -> remove_path() etc)
+
+* Assume we are loading the module then mcp:setenv() -> MasterControl:setenv()
+
+function M.setenv(self, name, value, respect)
+   l_check_for_valid_name("setenv",name)
+
+   if (value == nil) then
+      LmodError{msg="e_Missing_Value", func = "setenv", name = name}
+   end
+
+   if (respect and getenv(name)) then
+      dbg.print{"Respecting old value"}
+
+      dbg.fini("MasterControl:setenv")
+      return
+   end
+
+   local frameStk = FrameStk:singleton()
+   local varT     = frameStk:varT()
+   if (varT[name] == nil) then
+      varT[name] = Var:new(name)
+   end
+   varT[name]:set(tostring(value))
+   dbg.fini("MasterControl:setenv")
+end
+
+* Assume we are unloading a module then mcp:setenv() -> MasterControl:unsetenv()
+function M.unsetenv(self, name, value, respect)
+   name = name:trim()
+   dbg.start{"MasterControl:unsetenv(\"",name,"\", \"",value,"\")"}
+
+   l_check_for_valid_name("unsetenv",name)
+
+   if (respect and getenv(name) ~= value) then
+      dbg.print{"Respecting old value"}
+      dbg.fini("MasterControl:unsetenv")
+      return
+   end
+
+   local frameStk  = FrameStk:singleton()
+   local varT      = frameStk:varT()
+   if (varT[name] == nil) then
+      varT[name]   = Var:new(name)
+   end
+   varT[name]:unset()
+
+   -- Unset stack variable if it exists
+   local stackName = l_createStackName(name)
+   if (varT[stackName]) then
+      varT[name]:unset()
+   end
+   dbg.fini("MasterControl:unsetenv")
+end
+
+* We have assume the command "module load foo" what if it was "module show foo"
+** Since foo contains: 
+setenv("FOO","foo")
+** Then every thing is the same for show except when setenv is run it becomes:
+function M.setenv(self, name,value)
+   l_ShowCmd("setenv", name, value)
+end
+
+
