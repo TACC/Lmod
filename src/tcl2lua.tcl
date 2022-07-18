@@ -440,14 +440,8 @@ proc module-whatis { args } {
     lappend g_outputA  "whatis(\[===\[$msg2\]===\])\n"
 }
 
-proc myBreak { args } {
-    set msg ""
-    foreach item $args {
-       append msg $item
-       append msg " "
-    }
-    set msg [string trimright $msg]
-    cmdargs "LmodBreak" $msg
+proc myBreak {  } {
+    cmdargs "LmodBreak"  ""
 }
 
 
