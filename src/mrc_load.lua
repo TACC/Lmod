@@ -42,6 +42,7 @@ local dbg  = require("Dbg"):dbg()
 local load = (_VERSION == "Lua 5.1") and loadstring or load
 
 function mrc_load(fn)
+   dbg.start{"mrc_load(fn:",fn,")"}
    local whole
    local ok
    local func
@@ -71,7 +72,9 @@ function mrc_load(fn)
          LmodError{msg="e_Unable_2_Load", name = "<unknown>", fn = fn, message = msg}
       end
    else
+      dbg.print{"Before runTCLprog\n"}
       whole, ok = runTCLprog(pathJoin(cmdDir(),"RC2lua.tcl"), path_regularize(fn))
+      dbg.print{"After runTCLprog\n"}
       if (not ok) then
          LmodError{msg = "e_Unable_2_parse", path = fn}
       end
@@ -85,5 +88,6 @@ function mrc_load(fn)
       end
    end
    --dbg.printT("ModA",ModA)
+   dbg.fini("mrc_load")
    return ModA
 end

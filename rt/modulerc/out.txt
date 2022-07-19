@@ -1274,3 +1274,13 @@ MODULEPATH=ProjectDIR/rt/modulerc/mf8;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/modulerc/mf8",},systemBaseMPATH="ProjectDIR/rt/modulerc/mf8",}';
 export _ModuleTable_;
+===========================
+step 43
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/modulerc/mf9/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/modulerc/mf9/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/modulerc/mf9/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mf9/Core",}';
+export _ModuleTable_;

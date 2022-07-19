@@ -1,0 +1,7 @@
+#%Module
+if {"Java/11" eq [module-info version Java/11]} {
+    module-version Java/11.0.2 11
+}
+if {"Java/13" eq [module-info version Java/13]} {
+    module-version Java/13.0.2 13
+}

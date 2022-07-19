@@ -112,3 +112,4 @@ This one is very tricky and only now supported
 * myPuts like all commands: setenv prepend-path etc write to an internal array (g_outputA)
 So there is no output of any kind until the evaluation of the module
 is completed.
+** stderr -> LmodMsgRaw()

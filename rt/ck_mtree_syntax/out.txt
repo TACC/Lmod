@@ -38,7 +38,7 @@ spiderT = {
           fn = "ProjectDIR/rt/ck_mtree_syntax/mf/A/.version",
           fullName = "A/.version",
           mpath = "ProjectDIR/rt/ck_mtree_syntax/mf",
-          value = "2.0",
+          value = false,
         },
       },
       defaultT = {
