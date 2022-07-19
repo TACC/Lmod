@@ -113,3 +113,5 @@ This one is very tricky and only now supported
 So there is no output of any kind until the evaluation of the module
 is completed.
 ** stderr -> LmodMsgRaw()
+** puts stdout "text msg" -> execute{cmd=[===[$text_msg]===], modeA={}}
+** puts prestdout "text msg" -> io.stdout:write([===[$text_msg]===])
