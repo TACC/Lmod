@@ -138,25 +138,25 @@ end
 -- This routine is given the absolute path to all possible default
 -- files. 
 -- @param defaultA - An array entries that contain: { fullName=, fn=, mpath=, luaExt=, barefn=}
-
 -- return the first defaultA.  All other ones are ignored.
 local function l_versionFile(mrc, mpath, defaultA)
    dbg.start{"DirTree:l_versionFile(mrc, mpath, defaultA)"}
-   for i = 1,1 do
-      repeat 
-         local defaultT = defaultA[i]
-         local path     = defaultT.fn
-         if (defaultT.barefn == "default") then
-            defaultT.value = barefilename(l_walk_link(defaultT.fn)):gsub("%.lua$","")
-            break
-         end
-         
-         local modA = mrc_load(path)
-         local _, _, name = defaultT.fullName:find("(.*)/.*")
-         
-         defaultT.value = mrc:parseModA_for_moduleA(name, mpath, modA)
-      until true
-   end
+   sort(defaultA, function(x,y)
+                    return x.defaultIdx < y.defaultIdx
+                  end)
+   repeat 
+      local defaultT = defaultA[1]
+      local path     = defaultT.fn
+      if (defaultT.barefn == "default") then
+         defaultT.value = barefilename(l_walk_link(defaultT.fn)):gsub("%.lua$","")
+         break
+      end
+      
+      local modA = mrc_load(path)
+      local _, _, name = defaultT.fullName:find("(.*)/.*")
+      
+      defaultT.value = mrc:parseModA_for_moduleA(name, mpath, modA)
+   until true
    dbg.fini("DirTree:l_versionFile")
    return defaultA
 end
@@ -219,9 +219,6 @@ local function l_walk(mrc, mpath, path, dirA, fileT, regularFn)
       until true
    end
    if (next(defaultA) ~= nil) then
-      sort(defaultA, function(x,y)
-                     return x.defaultIdx < y.defaultIdx
-                     end)
       defaultA = l_versionFile(mrc, mpath, defaultA)
    end
 

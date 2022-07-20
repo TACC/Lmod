@@ -97,6 +97,8 @@ This one is very tricky and only now supported
 ** I converted the setenv prepend-path etc procs to generate lua commands
 
 * TCL support a sandbox to limit what function/command that can be called inside a modulefile
+  it is its own thing. It is a TCL sandbox. It is independent of the sandbox that Lmod implements.
+  It is why Lmod implements a Lua sandbox.  
 * It also allows mapping standard commands to ones under my control.
 ** For example the TCL puts command now called myPuts.
 * Translating TCL module help into Lmod help function requires the myPuts hack
