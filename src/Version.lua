@@ -4,9 +4,9 @@ function M.git()
    local s = "@git@"
    if (s == "@" .. "git@") then s = "" end
    if (s == M.tag()      ) then s = "" end
-   return s == "" and "" or "("..s..")"
+   return (s == "" and s or "("..s..")"
 end
-function M.date() return "2022-07-25 11:56 -05:00" end
+function M.date() return "2022-07-25 12:30 -05:00" end
 function M.name()
   local a = {}
   a[#a+1] = M.tag()
