@@ -31,3 +31,4 @@ Lmod 8.7+
             * Issue #593: In DirTree.lua l_versionFile(), Now only evaluate the highest priority
               entry in defaultA, instead of all.  This avoids the issue where there is a .modulerc.lua
               which works and a .modulerc or .version file which has syntax errors.
+   (8.7.9)  * Correctly generate Version.lua file when installing from a tar ball.
