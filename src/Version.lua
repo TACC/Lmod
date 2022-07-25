@@ -4,7 +4,7 @@ function M.git()
    local s = "@git@"
    if (s == "@" .. "git@") then s = "" end
    if (s == M.tag()      ) then s = "" end
-   return "("..s..")"
+   return s == "" and "" or "("..s..")"
 end
 function M.date() return "2022-07-25 11:56 -05:00" end
 function M.name()
