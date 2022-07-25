@@ -6,41 +6,29 @@ echo Making Version: $PKG_VERSION
 parallel_make_install()
 {
   if [ -d .git ]; then
-    echo p1
     GIT_VERSION=`git describe --always`
   else
-    echo p2
     GIT_VERSION=$(LUA_PATH="./src/?.lua;" lua -e "V=require('Version'); print(V.tag())")
   fi
 
-    echo p3
   if [ "$BUILD_TYPE" != "EXPERIMENTAL" ]; then
-    echo p4
     $SUDO $MAKE GIT_VERSION=$GIT_VERSION -j install     $MAKE_EXTRA
   else
-    echo p5
     echo "$SUDO $MAKE pre-install $MAKE_EXTRA"
     $SUDO $MAKE GIT_VERSION=$GIT_VERSION -j pre-install $MAKE_EXTRA
     $SUDO rm -f $BASE_DIR/lmod/EXPERIMENTAL
     $SUDO ln -s $PKG_VERSION $BASE_DIR/lmod/EXPERIMENTAL
   fi
-    echo p6
 }
 
 save_old_version()
 {
   if [ "$SITE_CONTROLLED_PREFIX" != "yes" ]; then
-    echo 1
     $SUDO rm -rf $BASE_DIR/$pkgName/orig
-    echo 2
     if [ -d $BASE_DIR/$pkgName/$PKG_VERSION ]; then
-    echo 3
 	$SUDO cp -r $BASE_DIR/$pkgName/$PKG_VERSION $BASE_DIR/$pkgName/orig
-    echo 4
 	$SUDO rm -f $PKG/../$pkgName
-    echo 5
 	$SUDO ln -s orig $PKG/../$pkgName
-    echo 6
     fi
   fi
 }
