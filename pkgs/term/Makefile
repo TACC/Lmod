@@ -29,8 +29,8 @@ $(LIBRARY): $(OBJ)
 	$(CC) $(CFLAGS) $(LIB_OPTION) -o $(LIBRARY) $(OBJ) $(LDFLAGS) -lc
 
 install: $(SHARE)/term $(LIB)/term all
-	cp -a *.so* $(LIB)/term
-	cp term/*.lua $(SHARE)/term
+	install -m $(MODE_R) *.so* $(LIB)/term
+	install -m $(MODE_R) term/*.lua $(SHARE)/term
 
 $(LIB)/term $(SHARE)/term:
 	mkdir -p $@

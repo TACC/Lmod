@@ -27,7 +27,7 @@ $(LIBRARY): $(OBJ)
 	$(CC) $(CFLAGS) $(LIB_OPTION) -o $(LIBRARY) $(OBJ) $(LDFLAGS) -lc
 
 install: $(LIB) all
-	cp -a *.so* $(LIB)
+	install -m $(MODE_R) *.so* $(LIB)
 
 $(LIB):
 	mkdir -p $(LIB)

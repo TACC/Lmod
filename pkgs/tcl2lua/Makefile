@@ -25,7 +25,7 @@ $(LIBRARY): $(OBJ)
 	$(CC) $(CFLAGS) $(LIB_OPTION) -o $(LIBRARY) $(OBJ) $(LDFLAGS) -lc $(LIBS) $(TCL_LIBS)
 
 install: all
-	cp -a *.so* $(LIB)
+	install -m $(MODE_R) *.so* $(LIB)
 
 clean:	neat
 	$(RM) $(LIBRARY) $(SONAMEV) $(SONAME)

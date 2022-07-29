@@ -238,6 +238,7 @@ man_pages:
 
 $(DIRLIST) :
 	mkdir -p $@
+	chmod $(MODE_X) $@
 
 __installMe:
 	-for i in $(FILELIST); do                                                 \
@@ -309,13 +310,15 @@ __installMe:
 	        -e 's|@lmod_allow_root_use@|$(LMOD_ALLOW_ROOT_USE)|g'             \
 	        -e 's|@PKGV@|$(PKGV)|g'                                           \
 	        -e 's|@PKG@|$(PKG)|g'         < $$i > $(DIRLOC)/$$fn;             \
+	        chmod $(MODE_R)                       $(DIRLOC)/$$fn;             \
 	    [ "$$ext" = "in.lua" -o "$$ext" = "tcl" -o "$$ext" = "in"             \
 	       -o "$$ext" = "sh.in" ] &&                                          \
-	       chmod +x $(DIRLOC)/$$fn;                                           \
+	       chmod $(MODE_X) $(DIRLOC)/$$fn;                                    \
 	    if [ "$$ext" = "version.lua" ]; then                                  \
 	       mname=$${bareN%%.*};                                               \
 	       : echo "DIRLOC: $(DIRLOC)/$$mname";                                \
 	       mv $(DIRLOC)/$$fn $(DIRLOC)/$$mname.lua;                           \
+              chmod $(MODE_R)    $(DIRLOC)/$$mname.lua;                           \
 	    fi;                                                                   \
 	done
 
@@ -345,17 +348,18 @@ spiderCacheSupport: $(PKG_LFS) $(PKG_T2L) Inst_Tools libexec
 	                         --updateFn  "$(UPDATE_SYSTEM_FN)"           \
                                  --descriptFn "$(SPIDER_CACHE_DESCRIPT_FN)"  \
                                  >> $(DESTDIR)$(INIT)/lmodrc.lua;
+	chmod $(MODE_R) $(DESTDIR)$(INIT)/lmodrc.lua;
 
 src/computeHashSum: $(ComputeHashSum)
 	$(MAKE) FILELIST="$^" DIRLOC="$(prefix)/src"  GIT_VERSION=$(GIT_VERSION) __installMe
-	chmod +x $@
+	chmod $(MODE_X) $@
 
 tcl2lua:
 	if [ -d $(srcdir)/pkgs/tcl2lua ]; then                             \
            $(MAKE) -C $(srcdir)/pkgs/tcl2lua  LUA_INC=$(LUA_INCLUDE)       \
 	        TCL_INCLUDE=$(TCL_INCLUDE) TCL_LIBS=$(TCL_LIBS)            \
                 LIB=$(DESTDIR)$(LIB) LIBS=@LIBS@ CC="$(CC)"                \
-                SHARE=$(DESTDIR)$(LIBEXEC)                                 \
+                SHARE=$(DESTDIR)$(LIBEXEC) MODE_R=$(MODE_R)                \
                 install;                                                   \
         fi
 
@@ -363,12 +367,14 @@ lfs:
 	if [ -d $(srcdir)/pkgs/luafilesystem ]; then                       \
            $(MAKE) -C $(srcdir)/pkgs/luafilesystem  LUA_INC=$(LUA_INCLUDE) \
                 LIB=$(DESTDIR)$(LIB) SHARE=$(DESTDIR)$(LIBEXEC) CC="$(CC)" \
+                MODE_R=$(MODE_R)                                           \
                 install;                                                   \
         fi
 pkgs:
 	if [ -d $(srcdir)/pkgs ]; then                                     \
            $(MAKE) -C $(srcdir)/pkgs LUA_INC=$(LUA_INCLUDE)                \
                LIB=$(DESTDIR)$(LIB) SHARE=$(DESTDIR)$(LIBEXEC) CC="$(CC)"  \
+               MODE_R=$(MODE_R)                                            \
                install;                                                    \
         fi
 
@@ -380,7 +386,8 @@ zsh_tab_funcs: $(ZSH_FUNCS) $(KSH_FUNCS)
 	      fn=$${bareN%%.in*};                                           \
 	      ext=$${bareN#*.};                                             \
 	      cp $$i $(DESTDIR)$$zdir/$$fn  2> /dev/null;                   \
-	      [ "$$ext" = "in" ] && chmod +x $(DESTDIR)$$zdir/$$fn;         \
+              chmod $(MODE_R) $(DESTDIR)$$zdir/$$fn 2> /dev/null;           \
+	      [ "$$ext" = "in" ] && chmod $(MODE_X) $(DESTDIR)$$zdir/$$fn;  \
 	    done;                                                           \
 	  done;                                                             \
 	  true;                                                             \
@@ -390,7 +397,7 @@ ksh_funcs: $(KSH_FUNCS)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(INIT_KSH_FUNCS) GIT_VERSION=$(GIT_VERSION) __installMe
 
 fish_tab_funcs: $(FISH_FUNCS)
-	cp $^ $(DESTDIR)$(FISH_TAB) 2>/dev/null
+	install -m $(MODE_R) $^ $(DESTDIR)$(FISH_TAB) 2>/dev/null
 
 makefile: $(srcdir)/Makefile.in ./config.status
 	./config.status $@
