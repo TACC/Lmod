@@ -657,6 +657,8 @@ SYS_LUA_PATH
 FIND_PATH_TO_LUAC
 FIND_PATH_TO_LUA
 PATH_TO_TR
+MODE_R
+MODE_X
 PATH_TO_TCLSH
 PATH_TO_PAGER
 PATH_TO_HASHSUM
@@ -707,6 +709,7 @@ REDIRECT
 EXPORT_MODULE
 AUTO_SWAP
 LMOD_CONFIG_DIR
+MODE
 EXACT_MATCH
 HIDDEN_ITALIC
 DYNAMIC_SPIDER_CACHE
@@ -1448,6 +1451,8 @@ Optional Packages:
                           allow for Dynamic Spider Cache usage [[yes]]
   --with-hiddenItalic=ans Use italic for hidden module instead of faint[[no]]
   --with-exactMatch=ans   require exact match, disable defaults [[no]]
+  --with-mode=ans         Override executable install mode (755 or 750 or 700)
+                          [[user_default]]
   --with-lmodConfigDir=ans
                           Location of Lmod Config Dir [[/etc/lmod]]
   --with-autoSwap=ans     Allow auto swapping of compiler etc. [[yes]]
@@ -3626,6 +3631,27 @@ fi
 
 
 
+# Check whether --with-colorize was given.
+if test ${with_colorize+y}
+then :
+  withval=$with_colorize; MODE="$withval"
+    MODE=`echo $MODE | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $MODE "--with-mode=ans: ans must be yes or no"
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: MODE=$with_mode" >&5
+printf "%s\n" "MODE=$with_mode" >&6; }
+    printf "%s\n" "#define MODE \"$with_mode\"" >>confdefs.h
+
+else $as_nop
+  withval="user_default"
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: MODE=$withval" >&5
+printf "%s\n" "MODE=$withval" >&6; }
+    MODE="$withval"
+    printf "%s\n" "#define MODE \"$withval\"" >>confdefs.h
+
+fi
+
+
+
 # Check whether --with-lmodConfigDir was given.
 if test ${with_lmodConfigDir+y}
 then :
@@ -4551,6 +4577,24 @@ PATH_TO_SRC=$SRCDIR
 
 
 
+
+
+
+if test $MODE = "user_default" ; then
+   uid=$(id -u)
+   umask=$(umask)
+   if test $uid -lt 500; then
+     umask=022
+   fi
+   MODE_X=$(( ( ~ $umask ) & 0777 ))
+else
+   MODE_X=$MODE
+fi
+MODE_R=$(( 0666 & $MODE_X ))
+MODE_X=$(echo "ibase=10; obase=8; $MODE_X" | bc )
+MODE_R=$(echo "ibase=10; obase=8; $MODE_R" | bc )
+echo MODE_X: $MODE_X
+echo MODE_R: $MODE_R
 
 # Extract the first word of "ps", so it can be a program name with args.
 set dummy ps; ac_word=$2

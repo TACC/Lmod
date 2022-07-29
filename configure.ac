@@ -165,6 +165,20 @@ AC_ARG_WITH(exactMatch,
     EXACT_MATCH="$withval"
     AC_DEFINE_UNQUOTED(EXACT_MATCH, "$withval"))dnl
 
+AC_SUBST(MODE)
+AC_ARG_WITH(colorize,
+    AS_HELP_STRING([--with-mode=ans],[Override executable install mode (755 or 750 or 700) [[user_default]]]),
+    MODE="$withval"
+    MODE=`echo $MODE | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
+    VALID_YN $MODE "--with-mode=ans: ans must be yes or no"
+    AC_MSG_RESULT([MODE=$with_mode])
+    AC_DEFINE_UNQUOTED(MODE, "$with_mode")dnl
+    ,
+    withval="user_default"
+    AC_MSG_RESULT([MODE=$withval])
+    MODE="$withval"
+    AC_DEFINE_UNQUOTED(MODE, "$withval"))dnl
+
 AC_SUBST(LMOD_CONFIG_DIR)
 AC_ARG_WITH(lmodConfigDir,
     AS_HELP_STRING([--with-lmodConfigDir=ans],[Location of Lmod Config Dir [[/etc/lmod]]]),
@@ -706,6 +720,24 @@ AC_SUBST(PATH_TO_GIT)
 AC_SUBST(PATH_TO_HASHSUM)
 AC_SUBST(PATH_TO_PAGER)
 AC_SUBST(PATH_TO_TCLSH)
+AC_SUBST(MODE_X)
+AC_SUBST(MODE_R)
+
+if test $MODE = "user_default" ; then
+   uid=$(id -u)
+   umask=$(umask)
+   if test $uid -lt 500; then
+     umask=022
+   fi
+   MODE_X=$(( ( ~ $umask ) & 0777 ))
+else
+   MODE_X=$MODE
+fi   
+MODE_R=$(( 0666 & $MODE_X ))
+MODE_X=$(echo "ibase=10; obase=8; $MODE_X" | bc )
+MODE_R=$(echo "ibase=10; obase=8; $MODE_R" | bc )
+echo MODE_X: $MODE_X
+echo MODE_R: $MODE_R
 
 AC_PATH_PROG(PS,ps, UNKNOWN_PS)
 if test "$PS" = "UNKNOWN_PS" ; then

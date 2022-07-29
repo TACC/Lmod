@@ -102,6 +102,9 @@ LMOD_MF_SOURCE            := $(patsubst %, $(srcdir)/%, MF/*.version.lua)
 SETTARG_SOURCE            := $(patsubst %, $(srcdir)/%, settarg/*.lua  settarg/targ.in)
 DATE_cmd                  := $(srcdir)/proj_mgmt/DATE_cmd.sh
 UNAME_S                   := $(shell uname -s)
+MODE_X                    := @MODE_X@
+MODE_R                    := @MODE_R@
+
 ifeq ($(UNAME_S),Darwin)
   SED      := gsed
 else
