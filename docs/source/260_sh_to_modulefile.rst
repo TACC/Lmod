@@ -109,6 +109,34 @@ Lmod assumes that these scripts **DO NOT** have module commands or
 change $MODULEPATH.
 
 
+Shell script are evaluated with set -e
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Shell scripts are evaluated by sh_to_modulefile and the source_sh()
+function with set -e in bash or equivalently in
+other shells.  This means that execution of the shell script stops at
+the first time a statement in the script has a non-zero status.
+Turning this option on means that Lmod can know that the evaluation of
+the shell script has an issue.  But this also means that sometimes a
+script would work fine without using "set -e".
+
+Assuming the script is a bash script, please do the following::
+
+   $ set -exv ; . ./my_script
+
+This should tell you where the issue was found.  Note that the error
+may be in another script sourced by "my_script". In particular, you
+might have a silent error.  For example, a bash script might have a
+line::
+
+   unalias some_alias_name 2> /dev/null
+
+where "some_alias_name" is not currently an alias. This unalias statement
+returns a non-zero status but is silent because of the redirection of
+stderr to /dev/null.  One fix might be::
+
+   unalias some_alias_name 2> /dev/null || true
+
 
 Calling the shell script directly inside a modulefile
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

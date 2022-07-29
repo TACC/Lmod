@@ -45,7 +45,7 @@ describe("Testing DirTree Class: #DirTree.",
                                              ["fn"] = "%ProjDir%/spec/DirTree/mf/bio/bowtie/.version",
                                              ["fullName"] = "bio/bowtie/.version",
                                              ["mpath"] = "%ProjDir%/spec/DirTree/mf",
-                                             ["value"] = "64",
+                                             ["value"] = false,
                                           },
                                        },
                                        defaultT = {

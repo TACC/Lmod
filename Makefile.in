@@ -81,6 +81,7 @@ PATH_TO_TCLSH             := @PATH_TO_TCLSH@
 PATH_TO_LS                := @PATH_TO_LS@
 MODULEPATH_ROOT           := @MODULEPATH_ROOT@
 VERSION_SRC               := $(srcdir)/src/Version.lua
+SETTARG_VSRC              := $(srcdir)/settarg/Version.lua
 LUA_INCLUDE               := @LUA_INCLUDE@
 UPDATE_SYSTEM_FN          := @UPDATE_SYSTEM_FN@
 GIT_PROG                  := @PATH_TO_GIT@
@@ -253,7 +254,7 @@ __installMe:
 	        -e 's|@use_dot_files@|$(USE_DOT_FILES)|g'                         \
 	        -e 's|@lang@|$(LMOD_OVERRIDE_LANG)|g'                             \
 	        -e 's|@site_msg_file@|$(SITE_MSG_FILE)|g'                         \
-	        -e 's|@git@|($(GIT_VERSION))|g'                                   \
+	        -e 's|@git@|$(GIT_VERSION)|g'                                     \
 	        -e 's|--@ignore_dirs@--|$(IGNORE_DIRS)|g'                         \
 	        -e 's|@sys_lua_path@|$(SYS_LUA_PATH)|g'                           \
 	        -e 's|@hidden_italic@|$(LMOD_HIDDEN_ITALIC)|g'                    \
@@ -575,13 +576,14 @@ gittag:
 	    echo "configure is out of date => try again";                                   \
 	  else                                                                              \
 	    $(RM)                                                           $(VERSION_SRC); \
+	    $(RM)                                                          $(SETTARG_VSRC); \
 	    echo 'local M={}'                                            >  $(VERSION_SRC); \
 	    echo 'function M.tag()  return "$(TAG)"   end'               >> $(VERSION_SRC); \
 	    echo 'function M.git()'                                      >> $(VERSION_SRC); \
 	    echo '   local s = "@git@"'                                  >> $(VERSION_SRC); \
-	    echo '   if (s == "@" .. "git@")     then s = "" end'        >> $(VERSION_SRC); \
-	    echo '   if (s == "("..M.tag()..")") then s = "" end'        >> $(VERSION_SRC); \
-	    echo '   return s'                                           >> $(VERSION_SRC); \
+	    echo '   if (s == "@" .. "git@") then s = "" end'            >> $(VERSION_SRC); \
+	    echo '   if (s == M.tag()      ) then s = "" end'            >> $(VERSION_SRC); \
+	    echo '   return s == "" and s or "("..s..")"'                >> $(VERSION_SRC); \
 	    echo 'end'                                                   >> $(VERSION_SRC); \
 	    echo 'function M.date() return "$(VDATE)" end'               >> $(VERSION_SRC); \
 	    echo 'function M.name()'                                     >> $(VERSION_SRC); \
@@ -592,8 +594,11 @@ gittag:
 	    echo '  return table.concat(a," ")'                          >> $(VERSION_SRC); \
 	    echo 'end'                                                   >> $(VERSION_SRC); \
 	    echo 'return M'                                              >> $(VERSION_SRC); \
+	    cp                                          $(VERSION_SRC)     $(SETTARG_VSRC); \
 	    $(UPDATE_VERSION) -p $(CONF_PY_PATTERN)          --version $(TAG)   $(CONF_PY); \
-	    git commit -m "moving to TAG_VERSION $(TAG)"         $(CONF_PY) $(VERSION_SRC); \
+	    git commit -m "moving to TAG_VERSION $(TAG)"                   $(SETTARG_VSRC)  \
+                                                                                $(CONF_PY)  \
+                                                                            $(VERSION_SRC); \
 	    git tag -a $(TAG) -m 'Setting TAG_VERSION to $(TAG)'                          ; \
 	    branchName=`git status | head -n 1 | sed 's/^[# ]*On branch //g'`             ; \
 	    git push        origin $$branchName                                           ; \

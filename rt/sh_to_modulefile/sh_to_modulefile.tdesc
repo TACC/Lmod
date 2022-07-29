@@ -29,18 +29,19 @@ testdescript = {
      runSh2MF             $(testDir)/path_both_ends.sh # 4        
      runSh2MF  --from csh $(testDir)/cshScript.csh     # 5
      runSh2MF             $(testDir)/broken.sh         # 6
-     runLmod  show wrapperSh/1.0                       # 7
-     runLmod  load wrapperSh/1.0                       # 8
-     runLmod  show wrapperSh/1.0                       # 9
-     runLmod  refresh                                  #10
-     runLmod  list                                     #11
-     runLmod  --mt                                     #12
-     runLmod  unload wrapperSh/1.0                     #13
-     runLmod  load   brokenSh/1.0                      #14
-     runLmod  load   wrapperSh/1.0                     #15
-     runLmod  save                                     #16
-     runLmod  restore                                  #18
-     runLmod  --mt                                     #19
+     runSh2MF             $(testDir)/unalias.sh        # 7 
+     runLmod  show wrapperSh/1.0                       # 8
+     runLmod  load wrapperSh/1.0                       # 9
+     runLmod  show wrapperSh/1.0                       #10
+     runLmod  refresh                                  #11
+     runLmod  list                                     #12
+     runLmod  --mt                                     #13
+     runLmod  unload wrapperSh/1.0                     #14
+     runLmod  load   brokenSh/1.0                      #15
+     runLmod  load   wrapperSh/1.0                     #16
+     runLmod  save                                     #18
+     runLmod  restore                                  #19
+     runLmod  --mt                                     #20
 
      unsetMT
 

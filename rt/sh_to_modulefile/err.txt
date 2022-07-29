@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.16  2022-03-22 14:19 -05:00
+Modules based on Lua: Version 8.7.9  2022-07-25 12:46 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -24,10 +24,21 @@ buildSh2MF --from csh ProjectDIR/rt/sh_to_modulefile/cshScript.csh
 step 6
 buildSh2MF ProjectDIR/rt/sh_to_modulefile/broken.sh
 ===========================
-Error in script "ProjectDIR/rt/sh_to_modulefile/broken.sh":
+Error found in sourcing script "ProjectDIR/rt/sh_to_modulefile/broken.sh":
 ProjectDIR/rt/sh_to_modulefile/broken.sh: line 3: fooBar: command not found
+If this is a bash script please try:
+  $ set -exv; . ProjectDIR/rt/sh_to_modulefile/broken.sh
+See https://lmod.readthedocs.io/en/latest/260_sh_to_modulefile.html for details.
 ===========================
 step 7
+buildSh2MF ProjectDIR/rt/sh_to_modulefile/unalias.sh
+===========================
+Error found in sourcing script "ProjectDIR/rt/sh_to_modulefile/unalias.sh":
+If this is a bash script please try:
+  $ set -exv; . ProjectDIR/rt/sh_to_modulefile/unalias.sh
+See https://lmod.readthedocs.io/en/latest/260_sh_to_modulefile.html for details.
+===========================
+step 8
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show wrapperSh/1.0
 ===========================
    ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua:
@@ -66,11 +77,11 @@ setenv("MY_NAME","unknown")
  source_sh("bash","ProjectDIR/rt/sh_to_modulefile/second.sh arg1")
 setenv("SECOND","FOO_BAR")
 ===========================
-step 8
+step 9
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load wrapperSh/1.0
 ===========================
 ===========================
-step 9
+step 10
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show wrapperSh/1.0
 ===========================
    ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua:
@@ -109,17 +120,17 @@ setenv("MY_NAME","tstScript.sh")
  source_sh("bash","ProjectDIR/rt/sh_to_modulefile/second.sh arg1")
 setenv("SECOND","FOO_BAR")
 ===========================
-step 10
+step 11
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing refresh
 ===========================
 ===========================
-step 11
+step 12
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) wrapperSh/1.0
 ===========================
-step 12
+step 13
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --mt
 ===========================
 _ModuleTable_ = {
@@ -173,34 +184,37 @@ _ModuleTable_ = {
   systemBaseMPATH = "ProjectDIR/rt/sh_to_modulefile/mf",
 }
 ===========================
-step 13
+step 14
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload wrapperSh/1.0
 ===========================
 ===========================
-step 14
+step 15
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load brokenSh/1.0
 ===========================
-Lmod has detected the following error: Error in script "ProjectDIR/rt/sh_to_modulefile/broken.sh":
+Lmod has detected the following error: Error found in sourcing script "ProjectDIR/rt/sh_to_modulefile/broken.sh":
 ProjectDIR/rt/sh_to_modulefile/broken.sh: line 3: fooBar: command not found
+If this is a bash script please try:
+  $ set -exv; . ProjectDIR/rt/sh_to_modulefile/broken.sh
+See https://lmod.readthedocs.io/en/latest/260_sh_to_modulefile.html for details.
 While processing the following module(s):
     Module fullname  Module Filename
     brokenSh/1.0     ProjectDIR/rt/sh_to_modulefile/mf/brokenSh/1.0.lua
 ===========================
-step 15
+step 16
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load wrapperSh/1.0
 ===========================
 ===========================
-step 16
+step 17
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
 ===========================
 Saved current collection of modules to: "default"
 ===========================
-step 17
+step 18
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
 ===========================
 Restoring modules from user's default
 ===========================
-step 18
+step 19
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --mt
 ===========================
 _ModuleTable_ = {
@@ -254,11 +268,11 @@ _ModuleTable_ = {
   systemBaseMPATH = "ProjectDIR/rt/sh_to_modulefile/mf",
 }
 ===========================
-step 19
+step 20
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A
 ===========================
 ===========================
-step 20
+step 21
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:

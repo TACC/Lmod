@@ -175,7 +175,11 @@ Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOS
    $ module spider %{sn}
 
 for available versions.]==],
-     e_Sh_Error            = "Error in script \"%{script}\": %{errorMsg}",
+     e_Sh_Error            = [==[Error found in sourcing script "%{script}": %{errorMsg}
+If this is a bash script please try:
+  $ set -exv; . %{script}
+See https://lmod.readthedocs.io/en/latest/260_sh_to_modulefile.html for details.
+]==],
      e_Sh_convertSh2MF     = "convertSh2MF script failed to produce 7 blocks\n",
      e_Spdr_Timeout        = "Spider search timed out.\n",
      e_Swap_Failed         = "Swap failed: \"%{name}\" is not loaded.\n",
