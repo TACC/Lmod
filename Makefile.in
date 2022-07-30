@@ -98,7 +98,7 @@ INIT_KSH_FUNCS            := $(MY_PACKAGE)/init/ksh_funcs
 FISH_TAB                  := $(MY_PACKAGE)/init/fish_tab_completion
 MESSAGEDIR                := $(MY_PACKAGE)/messageDir
 LMOD_MF                   := $(MY_PACKAGE)/modulefiles/Core
-MAN_PAGES                 := $(MY_PACKAGE)/share/man/cat1
+MAN_PAGES                 := $(MY_PACKAGE)/share/man/cat1 
 LMOD_MF_SOURCE            := $(patsubst %, $(srcdir)/%, MF/*.version.lua)
 SETTARG_SOURCE            := $(patsubst %, $(srcdir)/%, settarg/*.lua  settarg/targ.in)
 DATE_cmd                  := $(srcdir)/proj_mgmt/DATE_cmd.sh
@@ -235,10 +235,10 @@ echo:
 	@echo GIT_VERSION: $(GIT_VERSION)
 man_pages:
 	-$(PATH_TO_LUA) $(srcdir)/src/lmod.in.lua bash --help >/dev/null 2> $(DESTDIR)$(MAN_PAGES)/module.1
+	-chmod $(MODE_R) $(DESTDIR)$(MAN_PAGES)/module.1
 
 $(DIRLIST) :
-	mkdir -p $@
-	chmod $(MODE_X) $@
+	install -m $(MODE_X) -d $@
 
 __installMe:
 	-for i in $(FILELIST); do                                                 \
