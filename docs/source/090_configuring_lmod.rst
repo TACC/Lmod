@@ -246,6 +246,15 @@ Configuration only settings
 --**with-silentShellDebugging**:
   [yes/no, default: no] If yes then the module command will silence its output under shell debug.
 
+--**with-mode=MODE**:
+  By default Lmod uses your umask to control the permission unless
+  your user id (i.e. id -u) is less than 500.  If your id is less than
+  500 then it uses a umask of 022.  This translates to use permission
+  of 755 for executables and 644 for all other files.  Sites may wish
+  to install with  different permission.  For example 750,
+  or 700. Remember to set the execute bit.  It will be removed for
+  non-executable files.
+  
 .. _lmod_config-label:
 
 Configuring Lmod with **/etc/lmod/lmod_config.lua**:
