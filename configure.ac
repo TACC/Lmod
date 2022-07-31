@@ -170,7 +170,6 @@ AC_ARG_WITH(mode,
     AS_HELP_STRING([--with-mode=ans],[Override executable install mode (755 or 750 or 700) [[user_default]]]),
     MODE="$withval"
     MODE=`echo $MODE | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
-    VALID_YN $MODE "--with-mode=ans: ans must be yes or no"
     AC_MSG_RESULT([MODE=$with_mode])
     AC_DEFINE_UNQUOTED(MODE, "$with_mode")dnl
     ,
@@ -730,11 +729,11 @@ if test $MODE = "user_default" ; then
      umask=022
    fi
    MODE_X=$(( ( ~ $umask ) & 0777 ))
+   MODE_X=$(echo "ibase=10; obase=8; $MODE_X" | bc )
 else
-   MODE_X=$MODE
+   MODE_X=0$MODE
 fi   
 MODE_R=$(( 0666 & $MODE_X ))
-MODE_X=$(echo "ibase=10; obase=8; $MODE_X" | bc )
 MODE_R=$(echo "ibase=10; obase=8; $MODE_R" | bc )
 echo MODE_X: $MODE_X
 echo MODE_R: $MODE_R

@@ -3637,7 +3637,6 @@ if test ${with_mode+y}
 then :
   withval=$with_mode; MODE="$withval"
     MODE=`echo $MODE | tr '[:upper:]' '[:lower:]'`
-    VALID_YN $MODE "--with-mode=ans: ans must be yes or no"
     { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: MODE=$with_mode" >&5
 printf "%s\n" "MODE=$with_mode" >&6; }
     printf "%s\n" "#define MODE \"$with_mode\"" >>confdefs.h
@@ -4588,11 +4587,11 @@ if test $MODE = "user_default" ; then
      umask=022
    fi
    MODE_X=$(( ( ~ $umask ) & 0777 ))
+   MODE_X=$(echo "ibase=10; obase=8; $MODE_X" | bc )
 else
-   MODE_X=$MODE
+   MODE_X=0$MODE
 fi
 MODE_R=$(( 0666 & $MODE_X ))
-MODE_X=$(echo "ibase=10; obase=8; $MODE_X" | bc )
 MODE_R=$(echo "ibase=10; obase=8; $MODE_R" | bc )
 echo MODE_X: $MODE_X
 echo MODE_R: $MODE_R
@@ -6779,11 +6778,13 @@ echo "Use built-in lua packages instead of system provided pkgs..." : $USE_BUILT
 echo "Silence shell debugging output for bash/zsh................." : $SILENCE_SHELL_DEBUGGING
 echo "Allow root to use Lmod......................................" : $LMOD_ALLOW_ROOT_USE
 echo "Support KSH................................................." : $SUPPORT_KSH
+echo "MODE........................................................" : $MODE
 echo "Use the fast TCL interpreter................................" : $FAST_TCL_INTERP
 echo "LMOD_CONFIG_DIR............................................." : $LMOD_CONFIG_DIR
 echo "Display Extensions w/ module avail.........................." : $AVAIL_EXTENSIONS
 echo "Dynamic Spider Cache support................................" : $DYNAMIC_SPIDER_CACHE
 echo "Allow for extended default.(ml intel/17 #-> intel/17.0.4)..." : $EXTENDED_DEFAULT  #"
+
 
 echo
 echo '------------------------------------------------------------------------------'
