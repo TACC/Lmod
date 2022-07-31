@@ -166,7 +166,7 @@ AC_ARG_WITH(exactMatch,
     AC_DEFINE_UNQUOTED(EXACT_MATCH, "$withval"))dnl
 
 AC_SUBST(MODE)
-AC_ARG_WITH(colorize,
+AC_ARG_WITH(mode,
     AS_HELP_STRING([--with-mode=ans],[Override executable install mode (755 or 750 or 700) [[user_default]]]),
     MODE="$withval"
     MODE=`echo $MODE | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`

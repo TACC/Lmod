@@ -777,6 +777,7 @@ with_colorize
 with_dynamicSpiderCache
 with_hiddenItalic
 with_exactMatch
+with_mode
 with_lmodConfigDir
 with_autoSwap
 with_exportedModuleCmd
@@ -3631,10 +3632,10 @@ fi
 
 
 
-# Check whether --with-colorize was given.
-if test ${with_colorize+y}
+# Check whether --with-mode was given.
+if test ${with_mode+y}
 then :
-  withval=$with_colorize; MODE="$withval"
+  withval=$with_mode; MODE="$withval"
     MODE=`echo $MODE | tr '[:upper:]' '[:lower:]'`
     VALID_YN $MODE "--with-mode=ans: ans must be yes or no"
     { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: MODE=$with_mode" >&5
