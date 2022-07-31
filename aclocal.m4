@@ -72,11 +72,13 @@ echo "Use built-in lua packages instead of system provided pkgs..." : $USE_BUILT
 echo "Silence shell debugging output for bash/zsh................." : $SILENCE_SHELL_DEBUGGING
 echo "Allow root to use Lmod......................................" : $LMOD_ALLOW_ROOT_USE
 echo "Support KSH................................................." : $SUPPORT_KSH
+echo "MODE........................................................" : $MODE
 echo "Use the fast TCL interpreter................................" : $FAST_TCL_INTERP
 echo "LMOD_CONFIG_DIR............................................." : $LMOD_CONFIG_DIR
 echo "Display Extensions w/ module avail.........................." : $AVAIL_EXTENSIONS
 echo "Dynamic Spider Cache support................................" : $DYNAMIC_SPIDER_CACHE
 echo "Allow for extended default.(ml intel/17 #-> intel/17.0.4)..." : $EXTENDED_DEFAULT  #"
+
 
 echo
 echo '------------------------------------------------------------------------------'
