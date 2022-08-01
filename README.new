@@ -34,3 +34,5 @@ Lmod 8.7+
    (8.7.9)  * Correctly generate Version.lua file when installing from a tar ball.
    (8.7.10) * Issue #585: Add support for --with-mode=MODE
    (8.7.11) * Fix bug found in 8.7.10 about --with-mode=MODE
+W.I.P.:
+   (8.7.12) * Switch mode=user_default conversion to build time not configure time.
