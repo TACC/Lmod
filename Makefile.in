@@ -103,14 +103,17 @@ LMOD_MF_SOURCE            := $(patsubst %, $(srcdir)/%, MF/*.version.lua)
 SETTARG_SOURCE            := $(patsubst %, $(srcdir)/%, settarg/*.lua  settarg/targ.in)
 DATE_cmd                  := $(srcdir)/proj_mgmt/DATE_cmd.sh
 UNAME_S                   := $(shell uname -s)
-MODE_X                    := @MODE_X@
-MODE_R                    := @MODE_R@
+MODE                      := @MODE@
 
 ifeq ($(UNAME_S),Darwin)
   SED      := gsed
 else
   SED      := sed
 endif
+
+MODE_X := $(shell $(srcdir)/proj_mgmt/convert_mode.sh -x $MODE)
+MODE_R := $(shell $(srcdir)/proj_mgmt/convert_mode.sh -r $MODE)
+
 
 ifeq ($(LUA_INCLUDE),no)
    LUA_INCLUDE :=
