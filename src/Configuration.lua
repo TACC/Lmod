@@ -285,20 +285,6 @@ function M.singleton(self)
    return s_configuration
 end
 
-function l_miniReport(self,b)
-   local aa = cosmic:reportChangesFromDefault()
-   b[#b+1] = "Changes from Default ConfigurationRTM"
-   b[#b+1] = "----------------------------------\n"
-   if (next(aa) ~= nil) then
-      bt      = BeautifulTbl:new{tbl=aa}
-      b[#b+1] = bt:build_tbl()
-      b[#b+1] = "\n"
-   end
-   b[#b+1] = "Where Set -> D: default, E: environment, C: configuration"
-   b[#b+1] = "             lmod_cfg: lmod_config.lua SitePkg: SitePackage StdPkg: StandardPackage"
-   b[#b+1] = "             Other: Set somewhere outside of normal locations\n"
-end
-
 
 --------------------------------------------------------------------------
 -- Report the current configuration.
@@ -333,10 +319,13 @@ function M.report(self, t)
    if (next(aa) ~= nil) then
       bt      = BeautifulTbl:new{tbl=aa}
       b[#b+1] = bt:build_tbl()
+      b[#b+1] = "\n"
+      b[#b+1] = "Where Set -> D: default, E: environment, C: configuration"
+      b[#b+1] = "             lmod_cfg: lmod_config.lua SitePkg: SitePackage StdPkg: StandardPackage"
+      b[#b+1] = "             Other: Set somewhere outside of normal locations\n"
    else
       b[#b+1] = "--- None ---"
    end
-   b[#b+1] = "\n"
 
 
    if (not mini) then

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.6  2022-06-25 15:58 -05:00
+Modules based on Lua: Version 8.7.11  2022-07-31 12:14 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -104,7 +104,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.6  2022-06-25 15:58 -05:00
+Modules based on Lua: Version 8.7.11  2022-07-31 12:14 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -206,7 +206,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.6  2022-06-25 15:58 -05:00
+Modules based on Lua: Version 8.7.11  2022-07-31 12:14 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -226,7 +226,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --config
 ===========================
-Modules based on Lua: Version 8.7.6  2022-06-25 15:58 -05:00
+Modules based on Lua: Version 8.7.11  2022-07-31 12:14 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                        Value
 Allow root to use Lmod             yes
@@ -285,8 +285,8 @@ Tmod find first rule               no
 Tmod prepend PATH Rule             no
 Tracing                            no
 uname -a
-LMOD_PACKAGE_PATH            nil          <empty>
-LMOD_SYSTEM_DEFAULT_MODULES  __unknown__  <empty>
+LMOD_PACKAGE_PATH            D          nil          <empty>
+LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>
 Active RC file(s):
 ProjectDIR/src/../init/lmodrc.lua
  OutputDIR/.lmodrc.lua
@@ -401,10 +401,10 @@ propT = {
 step 6
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --miniConfig
 ===========================
-Modules based on Lua: Version 8.7.6  2022-06-25 15:58 -05:00
+Modules based on Lua: Version 8.7.11  2022-07-31 12:14 -05:00
     by Robert McLay mclay@tacc.utexas.edu
-LMOD_PACKAGE_PATH            nil          <empty>
-LMOD_SYSTEM_DEFAULT_MODULES  __unknown__  <empty>
+LMOD_PACKAGE_PATH            D          nil          <empty>
+LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>
 ===========================
 step 7
 lua ProjectDIR/src/chkJson

@@ -95,6 +95,9 @@ cleanUp ()
        -e "/^Changes from Default Configuration.*/d"      \
        -e "/^Name * Default *Value.*/d"                   \
        -e "/^Name * Where Set *Default *Value.*/d"        \
+       -e "/^Where Set.*/d"                               \
+       -e "/^ *lmod_cfg: l.*/d"                           \
+       -e "/^ *Other: Set.*/d"                            \
        -e "/^LFS_VERSION.*/d"                             \
        -e "/^Active lua-term.*/d"                         \
        -e "/Rebuilding cache.*done/d"                     \
