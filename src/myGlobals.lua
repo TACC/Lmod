@@ -161,6 +161,7 @@ cosmic:init{name = "LMOD_REDIRECT",
 local rcfiles = getenv("LMOD_RC")
 cosmic:init{name    = "LMOD_RC",
             default = "",
+            envV    = rcfiles,
             assignV = rcfiles}
 
 ------------------------------------------------------------------------
@@ -338,10 +339,11 @@ cosmic:init{name    = "LMOD_PAGER_OPTS",
 ------------------------------------------------------------------------
 -- LMOD_SYSTEM_DEFAULT_MODULES: 
 ------------------------------------------------------------------------
-local defaultModules = getenv("LMOD_SYSTEM_DEFAULT_MODULES") or ""
+local defaultModules = getenv("LMOD_SYSTEM_DEFAULT_MODULES")
 
 cosmic:init{name    = "LMOD_SYSTEM_DEFAULT_MODULES",
-            assignV = defaultModules,
+            envV    = defaultModules,
+            assignV = defaultModules or "",
             default = "__unknown__" }
 
 
@@ -356,9 +358,10 @@ local rc_dflt    = pathJoin(etcDir,"rc.lua")
 if (not isFile(rc_dflt)) then
    rc_dflt   = pathJoin(etcDir,"rc")
 end
-local rc        = getenv("LMOD_MODULERCFILE") or getenv("MODULERCFILE") or rc_dflt
+local rc        = getenv("LMOD_MODULERCFILE") or getenv("MODULERCFILE")
 cosmic:init{name    = "LMOD_MODULERCFILE",
             default = rc_dflt,
+            envV    = rc,
             assignV = rc,
             kind    = "file"}
 
@@ -390,9 +393,10 @@ LMOD_RTM_TESTING = getenv("LMOD_RTM_TESTING")
 -- LMOD_ADMIN_FILE: The Nag file.
 ------------------------------------------------------------------------
 local lmod_nag_default = pathJoin(etcDir,"admin.list")
-local lmod_nag         = getenv("LMOD_ADMIN_FILE") or lmod_nag_default
+local lmod_nag         = getenv("LMOD_ADMIN_FILE")
 cosmic:init{name    = "LMOD_ADMIN_FILE",
             default = lmod_nag_default,
+            envV    = lmod_nag,
             assignV = lmod_nag,
             kind    = "file"}
 
@@ -405,12 +409,10 @@ cosmic:init{name    = "LMOD_ADMIN_FILE",
 --                   entry is the default (i.e. A:B:C => A is default).
 ------------------------------------------------------------------------
 
-local style = getenv("LMOD_AVAIL_STYLE") or "<system>"
-if (style == "") then
-   style = "<system>"
-end
+local style = getenv("LMOD_AVAIL_STYLE")
 cosmic:init{name    = "LMOD_AVAIL_STYLE",
             default = "<system>",
+            envV    = style,
             assignV = style}
 
 ------------------------------------------------------------------------
@@ -419,6 +421,7 @@ cosmic:init{name    = "LMOD_AVAIL_STYLE",
 
 cosmic:init{name    = "LFS_VERSION",
             default = "1.6.3",
+            kind    = "D",
             assignV = lfs._VERSION:gsub("LuaFileSystem  *","")}
 
 ------------------------------------------------------------------------
@@ -496,6 +499,7 @@ end
 
 cosmic:init{name    = "LMOD_LD_LIBRARY_PATH",
             default = false,
+            envV    = ld_lib_path,
             assignV = ld_lib_path}
 
 ------------------------------------------------------------------------
@@ -512,6 +516,7 @@ end
 
 cosmic:init{name    = "LMOD_LD_PRELOAD",
             default = false,
+            envV    = ld_preload,
             assignV = ld_preload}
 
 ------------------------------------------------------------------------
@@ -547,9 +552,17 @@ cosmic:init{name    = "LMOD_OVERRIDE_LANG",
             sedV    = "@lang@",
             default = false}
 
-local lang = (cosmic:value("LMOD_OVERRIDE_LANG") or getenv("LANG") or "en"):gsub("_.*","")
+local langEnv = getenv("LMOD_LANG") or getenv("LANG")
+if (langEnv) then
+   langEnv = langEnv:gsub("_.*","")
+end
+
+local lang = cosmic:value("LMOD_OVERRIDE_LANG") or langEnv
+
 cosmic:init{name    = "LMOD_LANG",
             default = "en",
+            sedV    = "@lang@",
+            envV    = langEnv,
             assignV = lang}
 
 ------------------------------------------------------------------------
@@ -565,9 +578,13 @@ cosmic:init{name = "LMOD_SETTARG_FULL_SUPPORT",
 -- LMOD_ANCIENT_TIME:  the time in seconds when the cache file is considered old
 ------------------------------------------------------------------------
 local ancient_dflt  = 86400
-local ancient       = tonumber(getenv("LMOD_ANCIENT_TIME")) or tonumber("@ancient@") or ancient_dflt
+local ancientEnv    = getenv("LMOD_ANCIENT_TIME")
+local ancientSedV   = "@ancient@"
+local ancient       = tonumber(ancientEnv) or tonumber(ancientSedV)
 cosmic:init{name    = "LMOD_ANCIENT_TIME",
             default = ancient_dflt,
+            envV    = ancientEnv,
+            sedV    = ancientSedV,
             assignV = ancient}
 ancient             = cosmic:value("LMOD_ANCIENT_TIME")
 
@@ -577,18 +594,25 @@ ancient             = cosmic:value("LMOD_ANCIENT_TIME")
 ------------------------------------------------------------------------
 
 local shortTime_dflt = 2
-local shortTime      = tonumber(getenv("LMOD_SHORT_TIME")) or tonumber("@short_time@") or shortTime_dflt
+local shortTimeEnv   = getenv("LMOD_SHORT_TIME")
+local shortTimeSedV  = "@short_time@"
+local shortTime      = tonumber(shortTimeEnv) or tonumber(shortTimeSedV)
 cosmic:init{name     = "LMOD_SHORT_TIME",
             default  = shortTime_dflt,
+            envV     = shortTimeEnv,
+            sedV     = shortTimeSedV,
             assignV  = shortTime}
 
 ------------------------------------------------------------------------
 -- Threshold:  The amount of time to wait before printing the cache
 --             rebuild message.  (It has to be 1 second or greater).
 ------------------------------------------------------------------------
-local threshold      = tonumber(getenv("LMOD_THRESHOLD")) or 1
+local threshold_dflt = 1
+local thresholdEnv   = getenv("LMOD_THRESHOLD")
+local threshold      = tonumber(thresholdEnv)
 cosmic:init{name     = "LMOD_THRESHOLD",
-            default  = 1,
+            default  = threshold_dflt,
+            envV     = thresholdEnv,
             assignV  = threshold}
 
 
