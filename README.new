@@ -36,3 +36,5 @@ Lmod 8.7+
    (8.7.11) * Fix bug found in 8.7.10 about --with-mode=MODE
 W.I.P.:
    (8.7.12) * Switch mode=user_default conversion to build time not configure time.
+            * Taking Kenneth's suggestion to add where configuration variables are set.
+              This is shown with --miniConfig or --config.
