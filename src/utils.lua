@@ -1008,12 +1008,14 @@ function initialize_lmod()
    --  The StandardPackage is where Lmod registers hooks.  Sites may
    --  override the hook functions in SitePackage.
    ------------------------------------------------------------------------
+   cosmic:set_key("StdPkg")
    require("StandardPackage")
 
    ------------------------------------------------------------------------
    -- Load a SitePackage Module.
    ------------------------------------------------------------------------
 
+   cosmic:set_key("lmod_cfg")
    local configDir = cosmic:value("LMOD_CONFIG_DIR")
    local fn        = pathJoin(configDir,"lmod_config.lua")
    if (isFile(fn)) then
@@ -1041,7 +1043,9 @@ function initialize_lmod()
                       package.cpath
    end
 
+   cosmic:set_key("SitePkg")
    require("SitePackage")
+   cosmic:set_key("Other")
 end
 
 function tracing_msg(msgA)

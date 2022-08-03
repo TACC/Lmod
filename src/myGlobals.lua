@@ -397,8 +397,7 @@ local lmod_nag         = getenv("LMOD_ADMIN_FILE")
 cosmic:init{name    = "LMOD_ADMIN_FILE",
             default = lmod_nag_default,
             envV    = lmod_nag,
-            assignV = lmod_nag,
-            kind    = "file"}
+            assignV = lmod_nag}
 
 ------------------------------------------------------------------------
 -- LMOD_AVAIL_STYLE: Used by the avail hook to control how avail output

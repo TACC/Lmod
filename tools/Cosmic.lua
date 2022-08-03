@@ -68,11 +68,20 @@ local yes_noT = {
 function M.init(self, t)
    local T    = self.__T
    local name = (t.name or "unknown")
+   local envV = t.envV or getenv(name)
+   local kind = t.kind or "D"
+   local sedV = t.sedV or "@"
+   if (sedV:sub(1,1) ~= "@") then
+      kind = "C"
+   end
+   if (envV) then
+      kind = "E"
+   end
+
 
    if (t.yn) then
       local defaultV = t.yn:lower()
-      local sedV     = t.sedV or "@"
-      local value    = (getenv(name) or sedV):lower()
+      local value    = (envV or sedV):lower()
       if (value:sub(1,1) == "@") then
          value = defaultV
       end
@@ -80,14 +89,14 @@ function M.init(self, t)
       if (value ~= "no") then
          value = "yes"
       end
-      T[name] = {value = value, default = defaultV}
+      T[name] = {value = value, kind = kind, default = defaultV}
       return
    end
 
    if (t.assignV ~= nil) then
       local defaultV = t.default
       local value    = t.assignV
-      T[name] = {value = value, default = defaultV}
+      T[name] = {value = value, kind = kind, default = defaultV}
       return
    end
 
@@ -96,7 +105,7 @@ function M.init(self, t)
 
       local defaultV = t.default
       local sedV     = t.sedV or "@"
-      local value    = t.no_env and sedV or (getenv(name) or sedV)
+      local value    = t.no_env and sedV or (envV or sedV)
       if (t.lower) then
          value = value:lower()
       end
@@ -104,7 +113,7 @@ function M.init(self, t)
       if (value:sub(1,1) == "@" or value == "<empty>") then
          value = defaultV
       end
-      T[name] = {value = value, default = defaultV}
+      T[name] = {value = value, kind = kind, default = defaultV}
       return
    end
 end
@@ -113,15 +122,15 @@ function M.reportChangesFromDefault(self)
    local T    = self.__T
    local a    = {}
 
-   a[1] = {"Name","Default","Value"}
-   a[2] = {"----","-------","-----"}
+   a[1] = {"Name","Where Set","Default","Value"}
+   a[2] = {"----","---------","-------","-----"}
 
 
    for k,v in pairsByKeys(T) do
       if (v.value ~= v.default) then
          local value = v.value
          if (value == "" ) then value = "<empty>" end
-         a[#a+1] = {k, tostring(v.default), tostring(value)}
+         a[#a+1] = {k, v.kind, tostring(v.default), tostring(value)}
       end
    end
 
@@ -137,6 +146,7 @@ function M.assign(self, name, value)
    end
 
    T[name].value = value
+   T[name].kind  = self:get_key()
 end
 
 function M.value(self,name)
@@ -153,12 +163,21 @@ function M.changed(self,name)
    return (T[name].value == T[name].default) and "no" or "yes"
 end
 
+function M.get_key(self)
+   return self.__kind
+end
+
+function M.set_key(self, kind)
+   self.__kind = kind
+end
+
 function l_new(self)
    local o = {}
    setmetatable(o,self)
    self.__index = self
 
-   o.__T = {}
+   o.__T    = {}
+   o.__kind = "D"
    return o
 end
 
