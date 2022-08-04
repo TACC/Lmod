@@ -16,9 +16,17 @@ _ml()
     '(-w --width)'{--width,-w}'[use given width for max term width]'
     '(-q --quiet)'{--quiet,-q}'[disable verbose messages]'
     '(-s --style)'{--style,-s}'[avail output style]'
+    '(-T --trace)'{--style,-s}'[Report major internal actions by Lmod]'
+    '--config[display full Lmod configuration]'
+    '--miniConfig[display configuration differences from default]'
+    '--force[force the removal of a sticky module or save an empty collection]'
     '--mt[display the module table]'
+    '--no_redirect[send messages to stderr]'
+    '--raw[Print raw contents of a modulefile when using show]'
+    '--show_hidden[avail and spider will report hidden modules]'
+    '--style[]'
     '(-r --regexp)'{--regexp,-r}'[lua regular expression matching]'
-    '--ignore_cache[Treat the cache file(s) as out-of-date]'
+    '(-I --ignore_cache)'{--ignore_cache,-I}'[Treat the cache file(s) as out-of-date]'
     '--Verbose[show generated module command]'
     )
 
