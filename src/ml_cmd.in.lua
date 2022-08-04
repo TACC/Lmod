@@ -216,11 +216,12 @@ function main()
       use="use",
       whatis="whatis",
    }
-   local grab     = 0
-   local verbose  = false
-   local oldStyle = false
-   local show     = false
-   local cmdFound = false
+   local grab                 = 0
+   local verbose              = false
+   local oldStyle             = false
+   local show                 = false
+   local cmdFound             = false
+   local stop_processing_opts = false
 
    --------------------------------------------------------------------------
    -- Loop over command line options and process each one.  Note that this
@@ -229,6 +230,11 @@ function main()
 
    for _,v in ipairs(arg) do
       repeat
+         if (stop_processing_opts) then
+            argA[#argA+1] = v
+            break
+         end
+            
          if (grab > 0) then
             optA[#optA+1] = v
             grab          = grab - 1
@@ -270,6 +276,12 @@ function main()
             optA[#optA+1] = translateT[v] or v
             break
          end
+
+         if (v == "--") then
+            stop_processing_opts=true
+            break
+         end
+
 
          if (v:find("^%-%-")) then
             io.stderr:write(i18n("ml_opt",{v=v}))

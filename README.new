@@ -38,3 +38,6 @@ W.I.P.:
    (8.7.12) * Switch mode=user_default conversion to build time not configure time.
             * Taking Kenneth's suggestion to add where configuration variables are set.
               This is shown with --miniConfig or --config.
+            * Unsetting FPATH inside configure.ac to avoid bad interaction with possible
+              K-shell support.
+            * ml now understands "--" to mean stop processing options.

@@ -68,6 +68,7 @@ Tmod prepend PATH Rule             no
 Tracing                            no
 uname -a
 LMOD_CONFIG_DIR              E          /etc/lmod    ProjectDIR/rt/configDir/lmod_cfg_dir
+LMOD_FAST_TCL_INTERP         E          yes          no
 LMOD_PACKAGE_PATH            lmod_cfg   nil          ProjectDIR/rt/configDir/lmod_cfg_dir
 LMOD_SITE_MSG_FILE           lmod_cfg   false        ProjectDIR/rt/configDir/lmod_cfg_dir/lang.lua
 LMOD_SITE_NAME               lmod_cfg   false        XYZZY

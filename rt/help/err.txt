@@ -285,6 +285,7 @@ Tmod find first rule               no
 Tmod prepend PATH Rule             no
 Tracing                            no
 uname -a
+LMOD_FAST_TCL_INTERP         E          yes          no
 LMOD_PACKAGE_PATH            D          nil          <empty>
 LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>
 Active RC file(s):
@@ -403,6 +404,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --miniConfig
 ===========================
 Modules based on Lua: Version 8.7.11  2022-07-31 12:14 -05:00
     by Robert McLay mclay@tacc.utexas.edu
+LMOD_FAST_TCL_INTERP         E          yes          no
 LMOD_PACKAGE_PATH            D          nil          <empty>
 LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>
 ===========================

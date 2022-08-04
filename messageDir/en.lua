@@ -57,7 +57,8 @@ return {
      $ ml -foo -bar baz goo
                               means: module unload foo bar;
                                      module load baz goo;
-
+     $ ml -- -I
+                              means unload I not --ignore_cache
    Command usage:
    --------------
 

@@ -77,16 +77,15 @@ testdescript = {
      runLmod load B                   #35
      runLmod list                     #36
 
-     -- Test when there are too many non modulefile that start with .
+     ############################################################
+     # Test when there are too many non modulefile that start with .
      runLmod use $(testDir)/mf/Core8  #37
      runLmod avail
 
-     -- Test when there are too many non modulefile that do not start with .
+     ############################################################
+     # Test when there are too many non modulefile that do not start with .
      runLmod use $(testDir)/mf/Core9  #38
-
      
-
-
      HOME=$ORIG_HOME
 
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
