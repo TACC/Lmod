@@ -41,3 +41,5 @@ W.I.P.:
             * Unsetting FPATH inside configure.ac to avoid bad interaction with possible
               K-shell support.
             * ml now understands "--" to mean stop processing options.
+            * LMOD_FAST_TCL_INTERP is set to true by default.  Make fixes to rt/commmon_funcs.sh to turn
+              it off for tests.  Except that the end2end test needs it true.
