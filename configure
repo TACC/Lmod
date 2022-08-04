@@ -5552,6 +5552,7 @@ EOF
 
    chmod +x conftest.zsh
 
+   unset FPATH
    ZSH_SITE_FUNCTIONS_DIRS=`$PATH_TO_ZSH -f ./conftest.zsh 2> /dev/null`
 
    rm conftest.zsh
