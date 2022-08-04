@@ -169,7 +169,7 @@ cosmic:init{name    = "LMOD_RC",
 ------------------------------------------------------------------------
 cosmic:init{name = "LMOD_FAST_TCL_INTERP",
             sedV = "@fast_tcl_interp@",
-            yn   = "no"}
+            yn   = "yes"}
 
 ------------------------------------------------------------------------
 -- LMOD_SITE_NAME: The site name (e.g. TACC)
