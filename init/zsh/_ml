@@ -17,6 +17,8 @@ _ml()
     '(-q --quiet)'{--quiet,-q}'[disable verbose messages]'
     '(-s --style)'{--style,-s}'[avail output style]'
     '(-T --trace)'{--style,-s}'[Report major internal actions by Lmod]'
+    '(-r --regexp)'{--regexp,-r}'[lua regular expression matching]'
+    '(-I --ignore_cache)'{--ignore_cache,-I}'[Treat the cache file(s) as out-of-date]'
     '--config[display full Lmod configuration]'
     '--miniConfig[display configuration differences from default]'
     '--force[force the removal of a sticky module or save an empty collection]'
@@ -25,8 +27,6 @@ _ml()
     '--raw[Print raw contents of a modulefile when using show]'
     '--show_hidden[avail and spider will report hidden modules]'
     '--style[]'
-    '(-r --regexp)'{--regexp,-r}'[lua regular expression matching]'
-    '(-I --ignore_cache)'{--ignore_cache,-I}'[Treat the cache file(s) as out-of-date]'
     '--Verbose[show generated module command]'
     )
 
