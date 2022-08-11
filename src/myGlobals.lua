@@ -683,8 +683,7 @@ cosmic:init{name    = "PATH_TO_LUA",
 ------------------------------------------------------------------------
 -- usrCacheDir: user cache directory
 ------------------------------------------------------------------------
-USER_CACHE_DIR_NAME  = ( use_dot_files == "yes" ) and ".cache" or "__cache__"
-usrCacheDir          = pathJoin(getenv("HOME"),".lmod.d",USER_CACHE_DIR_NAME)
+usrCacheDir          = pathJoin(getenv("HOME"),".cache/lmod")
 
 ------------------------------------------------------------------------
 -- updateSystemFn: The system file that is touched everytime the system
