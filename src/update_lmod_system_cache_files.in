@@ -255,13 +255,13 @@ install_new_cache() {
     # back up existing cache file
     if [ -f $RST ]; then
         debug "Backup up old Lmod cache file $RST to $OLD"
-        cp -p $RST $OLD
+        cp $RST $OLD
         debug "`ls -l $OLD`"
     fi
 
     # put new cache file in place
     debug "Putting new cache file $NEW place at $RST"
-    mv $NEW $RST
+    mv -f $NEW $RST
 }
 
 # run spider command to generate specified cache type to specified file path
