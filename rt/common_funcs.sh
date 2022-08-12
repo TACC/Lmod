@@ -298,6 +298,15 @@ initStdEnvVars()
   done
 }
 
+userCacheDir ()
+{
+  name='User Cache Directory *'
+  dir=$($LUA_EXEC $projectDir/src/lmod.in.lua bash --config 2>&1 | grep "$name")
+  dir=$(echo $dir | sed -e "s/$name//")
+  echo $dir
+}
+  
+
 clearTARG()
 {
   unset BUILDTARGET

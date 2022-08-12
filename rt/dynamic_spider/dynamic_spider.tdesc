@@ -21,13 +21,14 @@ testdescript = {
      initStdEnvVars
      export MODULEPATH_ROOT=$(testDir)/mf
      export MODULEPATH=$MODULEPATH_ROOT/Core
+     cacheDir=`userCacheDir`
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d myModules{,2,4}
+     rm -fr _stderr.* _stdout.* err.* out.* $cacheDir myModules{,2,4}
 
      runLmod --version                         # 1
      runLmod spider                            # 2
-     mkdir -p $HOME/.lmod.d/.cache
-     buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
+     mkdir -p $cacheDir
+     buildSpiderT $MODULEPATH > $cacheDir/spiderT.lua
      runLmod spider                            # 3
 
      cp -r ../../myModules .
@@ -38,7 +39,7 @@ testdescript = {
      export MODULEPATH_ROOT=$(testDir)/mf2
      export MODULEPATH=$MODULEPATH_ROOT/Core
 
-     buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
+     buildSpiderT $MODULEPATH > $cacheDir/spiderT.lua
      runLmod spider                            # 5
 
      cp -r ../../myModules .
@@ -49,7 +50,7 @@ testdescript = {
      export MODULEPATH=$MODULEPATH_ROOT/Core
      rm -rf myModules
 
-     buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
+     buildSpiderT $MODULEPATH > $cacheDir/spiderT.lua
      runLmod spider                            # 7
 
      cp -r ../../myModules2 .
@@ -60,7 +61,7 @@ testdescript = {
      export MODULEPATH=$MODULEPATH_ROOT/Core
      rm -rf myModules2
 
-     buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
+     buildSpiderT $MODULEPATH > $cacheDir/spiderT.lua
      runLmod --terse spider                    # 9
 
      ############################################################

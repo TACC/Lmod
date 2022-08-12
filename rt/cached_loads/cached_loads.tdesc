@@ -22,7 +22,9 @@ testdescript = {
      MODULEPATH_ROOT=$(outputDir)/mf;  export MODULEPATH_ROOT
      MODULEPATH=$MODULEPATH_ROOT/Core; export MODULEPATH
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d mf
+     cacheDir=`userCacheDir`
+
+     rm -fr _stderr.* _stdout.* err.* out.* $cacheDir mf
 
 
      
@@ -34,8 +36,8 @@ testdescript = {
      unset LMOD_CACHED_LOADS
      runLmod purge                  # 3
 
-     mkdir -p $HOME/.lmod.d/.cache
-     buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
+     mkdir -p $cacheDir
+     buildSpiderT $MODULEPATH > $cacheDir/spiderT.lua
 
      mkdir mf/Core/B
      cp    mf/Core/A/1.0.lua mf/Core/B

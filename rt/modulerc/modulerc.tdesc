@@ -23,9 +23,9 @@ testdescript = {
      COUNT=0
      ORIG_HOME=`(cd $HOME; /bin/pwd)`
      HOME=`/bin/pwd`
+     cacheDir=`userCacheDir`
 
-
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .modulerc cacheDir
+     rm -fr _stderr.* _stdout.* err.* out.* $cacheDir .modulerc cacheDir
 
      cp $(testDir)/dot.modulerc .modulerc
 
@@ -55,18 +55,16 @@ testdescript = {
      runLmod avail                   #18
      unset LMOD_SHORT_TIME
      runLmod avail                   #19
-     rm -rf .lmod.d
-
-
+     rm -rf $cacheDir
 
      cat > fn << EOF
 $(outputDir)/cacheDir: $(outputDir)/last_update
 EOF
 
      lua $(projectDir)/src/spiderCacheSupport.in.lua --descriptFn fn >> .lmodrc.lua
-     mkdir cacheDir
+     mkdir myCacheDir
      touch last_update
-     buildSpiderT $MODULEPATH > cacheDir/spiderT.lua
+     buildSpiderT $MODULEPATH > myCacheDir/spiderT.lua
      runBase runSpiderCmd -o spiderT $MODULEPATH       #20
      runLmod avail                                     #21
      runLmod use  $(testDir)/mf2/Core                  #22

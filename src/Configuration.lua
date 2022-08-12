@@ -267,8 +267,9 @@ local function l_new(self)
    tbl.tmod_rule    = { k = "Tmod prepend PATH Rule"            , v = tmod_rule,        }
    tbl.tracing      = { k = "Tracing"                           , v = tracing,          }
    tbl.uname        = { k = "uname -a"                          , v = uname,            }
-   tbl.z01_admin    = { k = "Admin file"                        , v = adminFn,          }
+   tbl.usrCacheDir  = { k = "User Cache Directory"              , v = usrCacheDir,      }
    tbl.redirect     = { k = "Redirect to stdout"                , v = redirect,         }
+   tbl.z01_admin    = { k = "Admin file"                        , v = adminFn,          }
 
    o.tbl = tbl
    return o

@@ -67,6 +67,7 @@ Tmod find first rule               no
 Tmod prepend PATH Rule             no
 Tracing                            no
 uname -a
+User Cache Directory               OutputDIR/.cache/lmod
 LMOD_CONFIG_DIR              E          /etc/lmod    ProjectDIR/rt/configDir/lmod_cfg_dir
 LMOD_FAST_TCL_INTERP         E          yes          no
 LMOD_PACKAGE_PATH            lmod_cfg   nil          ProjectDIR/rt/configDir/lmod_cfg_dir

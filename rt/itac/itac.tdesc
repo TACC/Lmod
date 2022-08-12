@@ -23,9 +23,10 @@ testdescript = {
      COUNT=0
      ORIG_HOME=`(cd $HOME; /bin/pwd)`
      HOME=`/bin/pwd`
+     cacheDir=`userCacheDir`
 
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d mf
+     rm -fr _stderr.* _stdout.* err.* out.* $cacheDir mf
 
      mkdir mf
      (cd $(testDir)/mf; tar cf - . | (cd $(outputDir)/mf; tar xpf - ))
@@ -35,8 +36,8 @@ testdescript = {
 
      runLmod --version               # 1
      runLmod load intel mv2          # 2
-     mkdir -p .lmod.d/.cache
-     buildSpiderT $MODULEPATH > .lmod.d/.cache/spiderT.lua
+     mkdir -p .cache/lmod
+     buildSpiderT $MODULEPATH > $cacheDir/spiderT.lua
      mkdir mf/Core/itac
      cp $(testDir)/ITAC-1.0.lua mf/Core/itac/1.0.lua
      runLmod --ignore_cache avail    # 3
