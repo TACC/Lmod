@@ -43,3 +43,6 @@ W.I.P.:
             * ml now understands "--" to mean stop processing options.
             * LMOD_FAST_TCL_INTERP is set to true by default.  Make fixes to rt/commmon_funcs.sh to turn
               it off for tests.  Except that the end2end test needs it true.
+            * Move cache file location from ~/.lmod.d/.cache/* to ~/.cache/lmod/*
+            * Set FPATH in bash.in so that it works correctly with both Zsh and Ksh.
+            
