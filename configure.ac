@@ -1041,6 +1041,23 @@ EOF
    rm conftest.zsh
 fi
 
+AC_SUBST(ZSH_FPATH)
+
+if test -n "$PATH_TO_ZSH" ; then
+  cat > conftest.zsh << 'EOF'
+echo $FPATH
+EOF
+
+   chmod +x conftest.zsh
+
+   unset FPATH
+   ZSH_FPATH=`$PATH_TO_ZSH -f ./conftest.zsh 2> /dev/null`
+
+   rm conftest.zsh
+fi
+
+
+
 AC_CONFIG_FILES([makefile:Makefile.in])
 AC_OUTPUT
 

@@ -648,6 +648,7 @@ ac_includes_default="\
 ac_header_c_list=
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
+ZSH_FPATH
 ZSH
 ZSH_SITE_FUNCTIONS_DIRS
 HAVE_LUA_TERM
@@ -5558,6 +5559,23 @@ EOF
    rm conftest.zsh
 fi
 
+
+
+if test -n "$PATH_TO_ZSH" ; then
+  cat > conftest.zsh << 'EOF'
+echo $FPATH
+EOF
+
+   chmod +x conftest.zsh
+
+   unset FPATH
+   ZSH_FPATH=`$PATH_TO_ZSH -f ./conftest.zsh 2> /dev/null`
+
+   rm conftest.zsh
+fi
+
+
+
 ac_config_files="$ac_config_files makefile:Makefile.in"
 
 cat >confcache <<\_ACEOF
@@ -6748,7 +6766,6 @@ echo "File that is touched when system is updated................." : $UPDATE_SY
 echo "Allow duplicate entry in PATHs.............................." : $DUPLICATE_PATHS
 echo "Allow tcl modulefiles......................................." : $ALLOW_TCL_MFILES
 echo "ZSH Tab Completion Functions Site Directory................." : $ZSH_SITE_FUNCTIONS_DIRS
-echo "Use Dot files in ~/.lmod.d.................................." : $USE_DOT_FILES
 echo "Full Settarg support........................................" : $SETTARG
 echo "Have lua-term..............................................." : $HAVE_LUA_TERM
 echo "Have luafilesystem.........................................." : $HAVE_LUAFILESYSTEM
