@@ -123,7 +123,8 @@ end
 
 --------------------------------------------------------------------------
 -- This is the work-horse for this collections.  It is recursively for
--- sub-tables.  It also ignores keys that start with "__".
+-- sub-tables.  It also ignores keys that start with "__" unless
+-- keepDUnderScore is true.
 
 local function outputTblHelper(indentIdx, name, T, keepDUnderScore, a, level)
 
