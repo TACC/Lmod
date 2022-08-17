@@ -251,7 +251,7 @@ function serializeTbl(options)
    else
       a[#a+1] = wrap_name("",n)
       a[#a+1] = " = "
-      a[#a+1] = nsformat(value)
+      a[#a+1] = l_nsformat(value)
       a[#a+1] = "\n"
    end
 
