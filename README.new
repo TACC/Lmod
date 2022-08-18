@@ -45,3 +45,5 @@ Lmod 8.7+
             * Move cache file location from ~/.lmod.d/.cache/* to ~/.cache/lmod/*
             * Set FPATH in bash.in so that it works correctly with both Zsh and Ksh.
             * Issue #594: change cp -p to cp and mv to mv -f in update_lmod_system_spider_cache.in.
+            * Now use UID_MIN from /etc/logins.def otherwise default to UID_MIN to 500 in proj_mgmt/convert_mode.sh
+            
