@@ -6,8 +6,8 @@ jobs:
       runs-on: ${{ matrix.os }}
       strategy:
         matrix:
-          os: [ubuntu-latest, macos-latest]
-          luaVersion: ["5.1", "5.3", "5.4"]
+          os: [ubuntu-latest]
+          luaVersion: ["5.4"]
       steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -53,6 +53,8 @@ jobs:
              cat ${dir}t1/*/t1.log
            fi
          done
+      - name: run busted tests
+          PROJDIR=`pwd` LMOD_FAST_TCL_INTERP=no busted --verbose -m "./src/?.lua;./tools/?.lua;./tools/?/init.lua"
       - name: Lmod_test_suite
         run: |
          set -e
