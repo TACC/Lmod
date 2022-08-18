@@ -50,7 +50,7 @@ compiler/MPI/cuda modules could support.  Suppose your site uses the
 software hierarchy and your site wants to allow users to be able to
 use **module spider** to find their modules as well.  To do this
 something like this to your compiler/MPI/cuda modules.  Suppose in
-your sites gcc/10.3.0 module you have:
+your sites gcc/10.3.0 module you have::
 
     prepend_path("MODULEPATH", "...") -- System compiler dependent modules
     local home_root = pathJoin(os.getenv("HOME"),"myModules")
