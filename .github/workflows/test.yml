@@ -54,6 +54,7 @@ jobs:
            fi
          done
       - name: run busted tests
+        run: |
           PROJDIR=`pwd` LMOD_FAST_TCL_INTERP=no busted --verbose -m "./src/?.lua;./tools/?.lua;./tools/?/init.lua"
       - name: Lmod_test_suite
         run: |
