@@ -114,6 +114,7 @@ Advanced Topics
    
    075_bug_reporting
    077_ref_counting
+   079_hidden_modules
    080_hierarchy
    090_configuring_lmod
    093_modulerc

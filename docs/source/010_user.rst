@@ -568,3 +568,17 @@ other words on the A cluster a user would see::
 
 where the default file is named "default.A".
 
+Showing hidden modules
+~~~~~~~~~~~~~~~~~~~~~~
+
+Sites modules (or user personal modules) can be hidden from normal "module
+avail" or "module spider" through different mechanisms. See
+:ref:`hidden_modules-label`
+
+ To see hidden modules, one can do::
+
+    $ module --show_hidden avail
+    $ module --show_hidden spider
+
+    
+    
