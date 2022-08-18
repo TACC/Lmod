@@ -13,6 +13,7 @@ To hide modules, a site can name a module with a leading "." for the
 version or the name:
 
 The following tree contains 3 modules, 2 hidden and one not::
+
     $ tree -a modulefiles                  
 
     modulefiles
@@ -22,11 +23,11 @@ The following tree contains 3 modules, 2 hidden and one not::
         ├── .1.0.lua
         └── 2.0.lua
 
-    $ module av
+    $ module avail
 
      A/2.0 (D)
 
-    $ module --show_hidden av
+    $ module --show_hidden avail
 
      .B/3.0 (H)    A/.1.0 (H)    A/2.0 (D)
 

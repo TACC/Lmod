@@ -2,8 +2,9 @@ New Features in Lmod
 ====================
 
 **Controlling installed permission**:
-    (Lmod 8.7.10+): Lmod now uses your umask to set permissions unless
-    your user id (id -u) is less than 500.  In that case, it uses a
+    (Lmod 8.7.11+): Lmod now uses your umask to set permissions unless
+    your user id (id -u) is less than UID_MIN (from /etc/login.defs)
+    or UID_MIN=500 by default.  In that case, it uses a
     umask of 022.  This translates to 755 for executable files and 644
     for all others.  Sites can override this at configure time with
     **--with-mode=MODE**.
