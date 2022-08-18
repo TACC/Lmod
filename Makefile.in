@@ -517,9 +517,9 @@ build_tags:
 
 busted:
         ifeq ($(TAG),)
-	  @PROJDIR=$(CURDIR) busted            --verbose -m "$(CURDIR)/src/?.lua;$(CURDIR)/tools/?.lua;$(CURDIR)/tools/?/init.lua"
+	  @PROJDIR=$(CURDIR) LMOD_FAST_TCL_INTERP=no busted            --verbose -m "$(CURDIR)/src/?.lua;$(CURDIR)/tools/?.lua;$(CURDIR)/tools/?/init.lua"
         else
-	  @PROJDIR=$(CURDIR) busted  -t $(TAG) --verbose -m "$(CURDIR)/src/?.lua;$(CURDIR)/tools/?.lua;$(CURDIR)/tools/?/init.lua"
+	  @PROJDIR=$(CURDIR) LMOD_FAST_TCL_INTERP=no busted  -t $(TAG) --verbose -m "$(CURDIR)/src/?.lua;$(CURDIR)/tools/?.lua;$(CURDIR)/tools/?/init.lua"
         endif
 
 luachk:
