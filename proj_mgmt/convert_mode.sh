@@ -7,7 +7,13 @@ MODE=$2
 if [ $MODE = "user_default" ]; then
    uid=$(id -u)
    umask=$(umask)
-   UID_MIN=500
+   system=$(uname -s)
+   if [ $system = Darwin ]; then
+     UID_MIN=500
+   else
+     UID_MIN=1000
+   fi
+     
    if [ -f /etc/login.defs ]; then
      xx=$(grep '^UID_MIN' /etc/login.defs | sed -e 's/^UID_MIN[ \t]*//')
      if [ -n "${xx}" ]; then
