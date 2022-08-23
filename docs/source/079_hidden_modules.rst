@@ -35,6 +35,8 @@ It is also possible to mark modules with functions in modulerc files.
 See :ref:`modulerc-label` for details on how to mark by using the
 modulerc files.
 
+Remember that hidden modules can be loaded with normal commands.
+
 Finally, if your site wishes to mark many modules as hidden, you can
 use the hook function isVisibleHook().  See :ref:`hooks` for
 details. Also see the contrib/more_hooks/SitePackage.lua file for a
