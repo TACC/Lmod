@@ -112,7 +112,7 @@ case $SYSHOST in
     ADMIN_DIR=/opt/moduleData
     UPDATE_FN=$ADMIN_DIR/system.txt
     CACHEDIRS=$ADMIN_DIR/cacheDir
-    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN --with-siteControlPrefix=yes --with-module-root-path=/opt/apps/modulefiles --with-silentShellDebugging=yes --with-supportKsh=yes"
+    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN --with-siteControlPrefix=yes --with-siteName=TACC --with-module-root-path=/opt/apps/modulefiles --with-silentShellDebugging=yes --with-supportKsh=yes"
 
     if [ "$SYSHOST" == "mijo" ]; then
       EXTRA="$EXTRA --with-exportedModuleCmd=no"
@@ -125,7 +125,7 @@ case $SYSHOST in
     ADMIN_DIR=/opt/moduleData
     UPDATE_FN=$ADMIN_DIR/system.txt
     CACHEDIRS=$ADMIN_DIR/cacheDir
-    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN  --with-silentShellDebugging=yes --with-supportKsh=yes"
+    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN   --with-siteName=TACC --with-silentShellDebugging=yes --with-supportKsh=yes"
     ;;
 
   ls6 | maverick2 | stampede2 | frontera | longhorn )
