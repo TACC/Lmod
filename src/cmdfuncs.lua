@@ -138,6 +138,81 @@ function Avail(...)
 end
 
 ------------------------------------------------------------------------
+function Category(...)
+   dbg.start{"Category(", concatTbl({...},", "),")"}
+   local shell = _G.Shell
+
+   local cache = Cache:singleton{buildCache = true}
+   local moduleT, dbT = cache:build()
+
+   local categoryT = {}
+
+   local function add_module(cat, name)
+      if (cat == "") then return
+      elseif (categoryT[cat] == nil) then
+         dbg.print{"found new category: ", cat, "\n"}
+         categoryT[cat] = {}
+      end
+
+      if (not categoryT[cat][name]) then
+         dbg.print{"found new sn: ", name, " in category: ", cat, "\n"}
+         categoryT[cat][name] = 1
+      else
+         categoryT[cat][name] = categoryT[cat][name] + 1
+      end
+   end
+
+   for sn, v in pairs(dbT) do
+      for _, info in pairs(v) do
+         local category = info.Category or ""
+
+         for entry in category:split(",") do
+            entry = entry:trim()
+            add_module(entry, sn)
+         end
+      end
+   end
+
+   local masterTbl = masterTbl()
+   local twidth = TermWidth()
+   local cwidth = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or twidth
+   local banner = Banner:singleton()
+
+   local a = {}
+
+   local function get_sorted_keys(tbl)
+      local s = {}
+      for k, v in pairs(tbl) do s[#s+1] = k end
+      sort(s)
+      return s
+   end
+
+   local categoryA = get_sorted_keys(categoryT)
+
+   for _, cat in ipairs(categoryA) do
+      local b = {}
+      local keysA = get_sorted_keys(categoryT[cat])
+
+      for _, sn in ipairs(keysA) do
+         b[#b+1] = { sn, "(" .. tostring(categoryT[cat][sn]) .. ")  " }
+      end
+
+      dbg.print{"printing category block\n"}
+      local ct = ColumnTable:new{tbl = b, gap = 1, len = length, width = cwidth}
+      a[#a+1] = "\n"
+      a[#a+1] = banner:bannerStr(cat)
+      a[#a+1] = "\n"
+      a[#a+1] = ct:build_tbl()
+      a[#a+1] = "\n"
+   end
+
+   if (next(a) ~= nil) then
+      shell:echo(concatTbl(a, ""))
+   end
+   dbg.fini("Category")
+end
+
+------------------------------------------------------------------------
 -- Just convert the vararg into an actual array and call
 -- master.overview to do the real work.
 
