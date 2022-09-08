@@ -628,6 +628,26 @@ function Reset(msg)
    end
 end
 
+local function l_find_a_collection(collectionName)
+   local home  = os.getenv("HOME") or "" 
+   local pathA = { pathJoin(home, ".lmod.d"), pathJoin(home,".config/lmod") }
+
+   local result = nil
+   local timeStamp = 0
+   for i in 1,#pathA do
+      local path = pathJoin(pathA[i], collectionName)
+      if (isFile(path)) then
+         local attr = lfs.attributes(path)
+         if (attr and type(attr) == "table" and attr.modification > timeStamp) then
+            timeStamp = attr.modification
+            result    = path
+         end
+      end
+   end
+   return result
+end
+
+
 --------------------------------------------------------------------------
 -- Restore the state of the user's loaded modules original
 -- state. If a user has a "default" then use that collection.
@@ -650,8 +670,8 @@ function Restore(collection)
    end
 
    if (collection == nil) then
-      path = pathJoin(os.getenv("HOME"), ".lmod.d", "default" .. sname)
-      if (not isFile(path)) then
+      path = l_find_a_collection("default" .. sname)
+      if (not path) then
          collection = "system"
          myName = collection
       else
@@ -659,8 +679,8 @@ function Restore(collection)
       end
    elseif (collection ~= "system") then
       myName = collection
-      path   = pathJoin(os.getenv("HOME"), ".lmod.d", collection .. sname)
-      if (not isFile(path)) then
+      path   = l_find_a_collection(collection .. sname)
+      if (not path) then
          LmodError{msg="e_Unknown_Coll", collection = collection}
       end
    end
