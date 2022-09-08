@@ -101,29 +101,40 @@ end
 -- or end with "~" or start with "__" are ignored.
 -- @param a An array containing the results.
 -- @param path The Lmod.d directory path.
-local function findNamedCollections(a,path)
-   if (not isDir(path)) then return end
-   for file in lfs.dir(path) do
-      if (file:sub(1,1) ~= "." and file:sub(-1) ~= "~" and
-          file:sub(1,2) ~= "__") then
-         local f    = pathJoin(path,file)
-         local attr = lfs.attributes(f)
-         if (attr and attr.mode == "directory") then
-            findNamedCollections(a,f)
-         else
-            local idx    = file:find("%.")
-            local accept = (not idx) and (not system_name)
-            if (idx and system_name) then
-               accept    = file:sub(idx+1,-1) == system_name
-               f         = pathJoin(path, file:sub(1,idx-1))
-            end
-            if (accept) then
-               a[#a+1] = f
+local function l_findNamedCollections(a,pathA)
+   local t = {}
+   for i = 1,#pathA do
+      repeat 
+         local path = pathA[i]
+         if (not isDir(path)) then break end
+         for file in lfs.dir(path) do
+            if (file:sub(1,1) ~= "." and file:sub(-1) ~= "~" and
+                file:sub(1,2) ~= "__") then
+               local f    = pathJoin(path,file)
+               local attr = lfs.attributes(f)
+               if (attr and attr.mode == "directory") then
+                  l_findNamedCollections(a,{f})
+               else
+                  local idx    = file:find("%.")
+                  local accept = (not idx) and (not system_name)
+                  if (idx and system_name) then
+                     accept    = file:sub(idx+1,-1) == system_name
+                     f         = pathJoin(path, file:sub(1,idx-1))
+                  end
+                  if (accept) then
+                     t[file] = attr.modification
+                  end
+               end
             end
          end
-      end
+      until (true)
    end
-   table.sort(a)
+   if (next(t) ~= nil) then
+      for k in pairsByKeys(t) do
+         a[#a+1] = k
+      end
+      table.sort(a)
+   end
 end
 
 ------------------------------------------------------------------------
@@ -808,21 +819,18 @@ end
 -- Report to the user all the named collections he/she has.
 function SaveList(...)
    local mt        = FrameStk:singleton():mt()
-   local path      = pathJoin(os.getenv("HOME"), LMODdir)
    local masterTbl = masterTbl()
    local a         = {}
    local b         = {}
    local shell     = _G.Shell
    local cwidth    = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
+   local home      = os.getenv("HOME")
+   local pathA     = {pathJoin(home, ".lmod.d"), pathJoin(home, ".config/lmod")}
 
-   findNamedCollections(b,path)
+   l_findNamedCollections(b,pathA)
    if (masterTbl.terse) then
       for k = 1,#b do
          local name = b[k]
-         local i,j  = name:find(path,1,true)
-         if (i) then
-            name = name:sub(j+2)
-         end
          shell:echo(name.."\n")
       end
       return
@@ -831,10 +839,6 @@ function SaveList(...)
 
    for k = 1,#b do
       local name = b[k]
-      local i,j  = name:find(path,1,true)
-      if (i) then
-         name = name:sub(j+2)
-      end
       local cstr = string.format("%3d) ",k)
       a[#a+1] = cstr .. name
    end
