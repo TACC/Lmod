@@ -21,7 +21,7 @@ testdescript = {
      initStdEnvVars
      export MODULEPATH=$(testDir)/mf2
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .cache .config
 
      export RTM_PATH=/usr/local/mybin:/mybin:/usr/local/mybin:/mybin
 

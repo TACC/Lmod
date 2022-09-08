@@ -22,11 +22,11 @@ testdescript = {
      export MODULEPATH_ROOT=$(testDir)/mf
      export MODULEPATH=$MODULEPATH_ROOT/Core
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
-     mkdir -p .lmod.d/.cache
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .cache .config
+     mkdir -p .cache/lmod
 
      runLmod --version                                        # 1
-     buildSpiderT $MODULEPATH > .lmod.d/.cache spiderT.lua    # 2
+     buildSpiderT $MODULEPATH > .cache/lmod/spiderT.lua       # 2
      runLmod avail                                            # 3
 
 

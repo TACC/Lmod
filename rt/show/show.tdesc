@@ -20,7 +20,7 @@ testdescript = {
      MODULEPATH=$MODULEPATH_ROOT/Core #:$MODULEPATH_ROOT/Compiler/intel/10.1;
      export MODULEPATH
 
-     rm -fr _stderr.*  _stdout.* out.* err.* .lmod.d
+     rm -fr _stderr.*  _stdout.* out.* err.* .lmod.d .cache .config
 
      runLmod --version               # 1
      runLmod show gcc                # 2

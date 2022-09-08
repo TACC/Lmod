@@ -28,7 +28,7 @@ testdescript = {
 
      RTM_SETTARG_CMD=":";               export RTM_SETTARG_CMD
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d cacheDir .lmodrc.lua
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d cacheDir .lmodrc.lua .cache .config
 
      mkdir cacheDir
      buildSpiderT $MODULEPATH > cacheDir/spiderT.lua

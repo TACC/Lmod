@@ -26,7 +26,7 @@ testdescript = {
      LMOD_DEFAULT_MODULEPATH=$MODULEPATH
      export LMOD_DEFAULT_MODULEPATH
      export LMOD_ALLOW_TCL_MFILES=no;
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua .config .cache
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
 
      runLmod --version                                      # 1
@@ -34,7 +34,7 @@ testdescript = {
      runLmod spider                                         # 3
      runLmod load   PrgEnv                                  # 4
      runLmod unload PrgEnv                                  # 5
-     buildSpiderT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
+     buildSpiderT $LMOD_DEFAULT_MODULEPATH > $HOME/.cache/lmod/spiderT.lua
      runLmod load   PrgEnv                                  # 6
 
 

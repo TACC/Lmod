@@ -166,7 +166,7 @@ do?
    If this does find it then you might have an old personal spider cache.
    To clear it do::
 
-      $ rm -rf ~/.lmod.d/.cache
+      $ rm -rf ~/.cache/lmod
 
    If "module avail" doesn't find it now, then the system spider cache
    is out-of-date.  Please ask your system administrator to update the
@@ -312,7 +312,7 @@ What to do if new modules are missing when doing ``module avail``?
    If you see a difference between the above two commands, delete (if
    it exists) the user's spider cache::
 
-      $ rm -rf ~/.lmod.d/.cache ~/.lmod.d/__cache__
+      $ rm -rf ~/.cache/lmod ~/.lmod.d/__cache__
 
    and try again.  If that still leads to a difference then there is a
    out-of-date system spider cache.  Please see

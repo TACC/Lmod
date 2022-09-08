@@ -25,7 +25,7 @@ testdescript = {
 
      LMOD_PACKAGE_PATH=$(testDir);      export LMOD_PACKAGE_PATH
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .cache .config
 
      runLmod --version                      # 1
      runLmod use -a $(testDir)/mf/Core      # 2

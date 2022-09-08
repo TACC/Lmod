@@ -22,7 +22,7 @@ testdescript = {
      export MODULEPATH_ROOT=$(outputDir)/mf
      export MODULEPATH=$MODULEPATH_ROOT/Core
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d mf/Core
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d mf/Core  .cache .config
      mkdir -p mf/Core
      cp $(testDir)/cluster $(testDir)/TACC mf/Core
 

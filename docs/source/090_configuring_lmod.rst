@@ -238,7 +238,7 @@ the configuration option which will set the action.
 
 **LMOD_USE_DOT_FILES**:
   [yes/no, default: yes, --with-useDotFiles] If yes then use
-  ~/.lmod.d/.cache, if no then use ~/.lmod.d/__cache__
+  ~/.cache/lmod, if no then use ~/.lmod.d/__cache__
 
 Configuration only settings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~

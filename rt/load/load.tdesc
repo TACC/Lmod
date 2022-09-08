@@ -26,7 +26,7 @@ testdescript = {
      initStdEnvVars
      MODULEPATH_ROOT=$(testDir)/mf;  export MODULEPATH_ROOT
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua mf
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua mf  .cache .config
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
      mkdir -p mf/bad_symlink
      ln -s 1.0.lua mf/bad_symlink/2.0.lua

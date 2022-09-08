@@ -634,7 +634,7 @@ local function l_find_a_collection(collectionName)
 
    local result = nil
    local timeStamp = 0
-   for i in 1,#pathA do
+   for i = 1,#pathA do
       local path = pathJoin(pathA[i], collectionName)
       if (isFile(path)) then
          local attr = lfs.attributes(path)
@@ -736,7 +736,9 @@ function Save(...)
    local frameStk  = FrameStk:singleton()
    local mt        = frameStk:mt()
    local a         = select(1, ...) or "default"
-   local path      = pathJoin(os.getenv("HOME"), LMODdir)
+   local home      = os.getenv("HOME")
+   local pathA     = { pathJoin(home, ".lmod.d"),
+                       pathJoin(home, ".config/lmod")}
    dbg.start{"Save(",concatTbl({...},", "),")"}
 
    local msgTail = ""
@@ -768,26 +770,30 @@ function Save(...)
       return
    end
 
-   local attr = lfs.attributes(path)
-   if (not attr) then
-      mkdir_recursive(path)
-   end
-   path = pathJoin(path, a .. sname)
-   if (isFile(path)) then
-      os.rename(path, path .. "~")
-   end
    mt:setHashSum()
    local varT = frameStk:varT()
    mt:setMpathRefCountT(varT[ModulePath]:refCountT())
 
-   local f  = io.open(path,"w")
-   if (f) then
-      f:write("-- -*- lua -*-\n")
-      f:write("-- created: ",os.date()," --\n")
-      local s0 = "-- Lmod ".. Version.name() .. "\n"
-      local s1 = mt:serializeTbl("pretty")
-      f:write(s0,s1)
-      f:close()
+   local date = os.date()
+   for i = 1,#pathA do
+      local path = pathA[i]
+      local attr = lfs.attributes(path)
+      if (not attr) then
+         mkdir_recursive(path)
+      end
+      local fn = pathJoin(path, a .. sname)
+      if (isFile(fn)) then
+         os.rename(fn, fn .. "~")
+      end
+      local f  = io.open(fn,"w")
+      if (f) then
+         f:write("-- -*- lua -*-\n")
+         f:write("-- created: ",date," --\n")
+         local s0 = "-- Lmod ".. Version.name() .. "\n"
+         local s1 = mt:serializeTbl("pretty")
+         f:write(s0,s1)
+         f:close()
+      end
    end
    mt:hideMpathRefCountT()
    mt:hideHash()

@@ -21,7 +21,7 @@ testdescript = {
      MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
      MODULEPATH=$MODULEPATH_ROOT/Core;  export MODULEPATH
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d cacheDir .lmodrc.lua fn
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d cacheDir .lmodrc.lua fn .cache .config
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
 
      cat > fn << EOF
@@ -38,11 +38,11 @@ EOF
      cp cacheDir/spiderT.lua.old  cacheDir/spiderT.lua
      runLmod spider           # 3
 
-     mkdir -p .lmod.d/.cache
-     mv cacheDir/spiderT.lua .lmod.d/.cache
+     mkdir -p .cache/lmod
+     mv cacheDir/spiderT.lua .cache/lmod
      runLmod spider           # 4
 
-     cat > .lmod.d/.cache/spiderT.lua << EOF
+     cat > .cache/lmod/spiderT.lua << EOF
 spiderT = {
 #
 }

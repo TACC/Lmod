@@ -22,12 +22,12 @@ testdescript = {
      MODULEPATH=$(testDir)/mf; export MODULEPATH
 
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .cache .config
 
      runLmod --version                     # 1
      runLmod avail                         # 2
-     mkdir -p $HOME/.lmod.d/.cache
-     buildModuleT $MODULEPATH > $HOME/.lmod.d/.cache/moduleT.lua
+     mkdir -p $HOME/.cache/lmod
+     buildModuleT $MODULEPATH > $HOME/.cache/lmod/moduleT.lua
      runLmod avail                         # 3
 
      HOME=$ORIG_HOME

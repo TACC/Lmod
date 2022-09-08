@@ -23,7 +23,7 @@ testdescript = {
      export MODULEPATH=$MODULEPATH_ROOT/Core
      export BCDMF=$(testDir)/bcd/mf
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d bcd cacheDir
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d bcd cacheDir  .cache .config
 
      runLmod --version                                # 1
      mkdir -p bcd/cacheDir cacheDir

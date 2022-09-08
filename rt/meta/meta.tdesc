@@ -21,7 +21,7 @@ testdescript = {
      initStdEnvVars
      export MODULEPATH=$(testDir)/mf0/Core:$(testDir)/mf1/Core:$(testDir)/mf2/Core
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .cache .config
 
      runLmod --version                             # 1
      runLmod avail                                 # 2

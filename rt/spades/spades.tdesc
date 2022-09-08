@@ -21,13 +21,13 @@ testdescript = {
      initStdEnvVars
      export MODULEPATH=$(testDir)/mf
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .cache .config
 
      runLmod --version                         # 1
 
      mkdir -p $HOME/.lmod.d/cache
-     buildSpiderT $MODULEPATH > $HOME/.lmod.d/cache/spiderT.lua
-     buildDbT $MODULEPATH > $HOME/.lmod.d/cache/dbT.lua
+     buildSpiderT $MODULEPATH > $HOME/.cache/lmod/spiderT.lua
+     buildDbT $MODULEPATH > $HOME/.cache/lmod/dbT.lua
 
      runLmod avail                             # 2
      runLmod spider spades                     # 3

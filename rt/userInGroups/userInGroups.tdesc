@@ -21,7 +21,7 @@ testdescript = {
      initStdEnvVars
      export MODULEPATH=$(testDir)/mf
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .cache .config
 
      PATH=$(testDir)/bin:$PATH
 

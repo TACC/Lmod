@@ -25,11 +25,11 @@ testdescript = {
      LMOD_PACKAGE_PATH=$(testDir);      export LMOD_PACKAGE_PATH
      SYSTEM_DIR='sl6';                  export SYSTEM_DIR
 
-     rm -rf _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua
+     rm -rf _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua .cache .config
 
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
-     mkdir -p $HOME/.lmod.d/.cache
-     buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
+     mkdir -p $HOME/.cache/lmod
+     buildSpiderT $MODULEPATH > $HOME/.cache/lmod/spiderT.lua
      runLmod --version            # 1
      runLmod spider               # 2
      runLmod spider grvy          # 3

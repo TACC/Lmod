@@ -22,12 +22,12 @@ testdescript = {
      MODULEPATH=$(testDir)/mf;       export MODULEPATH
 
      rm -f  _stderr.* _stdout.* err.* out.*
-     rm -fr .lmod.d .lmodrc.lua
+     rm -fr .lmod.d .lmodrc.lua .cache .config
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
 
-     mkdir -p $HOME/.lmod.d/.cache
+     mkdir -p $HOME/.cache/lmod
 
-     buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
+     buildSpiderT $MODULEPATH > $HOME/.cache/lmod/spiderT.lua
      runLmod --version                  # 1
      runLmod load numpy                 # 2
      runLmod list                       # 3
