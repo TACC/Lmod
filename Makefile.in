@@ -40,6 +40,7 @@ LMOD_AVAIL_EXTENSIONS     := @AVAIL_EXTENSIONS@
 LMOD_HIDDEN_ITALIC        := @HIDDEN_ITALIC@
 LMOD_OVERRIDE_LANG        := @LMOD_OVERRIDE_LANG@
 LMOD_ALLOW_ROOT_USE       := @LMOD_ALLOW_ROOT_USE@
+LMOD_USE_DOT_CONFIG_ONLY  := @USE_DOT_CONFIG_DIR_ONLY@
 SITE_MSG_FILE             := @SITE_MSG_FILE@
 SITE_NAME                 := @SITE_NAME@
 SUPPORT_KSH               := @SUPPORT_KSH@
@@ -313,6 +314,7 @@ __installMe:
 	        -e 's|@modulepath_root@|$(MODULEPATH_ROOT)|g'                     \
 	        -e 's|@lmod_root@|$(LMOD_ROOT)|g'                                 \
 	        -e 's|@lmod_allow_root_use@|$(LMOD_ALLOW_ROOT_USE)|g'             \
+	        -e 's|@lmod_use_dot_config_only@|$(LMOD_USE_DOT_CONFIG_ONLY)|g'   \
 	        -e 's|@PKGV@|$(PKGV)|g'                                           \
 	        -e 's|@PKG@|$(PKG)|g'         < $$i > $(DIRLOC)/$$fn;             \
 	        chmod $(MODE_R)                       $(DIRLOC)/$$fn;             \

@@ -679,6 +679,7 @@ PATH_TO_LUA
 AVAIL_EXTENSIONS
 FAST_TCL_INTERP
 SILENCE_SHELL_DEBUGGING
+USE_DOT_CONFIG_DIR_ONLY
 USE_BUILT_IN_PKGS
 SITE_CONTROLLED_PREFIX
 MODULEPATH_INIT
@@ -700,7 +701,6 @@ PREPEND_BLOCK
 UPDATE_SYSTEM_FN
 SPIDER_CACHE_DESCRIPT_FN
 SPIDER_CACHE_DIRS
-USE_DOT_FILES
 SHORT_TIME
 ANCIENT
 MODULEPATH_ROOT
@@ -784,7 +784,6 @@ with_redirect
 with_module_root_path
 with_ancient
 with_shortTime
-with_useDotFiles
 with_spiderCacheDir
 with_spiderCacheDescript
 with_updateSystemFn
@@ -806,6 +805,7 @@ with_supportKsh
 with_ModulePathInit
 with_siteControlPrefix
 with_useBuiltinPkgs
+with_useDotConfigDirOnly
 with_silentShellDebugging
 with_fastTCLInterp
 with_availExtensions
@@ -1466,9 +1466,6 @@ Optional Packages:
   --with-shortTime=seconds
                           if spider build time < shortTime then no spider
                           cache file [[2]]
-  --with-useDotFiles=yes/no
-                          If yes use ~/.lmod.d/.cache, if no use
-                          ~/.lmod.d/__cache__
   --with-spiderCacheDir=dir1:dir2
                           use these directories to hold a spider cache file
                           [[]]
@@ -1507,6 +1504,9 @@ Optional Packages:
                           A site controlled prefix. [[no]]
   --with-useBuiltinPkgs=ans
                           Use Built-in lua package instead of system ones.
+                          [[no]]
+  --with-useDotConfigDirOnly=ans
+                          Write collections to only ~/.config/lmod directory.
                           [[no]]
   --with-silentShellDebugging=ans
                           When using set -xv in bash silence the output from
@@ -3791,27 +3791,6 @@ fi
 
 
 
-# Check whether --with-useDotFiles was given.
-if test ${with_useDotFiles+y}
-then :
-  withval=$with_useDotFiles; USE_DOT_FILES="$withval"
-    USE_DOT_FILES=`echo $USE_DOT_FILES | tr '[:upper:]' '[:lower:]'`
-    VALID_YN $USE_DOT_FILES "--with-useDotFiles=yes/no: ans must be yes or no"
-    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: USE_DOT_FILES=$with_useDotFiles" >&5
-printf "%s\n" "USE_DOT_FILES=$with_useDotFiles" >&6; }
-    printf "%s\n" "#define USE_DOT_FILES \"$with_useDotFiles\"" >>confdefs.h
-
-else $as_nop
-  withval="yes"
-    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: USE_DOT_FILES=$withval" >&5
-printf "%s\n" "USE_DOT_FILES=$withval" >&6; }
-    USE_DOT_FILES="$withval"
-    printf "%s\n" "#define USE_DOT_FILES \"$withval\"" >>confdefs.h
-
-fi
-
-
-
 # Check whether --with-spiderCacheDir was given.
 if test ${with_spiderCacheDir+y}
 then :
@@ -4232,6 +4211,27 @@ else $as_nop
 printf "%s\n" "USE_BUILT_IN_PKGS=$withval" >&6; }
     USE_BUILT_IN_PKGS="$withval"
     printf "%s\n" "#define USE_BUILT_IN_PKGS \"$withval\"" >>confdefs.h
+
+fi
+
+
+
+# Check whether --with-useDotConfigDirOnly was given.
+if test ${with_useDotConfigDirOnly+y}
+then :
+  withval=$with_useDotConfigDirOnly; USE_DOT_CONFIG_DIR_ONLY="$withval"
+    USE_DOT_CONFIG_DIR_ONLY=`echo $USE_DOT_CONFIG_DIR_ONLY | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $USE_DOT_CONFIG_DIR_ONLY "--with-useDotConfigDirOnly=ans: ans must be yes or no"
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: USE_DOT_CONFIG_DIR_ONLY=$with_useDotConfigDirOnly" >&5
+printf "%s\n" "USE_DOT_CONFIG_DIR_ONLY=$with_useDotConfigDirOnly" >&6; }
+    printf "%s\n" "#define USE_DOT_CONFIG_DIR_ONLY \"$with_useDotConfigDirOnly\"" >>confdefs.h
+
+else $as_nop
+  withval="no"
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: USE_DOT_CONFIG_DIR_ONLY=$withval" >&5
+printf "%s\n" "USE_DOT_CONFIG_DIR_ONLY=$withval" >&6; }
+    USE_DOT_CONFIG_DIR_ONLY="$withval"
+    printf "%s\n" "#define USE_DOT_CONFIG_DIR_ONLY \"$withval\"" >>confdefs.h
 
 fi
 
@@ -6793,6 +6793,7 @@ echo "Support KSH................................................." : $SUPPORT_K
 echo "MODE........................................................" : $MODE
 echo "Use the fast TCL interpreter................................" : $FAST_TCL_INTERP
 echo "LMOD_CONFIG_DIR............................................." : $LMOD_CONFIG_DIR
+echo "Use ~/.config/lmod directory only..........................." : $USE_DOT_CONFIG_DIR_ONLY
 echo "Display Extensions w/ module avail.........................." : $AVAIL_EXTENSIONS
 echo "Dynamic Spider Cache support................................" : $DYNAMIC_SPIDER_CACHE
 echo "Allow for extended default.(ml intel/17 #-> intel/17.0.4)..." : $EXTENDED_DEFAULT  #"

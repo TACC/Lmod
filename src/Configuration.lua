@@ -179,7 +179,7 @@ local function l_new(self)
    local threshold         = cosmic:value("LMOD_THRESHOLD")
    local tmod_rule         = cosmic:value("LMOD_TMOD_PATH_RULE")
    local tracing           = cosmic:value("LMOD_TRACING")
-   local using_dotfiles    = cosmic:value("LMOD_USE_DOT_FILES")
+   local useDotConfigOnly  = cosmic:value("LMOD_USE_DOT_CONFIG_ONLY")
 
    if (dfltModules == "") then
       dfltModules = "<empty>"
@@ -214,6 +214,7 @@ local function l_new(self)
    tbl.configDir    = { k = "Configuration dir"                 , v = lmod_configDir,   n = "LMOD_CONFIG_DIR"                 } 
    tbl.disable1N    = { k = "Disable Same Name AutoSwap"        , v = disable1N,        n = "LMOD_DISABLE_SAME_NAME_AUTOSWAP" }
    tbl.disp_av_ext  = { k = "Display Extension w/ avail"        , v = avail_extensions, n = "LMOD_AVAIL_EXTENSIONS"           }
+   tbl.dotConfOnly  = { k = "Use ~/.config dir only"            , v = useDotConfigOnly, n = "LMOD_USE_DOT_CONFIG_ONLY"        }
    tbl.dupPaths     = { k = "Allow duplicate paths"             , v = duplicate_paths,  n = "LMOD_DUPLICATE_PATHS"            }
    tbl.dynamicC     = { k = "Dynamic Spider Cache"              , v = dynamic_cache,    n = "LMOD_DYNAMIC_SPIDER_CACHE"       }
    tbl.extendDflt   = { k = "Allow extended default"            , v = extended_default, n = "LMOD_EXTENDED_DEFAULT"           }

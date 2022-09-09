@@ -90,18 +90,18 @@ cosmic:init{name    = "SITE_CONTROLLED_PREFIX",
             default = "no"}
 
 ------------------------------------------------------------------------
+-- LMOD_USE_DOT_CONFIG_ONLY: only write to ~/.config/lmod for collections
+------------------------------------------------------------------------
+cosmic:init{name    = "LMOD_USE_DOT_CONFIG_ONLY",
+            sedV    = "@lmod_use_dot_config_only@",
+            default = "no"}
+
+------------------------------------------------------------------------
 -- ModulePath: The name of the environment variable which contains the
 --             directories that contain modulefiles.
 ------------------------------------------------------------------------
 
 ModulePath  = "MODULEPATH"
-
-------------------------------------------------------------------------
--- LMODdir:     The directory where the cache file, default files
---              and module table state files go.
-------------------------------------------------------------------------
-
-LMODdir     = ".lmod.d"
 
 ------------------------------------------------------------------------
 -- LMOD_CACHE_VERSION:    The current version for the Cache file
@@ -620,17 +620,6 @@ cosmic:init{name     = "LMOD_THRESHOLD",
 --                 ancient to this time.
 ------------------------------------------------------------------------
 shortLifeCache = ancient/12
-
-
-------------------------------------------------------------------------
--- LMOD_USE_DOT_FILES: Use ~/.lmod.d/.cache or ~/.lmod.d/__cache__
-------------------------------------------------------------------------
-
-cosmic:init{name = "LMOD_USE_DOT_FILES",
-            sedV = "@use_dot_files@",
-            yn   = "yes"}
-
-local use_dot_files = cosmic:value("LMOD_USE_DOT_FILES")
 
 ------------------------------------------------------------------------
 -- LMOD_ALLOW_ROOT_USE

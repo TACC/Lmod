@@ -270,20 +270,6 @@ AC_ARG_WITH(shortTime,
     SHORT_TIME="$withval"
     AC_DEFINE_UNQUOTED(SHORT_TIME, "$withval"))dnl
 
-AC_SUBST(USE_DOT_FILES)
-AC_ARG_WITH(useDotFiles,
-    AS_HELP_STRING([--with-useDotFiles=yes/no],[If yes use ~/.lmod.d/.cache, if no use ~/.lmod.d/__cache__]),
-    USE_DOT_FILES="$withval"
-    USE_DOT_FILES=`echo $USE_DOT_FILES | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
-    VALID_YN $USE_DOT_FILES "--with-useDotFiles=yes/no: ans must be yes or no"
-    AC_MSG_RESULT([USE_DOT_FILES=$with_useDotFiles])
-    AC_DEFINE_UNQUOTED(USE_DOT_FILES, "$with_useDotFiles")dnl
-    ,
-    withval="yes"
-    AC_MSG_RESULT([USE_DOT_FILES=$withval])
-    USE_DOT_FILES="$withval"
-    AC_DEFINE_UNQUOTED(USE_DOT_FILES, "$withval"))dnl
-
 AC_SUBST(SPIDER_CACHE_DIRS)
 AC_ARG_WITH(spiderCacheDir,
     AS_HELP_STRING([--with-spiderCacheDir=dir1:dir2],[use these directories to hold a spider cache file [[]]]),
@@ -561,6 +547,20 @@ AC_ARG_WITH(useBuiltinPkgs,
     AC_MSG_RESULT([USE_BUILT_IN_PKGS=$withval])
     USE_BUILT_IN_PKGS="$withval"
     AC_DEFINE_UNQUOTED(USE_BUILT_IN_PKGS, "$withval"))dnl
+
+AC_SUBST(USE_DOT_CONFIG_DIR_ONLY)
+AC_ARG_WITH(useDotConfigDirOnly,
+    AS_HELP_STRING([--with-useDotConfigDirOnly=ans],[Write collections to only ~/.config/lmod directory. [[no]]]),
+    USE_DOT_CONFIG_DIR_ONLY="$withval"
+    USE_DOT_CONFIG_DIR_ONLY=`echo $USE_DOT_CONFIG_DIR_ONLY | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
+    VALID_YN $USE_DOT_CONFIG_DIR_ONLY "--with-useDotConfigDirOnly=ans: ans must be yes or no"
+    AC_MSG_RESULT([USE_DOT_CONFIG_DIR_ONLY=$with_useDotConfigDirOnly])
+    AC_DEFINE_UNQUOTED(USE_DOT_CONFIG_DIR_ONLY, "$with_useDotConfigDirOnly")dnl
+    ,
+    withval="no"
+    AC_MSG_RESULT([USE_DOT_CONFIG_DIR_ONLY=$withval])
+    USE_DOT_CONFIG_DIR_ONLY="$withval"
+    AC_DEFINE_UNQUOTED(USE_DOT_CONFIG_DIR_ONLY, "$withval"))dnl
 
 AC_SUBST(SILENCE_SHELL_DEBUGGING)
 AC_ARG_WITH(silentShellDebugging,

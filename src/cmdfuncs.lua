@@ -96,7 +96,7 @@ local function l_Access(mode, ...)
 end
 
 --------------------------------------------------------------------------
--- This helper function walks the ~/.lmod.d directory and reports back
+-- This helper function walks the Collection directories and reports back
 -- the list of named collections. Note that names that start with "."
 -- or end with "~" or start with "__" are ignored.
 -- @param a An array containing the results.
@@ -158,39 +158,6 @@ function Overview(...)
    if (next(a) ~= nil) then
       shell:echo(concatTbl(a,""))
    end
-end
-
---------------------------------------------------------------------------
--- Report the modules in the requested collection
-function CollectionLst(collection)
-   collection  = collection or "default"
-   dbg.start{"CollectionLst(",collection,")"}
-   local masterTbl = masterTbl()
-   local sname     = (not system_name) and "" or "." .. system_name
-   local path      = pathJoin(os.getenv("HOME"), ".lmod.d", collection .. sname)
-   local mt        = FrameStk:singleton():mt()
-   local a         = mt:reportContents{fn=path, name=collection}
-   local shell     = _G.Shell
-   local cwidth    = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
-   if (masterTbl.terse) then
-      for i = 1,#a do
-         shell:echo(a[i].."\n")
-      end
-   else
-      if (#a < 1) then
-         LmodWarning{msg="w_No_Coll",collection=collection}
-         dbg.fini("CollectionLst")
-         return
-      end
-      shell:echo(i18n("coll_contains",{collection=collection}))
-      local b = {}
-      for i = 1,#a do
-         b[#b+1] = { "   " .. tostring(i) .. ")", a[i] }
-      end
-      local ct = ColumnTable:new{tbl=b, gap = 0, width = cwidth}
-      shell:echo(ct:build_tbl(),"\n")
-   end
-   dbg.fini("CollectionLst")
 end
 
 
@@ -622,10 +589,28 @@ function Reset(msg)
    end
 end
 
-local function l_find_a_collection(collectionName)
-   local home  = os.getenv("HOME") or "" 
-   local pathA = { pathJoin(home,".config/lmod"), pathJoin(home, ".lmod.d") }
+local function l_collectionDir(mode)
+   local a        = {}
+   local home     = os.getenv("HOME") or ""
+   local dotConfD = pathJoin(home,".config/lmod")
+   local dotLmodD = pathJoin(home,".lmod.d")
+   if (mode == "write") then
+      local configDirOnly = cosmic:value("LMOD_USE_DOT_CONFIG_ONLY")
+      if (configDirOnly == "no") then
+         a[#a+1] = dotLmodD
+      end
+      a[#a+1] = dotConfD
+   else
+      a[#a+1] = dotConfD
+      a[#a+1] = dotLmodD
+   end
+   return a 
+end
+      
+            
 
+local function l_find_a_collection(collectionName)
+   local pathA = l_collectionDir("read")
    local result = nil
    local timeStamp = 0
    for i = 1,#pathA do
@@ -640,6 +625,41 @@ local function l_find_a_collection(collectionName)
    end
    return result
 end
+
+--------------------------------------------------------------------------
+-- Report the modules in the requested collection
+function CollectionLst(collection)
+   collection  = collection or "default"
+   dbg.start{"CollectionLst(",collection,")"}
+   local masterTbl = masterTbl()
+   local sname     = (not system_name) and "" or "." .. system_name
+   local mt        = FrameStk:singleton():mt()
+   local shell     = _G.Shell
+   local cwidth    = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
+   local path      = l_find_a_collection(collection)
+
+   local a         = mt:reportContents{fn=path, name=collection}
+   if (masterTbl.terse) then
+      for i = 1,#a do
+         shell:echo(a[i].."\n")
+      end
+   else
+      if (#a < 1) then
+         LmodWarning{msg="w_No_Coll",collection=collection}
+         dbg.fini("CollectionLst")
+         return
+      end
+      shell:echo(i18n("coll_contains",{collection=collection}))
+      local b = {}
+      for i = 1,#a do
+         b[#b+1] = { "   " .. tostring(i) .. ")", a[i] }
+      end
+      local ct = ColumnTable:new{tbl=b, gap = 0, width = cwidth}
+      shell:echo(ct:build_tbl(),"\n")
+   end
+   dbg.fini("CollectionLst")
+end
+
 
 --------------------------------------------------------------------------
 -- Get the command line argument and use MT:getMTfromFile()
@@ -752,8 +772,7 @@ function Save(...)
    local mt        = frameStk:mt()
    local a         = select(1, ...) or "default"
    local home      = os.getenv("HOME")
-   local pathA     = { pathJoin(home, ".lmod.d"),
-                       pathJoin(home, ".config/lmod")}
+   local pathA     = l_collectionDir("write")
    dbg.start{"Save(",concatTbl({...},", "),")"}
 
    local msgTail = ""
@@ -829,7 +848,7 @@ function SaveList(...)
    local shell     = _G.Shell
    local cwidth    = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
    local home      = os.getenv("HOME")
-   local pathA     = {pathJoin(home, ".lmod.d"), pathJoin(home, ".config/lmod")}
+   local pathA     = l_collectionDir("read")
 
    l_findNamedCollections(b,pathA)
    if (masterTbl.terse) then
@@ -1007,7 +1026,7 @@ end
 -- Disable a collection
 function Disable(...)
    local shell = _G.Shell
-   local path  = pathJoin(os.getenv("HOME"), LMODdir)
+   local pathA = l_collectionDir("read")
    local argA  = pack(...)
    local sname = (not system_name) and "" or "." .. system_name
 
@@ -1018,10 +1037,13 @@ function Disable(...)
 
    for i = 1,argA.n do
       local name  = argA[i]
-      local fn    = pathJoin(path,name .. sname)
-      local fnNew = fn .. "~"
-      os.rename(fn, fnNew)
       shell:echo(i18n("m_Collection_disable",{name=name}))
+      for j = 1,#pathA do
+         local path  = pathA[j]
+         local fn    = pathJoin(path,name .. sname)
+         local fnNew = fn .. "~"
+         os.rename(fn, fnNew)
+      end
    end
 end
 
