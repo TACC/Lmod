@@ -195,23 +195,6 @@ end
 
 
 --------------------------------------------------------------------------
--- Get the command line argument and use MT:getMTfromFile()
--- to read the module table from the file and use that
--- collections of module to load.  This routine is deprecated
--- and will be removed.  Use restore instead.
--- @param collection The collection name (default="default")
-function GetDefault(collection)
-   collection  = collection or "default"
-   dbg.start{"GetDefault(",collection,")"}
-
-   local sname = (not system_name) and "" or "." .. system_name
-   local path  = pathJoin(os.getenv("HOME"), ".lmod.d", collection .. sname)
-   local mt    = FrameStk:singleton():mt()
-   mt:getMTfromFile{fn=path, name=collection}
-   dbg.fini("GetDefault")
-end
-
---------------------------------------------------------------------------
 -- Define the prtHdr function and use the helper function Access()
 -- to report the Help message to the user.
 function Help(...)
@@ -641,7 +624,7 @@ end
 
 local function l_find_a_collection(collectionName)
    local home  = os.getenv("HOME") or "" 
-   local pathA = { pathJoin(home, ".lmod.d"), pathJoin(home,".config/lmod") }
+   local pathA = { pathJoin(home,".config/lmod"), pathJoin(home, ".lmod.d") }
 
    local result = nil
    local timeStamp = 0
@@ -656,6 +639,27 @@ local function l_find_a_collection(collectionName)
       end
    end
    return result
+end
+
+--------------------------------------------------------------------------
+-- Get the command line argument and use MT:getMTfromFile()
+-- to read the module table from the file and use that
+-- collections of module to load.  This routine is deprecated
+-- and will be removed.  Use restore instead.
+-- @param collection The collection name (default="default")
+function GetDefault(collection)
+   collection  = collection or "default"
+   dbg.start{"GetDefault(",collection,")"}
+
+   local sname = (not system_name) and "" or "." .. system_name
+   local path  = l_find_a_collection(collection .. sname)
+   if (not path) then
+      LmodError{msg="e_Unknown_Coll", collection = collection}
+   end
+
+   local mt    = FrameStk:singleton():mt()
+   mt:getMTfromFile{fn=path, name=collection}
+   dbg.fini("GetDefault")
 end
 
 
