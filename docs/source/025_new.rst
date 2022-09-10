@@ -1,6 +1,14 @@
 New Features in Lmod
 ====================
 
+**User cache files are now written to ~/.cache/lmod**:
+   (Lmod 8.7.12+) The old user cache directory was ~/.lmod.d/.cache
+   and it has now changed to ~/.cache/lmod/*.  Lmod is transitioning
+   away from using the ~/.lmod.d directory. Also the --with-dot
+   
+
+
+
 **Controlling installed permission**:
     (Lmod 8.7.11+): Lmod now uses your umask to set permissions unless
     your user id (id -u) is less than UID_MIN (from /etc/login.defs)
