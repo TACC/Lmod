@@ -20,6 +20,7 @@ Colorize Lmod (LMOD_COLORIZE)                                 yes
 Configuration dir (LMOD_CONFIG_DIR)                           ProjectDIR/rt/configDir/lmod_cfg_dir
 Disable Same Name AutoSwap (LMOD_DISABLE_SAME_NAME_AUTOSWAP)  no
 Display Extension w/ avail (LMOD_AVAIL_EXTENSIONS)            yes
+Use ~/.config dir only (LMOD_USE_DOT_CONFIG_ONLY)             no
 Allow duplicate paths (LMOD_DUPLICATE_PATHS)                  no
 Dynamic Spider Cache (LMOD_DYNAMIC_SPIDER_CACHE)              yes
 Require Exact Match/no defaults (LMOD_EXACT_MATCH)            no
