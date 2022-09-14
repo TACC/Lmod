@@ -462,6 +462,9 @@ proc setenv { var val args } {
 	set-env $var $val
 	set g_varsT($var) $val
     }
+    if {$mode == "display"} {
+	set-env $var $val
+    }
     cmdargs "setenv" $var $val
 }
 

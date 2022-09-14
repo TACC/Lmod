@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.9  2022-07-25 12:46 -05:00
+Modules based on Lua: Version 8.7.12  2022-08-18 15:45 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -73,7 +73,7 @@ set_shell_function("save_args"," \
     echo \" \"\
 ","")
 complete("bash","xyz123","-F _xyz123")
-setenv("MY_NAME","unknown")
+setenv("MY_NAME","tstScript.sh")
  source_sh("bash","ProjectDIR/rt/sh_to_modulefile/second.sh arg1")
 setenv("SECOND","FOO_BAR")
 ===========================

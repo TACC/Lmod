@@ -4,6 +4,9 @@
 --
 -- @classmod MC_Show
 
+_G._DEBUG             = false               -- Required by the new lua posix
+local posix           = require("posix")
+
 require("strict")
 
 --------------------------------------------------------------------------
@@ -45,6 +48,7 @@ require("strict")
 require("utils")
 local pack          = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
 local MasterControl = require("MasterControl")
+local setenv_posix  = posix.setenv
 MC_Show             = inheritsFrom(MasterControl)
 MC_Show.my_name     = "MC_Show"
 MC_Show.my_sType    = "load"
@@ -182,6 +186,7 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.pushenv(self, name,value)
+   setenv_posix(name, value, true)
    l_ShowCmd("pushenv", name, value)
 end
 
@@ -207,6 +212,7 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.setenv(self, name,value)
+   setenv_posix(name, value, true)
    l_ShowCmd("setenv", name, value)
 end
 
@@ -216,6 +222,7 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.unsetenv(self, name,value)
+   setenv_posix(name, nil, true)
    l_ShowCmd("unsetenv", name, value)
 end
 

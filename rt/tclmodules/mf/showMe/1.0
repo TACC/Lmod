@@ -1,0 +1,6 @@
+#%Module1.0
+setenv TESTVAR "/tmp"
+prepend-path TESTPATH $env(TESTVAR)
+pushenv T2 "/tmp/t2"
+prepend-path TESTPATH $env(T2)
+

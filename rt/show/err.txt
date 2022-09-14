@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
+Modules based on Lua: Version 8.7.12  2022-08-18 15:45 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -28,8 +28,8 @@ ProjectDIR/rt/show/mf/Core
    alex/1.0                 gotoblas/1.20        multi/multi
    boost/1.46.0             gotoblas/1.26 (D)    noweb/2.10c
    boost/1.47.1             gotoblas/1.30        parmetis/3.1 (m)
-   boost/1.49.0    (o,D)    intel/intel          unix/unix
-   gcc/4.2.3                junk/a/c/1.0
+   boost/1.49.0    (o,D)    intel/intel          showMe/2.0
+   gcc/4.2.3                junk/a/c/1.0         unix/unix
    git/1.6.3.1              junk/b/c/2.0
   Where:
    D:  Default Module
@@ -106,3 +106,10 @@ step 14
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --location show a
 ===========================
 ProjectDIR/rt/show/mf/Core2/a/1.0.lua
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing show showMe
+===========================
+   ProjectDIR/rt/show/mf/Core/showMe/2.0.lua:
+setenv("TVAR","/tmp")
+prepend_path("TESTPATH","/tmp")
