@@ -46,8 +46,8 @@ Lmod 8.7+
             * Set FPATH in bash.in so that it works correctly with both Zsh and Ksh.
             * Issue #594: change cp -p to cp and mv to mv -f in update_lmod_system_spider_cache.in.
             * Now use UID_MIN from /etc/logins.def otherwise default to UID_MIN to 500 in proj_mgmt/convert_mode.sh
-W.I.P:
    (8.7.13) * Transitional support for using ~/.config/lmod for collections. Currently collectionw are
               are written to both ~/.lmod.d/ and ~/.config/lmod.  Site can switch to writting only to
               ~/.config/lmod by configuring with --with-useDotConfigOnly=yes. Lmod will continue read
                from both directories to find a collection.
+            * Issue #601: Now save to the env. when doing "setenv" from a show.
