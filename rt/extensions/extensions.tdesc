@@ -22,15 +22,15 @@ testdescript = {
      export MODULEPATH_ROOT=$(testDir)/mf
      export MODULEPATH=$MODULEPATH_ROOT/Core
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .modulerc.lua
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .modulerc.lua .cache .config
 
      cp $(testDir)/dot.modulerc.lua .modulerc.lua
 
      runLmod --version                         # 1
 
-     mkdir -p .lmod.d/.cache
-     buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
-     buildDbT     $MODULEPATH > $HOME/.lmod.d/.cache/dbT.lua
+     mkdir -p .cache/lmod
+     buildSpiderT $MODULEPATH > $HOME/.cache/lmod/spiderT.lua
+     buildDbT     $MODULEPATH > $HOME/.cache/lmod/dbT.lua
 
      runLmod avail                             # 2
      runLmod load gcc python                   # 3

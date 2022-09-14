@@ -1,6 +1,22 @@
 New Features in Lmod
 ====================
 
+**Collection are written to both ~/.config/lmod and ~/.lmod.d**
+   (Lmod 8.7.13+) Lmod is transitioning away from using the ~/.lmod.d
+   directory. During transition, collection files are written to both
+   directories.  Sites can use the --with-useDotConfigDirOnly=yes or
+   set the env. var. **LMOD_USE_DOT_CONFIG_ONLY** to "yes" to complete
+   the transition.  Lmod 9+ will force the default to be yes. This
+   means that Lmod will only write to ~/.config/lmod but always read
+   from both directories.
+
+**User cache files are now written to ~/.cache/lmod**:
+   (Lmod 8.7.12+) The old user cache directory was ~/.lmod.d/.cache
+   and it has now changed to ~/.cache/lmod/*.  Lmod is transitioning
+   away from using the ~/.lmod.d directory. Also
+   the --with-useDotFiles configuration option has been remove as it
+   is nolonger needed.
+
 **Controlling installed permission**:
     (Lmod 8.7.11+): Lmod now uses your umask to set permissions unless
     your user id (id -u) is less than UID_MIN (from /etc/login.defs)

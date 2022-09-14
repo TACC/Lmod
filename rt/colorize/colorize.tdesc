@@ -22,7 +22,7 @@ testdescript = {
      export TERM=xterm
 
      rm -f  _stderr.* _stdout.* err.* out.*
-     rm -fr .lmod.d .lmodrc.lua
+     rm -fr .lmod.d .lmodrc.lua .config .cache
 
      cp $(testDir)/.lmodrc.lua .lmodrc.lua
 

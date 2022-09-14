@@ -37,7 +37,7 @@ testdescript = {
      MODULEPATH_ROOT=$(testDir)/mf;       export MODULEPATH_ROOT
      MODULEPATH="$MODULEPATH_ROOT/Core";  export MODULEPATH
 
-     rm -rf init
+     rm -rf init .cache .config
      mkdir init
      sed -e 's|@PKG@/libexec/lmod|lua;$(projectDir)/src/lmod.in.lua|g' \
               < $(projectDir)/init/cmake > init/cmake

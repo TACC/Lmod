@@ -22,10 +22,8 @@ testdescript = {
      MODULEPATH=$(testDir)/mf;            export MODULEPATH
 
      rm -f  _stderr.* _stdout.* err.* out.*
-     rm -fr .lmod.d .lmodrc.lua config.json
+     rm -fr .lmod.d .lmodrc.lua config.json .cache .config
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
-
-     mkdir -p $HOME/.lmod.d/.cache
 
      runLmod --version                                        # 1
      runLmod --help                                           # 2

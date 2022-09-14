@@ -21,9 +21,9 @@ testdescript = {
      initStdEnvVars
      MODULEPATH=$(testDir)/mf;  export MODULEPATH
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua .cache .config
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
-     mkdir -p .lmod.d/.cache
+     mkdir -p .cache/lmod
 
      runLmod --version             # 1
      runLmod spider                # 2
@@ -31,7 +31,7 @@ testdescript = {
      runLmod load a/.1.0           # 4
      runLmod list                  # 5
      runLmod purge                 # 6
-     buildSpiderT $LMOD_DEFAULT_MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
+     buildSpiderT $LMOD_DEFAULT_MODULEPATH > $HOME/.cache/lmod/spiderT.lua
      runLmod spider                # 7
      runLmod spider b              # 8
      runLmod spider b/.2.0         # 9

@@ -22,7 +22,7 @@ testdescript = {
      export MODULEPATH=$(testDir)/mf/Core
      export LMOD_PACKAGE_PATH=$(testDir)
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d system.modulerc.lua
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d system.modulerc.lua .cache .config
 
      runLmod --version                         # 1
      runLmod load StdEnv                       # 2

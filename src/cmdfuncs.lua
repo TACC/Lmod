@@ -96,34 +96,45 @@ local function l_Access(mode, ...)
 end
 
 --------------------------------------------------------------------------
--- This helper function walks the ~/.lmod.d directory and reports back
+-- This helper function walks the Collection directories and reports back
 -- the list of named collections. Note that names that start with "."
 -- or end with "~" or start with "__" are ignored.
 -- @param a An array containing the results.
 -- @param path The Lmod.d directory path.
-local function findNamedCollections(a,path)
-   if (not isDir(path)) then return end
-   for file in lfs.dir(path) do
-      if (file:sub(1,1) ~= "." and file:sub(-1) ~= "~" and
-          file:sub(1,2) ~= "__") then
-         local f    = pathJoin(path,file)
-         local attr = lfs.attributes(f)
-         if (attr and attr.mode == "directory") then
-            findNamedCollections(a,f)
-         else
-            local idx    = file:find("%.")
-            local accept = (not idx) and (not system_name)
-            if (idx and system_name) then
-               accept    = file:sub(idx+1,-1) == system_name
-               f         = pathJoin(path, file:sub(1,idx-1))
-            end
-            if (accept) then
-               a[#a+1] = f
+local function l_findNamedCollections(a,pathA)
+   local t = {}
+   for i = 1,#pathA do
+      repeat 
+         local path = pathA[i]
+         if (not isDir(path)) then break end
+         for file in lfs.dir(path) do
+            if (file:sub(1,1) ~= "." and file:sub(-1) ~= "~" and
+                file:sub(1,2) ~= "__") then
+               local f    = pathJoin(path,file)
+               local attr = lfs.attributes(f)
+               if (attr and attr.mode == "directory") then
+                  l_findNamedCollections(a,{f})
+               else
+                  local idx    = file:find("%.")
+                  local accept = (not idx) and (not system_name)
+                  if (idx and system_name) then
+                     accept    = file:sub(idx+1,-1) == system_name
+                     f         = pathJoin(path, file:sub(1,idx-1))
+                  end
+                  if (accept) then
+                     t[file] = attr.modification
+                  end
+               end
             end
          end
-      end
+      until (true)
    end
-   table.sort(a)
+   if (next(t) ~= nil) then
+      for k in pairsByKeys(t) do
+         a[#a+1] = k
+      end
+      table.sort(a)
+   end
 end
 
 ------------------------------------------------------------------------
@@ -149,56 +160,6 @@ function Overview(...)
    end
 end
 
---------------------------------------------------------------------------
--- Report the modules in the requested collection
-function CollectionLst(collection)
-   collection  = collection or "default"
-   dbg.start{"CollectionLst(",collection,")"}
-   local masterTbl = masterTbl()
-   local sname     = (not system_name) and "" or "." .. system_name
-   local path      = pathJoin(os.getenv("HOME"), ".lmod.d", collection .. sname)
-   local mt        = FrameStk:singleton():mt()
-   local a         = mt:reportContents{fn=path, name=collection}
-   local shell     = _G.Shell
-   local cwidth    = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
-   if (masterTbl.terse) then
-      for i = 1,#a do
-         shell:echo(a[i].."\n")
-      end
-   else
-      if (#a < 1) then
-         LmodWarning{msg="w_No_Coll",collection=collection}
-         dbg.fini("CollectionLst")
-         return
-      end
-      shell:echo(i18n("coll_contains",{collection=collection}))
-      local b = {}
-      for i = 1,#a do
-         b[#b+1] = { "   " .. tostring(i) .. ")", a[i] }
-      end
-      local ct = ColumnTable:new{tbl=b, gap = 0, width = cwidth}
-      shell:echo(ct:build_tbl(),"\n")
-   end
-   dbg.fini("CollectionLst")
-end
-
-
---------------------------------------------------------------------------
--- Get the command line argument and use MT:getMTfromFile()
--- to read the module table from the file and use that
--- collections of module to load.  This routine is deprecated
--- and will be removed.  Use restore instead.
--- @param collection The collection name (default="default")
-function GetDefault(collection)
-   collection  = collection or "default"
-   dbg.start{"GetDefault(",collection,")"}
-
-   local sname = (not system_name) and "" or "." .. system_name
-   local path  = pathJoin(os.getenv("HOME"), ".lmod.d", collection .. sname)
-   local mt    = FrameStk:singleton():mt()
-   mt:getMTfromFile{fn=path, name=collection}
-   dbg.fini("GetDefault")
-end
 
 --------------------------------------------------------------------------
 -- Define the prtHdr function and use the helper function Access()
@@ -628,6 +589,100 @@ function Reset(msg)
    end
 end
 
+local function l_collectionDir(mode)
+   local a        = {}
+   local home     = os.getenv("HOME") or ""
+   local dotConfD = pathJoin(home,".config/lmod")
+   local dotLmodD = pathJoin(home,".lmod.d")
+   if (mode == "write") then
+      local configDirOnly = cosmic:value("LMOD_USE_DOT_CONFIG_ONLY")
+      if (configDirOnly == "no") then
+         a[#a+1] = dotLmodD
+      end
+      a[#a+1] = dotConfD
+   else
+      a[#a+1] = dotConfD
+      a[#a+1] = dotLmodD
+   end
+   return a 
+end
+      
+            
+
+local function l_find_a_collection(collectionName)
+   local pathA = l_collectionDir("read")
+   local result = nil
+   local timeStamp = 0
+   for i = 1,#pathA do
+      local path = pathJoin(pathA[i], collectionName)
+      if (isFile(path)) then
+         local attr = lfs.attributes(path)
+         if (attr and type(attr) == "table" and attr.modification > timeStamp) then
+            timeStamp = attr.modification
+            result    = path
+         end
+      end
+   end
+   return result
+end
+
+--------------------------------------------------------------------------
+-- Report the modules in the requested collection
+function CollectionLst(collection)
+   collection  = collection or "default"
+   dbg.start{"CollectionLst(",collection,")"}
+   local masterTbl = masterTbl()
+   local sname     = (not system_name) and "" or "." .. system_name
+   local mt        = FrameStk:singleton():mt()
+   local shell     = _G.Shell
+   local cwidth    = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
+   local path      = l_find_a_collection(collection)
+
+   local a         = mt:reportContents{fn=path, name=collection}
+   if (masterTbl.terse) then
+      for i = 1,#a do
+         shell:echo(a[i].."\n")
+      end
+   else
+      if (#a < 1) then
+         LmodWarning{msg="w_No_Coll",collection=collection}
+         dbg.fini("CollectionLst")
+         return
+      end
+      shell:echo(i18n("coll_contains",{collection=collection}))
+      local b = {}
+      for i = 1,#a do
+         b[#b+1] = { "   " .. tostring(i) .. ")", a[i] }
+      end
+      local ct = ColumnTable:new{tbl=b, gap = 0, width = cwidth}
+      shell:echo(ct:build_tbl(),"\n")
+   end
+   dbg.fini("CollectionLst")
+end
+
+
+--------------------------------------------------------------------------
+-- Get the command line argument and use MT:getMTfromFile()
+-- to read the module table from the file and use that
+-- collections of module to load.  This routine is deprecated
+-- and will be removed.  Use restore instead.
+-- @param collection The collection name (default="default")
+function GetDefault(collection)
+   collection  = collection or "default"
+   dbg.start{"GetDefault(",collection,")"}
+
+   local sname = (not system_name) and "" or "." .. system_name
+   local path  = l_find_a_collection(collection .. sname)
+   if (not path) then
+      LmodError{msg="e_Unknown_Coll", collection = collection}
+   end
+
+   local mt    = FrameStk:singleton():mt()
+   mt:getMTfromFile{fn=path, name=collection}
+   dbg.fini("GetDefault")
+end
+
+
 --------------------------------------------------------------------------
 -- Restore the state of the user's loaded modules original
 -- state. If a user has a "default" then use that collection.
@@ -650,8 +705,8 @@ function Restore(collection)
    end
 
    if (collection == nil) then
-      path = pathJoin(os.getenv("HOME"), ".lmod.d", "default" .. sname)
-      if (not isFile(path)) then
+      path = l_find_a_collection("default" .. sname)
+      if (not path) then
          collection = "system"
          myName = collection
       else
@@ -659,8 +714,8 @@ function Restore(collection)
       end
    elseif (collection ~= "system") then
       myName = collection
-      path   = pathJoin(os.getenv("HOME"), ".lmod.d", collection .. sname)
-      if (not isFile(path)) then
+      path   = l_find_a_collection(collection .. sname)
+      if (not path) then
          LmodError{msg="e_Unknown_Coll", collection = collection}
       end
    end
@@ -716,7 +771,8 @@ function Save(...)
    local frameStk  = FrameStk:singleton()
    local mt        = frameStk:mt()
    local a         = select(1, ...) or "default"
-   local path      = pathJoin(os.getenv("HOME"), LMODdir)
+   local home      = os.getenv("HOME")
+   local pathA     = l_collectionDir("write")
    dbg.start{"Save(",concatTbl({...},", "),")"}
 
    local msgTail = ""
@@ -748,26 +804,30 @@ function Save(...)
       return
    end
 
-   local attr = lfs.attributes(path)
-   if (not attr) then
-      mkdir_recursive(path)
-   end
-   path = pathJoin(path, a .. sname)
-   if (isFile(path)) then
-      os.rename(path, path .. "~")
-   end
    mt:setHashSum()
    local varT = frameStk:varT()
    mt:setMpathRefCountT(varT[ModulePath]:refCountT())
 
-   local f  = io.open(path,"w")
-   if (f) then
-      f:write("-- -*- lua -*-\n")
-      f:write("-- created: ",os.date()," --\n")
-      local s0 = "-- Lmod ".. Version.name() .. "\n"
-      local s1 = mt:serializeTbl("pretty")
-      f:write(s0,s1)
-      f:close()
+   local date = os.date()
+   for i = 1,#pathA do
+      local path = pathA[i]
+      local attr = lfs.attributes(path)
+      if (not attr) then
+         mkdir_recursive(path)
+      end
+      local fn = pathJoin(path, a .. sname)
+      if (isFile(fn)) then
+         os.rename(fn, fn .. "~")
+      end
+      local f  = io.open(fn,"w")
+      if (f) then
+         f:write("-- -*- lua -*-\n")
+         f:write("-- created: ",date," --\n")
+         local s0 = "-- Lmod ".. Version.name() .. "\n"
+         local s1 = mt:serializeTbl("pretty")
+         f:write(s0,s1)
+         f:close()
+      end
    end
    mt:hideMpathRefCountT()
    mt:hideHash()
@@ -782,21 +842,18 @@ end
 -- Report to the user all the named collections he/she has.
 function SaveList(...)
    local mt        = FrameStk:singleton():mt()
-   local path      = pathJoin(os.getenv("HOME"), LMODdir)
    local masterTbl = masterTbl()
    local a         = {}
    local b         = {}
    local shell     = _G.Shell
    local cwidth    = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
+   local home      = os.getenv("HOME")
+   local pathA     = l_collectionDir("read")
 
-   findNamedCollections(b,path)
+   l_findNamedCollections(b,pathA)
    if (masterTbl.terse) then
       for k = 1,#b do
          local name = b[k]
-         local i,j  = name:find(path,1,true)
-         if (i) then
-            name = name:sub(j+2)
-         end
          shell:echo(name.."\n")
       end
       return
@@ -805,10 +862,6 @@ function SaveList(...)
 
    for k = 1,#b do
       local name = b[k]
-      local i,j  = name:find(path,1,true)
-      if (i) then
-         name = name:sub(j+2)
-      end
       local cstr = string.format("%3d) ",k)
       a[#a+1] = cstr .. name
    end
@@ -973,7 +1026,7 @@ end
 -- Disable a collection
 function Disable(...)
    local shell = _G.Shell
-   local path  = pathJoin(os.getenv("HOME"), LMODdir)
+   local pathA = l_collectionDir("read")
    local argA  = pack(...)
    local sname = (not system_name) and "" or "." .. system_name
 
@@ -984,10 +1037,13 @@ function Disable(...)
 
    for i = 1,argA.n do
       local name  = argA[i]
-      local fn    = pathJoin(path,name .. sname)
-      local fnNew = fn .. "~"
-      os.rename(fn, fnNew)
       shell:echo(i18n("m_Collection_disable",{name=name}))
+      for j = 1,#pathA do
+         local path  = pathA[j]
+         local fn    = pathJoin(path,name .. sname)
+         local fnNew = fn .. "~"
+         os.rename(fn, fnNew)
+      end
    end
 end
 

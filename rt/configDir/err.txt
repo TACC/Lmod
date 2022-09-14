@@ -2,72 +2,72 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.11  2022-07-31 12:14 -05:00
+Modules based on Lua: Version 8.7.12  2022-08-18 15:45 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --config
 ===========================
-Modules based on Lua: Version 8.7.11  2022-07-31 12:14 -05:00
+Modules based on Lua: Version 8.7.12  2022-08-18 15:45 -05:00
     by Robert McLay mclay@tacc.utexas.edu
-Description                        Value
-Allow root to use Lmod             yes
-Allow TCL modulefiles              yes
-Auto swapping                      yes
-Avail Style                        <system>
-Case Independent Sorting           no
-Colorize Lmod                      yes
-Configuration dir                  ProjectDIR/rt/configDir/lmod_cfg_dir
-Disable Same Name AutoSwap         no
-Display Extension w/ avail         yes
-Using dotfiles                     yes
-Allow duplicate paths              no
-Dynamic Spider Cache               yes
-Require Exact Match/no defaults    no
-Export the module command          yes
-Allow extended default             yes
-Use attached TCL over system call  no
-Use italic instead of dim          no
-KSH Support                        no
-Language used for err/msg/warn     en
-Site message file                  ProjectDIR/rt/configDir/lmod_cfg_dir/lang.lua
-LUA_CPATH                          @sys_lua_cpath@
-LUA_PATH                           @sys_lua_path@
-System lua-term                    no
-avail: Include modulepath dir      no
-MODULEPATH_INIT                    @PKG@/init/.modulespath -> <empty>
-MODULEPATH_ROOT
-number of cache dirs               0
-OS Name                            <N/A>
-Pager                              less
-Pager Options                      -XqMREF
-Path to HashSum                    PATH_to_HASHSUM
-Path to Lua                        lua
-Pin Versions in restore            no
-Pkg Class name                     Pkg
-Lmod prefix                        @PREFIX@
-Site controlled prefix             no
-Prepend order                      normal
-LMOD_RC                            <empty>
-Redirect to stdout                 no
-Supporting Full Settarg Use        no
-User shell                         bash
-Site Name                          XYZZY
-Site Pkg location                  ProjectDIR/rt/configDir/lmod_cfg_dir/SitePackage.lua
-Ignore Cache                       no
-Cached loads                       no
-System Default Modules             <empty>
-System Name                        <empty>
-SYSHOST (cluster name)             <empty>
-TCL Version                        <N/A>
-User cache valid time(sec)         86400
-Write cache after (sec)            2
-Threshold (sec)                    1
-Tmod find first rule               no
-Tmod prepend PATH Rule             no
-Tracing                            no
+Description                                                   Value
+Allow root to use Lmod (LMOD_ALLOW_ROOT_USE)                  yes
+Allow TCL modulefiles (LMOD_ALLOW_TCL_FILES)                  yes
+Auto swapping (LMOD_AUTO_SWAP)                                yes
+Avail Style (LMOD_AVAIL_STYLE)                                <system>
+Case Independent Sorting (LMOD_CASE_INDEPENDENT_SORTING)      no
+Colorize Lmod (LMOD_COLORIZE)                                 yes
+Configuration dir (LMOD_CONFIG_DIR)                           ProjectDIR/rt/configDir/lmod_cfg_dir
+Disable Same Name AutoSwap (LMOD_DISABLE_SAME_NAME_AUTOSWAP)  no
+Display Extension w/ avail (LMOD_AVAIL_EXTENSIONS)            yes
+Use ~/.config dir only (LMOD_USE_DOT_CONFIG_ONLY)             no
+Allow duplicate paths (LMOD_DUPLICATE_PATHS)                  no
+Dynamic Spider Cache (LMOD_DYNAMIC_SPIDER_CACHE)              yes
+Require Exact Match/no defaults (LMOD_EXACT_MATCH)            no
+Export the module command (LMOD_EXPORT_MODULE)                yes
+Allow extended default (LMOD_EXTENDED_DEFAULT)                yes
+Use attached TCL over system call (LMOD_FAST_TCL_INTERP)      no
+Use italic instead of dim (LMOD_HIDDEN_ITALIC)                no
+KSH Support (LMOD_KSH_SUPPORT)                                no
+Language used for err/msg/warn (LMOD_LANG)                    en
+Site message file (LMOD_SITE_MSG_FILE)                        ProjectDIR/rt/configDir/lmod_cfg_dir/lang.lua
+LUA_CPATH                                                     @sys_lua_cpath@
+LUA_PATH                                                      @sys_lua_path@
+System lua-term (LMOD_HAVE_LUA_TERM)                          no
+avail: Include modulepath dir (LMOD_MPATH_AVAIL)              no
+MODULEPATH_INIT (LMOD_MODULEPATH_INIT)                        @PKG@/init/.modulespath -> <empty>
+MODULEPATH_ROOT (MODULEPATH_ROOT)
+number of cache dirs                                          0
+OS Name                                                       <N/A>
+Pager (LMOD_PAGER)                                            less
+Pager Options (LMOD_PAGER_OPTS)                               -XqMREF
+Path to HashSum (LMOD_HASHSUM_PATH)                           PATH_to_HASHSUM
+Path to Lua                                                   lua
+Pin Versions in restore (LMOD_PIN_VERSIONS)                   no
+Pkg Class name                                                Pkg
+Lmod prefix                                                   @PREFIX@
+Site controlled prefix (SITE_CONTROLLED_PREFIX)               no
+Prepend order (LMOD_PREPEND_BLOCK)                            normal
+LMOD_RC (LMOD_RC)                                             <empty>
+Redirect to stdout (LMOD_REDIRECT)                            no
+Supporting Full Settarg Use (LMOD_SETTARG_FULL_SUPPORT)       no
+User shell                                                    bash
+Site Name (LMOD_SITE_NAME)                                    XYZZY
+Site Pkg location                                             ProjectDIR/rt/configDir/lmod_cfg_dir/SitePackage.lua
+Ignore Cache (LMOD_IGNORE_CACHE)                              no
+Cached loads (LMOD_CACHED_LOADS)                              no
+System Default Modules (LMOD_SYSTEM_DEFAULT_MODULES)          <empty>
+System Name (LMOD_SYSTEM_NAME)                                <empty>
+SYSHOST (cluster name) (LMOD_SYSHOST)                         <empty>
+TCL Version                                                   <N/A>
+User cache valid time(sec) (LMOD_ANCIENT_TIME)                86400
+Write cache after (sec) (LMOD_SHORT_TIME)                     2
+Threshold (sec) (LMOD_THRESHOLD)                              1
+Tmod find first rule (LMOD_TMOD_PATH_RULE)                    no
+Tmod prepend PATH Rule (LMOD_TMOD_PATH_RULE)                  no
+Tracing (LMOD_TRACING)                                        no
 uname -a
-User Cache Directory               OutputDIR/.cache/lmod
+User Cache Directory                                          OutputDIR/.cache/lmod
 LMOD_CONFIG_DIR              E          /etc/lmod    ProjectDIR/rt/configDir/lmod_cfg_dir
 LMOD_FAST_TCL_INTERP         E          yes          no
 LMOD_PACKAGE_PATH            lmod_cfg   nil          ProjectDIR/rt/configDir/lmod_cfg_dir

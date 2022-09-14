@@ -29,7 +29,7 @@ testdescript = {
      MODULEPATH_ROOT=$(testDir);        export MODULEPATH_ROOT
      LMOD_PACKAGE_PATH=$(testDir);      export LMOD_PACKAGE_PATH
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d Core
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d Core .config .cache
 
      LMOD_PACKAGE_PATH=$(testDir);      export LMOD_PACKAGE_PATH
      runLmod --version               # 1
@@ -59,7 +59,7 @@ testdescript = {
      MODULEPATH=$(outputDir)/Core
      mkdir      $(outputDir)/Core
      (cd $(testDir)/Core; tar cf - . | (cd $(outputDir)/Core && tar xBf -))
-     sed -e 's|@outputDir@|$(outputDir)|g'  < $(testDir)/.lmod.d/stdenv > $(outputDir)/.lmod.d/stdenv
+     sed -e 's|@outputDir@|$(outputDir)|g'  < $(testDir)/.lmod.d/stdenv > $(outputDir)/.config/lmod/stdenv
      runLmod restore stdenv          #18
      sed -e 's/--#%#//g'  < $(outputDir)/Core/StdEnv.lua > $(outputDir)/Core/StdEnv.new
      mv $(outputDir)/Core/StdEnv.new $(outputDir)/Core/StdEnv.lua
@@ -96,8 +96,8 @@ testdescript = {
 
      MODULEPATH=$(testDir)/Core     
      export LMOD_CACHED_LOADS=yes
-     mkdir -p $HOME/.lmod.d/.cache
-     buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
+     mkdir -p $HOME/.cache/lmod
+     buildSpiderT $MODULEPATH > $HOME/.cache/lmod/spiderT.lua
 
      runLmod load a                  #43
      runLmod save my_A               #44

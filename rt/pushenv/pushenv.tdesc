@@ -22,7 +22,7 @@ testdescript = {
 
      RTM_SETTARG_CMD=":";               export RTM_SETTARG_CMD
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .cache .config
 
      runLmod --version        # 1
      runLmod load   a b       # 2

@@ -24,7 +24,7 @@ testdescript = {
 
      cacheDir=`userCacheDir`
 
-     rm -fr _stderr.* _stdout.* err.* out.* $cacheDir mf
+     rm -fr _stderr.* _stdout.* err.* out.* $cacheDir mf .cache .config .lmod.d
 
 
      

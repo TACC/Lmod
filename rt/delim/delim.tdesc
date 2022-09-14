@@ -20,7 +20,7 @@ testdescript = {
      initStdEnvVars
      MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .cache .config
 
      runLmod --version                    #  1
      runLmod use -a $testDir/mf/Core      #  2

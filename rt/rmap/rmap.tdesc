@@ -24,7 +24,7 @@ testdescript = {
      export APPS_DIR=$(testDir)/apps
      export MY_BIN=$(outputDir)/my_bin
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d more_apps otherBin
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d more_apps otherBin  .cache .config
 
      mkdir -p more_apps/bin
      cp $(testDir)/echo_this.sh more_apps/bin
@@ -32,7 +32,7 @@ testdescript = {
     
 
      runLmod --version                     # 1
-     mkdir -p $HOME/.lmod.d/.cache
+     mkdir -p $HOME/.cache/lmod
      runBase buildSpiderT $MODULEPATH      # 2
      runBase buildDbT     $MODULEPATH      # 3
      runBase buildRmapT   $MODULEPATH      # 4

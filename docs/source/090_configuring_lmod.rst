@@ -235,10 +235,15 @@ the configuration option which will set the action.
   do not prepend/append.  Note that if LMOD_TMOD_PATH_RULE is "yes"
   then LMOD_DUPLICATE_PATH is set to "no".
 
+**LMOD_USE_DOT_CONFIG_ONLY**:
+  [yes/no, default: no, --with-useDotConfigDirOnly].  Lmod is
+  transitioning from using ~/.lmod.d/ to ~/.config/lmod to store
+  collections. By default, Lmod writes to both directories and read
+  the most recent collection from either directory.  By changing this
+  configuration option to yes, then Lmod will write only to
+  ~/.config/lmod but will check both directories when reading picking
+  the most recent one.
 
-**LMOD_USE_DOT_FILES**:
-  [yes/no, default: yes, --with-useDotFiles] If yes then use
-  ~/.lmod.d/.cache, if no then use ~/.lmod.d/__cache__
 
 Configuration only settings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~

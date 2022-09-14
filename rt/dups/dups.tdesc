@@ -21,7 +21,7 @@ testdescript = {
      MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
      LMOD_DUPLICATE_PATHS=yes;          export LMOD_DUPLICATE_PATHS
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .cache .config
 
      runLmod --version         # 1
      runLmod load a b c        # 2

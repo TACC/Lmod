@@ -25,7 +25,7 @@ testdescript = {
      HOME=`/bin/pwd`
      cacheDir=`userCacheDir`
 
-     rm -fr _stderr.* _stdout.* err.* out.* $cacheDir .modulerc cacheDir
+     rm -fr _stderr.* _stdout.* err.* out.* $cacheDir .modulerc cacheDir .cache .config
 
      cp $(testDir)/dot.modulerc .modulerc
 

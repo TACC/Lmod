@@ -20,10 +20,10 @@ testdescript = {
      MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
 
      rm -f  _stderr.* _stdout.* err.* out.*
-     rm -fr .lmod.d .lmodrc.lua
+     rm -fr .lmod.d .lmodrc.lua .cache .config
 
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
-     mkdir -p .lmod.d/.cache
+     mkdir -p .cache/lmod
 
      runLmod --version                  # 1
      runLmod use -a $(testDir)/mf/Core  # 2
@@ -31,7 +31,7 @@ testdescript = {
      runLmod use -a $(testDir)/mf/cae   # 4
      runLmod load PrgEnv                # 5
      runLmod list                       # 6
-     buildSpiderT   $MODULEPATH > ~/.lmod.d/.cache/spiderT.lua
+     buildSpiderT   $MODULEPATH > ~/.cache/lmod/spiderT.lua
      runLmod avail                      # 7
 
 

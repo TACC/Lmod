@@ -23,7 +23,7 @@ testdescript = {
      export LMOD_PACKAGE_PATH=$(testDir)/mf/site-scripts; 
 
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .cache .config
 
      runLmod --version               # 1
      runLmod load gcc python         # 2

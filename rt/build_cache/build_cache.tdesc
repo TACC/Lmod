@@ -22,7 +22,7 @@ testdescript = {
      export MODULEPATH_ROOT=$(testDir)/mf
      export MODULEPATH=$MODULEPATH_ROOT/Common
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d cacheDir .lmodrc.lua fn broken_mf
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d cacheDir .lmodrc.lua fn broken_mf  .cache .config
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
 
      cat > fn << EOF

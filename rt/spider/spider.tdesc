@@ -22,7 +22,7 @@ testdescript = {
      export MODULERCFILE=$testDir/modulerc
 
      rm -f  _stderr.* _stdout.* err.* out.*
-     rm -fr .lmod.d .lmodrc.lua
+     rm -fr .lmod.d .lmodrc.lua  .cache .config
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
 
      runLmod --version                                                        # 1
@@ -49,10 +49,10 @@ testdescript = {
 
      runLmod use $testDir/mf/UNKNOWN                                          #20
 
-     mkdir -p $HOME/.lmod.d/.cache
-     buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
-     buildDbT $MODULEPATH > $HOME/.lmod.d/.cache/dbT.lua
-     runSpiderCmd -o spider-json $MODULEPATH > $HOME/.lmod.d/.cache/spider.json
+     mkdir -p $HOME/.cache/lmod
+     buildSpiderT $MODULEPATH > $HOME/.cache/lmod/spiderT.lua
+     buildDbT $MODULEPATH > $HOME/.cache/lmod/dbT.lua
+     runSpiderCmd -o spider-json $MODULEPATH > $HOME/.cache/lmod/spider.json
      runLmod spider                                                           #21
      runLmod spider gromacs                                                   #22
      runLmod spider apps/gromacs                                              #23
@@ -64,7 +64,7 @@ testdescript = {
      runLmod spider smrt                                                      #28
      runLmod spider petsc/3.1                                                 #29
 
-     mv $HOME/.lmod.d/.cache $HOME/.lmod.d/.old.cache 
+     mv $HOME/.cache/lmod $HOME/.lmod.d/.old.cache 
      unsetMT
      export LMOD_CASE_INDEPENDENT_SORTING=yes
      export LMOD_RC=$testDir/lmodrc.lua
@@ -119,9 +119,9 @@ testdescript = {
 
      unsetMT
      export MODULEPATH=$testDir/mf/I_Core
-     rm -rf $HOME/.lmod.d/.??*
-     mkdir  $HOME/.lmod.d/.cache
-     buildSpiderT $MODULEPATH > $HOME/.lmod.d/.cache/spiderT.lua
+     rm -rf $HOME/.cache/lmod
+     mkdir  $HOME/.cache/lmod
+     buildSpiderT $MODULEPATH > $HOME/.cache/lmod/spiderT.lua
      runBase    runSpiderCmd -o spiderT  $MODULEPATH                          #59
      runLmod -t --ignore_cache --show_hidden spider  GROMACS                  #60
      runLmod    --ignore_cache --show_hidden spider  GROMACS                  #61
@@ -144,7 +144,7 @@ testdescript = {
      # Test writing of user cache
 
      export LMOD_SHORT_TIME=0
-     rm $HOME/.lmod.d/.cache/*
+     rm $HOME/.cache/lmod/*
      runLmod      spider                                                      #71
 
 

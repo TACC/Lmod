@@ -103,6 +103,8 @@ if [ -n "$LUA_PATH" ]; then
    MAKE_EXTRA="LUA_PATH=$LUA_PATH LUA_CPATH=$LUA_CPATH"
 fi
 
+COMMON_OPTIONS="--with-supportKsh=yes --with-siteName=TACC  --with-silentShellDebugging=yes"
+
 
 case $SYSHOST in
   mijo | vmijo )
@@ -112,7 +114,7 @@ case $SYSHOST in
     ADMIN_DIR=/opt/moduleData
     UPDATE_FN=$ADMIN_DIR/system.txt
     CACHEDIRS=$ADMIN_DIR/cacheDir
-    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN --with-siteControlPrefix=yes --with-siteName=TACC --with-module-root-path=/opt/apps/modulefiles --with-silentShellDebugging=yes --with-supportKsh=yes"
+    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN --with-siteControlPrefix=yes --with-module-root-path=/opt/apps/modulefiles --with-silentShellDebugging=yes --with-useDotConfigDirOnly=yes"
 
     if [ "$SYSHOST" == "mijo" ]; then
       EXTRA="$EXTRA --with-exportedModuleCmd=no"
@@ -125,7 +127,7 @@ case $SYSHOST in
     ADMIN_DIR=/opt/moduleData
     UPDATE_FN=$ADMIN_DIR/system.txt
     CACHEDIRS=$ADMIN_DIR/cacheDir
-    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN   --with-siteName=TACC --with-silentShellDebugging=yes --with-supportKsh=yes"
+    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN     --with-useDotConfigDirOnly=yes"
     ;;
 
   ls6 | maverick2 | stampede2 | frontera | longhorn )
@@ -136,22 +138,15 @@ case $SYSHOST in
       UPDATE_FN=/home/moduleData/spider_cache_timestamp.txt
       CACHEDIRS=/home/moduleData/cacheDir
     fi
-    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN --with-siteName=TACC --with-silentShellDebugging=yes  --with-supportKsh=yes"
+    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN"
     SITE_PKG="contrib/TACC/*.lua"
     ;;
-
-  gligar.os)
-    ADMIN_DIR=/apps/gent/lmodcache/
-    UPDATE_FN=$ADMIN_DIR/timestamp
-    CACHEDIRS=$ADMIN_DIR
-    EXTRA="--with-cachedLoads=yes --with-autoSwap=no --with-disableNameAutoSwap=yes --with-caseIndependentSorting=yes --with-pinVersions=yes  --with-silentShellDebugging=yes"
-    base="$HOME/l/pkg";;
 
   *)
     ADMIN_DIR=$HOME/w/moduleData
     UPDATE_FN=$ADMIN_DIR/system.txt
     CACHEDIRS=$ADMIN_DIR/cacheDir
-    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN  --with-silentShellDebugging=yes  --with-supportKsh=yes"
+    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN "
     base="$HOME/l/pkg"
     ;;
 esac
@@ -174,7 +169,7 @@ if [ "$?" = 0 ]; then
 fi
 
 cmdA=("-$MAKE distclean"
-      "./configure --prefix=$BASE_DIR --with-settarg=yes $EXTRA"
+      "./configure --prefix=$BASE_DIR --with-settarg=yes $COMMON_OPTIONS $EXTRA"
       "save_old_version"
       "$MAKE echo"
       "parallel_make_install"

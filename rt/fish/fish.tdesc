@@ -23,7 +23,7 @@ testdescript = {
      export MODULEPATH
      unset TERM
 
-     rm -fr _stderr.*  _stdout.* out.* err.* .lmod.d .lmodrc.lua
+     rm -fr _stderr.*  _stdout.* out.* err.* .lmod.d .lmodrc.lua .cache .config
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
 
 

@@ -22,7 +22,7 @@ testdescript = {
      initStdEnvVars
      MODULEPATH=$(testDir)/mf; export MODULEPATH
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d s.log
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d s.log .cache .config
 
      runLmod --version                              # 1
      runSh2MF  --from ksh $(testDir)/script.ksh     # 2

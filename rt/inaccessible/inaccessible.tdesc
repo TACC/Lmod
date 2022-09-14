@@ -23,8 +23,8 @@ testdescript = {
      export MROOT2=$(testDir)/mf2
      export MODULEPATH=$MODULEPATH_ROOT/Core
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d
-     mkdir -p .lmod.d/.cache
+     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .cache .config
+     mkdir -p .cache/lmod
 
      runLmod --version                          # 1
      runLmod use $MODULEPATH_ROOT/path1         # 2
@@ -37,7 +37,7 @@ testdescript = {
      runLmod load extend                        # 7
      runLmod purge                              # 8
      unsetMT
-     buildSpiderT $MROOT2/Stages/2017a/UI/Compilers:$MROOT2/OtherStages > .lmod.d/.cache/spiderT.lua
+     buildSpiderT $MROOT2/Stages/2017a/UI/Compilers:$MROOT2/OtherStages > .cache/lmod/spiderT.lua
      export MODULEPATH=$MROOT2/Stages/2017a/UI/Compilers
      runLmod spider software1                   # 9
 
