@@ -180,21 +180,11 @@ function Category(...)
 
    local a = {}
 
-   local function get_sorted_keys(tbl)
-      local s = {}
-      for k, v in pairs(tbl) do s[#s+1] = k end
-      sort(s)
-      return s
-   end
-
-   local categoryA = get_sorted_keys(categoryT)
-
-   for _, cat in ipairs(categoryA) do
+   for cat, v in pairsByKeys(categoryT) do
       local b = {}
-      local keysA = get_sorted_keys(categoryT[cat])
 
-      for _, sn in ipairs(keysA) do
-         b[#b+1] = { sn, "(" .. tostring(categoryT[cat][sn]) .. ")  " }
+      for sn, count in pairsByKeys(v) do
+         b[#b+1] = { sn, "(" .. tostring(count) .. ")  " }
       end
 
       dbg.print{"printing category block\n"}
