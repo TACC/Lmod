@@ -165,7 +165,8 @@ function Usage()
    a[#a+1] = { "  list",          "s1 s2 ...",    i18n("list2")  }
    a[#a+1] = { "  avail | av",    "",             i18n("list3")  }
    a[#a+1] = { "  avail | av",    "string",       i18n("list4")  }
-   a[#a+1] = { "  category | cat","",             "List all categories and their modules" }
+   a[#a+1] = { "  category | cat","",             "List all categories" }
+   a[#a+1] = { "  category | cat","s1 s2 ...",    "List all categories that match the pattern and display their modules" }
    a[#a+1] = { "  overview | ov", "",             i18n("ov1")    }
    a[#a+1] = { "  overview | ov", "string",       i18n("ov2")    }
    a[#a+1] = { "  spider",        "",             i18n("list5")  }

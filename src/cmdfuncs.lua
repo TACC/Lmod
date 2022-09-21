@@ -142,6 +142,7 @@ function Category(...)
    dbg.start{"Category(", concatTbl({...},", "),")"}
    local shell = _G.Shell
 
+
    local cache = Cache:singleton{buildCache = true}
    local moduleT, dbT = cache:build()
 
@@ -174,26 +175,43 @@ function Category(...)
    end
 
    local masterTbl = masterTbl()
+   local search = ... and true
    local twidth = TermWidth()
    local cwidth = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or twidth
    local banner = Banner:singleton()
 
    local a = {}
 
-   for cat, v in pairsByKeys(categoryT) do
-      local b = {}
-
-      for sn, count in pairsByKeys(v) do
-         b[#b+1] = { sn, "(" .. tostring(count) .. ")  " }
-      end
-
+   if (not search) then
       dbg.print{"printing category block\n"}
-      local ct = ColumnTable:new{tbl = b, gap = 1, len = length, width = cwidth}
       a[#a+1] = "\n"
-      a[#a+1] = banner:bannerStr(cat)
+      a[#a+1] = [[
+To get a list of every module in a category execute:
+   $ module category Foo
+      ]]
       a[#a+1] = "\n"
-      a[#a+1] = ct:build_tbl()
+      a[#a+1] = banner:bannerStr("List of Categories")
       a[#a+1] = "\n"
+      for cat, _ in pairsByKeys(categoryT) do
+         a[#a+1] = cat .. "\n"
+      end
+      a[#a+1] = "\n"
+   else
+      for cat, v in pairsByKeys(categoryT) do
+         local b = {}
+
+         for sn, count in pairsByKeys(v) do
+            b[#b+1] = { sn, "(" .. tostring(count) .. ")  " }
+         end
+
+         dbg.print{"printing category block\n"}
+         local ct = ColumnTable:new{tbl = b, gap = 1, len = length, width = cwidth}
+         a[#a+1] = "\n"
+         a[#a+1] = banner:bannerStr(cat)
+         a[#a+1] = "\n"
+         a[#a+1] = ct:build_tbl()
+         a[#a+1] = "\n"
+      end
    end
 
    if (next(a) ~= nil) then
