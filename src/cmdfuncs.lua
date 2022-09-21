@@ -197,7 +197,37 @@ To get a list of every module in a category execute:
       end
       a[#a+1] = "\n"
    else
+      local argA = pack(...)
+      local searchA = {}
+
+      for i = 1, argA.n do
+         searchA[i] = argA[i]:caseIndependent()
+      end
+      searchA.n = argA.n
+
+      local match = {}
+
       for cat, v in pairsByKeys(categoryT) do
+         for i = 1, searchA.n do
+            if (cat:find(searchA[i])) then
+               match[cat] = v
+            end
+         end
+      end
+
+      a[#a+1] = "\n"
+      a[#a+1] = [[
+To learn more about a package and how to load it execute:
+   $ module spider Bar
+      ]]
+
+      if (next(match) == nil) then
+         a[#a+1] = "\n"
+         a[#a+1] = "No matching category found."
+         a[#a+1] = "\n"
+      end
+
+      for cat, v in pairsByKeys(match) do
          local b = {}
 
          for sn, count in pairsByKeys(v) do
