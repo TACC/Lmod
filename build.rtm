@@ -5,7 +5,7 @@ echo Making Version: $PKG_VERSION
 
 parallel_make_install()
 {
-  if [ -d .git ]; then
+  if [ -e .git ]; then
     GIT_VERSION=`git describe --always`
   else
     GIT_VERSION=$(LUA_PATH="./src/?.lua;" lua -e "V=require('Version'); print(V.tag())")
