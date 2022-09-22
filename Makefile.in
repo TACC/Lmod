@@ -123,7 +123,7 @@ else
    LUA_INCLUDE := -I$(LUA_INCLUDE)
 endif
 ifeq ($(GIT_VERSION),)
-  GIT_VERSION             := $(shell if [ -n "$(GIT_PROG)" -a -d $(srcdir)/.git ]; then lmodV=`git describe --always;`; echo "$$lmodV"; else echo "$(version)"; fi)
+  GIT_VERSION             := $(shell if [ -n "$(GIT_PROG)" -a -e $(srcdir)/.git ]; then lmodV=`git describe --always;`; echo "$$lmodV"; else echo "$(version)"; fi)
 endif
 
 
