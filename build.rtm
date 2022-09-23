@@ -107,7 +107,7 @@ COMMON_OPTIONS="--with-supportKsh=yes --with-siteName=TACC  --with-silentShellDe
 
 
 case $SYSHOST in
-  mijo | vmijo )
+  mijo | vmijo | test-vmijo )
     SITE_CONTROLLED_PREFIX=yes
     SUDO="sudo"
     base="/opt/apps/lmod/$PKG_VERSION"
