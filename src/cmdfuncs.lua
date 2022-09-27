@@ -192,9 +192,18 @@ To get a list of every module in a category execute:
       a[#a+1] = "\n"
       a[#a+1] = banner:bannerStr("List of Categories")
       a[#a+1] = "\n"
+
+      local b = {}
       for cat, _ in pairsByKeys(categoryT) do
-         a[#a+1] = cat .. "\n"
+         b[#b+1] = cat .. "\n"
       end
+
+      b = hook.apply("category", "simple", b) or b
+
+      for i = 1, #b do
+         a[#a+1] = b[i]
+      end
+
       a[#a+1] = "\n"
    else
       local argA = pack(...)
@@ -205,12 +214,14 @@ To get a list of every module in a category execute:
       end
       searchA.n = argA.n
 
-      local match = {}
+      local match = hook.apply("category", "complex", categoryT) or {}
 
-      for cat, v in pairsByKeys(categoryT) do
-         for i = 1, searchA.n do
-            if (cat:find(searchA[i])) then
-               match[cat] = v
+      if (next(match) == nil) then
+         for cat, v in pairsByKeys(categoryT) do
+            for i = 1, searchA.n do
+               if (cat:find(searchA[i])) then
+                  match[cat] = v
+               end
             end
          end
       end
