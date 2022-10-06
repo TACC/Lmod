@@ -592,7 +592,7 @@ function M.reloadAll(self, force_update)
             local mt_uName = mt:userName(sn)
             dbg.print{"fn_new: ",fn_new,"\n"}
             dbg.print{"fn_old: ",fn_old,"\n"}
-            -- This is #issue 394 fix: only reload when the userName has remained the same.
+            -- This is Issue #394 fix: only reload when the userName has remained the same.
             if (fn_new ~= fn_old or force_update) then
                dbg.print{"Master:reloadAll fn_new: \"",fn_new,"\"",
                          " mt:fileName(sn): \"",fn_old,"\"",
