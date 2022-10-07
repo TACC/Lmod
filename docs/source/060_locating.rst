@@ -272,10 +272,10 @@ possibilities, This is the same technique that was used before to mark
 a particular version file when in an N/V layout. Lmod choses the
 setting of the default directory in the following order:
 
-#. ``default`` symlink
-#. ``.modulerc.lua``
-#. ``.modulerc``
-#. ``.version``
+      #. ``default`` symlink
+      #. ``.modulerc.lua``
+      #. ``.modulerc``
+      #. ``.version``
 
 Suppose that you have the following architecture split with
 (32,64,128) bit libraries and you want the 64 directory to be the
