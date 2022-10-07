@@ -44,16 +44,17 @@ require("utils")
 require("haveTermSupport")
 require("myGlobals")
 
-local Foreground = "\027".."[1;"
+local Foreground = "\027"
 local colorT = {
-   black      = "30",
-   red        = "31",
-   green      = "32",
-   yellow     = "33",
-   blue       = "34",
-   magenta    = "35",
-   cyan       = "36",
-   white      = "37",
+   black      = "[1;30",
+   red        = "[1;31",
+   green      = "[1;32",
+   yellow     = "[1;33",
+   blue       = "[1;34",
+   magenta    = "[1;35",
+   cyan       = "[1;36",
+   white      = "[1;37",
+   none       = "[0",
 }
 local cosmic    = require("Cosmic"):singleton()
 local concatTbl = table.concat
