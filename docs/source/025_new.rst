@@ -12,7 +12,7 @@ New Features in Lmod
 
 **User cache files are now written to ~/.cache/lmod**:
    (Lmod 8.7.12+) The old user cache directory was ~/.lmod.d/.cache
-   and it has now changed to ~/.cache/lmod/*.  Lmod is transitioning
+   and it has now changed to ~/.cache/lmod/\*.  Lmod is transitioning
    away from using the ~/.lmod.d directory. Also
    the --with-useDotFiles configuration option has been remove as it
    is nolonger needed.
