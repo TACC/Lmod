@@ -109,6 +109,19 @@ testdescript = {
      runLmod unload package                    #52
      runLmod list                              #53
 
+     ##############################################
+     # More Issue #604
+     # A torture test
+
+     runLmod purge                             #54
+     runLmod load A                            #55
+     runLmod list                              #56
+     runLmod load gcc                          #57
+     runLmod av                                #58
+     runLmod list                              #59
+     runLmod load intel                        #60
+     runLmod list                              #61
+
 
 
 
