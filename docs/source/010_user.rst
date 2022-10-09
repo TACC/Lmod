@@ -466,8 +466,8 @@ Once users have the desired modules load then they issue::
 
     $ module save
 
-This creates a file called ``~/.lmod.d/default`` which has the list of
-desired modules. Once this is set-up a user can issue::
+The current set of modules are saved in a created file called
+``~/.config/lmod/default``. Once this is set-up a user can issue::
 
     $ module restore
 
