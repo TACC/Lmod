@@ -555,10 +555,12 @@ function M.isloaded(self)
    if (userName == sn              or
        userName == mt:userName(sn) or
        userName == mt:fullName(sn)) then
+      dbg.print{"fullName: ",mt:fullName(sn),", status: ",sn_status,"\n"}
       dbg.fini("MName:isloaded")
       return sn_status
    end
 
+   dbg.print{"fullName: ",mt:fullName(sn),", status: false\n"}
    dbg.fini("MName:isloaded")
    return false
 end

@@ -609,6 +609,7 @@ function M.reloadAll(self, force_update)
                --   -- Issue #604: do not reload a dependent module.  Let the parent module load it.
                --   -- Do this by not loading below and removing the mname from mA[#mA]
                --   mA[#mA] = nil
+               --   dbg.print{"Ignoring: ", mt_uName,", ref_count > 0\n"}
                --elseif (mname:valid()) then
                if (mname:valid()) then
                   dbg.print{"Master:reloadAll(",ReloadAllCntr,"): Loading module: \"",userName,"\"\n"}
