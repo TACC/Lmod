@@ -164,17 +164,20 @@ Using any of the above three ways will change the default to version
 Lmod Order of Marking a Default
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-As stated above, there are four files used to mark a default::
+As stated above, there are four files used to mark a default:
 
-#. default symlink
-#. .modulerc.lua
-#. .modulerc
-#. .version
+     #. default symlink
+     #. .modulerc.lua
+     #. .modulerc
+     #. .version
 
 Lmod searches in this order. If it finds a number earlier in the
 list then the other are ignored.  In other words if your site as both
 a default symlink and a .modulerc.lua file then the default file is
-used and the .modulerc.lua file is ignored.
+used and the .modulerc.lua file is ignored.  Sites can check duplicate
+ways of marking a default (among other checks) with::
+
+     $ $LMOD_DIR/check_module_tree_syntax $MODULEPATH
 
 Highest Version
 ~~~~~~~~~~~~~~~
