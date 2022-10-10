@@ -76,13 +76,13 @@ end
 
 
 local function l_build(moduleA)
-   dbg.start{"LocationT l_build(moduleA)"}
+   --dbg.start{"LocationT l_build(moduleA)"}
 
    local locationT = {}
 
    if (next(moduleA) == nil or #moduleA < 1) then
-      dbg.print{"next(moduleA) == nil or #moduleA < 1\n"}
-      dbg.fini("LocationT l_build")
+      --dbg.print{"next(moduleA) == nil or #moduleA < 1\n"}
+      --dbg.fini("LocationT l_build")
       return locationT
    end
    local T = moduleA[1].T or {}
@@ -106,17 +106,17 @@ local function l_build(moduleA)
       end
    end
 
-   dbg.fini("LocationT l_build")
+   --dbg.fini("LocationT l_build")
    return locationT
 end
 
 function M.new(self, moduleA)
-   dbg.start{"LocationT:new(moduleA)"}
+   --dbg.start{"LocationT:new(moduleA)"}
    local o = {}
    setmetatable(o,self)
    o.__locationT = l_build(deepcopy(moduleA))
    self.__index = self
-   dbg.fini("LocationT:new")
+   --dbg.fini("LocationT:new")
    return o
 end
 
@@ -134,7 +134,7 @@ function M.search(self, name)
       return nil, nil, nil
    end
 
-   dbg.printT("locationT",locationT)
+   --dbg.printT("locationT",locationT)
 
 
    -- Find sn from name by looking in locationT and if it is not there

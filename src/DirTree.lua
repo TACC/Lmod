@@ -140,7 +140,7 @@ end
 -- @param defaultA - An array entries that contain: { fullName=, fn=, mpath=, luaExt=, barefn=}
 -- return the first defaultA.  All other ones are ignored.
 local function l_versionFile(mrc, mpath, defaultA)
-   dbg.start{"DirTree:l_versionFile(mrc, mpath, defaultA)"}
+   --dbg.start{"DirTree:l_versionFile(mrc, mpath, defaultA)"}
    sort(defaultA, function(x,y)
                     return x.defaultIdx < y.defaultIdx
                   end)
@@ -157,12 +157,12 @@ local function l_versionFile(mrc, mpath, defaultA)
       
       defaultT.value = mrc:parseModA_for_moduleA(name, mpath, modA)
    until true
-   dbg.fini("DirTree:l_versionFile")
+   --dbg.fini("DirTree:l_versionFile")
    return defaultA
 end
 
 local function l_walk(mrc, mpath, path, dirA, fileT, regularFn)
-   dbg.start{"l_walk(mrc,mpath:\"",mpath,"\", path:\"",path,"\", dirA, fileT, regularFn"}
+   --dbg.start{"l_walk(mrc,mpath:\"",mpath,"\", path:\"",path,"\", dirA, fileT, regularFn"}
    local defaultA   = {}
    local permissions
    local uid
@@ -171,7 +171,7 @@ local function l_walk(mrc, mpath, path, dirA, fileT, regularFn)
    local attr       = lfs.attributes(path)
    if (not attr or type(attr) ~= "table" or attr.mode ~= "directory" or
        not access(path,"rx")) then
-      dbg.fini("l_walk")
+      --dbg.fini("l_walk")
       return defaultA, regularFn
    end
 
@@ -187,7 +187,7 @@ local function l_walk(mrc, mpath, path, dirA, fileT, regularFn)
 
          if (attr.uid == 0 and user_uid == 0 and not attr.permissions:find("......r..")) then break end
 
-         dbg.print{"file: ",file,", kind: ",kind,"\n"}
+         --dbg.print{"file: ",file,", kind: ",kind,"\n"}
 
          if (kind == "directory" and f ~= "." and f ~= "..") then
             dirA[#dirA + 1 ] = file
@@ -222,7 +222,7 @@ local function l_walk(mrc, mpath, path, dirA, fileT, regularFn)
       defaultA = l_versionFile(mrc, mpath, defaultA)
    end
 
-   dbg.fini("l_walk")
+   --dbg.fini("l_walk")
    return defaultA, regularFn
 end
 
