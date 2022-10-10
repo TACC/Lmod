@@ -439,7 +439,7 @@ function getMT()
    if (#a > 0) then
       s = decode64(concatTbl(a,""))
    end
-   dbg.print{"getMT s: ",s,"\n"}
+   --dbg.print{"getMT s: ",s,"\n"}
    return s
 end
 

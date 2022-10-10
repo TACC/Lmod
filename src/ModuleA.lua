@@ -140,13 +140,13 @@ local function l_GroupIntoModules(self, level, maxdepth, mpath, dirT, T)
 end
 
 local function l_build(self, maxdepthT, dirA)
-   dbg.start{"ModuleA l_build()"}
+   --dbg.start{"ModuleA l_build()"}
    local moduleA = {}
    local sz      = #dirA
-   dbg.print{"#dirA: ",sz,"\n"}
+   --dbg.print{"#dirA: ",sz,"\n"}
    for i = 1,sz do
       local mpath    = dirA[i].mpath
-      dbg.print{"mpath: ",mpath,"\n"}
+      --dbg.print{"mpath: ",mpath,"\n"}
       local dirT     = dirA[i].dirT
       local T        = {}
       local maxdepth = maxdepthT[mpath] or -1
@@ -154,7 +154,7 @@ local function l_build(self, maxdepthT, dirA)
       l_GroupIntoModules(self, level, maxdepth, mpath, dirT, T)
       moduleA[#moduleA + 1] = {mpath = mpath, T = T}
    end
-   dbg.fini("ModuleA l_build")
+   --dbg.fini("ModuleA l_build")
    return moduleA
 end
 
@@ -188,8 +188,8 @@ local function l_find_vA(name, moduleA)
    if (idx) then
       versionStr = name:sub(idx+1,-1)
    end
-   dbg.print{"sn: ",sn,", versionStr: ",versionStr,"\n"}
-   dbg.printT("vA",vA)
+   --dbg.print{"sn: ",sn,", versionStr: ",versionStr,"\n"}
+   --dbg.printT("vA",vA)
    return sn, versionStr, vA
 end
 
@@ -230,19 +230,19 @@ local function l_find_vB(sn, versionStr, vA)
          vB[#vB + 1] = v
       end
    end
-   dbg.printT("vB",vB)
+   --dbg.printT("vB",vB)
    return fullStr, vB
 end
 
 local function l_search(name, moduleA)
-   dbg.start{"ModuleA l_search(",name,",moduleA)"}
+   --dbg.start{"ModuleA l_search(",name,",moduleA)"}
    -- First find sn and collect all v's into vA
 
    local sn, versionStr, vA = l_find_vA(name, moduleA)
    if (sn == nil) then return nil end
    local fullStr, vB        = l_find_vB(sn, versionStr, vA)
 
-   dbg.print{"name: ",name,", sn: ",sn,", versionStr: ",versionStr, " fullStr: ",fullStr,"\n"}
+   --dbg.print{"name: ",name,", sn: ",sn,", versionStr: ",versionStr, " fullStr: ",fullStr,"\n"}
 
    local extended_default = cosmic:value("LMOD_EXTENDED_DEFAULT")
 
@@ -251,12 +251,12 @@ local function l_search(name, moduleA)
       fileA[i] = {}
       collectFileA(sn, fullStr, extended_default, vB[i], fileA[i])
    end
-   dbg.fini("ModuleA l_search")
+   --dbg.fini("ModuleA l_search")
    return sn, versionStr, fileA
 end
 
 function M.applyWeights(self,fullNameDfltT)
-   dbg.start{"ModuleA:applyWeights(fullNameDfltT)"}
+   --dbg.start{"ModuleA:applyWeights(fullNameDfltT)"}
    for fullName, weight in pairs(fullNameDfltT) do
       repeat
          local sn, versionStr, vA = l_find_vA(fullName, self.__moduleA)
@@ -282,12 +282,12 @@ function M.applyWeights(self,fullNameDfltT)
          end
       until true
    end
-   dbg.fini("ModuleA:applyWeights")
+   --dbg.fini("ModuleA:applyWeights")
 end
 
 
 function M.__find_all_defaults(self)
-   dbg.start{"ModuleA:__find_all_defaults()"}
+   --dbg.start{"ModuleA:__find_all_defaults()"}
    local moduleA     = self.__moduleA
    local defaultT    = self.__defaultT
    local show_hidden = masterTbl().show_hidden
@@ -359,12 +359,12 @@ function M.__find_all_defaults(self)
       t[v.fn] = { sn = k, count = v.count, fullName = v.fullName, weight = v.weight }
    end
    self.__defaultT = t
-   dbg.fini("ModuleA:__find_all_defaults")
+   --dbg.fini("ModuleA:__find_all_defaults")
 end
 
 
 function M.build_availA(self)
-   dbg.start{"ModuleA:build_availA()"}
+   --dbg.start{"ModuleA:build_availA()"}
    local show_hidden = masterTbl().show_hidden
    local mrc         = MRC:singleton()
 
@@ -406,15 +406,15 @@ function M.build_availA(self)
       end
       sort(availA[i].A, cmp)
    end
-   dbg.fini("ModuleA:build_availA")
+   --dbg.fini("ModuleA:build_availA")
    return availA
 end
 
 function M.inherited_search(self, search_fullName, orig_fn)
-   dbg.start{"ModuleA:inherited_search(",search_fullName,",",orig_fn,")"}
+   --dbg.start{"ModuleA:inherited_search(",search_fullName,",",orig_fn,")"}
 
    local function l_inherited_search_helper(key, count, v)
-      dbg.start{"l_inherited_search_helper(",key,",", count,",v)"}
+      --dbg.start{"l_inherited_search_helper(",key,",", count,",v)"}
       local fn = false
       if (v.file) then
          if (search_fullName == key) then
@@ -427,8 +427,8 @@ function M.inherited_search(self, search_fullName, orig_fn)
                fn = v.file
                count = 2
             end
-            dbg.print{"found matching v.file\n"}
-            dbg.fini("l_inherited_search_helper")
+            --dbg.print{"found matching v.file\n"}
+            --dbg.fini("l_inherited_search_helper")
             return fn, count
          end
       elseif (next(v.fileT) ~= nil) then
@@ -443,8 +443,8 @@ function M.inherited_search(self, search_fullName, orig_fn)
                fn    = entryT.fn
                count = 2
             end
-            dbg.print{"found matching v.fileT\n"}
-            dbg.fini("l_inherited_search_helper")
+            --dbg.print{"found matching v.fileT\n"}
+            --dbg.fini("l_inherited_search_helper")
             return fn , count
          end
       end
@@ -452,13 +452,13 @@ function M.inherited_search(self, search_fullName, orig_fn)
          for name, vv in pairs(v.dirT) do
             fn, count = l_inherited_search_helper(name, count, vv)
             if (fn) then
-               dbg.fini("l_inherited_search_helper")
+               --dbg.fini("l_inherited_search_helper")
                return fn, count
             end
          end
       end
 
-      dbg.fini("l_inherited_search_helper")
+      --dbg.fini("l_inherited_search_helper")
       return fn, count
    end
 
@@ -468,17 +468,17 @@ function M.inherited_search(self, search_fullName, orig_fn)
    for i = 1, #moduleA do
       local T     = moduleA[i].T
       local mpath = moduleA[i].mpath
-      dbg.print{"mpath: ",mpath,"\n"}
+      --dbg.print{"mpath: ",mpath,"\n"}
       for key, v in pairs(T) do
          fn, count = l_inherited_search_helper(key, count, v)
          if (count == 2) then
-            dbg.print{"found fn: ",fn,"\n"}
-            dbg.fini("ModuleA:inherited_search")
+            --dbg.print{"found fn: ",fn,"\n"}
+            --dbg.fini("ModuleA:inherited_search")
             return fn
          end
       end
    end
-   dbg.fini("ModuleA:inherited_search")
+   --dbg.fini("ModuleA:inherited_search")
    return fn
 end
 
@@ -504,7 +504,7 @@ local function l_checkforNV(T)
 end
 
 local function l_build_from_spiderT(spiderT)
-   dbg.start{"ModuleA l_build_from_spiderT(spiderT)"}
+   --dbg.start{"ModuleA l_build_from_spiderT(spiderT)"}
    local frameStk = FrameStk:singleton()
    local mt       = frameStk:mt()
    local mpathA   = mt:modulePathA()
@@ -513,7 +513,7 @@ local function l_build_from_spiderT(spiderT)
    for i = 1, #mpathA do
       local mpath = mpathA[i]
       if (isDir(mpath)) then
-         dbg.print{"pulling mpath: ",mpath," into moduleA\n"}
+         --dbg.print{"pulling mpath: ",mpath," into moduleA\n"}
          local T = spiderT[mpath]
          if (T and next(T) ~= nil) then
             moduleA[#moduleA+1] = { mpath = mpath, T = deepcopy(T) }
@@ -523,7 +523,7 @@ local function l_build_from_spiderT(spiderT)
          end
       end
    end
-   dbg.fini("ModuleA l_build_from_spiderT")
+   --dbg.fini("ModuleA l_build_from_spiderT")
    return moduleA, not isNV
 end
 
@@ -534,7 +534,7 @@ end
 
 function M.update(self, t)
    t                   = t or {}
-   dbg.start{"ModuleA:update(spider_cache = ",t.spider_cache,")"}
+   --dbg.start{"ModuleA:update(spider_cache = ",t.spider_cache,")"}
    local frameStk      = FrameStk:singleton()
    local mt            = frameStk:mt()
    local varT          = frameStk:varT()
@@ -566,10 +566,10 @@ function M.update(self, t)
          if (not isDir(mpath)) then break end
          local entry = T[mpath]
          if (entry) then
-            dbg.print{"Reusing mpath: ",mpath,"\n"}
+            --dbg.print{"Reusing mpath: ",mpath,"\n"}
             moduleA[#moduleA + 1] = { mpath = mpath, T = entry }
          else
-            dbg.print{"building mpath: ",mpath,"\n"}
+            --dbg.print{"building mpath: ",mpath,"\n"}
             local spiderT = false
             local dbT     = false
             if (t.spider_cache) then
@@ -592,12 +592,12 @@ function M.update(self, t)
    self.__locationT = false
    self.__moduleA   = moduleA
    mt:updateMPathA(mpathA)
-   dbg.fini("ModuleA:update")
+   --dbg.fini("ModuleA:update")
 end
 
 
 function M.__new(self, mpathA, maxdepthT, moduleRCT, spiderT)
-   dbg.start{"ModuleA:__new()"}
+   --dbg.start{"ModuleA:__new()"}
    local o = {}
    setmetatable(o,self)
 
@@ -607,30 +607,30 @@ function M.__new(self, mpathA, maxdepthT, moduleRCT, spiderT)
    spiderT         = spiderT or {}
    if (next(spiderT) ~= nil) then
       o.__spiderBuilt        = true
-      dbg.print{"calling l_build_from_spiderT()\n"}
-      dbg.printT("spiderT",spiderT)
+      --dbg.print{"calling l_build_from_spiderT()\n"}
+      --dbg.printT("spiderT",spiderT)
       o.__moduleA, o.__isNVV = l_build_from_spiderT(spiderT)
    else
-      dbg.print{"calling DirTree:new()\n"}
+      --dbg.print{"calling DirTree:new()\n"}
       dirTree         = DirTree:new(mpathA)
       o.__spiderBuilt = false
       o.__moduleA     = l_build(o, maxdepthT, dirTree:dirA())
    end
 
-   dbg.printT("moduleA:",o.__moduleA)
-   dbg.print{"isNVV: ",o.__isNVV,"\n"}
+   --dbg.printT("moduleA:",o.__moduleA)
+   --dbg.print{"isNVV: ",o.__isNVV,"\n"}
    if (moduleRCT and next(moduleRCT) ~= nil) then
-      dbg.print{"apply weights\n"}
+      --dbg.print{"apply weights\n"}
       local mrc       = MRC:singleton(moduleRCT)
       o:applyWeights(mrc:fullNameDfltT())
    end
    local mrc       = MRC:singleton()
-   dbg.printT("mrcMpathT",mrc:mrcMpathT())
+   --dbg.printT("mrcMpathT",mrc:mrcMpathT())
    o.__locationT   = false
    o.__defaultT    = {}
    
 
-   dbg.fini("ModuleA:__new")
+   --dbg.fini("ModuleA:__new")
    return o
 end
 
@@ -694,7 +694,7 @@ end
 
 
 function M.__clear(self, t)
-   dbg.start{"ModuleA:__clear()"}
+   --dbg.start{"ModuleA:__clear()"}
    t = t or {}
    local MT = require("MT")
    s_moduleA = false
@@ -704,7 +704,7 @@ function M.__clear(self, t)
       Cache:__clear()
    end
    MT:__clearMT{testing=true}
-   dbg.fini("ModuleA:__clear")
+   --dbg.fini("ModuleA:__clear")
 end
 
 return M

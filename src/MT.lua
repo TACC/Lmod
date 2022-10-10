@@ -188,6 +188,7 @@ function M.singleton(self, t)
    if (not s_mt) then
       dbg.start{"MT:singleton()"}
       s_mt        = l_new(self, getMT())
+      dbg.printT("s_mt",s_mt)
       dbg.fini("MT:singleton")
    end
    return s_mt
