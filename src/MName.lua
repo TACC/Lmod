@@ -96,6 +96,7 @@ function M.new(self, sType, name, action, is, ie)
    o.__version    = false
    o.__fn         = false
    o.__versionStr = false
+   o.__dependsOn  = false
    o.__sType      = sType
    o.__wV         = false
    o.__waterMark  = "MName"
@@ -625,6 +626,21 @@ function M.prereq(self)
 
    -- userName did not match.
    return userName
+end
+
+function M.set_depends_on_flag(self, value)
+   if (type(value) == "number") then
+      self.__dependsOn = value > 0
+   elseif (type(value) == "boolean") then
+      self.__dependsOn = value
+   else
+      self.__dependsOn = false
+   end
+   return self
+end
+
+function M.get_depends_on_flag(self)
+   return self.__dependsOn 
 end
 
 -- reset the private variable to force a new l_lazyEval.

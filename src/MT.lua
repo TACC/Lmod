@@ -254,6 +254,9 @@ function M.add(self, mname, status, loadOrder)
       propT      = {},
       wV         = mname:wV() or false,
    }
+   if (mname:get_depends_on_flag()) then
+      self:incr_ref_count(sn)
+   end
 end
 
 --------------------------------------------------------------------------

@@ -575,7 +575,7 @@ function M.reloadAll(self, force_update)
          mt               = frameStk:mt()
          local v          = a[i]
          local sn         = v.sn
-         local mname_old  = MName:new("mt",v.userName)
+         local mname_old  = MName:new("mt",v.userName):set_depends_on_flag(v.refcount)
          if (not mname_old:sn()) then break end
          dbg.print{"a[i].userName(1): ",v.userName,"\n"}
          mA[#mA+1]       = mname_old
@@ -584,13 +584,12 @@ function M.reloadAll(self, force_update)
          if (mt:have(sn, "active")) then
             dbg.print{"module sn: ",sn," is active\n"}
             dbg.print{"userName(2):  ",v.name,"\n"}
-            local mname     = MName:new("load", mt:userName(sn))
+            local mname     = MName:new("load", mt:userName(sn)):set_depends_on_flag(v.refcount)
             local fn_new    = mname:fn()
             local fn_old    = mt:fn(sn)
             local fullName  = mname:fullName()
             local userName  = v.name
             local mt_uName  = mt:userName(sn)
-            local ref_count = mt:get_ref_count(sn)
             dbg.print{"fn_new: ",fn_new,"\n"}
             dbg.print{"fn_old: ",fn_old,"\n"}
             -- This is Issue #394 fix: only reload when the userName has remained the same.
@@ -604,12 +603,7 @@ function M.reloadAll(self, force_update)
                unload_internal{mname_old}
                mt_uName = mt:userName(sn)
                dbg.print{"Master:reloadAll(",ReloadAllCntr,"): mt:userName(sn): \"",mt_uName,"\"\n"}
-               mname    = MName:new("load", mt:userName(sn))
-               --if (ref_count > 0) then
-               --   -- Issue #604: do not reload a dependent module.  Let the parent module load it.
-               --   -- Do this by not loading below and removing the mname from mA[#mA]
-               --   mA[#mA] = nil
-               --elseif (mname:valid()) then
+               mname    = MName:new("load", mt:userName(sn)):set_depends_on_flag(v.refcount)
                if (mname:valid()) then
                   dbg.print{"Master:reloadAll(",ReloadAllCntr,"): Loading module: \"",userName,"\"\n"}
                   local status = mcp:load({mname})
@@ -627,7 +621,7 @@ function M.reloadAll(self, force_update)
             local name   = v.name          -- This name is short for default and
                                            -- Full for specific version.
             dbg.print{"Master:reloadAll(",ReloadAllCntr,"): Loading non-active module: \"", name, "\"\n"}
-            local status = mcp:load({MName:new("load",name)})
+            local status = mcp:load({MName:new("load",name):set_depends_on_flag(v.refcount)})
             mt           = frameStk:mt()
             dbg.print{"status: ",status,", fn_old: ",fn_old,", fn: ",mt:fn(sn),"\n"}
             if (status and fn_old ~= mt:fn(sn)) then
