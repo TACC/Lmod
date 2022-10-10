@@ -981,8 +981,7 @@ function M.forgo(self,mA)
          local sn         = mname:sn()
          if (not sn) then break end
          local ref_count  = mt:decr_ref_count(sn)
-         local stackDepth = mt:stackDepth(sn)
-         if (stackDepth > 0 and ref_count < 1) then
+         if (ref_count and ref_count < 1) then
             mB[#mB+1] = mname
          end
       until true
