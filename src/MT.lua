@@ -747,27 +747,30 @@ function M.stackDepth(self,sn)
 end
 
 function M.incr_ref_count(self,sn)
-   dbg.start{"MT:incr_ref_count(",sn,")"}
+   --dbg.start{"MT:incr_ref_count(",sn,")"}
    local entry = self.mT[sn]
    if (entry == nil) then
       dbg.fini("MT:incr_ref_count")
       return
    end
    entry.ref_count = (entry.ref_count or 0) + 1
-   dbg.fini("MT:incr_ref_count")
+   --dbg.print{"sn: ",sn, ", ref_count: ",entry.ref_count,"\n"}
+   --dbg.fini("MT:incr_ref_count")
    return
 end
 
 function M.decr_ref_count(self,sn)
-   dbg.start{"MT:decr_ref_count(",sn,")"}
+   --dbg.start{"MT:decr_ref_count(",sn,")"}
    local entry = self.mT[sn]
    if (entry == nil or entry.ref_count == nil) then
-      dbg.fini("MT:decr_ref_count")
-      return 0
+      --dbg.print{"sn: ",sn, ", ref_count: nil\n"}
+      --dbg.fini("MT:decr_ref_count")
+      return false
    end
    local ref_count = entry.ref_count - 1
    entry.ref_count = ref_count
-   dbg.fini("MT:decr_ref_count")
+   --dbg.print{"sn: ",sn, ", ref_count: ",ref_count,"\n"}
+   --dbg.fini("MT:decr_ref_count")
    return ref_count
 end
 
