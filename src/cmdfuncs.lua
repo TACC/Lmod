@@ -206,15 +206,13 @@ To get a list of every module in a category execute:
 
       local b = {}
       for cat, _ in pairsByKeys(categoryT) do
-         b[#b+1] = cat .. "\n"
+         b[#b+1] = cat 
       end
 
       b = hook.apply("category", "simple", b) or b
 
-      for i = 1, #b do
-         a[#a+1] = b[i]
-      end
-
+      local ct = ColumnTable:new{tbl=b, gap=2, len=length, width = cwidth}
+      a[#a+1] = ct:build_tbl()
       a[#a+1] = "\n"
    else
       local argA = pack(...)
