@@ -466,14 +466,14 @@ Once users have the desired modules load then they issue::
 
     $ module save
 
-This creates a file called ``~/.config/lmod/default`` which has the list of
-desired modules. Note only the current set of modules is recorded the
-in the collection. If module X loads module A and the user deletes
-module A before doing ``module save collectionName`` then module A
-will NOT be loaded when the collection is restored.  All load(),
-always_load(), depends_on() statements are ignored when restoring a
-collection. Instead Lmod loads just the modulefiles stored in the
-collection. 
+This creates a file called ``~/.config/lmod/default`` which has the
+list of desired modules. Note only the current set of modules is
+recorded the in the collection. If module X loads module A and the
+user deletes module A before doing ``module save collectionName`` then
+module A will NOT be loaded when the collection is restored.  All
+load(), always_load(), depends_on() statements inside the modulefiles
+are ignored when restoring a collection. Instead Lmod loads just the
+list of modulefiles stored in the collection.
 
 Once this is set-up a user can issue::
 
