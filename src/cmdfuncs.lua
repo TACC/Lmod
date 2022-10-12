@@ -211,7 +211,7 @@ To get a list of every module in a category execute:
 
       b = hook.apply("category", "simple", b) or b
 
-      local ct = ColumnTable:new{tbl=b, gap=2, len=length, width = cwidth}
+      local ct = ColumnTable:new{tbl=b, gap=2, len=length, width = cwidth-5}
       a[#a+1] = ct:build_tbl()
       a[#a+1] = "\n"
    else
