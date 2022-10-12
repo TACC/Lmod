@@ -93,6 +93,40 @@ testdescript = {
      runLmod unload oneapi                     #46
 
 
+     ##############################################
+     # Issue #604
+     # Dependency is lost when modules are compiler
+     # dependent
+
+     runLmod purge                             #47
+     unsetMT
+     export MODULEPATH_ROOT=$(testDir)/mf/Issue604
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+     runLmod load compiler_a package           #48
+     runLmod unload package                    #49
+     runLmod load package                      #50
+     runLmod load compiler_b                   #51
+     runLmod unload package                    #52
+     runLmod list                              #53
+
+     ##############################################
+     # More Issue #604
+     # A torture test
+
+     runLmod purge                             #54
+     runLmod load A                            #55
+     runLmod list                              #56
+     runLmod load gcc                          #57
+     runLmod av                                #58
+     runLmod list                              #59
+     runLmod load intel                        #60
+     runLmod list                              #61
+
+
+
+
+
+
      
 
      HOME=$ORIG_HOME

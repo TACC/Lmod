@@ -62,6 +62,7 @@ local validT =
                                     -- to moduleT.lua to make it safe on
                                     -- shared filesystems.
       avail                = false, -- Map directory names to labels
+      category             = false, -- Hook to change output of category
       restore              = false, -- This hook is run after restore operation
       startup              = false, -- This hook is run when Lmod is called
       finalize             = false, -- This hook is run just before Lmod generates its output before exiting

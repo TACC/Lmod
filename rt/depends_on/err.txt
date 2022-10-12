@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.7  2022-07-05 10:00 -05:00
+Modules based on Lua: Version 8.7.13  2022-09-14 12:56 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -235,3 +235,92 @@ Please check the spelling or version number. Also try "module spider ..."
 It is also possible your cache file is out-of-date; it may help to try:
   $ module --ignore_cache load "ucx"
 Also make sure that all modulefiles written in TCL start with the string #%Module
+===========================
+step 47
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+===========================
+step 48
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load compiler_a package
+===========================
+===========================
+step 49
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload package
+===========================
+===========================
+step 50
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load package
+===========================
+===========================
+step 51
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load compiler_b
+===========================
+Lmod is automatically replacing "compiler_a/1.0" with "compiler_b/1.0".
+Due to MODULEPATH changes, the following have been reloaded:
+  1) dependency/1.0     2) package/1.0
+===========================
+step 52
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload package
+===========================
+===========================
+step 53
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) compiler_b/1.0
+===========================
+step 54
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+===========================
+step 55
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A
+===========================
+===========================
+step 56
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) python3/1.0   2) A/1.0
+===========================
+step 57
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc
+===========================
+Due to MODULEPATH changes, the following have been reloaded:
+  1) python3/1.0
+===========================
+step 58
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing av
+===========================
+ProjectDIR/rt/depends_on/mf/Issue604/gcc
+   python3/1.0 (L,D)
+ProjectDIR/rt/depends_on/mf/Issue604/Core
+   A/1.0          (L)    compiler_b/1.0        intel/1.0
+   compiler_a/1.0        gcc/1.0        (L)    python3/1.0
+  Where:
+   D:  Default Module
+   L:  Module is loaded
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 59
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) A/1.0   2) gcc/1.0   3) python3/1.0
+===========================
+step 60
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel
+===========================
+Lmod is automatically replacing "gcc/1.0" with "intel/1.0".
+Due to MODULEPATH changes, the following have been reloaded:
+  1) python3/1.0
+===========================
+step 61
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) A/1.0   2) python3/1.0   3) intel/1.0

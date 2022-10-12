@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.6  2022-06-25 15:58 -05:00
+Modules based on Lua: Version 8.7.13  2022-09-14 12:56 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -103,6 +103,8 @@ Sous-commandes pour lister / chercher :
   list                s1 s2 ...     Liste les modules chargés qui correspondent à la recherche
   avail | av                        Liste les modules disponibles
   avail | av          string        Liste les modules disponibles qui contiennent "string".
+  category | cat                    List all categories
+  category | cat      s1 s2 ...     List all categories that match the pattern and display their modules
   overview | ov                     Liste tous les modules disponibles par noms courts avec nombre de versions
   overview | ov       string        Liste les modules disponibles par noms courts avec nombre de versions qui contiennent "string"
   spider                            Liste tous les modules existants
@@ -146,5 +148,5 @@ Sites web de Lmod
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   Pour rapporter un bogue, veuillez lire http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.6  2022-06-25 15:58 -05:00
+Modules based on Lua: Version 8.7.13  2022-09-14 12:56 -05:00
     by Robert McLay mclay@tacc.utexas.edu
