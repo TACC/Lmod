@@ -11,12 +11,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing category
 To get a list of every module in a category execute:
    $ module category Foo
 List of Categories
-App
-Develop
-IO
-Library
-MPI
-Math
+App  Develop  IO  Library  MPI  Math
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing category dev IO
