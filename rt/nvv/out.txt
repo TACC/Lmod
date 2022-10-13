@@ -32,7 +32,7 @@ MODULEPATH=ProjectDIR/rt/nvv/el1:ProjectDIR/rt/nvv/el2;
 export MODULEPATH;
 _LMFILES_=ProjectDIR/rt/nvv/el1/intel/16/16.0.4;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={intel={fn="ProjectDIR/rt/nvv/el1/intel/16/16.0.4",fullName="intel/16/16.0.4",loadOrder=1,propT={},stackDepth=0,status="active",userName="intel/17",wV="000000016/000000016.000000000.000000004.*zfinal",},},mpathA={"ProjectDIR/rt/nvv/el1","ProjectDIR/rt/nvv/el2",},systemBaseMPATH="ProjectDIR/rt/nvv/el1:ProjectDIR/rt/nvv/el2",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={intel={fn="ProjectDIR/rt/nvv/el1/intel/16/16.0.4",fullName="intel/16/16.0.4",loadOrder=1,propT={},stackDepth=0,status="active",userName="intel/16/16.0.4",wV="000000016/000000016.000000000.000000004.*zfinal",},},mpathA={"ProjectDIR/rt/nvv/el1","ProjectDIR/rt/nvv/el2",},systemBaseMPATH="ProjectDIR/rt/nvv/el1:ProjectDIR/rt/nvv/el2",}';
 export _ModuleTable_;
 ===========================
 step 5
@@ -40,7 +40,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/nvv/el1:ProjectDIR/rt/nvv/el2;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={intel={fn="ProjectDIR/rt/nvv/el1/intel/16/16.0.4",fullName="intel/16/16.0.4",loadOrder=1,propT={},stackDepth=0,status="active",userName="intel/17",wV="000000016/000000016.000000000.000000004.*zfinal",},},mpathA={"ProjectDIR/rt/nvv/el1","ProjectDIR/rt/nvv/el2",},systemBaseMPATH="ProjectDIR/rt/nvv/el1:ProjectDIR/rt/nvv/el2",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={intel={fn="ProjectDIR/rt/nvv/el1/intel/16/16.0.4",fullName="intel/16/16.0.4",loadOrder=1,propT={},stackDepth=0,status="active",userName="intel/16/16.0.4",wV="000000016/000000016.000000000.000000004.*zfinal",},},mpathA={"ProjectDIR/rt/nvv/el1","ProjectDIR/rt/nvv/el2",},systemBaseMPATH="ProjectDIR/rt/nvv/el1:ProjectDIR/rt/nvv/el2",}';
 export _ModuleTable_;
 ===========================
 step 6

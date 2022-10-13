@@ -653,7 +653,7 @@ MODULEPATH=ProjectDIR/rt/load/mf2/Core;
 export MODULEPATH;
 _LMFILES_=ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua:ProjectDIR/rt/load/mf2/Core/a/1.2.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={[".eb_builder"]={fn="ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua",fullName=".eb_builder/default",loadOrder=1,propT={},stackDepth=0,status="active",userName=".eb_builder/default",wV="*default.*zfinal",},a={fn="ProjectDIR/rt/load/mf2/Core/a/1.2.lua",fullName="a/1.2",loadOrder=2,propT={},stackDepth=0,status="active",userName="a/default",wV="^00000001.000000002.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/load/mf2/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={[".eb_builder"]={fn="ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua",fullName=".eb_builder/default",loadOrder=1,propT={},stackDepth=0,status="active",userName=".eb_builder/default",wV="*default.*zfinal",},a={fn="ProjectDIR/rt/load/mf2/Core/a/1.2.lua",fullName="a/1.2",loadOrder=2,propT={},stackDepth=0,status="active",userName="a/1.2",wV="^00000001.000000002.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/load/mf2/Core",}';
 export _ModuleTable_;
 ===========================
 step 55
@@ -665,7 +665,7 @@ MODULEPATH=ProjectDIR/rt/load/mf2/Core;
 export MODULEPATH;
 _LMFILES_=ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua:ProjectDIR/rt/load/mf2/Core/a/1.2.lua:ProjectDIR/rt/load/mf2/Core/b/default;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={[".eb_builder"]={fn="ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua",fullName=".eb_builder/default",loadOrder=1,propT={},stackDepth=0,status="active",userName=".eb_builder/default",wV="*default.*zfinal",},a={fn="ProjectDIR/rt/load/mf2/Core/a/1.2.lua",fullName="a/1.2",loadOrder=2,propT={},stackDepth=0,status="active",userName="a/default",wV="^00000001.000000002.*zfinal",},b={fn="ProjectDIR/rt/load/mf2/Core/b/default",fullName="b/default",loadOrder=3,propT={},stackDepth=0,status="active",userName="b/default",wV="^default.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/load/mf2/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={[".eb_builder"]={fn="ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua",fullName=".eb_builder/default",loadOrder=1,propT={},stackDepth=0,status="active",userName=".eb_builder/default",wV="*default.*zfinal",},a={fn="ProjectDIR/rt/load/mf2/Core/a/1.2.lua",fullName="a/1.2",loadOrder=2,propT={},stackDepth=0,status="active",userName="a/1.2",wV="^00000001.000000002.*zfinal",},b={fn="ProjectDIR/rt/load/mf2/Core/b/default",fullName="b/default",loadOrder=3,propT={},stackDepth=0,status="active",userName="b/default",wV="^default.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/load/mf2/Core",}';
 export _ModuleTable_;
 ===========================
 step 56
@@ -673,7 +673,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/load/mf2/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={[".eb_builder"]={fn="ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua",fullName=".eb_builder/default",loadOrder=1,propT={},stackDepth=0,status="active",userName=".eb_builder/default",wV="*default.*zfinal",},a={fn="ProjectDIR/rt/load/mf2/Core/a/1.2.lua",fullName="a/1.2",loadOrder=2,propT={},stackDepth=0,status="active",userName="a/default",wV="^00000001.000000002.*zfinal",},b={fn="ProjectDIR/rt/load/mf2/Core/b/default",fullName="b/default",loadOrder=3,propT={},stackDepth=0,status="active",userName="b/default",wV="^default.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/load/mf2/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={[".eb_builder"]={fn="ProjectDIR/rt/load/mf2/Core/.eb_builder/default.lua",fullName=".eb_builder/default",loadOrder=1,propT={},stackDepth=0,status="active",userName=".eb_builder/default",wV="*default.*zfinal",},a={fn="ProjectDIR/rt/load/mf2/Core/a/1.2.lua",fullName="a/1.2",loadOrder=2,propT={},stackDepth=0,status="active",userName="a/1.2",wV="^00000001.000000002.*zfinal",},b={fn="ProjectDIR/rt/load/mf2/Core/b/default",fullName="b/default",loadOrder=3,propT={},stackDepth=0,status="active",userName="b/default",wV="^default.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/load/mf2/Core",}';
 export _ModuleTable_;
 ===========================
 step 57
