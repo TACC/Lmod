@@ -219,6 +219,9 @@ local function l_lazyEval(self)
    local found
    --dbg.printT("fileA",fileA)
    --dbg.print{"#stepA: ",#stepA,"\n"}
+   --dbg.print{"userName: ",self.__userName,"\n"}
+   --dbg.print{"sn: ",self.__sn,"\n"}
+
 
    for i = 1, #stepA do
       local func = stepA[i]
@@ -227,13 +230,13 @@ local function l_lazyEval(self)
          self.__fn      = fn
          self.__version = version
          self.__wV      = wV
-         if (self.__actionNm == "latest") then
+         if (self.__actionNm == "latest" or self.__sn ~= self.__userName) then
             self.__userName = build_fullName(self.__sn, version)
          end
          break
       end
    end
-   --dbg.print{"l_lazyEval: sn: ",self.__sn, ", version: ",self.__version, ", fn: ",self.__fn,", wV: ",self.__wV,"\n"}
+   --dbg.print{"l_lazyEval: sn: ",self.__sn, ", version: ",self.__version, ", fn: ",self.__fn,", wV: ",self.__wV,", userName: ",self.__userName,"\n"}
    --dbg.print{"fn: ",self.__fn,"\n"}
    --dbg.fini("l_lazyEval")
 end
@@ -253,18 +256,18 @@ end
 
 function M.sn(self)
    if (not self.__sn) then
-      dbg.start{"Mname:sn()"}
+      --dbg.start{"Mname:sn()"}
       l_lazyEval(self)
-      dbg.fini("Mname:sn")
+      --dbg.fini("Mname:sn")
    end
    return self.__sn
 end
 
 function M.fn(self)
    if (not self.__fn) then
-      dbg.start{"Mname:fn()"}
+      --dbg.start{"Mname:fn()"}
       l_lazyEval(self)
-      dbg.fini("Mname:fn")
+      --dbg.fini("Mname:fn")
    end
    return self.__fn
 end
@@ -308,9 +311,9 @@ end
 
 function M.fullName(self)
    if (not self.__sn) then
-      dbg.start{"Mname:fullName()"}
+      --dbg.start{"Mname:fullName()"}
       l_lazyEval(self)
-      dbg.fini("Mname:fullName")
+      --dbg.fini("Mname:fullName")
       if (not self.__fn) then
          return nil
       end
@@ -539,7 +542,7 @@ function M.find_inherit_match(self,fileA)
 end
 
 function M.isloaded(self)
-   dbg.start{"MName:isloaded()"}
+   --dbg.start{"MName:isloaded()"}
    local frameStk  = FrameStk:singleton()
    local mt        = frameStk:mt()
    local sn        = self:sn()
@@ -556,13 +559,13 @@ function M.isloaded(self)
    if (userName == sn              or
        userName == mt:userName(sn) or
        userName == mt:fullName(sn)) then
-      dbg.print{"fullName: ",mt:fullName(sn),", status: ",sn_status,"\n"}
-      dbg.fini("MName:isloaded")
+      --dbg.print{"fullName: ",mt:fullName(sn),", status: ",sn_status,"\n"}
+      --dbg.fini("MName:isloaded")
       return sn_status
    end
 
-   dbg.print{"fullName: ",mt:fullName(sn),", status: false\n"}
-   dbg.fini("MName:isloaded")
+   --dbg.print{"fullName: ",mt:fullName(sn),", status: false\n"}
+   --dbg.fini("MName:isloaded")
    return false
 end
 
