@@ -188,6 +188,7 @@ function Category(...)
       a[#a+1] = [[
 To get a list of every module in a category execute:
    $ module category Foo
+where "Foo" is the name of a category.
       ]]
       a[#a+1] = "\n"
       a[#a+1] = banner:bannerStr("List of Categories")
