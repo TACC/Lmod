@@ -113,7 +113,7 @@ require("string_utils")
 require("cmdfuncs")
 require("utils")
 
-MasterControl       = require("MasterControl")
+MainControl       = require("MainControl")
 
 local Banner        = require("Banner")
 local BaseShell     = require("BaseShell")
@@ -345,8 +345,8 @@ function main()
    end
 
    local masterTbl = masterTbl()
-   MCP = MasterControl.build("load")
-   mcp = MasterControl.build("load")
+   MCP = MainControl.build("load")
+   mcp = MainControl.build("load")
 
    ------------------------------------------------------------------
    -- initialize lmod with SitePackage and /etc/lmod/lmod_config.lua
@@ -466,8 +466,8 @@ function main()
    master = Master:singleton(checkMPATH)
 
    if (masterTbl.checkSyntax) then
-      MCP = MasterControl.build("checkSyntax")
-      mcp = MasterControl.build("checkSyntax")
+      MCP = MainControl.build("checkSyntax")
+      mcp = MainControl.build("checkSyntax")
       setSyntaxMode(true)
       Shell:setActive(false)
    end

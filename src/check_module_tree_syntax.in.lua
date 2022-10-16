@@ -101,7 +101,7 @@ require("deepcopy")
 require("parseVersion")
 require("TermWidth")
 
-_G.MasterControl    = require("MasterControl")
+_G.MainControl    = require("MainControl")
 Shell               = false
 
 local BaseShell     = require("BaseShell")
@@ -321,8 +321,8 @@ function main()
    end
 
    dbg.start{"module_tree_check main()"}
-   _G.mcp = MasterControl.build("spider")
-   _G.MCP = MasterControl.build("spider")
+   _G.mcp = MainControl.build("spider")
+   _G.MCP = MainControl.build("spider")
    local remove_MRC_home         = true
    local mrc                     = MRC:singleton(getModuleRCT(remove_MRC_home))
    local cache                   = Cache:singleton{dontWrite = true, quiet = true, buildCache = true,
@@ -331,8 +331,8 @@ function main()
    local spiderT, dbT,
          mpathMapT, providedByT  = cache:build()
 
-   _G.MCP = MasterControl.build("checkSyntax")
-   _G.mcp = MasterControl.build("checkSyntax")
+   _G.MCP = MainControl.build("checkSyntax")
+   _G.mcp = MainControl.build("checkSyntax")
    mcp.error  = check_syntax_error_handler
    MCP.error  = check_syntax_error_handler
    mcp.report = check_syntax_error_handler

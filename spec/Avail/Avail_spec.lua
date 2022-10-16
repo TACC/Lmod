@@ -6,7 +6,7 @@ require("utils")
 initialize_lmod()
 require("fileOps")
 
-_G.MasterControl = require("MasterControl")
+_G.MainControl = require("MainControl")
 local dbg        = require("Dbg"):dbg()
 local ModuleA    = require("ModuleA")
 local Master     = require("Master")
@@ -31,8 +31,8 @@ describe("Testing The Avail command #Avail.",
                   local master     = Master:singleton()
                   local rplmntA    = { {projDir,"%%ProjDir%%"} }
                   local masterTbl  = masterTbl()
-                  _G.mcp           = _G.MasterControl.build("load")
-                  _G.MCP           = _G.MasterControl.build("load")
+                  _G.mcp           = _G.MainControl.build("load")
+                  _G.MCP           = _G.MainControl.build("load")
 
                   masterTbl.terse  = true
                   masterTbl.rt     = true

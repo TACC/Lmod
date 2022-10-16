@@ -265,7 +265,7 @@ function M.mgrload(self, active)
    dbg.start{"Master:mgrload(",active.userName,")"}
 
    local mcp_old = mcp
-   mcp           = MasterControl.build("mgrload","load")
+   mcp           = MainControl.build("mgrload","load")
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    local mname   = MName:new("load", active.userName)
    mname:setRefCount(active.ref_count)
@@ -667,7 +667,7 @@ function M.refresh()
    local mt       = frameStk:mt()
    local shellNm  = _G.Shell and _G.Shell:name() or "bash"
    local mcp_old  = mcp
-   mcp            = MasterControl.build("refresh","load")
+   mcp            = MainControl.build("refresh","load")
 
    local activeA  = mt:list("short","active")
    local mList    = concatTbl(mt:list("both","active"),":")
@@ -702,7 +702,7 @@ function M.dependencyCk()
    local mt       = frameStk:mt()
    local shellNm  = _G.Shell and _G.Shell:name() or "bash"
    local mcp_old  = mcp
-   mcp            = MasterControl.build("dependencyCk")
+   mcp            = MainControl.build("dependencyCk")
 
    local activeA  = mt:list("short","active")
    local mList    = concatTbl(mt:list("both","active"),":")

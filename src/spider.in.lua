@@ -102,7 +102,7 @@ require("modfuncs")
 require("cmdfuncs")
 require("deepcopy")
 require("parseVersion")
-MasterControl       = require("MasterControl")
+MainControl       = require("MainControl")
 Cache               = require("Cache")
 MRC                 = require("MRC")
 Master              = require("Master")
@@ -436,8 +436,8 @@ function main()
    end
 
    dbg.start{"Spider main()"}
-   MCP = MasterControl.build("spider")
-   mcp = MasterControl.build("spider")
+   MCP = MainControl.build("spider")
+   mcp = MainControl.build("spider")
 
    dbg.print{"LMOD_TRACING: ",cosmic:value("LMOD_TRACING"),"\n"}
 

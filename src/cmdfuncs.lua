@@ -80,7 +80,7 @@ local function l_Access(mode, ...)
    local shell     = _G.Shell
    local masterTbl = masterTbl()
    dbg.start{"l_Access(", concatTbl({...},", "),")"}
-   mcp = MasterControl.build("access", mode)
+   mcp = MainControl.build("access", mode)
    mcp:setAccessMode(mode,true)
 
    local n = select('#',...)
@@ -890,7 +890,7 @@ function SearchCmd(...)
 end
 
 --------------------------------------------------------------------------
--- Use the show mode of MasterControl to list the active Lmod
+-- Use the show mode of MainControl to list the active Lmod
 -- commands in a module file.  Note that the output is always in Lua
 -- even if the modulefile is written in TCL.
 function Show(...)
@@ -898,7 +898,7 @@ function Show(...)
    local banner = Banner:singleton()
    dbg.start{"Show(", concatTbl({...},", "),")"}
 
-   mcp = MasterControl.build("show")
+   mcp = MainControl.build("show")
    local borderStr = banner:border(0)
 
    _G.prtHdr     = function()

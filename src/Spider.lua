@@ -308,7 +308,7 @@ function M.findAllModules(self, mpathA, spiderT, mpathMapT)
    
    local mcp_old   = mcp
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-   mcp = MasterControl.build("spider")
+   mcp = MainControl.build("spider")
 
 
    sandbox_set_os_exit(l_nothing)

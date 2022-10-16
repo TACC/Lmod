@@ -1234,7 +1234,7 @@ function M.getMTfromFile(self,tt)
 
    local MName   = require("MName")
    local mcp_old = mcp
-   mcp           = MasterControl.build("mgrload","load")
+   mcp           = MainControl.build("mgrload","load")
 
    -----------------------------------------------
    -- Normally we load the user name which means

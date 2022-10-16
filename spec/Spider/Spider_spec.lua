@@ -8,7 +8,7 @@ require("fileOps")
 require("serializeTbl")
 require("StandardPackage")
 
-_G.MasterControl = require("MasterControl")
+_G.MainControl = require("MainControl")
 local ModuleA    = require("ModuleA")
 local Spider     = require("Spider")
 local concatTbl  = table.concat
@@ -30,8 +30,8 @@ describe("Testing Spider Class #Spider.",
                   local spider  = Spider:new()
                   local spiderT = {}
                   local mpathMapT = {}
-                  _G.mcp = MasterControl.build("spider")
-                  _G.MCP = MasterControl.build("spider")
+                  _G.mcp = MainControl.build("spider")
+                  _G.MCP = MainControl.build("spider")
                   spider:findAllModules({mpath}, spiderT, mpathMapT)
                   local gold_spiderT = {
                      ["%ProjDir%/spec/Spider/mf/Core"]  = {
@@ -171,8 +171,8 @@ describe("Testing Spider Class #Spider.",
                   local spider    = Spider:new()
                   local spiderT   = {}
                   local mpathMapT = {}
-                  _G.mcp = MasterControl.build("spider")
-                  _G.MCP = MasterControl.build("spider")
+                  _G.mcp = MainControl.build("spider")
+                  _G.MCP = MainControl.build("spider")
                   spider:findAllModules({mpath}, spiderT, mpathMapT)
                   local gold_spiderT = {
                      ["%ProjDir%/spec/Spider/h/mf/Compiler/gcc/5.9"]  = {

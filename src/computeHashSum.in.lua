@@ -96,7 +96,7 @@ require("myGlobals")
 require("utils")
 require("fileOps")
 require("capture")
-MasterControl = require("MasterControl")
+MainControl = require("MainControl")
 MCP           = false
 mcp           = false
 require("modfuncs")
@@ -144,8 +144,8 @@ function main()
    -- initialize lmod with SitePackage and /etc/lmod/lmod_config.lua
    initialize_lmod()
    
-   MCP           = MasterControl.build("computeHash","load")
-   mcp           = MasterControl.build("computeHash","load")
+   MCP           = MainControl.build("computeHash","load")
+   mcp           = MainControl.build("computeHash","load")
 
    local fn     = masterTbl.pargs[1]
    local entryT = {sn = masterTbl.sn, userName = masterTbl.userName, fn = fn,
