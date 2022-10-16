@@ -8,7 +8,7 @@ require("fileOps")
 require("serializeTbl")
 require("StandardPackage")
 
-_G.MainControl = require("MainControl")
+_G.MainControl   = require("MainControl")
 local ModuleA    = require("ModuleA")
 local Spider     = require("Spider")
 local concatTbl  = table.concat

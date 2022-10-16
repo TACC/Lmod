@@ -39,7 +39,7 @@ require("strict")
 --------------------------------------------------------------------------
 
 
-local MainControl    = require("MainControl")
+local MainControl      = require("MainControl")
 local MC_MgrLoad       = inheritsFrom(MainControl)
 local M                = MC_MgrLoad
 local dbg              = require("Dbg"):dbg()

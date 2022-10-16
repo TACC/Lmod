@@ -38,7 +38,7 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
-local MainControl    = require("MainControl")
+local MainControl      = require("MainControl")
 local MC_CheckSyntax   = inheritsFrom(MainControl)
 local M                = MC_CheckSyntax
 local ReadLmodRC       = require("ReadLmodRC")

@@ -132,7 +132,7 @@ local concatTbl    = table.concat
 local getenv       = os.getenv
 local getenv_posix = posix.getenv
 local setenv_posix = posix.setenv
-local s_master     = {}
+local s_mainTbl    = {}
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
 envT               = false
 
@@ -155,7 +155,7 @@ local execT = {
 
 
 function masterTbl()
-   return s_master
+   return s_mainTbl
 end
 
 local function l_cleanPath(value)

@@ -95,14 +95,14 @@ require("string_utils")
 require("pairsByKeys")
 local lfs    = require("lfs")
 local Optiks = require("Optiks")
-local s_masterTbl = {}
+local s_mainTbl = {}
 
 function cmdDir()
    return cmd_dir
 end
 
 function masterTbl()
-   return s_masterTbl
+   return s_mainTbl
 end
 
 function isDir(d)

@@ -505,7 +505,7 @@ end
 
 local s_masterTbl = {}
 --------------------------------------------------------------------------
--- Manage the Master Hash Table.
+-- Manage the Hub Hash Table.
 function masterTbl()
    return s_masterTbl
 end

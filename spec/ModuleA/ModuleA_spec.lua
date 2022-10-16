@@ -7,7 +7,7 @@ initialize_lmod()
 require("fileOps")
 require("serializeTbl")
 
-_G.MainControl = require("MainControl")
+_G.MainControl   = require("MainControl")
 local DirTree    = require("DirTree")
 local MT         = require("MT")
 local ModuleA    = require("ModuleA")

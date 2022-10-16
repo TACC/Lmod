@@ -96,7 +96,7 @@ require("myGlobals")
 require("utils")
 require("fileOps")
 require("capture")
-MainControl = require("MainControl")
+MainControl   = require("MainControl")
 MCP           = false
 mcp           = false
 require("modfuncs")
@@ -104,7 +104,7 @@ require("cmdfuncs")
 require("parseVersion")
 
 BaseShell         = require("BaseShell")
-Master            = require("Master")
+Hub            = require("Hub")
 
 local FrameStk    = require("FrameStk")
 local MT          = require("MT")
@@ -115,16 +115,16 @@ local concatTbl   = table.concat
 local dbg         = require("Dbg"):dbg()
 local fh          = nil
 local getenv      = os.getenv
-local s_masterTbl = {}
+local s_mainTbl = {}
 
 function masterTbl()
-   return s_masterTbl
+   return s_mainTbl
 end
 
 
 function main()
    __removeEnvMT()  -- Wipe the ModuleTable in the environment so that it doesn't pollute isloaded()!
-   local master    = Master:singleton(false)
+   local hub       = Hub:singleton(false)
    local frameStk  = FrameStk:singleton()
    local shellNm   = "bash"
    _G.Shell        = BaseShell:build(shellNm)

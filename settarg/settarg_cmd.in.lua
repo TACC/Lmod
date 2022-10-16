@@ -70,10 +70,10 @@ if (not pcall(require,"strict")) then
    os.exit(0)
 end
 
-local master = {}
+local s_masterTbl = {}
 
 function masterTbl()
-   return master
+   return s_masterTbl
 end
 
 BaseShell            = require("BaseShell")

@@ -48,7 +48,7 @@ require("utils")
 local dbg              = require("Dbg"):dbg()
 local concatTbl        = table.concat
 local hook             = require("Hook")
-local MainControl    = require("MainControl")
+local MainControl      = require("MainControl")
 MC_Spider              = inheritsFrom(MainControl)
 MC_Spider.my_name      = "MC_Spider"
 MC_Spider.my_sType     = "load"

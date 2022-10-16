@@ -21,7 +21,7 @@ Level 2 will show how to load the specified module in a hierarchy.
 `wv`: weighted version (user, system and module locale .modulerc)
 `luaExt`: location of the .lua in the filename (zero when tcl module)
 
-Master Control
+MainControl
 --------------
 
 The MainControl is the heart of Lmod. An 'action' in a module file like `setenv('foo', 'bar')` has a different
@@ -45,7 +45,7 @@ The object MCP (MainControl Program) is created once and always points to a 'pos
 action (a load basically). The lowercase mcp points to the current MainControl
 Program. These variables are global.
 
-The file `Master.lua` is were the real work is being done. MainControl will decides which functions
+The file `Hub.lua` is were the real work is being done. MainControl will decides which functions
 get called from this file.
 
 General flow
@@ -54,4 +54,4 @@ General flow
 The Lmod main is in `lmod.lua.in`. There the MainControl Program (MCP) object is created. The array
 `lmodCmdA` does the translation between user input and a Lmod command. The file `cmdfuncs.lua` holds
 all 'user' actions. The main will run a function from that file which will call MainControl which
-calls Master (or sometimes Master directly).
+calls Hub (or sometimes Hub directly).

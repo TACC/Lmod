@@ -41,7 +41,7 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
-local MainControl    = require("MainControl")
+local MainControl      = require("MainControl")
 MC_Unload              = inheritsFrom(MainControl)
 MC_Unload.my_name      = "MC_Unload"
 MC_Unload.my_sType     = "mt"

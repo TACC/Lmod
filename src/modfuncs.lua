@@ -7,7 +7,7 @@
 --     a) They validate their arguments.
 --     b) mcp:<function>(...)
 --
--- The variable mcp is the master control program object.  It gets
+-- The variable mcp is the MainControl Program object.  It gets
 -- constructed in the various modes Lmod gets run in.  The modes include
 -- load, unload, show, etc.  See MC_Load.lua and the other MC_*.lua files
 -- As well as the base class MainControl.lua for more details.

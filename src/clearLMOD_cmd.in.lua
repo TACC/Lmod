@@ -89,12 +89,12 @@ require("fileOps")
 local concatTbl    = table.concat
 local strfmt       = string.format
 local huge         = math.huge
-local master       = {}
+local s_mainTbl    = {}
 local Optiks       = require("Optiks")
 
 
 function masterTbl()
-   return master
+   return s_mainTbl
 end
 
 function cmdDir()

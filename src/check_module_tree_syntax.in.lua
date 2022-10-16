@@ -101,7 +101,7 @@ require("deepcopy")
 require("parseVersion")
 require("TermWidth")
 
-_G.MainControl    = require("MainControl")
+_G.MainControl      = require("MainControl")
 Shell               = false
 
 local BaseShell     = require("BaseShell")
@@ -110,7 +110,7 @@ local FrameStk      = require("FrameStk")
 local MRC           = require("MRC")
 local MName         = require("MName")
 local MT            = require("MT")
-local Master        = require("Master")
+local Hub           = require("Hub")
 local ModuleA       = require("ModuleA")
 local Optiks        = require("Optiks")
 local Spider        = require("Spider")
@@ -298,7 +298,7 @@ function main()
    -- initialize lmod with SitePackage and /etc/lmod/lmod_config.lua
    initialize_lmod()
 
-   local master     = Master:singleton(false)
+   local hub     = Hub:singleton(false)
    for i = 1,#pargs do
       local v = pargs[i]
       for path in v:split(":") do

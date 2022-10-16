@@ -9,14 +9,14 @@ Version = "1.1"
 require("declare")
 require("strict")
 require("string_utils")
-local posix  = require("posix")
-local Optiks = require("Optiks")
-local dbg    = require("Dbg"):dbg()
-local master = {}
-local load   = (_VERSION == "Lua 5.1") and loadstring or load
+local posix     = require("posix")
+local Optiks    = require("Optiks")
+local dbg       = require("Dbg"):dbg()
+local s_mainTbl = {}
+local load      = (_VERSION == "Lua 5.1") and loadstring or load
 
 function masterTbl()
-   return master
+   return s_mainTbl
 end
 
 function main()

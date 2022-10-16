@@ -46,7 +46,7 @@ require("strict")
 require("utils")
 require("myGlobals")
 
-local MainControl   = require("MainControl")
+local MainControl     = require("MainControl")
 MC_Access             = inheritsFrom(MainControl)
 MC_Access.my_name     = "MC_Access"
 MC_Access.my_sType    = "load"

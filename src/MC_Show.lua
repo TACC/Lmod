@@ -47,7 +47,7 @@ require("strict")
 
 require("utils")
 local pack          = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
-local MainControl = require("MainControl")
+local MainControl   = require("MainControl")
 local setenv_posix  = posix.setenv
 MC_Show             = inheritsFrom(MainControl)
 MC_Show.my_name     = "MC_Show"

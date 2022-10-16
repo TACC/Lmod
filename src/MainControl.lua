@@ -40,7 +40,7 @@ require("colorize")
 require("string_utils")
 require("utils")
 
-Master                 = require("Master")
+Hub                    = require("Hub")
 
 local BeautifulTbl     = require("BeautifulTbl")
 local FrameStk         = require("FrameStk")
@@ -876,8 +876,8 @@ function M.performDependencyCk(self)
    if (not s_performDepCk) then return end
    dbg.start{"MainControl:performDependencyCk()"}
    
-   local master = Master:singleton()
-   master:dependencyCk()
+   local hub = Hub:singleton()
+   hub:dependencyCk()
    self:reportMissingDepModules()
    dbg.fini("MainControl:performDependencyCk")
 end
@@ -972,7 +972,7 @@ end
 
 
 function M.forgo(self,mA)
-   local master = Master:singleton()
+   local hub = Hub:singleton()
    if (dbg.active()) then
       local s = mAList(mA)
       dbg.start{"MainControl:forgo(mA={"..s.."})"}
@@ -1043,8 +1043,8 @@ function M.load(self, mA)
       dbg.start{"MainControl:load(mA={"..s.."})"}
    end
 
-   local master = Master:singleton()
-   local a      = master:load(mA)
+   local hub = Hub:singleton()
+   local a      = hub:load(mA)
 
    if (not quiet()) then
       self:registerAdminMsg(mA)
@@ -1095,7 +1095,7 @@ function M.mgrload(self, required, active)
       activateWarning()
    end
 
-   local status = Master:singleton():mgrload(active)
+   local status = Hub:singleton():mgrload(active)
 
    dbg.fini("MainControl:mgrload")
    return status
@@ -1129,7 +1129,7 @@ end
 -- @param mA A array of MName objects.
 -- @return an array of statuses
 function M.unload(self, mA)
-   local master = Master:singleton()
+   local hub = Hub:singleton()
 
 
    if (dbg.active()) then
@@ -1138,7 +1138,7 @@ function M.unload(self, mA)
    end
 
    l_unRegisterUserLoads(mA)
-   local aa     = master:unload(mA)
+   local aa     = hub:unload(mA)
    dbg.fini("MainControl:unload")
    return aa
 end
@@ -1164,11 +1164,11 @@ function M.unload_usr(self, mA, force)
    dbg.start{"MainControl:unload_usr(mA)"}
 
    M.unload(self,mA)
-   local master = Master:singleton()
-   local aa = master:reload_sticky(force)
+   local hub = Hub:singleton()
+   local aa = hub:reload_sticky(force)
 
    self:registerDependencyCk()
-   --master:dependencyCk()
+   --hub:dependencyCk()
 
    dbg.fini("MainControl:unload_usr")
    return aa
@@ -1497,8 +1497,8 @@ end
 -- @param self A MainControl object
 function M.inherit(self)
    dbg.start{"MainControl:inherit()"}
-   local master = Master:singleton()
-   master.inheritModule()
+   local hub = Hub:singleton()
+   hub.inheritModule()
    dbg.fini("MainControl:inherit")
 end
 

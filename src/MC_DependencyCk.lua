@@ -41,7 +41,7 @@ require("strict")
 --------------------------------------------------------------------------
 
 
-local MainControl    = require("MainControl")
+local MainControl      = require("MainControl")
 local MC_DependencyCk  = inheritsFrom(MainControl)
 local M                = MC_DependencyCk
 M.my_name              = "MC_DependencyCk"

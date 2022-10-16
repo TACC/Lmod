@@ -43,7 +43,7 @@ require("strict")
 --------------------------------------------------------------------------
 
 
-local MainControl    = require("MainControl")
+local MainControl      = require("MainControl")
 local MC_Refresh       = inheritsFrom(MainControl)
 local M                = MC_Refresh
 M.my_name              = "MC_Refresh"

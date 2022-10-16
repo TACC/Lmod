@@ -102,10 +102,10 @@ require("modfuncs")
 require("cmdfuncs")
 require("deepcopy")
 require("parseVersion")
-MainControl       = require("MainControl")
+MainControl         = require("MainControl")
 Cache               = require("Cache")
 MRC                 = require("MRC")
-Master              = require("Master")
+Hub                 = require("Hub")
 BaseShell           = require("BaseShell")
 Shell               = false
 local Optiks        = require("Optiks")
@@ -414,7 +414,7 @@ function main()
 
    Shell            = BaseShell:build("bash")
 
-   local master     = Master:singleton(false)
+   local hub        = Hub:singleton(false)
 
    for _, v in ipairs(pargs) do
       for path in v:split(":") do

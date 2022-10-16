@@ -113,7 +113,7 @@ require("string_utils")
 require("cmdfuncs")
 require("utils")
 
-MainControl       = require("MainControl")
+MainControl         = require("MainControl")
 
 local Banner        = require("Banner")
 local BaseShell     = require("BaseShell")
@@ -462,8 +462,8 @@ function main()
    hook.apply("startup", cmdName)
 
    local checkMPATH = (cmdT) and cmdT.checkMPATH or false
-   dbg.print{"Calling Master:singleton(checkMPATH) w checkMPATH: ",checkMPATH,"\n"}
-   master = Master:singleton(checkMPATH)
+   dbg.print{"Calling Hub:singleton(checkMPATH) w checkMPATH: ",checkMPATH,"\n"}
+   hub = Hub:singleton(checkMPATH)
 
    if (masterTbl.checkSyntax) then
       MCP = MainControl.build("checkSyntax")

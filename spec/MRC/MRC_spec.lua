@@ -5,7 +5,7 @@ require("strict")
 require("utils")
 initialize_lmod()
 
-_G.MainControl = require("MainControl")
+_G.MainControl   = require("MainControl")
 local DirTree    = require("DirTree")
 local FrameStk   = require("FrameStk")
 local MRC        = require("MRC")

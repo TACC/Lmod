@@ -51,7 +51,7 @@ local BeautifulTbl = require('BeautifulTbl')
 local Cache        = require("Cache")
 local ColumnTable  = require('ColumnTable')
 local FrameStk     = require('FrameStk')
-local Master       = require('Master')
+local Hub       = require('Hub')
 local MName        = require("MName")
 local Spider       = require("Spider")
 local Version      = require("Version")
@@ -76,7 +76,7 @@ local system_name  = cosmic:value("LMOD_SYSTEM_NAME")
 -- depending on what mode Access is called with.
 -- @param mode Whether this function has be called via *Help* or *Whatis*.
 local function l_Access(mode, ...)
-   local master    = Master:singleton()
+   local hub    = Hub:singleton()
    local shell     = _G.Shell
    local masterTbl = masterTbl()
    dbg.start{"l_Access(", concatTbl({...},", "),")"}
@@ -90,7 +90,7 @@ local function l_Access(mode, ...)
       return
    end
 
-   master:access(...)
+   hub:access(...)
    mcp:setAccessMode(mode,false)
    dbg.fini("l_Access")
 end
@@ -139,10 +139,10 @@ end
 
 ------------------------------------------------------------------------
 -- Just convert the vararg into an actual array and call
--- master.avail to do the real work.
+-- hub.avail to do the real work.
 function Avail(...)
    local shell = _G.Shell
-   local a     = master:avail(pack(...))
+   local a     = hub:avail(pack(...))
    if (next(a) ~= nil) then
       shell:echo(concatTbl(a,""))
    end
@@ -150,11 +150,11 @@ end
 
 ------------------------------------------------------------------------
 -- Just convert the vararg into an actual array and call
--- master.overview to do the real work.
+-- hub.overview to do the real work.
 
 function Overview(...)
    local shell = _G.Shell
-   local a     = master:overview(pack(...))
+   local a     = hub:overview(pack(...))
    if (next(a) ~= nil) then
       shell:echo(concatTbl(a,""))
    end
@@ -498,8 +498,8 @@ end
 -- defined.
 function Refresh()
    dbg.start{"Refresh()"}
-   local master  = Master:singleton()
-   master:refresh()
+   local hub  = Hub:singleton()
+   hub:refresh()
    dbg.fini("Refresh")
 end
 
@@ -894,7 +894,7 @@ end
 -- commands in a module file.  Note that the output is always in Lua
 -- even if the modulefile is written in TCL.
 function Show(...)
-   local master = Master:singleton()
+   local hub = Hub:singleton()
    local banner = Banner:singleton()
    dbg.start{"Show(", concatTbl({...},", "),")"}
 
@@ -912,7 +912,7 @@ function Show(...)
                   end
    local exit = os.exit
    sandbox_set_os_exit(show_exit)
-   master:access(...)
+   hub:access(...)
    os.exit = exit
    dbg.fini("Show")
 end
@@ -1051,9 +1051,9 @@ end
 --------------------------------------------------------------------------
 --  Reload all modules.
 function Update()
-   local master = Master:singleton()
+   local hub = Hub:singleton()
    local force_update = true
-   master:reloadAll(force_update)
+   hub:reloadAll(force_update)
 end
 
 --------------------------------------------------------------------------
@@ -1100,10 +1100,10 @@ function Use(...)
       op(mcp, { ModulePath,  v, delim = ":", nodups=true, priority=priority })
    end
 
-   local master    = Master:singleton()
+   local hub    = Hub:singleton()
    if (mt:changeMPATH()) then
       mt:reset_MPATH_change_flag()
-      master.reloadAll()
+      hub.reloadAll()
    end
    mcp = mcp_old
    dbg.fini("Use")
@@ -1124,7 +1124,7 @@ function UnUse(...)
    end
    if (mt:changeMPATH()) then
       mt:reset_MPATH_change_flag()
-      master.reloadAll()
+      hub.reloadAll()
    end
    dbg.fini("UnUse")
 end

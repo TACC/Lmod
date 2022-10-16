@@ -54,7 +54,7 @@ require("strict")
 
 require("utils")
 
-local MainControl        = require("MainControl")
+local MainControl          = require("MainControl")
 MC_ComputeHash             = inheritsFrom(MainControl)
 MC_ComputeHash.my_name     = "MC_ComputeHash"
 MC_ComputeHash.my_sType    = "load"
