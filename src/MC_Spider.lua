@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------
 -- This derived class of MainControl is how Spider reads
--- in modulefiles.  It uses masterTbl() to hold the moduleStack.
+-- in modulefiles.  It uses optionTbl() to hold the moduleStack.
 -- It looks for adding paths to MODULEPATH.  It also keeps track
 -- of properties.
 --
@@ -101,7 +101,7 @@ pack     = (_VERSION == "Lua 5.1") and argsPack or table.pack
 -- use the moduleStack to return the filename of the modulefile.
 -- @param self A MainControl object.
 function M.myFileName(self)
-   local moduleStack = masterTbl().moduleStack
+   local moduleStack = optionTbl().moduleStack
    local iStack      = #moduleStack
    return moduleStack[iStack].fn
 end
@@ -112,7 +112,7 @@ end
 -- the full name.
 -- @param self A MainControl object.
 function M.myModuleFullName(self)
-   local moduleStack = masterTbl().moduleStack
+   local moduleStack = optionTbl().moduleStack
    local iStack      = #moduleStack
    return moduleStack[iStack].fullName
 end
@@ -123,7 +123,7 @@ M.myModuleUsrName = M.myModuleFullName
 -- Use the moduleStack to return the short name of the module.
 -- @param self A MainControl object.
 function M.myModuleName(self)
-   local moduleStack = masterTbl().moduleStack
+   local moduleStack = optionTbl().moduleStack
    local iStack      = #moduleStack
    return moduleStack[iStack].sn
 end
@@ -133,7 +133,7 @@ end
 -- modules the version will be "".
 -- @param self A MainControl object.
 function M.myModuleVersion(self)
-   local moduleStack = masterTbl().moduleStack
+   local moduleStack = optionTbl().moduleStack
    local iStack      = #moduleStack
    local fullName    = moduleStack[iStack].fullName
    local sn          = moduleStack[iStack].sn
@@ -145,7 +145,7 @@ end
 -- @param self A MainControl object.
 function M.help(self,...)
    dbg.start{"MC_Spider:help(...)"}
-   local moduleStack  = masterTbl().moduleStack
+   local moduleStack  = optionTbl().moduleStack
    local iStack       = #moduleStack
    local path         = moduleStack[iStack].path
    local moduleT      = moduleStack[iStack].moduleT
@@ -165,7 +165,7 @@ end
 -- @param self A MainControl object.
 function M.extensions(self,...)
    dbg.start{"MC_Spider:extensions(...)"}
-   local moduleStack  = masterTbl().moduleStack
+   local moduleStack  = optionTbl().moduleStack
    local iStack       = #moduleStack
    local path         = moduleStack[iStack].path
    local moduleT      = moduleStack[iStack].moduleT
@@ -189,7 +189,7 @@ end
 -- @param s whatis string.
 function M.whatis(self,s)
    dbg.start{"MC_Spider:whatis(...)"}
-   local moduleStack = masterTbl().moduleStack
+   local moduleStack = optionTbl().moduleStack
    local iStack      = #moduleStack
    local path        = moduleStack[iStack].path
    local moduleT     = moduleStack[iStack].moduleT
@@ -287,7 +287,7 @@ end
 
 function M.family(self, value)
    dbg.start{"MC_Spider:family(\"value=\"",value,"\")"}
-   local moduleStack   = masterTbl().moduleStack
+   local moduleStack   = optionTbl().moduleStack
    local iStack        = #moduleStack
    local path          = moduleStack[iStack].path
    local moduleT       = moduleStack[iStack].moduleT
@@ -303,7 +303,7 @@ end
 -- @param value the value.
 function M.add_property(self, name, value)
    dbg.start{"MC_Spider:add_property(name=\"",name,"\", value=\"",value,"\")"}
-   local moduleStack   = masterTbl().moduleStack
+   local moduleStack   = optionTbl().moduleStack
    local iStack        = #moduleStack
    local path          = moduleStack[iStack].path
    local moduleT       = moduleStack[iStack].moduleT
@@ -322,7 +322,7 @@ end
 -- @param value the value.
 function M.remove_property(self, name, value)
    dbg.start{"MC_Spider:remove_property(name=\"",name,"\", value=\"",value,"\")"}
-   local moduleStack   = masterTbl().moduleStack
+   local moduleStack   = optionTbl().moduleStack
    local iStack        = #moduleStack
    local path          = moduleStack[iStack].path
    local moduleT       = moduleStack[iStack].moduleT

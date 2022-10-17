@@ -71,7 +71,7 @@ function getUname()
       return t
    end
 
-   local masterTbl        = masterTbl()
+   local optionTbl        = optionTbl()
    local machFullName     = nil
    local osName           = posix.uname("%s")
    local release          = posix.uname("%r")
@@ -79,11 +79,11 @@ function getUname()
    local machFamilyName   = machName
    local machDescript     = machName
    osName                 = string.gsub(osName,"[ /]","_")
-   if (masterTbl.genericArch) then
+   if (optionTbl.genericArch) then
       machName       = "_generic"
       machDescript   = "generic"
       machFamilyName = "generic"
-   elseif (osName == "Linux" and ( machName == "x86_64" or machName:find("i[3-6]86" )) and not masterTbl.noCpuModel) then
+   elseif (osName == "Linux" and ( machName == "x86_64" or machName:find("i[3-6]86" )) and not optionTbl.noCpuModel) then
       local cpu_family
       local model
       local count = 0
@@ -114,7 +114,7 @@ function getUname()
          end
          f:close()
       end
-      if (avx2 and not masterTbl.noGrouping) then
+      if (avx2 and not optionTbl.noGrouping) then
          model = "avx2"
       end
       machFullName = machName .. "_" .. cpu_family .. "_" .. model

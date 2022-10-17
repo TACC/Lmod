@@ -198,9 +198,9 @@ function options()
       help   = "Cache Description File"
    }
 
-   local optionTbl, pargs = cmdlineParser:parse(arg)
+   local optTbl, pargs = cmdlineParser:parse(arg)
 
-   return optionTbl, pargs
+   return optTbl, pargs
 
 end
 

@@ -158,7 +158,7 @@ describe("Testing Spider Class #Spider.",
                   --   dbg:activateDebug(1)
                   --end
 
-                  local masterTbl  = masterTbl()
+                  local optionTbl  = optionTbl()
                   local projDir    = getenv("PROJDIR")
                   local root_mpath = pathJoin(projDir, testDir, "h/mf")
                   local mpath      = pathJoin(root_mpath,       "Core")
@@ -307,13 +307,13 @@ describe("Testing Spider Class #Spider.",
                   }
 
                   local mpathMapT = {}
-                  sanizatizeTbl(rplmntA, masterTbl.mpathMapT, mpathMapT)
+                  sanizatizeTbl(rplmntA, optionTbl.mpathMapT, mpathMapT)
                   --print(serializeTbl{indent=true, name="mpathMapT",value = mpathMapT})
                   assert.are.same(gold_mpathMapT, mpathMapT)
 
                   local dbT = {}
                   --dbg:activateDebug(1)
-                  spider:buildDbT({mpath}, masterTbl.mpathMapT, spiderT, dbT)
+                  spider:buildDbT({mpath}, optionTbl.mpathMapT, spiderT, dbT)
                   local _dbT = {}
                   sanizatizeTbl(rplmntA, dbT, _dbT)
                   local gold_dbT = {

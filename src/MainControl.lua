@@ -1198,7 +1198,7 @@ function M.conflict(self, mA)
    local frameStk  = FrameStk:singleton()
    local mt        = frameStk:mt()
    local fullName  = frameStk:fullName()
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
    local a         = {}
 
    for i = 1, #mA do
@@ -1225,7 +1225,7 @@ function M.prereq(self, mA)
 
    local frameStk  = FrameStk:singleton()
    local fullName  = frameStk:fullName()
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
 
    local a = {}
    for i = 1, #mA do
@@ -1251,7 +1251,7 @@ function M.prereq_any(self, mA)
    dbg.start{"MainControl:prereq_any(mA)"}
    local frameStk  = FrameStk:singleton()
    local fullName  = frameStk:fullName()
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
    local found     = false
    local a         = {}
 
@@ -1342,7 +1342,7 @@ function M.family(self, name)
    local fullName  = frameStk:fullName()
    local mname     = MName:new("mt",fullName)
    local sn        = mname:sn()
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
    local auto_swap = cosmic:value("LMOD_AUTO_SWAP")
 
    l_check_for_valid_name("family",name)

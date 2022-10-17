@@ -78,14 +78,14 @@ local system_name  = cosmic:value("LMOD_SYSTEM_NAME")
 local function l_Access(mode, ...)
    local hub    = Hub:singleton()
    local shell     = _G.Shell
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
    dbg.start{"l_Access(", concatTbl({...},", "),")"}
    mcp = MainControl.build("access", mode)
    mcp:setAccessMode(mode,true)
 
    local n = select('#',...)
    if (n < 1) then
-      shell:echo(masterTbl.cmdHelpMsg, "\n", Usage(), "\n", version())
+      shell:echo(optionTbl.cmdHelpMsg, "\n", Usage(), "\n", version())
       dbg.fini("l_Access")
       return
    end
@@ -218,8 +218,8 @@ function Keyword(...)
    local spider                 = Spider:new()
    local a                      = {}
    local ia                     = 0
-   local masterTbl              = masterTbl()
-   local terse                  = masterTbl.terse
+   local optionTbl              = optionTbl()
+   local terse                  = optionTbl.terse
    local kywdT,kywdExtsT        = spider:searchSpiderDB(pack(...), dbT, providedByT)
 
    if (terse) then
@@ -243,14 +243,14 @@ end
 -- List the loaded modulefile
 function List(...)
    dbg.start{"List(...)"}
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
    local shell     = _G.Shell
    local frameStk  = FrameStk:singleton()
    local mt        = frameStk:mt()
    local activeA   = mt:list("fullName","active")
    local inactiveA = mt:list("fullName","inactive")
    local total     = #activeA + #inactiveA
-   local cwidth    = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
+   local cwidth    = optionTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
 
    dbg.print{"#activeA:   ",#activeA,"\n"}
    dbg.print{"#inactiveA: ",#inactiveA,"\n"}
@@ -275,14 +275,14 @@ function List(...)
       wanted.n  = 1
    else
       msg2 = i18n("matching",{wanted = table.concat(wanted," or ")})
-      if (not masterTbl.regexp) then
+      if (not optionTbl.regexp) then
          for i = 1, wanted.n do
             wanted[i] = wanted[i]:caseIndependent()
          end
       end
    end
 
-   if (masterTbl.terse) then
+   if (optionTbl.terse) then
       for i = 1,#activeA do
          local fullName = activeA[i].fullName
          for j = 1, wanted.n do
@@ -631,15 +631,15 @@ end
 function CollectionLst(collection)
    collection  = collection or "default"
    dbg.start{"CollectionLst(",collection,")"}
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
    local sname     = (not system_name) and "" or "." .. system_name
    local mt        = FrameStk:singleton():mt()
    local shell     = _G.Shell
-   local cwidth    = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
+   local cwidth    = optionTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
    local path      = l_find_a_collection(collection)
 
    local a         = mt:reportContents{fn=path, name=collection}
-   if (masterTbl.terse) then
+   if (optionTbl.terse) then
       for i = 1,#a do
          shell:echo(a[i].."\n")
       end
@@ -725,7 +725,7 @@ function Restore(collection)
    end
 
 
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
 
    if (collection == "system" ) then
       msg = "system default" .. msgTail
@@ -734,7 +734,7 @@ function Restore(collection)
       msg        = "user's ".. collection .. msgTail
    end
 
-   if (masterTbl.quiet or masterTbl.initial) then
+   if (optionTbl.quiet or optionTbl.initial) then
       msg = false
    end
 
@@ -767,7 +767,7 @@ end
 -- complicated but a "manager" module file is "fake" loaded so
 -- that any setenv or prepend_path commands will not be executed.
 function Save(...)
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
    local frameStk  = FrameStk:singleton()
    local mt        = frameStk:mt()
    local a         = select(1, ...) or "default"
@@ -797,7 +797,7 @@ function Save(...)
    end
 
    local activeA = mt:list("short","active")
-   local force   = masterTbl.force
+   local force   = optionTbl.force
    if (#activeA == 0 and not force) then
       LmodWarning{msg="w_Save_Empty_Coll",name=a}
       dbg.fini("Save")
@@ -842,16 +842,16 @@ end
 -- Report to the user all the named collections he/she has.
 function SaveList(...)
    local mt        = FrameStk:singleton():mt()
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
    local a         = {}
    local b         = {}
    local shell     = _G.Shell
-   local cwidth    = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
+   local cwidth    = optionTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
    local home      = os.getenv("HOME")
    local pathA     = l_collectionDir("read")
 
    l_findNamedCollections(b,pathA)
-   if (masterTbl.terse) then
+   if (optionTbl.terse) then
       for k = 1,#b do
          local name = b[k]
          shell:echo(name.."\n")
@@ -925,7 +925,7 @@ function SpiderCmd(...)
    dbg.start{"SpiderCmd(", concatTbl({...},", "),")"}
    local cache                  = Cache:singleton{buildCache=true}
    local shell                  = _G.Shell
-   local masterTbl              = masterTbl()
+   local optionTbl              = optionTbl()
    local spiderT,dbT,
          mpathMapT, providedByT = cache:build()
    local spider                 = Spider:new()
@@ -943,7 +943,7 @@ function SpiderCmd(...)
       end
       s = concatTbl(a,"")
    end
-   if (masterTbl.terse) then
+   if (optionTbl.terse) then
       shell:echo(s.."\n")
    else
       local a = {}
@@ -997,7 +997,7 @@ function Swap(...)
 
    mname       = mA[1]
    sn          = mname:sn()
-   local usrN  = (not masterTbl().latest) and b or mt:fullName(sn)
+   local usrN  = (not optionTbl().latest) and b or mt:fullName(sn)
    mt:userLoad(sn,usrN)
    dbg.fini("Swap")
 end

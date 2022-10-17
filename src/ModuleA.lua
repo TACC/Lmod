@@ -290,7 +290,7 @@ function M.__find_all_defaults(self)
    dbg.start{"ModuleA:__find_all_defaults()"}
    local moduleA     = self.__moduleA
    local defaultT    = self.__defaultT
-   local show_hidden = masterTbl().show_hidden
+   local show_hidden = optionTbl().show_hidden
    local mrc         = MRC:singleton()
 
    local function l_find_all_defaults_helper(level,isNVV, mpath, sn, v)
@@ -365,7 +365,7 @@ end
 
 function M.build_availA(self)
    dbg.start{"ModuleA:build_availA()"}
-   local show_hidden = masterTbl().show_hidden
+   local show_hidden = optionTbl().show_hidden
    local mrc         = MRC:singleton()
 
    local function l_build_availA_helper(mpath, sn, v, A)
@@ -541,7 +541,7 @@ function M.update(self, t)
    local currentMPATH  = varT[ModulePath]:expand()
    local clearDblSlash = true
    local mpathA        = path2pathA(currentMPATH,':', clearDblSlash)
-   local terse         = masterTbl().terse
+   local terse         = optionTbl().terse
 
    ------------------------------------------------------------
    -- Store away the old moduleA entries in T (hash table).
@@ -681,7 +681,7 @@ function M.singleton(self, t)
       local dbT      = false
 
       if (t.spider_cache) then
-         local cache  = require("Cache"):singleton{quiet=masterTbl().terse, buildCache=true}
+         local cache  = require("Cache"):singleton{quiet=optionTbl().terse, buildCache=true}
          spiderT, dbT = cache:build()
       end
       s_moduleA = self:__new(mt:modulePathA(), mt:maxDepthT(), getModuleRCT(), spiderT)

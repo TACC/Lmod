@@ -115,10 +115,10 @@ local concatTbl   = table.concat
 local dbg         = require("Dbg"):dbg()
 local fh          = nil
 local getenv      = os.getenv
-local s_mainTbl = {}
+local s_optionTbl = {}
 
-function masterTbl()
-   return s_mainTbl
+function optionTbl()
+   return s_optionTbl
 end
 
 
@@ -131,12 +131,12 @@ function main()
    local tmpfn     = os.tmpname()
    fh              = io.open(tmpfn,"w")
    local i         = 1
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
 
    options()
 
-   if (masterTbl.debug) then
-      dbg:activateDebug(1, tonumber(masterTbl.indentLevel))
+   if (optionTbl.debug) then
+      dbg:activateDebug(1, tonumber(optionTbl.indentLevel))
    end
    dbg.start{"computeHashSum()"}
 
@@ -147,19 +147,19 @@ function main()
    MCP           = MainControl.build("computeHash","load")
    mcp           = MainControl.build("computeHash","load")
 
-   local fn     = masterTbl.pargs[1]
-   local entryT = {sn = masterTbl.sn, userName = masterTbl.userName, fn = fn,
-                   version = extractVersion(masterTbl.fullName, masterTbl.sn)}
+   local fn     = optionTbl.pargs[1]
+   local entryT = {sn = optionTbl.sn, userName = optionTbl.userName, fn = fn,
+                   version = extractVersion(optionTbl.fullName, optionTbl.sn)}
    local mname = MName:new("entryT", entryT)
-   dbg.print{"fullName: ",mname:fullName(),", userName: ",mname:userName()," masterTbl.fullName: ", masterTbl.fullName,"\n"}
+   dbg.print{"fullName: ",mname:fullName(),", userName: ",mname:userName()," optionTbl.fullName: ", optionTbl.fullName,"\n"}
 
    frameStk:push(mname)
    loadModuleFile{file=fn, shell=shellNm, reportErr=true}
    frameStk:pop()
    local s = concatTbl(ShowResultsA,"")
-   dbg.textA{name="Text to Hash for: "..masterTbl.fullName, a=ShowResultsA}
+   dbg.textA{name="Text to Hash for: "..optionTbl.fullName, a=ShowResultsA}
 
-   if (masterTbl.verbose) then
+   if (optionTbl.verbose) then
       io.stderr:write(s)
    end
    fh:write(s)
@@ -179,7 +179,7 @@ function main()
 end
 
 function options()
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
    local usage         = "Usage: computeHashSum [options] file"
    local cmdlineParser = Optiks:new{usage=usage, version=Version}
 
@@ -234,12 +234,12 @@ function options()
 
 
 
-   local optionTbl, pargs = cmdlineParser:parse(arg)
+   local optTbl, pargs = cmdlineParser:parse(arg)
 
-   for v in pairs(optionTbl) do
-      masterTbl[v] = optionTbl[v]
+   for v in pairs(optTbl) do
+      optionTbl[v] = optTbl[v]
    end
-   masterTbl.pargs = pargs
+   optionTbl.pargs = pargs
 
 end
 

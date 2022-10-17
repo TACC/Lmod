@@ -85,7 +85,7 @@ function M.new(self, sType, name, action, is, ie)
    local default_action = (exact_match == "yes") and "exact" or "match"
 
    if (not action) then
-      action = masterTbl().latest and "latest" or default_action
+      action = optionTbl().latest and "latest" or default_action
    end
 
    local o = s_findT[action]:create()

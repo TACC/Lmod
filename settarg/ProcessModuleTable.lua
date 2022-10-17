@@ -54,7 +54,7 @@ function processModuleTable(mt_string, targetTbl, tbl)
    assert(load(mt_string))()
    local mt        = systemG._ModuleTable_
 
-   local stringKindTbl = masterTbl().stringKindTbl
+   local stringKindTbl = optionTbl().stringKindTbl
 
    local mT = mt.mT
    for sn,v in pairs(mT) do

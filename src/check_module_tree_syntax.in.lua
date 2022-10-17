@@ -128,7 +128,7 @@ end
 
 function walk_spiderT(spiderT, mt, mList, errorT)
    dbg.start{"walk_spiderT(spiderT, mList, errorT)"}
-   local show_hidden = masterTbl().show_hidden
+   local show_hidden = optionTbl().show_hidden
    local mrc         = MRC:singleton()
 
    local function l_walk_moduleA_helper(mpath, sn, v)
@@ -242,7 +242,7 @@ local function l_prt(...)
 end
 
 function options()
-   local masterTbl     = masterTbl()
+   local optionTbl     = optionTbl()
    local usage         = "Usage: spider [options] moduledir ..."
    local cmdlineParser = Optiks:new{usage   = usage,
                                     version = "1.0",
@@ -270,24 +270,24 @@ function options()
       default = false,
       help    = "Use preloaded modules to build reverseMapT"
    }
-   local optionTbl, pargs = cmdlineParser:parse(arg)
+   local optTbl, pargs = cmdlineParser:parse(arg)
 
    if (optionTbl.trace) then
       cosmic:assign("LMOD_TRACING", "yes")
    end
 
-   for v in pairs(optionTbl) do
-      masterTbl[v] = optionTbl[v]
+   for v in pairs(optTbl) do
+      optionTbl[v] = optTbl[v]
    end
-   masterTbl.pargs = pargs
-   Use_Preload     = masterTbl.preload
+   optionTbl.pargs = pargs
+   Use_Preload     = optionTbl.preload
 end
    
 function main()
 
    options()
-   local masterTbl  = masterTbl()
-   local pargs      = masterTbl.pargs
+   local optionTbl  = optionTbl()
+   local pargs      = optionTbl.pargs
    local mpathA     = {}
    local errorT     = { defaultA = {}, syntaxA = {} }
 
@@ -315,8 +315,8 @@ function main()
    setenv_lmod_version() -- push Lmod version info into env for modulefiles.
 
 
-   if (masterTbl.debug > 0 or masterTbl.dbglvl) then
-      local dbgLevel = math.max(masterTbl.debug, masterTbl.dbglvl or 1)
+   if (optionTbl.debug > 0 or optionTbl.dbglvl) then
+      local dbgLevel = math.max(optionTbl.debug, optionTbl.dbglvl or 1)
       dbg:activateDebug(dbgLevel)
    end
 
@@ -345,9 +345,9 @@ function main()
    local mt              = deepcopy(MT:singleton())
    local maxdepthT       = mt:maxDepthT()
    local moduleDirT      = {}
-   masterTbl.moduleStack = {}
-   masterTbl.dirStk      = {}
-   masterTbl.mpathMapT   = {}
+   optionTbl.moduleStack = {}
+   optionTbl.dirStk      = {}
+   optionTbl.mpathMapT   = {}
    local exit            = os.exit
 
    sandbox_set_os_exit(l_nothing)

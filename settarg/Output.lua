@@ -35,8 +35,7 @@
 require("strict")
 
 function Output(shell)
-   local masterTbl  = masterTbl()
-   local envVarsTbl = masterTbl.envVarsTbl
+   local envVarsTbl = optionTbl().envVarsTbl
 
    shell:expand(envVarsTbl)
 

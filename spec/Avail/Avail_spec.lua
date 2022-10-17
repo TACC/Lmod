@@ -30,12 +30,12 @@ describe("Testing The Avail command #Avail.",
 
                   local hub        = Hub:singleton()
                   local rplmntA    = { {projDir,"%%ProjDir%%"} }
-                  local masterTbl  = masterTbl()
+                  local optionTbl  = optionTbl()
                   _G.mcp           = _G.MainControl.build("load")
                   _G.MCP           = _G.MainControl.build("load")
 
-                  masterTbl.terse  = true
-                  masterTbl.rt     = true
+                  optionTbl.terse  = true
+                  optionTbl.rt     = true
 
                   -------------------------------------------------------
                   -- Test 1 avail output in terse mode
@@ -56,7 +56,7 @@ describe("Testing The Avail command #Avail.",
 
                   -------------------------------------------------------
                   -- Test 2 avail output in terse mode for defaultOnly
-                  masterTbl.defaultOnly = true
+                  optionTbl.defaultOnly = true
                   a  = hub:avail(pack())
                   _a = {}
                   sanizatizeTbl(rplmntA, a, _a)
@@ -70,7 +70,7 @@ describe("Testing The Avail command #Avail.",
                   -------------------------------------------------------
                   -- Test 3 avail output in terse mode with a search string
 
-                  masterTbl.defaultOnly = nil
+                  optionTbl.defaultOnly = nil
                   a    = hub:avail(pack("genomics"))
                   _a = {}
                   sanizatizeTbl(rplmntA, a, _a)
@@ -91,7 +91,7 @@ describe("Testing The Avail command #Avail.",
                   -- Test 5 avail output in regular mode
 
                   posix.setenv("LMOD_QUIET","yes")
-                  masterTbl.terse       = nil
+                  optionTbl.terse       = nil
                   a  = hub:avail(pack()) or {}
                   _a = {}
                   sanizatizeTbl(rplmntA, a, _a)

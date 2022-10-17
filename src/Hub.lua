@@ -103,7 +103,7 @@ end
 function M.access(self, ...)
    dbg.start{"Hub:access(...)"}
 
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
    local shell     = _G.Shell
    local frameStk  = FrameStk:singleton()
    local mt        = frameStk:mt()
@@ -115,7 +115,7 @@ function M.access(self, ...)
    local result, t
 
    local argA = pack(...)
-   if (masterTbl.location) then
+   if (optionTbl.location) then
       local userName = argA[1]
       local mname    = mt:have(userName,"any") and MName:new("mt",userName)
                                                or  MName:new("load",userName)
@@ -133,7 +133,7 @@ function M.access(self, ...)
       _G.FullName    = mname:fullName()
       if (fn and isFile(fn)) then
          A[#A+1] = prtHdr()
-         if (masterTbl.rawDisplay) then
+         if (optionTbl.rawDisplay) then
             local f     = io.open(fn, "r")
             local whole = f:read("*all")
             f:close()
@@ -287,7 +287,7 @@ function M.load(self, mA)
 
    local disable_same_name_autoswap = cosmic:value("LMOD_DISABLE_SAME_NAME_AUTOSWAP")
 
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
    local tracing   = cosmic:value("LMOD_TRACING")
    local frameStk  = FrameStk:singleton()
    local shell     = _G.Shell
@@ -320,7 +320,7 @@ function M.load(self, mA)
          local loaded     = false
 
          if (tracing == "yes") then
-            local use_cache  = (not masterTbl.terse) or (cosmic:value("LMOD_CACHED_LOADS") ~= "no")
+            local use_cache  = (not optionTbl.terse) or (cosmic:value("LMOD_CACHED_LOADS") ~= "no")
             local moduleA    = ModuleA:singleton{spider_cache=use_cache}
             local isNVV      = moduleA:isNVV()
             TraceCounter     = TraceCounter + 1
@@ -730,11 +730,11 @@ end
 -- @param self A Hub object
 -- @param force If true then don't reload.
 function M.reload_sticky(self, force)
-   local cwidth    = masterTbl().rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
+   local cwidth    = optionTbl().rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
 
    dbg.start{"Hub:reload_sticky(",force,")"}
    -- Try to reload any sticky modules.
-   if (masterTbl().force or force) then
+   if (optionTbl().force or force) then
       dbg.fini("Hub:reload_sticky")
       return
    end
@@ -907,10 +907,10 @@ end
 function M.overview(self,argA)
    dbg.start{"Hub:overview(",concatTbl(argA,", "),")"}
    local aa          = {}
-   local masterTbl   = masterTbl()
+   local optionTbl   = optionTbl()
    local mt          = FrameStk:singleton():mt()
    local mpathA      = mt:modulePathA()
-   local availStyle  = masterTbl.availStyle
+   local availStyle  = optionTbl.availStyle
    
    local numDirs = 0
    for i = 1,#mpathA do
@@ -921,7 +921,7 @@ function M.overview(self,argA)
    end
 
    if (numDirs < 1) then
-      if (masterTbl.terse) then
+      if (optionTbl.terse) then
          dbg.fini("Hub:overview")
          return a
       end
@@ -934,7 +934,7 @@ function M.overview(self,argA)
    local moduleA     = ModuleA:singleton{spider_cache=use_cache}
    local availA      = moduleA:build_availA()
    local twidth      = TermWidth()
-   local cwidth      = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or twidth
+   local cwidth      = optionTbl.rt and LMOD_COLUMN_TABLE_WIDTH or twidth
    local defaultT    = moduleA:defaultT()
    local searchA     = argA
    local showSN      = true
@@ -942,7 +942,7 @@ function M.overview(self,argA)
    local alias2modT  = mrc:getAlias2ModT(mpathA)
    local banner      = Banner:singleton()
    
-   if (not masterTbl.regexp and argA and next(argA) ~= nil) then
+   if (not optionTbl.regexp and argA and next(argA) ~= nil) then
       searchA = {}
       for i = 1, argA.n do
          local s  = argA[i]
@@ -1041,7 +1041,7 @@ end
 function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaultOnly, defaultT, a)
    dbg.start{"Hub:terse_avail()"}
    local mrc         = MRC:singleton()
-   local masterTbl   = masterTbl()
+   local optionTbl   = optionTbl()
 
    if (searchA.n > 0) then
       for k, v in pairsByKeys(alias2modT) do
@@ -1100,10 +1100,10 @@ end
 function M.avail(self, argA)
    dbg.start{"Hub:avail(",concatTbl(argA,", "),")"}
    local a           = {}
-   local masterTbl   = masterTbl()
+   local optionTbl   = optionTbl()
    local mt          = FrameStk:singleton():mt()
    local mpathA      = mt:modulePathA()
-   local availStyle  = masterTbl.availStyle
+   local availStyle  = optionTbl.availStyle
 
    local numDirs = 0
    for i = 1,#mpathA do
@@ -1114,7 +1114,7 @@ function M.avail(self, argA)
    end
 
    if (numDirs < 1) then
-      if (masterTbl.terse) then
+      if (optionTbl.terse) then
          dbg.fini("Hub:avail")
          return a
       end
@@ -1123,16 +1123,16 @@ function M.avail(self, argA)
    end
 
    local extensions    = cosmic:value("LMOD_AVAIL_EXTENSIONS") == "yes"
-   local use_cache     = (not masterTbl.terse) or (cosmic:value("LMOD_CACHED_LOADS") ~= "no")
+   local use_cache     = (not optionTbl.terse) or (cosmic:value("LMOD_CACHED_LOADS") ~= "no")
    local moduleA       = ModuleA:singleton{spider_cache=use_cache}
    local isNVV         = moduleA:isNVV()
    local mrc           = MRC:singleton()
    local availA        = moduleA:build_availA()
    local twidth        = TermWidth()
-   local cwidth        = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or twidth
+   local cwidth        = optionTbl.rt and LMOD_COLUMN_TABLE_WIDTH or twidth
    local defaultT      = moduleA:defaultT()
    local searchA       = argA
-   local defaultOnly   = masterTbl.defaultOnly
+   local defaultOnly   = optionTbl.defaultOnly
    local alias2modT    = mrc:getAlias2ModT(mpathA)
    local showSN        = not defaultOnly
 
@@ -1145,7 +1145,7 @@ function M.avail(self, argA)
    dbg.printT("defaultT:",defaultT)
 
 
-   if (not masterTbl.regexp and argA and next(argA) ~= nil) then
+   if (not optionTbl.regexp and argA and next(argA) ~= nil) then
       searchA = {}
       for i = 1, argA.n do
          local s  = argA[i]
@@ -1159,7 +1159,7 @@ function M.avail(self, argA)
       searchA.n = argA.n
    end
 
-   if (masterTbl.terse) then
+   if (optionTbl.terse) then
       --------------------------------------------------
       -- Terse output
       self:terse_avail(mpathA, availA, alias2modT, searchA, showSN, defaultOnly, defaultT, a)
