@@ -54,4 +54,6 @@ Lmod 8.7+
 W.I.P:
    (8.7.14) * Rename MasterControl to MainControl
             * Rename Master        to Hub
-            
+            * Rename masterTbl     to optionTbl.  Note that the masterTbl() is equal to optionTbl()
+              therefore SitePackage and /etc/lmod/lmod_config.lua files can continue to use masterTbl
+              
