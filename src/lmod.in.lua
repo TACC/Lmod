@@ -377,8 +377,6 @@ function main()
       dbg.print{"package.cpath: ",package.cpath,"\n"}
       dbg.print{"lmodPath: ", cosmic:value("LMOD_PACKAGE_PATH"),"\n"}
       dbg.print{"LOADEDMODULES: ",getenv("LOADEDMODULES"),"\n"}
-      dbg.print{"_ModuleTable_Sz_: ",getenv("_ModuleTable_Sz_"),"\n"}
-      dbg.print{"_ModuleTable001_: ",getenv("_ModuleTable001_"),"\n"}
    end
 
    -- dumpversion and quit if requested.
