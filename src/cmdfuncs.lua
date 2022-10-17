@@ -231,6 +231,7 @@ where "Foo" is the name of a category.
       a[#a+1] = [[
 To learn more about a package and how to load it execute:
    $ module spider Bar
+where "Bar" is the name of a package.
       ]]
 
       if (next(match) == nil) then
