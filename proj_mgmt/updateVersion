@@ -9,28 +9,28 @@ Version = "1.1"
 require("declare")
 require("strict")
 require("string_utils")
-local posix  = require("posix")
-local Optiks = require("Optiks")
-local dbg    = require("Dbg"):dbg()
-local master = {}
-local load   = (_VERSION == "Lua 5.1") and loadstring or load
+local posix       = require("posix")
+local Optiks      = require("Optiks")
+local dbg         = require("Dbg"):dbg()
+local s_optionTbl = {}
+local load        = (_VERSION == "Lua 5.1") and loadstring or load
 
-function masterTbl()
-   return master
+function optionTbl()
+   return s_optionTbl
 end
 
 function main()
    options()
-   local masterTbl   = masterTbl()
-   local fn = masterTbl.pargs[1] or "UnknownFile"
+   local optionTbl   = optionTbl()
+   local fn = optionTbl.pargs[1] or "UnknownFile"
    local whole
    local fh
 
    declare("myFullVersion")
    declare("myDate")
    declare("myVersion")
-   myFullVersion = masterTbl.version
-   myDate        = masterTbl.date
+   myFullVersion = optionTbl.version
+   myDate        = optionTbl.date
 
    local vA = {}
    for value in myFullVersion:split("%.") do
@@ -40,12 +40,12 @@ function main()
    myVersion = vA[1] .. "." .. (vA[2] or "0")
 
    declare("patternA")
-   if (not isFile(masterTbl.patternFile)) then
+   if (not isFile(optionTbl.patternFile)) then
       io.stderr:write("missing patternFile\n")
       os.exit(1)
    end
 
-   fh    = io.open(masterTbl.patternFile,"r")
+   fh    = io.open(optionTbl.patternFile,"r")
    whole = fh:read("*all")
    fh:close()
    local ok
@@ -56,7 +56,7 @@ function main()
       ok = false
    end
    if (not ok) then
-      io.stderr:write("Error: unable to load: ", masterTbl.patternFile,"\n", " ", msg, "\n");
+      io.stderr:write("Error: unable to load: ", optionTbl.patternFile,"\n", " ", msg, "\n");
       os.exit(1)
    end
 
@@ -81,7 +81,7 @@ function main()
 end
 
 function options()
-   local masterTbl = masterTbl()
+   local optionTbl     = optionTbl()
    local usage         = "Usage: "
    local cmdlineParser = Optiks:new{usage=usage, version=Version}
 
@@ -108,12 +108,12 @@ function options()
       default = '',
       action  = 'store',
    }
-   local optionTbl, pargs = cmdlineParser:parse(arg)
+   local optTbl, pargs = cmdlineParser:parse(arg)
 
-   for v in pairs(optionTbl) do
-      masterTbl[v] = optionTbl[v]
+   for v in pairs(optTbl) do
+      optionTbl[v] = optTbl[v]
    end
-   masterTbl.pargs = pargs
+   optionTbl.pargs = pargs
 
 end
 

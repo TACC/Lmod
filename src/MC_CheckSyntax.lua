@@ -38,8 +38,8 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
-local MasterControl    = require("MasterControl")
-local MC_CheckSyntax   = inheritsFrom(MasterControl)
+local MainControl      = require("MainControl")
+local MC_CheckSyntax   = inheritsFrom(MainControl)
 local M                = MC_CheckSyntax
 local ReadLmodRC       = require("ReadLmodRC")
 local dbg              = require("Dbg"):dbg()
@@ -48,57 +48,57 @@ local A                = ShowResultsA
 M.my_name              = "MC_CheckSyntax"
 M.my_sType             = "load"
 M.my_tcl_mode          = "load"
-M.always_load          = MasterControl.load_usr
-M.always_unload        = MasterControl.quiet
-M.append_path          = MasterControl.append_path
-M.build_unload         = MasterControl.do_not_build_unload
-M.color_banner         = MasterControl.quiet
-M.complete             = MasterControl.quiet
-M.conflict             = MasterControl.quiet
-M.depends_on           = MasterControl.quiet
-M.execute              = MasterControl.quiet
-M.extensions           = MasterControl.quiet
-M.family               = MasterControl.quiet
-M.haveDynamicMPATH     = MasterControl.quiet
-M.help                 = MasterControl.quiet
-M.inherit              = MasterControl.quiet
-M.load                 = MasterControl.load
-M.load_any             = MasterControl.load_any
-M.load_usr             = MasterControl.load_usr
-M.message              = MasterControl.quiet
-M.msg_raw              = MasterControl.quiet
-M.mgrload              = MasterControl.mgrload
-M.prepend_path         = MasterControl.prepend_path
-M.prereq               = MasterControl.quiet
-M.prereq_any           = MasterControl.quiet
-M.pushenv              = MasterControl.pushenv
-M.remove_path          = MasterControl.remove_path
-M.remove_property      = MasterControl.quiet
-M.report               = MasterControl.error
-M.setenv               = MasterControl.setenv
-M.set_alias            = MasterControl.set_alias
-M.set_shell_function   = MasterControl.set_shell_function
-M.source_sh            = MasterControl.quiet
-M.try_load             = MasterControl.quiet
-M.uncomplete           = MasterControl.quiet
-M.unload               = MasterControl.quiet
-M.unload_usr           = MasterControl.quiet
-M.unsetenv             = MasterControl.unsetenv
-M.unset_alias          = MasterControl.unset_alias
-M.unset_shell_function = MasterControl.unset_shell_function
-M.whatis               = MasterControl.quiet
-M.LmodBreak            = MasterControl.quiet
+M.always_load          = MainControl.load_usr
+M.always_unload        = MainControl.quiet
+M.append_path          = MainControl.append_path
+M.build_unload         = MainControl.do_not_build_unload
+M.color_banner         = MainControl.quiet
+M.complete             = MainControl.quiet
+M.conflict             = MainControl.quiet
+M.depends_on           = MainControl.quiet
+M.execute              = MainControl.quiet
+M.extensions           = MainControl.quiet
+M.family               = MainControl.quiet
+M.haveDynamicMPATH     = MainControl.quiet
+M.help                 = MainControl.quiet
+M.inherit              = MainControl.quiet
+M.load                 = MainControl.load
+M.load_any             = MainControl.load_any
+M.load_usr             = MainControl.load_usr
+M.message              = MainControl.quiet
+M.msg_raw              = MainControl.quiet
+M.mgrload              = MainControl.mgrload
+M.prepend_path         = MainControl.prepend_path
+M.prereq               = MainControl.quiet
+M.prereq_any           = MainControl.quiet
+M.pushenv              = MainControl.pushenv
+M.remove_path          = MainControl.remove_path
+M.remove_property      = MainControl.quiet
+M.report               = MainControl.error
+M.setenv               = MainControl.setenv
+M.set_alias            = MainControl.set_alias
+M.set_shell_function   = MainControl.set_shell_function
+M.source_sh            = MainControl.quiet
+M.try_load             = MainControl.quiet
+M.uncomplete           = MainControl.quiet
+M.unload               = MainControl.quiet
+M.unload_usr           = MainControl.quiet
+M.unsetenv             = MainControl.unsetenv
+M.unset_alias          = MainControl.unset_alias
+M.unset_shell_function = MainControl.unset_shell_function
+M.whatis               = MainControl.quiet
+M.LmodBreak            = MainControl.quiet
 
 
 -- Internally these function do not actually to anything when either
 -- is called inside a modulefile.  This way the original load happens
 -- and it allows for the syntax check but does nothing otherwise.
 
-M.load_usr             = MasterControl.load_usr
+M.load_usr             = MainControl.load_usr
 
 --------------------------------------------------------------------------
 -- Copy the property to moduleT
--- @param self A MasterControl object.
+-- @param self A MainControl object.
 -- @param name the property name.
 -- @param value the value.
 function M.add_property(self, name, value)

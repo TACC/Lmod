@@ -132,7 +132,7 @@ local concatTbl    = table.concat
 local getenv       = os.getenv
 local getenv_posix = posix.getenv
 local setenv_posix = posix.setenv
-local s_master     = {}
+local s_optionTbl  = {}
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
 envT               = false
 
@@ -154,8 +154,8 @@ local execT = {
 }
 
 
-function masterTbl()
-   return s_master
+function optionTbl()
+   return s_optionTbl
 end
 
 local function l_cleanPath(value)
@@ -230,23 +230,23 @@ function main()
    ------------------------------------------------------------------------
    -- evaluate command line arguments
    options()
-   local masterTbl    = masterTbl()
-   local pargs        = masterTbl.pargs
+   local optionTbl    = optionTbl()
+   local pargs        = optionTbl.pargs
    local script       = concatTbl(pargs," ")
    local convertSh2MF = require("convertSh2MF")
 
-   if (masterTbl.debug > 0) then
-      dbg:activateDebug(masterTbl.debug)
+   if (optionTbl.debug > 0) then
+      dbg:activateDebug(optionTbl.debug)
    end
 
    initialize_lmod()
-   if (masterTbl.cleanEnv) then
+   if (optionTbl.cleanEnv) then
       l_cleanEnv()
    end
 
-   local shellName = masterTbl.inStyle:lower()
+   local shellName = optionTbl.inStyle:lower()
 
-   local success, msg, a = convertSh2MF(shellName, masterTbl.style, script)
+   local success, msg, a = convertSh2MF(shellName, optionTbl.style, script)
    if (not success) then
       io.stderr:write(msg,"\n")
       os.exit(1)
@@ -255,13 +255,13 @@ function main()
 
    local s = concatTbl(a,"\n")
 
-   if (masterTbl.outFn) then
-      local f = io.open(masterTbl.outFn,"w")
+   if (optionTbl.outFn) then
+      local f = io.open(optionTbl.outFn,"w")
       if (f) then
          f:write(s,"\n")
          f:close()
       else
-         io.stderr:write("Unable to write modulefile named: ",masterTbl.outFn,"\n")
+         io.stderr:write("Unable to write modulefile named: ",optionTbl.outFn,"\n")
          os.exit(1);
       end
    else
@@ -285,7 +285,7 @@ end
 
 
 function options()
-   local masterTbl     = masterTbl()
+   local optionTbl     = optionTbl()
    local cmdlineParser = Optiks:new{usage   = usage(),
                                     error   = my_error,
                                     version = Version}
@@ -333,12 +333,12 @@ function options()
       help    = "Input style: either bash or csh. (default: bash)",
       default = "bash",
    }
-   local optionTbl, pargs = cmdlineParser:parse(arg)
+   local optTbl, pargs = cmdlineParser:parse(arg)
 
-   for v in pairs(optionTbl) do
-      masterTbl[v] = optionTbl[v]
+   for v in pairs(optTbl) do
+      optionTbl[v] = optTbl[v]
    end
-   masterTbl.pargs = pargs
+   optionTbl.pargs = pargs
 
 end
 

@@ -66,7 +66,7 @@ local mpath_avail  = cosmic:value("LMOD_MPATH_AVAIL")
 ------------------------------------------------------------------------
 -- a private ctor that is used to construct a singleton.
 
-local s_master = false
+local s_hub = false
 
 local function l_new(self, safe)
    local o = {}
@@ -79,16 +79,16 @@ end
 
 --------------------------------------------------------------------------
 -- Singleton Ctor.
--- @param self A Master object.
+-- @param self A Hub object.
 -- @param safe A flag.
 function M.singleton(self, safe)
-   dbg.start{"Master:singleton(safe: ",safe,")"}
-   if (not s_master) then
-      s_master = l_new(self, safe)
+   dbg.start{"Hub:singleton(safe: ",safe,")"}
+   if (not s_hub) then
+      s_hub = l_new(self, safe)
    end
-   dbg.print{"s_master: ",tostring(s_master), ", safe: ",s_master.__safe,"\n"}
-   dbg.fini("Master:singleton")
-   return s_master
+   dbg.print{"s_hub: ",tostring(s_hub), ", safe: ",s_hub.__safe,"\n"}
+   dbg.fini("Hub:singleton")
+   return s_hub
 end
 
 --------------------------------------------------------------------------
@@ -99,11 +99,11 @@ end
 -- modulefile is found and evaluated by loadModuleFile.
 -- This causes the help, or whatis or showing the
 -- modulefile as the user requested.
--- @param self A Master object.
+-- @param self A Hub object.
 function M.access(self, ...)
-   dbg.start{"Master:access(...)"}
+   dbg.start{"Hub:access(...)"}
 
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
    local shell     = _G.Shell
    local frameStk  = FrameStk:singleton()
    local mt        = frameStk:mt()
@@ -115,7 +115,7 @@ function M.access(self, ...)
    local result, t
 
    local argA = pack(...)
-   if (masterTbl.location) then
+   if (optionTbl.location) then
       local userName = argA[1]
       local mname    = mt:have(userName,"any") and MName:new("mt",userName)
                                                or  MName:new("load",userName)
@@ -133,7 +133,7 @@ function M.access(self, ...)
       _G.FullName    = mname:fullName()
       if (fn and isFile(fn)) then
          A[#A+1] = prtHdr()
-         if (masterTbl.rawDisplay) then
+         if (optionTbl.rawDisplay) then
             local f     = io.open(fn, "r")
             local whole = f:read("*all")
             f:close()
@@ -160,7 +160,7 @@ function M.access(self, ...)
       LmodWarning{msg="w_Failed_2_Find",quote_comma_list=concatTbl(a,"\", \""),
                              module_list=concatTbl(a," ")}
    end
-   dbg.fini("Master:access")
+   dbg.fini("Hub:access")
 end
 
 --------------------------------------------------------------------------
@@ -218,7 +218,7 @@ local function l_registerUnloaded(fullName, fn)
 end
 
 function M.inheritModule(self)
-   dbg.start{"Master:inherit()"}
+   dbg.start{"Hub:inherit()"}
    local shellNm    = _G.Shell:name()
    local frameStk   = FrameStk:singleton()
    local myFn       = frameStk:fn()
@@ -256,16 +256,16 @@ function M.inheritModule(self)
       mt:pushInheritFn(sn, mname)
    end
 
-   dbg.fini("Master:inherit")
+   dbg.fini("Hub:inherit")
 end
 
 local s_stk = {}
 
 function M.mgrload(self, active)
-   dbg.start{"Master:mgrload(",active.userName,")"}
+   dbg.start{"Hub:mgrload(",active.userName,")"}
 
    local mcp_old = mcp
-   mcp           = MasterControl.build("mgrload","load")
+   mcp           = MainControl.build("mgrload","load")
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    local mname   = MName:new("load", active.userName)
    mname:setRefCount(active.ref_count)
@@ -274,7 +274,7 @@ function M.mgrload(self, active)
    mcp           = mcp_old
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
 
-   dbg.fini("Master:mgrload")
+   dbg.fini("Hub:mgrload")
    return a
 
 end
@@ -282,12 +282,12 @@ end
 function M.load(self, mA)
    if (dbg.active()) then
       local s = mAList(mA)
-      dbg.start{"Master:load(mA={"..s.."})"}
+      dbg.start{"Hub:load(mA={"..s.."})"}
    end
 
    local disable_same_name_autoswap = cosmic:value("LMOD_DISABLE_SAME_NAME_AUTOSWAP")
 
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
    local tracing   = cosmic:value("LMOD_TRACING")
    local frameStk  = FrameStk:singleton()
    local shell     = _G.Shell
@@ -301,7 +301,7 @@ function M.load(self, mA)
          local mname      = mA[i]
          local userName   = mname:userName()
 
-         dbg.print{"Master:load i: ",i,", userName: ",userName,"\n",}
+         dbg.print{"Hub:load i: ",i,", userName: ",userName,"\n",}
 
          mt               = frameStk:mt()
          local sn         = mname:sn()
@@ -320,7 +320,7 @@ function M.load(self, mA)
          local loaded     = false
 
          if (tracing == "yes") then
-            local use_cache  = (not masterTbl.terse) or (cosmic:value("LMOD_CACHED_LOADS") ~= "no")
+            local use_cache  = (not optionTbl.terse) or (cosmic:value("LMOD_CACHED_LOADS") ~= "no")
             local moduleA    = ModuleA:singleton{spider_cache=use_cache}
             local isNVV      = moduleA:isNVV()
             TraceCounter     = TraceCounter + 1
@@ -331,7 +331,7 @@ function M.load(self, mA)
                         ")" }
          end
 
-         dbg.print{"Master:load i: ",i," sn: ",sn," fn: ",fn,"\n"}
+         dbg.print{"Hub:load i: ",i," sn: ",sn," fn: ",fn,"\n"}
 
          if (mt:have(sn,"active")) then
             local version    = mname:version()
@@ -364,7 +364,7 @@ function M.load(self, mA)
                stackTraceBackA[#stackTraceBackA+1] = moduleStackTraceBack(msg)
             end
          elseif (fn) then
-            dbg.print{"Master:loading: \"",userName,"\" from file: \"",fn,"\"\n"}
+            dbg.print{"Hub:loading: \"",userName,"\" from file: \"",fn,"\"\n"}
             local mList = concatTbl(mt:list("both","active"),":")
             frameStk:push(mname)
             mt = frameStk:mt()
@@ -420,7 +420,7 @@ function M.load(self, mA)
 
    if (self.safeToUpdate() and mt:changeMPATH() and frameStk:empty() and next(s_stk) == nil) then
       mt:reset_MPATH_change_flag()
-      dbg.print{"Master:load calling reloadAll()\n"}
+      dbg.print{"Hub:load calling reloadAll()\n"}
       local same = self:reloadAll()
       dbg.print{"RTM: same: ",same,"\n"}
       if (not same) then
@@ -451,7 +451,7 @@ function M.load(self, mA)
       dbg.print{"setting s_same: true\n"}
    end
 
-   dbg.fini("Master:load")
+   dbg.fini("Hub:load")
    return a
 end
 
@@ -463,7 +463,7 @@ end
 function M.unload(self,mA)
    if (dbg.active()) then
       local s = mAList(mA)
-      dbg.start{"Master:unload(mA={"..s.."})"}
+      dbg.start{"Hub:unload(mA={"..s.."})"}
    end
 
    local tracing  = cosmic:value("LMOD_TRACING")
@@ -497,7 +497,7 @@ function M.unload(self,mA)
          --l_registerUnloaded(mt:fullName(sn), mt:fn(sn))
          a[#a + 1] = true
       elseif (mt:have(sn,"active")) then
-         dbg.print{"Master:unload: \"",userName,"\" from file: \"",fn,"\"\n"}
+         dbg.print{"Hub:unload: \"",userName,"\" from file: \"",fn,"\"\n"}
          frameStk:push(mname)
          mt = frameStk:mt()
          if (mt:haveProperty(sn, "lmod", "sticky")) then
@@ -530,12 +530,12 @@ function M.unload(self,mA)
    dbg.print{"safeToUpdate(): ", self.safeToUpdate(), ",  changeMPATH: ", mt:changeMPATH(), ", frameStk:empty(): ",frameStk:empty(),"\n"}
    if (self.safeToUpdate() and mt:changeMPATH() and frameStk:empty() and next(s_stk) == nil) then
       mt:reset_MPATH_change_flag()
-      dbg.print{"Master:load calling reloadAll()\n"}
+      dbg.print{"Hub:load calling reloadAll()\n"}
       self:reloadAll()
    end
 
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-   dbg.fini("Master:unload")
+   dbg.fini("Hub:unload")
    return a
 end
 
@@ -548,7 +548,7 @@ end
 -- it.  Each inactive module is re-loaded if possible.
 function M.reloadAll(self, force_update)
    ReloadAllCntr = ReloadAllCntr + 1
-   dbg.start{"Master:reloadAll(count: ",ReloadAllCntr ,")"}
+   dbg.start{"Hub:reloadAll(count: ",ReloadAllCntr ,")"}
    local frameStk = FrameStk:singleton()
    local mt       = frameStk:mt()
    local mcp_old  = mcp
@@ -575,6 +575,7 @@ function M.reloadAll(self, force_update)
          mt               = frameStk:mt()
          local v          = a[i]
          local sn         = v.sn
+         dbg.print{"v.userName: ",v.userName,", v.ref_count: ",v.ref_count}
          local mname_old  = MName:new("mt",v.userName):set_depends_on_flag(v.ref_count)
          if (not mname_old:sn()) then break end
          dbg.print{"a[i].userName(1): ",v.userName,"\n"}
@@ -583,7 +584,7 @@ function M.reloadAll(self, force_update)
 
          if (mt:have(sn, "active")) then
             dbg.print{"module sn: ",sn," is active\n"}
-            dbg.print{"userName(2):  ",v.name,"\n"}
+            dbg.print{"userName(2):  ",v.name,", ref_count: ",v.ref_count,"\n"}
             local mname     = MName:new("load", mt:userName(sn)):set_depends_on_flag(v.ref_count)
             local fn_new    = mname:fn()
             local fn_old    = mt:fn(sn)
@@ -594,25 +595,24 @@ function M.reloadAll(self, force_update)
             dbg.print{"fn_old: ",fn_old,"\n"}
             -- This is Issue #394 fix: only reload when the userName has remained the same.
             if (fn_new ~= fn_old or force_update) then
-               dbg.print{"Master:reloadAll fn_new: \"",fn_new,"\"",
+               dbg.print{"Hub:reloadAll fn_new: \"",fn_new,"\"",
                          " mt:fileName(sn): \"",fn_old,"\"",
                          " mt:userName(sn): \"",mt_uName,"\"",
                          " a[i].userName: \"",userName,"\"",
                          "\n"}
-               dbg.print{"Master:reloadAll(",ReloadAllCntr,"): Unloading module: \"",sn,"\"\n"}
+               dbg.print{"Hub:reloadAll(",ReloadAllCntr,"): Unloading module: \"",sn,"\"\n"}
                unload_internal{mname_old}
                mt_uName = mt:userName(sn)
-               dbg.print{"Master:reloadAll(",ReloadAllCntr,"): mt:userName(sn): \"",mt_uName,"\"\n"}
+               dbg.print{"Hub:reloadAll(",ReloadAllCntr,"): mt:userName(sn): \"",mt_uName,"\"\n"}
                mname    = MName:new("load", mt:userName(sn)):set_depends_on_flag(v.ref_count)
                if (mname:valid()) then
-                  dbg.print{"Master:reloadAll(",ReloadAllCntr,"): Loading module: \"",userName,"\"\n"}
-                  dbg.print{"mname dependsOn: ",mname:get_depends_on_flag(),", fn: ",mname:fn(),"\n"}
+                  dbg.print{"Hub:reloadAll(",ReloadAllCntr,"): Loading module: \"",userName,"\"\n"}
                   local status = mcp:load({mname})
                   mt           = frameStk:mt()
                   dbg.print{"status ",status,", fn_old: ",fn_old,", fn: ",mt:fn(sn),"\n"}
                   if (status and fn_old ~= mt:fn(sn)) then
                      same = false
-                     dbg.print{"Master:reloadAll module: ",fullName," marked as reloaded\n"}
+                     dbg.print{"Hub:reloadAll module: ",fullName," marked as reloaded\n"}
                   end
                end
             end
@@ -621,12 +621,12 @@ function M.reloadAll(self, force_update)
             local fn_old = mt:fn(sn)
             local name   = v.name          -- This name is short for default and
                                            -- Full for specific version.
-            dbg.print{"Master:reloadAll(",ReloadAllCntr,"): Loading non-active module: \"", name, "\"\n"}
+            dbg.print{"Hub:reloadAll(",ReloadAllCntr,"): Loading non-active module: \"", name, "\"\n"}
             local status = mcp:load({MName:new("load",name):set_depends_on_flag(v.ref_count)})
             mt           = frameStk:mt()
             dbg.print{"status: ",status,", fn_old: ",fn_old,", fn: ",mt:fn(sn),"\n"}
             if (status and fn_old ~= mt:fn(sn)) then
-               dbg.print{"Master:reloadAll module: ", name, " marked as reloaded\n"}
+               dbg.print{"Hub:reloadAll module: ", name, " marked as reloaded\n"}
             end
             if (status) then
                same = false
@@ -642,14 +642,14 @@ function M.reloadAll(self, force_update)
       local sn    = mname:sn()
       dbg.print{"checking sn: ",sn,"\n"}
       if (not mt:have(sn, "active")) then
-         dbg.print{"Master:reloadAll module: ", sn, " marked as inactive\n"}
+         dbg.print{"Hub:reloadAll module: ", sn, " marked as inactive\n"}
          mt:add(mname, "inactive", -i)
       end
    end
 
    mcp = mcp_old
    dbg.print{"Setting mpc to ", mcp:name(),"\n"}
-   dbg.fini("Master:reloadAll")
+   dbg.fini("Hub:reloadAll")
    ReloadAllCntr = ReloadAllCntr - 1
    return same
 end
@@ -663,12 +663,12 @@ end
 -- modulefiles.  Just call loadModuleFile() to redefine
 -- the aliases/shell functions in a subshell.
 function M.refresh()
-   dbg.start{"Master:refresh()"}
+   dbg.start{"Hub:refresh()"}
    local frameStk = FrameStk:singleton()
    local mt       = frameStk:mt()
    local shellNm  = _G.Shell and _G.Shell:name() or "bash"
    local mcp_old  = mcp
-   mcp            = MasterControl.build("refresh","load")
+   mcp            = MainControl.build("refresh","load")
 
    local activeA  = mt:list("short","active")
    local mList    = concatTbl(mt:list("both","active"),":")
@@ -688,7 +688,7 @@ function M.refresh()
 
    mcp = mcp_old
    dbg.print{"Setting mcp to : ",mcp:name(),"\n"}
-   dbg.fini("Master:refresh")
+   dbg.fini("Hub:refresh")
 end
 
 --------------------------------------------------------------------------
@@ -698,12 +698,12 @@ end
 -- MC_DependencyCk, there is no need to unload and reload the
 -- modulefiles.  Just call loadModuleFile() to check the dependencies.
 function M.dependencyCk()
-   dbg.start{"Master:dependencyCk()"}
+   dbg.start{"Hub:dependencyCk()"}
    local frameStk = FrameStk:singleton()
    local mt       = frameStk:mt()
    local shellNm  = _G.Shell and _G.Shell:name() or "bash"
    local mcp_old  = mcp
-   mcp            = MasterControl.build("dependencyCk")
+   mcp            = MainControl.build("dependencyCk")
 
    local activeA  = mt:list("short","active")
    local mList    = concatTbl(mt:list("both","active"),":")
@@ -722,21 +722,21 @@ function M.dependencyCk()
 
    mcp = mcp_old
    dbg.print{"Setting mcp to : ",mcp:name(),"\n"}
-   dbg.fini("Master:dependencyCk")
+   dbg.fini("Hub:dependencyCk")
 end
 
 
 --------------------------------------------------------------------------
 -- Once the purge or unload happens, the sticky modules are reloaded.
--- @param self A Master object
+-- @param self A Hub object
 -- @param force If true then don't reload.
 function M.reload_sticky(self, force)
-   local cwidth    = masterTbl().rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
+   local cwidth    = optionTbl().rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
 
-   dbg.start{"Master:reload_sticky(",force,")"}
+   dbg.start{"Hub:reload_sticky(",force,")"}
    -- Try to reload any sticky modules.
-   if (masterTbl().force or force) then
-      dbg.fini("Master:reload_sticky")
+   if (optionTbl().force or force) then
+      dbg.fini("Hub:reload_sticky")
       return
    end
 
@@ -784,14 +784,14 @@ function M.reload_sticky(self, force)
       io.stderr:write(ct:build_tbl(),"\n")
    end
 
-   dbg.fini("Master:reload_sticky")
+   dbg.fini("Hub:reload_sticky")
 end
 
 --------------------------------------------------------------------------
 -- *safe* is set during ctor. It is controlled by the command table in lmod.
 -- @return the internal safe flag.
 function M.safeToUpdate()
-   return s_master.__safe
+   return s_hub.__safe
 end
 
 local function l_availEntry(defaultOnly, label, searchA, defaultT, entry)
@@ -906,12 +906,12 @@ local function regroup_avail_blocks(availStyle, availA)
 end
 
 function M.overview(self,argA)
-   dbg.start{"Master:overview(",concatTbl(argA,", "),")"}
+   dbg.start{"Hub:overview(",concatTbl(argA,", "),")"}
    local aa          = {}
-   local masterTbl   = masterTbl()
+   local optionTbl   = optionTbl()
    local mt          = FrameStk:singleton():mt()
    local mpathA      = mt:modulePathA()
-   local availStyle  = masterTbl.availStyle
+   local availStyle  = optionTbl.availStyle
    
    local numDirs = 0
    for i = 1,#mpathA do
@@ -922,8 +922,8 @@ function M.overview(self,argA)
    end
 
    if (numDirs < 1) then
-      if (masterTbl.terse) then
-         dbg.fini("Master:overview")
+      if (optionTbl.terse) then
+         dbg.fini("Hub:overview")
          return a
       end
       LmodError{msg="e_Avail_No_MPATH", name="overview"}
@@ -935,7 +935,7 @@ function M.overview(self,argA)
    local moduleA     = ModuleA:singleton{spider_cache=use_cache}
    local availA      = moduleA:build_availA()
    local twidth      = TermWidth()
-   local cwidth      = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or twidth
+   local cwidth      = optionTbl.rt and LMOD_COLUMN_TABLE_WIDTH or twidth
    local defaultT    = moduleA:defaultT()
    local searchA     = argA
    local showSN      = true
@@ -943,7 +943,7 @@ function M.overview(self,argA)
    local alias2modT  = mrc:getAlias2ModT(mpathA)
    local banner      = Banner:singleton()
    
-   if (not masterTbl.regexp and argA and next(argA) ~= nil) then
+   if (not optionTbl.regexp and argA and next(argA) ~= nil) then
       searchA = {}
       for i = 1, argA.n do
          local s  = argA[i]
@@ -1035,14 +1035,14 @@ function M.overview(self,argA)
       print_overview_block()
    end
 
-   dbg.fini("Master:overview")
+   dbg.fini("Hub:overview")
    return a
 end
 
 function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaultOnly, defaultT, a)
-   dbg.start{"Master:terse_avail()"}
+   dbg.start{"Hub:terse_avail()"}
    local mrc         = MRC:singleton()
-   local masterTbl   = masterTbl()
+   local optionTbl   = optionTbl()
 
    if (searchA.n > 0) then
       for k, v in pairsByKeys(alias2modT) do
@@ -1093,18 +1093,18 @@ function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaul
       end
    end
 
-   dbg.fini("Master:terse_avail")
+   dbg.fini("Hub:terse_avail")
    return a
 end
 
 
 function M.avail(self, argA)
-   dbg.start{"Master:avail(",concatTbl(argA,", "),")"}
+   dbg.start{"Hub:avail(",concatTbl(argA,", "),")"}
    local a           = {}
-   local masterTbl   = masterTbl()
+   local optionTbl   = optionTbl()
    local mt          = FrameStk:singleton():mt()
    local mpathA      = mt:modulePathA()
-   local availStyle  = masterTbl.availStyle
+   local availStyle  = optionTbl.availStyle
 
    local numDirs = 0
    for i = 1,#mpathA do
@@ -1115,8 +1115,8 @@ function M.avail(self, argA)
    end
 
    if (numDirs < 1) then
-      if (masterTbl.terse) then
-         dbg.fini("Master:avail")
+      if (optionTbl.terse) then
+         dbg.fini("Hub:avail")
          return a
       end
       LmodError{msg="e_Avail_No_MPATH",name = "avail"}
@@ -1124,16 +1124,16 @@ function M.avail(self, argA)
    end
 
    local extensions    = cosmic:value("LMOD_AVAIL_EXTENSIONS") == "yes"
-   local use_cache     = (not masterTbl.terse) or (cosmic:value("LMOD_CACHED_LOADS") ~= "no")
+   local use_cache     = (not optionTbl.terse) or (cosmic:value("LMOD_CACHED_LOADS") ~= "no")
    local moduleA       = ModuleA:singleton{spider_cache=use_cache}
    local isNVV         = moduleA:isNVV()
    local mrc           = MRC:singleton()
    local availA        = moduleA:build_availA()
    local twidth        = TermWidth()
-   local cwidth        = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or twidth
+   local cwidth        = optionTbl.rt and LMOD_COLUMN_TABLE_WIDTH or twidth
    local defaultT      = moduleA:defaultT()
    local searchA       = argA
-   local defaultOnly   = masterTbl.defaultOnly
+   local defaultOnly   = optionTbl.defaultOnly
    local alias2modT    = mrc:getAlias2ModT(mpathA)
    local showSN        = not defaultOnly
 
@@ -1146,7 +1146,7 @@ function M.avail(self, argA)
    dbg.printT("defaultT:",defaultT)
 
 
-   if (not masterTbl.regexp and argA and next(argA) ~= nil) then
+   if (not optionTbl.regexp and argA and next(argA) ~= nil) then
       searchA = {}
       for i = 1, argA.n do
          local s  = argA[i]
@@ -1160,12 +1160,12 @@ function M.avail(self, argA)
       searchA.n = argA.n
    end
 
-   if (masterTbl.terse) then
+   if (optionTbl.terse) then
       --------------------------------------------------
       -- Terse output
       self:terse_avail(mpathA, availA, alias2modT, searchA, showSN, defaultOnly, defaultT, a)
 
-      dbg.fini("Master:avail")
+      dbg.fini("Hub:avail")
       return a
    end
 
@@ -1370,7 +1370,7 @@ function M.avail(self, argA)
       a = hook.apply("msgHook", "avail", a) or a
    end
 
-   dbg.fini("Master:avail")
+   dbg.fini("Hub:avail")
    return a
 end
 

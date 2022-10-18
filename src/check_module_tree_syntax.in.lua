@@ -101,7 +101,7 @@ require("deepcopy")
 require("parseVersion")
 require("TermWidth")
 
-_G.MasterControl    = require("MasterControl")
+_G.MainControl      = require("MainControl")
 Shell               = false
 
 local BaseShell     = require("BaseShell")
@@ -110,7 +110,7 @@ local FrameStk      = require("FrameStk")
 local MRC           = require("MRC")
 local MName         = require("MName")
 local MT            = require("MT")
-local Master        = require("Master")
+local Hub           = require("Hub")
 local ModuleA       = require("ModuleA")
 local Optiks        = require("Optiks")
 local Spider        = require("Spider")
@@ -128,7 +128,7 @@ end
 
 function walk_spiderT(spiderT, mt, mList, errorT)
    dbg.start{"walk_spiderT(spiderT, mList, errorT)"}
-   local show_hidden = masterTbl().show_hidden
+   local show_hidden = optionTbl().show_hidden
    local mrc         = MRC:singleton()
 
    local function l_walk_moduleA_helper(mpath, sn, v)
@@ -242,7 +242,7 @@ local function l_prt(...)
 end
 
 function options()
-   local masterTbl     = masterTbl()
+   local optionTbl     = optionTbl()
    local usage         = "Usage: spider [options] moduledir ..."
    local cmdlineParser = Optiks:new{usage   = usage,
                                     version = "1.0",
@@ -270,24 +270,24 @@ function options()
       default = false,
       help    = "Use preloaded modules to build reverseMapT"
    }
-   local optionTbl, pargs = cmdlineParser:parse(arg)
+   local optTbl, pargs = cmdlineParser:parse(arg)
 
    if (optionTbl.trace) then
       cosmic:assign("LMOD_TRACING", "yes")
    end
 
-   for v in pairs(optionTbl) do
-      masterTbl[v] = optionTbl[v]
+   for v in pairs(optTbl) do
+      optionTbl[v] = optTbl[v]
    end
-   masterTbl.pargs = pargs
-   Use_Preload     = masterTbl.preload
+   optionTbl.pargs = pargs
+   Use_Preload     = optionTbl.preload
 end
    
 function main()
 
    options()
-   local masterTbl  = masterTbl()
-   local pargs      = masterTbl.pargs
+   local optionTbl  = optionTbl()
+   local pargs      = optionTbl.pargs
    local mpathA     = {}
    local errorT     = { defaultA = {}, syntaxA = {} }
 
@@ -298,7 +298,7 @@ function main()
    -- initialize lmod with SitePackage and /etc/lmod/lmod_config.lua
    initialize_lmod()
 
-   local master     = Master:singleton(false)
+   local hub     = Hub:singleton(false)
    for i = 1,#pargs do
       local v = pargs[i]
       for path in v:split(":") do
@@ -315,14 +315,14 @@ function main()
    setenv_lmod_version() -- push Lmod version info into env for modulefiles.
 
 
-   if (masterTbl.debug > 0 or masterTbl.dbglvl) then
-      local dbgLevel = math.max(masterTbl.debug, masterTbl.dbglvl or 1)
+   if (optionTbl.debug > 0 or optionTbl.dbglvl) then
+      local dbgLevel = math.max(optionTbl.debug, optionTbl.dbglvl or 1)
       dbg:activateDebug(dbgLevel)
    end
 
    dbg.start{"module_tree_check main()"}
-   _G.mcp = MasterControl.build("spider")
-   _G.MCP = MasterControl.build("spider")
+   _G.mcp = MainControl.build("spider")
+   _G.MCP = MainControl.build("spider")
    local remove_MRC_home         = true
    local mrc                     = MRC:singleton(getModuleRCT(remove_MRC_home))
    local cache                   = Cache:singleton{dontWrite = true, quiet = true, buildCache = true,
@@ -331,8 +331,8 @@ function main()
    local spiderT, dbT,
          mpathMapT, providedByT  = cache:build()
 
-   _G.MCP = MasterControl.build("checkSyntax")
-   _G.mcp = MasterControl.build("checkSyntax")
+   _G.MCP = MainControl.build("checkSyntax")
+   _G.mcp = MainControl.build("checkSyntax")
    mcp.error  = check_syntax_error_handler
    MCP.error  = check_syntax_error_handler
    mcp.report = check_syntax_error_handler
@@ -345,9 +345,9 @@ function main()
    local mt              = deepcopy(MT:singleton())
    local maxdepthT       = mt:maxDepthT()
    local moduleDirT      = {}
-   masterTbl.moduleStack = {}
-   masterTbl.dirStk      = {}
-   masterTbl.mpathMapT   = {}
+   optionTbl.moduleStack = {}
+   optionTbl.dirStk      = {}
+   optionTbl.mpathMapT   = {}
    local exit            = os.exit
 
    sandbox_set_os_exit(l_nothing)

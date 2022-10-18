@@ -1,10 +1,10 @@
 --------------------------------------------------------------------------
 -- Options: This class is the main options parser for Lmod.  It defines
 --          the options it supports and uses Optiks to parse the command
---          line.  All options values are copied to [[masterTbl]] and
---          positional arguments are copied to [[masterTbl.pargs]].
+--          line.  All options values are copied to [[optionTbl]] and
+--          positional arguments are copied to [[optionTbl.pargs]].
 --          The command usage string is retrieved into
---          [[masterTbl.cmdHelpMsg]].
+--          [[optionTbl.cmdHelpMsg]].
 --
 -- @classmod Options
 
@@ -83,8 +83,8 @@ end
 
 
 --------------------------------------------------------------------------
--- Parse the command line options. Places the options in *masterTbl*,
--- place the positional arguments in *masterTbl.pargs*
+-- Parse the command line options. Places the options in *optionTbl*,
+-- place the positional arguments in *optionTbl.pargs*
 -- @param self An Option object.
 -- @param usage The program usage string.
 function M.singleton(self, usage)
@@ -357,18 +357,18 @@ function M.singleton(self, usage)
       default = 0.0
    }
 
-   local optionTbl, pargs = cmdlineParser:parse(arg)
-   local masterTbl        = masterTbl()
-   masterTbl.pargs        = pargs
+   local optTbl, pargs = cmdlineParser:parse(arg)
+   local optionTbl     = optionTbl()
+   optionTbl.pargs     = pargs
 
 
-   for k in pairs(optionTbl) do
-      masterTbl[k] = optionTbl[k]
+   for k in pairs(optTbl) do
+      optionTbl[k] = optTbl[k]
    end
 
-   masterTbl.cmdHelpMsg      = ""
-   if (masterTbl.cmdHelp or pargs[1] == "help" ) then
-      masterTbl.cmdHelpMsg   = cmdlineParser:buildHelpMsg()
+   optionTbl.cmdHelpMsg      = ""
+   if (optionTbl.cmdHelp or pargs[1] == "help" ) then
+      optionTbl.cmdHelpMsg   = cmdlineParser:buildHelpMsg()
    end
 
    if (optionTbl.trace) then

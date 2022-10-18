@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------
--- This derived class of MasterControl is how Spider reads
--- in modulefiles.  It uses masterTbl() to hold the moduleStack.
+-- This derived class of MainControl is how Spider reads
+-- in modulefiles.  It uses optionTbl() to hold the moduleStack.
 -- It looks for adding paths to MODULEPATH.  It also keeps track
 -- of properties.
 --
@@ -48,48 +48,48 @@ require("utils")
 local dbg              = require("Dbg"):dbg()
 local concatTbl        = table.concat
 local hook             = require("Hook")
-local MasterControl    = require("MasterControl")
-MC_Spider              = inheritsFrom(MasterControl)
+local MainControl      = require("MainControl")
+MC_Spider              = inheritsFrom(MainControl)
 MC_Spider.my_name      = "MC_Spider"
 MC_Spider.my_sType     = "load"
 MC_Spider.my_tcl_mode  = "load"
 
 local M                = MC_Spider
 
-M.always_load          = MasterControl.quiet
-M.always_unload        = MasterControl.quiet
-M.build_unload         = MasterControl.do_not_build_unload
-M.color_banner         = MasterControl.quiet
-M.complete             = MasterControl.quiet
-M.conflict             = MasterControl.quiet
-M.depends_on           = MasterControl.quiet
-M.error                = MasterControl.quiet
-M.execute              = MasterControl.execute
-M.inherit              = MasterControl.quiet
-M.load                 = MasterControl.quiet
-M.load_any             = MasterControl.quiet
-M.load_usr             = MasterControl.quiet
-M.message              = MasterControl.quiet
-M.msg_raw              = MasterControl.quiet
-M.mgrload              = MasterControl.quiet
-M.prereq               = MasterControl.quiet
-M.prereq_any           = MasterControl.quiet
-M.pushenv              = MasterControl.quiet
-M.remove_path          = MasterControl.quiet
-M.report               = MasterControl.warning
-M.set_alias            = MasterControl.quiet
-M.set_shell_function   = MasterControl.quiet
-M.source_sh            = MasterControl.quiet
-M.try_load             = MasterControl.quiet
-M.uncomplete           = MasterControl.quiet
-M.unload               = MasterControl.quiet
-M.unload_usr           = MasterControl.quiet
-M.unsetenv             = MasterControl.quiet
-M.unset_alias          = MasterControl.quiet
-M.unset_shell_function = MasterControl.quiet
-M.usrload              = MasterControl.quiet
-M.warning              = MasterControl.warning
-M.LmodBreak            = MasterControl.quiet
+M.always_load          = MainControl.quiet
+M.always_unload        = MainControl.quiet
+M.build_unload         = MainControl.do_not_build_unload
+M.color_banner         = MainControl.quiet
+M.complete             = MainControl.quiet
+M.conflict             = MainControl.quiet
+M.depends_on           = MainControl.quiet
+M.error                = MainControl.quiet
+M.execute              = MainControl.execute
+M.inherit              = MainControl.quiet
+M.load                 = MainControl.quiet
+M.load_any             = MainControl.quiet
+M.load_usr             = MainControl.quiet
+M.message              = MainControl.quiet
+M.msg_raw              = MainControl.quiet
+M.mgrload              = MainControl.quiet
+M.prereq               = MainControl.quiet
+M.prereq_any           = MainControl.quiet
+M.pushenv              = MainControl.quiet
+M.remove_path          = MainControl.quiet
+M.report               = MainControl.warning
+M.set_alias            = MainControl.quiet
+M.set_shell_function   = MainControl.quiet
+M.source_sh            = MainControl.quiet
+M.try_load             = MainControl.quiet
+M.uncomplete           = MainControl.quiet
+M.unload               = MainControl.quiet
+M.unload_usr           = MainControl.quiet
+M.unsetenv             = MainControl.quiet
+M.unset_alias          = MainControl.quiet
+M.unset_shell_function = MainControl.quiet
+M.usrload              = MainControl.quiet
+M.warning              = MainControl.warning
+M.LmodBreak            = MainControl.quiet
 
 function argsPack(...)
    local arg = { n = select("#", ...), ...}
@@ -99,9 +99,9 @@ pack     = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
 --------------------------------------------------------------------------
 -- use the moduleStack to return the filename of the modulefile.
--- @param self A MasterControl object.
+-- @param self A MainControl object.
 function M.myFileName(self)
-   local moduleStack = masterTbl().moduleStack
+   local moduleStack = optionTbl().moduleStack
    local iStack      = #moduleStack
    return moduleStack[iStack].fn
 end
@@ -110,9 +110,9 @@ end
 -- Use the moduleStack to return the full name of the module.  This is
 -- typically name/version.  For Spider we assume that the user name is
 -- the full name.
--- @param self A MasterControl object.
+-- @param self A MainControl object.
 function M.myModuleFullName(self)
-   local moduleStack = masterTbl().moduleStack
+   local moduleStack = optionTbl().moduleStack
    local iStack      = #moduleStack
    return moduleStack[iStack].fullName
 end
@@ -121,9 +121,9 @@ M.myModuleUsrName = M.myModuleFullName
 
 --------------------------------------------------------------------------
 -- Use the moduleStack to return the short name of the module.
--- @param self A MasterControl object.
+-- @param self A MainControl object.
 function M.myModuleName(self)
-   local moduleStack = masterTbl().moduleStack
+   local moduleStack = optionTbl().moduleStack
    local iStack      = #moduleStack
    return moduleStack[iStack].sn
 end
@@ -131,9 +131,9 @@ end
 --------------------------------------------------------------------------
 -- Use the moduleStack to return the version of the module.  For meta
 -- modules the version will be "".
--- @param self A MasterControl object.
+-- @param self A MainControl object.
 function M.myModuleVersion(self)
-   local moduleStack = masterTbl().moduleStack
+   local moduleStack = optionTbl().moduleStack
    local iStack      = #moduleStack
    local fullName    = moduleStack[iStack].fullName
    local sn          = moduleStack[iStack].sn
@@ -142,10 +142,10 @@ end
 
 --------------------------------------------------------------------------
 -- MC_Spider:help(...): Collect the help message into moduleT
--- @param self A MasterControl object.
+-- @param self A MainControl object.
 function M.help(self,...)
    dbg.start{"MC_Spider:help(...)"}
-   local moduleStack  = masterTbl().moduleStack
+   local moduleStack  = optionTbl().moduleStack
    local iStack       = #moduleStack
    local path         = moduleStack[iStack].path
    local moduleT      = moduleStack[iStack].moduleT
@@ -162,10 +162,10 @@ end
 
 --------------------------------------------------------------------------
 -- MC_Spider:extensions(...): Copy the list of provides to moduleT
--- @param self A MasterControl object.
+-- @param self A MainControl object.
 function M.extensions(self,...)
    dbg.start{"MC_Spider:extensions(...)"}
-   local moduleStack  = masterTbl().moduleStack
+   local moduleStack  = optionTbl().moduleStack
    local iStack       = #moduleStack
    local path         = moduleStack[iStack].path
    local moduleT      = moduleStack[iStack].moduleT
@@ -185,11 +185,11 @@ end
 
 --------------------------------------------------------------------------
 -- MC_Spider:whatis(): Collect the whatis messages into moduleT
--- @param self A MasterControl object.
+-- @param self A MainControl object.
 -- @param s whatis string.
 function M.whatis(self,s)
    dbg.start{"MC_Spider:whatis(...)"}
-   local moduleStack = masterTbl().moduleStack
+   local moduleStack = optionTbl().moduleStack
    local iStack      = #moduleStack
    local path        = moduleStack[iStack].path
    local moduleT     = moduleStack[iStack].moduleT
@@ -212,7 +212,7 @@ s_patDir = false
 --------------------------------------------------------------------------
 -- Track "LMOD_.*_LIB" and LMOD_.*_DIR environment variables or whatever
 -- the site is called (See SitePackage.lua and StandardPackage.lua.)
--- @param self A MasterControl object.
+-- @param self A MainControl object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.setenv(self, name, value)
@@ -250,7 +250,7 @@ end
 
 --------------------------------------------------------------------------
 -- Pass-thru to Spider_append_path().
--- @param self A MasterControl object.
+-- @param self A MainControl object.
 -- @param t input table.
 function M.prepend_path(self,t)
    dbg.start{"MC_Spider:prepend_path(t)"}
@@ -262,7 +262,7 @@ end
 
 --------------------------------------------------------------------------
 -- Pass-thru to Spider_append_path().
--- @param self A MasterControl object.
+-- @param self A MainControl object.
 -- @param t input table.
 function M.append_path(self,t)
    dbg.start{"MC_Spider:append_path(t)"}
@@ -273,7 +273,7 @@ end
 
 --------------------------------------------------------------------------
 -- Return True when in spider mode.
--- @param self A MasterControl object.
+-- @param self A MainControl object.
 function M.is_spider(self)
    dbg.start{"MC_Spider:is_spider()"}
    dbg.fini()
@@ -282,12 +282,12 @@ end
 
 --------------------------------------------------------------------------
 -- Copy the family to moduleT
--- @param self A MasterControl object.
+-- @param self A MainControl object.
 -- @param value the family value
 
 function M.family(self, value)
    dbg.start{"MC_Spider:family(\"value=\"",value,"\")"}
-   local moduleStack   = masterTbl().moduleStack
+   local moduleStack   = optionTbl().moduleStack
    local iStack        = #moduleStack
    local path          = moduleStack[iStack].path
    local moduleT       = moduleStack[iStack].moduleT
@@ -298,12 +298,12 @@ end
 
 --------------------------------------------------------------------------
 -- Copy the property to moduleT
--- @param self A MasterControl object.
+-- @param self A MainControl object.
 -- @param name the property name.
 -- @param value the value.
 function M.add_property(self, name, value)
    dbg.start{"MC_Spider:add_property(name=\"",name,"\", value=\"",value,"\")"}
-   local moduleStack   = masterTbl().moduleStack
+   local moduleStack   = optionTbl().moduleStack
    local iStack        = #moduleStack
    local path          = moduleStack[iStack].path
    local moduleT       = moduleStack[iStack].moduleT
@@ -317,12 +317,12 @@ end
 
 --------------------------------------------------------------------------
 -- MC_Spider:remove_property: Remove the property to moduleT
--- @param self A MasterControl object.
+-- @param self A MainControl object.
 -- @param name the of the property.
 -- @param value the value.
 function M.remove_property(self, name, value)
    dbg.start{"MC_Spider:remove_property(name=\"",name,"\", value=\"",value,"\")"}
-   local moduleStack   = masterTbl().moduleStack
+   local moduleStack   = optionTbl().moduleStack
    local iStack        = #moduleStack
    local path          = moduleStack[iStack].path
    local moduleT       = moduleStack[iStack].moduleT

@@ -37,10 +37,10 @@ require("string_utils")
 local dbg = require("Dbg"):dbg()
 function ModifyPath()
    dbg.start{"ModifyPath()"}
-   local masterTbl   = masterTbl()
+   local optionTbl   = optionTbl()
    local oldTarg     = os.getenv('TARG') or ''
-   local targ        = masterTbl.envVarsTbl.TARG
-   local targPathLoc = masterTbl.TargPathLoc or "empty"
+   local targ        = optionTbl.envVarsTbl.TARG
+   local targPathLoc = optionTbl.TargPathLoc or "empty"
    local path        = os.getenv('PATH') or ''
 
    local w_path      = ":" .. path    .. ":"
@@ -74,6 +74,6 @@ function ModifyPath()
       path = path:sub(1,-2)
    end
 
-   masterTbl.envVarsTbl.PATH = path
+   optionTbl.envVarsTbl.PATH = path
    dbg.fini("ModifyPath")
 end

@@ -102,10 +102,10 @@ require("modfuncs")
 require("cmdfuncs")
 require("deepcopy")
 require("parseVersion")
-MasterControl       = require("MasterControl")
+MainControl         = require("MainControl")
 Cache               = require("Cache")
 MRC                 = require("MRC")
-Master              = require("Master")
+Hub                 = require("Hub")
 BaseShell           = require("BaseShell")
 Shell               = false
 local Optiks        = require("Optiks")
@@ -408,13 +408,13 @@ end
 function main()
 
    options()
-   local masterTbl  = masterTbl()
-   local pargs      = masterTbl.pargs
+   local optionTbl  = optionTbl()
+   local pargs      = optionTbl.pargs
    local mpathA     = {}
 
    Shell            = BaseShell:build("bash")
 
-   local master     = Master:singleton(false)
+   local hub        = Hub:singleton(false)
 
    for _, v in ipairs(pargs) do
       for path in v:split(":") do
@@ -430,14 +430,14 @@ function main()
    posix.setenv("MODULEPATH",mpath,true)
 
 
-   if (masterTbl.debug > 0 or masterTbl.dbglvl) then
-      local dbgLevel = math.max(masterTbl.debug, masterTbl.dbglvl or 1)
+   if (optionTbl.debug > 0 or optionTbl.dbglvl) then
+      local dbgLevel = math.max(optionTbl.debug, optionTbl.dbglvl or 1)
       dbg:activateDebug(dbgLevel)
    end
 
    dbg.start{"Spider main()"}
-   MCP = MasterControl.build("spider")
-   mcp = MasterControl.build("spider")
+   MCP = MainControl.build("spider")
+   mcp = MainControl.build("spider")
 
    dbg.print{"LMOD_TRACING: ",cosmic:value("LMOD_TRACING"),"\n"}
 
@@ -489,9 +489,9 @@ function main()
    }
 
    -- grap function and run with it.
-   local func = interpT[masterTbl.outputStyle]
+   local func = interpT[optionTbl.outputStyle]
    if (func) then
-      func(mpathMapT, spiderT, masterTbl.timestampFn, dbT, providedByT)
+      func(mpathMapT, spiderT, optionTbl.timestampFn, dbT, providedByT)
    end
    dbg.fini()
 end
@@ -603,7 +603,7 @@ local function l_prt(...)
 end
 
 function options()
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
    local usage         = "Usage: spider [options] moduledir ..."
    local cmdlineParser = Optiks:new{usage   = usage,
                                     version = "1.0",
@@ -665,17 +665,17 @@ function options()
       help    = "Use preloaded modules to build reverseMapT"
    }
 
-   local optionTbl, pargs = cmdlineParser:parse(arg)
+   local optTbl, pargs = cmdlineParser:parse(arg)
 
    if (optionTbl.trace) then
       cosmic:assign("LMOD_TRACING", "yes")
    end
 
-   for v in pairs(optionTbl) do
-      masterTbl[v] = optionTbl[v]
+   for v in pairs(optTbl) do
+      optionTbl[v] = optTbl[v]
    end
-   masterTbl.pargs = pargs
-   Use_Preload     = masterTbl.preload
+   optionTbl.pargs = pargs
+   Use_Preload     = optionTbl.preload
 end
 
 function xmlSoftwarePage(dbT)

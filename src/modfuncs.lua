@@ -7,10 +7,10 @@
 --     a) They validate their arguments.
 --     b) mcp:<function>(...)
 --
--- The variable mcp is the master control program object.  It gets
+-- The variable mcp is the MainControl Program object.  It gets
 -- constructed in the various modes Lmod gets run in.  The modes include
 -- load, unload, show, etc.  See MC_Load.lua and the other MC_*.lua files
--- As well as the base class MasterControl.lua for more details.
+-- As well as the base class MainControl.lua for more details.
 --
 -- UnLoad
 -- See tools/Dbg.lua for details on how this debugging tool works.
@@ -743,7 +743,7 @@ end
 --------------------------------------------------------------------------
 -- Print msgs, traceback then exit.
 function LmodSystemError(...)
-   MasterControl:error(...)
+   MainControl:error(...)
 end
 
 --------------------------------------------------------------------------
@@ -766,8 +766,8 @@ function unload_usr_internal(mA, force)
       dbg.start{"unload_usr_internal(mA={"..s.."},force=",force,")"}
    end
    local mcp_old = mcp
-   mcp = MasterControl.build("unload")
-   local b = MasterControl.unload_usr(mcp, mA, force)
+   mcp = MainControl.build("unload")
+   local b = MainControl.unload_usr(mcp, mA, force)
    mcp = mcp_old
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    dbg.fini("unload_usr_internal")

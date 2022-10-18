@@ -51,7 +51,7 @@ local BeautifulTbl = require('BeautifulTbl')
 local Cache        = require("Cache")
 local ColumnTable  = require('ColumnTable')
 local FrameStk     = require('FrameStk')
-local Master       = require('Master')
+local Hub       = require('Hub')
 local MName        = require("MName")
 local Spider       = require("Spider")
 local Version      = require("Version")
@@ -76,21 +76,21 @@ local system_name  = cosmic:value("LMOD_SYSTEM_NAME")
 -- depending on what mode Access is called with.
 -- @param mode Whether this function has be called via *Help* or *Whatis*.
 local function l_Access(mode, ...)
-   local master    = Master:singleton()
+   local hub    = Hub:singleton()
    local shell     = _G.Shell
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
    dbg.start{"l_Access(", concatTbl({...},", "),")"}
-   mcp = MasterControl.build("access", mode)
+   mcp = MainControl.build("access", mode)
    mcp:setAccessMode(mode,true)
 
    local n = select('#',...)
    if (n < 1) then
-      shell:echo(masterTbl.cmdHelpMsg, "\n", Usage(), "\n", version())
+      shell:echo(optionTbl.cmdHelpMsg, "\n", Usage(), "\n", version())
       dbg.fini("l_Access")
       return
    end
 
-   master:access(...)
+   hub:access(...)
    mcp:setAccessMode(mode,false)
    dbg.fini("l_Access")
 end
@@ -139,10 +139,10 @@ end
 
 ------------------------------------------------------------------------
 -- Just convert the vararg into an actual array and call
--- master.avail to do the real work.
+-- hub.avail to do the real work.
 function Avail(...)
    local shell = _G.Shell
-   local a     = master:avail(pack(...))
+   local a     = hub:avail(pack(...))
    if (next(a) ~= nil) then
       shell:echo(concatTbl(a,""))
    end
@@ -150,11 +150,11 @@ end
 
 ------------------------------------------------------------------------
 -- Just convert the vararg into an actual array and call
--- master.overview to do the real work.
+-- hub.overview to do the real work.
 
 function Overview(...)
    local shell = _G.Shell
-   local a     = master:overview(pack(...))
+   local a     = hub:overview(pack(...))
    if (next(a) ~= nil) then
       shell:echo(concatTbl(a,""))
    end
@@ -218,8 +218,8 @@ function Keyword(...)
    local spider                 = Spider:new()
    local a                      = {}
    local ia                     = 0
-   local masterTbl              = masterTbl()
-   local terse                  = masterTbl.terse
+   local optionTbl              = optionTbl()
+   local terse                  = optionTbl.terse
    local kywdT,kywdExtsT        = spider:searchSpiderDB(pack(...), dbT, providedByT)
 
    if (terse) then
@@ -243,14 +243,14 @@ end
 -- List the loaded modulefile
 function List(...)
    dbg.start{"List(...)"}
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
    local shell     = _G.Shell
    local frameStk  = FrameStk:singleton()
    local mt        = frameStk:mt()
    local activeA   = mt:list("fullName","active")
    local inactiveA = mt:list("fullName","inactive")
    local total     = #activeA + #inactiveA
-   local cwidth    = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
+   local cwidth    = optionTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
 
    dbg.print{"#activeA:   ",#activeA,"\n"}
    dbg.print{"#inactiveA: ",#inactiveA,"\n"}
@@ -275,14 +275,14 @@ function List(...)
       wanted.n  = 1
    else
       msg2 = i18n("matching",{wanted = table.concat(wanted," or ")})
-      if (not masterTbl.regexp) then
+      if (not optionTbl.regexp) then
          for i = 1, wanted.n do
             wanted[i] = wanted[i]:caseIndependent()
          end
       end
    end
 
-   if (masterTbl.terse) then
+   if (optionTbl.terse) then
       for i = 1,#activeA do
          local fullName = activeA[i].fullName
          for j = 1, wanted.n do
@@ -498,8 +498,8 @@ end
 -- defined.
 function Refresh()
    dbg.start{"Refresh()"}
-   local master  = Master:singleton()
-   master:refresh()
+   local hub  = Hub:singleton()
+   hub:refresh()
    dbg.fini("Refresh")
 end
 
@@ -631,15 +631,15 @@ end
 function CollectionLst(collection)
    collection  = collection or "default"
    dbg.start{"CollectionLst(",collection,")"}
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
    local sname     = (not system_name) and "" or "." .. system_name
    local mt        = FrameStk:singleton():mt()
    local shell     = _G.Shell
-   local cwidth    = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
+   local cwidth    = optionTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
    local path      = l_find_a_collection(collection)
 
    local a         = mt:reportContents{fn=path, name=collection}
-   if (masterTbl.terse) then
+   if (optionTbl.terse) then
       for i = 1,#a do
          shell:echo(a[i].."\n")
       end
@@ -725,7 +725,7 @@ function Restore(collection)
    end
 
 
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
 
    if (collection == "system" ) then
       msg = "system default" .. msgTail
@@ -734,7 +734,7 @@ function Restore(collection)
       msg        = "user's ".. collection .. msgTail
    end
 
-   if (masterTbl.quiet or masterTbl.initial) then
+   if (optionTbl.quiet or optionTbl.initial) then
       msg = false
    end
 
@@ -767,7 +767,7 @@ end
 -- complicated but a "manager" module file is "fake" loaded so
 -- that any setenv or prepend_path commands will not be executed.
 function Save(...)
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
    local frameStk  = FrameStk:singleton()
    local mt        = frameStk:mt()
    local a         = select(1, ...) or "default"
@@ -797,7 +797,7 @@ function Save(...)
    end
 
    local activeA = mt:list("short","active")
-   local force   = masterTbl.force
+   local force   = optionTbl.force
    if (#activeA == 0 and not force) then
       LmodWarning{msg="w_Save_Empty_Coll",name=a}
       dbg.fini("Save")
@@ -842,16 +842,16 @@ end
 -- Report to the user all the named collections he/she has.
 function SaveList(...)
    local mt        = FrameStk:singleton():mt()
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
    local a         = {}
    local b         = {}
    local shell     = _G.Shell
-   local cwidth    = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
+   local cwidth    = optionTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
    local home      = os.getenv("HOME")
    local pathA     = l_collectionDir("read")
 
    l_findNamedCollections(b,pathA)
-   if (masterTbl.terse) then
+   if (optionTbl.terse) then
       for k = 1,#b do
          local name = b[k]
          shell:echo(name.."\n")
@@ -890,15 +890,15 @@ function SearchCmd(...)
 end
 
 --------------------------------------------------------------------------
--- Use the show mode of MasterControl to list the active Lmod
+-- Use the show mode of MainControl to list the active Lmod
 -- commands in a module file.  Note that the output is always in Lua
 -- even if the modulefile is written in TCL.
 function Show(...)
-   local master = Master:singleton()
+   local hub = Hub:singleton()
    local banner = Banner:singleton()
    dbg.start{"Show(", concatTbl({...},", "),")"}
 
-   mcp = MasterControl.build("show")
+   mcp = MainControl.build("show")
    local borderStr = banner:border(0)
 
    _G.prtHdr     = function()
@@ -912,7 +912,7 @@ function Show(...)
                   end
    local exit = os.exit
    sandbox_set_os_exit(show_exit)
-   master:access(...)
+   hub:access(...)
    os.exit = exit
    dbg.fini("Show")
 end
@@ -925,7 +925,7 @@ function SpiderCmd(...)
    dbg.start{"SpiderCmd(", concatTbl({...},", "),")"}
    local cache                  = Cache:singleton{buildCache=true}
    local shell                  = _G.Shell
-   local masterTbl              = masterTbl()
+   local optionTbl              = optionTbl()
    local spiderT,dbT,
          mpathMapT, providedByT = cache:build()
    local spider                 = Spider:new()
@@ -943,7 +943,7 @@ function SpiderCmd(...)
       end
       s = concatTbl(a,"")
    end
-   if (masterTbl.terse) then
+   if (optionTbl.terse) then
       shell:echo(s.."\n")
    else
       local a = {}
@@ -997,7 +997,7 @@ function Swap(...)
 
    mname       = mA[1]
    sn          = mname:sn()
-   local usrN  = (not masterTbl().latest) and b or mt:fullName(sn)
+   local usrN  = (not optionTbl().latest) and b or mt:fullName(sn)
    mt:userLoad(sn,usrN)
    dbg.fini("Swap")
 end
@@ -1051,9 +1051,9 @@ end
 --------------------------------------------------------------------------
 --  Reload all modules.
 function Update()
-   local master = Master:singleton()
+   local hub = Hub:singleton()
    local force_update = true
-   master:reloadAll(force_update)
+   hub:reloadAll(force_update)
 end
 
 --------------------------------------------------------------------------
@@ -1100,10 +1100,10 @@ function Use(...)
       op(mcp, { ModulePath,  v, delim = ":", nodups=true, priority=priority })
    end
 
-   local master    = Master:singleton()
+   local hub    = Hub:singleton()
    if (mt:changeMPATH()) then
       mt:reset_MPATH_change_flag()
-      master.reloadAll()
+      hub.reloadAll()
    end
    mcp = mcp_old
    dbg.fini("Use")
@@ -1124,7 +1124,7 @@ function UnUse(...)
    end
    if (mt:changeMPATH()) then
       mt:reset_MPATH_change_flag()
-      master.reloadAll()
+      hub.reloadAll()
    end
    dbg.fini("UnUse")
 end

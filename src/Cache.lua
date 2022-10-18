@@ -277,7 +277,7 @@ local function l_readCacheFile(self, mpathA, spiderTFnA)
    local dirsRead     = 0
    local ignore_cache = cosmic:value("LMOD_IGNORE_CACHE")
    local tracing      = cosmic:value("LMOD_TRACING")
-   if (masterTbl().ignoreCache or ignore_cache) then
+   if (optionTbl().ignoreCache or ignore_cache) then
       dbg.print{"LMOD_IGNORE_CACHE is true\n"}
       dbg.fini("Cache l_readCacheFile")
       return dirsRead
@@ -378,7 +378,7 @@ end
 
 local function l_writeUserSpiderCacheWhenNecessary(self, delta_t, mpathA, spiderT, mpathMapT)
    local doneMsg
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
    local tracing   = cosmic:value("LMOD_TRACING")
    local mrc       = MRC:singleton()
    local frameStk  = FrameStk:singleton()
@@ -386,14 +386,14 @@ local function l_writeUserSpiderCacheWhenNecessary(self, delta_t, mpathA, spider
    local short     = mt:getShortTime()
    local threshold = cosmic:value("LMOD_THRESHOLD")
    local prtRbMsg  = ((not quiet())                        and
-                      (not masterTbl.initial)              and
+                      (not optionTbl.initial)              and
                       ((not short) or (short > shortTime)) and
                       (not self.quiet)
                      )
    local cTimer    = CTimer:singleton("Rebuilding cache, please wait ...",
-                                       threshold, prtRbMsg, masterTbl.timeout)
+                                       threshold, prtRbMsg, optionTbl.timeout)
    dbg.print{"short:    ", short,  ", shortTime: ", shortTime,"\n", level=2}
-   dbg.print{"quiet:    ", quiet(),", initial:   ", masterTbl.initial,"\n"}
+   dbg.print{"quiet:    ", quiet(),", initial:   ", optionTbl.initial,"\n"}
    dbg.print{"prtRbMsg: ",prtRbMsg,", quiet:     ",self.quiet,"\n"}
 
    
@@ -543,12 +543,12 @@ function M.build(self, fast)
    local frameStk    = FrameStk:singleton()
    local mt          = frameStk:mt()
    local mpathA      = mt:modulePathA()
-   local masterTbl   = masterTbl()
+   local optionTbl   = optionTbl()
    local T1          = epoch()
    local sysDirsRead = 0
 
    dbg.print{"buildFresh: ",self.buildFresh,"\n"}
-   if (not (self.buildFresh or masterTbl.checkSyntax)) then
+   if (not (self.buildFresh or optionTbl.checkSyntax)) then
       sysDirsRead = l_readCacheFile(self, mpathA, self.systemDirA)
    end
 

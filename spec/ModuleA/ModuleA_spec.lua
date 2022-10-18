@@ -7,7 +7,7 @@ initialize_lmod()
 require("fileOps")
 require("serializeTbl")
 
-_G.MasterControl = require("MasterControl")
+_G.MainControl   = require("MainControl")
 local DirTree    = require("DirTree")
 local MT         = require("MT")
 local ModuleA    = require("ModuleA")
@@ -187,8 +187,8 @@ describe("Testing ModuleA Class #ModuleA.",
                   local maxdepth = mpath .. ":2;"
                   cosmic:assign("LMOD_MAXDEPTH",maxdepth)
                   cosmic:assign("LMOD_MODULERCFILE",pathJoin(projDir,testDir,".modulerc"))
-                  _G.mcp             = _G.MasterControl.build("load")
-                  _G.MCP             = _G.MasterControl.build("load")
+                  _G.mcp             = _G.MainControl.build("load")
+                  _G.MCP             = _G.MainControl.build("load")
                   --dbg:activateDebug(1)
                   local moduleA      = ModuleA:singleton{reset=true, spider_cache=true}
                   local mA           = moduleA:moduleA()
@@ -337,8 +337,8 @@ describe("Testing ModuleA Class #ModuleA.",
                   posix.setenv("MODULEPATH",mpath,true)
                   local maxdepth = pathJoin(base, "mf2") .. ":2;" .. pathJoin(base, "mf3") .. ":2;"
                   cosmic:assign("LMOD_MAXDEPTH",maxdepth)
-                  _G.mcp             = _G.MasterControl.build("load")
-                  _G.MCP             = _G.MasterControl.build("load")
+                  _G.mcp             = _G.MainControl.build("load")
+                  _G.MCP             = _G.MainControl.build("load")
                   --dbg:activateDebug(1)
                   local moduleA      = ModuleA:singleton{reset=true, spider_cache=true}
                   local mA           = moduleA:moduleA()

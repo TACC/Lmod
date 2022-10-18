@@ -95,14 +95,14 @@ require("string_utils")
 require("pairsByKeys")
 local lfs    = require("lfs")
 local Optiks = require("Optiks")
-local s_masterTbl = {}
+local s_mainTbl = {}
 
 function cmdDir()
    return cmd_dir
 end
 
-function masterTbl()
-   return s_masterTbl
+function optionTbl()
+   return s_mainTbl
 end
 
 function isDir(d)
@@ -164,15 +164,15 @@ function main()
    -- evaluate command line arguments
    options()
 
-   local masterTbl = masterTbl()
-   local pargs     = masterTbl.pargs
-   local cleanFlg  = masterTbl.cleanFlg
-   local delim     = masterTbl.delim
+   local optionTbl = optionTbl()
+   local pargs     = optionTbl.pargs
+   local cleanFlg  = optionTbl.cleanFlg
+   local delim     = optionTbl.delim
 
    local envVar    = os.getenv(pargs[1])
-   local insert    = myInsert(masterTbl.appendFlg, masterTbl.existFlg)
+   local insert    = myInsert(optionTbl.appendFlg, optionTbl.existFlg)
    local cleanPath = myClean(cleanFlg)
-   local chkDir    = myChkDir(masterTbl.existFlg)
+   local chkDir    = myChkDir(optionTbl.existFlg)
 
    remove(pargs,1)
 
@@ -233,7 +233,7 @@ end
 
 
 function options()
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
    local usage         = "Usage: addto [options] envVar path1 path2 ..."
    local cmdlineParser = Optiks:new{usage=usage, version="1.0"}
 
@@ -280,12 +280,12 @@ function options()
       help    = "delimiter (default is ':')"
    }
 
-   local optionTbl, pargs = cmdlineParser:parse(arg)
+   local optTbl, pargs = cmdlineParser:parse(arg)
 
-   for v in pairs(optionTbl) do
-      masterTbl[v] = optionTbl[v]
+   for v in pairs(optTbl) do
+      optionTbl[v] = optTbl[v]
    end
-   masterTbl.pargs = pargs
+   optionTbl.pargs = pargs
 
 end
 

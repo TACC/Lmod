@@ -89,12 +89,12 @@ require("fileOps")
 local concatTbl    = table.concat
 local strfmt       = string.format
 local huge         = math.huge
-local master       = {}
+local s_optionTbl  = {}
 local Optiks       = require("Optiks")
 
 
-function masterTbl()
-   return master
+function optionTbl()
+   return s_optionTbl
 end
 
 function cmdDir()
@@ -166,7 +166,7 @@ function python_setenv(name, value)
 end
 
 function options()
-   local masterTbl     = masterTbl()
+   local optionTbl     = optionTbl()
    local usage         = "Usage: "
    local cmdlineParser = Optiks:new{usage=usage, version="1.0"}
 
@@ -194,27 +194,27 @@ function options()
       action  = 'store',
       default = 'bash',
    }
-   local optionTbl, pargs = cmdlineParser:parse(arg)
+   local optTbl, pargs = cmdlineParser:parse(arg)
 
-   for v in pairs(optionTbl) do
-      masterTbl[v] = optionTbl[v]
+   for v in pairs(optTbl) do
+      optionTbl[v] = optTbl[v]
    end
-   masterTbl.pargs = pargs
+   optionTbl.pargs = pargs
 
 end
 
 function main()
-   local masterTbl     = masterTbl()
+   local optionTbl     = optionTbl()
    options()
    
    local setenv = bash_export
    local unset  = bash_unset
-   if ( masterTbl.shell == "csh" ) then
+   if ( optionTbl.shell == "csh" ) then
       setenv = csh_setenv
       unset  = csh_unset
    end
 
-   if ( masterTbl.shell == "python" ) then
+   if ( optionTbl.shell == "python" ) then
       setenv = python_setenv
       unset  = python_unset
    end
@@ -223,7 +223,7 @@ function main()
    setenv("LOADEDMODULES",    "")
    setenv("_LMFILES_",        "")
 
-   if (not masterTbl.full) then
+   if (not optionTbl.full) then
       for k = 1, huge do
          local name = strfmt("_ModuleTable%03d_",k)
          local v = getenv(name)
@@ -237,7 +237,7 @@ function main()
       end
       return
    end
-   if (not masterTbl.quiet) then
+   if (not optionTbl.quiet) then
       io.stderr:write("Executing a module purge and removing all Lmod environment variables, aliases and shell functions\n")
       io.stderr:write("This includes the module and ml commands!\n")
    end

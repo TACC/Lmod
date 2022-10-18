@@ -70,10 +70,10 @@ if (not pcall(require,"strict")) then
    os.exit(0)
 end
 
-local master = {}
+local s_optionTbl = {}
 
-function masterTbl()
-   return master
+function optionTbl()
+   return s_optionTbl
 end
 
 BaseShell            = require("BaseShell")
@@ -122,19 +122,19 @@ cosmic:init{name    = "LMOD_LD_PRELOAD",
             assignV = ld_preload}
 
 function main()
-   local masterTbl   = masterTbl()
+   local optionTbl   = optionTbl()
 
-   masterTbl.execDir = cmdDir()
+   optionTbl.execDir = cmdDir()
 
    CmdLineOptions:options()
-   if (masterTbl.debug) then
+   if (optionTbl.debug) then
       dbg:activateDebug(1)
    end
    dbg.start{"settarg()"}
 
    -- Error out if there are spaces in command line arguments
-   for i = 1,#masterTbl.pargs do
-      local s = masterTbl.pargs[i]
+   for i = 1,#optionTbl.pargs do
+      local s = optionTbl.pargs[i]
       if (s:find("%s")) then
          io.stderr:write("Error: Argument #",i," has spaces in it: \"",s,"\"\n")
          os.exit(1)
@@ -142,38 +142,38 @@ function main()
    end
 
 
-   if (masterTbl.cmdHelp) then
+   if (optionTbl.cmdHelp) then
       io.stderr:write("Lmod settarg ",Version.name(),"\n")
-      io.stderr:write(masterTbl.cmdHelpMsg,"\n")
+      io.stderr:write(optionTbl.cmdHelpMsg,"\n")
       dbg.fini("settarg")
       return
    end
 
-   if (masterTbl.version) then
+   if (optionTbl.version) then
       io.stderr:write("Lmod settarg ",Version.name(),"\n")
       os.exit(0)
    end
 
    ------------------------------------------
    -- Build shell object
-   local shell = BaseShell.build(masterTbl.shell)
+   local shell = BaseShell.build(optionTbl.shell)
 
    BuildTarget.exec(shell)
 
-   if (masterTbl.report) then
-      io.stderr:write(serializeTbl{name="SettargConfigFnA",   indent=true, value=masterTbl.SttgConfFnA},"\n")
-      io.stderr:write(serializeTbl{name="BuildScenarioTbl",   indent=true, value=masterTbl.BuildScenarioTbl},"\n")
-      io.stderr:write(serializeTbl{name="HostnameTbl",        indent=true, value=masterTbl.HostTbl},         "\n")
-      io.stderr:write(serializeTbl{name="ModuleTbl",          indent=true, value=masterTbl.ModuleTbl},       "\n")
-      io.stderr:write(serializeTbl{name="TargetList",         indent=true, value=masterTbl.targetList},      "\n")
-      io.stderr:write(serializeTbl{name="SettargDirTemplate", indent=true, value=masterTbl.SettargDirTmpl},  "\n")
-      io.stderr:write(serializeTbl{name="TitleTbl",           indent=true, value=masterTbl.TitleTbl},        "\n")
-      io.stderr:write("TargPathLoc = \"",masterTbl.TargPathLoc,"\"\n")
+   if (optionTbl.report) then
+      io.stderr:write(serializeTbl{name="SettargConfigFnA",   indent=true, value=optionTbl.SttgConfFnA},"\n")
+      io.stderr:write(serializeTbl{name="BuildScenarioTbl",   indent=true, value=optionTbl.BuildScenarioTbl},"\n")
+      io.stderr:write(serializeTbl{name="HostnameTbl",        indent=true, value=optionTbl.HostTbl},         "\n")
+      io.stderr:write(serializeTbl{name="ModuleTbl",          indent=true, value=optionTbl.ModuleTbl},       "\n")
+      io.stderr:write(serializeTbl{name="TargetList",         indent=true, value=optionTbl.targetList},      "\n")
+      io.stderr:write(serializeTbl{name="SettargDirTemplate", indent=true, value=optionTbl.SettargDirTmpl},  "\n")
+      io.stderr:write(serializeTbl{name="TitleTbl",           indent=true, value=optionTbl.TitleTbl},        "\n")
+      io.stderr:write("TargPathLoc = \"",optionTbl.TargPathLoc,"\"\n")
       dbg.fini("settarg")
       return
    end
 
-   if (masterTbl.stt) then
+   if (optionTbl.stt) then
       local stt = STT:stt()
       local s   = stt:serializeTbl("pretty")
       io.stderr:write(s,"\n")

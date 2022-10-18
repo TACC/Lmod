@@ -113,7 +113,7 @@ require("string_utils")
 require("cmdfuncs")
 require("utils")
 
-MasterControl       = require("MasterControl")
+MainControl         = require("MainControl")
 
 local Banner        = require("Banner")
 local BaseShell     = require("BaseShell")
@@ -344,9 +344,9 @@ function main()
       shellNm = "bash"
    end
 
-   local masterTbl = masterTbl()
-   MCP = MasterControl.build("load")
-   mcp = MasterControl.build("load")
+   local optionTbl = optionTbl()
+   MCP = MainControl.build("load")
+   mcp = MainControl.build("load")
 
    ------------------------------------------------------------------
    -- initialize lmod with SitePackage and /etc/lmod/lmod_config.lua
@@ -354,14 +354,14 @@ function main()
 
    local cmdLineUsage = "Usage: module [options] sub-command [args ...]"
    Options:singleton(cmdLineUsage)
-   local userCmd = masterTbl.pargs[1]
-   table.remove(masterTbl.pargs,1)
+   local userCmd = optionTbl.pargs[1]
+   table.remove(optionTbl.pargs,1)
 
-   if (masterTbl.debug > 0 or masterTbl.dbglvl) then
+   if (optionTbl.debug > 0 or optionTbl.dbglvl) then
       local configuration = require("Configuration"):singleton()
       io.stderr:write(configuration:report())
-      masterTbl.dbglvl = (type(masterTbl.dbglvl) == "number") and masterTbl.dbglvl or 1
-      local dbgLevel = max(masterTbl.debug, masterTbl.dbglvl or 1)
+      optionTbl.dbglvl = (type(optionTbl.dbglvl) == "number") and optionTbl.dbglvl or 1
+      local dbgLevel = max(optionTbl.debug, optionTbl.dbglvl or 1)
       dbg:activateDebug(dbgLevel)
    end
 
@@ -380,7 +380,7 @@ function main()
    end
 
    -- dumpversion and quit if requested.
-   if (masterTbl.dumpversion) then
+   if (optionTbl.dumpversion) then
       io.stderr:write(Version.tag(),"\n")
       os.exit(0)
    end
@@ -396,7 +396,7 @@ function main()
    end
 
    -- gitversion and quit if requested.
-   if (masterTbl.gitversion) then
+   if (optionTbl.gitversion) then
       local gitV = Version.git()
       if (gitV == "") then
          gitV = Version.tag()
@@ -408,13 +408,13 @@ function main()
    end
 
    -- print version and quit if requested.
-   if (masterTbl.version) then
+   if (optionTbl.version) then
       io.stderr:write(version())
       os.exit(0)
    end
 
    -- print Configuration and quit.
-   if (masterTbl.config) then
+   if (optionTbl.config) then
       local configuration = require("Configuration"):singleton()
       local a = {}
       a[1] = version()
@@ -424,7 +424,7 @@ function main()
    end
 
    -- print mini configuration and quit.
-   if (masterTbl.miniConfig) then
+   if (optionTbl.miniConfig) then
       local configuration = require("Configuration"):singleton()
       local a = {}
       a[1] = version()
@@ -434,7 +434,7 @@ function main()
    end
 
    -- dump Configuration in json and quit.
-   if (masterTbl.configjson) then
+   if (optionTbl.configjson) then
       local configuration = require("Configuration"):singleton()
       local a = {}
       a[#a+1] = configuration:report_json()
@@ -462,12 +462,12 @@ function main()
    hook.apply("startup", cmdName)
 
    local checkMPATH = (cmdT) and cmdT.checkMPATH or false
-   dbg.print{"Calling Master:singleton(checkMPATH) w checkMPATH: ",checkMPATH,"\n"}
-   master = Master:singleton(checkMPATH)
+   dbg.print{"Calling Hub:singleton(checkMPATH) w checkMPATH: ",checkMPATH,"\n"}
+   hub = Hub:singleton(checkMPATH)
 
-   if (masterTbl.checkSyntax) then
-      MCP = MasterControl.build("checkSyntax")
-      mcp = MasterControl.build("checkSyntax")
+   if (optionTbl.checkSyntax) then
+      MCP = MainControl.build("checkSyntax")
+      mcp = MainControl.build("checkSyntax")
       setSyntaxMode(true)
       Shell:setActive(false)
    end
@@ -476,13 +476,13 @@ function main()
    --Shell:expand(varTbl)
 
    -- if Help was requested then quit.
-   if (masterTbl.cmdHelp) then
+   if (optionTbl.cmdHelp) then
       Help()
       os.exit(0)
    end
 
    -- Report ModuleTable if requested and exit.
-   if (masterTbl.reportMT) then
+   if (optionTbl.reportMT) then
       local mt = FrameStk:singleton():mt()
       io.stderr:write(mt:serializeTbl("pretty"),"\n")
       os.exit(0)
@@ -504,7 +504,7 @@ function main()
 
    local cmd  = cmdT.cmd
    dbg.print{"cmd name: ", cmdT.name,"\n"}
-   cmd(unpack(masterTbl.pargs))
+   cmd(unpack(optionTbl.pargs))
 
    ------------------------------------------------------------
    -- After running command reset frameStk and mt as the
@@ -566,7 +566,7 @@ function main()
 
    local t2 = epoch()
    timer:deltaT("main", t2 - t1)
-   if (masterTbl.reportTimer) then
+   if (optionTbl.reportTimer) then
       io.stderr:write(timer:report(),"\n")
    end
 

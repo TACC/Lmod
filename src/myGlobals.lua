@@ -431,7 +431,7 @@ cosmic:init{name    = "LFS_VERSION",
 --
 
 ------------------------------------------------------------------------
--- MCP, mcp:  Master Control Program objects.  These objects implement
+-- MCP, mcp:  MainControl Program objects.  These objects implement
 --            the module functions: load, setenv, prepend_path, etc.
 --            MCP is always positive.  That is, load is load, setenv is
 --            setenv.  Where as mcp is dynamic.  It is positive on load
@@ -754,10 +754,10 @@ FullName        = false
 Shell          = false
 
 ------------------------------------------------------------------------
--- master:
+-- hub:
 ------------------------------------------------------------------------
 
-master         = false
+hub         = false
 
 TraceCounter   = 0
 ReloadAllCntr  = 0

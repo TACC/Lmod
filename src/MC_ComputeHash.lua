@@ -54,8 +54,8 @@ require("strict")
 
 require("utils")
 
-local MasterControl        = require("MasterControl")
-MC_ComputeHash             = inheritsFrom(MasterControl)
+local MainControl          = require("MainControl")
+MC_ComputeHash             = inheritsFrom(MainControl)
 MC_ComputeHash.my_name     = "MC_ComputeHash"
 MC_ComputeHash.my_sType    = "load"
 MC_ComputeHash.my_tcl_mode = "load"
@@ -67,47 +67,47 @@ local function l_ShowCmd(name, ...)
    A[#A+1] = ShowCmdStr(name, ...)
 end
 
-M.add_property         = MasterControl.quiet
-M.build_unload         = MasterControl.do_not_build_unload
-M.color_banner         = MasterControl.quiet
-M.complete             = MasterControl.quiet
-M.conflict             = MasterControl.quiet
-M.error                = MasterControl.quiet
-M.execute              = MasterControl.quiet
-M.extensions           = MasterControl.quiet
-M.family               = MasterControl.quiet
-M.haveDynamicMPATH     = MasterControl.quiet
-M.help                 = MasterControl.quiet
-M.inherit              = MasterControl.quiet
-M.message              = MasterControl.quiet
-M.msg_raw              = MasterControl.quiet
-M.myFileName           = MasterControl.myFileName
-M.myModuleFullName     = MasterControl.myModuleFullName
-M.myModuleName         = MasterControl.myModuleName
-M.myModuleUsrName      = MasterControl.myModuleUsrName
-M.myModuleVersion      = MasterControl.myModuleVersion
-M.prereq               = MasterControl.quiet
-M.prereq_any           = MasterControl.quiet
-M.pushenv              = MasterControl.quiet
-M.remove_property      = MasterControl.quiet
-M.report               = MasterControl.quiet
-M.set_alias            = MasterControl.quiet
-M.set_shell_function   = MasterControl.quiet
-M.source_sh            = MasterControl.quiet
-M.setenv               = MasterControl.quiet
-M.uncomplete           = MasterControl.quiet
-M.unset_alias          = MasterControl.quiet
-M.unset_alias          = MasterControl.quiet
-M.unset_shell_function = MasterControl.quiet
-M.unsetenv             = MasterControl.quiet
-M.whatis               = MasterControl.quiet
-M.LmodBreak            = MasterControl.quiet
+M.add_property         = MainControl.quiet
+M.build_unload         = MainControl.do_not_build_unload
+M.color_banner         = MainControl.quiet
+M.complete             = MainControl.quiet
+M.conflict             = MainControl.quiet
+M.error                = MainControl.quiet
+M.execute              = MainControl.quiet
+M.extensions           = MainControl.quiet
+M.family               = MainControl.quiet
+M.haveDynamicMPATH     = MainControl.quiet
+M.help                 = MainControl.quiet
+M.inherit              = MainControl.quiet
+M.message              = MainControl.quiet
+M.msg_raw              = MainControl.quiet
+M.myFileName           = MainControl.myFileName
+M.myModuleFullName     = MainControl.myModuleFullName
+M.myModuleName         = MainControl.myModuleName
+M.myModuleUsrName      = MainControl.myModuleUsrName
+M.myModuleVersion      = MainControl.myModuleVersion
+M.prereq               = MainControl.quiet
+M.prereq_any           = MainControl.quiet
+M.pushenv              = MainControl.quiet
+M.remove_property      = MainControl.quiet
+M.report               = MainControl.quiet
+M.set_alias            = MainControl.quiet
+M.set_shell_function   = MainControl.quiet
+M.source_sh            = MainControl.quiet
+M.setenv               = MainControl.quiet
+M.uncomplete           = MainControl.quiet
+M.unset_alias          = MainControl.quiet
+M.unset_alias          = MainControl.quiet
+M.unset_shell_function = MainControl.quiet
+M.unsetenv             = MainControl.quiet
+M.whatis               = MainControl.quiet
+M.LmodBreak            = MainControl.quiet
 
 
 
 --------------------------------------------------------------------------
 -- Print always_load and arguments
--- @param self A MasterControl object
+-- @param self A MainControl object
 -- @param mA An array of module names (MName objects)
 function M.always_load(self, mA)
    A[#A+1] = ShowCmdA("always_load", mA)
@@ -115,7 +115,7 @@ end
 
 --------------------------------------------------------------------------
 -- Print always_unload and arguments
--- @param self A MasterControl object
+-- @param self A MainControl object
 -- @param mA An array of module names (MName objects)
 function M.always_unload(self, mA)
    A[#A+1] = ShowCmdA("always_unload", mA)
@@ -123,7 +123,7 @@ end
 
 --------------------------------------------------------------------------
 -- Print prepend_path command iff the env var. is MODULEPATH.
--- @param self A MasterControl object
+-- @param self A MainControl object
 -- @param t input table
 function M.prepend_path(self, t)
    local name = t[1]
@@ -133,7 +133,7 @@ end
 
 --------------------------------------------------------------------------
 -- Print append_path command iff the env var. is MODULEPATH.
--- @param self A MasterControl object
+-- @param self A MainControl object
 -- @param t input table
 function M.append_path(self, t)
    local name = t[1]
@@ -143,7 +143,7 @@ end
 
 --------------------------------------------------------------------------
 -- Print remove_path command iff the env var. is MODULEPATH.
--- @param self A MasterControl object
+-- @param self A MainControl object
 -- @param t input table
 function M.remove_path(self, t)
    local name = t[1]
@@ -153,21 +153,21 @@ end
 
 --------------------------------------------------------------------------
 -- Print load command.
--- @param self A MasterControl object
+-- @param self A MainControl object
 -- @param mA An array of module names (MName objects)
 function M.load(self, mA)
    A[#A+1] = ShowCmdA("load", mA)
 end
 
 -- Print mgrload command.
--- @param self A MasterControl object
+-- @param self A MainControl object
 -- @param mA An array of module names (MName objects)
 function M.mgrload(self, required, active)
    A[#A+1] = l_ShowCmd("mgrload", required, active)
 end
 --------------------------------------------------------------------------
 -- Print depends_on command.
--- @param self A MasterControl object
+-- @param self A MainControl object
 -- @param mA An array of module names (MName objects)
 function M.depends_on(self, mA)
    A[#A+1] = ShowCmdA("depends_on", mA)
@@ -175,7 +175,7 @@ end
 
 --------------------------------------------------------------------------
 -- Print load command.
--- @param self A MasterControl object
+-- @param self A MainControl object
 -- @param mA An array of module names (MName objects)
 function M.load_usr(self, mA)
    A[#A+1] = ShowCmdA("load", mA)
@@ -183,7 +183,7 @@ end
 
 --------------------------------------------------------------------------
 -- Print load_any command.
--- @param self A MasterControl object
+-- @param self A MainControl object
 -- @param mA An array of module names (MName objects)
 function M.load_any(self, mA)
    A[#A+1] = ShowCmdA("load_any", mA)
@@ -191,7 +191,7 @@ end
 
 --------------------------------------------------------------------------
 -- Print try_load command.
--- @param self A MasterControl object
+-- @param self A MainControl object
 -- @param mA An array of module names (MName objects)
 function M.try_load(self, mA)
    A[#A+1] = ShowCmdA("try_load", mA)
@@ -201,14 +201,14 @@ M.try_add = M.try_load
 
 --------------------------------------------------------------------------
 -- Print the inherit command.
--- @param self A MasterControl object
+-- @param self A MainControl object
 function M.inherit(self, ...)
    l_ShowCmd("inherit",...)
 end
 
 --------------------------------------------------------------------------
 -- Print the unload command.
--- @param self A MasterControl object
+-- @param self A MainControl object
 -- @param mA An array of module names (MName objects)
 function M.unload(self, mA)
    A[#A+1] = ShowCmdA("unload", mA)

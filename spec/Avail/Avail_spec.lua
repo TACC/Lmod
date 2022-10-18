@@ -6,10 +6,10 @@ require("utils")
 initialize_lmod()
 require("fileOps")
 
-_G.MasterControl = require("MasterControl")
+_G.MainControl = require("MainControl")
 local dbg        = require("Dbg"):dbg()
 local ModuleA    = require("ModuleA")
-local Master     = require("Master")
+local Hub     = require("Hub")
 local cosmic     = require("Cosmic"):singleton()
 
 local concatTbl  = table.concat
@@ -28,19 +28,19 @@ describe("Testing The Avail command #Avail.",
                   ModuleA:__clear()
                   cosmic:init{name = "LMOD_MAXDEPTH", default=false, assign = mpath .. ":2;"}
 
-                  local master     = Master:singleton()
+                  local hub        = Hub:singleton()
                   local rplmntA    = { {projDir,"%%ProjDir%%"} }
-                  local masterTbl  = masterTbl()
-                  _G.mcp           = _G.MasterControl.build("load")
-                  _G.MCP           = _G.MasterControl.build("load")
+                  local optionTbl  = optionTbl()
+                  _G.mcp           = _G.MainControl.build("load")
+                  _G.MCP           = _G.MainControl.build("load")
 
-                  masterTbl.terse  = true
-                  masterTbl.rt     = true
+                  optionTbl.terse  = true
+                  optionTbl.rt     = true
 
                   -------------------------------------------------------
                   -- Test 1 avail output in terse mode
 
-                  local a          = master:avail(pack())
+                  local a          = hub:avail(pack())
                   local _a         = {}
                   sanizatizeTbl(rplmntA, a, _a)
                   --print(serializeTbl{indent=true, name="a",   value = _a})
@@ -56,8 +56,8 @@ describe("Testing The Avail command #Avail.",
 
                   -------------------------------------------------------
                   -- Test 2 avail output in terse mode for defaultOnly
-                  masterTbl.defaultOnly = true
-                  a  = master:avail(pack())
+                  optionTbl.defaultOnly = true
+                  a  = hub:avail(pack())
                   _a = {}
                   sanizatizeTbl(rplmntA, a, _a)
                   local gold_terse_defaultA = {
@@ -70,8 +70,8 @@ describe("Testing The Avail command #Avail.",
                   -------------------------------------------------------
                   -- Test 3 avail output in terse mode with a search string
 
-                  masterTbl.defaultOnly = nil
-                  a    = master:avail(pack("genomics"))
+                  optionTbl.defaultOnly = nil
+                  a    = hub:avail(pack("genomics"))
                   _a = {}
                   sanizatizeTbl(rplmntA, a, _a)
                   local gold_terse_searchA = {
@@ -84,15 +84,15 @@ describe("Testing The Avail command #Avail.",
                   -- Test 4 avail output in terse mode with a search
                   -- string with no match
 
-                  a    = master:avail(pack("gem"))
+                  a    = hub:avail(pack("gem"))
                   assert.are.same({},a)
 
                   -------------------------------------------------------
                   -- Test 5 avail output in regular mode
 
                   posix.setenv("LMOD_QUIET","yes")
-                  masterTbl.terse       = nil
-                  a  = master:avail(pack()) or {}
+                  optionTbl.terse       = nil
+                  a  = hub:avail(pack()) or {}
                   _a = {}
                   sanizatizeTbl(rplmntA, a, _a)
                   for i = 1,#_a do

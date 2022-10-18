@@ -79,7 +79,7 @@ end
 
 local function l_process(kind, value)
    if (value == nil) then return end
-   local moduleStack = masterTbl().moduleStack
+   local moduleStack = optionTbl().moduleStack
    local iStack      = #moduleStack
    local moduleT     = moduleStack[iStack].moduleT
 
@@ -104,13 +104,13 @@ function processDIR(value)
 end
 
 local function l_processNewModulePATH(path)
-   local masterTbl   = masterTbl()
-   local dirStk      = masterTbl.dirStk
+   local optionTbl   = optionTbl()
+   local dirStk      = optionTbl.dirStk
    local mpath_new   = path_regularize(path)
    dirStk[#dirStk+1] = mpath_new
 
-   local mpathMapT   = masterTbl.mpathMapT
-   local moduleStack = masterTbl.moduleStack
+   local mpathMapT   = optionTbl.mpathMapT
+   local moduleStack = optionTbl.moduleStack
    local iStack      = #moduleStack
    local mpath_old   = moduleStack[iStack].mpath
    local moduleT     = moduleStack[iStack].moduleT
@@ -126,8 +126,8 @@ local function l_processNewModulePATH(path)
 end
 
 function Spider_dynamic_mpath()
-   local masterTbl   = masterTbl()
-   local moduleStack = masterTbl.moduleStack
+   local optionTbl   = optionTbl()
+   local moduleStack = optionTbl.moduleStack
    local iStack      = #moduleStack
    local moduleT     = moduleStack[iStack].moduleT
    moduleT.changeMPATH = true
@@ -184,7 +184,7 @@ end
 
 local function l_findModules(mpath, mt, mList, sn, v, moduleT)
    local entryT
-   local moduleStack = masterTbl().moduleStack
+   local moduleStack = optionTbl().moduleStack
    local iStack      = #moduleStack
    if (v.file) then
       entryT   = { fn = v.file, sn = sn, userName = sn, fullName = sn, version = false}
@@ -207,7 +207,7 @@ end
 
 local function l_findChangeMPATH_modules(mpath, mt, mList, sn, v, moduleT)
    local entryT
-   local moduleStack = masterTbl().moduleStack
+   local moduleStack = optionTbl().moduleStack
    local iStack      = #moduleStack
    if (v.file) then
       LmodError("Calling l_findChangeMPATH_modules w v.file")
@@ -231,9 +231,9 @@ end
 
 function M.searchSpiderDB(self, strA, dbT, providedByT)
    dbg.start{"Spider:searchSpiderDB({",concatTbl(strA,","),"},spider, dbT)"}
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
 
-   if (not masterTbl.regexp) then
+   if (not optionTbl.regexp) then
       for i = 1, strA.n do
          strA[i] = strA[i]:caseIndependent()
       end
@@ -296,11 +296,11 @@ function M.findAllModules(self, mpathA, spiderT, mpathMapT)
    local dynamicCache    = (cosmic:value("LMOD_DYNAMIC_SPIDER_CACHE") ~= "no")
    local mt              = deepcopy(MT:singleton())
    local maxdepthT       = mt:maxDepthT()
-   local masterTbl       = masterTbl()
+   local optionTbl       = optionTbl()
    local moduleDirT      = {}
-   masterTbl.moduleStack = {{}}
-   masterTbl.dirStk      = {}
-   masterTbl.mpathMapT   = {}
+   optionTbl.moduleStack = {{}}
+   optionTbl.dirStk      = {}
+   optionTbl.mpathMapT   = {}
 
    local mList           = ""
    local exit            = os.exit
@@ -308,7 +308,7 @@ function M.findAllModules(self, mpathA, spiderT, mpathMapT)
    
    local mcp_old   = mcp
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-   mcp = MasterControl.build("spider")
+   mcp = MainControl.build("spider")
 
 
    sandbox_set_os_exit(l_nothing)
@@ -329,7 +329,7 @@ function M.findAllModules(self, mpathA, spiderT, mpathMapT)
       mList = concatTbl(a,":")
    end
 
-   local dirStk = masterTbl.dirStk
+   local dirStk = optionTbl.dirStk
    for i = 1,#mpathA do
       local mpath = mpathA[i]
       if (isDir(mpath)) then
@@ -388,7 +388,7 @@ function M.findAllModules(self, mpathA, spiderT, mpathMapT)
       dbg.print{"stderr back on\n"}
    end
 
-   local t = masterTbl.mpathMapT
+   local t = optionTbl.mpathMapT
    if (next(t) ~= nil) then
       for k,v in pairs(t) do
          mpathMapT[k] = v
@@ -676,7 +676,7 @@ end
 function M.buildProvideByT(self, dbT, providedByT)
    dbg.start{"Spider:buildProvideByT(dbT, providedByT)"}
 
-   local show_hidden = masterTbl().show_hidden
+   local show_hidden = optionTbl().show_hidden
    local mrc = MRC:singleton()
    for sn, vv in pairs(dbT) do
       for fullPath, v in pairs(vv) do
@@ -732,8 +732,8 @@ end
 function M.Level0_terse(self,dbT, providedByT)
    dbg.start{"Spider:Level0_terse()"}
    local mrc         = MRC:singleton()
-   local masterTbl   = masterTbl()
-   local show_hidden = masterTbl.show_hidden
+   local optionTbl   = optionTbl()
+   local show_hidden = optionTbl.show_hidden
    local t           = {}
    local a           = {}
    for sn, vv in pairs(dbT) do
@@ -769,7 +769,7 @@ end
 function M.Level0(self, dbT, providedByT)
    local a = {}
 
-   if (masterTbl().terse) then
+   if (optionTbl().terse) then
       return self:Level0_terse(dbT, providedByT)
    end
 
@@ -805,8 +805,8 @@ end
 
 function M.Level0Helper(self, dbT, providedByT, a)
    local t           = {}
-   local masterTbl   = masterTbl()
-   local show_hidden = masterTbl.show_hidden
+   local optionTbl   = optionTbl()
+   local show_hidden = optionTbl.show_hidden
    local term_width  = TermWidth() - 4
    local banner      = Banner:singleton()
    local mrc         = MRC:singleton()
@@ -892,8 +892,8 @@ end
 
 function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
    dbg.start{"Spider:spiderSearch(dbT,providedByT,\"",userSearchPat,"\",",helpFlg,")"}
-   local masterTbl   = masterTbl()
-   local show_hidden = masterTbl.show_hidden
+   local optionTbl   = optionTbl()
+   local show_hidden = optionTbl.show_hidden
    local mrc         = MRC:singleton()
 
    dbg.print{"show_hidden: ",show_hidden,"\n"}
@@ -901,7 +901,7 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
    --dbg.printT("dbT",dbT)
 
    local origUserSearchPat = userSearchPat
-   if (not masterTbl.regexp) then
+   if (not optionTbl.regexp) then
       userSearchPat = userSearchPat:caseIndependent()
    end
 
@@ -1051,8 +1051,8 @@ end
 
 function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
    dbg.start{"Spider:_Level1(dbT, providedByT, possibleA, sn: \"",sn,"\", key: \"",key,"\")"}
-   local masterTbl   = masterTbl()
-   local show_hidden = masterTbl.show_hidden
+   local optionTbl   = optionTbl()
+   local show_hidden = optionTbl.show_hidden
    local term_width  = TermWidth() - 4
    local mrc         = MRC:singleton()
    local T           = dbT[sn]
@@ -1250,7 +1250,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
 
    local a  = {}
    local ia = 0
-   if (masterTbl.terse) then
+   if (optionTbl.terse) then
       for k, v in pairsByKeys(fullVT) do
          if (not v.providedBy) then
             ia = ia + 1; a[ia] = v.fullName .. "\n"
@@ -1311,7 +1311,7 @@ function M._Level2(self, sn, fullName, entryA, entryPA, possibleA, tailMsg)
    dbg.start{"Spider:_Level2(\"",sn,"\", \"",fullName,"\", entryA, entryPA, possibleA, tailMsg)"}
    --dbg.printT("entryA",entryA)
 
-   local show_hidden  = masterTbl().show_hidden
+   local show_hidden  = optionTbl().show_hidden
    local a            = {}
    local ia           = 0
    local b            = {}

@@ -385,7 +385,7 @@ end
 function M.serializeTbl(self, state)
    local make_pretty = (state == "pretty")
    local mt     = deepcopy(self)
-   local rTest  = masterTbl().rt
+   local rTest  = optionTbl().rt
    if (rTest) then
       mt.c_rebuildTime = false
       mt.c_shortTime   = false
@@ -863,7 +863,7 @@ end
 --------------------------------------------------------------------------
 -- Generate a columeTable with a title.
 local function l_columnList(stream, msg, a)
-   local cwidth = masterTbl().rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
+   local cwidth = optionTbl().rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
    local t      = {}
    sort(a)
    for i = 1, #a do
@@ -1241,7 +1241,7 @@ function M.getMTfromFile(self,tt)
 
    local MName   = require("MName")
    local mcp_old = mcp
-   mcp           = MasterControl.build("mgrload","load")
+   mcp           = MainControl.build("mgrload","load")
 
    -----------------------------------------------
    -- Normally we load the user name which means

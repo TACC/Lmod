@@ -64,7 +64,7 @@ function  M.options(self)
 
    local Optiks = require("Optiks")
 
-   local masterTbl     = masterTbl()
+   local optionTbl     = optionTbl()
    local usage         = "Usage: settarg [options] [dbg|opt|...] [anything_else]"
    local versionStr    = format("Lmod settarg %s",version())
    local cmdlineParser = Optiks:new{usage=usage}
@@ -157,20 +157,20 @@ function  M.options(self)
       action = 'store_true',
    }
 
-   local optionTbl, pargs = cmdlineParser:parse(arg)
+   local optTbl, pargs = cmdlineParser:parse(arg)
 
-   for v in pairs(optionTbl) do
-      masterTbl[v] = optionTbl[v]
+   for v in pairs(optTbl) do
+      optionTbl[v] = optTbl[v]
    end
-   masterTbl.pargs = pargs
+   optionTbl.pargs = pargs
 
-   masterTbl.cmdHelpMsg      = ""
-   if (masterTbl.cmdHelp or pargs[1] == "help" ) then
-      masterTbl.cmdHelpMsg   = cmdlineParser:buildHelpMsg()
+   optionTbl.cmdHelpMsg      = ""
+   if (optionTbl.cmdHelp or pargs[1] == "help" ) then
+      optionTbl.cmdHelpMsg   = cmdlineParser:buildHelpMsg()
    end
 
 
-   masterTbl.shell = barefilename(masterTbl.shell)
+   optionTbl.shell = barefilename(optionTbl.shell)
 
    return s_CmdLineOptions
 end

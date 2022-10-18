@@ -79,8 +79,8 @@ function M.default_OS()
 end
 
 function M.default_HOST()
-   local masterTbl = masterTbl()
-   local hostTbl   = masterTbl.HostTbl
+   local optionTbl = optionTbl()
+   local hostTbl   = optionTbl.HostTbl
    local hostName  = getUname().hostName
    local hostA     = {}
 
@@ -109,8 +109,8 @@ end
 
 function M.default_BUILD_SCENARIO(tbl)
    dbg.start{"BuildTarget:default_BUILD_SCENARIO()"}
-   local masterTbl        = masterTbl()
-   local BuildScenarioTbl = masterTbl.BuildScenarioTbl
+   local optionTbl        = optionTbl()
+   local BuildScenarioTbl = optionTbl.BuildScenarioTbl
    local stt              = STT:stt()
 
    -------------------------------------------------------
@@ -162,7 +162,7 @@ end
 local function l_string2Tbl(s,tbl)
    dbg.start{"l_string2Tbl(\"",s,"\", tbl)"}
    local stt           = STT:stt()
-   local stringKindTbl = masterTbl().stringKindTbl
+   local stringKindTbl = optionTbl().stringKindTbl
    for v in s:split("%s+") do
       local kindT  = stringKindTbl[v]
       if (kindT == nil) then
@@ -243,13 +243,13 @@ function M.buildTbl(targetTbl)
 end
 
 local function l_readDotFiles()
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
 
    -------------------------------------------------------
    -- Load system then user default table.
    local settarg_rc = getenv("LMOD_SETTARG_RC")
    if (not settarg_rc or not isFile(settarg_rc)) then
-      settarg_rc = pathJoin(masterTbl.execDir,"settarg_rc.lua")
+      settarg_rc = pathJoin(optionTbl.execDir,"settarg_rc.lua")
    end
 
    local a = { settarg_rc,
@@ -337,32 +337,32 @@ local function l_readDotFiles()
       until true
    end
 
-   masterTbl.TargPathLoc      = getenv("LMOD_SETTARG_TARG_PATH_LOCATION") or TargPathLoc
-   masterTbl.HostTbl          = HostTbl
-   masterTbl.TitleTbl         = TitleMstrTbl
-   masterTbl.BuildScenarioTbl = MethodMstrTbl
-   masterTbl.stringKindTbl    = stringKindTbl
-   masterTbl.ModuleTbl        = ModuleMstrTbl
-   masterTbl.targetList       = systemG.TargetList
-   masterTbl.familyTbl        = familyTbl
-   masterTbl.SettargDirTmpl   = SettargDirTmpl
-   masterTbl.SttgConfFnA      = SttgConfFnA
+   optionTbl.TargPathLoc      = getenv("LMOD_SETTARG_TARG_PATH_LOCATION") or TargPathLoc
+   optionTbl.HostTbl          = HostTbl
+   optionTbl.TitleTbl         = TitleMstrTbl
+   optionTbl.BuildScenarioTbl = MethodMstrTbl
+   optionTbl.stringKindTbl    = stringKindTbl
+   optionTbl.ModuleTbl        = ModuleMstrTbl
+   optionTbl.targetList       = systemG.TargetList
+   optionTbl.familyTbl        = familyTbl
+   optionTbl.SettargDirTmpl   = SettargDirTmpl
+   optionTbl.SttgConfFnA      = SttgConfFnA
 end
 
 function M.exec(shell)
    local shell_name  = shell:name() or "unknown"
    dbg.start{"BuildTarget.exec(\"",shell_name,")"}
-   local masterTbl   = masterTbl()
+   local optionTbl   = optionTbl()
    local envVarsTbl  = {}
-   local target      = masterTbl.target or getenv('TARGET') or ''
+   local target      = optionTbl.target or getenv('TARGET') or ''
    local t           = getUname()
    local stt         = STT:stt()
 
-   masterTbl.envVarsTbl  = envVarsTbl
+   optionTbl.envVarsTbl  = envVarsTbl
 
    l_readDotFiles()
-   local targetList = masterTbl.targetList
-   local familyTbl  = masterTbl.familyTbl
+   local targetList = optionTbl.targetList
+   local familyTbl  = optionTbl.familyTbl
    local targetTbl = {}
 
    targetList[#targetList+1] = "extra"
@@ -372,7 +372,7 @@ function M.exec(shell)
 
    local tbl = M.buildTbl(targetTbl)
 
-   l_string2Tbl(concatTbl(masterTbl.pargs," ") or '',tbl)
+   l_string2Tbl(concatTbl(optionTbl.pargs," ") or '',tbl)
    processModuleTable(shell:getMT(), targetTbl, tbl)
 
 
@@ -381,10 +381,10 @@ function M.exec(shell)
 
    -- Remove options from TARG_EXTRA
 
-   if (masterTbl.purgeFlag) then
+   if (optionTbl.purgeFlag) then
       stt:purgeExtraT()
    else
-      stt:removeFromExtra(masterTbl.remOptions)
+      stt:removeFromExtra(optionTbl.remOptions)
    end
 
    tbl.TARG_EXTRA = TargValue:new{value=stt:getEXTRA()}
@@ -427,7 +427,7 @@ function M.exec(shell)
 
    envVarsTbl.TARG_SUMMARY = target
 
-   local SettargDirTmpl = masterTbl.SettargDirTmpl
+   local SettargDirTmpl = optionTbl.SettargDirTmpl
 
    local b = {}
 
@@ -450,7 +450,7 @@ function M.exec(shell)
       envVarsTbl.TARG = "." .. envVarsTbl.TARG
    end
 
-   local TitleTbl = masterTbl.TitleTbl
+   local TitleTbl = optionTbl.TitleTbl
 
    -- Remove TARG_MACH when it is the same as the host.
    local mach = tbl.TARG_MACH:display()
@@ -487,7 +487,7 @@ function M.exec(shell)
    envVarsTbl.TARG_TITLE_BAR        = s
    envVarsTbl.TARG_TITLE_BAR_PAREN  = paren_s
 
-   if (masterTbl.destroyFlag) then
+   if (optionTbl.destroyFlag) then
       for k in pairs(envVarsTbl) do
          envVarsTbl[k] = ""
       end

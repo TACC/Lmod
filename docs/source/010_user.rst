@@ -466,8 +466,16 @@ Once users have the desired modules load then they issue::
 
     $ module save
 
-This creates a file called ``~/.lmod.d/default`` which has the list of
-desired modules. Once this is set-up a user can issue::
+This creates a file called ``~/.config/lmod/default`` which has the
+list of desired modules. Note only the current set of modules is
+recorded the in the collection. If module X loads module A and the
+user deletes module A before doing ``module save collectionName`` then
+module A will NOT be loaded when the collection is restored.  All
+load(), always_load(), depends_on() statements inside the modulefiles
+are ignored when restoring a collection. Instead Lmod loads just the
+list of modulefiles stored in the collection.
+
+Once this is set-up a user can issue::
 
     $ module restore
 
@@ -506,7 +514,7 @@ that the collection is not remove just renamed.  If a user disables
 the foo collection, the file foo is renamed to foo~.  To restore the
 foo collection, a user will have to do the following::
 
-    $ cd ~/.lmod.d; mv foo~ foo
+    $ cd ~/.config/lmod;  mv foo~ foo
 
 Rules for loading modules from a collection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

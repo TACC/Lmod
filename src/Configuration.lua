@@ -200,7 +200,7 @@ local function l_new(self)
    end
 
    local tcl_version = "<N/A>"
-   if (allow_tcl_mfiles == "yes" and not masterTbl().rt) then
+   if (allow_tcl_mfiles == "yes" and not optionTbl().rt) then
       tcl_version = capture("echo 'puts [info patchlevel]' | tclsh")
    end
 

@@ -21,10 +21,10 @@ Level 2 will show how to load the specified module in a hierarchy.
 `wv`: weighted version (user, system and module locale .modulerc)
 `luaExt`: location of the .lua in the filename (zero when tcl module)
 
-Master Control
+MainControl
 --------------
 
-The MasterControl is the heart of Lmod. An 'action' in a module file like `setenv('foo', 'bar')` has a different
+The MainControl is the heart of Lmod. An 'action' in a module file like `setenv('foo', 'bar')` has a different
 meaning depending on the mode. For a load it will set `foo` while for a unload it will delete it.
 There are 7 modes in Lmod:
 - Load
@@ -38,20 +38,20 @@ There are 7 modes in Lmod:
 - Show: show the contents of the module
 - Spider: process module files for spider operations
 
-The file `MasterControl.lua` holds all code and the files `MC_<mode>.lua` assign what each action in a
+The file `MainControl.lua` holds all code and the files `MC_<mode>.lua` assign what each action in a
 module exactly does. 
 
-The object MCP (MasterControl Program) is created once and always points to a 'positive'
-action (a load basically). The lowercase mcp points to the current MasterControl
+The object MCP (MainControl Program) is created once and always points to a 'positive'
+action (a load basically). The lowercase mcp points to the current MainControl
 Program. These variables are global.
 
-The file `Master.lua` is were the real work is being done. MasterControl will decides which functions
+The file `Hub.lua` is were the real work is being done. MainControl will decides which functions
 get called from this file.
 
 General flow
 ------------
 
-The Lmod main is in `lmod.lua.in`. There the MasterControl Program (MCP) object is created. The array
+The Lmod main is in `lmod.lua.in`. There the MainControl Program (MCP) object is created. The array
 `lmodCmdA` does the translation between user input and a Lmod command. The file `cmdfuncs.lua` holds
-all 'user' actions. The main will run a function from that file which will call MasterControl which
-calls Master (or sometimes Master directly).
+all 'user' actions. The main will run a function from that file which will call MainControl which
+calls Hub (or sometimes Hub directly).

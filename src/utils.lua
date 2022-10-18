@@ -430,10 +430,13 @@ function getMT()
    local mtSz  = tonumber(getenv(SzStr)) or huge
    local s     = false
 
+   dbg.print{"getMT: Sz: ",mtSz,"\n"}
    for i = 1, mtSz do
       local envNm = strfmt(piece,i)
       local v     = getenv(envNm)
       if (v == nil) then break end
+      dbg.print{"getMT: nm:",envNm,", v: ",v,"\n"}
+
       a[#a+1]    = v
    end
    if (#a > 0) then
@@ -503,13 +506,14 @@ function length(s)
 end
 
 
-local s_masterTbl = {}
+local s_optionTbl = {}
 --------------------------------------------------------------------------
--- Manage the Master Hash Table.
-function masterTbl()
-   return s_masterTbl
+-- Manage the Hub Hash Table.
+function optionTbl()
+   return s_optionTbl
 end
 
+masterTbl = optionTbl
 
 function paired2pathT(path)
    if (not path) then

@@ -8,7 +8,7 @@ require("fileOps")
 require("serializeTbl")
 require("StandardPackage")
 
-_G.MasterControl = require("MasterControl")
+_G.MainControl   = require("MainControl")
 local ModuleA    = require("ModuleA")
 local Spider     = require("Spider")
 local concatTbl  = table.concat
@@ -30,8 +30,8 @@ describe("Testing Spider Class #Spider.",
                   local spider  = Spider:new()
                   local spiderT = {}
                   local mpathMapT = {}
-                  _G.mcp = MasterControl.build("spider")
-                  _G.MCP = MasterControl.build("spider")
+                  _G.mcp = MainControl.build("spider")
+                  _G.MCP = MainControl.build("spider")
                   spider:findAllModules({mpath}, spiderT, mpathMapT)
                   local gold_spiderT = {
                      ["%ProjDir%/spec/Spider/mf/Core"]  = {
@@ -158,7 +158,7 @@ describe("Testing Spider Class #Spider.",
                   --   dbg:activateDebug(1)
                   --end
 
-                  local masterTbl  = masterTbl()
+                  local optionTbl  = optionTbl()
                   local projDir    = getenv("PROJDIR")
                   local root_mpath = pathJoin(projDir, testDir, "h/mf")
                   local mpath      = pathJoin(root_mpath,       "Core")
@@ -171,8 +171,8 @@ describe("Testing Spider Class #Spider.",
                   local spider    = Spider:new()
                   local spiderT   = {}
                   local mpathMapT = {}
-                  _G.mcp = MasterControl.build("spider")
-                  _G.MCP = MasterControl.build("spider")
+                  _G.mcp = MainControl.build("spider")
+                  _G.MCP = MainControl.build("spider")
                   spider:findAllModules({mpath}, spiderT, mpathMapT)
                   local gold_spiderT = {
                      ["%ProjDir%/spec/Spider/h/mf/Compiler/gcc/5.9"]  = {
@@ -307,13 +307,13 @@ describe("Testing Spider Class #Spider.",
                   }
 
                   local mpathMapT = {}
-                  sanizatizeTbl(rplmntA, masterTbl.mpathMapT, mpathMapT)
+                  sanizatizeTbl(rplmntA, optionTbl.mpathMapT, mpathMapT)
                   --print(serializeTbl{indent=true, name="mpathMapT",value = mpathMapT})
                   assert.are.same(gold_mpathMapT, mpathMapT)
 
                   local dbT = {}
                   --dbg:activateDebug(1)
-                  spider:buildDbT({mpath}, masterTbl.mpathMapT, spiderT, dbT)
+                  spider:buildDbT({mpath}, optionTbl.mpathMapT, spiderT, dbT)
                   local _dbT = {}
                   sanizatizeTbl(rplmntA, dbT, _dbT)
                   local gold_dbT = {

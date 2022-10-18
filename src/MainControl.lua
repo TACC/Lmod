@@ -40,7 +40,7 @@ require("colorize")
 require("string_utils")
 require("utils")
 
-Master                 = require("Master")
+Hub                    = require("Hub")
 
 local BeautifulTbl     = require("BeautifulTbl")
 local FrameStk         = require("FrameStk")
@@ -194,14 +194,14 @@ end
 
 --------------------------------------------------------------------------
 -- Return the sType.
--- @param self A MasterControl object
+-- @param self A MainControl object
 function M.MNameType(self)
    return self.my_sType
 end
 
 --------------------------------------------------------------------------
 -- Return the tcl_mode.
--- @param self A MasterControl object
+-- @param self A MainControl object
 function M.tcl_mode(self)
    return self.my_tcl_mode
 end
@@ -215,17 +215,17 @@ local function l_valid_name(nameTbl, name)
 end
 
 --------------------------------------------------------------------------
--- Set the type (or mode) of the current MasterControl object.
--- @param self A MasterControl object
+-- Set the type (or mode) of the current MainControl object.
+-- @param self A MainControl object
 function M._setMode(self, mode)
    self._mode = mode
 end
 
 --------------------------------------------------------------------------
--- The Factory builder for the MasterControl Class.
+-- The Factory builder for the MainControl Class.
 -- @param name the name of the derived object.
 -- @param[opt] mode An optional mode for building the *access* object.
--- @return A derived MasterControl Object.
+-- @return A derived MainControl Object.
 local s_nameTbl          = false
 function M.build(name,mode)
 
@@ -297,13 +297,13 @@ end
 
 -------------------------------------------------------------------
 -- Set an environment variable.
--- @param self A MasterControl object.
+-- @param self A MainControl object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 -- @param respect If true, then respect the old value.
 function M.setenv(self, name, value, respect)
    name = name:trim()
-   dbg.start{"MasterControl:setenv(\"",name,"\", \"",value,"\", \"",
+   dbg.start{"MainControl:setenv(\"",name,"\", \"",value,"\", \"",
               respect,"\")"}
 
    l_check_for_valid_name("setenv",name)
@@ -314,7 +314,7 @@ function M.setenv(self, name, value, respect)
 
    if (respect and getenv(name)) then
       dbg.print{"Respecting old value"}
-      dbg.fini("MasterControl:setenv")
+      dbg.fini("MainControl:setenv")
       return
    end
 
@@ -324,25 +324,25 @@ function M.setenv(self, name, value, respect)
       varT[name] = Var:new(name)
    end
    varT[name]:set(tostring(value))
-   dbg.fini("MasterControl:setenv")
+   dbg.fini("MainControl:setenv")
 end
 
 
 --------------------------------------------------------------------------
 -- Unset an environment variable.
--- @param self A MasterControl object.
+-- @param self A MainControl object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 -- @param respect If true, then respect the old value.
 function M.unsetenv(self, name, value, respect)
    name = name:trim()
-   dbg.start{"MasterControl:unsetenv(\"",name,"\", \"",value,"\")"}
+   dbg.start{"MainControl:unsetenv(\"",name,"\", \"",value,"\")"}
 
    l_check_for_valid_name("unsetenv",name)
 
    if (respect and getenv(name) ~= value) then
       dbg.print{"Respecting old value"}
-      dbg.fini("MasterControl:unsetenv")
+      dbg.fini("MainControl:unsetenv")
       return
    end
 
@@ -358,7 +358,7 @@ function M.unsetenv(self, name, value, respect)
    if (varT[stackName]) then
       varT[name]:unset()
    end
-   dbg.fini("MasterControl:unsetenv")
+   dbg.fini("MainControl:unsetenv")
 end
 
 -------------------------------------------------------------------
@@ -367,12 +367,12 @@ end
 
 --------------------------------------------------------------------------
 -- Set an environment variable and remember previous values in a stack.
--- @param self A MasterControl object.
+-- @param self A MainControl object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.pushenv(self, name, value)
    name = name:trim()
-   dbg.start{"MasterControl:pushenv(\"",name,"\", \"",value,"\")"}
+   dbg.start{"MainControl:pushenv(\"",name,"\", \"",value,"\")"}
 
    l_check_for_valid_name("pushenv",name)
    ----------------------------------------------------------------
@@ -415,18 +415,18 @@ function M.pushenv(self, name, value)
    end
    varT[name]:set(v)
 
-   dbg.fini("MasterControl:pushenv")
+   dbg.fini("MainControl:pushenv")
 end
 
 --------------------------------------------------------------------------
 -- The reverse action of pushenv.  It pops the old value off of the stack
 -- and set the *name* to the previous value from the stack.
--- @param self A MasterControl object.
+-- @param self A MainControl object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.popenv(self, name, value)
    name = name:trim()
-   dbg.start{"MasterControl:popenv(\"",name,"\", \"",value,"\")"}
+   dbg.start{"MainControl:popenv(\"",name,"\", \"",value,"\")"}
 
    l_check_for_valid_name("popenv",name)
 
@@ -455,7 +455,7 @@ function M.popenv(self, name, value)
 
    varT[name]:set(v)
 
-   dbg.fini("MasterControl:popenv")
+   dbg.fini("MainControl:popenv")
 end
 
 -------------------------------------------------------------------
@@ -465,10 +465,10 @@ end
 
 -------------------------------------------------------------------
 -- Prepend to a path like variable.
--- @param self A MasterControl object
+-- @param self A MainControl object
 -- @param t A table containing { name, value, nodups=v1, priority=v2}
 function M.prepend_path(self, t)
-   dbg.start{"MasterControl:prepend_path(t)"}
+   dbg.start{"MainControl:prepend_path(t)"}
    local delim    = t.delim or ":"
    local name     = t[1]
    local value    = t[2]
@@ -493,12 +493,12 @@ function M.prepend_path(self, t)
    nodups = (name == ModulePath) or nodups
 
    varT[name]:prepend(tostring(value), nodups, priority)
-   dbg.fini("MasterControl:prepend_path")
+   dbg.fini("MainControl:prepend_path")
 end
 
 --------------------------------------------------------------------------
 -- Append to a path like variable.
--- @param self A MasterControl object
+-- @param self A MainControl object
 -- @param t A table containing { name, value, nodups=v1, priority=v2}
 function M.append_path(self, t)
    local delim    = t.delim or ":"
@@ -509,7 +509,7 @@ function M.append_path(self, t)
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
 
-   dbg.start{"MasterControl:append_path{\"",name,"\", \"",value,
+   dbg.start{"MainControl:append_path{\"",name,"\", \"",value,
              "\", delim=\"",delim,"\", nodups=\"",nodups,
              "\", priority=",priority,
              "}"}
@@ -524,12 +524,12 @@ function M.append_path(self, t)
    end
 
    varT[name]:append(tostring(value), nodups, priority)
-   dbg.fini("MasterControl:append_path")
+   dbg.fini("MainControl:append_path")
 end
 
 --------------------------------------------------------------------------
 -- Remove an entry from a path like variable.
--- @param self A MasterControl object
+-- @param self A MainControl object
 -- @param t A table containing { name, value, nodups=v1, priority=v2, where=v3, force=v4}
 function M.remove_path(self, t)
    local delim    = t.delim or ":"
@@ -542,7 +542,7 @@ function M.remove_path(self, t)
    local varT     = frameStk:varT()
    local force    = t.force
 
-   dbg.start{"MasterControl:remove_path{\"",name,"\", \"",value,
+   dbg.start{"MainControl:remove_path{\"",name,"\", \"",value,
              "\", delim=\"",delim,"\", nodups=\"",nodups,
              "\", priority=",priority,
              ", where=",where,
@@ -558,13 +558,13 @@ function M.remove_path(self, t)
       varT[name] = Var:new(name,nil, nodups, delim)
    end
    varT[name]:remove(tostring(value), where, priority, nodups, force)
-   dbg.fini("MasterControl:remove_path")
+   dbg.fini("MainControl:remove_path")
 end
 
 --------------------------------------------------------------------------
 -- Remove an entry from a path-like variable.  This version is the reverse
 -- of a prepend_path.
--- @param self A MasterControl object
+-- @param self A MainControl object
 -- @param t A table containing { name, value, nodups=v1, priority=v2}
 function M.remove_path_first(self, t)
    t.where = "first"
@@ -573,7 +573,7 @@ end
 
 -- Remove an entry from a path-like variable.  This version is the reverse
 -- of a append_path.
--- @param self A MasterControl object
+-- @param self A MainControl object
 -- @param t A table containing { name, value, nodups=v1, priority=v2}
 function M.remove_path_last(self, t)
    t.where = "last"
@@ -585,12 +585,12 @@ end
 --------------------------------------------------------------------------
 -- Set a shell alias.  This function can handle a single value for both
 -- bash and C-shell.
--- @param self A MasterControl Object.
+-- @param self A MainControl Object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.set_alias(self, name, value)
    name = name:trim()
-   dbg.start{"MasterControl:set_alias(\"",name,"\", \"",value,"\")"}
+   dbg.start{"MainControl:set_alias(\"",name,"\", \"",value,"\")"}
 
    l_check_for_valid_alias_name("set_alias",name)
 
@@ -602,17 +602,17 @@ function M.set_alias(self, name, value)
       varT[name] = Var:new(name)
    end
    varT[name]:setAlias(value)
-   dbg.fini("MasterControl:set_alias")
+   dbg.fini("MainControl:set_alias")
 end
 
 --------------------------------------------------------------------------
 -- Unset a shell alias.
--- @param self A MasterControl Object.
+-- @param self A MainControl Object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.unset_alias(self, name, value)
    name = name:trim()
-   dbg.start{"MasterControl:unset_alias(\"",name,"\", \"",value,"\")"}
+   dbg.start{"MainControl:unset_alias(\"",name,"\", \"",value,"\")"}
 
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
@@ -621,18 +621,18 @@ function M.unset_alias(self, name, value)
       varT[name] = Var:new(name)
    end
    varT[name]:unsetAlias()
-   dbg.fini("MasterControl:unset_alias")
+   dbg.fini("MainControl:unset_alias")
 end
 
 
 --------------------------------------------------------------------------
 -- Set a shell function for bash and a csh alias.
--- @param self A MasterControl Object.
+-- @param self A MainControl Object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.set_shell_function(self, name, bash_function, csh_function)
    name = name:trim()
-   dbg.start{"MasterControl:set_shell_function(\"",name,"\", \"",bash_function,"\"",
+   dbg.start{"MainControl:set_shell_function(\"",name,"\", \"",bash_function,"\"",
              "\", \"",csh_function,"\""}
 
 
@@ -645,17 +645,17 @@ function M.set_shell_function(self, name, bash_function, csh_function)
       varT[name] = Var:new(name)
    end
    varT[name]:setShellFunction(bash_function, csh_function)
-   dbg.fini("MasterControl:set_shell_function")
+   dbg.fini("MainControl:set_shell_function")
 end
 
 --------------------------------------------------------------------------
 -- Unset a shell function for bash and a csh alias.
--- @param self A MasterControl Object.
+-- @param self A MainControl Object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.unset_shell_function(self, name, bash_function, csh_function)
    name = name:trim()
-   dbg.start{"MasterControl:unset_shell_function(\"",name,"\", \"",bash_function,"\"",
+   dbg.start{"MainControl:unset_shell_function(\"",name,"\", \"",bash_function,"\"",
              "\", \"",csh_function,"\""}
 
    local frameStk = FrameStk:singleton()
@@ -665,23 +665,23 @@ function M.unset_shell_function(self, name, bash_function, csh_function)
       varT[name] = Var:new(name)
    end
    varT[name]:unsetShellFunction()
-   dbg.fini("MasterControl:unset_shell_function")
+   dbg.fini("MainControl:unset_shell_function")
 end
 
 
 --------------------------------------------------------------------------
--- Return the type (or mode) of the current MasterControl object.
--- @param self A MasterControl object
+-- Return the type (or mode) of the current MainControl object.
+-- @param self A MainControl object
 function M.mode(self)
    return self._mode
 end
 
 --------------------------------------------------------------------------
 -- Place a string that will be executed when the output from Lmod eval'ed.
--- @param self A MasterControl object
+-- @param self A MainControl object
 -- @param t A table containing A mode array and a command.
 function M.execute(self, t)
-   dbg.start{"MasterControl:execute(t)"}
+   dbg.start{"MainControl:execute(t)"}
    local a      = t.modeA or {}
    local myMode = self:mode()
    local Exec   = require("Exec")
@@ -693,12 +693,12 @@ function M.execute(self, t)
          break
       end
    end
-   dbg.fini("MasterControl:execute")
+   dbg.fini("MainControl:execute")
 end
 
 --------------------------------------------------------------------------
 -- Return the user's shell
--- @param self A MasterControl object
+-- @param self A MainControl object
 function M.myShellName(self)
    return Shell and Shell:name() or "bash"
 end
@@ -711,7 +711,7 @@ end
 
 --------------------------------------------------------------------------
 -- Return the current file name.
--- @param self A MasterControl object
+-- @param self A MainControl object
 function M.myFileName(self)
    local frameStk = FrameStk:singleton()
    return frameStk:fn()
@@ -719,7 +719,7 @@ end
 
 --------------------------------------------------------------------------
 -- Return the full name of the current module.  Typically name/version.
--- @param self A MasterControl object.
+-- @param self A MainControl object.
 function M.myModuleFullName(self)
    local frameStk = FrameStk:singleton()
    return frameStk:fullName()
@@ -728,7 +728,7 @@ end
 --------------------------------------------------------------------------
 -- Return the user name of the current module.  This is the name the user
 -- specified.  It could a full name (name/version) or just the name.
--- @param self A MasterControl object.
+-- @param self A MainControl object.
 function M.myModuleUsrName(self)
    local frameStk = FrameStk:singleton()
    return frameStk:userName()
@@ -737,7 +737,7 @@ end
 --------------------------------------------------------------------------
 -- Return the name of the modules.  That is the name of the module w/o a
 -- version.
--- @param self A MasterControl object
+-- @param self A MainControl object
 function M.myModuleName(self)
    local frameStk = FrameStk:singleton()
    return frameStk:sn()
@@ -746,7 +746,7 @@ end
 --------------------------------------------------------------------------
 -- Return the version if any.  If there is no version, for example a meta
 -- module then the version is "".
--- @param self A MasterControl object
+-- @param self A MainControl object
 function M.myModuleVersion(self)
    local frameStk = FrameStk:singleton()
    return frameStk:version()
@@ -784,7 +784,7 @@ end
 
 --------------------------------------------------------------------------
 -- Print msgs to stderr.
--- @param self A MasterControl object.
+-- @param self A MainControl object.
 function M.message(self, ...)
    if (quiet()) then
       return
@@ -806,7 +806,7 @@ end
 
 --------------------------------------------------------------------------
 -- Print msgs, traceback then set warning flag.
--- @param self A MasterControl object.
+-- @param self A MainControl object.
 function M.warning(self, ...)
    if (not quiet() and  haveWarnings()) then
       local label = colorize("red", i18n("warnTitle",{}))
@@ -821,7 +821,7 @@ end
 
 --------------------------------------------------------------------------
 -- Print msgs, traceback then exit.
--- @param self A MasterControl object.
+-- @param self A MainControl object.
 function M.error(self, ...)
    -- Check for user loads that failed.
    if (next(s_missingModuleT) ~= nil) then
@@ -853,18 +853,18 @@ end
 
 --------------------------------------------------------------------------
 -- The quiet function.
--- @param self A MasterControl object
+-- @param self A MainControl object
 function M.quiet(self, ...)
    -- very Quiet !!!
 end
 
 function M.mustLoad(self)
-   dbg.start{"MasterControl:mustLoad()"}
+   dbg.start{"MainControl:mustLoad()"}
 
    local aa, bb = l_compareRequestedLoadsWithActual()
    l_error_on_missing_loaded_modules(aa,bb)
 
-   dbg.fini("MasterControl:mustLoad")
+   dbg.fini("MainControl:mustLoad")
 end
 
 
@@ -874,18 +874,18 @@ end
 
 function M.performDependencyCk(self)
    if (not s_performDepCk) then return end
-   dbg.start{"MasterControl:performDependencyCk()"}
+   dbg.start{"MainControl:performDependencyCk()"}
    
-   local master = Master:singleton()
-   master:dependencyCk()
+   local hub = Hub:singleton()
+   hub:dependencyCk()
    self:reportMissingDepModules()
-   dbg.fini("MasterControl:performDependencyCk")
+   dbg.fini("MainControl:performDependencyCk")
 end
 
 function M.dependencyCk(self,mA)
    if (dbg.active()) then
       local s = mAList(mA)
-      dbg.start{"MasterControl:dependencyCk(mA={"..s.."})"}
+      dbg.start{"MainControl:dependencyCk(mA={"..s.."})"}
    end
 
    local frameStk = FrameStk:singleton()
@@ -900,7 +900,7 @@ function M.dependencyCk(self,mA)
       end
    end
 
-   dbg.fini("MasterControl:dependencyCk")
+   dbg.fini("MainControl:dependencyCk")
    return {}
 end
 
@@ -929,7 +929,7 @@ end
 function M.depends_on(self, mA)
    if (dbg.active()) then
       local s = mAList(mA)
-      dbg.start{"MasterControl:depends_on(mA={"..s.."})"}
+      dbg.start{"MainControl:depends_on(mA={"..s.."})"}
    end
 
    local mB = {}
@@ -953,7 +953,7 @@ function M.depends_on(self, mA)
 
    self:registerDependencyCk()
 
-   dbg.fini("MasterControl:depends_on")
+   dbg.fini("MainControl:depends_on")
    return a
 end
 
@@ -967,10 +967,10 @@ end
 
 
 function M.forgo(self,mA)
-   local master = Master:singleton()
+   local hub = Hub:singleton()
    if (dbg.active()) then
       local s = mAList(mA)
-      dbg.start{"MasterControl:forgo(mA={"..s.."})"}
+      dbg.start{"MainControl:forgo(mA={"..s.."})"}
    end
 
    local mt = FrameStk:singleton():mt()
@@ -989,7 +989,7 @@ function M.forgo(self,mA)
 
    l_unRegisterUserLoads(mB)
    local aa     = unload_internal(mB)
-   dbg.fini("MasterControl:forgo")
+   dbg.fini("MainControl:forgo")
    return aa
 end
 
@@ -998,24 +998,24 @@ end
 -------------------------------------------------------------------
 -- Load a list of modules.  Check to see if the user requested
 -- modules were actually loaded.
--- @param self A MasterControl object
+-- @param self A MainControl object
 -- @param mA A array of MName objects.
 -- @return An array of statuses
 function M.load_usr(self, mA)
    if (dbg.active()) then
       local s = mAList(mA)
-      dbg.start{"MasterControl:load_usr(mA={"..s.."})"}
+      dbg.start{"MainControl:load_usr(mA={"..s.."})"}
    end
    local frameStk = FrameStk:singleton()
    if (checkSyntaxMode() and frameStk:count() > 1) then
       dbg.print{"frameStk:count(): ",frameStk:count(),"\n"}
-      dbg.fini("MasterControl:load_usr")
+      dbg.fini("MainControl:load_usr")
       return {}
    end
 
    l_registerUserLoads(mA)
    local a = self:load(mA)
-   dbg.fini("MasterControl:load_usr")
+   dbg.fini("MainControl:load_usr")
    return a
 end
 
@@ -1034,24 +1034,24 @@ end
 function M.load(self, mA)
    if (dbg.active()) then
       local s = mAList(mA)
-      dbg.start{"MasterControl:load(mA={"..s.."})"}
+      dbg.start{"MainControl:load(mA={"..s.."})"}
    end
 
-   local master = Master:singleton()
-   local a      = master:load(mA)
+   local hub = Hub:singleton()
+   local a      = hub:load(mA)
 
    if (not quiet()) then
       self:registerAdminMsg(mA)
    end
 
-   dbg.fini("MasterControl:load")
+   dbg.fini("MainControl:load")
    return a
 end
 
 function M.load_any(self, mA)
    if (dbg.active()) then
       local s = mAList(mA)
-      dbg.start{"MasterControl:load_any(mA={"..s.."})"}
+      dbg.start{"MainControl:load_any(mA={"..s.."})"}
    end
    local b
    local uA     = {}
@@ -1072,7 +1072,7 @@ function M.load_any(self, mA)
       LmodError{msg="e_Failed_Load_any", module_list=concatTbl(uA," ")}
    end
 
-   dbg.fini("MasterControl:load_any")
+   dbg.fini("MainControl:load_any")
    return b
 end
 
@@ -1080,7 +1080,7 @@ end
 
 function M.mgrload(self, required, active)
    if (dbg.active()) then
-      dbg.start{"MasterControl:mgrload(required: ",required,", active=",active.userName,")"}
+      dbg.start{"MainControl:mgrload(required: ",required,", active=",active.userName,")"}
    end
 
    if (not required) then
@@ -1089,18 +1089,18 @@ function M.mgrload(self, required, active)
       activateWarning()
    end
 
-   local status = Master:singleton():mgrload(active)
+   local status = Hub:singleton():mgrload(active)
 
-   dbg.fini("MasterControl:mgrload")
+   dbg.fini("MainControl:mgrload")
    return status
 end
 
 function M.mgr_unload(self, required, active)
    if (dbg.active()) then
-      dbg.start{"MasterControl:mgr_unload(required: ",required,", active=",active.userName,")"}
+      dbg.start{"MainControl:mgr_unload(required: ",required,", active=",active.userName,")"}
    end
    local status = unload_internal(MName:new("mt", active.userName))
-   dbg.fini("MasterControl:mgr_unload")
+   dbg.fini("MainControl:mgr_unload")
    return status
 end
 
@@ -1108,37 +1108,37 @@ end
 
 -------------------------------------------------------------------
 -- Load a list of module but ignore any warnings.
--- @param self A MasterControl object
+-- @param self A MainControl object
 -- @param mA A array of MName objects.
 function M.try_load(self, mA)
-   dbg.start{"MasterControl:try_load(mA)"}
+   dbg.start{"MainControl:try_load(mA)"}
    --deactivateWarning()
    self:load(mA)
-   dbg.fini("MasterControl:try_load")
+   dbg.fini("MainControl:try_load")
 end
 
 -------------------------------------------------------------------
 -- Unload a list modules.
--- @param self A MasterControl object
+-- @param self A MainControl object
 -- @param mA A array of MName objects.
 -- @return an array of statuses
 function M.unload(self, mA)
-   local master = Master:singleton()
+   local hub = Hub:singleton()
 
 
    if (dbg.active()) then
       local s = mAList(mA)
-      dbg.start{"MasterControl:unload(mA={"..s.."})"}
+      dbg.start{"MainControl:unload(mA={"..s.."})"}
    end
 
    l_unRegisterUserLoads(mA)
-   local aa     = master:unload(mA)
-   dbg.fini("MasterControl:unload")
+   local aa     = hub:unload(mA)
+   dbg.fini("MainControl:unload")
    return aa
 end
 
 function M.build_unload(self)
-   local mcp = MasterControl.build("unload")
+   local mcp = MainControl.build("unload")
    dbg.print{"MC:build_unload: Setting mcp to ", mcp:name(),"\n"}
    return mcp
 end
@@ -1150,49 +1150,49 @@ end
 
 -------------------------------------------------------------------
 -- Unload a user requested list of modules.
--- @param self A MasterControl object
+-- @param self A MainControl object
 -- @param mA A array of MName objects.
 -- @param force if true then do not reload sticky modules.
 -- @return an array of statuses.
 function M.unload_usr(self, mA, force)
-   dbg.start{"MasterControl:unload_usr(mA)"}
+   dbg.start{"MainControl:unload_usr(mA)"}
 
    M.unload(self,mA)
-   local master = Master:singleton()
-   local aa = master:reload_sticky(force)
+   local hub = Hub:singleton()
+   local aa = hub:reload_sticky(force)
 
    self:registerDependencyCk()
-   --master:dependencyCk()
+   --hub:dependencyCk()
 
-   dbg.fini("MasterControl:unload_usr")
+   dbg.fini("MainControl:unload_usr")
    return aa
 end
 
 -------------------------------------------------------------------
 -- This load is used by Manager Load to ignore load inside a
 -- module.
--- @param self A MasterControl object
+-- @param self A MainControl object
 -- @param mA A array of MName objects.
 function M.fake_load(self,mA)
    if (dbg.active()) then
       local s = mAList(mA)
-      dbg.start{"MasterControl:fake_load(mA={"..s.."})"}
-      dbg.fini("MasterControl:fake_load")
+      dbg.start{"MainControl:fake_load(mA={"..s.."})"}
+      dbg.fini("MainControl:fake_load")
    end
 end
 
 --------------------------------------------------------------------------
 -- Check the conflicts from *mA*.
--- @param self A MasterControl object.
+-- @param self A MainControl object.
 -- @param mA An array of MNname objects.
 function M.conflict(self, mA)
-   dbg.start{"MasterControl:conflict(mA)"}
+   dbg.start{"MainControl:conflict(mA)"}
 
 
    local frameStk  = FrameStk:singleton()
    local mt        = frameStk:mt()
    local fullName  = frameStk:fullName()
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
    local a         = {}
 
    for i = 1, #mA do
@@ -1207,19 +1207,19 @@ function M.conflict(self, mA)
    if (#a > 0) then
       LmodError{msg="e_Conflict", name = fullName, module_list = concatTbl(a," ")}
    end
-   dbg.fini("MasterControl:conflict")
+   dbg.fini("MainControl:conflict")
 end
 
 --------------------------------------------------------------------------
 -- Check the prereq from *mA*.
--- @param self A MasterControl object.
+-- @param self A MainControl object.
 -- @param mA An array of MNname objects.
 function M.prereq(self, mA)
-   dbg.start{"MasterControl:prereq(mA)"}
+   dbg.start{"MainControl:prereq(mA)"}
 
    local frameStk  = FrameStk:singleton()
    local fullName  = frameStk:fullName()
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
 
    local a = {}
    for i = 1, #mA do
@@ -1233,19 +1233,19 @@ function M.prereq(self, mA)
    if (#a > 0) then
       LmodError{msg="e_Prereq", name = fullName, module_list = concatTbl(a," ")}
    end
-   dbg.fini("MasterControl:prereq")
+   dbg.fini("MainControl:prereq")
 end
 
 --------------------------------------------------------------------------
 -- Check the prereq from *mA*.  If any of them are acceptable then return.
 -- otherwise error out.
--- @param self A MasterControl object.
+-- @param self A MainControl object.
 -- @param mA An array of MNname objects.
 function M.prereq_any(self, mA)
-   dbg.start{"MasterControl:prereq_any(mA)"}
+   dbg.start{"MainControl:prereq_any(mA)"}
    local frameStk  = FrameStk:singleton()
    local fullName  = frameStk:fullName()
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
    local found     = false
    local a         = {}
 
@@ -1265,7 +1265,7 @@ function M.prereq_any(self, mA)
    if (not found) then
       LmodError{msg="e_Prereq_Any", name = fullName, module_list = concatTbl(a," ")}
    end
-   dbg.fini("MasterControl:prereq_any")
+   dbg.fini("MainControl:prereq_any")
 end
 
 ------------------------------------------------------------------------
@@ -1327,16 +1327,16 @@ end
 --------------------------------------------------------------------------
 -- Process the family function.  The name of the module is found by the
 -- *ModuleStack*.
--- @param self A MasterControl object
+-- @param self A MainControl object
 -- @param name The name of the family
 function M.family(self, name)
-   dbg.start{"MasterControl:family(",name,")"}
+   dbg.start{"MainControl:family(",name,")"}
    local frameStk  = FrameStk:singleton()
    local mt        = frameStk:mt()
    local fullName  = frameStk:fullName()
    local mname     = MName:new("mt",fullName)
    local sn        = mname:sn()
-   local masterTbl = masterTbl()
+   local optionTbl = optionTbl()
    local auto_swap = cosmic:value("LMOD_AUTO_SWAP")
 
    l_check_for_valid_name("family",name)
@@ -1350,22 +1350,22 @@ function M.family(self, name)
       end
    end
    mt:setfamily(name,sn)
-   dbg.fini("MasterControl:family")
+   dbg.fini("MainControl:family")
 end
 
 --------------------------------------------------------------------------
 -- Unset the family name.
--- @param self A MasterControl object
+-- @param self A MainControl object
 -- @param name A family name.
 function M.unset_family(self, name)
-   dbg.start{"MasterControl:unset_family(",name,")"}
+   dbg.start{"MainControl:unset_family(",name,")"}
    local mt = FrameStk:singleton():mt()
    mt:unsetfamily(name)
-   dbg.fini("MasterControl:unset_family")
+   dbg.fini("MainControl:unset_family")
 end
 
 function M.registerAdminMsg(self, mA)
-   dbg.start{"MasterControl:registerAdminMsg(mA)"}
+   dbg.start{"MainControl:registerAdminMsg(mA)"}
    local mt = FrameStk:singleton():mt()
    local t  = s_adminT
    readAdmin()
@@ -1396,13 +1396,13 @@ function M.registerAdminMsg(self, mA)
          end
       end
    end
-   dbg.fini("MasterControl:registerAdminMsg")
+   dbg.fini("MainControl:registerAdminMsg")
 end
 
 -------------------------------------------------------------------
 -- Output any admin message collected from loading.
 function M.reportAdminMsgs()
-   dbg.start{"MasterControl:reportAdminMsgs()"}
+   dbg.start{"MainControl:reportAdminMsgs()"}
    local t = s_adminT
    if (next(t) ~= nil) then
       local term_width  = TermWidth()
@@ -1426,24 +1426,24 @@ function M.reportAdminMsgs()
       end
       io.stderr:write(border,"\n\n")
    end
-   dbg.fini("MasterControl:reportAdminMsgs")
+   dbg.fini("MainControl:reportAdminMsgs")
 end
 
 --------------------------------------------------------------------------
 -- Provide a list of modules for sites to use
 function M.loaded_modules(self)
-   dbg.start{"MasterControl::loaded_modules()"}
+   dbg.start{"MainControl::loaded_modules()"}
    local frameStk  = FrameStk:singleton()
    local mt        = frameStk:mt()
    local mA        = mt:list("fullName","active")
-   dbg.fini("MasterControl::loaded_modules")
+   dbg.fini("MainControl::loaded_modules")
    return mA
 end
 
 
 --------------------------------------------------------------------------
 -- Set a property value
--- @param self A MasterControl Object.
+-- @param self A MainControl Object.
 -- @param name A property name
 -- @param value A property value.
 function M.add_property(self, name, value)
@@ -1457,7 +1457,7 @@ end
 
 --------------------------------------------------------------------------
 -- Unset a property value
--- @param self A MasterControl Object.
+-- @param self A MainControl Object.
 -- @param name A property name
 -- @param value A property value.
 function M.remove_property(self, name, value)
@@ -1470,34 +1470,34 @@ end
 
 --------------------------------------------------------------------------
 -- Return the tcl_mode.
--- @param self A MasterControl object
+-- @param self A MainControl object
 function M.tcl_mode(self)
    return self.my_tcl_mode
 end
 
 --------------------------------------------------------------------------
 -- Return True when in spider mode.  This version is always false.
--- @param self A MasterControl object
+-- @param self A MainControl object
 function M.is_spider(self)
-   dbg.start{"MasterControl:is_spider()"}
+   dbg.start{"MainControl:is_spider()"}
    dbg.print{"This function is deprecated: use mode instead\n"}
-   dbg.fini("MasterControl:is_spider")
+   dbg.fini("MainControl:is_spider")
    return false
 end
 
 --------------------------------------------------------------------------
 -- Perform a user requested inheritance.  Note that this function remains
 -- the same depending on if it is a load or unload.
--- @param self A MasterControl object
+-- @param self A MainControl object
 function M.inherit(self)
-   dbg.start{"MasterControl:inherit()"}
-   local master = Master:singleton()
-   master.inheritModule()
-   dbg.fini("MasterControl:inherit")
+   dbg.start{"MainControl:inherit()"}
+   local hub = Hub:singleton()
+   hub.inheritModule()
+   dbg.fini("MainControl:inherit")
 end
 
 function M.source_sh(self, shellName, script)
-   dbg.start{"MasterControl:source_sh(shellName: \"",shellName,"\", script: \"",script,"\")"}
+   dbg.start{"MainControl:source_sh(shellName: \"",shellName,"\", script: \"",script,"\")"}
    local frameStk     = FrameStk:singleton()
    local sn           = frameStk:sn()
    local mt           = frameStk:mt()
@@ -1518,11 +1518,11 @@ function M.source_sh(self, shellName, script)
    if (not status) then
       LmodError{msg="e_Unable_2_Load", name = mt:userName(sn), fn = mt:fn(sn), message = msg}
    end
-   dbg.fini("MasterControl:source_sh")
+   dbg.fini("MainControl:source_sh")
 end
 
 function M.un_source_sh(self, shellName, script)
-   dbg.start{"MasterControl:un_source_sh(shellName: \"",shellName,"\", script: \"",script,"\")"}
+   dbg.start{"MainControl:un_source_sh(shellName: \"",shellName,"\", script: \"",script,"\")"}
    local frameStk    = FrameStk:singleton()
    local sn          = frameStk:sn()
    local mt          = frameStk:mt()
@@ -1533,13 +1533,13 @@ function M.un_source_sh(self, shellName, script)
    if (not status) then
       LmodError{msg="e_Unable_2_Load", name = mt:userName(sn), fn = mt:nf(sn), message = msg}
    end
-   dbg.fini("MasterControl:un_source_sh")
+   dbg.fini("MainControl:un_source_sh")
 end
 
 function M.complete(self, shellName, name, args)
-   dbg.start{"MasterControl:complete(shellName: \"",shellName,"\", name: \"",name,"\", args: \"",args,"\""}
+   dbg.start{"MainControl:complete(shellName: \"",shellName,"\", name: \"",name,"\", args: \"",args,"\""}
    if (myShellName() ~= shellName) then
-      dbg.fini("MasterControl:complete")
+      dbg.fini("MainControl:complete")
       return
    end
    
@@ -1548,13 +1548,13 @@ function M.complete(self, shellName, name, args)
       varT[name] = Var:new(name)
    end
    varT[name]:complete(args)
-   dbg.fini("MasterControl:complete")
+   dbg.fini("MainControl:complete")
 end
 
 function M.uncomplete(self, shellName, name, args)
-   dbg.start{"MasterControl:uncomplete(shellName: \"",shellName,"\", name: \"",name,"\", args: \"",args,"\""}
+   dbg.start{"MainControl:uncomplete(shellName: \"",shellName,"\", name: \"",name,"\", args: \"",args,"\""}
    if (myShellName() ~= shellName) then
-      dbg.fini("MasterControl:complete")
+      dbg.fini("MainControl:complete")
       return
    end
    local varT     = FrameStk:singleton():varT()
@@ -1563,7 +1563,7 @@ function M.uncomplete(self, shellName, name, args)
    end
    varT[name]:uncomplete()
 
-   dbg.fini("MasterControl:uncomplete")
+   dbg.fini("MainControl:uncomplete")
 end
 
 
@@ -1584,7 +1584,7 @@ function M.set_errorFunc(self, errorFunc)
 end
 
 function M.LmodBreak(self, msg)
-   dbg.start{"MasterControl:LmodBreak(msg=\"",msg,"\")"}
+   dbg.start{"MainControl:LmodBreak(msg=\"",msg,"\")"}
    local frameStk  = FrameStk:singleton()
    local tracing   = cosmic:value("LMOD_TRACING")
    local shell     = _G.Shell
@@ -1612,7 +1612,7 @@ function M.LmodBreak(self, msg)
    -- Then throw an error to stop execution of the current module.
    frameStk:LmodBreak()
    error({code="LmodBreak"})
-   dbg.fini("MasterControl:LmodBreak")
+   dbg.fini("MainControl:LmodBreak")
 end
 
 

@@ -4,7 +4,7 @@ Module Naming
 ~~~~~~~~~~~~~
 
 FullName -> shortname/version
-^^^^^^^^^^^^^^^^^^^^^^^^^^^t
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 One Name Rule
 ~~~~~~~~~~~~~

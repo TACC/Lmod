@@ -9,18 +9,18 @@ require("fileOps")
 require("loadModuleFile")
 require("modfuncs")
 
-_G.MasterControl    = require("MasterControl")
+_G.MainControl    = require("MainControl")
 local FrameStk      = require("FrameStk")
-local Master        = require("Master")
+local Hub        = require("Hub")
 local MName         = require("MName")
 local ModuleA       = require("ModuleA")
 local cosmic        = require("Cosmic"):singleton()
 local dbg           = require("Dbg")
 local getenv        = os.getenv
-local testDir       = "spec/MasterControl"
+local testDir       = "spec/MainControl"
 
 setenv_lmod_version()
-describe("Testing MasterControl Class #MasterControl.",
+describe("Testing MainControl Class #MainControl.",
          function()
             it("Building mcp",
                function()
@@ -29,12 +29,12 @@ describe("Testing MasterControl Class #MasterControl.",
                   -- via _G.   I need to check to see if this is a
                   -- testing framework issue or just plain Lua.
 
-                  _G.mcp = MasterControl.build("load")
+                  _G.mcp = MainControl.build("load")
                   assert.are.equal("MC_Load",mcp:name())
 
                   local frameStk = FrameStk:singleton()
                   local entryT = {
-                     fn       = "%ProjDir%/spec/MasterControl/mf/foo/1.0.lua",
+                     fn       = "%ProjDir%/spec/MainControl/mf/foo/1.0.lua",
                      sn       = "foo",
                      userName = "foo",
                      version  = "1.0",
@@ -54,7 +54,7 @@ describe("Testing MasterControl Class #MasterControl.",
 
                   -- Now set mcp to be unload and test
                   -- that setenv() will unset the variable.
-                  _G.mcp = MasterControl.build("unload")
+                  _G.mcp = MainControl.build("unload")
                   assert.are.equal("MC_Unload",mcp:name())
 
                   setenv("FOO","BAR")
@@ -62,8 +62,8 @@ describe("Testing MasterControl Class #MasterControl.",
                end)
             it("Loading a simple module",
                function()
-                  _G.mcp = MasterControl.build("load")
-                  _G.MCP = MasterControl.build("load")
+                  _G.mcp = MainControl.build("load")
+                  _G.MCP = MainControl.build("load")
                   local projDir = os.getenv("PROJDIR")
                   local mpath   = pathJoin(projDir,testDir,"mf")
                   posix.setenv("MODULEPATH", mpath, true)

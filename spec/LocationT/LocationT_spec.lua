@@ -6,7 +6,7 @@ require("fileOps")
 require("utils")
 initialize_lmod()
 require("serializeTbl")
-_G.MasterControl = require("MasterControl")
+_G.MainControl   = require("MainControl")
 local DirTree    = require("DirTree")
 local ModuleA    = require("ModuleA")
 local LocationT  = require("LocationT")
@@ -164,8 +164,8 @@ describe("Testing LocationT Class #LocationT.",
                   posix.setenv("MODULEPATH",mpath,true)
                   cosmic:assign("LMOD_MAXDEPTH",maxdepth)
 
-                  _G.mcp          = _G.MasterControl.build("load")
-                  _G.MCP          = _G.MasterControl.build("load")
+                  _G.mcp          = _G.MainControl.build("load")
+                  _G.MCP          = _G.MainControl.build("load")
                   local moduleA   = ModuleA:singleton{reset=true, spider_cache=true}
                   local locationT = moduleA:locationT()
 
@@ -222,8 +222,8 @@ describe("Testing LocationT Class #LocationT.",
                   posix.setenv("MODULEPATH",mpath,true)
                   cosmic:assign("LMOD_MAXDEPTH",maxdepth)
 
-                  _G.mcp          = _G.MasterControl.build("load")
-                  _G.MCP          = _G.MasterControl.build("load")
+                  _G.mcp          = _G.MainControl.build("load")
+                  _G.MCP          = _G.MainControl.build("load")
                   local moduleA   = ModuleA:singleton{reset=true, spider_cache=true}
                   local locationT = moduleA:locationT()
 
@@ -275,8 +275,8 @@ describe("Testing LocationT Class #LocationT.",
                   posix.setenv("MODULEPATH",mpath,true)
                   cosmic:assign("LMOD_MAXDEPTH",maxdepth)
 
-                  _G.mcp          = _G.MasterControl.build("load")
-                  _G.MCP          = _G.MasterControl.build("load")
+                  _G.mcp          = _G.MainControl.build("load")
+                  _G.MCP          = _G.MainControl.build("load")
                   local moduleA   = ModuleA:singleton{reset=true, spider_cache=true}
                   local locationT = moduleA:locationT()
 
