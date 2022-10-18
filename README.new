@@ -51,3 +51,6 @@ Lmod 8.7+
               ~/.config/lmod by configuring with --with-useDotConfigOnly=yes. Lmod will continue read
                from both directories to find a collection.
             * Issue #601: Now save to the env. when doing "setenv" from a show.
+W.I.P:
+   (8.7.14) * Issue #607: When using extended_default convert userName to fullName.
+   
