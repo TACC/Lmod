@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.3  2022-05-23 14:19 -05:00
+Modules based on Lua: Version 8.7.13  2022-09-14 12:56 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -25,12 +25,13 @@ ProjectDIR/rt/avail/mf/Core
    baz/1.4         (D)    intel/intel   (L)    ucc/12.1.5
    foo/1.4-dbg            junk/a/c/1.0         ucc/13.1.2   (D)
    foo/1.4         (D)    junk/b/c/2.0         ucc/14.0.2
-   gcc/4.2.3              junk/d/3.0           unix/unix
+   gcc/4.2.3       (U)    junk/d/3.0           unix/unix
    git/1.6.3.1            local/local
    git/1.7.4              local/1.1
   Where:
    D:  Default Module
    L:  Module is loaded
+   U:  Unsupported software
    m:  built for host and native MIC
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
@@ -52,10 +53,11 @@ ProjectDIR/rt/avail/mf/Core
    bar/1.4         (D)    junk/a/c/1.0         multi/multi
    baz/1.4-dbg            junk/b/c/2.0         parmetis/3.1 (m)
    baz/1.4         (D)    junk/d/3.0
-   gcc/4.2.3              local/local
+   gcc/4.2.3       (U)    local/local
   Where:
    D:  Default Module
    L:  Module is loaded
+   U:  Unsupported software
    m:  built for host and native MIC
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
@@ -80,11 +82,12 @@ ProjectDIR/rt/avail/mf/Core
    baz/1.4         (D)    intel/intel          ucc/12.1.5
    foo/1.4-dbg            junk/a/c/1.0         ucc/13.1.2   (D)
    foo/1.4         (D)    junk/b/c/2.0         ucc/14.0.2
-   gcc/4.2.3              junk/d/3.0           unix/unix
+   gcc/4.2.3       (U)    junk/d/3.0           unix/unix
    git/1.6.3.1            local/local
    git/1.7.4              local/1.1
   Where:
    D:  Default Module
+   U:  Unsupported software
    m:  built for host and native MIC
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
@@ -96,7 +99,7 @@ step 7
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
 ===========================
 ProjectDIR/rt/avail/mf/Core
-   .base/bar/1.4-dbg (H)    gcc/4.2.3            junk/d/3.0
+   .base/bar/1.4-dbg (H)    gcc/4.2.3     (U)    junk/d/3.0
    .base/bar/1.4     (H)    git/1.6.3.1          local/local
    .base/baz/1.4-dbg (H)    git/1.7.4            local/1.1
    .base/baz/1.4     (H)    git/1.7.4.1          local/1.2
@@ -112,6 +115,7 @@ ProjectDIR/rt/avail/mf/Core
   Where:
    D:  Default Module
    H:  Hidden Module
+   U:  Unsupported software
    m:  built for host and native MIC
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
@@ -321,11 +325,12 @@ ProjectDIR/rt/avail/mf/Core
    baz/1.4         (D)    intel/intel          ucc/12.1.5
    foo/1.4-dbg            junk/a/c/1.0         ucc/13.1.2   (D)
    foo/1.4         (D)    junk/b/c/2.0         ucc/14.0.2
-   gcc/4.2.3              junk/d/3.0           unix/unix
+   gcc/4.2.3       (U)    junk/d/3.0           unix/unix
    git/1.6.3.1            local/local
    git/1.7.4              local/1.1
   Where:
    D:  Default Module
+   U:  Unsupported software
    m:  built for host and native MIC
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
