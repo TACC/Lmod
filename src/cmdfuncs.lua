@@ -149,6 +149,128 @@ function Avail(...)
 end
 
 ------------------------------------------------------------------------
+function Category(...)
+   dbg.start{"Category(", concatTbl({...},", "),")"}
+   local shell = _G.Shell
+
+
+   local cache = Cache:singleton{buildCache = true}
+   local moduleT, dbT = cache:build()
+
+   local categoryT = {}
+
+   local function add_module(cat, name)
+      if (cat == "") then return
+      elseif (categoryT[cat] == nil) then
+         dbg.print{"found new category: ", cat, "\n"}
+         categoryT[cat] = {}
+      end
+
+      if (not categoryT[cat][name]) then
+         dbg.print{"found new sn: ", name, " in category: ", cat, "\n"}
+         categoryT[cat][name] = 1
+      else
+         categoryT[cat][name] = categoryT[cat][name] + 1
+      end
+   end
+
+   for sn, v in pairs(dbT) do
+      for _, info in pairs(v) do
+         local category = info.Category or ""
+
+         for entry in category:split(",") do
+            entry = entry:trim()
+            add_module(entry, sn)
+         end
+      end
+   end
+
+   local masterTbl = masterTbl()
+   local search = ... and true
+   local twidth = TermWidth()
+   local cwidth = masterTbl.rt and LMOD_COLUMN_TABLE_WIDTH or twidth
+   local banner = Banner:singleton()
+
+   local a = {}
+
+   if (not search) then
+      dbg.print{"printing category block\n"}
+      a[#a+1] = "\n"
+      a[#a+1] = [[
+To get a list of every module in a category execute:
+   $ module category Foo
+      ]]
+      a[#a+1] = "\n"
+      a[#a+1] = banner:bannerStr("List of Categories")
+      a[#a+1] = "\n"
+
+      local b = {}
+      for cat, _ in pairsByKeys(categoryT) do
+         b[#b+1] = cat 
+      end
+
+      b = hook.apply("category", "simple", b) or b
+
+      local ct = ColumnTable:new{tbl=b, gap=2, len=length, width = cwidth-5}
+      a[#a+1] = ct:build_tbl()
+      a[#a+1] = "\n"
+   else
+      local argA = pack(...)
+      local searchA = {}
+
+      for i = 1, argA.n do
+         searchA[i] = argA[i]:caseIndependent()
+      end
+      searchA.n = argA.n
+
+      local match = hook.apply("category", "complex", categoryT) or {}
+
+      if (next(match) == nil) then
+         for cat, v in pairsByKeys(categoryT) do
+            for i = 1, searchA.n do
+               if (cat:find(searchA[i])) then
+                  match[cat] = v
+               end
+            end
+         end
+      end
+
+      a[#a+1] = "\n"
+      a[#a+1] = [[
+To learn more about a package and how to load it execute:
+   $ module spider Bar
+      ]]
+
+      if (next(match) == nil) then
+         a[#a+1] = "\n"
+         a[#a+1] = "No matching category found."
+         a[#a+1] = "\n"
+      end
+
+      for cat, v in pairsByKeys(match) do
+         local b = {}
+
+         for sn, count in pairsByKeys(v) do
+            b[#b+1] = { sn, "(" .. tostring(count) .. ")  " }
+         end
+
+         dbg.print{"printing category block\n"}
+         local ct = ColumnTable:new{tbl = b, gap = 1, len = length, width = cwidth}
+         a[#a+1] = "\n"
+         a[#a+1] = banner:bannerStr(cat)
+         a[#a+1] = "\n"
+         a[#a+1] = ct:build_tbl()
+         a[#a+1] = "\n"
+      end
+   end
+
+   if (next(a) ~= nil) then
+      shell:echo(concatTbl(a, ""))
+   end
+   dbg.fini("Category")
+end
+
+------------------------------------------------------------------------
 -- Just convert the vararg into an actual array and call
 -- hub.overview to do the real work.
 

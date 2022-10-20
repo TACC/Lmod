@@ -165,6 +165,8 @@ function Usage()
    a[#a+1] = { "  list",          "s1 s2 ...",    i18n("list2")  }
    a[#a+1] = { "  avail | av",    "",             i18n("list3")  }
    a[#a+1] = { "  avail | av",    "string",       i18n("list4")  }
+   a[#a+1] = { "  category | cat","",             "List all categories" }
+   a[#a+1] = { "  category | cat","s1 s2 ...",    "List all categories that match the pattern and display their modules" }
    a[#a+1] = { "  overview | ov", "",             i18n("ov1")    }
    a[#a+1] = { "  overview | ov", "string",       i18n("ov2")    }
    a[#a+1] = { "  spider",        "",             i18n("list5")  }
@@ -276,10 +278,12 @@ function main()
    local whatisTbl    = { name = "whatis",      checkMPATH = false, cmd = Whatis        }
    local isLoadedTbl  = { name = "isLoaded",    checkMPATH = false, cmd = IsLoaded      }
    local isAvailTbl   = { name = "isAvail",     checkMPATH = false, cmd = IsAvail       }
+   local categoryTbl  = { name = "category",    checkMPATH = true,  cmd = Category      }
 
    local lmodCmdA = {
       {cmd = 'add',          min = 2, action = loadTbl     },
       {cmd = 'avail',        min = 2, action = availTbl    },
+      {cmd = 'category',     min = 3, action = categoryTbl },
       {cmd = 'delete',       min = 3, action = unloadTbl   },
       {cmd = 'describe',     min = 3, action = mcTbl       },
       {cmd = 'disable',      min = 4, action = disableTbl  },
