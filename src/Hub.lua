@@ -644,6 +644,7 @@ function M.reloadAll(self, force_update)
       if (not mt:have(sn, "active")) then
          dbg.print{"Hub:reloadAll module: ", sn, " marked as inactive\n"}
          mt:add(mname, "inactive", -i)
+         --mt:decr_ref_count(sn)
       end
    end
 
