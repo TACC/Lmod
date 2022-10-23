@@ -51,9 +51,10 @@ Lmod 8.7+
               ~/.config/lmod by configuring with --with-useDotConfigOnly=yes. Lmod will continue read
                from both directories to find a collection.
             * Issue #601: Now save to the env. when doing "setenv" from a show.
-W.I.P:
    (8.7.14) * Issue #607: When using extended_default convert userName to fullName.
             * Rename MasterControl to MainControl
             * Rename Master        to Hub
             * Rename masterTbl     to optionTbl.  Note that the masterTbl() is equal to optionTbl()
               therefore SitePackage and /etc/lmod/lmod_config.lua files can continue to use masterTbl
+	    * PR #600: merging in 600_category to support "module category"
+            * Issue #604: Fixed bug where ref_count was not passed to swapped modules.

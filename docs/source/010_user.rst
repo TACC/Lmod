@@ -71,6 +71,9 @@ and the number in the parenthesis is the number of versions for each.
 This list above shows that there is one version of git and two
 versions of singularity.
 
+
+
+
 If a module is not available then an error message is produced::
 
     $ module load packageXYZ
@@ -124,7 +127,7 @@ accessed by::
     pmetis/3.1	: Category: library, mathematics
     pmetis/3.1	: Description: Parallel graph partitioning..
 
-Finally, there is a keyword search tool: ::
+There is a keyword search tool: ::
 
     $ module keyword word1 word2 ...
 
@@ -137,6 +140,32 @@ difference between "module avail" and "module spider" is explained in
 the "Module Hierarchy" and "Searching for Modules" section.::
 
     $ module spider
+
+Users can also find which categories a site provides::
+
+    $ module category
+
+    ------------------ List of Categories --------------------
+    Compiler           Programming tools        library      
+    Graph partitioner  System Environment/Base  mpi
+    MPI library        Visual Tool              tools
+    
+To know which modules, users can pick one or more name from the list
+of categories with the number of modules provide::
+
+    $ module category library
+
+    ---------------------- MPI library -----------------------
+    mpich (30)   openmpi (6)
+
+    ----------------------- library --------------------------
+    boost     (1)   hdf5  (18)   pdtoolkit (1)    pmetis (6)
+    fftw2     (6)   metis (2)    petsc     (13)   tau    (3)
+    gotoblas2 (1)   papi  (1)    phdf5     (40)
+  
+Here we see that there are 30 versions of mpich and 6 version of
+openmpi.  Also that category name given, in this case "library" does
+partial matches and is case-insensitive.
 
 Specifying modules to load
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
