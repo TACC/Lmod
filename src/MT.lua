@@ -255,9 +255,11 @@ function M.add(self, mname, status, loadOrder)
       propT      = {},
       wV         = mname:wV() or false,
    }
-   if (mname:get_depends_on_flag()) then
+   --if (mname:get_depends_on_flag() ) then
+   if (status ~= "inactive" and mname:get_depends_on_flag() ) then
       self:incr_ref_count(sn)
    end
+   dbg.print{"MT:add: sn: ", sn, ", status: ",status,", ref_count: ",mT[sn].ref_count,"\n"}
 end
 
 --------------------------------------------------------------------------
@@ -747,30 +749,31 @@ function M.stackDepth(self,sn)
 end
 
 function M.incr_ref_count(self,sn)
-   --dbg.start{"MT:incr_ref_count(",sn,")"}
+   dbg.start{"MT:incr_ref_count(",sn,")"}
    local entry = self.mT[sn]
    if (entry == nil) then
+      dbg.print{"Did not find: ",sn,"\n"}
       dbg.fini("MT:incr_ref_count")
       return
    end
    entry.ref_count = (entry.ref_count or 0) + 1
-   --dbg.print{"sn: ",sn, ", ref_count: ",entry.ref_count,"\n"}
-   --dbg.fini("MT:incr_ref_count")
+   dbg.print{"sn: ",sn, ", ref_count: ",entry.ref_count,"\n"}
+   dbg.fini("MT:incr_ref_count")
    return
 end
 
 function M.decr_ref_count(self,sn)
-   --dbg.start{"MT:decr_ref_count(",sn,")"}
+   dbg.start{"MT:decr_ref_count(",sn,")"}
    local entry = self.mT[sn]
    if (entry == nil or entry.ref_count == nil) then
-      --dbg.print{"sn: ",sn, ", ref_count: nil\n"}
-      --dbg.fini("MT:decr_ref_count")
+      dbg.print{"sn: ",sn, ", ref_count: nil\n"}
+      dbg.fini("MT:decr_ref_count")
       return false
    end
    local ref_count = entry.ref_count - 1
    entry.ref_count = ref_count
-   --dbg.print{"sn: ",sn, ", ref_count: ",ref_count,"\n"}
-   --dbg.fini("MT:decr_ref_count")
+   dbg.print{"sn: ",sn, ", ref_count: ",ref_count,"\n"}
+   dbg.fini("MT:decr_ref_count")
    return ref_count
 end
 

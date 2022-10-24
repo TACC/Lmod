@@ -621,7 +621,8 @@ function M.reloadAll(self, force_update)
             local fn_old = mt:fn(sn)
             local name   = v.name          -- This name is short for default and
                                            -- Full for specific version.
-            dbg.print{"Hub:reloadAll(",ReloadAllCntr,"): Loading non-active module: \"", name, "\"\n"}
+            dbg.print{"Hub:reloadAll(",ReloadAllCntr,"): Loading non-active module: \"", name, "\", ref_count: ", v.ref_count,"\n"}
+
             local status = mcp:load({MName:new("load",name):set_depends_on_flag(v.ref_count)})
             mt           = frameStk:mt()
             dbg.print{"status: ",status,", fn_old: ",fn_old,", fn: ",mt:fn(sn),"\n"}
