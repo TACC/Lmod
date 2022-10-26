@@ -97,6 +97,7 @@ function M.new(self, sType, name, action, is, ie)
    o.__fn         = false
    o.__versionStr = false
    o.__dependsOn  = false
+   o.__ref_count  = false
    o.__sType      = sType
    o.__wV         = false
    o.__waterMark  = "MName"
@@ -172,6 +173,7 @@ local function l_lazyEval(self)
          self.__version    = mt:version(sn)
          self.__stackDepth = mt:stackDepth(sn)
          self.__wV         = mt:wV(sn)
+         self.__ref_count  = mt:get_ref_count(sn)
       end
       --dbg.fini("l_lazyEval via mt")
       return

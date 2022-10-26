@@ -114,24 +114,26 @@ testdescript = {
      # Test if activating inactive modules works
      # with depends_on()
      runLmod purge                             #54
-     runLmod load   compiler_a package         #55
+     runLmod load   compiler_a package pkgB    #55
      runLmod unload compiler_a                 #56
      runLmod load compiler_b                   #57
      runLmod unload package                    #58
-     runLmod list                              #59     
+     runLmod list                              #59   
+     runLmod unload pkgB                       #60
+     runLmod list                              #61
 
      ##############################################
      # More Issue #604
      # A torture test
 
-     runLmod purge                             #60
-     runLmod load A                            #61
-     runLmod list                              #62
-     runLmod load gcc                          #63
-     runLmod av                                #64
-     runLmod list                              #65
-     runLmod load intel                        #66
+     runLmod purge                             #62
+     runLmod load A                            #63
+     runLmod list                              #64
+     runLmod load gcc                          #65
+     runLmod av                                #66
      runLmod list                              #67
+     runLmod load intel                        #68
+     runLmod list                              #69
 
 
 

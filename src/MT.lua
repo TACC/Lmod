@@ -240,26 +240,37 @@ end
 -- Return the original MT from bottom of stack.
 
 function M.add(self, mname, status, loadOrder)
-   local mT    = self.mT
-   local sn    = mname:sn()
-   loadOrder   = loadOrder  == nil and -1 or loadOrder
+   local mT         = self.mT
+   local sn         = mname:sn()
    assert(sn)
+   local entry      = mT[sn] or {}
+   local old_status = entry.status
+   loadOrder        = loadOrder  == nil and -1 or loadOrder
+
+   -- Issue #604: If old_status is "inactive" then ref_count must be nil.
+   --             The ref_count will be bumped back up by the loading of
+   --             modules that depend on the dependent modules.
+
+   local ref_count = mname:ref_count()
+   if (old_status == "inactive" and status ~= "inactive") then
+      ref_count = 0
+   end
    mT[sn] = {
       fullName   = mname:fullName(),
       fn         = mname:fn(),
       userName   = mname:userName(),
       stackDepth = mname:stackDepth(),
-      ref_count  = mname:ref_count(),
+      ref_count  = ref_count,
       status     = status,
       loadOrder  = loadOrder,
       propT      = {},
       wV         = mname:wV() or false,
    }
    --if (mname:get_depends_on_flag() ) then
-   if (status ~= "inactive" and mname:get_depends_on_flag() ) then
+   if (status ~= "inactive" and old_status ~= "inactive" and mname:get_depends_on_flag() ) then
       self:incr_ref_count(sn)
    end
-   dbg.print{"MT:add: sn: ", sn, ", status: ",status,", ref_count: ",mT[sn].ref_count,"\n"}
+   dbg.print{"MT:add: sn: ", sn, ", status: ",status,", old_status: ",old_status,", ref_count: ",mT[sn].ref_count,"\n"}
 end
 
 --------------------------------------------------------------------------
@@ -765,7 +776,7 @@ end
 function M.decr_ref_count(self,sn)
    dbg.start{"MT:decr_ref_count(",sn,")"}
    local entry = self.mT[sn]
-   if (entry == nil or entry.ref_count == nil) then
+   if (entry == nil or not entry.ref_count) then
       dbg.print{"sn: ",sn, ", ref_count: nil\n"}
       dbg.fini("MT:decr_ref_count")
       return false
@@ -779,7 +790,7 @@ end
 
 function M.get_ref_count(self,sn)
    local entry = self.mT[sn]
-   if (entry == nil or entry.ref_count == nil) then
+   if (entry == nil or not entry.ref_count) then
       return 0
    end
    return entry.ref_count

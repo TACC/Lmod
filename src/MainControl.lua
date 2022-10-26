@@ -942,7 +942,7 @@ function M.depends_on(self, mA)
          mB[#mB + 1] = mname
       else
          local sn = mname:sn()
-         if (sn and mt:get_ref_count(sn) > 0) then
+         if (sn and mt:get_ref_count(sn) >= 0) then
             mt:incr_ref_count(sn)
          end
       end
@@ -962,8 +962,7 @@ end
 --
 --   if (not isloaded("name")) then load("name") end
 --
--- On unload forgo() unloads iff stackDepth is non-zero and the ref count
--- is zero.
+-- On unload forgo() unloads the ref count is zero.
 
 
 function M.forgo(self,mA)
