@@ -759,32 +759,33 @@ function M.stackDepth(self,sn)
    return entry.stackDepth or 0
 end
 
-function M.incr_ref_count(self,sn)
-   dbg.start{"MT:incr_ref_count(",sn,")"}
+function M.safely_incr_ref_count(mname)
+   local sn    = mname:sn()
+   assert(sn)
    local entry = self.mT[sn]
    if (entry == nil) then
-      dbg.print{"Did not find: ",sn,"\n"}
-      dbg.fini("MT:incr_ref_count")
+      dbg.print{"MT:incr_ref_count(): Did not find: ",sn,"\n"}
+      return
+   end
+   local depends_on_flag = mname:get_depends_on_flag()
+   if (not depends_on_flag) then
+      dbg.print{"MT:incr_ref_count(): depends_on_flag not set ",sn,"\n"}
       return
    end
    entry.ref_count = (entry.ref_count or 0) + 1
-   dbg.print{"sn: ",sn, ", ref_count: ",entry.ref_count,"\n"}
-   dbg.fini("MT:incr_ref_count")
+   dbg.print{"MT:incr_ref_count(): stackDepth > 0, sn: ",sn,", new ref_count: ",entry.ref_count,"\n"}
    return
 end
 
 function M.decr_ref_count(self,sn)
-   dbg.start{"MT:decr_ref_count(",sn,")"}
    local entry = self.mT[sn]
    if (entry == nil or not entry.ref_count) then
-      dbg.print{"sn: ",sn, ", ref_count: nil\n"}
-      dbg.fini("MT:decr_ref_count")
+      dbg.print{"MT:decr_ref_count(): sn: ",sn, ", ref_count: nil\n"}
       return false
    end
    local ref_count = entry.ref_count - 1
    entry.ref_count = ref_count
-   dbg.print{"sn: ",sn, ", ref_count: ",ref_count,"\n"}
-   dbg.fini("MT:decr_ref_count")
+   dbg.print{"MT:decr_ref_count(): sn: ",sn, ", ref_count: ",ref_count,"\n"}
    return ref_count
 end
 
@@ -793,6 +794,7 @@ function M.get_ref_count(self,sn)
    if (entry == nil or not entry.ref_count) then
       return 0
    end
+   dbg.print{"MT:decr_ref_count(): sn: ",sn, ", ref_count: ",entry.ref_count,"\n"}
    return entry.ref_count
 end
 

@@ -932,8 +932,9 @@ function M.depends_on(self, mA)
       dbg.start{"MainControl:depends_on(mA={"..s.."})"}
    end
 
-   local mB = {}
-   local mt = FrameStk:singleton():mt()
+
+   local mB         = {}
+   local mt         = FrameStk:singleton():mt()
 
    for i = 1,#mA do
       local mname = mA[i]
@@ -941,10 +942,7 @@ function M.depends_on(self, mA)
          mname:set_depends_on_flag(true)
          mB[#mB + 1] = mname
       else
-         local sn = mname:sn()
-         if (sn and mt:get_ref_count(sn) >= 0) then
-            mt:incr_ref_count(sn)
-         end
+         mt:safely_incr_ref_count(mname)
       end
    end
 
