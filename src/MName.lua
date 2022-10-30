@@ -300,7 +300,7 @@ function M.setStackDepth(self, depth)
    self.__stackDepth = depth
 end
 
-function M.setRefCount(self, count)
+function M.set_ref_count(self, count)
    self.__ref_count = count
 end
 

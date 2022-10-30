@@ -252,7 +252,7 @@ function M.add(self, mname, status, loadOrder)
    --             modules that depend on the dependent modules.
 
    local ref_count = mname:ref_count()
-   if (old_status == "inactive" and status ~= "inactive") then
+   if (old_status == "inactive" and status ~= "inactive" and mname:get_depends_on_flag()) then
       ref_count = 0
    end
    mT[sn] = {
@@ -266,10 +266,10 @@ function M.add(self, mname, status, loadOrder)
       propT      = {},
       wV         = mname:wV() or false,
    }
-   --if (mname:get_depends_on_flag() ) then
-   if (status ~= "inactive" and old_status ~= "inactive" and mname:get_depends_on_flag() ) then
-      self:incr_ref_count(sn)
-   end
+   ----if (mname:get_depends_on_flag() ) then
+   --if (status ~= "inactive" and old_status ~= "inactive" and  ) then
+   --   self:incr_ref_count(sn)
+   --end
    dbg.print{"MT:add: sn: ", sn, ", status: ",status,", old_status: ",old_status,", ref_count: ",mT[sn].ref_count,"\n"}
 end
 
@@ -1271,7 +1271,8 @@ function M.getMTfromFile(self,tt)
    -- remember to transfer the old stackDepth to the new mname object.
    for i = 1, #activeA do
       local mname = MName:new("load",activeA[i][knd])
-      mname:setRefCount(activeA[i].ref_count)
+      mname:set_ref_count(activeA[i].ref_count)
+      mname:set_depends_on_flag(activeA[i].ref_count)
       mname:setStackDepth(activeA[i].stackDepth)
       mA[#mA+1]   = mname
    end
@@ -1280,7 +1281,7 @@ function M.getMTfromFile(self,tt)
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    mt         = frameStk:mt()
    local varT = frameStk:varT()
-   varT[ModulePath]:setRefCount(l_mt.mpathRefCountT or {})
+   varT[ModulePath]:set_ref_countT(l_mt.mpathRefCountT or {})
 
    -----------------------------------------------------------------------
    -- Now check to see that all requested modules got loaded.
