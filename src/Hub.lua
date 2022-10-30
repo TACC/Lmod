@@ -268,8 +268,9 @@ function M.mgrload(self, active)
    mcp           = MainControl.build("mgrload","load")
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    local mname   = MName:new("load", active.userName)
-   mname:setRefCount(active.ref_count)
+   mname:set_ref_count(active.ref_count)
    mname:setStackDepth(active.stackDepth)
+   mname:set_depends_on_flag(active.ref_count)
    local a       = MCP.load(mcp,{mname})
    mcp           = mcp_old
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}

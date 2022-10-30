@@ -557,7 +557,7 @@ function M.prt(self,title)
    dbg.fini ("Var:prt")
 end
 
-function M.setRefCount(self, refCountT)
+function M.set_ref_countT(self, refCountT)
    local tbl = self.tbl
    for k, vv in pairs(tbl) do
       vv.num = refCountT[k] or 1
