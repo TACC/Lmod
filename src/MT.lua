@@ -759,7 +759,7 @@ function M.stackDepth(self,sn)
    return entry.stackDepth or 0
 end
 
-function M.safely_incr_ref_count(mname)
+function M.safely_incr_ref_count(self,mname)
    local sn    = mname:sn()
    assert(sn)
    local entry = self.mT[sn]
