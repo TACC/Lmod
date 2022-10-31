@@ -576,10 +576,10 @@ function M.reloadAll(self, force_update)
          mt               = frameStk:mt()
          local v          = a[i]
          local sn         = v.sn
-         dbg.print{"v.userName: ",v.userName,", v.ref_count: ",v.ref_count}
+         dbg.print{"v.userName: ",v.userName,", v.ref_count: ",v.ref_count,"\n"}
          local mname_old  = MName:new("mt",v.userName):set_depends_on_flag(v.ref_count)
          if (not mname_old:sn()) then break end
-         dbg.print{"a[i].userName(1): ",v.userName,"\n"}
+         dbg.print{"a[i].userName(1): ",v.userName,", ref_count: ",mname_old:ref_count(),"\n"}
          mA[#mA+1]       = mname_old
          dbg.print{"adding sn: ",sn," to mA\n"}
 

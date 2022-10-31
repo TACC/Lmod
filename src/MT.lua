@@ -266,11 +266,10 @@ function M.add(self, mname, status, loadOrder)
       propT      = {},
       wV         = mname:wV() or false,
    }
-   ----if (mname:get_depends_on_flag() ) then
-   --if (status ~= "inactive" and old_status ~= "inactive" and  ) then
-   --   self:incr_ref_count(sn)
-   --end
-   dbg.print{"MT:add: sn: ", sn, ", status: ",status,", old_status: ",old_status,", ref_count: ",mT[sn].ref_count,"\n"}
+   if (status ~= "inactive" and old_status ~= "inactive") then
+      self:safely_incr_ref_count(mname)
+   end
+   --dbg.print{"MT:add: sn: ", sn, ", status: ",status,", old_status: ",old_status,", ref_count: ",mT[sn].ref_count,"\n"}
 end
 
 --------------------------------------------------------------------------
@@ -764,16 +763,16 @@ function M.safely_incr_ref_count(self,mname)
    assert(sn)
    local entry = self.mT[sn]
    if (entry == nil) then
-      dbg.print{"MT:incr_ref_count(): Did not find: ",sn,"\n"}
+      dbg.print{"MT:safely_incr_ref_count(): Did not find: ",sn,"\n"}
       return
    end
    local depends_on_flag = mname:get_depends_on_flag()
-   if (not depends_on_flag) then
-      dbg.print{"MT:incr_ref_count(): depends_on_flag not set ",sn,"\n"}
+   if (not depends_on_flag and not entry.ref_count) then
+      dbg.print{"MT:safely_incr_ref_count(): depends_on_flag not set ",sn,"\n"}
       return
    end
    entry.ref_count = (entry.ref_count or 0) + 1
-   dbg.print{"MT:incr_ref_count(): stackDepth > 0, sn: ",sn,", new ref_count: ",entry.ref_count,"\n"}
+   dbg.print{"MT:safely_incr_ref_count(): stackDepth > 0, sn: ",sn,", new ref_count: ",entry.ref_count,"\n"}
    return
 end
 
@@ -792,7 +791,7 @@ end
 function M.get_ref_count(self,sn)
    local entry = self.mT[sn]
    if (entry == nil or not entry.ref_count) then
-      return 0
+      return false
    end
    dbg.print{"MT:decr_ref_count(): sn: ",sn, ", ref_count: ",entry.ref_count,"\n"}
    return entry.ref_count
@@ -1269,10 +1268,18 @@ function M.getMTfromFile(self,tt)
    local mA           = {}
 
    -- remember to transfer the old stackDepth to the new mname object.
+   -- If a dependent module is loaded, it gets a one less reference count
+   -- (and not zero).  The reason is that collections are loaded by a MgrLoad
+   -- Therefore a dependent module load is only seen once.  In a "Mgrload"
+   -- depends_on() function is a fake load.
    for i = 1, #activeA do
       local mname = MName:new("load",activeA[i][knd])
-      mname:set_ref_count(activeA[i].ref_count)
+      local ref_count = activeA[i].ref_count 
+      if (ref_count) then
+         ref_count = ref_count - 1
+      end
       mname:set_depends_on_flag(activeA[i].ref_count)
+      mname:set_ref_count(ref_count)
       mname:setStackDepth(activeA[i].stackDepth)
       mA[#mA+1]   = mname
    end

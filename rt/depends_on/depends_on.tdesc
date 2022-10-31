@@ -47,36 +47,43 @@ testdescript = {
      runLmod restore                           #22
      runLmod unload Y                          #23
      runLmod list                              #24
-     runLmod load Z                            #25
-     runLmod load bar/1.0                      #26
-     runLmod load foo                          #27
-     runLmod list                              #28
-     runLmod purge                             #29
-     runLmod load bar/1.2                      #30
-     runLmod load foo                          #31
-     runLmod list                              #32
+     runLmod purge                             #25
+     runLmod load X Y                          #26
+     runLmod save                              #27
+     runLmod purge                             #28
+     runLmod restore                           #29
+     runLmod list                              #30
+     runLmod purge                             #31
+     runLmod load Z                            #32
+     runLmod load bar/1.0                      #33
+     runLmod load foo                          #34
+     runLmod list                              #35
+     runLmod purge                             #36
+     runLmod load bar/1.2                      #37
+     runLmod load foo                          #38
+     runLmod list                              #39
 
      
-     runLmod purge                             #33
+     runLmod purge                             #40
      unsetMT
      export MODULEPATH=$(testDir)/mf/Core2
      export LMOD_PIN_VERSIONS=yes
-     runLmod load  SomeSoftware OtherSoftware  #34
-     runLmod list                              #35
+     runLmod load  SomeSoftware OtherSoftware  #41
+     runLmod list                              #42
 
-     runLmod purge                             #36
+     runLmod purge                             #43
      unsetMT
      export MODULEPATH=$(testDir)/mf/Core3
      unset LMOD_PIN_VERSIONS
-     runLmod load  A                           #37
-     runLmod list                              #38
+     runLmod load  A                           #44
+     runLmod list                              #45
 
-     runLmod purge                             #39
+     runLmod purge                             #46
      unsetMT
      export MODULEPATH=$(testDir)/mf/Core4
-     runLmod load python/3.9.6                 #40
-     runLmod load ipykernel/2022a              #41
-     runLmod list                              #42
+     runLmod load python/3.9.6                 #47
+     runLmod load ipykernel/2022a              #48
+     runLmod list                              #49
 
 
      ##############################################
@@ -85,12 +92,12 @@ testdescript = {
      # and this impi depends_on("ucx") which does
      # not exist.
 
-     runLmod purge                             #43
+     runLmod purge                             #50
      unsetMT
      export MODULEPATH=$(testDir)/mf/Core5
-     runLmod use $(testDir)/mf/special         #44
-     runLmod load oneapi impi                  #45
-     runLmod unload oneapi                     #46
+     runLmod use $(testDir)/mf/special         #51
+     runLmod load oneapi impi                  #52
+     runLmod unload oneapi                     #53
 
 
      ##############################################
@@ -98,42 +105,42 @@ testdescript = {
      # Dependency is lost when modules are compiler
      # dependent
 
-     runLmod purge                             #47
+     runLmod purge                             #54
      unsetMT
      export MODULEPATH_ROOT=$(testDir)/mf/Issue604
      export MODULEPATH=$MODULEPATH_ROOT/Core
-     runLmod load compiler_a package           #48
-     runLmod unload package                    #49
-     runLmod load package                      #50
-     runLmod load compiler_b                   #51
-     runLmod unload package                    #52
-     runLmod list                              #53
+     runLmod load compiler_a package           #55
+     runLmod unload package                    #56
+     runLmod load package                      #57
+     runLmod load compiler_b                   #58
+     runLmod unload package                    #59
+     runLmod list                              #60
 
      ##############################################
      # More Issue #604
      # Test if activating inactive modules works
      # with depends_on()
-     runLmod purge                             #54
-     runLmod load   compiler_a package pkgB    #55
-     runLmod unload compiler_a                 #56
-     runLmod load compiler_b                   #57
-     runLmod unload package                    #58
-     runLmod list                              #59   
-     runLmod unload pkgB                       #60
-     runLmod list                              #61
+     runLmod purge                             #61
+     runLmod load   compiler_a package pkgB    #62
+     runLmod unload compiler_a                 #63
+     runLmod load compiler_b                   #64
+     runLmod unload package                    #65
+     runLmod list                              #66   
+     runLmod unload pkgB                       #67
+     runLmod list                              #68
 
      ##############################################
      # More Issue #604
      # A torture test
 
-     runLmod purge                             #62
-     runLmod load A                            #63
-     runLmod list                              #64
-     runLmod load gcc                          #65
-     runLmod av                                #66
-     runLmod list                              #67
-     runLmod load intel                        #68
-     runLmod list                              #69
+     runLmod purge                             #69
+     runLmod load A                            #70
+     runLmod list                              #71
+     runLmod load gcc                          #72
+     runLmod av                                #73
+     runLmod list                              #74
+     runLmod load intel                        #75
+     runLmod list                              #76
 
 
 
