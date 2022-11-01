@@ -780,7 +780,7 @@ function M.decr_ref_count(self,sn)
    local entry = self.mT[sn]
    if (entry == nil or not entry.ref_count) then
       dbg.print{"MT:decr_ref_count(): sn: ",sn, ", ref_count: nil\n"}
-      return false
+      return nil
    end
    local ref_count = entry.ref_count - 1
    entry.ref_count = ref_count
@@ -791,9 +791,9 @@ end
 function M.get_ref_count(self,sn)
    local entry = self.mT[sn]
    if (entry == nil or not entry.ref_count) then
-      return false
+      return nil
    end
-   dbg.print{"MT:decr_ref_count(): sn: ",sn, ", ref_count: ",entry.ref_count,"\n"}
+   dbg.print{"MT:get_ref_count(): sn: ",sn, ", ref_count: ",entry.ref_count,"\n"}
    return entry.ref_count
 end
 

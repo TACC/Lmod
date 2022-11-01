@@ -97,7 +97,7 @@ function M.new(self, sType, name, action, is, ie)
    o.__fn         = false
    o.__versionStr = false
    o.__dependsOn  = false
-   o.__ref_count  = false
+   o.__ref_count  = nil
    o.__sType      = sType
    o.__wV         = false
    o.__waterMark  = "MName"
