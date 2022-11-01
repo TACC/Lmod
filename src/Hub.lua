@@ -264,13 +264,17 @@ local s_stk = {}
 function M.mgrload(self, active)
    dbg.start{"Hub:mgrload(",active.userName,")"}
 
-   local mcp_old = mcp
-   mcp           = MainControl.build("mgrload","load")
+   local mcp_old   = mcp
+   mcp             = MainControl.build("mgrload","load")
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-   local mname   = MName:new("load", active.userName)
-   mname:set_ref_count(active.ref_count)
+   local mname     = MName:new("load", active.userName)
+   local ref_count = active.ref_count
+   if (ref_count) then
+      ref_count = ref_count - 1
+   end
+   mname:set_ref_count(ref_count)
    mname:setStackDepth(active.stackDepth)
-   mname:set_depends_on_flag(active.ref_count)
+   mname:set_depends_on_flag(ref_count)
    local a       = MCP.load(mcp,{mname})
    mcp           = mcp_old
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
