@@ -6,11 +6,12 @@ User Spider Cache
 In :ref:`system-spider-cache-label`, we described how to build a
 system cache.  If there is no system cache available then Lmod can
 produce a user based spider cache.  It gets written to
-**~/.cache/lmod**.  It is designed to provide improved speed of
-performing doing module avail or module spider.  But it is not without
-its problems.  The first point is that if Lmod thinks any spider cache
-is valid, it uses it for the MODULEPATH directories it covers then it
-uses it instead of walking the tree.
+**~/.cache/lmod**.  *See below for earlier versions of Lmod.* It is
+designed to provide improved speed of performing doing module avail or
+module spider.  But it is not without its problems.  The first point
+is that if Lmod thinks any spider cache is valid, it uses it for the
+MODULEPATH directories it covers then it uses it instead of walking
+the tree.
 
 
 Personal Cache rules:
@@ -39,3 +40,9 @@ user cache directory unwritable::
 
      $ rm -rf    ~/.cache/lmod
      $ chmod 500 ~/.cache/lmod
+
+
+**NOTE:**
+Lmod versions earlier than 8.7.12 wrote the cache file to
+**~/.lmod.d/.cache**
+  
