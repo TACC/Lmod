@@ -37,6 +37,12 @@ testdescript = {
      runLmod purge                             #12
      runLmod load abc/2                        #13
      runLmod list                              #14
+     runLmod purge                             #15
+     runLmod load A/10                         #16
+     runLmod refresh                           #17
+     runLmod list                              #18
+
+
 
 
 

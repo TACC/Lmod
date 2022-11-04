@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.13  2022-09-14 12:56 -05:00
+Modules based on Lua: Version 8.7.14  2022-11-01 10:59 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -76,3 +76,21 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) abc/2.2.3
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A/10
+===========================
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing refresh
+===========================
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) A/10.01

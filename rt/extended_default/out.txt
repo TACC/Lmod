@@ -135,3 +135,45 @@ MODULEPATH=ProjectDIR/rt/extended_default/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={abc={fn="ProjectDIR/rt/extended_default/mf/Core/abc/2.2.3.lua",fullName="abc/2.2.3",loadOrder=1,propT={},stackDepth=0,status="active",userName="abc/2.2.3",wV="000000002.000000002.000000003.*zfinal",},},mpathA={"ProjectDIR/rt/extended_default/mf/Core",},systemBaseMPATH="ProjectDIR/rt/extended_default/mf/Core",}';
 export _ModuleTable_;
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/extended_default/mf/Core;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/extended_default/mf/Core",},systemBaseMPATH="ProjectDIR/rt/extended_default/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A/10
+===========================
+LOADEDMODULES=A/10.01;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/extended_default/mf/Core;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/extended_default/mf/Core/A/10.01.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/extended_default/mf/Core/A/10.01.lua",fullName="A/10.01",loadOrder=1,propT={},stackDepth=0,status="active",userName="A/10.01",wV="000000010.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/extended_default/mf/Core",},systemBaseMPATH="ProjectDIR/rt/extended_default/mf/Core",}';
+export _ModuleTable_;
+foo () { echo ok;
+};
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing refresh
+===========================
+MODULEPATH=ProjectDIR/rt/extended_default/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/extended_default/mf/Core/A/10.01.lua",fullName="A/10.01",loadOrder=1,propT={},stackDepth=0,status="active",userName="A/10.01",wV="000000010.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/extended_default/mf/Core",},systemBaseMPATH="ProjectDIR/rt/extended_default/mf/Core",}';
+export _ModuleTable_;
+foo () { echo ok;
+};
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/extended_default/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/extended_default/mf/Core/A/10.01.lua",fullName="A/10.01",loadOrder=1,propT={},stackDepth=0,status="active",userName="A/10.01",wV="000000010.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/extended_default/mf/Core",},systemBaseMPATH="ProjectDIR/rt/extended_default/mf/Core",}';
+export _ModuleTable_;
