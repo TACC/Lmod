@@ -33,6 +33,7 @@ cleanUp ()
        -e "s|[\\]27|\\\033|g"                             \
        -e "s|='\\\\033|='\\\\\\\\033|g"                   \
        -e "s|\@git\@|$gitV|g"                             \
+       -e "s|$PATH_to_SHA1/sha1sum|PATH_to_HASHSUM|g"     \
        -e "s|/usr/.*/sha1sum|PATH_to_HASHSUM|g"           \
        -e "s|/bin/.*/sha1sum|PATH_to_HASHSUM|g"           \
        -e "s|:$PATH_to_LUA\([:;]\)|\1|g"                  \
@@ -56,6 +57,10 @@ cleanUp ()
        -e "s|;$PATH_to_SHA1:[0-9];|;|g"                   \
        -e "s| $PATH_to_SHA1||g"                           \
        -e "s|\\\;$PATH_to_SHA1:[0-9]\\\;|\\\;|g"          \
+       -e "s|:$PATH_TO_SED\([:;]\)|\1|g"                  \
+       -e "s|;$PATH_TO_SED:[0-9];|;|g"                    \
+       -e "s| $PATH_TO_SED||g"                            \
+       -e "s|\\\;$PATH_TO_SED:[0-9]\\\;|\\\;|g"           \
        -e "s|^ *Lmod version.*||g"                        \
        -e "s|^LMOD_LD_PRELOAD.*||g"                       \
        -e "s|^LuaFileSystem version.*||g"                 \
