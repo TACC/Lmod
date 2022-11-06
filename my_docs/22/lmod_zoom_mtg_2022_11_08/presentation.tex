@@ -7,25 +7,25 @@
 % It's possible to move the footer to the right:
 %\usetheme[rightfooter]{TACC16}
 
-% page 
-\begin{frame}{}
-  \begin{itemize}
-    \item
-  \end{itemize}
-\end{frame}
-
-% page 
-\begin{frame}[fragile]
-    \frametitle{}
- {\tiny
-    \begin{semiverbatim}
-    \end{semiverbatim}
-}
-  \begin{itemize}
-    \item
-  \end{itemize}
-
-\end{frame}
+%% page 
+%\begin{frame}{}
+%  \begin{itemize}
+%    \item
+%  \end{itemize}
+%\end{frame}
+%
+%% page 
+%\begin{frame}[fragile]
+%    \frametitle{}
+% {\tiny
+%    \begin{semiverbatim}
+%    \end{semiverbatim}
+%}
+%  \begin{itemize}
+%    \item
+%  \end{itemize}
+%
+%\end{frame}
 
 \begin{document}
 \title[Lmod]{How Lmod processes TCL modulefiles}
@@ -94,14 +94,130 @@
 \begin{frame}{Surprising help from stackoverflow.com}
   \begin{itemize}
     \item I have had many questions about how TCL works
+    \item I am always shocked that my TCL question would get answered
+    \item Grateful, but amazed!
   \end{itemize}
 \end{frame}
+
+% page 8
+\begin{frame}{Questions for stackoverflow.com}
+  \begin{itemize}
+    \item How does the puts command work?
+    \item How break works?
+    \item How the child interpreter works
+  \end{itemize}
+\end{frame}
+
+% page 9
+\begin{frame}{How tcl2lua.tcl works}
+  \begin{itemize}
+    \item Let the TCL interpreter evaluate regular TCL commands
+    \item Convert the TCL setenv, prepend-path etc
+    \item $\Rightarrow$ into Lua setenv(), prepend\_path() strings
+    \item This lua output is then interpreted by Lmod as a Lua module
+    \item This works very well most of the time
+    \item However ...
+  \end{itemize}
+\end{frame}
+
+% page 10
+\begin{frame}[fragile]
+    \frametitle{When things go awry}
+  \begin{itemize}
+    \item Suppose you have TCL modules \textbf{Centos} and \textbf{B}
+  \end{itemize}
+ {\tiny
+    \begin{semiverbatim}
+Centos::
+
+    #%Module
+    setenv SYSTEM\_NAME Centos
+
+And B::
+
+    #%Module
+    module load Centos
+
+    if { $env(SYSTEM\_NAME) == "Centos" } {
+       # do something
+    }
+
+    \end{semiverbatim}
+}
+\end{frame}
+
+% page 11
+\begin{frame}[fragile]
+    \frametitle{Converting the TCL \textbf{B} into Lua}
+ {\tiny
+    \begin{semiverbatim}
+   load("Centos")
+   LmodError("can't read \"env(SYSTEM\_NAME)\": no such variable")
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item Trouble: the TCL \textbf{load} command $\Rightarrow$
+      \texttt{load("Centos")}
+    \item Cannot get the TCL load command to be evaluated before the
+      TCL if block
+  \end{itemize}
+
+\end{frame}
+
+
+% page 12
+\begin{frame}{The best solutions would be: }
+  \begin{itemize}
+    \item In this case use TCL code to get the name of the Linux OS 
+    \item Or use lsb\_release inside the \textbf{B} modulefile
+    \item Or translate the TCL \texttt{B} module into Lua
+    \item Note that you can have both a TCL B/1.0 module \textbf{and}
+      a B/1.0.lua module in the same directory
+    \item Lmod will always chose the Lua modulefile over the TCL one.
+    \item Tmod will ignore the *.lua file (no \#\%Module start line)
+  \end{itemize}
+\end{frame}
+
+% page 13
+\begin{frame}[fragile]
+    \frametitle{The \textbf{B} translated into Lua}
+ {\tiny
+    \begin{semiverbatim}
+   load("Centos")
+   if (os.getenv("SYSTEM\_NAME") == "Centos") then
+     -- Do something
+   end
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item Note that the Centos module DO NOT need to be translated
+      into Lua.
+  \end{itemize}
+
+\end{frame}
+
+% page 15
+\begin{frame}{Next time}
+  \begin{itemize}
+    \item Lmod 8.0+ brought many improvements to TCL module support
+    \item TCL break command
+    \item Optional Integration of TCL interpreter into Lmod (saves
+      time)
+    \item Support for is-loaded 
+    \item Support for is-avail and why I resisted supporting that for
+      TCL modulefiles for so long
+    \item Special features of setenv and pushenv in TCL
+    \item How tcl2lua.tcl supports the \textbf{puts} command
+    \item New bugs found when integrating the TCL interpreter into Lmod
+  \end{itemize}
+\end{frame}
+
+
 
 % page 25
 \begin{frame}{Future Topics}
   \begin{itemize}
-    \item Next Meeting: September 6th 9:30 US Central (14:30 UTC)
-    \item How the translation from TCL to Lua is handled
+    \item Next Meeting: December 6th 9:30 US Central (15:30 UTC)
   \end{itemize}
 \end{frame}
 
