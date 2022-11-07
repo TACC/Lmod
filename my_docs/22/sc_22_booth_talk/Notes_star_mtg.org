@@ -1,0 +1,7 @@
+Here are some notes for the star mtg presentation
+
+* I gave a talk to the star partners in 2015
+* Lots has changed since then.
+
+* Lmod supports
+** 
