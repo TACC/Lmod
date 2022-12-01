@@ -40,15 +40,12 @@
 \begin{frame}{Outline}
   \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
   \begin{itemize}
-    \item Lmod 8.0+ brought many improvements to TCL module support
-    \item TCL break command
+    \item Lmod 8.0+ brought many improvements to TCL support
     \item Optional Integration of TCL interpreter into Lmod (saves
       time)
     \item Support for is-loaded 
-    \item Support for is-avail and why I resisted supporting that for
-      TCL modulefiles for so long
+    \item Support for is-avail and why I resisted supporting this
     \item Special features of setenv and pushenv in TCL
-    \item How tcl2lua.tcl supports the \textbf{puts} command
     \item New bugs found when integrating the TCL interpreter into Lmod
   \end{itemize}
 \end{frame}
@@ -67,7 +64,7 @@
 \end{frame}
 
 % page 4
-\begin{frame}{How Lmod handles TCL modulefiles} (II)}
+\begin{frame}{How Lmod handles TCL modulefiles (II)}
   \begin{itemize}
     \item Remember that tcl2lua.tcl is a separate code written in TCL
     \item It doesn't have access to the internal Lmod structures
@@ -81,7 +78,7 @@
  {\tiny
     \begin{semiverbatim}
 setenv ABC def
-if \{ \$env{ABC} == "def" \} \{
+if \{ \$env\{ABC\} == "def" \} \{
      # do something
 \}
     \end{semiverbatim}
@@ -156,7 +153,7 @@ if \{ [ is-avail foo ] \} \{
 \begin{frame}{Lmod 8+ supports integrating the tcl interpreter}
   \begin{itemize}
     \item It is optionally but can be disabled
-    \item Configure or set LMOD_FAST_TCL_INTERP=no
+    \item Configure or set LMOD\_FAST\_TCL\_INTERP=no
     \item Enabled it speeds tcl evaluations.
     \item No need to fork-exec a separate program for every TCL
       modulefile or TCL .version or TCL .modulerc file
