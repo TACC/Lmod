@@ -1,0 +1,71 @@
+* As we talked about last time the loadModulefile() function knows if the modulefile is a TCL or Lua modulefile
+** How Lmod knows which is which
+(by the *.lua extension or not)
+That is if a modulefile has a *.lua extension it is treated as a Lua
+modulefile.  Otherwise it is a TCL modulefile
+Note that Lmod walks the module tree every time or uses the Spider Cache.  It knows that a TCL
+modulefile is a TCL modulefile.  All non-Lua extension files are
+checked for a #%Module start line.
+** There is a command line style interface between Lmod and tcl2lua.tcl
+The mode of eval: load, remove, display, help)
+The list of currently loaded module
+What the full name and user name are for the module
+Shell type: bash, csh etc
+One tcl modulefile to "load"
+
+** Lmod 8.0+ added support for integrating the TCL interpreter into the Lua executable.
+** Lua supports dynamically linking of *.so.
+** Using this library avoid making a system() call every time to eval a TCL modulefile
+** This is supported by LMOD_FAST_TCL_INTERP
+** You can dynamically control this by changing LMOD_FAST_TCL_INTERP=no etc.
+* Some tricky things:
+* tcl is-loaded needs to be evaluated by tcl2lua because typically used via an if block
+if { [ is-loaded foo ] } {
+   # do something
+}
+** Lmod passes the list o currently loaded modules to the tcl2lua.tcl program
+So that the if test can be eval'ed by tcl2lua.tcl
+* Recently (Lmod 8.6+) , support for is-avail
+This one is very tricky and only now supported
+** The problem is that tcl2lua.tcl is a separate code written in tcl
+   It does NOT have access to the internal Lmod structures like the
+   modules that are available to load
+** Could write a tcl version of this inside tcl2lua.tcl
+   But that would be too much work and hard to get right.
+   The one-name rule would be difficult to re-work in TCL.
+** Instead the TCl runs "$LMOD_CMD bash --no_redirect -t avail"
+** This generates a list of available module written to stderr
+** This list is processed and stored in a TCL dictionary
+** Then the is-avail argument is checked.
+* Integrating the TCL interpreter has exposed some interesting bugs
+** Namely changes to the environment inside tcl2lua.tcl now show up inside Lmod
+** This caused a problem with pushenv when used inside a TCL modulefile
+   Now all setenv and pushenv changes inside tcl2lua.tcl are undone on exit
+** Uncaught errors and exits now terminate Lmod not just tcl2lua.tcl
+* TCL break is now supported.
+* setenv and pushenv change the current environment
+** This is so that modulefiles can set an env. var and check it later in the same modulefile
+* My understanding of TCL is not great (re-word!) So I initially relied on a version of the pure TCL implementation of Tmod
+** I converted the setenv prepend-path etc procs to generate lua commands
+
+* TCL support a sandbox to limit what function/command that can be called inside a modulefile
+  it is its own thing. It is a TCL sandbox. It is independent of the sandbox that Lmod implements.
+  It is why Lmod implements a Lua sandbox.  
+* It also allows mapping standard commands to ones under my control.
+** For example the TCL puts command now called myPuts.
+* Translating TCL module help into Lmod help function requires the myPuts hack
+        if { $g_help && [info procs "ModulesHelp"] == "ModulesHelp" } {
+            set start "help(\[===\["
+            set end   "\]===\])"
+            setPutMode "inHelp"
+            myPuts stdout $start
+	    catch { ModulesHelp } errMsg
+            myPuts stdout $end
+            setPutMode "normal"
+        }
+* myPuts like all commands: setenv prepend-path etc write to an internal array (g_outputA)
+So there is no output of any kind until the evaluation of the module
+is completed.
+** stderr -> LmodMsgRaw()
+** puts stdout "text msg" -> execute{cmd=[===[$text_msg]===], modeA={}}
+** puts prestdout "text msg" -> io.stdout:write([===[$text_msg]===])
