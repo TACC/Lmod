@@ -11,7 +11,7 @@ The mode of eval: load, remove, display, help)
 The list of currently loaded module
 What the full name and user name are for the module
 Shell type: bash, csh etc
-One tcl modulefile to "laod"
+One tcl modulefile to "load"
 
 ** Lmod 8.0+ added support for integrating the TCL interpreter into the Lua executable.
 ** Lua supports dynamically linking of *.so.
