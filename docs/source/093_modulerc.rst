@@ -50,6 +50,10 @@ All lua modulerc files support the following commands:
    modules. This way only modulefile can be hidden.
    See the isVisible hook in :ref:`hooks` to do more complicated hiding.
 
+The above functions are the only functions support in .modulerc.lua
+files. In particular, Lmod functions like setenv(), pushenv() are not supported.
+
+
 The TCL files support similar commands:
 
 **module-version** known_version default
@@ -67,6 +71,8 @@ The TCL files support similar commands:
 **hide-modulefile** full_path
   see hide-modulefile above.
 
+The above TCL commands are the only commands support in .modulerc or .version
+files. In particular, TCL commands like setenv(), pushenv() are not supported.
 
 System MODULERC files
 ^^^^^^^^^^^^^^^^^^^^^

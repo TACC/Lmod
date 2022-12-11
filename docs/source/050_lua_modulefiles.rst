@@ -252,7 +252,9 @@ The entries below describe several useful commands that come with Lmod that can 
     avail* and *module spider*.
 
 **isloaded** ("NAME"):
-    Return true when module "NAME" is loaded.
+    Return true when module "NAME" is loaded or is in the middle of a
+    load. Use isPending() to distinguish between loaded or pending.
+    
 
 **isPending** ("NAME"):
     Return true when module "NAME" is in the middle of a load().
