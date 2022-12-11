@@ -1077,6 +1077,7 @@ proc unset-env {var} {
 }
 proc set-env {var value} {
     global g_envT g_envClrT env
+    # If setting a var not seen then mark it for deletion when reset is called.
     if { ! [info exists env($var)] && ! [info exists g_envT($var)] } {
 	dict set g_envClrT $var 1
     } else {
