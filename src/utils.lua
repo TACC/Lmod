@@ -1025,8 +1025,6 @@ function reset_env()
    s_envT    = {}
 end
       
-function save_set_env(name, value)
-end
 function reset_env()
 end
 ------------------------------------------------------------
