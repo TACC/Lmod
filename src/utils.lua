@@ -1018,14 +1018,17 @@ function reset_env()
    for k, v in pairs(s_envT) do
       setenv_posix(k, v, true)
    end
-   for k, v in pairs(s_clrEnvT) do
-      setenv_posix(k, v, true)
+   for k in pairs(s_clrEnvT) do
+      setenv_posix(k, nil, true)
    end
    s_clrEnvT = {}
    s_envT    = {}
 end
       
-
+function save_set_env(name, value)
+end
+function reset_env()
+end
 ------------------------------------------------------------
 -- Initialize Lmod 
 
@@ -1087,7 +1090,7 @@ function tracing_msg(msgA)
    for i = 1,#msgA do
       b[#b+1] = msgA[i]
    end
-p   b[#b + 1]        = "\n"
+   b[#b + 1]        = "\n"
    shell:echo(concatTbl(b,""))
 end
 

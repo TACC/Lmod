@@ -180,6 +180,7 @@ local function l_loadMe(entryT, moduleStack, iStack, myModuleT, mt, mList, mpath
    loadModuleFile{file=fn, help=true, shell=shellNm, reportErr=false, mList = mList}
    hook.apply("load_spider",{fn = fn, modFullName = fullName, sn = sn})
    mt:setStatus(sn, "active")
+   reset_env()
 end
 
 local function l_findModules(mpath, mt, mList, sn, v, moduleT)

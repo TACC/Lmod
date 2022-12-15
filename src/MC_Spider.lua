@@ -220,7 +220,7 @@ s_patDir = false
 function M.setenv(self, name, value)
    dbg.start{"MC_Spider:setenv(name, value)"}
 
-   set_save_env(name, value)
+   save_set_env(name, value)
 
    if (not s_patLib) then
       local a  = {}
@@ -259,7 +259,7 @@ end
 
 function M.pushenv(self, name, value)
    dbg.start{"MC_Spider:pushenv(name, value)"}
-   set_save_env(name, value)
+   save_set_env(name, value)
    dbg.fini()
    return true
 end   
