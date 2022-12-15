@@ -1005,11 +1005,26 @@ end
 ------------------------------------------------------------
 -- Save changes to env when processing spider cache
 function save_set_env(name, value)
-   local oldV = 
-   if (not getenv(name) and not s_envT[name]) then
-      fix me!!!
+   local oldV = getenv(name)
+   if (not  oldV and not s_envT[name]) then
+      s_clrEnvT[name] = true
+   else
+      s_envT[name] = oldV
    end
+   setenv_posix(name. value, true)
 end
+
+function reset_env()
+   for k, v in pairs(s_envT) do
+      setenv_posix(k, v, true)
+   end
+   for k, v in pairs(s_clrEnvT) do
+      setenv_posix(k, v, true)
+   end
+   s_clrEnvT = {}
+   s_envT    = {}
+end
+      
 
 ------------------------------------------------------------
 -- Initialize Lmod 
