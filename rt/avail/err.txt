@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.13  2022-09-14 12:56 -05:00
+Modules based on Lua: Version 8.7.14  2022-11-01 10:59 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -520,3 +520,30 @@ step 39
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/avail/mf/Core9
 ===========================
 Lmod Warning: MODULEPATH directory: "ProjectDIR/rt/avail/mf/Core9" has too many non-modulefiles (101). Please make sure that modulefiles are in their own directory and not mixed in with non-modulefiles (e.g. source code)
+===========================
+step 40
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+===========================
+Lmod Warning: MODULEPATH directory: "ProjectDIR/rt/avail/mf/Core9" has too many non-modulefiles (101). Please make sure that modulefiles are in their own directory and not mixed in with non-modulefiles (e.g. source code)
+While processing the following module(s):
+    Module fullname  Module Filename
+    B/1.0            ProjectDIR/rt/avail/mf/Core7/B/1.0.lua
+Found C
+D Not found
+===========================
+step 41
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/avail/mf/CoreA
+===========================
+===========================
+step 42
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+ProjectDIR/rt/avail/mf/CoreA
+   parmetis/3.1 (m)
+  Where:
+   m:  built for host and native MIC
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".

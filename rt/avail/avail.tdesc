@@ -80,11 +80,21 @@ testdescript = {
      ############################################################
      # Test when there are too many non modulefile that start with .
      runLmod use $(testDir)/mf/Core8  #37
-     runLmod avail
+     runLmod avail                    #38
 
      ############################################################
      # Test when there are too many non modulefile that do not start with .
-     runLmod use $(testDir)/mf/Core9  #38
+     runLmod use $(testDir)/mf/Core9  #39
+
+     ############################################################
+     # Test Issue #613: clean env after every load thru spider
+     runLmod purge                    #40
+     unsetMT
+     unset MODULEPATH
+     runLmod use $(testDir)/mf/CoreA  #41
+     runLmod avail                    #42
+
+
      
      HOME=$ORIG_HOME
 
