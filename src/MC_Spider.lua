@@ -248,7 +248,7 @@ function M.setenv(self, name, value)
    if (name:find(s_patDir)) then
       processDIR(value)
    end
-   dbg.fini()
+   dbg.fini("MC_Spider:setenv")
    return true
 end
 

@@ -1011,10 +1011,11 @@ function save_set_env(name, value)
    else
       s_envT[name] = oldV
    end
-   setenv_posix(name. value, true)
+   posix.setenv(name, value, true)
 end
 
 function reset_env()
+   local setenv_posix = posix.setenv
    for k, v in pairs(s_envT) do
       setenv_posix(k, v, true)
    end
@@ -1025,8 +1026,6 @@ function reset_env()
    s_envT    = {}
 end
       
-function reset_env()
-end
 ------------------------------------------------------------
 -- Initialize Lmod 
 
