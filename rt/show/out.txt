@@ -28,7 +28,6 @@ MODULEPATH=ProjectDIR/rt/show/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/show/mf/Core",},systemBaseMPATH="ProjectDIR/rt/show/mf/Core",}';
 export _ModuleTable_;
-false
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing show boost

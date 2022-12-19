@@ -1,3 +1,6 @@
+_G._DEBUG             = false               -- Required by the new lua posix
+local posix           = require("posix")
+
 require("strict")
 
 --------------------------------------------------------------------------
@@ -325,6 +328,18 @@ function M.setenv(self, name, value, respect)
    end
    varT[name]:set(tostring(value))
    dbg.fini("MainControl:setenv")
+end
+
+
+-------------------------------------------------------------------
+-- Set an environment variable.
+-- This function just sets the name with value in the current env.
+function M.setenv_env(self, name, value, respect)
+   name = name:trim()
+   dbg.start{"MainControl:setenv_env(\"",name,"\", \"",value,"\", \"",
+              respect,"\")"}
+   posix.setenv(name, value, true)
+   dbg.fini("MainControl:setenv_env")
 end
 
 
