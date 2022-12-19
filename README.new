@@ -58,3 +58,4 @@ Lmod 8.7+
               therefore SitePackage and /etc/lmod/lmod_config.lua files can continue to use masterTbl
 	    * PR #600: merging in 600_category to support "module category"
             * Issue #604: Fixed bug where ref_count was not passed to swapped modules.
+   (8.7.15) * Issue #613: setenv and pushenv change local environment when runniing spider (and avail)
