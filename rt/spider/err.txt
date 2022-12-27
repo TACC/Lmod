@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.7  2022-07-05 10:00 -05:00
+Modules based on Lua: Version 8.7.15  2022-12-19 15:03 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -937,7 +937,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
 Global Aliases
    intelcompiler -> (N/A)
 ProjectDIR/rt/spider/mf4/Core
-   A/1.0    B/2.0
+   A/1.0    B/2.0    S/1.0
   Where:
    N/A:  Alias cannot be loaded with current $MODULEPATH
 If the avail list is too long consider trying:
