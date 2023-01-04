@@ -1,4 +1,4 @@
-_G._DEBUG          = false               -- Required by the new lua posix
+<_G._DEBUG          = false               -- Required by the new lua posix
 local posix        = require("posix")
 
 require("strict")
@@ -476,15 +476,15 @@ end
 -- python after yours truly couldn't work it out.
 
 local function l_build_parentT(keepT, mpathMapT)
-   --dbg.start{"l_build_parentT(keepT, mpathMapT)"}
-   --dbg.printT("keepT",keepT)
-   --dbg.printT("mpathMapT",mpathMapT)
+   dbg.start{"l_build_parentT(keepT, mpathMapT)"}
+   dbg.printT("keepT",keepT)
+   dbg.printT("mpathMapT",mpathMapT)
 
    local function l_build_parentT_helper( mpath, fullNameA, fullNameT)
-      --dbg.start{"l_build_parentT_helper(mpath, fullNameA, fullNameT)"}
-      --dbg.print{"mpath: ",mpath,"\n"}
-      --dbg.printT("fullNameA: ",fullNameA)
-      --dbg.printT("fullNameT: ",fullNameT)
+      dbg.start{"l_build_parentT_helper(mpath, fullNameA, fullNameT)"}
+      dbg.print{"mpath: ",mpath,"\n"}
+      dbg.printT("fullNameA: ",fullNameA)
+      dbg.printT("fullNameT: ",fullNameT)
 
       local resultA
       if (not mpathMapT[mpath]) then
@@ -503,8 +503,8 @@ local function l_build_parentT(keepT, mpathMapT)
             end
          end
       end
-      --dbg.printT("resultA",resultA)
-      --dbg.fini("l_build_parentT_helper")
+      dbg.printT("resultA",resultA)
+      dbg.fini("l_build_parentT_helper")
       return resultA
    end
 
@@ -524,8 +524,8 @@ local function l_build_parentT(keepT, mpathMapT)
       end
    end
 
-   --dbg.printT("parentT",parentT)
-   --dbg.fini("l_build_parentT")
+   dbg.printT("parentT",parentT)
+   dbg.fini("l_build_parentT")
    return parentT
 end
 
@@ -595,7 +595,11 @@ local dbT_keyA = { 'Description', 'Category', 'URL', 'Version', 'whatis', 'dirA'
 
 function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
    dbg.start{"Spider:buildDbT(mpathMapT,spiderT, dbT)"}
+   dbg.printT("mpathMapT",mpathMapT)
    local mpathParentT = l_build_mpathParentT(mpathMapT)
+   dbg.printT("spiderT",spiderT)
+   dbg.printT("mpathParentT",mpathParentT)
+   dbg.printT("mpathA",mpathA)
    local keepT        = l_build_keepT(mpathA, mpathParentT, spiderT)
    local parentT      = l_build_parentT(keepT, mpathMapT)
    local mrc          = MRC:singleton()

@@ -830,6 +830,7 @@ end
 --------------------------------------------------------------------------
 -- Set warning flags to true.
 function setWarningFlag()
+   dbg.print{"setting warning flag\n"}
    s_warning = true
 end
 
