@@ -1,4 +1,4 @@
-<_G._DEBUG          = false               -- Required by the new lua posix
+_G._DEBUG          = false               -- Required by the new lua posix
 local posix        = require("posix")
 
 require("strict")
