@@ -1,0 +1,204 @@
+\documentclass{beamer}
+
+% You can also use a 16:9 aspect ratio:
+%\documentclass[aspectratio=169]{beamer}
+\usetheme{TACC16}
+
+% It's possible to move the footer to the right:
+%\usetheme[rightfooter]{TACC16}
+
+%% page 
+%\begin{frame}{}
+%  \begin{itemize}
+%    \item
+%  \end{itemize}
+%\end{frame}
+%
+%% page 
+%\begin{frame}[fragile]
+%    \frametitle{}
+% {\tiny
+%    \begin{semiverbatim}
+%    \end{semiverbatim}
+%}
+%  \begin{itemize}
+%    \item
+%  \end{itemize}
+%
+%\end{frame}
+
+\begin{document}
+\title[Lmod]{Lmod 8.*+ changes to TCL module support}
+\author{Robert McLay} 
+\date{December 6, 2022}
+
+% page 1
+\frame{\titlepage} 
+
+
+% page 2
+\begin{frame}{Outline}
+  \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
+  \begin{itemize}
+    \item Lmod 8.0+ brought many improvements to TCL support
+    \item Optional Integration of TCL interpreter into Lmod (saves
+      time)
+    \item Support for is-loaded 
+    \item Support for is-avail and why I resisted supporting this
+    \item Special features of setenv and pushenv in TCL
+    \item New bugs found when integrating the TCL interpreter into Lmod
+  \end{itemize}
+\end{frame}
+
+% page 3
+\begin{frame}{How Lmod handles TCL modulefiles}
+  \begin{itemize}
+    \item From last time we talk about how Lmod handles TCL
+      modulefiles
+    \item Use tcl2lua.tcl to read the modulefile.
+    \item It evaluates all pure TCL code
+    \item It outputs Lua strings for all module commands (setenv, etc)
+    \item Lmod evalutes Lua output from tcl2lua.tcl
+    \item Means that all TCL if stmts are evaluated by tcl2lua.tcl
+  \end{itemize}
+\end{frame}
+
+% page 4
+\begin{frame}{How Lmod handles TCL modulefiles (II)}
+  \begin{itemize}
+    \item Remember that tcl2lua.tcl is a separate code written in TCL
+    \item It doesn't have access to the internal Lmod structures
+    \item There is only a command-line interface between the two programs.
+  \end{itemize}
+\end{frame}
+
+% page 5
+\begin{frame}[fragile]
+    \frametitle{Special Features of tcl2lua.tcl}
+ {\tiny
+    \begin{semiverbatim}
+setenv ABC def
+if \{ \$env\{ABC\} == "def" \} \{
+     # do something
+\}
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item Internally setenv and pushenv change the current environment
+    \item Also output: \texttt{setenv("ABC","def")}
+  \end{itemize}
+
+\end{frame}
+
+
+
+% page 6
+\begin{frame}[fragile]
+    \frametitle{Support for TCL is-loaded}
+ {\tiny
+    \begin{semiverbatim}
+if \{ ! [ is-loaded foo ] \} \{
+   module load foo
+\}
+        
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item To handle this a list of currently loaded modules is
+      provides (every time!) to tcl2lua.tcl
+    \item This way if there is an \textbf{is-loaded}, it can be evaluated.
+    \item It is cheap for Lmod to provide this list.
+  \end{itemize}
+\end{frame}
+
+% page 7
+\begin{frame}[fragile]
+    \frametitle{Support for TCL is-avail}
+ {\tiny
+    \begin{semiverbatim}
+if \{ [ is-avail foo ] \} \{
+   module load foo
+\}
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item This is much harder to provide.
+    \item Lmod could provide a list of currently available modules
+    \item But this is expensive and most times this is not needed.
+    \item Is there another way to provide this?
+  \end{itemize}
+\end{frame}
+
+
+% page 8
+\begin{frame}{The user provided the key}
+  \begin{itemize}
+    \item What if the tcl module requested an avail
+    \item Well tcl2lua.tcl could do that work on behalf of the modulefile
+    \item It is expensive but only when is-avail requested.
+  \end{itemize}
+\end{frame}
+
+% page 9
+\begin{frame}{How tcl2lua.tcl implements the is-avail}
+  \begin{itemize}
+    \item It does: \textbf{\$LMOD\_CMD bash --no\_redirect -t avail}
+    \item This generates a list of available module written to stderr
+    \item This list is processed and stored in a TCL dictionary
+    \item Then the is-avail argument is checked.
+  \end{itemize}
+\end{frame}
+
+% page 10
+\begin{frame}{Lmod 8+ supports integrating the tcl interpreter}
+  \begin{itemize}
+    \item It is optionally but can be disabled
+    \item Configure or set LMOD\_FAST\_TCL\_INTERP=no
+    \item Enabled it speeds tcl evaluations.
+    \item No need to fork-exec a separate program for every TCL
+      modulefile or TCL .version or TCL .modulerc file
+  \end{itemize}
+\end{frame}
+
+% page 11
+\begin{frame}{Integrating the TCL interpreter exposed bugs}
+  \begin{itemize}
+    \item Kenneth Hoste reported that pushenv didn't work in TCL
+      modulefiles.
+    \item Lmod's pushenv saves the old value in a hidden env. var.
+    \item Now that the TCL interpreter is in the same executable
+    \item Its environment is also in the same environment
+    \item The TCL pushenv (like setenv) changes the local environment
+    \item When Lmod evaluated the \texttt{pushenv()} lua command
+    \item The old env value was over-written
+  \end{itemize}
+\end{frame}
+
+% page 12
+\begin{frame}{pushenv and setenv solution}
+  \begin{itemize}
+    \item The tcl2lua code remembers any setenv or pushenv env names
+      and values in a TCL dictionary.
+    \item It only remembers the first time an env. var is changed.
+    \item It resets the env. before exiting tcl2lua.tcl
+  \end{itemize}
+\end{frame}
+
+
+% page 13
+\begin{frame}{Next Time}
+  \begin{itemize}
+    \item What is TCL break and why you might use it
+    \item How TCL help messages are supported
+    \item How TCL puts is handled.
+  \end{itemize}
+\end{frame}
+
+% page 14
+\begin{frame}{Future Topics}
+  \begin{itemize}
+    \item Next Meeting: January 3nd or 10th 9:30 US Central (15:30 UTC)?
+  \end{itemize}
+\end{frame}
+
+\end{document}
