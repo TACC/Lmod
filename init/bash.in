@@ -212,7 +212,7 @@ xSetTitleLmod()
 ########################################################################
 #  Make tab completions available to bash users.
 
-if [ ${BASH_VERSINFO:-0} -ge 3 ] && [ -r  @PKGV@/init/lmod_bash_completions ] && [ -n "${PS1:-}" ]; then
+if [ ${BASH_VERSINFO:-0} -ge 3 ] && [ -r  @PKGV@/init/lmod_bash_completions ] && [ -n "${PS1:-}" ] && [ -z "${POSIXLY_CORRECT:-}" ]; then
  . @PKGV@/init/lmod_bash_completions
 fi
 
