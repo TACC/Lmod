@@ -119,9 +119,9 @@ local function l_processNewModulePATH(path)
    local fullName    = moduleStack[iStack].fullName
    local t           = mpathMapT[mpath_new] or {}
    t[fullName]       = mpath_old
-   dbg.print{"mpath_old:  ",mpath_old,"\n"}
-   dbg.print{"mpath_new:  ",mpath_new,"\n"}
-   dbg.print{"new ~= old: ",mpath_new ~= mpath_old,"\n"}
+   dbg.print{"mpath_old:  \"",mpath_old,"\"\n"}
+   dbg.print{"mpath_new:  \"",mpath_new,"\"\n"}
+   dbg.print{"new ~= old:  ",mpath_new ~= mpath_old,"\n"}
 
    if (mpath_new ~= mpath_old) then
       mpathMapT[mpath_new] = t
