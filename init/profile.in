@@ -90,6 +90,10 @@ case ${my_shell} in
    *) my_shell="sh";;
 esac
 
+if [ -n ${POSIXLY_CORRECT:-} ]; then 
+   my_shell="sh"
+fi
+
 if [ -f @PKGV@/init/$my_shell ]; then
    .    @PKGV@/init/$my_shell >/dev/null # Module Support
 else
