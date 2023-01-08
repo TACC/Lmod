@@ -142,7 +142,9 @@ And B::
     \item Normal use: exit from loop.
     \item A bare TCL break is normally an error
     \item Lmod (and Tmod) stops evaluating current module.
-    \item It keeps all previous module evaluations intact
+    \item Lmod keeps all previous module evaluations intact
+    \item Lmod continues evaluating after break
+    \item Not sure what Tmod3 and Tmod do w.r.t. break
   \end{itemize}
 \end{frame}
 
@@ -152,7 +154,7 @@ And B::
   \begin{itemize}
     \item \texttt{module load A B brkModule D}
     \item modules A and B are still loaded 
-    \item no brkModule
+    \item brkModule is essentially ignored
     \item D is loaded.
     \item \texttt{module load A B errModule D}
     \item Lmod internally loads A \& B
@@ -185,23 +187,23 @@ And B::
      \}
      if \{\$sourceFailed\} \{
         if \{ \$sourceFailed == 3 || \$errorMsg == {invoked "break" outside of a loop}\} \{
-     	     set returnVal 1
-     	     myBreak             # output "LmodBreak into Global 
-             showResults         # Write output
-     	     return \$returnVal   # return with error status
+           set returnVal 1
+           myBreak             # output "LmodBreak into Global 
+           showResults         # Write output
+           return \$returnVal   # return with error status
         \}
         reportError \$errorMsg   # output error message
         set returnVal 1         # return with error status
      \}
      showResults                 # Write output for normal translation
-     return $returnVal           # return with OK status
+     return \$returnVal           # return with OK status
  \}]
     \end{semiverbatim}
 }
   \begin{itemize}
     \item A bare break is an error in TCL
     \item tcl2lua.tcl captures that
-    \item generates "LmodBreak()"
+    \item generates ''LmodBreak()''
   \end{itemize}
 
 \end{frame}
@@ -362,8 +364,8 @@ Version 9
 % page 22
 \begin{frame}{Future Topics}
   \begin{itemize}
-    \item No Meeting in Feb (I'm on vacation)
-    \item Next Meeting March 14th.
+    \item I am on vacation (a.k.a holiday) in early February
+    \item Next Meeting will be Feb 14th 
   \end{itemize}
 \end{frame}
 
