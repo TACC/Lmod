@@ -64,7 +64,7 @@ testdescript = {
      runLmod spider smrt                                                      #28
      runLmod spider petsc/3.1                                                 #29
 
-     mv $HOME/.cache/lmod $HOME/.lmod.d/.old.cache 
+     mv $HOME/.cache/lmod $HOME/.cache/.old.cache 
      unsetMT
      export LMOD_CASE_INDEPENDENT_SORTING=yes
      export LMOD_RC=$testDir/lmodrc.lua
@@ -167,6 +167,7 @@ testdescript = {
 
      unsetMT
      export MODULEPATH=$testDir/mf4/Core
+     export EBVERSIONPYTHON="3.7"
      runLmod avail                                                            #75
 
 
