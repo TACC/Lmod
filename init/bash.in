@@ -32,6 +32,8 @@ if [ $SUPPORT_KSH = yes -o -n "${KSH_VERSION+x}" ]; then
 fi
 unset SUPPORT_KSH
 
+LMOD_SHELL_PID=$$
+
 findExec ()
 {
   Nm=$1
@@ -50,6 +52,7 @@ findExec ()
 
 set_shell_prgm()
 {
+  local myPID=$1
   findExec READLINK_CMD @readlink@  readlink
   findExec PS_CMD       @ps@        ps
   findExec EXPR_CMD     @expr@      expr
@@ -58,9 +61,9 @@ set_shell_prgm()
   export LMOD_SHELL_PRGM=@my_shell@
   if [ -x $PS_CMD -a -x $EXPR_CMD -a -x $BASENAME_CMD -a -x $READLINK_CMD ]; then
     if [ -f /proc/$$/exe ]; then
-      my_shell=$($READLINK_CMD /proc/$$/exe)
+      my_shell=$($READLINK_CMD /proc/$myPID/exe)
     else
-      my_shell=$($PS_CMD -p $$ -ocomm=)
+      my_shell=$($PS_CMD -p $myPID -ocomm=)
     fi
     my_shell=$($EXPR_CMD    "$my_shell" : '-*\(.*\)')
     my_shell=$($BASENAME_CMD $my_shell)
@@ -124,7 +127,7 @@ if [ "@silence_shell_debugging@" = "no" ]; then
    module()
    {
      if [ -z "${LMOD_SHELL_PRGM:-}" ]; then
-       set_shell_prgm
+       set_shell_prgm $LMOD_SHELL_PID
      fi
      ############################################################
      # Run Lmod and eval results
@@ -149,7 +152,7 @@ else
      fi
 
      if [ -z "${LMOD_SHELL_PRGM:-}" ]; then
-       set_shell_prgm
+       set_shell_prgm $LMOD_SHELL_PID
      fi
      ############################################################
      # Run Lmod and eval results
