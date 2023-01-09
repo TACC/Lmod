@@ -47,28 +47,32 @@ findExec ()
   fi
   unset Nm confPath execNm
 }
-findExec READLINK_CMD @readlink@  readlink
-findExec PS_CMD       @ps@        ps
-findExec EXPR_CMD     @expr@      expr
-findExec BASENAME_CMD @basename@  basename
 
-export LMOD_SHELL_PRGM=@my_shell@
-if [ -x $PS_CMD -a -x $EXPR_CMD -a -x $BASENAME_CMD -a -x $READLINK_CMD ]; then
-  if [ -f /proc/$$/exe ]; then
-     my_shell=$($READLINK_CMD /proc/$$/exe)
-  else
-     my_shell=$($PS_CMD -p $$ -ocomm=)
-  fi 
-  my_shell=$($EXPR_CMD    "$my_shell" : '-*\(.*\)')
-  my_shell=$($BASENAME_CMD $my_shell)
-  case ${my_shell} in
-     bash|zsh|sh) ;;
-     ksh*) my_shell="ksh";;
-     *) my_shell="sh";;
-  esac
-  LMOD_SHELL_PRGM=$my_shell
-  unset my_shell
-fi
+set_shell_prgm()
+{
+  findExec READLINK_CMD @readlink@  readlink
+  findExec PS_CMD       @ps@        ps
+  findExec EXPR_CMD     @expr@      expr
+  findExec BASENAME_CMD @basename@  basename
+
+  export LMOD_SHELL_PRGM=@my_shell@
+  if [ -x $PS_CMD -a -x $EXPR_CMD -a -x $BASENAME_CMD -a -x $READLINK_CMD ]; then
+    if [ -f /proc/$$/exe ]; then
+      my_shell=$($READLINK_CMD /proc/$$/exe)
+    else
+      my_shell=$($PS_CMD -p $$ -ocomm=)
+    fi
+    my_shell=$($EXPR_CMD    "$my_shell" : '-*\(.*\)')
+    my_shell=$($BASENAME_CMD $my_shell)
+    case ${my_shell} in
+      bash|zsh|sh) ;;
+      ksh*) my_shell="ksh";;
+      *) my_shell="sh";;
+    esac
+    LMOD_SHELL_PRGM=$my_shell
+    unset my_shell
+  fi
+}
 
 
 export LMOD_ROOT=@lmod_root@
@@ -119,6 +123,9 @@ export LMOD_SETTARG_FULL_SUPPORT=@lmod_settarg_full_support@
 if [ "@silence_shell_debugging@" = "no" ]; then
    module()
    {
+     if [ -z "${LMOD_SHELL_PRGM:-}" ]; then
+       set_shell_prgm
+     fi
      ############################################################
      # Run Lmod and eval results
      eval "$($LMOD_CMD $LMOD_SHELL_PRGM "$@")" && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
@@ -141,6 +148,9 @@ else
         echo "Shell debugging temporarily silenced: export LMOD_SH_DBG_ON=1 for Lmod's output" 1>&2
      fi
 
+     if [ -z "${LMOD_SHELL_PRGM:-}" ]; then
+       set_shell_prgm
+     fi
      ############################################################
      # Run Lmod and eval results
      eval "$($LMOD_CMD $LMOD_SHELL_PRGM "$@")" && eval "$(${LMOD_SETTARG_CMD:-:} -s sh)"
