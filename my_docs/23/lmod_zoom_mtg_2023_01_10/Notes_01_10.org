@@ -1,0 +1,132 @@
+Notes for Jan. 10th presentation on part 3 on TCL modulefile
+evaluation:
+
+* Previously we have talked about how TCL modulefiles are eval'ed
+* As a reminder
+** Each TCL modulefile is converted to lua by the tcl2lua.tcl script
+** Normal TCL command are evaluated and TCL module commands cause the generation of Lua module commands
+** Note that this is two part process so somethings won't work in Lmod with TCL modules:
+** Suppose you have a module named Centos and B
+Centos::
+
+    #%Module
+    setenv SYSTEM_NAME Centos
+
+And B::
+
+    #%Module
+    module load Centos
+
+    if { $env(SYSTEM_NAME) == "Centos" } {
+       # do something
+    }
+
+** The B TCL module translate into Lua as:
+   load("Centos")
+   LmodError([[/opt/mfiles/B: (???): can't read "env(SYSTEM_NAME)": no such variable]])
+
+* Note that .version and .modulerc file are eval'ed by RC2lua.tcl script
+** It only understands TCL commands like:
+    module-version
+    module-alias
+** It doesn't understand 
+    setenv
+    etc.
+** I don't know what setenv means in a .modulerc file
+
+* Supporting a bare break in TCL modulefiles and LmodBreak in Lua modulefiles
+** Normal use of break is to exit out of loops:
+
+    set a 10
+
+    while {$a < 20 } {
+       puts "value of a: $a"
+       incr a
+       if { $a > 15} {
+          break
+       }
+    }
+** A bare break is supposed to stop evaluating the current module but keep all other previous eval'ed modules
+** So 
+    $ module load A B Module_w_break D
+** Only A and B will be loaded not Module_w_break or D
+** Normally no modules are loaded if one errors out:
+    $ module load A B Module_w_error 
+    --> no module loaded
+** Lmod internally evaluates A then B and then 
+** When Module_w_error fails Lmod just doesn't output env. changes to A and B.
+
+* To support this requires support in tcl2lua.tcl and in Lmod
+* In TCL
+** In tcl2lua.tcl requires this hack:
+ 
+    set errorVal [interp eval $child {
+        set returnVal 0
+        initGA           # initialize Global output array
+        
+	set sourceFailed [catch {source $ModulesCurrentModulefile } errorMsg]
+        if { $g_help ...} {
+          ...
+        }
+        if {$sourceFailed} {
+	    if { $sourceFailed == 3 || $errorMsg == {invoked "break" outside of a loop}} {
+		set returnVal 1
+		myBreak             # output "LmodBreak into Global 
+		return $returnVal   # return with error status
+	    }
+            reportError $errorMsg   # output error message
+	    set returnVal 1         # return with error status
+        }
+        showResults                 # Write output for normal translation
+	return $returnVal           # return with OK status
+    }]
+
+** The point is that a bare break generate a TCL error 
+** And Lmod uses this halt the evaluation of modules
+** But it is DIFFERENT from erroring out
+
+* To support a bare TCL break or LmodBreak(), Lmod does the following:
+** It has a FrameStk.  This idea is stolen from compilers generate code for routines
+** Each Entry in the stack contains
+*** VarT: The table containing the new env vars and shell functions etc.   
+*** ModuleTable: The currently loaded modules and other state variables like MODULEPATH
+*** mname:  Current module object to be loaded.
+
+* Each load of a module creates a new FrameStk Entry
+** If the current module loads correctly then the FrameStk Entry over writes the previous entry
+** If the current module fails to load via a break then the current entry on the FrameStk is thrown away
+** This way "module load A B Module_w_break"  
+The frame stack keeps the "A" and "B" entry
+and the "Module_w_break" entry is ignored
+
+* Support for the FrameStk was part of the Lmod 7 re-write
+* Support for Lmod Break was incorrectly added in Lmod 8.6
+* Fixed in Lmod 8.7+
+
+* Getting the Help message from TCL was tricky
+** The code in tcl2lua.tcl contains:
+        if { $g_help && [info procs "ModulesHelp"] == "ModulesHelp" } {
+            set start "help(\[===\["
+            set end   "\]===\])"
+            setPutMode "inHelp"
+            myPuts stdout $start
+	    catch { ModulesHelp } errMsg
+            myPuts stdout $end
+            setPutMode "normal"
+        }
+** So iff help is request from a TCL module does it run the only code to generate the help message.
+** Lua support quotes of the form [===[...]===].  
+    This way I don't have to deal with protecting quotes
+
+* the tcl function puts call "myPuts" 
+* myPuts handles all printing from a modulefile
+** puts can only have 1 to 3 arguments
+** puts <-nonewline> <channel> msg
+** puts msg           -> writes to stdout (at end)
+** puts stdout msg    -> writes to stdout (at end)
+** puts stderr msg    -> writes to stderr
+** puts prestdout msg -> writes to stdout but at the beginning of output
+
+* It took years to get this correct.
+* Messages to stderr go to the terminal (i.e. user)
+* Messages to stdout will be evaluated by the shell or python or whatever
