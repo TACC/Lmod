@@ -32,8 +32,6 @@ if [ $SUPPORT_KSH = yes -o -n "${KSH_VERSION+x}" ]; then
 fi
 unset SUPPORT_KSH
 
-LMOD_SHELL_PID=$$
-
 findExec ()
 {
   Nm=$1
@@ -78,6 +76,11 @@ set_shell_prgm()
 }
 
 
+if [ -z ${LMOD_SHELL_ORIG_PID:-} ]; then
+   export LMOD_SHELL_ORIG_PID=$$
+fi
+
+export LMOD_SHELL_PID=$$
 export LMOD_ROOT=@lmod_root@
 export LMOD_PKG=@PKGV@
 export LMOD_DIR=$LMOD_PKG/libexec
@@ -126,7 +129,7 @@ export LMOD_SETTARG_FULL_SUPPORT=@lmod_settarg_full_support@
 if [ "@silence_shell_debugging@" = "no" ]; then
    module()
    {
-     if [ -z "${LMOD_SHELL_PRGM:-}" ]; then
+     if [ $LMOD_SHELL_ORIG_PID != $LMOD_SHELL_PID ]; then
        set_shell_prgm $LMOD_SHELL_PID
      fi
      ############################################################
@@ -151,7 +154,7 @@ else
         echo "Shell debugging temporarily silenced: export LMOD_SH_DBG_ON=1 for Lmod's output" 1>&2
      fi
 
-     if [ -z "${LMOD_SHELL_PRGM:-}" ]; then
+     if [ $LMOD_SHELL_ORIG_PID != $LMOD_SHELL_PID ]; then
        set_shell_prgm $LMOD_SHELL_PID
      fi
      ############################################################
