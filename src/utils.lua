@@ -1094,10 +1094,17 @@ end
 
 function dynamic_shell(shellNm)
    local BaseShell = require("BaseShell") 
+   local success   = false
+   
+   if (shellNm ~= "shell") then
+      if (BaseShell.isValid(shellNm)) then
+         success = true
+      end
+      return shellNm, success
+   end
    local ppid      = posix.getpid("ppid")
    local system    = posix.uname("%s")
    local n         = shellNm
-   local success   = false
    if (system == "Linux") then
       n = posix.readlink("/proc/"..ppid.."/exe")
       n = barefilename(n)
@@ -1111,9 +1118,6 @@ function dynamic_shell(shellNm)
    end
    if (BaseShell.isValid(n)) then
       shellNm = n
-   end
-   if (BaseShell.isValid(shellNm)) then
-      success = true
    end
    return shellNm, success
 end
