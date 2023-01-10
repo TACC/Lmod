@@ -1094,6 +1094,13 @@ end
 
 function dynamic_shell(shellNm)
    local BaseShell = require("BaseShell") 
+   if (shellNm ~= "shell") then
+      if (BaseShell.isValid(shellNm)) then
+         success = true
+      end
+      return shellNm, success
+   end
+
    local ppid      = posix.getpid("ppid")
    local system    = posix.uname("%s")
    local n         = shellNm
@@ -1111,9 +1118,6 @@ function dynamic_shell(shellNm)
    end
    if (BaseShell.isValid(n)) then
       shellNm = n
-      success = true
-   end
-   if (BaseShell.isValid(shellNm)) then
       success = true
    end
    return shellNm, success
