@@ -1111,7 +1111,6 @@ function dynamic_shell(shellNm)
    end
    if (BaseShell.isValid(n)) then
       shellNm = n
-      success = true
    end
    if (BaseShell.isValid(shellNm)) then
       success = true
