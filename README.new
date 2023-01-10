@@ -60,6 +60,6 @@ Lmod 8.7+
             * Issue #604: Fixed bug where ref_count was not passed to swapped modules.
    (8.7.15) * Issue #613: setenv and pushenv change local environment when runniing spider (and avail)
    (8.7.16) * Issue #619: Do not source lmod_bash_aliases when $POSIXLY_CORRECT is set (by bash --posix)
-            * Issue #620: Dynamically set shell name inside Lmod
+            * Issue #620: Dynamically set shell name inside Lmod instead of init/bash.in
 	    * Added debugging stmts to track down issue when adding loop in MODULEPATH when doing a spider.
-	    
+            * Zsh now gets /path/to/ksh_scripts if KSH_SUPPORT is yes.	    
