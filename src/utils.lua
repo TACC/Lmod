@@ -1107,7 +1107,7 @@ function dynamic_shell(shellNm)
          ps_cmd = "ps"
       end
       local cmd    = ps_cmd.." "..ppid.." -ocomm="
-      n            = capture(cmd):gsub("^%-","")
+      n            = capture(cmd):gsub("^%-",""):gsub("%s+$","")
    end
    if (BaseShell.isValid(n)) then
       shellNm = n
