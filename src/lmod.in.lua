@@ -341,9 +341,11 @@ function main()
 
    dbg.set_prefix(colorize("red","Lmod"))
 
-   local shellNm, success = dynamic_shell("bash")
+   local shellNm, success = dynamic_shell(arg[1])
    if (success) then
       table.remove(arg,1)
+   else
+      shellNm = "bash"
    end
 
    local optionTbl = optionTbl()

@@ -1113,5 +1113,8 @@ function dynamic_shell(shellNm)
       shellNm = n
       success = true
    end
+   if (BaseShell.isValid(shellNm)) then
+      success = true
+   end
    return shellNm, success
 end
