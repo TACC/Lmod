@@ -103,6 +103,19 @@ and the "Module_w_break" entry is ignored
 * Support for Lmod Break was incorrectly added in Lmod 8.6
 * Fixed in Lmod 8.7+
 
+* the tcl function puts call "myPuts" 
+* myPuts handles all printing from a modulefile
+** puts can only have 1 to 3 arguments
+** puts <-nonewline> <channel> msg
+** puts msg           -> writes to stdout (at end)
+** puts stdout msg    -> writes to stdout (at end)
+** puts stderr msg    -> writes to stderr
+** puts prestdout msg -> writes to stdout but at the beginning of output
+
+* It took years to get this correct.
+* Messages to stderr go to the terminal (i.e. user)
+* Messages to stdout will be evaluated by the shell or python or whatever
+
 * Getting the Help message from TCL was tricky
 ** The code in tcl2lua.tcl contains:
         if { $g_help && [info procs "ModulesHelp"] == "ModulesHelp" } {
@@ -118,15 +131,3 @@ and the "Module_w_break" entry is ignored
 ** Lua support quotes of the form [===[...]===].  
     This way I don't have to deal with protecting quotes
 
-* the tcl function puts call "myPuts" 
-* myPuts handles all printing from a modulefile
-** puts can only have 1 to 3 arguments
-** puts <-nonewline> <channel> msg
-** puts msg           -> writes to stdout (at end)
-** puts stdout msg    -> writes to stdout (at end)
-** puts stderr msg    -> writes to stderr
-** puts prestdout msg -> writes to stdout but at the beginning of output
-
-* It took years to get this correct.
-* Messages to stderr go to the terminal (i.e. user)
-* Messages to stdout will be evaluated by the shell or python or whatever

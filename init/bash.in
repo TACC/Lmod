@@ -32,61 +32,11 @@ if [ $SUPPORT_KSH = yes -o -n "${KSH_VERSION+x}" ]; then
 fi
 unset SUPPORT_KSH
 
-findExec ()
-{
-  Nm=$1
-  confPath=$2
-  execNm=$3
-  eval $Nm=$confPath
-  if [ ! -x $confPath ]; then
-    if [ -x /bin/$execNm ]; then
-       eval $Nm=/bin/$execNm
-    elif [ -x /usr/bin/$execNm ]; then
-       eval $Nm=/usr/bin/$execNm
-    fi
-  fi
-  unset Nm confPath execNm
-}
-
-set_shell_prgm()
-{
-  local myPID=$1
-  findExec READLINK_CMD @readlink@  readlink
-  findExec PS_CMD       @ps@        ps
-  findExec EXPR_CMD     @expr@      expr
-  findExec BASENAME_CMD @basename@  basename
-
-  export LMOD_SHELL_PRGM=@my_shell@
-  if [ -x $PS_CMD -a -x $EXPR_CMD -a -x $BASENAME_CMD -a -x $READLINK_CMD ]; then
-    if [ -f /proc/$$/exe ]; then
-      my_shell=$($READLINK_CMD /proc/$myPID/exe)
-    else
-      my_shell=$($PS_CMD -p $myPID -ocomm=)
-    fi
-    my_shell=$($EXPR_CMD    "$my_shell" : '-*\(.*\)')
-    my_shell=$($BASENAME_CMD $my_shell)
-    case ${my_shell} in
-      bash|zsh|sh) ;;
-      ksh*) my_shell="ksh";;
-      *) my_shell="sh";;
-    esac
-    LMOD_SHELL_PRGM=$my_shell
-    unset my_shell
-  fi
-}
-
-
-if [ -z ${LMOD_SHELL_ORIG_PID:-} ]; then
-   export LMOD_SHELL_ORIG_PID=$$
-fi
-
-export LMOD_SHELL_PID=$$
 export LMOD_ROOT=@lmod_root@
 export LMOD_PKG=@PKGV@
 export LMOD_DIR=$LMOD_PKG/libexec
 export LMOD_CMD=$LMOD_PKG/libexec/lmod
 export MODULESHOME=$LMOD_PKG
-
 export LMOD_SETTARG_FULL_SUPPORT=@lmod_settarg_full_support@
 
 ########################################################################
@@ -129,12 +79,9 @@ export LMOD_SETTARG_FULL_SUPPORT=@lmod_settarg_full_support@
 if [ "@silence_shell_debugging@" = "no" ]; then
    module()
    {
-     if [ $LMOD_SHELL_ORIG_PID != $LMOD_SHELL_PID ]; then
-       set_shell_prgm $LMOD_SHELL_PID
-     fi
      ############################################################
      # Run Lmod and eval results
-     eval "$($LMOD_CMD $LMOD_SHELL_PRGM "$@")" && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
+     eval "$($LMOD_CMD @my_shell@ "$@")" && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
    }
 else
    module()
@@ -154,12 +101,9 @@ else
         echo "Shell debugging temporarily silenced: export LMOD_SH_DBG_ON=1 for Lmod's output" 1>&2
      fi
 
-     if [ $LMOD_SHELL_ORIG_PID != $LMOD_SHELL_PID ]; then
-       set_shell_prgm $LMOD_SHELL_PID
-     fi
      ############################################################
      # Run Lmod and eval results
-     eval "$($LMOD_CMD $LMOD_SHELL_PRGM "$@")" && eval "$(${LMOD_SETTARG_CMD:-:} -s sh)"
+     eval "$($LMOD_CMD @my_shell@ "$@")" && eval "$(${LMOD_SETTARG_CMD:-:} -s sh)"
      __lmod_my_status=$?
 
      ############################################################

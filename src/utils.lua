@@ -1092,4 +1092,26 @@ function tracing_msg(msgA)
    shell:echo(concatTbl(b,""))
 end
 
-   
+function dynamic_shell(shellNm)
+   local BaseShell = require("BaseShell") 
+   local ppid      = posix.getpid("ppid")
+   local system    = posix.uname("%s")
+   local n         = shellNm
+   local success   = false
+   if (system == "Linux") then
+      n = posix.readlink("/proc/"..ppid.."/exe")
+      n = barefilename(n)
+   elseif (system == "Darwin") then
+      local ps_cmd = "@ps@"
+      if ( ps_cmd:sub(1,1) == "@" ) then
+         ps_cmd = "ps"
+      end
+      local cmd    = ps_cmd.." "..ppid.." -ocomm="
+      n            = capture(cmd):gsub("^%-","")
+   end
+   if (BaseShell.isValid(n)) then
+      shellNm = n
+      success = true
+   end
+   return shellNm, success
+end
