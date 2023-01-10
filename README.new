@@ -63,3 +63,4 @@ Lmod 8.7+
             * Issue #620: Dynamically set shell name inside Lmod instead of init/bash.in
 	    * Added debugging stmts to track down issue when adding loop in MODULEPATH when doing a spider.
             * Zsh now gets /path/to/ksh_scripts if KSH_SUPPORT is yes.	    
+   (8.7.17) * Issue #620: Honor shell name on command line.  Use "shell" when Lmod gets to decide.
