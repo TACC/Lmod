@@ -1098,10 +1098,17 @@ function dynamic_shell(shellNm)
    
    if (shellNm ~= "shell") then
       if (BaseShell.isValid(shellNm)) then
+         -- Trust a valid shell and report the shell name is valid and return
          success = true
+         return shellNm, success
       end
-      return shellNm, success
+   else
+      -- If here then the name of the shell is "shell" and it is "valid"
+      success = true
    end
+
+   ------------------------------------------------------------
+   -- Dynamically find the shell from the parent process
    local ppid      = posix.getpid("ppid")
    local system    = posix.uname("%s")
    local n         = shellNm
@@ -1118,6 +1125,8 @@ function dynamic_shell(shellNm)
    end
    if (BaseShell.isValid(n)) then
       shellNm = n
+   else
+      shellNm = "bash"  -- If "n" is not a valid shell assume bash.
    end
    return shellNm, success
 end
