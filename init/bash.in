@@ -25,10 +25,10 @@ fi
 
 SUPPORT_KSH="@support_ksh@"
 if [ $SUPPORT_KSH = yes -o -n "${KSH_VERSION+x}" ]; then
-  if [ -z "${__LMOD_SET_FPATH+x}" ]; then
-    export FPATH=$(@PKGV@/libexec/addto FPATH @PKGV@/init/ksh_funcs @zsh_fpath@)
-    export __LMOD_SET_FPATH=1
-  fi
+   if [ -z "${__LMOD_SET_FPATH+x}" ]; then
+      export FPATH=$(@PKGV@/libexec/addto FPATH @PKGV@/init/ksh_funcs @zsh_fpath@)
+      export __LMOD_SET_FPATH=1
+   fi
 fi
 unset SUPPORT_KSH
 
