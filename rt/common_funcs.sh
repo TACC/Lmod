@@ -150,7 +150,7 @@ runMe ()
 }
 runLmod ()
 {
-   runBase $LUA_EXEC $projectDir/src/lmod.in.lua bash --regression_testing "$@"
+   runBase $LUA_EXEC $projectDir/src/lmod.in.lua shell --regression_testing "$@"
    eval "`cat _stdout.$NUM`"
 }
 
@@ -306,7 +306,7 @@ initStdEnvVars()
 userCacheDir ()
 {
   name='User Cache Directory *'
-  dir=$($LUA_EXEC $projectDir/src/lmod.in.lua bash --config 2>&1 | grep "$name")
+  dir=$($LUA_EXEC $projectDir/src/lmod.in.lua shell --config 2>&1 | grep "$name")
   dir=$(echo $dir | sed -e "s/$name//")
   echo $dir
 }
