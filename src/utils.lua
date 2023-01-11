@@ -1126,7 +1126,7 @@ function dynamic_shell(shellNm)
       if ( ps_cmd:sub(1,1) == "@" ) then
          ps_cmd = "ps"
       end
-      local cmd    = ps_cmd.." "..ppid.." -ocomm="
+      local cmd    = ps_cmd.." -p "..ppid.." -ocomm="
       n            = capture(cmd):gsub("^%-",""):gsub("%s+$","")
    end
    if (BaseShell.isValid(n)) then
@@ -1134,4 +1134,5 @@ function dynamic_shell(shellNm)
    else
       shellNm = "bash"  -- If "n" is not a valid shell assume bash.
    end
+   return shellNm, success
 end
