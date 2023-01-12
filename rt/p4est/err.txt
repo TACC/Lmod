@@ -1,12 +1,12 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing av
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing av
 ===========================
 ProjectDIR/rt/p4est/mf/Core
    local (D)    p4est/1.1
@@ -21,7 +21,7 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden av
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden av
 ===========================
 ProjectDIR/rt/p4est/mf/Core
    a/.1.1 (H)    a/.1.2 (H)    local (D)    p4est/.1.2 (H)    p4est/1.1 (D)
@@ -37,15 +37,15 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load p4est
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load p4est
 ===========================
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load local
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load local
 ===========================
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) p4est/1.1   2) local

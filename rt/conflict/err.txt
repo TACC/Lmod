@@ -1,16 +1,16 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a b
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load a b
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load c
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load c
 ===========================
 Lmod has detected the following error: Cannot load module "c" because these module(s) are loaded:
    b
@@ -19,13 +19,13 @@ While processing the following module(s):
     c                ProjectDIR/rt/conflict/mf/c.lua
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) a   2) b
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap a c
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing swap a c
 ===========================
 Lmod has detected the following error: Cannot load module "c" because these module(s) are loaded:
    b
@@ -34,17 +34,17 @@ While processing the following module(s):
     c                ProjectDIR/rt/conflict/mf/c.lua
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) a   2) b
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load e/2.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load e/2.0
 ===========================
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load d
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load d
 ===========================
 Lmod has detected the following error: Cannot load module "d/1.0" because these module(s) are loaded:
    e/2.0
@@ -53,15 +53,15 @@ While processing the following module(s):
     d/1.0            ProjectDIR/rt/conflict/mf/d/1.0.lua
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load e/1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load e/1.0
 ===========================
 The following have been reloaded with a version change:
   1) e/2.0 => e/1.0
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load d
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load d
 ===========================
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load f
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load f
 ===========================

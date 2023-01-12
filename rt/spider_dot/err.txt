@@ -1,12 +1,12 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 The following is a list of the modules and extensions currently available:
   fftw/3.3.4/gcc: fftw/3.3.4/gcc/4.8.5
@@ -18,7 +18,7 @@ must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden spider
 ===========================
 The following is a list of the modules and extensions currently available:
   fftw/.pkginfo: fftw/.pkginfo
@@ -31,26 +31,26 @@ must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden -t spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden -t spider
 ===========================
 fftw/.pkginfo
 fftw/3.3.4/gcc/
 fftw/3.3.4/gcc/4.8.5
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider fftw
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider fftw
 ===========================
   fftw/3.3.4/gcc: fftw/3.3.4/gcc/4.8.5
     This module can be loaded directly: module load fftw/3.3.4/gcc/4.8.5
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider fft
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider fft
 ===========================
   fftw/3.3.4/gcc: fftw/3.3.4/gcc/4.8.5
     This module can be loaded directly: module load fftw/3.3.4/gcc/4.8.5
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider test/1.2.3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider test/1.2.3
 ===========================
   test: test/1.2.3
     You will need to load all module(s) on any one of the lines below before the "test/1.2.3" module is available to load.
@@ -58,7 +58,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider test/1.2.3
       cluster/one
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider test/1.2.3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden spider test/1.2.3
 ===========================
   test: test/1.2.3
     You will need to load all module(s) on any one of the lines below before the "test/1.2.3" module is available to load.
@@ -66,13 +66,13 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider te
       cluster/one
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider cluster
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider cluster
 ===========================
   cluster: cluster/one
     This module can be loaded directly: module load cluster/one
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider cluster
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden spider cluster
 ===========================
   cluster:
      Versions:

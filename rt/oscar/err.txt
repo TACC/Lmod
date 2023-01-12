@@ -1,16 +1,16 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load oscar
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load oscar
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show oscar
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show oscar
 ===========================
    ProjectDIR/rt/oscar/mf/Core/oscar.lua:
 help([[	This module sets up the OSCAR modules subsystem.]])
@@ -21,7 +21,7 @@ load("b")
 load("c")
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) a   2) b   3) c   4) oscar

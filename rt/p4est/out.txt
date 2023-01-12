@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing av
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing av
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/p4est/mf/Core:1\;ProjectDIR/rt/p4est/mf/User:1;
 export __LMOD_REF_COUNT_MODULEPATH;
@@ -14,7 +14,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden av
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden av
 ===========================
 MODULEPATH=ProjectDIR/rt/p4est/mf/Core:ProjectDIR/rt/p4est/mf/User;
 export MODULEPATH;
@@ -22,7 +22,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load p4est
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load p4est
 ===========================
 LOADEDMODULES=p4est/1.1;
 export LOADEDMODULES;
@@ -36,7 +36,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={p4est={fn="Pro
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load local
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load local
 ===========================
 LOADEDMODULES=p4est/1.1:local;
 export LOADEDMODULES;
@@ -50,7 +50,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={["local"]={fn=
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/p4est/mf/Core:ProjectDIR/rt/p4est/mf/User;
 export MODULEPATH;

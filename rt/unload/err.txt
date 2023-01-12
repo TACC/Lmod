@@ -1,12 +1,12 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.15  2022-03-17 16:13 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 The following is a list of the modules and extensions currently available:
   B: B/2.0
@@ -22,15 +22,15 @@ must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load intel
 ===========================
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load mpich2 petsc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load mpich2 petsc
 ===========================
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5
    petsc/3.2 (L)
@@ -47,23 +47,23 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) intel/13.0   2) mpich2/1.5.2   3) petsc/3.2
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload intel
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload intel
 ===========================
 Inactive Modules:
   1) mpich2     2) petsc
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load B
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B
 ===========================
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload B
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload B
 ===========================
 Lmod Warning: Error in unload of B/2.0
 While processing the following module(s):

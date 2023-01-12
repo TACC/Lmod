@@ -1,57 +1,57 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.12  2022-02-09 16:10 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/rt/delim/mf/Core
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use -a ProjectDIR/rt/delim/mf/Core
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load init_lua
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load init_lua
 ===========================
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load luaposix
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load luaposix
 ===========================
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload luaposix
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload luaposix
 ===========================
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load init_lua
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load init_lua
 ===========================
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load luaposix
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load luaposix
 ===========================
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) init_lua/5.1.4   2) luaposix/1.0
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload init_lua luaposix
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload init_lua luaposix
 ===========================
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 No modules loaded
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ncarIntel
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load ncarIntel
 ===========================
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ncarNetcdf
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load ncarNetcdf
 ===========================
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload ncarNetcdf
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload ncarNetcdf
 ===========================

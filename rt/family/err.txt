@@ -1,12 +1,12 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.7.6  2022-06-25 15:58 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T load ibmA openmpi phdf5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -T load ibmA openmpi phdf5
 ===========================
 running: module --regression_testing -T load ibmA openmpi phdf5
   (1)(0)Loading: ibmA (fn: ProjectDIR/rt/family/mf/Core/ibmA/13.1.6.lua, using Find-Best)
@@ -19,7 +19,7 @@ running: module --regression_testing -T load ibmA openmpi phdf5
   reloadAll(1)(compiler-common/.ibm, ibmA, mpi-common/.openmpi, openmpi, phdf5)
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) compiler-common/.ibm (H)   3) mpi-common/.openmpi (H)   5) phdf5/1.8.18
@@ -28,7 +28,7 @@ Currently Loaded Modules:
    H:  Hidden Module
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T load gccA
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -T load gccA
 ===========================
 running: module --regression_testing -T load gccA
   (1)(0)Loading: gccA (fn: ProjectDIR/rt/family/mf/Core/gccA/7.1.0.lua, using Find-Best)
@@ -63,7 +63,7 @@ The following have been reloaded with a version change:
   1) compiler-common/.ibm => compiler-common/.gcc
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/family/mf/Core
    gcc/7.1.0    gccA/7.1.0 (L)    ibm/13.1.6    ibmA/13.1.6    tcc/1.0
@@ -80,7 +80,7 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T load ibmA
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -T load ibmA
 ===========================
 running: module --regression_testing -T load ibmA
   (1)(0)Loading: ibmA (fn: ProjectDIR/rt/family/mf/Core/ibmA/13.1.6.lua, using Find-Best)
@@ -115,7 +115,7 @@ The following have been reloaded with a version change:
   1) compiler-common/.gcc => compiler-common/.ibm
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load tcc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load tcc
 ===========================
 Lmod has detected the following error: family names must be start with a letter or underscore followed letters, numbers and underscores (Not: "tcc-compiler")
 While processing the following module(s):

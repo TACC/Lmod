@@ -1,32 +1,32 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.12  2022-02-09 16:10 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc python
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc python
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) gcc/4.7.2   2) python/2.7.3
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing save default
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing save default
 ===========================
 Saved current collection of modules to: "default"
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
 ===========================
 Restoring modules from user's default
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 The following is a list of the modules and extensions currently available:
   gcc: gcc/4.7.2
@@ -41,7 +41,7 @@ must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider python
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider python
 ===========================
   python:
     Description:

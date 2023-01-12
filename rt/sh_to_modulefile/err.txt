@@ -1,6 +1,6 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.7.12  2022-08-18 15:45 -05:00
     by Robert McLay mclay@tacc.utexas.edu
@@ -39,7 +39,7 @@ If this is a bash script please try:
 See https://lmod.readthedocs.io/en/latest/260_sh_to_modulefile.html for details.
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show wrapperSh/1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show wrapperSh/1.0
 ===========================
    ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua:
  source_sh("bash","ProjectDIR/rt/sh_to_modulefile/tstScript.sh")
@@ -78,11 +78,11 @@ setenv("MY_NAME","tstScript.sh")
 setenv("SECOND","FOO_BAR")
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load wrapperSh/1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load wrapperSh/1.0
 ===========================
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show wrapperSh/1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show wrapperSh/1.0
 ===========================
    ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua:
  source_sh("bash","ProjectDIR/rt/sh_to_modulefile/tstScript.sh")
@@ -121,17 +121,17 @@ setenv("MY_NAME","tstScript.sh")
 setenv("SECOND","FOO_BAR")
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing refresh
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing refresh
 ===========================
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) wrapperSh/1.0
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --mt
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
 ===========================
 _ModuleTable_ = {
   MTversion = 3,
@@ -185,11 +185,11 @@ _ModuleTable_ = {
 }
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload wrapperSh/1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload wrapperSh/1.0
 ===========================
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load brokenSh/1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load brokenSh/1.0
 ===========================
 Lmod has detected the following error: Error found in sourcing script "ProjectDIR/rt/sh_to_modulefile/broken.sh":
 ProjectDIR/rt/sh_to_modulefile/broken.sh: line 3: fooBar: command not found
@@ -201,21 +201,21 @@ While processing the following module(s):
     brokenSh/1.0     ProjectDIR/rt/sh_to_modulefile/mf/brokenSh/1.0.lua
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load wrapperSh/1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load wrapperSh/1.0
 ===========================
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing save
 ===========================
 Saved current collection of modules to: "default"
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
 ===========================
 Restoring modules from user's default
 ===========================
 step 19
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --mt
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
 ===========================
 _ModuleTable_ = {
   MTversion = 3,
@@ -269,11 +269,11 @@ _ModuleTable_ = {
 }
 ===========================
 step 20
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
 ===========================
 ===========================
 step 21
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) A/1.0

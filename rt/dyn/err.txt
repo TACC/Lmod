@@ -1,16 +1,16 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.12  2022-02-09 16:10 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel impi
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load intel impi
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T load gcc fenics
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -T load gcc fenics
 ===========================
 running: module --regression_testing -T load gcc fenics
   (1)(0)Loading: gcc (fn: ProjectDIR/rt/dyn/mf/Core/gcc/7.1.lua, using Find-Best)
@@ -35,5 +35,5 @@ Due to MODULEPATH changes, the following have been reloaded:
   1) impi/18.0.1
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc fenics
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc fenics
 ===========================

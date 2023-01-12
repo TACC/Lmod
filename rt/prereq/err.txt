@@ -1,16 +1,16 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.7  2022-04-16 13:49 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load petsc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load petsc
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load slepc/3.0.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load slepc/3.0.0
 ===========================
 Lmod has detected the following error: Cannot load module "slepc/3.0.0". At least one of these module(s) must be loaded:
    petsc/3.0.0
@@ -19,16 +19,16 @@ While processing the following module(s):
     slepc/3.0.0      ProjectDIR/rt/prereq/mf/slepc/3.0.0
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload slepc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload slepc
 ===========================
 Note: the module "slepc" cannot be unloaded because it was not loaded.
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload petsc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload petsc
 ===========================
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load slepc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load slepc
 ===========================
 Lmod has detected the following error: Cannot load module "slepc/3.1.0". At least one of these module(s) must be loaded:
    petsc/3.1.0
@@ -37,11 +37,11 @@ While processing the following module(s):
     slepc/3.1.0      ProjectDIR/rt/prereq/mf/slepc/3.1.0
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load petsc/2.9.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load petsc/2.9.0
 ===========================
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load slepc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load slepc
 ===========================
 Lmod has detected the following error: Cannot load module "slepc/3.1.0". At least one of these module(s) must be loaded:
    petsc/3.1.0
@@ -50,35 +50,35 @@ While processing the following module(s):
     slepc/3.1.0      ProjectDIR/rt/prereq/mf/slepc/3.1.0
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load slepc/2.9.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load slepc/2.9.0
 ===========================
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load petsc/3.1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load petsc/3.1.0
 ===========================
 The following have been reloaded with a version change:
   1) petsc/2.9.0 => petsc/3.1.0
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load slepc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load slepc
 ===========================
 The following have been reloaded with a version change:
   1) slepc/2.9.0 => slepc/3.1.0
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload slepc petsc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload slepc petsc
 ===========================
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load petsc/3.1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load petsc/3.1.0
 ===========================
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load slepc/2.9.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load slepc/2.9.0
 ===========================
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load junk/1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load junk/1.0
 ===========================
 Lmod has detected the following error: Cannot load module "junk/1.0". At least one of these module(s) must be loaded:
    java jdk64 jdk32
@@ -87,9 +87,9 @@ While processing the following module(s):
     junk/1.0         ProjectDIR/rt/prereq/mf/junk/1.0.lua
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load jdk32
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load jdk32
 ===========================
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load junk/1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load junk/1.0
 ===========================

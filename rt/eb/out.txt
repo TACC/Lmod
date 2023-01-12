@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load numpy
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load numpy
 ===========================
 __LMOD_REF_COUNT_CPATH=/home/xyzzy/.local/easybuild/software/Python/2.7.3-goolf-1.4.10/include:1\;/home/xyzzy/.local/easybuild/software/ncurses/5.9-goolf-1.4.10/include:1\;/home/xyzzy/.local/easybuild/software/libreadline/6.2-goolf-1.4.10/include:1\;/home/xyzzy/.local/easybuild/software/zlib/1.2.7-goolf-1.4.10/include:1\;/home/xyzzy/.local/easybuild/software/bzip2/1.0.6-goolf-1.4.10/include:1\;/home/xyzzy/.local/easybuild/software/ScaLAPACK/2.0.2-gompi-1.4.10-OpenBLAS-0.2.6-LAPACK-3.4.2/include:1\;/home/xyzzy/.local/easybuild/software/FFTW/3.3.3-gompi-1.4.10/include:1\;/home/xyzzy/.local/easybuild/software/OpenBLAS/0.2.6-gompi-1.4.10-LAPACK-3.4.2/include:1\;/home/xyzzy/.local/easybuild/software/OpenMPI/1.6.4-GCC-4.7.2/include:1\;/home/xyzzy/.local/easybuild/software/hwloc/1.6.2-GCC-4.7.2/include:1\;/home/xyzzy/.local/easybuild/software/GCC/4.7.2/include:1;
 export __LMOD_REF_COUNT_CPATH;
@@ -128,7 +128,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={FFTW={fn="Proj
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/eb/mf;
 export MODULEPATH;
@@ -136,7 +136,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={FFTW={fn="Proj
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load CMake bam2fastq
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load CMake bam2fastq
 ===========================
 EBDEVELBAM2FASTQ=/home/xyzzy/.local/easybuild/software/bam2fastq/1.1.0-goolf-1.4.10/easybuild/bam2fastq-1.1.0-goolf-1.4.10-easybuild-devel;
 export EBDEVELBAM2FASTQ;
@@ -168,7 +168,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={CMake={fn="Pro
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/eb/mf;
 export MODULEPATH;

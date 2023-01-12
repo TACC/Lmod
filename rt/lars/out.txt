@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load TACC
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load TACC
 ===========================
 APPS=/unknown/apps;
 export APPS;
@@ -104,7 +104,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mvapich2",compi
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/lars/mf/MPI/intel/13.0/mvapich2/1.9:ProjectDIR/rt/lars/mf/Compiler/intel/13.0:ProjectDIR/rt/lars/mf/Core;
 export MODULEPATH;
@@ -112,7 +112,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mvapich2",compi
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap mvapich2 impi
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing swap mvapich2 impi
 ===========================
 __LMOD_REF_COUNT_INFOPATH=/unknown/apps/intel13/impi/4.1/doc:1;
 export __LMOD_REF_COUNT_INFOPATH;
@@ -154,7 +154,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="impi",compiler=
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/lars/mf/MPI/intel/13.0/impi/4.1:ProjectDIR/rt/lars/mf/Compiler/intel/13.0:ProjectDIR/rt/lars/mf/Core;
 export MODULEPATH;
@@ -162,7 +162,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="impi",compiler=
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing save
 ===========================
 MODULEPATH=ProjectDIR/rt/lars/mf/MPI/intel/13.0/impi/4.1:ProjectDIR/rt/lars/mf/Compiler/intel/13.0:ProjectDIR/rt/lars/mf/Core;
 export MODULEPATH;
@@ -170,7 +170,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="impi",compiler=
 export _ModuleTable_;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 unset APPS;
 unset ICC_BIN;
@@ -227,7 +227,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
 ===========================
 APPS=/unknown/apps;
 export APPS;
@@ -329,7 +329,7 @@ __LMOD_DEFAULT_MODULES_LOADED__=1;
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/lars/mf/MPI/intel/13.0/impi/4.1:ProjectDIR/rt/lars/mf/Compiler/intel/13.0:ProjectDIR/rt/lars/mf/Core;
 export MODULEPATH;

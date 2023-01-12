@@ -1,54 +1,54 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a b c
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load a b c
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load d
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load d
 ===========================
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload a
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload a
 ===========================
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload b
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload b
 ===========================
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload c
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload c
 ===========================
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload d
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload d
 ===========================
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a b c
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load a b c
 ===========================
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load d
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load d
 ===========================
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload a
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload a
 ===========================
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload b
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload b
 ===========================
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload c
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload c
 ===========================
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload d
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload d
 ===========================

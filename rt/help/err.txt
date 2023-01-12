@@ -1,12 +1,12 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.7.13  2022-09-14 12:56 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --help
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --help
 ===========================
 Usage: module [options] sub-command [args ...]
 Options:
@@ -110,7 +110,7 @@ Modules based on Lua: Version 8.7.13  2022-09-14 12:56 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing help
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help
 ===========================
 Usage: module [options] sub-command [args ...]
 Options:
@@ -214,7 +214,7 @@ Modules based on Lua: Version 8.7.13  2022-09-14 12:56 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing help amber
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help amber
 ===========================
 Module Specific Help for "amber/9"
 The TACC Amber installation only includes the parallel Sander/pmemd modules.
@@ -228,7 +228,7 @@ sander.LES -i tes.in -o tes.out -p tes.prmtop.save -c tes.x -r tes.rst
 Version 9
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --config
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --config
 ===========================
 Modules based on Lua: Version 8.7.13  2022-09-14 12:56 -05:00
     by Robert McLay mclay@tacc.utexas.edu
@@ -405,7 +405,7 @@ propT = {
 }
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --miniConfig
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --miniConfig
 ===========================
 Modules based on Lua: Version 8.7.13  2022-09-14 12:56 -05:00
     by Robert McLay mclay@tacc.utexas.edu

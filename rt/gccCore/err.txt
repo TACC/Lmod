@@ -1,12 +1,12 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 The following is a list of the modules and extensions currently available:
   boost: boost/1.60.0
@@ -18,14 +18,14 @@ must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider boost/1.60.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider boost/1.60.0
 ===========================
   boost: boost/1.60.0
     You will need to load all module(s) on any one of the lines below before the "boost/1.60.0" module is available to load.
       GCCcore/.6.3
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden spider
 ===========================
 The following is a list of the modules and extensions currently available:
   GCCcore: GCCcore/.6.3
@@ -38,17 +38,17 @@ must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider GCCcore
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden spider GCCcore
 ===========================
   GCCcore: GCCcore/.6.3
     This module can be loaded directly: module load GCCcore/.6.3
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GCCcore
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider GCCcore
 ===========================
 Lmod has detected the following error: Unable to find: "GCCcore".
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GCCcore/.6.3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider GCCcore/.6.3
 ===========================
 Lmod has detected the following error: Unable to find: "GCCcore/.6.3".

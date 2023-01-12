@@ -1,26 +1,26 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.7.12  2022-08-18 15:45 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show gcc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show gcc
 ===========================
    ProjectDIR/rt/show/mf/Core/gcc/4.2.3.lua:
 family("compiler")
 prepend_path("MODULEPATH","ProjectDIR/rt/show/mf/Compiler/gcc/4.2.3")
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show alex
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show alex
 ===========================
    ProjectDIR/rt/show/mf/Core/alex/1.0.lua:
 load("noweb")
 load("git")
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/show/mf/Core
    PrgEnv                   git/1.7.4            junk/d/3.0
@@ -42,41 +42,41 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show boost
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show boost
 ===========================
    ProjectDIR/rt/show/mf/Core/boost/1.49.0.lua:
 setenv("TACC_BOOST_DIR","/unknown/apps/boost/1.49.0")
 add_property("arch","offload")
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load boost/1.47.1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost/1.47.1
 ===========================
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) boost/1.47.1
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show boost
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show boost
 ===========================
    ProjectDIR/rt/show/mf/Core/boost/1.47.1.lua:
 setenv("TACC_BOOST_DIR","/unknown/apps/boost/1.47.1")
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show boost/1.49.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show boost/1.49.0
 ===========================
    ProjectDIR/rt/show/mf/Core/boost/1.49.0.lua:
 setenv("TACC_BOOST_DIR","/unknown/apps/boost/1.49.0")
 add_property("arch","offload")
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/show/mf/Core2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/show/mf/Core2
 ===========================
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show a
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show a
 ===========================
    ProjectDIR/rt/show/mf/Core2/a/1.0.lua:
 conflict("A","B")
@@ -88,14 +88,14 @@ unload("H")
 os.exit("143")
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show b_tcl
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show b_tcl
 ===========================
    ProjectDIR/rt/show/mf/Core2/b_tcl/1.0:
 setenv("A","B")
 os.exit("1")
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show nosuchmodule
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show nosuchmodule
 ===========================
 Lmod Warning: Failed to find the following module(s): "nosuchmodule" in your MODULEPATH
 Try:
@@ -103,12 +103,12 @@ Try:
 to see if the module(s) are available across all compilers and MPI implementations.
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --location show a
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --location show a
 ===========================
 ProjectDIR/rt/show/mf/Core2/a/1.0.lua
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show showMe
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show showMe
 ===========================
    ProjectDIR/rt/show/mf/Core/showMe/2.0.lua:
 setenv("TVAR","/tmp")

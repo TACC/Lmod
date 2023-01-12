@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load genesis
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load genesis
 ===========================
 CPUTYPE=x86_64;
 export CPUTYPE;
@@ -20,7 +20,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={genesis={fn="P
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load common
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load common
 ===========================
 LOADEDMODULES=genesis/1.0:common;
 export LOADEDMODULES;

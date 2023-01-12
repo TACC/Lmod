@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load python B A
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python B A
 ===========================
 A=1.0;
 export A;
@@ -22,7 +22,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="Project
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/pyHier/mf/PyPkg:ProjectDIR/rt/pyHier/mf/Core;
 export MODULEPATH;
@@ -30,7 +30,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="Project
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload python
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload python
 ===========================
 unset A;
 unset B;
@@ -44,7 +44,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="Project
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/pyHier/mf/Core;
 export MODULEPATH;
@@ -52,7 +52,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="Project
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load python
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python
 ===========================
 A=1.0;
 export A;
@@ -70,7 +70,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="Project
 export _ModuleTable_;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/pyHier/mf/PyPkg:ProjectDIR/rt/pyHier/mf/Core;
 export MODULEPATH;
