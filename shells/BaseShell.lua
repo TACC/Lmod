@@ -332,8 +332,8 @@ end
 function M.build(self, shell_name)
    l_createShellTbl()
    local shellNm = shell_name:lower()
-   local t       = l_valid_shell(s_shellTbl, shellNm):create()
-   local o       = t.object
+   local t       = l_valid_shell(s_shellTbl, shellNm)
+   local o       = t.object:create()
    o._active     = true
    o:set_my_name(t.name)
    return o

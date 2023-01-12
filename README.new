@@ -64,3 +64,5 @@ Lmod 8.7+
 	    * Added debugging stmts to track down issue when adding loop in MODULEPATH when doing a spider.
             * Zsh now gets /path/to/ksh_scripts if KSH_SUPPORT is yes.	    
    (8.7.17) * Issue #620: Honor shell name on command line.  Use "shell" when Lmod gets to decide.
+            * Fix bug in keyword terse output: Add newline on final entry (Created in Lmod 8.4.18)
+            * Allow ksh93, mksh and pdksh report shellname (myShellName()) as ksh.
