@@ -341,12 +341,16 @@ function main()
 
    dbg.set_prefix(colorize("red","Lmod"))
 
+   -- Get shell name from 1st argument
    local shellNm, success = dynamic_shell(arg[1])
    if (success) then
       table.remove(arg,1)
    else
       shellNm = "bash"
    end
+
+   -- Build Shell object from shellNm
+   Shell = BaseShell:build(shellNm)
 
    local optionTbl = optionTbl()
    MCP = MainControl.build("load")
@@ -381,6 +385,7 @@ function main()
       dbg.print{"package.cpath: ",package.cpath,"\n"}
       dbg.print{"lmodPath: ", cosmic:value("LMOD_PACKAGE_PATH"),"\n"}
       dbg.print{"LOADEDMODULES: ",getenv("LOADEDMODULES"),"\n"}
+      dbg.print{"shellNm: ",shellNm,", Shell:name(): ",Shell:name(),"\n"}
    end
 
    -- dumpversion and quit if requested.
@@ -389,9 +394,6 @@ function main()
       os.exit(0)
    end
 
-   -- Build Shell object from shellNm
-   Shell = BaseShell:build(shellNm)
-   dbg.print{"shellNm: ",shellNm,", Shell:name(): ",Shell:name(),"\n"}
 
    local tracing = cosmic:value("LMOD_TRACING")
    if (tracing == "yes" ) then
