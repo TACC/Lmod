@@ -1109,10 +1109,10 @@ function dynamic_shell(shellNm)
 
    ------------------------------------------------------------
    -- Dynamically find the shell from the parent process
-   local ppid      = posix.getpid("ppid")
-   local n         = shellNm
-   local fn        = "/proc/"..ppid.."/exe"
-   local found     = false
+   local ppid  = posix.getpid("ppid")
+   local n     = shellNm
+   local fn    = "/proc/"..ppid.."/exe"
+   local found = false
    if (isFile(fn)) then
       n = posix.readlink(fn)
       n = barefilename(n)
@@ -1121,14 +1121,13 @@ function dynamic_shell(shellNm)
          return shellNm, success
       end
    end
-   if (not found) then
-      local ps_cmd = "@ps@"
-      if ( ps_cmd:sub(1,1) == "@" ) then
-         ps_cmd = "ps"
-      end
-      local cmd    = ps_cmd.." -p "..ppid.." -ocomm="
-      n            = capture(cmd):gsub("^%-",""):gsub("%s+$","")
+   
+   local ps_cmd = "@ps@"
+   if ( ps_cmd:sub(1,1) == "@" ) then
+      ps_cmd = "ps"
    end
+   local cmd = ps_cmd.." -p "..ppid.." -ocomm="
+   n         = capture(cmd):gsub("^%-",""):gsub("%s+$","")
    if (BaseShell.isValid(n)) then
       shellNm = n
    else
