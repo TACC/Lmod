@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/rt/delim/mf/Core
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use -a ProjectDIR/rt/delim/mf/Core
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/delim/mf/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
@@ -14,7 +14,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load init_lua
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load init_lua
 ===========================
 LOADEDMODULES=init_lua/5.1.4;
 export LOADEDMODULES;
@@ -30,7 +30,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={init_lua={fn="
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load luaposix
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load luaposix
 ===========================
 LOADEDMODULES=init_lua/5.1.4:luaposix/1.0;
 export LOADEDMODULES;
@@ -50,7 +50,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={init_lua={fn="
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload luaposix
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload luaposix
 ===========================
 LOADEDMODULES=init_lua/5.1.4;
 export LOADEDMODULES;
@@ -68,7 +68,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={init_lua={fn="
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load init_lua
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load init_lua
 ===========================
 MODULEPATH=ProjectDIR/rt/delim/mf/Core;
 export MODULEPATH;
@@ -80,7 +80,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={init_lua={fn="
 export _ModuleTable_;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load luaposix
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load luaposix
 ===========================
 LOADEDMODULES=init_lua/5.1.4:luaposix/1.0;
 export LOADEDMODULES;
@@ -100,7 +100,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={init_lua={fn="
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/delim/mf/Core;
 export MODULEPATH;
@@ -108,7 +108,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={init_lua={fn="
 export _ModuleTable_;
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload init_lua luaposix
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload init_lua luaposix
 ===========================
 unset LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/delim/mf/Core;
@@ -122,7 +122,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/delim/mf/Core;
 export MODULEPATH;
@@ -130,7 +130,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ncarIntel
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load ncarIntel
 ===========================
 LOADEDMODULES=ncarIntel/1.0;
 export LOADEDMODULES;
@@ -146,7 +146,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ncarIntel={fn=
 export _ModuleTable_;
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ncarNetcdf
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load ncarNetcdf
 ===========================
 LOADEDMODULES=ncarIntel/1.0:ncarNetcdf/1.0;
 export LOADEDMODULES;
@@ -162,7 +162,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ncarIntel={fn=
 export _ModuleTable_;
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload ncarNetcdf
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload ncarNetcdf
 ===========================
 LOADEDMODULES=ncarIntel/1.0;
 export LOADEDMODULES;

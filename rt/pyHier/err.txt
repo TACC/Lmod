@@ -1,28 +1,28 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load python B A
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python B A
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) python/2.7.13   2) B/1.0   3) A/1.0
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload python
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload python
 ===========================
 Inactive Modules:
   1) A     2) B
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   None found.
@@ -30,13 +30,13 @@ Inactive Modules:
   1) B   2) A
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load python
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python
 ===========================
 Activating Modules:
   1) A/1.0     2) B/1.0
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) python/2.7.13   2) B/1.0   3) A/1.0

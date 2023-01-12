@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load admin PrgEnv openmpi parmetis
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load admin PrgEnv openmpi parmetis
 ===========================
 ADMIN_MODULE_LOADED=1;
 export ADMIN_MODULE_LOADED;
@@ -60,7 +60,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="openmpi",compil
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 unset ADMIN_MODULE_LOADED;
 unset __LMOD_REF_COUNT_INFOPATH;
@@ -95,7 +95,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/reset/mf/Core;
 export MODULEPATH;
@@ -103,7 +103,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load admin PrgEnv openmpi parmetis
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load admin PrgEnv openmpi parmetis
 ===========================
 ADMIN_MODULE_LOADED=1;
 export ADMIN_MODULE_LOADED;
@@ -159,7 +159,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="openmpi",compil
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/reset/mf/MPI/intel/10.1/openmpi/1.2.6:ProjectDIR/rt/reset/mf/Compiler/intel/10.1:ProjectDIR/rt/reset/mf/Core;
 export MODULEPATH;
@@ -167,7 +167,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="openmpi",compil
 export _ModuleTable_;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/reset/mf/User
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/reset/mf/User
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/reset/mf/User:1\;ProjectDIR/rt/reset/mf/MPI/intel/10.1/openmpi/1.2.6:1\;ProjectDIR/rt/reset/mf/Compiler/intel/10.1:1\;ProjectDIR/rt/reset/mf/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
@@ -177,7 +177,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="openmpi",compil
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/reset/mf/User2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/reset/mf/User2
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/reset/mf/User2:1\;ProjectDIR/rt/reset/mf/User:1\;ProjectDIR/rt/reset/mf/MPI/intel/10.1/openmpi/1.2.6:1\;ProjectDIR/rt/reset/mf/Compiler/intel/10.1:1\;ProjectDIR/rt/reset/mf/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
@@ -187,7 +187,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="openmpi",compil
 export _ModuleTable_;
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load foo
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo
 ===========================
 LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:intel/intel:noweb/2.10c:PrgEnv:openmpi/1.2.6:parmetis/3.1:foo/1.0;
 export LOADEDMODULES;
@@ -201,7 +201,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="openmpi",compil
 export _ModuleTable_;
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/reset/mf/User2:ProjectDIR/rt/reset/mf/User:ProjectDIR/rt/reset/mf/MPI/intel/10.1/openmpi/1.2.6:ProjectDIR/rt/reset/mf/Compiler/intel/10.1:ProjectDIR/rt/reset/mf/Core;
 export MODULEPATH;
@@ -209,7 +209,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="openmpi",compil
 export _ModuleTable_;
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing reset
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing reset
 ===========================
 ADMIN_MODULE_LOADED=1;
 export ADMIN_MODULE_LOADED;
@@ -262,7 +262,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="openmpi",compil
 export _ModuleTable_;
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/reset/mf/MPI/intel/10.1/openmpi/1.2.6:ProjectDIR/rt/reset/mf/Compiler/intel/10.1:ProjectDIR/rt/reset/mf/Core;
 export MODULEPATH;

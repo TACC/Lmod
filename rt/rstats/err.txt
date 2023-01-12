@@ -1,25 +1,25 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T load Rpkgs
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -T load Rpkgs
 ===========================
 running: module --regression_testing -T load Rpkgs
   (1)(0)Loading: Rpkgs (fn: ProjectDIR/rt/rstats/mf/Core/Rpkgs/3.4.0.lua, using Find-Best)
     (2)(0)Loading: Rstats/3.4.0 (fn: ProjectDIR/rt/rstats/mf/Core/Rstats/3.4.0.lua, using Find-Best)
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) Rstats/3.4.0   2) Rpkgs/3.4.0
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T unload Rpkgs
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -T unload Rpkgs
 ===========================
 running: module --regression_testing -T unload Rpkgs
   (1)(0)Unloading: Rpkgs (status: active) (fn: ProjectDIR/rt/rstats/mf/Core/Rpkgs/3.4.0.lua)

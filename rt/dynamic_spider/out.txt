@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dynamic_spider/mf/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
@@ -14,7 +14,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 MODULEPATH=ProjectDIR/rt/dynamic_spider/mf/Core;
 export MODULEPATH;
@@ -22,7 +22,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 MODULEPATH=ProjectDIR/rt/dynamic_spider/mf/Core;
 export MODULEPATH;
@@ -30,7 +30,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dynamic_spider/mf2/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
@@ -40,7 +40,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 MODULEPATH=ProjectDIR/rt/dynamic_spider/mf2/Core;
 export MODULEPATH;
@@ -48,7 +48,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dynamic_spider/mf3/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
@@ -58,7 +58,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 MODULEPATH=ProjectDIR/rt/dynamic_spider/mf3/Core;
 export MODULEPATH;
@@ -66,7 +66,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --terse spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --terse spider
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dynamic_spider/mf4/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
@@ -76,7 +76,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --terse spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --terse spider
 ===========================
 MODULEPATH=ProjectDIR/rt/dynamic_spider/mf4/Core;
 export MODULEPATH;
@@ -84,7 +84,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --terse spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --terse spider
 ===========================
 MODULEPATH=ProjectDIR/rt/dynamic_spider/mf4/Core;
 export MODULEPATH;
@@ -92,7 +92,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc/9.3.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc/9.3.0
 ===========================
 LMOD_FAMILY_COMPILER=gcc;
 export LMOD_FAMILY_COMPILER;
@@ -110,7 +110,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT=
 export _ModuleTable_;
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --terse spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --terse spider
 ===========================
 MODULEPATH=OutputDIR/myModules4/Compiler/gcc9:ProjectDIR/rt/dynamic_spider/mf4/Compiler/gcc9:ProjectDIR/rt/dynamic_spider/mf4/Core;
 export MODULEPATH;

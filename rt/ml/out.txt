@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/rt/ml/mf/Core
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use -a ProjectDIR/rt/ml/mf/Core
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/ml/mf/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
@@ -14,7 +14,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ml
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load ml
 ===========================
 LOADEDMODULES=ml/1.0;
 export LOADEDMODULES;

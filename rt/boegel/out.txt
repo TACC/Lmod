@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gompi
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gompi
 ===========================
 LMOD_DEFAULT_MODULEPATH=ProjectDIR/rt/boegel/mf/Core/toolchain;
 export LMOD_DEFAULT_MODULEPATH;
@@ -58,7 +58,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/boegel
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 LMOD_DEFAULT_MODULEPATH=ProjectDIR/rt/boegel/mf/Core/toolchain;
 export LMOD_DEFAULT_MODULEPATH;
@@ -72,7 +72,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/boegel
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 LMOD_DEFAULT_MODULEPATH=ProjectDIR/rt/boegel/mf/Core/toolchain;
 export LMOD_DEFAULT_MODULEPATH;
@@ -86,7 +86,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/boegel
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t avail
 ===========================
 LMOD_DEFAULT_MODULEPATH=ProjectDIR/rt/boegel/mf/Core/toolchain;
 export LMOD_DEFAULT_MODULEPATH;
@@ -100,7 +100,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=4,baseMpathA={"ProjectDIR/rt/boegel
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 LMOD_DEFAULT_MODULEPATH=ProjectDIR/rt/boegel/mf/Core/toolchain;
 export LMOD_DEFAULT_MODULEPATH;
@@ -135,7 +135,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/boegel
 export _ModuleTable_;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load GCC
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load GCC
 ===========================
 LMOD_DEFAULT_MODULEPATH=ProjectDIR/rt/boegel/mf/Core/compiler;
 export LMOD_DEFAULT_MODULEPATH;
@@ -169,7 +169,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/boegel
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 LMOD_DEFAULT_MODULEPATH=ProjectDIR/rt/boegel/mf/Core/compiler;
 export LMOD_DEFAULT_MODULEPATH;
@@ -183,7 +183,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=1,baseMpathA={"ProjectDIR/rt/boegel
 export _ModuleTable_;
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/boegel/mf/Core/Broken
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/boegel/mf/Core/Broken
 ===========================
 LMOD_DEFAULT_MODULEPATH=ProjectDIR/rt/boegel/mf/Core/compiler;
 export LMOD_DEFAULT_MODULEPATH;
@@ -196,7 +196,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/boegel
 export _ModuleTable_;
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 LMOD_DEFAULT_MODULEPATH=ProjectDIR/rt/boegel/mf/Core/Broken:ProjectDIR/rt/boegel/mf/Core/compiler;
 export LMOD_DEFAULT_MODULEPATH;
@@ -210,7 +210,7 @@ _ModuleTable_='_ModuleTable_={["activeSize"]=0,baseMpathA={"ProjectDIR/rt/boegel
 export _ModuleTable_;
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t avail
 ===========================
 LMOD_DEFAULT_MODULEPATH=ProjectDIR/rt/boegel/mf/Core/Broken:ProjectDIR/rt/boegel/mf/Core/compiler;
 export LMOD_DEFAULT_MODULEPATH;

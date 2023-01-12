@@ -1,35 +1,35 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 false
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 false
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 false
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 false
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 false
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load intel
 ===========================
 LMOD_FAMILY_COMPILER=intel;
 export LMOD_FAMILY_COMPILER;
@@ -47,7 +47,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={Compiler="intel",},m
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc
 ===========================
 LMOD_FAMILY_COMPILER=gcc;
 export LMOD_FAMILY_COMPILER;
@@ -63,10 +63,10 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={Compiler="gcc",},mT=
 export _ModuleTable_;
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load unknown
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load unknown
 ===========================
 false
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --help
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --help
 ===========================

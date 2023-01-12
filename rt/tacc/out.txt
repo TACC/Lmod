@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/tacc/mf/TACC:1;
 export __LMOD_REF_COUNT_MODULEPATH;
@@ -14,7 +14,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load TACC
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load TACC
 ===========================
 APPS=/unknown/apps;
 export APPS;
@@ -92,7 +92,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mvapich1",compi
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing help mvapich1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help mvapich1
 ===========================
 MODULEPATH=/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1:ProjectDIR/rt/tacc/mf/TACC;
 export MODULEPATH;
@@ -100,7 +100,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mvapich1",compi
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1:ProjectDIR/rt/tacc/mf/TACC;
 export MODULEPATH;
@@ -108,7 +108,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mvapich1",compi
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --latest load pgi
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --latest load pgi
 ===========================
 __LMOD_REF_COUNT_LD_LIBRARY_PATH=/unknown/apps/pgi/7.2/linux86-64/7.2-5/libso:1\;/opt/ofed/lib64:1\;/share/apps/teragrid/globus-4.0.7-r1/lib:1\;/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:1\;/unknown/apps/intel10_1/mvapich/1.0.1/lib:1\;/unknown/apps/intel10_1/mvapich/1.0.1/lib/shared:1;
 export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
@@ -140,7 +140,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mvapich1",compi
 export _ModuleTable_;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.2-5:/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/tacc/mf/TACC;
 export MODULEPATH;
@@ -148,7 +148,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mvapich1",compi
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load pgi
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load pgi
 ===========================
 __LMOD_REF_COUNT_LD_LIBRARY_PATH=/unknown/apps/pgi/7.1/linux86-64/7.1-2/libso:1\;/opt/ofed/lib64:1\;/share/apps/teragrid/globus-4.0.7-r1/lib:1\;/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:1\;/unknown/apps/intel10_1/mvapich/1.0.1/lib:1\;/unknown/apps/intel10_1/mvapich/1.0.1/lib/shared:1;
 export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
@@ -180,7 +180,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mvapich1",compi
 export _ModuleTable_;
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.1:/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/tacc/mf/TACC;
 export MODULEPATH;
@@ -188,7 +188,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mvapich1",compi
 export _ModuleTable_;
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --latest swap pgi pgi
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --latest swap pgi pgi
 ===========================
 __LMOD_REF_COUNT_LD_LIBRARY_PATH=/unknown/apps/pgi/7.2/linux86-64/7.2-5/libso:1\;/opt/ofed/lib64:1\;/share/apps/teragrid/globus-4.0.7-r1/lib:1\;/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:1\;/unknown/apps/intel10_1/mvapich/1.0.1/lib:1\;/unknown/apps/intel10_1/mvapich/1.0.1/lib/shared:1;
 export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
@@ -220,7 +220,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mvapich1",compi
 export _ModuleTable_;
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/tacc/mf/TACC_COMPILER/pgi/7.2-5:/unknown/apps/intel10_1/mvapich1_1_0_1/modulefiles:ProjectDIR/rt/tacc/mf/TACC;
 export MODULEPATH;
@@ -228,7 +228,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mvapich1",compi
 export _ModuleTable_;
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload cluster
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload cluster
 ===========================
 unset APPS;
 unset GLOBUS_HOSTNAME;
@@ -278,7 +278,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={Linux={fn="Pro
 export _ModuleTable_;
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 unset __LMOD_REF_COUNT_LD_LIBRARY_PATH;
 unset LD_LIBRARY_PATH;
@@ -298,7 +298,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/tacc/mf/Base
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/tacc/mf/Base
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/tacc/mf/Base:1\;ProjectDIR/rt/tacc/mf/TACC:1;
 export __LMOD_REF_COUNT_MODULEPATH;
@@ -308,7 +308,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show gatk
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show gatk
 ===========================
 MODULEPATH=ProjectDIR/rt/tacc/mf/Base:ProjectDIR/rt/tacc/mf/TACC;
 export MODULEPATH;
@@ -316,7 +316,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gatk
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gatk
 ===========================
 LOADEDMODULES=gatk/1.0;
 export LOADEDMODULES;
@@ -332,7 +332,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={gatk={fn="Proj
 export _ModuleTable_;
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload gatk
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload gatk
 ===========================
 unset LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/tacc/mf/Base:ProjectDIR/rt/tacc/mf/TACC;
@@ -346,7 +346,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load stir
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load stir
 ===========================
 LOADEDMODULES=stir/2.1;
 export LOADEDMODULES;
@@ -358,7 +358,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={stir={fn="Proj
 export _ModuleTable_;
 ===========================
 step 19
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load foo
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo
 ===========================
 LOADEDMODULES=stir/2.1:foo/1.0;
 export LOADEDMODULES;
@@ -370,7 +370,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={foo={fn="Proje
 export _ModuleTable_;
 ===========================
 step 20
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load empty_unload
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load empty_unload
 ===========================
 LOADEDMODULES=stir/2.1:foo/1.0:empty_unload/1.0;
 export LOADEDMODULES;

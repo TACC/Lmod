@@ -1,34 +1,34 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.12  2022-02-09 16:10 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load python
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) python/2.7.9
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc boost
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc boost
 ===========================
 Due to MODULEPATH changes, the following have been reloaded:
   1) python/2.7.9
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) gcc/6.1   2) boost/1.59.0   3) python/2.7.9
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload gcc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload gcc
 ===========================
 Inactive Modules:
   1) boost
@@ -36,7 +36,7 @@ Due to MODULEPATH changes, the following have been reloaded:
   1) python/2.7.9
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) python/2.7.9
@@ -44,17 +44,17 @@ Inactive Modules:
   1) boost
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload boost
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload boost
 ===========================
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc impi petsc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc impi petsc
 ===========================
 Due to MODULEPATH changes, the following have been reloaded:
   1) python/2.7.9
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/hierarchy/mf/MPI/gcc/6.1/impi/17.0
    petsc/3.7 (L)
@@ -72,14 +72,14 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel petsc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load intel petsc
 ===========================
 Lmod is automatically replacing "gcc/6.1" with "intel/17.0.4".
 Due to MODULEPATH changes, the following have been reloaded:
   1) impi/17.0.3     2) petsc/3.7     3) python/2.7.9
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/hierarchy/mf/MPI/intel/17.0/impi/17.0
    petsc/3.7 (L)
@@ -96,15 +96,15 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc impi petsc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc impi petsc
 ===========================
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T rm impi gcc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -T rm impi gcc
 ===========================
 running: module --regression_testing -T rm impi gcc
   (1)(0)Unloading: impi (status: active) (fn: ProjectDIR/rt/hierarchy/mf/Compiler/gcc/6.1/impi/17.0.3.lua)
@@ -117,7 +117,7 @@ Inactive Modules:
   1) petsc
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   None found.
@@ -125,15 +125,15 @@ Inactive Modules:
   1) petsc
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc impi petsc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc impi petsc
 ===========================
 ===========================
 step 19
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T rm gcc impi
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -T rm gcc impi
 ===========================
 running: module --regression_testing -T rm gcc impi
   (1)(0)Unloading: gcc (status: active) (fn: ProjectDIR/rt/hierarchy/mf/Core/gcc/6.1.lua)
@@ -146,7 +146,7 @@ Inactive Modules:
   1) petsc
 ===========================
 step 20
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   None found.
@@ -154,15 +154,15 @@ Inactive Modules:
   1) petsc
 ===========================
 step 21
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
 step 22
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Default
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load Default
 ===========================
 ===========================
 step 23
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) moduleA   2) moduleB   3) Default

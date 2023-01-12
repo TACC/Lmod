@@ -1,24 +1,24 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/rt/lastName/mf/Core ProjectDIR/rt/lastName/mf/Beta
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use -a ProjectDIR/rt/lastName/mf/Core ProjectDIR/rt/lastName/mf/Beta
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/lastName/mf/notDir
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/lastName/mf/notDir
 ===========================
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load git
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load git
 ===========================
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) git/1.7.4.3

@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/bioContainers/mf/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
@@ -14,7 +14,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load bioContainers
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load bioContainers
 ===========================
 BIOCONTAINER_DIR=ProjectDIR/rt/bioContainers/bcd;
 export BIOCONTAINER_DIR;
@@ -36,7 +36,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={bioContainers=
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -T avail
 ===========================
 MODULEPATH=ProjectDIR/rt/bioContainers/bcd/mf:ProjectDIR/rt/bioContainers/mf/Core;
 export MODULEPATH;

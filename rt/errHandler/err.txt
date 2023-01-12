@@ -1,12 +1,12 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load bad_syntax
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load bad_syntax
 ===========================
 Lmod has detected the following error: Unable to load module because of error when evaluating modulefile:
      ProjectDIR/rt/errHandler/mf/bad_syntax/1.0.lua: [string "setenv("BAD_SYNTAX","1.0")..."]:2: unexpected symbol near '#'
@@ -16,7 +16,7 @@ While processing the following module(s):
     bad_syntax/1.0   ProjectDIR/rt/errHandler/mf/bad_syntax/1.0.lua
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load bad_argument
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load bad_argument
 ===========================
 Lmod has detected the following error: Syntax error in file: ProjectDIR/rt/errHandler/mf/bad_argument/1.0.lua
  with command: help, one or more arguments are not strings.

@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load petsc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load petsc
 ===========================
 LOADEDMODULES=petsc/3.1.0;
 export LOADEDMODULES;
@@ -20,12 +20,12 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={petsc={fn="Pro
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load slepc/3.0.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load slepc/3.0.0
 ===========================
 false
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload slepc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload slepc
 ===========================
 MODULEPATH=ProjectDIR/rt/prereq/mf;
 export MODULEPATH;
@@ -33,7 +33,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={petsc={fn="Pro
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload petsc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload petsc
 ===========================
 unset LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/prereq/mf;
@@ -44,12 +44,12 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load slepc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load slepc
 ===========================
 false
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load petsc/2.9.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load petsc/2.9.0
 ===========================
 LOADEDMODULES=petsc/2.9.0;
 export LOADEDMODULES;
@@ -63,12 +63,12 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={petsc={fn="Pro
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load slepc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load slepc
 ===========================
 false
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load slepc/2.9.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load slepc/2.9.0
 ===========================
 LOADEDMODULES=petsc/2.9.0:slepc/2.9.0;
 export LOADEDMODULES;
@@ -80,7 +80,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={petsc={fn="Pro
 export _ModuleTable_;
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load petsc/3.1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load petsc/3.1.0
 ===========================
 LOADEDMODULES=slepc/2.9.0:petsc/3.1.0;
 export LOADEDMODULES;
@@ -94,7 +94,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={petsc={fn="Pro
 export _ModuleTable_;
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load slepc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load slepc
 ===========================
 LOADEDMODULES=petsc/3.1.0:slepc/3.1.0;
 export LOADEDMODULES;
@@ -106,7 +106,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={petsc={fn="Pro
 export _ModuleTable_;
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload slepc petsc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload slepc petsc
 ===========================
 unset LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/prereq/mf;
@@ -117,7 +117,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load petsc/3.1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load petsc/3.1.0
 ===========================
 LOADEDMODULES=petsc/3.1.0;
 export LOADEDMODULES;
@@ -131,7 +131,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={petsc={fn="Pro
 export _ModuleTable_;
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load slepc/2.9.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load slepc/2.9.0
 ===========================
 LOADEDMODULES=petsc/3.1.0:slepc/2.9.0;
 export LOADEDMODULES;
@@ -143,12 +143,12 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={petsc={fn="Pro
 export _ModuleTable_;
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load junk/1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load junk/1.0
 ===========================
 false
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load jdk32
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load jdk32
 ===========================
 JDK32=1;
 export JDK32;
@@ -162,7 +162,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={jdk32={fn="Pro
 export _ModuleTable_;
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load junk/1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load junk/1.0
 ===========================
 LOADEDMODULES=petsc/3.1.0:slepc/2.9.0:jdk32/1.0:junk/1.0;
 export LOADEDMODULES;

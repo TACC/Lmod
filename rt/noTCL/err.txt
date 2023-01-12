@@ -1,12 +1,12 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/noTCL/mf/Core
    PrgEnv                   git/1.7.4            junk/b/c/2.0
@@ -29,7 +29,7 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 The following is a list of the modules and extensions currently available:
   PrgEnv: PrgEnv
@@ -64,13 +64,13 @@ must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load PrgEnv
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load PrgEnv
 ===========================
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload PrgEnv
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload PrgEnv
 ===========================
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load PrgEnv
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load PrgEnv
 ===========================

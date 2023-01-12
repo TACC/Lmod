@@ -1,12 +1,12 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.16  2022-03-22 14:19 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load settarg
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load settarg
 ===========================
 ===========================
 step 3
@@ -22,7 +22,7 @@ lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --generic_arch empty
 ===========================
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc mpich
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc mpich
 ===========================
 ===========================
 step 7
@@ -73,7 +73,7 @@ echo TARG_RTM: Is Great
 ===========================
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload mpich
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload mpich
 ===========================
 ===========================
 step 17
@@ -81,15 +81,15 @@ lua ProjectDIR/settarg/settarg_cmd.in.lua -s bash --generic_arch
 ===========================
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload gcc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload gcc
 ===========================
 ===========================
 step 19
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cmplr/clang
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load cmplr/clang
 ===========================
 ===========================
 step 20
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show settarg
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show settarg
 ===========================
  OutputDIR/mf/Core/settarg/1.0.lua:
 prepend_path("PATH","ProjectDIR/settarg")
@@ -166,5 +166,5 @@ Settarg can do more.  Please see the Lmod website for more details.
 ]])
 ===========================
 step 21
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload settarg
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload settarg
 ===========================
