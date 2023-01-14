@@ -110,7 +110,7 @@ testdescript = {
      export MODULEPATH=$testDir/mf/H_Core
      runBase    runSpiderCmd -o spiderT  $MODULEPATH                          #51
      runLmod                  spider                                          #52
-     runLmod    --show_hidden spider                                          #53
+     od    --show_hidden spider                                          #53
      runLmod                  spider  tornado                                 #54
      runLmod    --show_hidden spider  tornado                                 #55
      runLmod    --show_hidden spider                                          #56

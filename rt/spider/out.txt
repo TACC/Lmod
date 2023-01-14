@@ -1572,3 +1572,13 @@ MODULEPATH=ProjectDIR/rt/spider/mf4/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf4/Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf4/Core",}';
 export _ModuleTable_;
+===========================
+step 76
+lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/spider/mf5/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/spider/mf5/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf5/Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf5/Core",}';
+export _ModuleTable_;
