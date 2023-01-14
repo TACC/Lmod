@@ -66,3 +66,6 @@ Lmod 8.7+
    (8.7.17) * Issue #620: Honor shell name on command line.  Use "shell" when Lmod gets to decide.
             * Fix bug in keyword terse output: Add newline on final entry (Created in Lmod 8.4.18)
             * Allow ksh93, mksh and pdksh report shellname (myShellName()) as ksh.
+   (8.7.18) * Fix bug where repeating the same directory in the $MODULEPATH would cause a loopback
+              and therefore a stack overflow when building the spider cache.
+              
