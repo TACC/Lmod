@@ -170,6 +170,11 @@ testdescript = {
      export EBVERSIONPYTHON="3.7"
      runLmod avail                                                            #75
 
+     unsetMT
+     export MODULEPATH_ROOT=$(testDir)/mf5
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+     runLmod avail                                                            #76
+
 
 
 
