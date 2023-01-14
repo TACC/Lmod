@@ -1,12 +1,12 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/colorize/mf
    StdEnv                    apps/m4/1.4.17         (\033[1;31mt\033[0m)
@@ -27,7 +27,7 @@ Use "module keyword key1 key2 ..." to search for all
 possible modules matching any of the "keys".
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/colorize/mf
    StdEnv                    apps/m4/1.4.17         (\033[1;31mt\033[0m)
@@ -47,7 +47,7 @@ Use "module keyword key1 key2 ..." to search for all possible modules
 matching any of the "keys".
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/colorize/mf
    StdEnv                    apps/m4/1.4.17         (\033[1;31mt\033[0m)
@@ -66,7 +66,7 @@ Use "module keyword key1 key2 ..." to search for all possible modules
 matching any of the "keys".
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/colorize/mf
    StdEnv                    apps/m4/1.4.17         (\033[1;31mt\033[0m)
@@ -84,7 +84,7 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
 of the "keys".
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/colorize/mf
    StdEnv                    apps/m4/1.4.17         (\033[1;31mt\033[0m)
@@ -102,7 +102,7 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
 "keys".
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/colorize/mf
    StdEnv                    apps/m4/1.4.17         (\033[1;31mt\033[0m)
@@ -119,7 +119,7 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/colorize/mf
    StdEnv                    apps/m4/1.4.17         (\033[1;31mt\033[0m)

@@ -296,23 +296,26 @@ local function l_createShellTbl()
       local Rc           = require('Rc')
       local Ruby         = require('Ruby')
       s_shellTbl = {
-         ["sh"]     = Bash,
-         ["bash"]   = Bash,
-         ["ksh"]    = Bash,
-         ["zsh"]    = Bash,
-         ["fish"]   = Fish,
-         ["emacs"]  = Lisp,
-         ["lisp"]   = Lisp,
-         ["csh"]    = Csh,
-         ["tcsh"]   = Csh,
-         ["perl"]   = Perl,
-         ["python"] = Python,
-         ["cmake"]  = CMake,
-         ["bare"]   = Bare,
-         ["r"]      = R,
-         ["R"]      = R,
-         ["rc"]     = Rc,
-         ["ruby"]   = Ruby,
+         ["sh"]     = {name = "sh",     object = Bash   },
+         ["bash"]   = {name = "bash",   object = Bash   },
+         ["ksh"]    = {name = "ksh",    object = Bash   },
+         ["ksh93"]  = {name = "ksh",    object = Bash   },
+         ["pdksh"]  = {name = "ksh",    object = Bash   },
+         ["mksh"]   = {name = "ksh",    object = Bash   },
+         ["zsh"]    = {name = "bash",   object = Bash   },
+         ["fish"]   = {name = "fish",   object = Fish   },
+         ["emacs"]  = {name = "lisp",   object = Lisp   },
+         ["lisp"]   = {name = "lisp",   object = Lisp   },
+         ["csh"]    = {name = "csh",    object = Csh    },
+         ["tcsh"]   = {name = "tcsh",   object = Csh    },
+         ["perl"]   = {name = "perl",   object = Perl   }, 
+         ["python"] = {name = "python", object = Python },
+         ["cmake"]  = {name = "cmake",  object = CMake  },
+         ["bare"]   = {name = "bare",   object = Bare   },
+         ["r"]      = {name = "r",      object = R      },
+         ["R"]      = {name = "r",      object = R      },
+         ["rc"]     = {name = "rc",     object = Rc     },
+         ["ruby"]   = {name = "ruby",   object = Ruby   },
       }
    end
 end
@@ -329,9 +332,10 @@ end
 function M.build(self, shell_name)
    l_createShellTbl()
    local shellNm = shell_name:lower()
-   local o       = l_valid_shell(s_shellTbl, shellNm):create()
+   local t       = l_valid_shell(s_shellTbl, shellNm)
+   local o       = t.object:create()
    o._active     = true
-   o:set_my_name(shellNm)
+   o:set_my_name(t.name)
    return o
 end
 

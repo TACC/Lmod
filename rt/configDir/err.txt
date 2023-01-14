@@ -1,12 +1,12 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.7.12  2022-08-18 15:45 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --config
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --config
 ===========================
 Modules based on Lua: Version 8.7.12  2022-08-18 15:45 -05:00
     by Robert McLay mclay@tacc.utexas.edu
@@ -185,12 +185,12 @@ propT = {
 }
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load tryThis
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load tryThis
 ===========================
 This is kewl
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load w
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load w
 ===========================
 Lmod Warning: The module w/1.0 is outdated. Please use a version from 2019a or newer.
 If there is no newer version, request one at hpc@vub.ac.be.

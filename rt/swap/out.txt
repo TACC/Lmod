@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load admin PrgEnv openmpi parmetis
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load admin PrgEnv openmpi parmetis
 ===========================
 ADMIN_MODULE_LOADED=1;
 export ADMIN_MODULE_LOADED;
@@ -60,7 +60,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="openmpi",compil
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 MODULEPATH=ProjectDIR/rt/swap/mf/MPI/intel/10.1/openmpi/1.2.6:ProjectDIR/rt/swap/mf/Compiler/intel/10.1:ProjectDIR/rt/swap/mf/Core;
 export MODULEPATH;
@@ -68,7 +68,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="openmpi",compil
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload intel
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload intel
 ===========================
 unset __LMOD_REF_COUNT_LD_LIBRARY_PATH;
 unset LD_LIBRARY_PATH;
@@ -109,7 +109,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={PrgEnv={fn="Pr
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/swap/mf/Core;
 export MODULEPATH;
@@ -117,7 +117,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={PrgEnv={fn="Pr
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc
 ===========================
 __LMOD_REF_COUNT_LD_LIBRARY_PATH=/vol/local/mpi/gcc/4.2.3/openmpi/1.2.6.opt/lib:1;
 export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
@@ -163,7 +163,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="openmpi",compil
 export _ModuleTable_;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/swap/mf/MPI/gcc/4.2.3/openmpi/1.2.6:ProjectDIR/rt/swap/mf/Compiler/gcc/4.2.3:ProjectDIR/rt/swap/mf/Core;
 export MODULEPATH;
@@ -171,7 +171,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="openmpi",compil
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap gcc intel
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing swap gcc intel
 ===========================
 __LMOD_REF_COUNT_LD_LIBRARY_PATH=/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/lib:1\;/vol/local/intel/mkl/mkl/lib/lib:1\;/vol/local/intel/idb/idb/lib:1\;/vol/local/intel/fc/fc/lib:1\;/vol/local/intel/cc/cc/lib:1;
 export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
@@ -221,7 +221,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="openmpi",compil
 export _ModuleTable_;
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load phdf5/1.8.2 petsc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load phdf5/1.8.2 petsc
 ===========================
 LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:noweb/2.10c:PrgEnv:intel/intel:openmpi/1.2.6:parmetis/3.1:phdf5/1.8.2:petsc/3.2;
 export LOADEDMODULES;
@@ -237,7 +237,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="openmpi",compil
 export _ModuleTable_;
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/swap/mf/MPI/intel/10.1/openmpi/1.2.6:ProjectDIR/rt/swap/mf/Compiler/intel/10.1:ProjectDIR/rt/swap/mf/Core;
 export MODULEPATH;
@@ -245,7 +245,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="openmpi",compil
 export _ModuleTable_;
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap openmpi mpich2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing swap openmpi mpich2
 ===========================
 __LMOD_REF_COUNT_LD_LIBRARY_PATH=/vol/local/mpi/intel/10.1/mpich2/1.0.7.opt/lib:1\;/vol/local/intel/mkl/mkl/lib/lib:1\;/vol/local/intel/idb/idb/lib:1\;/vol/local/intel/fc/fc/lib:1\;/vol/local/intel/cc/cc/lib:1;
 export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
@@ -292,7 +292,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mpich2",compile
 export _ModuleTable_;
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/swap/mf/MPI/intel/10.1/mpich2/1.0.7:ProjectDIR/rt/swap/mf/Compiler/intel/10.1:ProjectDIR/rt/swap/mf/Core;
 export MODULEPATH;
@@ -300,7 +300,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mpich2",compile
 export _ModuleTable_;
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap mpich2 openmpi
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing swap mpich2 openmpi
 ===========================
 __LMOD_REF_COUNT_LD_LIBRARY_PATH=/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/lib:1\;/vol/local/intel/mkl/mkl/lib/lib:1\;/vol/local/intel/idb/idb/lib:1\;/vol/local/intel/fc/fc/lib:1\;/vol/local/intel/cc/cc/lib:1;
 export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
@@ -347,7 +347,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="openmpi",compil
 export _ModuleTable_;
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/swap/mf/MPI/intel/10.1/openmpi/1.2.6:ProjectDIR/rt/swap/mf/Compiler/intel/10.1:ProjectDIR/rt/swap/mf/Core;
 export MODULEPATH;
@@ -355,7 +355,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="openmpi",compil
 export _ModuleTable_;
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load phdf5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load phdf5
 ===========================
 LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:noweb/2.10c:PrgEnv:intel/intel:openmpi/1.2.6:parmetis/3.1:petsc/3.2:phdf5/1.8.10;
 export LOADEDMODULES;
@@ -369,7 +369,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="openmpi",compil
 export _ModuleTable_;
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/swap/mf/MPI/intel/10.1/openmpi/1.2.6:ProjectDIR/rt/swap/mf/Compiler/intel/10.1:ProjectDIR/rt/swap/mf/Core;
 export MODULEPATH;
@@ -377,7 +377,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="openmpi",compil
 export _ModuleTable_;
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap openmpi mpich2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing swap openmpi mpich2
 ===========================
 __LMOD_REF_COUNT_LD_LIBRARY_PATH=/vol/local/mpi/intel/10.1/mpich2/1.0.7.opt/lib:1\;/vol/local/intel/mkl/mkl/lib/lib:1\;/vol/local/intel/idb/idb/lib:1\;/vol/local/intel/fc/fc/lib:1\;/vol/local/intel/cc/cc/lib:1;
 export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
@@ -424,7 +424,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mpich2",compile
 export _ModuleTable_;
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/swap/mf/MPI/intel/10.1/mpich2/1.0.7:ProjectDIR/rt/swap/mf/Compiler/intel/10.1:ProjectDIR/rt/swap/mf/Core;
 export MODULEPATH;
@@ -432,7 +432,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mpich2",compile
 export _ModuleTable_;
 ===========================
 step 19
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload mpich2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload mpich2
 ===========================
 __LMOD_REF_COUNT_LD_LIBRARY_PATH=/vol/local/intel/mkl/mkl/lib/lib:1\;/vol/local/intel/idb/idb/lib:1\;/vol/local/intel/fc/fc/lib:1\;/vol/local/intel/cc/cc/lib:1;
 export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
@@ -473,7 +473,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},m
 export _ModuleTable_;
 ===========================
 step 20
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/swap/mf/Compiler/intel/10.1:ProjectDIR/rt/swap/mf/Core;
 export MODULEPATH;
@@ -481,7 +481,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},m
 export _ModuleTable_;
 ===========================
 step 21
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gotoblas
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gotoblas
 ===========================
 __LMOD_REF_COUNT_LD_LIBRARY_PATH=/vol/pkg/intel/10.1/gotoblas/1.32:1\;/vol/local/intel/mkl/mkl/lib/lib:1\;/vol/local/intel/idb/idb/lib:1\;/vol/local/intel/fc/fc/lib:1\;/vol/local/intel/cc/cc/lib:1;
 export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
@@ -501,7 +501,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},m
 export _ModuleTable_;
 ===========================
 step 22
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap gotoblas/1.31
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing swap gotoblas/1.31
 ===========================
 __LMOD_REF_COUNT_LD_LIBRARY_PATH=/vol/pkg/intel-10_1/gotoblas/1.31:1\;/vol/local/intel/mkl/mkl/lib/lib:1\;/vol/local/intel/idb/idb/lib:1\;/vol/local/intel/fc/fc/lib:1\;/vol/local/intel/cc/cc/lib:1;
 export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
@@ -521,7 +521,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},m
 export _ModuleTable_;
 ===========================
 step 23
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/swap/mf/Compiler/intel/10.1:ProjectDIR/rt/swap/mf/Core;
 export MODULEPATH;
@@ -529,7 +529,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},m
 export _ModuleTable_;
 ===========================
 step 24
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load mpich2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load mpich2
 ===========================
 __LMOD_REF_COUNT_LD_LIBRARY_PATH=/vol/local/mpi/intel/10.1/mpich2/1.0.7.opt/lib:1\;/vol/pkg/intel-10_1/gotoblas/1.31:1\;/vol/local/intel/mkl/mkl/lib/lib:1\;/vol/local/intel/idb/idb/lib:1\;/vol/local/intel/fc/fc/lib:1\;/vol/local/intel/cc/cc/lib:1;
 export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
@@ -575,7 +575,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mpich2",compile
 export _ModuleTable_;
 ===========================
 step 25
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load openmpi
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load openmpi
 ===========================
 __LMOD_REF_COUNT_LD_LIBRARY_PATH=/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/lib:1\;/vol/pkg/intel-10_1/gotoblas/1.31:1\;/vol/local/intel/mkl/mkl/lib/lib:1\;/vol/local/intel/idb/idb/lib:1\;/vol/local/intel/fc/fc/lib:1\;/vol/local/intel/cc/cc/lib:1;
 export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
@@ -622,7 +622,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="openmpi",compil
 export _ModuleTable_;
 ===========================
 step 26
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc
 ===========================
 __LMOD_REF_COUNT_LD_LIBRARY_PATH=/vol/local/mpi/gcc/4.2.3/openmpi/1.2.6.opt/lib:1;
 export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
@@ -674,7 +674,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="openmpi",compil
 export _ModuleTable_;
 ===========================
 step 27
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel mpich2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load intel mpich2
 ===========================
 __LMOD_REF_COUNT_LD_LIBRARY_PATH=/vol/pkg/intel-10_1/gotoblas/1.31:1\;/vol/local/mpi/intel/10.1/mpich2/1.0.7.opt/lib:1\;/vol/local/intel/mkl/mkl/lib/lib:1\;/vol/local/intel/idb/idb/lib:1\;/vol/local/intel/fc/fc/lib:1\;/vol/local/intel/cc/cc/lib:1;
 export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
@@ -732,7 +732,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mpich2",compile
 export _ModuleTable_;
 ===========================
 step 28
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc openmpi
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc openmpi
 ===========================
 __LMOD_REF_COUNT_LD_LIBRARY_PATH=/vol/local/mpi/gcc/4.2.3/openmpi/1.2.6.opt/lib:1;
 export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
@@ -784,7 +784,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="openmpi",compil
 export _ModuleTable_;
 ===========================
 step 29
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel gcc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load intel gcc
 ===========================
 LD_LIBRARY_PATH=/vol/local/mpi/gcc/4.2.3/openmpi/1.2.6.opt/lib;
 export LD_LIBRARY_PATH;
@@ -810,7 +810,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="openmpi",compil
 export _ModuleTable_;
 ===========================
 step 30
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 unset ADMIN_MODULE_LOADED;
 unset __LMOD_REF_COUNT_INFOPATH;
@@ -843,7 +843,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 31
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc
 ===========================
 LMOD_FAMILY_COMPILER=gcc;
 export LMOD_FAMILY_COMPILER;
@@ -861,7 +861,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT=
 export _ModuleTable_;
 ===========================
 step 32
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel gcc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load intel gcc
 ===========================
 unset LD_LIBRARY_PATH;
 LMOD_FAMILY_COMPILER=gcc;
@@ -879,7 +879,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT=
 export _ModuleTable_;
 ===========================
 step 33
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap gcc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing swap gcc
 ===========================
 LMOD_FAMILY_COMPILER=gcc;
 export LMOD_FAMILY_COMPILER;
@@ -891,6 +891,6 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT=
 export _ModuleTable_;
 ===========================
 step 34
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel unknown
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load intel unknown
 ===========================
 false

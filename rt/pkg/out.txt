@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc mpich
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc mpich
 ===========================
 __LMOD_REF_COUNT_LD_LIBRARY_PATH=/opt/apps/gcc-4_7/mpich/3.0.4/lib:1;
 export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
@@ -42,7 +42,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mpich",compiler
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load boost pmetis
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost pmetis
 ===========================
 LMOD_BOOST_INC=/opt/apps/gcc-4_7/boost/1.53.0/include;
 export LMOD_BOOST_INC;
@@ -64,7 +64,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mpich",compiler
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show boost
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show boost
 ===========================
 MODULEPATH=ProjectDIR/rt/pkg/mf/MPI/gcc/4.7/mpich/3.0:ProjectDIR/rt/pkg/mf/Compiler/gcc/4.7:ProjectDIR/rt/pkg/mf/Core;
 export MODULEPATH;
@@ -72,7 +72,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mpich",compiler
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show pmetis
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show pmetis
 ===========================
 MODULEPATH=ProjectDIR/rt/pkg/mf/MPI/gcc/4.7/mpich/3.0:ProjectDIR/rt/pkg/mf/Compiler/gcc/4.7:ProjectDIR/rt/pkg/mf/Core;
 export MODULEPATH;
@@ -80,7 +80,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mpich",compiler
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show mpich
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show mpich
 ===========================
 MODULEPATH=ProjectDIR/rt/pkg/mf/MPI/gcc/4.7/mpich/3.0:ProjectDIR/rt/pkg/mf/Compiler/gcc/4.7:ProjectDIR/rt/pkg/mf/Core;
 export MODULEPATH;
@@ -88,7 +88,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mpich",compiler
 export _ModuleTable_;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing swap gcc intel
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing swap gcc intel
 ===========================
 __LMOD_REF_COUNT_CPATH=/usr/include/x86_64-linux-gnu:1\;/opt/apps/intel/13.1.0/composer_xe_2013.2.146/ipp/include:1\;/opt/apps/intel/13.1.0/composer_xe_2013.2.146/mkl/include:1\;/opt/apps/intel/13.1.0/composer_xe_2013.2.146/tbb/include:1;
 export __LMOD_REF_COUNT_CPATH;
@@ -156,7 +156,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mpich",compiler
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show intel
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show intel
 ===========================
 MODULEPATH=ProjectDIR/rt/pkg/mf/MPI/intel/13.1/mpich/3.0:ProjectDIR/rt/pkg/mf/Compiler/intel/13.1:ProjectDIR/rt/pkg/mf/Core;
 export MODULEPATH;
@@ -164,7 +164,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mpich",compiler
 export _ModuleTable_;
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/pkg/mf/MPI/intel/13.1/mpich/3.0:ProjectDIR/rt/pkg/mf/Compiler/intel/13.1:ProjectDIR/rt/pkg/mf/Core;
 export MODULEPATH;

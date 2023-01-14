@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T load ibmA openmpi phdf5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -T load ibmA openmpi phdf5
 ===========================
 CC=xlc;
 export CC;
@@ -52,7 +52,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={HDF5="phdf5",compile
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/family/mf/Core:ProjectDIR/rt/family/mf/Compiler/ibm/13:ProjectDIR/rt/family/mf/MPI/ibm/13/openmpi/2.1;
 export MODULEPATH;
@@ -60,7 +60,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={HDF5="phdf5",compile
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T load gccA
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -T load gccA
 ===========================
 CC=gcc;
 export CC;
@@ -108,7 +108,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={HDF5="phdf5",compile
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 MODULEPATH=ProjectDIR/rt/family/mf/Core:ProjectDIR/rt/family/mf/Compiler/gcc/7:ProjectDIR/rt/family/mf/MPI/gcc/7/openmpi/2.1;
 export MODULEPATH;
@@ -116,7 +116,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={HDF5="phdf5",compile
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T load ibmA
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -T load ibmA
 ===========================
 CC=xlc;
 export CC;
@@ -164,6 +164,6 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={HDF5="phdf5",compile
 export _ModuleTable_;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load tcc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load tcc
 ===========================
 false

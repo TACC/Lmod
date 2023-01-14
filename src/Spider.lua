@@ -736,8 +736,6 @@ function M.buildProvideByT(self, dbT, providedByT)
 
    dbg.printT("providedByT",providedByT)
    dbg.fini("Spider:buildProvideByT")
-
-
 end
 
 
@@ -774,6 +772,7 @@ function M.Level0_terse(self,dbT, providedByT)
    for k,v in pairsByKeys(t) do
       a[#a+1] = v
    end
+   a[#a+1] = ""
    dbg.fini("Spider:Level0_terse")
    return concatTbl(a,"\n")
 end

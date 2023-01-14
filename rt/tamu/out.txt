@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/tamu/mf/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
@@ -14,7 +14,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ucc/9.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load ucc/9.0
 ===========================
 LMOD_FAMILY_COMPILER=ucc;
 export LMOD_FAMILY_COMPILER;
@@ -32,7 +32,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={Compiler="ucc",},mT=
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 MODULEPATH=ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:ProjectDIR/rt/tamu/mf/Core;
 export MODULEPATH;
@@ -40,7 +40,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={Compiler="ucc",},mT=
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load umpi
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load umpi
 ===========================
 LMOD_FAMILY_MPI=umpi;
 export LMOD_FAMILY_MPI;
@@ -58,7 +58,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={Compiler="ucc",MPI="
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 MODULEPATH=ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1:ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:ProjectDIR/rt/tamu/mf/Core;
 export MODULEPATH;
@@ -66,7 +66,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={Compiler="ucc",MPI="
 export _ModuleTable_;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load uapp
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load uapp
 ===========================
 LOADEDMODULES=ucc/9.0:umpi/8.1:uapp/7.1.8.1;
 export LOADEDMODULES;
@@ -78,7 +78,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={Compiler="ucc",MPI="
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 MODULEPATH=ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1:ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:ProjectDIR/rt/tamu/mf/Core;
 export MODULEPATH;
@@ -86,7 +86,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={Compiler="ucc",MPI="
 export _ModuleTable_;
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider uapp
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider uapp
 ===========================
 MODULEPATH=ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1:ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:ProjectDIR/rt/tamu/mf/Core;
 export MODULEPATH;
@@ -94,7 +94,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={Compiler="ucc",MPI="
 export _ModuleTable_;
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider uapp/7.0.8.1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider uapp/7.0.8.1
 ===========================
 MODULEPATH=ProjectDIR/rt/tamu/mf/MPI/ucc/9.0/umpi/8.1:ProjectDIR/rt/tamu/mf/Compiler/ucc/9.0:ProjectDIR/rt/tamu/mf/Core;
 export MODULEPATH;

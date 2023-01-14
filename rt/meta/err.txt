@@ -1,12 +1,12 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/meta/mf0/Core
    noweb/2.11b
@@ -23,25 +23,25 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load settarg
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load settarg
 ===========================
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load targ
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load targ
 ===========================
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) settarg   2) targ
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/meta/MF_FOO/A
    Foo (D)
@@ -56,33 +56,33 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Foo
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load Foo
 ===========================
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) Foo
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Foo/1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load Foo/1.0
 ===========================
 The following have been reloaded with a version change:
   1) Foo => Foo/1.0
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) Foo/1.0
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/meta/MF_FOO/B
    Foo/1.0    Foo/2.0
@@ -97,33 +97,33 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Foo
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load Foo
 ===========================
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) Foo
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Foo/1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load Foo/1.0
 ===========================
 The following have been reloaded with a version change:
   1) Foo => Foo/1.0
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) Foo/1.0
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
 step 19
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/meta/MF_FOO/A
    Foo
@@ -138,11 +138,11 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 20
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Foo
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load Foo
 ===========================
 ===========================
 step 21
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) Foo/1.0

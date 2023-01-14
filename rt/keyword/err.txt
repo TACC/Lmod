@@ -1,6 +1,12 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing keyword graph
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
+===========================
+Modules based on Lua: Version 8.7.16  2023-01-09 21:47 -06:00
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing keyword graph
 ===========================
 The following modules match your search criteria: "graph"
   parmetis: parmetis/3.1, parmetis/4.0.1
@@ -12,8 +18,8 @@ To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
-step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --terse keyword graph
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --terse keyword graph
 ===========================
 parmetis/
 parmetis/3.1

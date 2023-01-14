@@ -1,12 +1,12 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.7.2  2022-05-04 13:42 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc
 ===========================
 Lmod has detected the following error: Infinite Load Loop detected for module: "gcc/10.3.0" file: "ProjectDIR/rt/infiniteLoop/mf/Core/gcc/10.3.0.lua"
 While processing the following module(s):

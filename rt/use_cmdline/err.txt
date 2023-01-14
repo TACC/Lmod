@@ -1,22 +1,22 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load a
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load use
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load use
 ===========================
 The following have been reloaded with a version change:
   1) a/1.0 => a/1.1
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/use_cmdline/mf/C2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/use_cmdline/mf/C2
 ===========================
 The following have been reloaded with a version change:
   1) a/1.1 => a/1.2
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) use/1.0   2) a/1.2

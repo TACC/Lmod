@@ -1,19 +1,19 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.17  2022-03-25 19:53 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show BRK
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show BRK
 ===========================
    ProjectDIR/rt/break/mf/BRK/1.0:
 setenv("BRK","1.0")
 LmodBreak("")
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load StdEnv
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load StdEnv
 ===========================
 0
 1
@@ -21,13 +21,13 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing load StdEnv
 3
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) A/1.0   2) B/2.0   3) C/3.0   4) StdEnv
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload StdEnv
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload StdEnv
 ===========================
 0
 1
@@ -35,12 +35,12 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload StdEnv
 3
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 No modules loaded
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T load StdEnv
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -T load StdEnv
 ===========================
 running: module --regression_testing -T load StdEnv
   (1)(0)Loading: StdEnv (fn: ProjectDIR/rt/break/mf/StdEnv.lua, using Find-Best)
@@ -55,7 +55,7 @@ running: module --regression_testing -T load StdEnv
     (5)(0)Loading: C (fn: ProjectDIR/rt/break/mf/C/3.0.lua, using Find-Best)
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T unload StdEnv
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -T unload StdEnv
 ===========================
 running: module --regression_testing -T unload StdEnv
   (1)(0)Unloading: StdEnv (status: active) (fn: ProjectDIR/rt/break/mf/StdEnv.lua)
@@ -69,24 +69,24 @@ running: module --regression_testing -T unload StdEnv
     (5)(0)Unloading: C (status: active) (fn: ProjectDIR/rt/break/mf/C/3.0.lua)
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 No modules loaded
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load BRK
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load BRK
 ===========================
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load bad
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load bad
 ===========================
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload bad
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload bad
 ===========================
 already set
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 No modules loaded
