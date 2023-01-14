@@ -118,16 +118,14 @@ local function l_processNewModulePATH(path)
    local moduleT     = moduleStack[iStack].moduleT
    local fullName    = moduleStack[iStack].fullName
    local t           = mpathMapT[mpath_new] or {}
-   t[fullName]       = mpath_old
-   dbg.print{"mpath_old:  \"",mpath_old,"\"\n"}
-   dbg.print{"mpath_new:  \"",mpath_new,"\"\n"}
-   dbg.print{"new ~= old:  ",mpath_new ~= mpath_old,"\n"}
 
    if (mpath_new ~= mpath_old) then
+      t[fullName]          = mpath_old
       mpathMapT[mpath_new] = t
-      moduleT.changeMPATH = true
+      moduleT.changeMPATH  = true
    end
-   dbg.start{"l_processNewModulePATH"}
+   dbg.printT("mpathMapT",mpathMapT)
+   dbg.fini("l_processNewModulePATH")
 end
 
 function Spider_dynamic_mpath()
@@ -401,9 +399,10 @@ function M.findAllModules(self, mpathA, spiderT, mpathMapT)
       end
    end
 
-   dbg.fini("Spider:findAllModules")
+   dbg.printT("mpathMapT",mpathMapT)
    mcp = mcp_old
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
+   dbg.fini("Spider:findAllModules")
 end
 
 function extend(a,b)
@@ -535,7 +534,9 @@ local function l_build_parentT(keepT, mpathMapT)
 end
 
 local function l_build_mpathParentT(mpathMapT)
+   dbg.start{"l_build_mpathParentT(mpathMapT)"}
    local mpathParentT = {}
+   dbg.printT("mpathMapT",mpathMapT)
    for mpath, vv in pairs(mpathMapT) do
       local a = mpathParentT[mpath] or {}
       for k, v in pairs(vv) do
@@ -552,6 +553,7 @@ local function l_build_mpathParentT(mpathMapT)
       end
       mpathParentT[mpath]  = a
    end
+   dbg.fini("l_build_mpathParentT")
    return mpathParentT
 end
 
