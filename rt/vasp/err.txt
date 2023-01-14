@@ -1,12 +1,12 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing keyword graph
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing keyword graph
 ===========================
 The following modules match your search criteria: "graph"
 To learn more about a package execute:
@@ -17,7 +17,7 @@ must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing whatis vasp
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis vasp
 ===========================
 vasp/5.2            : Name: VASP
 vasp/5.2            : Version: 5.2
@@ -26,7 +26,7 @@ vasp/5.2            : URL:http://cms.mpi.univie.ac.at/vasp/
 vasp/5.2            : Description: Vienna Ab-Initio Simulation Package
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing help vasp
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help vasp
 ===========================
 Module Specific Help for "vasp/5.2"
 The TACC VASP module appends the path to the vasp executables
@@ -46,7 +46,7 @@ vtstscripts/: utility scripts of TST
 Version 5.2
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load vasp
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load vasp
 ===========================
 Lmod has detected the following error: You do not access to VASP.5.2!
 Users have to show their licenses and be confirmed by

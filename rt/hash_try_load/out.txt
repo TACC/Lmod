@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load TACC
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load TACC
 ===========================
 LOADEDMODULES=cluster:TACC;
 export LOADEDMODULES;
@@ -18,7 +18,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={TACC={fn="Outp
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing save
 ===========================
 MODULEPATH=OutputDIR/mf/Core;
 export MODULEPATH;
@@ -26,7 +26,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={TACC={fn="Outp
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 unset LOADEDMODULES;
 MODULEPATH=OutputDIR/mf/Core;
@@ -36,7 +36,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Out
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
 ===========================
 LOADEDMODULES=cluster:TACC;
 export LOADEDMODULES;
@@ -52,7 +52,7 @@ __LMOD_DEFAULT_MODULES_LOADED__=1;
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 unset LOADEDMODULES;
 MODULEPATH=OutputDIR/mf/Core;
@@ -62,6 +62,6 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Out
 export _ModuleTable_;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
 ===========================
 false

@@ -1,36 +1,36 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load PrgEnv openmpi
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load PrgEnv openmpi
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) unix/unix     3) intel/intel   5) PrgEnv
   2) local/local   4) noweb/2.10c   6) openmpi/1.2.6
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload PrgEnv openmpi
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload PrgEnv openmpi
 ===========================
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 No modules loaded
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load admin PrgEnv openmpi parmetis
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load admin PrgEnv openmpi parmetis
 ===========================
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) admin/admin-1.0   3) local/local   5) noweb/2.10c   7) openmpi/1.2.6
@@ -39,10 +39,10 @@ Currently Loaded Modules:
    m:  built for host and native MIC
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 No modules loaded

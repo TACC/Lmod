@@ -1,96 +1,96 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.12  2022-02-09 16:10 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a b
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load a b
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload a b
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload a b
 ===========================
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load intel
 ===========================
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load mpich
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load mpich
 ===========================
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load clang
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load clang
 ===========================
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload clang
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload clang
 ===========================
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload mpich
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload mpich
 ===========================
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload intel
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload intel
 ===========================
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel mpich
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load intel mpich
 ===========================
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload intel
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload intel
 ===========================
 Inactive Modules:
   1) mpich
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load intel
 ===========================
 Activating Modules:
   1) mpich/3.0
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load settarg
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load settarg
 ===========================
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload settarg
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload settarg
 ===========================
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ll/1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load ll/1.0
 ===========================
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload ll/1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload ll/1.0
 ===========================
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ll/2.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load ll/2.0
 ===========================
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload ll/2.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload ll/2.0
 ===========================
 ===========================
 step 19
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load lloyd
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load lloyd
 ===========================
 ===========================
 step 20
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload lloyd
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload lloyd
 ===========================
 ===========================
 step 21
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing save
 ===========================
 Saved current collection of modules to: "default"
 ===========================
 step 22
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
 ===========================
 Restoring modules from user's default

@@ -1,164 +1,164 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.7.13  2022-09-14 12:56 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A X
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A X
 ===========================
 loading A
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) A   2) B   3) X
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload X
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload X
 ===========================
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) A
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload A
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload A
 ===========================
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load X Y
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load X Y
 ===========================
 loading A
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) A   2) B   3) X   4) Y
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing save
 ===========================
 loading A
 Saved current collection of modules to: "default"
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload X
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload X
 ===========================
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) B   2) Y
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload Y
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload Y
 ===========================
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 No modules loaded
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load X
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load X
 ===========================
 loading A
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload A
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload A
 ===========================
 The following dependent module(s) are not currently loaded: A (required by: X)
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
 ===========================
 Restoring modules from user's default
 loading A
 loading A
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload A
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload A
 ===========================
 The following dependent module(s) are not currently loaded: A (required by: X)
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
 step 19
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Y
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load Y
 ===========================
 ===========================
 step 20
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) B   2) Y
 ===========================
 step 21
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing save
 ===========================
 Saved current collection of modules to: "default"
 ===========================
 step 22
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
 ===========================
 Restoring modules from user's default
 ===========================
 step 23
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload Y
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload Y
 ===========================
 ===========================
 step 24
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 No modules loaded
 ===========================
 step 25
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
 step 26
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load X Y
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load X Y
 ===========================
 loading A
 ===========================
 step 27
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing save
 ===========================
 loading A
 Saved current collection of modules to: "default"
 ===========================
 step 28
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
 step 29
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
 ===========================
 Restoring modules from user's default
 loading A
 loading A
 ===========================
 step 30
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) A   2) B   3) X   4) Y
 ===========================
 step 31
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
 step 32
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Z
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load Z
 ===========================
 Lmod has detected the following error: The following module(s) are unknown: "Non_existant"
 Please check the spelling or version number. Also try "module spider ..."
@@ -167,45 +167,45 @@ It is also possible your cache file is out-of-date; it may help to try:
 Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 33
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load bar/1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load bar/1.0
 ===========================
 ===========================
 step 34
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load foo
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo
 ===========================
 The following have been reloaded with a version change:
   1) bar/1.0 => bar/1.2
 ===========================
 step 35
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) bar/1.2   2) foo/1.0
 ===========================
 step 36
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
 step 37
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load bar/1.2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load bar/1.2
 ===========================
 ===========================
 step 38
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load foo
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo
 ===========================
 ===========================
 step 39
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) bar/1.2   2) foo/1.0
 ===========================
 step 40
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
 step 41
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load SomeSoftware OtherSoftware
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load SomeSoftware OtherSoftware
 ===========================
 Processing Dependency/3.4
 Processing Dependency/3.4
@@ -213,58 +213,58 @@ Processing Dependency/5.6
 The following dependent module(s) are not currently loaded: Dependency/3.4 (required by: SomeSoftware/1.2)
 ===========================
 step 42
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) SomeSoftware/1.2   2) Dependency/5.6   3) OtherSoftware/3.4
 ===========================
 step 43
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 Processing Dependency/5.6
 ===========================
 step 44
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
 ===========================
 ===========================
 step 45
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) B/2.0   2) A/1.0
 ===========================
 step 46
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
 step 47
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load python/3.9.6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load python/3.9.6
 ===========================
 ===========================
 step 48
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ipykernel/2022a
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load ipykernel/2022a
 ===========================
 ===========================
 step 49
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) python/3.9.6   2) ipykernel/2022a
 ===========================
 step 50
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
 step 51
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/depends_on/mf/special
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/depends_on/mf/special
 ===========================
 ===========================
 step 52
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load oneapi impi
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load oneapi impi
 ===========================
 ===========================
 step 53
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload oneapi
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload oneapi
 ===========================
 Lmod has detected the following error: The following module(s) are unknown: "ucx"
 Please check the spelling or version number. Also try "module spider ..."
@@ -273,100 +273,100 @@ It is also possible your cache file is out-of-date; it may help to try:
 Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 54
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
 step 55
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load compiler_a package
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load compiler_a package
 ===========================
 ===========================
 step 56
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload package
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload package
 ===========================
 ===========================
 step 57
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load package
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load package
 ===========================
 ===========================
 step 58
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load compiler_b
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load compiler_b
 ===========================
 Lmod is automatically replacing "compiler_a/1.0" with "compiler_b/1.0".
 Due to MODULEPATH changes, the following have been reloaded:
   1) dependency/1.0     2) package/1.0
 ===========================
 step 59
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload package
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload package
 ===========================
 ===========================
 step 60
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) compiler_b/1.0
 ===========================
 step 61
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
 step 62
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load compiler_a package pkgB
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load compiler_a package pkgB
 ===========================
 ===========================
 step 63
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload compiler_a
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload compiler_a
 ===========================
 Inactive Modules:
   1) dependency     2) package     3) pkgB
 ===========================
 step 64
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load compiler_b
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load compiler_b
 ===========================
 Activating Modules:
   1) dependency/1.0     2) package/1.0     3) pkgB/2.0
 ===========================
 step 65
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload package
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload package
 ===========================
 ===========================
 step 66
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) compiler_b/1.0   2) dependency/1.0   3) pkgB/2.0
 ===========================
 step 67
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload pkgB
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload pkgB
 ===========================
 ===========================
 step 68
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) compiler_b/1.0
 ===========================
 step 69
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
 step 70
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load A
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
 ===========================
 ===========================
 step 71
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) python3/1.0   2) A/1.0
 ===========================
 step 72
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc
 ===========================
 Due to MODULEPATH changes, the following have been reloaded:
   1) python3/1.0
 ===========================
 step 73
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing av
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing av
 ===========================
 ProjectDIR/rt/depends_on/mf/Issue604/gcc
    python3/1.0 (L,D)
@@ -383,20 +383,20 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 74
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) A/1.0   2) gcc/1.0   3) python3/1.0
 ===========================
 step 75
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load intel
 ===========================
 Lmod is automatically replacing "gcc/1.0" with "intel/1.0".
 Due to MODULEPATH changes, the following have been reloaded:
   1) python3/1.0
 ===========================
 step 76
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) A/1.0   2) python3/1.0   3) intel/1.0

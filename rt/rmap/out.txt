@@ -1,6 +1,6 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
@@ -319,7 +319,7 @@ reverseMapT = {
 xlibmap = {}
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/rmap/mf/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
@@ -329,7 +329,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/rmap/mf/2Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;

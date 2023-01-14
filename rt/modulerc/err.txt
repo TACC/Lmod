@@ -1,82 +1,82 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.7.7  2022-07-05 10:00 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load intel
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) intel/14.0.3
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel/15
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load intel/15
 ===========================
 The following have been reloaded with a version change:
   1) intel/14.0.3 => intel/15.0.2
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) intel/15.0.2
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a14
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load a14
 ===========================
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) intel/15.0.2   2) a/14.0.1.134
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a13
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load a13
 ===========================
 The following have been reloaded with a version change:
   1) a/14.0.1.134 => a/13.2.345
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) intel/15.0.2   2) a/13.2.345
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load abinit/6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load abinit/6
 ===========================
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) intel/15.0.2   2) a/13.2.345   3) abinit/6.12.3
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load abinit/7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load abinit/7
 ===========================
 The following have been reloaded with a version change:
   1) abinit/6.12.3 => abinit/7.4.3
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) intel/15.0.2   2) a/13.2.345   3) abinit/7.4.3
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load hidden/2.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load hidden/2.0
 ===========================
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) intel/15.0.2   2) a/13.2.345   3) abinit/7.4.3   4) hidden/2.0 (H)
@@ -84,7 +84,7 @@ Currently Loaded Modules:
    H:  Hidden Module
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t avail
 ===========================
 a13(@a/13.2.345)
 a14(@a/14.0.1.134)
@@ -142,7 +142,7 @@ z/24(@z/24.0.1.134)
 z/24.0.1.134
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
 ===========================
 Global Aliases
    a13 -> a/13.2.345    a14 -> a/14.0.1.134    z23 -> z/23.2.345
@@ -173,7 +173,7 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Global Aliases
    a13 -> a/13.2.345    a14 -> a/14.0.1.134    z23 -> z/23.2.345
@@ -200,7 +200,7 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 19
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Global Aliases
    a13 -> a/13.2.345    a14 -> a/14.0.1.134    z23 -> z/23.2.345
@@ -231,7 +231,7 @@ runSpiderCmd -o spiderT ProjectDIR/rt/modulerc/mf/Core
 ===========================
 ===========================
 step 21
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Global Aliases
    a13 -> a/13.2.345    a14 -> a/14.0.1.134    z23 -> z/23.2.345
@@ -258,22 +258,22 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 22
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/modulerc/mf2/Core
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/modulerc/mf2/Core
 ===========================
 ===========================
 step 23
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider dum
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider dum
 ===========================
 Lmod has detected the following error: Unable to find: "dum".
 ===========================
 step 24
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cluster
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load cluster
 ===========================
 The default cluster module cannot be determined. Please set $VSC_DEFAULT_CLUSTER_MODULE.
 Lmod has detected the following error: Unable to parse: "ProjectDIR/rt/modulerc/mf3/Core/cluster/.modulerc". Aborting!
 ===========================
 step 25
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/modulerc/mf4
    a/1.0        a/3.0              mpich/3.1.2      mpich/3.2 (D)
@@ -287,7 +287,7 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 26
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Global Aliases
    a14 -> (N/A)
@@ -303,7 +303,7 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 27
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
 ===========================
 Global Aliases
    a14 -> (N/A)
@@ -321,11 +321,11 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 28
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load mpich a
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load mpich a
 ===========================
 ===========================
 step 29
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) mpich/3.2-dbg   2) a/2.0 (H)
@@ -333,7 +333,7 @@ Currently Loaded Modules:
    H:  Hidden Module
 ===========================
 step 30
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Global Aliases
    a14 -> (N/A)
@@ -350,7 +350,7 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 31
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
 ===========================
 Global Aliases
    a14 -> (N/A)
@@ -369,7 +369,7 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 32
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Global Aliases
    a14 -> (N/A)
@@ -386,7 +386,7 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 33
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
 ===========================
 Global Aliases
    a14 -> (N/A)
@@ -405,7 +405,7 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 34
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/modulerc/mf5
    Core/Java/1.7.0_143 (1.7)    Core/Java/1.8.0_181 (D:1.8)
@@ -423,7 +423,7 @@ runSpiderCmd -o spiderT ProjectDIR/rt/modulerc/mf6:ProjectDIR/rt/modulerc/mf7:Pr
 ===========================
 ===========================
 step 36
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/modulerc/mf6
    java/1.8.0-A (1.8)
@@ -446,7 +446,7 @@ runSpiderCmd -o spiderT ProjectDIR/rt/modulerc/mf7:ProjectDIR/rt/modulerc/mf6:Pr
 ===========================
 ===========================
 step 38
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/modulerc/mf7
    java/1.8.0-B (D:1.8)
@@ -465,7 +465,7 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 39
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Global Aliases
    a13 -> (N/A)    compiler/intel/2019.5 -> compiler/intel/19.0
@@ -482,7 +482,7 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 40
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t avail
 ===========================
 a13(@a/13.0)
 compiler/intel/2019.5(@compiler/intel/19.0)
@@ -493,21 +493,21 @@ compiler/intel/18.0.5.241
 compiler/intel/19.0
 ===========================
 step 41
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t avail compiler/intel/19.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t avail compiler/intel/19.0
 ===========================
 compiler/intel/2019.5(@compiler/intel/19.0)
 ProjectDIR/rt/modulerc/mf8:
 compiler/intel/19.0
 ===========================
 step 42
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t avail compiler/intel/2019.5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t avail compiler/intel/2019.5
 ===========================
 compiler/intel/2019.5(@compiler/intel/19.0)
 ProjectDIR/rt/modulerc/mf8:
 compiler/intel/19.0
 ===========================
 step 43
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/modulerc/mf9/Core
    Java/11.0.2 (D:11)    Java/13.0.2 (13)

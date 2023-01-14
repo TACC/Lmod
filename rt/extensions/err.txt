@@ -1,12 +1,12 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.12  2022-02-09 16:10 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/extensions/mf/Core
    TACC    gcc/9.4    intel/19.1
@@ -17,11 +17,11 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc python
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc python
 ===========================
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/extensions/mf/Compiler/gcc/9
    python/3.7 (L)
@@ -40,7 +40,7 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
 ===========================
 ProjectDIR/rt/extensions/mf/Compiler/gcc/9
    python/3.7 (L)    snake/3.9 (H)
@@ -60,14 +60,14 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel python
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load intel python
 ===========================
 Lmod is automatically replacing "gcc/9.4" with "intel/19.1".
 Due to MODULEPATH changes, the following have been reloaded:
   1) python/3.7
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/extensions/mf/Compiler/intel/19
    python/3.7 (L)

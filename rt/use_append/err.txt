@@ -1,16 +1,16 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load append
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load append
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show append
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show append
 ===========================
    ProjectDIR/rt/use_append/mf/Core/append:
 append_path("MODULEPATH","ProjectDIR/rt/use_append/mf/Append")
@@ -19,7 +19,7 @@ help([[Dummy test module
 ]])
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) append

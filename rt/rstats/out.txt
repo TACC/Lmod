@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T load Rpkgs
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -T load Rpkgs
 ===========================
 LOADEDMODULES=Rstats/3.4.0:Rpkgs/3.4.0;
 export LOADEDMODULES;
@@ -22,7 +22,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={Rpkgs={fn="Pro
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/rstats/mf/Core;
 export MODULEPATH;
@@ -30,7 +30,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={Rpkgs={fn="Pro
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T unload Rpkgs
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -T unload Rpkgs
 ===========================
 LOADEDMODULES=Rstats/3.4.0;
 export LOADEDMODULES;

@@ -26,8 +26,9 @@ testdescript = {
      rm -f _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua .cache .config
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
 
-     runLmod         keyword graph          # 1
-     runLmod --terse keyword graph          # 2
+     runLmod --version                  # 1
+     runLmod           keyword graph    # 2
+     runLmod --terse   keyword graph    # 3
 
      HOME=$ORIG_HOME
 

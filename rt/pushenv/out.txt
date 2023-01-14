@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a b
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load a b
 ===========================
 LOADEDMODULES=a/1.0:b/1.0;
 export LOADEDMODULES;
@@ -26,7 +26,7 @@ __LMOD_STACK_RTM=A:A;
 export __LMOD_STACK_RTM;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload a b
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload a b
 ===========================
 unset LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/pushenv/mf/Core;
@@ -40,7 +40,7 @@ unset __LMOD_STACK_R;
 unset __LMOD_STACK_RTM;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load intel
 ===========================
 CC=icc;
 export CC;
@@ -58,7 +58,7 @@ __LMOD_STACK_CC=icc;
 export __LMOD_STACK_CC;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load mpich
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load mpich
 ===========================
 CC=mpicc;
 export CC;
@@ -74,7 +74,7 @@ __LMOD_STACK_CC=mpicc:icc;
 export __LMOD_STACK_CC;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load clang
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load clang
 ===========================
 CC=icc;
 export CC;
@@ -92,7 +92,7 @@ __LMOD_STACK_CC=icc:mpicc:icc;
 export __LMOD_STACK_CC;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload clang
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload clang
 ===========================
 CC=mpicc;
 export CC;
@@ -110,7 +110,7 @@ __LMOD_STACK_CC=mpicc:icc;
 export __LMOD_STACK_CC;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload mpich
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload mpich
 ===========================
 CC=icc;
 export CC;
@@ -126,7 +126,7 @@ __LMOD_STACK_CC=icc;
 export __LMOD_STACK_CC;
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload intel
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload intel
 ===========================
 unset CC;
 unset LOADEDMODULES;
@@ -140,7 +140,7 @@ export _ModuleTable_;
 unset __LMOD_STACK_CC;
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel mpich
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load intel mpich
 ===========================
 CC=mpicc;
 export CC;
@@ -158,7 +158,7 @@ __LMOD_STACK_CC=mpicc:icc;
 export __LMOD_STACK_CC;
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload intel
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload intel
 ===========================
 unset CC;
 unset LOADEDMODULES;
@@ -172,7 +172,7 @@ export _ModuleTable_;
 unset __LMOD_STACK_CC;
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load intel
 ===========================
 CC=mpicc;
 export CC;
@@ -190,7 +190,7 @@ __LMOD_STACK_CC=mpicc:icc;
 export __LMOD_STACK_CC;
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load settarg
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load settarg
 ===========================
 LOADEDMODULES=intel/13.0:mpich/3.0:settarg/1.0;
 export LOADEDMODULES;
@@ -206,7 +206,7 @@ __LMOD_STACK_RTM_SETTARG_CMD=SETTARG_CMD::;
 export __LMOD_STACK_RTM_SETTARG_CMD;
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload settarg
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload settarg
 ===========================
 LOADEDMODULES=intel/13.0:mpich/3.0;
 export LOADEDMODULES;
@@ -222,7 +222,7 @@ __LMOD_STACK_RTM_SETTARG_CMD=:;
 export __LMOD_STACK_RTM_SETTARG_CMD;
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ll/1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load ll/1.0
 ===========================
 LEWIS=correct;
 export LEWIS;
@@ -242,7 +242,7 @@ __LMOD_STACK_RTM=correct:test;
 export __LMOD_STACK_RTM;
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload ll/1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload ll/1.0
 ===========================
 LEWIS=test;
 export LEWIS;
@@ -262,7 +262,7 @@ __LMOD_STACK_RTM=test;
 export __LMOD_STACK_RTM;
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load ll/2.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load ll/2.0
 ===========================
 LEWIS=;
 export LEWIS;
@@ -282,7 +282,7 @@ __LMOD_STACK_RTM=\ :test;
 export __LMOD_STACK_RTM;
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload ll/2.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload ll/2.0
 ===========================
 LEWIS=test;
 export LEWIS;
@@ -302,7 +302,7 @@ __LMOD_STACK_RTM=test;
 export __LMOD_STACK_RTM;
 ===========================
 step 19
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load lloyd
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load lloyd
 ===========================
 unset LLOYD;
 LOADEDMODULES=intel/13.0:mpich/3.0:lloyd/1.0;
@@ -317,7 +317,7 @@ __LMOD_STACK_LLOYD=false:FOO;
 export __LMOD_STACK_LLOYD;
 ===========================
 step 20
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload lloyd
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload lloyd
 ===========================
 LLOYD=FOO;
 export LLOYD;
@@ -333,7 +333,7 @@ __LMOD_STACK_LLOYD=FOO;
 export __LMOD_STACK_LLOYD;
 ===========================
 step 21
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing save
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing save
 ===========================
 MODULEPATH=ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/mf/Core;
 export MODULEPATH;
@@ -341,7 +341,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={intel={fn="Pro
 export _ModuleTable_;
 ===========================
 step 22
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing restore
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
 ===========================
 CC=mpicc;
 export CC;

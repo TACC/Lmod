@@ -1,40 +1,40 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load a
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unuse ProjectDIR/rt/use_unuse/mf/Core
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unuse ProjectDIR/rt/use_unuse/mf/Core
 ===========================
 Inactive Modules:
   1) a
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/use_unuse/mf/RTM
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/use_unuse/mf/RTM
 ===========================
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unuse ProjectDIR/rt/use_unuse/mf/RTM
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unuse ProjectDIR/rt/use_unuse/mf/RTM
 ===========================
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ../../mf/RTM
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ../../mf/RTM
 ===========================
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unuse ProjectDIR/rt/use_unuse/mf/RTM
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unuse ProjectDIR/rt/use_unuse/mf/RTM
 ===========================
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/use_unuse/mf/RTM2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/use_unuse/mf/RTM2
 ===========================
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unuse ProjectDIR/rt/use_unuse/mf/RTM2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unuse ProjectDIR/rt/use_unuse/mf/RTM2
 ===========================

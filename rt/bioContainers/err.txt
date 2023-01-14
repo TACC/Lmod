@@ -1,12 +1,12 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.7.3  2022-05-23 14:19 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/bioContainers/mf/Core
    bioContainers/0.1
@@ -17,11 +17,11 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load bioContainers
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load bioContainers
 ===========================
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -T avail
 ===========================
 running: module --regression_testing -T avail
   Using Cache file: OutputDIR/bcd/cacheDir/spiderT.lua

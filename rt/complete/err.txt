@@ -1,20 +1,20 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.16  2022-03-22 14:19 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load spack
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load spack
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload spack
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload spack
 ===========================
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load broken_complete
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load broken_complete
 ===========================
 Lmod has detected the following error: Syntax error in file: ProjectDIR/rt/complete/mf/broken_complete/1.0.lua
  with command: complete, one or more arguments are not strings.
@@ -23,15 +23,15 @@ While processing the following module(s):
     broken_complete/1.0  ProjectDIR/rt/complete/mf/broken_complete/1.0.lua
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load tcl_spack
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load tcl_spack
 ===========================
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload tcl_spack
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload tcl_spack
 ===========================
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show spack
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show spack
 ===========================
    ProjectDIR/rt/complete/mf/spack/1.0.lua:
 complete("bash","spack","-o bashdefault -o default -F _bash_completion_spack")
@@ -64,7 +64,7 @@ set_shell_function("_bash_completion_spack","    local -a COMP_WORDS_NO_FLAGS;\
 ","")
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show tcl_spack
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show tcl_spack
 ===========================
    ProjectDIR/rt/complete/mf/tcl_spack/1.0:
 complete("bash","spack","-o bashdefault -o default -F _bash_completion_spack")

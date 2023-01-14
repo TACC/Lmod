@@ -1098,27 +1098,40 @@ function dynamic_shell(shellNm)
    
    if (shellNm ~= "shell") then
       if (BaseShell.isValid(shellNm)) then
+         -- Trust a valid shell and report the shell name is valid and return
          success = true
+         return shellNm, success
       end
-      return shellNm, success
+   else
+      -- If here then the name of the shell is "shell" and it is "valid"
+      success = true
    end
-   local ppid      = posix.getpid("ppid")
-   local system    = posix.uname("%s")
-   local n         = shellNm
-   if (system == "Linux") then
-      n = posix.readlink("/proc/"..ppid.."/exe")
+
+   ------------------------------------------------------------
+   -- Dynamically find the shell from the parent process
+   local ppid  = posix.getpid("ppid")
+   local n     = shellNm
+   local fn    = "/proc/"..ppid.."/exe"
+   local found = false
+   if (isFile(fn)) then
+      n = posix.readlink(fn)
       n = barefilename(n)
-   elseif (system == "Darwin") then
-      local ps_cmd = "@ps@"
-      if ( ps_cmd:sub(1,1) == "@" ) then
-         ps_cmd = "ps"
+      if (BaseShell.isValid(n)) then
+         shellNm = n
+         return shellNm, success
       end
-      local cmd    = ps_cmd.." "..ppid.." -ocomm="
-      n            = capture(cmd):gsub("^%-",""):gsub("%s+$","")
    end
+   
+   local ps_cmd = "@ps@"
+   if ( ps_cmd:sub(1,1) == "@" ) then
+      ps_cmd = "ps"
+   end
+   local cmd = ps_cmd.." -p "..ppid.." -ocomm="
+   n         = capture(cmd):gsub("^%-",""):gsub("%s+$","")
    if (BaseShell.isValid(n)) then
       shellNm = n
-      success = true
+   else
+      shellNm = "bash"  -- If "n" is not a valid shell assume bash.
    end
    return shellNm, success
 end

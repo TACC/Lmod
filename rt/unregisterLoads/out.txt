@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a b
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load a b
 ===========================
 LMOD_FAMILY_COMPILER=b;
 export LMOD_FAMILY_COMPILER;
@@ -22,7 +22,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="b",},mT={a
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/unregisterLoads/mf/B:ProjectDIR/rt/unregisterLoads/mf/Core;
 export MODULEPATH;
@@ -30,7 +30,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="b",},mT={a
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a d
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load a d
 ===========================
 LMOD_FAMILY_COMPILER=d;
 export LMOD_FAMILY_COMPILER;
@@ -46,7 +46,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="d",},mT={a
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/unregisterLoads/mf/B:ProjectDIR/rt/unregisterLoads/mf/Core;
 export MODULEPATH;

@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing whatis a
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis a
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/tclmodules/mf:1;
 export __LMOD_REF_COUNT_MODULEPATH;
@@ -14,7 +14,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load earlyLateOutput
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load earlyLateOutput
 ===========================
 echo early output
 LOADEDMODULES=earlyLateOutput/2.0;
@@ -33,7 +33,7 @@ echo source conda1.sh;
 echo source conda2.sh;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/tclmodules/mf;
 export MODULEPATH;
@@ -41,7 +41,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={earlyLateOutpu
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show showMe
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show showMe
 ===========================
 MODULEPATH=ProjectDIR/rt/tclmodules/mf;
 export MODULEPATH;

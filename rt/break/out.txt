@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show BRK
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show BRK
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/break/mf:1;
 export __LMOD_REF_COUNT_MODULEPATH;
@@ -14,7 +14,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load StdEnv
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load StdEnv
 ===========================
 A=1.0;
 export A;
@@ -32,7 +32,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="Project
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/break/mf;
 export MODULEPATH;
@@ -40,7 +40,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="Project
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload StdEnv
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload StdEnv
 ===========================
 unset A;
 unset B;
@@ -53,7 +53,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/break/mf;
 export MODULEPATH;
@@ -61,7 +61,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T load StdEnv
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -T load StdEnv
 ===========================
 A=1.0;
 export A;
@@ -79,7 +79,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="Project
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -T unload StdEnv
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -T unload StdEnv
 ===========================
 unset A;
 unset B;
@@ -92,7 +92,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/break/mf;
 export MODULEPATH;
@@ -100,7 +100,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load BRK
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load BRK
 ===========================
 MODULEPATH=ProjectDIR/rt/break/mf;
 export MODULEPATH;
@@ -108,7 +108,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load bad
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load bad
 ===========================
 FOO=just\ me;
 export FOO;
@@ -122,7 +122,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={bad={fn="Proje
 export _ModuleTable_;
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload bad
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload bad
 ===========================
 unset LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/break/mf;
@@ -132,7 +132,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/break/mf;
 export MODULEPATH;

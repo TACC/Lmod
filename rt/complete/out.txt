@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load spack
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load spack
 ===========================
 LOADEDMODULES=spack/1.0;
 export LOADEDMODULES;
@@ -46,7 +46,7 @@ _bash_completion_spack () {     local -a COMP_WORDS_NO_FLAGS;
 [[ -n "${BASH_VERSION:-}" ]] && complete -o bashdefault -o default -F _bash_completion_spack spack;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload spack
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload spack
 ===========================
 unset LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/complete/mf;
@@ -58,12 +58,12 @@ unset -f _bash_completion_spack 2> /dev/null || true;
 [[ -n "${BASH_VERSION:-}" ]] && complete -r spack;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load broken_complete
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load broken_complete
 ===========================
 false
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load tcl_spack
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load tcl_spack
 ===========================
 LOADEDMODULES=tcl_spack/1.0;
 export LOADEDMODULES;
@@ -104,7 +104,7 @@ _bash_completion_spack () {
 [[ -n "${BASH_VERSION:-}" ]] && complete -o bashdefault -o default -F _bash_completion_spack spack;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload tcl_spack
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload tcl_spack
 ===========================
 unset LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/complete/mf;
@@ -116,7 +116,7 @@ unset -f _bash_completion_spack 2> /dev/null || true;
 [[ -n "${BASH_VERSION:-}" ]] && complete -r spack;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show spack
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show spack
 ===========================
 MODULEPATH=ProjectDIR/rt/complete/mf;
 export MODULEPATH;
@@ -124,7 +124,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show tcl_spack
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show tcl_spack
 ===========================
 MODULEPATH=ProjectDIR/rt/complete/mf;
 export MODULEPATH;

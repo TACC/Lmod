@@ -1,48 +1,48 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use --priority 100 ProjectDIR/rt/priority/mf/RTM
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use --priority 100 ProjectDIR/rt/priority/mf/RTM
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use --priority 100 ProjectDIR/rt/priority/mf/RTM
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use --priority 100 ProjectDIR/rt/priority/mf/RTM
 ===========================
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load priority
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load priority
 ===========================
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load a
 ===========================
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load tdog
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load tdog
 ===========================
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) priority/1.0   2) a/1.0   3) tdog/1.0
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload priority
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload priority
 ===========================
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) a/1.0   2) tdog/1.0
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show tdog
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show tdog
 ===========================
    ProjectDIR/rt/priority/mf/Core/tdog/1.0:
 prepend_path{"RTM_PATH","/top/dog100",priority="100"}

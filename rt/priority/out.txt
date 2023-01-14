@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use --priority 100 ProjectDIR/rt/priority/mf/RTM
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use --priority 100 ProjectDIR/rt/priority/mf/RTM
 ===========================
 __LMOD_Priority_MODULEPATH=ProjectDIR/rt/priority/mf/RTM:-100;
 export __LMOD_Priority_MODULEPATH;
@@ -16,7 +16,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use --priority 100 ProjectDIR/rt/priority/mf/RTM
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use --priority 100 ProjectDIR/rt/priority/mf/RTM
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/priority/mf/RTM:2\;ProjectDIR/rt/priority/mf/Core:1;
 export __LMOD_REF_COUNT_MODULEPATH;
@@ -26,7 +26,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load priority
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load priority
 ===========================
 LOADEDMODULES=priority/1.0;
 export LOADEDMODULES;
@@ -44,7 +44,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={priority={fn="
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load a
 ===========================
 LOADEDMODULES=priority/1.0:a/1.0;
 export LOADEDMODULES;
@@ -60,7 +60,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="Project
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load tdog
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load tdog
 ===========================
 LOADEDMODULES=priority/1.0:a/1.0:tdog/1.0;
 export LOADEDMODULES;
@@ -78,7 +78,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="Project
 export _ModuleTable_;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core;
 export MODULEPATH;
@@ -86,7 +86,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="Project
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload priority
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload priority
 ===========================
 LOADEDMODULES=a/1.0:tdog/1.0;
 export LOADEDMODULES;
@@ -104,7 +104,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="Project
 export _ModuleTable_;
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core;
 export MODULEPATH;
@@ -112,7 +112,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="Project
 export _ModuleTable_;
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show tdog
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show tdog
 ===========================
 MODULEPATH=ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core;
 export MODULEPATH;

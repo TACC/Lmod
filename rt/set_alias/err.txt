@@ -1,40 +1,40 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.16  2022-03-22 14:19 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load test1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load test1
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load test2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load test2
 ===========================
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload test2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload test2
 ===========================
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load test1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load test1
 ===========================
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load sfunc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load sfunc
 ===========================
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load alias
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load alias
 ===========================
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load spack
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load spack
 ===========================
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show showMe
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show showMe
 ===========================
    ProjectDIR/rt/set_alias/mf/showMe/1.0.lua:
 pushenv("TEST","test")

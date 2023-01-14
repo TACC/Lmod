@@ -1,16 +1,16 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.7.15  2022-12-19 15:03 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use -a ProjectDIR/rt/spider/mf/Core ProjectDIR/rt/spider/mf/Beta ProjectDIR/rt/spider/mf/Base ProjectDIR/rt/spider/mf/Core2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use -a ProjectDIR/rt/spider/mf/Core ProjectDIR/rt/spider/mf/Beta ProjectDIR/rt/spider/mf/Base ProjectDIR/rt/spider/mf/Core2
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 The following is a list of the modules and extensions currently available:
   PrgEnv: PrgEnv
@@ -58,7 +58,7 @@ must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t spider
 ===========================
 PrgEnv
 R/
@@ -148,21 +148,21 @@ unix/
 unix/unix
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider mpich2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider mpich2
 ===========================
   mpich2: mpich2/1.0.7
     You will need to load all module(s) on any one of the lines below before the "mpich2/1.0.7" module is available to load.
       intel/intel
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider mpich2/1.0.7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider mpich2/1.0.7
 ===========================
   mpich2: mpich2/1.0.7
     You will need to load all module(s) on any one of the lines below before the "mpich2/1.0.7" module is available to load.
       intel/intel
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider parmetis/3.1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider parmetis/3.1
 ===========================
   parmetis: parmetis/3.1
     Description:
@@ -175,12 +175,12 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider parmetis/3.1
       intel/intel  openmpi/1.2.6
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider mpich2me
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider mpich2me
 ===========================
 Lmod has detected the following error: Unable to find: "mpich2me".
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider R
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider R
 ===========================
   R: R/2.1.5
      Other possible modules matches:
@@ -190,13 +190,13 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider R
       $ module -r spider '.*R.*'
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -r spider ^R
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -r spider ^R
 ===========================
   R: R/2.1.5
     This module can be loaded directly: module load R/2.1.5
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -r spider ^[Rr]
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -r spider ^[Rr]
 ===========================
   R: R/2.1.5
     This module can be loaded directly: module load R/2.1.5
@@ -204,12 +204,12 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing -r spider ^[Rr]
     This module can be loaded directly: module load r/2.1.5
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider mpich2/1.0.5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider mpich2/1.0.5
 ===========================
 Lmod has detected the following error: Unable to find: "mpich2/1.0.5".
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider is-dyna
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider is-dyna
 ===========================
   is-dyna:
      Versions:
@@ -221,13 +221,13 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider is-dyna
      $ module spider is-dyna/2.0
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider is-dyna/1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider is-dyna/1.0
 ===========================
   is-dyna: is-dyna/1.0
     This module can be loaded directly: module load is-dyna/1.0
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider bwa
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider bwa
 ===========================
   bwa:
      Versions:
@@ -242,7 +242,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider bwa
      $ module spider bwa/0.7.10
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gromacs
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider gromacs
 ===========================
   apps/gromacs:
      Versions:
@@ -255,7 +255,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gromacs
      $ module spider apps/gromacs/4.6.3
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider apps/gromacs
 ===========================
   apps/gromacs:
      Versions:
@@ -268,25 +268,25 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs
      $ module spider apps/gromacs/4.6.3
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6.3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider apps/gromacs/4.6.3
 ===========================
   apps/gromacs: apps/gromacs/4.6.3
     You will need to load all module(s) on any one of the lines below before the "apps/gromacs/4.6.3" module is available to load.
       cmplrs/intel/14.0  mpi/openmpi/1.6.5
 ===========================
 step 19
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6.3-debug
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider apps/gromacs/4.6.3-debug
 ===========================
   apps/gromacs: apps/gromacs/4.6.3-debug
     You will need to load all module(s) on any one of the lines below before the "apps/gromacs/4.6.3-debug" module is available to load.
       cmplrs/intel/14.0  mpi/openmpi/1.6.5
 ===========================
 step 20
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/spider/mf/UNKNOWN
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/spider/mf/UNKNOWN
 ===========================
 ===========================
 step 21
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 The following is a list of the modules and extensions currently available:
   PrgEnv: PrgEnv
@@ -334,7 +334,7 @@ must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
 step 22
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gromacs
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider gromacs
 ===========================
   apps/gromacs:
      Versions:
@@ -347,7 +347,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gromacs
      $ module spider apps/gromacs/4.6.3
 ===========================
 step 23
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider apps/gromacs
 ===========================
   apps/gromacs:
      Versions:
@@ -360,45 +360,45 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs
      $ module spider apps/gromacs/4.6.3
 ===========================
 step 24
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6.3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider apps/gromacs/4.6.3
 ===========================
   apps/gromacs: apps/gromacs/4.6.3
     You will need to load all module(s) on any one of the lines below before the "apps/gromacs/4.6.3" module is available to load.
       cmplrs/intel/14.0  mpi/openmpi/1.6.5
 ===========================
 step 25
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider apps/gromacs/4.6.3-debug
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider apps/gromacs/4.6.3-debug
 ===========================
   apps/gromacs: apps/gromacs/4.6.3-debug
     You will need to load all module(s) on any one of the lines below before the "apps/gromacs/4.6.3-debug" module is available to load.
       cmplrs/intel/14.0  mpi/openmpi/1.6.5
 ===========================
 step 26
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider petsc/3.1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider petsc/3.1
 ===========================
   petsc: petsc/3.1
     You will need to load all module(s) on any one of the lines below before the "petsc/3.1" module is available to load.
       intel/intel  mpich2/1.0.7
 ===========================
 step 27
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing use ProjectDIR/rt/spider/mf/Core3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/spider/mf/Core3
 ===========================
 ===========================
 step 28
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider smrt
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider smrt
 ===========================
   smrt: smrt/2.3
     This module can be loaded directly: module load smrt/2.3
 ===========================
 step 29
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider petsc/3.1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider petsc/3.1
 ===========================
   petsc: petsc/3.1
     You will need to load all module(s) on any one of the lines below before the "petsc/3.1" module is available to load.
       intel/intel  mpich2/1.0.7
 ===========================
 step 30
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 The following is a list of the modules and extensions currently available:
   hpl: hpl/2.2
@@ -417,7 +417,7 @@ must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
 step 31
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GCC
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider GCC
 ===========================
   GCC: GCC/6.3.0
      Other possible modules matches:
@@ -427,7 +427,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GCC
       $ module -r spider '.*GCC.*'
 ===========================
 step 32
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider gcc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider gcc
 ===========================
   GCC: GCC/6.3.0
     This module can be loaded directly: module load GCC/6.3.0
@@ -441,7 +441,7 @@ runSpiderCmd -o dbT ProjectDIR/rt/spider/mf/E_Core
 ===========================
 ===========================
 step 35
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider python2/2.7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider python2/2.7
 ===========================
   python2: python2/2.7
     You will need to load all module(s) on any one of the lines below before the "python2/2.7" module is available to load.
@@ -455,7 +455,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider python2/2.7
       This is the help message for python 2.7
 ===========================
 step 36
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t spider
 ===========================
 Algorithm::Dependency/
 Algorithm::Dependency/1.111
@@ -483,7 +483,7 @@ scipy/1.1
 scipy/1.2.2
 ===========================
 step 37
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 The following is a list of the modules and extensions currently available:
   Algorithm::Dependency: Algorithm::Dependency/1.111 (E)
@@ -504,7 +504,7 @@ must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
 step 38
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider numpy
 ===========================
   numpy:
      Versions:
@@ -517,7 +517,7 @@ Names marked by a trailing (E) are extensions provided by another module.
      $ module spider numpy/1.16.4
 ===========================
 step 39
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy/1.16.4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider numpy/1.16.4
 ===========================
   numpy: numpy/1.16.4 (E)
     This extension is provided by the following modules. To access the extension you must load one of the following modules. Note that any module names in parentheses show the module location in the software hierarchy.
@@ -529,19 +529,19 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy/1.16.4
 Names marked by a trailing (E) are extensions provided by another module.
 ===========================
 step 40
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load numpy
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load numpy
 ===========================
 Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "numpy"
    Try: "module spider numpy" to see how to load the module(s).
 ===========================
 step 41
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load numpy/1.16.4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load numpy/1.16.4
 ===========================
 Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: "numpy/1.16.4"
    Try: "module spider numpy/1.16.4" to see how to load the module(s).
 ===========================
 step 42
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Global Aliases
    intelcompiler -> intel/11.2
@@ -562,7 +562,7 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 43
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --nx avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --nx avail
 ===========================
 Global Aliases
    intelcompiler -> intel/11.2
@@ -578,7 +578,7 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 44
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Global Aliases
    intelcompiler -> intel/11.2
@@ -594,7 +594,7 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 45
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Global Aliases
    intelcompiler -> intel/11.2
@@ -615,7 +615,7 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 46
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing keyword numpy
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing keyword numpy
 ===========================
 The following modules match your search criteria: "numpy"
   numpy: numpy/1.12 (E), numpy/1.16.4 (E)
@@ -628,7 +628,7 @@ must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
 step 47
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing keyword foo
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing keyword foo
 ===========================
 The following modules match your search criteria: "foo"
 To learn more about a package execute:
@@ -639,7 +639,7 @@ must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
 step 48
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider abcpy
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider abcpy
 ===========================
   abcpy: abcpy/2.1
     This module can be loaded directly: module load abcpy/2.1
@@ -648,7 +648,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider abcpy
 Names marked by a trailing (E) are extensions provided by another module.
 ===========================
 step 49
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider abcpy/2.1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider abcpy/2.1
 ===========================
   abcpy: abcpy/2.1
     This module can be loaded directly: module load abcpy/2.1
@@ -665,7 +665,7 @@ runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/H_Core
 ===========================
 ===========================
 step 52
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 The following is a list of the modules and extensions currently available:
   abcpy: abcpy/2.1
@@ -681,7 +681,7 @@ must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
 step 53
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden spider
 ===========================
 The following is a list of the modules and extensions currently available:
   abcpy: abcpy/2.1
@@ -699,7 +699,7 @@ must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
 step 54
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider tornado
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider tornado
 ===========================
   tornado:
      Versions:
@@ -713,7 +713,7 @@ Names marked by a trailing (E) are extensions provided by another module.
      $ module spider tornado/7.1
 ===========================
 step 55
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider tornado
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden spider tornado
 ===========================
   tornado:
      Versions:
@@ -728,7 +728,7 @@ Names marked by a trailing (E) are extensions provided by another module.
      $ module spider tornado/7.1
 ===========================
 step 56
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden spider
 ===========================
 The following is a list of the modules and extensions currently available:
   abcpy: abcpy/2.1
@@ -746,7 +746,7 @@ must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
 step 57
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider numpy
 ===========================
   numpy: numpy/1.16.55 (E)
     This extension is provided by the following modules. To access the extension you must load one of the following modules. Note that any module names in parentheses show the module location in the software hierarchy.
@@ -755,7 +755,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider numpy
 Names marked by a trailing (E) are extensions provided by another module.
 ===========================
 step 58
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider numpy
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden spider numpy
 ===========================
   numpy:
      Versions:
@@ -772,14 +772,14 @@ runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/I_Core
 ===========================
 ===========================
 step 60
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t --ignore_cache --show_hidden spider GROMACS
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t --ignore_cache --show_hidden spider GROMACS
 ===========================
 GROMACS/.2016.x-drude-20180214-g3f7439a
 GROMACS/5.1.4
 GROMACS/2016.2
 ===========================
 step 61
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --ignore_cache --show_hidden spider GROMACS
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --ignore_cache --show_hidden spider GROMACS
 ===========================
   GROMACS:
      Versions:
@@ -792,14 +792,14 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --ignore_cache --show_h
      $ module spider GROMACS/2016.2
 ===========================
 step 62
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing -t --show_hidden spider GROMACS
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t --show_hidden spider GROMACS
 ===========================
 GROMACS/.2016.x-drude-20180214-g3f7439a
 GROMACS/5.1.4
 GROMACS/2016.2
 ===========================
 step 63
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider GROMACS
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden spider GROMACS
 ===========================
   GROMACS:
      Versions:
@@ -812,11 +812,11 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider GR
      $ module spider GROMACS/2016.2
 ===========================
 step 64
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load GROMACS/.2016.x-drude-20180214-g3f7439a
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load GROMACS/.2016.x-drude-20180214-g3f7439a
 ===========================
 ===========================
 step 65
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) GROMACS/.2016.x-drude-20180214-g3f7439a (H)
@@ -824,7 +824,7 @@ Currently Loaded Modules:
    H:  Hidden Module
 ===========================
 step 66
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 The following is a list of the modules and extensions currently available:
   gcc: gcc/10.1
@@ -847,7 +847,7 @@ runSpiderCmd -o dbT ProjectDIR/rt/spider/mf2/Core
 ===========================
 ===========================
 step 69
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GROMACS/2018
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider GROMACS/2018
 ===========================
   GROMACS: GROMACS/2018
     Description:
@@ -865,7 +865,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GROMACS/2018
        - Homepage: http://www.gromacs.org
 ===========================
 step 70
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GROMACS/2019
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider GROMACS/2019
 ===========================
   GROMACS: GROMACS/2019
     Description:
@@ -884,7 +884,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider GROMACS/2019
        - Homepage: http://www.gromacs.org
 ===========================
 step 71
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 The following is a list of the modules and extensions currently available:
   gcc: gcc/10.1
@@ -899,7 +899,7 @@ must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
 step 72
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Global Aliases
    intelcompiler -> (N/A)
@@ -916,7 +916,7 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 73
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider Appl1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider Appl1
 ===========================
   Appl1: Appl1/1
     You will need to load all module(s) on any one of the lines below before the "Appl1/1" module is available to load.
@@ -924,7 +924,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider Appl1
       init-cluster/1.0  MyStack/2022
 ===========================
 step 74
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider Appl1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider Appl1
 ===========================
   Appl1: Appl1/1
     You will need to load all module(s) on any one of the lines below before the "Appl1/1" module is available to load.
@@ -932,7 +932,7 @@ lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider Appl1
       init-cluster/1.0  MyStack/2022
 ===========================
 step 75
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Global Aliases
    intelcompiler -> (N/A)

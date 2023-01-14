@@ -1,46 +1,46 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.7.13  2022-09-14 12:56 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Lmod has detected the following error: module avail is not possible. MODULEPATH is not set or not set with valid paths.
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Lmod ha detectado el siguiente error: No es posible ejecutar 'module avail'. MODULEPATH no está inicializado o su valor no contiene rutas correctas.
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Lmod hat den folgenden Fehler erkannt: Der Befehl "module avail" kann nicht ausgeführt werden. Die Variable MODULEPATH ist entweder nicht gesetzt oder enthält einen ungültigen Wert.
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Lmod a détecté l'erreur suivante : La commande 'module avail' n'est pas possible. MODULEPATH n'est pas défini ou n'est pas défini avec des chemins valides.
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Lmod has detected the following error: module avail is not possible. MODULEPATH is not set or not set with valid paths.
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load intel
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load intel
 ===========================
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc
 ===========================
 Lmod 已经自动将 "intel/17.0" 替换为 "gcc/5.4"
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load unknown
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load unknown
 ===========================
 Lmod a détecté l'erreur suivante : Le ou les module(s) suivants sont inconnus: "unknown"
 Veuillez vérifier l'orthographe ou le numéro de version. Vous pouvez aussi essayer "module spider ..."
@@ -48,7 +48,7 @@ Il est aussi possible que votre cache soit désuète. Essayez :
   $ module --ignore_cache load "unknown"
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --help
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --help
 ===========================
 Usage: module [options] sub-command [args ...]
 Options:
