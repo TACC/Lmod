@@ -68,4 +68,7 @@ Lmod 8.7+
             * Allow ksh93, mksh and pdksh report shellname (myShellName()) as ksh.
    (8.7.18) * Fix bug where repeating the same directory in the $MODULEPATH would cause a loopback
               and therefore a stack overflow when building the spider cache.
+   (8.7.19) * Issue #622: Change MainControl:reportMissingDepModules() to report missing dep. modules through
+              LmodWarning()
               
+                            
