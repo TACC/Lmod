@@ -5,7 +5,7 @@ jobs:
   Lmod_tests:
       runs-on: ${{ matrix.os }}
       strategy:
-        matrix
+        matrix:
           os: [ubuntu-latest, macos-latest]
           luaVersion: ["5.4", "5.3", "5.2", "5.1"]
       steps:
