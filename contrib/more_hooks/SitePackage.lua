@@ -25,7 +25,7 @@ local function logmsg(logTbl)
     local msg   = string.format("username=%s, jobid=%s", user, jobid)
 
     for _, val in ipairs(logTbl) do
-        msg = msg .. string.format(", %s=%s", val[1], val[2] or "")
+        msg = msg .. string.format(", %s=%q", val[1], val[2] or "")
     end
 
     lmod_system_execute("logger -t lmod -p user.notice -- " .. msg)

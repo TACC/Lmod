@@ -930,7 +930,6 @@ function M.reportMissingDepModules(self)
          local s = concatTbl(v,", ")
          a[#a+1] = k .. " (required by: "..s..")"
       end
-      --io.stderr:write(i18n("w_MissingModules",{border=border,missing=concatTbl(a,", ")}))
       LmodWarning{msg="w_MissingModules",border=border,missing=concatTbl(a,", ")}
    end
 end
