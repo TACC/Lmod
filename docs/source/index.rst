@@ -145,6 +145,7 @@ Advanced Topics
    330_extensions
    340_inherit
    350_community
+   360_check_syntax
 
 Internal Structure of Lmod
 ^^^^^^^^^^^^^^^^^^^^^^^^^^

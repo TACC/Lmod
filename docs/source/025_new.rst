@@ -1,6 +1,13 @@
 New Features in Lmod
 ====================
 
+**check_module_tree_syntax**
+   (Lmod 8.4.3+) check_module_tree_syntax is a command to find syntax
+   errors in your modulefiles.  It also reports when there are
+   modulefile directories that have multiple ways of marking a
+   default. See :ref:`checking_syntax-label` for more details.
+
+
 **module category**
    (Lmod 8.7.14+) Community provided feature from PR #600. This
    command has two levels.  1) "module category" list all the
