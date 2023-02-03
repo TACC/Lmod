@@ -243,7 +243,7 @@ end
 
 function options()
    local optionTbl     = optionTbl()
-   local usage         = "Usage: spider [options] moduledir ..."
+   local usage         = "Usage: check_module_tree_syntax [options] moduledir ..."
    local cmdlineParser = Optiks:new{usage   = usage,
                                     version = "1.0",
                                     error   = l_OptError,
@@ -262,13 +262,6 @@ function options()
       dest   = "trace",
       action = "store_true",
       help   = "Tracing",
-   }
-   cmdlineParser:add_option{
-      name    = {'--preload'},
-      dest    = 'preload',
-      action  = 'store_true',
-      default = false,
-      help    = "Use preloaded modules to build reverseMapT"
    }
    local optTbl, pargs = cmdlineParser:parse(arg)
 
