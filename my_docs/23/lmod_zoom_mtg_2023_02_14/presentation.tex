@@ -1,0 +1,291 @@
+\documentclass{beamer}
+
+% You can also use a 16:9 aspect ratio:
+%\documentclass[aspectratio=169]{beamer}
+\usetheme{TACC16}
+
+% It's possible to move the footer to the right:
+%\usetheme[rightfooter]{TACC16}
+
+%% page 
+%\begin{frame}{}
+%  \begin{itemize}
+%    \item
+%  \end{itemize}
+%\end{frame}
+%
+%% page 
+%\begin{frame}[fragile]
+%    \frametitle{}
+% {\tiny
+%    \begin{semiverbatim}
+%    \end{semiverbatim}
+%}
+%  \begin{itemize}
+%    \item
+%  \end{itemize}
+%
+%\end{frame}
+
+\begin{document}
+\title[Lmod]{Lmod tools to check module syntax}
+\author{Robert McLay} 
+\date{February 14, 2023}
+
+% page 1
+\frame{\titlepage} 
+
+
+% page 2
+\begin{frame}{Outline}
+  \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
+  \begin{itemize}
+    \item How to check module syntax when building an RPM or other
+      software packages
+    \item How to check your sites' entire module tree.
+  \end{itemize}
+\end{frame}
+
+% page 3
+\begin{frame}{Checking Modulefile Syntax}
+  \begin{itemize}
+    \item We want to check the syntax
+    \item Not the evaluation!
+    \item We ignore the actions of loads(), depends\_on() ...
+    \item How to do that?
+  \end{itemize}
+\end{frame}
+
+% page 4
+\begin{frame}{Quick Review: How Lmod evaluates modulefile functions}
+  \begin{itemize}
+    \item Remember that commands like \texttt{setenv("ABC","3")} do
+      different things
+    \item On module load it sets \texttt{ABC} to \texttt{3}
+    \item On module unload it unsets \texttt{ABC}
+    \item On module show it prints \texttt{setenv("ABC","3")}
+  \end{itemize}
+\end{frame}
+
+% page 5
+\begin{frame}[fragile]
+    \frametitle{src/modfuncs.lua: setenv()}
+  \begin{itemize}
+    \item Almost all modulefile function work like setenv()
+    \item They check the syntax
+    \item Then they call a member function in the MainControl Class
+    \item The \texttt{mcp} variable is global MainControl object
+    \item \texttt{mcp} controls what mode Lmod is in.
+  \end{itemize}
+ {\tiny
+    \begin{semiverbatim}
+function setenv(...)
+   if (not l_validateArgsWithValue("setenv",...)) then 
+     return 
+   end
+   mcp:setenv(...)
+   return
+end
+    \end{semiverbatim}
+}
+\end{frame}
+
+% page 6
+\begin{frame}{Controlling Lmod Evaluation Mode}
+  \begin{itemize}
+    \item When loading: \texttt{mcp} constructs derived class
+      MC\_Load.
+    \item When unloading: \texttt{mcp} constructs derived class
+      MC\_Unload.
+    \item When checking syntax:\texttt{mcp} constructs derived class
+      MC\_CheckSyntax
+  \end{itemize}
+\end{frame}
+
+
+
+% page 7
+\begin{frame}[fragile]
+    \frametitle{src/MC\_Load.lua}3
+ {\tiny
+    \begin{semiverbatim}
+M.load                 = MainControl.load
+M.myModuleName         = MainControl.myModuleName
+M.prepend\_path         = MainControl.prepend\_path
+M.prereq               = MainControl.prereq
+M.setenv               = MainControl.setenv
+M.set\_alias            = MainControl.set\_alias
+M.unload               = MainControl.unload
+M.unsetenv             = MainControl.unsetenv
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item These are the normal mapping when loading
+  \end{itemize}
+
+\end{frame}
+
+% page 8
+\begin{frame}[fragile]
+    \frametitle{src/MC\_Unload.lua}3
+ {\tiny
+    \begin{semiverbatim}
+M.load                 = MainControl.lunoad
+M.myModuleName         = MainControl.myModuleName
+M.prepend\_path         = MainControl.remove\_path\_first
+M.prereq               = MainControl.quiet
+M.setenv               = MainControl.unsetenv
+M.set\_alias            = MainControl.unset\_alias
+M.unload               = MainControl.unload
+M.unsetenv             = MainControl.quiet
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item These are the normal mapping when unloading
+  \end{itemize}
+\end{frame}
+
+% page 9
+\begin{frame}[fragile]
+    \frametitle{src/MC\_CheckSyntax.Lua}3
+ {\tiny
+    \begin{semiverbatim}
+M.load                 = MainControl.load
+M.myModuleName         = MainControl.myModuleName
+M.prepend\_path         = MainControl.prepend\_path
+M.prereq               = MainControl.quiet
+M.setenv               = MainControl.setenv
+M.set\_alias            = MainControl.set\_alias
+M.unload               = MainControl.quiet
+M.unsetenv             = MainControl.unsetenv
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item See that the actions of prereq() are ignored
+    \item This way actions outside a module are ignored
+    \item The syntax of all commands are checked.
+    \item \texttt{MainControl.load} is a special case
+  \end{itemize}
+
+\end{frame}
+
+% page 10
+\begin{frame}[fragile]
+    \frametitle{\texttt{MainControl.load} is a special case}
+  \begin{itemize}
+    \item Loading the module under test must use it
+    \item So load\_usr()  function has this test
+    \item This prevent module loading other modules
+  \end{itemize}
+ {\tiny
+    \begin{semiverbatim}
+function M.load_usr(self, mA)
+   local frameStk = FrameStk:singleton()
+   if (checkSyntaxMode() and frameStk:count() > 1) then
+      return {}
+   end
+
+   l_registerUserLoads(mA)
+   local a = self:load(mA)
+   return a
+end
+    \end{semiverbatim}
+}
+
+\end{frame}
+
+% page 11
+\begin{frame}[fragile]
+    \frametitle{\texttt{module --checkSyntax load bad/1.0}}
+ {\tiny
+    \begin{semiverbatim}
+\$ cat bad/1.0.lua
+setenv("ONE")
+
+\$ module --checkSyntax load bad   
+Lmod has detected the following error:  setenv("ONE") is not valid;
+a value is required. 
+While processing the following module(s):
+    Module fullname  Module Filename
+    ---------------  ---------------
+    bad/1.0          /home/user/myModules/bad/1.0.lua
+
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item We here at TACC use this when building module files in an RPM
+      *.spec file
+    \item Other build tools might find this useful
+  \end{itemize}
+\end{frame}
+
+
+% page 12
+\begin{frame}{New command check\_module\_tree\_syntax}
+  \begin{itemize}
+    \item I wanted a way to check every modulefile in a site's tree.
+    \item The command \texttt{module spider} used to do that. 
+    \item But sending site error to user is not a good idea.
+  \end{itemize}
+\end{frame}
+
+% page 13
+\begin{frame}{New command check\_module\_tree\_syntax (II)}
+  \begin{itemize}
+    \item Site wanted to know when module directory had multiple files
+      marking a default
+    \item There are upto 4 ways to do this in a modulefile directory
+      \begin{enumerate}
+        \item a default symlink
+        \item a .modulerc.lua file
+        \item a .modulerc file
+        \item a .version file
+      \end{enumerate}
+    \item The priority is in this order.
+  \end{itemize}
+\end{frame}
+
+% page 14
+\begin{frame}{History}
+  \begin{itemize}
+    \item The site wanted to report to the user when this happened.
+    \item I try hard not to report site errors to users.
+    \item After all what are they suppose to do with this info?
+    \item So I modified \texttt{\$LMOD\_DIR/spider} to walk the module
+      tree.
+    \item To make \texttt{\$LMOD\_DIR/check\_module\_tree\_syntax}
+    \item This reports both syntax error/warning and duplicate marked
+      default files in a modulefile directory.
+    \item This command uses the MC\_CheckSyntax mode to eval each modulefiles.
+  \end{itemize}
+\end{frame}
+
+% page 15
+\begin{frame}{Changes to spider cache format}
+  \begin{itemize}
+    \item Added defaultA to remember all marked defaults in directory
+    \item This array is process to use the highest priority marked
+      default file.
+    \item The old format just kept the highest priority marked default
+      file in defaultT.
+  \end{itemize}
+\end{frame}
+
+% page 16
+\begin{frame}{Conclusions}
+  \begin{itemize}
+    \item Two ways to check for modulefile syntax errors.
+    \item One for building modulefiles
+    \item Another for checking site module tree.
+  \end{itemize}
+\end{frame}
+
+% page 17
+\begin{frame}{Future Topics}
+  \begin{itemize}
+    \item Unknown at the moment.
+    \item Next Meeting will be March 7th at 9:30 Central (15:30 UTC)
+  \end{itemize}
+\end{frame}
+
+\end{document}

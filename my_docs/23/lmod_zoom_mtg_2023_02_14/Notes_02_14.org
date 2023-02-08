@@ -1,6 +1,13 @@
 Here are notes for the 2/14 meeting
 
-* the command check_module_tree_syntax
+* CheckSyntax module
+** Useful when generating modules.
+* Quick review: How Lmod evaluates Module commands
+* module --checkSyntax load 3.7
+* TACC uses this when building modules in RPM *.spec files
+*** Show example
+
+* The command check_module_tree_syntax
 * What is check_module_tree_syntax
 ** Report syntax errors in a site's moduletree
 ** Check for multiple ways to mark a default
@@ -21,8 +28,3 @@ Here are notes for the 2/14 meeting
 ** Use the MC_CheckSyntax rules for modulefile evaluation.
 ** ignore load(), depends_on() etc.
 
-* CheckSyntax module
-** Useful when generating modules.
-* module --checkSyntax load 3.7
-* TACC uses this when building modules in RPM *.spec files
-*** Show example
