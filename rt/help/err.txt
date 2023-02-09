@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.13  2022-09-14 12:56 -05:00
+Modules based on Lua: Version 8.7.19  2023-01-17 10:45 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -101,12 +101,12 @@ Miscellaneous sub-commands:
 Important Environment Variables:
   LMOD_COLORIZE                     If defined to be "YES" then Lmod prints properties and warning in color.
 Lmod Web Sites
-  Documentation:    http://lmod.readthedocs.org
+  Documentation:    https://lmod.readthedocs.org
   GitHub:           https://github.com/TACC/Lmod
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
-  To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.13  2022-09-14 12:56 -05:00
+  To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
+Modules based on Lua: Version 8.7.19  2023-01-17 10:45 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -205,12 +205,12 @@ Miscellaneous sub-commands:
 Important Environment Variables:
   LMOD_COLORIZE                     If defined to be "YES" then Lmod prints properties and warning in color.
 Lmod Web Sites
-  Documentation:    http://lmod.readthedocs.org
+  Documentation:    https://lmod.readthedocs.org
   GitHub:           https://github.com/TACC/Lmod
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
-  To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.13  2022-09-14 12:56 -05:00
+  To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
+Modules based on Lua: Version 8.7.19  2023-01-17 10:45 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -230,7 +230,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --config
 ===========================
-Modules based on Lua: Version 8.7.13  2022-09-14 12:56 -05:00
+Modules based on Lua: Version 8.7.19  2023-01-17 10:45 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                                                   Value
 Allow root to use Lmod (LMOD_ALLOW_ROOT_USE)                  yes
@@ -407,7 +407,7 @@ propT = {
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --miniConfig
 ===========================
-Modules based on Lua: Version 8.7.13  2022-09-14 12:56 -05:00
+Modules based on Lua: Version 8.7.19  2023-01-17 10:45 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 LMOD_FAST_TCL_INTERP         E          yes          no
 LMOD_PACKAGE_PATH            D          nil          <empty>

@@ -10,7 +10,7 @@ It is a new implementation of environment modules.
 
 ## Lmod Web Sites
 
-* Documentation:   http://lmod.readthedocs.org
+* Documentation:   https://lmod.readthedocs.org
 * GitHub:          https://github.com/TACC/Lmod
 * SourceForge:     https://lmod.sf.net
 * TACC Homepage:   https://www.tacc.utexas.edu/research-development/tacc-projects/lmod

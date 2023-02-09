@@ -288,7 +288,7 @@ To rebuild the collection, do a module reset, then load the modules you wish, th
 If you no longer want this module collection execute:
   $ rm ~/.lmod.d/%{collectionName}
 
-For more information execute 'module help' or see http://lmod.readthedocs.org/
+For more information execute 'module help' or see https://lmod.readthedocs.org/
 No change in modules loaded.
 
 ]==],

@@ -233,7 +233,7 @@ Um die Sammlung neu anzulegen, laden Sie zuerst die gewünschten Module und füh
 Falls Sie die Modulsammlung löschen möchten, verwenden Sie:
   $ rm ~/.lmod.d/%{collectionName}
 
-Weitere Informationen finden Sie mit "module help" oder unter http://lmod.readthedocs.org/.
+Weitere Informationen finden Sie mit "module help" oder unter https://lmod.readthedocs.org/.
 Die geladenen Module wurden nicht verändert.
 
 ]==],

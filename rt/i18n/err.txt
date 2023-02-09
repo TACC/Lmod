@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.13  2022-09-14 12:56 -05:00
+Modules based on Lua: Version 8.7.19  2023-01-17 10:45 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -143,10 +143,10 @@ Sous-commandes diverses:
 Variables d'environnement importantes :
   LMOD_COLORIZE                     Si la valeur est "YES" alors Lmod affichera les propriétés et avertissements en couleur.
 Sites web de Lmod
-  Documentation:    http://lmod.readthedocs.org
+  Documentation:    https://lmod.readthedocs.org
   GitHub:           https://github.com/TACC/Lmod
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
-  Pour rapporter un bogue, veuillez lire http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.13  2022-09-14 12:56 -05:00
+  Pour rapporter un bogue, veuillez lire https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
+Modules based on Lua: Version 8.7.19  2023-01-17 10:45 -06:00
     by Robert McLay mclay@tacc.utexas.edu

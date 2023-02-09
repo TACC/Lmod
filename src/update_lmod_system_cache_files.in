@@ -127,7 +127,7 @@ print_help() {
 }
 
 # parse command line options using getopts
-# see http://www.tldp.org/LDP/abs/html/internal.html#EX33
+# see https://www.tldp.org/LDP/abs/html/internal.html#EX33
 parse_cmdline(){
     debug "Parsing command line options..."
     local OPTIND
