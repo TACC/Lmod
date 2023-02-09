@@ -50,9 +50,9 @@
 \begin{frame}{Checking Modulefile Syntax}
   \begin{itemize}
     \item We want to check the syntax
-    \item Not the evaluation!
+    \item Not the action!
     \item We ignore the actions of loads(), depends\_on() ...
-    \item How to do that?
+    \item How to evaluate all the syntax but not the action?
   \end{itemize}
 \end{frame}
 
@@ -93,12 +93,13 @@ end
 % page 6
 \begin{frame}{Controlling Lmod Evaluation Mode}
   \begin{itemize}
+    \item The \texttt{mcp} object acts as a big switchboard.
     \item When loading: \texttt{mcp} constructs derived class
-      MC\_Load.
+      MC\_Load object.
     \item When unloading: \texttt{mcp} constructs derived class
-      MC\_Unload.
+      MC\_Unload object.
     \item When checking syntax:\texttt{mcp} constructs derived class
-      MC\_CheckSyntax
+      MC\_CheckSyntax object.
   \end{itemize}
 \end{frame}
 
@@ -272,6 +273,34 @@ While processing the following module(s):
 \end{frame}
 
 % page 16
+\begin{frame}[fragile]
+    \frametitle{Example results}
+ {\tiny
+    \begin{semiverbatim}
+The following directories have more than one marked default file:
+-----------------------------------------------------------------
+  /Users/mclay/w/lmod/main/rt/ck_mtree_syntax/mf/A
+
+
+The following modulefile(s) have syntax errors:
+-----------------------------------------------
+  ModuleName: A/1.0, Fn: /mf/A/1.0.lua 
+     Error: [string "setenv("MY_VERSION", myModuleVersion())..."]:2: unexpected symbol near '#' 
+  ModuleName: A/2.0, Fn: /mf/A/2.0 
+     Error: /mf/A/2.0: (A/2.0): invalid command name "nonExistantCmd"
+  ModuleName: hashrf/6.0.1, Fn: /mf/hashrf/6.0.1.lua 
+     Error: [string "local name = "hashrf"..."]:16: attempt to call a nil value (global 'WTF') 
+  ModuleName: papi/4.4.0, Fn: /mf/papi/4.4.0.lua 
+     Error: command: help, one or more arguments are not strings. 
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item
+  \end{itemize}
+
+\end{frame}
+
+% page 17
 \begin{frame}{Conclusions}
   \begin{itemize}
     \item Two ways to check for modulefile syntax errors.
@@ -280,7 +309,7 @@ While processing the following module(s):
   \end{itemize}
 \end{frame}
 
-% page 17
+% page 18
 \begin{frame}{Future Topics}
   \begin{itemize}
     \item Unknown at the moment.
