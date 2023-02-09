@@ -177,6 +177,7 @@ M.unsetenv             = MainControl.unsetenv
     \item Loading the module under test must use it
     \item So load\_usr()  function has this test
     \item This prevent module loading other modules
+    \item Because the frameStk count will be $>$ 1.
   \end{itemize}
  {\tiny
     \begin{semiverbatim}
@@ -279,7 +280,7 @@ While processing the following module(s):
     \begin{semiverbatim}
 The following directories have more than one marked default file:
 -----------------------------------------------------------------
-  /Users/mclay/w/lmod/main/rt/ck_mtree_syntax/mf/A
+  /home/user/w/lmod/rt/ck_mtree_syntax/mf/A
 
 
 The following modulefile(s) have syntax errors:
