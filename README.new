@@ -70,5 +70,6 @@ Lmod 8.7+
               and therefore a stack overflow when building the spider cache.
    (8.7.19) * Issue #622: Change MainControl:reportMissingDepModules() to report missing dep. modules through
               LmodWarning()
-              
+            * Issue #626: http -> https update
+            
                             
