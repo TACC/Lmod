@@ -275,6 +275,37 @@ While processing the following module(s):
 
 % page 16
 \begin{frame}[fragile]
+    \frametitle{Changes to spiderT.lua}
+ {\tiny
+    \begin{semiverbatim}
+  ["ProjectDIR/rt/ck_mtree_syntax/mf"] = \{
+    A = \{{\color{blue}
+      defaultA = \{
+        \{
+          barefn = "default",
+          defaultIdx = 1,
+          fn = "ProjectDIR/rt/ck_mtree_syntax/mf/A/default",
+          ...
+        \},
+        \{
+          barefn = ".version",
+          defaultIdx = 4,
+          fn = "ProjectDIR/rt/ck_mtree_syntax/mf/A/.version",
+          ...
+        \},
+      \},}
+      defaultT = \{
+        barefn = "default",
+        defaultIdx = 1,
+        fn = "ProjectDIR/rt/ck_mtree_syntax/mf/A/default",
+        ...
+      \},
+    \end{semiverbatim}
+}
+\end{frame}
+
+% page 17
+\begin{frame}[fragile]
     \frametitle{Example results}
  {\tiny
     \begin{semiverbatim}
@@ -295,13 +326,9 @@ The following modulefile(s) have syntax errors:
      Error: command: help, one or more arguments are not strings. 
     \end{semiverbatim}
 }
-  \begin{itemize}
-    \item
-  \end{itemize}
-
 \end{frame}
 
-% page 17
+% page 18
 \begin{frame}{Conclusions}
   \begin{itemize}
     \item Two ways to check for modulefile syntax errors.
@@ -310,7 +337,7 @@ The following modulefile(s) have syntax errors:
   \end{itemize}
 \end{frame}
 
-% page 18
+% page 19
 \begin{frame}{Future Topics}
   \begin{itemize}
     \item Unknown at the moment.
