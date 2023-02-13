@@ -419,3 +419,29 @@ MODULEPATH=ProjectDIR/rt/avail/mf/CoreA;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/avail/mf/CoreA",},}';
 export _ModuleTable_;
+===========================
+step 43
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+MODULEPATH=ProjectDIR/rt/avail/mf/CoreA;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/avail/mf/CoreA",},}';
+export _ModuleTable_;
+===========================
+step 44
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/avail/mf/CoreA:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/avail/mf/CoreA;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/avail/mf/CoreA",},systemBaseMPATH="ProjectDIR/rt/avail/mf/CoreA",}';
+export _ModuleTable_;
+===========================
+step 45
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail parmetis
+===========================
+MODULEPATH=ProjectDIR/rt/avail/mf/CoreA;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/avail/mf/CoreA",},systemBaseMPATH="ProjectDIR/rt/avail/mf/CoreA",}';
+export _ModuleTable_;

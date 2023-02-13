@@ -94,6 +94,17 @@ testdescript = {
      runLmod use $(testDir)/mf/CoreA  #41
      runLmod avail                    #42
 
+     ############################################################
+     # Test Issue #629: Do not print global alias section hdr
+     #                  when there is no global aliases to print
+
+     export LMOD_MODULERCFILE=$testDir/dot.modulerc.lua
+     runLmod purge                    #43
+     unsetMT
+     export MODULEPATH=$(testDir)/mf/CoreA
+     runLmod avail                    #44
+     runLmod avail parmetis           #45
+
 
      
      HOME=$ORIG_HOME
