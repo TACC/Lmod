@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.12  2022-02-09 16:10 -06:00
+Modules based on Lua: Version 8.7.19  2023-01-17 10:45 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -119,7 +119,7 @@ To rebuild the collection, do a module reset, then load the modules you wish, th
   $ module save stdenv
 If you no longer want this module collection execute:
   $ rm ~/.lmod.d/stdenv
-For more information execute 'module help' or see http://lmod.readthedocs.org/
+For more information execute 'module help' or see https://lmod.readthedocs.org/
 No change in modules loaded.
 ===========================
 step 19
@@ -133,7 +133,7 @@ To rebuild the collection, do a module reset, then load the modules you wish, th
   $ module save stdenv
 If you no longer want this module collection execute:
   $ rm ~/.lmod.d/stdenv
-For more information execute 'module help' or see http://lmod.readthedocs.org/
+For more information execute 'module help' or see https://lmod.readthedocs.org/
 No change in modules loaded.
 ===========================
 step 20

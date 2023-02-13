@@ -1185,8 +1185,9 @@ function M.avail(self, argA)
    local pna      = "("..na..")"
 
    if (next(alias2modT) ~= nil) then
-      local b  = {}
-      local bb = {}
+      local fndAlias = false
+      local b        = {}
+      local bb       = {}
       if (searchA.n > 0) then
          for k, v in pairsByKeys(alias2modT) do
             local fullName = mrc:resolve(mpathA,v)
@@ -1198,7 +1199,8 @@ function M.avail(self, argA)
                   if (fullName == pna) then
                      legendT[na] = i18n("m_Global_Alias_na")
                   end
-                  b[#b+1]   = { "   " .. k, "->", fullName}
+                  fndAlias = true
+                  b[#b+1]  = { "   " .. k, "->", fullName}
                   break
                end
             end
@@ -1210,15 +1212,18 @@ function M.avail(self, argA)
             if (fullName == pna) then
                legendT[na] = i18n("m_Global_Alias_na")
             end
-            b[#b+1]   = { "   " .. k, "->", fullName}
+            fndAlias = true
+            b[#b+1]  = { "   " .. k, "->", fullName}
          end
       end
-      local ct = ColumnTable:new{tbl=b, gap=1, len=length, width = cwidth}
-      a[#a+1]  = "\n"
-      a[#a+1] = banner:bannerStr("Global Aliases")
-      a[#a+1] = "\n"
-      a[#a+1]  = ct:build_tbl()
-      a[#a+1] = "\n"
+      if (fndAlias) then
+         local ct = ColumnTable:new{tbl=b, gap=1, len=length, width = cwidth}
+         a[#a+1]  = "\n"
+         a[#a+1] = banner:bannerStr("Global Aliases")
+         a[#a+1] = "\n"
+         a[#a+1]  = ct:build_tbl()
+         a[#a+1] = "\n"
+      end
    end
 
 

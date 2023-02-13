@@ -1,0 +1,30 @@
+Here are notes for the 2/14 meeting
+
+* CheckSyntax module
+** Useful when generating modules.
+* Quick review: How Lmod evaluates Module commands
+* module --checkSyntax load 3.7
+* TACC uses this when building modules in RPM *.spec files
+*** Show example
+
+* The command check_module_tree_syntax
+* What is check_module_tree_syntax
+** Report syntax errors in a site's moduletree
+** Check for multiple ways to mark a default
+   In other words, a directory that has both a default symlink and a
+   .version file will be reported.
+* Brief history:
+** A site complained that they wanted a way to find module directories that contained multiple marked defaults
+** They wanted a message when loading that module defualt it would produced a message to the user.
+** I refused to report site issues (or errors) when ever possible.
+** Always wanted a way to check syntax quickly.
+** The spider command shouldn't report warning and errors to users.
+   After all what are they suppose to do with this info
+* Modify $LMOD_DIR/spider to walk the tree and report syntax errors
+* Modified the spider cache format to have defaultA as well as defaultT
+  rather than only keeping the marked default that will be used.
+* Only try to find errors that pertain to the module in question
+** Ignore things that would require more that the current module: load() etc.
+** Use the MC_CheckSyntax rules for modulefile evaluation.
+** ignore load(), depends_on() etc.
+

@@ -232,7 +232,7 @@ Pour reconstruire la collection, chargez les modules souhaités, puis :
 Si vous souhaitez supprimer cette collection de modules :
   $ rm ~/.lmod.d/%{collectionName}
 
-Pour plus d'informations, lancez 'module help' ou consultez http://lmod.readthedocs.org/
+Pour plus d'informations, lancez 'module help' ou consultez https://lmod.readthedocs.org/
 Aucun changement dans les modules chargés
 
 ]==],

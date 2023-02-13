@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.13  2022-09-14 12:56 -05:00
+Modules based on Lua: Version 8.7.18  2023-01-14 07:33 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -74,6 +74,7 @@ loading A
 step 15
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload A
 ===========================
+Lmod Warning:
 The following dependent module(s) are not currently loaded: A (required by: X)
 ===========================
 step 16
@@ -86,6 +87,7 @@ loading A
 step 17
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload A
 ===========================
+Lmod Warning:
 The following dependent module(s) are not currently loaded: A (required by: X)
 ===========================
 step 18
@@ -210,6 +212,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load SomeSoftware Othe
 Processing Dependency/3.4
 Processing Dependency/3.4
 Processing Dependency/5.6
+Lmod Warning:
 The following dependent module(s) are not currently loaded: Dependency/3.4 (required by: SomeSoftware/1.2)
 ===========================
 step 42

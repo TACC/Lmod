@@ -46,7 +46,7 @@ Testing Lmod 7:
 I am recommending that you test this in your personal accounts as
 discussed in:
 
-   http://lmod.readthedocs.io/en/latest/045_transition.html
+   https://lmod.readthedocs.io/en/latest/045_transition.html
 
 There are three issues to be aware of:
 

@@ -140,8 +140,8 @@ function Usage()
    if (s_Usage) then
       return s_Usage
    end
-   local website = colorize("red","http://lmod.readthedocs.org/")
-   local webBR   = colorize("red","http://lmod.readthedocs.io/en/latest/075_bug_reporting.html")
+   local website = colorize("red","https://lmod.readthedocs.org/")
+   local webBR   = colorize("red","https://lmod.readthedocs.io/en/latest/075_bug_reporting.html")
    local banner  = Banner:singleton()
    local line    = banner:border(2)
    local a = {}
@@ -215,7 +215,7 @@ function Usage()
    a[#a+1] = { line}
    a[#a+1] = { i18n("web_sites") }
    a[#a+1] = { "" }
-   a[#a+1] = { "  Documentation:    http://lmod.readthedocs.org"}
+   a[#a+1] = { "  Documentation:    https://lmod.readthedocs.org"}
    a[#a+1] = { "  GitHub:           https://github.com/TACC/Lmod"}
    a[#a+1] = { "  SourceForge:      https://lmod.sf.net"}
    a[#a+1] = { "  TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod"}

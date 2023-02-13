@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.14  2022-11-01 10:59 -05:00
+Modules based on Lua: Version 8.7.19  2023-01-17 10:45 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -537,6 +537,39 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/avai
 ===========================
 step 42
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+ProjectDIR/rt/avail/mf/CoreA
+   parmetis/3.1 (m)
+  Where:
+   m:  built for host and native MIC
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 43
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 44
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+Global Aliases
+   ucc14 -> (N/A)
+ProjectDIR/rt/avail/mf/CoreA
+   parmetis/3.1 (m)
+  Where:
+   N/A:  Alias cannot be loaded with current $MODULEPATH
+   m:    built for host and native MIC
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 45
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail parmetis
 ===========================
 ProjectDIR/rt/avail/mf/CoreA
    parmetis/3.1 (m)

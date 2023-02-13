@@ -6,8 +6,8 @@ jobs:
       runs-on: ${{ matrix.os }}
       strategy:
         matrix:
-          os: [ubuntu-latest]
-          luaVersion: ["5.4"]
+          os: [ubuntu-latest, macos-latest]
+          luaVersion: ["5.4", "5.3", "5.2", "5.1"]
       steps:
       - name: Checkout code
         uses: actions/checkout@v2

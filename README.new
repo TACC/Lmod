@@ -66,3 +66,12 @@ Lmod 8.7+
    (8.7.17) * Issue #620: Honor shell name on command line.  Use "shell" when Lmod gets to decide.
             * Fix bug in keyword terse output: Add newline on final entry (Created in Lmod 8.4.18)
             * Allow ksh93, mksh and pdksh report shellname (myShellName()) as ksh.
+   (8.7.18) * Fix bug where repeating the same directory in the $MODULEPATH would cause a loopback
+              and therefore a stack overflow when building the spider cache.
+   (8.7.19) * Issue #622: Change MainControl:reportMissingDepModules() to report missing dep. modules through
+              LmodWarning()
+WIP:
+   (8.7.20) * Issue #626: http -> https update
+            * Issue #629: Do not print Global Aliases header when no aliases would be printed.
+            
+                            
