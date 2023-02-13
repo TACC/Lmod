@@ -72,6 +72,6 @@ Lmod 8.7+
               LmodWarning()
 WIP:
    (8.7.20) * Issue #626: http -> https update
-
+            * Issue #629: Do not print Global Aliases header when no aliases would be printed.
             
                             
