@@ -1115,6 +1115,10 @@ function dynamic_shell(shellNm)
    local found = false
    if (isFile(fn)) then
       n = posix.readlink(fn)
+      if (not n) then
+         local cmd = "readlink "..fn
+         n = capture(cmd):gsub("%s+$","")
+      end
       n = barefilename(n)
       if (BaseShell.isValid(n)) then
          shellNm = n
@@ -1128,6 +1132,7 @@ function dynamic_shell(shellNm)
    end
    local cmd = ps_cmd.." -p "..ppid.." -ocomm="
    n         = capture(cmd):gsub("^%-",""):gsub("%s+$","")
+   n         = barefilename(n)
    if (BaseShell.isValid(n)) then
       shellNm = n
    else
