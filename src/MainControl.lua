@@ -410,6 +410,7 @@ function M.pushenv(self, name, value)
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
 
+   dbg.print{"stackName: ",stackName,", v64: ",v64,"\n"}
    if (varT[stackName] == nil) then
       varT[stackName] = Var:new(stackName, v64, nodups, ":")
    end
@@ -453,9 +454,9 @@ function M.popenv(self, name, value)
       varT[stackName] = Var:new(stackName)
    end
 
-   dbg.print{"stackName: ", stackName, " pop()\n"}
-
+   
    local v64 = varT[stackName]:pop()
+   dbg.print{"stackName: ", stackName,", varT[stackName]:expand(): \"",varT[stackName]:expand() ,"\", v64: \"",v64,"\"\n"}
    local v   = nil
    if (v64 == "false") then
       v = false

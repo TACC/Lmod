@@ -476,6 +476,7 @@ end
 -- none are left.
 -- @param self A Var object.
 function M.pop(self)
+   dbg.start{"Var.pop(self)"}
    self.type    = 'path'
    local imin   = self.imin
    local min2   = huge
@@ -500,7 +501,7 @@ function M.pop(self)
             v = huge
          end
       end
-      dbg.print{"v: ",v,"\n"}
+      dbg.print{"v: \"",v,"\"\n"}
       if (v < min2) then
          min2   = v
          result = k
@@ -518,6 +519,8 @@ function M.pop(self)
    setenv_posix(self.name, v, true)
    local adding = false
    l_chkMP(self.name, v, adding)
+   dbg.print{"result: ",result,"\n"}
+   dbg.fini("Var.pop")
    return result
 end
 
