@@ -28,7 +28,7 @@ So Lmod provides a way to get the contents of the system compiler
 which then you can add on to. You can use the *inherit()* function to
 "import" the same named module in the module tree.  
 
-To make things concrete, let's assume that are a boost developer and
+To make things concrete, let's assume that you are a boost developer and
 the system has a boost library as well.  The system boost version is
 1.8 and you are working on 1.9.  There is a system gcc 9.1 module.
 You create the following directory: $HOME/my_modules and under there
@@ -63,10 +63,13 @@ need at ~/my_modules/Core/intel/19.0.5.lua you have::
 
    prepend_path("MODULEPATH", pathJoin(MP_ROOT, "Compiler",compiler,version))
 
+Inheriting from a marked default
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 It would be best to mark your versions of the compilers (and mpi
-modules if they exist) as defaults. Module default are chosen over the
-highest version.  The easiest way to mark module as the default is
-with a symbolic link::
+modules if they exist) as defaults. Module that are marked defaults
+are chosen over the highest version.  The easiest way to mark module
+as the default is with a symbolic link::
 
     $ cd ~/my_modules/Core/intel; ln -s 19.0.5.lua default
     $ cd ~/my_modules/Core/gcc;   ln -s 9.1.lua    default
@@ -104,4 +107,3 @@ found at **~/my_modules/MPI/intel/19/impi/19/acme/1.3.lua**
 An example of setting up a user can be found in the source in the
 rt/user_inherit directory.  In the **mf** directory is the "system"
 directory and the **user_mf** directory is a user supplied tree.
-
