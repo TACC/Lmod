@@ -1,0 +1,115 @@
+Here are notes for March 7th prez.
+
+Talk about testing your own modules and how and why you might want to
+do your own module or use the hierarchy for a compiler or compiler/mpi
+dependent modulefile.
+
+* Personal modulefiles:
+** easy: Create modulefile path (say ~/my_modules)  
+** add modulefile under that directory
+** ml use ~/my_modules
+
+* Problem: Testing a personal module that is a marked default
+** Lmod normally finds and loads the first exact match in $MODULEPATH order
+** However marked defaults "win" over non-marked defaults
+
+* Solution
+** Make your module a marked default
+** Easiest way is to make a default symlink.
+   cd ~/my_modules/xyz; ln -s 12.1.lua default
+
+* Suppose you want to test a personal compiler dependent boost 
+   and you want it to be part of the software hierarchy
+** Use inherit()
+** This is discussed in detail here: https://lmod.readthedocs.io/en/latest/340_inherit.html
+
+* Overview of steps to support testing "boost"
+** We want to be able to add "boost" to the software hierarchy in our account
+** In other words, we want to only be able to load boost when we have loaded the "right" compiler.
+** Create a personal software hierarchy in your account
+** "inherit" the compiler and possibly the mpi modulefiles you are interested testing
+** For Example: testing boost for both intel 19.1 and gcc 12.2
+*** You'll need to create modulefiles in your account for both the intel and gcc modulefiles
+*** If your site splits the intel and gcc into separate compilers then you may have to 
+    "inherit" more modulefiles.
+*** Now you get to build the modulefile you care about.
+* Explain what inherit() does
+** One choice to support 
+* Steps to mirror the system software hierarchy
+** Steps for gcc/12.2
+ $ mkdir -p ~/my_modules/{Core,Compiler,MPI}
+
+You also set the following environment variable::
+
+   $ export MY_MODULEPATH_ROOT=$HOME/my_modules
+
+When this is set up you will do::
+
+   $ module use ~/my_modules/Core
+
+Then in the file ~/my_modules/Core/gcc/12.2.lua you have::
+
+   inherit()
+   local compiler = "gcc"
+   local MP_ROOT  = os.getenv("MY_MODULEPATH_ROOT")
+   local version  = "12"
+
+   prepend_path("MODULEPATH", pathJoin(MP_ROOT, "Compiler",compiler,version))
+** Steps for intel/19.1
+
+Suppose you also have the system intel/19.1  module.  Then you would
+need at ~/my_modules/Core/intel/19.1.lua you have::
+
+   inherit()
+   local compiler = "intel"
+   local MP_ROOT  = os.getenv("MY_MODULEPATH_ROOT")
+   local version  = "19"
+
+   prepend_path("MODULEPATH", pathJoin(MP_ROOT, "Compiler",compiler,version))
+
+** Protect against from marked default compilers
+    $ cd ~/my_modules/Core/intel; ln -s 19.1.lua default
+    $ cd ~/my_modules/Core/gcc;   ln -s 12.2.lua default
+
+* Now support boost 1.85.0 
+
+** gcc boost
+In ~/my_modules/Compiler/gcc/12/boost/1.85.0.lua point to the gcc/12
+boost version
+** intel boost
+In ~/my_modules/Compiler/intel/19/boost/1.85.0.lua point to the intel/19
+boost version
+
+* MPI versions:
+Similarly set up the MPI modules. 
+** Setup impi/19.0.5.lua
+In **~/my_modules/Compiler/intel/19/impi/19.0.5.lua**::
+
+   inherit()
+   local compiler   = "intel"
+   local MP_ROOT    = os.getenv("MY_MODULEPATH_ROOT")
+   local c_version  = "19"
+   local mpiNm      = impi
+   local m_version  = "19"
+
+   prepend_path("MODULEPATH", pathJoin(MP_ROOT, "MPI",compiler,c_version,mpiNm,m_version))
+
+In **~/my_modules/Compiler/gcc/12/impi/19.0.5.lua**::
+
+   inherit()
+   local compiler   = "gcc"
+   local MP_ROOT    = os.getenv("MY_MODULEPATH_ROOT")
+   local c_version  = "19"
+   local mpiNm      = impi
+   local m_version  = "19"
+
+   prepend_path("MODULEPATH", pathJoin(MP_ROOT, "MPI",compiler,c_version,mpiNm,m_version))
+** Your parallel application:  acme/1.3:
+It goes into: 
+   ~/my_modules/MPI/intel/19/impi/19/acme/1.3.lua 
+and/or:
+   ~/my_modules/MPI/gcc/12/impi/19/acme/1.3.lua
+   
+* There is a fully worked example in rt/user_inherit
+** The system modulefiles are in the "mf" tree
+** The user supplied tree can be found in "user_mf" tree.
