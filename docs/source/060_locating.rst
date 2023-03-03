@@ -57,9 +57,10 @@ rules to locate a modulefile:
    the same as *C/N* or *N*.  Namely Lmod removes the string
    "/default" and then continues as if it was never there.
 #. It looks for an exact match in all ``MODULEPATH``
-   directories. It picks the first match it finds.  This is true
-   of hidden modules.  Specifying the fullName of a module will
-   load it.
+   directories. If there are multiple exact matches, then Lmod picks
+   the marked default. Otherwise, it picks the first match it finds.
+   This is true of hidden modules.  Specifying the fullName of a module 
+   will load it.
 #. If a site has "extended defaults" enabled and a user types in part
    of the version then that part is used select the "best" of that
    version if any exist. Note that if user enters "abc/1" then it will
@@ -110,6 +111,42 @@ will load xyz/12.1 not xyz/12.2 because 12.1 is the marked default and
 is therefore the highest "xyz/12.*".
 
 
+Overriding a marked default
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Suppose you wish to make a personal version of a modules. It could be
+that you are testing your own xyz/12.1 module.  If you have the
+following module layout::
+
+   ---------- /home/user/modulefiles -----------
+   xyz/11.1  xyz/11.2   xyz/12.1
+ 
+
+   ---------- /opt/apps/modulefiles ------------
+   StdEnv    ucc/8.1    ucc/8.2         xyz/10.1
+
+   ---------- /opt/apps/mfiles -----------------
+   ucc/8.3 (D)  xyz/12.0   xyz/12.1 (D) xyz/12.2
+
+
+If you try to load xyz/12.1, the modulefile in /opt/apps/mfiles will
+be loaded and not the one in /home/user/modulefiles.
+
+If you wish to load the modulefile in /home/user/modulefiles then
+you'll need to make that one a marked default. The next section shows
+how to accomplish this.
+
+You should verify that the marked default has moved::
+
+   ---------- /home/user/modulefiles -----------
+   xyz/11.1  xyz/11.2   xyz/12.1 (D)
+ 
+
+   ---------- /opt/apps/modulefiles ------------
+   StdEnv    ucc/8.1    ucc/8.2         xyz/10.1
+
+   ---------- /opt/apps/mfiles -----------------
+   ucc/8.3 (D)  xyz/12.0   xyz/12.1     xyz/12.2
 
 .. _setting-default-label:
 
@@ -131,19 +168,19 @@ order.  The first way is to make a symbolic link between a file named
 
 
 A second way to mark a default is with a .modulerc.lua file in the same
-directory as the modulefiles.::
+directory as the modulefiles::
 
     module_version("ucc/11.1", "default")
 
 
 A third way to mark a default is with a .modulerc file in the same
-directory as the modulefiles.::
+directory as the modulefiles::
 
     #%Module
     module-version ucc/11.1 default
 
 
-There is a four method to pick the default module.  If you create a
+There is a fourth method to pick the default module.  If you create a
 .version file in the ucc directory that contains::
 
     #%Module
