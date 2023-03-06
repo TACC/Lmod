@@ -79,7 +79,7 @@
   \begin{itemize}
     \item While Lmod does look in \$MODULEPATH order
     \item So the first module found is usually picked.
-    \item {\color{red}\emph{However}}, Marked defaults ALWAYS win in
+    \item {\color{red}\emph{However}}, marked defaults ALWAYS win in
       N/V module layouts (Best found)
     \item Note not in N/V/V layouts. (First found)
     \item A marked default is where there is either:
@@ -173,11 +173,13 @@
 \end{frame}
 
 % page 12
-\begin{frame}{Choice 1: Copy compiler modules into your account}
+\begin{frame}{Choice 1: Copy Each compiler modulefiles into your account}
   \begin{itemize}
     \item Easy to do
-    \item Add your directory into \$MODULEPATH
-    \item Problem: you are now responsible to keep your copy up-to-date
+    \item Add your hierarchical directory into \$MODULEPATH
+    \item Problem: you are now responsible to keep your copy
+      up-to-date
+    \item As the sys-admin might change them w/o you knowning
   \end{itemize}
 \end{frame}
 
@@ -192,24 +194,121 @@
   \end{itemize}
 \end{frame}
 
-
-
-
-
-% page 18
-\begin{frame}{Conclusions}
+% page 14
+\begin{frame}{Inherit() part 2}
   \begin{itemize}
-    \item Two ways to check for modulefile syntax errors.
-    \item One for building modulefiles
-    \item Another for checking site module tree.
+    \item Create gcc/12.2 and intel/19.1 in your own directory
+      structure
+    \item Then create two boost modulefiles for each compiler
   \end{itemize}
 \end{frame}
 
+% page 15
+\begin{frame}[fragile]
+    \frametitle{Steps for gcc/12.2}
+ {\tiny
+    \begin{semiverbatim}
+   \$ mkdir -p ~/my\_modules/\{Core,Compiler,MPI\}
+
+You also set the following environment variable:
+
+   \$ export MY\_MODULEPATH\_ROOT=\$HOME/my\_modules
+
+When this is set up you will do:
+
+   $ module use ~/my\_modules/Core
+    \end{semiverbatim}
+}
+\end{frame}
+
+% page 16
+\begin{frame}[fragile]
+    \frametitle{gcc/12.2.lua}
+ {\tiny
+    \begin{semiverbatim}
+Then in the file ~/my_modules/Core/gcc/12.2.lua you have::
+
+   inherit()
+   local compiler = "gcc"
+   local MP\_ROOT  = os.getenv("MY\_MODULEPATH\_ROOT")
+   local version  = "12"
+
+   prepend_path("MODULEPATH", pathJoin(MP\_ROOT, "Compiler",compiler,version))
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item Note that I'm assuming that I'll have the same libraries
+    \item for all versions of gcc 12.*
+  \end{itemize}
+\end{frame}
+
+% page 17
+\begin{frame}[fragile]
+    \frametitle{intel/19.1.lua}
+ {\tiny
+    \begin{semiverbatim}
+Suppose you also have the system intel/19.1  module.  Then you would
+need at ~/my\_modules/Core/intel/19.1.lua you have::
+
+   inherit()
+   local compiler = "intel"
+   local MP\_ROOT  = os.getenv("MY\_MODULEPATH\_ROOT")
+   local version  = "19"
+
+   prepend_path("MODULEPATH", pathJoin(MP\_ROOT, "Compiler",compiler,version))
+    \end{semiverbatim}
+}
+  \begin{itemize}
+    \item Note that I'm assuming that I'll have the same libraries
+    \item for all versions of intel 19.*
+  \end{itemize}
+\end{frame}
+
+% page 18
+\begin{frame}[fragile]
+    \frametitle{Protect against system marked defaults}
+ {\tiny
+    \begin{semiverbatim}
+    \$ cd ~/my\_modules/Core/intel; ln -s 19.1.lua default
+    \$ cd ~/my\_modules/Core/gcc;   ln -s 12.2.lua default
+    \end{semiverbatim}
+}
+\end{frame}
+
 % page 19
+\begin{frame}{Now support two versions of boost}
+  \begin{itemize}
+    \item gcc boost:
+    \item \textasciitilde{}/my\_modules/Compiler/gcc/12/boost/1.85.0.lua
+    \item intel boost
+    \item \textasciitilde{}/my\_modules/Compiler/intel/19/boost/1.85.0.lua
+  \end{itemize}
+\end{frame}
+
+% page 20
+\begin{frame}{What about mpi libraries and applications}
+  \begin{itemize}
+    \item Similar to what was shown above
+    \item See  https://lmod.readthedocs.io/en/latest/340\_inherit.html
+      for more details
+  \end{itemize}
+\end{frame}
+
+% page 21
+\begin{frame}{Conclusions}
+  \begin{itemize}
+    \item It is some work but it is possible to include personal libs/apps
+    \item See the documentation 
+    \item Or see rt/user\_inherit for a full example
+  \end{itemize}
+\end{frame}
+
+% page 22
 \begin{frame}{Future Topics}
   \begin{itemize}
-    \item Unknown at the moment.
-    \item Next Meeting will be March 7th at 9:30 Central (15:30 UTC)
+    \item Matthew will talk about how benchpro interacts with Lmod
+    \item Next Meeting will be April 4th at 9:30 Central (14:30 UTC)
+      (back to Summer time!)
   \end{itemize}
 \end{frame}
 
