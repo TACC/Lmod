@@ -77,3 +77,6 @@ Lmod 8.7+
                           Also handle the case where posix.readlink is not working
             * Issue #635: Do not ignore error when building man_pages
 	                  Wrap pcall when trying to require("tcl2lua")
+W.I.P:
+   (8.7.21) * Undo fixes in end2end.tdesc and rt/common_funcs.sh to unset LMOD_FAST_TCL_INTERP
+   
