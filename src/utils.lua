@@ -912,6 +912,10 @@ local function l_build_runTCLprog()
    end
 end
 
+function usingFastTCLInterp()
+   return not (_G.runTCLprog == l_runTCLprog)
+end
+
 --------------------------------------------------------------------------
 -- Create the accept functions to allow or ignore TCL modulefiles.
 local function l_build_accept_function()
