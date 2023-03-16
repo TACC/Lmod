@@ -31,8 +31,8 @@ cleanUp ()
        -e "s|\o033|\\\033|g"                              \
        -e "s|[\\]27|\\\033|g"                             \
        -e "s|='\\\\033|='\\\\\\\\033|g"                   \
-       -e "s|\@git\@|$gitV|g"                             \
        -e "s|^User shell.*||"                             \
+       -e "s|\@git\@|$gitV|g"                             \
        -e "s|$PATH_to_SHA1/$SHA1SUM|PATH_to_HASHSUM|g"    \
        -e "s|/usr/.*/sha1sum|PATH_to_HASHSUM|g"           \
        -e "s|/bin/.*/sha1sum|PATH_to_HASHSUM|g"           \
