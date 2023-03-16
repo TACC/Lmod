@@ -51,7 +51,6 @@ Prepend order (LMOD_PREPEND_BLOCK)                            normal
 LMOD_RC (LMOD_RC)                                             <empty>
 Redirect to stdout (LMOD_REDIRECT)                            no
 Supporting Full Settarg Use (LMOD_SETTARG_FULL_SUPPORT)       no
-User shell                                                    bash
 Site Name (LMOD_SITE_NAME)                                    XYZZY
 Site Pkg location                                             ProjectDIR/rt/configDir/lmod_cfg_dir/SitePackage.lua
 Ignore Cache (LMOD_IGNORE_CACHE)                              no
