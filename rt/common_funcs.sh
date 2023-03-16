@@ -27,13 +27,13 @@ cleanUp ()
      SED=gsed
    fi
 
-
    $SED                                                   \
        -e "s|\o033|\\\033|g"                              \
        -e "s|[\\]27|\\\033|g"                             \
        -e "s|='\\\\033|='\\\\\\\\033|g"                   \
        -e "s|\@git\@|$gitV|g"                             \
-       -e "s|$PATH_to_SHA1/sha1sum|PATH_to_HASHSUM|g"     \
+       -e "s|^User shell.*||"                             \
+       -e "s|$PATH_to_SHA1/$SHA1SUM|PATH_to_HASHSUM|g"    \
        -e "s|/usr/.*/sha1sum|PATH_to_HASHSUM|g"           \
        -e "s|/bin/.*/sha1sum|PATH_to_HASHSUM|g"           \
        -e "s|:$PATH_to_LUA\([:;]\)|\1|g"                  \
@@ -277,16 +277,18 @@ initStdEnvVars()
 
   PATH_to_LUA=`findcmd --pathOnly lua`
   PATH_to_TM=`findcmd --pathOnly tm`
-  PATH_to_SHA1=`findcmd --pathOnly sha1sum`
 
   local SED
   local osType
   SED=sed
+  SHA1SUM=sha1sum
   osType=$(uname -s)
   if [ ${osType:-} = "Darwin" ]; then
     SED=gsed
+    SHA1SUM=gsha1sum
   fi
 
+  PATH_to_SHA1=`findcmd --pathOnly $SHA1SUM`
   PATH_TO_SED=`findcmd --pathOnly $SED`
 
   LUA_EXEC=$PATH_to_LUA/lua

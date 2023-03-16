@@ -648,7 +648,7 @@ cosmic:init{name    = "MODULEPATH_ROOT",
 local HashSum      = "@hashsum@"
 local found        = false
 if (HashSum:sub(1,1) == "@") then
-   local a = { "sha1sum", "shasum", "md5sum", "md5" }
+   local a = { "gsha1sum", "sha1sum", "shasum", "md5sum", "md5" }
    for i = 1,#a do
       HashSum, found = findInPath(a[i])
       if (found) then break end
