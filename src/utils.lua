@@ -83,6 +83,16 @@ function __LINE__()
 end
 
 
+local function l_prequire(m)
+   local ok, value = pcall(require, m) 
+   if (not ok) then 
+      return nil, value
+   end
+  return value
+end
+
+
+
 --------------------------------------------------------------------------
 -- Generate a message that will fix the available terminal width.
 -- @param width The terminal width
@@ -893,7 +903,12 @@ local function l_build_runTCLprog()
    if (fast_tcl_interp == "no") then
       _G.runTCLprog = l_runTCLprog
    else
-      _G.runTCLprog = require("tcl2lua").runTCLprog
+      local m = l_prequire("tcl2lua")
+      if (not m) then
+         _G.runTCLprog = l_runTCLprog
+      else
+         _G.runTCLprog = m.runTCLprog
+      end
    end
 end
 
