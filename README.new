@@ -75,5 +75,5 @@ Lmod 8.7+
             * Issue #630: Must take barebasename of results from ps -p $PPID -ocomm= in dynamic_shell in src/utils.lua
                           Also fix s_shellTbl entry for zsh.
                           Also handle the case where posix.readlink is not working
-                          
-                            
+            * Issue #635: Do not ignore error when building man_pages
+	                  Wrap pcall when trying to require("tcl2lua")
