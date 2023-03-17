@@ -83,6 +83,16 @@ function __LINE__()
 end
 
 
+local function l_prequire(m)
+   local ok, value = pcall(require, m) 
+   if (not ok) then 
+      return nil, value
+   end
+  return value
+end
+
+
+
 --------------------------------------------------------------------------
 -- Generate a message that will fix the available terminal width.
 -- @param width The terminal width
@@ -893,8 +903,17 @@ local function l_build_runTCLprog()
    if (fast_tcl_interp == "no") then
       _G.runTCLprog = l_runTCLprog
    else
-      _G.runTCLprog = require("tcl2lua").runTCLprog
+      local m = l_prequire("tcl2lua")
+      if (not m) then
+         _G.runTCLprog = l_runTCLprog
+      else
+         _G.runTCLprog = m.runTCLprog
+      end
    end
+end
+
+function usingFastTCLInterp()
+   return not (_G.runTCLprog == l_runTCLprog)
 end
 
 --------------------------------------------------------------------------
@@ -1115,6 +1134,10 @@ function dynamic_shell(shellNm)
    local found = false
    if (isFile(fn)) then
       n = posix.readlink(fn)
+      if (not n) then
+         local cmd = "readlink "..fn
+         n = capture(cmd):gsub("%s+$","")
+      end
       n = barefilename(n)
       if (BaseShell.isValid(n)) then
          shellNm = n
@@ -1128,6 +1151,7 @@ function dynamic_shell(shellNm)
    end
    local cmd = ps_cmd.." -p "..ppid.." -ocomm="
    n         = capture(cmd):gsub("^%-",""):gsub("%s+$","")
+   n         = barefilename(n)
    if (BaseShell.isValid(n)) then
       shellNm = n
    else

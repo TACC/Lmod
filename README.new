@@ -70,8 +70,13 @@ Lmod 8.7+
               and therefore a stack overflow when building the spider cache.
    (8.7.19) * Issue #622: Change MainControl:reportMissingDepModules() to report missing dep. modules through
               LmodWarning()
-WIP:
    (8.7.20) * Issue #626: http -> https update
             * Issue #629: Do not print Global Aliases header when no aliases would be printed.
-            
-                            
+            * Issue #630: Must take barebasename of results from ps -p $PPID -ocomm= in dynamic_shell in src/utils.lua
+                          Also fix s_shellTbl entry for zsh.
+                          Also handle the case where posix.readlink is not working
+            * Issue #635: Do not ignore error when building man_pages
+	                  Wrap pcall when trying to require("tcl2lua")
+W.I.P:
+   (8.7.21) * Undo fixes in end2end.tdesc and rt/common_funcs.sh to unset LMOD_FAST_TCL_INTERP
+            * Switch to use gsha1sum instead of sha1sum on Darwin.  (It works better on M1 macs)

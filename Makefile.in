@@ -239,7 +239,7 @@ echo:
 	@echo Version: $(version)
 	@echo GIT_VERSION: $(GIT_VERSION)
 man_pages:
-	-$(PATH_TO_LUA) $(srcdir)/src/lmod.in.lua bash --help >/dev/null 2> $(DESTDIR)$(MAN_PAGES)/module.1
+	$(PATH_TO_LUA) $(srcdir)/src/lmod.in.lua bash --help > /dev/null 2> $(DESTDIR)$(MAN_PAGES)/module.1
 	chmod $(MODE_R) $(DESTDIR)$(MAN_PAGES)/module.1
 
 $(DIRLIST) :

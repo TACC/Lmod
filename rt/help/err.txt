@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.19  2023-01-17 10:45 -06:00
+Modules based on Lua: Version 8.7.20  2023-03-16 11:43 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -106,7 +106,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.19  2023-01-17 10:45 -06:00
+Modules based on Lua: Version 8.7.20  2023-03-16 11:43 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -210,7 +210,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.19  2023-01-17 10:45 -06:00
+Modules based on Lua: Version 8.7.20  2023-03-16 11:43 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -230,7 +230,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --config
 ===========================
-Modules based on Lua: Version 8.7.19  2023-01-17 10:45 -06:00
+Modules based on Lua: Version 8.7.20  2023-03-16 11:43 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                                                   Value
 Allow root to use Lmod (LMOD_ALLOW_ROOT_USE)                  yes
@@ -248,7 +248,8 @@ Dynamic Spider Cache (LMOD_DYNAMIC_SPIDER_CACHE)              yes
 Require Exact Match/no defaults (LMOD_EXACT_MATCH)            no
 Export the module command (LMOD_EXPORT_MODULE)                yes
 Allow extended default (LMOD_EXTENDED_DEFAULT)                yes
-Use attached TCL over system call (LMOD_FAST_TCL_INTERP)      no
+Use attached TCL over system call (LMOD_FAST_TCL_INTERP)      yes
+Is fast TCL interp available                                  false
 Use italic instead of dim (LMOD_HIDDEN_ITALIC)                no
 KSH Support (LMOD_KSH_SUPPORT)                                no
 Language used for err/msg/warn (LMOD_LANG)                    en
@@ -273,7 +274,6 @@ Prepend order (LMOD_PREPEND_BLOCK)                            normal
 LMOD_RC (LMOD_RC)                                             <empty>
 Redirect to stdout (LMOD_REDIRECT)                            no
 Supporting Full Settarg Use (LMOD_SETTARG_FULL_SUPPORT)       no
-User shell                                                    bash
 Site Name (LMOD_SITE_NAME)                                    <empty>
 Site Pkg location                                             standard
 Ignore Cache (LMOD_IGNORE_CACHE)                              no
@@ -290,7 +290,6 @@ Tmod prepend PATH Rule (LMOD_TMOD_PATH_RULE)                  no
 Tracing (LMOD_TRACING)                                        no
 uname -a
 User Cache Directory                                          OutputDIR/.cache/lmod
-LMOD_FAST_TCL_INTERP         E          yes          no
 LMOD_PACKAGE_PATH            D          nil          <empty>
 LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>
 Active RC file(s):
@@ -407,9 +406,8 @@ propT = {
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --miniConfig
 ===========================
-Modules based on Lua: Version 8.7.19  2023-01-17 10:45 -06:00
+Modules based on Lua: Version 8.7.20  2023-03-16 11:43 -05:00
     by Robert McLay mclay@tacc.utexas.edu
-LMOD_FAST_TCL_INTERP         E          yes          no
 LMOD_PACKAGE_PATH            D          nil          <empty>
 LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>
 ===========================

@@ -302,7 +302,7 @@ local function l_createShellTbl()
          ["ksh93"]  = {name = "ksh",    object = Bash   },
          ["pdksh"]  = {name = "ksh",    object = Bash   },
          ["mksh"]   = {name = "ksh",    object = Bash   },
-         ["zsh"]    = {name = "bash",   object = Bash   },
+         ["zsh"]    = {name = "zsh",    object = Bash   },
          ["fish"]   = {name = "fish",   object = Fish   },
          ["emacs"]  = {name = "lisp",   object = Lisp   },
          ["lisp"]   = {name = "lisp",   object = Lisp   },
