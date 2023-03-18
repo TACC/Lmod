@@ -27,7 +27,7 @@ Require Exact Match/no defaults (LMOD_EXACT_MATCH)            no
 Export the module command (LMOD_EXPORT_MODULE)                yes
 Allow extended default (LMOD_EXTENDED_DEFAULT)                yes
 Use attached TCL over system call (LMOD_FAST_TCL_INTERP)      yes
-Is fast TCL interp available                                  false
+Is fast TCL interp available (LMOD_USING_FAST_TCL_INTERP)     no
 Use italic instead of dim (LMOD_HIDDEN_ITALIC)                no
 KSH Support (LMOD_KSH_SUPPORT)                                no
 Language used for err/msg/warn (LMOD_LANG)                    en
@@ -73,6 +73,7 @@ LMOD_PACKAGE_PATH            lmod_cfg   nil          ProjectDIR/rt/configDir/lmo
 LMOD_SITE_MSG_FILE           lmod_cfg   false        ProjectDIR/rt/configDir/lmod_cfg_dir/lang.lua
 LMOD_SITE_NAME               lmod_cfg   false        XYZZY
 LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>
+LMOD_USING_FAST_TCL_INTERP   Other      yes          no
 Active RC file(s):
 ProjectDIR/src/../init/lmodrc.lua
  Lmod Property Table:

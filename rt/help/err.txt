@@ -249,7 +249,7 @@ Require Exact Match/no defaults (LMOD_EXACT_MATCH)            no
 Export the module command (LMOD_EXPORT_MODULE)                yes
 Allow extended default (LMOD_EXTENDED_DEFAULT)                yes
 Use attached TCL over system call (LMOD_FAST_TCL_INTERP)      yes
-Is fast TCL interp available                                  false
+Is fast TCL interp available (LMOD_USING_FAST_TCL_INTERP)     no
 Use italic instead of dim (LMOD_HIDDEN_ITALIC)                no
 KSH Support (LMOD_KSH_SUPPORT)                                no
 Language used for err/msg/warn (LMOD_LANG)                    en
@@ -292,6 +292,7 @@ uname -a
 User Cache Directory                                          OutputDIR/.cache/lmod
 LMOD_PACKAGE_PATH            D          nil          <empty>
 LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>
+LMOD_USING_FAST_TCL_INTERP   Other      yes          no
 Active RC file(s):
 ProjectDIR/src/../init/lmodrc.lua
  OutputDIR/.lmodrc.lua
@@ -410,6 +411,7 @@ Modules based on Lua: Version 8.7.20  2023-03-16 11:43 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 LMOD_PACKAGE_PATH            D          nil          <empty>
 LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>
+LMOD_USING_FAST_TCL_INTERP   Other      yes          no
 ===========================
 step 7
 lua ProjectDIR/src/chkJson
