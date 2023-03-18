@@ -165,11 +165,18 @@ cosmic:init{name    = "LMOD_RC",
             assignV = rcfiles}
 
 ------------------------------------------------------------------------
--- LMOD_FAST_TCL_INTERP:  Send messages to stdout instead of stderr
+-- LMOD_FAST_TCL_INTERP:  Build and use the tcl library as part of Lmod
 ------------------------------------------------------------------------
 cosmic:init{name = "LMOD_FAST_TCL_INTERP",
             sedV = "@fast_tcl_interp@",
             yn   = "yes"}
+
+------------------------------------------------------------------------
+-- LMOD_USING_FAST_TCL_INTERP:  Is the fast TCL interp active
+------------------------------------------------------------------------
+cosmic:init{name    = "LMOD_USING_FAST_TCL_INTERP",
+            yn      = "yes",
+            default = "yes"}
 
 ------------------------------------------------------------------------
 -- LMOD_SITE_NAME: The site name (e.g. TACC)
@@ -648,7 +655,7 @@ cosmic:init{name    = "MODULEPATH_ROOT",
 local HashSum      = "@hashsum@"
 local found        = false
 if (HashSum:sub(1,1) == "@") then
-   local a = { "sha1sum", "shasum", "md5sum", "md5" }
+   local a = { "gsha1sum", "sha1sum", "shasum", "md5sum", "md5" }
    for i = 1,#a do
       HashSum, found = findInPath(a[i])
       if (found) then break end
