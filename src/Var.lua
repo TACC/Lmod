@@ -130,6 +130,7 @@ end
 -- however, the set function mark the type as "var" and not
 -- "path".  Other functions work similarly.
 local function l_extract(self, nodups)
+   --dbg.start{"Var:l_extract(nodups: ",not (not (nodups)),")"}
    local myValue       = self.value or getenv(self.name)
    local pathTbl       = {}
    local name          = self.name
@@ -142,8 +143,11 @@ local function l_extract(self, nodups)
    local refCountT     = l_extract_Lmod_var_table(self, envRefCountName)
 
    if (myValue and myValue ~= '') then
+      --dbg.print{"myValue: \"",myValue,"\"\n"}
       pathA = path2pathA(myValue, delim, clearDblSlash)
       for i,v in ipairs(pathA) do
+         --dbg.print{"\n"}
+         --dbg.print{i,": v: ",v,"\n"}
          local vv       = pathTbl[v] or {num = -1, idxA = {}}
          local num      = vv.num
 
@@ -174,6 +178,7 @@ local function l_extract(self, nodups)
          end
          imax       = i
          pathTbl[v] = vv
+         --dbg.print{"vv.num: ",vv.num,"\n"}
       end
    end
 
@@ -184,6 +189,7 @@ local function l_extract(self, nodups)
    self.imin      = imin
    self.imax      = imax
    self.export    = true
+   --dbg.fini("Var:l_extract")
 end
 
 --------------------------------------------------------------------------
