@@ -18,6 +18,9 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
+     
+     unset RTM_LUA_PATH RTM_LUA_CPATH
+
      MODULEPATH_ROOT=$(projectDir)/mf;  export MODULEPATH_ROOT
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .cache .config

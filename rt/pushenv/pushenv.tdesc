@@ -61,10 +61,10 @@ testdescript = {
      unset FOO
      unset BAZ
      unset TEST
-     runLmod -D load   first     #24
-     runLmod -D load   second    #25
-     runLmod -D unload second    #26
-     runBase echo FOO=$FOO BAZ=$BAZ    #27
+     runLmod load   first     #24
+     runLmod load   second    #25
+     runLmod unload second    #26
+     runBase echo FOO="%$FOO%" BAZ="%$BAZ%"    #27
 
 
 

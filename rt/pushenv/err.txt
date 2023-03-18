@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.12  2022-02-09 16:10 -06:00
+Modules based on Lua: Version 8.7.20  2023-03-16 11:43 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -80,10 +80,17 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload ll/2.0
 step 19
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load lloyd
 ===========================
+Lmod has detected the following error: Unable to load module because of error when evaluating modulefile:
+     ProjectDIR/rt/pushenv/mf/Core/lloyd/1.0.lua: ProjectDIR/src/../tools/base64.lua:52: bad argument #1 to 'len' (string expected, got boolean)
+     Please check the modulefile and especially if there is a line number specified in the above message
+While processing the following module(s):
+    Module fullname  Module Filename
+    lloyd/1.0        ProjectDIR/rt/pushenv/mf/Core/lloyd/1.0.lua
 ===========================
 step 20
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload lloyd
 ===========================
+Note: the module "lloyd" cannot be unloaded because it was not loaded.
 ===========================
 step 21
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing save
@@ -94,3 +101,23 @@ step 22
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
 ===========================
 Restoring modules from user's default
+===========================
+step 23
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 24
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load first
+===========================
+===========================
+step 25
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load second
+===========================
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload second
+===========================
+===========================
+step 27
+echo FOO=%% BAZ=% %
+===========================
