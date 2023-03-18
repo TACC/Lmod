@@ -559,8 +559,8 @@ function M.remove_path(self, t)
    local force    = t.force
 
    dbg.start{"MainControl:remove_path{\"",name,"\", \"",value,
-             "\", delim=\"",delim,"\", nodups=\"",nodups,
-             "\", priority=",priority,
+             "\", delim=\"",delim,"\", nodups=",nodups,
+             ", priority=",priority,
              ", where=",where,
              ", force=",force,
              "}"}
