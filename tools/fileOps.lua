@@ -367,17 +367,16 @@ end
 -- @return A clean canonical path.
 function path_regularize(value, full)
    if value == nil then return nil end
+   if (value == '') then
+      return value
+   end
    local doubleSlash = value:find("[^/]//$")
-   value = value:gsub("^%s+", "")
+   value = value:gsub("^%s+", " ")
    value = value:gsub("%s+$", "")
    value = value:gsub("//+" , "/")
    value = value:gsub("/%./", "/")
    value = value:gsub("/$"  , "")
    value = value:gsub("^~"  , TILDE)
-   if (value == '') then
-      value = ' '
-      return value
-   end
    local a    = {}
    local aa   = {}
    for dir in value:split("/") do
