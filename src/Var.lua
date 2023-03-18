@@ -73,9 +73,9 @@ local ln10_inv        = 1.0/log(10.0)
 
 local function l_extract_Lmod_var_table(self, envName)
    local value = getenv(envName .. self.name)
-   if (envName .. self.name == "__LMOD_REF_COUNT_MODULEPATH") then
-      dbg.print{"__LMOD_REF_COUNT_MODULEPATH: ",value,"\n"}
-   end
+   --if (envName .. self.name == "__LMOD_REF_COUNT_MANPATH") then
+   --   dbg.print{"__LMOD_REF_COUNT_MANPATH: ",value,"\n"}
+   --end
 
    local t     = {}
    if (value == nil) then
@@ -146,6 +146,7 @@ local function l_extract(self, nodups)
       for i,v in ipairs(pathA) do
          local vv       = pathTbl[v] or {num = -1, idxA = {}}
          local num      = vv.num
+
          if (num == -1) then
             local refCount = false
             local vA       = refCountT[v]
@@ -163,11 +164,6 @@ local function l_extract(self, nodups)
 
          local idxA    = vv.idxA
          if (nodups) then
-            --if (self.name == ModulePath) then
-            --   vv.num = 1
-            --else
-            --   vv.num = num + 1
-            --end
             vv.num = num + 1
             if (next(idxA) == nil) then
                idxA[1] = {i,priority}
