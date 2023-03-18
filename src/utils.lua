@@ -573,8 +573,10 @@ function path2pathA(path, delim, clearDoubleSlash)
       return {}
    end
    if (path == '') then
-      return { ' ' }
+      return { '' }
    end
+
+   path = path:gsub(":+",":")
 
    local is, ie
 
@@ -588,15 +590,15 @@ function path2pathA(path, delim, clearDoubleSlash)
       pathA[#pathA + 1] = path
    end
 
-   local n = #pathA
-   local i = n
-   while (pathA[i] == "" or pathA[i] == " ") do
-      i = i - 1
-   end
-   i = i + 2
-   for j = i, n do
-      pathA[j] = nil
-   end
+   --local n = #pathA
+   --local i = n
+   --while (pathA[i] == "" or pathA[i] == " ") do
+   --   i = i - 1
+   --end
+   --i = i + 2
+   --for j = i, n do
+   --   pathA[j] = nil
+   --end
 
    return pathA
 end
