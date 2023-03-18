@@ -415,9 +415,9 @@ function M.pushenv(self, name, value)
       varT[stackName] = Var:new(stackName, v64, nodups, ":")
    end
 
-   if (value == false) then
-      v   = false
-      v64 = "false"
+   if (value == '') then
+      v   = value
+      v64 = value
    else
       v   = tostring(value)
       v64 = encode64(value)
@@ -458,8 +458,8 @@ function M.popenv(self, name, value)
    local v64 = varT[stackName]:pop()
    dbg.print{"stackName: ", stackName,", varT[stackName]:expand(): \"",varT[stackName]:expand() ,"\", v64: \"",v64,"\"\n"}
    local v   = nil
-   if (v64 == "false") then
-      v = false
+   if (v64 == "") then
+      v = ""
    elseif (v64) then
       v = decode64(v64)
    end
