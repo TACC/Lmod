@@ -71,6 +71,13 @@ Hook tips
     -- the module at the top of the FrameStack is the one the user requested
     local userload = (frameStk:atTop()) and "yes" or "no"
 
+# If you want to know which modules are loaded, you can use the ModuleTable::
+
+    local mt = MT:singleton()
+    if mt:exists('shortname') then
+        print("Module shortname is loaded")
+    end
+
 # If you want to know the short name or path of a loaded module, you can use the ModuleTable::
 
     local mname   = MName:new("mt", FullModuleName)
