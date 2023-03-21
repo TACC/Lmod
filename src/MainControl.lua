@@ -420,7 +420,7 @@ function M.pushenv(self, name, value)
       v64 = value
    else
       v   = tostring(value)
-      v64 = encode64(value)
+      v64 = encode64(v)
    end
    local priority = 0
 

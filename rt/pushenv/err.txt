@@ -80,17 +80,10 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload ll/2.0
 step 19
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load lloyd
 ===========================
-Lmod has detected the following error: Unable to load module because of error when evaluating modulefile:
-     ProjectDIR/rt/pushenv/mf/Core/lloyd/1.0.lua: ProjectDIR/src/../tools/base64.lua:52: bad argument #1 to 'len' (string expected, got boolean)
-     Please check the modulefile and especially if there is a line number specified in the above message
-While processing the following module(s):
-    Module fullname  Module Filename
-    lloyd/1.0        ProjectDIR/rt/pushenv/mf/Core/lloyd/1.0.lua
 ===========================
 step 20
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload lloyd
 ===========================
-Note: the module "lloyd" cannot be unloaded because it was not loaded.
 ===========================
 step 21
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing save
