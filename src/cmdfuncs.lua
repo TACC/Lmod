@@ -370,7 +370,7 @@ function List(...)
    local frameStk  = FrameStk:singleton()
    local mt        = frameStk:mt()
 
-   local kind      = optionTbl().brief and "fullName_Meta" or "fullName"
+   local kind      = optionTbl.brief and "fullName_Meta" or "fullName"
 
    local activeA   = mt:list(kind,"active")
    local inactiveA = mt:list(kind,"inactive")

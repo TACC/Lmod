@@ -28,21 +28,22 @@ testdescript = {
      runLmod load TACC              # 3
      runLmod help mvapich1          # 4
      runLmod list                   # 5
-     runLmod --latest load pgi      # 6
-     runLmod list                   # 7
-     runLmod load pgi               # 8
-     runLmod list                   # 9
-     runLmod --latest swap pgi pgi  #10
-     runLmod list                   #11
-     runLmod unload cluster         #12
-     runLmod purge                  #13
-     runLmod use $(testDir)/mf/Base #14
-     runLmod show gatk              #15
-     runLmod load gatk              #16
-     runLmod unload gatk            #17
-     runLmod load stir              #18
-     runLmod load foo               #19
-     runLmod load empty_unload      #20
+     runLmod --brief list           # 6 
+     runLmod --latest load pgi      # 7
+     runLmod list                   # 8
+     runLmod load pgi               # 9
+     runLmod list                   #10
+     runLmod --latest swap pgi pgi  #11
+     runLmod list                   #12
+     runLmod unload cluster         #13
+     runLmod purge                  #14
+     runLmod use $(testDir)/mf/Base #15
+     runLmod show gatk              #16
+     runLmod load gatk              #17
+     runLmod unload gatk            #18
+     runLmod load stir              #19
+     runLmod load foo               #20
+     runLmod load empty_unload      #21
 
 
 

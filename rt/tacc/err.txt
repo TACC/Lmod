@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
+Modules based on Lua: Version 8.7.20  2023-03-16 11:43 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -46,85 +46,91 @@ Currently Loaded Modules:
   2) pgi/7.1   4) globus/4.0.7        6) cluster         8) TACC
 ===========================
 step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --brief list
+===========================
+Currently Loaded Modules:
+  1) TACC
+===========================
+step 7
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --latest load pgi
 ===========================
 The following have been reloaded with a version change:
   1) pgi/7.1 => pgi/7.2-5
 ===========================
-step 7
+step 8
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) Linux               3) globus/4.0.7    5) cluster      7) TACC
   2) mvapich1/mvapich1   4) cluster-paths   6) TACC-paths   8) pgi/7.2-5
 ===========================
-step 8
+step 9
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load pgi
 ===========================
 The following have been reloaded with a version change:
   1) pgi/7.2-5 => pgi/7.1
 ===========================
-step 9
+step 10
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) Linux               3) globus/4.0.7    5) cluster      7) TACC
   2) mvapich1/mvapich1   4) cluster-paths   6) TACC-paths   8) pgi/7.1
 ===========================
-step 10
+step 11
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --latest swap pgi pgi
 ===========================
 The following have been reloaded with a version change:
   1) pgi/7.1 => pgi/7.2-5
 ===========================
-step 11
+step 12
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) Linux               3) globus/4.0.7    5) cluster      7) TACC
   2) mvapich1/mvapich1   4) cluster-paths   6) TACC-paths   8) pgi/7.2-5
 ===========================
-step 12
+step 13
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload cluster
 ===========================
 ===========================
-step 13
+step 14
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
-step 14
+step 15
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/tacc/mf/Base
 ===========================
 ===========================
-step 15
+step 16
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing show gatk
 ===========================
    ProjectDIR/rt/tacc/mf/Base/gatk/1.0:
 prepend_path("PATH","/unknown/apps/gatk/1.0/bin")
 ===========================
-step 16
+step 17
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gatk
 ===========================
 To execute GATK run: java -jar /unknown/apps/gatk/1.0/java/GenomeAnalysisTK.jar
 Test of brackets [foo]
 ===========================
-step 17
+step 18
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload gatk
 ===========================
 ===========================
-step 18
+step 19
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load stir
 ===========================
 mod is stir/default
 mod is stir/2.1
 ===========================
-step 19
+step 20
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo
 ===========================
 The next line has a two blanks.   Please don't error out.
 The next line has a single blank. Please don't error out.
 The next line has a zero blanks.  Please don't error out.
 ===========================
-step 20
+step 21
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load empty_unload
 ===========================

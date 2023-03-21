@@ -494,8 +494,8 @@ function M.list(self, kind, status)
    elseif (kind == "fullName_Meta") then
       for k, v in pairs(mT) do
          if ((status == "any" or status == v.status) and
-                (v.status ~= "pending") and
-                (v.stackDepth == 0) then
+             (v.status ~= "pending") and
+             (v.stackDepth == 0)) then
             local obj = { sn = k, fullName = v.fullName, userName = v.userName,
                           name = v[kind], fn = v.fn, loadOrder = v.loadOrder,
                           stackDepth = v.stackDepth, ref_count = v.ref_count}
