@@ -369,8 +369,11 @@ function List(...)
    local shell     = _G.Shell
    local frameStk  = FrameStk:singleton()
    local mt        = frameStk:mt()
-   local activeA   = mt:list("fullName","active")
-   local inactiveA = mt:list("fullName","inactive")
+
+   local kind      = optionTbl.brief and "fullName_Meta" or "fullName"
+
+   local activeA   = mt:list(kind,"active")
+   local inactiveA = mt:list(kind,"inactive")
    local total     = #activeA + #inactiveA
    local cwidth    = optionTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
 

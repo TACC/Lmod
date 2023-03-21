@@ -137,6 +137,7 @@ function main()
       ["-D"]=0,
       ["-?"] = 0, ["-h"] = 0, ["--help"] = 0, ["-H"] = 0,
       ["--default"]=0,  ["-d"]=0,
+      ["--brief"]=0,  ["-b"]=0,
       ["--dumpversion"] = 0,
       ["--expert"]=0,   ["--novice"]=0,
       ["--force"] = 0,

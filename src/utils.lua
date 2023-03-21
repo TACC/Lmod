@@ -915,7 +915,7 @@ local function l_build_runTCLprog()
 end
 
 function usingFastTCLInterp()
-   return not (_G.runTCLprog == l_runTCLprog)
+   return (_G.runTCLprog ~= l_runTCLprog) and "yes" or "no"
 end
 
 --------------------------------------------------------------------------

@@ -137,6 +137,13 @@ function M.singleton(self, usage)
    }
 
    cmdlineParser:add_option{
+      name   = {"-b", "--brief"},
+      dest   = "brief",
+      action = "store_true",
+      help   = "brief listing with only user specified modules",
+   }
+
+   cmdlineParser:add_option{
       name   = {"-D"},
       dest   = "debug",
       action = "count",

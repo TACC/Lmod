@@ -146,7 +146,6 @@ local function l_new(self)
    local export_module     = cosmic:value("LMOD_EXPORT_MODULE")
    local extended_default  = cosmic:value("LMOD_EXTENDED_DEFAULT")
    local fast_tcl_interp   = cosmic:value("LMOD_FAST_TCL_INTERP")
-   local using_fast_tcl    = usingFastTCLInterp()
    local find_first        = cosmic:value("LMOD_TMOD_FIND_FIRST")
    local hashsum_path      = cosmic:value("LMOD_HASHSUM_PATH")
    local have_term         = cosmic:value("LMOD_HAVE_LUA_TERM")
@@ -181,6 +180,8 @@ local function l_new(self)
    local tmod_rule         = cosmic:value("LMOD_TMOD_PATH_RULE")
    local tracing           = cosmic:value("LMOD_TRACING")
    local useDotConfigOnly  = cosmic:value("LMOD_USE_DOT_CONFIG_ONLY")
+   local using_fast_tcl    = usingFastTCLInterp()
+   cosmic:assign("LMOD_USING_FAST_TCL_INTERP",using_fast_tcl)
 
    if (dfltModules == "") then
       dfltModules = "<empty>"
@@ -222,7 +223,7 @@ local function l_new(self)
    tbl.exactMatch   = { k = "Require Exact Match/no defaults"   , v = exactMatch,       n = "LMOD_EXACT_MATCH"                }
    tbl.expMCmd      = { k = "Export the module command"         , v = export_module,    n = "LMOD_EXPORT_MODULE"              }
    tbl.fastTCL      = { k = "Use attached TCL over system call" , v = fast_tcl_interp,  n = "LMOD_FAST_TCL_INTERP"            }
-   tbl.fastTCLUsing = { k = "Is fast TCL interp available"      , v = using_fast_tcl,   n = false                             }
+   tbl.fastTCLUsing = { k = "Is fast TCL interp available"      , v = using_fast_tcl,   n = "LMOD_USING_FAST_TCL_INTERP"      }
    tbl.hiddenItalic = { k = "Use italic instead of dim"         , v = hiddenItalic,     n = "LMOD_HIDDEN_ITALIC"              }
    tbl.ksh_support  = { k = "KSH Support"                       , v = ksh_support,      n = "LMOD_KSH_SUPPORT"                }
    tbl.lang         = { k = "Language used for err/msg/warn"    , v = lmod_lang,        n = "LMOD_LANG"                       }
