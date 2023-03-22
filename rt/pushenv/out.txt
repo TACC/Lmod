@@ -304,8 +304,7 @@ export __LMOD_STACK_RTM;
 step 19
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load lloyd
 ===========================
-LLOYD=false;
-export LLOYD;
+unset LLOYD;
 LOADEDMODULES=intel/13.0:mpich/3.0:lloyd/1.0;
 export LOADEDMODULES;
 MODULEPATH=ProjectDIR/rt/pushenv/mf/Compiler/intel/13.0:ProjectDIR/rt/pushenv/mf/Core;
@@ -374,8 +373,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load first
 ===========================
 A=true;
 export A;
-B=false;
-export B;
+unset B;
 BAR=;
 export BAR;
 BAZ=\ ;
