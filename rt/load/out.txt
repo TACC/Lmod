@@ -281,6 +281,8 @@ ALEX=2.0;
 export ALEX;
 LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:noweb/2.10c:PrgEnv:intel/intel:gotoblas/1.32:_a/1.0:boost/1.49.0:alex/2.0;
 export LOADEDMODULES;
+__LMOD_REF_COUNT_MANPATH2=:1;
+export __LMOD_REF_COUNT_MANPATH2;
 MANPATH2=::;
 export MANPATH2;
 MODULEPATH=ProjectDIR/rt/load/mf/Compiler/intel/10.1:OutputDIR/mf:ProjectDIR/rt/load/mf/notDir:ProjectDIR/rt/load/mf/Core:ProjectDIR/rt/load/mf/Beta:ProjectDIR/rt/load/mf/Core2;
@@ -295,7 +297,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load D
 ===========================
 LOADEDMODULES=admin/admin-1.0:unix/unix:local/local:noweb/2.10c:PrgEnv:intel/intel:gotoblas/1.32:_a/1.0:boost/1.49.0:alex/2.0:D/1.0;
 export LOADEDMODULES;
-__LMOD_REF_COUNT_MANPATH2=/usr/local/man2:1;
+__LMOD_REF_COUNT_MANPATH2=/usr/local/man2:1\;:1;
 export __LMOD_REF_COUNT_MANPATH2;
 MANPATH2=/usr/local/man2::;
 export MANPATH2;
@@ -846,7 +848,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 69
-cat diff.env.txt
+cat diff.env.xyzzy
 ===========================
 > __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/load/mf4:1
 > __LMOD_REF_COUNT_PATH=ProjectDIR/rt/load:1;ProjectDIR/proj_mgmt:1;PATH_to_TM:1;/bin:1

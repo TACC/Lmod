@@ -13,6 +13,7 @@ Options:
   -h -? -H --help                   This help message
   -s availStyle --style=availStyle  Site controlled avail style: system (default: system)
   --regression_testing              Lmod regression testing
+  -b --brief                        brief listing with only user specified modules
   -D                                Program tracing written to stderr
   --debug=dbglvl                    Program tracing written to stderr (where dbglvl is a number 1,2,3)
   --pin_versions=pinVersions        When doing a restore use specified version, do not follow defaults
@@ -117,6 +118,7 @@ Options:
   -h -? -H --help                   This help message
   -s availStyle --style=availStyle  Site controlled avail style: system (default: system)
   --regression_testing              Lmod regression testing
+  -b --brief                        brief listing with only user specified modules
   -D                                Program tracing written to stderr
   --debug=dbglvl                    Program tracing written to stderr (where dbglvl is a number 1,2,3)
   --pin_versions=pinVersions        When doing a restore use specified version, do not follow defaults

@@ -491,6 +491,17 @@ function M.list(self, kind, status)
             a, b = l_build_AB(a, b, v.loadOrder, v[kind], obj )
          end
       end
+   elseif (kind == "fullName_Meta") then
+      for k, v in pairs(mT) do
+         if ((status == "any" or status == v.status) and
+             (v.status ~= "pending") and
+             (v.stackDepth == 0)) then
+            local obj = { sn = k, fullName = v.fullName, userName = v.userName,
+                          name = v.fullName, fn = v.fn, loadOrder = v.loadOrder,
+                          stackDepth = v.stackDepth, ref_count = v.ref_count}
+            a, b = l_build_AB(a, b, v.loadOrder, v.fullName, obj )
+         end
+      end
    elseif (kind == "both") then
       for k, v in pairs(mT) do
          if ((status == "any" or status == v.status) and
