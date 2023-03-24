@@ -27,6 +27,9 @@ that modifies the environment variables of the Python process running Jupyter. A
 processes of Jupyter (including kernels) created after Lmod calls inherit
 the environment variables as defined by the set of loaded modules.
 
+In concrete terms, if a module modifies **$PYTHONPATH** and it is loaded after
+a Python kernel was spawned, the kernel will not be aware of the change.
+
 Lmod environment variable configuration for jupyter-lmod
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
