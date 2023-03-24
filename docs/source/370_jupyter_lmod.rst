@@ -38,7 +38,7 @@ and **$MODULEPATH** undefined. To address this issue, the environment variables 
 defined in **jupyterhub_config.py** using
 `c.Spawner.environment <https://jupyterhub.readthedocs.io/en/stable/api/spawner.html#jupyterhub.spawner.Spawner.environment>`_.
 
-If the environment variables are defined before JupyterHub launch, you can instead add their
+If the environment variables are defined before JupyterHub launch, you can add their
 name only to `c.Spawner.env_keep <https://jupyterhub.readthedocs.io/en/stable/api/spawner.html#jupyterhub.spawner.Spawner.env_keep>`_
 instead.
 
