@@ -8,6 +8,8 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load unix
 ===========================
 LOADEDMODULES=unix/1.0;
 export LOADEDMODULES;
+__LMOD_REF_COUNT_MANPATH=:1;
+export __LMOD_REF_COUNT_MANPATH;
 MANPATH=::;
 export MANPATH;
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/manpath/mf/Core:1;
@@ -23,6 +25,7 @@ step 3
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload unix
 ===========================
 unset LOADEDMODULES;
+unset __LMOD_REF_COUNT_MANPATH;
 unset MANPATH;
 MODULEPATH=ProjectDIR/rt/manpath/mf/Core;
 export MODULEPATH;
@@ -35,7 +38,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load unix noweb
 ===========================
 LOADEDMODULES=unix/1.0:noweb/2.11b;
 export LOADEDMODULES;
-__LMOD_REF_COUNT_MANPATH=/unknown/apps/noweb/2.11b/man:1;
+__LMOD_REF_COUNT_MANPATH=/unknown/apps/noweb/2.11b/man:1\;:1;
 export __LMOD_REF_COUNT_MANPATH;
 MANPATH=/unknown/apps/noweb/2.11b/man::;
 export MANPATH;
@@ -63,7 +66,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load unix
 ===========================
 LOADEDMODULES=unix/1.0;
 export LOADEDMODULES;
-__LMOD_REF_COUNT_MANPATH=/unknown/apps/junk/share/man:1;
+__LMOD_REF_COUNT_MANPATH=/unknown/apps/junk/share/man:1\;:1;
 export __LMOD_REF_COUNT_MANPATH;
 MANPATH=/unknown/apps/junk/share/man::;
 export MANPATH;
@@ -78,6 +81,8 @@ step 7
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload unix
 ===========================
 unset LOADEDMODULES;
+__LMOD_REF_COUNT_MANPATH=/unknown/apps/junk/share/man:1;
+export __LMOD_REF_COUNT_MANPATH;
 MANPATH=/unknown/apps/junk/share/man;
 export MANPATH;
 MODULEPATH=ProjectDIR/rt/manpath/mf/Core;

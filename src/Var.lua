@@ -73,9 +73,9 @@ local ln10_inv        = 1.0/log(10.0)
 
 local function l_extract_Lmod_var_table(self, envName)
    local value = getenv(envName .. self.name)
-   if (envName .. self.name == "__LMOD_REF_COUNT_MODULEPATH") then
-      dbg.print{"__LMOD_REF_COUNT_MODULEPATH: ",value,"\n"}
-   end
+   --if (envName .. self.name == "__LMOD_REF_COUNT_MANPATH") then
+   --   dbg.print{"__LMOD_REF_COUNT_MANPATH: ",value,"\n"}
+   --end
 
    local t     = {}
    if (value == nil) then
@@ -130,6 +130,7 @@ end
 -- however, the set function mark the type as "var" and not
 -- "path".  Other functions work similarly.
 local function l_extract(self, nodups)
+   --dbg.start{"Var:l_extract(nodups: ",not (not (nodups)),")"}
    local myValue       = self.value or getenv(self.name)
    local pathTbl       = {}
    local name          = self.name
@@ -142,10 +143,14 @@ local function l_extract(self, nodups)
    local refCountT     = l_extract_Lmod_var_table(self, envRefCountName)
 
    if (myValue and myValue ~= '') then
+      --dbg.print{"myValue: \"",myValue,"\"\n"}
       pathA = path2pathA(myValue, delim, clearDblSlash)
       for i,v in ipairs(pathA) do
+         --dbg.print{"\n"}
+         --dbg.print{i,": v: ",v,"\n"}
          local vv       = pathTbl[v] or {num = -1, idxA = {}}
          local num      = vv.num
+
          if (num == -1) then
             local refCount = false
             local vA       = refCountT[v]
@@ -163,11 +168,6 @@ local function l_extract(self, nodups)
 
          local idxA    = vv.idxA
          if (nodups) then
-            --if (self.name == ModulePath) then
-            --   vv.num = 1
-            --else
-            --   vv.num = num + 1
-            --end
             vv.num = num + 1
             if (next(idxA) == nil) then
                idxA[1] = {i,priority}
@@ -178,6 +178,7 @@ local function l_extract(self, nodups)
          end
          imax       = i
          pathTbl[v] = vv
+         --dbg.print{"vv.num: ",vv.num,"\n"}
       end
    end
 
@@ -188,6 +189,7 @@ local function l_extract(self, nodups)
    self.imin      = imin
    self.imax      = imax
    self.export    = true
+   --dbg.fini("Var:l_extract")
 end
 
 --------------------------------------------------------------------------
@@ -476,6 +478,7 @@ end
 -- none are left.
 -- @param self A Var object.
 function M.pop(self)
+   dbg.start{"Var.pop(self)"}
    self.type    = 'path'
    local imin   = self.imin
    local min2   = huge
@@ -500,7 +503,7 @@ function M.pop(self)
             v = huge
          end
       end
-      dbg.print{"v: ",v,"\n"}
+      dbg.print{"v: \"",v,"\"\n"}
       if (v < min2) then
          min2   = v
          result = k
@@ -518,6 +521,8 @@ function M.pop(self)
    setenv_posix(self.name, v, true)
    local adding = false
    l_chkMP(self.name, v, adding)
+   dbg.print{"result: ",result,"\n"}
+   dbg.fini("Var.pop")
    return result
 end
 
