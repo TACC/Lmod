@@ -38,7 +38,7 @@
 ##
 
 #
-# loosely based on https://github.com/TACC/Lmod/tree/master/contrib/BuildSystemCacheFile/createSystemCacheFile.sh
+# loosely based on https://github.com/TACC/Lmod/tree/main/contrib/BuildSystemCacheFile/createSystemCacheFile.sh
 
 #
 # Script parameters (these can be tweaked via the provided command line options)
