@@ -87,3 +87,5 @@ Lmod 8.7+
 	    * Add support for module --brief list to list only direct user loaded modules (stackDepth == 0)
 	    * Issue 638: fix Lmod location to /main/ in README.md
 	    * Add env variable LMOD_DEBUG as another way to turn on Lmod debugging.
+   (8.7.22) * Label for 8.7.21 did not work going to 8.7.22
+   
