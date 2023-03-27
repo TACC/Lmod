@@ -365,8 +365,9 @@ function main()
    local userCmd = optionTbl.pargs[1]
    table.remove(optionTbl.pargs,1)
 
-   if (optionTbl.debug > 0 or optionTbl.dbglvl) then
+   if (getenv("LMOD_DEBUG") or optionTbl.debug > 0 or optionTbl.dbglvl) then
       local configuration = require("Configuration"):singleton()
+      io.stderr:setvbuf("no")
       io.stderr:write(configuration:report())
       optionTbl.dbglvl = (type(optionTbl.dbglvl) == "number") and optionTbl.dbglvl or 1
       local dbgLevel = max(optionTbl.debug, optionTbl.dbglvl or 1)

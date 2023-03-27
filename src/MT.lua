@@ -497,9 +497,9 @@ function M.list(self, kind, status)
              (v.status ~= "pending") and
              (v.stackDepth == 0)) then
             local obj = { sn = k, fullName = v.fullName, userName = v.userName,
-                          name = v[kind], fn = v.fn, loadOrder = v.loadOrder,
+                          name = v.fullName, fn = v.fn, loadOrder = v.loadOrder,
                           stackDepth = v.stackDepth, ref_count = v.ref_count}
-            a, b = l_build_AB(a, b, v.loadOrder, v[kind], obj )
+            a, b = l_build_AB(a, b, v.loadOrder, v.fullName, obj )
          end
       end
    elseif (kind == "both") then

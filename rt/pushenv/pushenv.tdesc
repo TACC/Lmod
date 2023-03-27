@@ -52,6 +52,25 @@ testdescript = {
      runLmod save             #21
      runLmod restore          #22
 
+     #--------------------------------------------------------------
+     # Issue: #627: pushenv("FOO","")
+     
+     runLmod purge            #23
+     unsetMT
+     MODULEPATH=$MODULEPATH_ROOT/Core2;  export MODULEPATH
+     unset FOO
+     unset BAZ
+     unset TEST
+     runLmod load   first     #24
+     runLmod load   second    #25
+     runLmod unload second    #26
+     runBase echo FOO="%$FOO%" BAZ="%$BAZ%"    #27
+
+
+
+ 
+
+
      HOME_ORIG=$HOME
 
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

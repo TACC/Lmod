@@ -410,6 +410,7 @@ function M.pushenv(self, name, value)
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
 
+   dbg.print{"stackName: ",stackName,", v64: ",v64,"\n"}
    if (varT[stackName] == nil) then
       varT[stackName] = Var:new(stackName, v64, nodups, ":")
    end
@@ -419,8 +420,9 @@ function M.pushenv(self, name, value)
       v64 = "false"
    else
       v   = tostring(value)
-      v64 = encode64(value)
+      v64 = encode64(v)
    end
+
    local priority = 0
 
    varT[stackName]:prepend(v64, nodups, priority)
@@ -453,12 +455,12 @@ function M.popenv(self, name, value)
       varT[stackName] = Var:new(stackName)
    end
 
-   dbg.print{"stackName: ", stackName, " pop()\n"}
-
+   
    local v64 = varT[stackName]:pop()
+   dbg.print{"stackName: ", stackName,", varT[stackName]:expand(): \"",varT[stackName]:expand() ,"\", v64: \"",v64,"\"\n"}
    local v   = nil
    if (v64 == "false") then
-      v = false
+      v = false   
    elseif (v64) then
       v = decode64(v64)
    end
@@ -558,8 +560,8 @@ function M.remove_path(self, t)
    local force    = t.force
 
    dbg.start{"MainControl:remove_path{\"",name,"\", \"",value,
-             "\", delim=\"",delim,"\", nodups=\"",nodups,
-             "\", priority=",priority,
+             "\", delim=\"",delim,"\", nodups=",nodups,
+             ", priority=",priority,
              ", where=",where,
              ", force=",force,
              "}"}

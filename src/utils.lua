@@ -573,10 +573,12 @@ function path2pathA(path, delim, clearDoubleSlash)
       return {}
    end
    if (path == '') then
-      return { ' ' }
+      return { '' }
    end
+   local delimPatt = delim .. "+";
 
-   local is, ie
+
+   path = path:gsub(delimPatt,delim)
 
    local pathA = {}
    for v  in path:split(delim) do

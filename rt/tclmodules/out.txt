@@ -47,3 +47,11 @@ MODULEPATH=ProjectDIR/rt/tclmodules/mf;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={earlyLateOutput={fn="ProjectDIR/rt/tclmodules/mf/earlyLateOutput/2.0",fullName="earlyLateOutput/2.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="earlyLateOutput",wV="000000002.*zfinal",},},mpathA={"ProjectDIR/rt/tclmodules/mf",},systemBaseMPATH="ProjectDIR/rt/tclmodules/mf",}';
 export _ModuleTable_;
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+MODULEPATH=ProjectDIR/rt/tclmodules/mf;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={earlyLateOutput={fn="ProjectDIR/rt/tclmodules/mf/earlyLateOutput/2.0",fullName="earlyLateOutput/2.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="earlyLateOutput",wV="000000002.*zfinal",},},mpathA={"ProjectDIR/rt/tclmodules/mf",},systemBaseMPATH="ProjectDIR/rt/tclmodules/mf",}';
+export _ModuleTable_;

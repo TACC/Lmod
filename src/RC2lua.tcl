@@ -62,6 +62,13 @@ proc hide-modulefile {mfile} {
 }
 
 
+proc module-hide {args} {
+}
+
+proc module-forbid {args} {
+}
+
+
 proc module-version {args} {
     set module_name    [lindex $args 0]
     foreach version [lrange $args 1 end] {
