@@ -179,6 +179,18 @@ cosmic:init{name    = "LMOD_USING_FAST_TCL_INTERP",
             default = "yes"}
 
 ------------------------------------------------------------------------
+-- LMOD_SITEPACKAGE_LOCATION:  SitePackage.lua location
+------------------------------------------------------------------------
+cosmic:init{name    = "LMOD_SITEPACKAGE_LOCATION",
+            default = "@LMOD_TOP_DIR@/libexec/SitePackage.lua"}
+
+------------------------------------------------------------------------
+-- LMOD_CFG:  lmod_config.lua locatoin
+------------------------------------------------------------------------
+cosmic:init{name    = "LMOD_CONFIG_LOCATION",
+            default = "no"}
+
+------------------------------------------------------------------------
 -- LMOD_SITE_NAME: The site name (e.g. TACC)
 ------------------------------------------------------------------------
 
