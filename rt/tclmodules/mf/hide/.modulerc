@@ -1,0 +1,2 @@
+module-hide --hard hide
+module-forbid --hard hide/2.0

@@ -77,7 +77,15 @@ Lmod 8.7+
                           Also handle the case where posix.readlink is not working
             * Issue #635: Do not ignore error when building man_pages
 	                  Wrap pcall when trying to require("tcl2lua")
-W.I.P:
    (8.7.21) * Undo fixes in end2end.tdesc and rt/common_funcs.sh to unset LMOD_FAST_TCL_INTERP
             * Switch to use gsha1sum instead of sha1sum on Darwin.  (It works better on M1 macs)
 	    * Created LMOD_USING_FAST_TCL_INTERP cosmic var to report if fast tcl interp is active.
+	    * Issue #627: Allow both pushenv("FOO","") and pushenv("FOO",false) to work.
+	    * Report SitePackage.lua location if different from "standard"
+	    * Report the existance of lmod_config.lua and its location
+	    * Add module-hide and module-forbid to RC2lua.tcl. They are currently no-ops.
+	    * Add support for module --brief list to list only direct user loaded modules (stackDepth == 0)
+	    * Issue 638: fix Lmod location to /main/ in README.md
+	    * Add env variable LMOD_DEBUG as another way to turn on Lmod debugging.
+   (8.7.22) * Label for 8.7.21 did not work. Going to 8.7.22
+   

@@ -28,6 +28,7 @@ testdescript = {
      runLmod load   earlyLateOutput            # 3
      runLmod list                              # 4
      runLmod show showMe                       # 5
+     runLmod avail                             # 6
 
 
      HOME=$ORIG_HOME

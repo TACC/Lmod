@@ -239,7 +239,7 @@ echo:
 	@echo Version: $(version)
 	@echo GIT_VERSION: $(GIT_VERSION)
 man_pages:
-	$(PATH_TO_LUA) $(srcdir)/src/lmod.in.lua bash --help > /dev/null 2> $(DESTDIR)$(MAN_PAGES)/module.1
+	LUA_CPATH='$(MY_PACKAGE)/lib/?.so;;' LUA_PATH='$(MY_PACKAGE)/libexec/?.lua;;' $(PATH_TO_LUA) $(srcdir)/src/lmod.in.lua bash --help 2> $(DESTDIR)$(MAN_PAGES)/module.1
 	chmod $(MODE_R) $(DESTDIR)$(MAN_PAGES)/module.1
 
 $(DIRLIST) :
@@ -252,6 +252,7 @@ __installMe:
 	   ext=$${bareN#*.};                                                      \
 	   : echo "DIRLOC/fn: $(DIRLOC)/$$fn";                                    \
 	   sed  -e 's|@PREFIX@|$(prefix)|g'                                       \
+	        -e 's|@LMOD_TOP_DIR@|$(MY_PACKAGE)|g'                             \
 	        -e 's|@path_to_lua@|$(PATH_TO_LUA)|g'                             \
 	        -e 's|@hashsum@|$(PATH_TO_HASHSUM)|g'                             \
 	        -e 's|@pager@|$(PATH_TO_PAGER)|g'                                 \
