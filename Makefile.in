@@ -239,7 +239,9 @@ echo:
 	@echo Version: $(version)
 	@echo GIT_VERSION: $(GIT_VERSION)
 man_pages:
-	LUA_CPATH='$(MY_PACKAGE)/lib/?.so;;' LUA_PATH='$(MY_PACKAGE)/libexec/?.lua;;' $(PATH_TO_LUA) $(srcdir)/src/lmod.in.lua bash --help 2> $(DESTDIR)$(MAN_PAGES)/module.1
+	LUA_CPATH='$(MY_PACKAGE)/lib/?.so;$(SYS_LUA_CPATH);;'                     \
+           LUA_PATH='$(MY_PACKAGE)/libexec/?.lua;$(SYS_LUA_PATH);;'               \
+           $(PATH_TO_LUA) $(srcdir)/src/lmod.in.lua bash --help 2> $(DESTDIR)$(MAN_PAGES)/module.1
 	chmod $(MODE_R) $(DESTDIR)$(MAN_PAGES)/module.1
 
 $(DIRLIST) :

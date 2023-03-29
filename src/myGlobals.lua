@@ -181,8 +181,15 @@ cosmic:init{name    = "LMOD_USING_FAST_TCL_INTERP",
 ------------------------------------------------------------------------
 -- LMOD_SITEPACKAGE_LOCATION:  SitePackage.lua location
 ------------------------------------------------------------------------
+local sitePkgLoc = "@LMOD_TOP_DIR@/libexec/SitePackage.lua"
+if (sitePkgLoc:sub(1,1) == "@") then
+   sitePkgLoc = pathJoin(cmdDir(), "SitePackage.lua")
+end
+
+
 cosmic:init{name    = "LMOD_SITEPACKAGE_LOCATION",
-            default = "@LMOD_TOP_DIR@/libexec/SitePackage.lua"}
+            default = sitePkgLoc}
+
 
 ------------------------------------------------------------------------
 -- LMOD_CFG:  lmod_config.lua locatoin

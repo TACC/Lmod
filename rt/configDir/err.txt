@@ -2,13 +2,13 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.20  2023-03-16 11:43 -05:00
+Modules based on Lua: Version 8.7.22  2023-03-26 09:58 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --config
 ===========================
-Modules based on Lua: Version 8.7.20  2023-03-16 11:43 -05:00
+Modules based on Lua: Version 8.7.22  2023-03-26 09:58 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                                                   Value
 Allow root to use Lmod (LMOD_ALLOW_ROOT_USE)                  yes
@@ -32,6 +32,7 @@ Use italic instead of dim (LMOD_HIDDEN_ITALIC)                no
 KSH Support (LMOD_KSH_SUPPORT)                                no
 Language used for err/msg/warn (LMOD_LANG)                    en
 Site message file (LMOD_SITE_MSG_FILE)                        ProjectDIR/rt/configDir/lmod_cfg_dir/lang.lua
+lmod_config.lua location (LMOD_CONFIG_LOCATION)               ProjectDIR/rt/configDir/lmod_cfg_dir/lmod_config.lua
 LUA_CPATH                                                     @sys_lua_cpath@
 LUA_PATH                                                      @sys_lua_path@
 System lua-term (LMOD_HAVE_LUA_TERM)                          no
@@ -68,12 +69,14 @@ Tmod prepend PATH Rule (LMOD_TMOD_PATH_RULE)                  no
 Tracing (LMOD_TRACING)                                        no
 uname -a
 User Cache Directory                                          OutputDIR/.cache/lmod
-LMOD_CONFIG_DIR              E          /etc/lmod    ProjectDIR/rt/configDir/lmod_cfg_dir
-LMOD_PACKAGE_PATH            lmod_cfg   nil          ProjectDIR/rt/configDir/lmod_cfg_dir
-LMOD_SITE_MSG_FILE           lmod_cfg   false        ProjectDIR/rt/configDir/lmod_cfg_dir/lang.lua
-LMOD_SITE_NAME               lmod_cfg   false        XYZZY
-LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>
-LMOD_USING_FAST_TCL_INTERP   Other      yes          no
+LMOD_CONFIG_DIR              E          /etc/lmod                                     ProjectDIR/rt/configDir/lmod_cfg_dir
+LMOD_CONFIG_LOCATION         StdPkg     no                                            ProjectDIR/rt/configDir/lmod_cfg_dir/lmod_config.lua
+LMOD_PACKAGE_PATH            StdPkg     nil                                           ProjectDIR/rt/configDir/lmod_cfg_dir
+LMOD_SITEPACKAGE_LOCATION    Other      ProjectDIR/src/SitePackage.lua  ProjectDIR/rt/configDir/lmod_cfg_dir/SitePackage.lua
+LMOD_SITE_MSG_FILE           StdPkg     false                                         ProjectDIR/rt/configDir/lmod_cfg_dir/lang.lua
+LMOD_SITE_NAME               StdPkg     false                                         XYZZY
+LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__                                   <empty>
+LMOD_USING_FAST_TCL_INTERP   Other      yes                                           no
 Active RC file(s):
 ProjectDIR/src/../init/lmodrc.lua
  Lmod Property Table:
