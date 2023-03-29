@@ -10,6 +10,10 @@ The extension graphically provides most of Lmod's functions:
     - Display a module content
     - Create and load collections
 
+The extension is located in the 'Softwares' tab of the main interface in Jupyter Notebook,
+while in JupyterLab, it can be accessed as a sidepanel by clicking on the Lmod logo icon
+located in the sidebar.
+
 Installation
 ~~~~~~~~~~~~
 
