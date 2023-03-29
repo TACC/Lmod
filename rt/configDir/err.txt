@@ -69,14 +69,14 @@ Tmod prepend PATH Rule (LMOD_TMOD_PATH_RULE)                  no
 Tracing (LMOD_TRACING)                                        no
 uname -a
 User Cache Directory                                          OutputDIR/.cache/lmod
-LMOD_CONFIG_DIR              E          /etc/lmod                                     ProjectDIR/rt/configDir/lmod_cfg_dir
-LMOD_CONFIG_LOCATION         StdPkg     no                                            ProjectDIR/rt/configDir/lmod_cfg_dir/lmod_config.lua
-LMOD_PACKAGE_PATH            StdPkg     nil                                           ProjectDIR/rt/configDir/lmod_cfg_dir
-LMOD_SITEPACKAGE_LOCATION    Other      ProjectDIR/src/SitePackage.lua  ProjectDIR/rt/configDir/lmod_cfg_dir/SitePackage.lua
-LMOD_SITE_MSG_FILE           StdPkg     false                                         ProjectDIR/rt/configDir/lmod_cfg_dir/lang.lua
-LMOD_SITE_NAME               StdPkg     false                                         XYZZY
-LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__                                   <empty>
-LMOD_USING_FAST_TCL_INTERP   Other      yes                                           no
+LMOD_CONFIG_DIR              E          /etc/lmod    ProjectDIR/rt/configDir/lmod_cfg_dir
+LMOD_CONFIG_LOCATION         StdPkg     no           ProjectDIR/rt/configDir/lmod_cfg_dir/lmod_config.lua
+LMOD_PACKAGE_PATH            StdPkg     nil          ProjectDIR/rt/configDir/lmod_cfg_dir
+LMOD_SITEPACKAGE_LOCATION    Other      <srctree>    ProjectDIR/rt/configDir/lmod_cfg_dir/SitePackage.lua
+LMOD_SITE_MSG_FILE           StdPkg     false        ProjectDIR/rt/configDir/lmod_cfg_dir/lang.lua
+LMOD_SITE_NAME               StdPkg     false        XYZZY
+LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>
+LMOD_USING_FAST_TCL_INTERP   Other      yes          no
 Active RC file(s):
 ProjectDIR/src/../init/lmodrc.lua
  Lmod Property Table:

@@ -94,6 +94,7 @@ local function l_new(self)
       result       = result:gsub("^.*= *",""):gsub(" .*","")
       if (result == std_hashsum) then
          locSitePkg = "standard"
+         cosmic:assign("LMOD_SITEPACKAGE_LOCATION", "<srctree>")
       else
          cosmic:assign("LMOD_SITEPACKAGE_LOCATION", locSitePkg)
       end
