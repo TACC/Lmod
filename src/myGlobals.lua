@@ -183,7 +183,7 @@ cosmic:init{name    = "LMOD_USING_FAST_TCL_INTERP",
 ------------------------------------------------------------------------
 local sitePkgLoc = "@LMOD_TOP_DIR@/libexec/SitePackage.lua"
 if (sitePkgLoc:sub(1,1) == "@") then
-   sitePkgLoc = pathJoin(cmdDir(), "SitePackage.lua")
+   sitePkgLoc = "<srctree>"
 end
 
 
