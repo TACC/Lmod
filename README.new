@@ -88,5 +88,10 @@ Lmod 8.7+
 	    * Issue 638: fix Lmod location to /main/ in README.md
 	    * Add env variable LMOD_DEBUG as another way to turn on Lmod debugging.
    (8.7.22) * Label for 8.7.21 did not work. Going to 8.7.22
+   (8.7.23) * Issue #635: Fix the generation of the manpage to be portable by setting LUA_PATH, LUA_CPATH
+              to have the system paths and the installed Lmod paths.  This fixes missing posix and lfs
+            * Change default location of SitePackage.lua to be called <srctree> so that rt/configDir test
+              passes portably.
+              
 
    
