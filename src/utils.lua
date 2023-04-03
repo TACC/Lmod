@@ -259,9 +259,13 @@ function colorizePropA(style, modT, mrc, propT, legendT)
    local propDisplayT = readLmodRC:propT()
    local iprop        = 0
    local pA           = {}
-   local moduleName   = modT.fullName
    propT              = propT or {}
 
+   local version = extractVersion(modT.fullName, modT.sn)
+   local version_color = getenv("LMOD_AVAIL_VERSION_COLOR")
+   -- colorize() will use `plain` if `color` is not found in `colorT`
+   local moduleName = modT.sn.."/"..colorize(version_color, version)
+   
    if (not mrc:isVisible(modT)) then
       local i18n = require("i18n")
       local H    = 'H'
