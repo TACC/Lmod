@@ -25,7 +25,13 @@ if test -z "$MODULEPATH_ROOT"
 
     set -gx MODULEPATH_ROOT "@modulepath_root@"
 
-    set MODULEPATH_INIT "@modulepath_init@"
+    if test -z "$MODULEPATH_INIT"
+        if test -e /etc/lmod/.modulespath
+            set MODULEPATH_INIT "/etc/lmod/.modulespath"
+        else
+            set MODULEPATH_INIT "@modulepath_init@"
+        end
+    end
     
     if test -e "$MODULEPATH_INIT" 
         for str in (cat "$MODULEPATH_INIT" | sed 's/#.*$//')  # Allow end-of-line comments.

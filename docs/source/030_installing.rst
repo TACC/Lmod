@@ -263,9 +263,14 @@ modulefiles is discussed later.
    Obviously you will want to modify the profile.in and cshrc.in files to suit
    your system.
 
-Sites can also use ``/apps/lmod/lmod/init/.modulespath`` or configure
-Lmod to use `--with-ModulePathInit=...`` to point to any file.  The
-format of this file is::
+Sites that want to use the .modulespath file have 3 choices on how to
+specify where the .modulespath file is located in order of priority:
+
+#. Set the MODULEPATH_INIT environmant variable to point to a file.
+#. Use /etc/lmod/.modulespath
+#. `/apps/lmod/lmod/init/.modulespath`` or configure with `--with-ModulePathInit=...`` to point to any file.
+
+The format of this file is::
 
     # comments are allowed as well as wildcards
     /apps/modulefiles/\*

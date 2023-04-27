@@ -25,7 +25,13 @@ if ( ! $?MODULEPATH_ROOT ) then
     set UNAME = `uname`
     setenv LMOD_sys             $UNAME
     setenv MODULEPATH_ROOT      "@modulepath_root@"
-    set MODULEPATH_INIT = "@modulepath_init@"
+    if ( ! $?MODULEPATH_INIT ) then
+        if ( -f /etc/lmod/.modulespath ) then
+           set MODULEPATH_INIT = "/etc/lmod/.modulespath"
+        else
+          set MODULEPATH_INIT = "@modulepath_init@"
+        endif
+    endif
     if ( -f $MODULEPATH_INIT ) then
        	foreach str (`cat $MODULEPATH_INIT | sed 's/#.*$//'`)	# Allow end-of-line comments.
 	   foreach dir ( $str )

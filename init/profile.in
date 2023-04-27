@@ -11,11 +11,17 @@ fi
 
 
 if [ -z "${MODULEPATH_ROOT:-}" ]; then
+  export MODULEPATH_ROOT="@modulepath_root@"
   export USER=${USER-${LOGNAME}}  # make sure $USER is set
   export LMOD_sys=`uname`
 
-  export MODULEPATH_ROOT="@modulepath_root@"
-  MODULEPATH_INIT="@modulepath_init@"
+  if [ -z "${MODULEPATH_INIT+x}" ]; then
+    if [ -f /etc/lmod/.modulespath ]; then
+      MODULEPATH_INIT=/etc/lmod/.modulespath
+    else
+      MODULEPATH_INIT="@modulepath_init@"
+    fi
+  fi
   if [ -f ${MODULEPATH_INIT} ]; then
      for str in $(cat ${MODULEPATH_INIT} | sed 's/#.*$//'); do   # Allow end-of-line comments.
         for dir in $str; do
