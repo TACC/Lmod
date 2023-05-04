@@ -1,6 +1,11 @@
 New Features in Lmod
 ====================
 
+**/etc/lmod/.modulespath**
+   (Lmod 8.7.24) Sites can use /etc/lmod/.modulespath or set
+   $LMOD_MODULEPATH_INIT during their site's startup scripts to
+   control where Lmod finds the .modulespath file.
+
 **check_module_tree_syntax**
    (Lmod 8.4.3+) check_module_tree_syntax is a command to find syntax
    errors in your modulefiles.  It also reports when there are
