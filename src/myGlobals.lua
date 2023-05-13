@@ -4,7 +4,6 @@
 
 _G._DEBUG          = false               -- Required by the new lua posix
 local posix        = require("posix")
-
 require("strict")
 
 --------------------------------------------------------------------------
@@ -47,6 +46,7 @@ require("fileOps")
 local cosmic       = require("Cosmic"):singleton()
 local lfs          = require("lfs")
 local getenv       = os.getenv
+local access       = posix.access
 local setenv_posix = posix.setenv
 
 if (isNotDefined("cmdDir")) then
@@ -72,14 +72,24 @@ ExitHookA = require("HookArray")
 setenv_posix("LC_ALL","C",true)
 
 ------------------------------------------------------------------------
--- MODULEPATH_INIT: Name of the file that can be used to initialize
---                  MODULEPATH in the startup scripts
+-- LMOD_MODULEPATH_INIT: Name of the file that can be used to initialize
+--                       MODULEPATH in the startup scripts
 ------------------------------------------------------------------------
+local mpath_init = getenv("LMOD_MODULEPATH_INIT")
+if (not mpath_init) then
+   local default_mpath_init = "/etc/lmod/.modulespath"
+   if (access(default_mpath_init, "r")) then
+      mpath_init = default_mpath_init
+   else
+      mpath_init = "@modulepath_init@"
+   end
+end
+
 
 cosmic:init{name    = "LMOD_MODULEPATH_INIT",
             sedV    = "@modulepath_init@",
-            no_env  = true,
-            default = "@PKG@/init/.modulespath"}
+            default = "@PKG@/init/.modulespath",
+            assignV = mpath_init}
 
 ------------------------------------------------------------------------
 -- SITE_CONTROLLED_PREFIX: If a site configured lmod with direct prefix

@@ -25,15 +25,15 @@ if ( ! $?MODULEPATH_ROOT ) then
     set UNAME = `uname`
     setenv LMOD_sys             $UNAME
     setenv MODULEPATH_ROOT      "@modulepath_root@"
-    if ( ! $?MODULEPATH_INIT ) then
+    if ( ! $?LMOD_MODULEPATH_INIT ) then
         if ( -f /etc/lmod/.modulespath ) then
-           set MODULEPATH_INIT = "/etc/lmod/.modulespath"
+           set LMOD_MODULEPATH_INIT = "/etc/lmod/.modulespath"
         else
-          set MODULEPATH_INIT = "@modulepath_init@"
+          set LMOD_MODULEPATH_INIT = "@modulepath_init@"
         endif
     endif
-    if ( -f $MODULEPATH_INIT ) then
-       	foreach str (`cat $MODULEPATH_INIT | sed 's/#.*$//'`)	# Allow end-of-line comments.
+    if ( -f $LMOD_MODULEPATH_INIT ) then
+       	foreach str (`cat $LMOD_MODULEPATH_INIT | sed 's/#.*$//'`)	# Allow end-of-line comments.
 	   foreach dir ( $str )
               if ( -d $dir ) then
                  setenv MODULEPATH `@PKGV@/libexec/addto --append MODULEPATH $dir`

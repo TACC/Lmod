@@ -1,0 +1,28 @@
+Notes for Lmod Youtube short.  It needs to be 10 mins.
+
+* What is Lmod?
+** Allows users to control their environment
+** They get to pick the compilers, MPI libraries and applications and other libraries
+
+* What is special about Lmod: Support for the Software hierarchy
+** Issue: Libraries and parallel appications are dependent on which compiler and MPI library it is built with
+** So compiler dependent libraries such as the boost C++ libraries are built for each compiler we support
+** Similarly the MPI PETSc Solver library must built for each compiler and MPI library we support.
+
+* There are many ways to support this but we use the Software hierarchy
+** We have Core application which include things like cmake and git which do not depend on a compiler => Hence a Core application
+** Compiler such as GCC or Intel are also Core applications
+
+* Chosing a compiler by loading that modulefile
+** These compiler modules extend $MODULEPATH which makes available the libraries and application that are built for that compiler
+** This incluces our supported MPI libraries
+
+* Choising an MPI library by loading that modulefile
+** Means that the appropriate MPI libraries such as PETSc for that compiler and MPI library are available
+** And not the versions of PETSc built for the other combinations of compiler and MPI libraries
+
+* What Lmod does is keep track of the value of $MODULEPATH
+** If $MODULEPATH changes then Lmod checks to see that all the currently loaded modules would still be loaded
+** If not then Lmod unloads and then tries to reload the appropriate new module with the same name
+
+* Show an example.

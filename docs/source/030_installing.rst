@@ -266,7 +266,7 @@ modulefiles is discussed later.
 Sites that want to use the .modulespath file have 3 choices on how to
 specify where the .modulespath file is located in order of priority:
 
-#. Set the MODULEPATH_INIT environmant variable to point to a file.
+#. Set the LMOD_MODULEPATH_INIT environmant variable to point to a file.
 #. Use /etc/lmod/.modulespath
 #. `/apps/lmod/lmod/init/.modulespath`` or configure with `--with-ModulePathInit=...`` to point to any file.
 

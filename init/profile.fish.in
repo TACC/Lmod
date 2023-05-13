@@ -25,16 +25,16 @@ if test -z "$MODULEPATH_ROOT"
 
     set -gx MODULEPATH_ROOT "@modulepath_root@"
 
-    if test -z "$MODULEPATH_INIT"
+    if test -z "$LMOD_MODULEPATH_INIT"
         if test -e /etc/lmod/.modulespath
-            set MODULEPATH_INIT "/etc/lmod/.modulespath"
+            set LMOD_MODULEPATH_INIT "/etc/lmod/.modulespath"
         else
-            set MODULEPATH_INIT "@modulepath_init@"
+            set LMOD_MODULEPATH_INIT "@modulepath_init@"
         end
     end
     
-    if test -e "$MODULEPATH_INIT" 
-        for str in (cat "$MODULEPATH_INIT" | sed 's/#.*$//')  # Allow end-of-line comments.
+    if test -e "$LMOD_MODULEPATH_INIT" 
+        for str in (cat "$LMOD_MODULEPATH_INIT" | sed 's/#.*$//')  # Allow end-of-line comments.
             for dir in (@ls@ -d "$str")
                 set -gx MODULEPATH (@PKG@/libexec/addto --append MODULEPATH $dir)
             end
