@@ -76,19 +76,23 @@ setenv_posix("LC_ALL","C",true)
 --                       MODULEPATH in the startup scripts
 ------------------------------------------------------------------------
 local mpath_init = getenv("LMOD_MODULEPATH_INIT")
+local default_mpath_init = "@PKG@/init/.modulespath"
+local global_mpath_init  = "/etc/lmod/.modulespath"
 if (not mpath_init) then
-   local default_mpath_init = "/etc/lmod/.modulespath"
-   if (access(default_mpath_init, "r")) then
-      mpath_init = default_mpath_init
+   if (access(global_mpath_init, "r")) then
+      mpath_init = global_mpath_init
    else
       mpath_init = "@modulepath_init@"
+      if (mpath_init:sub(1,1) == "@") then
+         mpath_init = default_mpath_init
+      end
    end
+   
 end
-
 
 cosmic:init{name    = "LMOD_MODULEPATH_INIT",
             sedV    = "@modulepath_init@",
-            default = "@PKG@/init/.modulespath",
+            default = default_mpath_init,
             assignV = mpath_init}
 
 ------------------------------------------------------------------------
