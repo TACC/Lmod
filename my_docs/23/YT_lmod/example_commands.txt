@@ -1,0 +1,6 @@
+$ module purge
+$ module load intel/18.0.5 python3 
+$ module load boost
+$ module list
+$ module load intel/19.1.1
+$ module list

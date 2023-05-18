@@ -764,7 +764,16 @@ fi
 AC_PATH_PROGS(BASENAME, [gbasename] [basename], UNKNOWN_BASENAME)
 if test "$BASENAME" = "UNKNOWN_BASENAME" ; then
   echo
-  echo "You must have either basename in your path. Quitting!"
+  echo "You must have either basename or gbasename in your path. Quitting!"
+  echo
+  rm -f makefile
+  exit 1
+fi
+
+AC_PATH_PROGS(BC, [bc], UNKNOWN_BC)
+if test "$BC" = "UNKNOWN_BC" ; then
+  echo
+  echo "You must have bc in your path. Quitting!"
   echo
   rm -f makefile
   exit 1

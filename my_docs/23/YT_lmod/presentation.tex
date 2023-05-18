@@ -1,0 +1,129 @@
+\documentclass{beamer}
+
+% You can also use a 16:9 aspect ratio:
+%\documentclass[aspectratio=169]{beamer}
+\usetheme{TACC16}
+
+% It's possible to move the footer to the right:
+%\usetheme[rightfooter]{TACC16}
+
+%% page 
+%\begin{frame}{}
+%    \begin{itemize}
+%      \item
+%    \end{itemize}
+%\end{frame}
+%
+%% page 
+%\begin{frame}[fragile]
+%    \frametitle{}
+% {\tiny
+%    \begin{semiverbatim}
+%    \end{semiverbatim}
+%}
+%  \begin{itemize}
+%    \item
+%  \end{itemize}
+%
+%\end{frame}
+
+\begin{document}
+\title[Lmod]{What is special about Lmod}
+\author{Robert McLay} 
+\date{May 17, 2023}
+
+% page 1
+\frame{\titlepage} 
+
+
+% page 2
+\begin{frame}{Outline}
+  \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
+  \begin{itemize}
+    \item What is Lmod?
+    \item What makes Lmod special?
+  \end{itemize}
+\end{frame}
+
+% page 3
+\begin{frame}{What is Lmod?}
+  \begin{itemize}
+    \item Lmod is a tool that allows users to control their enviroment
+    \item Users do ``\texttt{module load} \emph{acme}'' to access the
+      packages they need.
+    \item The system doesn't chose, the users do!
+  \end{itemize}
+\end{frame}
+
+% page 4
+\begin{frame}{What make Lmod special?}
+  \begin{itemize}
+    \item Lmod invented here at TACC to solve a number of issues
+    \item One of them was the software hierarchy.
+    \item The problem is that libraries or applications depend on the
+      compiler they where built with.
+    \item Software built with one compiler won't work another compiler
+    \item Software built with two different version of the same
+      compiler won't work either.
+    \item So users need to pick matching libraries or applications
+    \item There are similar issues with the MPI libraries.
+  \end{itemize}
+\end{frame}
+
+% page 5
+\begin{frame}{The Software Hierarchy: Core}
+    \begin{itemize}
+      \item Many sites follow TACC lead by using the hierarchy
+      \item We have Core applications which do not depend on Compilers
+      \item Applications like git or cmake
+      \item Also compilers are Core applications
+    \end{itemize}
+\end{frame}
+
+% page 6
+\begin{frame}{Chosing a Compiler}
+    \begin{itemize}
+      \item Load a compiler module prepend to \$MODULEPATH
+      \item This adds more packages to be loaded.
+      \item In this case only package that will work are available!
+    \end{itemize}
+\end{frame}
+
+% page 7
+\begin{frame}{Compiler dependent Libraries are available}
+    \begin{itemize}
+      \item Only libraries like Boost (the C++ libraries) that match
+        are available
+      \item Libraries like Boost built for other compilers won't be available. 
+    \end{itemize}
+\end{frame}
+
+% page 8
+\begin{frame}{What happens when a user changes compilers?}
+    \begin{itemize}
+      \item Lmod keeps track of changes to \$MODULEPATH
+      \item If \$MODULEPATH changes then Lmod reloads modules that
+        need to be reloaded.
+      \item In other words if a user unloads gcc and loads intel
+        then the appropriate boost module will be reloaded.
+      \item Show example.
+    \end{itemize}
+\end{frame}
+
+
+% page 9
+\begin{frame}{Conclusions}
+    \begin{itemize}
+      \item Lmod has many many more features 
+      \item See the documentation here:
+        https://lmod.readthedocs.io/en/latest/
+      \item The source code: https://github.com/TACC/Lmod
+    \end{itemize}
+\end{frame}
+
+
+
+
+
+
+\end{document}
