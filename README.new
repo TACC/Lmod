@@ -96,3 +96,6 @@ Lmod 8.7+
               .modulespath
             * Switch tcsh/csh module alias to use tcsh/csh instead of shell.  The dynamic_shell routine does not
               work under MacOS for tcsh/csh correctly.
+   (8.7.25) * Issue #648: Change $MODULEPATH_INIT to $LMOD_MODULEPATH_INIT
+            * Issue #649: Abort configure step if bc is not found
+            * Allow users to do "ml -f purge" which is translated to "module --force purge"

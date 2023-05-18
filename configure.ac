@@ -719,7 +719,6 @@ AC_SUBST(PATH_TO_GIT)
 AC_SUBST(PATH_TO_HASHSUM)
 AC_SUBST(PATH_TO_PAGER)
 AC_SUBST(PATH_TO_TCLSH)
-AC_SUBST(PATH_TO_BC)
 
 if test $MODE != "user_default" ; then
   mode=0$MODE
@@ -774,7 +773,7 @@ fi
 AC_PATH_PROGS(BC, [bc], UNKNOWN_BC)
 if test "$BC" = "UNKNOWN_BC" ; then
   echo
-  echo "You must have either bc in your path. Quitting!"
+  echo "You must have bc in your path. Quitting!"
   echo
   rm -f makefile
   exit 1
