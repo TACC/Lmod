@@ -37,6 +37,7 @@ local getenv    = os.getenv
 local TILDE     = getenv("HOME") or "~"
 local lfs       = require("lfs")
 local access    = posix.access
+local stat      = posix.stat
 local concatTbl = table.concat
 local dbg       = require("Dbg"):dbg()
 
@@ -124,13 +125,13 @@ end
 -- @param d A file path
 function isDir(d)
    if (d == nil) then return false end
-   local t = posix.stat(d,"type")
+   local t = stat(d,"type")
 
    -- If the file is a link then adding a '/' on the end
    -- seems to tell stat to resolve the link to its final link.
    if (t == "link") then
       d = d .. '/'
-      t = posix.stat(d,"type")
+      t = stat(d,"type")
    end
 
    local result = (t == "directory")
@@ -145,8 +146,7 @@ function isFile(fn)
    if (fn == nil) then return false end
    local t = posix.stat(fn,"type")
 
-   local result = ((t == "regular") or (t == "link"))
-
+   local result = t and t ~= "directory"
    return result
 end
 

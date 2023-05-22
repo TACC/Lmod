@@ -99,3 +99,5 @@ Lmod 8.7+
    (8.7.25) * Issue #648: Change $MODULEPATH_INIT to $LMOD_MODULEPATH_INIT
             * Issue #649: Abort configure step if bc is not found
             * Allow users to do "ml -f purge" which is translated to "module --force purge"
+   (8.7.26) * Issue #650: Make isFile return true for all file types except dir.
+   

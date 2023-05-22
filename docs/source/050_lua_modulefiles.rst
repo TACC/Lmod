@@ -225,7 +225,7 @@ The entries below describe several useful commands that come with Lmod that can 
     to remove or otherwise handle. 
 
 **isFile** ("name"):
-    Returns true if "name" is a file.
+    Returns true if "name" is any file type except directory.
 
 **isDir** ("name"):
     Returns true if "name" is a directory.
