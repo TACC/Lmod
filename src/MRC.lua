@@ -253,8 +253,10 @@ function l_buildMod2VersionT(self, mpathA)
 end
 
 local function l_find_alias_value(tblName, t, mrcMpathT, mpathA, key)
+   local flag = key == "intel/15"
    local value = t[key]
    if (value) then
+      if (flag) then dbg.print{"l_find_alias_value: (1) value: ",value,"\n"} end
       return value
    end
    for i = 1, #mpathA  do
@@ -262,6 +264,7 @@ local function l_find_alias_value(tblName, t, mrcMpathT, mpathA, key)
       if (mrcMpathT[mpath] and mrcMpathT[mpath][tblName]) then
          value = mrcMpathT[mpath][tblName][key]
          if (value) then
+            if (flag) then dbg.print{"l_find_alias_value: (2) value: ",value,"\n"} end
             return value
          end
       end
@@ -271,12 +274,19 @@ end
 
 function M.resolve(self, mpathA, name)
    local value = l_find_alias_value("alias2modT", self.__alias2modT, self.__mpathT, mpathA, name)
+   dbg.print{"MRC:resolve: 1) name: ",name,", value: ",value,"\n"}
    if (value ~= nil) then
       name  = value
       value = self:resolve(mpathA, value)
    end
 
+   if (name == "intel/15") then
+      dbg.printT("version2modT",self.__version2modT)
+      dbg.printT("mpathT",self.__mpathT)
+   end
+   
    value = l_find_alias_value("version2modT", self.__version2modT, self.__mpathT, mpathA, name)
+   dbg.print{"MRC:resolve: 2) name: ",name,", value: ",value,"\n"}
    if (value == nil) then
       value = name
    else

@@ -639,6 +639,8 @@ function M.list_w_property(self, idx, sn, style, legendT)
    local entry       = mT[sn]
    local mrc         = MRC:singleton()
    local displayName = entry.origUserName or entry.fullName
+   dbg.print{"orig: ",entry.origUserName,", fullName: ",entry.fullName,", -> displayName: ",displayName,"\n"}
+
 
    if (entry == nil) then
       LmodError{msg="e_No_Mod_Entry", routine = "MT:list_w_property()", name = sn}
@@ -646,6 +648,7 @@ function M.list_w_property(self, idx, sn, style, legendT)
 
    local resultA = colorizePropA(style, {fullName=entry.fullName,displayName=displayName,sn=sn,fn=entry.fn},
                                  mrc, entry.propT, legendT)
+   dbg.print{"resultA: ",resultA[1]," ",resultA[2],"\n"} 
    if (resultA[2]) then
       resultA[2] = "(" .. resultA[2] .. ")"
    end

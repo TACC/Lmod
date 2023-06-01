@@ -259,7 +259,7 @@ function colorizePropA(style, modT, mrc, propT, legendT)
    local propDisplayT = readLmodRC:propT()
    local iprop        = 0
    local pA           = {}
-   local moduleName   = modT.displayName
+   local moduleName   = modT.displayName or modT.fullName
    propT              = propT or {}
 
    if (not mrc:isVisible(modT)) then
