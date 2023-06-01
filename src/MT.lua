@@ -256,16 +256,16 @@ function M.add(self, mname, status, loadOrder)
       ref_count = 0
    end
    mT[sn] = {
-      fullName   = mname:fullName(),
-      fn         = mname:fn(),
-      userName   = mname:userName(),
-      stackDepth = mname:stackDepth(),
-      origName   = mname:origUserName(),
-      ref_count  = ref_count,
-      status     = status,
-      loadOrder  = loadOrder,
-      propT      = {},
-      wV         = mname:wV() or false,
+      fullName     = mname:fullName(),
+      fn           = mname:fn(),
+      userName     = mname:userName(),
+      stackDepth   = mname:stackDepth(),
+      origUserName = mname:origUserName(),
+      ref_count    = ref_count,
+      status       = status,
+      loadOrder    = loadOrder,
+      propT        = {},
+      wV           = mname:wV() or false,
    }
    if (status ~= "inactive" and old_status ~= "inactive") then
       self:safely_incr_ref_count(mname)
@@ -635,15 +635,17 @@ end
 -- @param legendT The legend table.
 function M.list_w_property(self, idx, sn, style, legendT)
    dbg.start{"MT:list_w_property(\"",sn,"\", \"",style,"\")"}
-   local mT    = self.mT
-   local entry = mT[sn]
-   local mrc   = MRC:singleton()
+   local mT          = self.mT
+   local entry       = mT[sn]
+   local mrc         = MRC:singleton()
+   local displayName = entry.origUserName or entry.fullName
 
    if (entry == nil) then
       LmodError{msg="e_No_Mod_Entry", routine = "MT:list_w_property()", name = sn}
    end
 
-   local resultA = colorizePropA(style, {fullName=entry.displayName,sn=sn,fn=entry.fn}, mrc, entry.propT, legendT)
+   local resultA = colorizePropA(style, {fullName=entry.fullName,displayName=displayName,sn=sn,fn=entry.fn},
+                                 mrc, entry.propT, legendT)
    if (resultA[2]) then
       resultA[2] = "(" .. resultA[2] .. ")"
    end
