@@ -102,6 +102,7 @@ function M.new(self, sType, name, action, is, ie)
    o.__wV         = false
    o.__waterMark  = "MName"
    o.__action     = action
+   o.__origName   = false
    o.__range_fnA  = { l_lessthan_equal, l_lessthan_equal }
    o.__show_range = { is, ie}
    if (is and (is:sub(1,1) == "<" or is:sub(-1) == "<")) then
@@ -200,9 +201,14 @@ local function l_lazyEval(self)
    local mrc                   = MRC:singleton()
    local frameStk              = FrameStk:singleton()
    local mt                    = frameStk:mt()
-   local userName              = mrc:resolve(mt:modulePathA(), self:userName())
+   local origUserName          = self:userName()
+   local userName              = mrc:resolve(mt:modulePathA(), origUserName)
    local sn, versionStr, fileA = moduleA:search(userName)
    --dbg.print{"l_lazyEval: userName: ",userName, ", sn: ",sn,", versionStr: ",versionStr,"\n"}
+
+   if (origUserName ~= userName) then
+      self.__origName = origUserName
+   end
 
    self.__userName   = userName
    self.__sn         = sn
@@ -254,6 +260,10 @@ end
 
 function M.userName(self)
    return self.__userName
+end
+
+function M.origUserName(self)
+   return self.__origName
 end
 
 function M.sn(self)
