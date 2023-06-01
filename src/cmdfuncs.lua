@@ -369,9 +369,7 @@ function List(...)
    local shell     = _G.Shell
    local frameStk  = FrameStk:singleton()
    local mt        = frameStk:mt()
-
    local kind      = optionTbl.brief and "fullName_Meta" or "fullName"
-
    local activeA   = mt:list(kind,"active")
    local inactiveA = mt:list(kind,"inactive")
    local total     = #activeA + #inactiveA
@@ -431,11 +429,12 @@ function List(...)
    for i = 1, #activeA do
       local entry    = activeA[i]
       local fullName = entry.fullName
+      local origName = entry.origName or ""
       for j = 1, wanted.n do
          local p = wanted[j]
-         if (fullName:find(p)) then
+         if (fullName:find(p) or origName:find(p)) then
             kk = kk + 1
-            a[#a + 1] = mt:list_property(kk, entry.sn, "short", legendT)
+            a[#a + 1] = mt:list_w_property(kk, entry.sn, "short", legendT)
          end
       end
    end
