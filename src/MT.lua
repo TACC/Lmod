@@ -494,7 +494,7 @@ function M.list(self, kind, status)
             local obj = { sn = k, fullName = v.fullName, userName = v.userName,
                           name = v[kind], fn = v.fn, loadOrder = v.loadOrder,
                           stackDepth = v.stackDepth, ref_count = v.ref_count,
-                          displayName = displayName, origName = v.origName or false}
+                          displayName = displayName, origUserName = v.origUserName or false}
             a, b = l_build_AB(a, b, v.loadOrder, v[kind], obj )
          end
       end
@@ -506,7 +506,7 @@ function M.list(self, kind, status)
              local obj = { sn = k, fullName = v.fullName, userName = v.userName,
                           name = v.fullName, fn = v.fn, loadOrder = v.loadOrder,
                           stackDepth = v.stackDepth, ref_count = v.ref_count,
-                          displayName = v.fullName, origName = v.origName or false }
+                          displayName = v.fullName, origUserName = v.origUserName or false }
             a, b = l_build_AB(a, b, v.loadOrder, v.fullName, obj )
          end
       end
@@ -638,8 +638,8 @@ function M.list_w_property(self, idx, sn, style, legendT)
    local mT          = self.mT
    local entry       = mT[sn]
    local mrc         = MRC:singleton()
-   local displayName = entry.origUserName or entry.fullName
-   dbg.print{"orig: ",entry.origUserName,", fullName: ",entry.fullName,", -> displayName: ",displayName,"\n"}
+   local displayName = entry.origUserName
+   dbg.print{"MT:list_w_property: orig: ",entry.origUserName,", fullName: ",entry.fullName,", -> displayName: ",displayName,"\n"}
 
 
    if (entry == nil) then
