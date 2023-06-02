@@ -253,10 +253,8 @@ function l_buildMod2VersionT(self, mpathA)
 end
 
 local function l_find_alias_value(tblName, t, mrcMpathT, mpathA, key)
-   local flag = key == "intel/15"
    local value = t[key]
    if (value) then
-      if (flag) then dbg.print{"l_find_alias_value: (1) value: ",value,"\n"} end
       return value
    end
    for i = 1, #mpathA  do
@@ -264,7 +262,6 @@ local function l_find_alias_value(tblName, t, mrcMpathT, mpathA, key)
       if (mrcMpathT[mpath] and mrcMpathT[mpath][tblName]) then
          value = mrcMpathT[mpath][tblName][key]
          if (value) then
-            if (flag) then dbg.print{"l_find_alias_value: (2) value: ",value,"\n"} end
             return value
          end
       end
