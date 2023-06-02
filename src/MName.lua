@@ -197,17 +197,18 @@ local function l_lazyEval(self)
    end
 
    assert(sType == "load", "unknown sType: "..sType)
-   local mrc                    = MRC:singleton()
-   local frameStk               = FrameStk:singleton()
-   local mt                     = frameStk:mt()
-   dbg.print{"RTM: origUserName: ",self:userName(),"\n"}
-   local userName, origUserName = mrc:resolve(mt:modulePathA(), self:userName())
-   local sn, versionStr, fileA  = moduleA:search(userName)
-   dbg.print{"l_lazyEval: orig: ",self:userName(),", userName: ",userName, ", sn: ",sn,", versionStr: ",versionStr,"\n"}
+   local mrc                   = MRC:singleton()
+   local frameStk              = FrameStk:singleton()
+   local mt                    = frameStk:mt()
+   local origUserName          = self:userName()
+   local userName              = mrc:resolve(mt:modulePathA(), self:userName())
+   local sn, versionStr, fileA = moduleA:search(userName)
+   dbg.print{"l_lazyEval: orig: ",origUserName,", userName: ",userName, ", sn: ",sn,", versionStr: ",versionStr,"\n"}
 
    if (origUserName ~= userName) then
-      self.__origName = origUserName
+      self.__origUserName = origUserName
    end
+   dbg.print{"l_lazyEval: self.__origUserName: ",self.__origUserName,"\n"}
 
    self.__userName   = userName
    self.__sn         = sn
@@ -262,7 +263,7 @@ function M.userName(self)
 end
 
 function M.origUserName(self)
-   return self.__origName
+   return self.__origUserName
 end
 
 function M.sn(self)
