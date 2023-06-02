@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.7  2022-07-05 10:00 -05:00
+Modules based on Lua: Version 8.7.25  2023-05-18 17:01 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -25,65 +25,74 @@ step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) intel/15.0.2
+  1) intel/15 -> intel/15.0.2
 ===========================
 step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t list
+===========================
+intel/15.0.2
+intel/15
+===========================
+step 7
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load a14
 ===========================
 ===========================
-step 7
+step 8
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) intel/15.0.2   2) a/14.0.1.134
+  1) intel/15 -> intel/15.0.2   2) a14 -> a/14.0.1.134
 ===========================
-step 8
+step 9
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load a13
 ===========================
 The following have been reloaded with a version change:
   1) a/14.0.1.134 => a/13.2.345
 ===========================
-step 9
+step 10
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) intel/15.0.2   2) a/13.2.345
+  1) intel/15 -> intel/15.0.2   2) a13 -> a/13.2.345
 ===========================
-step 10
+step 11
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load abinit/6
 ===========================
 ===========================
-step 11
+step 12
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) intel/15.0.2   2) a/13.2.345   3) abinit/6.12.3
+  1) intel/15 -> intel/15.0.2   3) abinit/6 -> abinit/6.12.3
+  2) a13 -> a/13.2.345
 ===========================
-step 12
+step 13
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load abinit/7
 ===========================
 The following have been reloaded with a version change:
   1) abinit/6.12.3 => abinit/7.4.3
 ===========================
-step 13
+step 14
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) intel/15.0.2   2) a/13.2.345   3) abinit/7.4.3
+  1) intel/15 -> intel/15.0.2   3) abinit/7 -> abinit/7.4.3
+  2) a13 -> a/13.2.345
 ===========================
-step 14
+step 15
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load hidden/2.0
 ===========================
 ===========================
-step 15
+step 16
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) intel/15.0.2   2) a/13.2.345   3) abinit/7.4.3   4) hidden/2.0 (H)
+  1) intel/15 -> intel/15.0.2   3) abinit/7 -> abinit/7.4.3
+  2) a13 -> a/13.2.345          4) hidden/2.0               (H)
   Where:
    H:  Hidden Module
 ===========================
-step 16
+step 17
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t avail
 ===========================
 a13(@a/13.2.345)
@@ -141,7 +150,7 @@ z/23.2.345
 z/24(@z/24.0.1.134)
 z/24.0.1.134
 ===========================
-step 17
+step 18
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
 ===========================
 Global Aliases
@@ -165,33 +174,6 @@ ProjectDIR/rt/modulerc/mf/Core
    Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
    D:        Default Module
    H:        Hidden Module
-   L:        Module is loaded
-If the avail list is too long consider trying:
-"module --default avail" or "ml -d av" to just list the default modules.
-"module overview" or "ml ov" to display the number of modules for each name.
-Use "module spider" to find all possible modules and extensions.
-Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
-===========================
-step 18
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
-===========================
-Global Aliases
-   a13 -> a/13.2.345    a14 -> a/14.0.1.134    z23 -> z/23.2.345
-ProjectDIR/rt/modulerc/mf/Core
-   Rstats/2.1.5                        intel/14.0.3 (D:14:14.0)
-   a/13.1.23                           intel/15.0.1
-   a/13.2.345           (L,13)         intel/15.0.2 (L,15:15.0)
-   a/14.0.1.134         (D:14)         jtel/14.0.2
-   ab2/6.12.3           (6:6.12)       jtel/14.0.3  (D:14:14.0)
-   ab2/7.4.3            (D:7:7.4)      jtel/15.0.1
-   abinit/6.12.3        (6:6.12)       jtel/15.0.2  (15:15.0)
-   abinit/7.4.3         (L,D:7:7.4)    z/23.1.23
-   arpack/openmpi/3.1.4                z/23.2.345   (23)
-   h2/2.0                              z/24.0.1.134 (D:24)
-   intel/14.0.2
-  Where:
-   Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
-   D:        Default Module
    L:        Module is loaded
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
@@ -227,10 +209,6 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 20
-runSpiderCmd -o spiderT ProjectDIR/rt/modulerc/mf/Core
-===========================
-===========================
-step 21
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Global Aliases
@@ -257,22 +235,53 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
+step 21
+runSpiderCmd -o spiderT ProjectDIR/rt/modulerc/mf/Core
+===========================
+===========================
 step 22
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+Global Aliases
+   a13 -> a/13.2.345    a14 -> a/14.0.1.134    z23 -> z/23.2.345
+ProjectDIR/rt/modulerc/mf/Core
+   Rstats/2.1.5                        intel/14.0.3 (D:14:14.0)
+   a/13.1.23                           intel/15.0.1
+   a/13.2.345           (L,13)         intel/15.0.2 (L,15:15.0)
+   a/14.0.1.134         (D:14)         jtel/14.0.2
+   ab2/6.12.3           (6:6.12)       jtel/14.0.3  (D:14:14.0)
+   ab2/7.4.3            (D:7:7.4)      jtel/15.0.1
+   abinit/6.12.3        (6:6.12)       jtel/15.0.2  (15:15.0)
+   abinit/7.4.3         (L,D:7:7.4)    z/23.1.23
+   arpack/openmpi/3.1.4                z/23.2.345   (23)
+   h2/2.0                              z/24.0.1.134 (D:24)
+   intel/14.0.2
+  Where:
+   Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
+   D:        Default Module
+   L:        Module is loaded
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 23
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/modulerc/mf2/Core
 ===========================
 ===========================
-step 23
+step 24
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider dum
 ===========================
 Lmod has detected the following error: Unable to find: "dum".
 ===========================
-step 24
+step 25
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load cluster
 ===========================
 The default cluster module cannot be determined. Please set $VSC_DEFAULT_CLUSTER_MODULE.
 Lmod has detected the following error: Unable to parse: "ProjectDIR/rt/modulerc/mf3/Core/cluster/.modulerc". Aborting!
 ===========================
-step 25
+step 26
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/modulerc/mf4
@@ -286,7 +295,7 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 26
+step 27
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Global Aliases
@@ -302,7 +311,7 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 27
+step 28
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
 ===========================
 Global Aliases
@@ -320,11 +329,11 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 28
+step 29
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load mpich a
 ===========================
 ===========================
-step 29
+step 30
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
@@ -332,7 +341,7 @@ Currently Loaded Modules:
   Where:
    H:  Hidden Module
 ===========================
-step 30
+step 31
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Global Aliases
@@ -341,25 +350,6 @@ ProjectDIR/rt/modulerc/mf4
    a/1.0    a/3.0    mpich/3.1.2-dbg    mpich/3.1.2    mpich/3.2-dbg (L,D)
   Where:
    D:    Default Module
-   L:    Module is loaded
-   N/A:  Alias cannot be loaded with current $MODULEPATH
-If the avail list is too long consider trying:
-"module --default avail" or "ml -d av" to just list the default modules.
-"module overview" or "ml ov" to display the number of modules for each name.
-Use "module spider" to find all possible modules and extensions.
-Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
-===========================
-step 31
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
-===========================
-Global Aliases
-   a14 -> (N/A)
-ProjectDIR/rt/modulerc/mf4
-   a/1.0            a/3.0              mpich/3.1.2            mpich/3.2 (H)
-   a/2.0 (H,L,D)    mpich/3.1.2-dbg    mpich/3.2-dbg (L,D)
-  Where:
-   D:    Default Module
-   H:    Hidden Module
    L:    Module is loaded
    N/A:  Alias cannot be loaded with current $MODULEPATH
 If the avail list is too long consider trying:
@@ -369,23 +359,6 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 32
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
-===========================
-Global Aliases
-   a14 -> (N/A)
-ProjectDIR/rt/modulerc/mf4
-   a/1.0    a/3.0    mpich/3.1.2-dbg    mpich/3.1.2    mpich/3.2-dbg (L,D)
-  Where:
-   D:    Default Module
-   L:    Module is loaded
-   N/A:  Alias cannot be loaded with current $MODULEPATH
-If the avail list is too long consider trying:
-"module --default avail" or "ml -d av" to just list the default modules.
-"module overview" or "ml ov" to display the number of modules for each name.
-Use "module spider" to find all possible modules and extensions.
-Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
-===========================
-step 33
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
 ===========================
 Global Aliases
@@ -404,7 +377,43 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
+step 33
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+Global Aliases
+   a14 -> (N/A)
+ProjectDIR/rt/modulerc/mf4
+   a/1.0    a/3.0    mpich/3.1.2-dbg    mpich/3.1.2    mpich/3.2-dbg (L,D)
+  Where:
+   D:    Default Module
+   L:    Module is loaded
+   N/A:  Alias cannot be loaded with current $MODULEPATH
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
 step 34
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
+===========================
+Global Aliases
+   a14 -> (N/A)
+ProjectDIR/rt/modulerc/mf4
+   a/1.0            a/3.0              mpich/3.1.2            mpich/3.2 (H)
+   a/2.0 (H,L,D)    mpich/3.1.2-dbg    mpich/3.2-dbg (L,D)
+  Where:
+   D:    Default Module
+   H:    Hidden Module
+   L:    Module is loaded
+   N/A:  Alias cannot be loaded with current $MODULEPATH
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 35
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/modulerc/mf5
@@ -418,11 +427,11 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 35
+step 36
 runSpiderCmd -o spiderT ProjectDIR/rt/modulerc/mf6:ProjectDIR/rt/modulerc/mf7:ProjectDIR/rt/modulerc/mf4
 ===========================
 ===========================
-step 36
+step 37
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/modulerc/mf6
@@ -441,11 +450,11 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 37
+step 38
 runSpiderCmd -o spiderT ProjectDIR/rt/modulerc/mf7:ProjectDIR/rt/modulerc/mf6:ProjectDIR/rt/modulerc/mf4
 ===========================
 ===========================
-step 38
+step 39
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/modulerc/mf7
@@ -464,7 +473,7 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 39
+step 40
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Global Aliases
@@ -481,7 +490,7 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 40
+step 41
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t avail
 ===========================
 a13(@a/13.0)
@@ -492,21 +501,21 @@ compiler/intel/18(@compiler/intel/18.0.5.241)
 compiler/intel/18.0.5.241
 compiler/intel/19.0
 ===========================
-step 41
+step 42
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t avail compiler/intel/19.0
 ===========================
 compiler/intel/2019.5(@compiler/intel/19.0)
 ProjectDIR/rt/modulerc/mf8:
 compiler/intel/19.0
 ===========================
-step 42
+step 43
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t avail compiler/intel/2019.5
 ===========================
 compiler/intel/2019.5(@compiler/intel/19.0)
 ProjectDIR/rt/modulerc/mf8:
 compiler/intel/19.0
 ===========================
-step 43
+step 44
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/modulerc/mf9/Core
