@@ -1424,4 +1424,16 @@ function M.resetMPATH2system(self)
    return self.systemBaseMPATH
 end
 
+function M.name_w_possible_alias(self, entry, kind)
+   local s = entry.fullName
+   if (entry.origUserName) then
+      if (kind == "terse") then
+         s = entry.fullName .. "\n" .. entry.origUserName
+      else
+         s = entry.origUserName .. " -> " .. s
+      end
+   end
+   return s
+end
+
 return M
