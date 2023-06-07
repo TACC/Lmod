@@ -100,4 +100,4 @@ Lmod 8.7+
             * Issue #649: Abort configure step if bc is not found
             * Allow users to do "ml -f purge" which is translated to "module --force purge"
    (8.7.26) * Issue #650: Make isFile return true for all file types except dir.
-   
+            * Issue #617: Now print alias and de-refed module in module list and module -t list.
