@@ -254,19 +254,13 @@ end
 -- @param propT The property table
 -- @param legendT The legend table.  A key-value pairing of keys to descriptions.
 -- @return An array of colorized strings
-function colorizePropA(style, modT, mrc, propT, legendT)
+function colorizePropA(style, mt, modT, mrc, propT, legendT)
    local readLmodRC   = require("ReadLmodRC"):singleton()
    local propDisplayT = readLmodRC:propT()
    local iprop        = 0
    local pA           = {}
-   local moduleName
+   local moduleName   = mt:name_w_possible_alias(modT, "full")
    propT              = propT or {}
-
-   if (modT.displayName) then
-      moduleName = modT.displayName .. " -> " .. modT.fullName
-   else
-      moduleName = modT.fullName
-   end
 
    if (not mrc:isVisible(modT)) then
       local i18n = require("i18n")
