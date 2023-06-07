@@ -638,15 +638,12 @@ function M.list_w_property(self, idx, sn, style, legendT)
    local mT          = self.mT
    local entry       = mT[sn]
    local mrc         = MRC:singleton()
-   local displayName = entry.origUserName
-   dbg.print{"MT:list_w_property: orig: ",entry.origUserName,", fullName: ",entry.fullName,", -> displayName: ",displayName,"\n"}
-
 
    if (entry == nil) then
       LmodError{msg="e_No_Mod_Entry", routine = "MT:list_w_property()", name = sn}
    end
 
-   local resultA = colorizePropA(style, {fullName=entry.fullName,displayName=displayName,sn=sn,fn=entry.fn},
+   local resultA = colorizePropA(style, self, {fullName=entry.fullName, origUserName=entry.origUserName, sn=sn, fn=entry.fn},
                                  mrc, entry.propT, legendT)
    dbg.print{"resultA: ",resultA[1]," ",resultA[2],"\n"} 
    if (resultA[2]) then
