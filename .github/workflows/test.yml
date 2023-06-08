@@ -10,7 +10,7 @@ jobs:
           luaVersion: ["5.4", "5.3", "5.2", "5.1"]
       steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: install dependencies MacOS
         if: matrix.os == 'macos-latest'
         run: brew install coreutils gnu-sed
@@ -18,11 +18,11 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: sudo apt install tcsh tcl tcl-dev uuid r-base r-base-dev cmake fish tclsh zsh ksh
       - name: set up lua
-        uses: leafo/gh-actions-lua@v8.0.0
+        uses: leafo/gh-actions-lua@v10
         with:
           luaVersion: ${{ matrix.luaVersion }}
       - name: install luarocks
-        uses: leafo/gh-actions-luarocks@v4.0.0
+        uses: leafo/gh-actions-luarocks@v4
       - name: install lua dependencies
         run: |
           luarocks install luaposix
