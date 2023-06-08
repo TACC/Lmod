@@ -1247,7 +1247,8 @@ function M.avail(self, argA)
                   entry.propT["status"] = {active = 1}
                end
                local c = {}
-               local resultA = colorizePropA("short", {sn=sn, fullName=fullName, fn=fn}, mrc, entry.propT, legendT)
+               local resultA = colorizePropA("short", mt, {sn=sn, fullName=fullName, fn=fn},
+                                             mrc, entry.propT, legendT)
                c[#c+1] = '  '
                for i = 1,#resultA do
                   c[#c+1] = resultA[i]
