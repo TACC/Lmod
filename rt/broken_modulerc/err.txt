@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
+Modules based on Lua: Version 8.7.25  2023-05-18 17:01 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -19,4 +19,4 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Lmod Warning: Badly formed module-version line: module-name must be fully qualified: hdf5 is not.
 Currently Loaded Modules:
-  1) git/2.0.3   2) hdf5/1.8.15
+  1) git -> git/2.0.3   2) hdf5/1.8.15

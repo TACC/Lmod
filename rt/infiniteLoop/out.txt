@@ -7,3 +7,8 @@ step 2
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc
 ===========================
 false
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load parent
+===========================
+false
