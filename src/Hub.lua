@@ -61,6 +61,7 @@ local sort         = table.sort
 local q_load       = 0
 local s_same       = true
 
+local A             = ShowResultsA
 local mpath_avail  = cosmic:value("LMOD_MPATH_AVAIL")
 
 ------------------------------------------------------------------------
@@ -218,7 +219,7 @@ local function l_registerUnloaded(fullName, fn)
 end
 
 function M.inheritModule(self)
-   dbg.start{"Hub:inherit()"}
+   dbg.start{"Hub:inheritModule()"}
    local shellNm    = _G.Shell:name()
    local frameStk   = FrameStk:singleton()
    local myFn       = frameStk:fn()
@@ -247,16 +248,26 @@ function M.inheritModule(self)
       local mt    = frameStk:mt()
       local mList = concatTbl(mt:list("both","active"),":")
       frameStk:push(mname)
+
+      if (mode() == "show") then
+         A[#A+1] = "--> "
+         A[#A+1] = fnI
+         A[#A+1] = "\n\n"
+      end
+
       loadModuleFile{file=mname:fn(),mList = mList, shell=shellNm, reportErr=true}
       frameStk:pop()
    end
 
+   if (mode() == "show") then
+      A[#A+1] = "\n"
+   end
    if (mode() == "load") then
       local mt = frameStk:mt()
       mt:pushInheritFn(sn, mname)
    end
 
-   dbg.fini("Hub:inherit")
+   dbg.fini("Hub:inheritModule")
 end
 
 local s_stk = {}
