@@ -236,8 +236,7 @@ and Tmod?
   You can prevent Tmod from executing Lmod only code in the following way::
 
     #%Module
-    global env
-    if { [info exists $env(LMOD_VERSION_MAJOR)]} {
+    if { [info exists ::env(LMOD_VERSION_MAJOR)] } {
        hide-version CUDA/8.8.8
     }
 
@@ -247,8 +246,7 @@ and Tmod?
 
     #%Module
     ...
-    global env
-    if { [info exists $env(LMOD_VERSION_MAJOR)]} {
+    if { [info exists ::env(LMOD_VERSION_MAJOR)] } {
        family compiler
     }
 
