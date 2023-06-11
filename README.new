@@ -101,3 +101,6 @@ Lmod 8.7+
             * Allow users to do "ml -f purge" which is translated to "module --force purge"
    (8.7.26) * Issue #650: Make isFile return true for all file types except dir.
             * Issue #617: Now print alias and de-refed module in module list and module -t list.
+            * Issue #651: Allow -f and --force to be the same option for the lmod command (module)
+            * Issue #654: Do not use install to copy symbolic links
+            
