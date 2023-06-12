@@ -103,4 +103,7 @@ Lmod 8.7+
             * Issue #617: Now print alias and de-refed module in module list and module -t list.
             * Issue #651: Allow -f and --force to be the same option for the lmod command (module)
             * Issue #654: Do not use install to copy symbolic links
+   (8.7.27) * PR #644: Created hook colorize_fullName to allow for sites to control how "module list" and "module av"
+              prints to the terminal.
             
+              

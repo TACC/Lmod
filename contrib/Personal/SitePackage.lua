@@ -43,9 +43,9 @@ local function l_colorize_fullName(fullName, sn)
    local meta_color    = getenv("LMOD_DISPLAY_META_COLOR")
 
    ---- colorize() will use `plain` if `color` is not found.
-
+   local moduleName
    if (version) then
-      moduleName  =  moduleName .. colorize(version_color, "/"..version)
+      moduleName  =  colorize(sn_color, sn) .. colorize(version_color, "/"..version)
    else
       moduleName  = colorize(meta_color, sn)
    end
