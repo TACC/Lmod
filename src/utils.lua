@@ -55,6 +55,7 @@ local decode64     = base64.decode64
 local encode64     = base64.encode64
 local floor        = math.floor
 local getenv       = os.getenv
+local hook         = require("Hook")
 local huge         = math.huge
 local load         = (_VERSION == "Lua 5.1") and loadstring or load
 local min          = math.min
@@ -263,14 +264,18 @@ function colorizePropA(style, modT, mrc, propT, legendT)
 
    local moduleName   = modT.fullName
    local version      = extractVersion(modT.fullName, modT.sn)
-   local version_color = getenv("LMOD_AVAIL_VERSION_COLOR")
+   
 
-   -- colorize() will use `plain` if `color` is not found in `colorT`
-   if (version) then
-      moduleName = modT.sn..colorize(version_color,"/"..version)
-   else
-      moduleName = modT.sn
-   end
+   moduleName = hook.apply("colorize_fullName", modT.sn, version) or moduleName
+
+   --local version_color = getenv("LMOD_AVAIL_VERSION_COLOR")
+   --
+   ---- colorize() will use `plain` if `color` is not found in `colorT`
+   --if (version) then
+   --   moduleName = modT.sn..colorize(version_color,"/"..version)
+   ----else
+   ----   moduleName = modT.sn
+   --end
 
    if (not mrc:isVisible(modT)) then
       local i18n = require("i18n")

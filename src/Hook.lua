@@ -74,6 +74,8 @@ local validT =
                                     -- It can be the category or a property.
       reverseMapPathFilter = false, -- This hook returns two arrays keepA, ignoreA to keep or
                                     -- ignore a path in the reverseMap mapping 
+      colorize_fullName    = false, -- Allow module avail and list to colorize name and/or version
+
 }
 
 --------------------------------------------------------------------------
