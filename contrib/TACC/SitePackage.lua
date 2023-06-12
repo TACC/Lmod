@@ -159,8 +159,11 @@ function safe_tonumber(a,b)
 end
 
 local function l_colorize_fullName(sn, version)
-   local version_color = getenv("LMOD_AVAIL_VERSION_COLOR")
-   local sn_color      = getenv("LMOD_AVAIL_NAME_COLOR")
+   local version_color = getenv("LMOD_DISPLAY_VERSION_COLOR")
+   local sn_color      = getenv("LMOD_DISPLAY_NAME_COLOR")
+
+   ---- colorize() will use `plain` if `color` is not found.
+
    local moduleName    = colorize(sn_color, sn)
 
    if (version) then

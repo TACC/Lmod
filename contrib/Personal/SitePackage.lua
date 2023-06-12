@@ -33,9 +33,12 @@
 --------------------------------------------------------------------------
 require("strict")
 
+local getenv = os.getenv
+local hook   = require("Hook")
+
 local function l_colorize_fullName(sn, version)
-   local version_color = getenv("LMOD_AVAIL_VERSION_COLOR")
-   local sn_color      = getenv("LMOD_AVAIL_NAME_COLOR")
+   local version_color = getenv("LMOD_DISPLAY_VERSION_COLOR")
+   local sn_color      = getenv("LMOD_DISPLAY_SN_COLOR")
    local moduleName    = colorize(sn_color, sn)
 
    if (version) then
