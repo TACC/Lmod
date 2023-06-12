@@ -40,12 +40,14 @@ local function l_colorize_fullName(fullName, sn)
    local version       = extractVersion(fullName, sn)
    local version_color = getenv("LMOD_DISPLAY_VERSION_COLOR")
    local sn_color      = getenv("LMOD_DISPLAY_SN_COLOR")
+   local meta_color    = getenv("LMOD_DISPLAY_META_COLOR")
 
    ---- colorize() will use `plain` if `color` is not found.
 
-   local moduleName    = colorize(sn_color, sn)
    if (version) then
       moduleName  =  moduleName .. colorize(version_color, "/"..version)
+   else
+      moduleName  = colorize(meta_color, sn)
    end
    return moduleName
 end
