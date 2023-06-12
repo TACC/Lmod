@@ -1425,15 +1425,22 @@ function M.resetMPATH2system(self)
 end
 
 function M.name_w_possible_alias(self, entry, kind)
-   local s = entry.fullName
+   local moduleName = entry.fullName
+   if (kind ~= "terse") then
+      moduleName    = hook.apply("colorize_fullName", moduleName, entry.sn) or moduleName
+   end
+
    if (entry.origUserName) then
       if (kind == "terse") then
-         s = entry.fullName .. "\n" .. entry.origUserName
+         moduleName = entry.fullName .. "\n" .. entry.origUserName
       else
-         s = entry.origUserName .. " -> " .. s
+         moduleName = entry.origUserName .. " -> " .. moduleName
       end
    end
-   return s
+   return moduleName
 end
+
+
+
 
 return M
