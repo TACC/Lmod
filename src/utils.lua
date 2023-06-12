@@ -261,8 +261,8 @@ function colorizePropA(style, modT, mrc, propT, legendT)
    local pA           = {}
    propT              = propT or {}
 
-   local moduleName
-   local version = extractVersion(modT.fullName, modT.sn)
+   local moduleName   = modT.fullName
+   local version      = extractVersion(modT.fullName, modT.sn)
    local version_color = getenv("LMOD_AVAIL_VERSION_COLOR")
 
    -- colorize() will use `plain` if `color` is not found in `colorT`
