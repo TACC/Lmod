@@ -26,6 +26,7 @@ $(LIBRARY): $(OBJ)
 
 install: all
 	install -m $(MODE_R) $(LIBRARY) $(LIB)
+	$(RM) -f $(LIB)/$(SONAMEV) $(LIB)/$(SONAME)
 	ln -s $(LIBRARY) $(LIB)/$(SONAMEV)
 	ln -s $(SONAMEV) $(LIB)/$(SONAME)
 

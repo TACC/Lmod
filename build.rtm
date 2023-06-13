@@ -12,7 +12,8 @@ parallel_make_install()
   fi
 
   if [ "$BUILD_TYPE" != "EXPERIMENTAL" ]; then
-    $SUDO $MAKE GIT_VERSION=$GIT_VERSION -j install     $MAKE_EXTRA
+    echo "$SUDO $MAKE GIT_VERSION=$GIT_VERSION -j install     $MAKE_EXTRA"
+          $SUDO $MAKE GIT_VERSION=$GIT_VERSION -j install     $MAKE_EXTRA
   else
     echo "$SUDO $MAKE pre-install $MAKE_EXTRA"
     $SUDO $MAKE GIT_VERSION=$GIT_VERSION -j pre-install $MAKE_EXTRA
@@ -80,6 +81,9 @@ if [ "$1" = "-e" ]; then
   echo BUILD_TYPE: $BUILD_TYPE
 fi
 
+pkgName=lmod
+PKG=$BASE_DIR/$pkgName/$PKG_VERSION
+
 myhost=$(hostname -f)
 myhost=${myhost%.tacc.utexas.edu}
 myhost=${myhost%.local}
@@ -103,6 +107,7 @@ if [ -n "$LUA_PATH" ]; then
    MAKE_EXTRA="LUA_PATH=$LUA_PATH LUA_CPATH=$LUA_CPATH"
 fi
 
+EXTRA_CMD="echo "
 COMMON_OPTIONS="--with-supportKsh=yes --with-siteName=TACC  --with-silentShellDebugging=yes"
 
 
@@ -111,12 +116,13 @@ case $SYSHOST in
     SITE_CONTROLLED_PREFIX=yes
     SUDO="sudo"
     base="/opt/apps/lmod/$PKG_VERSION"
+    PKG=$base
     ADMIN_DIR=/opt/moduleData
     UPDATE_FN=$ADMIN_DIR/system.txt
     CACHEDIRS=$ADMIN_DIR/cacheDir
     EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN --with-siteControlPrefix=yes --with-module-root-path=/opt/apps/modulefiles --with-silentShellDebugging=yes --with-useDotConfigDirOnly=yes"
     SITE_PKG="contrib/Personal/*.lua"
-
+    
     if [ "$SYSHOST" == "mijo" ]; then
       EXTRA="$EXTRA --with-exportedModuleCmd=no"
     fi
@@ -154,13 +160,12 @@ case $SYSHOST in
 esac
 BASE_DIR=$base
 
-pkgName=lmod
-PKG=$BASE_DIR/$pkgName/$PKG_VERSION
-
-EXTRA_CMD="echo "
 if [ -n "$SITE_PKG" ]; then
    EXTRA_CMD="$SUDO cp $SITE_PKG $PKG/libexec"
 fi
+
+echo EXTRA_CMD: $EXTRA_CMD
+
 
 rm -f config.status config.log
 
