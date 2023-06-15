@@ -35,6 +35,7 @@ testdescript = {
      runLmod help intel       # 6
      runLmod load boost       # 7
      runLmod list             # 8
+     runLmod show pgi         # 9
 
      HOME=$ORIG_HOME
 
