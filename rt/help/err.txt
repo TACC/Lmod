@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.22  2023-03-26 09:58 -05:00
+Modules based on Lua: Version 8.7.26  2023-06-07 18:16 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -37,7 +37,7 @@ Options:
   --config_json                     Report Lmod Configuration in json format
   --mt                              Report Module Table State
   --timer                           report run times
-  --force                           force removal of a sticky module or save an empty collection
+  -f --force                        force removal of a sticky module or save an empty collection
   --redirect                        Send the output of list, avail, spider to stdout (not stderr)
   --no_redirect                     Force output of list, avail and spider to stderr
   --show_hidden                     Avail and spider will report hidden modules
@@ -107,7 +107,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.22  2023-03-26 09:58 -05:00
+Modules based on Lua: Version 8.7.26  2023-06-07 18:16 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -142,7 +142,7 @@ Options:
   --config_json                     Report Lmod Configuration in json format
   --mt                              Report Module Table State
   --timer                           report run times
-  --force                           force removal of a sticky module or save an empty collection
+  -f --force                        force removal of a sticky module or save an empty collection
   --redirect                        Send the output of list, avail, spider to stdout (not stderr)
   --no_redirect                     Force output of list, avail and spider to stderr
   --show_hidden                     Avail and spider will report hidden modules
@@ -212,7 +212,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.22  2023-03-26 09:58 -05:00
+Modules based on Lua: Version 8.7.26  2023-06-07 18:16 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -232,7 +232,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --config
 ===========================
-Modules based on Lua: Version 8.7.22  2023-03-26 09:58 -05:00
+Modules based on Lua: Version 8.7.26  2023-06-07 18:16 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                                                   Value
 Allow root to use Lmod (LMOD_ALLOW_ROOT_USE)                  yes
@@ -410,7 +410,7 @@ propT = {
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --miniConfig
 ===========================
-Modules based on Lua: Version 8.7.22  2023-03-26 09:58 -05:00
+Modules based on Lua: Version 8.7.26  2023-06-07 18:16 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 LMOD_PACKAGE_PATH            D          nil          <empty>
 LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>

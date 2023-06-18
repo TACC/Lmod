@@ -149,7 +149,7 @@ Lmod does not support modulefiles that start with two or more underscores
      e_Illegal_option      = [==[Option: "%{v}" is unknown.
   Try module --help for usage.
 ]==],
-     e_Inf_Loop            = "Infinite Load Loop detected for module: \"%{fullName}\" file: \"%{file}\"",
+     e_Inf_Loop            = "A load storm (possibly an infinite loop) detected for module: \"%{fullName}\" file: \"%{file}\". It was loaded more than %{count} times.\n",
      e_LocationT_Srch      = "Error in LocationT:search().",
      e_Missing_Value       = "%{func}(\"%{name}\") is not valid; a value is required.",
      e_MT_corrupt          = [==[The module table stored in the environment is corrupt.

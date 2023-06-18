@@ -95,6 +95,11 @@ Hook functions
 **unload** (...):
   This function is called after a modulefile is unloaded in "unload" mode.
 
+**colorize_fullName** (fullName, sn):
+  Allows a site to colorize how module names are displayed in "module
+  av" and "module list".
+
+
 **parse_updateFn** (...):
   This hook returns the time on the timestamp file.
 

@@ -369,9 +369,7 @@ function List(...)
    local shell     = _G.Shell
    local frameStk  = FrameStk:singleton()
    local mt        = frameStk:mt()
-
    local kind      = optionTbl.brief and "fullName_Meta" or "fullName"
-
    local activeA   = mt:list(kind,"active")
    local inactiveA = mt:list(kind,"inactive")
    local total     = #activeA + #inactiveA
@@ -379,6 +377,7 @@ function List(...)
 
    dbg.print{"#activeA:   ",#activeA,"\n"}
    dbg.print{"#inactiveA: ",#inactiveA,"\n"}
+   dbg.print{"kind:       ",kind,"\n"}
 
    activeA = hook.apply("listHook",activeA) or activeA
 
@@ -409,11 +408,16 @@ function List(...)
 
    if (optionTbl.terse) then
       for i = 1,#activeA do
-         local fullName = activeA[i].fullName
+         local s = activeA[i].fullName
+         if (activeA[i].origUserName) then
+            s = s .. "\n" .. activeA[i].origUserName
+         end
+         dbg.print{"fullName: ",activeA[i].fullName, ", orig: ",activeA[i].origUserName,", s: ",s,"\n"}
+         
          for j = 1, wanted.n do
             local p = wanted[j]
-            if (fullName:find(p)) then
-               shell:echo(fullName.."\n")
+            if (s:find(p)) then
+               shell:echo(s.."\n")
             end
          end
       end
@@ -431,11 +435,12 @@ function List(...)
    for i = 1, #activeA do
       local entry    = activeA[i]
       local fullName = entry.fullName
+      local origName = entry.origUserName or ""
       for j = 1, wanted.n do
          local p = wanted[j]
-         if (fullName:find(p)) then
+         if (fullName:find(p) or origName:find(p)) then
             kk = kk + 1
-            a[#a + 1] = mt:list_property(kk, entry.sn, "short", legendT)
+            a[#a + 1] = mt:list_w_property(kk, entry.sn, "short", legendT)
          end
       end
    end

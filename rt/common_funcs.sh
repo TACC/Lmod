@@ -273,6 +273,9 @@ initStdEnvVars()
   unset TERM
   unset _LMFILES_
   unset LMOD_SET_NOGLOB
+  unset LMOD_DISPLAY_VERSION_COLOR
+  unset LMOD_DISPLAY_SN_COLOR
+  unset LMOD_DISPLAY_META_COLOR
   unset LMOD_SYSTEM_DEFAULT_MODULES
   unset __LMOD_Priority_PATH
 

@@ -238,7 +238,7 @@ install: pre-install  zsh_tab_funcs fish_tab_funcs
 echo:
 	@echo Version: $(version)
 	@echo GIT_VERSION: $(GIT_VERSION)
-man_pages:
+man_pages: $(DESTDIR)$(MAN_PAGES)
 	LUA_CPATH='$(MY_PACKAGE)/lib/?.so;$(SYS_LUA_CPATH);;'                     \
            LUA_PATH='$(MY_PACKAGE)/libexec/?.lua;$(SYS_LUA_PATH);;'               \
            $(PATH_TO_LUA) $(srcdir)/src/lmod.in.lua bash --help 2> $(DESTDIR)$(MAN_PAGES)/module.1

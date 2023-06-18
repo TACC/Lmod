@@ -305,7 +305,7 @@ function M.singleton(self, usage)
    }
 
    cmdlineParser:add_option{
-      name   = {"--force" },
+      name   = {"-f","--force"},
       dest   = "force",
       action = "store_true",
       help   = i18n("force_hlp"),

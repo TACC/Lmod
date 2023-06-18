@@ -99,3 +99,13 @@ Lmod 8.7+
    (8.7.25) * Issue #648: Change $MODULEPATH_INIT to $LMOD_MODULEPATH_INIT
             * Issue #649: Abort configure step if bc is not found
             * Allow users to do "ml -f purge" which is translated to "module --force purge"
+   (8.7.26) * Issue #650: Make isFile return true for all file types except dir.
+            * Issue #617: Now print alias and de-refed module in module list and module -t list.
+            * Issue #651: Allow -f and --force to be the same option for the lmod command (module)
+            * Issue #654: Do not use install to copy symbolic links
+   (8.7.27) * PR #644: Created hook colorize_fullName to allow for sites to control how "module list" and "module av"
+              prints to the terminal.
+W.I.P:
+   (8.7.28) * Must delete old tcl2lua.so* files before installing new ones
+   
+              

@@ -271,12 +271,19 @@ end
 
 function M.resolve(self, mpathA, name)
    local value = l_find_alias_value("alias2modT", self.__alias2modT, self.__mpathT, mpathA, name)
+   dbg.print{"MRC:resolve: 1) name: ",name,", value: ",value,"\n"}
    if (value ~= nil) then
       name  = value
       value = self:resolve(mpathA, value)
    end
 
+   if (name == "intel/15") then
+      dbg.printT("version2modT",self.__version2modT)
+      dbg.printT("mpathT",self.__mpathT)
+   end
+   
    value = l_find_alias_value("version2modT", self.__version2modT, self.__mpathT, mpathA, name)
+   dbg.print{"MRC:resolve: 2) name: ",name,", value: ",value,"\n"}
    if (value == nil) then
       value = name
    else

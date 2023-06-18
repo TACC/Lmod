@@ -55,6 +55,7 @@ local decode64     = base64.decode64
 local encode64     = base64.encode64
 local floor        = math.floor
 local getenv       = os.getenv
+local hook         = require("Hook")
 local huge         = math.huge
 local load         = (_VERSION == "Lua 5.1") and loadstring or load
 local min          = math.min
@@ -258,23 +259,21 @@ end
 -- @param propT The property table
 -- @param legendT The legend table.  A key-value pairing of keys to descriptions.
 -- @return An array of colorized strings
-function colorizePropA(style, modT, mrc, propT, legendT)
+function colorizePropA(style, mt, modT, mrc, propT, legendT)
    local readLmodRC   = require("ReadLmodRC"):singleton()
    local propDisplayT = readLmodRC:propT()
    local iprop        = 0
    local pA           = {}
-   local moduleName   = modT.fullName
+   local moduleName   = mt:name_w_possible_alias(modT, "full")
    propT              = propT or {}
 
    if (not mrc:isVisible(modT)) then
       local i18n = require("i18n")
       local H    = 'H'
-      moduleName = colorize("hidden",moduleName)
+      moduleName = colorize("hidden",modT.fullName)
       pA[#pA+1]  = H
       legendT[H] = i18n("HiddenM")
    end
-
-
 
    local resultA      = { moduleName }
    for kk,vv in pairsByKeys(propDisplayT) do
