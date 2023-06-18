@@ -59,7 +59,9 @@ inherit()
   prepend_path("PATH","/unknown/apps/intel/13.1/bin/intel64")
   prepend_path("MODULEPATH","ProjectDIR/rt/user_inherit/mf/Compiler/intel/13")
   family("compiler")
-  help([[  The Intel module enables the Intel family of compilers (C/C++
+  help(
+  [[
+  The Intel module enables the Intel family of compilers (C/C++
   and Fortran) and updates the $PATH, $LD_LIBRARY_PATH, and
   $MANPATH environment variables to access the compiler binaries,
   libraries, and available man pages, respectively.
@@ -73,6 +75,7 @@ inherit()
   on available compiler options and command-line syntax
   Version 13.1
   ]]
+  )
 prepend_path("MODULEPATH","ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13")
 ===========================
 step 6
