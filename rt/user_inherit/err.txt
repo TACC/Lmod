@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.25  2023-05-18 17:01 -05:00
+Modules based on Lua: Version 8.7.27  2023-06-12 16:14 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -59,9 +59,7 @@ inherit()
   prepend_path("PATH","/unknown/apps/intel/13.1/bin/intel64")
   prepend_path("MODULEPATH","ProjectDIR/rt/user_inherit/mf/Compiler/intel/13")
   family("compiler")
-  help(
-  [[
-  The Intel module enables the Intel family of compilers (C/C++
+  help([[The Intel module enables the Intel family of compilers (C/C++
   and Fortran) and updates the $PATH, $LD_LIBRARY_PATH, and
   $MANPATH environment variables to access the compiler binaries,
   libraries, and available man pages, respectively.
@@ -74,8 +72,7 @@ inherit()
   See the man pages for icc, icpc, and ifort for detailed information
   on available compiler options and command-line syntax
   Version 13.1
-  ]]
-  )
+  ]])
 prepend_path("MODULEPATH","ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13")
 ===========================
 step 6
