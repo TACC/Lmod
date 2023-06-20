@@ -790,18 +790,14 @@ function ShowHelpStr(...)
    local argA    = pack(...)
    local a       = {}
    a[1]          = s_indentString .. "help([["
-   if (argA.n == 1 and not argA[1]:find("\n")) then
-      a[#a+1]   = argA[1] .. "]])\n"
-   else
-      for i = 1,argA.n do
-         for line in argA[i]:split("\n") do
-            a[#a + 1] = line
-            a[#a + 1] = "\n" .. s_indentString
-         end
-         a[#a] = "]],[[\n" .. s_indentString 
+   for i = 1,argA.n do
+      for line in argA[i]:split("\n") do
+         a[#a + 1] = line
+         a[#a + 1] = "\n" .. s_indentString
       end
-      a[#a] = "]])\n"
+      a[#a] = "]],[[\n" .. s_indentString 
    end
+   a[#a] = "]])\n"
    dbg.fini("ShowHelpStr")
    return concatTbl(a,"")
 
