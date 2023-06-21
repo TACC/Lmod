@@ -65,7 +65,6 @@ local lfs          = require("lfs")
 local sort         = table.sort
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack  -- luacheck: compat
 local unpack       = (_VERSION == "Lua 5.1") and unpack or table.unpack  -- luacheck: compat
-local s_purgeFlg   = false
 
 local system_name  = cosmic:value("LMOD_SYSTEM_NAME")
 

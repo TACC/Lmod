@@ -69,6 +69,7 @@ local s_performDepCk   = false
 local s_missDepT       = {}
 local s_missingModuleT = {}
 local s_missingFlg     = false
+local s_purgeFlg       = false
 
 --------------------------------------------------------------------------
 -- Remember the user's requested load array into an internal table.
@@ -1481,6 +1482,12 @@ function M.remove_property(self, name, value)
    l_check_for_valid_name("remove_property",name)
    mt:remove_property(sn, name:trim(), value)
 end
+
+
+function purgeFlg()
+   return s_purgeFlg
+end
+
 
 function M.purge(t)
    local force = false
