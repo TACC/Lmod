@@ -598,26 +598,8 @@ end
 -- Unload all loaded modules.
 -- @param force If true then sticky modules are unloaded as well.
 function Purge(force)
-   local frameStk = FrameStk:singleton()
-   local mt       = frameStk:mt()
-   local totalA   = mt:list("short","any")
-
-   if (#totalA < 1) then
-      return
-   end
-
-   local mA = {}
-   for i = #totalA,1,-1 do
-      mA[#mA+1] = MName:new("mt",totalA[i])
-   end
-   dbg.start{"Purge(",concatTbl(totalA,", "),")"}
-   s_purgeFlg = true
-   unload_usr_internal(mA, force)
-   s_purgeFlg = false
-
-   -- A purge should not set the warning flag.
-   clearWarningFlag()
-   dbg.print{"warningFlag: ", getWarningFlag(),"\n"}
+   dbg.start{"Purge(force = ",force,")"}
+   mcp:purge{force=force}
    dbg.fini("Purge")
 end
 

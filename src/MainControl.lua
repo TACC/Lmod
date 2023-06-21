@@ -1482,6 +1482,38 @@ function M.remove_property(self, name, value)
    mt:remove_property(sn, name:trim(), value)
 end
 
+function M.purge(t)
+   local force = false
+   if (type(t) == "table") then
+      force = t.force
+   end
+
+   local frameStk = FrameStk:singleton()
+   local mt       = frameStk:mt()
+   local totalA   = mt:list("short","any") --> "any" does not include "pending"
+
+   if (#totalA < 1) then
+      return
+   end
+
+   local mA = {}
+   for i = #totalA,1,-1 do
+      mA[#mA+1] = MName:new("mt",totalA[i])
+   end
+   dbg.start{"MainControl:Purge(",concatTbl(totalA,", "),")"}
+   s_purgeFlg = true
+   unload_usr_internal(mA, force)
+   s_purgeFlg = false
+
+   -- A purge should not set the warning flag.
+   clearWarningFlag()
+   dbg.print{"warningFlag: ", getWarningFlag(),"\n"}
+   dbg.fini("MainControl:Purge")
+end
+   
+
+
+
 --------------------------------------------------------------------------
 -- Return the tcl_mode.
 -- @param self A MainControl object

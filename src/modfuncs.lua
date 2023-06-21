@@ -873,6 +873,13 @@ function LmodBreak(msg)
    dbg.fini("LmodBreak")
 end
 
+function purge(t)
+   t = t or {}
+   dbg.start{"purge{force=",t.force,"}"}
+   mcp:purge(t)
+   dbg.fini("purge")
+end
+
 
 --- subprocess function ---
 
