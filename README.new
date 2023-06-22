@@ -107,5 +107,6 @@ Lmod 8.7+
               prints to the terminal.
 W.I.P:
    (8.7.28) * Must delete old tcl2lua.so* files before installing new ones
-   
-              
+            * Issue #659: wrap double quotes around any newlines found in env var value in bash like shells
+            * Issue #657: Move cmdfunc.lua Purge() logic into MainControl:purge()
+             

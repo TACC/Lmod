@@ -131,6 +131,7 @@ case $SYSHOST in
   rios | jedrik | vato | devo | xalt-lmod | bt)
     SUDO="sudo"
     base="/opt/apps"
+    PKG=$base/lmod/$PKG_VERSION
     ADMIN_DIR=/opt/moduleData
     UPDATE_FN=$ADMIN_DIR/system.txt
     CACHEDIRS=$ADMIN_DIR/cacheDir
