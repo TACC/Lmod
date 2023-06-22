@@ -5,13 +5,11 @@ LMOD_PKG="@PKG@"
 LMOD_DIR="@PKG@/libexec"
 LMOD_CMD="@PKG@/libexec/lmod"
 MODULESHOME="@PKG@"
-LMOD_NEWLINE="
-"
+
 export LMOD_CMD
 export LMOD_PKG
 export LMOD_DIR
 export MODULESHOME
-export LMOD_NEWLINE
 
 module()
 {

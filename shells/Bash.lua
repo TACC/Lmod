@@ -100,12 +100,14 @@ end
 
 function Bash.expandVar(self, k, v, vType)
    local lineA       = {}
+   local nl          = [["
+"]]
    if (k:find("%.")) then
       return
    end
    v                 = tostring(v):multiEscaped()
    if (v:find("\n")) then
-      v = v:gsub("\n","${LMOD_NEWLINE}")
+      v = v:gsub("\n",nl)
    end
    lineA[#lineA + 1] = k
    lineA[#lineA + 1] = "="
