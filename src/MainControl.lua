@@ -1489,7 +1489,7 @@ function purgeFlg()
 end
 
 
-function M.purge(t)
+function M.purge(self,t)
    local force = false
    if (type(t) == "table") then
       force = t.force
@@ -1507,7 +1507,6 @@ function M.purge(t)
    for i = #totalA,1,-1 do
       mA[#mA+1] = MName:new("mt",totalA[i])
    end
-   dbg.start{"MainControl:Purge(",concatTbl(totalA,", "),")"}
    s_purgeFlg = true
    unload_usr_internal(mA, force)
    s_purgeFlg = false
