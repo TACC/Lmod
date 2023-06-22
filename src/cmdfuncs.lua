@@ -76,7 +76,7 @@ local system_name  = cosmic:value("LMOD_SYSTEM_NAME")
 -- depending on what mode Access is called with.
 -- @param mode Whether this function has be called via *Help* or *Whatis*.
 local function l_Access(mode, ...)
-   local hub    = Hub:singleton()
+   local hub       = Hub:singleton()
    local shell     = _G.Shell
    local optionTbl = optionTbl()
    dbg.start{"l_Access(", concatTbl({...},", "),")"}
