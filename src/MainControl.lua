@@ -69,6 +69,7 @@ local s_performDepCk   = false
 local s_missDepT       = {}
 local s_missingModuleT = {}
 local s_missingFlg     = false
+local s_purgeFlg       = false
 
 --------------------------------------------------------------------------
 -- Remember the user's requested load array into an internal table.
@@ -1482,7 +1483,13 @@ function M.remove_property(self, name, value)
    mt:remove_property(sn, name:trim(), value)
 end
 
-function M.purge(t)
+
+function purgeFlg()
+   return s_purgeFlg
+end
+
+
+function M.purge(self,t)
    local force = false
    if (type(t) == "table") then
       force = t.force
@@ -1500,7 +1507,6 @@ function M.purge(t)
    for i = #totalA,1,-1 do
       mA[#mA+1] = MName:new("mt",totalA[i])
    end
-   dbg.start{"MainControl:Purge(",concatTbl(totalA,", "),")"}
    s_purgeFlg = true
    unload_usr_internal(mA, force)
    s_purgeFlg = false

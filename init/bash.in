@@ -38,6 +38,8 @@ export LMOD_DIR=$LMOD_PKG/libexec
 export LMOD_CMD=$LMOD_PKG/libexec/lmod
 export MODULESHOME=$LMOD_PKG
 export LMOD_SETTARG_FULL_SUPPORT=@lmod_settarg_full_support@
+export LMOD_NEWLINE="
+"
 
 ########################################################################
 #  Define the module command:  The first line runs the "lmod" command

@@ -104,6 +104,9 @@ function Bash.expandVar(self, k, v, vType)
       return
    end
    v                 = tostring(v):multiEscaped()
+   if (v:find("\n")) then
+      v = v:gsub("\n","${LMOD_NEWLINE}")
+   end
    lineA[#lineA + 1] = k
    lineA[#lineA + 1] = "="
    lineA[#lineA + 1] = v
