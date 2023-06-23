@@ -120,7 +120,7 @@ _module() {
   
   COMPREPLY=()
   
-  cmds="add avail delete help keyword list load purge rm restore \
+  cmds="add avail delete help keyword list load overview purge rm restore \
         save show spider swap unload unuse update use whatis"
   
   opts="-d -D -h -q -t -v -w -s --style --expert --quiet --help -H -b --brief \
