@@ -959,7 +959,9 @@ proc module { command args } {
         unuse {
             eval unuse $args
         }
-
+        default {
+            reportError "Unknown module command: $command -> exitting"
+        }
     }
 }
 
