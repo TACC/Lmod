@@ -1206,8 +1206,8 @@ function M.getMTfromFile(self,tt)
       dbg.print{"sn: ",sn,", hash: ", t[sn], "\n"}
    end
 
-   local force = true
-   Purge(force)
+   
+   mcp:purge{force=true}
 
    local savedBaseMPATH = l_mt.systemBaseMPATH
    dbg.print{"Saved baseMPATH: ",savedBaseMPATH,"\n"}

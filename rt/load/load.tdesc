@@ -128,6 +128,12 @@ testdescript = {
      runBase cat diff.env.xyzzy                             # 69
 
 
+     runLmod purge                                          # 70
+     unsetMT
+     export MODULEPATH=$(testDir)/mf5
+     runLmod load  multiline                                # 71
+
+
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

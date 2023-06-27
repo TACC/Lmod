@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.20  2023-03-16 11:43 -05:00
+Modules based on Lua: Version 8.7.27  2023-06-12 16:14 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -530,4 +530,12 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload compiler/intel
 ===========================
 step 69
 cat diff.env.xyzzy
+===========================
+===========================
+step 70
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 71
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load multiline
 ===========================

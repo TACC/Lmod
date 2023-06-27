@@ -278,6 +278,8 @@ initStdEnvVars()
   unset LMOD_DISPLAY_META_COLOR
   unset LMOD_SYSTEM_DEFAULT_MODULES
   unset __LMOD_Priority_PATH
+  export LMOD_NEWLINE="
+"
 
   PATH_to_LUA=`findcmd --pathOnly lua`
   PATH_to_TM=`findcmd --pathOnly tm`

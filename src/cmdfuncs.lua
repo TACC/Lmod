@@ -65,7 +65,6 @@ local lfs          = require("lfs")
 local sort         = table.sort
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack  -- luacheck: compat
 local unpack       = (_VERSION == "Lua 5.1") and unpack or table.unpack  -- luacheck: compat
-local s_purgeFlg   = false
 
 local system_name  = cosmic:value("LMOD_SYSTEM_NAME")
 
@@ -76,7 +75,7 @@ local system_name  = cosmic:value("LMOD_SYSTEM_NAME")
 -- depending on what mode Access is called with.
 -- @param mode Whether this function has be called via *Help* or *Whatis*.
 local function l_Access(mode, ...)
-   local hub    = Hub:singleton()
+   local hub       = Hub:singleton()
    local shell     = _G.Shell
    local optionTbl = optionTbl()
    dbg.start{"l_Access(", concatTbl({...},", "),")"}
@@ -598,26 +597,8 @@ end
 -- Unload all loaded modules.
 -- @param force If true then sticky modules are unloaded as well.
 function Purge(force)
-   local frameStk = FrameStk:singleton()
-   local mt       = frameStk:mt()
-   local totalA   = mt:list("short","any")
-
-   if (#totalA < 1) then
-      return
-   end
-
-   local mA = {}
-   for i = #totalA,1,-1 do
-      mA[#mA+1] = MName:new("mt",totalA[i])
-   end
-   dbg.start{"Purge(",concatTbl(totalA,", "),")"}
-   s_purgeFlg = true
-   unload_usr_internal(mA, force)
-   s_purgeFlg = false
-
-   -- A purge should not set the warning flag.
-   clearWarningFlag()
-   dbg.print{"warningFlag: ", getWarningFlag(),"\n"}
+   dbg.start{"Purge(force = ",force,")"}
+   mcp:purge{force=force}
    dbg.fini("Purge")
 end
 
