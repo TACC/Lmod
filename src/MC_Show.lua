@@ -383,4 +383,8 @@ function M.uncomplete(self, ...)
    l_ShowCmd("uncomplete", ...)
 end
 
+function M.purge(self, ...)
+    l_ShowCmd("purge", ...)
+end
+
 return M

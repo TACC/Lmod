@@ -88,6 +88,7 @@ M.myModuleUsrName      = MainControl.myModuleUsrName
 M.myModuleVersion      = MainControl.myModuleVersion
 M.prereq               = MainControl.quiet
 M.prereq_any           = MainControl.quiet
+M.purge                = MainControl.quiet
 M.pushenv              = MainControl.setenv_env
 M.remove_property      = MainControl.quiet
 M.report               = MainControl.quiet

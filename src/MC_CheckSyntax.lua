@@ -72,6 +72,7 @@ M.mgrload              = MainControl.mgrload
 M.prepend_path         = MainControl.prepend_path
 M.prereq               = MainControl.quiet
 M.prereq_any           = MainControl.quiet
+M.purge                = MainControl.quiet
 M.pushenv              = MainControl.pushenv
 M.remove_path          = MainControl.remove_path
 M.remove_property      = MainControl.quiet
