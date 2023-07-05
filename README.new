@@ -105,7 +105,11 @@ Lmod 8.7+
             * Issue #654: Do not use install to copy symbolic links
    (8.7.27) * PR #644: Created hook colorize_fullName to allow for sites to control how "module list" and "module av"
               prints to the terminal.
+
+   (8.7.28) * Issue #653: "module show" now prints the contents of inheritted modules.
+            * Issue #657: Added support for "purge()" function in modules to unload all other modules on load.
+
 W.I.P:
-   (8.7.28) * Must delete old tcl2lua.so* files before installing new ones
+   (8.7.29) * Must delete old tcl2lua.so* files before installing new ones
    
               
