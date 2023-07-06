@@ -72,7 +72,7 @@ SPIDER_CACHE_DIRS         := @SPIDER_CACHE_DIRS@
 LEGACY_ORDERING           := @LEGACY_ORDERING@
 EXPORT_MODULE             := @EXPORT_MODULE@
 BASENAME                  := @BASENAME@
-UPDATE_VERSION            := $(srcdir)/proj_mgmt/updateVersion
+UPDATE_VERSION            := LUA_PATH="$(srcdir)/tools/?.lua;$LUA_PATH;;" $(srcdir)/proj_mgmt/updateVersion
 PS                        := @PS@
 READLINK                  := @READLINK@
 EXPR                      := @EXPR@
