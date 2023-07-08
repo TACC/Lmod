@@ -34,6 +34,10 @@ testdescript = {
      runLmod list                                # 7
      runLmod purge                               # 8
      runLmod list                                # 9
+     runLmod load PrgEnv openmpi                 #10
+     runLmod show test                           #11
+     runLmod load test                           #12
+     runLmod list                                #13
 
      HOME=$ORIG_HOME
      PATH=$ORIGINAL_PATH

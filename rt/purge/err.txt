@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
+Modules based on Lua: Version 8.7.27  2023-06-12 16:14 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -46,3 +46,24 @@ step 9
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 No modules loaded
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load PrgEnv openmpi
+===========================
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show test
+===========================
+   ProjectDIR/rt/purge/mf/Core/test/1.0.0.lua:
+setenv("TEST","1")
+purge()
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load test
+===========================
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) test/1.0.0

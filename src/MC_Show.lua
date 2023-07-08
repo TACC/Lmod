@@ -68,23 +68,12 @@ M.myModuleUsrName   = MainControl.myModuleUsrName
 M.build_unload      = MainControl.do_not_build_unload
 M.color_banner      = MainControl.color_banner
 
-
 local function l_ShowCmd(name,...)
    A[#A+1] = ShowCmdStr(name, ...)
 end
 
 local function l_Show_help(...)
-   local argA = pack(...)
-   local a    = {}
-   local b    = {}
-   a[#a+1]    = "help("
-   for i = 1,argA.n do
-      b[#b + 1] = "[[".. argA[i] .."]]"
-   end
-   a[#a+1]   = concatTbl(b,", ")
-   a[#a+1]   = ")\n"
-
-   A[#A+1]   = concatTbl(a,"")
+   A[#A+1] = ShowHelpStr(...)
 end
 
 --------------------------------------------------------------------------
@@ -279,10 +268,16 @@ end
 M.try_add = M.try_load
 
 --------------------------------------------------------------------------
--- Print inherit command.
+-- Adds indent and prints contents of inherited module
 -- @param self A MainControl object
 function M.inherit(self, ...)
+   dbg.start{"MC_Show:inherit()"}
    l_ShowCmd("inherit",...)
+   local hub = Hub:singleton()
+   s_indent(1)
+   hub.inheritModule()
+   s_indent(-1)
+   dbg.fini("MC_Show:inherit()")
 end
 
 --------------------------------------------------------------------------
@@ -386,6 +381,10 @@ end
 
 function M.uncomplete(self, ...)
    l_ShowCmd("uncomplete", ...)
+end
+
+function M.purge(self, ...)
+    l_ShowCmd("purge", ...)
 end
 
 return M

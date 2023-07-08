@@ -46,7 +46,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},m
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing help intel
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show intel
 ===========================
 MODULEPATH=ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13:ProjectDIR/rt/user_inherit/mf/Compiler/intel/13:ProjectDIR/rt/user_inherit/user_mf/Core:ProjectDIR/rt/user_inherit/mf/Core;
 export MODULEPATH;
@@ -54,6 +54,14 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},m
 export _ModuleTable_;
 ===========================
 step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help intel
+===========================
+MODULEPATH=ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13:ProjectDIR/rt/user_inherit/mf/Compiler/intel/13:ProjectDIR/rt/user_inherit/user_mf/Core:ProjectDIR/rt/user_inherit/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={intel={fn="ProjectDIR/rt/user_inherit/user_mf/Core/intel/13.1.lua",fullName="intel/13.1",loadOrder=1,mnameA={{fn="ProjectDIR/rt/user_inherit/mf/Core/intel/13.1.lua",sn="intel",userName="intel/13.1",version="13.1",},},propT={},stackDepth=0,status="active",userName="intel",wV="^00000013.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13","ProjectDIR/rt/user_inherit/mf/Compiler/intel/13","ProjectDIR/rt/user_inherit/user_mf/Core","ProjectDIR/rt/user_inherit/mf/Core",},systemBaseMPATH="ProjectDIR/rt/user_inherit/user_mf/Core:ProjectDIR/rt/user_inherit/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 7
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost
 ===========================
 LOADEDMODULES=intel/13.1:boost/1.9;
@@ -67,10 +75,15 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={boost={fn="ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13/boost/1.9.lua",fullName="boost/1.9",loadOrder=2,propT={},stackDepth=0,status="active",userName="boost",wV="000000001.000000009.*zfinal",},intel={fn="ProjectDIR/rt/user_inherit/user_mf/Core/intel/13.1.lua",fullName="intel/13.1",loadOrder=1,mnameA={{fn="ProjectDIR/rt/user_inherit/mf/Core/intel/13.1.lua",sn="intel",userName="intel/13.1",version="13.1",},},propT={},stackDepth=0,status="active",userName="intel",wV="^00000013.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13","ProjectDIR/rt/user_inherit/mf/Compiler/intel/13","ProjectDIR/rt/user_inherit/user_mf/Core","ProjectDIR/rt/user_inherit/mf/Core",},systemBaseMPATH="ProjectDIR/rt/user_inherit/user_mf/Core:ProjectDIR/rt/user_inherit/mf/Core",}';
 export _ModuleTable_;
 ===========================
-step 7
+step 8
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13:ProjectDIR/rt/user_inherit/mf/Compiler/intel/13:ProjectDIR/rt/user_inherit/user_mf/Core:ProjectDIR/rt/user_inherit/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={boost={fn="ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13/boost/1.9.lua",fullName="boost/1.9",loadOrder=2,propT={},stackDepth=0,status="active",userName="boost",wV="000000001.000000009.*zfinal",},intel={fn="ProjectDIR/rt/user_inherit/user_mf/Core/intel/13.1.lua",fullName="intel/13.1",loadOrder=1,mnameA={{fn="ProjectDIR/rt/user_inherit/mf/Core/intel/13.1.lua",sn="intel",userName="intel/13.1",version="13.1",},},propT={},stackDepth=0,status="active",userName="intel",wV="^00000013.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13","ProjectDIR/rt/user_inherit/mf/Compiler/intel/13","ProjectDIR/rt/user_inherit/user_mf/Core","ProjectDIR/rt/user_inherit/mf/Core",},systemBaseMPATH="ProjectDIR/rt/user_inherit/user_mf/Core:ProjectDIR/rt/user_inherit/mf/Core",}';
 export _ModuleTable_;
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show pgi
+===========================
+false

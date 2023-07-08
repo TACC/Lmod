@@ -11,7 +11,8 @@ Notes for July 11, 2023 meeting
 *** I didn't understand the difference between ::env(LMOD_VERSION_MAJOR)  (good) and $::env(LMOD_VERSION_MAJOR) (bad)
 ** Issue 617: Print alias along with actual modulefile
     intel/15 -> intel/15.0.5
-
+** Issue 653: Support for inherit with show:
+    Now showing inherited module when "showing" parent module.
 * How Lmod supports finding the "highest" version and support Marked defaults at the same time.
 ** Lmod converts version like 2.11b to "000000002.000000011.*b.*zfinal"
 ** This is my re-implementation of python's loose version functiond

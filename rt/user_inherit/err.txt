@@ -2,14 +2,14 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
+Modules based on Lua: Version 8.7.27  2023-06-12 16:14 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/user_inherit/user_mf/Core
-   gcc/9.1 (D)    intel/13.1 (D)
+   gcc/9.1 (D)    intel/13.1 (D)    pgi/13.1
 ProjectDIR/rt/user_inherit/mf/Core
    gcc/9.1    intel/13.1
   Where:
@@ -32,7 +32,7 @@ ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13
 ProjectDIR/rt/user_inherit/mf/Compiler/intel/13
    boost/1.8    mpich/3.4
 ProjectDIR/rt/user_inherit/user_mf/Core
-   gcc/9.1 (D)    intel/13.1 (L,D)
+   gcc/9.1 (D)    intel/13.1 (L,D)    pgi/13.1
 ProjectDIR/rt/user_inherit/mf/Core
    gcc/9.1    intel/13.1
   Where:
@@ -45,6 +45,37 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show intel
+===========================
+   ProjectDIR/rt/user_inherit/user_mf/Core/intel/13.1.lua:
+inherit()
+ > ProjectDIR/rt/user_inherit/mf/Core/intel/13.1.lua
+  setenv("INTEL_KIND","SYSTEM")
+  whatis("Name: Intel Compiler")
+  whatis("Version: 13.1")
+  whatis("Category: compiler, runtime support")
+  whatis("Description: Intel Compiler Family (C/C++/Fortran for x86_64)")
+  whatis("URL: http://software.intel.com/en-us/articles/intel-compilers/")
+  prepend_path("PATH","/unknown/apps/intel/13.1/bin/intel64")
+  prepend_path("MODULEPATH","ProjectDIR/rt/user_inherit/mf/Compiler/intel/13")
+  family("compiler")
+  help([[The Intel module enables the Intel family of compilers (C/C++
+  and Fortran) and updates the $PATH, $LD_LIBRARY_PATH, and
+  $MANPATH environment variables to access the compiler binaries,
+  libraries, and available man pages, respectively.
+  The following additional environment variables are also defined:
+  $ICC_BIN                (path to icc/icpc compilers)
+  $ICC_LIB                (path to C/C++  libraries  )
+  $IFC_BIN                (path to ifort compiler    )
+  $IFC_LIB                (path to Fortran libraries )
+  $IIDB_BIN               (path to iidb debugger     )
+  See the man pages for icc, icpc, and ifort for detailed information
+  on available compiler options and command-line syntax
+  Version 13.1
+  ]])
+prepend_path("MODULEPATH","ProjectDIR/rt/user_inherit/user_mf/Compiler/intel/13")
+===========================
+step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing help intel
 ===========================
 Module Specific Help for "intel/13.1"
@@ -62,12 +93,20 @@ See the man pages for icc, icpc, and ifort for detailed information
 on available compiler options and command-line syntax
 Version 13.1
 ===========================
-step 6
+step 7
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load boost
 ===========================
 ===========================
-step 7
+step 8
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) intel/13.1   2) boost/1.9
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show pgi
+===========================
+Lmod has detected the following error: Failed to inherit: pgi/13.1.
+While processing the following module(s):
+    Module fullname  Module Filename
+    pgi/13.1         ProjectDIR/rt/user_inherit/user_mf/Core/pgi/13.1.lua

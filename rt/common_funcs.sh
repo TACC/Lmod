@@ -277,6 +277,7 @@ initStdEnvVars()
   unset LMOD_DISPLAY_SN_COLOR
   unset LMOD_DISPLAY_META_COLOR
   unset LMOD_SYSTEM_DEFAULT_MODULES
+  unset __LMOD_Priority_PATH
   export LMOD_NEWLINE="
 "
 
@@ -303,9 +304,10 @@ initStdEnvVars()
   HOME=`/bin/pwd`
   export LMOD_TERM_WIDTH=100000
 
-  PATH=/usr/bin:/bin
-  for i in $PATH_to_SHA1 $PATH_to_TM $PATH_to_LUA $PATH_TO_SED $projectDir/proj_mgmt; do
-    pathmunge $i 
+  PATH="/usr/bin:/bin"
+  pathA=($PATH_to_SHA1 $PATH_to_TM $PATH_to_LUA $PATH_TO_SED $projectDir/proj_mgmt)
+  for jj in "${pathA[@]}"; do
+    pathmunge $jj 
   done
 }
 

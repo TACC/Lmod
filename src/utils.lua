@@ -66,6 +66,10 @@ local stat         = posix.stat
 local strfmt       = string.format
 local s_envT       = {}
 local s_clrEnvT    = {}
+local blank          = " "
+local s_indentLevel  = 0
+local s_indentString = ""
+
 --------------------------------------------------------------------------
 -- This is 5.1 Lua function to cover the table.pack function
 -- that is in Lua 5.2 and later.
@@ -717,6 +721,15 @@ local s_defaultsT = {
 }
 
 --------------------------------------------------------------------------
+-- Modify output indentation by +/- 2 ' '
+-- MC_Show
+
+function s_indent(i)
+   s_indentLevel  = s_indentLevel + i
+   s_indentString = blank:rep(s_indentLevel*2)
+end
+
+--------------------------------------------------------------------------
 -- This routine converts a command into a string.  This is used by MC_Show
 -- @param name Input command name.
 function ShowCmdStr(name, ...)
@@ -760,12 +773,34 @@ function ShowCmdStr(name, ...)
    end
 
    local b = {}
+   b[#b+1] = s_indentString
    b[#b+1] = name
    b[#b+1] = left
    b[#b+1] = concatTbl(a,",")
    b[#b+1] = right
    dbg.fini("ShowCmdStr")
    return concatTbl(b,"")
+end
+
+--------------------------------------------------------------------------
+-- This routine prints a help message.  This is used by MC_Show
+function ShowHelpStr(...)
+   dbg.start{"ShowHelpStr(...)"}
+
+   local argA    = pack(...)
+   local a       = {}
+   a[1]          = s_indentString .. "help([["
+   for i = 1,argA.n do
+      for line in argA[i]:split("\n") do
+         a[#a + 1] = line
+         a[#a + 1] = "\n" .. s_indentString
+      end
+      a[#a] = "]],[[\n" .. s_indentString 
+   end
+   a[#a] = "]])\n"
+   dbg.fini("ShowHelpStr")
+   return concatTbl(a,"")
+
 end
 
 --------------------------------------------------------------------------
