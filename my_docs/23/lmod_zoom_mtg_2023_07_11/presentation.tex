@@ -28,9 +28,10 @@
 %\end{frame}
 
 \begin{document}
-\title[Lmod]{Using Personal Modules and Inherit() w/ the Software Hierarchy}
+\title[Lmod]{How Lmod supports finding ``Highest'' and marked defaults
+in one step}
 \author{Robert McLay} 
-\date{March 7, 2023}
+\date{July 11, 2023}
 
 % page 1
 \frame{\titlepage} 
@@ -40,275 +41,141 @@
 \begin{frame}{Outline}
   \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
   \begin{itemize}
-    \item How to correctly use personal modules so that Lmod will find
-      and use them.
-    \item How to setup a personal library/application in the software
-      hierarchy
-    \item Why this is a PITA!
+    \item Lmod supports ``module load name'' as well as ``module load
+      name/version''
+    \item In Lmod, fullName: ``name/version'', version: ``version''
+      and shortName: ``name''
+    \item So how does pick a version when there is no version specified?
   \end{itemize}
 \end{frame}
 
 % page 3
-\begin{frame}{Creating Personal modules}
-  \begin{itemize}
-    \item What is the big deal?
-    \item Easy: Create a directory (say \$HOME/my\_modules)
-    \item Create a directory (\$HOME/my\_modules/acme)
-    \item Create a create modulefile: \$HOME/my\_modules/acme/3.2.lua)
-    \item \$ \texttt{module use \$HOME/my\_modules}
-    \item \$ \texttt{module load acme/3.2}
-    \item Easy right!?
-  \end{itemize}
+\begin{frame}{What rules does Lmod use to pick a default?}
+  \begin{enumerate}
+    \item Pick highest priority marked default if it exists.
+    \item Otherwise pick the ``highest'' version.
+  \end{enumerate}
 \end{frame}
 
 % page 4
-\begin{frame}{Testing a personal copy of a system module}
+\begin{frame}{How does Lmod sort versions?}
   \begin{itemize}
-    \item Suppose that acme/3.2 is already on your system
-    \item And acme/3.2 is a marked default
-    \item The command \texttt{module load acme/3.2}
-    \item Will load the system one and not yours
-    \item Even though \$HOME/my\_modules is listed first in \$MODULEPATH
-    \item Why?
+    \item Karl Schultz (TACC $\Rightarrow$ Intel $\Rightarrow$ Open
+      HPC $\Rightarrow$ AMD) asked
+    \item Can't Lmod know 5.9 is older than 5.10?
+    \item I stole the ideas in Python's loose version code to build src/parseVersion.lua
+    \item It converts version 2.11b into
+      ``000000002.000000011.*b.*zfinal''
+    \item It knows how to handle things like alpha and beta.
+    \item So versions are ordered:  1.1alpha $<$ 1.1beta $<$ 1.1
+    \item 1.1alpha: ``000000001.000000001.*alpha.*zfinal'',
+    \item 1.1beta: ``000000001.000000001.*beta.*zfinal'',
+    \item 1.1: ``000000001.000000001.*zfinal'',
   \end{itemize}
 \end{frame}
 
 % page 5
-\begin{frame}[fragile]
-    \frametitle{Why?}
+\begin{frame}{When there are no marked defaults?}
   \begin{itemize}
-    \item While Lmod does look in \$MODULEPATH order
-    \item So the first module found is usually picked.
-    \item {\color{red}\emph{However}}, marked defaults ALWAYS win in
-      N/V module layouts (Best found)
-    \item Note not in N/V/V layouts. (First found)
-    \item A marked default is where there is either:
-      \begin{enumerate}
-        \item A default symlink
-        \item .modulerc.lua
-        \item .modulerc
-        \item .version
-      \end{enumerate}
-    \item I recently updated the documentation
-      https://lmod.readthedocs.io/en/latest/060\_locating.html
-      to explain this
+    \item For name/version (not name/version/version) Lmod collects
+      all version across all \$MODULEPATH directories.
+    \item Only the first ``acme/2.1'' is used.
+    \item Lmod picked the highest ``pV'' as default
+    \item for N/V/V only the first directory in \$MODULEPATH is used
   \end{itemize}
 \end{frame}
 
 % page 6
-\begin{frame}[fragile]
-    \frametitle{Getting Around a System Marked Defaults}
+\begin{frame}{What if there marked defaults for shortName?}
   \begin{itemize}
-    \item Make your own marked default.
-    \item Easiest way is to make a default symlink
+    \item Suppose acme/2.1, acme/2.2 and acme/2.3 exist and 2.1 is the
+      marked default?
+    \item How does Lmod chose?
+    \item Does it look for marked defaults first then highest?
   \end{itemize}
- {\tiny
-    \begin{semiverbatim}
-        \$ cd \$HOME/my\_modules/acme
-        \$ ln -s 3.2.lua default
-    \end{semiverbatim}
-}
 \end{frame}
-
-
 
 % page 7
-\begin{frame}[fragile]
-    \frametitle{Checking with module avail}
- {\tiny
-    \begin{semiverbatim}
-   ---------- /home/user/my\_modules -----------
-   acme/3.2 (D) 
- 
-   ---------- /opt/apps/modulefiles ------------
-   StdEnv    acme/3.2
-
-    \end{semiverbatim}
-}
+\begin{frame}{Lmod modifies pV $\Rightarrow$ wV}
   \begin{itemize}
-    \item Make sure that the (D) is next to your acme module 
-    \item And not the system one.
+    \item Lmod collects all version for ``acme''
+    \item It builts pV for each version
+    \item Then it modifies pV to become wV (weighted version)
+    \item By applying any marked defaults
   \end{itemize}
 \end{frame}
 
-
 % page 8
-\begin{frame}{Bigger issue: Testing a compiler dependent \texttt{boost/1.85.0}}
+\begin{frame}{Three ways to mark a default}
   \begin{itemize}
-    \item And you want it part of the software hierarchy
-    \item How can you do this \texttt{without} modifying the system
-      modulefiles?
-    \item In particular you only want the correct version of boost
-      available when you load the correct compiler.
+    \item Lowest: filesystem: .version, .modulerc, or .modulerc.lua in version
+      directory
+    \item Medium: A System modulerc or modulerc.lua file
+    \item Highest: A user \textasciitilde{}/.modulerc or \textasciitilde{}/.modulerc.lua
   \end{itemize}
 \end{frame}
 
 % page 9
-\begin{frame}{The short answer: inherit()}
+\begin{frame}{Modifying pV $\Rightarrow$ wV}
   \begin{itemize}
-    \item You can use the inherit() function to simplify this a little
-    \item This is discussed in detail in https://lmod.readthedocs.io/en/latest/340\_inherit.html
+    \item If ``acme/2.1'' is the marked default then 
+    \item Lmod replaces the first character with 
+    \item ``\^{}'' for filesystem
+    \item ``s'' for System modulerc
+    \item ``u'' for user modulerc
+    \item For example a filesystem marked default becomes
+    \item wV = "\^{}00000002.000000001.*zfinal"
   \end{itemize}
 \end{frame}
 
 % page 10
-\begin{frame}{Overview}
+\begin{frame}{Using ascii sort order}
   \begin{itemize}
-    \item We want to test/use boost install from our own account.
-    \item And have it load when the ``right'' compiler is loaded
-    \item This assumes that your site is using the software hierarchy
-    \item How can we get the system compiler to load our directory
-      into \$MODULEPATH?
-    \item Suppose we want to test a boost version with the intel 19.1
-      and gcc 12.2 compilers
+    \item Since ``u'' $>$ ``s'' $>$ ``\^{}'' $>$ numbers
+    \item Then user $>$ system $>$ filesystem $>$ highest
+    \item This is how Lmod picks the default
   \end{itemize}
 \end{frame}
 
 % page 11
-\begin{frame}{Building and Installing boost in your account}
-  \begin{itemize}
-    \item Build boost 1.85.0 with gcc 12.2 $\Rightarrow$ \textasciitilde/pkg/gcc-12/boost/1.85.0
-    \item Build boost 1.85.0 with intel 19.1 $\Rightarrow$ \textasciitilde/pkg/intel-19/boost/1.85.0
-  \end{itemize}
+\begin{frame}[fragile]
+    \frametitle{This (wV) can be seen the the moduleTable}
+ {\tiny
+    \begin{semiverbatim}
+    \$ module --mt # or ml --mt
+    ...
+    acme = {
+      fn = "/opt/apps/modulefiles/Core/acme/2.1.lua",
+      fullName = "acme/2.1",
+      loadOrder = 5,
+      propT = {},
+      stackDepth = 1,
+      status = "active",
+      userName = "acme",
+      wV = "^00000002.000000001.*zfinal",
+    },
+        
+    \end{semiverbatim}
+}
 \end{frame}
 
 % page 12
-\begin{frame}{Choice 1: Copy Each compiler modulefiles into your account}
-  \begin{itemize}
-    \item Easy to do
-    \item Add your hierarchical directory into \$MODULEPATH
-    \item Problem: you are now responsible to keep your copy
-      up-to-date
-    \item As the sys-admin might change them w/o you knowning
-  \end{itemize}
-\end{frame}
-
-% page 13
-\begin{frame}{Choice 2: Use inherit()}
-  \begin{itemize}
-    \item Create your own compiler module and inherit from the system
-      one.
-    \item The inherit() function take NO arguments
-    \item Lmod looks for the exact same name in \$MODULEPATH
-    \item This way it includes the system one with your changes.
-  \end{itemize}
-\end{frame}
-
-% page 14
-\begin{frame}{Inherit() part 2}
-  \begin{itemize}
-    \item Create gcc/12.2 and intel/19.1 in your own directory
-      structure
-    \item Then create two boost modulefiles for each compiler
-  \end{itemize}
-\end{frame}
-
-% page 15
-\begin{frame}[fragile]
-    \frametitle{Steps for gcc/12.2}
- {\tiny
-    \begin{semiverbatim}
-   \$ mkdir -p ~/my\_modules/\{Core,Compiler,MPI\}
-
-You also set the following environment variable:
-
-   \$ export MY\_MODULEPATH\_ROOT=\$HOME/my\_modules
-
-When this is set up you will do:
-
-   $ module use ~/my\_modules/Core
-    \end{semiverbatim}
-}
-\end{frame}
-
-% page 16
-\begin{frame}[fragile]
-    \frametitle{gcc/12.2.lua}
- {\tiny
-    \begin{semiverbatim}
-Then in the file ~/my_modules/Core/gcc/12.2.lua you have::
-
-   inherit()
-   local compiler = "gcc"
-   local MP\_ROOT  = os.getenv("MY\_MODULEPATH\_ROOT")
-   local version  = "12"
-
-   prepend_path("MODULEPATH", pathJoin(MP\_ROOT, "Compiler",compiler,version))
-    \end{semiverbatim}
-}
-  \begin{itemize}
-    \item Note that I'm assuming that I'll have the same libraries
-    \item for all versions of gcc 12.*
-  \end{itemize}
-\end{frame}
-
-% page 17
-\begin{frame}[fragile]
-    \frametitle{intel/19.1.lua}
- {\tiny
-    \begin{semiverbatim}
-Suppose you also have the system intel/19.1  module.  Then you would
-need at ~/my\_modules/Core/intel/19.1.lua you have::
-
-   inherit()
-   local compiler = "intel"
-   local MP\_ROOT  = os.getenv("MY\_MODULEPATH\_ROOT")
-   local version  = "19"
-
-   prepend_path("MODULEPATH", pathJoin(MP\_ROOT, "Compiler",compiler,version))
-    \end{semiverbatim}
-}
-  \begin{itemize}
-    \item Note that I'm assuming that I'll have the same libraries
-    \item for all versions of intel 19.*
-  \end{itemize}
-\end{frame}
-
-% page 18
-\begin{frame}[fragile]
-    \frametitle{Protect against system marked defaults}
- {\tiny
-    \begin{semiverbatim}
-    \$ cd ~/my\_modules/Core/intel; ln -s 19.1.lua default
-    \$ cd ~/my\_modules/Core/gcc;   ln -s 12.2.lua default
-    \end{semiverbatim}
-}
-\end{frame}
-
-% page 19
-\begin{frame}{Now support two versions of boost}
-  \begin{itemize}
-    \item gcc boost:
-    \item \textasciitilde{}/my\_modules/Compiler/gcc/12/boost/1.85.0.lua
-    \item intel boost
-    \item \textasciitilde{}/my\_modules/Compiler/intel/19/boost/1.85.0.lua
-  \end{itemize}
-\end{frame}
-
-% page 20
-\begin{frame}{What about mpi libraries and applications}
-  \begin{itemize}
-    \item Similar to what was shown above
-    \item See  https://lmod.readthedocs.io/en/latest/340\_inherit.html
-      for more details
-  \end{itemize}
-\end{frame}
-
-% page 21
 \begin{frame}{Conclusions}
   \begin{itemize}
-    \item It is some work but it is possible to include personal libs/apps
-    \item See the documentation 
-    \item Or see rt/user\_inherit for a full example
+    \item This is a potential bug if sites use versions more than 9
+      digits
+    \item Version like 1.2.3.4.5.6.7.8.9.2.3 are ok
+    \item Version like 12345678901.1 would be bad (but unlikely)
+    \item Lmod could fix the by using more padding.
+    \item Otherwise this is convenient way to find the default
   \end{itemize}
 \end{frame}
 
 % page 22
 \begin{frame}{Future Topics}
   \begin{itemize}
-    \item Matthew will talk about how benchpro interacts with Lmod
-    \item Next Meeting will be April 4th at 9:30 Central (14:30 UTC)
-      (back to Summer time!)
+    \item To be determined.
+    \item Next Meeting will be August 1st at 9:30 Central (14:30 UTC)
   \end{itemize}
 \end{frame}
 
