@@ -745,6 +745,10 @@ proc unuse { args } {
     }
 }
 
+proc purge {} {
+    eval cmdargs "purge"
+}
+
 proc setPutMode { value } {
     global putMode
     set putMode $value
@@ -937,6 +941,9 @@ proc module { command args } {
 	}
         add {
             eval loadcmd $args
+        }
+        purge {
+            eval purge $args
         }
         try-add {
             eval tryloadcmd $args

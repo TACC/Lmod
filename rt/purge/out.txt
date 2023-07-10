@@ -291,3 +291,95 @@ MODULEPATH=ProjectDIR/rt/purge/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={test={fn="ProjectDIR/rt/purge/mf/Core/test/1.0.0.lua",fullName="test/1.0.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="test",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/purge/mf/Core",},systemBaseMPATH="ProjectDIR/rt/purge/mf/Core",}';
 export _ModuleTable_;
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load PrgEnv openmpi
+===========================
+__LMOD_REF_COUNT_INFOPATH=/local/info:1\;/usr/share/info:1;
+export __LMOD_REF_COUNT_INFOPATH;
+INFOPATH=/local/info:/usr/share/info;
+export INFOPATH;
+__LMOD_REF_COUNT_LD_LIBRARY_PATH=/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/lib:1\;/vol/local/intel/mkl/mkl/lib/lib:1\;/vol/local/intel/idb/idb/lib:1\;/vol/local/intel/fc/fc/lib:1\;/vol/local/intel/cc/cc/lib:1;
+export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
+LD_LIBRARY_PATH=/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/lib:/vol/local/intel/mkl/mkl/lib/lib:/vol/local/intel/idb/idb/lib:/vol/local/intel/fc/fc/lib:/vol/local/intel/cc/cc/lib;
+export LD_LIBRARY_PATH;
+LMOD_FAMILY_COMPILER=intel;
+export LMOD_FAMILY_COMPILER;
+LMOD_FAMILY_COMPILER_VERSION=intel;
+export LMOD_FAMILY_COMPILER_VERSION;
+LMOD_FAMILY_MPI=openmpi;
+export LMOD_FAMILY_MPI;
+LMOD_FAMILY_MPI_VERSION=1.2.6;
+export LMOD_FAMILY_MPI_VERSION;
+LOADEDMODULES=test/1.0.0:unix/unix:local/local:intel/intel:noweb/2.10c:PrgEnv:openmpi/1.2.6;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MANPATH=/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/man:1\;/vol/local/noweb/noweb/man:1\;/vol/local/intel/mkl/mkl/man:1\;/vol/local/intel/idb/idb/man:1\;/vol/local/intel/fc/fc/man:1\;/vol/local/intel/cc/cc/man:1\;/usr/share/man:1;
+export __LMOD_REF_COUNT_MANPATH;
+MANPATH=/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/man:/vol/local/noweb/noweb/man:/vol/local/intel/mkl/mkl/man:/vol/local/intel/idb/idb/man:/vol/local/intel/fc/fc/man:/vol/local/intel/cc/cc/man:/usr/share/man;
+export MANPATH;
+MKL_DIR=/vol/local/intel/mkl/mkl/lib/lib;
+export MKL_DIR;
+MKL_INCLUDE=/vol/local/intel/mkl/mkl/include;
+export MKL_INCLUDE;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/purge/mf/MPI/intel/10.1/openmpi/1.2.6:1\;ProjectDIR/rt/purge/mf/Compiler/intel/10.1:1\;ProjectDIR/rt/purge/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/purge/mf/MPI/intel/10.1/openmpi/1.2.6:ProjectDIR/rt/purge/mf/Compiler/intel/10.1:ProjectDIR/rt/purge/mf/Core;
+export MODULEPATH;
+MPIHOME=/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt;
+export MPIHOME;
+__LMOD_REF_COUNT_PATH=/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/bin:1\;/vol/local/noweb/icon/bin:1\;/vol/local/noweb/2.10c/bin:1\;/vol/local/intel/idb/idb/bin:1\;/vol/local/intel/fc/fc/bin:1\;/vol/local/intel/cc/cc/bin:1\;/usr/local/share/bin:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=/vol/local/mpi/intel/10.1/openmpi/1.2.6.opt/bin:/vol/local/noweb/icon/bin:/vol/local/noweb/2.10c/bin:/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/usr/local/share/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+_LMFILES_=ProjectDIR/rt/purge/mf/Core/test/1.0.0.lua:ProjectDIR/rt/purge/mf/Core/unix/unix.lua:ProjectDIR/rt/purge/mf/Core/local/local.lua:ProjectDIR/rt/purge/mf/Core/intel/intel.lua:ProjectDIR/rt/purge/mf/Core/noweb/2.10c.lua:ProjectDIR/rt/purge/mf/Core/PrgEnv.lua:ProjectDIR/rt/purge/mf/Compiler/intel/10.1/openmpi/1.2.6.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="openmpi",compiler="intel",},mT={PrgEnv={fn="ProjectDIR/rt/purge/mf/Core/PrgEnv.lua",fullName="PrgEnv",loadOrder=6,propT={},stackDepth=0,status="active",userName="PrgEnv",wV="M.*zfinal",},intel={fn="ProjectDIR/rt/purge/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=4,propT={},stackDepth=1,status="active",userName="intel",wV="*intel.*zfinal",},["local"]={fn="ProjectDIR/rt/purge/mf/Core/local/local.lua",fullName="local/local",loadOrder=3,propT={},stackDepth=1,status="active",userName="local",wV="*local.*zfinal",},noweb={fn="ProjectDIR/rt/purge/mf/Core/noweb/2.10c.lua",fullName="noweb/2.10c",loadOrder=5,propT={},stackDepth=1,status="active",userName="noweb",wV="000000002.000000010.*c.*zfinal",},openmpi={fn="ProjectDIR/rt/purge/mf/Compiler/intel/10.1/openmpi/1.2.6.lua",fullName="openmpi/1.2.6",loadOrder=7,propT={},stackDepth=0,status="active",userName="openmpi",wV="000000001.000000002.000000006.*zfinal",},test={fn="ProjectDIR/rt/purge/mf/Core/test/1.0.0.lua",fullName="test/1.0.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="test",wV="000000001.*zfinal",},unix={fn="ProjectDIR/rt/purge/mf/Core/unix/unix.lua",fullName="unix/unix",loadOrder=2,propT={},stackDepth=1,status="active",userName="unix",wV="*unix.*zfinal",},},mpathA={"ProjectDIR/rt/purge/mf/MPI/intel/10.1/openmpi/1.2.6","ProjectDIR/rt/purge/mf/Compiler/intel/10.1","ProjectDIR/rt/purge/mf/Core",},systemBaseMPATH="ProjectDIR/rt/purge/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show tclpurge
+===========================
+MODULEPATH=ProjectDIR/rt/purge/mf/MPI/intel/10.1/openmpi/1.2.6:ProjectDIR/rt/purge/mf/Compiler/intel/10.1:ProjectDIR/rt/purge/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="openmpi",compiler="intel",},mT={PrgEnv={fn="ProjectDIR/rt/purge/mf/Core/PrgEnv.lua",fullName="PrgEnv",loadOrder=6,propT={},stackDepth=0,status="active",userName="PrgEnv",wV="M.*zfinal",},intel={fn="ProjectDIR/rt/purge/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=4,propT={},stackDepth=1,status="active",userName="intel",wV="*intel.*zfinal",},["local"]={fn="ProjectDIR/rt/purge/mf/Core/local/local.lua",fullName="local/local",loadOrder=3,propT={},stackDepth=1,status="active",userName="local",wV="*local.*zfinal",},noweb={fn="ProjectDIR/rt/purge/mf/Core/noweb/2.10c.lua",fullName="noweb/2.10c",loadOrder=5,propT={},stackDepth=1,status="active",userName="noweb",wV="000000002.000000010.*c.*zfinal",},openmpi={fn="ProjectDIR/rt/purge/mf/Compiler/intel/10.1/openmpi/1.2.6.lua",fullName="openmpi/1.2.6",loadOrder=7,propT={},stackDepth=0,status="active",userName="openmpi",wV="000000001.000000002.000000006.*zfinal",},test={fn="ProjectDIR/rt/purge/mf/Core/test/1.0.0.lua",fullName="test/1.0.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="test",wV="000000001.*zfinal",},unix={fn="ProjectDIR/rt/purge/mf/Core/unix/unix.lua",fullName="unix/unix",loadOrder=2,propT={},stackDepth=1,status="active",userName="unix",wV="*unix.*zfinal",},},mpathA={"ProjectDIR/rt/purge/mf/MPI/intel/10.1/openmpi/1.2.6","ProjectDIR/rt/purge/mf/Compiler/intel/10.1","ProjectDIR/rt/purge/mf/Core",},systemBaseMPATH="ProjectDIR/rt/purge/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load tclpurge
+===========================
+unset __LMOD_REF_COUNT_INFOPATH;
+unset INFOPATH;
+unset __LMOD_REF_COUNT_LD_LIBRARY_PATH;
+unset LD_LIBRARY_PATH;
+unset LMOD_FAMILY_COMPILER;
+unset LMOD_FAMILY_COMPILER_VERSION;
+unset LMOD_FAMILY_MPI;
+unset LMOD_FAMILY_MPI_VERSION;
+LOADEDMODULES=tclpurge/1.0;
+export LOADEDMODULES;
+unset __LMOD_REF_COUNT_MANPATH;
+unset MANPATH;
+unset MKL_DIR;
+unset MKL_INCLUDE;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/purge/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/purge/mf/Core;
+export MODULEPATH;
+unset MPIHOME;
+__LMOD_REF_COUNT_PATH=ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+unset TEST;
+_LMFILES_=ProjectDIR/rt/purge/mf/Core/tclpurge/1.0;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={tclpurge={fn="ProjectDIR/rt/purge/mf/Core/tclpurge/1.0",fullName="tclpurge/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="tclpurge",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/purge/mf/Core",},systemBaseMPATH="ProjectDIR/rt/purge/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/purge/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={tclpurge={fn="ProjectDIR/rt/purge/mf/Core/tclpurge/1.0",fullName="tclpurge/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="tclpurge",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/purge/mf/Core",},systemBaseMPATH="ProjectDIR/rt/purge/mf/Core",}';
+export _ModuleTable_;

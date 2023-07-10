@@ -38,6 +38,12 @@ testdescript = {
      runLmod show test                           #11
      runLmod load test                           #12
      runLmod list                                #13
+     runLmod load PrgEnv openmpi                 #14
+     runLmod show tclpurge                       #15
+     runLmod load tclpurge                       #16
+     runLmod list                                #17
+
+     
 
      HOME=$ORIG_HOME
      PATH=$ORIGINAL_PATH
