@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.27  2023-06-12 16:14 -05:00
+Modules based on Lua: Version 8.7.29  2023-07-10 17:58 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -539,3 +539,32 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 step 71
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load multiline
 ===========================
+===========================
+step 72
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 73
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load longVersion
+===========================
+===========================
+step 74
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) longVersion/branch.60200614194619_w9d09a30560903608993972840ea4qw4d9bb0443-debug
+===========================
+step 75
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+ProjectDIR/rt/load/mf6
+   longVersion/branch.60200614194619_w9d09a3056a903608993972840ea4qw4d9bb0443-debug
+   longVersion/branch.60200614194619_w9d09a30560903608993972840ea4qw4d9bb0443-debug (L,D)
+  Where:
+   D:  Default Module
+   L:  Module is loaded
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
