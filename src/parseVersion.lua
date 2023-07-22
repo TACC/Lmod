@@ -158,8 +158,12 @@ function parseVersionParts(versionStr)
          -- grab all numbers and pad to nine places with zeros
          i,j = s:find("^%d+",ipos)
          if (i) then
+            local ss = s:sub(i,j)
             ipos = j + 1
-            return string.format("%09d",tonumber(s:sub(i,j)))
+            if (ss:len() < 9) then
+               ss = string.format("%09d",tonumber(ss))
+            end
+            return ss
          end
 
          -- grab '/'

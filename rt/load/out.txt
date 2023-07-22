@@ -878,3 +878,44 @@ value=line\ 1"
 "line2"
 "line3;
 export value;
+===========================
+step 72
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/load/mf5;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load/mf5",},systemBaseMPATH="ProjectDIR/rt/load/mf5",}';
+export _ModuleTable_;
+unset value;
+===========================
+step 73
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load longVersion
+===========================
+LOADEDMODULES=longVersion/branch.60200614194619_w9d09a30560903608993972840ea4qw4d9bb0443-debug;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/load/mf6:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/load/mf6;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/load/mf6/longVersion/branch.60200614194619_w9d09a30560903608993972840ea4qw4d9bb0443-debug.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={longVersion={fn="ProjectDIR/rt/load/mf6/longVersion/branch.60200614194619_w9d09a30560903608993972840ea4qw4d9bb0443-debug.lua",fullName="longVersion/branch.60200614194619_w9d09a30560903608993972840ea4qw4d9bb0443-debug",loadOrder=1,propT={},stackDepth=0,status="active",userName="longVersion",wV="*branch.60200614194619.*_.*w.000000009.*d.000000009.*a.30560903608993972840.*ea.000000004.*qw.000000004.*d.000000009.*bb.000000443.*debug.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf6",},systemBaseMPATH="ProjectDIR/rt/load/mf6",}';
+export _ModuleTable_;
+===========================
+step 74
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/load/mf6;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={longVersion={fn="ProjectDIR/rt/load/mf6/longVersion/branch.60200614194619_w9d09a30560903608993972840ea4qw4d9bb0443-debug.lua",fullName="longVersion/branch.60200614194619_w9d09a30560903608993972840ea4qw4d9bb0443-debug",loadOrder=1,propT={},stackDepth=0,status="active",userName="longVersion",wV="*branch.60200614194619.*_.*w.000000009.*d.000000009.*a.30560903608993972840.*ea.000000004.*qw.000000004.*d.000000009.*bb.000000443.*debug.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf6",},systemBaseMPATH="ProjectDIR/rt/load/mf6",}';
+export _ModuleTable_;
+===========================
+step 75
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+MODULEPATH=ProjectDIR/rt/load/mf6;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={longVersion={fn="ProjectDIR/rt/load/mf6/longVersion/branch.60200614194619_w9d09a30560903608993972840ea4qw4d9bb0443-debug.lua",fullName="longVersion/branch.60200614194619_w9d09a30560903608993972840ea4qw4d9bb0443-debug",loadOrder=1,propT={},stackDepth=0,status="active",userName="longVersion",wV="*branch.60200614194619.*_.*w.000000009.*d.000000009.*a.30560903608993972840.*ea.000000004.*qw.000000004.*d.000000009.*bb.000000443.*debug.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf6",},systemBaseMPATH="ProjectDIR/rt/load/mf6",}';
+export _ModuleTable_;

@@ -112,3 +112,4 @@ Lmod 8.7+
             * Unknown TCL module command now produce an error instead of being ignored
             * Update zsh and bash tab completion files
             * Issue #657: Added support for "module purge" in a TCL modulefile to unload all other modules on load.
+   (8.7.30) * Issue #662: Fix bug where the version is very long (like git commit tags)

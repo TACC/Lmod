@@ -133,6 +133,15 @@ testdescript = {
      export MODULEPATH=$(testDir)/mf5
      runLmod load  multiline                                # 71
 
+     runLmod purge                                          # 72
+     unsetMT
+     export MODULEPATH=$(testDir)/mf6
+     runLmod load  longVersion                              # 73
+     runLmod list                                           # 74
+     runLmod avail                                          # 75
+
+
+
 
 
      HOME=$ORIG_HOME
