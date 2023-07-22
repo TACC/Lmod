@@ -1,0 +1,14 @@
+Notes on 15 Years of Lmod.
+
+* My friend and colleague Bill Barth described that TACC was having.
+** TACC used Tmod 3 (C/TCL based module system)
+** They had a software hierarchy where loading a compiler modified $MODULEPATH
+** Users then see the compiler dependent modules like Boost, MPI etc
+** The trouble was that there was no easy way to switch compilers and/or MPI modules
+
+* My key insight was that when $MODULEPATH changed to check and see if any modules needed to be unloaded or reloaded
+** Looked at Env. Modules C/TCL based code and threw up my hands (AKA Tmod 3)
+** There was no way I could modify that
+
+* Decided to protype with Lua.
+** The people who maintain Tmod 3 
