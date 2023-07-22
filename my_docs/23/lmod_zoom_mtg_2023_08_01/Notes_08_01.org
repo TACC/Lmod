@@ -10,5 +10,31 @@ Notes on 15 Years of Lmod.
 ** Looked at Env. Modules C/TCL based code and threw up my hands (AKA Tmod 3)
 ** There was no way I could modify that
 
-* Decided to protype with Lua.
-** The people who maintain Tmod 3 
+* Decided to prototype with Lua.
+** The people who maintain Tmod 3 would merge my prototype
+** I thought that Lua would be too slow
+** But it turns out that Lua is fast enough
+
+* When I started Lmod in 2008, support for Tmod 3 was spotty at best.
+** Lmod had very little composition
+
+* I announced Lmod on the environment modules mailling list
+** I remember the first email I got from an outside user in 2010
+
+* We used Lmod at TACC in 2010 and announced to the world in 2011
+
+* Lua supports function renaming.
+** To support module unloading, I just renamed setenv to be unsetenv etc.
+** This was difficult to get right in every case.
+** Switched to MasterControl base class
+    with MC_Load, MC_Unload, MC_Show derived classes to support the
+    various modes how modules are evaluated (There are 10 ways)
+
+* Originally Lmod only supported N/V
+** Lmod version 4 or 5 supported C/N/V  (but not N/V/V)
+** It wasn't until Lmod 7 for Lmod to support N/V/V
+
+* TACC installed Stampede 1 which had Xeon PHI daughter cards.
+** Meant that software packages could  to support fat binaries or other things
+** Lmod needed support module properties
+** Spider Cache  ...
