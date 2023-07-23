@@ -81,7 +81,7 @@ Notes on 15 Years of Lmod.
    we end up using a TACC.
 
 * Lmod coding
-** My background is in 3-D Finite Elements to solve PDE's like incompressible fluid flow
+** My background is in 3-D Finite Elements to solve PDE's for incompressible fluid flow.
 ** My language of choice is C++
 ** Learned Design patterns:
 ** Lmod uses Factories, Singletons, Template patterns
@@ -92,6 +92,10 @@ Notes on 15 Years of Lmod.
 ** There are 140 test files with 10s of test in each => 1000's of tests
 ** No repeat errors
 
+* Lmod: More testing
+** Some Unit tests
+** Tests of an installed version of Lmod
+** all part of github actions to check-in to Lmod Repo
 * Still there are bugs
 ** Issue 662: July 2023: using a git commit tag as a version didn't work
 
@@ -100,7 +104,7 @@ Notes on 15 Years of Lmod.
 ** Module Properties
 ** Sticky modules
 ** pushenv
-** Hooks: To change Lmod to work for you
+** Hooks: To change Lmod to work for your site.
 ** i18n: Messages in multiple languages: En, Fr, Germany, Chinese
 ** Mac Brew, Debian, Fedora packages
 ** Tracking module usage
@@ -116,4 +120,55 @@ Notes on 15 Years of Lmod.
 ** check_mtree_syntax
 ** module overview
 ** source_sh()
-** /etc/lmod/lmod_config.lua 
+** /etc/lmod/lmod_config.lua
+** I have never gotten an interactive debugger to work with Lua
+** Instead I have the Dbg Class
+** It has the advantage of allowing me to debug your problem where I don't have access to
+** The trace option -> load storms
+** Tab completion for bash and zsh
+** LmodBreak
+** LMOD_QUARANTINE_VARSo
+
+* Lmod's success
+** No competition for about 9 years
+** Good enough Documentation (it could always be better)
+** Presentations at SC and to EasyBuild community
+** Answering the email and then github issues
+** Regressoin testing suite.
+** As many people have told me: "Lmod just works so I don't worry about it"
+
+* Answering the %^$#^$ mailing list
+** Learning to be polite when answering.
+** "You might consider ..."
+** "Please test ... when you get a chance"
+
+* About half the time that I change, I am surprised that it affected other tests
+** Using the testing branch to iterate over an issue
+** Create github issues from "bug" reports from Mailing list
+
+* Made many friends over the years
+** Sometimes I am somebodies best friend for a week or so until I solve their issue
+** Sometimes it has been a good friend.
+
+* Lmod has a very long usage tail
+** a few site still run Lmod 6
+
+* Lmod lesson learned
+** git worktrees
+** connection between XALT and Lmod
+** Learned way more than I have every wanted to know about shell startup for bash, zsh, tcsh, fish, rc etc
+** Want tcsh to die
+** Want every one to switch from bash to zsh as bash's startup procedure is !@#$%^ for interactive non-login shells
+** It can be difficult to figure what problem a user is reporting.  It is not always a bug.
+** bugReport issue reporting
+** double quotes for shell eval, who knew!?
+** Do not use quotes when writing out strings for bash, zsh (except for newlines in bash and zsh env vars)
+** Can't test every possibility, users will **always** find a case you have missed.
+** Users will read the Lmod documentation (2K per month)
+** That other tools will use spiderT.json for their work
+** Provide a way for sites to modify Lmod state vars with Cosmic:assign() interface
+** That stuff that I think is really kewl like settarg won't always find an audience
+** That the moduleTable has an incredible tool for saving items into the users' env.
+** That not every site works the same as TACC.
+** That modules are the key way that Sysadmin talk with users to provide software.
+** Communicate change in Lmod via README.new 
