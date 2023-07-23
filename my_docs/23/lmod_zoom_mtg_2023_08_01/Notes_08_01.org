@@ -34,7 +34,86 @@ Notes on 15 Years of Lmod.
 ** Lmod version 4 or 5 supported C/N/V  (but not N/V/V)
 ** It wasn't until Lmod 7 for Lmod to support N/V/V
 
-* TACC installed Stampede 1 which had Xeon PHI daughter cards.
-** Meant that software packages could  to support fat binaries or other things
-** Lmod needed support module properties
-** Spider Cache  ...
+* TACC installed Stampede 1 which had Xeon PHI (MIC's) daughter cards.
+** Meant that software packages might support fat binaries or other things
+** Lmod needed support module properties to distinguish between packages that support MICs or didn't
+** That meant that lmod needed a Spider Cache  to know properties when doing "ml avail"
+** Lmod start on TACC's Ranger which stored modules on a Lustre file system
+** Walking a Lustre file system is slow
+** Reading one file is much faster.
+
+* Massive rewrite to support N/V/V  (Lmod 7 on)
+** Improved Spider Cache generation
+** All started when I talked with Bright computing which used N/V/V
+
+* Collections
+** Rule: the resulting environment should be the same whether or not you loaded
+         the modules by hand or by collection
+** It took a while to get this all correct with some intermediate steps
+** One user asked the right question where I how to do collections correctly.
+
+* Testing
+** Testing the output of Lmod has been a major part of Lmod's success
+** Old bugs don't reappear usually
+** The Lmod test suite compares stderr and stdout between new and "gold" results
+** The outputs are filtered by converting paths into canonical names
+   It doesn't matter where or on what machine it is run on.
+** Lmod tests are run on macOS and Linux.
+
+* Github Action: Help from Kenneth Hoste and Ward Poelmans now allow testing
+  of Lmod when checking into github.com
+
+* Many Lmod features have community driven
+** Obviously TACC's needs have been handled first
+** TACC: Spider Cache, Properties, Version sorting (5.10 > 5.9)
+** Support for LMOD_PIN_VERSION, LMOD_EXACT_VERSION, ...
+** Support for shared home file systems
+   where your home directory spans multiple systems
+** Support for non-english error messages
+** There are over 50 state variables that control how Lmod works
+    some report the versions of things like Lmod, Lua, lfs etc
+    Some change the behavior of Lmod like LMOD_PIN_VERSION, LMOD_EXACT_VERSION
+
+* We at TACC believe in a separate home directory for every system
+** So I never thought that TACC would need shared home file system support
+** However, we did for about a year.
+** I have been surprised how many times that a feature ask for by another site,
+   we end up using a TACC.
+
+* Lmod coding
+** My background is in 3-D Finite Elements to solve PDE's like incompressible fluid flow
+** My language of choice is C++
+** Learned Design patterns:
+** Lmod uses Factories, Singletons, Template patterns
+** Base class, derived classes for many items: MainControl, Shells, MName: How the default module is found.
+
+* Lmod regression testing
+** I am a strong believer in system testing
+** There are 140 test files with 10s of test in each => 1000's of tests
+** No repeat errors
+
+* Still there are bugs
+** Issue 662: July 2023: using a git commit tag as a version didn't work
+
+* Lmod features
+** Sandbox
+** Module Properties
+** Sticky modules
+** pushenv
+** Hooks: To change Lmod to work for you
+** i18n: Messages in multiple languages: En, Fr, Germany, Chinese
+** Mac Brew, Debian, Fedora packages
+** Tracking module usage
+** Family function: prevent loading of two compiler, two MPI modules at the same time
+** Reads both TCL and Lua modulefiles
+** ml
+** N/V/V
+** Hidden modules
+** depends_on()
+** Lmod Doc usage
+** TCL interpreter is now embedded
+** extensions("numpy/1.3.4,scipy/2.1")
+** check_mtree_syntax
+** module overview
+** source_sh()
+** /etc/lmod/lmod_config.lua 
