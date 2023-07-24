@@ -1,5 +1,7 @@
 Possible way to organize 8/1 talk
 
+Notes on 15 years of Lmod.
+
 * Bill asked me to see if I could solve TACC's problem with the software hierarchy
 ** Track $MODULPATH changes
 ** Lmod was born
