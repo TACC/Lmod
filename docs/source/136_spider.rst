@@ -45,7 +45,7 @@ module is.  See :ref:`module_spider_cmd-label` for details.
 Dynamic Spider Cache Support
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Lmod 8.8+ supports for spidering user modulefiles that
+Lmod 8.7.4+ supports for spidering user modulefiles that
 compiler/MPI/cuda modules could support.  Suppose your site uses the
 software hierarchy and your site wants to allow users to be able to
 use **module spider** to find their modules as well.  To do this
