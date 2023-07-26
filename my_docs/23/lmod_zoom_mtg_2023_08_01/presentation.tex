@@ -28,7 +28,7 @@
 %\end{frame}
  
 \begin{document}
-\title[Lmod]{15 years of Lmod: A Retrospectve}
+\title[Lmod]{15 years of Lmod: A Retrospective}
 \author{Robert McLay} 
 \date{August 1, 2023}
 
@@ -94,6 +94,7 @@
     \item Many say: ``It just works so I don't worry about it.''
     \item Used by EasyBuild, OpenHPC and Spack
     \item Package for Mac Brew, Fedora, Debian
+    \item It is reliable (from testing)
   \end{itemize}
 \end{frame}
 
@@ -101,19 +102,24 @@
 \begin{frame}{Hidden Reason for Lmod Success}
   \begin{itemize}
     \item Testing Lmod has an extensive test suite (1400+ tests)
-    \item It is reliable
+    \item Lmod uses the release early and often.
+    \item Almost 7000 check-in, 611 tags (versions)
     \item Can debug (via ml -D ... or ml -T) remotely
+    \item My background is in 3-D Finite Element in C++
+    \item I am a big fan of Design Patterns
+    \item Lmod uses Singleton, Factories and Template pattern
+      through-out written in Lua.
   \end{itemize}
 \end{frame}
 
 % page 8
 \begin{frame}{More on Testing}
   \begin{itemize}
-    \item The TM testing suite filters output to converts to canoncial
+    \item The TM testing suite filters output to converts to canonical
       names
     \item Path independent
     \item Tests both stderr and stdout output for each test
-    \item Can repeatly run a single test file or just the ones that
+    \item Can repeatedly run a single test file or just the ones that
       failed
     \item Lmod is reliable because of testing
     \item Github Actions run 3 types of test on 4 version of Lua on
@@ -132,7 +138,7 @@
     \item ``You might consider ...''
     \item ``Please test Lmod version ... when you get a chance to see
       if it works for you''
-    \item Not getting upset when non-native english speakers sound
+    \item Not getting upset when non-native English speakers sound
       insulting
   \end{itemize}
 \end{frame}
