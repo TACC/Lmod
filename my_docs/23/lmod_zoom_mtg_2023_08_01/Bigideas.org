@@ -23,6 +23,7 @@ Notes on 15 years of Lmod.
 **** Learning to be polite when answering.
 **** "You might consider ..."
 **** "Please test ... when you get a chance"
+**** Not getting upset when non-native english speaker write emails that sound insulting to me.
 ** Easy transition from Tmod to Lmod
 ** It was reliable
 ** Many Features not provided by any other tool

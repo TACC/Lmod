@@ -26,12 +26,11 @@
 %  \end{itemize}
 %
 %\end{frame}
-
+ 
 \begin{document}
-\title[Lmod]{How Lmod supports finding ``Highest'' and marked defaults
-in one step}
+\title[Lmod]{15 years of Lmod: A Retrospectve}
 \author{Robert McLay} 
-\date{July 11, 2023}
+\date{August 1, 2023}
 
 % page 1
 \frame{\titlepage} 
@@ -41,141 +40,187 @@ in one step}
 \begin{frame}{Outline}
   \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
   \begin{itemize}
-    \item Lmod supports ``module load name'' as well as ``module load
-      name/version''
-    \item In Lmod, fullName: ``name/version'', version: ``version''
-      and shortName: ``name''
-    \item So how does pick a version when there is no version specified?
+    \item The start of Lmod
+    \item Why I used Lua?
+    \item Where Lmod success comes from?
+    \item Features added over time
+    \item Lmod lessons learned
+    \item Conclusions
   \end{itemize}
 \end{frame}
 
 % page 3
-\begin{frame}{What rules does Lmod use to pick a default?}
-  \begin{enumerate}
-    \item Pick highest priority marked default if it exists.
-    \item Otherwise pick the ``highest'' version.
-  \end{enumerate}
+\begin{frame}{The start of Lmod}
+  \begin{itemize}
+    \item My friend a colleague Bill Barth asked:
+    \item TACC has a software hierarchy with Tmod 3.2.10
+    \item Impossible to change compilers or mpi modules
+    \item Help?
+  \end{itemize}
 \end{frame}
 
 % page 4
-\begin{frame}{How does Lmod sort versions?}
+\begin{frame}{Key Insight}
   \begin{itemize}
-    \item Karl Schultz (TACC $\Rightarrow$ Intel $\Rightarrow$ Open
-      HPC $\Rightarrow$ AMD) asked
-    \item Can't Lmod know 5.9 is older than 5.10?
-    \item I stole the ideas in Python's loose version code to build src/parseVersion.lua
-    \item It converts version 2.11b into
-      ``000000002.000000011.*b.*zfinal''
-    \item It knows how to handle things like alpha and beta.
-    \item So versions are ordered:  1.1alpha $<$ 1.1beta $<$ 1.1
-    \item 1.1alpha: ``000000001.000000001.*alpha.*zfinal'',
-    \item 1.1beta: ``000000001.000000001.*beta.*zfinal'',
-    \item 1.1: ``000000001.000000001.*zfinal'',
+    \item Remember the state of \$MODULEPATH
+    \item When it changes, change loaded modules
+    \item Support the idea of inactive modules
+    \item Lmod was born
   \end{itemize}
 \end{frame}
 
 % page 5
-\begin{frame}{When there are no marked defaults?}
+\begin{frame}{Why implement in Lua?}
   \begin{itemize}
-    \item For name/version (not name/version/version) Lmod collects
-      all version across all \$MODULEPATH directories.
-    \item Only the first ``acme/2.1'' is used.
-    \item Lmod picked the highest ``pV'' as default
-    \item for N/V/V only the first directory in \$MODULEPATH is used
+    \item TCL is not my favorite language
+    \item Worked in Lua to develop testing tools (more on this latter)
+    \item Did consulting work in Python before TACC: Avoid conflicts
+    \item If useful, the idea would be integrated into Tmod (Nope!)
+    \item Happy accident, Lua is fast enough
+    \item Lua is easier to protect from user environments (Esp. Python)
   \end{itemize}
 \end{frame}
 
 % page 6
-\begin{frame}{What if there marked defaults for shortName?}
+\begin{frame}{Reasons for Lmod Success}
   \begin{itemize}
-    \item Suppose acme/2.1, acme/2.2 and acme/2.3 exist and 2.1 is the
-      marked default?
-    \item How does Lmod chose?
-    \item Does it look for marked defaults first then highest?
+    \item Initially no real competition (Tmod 4 started in 2017)
+    \item Working at TACC helped
+    \item Good enough documentation
+    \item Easy transition from Tmod to Lmod (Lmod reads TCL
+      modulefiles)
+    \item Many Features not provided by tools
+    \item Unsolicited articles written by Jeff Layton about Lmod
+    \item Many say: ``It just works so I don't worry about it.''
+    \item Used by EasyBuild, OpenHPC and Spack
+    \item Package for Mac Brew, Fedora, Debian
   \end{itemize}
 \end{frame}
 
 % page 7
-\begin{frame}{Lmod modifies pV $\Rightarrow$ wV}
+\begin{frame}{Hidden Reason for Lmod Success}
   \begin{itemize}
-    \item Lmod collects all version for ``acme''
-    \item It builts pV for each version
-    \item Then it modifies pV to become wV (weighted version)
-    \item By applying any marked defaults
+    \item Testing Lmod has an extensive test suite (1400+ tests)
+    \item It is reliable
+    \item Can debug (via ml -D ... or ml -T) remotely
   \end{itemize}
 \end{frame}
 
 % page 8
-\begin{frame}{Three ways to mark a default}
+\begin{frame}{More on Testing}
   \begin{itemize}
-    \item Lowest: filesystem: .version, .modulerc, or .modulerc.lua in version
-      directory
-    \item Medium: A System modulerc or modulerc.lua file
-    \item Highest: A user \textasciitilde{}/.modulerc or \textasciitilde{}/.modulerc.lua
+    \item The TM testing suite filters output to converts to canoncial
+      names
+    \item Path independent
+    \item Tests both stderr and stdout output for each test
+    \item Can repeatly run a single test file or just the ones that
+      failed
+    \item Lmod is reliable because of testing
+    \item Github Actions run 3 types of test on 4 version of Lua on
+      Ubuntu and macOS for every check-in.
   \end{itemize}
 \end{frame}
 
 % page 9
-\begin{frame}{Modifying pV $\Rightarrow$ wV}
+\begin{frame}{Building trust with the user community}
   \begin{itemize}
-    \item If ``acme/2.1'' is the marked default then 
-    \item Lmod replaces the first character with 
-    \item ``\^{}'' for filesystem
-    \item ``s'' for System modulerc
-    \item ``u'' for user modulerc
-    \item For example a filesystem marked default becomes
-    \item wV = "\^{}00000002.000000001.*zfinal"
+    \item Making it reliable (via Testing)
+    \item Timely answering the email and github issues 
+    \item Book: Team Geek
+    \item Learning to be polite when answering and re-answering
+      question
+    \item ``You might consider ...''
+    \item ``Please test Lmod version ... when you get a chance to see
+      if it works for you''
+    \item Not getting upset when non-native english speakers sound
+      insulting
   \end{itemize}
 \end{frame}
 
 % page 10
-\begin{frame}{Using ascii sort order}
+\begin{frame}{Features over time}
   \begin{itemize}
-    \item Since ``u'' $>$ ``s'' $>$ ``\^{}'' $>$ numbers
-    \item Then user $>$ system $>$ filesystem $>$ highest
-    \item This is how Lmod picks the default
+    \item Tab completion for bash and z-shell
+    \item Support for N/V then C/N/V finally N/V/V (Lmod 7+)
+    \item Module properties
+    \item Spider cache (speed up ``module avail'' and ``module load'')
+    \item ml
+    \item sandbox (prevents modulefiles from calling internal routines)
   \end{itemize}
 \end{frame}
 
 % page 11
-\begin{frame}[fragile]
-    \frametitle{This (wV) can be seen the the moduleTable}
- {\tiny
-    \begin{semiverbatim}
-    \$ module --mt # or ml --mt
-    ...
-    acme = \{
-      fn = "/opt/apps/modulefiles/Core/acme/2.1.lua",
-      fullName = "acme/2.1",
-      loadOrder = 5,
-      propT = \{\},
-      stackDepth = 1,
-      status = "active",
-      userName = "acme",
-      wV = "^00000002.000000001.*zfinal",
-    \},
-        
-    \end{semiverbatim}
-}
-\end{frame}
-
-% page 12
-\begin{frame}{Conclusions}
+\begin{frame}{Features part II}
   \begin{itemize}
-    \item This is a potential bug if sites use versions more than 9
-      digits
-    \item Version like 1.2.3.4.5.6.7.8.9.2.3 are ok
-    \item Version like 12345678901.1 would be bad (but unlikely)
-    \item Lmod could fix the by using more padding.
-    \item Otherwise this is convenient way to find the default
+    \item pushenv, sticky modules, i18n error messages
+    \item Hooks, /etc/lmod/lmod\_config.lua
+    \item Tracking of module usage via hooks
+    \item Hidden modules
+    \item depends\_on()
+    \item source\_sh(): source a shell script inside a modulefile
+    \item LMOD\_QUARANTINE\_VARS
+    \item ...
   \end{itemize}
 \end{frame}
 
-% page 22
+% page 12
+\begin{frame}{Lmod lesson learned}
+  \begin{itemize}
+    \item git worktrees
+    \item Exploiting Lmod to help XALT
+    \item Learned way more than I ever wanted to know about bash, zsh,
+      tcsh shell startup procedures
+    \item Want tcsh to die, die, die
+    \item That default interactive non-login bash shell startup is
+      borked (We patch bash to get to work)
+    \item Can be difficult to decide what a user is reporting.  Bug or
+      not?
+    \item Getting users to use the bugReport script when submitting a
+      bug.
+  \end{itemize}
+\end{frame}
+
+% page 13
+\begin{frame}{Lmod lesson learned (II)}
+  \begin{itemize}
+    \item That \texttt{module() \{ eval "\$(LMOD\_CMD bash "\$@")" \}}
+        works better than
+      \item \texttt{module() \{ eval \$(LMOD\_CMD bash "\$@") \}} who
+        knew?
+      \item Cannot test every possibility, users will \textbf{ALWAYS}
+        find a case I missed
+      \item The the moduleTable has been incredible notion to store
+        the module state.
+      \item That other tools will use the spider cache output.
+      \item No two site are run exactly the same way.
+      \item There are ten or more ways that Lmod can be tailored.
+      \item Communicating changes thru README.new
+  \end{itemize}
+\end{frame}
+
+
+% page 14
+\begin{frame}{Conclusions}
+  \begin{itemize}
+    \item Not every site works like TACC.
+    \item That making Lmod available to the world has made it so much
+      better.
+    \item I have made many friends over the years.
+  \end{itemize}
+\end{frame}
+
+% page 15
+\begin{frame}[fragile]
+    \frametitle{Lmod Doc usage by City}
+    \center{\includegraphics[width=.9\textwidth]{Lmod_doc_usage_by_city}}
+\end{frame}
+
+% page 16
 \begin{frame}{Future Topics}
   \begin{itemize}
-    \item To be determined.
-    \item Next Meeting will be August 1st at 9:30 Central (14:30 UTC)
+    \item Next Meeting will be Sept. 5th at 9:30 Central (14:30 UTC)
+    \item Mathew Cawood will be running the meeting with a different
+      zoom link
   \end{itemize}
 \end{frame}
 
