@@ -52,7 +52,7 @@
 % page 3
 \begin{frame}{The start of Lmod}
   \begin{itemize}
-    \item My friend a colleague Bill Barth asked:
+    \item My friend and colleague Bill Barth asked:
     \item TACC has a software hierarchy with Tmod 3.2.10
     \item Impossible to change compilers or mpi modules
     \item Help?
@@ -76,13 +76,13 @@
     \item Worked in Lua to develop testing tools (more on this latter)
     \item Did consulting work in Python before TACC: Avoid conflicts
     \item If useful, the idea would be integrated into Tmod (Nope!)
-    \item Happy accident, Lua is fast enough
+    \item Happy accident: Lua is fast enough
     \item Lua is easier to protect from user environments (Esp. Python)
   \end{itemize}
 \end{frame}
 
 % page 6
-\begin{frame}{Reasons for Lmod Success}
+\begin{frame}{Some Reasons for Lmod Success}
   \begin{itemize}
     \item Initially no real competition (Tmod 4 started in 2017)
     \item Working at TACC helped
@@ -102,13 +102,13 @@
 \begin{frame}{Hidden Reason for Lmod Success}
   \begin{itemize}
     \item Testing Lmod has an extensive test suite (1400+ tests)
-    \item Lmod uses the release early and often.
+    \item Lmod uses the release early and often model.
     \item Almost 7000 check-in, 611 tags (versions)
     \item Can debug (via ml -D ... or ml -T) remotely
     \item My background is in 3-D Finite Element in C++
     \item I am a big fan of Design Patterns
     \item Lmod uses Singleton, Factories and Template pattern
-      through-out written in Lua.
+      through-out for a code written in Lua.
   \end{itemize}
 \end{frame}
 
@@ -117,7 +117,7 @@
   \begin{itemize}
     \item The TM testing suite filters output to converts to canonical
       names
-    \item Path independent
+    \item Makes output Path independent
     \item Tests both stderr and stdout output for each test
     \item Can repeatedly run a single test file or just the ones that
       failed
@@ -131,7 +131,7 @@
 % page 9
 \begin{frame}{Building trust with the user community}
   \begin{itemize}
-    \item Making it reliable (via Testing)
+    \item Making it reliable (again via Testing)
     \item Timely answering the email and github issues 
     \item Book: Team Geek
     \item Learning to be polite when answering and re-answering
@@ -149,6 +149,7 @@
   \begin{itemize}
     \item Tab completion for bash and z-shell
     \item Support for N/V then C/N/V finally N/V/V (Lmod 7+)
+    \item Sematic versioning (5.9 $<$ 5.10)
     \item Module properties
     \item Spider cache (speed up ``module avail'' and ``module load'')
     \item Personal Collections
@@ -215,6 +216,7 @@
     \item That making Lmod available to the world has made it so much
       better.
     \item I have made many friends over the years.
+    \item Working on Lmod has been a fun part of the job.
   \end{itemize}
 \end{frame}
 
