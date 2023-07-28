@@ -123,7 +123,8 @@
       failed
     \item Lmod is reliable because of testing
     \item Github Actions run 3 types of test on 4 version of Lua on
-      Ubuntu and macOS for every check-in.
+      Ubuntu and macOS for every check-in. (Thanks Kenneth Host and
+      Ward Poelmans!)
   \end{itemize}
 \end{frame}
 
@@ -150,6 +151,7 @@
     \item Support for N/V then C/N/V finally N/V/V (Lmod 7+)
     \item Module properties
     \item Spider cache (speed up ``module avail'' and ``module load'')
+    \item Personal Collections
     \item ml
     \item sandbox (prevents modulefiles from calling internal routines)
   \end{itemize}
@@ -172,6 +174,7 @@
 % page 12
 \begin{frame}{Lmod lesson learned}
   \begin{itemize}
+    \item A private repo (bitbucket) as well as a public repo (github)
     \item git worktrees
     \item Exploiting Lmod to help XALT
     \item Learned way more than I ever wanted to know about bash, zsh,
