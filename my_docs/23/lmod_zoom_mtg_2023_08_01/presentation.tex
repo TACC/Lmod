@@ -52,7 +52,7 @@
 % page 3
 \begin{frame}{The start of Lmod}
   \begin{itemize}
-    \item My friend and colleague Bill Barth asked:
+    \item In 2008, my friend and colleague Bill Barth asked:
     \item TACC has a software hierarchy with Tmod 3.2.10
     \item Impossible to change compilers or mpi modules
     \item Help?
@@ -63,7 +63,7 @@
 \begin{frame}{Key Insight}
   \begin{itemize}
     \item Remember the state of \$MODULEPATH
-    \item When it changes, change loaded modules
+    \item When it changes, change loaded modules if necessary
     \item Support the idea of inactive modules
     \item Lmod was born
   \end{itemize}
@@ -73,6 +73,7 @@
 \begin{frame}{Why implement in Lua?}
   \begin{itemize}
     \item TCL is not my favorite language
+    \item TCL/C Tmod was/is very complicated (and ugly!!)
     \item Worked in Lua to develop testing tools (more on this latter)
     \item Did consulting work in Python before TACC: Avoid conflicts
     \item If useful, the idea would be integrated into Tmod (Nope!)
@@ -88,12 +89,12 @@
     \item Working at TACC helped
     \item Good enough documentation
     \item Easy transition from Tmod to Lmod (Lmod reads TCL
-      modulefiles)
+      modulefiles (Almost always works!?))
     \item Many Features not provided by other tools
     \item Unsolicited articles written by Jeff Layton about Lmod
     \item Many say: ``It just works so I don't worry about it.''
     \item Used by EasyBuild, OpenHPC and Spack
-    \item Package for Mac Brew, Fedora, Debian
+    \item Packages for Mac Brew, Fedora, Debian
     \item It is reliable (from testing)
   \end{itemize}
 \end{frame}
@@ -117,14 +118,15 @@
   \begin{itemize}
     \item The TM testing suite filters output to converts to canonical
       names
-    \item Makes output Path independent
+    \item Makes output path independent
     \item Tests both stderr and stdout output for each test
     \item Can repeatedly run a single test file or just the ones that
       failed
     \item Lmod is reliable because of testing
-    \item Github Actions run 3 types of test on 4 version of Lua on
+    \item Github Actions run tests on 4 version of Lua on both
       Ubuntu and macOS for every check-in. (Thanks Kenneth Host and
       Ward Poelmans!)
+    \item There are also unit tests and installed Lmod set of tests
   \end{itemize}
 \end{frame}
 
@@ -135,7 +137,7 @@
     \item Timely answering the email and github issues 
     \item Book: Team Geek
     \item Learning to be polite when answering and re-answering
-      question
+      questions
     \item ``You might consider ...''
     \item ``Please test Lmod version ... when you get a chance to see
       if it works for you''
@@ -200,8 +202,8 @@
         knew?
       \item Cannot test every possibility, users will \textbf{ALWAYS}
         find a case I missed
-      \item The the moduleTable has been incredible notion to store
-        the module state.
+      \item The moduleTable has been incredible notion to store
+        the module state in your env.
       \item That other tools will use the spider cache output.
       \item No two site are run exactly the same way.
       \item There are ten or more ways that Lmod can be tailored.
@@ -209,23 +211,23 @@
   \end{itemize}
 \end{frame}
 
-
 % page 14
+\begin{frame}[fragile]
+    \frametitle{Lmod Doc usage by City}
+    \center{\includegraphics[width=.9\textwidth]{Lmod_doc_usage_by_city}}
+\end{frame}
+
+% page 15
 \begin{frame}{Conclusions}
   \begin{itemize}
     \item Not every site works like TACC.
     \item That making Lmod available to the world has made it so much
       better.
-    \item I have made many friends over the years.
+    \item I have made many friends over the years through working on Lmod.
     \item Working on Lmod has been a fun part of the job.
   \end{itemize}
 \end{frame}
 
-% page 15
-\begin{frame}[fragile]
-    \frametitle{Lmod Doc usage by City}
-    \center{\includegraphics[width=.9\textwidth]{Lmod_doc_usage_by_city}}
-\end{frame}
 
 % page 16
 \begin{frame}{Future Topics}
