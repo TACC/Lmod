@@ -41,7 +41,7 @@
   \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
   \begin{itemize}
     \item The start of Lmod
-    \item Why I used Lua?
+    \item Why I used Lua to implement Lmod?
     \item Where Lmod success comes from?
     \item Features added over time
     \item Lmod lessons learned
@@ -53,7 +53,7 @@
 \begin{frame}{The start of Lmod}
   \begin{itemize}
     \item In 2008, my friend and colleague Bill Barth asked:
-    \item TACC has a software hierarchy with Tmod 3.2.10
+    \item TACC has a software hierarchy with Tmod 3.2.10 (TCL/C)
     \item Impossible to change compilers or mpi modules
     \item Help?
   \end{itemize}
@@ -93,9 +93,9 @@
     \item Many Features not provided by other tools
     \item Unsolicited articles written by Jeff Layton about Lmod
     \item Many say: ``It just works so I don't worry about it.''
-    \item Used by EasyBuild, OpenHPC and Spack
+    \item Now used by EasyBuild, OpenHPC and Spack
     \item Packages for Mac Brew, Fedora, Debian
-    \item It is reliable (from testing)
+    \item It is reliable.
   \end{itemize}
 \end{frame}
 
@@ -118,7 +118,7 @@
   \begin{itemize}
     \item The TM testing suite filters output to converts to canonical
       names
-    \item Makes output path independent
+    \item Makes output path independent so tests can be run anywhere
     \item Tests both stderr and stdout output for each test
     \item Can repeatedly run a single test file or just the ones that
       failed
@@ -147,7 +147,7 @@
 \end{frame}
 
 % page 10
-\begin{frame}{Features over time}
+\begin{frame}{Features addesd over time}
   \begin{itemize}
     \item Tab completion for bash and z-shell
     \item Support for N/V then C/N/V finally N/V/V (Lmod 7+)
