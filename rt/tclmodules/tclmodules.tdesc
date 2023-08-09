@@ -20,6 +20,7 @@ testdescript = {
      unsetMT
      initStdEnvVars
      export MODULEPATH=$(testDir)/mf
+     export FOO=BAR
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .cache .config
 
@@ -29,7 +30,7 @@ testdescript = {
      runLmod list                              # 4
      runLmod show showMe                       # 5
      runLmod avail                             # 6
-
+     runLmod load getenv                       # 7
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
