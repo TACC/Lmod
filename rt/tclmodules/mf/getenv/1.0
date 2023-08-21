@@ -1,0 +1,8 @@
+#%Module
+
+if { {BAR} eq [getenv FOO] } {
+   puts stderr "FOUND"
+} else {
+   puts stderr "NOT FOUND"
+}
+ 
