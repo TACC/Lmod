@@ -1,0 +1,71 @@
+Possible way to organize 8/1 talk
+
+Notes on 15 years of Lmod.
+
+* Bill asked me to see if I could solve TACC's problem with the software hierarchy
+** Track $MODULPATH changes
+** Lmod was born
+
+* Decided to use Lua
+** Which turn out to be happy accident
+** Lua is much easier to protect from user interfernce than Python
+** Originally thought that "Env Module" community would merge my prototype into the TCL/C version
+** Lua is fast enough
+* Lmod success comes down to these things:
+** No competition (Tmod 3 (TCL/C) suppport was at end of life)
+*** pure TCL Tmod support didn't exist until 2017
+** Documentation:
+*** 2K to 3K unique users read the documentation very month
+*** A few Users care enough to send patches to fix typos
+*** It is good enough
+** Answer the mailling list/github question or comments
+*** Answering the %^$#^$ mailing list
+**** Learning to be polite when answering.
+**** "You might consider ..."
+**** "Please test ... when you get a chance"
+**** Not getting upset when non-native english speaker write emails that sound insulting to me.
+** Easy transition from Tmod to Lmod
+** It was reliable
+** Many Features not provided by any other tool
+** Testing (There are 1400+ system tests now)
+** Unsolicited articles written by Jeff Layton about Lmod
+** Lmod is the Environment Module tool used by EB, Open HPC, Spack
+** The ability to debug Lmod at sites where I don't have access. 
+** As many people have told me: "Lmod just works so I don't worry about it"
+* These things build trust in the user community
+* Started to be use by TACC in 2010, released to the world in 2011
+** There has been a steady release since then
+* Feature added over time
+** Tab completion for bash and zsh 
+** Support for N/V then C/N/V finally N/V/V (Lmod 7+)
+** Module Properties
+** Spider Cache to speed up "module avail" optianally "module load"
+** ml
+** sandbox
+** pushenv, sticky modules, i18n
+** Hooks, /etc/lmod/lmod_config.lua
+** Packages: Mac Brew, Fedora, Debian
+** Optional Tracking of module usage
+** Hidden Modules, depends_on
+** source_sh(): source a shell script inside a modulefile
+** LMOD_QUARANTINE_VARS
+** ...
+* Lmod lesson learned
+** git worktrees
+** connection between XALT and Lmod
+** Learned way more than I have every wanted to know about shell startup for bash, zsh, tcsh, fish, rc etc
+** Want tcsh to die
+** Want every one to switch from bash to zsh as bash's startup procedure is !@#$%^ for interactive non-login shells
+** It can be difficult to figure what problem a user is reporting.  It is not always a bug.
+** bugReport issue reporting
+** double quotes for shell eval, who knew!?
+** Do not use quotes when writing out strings for bash, zsh (except for newlines in bash and zsh env vars)
+** Can't test every possibility, users will **always** find a case you have missed.
+** Users will read the Lmod documentation (2K per month)
+** That other tools will use spiderT.json for their work
+** Provide a way for sites to modify Lmod state vars with Cosmic:assign() interface
+** That stuff that I think is really kewl like settarg won't always find an audience
+** That the moduleTable has an incredible tool for saving items into the users' env.
+** That not every site works the same as TACC.
+** That modules are the key way that Sysadmin talk with users to provide software.
+** Communicate change in Lmod via README.new 
