@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.20  2023-03-16 11:43 -05:00
+Modules based on Lua: Version 8.7.30  2023-07-21 17:13 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -33,7 +33,8 @@ step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/tclmodules/mf
-   a/1.0    earlyLateOutput/2.0 (L)    hide/1.0    hide/2.0 (D)    showMe/1.0
+   a/1.0                      getenv/1.0    hide/2.0   (D)
+   earlyLateOutput/2.0 (L)    hide/1.0      showMe/1.0
   Where:
    D:  Default Module
    L:  Module is loaded
@@ -42,3 +43,8 @@ If the avail list is too long consider trying:
 "module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load getenv
+===========================
+FOUND
