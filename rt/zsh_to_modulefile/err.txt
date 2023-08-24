@@ -10,5 +10,5 @@ buildSh2MF --from zsh ProjectDIR/rt/zsh_to_modulefile/tstScript.zsh
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing load broken/1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load matt/1.0
 ===========================
