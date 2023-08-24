@@ -468,6 +468,10 @@ proc setenv { var val args } {
     cmdargs "setenv" $var $val
 }
 
+proc getenv { var args } {
+    cmdargs "os.getenv" $var
+}
+
 proc unsetenv { var {val {}}} {
     global env  g_varsT
     set mode [currentMode]
@@ -996,9 +1000,10 @@ proc execute-modulefile {modfile } {
     interp alias $child complete       	 {} complete
     interp alias $child conflict       	 {} conflict
     interp alias $child depends-on     	 {} depends-on
-    interp alias $child exit     	 {} my_exit
+    interp alias $child exit          	 {} my_exit
     interp alias $child extensions     	 {} extensions
     interp alias $child family         	 {} family
+    interp alias $child getenv           {} getenv
     interp alias $child haveDynamicMPATH {} haveDynamicMPATH
     interp alias $child initGA         	 {} initGA
     interp alias $child is-loaded      	 {} is-loaded
@@ -1077,6 +1082,16 @@ proc execute-modulefile {modfile } {
     return $errorVal
 }
 
+proc getenv {var} {
+
+    global env
+    set v ""
+    if {[info exists env($var)]} {
+        set v $env($var)           
+    }
+    return $v
+}
+
 proc unset-env {var} {
     global env
 
@@ -1084,6 +1099,7 @@ proc unset-env {var} {
 	unset env($var)
     }
 }
+
 proc set-env {var value} {
     global g_envT g_envClrT env
     # If setting a var not seen then mark it for deletion when reset is called.
