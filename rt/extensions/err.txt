@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.12  2022-02-09 16:10 -06:00
+Modules based on Lua: Version 8.7.31  2023-08-09 12:41 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -27,7 +27,7 @@ ProjectDIR/rt/extensions/mf/Compiler/gcc/9
    python/3.7 (L)
 ProjectDIR/rt/extensions/mf/Core
    TACC    gcc/9.4 (L)    intel/19.1
-This is a list of module extensions "module --nx avail ..." to not show.
+This is a list of module extensions. Use "module --nx avail ..." to not show extensions.
     CC (E)     a (E)     b (E)
 These extensions cannot be loaded directly, use "module spider extension_name" for more information.
   Where:
@@ -46,7 +46,7 @@ ProjectDIR/rt/extensions/mf/Compiler/gcc/9
    python/3.7 (L)    snake/3.9 (H)
 ProjectDIR/rt/extensions/mf/Core
    TACC    gcc/9.4 (L)    intel/19.1
-This is a list of module extensions "module --nx avail ..." to not show.
+This is a list of module extensions. Use "module --nx avail ..." to not show extensions.
     CC (E)     a (E)     b (E)     d (E)
 These extensions cannot be loaded directly, use "module spider extension_name" for more information.
   Where:
@@ -73,7 +73,7 @@ ProjectDIR/rt/extensions/mf/Compiler/intel/19
    python/3.7 (L)
 ProjectDIR/rt/extensions/mf/Core
    TACC    gcc/9.4    intel/19.1 (L)
-This is a list of module extensions "module --nx avail ..." to not show.
+This is a list of module extensions. Use "module --nx avail ..." to not show extensions.
     CC (E)     DDD (E)
 These extensions cannot be loaded directly, use "module spider extension_name" for more information.
   Where:
