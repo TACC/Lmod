@@ -161,7 +161,7 @@ end
 
 local shellFuncPatt = {
    bash = { namePatt  = "([-a-zA-Z0-9_.?']+) ?%(%)%s+({)", trailingPatt = "(})\n" },
-   zsh  = { namePatt  = "([-a-zA-Z0-9_.?']+) ?%(%)%s+({)", trailingPatt = "(})\n" },
+   zsh  = { namePatt  = "([-a-zA-Z0-9_.?']+) ?%(%)%s+({)", trailingPatt = "\n(})\n" },
    ksh  = { namePatt  = "([-a-zA-Z0-9_.?']+) ?%(%)%s+({)", trailingPatt = "(})\n" },
 }
 

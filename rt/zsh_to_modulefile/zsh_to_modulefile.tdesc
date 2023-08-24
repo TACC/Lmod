@@ -1,5 +1,5 @@
 -- -*- lua -*-
-local testName = "sh_to_modulefile"
+local testName = "zsh_to_modulefile"
 
 local zsh_path, found = findInPath("zsh", os.getenv("PATH"))
 
