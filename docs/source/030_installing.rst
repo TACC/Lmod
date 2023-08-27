@@ -120,6 +120,7 @@ to work you may need to repair your /etc/apt/sources.list.  Check to
 see if your sources.list file as uncommmented "deb-src" lines.  Once
 this is correct, please execute the following lines::
 
+    $ sudo apt update
     $ sudo apt -y build-dep lmod
     $ lua_ver=$(which lua | xargs realpath -e | xargs basename)
     $ sudo apt -y install lib${lua_ver}-dev tcl-dev
