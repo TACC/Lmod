@@ -31,7 +31,7 @@ testdescript = {
      runLmod help amber                                       # 4
      runLmod --config                                         # 5
      runLmod --miniConfig                                     # 6
-     $LUA_EXEC $projectDir/src/lmod.in.lua bash --config_json 2> config.json
+     LD_PRELOAD= $LUA_EXEC $projectDir/src/lmod.in.lua bash --config_json 2> config.json
      runBase $LUA_EXEC $projectDir/src/chkJson < config.json  # 7
 
 

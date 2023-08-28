@@ -160,9 +160,9 @@ function M.processAliases(self, shellName, old, new, a)
 end
 
 local shellFuncPatt = {
-   bash = { namePatt  = "([-a-zA-Z0-9_.?']+) ?%(%)%s+({)", trailingPatt = "(})\n" },
-   zsh  = { namePatt  = "([-a-zA-Z0-9_.?']+) ?%(%)%s+({)", trailingPatt = "(})\n" },
-   ksh  = { namePatt  = "([-a-zA-Z0-9_.?']+) ?%(%)%s+({)", trailingPatt = "(})\n" },
+   bash = { namePatt  = "([-a-zA-Z0-9_.?']+) ?%(%)%s+({)", trailingPatt = "\n(})\n" },
+   zsh  = { namePatt  = "([-a-zA-Z0-9_.?']+) ?%(%)%s+({)", trailingPatt = "\n(})\n" },
+   ksh  = { namePatt  = "([-a-zA-Z0-9_.?']+) ?%(%)%s+({)", trailingPatt = "\n(})\n" },
 }
 
 local function l_extractFuncs(shellName, funcs)
@@ -174,7 +174,7 @@ local function l_extractFuncs(shellName, funcs)
       local is, ie, Nm, Strt = funcs:find(namePatt)
       if (not is) then break end
       local js, je, End      = funcs:find(trailingPatt, ie+1)
-      funcT[Nm]              = funcs:sub(ie+1,js-1)
+      funcT[Nm]              = funcs:sub(ie+1,js):gsub("\t","    ")
       funcs                  = funcs:sub(je+1,-1)
    end
 

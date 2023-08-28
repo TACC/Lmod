@@ -204,7 +204,7 @@ See https://lmod.readthedocs.io/en/latest/260_sh_to_modulefile.html for details.
      m_Depend_Mods         = "\n    You will need to load all module(s) on any one of the lines below before the \"%{fullName}\" module is available to load.\n",
      m_Description         = "    Description:\n%{descript}\n\n",
      m_Direct_Load         = "\n    This module can be loaded directly: module load %{fullName}\n",
-     m_Extensions_head     = "This is a list of module extensions \"module --nx avail ...\" to not show.\n",
+     m_Extensions_head     = "This is a list of module extensions. Use \"module --nx avail ...\" to not show extensions.",
      m_Extensions_tail     = "\nThese extensions cannot be loaded directly, use \"module spider extension_name\" for more information.\n",
      m_Family_Swap         = "\nLmod is automatically replacing \"%{oldFullName}\" with \"%{newFullName}\".\n",
      m_For_System          = ", for system: \"%{sname}\"",
