@@ -114,6 +114,5 @@ Lmod 8.7+
             * Issue #657: Added support for "module purge" in a TCL modulefile to unload all other modules on load.
    (8.7.30) * Issue #662: Fix bug where the version is very long (like git commit tags)
    (8.7.31) * Issue #665: Added support for getenv function in TCL modules
-W.I.P:
    (8.7.32) * Better handling of zsh shell functions in source_sh(). Must match "\n}\n" to find end of function.
-
+            * Better name for extension title, remove trailing \n
