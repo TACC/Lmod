@@ -50,29 +50,37 @@ Json.my_name    = "json"
 Json.myType     = Json.my_name
 Json.js         = ""
 
+function Json.initialize(self)
+   -- Empty the json script so that it can be used in individual --
+   self.js = json.encode({alias={}, shellFunc={}, env={}, unset={}})
+end
+
 function Json.alias(self, k, v)
-   -- do nothing: everything is handled in expand
+   local tbl = js.decode(self.js)
+   tbl["alias"][k] = v
+   self.js = js.encode(tbl)
 end
 
 function Json.shellFunc(self, k, v)
-   -- do nothing: everything is handled in expand
+   local tbl = js.decode(self.js)
+   tbl["shellFunc"][k] = v
+   self.js = js.encode(tbl)
 end
 
 function Json.expandVar(self, k, v, vType)
-   -- do nothing: everything is handled in expand
+   local tbl = js.decode(self.js)
+   tbl["env"][k] = v
+   self.js = js.encode(tbl)
 end
 
 function Json.unset(self, k, vType)
-   -- do nothing: everything is handled in expand
+   local tbl = js.decode(self.js)
+   tbl["unset"][#tbl["unset"]+1] = k
+   self.js = js.encode(tbl)
 end
 
 function Json.echo(self,...)
    self:_echo(...)
-end
-
-function Json.expand(self, tbl)
-   self.js = js.encode(tbl)
-   BaseShell.expand(self, tbl)
 end
 
 function Json.report_failure(self)
@@ -85,7 +93,7 @@ function Json.report_success(self)
    local report = js.decode(self.js)
    report["_mlstatus"] = true
    stdout:write(js.encode(report))
-   dbg.print{   self.js}
+   dbg.print{self.js}
 end
 
 return Json
