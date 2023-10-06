@@ -292,6 +292,7 @@ local function l_createShellTbl()
       local Lisp         = require('Lisp')
       local Perl         = require('Perl')
       local Python       = require('Python')
+      local Json         = require('JsonShell')
       local R            = require('R')
       local Rc           = require('Rc')
       local Ruby         = require('Ruby')
@@ -310,6 +311,7 @@ local function l_createShellTbl()
          ["tcsh"]   = {name = "tcsh",   object = Csh    },
          ["perl"]   = {name = "perl",   object = Perl   }, 
          ["python"] = {name = "python", object = Python },
+         ["json"]   = {name = "json",   object = Json   },
          ["cmake"]  = {name = "cmake",  object = CMake  },
          ["bare"]   = {name = "bare",   object = Bare   },
          ["r"]      = {name = "r",      object = R      },

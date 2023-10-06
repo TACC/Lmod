@@ -1,4 +1,4 @@
-#!/usr/bin/env tclsh
+#!/usr/bin/tclsh
 
 #------------------------------------------------------------------------
 # Lmod License
@@ -39,8 +39,8 @@ global g_moduleT g_setup_moduleT g_lua_cmd env g_my_cmd
 global g_envT g_envClrT
 
 set g_setup_moduleT 0
-set g_lua_cmd       "@path_to_lua@"
-set g_lmod_cmd      "@path_to_lmod@"
+set g_lua_cmd       "/usr/bin/lua"
+set g_lmod_cmd      "/usr/share/lmod/8.7.31/libexec/lmod"
 set g_my_cmd        $argv0
 set g_envT          [dict create]
 set g_envClrT       [dict create]
@@ -1180,6 +1180,9 @@ switch -regexp -- $g_shellName {
     }
     ^(python)$ {
 	set g_shellType python
+    }
+    ^(json)$ {
+	set g_shellType json
     }
     ^(lisp)$ {
 	set g_shellType lisp
