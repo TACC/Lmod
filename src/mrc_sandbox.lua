@@ -52,6 +52,8 @@ require("fileOps")
 --------------------------------------------------------------------------
 -- Table containing valid functions for modulefiles.
 local mrc_sandbox_env = {
+   loadfile        = loadfile,
+   require         = require,
    module_alias    = module_alias,
    module_version  = module_version,
    hide_version    = hide_version,
