@@ -48,7 +48,6 @@ require("utils")
 require("string_utils")
 require("colorize")
 require("myGlobals")
-require("declare")
 local Banner       = require("Banner")
 local BeautifulTbl = require('BeautifulTbl')
 local ReadLmodRC   = require('ReadLmodRC')
@@ -376,6 +375,7 @@ end
 -- @param self A Configuration object
 -- @return the configuration report in json as a single string.
 function M.report_json(self)
+   require("declare")
    declare("loadstring")
    loadstring    = (_VERSION == "Lua 5.1") and loadstring or load
    local json    = require("json")
