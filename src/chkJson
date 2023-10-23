@@ -48,6 +48,7 @@ package.cpath = LuaCommandName_dir .. "../lib/?.so;"..
 
 require("strict")
 require("serializeTbl")
+require("declare")
 declare("loadstring")
 loadstring = (_VERSION == "Lua 5.1") and loadstring or load
 local Dbg  = require("Dbg")
