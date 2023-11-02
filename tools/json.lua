@@ -32,7 +32,7 @@
 local math       = require('math')
 local string     = require("string")
 local table      = require("table")
-local loadstring = (_VERSION == "Lua 5.1") and loadstring or load
+local load       = (_VERSION == "Lua 5.1") and loadstring or load
 
 -----------------------------------------------------------------------------
 -- Module declaration
@@ -235,7 +235,7 @@ function decode_scanNumber(s,startPos)
     endPos = endPos + 1
   end
   local stringValue = 'return ' .. string.sub(s,startPos, endPos-1)
-  local stringEval = loadstring(stringValue)
+  local stringEval = load(stringValue)
   assert(stringEval, 'Failed to scan number [ ' .. stringValue .. '] in JSON string at position ' .. tostring(startPos) .. ' : ' .. tostring(endPos))
   return stringEval(), endPos
 end
