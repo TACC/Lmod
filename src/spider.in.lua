@@ -343,8 +343,11 @@ end
 
 local function l_rptReverseMapTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)
    dbg.start{ "l_rptReverseMapTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
-   declare("loadstring")
-   loadstring        = (_VERSION == "Lua 5.1") and loadstring or load
+   if (_VERSION ~= "Lua 5.1") then
+      require("declare")
+      declare("loadstring")
+      loadstring = load
+   end
    local json        = require("json")
    local reverseMapT = l_buildReverseMapT(dbT)
    local libA        = l_buildLibMapA(reverseMapT)
@@ -357,8 +360,11 @@ end
 
 local function l_rptXALTRmapTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)
    dbg.start{ "l_rptXALTRmapTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
-   declare("loadstring")
-   loadstring        = (_VERSION == "Lua 5.1") and loadstring or load
+   if (_VERSION ~= "Lua 5.1") then
+      require("declare")
+      declare("loadstring")
+      loadstring = load
+   end
    local json        = require("json")
    local reverseMapT = l_buildReverseMapT(dbT)
    local libA        = l_buildLibMapA(reverseMapT)
@@ -371,8 +377,11 @@ end
 
 local function l_rptSoftwarePageJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)
    dbg.start{ "l_rptSoftwarePageJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
-   declare("loadstring")
-   loadstring = (_VERSION == "Lua 5.1") and loadstring or load
+   if (_VERSION ~= "Lua 5.1") then
+      require("declare")
+      declare("loadstring")
+      loadstring = load
+   end
    local json = require("json")
    local spA  = softwarePage(dbT)
    print(json.encode(spA))
@@ -406,8 +415,11 @@ end
 
 local function l_rptDbTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)
    dbg.start{ "l_rptDbTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
-   declare("loadstring")
-   loadstring = (_VERSION == "Lua 5.1") and loadstring or load
+   if (_VERSION ~= "Lua 5.1") then
+      require("declare")
+      declare("loadstring")
+      loadstring = load
+   end
    local json = require("json")
    print(json.encode(dbT))
    dbg.fini("l_rptDbTJson")
