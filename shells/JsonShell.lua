@@ -38,6 +38,11 @@
 
 require("strict")
 
+if ( _VERSION ~= "Lua 5.1" ) then
+   require("declare")
+   declare("loadstring")
+   loadstring = load
+end
 local js        = require("json")
 
 local BaseShell = require("BaseShell")
@@ -52,7 +57,7 @@ Json.js         = ""
 
 function Json.initialize(self)
    -- Empty the json script so that it can be used in individual --
-   self.js = json.encode({alias={}, shellFunc={}, env={}, unset={}})
+   self.js = js.encode({alias={}, shellFunc={}, env={}, unset={}})
 end
 
 function Json.alias(self, k, v)

@@ -1,0 +1,55 @@
+-- -*- lua -*-
+local testName = "jsonShell"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 Test initial module load
+   ]],
+   keywords = {testName },
+
+   active = 1,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     MODULEPATH=$(testDir)/mf/Core;     export MODULEPATH
+
+     rm -f  _stderr.* _stdout.* err.* out.*
+     rm -fr .lmod.d .lmodrc.lua load.json .cache .config
+
+     runLmod --version                                             # 1
+     LD_PRELOAD= $LUA_EXEC $projectDir/src/lmod.in.lua json load A > load.json
+     runBase $LUA_EXEC $projectDir/proj_mgmt/jsonLoadConversion load.json
+
+     HOME=$ORIG_HOME
+
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}
