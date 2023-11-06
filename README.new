@@ -116,3 +116,4 @@ Lmod 8.7+
    (8.7.31) * Issue #665: Added support for getenv function in TCL modules
    (8.7.32) * Better handling of zsh shell functions in source_sh(). Must match "\n}\n" to find end of function.
             * Better name for extension title, remove trailing \n
+            * Testing github actions

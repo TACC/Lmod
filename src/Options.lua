@@ -364,6 +364,13 @@ function M.singleton(self, usage)
       default = 0.0
    }
 
+   cmdlineParser:add_option{
+      name   = {"--terse_show_extensions"},
+      dest   = "terseShowExtensions",
+      action = "store_true",
+      help   = i18n("terseShowExt"),
+   }
+
    local optTbl, pargs = cmdlineParser:parse(arg)
    local optionTbl     = optionTbl()
    optionTbl.pargs     = pargs
