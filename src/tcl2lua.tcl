@@ -1190,6 +1190,9 @@ switch -regexp -- $g_shellName {
     ^(python)$ {
 	set g_shellType python
     }
+    ^(json)$ {
+	set g_shellType json
+    }
     ^(lisp)$ {
 	set g_shellType lisp
     }
