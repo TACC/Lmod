@@ -144,7 +144,6 @@ _LMFILES_=ProjectDIR/rt/depends_on/mf/Core/B.lua:ProjectDIR/rt/depends_on/mf/Cor
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={B={fn="ProjectDIR/rt/depends_on/mf/Core/B.lua",fullName="B",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="B",wV="M.*zfinal",},X={fn="ProjectDIR/rt/depends_on/mf/Core/X.lua",fullName="X",loadOrder=2,propT={},stackDepth=0,status="active",userName="X",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/depends_on/mf/Core",},systemBaseMPATH="ProjectDIR/rt/depends_on/mf/Core",}';
 export _ModuleTable_;
-false
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
@@ -171,7 +170,6 @@ _LMFILES_=ProjectDIR/rt/depends_on/mf/Core/B.lua:ProjectDIR/rt/depends_on/mf/Cor
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={B={fn="ProjectDIR/rt/depends_on/mf/Core/B.lua",fullName="B",loadOrder=1,propT={},ref_count=2,stackDepth=1,status="active",userName="B",wV="M.*zfinal",},X={fn="ProjectDIR/rt/depends_on/mf/Core/X.lua",fullName="X",loadOrder=2,propT={},stackDepth=0,status="active",userName="X",wV="M.*zfinal",},Y={fn="ProjectDIR/rt/depends_on/mf/Core/Y.lua",fullName="Y",loadOrder=3,propT={},stackDepth=0,status="active",userName="Y",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/depends_on/mf/Core",},systemBaseMPATH="ProjectDIR/rt/depends_on/mf/Core",}';
 export _ModuleTable_;
-false
 ===========================
 step 18
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
@@ -419,7 +417,6 @@ _LMFILES_=ProjectDIR/rt/depends_on/mf/Core2/SomeSoftware/1.2.lua:ProjectDIR/rt/d
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={Dependency={fn="ProjectDIR/rt/depends_on/mf/Core2/Dependency/5.6.lua",fullName="Dependency/5.6",loadOrder=2,propT={},ref_count=1,stackDepth=1,status="active",userName="Dependency/5.6",wV="000000005.000000006.*zfinal",},OtherSoftware={fn="ProjectDIR/rt/depends_on/mf/Core2/OtherSoftware/3.4.lua",fullName="OtherSoftware/3.4",loadOrder=3,propT={},stackDepth=0,status="active",userName="OtherSoftware",wV="000000003.000000004.*zfinal",},SomeSoftware={fn="ProjectDIR/rt/depends_on/mf/Core2/SomeSoftware/1.2.lua",fullName="SomeSoftware/1.2",loadOrder=1,propT={},stackDepth=0,status="active",userName="SomeSoftware",wV="000000001.000000002.*zfinal",},},mpathA={"ProjectDIR/rt/depends_on/mf/Core2",},systemBaseMPATH="ProjectDIR/rt/depends_on/mf/Core2",}';
 export _ModuleTable_;
-false
 ===========================
 step 42
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list

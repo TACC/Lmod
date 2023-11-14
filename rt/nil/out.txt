@@ -12,4 +12,3 @@ MODULEPATH=ProjectDIR/rt/nil/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/nil/mf/Core",},systemBaseMPATH="ProjectDIR/rt/nil/mf/Core",}';
 export _ModuleTable_;
-false

@@ -337,7 +337,6 @@ MODULEPATH=ProjectDIR/rt/rmap/mf/2Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/rmap/mf/2Core",},systemBaseMPATH="ProjectDIR/rt/rmap/mf/2Core",}';
 export _ModuleTable_;
-false
 ===========================
 step 7
 buildSpiderT ProjectDIR/rt/rmap/mf/2Core

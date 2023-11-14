@@ -577,9 +577,9 @@ function main()
       io.stderr:write(timer:report(),"\n")
    end
 
-   if (getWarningFlag() and not quiet() ) then
-      LmodErrorExit()
-   end
+   --if (getWarningFlag() and not quiet() ) then
+   --   LmodErrorExit()
+   --end
 end
 
 main()
