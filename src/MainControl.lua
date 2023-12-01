@@ -336,7 +336,7 @@ end
 -- Set an environment variable.
 -- This function just sets the name with value in the current env.
 function M.setenv_env(self, name, value, respect)
-   name = name:trim()
+   name = (name or ""):trim()
    dbg.start{"MainControl:setenv_env(\"",name,"\", \"",value,"\", \"",
               respect,"\")"}
    posix.setenv(name, value, true)
@@ -351,7 +351,7 @@ end
 -- @param value the environment variable value.
 -- @param respect If true, then respect the old value.
 function M.unsetenv(self, name, value, respect)
-   name = name:trim()
+   name = (name or ""):trim()
    dbg.start{"MainControl:unsetenv(\"",name,"\", \"",value,"\")"}
 
    l_check_for_valid_name("unsetenv",name)

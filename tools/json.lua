@@ -29,10 +29,10 @@
 -----------------------------------------------------------------------------
 -- Imports and dependencies
 -----------------------------------------------------------------------------
-local math   = require('math')
-local string = require("string")
-local table  = require("table")
-local load   = (_VERSION == "Lua 5.1") and loadstring or load
+local math       = require('math')
+local string     = require("string")
+local table      = require("table")
+local load       = (_VERSION == "Lua 5.1") and loadstring or load
 
 -----------------------------------------------------------------------------
 -- Module declaration

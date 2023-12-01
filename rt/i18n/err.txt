@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.26  2023-06-07 18:16 -05:00
+Modules based on Lua: Version 8.7.32  2023-08-28 12:42 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -87,6 +87,7 @@ Options:
   -T --trace
   --nx --no_extensions
   --loc --location                  Just print the file location when using show
+  --terse_show_extensions
 module [options] sub-command [args ...]
 Sous-commandes d'aide :
   help                              affiche ce message
@@ -149,5 +150,5 @@ Sites web de Lmod
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   Pour rapporter un bogue, veuillez lire https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.26  2023-06-07 18:16 -05:00
+Modules based on Lua: Version 8.7.32  2023-08-28 12:42 -05:00
     by Robert McLay mclay@tacc.utexas.edu

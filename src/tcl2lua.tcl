@@ -901,6 +901,15 @@ proc is-avail { arg } {
 	    set g_lmod_cmd "$my_dir/lmod.in.lua"
 	}
 	
+        if { ! [ file exists $g_lua_cmd ]} {
+            reportError "unable to find $g_lua_cmd"
+        }
+
+        if { ! [ file exists $g_lmod_cmd ]} {
+            reportError "unable to find $g_lmod_cmd"
+        }
+
+
 	set g_setup_moduleT 1
 	set g_moduleT [dict create]
 	set cmd "$g_lua_cmd $g_lmod_cmd bash --no_redirect -t avail"
@@ -1180,6 +1189,9 @@ switch -regexp -- $g_shellName {
     }
     ^(python)$ {
 	set g_shellType python
+    }
+    ^(json)$ {
+	set g_shellType json
     }
     ^(lisp)$ {
 	set g_shellType lisp

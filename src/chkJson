@@ -48,9 +48,11 @@ package.cpath = LuaCommandName_dir .. "../lib/?.so;"..
 
 require("strict")
 require("serializeTbl")
-require("declare")
-declare("loadstring")
-loadstring = (_VERSION == "Lua 5.1") and loadstring or load
+if ( _VERSION ~= "Lua 5.1" ) then
+   require("declare")
+   declare("loadstring")
+   loadstring = load
+end
 local Dbg  = require("Dbg")
 local json = require("json")
 

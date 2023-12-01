@@ -1,0 +1,49 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
+===========================
+===========================
+step 2
+lua ProjectDIR/proj_mgmt/jsonLoadConversion load.json
+===========================
+loadTbl = {
+  _mlstatus = true,
+  alias = {},
+  env = {
+    A = "A",
+    LOADEDMODULES = "A/1.0",
+    MODULEPATH = "ProjectDIR/rt/jsonShell/mf/Core",
+    MT = [[_ModuleTable_ = {
+MTversion = 3,
+c_rebuildTime = false,
+c_shortTime = false,
+depthT = {},
+family = {},
+mT = {
+A = {
+fn = "ProjectDIR/rt/jsonShell/mf/Core/A/1.0.lua",
+fullName = "A/1.0",
+loadOrder = 1,
+propT = {},
+stackDepth = 0,
+status = "active",
+userName = "A",
+wV = "000000001.*zfinal",
+},
+},
+mpathA = {
+"ProjectDIR/rt/jsonShell/mf/Core",
+},
+systemBaseMPATH = "ProjectDIR/rt/jsonShell/mf/Core",
+}
+]],
+    MY_PATH = "/path/to/nowhere",
+    _LMFILES_ = "ProjectDIR/rt/jsonShell/mf/Core/A/1.0.lua",
+  },
+  shellFunc = {
+    ml = {
+      "eval $($LMOD_DIR/ml_cmd \"$@\")", "eval `$LMOD_DIR/ml_cmd $*`",
+    },
+  },
+  unset = {},
+}

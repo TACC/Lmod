@@ -975,7 +975,8 @@ function M.overview(self,argA)
    end
 
    availA = regroup_avail_blocks(availStyle, availA)
-   self:terse_avail(mpathA, availA, alias2modT, searchA, showSN, defaultOnly, defaultT, aa)
+   local providedByT = false
+   self:terse_avail(mpathA, availA, alias2modT, searchA, showSN, defaultOnly, defaultT, providedByT, aa)
 
    local label    = ""
    local a        = {}
@@ -1056,7 +1057,7 @@ function M.overview(self,argA)
    return a
 end
 
-function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaultOnly, defaultT, a)
+function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaultOnly, defaultT, providedByT, a)
    dbg.start{"Hub:terse_avail()"}
    local mrc         = MRC:singleton()
    local optionTbl   = optionTbl()
@@ -1109,6 +1110,14 @@ function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaul
          end
       end
    end
+
+   -- if providedByT is not false then output 
+
+   if (providedByT and next(providedByT) ~= nil ) then
+   end
+      
+
+
 
    dbg.fini("Hub:terse_avail")
    return a
@@ -1180,7 +1189,17 @@ function M.avail(self, argA)
    if (optionTbl.terse) then
       --------------------------------------------------
       -- Terse output
-      self:terse_avail(mpathA, availA, alias2modT, searchA, showSN, defaultOnly, defaultT, a)
+      local spiderT     = false
+      local dbT         = false
+      local mpathMapT   = false
+      local providedByT = false
+      if (optionTbl.terseShowExtensions) then
+         local cache            = Cache:singleton{buildCache=true}
+         spiderT,dbT, mpathMapT, providedByT = cache:build()
+      end
+
+      self:terse_avail(mpathA, availA, alias2modT, searchA, showSN,
+                       defaultOnly, defaultT, providedByT, a)
 
       dbg.fini("Hub:avail")
       return a

@@ -138,6 +138,11 @@ runFish ()
   runBase $LUA_EXEC $projectDir/src/lmod.in.lua fish --regression_testing "$@"
 }
 
+runJson ()
+{
+  runBase $LUA_EXEC $projectDir/src/lmod.in.lua json --regression_testing "$@"
+}
+
 runR ()
 {
   runBase $LUA_EXEC $projectDir/src/lmod.in.lua R --regression_testing "$@"
@@ -265,6 +270,7 @@ initStdEnvVars()
   unset MODULEPATH
   unset MODULEPATH_ROOT
   unset MODULERCFILE
+  unset MY_PATH
   unset TEXINPUTS
   unset NLSPATH
   unset OMP_NUM_THREADS
