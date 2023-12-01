@@ -211,7 +211,7 @@ local function l_add2map(entry, tbl, dirA, moduleFn, kind, rmapT)
          end
          dbg.print{"assigning rmapT for path: ",path,"\n"}
          rmapT[path] = t
-         local p2 = abspath(path)
+         local p2 = realpath(path)
          if (p2 and p2 ~= path) then
             dbg.print{"assigning rmapT for path: ",p2,"\n"}
             rmapT[p2] = deepcopy(t)

@@ -218,7 +218,8 @@ local sandbox_env = {
   removeExt            = removeExt,
   barefilename         = barefilename,
   splitFileName        = splitFileName,
-  abspath              = abspath,
+  abspath              = realpath,
+  realpath             = realpath,
   path_regularize      = path_regularize,
 
   ------------------------------------------------------------

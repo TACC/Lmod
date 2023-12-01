@@ -147,6 +147,9 @@ function isFile(fn)
    local t = posix.stat(fn,"type")
 
    local result = t and t ~= "directory"
+   if (t == "link") then
+      result = realpath(fn)
+   end
    return result
 end
 
@@ -318,7 +321,7 @@ end
 -- when following symlinks
 -- @return A absolute path.
 
-function abspath (path, localDir)
+local function l_abspath (path, localDir)
    if (path == nil) then return nil end
 
    local cwd = lfs.currentdir()
@@ -355,11 +358,19 @@ function abspath (path, localDir)
          lfs.chdir(cwd)
          return result
       end
-      result = abspath(rl, localDir)
+      result = l_abspath(rl, localDir)
    end
    lfs.chdir(cwd)
    return result
 end
+
+function realpath(path, localDir)
+   if (localDir or not posix.realpath) then
+      return l_abspath(path, localDir)
+   end
+   return posix.realpath(path)
+end
+
 
 --------------------------------------------------------------------------
 -- Remove leading and trail spaces and extra slashes.

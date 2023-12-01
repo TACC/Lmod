@@ -117,3 +117,8 @@ Lmod 8.7+
    (8.7.32) * Better handling of zsh shell functions in source_sh(). Must match "\n}\n" to find end of function.
             * Better name for extension title, remove trailing \n
             * Testing github actions
+W.I.P:
+   (8.7.33) * Issue #678: Change isFile(fn) to return nil if fn is a broken symlink.
+            * Issue #678: Change abspath() to l_abspath() in tools/fileOps.lua
+            * Issue #678: Create realpath() to use posix.realpath() if it exists otherwise use l_abspath()
+	    
