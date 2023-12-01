@@ -1204,7 +1204,7 @@ function locatePkg(pkg)
    for path in package.path:split(";") do
       local s = path:gsub("?",pkg)
       if (isFile(s)) then
-         result = abspath(s)
+         result = realpath(s)
          break
       end
    end

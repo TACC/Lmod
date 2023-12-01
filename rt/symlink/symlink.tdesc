@@ -23,12 +23,18 @@ testdescript = {
      MODULEPATH=$MODULEPATH_ROOT/Core; export MODULEPATH
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .cache .config
+     rm -f  good.text bad1.text bad2.text
 
      runLmod --version                  # 1
      runLmod       avail                # 2
      runLmod -t -d avail                # 3
      runLmod load intel a b boost mv2   # 4
      runLmod list                       # 5
+     touch   good.text
+     ln -s bad bad1.text
+     ln -s bad1.text bad2.text
+     runLmod load bad_symlink           # 6
+
 
 
 
