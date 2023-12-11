@@ -67,7 +67,6 @@ runMe()
     echo "   " $jj: $i
     echo "%%---------------------------------%%"
     echo
-nn
     eval $i
     if [ -z "$ignoreError" -a $? != 0 ]; then
       break
