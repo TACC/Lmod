@@ -1055,7 +1055,7 @@ AC_SUBST(ZSH_FPATH)
 if test -n "$PATH_TO_ZSH" ; then
   cat > conftest.zsh << 'EOF'
 ZV='${ZSH_VERSION)'
-funcPath=$(echo $FPATH | sed -e "s/$ZSH_VERSION/$ZV/")
+funcPath=$(echo $FPATH | sed -e "s|/$ZSH_VERSION/|/$ZV/|")
 echo $funcPath
 EOF
 
