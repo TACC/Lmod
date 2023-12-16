@@ -67,7 +67,6 @@ runMe()
     echo "   " $jj: $i
     echo "%%---------------------------------%%"
     echo
-
     eval $i
     if [ -z "$ignoreError" -a $? != 0 ]; then
       break
@@ -139,8 +138,9 @@ case $SYSHOST in
     EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN     --with-useDotConfigDirOnly=yes"
     ;;
 
-  ls6 | maverick2 | stampede2 | frontera | longhorn )
+  ls6 | stampede2 | stampede3 | frontera )
     base="$HOME/l/pkg"
+    PKG=$base/lmod/$PKG_VERSION
     UPDATE_FN=/tmp/losf_last_update
     CACHEDIRS=/tmp/moduleData/cacheDir
     if [ $SYSHOST == "longhorn" ]; then
@@ -157,6 +157,7 @@ case $SYSHOST in
     CACHEDIRS=$ADMIN_DIR/cacheDir
     EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN "
     base="$HOME/l/pkg"
+    PKG=$base/lmod/$PKG_VERSION
     ;;
 esac
 BASE_DIR=$base
