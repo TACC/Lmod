@@ -333,7 +333,7 @@ function M.report(self, t)
          b[#b+1] = "Active RC file(s):"
          b[#b+1] = "------------------"
          for i = 1, #rcFileA do
-            b[#b+1] = rcFileA[i]
+            b[#b+1] = realpath(rcFileA[i])
          end
          b[#b+1]  = "\n"
       end

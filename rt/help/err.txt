@@ -299,7 +299,7 @@ LMOD_PACKAGE_PATH            D          nil          <empty>
 LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>
 LMOD_USING_FAST_TCL_INTERP   Other      yes          no
 Active RC file(s):
-ProjectDIR/src/../init/lmodrc.lua
+ProjectDIR/init/lmodrc.lua
  OutputDIR/.lmodrc.lua
  Lmod Property Table:
 propT = {
