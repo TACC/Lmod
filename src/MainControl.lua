@@ -1595,11 +1595,12 @@ function M.complete(self, shellName, name, args)
       return
    end
    
-   local varT     = FrameStk:singleton():varT()
-   if (varT[name] == nil) then
-      varT[name] = Var:new(name)
+   local varT = FrameStk:singleton():varT()
+   local n    = wrap_complete(name)
+   if (varT[n] == nil) then
+      varT[n] = Var:new(n)
    end
-   varT[name]:complete(args)
+   varT[n]:complete(args)
    dbg.fini("MainControl:complete")
 end
 
@@ -1609,11 +1610,12 @@ function M.uncomplete(self, shellName, name, args)
       dbg.fini("MainControl:complete")
       return
    end
-   local varT     = FrameStk:singleton():varT()
-   if (varT[name] == nil) then
-      varT[name] = Var:new(name)
+   local varT = FrameStk:singleton():varT()
+   local n    = wrap_complete(name)
+   if (varT[n] == nil) then
+      varT[n] = Var:new(n)
    end
-   varT[name]:uncomplete()
+   varT[n]:uncomplete()
 
    dbg.fini("MainControl:uncomplete")
 end

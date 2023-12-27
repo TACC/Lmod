@@ -133,15 +133,16 @@ end
 
 function Csh.complete(self, name, value)
    local lineA = {}
+   local n     = unwrap_complete(name)
    if (value) then
       lineA[#lineA + 1]  = "complete "
-      lineA[#lineA + 1]  = name
+      lineA[#lineA + 1]  = n
       lineA[#lineA + 1]  = " "
       lineA[#lineA + 1]  = value:multiEscaped()
       lineA[#lineA + 1]  = ";\n"
    else
       lineA[#lineA + 1]  = "uncomplete "
-      lineA[#lineA + 1]  = name
+      lineA[#lineA + 1]  = n
       lineA[#lineA + 1]  = ";\n"
    end
    local line = concatTbl(lineA,"")

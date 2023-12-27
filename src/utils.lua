@@ -1211,3 +1211,10 @@ function locatePkg(pkg)
    return result
 end
 
+function wrap_complete(name)
+   return "complete<" .. name .. ">"
+end
+function unwrap_complete(name)
+   local i,j,n = name:find("complete<([^<]*)>")
+   return n
+end
