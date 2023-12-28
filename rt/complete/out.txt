@@ -130,3 +130,20 @@ MODULEPATH=ProjectDIR/rt/complete/mf;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/complete/mf",},systemBaseMPATH="ProjectDIR/rt/complete/mf",}';
 export _ModuleTable_;
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/1.0
+===========================
+LOADEDMODULES=foo/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/complete/mf;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/complete/mf/foo/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={foo={fn="ProjectDIR/rt/complete/mf/foo/1.0.lua",fullName="foo/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="foo/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/complete/mf",},systemBaseMPATH="ProjectDIR/rt/complete/mf",}';
+export _ModuleTable_;
+[[ -n "${BASH_VERSION:-}" ]] && complete -o default -F foo_completion foo;
+foo () { echo foo;
+};
+foo_completion () { COMPREPLY=(bar baz);
+};

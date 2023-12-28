@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.16  2022-03-22 14:19 -05:00
+Modules based on Lua: Version 8.7.32  2023-08-28 12:42 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -95,3 +95,7 @@ set_shell_function("_bash_completion_spack","\
         $subfunction;\
         COMPREPLY=($(compgen -W \"$SPACK_COMPREPLY\" -- \"$cur\"));\
     fi","")
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load foo/1.0
+===========================
