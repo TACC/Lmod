@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # update master branch, just to keep it up with upstream
+git checkout debian
 git pull upstream master 
 git push
 
