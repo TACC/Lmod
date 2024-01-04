@@ -1036,8 +1036,8 @@ if test -n "$PATH_TO_ZSH" ; then
   if test "$#resultA" = 0; then
      echo "/dev/null"
   else
-     result=$(printf "%s:" "${resultA@<:@@@:>@}") # convert array to colon separated string
-     result=$result@<:@1,-2@:>@                   # remove trailing colon
+     result=$(printf "%s:" "${resultA[:@@@:]}") # convert array to colon separated string
+     result=$result[:@1,-2@:]                   # remove trailing colon
      echo $result
   fi
 EOF
@@ -1054,7 +1054,9 @@ AC_SUBST(ZSH_FPATH)
 
 if test -n "$PATH_TO_ZSH" ; then
   cat > conftest.zsh << 'EOF'
-echo $FPATH
+ZV='${ZSH_VERSION)'
+funcPath=$(echo $FPATH | sed -e "s|/$ZSH_VERSION/|/$ZV/|")
+echo $funcPath
 EOF
 
    chmod +x conftest.zsh
