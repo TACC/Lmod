@@ -1,0 +1,27 @@
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -60,15 +60,15 @@
+ prefix		  	  := @prefix@
+ package		  	  := lmod
+ version		  	  := $(shell cd $(srcdir)/src; $(PATH_TO_LUA)/lua -e "V=require('Version'); print(V.tag())")
+-PKGV		  	  := $(prefix)/$(package)/$(version)
+-PKG		  	  := $(prefix)/$(package)/$(package)
+-LIBEXEC		  	  := $(prefix)/$(package)/$(version)/libexec
+-SHELLS                    := $(prefix)/$(package)/$(version)/shells
+-TOOLS                     := $(prefix)/$(package)/$(version)/tools
+-SETTARG                   := $(prefix)/$(package)/$(version)/settarg
+-INIT		  	  := $(prefix)/$(package)/$(version)/init
+-LMOD_MF 	  	  := $(prefix)/$(package)/$(version)/modulefiles/Core
+-MAN_PAGES                 := $(prefix)/$(package)/$(version)/share/man/cat1
++PKGV		  	  := $(prefix)/share/$(package)/$(version)
++PKG		  	  := $(prefix)/share/$(package)/$(package)
++LIBEXEC		  	  := $(prefix)/share/$(package)/$(version)/libexec
++SHELLS                    := $(prefix)/share/$(package)/$(version)/shells
++TOOLS                     := $(prefix)/share/$(package)/$(version)/tools
++SETTARG                   := $(prefix)/share/$(package)/$(version)/settarg
++INIT		  	  := $(prefix)/share/$(package)/$(version)/init
++LMOD_MF 	  	  := $(prefix)/share/$(package)/$(version)/modulefiles/Core
++MAN_PAGES                 := $(prefix)/share/man/man1
+ LMOD_MF_SOURCE            := $(patsubst %, $(srcdir)/%, MF/*.version.lua)
+ SETTARG_SOURCE            := $(patsubst %, $(srcdir)/%, settarg/*.lua  settarg/targ.in)
+ 
