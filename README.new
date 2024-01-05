@@ -123,4 +123,5 @@ W.I.P:
             * Issue #678: Create realpath() to use posix.realpath() if it exists otherwise use l_abspath()
 	    * User request that the Active RC file(s) be realpath()
             * Issue #681: Internally rename complete name to be "complete<name>" and unwrap when necessary.
-            * TACC issue:             
+            * TACC issue: Change the current version of zsh with the string ${ZSH_VERSION} when builting
+              the init/zsh file.
