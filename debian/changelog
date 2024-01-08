@@ -1,0 +1,358 @@
+lmod (8.7.34) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.34
+
+ -- Alexandre Strube <surak@surak.eti.br>  Sun, 07 Jan 2024 13:30:02 +0100
+
+
+lmod (8.7.32) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.32
+
+ -- Alexandre Strube <surak@surak.eti.br>  Thu, 04 Jan 2024 14:20:50 +0100
+
+
+lmod (8.7.31) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.31
+
+ -- Alexandre Strube <surak@surak.eti.br>  Wed, 09 Aug 2023 19:55:37 +0200
+
+
+lmod (8.7.30) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.30
+
+ -- Alexandre Strube <surak@surak.eti.br>  Sat, 22 Jul 2023 12:06:40 +0200
+
+
+lmod (8.7.29) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.29
+
+ -- Alexandre Strube <surak@surak.eti.br>  Tue, 11 Jul 2023 18:43:51 +0200
+
+
+lmod (8.7.28) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.28
+
+ -- Alexandre Strube <surak@surak.eti.br>  Fri, 07 Jul 2023 14:16:31 +0200
+
+
+lmod (8.7.27) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.27
+
+ -- Alexandre Strube <surak@surak.eti.br>  Thu, 15 Jun 2023 13:09:27 +0200
+
+
+lmod (8.7.25) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.25
+
+ -- Alexandre Strube <surak@surak.eti.br>  Fri, 19 May 2023 13:36:32 +0200
+
+
+lmod (8.7.24) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.24
+
+ -- Alexandre Strube <surak@surak.eti.br>  Fri, 05 May 2023 12:05:40 +0200
+
+
+lmod (8.7.23) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.23
+
+ -- Alexandre Strube <surak@surak.eti.br>  Thu, 30 Mar 2023 12:05:40 +0200
+
+
+lmod (8.7.22) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.22
+
+ -- Alexandre Strube <surak@surak.eti.br>  Sun, 26 Mar 2023 17:13:41 +0200
+
+
+lmod (8.7.21) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.21
+
+ -- Alexandre Strube <surak@surak.eti.br>  Sun, 26 Mar 2023 15:18:33 +0200
+
+
+lmod (8.7.20) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.20
+
+ -- Alexandre Strube <surak@surak.eti.br>  Thu, 16 Mar 2023 23:55:17 +0100
+
+
+lmod (8.7.19) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.19
+
+ -- Alexandre Strube <surak@surak.eti.br>  Tue, 17 Jan 2023 18:51:40 +0100
+
+
+lmod (8.7.18) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.18
+
+ -- Alexandre Strube <surak@surak.eti.br>  Sun, 15 Jan 2023 19:02:48 +0100
+
+
+lmod (8.7.17) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.17
+
+ -- Alexandre Strube <surak@surak.eti.br>  Fri, 13 Jan 2023 00:15:49 +0100
+
+
+lmod (8.7.15) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.15
+
+ -- Alexandre Strube <surak@surak.eti.br>  Sun, 01 Jan 2023 18:09:19 +0100
+
+
+lmod (8.7.14) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.14
+
+ -- Alexandre Strube <surak@surak.eti.br>  Tue, 01 Nov 2022 23:06:37 +0100
+
+
+lmod (8.7.13) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.13
+
+ -- Alexandre Strube <surak@surak.eti.br>  Tue, 11 Oct 2022 22:46:18 +0200
+
+
+lmod (8.7.12) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.12
+
+ -- Alexandre Strube <surak@surak.eti.br>  Mon, 05 Sep 2022 18:16:38 +0200
+
+
+lmod (8.7.11) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.11
+
+ -- Alexandre Strube <surak@surak.eti.br>  Mon, 01 Aug 2022 00:04:00 +0200
+
+
+lmod (8.7.8) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.8
+
+ -- Alexandre Strube <surak@surak.eti.br>  Wed, 20 Jul 2022 16:05:28 +0200
+
+
+lmod (8.7.7) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.7
+
+ -- Alexandre Strube <surak@surak.eti.br>  Tue, 05 Jul 2022 17:53:46 +0200
+
+
+lmod (8.7.6) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.6
+
+ -- Alexandre Strube <surak@surak.eti.br>  Mon, 27 Jun 2022 13:18:53 +0200
+
+
+lmod (8.7.5) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.5
+
+ -- Alexandre Strube <surak@surak.eti.br>  Wed, 22 Jun 2022 23:16:13 +0200
+
+
+lmod (8.7.4) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.4
+
+ -- Alexandre Strube <surak@surak.eti.br>  Wed, 08 Jun 2022 12:24:44 +0200
+
+
+lmod (8.7.3) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.3
+
+ -- Alexandre Strube <surak@surak.eti.br>  Mon, 23 May 2022 22:14:33 +0200
+
+
+lmod (8.7.2) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7.2
+
+ -- Alexandre Strube <surak@surak.eti.br>  Thu, 05 May 2022 21:24:50 +0200
+
+
+lmod (8.7) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.7
+
+ -- Alexandre Strube <surak@surak.eti.br>  Tue, 19 Apr 2022 11:20:50 +0200
+
+
+lmod (8.6.17) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.6.17
+
+ -- Alexandre Strube <surak@surak.eti.br>  Mon, 28 Mar 2022 15:15:41 +0200
+
+
+lmod (8.6.15) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.6.15
+
+ -- Alexandre Strube <surak@surak.eti.br>  Fri, 18 Mar 2022 09:41:24 +0100
+
+
+lmod (8.6.14) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.6.14
+
+ -- Alexandre Strube <surak@surak.eti.br>  Sat, 26 Feb 2022 15:20:13 +0100
+
+
+lmod (8.6.12) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.6.12
+
+ -- Alexandre Strube <surak@surak.eti.br>  Fri, 11 Feb 2022 16:34:48 +0100
+
+
+lmod (8.6.9) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.6.9
+
+ -- Alexandre Strube <surak@surak.eti.br>  Wed, 02 Feb 2022 17:50:29 +0100
+
+
+lmod (8.6.8) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.6.8
+
+ -- Alexandre Strube <surak@surak.eti.br>  Fri, 28 Jan 2022 17:29:00 +0100
+
+
+lmod (8.6.7) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.6.7
+
+ -- Alexandre Strube <surak@surak.eti.br>  Thu, 27 Jan 2022 17:57:03 +0100
+
+
+lmod (8.6.6) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.6.6
+
+ -- Alexandre Strube <surak@surak.eti.br>  Sun, 23 Jan 2022 16:39:34 +0100
+
+
+lmod (8.6.5) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.6.5
+
+ -- Alexandre Strube <surak@surak.eti.br>  Tue, 11 Jan 2022 12:06:57 +0100
+
+
+lmod (8.6.4) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.6.4
+
+ -- Alexandre Strube <surak@surak.eti.br>  Mon, 03 Jan 2022 13:18:38 +0100
+
+
+lmod (8.6.3) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.6.3
+
+ -- Alexandre Strube <surak@surak.eti.br>  Sun, 02 Jan 2022 13:56:31 +0100
+
+
+lmod (8.6.2) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.6.2
+
+ -- Alexandre Strube <surak@surak.eti.br>  Wed, 22 Dec 2021 17:18:06 +0100
+
+
+lmod (8.6.1) unstable; urgency=medium
+
+  * Setting TAG_VERSION to 8.6.1
+
+ -- Alexandre Strube <surak@surak.eti.br>  Wed, 10 nov 2020 18:35:00 +0100
+
+
+lmod (8.5.25) unstable; urgency=medium
+
+  * New version after 4 years
+  * New maintainer
+ 
+ -- Alexandre Strube <surak@surak.eti.br>  Wed, 10 nov 2020 18:35:00 +0100
+
+lmod (6.6-0.3) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Pass PS=/bin/ps to configure (Closes: #915304)
+    - fixes reproducible build on merged-usr vs non-merged systems
+
+ -- Andreas Henriksson <andreas@fatal.se>  Sun, 02 Dec 2018 18:06:51 +0100
+
+lmod (6.6-0.2) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Conflict with environment-modules. (Closes: #846580)
+
+ -- Christian Hofstaedtler <zeha@debian.org>  Thu, 22 Dec 2016 06:49:08 +0000
+
+lmod (6.6-0.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * New upstream release. (Closes: #793355)
+  * Refresh patch change_paths
+  * Update debhelper compatibility 9.
+  * Install README.md, it has been renamed from README.
+  * Add build-depends on procps.
+  * Add build-depends and depends on tcl.
+  * Update Standars-Version to 3.9.8, no changes required.
+  * Update lintian overrides.
+  * Make lmod to behave like environment-modules:
+    - Allow to configure the list of modules path at /etc/lmod/modulespath
+    - Install /etc/profile.d/lmod.sh and read MODULESPATH from
+      /etc/lmod/modulespath
+
+ -- Ana Beatriz Guerrero Lopez <ana@debian.org>  Fri, 11 Nov 2016 23:37:24 +0100
+
+lmod (5.8-1) unstable; urgency=medium
+
+  * Imported Upstream version 5.8 (Closes: #764722)
+  * updated path patch for version 5.8
+  * removed watch file (not working with SF.net)
+  * change standards version to 3.9.5
+  * add short licensetext
+
+ -- Aaron Zauner <azet@azet.org>  Tue, 04 Nov 2014 16:45:19 -0600
+
+lmod (5.6.2-1) unstable; urgency=medium
+
+  * Imported Upstream version 5.6.2
+  * Added autopkgtest tests (loading)
+  * Generalized lintian ignores
+  * Updated Makefile patch
+
+ -- Aaron Zauner <azet@azet.org>  Sat, 07 Jun 2014 17:57:30 -0500
+
+lmod (5.5.1-1) unstable; urgency=medium
+
+  * Initial release (Closes: #743823)
+
+ -- Aaron Zauner <azet@azet.org>  Wed, 21 May 2014 00:05:23 -0600
