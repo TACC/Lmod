@@ -52,7 +52,7 @@ SYS_LD_PRELOAD            := @SYS_LD_PRELOAD@
 SYS_LUA_PATH              := @SYS_LUA_PATH@
 SYS_LUA_CPATH             := @SYS_LUA_CPATH@
 CASE_INDEPENDENT_SORTING  := @CASE_INDEPENDENT_SORTING@
-MY_ZSH_VERSION            := @MY_ZSH_VERSION@
+ORIG_ZSH_VERSION          := @ORIG_ZSH_VERSION@
 ZSH_SITE_FUNCTIONS_DIRS   := @ZSH_SITE_FUNCTIONS_DIRS@
 ZSH_FPATH                 := @ZSH_FPATH@
 SPIDER_CACHE_DESCRIPT_FN  := @SPIDER_CACHE_DESCRIPT_FN@
@@ -288,7 +288,7 @@ __installMe:
 	        -e 's|@basename@|$(BASENAME)|g'                                   \
 	        -e 's|@support_ksh@|$(SUPPORT_KSH)|g'                             \
 	        -e 's|@zsh_fpath@|$(ZSH_FPATH)|g'                                 \
-	        -e 's|@my_zsh_version@|$(MY_ZSH_VERSION)|g'                       \
+	        -e 's|@orig_zsh_version@|$(ORIG_ZSH_VERSION)|g'                   \
 	        -e 's|@cached_loads@|$(CACHED_LOADS)|g'                           \
 	        -e 's|@avail_extensions@|$(LMOD_AVAIL_EXTENSIONS)|g'              \
 	        -e 's|@ps@|$(PS)|g'                                               \

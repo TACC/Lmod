@@ -649,7 +649,7 @@ ac_header_c_list=
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
 ZSH_FPATH
-MY_ZSH_VERSION
+ORIG_ZSH_VERSION
 ZSH
 ZSH_SITE_FUNCTIONS_DIRS
 HAVE_LUA_TERM
@@ -5626,7 +5626,7 @@ if test -n "$PATH_TO_ZSH" ; then
 echo $ZSH_VERSION
 EOF
    chmod +x conftest.zsh
-   MY_ZSH_VERSION=`$PATH_TO_ZSH -f ./conftest.zsh 2> /dev/null`
+   ORIG_ZSH_VERSION=`$PATH_TO_ZSH -f ./conftest.zsh 2> /dev/null`
    rm conftest.zsh
 fi
 

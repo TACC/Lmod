@@ -1,0 +1,10 @@
+# these are optional language support files
+lmod: csh-considered-harmful usr/share/lmod/*/init/csh
+lmod: missing-dep-for-interpreter csh => tcsh | csh | c-shell (usr/share/lmod/*/init/csh)
+lmod: csh-considered-harmful usr/share/lmod/*/init/cshrc
+lmod: missing-dep-for-interpreter csh => tcsh | csh | c-shell (usr/share/lmod/*/init/cshrc)
+lmod: csh-considered-harmful usr/share/lmod/*/init/tcsh
+lmod: missing-dep-for-interpreter csh => tcsh | csh | c-shell (usr/share/lmod/*/init/tcsh)
+lmod: executable-not-elf-or-script usr/share/lmod/*/init/perl
+lmod: script-not-executable usr/share/lmod/6.6/libexec/ignore_dirs_converter
+lmod: executable-not-elf-or-script usr/share/lmod/6.6/init/r

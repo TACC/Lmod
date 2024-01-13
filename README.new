@@ -117,7 +117,6 @@ Lmod 8.7+
    (8.7.32) * Better handling of zsh shell functions in source_sh(). Must match "\n}\n" to find end of function.
             * Better name for extension title, remove trailing \n
             * Testing github actions
-W.I.P:
    (8.7.33) * Issue #678: Change isFile(fn) to return nil if fn is a broken symlink.
             * Issue #678: Change abspath() to l_abspath() in tools/fileOps.lua
             * Issue #678: Create realpath() to use posix.realpath() if it exists otherwise use l_abspath()
@@ -125,3 +124,4 @@ W.I.P:
             * Issue #681: Internally rename complete name to be "complete<name>" and unwrap when necessary.
             * TACC issue: Change the current version of zsh with the string ${ZSH_VERSION} when builting
               the init/zsh file.
+   (8.7.34) * TACC issue: (Again) Cannot use the string ${ZSH_VERSION} in $FPATH.  Instead change orig zsh version to current one.
