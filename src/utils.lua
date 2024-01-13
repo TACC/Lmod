@@ -466,15 +466,19 @@ end
 function getModuleRCT(remove_MRC_home)
    --dbg.start{"getModuleRCT(remove_MRC_home)"}
    local A            = {}
-   local MRC_system   = cosmic:value("LMOD_MODULERCFILE")
+   local MRC_system   = cosmic:value("LMOD_MODULERC")
    local MRC_home     = pathJoin(getenv("HOME"), ".modulerc")
    local MRC_home_lua = pathJoin(getenv("HOME"), ".modulerc.lua")
 
    if (MRC_system) then
       local a = {}
-      for file in MRC_system:split(":") do
-         if (isFile(file) and access(file,"r")) then
-            a[#a+1] = file
+      for n in MRC_system:split(":") do
+         if (isDir(n) and access(n,"rx")) then
+            for f in lfs.dir(n) do
+               a[#a+1] = pathJoin(n, f)
+            end
+         elseif (isFile(n) and access(n,"r")) then
+            a[#a+1] = n
          end
       end
       for i = #a, 1, -1 do

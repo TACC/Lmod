@@ -398,8 +398,10 @@ local rc_dflt    = pathJoin(etcDir,"rc.lua")
 if (not isFile(rc_dflt)) then
    rc_dflt   = pathJoin(etcDir,"rc")
 end
-local rc        = getenv("LMOD_MODULERCFILE") or getenv("MODULERCFILE")
-cosmic:init{name    = "LMOD_MODULERCFILE",
+local rc        = getenv("LMOD_MODULERC") or 
+                  getenv("LMOD_MODULERCFILE") or
+                  getenv("MODULERCFILE")
+cosmic:init{name    = "LMOD_MODULERC",
             default = rc_dflt,
             envV    = rc,
             assignV = rc,
@@ -674,6 +676,8 @@ cosmic:init{name = "LMOD_ALLOW_ROOT_USE",
 cosmic:init{name = "LMOD_HAVE_LUA_TERM",
             sedV = "@have_lua_term@",
             yn   = "no"}
+
+
 
 ------------------------------------------------------------------------
 -- MODULEPATH_ROOT

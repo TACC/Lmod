@@ -84,7 +84,7 @@ cleanUp ()
        -e "s|(file \"ProjectDIR/rt/end2end.*)||g"         \
        -e "s|(file \"OutputDIR/lmod/lmod/.*)||g"          \
        -e "s|^Admin file.*||g"                            \
-       -e "s|^MODULERCFILE.*||g"                          \
+       -e "s|^MODULERC.*||g"                              \
        -e "s|$HOME|~|g"                                   \
        -e "s|\-%%\-.*||g"                                 \
        -e "s| *----* *||g"                                \

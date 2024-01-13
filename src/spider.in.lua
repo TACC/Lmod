@@ -472,7 +472,7 @@ function main()
    initialize_lmod()
 
 
-   -- Make sure that MRC uses $MODULERCFILE and ignores ~/.modulerc when building the cache
+   -- Make sure that MRC uses $LMOD_MODULERC and ignores ~/.modulerc when building the cache
    local remove_MRC_home         = true
    local mrc                     = MRC:singleton(getModuleRCT(remove_MRC_home))
    local cache                   = Cache:singleton{dontWrite = true, quiet = true, buildCache = true,

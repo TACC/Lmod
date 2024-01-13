@@ -186,7 +186,7 @@ describe("Testing ModuleA Class #ModuleA.",
                   posix.setenv("MODULEPATH",mpath,true)
                   local maxdepth = mpath .. ":2;"
                   cosmic:assign("LMOD_MAXDEPTH",maxdepth)
-                  cosmic:assign("LMOD_MODULERCFILE",pathJoin(projDir,testDir,".modulerc"))
+                  cosmic:assign("LMOD_MODULERC",pathJoin(projDir,testDir,".modulerc"))
                   _G.mcp             = _G.MainControl.build("load")
                   _G.MCP             = _G.MainControl.build("load")
                   --dbg:activateDebug(1)

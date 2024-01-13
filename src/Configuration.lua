@@ -156,7 +156,7 @@ local function l_new(self)
    local pager_opts        = cosmic:value("LMOD_PAGER_OPTS")
    local pin_versions      = cosmic:value("LMOD_PIN_VERSIONS")
    local prepend_block     = cosmic:value("LMOD_PREPEND_BLOCK")
-   local rc                = cosmic:value("LMOD_MODULERCFILE")
+   local rc                = cosmic:value("LMOD_MODULERC")
    local redirect          = cosmic:value("LMOD_REDIRECT")
    local settarg_support   = cosmic:value("LMOD_SETTARG_FULL_SUPPORT")
    local shortTime         = cosmic:value("LMOD_SHORT_TIME")
@@ -231,7 +231,7 @@ local function l_new(self)
    tbl.mpath_av     = { k = "avail: Include modulepath dir"     , v = mpath_avail,      n = "LMOD_MPATH_AVAIL"                }
    tbl.mpath_init   = { k = "MODULEPATH_INIT"                   , v = mpath_init,       n = "LMOD_MODULEPATH_INIT"            }
    tbl.mpath_root   = { k = "MODULEPATH_ROOT"                   , v = mpath_root,       n = "MODULEPATH_ROOT"                 }
-   tbl.modRC        = { k = "MODULERCFILE"                      , v = rc,               n = "LMOD_MODULERCFILE"               }
+   tbl.modRC        = { k = "MODULERC"                          , v = rc,               n = "LMOD_MODULERC"                   }
    tbl.numSC        = { k = "number of cache dirs"              , v = numSC,            n = false                             }
    tbl.os_name      = { k = "OS Name"                           , v = os_name,          n = false                             }
    tbl.pager        = { k = "Pager"                             , v = pager,            n = "LMOD_PAGER"                      }
