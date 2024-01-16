@@ -1057,6 +1057,54 @@ function M.overview(self,argA)
    return a
 end
 
+function M.buildExtA(self, searchA, mpathA, providedByT, extA)
+    dbg.start{"Hub:buildExtA()"}
+
+    local mpathT = {}
+    for i = 1, #mpathA do
+       mpathT[mpathA[i]] = true
+    end
+
+    dbg.printT("mpathT",mpathT)
+    dbg.printT("providedByT",providedByT)
+
+    for k,v in pairsByKeys(providedByT) do
+       local found = false
+       if (searchA.n > 0) then
+          for i = 1, searchA.n do
+             for kk,vv in pairs(v) do
+                local s        = searchA[i]
+                for i = 1,#vv do
+                   local vvv = vv[i]
+                   if (kk:find(s) and mpathT[vvv.mpath] and (not vvv.hidden)) then
+                      found = true
+                      break
+                   end
+                end
+                if (found) then break end
+             end
+             if (found) then break end
+          end
+       else
+          for kk,vv in pairs(v) do
+             for i = 1,#vv do
+                local vvv = vv[i]
+                if (mpathT[vvv.mpath] and (not vvv.hidden)) then
+                   found = true
+                   break
+                end
+             end
+             if (found) then break end
+          end
+       end
+       if (found) then
+          extA[#extA + 1] = {"    " .. colorize("blue",k),"(E)"}
+       end
+    end
+
+    dbg.fini("Hub:buildExtA()")
+end
+
 function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaultOnly, defaultT, providedByT, a)
    dbg.start{"Hub:terse_avail()"}
    local mrc         = MRC:singleton()
@@ -1114,6 +1162,17 @@ function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaul
    -- if providedByT is not false then output 
 
    if (providedByT and next(providedByT) ~= nil ) then
+
+     local extA = {}
+     self:buildExtA(searchA, mpathA, providedByT, extA)
+
+     
+     a[#a+1] = "TEST"
+
+     for i =1,#extA do
+       a[#a+1] = extA[i]
+       a[#a+1] = "\n"
+     end
    end
       
 
@@ -1329,55 +1388,21 @@ function M.avail(self, argA)
    
    dbg.printT("providedByT", providedByT)
 
-
-
    if (extensions and providedByT and next(providedByT) ~= nil) then
-      local mpathT = {}
-      for i = 1, #mpathA do
-         mpathT[mpathA[i]] = true
+      local extA = {}
+      self:buildExtA(searchA, mpathA, providedByT, extA)
+
+      
+      for i=1,#extA do
+        a[#a+1] = "#"
+        a[#a+1] = extA[i]
+        a[#a+1] = "\n"
       end
 
-      dbg.printT("mpathT",mpathT)
-      dbg.printT("providedByT",providedByT)
-
-      local b = {}
-      for k,v in pairsByKeys(providedByT) do
-         local found = false
-         if (searchA.n > 0) then
-            for i = 1, searchA.n do
-               for kk,vv in pairs(v) do
-                  local s        = searchA[i]
-                  for i = 1,#vv do
-                     local vvv = vv[i]
-                     if (kk:find(s) and mpathT[vvv.mpath] and (not vvv.hidden)) then
-                        found = true
-                        break
-                     end
-                  end
-                  if (found) then break end
-               end
-               if (found) then break end
-            end
-         else
-            for kk,vv in pairs(v) do
-               for i = 1,#vv do
-                  local vvv = vv[i]
-                  if (mpathT[vvv.mpath] and (not vvv.hidden)) then
-                     found = true
-                     break
-                  end
-               end
-               if (found) then break end
-            end
-         end
-         if (found) then
-            b[#b + 1] = {"    " .. colorize("blue",k),"(E)"}
-         end
-      end
-      if (next(b) ~= nil) then
+      if (next(extA) ~= nil) then
          legendT['E'] = i18n("Extension")
-         numFound = numFound + #b
-         local ct = ColumnTable:new{tbl=b, gap=1, len = length, width = cwidth}
+         numFound = numFound + #extA
+         local ct = ColumnTable:new{tbl=extA, gap=1, len = length, width = cwidth}
          a[#a+1] = "\n"
          a[#a+1] = banner:bannerStr(i18n("m_Extensions_head"))
          a[#a+1] = "\n"
