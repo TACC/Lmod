@@ -345,11 +345,8 @@ end
 --------------------------------------------------------------------------
 -- Find the admin file (or nag message file).
 function findAdminFn()
-   local readable    = "no"
-   local adminFn     = cosmic:value("LMOD_ADMIN_FILE")
-   if (posix.access(adminFn, 'r')) then
-      readable = "yes"
-   end
+   local adminFn  = cosmic:value("LMOD_ADMIN_FILE")
+   local readable = posix.access(adminFn, 'r') and "yes" or "no"
    return adminFn, readable
 end
 

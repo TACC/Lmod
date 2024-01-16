@@ -52,6 +52,7 @@ local Banner       = require("Banner")
 local BeautifulTbl = require('BeautifulTbl')
 local ReadLmodRC   = require('ReadLmodRC')
 local Version      = require("Version")
+local access       = posix.access
 local concatTbl    = table.concat
 local cosmic       = require("Cosmic"):singleton()
 local dbg          = require('Dbg'):dbg()
@@ -183,6 +184,8 @@ local function l_new(self)
 
    if (not rc:find(":") and (not (isFile(rc) or isDir(rc)))) then
       rc = rc .. " -> <empty>"
+   elseif (not access(rc,"r")) then
+      rc = rc .. " -> <unreadable>"
    end
    if (not readable) then
       adminFn = adminFn .. " -> <empty>"

@@ -283,6 +283,9 @@ initStdEnvVars()
   unset LMOD_DISPLAY_SN_COLOR
   unset LMOD_DISPLAY_META_COLOR
   unset LMOD_SYSTEM_DEFAULT_MODULES
+  unset LMOD_MODULERC
+  unset LMOD_MODULERCFILE
+  unset MODULERCFILE
   unset __LMOD_Priority_PATH
   export LMOD_NEWLINE="
 "

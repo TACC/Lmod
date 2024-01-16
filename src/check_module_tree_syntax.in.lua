@@ -54,9 +54,10 @@ package.cpath  = sys_lua_cpath
 _G._DEBUG      = false
 local arg_0    = arg[0]
 local posix    = require("posix")
+local access   = posix.access
+local getuid   = posix.getuid
 local readlink = posix.readlink
 local stat     = posix.stat
-local access   = posix.access
 local stderr   = io.stderr
 
 local st       = stat(arg_0)
@@ -316,7 +317,7 @@ function main()
    dbg.start{"module_tree_check main()"}
    _G.mcp = MainControl.build("spider")
    _G.MCP = MainControl.build("spider")
-   local remove_MRC_home         = true
+   local remove_MRC_home         = getuid() < 501
    local mrc                     = MRC:singleton(getModuleRCT(remove_MRC_home))
    local cache                   = Cache:singleton{dontWrite = true, quiet = true, buildCache = true,
                                                    buildFresh = true, noMRC=true}
