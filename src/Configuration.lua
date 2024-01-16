@@ -181,7 +181,7 @@ local function l_new(self)
       lmodrc = "<empty>"
    end
 
-   if (not rc:find(":") and not isFile(rc)) then
+   if (not rc:find(":") and (not (isFile(rc) or isDir(rc)))) then
       rc = rc .. " -> <empty>"
    end
    if (not readable) then
