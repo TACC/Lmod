@@ -2,6 +2,9 @@
 -- Report how a site has configured Lmod.
 -- @classmod Configuration
 
+_G._DEBUG      = false
+local posix    = require("posix")
+
 require("strict")
 
 --------------------------------------------------------------------------
@@ -37,7 +40,6 @@ require("strict")
 --  THE SOFTWARE.
 --
 --------------------------------------------------------------------------
-
 
 require("capture")
 require("fileOps")
