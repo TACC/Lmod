@@ -600,16 +600,24 @@ local dbT_keyA = { 'Description', 'Category', 'URL', 'Version', 'whatis', 'dirA'
                    'family','pathA', 'lpathA', 'propT','help','pV','wV','provides'}
 
 
-function M.buildDbT(self, mpathA, mpathMapT, spiderT, dbT)
+function M.buildDbT(self, mpathMapT, spiderT, dbT)
    dbg.start{"Spider:buildDbT(mpathMapT,spiderT, dbT)"}
    dbg.printT("mpathMapT",mpathMapT)
    local mpathParentT = l_build_mpathParentT(mpathMapT)
    dbg.printT("spiderT",spiderT)
    dbg.printT("mpathParentT",mpathParentT)
+   local mpathA = {}
+   for k, v in pairs(spiderT) do
+      if (k ~= "version") then
+         mpathA[#mpathA + 1] = k
+      end
+   end
    dbg.printT("mpathA",mpathA)
    local keepT        = l_build_keepT(mpathA, mpathParentT, spiderT)
    local parentT      = l_build_parentT(keepT, mpathMapT)
    local mrc          = MRC:singleton()
+
+
 
    local function l_cmp(a,b)
       return a[1] > b[1]
