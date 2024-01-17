@@ -182,7 +182,7 @@ local function l_new(self)
       lmodrc = "<empty>"
    end
 
-   if (not rc:find(":") and (not (isFile(rc) or isDir(rc)))) then
+   if (not rc:find(":") and not isFile(rc)) then
       rc = rc .. " -> <empty>"
    elseif (not access(rc,"r")) then
       rc = rc .. " -> <unreadable>"
