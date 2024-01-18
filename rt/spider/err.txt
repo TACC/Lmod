@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.31  2023-08-09 12:41 -05:00
+Modules based on Lua: Version 8.7.34  2024-01-05 19:34 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -681,35 +681,6 @@ must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
 step 53
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider tornado
-===========================
-  tornado:
-     Versions:
-        tornado/5.0.1 (E)
-        tornado/6.1 (E)
-        tornado/7.1 (E)
-Names marked by a trailing (E) are extensions provided by another module.
-  For detailed information about a specific "tornado" package (including how to load the modules) use the module's full name.
-  Note that names that have a trailing (E) are extensions provided by other modules.
-  For example:
-     $ module spider tornado/7.1
-===========================
-step 54
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden spider tornado
-===========================
-  tornado:
-     Versions:
-        tornado/3.1.4 (E)
-        tornado/5.0.1 (E)
-        tornado/6.1 (E)
-        tornado/7.1 (E)
-Names marked by a trailing (E) are extensions provided by another module.
-  For detailed information about a specific "tornado" package (including how to load the modules) use the module's full name.
-  Note that names that have a trailing (E) are extensions provided by other modules.
-  For example:
-     $ module spider tornado/7.1
-===========================
-step 55
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden spider
 ===========================
 The following is a list of the modules and extensions currently available:
@@ -727,7 +698,54 @@ To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
+step 54
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider tornado
+===========================
+  tornado:
+     Versions:
+        tornado/5.0.1 (E)
+        tornado/6.1 (E)
+        tornado/7.1 (E)
+Names marked by a trailing (E) are extensions provided by another module.
+  For detailed information about a specific "tornado" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
+  For example:
+     $ module spider tornado/7.1
+===========================
+step 55
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden spider tornado
+===========================
+  tornado:
+     Versions:
+        tornado/3.1.4 (E)
+        tornado/5.0.1 (E)
+        tornado/6.1 (E)
+        tornado/7.1 (E)
+Names marked by a trailing (E) are extensions provided by another module.
+  For detailed information about a specific "tornado" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
+  For example:
+     $ module spider tornado/7.1
+===========================
 step 56
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden spider
+===========================
+The following is a list of the modules and extensions currently available:
+  abcpy: abcpy/2.1
+  mypy: mypy/3.14
+  numpy: numpy/1.16.4 (E), numpy/1.16.55 (E)
+  py: py/.2.7
+  scipy: scipy/1.2.2 (E)
+  tornado: tornado/3.1.4 (E), tornado/5.0.1 (E), tornado/6.1 (E), tornado/7.1 (E)
+Names marked by a trailing (E) are extensions provided by another module.
+To learn more about a package execute:
+   $ module spider Foo
+where "Foo" is the name of a module.
+To find detailed information about a particular package you
+must specify the version if there is more than one version:
+   $ module spider Foo/11.1
+===========================
+step 57
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider numpy
 ===========================
   numpy: numpy/1.16.55 (E)
@@ -736,7 +754,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider numpy
        abcpy/2.1
 Names marked by a trailing (E) are extensions provided by another module.
 ===========================
-step 57
+step 58
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden spider numpy
 ===========================
   numpy:
@@ -749,18 +767,18 @@ Names marked by a trailing (E) are extensions provided by another module.
   For example:
      $ module spider numpy/1.16.55
 ===========================
-step 58
+step 59
 runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/I_Core
 ===========================
 ===========================
-step 59
+step 60
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t --ignore_cache --show_hidden spider GROMACS
 ===========================
 GROMACS/.2016.x-drude-20180214-g3f7439a
 GROMACS/5.1.4
 GROMACS/2016.2
 ===========================
-step 60
+step 61
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --ignore_cache --show_hidden spider GROMACS
 ===========================
   GROMACS:
@@ -773,14 +791,14 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing --ignore_cache --show_
   For example:
      $ module spider GROMACS/2016.2
 ===========================
-step 61
+step 62
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t --show_hidden spider GROMACS
 ===========================
 GROMACS/.2016.x-drude-20180214-g3f7439a
 GROMACS/5.1.4
 GROMACS/2016.2
 ===========================
-step 62
+step 63
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden spider GROMACS
 ===========================
   GROMACS:
@@ -793,11 +811,11 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden spider G
   For example:
      $ module spider GROMACS/2016.2
 ===========================
-step 63
+step 64
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load GROMACS/.2016.x-drude-20180214-g3f7439a
 ===========================
 ===========================
-step 64
+step 65
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
@@ -805,7 +823,7 @@ Currently Loaded Modules:
   Where:
    H:  Hidden Module
 ===========================
-step 65
+step 66
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 The following is a list of the modules and extensions currently available:
@@ -820,15 +838,15 @@ To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
-step 66
+step 67
 runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf2/Core
 ===========================
 ===========================
-step 67
+step 68
 runSpiderCmd -o dbT ProjectDIR/rt/spider/mf2/Core
 ===========================
 ===========================
-step 68
+step 69
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider GROMACS/2018
 ===========================
   GROMACS: GROMACS/2018
@@ -846,7 +864,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider GROMACS/2018
       ================
        - Homepage: http://www.gromacs.org
 ===========================
-step 69
+step 70
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider GROMACS/2019
 ===========================
   GROMACS: GROMACS/2019
@@ -865,7 +883,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider GROMACS/2019
       ================
        - Homepage: http://www.gromacs.org
 ===========================
-step 70
+step 71
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 The following is a list of the modules and extensions currently available:
@@ -880,7 +898,7 @@ To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
-step 71
+step 72
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Global Aliases
@@ -897,14 +915,6 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 72
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider Appl1
-===========================
-  Appl1: Appl1/1
-    You will need to load all module(s) on any one of the lines below before the "Appl1/1" module is available to load.
-      init-cluster/1.0  MyStack/2021
-      init-cluster/1.0  MyStack/2022
-===========================
 step 73
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider Appl1
 ===========================
@@ -914,6 +924,14 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider Appl1
       init-cluster/1.0  MyStack/2022
 ===========================
 step 74
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider Appl1
+===========================
+  Appl1: Appl1/1
+    You will need to load all module(s) on any one of the lines below before the "Appl1/1" module is available to load.
+      init-cluster/1.0  MyStack/2021
+      init-cluster/1.0  MyStack/2022
+===========================
+step 75
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Global Aliases
@@ -928,7 +946,7 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 75
+step 76
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Global Aliases

@@ -66,3 +66,25 @@ MODULEPATH=ProjectDIR/rt/inaccessible/mf2/Stages/2017a/UI/Compilers;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/inaccessible/mf2/Stages/2017a/UI/Compilers",},systemBaseMPATH="ProjectDIR/rt/inaccessible/mf2/Stages/2017a/UI/Compilers",}';
 export _ModuleTable_;
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load compiler1
+===========================
+LOADEDMODULES=compiler1/1.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/inaccessible/mf2/Stages/2017a/modules/Compilers/compiler1/1.0:1\;ProjectDIR/rt/inaccessible/mf2/Stages/2017a/UI/Compilers:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/inaccessible/mf2/Stages/2017a/modules/Compilers/compiler1/1.0:ProjectDIR/rt/inaccessible/mf2/Stages/2017a/UI/Compilers;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/inaccessible/mf2/Stages/2017a/UI/Compilers/compiler1/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={compiler1={fn="ProjectDIR/rt/inaccessible/mf2/Stages/2017a/UI/Compilers/compiler1/1.0.lua",fullName="compiler1/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="compiler1",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/inaccessible/mf2/Stages/2017a/modules/Compilers/compiler1/1.0","ProjectDIR/rt/inaccessible/mf2/Stages/2017a/UI/Compilers",},systemBaseMPATH="ProjectDIR/rt/inaccessible/mf2/Stages/2017a/UI/Compilers",}';
+export _ModuleTable_;
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing av
+===========================
+MODULEPATH=ProjectDIR/rt/inaccessible/mf2/Stages/2017a/modules/Compilers/compiler1/1.0:ProjectDIR/rt/inaccessible/mf2/Stages/2017a/UI/Compilers;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={compiler1={fn="ProjectDIR/rt/inaccessible/mf2/Stages/2017a/UI/Compilers/compiler1/1.0.lua",fullName="compiler1/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="compiler1",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/inaccessible/mf2/Stages/2017a/modules/Compilers/compiler1/1.0","ProjectDIR/rt/inaccessible/mf2/Stages/2017a/UI/Compilers",},systemBaseMPATH="ProjectDIR/rt/inaccessible/mf2/Stages/2017a/UI/Compilers",}';
+export _ModuleTable_;

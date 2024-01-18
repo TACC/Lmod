@@ -1,4 +1,4 @@
--- -*- lua -*-
+ -- -*- lua -*-
 local testName = "inaccessible"
 
 testdescript = {
@@ -36,10 +36,14 @@ testdescript = {
      runLmod spider inaccessible                # 6
      runLmod load extend                        # 7
      runLmod purge                              # 8
+     
      unsetMT
-     buildSpiderT $MROOT2/Stages/2017a/UI/Compilers:$MROOT2/OtherStages > .cache/lmod/spiderT.lua
+     buildSpiderT $MROOT2/Stages/2017a/UI/Compilers > .cache/lmod/spiderT.lua
      export MODULEPATH=$MROOT2/Stages/2017a/UI/Compilers
      runLmod spider software1                   # 9
+     runLmod load compiler1                     #10
+     runLmod av                                 #11
+
 
 
      HOME=$ORIG_HOME
