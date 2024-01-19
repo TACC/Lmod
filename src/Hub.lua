@@ -1166,18 +1166,13 @@ function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaul
      local extA = {}
      self:buildExtA(searchA, mpathA, providedByT, extA)
 
-     
-     a[#a+1] = "TEST"
-
-     for i =1,#extA do
-       a[#a+1] = extA[i]
+     for i=1,#extA do
+       a[#a+1] = "#"
+       a[#a+1] = extA[i][1]
        a[#a+1] = "\n"
      end
    end
       
-
-
-
    dbg.fini("Hub:terse_avail")
    return a
 end
@@ -1245,7 +1240,7 @@ function M.avail(self, argA)
       searchA.n = argA.n
    end
 
-   if (optionTbl.terse) then
+   if (optionTbl.terse or optionTbl.terseShowExtensions) then
       --------------------------------------------------
       -- Terse output
       local spiderT     = false
@@ -1391,13 +1386,6 @@ function M.avail(self, argA)
    if (extensions and providedByT and next(providedByT) ~= nil) then
       local extA = {}
       self:buildExtA(searchA, mpathA, providedByT, extA)
-
-      
-      for i=1,#extA do
-        a[#a+1] = "#"
-        a[#a+1] = extA[i]
-        a[#a+1] = "\n"
-      end
 
       if (next(extA) ~= nil) then
          legendT['E'] = i18n("Extension")
