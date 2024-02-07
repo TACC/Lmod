@@ -278,8 +278,12 @@ end
 -- collection is not found.
 function M.reportContents(self, t)
    dbg.start{"mt:reportContents(",t.fn,")"}
-   local f = io.open(t.fn,"r")
    local a       = {}
+   if (not t.fn) then
+      dbg.fini("mt:reportContents")
+      return a
+   end
+   local f = io.open(t.fn,"r")
    if (not f) then
       dbg.fini("mt:reportContents")
       return a

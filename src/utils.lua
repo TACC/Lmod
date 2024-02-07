@@ -869,22 +869,16 @@ function haveWarnings()
 end
 
 --------------------------------------------------------------------------
--- Reset warning flag to false.
-function clearWarningFlag()
-   s_warning = false
-end
-
---------------------------------------------------------------------------
 -- Set warning flags to true.
-function setWarningFlag()
-   dbg.print{"setting warning flag\n"}
-   s_warning = true
+function setStatusFlag()
+   dbg.print{"setting status flag\n"}
+   s_status = true
 end
 
 --------------------------------------------------------------------------
 -- Get warning flag value.
-function getWarningFlag()
-   return s_warning
+function getStatusFlag()
+   return s_status
 end
 
 local function l_restoreEnv(oldEnvT, newEnvT)

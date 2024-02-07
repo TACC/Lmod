@@ -307,7 +307,7 @@ function IsAvail(...)
    for i = 1, argA.n do
       local mname = MName:new("load", argA[i])
       if (not mname:valid()) then
-         setWarningFlag()
+         setStatusFlag()
          break
       end
    end
@@ -318,7 +318,7 @@ function IsLoaded(...)
    for i = 1, argA.n do
       local mname = MName:new("mt", argA[i])
       if (not mname:isloaded()) then
-         setWarningFlag()
+         setStatusFlag()
          break
       end
    end

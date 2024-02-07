@@ -1029,7 +1029,6 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
    end
 
    if (next(matchT) == nil) then
-      setWarningFlag()
       LmodSystemError{msg="e_Failed_2_Find", name=origUserSearchPat}
    end
 
