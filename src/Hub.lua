@@ -157,7 +157,6 @@ function M.access(self, ...)
 
 
    if (#a > 0) then
-      setWarningFlag()
       LmodWarning{msg="w_Failed_2_Find",quote_comma_list=concatTbl(a,"\", \""),
                              module_list=concatTbl(a," ")}
    end

@@ -833,7 +833,6 @@ function M.warning(self, ...)
       sA[#sA+1]   = moduleStackTraceBack()
       sA[#sA+1]   = "\n"
       io.stderr:write(concatTbl(sA,""),"\n")
-      setWarningFlag()
    end
 end
 
@@ -1127,7 +1126,6 @@ end
 -- @param mA A array of MName objects.
 function M.try_load(self, mA)
    dbg.start{"MainControl:try_load(mA)"}
-   --deactivateWarning()
    self:load(mA)
    dbg.fini("MainControl:try_load")
 end
@@ -1511,9 +1509,6 @@ function M.purge(self,t)
    unload_usr_internal(mA, force)
    s_purgeFlg = false
 
-   -- A purge should not set the warning flag.
-   clearWarningFlag()
-   dbg.print{"warningFlag: ", getWarningFlag(),"\n"}
    dbg.fini("MainControl:Purge")
 end
    

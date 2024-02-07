@@ -868,31 +868,6 @@ function haveWarnings()
 end
 
 --------------------------------------------------------------------------
--- Reset warning flag to false.
-function clearWarningFlag()
-   s_warning = false
-end
-
---------------------------------------------------------------------------
--- Set warning flags to true.
-function setWarningFlag()
-   dbg.print{"setting warning flag\n"}
-   s_warning = true
-end
-
---------------------------------------------------------------------------
--- Get warning flag value.
-function getWarningFlag()
-   return s_warning
-end
-
---------------------------------------------------------------------------
--- Reset warning flag to false.
-function clearWarningFlag()
-   s_warning = false
-end
-
---------------------------------------------------------------------------
 -- Set warning flags to true.
 function setStatusFlag()
    dbg.print{"setting status flag\n"}
