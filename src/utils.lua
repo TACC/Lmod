@@ -886,6 +886,25 @@ function getWarningFlag()
    return s_warning
 end
 
+--------------------------------------------------------------------------
+-- Reset warning flag to false.
+function clearWarningFlag()
+   s_warning = false
+end
+
+--------------------------------------------------------------------------
+-- Set warning flags to true.
+function setStatusFlag()
+   dbg.print{"setting status flag\n"}
+   s_status = true
+end
+
+--------------------------------------------------------------------------
+-- Get warning flag value.
+function getStatusFlag()
+   return s_status
+end
+
 local function l_restoreEnv(oldEnvT, newEnvT)
    dbg.start{"l_restoreEnv(oldEnvT, newEnvT)"}
    local envT = {}

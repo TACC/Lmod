@@ -570,6 +570,11 @@ parseVersion  = false
 s_warning     = false
 
 ------------------------------------------------------------------------
+-- s_status:   When set return a non-zero status
+------------------------------------------------------------------------
+s_status      = false
+
+------------------------------------------------------------------------
 -- s_haveWarnings:  if warning are allowed (or ignored).  For example
 --                  a try-load command turns off warnings.
 ------------------------------------------------------------------------
