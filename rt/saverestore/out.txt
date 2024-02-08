@@ -4,6 +4,16 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing describe
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/saverestore/TACC:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/saverestore/TACC;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/TACC",},systemBaseMPATH="ProjectDIR/rt/saverestore/TACC",}';
+export _ModuleTable_;
+===========================
+step 3
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load TACC
 ===========================
 APPS=/unknown/apps;
@@ -67,7 +77,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={TACC={fn="ProjectDIR/rt/saverestore/TACC/TACC",fullName="TACC",loadOrder=7,propT={},stackDepth=0,status="active",userName="TACC",wV="M.*zfinal",},TACC_symbols={fn="ProjectDIR/rt/saverestore/TACC/TACC_symbols",fullName="TACC_symbols",loadOrder=1,propT={},stackDepth=1,status="active",userName="TACC_symbols",wV="M.*zfinal",},cluster={fn="ProjectDIR/rt/saverestore/TACC/cluster",fullName="cluster",loadOrder=6,propT={},stackDepth=1,status="active",userName="cluster",wV="M.*zfinal",},cluster_symbols={fn="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",fullName="cluster_symbols",loadOrder=2,propT={},stackDepth=2,status="active",userName="cluster_symbols",wV="M.*zfinal",},globus={fn="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",fullName="globus/4.0.7",loadOrder=5,propT={},stackDepth=2,status="active",userName="globus",wV="000000004.000000000.000000007.*zfinal",},mvapich1={fn="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",fullName="mvapich1/mvapich1",loadOrder=4,propT={},stackDepth=2,status="active",userName="mvapich1",wV="*mvapich.000000001.*zfinal",},pgi={fn="ProjectDIR/rt/saverestore/TACC/pgi/7.1",fullName="pgi/7.1",loadOrder=3,propT={},stackDepth=2,status="active",userName="pgi",wV="^00000007.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.1","ProjectDIR/rt/saverestore/TACC",},systemBaseMPATH="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 ===========================
-step 3
+step 4
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load pgi/7.2-5
 ===========================
 __LMOD_REF_COUNT_LD_LIBRARY_PATH=/unknown/apps/pgi/7.2/linux86-64/7.2-5/libso:1\;/share/apps/teragrid/globus-4.0.7-r1/lib:1\;/share/apps/teragrid/globus-4.0.7-r1/myproxy-3.4/lib:1\;/unknown/apps/intel10_1/mvapich/1.0.1/lib:1\;/unknown/apps/intel10_1/mvapich/1.0.1/lib/shared:1;
@@ -95,7 +105,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={TACC={fn="ProjectDIR/rt/saverestore/TACC/TACC",fullName="TACC",loadOrder=6,propT={},stackDepth=0,status="active",userName="TACC",wV="M.*zfinal",},TACC_symbols={fn="ProjectDIR/rt/saverestore/TACC/TACC_symbols",fullName="TACC_symbols",loadOrder=1,propT={},stackDepth=1,status="active",userName="TACC_symbols",wV="M.*zfinal",},cluster={fn="ProjectDIR/rt/saverestore/TACC/cluster",fullName="cluster",loadOrder=5,propT={},stackDepth=1,status="active",userName="cluster",wV="M.*zfinal",},cluster_symbols={fn="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",fullName="cluster_symbols",loadOrder=2,propT={},stackDepth=2,status="active",userName="cluster_symbols",wV="M.*zfinal",},globus={fn="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",fullName="globus/4.0.7",loadOrder=4,propT={},stackDepth=2,status="active",userName="globus",wV="000000004.000000000.000000007.*zfinal",},mvapich1={fn="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",fullName="mvapich1/mvapich1",loadOrder=3,propT={},stackDepth=2,status="active",userName="mvapich1",wV="*mvapich.000000001.*zfinal",},pgi={fn="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",fullName="pgi/7.2-5",loadOrder=7,propT={},stackDepth=0,status="active",userName="pgi/7.2-5",wV="000000007.000000002.*zfinal-.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},systemBaseMPATH="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 ===========================
-step 4
+step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC;
@@ -103,7 +113,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={TACC={fn="ProjectDIR/rt/saverestore/TACC/TACC",fullName="TACC",loadOrder=6,propT={},stackDepth=0,status="active",userName="TACC",wV="M.*zfinal",},TACC_symbols={fn="ProjectDIR/rt/saverestore/TACC/TACC_symbols",fullName="TACC_symbols",loadOrder=1,propT={},stackDepth=1,status="active",userName="TACC_symbols",wV="M.*zfinal",},cluster={fn="ProjectDIR/rt/saverestore/TACC/cluster",fullName="cluster",loadOrder=5,propT={},stackDepth=1,status="active",userName="cluster",wV="M.*zfinal",},cluster_symbols={fn="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",fullName="cluster_symbols",loadOrder=2,propT={},stackDepth=2,status="active",userName="cluster_symbols",wV="M.*zfinal",},globus={fn="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",fullName="globus/4.0.7",loadOrder=4,propT={},stackDepth=2,status="active",userName="globus",wV="000000004.000000000.000000007.*zfinal",},mvapich1={fn="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",fullName="mvapich1/mvapich1",loadOrder=3,propT={},stackDepth=2,status="active",userName="mvapich1",wV="*mvapich.000000001.*zfinal",},pgi={fn="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",fullName="pgi/7.2-5",loadOrder=7,propT={},stackDepth=0,status="active",userName="pgi/7.2-5",wV="000000007.000000002.*zfinal-.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},systemBaseMPATH="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 ===========================
-step 5
+step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing save default
 ===========================
 MODULEPATH=ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC;
@@ -111,7 +121,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={TACC={fn="ProjectDIR/rt/saverestore/TACC/TACC",fullName="TACC",loadOrder=6,propT={},stackDepth=0,status="active",userName="TACC",wV="M.*zfinal",},TACC_symbols={fn="ProjectDIR/rt/saverestore/TACC/TACC_symbols",fullName="TACC_symbols",loadOrder=1,propT={},stackDepth=1,status="active",userName="TACC_symbols",wV="M.*zfinal",},cluster={fn="ProjectDIR/rt/saverestore/TACC/cluster",fullName="cluster",loadOrder=5,propT={},stackDepth=1,status="active",userName="cluster",wV="M.*zfinal",},cluster_symbols={fn="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",fullName="cluster_symbols",loadOrder=2,propT={},stackDepth=2,status="active",userName="cluster_symbols",wV="M.*zfinal",},globus={fn="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",fullName="globus/4.0.7",loadOrder=4,propT={},stackDepth=2,status="active",userName="globus",wV="000000004.000000000.000000007.*zfinal",},mvapich1={fn="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",fullName="mvapich1/mvapich1",loadOrder=3,propT={},stackDepth=2,status="active",userName="mvapich1",wV="*mvapich.000000001.*zfinal",},pgi={fn="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",fullName="pgi/7.2-5",loadOrder=7,propT={},stackDepth=0,status="active",userName="pgi/7.2-5",wV="000000007.000000002.*zfinal-.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},systemBaseMPATH="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 ===========================
-step 6
+step 7
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
 ===========================
 APPS=/unknown/apps;
@@ -159,7 +169,7 @@ export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__=1;
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
-step 7
+step 8
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC;
@@ -167,7 +177,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={TACC={fn="ProjectDIR/rt/saverestore/TACC/TACC",fullName="TACC",loadOrder=6,propT={},stackDepth=0,status="active",userName="TACC",wV="M.*zfinal",},TACC_symbols={fn="ProjectDIR/rt/saverestore/TACC/TACC_symbols",fullName="TACC_symbols",loadOrder=1,propT={},stackDepth=1,status="active",userName="TACC_symbols",wV="M.*zfinal",},cluster={fn="ProjectDIR/rt/saverestore/TACC/cluster",fullName="cluster",loadOrder=5,propT={},stackDepth=1,status="active",userName="cluster",wV="M.*zfinal",},cluster_symbols={fn="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",fullName="cluster_symbols",loadOrder=2,propT={},stackDepth=2,status="active",userName="cluster_symbols",wV="M.*zfinal",},globus={fn="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",fullName="globus/4.0.7",loadOrder=4,propT={},stackDepth=2,status="active",userName="globus",wV="000000004.000000000.000000007.*zfinal",},mvapich1={fn="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",fullName="mvapich1/mvapich1",loadOrder=3,propT={},stackDepth=2,status="active",userName="mvapich1",wV="*mvapich.000000001.*zfinal",},pgi={fn="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",fullName="pgi/7.2-5",loadOrder=7,propT={},stackDepth=0,status="active",userName="pgi/7.2-5",wV="000000007.000000002.*zfinal-.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},systemBaseMPATH="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 ===========================
-step 8
+step 9
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/saverestore/TACC2
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/saverestore/TACC2:1\;ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:1\;ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:1\;ProjectDIR/rt/saverestore/TACC:1;
@@ -177,7 +187,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={TACC={fn="ProjectDIR/rt/saverestore/TACC/TACC",fullName="TACC",loadOrder=6,propT={},stackDepth=0,status="active",userName="TACC",wV="M.*zfinal",},TACC_symbols={fn="ProjectDIR/rt/saverestore/TACC/TACC_symbols",fullName="TACC_symbols",loadOrder=1,propT={},stackDepth=1,status="active",userName="TACC_symbols",wV="M.*zfinal",},cluster={fn="ProjectDIR/rt/saverestore/TACC/cluster",fullName="cluster",loadOrder=5,propT={},stackDepth=1,status="active",userName="cluster",wV="M.*zfinal",},cluster_symbols={fn="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",fullName="cluster_symbols",loadOrder=2,propT={},stackDepth=2,status="active",userName="cluster_symbols",wV="M.*zfinal",},globus={fn="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",fullName="globus/4.0.7",loadOrder=4,propT={},stackDepth=2,status="active",userName="globus",wV="000000004.000000000.000000007.*zfinal",},mvapich1={fn="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",fullName="mvapich1/mvapich1",loadOrder=3,propT={},stackDepth=2,status="active",userName="mvapich1",wV="*mvapich.000000001.*zfinal",},pgi={fn="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",fullName="pgi/7.2-5",loadOrder=7,propT={},stackDepth=0,status="active",userName="pgi/7.2-5",wV="000000007.000000002.*zfinal-.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},systemBaseMPATH="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 ===========================
-step 9
+step 10
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load a
 ===========================
 FOO=1.0.0.1;
@@ -193,7 +203,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={TACC={fn="ProjectDIR/rt/saverestore/TACC/TACC",fullName="TACC",loadOrder=6,propT={},stackDepth=0,status="active",userName="TACC",wV="M.*zfinal",},TACC_symbols={fn="ProjectDIR/rt/saverestore/TACC/TACC_symbols",fullName="TACC_symbols",loadOrder=1,propT={},stackDepth=1,status="active",userName="TACC_symbols",wV="M.*zfinal",},a={fn="ProjectDIR/rt/saverestore/TACC2/a/a.lua",fullName="a/a",loadOrder=8,propT={},stackDepth=0,status="active",userName="a",wV="*a.*zfinal",},cluster={fn="ProjectDIR/rt/saverestore/TACC/cluster",fullName="cluster",loadOrder=5,propT={},stackDepth=1,status="active",userName="cluster",wV="M.*zfinal",},cluster_symbols={fn="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",fullName="cluster_symbols",loadOrder=2,propT={},stackDepth=2,status="active",userName="cluster_symbols",wV="M.*zfinal",},globus={fn="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",fullName="globus/4.0.7",loadOrder=4,propT={},stackDepth=2,status="active",userName="globus",wV="000000004.000000000.000000007.*zfinal",},mvapich1={fn="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",fullName="mvapich1/mvapich1",loadOrder=3,propT={},stackDepth=2,status="active",userName="mvapich1",wV="*mvapich.000000001.*zfinal",},pgi={fn="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",fullName="pgi/7.2-5",loadOrder=7,propT={},stackDepth=0,status="active",userName="pgi/7.2-5",wV="000000007.000000002.*zfinal-.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},systemBaseMPATH="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 ===========================
-step 10
+step 11
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC;
@@ -201,7 +211,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={TACC={fn="ProjectDIR/rt/saverestore/TACC/TACC",fullName="TACC",loadOrder=6,propT={},stackDepth=0,status="active",userName="TACC",wV="M.*zfinal",},TACC_symbols={fn="ProjectDIR/rt/saverestore/TACC/TACC_symbols",fullName="TACC_symbols",loadOrder=1,propT={},stackDepth=1,status="active",userName="TACC_symbols",wV="M.*zfinal",},a={fn="ProjectDIR/rt/saverestore/TACC2/a/a.lua",fullName="a/a",loadOrder=8,propT={},stackDepth=0,status="active",userName="a",wV="*a.*zfinal",},cluster={fn="ProjectDIR/rt/saverestore/TACC/cluster",fullName="cluster",loadOrder=5,propT={},stackDepth=1,status="active",userName="cluster",wV="M.*zfinal",},cluster_symbols={fn="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",fullName="cluster_symbols",loadOrder=2,propT={},stackDepth=2,status="active",userName="cluster_symbols",wV="M.*zfinal",},globus={fn="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",fullName="globus/4.0.7",loadOrder=4,propT={},stackDepth=2,status="active",userName="globus",wV="000000004.000000000.000000007.*zfinal",},mvapich1={fn="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",fullName="mvapich1/mvapich1",loadOrder=3,propT={},stackDepth=2,status="active",userName="mvapich1",wV="*mvapich.000000001.*zfinal",},pgi={fn="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",fullName="pgi/7.2-5",loadOrder=7,propT={},stackDepth=0,status="active",userName="pgi/7.2-5",wV="000000007.000000002.*zfinal-.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},systemBaseMPATH="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 ===========================
-step 11
+step 12
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing save
 ===========================
 MODULEPATH=ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC;
@@ -209,7 +219,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={TACC={fn="ProjectDIR/rt/saverestore/TACC/TACC",fullName="TACC",loadOrder=6,propT={},stackDepth=0,status="active",userName="TACC",wV="M.*zfinal",},TACC_symbols={fn="ProjectDIR/rt/saverestore/TACC/TACC_symbols",fullName="TACC_symbols",loadOrder=1,propT={},stackDepth=1,status="active",userName="TACC_symbols",wV="M.*zfinal",},a={fn="ProjectDIR/rt/saverestore/TACC2/a/a.lua",fullName="a/a",loadOrder=8,propT={},stackDepth=0,status="active",userName="a",wV="*a.*zfinal",},cluster={fn="ProjectDIR/rt/saverestore/TACC/cluster",fullName="cluster",loadOrder=5,propT={},stackDepth=1,status="active",userName="cluster",wV="M.*zfinal",},cluster_symbols={fn="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",fullName="cluster_symbols",loadOrder=2,propT={},stackDepth=2,status="active",userName="cluster_symbols",wV="M.*zfinal",},globus={fn="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",fullName="globus/4.0.7",loadOrder=4,propT={},stackDepth=2,status="active",userName="globus",wV="000000004.000000000.000000007.*zfinal",},mvapich1={fn="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",fullName="mvapich1/mvapich1",loadOrder=3,propT={},stackDepth=2,status="active",userName="mvapich1",wV="*mvapich.000000001.*zfinal",},pgi={fn="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",fullName="pgi/7.2-5",loadOrder=7,propT={},stackDepth=0,status="active",userName="pgi/7.2-5",wV="000000007.000000002.*zfinal-.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},systemBaseMPATH="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 ===========================
-step 12
+step 13
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing describe
 ===========================
 MODULEPATH=ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC;
@@ -217,7 +227,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={TACC={fn="ProjectDIR/rt/saverestore/TACC/TACC",fullName="TACC",loadOrder=6,propT={},stackDepth=0,status="active",userName="TACC",wV="M.*zfinal",},TACC_symbols={fn="ProjectDIR/rt/saverestore/TACC/TACC_symbols",fullName="TACC_symbols",loadOrder=1,propT={},stackDepth=1,status="active",userName="TACC_symbols",wV="M.*zfinal",},a={fn="ProjectDIR/rt/saverestore/TACC2/a/a.lua",fullName="a/a",loadOrder=8,propT={},stackDepth=0,status="active",userName="a",wV="*a.*zfinal",},cluster={fn="ProjectDIR/rt/saverestore/TACC/cluster",fullName="cluster",loadOrder=5,propT={},stackDepth=1,status="active",userName="cluster",wV="M.*zfinal",},cluster_symbols={fn="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",fullName="cluster_symbols",loadOrder=2,propT={},stackDepth=2,status="active",userName="cluster_symbols",wV="M.*zfinal",},globus={fn="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",fullName="globus/4.0.7",loadOrder=4,propT={},stackDepth=2,status="active",userName="globus",wV="000000004.000000000.000000007.*zfinal",},mvapich1={fn="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",fullName="mvapich1/mvapich1",loadOrder=3,propT={},stackDepth=2,status="active",userName="mvapich1",wV="*mvapich.000000001.*zfinal",},pgi={fn="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",fullName="pgi/7.2-5",loadOrder=7,propT={},stackDepth=0,status="active",userName="pgi/7.2-5",wV="000000007.000000002.*zfinal-.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC",},systemBaseMPATH="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 ===========================
-step 13
+step 14
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 unset APPS;
@@ -257,7 +267,7 @@ unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},systemBaseMPATH="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 ===========================
-step 14
+step 15
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
 ===========================
 APPS=/unknown/apps;
@@ -325,7 +335,7 @@ export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__=1;
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
-step 15
+step 16
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC;
@@ -333,7 +343,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={TACC={fn="ProjectDIR/rt/saverestore/TACC/TACC",fullName="TACC",loadOrder=6,propT={},stackDepth=0,status="active",userName="TACC",wV="M.*zfinal",},TACC_symbols={fn="ProjectDIR/rt/saverestore/TACC/TACC_symbols",fullName="TACC_symbols",loadOrder=1,propT={},stackDepth=1,status="active",userName="TACC_symbols",wV="M.*zfinal",},a={fn="ProjectDIR/rt/saverestore/TACC2/a/a.lua",fullName="a/a",loadOrder=8,propT={},stackDepth=0,status="active",userName="a",wV="*a.*zfinal",},cluster={fn="ProjectDIR/rt/saverestore/TACC/cluster",fullName="cluster",loadOrder=5,propT={},stackDepth=1,status="active",userName="cluster",wV="M.*zfinal",},cluster_symbols={fn="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",fullName="cluster_symbols",loadOrder=2,propT={},stackDepth=2,status="active",userName="cluster_symbols",wV="M.*zfinal",},globus={fn="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",fullName="globus/4.0.7",loadOrder=4,propT={},stackDepth=2,status="active",userName="globus",wV="000000004.000000000.000000007.*zfinal",},mvapich1={fn="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",fullName="mvapich1/mvapich1",loadOrder=3,propT={},stackDepth=2,status="active",userName="mvapich1",wV="*mvapich.000000001.*zfinal",},pgi={fn="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",fullName="pgi/7.2-5",loadOrder=7,propT={},stackDepth=0,status="active",userName="pgi/7.2-5",wV="000000007.000000002.*zfinal-.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},systemBaseMPATH="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 ===========================
-step 16
+step 17
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 MODULEPATH=ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5:ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1:ProjectDIR/rt/saverestore/TACC2:ProjectDIR/rt/saverestore/TACC;
@@ -341,7 +351,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={TACC={fn="ProjectDIR/rt/saverestore/TACC/TACC",fullName="TACC",loadOrder=6,propT={},stackDepth=0,status="active",userName="TACC",wV="M.*zfinal",},TACC_symbols={fn="ProjectDIR/rt/saverestore/TACC/TACC_symbols",fullName="TACC_symbols",loadOrder=1,propT={},stackDepth=1,status="active",userName="TACC_symbols",wV="M.*zfinal",},a={fn="ProjectDIR/rt/saverestore/TACC2/a/a.lua",fullName="a/a",loadOrder=8,propT={},stackDepth=0,status="active",userName="a",wV="*a.*zfinal",},cluster={fn="ProjectDIR/rt/saverestore/TACC/cluster",fullName="cluster",loadOrder=5,propT={},stackDepth=1,status="active",userName="cluster",wV="M.*zfinal",},cluster_symbols={fn="ProjectDIR/rt/saverestore/TACC/cluster_symbols.lua",fullName="cluster_symbols",loadOrder=2,propT={},stackDepth=2,status="active",userName="cluster_symbols",wV="M.*zfinal",},globus={fn="ProjectDIR/rt/saverestore/TACC/globus/4.0.7",fullName="globus/4.0.7",loadOrder=4,propT={},stackDepth=2,status="active",userName="globus",wV="000000004.000000000.000000007.*zfinal",},mvapich1={fn="ProjectDIR/rt/saverestore/TACC/mvapich1/mvapich1",fullName="mvapich1/mvapich1",loadOrder=3,propT={},stackDepth=2,status="active",userName="mvapich1",wV="*mvapich.000000001.*zfinal",},pgi={fn="ProjectDIR/rt/saverestore/TACC/pgi/7.2-5",fullName="pgi/7.2-5",loadOrder=7,propT={},stackDepth=0,status="active",userName="pgi/7.2-5",wV="000000007.000000002.*zfinal-.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/TACC_COMPILER/pgi/7.2-5","ProjectDIR/rt/saverestore/TACC_MPI/pgi/7.1/mvapich/1.0.1","ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},systemBaseMPATH="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 ===========================
-step 17
+step 18
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 unset APPS;
@@ -381,17 +391,17 @@ unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/TACC2","ProjectDIR/rt/saverestore/TACC",},systemBaseMPATH="ProjectDIR/rt/saverestore/TACC",}';
 export _ModuleTable_;
 ===========================
-step 18
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore stdenv
-===========================
-false
-===========================
 step 19
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore stdenv
 ===========================
 false
 ===========================
 step 20
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore stdenv
+===========================
+false
+===========================
+step 21
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=OutputDIR/Core:1;
@@ -401,7 +411,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
-step 21
+step 22
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/saverestore/PREREQ
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/saverestore/PREREQ:1\;OutputDIR/Core:1;
@@ -411,7 +421,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
-step 22
+step 23
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load M T A
 ===========================
 __LMOD_REF_COUNT_LD_LIBRARY_PATH=/apps/T/lib:1;
@@ -443,7 +453,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={resourcemgr="T",scheduler="M",},mT={A={fn="ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua",fullName="A/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},M={fn="ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua",fullName="M/7.2.6",loadOrder=1,propT={},stackDepth=0,status="active",userName="M",wV="000000007.000000002.000000006.*zfinal",},T={fn="ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua",fullName="T/4.2.6",loadOrder=2,propT={},stackDepth=0,status="active",userName="T",wV="000000004.000000002.000000006.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
-step 23
+step 24
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core;
@@ -451,7 +461,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={resourcemgr="T",scheduler="M",},mT={A={fn="ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua",fullName="A/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},M={fn="ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua",fullName="M/7.2.6",loadOrder=1,propT={},stackDepth=0,status="active",userName="M",wV="000000007.000000002.000000006.*zfinal",},T={fn="ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua",fullName="T/4.2.6",loadOrder=2,propT={},stackDepth=0,status="active",userName="T",wV="000000004.000000002.000000006.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
-step 24
+step 25
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing save
 ===========================
 MODULEPATH=ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core;
@@ -459,7 +469,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={resourcemgr="T",scheduler="M",},mT={A={fn="ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua",fullName="A/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},M={fn="ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua",fullName="M/7.2.6",loadOrder=1,propT={},stackDepth=0,status="active",userName="M",wV="000000007.000000002.000000006.*zfinal",},T={fn="ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua",fullName="T/4.2.6",loadOrder=2,propT={},stackDepth=0,status="active",userName="T",wV="000000004.000000002.000000006.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
-step 25
+step 26
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
 ===========================
 LD_LIBRARY_PATH=/apps/T/lib;
@@ -483,7 +493,7 @@ export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__=1;
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
-step 26
+step 27
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core;
@@ -491,7 +501,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={resourcemgr="T",scheduler="M",},mT={A={fn="ProjectDIR/rt/saverestore/PREREQ/A/1.0.lua",fullName="A/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},M={fn="ProjectDIR/rt/saverestore/PREREQ/M/7.2.6.lua",fullName="M/7.2.6",loadOrder=1,propT={},stackDepth=0,status="active",userName="M",wV="000000007.000000002.000000006.*zfinal",},T={fn="ProjectDIR/rt/saverestore/PREREQ/T/4.2.6.lua",fullName="T/4.2.6",loadOrder=2,propT={},stackDepth=0,status="active",userName="T",wV="000000004.000000002.000000006.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
-step 27
+step 28
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 unset __LMOD_REF_COUNT_LD_LIBRARY_PATH;
@@ -513,7 +523,7 @@ unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
-step 28
+step 29
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load a b
 ===========================
 LOADEDMODULES=a/2.0:b/3.3;
@@ -533,7 +543,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="OutputDIR/Core/a/2.0",fullName="a/2.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="a",wV="^00000002.*zfinal",},b={fn="OutputDIR/Core/b/3.3",fullName="b/3.3",loadOrder=2,propT={},stackDepth=0,status="active",userName="b",wV="000000003.000000003.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
-step 29
+step 30
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing save
 ===========================
 MODULEPATH=ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core;
@@ -541,7 +551,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="OutputDIR/Core/a/2.0",fullName="a/2.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="a",wV="^00000002.*zfinal",},b={fn="OutputDIR/Core/b/3.3",fullName="b/3.3",loadOrder=2,propT={},stackDepth=0,status="active",userName="b",wV="000000003.000000003.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
-step 30
+step 31
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
 ===========================
 LOADEDMODULES=a/3.0:b/3.3;
@@ -563,7 +573,7 @@ export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__=1;
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
-step 31
+step 32
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core;
@@ -571,7 +581,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="OutputDIR/Core/a/3.0",fullName="a/3.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="a",wV="^00000003.*zfinal",},b={fn="OutputDIR/Core/b/3.3",fullName="b/3.3",loadOrder=2,propT={},stackDepth=0,status="active",userName="b",wV="000000003.000000003.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
-step 32
+step 33
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 unset LOADEDMODULES;
@@ -587,7 +597,7 @@ unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
-step 33
+step 34
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
 ===========================
 LOADEDMODULES=a/2.0:b/3.3;
@@ -609,7 +619,7 @@ export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__=1;
 export __LMOD_DEFAULT_MODULES_LOADED__;
 ===========================
-step 34
+step 35
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core;
@@ -617,7 +627,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="OutputDIR/Core/a/2.0",fullName="a/2.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="a/2.0",wV="000000002.*zfinal",},b={fn="OutputDIR/Core/b/3.3",fullName="b/3.3",loadOrder=2,propT={},stackDepth=0,status="active",userName="b/3.3",wV="000000003.000000003.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
-step 35
+step 36
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 unset LOADEDMODULES;
@@ -633,7 +643,7 @@ unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
-step 36
+step 37
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/saverestore/EB
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/saverestore/EB:1\;ProjectDIR/rt/saverestore/PREREQ:1\;OutputDIR/Core:1;
@@ -643,7 +653,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/EB","ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
-step 37
+step 38
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc/5.4
 ===========================
 LOADEDMODULES=binutils/.2.26:numactl/.2.0.11:gcc/5.4;
@@ -659,7 +669,7 @@ export binutils;
 numactl=.2.0.11;
 export numactl;
 ===========================
-step 38
+step 39
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/saverestore/EB:ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core;
@@ -667,7 +677,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={binutils={fn="ProjectDIR/rt/saverestore/EB/binutils/.2.26.lua",fullName="binutils/.2.26",loadOrder=1,propT={},stackDepth=1,status="active",userName="binutils/.2.26",wV="000000000.000000002.000000026.*zfinal",},gcc={fn="ProjectDIR/rt/saverestore/EB/gcc/5.4.lua",fullName="gcc/5.4",loadOrder=3,propT={},stackDepth=0,status="active",userName="gcc/5.4",wV="000000005.000000004.*zfinal",},numactl={fn="ProjectDIR/rt/saverestore/EB/numactl/.2.0.11.lua",fullName="numactl/.2.0.11",loadOrder=2,propT={},stackDepth=1,status="active",userName="numactl/.2.0.11",wV="000000000.000000002.000000000.000000011.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/EB","ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
-step 39
+step 40
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing save foss
 ===========================
 MODULEPATH=ProjectDIR/rt/saverestore/EB:ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core;
@@ -675,7 +685,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={binutils={fn="ProjectDIR/rt/saverestore/EB/binutils/.2.26.lua",fullName="binutils/.2.26",loadOrder=1,propT={},stackDepth=1,status="active",userName="binutils/.2.26",wV="000000000.000000002.000000026.*zfinal",},gcc={fn="ProjectDIR/rt/saverestore/EB/gcc/5.4.lua",fullName="gcc/5.4",loadOrder=3,propT={},stackDepth=0,status="active",userName="gcc/5.4",wV="000000005.000000004.*zfinal",},numactl={fn="ProjectDIR/rt/saverestore/EB/numactl/.2.0.11.lua",fullName="numactl/.2.0.11",loadOrder=2,propT={},stackDepth=1,status="active",userName="numactl/.2.0.11",wV="000000000.000000002.000000000.000000011.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/EB","ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
-step 40
+step 41
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore foss
 ===========================
 MODULEPATH=ProjectDIR/rt/saverestore/EB:ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core;
@@ -687,7 +697,7 @@ export binutils;
 numactl=.2.0.11;
 export numactl;
 ===========================
-step 41
+step 42
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/saverestore/EB:ProjectDIR/rt/saverestore/PREREQ:OutputDIR/Core;
@@ -695,7 +705,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={binutils={fn="ProjectDIR/rt/saverestore/EB/binutils/.2.26.lua",fullName="binutils/.2.26",loadOrder=1,propT={},stackDepth=1,status="active",userName="binutils/.2.26",wV="000000000.000000002.000000026.*zfinal",},gcc={fn="ProjectDIR/rt/saverestore/EB/gcc/5.4.lua",fullName="gcc/5.4",loadOrder=3,propT={},stackDepth=0,status="active",userName="gcc/5.4",wV="000000005.000000004.*zfinal",},numactl={fn="ProjectDIR/rt/saverestore/EB/numactl/.2.0.11.lua",fullName="numactl/.2.0.11",loadOrder=2,propT={},stackDepth=1,status="active",userName="numactl/.2.0.11",wV="000000000.000000002.000000000.000000011.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/EB","ProjectDIR/rt/saverestore/PREREQ","OutputDIR/Core",},systemBaseMPATH="OutputDIR/Core",}';
 export _ModuleTable_;
 ===========================
-step 42
+step 43
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 unset LOADEDMODULES;
@@ -707,7 +717,7 @@ export _ModuleTable_;
 unset binutils;
 unset numactl;
 ===========================
-step 43
+step 44
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load a
 ===========================
 LOADEDMODULES=a/2.0;
@@ -729,7 +739,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="ProjectDIR/rt/saverestore/Core/a/2.0",fullName="a/2.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="a",wV="^00000002.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/Core",},systemBaseMPATH="ProjectDIR/rt/saverestore/Core",}';
 export _ModuleTable_;
 ===========================
-step 44
+step 45
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing save my_A
 ===========================
 MODULEPATH=ProjectDIR/rt/saverestore/Core;
@@ -737,7 +747,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="ProjectDIR/rt/saverestore/Core/a/2.0",fullName="a/2.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="a",wV="^00000002.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/Core",},systemBaseMPATH="ProjectDIR/rt/saverestore/Core",}';
 export _ModuleTable_;
 ===========================
-step 45
+step 46
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 unset LOADEDMODULES;
@@ -753,7 +763,7 @@ unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/Core",},systemBaseMPATH="ProjectDIR/rt/saverestore/Core",}';
 export _ModuleTable_;
 ===========================
-step 46
+step 47
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore my_A
 ===========================
 LOADEDMODULES=a/2.0;
@@ -773,7 +783,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="ProjectDIR/rt/saverestore/Core/a/2.0",fullName="a/2.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="a/2.0",wV="^00000002.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/Core",},systemBaseMPATH="ProjectDIR/rt/saverestore/Core",}';
 export _ModuleTable_;
 ===========================
-step 47
+step 48
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 unset LOADEDMODULES;
@@ -789,7 +799,7 @@ unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/Core",},systemBaseMPATH="ProjectDIR/rt/saverestore/Core",}';
 export _ModuleTable_;
 ===========================
-step 48
+step 49
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load icc ifort
 ===========================
 __LMOD_REF_COUNT_LD_LIBRARY_PATH=/unknown/apps/ifort/18.0.1/lib:1\;/unknown/apps/icc/18.0.1/lib:1;
@@ -811,7 +821,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={icc={fn="ProjectDIR/rt/saverestore/Core/icc/18.0.1.lua",fullName="icc/18.0.1",loadOrder=1,propT={},stackDepth=0,status="active",userName="icc",wV="000000018.000000000.000000001.*zfinal",},ifort={fn="ProjectDIR/rt/saverestore/Core/ifort/18.0.1.lua",fullName="ifort/18.0.1",loadOrder=2,propT={},stackDepth=0,status="active",userName="ifort",wV="000000018.000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/Compiler/intel/18.0","ProjectDIR/rt/saverestore/Core",},systemBaseMPATH="ProjectDIR/rt/saverestore/Core",}';
 export _ModuleTable_;
 ===========================
-step 49
+step 50
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing save my_intel
 ===========================
 MODULEPATH=ProjectDIR/rt/saverestore/Compiler/intel/18.0:ProjectDIR/rt/saverestore/Core;
@@ -819,7 +829,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={icc={fn="ProjectDIR/rt/saverestore/Core/icc/18.0.1.lua",fullName="icc/18.0.1",loadOrder=1,propT={},stackDepth=0,status="active",userName="icc",wV="000000018.000000000.000000001.*zfinal",},ifort={fn="ProjectDIR/rt/saverestore/Core/ifort/18.0.1.lua",fullName="ifort/18.0.1",loadOrder=2,propT={},stackDepth=0,status="active",userName="ifort",wV="000000018.000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/saverestore/Compiler/intel/18.0","ProjectDIR/rt/saverestore/Core",},systemBaseMPATH="ProjectDIR/rt/saverestore/Core",}';
 export _ModuleTable_;
 ===========================
-step 50
+step 51
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 unset __LMOD_REF_COUNT_LD_LIBRARY_PATH;
@@ -837,7 +847,7 @@ unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/saverestore/Core",},systemBaseMPATH="ProjectDIR/rt/saverestore/Core",}';
 export _ModuleTable_;
 ===========================
-step 51
+step 52
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore my_intel
 ===========================
 __LMOD_REF_COUNT_LD_LIBRARY_PATH=/unknown/apps/ifort/18.0.1/lib:1\;/unknown/apps/icc/18.0.1/lib:1;

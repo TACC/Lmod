@@ -33,65 +33,66 @@ testdescript = {
 
      LMOD_PACKAGE_PATH=$(testDir);      export LMOD_PACKAGE_PATH
      runLmod --version               # 1
-     runLmod load TACC               # 2
-     runLmod load pgi/7.2-5          # 3
-     runLmod list                    # 4
-     runLmod save default            # 5
+     runLmod describe                # 2 
+     runLmod load TACC               # 3
+     runLmod load pgi/7.2-5          # 4
+     runLmod list                    # 5
+     runLmod save default            # 6
      unset OMP_NUM_THREADS
-     runLmod restore                 # 6
-     runLmod list                    # 7
-     runLmod use $(testDir)/TACC2    # 8
-     runLmod load a                  # 9
-     runLmod list                    #10
-     runLmod save                    #11
-     runLmod describe                #12
+     runLmod restore                 # 7 
+     runLmod list                    # 8
+     runLmod use $(testDir)/TACC2    # 9
+     runLmod load a                  #10
+     runLmod list                    #11
+     runLmod save                    #12
+     runLmod describe                #13
 
-     runLmod purge                   #13
+     runLmod purge                   #14
      unsetMT
      MODULEPATH=$(testDir)/TACC
 
-     runLmod restore                 #14
-     runLmod list                    #15
-     runLmod spider                  #16
+     runLmod restore                 #15
+     runLmod list                    #16
+     runLmod spider                  #17
 
-     runLmod purge                   #17
+     runLmod purge                   #18
      unsetMT
      MODULEPATH=$(outputDir)/Core
      mkdir      $(outputDir)/Core
      (cd $(testDir)/Core; tar cf - . | (cd $(outputDir)/Core && tar xBf -))
      sed -e 's|@outputDir@|$(outputDir)|g'  < $(testDir)/.lmod.d/stdenv > $(outputDir)/.config/lmod/stdenv
-     runLmod restore stdenv          #18
+     runLmod restore stdenv          #19
      sed -e 's/--#%#//g'  < $(outputDir)/Core/StdEnv.lua > $(outputDir)/Core/StdEnv.new
      mv $(outputDir)/Core/StdEnv.new $(outputDir)/Core/StdEnv.lua
-     runLmod restore stdenv          #19
+     runLmod restore stdenv          #20
 
-     runLmod purge                   #20
-     runLmod use $(testDir)/PREREQ   #21
-     runLmod load M T A              #22
-     runLmod list                    #23
-     runLmod save                    #24
-     runLmod restore                 #25
-     runLmod list                    #26
-     runLmod purge                   #27
-     runLmod load a b                #28
-     runLmod save                    #29
+     runLmod purge                   #21
+     runLmod use $(testDir)/PREREQ   #22
+     runLmod load M T A              #23
+     runLmod list                    #24
+     runLmod save                    #25
+     runLmod restore                 #26
+     runLmod list                    #27
+     runLmod purge                   #28
+     runLmod load a b                #29
+     runLmod save                    #30
      rm Core/a/default
      ln -s 3.0 Core/a/default
-     runLmod restore                 #30
-     runLmod list                    #31
+     runLmod restore                 #31
+     runLmod list                    #32
      export LMOD_PIN_VERSIONS=yes
-     runLmod purge                   #32
-     runLmod restore                 #33
-     runLmod list                    #34
+     runLmod purge                   #33
+     runLmod restore                 #34
+     runLmod list                    #35
 
-     runLmod purge                   #35
-     runLmod use $(testDir)/EB       #36
-     runLmod load gcc/5.4            #37
-     runLmod list                    #38
-     runLmod save    foss            #39
-     runLmod restore foss            #40
-     runLmod list                    #41
-     runLmod purge                   #42
+     runLmod purge                   #36
+     runLmod use $(testDir)/EB       #37
+     runLmod load gcc/5.4            #38
+     runLmod list                    #39
+     runLmod save    foss            #40
+     runLmod restore foss            #41
+     runLmod list                    #42
+     runLmod purge                   #43
      unsetMT
 
      MODULEPATH=$(testDir)/Core     
@@ -99,16 +100,16 @@ testdescript = {
      mkdir -p $HOME/.cache/lmod
      buildSpiderT $MODULEPATH > $HOME/.cache/lmod/spiderT.lua
 
-     runLmod load a                  #43
-     runLmod save my_A               #44
-     runLmod purge                   #45
-     runLmod restore my_A            #46
+     runLmod load a                  #44
+     runLmod save my_A               #45
+     runLmod purge                   #46
+     runLmod restore my_A            #47
 
-     runLmod purge                   #47
-     runLmod load icc ifort          #48
-     runLmod save my_intel           #49
-     runLmod purge                   #50
-     runLmod restore my_intel        #51
+     runLmod purge                   #48
+     runLmod load icc ifort          #49
+     runLmod save my_intel           #50
+     runLmod purge                   #51
+     runLmod restore my_intel        #52
 
      HOME=$ORIG_HOME
      export HOME
