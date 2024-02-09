@@ -616,7 +616,7 @@ function M.buildDbT(self, mpathMapT, spiderT, dbT)
    local keepT        = l_build_keepT(mpathA, mpathParentT, spiderT)
    local parentT      = l_build_parentT(keepT, mpathMapT)
    local mrc          = MRC:singleton()
-
+   dbg.printT("mrc.__hiddenT",mrc.__hiddenT)
 
 
    local function l_cmp(a,b)
