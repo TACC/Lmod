@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.32  2023-08-28 12:42 -05:00
+Modules based on Lua: Version 8.7.34  2024-01-05 19:34 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -108,7 +108,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.32  2023-08-28 12:42 -05:00
+Modules based on Lua: Version 8.7.34  2024-01-05 19:34 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -214,7 +214,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.32  2023-08-28 12:42 -05:00
+Modules based on Lua: Version 8.7.34  2024-01-05 19:34 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -234,7 +234,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --config
 ===========================
-Modules based on Lua: Version 8.7.32  2023-08-28 12:42 -05:00
+Modules based on Lua: Version 8.7.34  2024-01-05 19:34 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                                                   Value
 Allow root to use Lmod (LMOD_ALLOW_ROOT_USE)                  yes
@@ -265,6 +265,7 @@ System lua-term (LMOD_HAVE_LUA_TERM)                          no
 avail: Include modulepath dir (LMOD_MPATH_AVAIL)              no
 MODULEPATH_INIT (LMOD_MODULEPATH_INIT)                        @PKG@/init/.modulespath -> <empty>
 MODULEPATH_ROOT (MODULEPATH_ROOT)
+NAG File (LMOD_ADMIN_FILE)                                    ProjectDIR/src/../../etc/admin.list
 number of cache dirs                                          0
 OS Name                                                       <N/A>
 Pager (LMOD_PAGER)                                            less
@@ -412,7 +413,7 @@ propT = {
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --miniConfig
 ===========================
-Modules based on Lua: Version 8.7.32  2023-08-28 12:42 -05:00
+Modules based on Lua: Version 8.7.34  2024-01-05 19:34 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 LMOD_PACKAGE_PATH            D          nil          <empty>
 LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>

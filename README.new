@@ -127,3 +127,6 @@ Lmod 8.7+
    (8.7.34) * TACC issue: (Again) Cannot use the string ${ZSH_VERSION} in $FPATH.  Instead change orig zsh version to current one.
    (8.7.35) * Issue #687: Let is-loaded and is-avail set  non-zero exit status.  This is different from warnings.
             * Issue #688: Do not produce a Lua error on a non-existant collection
+            * Issue #689: Add m_Module_Msgs_close to en.lua
+            * Add LMOD_ADMIN_FILE to config report
+            
