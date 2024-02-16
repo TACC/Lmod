@@ -1437,7 +1437,7 @@ function M.reportAdminMsgs()
             io.stderr:write(bt:build_tbl(), "\n")
          end
       end
-      io.stderr:write(border,"\n\n")
+      io.stderr:write(i18n("m_Module_Msgs_close",{border=border}))
    end
    dbg.fini("MainControl:reportAdminMsgs")
 end

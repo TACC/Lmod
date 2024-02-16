@@ -229,6 +229,7 @@ To search the contents of modules for matching words execute:
 
   $   module keyword %{s}
 ]==], --
+     m_Module_Msgs_close   = "%{border}",
      m_Other_matches       = "\n     Other possible modules matches:\n        %{bb}\n",
      m_Other_possible      = [==[
      Other possible modules matches:
