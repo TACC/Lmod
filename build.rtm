@@ -162,6 +162,7 @@ case $SYSHOST in
     CACHEDIRS=/tmp/moduleData/cacheDir
     EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN"
     SITE_PKG="contrib/TACC/*.lua"
+    PKG=$base/lmod/$PKG_VERSION
     ;;
 
   *)
@@ -192,6 +193,7 @@ fi
 
 cmdA=("-$MAKE distclean"
       "./configure --prefix=$BASE_DIR --with-settarg=yes $COMMON_OPTIONS $EXTRA"
+      "echo BASE_DIR: $BASE_DIR"
       "save_old_version"
       "$MAKE echo"
       "parallel_make_install"
