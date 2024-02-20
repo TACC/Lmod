@@ -130,7 +130,7 @@ case $SYSHOST in
     EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN     --with-useDotConfigDirOnly=yes"
     ;;
 
-  ls6 | maverick2 | stampede2 | frontera | longhorn )
+  ls6 | stampede3 )
     base="$HOME/l/pkg"
     UPDATE_FN=/tmp/losf_last_update
     CACHEDIRS=/tmp/moduleData/cacheDir
@@ -138,6 +138,19 @@ case $SYSHOST in
       UPDATE_FN=/home/moduleData/spider_cache_timestamp.txt
       CACHEDIRS=/home/moduleData/cacheDir
     fi
+    EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN"
+    SITE_PKG="contrib/TACC/*.lua"
+    ;;
+
+  frontera )
+    base="$HOME/l/pkg"
+    if [ -x $HOME/.up/bin/arch.py ]; then
+    	   base="$base/$($HOME/.up/bin/arch.py)"
+    else
+    	   base="$base/$(uname -m)"
+    fi
+    UPDATE_FN=/tmp/losf_last_update
+    CACHEDIRS=/tmp/moduleData/cacheDir
     EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN"
     SITE_PKG="contrib/TACC/*.lua"
     ;;
