@@ -1,16 +1,16 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load numpy
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load numpy
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) GCC/4.7.2
@@ -29,11 +29,11 @@ Currently Loaded Modules:
  14) numpy/1.6.2-goolf-1.4.10-Python-2.7.3
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load CMake bam2fastq
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load CMake bam2fastq
 ===========================
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) GCC/4.7.2

@@ -167,7 +167,7 @@ Para regenerar la colección, cargue los módulos que desee y luego ejecute:
 Si quiere eliminar esta colección, ejecute:
   $ rm ~/.lmod.d/%{collectionName}
 
-Para más información, ejecute 'module help' o visite http://lmod.readthedocs.org/
+Para más información, ejecute 'module help' o visite https://lmod.readthedocs.org/
 No ha habido ningún cambio en los módulos cargados
 
 ]==],

@@ -27,13 +27,13 @@ cleanUp ()
      SED=gsed
    fi
 
-
    $SED                                                   \
        -e "s|\o033|\\\033|g"                              \
        -e "s|[\\]27|\\\033|g"                             \
        -e "s|='\\\\033|='\\\\\\\\033|g"                   \
+       -e "s|^User shell.*||"                             \
        -e "s|\@git\@|$gitV|g"                             \
-       -e "s|$PATH_to_SHA1/sha1sum|PATH_to_HASHSUM|g"     \
+       -e "s| $PATH_to_SHA1/$SHA1SUM| PATH_to_HASHSUM|g"  \
        -e "s|/usr/.*/sha1sum|PATH_to_HASHSUM|g"           \
        -e "s|/bin/.*/sha1sum|PATH_to_HASHSUM|g"           \
        -e "s|:$PATH_to_LUA\([:;]\)|\1|g"                  \
@@ -84,7 +84,7 @@ cleanUp ()
        -e "s|(file \"ProjectDIR/rt/end2end.*)||g"         \
        -e "s|(file \"OutputDIR/lmod/lmod/.*)||g"          \
        -e "s|^Admin file.*||g"                            \
-       -e "s|^MODULERCFILE.*||g"                          \
+       -e "s|^MODULERC.*||g"                              \
        -e "s|$HOME|~|g"                                   \
        -e "s|\-%%\-.*||g"                                 \
        -e "s| *----* *||g"                                \
@@ -138,6 +138,11 @@ runFish ()
   runBase $LUA_EXEC $projectDir/src/lmod.in.lua fish --regression_testing "$@"
 }
 
+runJson ()
+{
+  runBase $LUA_EXEC $projectDir/src/lmod.in.lua json --regression_testing "$@"
+}
+
 runR ()
 {
   runBase $LUA_EXEC $projectDir/src/lmod.in.lua R --regression_testing "$@"
@@ -150,7 +155,7 @@ runMe ()
 }
 runLmod ()
 {
-   runBase $LUA_EXEC $projectDir/src/lmod.in.lua bash --regression_testing "$@"
+   runBase $LUA_EXEC $projectDir/src/lmod.in.lua shell --regression_testing "$@"
    eval "`cat _stdout.$NUM`"
 }
 
@@ -265,6 +270,7 @@ initStdEnvVars()
   unset MODULEPATH
   unset MODULEPATH_ROOT
   unset MODULERCFILE
+  unset MY_PATH
   unset TEXINPUTS
   unset NLSPATH
   unset OMP_NUM_THREADS
@@ -273,21 +279,31 @@ initStdEnvVars()
   unset TERM
   unset _LMFILES_
   unset LMOD_SET_NOGLOB
+  unset LMOD_DISPLAY_VERSION_COLOR
+  unset LMOD_DISPLAY_SN_COLOR
+  unset LMOD_DISPLAY_META_COLOR
   unset LMOD_SYSTEM_DEFAULT_MODULES
-  export LMOD_FAST_TCL_INTERP=no
+  unset LMOD_MODULERC
+  unset LMOD_MODULERCFILE
+  unset MODULERCFILE
+  unset __LMOD_Priority_PATH
+  export LMOD_NEWLINE="
+"
 
   PATH_to_LUA=`findcmd --pathOnly lua`
   PATH_to_TM=`findcmd --pathOnly tm`
-  PATH_to_SHA1=`findcmd --pathOnly sha1sum`
 
   local SED
   local osType
   SED=sed
+  SHA1SUM=sha1sum
   osType=$(uname -s)
   if [ ${osType:-} = "Darwin" ]; then
     SED=gsed
+    SHA1SUM=gsha1sum
   fi
 
+  PATH_to_SHA1=`findcmd --pathOnly $SHA1SUM`
   PATH_TO_SED=`findcmd --pathOnly $SED`
 
   LUA_EXEC=$PATH_to_LUA/lua
@@ -297,16 +313,17 @@ initStdEnvVars()
   HOME=`/bin/pwd`
   export LMOD_TERM_WIDTH=100000
 
-  PATH=/usr/bin:/bin
-  for i in $PATH_to_SHA1 $PATH_to_TM $PATH_to_LUA $PATH_TO_SED $projectDir/proj_mgmt; do
-    pathmunge $i 
+  PATH="/usr/bin:/bin"
+  pathA=($PATH_to_SHA1 $PATH_to_TM $PATH_to_LUA $PATH_TO_SED $projectDir/proj_mgmt)
+  for jj in "${pathA[@]}"; do
+    pathmunge $jj 
   done
 }
 
 userCacheDir ()
 {
   name='User Cache Directory *'
-  dir=$($LUA_EXEC $projectDir/src/lmod.in.lua bash --config 2>&1 | grep "$name")
+  dir=$($LUA_EXEC $projectDir/src/lmod.in.lua shell --config 2>&1 | grep "$name")
   dir=$(echo $dir | sed -e "s/$name//")
   echo $dir
 }

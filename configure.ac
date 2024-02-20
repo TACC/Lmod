@@ -764,7 +764,16 @@ fi
 AC_PATH_PROGS(BASENAME, [gbasename] [basename], UNKNOWN_BASENAME)
 if test "$BASENAME" = "UNKNOWN_BASENAME" ; then
   echo
-  echo "You must have either basename in your path. Quitting!"
+  echo "You must have either basename or gbasename in your path. Quitting!"
+  echo
+  rm -f makefile
+  exit 1
+fi
+
+AC_PATH_PROGS(BC, [bc], UNKNOWN_BC)
+if test "$BC" = "UNKNOWN_BC" ; then
+  echo
+  echo "You must have bc in your path. Quitting!"
   echo
   rm -f makefile
   exit 1
@@ -1041,8 +1050,18 @@ EOF
    rm conftest.zsh
 fi
 
-AC_SUBST(ZSH_FPATH)
+AC_SUBST(ORIG_ZSH_VERSION)
+if test -n "$PATH_TO_ZSH" ; then
+   cat > conftest.zsh << 'EOF'
+echo $ZSH_VERSION
+EOF
+   chmod +x conftest.zsh
+   ORIG_ZSH_VERSION=`$PATH_TO_ZSH -f ./conftest.zsh 2> /dev/null`
+   rm conftest.zsh
+fi
 
+
+AC_SUBST(ZSH_FPATH)
 if test -n "$PATH_TO_ZSH" ; then
   cat > conftest.zsh << 'EOF'
 echo $FPATH

@@ -256,15 +256,16 @@ function M.add(self, mname, status, loadOrder)
       ref_count = 0
    end
    mT[sn] = {
-      fullName   = mname:fullName(),
-      fn         = mname:fn(),
-      userName   = mname:userName(),
-      stackDepth = mname:stackDepth(),
-      ref_count  = ref_count,
-      status     = status,
-      loadOrder  = loadOrder,
-      propT      = {},
-      wV         = mname:wV() or false,
+      fullName     = mname:fullName(),
+      fn           = mname:fn(),
+      userName     = mname:userName(),
+      stackDepth   = mname:stackDepth(),
+      origUserName = mname:origUserName(),
+      ref_count    = ref_count,
+      status       = status,
+      loadOrder    = loadOrder,
+      propT        = {},
+      wV           = mname:wV() or false,
    }
    if (status ~= "inactive" and old_status ~= "inactive") then
       self:safely_incr_ref_count(mname)
@@ -277,8 +278,12 @@ end
 -- collection is not found.
 function M.reportContents(self, t)
    dbg.start{"mt:reportContents(",t.fn,")"}
-   local f = io.open(t.fn,"r")
    local a       = {}
+   if (not t.fn) then
+      dbg.fini("mt:reportContents")
+      return a
+   end
+   local f = io.open(t.fn,"r")
    if (not f) then
       dbg.fini("mt:reportContents")
       return a
@@ -485,10 +490,28 @@ function M.list(self, kind, status)
       for k, v in pairs(mT) do
          if ((status == "any" or status == v.status) and
              (v.status ~= "pending")) then
+            local displayName = v.fullName
+            if (v.origName) then
+               -- displayName = v.origName .. " -> " displayName
+               displayName = displayName
+            end
             local obj = { sn = k, fullName = v.fullName, userName = v.userName,
                           name = v[kind], fn = v.fn, loadOrder = v.loadOrder,
-                          stackDepth = v.stackDepth, ref_count = v.ref_count}
+                          stackDepth = v.stackDepth, ref_count = v.ref_count,
+                          displayName = displayName, origUserName = v.origUserName or false}
             a, b = l_build_AB(a, b, v.loadOrder, v[kind], obj )
+         end
+      end
+   elseif (kind == "fullName_Meta") then
+      for k, v in pairs(mT) do
+         if ((status == "any" or status == v.status) and
+             (v.status ~= "pending") and
+             (v.stackDepth == 0)) then
+             local obj = { sn = k, fullName = v.fullName, userName = v.userName,
+                          name = v.fullName, fn = v.fn, loadOrder = v.loadOrder,
+                          stackDepth = v.stackDepth, ref_count = v.ref_count,
+                          displayName = v.fullName, origUserName = v.origUserName or false }
+            a, b = l_build_AB(a, b, v.loadOrder, v.fullName, obj )
          end
       end
    elseif (kind == "both") then
@@ -608,23 +631,25 @@ function M.remove_property(self, sn, name, value)
 end
 
 --------------------------------------------------------------------------
--- List the property
+-- List the fullname with possible property
 -- @param self An MT object.
 -- @param idx The index in the list.
 -- @param sn The short name
 -- @param style How to colorize.
 -- @param legendT The legend table.
-function M.list_property(self, idx, sn, style, legendT)
-   dbg.start{"MT:list_property(\"",sn,"\", \"",style,"\")"}
-   local mT    = self.mT
-   local entry = mT[sn]
-   local mrc   = MRC:singleton()
+function M.list_w_property(self, idx, sn, style, legendT)
+   dbg.start{"MT:list_w_property(\"",sn,"\", \"",style,"\")"}
+   local mT          = self.mT
+   local entry       = mT[sn]
+   local mrc         = MRC:singleton()
 
    if (entry == nil) then
-      LmodError{msg="e_No_Mod_Entry", routine = "MT:list_property()", name = sn}
+      LmodError{msg="e_No_Mod_Entry", routine = "MT:list_w_property()", name = sn}
    end
 
-   local resultA = colorizePropA(style, {fullName=entry.fullName,sn=sn,fn=entry.fn}, mrc, entry.propT, legendT)
+   local resultA = colorizePropA(style, self, {fullName=entry.fullName, origUserName=entry.origUserName, sn=sn, fn=entry.fn},
+                                 mrc, entry.propT, legendT)
+   dbg.print{"resultA: ",resultA[1]," ",resultA[2],"\n"} 
    if (resultA[2]) then
       resultA[2] = "(" .. resultA[2] .. ")"
    end
@@ -632,7 +657,7 @@ function M.list_property(self, idx, sn, style, legendT)
    local cstr    = string.format("%3d)",idx)
 
    table.insert(resultA, 1, cstr)
-   dbg.fini("MT:list_property")
+   dbg.fini("MT:list_w_property")
    return resultA
 end
 
@@ -1185,8 +1210,8 @@ function M.getMTfromFile(self,tt)
       dbg.print{"sn: ",sn,", hash: ", t[sn], "\n"}
    end
 
-   local force = true
-   Purge(force)
+   
+   mcp:purge{force=true}
 
    local savedBaseMPATH = l_mt.systemBaseMPATH
    dbg.print{"Saved baseMPATH: ",savedBaseMPATH,"\n"}
@@ -1402,5 +1427,24 @@ function M.resetMPATH2system(self)
    self.mpathA         = path2pathA(self.systemBaseMPATH,':',clearDblSlash)
    return self.systemBaseMPATH
 end
+
+function M.name_w_possible_alias(self, entry, kind)
+   local moduleName = entry.fullName
+   if (kind ~= "terse") then
+      moduleName    = hook.apply("colorize_fullName", moduleName, entry.sn) or moduleName
+   end
+
+   if (entry.origUserName) then
+      if (kind == "terse") then
+         moduleName = entry.fullName .. "\n" .. entry.origUserName
+      else
+         moduleName = entry.origUserName .. " -> " .. moduleName
+      end
+   end
+   return moduleName
+end
+
+
+
 
 return M

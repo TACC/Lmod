@@ -77,6 +77,7 @@ M.myModuleVersion      = MainControl.myModuleVersion
 M.prepend_path         = MainControl.remove_path_first
 M.prereq               = MainControl.quiet
 M.prereq_any           = MainControl.quiet
+M.purge                = MainControl.quiet
 M.pushenv              = MainControl.popenv
 M.remove_path          = MainControl.remove_path
 M.remove_property      = MainControl.quiet

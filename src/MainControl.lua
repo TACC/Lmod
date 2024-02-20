@@ -69,6 +69,7 @@ local s_performDepCk   = false
 local s_missDepT       = {}
 local s_missingModuleT = {}
 local s_missingFlg     = false
+local s_purgeFlg       = false
 
 --------------------------------------------------------------------------
 -- Remember the user's requested load array into an internal table.
@@ -335,7 +336,7 @@ end
 -- Set an environment variable.
 -- This function just sets the name with value in the current env.
 function M.setenv_env(self, name, value, respect)
-   name = name:trim()
+   name = (name or ""):trim()
    dbg.start{"MainControl:setenv_env(\"",name,"\", \"",value,"\", \"",
               respect,"\")"}
    posix.setenv(name, value, true)
@@ -350,7 +351,7 @@ end
 -- @param value the environment variable value.
 -- @param respect If true, then respect the old value.
 function M.unsetenv(self, name, value, respect)
-   name = name:trim()
+   name = (name or ""):trim()
    dbg.start{"MainControl:unsetenv(\"",name,"\", \"",value,"\")"}
 
    l_check_for_valid_name("unsetenv",name)
@@ -410,6 +411,7 @@ function M.pushenv(self, name, value)
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
 
+   dbg.print{"stackName: ",stackName,", v64: ",v64,"\n"}
    if (varT[stackName] == nil) then
       varT[stackName] = Var:new(stackName, v64, nodups, ":")
    end
@@ -419,8 +421,9 @@ function M.pushenv(self, name, value)
       v64 = "false"
    else
       v   = tostring(value)
-      v64 = encode64(value)
+      v64 = encode64(v)
    end
+
    local priority = 0
 
    varT[stackName]:prepend(v64, nodups, priority)
@@ -453,12 +456,12 @@ function M.popenv(self, name, value)
       varT[stackName] = Var:new(stackName)
    end
 
-   dbg.print{"stackName: ", stackName, " pop()\n"}
-
+   
    local v64 = varT[stackName]:pop()
+   dbg.print{"stackName: ", stackName,", varT[stackName]:expand(): \"",varT[stackName]:expand() ,"\", v64: \"",v64,"\"\n"}
    local v   = nil
    if (v64 == "false") then
-      v = false
+      v = false   
    elseif (v64) then
       v = decode64(v64)
    end
@@ -558,8 +561,8 @@ function M.remove_path(self, t)
    local force    = t.force
 
    dbg.start{"MainControl:remove_path{\"",name,"\", \"",value,
-             "\", delim=\"",delim,"\", nodups=\"",nodups,
-             "\", priority=",priority,
+             "\", delim=\"",delim,"\", nodups=",nodups,
+             ", priority=",priority,
              ", where=",where,
              ", force=",force,
              "}"}
@@ -830,7 +833,6 @@ function M.warning(self, ...)
       sA[#sA+1]   = moduleStackTraceBack()
       sA[#sA+1]   = "\n"
       io.stderr:write(concatTbl(sA,""),"\n")
-      setWarningFlag()
    end
 end
 
@@ -930,7 +932,7 @@ function M.reportMissingDepModules(self)
          local s = concatTbl(v,", ")
          a[#a+1] = k .. " (required by: "..s..")"
       end
-      io.stderr:write(i18n("w_MissingModules",{border=border,missing=concatTbl(a,", ")}))
+      LmodWarning{msg="w_MissingModules",border=border,missing=concatTbl(a,", ")}
    end
 end
 
@@ -1124,7 +1126,6 @@ end
 -- @param mA A array of MName objects.
 function M.try_load(self, mA)
    dbg.start{"MainControl:try_load(mA)"}
-   --deactivateWarning()
    self:load(mA)
    dbg.fini("MainControl:try_load")
 end
@@ -1436,7 +1437,7 @@ function M.reportAdminMsgs()
             io.stderr:write(bt:build_tbl(), "\n")
          end
       end
-      io.stderr:write(border,"\n\n")
+      io.stderr:write(i18n("m_Module_Msgs_close",{border=border}))
    end
    dbg.fini("MainControl:reportAdminMsgs")
 end
@@ -1479,6 +1480,40 @@ function M.remove_property(self, name, value)
    l_check_for_valid_name("remove_property",name)
    mt:remove_property(sn, name:trim(), value)
 end
+
+
+function purgeFlg()
+   return s_purgeFlg
+end
+
+
+function M.purge(self,t)
+   local force = false
+   if (type(t) == "table") then
+      force = t.force
+   end
+
+   local frameStk = FrameStk:singleton()
+   local mt       = frameStk:mt()
+   local totalA   = mt:list("short","any") --> "any" does not include "pending"
+
+   if (#totalA < 1) then
+      return
+   end
+
+   local mA = {}
+   for i = #totalA,1,-1 do
+      mA[#mA+1] = MName:new("mt",totalA[i])
+   end
+   s_purgeFlg = true
+   unload_usr_internal(mA, force)
+   s_purgeFlg = false
+
+   dbg.fini("MainControl:Purge")
+end
+   
+
+
 
 --------------------------------------------------------------------------
 -- Return the tcl_mode.
@@ -1555,11 +1590,12 @@ function M.complete(self, shellName, name, args)
       return
    end
    
-   local varT     = FrameStk:singleton():varT()
-   if (varT[name] == nil) then
-      varT[name] = Var:new(name)
+   local varT = FrameStk:singleton():varT()
+   local n    = wrap_complete(name)
+   if (varT[n] == nil) then
+      varT[n] = Var:new(n)
    end
-   varT[name]:complete(args)
+   varT[n]:complete(args)
    dbg.fini("MainControl:complete")
 end
 
@@ -1569,11 +1605,12 @@ function M.uncomplete(self, shellName, name, args)
       dbg.fini("MainControl:complete")
       return
    end
-   local varT     = FrameStk:singleton():varT()
-   if (varT[name] == nil) then
-      varT[name] = Var:new(name)
+   local varT = FrameStk:singleton():varT()
+   local n    = wrap_complete(name)
+   if (varT[n] == nil) then
+      varT[n] = Var:new(n)
    end
-   varT[name]:uncomplete()
+   varT[n]:uncomplete()
 
    dbg.fini("MainControl:uncomplete")
 end

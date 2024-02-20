@@ -1,16 +1,16 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --checkSyntax load 3.7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --checkSyntax load 3.7
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --checkSyntax load 3.8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --checkSyntax load 3.8
 ===========================
 Lmod has detected the following error: Unable to load module because of error when evaluating modulefile:
      ProjectDIR/rt/checkSyntax/mf/3.8.lua: [string "# comment..."]:1: unexpected symbol near '#'

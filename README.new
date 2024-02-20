@@ -59,3 +59,74 @@ Lmod 8.7+
 	    * PR #600: merging in 600_category to support "module category"
             * Issue #604: Fixed bug where ref_count was not passed to swapped modules.
    (8.7.15) * Issue #613: setenv and pushenv change local environment when runniing spider (and avail)
+   (8.7.16) * Issue #619: Do not source lmod_bash_aliases when $POSIXLY_CORRECT is set (by bash --posix)
+            * Issue #620: Dynamically set shell name inside Lmod instead of init/bash.in
+	    * Added debugging stmts to track down issue when adding loop in MODULEPATH when doing a spider.
+            * Zsh now gets /path/to/ksh_scripts if KSH_SUPPORT is yes.	    
+   (8.7.17) * Issue #620: Honor shell name on command line.  Use "shell" when Lmod gets to decide.
+            * Fix bug in keyword terse output: Add newline on final entry (Created in Lmod 8.4.18)
+            * Allow ksh93, mksh and pdksh report shellname (myShellName()) as ksh.
+   (8.7.18) * Fix bug where repeating the same directory in the $MODULEPATH would cause a loopback
+              and therefore a stack overflow when building the spider cache.
+   (8.7.19) * Issue #622: Change MainControl:reportMissingDepModules() to report missing dep. modules through
+              LmodWarning()
+   (8.7.20) * Issue #626: http -> https update
+            * Issue #629: Do not print Global Aliases header when no aliases would be printed.
+            * Issue #630: Must take barebasename of results from ps -p $PPID -ocomm= in dynamic_shell in src/utils.lua
+                          Also fix s_shellTbl entry for zsh.
+                          Also handle the case where posix.readlink is not working
+            * Issue #635: Do not ignore error when building man_pages
+	                  Wrap pcall when trying to require("tcl2lua")
+   (8.7.21) * Undo fixes in end2end.tdesc and rt/common_funcs.sh to unset LMOD_FAST_TCL_INTERP
+            * Switch to use gsha1sum instead of sha1sum on Darwin.  (It works better on M1 macs)
+	    * Created LMOD_USING_FAST_TCL_INTERP cosmic var to report if fast tcl interp is active.
+	    * Issue #627: Allow both pushenv("FOO","") and pushenv("FOO",false) to work.
+	    * Report SitePackage.lua location if different from "standard"
+	    * Report the existance of lmod_config.lua and its location
+	    * Add module-hide and module-forbid to RC2lua.tcl. They are currently no-ops.
+	    * Add support for module --brief list to list only direct user loaded modules (stackDepth == 0)
+	    * Issue 638: fix Lmod location to /main/ in README.md
+	    * Add env variable LMOD_DEBUG as another way to turn on Lmod debugging.
+   (8.7.22) * Label for 8.7.21 did not work. Going to 8.7.22
+   (8.7.23) * Issue #635: Fix the generation of the manpage to be portable by setting LUA_PATH, LUA_CPATH
+              to have the system paths and the installed Lmod paths.  This fixes missing posix and lfs
+            * Change default location of SitePackage.lua to be called <srctree> so that rt/configDir test
+              passes portably.
+   (8.7.24) * Issue #648: Allow site to use /etc/lmod/.modulespath or $MODULEPATH_INIT to set file location of
+              .modulespath
+            * Switch tcsh/csh module alias to use tcsh/csh instead of shell.  The dynamic_shell routine does not
+              work under MacOS for tcsh/csh correctly.
+   (8.7.25) * Issue #648: Change $MODULEPATH_INIT to $LMOD_MODULEPATH_INIT
+            * Issue #649: Abort configure step if bc is not found
+            * Allow users to do "ml -f purge" which is translated to "module --force purge"
+   (8.7.26) * Issue #650: Make isFile return true for all file types except dir.
+            * Issue #617: Now print alias and de-refed module in module list and module -t list.
+            * Issue #651: Allow -f and --force to be the same option for the lmod command (module)
+            * Issue #654: Do not use install to copy symbolic links
+   (8.7.27) * PR #644: Created hook colorize_fullName to allow for sites to control how "module list" and "module av"
+              prints to the terminal.
+   (8.7.28) * Issue #653: "module show" now prints the contents of inheritted modules.
+            * Issue #657: Added support for "purge()" function in modules to unload all other modules on load.
+   (8.7.29) * Must delete old tcl2lua.so* files before installing new ones
+            * Issue #659: wrap double quotes around any newlines found in env var value in bash like shells
+            * Unknown TCL module command now produce an error instead of being ignored
+            * Update zsh and bash tab completion files
+            * Issue #657: Added support for "module purge" in a TCL modulefile to unload all other modules on load.
+   (8.7.30) * Issue #662: Fix bug where the version is very long (like git commit tags)
+   (8.7.31) * Issue #665: Added support for getenv function in TCL modules
+   (8.7.32) * Better handling of zsh shell functions in source_sh(). Must match "\n}\n" to find end of function.
+            * Better name for extension title, remove trailing \n
+            * Testing github actions
+   (8.7.33) * Issue #678: Change isFile(fn) to return nil if fn is a broken symlink.
+            * Issue #678: Change abspath() to l_abspath() in tools/fileOps.lua
+            * Issue #678: Create realpath() to use posix.realpath() if it exists otherwise use l_abspath()
+	    * User request that the Active RC file(s) be realpath()
+            * Issue #681: Internally rename complete name to be "complete<name>" and unwrap when necessary.
+            * TACC issue: Change the current version of zsh with the string ${ZSH_VERSION} when builting
+              the init/zsh file.
+   (8.7.34) * TACC issue: (Again) Cannot use the string ${ZSH_VERSION} in $FPATH.  Instead change orig zsh version to current one.
+   (8.7.35) * Issue #687: Let is-loaded and is-avail set  non-zero exit status.  This is different from warnings.
+            * Issue #688: Do not produce a Lua error on a non-existant collection
+            * Issue #689: Add m_Module_Msgs_close to en.lua
+            * Add LMOD_ADMIN_FILE to config report
+            

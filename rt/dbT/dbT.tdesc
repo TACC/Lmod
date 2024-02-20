@@ -48,8 +48,21 @@ EOF
 
      export MODULEPATH=$(testDir)/mf2/Core:$(testDir)/mf1/Core
 
-     runLmod --version               # 1
-     runLmod av                      # 2
+     runLmod --version                                # 1
+     runLmod av                                       # 2
+
+     #runLmod purge                                    # 3     
+     #unsetMT
+     #export MODULEPATH_ROOT=$(testDir)
+     #export MODULEPATH=$(testDir)/mf4
+     #runBase runSpiderCmd -o dbT         $MODULEPATH  # 4
+     #runBase runSpiderCmd -o spider-json $MODULEPATH  # 5
+     #runBase runSpiderCmd -o spiderT     $MODULEPATH  # 6
+     #runLmod load newdir                              # 7
+     #runLmod --show_hidden av                         # 8
+
+
+
 
 
 

@@ -61,6 +61,7 @@ local sort         = table.sort
 local q_load       = 0
 local s_same       = true
 
+local A             = ShowResultsA
 local mpath_avail  = cosmic:value("LMOD_MPATH_AVAIL")
 
 ------------------------------------------------------------------------
@@ -156,7 +157,6 @@ function M.access(self, ...)
 
 
    if (#a > 0) then
-      setWarningFlag()
       LmodWarning{msg="w_Failed_2_Find",quote_comma_list=concatTbl(a,"\", \""),
                              module_list=concatTbl(a," ")}
    end
@@ -218,7 +218,7 @@ local function l_registerUnloaded(fullName, fn)
 end
 
 function M.inheritModule(self)
-   dbg.start{"Hub:inherit()"}
+   dbg.start{"Hub:inheritModule()"}
    local shellNm    = _G.Shell:name()
    local frameStk   = FrameStk:singleton()
    local myFn       = frameStk:fn()
@@ -247,16 +247,26 @@ function M.inheritModule(self)
       local mt    = frameStk:mt()
       local mList = concatTbl(mt:list("both","active"),":")
       frameStk:push(mname)
+
+      if (mode() == "show") then
+         A[#A+1] = "--> "
+         A[#A+1] = fnI
+         A[#A+1] = "\n\n"
+      end
+
       loadModuleFile{file=mname:fn(),mList = mList, shell=shellNm, reportErr=true}
       frameStk:pop()
    end
 
+   if (mode() == "show") then
+      A[#A+1] = "\n"
+   end
    if (mode() == "load") then
       local mt = frameStk:mt()
       mt:pushInheritFn(sn, mname)
    end
 
-   dbg.fini("Hub:inherit")
+   dbg.fini("Hub:inheritModule")
 end
 
 local s_stk = {}
@@ -964,7 +974,8 @@ function M.overview(self,argA)
    end
 
    availA = regroup_avail_blocks(availStyle, availA)
-   self:terse_avail(mpathA, availA, alias2modT, searchA, showSN, defaultOnly, defaultT, aa)
+   local providedByT = false
+   self:terse_avail(mpathA, availA, alias2modT, searchA, showSN, defaultOnly, defaultT, providedByT, aa)
 
    local label    = ""
    local a        = {}
@@ -1045,7 +1056,55 @@ function M.overview(self,argA)
    return a
 end
 
-function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaultOnly, defaultT, a)
+function M.buildExtA(self, searchA, mpathA, providedByT, extA)
+    dbg.start{"Hub:buildExtA()"}
+
+    local mpathT = {}
+    for i = 1, #mpathA do
+       mpathT[mpathA[i]] = true
+    end
+
+    dbg.printT("mpathT",mpathT)
+    dbg.printT("providedByT",providedByT)
+
+    for k,v in pairsByKeys(providedByT) do
+       local found = false
+       if (searchA.n > 0) then
+          for i = 1, searchA.n do
+             for kk,vv in pairs(v) do
+                local s        = searchA[i]
+                for i = 1,#vv do
+                   local vvv = vv[i]
+                   if (kk:find(s) and mpathT[vvv.mpath] and (not vvv.hidden)) then
+                      found = true
+                      break
+                   end
+                end
+                if (found) then break end
+             end
+             if (found) then break end
+          end
+       else
+          for kk,vv in pairs(v) do
+             for i = 1,#vv do
+                local vvv = vv[i]
+                if (mpathT[vvv.mpath] and (not vvv.hidden)) then
+                   found = true
+                   break
+                end
+             end
+             if (found) then break end
+          end
+       end
+       if (found) then
+          extA[#extA + 1] = {"    " .. colorize("blue",k),"(E)"}
+       end
+    end
+
+    dbg.fini("Hub:buildExtA()")
+end
+
+function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaultOnly, defaultT, providedByT, a)
    dbg.start{"Hub:terse_avail()"}
    local mrc         = MRC:singleton()
    local optionTbl   = optionTbl()
@@ -1099,6 +1158,20 @@ function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaul
       end
    end
 
+   -- if providedByT is not false then output 
+
+   if (providedByT and next(providedByT) ~= nil ) then
+
+     local extA = {}
+     self:buildExtA(searchA, mpathA, providedByT, extA)
+
+     for i=1,#extA do
+       a[#a+1] = "#"
+       a[#a+1] = extA[i][1]
+       a[#a+1] = "\n"
+     end
+   end
+      
    dbg.fini("Hub:terse_avail")
    return a
 end
@@ -1166,10 +1239,20 @@ function M.avail(self, argA)
       searchA.n = argA.n
    end
 
-   if (optionTbl.terse) then
+   if (optionTbl.terse or optionTbl.terseShowExtensions) then
       --------------------------------------------------
       -- Terse output
-      self:terse_avail(mpathA, availA, alias2modT, searchA, showSN, defaultOnly, defaultT, a)
+      local spiderT     = false
+      local dbT         = false
+      local mpathMapT   = false
+      local providedByT = false
+      if (optionTbl.terseShowExtensions) then
+         local cache            = Cache:singleton{buildCache=true}
+         spiderT,dbT, mpathMapT, providedByT = cache:build()
+      end
+
+      self:terse_avail(mpathA, availA, alias2modT, searchA, showSN,
+                       defaultOnly, defaultT, providedByT, a)
 
       dbg.fini("Hub:avail")
       return a
@@ -1185,8 +1268,9 @@ function M.avail(self, argA)
    local pna      = "("..na..")"
 
    if (next(alias2modT) ~= nil) then
-      local b  = {}
-      local bb = {}
+      local fndAlias = false
+      local b        = {}
+      local bb       = {}
       if (searchA.n > 0) then
          for k, v in pairsByKeys(alias2modT) do
             local fullName = mrc:resolve(mpathA,v)
@@ -1198,7 +1282,8 @@ function M.avail(self, argA)
                   if (fullName == pna) then
                      legendT[na] = i18n("m_Global_Alias_na")
                   end
-                  b[#b+1]   = { "   " .. k, "->", fullName}
+                  fndAlias = true
+                  b[#b+1]  = { "   " .. k, "->", fullName}
                   break
                end
             end
@@ -1210,15 +1295,18 @@ function M.avail(self, argA)
             if (fullName == pna) then
                legendT[na] = i18n("m_Global_Alias_na")
             end
-            b[#b+1]   = { "   " .. k, "->", fullName}
+            fndAlias = true
+            b[#b+1]  = { "   " .. k, "->", fullName}
          end
       end
-      local ct = ColumnTable:new{tbl=b, gap=1, len=length, width = cwidth}
-      a[#a+1]  = "\n"
-      a[#a+1] = banner:bannerStr("Global Aliases")
-      a[#a+1] = "\n"
-      a[#a+1]  = ct:build_tbl()
-      a[#a+1] = "\n"
+      if (fndAlias) then
+         local ct = ColumnTable:new{tbl=b, gap=1, len=length, width = cwidth}
+         a[#a+1]  = "\n"
+         a[#a+1] = banner:bannerStr("Global Aliases")
+         a[#a+1] = "\n"
+         a[#a+1]  = ct:build_tbl()
+         a[#a+1] = "\n"
+      end
    end
 
 
@@ -1242,7 +1330,8 @@ function M.avail(self, argA)
                   entry.propT["status"] = {active = 1}
                end
                local c = {}
-               local resultA = colorizePropA("short", {sn=sn, fullName=fullName, fn=fn}, mrc, entry.propT, legendT)
+               local resultA = colorizePropA("short", mt, {sn=sn, fullName=fullName, fn=fn},
+                                             mrc, entry.propT, legendT)
                c[#c+1] = '  '
                for i = 1,#resultA do
                   c[#c+1] = resultA[i]
@@ -1293,55 +1382,14 @@ function M.avail(self, argA)
    
    dbg.printT("providedByT", providedByT)
 
-
-
    if (extensions and providedByT and next(providedByT) ~= nil) then
-      local mpathT = {}
-      for i = 1, #mpathA do
-         mpathT[mpathA[i]] = true
-      end
+      local extA = {}
+      self:buildExtA(searchA, mpathA, providedByT, extA)
 
-      dbg.printT("mpathT",mpathT)
-      dbg.printT("providedByT",providedByT)
-
-      local b = {}
-      for k,v in pairsByKeys(providedByT) do
-         local found = false
-         if (searchA.n > 0) then
-            for i = 1, searchA.n do
-               for kk,vv in pairs(v) do
-                  local s        = searchA[i]
-                  for i = 1,#vv do
-                     local vvv = vv[i]
-                     if (kk:find(s) and mpathT[vvv.mpath] and (not vvv.hidden)) then
-                        found = true
-                        break
-                     end
-                  end
-                  if (found) then break end
-               end
-               if (found) then break end
-            end
-         else
-            for kk,vv in pairs(v) do
-               for i = 1,#vv do
-                  local vvv = vv[i]
-                  if (mpathT[vvv.mpath] and (not vvv.hidden)) then
-                     found = true
-                     break
-                  end
-               end
-               if (found) then break end
-            end
-         end
-         if (found) then
-            b[#b + 1] = {"    " .. colorize("blue",k),"(E)"}
-         end
-      end
-      if (next(b) ~= nil) then
+      if (next(extA) ~= nil) then
          legendT['E'] = i18n("Extension")
-         numFound = numFound + #b
-         local ct = ColumnTable:new{tbl=b, gap=1, len = length, width = cwidth}
+         numFound = numFound + #extA
+         local ct = ColumnTable:new{tbl=extA, gap=1, len = length, width = cwidth}
          a[#a+1] = "\n"
          a[#a+1] = banner:bannerStr(i18n("m_Extensions_head"))
          a[#a+1] = "\n"

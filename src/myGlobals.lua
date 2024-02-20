@@ -4,7 +4,6 @@
 
 _G._DEBUG          = false               -- Required by the new lua posix
 local posix        = require("posix")
-
 require("strict")
 
 --------------------------------------------------------------------------
@@ -47,6 +46,7 @@ require("fileOps")
 local cosmic       = require("Cosmic"):singleton()
 local lfs          = require("lfs")
 local getenv       = os.getenv
+local access       = posix.access
 local setenv_posix = posix.setenv
 
 if (isNotDefined("cmdDir")) then
@@ -72,14 +72,28 @@ ExitHookA = require("HookArray")
 setenv_posix("LC_ALL","C",true)
 
 ------------------------------------------------------------------------
--- MODULEPATH_INIT: Name of the file that can be used to initialize
---                  MODULEPATH in the startup scripts
+-- LMOD_MODULEPATH_INIT: Name of the file that can be used to initialize
+--                       MODULEPATH in the startup scripts
 ------------------------------------------------------------------------
+local mpath_init = getenv("LMOD_MODULEPATH_INIT")
+local default_mpath_init = "@PKG@/init/.modulespath"
+local global_mpath_init  = "/etc/lmod/.modulespath"
+if (not mpath_init) then
+   if (access(global_mpath_init, "r")) then
+      mpath_init = global_mpath_init
+   else
+      mpath_init = "@modulepath_init@"
+      if (mpath_init:sub(1,1) == "@") then
+         mpath_init = default_mpath_init
+      end
+   end
+   
+end
 
 cosmic:init{name    = "LMOD_MODULEPATH_INIT",
             sedV    = "@modulepath_init@",
-            no_env  = true,
-            default = "@PKG@/init/.modulespath"}
+            default = default_mpath_init,
+            assignV = mpath_init}
 
 ------------------------------------------------------------------------
 -- SITE_CONTROLLED_PREFIX: If a site configured lmod with direct prefix
@@ -165,11 +179,37 @@ cosmic:init{name    = "LMOD_RC",
             assignV = rcfiles}
 
 ------------------------------------------------------------------------
--- LMOD_FAST_TCL_INTERP:  Send messages to stdout instead of stderr
+-- LMOD_FAST_TCL_INTERP:  Build and use the tcl library as part of Lmod
 ------------------------------------------------------------------------
 cosmic:init{name = "LMOD_FAST_TCL_INTERP",
             sedV = "@fast_tcl_interp@",
             yn   = "yes"}
+
+------------------------------------------------------------------------
+-- LMOD_USING_FAST_TCL_INTERP:  Is the fast TCL interp active
+------------------------------------------------------------------------
+cosmic:init{name    = "LMOD_USING_FAST_TCL_INTERP",
+            yn      = "yes",
+            default = "yes"}
+
+------------------------------------------------------------------------
+-- LMOD_SITEPACKAGE_LOCATION:  SitePackage.lua location
+------------------------------------------------------------------------
+local sitePkgLoc = "@LMOD_TOP_DIR@/libexec/SitePackage.lua"
+if (sitePkgLoc:sub(1,1) == "@") then
+   sitePkgLoc = "<srctree>"
+end
+
+
+cosmic:init{name    = "LMOD_SITEPACKAGE_LOCATION",
+            default = sitePkgLoc}
+
+
+------------------------------------------------------------------------
+-- LMOD_CFG:  lmod_config.lua locatoin
+------------------------------------------------------------------------
+cosmic:init{name    = "LMOD_CONFIG_LOCATION",
+            default = "no"}
 
 ------------------------------------------------------------------------
 -- LMOD_SITE_NAME: The site name (e.g. TACC)
@@ -358,8 +398,10 @@ local rc_dflt    = pathJoin(etcDir,"rc.lua")
 if (not isFile(rc_dflt)) then
    rc_dflt   = pathJoin(etcDir,"rc")
 end
-local rc        = getenv("LMOD_MODULERCFILE") or getenv("MODULERCFILE")
-cosmic:init{name    = "LMOD_MODULERCFILE",
+local rc        = getenv("LMOD_MODULERC") or 
+                  getenv("LMOD_MODULERCFILE") or
+                  getenv("MODULERCFILE")
+cosmic:init{name    = "LMOD_MODULERC",
             default = rc_dflt,
             envV    = rc,
             assignV = rc,
@@ -530,6 +572,11 @@ parseVersion  = false
 s_warning     = false
 
 ------------------------------------------------------------------------
+-- s_status:   When set return a non-zero status
+------------------------------------------------------------------------
+s_status      = false
+
+------------------------------------------------------------------------
 -- s_haveWarnings:  if warning are allowed (or ignored).  For example
 --                  a try-load command turns off warnings.
 ------------------------------------------------------------------------
@@ -635,6 +682,8 @@ cosmic:init{name = "LMOD_HAVE_LUA_TERM",
             sedV = "@have_lua_term@",
             yn   = "no"}
 
+
+
 ------------------------------------------------------------------------
 -- MODULEPATH_ROOT
 ------------------------------------------------------------------------
@@ -648,7 +697,7 @@ cosmic:init{name    = "MODULEPATH_ROOT",
 local HashSum      = "@hashsum@"
 local found        = false
 if (HashSum:sub(1,1) == "@") then
-   local a = { "sha1sum", "shasum", "md5sum", "md5" }
+   local a = { "gsha1sum", "sha1sum", "shasum", "md5sum", "md5" }
    for i = 1,#a do
       HashSum, found = findInPath(a[i])
       if (found) then break end

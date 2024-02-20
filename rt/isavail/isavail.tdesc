@@ -9,7 +9,7 @@ testdescript = {
    keywords = {"isloaded" },
 
    active = 1,
-   testName = "isloaded",
+   testName = "isavail",
    job_submit_method = "INTERACTIVE",
 
    runScript = [[

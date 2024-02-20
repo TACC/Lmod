@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+source /usr/share/lmod/lmod/init/bash
+module -h

@@ -468,6 +468,10 @@ proc setenv { var val args } {
     cmdargs "setenv" $var $val
 }
 
+proc getenv { var args } {
+    cmdargs "os.getenv" $var
+}
+
 proc unsetenv { var {val {}}} {
     global env  g_varsT
     set mode [currentMode]
@@ -745,6 +749,10 @@ proc unuse { args } {
     }
 }
 
+proc purge {} {
+    eval cmdargs "purge"
+}
+
 proc setPutMode { value } {
     global putMode
     set putMode $value
@@ -893,6 +901,15 @@ proc is-avail { arg } {
 	    set g_lmod_cmd "$my_dir/lmod.in.lua"
 	}
 	
+        if { ! [ file exists $g_lua_cmd ]} {
+            reportError "unable to find $g_lua_cmd"
+        }
+
+        if { ! [ file exists $g_lmod_cmd ]} {
+            reportError "unable to find $g_lmod_cmd"
+        }
+
+
 	set g_setup_moduleT 1
 	set g_moduleT [dict create]
 	set cmd "$g_lua_cmd $g_lmod_cmd bash --no_redirect -t avail"
@@ -938,6 +955,9 @@ proc module { command args } {
         add {
             eval loadcmd $args
         }
+        purge {
+            eval purge $args
+        }
         try-add {
             eval tryloadcmd $args
         }
@@ -959,7 +979,9 @@ proc module { command args } {
         unuse {
             eval unuse $args
         }
-
+        default {
+            reportError "Unknown module command: $command -> exitting"
+        }
     }
 }
 
@@ -987,9 +1009,10 @@ proc execute-modulefile {modfile } {
     interp alias $child complete       	 {} complete
     interp alias $child conflict       	 {} conflict
     interp alias $child depends-on     	 {} depends-on
-    interp alias $child exit     	 {} my_exit
+    interp alias $child exit          	 {} my_exit
     interp alias $child extensions     	 {} extensions
     interp alias $child family         	 {} family
+    interp alias $child getenv           {} getenv
     interp alias $child haveDynamicMPATH {} haveDynamicMPATH
     interp alias $child initGA         	 {} initGA
     interp alias $child is-loaded      	 {} is-loaded
@@ -1068,6 +1091,16 @@ proc execute-modulefile {modfile } {
     return $errorVal
 }
 
+proc getenv {var} {
+
+    global env
+    set v ""
+    if {[info exists env($var)]} {
+        set v $env($var)           
+    }
+    return $v
+}
+
 proc unset-env {var} {
     global env
 
@@ -1075,6 +1108,7 @@ proc unset-env {var} {
 	unset env($var)
     }
 }
+
 proc set-env {var value} {
     global g_envT g_envClrT env
     # If setting a var not seen then mark it for deletion when reset is called.
@@ -1155,6 +1189,9 @@ switch -regexp -- $g_shellName {
     }
     ^(python)$ {
 	set g_shellType python
+    }
+    ^(json)$ {
+	set g_shellType json
     }
     ^(lisp)$ {
 	set g_shellType lisp

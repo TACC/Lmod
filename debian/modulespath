@@ -1,0 +1,8 @@
+#
+#  This file defines the initial setup for the module files search path.
+#  Comments must begin with # and continue until the end of the line.
+#  Each line containing a single path will be added to the MODULEPATH
+#  environment variable.
+#
+/etc/lmod/modules
+/usr/share/lmod/lmod/modulefiles/

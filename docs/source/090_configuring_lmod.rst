@@ -81,17 +81,17 @@ configuration step.
    [yes/no] If set to yes then Lmod will trace the loads/unloads while
    the module command is running.
 
-**LMOD_MODULERCFILE**:
-   A single file or a colon separated list of files to be used to
-   specify the system MODULERC file.  **MODULERCFILE** can also be
-   used but only **LMOD_MODULERCFILE** is used if both are specified.
+**LMOD_MODULERC**:
+   Also **LMOD_MODULERCFILE** and **MODULERCFILE** can be used.  They
+   all are used the same way but **LMOD_MODULERC** is used before the
+   other two vars.  The contents of one of these environment variables
+   is to be a single file or a colon separated list of files or
+   directories to be used to specify the system MODULERC file(s).
+
+   If a directory is specified then all the files in that directory
+   are assumed to be MODULERC files.
    See :ref:`modulerc-label` for more details.
 
-**MODULERCFILE**:
-   A single file or a colon separated list of files to be used to
-   specify the system MODULERC file.  **LMOD_MODULERCFILE** can also be
-   used but only **LMOD_MODULERCFILE** is used if both are specified.
-   See :ref:`modulerc-label` for more details.
 
 **LMOD_QUARANTINE_VARS**:
    A colon separated list of environment variables that Lmod will not

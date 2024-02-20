@@ -54,9 +54,10 @@ package.cpath  = sys_lua_cpath
 _G._DEBUG      = false
 local arg_0    = arg[0]
 local posix    = require("posix")
+local access   = posix.access
+local getuid   = posix.getuid
 local readlink = posix.readlink
 local stat     = posix.stat
-local access   = posix.access
 local stderr   = io.stderr
 
 local st       = stat(arg_0)
@@ -243,7 +244,7 @@ end
 
 function options()
    local optionTbl     = optionTbl()
-   local usage         = "Usage: spider [options] moduledir ..."
+   local usage         = "Usage: check_module_tree_syntax [options] moduledir ..."
    local cmdlineParser = Optiks:new{usage   = usage,
                                     version = "1.0",
                                     error   = l_OptError,
@@ -262,13 +263,6 @@ function options()
       dest   = "trace",
       action = "store_true",
       help   = "Tracing",
-   }
-   cmdlineParser:add_option{
-      name    = {'--preload'},
-      dest    = 'preload',
-      action  = 'store_true',
-      default = false,
-      help    = "Use preloaded modules to build reverseMapT"
    }
    local optTbl, pargs = cmdlineParser:parse(arg)
 
@@ -323,7 +317,7 @@ function main()
    dbg.start{"module_tree_check main()"}
    _G.mcp = MainControl.build("spider")
    _G.MCP = MainControl.build("spider")
-   local remove_MRC_home         = true
+   local remove_MRC_home         = getuid() < 501
    local mrc                     = MRC:singleton(getModuleRCT(remove_MRC_home))
    local cache                   = Cache:singleton{dontWrite = true, quiet = true, buildCache = true,
                                                    buildFresh = true, noMRC=true}

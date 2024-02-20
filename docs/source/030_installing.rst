@@ -111,10 +111,21 @@ for ubuntu is only required if you configure Lmod
 using --with-fastTCLInterp=yes. 
 
 
-Using Your Package Manager Ubuntu for 18.04 and 20.04
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Using Your Package Manager for Ubuntu or Debian systems
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Please install the following packages::
+For modern debian and debian derivatives, you can get the necessary
+dependencies by executing the following commands.  Note that for this
+to work you may need to repair your /etc/apt/sources.list.  Check to
+see if your sources.list file as uncommmented "deb-src" lines.  Once
+this is correct, please execute the following lines::
+
+    $ sudo apt update
+    $ sudo apt -y build-dep lmod
+    $ lua_ver=$(which lua | xargs realpath -e | xargs basename)
+    $ sudo apt -y install lib${lua_ver}-dev tcl-dev
+
+Otherwise please install the following packages::
 
     lua5.3
     lua-bit32:amd64
@@ -263,9 +274,14 @@ modulefiles is discussed later.
    Obviously you will want to modify the profile.in and cshrc.in files to suit
    your system.
 
-Sites can also use ``/apps/lmod/lmod/init/.modulespath`` or configure
-Lmod to use `--with-ModulePathInit=...`` to point to any file.  The
-format of this file is::
+Sites that want to use the .modulespath file have 3 choices on how to
+specify where the .modulespath file is located in order of priority:
+
+#. Set the LMOD_MODULEPATH_INIT environmant variable to point to a file.
+#. Use /etc/lmod/.modulespath
+#. `/apps/lmod/lmod/init/.modulespath`` or configure with `--with-ModulePathInit=...`` to point to any file.
+
+The format of this file is::
 
     # comments are allowed as well as wildcards
     /apps/modulefiles/\*

@@ -137,6 +137,13 @@ function M.singleton(self, usage)
    }
 
    cmdlineParser:add_option{
+      name   = {"-b", "--brief"},
+      dest   = "brief",
+      action = "store_true",
+      help   = "brief listing with only user specified modules",
+   }
+
+   cmdlineParser:add_option{
       name   = {"-D"},
       dest   = "debug",
       action = "count",
@@ -298,7 +305,7 @@ function M.singleton(self, usage)
    }
 
    cmdlineParser:add_option{
-      name   = {"--force" },
+      name   = {"-f","--force"},
       dest   = "force",
       action = "store_true",
       help   = i18n("force_hlp"),
@@ -355,6 +362,13 @@ function M.singleton(self, usage)
       action = "store_true",
       help   = i18n("location_H"),
       default = 0.0
+   }
+
+   cmdlineParser:add_option{
+      name   = {"--terse_show_extensions"},
+      dest   = "terseShowExtensions",
+      action = "store_true",
+      help   = i18n("terseShowExt"),
    }
 
    local optTbl, pargs = cmdlineParser:parse(arg)

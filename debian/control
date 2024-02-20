@@ -1,0 +1,37 @@
+Source: lmod
+Section: devel
+Priority: optional
+Maintainer: Alexandre Strube <surak@surak.eti.br>
+Build-Depends: autotools-dev,
+               debhelper (>= 9),
+               lua-filesystem,
+               lua-json,
+               lua-posix,
+               lua-term,
+               lua5.3,
+               procps,
+               tcl,
+               tcl-dev,
+               liblua5.3-dev
+Standards-Version: 3.9.8
+Homepage: https://www.tacc.utexas.edu/tacc-projects/lmod
+Vcs-Git: git:://github.com/TACC/Lmod.git
+Vcs-Browser: https://github.com/TACC/Lmod
+
+Package: lmod
+Architecture: all
+Depends: lua-filesystem,
+         lua-json,
+         lua-posix,
+         lua-term,
+         lua5.3,
+         tcl,
+         ${misc:Depends}
+Conflicts: environment-modules
+Description: Lua based environment modules
+ Lmod is a Lua based module system that easily handles the MODULEPATH
+ Hierarchical problem. Environment Modules provide a convenient way to
+ dynamically change the users' environment through modulefiles. This
+ includes easily adding or removing directories to the PATH environment
+ variable. Modulefiles for Library packages provide environment variables
+ that specify where the library and header files can be found.

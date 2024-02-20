@@ -1,4 +1,4 @@
-![Lmod Logo](https://github.com/TACC/Lmod/raw/master/logos/2x/Lmod-4color%402x.png)
+![Lmod Logo](https://github.com/TACC/Lmod/raw/main/logos/2x/Lmod-4color%402x.png)
 
 [![Test Status](https://github.com/TACC/Lmod/actions/workflows/test.yml/badge.svg)](https://github.com/TACC/Lmod/actions)
 [![Documentation Status](https://readthedocs.org/projects/lmod/badge/?version=latest)](https://lmod.readthedocs.io/en/latest/?badge=latest)
@@ -10,7 +10,7 @@ It is a new implementation of environment modules.
 
 ## Lmod Web Sites
 
-* Documentation:   http://lmod.readthedocs.org
+* Documentation:   https://lmod.readthedocs.org
 * GitHub:          https://github.com/TACC/Lmod
 * SourceForge:     https://lmod.sf.net
 * TACC Homepage:   https://www.tacc.utexas.edu/research-development/tacc-projects/lmod

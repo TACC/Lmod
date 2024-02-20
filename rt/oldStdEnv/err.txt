@@ -1,22 +1,22 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.12  2022-02-09 16:10 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load StdEnv
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load StdEnv
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) StdEnv/2020
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load StdEnv
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load StdEnv
 ===========================
 =============================
 The default for StdEnv is changing on some day in the future ...
@@ -25,17 +25,17 @@ The following have been reloaded with a version change:
   1) StdEnv/2020 => StdEnv/2016.4
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) StdEnv/2016.4
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load StdEnv/2016.4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load StdEnv/2016.4
 ===========================
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) StdEnv/2016.4

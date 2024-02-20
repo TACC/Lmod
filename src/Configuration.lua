@@ -2,6 +2,9 @@
 -- Report how a site has configured Lmod.
 -- @classmod Configuration
 
+_G._DEBUG      = false
+local posix    = require("posix")
+
 require("strict")
 
 --------------------------------------------------------------------------
@@ -38,7 +41,6 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
-
 require("capture")
 require("fileOps")
 require("haveTermSupport")
@@ -52,6 +54,7 @@ local Banner       = require("Banner")
 local BeautifulTbl = require('BeautifulTbl')
 local ReadLmodRC   = require('ReadLmodRC')
 local Version      = require("Version")
+local access       = posix.access
 local concatTbl    = table.concat
 local cosmic       = require("Cosmic"):singleton()
 local dbg          = require('Dbg'):dbg()
@@ -61,20 +64,6 @@ local M            = {}
 
 local s_configuration = false
 
-local function l_locatePkg(pkg)
-   local result = nil
-   for path in package.path:split(";") do
-      local s = path:gsub("?",pkg)
-      local f = io.open(s,"r")
-      if (f) then
-         f:close()
-         result = s
-         break;
-      end
-   end
-   return result
-end
-
 
 local function l_new(self)
    local o = {}
@@ -82,7 +71,7 @@ local function l_new(self)
    self.__index = self
 
    local HashSum    = cosmic:value("LMOD_HASHSUM_PATH")
-   local locSitePkg = l_locatePkg("SitePackage") or "unknown"
+   local locSitePkg = locatePkg("SitePackage") or "unknown"
 
    if (locSitePkg ~= "unknown") then
       local std_sha1 = "1fa3d8f24793042217b8474904136fdde72d42dd"
@@ -108,6 +97,9 @@ local function l_new(self)
       result       = result:gsub("^.*= *",""):gsub(" .*","")
       if (result == std_hashsum) then
          locSitePkg = "standard"
+         cosmic:assign("LMOD_SITEPACKAGE_LOCATION", "<srctree>")
+      else
+         cosmic:assign("LMOD_SITEPACKAGE_LOCATION", locSitePkg)
       end
    end
 
@@ -163,11 +155,12 @@ local function l_new(self)
    local mpath_avail       = cosmic:value("LMOD_MPATH_AVAIL")
    local mpath_init        = cosmic:value("LMOD_MODULEPATH_INIT")
    local mpath_root        = cosmic:value("MODULEPATH_ROOT")
+   local nag               = cosmic:value("LMOD_ADMIN_FILE")
    local pager             = cosmic:value("LMOD_PAGER")
    local pager_opts        = cosmic:value("LMOD_PAGER_OPTS")
    local pin_versions      = cosmic:value("LMOD_PIN_VERSIONS")
    local prepend_block     = cosmic:value("LMOD_PREPEND_BLOCK")
-   local rc                = cosmic:value("LMOD_MODULERCFILE")
+   local rc                = cosmic:value("LMOD_MODULERC")
    local redirect          = cosmic:value("LMOD_REDIRECT")
    local settarg_support   = cosmic:value("LMOD_SETTARG_FULL_SUPPORT")
    local shortTime         = cosmic:value("LMOD_SHORT_TIME")
@@ -180,6 +173,9 @@ local function l_new(self)
    local tmod_rule         = cosmic:value("LMOD_TMOD_PATH_RULE")
    local tracing           = cosmic:value("LMOD_TRACING")
    local useDotConfigOnly  = cosmic:value("LMOD_USE_DOT_CONFIG_ONLY")
+   local lmod_cfg_path     = cosmic:value("LMOD_CONFIG_LOCATION")
+   local using_fast_tcl    = usingFastTCLInterp()
+   cosmic:assign("LMOD_USING_FAST_TCL_INTERP",using_fast_tcl)
 
    if (dfltModules == "") then
       dfltModules = "<empty>"
@@ -191,6 +187,8 @@ local function l_new(self)
 
    if (not rc:find(":") and not isFile(rc)) then
       rc = rc .. " -> <empty>"
+   elseif (not access(rc,"r")) then
+      rc = rc .. " -> <unreadable>"
    end
    if (not readable) then
       adminFn = adminFn .. " -> <empty>"
@@ -221,6 +219,7 @@ local function l_new(self)
    tbl.exactMatch   = { k = "Require Exact Match/no defaults"   , v = exactMatch,       n = "LMOD_EXACT_MATCH"                }
    tbl.expMCmd      = { k = "Export the module command"         , v = export_module,    n = "LMOD_EXPORT_MODULE"              }
    tbl.fastTCL      = { k = "Use attached TCL over system call" , v = fast_tcl_interp,  n = "LMOD_FAST_TCL_INTERP"            }
+   tbl.fastTCLUsing = { k = "Is fast TCL interp available"      , v = using_fast_tcl,   n = "LMOD_USING_FAST_TCL_INTERP"      }
    tbl.hiddenItalic = { k = "Use italic instead of dim"         , v = hiddenItalic,     n = "LMOD_HIDDEN_ITALIC"              }
    tbl.ksh_support  = { k = "KSH Support"                       , v = ksh_support,      n = "LMOD_KSH_SUPPORT"                }
    tbl.lang         = { k = "Language used for err/msg/warn"    , v = lmod_lang,        n = "LMOD_LANG"                       }
@@ -230,6 +229,7 @@ local function l_new(self)
    tbl.ld_preload   = { k = "LD_PRELOAD at config time"         , v = ld_preload,       n = "LMOD_LD_PRELOAD"                 }
    tbl.ld_lib_path  = { k = "LD_LIBRARY_PATH at config time"    , v = ld_lib_path,      n = "LMOD_LD_LIBRARY_PATH"            }
    tbl.lfsV         = { k = "LuaFileSystem version"             , v = lfsV,             n = false                             }
+   tbl.lmod_cfg     = { k = "lmod_config.lua location"          , v = lmod_cfg_path,    n = "LMOD_CONFIG_LOCATION"            }
    tbl.lmodV        = { k = "Lmod version"                      , v = lmod_version,     n = false                             }
    tbl.luaV         = { k = "Lua Version"                       , v = _VERSION,         n = false                             }
    tbl.lua_term     = { k = "System lua-term"                   , v = have_term,        n = "LMOD_HAVE_LUA_TERM"              }
@@ -237,7 +237,8 @@ local function l_new(self)
    tbl.mpath_av     = { k = "avail: Include modulepath dir"     , v = mpath_avail,      n = "LMOD_MPATH_AVAIL"                }
    tbl.mpath_init   = { k = "MODULEPATH_INIT"                   , v = mpath_init,       n = "LMOD_MODULEPATH_INIT"            }
    tbl.mpath_root   = { k = "MODULEPATH_ROOT"                   , v = mpath_root,       n = "MODULEPATH_ROOT"                 }
-   tbl.modRC        = { k = "MODULERCFILE"                      , v = rc,               n = "LMOD_MODULERCFILE"               }
+   tbl.modRC        = { k = "MODULERC"                          , v = rc,               n = "LMOD_MODULERC"                   }
+   tbl.nag          = { k = "NAG File"                          , v = nag,              n = "LMOD_ADMIN_FILE"                 }
    tbl.numSC        = { k = "number of cache dirs"              , v = numSC,            n = false                             }
    tbl.os_name      = { k = "OS Name"                           , v = os_name,          n = false                             }
    tbl.pager        = { k = "Pager"                             , v = pager,            n = "LMOD_PAGER"                      }
@@ -339,7 +340,7 @@ function M.report(self, t)
          b[#b+1] = "Active RC file(s):"
          b[#b+1] = "------------------"
          for i = 1, #rcFileA do
-            b[#b+1] = rcFileA[i]
+            b[#b+1] = realpath(rcFileA[i])
          end
          b[#b+1]  = "\n"
       end
@@ -381,6 +382,11 @@ end
 -- @param self A Configuration object
 -- @return the configuration report in json as a single string.
 function M.report_json(self)
+   if (_VERSION ~= "Lua 5.1") then
+      require("declare")
+      declare("loadstring")
+      loadstring = load
+   end
    local json    = require("json")
    local tbl     = self.tbl
    local configT = {}

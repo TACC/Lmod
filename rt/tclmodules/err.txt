@@ -1,30 +1,50 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.12  2022-08-18 15:45 -05:00
+Modules based on Lua: Version 8.7.30  2023-07-21 17:13 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing whatis a
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis a
 ===========================
 a/1.0               : This OutputDIR/foo
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load earlyLateOutput
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load earlyLateOutput
 ===========================
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) earlyLateOutput/2.0
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show showMe
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show showMe
 ===========================
    ProjectDIR/rt/tclmodules/mf/showMe/1.0:
 setenv("TESTVAR","/tmp")
 prepend_path("TESTPATH","/tmp")
 pushenv("T2","/tmp/t2")
 prepend_path("TESTPATH","/tmp/t2")
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+ProjectDIR/rt/tclmodules/mf
+   a/1.0                      getenv/1.0    hide/2.0   (D)
+   earlyLateOutput/2.0 (L)    hide/1.0      showMe/1.0
+  Where:
+   D:  Default Module
+   L:  Module is loaded
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load getenv
+===========================
+FOUND

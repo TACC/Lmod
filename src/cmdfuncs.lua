@@ -65,7 +65,6 @@ local lfs          = require("lfs")
 local sort         = table.sort
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack  -- luacheck: compat
 local unpack       = (_VERSION == "Lua 5.1") and unpack or table.unpack  -- luacheck: compat
-local s_purgeFlg   = false
 
 local system_name  = cosmic:value("LMOD_SYSTEM_NAME")
 
@@ -76,7 +75,7 @@ local system_name  = cosmic:value("LMOD_SYSTEM_NAME")
 -- depending on what mode Access is called with.
 -- @param mode Whether this function has be called via *Help* or *Whatis*.
 local function l_Access(mode, ...)
-   local hub    = Hub:singleton()
+   local hub       = Hub:singleton()
    local shell     = _G.Shell
    local optionTbl = optionTbl()
    dbg.start{"l_Access(", concatTbl({...},", "),")"}
@@ -308,7 +307,7 @@ function IsAvail(...)
    for i = 1, argA.n do
       local mname = MName:new("load", argA[i])
       if (not mname:valid()) then
-         setWarningFlag()
+         setStatusFlag()
          break
       end
    end
@@ -319,7 +318,7 @@ function IsLoaded(...)
    for i = 1, argA.n do
       local mname = MName:new("mt", argA[i])
       if (not mname:isloaded()) then
-         setWarningFlag()
+         setStatusFlag()
          break
       end
    end
@@ -369,13 +368,15 @@ function List(...)
    local shell     = _G.Shell
    local frameStk  = FrameStk:singleton()
    local mt        = frameStk:mt()
-   local activeA   = mt:list("fullName","active")
-   local inactiveA = mt:list("fullName","inactive")
+   local kind      = optionTbl.brief and "fullName_Meta" or "fullName"
+   local activeA   = mt:list(kind,"active")
+   local inactiveA = mt:list(kind,"inactive")
    local total     = #activeA + #inactiveA
    local cwidth    = optionTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
 
    dbg.print{"#activeA:   ",#activeA,"\n"}
    dbg.print{"#inactiveA: ",#inactiveA,"\n"}
+   dbg.print{"kind:       ",kind,"\n"}
 
    activeA = hook.apply("listHook",activeA) or activeA
 
@@ -406,11 +407,16 @@ function List(...)
 
    if (optionTbl.terse) then
       for i = 1,#activeA do
-         local fullName = activeA[i].fullName
+         local s = activeA[i].fullName
+         if (activeA[i].origUserName) then
+            s = s .. "\n" .. activeA[i].origUserName
+         end
+         dbg.print{"fullName: ",activeA[i].fullName, ", orig: ",activeA[i].origUserName,", s: ",s,"\n"}
+         
          for j = 1, wanted.n do
             local p = wanted[j]
-            if (fullName:find(p)) then
-               shell:echo(fullName.."\n")
+            if (s:find(p)) then
+               shell:echo(s.."\n")
             end
          end
       end
@@ -428,11 +434,12 @@ function List(...)
    for i = 1, #activeA do
       local entry    = activeA[i]
       local fullName = entry.fullName
+      local origName = entry.origUserName or ""
       for j = 1, wanted.n do
          local p = wanted[j]
-         if (fullName:find(p)) then
+         if (fullName:find(p) or origName:find(p)) then
             kk = kk + 1
-            a[#a + 1] = mt:list_property(kk, entry.sn, "short", legendT)
+            a[#a + 1] = mt:list_w_property(kk, entry.sn, "short", legendT)
          end
       end
    end
@@ -590,26 +597,8 @@ end
 -- Unload all loaded modules.
 -- @param force If true then sticky modules are unloaded as well.
 function Purge(force)
-   local frameStk = FrameStk:singleton()
-   local mt       = frameStk:mt()
-   local totalA   = mt:list("short","any")
-
-   if (#totalA < 1) then
-      return
-   end
-
-   local mA = {}
-   for i = #totalA,1,-1 do
-      mA[#mA+1] = MName:new("mt",totalA[i])
-   end
-   dbg.start{"Purge(",concatTbl(totalA,", "),")"}
-   s_purgeFlg = true
-   unload_usr_internal(mA, force)
-   s_purgeFlg = false
-
-   -- A purge should not set the warning flag.
-   clearWarningFlag()
-   dbg.print{"warningFlag: ", getWarningFlag(),"\n"}
+   dbg.start{"Purge(force = ",force,")"}
+   mcp:purge{force=force}
    dbg.fini("Purge")
 end
 
@@ -1213,7 +1202,7 @@ function Use(...)
       if (v:sub(1,1) ~= '/') then
          local old = v
          -- If relative convert to try to convert to absolute path
-         v          = abspath(v)
+         v         = realpath(v)
          -- If it doesn't exist then build path with current directory and relative path.
          if (not v) then
             v = pathJoin(posix.getcwd(), old)

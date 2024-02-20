@@ -1,0 +1,54 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A B
+===========================
+A=A;
+export A;
+B=B;
+export B;
+LOADEDMODULES=A/1.0:B/2.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/path_play/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/path_play/mf/Core;
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH=ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+_LMFILES_=ProjectDIR/rt/path_play/mf/Core/A/1.0.lua:ProjectDIR/rt/path_play/mf/Core/B/2.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/path_play/mf/Core/A/1.0.lua",fullName="A/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},B={fn="ProjectDIR/rt/path_play/mf/Core/B/2.0.lua",fullName="B/2.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="B",wV="000000002.*zfinal",},},mpathA={"ProjectDIR/rt/path_play/mf/Core",},systemBaseMPATH="ProjectDIR/rt/path_play/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload B
+===========================
+unset B;
+LOADEDMODULES=A/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/path_play/mf/Core;
+export MODULEPATH;
+PATH=ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+_LMFILES_=ProjectDIR/rt/path_play/mf/Core/A/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/path_play/mf/Core/A/1.0.lua",fullName="A/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/path_play/mf/Core",},systemBaseMPATH="ProjectDIR/rt/path_play/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload A
+===========================
+unset A;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/path_play/mf/Core;
+export MODULEPATH;
+PATH=ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/path_play/mf/Core",},systemBaseMPATH="ProjectDIR/rt/path_play/mf/Core",}';
+export _ModuleTable_;

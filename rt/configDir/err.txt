@@ -1,14 +1,14 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.12  2022-08-18 15:45 -05:00
+Modules based on Lua: Version 8.7.34  2024-01-05 19:34 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --config
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --config
 ===========================
-Modules based on Lua: Version 8.7.12  2022-08-18 15:45 -05:00
+Modules based on Lua: Version 8.7.34  2024-01-05 19:34 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                                                   Value
 Allow root to use Lmod (LMOD_ALLOW_ROOT_USE)                  yes
@@ -26,17 +26,20 @@ Dynamic Spider Cache (LMOD_DYNAMIC_SPIDER_CACHE)              yes
 Require Exact Match/no defaults (LMOD_EXACT_MATCH)            no
 Export the module command (LMOD_EXPORT_MODULE)                yes
 Allow extended default (LMOD_EXTENDED_DEFAULT)                yes
-Use attached TCL over system call (LMOD_FAST_TCL_INTERP)      no
+Use attached TCL over system call (LMOD_FAST_TCL_INTERP)      yes
+Is fast TCL interp available (LMOD_USING_FAST_TCL_INTERP)     no
 Use italic instead of dim (LMOD_HIDDEN_ITALIC)                no
 KSH Support (LMOD_KSH_SUPPORT)                                no
 Language used for err/msg/warn (LMOD_LANG)                    en
 Site message file (LMOD_SITE_MSG_FILE)                        ProjectDIR/rt/configDir/lmod_cfg_dir/lang.lua
+lmod_config.lua location (LMOD_CONFIG_LOCATION)               ProjectDIR/rt/configDir/lmod_cfg_dir/lmod_config.lua
 LUA_CPATH                                                     @sys_lua_cpath@
 LUA_PATH                                                      @sys_lua_path@
 System lua-term (LMOD_HAVE_LUA_TERM)                          no
 avail: Include modulepath dir (LMOD_MPATH_AVAIL)              no
 MODULEPATH_INIT (LMOD_MODULEPATH_INIT)                        @PKG@/init/.modulespath -> <empty>
 MODULEPATH_ROOT (MODULEPATH_ROOT)
+NAG File (LMOD_ADMIN_FILE)                                    ProjectDIR/src/../../etc/admin.list
 number of cache dirs                                          0
 OS Name                                                       <N/A>
 Pager (LMOD_PAGER)                                            less
@@ -51,7 +54,6 @@ Prepend order (LMOD_PREPEND_BLOCK)                            normal
 LMOD_RC (LMOD_RC)                                             <empty>
 Redirect to stdout (LMOD_REDIRECT)                            no
 Supporting Full Settarg Use (LMOD_SETTARG_FULL_SUPPORT)       no
-User shell                                                    bash
 Site Name (LMOD_SITE_NAME)                                    XYZZY
 Site Pkg location                                             ProjectDIR/rt/configDir/lmod_cfg_dir/SitePackage.lua
 Ignore Cache (LMOD_IGNORE_CACHE)                              no
@@ -69,13 +71,15 @@ Tracing (LMOD_TRACING)                                        no
 uname -a
 User Cache Directory                                          OutputDIR/.cache/lmod
 LMOD_CONFIG_DIR              E          /etc/lmod    ProjectDIR/rt/configDir/lmod_cfg_dir
-LMOD_FAST_TCL_INTERP         E          yes          no
-LMOD_PACKAGE_PATH            lmod_cfg   nil          ProjectDIR/rt/configDir/lmod_cfg_dir
-LMOD_SITE_MSG_FILE           lmod_cfg   false        ProjectDIR/rt/configDir/lmod_cfg_dir/lang.lua
-LMOD_SITE_NAME               lmod_cfg   false        XYZZY
+LMOD_CONFIG_LOCATION         StdPkg     no           ProjectDIR/rt/configDir/lmod_cfg_dir/lmod_config.lua
+LMOD_PACKAGE_PATH            StdPkg     nil          ProjectDIR/rt/configDir/lmod_cfg_dir
+LMOD_SITEPACKAGE_LOCATION    Other      <srctree>    ProjectDIR/rt/configDir/lmod_cfg_dir/SitePackage.lua
+LMOD_SITE_MSG_FILE           StdPkg     false        ProjectDIR/rt/configDir/lmod_cfg_dir/lang.lua
+LMOD_SITE_NAME               StdPkg     false        XYZZY
 LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>
+LMOD_USING_FAST_TCL_INTERP   Other      yes          no
 Active RC file(s):
-ProjectDIR/src/../init/lmodrc.lua
+ProjectDIR/init/lmodrc.lua
  Lmod Property Table:
 propT = {
   arch = {
@@ -185,12 +189,12 @@ propT = {
 }
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load tryThis
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load tryThis
 ===========================
 This is kewl
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load w
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load w
 ===========================
 Lmod Warning: The module w/1.0 is outdated. Please use a version from 2019a or newer.
 If there is no newer version, request one at hpc@vub.ac.be.

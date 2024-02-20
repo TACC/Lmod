@@ -6,7 +6,7 @@ if [ -n "${KSH_VERSION+x}" ]; then
   if [ "@silence_shell_debugging@" = "no" ]; then
      module()
      {
-       eval "$($LMOD_CMD ksh "$@")" && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
+       eval "$($LMOD_CMD shell "$@")" && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
      }
   else
      module()
@@ -26,7 +26,7 @@ if [ -n "${KSH_VERSION+x}" ]; then
           echo "Shell debugging temporarily silenced: export LMOD_SH_DBG_ON=1 for Lmod's output" 1>&2
        fi
 
-       eval "$($LMOD_CMD ksh "$@")" && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
+       eval "$($LMOD_CMD shell "$@")" && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
        __lmod_my_status=$?
 
        ############################################################

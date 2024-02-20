@@ -9,7 +9,6 @@ Version = "1.1"
 require("declare")
 require("strict")
 require("string_utils")
-local posix       = require("posix")
 local Optiks      = require("Optiks")
 local dbg         = require("Dbg"):dbg()
 local s_optionTbl = {}

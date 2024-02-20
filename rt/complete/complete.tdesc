@@ -31,7 +31,9 @@ testdescript = {
      runLmod unload tcl_spack                  # 6
      runLmod show   spack                      # 7
      runLmod show   tcl_spack                  # 8
+     runLmod load   foo/1.0                    # 9
 
+     
 
 
      HOME=$ORIG_HOME

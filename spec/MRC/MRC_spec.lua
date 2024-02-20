@@ -66,7 +66,7 @@ describe("Testing MRC class #MRC.",
                   _G.mcp             = _G.MainControl.build("load")
                   _G.MCP             = _G.MainControl.build("load")
                   posix.setenv("HOME",base, true)
-                  cosmic:assign("LMOD_MODULERCFILE",pathJoin(projDir,testDir,"dot.modulerc.lua"))
+                  cosmic:assign("LMOD_MODULERC",pathJoin(projDir,testDir,"dot.modulerc.lua"))
                   --dbg:activateDebug(1)
                   MRC:__clear()
                   local moduleA = ModuleA:singleton{reset=true, spider_cache=true}

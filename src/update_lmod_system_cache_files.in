@@ -38,7 +38,7 @@
 ##
 
 #
-# loosely based on https://github.com/TACC/Lmod/tree/master/contrib/BuildSystemCacheFile/createSystemCacheFile.sh
+# loosely based on https://github.com/TACC/Lmod/tree/main/contrib/BuildSystemCacheFile/createSystemCacheFile.sh
 
 #
 # Script parameters (these can be tweaked via the provided command line options)
@@ -127,7 +127,7 @@ print_help() {
 }
 
 # parse command line options using getopts
-# see http://www.tldp.org/LDP/abs/html/internal.html#EX33
+# see https://www.tldp.org/LDP/abs/html/internal.html#EX33
 parse_cmdline(){
     debug "Parsing command line options..."
     local OPTIND

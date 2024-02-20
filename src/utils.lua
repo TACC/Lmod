@@ -55,6 +55,7 @@ local decode64     = base64.decode64
 local encode64     = base64.encode64
 local floor        = math.floor
 local getenv       = os.getenv
+local hook         = require("Hook")
 local huge         = math.huge
 local load         = (_VERSION == "Lua 5.1") and loadstring or load
 local min          = math.min
@@ -65,6 +66,10 @@ local stat         = posix.stat
 local strfmt       = string.format
 local s_envT       = {}
 local s_clrEnvT    = {}
+local blank          = " "
+local s_indentLevel  = 0
+local s_indentString = ""
+
 --------------------------------------------------------------------------
 -- This is 5.1 Lua function to cover the table.pack function
 -- that is in Lua 5.2 and later.
@@ -81,6 +86,16 @@ end
 function __LINE__()
    return debug.getinfo(2, 'l').currentline
 end
+
+
+local function l_prequire(m)
+   local ok, value = pcall(require, m) 
+   if (not ok) then 
+      return nil, value
+   end
+  return value
+end
+
 
 
 --------------------------------------------------------------------------
@@ -244,23 +259,21 @@ end
 -- @param propT The property table
 -- @param legendT The legend table.  A key-value pairing of keys to descriptions.
 -- @return An array of colorized strings
-function colorizePropA(style, modT, mrc, propT, legendT)
+function colorizePropA(style, mt, modT, mrc, propT, legendT)
    local readLmodRC   = require("ReadLmodRC"):singleton()
    local propDisplayT = readLmodRC:propT()
    local iprop        = 0
    local pA           = {}
-   local moduleName   = modT.fullName
+   local moduleName   = mt:name_w_possible_alias(modT, "full")
    propT              = propT or {}
 
    if (not mrc:isVisible(modT)) then
       local i18n = require("i18n")
       local H    = 'H'
-      moduleName = colorize("hidden",moduleName)
+      moduleName = colorize("hidden",modT.fullName)
       pA[#pA+1]  = H
       legendT[H] = i18n("HiddenM")
    end
-
-
 
    local resultA      = { moduleName }
    for kk,vv in pairsByKeys(propDisplayT) do
@@ -332,11 +345,8 @@ end
 --------------------------------------------------------------------------
 -- Find the admin file (or nag message file).
 function findAdminFn()
-   local readable    = "no"
-   local adminFn     = cosmic:value("LMOD_ADMIN_FILE")
-   if (posix.access(adminFn, 'r')) then
-      readable = "yes"
-   end
+   local adminFn  = cosmic:value("LMOD_ADMIN_FILE")
+   local readable = posix.access(adminFn, 'r') and "yes" or "no"
    return adminFn, readable
 end
 
@@ -453,15 +463,19 @@ end
 function getModuleRCT(remove_MRC_home)
    --dbg.start{"getModuleRCT(remove_MRC_home)"}
    local A            = {}
-   local MRC_system   = cosmic:value("LMOD_MODULERCFILE")
+   local MRC_system   = cosmic:value("LMOD_MODULERC")
    local MRC_home     = pathJoin(getenv("HOME"), ".modulerc")
    local MRC_home_lua = pathJoin(getenv("HOME"), ".modulerc.lua")
 
    if (MRC_system) then
       local a = {}
-      for file in MRC_system:split(":") do
-         if (isFile(file) and access(file,"r")) then
-            a[#a+1] = file
+      for n in MRC_system:split(":") do
+         if (isDir(n) and access(n,"rx")) then
+            for f in lfs.dir(n) do
+               a[#a+1] = pathJoin(n, f)
+            end
+         elseif (isFile(n) and access(n,"r")) then
+            a[#a+1] = n
          end
       end
       for i = #a, 1, -1 do
@@ -563,10 +577,12 @@ function path2pathA(path, delim, clearDoubleSlash)
       return {}
    end
    if (path == '') then
-      return { ' ' }
+      return { '' }
    end
+   local delimPatt = delim .. "+";
 
-   local is, ie
+
+   path = path:gsub(delimPatt,delim)
 
    local pathA = {}
    for v  in path:split(delim) do
@@ -706,6 +722,15 @@ local s_defaultsT = {
 }
 
 --------------------------------------------------------------------------
+-- Modify output indentation by +/- 2 ' '
+-- MC_Show
+
+function s_indent(i)
+   s_indentLevel  = s_indentLevel + i
+   s_indentString = blank:rep(s_indentLevel*2)
+end
+
+--------------------------------------------------------------------------
 -- This routine converts a command into a string.  This is used by MC_Show
 -- @param name Input command name.
 function ShowCmdStr(name, ...)
@@ -749,12 +774,34 @@ function ShowCmdStr(name, ...)
    end
 
    local b = {}
+   b[#b+1] = s_indentString
    b[#b+1] = name
    b[#b+1] = left
    b[#b+1] = concatTbl(a,",")
    b[#b+1] = right
    dbg.fini("ShowCmdStr")
    return concatTbl(b,"")
+end
+
+--------------------------------------------------------------------------
+-- This routine prints a help message.  This is used by MC_Show
+function ShowHelpStr(...)
+   dbg.start{"ShowHelpStr(...)"}
+
+   local argA    = pack(...)
+   local a       = {}
+   a[1]          = s_indentString .. "help([["
+   for i = 1,argA.n do
+      for line in argA[i]:split("\n") do
+         a[#a + 1] = line
+         a[#a + 1] = "\n" .. s_indentString
+      end
+      a[#a] = "]],[[\n" .. s_indentString 
+   end
+   a[#a] = "]])\n"
+   dbg.fini("ShowHelpStr")
+   return concatTbl(a,"")
+
 end
 
 --------------------------------------------------------------------------
@@ -822,22 +869,16 @@ function haveWarnings()
 end
 
 --------------------------------------------------------------------------
--- Reset warning flag to false.
-function clearWarningFlag()
-   s_warning = false
-end
-
---------------------------------------------------------------------------
 -- Set warning flags to true.
-function setWarningFlag()
-   dbg.print{"setting warning flag\n"}
-   s_warning = true
+function setStatusFlag()
+   dbg.print{"setting status flag\n"}
+   s_status = true
 end
 
 --------------------------------------------------------------------------
 -- Get warning flag value.
-function getWarningFlag()
-   return s_warning
+function getStatusFlag()
+   return s_status
 end
 
 local function l_restoreEnv(oldEnvT, newEnvT)
@@ -893,8 +934,17 @@ local function l_build_runTCLprog()
    if (fast_tcl_interp == "no") then
       _G.runTCLprog = l_runTCLprog
    else
-      _G.runTCLprog = require("tcl2lua").runTCLprog
+      local m = l_prequire("tcl2lua")
+      if (not m) then
+         _G.runTCLprog = l_runTCLprog
+      else
+         _G.runTCLprog = m.runTCLprog
+      end
    end
+end
+
+function usingFastTCLInterp()
+   return (_G.runTCLprog ~= l_runTCLprog) and "yes" or "no"
 end
 
 --------------------------------------------------------------------------
@@ -1045,13 +1095,14 @@ function initialize_lmod()
    -- Load a SitePackage Module.
    ------------------------------------------------------------------------
 
-   cosmic:set_key("lmod_cfg")
    local configDir = cosmic:value("LMOD_CONFIG_DIR")
    local fn        = pathJoin(configDir,"lmod_config.lua")
    if (isFile(fn)) then
       assert(loadfile(fn))()
+      cosmic:assign("LMOD_CONFIG_LOCATION",fn)
    end
 
+   cosmic:set_key("lmod_cfg")
    build_i18n_messages()
    l_build_runTCLprog()
    l_build_accept_function()   
@@ -1073,6 +1124,8 @@ function initialize_lmod()
                       package.cpath
    end
 
+   local locSitePkg = locatePkg("SitePackage")
+   cosmic:assign("LMOD_SITEPACKAGE_LOCATION",locSitePkg)
    cosmic:set_key("SitePkg")
    require("SitePackage")
    cosmic:set_key("Other")
@@ -1092,4 +1145,71 @@ function tracing_msg(msgA)
    shell:echo(concatTbl(b,""))
 end
 
+function dynamic_shell(shellNm)
+   local BaseShell = require("BaseShell") 
+   local success   = false
    
+   if (shellNm ~= "shell") then
+      if (BaseShell.isValid(shellNm)) then
+         -- Trust a valid shell and report the shell name is valid and return
+         success = true
+         return shellNm, success
+      end
+   else
+      -- If here then the name of the shell is "shell" and it is "valid"
+      success = true
+   end
+
+   ------------------------------------------------------------
+   -- Dynamically find the shell from the parent process
+   local ppid  = posix.getpid("ppid")
+   local n     = shellNm
+   local fn    = "/proc/"..ppid.."/exe"
+   local found = false
+   if (isFile(fn)) then
+      n = posix.readlink(fn)
+      if (not n) then
+         local cmd = "readlink "..fn
+         n = capture(cmd):gsub("%s+$","")
+      end
+      n = barefilename(n)
+      if (BaseShell.isValid(n)) then
+         shellNm = n
+         return shellNm, success
+      end
+   end
+   
+   local ps_cmd = "@ps@"
+   if ( ps_cmd:sub(1,1) == "@" ) then
+      ps_cmd = "ps"
+   end
+   local cmd = ps_cmd.." -p "..ppid.." -ocomm="
+   n         = capture(cmd):gsub("^%-",""):gsub("%s+$","")
+   n         = barefilename(n)
+   if (BaseShell.isValid(n)) then
+      shellNm = n
+   else
+      shellNm = "bash"  -- If "n" is not a valid shell assume bash.
+   end
+   return shellNm, success
+end
+
+function locatePkg(pkg)
+   local result = nil
+   for path in package.path:split(";") do
+      local s = path:gsub("?",pkg)
+      if (isFile(s)) then
+         result = realpath(s)
+         break
+      end
+   end
+   return result
+end
+
+function wrap_complete(name)
+   return "complete<" .. name .. ">"
+end
+function unwrap_complete(name)
+   local i,j,n = name:find("complete<([^<]*)>")
+   return n
+end

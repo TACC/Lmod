@@ -1,12 +1,12 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 The following is a list of the modules and extensions currently available:
   b: b/1.0
@@ -18,7 +18,7 @@ must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/dot/mf
    b/1.0
@@ -29,11 +29,11 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a/.1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load a/.1.0
 ===========================
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) a/.1.0 (H)
@@ -41,11 +41,11 @@ Currently Loaded Modules:
    H:  Hidden Module
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 The following is a list of the modules and extensions currently available:
   b: b/1.0
@@ -57,51 +57,51 @@ must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider b
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider b
 ===========================
   b: b/1.0
     This module can be loaded directly: module load b/1.0
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider b/.2.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider b/.2.0
 ===========================
 Lmod has detected the following error: Unable to find: "b/.2.0".
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider b/1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider b/1.0
 ===========================
   b: b/1.0
     This module can be loaded directly: module load b/1.0
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider B
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider B
 ===========================
   b: b/1.0
     This module can be loaded directly: module load b/1.0
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider B/1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider B/1.0
 ===========================
   b: b/1.0
     This module can be loaded directly: module load b/1.0
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider B/.2.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider B/.2.0
 ===========================
 Lmod has detected the following error: Unable to find: "B/.2.0".
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider a
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider a
 ===========================
 Lmod has detected the following error: Unable to find: "a".
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider a/.1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider a/.1.0
 ===========================
 Lmod has detected the following error: Unable to find: "a/.1.0".
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/dot/mf
    b/1.0
@@ -112,11 +112,11 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a/.1.0 b/.2.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load a/.1.0 b/.2.0
 ===========================
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) a/.1.0 (H)   2) b/.2.0 (H)
@@ -124,7 +124,7 @@ Currently Loaded Modules:
    H:  Hidden Module
 ===========================
 step 19
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden spider
 ===========================
 The following is a list of the modules and extensions currently available:
   a: a/.1.0

@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing whatis a
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing whatis a
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/tclmodules/mf:1;
 export __LMOD_REF_COUNT_MODULEPATH;
@@ -14,7 +14,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load earlyLateOutput
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load earlyLateOutput
 ===========================
 echo early output
 LOADEDMODULES=earlyLateOutput/2.0;
@@ -33,7 +33,7 @@ echo source conda1.sh;
 echo source conda2.sh;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/tclmodules/mf;
 export MODULEPATH;
@@ -41,9 +41,29 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={earlyLateOutpu
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show showMe
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show showMe
 ===========================
 MODULEPATH=ProjectDIR/rt/tclmodules/mf;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={earlyLateOutput={fn="ProjectDIR/rt/tclmodules/mf/earlyLateOutput/2.0",fullName="earlyLateOutput/2.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="earlyLateOutput",wV="000000002.*zfinal",},},mpathA={"ProjectDIR/rt/tclmodules/mf",},systemBaseMPATH="ProjectDIR/rt/tclmodules/mf",}';
+export _ModuleTable_;
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+MODULEPATH=ProjectDIR/rt/tclmodules/mf;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={earlyLateOutput={fn="ProjectDIR/rt/tclmodules/mf/earlyLateOutput/2.0",fullName="earlyLateOutput/2.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="earlyLateOutput",wV="000000002.*zfinal",},},mpathA={"ProjectDIR/rt/tclmodules/mf",},systemBaseMPATH="ProjectDIR/rt/tclmodules/mf",}';
+export _ModuleTable_;
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load getenv
+===========================
+LOADEDMODULES=earlyLateOutput/2.0:getenv/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/tclmodules/mf;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/tclmodules/mf/earlyLateOutput/2.0:ProjectDIR/rt/tclmodules/mf/getenv/1.0;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={earlyLateOutput={fn="ProjectDIR/rt/tclmodules/mf/earlyLateOutput/2.0",fullName="earlyLateOutput/2.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="earlyLateOutput",wV="000000002.*zfinal",},getenv={fn="ProjectDIR/rt/tclmodules/mf/getenv/1.0",fullName="getenv/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="getenv",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/tclmodules/mf",},systemBaseMPATH="ProjectDIR/rt/tclmodules/mf",}';
 export _ModuleTable_;

@@ -140,8 +140,8 @@ function Usage()
    if (s_Usage) then
       return s_Usage
    end
-   local website = colorize("red","http://lmod.readthedocs.org/")
-   local webBR   = colorize("red","http://lmod.readthedocs.io/en/latest/075_bug_reporting.html")
+   local website = colorize("red","https://lmod.readthedocs.org/")
+   local webBR   = colorize("red","https://lmod.readthedocs.io/en/latest/075_bug_reporting.html")
    local banner  = Banner:singleton()
    local line    = banner:border(2)
    local a = {}
@@ -215,7 +215,7 @@ function Usage()
    a[#a+1] = { line}
    a[#a+1] = { i18n("web_sites") }
    a[#a+1] = { "" }
-   a[#a+1] = { "  Documentation:    http://lmod.readthedocs.org"}
+   a[#a+1] = { "  Documentation:    https://lmod.readthedocs.org"}
    a[#a+1] = { "  GitHub:           https://github.com/TACC/Lmod"}
    a[#a+1] = { "  SourceForge:      https://lmod.sf.net"}
    a[#a+1] = { "  TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod"}
@@ -341,12 +341,16 @@ function main()
 
    dbg.set_prefix(colorize("red","Lmod"))
 
-   local shellNm = barefilename(arg[1])
-   if (BaseShell.isValid(shellNm)) then
+   -- Get shell name from 1st argument
+   local shellNm, success = dynamic_shell(arg[1])
+   if (success) then
       table.remove(arg,1)
    else
       shellNm = "bash"
    end
+
+   -- Build Shell object from shellNm
+   Shell = BaseShell:build(shellNm)
 
    local optionTbl = optionTbl()
    MCP = MainControl.build("load")
@@ -361,8 +365,9 @@ function main()
    local userCmd = optionTbl.pargs[1]
    table.remove(optionTbl.pargs,1)
 
-   if (optionTbl.debug > 0 or optionTbl.dbglvl) then
+   if (getenv("LMOD_DEBUG") or optionTbl.debug > 0 or optionTbl.dbglvl) then
       local configuration = require("Configuration"):singleton()
+      io.stderr:setvbuf("no")
       io.stderr:write(configuration:report())
       optionTbl.dbglvl = (type(optionTbl.dbglvl) == "number") and optionTbl.dbglvl or 1
       local dbgLevel = max(optionTbl.debug, optionTbl.dbglvl or 1)
@@ -381,6 +386,7 @@ function main()
       dbg.print{"package.cpath: ",package.cpath,"\n"}
       dbg.print{"lmodPath: ", cosmic:value("LMOD_PACKAGE_PATH"),"\n"}
       dbg.print{"LOADEDMODULES: ",getenv("LOADEDMODULES"),"\n"}
+      dbg.print{"shellNm: ",shellNm,", Shell:name(): ",Shell:name(),"\n"}
    end
 
    -- dumpversion and quit if requested.
@@ -389,9 +395,6 @@ function main()
       os.exit(0)
    end
 
-   -- Build Shell object from shellNm
-   Shell = BaseShell:build(shellNm)
-   dbg.print{"shellNm: ",shellNm,", Shell:name(): ",Shell:name(),"\n"}
 
    local tracing = cosmic:value("LMOD_TRACING")
    if (tracing == "yes" ) then
@@ -574,7 +577,7 @@ function main()
       io.stderr:write(timer:report(),"\n")
    end
 
-   if (getWarningFlag() and not quiet() ) then
+   if (getStatusFlag()) then
       LmodErrorExit()
    end
 end

@@ -1,0 +1,174 @@
+Notes on 15 Years of Lmod.
+
+* My friend and colleague Bill Barth described that TACC was having.
+** TACC used Tmod 3 (C/TCL based module system)
+** They had a software hierarchy where loading a compiler modified $MODULEPATH
+** Users then see the compiler dependent modules like Boost, MPI etc
+** The trouble was that there was no easy way to switch compilers and/or MPI modules
+
+* My key insight was that when $MODULEPATH changed to check and see if any modules needed to be unloaded or reloaded
+** Looked at Env. Modules C/TCL based code and threw up my hands (AKA Tmod 3)
+** There was no way I could modify that
+
+* Decided to prototype with Lua.
+** The people who maintain Tmod 3 would merge my prototype
+** I thought that Lua would be too slow
+** But it turns out that Lua is fast enough
+
+* When I started Lmod in 2008, support for Tmod 3 was spotty at best.
+** Lmod had very little composition
+
+* I announced Lmod on the environment modules mailling list
+** I remember the first email I got from an outside user in 2010
+
+* We used Lmod at TACC in 2010 and announced to the world in 2011
+
+* Lua supports function renaming.
+** To support module unloading, I just renamed setenv to be unsetenv etc.
+** This was difficult to get right in every case.
+** Switched to MasterControl base class
+    with MC_Load, MC_Unload, MC_Show derived classes to support the
+    various modes how modules are evaluated (There are 10 ways)
+
+* Originally Lmod only supported N/V
+** Lmod version 4 or 5 supported C/N/V  (but not N/V/V)
+** It wasn't until Lmod 7 for Lmod to support N/V/V
+
+* TACC installed Stampede 1 which had Xeon PHI (MIC's) daughter cards.
+** Meant that software packages might support fat binaries or other things
+** Lmod needed support module properties to distinguish between packages that support MICs or didn't
+** That meant that lmod needed a Spider Cache  to know properties when doing "ml avail"
+** Lmod start on TACC's Ranger which stored modules on a Lustre file system
+** Walking a Lustre file system is slow
+** Reading one file is much faster.
+
+* Massive rewrite to support N/V/V  (Lmod 7 on)
+** Improved Spider Cache generation
+** All started when I talked with Bright computing which used N/V/V
+
+* Collections
+** Rule: the resulting environment should be the same whether or not you loaded
+         the modules by hand or by collection
+** It took a while to get this all correct with some intermediate steps
+** One user asked the right question where I how to do collections correctly.
+
+* Testing
+** Testing the output of Lmod has been a major part of Lmod's success
+** Old bugs don't reappear usually
+** The Lmod test suite compares stderr and stdout between new and "gold" results
+** The outputs are filtered by converting paths into canonical names
+   It doesn't matter where or on what machine it is run on.
+** Lmod tests are run on macOS and Linux.
+
+* Github Action: Help from Kenneth Hoste and Ward Poelmans now allow testing
+  of Lmod when checking into github.com
+
+* Many Lmod features have community driven
+** Obviously TACC's needs have been handled first
+** TACC: Spider Cache, Properties, Version sorting (5.10 > 5.9)
+** Support for LMOD_PIN_VERSION, LMOD_EXACT_VERSION, ...
+** Support for shared home file systems
+   where your home directory spans multiple systems
+** Support for non-english error messages
+** There are over 50 state variables that control how Lmod works
+    some report the versions of things like Lmod, Lua, lfs etc
+    Some change the behavior of Lmod like LMOD_PIN_VERSION, LMOD_EXACT_VERSION
+
+* We at TACC believe in a separate home directory for every system
+** So I never thought that TACC would need shared home file system support
+** However, we did for about a year.
+** I have been surprised how many times that a feature ask for by another site,
+   we end up using a TACC.
+
+* Lmod coding
+** My background is in 3-D Finite Elements to solve PDE's for incompressible fluid flow.
+** My language of choice is C++
+** Learned Design patterns:
+** Lmod uses Factories, Singletons, Template patterns
+** Base class, derived classes for many items: MainControl, Shells, MName: How the default module is found.
+
+* Lmod regression testing
+** I am a strong believer in system testing
+** There are 140 test files with 10s of test in each => 1000's of tests
+** No repeat errors
+
+* Lmod: More testing
+** Some Unit tests
+** Tests of an installed version of Lmod
+** all part of github actions to check-in to Lmod Repo
+* Still there are bugs
+** Issue 662: July 2023: using a git commit tag as a version didn't work
+
+* Lmod features
+** Sandbox
+** Module Properties
+** Sticky modules
+** pushenv
+** Hooks: To change Lmod to work for your site.
+** i18n: Messages in multiple languages: En, Fr, Germany, Chinese
+** Mac Brew, Debian, Fedora packages
+** Tracking module usage
+** Family function: prevent loading of two compiler, two MPI modules at the same time
+** Reads both TCL and Lua modulefiles
+** ml
+** N/V/V
+** Hidden modules
+** depends_on()
+** Lmod Doc usage
+** TCL interpreter is now embedded
+** extensions("numpy/1.3.4,scipy/2.1")
+** check_mtree_syntax
+** module overview
+** source_sh()
+** /etc/lmod/lmod_config.lua
+** I have never gotten an interactive debugger to work with Lua
+** Instead I have the Dbg Class
+** It has the advantage of allowing me to debug your problem where I don't have access to
+** The trace option -> load storms
+** Tab completion for bash and zsh
+** LmodBreak
+** LMOD_QUARANTINE_VARSo
+
+* Lmod's success
+** No competition for about 9 years
+** Good enough Documentation (it could always be better)
+** Presentations at SC and to EasyBuild community
+** Answering the email and then github issues
+** Regressoin testing suite.
+** As many people have told me: "Lmod just works so I don't worry about it"
+
+* Answering the %^$#^$ mailing list
+** Learning to be polite when answering.
+** "You might consider ..."
+** "Please test ... when you get a chance"
+
+* About half the time that I change, I am surprised that it affected other tests
+** Using the testing branch to iterate over an issue
+** Create github issues from "bug" reports from Mailing list
+
+* Made many friends over the years
+** Sometimes I am somebodies best friend for a week or so until I solve their issue
+** Sometimes it has been a good friend.
+
+* Lmod has a very long usage tail
+** a few site still run Lmod 6
+
+* Lmod lesson learned
+** git worktrees
+** connection between XALT and Lmod
+** Learned way more than I have every wanted to know about shell startup for bash, zsh, tcsh, fish, rc etc
+** Want tcsh to die
+** Want every one to switch from bash to zsh as bash's startup procedure is !@#$%^ for interactive non-login shells
+** It can be difficult to figure what problem a user is reporting.  It is not always a bug.
+** bugReport issue reporting
+** double quotes for shell eval, who knew!?
+** Do not use quotes when writing out strings for bash, zsh (except for newlines in bash and zsh env vars)
+** Can't test every possibility, users will **always** find a case you have missed.
+** Users will read the Lmod documentation (2K per month)
+** That other tools will use spiderT.json for their work
+** Provide a way for sites to modify Lmod state vars with Cosmic:assign() interface
+** That stuff that I think is really kewl like settarg won't always find an audience
+** That the moduleTable has an incredible tool for saving items into the users' env.
+** That not every site works the same as TACC.
+** That modules are the key way that Sysadmin talk with users to provide software.
+** Communicate change in Lmod via README.new 

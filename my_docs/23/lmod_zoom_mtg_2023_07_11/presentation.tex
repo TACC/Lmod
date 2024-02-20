@@ -1,0 +1,182 @@
+\documentclass{beamer}
+
+% You can also use a 16:9 aspect ratio:
+%\documentclass[aspectratio=169]{beamer}
+\usetheme{TACC16}
+
+% It's possible to move the footer to the right:
+%\usetheme[rightfooter]{TACC16}
+
+%% page 
+%\begin{frame}{}
+%  \begin{itemize}
+%    \item
+%  \end{itemize}
+%\end{frame}
+%
+%% page 
+%\begin{frame}[fragile]
+%    \frametitle{}
+% {\tiny
+%    \begin{semiverbatim}
+%    \end{semiverbatim}
+%}
+%  \begin{itemize}
+%    \item
+%  \end{itemize}
+%
+%\end{frame}
+
+\begin{document}
+\title[Lmod]{How Lmod supports finding ``Highest'' and marked defaults
+in one step}
+\author{Robert McLay} 
+\date{July 11, 2023}
+
+% page 1
+\frame{\titlepage} 
+
+
+% page 2
+\begin{frame}{Outline}
+  \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
+  \begin{itemize}
+    \item Lmod supports ``module load name'' as well as ``module load
+      name/version''
+    \item In Lmod, fullName: ``name/version'', version: ``version''
+      and shortName: ``name''
+    \item So how does pick a version when there is no version specified?
+  \end{itemize}
+\end{frame}
+
+% page 3
+\begin{frame}{What rules does Lmod use to pick a default?}
+  \begin{enumerate}
+    \item Pick highest priority marked default if it exists.
+    \item Otherwise pick the ``highest'' version.
+  \end{enumerate}
+\end{frame}
+
+% page 4
+\begin{frame}{How does Lmod sort versions?}
+  \begin{itemize}
+    \item Karl Schultz (TACC $\Rightarrow$ Intel $\Rightarrow$ Open
+      HPC $\Rightarrow$ AMD) asked
+    \item Can't Lmod know 5.9 is older than 5.10?
+    \item I stole the ideas in Python's loose version code to build src/parseVersion.lua
+    \item It converts version 2.11b into
+      ``000000002.000000011.*b.*zfinal''
+    \item It knows how to handle things like alpha and beta.
+    \item So versions are ordered:  1.1alpha $<$ 1.1beta $<$ 1.1
+    \item 1.1alpha: ``000000001.000000001.*alpha.*zfinal'',
+    \item 1.1beta: ``000000001.000000001.*beta.*zfinal'',
+    \item 1.1: ``000000001.000000001.*zfinal'',
+  \end{itemize}
+\end{frame}
+
+% page 5
+\begin{frame}{When there are no marked defaults?}
+  \begin{itemize}
+    \item For name/version (not name/version/version) Lmod collects
+      all version across all \$MODULEPATH directories.
+    \item Only the first ``acme/2.1'' is used.
+    \item Lmod picked the highest ``pV'' as default
+    \item for N/V/V only the first directory in \$MODULEPATH is used
+  \end{itemize}
+\end{frame}
+
+% page 6
+\begin{frame}{What if there marked defaults for shortName?}
+  \begin{itemize}
+    \item Suppose acme/2.1, acme/2.2 and acme/2.3 exist and 2.1 is the
+      marked default?
+    \item How does Lmod chose?
+    \item Does it look for marked defaults first then highest?
+  \end{itemize}
+\end{frame}
+
+% page 7
+\begin{frame}{Lmod modifies pV $\Rightarrow$ wV}
+  \begin{itemize}
+    \item Lmod collects all version for ``acme''
+    \item It builts pV for each version
+    \item Then it modifies pV to become wV (weighted version)
+    \item By applying any marked defaults
+  \end{itemize}
+\end{frame}
+
+% page 8
+\begin{frame}{Three ways to mark a default}
+  \begin{itemize}
+    \item Lowest: filesystem: .version, .modulerc, or .modulerc.lua in version
+      directory
+    \item Medium: A System modulerc or modulerc.lua file
+    \item Highest: A user \textasciitilde{}/.modulerc or \textasciitilde{}/.modulerc.lua
+  \end{itemize}
+\end{frame}
+
+% page 9
+\begin{frame}{Modifying pV $\Rightarrow$ wV}
+  \begin{itemize}
+    \item If ``acme/2.1'' is the marked default then 
+    \item Lmod replaces the first character with 
+    \item ``\^{}'' for filesystem
+    \item ``s'' for System modulerc
+    \item ``u'' for user modulerc
+    \item For example a filesystem marked default becomes
+    \item wV = "\^{}00000002.000000001.*zfinal"
+  \end{itemize}
+\end{frame}
+
+% page 10
+\begin{frame}{Using ascii sort order}
+  \begin{itemize}
+    \item Since ``u'' $>$ ``s'' $>$ ``\^{}'' $>$ numbers
+    \item Then user $>$ system $>$ filesystem $>$ highest
+    \item This is how Lmod picks the default
+  \end{itemize}
+\end{frame}
+
+% page 11
+\begin{frame}[fragile]
+    \frametitle{This (wV) can be seen the the moduleTable}
+ {\tiny
+    \begin{semiverbatim}
+    \$ module --mt # or ml --mt
+    ...
+    acme = \{
+      fn = "/opt/apps/modulefiles/Core/acme/2.1.lua",
+      fullName = "acme/2.1",
+      loadOrder = 5,
+      propT = \{\},
+      stackDepth = 1,
+      status = "active",
+      userName = "acme",
+      wV = "^00000002.000000001.*zfinal",
+    \},
+        
+    \end{semiverbatim}
+}
+\end{frame}
+
+% page 12
+\begin{frame}{Conclusions}
+  \begin{itemize}
+    \item This is a potential bug if sites use versions more than 9
+      digits
+    \item Version like 1.2.3.4.5.6.7.8.9.2.3 are ok
+    \item Version like 12345678901.1 would be bad (but unlikely)
+    \item Lmod could fix the by using more padding.
+    \item Otherwise this is convenient way to find the default
+  \end{itemize}
+\end{frame}
+
+% page 22
+\begin{frame}{Future Topics}
+  \begin{itemize}
+    \item To be determined.
+    \item Next Meeting will be August 1st at 9:30 Central (14:30 UTC)
+  \end{itemize}
+\end{frame}
+
+\end{document}

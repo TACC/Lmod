@@ -64,7 +64,7 @@ testdescript = {
      runLmod spider smrt                                                      #28
      runLmod spider petsc/3.1                                                 #29
 
-     mv $HOME/.cache/lmod $HOME/.lmod.d/.old.cache 
+     mv $HOME/.cache/lmod $HOME/.cache/.old_cache_21
      unsetMT
      export LMOD_CASE_INDEPENDENT_SORTING=yes
      export LMOD_RC=$testDir/lmodrc.lua
@@ -110,7 +110,7 @@ testdescript = {
      export MODULEPATH=$testDir/mf/H_Core
      runBase    runSpiderCmd -o spiderT  $MODULEPATH                          #51
      runLmod                  spider                                          #52
-     runLmod    --show_hidden spider                                          #53
+     od    --show_hidden spider                                          #53
      runLmod                  spider  tornado                                 #54
      runLmod    --show_hidden spider  tornado                                 #55
      runLmod    --show_hidden spider                                          #56
@@ -167,10 +167,18 @@ testdescript = {
 
      unsetMT
      export MODULEPATH=$testDir/mf4/Core
+     export EBVERSIONPYTHON="3.7"
      runLmod avail                                                            #75
 
+     # Case from Freie Universität Berlin where spider failed because
+     # dir added to MODULEPATH created a loopback -> Stack overflow
 
-
+     unsetMT
+     mv $HOME/.cache/lmod $HOME/.cache/.old_cache_71
+     unset LMOD_SHORT_TIME
+     export MODULEPATH_ROOT=$(testDir)/mf5
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+     runLmod avail                                                            #76
 
      HOME=$ORIG_HOME
 

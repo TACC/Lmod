@@ -1,18 +1,19 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.13  2022-09-14 12:56 -05:00
+Modules based on Lua: Version 8.7.34  2024-01-05 19:34 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --help
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --help
 ===========================
 Usage: module [options] sub-command [args ...]
 Options:
   -h -? -H --help                   This help message
   -s availStyle --style=availStyle  Site controlled avail style: system (default: system)
   --regression_testing              Lmod regression testing
+  -b --brief                        brief listing with only user specified modules
   -D                                Program tracing written to stderr
   --debug=dbglvl                    Program tracing written to stderr (where dbglvl is a number 1,2,3)
   --pin_versions=pinVersions        When doing a restore use specified version, do not follow defaults
@@ -36,7 +37,7 @@ Options:
   --config_json                     Report Lmod Configuration in json format
   --mt                              Report Module Table State
   --timer                           report run times
-  --force                           force removal of a sticky module or save an empty collection
+  -f --force                        force removal of a sticky module or save an empty collection
   --redirect                        Send the output of list, avail, spider to stdout (not stderr)
   --no_redirect                     Force output of list, avail and spider to stderr
   --show_hidden                     Avail and spider will report hidden modules
@@ -44,6 +45,7 @@ Options:
   -T --trace
   --nx --no_extensions
   --loc --location                  Just print the file location when using show
+  --terse_show_extensions
 module [options] sub-command [args ...]
 Help sub-commands:
   help                              prints this message
@@ -101,22 +103,23 @@ Miscellaneous sub-commands:
 Important Environment Variables:
   LMOD_COLORIZE                     If defined to be "YES" then Lmod prints properties and warning in color.
 Lmod Web Sites
-  Documentation:    http://lmod.readthedocs.org
+  Documentation:    https://lmod.readthedocs.org
   GitHub:           https://github.com/TACC/Lmod
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
-  To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.13  2022-09-14 12:56 -05:00
+  To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
+Modules based on Lua: Version 8.7.34  2024-01-05 19:34 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing help
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help
 ===========================
 Usage: module [options] sub-command [args ...]
 Options:
   -h -? -H --help                   This help message
   -s availStyle --style=availStyle  Site controlled avail style: system (default: system)
   --regression_testing              Lmod regression testing
+  -b --brief                        brief listing with only user specified modules
   -D                                Program tracing written to stderr
   --debug=dbglvl                    Program tracing written to stderr (where dbglvl is a number 1,2,3)
   --pin_versions=pinVersions        When doing a restore use specified version, do not follow defaults
@@ -140,7 +143,7 @@ Options:
   --config_json                     Report Lmod Configuration in json format
   --mt                              Report Module Table State
   --timer                           report run times
-  --force                           force removal of a sticky module or save an empty collection
+  -f --force                        force removal of a sticky module or save an empty collection
   --redirect                        Send the output of list, avail, spider to stdout (not stderr)
   --no_redirect                     Force output of list, avail and spider to stderr
   --show_hidden                     Avail and spider will report hidden modules
@@ -148,6 +151,7 @@ Options:
   -T --trace
   --nx --no_extensions
   --loc --location                  Just print the file location when using show
+  --terse_show_extensions
 module [options] sub-command [args ...]
 Help sub-commands:
   help                              prints this message
@@ -205,16 +209,16 @@ Miscellaneous sub-commands:
 Important Environment Variables:
   LMOD_COLORIZE                     If defined to be "YES" then Lmod prints properties and warning in color.
 Lmod Web Sites
-  Documentation:    http://lmod.readthedocs.org
+  Documentation:    https://lmod.readthedocs.org
   GitHub:           https://github.com/TACC/Lmod
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
-  To report a bug please read http://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.13  2022-09-14 12:56 -05:00
+  To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
+Modules based on Lua: Version 8.7.34  2024-01-05 19:34 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing help amber
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing help amber
 ===========================
 Module Specific Help for "amber/9"
 The TACC Amber installation only includes the parallel Sander/pmemd modules.
@@ -228,9 +232,9 @@ sander.LES -i tes.in -o tes.out -p tes.prmtop.save -c tes.x -r tes.rst
 Version 9
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --config
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --config
 ===========================
-Modules based on Lua: Version 8.7.13  2022-09-14 12:56 -05:00
+Modules based on Lua: Version 8.7.34  2024-01-05 19:34 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                                                   Value
 Allow root to use Lmod (LMOD_ALLOW_ROOT_USE)                  yes
@@ -248,17 +252,20 @@ Dynamic Spider Cache (LMOD_DYNAMIC_SPIDER_CACHE)              yes
 Require Exact Match/no defaults (LMOD_EXACT_MATCH)            no
 Export the module command (LMOD_EXPORT_MODULE)                yes
 Allow extended default (LMOD_EXTENDED_DEFAULT)                yes
-Use attached TCL over system call (LMOD_FAST_TCL_INTERP)      no
+Use attached TCL over system call (LMOD_FAST_TCL_INTERP)      yes
+Is fast TCL interp available (LMOD_USING_FAST_TCL_INTERP)     no
 Use italic instead of dim (LMOD_HIDDEN_ITALIC)                no
 KSH Support (LMOD_KSH_SUPPORT)                                no
 Language used for err/msg/warn (LMOD_LANG)                    en
 Site message file (LMOD_SITE_MSG_FILE)                        <empty>
+lmod_config.lua location (LMOD_CONFIG_LOCATION)               no
 LUA_CPATH                                                     @sys_lua_cpath@
 LUA_PATH                                                      @sys_lua_path@
 System lua-term (LMOD_HAVE_LUA_TERM)                          no
 avail: Include modulepath dir (LMOD_MPATH_AVAIL)              no
 MODULEPATH_INIT (LMOD_MODULEPATH_INIT)                        @PKG@/init/.modulespath -> <empty>
 MODULEPATH_ROOT (MODULEPATH_ROOT)
+NAG File (LMOD_ADMIN_FILE)                                    ProjectDIR/src/../../etc/admin.list
 number of cache dirs                                          0
 OS Name                                                       <N/A>
 Pager (LMOD_PAGER)                                            less
@@ -273,7 +280,6 @@ Prepend order (LMOD_PREPEND_BLOCK)                            normal
 LMOD_RC (LMOD_RC)                                             <empty>
 Redirect to stdout (LMOD_REDIRECT)                            no
 Supporting Full Settarg Use (LMOD_SETTARG_FULL_SUPPORT)       no
-User shell                                                    bash
 Site Name (LMOD_SITE_NAME)                                    <empty>
 Site Pkg location                                             standard
 Ignore Cache (LMOD_IGNORE_CACHE)                              no
@@ -290,11 +296,11 @@ Tmod prepend PATH Rule (LMOD_TMOD_PATH_RULE)                  no
 Tracing (LMOD_TRACING)                                        no
 uname -a
 User Cache Directory                                          OutputDIR/.cache/lmod
-LMOD_FAST_TCL_INTERP         E          yes          no
 LMOD_PACKAGE_PATH            D          nil          <empty>
 LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>
+LMOD_USING_FAST_TCL_INTERP   Other      yes          no
 Active RC file(s):
-ProjectDIR/src/../init/lmodrc.lua
+ProjectDIR/init/lmodrc.lua
  OutputDIR/.lmodrc.lua
  Lmod Property Table:
 propT = {
@@ -405,13 +411,13 @@ propT = {
 }
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --miniConfig
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --miniConfig
 ===========================
-Modules based on Lua: Version 8.7.13  2022-09-14 12:56 -05:00
+Modules based on Lua: Version 8.7.34  2024-01-05 19:34 -07:00
     by Robert McLay mclay@tacc.utexas.edu
-LMOD_FAST_TCL_INTERP         E          yes          no
 LMOD_PACKAGE_PATH            D          nil          <empty>
 LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>
+LMOD_USING_FAST_TCL_INTERP   Other      yes          no
 ===========================
 step 7
 lua ProjectDIR/src/chkJson

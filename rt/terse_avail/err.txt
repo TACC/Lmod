@@ -1,0 +1,72 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
+===========================
+Modules based on Lua: Version 8.7.34  2024-01-05 19:34 -07:00
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load intel
+===========================
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+ProjectDIR/rt/terse_avail/mf/Compiler/intel/19
+   python/3.7
+ProjectDIR/rt/terse_avail/mf/Core
+   TACC    gcc/9.4    intel/19.1 (L)
+This is a list of module extensions. Use "module --nx avail ..." to not show extensions.
+    CC (E)     DDD (E)
+These extensions cannot be loaded directly, use "module spider extension_name" for more information.
+  Where:
+   E:  Extension that is provided by another module
+   L:  Module is loaded
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --nx avail
+===========================
+ProjectDIR/rt/terse_avail/mf/Compiler/intel/19
+   python/3.7
+ProjectDIR/rt/terse_avail/mf/Core
+   TACC    gcc/9.4    intel/19.1 (L)
+  Where:
+   L:  Module is loaded
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --terse avail
+===========================
+ProjectDIR/rt/terse_avail/mf/Compiler/intel/19:
+python/
+python/3.7
+ProjectDIR/rt/terse_avail/mf/Core:
+TACC
+gcc/
+gcc/9.4
+intel/
+intel/19.1
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --terse_show_extensions avail
+===========================
+ProjectDIR/rt/terse_avail/mf/Compiler/intel/19:
+python/
+python/3.7
+ProjectDIR/rt/terse_avail/mf/Core:
+TACC
+gcc/
+gcc/9.4
+intel/
+intel/19.1
+#    CC
+#    DDD

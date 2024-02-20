@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load TACC
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load TACC
 ===========================
 A=1.0;
 export A;
@@ -24,7 +24,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="Project
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload B
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload B
 ===========================
 unset B;
 LOADEDMODULES=A/1.0:C/1.0:TACC;
@@ -37,7 +37,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="Project
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/mgrload_func/mf/Core;
 export MODULEPATH;
@@ -45,11 +45,11 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="Project
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --mt
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
 ===========================
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load avx
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load avx
 ===========================
 A=1.0;
 export A;
@@ -67,7 +67,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="Project
 export _ModuleTable_;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/mgrload_func/mf/Core;
 export MODULEPATH;
@@ -75,5 +75,5 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="Project
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --mt
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
 ===========================

@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load settarg
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load settarg
 ===========================
 LMOD_SETTARG_CMD=ProjectDIR/settarg/settarg_cmd.in.lua;
 export LMOD_SETTARG_CMD;
@@ -146,7 +146,7 @@ _SettargTable_='_SettargTable_={buildScenarioState="empty",extraT={},targA={"TAR
 export _SettargTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load gcc mpich
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc mpich
 ===========================
 __LMOD_REF_COUNT_LD_LIBRARY_PATH=/opt/apps/gcc-4_7/mpich/3.0.4/lib:1;
 export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
@@ -484,7 +484,7 @@ echo TARG_RTM: Is Great
 TARG_RTM: Is Great
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload mpich
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload mpich
 ===========================
 unset __LMOD_REF_COUNT_LD_LIBRARY_PATH;
 unset LD_LIBRARY_PATH;
@@ -545,7 +545,7 @@ _SettargTable_='_SettargTable_={buildScenarioState="dbg",extraT={},targA={"TARG"
 export _SettargTable_;
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload gcc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload gcc
 ===========================
 unset LMOD_FAMILY_COMPILER;
 unset LMOD_FAMILY_COMPILER_VERSION;
@@ -561,7 +561,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={settarg={fn="O
 export _ModuleTable_;
 ===========================
 step 19
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load cmplr/clang
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load cmplr/clang
 ===========================
 LMOD_FAMILY_COMPILER=cmplr/clang;
 export LMOD_FAMILY_COMPILER;
@@ -579,7 +579,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={Compiler="cmplr/clan
 export _ModuleTable_;
 ===========================
 step 20
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show settarg
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show settarg
 ===========================
 MODULEPATH=ProjectDIR/rt/settarg/mf/Compiler/cmplr/clang/9.1:OutputDIR/mf/Core:ProjectDIR/rt/settarg/mf/Core;
 export MODULEPATH;
@@ -587,7 +587,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={Compiler="cmplr/clan
 export _ModuleTable_;
 ===========================
 step 21
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing unload settarg
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload settarg
 ===========================
 unset LMOD_SETTARG_CMD;
 LOADEDMODULES=cmplr/clang/9.1;

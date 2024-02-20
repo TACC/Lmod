@@ -38,7 +38,6 @@ testdescript = {
      LmodV=`$LUA_EXEC $projectDir/src/$CMD bash --dumpversion 2>&1`
      echo LmodV=$LmodV
      mkdir b0
-     export LMOD_FAST_TCL_INTERP=yes
      (cd b0; $(projectDir)/configure --prefix=$(outputDir)/b0 --with-useBuiltinPkgs=yes)
      (cd $(projectDir); make -f $(outputDir)/b0/makefile dist GIT_BRANCH=$GIT_BRANCH)
      tar xf $projectDir/${DIR}-$LmodV.tar.bz2

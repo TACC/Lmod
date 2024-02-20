@@ -12,9 +12,15 @@ if(~ $#MODULEPATH_ROOT 0) {
   LMOD_sys=`{uname}
 
   MODULEPATH_ROOT=@modulepath_root@
-  MODULEPATH_INIT=@modulepath_init@
-  if(test -f $MODULEPATH_INIT) {
-     for(dir in `{cat $MODULEPATH_INIT | sed 's/#.*$//'}) { # Allow end-of-line comments.
+  if(test -z $LMOD_MODULEPATH_INIT) {
+     if(test -f /etc/lmod/.modulespath) {
+        LMOD_MODULEPATH_INIT=/etc/lmod/.modulespath
+     } else {
+        LMOD_MODULEPATH_INIT=@modulepath_init@
+     }
+  }
+  if(test -f $LMOD_MODULEPATH_INIT) {
+     for(dir in `{cat $LMOD_MODULEPATH_INIT | sed 's/#.*$//'}) { # Allow end-of-line comments.
         if(test -d $dir)
            MODULEPATH=`{@PKGV@/libexec/addto --append MODULEPATH $dir}
      }

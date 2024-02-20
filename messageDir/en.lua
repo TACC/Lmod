@@ -149,7 +149,7 @@ Lmod does not support modulefiles that start with two or more underscores
      e_Illegal_option      = [==[Option: "%{v}" is unknown.
   Try module --help for usage.
 ]==],
-     e_Inf_Loop            = "Infinite Load Loop detected for module: \"%{fullName}\" file: \"%{file}\"",
+     e_Inf_Loop            = "A load storm (possibly an infinite loop) detected for module: \"%{fullName}\" file: \"%{file}\". It was loaded more than %{count} times.\n",
      e_LocationT_Srch      = "Error in LocationT:search().",
      e_Missing_Value       = "%{func}(\"%{name}\") is not valid; a value is required.",
      e_MT_corrupt          = [==[The module table stored in the environment is corrupt.
@@ -204,7 +204,7 @@ See https://lmod.readthedocs.io/en/latest/260_sh_to_modulefile.html for details.
      m_Depend_Mods         = "\n    You will need to load all module(s) on any one of the lines below before the \"%{fullName}\" module is available to load.\n",
      m_Description         = "    Description:\n%{descript}\n\n",
      m_Direct_Load         = "\n    This module can be loaded directly: module load %{fullName}\n",
-     m_Extensions_head     = "This is a list of module extensions \"module --nx avail ...\" to not show.\n",
+     m_Extensions_head     = "This is a list of module extensions. Use \"module --nx avail ...\" to not show extensions.",
      m_Extensions_tail     = "\nThese extensions cannot be loaded directly, use \"module spider extension_name\" for more information.\n",
      m_Family_Swap         = "\nLmod is automatically replacing \"%{oldFullName}\" with \"%{newFullName}\".\n",
      m_For_System          = ", for system: \"%{sname}\"",
@@ -229,6 +229,7 @@ To search the contents of modules for matching words execute:
 
   $   module keyword %{s}
 ]==], --
+     m_Module_Msgs_close   = "%{border}",
      m_Other_matches       = "\n     Other possible modules matches:\n        %{bb}\n",
      m_Other_possible      = [==[
      Other possible modules matches:
@@ -288,7 +289,7 @@ To rebuild the collection, do a module reset, then load the modules you wish, th
 If you no longer want this module collection execute:
   $ rm ~/.lmod.d/%{collectionName}
 
-For more information execute 'module help' or see http://lmod.readthedocs.org/
+For more information execute 'module help' or see https://lmod.readthedocs.org/
 No change in modules loaded.
 
 ]==],
@@ -409,52 +410,53 @@ MODULEPATH directory: "%{mpath}" has too many non-modulefiles (%{regularFn}). Pl
      --------------------------------------------------------------------------
      -- module help strings
      --------------------------------------------------------------------------
-     StickyM   = "Module is Sticky, requires --force to unload or purge",
-     LoadedM   = "Module is loaded",
-     ExplM     = "Experimental",
-     TstM      = "Testing",
-     ObsM      = "Obsolete",
+     StickyM        = "Module is Sticky, requires --force to unload or purge",
+     LoadedM        = "Module is loaded",
+     ExplM          = "Experimental",
+     TstM           = "Testing",
+     ObsM           = "Obsolete",
 
-     help_hlp  = "This help message",
-     style_hlp = "Site controlled avail style: %{styleA} (default: %{default})",
-     rt_hlp    = "Lmod regression testing",
-     dbg_hlp   = "Program tracing written to stderr",
-     dbg_hlp2  = "Program tracing written to stderr (where dbglvl is a number 1,2,3)",
-     pin_hlp   = "When doing a restore use specified version, do not follow defaults",
-     avail_hlp = "List default modules only when used with avail",
-     quiet_hlp = "Do not print out warnings",
-     exprt_hlp = "Expert mode",
-     terse_hlp = "Write out in machine readable format for commands: list, avail, spider, savelist",
-     initL_hlp = "loading Lmod for first time in a user shell",
-     location_H = "Just print the file location when using show ",
-     latest_H  = "Load latest (ignore default)",
-     cache_hlp = "Treat the cache file(s) as out-of-date",
-     novice_H  = "Turn off expert and quiet flag",
-     raw_hlp   = "Print modulefile in raw output when used with show",
-     width_hlp = "Use this as max term width",
-     v_hlp     = "Print version info and quit",
-     rexp_hlp  = "use regular expression match",
-     gitV_hlp  = "Dump git version in a machine readable way and quit",
-     dumpV_hlp = "Dump version in a machine readable way and quit",
-     chkSyn_H  = "Checking module command syntax: do not load",
-     config_H  = "Report Lmod Configuration",
-     miniConfig_H  = "Report Lmod Configuration differences",
-     jcnfig_H  = "Report Lmod Configuration in json format",
-     MT_hlp    = "Report Module Table State",
-     timer_hlp = "report run times",
-     force_hlp = "force removal of a sticky module or save an empty collection",
-     redirect_H= "Send the output of list, avail, spider to stdout (not stderr)",
-     nrdirect_H= "Force output of list, avail and spider to stderr",
-     hidden_H  = "Avail and spider will report hidden modules",
-     spdrT_H   = "a timeout for spider",
-     trace_T   = "trace major changes such as loads",
-     nx_T      = "Do not print extensions",
+     MT_hlp         = "Report Module Table State",
+     avail_hlp      = "List default modules only when used with avail",
+     cache_hlp      = "Treat the cache file(s) as out-of-date",
+     chkSyn_H       = "Checking module command syntax: do not load",
+     config_H       = "Report Lmod Configuration",
+     dbg_hlp        = "Program tracing written to stderr",
+     dbg_hlp2       = "Program tracing written to stderr (where dbglvl is a number 1,2,3)",
+     dumpV_hlp      = "Dump version in a machine readable way and quit",
+     exprt_hlp      = "Expert mode",
+     force_hlp      = "force removal of a sticky module or save an empty collection",
+     gitV_hlp       = "Dump git version in a machine readable way and quit",
+     help_hlp       = "This help message",
+     hidden_H       = "Avail and spider will report hidden modules",
+     initL_hlp      = "loading Lmod for first time in a user shell",
+     jcnfig_H       = "Report Lmod Configuration in json format",
+     latest_H       = "Load latest (ignore default)",
+     location_H     = "Just print the file location when using show ",
+     miniConfig_H   = "Report Lmod Configuration differences",
+     novice_H       = "Turn off expert and quiet flag",
+     nrdirect_H     = "Force output of list, avail and spider to stderr",
+     nx_T           = "Do not print extensions",
+     pin_hlp        = "When doing a restore use specified version, do not follow defaults",
+     quiet_hlp      = "Do not print out warnings",
+     raw_hlp        = "Print modulefile in raw output when used with show",
+     redirect_H     = "Send the output of list, avail, spider to stdout (not stderr)",
+     rexp_hlp       = "use regular expression match",
+     rt_hlp         = "Lmod regression testing",
+     spdrT_H        = "a timeout for spider",
+     style_hlp      = "Site controlled avail style: %{styleA} (default: %{default})",
+     terse_hlp      = "Write out in machine readable format for commands: list, avail, spider, savelist",
+     terseShowExt_H = "report extensions when doing a terse avail",
+     timer_hlp      = "report run times",
+     trace_T        = "trace major changes such as loads",
+     v_hlp          = "Print version info and quit",
+     width_hlp      = "Use this as max term width",
 
-     Where     = "\n  Where:\n",
-     Inactive  = "\nInactive Modules",
-     DefaultM  = "Default Module",
-     HiddenM   = "Hidden Module",
-     Extension = "Extension that is provided by another module",
+     Where          = "\n  Where:\n",
+     Inactive       = "\nInactive Modules",
+     DefaultM       = "Default Module",
+     HiddenM        = "Hidden Module",
+     Extension      = "Extension that is provided by another module",
 
      avail     = [==[If the avail list is too long consider trying:
 

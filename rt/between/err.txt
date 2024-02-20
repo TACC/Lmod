@@ -1,34 +1,34 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load M1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load M1
 ===========================
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) a/1.2   2) b/1.1   3) M1
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load M2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load M2
 ===========================
 The following have been reloaded with a version change:
   1) a/1.2 => a/1.4     2) b/1.1 => b/1.4
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) M1   2) a/1.4   3) b/1.4   4) M2
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load M4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load M4
 ===========================
 Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: atleast("b","1.5")
    Try: "module spider b" to see how to load the module(s).
@@ -38,25 +38,25 @@ Executing this command requires loading "b" which failed while processing the fo
     M4               ProjectDIR/rt/between/mf/Core/M4.lua
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) M1   2) a/1.4   3) b/1.4   4) M2
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load M5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load M5
 ===========================
 The following have been reloaded with a version change:
   1) b/1.4 => b/1.1
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) M1   2) a/1.4   3) M2   4) b/1.1   5) c/1.4   6) M5
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load -a M6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load -a M6
 ===========================
 Lmod has detected the following error: Cannot load module "M6" without these module(s) loaded:
    atleast("a","1.3")
@@ -65,19 +65,19 @@ While processing the following module(s):
     M6               ProjectDIR/rt/between/mf/Core/M6.lua
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a/1.3 M6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load a/1.3 M6
 ===========================
 The following have been reloaded with a version change:
   1) a/1.4 => a/1.3
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a/1.4 M6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load a/1.4 M6
 ===========================
 The following have been reloaded with a version change:
   1) a/1.3 => a/1.4
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a/1.1 M6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load a/1.1 M6
 ===========================
 Lmod has detected the following error: Cannot load module "M6" without these module(s) loaded:
    atleast("a","1.3")
@@ -86,25 +86,25 @@ While processing the following module(s):
     M6               ProjectDIR/rt/between/mf/Core/M6.lua
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) M1   2) M2   3) b/1.1   4) c/1.4   5) M5   6) a/1.4   7) M6
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load M7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load M7
 ===========================
 The following have been reloaded with a version change:
   1) a/1.4 => a/1.2     2) b/1.1 => b/1.3     3) c/1.4 => c/1.2
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) M1   2) M2   3) M5   4) M6   5) a/1.2   6) b/1.3   7) c/1.2   8) M7
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load M8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load M8
 ===========================
 Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: between("c","1.5","1.7")
    Try: "module spider c" to see how to load the module(s).
@@ -113,28 +113,28 @@ Executing this command requires loading "c" which failed while processing the fo
     M8               ProjectDIR/rt/between/mf/Core/M8.lua
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
 step 19
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load M9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load M9
 ===========================
 ===========================
 step 20
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) b/1.4   2) M9
 ===========================
 step 21
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing show M9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing show M9
 ===========================
    ProjectDIR/rt/between/mf/Core/M9.lua:
 load(latest("b"))
 prereq(latest("b"))
 ===========================
 step 22
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Ma
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load Ma
 ===========================
 Lmod has detected the following error: Cannot load module "Ma" without these module(s) loaded:
    atleast("foobar","1.4")
@@ -143,11 +143,11 @@ While processing the following module(s):
     Ma               ProjectDIR/rt/between/mf/Core/Ma.lua
 ===========================
 step 23
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a/1.1 Mb
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load a/1.1 Mb
 ===========================
 ===========================
 step 24
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Mc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load Mc
 ===========================
 Lmod has detected the following error: Cannot load module "Mc" without these module(s) loaded:
    atleast("a","1.3")
@@ -156,7 +156,7 @@ While processing the following module(s):
     Mc               ProjectDIR/rt/between/mf/Core/Mc.lua
 ===========================
 step 25
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load Md
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load Md
 ===========================
 Lmod has detected the following error: These module(s) or extension(s) exist but cannot be loaded as requested: between("a","0.8<","<0.9")
    Try: "module spider a" to see how to load the module(s).

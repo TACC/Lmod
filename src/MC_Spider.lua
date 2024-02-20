@@ -77,6 +77,7 @@ M.msg_raw              = MainControl.quiet
 M.mgrload              = MainControl.quiet
 M.prereq               = MainControl.quiet
 M.prereq_any           = MainControl.quiet
+M.purge                = MainControl.quiet
 M.remove_path          = MainControl.quiet
 M.report               = MainControl.warning
 M.set_alias            = MainControl.quiet

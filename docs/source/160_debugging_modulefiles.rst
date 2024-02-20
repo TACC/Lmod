@@ -54,7 +54,7 @@ Lua Modulefiles
 ~~~~~~~~~~~~~~~
 
 It is important to remember that Lmod uses a two part process to
-change the your environment.  The lmod program produces text that is
+change your environment.  The lmod program produces text that is
 appropriate for the shell choice: bash commands for bash shell; csh
 commands for C-shell and so on.  Then that text is evaluated by the
 shell to change your environment.
@@ -72,7 +72,7 @@ starting with a simple lua modulefile called ``~/my_modules/foo/1.0.lua``::
     prepend_path("PATH",pathJoin(pkg,"bin"))
     setenv("FOO",pathJoin(pkg,"bin"))
 
-You can see that the above modulefile two extra print debugging
+You can see that the above modulefile contains two extra print debugging
 statements that you'll want to remove after debugging.  Running the
 Lmod command produces::
 
@@ -108,7 +108,7 @@ other environment variables such as::
      export _ModuleTable_Sz_;
 
 ``LOADEDMODULES`` and ``__LMFILES__`` are the list of modules loaded
-and their locations. These variables is made available to be
+and their locations. These variables are made available to be
 compatible with Tmod and can be used by modulefiles. Variables like 
 ``__LMOD_REF_COUNT_PATH`` are used to support reference counting for
 path like variables.  Finally, Lmod uses a lua table called the

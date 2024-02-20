@@ -158,14 +158,29 @@ function safe_tonumber(a,b)
    return orig_tonumber(a,10)
 end
 
+local function l_colorize_fullName(fullName, sn)
+   local version       = extractVersion(fullName, sn)
+   local version_color = getenv("LMOD_DISPLAY_VERSION_COLOR")
+   local sn_color      = getenv("LMOD_DISPLAY_SN_COLOR")
+   local meta_color    = getenv("LMOD_DISPLAY_META_COLOR")
 
+   ---- colorize() will use `plain` if `color` is not found.
+   local moduleName
+   if (version) then
+      moduleName  =  colorize(sn_color, sn) .. colorize(version_color, "/"..version)
+   else
+      moduleName  = colorize(meta_color, sn)
+   end
+   return moduleName
+end
 
 ExitHookA.register(l_report_loads)
 
 
-hook.register("avail",          l_avail_hook)
-hook.register("load",           l_load_hook)
-hook.register("parse_updateFn", l_parse_updateFn_hook)
+hook.register("colorize_fullName", l_colorize_fullName)
+hook.register("avail",             l_avail_hook)
+hook.register("load",              l_load_hook)
+hook.register("parse_updateFn",    l_parse_updateFn_hook)
 
 sandbox_registration { Pkg      = Pkg,
                        tonumber = safe_tonumber,

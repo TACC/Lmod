@@ -1,0 +1,71 @@
+Notes for July 11, 2023 meeting
+
+* Interesting items since last meeting
+** PR644: colorized name and version
+*** Any interest in making these hooks part of the standard release?
+** Updated tab completion files for bash and zsh
+*** Mainly new options for zsh
+** Support for multi-line env vars for bash and zsh
+*** I see no way to have multi-line env values in tcsh/csh
+** TCL docs updated from Xavier Delaruelle
+*** I didn't understand the difference between ::env(LMOD_VERSION_MAJOR)  (good) and $::env(LMOD_VERSION_MAJOR) (bad)
+** Issue 617: Print alias along with actual modulefile
+    intel/15 -> intel/15.0.5
+** Issue 653: Support for inherit with show:
+    Now showing inherited module when "showing" parent module.
+* How Lmod supports finding the "highest" version and support Marked defaults at the same time.
+** Lmod converts version like 2.11b to "000000002.000000011.*b.*zfinal"
+** This is my re-implementation of python's loose version functiond
+** It knows how to sort version strings that have alpha or beta etc.
+** This is called the parsed version or pV in the code.
+
+* So for Name/Version style names then **ALL** versions are collected and sorted
+** This includes the same module name in multiple modulepath directories
+** So the module name "acme" is in multiple directories then all versions are combined
+** If there is an acme/2.1 in two or more directories then the one found in the first directory is picked
+** All the rest of the 2.1 versions are ignored.
+
+* Lmod sorts the parsed versions and picks the highest version
+
+* What about marked defaults?
+** If gcc/9.1 and gcc/11.2 and gcc/12.0 are available but gcc/9.1 is the marked default
+** How does chose gcc/9.1 instead of gcc/12.0?
+
+* Lmod modifies the parsed version to create a weighted version.
+** Lmod replaces the first character in the pV string to create a marked default
+** The marked default file (default symlink, .modulerc.lua, .modulerc or .version)
+   In the same directory as the version file (filesystem) gets a "^"
+   (lowest priority)
+** A system .modulerc or .modulerc.lua can create a marked default marked by an "s"
+** A user can have a ~/.modulerc or ~/.modulerc.lua file to mark a default (marked by a "u")
+
+* So applies the marked default in filesystem, system then user ~/.modulerc file in that order
+** There could be three different marked defaults but the priority is user, system, filesystem
+** Since "u" > "s" > "~" by the ascii byte order.  
+** So a user marked default will be picked over system or filesystem
+
+* So a version like 2.11b gets converted to "X00000002.000000011.*b.*zfinal" where X is ^, s, u
+* Lmod calls this a weighted version or wV in the code
+* You can see this in the module table: 
+    noweb = {
+      fn = "/opt/apps/modulefiles/Core/noweb/2.11b.lua",
+      fullName = "noweb/2.11b",
+      loadOrder = 5,
+      propT = {},
+      stackDepth = 1,
+      status = "active",
+      userName = "noweb",
+      wV = "000000002.000000011.*b.*zfinal",
+    },
+
+* Note that this wV is not a marked default because there is 0 as the first character.
+* If /opt/apps/modulefiles/Core/noweb/.modulerc.lua existed and said:
+module_version("noweb/2.11b",      "default")
+** then wV would be:
+      wV = "^00000002.000000011.*b.*zfinal",
+
+* By using the weighted (parsed) version string to sort the "highest" version,
+  Lmod can both find the highest version when there is no marked defaults
+  Lmod can also pick the right version when there can be multiple
+  marked defaults.
+

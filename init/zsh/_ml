@@ -8,26 +8,33 @@ _ml()
   local -A opt_args optT cmdT
 
   arguments=(
-    '(-h --help)'{--help,-h}'[display usage info]'
+    '(-h -H --help)'{--help,-h,-H}'[display usage info]'
     '(- *)'{--version,-v}'[module command version]'
-    '(-t --terse)'{--terse,-t}'[display avail, list and spider output in short format]'
-    '(-d --default)'{--default,-d}'[List default modules only when used with avail]'
     '(-D --debug)'{--debug,-D}'[Send program tracing information to stderr]'
-    '(-w --width)'{--width,-w}'[use given width for max term width]'
-    '(-q --quiet)'{--quiet,-q}'[disable verbose messages]'
-    '(-s --style)'{--style,-s}'[avail output style]'
-    '(-T --trace)'{--style,-s}'[Report major internal actions by Lmod]'
-    '(-r --regexp)'{--regexp,-r}'[lua regular expression matching]'
     '(-I --ignore_cache)'{--ignore_cache,-I}'[Treat the cache file(s) as out-of-date]'
+    '(-T --trace)'{--style,-s}'[Report major internal actions by Lmod]'
+    '(-d --default)'{--default,-d}'[List default modules only when used with avail]'
+    '(-f --force)'{--force,-f}'Force removal of a sticky module or save an empty collection]'
+    '(-q --quiet)'{--quiet,-q}'[disable verbose messages]'
+    '(-r --regexp)'{--regexp,-r}'[lua regular expression matching]'
+    '(-s --style)'{--style,-s}'[avail output style]'
+    '(-t --terse)'{--terse,-t}'[display avail, list and spider output in short format]'
+    '(-w --width)'{--width,-w}'[use given width for max term width]'
+    '--Verbose[show generated module command]'
     '--config[display full Lmod configuration]'
-    '--miniConfig[display configuration differences from default]'
+    '--config_json[display full Lmod configuration in json format]'
     '--force[force the removal of a sticky module or save an empty collection]'
+    '--latest[Load latest (ignore default)]'
+    '--location[Print the file location only when using show]'
+    '--miniConfig[display configuration differences from default]'
     '--mt[display the module table]'
     '--no_redirect[send messages to stderr]'
+    '--old_style[Use multiple module commands when mixing loads and unload]'
     '--raw[Print raw contents of a modulefile when using show]'
+    '--redirect[send messages to stdout]'
     '--show_hidden[avail and spider will report hidden modules]'
     '--style[]'
-    '--Verbose[show generated module command]'
+    '--timer[report run times]'
     )
 
   for arg in $arguments; do
@@ -42,27 +49,30 @@ _ml()
   local _ml_cmds
 
   _ml_cmds=(
-    "help:print the usage of each sub-command"
-    "unload:remove a module from the shell environment"
-    "rm:remove a module from the shell environment"
-    "swap:swap loaded a loaded module with another module"
-    "spider:List all possible modules"
-    "show:display information about a module"
-    "list:list loaded modules"
-    "load:load a module"
-    "try-load:load a module, no warnings if not found"
+    "add:load a module into the shell environment"
     "avail:list all available modules"
-    "restore:load a module collection"
-    "use:add a directory to MODULEPATH"
-    "unuse:remove a directory from MODULEPATH"
-    "purge:unload all loaded modules"
-    "refresh:refresh all non-persistent components of loaded modules"
-    "whatis:display module information"
-    "keyword:search for a given keyword in modules"
-    "update:reload all loaded modules"
-    "mcc:module collection contents"
     "describe:module collection contents"
     "disable:disable a module collection"
+    "help:print the usage of each sub-command"
+    "keyword:search for a given keyword in modules"
+    "list:list loaded modules"
+    "load:load a module into the shell environment"
+    "mcc:module collection contents"
+    "overview:list all available modules by name only no versions"
+    "purge:unload all loaded modules"
+    "refresh:refresh all non-persistent components of loaded modules"
+    "restore:load a module collection"
+    "rm:remove a module from the shell environment"
+    "save:save a collection"
+    "show:display information about a module"
+    "spider:List all possible modules"
+    "swap:swap loaded a loaded module with another module"
+    "try-load:load a module into the shell environment, no warnings if not found"
+    "unload:remove a module from the shell environment"
+    "unuse:remove a directory from MODULEPATH"
+    "update:reload all loaded modules"
+    "use:add a directory to MODULEPATH"
+    "whatis:display module information"
   )
 
   for i in $_ml_cmds; do

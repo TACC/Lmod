@@ -102,6 +102,7 @@ require("modfuncs")
 require("cmdfuncs")
 require("deepcopy")
 require("parseVersion")
+require("declare")
 MainControl         = require("MainControl")
 Cache               = require("Cache")
 MRC                 = require("MRC")
@@ -210,7 +211,7 @@ local function l_add2map(entry, tbl, dirA, moduleFn, kind, rmapT)
          end
          dbg.print{"assigning rmapT for path: ",path,"\n"}
          rmapT[path] = t
-         local p2 = abspath(path)
+         local p2 = realpath(path)
          if (p2 and p2 ~= path) then
             dbg.print{"assigning rmapT for path: ",p2,"\n"}
             rmapT[p2] = deepcopy(t)
@@ -342,6 +343,11 @@ end
 
 local function l_rptReverseMapTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)
    dbg.start{ "l_rptReverseMapTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
+   if (_VERSION ~= "Lua 5.1") then
+      require("declare")
+      declare("loadstring")
+      loadstring = load
+   end
    local json        = require("json")
    local reverseMapT = l_buildReverseMapT(dbT)
    local libA        = l_buildLibMapA(reverseMapT)
@@ -354,6 +360,11 @@ end
 
 local function l_rptXALTRmapTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)
    dbg.start{ "l_rptXALTRmapTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
+   if (_VERSION ~= "Lua 5.1") then
+      require("declare")
+      declare("loadstring")
+      loadstring = load
+   end
    local json        = require("json")
    local reverseMapT = l_buildReverseMapT(dbT)
    local libA        = l_buildLibMapA(reverseMapT)
@@ -366,6 +377,11 @@ end
 
 local function l_rptSoftwarePageJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)
    dbg.start{ "l_rptSoftwarePageJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
+   if (_VERSION ~= "Lua 5.1") then
+      require("declare")
+      declare("loadstring")
+      loadstring = load
+   end
    local json = require("json")
    local spA  = softwarePage(dbT)
    print(json.encode(spA))
@@ -399,6 +415,11 @@ end
 
 local function l_rptDbTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)
    dbg.start{ "l_rptDbTJson(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
+   if (_VERSION ~= "Lua 5.1") then
+      require("declare")
+      declare("loadstring")
+      loadstring = load
+   end
    local json = require("json")
    print(json.encode(dbT))
    dbg.fini("l_rptDbTJson")
@@ -451,7 +472,7 @@ function main()
    initialize_lmod()
 
 
-   -- Make sure that MRC uses $MODULERCFILE and ignores ~/.modulerc when building the cache
+   -- Make sure that MRC uses $LMOD_MODULERC and ignores ~/.modulerc when building the cache
    local remove_MRC_home         = true
    local mrc                     = MRC:singleton(getModuleRCT(remove_MRC_home))
    local cache                   = Cache:singleton{dontWrite = true, quiet = true, buildCache = true,

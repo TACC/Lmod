@@ -1,10 +1,10 @@
 ===========================
 step 1
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --version
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dot/mf:1;
 export __LMOD_REF_COUNT_MODULEPATH;
@@ -14,7 +14,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 3
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 MODULEPATH=ProjectDIR/rt/dot/mf;
 export MODULEPATH;
@@ -22,7 +22,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 4
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a/.1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load a/.1.0
 ===========================
 A=0.1;
 export A;
@@ -36,7 +36,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="Project
 export _ModuleTable_;
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/dot/mf;
 export MODULEPATH;
@@ -44,7 +44,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="Project
 export _ModuleTable_;
 ===========================
 step 6
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 unset A;
 unset LOADEDMODULES;
@@ -55,7 +55,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 7
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 MODULEPATH=ProjectDIR/rt/dot/mf;
 export MODULEPATH;
@@ -63,7 +63,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 8
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider b
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider b
 ===========================
 MODULEPATH=ProjectDIR/rt/dot/mf;
 export MODULEPATH;
@@ -71,12 +71,12 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 9
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider b/.2.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider b/.2.0
 ===========================
 false
 ===========================
 step 10
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider b/1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider b/1.0
 ===========================
 MODULEPATH=ProjectDIR/rt/dot/mf;
 export MODULEPATH;
@@ -84,7 +84,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 11
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider B
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider B
 ===========================
 MODULEPATH=ProjectDIR/rt/dot/mf;
 export MODULEPATH;
@@ -92,7 +92,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 12
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider B/1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider B/1.0
 ===========================
 MODULEPATH=ProjectDIR/rt/dot/mf;
 export MODULEPATH;
@@ -100,22 +100,22 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 13
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider B/.2.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider B/.2.0
 ===========================
 false
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider a
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider a
 ===========================
 false
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing spider a/.1.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider a/.1.0
 ===========================
 false
 ===========================
 step 16
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing avail
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 MODULEPATH=ProjectDIR/rt/dot/mf;
 export MODULEPATH;
@@ -123,7 +123,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing load a/.1.0 b/.2.0
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load a/.1.0 b/.2.0
 ===========================
 A=0.1;
 export A;
@@ -139,7 +139,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="Project
 export _ModuleTable_;
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/dot/mf;
 export MODULEPATH;
@@ -147,7 +147,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="Project
 export _ModuleTable_;
 ===========================
 step 19
-lua ProjectDIR/src/lmod.in.lua bash --regression_testing --show_hidden spider
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden spider
 ===========================
 MODULEPATH=ProjectDIR/rt/dot/mf;
 export MODULEPATH;

@@ -160,6 +160,7 @@ local sandbox_env = {
   uncomplete           = uncomplete,
 
   -- Misc --
+  purge                = purge,
   haveDynamicMPATH     = haveDynamicMPATH,
   LmodBreak            = LmodBreak,
   source_sh            = source_sh,
@@ -217,7 +218,8 @@ local sandbox_env = {
   removeExt            = removeExt,
   barefilename         = barefilename,
   splitFileName        = splitFileName,
-  abspath              = abspath,
+  abspath              = realpath,
+  realpath             = realpath,
   path_regularize      = path_regularize,
 
   ------------------------------------------------------------

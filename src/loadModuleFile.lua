@@ -83,7 +83,7 @@ function loadModuleFile(t)
    if (mcp:mode() == "load" and t.file) then
       s_mfileCountT[t.file] = ( s_mfileCountT[t.file] or 0) + 1
       if (s_mfileCountT[t.file] > 500) then
-         LmodError{msg="e_Inf_Loop",file=t.file, fullName = myModuleFullName()}
+         LmodError{msg="e_Inf_Loop",file=t.file, fullName = myModuleFullName(), count = 500}
       end
    end
 

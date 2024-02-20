@@ -100,10 +100,15 @@ end
 
 function Bash.expandVar(self, k, v, vType)
    local lineA       = {}
+   local nl          = [["
+"]]
    if (k:find("%.")) then
       return
    end
    v                 = tostring(v):multiEscaped()
+   if (v:find("\n")) then
+      v = v:gsub("\n",nl)
+   end
    lineA[#lineA + 1] = k
    lineA[#lineA + 1] = "="
    lineA[#lineA + 1] = v
@@ -133,15 +138,16 @@ end
 
 function Bash.complete(self, name, value)
    local lineA = {}
+   local n     = unwrap_complete(name)
    if (value) then
       lineA[#lineA + 1]  = "[[ -n \"${BASH_VERSION:-}\" ]] && complete "
       lineA[#lineA + 1]  = value
       lineA[#lineA + 1]  = " "
-      lineA[#lineA + 1]  = name
+      lineA[#lineA + 1]  = n
       lineA[#lineA + 1]  = ";\n"
    else
       lineA[#lineA + 1]  = "[[ -n \"${BASH_VERSION:-}\" ]] && complete -r "
-      lineA[#lineA + 1]  = name
+      lineA[#lineA + 1]  = n
       lineA[#lineA + 1]  = ";\n"
    end
    local line = concatTbl(lineA,"")

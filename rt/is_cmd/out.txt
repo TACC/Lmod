@@ -1,0 +1,52 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
+===========================
+LOADEDMODULES=A/1.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/is_cmd/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/is_cmd/mf/Core;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/is_cmd/mf/Core/A/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/is_cmd/mf/Core/A/1.0.lua",fullName="A/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/is_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/is_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing is-loaded A
+===========================
+MODULEPATH=ProjectDIR/rt/is_cmd/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/is_cmd/mf/Core/A/1.0.lua",fullName="A/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/is_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/is_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing is-loaded AA
+===========================
+MODULEPATH=ProjectDIR/rt/is_cmd/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/is_cmd/mf/Core/A/1.0.lua",fullName="A/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/is_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/is_cmd/mf/Core",}';
+export _ModuleTable_;
+false
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing is-avail B
+===========================
+MODULEPATH=ProjectDIR/rt/is_cmd/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/is_cmd/mf/Core/A/1.0.lua",fullName="A/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/is_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/is_cmd/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing is-avail BB
+===========================
+MODULEPATH=ProjectDIR/rt/is_cmd/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/is_cmd/mf/Core/A/1.0.lua",fullName="A/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/is_cmd/mf/Core",},systemBaseMPATH="ProjectDIR/rt/is_cmd/mf/Core",}';
+export _ModuleTable_;
+false

@@ -52,6 +52,7 @@ SYS_LD_PRELOAD            := @SYS_LD_PRELOAD@
 SYS_LUA_PATH              := @SYS_LUA_PATH@
 SYS_LUA_CPATH             := @SYS_LUA_CPATH@
 CASE_INDEPENDENT_SORTING  := @CASE_INDEPENDENT_SORTING@
+ORIG_ZSH_VERSION          := @ORIG_ZSH_VERSION@
 ZSH_SITE_FUNCTIONS_DIRS   := @ZSH_SITE_FUNCTIONS_DIRS@
 ZSH_FPATH                 := @ZSH_FPATH@
 SPIDER_CACHE_DESCRIPT_FN  := @SPIDER_CACHE_DESCRIPT_FN@
@@ -72,7 +73,7 @@ SPIDER_CACHE_DIRS         := @SPIDER_CACHE_DIRS@
 LEGACY_ORDERING           := @LEGACY_ORDERING@
 EXPORT_MODULE             := @EXPORT_MODULE@
 BASENAME                  := @BASENAME@
-UPDATE_VERSION            := $(srcdir)/proj_mgmt/updateVersion
+UPDATE_VERSION            := LUA_PATH="$(srcdir)/tools/?.lua;$$LUA_PATH;;" $(srcdir)/proj_mgmt/updateVersion
 PS                        := @PS@
 READLINK                  := @READLINK@
 EXPR                      := @EXPR@
@@ -238,8 +239,10 @@ install: pre-install  zsh_tab_funcs fish_tab_funcs
 echo:
 	@echo Version: $(version)
 	@echo GIT_VERSION: $(GIT_VERSION)
-man_pages:
-	-$(PATH_TO_LUA) $(srcdir)/src/lmod.in.lua bash --help >/dev/null 2> $(DESTDIR)$(MAN_PAGES)/module.1
+man_pages: $(DESTDIR)$(MAN_PAGES)
+	LUA_CPATH='$(MY_PACKAGE)/lib/?.so;$(SYS_LUA_CPATH);;'                     \
+           LUA_PATH='$(MY_PACKAGE)/libexec/?.lua;$(SYS_LUA_PATH);;'               \
+           $(PATH_TO_LUA) $(srcdir)/src/lmod.in.lua bash --help 2> $(DESTDIR)$(MAN_PAGES)/module.1
 	chmod $(MODE_R) $(DESTDIR)$(MAN_PAGES)/module.1
 
 $(DIRLIST) :
@@ -252,6 +255,7 @@ __installMe:
 	   ext=$${bareN#*.};                                                      \
 	   : echo "DIRLOC/fn: $(DIRLOC)/$$fn";                                    \
 	   sed  -e 's|@PREFIX@|$(prefix)|g'                                       \
+	        -e 's|@LMOD_TOP_DIR@|$(MY_PACKAGE)|g'                             \
 	        -e 's|@path_to_lua@|$(PATH_TO_LUA)|g'                             \
 	        -e 's|@hashsum@|$(PATH_TO_HASHSUM)|g'                             \
 	        -e 's|@pager@|$(PATH_TO_PAGER)|g'                                 \
@@ -284,6 +288,7 @@ __installMe:
 	        -e 's|@basename@|$(BASENAME)|g'                                   \
 	        -e 's|@support_ksh@|$(SUPPORT_KSH)|g'                             \
 	        -e 's|@zsh_fpath@|$(ZSH_FPATH)|g'                                 \
+	        -e 's|@orig_zsh_version@|$(ORIG_ZSH_VERSION)|g'                   \
 	        -e 's|@cached_loads@|$(CACHED_LOADS)|g'                           \
 	        -e 's|@avail_extensions@|$(LMOD_AVAIL_EXTENSIONS)|g'              \
 	        -e 's|@ps@|$(PS)|g'                                               \

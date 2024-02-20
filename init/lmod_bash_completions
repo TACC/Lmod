@@ -120,11 +120,14 @@ _module() {
   
   COMPREPLY=()
   
-  cmds="add avail delete help keyword list load purge rm restore \
-        save show spider swap unload unuse update use whatis"
+  cmds="add avail describe disable delete help keyword list load overview purge refresh restore rm\
+        save show spider swap try-load unload unuse update use whatis"
   
-  opts="-d -D -h -q -t -v -w -s --style --expert --quiet --help \
-        --quiet --terse --version --default --width -r --regexp --mt"
+  opts="-d -D -h -q -t -v -w -s --style --expert --quiet --help -H -b --brief \
+        --quiet --terse --version --default --width -r --regexp --mt --latest \
+        -I --ignore_cache --gitversion --dumpversion --config --miniConfig    \
+        --timer -f --force --redirect --show_hidden -T --trace --nx           \
+        --no_extensions"
   
   case "${prev}" in
     add|load|try-load)
@@ -184,11 +187,13 @@ _ml() {
   
   COMPREPLY=()
   
-  cmds="add avail delete help keyword list load purge rm restore \
-        save sl show spider swap unload unuse update use whatis"
+  cmds="add avail describe disable delete help keyword list load overview purge refresh restore rm\
+        save show spider swap try-load unload unuse update use whatis"
   
-  opts="-d -D -h -q -t -v -w -s --style --expert --quiet --help \
-        --quiet --terse --version --default --Verbose --width -r --regexp --mt"
+  opts="-d -D -h -q -t -v -w -s --style --expert --quiet --help -H -f --force     \
+        --quiet --terse --version --default --Verbose --width -r --regexp --mt    \
+        --gitversion --ignore_cache -I --latest --pin_version --trace -T --config \
+        --miniConfig --config_json --raw --show_hidden"
   
   case "${prev}" in
     rm|remove|unload|switch|swap)
