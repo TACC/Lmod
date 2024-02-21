@@ -679,6 +679,7 @@ LUA_SUFFIX
 PATH_TO_LUAC
 PATH_TO_LUA
 AVAIL_EXTENSIONS
+MODULES_AUTO_HANDLING
 FAST_TCL_INTERP
 SILENCE_SHELL_DEBUGGING
 USE_DOT_CONFIG_DIR_ONLY
@@ -810,6 +811,7 @@ with_useBuiltinPkgs
 with_useDotConfigDirOnly
 with_silentShellDebugging
 with_fastTCLInterp
+with_modulesAutoHandling
 with_availExtensions
 with_lua
 with_luac
@@ -1515,6 +1517,8 @@ Optional Packages:
                           lmod. [[yes]]
   --with-fastTCLInterp=ans
                           Use the fast TCL interpreter. [[yes]]
+  --with-modulesAutoHandling=ans
+                          Convert prereq() functions to depends_on(). [[no]]
   --with-availExtensions=ans
                           Use the fast TCL interpreter. [[yes]]
   --with-lua=ans          absolute path to the lua interpreter to use [[lua]]
@@ -4281,6 +4285,27 @@ fi
 
 
 
+# Check whether --with-modulesAutoHandling was given.
+if test ${with_modulesAutoHandling+y}
+then :
+  withval=$with_modulesAutoHandling; MODULES_AUTO_HANDLING="$withval"
+    MODULES_AUTO_HANDLING=`echo $MODULES_AUTO_HANDLING | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $MODULES_AUTO_HANDLING "--with-modulesAutoHandling=ans: ans must be yes or no"
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: MODULES_AUTO_HANDLING=$with_modulesAutoHandling" >&5
+printf "%s\n" "MODULES_AUTO_HANDLING=$with_modulesAutoHandling" >&6; }
+    printf "%s\n" "#define MODULES_AUTO_HANDLING \"$with_modulesAutoHandling\"" >>confdefs.h
+
+else $as_nop
+  withval="no"
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: MODULES_AUTO_HANDLING=$withval" >&5
+printf "%s\n" "MODULES_AUTO_HANDLING=$withval" >&6; }
+    MODULES_AUTO_HANDLING="$withval"
+    printf "%s\n" "#define MODULES_AUTO_HANDLING \"$withval\"" >>confdefs.h
+
+fi
+
+
+
 # Check whether --with-availExtensions was given.
 if test ${with_availExtensions+y}
 then :
@@ -6867,6 +6892,7 @@ echo "LMOD_CONFIG_DIR............................................." : $LMOD_CONF
 echo "Use ~/.config/lmod directory only..........................." : $USE_DOT_CONFIG_DIR_ONLY
 echo "Display Extensions w/ module avail.........................." : $AVAIL_EXTENSIONS
 echo "Dynamic Spider Cache support................................" : $DYNAMIC_SPIDER_CACHE
+echo "Modules Auto Handling......................................." : $MODULES_AUTO_HANDLING
 echo "Allow for extended default.(ml intel/17 #-> intel/17.0.4)..." : $EXTENDED_DEFAULT  #"
 
 
