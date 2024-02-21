@@ -590,6 +590,20 @@ AC_ARG_WITH(fastTCLInterp,
     FAST_TCL_INTERP="$withval"
     AC_DEFINE_UNQUOTED(FAST_TCL_INTERP, "$withval"))dnl
 
+AC_SUBST(MODULES_AUTO_HANDLING)
+AC_ARG_WITH(modulesAutoHandling,
+    AS_HELP_STRING([--with-modulesAutoHandling=ans],[Convert prereq() functions to depends_on(). [[no]]]),
+    MODULES_AUTO_HANDLING="$withval"
+    MODULES_AUTO_HANDLING=`echo $MODULES_AUTO_HANDLING | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
+    VALID_YN $MODULES_AUTO_HANDLING "--with-modulesAutoHandling=ans: ans must be yes or no"
+    AC_MSG_RESULT([MODULES_AUTO_HANDLING=$with_modulesAutoHandling])
+    AC_DEFINE_UNQUOTED(MODULES_AUTO_HANDLING, "$with_modulesAutoHandling")dnl
+    ,
+    withval="no"
+    AC_MSG_RESULT([MODULES_AUTO_HANDLING=$withval])
+    MODULES_AUTO_HANDLING="$withval"
+    AC_DEFINE_UNQUOTED(MODULES_AUTO_HANDLING, "$withval"))dnl
+
 AC_SUBST(AVAIL_EXTENSIONS)
 AC_ARG_WITH(availExtensions,
     AS_HELP_STRING([--with-availExtensions=ans],[Use the fast TCL interpreter. [[yes]]]),

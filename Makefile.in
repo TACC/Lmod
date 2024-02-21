@@ -77,6 +77,7 @@ UPDATE_VERSION            := LUA_PATH="$(srcdir)/tools/?.lua;$$LUA_PATH;;" $(src
 PS                        := @PS@
 READLINK                  := @READLINK@
 EXPR                      := @EXPR@
+MODULES_AUTO_HANDLING     := @MODULES_AUTO_HANDLING@
 PATH_TO_HASHSUM           := @PATH_TO_HASHSUM@
 PATH_TO_LUAC              := @PATH_TO_LUAC@
 PATH_TO_PAGER             := @PATH_TO_PAGER@
@@ -270,7 +271,8 @@ __installMe:
 	        -e 's|@hidden_italic@|$(LMOD_HIDDEN_ITALIC)|g'                    \
 	        -e 's|@modulepath_init@|$(MODULEPATH_INIT)|g'                     \
 	        -e 's|@sys_lua_cpath@|$(SYS_LUA_CPATH)|g'                         \
-	        -e 's|@path_to_luac@|$(PATH_TO_LUAC)|g'                           \
+	        -e 's|@modules_auto_handling@|$(MODULES_AUTO_HANDLING)|g'         \
+                -e 's|@path_to_luac@|$(PATH_TO_LUAC)|g'                           \
 	        -e 's|@path_to_lmod@|$(LIBEXEC)/lmod|g'                           \
 	        -e 's|@have_lua_term@|$(HAVE_LUA_TERM)|g'                         \
 	        -e 's|@silence_shell_debugging@|$(SILENCE_SHELL_DEBUGGING)|g'     \
