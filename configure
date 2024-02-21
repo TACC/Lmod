@@ -4392,6 +4392,27 @@ fi
 
 
 
+# Check whether --with-modulesAutoHandling was given.
+if test ${with_modulesAutoHandling+y}
+then :
+  withval=$with_modulesAutoHandling; MODULES_AUTO_HANDLING="$withval"
+    MODULES_AUTO_HANDLING=`echo $MODULES_AUTO_HANDLING | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $MODULES_AUTO_HANDLING "--with-modulesAutoHandling=ans: ans must be yes or no"
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: MODULES_AUTO_HANDLING=$with_modulesAutoHandling" >&5
+printf "%s\n" "MODULES_AUTO_HANDLING=$with_modulesAutoHandling" >&6; }
+    printf "%s\n" "#define MODULES_AUTO_HANDLING \"$with_modulesAutoHandling\"" >>confdefs.h
+
+else $as_nop
+  withval="no"
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: MODULES_AUTO_HANDLING=$withval" >&5
+printf "%s\n" "MODULES_AUTO_HANDLING=$withval" >&6; }
+    MODULES_AUTO_HANDLING="$withval"
+    printf "%s\n" "#define MODULES_AUTO_HANDLING \"$withval\"" >>confdefs.h
+
+fi
+
+
+
 # Check whether --with-availExtensions was given.
 if test ${with_availExtensions+y}
 then :
