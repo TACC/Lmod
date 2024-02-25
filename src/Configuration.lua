@@ -229,7 +229,7 @@ local function l_new(self)
    tbl.luaV         = { k = "Lua Version"                       , v = _VERSION,           n = false                             }
    tbl.lua_term     = { k = "System lua-term"                   , v = have_term,          n = "LMOD_HAVE_LUA_TERM"              }
    tbl.lua_term_A   = { k = "Active lua-term"                   , v = activeTerm,         n = false                             }
-   tbt.mAutoHndl    = { k = "Modules Auto Handling"             , v = modulesAutoHanding, n = false                             }
+   tbl.mAutoHndl    = { k = "Modules Auto Handling"             , v = modulesAutoHanding, n = false                             }
    tbl.mpath_av     = { k = "avail: Include modulepath dir"     , v = mpath_avail,        n = "LMOD_MPATH_AVAIL"                }
    tbl.mpath_init   = { k = "MODULEPATH_INIT"                   , v = mpath_init,         n = "LMOD_MODULEPATH_INIT"            }
    tbl.mpath_root   = { k = "MODULEPATH_ROOT"                   , v = mpath_root,         n = "MODULEPATH_ROOT"                 }

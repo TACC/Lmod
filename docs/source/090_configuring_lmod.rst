@@ -244,6 +244,15 @@ the configuration option which will set the action.
   ~/.config/lmod but will check both directories when reading picking
   the most recent one.
 
+**MODULES_AUTO_HANDLING**
+  [yes/no, default: no, --with-modulesAutoHandling].  If this option
+  is activated or the env. var. MODULES_AUTO_HANDLING is set then Lmod
+  will change prereq() to depends_on() and prereq_any() to
+  depends_on_any().
+
+
+
+
 
 Configuration only settings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
