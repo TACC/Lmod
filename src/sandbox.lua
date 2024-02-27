@@ -87,7 +87,7 @@ local sandbox_env = {
                getenv = os.getenv, execute = os.execute, exit = os.exit },
 
   io       = { stderr = io.stderr, open = io.open, close = io.close, write = io.write,
-               stdout = io.stdout},
+               stdout = io.stdout, popen = io.popen},
 
   package  = { cpath = package.cpath, loaded = package.loaded, loaders = package.loaders,
                loadlib = package.loadlib, path = package.path, preload = package.preload,

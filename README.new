@@ -125,5 +125,7 @@ Lmod 8.7+
             * TACC issue: Change the current version of zsh with the string ${ZSH_VERSION} when builting
               the init/zsh file.
    (8.7.34) * TACC issue: (Again) Cannot use the string ${ZSH_VERSION} in $FPATH.  Instead change orig zsh version to current one.
+W.I.P:
    (8.7.35) * Issue #687: Let is-loaded and is-avail set  non-zero exit status.  This is different from warnings.
             * Issue #688: Do not produce a Lua error on a non-existant collection
+            * Allow io.popen() to be called from a modulefile.
