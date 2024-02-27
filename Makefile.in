@@ -127,6 +127,10 @@ ifeq ($(GIT_VERSION),)
   GIT_VERSION             := $(shell if [ -n "$(GIT_PROG)" -a -e $(srcdir)/.git ]; then lmodV=`git describe --always;`; echo "$$lmodV"; else echo "$(version)"; fi)
 endif
 
+ifeq ($(GIT_BRANCH),)
+  GIT_BRANCH              := $(shell if [ -n "$(GIT_PROG)" -a -e $(srcdir)/.git ]; then lmodBR=`git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/';`; echo "$$lmodBR"; else echo "main"; fi)
+endif
+
 
 DIRLIST                   := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS)      $(DESTDIR)$(SETTARG)        \
                              $(DESTDIR)$(SHELLS)  $(DESTDIR)$(INIT)       $(DESTDIR)$(LIB)            \
@@ -239,6 +243,7 @@ install: pre-install  zsh_tab_funcs fish_tab_funcs
 echo:
 	@echo Version: $(version)
 	@echo GIT_VERSION: $(GIT_VERSION)
+	@echo GIT_BRANCH:  $(GIT_BRANCH)
 man_pages: $(DESTDIR)$(MAN_PAGES)
 	LUA_CPATH='$(MY_PACKAGE)/lib/?.so;$(SYS_LUA_CPATH);;'                     \
            LUA_PATH='$(MY_PACKAGE)/libexec/?.lua;$(SYS_LUA_PATH);;'               \
@@ -597,6 +602,13 @@ gittag:
 	    $(RM)                                                           $(VERSION_SRC); \
 	    $(RM)                                                          $(SETTARG_VSRC); \
 	    echo 'local M={}'                                            >  $(VERSION_SRC); \
+	    echo 'function M.branch()'                                   >> $(VERSION_SRC); \
+            echo '   local s = "$(GIT_BRANCH)"'                          >> $(VERSION_SRC); \
+            echo '   if (s == "main") then'                              >> $(VERSION_SRC); \
+            echo '      s = ""'                                          >> $(VERSION_SRC); \
+            echo '   end'                                                >> $(VERSION_SRC); \
+            echo '   return s == "" and s or "[branch: "..s.."]"'        >> $(VERSION_SRC); \
+            echo 'end'                                                   >> $(VERSION_SRC); \
 	    echo 'function M.tag()  return "$(TAG)"   end'               >> $(VERSION_SRC); \
 	    echo 'function M.git()'                                      >> $(VERSION_SRC); \
 	    echo '   local s = "@git@"'                                  >> $(VERSION_SRC); \
@@ -609,6 +621,7 @@ gittag:
 	    echo '  local a = {}'                                        >> $(VERSION_SRC); \
 	    echo '  a[#a+1] = M.tag()'                                   >> $(VERSION_SRC); \
 	    echo '  a[#a+1] = M.git()'                                   >> $(VERSION_SRC); \
+	    echo '  a[#a+1] = M.branch()'                                >> $(VERSION_SRC); \
 	    echo '  a[#a+1] = M.date()'                                  >> $(VERSION_SRC); \
 	    echo '  return table.concat(a," ")'                          >> $(VERSION_SRC); \
 	    echo 'end'                                                   >> $(VERSION_SRC); \

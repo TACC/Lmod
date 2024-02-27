@@ -56,9 +56,9 @@ EOF
      export MODULEPATH_ROOT=$(testDir)
      export MODULEPATH=$(testDir)/mf4
      runBase runSpiderCmd -o dbT         $MODULEPATH  # 4
-     runLmod load newdir                              # 7
-     runLmod --show_hidden av                         # 8
-     runBase runSpiderCmd -o dbT         $MODULEPATH  # 9
+     runLmod load newdir                              # 5
+     runLmod --show_hidden av                         # 6
+     runBase runSpiderCmd -o dbT         $MODULEPATH  # 7
 
 
 

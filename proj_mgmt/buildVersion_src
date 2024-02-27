@@ -1,0 +1,95 @@
+#!/usr/bin/env lua
+-- -*- lua -*-
+
+Version = "0.0"
+
+require("strict")
+require("string_utils")
+require("VarDump")
+local Optiks = require("Optiks")
+local dbg    = require("Dbg"):dbg()
+local s_mTbl = {}
+
+function mTbl()
+   return s_mTbl
+end
+
+function buildVersionCode(branch, tag, gittag, dateStr)
+   local a = {}
+   a[#a+1] = 'local M={}'
+   a[#a+1] = 'function M.branch()'
+   a[#a+1] = '   local s = "'..  branch ..'"'
+   a[#a+1] = '   if (s == "main") then'
+   a[#a+1] = '      s = ""'
+   a[#a+1] = '   end'
+   a[#a+1] = '   return s == "" and s or "[branch: "..s.."]"'
+   a[#a+1] = 'end'
+   a[#a+1] = 'function M.tag()  return "'..tag..'"   end'
+   a[#a+1] = 'function M.git()'                      
+   a[#a+1] = '   local s = "'..gittag..'"'                      
+   a[#a+1] = '   if (s == "@" .. "git@") then s = "" end'
+   a[#a+1] = '   if (s == M.tag()      ) then s = "" end'
+   a[#a+1] = '   return s == "" and s or "("..s..")"'    
+   a[#a+1] = 'end'                                       
+   a[#a+1] = 'function M.date() return "'..dateStr..'" end'   
+   a[#a+1] = 'function M.name()'                         
+   a[#a+1] = '  local a = {}'                            
+   a[#a+1] = '  a[#a+1] = M.tag()'                       
+   a[#a+1] = '  a[#a+1] = M.git()'                       
+   a[#a+1] = '  a[#a+1] = M.branch()'                    
+   a[#a+1] = '  a[#a+1] = M.date()'                      
+   a[#a+1] = '  return table.concat(a," ")'              
+   a[#a+1] = 'end'                                       
+   a[#a+1] = 'return M'                                  
+   return table.concat(a,"\n")
+end
+
+
+
+function main()
+   options()
+   local mTbl   = mTbl()
+   local s = buildVersionCode(mTbl.branch, mTbl.tag, mTbl.gittag, mTbl.vdate)
+   print (s)
+end
+
+function options()
+   local mTbl          = mTbl()
+   local usage         = "Usage: buildVersion.lua --branch branch --tag tag --gittag gittag --vdate dateStr outfile"
+   local cmdlineParser = Optiks:new{usage=usage, version=Version}
+
+   cmdlineParser:add_option{ 
+      name   = {'-v','--verbose'},
+      dest   = 'verbosityLevel',
+      action = 'count',
+   }
+   cmdlineParser:add_option{ 
+      name   = {'--branch'},
+      dest   = 'branch',
+      action = 'store',
+   }
+   cmdlineParser:add_option{ 
+      name   = {'--tag'},
+      dest   = 'tag',
+      action = 'store',
+   }
+   cmdlineParser:add_option{ 
+      name   = {'--gittag'},
+      dest   = 'gittag',
+      action = 'store',
+   }
+   cmdlineParser:add_option{ 
+      name   = {'--vdate'},
+      dest   = 'vdate',
+      action = 'store',
+   }
+   local optionTbl, pargs = cmdlineParser:parse(arg)
+
+   for v in pairs(optionTbl) do
+      mTbl[v] = optionTbl[v]
+   end
+   mTbl.pargs = pargs
+
+end
+
+main()
