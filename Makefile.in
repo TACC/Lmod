@@ -74,6 +74,7 @@ LEGACY_ORDERING           := @LEGACY_ORDERING@
 EXPORT_MODULE             := @EXPORT_MODULE@
 BASENAME                  := @BASENAME@
 UPDATE_VERSION            := LUA_PATH="$(srcdir)/tools/?.lua;$$LUA_PATH;;" $(srcdir)/proj_mgmt/updateVersion
+BUILD_V_Src               := LUA_PATH="$(srcdir)/tools/?.lua;$$LUA_PATH;;" $(srcdir)/proj_mgmt/buildVersion_src
 PS                        := @PS@
 READLINK                  := @READLINK@
 EXPR                      := @EXPR@
@@ -104,6 +105,7 @@ LMOD_MF                   := $(MY_PACKAGE)/modulefiles/Core
 MAN_PAGES                 := $(MY_PACKAGE)/share/man/cat1
 LMOD_MF_SOURCE            := $(patsubst %, $(srcdir)/%, MF/*.version.lua)
 SETTARG_SOURCE            := $(patsubst %, $(srcdir)/%, settarg/*.lua  settarg/targ.in)
+SETTARG_SOURCE            := $(filter-out $(srcdir)/settarg/Version.lua, $(SETTARG_SOURCE))
 DATE_cmd                  := $(srcdir)/proj_mgmt/DATE_cmd.sh
 UNAME_S                   := $(shell uname -s)
 MODE                      := @MODE@
@@ -184,8 +186,8 @@ CONTRIB_DIRS              :=  \
                               tricky_modulefiles
 
 CONTRIB                   := $(patsubst %, $(srcdir)/contrib/%, $(CONTRIB_DIRS))
-lua_code                  := $(filter-out %.in.lua, $(wildcard $(srcdir)/src/*.lua))   \
-                             $(wildcard $(srcdir)/src/*.tcl)
+lua_code                  := $(filter-out %.in.lua, $(wildcard $(srcdir)/src/*.lua))
+lua_code                  := $(filter-out $(srcdir)/src/Version.lua, $(lua_code)) $(wildcard $(srcdir)/src/*.tcl)
 VDATE                     := $(shell $(DATE_cmd) +'%F %H:%M %:z')
 
 ComputeHashSum            := $(srcdir)/src/computeHashSum.in.lua
@@ -221,9 +223,10 @@ uninstall:
 
 pre-install: $(DIRLIST) lmod_install_targets
 
-lmod_install_targets: $(PKGS) lmodrc_init shell_init startup libexec               \
+lmod_install_targets: $(PKGS) lmodrc_init shell_init startup libexec VersionSrc    \
                       Inst_Tools Inst_Shells Inst_Settarg Inst_Lmod_MF other_tools \
-                      man_pages messageFns i18n spiderCacheSupport ksh_funcs
+                      man_pages messageFns i18n spiderCacheSupport ksh_funcs       \
+                      STVersionSrc
 
 install: pre-install  zsh_tab_funcs fish_tab_funcs 
 	$(MAKE) PKGV=$(PKG) shell_init startup
@@ -541,6 +544,16 @@ luachk:
 libexec:  $(lua_code)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LIBEXEC) GIT_VERSION=$(GIT_VERSION) __installMe
 
+VersionSrc:
+	$(BUILDV_src) -b $(GIT_BRANCH) -t $(TAG) -g $(GIT_VERSION)                          \
+                      -d $(VDATE)                                    >  $(DESTDIR)$(LIBEXEC)/Version.lua
+
+STVersionSrc:
+	$(BUILDV_src) -b $(GIT_BRANCH) -t $(TAG) -g $(GIT_VERSION)                          \
+                      -d $(VDATE)                                    >  $(DESTDIR)$(SETTARG)/Version.luaSTVersionSrc
+
+
+
 Inst_Tools: $(TOOL_SRC)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(TOOLS) GIT_VERSION=$(GIT_VERSION) __installMe
 
@@ -601,31 +614,8 @@ gittag:
 	  else                                                                              \
 	    $(RM)                                                           $(VERSION_SRC); \
 	    $(RM)                                                          $(SETTARG_VSRC); \
-	    echo 'local M={}'                                            >  $(VERSION_SRC); \
-	    echo 'function M.branch()'                                   >> $(VERSION_SRC); \
-            echo '   local s = "$(GIT_BRANCH)"'                          >> $(VERSION_SRC); \
-            echo '   if (s == "main") then'                              >> $(VERSION_SRC); \
-            echo '      s = ""'                                          >> $(VERSION_SRC); \
-            echo '   end'                                                >> $(VERSION_SRC); \
-            echo '   return s == "" and s or "[branch: "..s.."]"'        >> $(VERSION_SRC); \
-            echo 'end'                                                   >> $(VERSION_SRC); \
-	    echo 'function M.tag()  return "$(TAG)"   end'               >> $(VERSION_SRC); \
-	    echo 'function M.git()'                                      >> $(VERSION_SRC); \
-	    echo '   local s = "@git@"'                                  >> $(VERSION_SRC); \
-	    echo '   if (s == "@" .. "git@") then s = "" end'            >> $(VERSION_SRC); \
-	    echo '   if (s == M.tag()      ) then s = "" end'            >> $(VERSION_SRC); \
-	    echo '   return s == "" and s or "("..s..")"'                >> $(VERSION_SRC); \
-	    echo 'end'                                                   >> $(VERSION_SRC); \
-	    echo 'function M.date() return "$(VDATE)" end'               >> $(VERSION_SRC); \
-	    echo 'function M.name()'                                     >> $(VERSION_SRC); \
-	    echo '  local a = {}'                                        >> $(VERSION_SRC); \
-	    echo '  a[#a+1] = M.tag()'                                   >> $(VERSION_SRC); \
-	    echo '  a[#a+1] = M.git()'                                   >> $(VERSION_SRC); \
-	    echo '  a[#a+1] = M.branch()'                                >> $(VERSION_SRC); \
-	    echo '  a[#a+1] = M.date()'                                  >> $(VERSION_SRC); \
-	    echo '  return table.concat(a," ")'                          >> $(VERSION_SRC); \
-	    echo 'end'                                                   >> $(VERSION_SRC); \
-	    echo 'return M'                                              >> $(VERSION_SRC); \
+	    $(BUILDV_src) -b $(GIT_BRANCH) -t $(TAG) -g $(GIT_VERSION)                      \
+                          -d $(VDATE)                                    >  $(VERSION_SRC); \
 	    cp                                          $(VERSION_SRC)     $(SETTARG_VSRC); \
 	    $(UPDATE_VERSION) -p $(CONF_PY_PATTERN)          --version $(TAG)   $(CONF_PY); \
 	    git commit -m "moving to TAG_VERSION $(TAG)"                   $(SETTARG_VSRC)  \
