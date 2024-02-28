@@ -447,7 +447,7 @@ function main()
    local hub        = Hub:singleton(false)
 
    if (optionTbl.version) then
-      io.stderr:write(version())
+      io.stderr:write(l_version())
       os.exit(0)
    end
 
