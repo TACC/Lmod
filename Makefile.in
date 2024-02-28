@@ -74,7 +74,7 @@ LEGACY_ORDERING           := @LEGACY_ORDERING@
 EXPORT_MODULE             := @EXPORT_MODULE@
 BASENAME                  := @BASENAME@
 UPDATE_VERSION            := LUA_PATH="$(srcdir)/tools/?.lua;$$LUA_PATH;;" $(srcdir)/proj_mgmt/updateVersion
-BUILD_V_Src               := LUA_PATH="$(srcdir)/tools/?.lua;$$LUA_PATH;;" $(srcdir)/proj_mgmt/buildVersion_src
+BUILD_V_src               := LUA_PATH="$(srcdir)/tools/?.lua;$$LUA_PATH;;" $(srcdir)/proj_mgmt/buildVersion_src
 PS                        := @PS@
 READLINK                  := @READLINK@
 EXPR                      := @EXPR@
@@ -545,12 +545,14 @@ libexec:  $(lua_code)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LIBEXEC) GIT_VERSION=$(GIT_VERSION) __installMe
 
 VersionSrc:
-	$(BUILDV_src) -b $(GIT_BRANCH) -t $(TAG) -g $(GIT_VERSION)                          \
-                      -d $(VDATE)                                    >  $(DESTDIR)$(LIBEXEC)/Version.lua
+	echo LUA_PATH:  $$LUA_PATH
+	echo LUA_CPATH: $$LUA_CPATH
+	$(BUILD_V_src) -b $(GIT_BRANCH) -t $(version) -g $(GIT_VERSION)                          \
+                       -d $(VDATE)                                    >  $(DESTDIR)$(LIBEXEC)/Version.lua
 
 STVersionSrc:
-	$(BUILDV_src) -b $(GIT_BRANCH) -t $(TAG) -g $(GIT_VERSION)                          \
-                      -d $(VDATE)                                    >  $(DESTDIR)$(SETTARG)/Version.luaSTVersionSrc
+	$(BUILD_V_src) -b $(GIT_BRANCH) -t $(version) -g $(GIT_VERSION)                          \
+                       -d $(VDATE)                                    >  $(DESTDIR)$(SETTARG)/Version.luaSTVersionSrc
 
 
 

@@ -2,10 +2,9 @@
 -- -*- lua -*-
 
 Version = "0.0"
+_G._DEBUG    = false
+local posix  = require("posix")
 
-require("strict")
-require("string_utils")
-require("VarDump")
 local Optiks = require("Optiks")
 local dbg    = require("Dbg"):dbg()
 local s_mTbl = {}
@@ -45,10 +44,23 @@ function buildVersionCode(branch, tag, gittag, dateStr)
 end
 
 
+-- This function forces the option parser to write to stderr instead of
+-- stdout.
+local function l_prt(...)
+   stderr:write(...)
+end
+
+
+--------------------------------------------------------------------------
+-- This function prevents the option parser from exiting when it finds an
+-- error.
+local function l_nothing()
+end
 
 function main()
    options()
    local mTbl   = mTbl()
+   print("branch: ",mTbl.branch)
    local s = buildVersionCode(mTbl.branch, mTbl.tag, mTbl.gittag, mTbl.vdate)
    print (s)
 end
@@ -56,7 +68,11 @@ end
 function options()
    local mTbl          = mTbl()
    local usage         = "Usage: buildVersion.lua --branch branch --tag tag --gittag gittag --vdate dateStr outfile"
-   local cmdlineParser = Optiks:new{usage=usage, version=Version}
+   local cmdlineParser = Optiks:new{usage=usage,
+                                    error=l_nothing,
+                                    exit=l_nothing,
+                                    prt=l_prt,
+                                    version=Version}
 
    cmdlineParser:add_option{ 
       name   = {'-v','--verbose'},
@@ -64,22 +80,22 @@ function options()
       action = 'count',
    }
    cmdlineParser:add_option{ 
-      name   = {'--branch'},
+      name   = {'-b','--branch'},
       dest   = 'branch',
       action = 'store',
    }
    cmdlineParser:add_option{ 
-      name   = {'--tag'},
+      name   = {'-t','--tag'},
       dest   = 'tag',
       action = 'store',
    }
    cmdlineParser:add_option{ 
-      name   = {'--gittag'},
+      name   = {'-g','--gittag'},
       dest   = 'gittag',
       action = 'store',
    }
    cmdlineParser:add_option{ 
-      name   = {'--vdate'},
+      name   = {'-d','--vdate'},
       dest   = 'vdate',
       action = 'store',
    }

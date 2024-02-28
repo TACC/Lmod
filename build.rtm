@@ -12,8 +12,8 @@ parallel_make_install()
   fi
 
   if [ "$BUILD_TYPE" != "EXPERIMENTAL" ]; then
-    echo "$SUDO $MAKE GIT_VERSION=$GIT_VERSION -j install     $MAKE_EXTRA"
-          $SUDO $MAKE GIT_VERSION=$GIT_VERSION -j install     $MAKE_EXTRA
+    echo "$SUDO $MAKE GIT_VERSION=$GIT_VERSION install     $MAKE_EXTRA"
+          $SUDO $MAKE GIT_VERSION=$GIT_VERSION install     $MAKE_EXTRA
   else
     echo "$SUDO $MAKE pre-install $MAKE_EXTRA"
     $SUDO $MAKE GIT_VERSION=$GIT_VERSION -j pre-install $MAKE_EXTRA
