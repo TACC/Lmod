@@ -617,6 +617,7 @@ function M.buildDbT(self, mpathMapT, spiderT, dbT)
    local parentT      = l_build_parentT(keepT, mpathMapT)
    local mrc          = MRC:singleton()
    dbg.printT("mrc.__hiddenT",mrc.__hiddenT)
+   dbg.printT("mrc.__mpathT", mrc.__mpathT)
 
 
    local function l_cmp(a,b)
@@ -652,7 +653,7 @@ function M.buildDbT(self, mpathMapT, spiderT, dbT)
             t.parentAA   = parentT[mpath]
             t.mpath      = vv.mpath
             t.fullName   = fullName
-            t.hidden     = not mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn}
+            t.hidden     = not mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, mpathA=mpathA}
             if (not vv.dot_version) then
                T[vv.fn]  = t
             end
