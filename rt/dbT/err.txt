@@ -38,7 +38,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden av
 ProjectDIR/rt/dbT/mf3
    foobar/1.2.3 (H)
 ProjectDIR/rt/dbT/mf4
-   bar/2.3 (H)    newdir/1.0 (L)
+   newdir/1.0 (L)
   Where:
    H:  Hidden Module
    L:  Module is loaded

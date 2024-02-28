@@ -28,16 +28,6 @@ timestampFn = {
   false,
 }
 dbT = {
-  bar = {
-    ["ProjectDIR/rt/dbT/mf4/bar/2.3.lua"] = {
-      Version = "2.3",
-      fullName = "bar/2.3",
-      hidden = true,
-      mpath = "ProjectDIR/rt/dbT/mf4",
-      pV = "000000002.000000003.*zfinal",
-      wV = "000000002.000000003.*zfinal",
-    },
-  },
   foobar = {
     ["ProjectDIR/rt/dbT/mf3/foobar/1.2.3.lua"] = {
       Version = "1.2.3",
@@ -98,16 +88,6 @@ timestampFn = {
   false,
 }
 dbT = {
-  bar = {
-    ["ProjectDIR/rt/dbT/mf4/bar/2.3.lua"] = {
-      Version = "2.3",
-      fullName = "bar/2.3",
-      hidden = true,
-      mpath = "ProjectDIR/rt/dbT/mf4",
-      pV = "000000002.000000003.*zfinal",
-      wV = "000000002.000000003.*zfinal",
-    },
-  },
   foobar = {
     ["ProjectDIR/rt/dbT/mf3/foobar/1.2.3.lua"] = {
       Version = "1.2.3",

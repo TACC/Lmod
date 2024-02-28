@@ -74,7 +74,7 @@ LEGACY_ORDERING           := @LEGACY_ORDERING@
 EXPORT_MODULE             := @EXPORT_MODULE@
 BASENAME                  := @BASENAME@
 UPDATE_VERSION            := LUA_PATH="$(srcdir)/tools/?.lua;$$LUA_PATH;;" $(srcdir)/proj_mgmt/updateVersion
-BUILD_V_src               := LUA_PATH="$(srcdir)/tools/?.lua;$$LUA_PATH;;" $(srcdir)/proj_mgmt/buildVersion_src
+BUILD_V_src               := LUA_PATH="$(srcdir)/tools/?.lua;$(SYS_LUA_PATH)" LUA_CPATH="$(SYS_LUA_CPATH)" $(srcdir)/proj_mgmt/buildVersion_src
 PS                        := @PS@
 READLINK                  := @READLINK@
 EXPR                      := @EXPR@
@@ -105,7 +105,6 @@ LMOD_MF                   := $(MY_PACKAGE)/modulefiles/Core
 MAN_PAGES                 := $(MY_PACKAGE)/share/man/cat1
 LMOD_MF_SOURCE            := $(patsubst %, $(srcdir)/%, MF/*.version.lua)
 SETTARG_SOURCE            := $(patsubst %, $(srcdir)/%, settarg/*.lua  settarg/targ.in)
-SETTARG_SOURCE            := $(filter-out $(srcdir)/settarg/Version.lua, $(SETTARG_SOURCE))
 DATE_cmd                  := $(srcdir)/proj_mgmt/DATE_cmd.sh
 UNAME_S                   := $(shell uname -s)
 MODE                      := @MODE@
@@ -247,6 +246,9 @@ echo:
 	@echo Version: $(version)
 	@echo GIT_VERSION: $(GIT_VERSION)
 	@echo GIT_BRANCH:  $(GIT_BRANCH)
+	@echo "SETTARG_SRC:    " $(SETTARG_SRC)
+	@echo "SETTARG_SOURCE: " $(SETTARG_SOURCE)
+	@echo "\$(srcdir)/settarg/Version.lua: " $(srcdir)/settarg/Version.lua
 man_pages: $(DESTDIR)$(MAN_PAGES)
 	LUA_CPATH='$(MY_PACKAGE)/lib/?.so;$(SYS_LUA_CPATH);;'                     \
            LUA_PATH='$(MY_PACKAGE)/libexec/?.lua;$(SYS_LUA_PATH);;'               \
@@ -545,16 +547,10 @@ libexec:  $(lua_code)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LIBEXEC) GIT_VERSION=$(GIT_VERSION) __installMe
 
 VersionSrc:
-	echo LUA_PATH:  $$LUA_PATH
-	echo LUA_CPATH: $$LUA_CPATH
-	$(BUILD_V_src) -b $(GIT_BRANCH) -t $(version) -g $(GIT_VERSION)                          \
-                       -d $(VDATE)                                    >  $(DESTDIR)$(LIBEXEC)/Version.lua
+	$(BUILD_V_src) $(GIT_BRANCH) $(version) $(GIT_VERSION) "$(VDATE)" >  $(DESTDIR)$(LIBEXEC)/Version.lua 
 
-STVersionSrc:
-	$(BUILD_V_src) -b $(GIT_BRANCH) -t $(version) -g $(GIT_VERSION)                          \
-                       -d $(VDATE)                                    >  $(DESTDIR)$(SETTARG)/Version.luaSTVersionSrc
-
-
+STVersionSrc: Inst_Settarg
+	$(BUILD_V_src) $(GIT_BRANCH) $(version) $(GIT_VERSION) "$(VDATE)" >  $(DESTDIR)$(SETTARG)/Version.lua
 
 Inst_Tools: $(TOOL_SRC)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(TOOLS) GIT_VERSION=$(GIT_VERSION) __installMe

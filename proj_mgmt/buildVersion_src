@@ -2,11 +2,6 @@
 -- -*- lua -*-
 
 Version = "0.0"
-_G._DEBUG    = false
-local posix  = require("posix")
-
-local Optiks = require("Optiks")
-local dbg    = require("Dbg"):dbg()
 local s_mTbl = {}
 
 function mTbl()
@@ -43,69 +38,15 @@ function buildVersionCode(branch, tag, gittag, dateStr)
    return table.concat(a,"\n")
 end
 
-
--- This function forces the option parser to write to stderr instead of
--- stdout.
-local function l_prt(...)
-   stderr:write(...)
-end
-
-
---------------------------------------------------------------------------
--- This function prevents the option parser from exiting when it finds an
--- error.
-local function l_nothing()
-end
-
 function main()
-   options()
-   local mTbl   = mTbl()
-   print("branch: ",mTbl.branch)
-   local s = buildVersionCode(mTbl.branch, mTbl.tag, mTbl.gittag, mTbl.vdate)
+
+   local branch = arg[1]
+   local tag    = arg[2]
+   local gittag = arg[3]
+   local vdate  = arg[4]
+
+   local s = buildVersionCode(branch, tag, gittag, vdate)
    print (s)
-end
-
-function options()
-   local mTbl          = mTbl()
-   local usage         = "Usage: buildVersion.lua --branch branch --tag tag --gittag gittag --vdate dateStr outfile"
-   local cmdlineParser = Optiks:new{usage=usage,
-                                    error=l_nothing,
-                                    exit=l_nothing,
-                                    prt=l_prt,
-                                    version=Version}
-
-   cmdlineParser:add_option{ 
-      name   = {'-v','--verbose'},
-      dest   = 'verbosityLevel',
-      action = 'count',
-   }
-   cmdlineParser:add_option{ 
-      name   = {'-b','--branch'},
-      dest   = 'branch',
-      action = 'store',
-   }
-   cmdlineParser:add_option{ 
-      name   = {'-t','--tag'},
-      dest   = 'tag',
-      action = 'store',
-   }
-   cmdlineParser:add_option{ 
-      name   = {'-g','--gittag'},
-      dest   = 'gittag',
-      action = 'store',
-   }
-   cmdlineParser:add_option{ 
-      name   = {'-d','--vdate'},
-      dest   = 'vdate',
-      action = 'store',
-   }
-   local optionTbl, pargs = cmdlineParser:parse(arg)
-
-   for v in pairs(optionTbl) do
-      mTbl[v] = optionTbl[v]
-   end
-   mTbl.pargs = pargs
-
 end
 
 main()
