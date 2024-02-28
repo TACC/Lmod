@@ -125,3 +125,5 @@ Lmod 8.7+
             * TACC issue: Change the current version of zsh with the string ${ZSH_VERSION} when builting
               the init/zsh file.
    (8.7.34) * TACC issue: (Again) Cannot use the string ${ZSH_VERSION} in $FPATH.  Instead change orig zsh version to current one.
+W.I.P:
+   (8.7.35) * Issue #684: must pass in mpathA to isVisible when trying to find hidden modules in buildDbT
