@@ -82,24 +82,7 @@ local validT =
 -- Checks for a valid hook name and stores it if valid.
 -- @param name The name of the hook.
 -- @param func The function to store with it.
-function M.register(name, func)
-   if (validT[name] ~= nil) then
-      -- If func is a table and validT[name] was previously set, append func to the current table. 
-      if type(func) == "table" and (validT[name]) then
-         for i=1,#func do
-            validT[name][#validT[name]+1] = func[i]
-         end
-      elseif type(func) == "table" then
-         validT[name] = func
-      else
-         validT[name] = {func}
-      end
-   else
-      LmodWarning{msg="w_Unknown_Hook",name = tostring(name)}
-   end
-end
-
-function M.register_alt(name, func, append)
+function M.register(name, func, append)
   if (validT[name] ~= nil) then
       -- set default for append to be backwards compatible
       append = append or false
@@ -121,24 +104,6 @@ end
 -- @return the results of the hook if it exists.
 function M.apply(name, ...)
    if (validT[name]) then
-      LmodMessage("Running apply hook "..name.." with table input of length "..#validT[name])
-      -- not entirely sure what the most sensible thing is to return here.
-      -- I would like it to be an array of return values, but arrays cant hold nil as a value...
-      -- The result is that the returned table might have fewer elements than the original hooks
-      -- That's... awkward, but could be done like this:
-      --
-      -- local returnT = {}
-      -- for i=1,#validT[name] do
-      --    local return_val = validT[name][i](...)
-      --    if return_val ~= nil then
-      --       table.insert(returnT, return_val)
-      --    end
-      -- end
-      -- return returnT
-      --
-      -- I prefer the alternative: just dont return anything.
-      -- That does not allow handling of any return values, but sensible handling of
-      -- arbitrary hook functions is hard anyway (we don't know the meaning of any return type)
       for i=1,#validT[name] do
          validT[name][i](...)
       end
