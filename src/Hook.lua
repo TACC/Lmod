@@ -88,7 +88,6 @@ function M.register(name, func, append)
       append = append or false
       -- if append and validT[name] was set before, append. Otherwise, overwrite.
       if append and validT[name] then
-         -- if validT[name] was set before (i.e. isn't false), append
          validT[name][#validT[name]+1] = func
       else
          validT[name] = {func}
