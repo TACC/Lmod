@@ -81,7 +81,8 @@ local validT =
 --------------------------------------------------------------------------
 -- Checks for a valid hook name and stores it if valid.
 -- @param name The name of the hook.
--- @param func The function to store with it.
+-- @param func The function to store with it. This function is append if func is a table (of functions).
+-- Otherwise, it overwrites the currently registered hook.
 function M.register(name, func)
    if (validT[name] ~= nil) then
       -- If func is a table and validT[name] was previously set, append func to the current table. 
@@ -99,50 +100,15 @@ function M.register(name, func)
    end
 end
 
-function M.register_alt(name, func, append)
-  if (validT[name] ~= nil) then
-      -- set default for append to be backwards compatible
-      append = append or false
-      -- if append and validT[name] was set before, append. Otherwise, overwrite.
-      if append and validT[name] then
-         -- if validT[name] was set before (i.e. isn't false), append
-         validT[name][#validT[name]+1] = func
-      else
-         validT[name] = {func}
-      end
-   else
-      LmodWarning{msg="w_Unknown_Hook",name = tostring(name)}
-   end
-end
-
 --------------------------------------------------------------------------
 -- If a valid hook function has been registered then apply it.
 -- @param name The name of the hook.
 -- @return the results of the hook if it exists.
 function M.apply(name, ...)
    if (validT[name]) then
-      LmodMessage("Running apply hook "..name.." with table input of length "..#validT[name])
-      -- not entirely sure what the most sensible thing is to return here.
-      -- I would like it to be an array of return values, but arrays cant hold nil as a value...
-      -- The result is that the returned table might have fewer elements than the original hooks
-      -- That's... awkward, but could be done like this:
-      --
-      -- local returnT = {}
-      -- for i=1,#validT[name] do
-      --    local return_val = validT[name][i](...)
-      --    if return_val ~= nil then
-      --       table.insert(returnT, return_val)
-      --    end
-      -- end
-      -- return returnT
-      --
-      -- I prefer the alternative: just dont return anything.
-      -- That does not allow handling of any return values, but sensible handling of
-      -- arbitrary hook functions is hard anyway (we don't know the meaning of any return type)
       for i=1,#validT[name] do
          validT[name][i](...)
       end
-      return
    end
 end
 
