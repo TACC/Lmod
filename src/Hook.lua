@@ -84,14 +84,15 @@ local validT =
 -- @param func The function to store with it.
 function M.register(name, func)
    if (validT[name] ~= nil) then
-      -- If func and validT[name] are both tables, append func to the current table. 
-      -- else, overwrite it. This also provides backwards compatibility.
-      if type(func) == "table" and type(validT[name]) == "table" then
+      -- If func is a table and validT[name] was previously set, append func to the current table. 
+      if type(func) == "table" and (validT[name]) then
          for i=1,#func do
-             validT[name][#validT[name]+1] = func[i]
+            validT[name][#validT[name]+1] = func[i]
          end
-      else
+      elseif type(func) == "table" then
          validT[name] = func
+      else
+         validT[name] = {func}
       end
    else
       LmodWarning{msg="w_Unknown_Hook",name = tostring(name)}
@@ -102,14 +103,12 @@ function M.register_alt(name, func, append)
   if (validT[name] ~= nil) then
       -- set default for append to be backwards compatible
       append = append or false
-      if append then
-         if type(validT[name]) == "table" then
-             validT[name][#validT[name]+1] = func
-         else
-             validT[name] = {validT[name], func}
-         end
+      -- if append and validT[name] was set before, append. Otherwise, overwrite.
+      if append and validT[name] then
+         -- if validT[name] was set before (i.e. isn't false), append
+         validT[name][#validT[name]+1] = func
       else
-         validT[name] = func
+         validT[name] = {func}
       end
    else
       LmodWarning{msg="w_Unknown_Hook",name = tostring(name)}
@@ -122,27 +121,28 @@ end
 -- @return the results of the hook if it exists.
 function M.apply(name, ...)
    if (validT[name]) then
-      if type(validT[name]) == "table" then
-         LmodMessage("Running apply hook "..name.." with table input of length "..#validT[name])
-         local returnT = {}
-         for i=1,#validT[name] do
-            local return_val = validT[name][i](...)
-            if return_val ~= nil then
-               table.insert(returnT, return_val)
-            end
-         end
-         -- not entirely sure what the most sensible thing is to return here
-         -- I would like it to be an array of return values, but arrays cant hold nil as a value...
-         -- The result is that the returned table might have fewer elements than the original hooks
-         -- The alternative would be to just return nil in this case
-         -- That does not allow handling of any return values, but sensible handling of
-         -- hook values is hard anyway, since hooks are arbitrary and one doesn't know the meaning
-         -- of the return values anyway.
-         return returnT
-      else
-         LmodMessage("Running apply hook "..name.." with non-table input")
-         return validT[name](...)
+      LmodMessage("Running apply hook "..name.." with table input of length "..#validT[name])
+      -- not entirely sure what the most sensible thing is to return here.
+      -- I would like it to be an array of return values, but arrays cant hold nil as a value...
+      -- The result is that the returned table might have fewer elements than the original hooks
+      -- That's... awkward, but could be done like this:
+      --
+      -- local returnT = {}
+      -- for i=1,#validT[name] do
+      --    local return_val = validT[name][i](...)
+      --    if return_val ~= nil then
+      --       table.insert(returnT, return_val)
+      --    end
+      -- end
+      -- return returnT
+      --
+      -- I prefer the alternative: just dont return anything.
+      -- That does not allow handling of any return values, but sensible handling of
+      -- arbitrary hook functions is hard anyway (we don't know the meaning of any return type)
+      for i=1,#validT[name] do
+         validT[name][i](...)
       end
+      return
    end
 end
 
