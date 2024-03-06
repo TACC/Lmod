@@ -107,7 +107,6 @@ function M.apply(name, ...)
       for i=1,#validT[name] do
          validT[name][i](...)
       end
-      return
    end
 end
 
