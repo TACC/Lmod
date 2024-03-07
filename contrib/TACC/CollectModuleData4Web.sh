@@ -75,6 +75,10 @@ BASE_MODULE_PATH=${BASE_MODULE_PATH%:}
 $LMOD_DIR/spider -o softwarePage    $BASE_MODULE_PATH > $ADMIN_DIR/softwarePage/softwarePage.old.json
 
 python -mjson.tool $ADMIN_DIR/softwarePage/softwarePage.old.json > $ADMIN_DIR/softwarePage/softwarePage.json
-rm -f $ADMIN_DIR/softwarePage/softwarePage.old.json
+if [ -s $ADMIN_DIR/softwarePage/softwarePage.json ]; then
+  rm -f $ADMIN_DIR/softwarePage/softwarePage.old.json
+else
+  mv $ADMIN_DIR/softwarePage/softwarePage.old.json $ADMIN_DIR/softwarePage/softwarePage.json
+fi
 
 chmod 644 $ADMIN_DIR/softwarePage/softwarePage.*
