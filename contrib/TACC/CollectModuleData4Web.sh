@@ -74,7 +74,7 @@ BASE_MODULE_PATH=${BASE_MODULE_PATH%:}
 
 $LMOD_DIR/spider -o softwarePage    $BASE_MODULE_PATH > $ADMIN_DIR/softwarePage/softwarePage.old.json
 
-python -mjson.tool $ADMIN_DIR/softwarePage/softwarePage.old.json > $ADMIN_DIR/softwarePage/softwarePage.json
+python -mjson.tool $ADMIN_DIR/softwarePage/softwarePage.old.json > $ADMIN_DIR/softwarePage/softwarePage.json 2> /dev/null
 if [ -s $ADMIN_DIR/softwarePage/softwarePage.json ]; then
   rm -f $ADMIN_DIR/softwarePage/softwarePage.old.json
 else
