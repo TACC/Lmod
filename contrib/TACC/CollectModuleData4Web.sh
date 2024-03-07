@@ -74,10 +74,6 @@ BASE_MODULE_PATH=${BASE_MODULE_PATH%:}
 
 $LMOD_DIR/spider -o softwarePage    $BASE_MODULE_PATH > $ADMIN_DIR/softwarePage/softwarePage.old.json
 
-if [ "$lua_version" = 5.1 ]; then
-  $LMOD_DIR/spider -o xmlSoftwarePage $BASE_MODULE_PATH > $ADMIN_DIR/softwarePage/softwarePage.xml
-fi
-
 python -mjson.tool $ADMIN_DIR/softwarePage/softwarePage.old.json > $ADMIN_DIR/softwarePage/softwarePage.json
 rm -f $ADMIN_DIR/softwarePage/softwarePage.old.json
 
