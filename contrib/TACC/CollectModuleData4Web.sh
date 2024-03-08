@@ -49,7 +49,7 @@ DIRLIST=( $SWTOOLS/l/pkg/$ARCH/luatools/luatools
           $SWTOOLS/l/pkg/luatools/luatools
           $MCLAY/l/pkg/$ARCH/luatools/luatools
           $MCLAY/l/pkg/luatools/luatools
-          )
+        )
 
 lua_version=$(lua -e 'print((_VERSION:gsub("Lua ","")))')
 
