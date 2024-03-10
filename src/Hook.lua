@@ -87,7 +87,7 @@ function M.register(name, func, append)
       -- set default for append to be backwards compatible
       append = append or false
       -- if append and validT[name] was set before, append. Otherwise, overwrite.
-      if append and validT[name] then
+      if (append and validT[name]) then
          validT[name][#validT[name]+1] = func
       else
          validT[name] = {func}
@@ -102,11 +102,13 @@ end
 -- @param name The name of the hook.
 -- @return the results of the hook if it exists.
 function M.apply(name, ...)
+   local result 
    if (validT[name]) then
       for i=1,#validT[name] do
-         validT[name][i](...)
+         result = validT[name][i](...)
       end
    end
+   return result
 end
 
 function M.exists(name)
