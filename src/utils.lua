@@ -195,13 +195,7 @@ function build_MT_envT(vstr)
    return t
 end
 
-local s_build_i18n_messages = true
-
 function build_i18n_messages()
-   -- Only build messages once
-   if (not s_build_i18n_messages) then return end
-   s_build_i18n_messages = false
-
    local i18n      = require("i18n")
    local en_msg_fn = pathJoin(cmdDir(),"../messageDir/en.lua")
    if (isFile(en_msg_fn)) then
