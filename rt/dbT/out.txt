@@ -12,3 +12,196 @@ MODULEPATH=ProjectDIR/rt/dbT/mf2/Core:ProjectDIR/rt/dbT/mf1/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dbT/mf2/Core","ProjectDIR/rt/dbT/mf1/Core",},systemBaseMPATH="ProjectDIR/rt/dbT/mf2/Core:ProjectDIR/rt/dbT/mf1/Core",}';
 export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+MODULEPATH=ProjectDIR/rt/dbT/mf2/Core:ProjectDIR/rt/dbT/mf1/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/dbT/mf2/Core","ProjectDIR/rt/dbT/mf1/Core",},systemBaseMPATH="ProjectDIR/rt/dbT/mf2/Core:ProjectDIR/rt/dbT/mf1/Core",}';
+export _ModuleTable_;
+===========================
+step 4
+runSpiderCmd -o spiderT ProjectDIR/rt/dbT/mf4
+===========================
+timestampFn = {
+  false,
+}
+mrcT = {
+  alias2modT = {},
+  hiddenT = {
+    ["foobar/1.2.3"] = true,
+  },
+  version2modT = {},
+}
+mrcMpathT = {
+  ["ProjectDIR/rt/dbT/mf3"] = {
+    hiddenT = {
+      ["foobar/1.2.3"] = true,
+    },
+  },
+}
+spiderT = {
+  ["ProjectDIR/rt/dbT/mf3"] = {
+    foobar = {
+      defaultA = {
+        {
+          barefn = ".modulerc.lua",
+          defaultIdx = 2,
+          fn = "ProjectDIR/rt/dbT/mf3/foobar/.modulerc.lua",
+          fullName = "foobar/.modulerc",
+          luaExt = 10,
+          mpath = "ProjectDIR/rt/dbT/mf3",
+          value = false,
+        },
+      },
+      defaultT = {
+        barefn = ".modulerc.lua",
+        defaultIdx = 2,
+        fn = "ProjectDIR/rt/dbT/mf3/foobar/.modulerc.lua",
+        fullName = "foobar/.modulerc",
+        luaExt = 10,
+        mpath = "ProjectDIR/rt/dbT/mf3",
+        value = false,
+      },
+      dirT = {},
+      fileT = {
+        ["foobar/1.2.3"] = {
+          Version = "1.2.3",
+          canonical = "1.2.3",
+          fn = "ProjectDIR/rt/dbT/mf3/foobar/1.2.3.lua",
+          luaExt = 6,
+          mpath = "ProjectDIR/rt/dbT/mf3",
+          pV = "000000001.000000002.000000003.*zfinal",
+          pathA = {
+            ["/opt/foobar"] = 1,
+          },
+          wV = "000000001.000000002.000000003.*zfinal",
+        },
+      },
+    },
+  },
+  ["ProjectDIR/rt/dbT/mf4"] = {
+    newdir = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["newdir/1.0"] = {
+          Version = "1.0",
+          canonical = "1.0",
+          changeMPATH = true,
+          fn = "ProjectDIR/rt/dbT/mf4/newdir/1.0.lua",
+          luaExt = 4,
+          mpath = "ProjectDIR/rt/dbT/mf4",
+          pV = "000000001.*zfinal",
+          wV = "000000001.*zfinal",
+        },
+      },
+    },
+  },
+  version = 5,
+}
+mpathMapT = {
+  ["ProjectDIR/rt/dbT/mf3"] = {
+    ["newdir/1.0"] = "ProjectDIR/rt/dbT/mf4",
+  },
+}
+===========================
+step 5
+runSpiderCmd -o dbT ProjectDIR/rt/dbT/mf4
+===========================
+timestampFn = {
+  false,
+}
+dbT = {
+  foobar = {
+    ["ProjectDIR/rt/dbT/mf3/foobar/1.2.3.lua"] = {
+      Version = "1.2.3",
+      fullName = "foobar/1.2.3",
+      hidden = true,
+      mpath = "ProjectDIR/rt/dbT/mf3",
+      pV = "000000001.000000002.000000003.*zfinal",
+      parentAA = {
+        {
+          "newdir/1.0",
+        },
+      },
+      pathA = {
+        ["/opt/foobar"] = 1,
+      },
+      wV = "000000001.000000002.000000003.*zfinal",
+    },
+  },
+  newdir = {
+    ["ProjectDIR/rt/dbT/mf4/newdir/1.0.lua"] = {
+      Version = "1.0",
+      fullName = "newdir/1.0",
+      hidden = false,
+      mpath = "ProjectDIR/rt/dbT/mf4",
+      pV = "000000001.*zfinal",
+      wV = "000000001.*zfinal",
+    },
+  },
+}
+provideByT = {}
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load newdir
+===========================
+LOADEDMODULES=newdir/1.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/dbT/mf3:1\;ProjectDIR/rt/dbT/mf4:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/dbT/mf3:ProjectDIR/rt/dbT/mf4;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/dbT/mf4/newdir/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={newdir={fn="ProjectDIR/rt/dbT/mf4/newdir/1.0.lua",fullName="newdir/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="newdir",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/dbT/mf3","ProjectDIR/rt/dbT/mf4",},systemBaseMPATH="ProjectDIR/rt/dbT/mf4",}';
+export _ModuleTable_;
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden av
+===========================
+MODULEPATH=ProjectDIR/rt/dbT/mf3:ProjectDIR/rt/dbT/mf4;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={newdir={fn="ProjectDIR/rt/dbT/mf4/newdir/1.0.lua",fullName="newdir/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="newdir",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/dbT/mf3","ProjectDIR/rt/dbT/mf4",},systemBaseMPATH="ProjectDIR/rt/dbT/mf4",}';
+export _ModuleTable_;
+===========================
+step 8
+runSpiderCmd -o dbT ProjectDIR/rt/dbT/mf3:ProjectDIR/rt/dbT/mf4
+===========================
+timestampFn = {
+  false,
+}
+dbT = {
+  foobar = {
+    ["ProjectDIR/rt/dbT/mf3/foobar/1.2.3.lua"] = {
+      Version = "1.2.3",
+      fullName = "foobar/1.2.3",
+      hidden = true,
+      mpath = "ProjectDIR/rt/dbT/mf3",
+      pV = "000000001.000000002.000000003.*zfinal",
+      parentAA = {
+        {
+          "newdir/1.0",
+        },
+      },
+      pathA = {
+        ["/opt/foobar"] = 1,
+      },
+      wV = "000000001.000000002.000000003.*zfinal",
+    },
+  },
+  newdir = {
+    ["ProjectDIR/rt/dbT/mf4/newdir/1.0.lua"] = {
+      Version = "1.0",
+      fullName = "newdir/1.0",
+      hidden = false,
+      mpath = "ProjectDIR/rt/dbT/mf4",
+      pV = "000000001.*zfinal",
+      wV = "000000001.*zfinal",
+    },
+  },
+}
+provideByT = {}

@@ -464,7 +464,7 @@ function M.isVisible(self, modT)
    local frameStk  = require("FrameStk"):singleton()
    local mname     = frameStk:mname()
    local mt        = frameStk:mt()
-   local mpathA    = mt:modulePathA()
+   local mpathA    = modT.mpathA or mt:modulePathA()
    local name      = modT.fullName
    local fn        = modT.fn
    local isVisible = true

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
+Modules based on Lua: Version 8.7.34  2024-01-05 19:34 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -58,3 +58,22 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider software1
   software1: software1/1.0
     You will need to load all module(s) on any one of the lines below before the "software1/1.0" module is available to load.
       compiler1/1.0
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load compiler1
+===========================
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing av
+===========================
+ProjectDIR/rt/inaccessible/mf2/Stages/2017a/modules/Compilers/compiler1/1.0
+   software1/1.0
+ProjectDIR/rt/inaccessible/mf2/Stages/2017a/UI/Compilers
+   compiler1/1.0 (L)
+  Where:
+   L:  Module is loaded
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".

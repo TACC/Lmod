@@ -110,7 +110,7 @@ testdescript = {
      export MODULEPATH=$testDir/mf/H_Core
      runBase    runSpiderCmd -o spiderT  $MODULEPATH                          #51
      runLmod                  spider                                          #52
-     od    --show_hidden spider                                          #53
+     runLmod    --show_hidden spider                                          #53
      runLmod                  spider  tornado                                 #54
      runLmod    --show_hidden spider  tornado                                 #55
      runLmod    --show_hidden spider                                          #56
@@ -132,6 +132,7 @@ testdescript = {
 
      unsetMT
 
+     rm $HOME/.cache/lmod/spiderT.lua
      export MODULEPATH_ROOT2=$testDir/mf2
      export MODULEPATH=$MODULEPATH_ROOT2/Core
 

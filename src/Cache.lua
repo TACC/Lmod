@@ -626,8 +626,7 @@ function M.build(self, fast)
    end
 
    -- With a valid spiderT build dbT
-   mpathA = mt:modulePathA()
-   spider:buildDbT(mpathA, mpathMapT, spiderT, dbT)
+   spider:buildDbT(mpathMapT, spiderT, dbT)
    spider:buildProvideByT(dbT, providedByT)
 
    -- remove user cache file if old

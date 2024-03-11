@@ -313,7 +313,7 @@ describe("Testing Spider Class #Spider.",
 
                   local dbT = {}
                   --dbg:activateDebug(1)
-                  spider:buildDbT({mpath}, optionTbl.mpathMapT, spiderT, dbT)
+                  spider:buildDbT(optionTbl.mpathMapT, spiderT, dbT)
                   local _dbT = {}
                   sanizatizeTbl(rplmntA, dbT, _dbT)
                   local gold_dbT = {

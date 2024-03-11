@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
+Modules based on Lua: Version 8.7.34  2024-01-05 19:34 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -19,3 +19,39 @@ If the avail list is too long consider trying:
 "module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 4
+runSpiderCmd -o spiderT ProjectDIR/rt/dbT/mf4
+===========================
+===========================
+step 5
+runSpiderCmd -o dbT ProjectDIR/rt/dbT/mf4
+===========================
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load newdir
+===========================
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden av
+===========================
+ProjectDIR/rt/dbT/mf3
+   foobar/1.2.3 (H)
+ProjectDIR/rt/dbT/mf4
+   newdir/1.0 (L)
+  Where:
+   H:  Hidden Module
+   L:  Module is loaded
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 8
+runSpiderCmd -o dbT ProjectDIR/rt/dbT/mf3:ProjectDIR/rt/dbT/mf4
+===========================
