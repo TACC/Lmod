@@ -198,6 +198,7 @@ end
 local s_build_i18n_messages = true
 
 function build_i18n_messages()
+   -- Only build messages once
    if (not s_build_i18n_messages) then return end
    s_build_i18n_messages = false
 
