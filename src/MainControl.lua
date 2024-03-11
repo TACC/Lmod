@@ -804,6 +804,7 @@ end
 -- Print msgs to stderr.
 -- @param self A MainControl object.
 function M.message(self, ...)
+   build_i18n_messages()
    if (quiet()) then
       return
    end
@@ -826,6 +827,7 @@ end
 -- Print msgs, traceback then set warning flag.
 -- @param self A MainControl object.
 function M.warning(self, ...)
+   build_i18n_messages()
    if (not quiet() and  haveWarnings()) then
       local label = colorize("red", i18n("warnTitle",{}))
       local sA    = l_generateMsg("lmodwarning", label, ...)
@@ -841,6 +843,7 @@ end
 -- Print msgs, traceback then exit.
 -- @param self A MainControl object.
 function M.error(self, ...)
+   build_i18n_messages()
    -- Check for user loads that failed.
    if (next(s_missingModuleT) ~= nil) then
       local aa = {}
