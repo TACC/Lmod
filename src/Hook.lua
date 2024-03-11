@@ -106,6 +106,7 @@ function M.register(name, func, action)
       LmodWarning{msg="w_Unknown_Hook_Action",action = tostring(action)}
    end
    
+   -- Save func depending on action
    if (action == "replace") then
       validT[name] = {func}
    elseif (action == "append") then

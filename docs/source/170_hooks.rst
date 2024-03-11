@@ -230,7 +230,7 @@ load hook::
     hook.register("load", load_hook_b, "append") -- appends to the previous hook function.
 
     -- > the following will run load_hook_b then load_hook_a
-    hook.register("load", load_hook_a) -          -- initializes the load hook function
+    hook.register("load", load_hook_a)            -- initializes the load hook function
     hook.register("load", load_hook_b, "prepend") -- prepends to the previous hook function
 
 Note that if the optional third argument (the action argument) is
