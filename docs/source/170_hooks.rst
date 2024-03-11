@@ -200,10 +200,9 @@ Registering Multiple Hook functions
 -----------------------------------
 
 Lmod 8.7.35+ supports sites registering multiple functions for a
-single hook.  For example a site may wish to register more than one
+single hook.  For example, a site may wish to register more than one
 load hook.  The function **hook.register()** now takes an optional
-third argument to control how the functions are evaluated.  For
-example::
+third argument to control how the functions are evaluated::
 
     local function load_hook_a(t)
         local frameStk  = require("FrameStk"):singleton()
@@ -223,20 +222,20 @@ example::
     hook.register("load", load_hook_b) -- overwrites the previous hook, 
 
     hook.register("load", load_hook_a)
-    hook.register("load", load_hook_b,"replace") -- overwrites the previous hook, 
+    hook.register("load", load_hook_b, "replace") -- overwrites the previous hook function, 
 
     -- > the following will run load_hook_a then load_hook_b.
-    hook.register("load", load_hook_a, "append") -- appends to the previous hook
-    hook.register("load", load_hook_b, "append") -- appends to the previous hook
+    hook.register("load", load_hook_a)           -- initializes the load hook function
+    hook.register("load", load_hook_b, "append") -- appends to the previous hook function.
 
     -- > the following will run load_hook_b then load_hook_a
-    hook.register("load", load_hook_a, "prepend") -- prepends to the previous hook
-    hook.register("load", load_hook_b, "prepend") -- prepends to the previous hook
+    hook.register("load", load_hook_a) -          -- initializes the load hook function
+    hook.register("load", load_hook_b, "prepend") -- prepends to the previous hook function
 
-Note that if the optional third argument (the action argument) causes
-the 2nd call to hook.register to replace the first function.
-
+Note that if the optional third argument (the action argument) is
+missing, causes the 2nd call or later call to hook.register to replace the
+function for a given hook name. 
 
 There are some hooks (such as groupName, SiteName, etc) that require
-return values.  The last register hook function will be used to return
+return values.  The last registered hook function will be used to return
 the value.

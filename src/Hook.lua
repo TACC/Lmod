@@ -81,6 +81,7 @@ local validT =
 -- Checks for a valid hook name and stores it if valid.
 -- @param name The name of the hook.
 -- @param func The function to store with it.
+-- @param action The kind of action.  This is an optional argument.
 local s_actionT = { append = true, prepend = true, replace = true }
 
 function M.register(name, func, action)
