@@ -200,9 +200,10 @@ Registering Multiple Hook functions
 -----------------------------------
 
 Lmod 8.7.35+ supports sites registering multiple functions for a
-single hook.  For example, a site may wish to register more than one
-load hook.  The function **hook.register()** now takes an optional
-third argument to control how the functions are evaluated::
+single hook.  The function **hook.register()** now takes an optional
+third argument to control how the functions are evaluated.
+For example, a site may wish to register more than one
+load hook::
 
     local function load_hook_a(t)
         local frameStk  = require("FrameStk"):singleton()
