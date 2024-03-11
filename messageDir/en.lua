@@ -325,6 +325,7 @@ MODULEPATH directory: "%{mpath}" has too many non-modulefiles (%{regularFn}). Pl
 ]==],
      w_Undef_MPATH         = "MODULEPATH is undefined.\n",
      w_Unknown_Hook        = "Unknown hook: %{name}\n",
+     w_Unknown_Hook_Action = "Unknown hook action: %{action}\n",
 
 
      --------------------------------------------------------------------------

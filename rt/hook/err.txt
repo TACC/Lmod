@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
+Modules based on Lua: Version 8.7.34  2024-01-05 19:34 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -12,3 +12,27 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing use -a ProjectDIR/rt/h
 step 3
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load admin intel
 ===========================
+Load hook B called on admin
+Load hook B called on intel
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load admin intel
+===========================
+Load hook B called on admin
+Load hook B called on intel
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load admin intel
+===========================
+Load hook A called on admin
+Load hook B called on admin
+Load hook A called on intel
+Load hook B called on intel
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load admin intel
+===========================
+Load hook B called on admin
+Load hook A called on admin
+Load hook B called on intel
+Load hook A called on intel

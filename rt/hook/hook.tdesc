@@ -23,13 +23,19 @@ testdescript = {
      MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
      LMOD_PREPEND_BLOCK=yes;            export LMOD_PREPEND_BLOCK
 
-     LMOD_PACKAGE_PATH=$(testDir);      export LMOD_PACKAGE_PATH
+     export LMOD_PACKAGE_PATH=$(testDir)/orig_hook_style; 
 
      rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .cache .config
 
      runLmod --version                      # 1
      runLmod use -a $(testDir)/mf/Core      # 2
      runLmod load admin intel               # 3
+     export LMOD_PACKAGE_PATH=$(testDir)/replace
+     runLmod load admin intel               # 4
+     export LMOD_PACKAGE_PATH=$(testDir)/append
+     runLmod load admin intel               # 5
+     export LMOD_PACKAGE_PATH=$(testDir)/prepend
+     runLmod load admin intel               # 6
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
