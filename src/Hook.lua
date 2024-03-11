@@ -77,13 +77,13 @@ local validT =
       colorize_fullName    = {}, -- Allow module avail and list to colorize name and/or version
 }
 
+local s_actionT = { append = true, prepend = true, replace = true }
+
 --------------------------------------------------------------------------
 -- Checks for a valid hook name and stores it if valid.
 -- @param name The name of the hook.
 -- @param func The function to store with it.
 -- @param action The kind of action.  This is an optional argument.
-local s_actionT = { append = true, prepend = true, replace = true }
-
 function M.register(name, func, action)
    if (validT[name] == nil) then
       LmodWarning{msg="w_Unknown_Hook",name = tostring(name)}
