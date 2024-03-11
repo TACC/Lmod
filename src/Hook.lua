@@ -122,7 +122,6 @@ function M.apply(name, ...)
    if (next(validT[name]) ~= nil) then
       local sz = #validT[name]
       for i=1,sz-1 do
-         io.stderr:write("Hook.apply: i:",i,"\n")
          validT[name][i](...)
       end
       return validT[name][sz](...)
