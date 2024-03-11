@@ -1,6 +1,13 @@
 New Features in Lmod
 ====================
 
+**hook.register(<hook_name>, func, <action>)**
+   (Lmod 8.7.25) The hook.register function now takes a optional third
+   argument: action.  The legal actions are the followning strings:
+   "replace", "append", "prepend".  See
+   :ref:`registering_multiple_hook_functions-label` for more details.
+
+
 **/etc/lmod/.modulespath**
    (Lmod 8.7.24) Sites can use /etc/lmod/.modulespath or set
    $LMOD_MODULEPATH_INIT during their site's startup scripts to
