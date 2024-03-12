@@ -9,7 +9,6 @@ function M.branchStr()
    end
    return s == "" and s or "[branch: "..s.."]"
 end
-function M.tag()  return "<tag>"   end
 function M.tag()  return "8.7.34"   end
 function M.git()
    local s = "8.7.34-25-g516266fa"
