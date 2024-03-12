@@ -151,6 +151,7 @@ local function l_new(self)
    local lmod_configDir    = cosmic:value("LMOD_CONFIG_DIR")
    local lmod_lang         = cosmic:value("LMOD_LANG")
    local lmodrc            = cosmic:value("LMOD_RC")
+   local lmod_branch       = cosmic:value("LMOD_BRANCH") 
    local lua_path          = cosmic:value("PATH_TO_LUA")
    local mpath_avail       = cosmic:value("LMOD_MPATH_AVAIL")
    local mpath_init        = cosmic:value("LMOD_MODULEPATH_INIT")
@@ -230,6 +231,7 @@ local function l_new(self)
    tbl.lfsV         = { k = "LuaFileSystem version"             , v = lfsV,             n = false                             }
    tbl.lmod_cfg     = { k = "lmod_config.lua location"          , v = lmod_cfg_path,    n = "LMOD_CONFIG_LOCATION"            }
    tbl.lmodV        = { k = "Lmod version"                      , v = lmod_version,     n = false                             }
+   tbl.lmod_branch  = { k = "Lmod branch"                       , v = lmod_branch,      n = "LMOD_BRANCH"                     }
    tbl.luaV         = { k = "Lua Version"                       , v = _VERSION,         n = false                             }
    tbl.lua_term     = { k = "System lua-term"                   , v = have_term,        n = "LMOD_HAVE_LUA_TERM"              }
    tbl.lua_term_A   = { k = "Active lua-term"                   , v = activeTerm,       n = false                             }

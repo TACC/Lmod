@@ -16,6 +16,7 @@ parallel_make_install()
           $SUDO $MAKE -j GIT_VERSION=$GIT_VERSION install     $MAKE_EXTRA
   else
     echo "$SUDO $MAKE pre-install $MAKE_EXTRA"
+    #$SUDO $MAKE GIT_VERSION=$GIT_VERSION -j pre-install $MAKE_EXTRA
     $SUDO $MAKE GIT_VERSION=$GIT_VERSION -j pre-install $MAKE_EXTRA
     $SUDO rm -f $BASE_DIR/lmod/EXPERIMENTAL
     $SUDO ln -s $PKG_VERSION $BASE_DIR/lmod/EXPERIMENTAL
