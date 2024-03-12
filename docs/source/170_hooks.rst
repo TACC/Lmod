@@ -89,6 +89,12 @@ Hook tips
 Hook functions
 --------------
 
+The following is the list of hooks supported by Lmod.  Use of these
+hooks assumes a some familarity with Lmod's code.  To use these hooks
+will require some Lua coding expertise and studying how the hooks are
+used in the Lmod program.  
+
+
 **load** (...):
   This function is called after a modulefile is loaded in "load" mode.
 
@@ -96,9 +102,9 @@ Hook functions
   This function is called after a modulefile is unloaded in "unload" mode.
 
 **colorize_fullName** (fullName, sn):
+  (Returns: string)
   Allows a site to colorize how module names are displayed in "module
   av" and "module list".
-
 
 **parse_updateFn** (...):
   This hook returns the time on the timestamp file.
@@ -106,19 +112,29 @@ Hook functions
 **writeCache** (...):
   This hook return whether a cache should be written.
 
-**SiteName** (...):
+**SiteName** (...): 
+  (Returns: string: SiteName)
   This hook is used to specify Site Name. It is used to generate
-  family prefix:  ``site_FAMILY_COMPILER`` ``site_FAMILY_MPI`` ...
+  family prefix:  ``site_FAMILY_COMPILER`` ``site_FAMILY_MPI``
 
 **msgHook** (...):
+  (Return: string)
   Hook to print messages after avail, list, spider.
 
 **errWarnMsgHook** (...):
+  (Returns: string)
   Hook to print messages after LmodError, LmodWarning, LmodMessage.
 
 **groupName** (...):
+  (Returns: string)
   This hook adds the arch and os name to moduleT.lua to make it safe
   on shared filesystems.
+
+**category** (...):
+  (Returns: array)
+  Allows sites to control what categories are printed for the command
+  **module category**.
+
 
 **avail** (...):
   Map directory names to labels
@@ -145,19 +161,22 @@ Hook functions
   argument is a table containing: fullName, sn (short name), fn (file path) and
   isVisible (boolean) of the module.
 
-**spider_decoration** (table):
-  This hook provide a way for a site to add decoration to spider level
-  1 output.  The table passed in contains the whatis category and the
-  property table.  See *rt/uitSitePkg/mf/site_scripts/SitePackage.lua*
-  for a complete example.
-  
 **reverseMapPathFilter** (keepA, ignoreA):
+  (Returns: 2 arrays: keepA, ignoreA)
   This hook returns two arrays: *keepA* and *ignoreA*.  The *keepA* is
   an array of paths patterns that a site wishes to be stored in the spider
   cache. The *ignoreA* is an array of path patterns to ignore in the
   cache. See *src/StandardPackage.lua* has an example on how to
   implement this hook.  This hook is used to control the directories
   that are included/excluded in the reverseMap.
+
+**spider_decoration** (table):
+  (Returns: table)
+  This hook provide a way for a site to add decoration to spider level
+  1 output.  The table passed in contains the whatis category and the
+  property table.  See *rt/uitSitePkg/mf/site_scripts/SitePackage.lua*
+  for a complete example.
+  
 
 Example Hook: msgHook
 ---------------------
@@ -205,6 +224,7 @@ third argument to control how the functions are evaluated.
 For example, a site may wish to register more than one
 load hook::
 
+
     local function load_hook_a(t)
         local frameStk  = require("FrameStk"):singleton()
         local mt        = frameStk:mt()
@@ -220,22 +240,31 @@ load hook::
     end
 
     hook.register("load", load_hook_a)
-    hook.register("load", load_hook_b) -- overwrites the previous hook, 
+    hook.register("load", load_hook_b) -- overwrites the previous hook,
+    -- expected output for 'module load my_software/version':
+    -- Load hook B called on my_software
 
     hook.register("load", load_hook_a)
-    hook.register("load", load_hook_b, "replace") -- overwrites the previous hook function, 
+    hook.register("load", load_hook_b, "replace") -- overwrites the previous hook function,
+    -- expected output for 'module load my_software/version':
+    -- Load hook B called on my_software
 
     -- > the following will run load_hook_a then load_hook_b.
     hook.register("load", load_hook_a)           -- initializes the load hook function
     hook.register("load", load_hook_b, "append") -- appends to the previous hook function.
+    -- expected output for 'module load my_software/version':
+    -- Load hook A called on my_software
+    -- Load hook B called on my_software
 
     -- > the following will run load_hook_b then load_hook_a
     hook.register("load", load_hook_a)            -- initializes the load hook function
     hook.register("load", load_hook_b, "prepend") -- prepends to the previous hook function
+    -- expected output for 'module load my_software/version':
+    -- Load hook B called on my_software
+    -- Load hook A called on my_software
 
-Note that if the optional third argument (the action argument) is
-missing, causes the 2nd call or later call to hook.register to replace the
-function for a given hook name. 
+Note that if the optional third argument (the action argument) is not
+provided, the default behaviour is "replace". 
 
 There are some hooks (such as groupName, SiteName, etc) that require
 return values.  The last registered hook function will be used to return
