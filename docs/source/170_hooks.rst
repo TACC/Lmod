@@ -89,8 +89,7 @@ Hook tips
 Hook functions
 --------------
 
-The following is the list of hooks supported by Lmod.  Use of these
-hooks assumes a some familarity with Lmod's code.  To use these hooks
+The following is the list of hooks supported by Lmod. To use these hooks
 will require some Lua coding expertise and studying how the hooks are
 used in the Lmod program.  
 
@@ -162,7 +161,7 @@ used in the Lmod program.
   isVisible (boolean) of the module.
 
 **reverseMapPathFilter** (keepA, ignoreA):
-  (Returns: 2 arrays: keepA, ignoreA)
+  (Returns: 2 arrays)
   This hook returns two arrays: *keepA* and *ignoreA*.  The *keepA* is
   an array of paths patterns that a site wishes to be stored in the spider
   cache. The *ignoreA* is an array of path patterns to ignore in the
