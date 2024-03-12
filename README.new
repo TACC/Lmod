@@ -131,3 +131,5 @@ W.I.P:
             * Issue #688: Do not produce a Lua error on a non-existant collection
             * Issue #689: Now use "m_Module_Msgs_close" instead of border so that sites can override.
             * Add LMOD_ADMIN_FILE to config report
+            * Call build_i18n before calling warnings, errors or messages
+            * PR #696: Allow for multiple hooks.  Note that last one in list sets the result value on return

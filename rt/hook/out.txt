@@ -48,3 +48,75 @@ _LMFILES_=ProjectDIR/rt/hook/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/hook/mf/C
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={admin={fn="ProjectDIR/rt/hook/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},intel={fn="ProjectDIR/rt/hook/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=2,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},},mpathA={"ProjectDIR/rt/hook/mf/Compiler/intel/10.1","ProjectDIR/rt/hook/mf/Core",},}';
 export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load admin intel
+===========================
+ADMIN_MODULE_LOADED=1;
+export ADMIN_MODULE_LOADED;
+LD_LIBRARY_PATH=/vol/local/intel/mkl/mkl/lib/lib:/vol/local/intel/idb/idb/lib:/vol/local/intel/fc/fc/lib:/vol/local/intel/cc/cc/lib;
+export LD_LIBRARY_PATH;
+LMOD_FAMILY_COMPILER=intel;
+export LMOD_FAMILY_COMPILER;
+LMOD_FAMILY_COMPILER_VERSION=intel;
+export LMOD_FAMILY_COMPILER_VERSION;
+MANPATH=/vol/local/intel/mkl/mkl/man:/vol/local/intel/idb/idb/man:/vol/local/intel/fc/fc/man:/vol/local/intel/cc/cc/man;
+export MANPATH;
+MKL_DIR=/vol/local/intel/mkl/mkl/lib/lib;
+export MKL_DIR;
+MKL_INCLUDE=/vol/local/intel/mkl/mkl/include;
+export MKL_INCLUDE;
+MODULEPATH=ProjectDIR/rt/hook/mf/Compiler/intel/10.1:ProjectDIR/rt/hook/mf/Core;
+export MODULEPATH;
+PATH=/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/usr/sbin:/sbin:ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={admin={fn="ProjectDIR/rt/hook/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},intel={fn="ProjectDIR/rt/hook/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=2,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},},mpathA={"ProjectDIR/rt/hook/mf/Compiler/intel/10.1","ProjectDIR/rt/hook/mf/Core",},}';
+export _ModuleTable_;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load admin intel
+===========================
+ADMIN_MODULE_LOADED=1;
+export ADMIN_MODULE_LOADED;
+LD_LIBRARY_PATH=/vol/local/intel/mkl/mkl/lib/lib:/vol/local/intel/idb/idb/lib:/vol/local/intel/fc/fc/lib:/vol/local/intel/cc/cc/lib;
+export LD_LIBRARY_PATH;
+LMOD_FAMILY_COMPILER=intel;
+export LMOD_FAMILY_COMPILER;
+LMOD_FAMILY_COMPILER_VERSION=intel;
+export LMOD_FAMILY_COMPILER_VERSION;
+MANPATH=/vol/local/intel/mkl/mkl/man:/vol/local/intel/idb/idb/man:/vol/local/intel/fc/fc/man:/vol/local/intel/cc/cc/man;
+export MANPATH;
+MKL_DIR=/vol/local/intel/mkl/mkl/lib/lib;
+export MKL_DIR;
+MKL_INCLUDE=/vol/local/intel/mkl/mkl/include;
+export MKL_INCLUDE;
+MODULEPATH=ProjectDIR/rt/hook/mf/Compiler/intel/10.1:ProjectDIR/rt/hook/mf/Core;
+export MODULEPATH;
+PATH=/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/usr/sbin:/sbin:ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={admin={fn="ProjectDIR/rt/hook/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},intel={fn="ProjectDIR/rt/hook/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=2,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},},mpathA={"ProjectDIR/rt/hook/mf/Compiler/intel/10.1","ProjectDIR/rt/hook/mf/Core",},}';
+export _ModuleTable_;
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load admin intel
+===========================
+ADMIN_MODULE_LOADED=1;
+export ADMIN_MODULE_LOADED;
+LD_LIBRARY_PATH=/vol/local/intel/mkl/mkl/lib/lib:/vol/local/intel/idb/idb/lib:/vol/local/intel/fc/fc/lib:/vol/local/intel/cc/cc/lib;
+export LD_LIBRARY_PATH;
+LMOD_FAMILY_COMPILER=intel;
+export LMOD_FAMILY_COMPILER;
+LMOD_FAMILY_COMPILER_VERSION=intel;
+export LMOD_FAMILY_COMPILER_VERSION;
+MANPATH=/vol/local/intel/mkl/mkl/man:/vol/local/intel/idb/idb/man:/vol/local/intel/fc/fc/man:/vol/local/intel/cc/cc/man;
+export MANPATH;
+MKL_DIR=/vol/local/intel/mkl/mkl/lib/lib;
+export MKL_DIR;
+MKL_INCLUDE=/vol/local/intel/mkl/mkl/include;
+export MKL_INCLUDE;
+MODULEPATH=ProjectDIR/rt/hook/mf/Compiler/intel/10.1:ProjectDIR/rt/hook/mf/Core;
+export MODULEPATH;
+PATH=/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/usr/sbin:/sbin:ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={admin={fn="ProjectDIR/rt/hook/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},intel={fn="ProjectDIR/rt/hook/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=2,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},},mpathA={"ProjectDIR/rt/hook/mf/Compiler/intel/10.1","ProjectDIR/rt/hook/mf/Core",},}';
+export _ModuleTable_;

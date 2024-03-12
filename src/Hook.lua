@@ -43,52 +43,77 @@ local M={}
 
 local validT =
 {
-      ['load']             = false, -- This load hook is called after a
-                                    -- modulefile is loaded.
-      unload               = false, -- This unload hook is called after a
-                                    -- modulefile is unloaded.
-      parse_updateFn       = false, -- This hook returns the time on the
-                                    -- timestamp file.
-      writeCache           = false, -- This hook return whether a cache
-                                    -- should be written.
-      SiteName             = false, -- Hook to specify Site Name
-                                    -- It is used to generate family
-                                    -- prefix:  site_FAMILY_
-      msgHook              = false, -- Hook to print messages after:
-                                    -- avail, list, spider,
-      errWarnMsgHook       = false, -- Hook to print messages after LmodError
-                                    -- LmodWarning, LmodMessage
-      groupName            = false, -- This hook adds the arch and os name
-                                    -- to moduleT.lua to make it safe on
-                                    -- shared filesystems.
-      avail                = false, -- Map directory names to labels
-      category             = false, -- Hook to change output of category
-      restore              = false, -- This hook is run after restore operation
-      startup              = false, -- This hook is run when Lmod is called
-      finalize             = false, -- This hook is run just before Lmod generates its output before exiting
-      packagebasename      = false, -- Hook to find the patterns that spider uses for reverse map
-      load_spider          = false, -- This hook is run evaluating modules for spider/avail
-      listHook             = false, -- This hook gets the list of active modules
-      isVisibleHook        = false, -- Called to evalate if a module should be hidden or not
-      spider_decoration    = false, -- This hook adds decoration to spider level one output.
-                                    -- It can be the category or a property.
-      reverseMapPathFilter = false, -- This hook returns two arrays keepA, ignoreA to keep or
-                                    -- ignore a path in the reverseMap mapping 
-      colorize_fullName    = false, -- Allow module avail and list to colorize name and/or version
-
+      ['load']             = {}, -- This load hook is called after a
+                                 -- modulefile is loaded.
+      unload               = {}, -- This unload hook is called after a
+                                 -- modulefile is unloaded.
+      parse_updateFn       = {}, -- This hook returns the time on the
+                                 -- timestamp file.
+      writeCache           = {}, -- This hook return whether a cache
+                                 -- should be written.
+      SiteName             = {}, -- Hook to specify Site Name
+                                 -- It is used to generate family
+                                 -- prefix:  site_FAMILY_
+      msgHook              = {}, -- Hook to print messages after:
+                                 -- avail, list, spider,
+      errWarnMsgHook       = {}, -- Hook to print messages after LmodError
+                                 -- LmodWarning, LmodMessage
+      groupName            = {}, -- This hook adds the arch and os name
+                                 -- to moduleT.lua to make it safe on
+                                 -- shared filesystems.
+      avail                = {}, -- Map directory names to labels
+      category             = {}, -- Hook to change output of category
+      restore              = {}, -- This hook is run after restore operation
+      startup              = {}, -- This hook is run when Lmod is called
+      finalize             = {}, -- This hook is run just before Lmod generates its output before exiting
+      packagebasename      = {}, -- Hook to find the patterns that spider uses for reverse map
+      load_spider          = {}, -- This hook is run evaluating modules for spider/avail
+      listHook             = {}, -- This hook gets the list of active modules
+      isVisibleHook        = {}, -- Called to evalate if a module should be hidden or not
+      spider_decoration    = {}, -- This hook adds decoration to spider level one output.
+                                 -- It can be the category or a property.
+      reverseMapPathFilter = {}, -- This hook returns two arrays keepA, ignoreA to keep or
+                                 -- ignore a path in the reverseMap mapping 
+      colorize_fullName    = {}, -- Allow module avail and list to colorize name and/or version
 }
+
+local s_actionT = { append = true, prepend = true, replace = true }
 
 --------------------------------------------------------------------------
 -- Checks for a valid hook name and stores it if valid.
 -- @param name The name of the hook.
 -- @param func The function to store with it.
-function M.register(name, func)
-   if (validT[name] ~= nil) then
-      validT[name] = func
-   else
+-- @param action The kind of action.  This is an optional argument.
+function M.register(name, func, action)
+   if (validT[name] == nil) then
       LmodWarning{msg="w_Unknown_Hook",name = tostring(name)}
+      return
    end
 
+   -- set default for action to be backwards compatible
+   if (action) then
+      if (type(action) == "string") then
+         action = action:lower()
+      else
+         action = "append"
+      end
+   else
+      action = "replace"
+   end
+
+   -- Check for a valid action
+   if (not s_actionT[action]) then
+      LmodWarning{msg="w_Unknown_Hook_Action",action = tostring(action)}
+   end
+   
+   -- Save func depending on action
+   if (action == "replace") then
+      validT[name] = {func}
+   elseif (action == "append") then
+      validT[name][#validT[name]+1] = func
+   elseif (action == "prepend") then
+      table.insert(validT[name],1,func)
+   end
 end
 
 --------------------------------------------------------------------------
@@ -96,8 +121,12 @@ end
 -- @param name The name of the hook.
 -- @return the results of the hook if it exists.
 function M.apply(name, ...)
-   if (validT[name]) then
-      return validT[name](...)
+   if (next(validT[name]) ~= nil) then
+      local sz = #validT[name]
+      for i=1,sz-1 do
+         validT[name][i](...)
+      end
+      return validT[name][sz](...)
    end
 end
 
