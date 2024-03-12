@@ -1,11 +1,13 @@
 srcdir                    := @srcdir@
 prefix                    := @prefix@
+SYS_LUA_PATH              := @SYS_LUA_PATH@
+SYS_LUA_CPATH             := @SYS_LUA_CPATH@
 package                   := lmod
 ifeq ($(PATH_TO_SRC),@$(path_to_src)@)
   PATH_TO_SRC             := .
 endif
 PATH_TO_LUA               := @PATH_TO_LUA@
-version                   := $(shell LUA_PATH="$(srcdir)/src/?.lua;" $(PATH_TO_LUA) -e "V=require('Version'); print(V.tag())")
+version                   := $(shell LUA_PATH="$(srcdir)/src/?.lua;$(SYS_LUA_PATH)" $(PATH_TO_LUA) -e "V=require('Version'); print(V.tag())")
 SITE_CONTROLLED_PREFIX    := @SITE_CONTROLLED_PREFIX@
 LMOD_ROOT                 := $(prefix)/$(package)
 MY_PACKAGE                := $(prefix)/$(package)/$(version)
@@ -49,8 +51,6 @@ DYNAMIC_SPIDER_CACHE      := @DYNAMIC_SPIDER_CACHE@
 SILENCE_SHELL_DEBUGGING   := @SILENCE_SHELL_DEBUGGING@
 SYS_LD_LIB_PATH           := @SYS_LD_LIB_PATH@
 SYS_LD_PRELOAD            := @SYS_LD_PRELOAD@
-SYS_LUA_PATH              := @SYS_LUA_PATH@
-SYS_LUA_CPATH             := @SYS_LUA_CPATH@
 CASE_INDEPENDENT_SORTING  := @CASE_INDEPENDENT_SORTING@
 ORIG_ZSH_VERSION          := @ORIG_ZSH_VERSION@
 ZSH_SITE_FUNCTIONS_DIRS   := @ZSH_SITE_FUNCTIONS_DIRS@
@@ -73,8 +73,8 @@ SPIDER_CACHE_DIRS         := @SPIDER_CACHE_DIRS@
 LEGACY_ORDERING           := @LEGACY_ORDERING@
 EXPORT_MODULE             := @EXPORT_MODULE@
 BASENAME                  := @BASENAME@
-UPDATE_VERSION            := LUA_PATH="$(srcdir)/tools/?.lua;$$LUA_PATH;;" $(srcdir)/proj_mgmt/updateVersion
-BUILD_V_src               := LUA_PATH="$(srcdir)/tools/?.lua;$(SYS_LUA_PATH)" LUA_CPATH="$(SYS_LUA_CPATH)" $(srcdir)/proj_mgmt/buildVersion_src
+UPDATE_VERSION            := LUA_PATH="$(srcdir)/tools/?.lua;$(SYS_LUA_PATH)" $(PATH_TO_LUA) $(srcdir)/proj_mgmt/updateVersion
+BUILD_V_src               := LUA_PATH="$(srcdir)/tools/?.lua;$(SYS_LUA_PATH)" LUA_CPATH="$(SYS_LUA_CPATH)" $(PATH_TO_LUA) $(srcdir)/proj_mgmt/buildVersion_src
 PS                        := @PS@
 READLINK                  := @READLINK@
 EXPR                      := @EXPR@

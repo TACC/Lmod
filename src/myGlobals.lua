@@ -43,6 +43,7 @@ require("strict")
 require("declare")
 require("fileOps")
 
+local Version      = require("Version")
 local cosmic       = require("Cosmic"):singleton()
 local lfs          = require("lfs")
 local getenv       = os.getenv
@@ -58,6 +59,14 @@ end
 ------------------------------------------------------------------------
 
 LuaV = (_VERSION:gsub("Lua ",""))
+
+------------------------------------------------------------------------
+-- Lmod branch
+------------------------------------------------------------------------
+cosmic:init{name    = "LMOD_BRANCH",
+            default = "main",
+            assignV = Version.branch()}
+            
 
 ------------------------------------------------------------------------
 -- Lmod ExitHookArray Object:
