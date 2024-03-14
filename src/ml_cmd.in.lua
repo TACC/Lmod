@@ -293,8 +293,9 @@ function main()
 
          local cmd = lmodCmdT[v]
          if (cmd and not cmdFound) then
-            cmdA[#cmdA + 1] = cmd
-            cmdFound        = true
+            cmdA[#cmdA + 1]      = cmd
+            cmdFound             = true
+            stop_processing_opts = true
             break
          end
 
