@@ -215,7 +215,7 @@ cosmic:init{name    = "LMOD_SITEPACKAGE_LOCATION",
 
 
 ------------------------------------------------------------------------
--- LMOD_CFG:  lmod_config.lua locatoin
+-- LMOD_CFG:  lmod_config.lua location
 ------------------------------------------------------------------------
 cosmic:init{name    = "LMOD_CONFIG_LOCATION",
             default = "no"}
