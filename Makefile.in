@@ -610,7 +610,7 @@ gittag:
 	  else                                                                              \
 	    $(RM)                                                           $(VERSION_SRC); \
 	    $(RM)                                                          $(SETTARG_VSRC); \
-	    $(BUILD_V_src) $(GIT_BRANCH) $(GIT_VERSION) $(TAG) $(VDATE)  >  $(VERSION_SRC); \
+	    $(BUILD_V_src) $(GIT_BRANCH) $(TAG) $(TAG) $(VDATE)          >  $(VERSION_SRC); \
 	    cp                                          $(VERSION_SRC)     $(SETTARG_VSRC); \
 	    $(UPDATE_VERSION) -p $(CONF_PY_PATTERN)          --version $(TAG)   $(CONF_PY); \
 	    git commit -m "moving to TAG_VERSION $(TAG)"                   $(SETTARG_VSRC)  \
