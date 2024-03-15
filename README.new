@@ -134,3 +134,5 @@ Lmod 8.7+
             * PR #696: Allow for multiple hooks.  Note that last one in list sets the result value on return
             * Allow io.popen() to be called from a modulefile.
 	    * Created buildVersion_src to build src/Version.lua when installing Lmod.
+   (8.7.36) * a clean version of 8.7.35
+	    
