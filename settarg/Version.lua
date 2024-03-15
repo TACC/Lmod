@@ -11,7 +11,7 @@ function M.branchStr()
 end
 function M.tag()  return "8.7.35"   end
 function M.git()
-   local s = "8.7.35-5-g7fcab762"
+   local s = "8.7.35-6-ga0a537c7"
    if (s == "@" .. "git@") then s = "" end
    if (s == M.tag()      ) then s = "" end
    return s == "" and s or "("..s..")"
