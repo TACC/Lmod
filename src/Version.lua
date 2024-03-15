@@ -9,9 +9,9 @@ function M.branchStr()
    end
    return s == "" and s or "[branch: "..s.."]"
 end
-function M.tag()  return "8.7.36-3-g76ed6633"   end
+function M.tag()  return "8.7.36"   end
 function M.git()
-   local s = "8.7.35.1"
+   local s = "8.7.36"
    if (s == "@" .. "git@") then s = "" end
    if (s == M.tag()      ) then s = "" end
    return s == "" and s or "("..s..")"
