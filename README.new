@@ -135,4 +135,7 @@ Lmod 8.7+
             * Allow io.popen() to be called from a modulefile.
 	    * Created buildVersion_src to build src/Version.lua when installing Lmod.
    (8.7.36) * a clean version of 8.7.35
-	    
+W.I.P:
+   (8.7.37) * Issue #698: Use the correct mname from Framestack when unregistering a "break" module	    
+            * Ignore backup files (*~ .*.swp etc) files in a modulerc.d directory.
+            * Fixed buildVersion_src to deal with (HEAD detached at x.y.z)

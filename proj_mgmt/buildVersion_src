@@ -47,6 +47,9 @@ function main()
    local gittag = arg[3]
    local vdate  = arg[4]
 
+   if (branch:find("HEAD detached")) then
+      branch = "main"
+   end
    local s = buildVersionCode(branch, tag, gittag, vdate)
    print (s)
 end
