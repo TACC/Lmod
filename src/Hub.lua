@@ -401,7 +401,7 @@ function M.load(self, mA)
          end
          mt = frameStk:mt()
          if (not mt:have(sn,"active")) then
-            dbg.print{"failed to load ",mname:show(),"\n"}
+            dbg.print{"failed to load ",mname:show(),", sn: ", sn,"\n"}
             mcp:missing_module(userName, mname:show())
             a = false
          end

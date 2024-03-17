@@ -545,10 +545,10 @@ libexec:  $(lua_code)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LIBEXEC) GIT_VERSION=$(GIT_VERSION) __installMe
 
 VersionSrc:
-	$(BUILD_V_src) $(GIT_BRANCH) $(version) $(GIT_VERSION) "$(VDATE)" >  $(DESTDIR)$(LIBEXEC)/Version.lua 
+	$(BUILD_V_src) "$(GIT_BRANCH)" "$(version)" "$(GIT_VERSION)" "$(VDATE)" >  $(DESTDIR)$(LIBEXEC)/Version.lua 
 
 STVersionSrc: Inst_Settarg
-	$(BUILD_V_src) $(GIT_BRANCH) $(version) $(GIT_VERSION) "$(VDATE)" >  $(DESTDIR)$(SETTARG)/Version.lua
+	$(BUILD_V_src) "$(GIT_BRANCH)" "$(version)" "$(GIT_VERSION)" "$(VDATE)" >  $(DESTDIR)$(SETTARG)/Version.lua
 
 Inst_Tools: $(TOOL_SRC)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(TOOLS) GIT_VERSION=$(GIT_VERSION) __installMe
@@ -610,7 +610,7 @@ gittag:
 	  else                                                                              \
 	    $(RM)                                                           $(VERSION_SRC); \
 	    $(RM)                                                          $(SETTARG_VSRC); \
-	    $(BUILD_V_src) $(GIT_BRANCH) $(TAG) $(TAG) $(VDATE)          >  $(VERSION_SRC); \
+	    $(BUILD_V_src) "$(GIT_BRANCH)" "$(TAG)" "$(TAG)" "$(VDATE)"  >  $(VERSION_SRC); \
 	    cp                                          $(VERSION_SRC)     $(SETTARG_VSRC); \
 	    $(UPDATE_VERSION) -p $(CONF_PY_PATTERN)          --version $(TAG)   $(CONF_PY); \
 	    git commit -m "moving to TAG_VERSION $(TAG)"                   $(SETTARG_VSRC)  \
