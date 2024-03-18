@@ -868,7 +868,7 @@ end
 
 function LmodBreak(msg)
    dbg.start{"LmodBreak(",msg,")"}
-   if (not l_validateStringArgs("LmodBreak", msg)) then return end
+   if (not (msg == nil or l_validateStringArgs("LmodBreak", msg))) then return end
    mcp:LmodBreak(msg)
    dbg.fini("LmodBreak")
 end

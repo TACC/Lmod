@@ -1656,8 +1656,8 @@ function M.LmodBreak(self, msg)
    end
 
    -- Remove this module from the list of user requested modules to load.
-   local sn    = frameStk:sn()
-   local mname = MName:new("mt",sn)
+   local mname = frameStk:mname()
+   dbg.print{"sn: ",mname:sn(),", userName: ",mname:userName(),"\n"}
    l_unRegisterUserLoads{mname}
 
    -- Copy the previous frameStk on top of the current stack

@@ -125,7 +125,6 @@ Lmod 8.7+
             * TACC issue: Change the current version of zsh with the string ${ZSH_VERSION} when builting
               the init/zsh file.
    (8.7.34) * TACC issue: (Again) Cannot use the string ${ZSH_VERSION} in $FPATH.  Instead change orig zsh version to current one.
-W.I.P:
    (8.7.35) * Issue #687: Let is-loaded and is-avail set  non-zero exit status.  This is different from warnings.
             * Issue #684: must pass in mpathA to isVisible when trying to find hidden modules in buildDbT
             * Issue #688: Do not produce a Lua error on a non-existant collection
@@ -133,3 +132,9 @@ W.I.P:
             * Add LMOD_ADMIN_FILE to config report
             * Call build_i18n before calling warnings, errors or messages
             * PR #696: Allow for multiple hooks.  Note that last one in list sets the result value on return
+            * Allow io.popen() to be called from a modulefile.
+	    * Created buildVersion_src to build src/Version.lua when installing Lmod.
+   (8.7.36) * a clean version of 8.7.35
+   (8.7.37) * Issue #698: Use the correct mname from Framestack when unregistering a "break" module	    
+            * Ignore backup files (*~ .*.swp etc) files in a modulerc.d directory.
+            * Issue #699: Fixed buildVersion_src to deal with (HEAD detached at x.y.z)

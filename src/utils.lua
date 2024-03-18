@@ -460,6 +460,9 @@ end
 ------------------------------------------------------------
 -- Get the table of modulerc files with proper weights
 
+s_fnIgnorePatternsA = { "^.*~", "^#.*", "^%.#.*", "^%..*%.swp"}
+
+
 function getModuleRCT(remove_MRC_home)
    --dbg.start{"getModuleRCT(remove_MRC_home)"}
    local A            = {}
@@ -472,7 +475,17 @@ function getModuleRCT(remove_MRC_home)
       for n in MRC_system:split(":") do
          if (isDir(n) and access(n,"rx")) then
             for f in lfs.dir(n) do
-               a[#a+1] = pathJoin(n, f)
+               local valid = true
+               for i = 1,#s_fnIgnorePatternsA do
+                  local patt = s_fnIgnorePatternsA[i]
+                  if (f:find(patt)) then
+                     valid = false
+                     break
+                  end
+               end
+               if (valid) then
+                  a[#a+1] = pathJoin(n, f)
+               end
             end
          elseif (isFile(n) and access(n,"r")) then
             a[#a+1] = n
