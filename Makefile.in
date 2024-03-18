@@ -257,11 +257,11 @@ $(DIRLIST) :
 	install -m $(MODE_X) -d $@
 
 __installMe:
-	-for i in $(FILELIST); do                                                 \
-	   bareN=$${i##*/};                                                       \
-	   fn=$${bareN%%.in*};                                                    \
-	   ext=$${bareN#*.};                                                      \
-	   : echo "DIRLOC/fn: $(DIRLOC)/$$fn";                                    \
+	-for i in $(FILELIST); do                                                   \
+	   bareN=$${i##*/};                                                         \
+	   fn=$${bareN%%.in*};                                                      \
+	   ext=$${bareN#*.};                                                        \
+	   : echo "DIRLOC/fn: $(DIRLOC)/$$fn";                                      \
 	   $(SED) -e 's|@PREFIX@|$(prefix)|g'                                       \
 	          -e 's|@LMOD_TOP_DIR@|$(MY_PACKAGE)|g'                             \
 	          -e 's|@path_to_lua@|$(PATH_TO_LUA)|g'                             \
