@@ -77,6 +77,7 @@ echo "LMOD_CONFIG_DIR............................................." : $LMOD_CONF
 echo "Use ~/.config/lmod directory only..........................." : $USE_DOT_CONFIG_DIR_ONLY
 echo "Display Extensions w/ module avail.........................." : $AVAIL_EXTENSIONS
 echo "Dynamic Spider Cache support................................" : $DYNAMIC_SPIDER_CACHE
+echo "Module Conflicts remembered................................." : $LMOD_PERMANENT_CONFLICTS
 echo "Allow for extended default.(ml intel/17 #-> intel/17.0.4)..." : $EXTENDED_DEFAULT  #"
 
 

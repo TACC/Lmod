@@ -92,6 +92,8 @@ function M.new(self, sType, name, action, is, ie)
 
    is             = is or false
    ie             = ie or false
+   o.__isOrig     = is
+   o.__ieOrig     = ie
    o.__sn         = false
    o.__version    = false
    o.__fn         = false
@@ -116,7 +118,6 @@ function M.new(self, sType, name, action, is, ie)
    o.__ie         = ie 
    o.__have_range = is or ie
    o.__range      = { o.__is and parseVersion(o.__is) or " ", o.__ie and parseVersion(o.__ie) or "~" }
-   o.__actionNm   = action
 
    if (sType == "entryT") then
       local t      = name
@@ -138,6 +139,18 @@ function M.new(self, sType, name, action, is, ie)
 end
 
 
+
+--------------------------------------------------------------------------
+-- This l_overRide_sType() function is here to convert
+--    mcp:conflict(MName:buildA("mt",...))
+--    where the list of userNames might include between("A","1.0","2.0")
+--    Functions like between assume "load".  Where as conflict, prereq etc
+--    need "mt".
+
+local function l_overRide_sType(mname, sTypeIn)
+   mname.__sType = sTypeIn
+end
+
 --------------------------------------------------------------------------
 -- Return an array of MName objects
 -- @param self A MName object
@@ -152,6 +165,7 @@ function M.buildA(self,sType, ...)
       if (type(v) == "string" ) then
          a[#a + 1] = self:new(sType, v:trim())
       elseif (type(v) == "table") then
+         l_overRide_sType(v,sType)
          a[#a + 1] = v
       end
    end
@@ -238,7 +252,7 @@ local function l_lazyEval(self)
          self.__fn      = fn
          self.__version = version
          self.__wV      = wV
-         if (self.__actionNm == "latest" or self.__sn ~= self.__userName) then
+         if (self.__action == "latest" or self.__sn ~= self.__userName) then
             self.__userName = build_fullName(self.__sn, version)
          end
          break
@@ -668,11 +682,27 @@ function M.reset(self)
    self.__stackDepth = nil
 end
 
+function M.actionName(self)
+   return self.__action
+end
+
+
 --------------------------------------------------------------------------
 -- Return the string of the user name of the module.
 -- @param self A MName object
 function M.show(self)
    return '"' .. self:userName() .. '"'
 end
+
+function M.print(self)
+   local t = { sType    = self.__sType,
+               userName = self.__userName,
+               action   = self.__action,
+               is       = self.__isOrig,
+               ie       = self.__ieOrig,
+   }
+   return t
+end
+
 
 return M

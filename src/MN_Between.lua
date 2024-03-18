@@ -57,7 +57,7 @@ end
 function M.show(self)
    local a  = {}
    local nm = self:sn() or self:userName()
-   a[#a+1]  = self.__actionNm
+   a[#a+1]  = self:actionName()
    a[#a+1]  = "(\""
    a[#a+1]  = nm .. '"'
    for i = 1, #self.__show_range do

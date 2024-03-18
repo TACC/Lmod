@@ -244,6 +244,14 @@ the configuration option which will set the action.
   ~/.config/lmod but will check both directories when reading picking
   the most recent one.
 
+Configuration or cosmic:assign() at startup
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**LMOD_PERMANENT_CONFLICTS**:
+  [yes/no, default: no, --with-permanentConflicts] If yes then
+  the conflict() function are also remembered to block future module
+  loads. 
+
 
 Configuration only settings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -261,6 +269,7 @@ Configuration only settings
   non-executable files.
   
 .. _lmod_config-label:
+
 
 Configuring Lmod with **/etc/lmod/lmod_config.lua**:
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

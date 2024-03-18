@@ -426,6 +426,20 @@ AC_ARG_WITH(pinVersions,
     PIN_VERSIONS="$withval"
     AC_DEFINE_UNQUOTED(PIN_VERSIONS, "$withval"))dnl
 
+AC_SUBST(LMOD_PERMANENT_CONFLICTS)
+AC_ARG_WITH(permanentConflicts,
+    AS_HELP_STRING([--with-permanentConflicts=ans],[module conflicts are remembered for later loads. [[no]]]),
+    LMOD_PERMANENT_CONFLICTS="$withval"
+    LMOD_PERMANENT_CONFLICTS=`echo $LMOD_PERMANENT_CONFLICTS | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
+    VALID_YN $LMOD_PERMANENT_CONFLICTS "--with-permanentConflicts=ans: ans must be yes or no"
+    AC_MSG_RESULT([LMOD_PERMANENT_CONFLICTS=$with_permanentConflicts])
+    AC_DEFINE_UNQUOTED(LMOD_PERMANENT_CONFLICTS, "$with_permanentConflicts")dnl
+    ,
+    withval="no"
+    AC_MSG_RESULT([LMOD_PERMANENT_CONFLICTS=$withval])
+    LMOD_PERMANENT_CONFLICTS="$withval"
+    AC_DEFINE_UNQUOTED(LMOD_PERMANENT_CONFLICTS, "$withval"))dnl
+
 AC_SUBST(TMOD_PATH_RULE)
 AC_ARG_WITH(tmodPathRule,
     AS_HELP_STRING([--with-tmodPathRule=ans],[If path entry is already there then do not append/prepend.[[no]]]),

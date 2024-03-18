@@ -534,17 +534,17 @@ function prereq_any(...)
    if (not l_validateModules("prereq_any",...)) then return end
 
    mcp:prereq_any(MName:buildA("mt",...))
-   dbg.fini("conflict")
+   dbg.fini("prereq_any")
 end
 
 --------------------------------------------------------------------------
 -- Test to see if a conflict module is loaded.  Fail if it is loaded.
 function conflict(...)
    dbg.start{"conflict(",l_concatTbl({...},", "),")"}
-   if (not l_validateStringArgs("conflict",...)) then return end
+   if (not l_validateModules("conflict",...)) then return end
 
    mcp:conflict(MName:buildA("mt",...))
-   dbg.fini()
+   dbg.fini("conflict")
 end
 
 --------------------------------------------------------------------------
