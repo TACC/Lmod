@@ -319,9 +319,10 @@ function M.load(self, mA)
          mt               = frameStk:mt()
 
          if (dsConflicts == "yes") then
-            -- local function or an mt thing?
-            --l_checkForLoadConflicts(mname
-            -- Probably an MT thing.
+            local mnameUpstream = mt:haveDSConflict(mname)
+            if (mnameUpstream) then
+               LmodError{msg="e_Conflict_Downstream",upStream=mnameUpstream:fullName(), userName=userName}
+            end
          end
 
 

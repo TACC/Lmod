@@ -1507,4 +1507,27 @@ function M.removeConflicts(self, mname)
    self.__conflictT[sn] = nil
    dbg.fini("MT:removeConflicts")
 end
+
+function M.haveDSConflict(self. mnameIn)
+   local snIn = mnameIn:sn()
+   if (dbg.active()) then
+      dbg.start{"MT:haveDSConflict(sn:", snIn,")"}
+   end
+   local cT = self.__conflictT
+   for sn, vv in pairs(cT) do
+      for i = 1,#vv do
+         local mname    = vv[i]
+         local sn       = mname:sn()
+         local userName = mname:userName()
+         if (snIn and mt:have(snIn,"pending")
+             ------------------------------------------------------------------------
+             -- This is a mess.  Who is who?
+             -- What happens if the downstream name is a range?
+             -- My head hurts
+             -- ??????
+   
+   dbg.fini("MT:haveDSConflict")
+end
+
+
 return M
