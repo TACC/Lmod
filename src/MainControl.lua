@@ -1221,15 +1221,33 @@ function M.conflict(self, mA)
       end
    end
 
-   if (permConflicts == "yes") then
-      mt:registerConflicts(frameStk:mname(), mA)
-   end
-
+   ------------------------------------------------------------------------
+   -- check for current conflicits
 
    if (#a > 0) then
       LmodError{msg="e_Conflict", name = fullName, module_list = concatTbl(a," ")}
    end
+
+   ------------------------------------------------------------------------
+   -- register downstream conflicts
+   if (permConflicts == "yes") then
+      mt:registerConflicts(frameStk:mname(), mA)
+   end
+
    dbg.fini("MainControl:conflict")
+end
+
+function M.removeConflict(self, mA)
+   dbg.start{"MainControl:removeConflict(mA)"}
+   local frameStk      = FrameStk:singleton()
+   local mt            = frameStk:mt()
+   local permConflicts = cosmic:value("LMOD_PERMANENT_CONFLICTS")
+
+   if (permConflicts == "yes" ) then
+      mt:removeConflicts(frameStk:mname())
+   end
+   
+   dbg.fini("MainControl:removeConflict")
 end
 
 --------------------------------------------------------------------------

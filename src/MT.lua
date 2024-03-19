@@ -170,7 +170,7 @@ local function l_new(self, s, restoreFn)
          end
          o.__conflictT = cT
       end
-      o.conflict = nil
+      o.conflictT   = nil
    end
 
    -- remove any mcmdT connected to a mT entry
@@ -1496,5 +1496,15 @@ function M.registerConflicts(self, mname, mA)
    end
    self.__conflictT[sn] = A
    dbg.fini("MT:registerConflicts")
+end
+------------------------------------------------------------------------
+-- Unregister Downstream conflicts
+function M.removeConflicts(self, mname)
+   local sn = mname:sn()
+   if (dbg.active()) then
+      dbg.start{"MT:removeConflicts(sn:", sn,")"}
+   end
+   self.__conflictT[sn] = nil
+   dbg.fini("MT:removeConflicts")
 end
 return M

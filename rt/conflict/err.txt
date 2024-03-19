@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.34 (8.7.34-25-g516266fa)  2024-03-11 18:05 -06:00
+Modules based on Lua: Version 8.7.37   2024-03-17 13:11 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -78,3 +78,29 @@ Lmod has detected the following error: Cannot load module "y/1.0" because these 
 While processing the following module(s):
     Module fullname  Module Filename
     y/1.0            ProjectDIR/rt/conflict/mf/y/1.0.lua
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load base acme
+===========================
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing save
+===========================
+Saved current collection of modules to: "default"
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
+===========================
+Restoring modules from user's default
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload acme
+===========================
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload base
+===========================

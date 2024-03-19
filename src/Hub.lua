@@ -39,30 +39,31 @@ require("TermWidth")
 require("string_utils")
 require("loadModuleFile")
 
-local Banner       = require("Banner")
-local BeautifulTbl = require("BeautifulTbl")
-local Cache        = require("Cache")
-local ColumnTable  = require("ColumnTable")
-local FrameStk     = require("FrameStk")
-local M            = {}
-local MRC          = require("MRC")
-local MName        = require("MName")
-local MT           = require("MT")
-local ModuleA      = require("ModuleA")
-local Spider       = require("Spider")
-local Var          = require("Var")
-local concatTbl    = table.concat
-local cosmic       = require("Cosmic"):singleton()
-local dbg          = require("Dbg"):dbg()
-local hook         = require("Hook")
-local i18n         = require("i18n")
-local remove       = table.remove
-local sort         = table.sort
-local q_load       = 0
-local s_same       = true
+local Banner        = require("Banner")
+local BeautifulTbl  = require("BeautifulTbl")
+local Cache         = require("Cache")
+local ColumnTable   = require("ColumnTable")
+local FrameStk      = require("FrameStk")
+local M             = {}
+local MRC           = require("MRC")
+local MName         = require("MName")
+local MT            = require("MT")
+local ModuleA       = require("ModuleA")
+local Spider        = require("Spider")
+local Var           = require("Var")
+local concatTbl     = table.concat
+local cosmic        = require("Cosmic"):singleton()
+local dbg           = require("Dbg"):dbg()
+local hook          = require("Hook")
+local i18n          = require("i18n")
+local permConflicts = cosmic:value("LMOD_PERMANENT_CONFLICTS")
+local remove        = table.remove
+local sort          = table.sort
+local q_load        = 0
+local s_same        = true
 
 local A             = ShowResultsA
-local mpath_avail  = cosmic:value("LMOD_MPATH_AVAIL")
+local mpath_avail   = cosmic:value("LMOD_MPATH_AVAIL")
 
 ------------------------------------------------------------------------
 -- a private ctor that is used to construct a singleton.
@@ -315,10 +316,17 @@ function M.load(self, mA)
       repeat
          local mname      = mA[i]
          local userName   = mname:userName()
+         mt               = frameStk:mt()
+
+         if (permConflicts == "yes") then
+            -- local function or an mt thing?
+            --l_checkForLoadConflicts(mname
+            -- Probably an MT thing.
+         end
+
 
          dbg.print{"Hub:load i: ",i,", userName: ",userName,"\n",}
 
-         mt               = frameStk:mt()
          local sn         = mname:sn()
          if ((sn == nil) and ((i > 1) or (frameStk:stackDepth() > 0))) then
             dbg.print{"Pushing ",mname:userName()," on moduleQ\n"}
