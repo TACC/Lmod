@@ -39,8 +39,15 @@ testdescript = {
      runLmod load x/1.5                                     #12
      runLmod load y                                         #13
 
+     runLmod purge                                          #14
+     unsetMT
+     export MODULEPATH=$(testDir)/mf2/Core
+     export LMOD_CONFIG_DIR=$(testDir)/configDir
+     runLmod load base acme                                 #15
+     runLmod save                                           #16
+     runLmod restore                                        #17
 
-
+     
 
      HOME=$ORIG_HOME
 

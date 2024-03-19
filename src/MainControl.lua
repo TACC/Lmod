@@ -1204,12 +1204,13 @@ end
 function M.conflict(self, mA)
    dbg.start{"MainControl:conflict(mA)"}
 
+   local frameStk      = FrameStk:singleton()
+   local mt            = frameStk:mt()
+   local fullName      = frameStk:fullName()
+   local optionTbl     = optionTbl()
+   local a             = {}
+   local permConflicts = cosmic:value("LMOD_PERMANENT_CONFLICTS")
 
-   local frameStk  = FrameStk:singleton()
-   local mt        = frameStk:mt()
-   local fullName  = frameStk:fullName()
-   local optionTbl = optionTbl()
-   local a         = {}
 
    for i = 1, #mA do
       local mname    = mA[i]
@@ -1219,6 +1220,11 @@ function M.conflict(self, mA)
          a[#a+1]  = userName
       end
    end
+
+   if (permConflicts == "yes") then
+      mt:registerConflicts(frameStk:mname(), mA)
+   end
+
 
    if (#a > 0) then
       LmodError{msg="e_Conflict", name = fullName, module_list = concatTbl(a," ")}
@@ -1586,7 +1592,7 @@ function M.un_source_sh(self, shellName, script)
    dbg.fini("MainControl:un_source_sh")
 end
 
-function M.complete(self, shellName, name, args)
+function M.ocmplete(self, shellName, name, args)
    dbg.start{"MainControl:complete(shellName: \"",shellName,"\", name: \"",name,"\", args: \"",args,"\""}
    if (myShellName() ~= shellName) then
       dbg.fini("MainControl:complete")
