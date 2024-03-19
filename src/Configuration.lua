@@ -160,7 +160,7 @@ local function l_new(self)
    local pager             = cosmic:value("LMOD_PAGER")
    local pager_opts        = cosmic:value("LMOD_PAGER_OPTS")
    local pin_versions      = cosmic:value("LMOD_PIN_VERSIONS")
-   local permConflicts     = cosmic:value("LMOD_PERMANENT_CONFLICTS")
+   local dsConflicts       = cosmic:value("LMOD_DOWNSTREAM_CONFLICTS")
    local prepend_block     = cosmic:value("LMOD_PREPEND_BLOCK")
    local rc                = cosmic:value("LMOD_MODULERC")
    local redirect          = cosmic:value("LMOD_REDIRECT")
@@ -248,7 +248,7 @@ local function l_new(self)
    tbl.pager_opts   = { k = "Pager Options"                     , v = pager_opts,       n = "LMOD_PAGER_OPTS"                 }
    tbl.path_hash    = { k = "Path to HashSum"                   , v = hashsum_path,     n = "LMOD_HASHSUM_PATH"               }
    tbl.path_lua     = { k = "Path to Lua"                       , v = lua_path,         n = false                             }
-   tbl.permConflicts= { k = "Permanent Module Conflicts"        , v = permConflicts,    n = "LMOD_PERMANENT_CONFLICTS"        }
+   tbl.dsConflicts  = { k = "Downstream Module Conflicts"       , v = dsConflicts,    n = "LMOD_DOWNSTREAM_CONFLICTS"        }
    tbl.pin_v        = { k = "Pin Versions in restore"           , v = pin_versions,     n = "LMOD_PIN_VERSIONS"               }
    tbl.pkg          = { k = "Pkg Class name"                    , v = pkgName,          n = false                             }
    tbl.prefix       = { k = "Lmod prefix"                       , v = "@PREFIX@",       n = false                             }

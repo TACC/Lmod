@@ -427,13 +427,13 @@ AC_ARG_WITH(pinVersions,
     AC_DEFINE_UNQUOTED(PIN_VERSIONS, "$withval"))dnl
 
 AC_SUBST(LMOD_PERMANENT_CONFLICTS)
-AC_ARG_WITH(permanentConflicts,
-    AS_HELP_STRING([--with-permanentConflicts=ans],[module conflicts are remembered for later loads. [[no]]]),
+AC_ARG_WITH(downstreamConflicts,
+    AS_HELP_STRING([--with-downstreamConflicts=ans],[module conflicts are remembered for later loads. [[no]]]),
     LMOD_PERMANENT_CONFLICTS="$withval"
     LMOD_PERMANENT_CONFLICTS=`echo $LMOD_PERMANENT_CONFLICTS | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
-    VALID_YN $LMOD_PERMANENT_CONFLICTS "--with-permanentConflicts=ans: ans must be yes or no"
-    AC_MSG_RESULT([LMOD_PERMANENT_CONFLICTS=$with_permanentConflicts])
-    AC_DEFINE_UNQUOTED(LMOD_PERMANENT_CONFLICTS, "$with_permanentConflicts")dnl
+    VALID_YN $LMOD_PERMANENT_CONFLICTS "--with-downstreamConflicts=ans: ans must be yes or no"
+    AC_MSG_RESULT([LMOD_PERMANENT_CONFLICTS=$with_downstreamConflicts])
+    AC_DEFINE_UNQUOTED(LMOD_PERMANENT_CONFLICTS, "$with_downstreamConflicts")dnl
     ,
     withval="no"
     AC_MSG_RESULT([LMOD_PERMANENT_CONFLICTS=$withval])

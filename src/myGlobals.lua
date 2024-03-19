@@ -179,14 +179,14 @@ cosmic:init{name = "LMOD_REDIRECT",
             yn   = "no"}
 
 ------------------------------------------------------------------------
--- LMOD_PERMANENT_CONFLICTS:  Module confiicts are remember for later
+-- LMOD_DOWNSTREAM_CONFLICTS:  Module confiicts are remember for later
 --                            module loads
 --                            Note: this variable can only be set
 --                            at config time or via cosmic:assign() at
 --                            startup
 ------------------------------------------------------------------------
-cosmic:init{name    = "LMOD_PERMANENT_CONFLICTS",
-            sedV    = "@lmod_permanent_conflicts@",
+cosmic:init{name    = "LMOD_DOWNSTREAM_CONFLICTS",
+            sedV    = "@lmod_downstream_conflicts@",
             default = "no",
             assignV = "no"}
 ------------------------------------------------------------------------

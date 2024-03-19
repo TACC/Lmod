@@ -1204,12 +1204,12 @@ end
 function M.conflict(self, mA)
    dbg.start{"MainControl:conflict(mA)"}
 
-   local frameStk      = FrameStk:singleton()
-   local mt            = frameStk:mt()
-   local fullName      = frameStk:fullName()
-   local optionTbl     = optionTbl()
-   local a             = {}
-   local permConflicts = cosmic:value("LMOD_PERMANENT_CONFLICTS")
+   local frameStk    = FrameStk:singleton()
+   local mt          = frameStk:mt()
+   local fullName    = frameStk:fullName()
+   local optionTbl   = optionTbl()
+   local a           = {}
+   local dsConflicts = cosmic:value("LMOD_DOWNSTREAM_CONFLICTS")
 
 
    for i = 1, #mA do
@@ -1230,7 +1230,7 @@ function M.conflict(self, mA)
 
    ------------------------------------------------------------------------
    -- register downstream conflicts
-   if (permConflicts == "yes") then
+   if (dsConflicts == "yes") then
       mt:registerConflicts(frameStk:mname(), mA)
    end
 
@@ -1239,11 +1239,11 @@ end
 
 function M.removeConflict(self, mA)
    dbg.start{"MainControl:removeConflict(mA)"}
-   local frameStk      = FrameStk:singleton()
-   local mt            = frameStk:mt()
-   local permConflicts = cosmic:value("LMOD_PERMANENT_CONFLICTS")
+   local frameStk    = FrameStk:singleton()
+   local mt          = frameStk:mt()
+   local dsConflicts = cosmic:value("LMOD_DOWNSTREAM_CONFLICTS")
 
-   if (permConflicts == "yes" ) then
+   if (dsConflicts == "yes" ) then
       mt:removeConflicts(frameStk:mname())
    end
    
@@ -1610,7 +1610,7 @@ function M.un_source_sh(self, shellName, script)
    dbg.fini("MainControl:un_source_sh")
 end
 
-function M.ocmplete(self, shellName, name, args)
+function M.complete(self, shellName, name, args)
    dbg.start{"MainControl:complete(shellName: \"",shellName,"\", name: \"",name,"\", args: \"",args,"\""}
    if (myShellName() ~= shellName) then
       dbg.fini("MainControl:complete")

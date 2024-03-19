@@ -56,7 +56,7 @@ local cosmic        = require("Cosmic"):singleton()
 local dbg           = require("Dbg"):dbg()
 local hook          = require("Hook")
 local i18n          = require("i18n")
-local permConflicts = cosmic:value("LMOD_PERMANENT_CONFLICTS")
+local dsConflicts   = cosmic:value("LMOD_DOWNSTREAM_CONFLICTS")
 local remove        = table.remove
 local sort          = table.sort
 local q_load        = 0
@@ -318,7 +318,7 @@ function M.load(self, mA)
          local userName   = mname:userName()
          mt               = frameStk:mt()
 
-         if (permConflicts == "yes") then
+         if (dsConflicts == "yes") then
             -- local function or an mt thing?
             --l_checkForLoadConflicts(mname
             -- Probably an MT thing.

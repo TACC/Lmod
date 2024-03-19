@@ -289,7 +289,7 @@ __installMe:
 	          -e 's|@fast_tcl_interp@|$(FAST_TCL_INTERP)|g'                     \
 	          -e 's|@settarg_cmd@|$(SETTARG_CMD)|g'                             \
 	          -e 's|@lmod_config_dir@|$(LMOD_CONFIG_DIR)|g'                     \
-	          -e 's|@lmod_permanent_conflicts@|$(LMOD_PERMANENT_CONFLICTS)|g'   \
+	          -e 's|@lmod_downstream_conflicts@|$(LMOD_PERMANENT_CONFLICTS)|g'   \
 	          -e "s|@my_shell@|$$fn|g"                                          \
 	          -e 's|@tclsh@|$(PATH_TO_TCLSH)|g'                                 \
 	          -e 's|@ls@|$(PATH_TO_LS)|g'                                       \
