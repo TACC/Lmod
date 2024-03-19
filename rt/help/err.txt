@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.34 (8.7.34-25-g516266fa)  2024-03-11 18:05 -06:00
+Modules based on Lua: Version 8.7.37   2024-03-17 13:11 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -108,7 +108,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.34 (8.7.34-25-g516266fa)  2024-03-11 18:05 -06:00
+Modules based on Lua: Version 8.7.37   2024-03-17 13:11 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -214,7 +214,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.34 (8.7.34-25-g516266fa)  2024-03-11 18:05 -06:00
+Modules based on Lua: Version 8.7.37   2024-03-17 13:11 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -234,7 +234,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --config
 ===========================
-Modules based on Lua: Version 8.7.34 (8.7.34-25-g516266fa)  2024-03-11 18:05 -06:00
+Modules based on Lua: Version 8.7.37   2024-03-17 13:11 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                                                   Value
 Allow root to use Lmod (LMOD_ALLOW_ROOT_USE)                  yes
@@ -247,6 +247,7 @@ Configuration dir (LMOD_CONFIG_DIR)                           /etc/lmod
 Disable Same Name AutoSwap (LMOD_DISABLE_SAME_NAME_AUTOSWAP)  no
 Display Extension w/ avail (LMOD_AVAIL_EXTENSIONS)            yes
 Use ~/.config dir only (LMOD_USE_DOT_CONFIG_ONLY)             no
+Downstream Module Conflicts (LMOD_DOWNSTREAM_CONFLICTS)       no
 Allow duplicate paths (LMOD_DUPLICATE_PATHS)                  no
 Dynamic Spider Cache (LMOD_DYNAMIC_SPIDER_CACHE)              yes
 Require Exact Match/no defaults (LMOD_EXACT_MATCH)            no
@@ -272,7 +273,6 @@ Pager (LMOD_PAGER)                                            less
 Pager Options (LMOD_PAGER_OPTS)                               -XqMREF
 Path to HashSum (LMOD_HASHSUM_PATH)                           PATH_to_HASHSUM
 Path to Lua                                                   lua
-Permanent Module Conflicts (LMOD_PERMANENT_CONFLICTS)         no
 Pin Versions in restore (LMOD_PIN_VERSIONS)                   no
 Pkg Class name                                                Pkg
 Lmod prefix                                                   @PREFIX@
@@ -414,7 +414,7 @@ propT = {
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --miniConfig
 ===========================
-Modules based on Lua: Version 8.7.34 (8.7.34-25-g516266fa)  2024-03-11 18:05 -06:00
+Modules based on Lua: Version 8.7.37   2024-03-17 13:11 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 LMOD_PACKAGE_PATH            D          nil          <empty>
 LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>
