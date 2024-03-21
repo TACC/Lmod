@@ -48,14 +48,21 @@ end
 
 function main()
 
-   local branch = arg[1]
-   local tag    = arg[2]
-   local gittag = arg[3]
-   local vdate  = arg[4]
+   local branch      = arg[1]
+   local tag         = arg[2]
+   local gittag      = arg[3]
+   local VersionDate = arg[4]
+   local curDate     = arg[5]
+   local vdate       = VersionDate
 
    if (branch:find("HEAD detached")) then
       branch = "main"
    end
+
+   if (tag ~= gittag or branch ~= "main") then
+      vdate = curDate
+   end
+      
    local s = buildVersionCode(branch, tag, gittag, vdate)
    print (s)
 end

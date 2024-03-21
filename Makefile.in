@@ -190,7 +190,7 @@ CONTRIB_DIRS              :=  \
 CONTRIB                   := $(patsubst %, $(srcdir)/contrib/%, $(CONTRIB_DIRS))
 lua_code                  := $(filter-out %.in.lua, $(wildcard $(srcdir)/src/*.lua))
 lua_code                  := $(filter-out $(srcdir)/src/Version.lua, $(lua_code)) $(wildcard $(srcdir)/src/*.tcl)
-VDATE                     := $(shell $(DATE_cmd) +'%F %H:%M %:z')
+CurDATE                   := $(shell $(DATE_cmd) +'%F %H:%M %:z')
 
 ComputeHashSum            := $(srcdir)/src/computeHashSum.in.lua
 spiderCacheSupportCMD     := $(PATH_TO_LUA) $(DESTDIR)$(LIBEXEC)/spiderCacheSupport
@@ -549,10 +549,10 @@ libexec:  $(lua_code)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(LIBEXEC) GIT_VERSION=$(GIT_VERSION) __installMe
 
 VersionSrc:
-	$(BUILD_V_src) "$(GIT_BRANCH)" "$(version)" "$(GIT_VERSION)" "$(VersionDate)" >  $(DESTDIR)$(LIBEXEC)/Version.lua 
+	$(BUILD_V_src) "$(GIT_BRANCH)" "$(version)" "$(GIT_VERSION)" "$(VersionDate)" "$(CurDATE)" >  $(DESTDIR)$(LIBEXEC)/Version.lua 
 
 STVersionSrc: Inst_Settarg
-	$(BUILD_V_src) "$(GIT_BRANCH)" "$(version)" "$(GIT_VERSION)" "$(VersionDate)" >  $(DESTDIR)$(SETTARG)/Version.lua
+	$(BUILD_V_src) "$(GIT_BRANCH)" "$(version)" "$(GIT_VERSION)" "$(VersionDate)" "$(CurDATE)" >  $(DESTDIR)$(SETTARG)/Version.lua
 
 Inst_Tools: $(TOOL_SRC)
 	$(MAKE) FILELIST="$^" DIRLOC=$(DESTDIR)$(TOOLS) GIT_VERSION=$(GIT_VERSION) __installMe
@@ -614,9 +614,10 @@ gittag:
 	  else                                                                              \
 	    $(RM)                                                           $(VERSION_SRC); \
 	    $(RM)                                                          $(SETTARG_VSRC); \
-	    $(BUILD_V_src) "$(GIT_BRANCH)" "$(TAG)" "$(TAG)" "$(VDATE)"  >  $(VERSION_SRC); \
+	    $(BUILD_V_src) "$(GIT_BRANCH)" "$(TAG)"     "$(TAG)"                            \
+                                           "$(CurDATE)" "$(CurDATE)"      > $(VERSION_SRC); \
 	    cp                                          $(VERSION_SRC)     $(SETTARG_VSRC); \
-            echo $(VDATE)                                                >      $(VDateFn); \
+            echo $(CurDATE)                                                >      $(VDateFn); \
 	    $(UPDATE_VERSION) -p $(CONF_PY_PATTERN)          --version $(TAG)   $(CONF_PY); \
 	    git commit -m "moving to TAG_VERSION $(TAG)"                   $(SETTARG_VSRC)  \
                                                                                 $(CONF_PY)  \
