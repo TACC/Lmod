@@ -617,7 +617,7 @@ gittag:
 	    $(BUILD_V_src) "$(GIT_BRANCH)" "$(TAG)"     "$(TAG)"                            \
                                            "$(CurDATE)" "$(CurDATE)"      > $(VERSION_SRC); \
 	    cp                                          $(VERSION_SRC)     $(SETTARG_VSRC); \
-            echo $(CurDATE)                                                >      $(VDateFn); \
+            echo $(CurDATE)                                               >     $(VDateFn); \
 	    $(UPDATE_VERSION) -p $(CONF_PY_PATTERN)          --version $(TAG)   $(CONF_PY); \
 	    git commit -m "moving to TAG_VERSION $(TAG)"                   $(SETTARG_VSRC)  \
                                                                                 $(CONF_PY)  \
