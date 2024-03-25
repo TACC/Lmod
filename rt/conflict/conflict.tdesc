@@ -48,7 +48,11 @@ testdescript = {
      runLmod restore                                        #17
      runLmod unload acme                                    #18
      runLmod unload base                                    #19
-     
+     runLmod load   D/1.3                                   #20
+     runLmod load   acme                                    #21
+     runLmod load   D/1.1                                   #22
+     runLmod load   acme                                    #23
+
      
 
      HOME=$ORIG_HOME
