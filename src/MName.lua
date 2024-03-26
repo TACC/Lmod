@@ -677,6 +677,7 @@ function M.conflictCk(self, mt)
    local userName = false
    local sn       = self:sn()
    if (not (sn and mt:have(sn,"active"))) then
+      --dbg.print{"1) userName: ",userName,"\n"}
       dbg.fini("MName:conflictCk")
       return userName
    end
@@ -690,16 +691,18 @@ function M.conflictCk(self, mt)
 
       if (lowerFn(lowerBound, pV) and upperFn(pV, upperBound)) then
          userName = mt:fullName(sn)
-         dbg.fini("MName:conflictCk")
       end
+      --dbg.print{"2) userName: ",userName,"\n"}
       dbg.fini("MName:conflictCk")
       return userName
    end
 
-   if (self:userName() == sn or extractVersion(userName, sn) == mt:version(sn)) then
-      dbg.fini("MName:conflictCk")
-      userName = self.userName()
+   local self_userName = self:userName()
+   --dbg.print{"self_userName: ",self_userName,", sn: ",sn,", userName: ",userName,"\n"}
+   if (self_userName == sn or extractVersion(self_userName, sn) == mt:version(sn)) then
+      userName = self_userName
    end
+   --dbg.print{"3) userName: ",userName,"\n"}
    dbg.fini("MName:conflictCk")
    return userName
 end
@@ -707,11 +710,12 @@ end
 function downstreamConflictCk(self, mnameIn)
    local snIn = mnameIn:sn()
    dbg.start{"MName:downstreamConflictCk(snIn:", snIn,")"}
-   local sn   = self:sn()
-   if (snIn ~= sn) then
-      return false
-   end
+
+   local sn       = self:sn()
    local userName = false
+   if (snIn ~= sn) then
+      return userName
+   end
    if (self.__have_range) then
       local lowerBound = self.__range[1]
       local upperBound = self.__range[2]
@@ -720,10 +724,7 @@ function downstreamConflictCk(self, mnameIn)
       local pV         = parseVersion(mname:version())
       if (lowerFn(lowerBound, pV) and upperFn(pV, upperBound)) then
          userName = mnameIn:userName()
-         dbg.fini("MName:downstreamConflictCk")
-         return userName
       end
-      userName = false
       dbg.fini("MName:conflictCk")
       return userName
    end
