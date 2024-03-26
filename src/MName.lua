@@ -578,10 +578,15 @@ function M.isloaded(self)
    local status    = mt:status(sn)
    local sn_status = ((status == "active") or (status == "pending"))
    if (sn_status and self.__have_range) then
-      local pV = parseVersion(mt:version(sn))
-      if ((self.__range[1] <= pV) and (pV <= self.__range[2])) then
+      local lowerBound = self.__range[1]
+      local upperBound = self.__range[2]
+      local lowerFn    = self.__range_fnA[1]
+      local upperFn    = self.__range_fnA[2]
+      local pV         = parseVersion(mt:version(sn))
+      if (lowerFn(lowerBound, pV) and upperFn(pV, upperBound)) then
          return sn_status
       end
+      return false
    end
 
    local userName  = self:userName()
@@ -641,10 +646,15 @@ function M.prereq(self)
    end
 
    if (self.__have_range) then
-      local pV = parseVersion(mt:version(sn))
-      if ((self.__range[1] <= pV) and (pV <= self.__range[2])) then
+      local lowerBound = self.__range[1]
+      local upperBound = self.__range[2]
+      local lowerFn    = self.__range_fnA[1]
+      local upperFn    = self.__range_fnA[2]
+      local pV         = parseVersion(mt:version(sn))
+      if (lowerFn(lowerBound, pV) and upperFn(pV, upperBound)) then
          return false
       end
+      return userName
    end
       
    if (userName == sn or userName == fullName) then
@@ -666,11 +676,8 @@ function M.conflictCk(self, mt)
    dbg.start{"MName:conflictCk(mt)"}
    local userName = self:userName()
    local sn       = self:sn()
-   dbg.print{"(0) sn:       ",sn,"\n"}
-   dbg.print{"(0) userName: ",userName,"\n"}
    if (not (sn and mt:have(sn,"active"))) then
       userName = false
-      dbg.print{"(1) userName: ",userName,"\n"}
       dbg.fini("MName:conflictCk")
       return false
    end
@@ -682,27 +689,21 @@ function M.conflictCk(self, mt)
       local upperFn    = self.__range_fnA[2]
       local pV         = parseVersion(mt:version(sn))
 
-      dbg.print{"pV: ",pV,", lowerBound: ",lowerBound,", upperBound: ",upperBound,"\n"}
-
       if (lowerFn(lowerBound, pV) and upperFn(pV, upperBound)) then
          local userName = mt:fullName(sn)
-         dbg.print{"(2) userName: ",userName,"\n"}
          dbg.fini("MName:conflictCk")
          return userName
       end
       userName = false
-      dbg.print{"(3) userName: ",userName,"\n"}
       dbg.fini("MName:conflictCk")
       return userName
    end
 
    if (self:userName() == sn or extractVersion(userName, sn) == mt:version(sn)) then
-      dbg.print{"(4) userName: ",userName,"\n"}
       dbg.fini("MName:conflictCk")
       return userName
    end
    userName = false
-   dbg.print{"(5) userName: ",userName,"\n"}
    dbg.fini("MName:conflictCk")
    return userName
 end
