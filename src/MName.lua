@@ -674,12 +674,11 @@ end
 
 function M.conflictCk(self, mt)
    dbg.start{"MName:conflictCk(mt)"}
-   local userName = self:userName()
+   local userName = false
    local sn       = self:sn()
    if (not (sn and mt:have(sn,"active"))) then
-      userName = false
       dbg.fini("MName:conflictCk")
-      return false
+      return userName
    end
 
    if (self.__have_range) then
@@ -690,23 +689,54 @@ function M.conflictCk(self, mt)
       local pV         = parseVersion(mt:version(sn))
 
       if (lowerFn(lowerBound, pV) and upperFn(pV, upperBound)) then
-         local userName = mt:fullName(sn)
+         userName = mt:fullName(sn)
          dbg.fini("MName:conflictCk")
-         return userName
       end
-      userName = false
       dbg.fini("MName:conflictCk")
       return userName
    end
 
    if (self:userName() == sn or extractVersion(userName, sn) == mt:version(sn)) then
       dbg.fini("MName:conflictCk")
-      return userName
+      userName = self.userName()
    end
-   userName = false
    dbg.fini("MName:conflictCk")
    return userName
 end
+
+function downstreamConflictCk(self, mnameIn)
+   local snIn = mnameIn:sn()
+   dbg.start{"MName:downstreamConflictCk(snIn:", snIn,")"}
+   local sn   = self:sn()
+   if (snIn ~= sn) then
+      return false
+   end
+   local userName = false
+   if (self.__have_range) then
+      local lowerBound = self.__range[1]
+      local upperBound = self.__range[2]
+      local lowerFn    = self.__range_fnA[1]
+      local upperFn    = self.__range_fnA[2]
+      local pV         = parseVersion(mname:version())
+      if (lowerFn(lowerBound, pV) and upperFn(pV, upperBound)) then
+         userName = mnameIn:userName()
+         dbg.fini("MName:downstreamConflictCk")
+         return userName
+      end
+      userName = false
+      dbg.fini("MName:conflictCk")
+      return userName
+   end
+   
+   if (self:userName() == snIn or extractVersion(userName, sn) == mnameIn:version()) then
+      userName = mnameIn:userName()
+   end
+
+   dbg.fini( "MName:downstreamConflictCk")
+   return userName
+end
+
+
 
 function M.set_depends_on_flag(self, value)
    if (type(value) == "number") then
