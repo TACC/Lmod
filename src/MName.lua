@@ -109,6 +109,9 @@ function M.new(self, sType, name, action, is, ie)
    if (is and (is:sub(1,1) == "<" or is:sub(-1) == "<")) then
       o.__range_fnA[1]  = l_lessthan
       is = is:gsub("<","")
+   elseif (is and (is:sub(1,1) == ">" or is:sub(-1) == ">")) then
+      o.__range_fnA[1]  = l_lessthan
+      is = is:gsub(">","")
    end
    if (ie and (ie:sub(1,1) == "<" or ie:sub(-1) == "<")) then
       o.__range_fnA[2]  = l_lessthan
@@ -677,8 +680,9 @@ function M.conflictCk(self, mt)
       local upperBound = self.__range[2]
       local lowerFn    = self.__range_fnA[1]
       local upperFn    = self.__range_fnA[2]
-      
       local pV         = parseVersion(mt:version(sn))
+
+      dbg.print{"pV: ",pV,", lowerBound: ",lowerBound,", upperBound: ",upperBound,"\n"}
 
       if (lowerFn(lowerBound, pV) and upperFn(pV, upperBound)) then
          local userName = mt:fullName(sn)
@@ -686,15 +690,19 @@ function M.conflictCk(self, mt)
          dbg.fini("MName:conflictCk")
          return userName
       end
-   end
-
-   if (self:userName() == sn or extractVersion(userName, sn) == mt:version(sn)) then
+      userName = false
       dbg.print{"(3) userName: ",userName,"\n"}
       dbg.fini("MName:conflictCk")
       return userName
    end
+
+   if (self:userName() == sn or extractVersion(userName, sn) == mt:version(sn)) then
+      dbg.print{"(4) userName: ",userName,"\n"}
+      dbg.fini("MName:conflictCk")
+      return userName
+   end
    userName = false
-   dbg.print{"(4) userName: ",userName,"\n"}
+   dbg.print{"(5) userName: ",userName,"\n"}
    dbg.fini("MName:conflictCk")
    return userName
 end
