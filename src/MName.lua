@@ -571,7 +571,7 @@ function M.find_inherit_match(self,fileA)
 end
 
 local function l_rangeCk(self, version, result_if_found, result_if_not_found)
-   dbg.start{"l_rangeCk(self, version: ",version,", result_if_found: ",result_if_found,")"}
+   dbg.start{"l_rangeCk(self, version: ",version,", result_if_found: ",result_if_found,", result_if_not_found: ",result_if_not_found,")"}
    local have_range = false
    local result     = result_if_not_found
    if (not self.__have_range) then
@@ -669,7 +669,6 @@ function M.prereq(self)
 
    local have_range, result = l_rangeCk(self, mt:version(sn), false, userName)
    if (have_range) then
-      --dbg.fini("MName:prereq")
       return result
    end
 
@@ -726,7 +725,7 @@ function downstreamConflictCk(self, mnameIn)
 
    local have_range, result = l_rangeCk(self, mname:version(), mnameIn:userName(), false)
    if (have_range) then
-      dbg.fini("MName:conflictCk")
+      dbg.fini( "MName:downstreamConflictCk")
       return result
    end
 
