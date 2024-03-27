@@ -738,8 +738,6 @@ function downstreamConflictCk(self, mnameIn)
    return userName
 end
 
-
-
 function M.set_depends_on_flag(self, value)
    if (type(value) == "number") then
       self.__dependsOn = value > 0
