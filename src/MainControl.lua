@@ -1217,11 +1217,6 @@ function M.conflict(self, mA)
       if ( userName ) then
          a[#a+1]  = userName
       end
-      --local sn       = mname:sn()  -- this will return false if there is no module loaded.
-      --local userName = mname:userName()
-      --dbg.print{"sn: ",sn,", userName: ",userName,", mt:version(sn): ",mt:version(sn),"\n"}
-      --if (sn and mt:have(sn,"active") and (userName == sn or extractVersion(userName, sn) == mt:version(sn))) then
-      --end
    end
 
    ------------------------------------------------------------------------
