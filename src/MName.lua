@@ -570,6 +570,29 @@ function M.find_inherit_match(self,fileA)
    local a = fileA[1] or {}
 end
 
+local function l_rangeCk(self, version, result_if_found, result_if_not_found)
+   dbg.start{"l_rangeCk(self, version: ",version,", result_if_found: ",result_if_found,")"}
+   local have_range = false
+   local result     = result_if_not_found
+   if (not self.__have_range) then
+      dbg.fini("l_rangeCk")
+      return have_range, result
+   end
+
+   have_range       = true
+   local lowerBound = self.__range[1]
+   local upperBound = self.__range[2]
+   local lowerFn    = self.__range_fnA[1]
+   local upperFn    = self.__range_fnA[2]
+   local pV         = parseVersion(version)
+   if (lowerFn(lowerBound, pV) and upperFn(pV, upperBound)) then
+      result = result_if_found
+   end
+   
+   dbg.fini("l_rangeCk")
+   return have_range, result
+end
+   
 function M.isloaded(self)
    --dbg.start{"MName:isloaded()"}
    local frameStk  = FrameStk:singleton()
@@ -577,16 +600,15 @@ function M.isloaded(self)
    local sn        = self:sn()
    local status    = mt:status(sn)
    local sn_status = ((status == "active") or (status == "pending"))
-   if (sn_status and self.__have_range) then
-      local lowerBound = self.__range[1]
-      local upperBound = self.__range[2]
-      local lowerFn    = self.__range_fnA[1]
-      local upperFn    = self.__range_fnA[2]
-      local pV         = parseVersion(mt:version(sn))
-      if (lowerFn(lowerBound, pV) and upperFn(pV, upperBound)) then
-         return sn_status
-      end
-      return false
+   if (not sn_status) then
+      --dbg.fini("MName:isloaded")
+      return sn_status
+   end
+
+   local have_range, result = l_rangeCk(self, mt:version(sn), sn_status, false)
+   if (have_range) then
+      --dbg.fini("MName:isloaded")
+      return result
    end
 
    local userName  = self:userName()
@@ -645,18 +667,12 @@ function M.prereq(self)
       return userName
    end
 
-   if (self.__have_range) then
-      local lowerBound = self.__range[1]
-      local upperBound = self.__range[2]
-      local lowerFn    = self.__range_fnA[1]
-      local upperFn    = self.__range_fnA[2]
-      local pV         = parseVersion(mt:version(sn))
-      if (lowerFn(lowerBound, pV) and upperFn(pV, upperBound)) then
-         return false
-      end
-      return userName
+   local have_range, result = l_rangeCk(self, mt:version(sn), false, userName)
+   if (have_range) then
+      --dbg.fini("MName:prereq")
+      return result
    end
-      
+
    if (userName == sn or userName == fullName) then
       -- The userName matched the either the sn or fullName
       -- stored in the MT
@@ -682,19 +698,10 @@ function M.conflictCk(self, mt)
       return userName
    end
 
-   if (self.__have_range) then
-      local lowerBound = self.__range[1]
-      local upperBound = self.__range[2]
-      local lowerFn    = self.__range_fnA[1]
-      local upperFn    = self.__range_fnA[2]
-      local pV         = parseVersion(mt:version(sn))
-
-      if (lowerFn(lowerBound, pV) and upperFn(pV, upperBound)) then
-         userName = mt:fullName(sn)
-      end
-      --dbg.print{"2) userName: ",userName,"\n"}
+   local have_range, result = l_rangeCk(self, mt:version(sn), mt:fullName(sn), false)
+   if (have_range) then
       dbg.fini("MName:conflictCk")
-      return userName
+      return result
    end
 
    local self_userName = self:userName()
@@ -716,19 +723,13 @@ function downstreamConflictCk(self, mnameIn)
    if (snIn ~= sn) then
       return userName
    end
-   if (self.__have_range) then
-      local lowerBound = self.__range[1]
-      local upperBound = self.__range[2]
-      local lowerFn    = self.__range_fnA[1]
-      local upperFn    = self.__range_fnA[2]
-      local pV         = parseVersion(mname:version())
-      if (lowerFn(lowerBound, pV) and upperFn(pV, upperBound)) then
-         userName = mnameIn:userName()
-      end
+
+   local have_range, result = l_rangeCk(self, mname:version(), mnameIn:userName(), false)
+   if (have_range) then
       dbg.fini("MName:conflictCk")
-      return userName
+      return result
    end
-   
+
    if (self:userName() == snIn or extractVersion(userName, sn) == mnameIn:version()) then
       userName = mnameIn:userName()
    end
