@@ -235,3 +235,53 @@ _LMFILES_=ProjectDIR/rt/conflict/mf2/Core/D/1.1.lua:ProjectDIR/rt/conflict/mf2/C
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,conflictT={acme={{action="between",ie="<3.2",is="1.1>",sType="mt",userName="D",},{action="match",ie=false,is=false,sType="mt",userName="E",},},},depthT={},family={},mT={D={fn="ProjectDIR/rt/conflict/mf2/Core/D/1.1.lua",fullName="D/1.1",loadOrder=1,propT={},stackDepth=0,status="active",userName="D/1.1",wV="000000001.000000001.*zfinal",},acme={fn="ProjectDIR/rt/conflict/mf2/Core/acme/1.0.lua",fullName="acme/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="acme",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/conflict/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/conflict/mf2/Core",}';
 export _ModuleTable_;
+===========================
+step 24
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset D;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/conflict/mf2/Core;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/conflict/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/conflict/mf2/Core",}';
+export _ModuleTable_;
+===========================
+step 25
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load acme
+===========================
+LOADEDMODULES=acme/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/conflict/mf2/Core;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/conflict/mf2/Core/acme/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,conflictT={acme={{action="between",ie="<3.2",is="1.1>",sType="mt",userName="D",},{action="match",ie=false,is=false,sType="mt",userName="E",},},},depthT={},family={},mT={acme={fn="ProjectDIR/rt/conflict/mf2/Core/acme/1.0.lua",fullName="acme/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="acme",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/conflict/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/conflict/mf2/Core",}';
+export _ModuleTable_;
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load D/1.1
+===========================
+D=1.1;
+export D;
+LOADEDMODULES=acme/1.0:D/1.1;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/conflict/mf2/Core;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/conflict/mf2/Core/acme/1.0.lua:ProjectDIR/rt/conflict/mf2/Core/D/1.1.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,conflictT={acme={{action="between",ie="<3.2",is="1.1>",sType="mt",userName="D",},{action="match",ie=false,is=false,sType="mt",userName="E",},},},depthT={},family={},mT={D={fn="ProjectDIR/rt/conflict/mf2/Core/D/1.1.lua",fullName="D/1.1",loadOrder=2,propT={},stackDepth=0,status="active",userName="D/1.1",wV="000000001.000000001.*zfinal",},acme={fn="ProjectDIR/rt/conflict/mf2/Core/acme/1.0.lua",fullName="acme/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="acme",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/conflict/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/conflict/mf2/Core",}';
+export _ModuleTable_;
+===========================
+step 27
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load D/1.3
+===========================
+false
+===========================
+step 28
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/conflict/mf2/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,conflictT={acme={{action="between",ie="<3.2",is="1.1>",sType="mt",userName="D",},{action="match",ie=false,is=false,sType="mt",userName="E",},},},depthT={},family={},mT={D={fn="ProjectDIR/rt/conflict/mf2/Core/D/1.1.lua",fullName="D/1.1",loadOrder=2,propT={},stackDepth=0,status="active",userName="D/1.1",wV="000000001.000000001.*zfinal",},acme={fn="ProjectDIR/rt/conflict/mf2/Core/acme/1.0.lua",fullName="acme/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="acme",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/conflict/mf2/Core",},systemBaseMPATH="ProjectDIR/rt/conflict/mf2/Core",}';
+export _ModuleTable_;

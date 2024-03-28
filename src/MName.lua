@@ -713,28 +713,29 @@ function M.conflictCk(self, mt)
    return userName
 end
 
-function downstreamConflictCk(self, mnameIn)
+function M.downstreamConflictCk(self, mnameIn)
    local snIn = mnameIn:sn()
    dbg.start{"MName:downstreamConflictCk(snIn:", snIn,")"}
 
-   local sn       = self:sn()
-   local userName = false
+   local have_range = nil
+   local sn         = self:sn()
+   local result     = false
    if (snIn ~= sn) then
-      return userName
+      return result
    end
 
-   local have_range, result = l_rangeCk(self, mname:version(), mnameIn:userName(), false)
+   have_range, result = l_rangeCk(self, mnameIn:version(), mnameIn:userName(), false)
    if (have_range) then
       dbg.fini( "MName:downstreamConflictCk")
       return result
    end
 
    if (self:userName() == snIn or extractVersion(userName, sn) == mnameIn:version()) then
-      userName = mnameIn:userName()
+      result = snIn
    end
 
    dbg.fini( "MName:downstreamConflictCk")
-   return userName
+   return result
 end
 
 function M.set_depends_on_flag(self, value)

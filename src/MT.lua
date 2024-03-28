@@ -1514,13 +1514,14 @@ function M.haveDSConflict(self, mnameIn)
       dbg.start{"MT:haveDSConflict(sn:", snIn,")"}
    end
 
-   local cT = self.__conflictT
+   local cT    = self.__conflictT
+   local MName = require("MName")
    for sn, vv in pairs(cT) do
       for i = 1,#vv do
          local conflict_mname = vv[i]
-         local userName       = conflict_mname:downstreamConflictCk(mnameIn)
-         if (userName) then
-            return userName
+         local snUpstream  = conflict_mname:downstreamConflictCk(mnameIn)
+         if (snUpstream) then
+            return sn
          end
       end
    end

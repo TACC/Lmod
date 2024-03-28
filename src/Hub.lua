@@ -56,7 +56,6 @@ local cosmic        = require("Cosmic"):singleton()
 local dbg           = require("Dbg"):dbg()
 local hook          = require("Hook")
 local i18n          = require("i18n")
-local dsConflicts   = cosmic:value("LMOD_DOWNSTREAM_CONFLICTS")
 local remove        = table.remove
 local sort          = table.sort
 local q_load        = 0
@@ -303,12 +302,13 @@ function M.load(self, mA)
 
    local disable_same_name_autoswap = cosmic:value("LMOD_DISABLE_SAME_NAME_AUTOSWAP")
 
-   local optionTbl = optionTbl()
-   local tracing   = cosmic:value("LMOD_TRACING")
-   local frameStk  = FrameStk:singleton()
-   local shell     = _G.Shell
-   local shellNm   = shell and shell:name() or "bash"
-   local a         = true
+   local dsConflicts = cosmic:value("LMOD_DOWNSTREAM_CONFLICTS")
+   local optionTbl   = optionTbl()
+   local tracing     = cosmic:value("LMOD_TRACING")
+   local frameStk    = FrameStk:singleton()
+   local shell       = _G.Shell
+   local shellNm     = shell and shell:name() or "bash"
+   local a           = true
    local mt
 
 
@@ -318,10 +318,13 @@ function M.load(self, mA)
          local userName   = mname:userName()
          mt               = frameStk:mt()
 
+         dbg.print{"dsConflicts: ",dsConflicts,"\n"}
          if (dsConflicts == "yes") then
-            local mnameUpstream = mt:haveDSConflict(mname)
-            if (mnameUpstream) then
-               LmodError{msg="e_Conflict_Downstream",upStream=mnameUpstream:fullName(), userName=userName}
+            local snUpstream = mt:haveDSConflict(mname)
+            if (snUpstream) then
+               local fullNameUpstream = mt:fullName(snUpstream)
+               LmodError{msg="e_Conflict_Downstream", fullNameUpstream = fullNameUpstream,
+                         userName=userName}
             end
          end
 

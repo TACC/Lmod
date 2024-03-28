@@ -110,6 +110,7 @@ return {
      e_BrokenCacheFn       = "Spider cache fn: \"%{fn}\" appears broken",
      e_BrokenQ             = "Internal error: broken module Q\n",
      e_Conflict            = "Cannot load module \"%{name}\" because these module(s) are loaded:\n   %{module_list}\n",
+     e_Conflict_Downstream = "Cannot load module \"%{userName}\" because this module set a conflict: \"%{fullNameUpstream}\"\n",
      e_Execute_Msg         = [==[Syntax error in file: %{fn}
 with command: "execute".
 The syntax is:

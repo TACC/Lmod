@@ -53,6 +53,16 @@ testdescript = {
      runLmod load   D/1.1                                   #22
      runLmod load   acme                                    #23
 
+     # Test downstream conflicts
+     runLmod purge                                          #24
+     runLmod load   acme                                    #25
+     runLmod load   D/1.1                                   #26
+     runLmod load   D/1.3                                   #27
+     runLmod list                                           #28
+
+   
+
+
      
 
      HOME=$ORIG_HOME
