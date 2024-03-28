@@ -42,7 +42,7 @@ testdescript = {
      runLmod purge                                          #14
      unsetMT
      export MODULEPATH=$(testDir)/mf2/Core
-     export LMOD_CONFIG_DIR=$(testDir)/configDir
+     export LMOD_CONFIG_DIR=$(testDir)/ConfigDir
      runLmod load base acme                                 #15
      runLmod save                                           #16
      runLmod restore                                        #17
@@ -57,8 +57,16 @@ testdescript = {
      runLmod purge                                          #24
      runLmod load   acme                                    #25
      runLmod load   D/1.1                                   #26
-     runLmod load   D/1.3                                   #27
-     runLmod list                                           #28
+     runLmod load   D/3.2                                   #27
+     runLmod load   D/1.3                                   #28
+     runLmod list                                           #29
+     runLmod load   E                                       #30
+     runLmod load   E/3.3                                   #31
+     runLmod list                                           #32
+     runLmod load   F                                       #33
+     runLmod load   F/4.1.4                                 #34
+     runLmod load   F/3.1.4                                 #35
+     runLmod list                                           #36
 
    
 

@@ -717,20 +717,17 @@ function M.downstreamConflictCk(self, mnameIn)
    local snIn = mnameIn:sn()
    dbg.start{"MName:downstreamConflictCk(snIn:", snIn,")"}
 
-   local have_range = nil
-   local sn         = self:sn()
-   local result     = false
-   if (snIn ~= sn) then
-      return result
-   end
-
-   have_range, result = l_rangeCk(self, mnameIn:version(), mnameIn:userName(), false)
+   local have_range, result = l_rangeCk(self, mnameIn:version(), mnameIn:userName(), false)
    if (have_range) then
+      dbg.print{"2 result: ",result,"\n"}
       dbg.fini( "MName:downstreamConflictCk")
       return result
    end
 
-   if (self:userName() == snIn or extractVersion(userName, sn) == mnameIn:version()) then
+   result = false
+   dbg.print{"self: ",self,"\n"}
+   dbg.print{"mnameIn: ",mnameIn,"\n"}
+   if (self:userName() == snIn or extractVersion(self:userName(), snIn) == mnameIn:version()) then
       result = snIn
    end
 

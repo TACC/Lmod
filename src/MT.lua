@@ -1517,8 +1517,10 @@ function M.haveDSConflict(self, mnameIn)
    local cT    = self.__conflictT
    local MName = require("MName")
    for sn, vv in pairs(cT) do
+      dbg.print{"upstreamSn: ",sn,"\n"}
       for i = 1,#vv do
          local conflict_mname = vv[i]
+         dbg.print{"conflict_mname:userName(): ",conflict_mname:userName(),"\n"}
          local snUpstream  = conflict_mname:downstreamConflictCk(mnameIn)
          if (snUpstream) then
             return sn

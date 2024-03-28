@@ -1,0 +1,1 @@
+setenv("E",myModuleVersion())
