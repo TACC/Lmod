@@ -426,19 +426,19 @@ AC_ARG_WITH(pinVersions,
     PIN_VERSIONS="$withval"
     AC_DEFINE_UNQUOTED(PIN_VERSIONS, "$withval"))dnl
 
-AC_SUBST(LMOD_PERMANENT_CONFLICTS)
+AC_SUBST(LMOD_DOWNSTREAM_CONFLICTS)
 AC_ARG_WITH(downstreamConflicts,
     AS_HELP_STRING([--with-downstreamConflicts=ans],[module conflicts are remembered for later loads. [[no]]]),
-    LMOD_PERMANENT_CONFLICTS="$withval"
-    LMOD_PERMANENT_CONFLICTS=`echo $LMOD_PERMANENT_CONFLICTS | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
-    VALID_YN $LMOD_PERMANENT_CONFLICTS "--with-downstreamConflicts=ans: ans must be yes or no"
-    AC_MSG_RESULT([LMOD_PERMANENT_CONFLICTS=$with_downstreamConflicts])
-    AC_DEFINE_UNQUOTED(LMOD_PERMANENT_CONFLICTS, "$with_downstreamConflicts")dnl
+    LMOD_DOWNSTREAM_CONFLICTS="$withval"
+    LMOD_DOWNSTREAM_CONFLICTS=`echo $LMOD_DOWNSTREAM_CONFLICTS | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
+    VALID_YN $LMOD_DOWNSTREAM_CONFLICTS "--with-downstreamConflicts=ans: ans must be yes or no"
+    AC_MSG_RESULT([LMOD_DOWNSTREAM_CONFLICTS=$with_downstreamConflicts])
+    AC_DEFINE_UNQUOTED(LMOD_DOWNSTREAM_CONFLICTS, "$with_downstreamConflicts")dnl
     ,
     withval="no"
-    AC_MSG_RESULT([LMOD_PERMANENT_CONFLICTS=$withval])
-    LMOD_PERMANENT_CONFLICTS="$withval"
-    AC_DEFINE_UNQUOTED(LMOD_PERMANENT_CONFLICTS, "$withval"))dnl
+    AC_MSG_RESULT([LMOD_DOWNSTREAM_CONFLICTS=$withval])
+    LMOD_DOWNSTREAM_CONFLICTS="$withval"
+    AC_DEFINE_UNQUOTED(LMOD_DOWNSTREAM_CONFLICTS, "$withval"))dnl
 
 AC_SUBST(TMOD_PATH_RULE)
 AC_ARG_WITH(tmodPathRule,

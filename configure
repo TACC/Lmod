@@ -691,6 +691,7 @@ CACHED_LOADS
 LUA_INCLUDE
 TMOD_FIND_FIRST
 TMOD_PATH_RULE
+LMOD_DOWNSTREAM_CONFLICTS
 PIN_VERSIONS
 IGNORE_DIRS
 SETTARG
@@ -798,6 +799,7 @@ with_mpathSearch
 with_settarg
 with_ignoreDirs
 with_pinVersions
+with_downstreamConflicts
 with_tmodPathRule
 with_tmodFindFirst
 with_lua_include
@@ -1490,6 +1492,9 @@ Optional Packages:
   --with-ignoreDirs=ans   list of directories to ignore [[.svn,.git,.hg,.bzr]]
   --with-pinVersions=ans  Save/Restore will use the current version instead of
                           changing with the default.[[no]]
+  --with-downstreamConflicts=ans
+                          module conflicts are remembered for later loads.
+                          [[no]]
   --with-tmodPathRule=ans If path entry is already there then do not
                           append/prepend.[[no]]
   --with-tmodFindFirst=ans
@@ -4028,6 +4033,27 @@ else $as_nop
 printf "%s\n" "PIN_VERSIONS=$withval" >&6; }
     PIN_VERSIONS="$withval"
     printf "%s\n" "#define PIN_VERSIONS \"$withval\"" >>confdefs.h
+
+fi
+
+
+
+# Check whether --with-downstreamConflicts was given.
+if test ${with_downstreamConflicts+y}
+then :
+  withval=$with_downstreamConflicts; LMOD_DOWNSTREAM_CONFLICTS="$withval"
+    LMOD_DOWNSTREAM_CONFLICTS=`echo $LMOD_DOWNSTREAM_CONFLICTS | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $LMOD_DOWNSTREAM_CONFLICTS "--with-downstreamConflicts=ans: ans must be yes or no"
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: LMOD_DOWNSTREAM_CONFLICTS=$with_downstreamConflicts" >&5
+printf "%s\n" "LMOD_DOWNSTREAM_CONFLICTS=$with_downstreamConflicts" >&6; }
+    printf "%s\n" "#define LMOD_DOWNSTREAM_CONFLICTS \"$with_downstreamConflicts\"" >>confdefs.h
+
+else $as_nop
+  withval="no"
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: LMOD_DOWNSTREAM_CONFLICTS=$withval" >&5
+printf "%s\n" "LMOD_DOWNSTREAM_CONFLICTS=$withval" >&6; }
+    LMOD_DOWNSTREAM_CONFLICTS="$withval"
+    printf "%s\n" "#define LMOD_DOWNSTREAM_CONFLICTS \"$withval\"" >>confdefs.h
 
 fi
 
@@ -6867,6 +6893,7 @@ echo "LMOD_CONFIG_DIR............................................." : $LMOD_CONF
 echo "Use ~/.config/lmod directory only..........................." : $USE_DOT_CONFIG_DIR_ONLY
 echo "Display Extensions w/ module avail.........................." : $AVAIL_EXTENSIONS
 echo "Dynamic Spider Cache support................................" : $DYNAMIC_SPIDER_CACHE
+echo "Module Conflicts remembered................................." : $LMOD_DOWNSTREAM_CONFLICTS
 echo "Allow for extended default.(ml intel/17 #-> intel/17.0.4)..." : $EXTENDED_DEFAULT  #"
 
 
