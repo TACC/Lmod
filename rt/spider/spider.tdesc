@@ -132,7 +132,7 @@ testdescript = {
 
      unsetMT
 
-     rm $HOME/.cache/lmod/spiderT.lua
+     rm -f $HOME/.cache/lmod/spiderT.lua
      export MODULEPATH_ROOT2=$testDir/mf2
      export MODULEPATH=$MODULEPATH_ROOT2/Core
 
@@ -145,7 +145,7 @@ testdescript = {
      # Test writing of user cache
 
      export LMOD_SHORT_TIME=0
-     rm $HOME/.cache/lmod/*
+     rm -f $HOME/.cache/lmod/*
      runLmod      spider                                                      #71
 
 

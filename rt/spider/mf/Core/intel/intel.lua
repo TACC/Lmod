@@ -28,7 +28,7 @@ prepend_path('MANPATH',         '/vol/local/intel/idb/idb/man')
 prepend_path('MANPATH',        '/vol/local/intel/mkl/mkl/man')
 setenv(      'MKL_DIR',	       '/vol/local/intel/mkl/mkl/lib/lib')
 setenv(      'MKL_INCLUDE',    '/vol/local/intel/mkl/mkl/include')
-prepend_path('LD_LIBRARY_PATH','/vol/local/intel/mkl/mkl/lib/lib')
+prepend_path('LD_LIBRARY_PATH','/vol/local/intel/mkl/mkl/lib/lib:')
 
 family("compiler")
 
