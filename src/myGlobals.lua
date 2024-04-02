@@ -369,9 +369,8 @@ end
 ------------------------------------------------------------------------
 -- LMOD_IGNORE_CACHE:  Ignore user and system caches and rebuild if needed
 ------------------------------------------------------------------------
-cosmic:init{name    = "LMOD_IGNORE_CACHE",
-            lower   = true,
-            default = false}
+cosmic:init{name = "LMOD_IGNORE_CACHE",
+            yn   = "no"}
 
 ------------------------------------------------------------------------
 -- LMOD_CACHED_LOADS: Use spider cache on loads

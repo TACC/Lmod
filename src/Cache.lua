@@ -275,7 +275,7 @@ end
 local function l_readCacheFile(self, mpathA, spiderTFnA)
    dbg.start{"Cache l_readCacheFile(mpathA, spiderTFnA)"}
    local dirsRead     = 0
-   local ignore_cache = cosmic:value("LMOD_IGNORE_CACHE")
+   local ignore_cache = cosmic:value("LMOD_IGNORE_CACHE") == "yes"
    local tracing      = cosmic:value("LMOD_TRACING")
    if (optionTbl().ignoreCache or ignore_cache) then
       dbg.print{"LMOD_IGNORE_CACHE is true\n"}
@@ -403,7 +403,7 @@ local function l_writeUserSpiderCacheWhenNecessary(self, delta_t, mpathA, spider
    dbg.print{"self.dontWrite: ", self.dontWrite, ", r.dontWriteCache: ",
                 r.dontWriteCache, "\n"}
 
-   local dontWrite = self.dontWrite or r.dontWriteCache or cosmic:value("LMOD_IGNORE_CACHE")
+   local dontWrite = self.dontWrite or r.dontWriteCache or (cosmic:value("LMOD_IGNORE_CACHE") == "yes")
 
    if (tracing == "yes") then
       tracing_msg{"completed building cache. Saving cache: ",

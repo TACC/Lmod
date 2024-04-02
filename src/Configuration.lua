@@ -142,7 +142,7 @@ local function l_new(self)
    local hashsum_path      = cosmic:value("LMOD_HASHSUM_PATH")
    local have_term         = cosmic:value("LMOD_HAVE_LUA_TERM")
    local hiddenItalic      = cosmic:value("LMOD_HIDDEN_ITALIC")
-   local ignore_cache      = cosmic:value("LMOD_IGNORE_CACHE") and "yes" or "no"
+   local ignore_cache      = cosmic:value("LMOD_IGNORE_CACHE")
    local ksh_support       = cosmic:value("LMOD_KSH_SUPPORT")
    local ld_lib_path       = cosmic:value("LMOD_LD_LIBRARY_PATH") or "<empty>"
    local ld_preload        = cosmic:value("LMOD_LD_PRELOAD")      or "<empty>"
