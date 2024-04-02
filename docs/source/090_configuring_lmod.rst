@@ -25,7 +25,7 @@ any cache files and walks MODULEPATH instead.
 
 The following settings are considered "no".  Note that the string value
 is lowercased first, so NO, No, and nO are the same as no. ALL OTHER
-VALUES are treated as "yes".
+VALUES are treated as "yes" such as "1", or "on".
 
 #. export LMOD_IGNORE_CACHE=""
 #. export LMOD_IGNORE_CACHE=0
