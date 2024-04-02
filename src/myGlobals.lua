@@ -379,10 +379,10 @@ cosmic:init{name = "LMOD_CACHED_LOADS",
             sedV = "@cached_loads@",
             yn   = "no"}
 
-local ignore_cache = cosmic:value("LMOD_IGNORE_CACHE")
+local ignore_cache = cosmic:value("LMOD_IGNORE_CACHE") == "yes"
 local cached_loads = cosmic:value("LMOD_CACHED_LOADS")
 
-cosmic:assign("LMOD_CACHED_LOADS",ignore_cache and "no" or cached_loads)
+cosmic:assign("LMOD_CACHED_LOADS", ignore_cache and "no" or cached_loads)
 
 ------------------------------------------------------------------------
 -- LMOD_PAGER: Lmod will use this value of pager if set.
