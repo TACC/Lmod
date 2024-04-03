@@ -307,11 +307,12 @@ to see if the module(s) are available across all compilers and MPI implementatio
 %{border}
 The following dependent module(s) are not currently loaded: %{missing}
 %{border}
-]==],
+]==], 
      w_MPATH_Coll          = "The system MODULEPATH has changed: please rebuild your saved collection.\n",
      w_Mods_Not_Loaded     = "The following modules were not loaded: %{module_list}\n\n",
      w_No_Coll             = "No collection named \"%{collection}\" found.",
      w_No_dot_Coll         = "It is illegal to have a `.' in a collection name.  Please choose another name for: \"%{name}\".",
+     w_Possible_Bad_Dir    = "Adding \"%{dir}\" to $MODULEPATH. Did you mean: \"module %{dir} use\"?",
      w_SYS_DFLT_EMPTY      = [==[
 The system default contains no modules
   (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)

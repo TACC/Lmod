@@ -567,7 +567,7 @@ function conflict(...)
 end
 
 --------------------------------------------------------------------------
--- A load and prereq modifier.  It is used like this:
+-- A load, prereq and conflict modifier.  It is used like this:
 -- load(atleast("gcc","4.8"))
 -- @param m module name
 -- @param is the starting version
@@ -575,6 +575,20 @@ function atleast(m, is)
    dbg.start{"atleast(",m,", ",is,")"}
 
    local mname = MName:new("load", m, "atleast", is)
+
+   dbg.fini("atleast")
+   return mname
+end
+
+--------------------------------------------------------------------------
+-- A load, prereq and conflict modifier.  It is used like this:
+-- load(atleast("gcc","4.8"))
+-- @param m module name
+-- @param is the starting version
+function atmost(m, ie)
+   dbg.start{"atmost(",m,", ",ie,")"}
+
+   local mname = MName:new("load", m, "atmost", false, ie)
 
    dbg.fini("atleast")
    return mname

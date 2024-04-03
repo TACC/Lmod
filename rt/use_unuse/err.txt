@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.9  2022-02-02 11:25 -04:00
+Modules based on Lua: Version 8.7.37   2024-03-17 13:11 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -38,3 +38,13 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/use_
 step 9
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing unuse ProjectDIR/rt/use_unuse/mf/RTM2
 ===========================
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use --help
+===========================
+Lmod Warning: Adding "--help" to $MODULEPATH. Did you mean: "module --help use"?
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use -h
+===========================
+Lmod Warning: Adding "-h" to $MODULEPATH. Did you mean: "module -h use"?

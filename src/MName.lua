@@ -79,6 +79,7 @@ function M.new(self, sType, name, action, is, ie)
          latest  = Latest,
          between = Between,
          atleast = Between,
+         atmost  = Between,
       }
    end
 

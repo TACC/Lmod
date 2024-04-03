@@ -1173,11 +1173,11 @@ end
 --  possibly reloaded if a module.
 function Use(...)
    dbg.start{"Use(", concatTbl({...},", "),")"}
-   local mt  = FrameStk:singleton():mt()
-   local a = {}
-   local mcp_old = mcp
-   local mcp     = MCP
-   local op = mcp.prepend_path
+   local mt       = FrameStk:singleton():mt()
+   local a        = {}
+   local mcp_old  = mcp
+   local mcp      = MCP
+   local op       = mcp.prepend_path
 
    local argA     = pack(...)
    local iarg     = 1
@@ -1199,6 +1199,11 @@ function Use(...)
       iarg = iarg + 1
    end
    for _,v in ipairs(a) do
+      -- Produce warning if leading minus sign(s) are found.
+      if (v:find("^-+")) then
+         LmodWarning{msg="w_Possible_Bad_Dir",dir=v}
+      end
+
       if (v:sub(1,1) ~= '/') then
          local old = v
          -- If relative convert to try to convert to absolute path
