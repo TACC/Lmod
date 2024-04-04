@@ -63,6 +63,9 @@ local function l_lessthan_equal(a,b)
    return a <= b
 end
 
+local s_rangeFuncT = { ["<="] = {func = l_lessthan_equal, name = "<="},
+                       ["<"]  = {func = l_lessthan,       name = "<"},
+                     }
 
 
 function M.new(self, sType, name, action, is, ie)
@@ -105,17 +108,17 @@ function M.new(self, sType, name, action, is, ie)
    o.__wV         = false
    o.__waterMark  = "MName"
    o.__action     = action
-   o.__range_fnA  = { l_lessthan_equal, l_lessthan_equal }
+   o.__range_fnA  = { s_rangeFuncT["<="], s_rangeFuncT["<="]}
    o.__show_range = { is, ie}
    if (is and (is:sub(1,1) == "<" or is:sub(-1) == "<")) then
-      o.__range_fnA[1]  = l_lessthan
+      o.__range_fnA[1]  = s_rangeFuncT["<"]
       is = is:gsub("<","")
    elseif (is and (is:sub(1,1) == ">" or is:sub(-1) == ">")) then
-      o.__range_fnA[1]  = l_lessthan
+      o.__range_fnA[1]  = s_rangeFuncT["<"]
       is = is:gsub(">","")
    end
    if (ie and (ie:sub(1,1) == "<" or ie:sub(-1) == "<")) then
-      o.__range_fnA[2]  = l_lessthan
+      o.__range_fnA[2]  = s_rangeFuncT["<"]
       ie = ie:gsub("<","")
    end
    o.__is         = is 
@@ -531,8 +534,8 @@ function M.find_between(self, fileA)
    local version    = false
    local lowerBound = self.__range[1]
    local upperBound = self.__range[2]
-   local lowerFn    = self.__range_fnA[1]
-   local upperFn    = self.__range_fnA[2]
+   local lowerFn    = self.__range_fnA[1].func
+   local upperFn    = self.__range_fnA[2].func
 
    local pV         = lowerBound
    local wV         = " "  -- this is less than the lower possible weight.
@@ -576,6 +579,7 @@ local function l_rangeCk(self, version, result_if_found, result_if_not_found)
    local have_range = false
    local result     = result_if_not_found
    if (not self.__have_range) then
+      dbg.print{"no range\n"}
       dbg.fini("l_rangeCk")
       return have_range, result
    end
@@ -586,7 +590,13 @@ local function l_rangeCk(self, version, result_if_found, result_if_not_found)
    local lowerFn    = self.__range_fnA[1]
    local upperFn    = self.__range_fnA[2]
    local pV         = parseVersion(version)
-   if (lowerFn(lowerBound, pV) and upperFn(pV, upperBound)) then
+   dbg.print{"lowerBound: ",lowerBound,"\n"}
+   dbg.print{"upperBound: ",upperBound,"\n"}
+   dbg.print{"pV:         ",pV,"\n"}
+   dbg.print{"lowerFn: ",lowerFn.name,", lowerFn.func(lowerBound, pV): ",lowerFn.func(lowerBound, pV),"\n"}
+   dbg.print{"upperFn: ",upperFn.name,", upperFn.func(pV, upperBound): ",upperFn.func(pV, upperBound),"\n"}
+
+   if (lowerFn.func(lowerBound, pV) and upperFn.func(pV, upperBound)) then
       result = result_if_found
    end
    
@@ -693,7 +703,7 @@ function M.conflictCk(self, mt)
    local userName = false
    local sn       = self:sn()
    if (not (sn and mt:have(sn,"active"))) then
-      --dbg.print{"1) userName: ",userName,"\n"}
+      dbg.print{"1) userName: ",userName,"\n"}
       dbg.fini("MName:conflictCk")
       return userName
    end
