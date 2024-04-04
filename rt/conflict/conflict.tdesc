@@ -74,8 +74,11 @@ testdescript = {
      runLmod unload acme                                    #41
      runLmod load   D/1.3                                   #42
      runLmod list                                           #43
-     runLmod load   G/3.1.4                                 #44
-     runLmod load   G/3.1.5                                 #45
+     runLmod unload D                                       #44
+     runLmod load   acme                                    #45
+     runLmod load   G/3.1.4                                 #46
+     runLmod load   G/3.1.5                                 #47
+     runLmod list                                           #48
 
 
      

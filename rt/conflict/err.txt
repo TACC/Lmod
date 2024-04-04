@@ -80,36 +80,59 @@ While processing the following module(s):
     y/1.0            ProjectDIR/rt/conflict/mf/y/1.0.lua
 ===========================
 step 14
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load e/1.0
 ===========================
 ===========================
 step 15
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load cc
+===========================
+Lmod has detected the following error: Cannot load module "cc" because these module(s) are loaded:
+   e/1.0
+While processing the following module(s):
+    Module fullname  Module Filename
+    cc               ProjectDIR/rt/conflict/mf/cc.lua
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load e/2.0
+===========================
+The following have been reloaded with a version change:
+  1) e/1.0 => e/2.0
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load cc
+===========================
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 19
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load base acme
 ===========================
 ===========================
-step 16
+step 20
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing save
 ===========================
 Saved current collection of modules to: "default"
 ===========================
-step 17
+step 21
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
 ===========================
 Restoring modules from user's default
 ===========================
-step 18
+step 22
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload acme
 ===========================
 ===========================
-step 19
+step 23
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload base
 ===========================
 ===========================
-step 20
+step 24
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load D/1.3
 ===========================
 ===========================
-step 21
+step 25
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load acme
 ===========================
 Lmod has detected the following error: Cannot load module "acme/1.0" because these module(s) are loaded:
@@ -118,92 +141,130 @@ While processing the following module(s):
     Module fullname  Module Filename
     acme/1.0         ProjectDIR/rt/conflict/mf2/Core/acme/1.0.lua
 ===========================
-step 22
+step 26
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load D/1.1
 ===========================
 The following have been reloaded with a version change:
   1) D/1.3 => D/1.1
 ===========================
-step 23
+step 27
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load acme
 ===========================
 ===========================
-step 24
+step 28
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
-step 25
+step 29
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load acme
 ===========================
 ===========================
-step 26
+step 30
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load D/1.1
 ===========================
 ===========================
-step 27
+step 31
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load D/3.2
 ===========================
 The following have been reloaded with a version change:
   1) D/1.1 => D/3.2
 ===========================
-step 28
+step 32
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load D/1.3
 ===========================
 Lmod has detected the following error: Cannot load module "D/1.3" because this module set a conflict: "acme/1.0"
+While processing the following module(s):
+    Module fullname  Module Filename
+    D/1.3            ProjectDIR/rt/conflict/mf2/Core/D/1.3.lua
 ===========================
-step 29
+step 33
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) acme/1.0   2) D/3.2
 ===========================
-step 30
+step 34
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load E
 ===========================
 Lmod has detected the following error: Cannot load module "E" because this module set a conflict: "acme/1.0"
+While processing the following module(s):
+    Module fullname  Module Filename
+    E/3.3            ProjectDIR/rt/conflict/mf2/Core/E/3.3.lua
 ===========================
-step 31
+step 35
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load E/3.3
 ===========================
 Lmod has detected the following error: Cannot load module "E/3.3" because this module set a conflict: "acme/1.0"
-===========================
-step 32
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
-===========================
-Currently Loaded Modules:
-  1) acme/1.0   2) D/3.2
-===========================
-step 33
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing load F
-===========================
-===========================
-step 34
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing load F/4.1.4
-===========================
-===========================
-step 35
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing load F/3.1.4
-===========================
-Lmod has detected the following error: Cannot load module "F/3.1.4" because this module set a conflict: "acme/1.0"
+While processing the following module(s):
+    Module fullname  Module Filename
+    E/3.3            ProjectDIR/rt/conflict/mf2/Core/E/3.3.lua
 ===========================
 step 36
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) acme/1.0   2) D/3.2   3) F/4.1.4
+  1) acme/1.0   2) D/3.2
 ===========================
 step 37
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload acme
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load F
 ===========================
 ===========================
 step 38
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load F/4.1.4
+===========================
+===========================
+step 39
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load F/3.1.4
+===========================
+Lmod has detected the following error: Cannot load module "F/3.1.4" because this module set a conflict: "acme/1.0"
+While processing the following module(s):
+    Module fullname  Module Filename
+    F/3.1.4          ProjectDIR/rt/conflict/mf2/Core/F/3.1.4.lua
+===========================
+step 40
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) acme/1.0   2) D/3.2   3) F/4.1.4
+===========================
+step 41
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload acme
+===========================
+===========================
+step 42
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load D/1.3
 ===========================
 The following have been reloaded with a version change:
   1) D/3.2 => D/1.3
 ===========================
-step 39
+step 43
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) F/4.1.4   2) D/1.3
+===========================
+step 44
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload D
+===========================
+===========================
+step 45
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load acme
+===========================
+===========================
+step 46
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load G/3.1.4
+===========================
+Lmod has detected the following error: Cannot load module "G/3.1.4" because this module set a conflict: "acme/1.0"
+While processing the following module(s):
+    Module fullname  Module Filename
+    G/3.1.4          ProjectDIR/rt/conflict/mf2/Core/G/3.1.4.lua
+===========================
+step 47
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load G/3.1.5
+===========================
+===========================
+step 48
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) F/4.1.4   2) acme/1.0   3) G/3.1.5

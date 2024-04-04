@@ -728,6 +728,8 @@ function M.downstreamConflictCk(self, mnameIn)
    local snIn = mnameIn:sn()
    dbg.start{"MName:downstreamConflictCk(snIn:", snIn,")"}
 
+   dbg.print{"self:userName(): ", self:userName(),"\n"}
+
    local have_range, result = l_rangeCk(self, mnameIn:version(), mnameIn:userName(), false)
    if (have_range) then
       dbg.print{"2 result: ",result,"\n"}
@@ -736,8 +738,8 @@ function M.downstreamConflictCk(self, mnameIn)
    end
 
    result = false
-   dbg.print{"self: ",self,"\n"}
-   dbg.print{"mnameIn: ",mnameIn,"\n"}
+   --dbg.print{"self: ",self,"\n"}
+   --dbg.print{"mnameIn: ",mnameIn,"\n"}
    if (self:userName() == snIn or extractVersion(self:userName(), snIn) == mnameIn:version()) then
       result = snIn
    end

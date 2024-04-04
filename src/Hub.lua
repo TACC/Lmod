@@ -318,17 +318,6 @@ function M.load(self, mA)
          local userName   = mname:userName()
          mt               = frameStk:mt()
 
-         dbg.print{"dsConflicts: ",dsConflicts,"\n"}
-         if (dsConflicts == "yes") then
-            local snUpstream = mt:haveDSConflict(mname)
-            if (snUpstream) then
-               local fullNameUpstream = mt:fullName(snUpstream)
-               LmodError{msg="e_Conflict_Downstream", fullNameUpstream = fullNameUpstream,
-                         userName=userName}
-            end
-         end
-
-
          dbg.print{"Hub:load i: ",i,", userName: ",userName,"\n",}
 
          local sn         = mname:sn()
@@ -396,6 +385,17 @@ function M.load(self, mA)
             frameStk:push(mname)
             mt = frameStk:mt()
             mt:add(mname,"pending")
+            dbg.print{"dsConflicts: ",dsConflicts,"\n"}
+            if (dsConflicts == "yes") then
+               local snUpstream = mt:haveDSConflict(mname)
+               if (snUpstream) then
+                  local fullNameUpstream = mt:fullName(snUpstream)
+                  LmodError{msg="e_Conflict_Downstream", fullNameUpstream = fullNameUpstream,
+                            userName=userName}
+               end
+            end
+
+
             local status = loadModuleFile{file = fn, shell = shellNm, mList = mList, reportErr = true}
             mt = frameStk:mt()
 
