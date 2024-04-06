@@ -460,7 +460,7 @@ end
 ------------------------------------------------------------
 -- Get the table of modulerc files with proper weights
 
-s_fnIgnorePatternsA = { "^.*~", "^#.*", "^%.#.*", "^%..*%.swp"}
+local s_fnIgnorePatternsA = { "^.*~", "^#.*", "^%.#.*", "^%..*%.swp"}
 
 
 function getModuleRCT(remove_MRC_home)
