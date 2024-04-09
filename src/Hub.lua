@@ -116,7 +116,7 @@ function M.access(self, ...)
    local result, t
 
    local argA = pack(...)
-   if (optionTbl.location) then
+   if (optionTbl.location or optionTbl.terse) then
       local userName = argA[1]
       local mname    = mt:have(userName,"any") and MName:new("mt",userName)
                                                or  MName:new("load",userName)

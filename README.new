@@ -141,3 +141,6 @@ Lmod 8.7+
 W.I.P:
    (8.7.38) * Issue #697: Add warning if doing "module use --help"
             * Make LMOD_IGNORE_CACHE use "yes/no" env var setting system.
+            * Make module --terse show <module> do the same as module --loc show <module>.
+              Namely print the location of the module.
+              
