@@ -143,4 +143,4 @@ W.I.P:
             * Make LMOD_IGNORE_CACHE use "yes/no" env var setting system.
             * Make module --terse show <module> do the same as module --loc show <module>.
               Namely print the location of the module.
-              
+            * Support for "module --terse spider phdf5/1.12.2" that just prints the module in the hierarchy.
