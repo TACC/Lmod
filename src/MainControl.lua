@@ -976,6 +976,52 @@ function M.depends_on(self, mA)
 end
 
 -------------------------------------------------------------------
+-- depends_on_any() a list of modules.  This is short hand for:
+--
+--   if (isloaded(any("mod1, mod2, modN"))) then done end
+--   if no module loadable error.
+--
+
+function M.depends_on_any(self, mA) 
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"MainControl:depends_on_any(mA={"..s.."})"}
+   end
+
+   local mt         = FrameStk:singleton():mt()
+   local mB = {}
+
+   for i = 1,#mA do
+      local mname = mA[i]
+      if (mname:isloaded()) then
+         mt:safely_incr_ref_count(mname)
+         dbg.fini("MainControl:depends_on_any")
+         return {}
+      elseif (mname:sn()) then
+         mB[#mB + 1] = mname
+      end
+   end 
+
+   if (next(mB) == nil) then 
+      local s = mAList(mA)
+      LmodError{msg="e_Failed_depends_any", module_list=s}
+   end
+
+ 
+   local mC = {mB[1]}
+   local mname = mC[1]
+   mname:set_depends_on_flag(true)
+
+   l_registerUserLoads(mC)
+   local a = self:load(mC)
+
+   self:registerDependencyCk()
+
+   dbg.fini("MainControl:depends_on_any")
+   return a
+end
+
+-------------------------------------------------------------------
 -- forgo a list of modules.  This is the reverse of depends_on()
 --
 --   if (not isloaded("name")) then load("name") end

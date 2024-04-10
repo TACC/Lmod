@@ -58,6 +58,7 @@ M.color_banner         = MainControl.color_banner
 M.complete             = MainControl.uncomplete
 M.conflict             = MainControl.removeConflict
 M.depends_on           = MainControl.forgo
+M.depends_on_any       = MainControl.forgo_any
 M.error                = MainControl.warning
 M.execute              = MainControl.execute
 M.extensions           = MainControl.quiet

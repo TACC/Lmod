@@ -851,6 +851,14 @@ function depends_on(...)
    dbg.fini("depends_on")
 end
 
+function depends_on_any(...)
+   dbg.start{"depends_on_any(",l_concatTbl({...},", "),")"}
+   if (not l_validateModules("depends_on_any",...)) then return {} end
+
+   local b = mcp:depends_on_any(MName:buildA(mcp:MNameType(),...))
+   dbg.fini("depends_on_any")
+end
+
 function extensions(...)
    dbg.start{"extensions(",l_concatTbl({...},", "),")"}
    if (not l_validateStringArgs("extensions",...)) then return {} end
