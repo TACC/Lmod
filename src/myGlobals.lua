@@ -731,6 +731,15 @@ cosmic:init{name    = "LMOD_HASHSUM_PATH",
             default = HashSum}
 
 ------------------------------------------------------------------------
+-- MODULES_AUTO_HANDLING: If true the make prereq -> depends_on
+--                        prereq_any -> depends_on_any
+------------------------------------------------------------------------
+
+cosmic:init{name    = "MODULES_AUTO_HANDLING",
+            sedV    = "@modules_auto_handling@",
+            default = "no"}
+
+------------------------------------------------------------------------
 -- PATH_TO_LUA
 ------------------------------------------------------------------------
 cosmic:init{name    = "PATH_TO_LUA",
