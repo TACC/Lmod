@@ -245,10 +245,10 @@ the configuration option which will set the action.
   the most recent one.
 
 Configuration or cosmic:assign() at startup
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**LMOD_PERMANENT_CONFLICTS**:
-  [yes/no, default: no, --with-permanentConflicts] If yes then
+**LMOD_DOWNSTREAM_CONFLICTS**:
+  [yes/no, default: no, --with-downstreamConflicts] If yes then
   the conflict() function are also remembered to block future module
   loads. 
 
