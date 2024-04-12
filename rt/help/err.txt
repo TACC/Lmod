@@ -263,6 +263,7 @@ lmod_config.lua location (LMOD_CONFIG_LOCATION)               no
 LUA_CPATH                                                     @sys_lua_cpath@
 LUA_PATH                                                      @sys_lua_path@
 System lua-term (LMOD_HAVE_LUA_TERM)                          no
+Modules Auto Handling (MODULES_AUTO_HANDLING)                 no
 avail: Include modulepath dir (LMOD_MPATH_AVAIL)              no
 MODULEPATH_INIT (LMOD_MODULEPATH_INIT)                        @PKG@/init/.modulespath -> <empty>
 MODULEPATH_ROOT (MODULEPATH_ROOT)

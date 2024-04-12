@@ -49,8 +49,6 @@ local dbg         = require("Dbg"):dbg()
 local sort        = table.sort
 local s_findT     = false
 
-local exact_match = cosmic:value("LMOD_EXACT_MATCH")
-
 function M.className(self)
    return self.my_name
 end
@@ -70,6 +68,8 @@ local s_rangeFuncT = { ["<="] = {func = l_lessthan_equal, name = "<="},
 
 function M.new(self, sType, name, action, is, ie)
    --dbg.start{"Mname:new(",sType,")"}
+
+   local exact_match = cosmic:value("LMOD_EXACT_MATCH")
 
    if (not s_findT) then
       local Match   = require("MN_Match")

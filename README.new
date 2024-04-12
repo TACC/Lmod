@@ -144,3 +144,5 @@ W.I.P:
             * Make module --terse show <module> do the same as module --loc show <module>.
               Namely print the location of the module.
             * Support for "module --terse spider phdf5/1.12.2" that just prints the module in the hierarchy.
+            * Move almost almost all cosmic:value() calls to inside function not at routine top-level.
+            

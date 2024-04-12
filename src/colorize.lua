@@ -59,13 +59,13 @@ local colorT = {
 local cosmic    = require("Cosmic"):singleton()
 local concatTbl = table.concat
 local s_colorize_kind = "unknown"
-local hiddenItalic    = cosmic:value("LMOD_HIDDEN_ITALIC")
 ------------------------------------------------------------------------
 -- Takes an array of strings and wraps the ANSI color start and
 -- stop and produces a single string.
 -- @param color The key name for the *colorT* hash table.
 function full_colorize(color, ... )
-   local argA = pack(...)
+   local argA         = pack(...)
+   local hiddenItalic = cosmic:value("LMOD_HIDDEN_ITALIC")
    if (color == nil or argA.n < 1) then
       return plain(color, ...)
    end
@@ -111,11 +111,13 @@ function colorize_kind()
    return s_colorize_kind
 end
 
-local lmod_colorize = cosmic:value("LMOD_COLORIZE")
-if (lmod_colorize == "force" or (connected2Term() and lmod_colorize == "yes" )) then
-   s_colorize_kind = "full"
-   _G.colorize     = full_colorize
-else
-   s_colorize_kind = "plain"
-   _G.colorize     = plain
+function colorize_init()
+   local lmod_colorize = cosmic:value("LMOD_COLORIZE")
+   if (lmod_colorize == "force" or (connected2Term() and lmod_colorize == "yes" )) then
+      s_colorize_kind = "full"
+      _G.colorize     = full_colorize
+   else
+      s_colorize_kind = "plain"
+      _G.colorize     = plain
+   end
 end

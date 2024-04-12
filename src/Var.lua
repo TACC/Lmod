@@ -57,7 +57,6 @@ local min             = math.min
 local max             = math.max
 local huge            = math.huge
 local setenv_posix    = posix.setenv
-local tmod_path_rule  = cosmic:value("LMOD_TMOD_PATH_RULE")
 local ln10_inv        = 1.0/log(10.0)
 --------------------------------------------------------------------------
 -- Rebuild the path-like priority table.  So for a PATH with priorities
@@ -310,8 +309,9 @@ end
 -- @param nodups True if no duplications are allowed.
 -- @param priority The priority value.
 local function l_insertFunc(vv, idx, isPrepend, nodups, priority)
-   local num  = vv.num
-   local idxA = vv.idxA
+   local tmod_path_rule = cosmic:value("LMOD_TMOD_PATH_RULE")
+   local num            = vv.num
+   local idxA           = vv.idxA
    if (nodups or abs(priority) > 0) then
       local oldPriority = 0
       if (next(idxA) ~= nil) then
