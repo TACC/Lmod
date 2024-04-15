@@ -99,7 +99,12 @@ local function l_extract_Lmod_var_table(self, envName)
 end
 
 
-
+--------------------------------------------------------------------------
+-- This function is called to let Lmod know that the MODULEPATH
+-- has changed.
+-- @param name The variable name
+-- @param adding True if adding to path.
+-- @param pathEntry The new value.
 local function l_dynamicMP(name, value, adding)
    dbg.start{'l_dynamicMP(name: "',name,'", value: ',value,", adding:",adding,")"}
    local mt = require("FrameStk"):singleton():mt()
@@ -144,17 +149,6 @@ local function l_processDynamicVars(name, value, adding)
    dbg.fini("l_processDynamicVars")
 end
 
-
---------------------------------------------------------------------------
--- This function is called to let Lmod know that the MODULEPATH
--- has changed.
--- @param name The variable name
--- @param adding True if adding to path.
--- @param pathEntry The new value.
---local function l_processDynamicVars(name, value, adding)
---   if (name == ModulePath) then
---   end
---end
 
 --------------------------------------------------------------------------
 -- The ctor uses this routine to initialize the variable to be
