@@ -98,30 +98,63 @@ local function l_extract_Lmod_var_table(self, envName)
    return t
 end
 
+
+
+local function l_dynamicMP(name, value, adding)
+   dbg.start{'l_dynamicMP(name: "',name,'", value: ',value,", adding:",adding,")"}
+   local mt = require("FrameStk"):singleton():mt()
+   mt:set_MPATH_change_flag()
+   mt:updateMPathA(value)
+
+   -- Check to see if there are any currently loaded or pending modules 
+   -- before looking to rebuild the caches.
+   if (not mt:empty()) then
+      local cached_loads = cosmic:value("LMOD_CACHED_LOADS")
+      local spider_cache = (cached_loads ~= 'no')
+      local moduleA      = require("ModuleA"):singleton{spider_cache = spider_cache}
+      moduleA:update{spider_cache = spider_cache}
+   end
+   dbg.fini("l_dynamicMP")
+end
+
+local function l_dynamicMRC(name, value, adding)
+   dbg.start{'l_dynamicMRC(name: "',name,'", value: ',value,", adding:",adding,")"}
+   local MRC = require("MRC")
+   MRC:__clear()
+   local mrc = MRC:singleton()
+   dbg.fini("l_dynamicMRC")
+end
+
+
+local s_dispatchT = {
+   MODULEPATH        = l_dynamicMP,
+   --
+   LMOD_MODULERC     = l_dynamicMRC,
+   LMOD_MODULERCFILE = l_dynamicMRC,
+   MODULERCFILE      = l_dynamicMRC,
+}
+
+local function l_processDynamicVars(name, value, adding)
+   local func = s_dispatchT[name]
+   if (not func) then
+      return
+   end
+   dbg.start{'l_processDynamicVars(name: "',name,'", value: ',value,", adding:",adding,")"}
+   func(name, value,adding)
+   dbg.fini("l_processDynamicVars")
+end
+
+
 --------------------------------------------------------------------------
 -- This function is called to let Lmod know that the MODULEPATH
 -- has changed.
 -- @param name The variable name
 -- @param adding True if adding to path.
 -- @param pathEntry The new value.
-local function l_processDynamicVars(name, value, adding)
-   if (name == ModulePath) then
-      dbg.start{"l_processDynamicVars(\"MODULEPATH\", value: ",value,", adding:",adding,")"}
-      local mt = require("FrameStk"):singleton():mt()
-      mt:set_MPATH_change_flag()
-      mt:updateMPathA(value)
-
-      -- Check to see if there are any currently loaded or pending modules 
-      -- before looking to rebuild the caches.
-      if (not mt:empty()) then
-         local cached_loads = cosmic:value("LMOD_CACHED_LOADS")
-         local spider_cache = (cached_loads ~= 'no')
-         local moduleA      = require("ModuleA"):singleton{spider_cache = spider_cache}
-         moduleA:update{spider_cache = spider_cache}
-      end
-      dbg.fini("l_processDynamicVars")
-   end
-end
+--local function l_processDynamicVars(name, value, adding)
+--   if (name == ModulePath) then
+--   end
+--end
 
 --------------------------------------------------------------------------
 -- The ctor uses this routine to initialize the variable to be
