@@ -104,9 +104,9 @@ end
 -- @param name The variable name
 -- @param adding True if adding to path.
 -- @param pathEntry The new value.
-local function l_chkMP(name, value, adding)
+local function l_processDynamicVars(name, value, adding)
    if (name == ModulePath) then
-      dbg.start{"l_chkMP(\"MODULEPATH\", value: ",value,", adding:",adding,")"}
+      dbg.start{"l_processDynamicVars(\"MODULEPATH\", value: ",value,", adding:",adding,")"}
       local mt = require("FrameStk"):singleton():mt()
       mt:set_MPATH_change_flag()
       mt:updateMPathA(value)
@@ -119,7 +119,7 @@ local function l_chkMP(name, value, adding)
          local moduleA      = require("ModuleA"):singleton{spider_cache = spider_cache}
          moduleA:update{spider_cache = spider_cache}
       end
-      dbg.fini("l_chkMP")
+      dbg.fini("l_processDynamicVars")
    end
 end
 
@@ -296,7 +296,7 @@ function M.remove(self, value, where, priority, nodups, force)
    self.value = v
    if (not v) then v = nil end
    setenv_posix(self.name, v, true)
-   l_chkMP(self.name, v, adding)
+   l_processDynamicVars(self.name, v, adding)
 end
 
 --------------------------------------------------------------------------
@@ -394,7 +394,7 @@ function M.prepend(self, value, nodups, priority)
    if (not v) then v = nil end
    setenv_posix(self.name, v, true)
 
-   l_chkMP(self.name, v, adding)
+   l_processDynamicVars(self.name, v, adding)
 end
 
 --------------------------------------------------------------------------
@@ -444,7 +444,7 @@ function M.append(self, value, nodups, priority)
    self.value  = value
    if (not value) then value = nil end
    setenv_posix(name, value, true)
-   l_chkMP(name, value, adding)
+   l_processDynamicVars(name, value, adding)
 end
 
 function M.complete(self, args)
@@ -470,7 +470,7 @@ function M.set(self,value)
    if (not value) then value = nil end
    setenv_posix(self.name, value, true)
    local adding = true
-   l_chkMP(self.name, value, adding)
+   l_processDynamicVars(self.name, value, adding)
 end
 
 --------------------------------------------------------------------------
@@ -520,7 +520,7 @@ function M.pop(self)
    if (not v) then v = nil end
    setenv_posix(self.name, v, true)
    local adding = false
-   l_chkMP(self.name, v, adding)
+   l_processDynamicVars(self.name, v, adding)
    dbg.print{"result: ",result,"\n"}
    dbg.fini("Var.pop")
    return result
@@ -588,7 +588,7 @@ function M.unset(self)
    self.type  = 'var'
    setenv_posix(self.name, nil, true)
    local adding = false
-   l_chkMP(self.name, nil, adding)
+   l_processDynamicVars(self.name, nil, adding)
 end
 
 
