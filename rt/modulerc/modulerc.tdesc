@@ -134,6 +134,19 @@ EOF
      export LMOD_MODULERC=$(testDir)/modulerc.d
      runLmod    avail                                  #46
 
+     runLmod    purge                                  #47
+     unsetMT
+     export MODULEPATH_ROOT=$(testDir)/mfA
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+     runLmod    avail                                  #48
+     runLmod    load newDefaults                       #49
+     runLmod    list                                   #50
+     runLmod    avail                                  #51
+     
+
+
+
+
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
