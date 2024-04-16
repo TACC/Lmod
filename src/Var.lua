@@ -124,6 +124,7 @@ end
 
 local function l_dynamicMRC(name, value, adding)
    dbg.start{'l_dynamicMRC(name: "',name,'", value: ',value,", adding:",adding,")"}
+   cosmic:assign("LMOD_MODULERC",value)
    local MRC = require("MRC")
    MRC:__clear()
    local mrc = MRC:singleton()
@@ -133,18 +134,18 @@ end
 
 local s_dispatchT = {
    MODULEPATH        = l_dynamicMP,
-   --
    LMOD_MODULERC     = l_dynamicMRC,
    LMOD_MODULERCFILE = l_dynamicMRC,
    MODULERCFILE      = l_dynamicMRC,
 }
 
 local function l_processDynamicVars(name, value, adding)
+   dbg.start{'l_processDynamicVars(name: "',name,'", value: ',value,", adding:",adding,")"}
    local func = s_dispatchT[name]
    if (not func) then
+      dbg.fini("l_processDynamicVars")
       return
    end
-   dbg.start{'l_processDynamicVars(name: "',name,'", value: ',value,", adding:",adding,")"}
    func(name, value,adding)
    dbg.fini("l_processDynamicVars")
 end

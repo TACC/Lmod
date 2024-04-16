@@ -464,11 +464,12 @@ s_fnIgnorePatternsA = { "^.*~", "^#.*", "^%.#.*", "^%..*%.swp"}
 
 
 function getModuleRCT(remove_MRC_home)
-   dbg.start{"getModuleRCT(remove_MRC_home)"}
+   dbg.start{"getModuleRCT(remove_MRC_home: ",remove_MRC_home,")"}
    local A            = {}
    local MRC_system   = cosmic:value("LMOD_MODULERC")
    local MRC_home     = pathJoin(getenv("HOME"), ".modulerc")
    local MRC_home_lua = pathJoin(getenv("HOME"), ".modulerc.lua")
+   dbg.print{"MRC_system: ",MRC_system,"\n"}
 
    if (MRC_system) then
       local a = {}
@@ -484,7 +485,10 @@ function getModuleRCT(remove_MRC_home)
                   end
                end
                if (valid) then
-                  a[#a+1] = pathJoin(n, f)
+                  local fullPath = pathJoin(n, f)
+                  if (isFile(fullPath) and access(fullPath,"r")) then
+                     a[#a+1] = fullPath
+                  end
                end
             end
          elseif (isFile(n) and access(n,"r")) then
