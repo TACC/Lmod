@@ -128,6 +128,15 @@ local function l_dynamicMRC(name, value, adding)
    local MRC = require("MRC")
    MRC:__clear()
    local mrc = MRC:singleton()
+   local moduleA = require("ModuleA"):singleton{reset = true, spider_cache = true}
+   if (dbg.active()) then
+      local mrcT, mrcMpathT = mrc:extract()
+      local fullNameDfltT   = mrc:fullNameDfltT()
+      dbg.printT("mrcT",          mrcT)
+      dbg.printT("mrcMpathT",     mrcMpathT)
+      dbg.printT("fullNameDfltT", fullNameDfltT)
+   end
+
    dbg.fini("l_dynamicMRC")
 end
 
