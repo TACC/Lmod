@@ -9,7 +9,6 @@ if [ $osType = "Darwin" ]; then
   if type -p gdate > /dev/null 2>&1; then
     my_cmd=gdate
   else
-    my_cmd=date
     arg="${arg%% %:z}"
   fi
 fi
