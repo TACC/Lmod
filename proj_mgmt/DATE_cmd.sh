@@ -13,5 +13,8 @@ if [ $osType = "Darwin" ]; then
   fi
 fi
 
-$my_cmd "$arg"
+SOURCE_DATE_EPOCH="${SOURCE_DATE_EPOCH:-$($my_cmd +%s)}"
+$my_cmd -d "@$SOURCE_DATE_EPOCH" "$arg" 2>/dev/null ||
+  $my_cmd -r "$SOURCE_DATE_EPOCH" "$arg" 2>/dev/null ||
+  $my_cmd "$arg"
 
