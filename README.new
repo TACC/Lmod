@@ -138,3 +138,5 @@ Lmod 8.7+
    (8.7.37) * Issue #698: Use the correct mname from Framestack when unregistering a "break" module	    
             * Ignore backup files (*~ .*.swp etc) files in a modulerc.d directory.
             * Issue #699: Fixed buildVersion_src to deal with (HEAD detached at x.y.z)
+W.I.P:
+   (8.7.38) * PR: #702: Report build time in UTC when $SOURCE_DATE_EPOCH is set
