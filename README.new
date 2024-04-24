@@ -145,4 +145,4 @@ W.I.P:
               Namely print the location of the module.
             * Support for "module --terse spider phdf5/1.12.2" that just prints the module in the hierarchy.
             * Move almost almost all cosmic:value() calls to inside function not at routine top-level.
-            
+            * PR: #702: Report build time in UTC when $SOURCE_DATE_EPOCH is set
