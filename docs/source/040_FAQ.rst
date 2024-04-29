@@ -361,5 +361,3 @@ reliably in a software hierarchy?
        pushenv("CC","gcc")
 
    and not the other way around.
-
-   

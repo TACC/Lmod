@@ -21,9 +21,27 @@ two suggestions on how to use your SitePackage.lua file
       (for csh)
       setenv LMOD_PACKAGE_PATH /path/to/the/Site/Directory
 
-   A "SitePackage.lua" in that directory will override the one in the Lmod
-   install directory.
+A "SitePackage.lua" in that directory will override the one in the Lmod
+install directory.  In other words, you only get one
+"SitePackage.lua" file.  Suppose that your site has a system
+SitePackage.lua which you want to extend and not override.  Suppose
+that your site's SitePackage.lua is in /etc/lmod and you set::
 
+    export LMOD_PACKAGE_PATH=/home/user/Lmod
+
+Then in /home/user/Lmod do::
+
+    % ln -s /etc/lmod/SitePackage.lua /home/user/Lmod/Site.lua
+
+Then inside your /home/user/Lmod/SitePackage.lua do::
+
+    require("Site")
+
+Each require statement can only ``require'' one name.  So make sure
+that you symlink to a new name in your personal SitePackage.lua directory.
+    
+Checking if you have setup SitePackage.lua correctly
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You should check to see that Lmod finds your SitePackage.lua.  If you do::
  
