@@ -104,10 +104,17 @@ local function l_compareRequestedLoadsWithActual()
    dbg.start{"l_compareRequestedLoadsWithActual()"}
    local mt = FrameStk:singleton():mt()
 
+   dbg.printT("s_loadT",s_loadT)
+   if (dbg.active()) then
+      local s = mt:serializeTbl("pretty")
+      dbg.print{s,"\n"}
+   end
+
    local aa = {}
    local bb = {}
    for userName, mname in pairs(s_loadT) do
       local sn = mname:sn()
+      dbg.print{"sn: ",sn,", userName: ",userName,"\n"}
       if (not mt:have(sn, "active")) then
          aa[#aa+1] = mname:show()
          bb[#bb+1] = userName
