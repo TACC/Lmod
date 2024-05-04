@@ -106,7 +106,7 @@ end
 -- @param adding True if adding to path.
 -- @param pathEntry The new value.
 local function l_dynamicMP(name, value, adding)
-   dbg.start{'l_dynamicMP(name: "',name,'", value: ',value,", adding:",adding,")"}
+   dbg.start{'Var: l_dynamicMP(name: "',name,'", value: ',value,", adding:",adding,")"}
    local mt = require("FrameStk"):singleton():mt()
    mt:set_MPATH_change_flag()
    mt:updateMPathA(value)
@@ -119,11 +119,11 @@ local function l_dynamicMP(name, value, adding)
       local moduleA      = require("ModuleA"):singleton{spider_cache = spider_cache}
       moduleA:update{spider_cache = spider_cache}
    end
-   dbg.fini("l_dynamicMP")
+   dbg.fini("Var: l_dynamicMP")
 end
 
 local function l_dynamicMRC(name, value, adding)
-   dbg.start{'l_dynamicMRC(name: "',name,'", value: ',value,", adding:",adding,")"}
+   dbg.start{'Var: l_dynamicMRC(name: "',name,'", value: ',value,", adding:",adding,")"}
    cosmic:assign("LMOD_MODULERC",value)
    local MRC = require("MRC")
    MRC:__clear()
@@ -143,7 +143,7 @@ local function l_dynamicMRC(name, value, adding)
       dbg.printT("fullNameDfltT", fullNameDfltT)
    end
 
-   dbg.fini("l_dynamicMRC")
+   dbg.fini("Var: l_dynamicMRC")
 end
 
 
