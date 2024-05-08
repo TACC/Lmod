@@ -685,7 +685,7 @@ function M.singleton(self, t)
       s_moduleA = self:__new(mt:modulePathA(), mt:maxDepthT(), getModuleRCT(), spiderT)
    elseif (t.applyWeights) then
       local mrc       = MRC:singleton(getModuleRCT())
-      self:applyWeights(mrc:fullNameDfltT())
+      s_moduleA:applyWeights(mrc:fullNameDfltT())
    end
 
    dbg.fini("ModuleA:singleton")
