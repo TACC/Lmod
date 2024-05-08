@@ -256,7 +256,7 @@ local function l_search(name, moduleA)
 end
 
 function M.applyWeights(self,fullNameDfltT)
-   --dbg.start{"ModuleA:applyWeights(fullNameDfltT)"}
+   dbg.start{"ModuleA:applyWeights(fullNameDfltT)"}
    for fullName, weight in pairs(fullNameDfltT) do
       repeat
          local sn, versionStr, vA = l_find_vA(fullName, self.__moduleA)
@@ -282,7 +282,7 @@ function M.applyWeights(self,fullNameDfltT)
          end
       until true
    end
-   --dbg.fini("ModuleA:applyWeights")
+   dbg.fini("ModuleA:applyWeights")
 end
 
 
@@ -624,8 +624,6 @@ function M.__new(self, mpathA, maxdepthT, moduleRCT, spiderT)
       local mrc       = MRC:singleton(moduleRCT)
       o:applyWeights(mrc:fullNameDfltT())
    end
-   local mrc       = MRC:singleton()
-   --dbg.printT("mrcMpathT",mrc:mrcMpathT())
    o.__locationT   = false
    o.__defaultT    = {}
    
@@ -668,7 +666,7 @@ function M.defaultT(self)
 end
 
 function M.singleton(self, t)
-   --dbg.start{"ModuleA:singleton(t)"}
+   dbg.start{"ModuleA:singleton(t)"}
    t = t or {}
    if (t.reset or (s_moduleA and s_moduleA:spiderBuilt())) then
       --dbg.print{"Wiping out old value of s_moduleA\n"}
@@ -685,9 +683,12 @@ function M.singleton(self, t)
          spiderT, dbT = cache:build()
       end
       s_moduleA = self:__new(mt:modulePathA(), mt:maxDepthT(), getModuleRCT(), spiderT)
+   elseif (t.applyWeights) then
+      local mrc       = MRC:singleton(getModuleRCT())
+      self:applyWeights(mrc:fullNameDfltT())
    end
 
-   --dbg.fini("ModuleA:singleton")
+   dbg.fini("ModuleA:singleton")
    return s_moduleA
 end
 
