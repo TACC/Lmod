@@ -131,10 +131,7 @@ local function l_dynamicMRC(name, value, adding)
    local ModuleA = require("ModuleA")
 
    local moduleA
-   --moduleA = ModuleA:singleton{spider_cache = true}
-   --dbg.printT("(1) moduleA: ",moduleA:moduleA())
    moduleA = ModuleA:singleton{applyWeights = true}
-   --dbg.print{ "(2) __moduleA: ",moduleA.__moduleA}
    dbg.printT("(2)   moduleA: ",moduleA:moduleA())
    if (dbg.active()) then
       local mrcT, mrcMpathT = mrc:extract()
@@ -156,14 +153,14 @@ local s_dispatchT = {
 }
 
 local function l_processDynamicVars(name, value, adding)
-   dbg.start{'l_processDynamicVars(name: "',name,'", value: ',value,", adding:",adding,")"}
+   --dbg.start{'l_processDynamicVars(name: "',name,'", value: ',value,", adding:",adding,")"}
    local func = s_dispatchT[name]
    if (not func) then
-      dbg.fini("l_processDynamicVars")
+      --dbg.fini("l_processDynamicVars")
       return
    end
    func(name, value,adding)
-   dbg.fini("l_processDynamicVars")
+   --dbg.fini("l_processDynamicVars")
 end
 
 

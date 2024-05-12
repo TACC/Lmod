@@ -180,9 +180,10 @@ function M.buildA(self,sType, ...)
 end
 
 local function l_lazyEval(self)
-   --dbg.start{"l_lazyEval(",self.__userName,")"}
+   dbg.start{"l_lazyEval(",self.__userName,")"}
 
    local sType   = self.__sType
+   dbg.print{"sType: ",sType,"\n"}
    if (sType == "mt") then
       local frameStk = FrameStk:singleton()
       local mt       = frameStk:mt()
@@ -196,12 +197,13 @@ local function l_lazyEval(self)
          self.__wV         = mt:wV(sn)
          self.__ref_count  = mt:get_ref_count(sn)
       end
-      --dbg.fini("l_lazyEval via mt")
+      dbg.fini("l_lazyEval via mt")
       return
    end
 
    local cached_loads = cosmic:value("LMOD_CACHED_LOADS")
    local moduleA = ModuleA:singleton{spider_cache = (cached_loads ~= "no")}
+   dbg.printT("(3) moduleA: ",moduleA:moduleA())
    if (sType == "inherit") then
       local t  = self.__t
       local fn = moduleA:inherited_search(self.__fullName, t.fn)
@@ -213,7 +215,7 @@ local function l_lazyEval(self)
          self.__wV       = t.wV
       end
 
-      --dbg.fini("l_lazyEval via inherit")
+      dbg.fini("l_lazyEval via inherit")
       return
    end
 
@@ -237,7 +239,7 @@ local function l_lazyEval(self)
    self.__stackDepth = self.__stackDepth or frameStk:stackDepth()
 
    if (not sn) then
-      --dbg.fini("l_lazyEval via no sn")
+      dbg.fini("l_lazyEval via no sn")
       return
    end
 
@@ -246,10 +248,10 @@ local function l_lazyEval(self)
    local fn
    local wV
    local found
-   --dbg.printT("fileA",fileA)
+   dbg.printT("fileA",fileA)
    --dbg.print{"#stepA: ",#stepA,"\n"}
-   --dbg.print{"userName: ",self.__userName,"\n"}
-   --dbg.print{"sn: ",self.__sn,"\n"}
+   dbg.print{"userName: ",self.__userName,"\n"}
+   dbg.print{"sn: ",self.__sn,"\n"}
 
 
    for i = 1, #stepA do
@@ -267,7 +269,7 @@ local function l_lazyEval(self)
    end
    --dbg.print{"l_lazyEval: sn: ",self.__sn, ", version: ",self.__version, ", fn: ",self.__fn,", wV: ",self.__wV,", userName: ",self.__userName,"\n"}
    --dbg.print{"fn: ",self.__fn,"\n"}
-   --dbg.fini("l_lazyEval")
+   dbg.fini("l_lazyEval")
 end
 
 

@@ -483,14 +483,19 @@ function M.inherited_search(self, search_fullName, orig_fn)
 end
 
 function M.search(self, name)
+   dbg.start{"ModuleA:search(name: ",name,")"}
    if (self.__isNVV) then
+      dbg.fini("ModuleA:search via NVV search")
       return l_search(name, self.__moduleA)
    end
 
    if (not self.__locationT) then
+      dbg.print{"build new self.__locationT\n"}
       self.__locationT = LocationT:new(self.__moduleA)
+      dbg.printT("self.__locationT",self.__locationT)
    end
 
+   dbg.fini("ModuleA:search via NV search self.__locationT")
    return self.__locationT:search(name)
 end
 
@@ -534,7 +539,7 @@ end
 
 function M.update(self, t)
    t                   = t or {}
-   --dbg.start{"ModuleA:update(spider_cache = ",t.spider_cache,")"}
+   dbg.start{"ModuleA:update(spider_cache = ",t.spider_cache,")"}
    local frameStk      = FrameStk:singleton()
    local mt            = frameStk:mt()
    local varT          = frameStk:varT()
@@ -589,10 +594,11 @@ function M.update(self, t)
       until true
    end
    self.__defaultT  = {}
+   dbg.print{"Setting self.__locationT to false\n"}
    self.__locationT = false
    self.__moduleA   = moduleA
    mt:updateMPathA(mpathA)
-   --dbg.fini("ModuleA:update")
+   dbg.fini("ModuleA:update")
 end
 
 
@@ -645,12 +651,16 @@ function M.spiderBuilt(self)
 end
 
 function M.locationT(self)
+   dbg.start{"ModuleA:locationT()"}
    if (self.__isNVV) then
+      dbg.fini("ModuleA:locationT")
       return {}
    end
    if (not self.__locationT) then
+      dbg.print{"ModuleA:locationT: Build self.__locationT\n"}
       self.__locationT = LocationT:new(self.__moduleA)
    end
+   dbg.fini("ModuleA:locationT")
    return self.__locationT:locationT()
 end
 
@@ -684,8 +694,11 @@ function M.singleton(self, t)
       end
       s_moduleA = self:__new(mt:modulePathA(), mt:maxDepthT(), getModuleRCT(), spiderT)
    elseif (t.applyWeights) then
-      local mrc       = MRC:singleton(getModuleRCT())
+      dbg.print{"applying Weights\n"}
+      local mrc        = MRC:singleton(getModuleRCT())
       s_moduleA:applyWeights(mrc:fullNameDfltT())
+      dbg.print{"Setting self.__locationT to false\n"}
+      s_moduleA.__locationT = false
    end
 
    dbg.fini("ModuleA:singleton")

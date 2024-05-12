@@ -318,9 +318,9 @@ function M.load(self, mA)
          local userName   = mname:userName()
          mt               = frameStk:mt()
 
-         dbg.print{"Hub:load i: ",i,", userName: ",userName,"\n",}
-
          local sn         = mname:sn()
+         dbg.print{"Hub:load i: ",i,", userName: ",userName,", sn: ",sn,"\n",}
+
          if ((sn == nil) and ((i > 1) or (frameStk:stackDepth() > 0))) then
             dbg.print{"Pushing ",mname:userName()," on moduleQ\n"}
             dbg.print{"i: ",i,", stackDepth: ", frameStk:stackDepth(),"\n"}
@@ -347,7 +347,7 @@ function M.load(self, mA)
                         ")" }
          end
 
-         dbg.print{"Hub:load i: ",i," sn: ",sn," fn: ",fn,"\n"}
+         dbg.print{"Hub:load i: ",i,", sn: ",sn,", fullName: ",fullName,", fn: ",fn,"\n"}
 
          if (mt:have(sn,"active")) then
             local version    = mname:version()

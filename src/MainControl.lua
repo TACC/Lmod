@@ -959,7 +959,6 @@ function M.depends_on(self, mA)
       dbg.start{"MainControl:depends_on(mA={"..s.."})"}
    end
 
-
    local mB         = {}
    local mt         = FrameStk:singleton():mt()
 

@@ -76,7 +76,7 @@ end
 
 
 local function l_build(moduleA)
-   --dbg.start{"LocationT l_build(moduleA)"}
+   dbg.start{"LocationT l_build(moduleA)"}
 
    local locationT = {}
 
@@ -106,17 +106,17 @@ local function l_build(moduleA)
       end
    end
 
-   --dbg.fini("LocationT l_build")
+   dbg.fini("LocationT l_build")
    return locationT
 end
 
 function M.new(self, moduleA)
-   --dbg.start{"LocationT:new(moduleA)"}
+   dbg.start{"LocationT:new(moduleA)"}
    local o = {}
    setmetatable(o,self)
    o.__locationT = l_build(deepcopy(moduleA))
    self.__index = self
-   --dbg.fini("LocationT:new")
+   dbg.fini("LocationT:new")
    return o
 end
 
