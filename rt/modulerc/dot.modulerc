@@ -1,5 +1,5 @@
 #%Module
-module-version b default
+module-version b/1.0 default
 module-alias a14 a/14
 if {[info exists ::env(LMOD_VERSION_MAJOR)]} {
    # Lmod only commands
