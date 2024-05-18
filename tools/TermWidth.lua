@@ -55,6 +55,12 @@ local function l_askSystem(width)
       return tonumber(columns)
    end
 
+   -- Try env var COLUMNS
+   columns = getenv("COLUMNS")
+   if (columns) then
+      return tonumber(columns)
+   end
+
    -- Try tput cols
    if (getenv("TERM")) then
       local result  = capture("tput cols 2> /dev/null")
@@ -75,7 +81,7 @@ function TermWidth()
    if (s_width) then
       return s_width
    end
-   local ltw = tonumber(getenv("LMOD_TERM_WIDTH"))
+   local ltw = tonumber(getenv("LMOD_TERM_WIDTH"))  -- Note tonumber(nil) is nil not zero
    if (ltw) then
       s_width = ltw
       return s_width
