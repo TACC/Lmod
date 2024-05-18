@@ -59,6 +59,8 @@ local colorT = {
 local cosmic    = require("Cosmic"):singleton()
 local concatTbl = table.concat
 local s_colorize_kind = "unknown"
+local pack     = (_VERSION == "Lua 5.1") and argsPack or table.pack
+
 ------------------------------------------------------------------------
 -- Takes an array of strings and wraps the ANSI color start and
 -- stop and produces a single string.
