@@ -304,7 +304,7 @@ LMOD_USING_FAST_TCL_INTERP   Other      yes          no
 Active RC file(s):
 ProjectDIR/init/lmodrc.lua
  OutputDIR/.lmodrc.lua
- Lmod Property Table:
+ Lmod Property Table (LMOD_RC):
 propT = {
   arch = {
     displayT = {

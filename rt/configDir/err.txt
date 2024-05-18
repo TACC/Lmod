@@ -82,7 +82,7 @@ LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>
 LMOD_USING_FAST_TCL_INTERP   Other      yes          no
 Active RC file(s):
 ProjectDIR/init/lmodrc.lua
- Lmod Property Table:
+ Lmod Property Table (LMOD_RC):
 propT = {
   arch = {
     displayT = {
