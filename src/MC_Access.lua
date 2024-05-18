@@ -111,6 +111,7 @@ M.complete             = MainControl.quiet
 M.uncomplete           = MainControl.quiet
 M.conflict             = MainControl.quiet
 M.depends_on           = MainControl.quiet
+M.depends_on_any       = MainControl.quiet
 M.error                = MainControl.quiet
 M.execute              = MainControl.execute
 M.extensions           = MainControl.quiet

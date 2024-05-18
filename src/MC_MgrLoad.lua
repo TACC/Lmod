@@ -55,6 +55,7 @@ M.color_banner         = MainControl.color_banner
 M.complete             = MainControl.complete
 M.conflict             = MainControl.conflict
 M.depends_on           = MainControl.fake_load
+M.depends_on_any       = MainControl.fake_load
 M.execute              = MainControl.execute
 M.extensions           = MainControl.quiet
 M.family               = MainControl.family

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash 
 # -*- shell-script -*-
 
 arg="$1"
@@ -14,5 +14,11 @@ if [ $osType = "Darwin" ]; then
   fi
 fi
 
-$my_cmd "$arg"
-
+if [ -n "${SOURCE_DATE_EPOCH+x}" ]; then
+  arg="${arg%% %:z} %Z"
+  $my_cmd   -u -d "@$SOURCE_DATE_EPOCH" "$arg" 2>/dev/null ||
+    $my_cmd -u -r "$SOURCE_DATE_EPOCH" "$arg"  2>/dev/null ||
+    $my_cmd "$arg"
+else
+  $my_cmd "$arg"
+fi

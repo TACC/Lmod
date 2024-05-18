@@ -339,8 +339,6 @@ function main()
       {cmd = 'whatis',       min = 1, action = whatisTbl   },
    }
 
-   dbg.set_prefix(colorize("red","Lmod"))
-
    -- Get shell name from 1st argument
    local shellNm, success = dynamic_shell(arg[1])
    if (success) then
@@ -359,6 +357,7 @@ function main()
    ------------------------------------------------------------------
    -- initialize lmod with SitePackage and /etc/lmod/lmod_config.lua
    initialize_lmod()
+   dbg.set_prefix(colorize("red","Lmod"))
 
    local cmdLineUsage = "Usage: module [options] sub-command [args ...]"
    Options:singleton(cmdLineUsage)

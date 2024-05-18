@@ -62,7 +62,6 @@ local q_load        = 0
 local s_same        = true
 
 local A             = ShowResultsA
-local mpath_avail   = cosmic:value("LMOD_MPATH_AVAIL")
 
 ------------------------------------------------------------------------
 -- a private ctor that is used to construct a singleton.
@@ -116,7 +115,7 @@ function M.access(self, ...)
    local result, t
 
    local argA = pack(...)
-   if (optionTbl.location) then
+   if (optionTbl.location or optionTbl.terse) then
       local userName = argA[1]
       local mname    = mt:have(userName,"any") and MName:new("mt",userName)
                                                or  MName:new("load",userName)
@@ -823,6 +822,7 @@ function M.safeToUpdate()
 end
 
 local function l_availEntry(defaultOnly, label, searchA, defaultT, entry)
+   local mpath_avail = cosmic:value("LMOD_MPATH_AVAIL")
    if (defaultOnly) then
       local fn    = entry.fn
       if (not defaultT[fn]) then

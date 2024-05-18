@@ -1,0 +1,22 @@
+#!/bin/bash
+# -*- shell-script -*-
+
+fileA=(
+   Banner.lua
+   BeautifulTbl.lua
+   ColumnTable.lua
+   Dbg.lua
+   Optiks.lua
+   Optiks_Option.lua
+   TermWidth.lua
+   declare.lua
+   deepcopy.lua
+   fileOps.lua
+   haveTermSupport.lua
+   inherits.lua
+   json.lua
+   pairsByKeys.lua
+   serializeTbl.lua
+   strict.lua
+   string_utils.lua
+      )

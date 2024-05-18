@@ -161,8 +161,7 @@ function exists(f)
       result = realpath(f)
    end
    return result
-end   
-
+end
 
 --------------------------------------------------------------------------
 -- Returns true if file is readable and executable.

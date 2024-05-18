@@ -50,8 +50,6 @@ local dbg         = require("Dbg"):dbg()
 local getenv      = os.getenv
 local s_moduleA   = false
 local sort        = table.sort
-local exact_match = cosmic:value("LMOD_EXACT_MATCH")
-local find_first  = cosmic:value("LMOD_TMOD_FIND_FIRST")
 
 -- print(__FILE__() .. ':' .. __LINE__())
 ----------------------------------------------------------------------
@@ -510,11 +508,12 @@ end
 
 local function l_build_from_spiderT(spiderT)
    --dbg.start{"ModuleA l_build_from_spiderT(spiderT)"}
-   local frameStk = FrameStk:singleton()
-   local mt       = frameStk:mt()
-   local mpathA   = mt:modulePathA()
-   local moduleA  = {}
-   local isNV     = find_first == "no"
+   local find_first = cosmic:value("LMOD_TMOD_FIND_FIRST")
+   local frameStk   = FrameStk:singleton()
+   local mt         = frameStk:mt()
+   local mpathA     = mt:modulePathA()
+   local moduleA    = {}
+   local isNV       = find_first == "no"
    for i = 1, #mpathA do
       local mpath = mpathA[i]
       if (isDir(mpath)) then
@@ -604,7 +603,8 @@ end
 
 function M.__new(self, mpathA, maxdepthT, moduleRCT, spiderT)
    --dbg.start{"ModuleA:__new()"}
-   local o = {}
+   local o          = {}
+   local find_first = cosmic:value("LMOD_TMOD_FIND_FIRST")
    setmetatable(o,self)
 
    local dirTree   = false
@@ -665,6 +665,7 @@ function M.locationT(self)
 end
 
 function M.defaultT(self)
+   local exact_match = cosmic:value("LMOD_EXACT_MATCH")
    if (exact_match == "yes") then
       return self.__defaultT
    end

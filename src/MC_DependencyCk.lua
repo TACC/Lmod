@@ -56,6 +56,7 @@ M.color_banner         = MainControl.quiet
 M.complete             = MainControl.quiet
 M.conflict             = MainControl.quiet
 M.depends_on           = MainControl.dependencyCk
+M.depends_on_any       = MainControl.dependencyCk_any
 M.execute              = MainControl.quiet
 M.extensions           = MainControl.quiet
 M.family               = MainControl.quiet

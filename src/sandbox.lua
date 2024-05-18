@@ -109,7 +109,7 @@ local sandbox_env = {
   unload               = unload,
   always_load          = always_load,
   depends_on           = depends_on,
-  
+  depends_on_any       = depends_on_any, 
 
   --- Load Modify functions ---
   atleast              = atleast,

@@ -255,6 +255,16 @@ function M.depends_on(self, mA)
    A[#A+1] = ShowCmdA("depends_on",mA)
 end
 
+--------------------------------------------------------------------------
+-- Print depends_on_any command.
+-- @param self A MainControl object
+-- @param mA An array of module names (MName objects)
+function M.depends_on_any(self, mA)
+   A[#A+1] = ShowCmdA("depends_on_any",mA)
+end
+
+--------------------------------------------------------------------------
+
 M.load_usr = M.load
 
 --------------------------------------------------------------------------
