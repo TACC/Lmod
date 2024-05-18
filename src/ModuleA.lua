@@ -257,11 +257,16 @@ end
 
 function M.applyWeights(self,fullNameDfltT)
    dbg.start{"ModuleA:applyWeights(fullNameDfltT)"}
+   dbg.printT("fullNameDfltT",fullNameDfltT)
    for fullName, weight in pairs(fullNameDfltT) do
       repeat
          local sn, versionStr, vA = l_find_vA(fullName, self.__moduleA)
          if (sn == nil) then break end
          local fullStr, vB        = l_find_vB(sn,  versionStr, vA)
+         dbg.print{"sn: ",sn,", versionStr: ",versionStr,", fullStr: ",fullStr,"\n"}
+         dbg.printT("vA",vA)
+         dbg.printT("vB",vB)
+
 
          for i = 1, #vB do
             local v = vB[i]
@@ -696,6 +701,7 @@ function M.singleton(self, t)
    elseif (t.applyWeights) then
       dbg.print{"applying Weights\n"}
       local mrc        = MRC:singleton(getModuleRCT())
+      dbg.printT("mrc:fullNameDfltT(): ",mrc:fullNameDfltT())
       s_moduleA:applyWeights(mrc:fullNameDfltT())
       dbg.print{"Setting self.__locationT to false\n"}
       s_moduleA.__locationT = false

@@ -88,16 +88,16 @@ EOF
      runLmod list                                      #30
 
      rm .modulerc
-     export LMOD_MODULERCFILE=$testDir/dot.modulerc
+     export LMOD_MODULERC=$testDir/dot.modulerc
      runLmod avail                                     #31
      runLmod --show_hidden avail                       #32
 
-     export LMOD_MODULERCFILE=$testDir/dot.modulerc.lua
+     export LMOD_MODULERC=$testDir/dot.modulerc.lua
      runLmod avail                                     #33
      runLmod --show_hidden avail                       #34
 
 
-     unset LMOD_MODULERCFILE
+     unset LMOD_MODULERC
      unsetMT
      export MODULEPATH=$(testDir)/mf5
      runLmod avail                                     #35
@@ -126,7 +126,7 @@ EOF
      unsetMT
      export MODULEPATH_ROOT=$(testDir)/mf
      export MODULEPATH=$MODULEPATH_ROOT/Core
-     export LMOD_MODULERCFILE=$(testDir)/loop_modulerc_d.lua
+     export LMOD_MODULERC=$(testDir)/loop_modulerc_d.lua
      runLmod    avail                                  #45
 
      unsetMT
@@ -137,6 +137,9 @@ EOF
 
      runLmod    purge                                  #47
      unsetMT
+     rm -f .modulerc .modulerc.lua
+     cp $(testDir)/dot.modulerc_defaults.lua .modulerc.lua
+     export LMOD_MODULERC=$(testDir)/MRC/mainRC.lua
      export MODULEPATH_ROOT=$(testDir)/mfA
      export MODULEPATH=$MODULEPATH_ROOT/Core
      runLmod    avail                                  #48
