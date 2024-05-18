@@ -128,8 +128,10 @@ local function l_dynamicMRC(name, value, adding)
    MRC:__clear()
    local mrc = MRC:singleton()
    local ModuleA = require("ModuleA")
-
    local moduleA
+   moduleA = ModuleA:singleton{}
+   dbg.printT("(1)   moduleA: ",moduleA:moduleA())
+   
    moduleA = ModuleA:singleton{applyWeights = true}
    dbg.printT("(2)   moduleA: ",moduleA:moduleA())
    if (dbg.active()) then

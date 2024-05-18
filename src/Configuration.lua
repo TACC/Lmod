@@ -188,10 +188,12 @@ local function l_new(self)
       lmodrc = "<empty>"
    end
 
-   if (not rc:find(":") and not isFile(rc)) then
-      rc = rc .. " -> <empty>"
-   elseif (not access(rc,"r")) then
-      rc = rc .. " -> <unreadable>"
+   if (not rc:find(":")) then
+      if (not exists(rc)) then
+         rc = rc .. " -> <empty>"
+      elseif (not access(rc,"r")) then
+         rc = rc .. " -> <unreadable>"
+      end
    end
    if (not readable) then
       adminFn = adminFn .. " -> <empty>"
@@ -367,7 +369,7 @@ function M.report(self, t)
       
       local banner = Banner:singleton()
       local border = banner:border(2)
-      local str    = " Lmod Property Table:"
+      local str    = " Lmod Property Table (LMOD_RC):"
       b[#b+1]  = border
       b[#b+1]  = str
       b[#b+1]  = border
