@@ -47,7 +47,6 @@ require("strict")
 require("fileOps")
 require("pairsByKeys")
 require("TermWidth")
-require("lmod_system_execute")
 
 --------------------------------------------------------------------------
 -- Convert the string value into a quoted string of some kind and boolean
@@ -264,7 +263,7 @@ function serializeTbl(options)
    local fn = options.fn
    local d  = dirname(fn)
    if (not isDir(d)) then
-      lmod_system_execute('mkdir -p ' .. d)
+      os.execute('mkdir -p ' .. d)
    end
    local f  = assert(io.open(fn, "w"))
 

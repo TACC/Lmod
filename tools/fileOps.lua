@@ -153,6 +153,16 @@ function isFile(fn)
    return result
 end
 
+function exists(f)
+   if (f == nil) then return false end
+   local result = posix.stat(f,"type")
+
+   if (result == "link") then
+      result = realpath(f)
+   end
+   return result
+end
+
 --------------------------------------------------------------------------
 -- Returns true if file is readable and executable.
 -- @param fn A file path
