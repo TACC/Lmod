@@ -77,7 +77,7 @@ function argsPack(...)
    local argA = { n = select("#", ...), ...}
    return argA
 end
-pack     = (_VERSION == "Lua 5.1") and argsPack or table.pack
+local pack     = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
 function __FILE__()
    return debug.getinfo(2,'S').source

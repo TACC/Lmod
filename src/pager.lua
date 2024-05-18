@@ -42,18 +42,14 @@ require("strict")
 --------------------------------------------------------------------------
 
 require("myGlobals")
+require("utils")
 require("haveTermSupport")
 
 local dbg       = require("Dbg"):dbg()
 local concatTbl = table.concat
 local cosmic    = require("Cosmic"):singleton()
 
-local function l_argsPack(...)
-   local  argA = { n = select("#", ...), ...}
-   return argA
-end
-
-local pack        = (_VERSION == "Lua 5.1") and l_argsPack or table.pack -- luacheck: compat
+local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
 
 s_pager = false
 

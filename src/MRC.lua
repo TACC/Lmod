@@ -64,11 +64,7 @@ local load      = (_VERSION == "Lua 5.1") and loadstring or load
 local s_MRC     = false
 local hook      = require("Hook")
 
-local function l_argsPack(...)
-   local argA = { n = select("#", ...), ...}
-   return argA
-end
-local pack      = (_VERSION == "Lua 5.1") and l_argsPack or table.pack  -- luacheck: compat
+local pack      = (_VERSION == "Lua 5.1") and argsPack or table.pack  -- luacheck: compat
 
 ------------------------------------------------------------------------
 -- Local functions
