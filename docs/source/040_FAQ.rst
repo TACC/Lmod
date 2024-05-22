@@ -363,3 +363,14 @@ reliably in a software hierarchy?
    and not the other way around.
 
    
+How does one handle backslashed characters in an environment variable?
+
+   Lua not Lmod is particular about \\<char>.  In other words, you
+   can't backslash any character you want.  Just combinations like \\t
+   and \\n.  To put in a backslash, you have to quote it with another
+   backslash::
+
+       setenv("MY_PS1", "[\\u@\\h \\W]\\$ ")
+
+       % echo "MY_PS1: \"$MY_PS1\""
+       MY_PS1: "[\u@\h \W]\$ "
