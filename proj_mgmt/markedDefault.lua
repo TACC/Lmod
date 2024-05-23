@@ -18,9 +18,7 @@ local function l_marked_default(t, fullName, weight)
    local function l_marked_default_helper(i,n,a,t,weight)
       --dbg.start{"l_marked_default_helper(i: ",i,", n: ",n,", weight: ",weight,")"}
       local s = a[i]
-      if (not t[s] ) then
-         t[s] = {}
-      end
+      t[s] = t[s] or {}
       if (i == n) then
          t[s].weight = weight
          --dbg.fini("l_marked_default_helper via end of recursiion")
@@ -40,6 +38,12 @@ function main()
    local fullA = {{"compiler/intel/x86/24.1","s"},
                   {"compiler/intel/x86/22.1","s"},
                   {"compiler/gcc/14.1",      "s"},
+                  {"gcc/14.1",               "s"},                  
+                  {"gcc/14.1",               "s"},                  
+                  {"gcc/14.1",               "u"},                  
+                  {"gcc/13.1",               "u"},                  
+                  {"intel/24.1",             "s"},                  
+                  {"intel/22.1",             "s"},                  
    }
 
    dbg:activateDebug()
