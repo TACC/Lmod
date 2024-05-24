@@ -37,6 +37,8 @@ local function l_marked_default(t, fullName, weight)
 end      
 
 local function l_find_all_sn(sn, t)
+   dbg.print{"\nl_find_all_sn(sn: \"",sn,"\", t)"}
+
    local snA = {}
    local n = 0
    for s in sn:split("/") do
@@ -119,6 +121,7 @@ function main()
    end
    --dbg.printT("s_fullNameDfltT",t)
    l_find_all_sn("compiler/intel",s_fullNameDfltT)
+   l_find_all_sn("compiler/gcc",s_fullNameDfltT)
    l_find_all_sn("gcc",s_fullNameDfltT)
 end
 
