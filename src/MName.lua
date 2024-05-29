@@ -121,8 +121,8 @@ function M.new(self, sType, name, action, is, ie)
       o.__range_fnA[2]  = s_rangeFuncT["<"]
       ie = ie:gsub("<","")
    end
-   o.__is         = is 
-   o.__ie         = ie 
+   o.__is         = is
+   o.__ie         = ie
    o.__have_range = is or ie
    o.__range      = { o.__is and parseVersion(o.__is) or " ", o.__ie and parseVersion(o.__ie) or "~" }
 
@@ -227,6 +227,10 @@ local function l_lazyEval(self)
    local userName              = mrc:resolve(mt:modulePathA(), self:userName())
    local sn, versionStr, fileA = moduleA:search(userName)
    dbg.print{"l_lazyEval: orig: ",origUserName,", userName: ",userName, ", sn: ",sn,", versionStr: ",versionStr,"\n"}
+   if (sn) then
+      mrc:applyWeights(sn, fileA)
+   end
+
 
    if (origUserName ~= userName) then
       self.__origUserName = origUserName
@@ -426,7 +430,7 @@ function M.find_exact_match(self, fileA)
       --dbg.fini("MName:find_exact_match")
       return found, fn, version
    end
-      
+
    for i = 1, #fileA do
       local a = fileA[i]
       for j = 1, #a do
@@ -601,11 +605,11 @@ local function l_rangeCk(self, version, result_if_found, result_if_not_found)
    if (lowerFn.func(lowerBound, pV) and upperFn.func(pV, upperBound)) then
       result = result_if_found
    end
-   
+
    dbg.fini("l_rangeCk")
    return have_range, result
 end
-   
+
 function M.isloaded(self)
    --dbg.start{"MName:isloaded()"}
    local frameStk  = FrameStk:singleton()
@@ -652,7 +656,7 @@ function M.isPending(self)
 end
 
 function M.defaultKind(self)
-   local kindT = { 
+   local kindT = {
       ["^"] = "marked",
       s     = "system",
       u     = "user",

@@ -628,13 +628,10 @@ function M.__new(self, mpathA, maxdepthT, moduleRCT, spiderT)
       o.__moduleA     = l_build(o, maxdepthT, dirTree:dirA())
    end
 
-   --dbg.printT("moduleA:",o.__moduleA)
-   --dbg.print{"isNVV: ",o.__isNVV,"\n"}
-   if (moduleRCT and next(moduleRCT) ~= nil) then
-      --dbg.print{"apply weights\n"}
-      local mrc       = MRC:singleton(moduleRCT)
-      o:applyWeights(mrc:fullNameDfltT())
-   end
+   --if (moduleRCT and next(moduleRCT) ~= nil) then
+   --   local mrc       = MRC:singleton(moduleRCT)
+   --   o:applyWeights(mrc:fullNameDfltT())
+   --end
    o.__locationT   = false
    o.__defaultT    = {}
    
@@ -699,14 +696,15 @@ function M.singleton(self, t)
          spiderT, dbT = cache:build()
       end
       s_moduleA = self:__new(mt:modulePathA(), mt:maxDepthT(), getModuleRCT(), spiderT)
-   elseif (t.applyWeights) then
-      dbg.print{"applying Weights\n"}
-      local mrc        = MRC:singleton(getModuleRCT())
-      dbg.printT("mrc:fullNameDfltT(): ",mrc:fullNameDfltT())
-      s_moduleA:applyWeights(mrc:fullNameDfltT())
-      dbg.print{"Setting self.__locationT to false\n"}
-      s_moduleA.__locationT = false
    end
+   --elseif (t.applyWeights) then
+   --   dbg.print{"applying Weights\n"}
+   --   local mrc        = MRC:singleton(getModuleRCT())
+   --   dbg.printT("mrc:fullNameDfltT(): ",mrc:fullNameDfltT())
+   --   s_moduleA:applyWeights(mrc:fullNameDfltT())
+   --   dbg.print{"Setting self.__locationT to false\n"}
+   --   s_moduleA.__locationT = false
+   --end
 
    dbg.fini("ModuleA:singleton")
    return s_moduleA

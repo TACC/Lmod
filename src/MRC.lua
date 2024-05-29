@@ -87,7 +87,7 @@ local function l_new(self, fnA)
                               -- and hiddenT.
    o.__version2modT     = {}  -- Map a sn/version string to a module fullname
    o.__alias2modT       = {}  -- Map an alias string to a module name or alias
-   o.__fullNameDfltT    = {}
+   o.__fullNameDfltT    = {}  -- Map for fullName (in pieces) to weights
    o.__defaultT         = {}  -- Map module sn to fullname that is the default.
    o.__hiddenT          = {}  -- Table of hidden module names and modulefiles.
    o.__mod2versionT     = {}  -- Map from full module name to versions.
@@ -136,6 +136,30 @@ function l_build(self, fnA)
    dbg.fini("MRC l_build")
 end
 
+local function l_save_su_weights(self, fullName, weight)
+   local a = {}
+   local n = 0
+   for s in fullName:split("/") do
+      n    = n + 1
+      a[n] = s
+   end
+
+   local function l_su_weight_helper(i,n,a,t,weight)
+      local s = a[i]
+      t[s] = t[s] or {}
+      if (i == n) then
+         t[s].weight = weight
+         return
+      else
+         t[s].tree   = t[s].tree or {}
+         l_su_weight_helper(i+1,n,a,t[s].tree, weight)
+      end
+   end
+
+   l_su_weight_helper(1,n,a,self.__fullNameDfltT,weight)
+end
+
+
 function M.parseModA(self, modA, weight)
    dbg.start{"MRC:parseModA(modA, weight: \"",weight,"\")"}
 
@@ -162,7 +186,7 @@ function M.parseModA(self, modA, weight)
                --dbg.print{"j: ",j, ", version: ",version, "\n"}
                if (version == "default") then
                   --dbg.print{"Setting default: ",fullName, "\n"}
-                  self.__fullNameDfltT[fullName] = weight
+                  l_save_su_weights(self, fullName, weight)
                else
                   local key = shorter .. '/' .. version
                   self.__version2modT[key] = fullName
@@ -224,7 +248,7 @@ function l_buildMod2VersionT(self, mpathA)
    for k, v in pairs(t) do
       mA2T[k] = v
    end
-      
+
    --dbg.printT("v2mT",v2mT)
 
    for k, v in pairs(v2mT) do
@@ -282,7 +306,7 @@ function M.resolve(self, mpathA, name)
       dbg.printT("version2modT",self.__version2modT)
       dbg.printT("mpathT",self.__mpathT)
    end
-   
+
    value = l_find_alias_value("version2modT", self.__version2modT, self.__mpathT, mpathA, name)
    dbg.print{"MRC:resolve: (2) name: ",name,", value: ",value,"\n"}
    if (value == nil) then
@@ -494,6 +518,80 @@ function M.update(self, fnA)
    --dbg.fini("MRC:update")
 end
 
+function l_find_all_su_defaults(k, t, b, resultA)
+   b[#b+1] = k
+   if (t.tree) then
+      t = t.tree
+      for kk, v in pairs(t) do
+         l_find_all_su_defaults(kk,v,deepcopy(b), resultA)
+      end
+   elseif (t.weight) then
+      resultA[#resultA+1] = { version = concatTbl(b,"/"), weight = t.weight}
+   else
+      LmodError{msg="e_SU_defaults"}
+   end
+end
 
+function M.applyWeights(self, sn, fileA)
+   local t = self.__fullNameDfltT
+
+   -- split sn into an array on '/' --> snA
+   local snA = {}
+   local n = 0
+   for s in sn:split("/") do
+      n      = n + 1
+      snA[n] = s
+   end
+
+   -- if snA  has no parts then quit.
+   if (n < 1) then
+      return
+   end
+
+
+   -- Search thru t to see if sn is a marked (su) defaults
+   local found = false
+   for i = 1, n do
+      local s = snA[i]
+      if (t[s] and t[s].tree) then
+         t = t[s].tree
+         found = (i == n)
+      end
+   end
+
+   -- If not found then there are no marked (su) defaults.
+   if (not found) then
+      return
+   end
+
+
+   -- search thru self.__fullNameDfltT that has our sn for marked su defaults
+   -- resultA looks like:
+   -- resultA = { {version = "14.1", weight = "u"}, { version = "12.1", weight = "s"}, }
+
+   local resultA = {}
+   for k, v in pairs(t) do
+      l_find_all_su_defaults(k,v,{},resultA)
+   end
+
+   -- Now use resultA to mark su defaults in fileA
+
+   for j = 1,#fileA do
+      local entry   = fileA[j]
+      local version = entry.version
+      for i = 1, #resultA do
+         suEntry = resultA[i]
+         if (version == suEntry.version) then
+            local weight = suEntry.weight
+            local idx    = entry.wV:match("^.*()/")
+            if (idx) then
+               entry.wV = entry.wV:sub(1,idx) .. weight .. entry.wV:sub(idx+2,-1)
+            else
+               entry.wV = weight .. entry.wV:sub(2,-1)
+            end
+         end
+      end
+   end
+end
 
 return M

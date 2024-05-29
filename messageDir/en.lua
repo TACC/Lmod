@@ -184,6 +184,7 @@ See https://lmod.readthedocs.io/en/latest/260_sh_to_modulefile.html for details.
 ]==],
      e_Sh_convertSh2MF     = "convertSh2MF script failed to produce 7 blocks\n",
      e_Spdr_Timeout        = "Spider search timed out.\n",
+     e_SU_defaults         = "Internal error in setting SU defaults\n",
      e_Swap_Failed         = "Swap failed: \"%{name}\" is not loaded.\n",
      e_Unable_2_Load       = "Unable to load module because of error when evaluating modulefile: %{name}\n     %{fn}: %{message}\n     Please check the modulefile and especially if there is a line number specified in the above message",
      e_Unable_2_Load_short = "%{message}",
