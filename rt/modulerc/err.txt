@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.32  2023-08-28 12:42 -05:00
+Modules based on Lua: Version 8.7.37   2024-03-17 13:11 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -123,6 +123,8 @@ abinit/7.4(@abinit/7.4.3)
 abinit/7.4.3
 arpack/openmpi/
 arpack/openmpi/3.1.4
+b/
+b/1.0
 h2/
 h2/2.0
 intel/
@@ -156,20 +158,20 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
 Global Aliases
    a13 -> a/13.2.345    a14 -> a/14.0.1.134    z23 -> z/23.2.345
 ProjectDIR/rt/modulerc/mf/Core
-   Rstats/2.1.5                        hidden/1.0   (H)
-   a/13.1.23                           hidden/2.0   (H,L)
-   a/13.2.345           (L,13)         intel/14.0.2
-   a/14.0.1.134         (D:14)         intel/14.0.3 (D:14:14.0)
-   ab2/6.12.3           (6:6.12)       intel/15.0.1
-   ab2/7.4.3            (D:7:7.4)      intel/15.0.2 (L,15:15.0)
-   abinit/6.12.3        (6:6.12)       jtel/14.0.2
-   abinit/7.4.3         (L,D:7:7.4)    jtel/14.0.3  (D:14:14.0)
-   arpack/.common.96    (H)            jtel/15.0.1
-   arpack/openmpi/3.1.4                jtel/15.0.2  (15:15.0)
+   Rstats/2.1.5                        h2/2.0       (D)
+   a/13.1.23                           hidden/1.0   (H)
+   a/13.2.345           (L,13)         hidden/2.0   (H,L)
+   a/14.0.1.134         (D:14)         intel/14.0.2
+   ab2/6.12.3           (6:6.12)       intel/14.0.3 (D:14:14.0)
+   ab2/7.4.3            (D:7:7.4)      intel/15.0.1
+   abinit/6.12.3        (6:6.12)       intel/15.0.2 (L,15:15.0)
+   abinit/7.4.3         (L,D:7:7.4)    jtel/14.0.2
+   arpack/.common.96    (H)            jtel/14.0.3  (D:14:14.0)
+   arpack/openmpi/3.1.4                jtel/15.0.1
+   b/1.0                (D)            jtel/15.0.2  (15:15.0)
    b/3.14               (H)            z/23.1.23
    dummy/2.0            (H)            z/23.2.345   (23)
    h2/1.0               (H)            z/24.0.1.134 (D:24)
-   h2/2.0               (D)
   Where:
    Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
    D:        Default Module
@@ -187,17 +189,17 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 Global Aliases
    a13 -> a/13.2.345    a14 -> a/14.0.1.134    z23 -> z/23.2.345
 ProjectDIR/rt/modulerc/mf/Core
-   Rstats/2.1.5                        intel/14.0.3 (D:14:14.0)
-   a/13.1.23                           intel/15.0.1
-   a/13.2.345           (L,13)         intel/15.0.2 (L,15:15.0)
-   a/14.0.1.134         (D:14)         jtel/14.0.2
-   ab2/6.12.3           (6:6.12)       jtel/14.0.3  (D:14:14.0)
-   ab2/7.4.3            (D:7:7.4)      jtel/15.0.1
-   abinit/6.12.3        (6:6.12)       jtel/15.0.2  (15:15.0)
-   abinit/7.4.3         (L,D:7:7.4)    z/23.1.23
-   arpack/openmpi/3.1.4                z/23.2.345   (23)
+   Rstats/2.1.5                        intel/14.0.2
+   a/13.1.23                           intel/14.0.3 (D:14:14.0)
+   a/13.2.345           (L,13)         intel/15.0.1
+   a/14.0.1.134         (D:14)         intel/15.0.2 (L,15:15.0)
+   ab2/6.12.3           (6:6.12)       jtel/14.0.2
+   ab2/7.4.3            (D:7:7.4)      jtel/14.0.3  (D:14:14.0)
+   abinit/6.12.3        (6:6.12)       jtel/15.0.1
+   abinit/7.4.3         (L,D:7:7.4)    jtel/15.0.2  (15:15.0)
+   arpack/openmpi/3.1.4                z/23.1.23
+   b/1.0                               z/23.2.345   (23)
    h2/2.0                              z/24.0.1.134 (D:24)
-   intel/14.0.2
   Where:
    Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
    D:        Default Module
@@ -214,17 +216,17 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 Global Aliases
    a13 -> a/13.2.345    a14 -> a/14.0.1.134    z23 -> z/23.2.345
 ProjectDIR/rt/modulerc/mf/Core
-   Rstats/2.1.5                        intel/14.0.3 (D:14:14.0)
-   a/13.1.23                           intel/15.0.1
-   a/13.2.345           (L,13)         intel/15.0.2 (L,15:15.0)
-   a/14.0.1.134         (D:14)         jtel/14.0.2
-   ab2/6.12.3           (6:6.12)       jtel/14.0.3  (D:14:14.0)
-   ab2/7.4.3            (D:7:7.4)      jtel/15.0.1
-   abinit/6.12.3        (6:6.12)       jtel/15.0.2  (15:15.0)
-   abinit/7.4.3         (L,D:7:7.4)    z/23.1.23
-   arpack/openmpi/3.1.4                z/23.2.345   (23)
+   Rstats/2.1.5                        intel/14.0.2
+   a/13.1.23                           intel/14.0.3 (D:14:14.0)
+   a/13.2.345           (L,13)         intel/15.0.1
+   a/14.0.1.134         (D:14)         intel/15.0.2 (L,15:15.0)
+   ab2/6.12.3           (6:6.12)       jtel/14.0.2
+   ab2/7.4.3            (D:7:7.4)      jtel/14.0.3  (D:14:14.0)
+   abinit/6.12.3        (6:6.12)       jtel/15.0.1
+   abinit/7.4.3         (L,D:7:7.4)    jtel/15.0.2  (15:15.0)
+   arpack/openmpi/3.1.4                z/23.1.23
+   b/1.0                               z/23.2.345   (23)
    h2/2.0                              z/24.0.1.134 (D:24)
-   intel/14.0.2
   Where:
    Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
    D:        Default Module
@@ -245,17 +247,17 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 Global Aliases
    a13 -> a/13.2.345    a14 -> a/14.0.1.134    z23 -> z/23.2.345
 ProjectDIR/rt/modulerc/mf/Core
-   Rstats/2.1.5                        intel/14.0.3 (D:14:14.0)
-   a/13.1.23                           intel/15.0.1
-   a/13.2.345           (L,13)         intel/15.0.2 (L,15:15.0)
-   a/14.0.1.134         (D:14)         jtel/14.0.2
-   ab2/6.12.3           (6:6.12)       jtel/14.0.3  (D:14:14.0)
-   ab2/7.4.3            (D:7:7.4)      jtel/15.0.1
-   abinit/6.12.3        (6:6.12)       jtel/15.0.2  (15:15.0)
-   abinit/7.4.3         (L,D:7:7.4)    z/23.1.23
-   arpack/openmpi/3.1.4                z/23.2.345   (23)
+   Rstats/2.1.5                        intel/14.0.2
+   a/13.1.23                           intel/14.0.3 (D:14:14.0)
+   a/13.2.345           (L,13)         intel/15.0.1
+   a/14.0.1.134         (D:14)         intel/15.0.2 (L,15:15.0)
+   ab2/6.12.3           (6:6.12)       jtel/14.0.2
+   ab2/7.4.3            (D:7:7.4)      jtel/14.0.3  (D:14:14.0)
+   abinit/6.12.3        (6:6.12)       jtel/15.0.1
+   abinit/7.4.3         (L,D:7:7.4)    jtel/15.0.2  (15:15.0)
+   arpack/openmpi/3.1.4                z/23.1.23
+   b/1.0                               z/23.2.345   (23)
    h2/2.0                              z/24.0.1.134 (D:24)
-   intel/14.0.2
   Where:
    Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
    D:        Default Module
@@ -544,8 +546,9 @@ ProjectDIR/rt/modulerc/mf/Core
    abinit/6.12.3        (6:6.12)     jtel/15.0.1
    abinit/7.4.3         (D:7:7.4)    jtel/15.0.2  (15:15.0)
    arpack/openmpi/3.1.4              z/23.1.23
-   h2/2.0                            z/23.2.345   (23)
-   hidden/2.0                        z/24.0.1.134 (D:24)
+   b/1.0                             z/23.2.345   (23)
+   h2/2.0                            z/24.0.1.134 (D:24)
+   hidden/2.0
   Where:
    Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
    D:        Default Module
@@ -570,8 +573,9 @@ ProjectDIR/rt/modulerc/mf/Core
    abinit/6.12.3        (6:6.12)     jtel/15.0.1
    abinit/7.4.3         (D:7:7.4)    jtel/15.0.2  (15:15.0)
    arpack/openmpi/3.1.4              z/23.1.23
-   h2/2.0                            z/23.2.345   (23)
-   hidden/2.0                        z/24.0.1.134 (D:24)
+   b/1.0                             z/23.2.345   (23)
+   h2/2.0                            z/24.0.1.134 (D:24)
+   hidden/2.0
   Where:
    Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
    D:        Default Module

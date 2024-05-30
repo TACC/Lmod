@@ -432,6 +432,15 @@ spiderT = {
       defaultT = {},
       dirT = {},
       fileT = {
+        ["b/1.0"] = {
+          Version = "1.0",
+          canonical = "1.0",
+          fn = "ProjectDIR/rt/modulerc/mf/Core/b/1.0.lua",
+          luaExt = 4,
+          mpath = "ProjectDIR/rt/modulerc/mf/Core",
+          pV = "000000001.*zfinal",
+          wV = "000000001.*zfinal",
+        },
         ["b/3.14"] = {
           Version = "3.14",
           canonical = "3.14",
