@@ -905,17 +905,36 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={longVersion={f
 export _ModuleTable_;
 ===========================
 step 74
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load setPrompt
+===========================
+LOADEDMODULES=longVersion/branch.60200614194619_w9d09a30560903608993972840ea4qw4d9bb0443-debug:setPrompt/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/load/mf6;
+export MODULEPATH;
+MY_PS1=\[\\u@\\h\ \\W\]\\\$\ ;
+export MY_PS1;
+_LMFILES_=ProjectDIR/rt/load/mf6/longVersion/branch.60200614194619_w9d09a30560903608993972840ea4qw4d9bb0443-debug.lua:ProjectDIR/rt/load/mf6/setPrompt/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={longVersion={fn="ProjectDIR/rt/load/mf6/longVersion/branch.60200614194619_w9d09a30560903608993972840ea4qw4d9bb0443-debug.lua",fullName="longVersion/branch.60200614194619_w9d09a30560903608993972840ea4qw4d9bb0443-debug",loadOrder=1,propT={},stackDepth=0,status="active",userName="longVersion",wV="*branch.60200614194619.*_.*w.000000009.*d.000000009.*a.30560903608993972840.*ea.000000004.*qw.000000004.*d.000000009.*bb.000000443.*debug.*zfinal",},setPrompt={fn="ProjectDIR/rt/load/mf6/setPrompt/1.0.lua",fullName="setPrompt/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="setPrompt",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf6",},systemBaseMPATH="ProjectDIR/rt/load/mf6",}';
+export _ModuleTable_;
+===========================
+step 75
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/load/mf6;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={longVersion={fn="ProjectDIR/rt/load/mf6/longVersion/branch.60200614194619_w9d09a30560903608993972840ea4qw4d9bb0443-debug.lua",fullName="longVersion/branch.60200614194619_w9d09a30560903608993972840ea4qw4d9bb0443-debug",loadOrder=1,propT={},stackDepth=0,status="active",userName="longVersion",wV="*branch.60200614194619.*_.*w.000000009.*d.000000009.*a.30560903608993972840.*ea.000000004.*qw.000000004.*d.000000009.*bb.000000443.*debug.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf6",},systemBaseMPATH="ProjectDIR/rt/load/mf6",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={longVersion={fn="ProjectDIR/rt/load/mf6/longVersion/branch.60200614194619_w9d09a30560903608993972840ea4qw4d9bb0443-debug.lua",fullName="longVersion/branch.60200614194619_w9d09a30560903608993972840ea4qw4d9bb0443-debug",loadOrder=1,propT={},stackDepth=0,status="active",userName="longVersion",wV="*branch.60200614194619.*_.*w.000000009.*d.000000009.*a.30560903608993972840.*ea.000000004.*qw.000000004.*d.000000009.*bb.000000443.*debug.*zfinal",},setPrompt={fn="ProjectDIR/rt/load/mf6/setPrompt/1.0.lua",fullName="setPrompt/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="setPrompt",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf6",},systemBaseMPATH="ProjectDIR/rt/load/mf6",}';
 export _ModuleTable_;
 ===========================
-step 75
+step 76
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 MODULEPATH=ProjectDIR/rt/load/mf6;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={longVersion={fn="ProjectDIR/rt/load/mf6/longVersion/branch.60200614194619_w9d09a30560903608993972840ea4qw4d9bb0443-debug.lua",fullName="longVersion/branch.60200614194619_w9d09a30560903608993972840ea4qw4d9bb0443-debug",loadOrder=1,propT={},stackDepth=0,status="active",userName="longVersion",wV="*branch.60200614194619.*_.*w.000000009.*d.000000009.*a.30560903608993972840.*ea.000000004.*qw.000000004.*d.000000009.*bb.000000443.*debug.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf6",},systemBaseMPATH="ProjectDIR/rt/load/mf6",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={longVersion={fn="ProjectDIR/rt/load/mf6/longVersion/branch.60200614194619_w9d09a30560903608993972840ea4qw4d9bb0443-debug.lua",fullName="longVersion/branch.60200614194619_w9d09a30560903608993972840ea4qw4d9bb0443-debug",loadOrder=1,propT={},stackDepth=0,status="active",userName="longVersion",wV="*branch.60200614194619.*_.*w.000000009.*d.000000009.*a.30560903608993972840.*ea.000000004.*qw.000000004.*d.000000009.*bb.000000443.*debug.*zfinal",},setPrompt={fn="ProjectDIR/rt/load/mf6/setPrompt/1.0.lua",fullName="setPrompt/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="setPrompt",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/load/mf6",},systemBaseMPATH="ProjectDIR/rt/load/mf6",}';
 export _ModuleTable_;
+===========================
+step 77
+echo MY_PS1: [\u@\h \W]\$
+===========================
+MY_PS1: [\u@\h \W]\$

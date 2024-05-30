@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.29  2023-07-10 17:58 -06:00
+Modules based on Lua: Version 8.7.37   2024-03-17 13:11 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -549,17 +549,23 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load longVersion
 ===========================
 ===========================
 step 74
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load setPrompt
+===========================
+===========================
+step 75
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) longVersion/branch.60200614194619_w9d09a30560903608993972840ea4qw4d9bb0443-debug
+  2) setPrompt/1.0
 ===========================
-step 75
+step 76
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/load/mf6
    longVersion/branch.60200614194619_w9d09a3056a903608993972840ea4qw4d9bb0443-debug
    longVersion/branch.60200614194619_w9d09a30560903608993972840ea4qw4d9bb0443-debug (L,D)
+   setPrompt/1.0                                                                    (L)
   Where:
    D:  Default Module
    L:  Module is loaded
@@ -568,3 +574,7 @@ If the avail list is too long consider trying:
 "module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 77
+echo MY_PS1: [\u@\h \W]\$
+===========================
