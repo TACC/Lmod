@@ -215,7 +215,7 @@ function load_any(...)
    return b
 end   
 
-local s_cleanupDirT = { PATH = true, LD_LIBRARY_PATH = true, MODULEPATH = true }
+local s_cleanupDirT = { PATH = true, LD_LIBRARY_PATH = true, LIBRARY_PATH = true, MODULEPATH = true }
 
 --- PATH functions ---
 --------------------------------------------------------------------------
