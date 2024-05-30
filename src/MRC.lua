@@ -580,7 +580,7 @@ function M.applyWeights(self, sn, fileA)
       local entry   = fileA[j]
       local version = entry.version
       for i = 1, #resultA do
-         suEntry = resultA[i]
+         local suEntry = resultA[i]
          if (version == suEntry.version) then
             local weight = suEntry.weight
             local idx    = entry.wV:match("^.*()/")
