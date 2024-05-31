@@ -446,7 +446,6 @@ function getMT()
       local envNm = strfmt(piece,i)
       local v     = getenv(envNm)
       if (v == nil) then break end
-      dbg.print{"getMT: nm:",envNm,", v: ",v,"\n"}
 
       a[#a+1]    = v
    end
