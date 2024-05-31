@@ -533,7 +533,16 @@ function l_find_all_su_defaults(k, t, b, resultA)
 end
 
 function M.applyWeights(self, sn, fileA)
+   dbg.start{"MRC:applyWeights(sn: \"",sn,"\", fileA)"}
    local t = self.__fullNameDfltT
+
+   if (not (sn and fileA and next(fileA) ~= nil)) then
+      dbg.fini("MRC:applyWeights via no sn or fileA")
+      return
+   end
+
+   dbg.printT("fullNameDfltT: ", t)
+
 
    -- split sn into an array on '/' --> snA
    local snA = {}
@@ -561,6 +570,7 @@ function M.applyWeights(self, sn, fileA)
 
    -- If not found then there are no marked (su) defaults.
    if (not found) then
+      dbg.fini("MRC:applyWeights sn not found")
       return
    end
 
@@ -574,24 +584,30 @@ function M.applyWeights(self, sn, fileA)
       l_find_all_su_defaults(k,v,{},resultA)
    end
 
+   dbg.printT("resultA",resultA)
    -- Now use resultA to mark su defaults in fileA
 
-   for j = 1,#fileA do
-      local entry   = fileA[j]
-      local version = entry.version
-      for i = 1, #resultA do
-         local suEntry = resultA[i]
-         if (version == suEntry.version) then
-            local weight = suEntry.weight
-            local idx    = entry.wV:match("^.*()/")
-            if (idx) then
-               entry.wV = entry.wV:sub(1,idx) .. weight .. entry.wV:sub(idx+2,-1)
-            else
-               entry.wV = weight .. entry.wV:sub(2,-1)
+   for k = 1,#fileA do
+      local blockA = fileA[k]
+      for j = 1,#blockA do
+         local entry   = blockA[j]
+         local version = entry.version
+         for i = 1, #resultA do
+            local suEntry = resultA[i]
+            if (version == suEntry.version) then
+               local weight = suEntry.weight
+               local idx    = entry.wV:match("^.*()/")
+               if (idx) then
+                  entry.wV = entry.wV:sub(1,idx) .. weight .. entry.wV:sub(idx+2,-1)
+               else
+                  entry.wV = weight .. entry.wV:sub(2,-1)
+               end
             end
          end
       end
    end
+   dbg.printT("fileA: ", fileA)
+   dbg.fini("MRC:applyWeights")
 end
 
 return M
