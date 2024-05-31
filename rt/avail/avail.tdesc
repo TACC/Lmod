@@ -22,7 +22,8 @@ testdescript = {
      export MODULEPATH
      unset TERM
 
-     rm -fr _stderr.*  _stdout.* out.* err.* .lmod.d .lmodrc.lua .cache .config
+     remove_generated_lmod_files
+
      cp $(testDir)/.lmodrc.lua .lmodrc.lua
 
 

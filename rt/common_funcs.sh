@@ -332,6 +332,12 @@ userCacheDir ()
   echo $dir
 }
   
+remove_generated_lmod_files ()
+{
+  local cacheDir=$(userCacheDir)
+  rm -rf _stderr.* _stdout.* err.* out.* $cacheDir .cache .config spiderT.lua .lmodrc.lua .modulerc.lua .modulerc 
+  rm -rf "${@}"
+}
 
 clearTARG()
 {
