@@ -86,7 +86,6 @@ function M.singleton(self, safe)
    if (not s_hub) then
       s_hub = l_new(self, safe)
    end
-   dbg.print{"s_hub: ",tostring(s_hub), ", safe: ",s_hub.__safe,"\n"}
    dbg.fini("Hub:singleton")
    return s_hub
 end
