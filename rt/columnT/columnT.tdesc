@@ -21,7 +21,7 @@ testdescript = {
      MODULEPATH=$(testDir)/modules:$(testDir)/modules-npa; export MODULEPATH
 
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .cache .config
+     remove_generated_lmod_files
 
      m1="
          "

@@ -21,8 +21,8 @@ testdescript = {
      export TEST_MROOT=$(testDir)/mf
      export MODULERCFILE=$testDir/modulerc
 
-     rm -f  _stderr.* _stdout.* err.* out.*
-     rm -fr .lmod.d .lmodrc.lua  .cache .config
+     remove_generated_lmod_files
+
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
 
      runLmod --version                                                        # 1

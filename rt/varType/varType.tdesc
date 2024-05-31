@@ -21,7 +21,7 @@ testdescript = {
      unsetMT
      initStdEnvVars
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .modulerc .cache .config
+     remove_generated_lmod_files
 
      runLmod --version                # 1
      runLmod use $(testDir)/mf        # 2

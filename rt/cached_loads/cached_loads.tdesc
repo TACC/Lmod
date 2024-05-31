@@ -24,9 +24,7 @@ testdescript = {
 
      cacheDir=`userCacheDir`
 
-     rm -fr _stderr.* _stdout.* err.* out.* $cacheDir mf .cache .config .lmod.d
-
-
+     remove_generated_lmod_files
      
      runLmod --version              # 1
 

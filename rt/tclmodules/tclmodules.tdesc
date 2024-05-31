@@ -22,7 +22,7 @@ testdescript = {
      export MODULEPATH=$(testDir)/mf
      export FOO=BAR
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .cache .config
+     remove_generated_lmod_files
 
      runLmod --version                         # 1
      runLmod whatis a                          # 2

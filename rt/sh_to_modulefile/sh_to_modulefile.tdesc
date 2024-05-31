@@ -20,7 +20,8 @@ testdescript = {
      initStdEnvVars
      MODULEPATH=$(testDir)/mf; export MODULEPATH
 
-     rm -fr mf _stderr.* _stdout.* err.* out.* .lmod.d s.log  .cache .config
+     remove_generated_lmod_files s.log 
+
      unset -f fooBar > /dev/null 2> /dev/null
 
      runLmod --version                                 # 1

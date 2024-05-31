@@ -19,8 +19,7 @@ testdescript = {
      initStdEnvVars
      MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
 
-     rm -f  _stderr.* _stdout.* err.* out.*
-     rm -fr .lmod.d .lmodrc.lua .cache .config
+     remove_generated_lmod_files
 
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
      mkdir -p .cache/lmod

@@ -21,7 +21,8 @@ testdescript = {
      MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
      MODULEPATH=$MODULEPATH_ROOT/Core;  export MODULEPATH
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d cacheDir .lmodrc.lua fn .cache .config
+     remove_generated_lmod_files cacheDir fn
+
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
 
      cat > fn << EOF

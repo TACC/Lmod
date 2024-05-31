@@ -20,7 +20,7 @@ testdescript = {
      MODULEPATH=$(testDir)/mf/Core;        export MODULEPATH
      MODULEPATH_ROOT=$MODULEPATH_ROOT/mf;  export MODULEPATH_ROOT
 
-     rm -fr  _stderr.* _stdout.* err.* out.* .lmod.d .cache .config
+     remove_generated_lmod_files
 
      runLmod --version         # 1
      runLmod load PrgEnv       # 2

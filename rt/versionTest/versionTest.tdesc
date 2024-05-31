@@ -21,7 +21,8 @@ testdescript = {
      initStdEnvVars
      MODULEPATH=$(testDir)/mf;  export MODULEPATH
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua .cache .config
+     remove_generated_lmod_files
+
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
 
      runLmod --version                                      # 1

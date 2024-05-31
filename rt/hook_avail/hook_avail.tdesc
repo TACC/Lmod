@@ -24,7 +24,7 @@ testdescript = {
      export MODULEPATH_ROOT=$(testDir)/mf
      export MODULEPATH=$(testDir)/mf/Core:$(testDir)/mf/Core-helios
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .cache .config
+     remove_generated_lmod_files
 
      runLmod --version                     # 1
      runLmod load StdEnv                   # 2

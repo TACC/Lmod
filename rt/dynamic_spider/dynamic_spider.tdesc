@@ -23,7 +23,7 @@ testdescript = {
      export MODULEPATH=$MODULEPATH_ROOT/Core
      cacheDir=`userCacheDir`
 
-     rm -fr _stderr.* _stdout.* err.* out.* $cacheDir myModules{,2,4} .lmod.d .cache .config
+     remove_generated_lmod_files myModules{,2,4}
 
      runLmod --version                         # 1
      runLmod spider                            # 2

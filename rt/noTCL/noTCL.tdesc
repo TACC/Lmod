@@ -26,7 +26,9 @@ testdescript = {
      LMOD_DEFAULT_MODULEPATH=$MODULEPATH
      export LMOD_DEFAULT_MODULEPATH
      export LMOD_ALLOW_TCL_MFILES=no;
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua .config .cache
+
+     remove_generated_lmod_files
+
      cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
 
      runLmod --version                                      # 1

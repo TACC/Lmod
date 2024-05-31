@@ -20,7 +20,8 @@ testdescript = {
      unsetMT
      initStdEnvVars
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d c1 c2 .cache .config
+     remove_generated_lmod_files c1 c2 
+
      mkdir c1 c2
 
      touch c1/system.txt c2/system.txt

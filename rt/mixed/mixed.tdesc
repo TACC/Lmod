@@ -22,7 +22,7 @@ testdescript = {
      MODULEPATH=$MODULEPATH_ROOT/Core;  export MODULEPATH
      LMOD_DUPLICATE_PATHS=yes;          export LMOD_DUPLICATE_PATHS
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .cache .config
+     remove_generated_lmod_files
 
      runLmod --version          # 1
      runLmod load StdEnv        # 2

@@ -22,7 +22,8 @@ testdescript = {
      export MODULEPATH=$(testDir)/mf;
      export LMOD_PACKAGE_PATH=$(testDir)
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .lmodrc.lua .cache .config
+     remove_generated_lmod_files
+
      cp $(testDir)/.lmodrc.lua .lmodrc.lua
 
      runLmod --version                     # 1

@@ -23,7 +23,7 @@ testdescript = {
      export MROOT2=$(testDir)/mf2
      export MODULEPATH=$MODULEPATH_ROOT/Core
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .cache .config
+     remove_generated_lmod_files
      mkdir -p .cache/lmod
 
      runLmod --version                          # 1

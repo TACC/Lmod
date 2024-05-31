@@ -26,7 +26,7 @@ testdescript = {
      export MODULEPATH=$(outputDir)/mf/Core:$MODULEPATH_ROOT/Core
      export TARG_RTM="Is Great"; 
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d settarg_rc.lua .settarg.lua  .cache .config
+     remove_generated_lmod_files settarg_rc.lua .settarg.lua 
 
      cp $(projectDir)/settarg/settarg_rc.lua  settarg_rc.lua
      export LMOD_SETTARG_RC=$(outputDir)/settarg_rc.lua

@@ -30,8 +30,7 @@ testdescript = {
      dir=lmod
 
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d build b0 lmod .cache .config
-     rm -f  results.csv 
+     remove_generated_lmod_files build b0 lmod results.csv
 
      GIT_BRANCH=`git status | head -n 1 | sed -e 's/^[# ]*On branch //g' -e 's/^[# ]*HEAD detached at//g'`
      runLmod --version              # 1

@@ -25,7 +25,7 @@ testdescript = {
 
      export LMOD_PACKAGE_PATH=$(testDir)/orig_hook_style; 
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .cache .config
+     remove_generated_lmod_files
 
      runLmod --version                      # 1
      runLmod use -a $(testDir)/mf/Core      # 2

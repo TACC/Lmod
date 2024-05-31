@@ -161,7 +161,8 @@ cat > $(testName).csh << EOF
      setenv HOME $ORIG_HOME
 EOF
 
-     rm -fr _stderr.* _stdout.* err.* out.*  .lmod.d
+     remove_generated_lmod_files
+
      unset SHELL_STARTUP_DEBUG
      chmod +x $(testName).csh
 

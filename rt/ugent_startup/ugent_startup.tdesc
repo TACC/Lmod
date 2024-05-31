@@ -21,7 +21,8 @@ testdescript = {
      initStdEnvVars
      export MODULEPATH=$(testDir)/mf/Core
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d  .cache .config
+     remove_generated_lmod_files
+
      export VSC_DEFAULT_CLUSTER_MODULE=delcatty
 
      runLmod --version                         # 1

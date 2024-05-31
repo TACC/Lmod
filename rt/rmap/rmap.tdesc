@@ -24,7 +24,7 @@ testdescript = {
      export APPS_DIR=$(testDir)/apps
      export MY_BIN=$(outputDir)/my_bin
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d more_apps otherBin  .cache .config
+     remove_generated_lmod_files more_apps otherBin
 
      mkdir -p more_apps/bin
      cp $(testDir)/echo_this.sh more_apps/bin

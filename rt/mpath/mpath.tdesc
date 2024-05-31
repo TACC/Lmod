@@ -23,7 +23,7 @@ testdescript = {
      export MODULEPATH=$MODULEPATH_ROOT/Core
 
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .cache .config
+     remove_generated_lmod_files
 
      runLmod --version                     # 1
      runLmod avail                         # 2

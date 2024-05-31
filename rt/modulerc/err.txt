@@ -584,3 +584,52 @@ If the avail list is too long consider trying:
 "module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 47
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 48
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+ProjectDIR/rt/modulerc/mfA/Core
+   A/1.0        B/2.0          D/beta            (D)    E/2.0
+   A/1.1        C/1.0          D/gamma                  newDefaults/1.0
+   A/2.0 (D)    C/1.1   (D)    D/january.10.2024
+   B/1.0        C/2.0          E/1.0             (D)
+   B/1.1 (D)    D/alpha        E/1.1
+  Where:
+   D:  Default Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 49
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load newDefaults
+===========================
+===========================
+step 50
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) A/1.1   2) B/1.0   3) newDefaults/1.0
+===========================
+step 51
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+ProjectDIR/rt/modulerc/mfA/Core
+   A/1.0          B/2.0          D/beta            (D)    E/2.0           (D)
+   A/1.1 (L)      C/1.0          D/gamma                  newDefaults/1.0 (L)
+   A/2.0 (D)      C/1.1   (D)    D/january.10.2024
+   B/1.0 (L,D)    C/2.0          E/1.0
+   B/1.1          D/alpha        E/1.1
+  Where:
+   D:  Default Module
+   L:  Module is loaded
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".

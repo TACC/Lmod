@@ -21,7 +21,7 @@ testdescript = {
      initStdEnvVars
      MODULEPATH=$(testDir)/mf; export MODULEPATH
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .cache .config
+     remove_generated_lmod_files
 
      runLmod --version                     # 1
      runLmod show myShellType/1.0          # 2

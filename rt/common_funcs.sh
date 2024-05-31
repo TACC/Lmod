@@ -335,7 +335,8 @@ userCacheDir ()
 remove_generated_lmod_files ()
 {
   local cacheDir=$(userCacheDir)
-  rm -rf _stderr.* _stdout.* err.* out.* $cacheDir .cache .config spiderT.lua .lmodrc.lua .modulerc.lua .modulerc 
+
+  rm -rf _stderr.* _stdout.* err.* out.* $cacheDir .cache .config .lmodrc.lua .modulerc.lua .modulerc .lmod.d results.csv
   rm -rf "${@}"
 }
 

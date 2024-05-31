@@ -21,8 +21,7 @@ testdescript = {
      MODULEPATH=$(testDir)/mf;     export MODULEPATH
      export TERM=xterm
 
-     rm -f  _stderr.* _stdout.* err.* out.*
-     rm -fr .lmod.d .lmodrc.lua .config .cache
+     remove_generated_lmod_files
 
      cp $(testDir)/.lmodrc.lua .lmodrc.lua
 

@@ -22,7 +22,7 @@ testdescript = {
      MODULEPATH_ROOT=$(testDir)/mf;  export MODULEPATH_ROOT
      MODULEPATH=$MODULEPATH_ROOT/Core; export MODULEPATH
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d mf .cache .config
+     remove_generated_lmod_files mf
 
      runLmod load a                     # 1
      runLmod load use                   # 2

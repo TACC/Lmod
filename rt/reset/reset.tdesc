@@ -23,7 +23,7 @@ testdescript = {
      MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
      MODULEPATH=$MODULEPATH_ROOT/Core;  export MODULEPATH
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmodrc.lua .lmod.d .cache .config
+     remove_generated_lmod_files
 
      LMOD_SYSTEM_DEFAULT_MODULES="admin:intel:openmpi:parmetis"
      export LMOD_SYSTEM_DEFAULT_MODULES

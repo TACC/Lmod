@@ -23,8 +23,9 @@ testdescript = {
      COUNT=0
      ORIG_HOME=`(cd $HOME; /bin/pwd)`
      HOME=`/bin/pwd`
+     cacheDir=`userCacheDir`
  
-     remove_generated_lmod_files myCacheDir fn
+     remove_generated_lmod_files myCacheDir fn spiderT.lua
 
      cp $(testDir)/dot.modulerc .modulerc
 

@@ -29,7 +29,7 @@ testdescript = {
      MODULEPATH_ROOT=$(testDir);        export MODULEPATH_ROOT
      LMOD_PACKAGE_PATH=$(testDir);      export LMOD_PACKAGE_PATH
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d Core .config .cache
+     remove_generated_lmod_files Core
 
      LMOD_PACKAGE_PATH=$(testDir);      export LMOD_PACKAGE_PATH
      runLmod --version               # 1

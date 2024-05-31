@@ -78,7 +78,7 @@ module(load bad)
 
 EOF
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d results.csv
+     remove_generated_lmod_files results.csv
 
      $CMAKE -P ./$(testName).cmake  > _stdout.000 2> _stderr.000
 

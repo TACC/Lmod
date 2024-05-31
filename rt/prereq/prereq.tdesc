@@ -20,7 +20,7 @@ testdescript = {
      ORIGPATH=$PATH
      MODULEPATH=$(testDir)/mf;          export MODULEPATH
 
-     rm -fr _stderr.* _stdout.* err.* out.* .lmod.d .cache .config
+     remove_generated_lmod_files
 
      runLmod --version          #  1
      runLmod load petsc         #  2
