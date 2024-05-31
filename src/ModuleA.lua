@@ -319,12 +319,13 @@ function M.__find_all_defaults(self)
             defaultT[sn] = {weight = "999999999.*zfinal", fullName = sn, fn = v.file, count = 1}
          elseif (next(v.fileT) ~= nil) then
             for fullName, vv in pairs(v.fileT) do
-               local vis = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn} or isMarked(vv.wV)
+               local wV  = mrc:find_wght_for_fullName(fullName, vv.wV)
+               local vis = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn} or isMarked(wV)
                if (show_hidden or vis) then
                   count = count + 1
-                  if (vis and (vv.wV > weight)) then
+                  if (vis and (wV > weight)) then
                      found      = true
-                     weight     = vv.wV
+                     weight     = wV
                      ext        = vv.luaExt and ".lua" or ""
                      fn         = pathJoin(mpath, fullName .. ext)
                      myfullName = fullName

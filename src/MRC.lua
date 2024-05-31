@@ -532,6 +532,57 @@ function l_find_all_su_defaults(k, t, b, resultA)
    end
 end
 
+function M.find_wght_for_fullName(self, fullName, wV)
+   dbg.start{"MRC:find_wght_for_fullName(fullName: \"",fullName,")"}
+   local t = self.__fullNameDfltT
+   if (not fullName) then
+      dbg.fini("MRC:find_wght_for_fullName")
+      return wV
+   end
+   
+   -- split fullName into an array on '/' --> fnA
+   local fnA = {}
+   local n   = 0
+   for s in fullName:split("/") do
+      n      = n + 1
+      fnA[n] = s
+   end
+
+   -- if fnA  has no parts then quit.
+   if (n < 1) then
+      dbg.fini("MRC:find_wght_for_fullName")
+      return wV
+   end
+
+   -- Search thru t to see if fullName is marked with (su) defaults
+   local found = false
+   for i = 1, n do
+      local s = fnA[i]
+      if (t[s] and t[s].tree) then
+         t = t[s].tree
+         found = (i == n)
+      end
+   end
+
+   if (not found) then
+      dbg.fini("MRC:find_wght_for_fullName")
+      return wV
+   end
+
+   local weight = t.weight
+   local idx    = wV:match("^.*()/")
+   if (idx) then
+      wV = wV:sub(1,idx) .. weight .. wV:sub(idx+2,-1)
+   else
+      wV = weight .. wV:sub(2,-1)
+   end
+   
+   dbg.print{"found weight: ",weight,", wV: ",wV,"\n"}
+   dbg.fini("MRC:find_wght_for_fullName")
+   return wV
+end
+
+
 function M.applyWeights(self, sn, fileA)
    dbg.start{"MRC:applyWeights(sn: \"",sn,"\", fileA)"}
    local t = self.__fullNameDfltT
