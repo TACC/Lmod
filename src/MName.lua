@@ -227,10 +227,7 @@ local function l_lazyEval(self)
    local userName              = mrc:resolve(mt:modulePathA(), self:userName())
    local sn, versionStr, fileA = moduleA:search(userName)
    dbg.print{"l_lazyEval: orig: ",origUserName,", userName: ",userName, ", sn: ",sn,", versionStr: ",versionStr,"\n"}
-   if (sn) then
-      mrc:applyWeights(sn, fileA)
-   end
-
+   mrc:applyWeights(sn, fileA)
 
    if (origUserName ~= userName) then
       self.__origUserName = origUserName
@@ -431,10 +428,10 @@ function M.find_exact_match(self, fileA)
       return found, fn, version
    end
 
-   for i = 1, #fileA do
-      local a = fileA[i]
-      for j = 1, #a do
-         local entry = a[j]
+   for j = 1, #fileA do
+      local blockA = fileA[j]
+      for i = 1, #blockA do
+         local entry = blockA[j]
          if (entry.version == versionStr and entry.pV > pV ) then
             pV      = entry.pV
             wV      = entry.wV
@@ -460,10 +457,10 @@ function M.find_exact_match_meta_module(self, fileA)
    local pV         = " "  -- this is less than the lowest possible weight
    local wV         = false
    local found      = false
-   for i = 1, #fileA do
-      local a = fileA[i]
-      for j = 1, #a do
-         local entry = a[j]
+   for j = 1, #fileA do
+      local blockA = fileA[j]
+      for i = 1, #blockA do
+         local entry = blockA[i]
          if (entry.version == versionStr and entry.pV > pV ) then
             pV      = entry.pV
             wV      = entry.wV
