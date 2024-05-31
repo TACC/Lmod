@@ -536,10 +536,11 @@ function M.find_wght_for_fullName(self, fullName, wV)
    dbg.start{"MRC:find_wght_for_fullName(fullName: \"",fullName,")"}
    local t = self.__fullNameDfltT
    if (not fullName) then
-      dbg.fini("MRC:find_wght_for_fullName")
+      dbg.fini("MRC:find_wght_for_fullName: no fullName")
       return wV
    end
    
+
    -- split fullName into an array on '/' --> fnA
    local fnA = {}
    local n   = 0
@@ -550,7 +551,7 @@ function M.find_wght_for_fullName(self, fullName, wV)
 
    -- if fnA  has no parts then quit.
    if (n < 1) then
-      dbg.fini("MRC:find_wght_for_fullName")
+      dbg.fini("MRC:find_wght_for_fullName: fnA has no parts")
       return wV
    end
 
@@ -558,14 +559,14 @@ function M.find_wght_for_fullName(self, fullName, wV)
    local found = false
    for i = 1, n do
       local s = fnA[i]
-      if (t[s] and t[s].tree) then
-         t = t[s].tree
+      if (t[s]) then
+         t = t[s].tree or t[s]
          found = (i == n)
       end
    end
 
    if (not found) then
-      dbg.fini("MRC:find_wght_for_fullName")
+      dbg.fini("MRC:find_wght_for_fullName: not found")
       return wV
    end
 
@@ -613,8 +614,8 @@ function M.applyWeights(self, sn, fileA)
    local found = false
    for i = 1, n do
       local s = snA[i]
-      if (t[s] and t[s].tree) then
-         t = t[s].tree
+      if (t[s]) then
+         t = t[s].tree or t[s]
          found = (i == n)
       end
    end
