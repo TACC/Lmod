@@ -377,7 +377,8 @@ How does one handle backslashed characters (aka escaped characters) in an enviro
        % module load setPrompt; echo "MY_PS1: \"$MY_PS1\""
        MY_PS1: "[\u@\h \W]\$ "
 
-Why can using os.getenv() not work on unload?
+Why is using os.getenv() directly in the functions setenv(),
+prepend_path() or append_path() a bad idea?
 
    The following modulefile works correctly on load and will produce a
    warning when unloaded::
