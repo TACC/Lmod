@@ -431,7 +431,7 @@ function M.find_exact_match(self, fileA)
    for j = 1, #fileA do
       local blockA = fileA[j]
       for i = 1, #blockA do
-         local entry = blockA[j]
+         local entry = blockA[i]
          if (entry.version == versionStr and entry.pV > pV ) then
             pV      = entry.pV
             wV      = entry.wV
