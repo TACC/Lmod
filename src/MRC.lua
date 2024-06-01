@@ -570,12 +570,14 @@ function M.find_wght_for_fullName(self, fullName, wV)
       return wV
    end
 
-   local weight = t.weight
+   local weight = t.weight 
    local idx    = wV:match("^.*()/")
-   if (idx) then
-      wV = wV:sub(1,idx) .. weight .. wV:sub(idx+2,-1)
-   else
+   if (weight) then
+      if (idx) then
+         wV = wV:sub(1,idx) .. weight .. wV:sub(idx+2,-1)
+      else
       wV = weight .. wV:sub(2,-1)
+      end
    end
    
    dbg.print{"found weight: ",weight,", wV: ",wV,"\n"}
