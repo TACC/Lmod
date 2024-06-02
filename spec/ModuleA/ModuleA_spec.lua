@@ -82,7 +82,7 @@ describe("Testing ModuleA Class #ModuleA.",
                                           ["luaExt"] = 4,
                                           ["mpath"] = "%ProjDir%/spec/ModuleA/mf",
                                           ["pV"] = "000000032/000000001.*zfinal",
-                                          ["wV"] = "000000032/s00000001.*zfinal",
+                                          ["wV"] = "000000032/000000001.*zfinal",
                                        },
                                        ["bio/bowtie/32/2.0"]  = {
                                           ["Version"] = "32/2.0",
@@ -186,7 +186,6 @@ describe("Testing ModuleA Class #ModuleA.",
                   posix.setenv("MODULEPATH",mpath,true)
                   local maxdepth = mpath .. ":2;"
                   cosmic:assign("LMOD_MAXDEPTH",maxdepth)
-                  cosmic:assign("LMOD_MODULERC",pathJoin(projDir,testDir,".modulerc"))
                   _G.mcp             = _G.MainControl.build("load")
                   _G.MCP             = _G.MainControl.build("load")
                   --dbg:activateDebug(1)
