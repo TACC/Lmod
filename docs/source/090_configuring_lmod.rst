@@ -244,6 +244,10 @@ the configuration option which will set the action.
   ~/.config/lmod but will check both directories when reading picking
   the most recent one.
 
+**MODULES_AUTO_HANDLING**:
+  [yes/no, default: no, --with-modulesAutoHandling].  Allows prereq functions
+  to automatically be converted to depends_on functions.
+
 Configuration or cosmic:assign() at startup
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

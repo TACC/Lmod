@@ -604,9 +604,23 @@ AC_ARG_WITH(fastTCLInterp,
     FAST_TCL_INTERP="$withval"
     AC_DEFINE_UNQUOTED(FAST_TCL_INTERP, "$withval"))dnl
 
+AC_SUBST(MODULE_AUTO_HANDLING)
+AC_ARG_WITH(moduleAutoHandling,
+    AS_HELP_STRING([--with-moduleAutoHandling=ans],[Automatically replaces prereqs with depends_on. [[no]]]),
+    MODULE_AUTO_HANDLING="$withval"
+    MODULE_AUTO_HANDLING=`echo $FAST_TCL_INTERP | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
+    VALID_YN $MODULE_AUTO_HANDLING "--with-moduleAutoHandling=ans: ans must be yes or no"
+    AC_MSG_RESULT([MODULE_AUTO_HANDLING=$with-moduleAutoHandling])
+    AC_DEFINE_UNQUOTED(MODULE_AUTO_HANDLING, "$with-moduleAutoHandling")dnl
+    ,
+    withval="no"
+    AC_MSG_RESULT([MODULE_AUTO_HANDLING=$withval])
+    MODULE_AUTO_HANDLING="$withval"
+    AC_DEFINE_UNQUOTED(MODULE_AUTO_HANDLING, "$withval"))dnl
+
 AC_SUBST(AVAIL_EXTENSIONS)
 AC_ARG_WITH(availExtensions,
-    AS_HELP_STRING([--with-availExtensions=ans],[Use the fast TCL interpreter. [[yes]]]),
+    AS_HELP_STRING([--with-availExtensions=ans],[Allow extensions to be printed with avail. [[yes]]]),
     AVAIL_EXTENSIONS="$withval"
     AVAIL_EXTENSIONS=`echo $AVAIL_EXTENSIONS | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $AVAIL_EXTENSIONS "--with-availExtensions=ans: ans must be yes or no"

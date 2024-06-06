@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.32  2023-08-28 12:42 -05:00
+Modules based on Lua: Version 8.7.37   2024-03-17 13:11 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -403,3 +403,45 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) A/1.0   2) python3/1.0   3) intel/1.0
+===========================
+step 77
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 78
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load none
+===========================
+Lmod has detected the following error: The depends_on_any function failed because it could not find any of the following modules : a, e
+Please check the spelling or version number. Also try "module spider ..."
+Also make sure that all modulefiles written in TCL start with the string #%Module
+While processing the following module(s):
+    Module fullname  Module Filename
+    none             ProjectDIR/rt/depends_on/mf/Core6/none.lua
+===========================
+step 79
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load d
+===========================
+===========================
+step 80
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load already
+===========================
+===========================
+step 81
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) d/1.0   2) already
+===========================
+step 82
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 83
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load possible
+===========================
+===========================
+step 84
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) b/1.0   2) possible

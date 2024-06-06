@@ -136,6 +136,13 @@ Please check the spelling or version number. Also try "module spider ..."
 
 Also make sure that all modulefiles written in TCL start with the string #%Module
 ]==],
+     e_Failed_depends_any     = [==[The depends_on_any function failed because it could not find any of the following modules : %{module_list}
+
+Please check the spelling or version number. Also try "module spider ..."
+
+Also make sure that all modulefiles written in TCL start with the string #%Module
+]==],
+
      e_Family_Conflict     = [==[You can only have one %{name} module loaded at a time.
 You already have %{oldName} loaded.
 To correct the situation, please execute the following command:

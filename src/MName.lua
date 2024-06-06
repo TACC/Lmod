@@ -99,7 +99,8 @@ function M.new(self, sType, name, action, is, ie)
    o.__fn         = false
    o.__versionStr = false
    o.__dependsOn  = false
-   o.__ref_count  = nil
+   o.__dep_refsT  = {} --reference count now list of dep objects 
+   --o.__ref_count  = nil
    o.__sType      = sType
    o.__wV         = false
    o.__waterMark  = "MName"
@@ -190,7 +191,7 @@ local function l_lazyEval(self)
          self.__version    = mt:version(sn)
          self.__stackDepth = mt:stackDepth(sn)
          self.__wV         = mt:wV(sn)
-         self.__ref_count  = mt:get_ref_count(sn)
+         self.__dep_refsT  = mt:get_ref_count(sn)
       end
       --dbg.fini("l_lazyEval via mt")
       return
@@ -734,6 +735,19 @@ function M.downstreamConflictCk(self, mnameIn)
    dbg.fini( "MName:downstreamConflictCk")
    return result
 end
+
+
+function M.set_depends_on_flag(self, dependant_modsA)
+
+   --No existing dependencies
+   if next(depsA) == nil then
+      self.__depends_on = false
+   else
+      self.__depends_on = true
+   end
+   return self
+end
+
 
 function M.set_depends_on_flag(self, value)
    if (type(value) == "number") then

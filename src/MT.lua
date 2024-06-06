@@ -281,14 +281,13 @@ function M.add(self, mname, status, loadOrder)
       userName     = mname:userName(),
       stackDepth   = mname:stackDepth(),
       origUserName = mname:origUserName(),
-      ref_count    = ref_count,
       status       = status,
       loadOrder    = loadOrder,
       propT        = {},
       wV           = mname:wV() or false,
    }
    if (status ~= "inactive" and old_status ~= "inactive") then
-      self:safely_incr_ref_count(mname)
+      self:safely_add_dependency(mname)
    end
    --dbg.print{"MT:add: sn: ", sn, ", status: ",status,", old_status: ",old_status,", ref_count: ",mT[sn].ref_count,"\n"}
 end
@@ -820,6 +819,27 @@ function M.stackDepth(self,sn)
    return entry.stackDepth or 0
 end
 
+function M.safely_add_dependency(self, mname)
+   local sn    = mname:sn()
+   assert(sn)
+   local entry = self.mT[sn]
+   if (entry == nil) then
+      dbg.print{"MT:safely_incr_ref_count(): Did not find: ",sn,"\n"}
+      return
+   end
+   local depends_on_flag = mname:get_depends_on_flag()
+   if (not depends_on_flag and not entry.ref_count) then
+      dbg.print{"MT:safely_incr_ref_count(): depends_on_flag not set ",sn,"\n"}
+      return
+   end
+   local t = entry.dep_refsT or {}
+   t[sn] = true
+   entry.dep_refsT = t
+
+   dbg.print{"MT:safely_add_dependency(): stackDepth > 0, sn: ",sn,", new ref_count: ",entry.ref_count,"\n"}
+   return
+end
+
 function M.safely_incr_ref_count(self,mname)
    local sn    = mname:sn()
    assert(sn)
@@ -838,6 +858,29 @@ function M.safely_incr_ref_count(self,mname)
    return
 end
 
+
+function M.safe_to_remove(self, parent_sn, sn)
+   local entry = self.mT[sn]
+   if (entry == nil) then
+      return false
+   end
+   if ( not entry.dep_refsT ) then
+      return true
+   end
+
+   entry.dep_refsT[parent_sn] = nil
+
+   local safe = not (next(entry.dep_refsT))
+   
+   if (safe) then
+      entry.dep_refsT = nil 
+   end
+
+   return safe
+end
+
+
+
 function M.decr_ref_count(self,sn)
    local entry = self.mT[sn]
    if (entry == nil or not entry.ref_count) then
@@ -852,7 +895,7 @@ end
 
 function M.get_ref_count(self,sn)
    local entry = self.mT[sn]
-   if (entry == nil or not entry.ref_count) then
+   if (entry == nil or not next(entry.dep_refsT)) then
       return nil
    end
    dbg.print{"MT:get_ref_count(): sn: ",sn, ", ref_count: ",entry.ref_count,"\n"}
