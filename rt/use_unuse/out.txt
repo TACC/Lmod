@@ -82,3 +82,23 @@ unset __LMOD_REF_COUNT_MODULEPATH;
 unset MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={},}';
 export _ModuleTable_;
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use --help
+===========================
+__LMOD_REF_COUNT_MODULEPATH=OutputDIR/--help:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=OutputDIR/--help;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"OutputDIR/--help",},}';
+export _ModuleTable_;
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing use -h
+===========================
+__LMOD_REF_COUNT_MODULEPATH=OutputDIR/-h:1\;OutputDIR/--help:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=OutputDIR/-h:OutputDIR/--help;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"OutputDIR/-h","OutputDIR/--help",},}';
+export _ModuleTable_;

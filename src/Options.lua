@@ -419,7 +419,7 @@ function M.singleton(self, usage)
       cosmic:assign("LMOD_PIN_VERSIONS","yes")
    end
    if (optionTbl.ignoreCache) then
-      cosmic:assign("LMOD_IGNORE_CACHE", true)
+      cosmic:assign("LMOD_IGNORE_CACHE", "yes")
    end
 
    if (optionTbl.no_extensions) then

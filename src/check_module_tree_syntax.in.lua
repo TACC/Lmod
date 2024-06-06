@@ -286,11 +286,11 @@ function main()
    local errorT     = { defaultA = {}, syntaxA = {} }
 
    Shell            = BaseShell:build("bash")
-   dbg.set_prefix(colorize("red","Lmod"))
 
    ------------------------------------------------------------------
    -- initialize lmod with SitePackage and /etc/lmod/lmod_config.lua
    initialize_lmod()
+   dbg.set_prefix(colorize("red","Lmod"))
 
    local hub     = Hub:singleton(false)
    for i = 1,#pargs do

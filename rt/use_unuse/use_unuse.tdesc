@@ -37,6 +37,8 @@ testdescript = {
      unsetMT
      runLmod use   $(testDir)/mf/RTM2    # 8
      runLmod unuse $(testDir)/mf/RTM2    # 9
+     runLmod use   --help                #10
+     runLmod use   -h                    #11
 
      HOME=$ORIG_HOME
 

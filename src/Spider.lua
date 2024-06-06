@@ -1330,7 +1330,9 @@ function M._Level2(self, sn, fullName, entryA, entryPA, possibleA, tailMsg)
    dbg.start{"Spider:_Level2(\"",sn,"\", \"",fullName,"\", entryA, entryPA, possibleA, tailMsg)"}
    --dbg.printT("entryA",entryA)
 
-   local show_hidden  = optionTbl().show_hidden
+   local optionTbl    = optionTbl()
+   local show_hidden  = optionTbl.show_hidden
+   local terse        = optionTbl.terse
    local a            = {}
    local ia           = 0
    local b            = {}
@@ -1436,13 +1438,19 @@ function M._Level2(self, sn, fullName, entryA, entryPA, possibleA, tailMsg)
                d[k] = 1
             end
          end
+         local x = {}
          c = {}
          for k in pairs(d) do
             c[#c+1] = k
+            x[#x+1] = k:gsub("^ *","")
          end
          table.sort(c)
          c[#c+1] = " "
          ia = ia + 1; a[ia] = concatTbl(c,"\n")
+         if (terse) then
+            table.sort(x)
+            return concatTbl(x,"\n")
+         end
       end
    end
 

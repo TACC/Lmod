@@ -460,7 +460,7 @@ end
 ------------------------------------------------------------
 -- Get the table of modulerc files with proper weights
 
-s_fnIgnorePatternsA = { "^.*~", "^#.*", "^%.#.*", "^%..*%.swp"}
+local s_fnIgnorePatternsA = { "^.*~", "^#.*", "^%.#.*", "^%..*%.swp"}
 
 
 function getModuleRCT(remove_MRC_home)
@@ -1142,6 +1142,20 @@ function initialize_lmod()
    cosmic:set_key("SitePkg")
    require("SitePackage")
    cosmic:set_key("Other")
+   colorize_init()
+   if (cosmic:value("LMOD_TMOD_PATH_RULE") == "yes") then
+      cosmic:assign("LMOD_DUPLICATE_PATHS", "no")
+   end
+   local ignore_cache = cosmic:value("LMOD_IGNORE_CACHE") == "yes"
+   local cached_loads = cosmic:value("LMOD_CACHED_LOADS")
+   cosmic:assign("LMOD_CACHED_LOADS", ignore_cache and "no" or cached_loads)
+   local ancient = cosmic:value("LMOD_ANCIENT_TIME")
+   ------------------------------------------------------------------------
+   -- shortLifeCache: If building the cache file is fast then shorten the
+   --                 ancient to this time.
+   ------------------------------------------------------------------------
+   shortLifeCache = ancient/12
+
 end
 
 function tracing_msg(msgA)

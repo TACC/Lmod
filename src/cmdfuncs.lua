@@ -66,7 +66,6 @@ local sort         = table.sort
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack  -- luacheck: compat
 local unpack       = (_VERSION == "Lua 5.1") and unpack or table.unpack  -- luacheck: compat
 
-local system_name  = cosmic:value("LMOD_SYSTEM_NAME")
 
 --------------------------------------------------------------------------
 -- Both Help and Whatis functions funnel their actions through
@@ -101,7 +100,8 @@ end
 -- @param a An array containing the results.
 -- @param path The Lmod.d directory path.
 local function l_findNamedCollections(a,pathA)
-   local t = {}
+   local system_name  = cosmic:value("LMOD_SYSTEM_NAME")
+   local t            = {}
    for i = 1,#pathA do
       repeat 
          local path = pathA[i]
@@ -742,14 +742,15 @@ end
 function CollectionLst(collection)
    collection  = collection or "default"
    dbg.start{"CollectionLst(",collection,")"}
-   local optionTbl = optionTbl()
-   local sname     = (not system_name) and "" or "." .. system_name
-   local mt        = FrameStk:singleton():mt()
-   local shell     = _G.Shell
-   local cwidth    = optionTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
-   local path      = l_find_a_collection(collection)
+   local system_name = cosmic:value("LMOD_SYSTEM_NAME")
+   local optionTbl   = optionTbl()
+   local sname       = (not system_name) and "" or "." .. system_name
+   local mt          = FrameStk:singleton():mt()
+   local shell       = _G.Shell
+   local cwidth      = optionTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
+   local path        = l_find_a_collection(collection)
 
-   local a         = mt:reportContents{fn=path, name=collection}
+   local a           = mt:reportContents{fn=path, name=collection}
    if (optionTbl.terse) then
       for i = 1,#a do
          shell:echo(a[i].."\n")
@@ -779,8 +780,9 @@ end
 -- and will be removed.  Use restore instead.
 -- @param collection The collection name (default="default")
 function GetDefault(collection)
-   collection  = collection or "default"
+   collection        = collection or "default"
    dbg.start{"GetDefault(",collection,")"}
+   local system_name = cosmic:value("LMOD_SYSTEM_NAME")
 
    local sname = (not system_name) and "" or "." .. system_name
    local path  = l_find_a_collection(collection .. sname)
@@ -804,9 +806,10 @@ function Restore(collection)
 
    local msg
    local path
-   local myName  = "default"
-   local sname   = system_name
-   local msgTail = ""
+   local system_name = cosmic:value("LMOD_SYSTEM_NAME")
+   local myName      = "default"
+   local sname       = system_name
+   local msgTail     = ""
    if (not sname) then
       sname   = ""
       myName  = "(empty)"
@@ -886,8 +889,9 @@ function Save(...)
    local pathA     = l_collectionDir("write")
    dbg.start{"Save(",concatTbl({...},", "),")"}
 
-   local msgTail = ""
-   local sname   = system_name
+   local system_name = cosmic:value("LMOD_SYSTEM_NAME")
+   local msgTail     = ""
+   local sname       = system_name
    if (not sname) then
       sname   = ""
    else
@@ -952,14 +956,15 @@ end
 --------------------------------------------------------------------------
 -- Report to the user all the named collections he/she has.
 function SaveList(...)
-   local mt        = FrameStk:singleton():mt()
-   local optionTbl = optionTbl()
-   local a         = {}
-   local b         = {}
-   local shell     = _G.Shell
-   local cwidth    = optionTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
-   local home      = os.getenv("HOME")
-   local pathA     = l_collectionDir("read")
+   local mt          = FrameStk:singleton():mt()
+   local optionTbl   = optionTbl()
+   local a           = {}
+   local b           = {}
+   local shell       = _G.Shell
+   local cwidth      = optionTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
+   local home        = os.getenv("HOME")
+   local pathA       = l_collectionDir("read")
+   local system_name = cosmic:value("LMOD_SYSTEM_NAME")
 
    l_findNamedCollections(b,pathA)
    if (optionTbl.terse) then
@@ -1136,10 +1141,11 @@ end
 --------------------------------------------------------------------------
 -- Disable a collection
 function Disable(...)
-   local shell = _G.Shell
-   local pathA = l_collectionDir("read")
-   local argA  = pack(...)
-   local sname = (not system_name) and "" or "." .. system_name
+   local shell       = _G.Shell
+   local pathA       = l_collectionDir("read")
+   local argA        = pack(...)
+   local system_name = cosmic:value("LMOD_SYSTEM_NAME")
+   local sname       = (not system_name) and "" or "." .. system_name
 
    if (argA.n == 0) then
       argA[1] = "default"
@@ -1173,11 +1179,11 @@ end
 --  possibly reloaded if a module.
 function Use(...)
    dbg.start{"Use(", concatTbl({...},", "),")"}
-   local mt  = FrameStk:singleton():mt()
-   local a = {}
-   local mcp_old = mcp
-   local mcp     = MCP
-   local op = mcp.prepend_path
+   local mt       = FrameStk:singleton():mt()
+   local a        = {}
+   local mcp_old  = mcp
+   local mcp      = MCP
+   local op       = mcp.prepend_path
 
    local argA     = pack(...)
    local iarg     = 1
@@ -1199,6 +1205,11 @@ function Use(...)
       iarg = iarg + 1
    end
    for _,v in ipairs(a) do
+      -- Produce warning if leading minus sign(s) are found.
+      if (v:find("^-+")) then
+         LmodWarning{msg="w_Possible_Bad_Dir",dir=v}
+      end
+
       if (v:sub(1,1) ~= '/') then
          local old = v
          -- If relative convert to try to convert to absolute path

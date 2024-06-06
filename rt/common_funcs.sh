@@ -280,6 +280,8 @@ initStdEnvVars()
   unset SHLIB_PATH
   unset TERM
   unset _LMFILES_
+  unset LMOD_IGNORE_CACHE
+  unset LMOD_CACHED_LOADS
   unset LMOD_SET_NOGLOB
   unset LMOD_DISPLAY_VERSION_COLOR
   unset LMOD_DISPLAY_SN_COLOR

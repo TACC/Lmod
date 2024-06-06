@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.34  2024-01-05 19:34 -07:00
+Modules based on Lua: Version 8.7.37   2024-03-17 13:11 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -884,6 +884,12 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider GROMACS/2019
        - Homepage: http://www.gromacs.org
 ===========================
 step 71
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t spider GROMACS/2019
+===========================
+gcc/10.1
+zuda/10.1
+===========================
+step 72
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 The following is a list of the modules and extensions currently available:
@@ -898,7 +904,7 @@ To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
-step 72
+step 73
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Global Aliases
@@ -915,14 +921,6 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 73
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider Appl1
-===========================
-  Appl1: Appl1/1
-    You will need to load all module(s) on any one of the lines below before the "Appl1/1" module is available to load.
-      init-cluster/1.0  MyStack/2021
-      init-cluster/1.0  MyStack/2022
-===========================
 step 74
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider Appl1
 ===========================
@@ -932,6 +930,14 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider Appl1
       init-cluster/1.0  MyStack/2022
 ===========================
 step 75
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider Appl1
+===========================
+  Appl1: Appl1/1
+    You will need to load all module(s) on any one of the lines below before the "Appl1/1" module is available to load.
+      init-cluster/1.0  MyStack/2021
+      init-cluster/1.0  MyStack/2022
+===========================
+step 76
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Global Aliases
@@ -946,7 +952,7 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 76
+step 77
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Global Aliases

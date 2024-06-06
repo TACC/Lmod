@@ -138,3 +138,11 @@ Lmod 8.7+
    (8.7.37) * Issue #698: Use the correct mname from Framestack when unregistering a "break" module	    
             * Ignore backup files (*~ .*.swp etc) files in a modulerc.d directory.
             * Issue #699: Fixed buildVersion_src to deal with (HEAD detached at x.y.z)
+W.I.P:
+   (8.7.38) * Issue #697: Add warning if doing "module use --help"
+            * Make LMOD_IGNORE_CACHE use "yes/no" env var setting system.
+            * Make module --terse show <module> do the same as module --loc show <module>.
+              Namely print the location of the module.
+            * Support for "module --terse spider phdf5/1.12.2" that just prints the module in the hierarchy.
+            * Move almost almost all cosmic:value() calls to inside function not at routine top-level.
+            * PR: #702: Report build time in UTC when $SOURCE_DATE_EPOCH is set

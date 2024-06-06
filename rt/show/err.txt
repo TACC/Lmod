@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.32  2023-08-28 12:42 -05:00
+Modules based on Lua: Version 8.7.37   2024-03-17 13:11 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -108,6 +108,11 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing --location show a
 ProjectDIR/rt/show/mf/Core2/a/1.0.lua
 ===========================
 step 15
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --terse show a
+===========================
+ProjectDIR/rt/show/mf/Core2/a/1.0.lua
+===========================
+step 16
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing show showMe
 ===========================
    ProjectDIR/rt/show/mf/Core/showMe/2.0.lua:

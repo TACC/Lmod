@@ -477,13 +477,14 @@ function main()
    dbg.print{"LMOD_TRACING: ",cosmic:value("LMOD_TRACING"),"\n"}
 
 
+   ------------------------------------------------------------------
+   -- initialize lmod with SitePackage and /etc/lmod/lmod_config.lua
+   initialize_lmod()
+
    ------------------------------------------------------------------------
    -- do not colorize output from spider
    colorize = plain
 
-   ------------------------------------------------------------------
-   -- initialize lmod with SitePackage and /etc/lmod/lmod_config.lua
-   initialize_lmod()
 
 
    -- Make sure that MRC uses $LMOD_MODULERC and ignores ~/.modulerc when building the cache

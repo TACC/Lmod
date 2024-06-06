@@ -62,7 +62,6 @@ local q_load        = 0
 local s_same        = true
 
 local A             = ShowResultsA
-local mpath_avail   = cosmic:value("LMOD_MPATH_AVAIL")
 
 ------------------------------------------------------------------------
 -- a private ctor that is used to construct a singleton.
@@ -116,7 +115,7 @@ function M.access(self, ...)
    local result, t
 
    local argA = pack(...)
-   if (optionTbl.location) then
+   if (optionTbl.location or optionTbl.terse) then
       local userName = argA[1]
       local mname    = mt:have(userName,"any") and MName:new("mt",userName)
                                                or  MName:new("load",userName)
@@ -318,17 +317,6 @@ function M.load(self, mA)
          local userName   = mname:userName()
          mt               = frameStk:mt()
 
-         dbg.print{"dsConflicts: ",dsConflicts,"\n"}
-         if (dsConflicts == "yes") then
-            local snUpstream = mt:haveDSConflict(mname)
-            if (snUpstream) then
-               local fullNameUpstream = mt:fullName(snUpstream)
-               LmodError{msg="e_Conflict_Downstream", fullNameUpstream = fullNameUpstream,
-                         userName=userName}
-            end
-         end
-
-
          dbg.print{"Hub:load i: ",i,", userName: ",userName,"\n",}
 
          local sn         = mname:sn()
@@ -396,6 +384,17 @@ function M.load(self, mA)
             frameStk:push(mname)
             mt = frameStk:mt()
             mt:add(mname,"pending")
+            dbg.print{"dsConflicts: ",dsConflicts,"\n"}
+            if (dsConflicts == "yes") then
+               local snUpstream = mt:haveDSConflict(mname)
+               if (snUpstream) then
+                  local fullNameUpstream = mt:fullName(snUpstream)
+                  LmodError{msg="e_Conflict_Downstream", fullNameUpstream = fullNameUpstream,
+                            userName=userName}
+               end
+            end
+
+
             local status = loadModuleFile{file = fn, shell = shellNm, mList = mList, reportErr = true}
             mt = frameStk:mt()
 
@@ -823,6 +822,7 @@ function M.safeToUpdate()
 end
 
 local function l_availEntry(defaultOnly, label, searchA, defaultT, entry)
+   local mpath_avail = cosmic:value("LMOD_MPATH_AVAIL")
    if (defaultOnly) then
       local fn    = entry.fn
       if (not defaultT[fn]) then

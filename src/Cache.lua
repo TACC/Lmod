@@ -86,8 +86,6 @@ local sort       = table.sort
 local s_cache    = false
 local timer      = require("Timer"):singleton()
 
-local ancient    = cosmic:value("LMOD_ANCIENT_TIME")
-local shortTime  = cosmic:value("LMOD_SHORT_TIME")
 local random     = math.random
 local randomseed = math.randomseed
 --------------------------------------------------------------------------
@@ -100,7 +98,8 @@ local randomseed = math.randomseed
 -- @param self A Cache object
 -- @param t A table with possible dontWrite and quiet entries.
 local function l_new(self, t)
-   local o = {}
+   local o       = {}
+   local ancient = cosmic:value("LMOD_ANCIENT_TIME")
    setmetatable(o,self)
    self.__index = self
 
@@ -275,7 +274,7 @@ end
 local function l_readCacheFile(self, mpathA, spiderTFnA)
    dbg.start{"Cache l_readCacheFile(mpathA, spiderTFnA)"}
    local dirsRead     = 0
-   local ignore_cache = cosmic:value("LMOD_IGNORE_CACHE")
+   local ignore_cache = cosmic:value("LMOD_IGNORE_CACHE") == "yes"
    local tracing      = cosmic:value("LMOD_TRACING")
    if (optionTbl().ignoreCache or ignore_cache) then
       dbg.print{"LMOD_IGNORE_CACHE is true\n"}
@@ -378,6 +377,8 @@ end
 
 local function l_writeUserSpiderCacheWhenNecessary(self, delta_t, mpathA, spiderT, mpathMapT)
    local doneMsg
+   local ancient   = cosmic:value("LMOD_ANCIENT_TIME")
+   local shortTime = cosmic:value("LMOD_SHORT_TIME")
    local optionTbl = optionTbl()
    local tracing   = cosmic:value("LMOD_TRACING")
    local mrc       = MRC:singleton()
@@ -403,7 +404,7 @@ local function l_writeUserSpiderCacheWhenNecessary(self, delta_t, mpathA, spider
    dbg.print{"self.dontWrite: ", self.dontWrite, ", r.dontWriteCache: ",
                 r.dontWriteCache, "\n"}
 
-   local dontWrite = self.dontWrite or r.dontWriteCache or cosmic:value("LMOD_IGNORE_CACHE")
+   local dontWrite = self.dontWrite or r.dontWriteCache or (cosmic:value("LMOD_IGNORE_CACHE") == "yes")
 
    if (tracing == "yes") then
       tracing_msg{"completed building cache. Saving cache: ",
@@ -514,6 +515,8 @@ end
 -- @param fast if true then only read cache files, do not build them.
 function M.build(self, fast)
    dbg.start{"Cache:build(fast=", fast,")"}
+   local ancient     = cosmic:value("LMOD_ANCIENT_TIME")
+   local shortTime   = cosmic:value("LMOD_SHORT_TIME")
    local spiderT     = self.spiderT
    local dbT         = self.dbT
    local providedByT = self.providedByT

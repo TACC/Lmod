@@ -208,7 +208,9 @@ function M.singleton(self, t)
    if (not s_mt) then
       dbg.start{"MT:singleton()"}
       s_mt        = l_new(self, getMT())
-      dbg.printT("s_mt",s_mt)
+      if (dbg.active()) then
+         dbg.print{"s_mt: ",s_mt:serializeTbl("pretty") }
+      end
       dbg.fini("MT:singleton")
    end
    return s_mt
@@ -1564,9 +1566,13 @@ function M.haveDSConflict(self, mnameIn)
       for i = 1,#vv do
          local conflict_mname = vv[i]
          dbg.print{"conflict_mname:userName(): ",conflict_mname:userName(),"\n"}
-         local snUpstream  = conflict_mname:downstreamConflictCk(mnameIn)
-         if (snUpstream) then
-            return sn
+         local userName_in_MT = self:lookup_w_userName(conflict_mname:userName())
+         dbg.print{"userName_in_MT: ",userName_in_MT,"\n"}
+         if (self:lookup_w_userName(conflict_mname:userName())) then
+            local snUpstream  = conflict_mname:downstreamConflictCk(mnameIn)
+            if (snUpstream) then
+               return sn
+            end
          end
       end
    end

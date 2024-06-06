@@ -38,39 +38,47 @@ testdescript = {
      runLmod load f                                         #11
      runLmod load x/1.5                                     #12
      runLmod load y                                         #13
+     runLmod load e/1.0                                     #14
+     runLmod load cc                                        #15
+     runLmod load e/2.0                                     #16
+     runLmod load cc                                        #17
 
-     runLmod purge                                          #14
+     runLmod purge                                          #18
      unsetMT
      export MODULEPATH=$(testDir)/mf2/Core
      export LMOD_CONFIG_DIR=$(testDir)/ConfigDir
-     runLmod load base acme                                 #15
-     runLmod save                                           #16
-     runLmod restore                                        #17
-     runLmod unload acme                                    #18
-     runLmod unload base                                    #19
-     runLmod load   D/1.3                                   #20
-     runLmod load   acme                                    #21
-     runLmod load   D/1.1                                   #22
-     runLmod load   acme                                    #23
-
-     # Test downstream conflicts
-     runLmod purge                                          #24
+     runLmod load base acme                                 #19
+     runLmod save                                           #20
+     runLmod restore                                        #21
+     runLmod unload acme                                    #22
+     runLmod unload base                                    #23
+     runLmod load   D/1.3                                   #24
      runLmod load   acme                                    #25
      runLmod load   D/1.1                                   #26
-     runLmod load   D/3.2                                   #27
-     runLmod load   D/1.3                                   #28
-     runLmod list                                           #29
-     runLmod load   E                                       #30
-     runLmod load   E/3.3                                   #31
-     runLmod list                                           #32
-     runLmod load   F                                       #33
-     runLmod load   F/4.1.4                                 #34
-     runLmod load   F/3.1.4                                 #35
+     runLmod load   acme                                    #27
+                                                             
+     # Test downstream conflicts
+     runLmod purge                                          #28
+     runLmod load   acme                                    #29
+     runLmod load   D/1.1                                   #30
+     runLmod load   D/3.2                                   #31
+     runLmod load   D/1.3                                   #32
+     runLmod list                                           #33
+     runLmod load   E                                       #34
+     runLmod load   E/3.3                                   #35
      runLmod list                                           #36
-     runLmod unload acme                                    #37
-     runLmod load   D/1.3                                   #38
-     runLmod list                                           #39
-   
+     runLmod load   F                                       #37
+     runLmod load   F/4.1.4                                 #38
+     runLmod load   F/3.1.4                                 #39
+     runLmod list                                           #40
+     runLmod unload acme                                    #41
+     runLmod load   D/1.3                                   #42
+     runLmod list                                           #43
+     runLmod unload D                                       #44
+     runLmod load   acme                                    #45
+     runLmod load   G/3.1.4                                 #46
+     runLmod load   G/3.1.5                                 #47
+     runLmod list                                           #48
 
 
      
