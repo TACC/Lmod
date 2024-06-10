@@ -108,23 +108,24 @@ end
 
 
 function M.singleton(self, fnA)
-   dbg.start{"MRC:singleton()"}
+   --dbg.start{"MRC:singleton()"}
    if (not s_MRC) then
       s_MRC = l_new(self, fnA)
    end
-   dbg.fini("MRC:singleton")
+   --dbg.fini("MRC:singleton")
    return s_MRC
 end
 
 
 function M.__clear(self)
-   dbg.start{"MRC:__clear()"}
+   --dbg.start{"MRC:__clear()"}
    s_MRC = nil
-   dbg.fini("MRC:__clear")
+   --dbg.fini("MRC:__clear")
 end
 
 function l_build(self, fnA)
-   dbg.start{"MRC l_build(self,fnA)"}
+   --dbg.start{"MRC l_build(self,fnA)"}
+   --dbg.printT("fnA",fnA)
    for i = 1, #fnA do
       local fn     = fnA[i][1]
       if (isFile(fn)) then
@@ -159,9 +160,8 @@ local function l_save_su_weights(self, fullName, weight)
    l_su_weight_helper(1,n,a,self.__fullNameDfltT,weight)
 end
 
-
 function M.parseModA(self, modA, weight)
-   dbg.start{"MRC:parseModA(modA, weight: \"",weight,"\")"}
+   --dbg.start{"MRC:parseModA(modA, weight: \"",weight,"\")"}
 
    for i = 1,#modA do
       repeat
@@ -205,7 +205,7 @@ function M.parseModA(self, modA, weight)
          end
       until true
    end
-   dbg.fini("MRC:parseModA")
+   --dbg.fini("MRC:parseModA")
 end
 
 function l_buildMod2VersionT(self, mpathA)

@@ -254,17 +254,12 @@ local function l_search(name, moduleA)
 end
 
 function M.applyWeights(self,fullNameDfltT)
-   dbg.start{"ModuleA:applyWeights(fullNameDfltT)"}
-   dbg.printT("fullNameDfltT",fullNameDfltT)
+   --dbg.start{"ModuleA:applyWeights(fullNameDfltT)"}
    for fullName, weight in pairs(fullNameDfltT) do
       repeat
          local sn, versionStr, vA = l_find_vA(fullName, self.__moduleA)
          if (sn == nil) then break end
          local fullStr, vB        = l_find_vB(sn,  versionStr, vA)
-         dbg.print{"sn: ",sn,", versionStr: ",versionStr,", fullStr: ",fullStr,"\n"}
-         dbg.printT("vA",vA)
-         dbg.printT("vB",vB)
-
 
          for i = 1, #vB do
             local v = vB[i]
@@ -285,7 +280,7 @@ function M.applyWeights(self,fullNameDfltT)
          end
       until true
    end
-   dbg.fini("ModuleA:applyWeights")
+   --dbg.fini("ModuleA:applyWeights")
 end
 
 
@@ -487,19 +482,14 @@ function M.inherited_search(self, search_fullName, orig_fn)
 end
 
 function M.search(self, name)
-   dbg.start{"ModuleA:search(name: ",name,")"}
    if (self.__isNVV) then
-      dbg.fini("ModuleA:search via NVV search")
       return l_search(name, self.__moduleA)
    end
 
    if (not self.__locationT) then
-      dbg.print{"build new self.__locationT\n"}
       self.__locationT = LocationT:new(self.__moduleA)
-      dbg.printT("self.__locationT",self.__locationT)
    end
 
-   dbg.fini("ModuleA:search via NV search self.__locationT")
    return self.__locationT:search(name)
 end
 
@@ -544,7 +534,7 @@ end
 
 function M.update(self, t)
    t                   = t or {}
-   dbg.start{"ModuleA:update(spider_cache = ",t.spider_cache,")"}
+   --dbg.start{"ModuleA:update(spider_cache = ",t.spider_cache,")"}
    local frameStk      = FrameStk:singleton()
    local mt            = frameStk:mt()
    local varT          = frameStk:varT()
@@ -599,11 +589,10 @@ function M.update(self, t)
       until true
    end
    self.__defaultT  = {}
-   dbg.print{"Setting self.__locationT to false\n"}
    self.__locationT = false
    self.__moduleA   = moduleA
    mt:updateMPathA(mpathA)
-   dbg.fini("ModuleA:update")
+   --dbg.fini("ModuleA:update")
 end
 
 
@@ -654,16 +643,12 @@ function M.spiderBuilt(self)
 end
 
 function M.locationT(self)
-   dbg.start{"ModuleA:locationT()"}
    if (self.__isNVV) then
-      dbg.fini("ModuleA:locationT")
       return {}
    end
    if (not self.__locationT) then
-      dbg.print{"ModuleA:locationT: Build self.__locationT\n"}
       self.__locationT = LocationT:new(self.__moduleA)
    end
-   dbg.fini("ModuleA:locationT")
    return self.__locationT:locationT()
 end
 
@@ -680,7 +665,7 @@ function M.defaultT(self)
 end
 
 function M.singleton(self, t)
-   dbg.start{"ModuleA:singleton(t)"}
+   --dbg.start{"ModuleA:singleton(t)"}
    t = t or {}
    if (t.reset or (s_moduleA and s_moduleA:spiderBuilt())) then
       --dbg.print{"Wiping out old value of s_moduleA\n"}
@@ -698,16 +683,8 @@ function M.singleton(self, t)
       end
       s_moduleA = self:__new(mt:modulePathA(), mt:maxDepthT(), getModuleRCT(), spiderT)
    end
-   --elseif (t.applyWeights) then
-   --   dbg.print{"applying Weights\n"}
-   --   local mrc        = MRC:singleton(getModuleRCT())
-   --   dbg.printT("mrc:fullNameDfltT(): ",mrc:fullNameDfltT())
-   --   s_moduleA:applyWeights(mrc:fullNameDfltT())
-   --   dbg.print{"Setting self.__locationT to false\n"}
-   --   s_moduleA.__locationT = false
-   --end
 
-   dbg.fini("ModuleA:singleton")
+   --dbg.fini("ModuleA:singleton")
    return s_moduleA
 end
 

@@ -861,6 +861,24 @@ function M.get_ref_count(self,sn)
    return entry.ref_count
 end
 
+function M.save_depends_on_any(self, sn, child_sn)
+   local entry = self.mT[sn]
+   assert(entry)
+   local anyA = entry.depends_on_anyA or {}
+   anyA[#anyA + 1] = child_sn
+   entry.depends_on_anyA = anyA
+end
+
+function M.pop_depends_on_any(self, sn)
+   local entry = self.mT[sn]
+   assert(entry)
+   if (not (entry.depends_on_anyA and next(entry.depends_on_anyA) ~= nil)) then
+      return nil
+   end
+   local child_sn = table.remove(entry.depends_on_anyA,1)
+   return child_sn
+end
+
 function M.updateMPathA(self, value)
    if (type(value) == "string") then
       local clearDblSlash = true

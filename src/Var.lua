@@ -97,7 +97,6 @@ local function l_extract_Lmod_var_table(self, envName)
    return t
 end
 
-
 --------------------------------------------------------------------------
 -- This function is called to let Lmod know that the MODULEPATH
 -- has changed.
@@ -153,7 +152,6 @@ local function l_processDynamicVars(name, value, adding)
    func(name, value,adding)
    --dbg.fini("l_processDynamicVars")
 end
-
 
 --------------------------------------------------------------------------
 -- The ctor uses this routine to initialize the variable to be

@@ -73,6 +73,7 @@ echo "Allow root to use Lmod......................................" : $LMOD_ALLO
 echo "Support KSH................................................." : $SUPPORT_KSH
 echo "MODE........................................................" : $MODE
 echo "Use the fast TCL interpreter................................" : $FAST_TCL_INTERP
+echo "Modules Auto Handling......................................." : $MODULES_AUTO_HANDLING
 echo "LMOD_CONFIG_DIR............................................." : $LMOD_CONFIG_DIR
 echo "Use ~/.config/lmod directory only..........................." : $USE_DOT_CONFIG_DIR_ONLY
 echo "Display Extensions w/ module avail.........................." : $AVAIL_EXTENSIONS
