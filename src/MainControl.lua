@@ -961,7 +961,7 @@ function M.depends_on(self, mA)
          mname:set_depends_on_flag(true)
          mB[#mB + 1]                           = mname
       else
-         mt:safely_incr_ref_count(mname)
+         mt:safely_add_dependency(mname)
       end
    end
 
@@ -981,7 +981,7 @@ end
 --   if no module loadable error.
 --
 
-function M.depends_on_any(self, mA) 
+function M.depends_on_any_orig(self, mA)
    if (dbg.active()) then
       local s                                  = mAList(mA)
       dbg.start{"MainControl:depends_on_any(mA = {"..s.."})"}
@@ -995,6 +995,46 @@ function M.depends_on_any(self, mA)
       if (mname:isloaded()) then
          mt:safely_incr_ref_count(mname)
          mt:save_depends_on_any(myModuleName(), mname:sn())
+         dbg.fini("MainControl:depends_on_any")
+         return {}
+      elseif (mname:sn()) then
+         mB[#mB + 1] = mname
+      end
+   end
+
+   if (next(mB) == nil) then
+      local s = mAList(mA)
+      LmodError{msg="e_Failed_depends_any", module_list=s}
+   end
+
+
+   local mC = {mB[1]}
+   local mname = mC[1]
+   mname:set_depends_on_flag(true)
+
+   l_registerUserLoads(mC)
+   local a = self:load(mC)
+
+   self:registerDependencyCk()
+
+   dbg.fini("MainControl:depends_on_any")
+   return a
+end
+
+
+function M.depends_on_any(self, mA) 
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"MainControl:depends_on_any(mA={"..s.."})"}
+   end
+
+   local mt         = FrameStk:singleton():mt()
+   local mB = {}
+
+   for i = 1,#mA do
+      local mname = mA[i]
+      if (mname:isloaded()) then
+         mt:safely_add_dependency(mname)
          dbg.fini("MainControl:depends_on_any")
          return {}
       elseif (mname:sn()) then
@@ -1097,6 +1137,36 @@ function M.forgo_any(self,mA)
    l_unRegisterUserLoads(mB)
    local aa     = unload_internal(mB)
    dbg.fini("MainControl:forgo_any")
+   return aa
+end
+
+
+
+
+function M.forgo(self,mA)
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"MainControl:forgo(mA={"..s.."})"}
+   end
+
+   local parent_sn = myModuleName()
+   local mt = FrameStk:singleton():mt()
+   local mB = {}
+   for i = 1,#mA do
+      repeat
+         local mname      = mA[i]
+         local sn         = mname:sn()
+         if (not sn) then break end
+         local safe  = mt:safe_to_remove(parent_sn,sn)
+         if (safe) then
+            mB[#mB+1] = mname
+         end
+      until true
+   end
+
+   l_unRegisterUserLoads(mB)
+   local aa     = unload_internal(mB)
+   dbg.fini("MainControl:forgo")
    return aa
 end
 

@@ -143,11 +143,22 @@ testdescript = {
      runLmod list                              #76
 
 
+     ##############################################
+     # depends_on_any tests
 
+     runLmod purge                             #77
+     unsetMT
+     export MODULEPATH=$(testDir)/mf/Core6
 
+     runLmod load none                         #78
 
+     runLmod load d                            #79
+     runLmod load already                      #80
+     runLmod list                              #81
 
-     
+     runLmod purge                             #82
+     runLmod load possible                     #83
+     runLmod list                              #84 
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
