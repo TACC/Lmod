@@ -106,6 +106,7 @@ local keywordT = {
    ['nil']    = true,  ['not']    = true,    ['or']       = true,
    ['repeat'] = true,  ['return'] = true,    ['then']     = true,
    ['true']   = true,  ['until']  = true,    ['while']    = true,
+   ['']       = true,
 }
 
 local function wrap_name(indent, name)
