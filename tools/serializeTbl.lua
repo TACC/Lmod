@@ -106,12 +106,12 @@ local keywordT = {
    ['nil']    = true,  ['not']    = true,    ['or']       = true,
    ['repeat'] = true,  ['return'] = true,    ['then']     = true,
    ['true']   = true,  ['until']  = true,    ['while']    = true,
-   ['']       = true,
+   ['']       = true,  [' ']      = true,
 }
 
 local function wrap_name(indent, name)
    local str
-   if (name:find("[^0-9A-Za-z_]") or keywordT[name] or name == " " or
+   if (name:find("[^0-9A-Za-z_]") or keywordT[name] or
        name:sub(1,1):find("[0-9]") ) then
       str = indent .. "[\"" .. name .. "\"]"
    else
