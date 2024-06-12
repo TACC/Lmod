@@ -7,7 +7,7 @@ Let's assume that module "X" depends on module "A". There are several
 ways to handle module dependency.  Inside the "X" modulefile you could
 have one of the following choices:
 
-#. Use ``depends_on("A")``
+#. Use ``depends_on("A","B")``
 #. Use ``prereq("A")``
 #. Use ``load("A")``
 #. Use ``always_load("A")``
