@@ -258,6 +258,8 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
 step 16
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm x
 ===========================
+Lmod Warning:
+The following dependent module(s) are not currently loaded: x (required by: A/1.0, A/1.0)
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt

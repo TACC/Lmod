@@ -880,15 +880,19 @@ function M.pop_depends_on_any(self, sn)
 end
 
 function M.pop_depends_on_any_ck(self,sn)
+   dbg.start{"MT:pop_depends_on_any_ck(sn: \"",sn,"\")"}
    local entry = self.mT[sn]
    assert(entry)
    if (not (entry.depends_on_anyA and next(entry.depends_on_anyA) ~= nil)) then
+      dbg.fini("MT:pop_depends_on_any_ck with no doA")
       return nil
    end
    if (not entry.__depends_on_any_ckA) then
       entry.__depends_on_any_ckA = deepcopy(entry.depends_on_anyA)
    end
    local child_sn = table.remove(entry.__depends_on_any_ckA,1)
+   dbg.print{"child_sn: ",child_sn,"\n"}
+   dbg.fini("MT:pop_depends_on_any_ck")
    return child_sn
 end
 

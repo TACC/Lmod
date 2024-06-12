@@ -932,7 +932,8 @@ function M.dependencyCk_any(self, mA)
 
    local frameStk = FrameStk:singleton()
    local mt       = frameStk:mt()
-   local child_sn = mt:pop_depends_on_any_ck(myModuleName())
+   local fullName = frameStk:fullName()
+   local child_sn = mt:pop_depends_on_any_ck(frameStk:sn())
    if (not child_sn) then
       return {}
    end
