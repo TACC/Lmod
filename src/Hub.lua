@@ -739,7 +739,7 @@ function M.dependencyCk()
       local fn       = mt:fn(sn)
       if (isFile(fn)) then
          frameStk:push(MName:new("mt",sn))
-         dbg.print{"loading: ",sn," fn: ", fn,"\n"}
+         dbg.print{"DepCk loading: ",sn," fn: ", fn,"\n"}
          loadModuleFile{file = fn, shell = shellNm, mList = mList,
                         reportErr=true}
          frameStk:pop()
