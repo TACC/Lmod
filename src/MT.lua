@@ -879,6 +879,20 @@ function M.pop_depends_on_any(self, sn)
    return child_sn
 end
 
+function M.pop_depends_on_any_ck(self,sn)
+   local entry = self.mT[sn]
+   assert(entry)
+   if (not (entry.depends_on_anyA and next(entry.depends_on_anyA) ~= nil)) then
+      return nil
+   end
+   if (not entry.__depends_on_any_ckA) then
+      entry.__depends_on_any_ckA = deepcopy(entry.depends_on_anyA)
+   end
+   local child_sn = table.remove(entry.__depends_on_any_ckA,1)
+   return child_sn
+end
+
+
 function M.updateMPathA(self, value)
    if (type(value) == "string") then
       local clearDblSlash = true

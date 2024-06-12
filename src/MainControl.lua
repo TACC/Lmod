@@ -924,6 +924,37 @@ function M.dependencyCk(self,mA)
    return {}
 end
 
+function M.dependencyCk_any(self, mA)
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"MainControl:dependencyCk_any(mA={"..s.."})"}
+   end
+
+   local frameStk = FrameStk:singleton()
+   local mt       = frameStk:mt()
+   local child_sn = mt:pop_depends_on_any_ck(myModuleName())
+   if (not child_sn) then
+      return {}
+   end
+
+   for i = 1,#mA do
+      repeat
+         local mname = mA[i]
+         local sn    = mname:sn()
+         if (not sn) then break end
+         if (child_sn ~= sn) then break end
+         if (not mname:isloaded() ) then
+            local a = s_missDepT[mname:userName()] or {}
+            a[#a+1] = fullName
+            s_missDepT[mname:userName()] = a
+         end
+      until true
+   end
+
+   dbg.fini("MainControl:dependencyCk_any")
+   return {}
+end
+
 function M.reportMissingDepModules(self)
    local t = s_missDepT
    if (next(t) ~= nil) then
