@@ -19,7 +19,7 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     export MODULEPATH=$(testDir)/mf/Core
+     export MODULEPATH=$(testDir)/mf/Core+
 
      remove_generated_lmod_files
 
@@ -53,6 +53,39 @@ testdescript = {
      runLmod purge                             #28
      runLmod restore                           #29
      runLmod --mt                              #30
+
+     ######################################
+     # Test depends_on_any(between(), ...)
+     runLmod load bar/1.2.lua                  #31
+     runLmod load Foo                          #32
+
+     ######################################
+     # Check dependency when modules are
+     # compiler dependent
+     runLmod purge                             #33
+     unsetMT
+
+     export MODULEPATH_ROOT=$(testDir)/mf2/
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+     runLmod load compiler_a package           #34
+     runLmod rm   package                      #35
+     runLmod load package                      #36
+     runLmod load compiler_b                   #37
+     runLmod rm   package                      #38
+     runLmod list                              #39
+
+     ######################################
+     # Check if activating inactive modules
+     # works with depends_on_any()
+     runLmod purge                             #40
+     runLmod load   compiler_a package pkgB    #41
+     runLmod unload compiler_a                 #42
+     runLmod load   compiler_b                 #43
+     runLmod list                              #44
+     runLmod rm     package                    #45
+     runLmod list                              #46
+     runLmod rm     pkgB                       #47
+     runLmod list                              #48
 
 
 
