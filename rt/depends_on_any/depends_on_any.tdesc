@@ -28,25 +28,32 @@ testdescript = {
      runLmod --mt                              # 3
      runLmod rm   AA                           # 4
      runLmod --mt                              # 5
-     runLmod load B                            # 6
-     runLmod load A                            # 6
-     runLmod --mt                              # 7
-     runLmod rm   A                            # 8
-     runLmod --mt                              # 9
-     runLmod load A                            #10
-     runLmod load x                            #11
-     runLmod rm   A                            #12
-     runLmod --mt                              #13
-     runLmod load A                            #14
-     runLmod rm   x                            #15
-     runLmod --mt                              #16
-     runLmod rm   A                            #17
-     runLmod --mt                              #18
-     runLmod load none                         #19
-     runLmod load d                            #20
-     runLmod load already                      #21
-     runLmod --mt                              #22
-     runLmod rm   already                      #23
+     runLmod load B                            # 6 
+     runLmod load A                            # 7
+     runLmod --mt                              # 8
+     runLmod rm   A                            # 9
+     runLmod --mt                              #10
+     runLmod load A                            #11
+     runLmod load x                            #12
+     runLmod rm   A                            #13
+     runLmod --mt                              #14
+     runLmod load A                            #15
+     runLmod rm   x                            #16
+     runLmod --mt                              #17
+     runLmod rm   A                            #18
+     runLmod --mt                              #19
+     runLmod load none                         #20
+     runLmod load d                            #21
+     runLmod load already                      #22
+     runLmod --mt                              #23
+     runLmod rm   already                      #24
+     runLmod load B A                          #25
+     runLmod --mt                              #26
+     runLmod save                              #27
+     runLmod restore                           #28
+     runLmod --mt                              #29
+
+
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
