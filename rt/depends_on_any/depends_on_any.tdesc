@@ -50,8 +50,9 @@ testdescript = {
      runLmod load B A                          #25
      runLmod --mt                              #26
      runLmod save                              #27
-     runLmod restore                           #28
-     runLmod --mt                              #29
+     runLmod purge                             #28
+     runLmod restore                           #29
+     runLmod --mt                              #30
 
 
 
