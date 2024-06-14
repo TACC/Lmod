@@ -44,6 +44,7 @@ require("strict")
 local MainControl      = require("MainControl")
 local MC_DependencyCk  = inheritsFrom(MainControl)
 local M                = MC_DependencyCk
+local cosmic           = require("Cosmic"):singleton()
 M.my_name              = "MC_DependencyCk"
 M.my_sType             = "load"
 M.my_tcl_mode          = "load"
@@ -98,5 +99,11 @@ M.unset_shell_function = MainControl.quiet
 M.usrload              = MainControl.quiet
 M.whatis               = MainControl.quiet
 M.LmodBreak            = MainControl.quiet
+
+if (cosmic:value("MODULES_AUTO_HANDLING") = "yes") then
+   M.prereq     = MainControl.dependencyCk
+   M.prereq_any = MainControl.dependencyCk_any
+end
+
 
 return M

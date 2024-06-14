@@ -96,7 +96,21 @@ testdescript = {
      runLmod load   gcc                        #52
      runLmod av                                #53
 
+     ########################################
+     # Test MODULES_AUTO_HANDLING
+     # This maps prereq()     -> depends_on()
+     # and       prereq_any() -> depends_on_any()
 
+     runLmod purge
+     unsetMT
+     export MODULEPATH_ROOT=$(testDir)/mf3/
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+     export MODULES_AUTO_HANDLING
+
+     runLmod load B
+     runLmod --mt
+
+     
 
 
      HOME=$ORIG_HOME
