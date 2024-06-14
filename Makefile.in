@@ -73,6 +73,7 @@ SPIDER_CACHE_DIRS         := @SPIDER_CACHE_DIRS@
 LEGACY_ORDERING           := @LEGACY_ORDERING@
 EXPORT_MODULE             := @EXPORT_MODULE@
 LMOD_DOWNSTREAM_CONFLICTS := @LMOD_DOWNSTREAM_CONFLICTS@
+MODULES_AUTO_HANDLING     := @MODULES_AUTO_HANDLING@
 BASENAME                  := @BASENAME@
 UPDATE_VERSION            := LUA_PATH="$(srcdir)/tools/?.lua;$(SYS_LUA_PATH)" $(PATH_TO_LUA) $(srcdir)/proj_mgmt/updateVersion
 BUILD_V_src               := LUA_PATH="$(srcdir)/tools/?.lua;$(SYS_LUA_PATH)" LUA_CPATH="$(SYS_LUA_CPATH)" $(PATH_TO_LUA) $(srcdir)/proj_mgmt/buildVersion_src
@@ -292,6 +293,7 @@ __installMe:
 	          -e 's|@settarg_cmd@|$(SETTARG_CMD)|g'                             \
 	          -e 's|@lmod_config_dir@|$(LMOD_CONFIG_DIR)|g'                     \
 	          -e 's|@lmod_downstream_conflicts@|$(LMOD_DOWNSTREAM_CONFLICTS)|g' \
+	          -e 's|@modules_auto_handling@|$(MODULES_AUTO_HANDLING)|g'         \
 	          -e "s|@my_shell@|$$fn|g"                                          \
 	          -e 's|@tclsh@|$(PATH_TO_TCLSH)|g'                                 \
 	          -e 's|@ls@|$(PATH_TO_LS)|g'                                       \

@@ -54,12 +54,12 @@ testdescript = {
      runLmod restore                           #29
      runLmod --mt                              #30
 
-     ######################################
+     ########################################
      # Test depends_on_any(between(), ...)
      runLmod load bar/1.2.lua                  #31
      runLmod load Foo                          #32
 
-     ######################################
+     ########################################
      # Check dependency when modules are
      # compiler dependent
      runLmod purge                             #33
@@ -111,12 +111,7 @@ testdescript = {
      runLmod purge                            #56
      runLmod load A                           #57
      runLmod --mt                             #58
-
-
-
      
-
-
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new

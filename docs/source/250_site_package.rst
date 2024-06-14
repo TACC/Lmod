@@ -37,7 +37,7 @@ Then inside your /home/user/Lmod/SitePackage.lua do::
 
     require("Site")
 
-Each require statement can only ``require'' one name.  So make sure
+Each require statement can only ``require`` one name.  So make sure
 that you symlink to a new name in your personal SitePackage.lua directory.
     
 Checking if you have setup SitePackage.lua correctly
