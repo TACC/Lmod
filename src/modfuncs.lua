@@ -540,7 +540,7 @@ function prereq(...)
    dbg.start{"prereq(",l_concatTbl({...},", "),")"}
    if (not l_validateModules("prereq", ...)) then return end
 
-   mcp:prereq(MName:buildA("mt", ...))
+   mcp:prereq(MName:buildA(mcp:MNamePrereqType(), ...))
    dbg.fini("prereq")
 end
 
@@ -551,7 +551,7 @@ function prereq_any(...)
    dbg.start{"prereq_any(",l_concatTbl({...},", "),")"}
    if (not l_validateModules("prereq_any",...)) then return end
 
-   mcp:prereq_any(MName:buildA("mt",...))
+   mcp:prereq_any(MName:buildA(mcp:MNamePrereqType(),...))
    dbg.fini("prereq_any")
 end
 

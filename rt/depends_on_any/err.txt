@@ -434,3 +434,71 @@ If the avail list is too long consider trying:
 "module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 54
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 55
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B
+===========================
+===========================
+step 56
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 57
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
+===========================
+===========================
+step 58
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
+===========================
+_ModuleTable_ = {
+  MTversion = 3,
+  c_rebuildTime = false,
+  c_shortTime = false,
+  depthT = {},
+  family = {},
+  mT = {
+    A = {
+      depends_on_anyA = {
+        "x", "z",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf3/Core/A/1.0.lua",
+      fullName = "A/1.0",
+      loadOrder = 3,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "A",
+      wV = "000000001.*zfinal",
+    },
+    x = {
+      fn = "ProjectDIR/rt/depends_on_any/mf3/Core/x/1.0.lua",
+      fullName = "x/1.0",
+      loadOrder = 1,
+      propT = {},
+      ref_count = 1,
+      stackDepth = 1,
+      status = "active",
+      userName = "x",
+      wV = "000000001.*zfinal",
+    },
+    z = {
+      fn = "ProjectDIR/rt/depends_on_any/mf3/Core/z/1.0.lua",
+      fullName = "z/1.0",
+      loadOrder = 2,
+      propT = {},
+      ref_count = 1,
+      stackDepth = 1,
+      status = "active",
+      userName = "z",
+      wV = "000000001.*zfinal",
+    },
+  },
+  mpathA = {
+    "ProjectDIR/rt/depends_on_any/mf3/Core",
+  },
+  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf3/Core",
+}

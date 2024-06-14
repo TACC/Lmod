@@ -100,7 +100,7 @@ M.usrload              = MainControl.quiet
 M.whatis               = MainControl.quiet
 M.LmodBreak            = MainControl.quiet
 
-if (cosmic:value("MODULES_AUTO_HANDLING") = "yes") then
+if (cosmic:value("MODULES_AUTO_HANDLING") == "yes") then
    M.prereq     = MainControl.dependencyCk
    M.prereq_any = MainControl.dependencyCk_any
 end

@@ -97,7 +97,7 @@ M.usrload              = MainControl.fake_load
 M.whatis               = MainControl.quiet
 M.LmodBreak            = MainControl.LmodBreak
 
-if (cosmic:value("MODULES_AUTO_HANDLING") = "yes") then
+if (cosmic:value("MODULES_AUTO_HANDLING") == "yes") then
    M.prereq     = MainControl.fake_load
    M.prereq_any = MainControl.fake_load
 end

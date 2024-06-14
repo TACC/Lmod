@@ -222,7 +222,7 @@ function M.unload(self, mA)
    A[#A+1] = ShowCmdA("unload", mA)
 end
 
-if (cosmic:value("MODULES_AUTO_HANDLING") = "yes") then
+if (cosmic:value("MODULES_AUTO_HANDLING") == "yes") then
    M.prereq     = M.depends_on
    M.prereq_any = M.depends_on_any
 end

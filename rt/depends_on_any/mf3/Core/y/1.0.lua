@@ -1,1 +1,1 @@
-setenv("y", myFullName())
+setenv("y", myModuleFullName())
