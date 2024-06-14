@@ -87,6 +87,16 @@ testdescript = {
      runLmod rm     pkgB                       #47
      runLmod list                              #48
 
+     ########################################
+     # Check mix of hierarchy and depends_on
+     # with depends_on_any
+     runLmod purge                             #49
+     runLmod load   A                          #50
+     runLmod list                              #51
+     runLmod load   gcc                        #52
+     runLmod av                                #53
+
+
 
 
      HOME=$ORIG_HOME
