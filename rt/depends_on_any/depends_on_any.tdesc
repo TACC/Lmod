@@ -19,7 +19,7 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     export MODULEPATH=$(testDir)/mf/Core+
+     export MODULEPATH=$(testDir)/mf/Core
 
      remove_generated_lmod_files
 

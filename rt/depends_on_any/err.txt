@@ -8,11 +8,6 @@ Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
 step 2
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load AA
 ===========================
-Lmod has detected the following error: The following module(s) are unknown: "AA"
-Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore_cache load "AA"
-Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
@@ -23,17 +18,41 @@ _ModuleTable_ = {
   c_shortTime = false,
   depthT = {},
   family = {},
-  mT = {},
-  mpathA = {
-    "ProjectDIR/rt/depends_on_any/mf/Core+",
+  mT = {
+    AA = {
+      depends_on_anyA = {
+        "y", "y", "y",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/AA/2.0",
+      fullName = "AA/2.0",
+      loadOrder = 2,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "AA",
+      wV = "000000002.*zfinal",
+    },
+    y = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/y/1.0.lua",
+      fullName = "y/1.0",
+      loadOrder = 1,
+      propT = {},
+      ref_count = 3,
+      stackDepth = 1,
+      status = "active",
+      userName = "y",
+      wV = "000000001.*zfinal",
+    },
   },
-  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core+",
+  mpathA = {
+    "ProjectDIR/rt/depends_on_any/mf/Core",
+  },
+  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core",
 }
 ===========================
 step 4
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm AA
 ===========================
-Note: the module "AA" cannot be unloaded because it was not loaded.
 ===========================
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
@@ -46,28 +65,18 @@ _ModuleTable_ = {
   family = {},
   mT = {},
   mpathA = {
-    "ProjectDIR/rt/depends_on_any/mf/Core+",
+    "ProjectDIR/rt/depends_on_any/mf/Core",
   },
-  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core+",
+  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core",
 }
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B
 ===========================
-Lmod has detected the following error: The following module(s) are unknown: "B"
-Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore_cache load "B"
-Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 7
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
 ===========================
-Lmod has detected the following error: The following module(s) are unknown: "A"
-Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore_cache load "A"
-Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
@@ -78,17 +87,65 @@ _ModuleTable_ = {
   c_shortTime = false,
   depthT = {},
   family = {},
-  mT = {},
-  mpathA = {
-    "ProjectDIR/rt/depends_on_any/mf/Core+",
+  mT = {
+    A = {
+      depends_on_anyA = {
+        "y", "x",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/A/1.0.lua",
+      fullName = "A/1.0",
+      loadOrder = 4,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "A",
+      wV = "000000001.*zfinal",
+    },
+    B = {
+      depends_on_anyA = {
+        "y",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/B/1.0.lua",
+      fullName = "B/1.0",
+      loadOrder = 2,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "B",
+      wV = "000000001.*zfinal",
+    },
+    x = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/x/2.0.lua",
+      fullName = "x/2.0",
+      loadOrder = 3,
+      propT = {},
+      ref_count = 1,
+      stackDepth = 1,
+      status = "active",
+      userName = "x",
+      wV = "000000002.*zfinal",
+    },
+    y = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/y/1.0.lua",
+      fullName = "y/1.0",
+      loadOrder = 1,
+      propT = {},
+      ref_count = 2,
+      stackDepth = 1,
+      status = "active",
+      userName = "y",
+      wV = "000000001.*zfinal",
+    },
   },
-  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core+",
+  mpathA = {
+    "ProjectDIR/rt/depends_on_any/mf/Core",
+  },
+  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core",
 }
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm A
 ===========================
-Note: the module "A" cannot be unloaded because it was not loaded.
 ===========================
 step 10
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
@@ -99,35 +156,49 @@ _ModuleTable_ = {
   c_shortTime = false,
   depthT = {},
   family = {},
-  mT = {},
-  mpathA = {
-    "ProjectDIR/rt/depends_on_any/mf/Core+",
+  mT = {
+    B = {
+      depends_on_anyA = {
+        "y",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/B/1.0.lua",
+      fullName = "B/1.0",
+      loadOrder = 2,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "B",
+      wV = "000000001.*zfinal",
+    },
+    y = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/y/1.0.lua",
+      fullName = "y/1.0",
+      loadOrder = 1,
+      propT = {},
+      ref_count = 1,
+      stackDepth = 1,
+      status = "active",
+      userName = "y",
+      wV = "000000001.*zfinal",
+    },
   },
-  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core+",
+  mpathA = {
+    "ProjectDIR/rt/depends_on_any/mf/Core",
+  },
+  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core",
 }
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
 ===========================
-Lmod has detected the following error: The following module(s) are unknown: "A"
-Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore_cache load "A"
-Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 12
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load x
 ===========================
-Lmod has detected the following error: The following module(s) are unknown: "x"
-Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore_cache load "x"
-Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 13
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm A
 ===========================
-Note: the module "A" cannot be unloaded because it was not loaded.
 ===========================
 step 14
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
@@ -138,26 +209,57 @@ _ModuleTable_ = {
   c_shortTime = false,
   depthT = {},
   family = {},
-  mT = {},
-  mpathA = {
-    "ProjectDIR/rt/depends_on_any/mf/Core+",
+  mT = {
+    B = {
+      depends_on_anyA = {
+        "y",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/B/1.0.lua",
+      fullName = "B/1.0",
+      loadOrder = 2,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "B",
+      wV = "000000001.*zfinal",
+    },
+    x = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/x/2.0.lua",
+      fullName = "x/2.0",
+      loadOrder = 3,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "x",
+      wV = "000000002.*zfinal",
+    },
+    y = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/y/1.0.lua",
+      fullName = "y/1.0",
+      loadOrder = 1,
+      propT = {},
+      ref_count = 1,
+      stackDepth = 1,
+      status = "active",
+      userName = "y",
+      wV = "000000001.*zfinal",
+    },
   },
-  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core+",
+  mpathA = {
+    "ProjectDIR/rt/depends_on_any/mf/Core",
+  },
+  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core",
 }
 ===========================
 step 15
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
 ===========================
-Lmod has detected the following error: The following module(s) are unknown: "A"
-Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore_cache load "A"
-Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm x
 ===========================
-Note: the module "x" cannot be unloaded because it was not loaded.
+Lmod Warning:
+The following dependent module(s) are not currently loaded: x (required by: A/1.0, A/1.0)
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
@@ -168,17 +270,54 @@ _ModuleTable_ = {
   c_shortTime = false,
   depthT = {},
   family = {},
-  mT = {},
-  mpathA = {
-    "ProjectDIR/rt/depends_on_any/mf/Core+",
+  mT = {
+    A = {
+      depends_on_anyA = {
+        "x", "x",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/A/1.0.lua",
+      fullName = "A/1.0",
+      loadOrder = 3,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "A",
+      wV = "000000001.*zfinal",
+    },
+    B = {
+      depends_on_anyA = {
+        "y",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/B/1.0.lua",
+      fullName = "B/1.0",
+      loadOrder = 2,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "B",
+      wV = "000000001.*zfinal",
+    },
+    y = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/y/1.0.lua",
+      fullName = "y/1.0",
+      loadOrder = 1,
+      propT = {},
+      ref_count = 1,
+      stackDepth = 1,
+      status = "active",
+      userName = "y",
+      wV = "000000001.*zfinal",
+    },
   },
-  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core+",
+  mpathA = {
+    "ProjectDIR/rt/depends_on_any/mf/Core",
+  },
+  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core",
 }
 ===========================
 step 18
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm A
 ===========================
-Note: the module "A" cannot be unloaded because it was not loaded.
 ===========================
 step 19
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
@@ -189,39 +328,55 @@ _ModuleTable_ = {
   c_shortTime = false,
   depthT = {},
   family = {},
-  mT = {},
-  mpathA = {
-    "ProjectDIR/rt/depends_on_any/mf/Core+",
+  mT = {
+    B = {
+      depends_on_anyA = {
+        "y",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/B/1.0.lua",
+      fullName = "B/1.0",
+      loadOrder = 2,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "B",
+      wV = "000000001.*zfinal",
+    },
+    y = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/y/1.0.lua",
+      fullName = "y/1.0",
+      loadOrder = 1,
+      propT = {},
+      ref_count = 1,
+      stackDepth = 1,
+      status = "active",
+      userName = "y",
+      wV = "000000001.*zfinal",
+    },
   },
-  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core+",
+  mpathA = {
+    "ProjectDIR/rt/depends_on_any/mf/Core",
+  },
+  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core",
 }
 ===========================
 step 20
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load none
 ===========================
-Lmod has detected the following error: The following module(s) are unknown: "none"
+Lmod has detected the following error: The depends_on_any function failed because it could not find any of the following modules : q, r, s
 Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore_cache load "none"
 Also make sure that all modulefiles written in TCL start with the string #%Module
+While processing the following module(s):
+    Module fullname  Module Filename
+    none             ProjectDIR/rt/depends_on_any/mf/Core/none.lua
 ===========================
 step 21
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load d
 ===========================
-Lmod has detected the following error: The following module(s) are unknown: "d"
-Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore_cache load "d"
-Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 22
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load already
 ===========================
-Lmod has detected the following error: The following module(s) are unknown: "already"
-Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore_cache load "already"
-Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 23
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
@@ -232,26 +387,68 @@ _ModuleTable_ = {
   c_shortTime = false,
   depthT = {},
   family = {},
-  mT = {},
-  mpathA = {
-    "ProjectDIR/rt/depends_on_any/mf/Core+",
+  mT = {
+    B = {
+      depends_on_anyA = {
+        "y",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/B/1.0.lua",
+      fullName = "B/1.0",
+      loadOrder = 2,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "B",
+      wV = "000000001.*zfinal",
+    },
+    already = {
+      depends_on_anyA = {
+        "d",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/already.lua",
+      fullName = "already",
+      loadOrder = 4,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "already",
+      wV = "M.*zfinal",
+    },
+    d = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/d/1.0.lua",
+      fullName = "d/1.0",
+      loadOrder = 3,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "d",
+      wV = "000000001.*zfinal",
+    },
+    y = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/y/1.0.lua",
+      fullName = "y/1.0",
+      loadOrder = 1,
+      propT = {},
+      ref_count = 1,
+      stackDepth = 1,
+      status = "active",
+      userName = "y",
+      wV = "000000001.*zfinal",
+    },
   },
-  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core+",
+  mpathA = {
+    "ProjectDIR/rt/depends_on_any/mf/Core",
+  },
+  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core",
 }
 ===========================
 step 24
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm already
 ===========================
-Note: the module "already" cannot be unloaded because it was not loaded.
 ===========================
 step 25
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B A
 ===========================
-Lmod has detected the following error: The following module(s) are unknown: "B"
-Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore_cache load "B"
-Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 26
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
@@ -262,18 +459,76 @@ _ModuleTable_ = {
   c_shortTime = false,
   depthT = {},
   family = {},
-  mT = {},
-  mpathA = {
-    "ProjectDIR/rt/depends_on_any/mf/Core+",
+  mT = {
+    A = {
+      depends_on_anyA = {
+        "y", "x",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/A/1.0.lua",
+      fullName = "A/1.0",
+      loadOrder = 5,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "A",
+      wV = "000000001.*zfinal",
+    },
+    B = {
+      depends_on_anyA = {
+        "y",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/B/1.0.lua",
+      fullName = "B/1.0",
+      loadOrder = 3,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "B",
+      wV = "000000001.*zfinal",
+    },
+    d = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/d/1.0.lua",
+      fullName = "d/1.0",
+      loadOrder = 1,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "d",
+      wV = "000000001.*zfinal",
+    },
+    x = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/x/2.0.lua",
+      fullName = "x/2.0",
+      loadOrder = 4,
+      propT = {},
+      ref_count = 1,
+      stackDepth = 1,
+      status = "active",
+      userName = "x",
+      wV = "000000002.*zfinal",
+    },
+    y = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/y/1.0.lua",
+      fullName = "y/1.0",
+      loadOrder = 2,
+      propT = {},
+      ref_count = 2,
+      stackDepth = 1,
+      status = "active",
+      userName = "y",
+      wV = "000000001.*zfinal",
+    },
   },
-  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core+",
+  mpathA = {
+    "ProjectDIR/rt/depends_on_any/mf/Core",
+  },
+  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core",
 }
 ===========================
 step 27
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing save
 ===========================
-Lmod Warning: You are trying to save an empty collection of modules in "default". If this is what you want then enter:
-  $ module --force save default
+Saved current collection of modules to: "default"
 ===========================
 step 28
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
@@ -282,9 +537,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 step 29
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
 ===========================
-The system default contains no modules
-  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
-  No changes in loaded modules
+Restoring modules from user's default
 ===========================
 step 30
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
@@ -295,30 +548,79 @@ _ModuleTable_ = {
   c_shortTime = false,
   depthT = {},
   family = {},
-  mT = {},
-  mpathA = {
-    "ProjectDIR/rt/depends_on_any/mf/Core+",
+  mT = {
+    A = {
+      depends_on_anyA = {
+        "y", "x",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/A/1.0.lua",
+      fullName = "A/1.0",
+      loadOrder = 5,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "A",
+      wV = "000000001.*zfinal",
+    },
+    B = {
+      depends_on_anyA = {
+        "y",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/B/1.0.lua",
+      fullName = "B/1.0",
+      loadOrder = 3,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "B",
+      wV = "000000001.*zfinal",
+    },
+    d = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/d/1.0.lua",
+      fullName = "d/1.0",
+      loadOrder = 1,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "d",
+      wV = "000000001.*zfinal",
+    },
+    x = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/x/2.0.lua",
+      fullName = "x/2.0",
+      loadOrder = 4,
+      propT = {},
+      ref_count = 1,
+      stackDepth = 1,
+      status = "active",
+      userName = "x",
+      wV = "000000002.*zfinal",
+    },
+    y = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/y/1.0.lua",
+      fullName = "y/1.0",
+      loadOrder = 2,
+      propT = {},
+      ref_count = 2,
+      stackDepth = 1,
+      status = "active",
+      userName = "y",
+      wV = "000000001.*zfinal",
+    },
   },
-  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core+",
+  mpathA = {
+    "ProjectDIR/rt/depends_on_any/mf/Core",
+  },
+  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core",
 }
 ===========================
 step 31
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load bar/1.2.lua
 ===========================
-Lmod has detected the following error: The following module(s) are unknown: "bar/1.2"
-Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore_cache load "bar/1.2"
-Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 32
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load Foo
 ===========================
-Lmod has detected the following error: The following module(s) are unknown: "Foo"
-Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore_cache load "Foo"
-Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
 step 33
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
