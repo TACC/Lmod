@@ -54,12 +54,12 @@ testdescript = {
      runLmod restore                           #29
      runLmod --mt                              #30
 
-     ######################################
+     ########################################
      # Test depends_on_any(between(), ...)
      runLmod load bar/1.2.lua                  #31
      runLmod load Foo                          #32
 
-     ######################################
+     ########################################
      # Check dependency when modules are
      # compiler dependent
      runLmod purge                             #33
@@ -96,9 +96,22 @@ testdescript = {
      runLmod load   gcc                        #52
      runLmod av                                #53
 
+     ########################################
+     # Test MODULES_AUTO_HANDLING
+     # This maps prereq()     -> depends_on()
+     # and       prereq_any() -> depends_on_any()
 
+     runLmod purge                            #54
+     unsetMT
+     export MODULEPATH_ROOT=$(testDir)/mf3/
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+     export MODULES_AUTO_HANDLING=1
 
-
+     runLmod load B                           #55
+     runLmod purge                            #56
+     runLmod load A                           #57
+     runLmod --mt                             #58
+     
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new

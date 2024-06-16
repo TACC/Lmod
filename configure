@@ -679,6 +679,7 @@ LUA_SUFFIX
 PATH_TO_LUAC
 PATH_TO_LUA
 AVAIL_EXTENSIONS
+MODULE_AUTO_HANDLING
 FAST_TCL_INTERP
 SILENCE_SHELL_DEBUGGING
 USE_DOT_CONFIG_DIR_ONLY
@@ -691,6 +692,7 @@ CACHED_LOADS
 LUA_INCLUDE
 TMOD_FIND_FIRST
 TMOD_PATH_RULE
+MODULES_AUTO_HANDLING
 LMOD_DOWNSTREAM_CONFLICTS
 PIN_VERSIONS
 IGNORE_DIRS
@@ -800,6 +802,7 @@ with_settarg
 with_ignoreDirs
 with_pinVersions
 with_downstreamConflicts
+with_modulesAutoHandling
 with_tmodPathRule
 with_tmodFindFirst
 with_lua_include
@@ -812,6 +815,7 @@ with_useBuiltinPkgs
 with_useDotConfigDirOnly
 with_silentShellDebugging
 with_fastTCLInterp
+with_moduleAutoHandling
 with_availExtensions
 with_lua
 with_luac
@@ -1495,6 +1499,8 @@ Optional Packages:
   --with-downstreamConflicts=ans
                           module conflicts are remembered for later loads.
                           [[no]]
+  --with-modulesAutoHandling=ans
+                          treat prereq() as depends_on(). [[no]]
   --with-tmodPathRule=ans If path entry is already there then do not
                           append/prepend.[[no]]
   --with-tmodFindFirst=ans
@@ -1520,8 +1526,11 @@ Optional Packages:
                           lmod. [[yes]]
   --with-fastTCLInterp=ans
                           Use the fast TCL interpreter. [[yes]]
+  --with-moduleAutoHandling=ans
+                          Automatically replaces prereqs with depends_on.
+                          [[no]]
   --with-availExtensions=ans
-                          Use the fast TCL interpreter. [[yes]]
+                          Allow extensions to be printed with avail. [[yes]]
   --with-lua=ans          absolute path to the lua interpreter to use [[lua]]
   --with-luac=ans         absolute path to the luac interpreter to use
                           [[luac]]
@@ -4059,6 +4068,27 @@ fi
 
 
 
+# Check whether --with-modulesAutoHandling was given.
+if test ${with_modulesAutoHandling+y}
+then :
+  withval=$with_modulesAutoHandling; MODULES_AUTO_HANDLING="$withval"
+    MODULES_AUTO_HANDLING=`echo $MODULES_AUTO_HANDLING | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $MODULES_AUTO_HANDLING "--with-modulesAutoHandling=ans: ans must be yes or no"
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: MODULES_AUTO_HANDLING=$with_modulesAutoHandling" >&5
+printf "%s\n" "MODULES_AUTO_HANDLING=$with_modulesAutoHandling" >&6; }
+    printf "%s\n" "#define MODULES_AUTO_HANDLING \"$with_modulesAutoHandling\"" >>confdefs.h
+
+else $as_nop
+  withval="no"
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: MODULES_AUTO_HANDLING=$withval" >&5
+printf "%s\n" "MODULES_AUTO_HANDLING=$withval" >&6; }
+    MODULES_AUTO_HANDLING="$withval"
+    printf "%s\n" "#define MODULES_AUTO_HANDLING \"$withval\"" >>confdefs.h
+
+fi
+
+
+
 # Check whether --with-tmodPathRule was given.
 if test ${with_tmodPathRule+y}
 then :
@@ -4302,6 +4332,27 @@ else $as_nop
 printf "%s\n" "FAST_TCL_INTERP=$withval" >&6; }
     FAST_TCL_INTERP="$withval"
     printf "%s\n" "#define FAST_TCL_INTERP \"$withval\"" >>confdefs.h
+
+fi
+
+
+
+# Check whether --with-moduleAutoHandling was given.
+if test ${with_moduleAutoHandling+y}
+then :
+  withval=$with_moduleAutoHandling; MODULE_AUTO_HANDLING="$withval"
+    MODULE_AUTO_HANDLING=`echo $FAST_TCL_INTERP | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $MODULE_AUTO_HANDLING "--with-moduleAutoHandling=ans: ans must be yes or no"
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: MODULE_AUTO_HANDLING=$with-moduleAutoHandling" >&5
+printf "%s\n" "MODULE_AUTO_HANDLING=$with-moduleAutoHandling" >&6; }
+    printf "%s\n" "#define MODULE_AUTO_HANDLING \"$with-moduleAutoHandling\"" >>confdefs.h
+
+else $as_nop
+  withval="no"
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: MODULE_AUTO_HANDLING=$withval" >&5
+printf "%s\n" "MODULE_AUTO_HANDLING=$withval" >&6; }
+    MODULE_AUTO_HANDLING="$withval"
+    printf "%s\n" "#define MODULE_AUTO_HANDLING \"$withval\"" >>confdefs.h
 
 fi
 
@@ -6889,6 +6940,7 @@ echo "Allow root to use Lmod......................................" : $LMOD_ALLO
 echo "Support KSH................................................." : $SUPPORT_KSH
 echo "MODE........................................................" : $MODE
 echo "Use the fast TCL interpreter................................" : $FAST_TCL_INTERP
+echo "Modules Auto Handling......................................." : $MODULES_AUTO_HANDLING
 echo "LMOD_CONFIG_DIR............................................." : $LMOD_CONFIG_DIR
 echo "Use ~/.config/lmod directory only..........................." : $USE_DOT_CONFIG_DIR_ONLY
 echo "Display Extensions w/ module avail.........................." : $AVAIL_EXTENSIONS

@@ -204,6 +204,13 @@ function M.MNameType(self)
 end
 
 --------------------------------------------------------------------------
+-- Return the sType for prereq/prereg_any
+-- @param self A MainControl object
+function M.MNamePrereqType(self)
+   return (cosmic:value("MODULES_AUTO_HANDLING") == "yes") and self.my_sType or "mt"
+end
+
+--------------------------------------------------------------------------
 -- Return the tcl_mode.
 -- @param self A MainControl object
 function M.tcl_mode(self)

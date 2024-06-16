@@ -42,6 +42,7 @@ require("strict")
 --------------------------------------------------------------------------
 
 local MainControl      = require("MainControl")
+local cosmic           = require("Cosmic"):singleton()
 MC_Unload              = inheritsFrom(MainControl)
 MC_Unload.my_name      = "MC_Unload"
 MC_Unload.my_sType     = "mt"
@@ -97,5 +98,10 @@ M.unset_shell_function = MainControl.quiet
 M.usrload              = MainControl.unload
 M.whatis               = MainControl.quiet
 M.LmodBreak            = MainControl.quiet
+
+if (cosmic:value("MODULES_AUTO_HANDLING") == "yes") then
+   M.prereq           = MainControl.forgo
+   M.prereq_any       = MainControl.forgo_any
+end
 
 return M
