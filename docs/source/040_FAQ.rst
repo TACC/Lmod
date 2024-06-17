@@ -398,3 +398,15 @@ prepend_path() or append_path() a bad idea?
         local testdir = os.getenv("HOME") .. "/test"
         setenv("TESTDIR", testdir)
         prepend_path("TESTPATH", testdir)
+
+Why don't collections work on HPE/Cray systems?
+
+   Currently, program environments on login nodes are different from
+   the ones on compute nodes.  Collections require that the
+   modulefiles have the same name (versions could be different but not
+   the name).  When a collection is *restored*, it purges **ALL**
+   modules and loads all the modules listed in the collection.  Note
+   that the module load() inside a modulefile are ignored for very
+   complicated reasons.  Instead Lmod loads all modules listed in the
+   collection.   This works well except when the list of modules is
+   different.
