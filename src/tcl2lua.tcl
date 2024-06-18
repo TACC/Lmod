@@ -638,6 +638,10 @@ proc depends-on { args} {
     eval cmdargs "depends_on" $args
 }
 
+proc depends-on-any { args} {
+    eval cmdargs "depends_on_any" $args
+}
+
 proc complete { shellName name args } {
     global g_outputA
     foreach arg $args {
@@ -1009,6 +1013,7 @@ proc execute-modulefile {modfile } {
     interp alias $child complete       	 {} complete
     interp alias $child conflict       	 {} conflict
     interp alias $child depends-on     	 {} depends-on
+    interp alias $child depends-on-any 	 {} depends-on-any
     interp alias $child exit          	 {} my_exit
     interp alias $child extensions     	 {} extensions
     interp alias $child family         	 {} family

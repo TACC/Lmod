@@ -667,6 +667,7 @@ PATH_TO_GIT
 PATH_TO_LS
 READLINK
 PS
+PATH_TO_POD2MAN
 EXPR
 BASENAME
 PATH_TO_SRC
@@ -679,6 +680,7 @@ LUA_SUFFIX
 PATH_TO_LUAC
 PATH_TO_LUA
 AVAIL_EXTENSIONS
+MODULE_AUTO_HANDLING
 FAST_TCL_INTERP
 SILENCE_SHELL_DEBUGGING
 USE_DOT_CONFIG_DIR_ONLY
@@ -691,6 +693,7 @@ CACHED_LOADS
 LUA_INCLUDE
 TMOD_FIND_FIRST
 TMOD_PATH_RULE
+MODULES_AUTO_HANDLING
 LMOD_DOWNSTREAM_CONFLICTS
 PIN_VERSIONS
 IGNORE_DIRS
@@ -800,6 +803,7 @@ with_settarg
 with_ignoreDirs
 with_pinVersions
 with_downstreamConflicts
+with_modulesAutoHandling
 with_tmodPathRule
 with_tmodFindFirst
 with_lua_include
@@ -812,6 +816,7 @@ with_useBuiltinPkgs
 with_useDotConfigDirOnly
 with_silentShellDebugging
 with_fastTCLInterp
+with_moduleAutoHandling
 with_availExtensions
 with_lua
 with_luac
@@ -1495,6 +1500,8 @@ Optional Packages:
   --with-downstreamConflicts=ans
                           module conflicts are remembered for later loads.
                           [[no]]
+  --with-modulesAutoHandling=ans
+                          treat prereq() as depends_on(). [[no]]
   --with-tmodPathRule=ans If path entry is already there then do not
                           append/prepend.[[no]]
   --with-tmodFindFirst=ans
@@ -1520,8 +1527,11 @@ Optional Packages:
                           lmod. [[yes]]
   --with-fastTCLInterp=ans
                           Use the fast TCL interpreter. [[yes]]
+  --with-moduleAutoHandling=ans
+                          Automatically replaces prereqs with depends_on.
+                          [[no]]
   --with-availExtensions=ans
-                          Use the fast TCL interpreter. [[yes]]
+                          Allow extensions to be printed with avail. [[yes]]
   --with-lua=ans          absolute path to the lua interpreter to use [[lua]]
   --with-luac=ans         absolute path to the luac interpreter to use
                           [[luac]]
@@ -4059,6 +4069,27 @@ fi
 
 
 
+# Check whether --with-modulesAutoHandling was given.
+if test ${with_modulesAutoHandling+y}
+then :
+  withval=$with_modulesAutoHandling; MODULES_AUTO_HANDLING="$withval"
+    MODULES_AUTO_HANDLING=`echo $MODULES_AUTO_HANDLING | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $MODULES_AUTO_HANDLING "--with-modulesAutoHandling=ans: ans must be yes or no"
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: MODULES_AUTO_HANDLING=$with_modulesAutoHandling" >&5
+printf "%s\n" "MODULES_AUTO_HANDLING=$with_modulesAutoHandling" >&6; }
+    printf "%s\n" "#define MODULES_AUTO_HANDLING \"$with_modulesAutoHandling\"" >>confdefs.h
+
+else $as_nop
+  withval="no"
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: MODULES_AUTO_HANDLING=$withval" >&5
+printf "%s\n" "MODULES_AUTO_HANDLING=$withval" >&6; }
+    MODULES_AUTO_HANDLING="$withval"
+    printf "%s\n" "#define MODULES_AUTO_HANDLING \"$withval\"" >>confdefs.h
+
+fi
+
+
+
 # Check whether --with-tmodPathRule was given.
 if test ${with_tmodPathRule+y}
 then :
@@ -4302,6 +4333,27 @@ else $as_nop
 printf "%s\n" "FAST_TCL_INTERP=$withval" >&6; }
     FAST_TCL_INTERP="$withval"
     printf "%s\n" "#define FAST_TCL_INTERP \"$withval\"" >>confdefs.h
+
+fi
+
+
+
+# Check whether --with-moduleAutoHandling was given.
+if test ${with_moduleAutoHandling+y}
+then :
+  withval=$with_moduleAutoHandling; MODULE_AUTO_HANDLING="$withval"
+    MODULE_AUTO_HANDLING=`echo $FAST_TCL_INTERP | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $MODULE_AUTO_HANDLING "--with-moduleAutoHandling=ans: ans must be yes or no"
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: MODULE_AUTO_HANDLING=$with-moduleAutoHandling" >&5
+printf "%s\n" "MODULE_AUTO_HANDLING=$with-moduleAutoHandling" >&6; }
+    printf "%s\n" "#define MODULE_AUTO_HANDLING \"$with-moduleAutoHandling\"" >>confdefs.h
+
+else $as_nop
+  withval="no"
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: MODULE_AUTO_HANDLING=$withval" >&5
+printf "%s\n" "MODULE_AUTO_HANDLING=$withval" >&6; }
+    MODULE_AUTO_HANDLING="$withval"
+    printf "%s\n" "#define MODULE_AUTO_HANDLING \"$withval\"" >>confdefs.h
 
 fi
 
@@ -4594,6 +4646,7 @@ SRCDIR=$( cd $srcdir; pwd)
 PATH_TO_SRC=$SRCDIR
 
 ##### UTILS -- start
+
 
 
 
@@ -4903,6 +4956,53 @@ if test "$BC" = "UNKNOWN_BC" ; then
   rm -f makefile
   exit 1
 fi
+
+# Extract the first word of "pod2man", so it can be a program name with args.
+set dummy pod2man; ac_word=$2
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+printf %s "checking for $ac_word... " >&6; }
+if test ${ac_cv_path_PATH_TO_POD2MAN+y}
+then :
+  printf %s "(cached) " >&6
+else $as_nop
+  case $PATH_TO_POD2MAN in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_PATH_TO_POD2MAN="$PATH_TO_POD2MAN" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  case $as_dir in #(((
+    '') as_dir=./ ;;
+    */) ;;
+    *) as_dir=$as_dir/ ;;
+  esac
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir$ac_word$ac_exec_ext"; then
+    ac_cv_path_PATH_TO_POD2MAN="$as_dir$ac_word$ac_exec_ext"
+    printf "%s\n" "$as_me:${as_lineno-$LINENO}: found $as_dir$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  test -z "$ac_cv_path_PATH_TO_POD2MAN" && ac_cv_path_PATH_TO_POD2MAN="UNKNOWN_POD2MAN"
+  ;;
+esac
+fi
+PATH_TO_POD2MAN=$ac_cv_path_PATH_TO_POD2MAN
+if test -n "$PATH_TO_POD2MAN"; then
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $PATH_TO_POD2MAN" >&5
+printf "%s\n" "$PATH_TO_POD2MAN" >&6; }
+else
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+fi
+
+
 
 # Extract the first word of "git", so it can be a program name with args.
 set dummy git; ac_word=$2
@@ -6889,6 +6989,7 @@ echo "Allow root to use Lmod......................................" : $LMOD_ALLO
 echo "Support KSH................................................." : $SUPPORT_KSH
 echo "MODE........................................................" : $MODE
 echo "Use the fast TCL interpreter................................" : $FAST_TCL_INTERP
+echo "Modules Auto Handling......................................." : $MODULES_AUTO_HANDLING
 echo "LMOD_CONFIG_DIR............................................." : $LMOD_CONFIG_DIR
 echo "Use ~/.config/lmod directory only..........................." : $USE_DOT_CONFIG_DIR_ONLY
 echo "Display Extensions w/ module avail.........................." : $AVAIL_EXTENSIONS

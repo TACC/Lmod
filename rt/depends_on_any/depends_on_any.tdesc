@@ -1,0 +1,138 @@
+-- -*- lua -*-
+local testName = "depends_on_any"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 "depends_on_any"
+   ]],
+   keywords = {testName },
+
+   active   = true,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     export MODULEPATH=$(testDir)/mf/Core
+
+     remove_generated_lmod_files
+
+     runLmod --version                         # 1
+     runLmod load AA                           # 2
+     runLmod --mt                              # 3
+     runLmod rm   AA                           # 4
+     runLmod --mt                              # 5
+     runLmod load B                            # 6 
+     runLmod load A                            # 7
+     runLmod --mt                              # 8
+     runLmod rm   A                            # 9
+     runLmod --mt                              #10
+     runLmod load A                            #11
+     runLmod load x                            #12
+     runLmod rm   A                            #13
+     runLmod --mt                              #14
+     runLmod load A                            #15
+     runLmod rm   x                            #16
+     runLmod --mt                              #17
+     runLmod rm   A                            #18
+     runLmod --mt                              #19
+     runLmod load none                         #20
+     runLmod load d                            #21
+     runLmod load already                      #22
+     runLmod --mt                              #23
+     runLmod rm   already                      #24
+     runLmod load B A                          #25
+     runLmod --mt                              #26
+     runLmod save                              #27
+     runLmod purge                             #28
+     runLmod restore                           #29
+     runLmod --mt                              #30
+
+     ########################################
+     # Test depends_on_any(between(), ...)
+     runLmod load bar/1.2.lua                  #31
+     runLmod load Foo                          #32
+
+     ########################################
+     # Check dependency when modules are
+     # compiler dependent
+     runLmod purge                             #33
+     unsetMT
+
+     export MODULEPATH_ROOT=$(testDir)/mf2/
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+     runLmod load compiler_a package           #34
+     runLmod rm   package                      #35
+     runLmod load package                      #36
+     runLmod load compiler_b                   #37
+     runLmod rm   package                      #38
+     runLmod list                              #39
+
+     ######################################
+     # Check if activating inactive modules
+     # works with depends_on_any()
+     runLmod purge                             #40
+     runLmod load   compiler_a package pkgB    #41
+     runLmod unload compiler_a                 #42
+     runLmod load   compiler_b                 #43
+     runLmod list                              #44
+     runLmod rm     package                    #45
+     runLmod list                              #46
+     runLmod rm     pkgB                       #47
+     runLmod list                              #48
+
+     ########################################
+     # Check mix of hierarchy and depends_on
+     # with depends_on_any
+     runLmod purge                             #49
+     runLmod load   A                          #50
+     runLmod list                              #51
+     runLmod load   gcc                        #52
+     runLmod av                                #53
+
+     ########################################
+     # Test MODULES_AUTO_HANDLING
+     # This maps prereq()     -> depends_on()
+     # and       prereq_any() -> depends_on_any()
+
+     runLmod purge                            #54
+     unsetMT
+     export MODULEPATH_ROOT=$(testDir)/mf3/
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+     export MODULES_AUTO_HANDLING=1
+
+     runLmod load B                           #55
+     runLmod purge                            #56
+     runLmod load A                           #57
+     runLmod --mt                             #58
+     
+     HOME=$ORIG_HOME
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

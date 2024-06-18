@@ -1,0 +1,806 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
+===========================
+Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load AA
+===========================
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
+===========================
+_ModuleTable_ = {
+  MTversion = 3,
+  c_rebuildTime = false,
+  c_shortTime = false,
+  depthT = {},
+  family = {},
+  mT = {
+    AA = {
+      depends_on_anyA = {
+        "y", "y", "y",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/AA/2.0",
+      fullName = "AA/2.0",
+      loadOrder = 2,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "AA",
+      wV = "000000002.*zfinal",
+    },
+    y = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/y/1.0.lua",
+      fullName = "y/1.0",
+      loadOrder = 1,
+      propT = {},
+      ref_count = 3,
+      stackDepth = 1,
+      status = "active",
+      userName = "y",
+      wV = "000000001.*zfinal",
+    },
+  },
+  mpathA = {
+    "ProjectDIR/rt/depends_on_any/mf/Core",
+  },
+  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core",
+}
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm AA
+===========================
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
+===========================
+_ModuleTable_ = {
+  MTversion = 3,
+  c_rebuildTime = false,
+  c_shortTime = false,
+  depthT = {},
+  family = {},
+  mT = {},
+  mpathA = {
+    "ProjectDIR/rt/depends_on_any/mf/Core",
+  },
+  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core",
+}
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B
+===========================
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
+===========================
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
+===========================
+_ModuleTable_ = {
+  MTversion = 3,
+  c_rebuildTime = false,
+  c_shortTime = false,
+  depthT = {},
+  family = {},
+  mT = {
+    A = {
+      depends_on_anyA = {
+        "y", "x",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/A/1.0.lua",
+      fullName = "A/1.0",
+      loadOrder = 4,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "A",
+      wV = "000000001.*zfinal",
+    },
+    B = {
+      depends_on_anyA = {
+        "y",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/B/1.0.lua",
+      fullName = "B/1.0",
+      loadOrder = 2,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "B",
+      wV = "000000001.*zfinal",
+    },
+    x = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/x/2.0.lua",
+      fullName = "x/2.0",
+      loadOrder = 3,
+      propT = {},
+      ref_count = 1,
+      stackDepth = 1,
+      status = "active",
+      userName = "x",
+      wV = "000000002.*zfinal",
+    },
+    y = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/y/1.0.lua",
+      fullName = "y/1.0",
+      loadOrder = 1,
+      propT = {},
+      ref_count = 2,
+      stackDepth = 1,
+      status = "active",
+      userName = "y",
+      wV = "000000001.*zfinal",
+    },
+  },
+  mpathA = {
+    "ProjectDIR/rt/depends_on_any/mf/Core",
+  },
+  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core",
+}
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm A
+===========================
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
+===========================
+_ModuleTable_ = {
+  MTversion = 3,
+  c_rebuildTime = false,
+  c_shortTime = false,
+  depthT = {},
+  family = {},
+  mT = {
+    B = {
+      depends_on_anyA = {
+        "y",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/B/1.0.lua",
+      fullName = "B/1.0",
+      loadOrder = 2,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "B",
+      wV = "000000001.*zfinal",
+    },
+    y = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/y/1.0.lua",
+      fullName = "y/1.0",
+      loadOrder = 1,
+      propT = {},
+      ref_count = 1,
+      stackDepth = 1,
+      status = "active",
+      userName = "y",
+      wV = "000000001.*zfinal",
+    },
+  },
+  mpathA = {
+    "ProjectDIR/rt/depends_on_any/mf/Core",
+  },
+  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core",
+}
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
+===========================
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load x
+===========================
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm A
+===========================
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
+===========================
+_ModuleTable_ = {
+  MTversion = 3,
+  c_rebuildTime = false,
+  c_shortTime = false,
+  depthT = {},
+  family = {},
+  mT = {
+    B = {
+      depends_on_anyA = {
+        "y",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/B/1.0.lua",
+      fullName = "B/1.0",
+      loadOrder = 2,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "B",
+      wV = "000000001.*zfinal",
+    },
+    x = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/x/2.0.lua",
+      fullName = "x/2.0",
+      loadOrder = 3,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "x",
+      wV = "000000002.*zfinal",
+    },
+    y = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/y/1.0.lua",
+      fullName = "y/1.0",
+      loadOrder = 1,
+      propT = {},
+      ref_count = 1,
+      stackDepth = 1,
+      status = "active",
+      userName = "y",
+      wV = "000000001.*zfinal",
+    },
+  },
+  mpathA = {
+    "ProjectDIR/rt/depends_on_any/mf/Core",
+  },
+  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core",
+}
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
+===========================
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm x
+===========================
+Lmod Warning:
+The following dependent module(s) are not currently loaded: x (required by: A/1.0, A/1.0)
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
+===========================
+_ModuleTable_ = {
+  MTversion = 3,
+  c_rebuildTime = false,
+  c_shortTime = false,
+  depthT = {},
+  family = {},
+  mT = {
+    A = {
+      depends_on_anyA = {
+        "x", "x",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/A/1.0.lua",
+      fullName = "A/1.0",
+      loadOrder = 3,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "A",
+      wV = "000000001.*zfinal",
+    },
+    B = {
+      depends_on_anyA = {
+        "y",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/B/1.0.lua",
+      fullName = "B/1.0",
+      loadOrder = 2,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "B",
+      wV = "000000001.*zfinal",
+    },
+    y = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/y/1.0.lua",
+      fullName = "y/1.0",
+      loadOrder = 1,
+      propT = {},
+      ref_count = 1,
+      stackDepth = 1,
+      status = "active",
+      userName = "y",
+      wV = "000000001.*zfinal",
+    },
+  },
+  mpathA = {
+    "ProjectDIR/rt/depends_on_any/mf/Core",
+  },
+  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core",
+}
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm A
+===========================
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
+===========================
+_ModuleTable_ = {
+  MTversion = 3,
+  c_rebuildTime = false,
+  c_shortTime = false,
+  depthT = {},
+  family = {},
+  mT = {
+    B = {
+      depends_on_anyA = {
+        "y",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/B/1.0.lua",
+      fullName = "B/1.0",
+      loadOrder = 2,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "B",
+      wV = "000000001.*zfinal",
+    },
+    y = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/y/1.0.lua",
+      fullName = "y/1.0",
+      loadOrder = 1,
+      propT = {},
+      ref_count = 1,
+      stackDepth = 1,
+      status = "active",
+      userName = "y",
+      wV = "000000001.*zfinal",
+    },
+  },
+  mpathA = {
+    "ProjectDIR/rt/depends_on_any/mf/Core",
+  },
+  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core",
+}
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load none
+===========================
+Lmod has detected the following error: The depends_on_any function failed because it could not find any of the following modules : q, r, s
+Please check the spelling or version number. Also try "module spider ..."
+Also make sure that all modulefiles written in TCL start with the string #%Module
+While processing the following module(s):
+    Module fullname  Module Filename
+    none             ProjectDIR/rt/depends_on_any/mf/Core/none.lua
+===========================
+step 21
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load d
+===========================
+===========================
+step 22
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load already
+===========================
+===========================
+step 23
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
+===========================
+_ModuleTable_ = {
+  MTversion = 3,
+  c_rebuildTime = false,
+  c_shortTime = false,
+  depthT = {},
+  family = {},
+  mT = {
+    B = {
+      depends_on_anyA = {
+        "y",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/B/1.0.lua",
+      fullName = "B/1.0",
+      loadOrder = 2,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "B",
+      wV = "000000001.*zfinal",
+    },
+    already = {
+      depends_on_anyA = {
+        "d",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/already.lua",
+      fullName = "already",
+      loadOrder = 4,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "already",
+      wV = "M.*zfinal",
+    },
+    d = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/d/1.0.lua",
+      fullName = "d/1.0",
+      loadOrder = 3,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "d",
+      wV = "000000001.*zfinal",
+    },
+    y = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/y/1.0.lua",
+      fullName = "y/1.0",
+      loadOrder = 1,
+      propT = {},
+      ref_count = 1,
+      stackDepth = 1,
+      status = "active",
+      userName = "y",
+      wV = "000000001.*zfinal",
+    },
+  },
+  mpathA = {
+    "ProjectDIR/rt/depends_on_any/mf/Core",
+  },
+  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core",
+}
+===========================
+step 24
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm already
+===========================
+===========================
+step 25
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B A
+===========================
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
+===========================
+_ModuleTable_ = {
+  MTversion = 3,
+  c_rebuildTime = false,
+  c_shortTime = false,
+  depthT = {},
+  family = {},
+  mT = {
+    A = {
+      depends_on_anyA = {
+        "y", "x",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/A/1.0.lua",
+      fullName = "A/1.0",
+      loadOrder = 5,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "A",
+      wV = "000000001.*zfinal",
+    },
+    B = {
+      depends_on_anyA = {
+        "y",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/B/1.0.lua",
+      fullName = "B/1.0",
+      loadOrder = 3,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "B",
+      wV = "000000001.*zfinal",
+    },
+    d = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/d/1.0.lua",
+      fullName = "d/1.0",
+      loadOrder = 1,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "d",
+      wV = "000000001.*zfinal",
+    },
+    x = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/x/2.0.lua",
+      fullName = "x/2.0",
+      loadOrder = 4,
+      propT = {},
+      ref_count = 1,
+      stackDepth = 1,
+      status = "active",
+      userName = "x",
+      wV = "000000002.*zfinal",
+    },
+    y = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/y/1.0.lua",
+      fullName = "y/1.0",
+      loadOrder = 2,
+      propT = {},
+      ref_count = 2,
+      stackDepth = 1,
+      status = "active",
+      userName = "y",
+      wV = "000000001.*zfinal",
+    },
+  },
+  mpathA = {
+    "ProjectDIR/rt/depends_on_any/mf/Core",
+  },
+  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core",
+}
+===========================
+step 27
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing save
+===========================
+Saved current collection of modules to: "default"
+===========================
+step 28
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 29
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
+===========================
+Restoring modules from user's default
+===========================
+step 30
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
+===========================
+_ModuleTable_ = {
+  MTversion = 3,
+  c_rebuildTime = false,
+  c_shortTime = false,
+  depthT = {},
+  family = {},
+  mT = {
+    A = {
+      depends_on_anyA = {
+        "y", "x",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/A/1.0.lua",
+      fullName = "A/1.0",
+      loadOrder = 5,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "A",
+      wV = "000000001.*zfinal",
+    },
+    B = {
+      depends_on_anyA = {
+        "y",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/B/1.0.lua",
+      fullName = "B/1.0",
+      loadOrder = 3,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "B",
+      wV = "000000001.*zfinal",
+    },
+    d = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/d/1.0.lua",
+      fullName = "d/1.0",
+      loadOrder = 1,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "d",
+      wV = "000000001.*zfinal",
+    },
+    x = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/x/2.0.lua",
+      fullName = "x/2.0",
+      loadOrder = 4,
+      propT = {},
+      ref_count = 1,
+      stackDepth = 1,
+      status = "active",
+      userName = "x",
+      wV = "000000002.*zfinal",
+    },
+    y = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/y/1.0.lua",
+      fullName = "y/1.0",
+      loadOrder = 2,
+      propT = {},
+      ref_count = 2,
+      stackDepth = 1,
+      status = "active",
+      userName = "y",
+      wV = "000000001.*zfinal",
+    },
+  },
+  mpathA = {
+    "ProjectDIR/rt/depends_on_any/mf/Core",
+  },
+  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core",
+}
+===========================
+step 31
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load bar/1.2.lua
+===========================
+===========================
+step 32
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load Foo
+===========================
+===========================
+step 33
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 34
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load compiler_a package
+===========================
+===========================
+step 35
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm package
+===========================
+===========================
+step 36
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load package
+===========================
+===========================
+step 37
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load compiler_b
+===========================
+Lmod is automatically replacing "compiler_a/1.0" with "compiler_b/1.0".
+Due to MODULEPATH changes, the following have been reloaded:
+  1) dependency/1.0     2) package/1.0
+===========================
+step 38
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm package
+===========================
+===========================
+step 39
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) compiler_b/1.0
+===========================
+step 40
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 41
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load compiler_a package pkgB
+===========================
+===========================
+step 42
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload compiler_a
+===========================
+Inactive Modules:
+  1) dependency     2) package     3) pkgB
+===========================
+step 43
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load compiler_b
+===========================
+Activating Modules:
+  1) dependency/1.0     2) package/1.0     3) pkgB/1.0
+===========================
+step 44
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) compiler_b/1.0   2) dependency/1.0   3) package/1.0   4) pkgB/1.0
+===========================
+step 45
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm package
+===========================
+===========================
+step 46
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) compiler_b/1.0   2) dependency/1.0   3) pkgB/1.0
+===========================
+step 47
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm pkgB
+===========================
+===========================
+step 48
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) compiler_b/1.0
+===========================
+step 49
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 50
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
+===========================
+===========================
+step 51
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) python3/1.0   2) A/1.0
+===========================
+step 52
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc
+===========================
+Due to MODULEPATH changes, the following have been reloaded:
+  1) python3/1.0
+===========================
+step 53
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing av
+===========================
+ProjectDIR/rt/depends_on_any/mf2/gcc
+   python3/1.0 (L,D)
+ProjectDIR/rt/depends_on_any/mf2/Core
+   A/1.0 (L)    compiler_a/1.0    compiler_b/1.0    gcc/1.0 (L)    python3/1.0
+  Where:
+   D:  Default Module
+   L:  Module is loaded
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 54
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 55
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B
+===========================
+===========================
+step 56
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 57
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
+===========================
+===========================
+step 58
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
+===========================
+_ModuleTable_ = {
+  MTversion = 3,
+  c_rebuildTime = false,
+  c_shortTime = false,
+  depthT = {},
+  family = {},
+  mT = {
+    A = {
+      depends_on_anyA = {
+        "x", "z",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf3/Core/A/1.0.lua",
+      fullName = "A/1.0",
+      loadOrder = 3,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "A",
+      wV = "000000001.*zfinal",
+    },
+    x = {
+      fn = "ProjectDIR/rt/depends_on_any/mf3/Core/x/1.0.lua",
+      fullName = "x/1.0",
+      loadOrder = 1,
+      propT = {},
+      ref_count = 1,
+      stackDepth = 1,
+      status = "active",
+      userName = "x",
+      wV = "000000001.*zfinal",
+    },
+    z = {
+      fn = "ProjectDIR/rt/depends_on_any/mf3/Core/z/1.0.lua",
+      fullName = "z/1.0",
+      loadOrder = 2,
+      propT = {},
+      ref_count = 1,
+      stackDepth = 1,
+      status = "active",
+      userName = "z",
+      wV = "000000001.*zfinal",
+    },
+  },
+  mpathA = {
+    "ProjectDIR/rt/depends_on_any/mf3/Core",
+  },
+  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf3/Core",
+}

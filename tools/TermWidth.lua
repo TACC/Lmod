@@ -55,12 +55,6 @@ local function l_askSystem(width)
       return tonumber(columns)
    end
 
-   -- Try env var COLUMNS
-   columns = getenv("COLUMNS")
-   if (columns) then
-      return tonumber(columns)
-   end
-
    -- Try tput cols
    if (getenv("TERM")) then
       local result  = capture("tput cols 2> /dev/null")

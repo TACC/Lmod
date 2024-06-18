@@ -212,7 +212,7 @@ function Usage()
    a[#a+1] = { i18n("env_title") }
    a[#a+1] = { "  LMOD_COLORIZE", "",      i18n("env1") }
    a[#a+1] = { "" }
-   a[#a+1] = { line}
+   a[#a+1] = { "" }
    a[#a+1] = { i18n("web_sites") }
    a[#a+1] = { "" }
    a[#a+1] = { "  Documentation:    https://lmod.readthedocs.org"}
@@ -221,7 +221,6 @@ function Usage()
    a[#a+1] = { "  TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod"}
    a[#a+1] = { "" }
    a[#a+1] = { i18n("rpt_bug")..webBR }
-   a[#a+1] = { line }
 
 
    local twidth = TermWidth()
@@ -359,8 +358,10 @@ function main()
    initialize_lmod()
    dbg.set_prefix(colorize("red","Lmod"))
 
-   local cmdLineUsage = "Usage: module [options] sub-command [args ...]"
-   Options:singleton(cmdLineUsage)
+   local cmdLineUsage = "module [options] sub-command [args ...]"
+   local description  = "This tool allow a user to control their environment by load and unloading modulefiles.  See https://lmod.readthedocs.org for more details."
+
+   Options:singleton("module", cmdLineUsage, description)
    local userCmd = optionTbl.pargs[1]
    table.remove(optionTbl.pargs,1)
 
@@ -478,12 +479,15 @@ function main()
       Shell:setActive(false)
    end
 
-   -- Output local vars
-   --Shell:expand(varTbl)
-
    -- if Help was requested then quit.
    if (optionTbl.cmdHelp) then
       Help()
+      os.exit(0)
+   end
+
+   -- if pod was requested then quit.
+   if (optionTbl.cmdPod) then
+      io.stderr:write(optionTbl.pod,"\n")
       os.exit(0)
    end
 

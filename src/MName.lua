@@ -94,22 +94,23 @@ function M.new(self, sType, name, action, is, ie)
 
    local o = s_findT[action]:create()
 
-   is             = is or false
-   ie             = ie or false
-   o.__isOrig     = is
-   o.__ieOrig     = ie
-   o.__sn         = false
-   o.__version    = false
-   o.__fn         = false
-   o.__versionStr = false
-   o.__dependsOn  = false
-   o.__ref_count  = nil
-   o.__sType      = sType
-   o.__wV         = false
-   o.__waterMark  = "MName"
-   o.__action     = action
-   o.__range_fnA  = { s_rangeFuncT["<="], s_rangeFuncT["<="]}
-   o.__show_range = { is, ie}
+   is                  = is or false
+   ie                  = ie or false
+   o.__isOrig          = is
+   o.__ieOrig          = ie
+   o.__sn              = false
+   o.__version         = false
+   o.__fn              = false
+   o.__versionStr      = false
+   o.__dependsOn       = false
+   o.__ref_count       = nil
+   o.__depends_on_anyA = nil
+   o.__sType           = sType
+   o.__wV              = false
+   o.__waterMark       = "MName"
+   o.__action          = action
+   o.__range_fnA       = { s_rangeFuncT["<="], s_rangeFuncT["<="]}
+   o.__show_range      = { is, ie}
    if (is and (is:sub(1,1) == "<" or is:sub(-1) == "<")) then
       o.__range_fnA[1]  = s_rangeFuncT["<"]
       is = is:gsub("<","")
@@ -180,30 +181,29 @@ function M.buildA(self,sType, ...)
 end
 
 local function l_lazyEval(self)
-   dbg.start{"l_lazyEval(",self.__userName,")"}
+   --dbg.start{"l_lazyEval(",self.__userName,")"}
 
    local sType   = self.__sType
-   dbg.print{"sType: ",sType,"\n"}
    if (sType == "mt") then
       local frameStk = FrameStk:singleton()
       local mt       = frameStk:mt()
       local sn       = mt:lookup_w_userName(self.__userName)
       --dbg.print{"sn: ",sn,"\n"}
       if (sn) then
-         self.__sn         = sn
-         self.__fn         = mt:fn(sn)
-         self.__version    = mt:version(sn)
-         self.__stackDepth = mt:stackDepth(sn)
-         self.__wV         = mt:wV(sn)
-         self.__ref_count  = mt:get_ref_count(sn)
+         self.__sn              = sn
+         self.__fn              = mt:fn(sn)
+         self.__version         = mt:version(sn)
+         self.__stackDepth      = mt:stackDepth(sn)
+         self.__wV              = mt:wV(sn)
+         self.__ref_count       = mt:get_ref_count(sn)
+         self.__depends_on_anyA = mt:get_depends_on_anyA(sn)
       end
-      dbg.fini("l_lazyEval via mt")
+      --dbg.fini("l_lazyEval via mt")
       return
    end
 
    local cached_loads = cosmic:value("LMOD_CACHED_LOADS")
    local moduleA = ModuleA:singleton{spider_cache = (cached_loads ~= "no")}
-   dbg.printT("(3) moduleA: ",moduleA:moduleA())
    if (sType == "inherit") then
       local t  = self.__t
       local fn = moduleA:inherited_search(self.__fullName, t.fn)
@@ -215,7 +215,7 @@ local function l_lazyEval(self)
          self.__wV       = t.wV
       end
 
-      dbg.fini("l_lazyEval via inherit")
+      --dbg.fini("l_lazyEval via inherit")
       return
    end
 
@@ -240,7 +240,7 @@ local function l_lazyEval(self)
    self.__stackDepth = self.__stackDepth or frameStk:stackDepth()
 
    if (not sn) then
-      dbg.fini("l_lazyEval via no sn")
+      --dbg.fini("l_lazyEval via no sn")
       return
    end
 
@@ -249,10 +249,10 @@ local function l_lazyEval(self)
    local fn
    local wV
    local found
-   dbg.printT("fileA",fileA)
+   --dbg.printT("fileA",fileA)
    --dbg.print{"#stepA: ",#stepA,"\n"}
-   dbg.print{"userName: ",self.__userName,"\n"}
-   dbg.print{"sn: ",self.__sn,"\n"}
+   --dbg.print{"userName: ",self.__userName,"\n"}
+   --dbg.print{"sn: ",self.__sn,"\n"}
 
 
    for i = 1, #stepA do
@@ -270,7 +270,7 @@ local function l_lazyEval(self)
    end
    --dbg.print{"l_lazyEval: sn: ",self.__sn, ", version: ",self.__version, ", fn: ",self.__fn,", wV: ",self.__wV,", userName: ",self.__userName,"\n"}
    --dbg.print{"fn: ",self.__fn,"\n"}
-   dbg.fini("l_lazyEval")
+   --dbg.fini("l_lazyEval")
 end
 
 
@@ -336,6 +336,17 @@ end
 
 function M.set_ref_count(self, count)
    self.__ref_count = count
+end
+
+function M.set_depends_on_anyA(self, depends_on_anyA)
+   self.__depends_on_anyA = depends_on_anyA
+end
+
+function M.get_depends_on_anyA(self, sn)
+   if (not self.__sn) then
+      l_lazyEval(self)
+   end
+   return self.__depends_on_anyA
 end
 
 function M.ref_count(self)

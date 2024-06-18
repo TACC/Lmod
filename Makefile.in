@@ -73,12 +73,15 @@ SPIDER_CACHE_DIRS         := @SPIDER_CACHE_DIRS@
 LEGACY_ORDERING           := @LEGACY_ORDERING@
 EXPORT_MODULE             := @EXPORT_MODULE@
 LMOD_DOWNSTREAM_CONFLICTS := @LMOD_DOWNSTREAM_CONFLICTS@
+MODULES_AUTO_HANDLING     := @MODULES_AUTO_HANDLING@
 BASENAME                  := @BASENAME@
 UPDATE_VERSION            := LUA_PATH="$(srcdir)/tools/?.lua;$(SYS_LUA_PATH)" $(PATH_TO_LUA) $(srcdir)/proj_mgmt/updateVersion
 BUILD_V_src               := LUA_PATH="$(srcdir)/tools/?.lua;$(SYS_LUA_PATH)" LUA_CPATH="$(SYS_LUA_CPATH)" $(PATH_TO_LUA) $(srcdir)/proj_mgmt/buildVersion_src
 PS                        := @PS@
 READLINK                  := @READLINK@
 EXPR                      := @EXPR@
+MODULES_AUTO_HANDLING     := @MODULES_AUTO_HANDLING@
+PATH_TO_POD2MAN           := @PATH_TO_POD2MAN@
 PATH_TO_HASHSUM           := @PATH_TO_HASHSUM@
 PATH_TO_LUAC              := @PATH_TO_LUAC@
 PATH_TO_PAGER             := @PATH_TO_PAGER@
@@ -104,7 +107,8 @@ INIT_KSH_FUNCS            := $(MY_PACKAGE)/init/ksh_funcs
 FISH_TAB                  := $(MY_PACKAGE)/init/fish_tab_completion
 MESSAGEDIR                := $(MY_PACKAGE)/messageDir
 LMOD_MF                   := $(MY_PACKAGE)/modulefiles/Core
-MAN_PAGES                 := $(MY_PACKAGE)/share/man/cat1
+MAN_PAGES_CAT             := $(MY_PACKAGE)/share/man/cat1
+MAN_PAGES                 := $(MY_PACKAGE)/share/man/man1
 LMOD_MF_SOURCE            := $(patsubst %, $(srcdir)/%, MF/*.version.lua)
 SETTARG_SOURCE            := $(patsubst %, $(srcdir)/%, settarg/*.lua  settarg/targ.in)
 DATE_cmd                  := $(srcdir)/proj_mgmt/DATE_cmd.sh
@@ -136,10 +140,11 @@ ifeq ($(GIT_BRANCH),)
 endif
 
 
-DIRLIST                   := $(DESTDIR)$(LIBEXEC) $(DESTDIR)$(TOOLS)      $(DESTDIR)$(SETTARG)        \
-                             $(DESTDIR)$(SHELLS)  $(DESTDIR)$(INIT)       $(DESTDIR)$(LIB)            \
-                             $(DESTDIR)$(LMOD_MF) $(DESTDIR)$(MAN_PAGES)  $(DESTDIR)$(MESSAGEDIR)     \
-                             $(DESTDIR)$(I18N)    $(DESTDIR)$(FISH_TAB)   $(DESTDIR)$(INIT_KSH_FUNCS)
+DIRLIST                   := $(DESTDIR)$(LIBEXEC)    $(DESTDIR)$(TOOLS)      $(DESTDIR)$(SETTARG)        \
+                             $(DESTDIR)$(SHELLS)     $(DESTDIR)$(INIT)       $(DESTDIR)$(LIB)            \
+                             $(DESTDIR)$(LMOD_MF)    $(DESTDIR)$(MESSAGEDIR) $(DESTDIR)$(I18N)           \
+                             $(DESTDIR)$(FISH_TAB)   $(DESTDIR)$(MAN_PAGES)  $(DESTDIR)$(MAN_PAGES_CAT)  \
+                             $(DESTDIR)$(INIT_KSH_FUNCS)
 
 STANDALONE_PRGM           := src/lmod.in.lua src/addto.in.lua                       \
                              src/spider.in.lua src/clearLMOD_cmd.in.lua             \
@@ -250,11 +255,20 @@ echo:
 	@echo GIT_VERSION: $(GIT_VERSION)
 	@echo GIT_BRANCH:  $(GIT_BRANCH)
 
-man_pages: $(DESTDIR)$(MAN_PAGES)
-	LUA_CPATH='$(MY_PACKAGE)/lib/?.so;$(SYS_LUA_CPATH);;'                     \
-           LUA_PATH='$(MY_PACKAGE)/libexec/?.lua;$(SYS_LUA_PATH);;'               \
-           $(PATH_TO_LUA) $(srcdir)/src/lmod.in.lua bash --help 2> $(DESTDIR)$(MAN_PAGES)/module.1
-	chmod $(MODE_R) $(DESTDIR)$(MAN_PAGES)/module.1
+man_pages: $(DESTDIR)$(MAN_PAGES) $(DESTDIR)$(MAN_PAGES_CAT)
+        ifeq ($(PATH_TO_POD2MAN), UNKNOWN_POD2MAN)
+	   LUA_CPATH='$(MY_PACKAGE)/lib/?.so;$(SYS_LUA_CPATH);;'                   \
+             LUA_PATH='$(MY_PACKAGE)/libexec/?.lua;$(SYS_LUA_PATH);;'              \
+             $(PATH_TO_LUA) $(srcdir)/src/lmod.in.lua bash --help 2> $(DESTDIR)$(MAN_PAGES_CAT)/module.1
+	    chmod $(MODE_R) $(DESTDIR)$(MAN_PAGES_CAT)/module.1
+        else
+	   LUA_CPATH='$(MY_PACKAGE)/lib/?.so;$(SYS_LUA_CPATH);;'                   \
+             LUA_PATH='$(MY_PACKAGE)/libexec/?.lua;$(SYS_LUA_PATH);;'              \
+             $(PATH_TO_LUA) $(srcdir)/src/lmod.in.lua bash --pod 2> $(DESTDIR)$(MAN_PAGES)/module.pod
+	   $(PATH_TO_POD2MAN) $(DESTDIR)$(MAN_PAGES)/module.pod   > $(DESTDIR)$(MAN_PAGES)/module.1
+	   $(RM) $(DESTDIR)$(MAN_PAGES)/module.pod
+	   chmod $(MODE_R) $(DESTDIR)$(MAN_PAGES)/module.1
+        endif
 
 $(DIRLIST) :
 	install -m $(MODE_X) -d $@
@@ -281,6 +295,7 @@ __installMe:
 	          -e 's|@hidden_italic@|$(LMOD_HIDDEN_ITALIC)|g'                    \
 	          -e 's|@modulepath_init@|$(MODULEPATH_INIT)|g'                     \
 	          -e 's|@sys_lua_cpath@|$(SYS_LUA_CPATH)|g'                         \
+                  -e 's|@modules_auto_handling@|$(MODULES_AUTO_HANDLING)|g'         \
 	          -e 's|@path_to_luac@|$(PATH_TO_LUAC)|g'                           \
 	          -e 's|@path_to_lmod@|$(LIBEXEC)/lmod|g'                           \
 	          -e 's|@have_lua_term@|$(HAVE_LUA_TERM)|g'                         \
@@ -290,6 +305,7 @@ __installMe:
 	          -e 's|@settarg_cmd@|$(SETTARG_CMD)|g'                             \
 	          -e 's|@lmod_config_dir@|$(LMOD_CONFIG_DIR)|g'                     \
 	          -e 's|@lmod_downstream_conflicts@|$(LMOD_DOWNSTREAM_CONFLICTS)|g' \
+	          -e 's|@modules_auto_handling@|$(MODULES_AUTO_HANDLING)|g'         \
 	          -e "s|@my_shell@|$$fn|g"                                          \
 	          -e 's|@tclsh@|$(PATH_TO_TCLSH)|g'                                 \
 	          -e 's|@ls@|$(PATH_TO_LS)|g'                                       \

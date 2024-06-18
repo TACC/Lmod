@@ -440,6 +440,20 @@ AC_ARG_WITH(downstreamConflicts,
     LMOD_DOWNSTREAM_CONFLICTS="$withval"
     AC_DEFINE_UNQUOTED(LMOD_DOWNSTREAM_CONFLICTS, "$withval"))dnl
 
+AC_SUBST(MODULES_AUTO_HANDLING)
+AC_ARG_WITH(modulesAutoHandling,
+    AS_HELP_STRING([--with-modulesAutoHandling=ans],[treat prereq() as depends_on(). [[no]]]),
+    MODULES_AUTO_HANDLING="$withval"
+    MODULES_AUTO_HANDLING=`echo $MODULES_AUTO_HANDLING | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
+    VALID_YN $MODULES_AUTO_HANDLING "--with-modulesAutoHandling=ans: ans must be yes or no"
+    AC_MSG_RESULT([MODULES_AUTO_HANDLING=$with_modulesAutoHandling])
+    AC_DEFINE_UNQUOTED(MODULES_AUTO_HANDLING, "$with_modulesAutoHandling")dnl
+    ,
+    withval="no"
+    AC_MSG_RESULT([MODULES_AUTO_HANDLING=$withval])
+    MODULES_AUTO_HANDLING="$withval"
+    AC_DEFINE_UNQUOTED(MODULES_AUTO_HANDLING, "$withval"))dnl
+
 AC_SUBST(TMOD_PATH_RULE)
 AC_ARG_WITH(tmodPathRule,
     AS_HELP_STRING([--with-tmodPathRule=ans],[If path entry is already there then do not append/prepend.[[no]]]),
@@ -604,9 +618,23 @@ AC_ARG_WITH(fastTCLInterp,
     FAST_TCL_INTERP="$withval"
     AC_DEFINE_UNQUOTED(FAST_TCL_INTERP, "$withval"))dnl
 
+AC_SUBST(MODULE_AUTO_HANDLING)
+AC_ARG_WITH(moduleAutoHandling,
+    AS_HELP_STRING([--with-moduleAutoHandling=ans],[Automatically replaces prereqs with depends_on. [[no]]]),
+    MODULE_AUTO_HANDLING="$withval"
+    MODULE_AUTO_HANDLING=`echo $FAST_TCL_INTERP | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
+    VALID_YN $MODULE_AUTO_HANDLING "--with-moduleAutoHandling=ans: ans must be yes or no"
+    AC_MSG_RESULT([MODULE_AUTO_HANDLING=$with-moduleAutoHandling])
+    AC_DEFINE_UNQUOTED(MODULE_AUTO_HANDLING, "$with-moduleAutoHandling")dnl
+    ,
+    withval="no"
+    AC_MSG_RESULT([MODULE_AUTO_HANDLING=$withval])
+    MODULE_AUTO_HANDLING="$withval"
+    AC_DEFINE_UNQUOTED(MODULE_AUTO_HANDLING, "$withval"))dnl
+
 AC_SUBST(AVAIL_EXTENSIONS)
 AC_ARG_WITH(availExtensions,
-    AS_HELP_STRING([--with-availExtensions=ans],[Use the fast TCL interpreter. [[yes]]]),
+    AS_HELP_STRING([--with-availExtensions=ans],[Allow extensions to be printed with avail. [[yes]]]),
     AVAIL_EXTENSIONS="$withval"
     AVAIL_EXTENSIONS=`echo $AVAIL_EXTENSIONS | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $AVAIL_EXTENSIONS "--with-availExtensions=ans: ans must be yes or no"
@@ -726,6 +754,7 @@ PATH_TO_SRC=$SRCDIR
 
 AC_SUBST(BASENAME)
 AC_SUBST(EXPR)
+AC_SUBST(PATH_TO_POD2MAN)
 AC_SUBST(PS)
 AC_SUBST(READLINK)
 AC_SUBST(PATH_TO_LS)
@@ -792,6 +821,8 @@ if test "$BC" = "UNKNOWN_BC" ; then
   rm -f makefile
   exit 1
 fi
+
+AC_PATH_PROG(PATH_TO_POD2MAN, pod2man, UNKNOWN_POD2MAN)
 
 AC_PATH_PROG(PATH_TO_GIT, git, "")
 AC_PATH_PROGS(PATH_TO_PAGER,[less] [more], [more])

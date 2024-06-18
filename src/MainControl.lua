@@ -104,17 +104,10 @@ local function l_compareRequestedLoadsWithActual()
    dbg.start{"l_compareRequestedLoadsWithActual()"}
    local mt = FrameStk:singleton():mt()
 
-   dbg.printT("s_loadT",s_loadT)
-   if (dbg.active()) then
-      local s = mt:serializeTbl("pretty")
-      dbg.print{s,"\n"}
-   end
-
    local aa = {}
    local bb = {}
    for userName, mname in pairs(s_loadT) do
       local sn = mname:sn()
-      dbg.print{"sn: ",sn,", userName: ",userName,"\n"}
       if (not mt:have(sn, "active")) then
          aa[#aa+1] = mname:show()
          bb[#bb+1] = userName
@@ -208,6 +201,13 @@ end
 -- @param self A MainControl object
 function M.MNameType(self)
    return self.my_sType
+end
+
+--------------------------------------------------------------------------
+-- Return the sType for prereq/prereg_any
+-- @param self A MainControl object
+function M.MNamePrereqType(self)
+   return (cosmic:value("MODULES_AUTO_HANDLING") == "yes") and self.my_sType or "mt"
 end
 
 --------------------------------------------------------------------------
@@ -931,6 +931,38 @@ function M.dependencyCk(self,mA)
    return {}
 end
 
+function M.dependencyCk_any(self, mA)
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"MainControl:dependencyCk_any(mA={"..s.."})"}
+   end
+
+   local frameStk = FrameStk:singleton()
+   local mt       = frameStk:mt()
+   local fullName = frameStk:fullName()
+   local child_sn = mt:pop_depends_on_any_ck(frameStk:sn())
+   if (not child_sn) then
+      return {}
+   end
+
+   for i = 1,#mA do
+      repeat
+         local mname = mA[i]
+         local sn    = mname:sn()
+         if (not sn) then break end
+         if (child_sn ~= sn) then break end
+         if (not mname:isloaded() ) then
+            local a = s_missDepT[mname:userName()] or {}
+            a[#a+1] = fullName
+            s_missDepT[mname:userName()] = a
+         end
+      until true
+   end
+
+   dbg.fini("MainControl:dependencyCk_any")
+   return {}
+end
+
 function M.reportMissingDepModules(self)
    local t = s_missDepT
    if (next(t) ~= nil) then
@@ -959,27 +991,31 @@ function M.depends_on(self, mA)
       dbg.start{"MainControl:depends_on(mA={"..s.."})"}
    end
 
-   local mB         = {}
-   local mt         = FrameStk:singleton():mt()
+   local mB = {}
+   local mt = FrameStk:singleton():mt()
 
-   for i = 1,#mA do
-      local mname = mA[i]
+   for i                                       = 1,#mA do
+      local mname                              = mA[i]
       if (not mname:isloaded()) then
          mname:set_depends_on_flag(true)
-         mB[#mB + 1] = mname
+         mB[#mB + 1]                           = mname
       else
          mt:safely_incr_ref_count(mname)
       end
    end
 
    l_registerUserLoads(mB)
-   local a = self:load(mB)
+   local a                                     = self:load(mB)
 
    self:registerDependencyCk()
 
    dbg.fini("MainControl:depends_on")
    return a
 end
+
+
+
+
 
 -------------------------------------------------------------------
 -- depends_on_any() a list of modules.  This is short hand for:
@@ -990,17 +1026,18 @@ end
 
 function M.depends_on_any(self, mA) 
    if (dbg.active()) then
-      local s = mAList(mA)
-      dbg.start{"MainControl:depends_on_any(mA={"..s.."})"}
+      local s                                  = mAList(mA)
+      dbg.start{"MainControl:depends_on_any(mA = {"..s.."})"}
    end
 
-   local mt         = FrameStk:singleton():mt()
+   local mt = FrameStk:singleton():mt()
    local mB = {}
 
    for i = 1,#mA do
       local mname = mA[i]
       if (mname:isloaded()) then
          mt:safely_incr_ref_count(mname)
+         mt:save_depends_on_any(myModuleName(), mname:sn())
          dbg.fini("MainControl:depends_on_any")
          return {}
       elseif (mname:sn()) then
@@ -1013,16 +1050,16 @@ function M.depends_on_any(self, mA)
       LmodError{msg="e_Failed_depends_any", module_list=s}
    end
 
- 
    local mC = {mB[1]}
    local mname = mC[1]
    mname:set_depends_on_flag(true)
+   mt:save_depends_on_any(myModuleName(), mname:sn())
 
    l_registerUserLoads(mC)
    local a = self:load(mC)
-
+   
    self:registerDependencyCk()
-
+   
    dbg.fini("MainControl:depends_on_any")
    return a
 end
@@ -1032,9 +1069,7 @@ end
 --
 --   if (not isloaded("name")) then load("name") end
 --
--- On unload forgo() unloads the ref count is zero.
-
-
+-- On unload forgo() unloads when the ref count is zero.
 function M.forgo(self,mA)
    local hub = Hub:singleton()
    if (dbg.active()) then
@@ -1062,11 +1097,55 @@ function M.forgo(self,mA)
    return aa
 end
 
+-------------------------------------------------------------------
+-- forgo_any a list of modules.  This is the reverse of depends_on_any()
+--
+-- On unload forgo_any() unloads when the ref count is zero.
+function M.forgo_any(self,mA)
+   local hub = Hub:singleton()
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"MainControl:forgo_any(mA={"..s.."})"}
+   end
 
+   local mt       = FrameStk:singleton():mt()
+   local mB       = {}
+   local child_sn = mt:pop_depends_on_any(myModuleName())
+   if (child_sn == nil) then
+      return {}
+   end
+   local found = false
+   for i = 1,#mA do
+      repeat
+         local mname = mA[i]
+         local sn    = mname:sn()
+         if (not sn) then break end
+         if (child_sn ~= sn) then break end
+         
+         ------------------------------------------------------------
+         -- if here then we have found the only depends_on_any module
+         -- that we "loaded". So decrement ref count and unload when
+         -- the ref_count is zero.
+         -- Finally stop looking over mname's in mA
+
+         local ref_count  = mt:decr_ref_count(sn)
+         if (ref_count and ref_count < 1) then
+            mB[#mB+1] = mname
+         end
+         found = true
+      until true
+      if (found) then break end
+   end
+
+   l_unRegisterUserLoads(mB)
+   local aa     = unload_internal(mB)
+   dbg.fini("MainControl:forgo_any")
+   return aa
+end
 
 -------------------------------------------------------------------
 -- Load a list of modules.  Check to see if the user requested
--- modules were actually loaded.
+-- modules were actually loaded.G
 -- @param self A MainControl object
 -- @param mA A array of MName objects.
 -- @return An array of statuses

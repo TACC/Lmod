@@ -60,6 +60,7 @@ MC_ComputeHash.my_name     = "MC_ComputeHash"
 MC_ComputeHash.my_sType    = "load"
 MC_ComputeHash.my_tcl_mode = "load"
 local M                    = MC_ComputeHash
+local cosmic               = require("Cosmic"):singleton()
 local dbg                  = require("Dbg"):dbg()
 local A                    = ShowResultsA
 
@@ -103,8 +104,6 @@ M.unset_shell_function = MainControl.quiet
 M.unsetenv             = MainControl.quiet
 M.whatis               = MainControl.quiet
 M.LmodBreak            = MainControl.quiet
-
-
 
 --------------------------------------------------------------------------
 -- Print always_load and arguments
@@ -222,6 +221,12 @@ end
 function M.unload(self, mA)
    A[#A+1] = ShowCmdA("unload", mA)
 end
+
+if (cosmic:value("MODULES_AUTO_HANDLING") == "yes") then
+   M.prereq     = M.depends_on
+   M.prereq_any = M.depends_on_any
+end
+
 
 
 return M
