@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.37   2024-03-17 13:11 -06:00
+Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -16,7 +16,7 @@ Options:
   -b --brief                        brief listing with only user specified modules
   -D                                Program tracing written to stderr
   --debug=dbglvl                    Program tracing written to stderr (where dbglvl is a number 1,2,3)
-  --pin_versions=pinVersions        When doing a restore use specified version, do not follow defaults
+  --pin_versions                    When doing a restore use specified version, do not follow defaults
   -d --default                      List default modules only when used with avail
   -q --quiet                        Do not print out warnings
   --expert                          Expert mode
@@ -42,10 +42,11 @@ Options:
   --no_redirect                     Force output of list, avail and spider to stderr
   --show_hidden                     Avail and spider will report hidden modules
   --spider_timeout=timeout          a timeout for spider
-  -T --trace
-  --nx --no_extensions
+  -T --trace                        trace major changes such as loads
+  --nx --no_extensions              Do not print extensions
   --loc --location                  Just print the file location when using show
-  --terse_show_extensions
+  --terse_show_extensions           report extensions when doing a terse avail
+  --pod                             Generate pod format
 module [options] sub-command [args ...]
 Help sub-commands:
   help                              prints this message
@@ -108,7 +109,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.37   2024-03-17 13:11 -06:00
+Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -122,7 +123,7 @@ Options:
   -b --brief                        brief listing with only user specified modules
   -D                                Program tracing written to stderr
   --debug=dbglvl                    Program tracing written to stderr (where dbglvl is a number 1,2,3)
-  --pin_versions=pinVersions        When doing a restore use specified version, do not follow defaults
+  --pin_versions                    When doing a restore use specified version, do not follow defaults
   -d --default                      List default modules only when used with avail
   -q --quiet                        Do not print out warnings
   --expert                          Expert mode
@@ -148,10 +149,11 @@ Options:
   --no_redirect                     Force output of list, avail and spider to stderr
   --show_hidden                     Avail and spider will report hidden modules
   --spider_timeout=timeout          a timeout for spider
-  -T --trace
-  --nx --no_extensions
+  -T --trace                        trace major changes such as loads
+  --nx --no_extensions              Do not print extensions
   --loc --location                  Just print the file location when using show
-  --terse_show_extensions
+  --terse_show_extensions           report extensions when doing a terse avail
+  --pod                             Generate pod format
 module [options] sub-command [args ...]
 Help sub-commands:
   help                              prints this message
@@ -214,7 +216,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.37   2024-03-17 13:11 -06:00
+Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -234,7 +236,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --config
 ===========================
-Modules based on Lua: Version 8.7.37   2024-03-17 13:11 -06:00
+Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                                                   Value
 Allow root to use Lmod (LMOD_ALLOW_ROOT_USE)                  yes
@@ -415,13 +417,164 @@ propT = {
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --miniConfig
 ===========================
-Modules based on Lua: Version 8.7.37   2024-03-17 13:11 -06:00
+Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 LMOD_PACKAGE_PATH            D          nil          <empty>
 LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>
 LMOD_USING_FAST_TCL_INTERP   Other      yes          no
 ===========================
 step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --pod
+===========================
+module
+=head1 SYNOPSIS
+module [options] sub-command [args ...]
+=head1 DESCRIPTION
+This tool allow a user to control their environment by load and unloading modulefiles.  See https://lmod.readthedocs.org for more details.
+=head1 OPTIONS
+=over 4
+=item I<-h -? -H --help>
+This help message
+=item I<-s availStyle --style=availStyle>
+Site controlled avail style: system (default: system)
+=item I<--regression_testing>
+Lmod regression testing
+=item I<-b --brief>
+brief listing with only user specified modules
+=item I<-D>
+Program tracing written to stderr
+=item I<--debug=dbglvl>
+Program tracing written to stderr (where dbglvl is a number 1,2,3)
+=item I<--pin_versions>
+When doing a restore use specified version, do not follow defaults
+=item I<-d --default>
+List default modules only when used with avail
+=item I<-q --quiet>
+Do not print out warnings
+=item I<--expert>
+Expert mode
+=item I<-t --terse>
+Write out in machine readable format for commands: list, avail, spider, savelist
+=item I<--initial_load>
+loading Lmod for first time in a user shell
+=item I<--latest>
+Load latest (ignore default)
+=item I<-I --ignore_cache>
+Treat the cache file(s) as out-of-date
+=item I<--novice>
+Turn off expert and quiet flag
+=item I<--raw>
+Print modulefile in raw output when used with show
+=item I<-w twidth --width=twidth>
+Use this as max term width
+=item I<-v --version>
+Print version info and quit
+=item I<-r --regexp>
+use regular expression match
+=item I<--gitversion>
+Dump git version in a machine readable way and quit
+=item I<--dumpversion>
+Dump version in a machine readable way and quit
+=item I<--check_syntax --checkSyntax>
+Checking module command syntax: do not load
+=item I<--config>
+Report Lmod Configuration
+=item I<--miniConfig>
+Report Lmod Configuration differences
+=item I<--config_json>
+Report Lmod Configuration in json format
+=item I<--mt>
+Report Module Table State
+=item I<--timer>
+report run times
+=item I<-f --force>
+force removal of a sticky module or save an empty collection
+=item I<--redirect>
+Send the output of list, avail, spider to stdout (not stderr)
+=item I<--no_redirect>
+Force output of list, avail and spider to stderr
+=item I<--show_hidden>
+Avail and spider will report hidden modules
+=item I<--spider_timeout=timeout>
+a timeout for spider
+=item I<-T --trace>
+trace major changes such as loads
+=item I<--nx --no_extensions>
+Do not print extensions
+=item I<--loc --location>
+Just print the file location when using show
+=item I<--terse_show_extensions>
+report extensions when doing a terse avail
+=item I<--pod>
+Generate pod format
+=back
+=head1 COMMAND OVERVIEW
+module [options] sub-command [args ...]
+Help sub-commands:
+  help                              prints this message
+  help                module [...]  print help message from module(s)
+Loading/Unloading sub-commands:
+  load | add          module [...]  load module(s)
+  try-load | try-add  module [...]  Add module(s), do not complain if not found
+  del | unload        module [...]  Remove module(s), do not complain if not found
+  swap | sw | switch  m1 m2         unload m1 and load m2
+  purge                             unload all modules
+  refresh                           reload aliases from current list of modules.
+  update                            reload all currently loaded modules.
+Listing / Searching sub-commands:
+  list                              List loaded modules
+  list                s1 s2 ...     List loaded modules that match the pattern
+  avail | av                        List available modules
+  avail | av          string        List available modules that contain "string".
+  category | cat                    List all categories
+  category | cat      s1 s2 ...     List all categories that match the pattern and display their modules
+  overview | ov                     List all available modules by short names with number of versions
+  overview | ov       string        List available modules by short names with number of versions that contain "string"
+  spider                            List all possible modules
+  spider              module        List all possible version of that module file
+  spider              string        List all module that contain the "string".
+  spider              name/version  Detailed information about that version of the module.
+  whatis              module        Print whatis information about module
+  keyword | key       string        Search all name and whatis that contain "string".
+Searching with Lmod:
+  All searching (spider, list, avail, keyword) support regular expressions:
+  -r spider           '^p'          Finds all the modules that start with `p' or `P'
+  -r spider           mpi           Finds all modules that have "mpi" in their name.
+  -r spider           'mpi$         Finds all modules that end with "mpi" in their name.
+Handling a collection of modules:
+  save | s                          Save the current list of modules to a user defined "default" collection.
+  save | s            name          Save the current list of modules to "name" collection.
+  reset                             The same as "restore system"
+  restore | r                       Restore modules from the user's "default" or system default.
+  restore | r         name          Restore modules from "name" collection.
+  restore             system        Restore module state to system defaults.
+  savelist                          List of saved collections.
+  describe | mcc      name          Describe the contents of a module collection.
+  disable             name          Disable (i.e. remove) a collection.
+Deprecated commands:
+  getdefault          [name]        load name collection of modules or user's "default" if no name given.
+                                    ===> Use "restore" instead  <====
+  setdefault          [name]        Save current list of modules to name if given, otherwise save as the default list for you the user.
+                                    ===> Use "save" instead. <====
+Miscellaneous sub-commands:
+  is-loaded           modulefile    return a true status if module is loaded
+  is-avail            modulefile    return a true status if module can be loaded
+  show                modulefile    show the commands in the module file.
+  use [-a]            path          Prepend or Append path to MODULEPATH.
+  unuse               path          remove path from MODULEPATH.
+  tablelist                         output list of active modules as a lua table.
+Important Environment Variables:
+  LMOD_COLORIZE                     If defined to be "YES" then Lmod prints properties and warning in color.
+Lmod Web Sites
+  Documentation:    https://lmod.readthedocs.org
+  GitHub:           https://github.com/TACC/Lmod
+  SourceForge:      https://lmod.sf.net
+  TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
+  To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
+=head1 AUTHOR
+Robert McLay mclay@tacc.utexas.edu
+===========================
+step 8
 lua ProjectDIR/src/chkJson
 ===========================
 Json is missing key: dot_files

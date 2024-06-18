@@ -65,9 +65,13 @@ function  M.options(self)
    local Optiks = require("Optiks")
 
    local optionTbl     = optionTbl()
-   local usage         = "Usage: settarg [options] [dbg|opt|...] [anything_else]"
+   local usage         = "settarg [options] [dbg|opt|...] [anything_else]"
+   local description   = "Dynamically set environment variables"
    local versionStr    = format("Lmod settarg %s",version())
-   local cmdlineParser = Optiks:new{usage=usage}
+   local cmdlineParser = Optiks:new{usage    = usage,
+                                    progName = "settarg",
+                                    descript = description,
+   }
 
    cmdlineParser:add_option{
       name   = {"-h","-?","--help"},

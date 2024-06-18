@@ -150,4 +150,8 @@ Lmod 8.7+
    (8.7.39) * Fix busted test for ModuleA.
    (8.7.40) * Bug fix for prepend/append path when trying to add an empty string.
             * Bug fix for serializeTbl: handle empty or single blank string as key
+W.I.P:
+   (8.7.41) * Issue #686: Generate a perl pod format for manpage for module.1'
+   
+                            
             

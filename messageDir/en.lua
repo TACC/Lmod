@@ -343,13 +343,11 @@ MODULEPATH directory: "%{mpath}" has too many non-modulefiles (%{regularFn}). Pl
      -- Usage Message
      --------------------------------------------------------------------------
      usage_cmdline         = "module [options] sub-command [args ...]",
-     help_title            = "Help sub-commands:\n" ..
-                             "------------------",
+     help_title            = "Help sub-commands:\n\n",
      help1                 = "prints this message",
      help2                 = "print help message from module(s)",
 
-     load_title            = "Loading/Unloading sub-commands:\n" ..
-                             "-------------------------------",
+     load_title            = "Loading/Unloading sub-commands:\n\n",
      load1                 = "load module(s)",
      load2                 = "Add module(s), do not complain if not found",
      load3                 = "Remove module(s), do not complain if not found",
@@ -358,8 +356,7 @@ MODULEPATH directory: "%{mpath}" has too many non-modulefiles (%{regularFn}). Pl
      load6                 = "reload aliases from current list of modules.",
      load7                 = "reload all currently loaded modules.",
 
-     list_title            = "Listing / Searching sub-commands:\n" ..
-                             "---------------------------------",
+     list_title            = "Listing / Searching sub-commands:\n\n",
      list1                 = "List loaded modules",
      list2                 = "List loaded modules that match the pattern",
      list3                 = "List available modules",
@@ -374,15 +371,13 @@ MODULEPATH directory: "%{mpath}" has too many non-modulefiles (%{regularFn}). Pl
      ov1                   = "List all available modules by short names with number of versions",
      ov2                   = "List available modules by short names with number of versions that contain \"string\"",
 
-     srch_title            = "Searching with Lmod:\n" ..
-                             "--------------------",
+     srch_title            = "Searching with Lmod:\n\n",
      srch0                 = "  All searching (spider, list, avail, keyword) support regular expressions:",
      srch1                 = "Finds all the modules that start with `p' or `P'",
      srch2                 = "Finds all modules that have \"mpi\" in their name.",
      srch3                 = "Finds all modules that end with \"mpi\" in their name.",
 
-     collctn_title         = "Handling a collection of modules:\n"..
-                             "--------------------------------",
+     collctn_title         = "Handling a collection of modules:\n\n",
      collctn1              = "Save the current list of modules to a user defined \"default\" collection.",
      collctn2              = "Save the current list of modules to \"name\" collection.",
      collctn3              = "The same as \"restore system\"",
@@ -393,15 +388,13 @@ MODULEPATH directory: "%{mpath}" has too many non-modulefiles (%{regularFn}). Pl
      collctn8              = "Describe the contents of a module collection.",
      collctn9              = "Disable (i.e. remove) a collection.",
 
-     depr_title            = "Deprecated commands:\n" ..
-                             "--------------------",
+     depr_title            = "Deprecated commands:\n\n",
      depr1                 = "load name collection of modules or user's \"default\" if no name given.",
      depr2                 = "===> Use \"restore\" instead  <====",
      depr3                 = "Save current list of modules to name if given, otherwise save as the default list for you the user.",
      depr4                 = "===> Use \"save\" instead. <====",
 
-     misc_title            = "Miscellaneous sub-commands:\n" ..
-                             "---------------------------",
+     misc_title            = "Miscellaneous sub-commands:\n\n",
      misc1                 = "show the commands in the module file.",
      misc2                 = "Prepend or Append path to MODULEPATH.",
      misc3                 = "remove path from MODULEPATH.",
@@ -410,8 +403,7 @@ MODULEPATH directory: "%{mpath}" has too many non-modulefiles (%{regularFn}). Pl
      misc_isAvail          = "return a true status if module can be loaded",
 
 
-     env_title             = "Important Environment Variables:\n" ..
-                             "--------------------------------",
+     env_title             = "Important Environment Variables:\n\n",
      env1                  = "If defined to be \"YES\" then Lmod prints properties and warning in color.",
      web_sites             = "Lmod Web Sites",
      rpt_bug               = "  To report a bug please read ",
@@ -447,8 +439,9 @@ MODULEPATH directory: "%{mpath}" has too many non-modulefiles (%{regularFn}). Pl
      miniConfig_H   = "Report Lmod Configuration differences",
      novice_H       = "Turn off expert and quiet flag",
      nrdirect_H     = "Force output of list, avail and spider to stderr",
-     nx_T           = "Do not print extensions",
+     nx_H           = "Do not print extensions",
      pin_hlp        = "When doing a restore use specified version, do not follow defaults",
+     pod_H          = "Generate pod format",
      quiet_hlp      = "Do not print out warnings",
      raw_hlp        = "Print modulefile in raw output when used with show",
      redirect_H     = "Send the output of list, avail, spider to stdout (not stderr)",
@@ -459,7 +452,7 @@ MODULEPATH directory: "%{mpath}" has too many non-modulefiles (%{regularFn}). Pl
      terse_hlp      = "Write out in machine readable format for commands: list, avail, spider, savelist",
      terseShowExt_H = "report extensions when doing a terse avail",
      timer_hlp      = "report run times",
-     trace_T        = "trace major changes such as loads",
+     trace_H        = "trace major changes such as loads",
      v_hlp          = "Print version info and quit",
      width_hlp      = "Use this as max term width",
 
