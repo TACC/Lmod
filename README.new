@@ -149,3 +149,7 @@ Lmod 8.7+
    (8.7.40) * Bug fix for prepend/append path when trying to add an empty string.
             * Bug fix for serializeTbl: handle empty or single blank string as key
             
+W.I.P:
+   (8.7.41) * Adding new function depends_on_any()
+            * If $MODULES_AUTO_HANDLING is set then prereq() -> depends_on(); prereq_any() -> depends_on_any()
+   
