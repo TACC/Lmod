@@ -87,14 +87,16 @@ end
 -- place the positional arguments in *optionTbl.pargs*
 -- @param self An Option object.
 -- @param usage The program usage string.
-function M.singleton(self, usage)
+function M.singleton(self, progName, usage, description)
 
    local Optiks = require("Optiks")
-   local cmdlineParser  = Optiks:new{usage   = usage,
-                                     error   = LmodWarning,
-                                     exit    = l_nothing,
-                                     prt     = l_prt,
-                                     envArg  = os.getenv("LMOD_OPTIONS"),
+   local cmdlineParser  = Optiks:new{usage    = usage,
+                                     error    = LmodWarning,
+                                     exit     = l_nothing,
+                                     prt      = l_prt,
+                                     progName = progName,
+                                     envArg   = os.getenv("LMOD_OPTIONS"),
+                                     descript = description,
    }
 
    local styleA       = {}
@@ -160,7 +162,7 @@ function M.singleton(self, usage)
    cmdlineParser:add_option{
       name   = {"--pin_versions"},
       dest   = "pinVersions",
-      action = "store",
+      action = "store_true",
       help   = i18n("pin_hlp"),
    }
 
@@ -368,7 +370,14 @@ function M.singleton(self, usage)
       name   = {"--terse_show_extensions"},
       dest   = "terseShowExtensions",
       action = "store_true",
-      help   = i18n("terseShowExt"),
+      help   = i18n("terseShowExt_H"),
+   }
+
+   cmdlineParser:add_option{
+      name   = {"--pod"},
+      dest   = "cmdPod",
+      action = "store_true",
+      help   = i18n("pod_H"),
    }
 
    local optTbl, pargs = cmdlineParser:parse(arg)
@@ -383,6 +392,20 @@ function M.singleton(self, usage)
    optionTbl.cmdHelpMsg      = ""
    if (optionTbl.cmdHelp or pargs[1] == "help" ) then
       optionTbl.cmdHelpMsg   = cmdlineParser:buildHelpMsg()
+   end
+
+   optionTbl.pod      = ""
+   if (optionTbl.cmdPod) then
+      local a = {}
+      a[#a+1] = cmdlineParser:buildManPod()
+      a[#a+1] = "\n"
+      a[#a+1] = "=head1 COMMAND OVERVIEW\n"
+      a[#a+1] = Usage()
+      a[#a+1] = "\n"
+      a[#a+1] = "=head1 AUTHOR\n\n"
+      a[#a+1] = "Robert McLay mclay@tacc.utexas.edu"
+
+      optionTbl.pod   = concatTbl(a,"\n") 
    end
 
    if (optionTbl.trace) then

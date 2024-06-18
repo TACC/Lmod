@@ -245,8 +245,8 @@ the configuration option which will set the action.
   the most recent one.
 
 **MODULES_AUTO_HANDLING**:
-  [yes/no, default: no, --with-modulesAutoHandling].  When this is
-  set, Lmod will treat *prereq()* like *depends_on()* and
+  [yes/no, default: no, --with-modulesAutoHandling].  
+  When this is set, Lmod will treat *prereq()* like *depends_on()* and
   *prereq_any()* like *depends_on_any()*.
 
 Configuration or cosmic:assign() at startup
