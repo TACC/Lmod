@@ -150,6 +150,15 @@ testdescript = {
      runLmod      spider                                                      #72
 
 
+     unsetMT
+     export MODULEPATH=$testDir/mf6/Core
+     rm -rf $HOME/.cache/lmod
+     mkdir  $HOME/.cache/lmod
+     buildSpiderT $MODULEPATH > $HOME/.cache/lmod/spiderT.lua
+     runLmod spider                                                           #73
+     mv $HOME/.cache/lmod $HOME/.cache/.old_cache_73
+     
+
      # Case from U. of Antwerp where spider failed when adding a 
      # path of itself to $MODULEPATH
 
@@ -160,17 +169,17 @@ testdescript = {
      unset LMOD_ADMIN_FILE
      unset LMOD_PACKAGE_PATH
 
-     runLmod avail                                                            #73
+     runLmod avail                                                            #74
 
      unset TRIGGER_BUG
-     runLmod spider Appl1                                                     #74
-     export TRIGGER_BUG=
      runLmod spider Appl1                                                     #75
+     export TRIGGER_BUG=
+     runLmod spider Appl1                                                     #76
 
      unsetMT
      export MODULEPATH=$testDir/mf4/Core
      export EBVERSIONPYTHON="3.7"
-     runLmod avail                                                            #76
+     runLmod avail                                                            #77
 
      # Case from Freie Universität Berlin where spider failed because
      # dir added to MODULEPATH created a loopback -> Stack overflow
@@ -180,7 +189,7 @@ testdescript = {
      unset LMOD_SHORT_TIME
      export MODULEPATH_ROOT=$(testDir)/mf5
      export MODULEPATH=$MODULEPATH_ROOT/Core
-     runLmod avail                                                            #77
+     runLmod avail                                                            #78
 
      HOME=$ORIG_HOME
 

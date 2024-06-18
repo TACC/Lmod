@@ -146,3 +146,6 @@ Lmod 8.7+
             * Move almost almost all cosmic:value() calls to inside function not at routine top-level.
             * PR: #702: Report build time in UTC when $SOURCE_DATE_EPOCH is set
    (8.7.39) * Fix busted test for ModuleA.
+   (8.7.40) * Bug fix for prepend/append path when trying to add an empty string.
+            * Bug fix for serializeTbl: handle empty or single blank string as key
+            

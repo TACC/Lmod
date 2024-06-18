@@ -242,11 +242,12 @@ local function l_cleanupPathArgs(t)
    local path = t[2]:trim()
    
    if (s_cleanupDirT[name]) then
-      path = path:gsub(":+$",""):gsub("^:+","")
+      path = path:gsub(":+$",""):gsub("^:+",""):gsub(":+",":")
+      if (path == "") then path = false end
       t[2] = path
    end
 
-   return t
+   return
 end
 
 
@@ -254,13 +255,11 @@ end
 -- Prepend a value to a path like variable.
 function prepend_path(...)
    local t = l_convert2table(...)
-   dbg.start{"prepend_path(",l_concatTbl(t,", "),")"}
+   dbg.start{"prepend_path_rtm(",l_concatTbl(t,", "),")"}
    if (not l_validateStringTable(2, "prepend_path",t)) then return end
+
    l_cleanupPathArgs(t)
-
-   
-
-   mcp:prepend_path(t)
+   if (t[2]) then mcp:prepend_path(t) end
    dbg.fini("prepend_path")
 end
 
@@ -271,7 +270,7 @@ function append_path(...)
    dbg.start{"append_path(",l_concatTbl(t,", "),")"}
    if (not l_validateStringTable(2, "append_path",t)) then return end
    l_cleanupPathArgs(t)
-   mcp:append_path(t)
+   if (t[2]) then mcp:append_path(t) end
    dbg.fini("append_path")
 end
 
@@ -282,7 +281,7 @@ function remove_path(...)
    dbg.start{"remove_path(",l_concatTbl(t,", "),")"}
    if (not l_validateStringTable(2, "remove_path",t)) then return end
    l_cleanupPathArgs(t)
-   mcp:remove_path(t)
+   if (t[2]) then mcp:remove_path(t) end
    dbg.fini("remove_path")
 end
 
