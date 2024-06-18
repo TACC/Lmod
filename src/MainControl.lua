@@ -204,6 +204,13 @@ function M.MNameType(self)
 end
 
 --------------------------------------------------------------------------
+-- Return the sType for prereq/prereg_any
+-- @param self A MainControl object
+function M.MNamePrereqType(self)
+   return (cosmic:value("MODULES_AUTO_HANDLING") == "yes") and self.my_sType or "mt"
+end
+
+--------------------------------------------------------------------------
 -- Return the tcl_mode.
 -- @param self A MainControl object
 function M.tcl_mode(self)
@@ -924,6 +931,38 @@ function M.dependencyCk(self,mA)
    return {}
 end
 
+function M.dependencyCk_any(self, mA)
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"MainControl:dependencyCk_any(mA={"..s.."})"}
+   end
+
+   local frameStk = FrameStk:singleton()
+   local mt       = frameStk:mt()
+   local fullName = frameStk:fullName()
+   local child_sn = mt:pop_depends_on_any_ck(frameStk:sn())
+   if (not child_sn) then
+      return {}
+   end
+
+   for i = 1,#mA do
+      repeat
+         local mname = mA[i]
+         local sn    = mname:sn()
+         if (not sn) then break end
+         if (child_sn ~= sn) then break end
+         if (not mname:isloaded() ) then
+            local a = s_missDepT[mname:userName()] or {}
+            a[#a+1] = fullName
+            s_missDepT[mname:userName()] = a
+         end
+      until true
+   end
+
+   dbg.fini("MainControl:dependencyCk_any")
+   return {}
+end
+
 function M.reportMissingDepModules(self)
    local t = s_missDepT
    if (next(t) ~= nil) then
@@ -973,6 +1012,10 @@ function M.depends_on(self, mA)
    dbg.fini("MainControl:depends_on")
    return a
 end
+
+
+
+
 
 -------------------------------------------------------------------
 -- depends_on_any() a list of modules.  This is short hand for:
@@ -1099,8 +1142,6 @@ function M.forgo_any(self,mA)
    dbg.fini("MainControl:forgo_any")
    return aa
 end
-
-
 
 -------------------------------------------------------------------
 -- Load a list of modules.  Check to see if the user requested

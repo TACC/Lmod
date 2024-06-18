@@ -398,3 +398,30 @@ prepend_path() or append_path() a bad idea?
         local testdir = os.getenv("HOME") .. "/test"
         setenv("TESTDIR", testdir)
         prepend_path("TESTPATH", testdir)
+
+Why don't collections work on HPE/Cray systems?
+
+   Currently, program environments on login nodes are different from
+   the ones on compute nodes.  Collections require that the
+   modulefiles have the same name (versions could be different but not
+   the name).  When a collection is *restored*, it purges **ALL**
+   modules and loads all the modules listed in the collection.  Note
+   that the module load() inside a modulefile are ignored for very
+   complicated reasons.  Instead Lmod loads all modules listed in the
+   collection.   This works well except when the list of modules is
+   different on different nodes.
+
+   The reason why Lmod loads the list of modules in the collections
+   and ignores load() type functions in the modulefiles is complex.
+   The problem is when two or more modulefiles share the same
+   environment variable. Suppose that your site sets the variable 
+   **MPI_HOME** (using *setenv()*) in each mpi modulefile.  If Lmod
+   obeyed the load() function in each modulefile, then it would have
+   to delete the extra modules not in the collection.  In the case
+   where the user switched mpi modules, Lmod would load both mpi
+   modules then delete one to match the list of names in the
+   collection.  Unloading the second module would unset **MPI_HOME**
+   and leave this variable with no value. If a site depended on
+   **MPI_HOME** as part of mpi program startup script, then those
+   users would not be able to submit mpi programs.
+

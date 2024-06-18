@@ -1,8 +1,17 @@
 New Features in Lmod
 ====================
 
+**MODULES_AUTO_DEFAULT**
+   (Lmod 8.7.41+) When this variable is set then Lmod treats *prereq*
+   as *depends_on* and *prereq_any* as *depends_on_any*.
+
+**depends_on_any("pkgA*,"pkgB",...)**
+   (Lmod 8.7.41+) A new function *depends_on_any()* which works like
+   *depends_on()* except that Lmod picks the first available in the
+   list. 
+
 **hook.register(<hook_name>, func, <action>)**
-   (Lmod 8.7.25) The hook.register function now takes a optional third
+   (Lmod 8.7.25+) The hook.register function now takes a optional third
    argument: action.  The legal actions are the followning strings:
    "replace", "append", "prepend".  See
    :ref:`registering_multiple_hook_functions-label` for more details.

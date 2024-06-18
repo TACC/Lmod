@@ -278,16 +278,17 @@ function M.add(self, mname, status, loadOrder)
       ref_count = 0
    end
    mT[sn] = {
-      fullName     = mname:fullName(),
-      fn           = mname:fn(),
-      userName     = mname:userName(),
-      stackDepth   = mname:stackDepth(),
-      origUserName = mname:origUserName(),
-      ref_count    = ref_count,
-      status       = status,
-      loadOrder    = loadOrder,
-      propT        = {},
-      wV           = mname:wV() or false,
+      fullName        = mname:fullName(),
+      fn              = mname:fn(),
+      userName        = mname:userName(),
+      stackDepth      = mname:stackDepth(),
+      origUserName    = mname:origUserName(),
+      ref_count       = ref_count,
+      depends_on_anyA = mname:get_depends_on_anyA(),
+      status          = status,
+      loadOrder       = loadOrder,
+      propT           = {},
+      wV              = mname:wV() or false,
    }
    if (status ~= "inactive" and old_status ~= "inactive") then
       self:safely_incr_ref_count(mname)
@@ -529,15 +530,11 @@ function M.list(self, kind, status)
       for k, v in pairs(mT) do
          if ((status == "any" or status == v.status) and
              (v.status ~= "pending")) then
-            local displayName = v.fullName
-            if (v.origName) then
-               -- displayName = v.origName .. " -> " displayName
-               displayName = displayName
-            end
             local obj = { sn = k, fullName = v.fullName, userName = v.userName,
                           name = v[kind], fn = v.fn, loadOrder = v.loadOrder,
                           stackDepth = v.stackDepth, ref_count = v.ref_count,
-                          displayName = displayName, origUserName = v.origUserName or false}
+                          depends_on_anyA = v.depends_on_anyA, displayName = v.fullName,
+                          origUserName = v.origUserName or false}
             a, b = l_build_AB(a, b, v.loadOrder, v[kind], obj )
          end
       end
@@ -549,7 +546,8 @@ function M.list(self, kind, status)
              local obj = { sn = k, fullName = v.fullName, userName = v.userName,
                           name = v.fullName, fn = v.fn, loadOrder = v.loadOrder,
                           stackDepth = v.stackDepth, ref_count = v.ref_count,
-                          displayName = v.fullName, origUserName = v.origUserName or false }
+                          depends_on_anyA = v.depends_on_anyA, displayName = v.fullName, 
+                          origUserName = v.origUserName or false }
             a, b = l_build_AB(a, b, v.loadOrder, v.fullName, obj )
          end
       end
@@ -861,6 +859,14 @@ function M.get_ref_count(self,sn)
    return entry.ref_count
 end
 
+function M.get_depends_on_anyA(self,sn)
+   local entry = self.mT[sn]
+   if (entry == nil or not entry.ref_count) then
+      return nil
+   end
+   return entry.depends_on_anyA
+end
+
 function M.save_depends_on_any(self, sn, child_sn)
    local entry = self.mT[sn]
    assert(entry)
@@ -878,6 +884,24 @@ function M.pop_depends_on_any(self, sn)
    local child_sn = table.remove(entry.depends_on_anyA,1)
    return child_sn
 end
+
+function M.pop_depends_on_any_ck(self,sn)
+   dbg.start{"MT:pop_depends_on_any_ck(sn: \"",sn,"\")"}
+   local entry = self.mT[sn]
+   assert(entry)
+   if (not (entry.depends_on_anyA and next(entry.depends_on_anyA) ~= nil)) then
+      dbg.fini("MT:pop_depends_on_any_ck with no doA")
+      return nil
+   end
+   if (not entry.__depends_on_any_ckA) then
+      entry.__depends_on_any_ckA = deepcopy(entry.depends_on_anyA)
+   end
+   local child_sn = table.remove(entry.__depends_on_any_ckA,1)
+   dbg.print{"child_sn: ",child_sn,"\n"}
+   dbg.fini("MT:pop_depends_on_any_ck")
+   return child_sn
+end
+
 
 function M.updateMPathA(self, value)
    if (type(value) == "string") then
@@ -1360,11 +1384,13 @@ function M.getMTfromFile(self,tt)
       if (ref_count) then
          ref_count = ref_count - 1
       end
+      mname:set_depends_on_anyA(activeA[i].depends_on_anyA)
       mname:set_depends_on_flag(activeA[i].ref_count)
       mname:set_ref_count(ref_count)
       mname:setStackDepth(activeA[i].stackDepth)
       mA[#mA+1]   = mname
    end
+   dbg.print{"Running MCP.load(mcp, mA)\n"}
    MCP.load(mcp,mA)
    mcp        = mcp_old
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}

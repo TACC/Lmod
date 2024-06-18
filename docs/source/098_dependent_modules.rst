@@ -7,7 +7,7 @@ Let's assume that module "X" depends on module "A". There are several
 ways to handle module dependency.  Inside the "X" modulefile you could
 have one of the following choices:
 
-#. Use ``depends_on("A","B")``
+#. Use ``depends_on("A","B")`` or ``depends_on_any("C","D", ...)``
 #. Use ``prereq("A")``
 #. Use ``load("A")``
 #. Use ``always_load("A")``
@@ -33,6 +33,17 @@ on "A" then::
 
    $ module purge; module load X Y; module unload X   => keep A   
    $ module purge; module load X Y; module unload X Y => unload A
+
+
+``depends_on_any("C","D")``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The function ``depends_on_any("C","D")`` works similarly to
+``depends_on()`` except that Lmod picks the first available module
+listed.  It first checks to see if any of the modules are already
+loaded. If none are already loaded then picks the first one that can
+be loaded.  On unload, Lmod remembers which of the choices it loaded
+to unload.  It is not an error if that module has already been
+unloaded.
 
 Complex uses of ``depends_on()``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -692,6 +692,7 @@ CACHED_LOADS
 LUA_INCLUDE
 TMOD_FIND_FIRST
 TMOD_PATH_RULE
+MODULES_AUTO_HANDLING
 LMOD_DOWNSTREAM_CONFLICTS
 PIN_VERSIONS
 IGNORE_DIRS
@@ -801,6 +802,7 @@ with_settarg
 with_ignoreDirs
 with_pinVersions
 with_downstreamConflicts
+with_modulesAutoHandling
 with_tmodPathRule
 with_tmodFindFirst
 with_lua_include
@@ -1497,6 +1499,8 @@ Optional Packages:
   --with-downstreamConflicts=ans
                           module conflicts are remembered for later loads.
                           [[no]]
+  --with-modulesAutoHandling=ans
+                          treat prereq() as depends_on(). [[no]]
   --with-tmodPathRule=ans If path entry is already there then do not
                           append/prepend.[[no]]
   --with-tmodFindFirst=ans
@@ -4059,6 +4063,27 @@ else $as_nop
 printf "%s\n" "LMOD_DOWNSTREAM_CONFLICTS=$withval" >&6; }
     LMOD_DOWNSTREAM_CONFLICTS="$withval"
     printf "%s\n" "#define LMOD_DOWNSTREAM_CONFLICTS \"$withval\"" >>confdefs.h
+
+fi
+
+
+
+# Check whether --with-modulesAutoHandling was given.
+if test ${with_modulesAutoHandling+y}
+then :
+  withval=$with_modulesAutoHandling; MODULES_AUTO_HANDLING="$withval"
+    MODULES_AUTO_HANDLING=`echo $MODULES_AUTO_HANDLING | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $MODULES_AUTO_HANDLING "--with-modulesAutoHandling=ans: ans must be yes or no"
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: MODULES_AUTO_HANDLING=$with_modulesAutoHandling" >&5
+printf "%s\n" "MODULES_AUTO_HANDLING=$with_modulesAutoHandling" >&6; }
+    printf "%s\n" "#define MODULES_AUTO_HANDLING \"$with_modulesAutoHandling\"" >>confdefs.h
+
+else $as_nop
+  withval="no"
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: MODULES_AUTO_HANDLING=$withval" >&5
+printf "%s\n" "MODULES_AUTO_HANDLING=$withval" >&6; }
+    MODULES_AUTO_HANDLING="$withval"
+    printf "%s\n" "#define MODULES_AUTO_HANDLING \"$withval\"" >>confdefs.h
 
 fi
 

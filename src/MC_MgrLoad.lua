@@ -42,6 +42,7 @@ require("strict")
 local MainControl      = require("MainControl")
 local MC_MgrLoad       = inheritsFrom(MainControl)
 local M                = MC_MgrLoad
+local cosmic           = require("Cosmic"):singleton()
 local dbg              = require("Dbg"):dbg()
 M.my_name              = "MC_MgrLoad"
 M.my_sType             = "load"
@@ -95,5 +96,10 @@ M.unset_shell_function = MainControl.unset_shell_function
 M.usrload              = MainControl.fake_load
 M.whatis               = MainControl.quiet
 M.LmodBreak            = MainControl.LmodBreak
+
+if (cosmic:value("MODULES_AUTO_HANDLING") == "yes") then
+   M.prereq     = MainControl.fake_load
+   M.prereq_any = MainControl.fake_load
+end
 
 return M

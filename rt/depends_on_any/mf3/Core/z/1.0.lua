@@ -1,0 +1,1 @@
+setenv("z", myModuleFullName())
