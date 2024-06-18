@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.37   2024-03-17 13:11 -06:00
+Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -16,7 +16,7 @@ Options:
   -b --brief                        brief listing with only user specified modules
   -D                                Program tracing written to stderr
   --debug=dbglvl                    Program tracing written to stderr (where dbglvl is a number 1,2,3)
-  --pin_versions=pinVersions        When doing a restore use specified version, do not follow defaults
+  --pin_versions                    When doing a restore use specified version, do not follow defaults
   -d --default                      List default modules only when used with avail
   -q --quiet                        Do not print out warnings
   --expert                          Expert mode
@@ -42,10 +42,11 @@ Options:
   --no_redirect                     Force output of list, avail and spider to stderr
   --show_hidden                     Avail and spider will report hidden modules
   --spider_timeout=timeout          a timeout for spider
-  -T --trace
-  --nx --no_extensions
+  -T --trace                        trace major changes such as loads
+  --nx --no_extensions              Do not print extensions
   --loc --location                  Just print the file location when using show
-  --terse_show_extensions
+  --terse_show_extensions           report extensions when doing a terse avail
+  --pod                             Generate pod format
 module [options] sub-command [args ...]
 Help sub-commands:
   help                              prints this message
@@ -108,7 +109,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.37   2024-03-17 13:11 -06:00
+Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -122,7 +123,7 @@ Options:
   -b --brief                        brief listing with only user specified modules
   -D                                Program tracing written to stderr
   --debug=dbglvl                    Program tracing written to stderr (where dbglvl is a number 1,2,3)
-  --pin_versions=pinVersions        When doing a restore use specified version, do not follow defaults
+  --pin_versions                    When doing a restore use specified version, do not follow defaults
   -d --default                      List default modules only when used with avail
   -q --quiet                        Do not print out warnings
   --expert                          Expert mode
@@ -148,10 +149,11 @@ Options:
   --no_redirect                     Force output of list, avail and spider to stderr
   --show_hidden                     Avail and spider will report hidden modules
   --spider_timeout=timeout          a timeout for spider
-  -T --trace
-  --nx --no_extensions
+  -T --trace                        trace major changes such as loads
+  --nx --no_extensions              Do not print extensions
   --loc --location                  Just print the file location when using show
-  --terse_show_extensions
+  --terse_show_extensions           report extensions when doing a terse avail
+  --pod                             Generate pod format
 module [options] sub-command [args ...]
 Help sub-commands:
   help                              prints this message
@@ -214,7 +216,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.37   2024-03-17 13:11 -06:00
+Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -234,7 +236,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --config
 ===========================
-Modules based on Lua: Version 8.7.37   2024-03-17 13:11 -06:00
+Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                                                   Value
 Allow root to use Lmod (LMOD_ALLOW_ROOT_USE)                  yes
@@ -415,7 +417,7 @@ propT = {
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --miniConfig
 ===========================
-Modules based on Lua: Version 8.7.37   2024-03-17 13:11 -06:00
+Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 LMOD_PACKAGE_PATH            D          nil          <empty>
 LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>
