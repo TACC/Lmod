@@ -19,22 +19,60 @@ testdescript = {
 
      unsetMT
      initStdEnvVars
-     export MODULEPATH=$(outputDir)/mf/Core
+     export MODULEPATH_ROOT=$(outputDir)/mf
+     export MODULEPATH=$MODULEPATH_ROOT/Core
 
      remove_generated_lmod_files mf
      cp -a $(testDir)/mf $(outputDir)/
+     rm $(outputDir)/mf/Core/gcc/14.0.lua 
+     rm $(outputDir)/mf/Compiler/gcc/14/mpich/14.0.lua
 
 
-     runLmod  --version                        # 1
-     runLmod  load gcc/13                      # 2
-     runLmod  --mt                             # 3
-     rm $(outputDir)/mf/Core/gcc/13.0.lua
-     runLmod  rm   gcc                         # 4
-     runLmod  --mt                             # 5
-     runLmod  load acme                        # 6
-     rm $(outputDir)/mf/Core/acme/1.0.lua
-     runLmod  rm   acme                        # 7
-     runLmod  --mt                             # 8
+     runLmod  --version                              # 1
+
+     ########################################
+     # Test unloading gcc where gcc nolonger
+     # exists and gcc changes $MODULEPATH
+
+     runLmod  load gcc                               # 2
+     runLmod  --mt                                   # 3
+     runBase  rm $(outputDir)/mf/Core/gcc/13.0.lua   # 4
+     runLmod  rm   gcc                               # 5
+     runLmod  --mt                                   # 6
+
+     ########################################
+     # Test unloading a module (acme) that
+     # nolonger exist and does not change
+     # $MODULEPATH
+     
+     runLmod  load acme                              # 7
+     runBase  rm $(outputDir)/mf/Core/acme/1.0.lua   # 8
+     runLmod  rm   acme                              # 9
+     runLmod  --mt                                   #10
+    
+     ########################################
+     # Test reloading a collection where the
+     # compiler and mpi modules disappear
+     # between save and restore
+
+     L_gcc=Core/gcc/13.0.lua
+     L_mpich=Compiler/gcc/13/mpich/13.0.lua
+     cp $(testDir)/mf/$L_gcc $(outputDir)/mf/$L_gcc 
+     runLmod load gcc mpich petsc phdf5                   #11
+     runLmod  --mt                                        #12
+     runLmod save                                         #13
+
+     runBase rm $(outputDir)/mf/$L_gcc                    #14
+     runBase rm $(outputDir)/mf/$L_mpich                  #15
+
+     L_gcc=Core/gcc/14.0.lua
+     L_mpich=Compiler/gcc/14/mpich/14.0.lua
+     runBase cp $(testDir)/mf/$L_gcc $(outputDir)/mf/$L_gcc     #16
+     runBase cp $(testDir)/mf/$L_mpich $(outputDir)/mf/$L_mpich #17
+     runLmod restore                                      #18
+     runLmod  --mt                                        #19
+
+
      
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
