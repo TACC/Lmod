@@ -482,11 +482,11 @@ end
 
 local function l_missingFn_action(actionA)
    dbg.start{"l_missingFn_action(actionA)"}
-   local frameStk     = FrameStk:singleton()
-   local sn           = frameStk:sn()
-   local msg    = ""
-   local status = true
-   if (not actionA or next(actionA) == nil) then
+   local frameStk = FrameStk:singleton()
+   local sn       = frameStk:sn()
+   local msg      = ""
+   local status   = true
+   if (next(actionA) == nil) then
       dbg.fini("l_missingFn_action with empty actionA")
       return status 
    end

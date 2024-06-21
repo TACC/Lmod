@@ -355,7 +355,7 @@ function M.get_actionA(self, sn)
    local entry   = self.mT[sn]
    local actionA = {}
    if (entry ~= nil) then
-      actionA = entry.actionA
+      actionA = entry.actionA or {}
    end
    return actionA
 end
