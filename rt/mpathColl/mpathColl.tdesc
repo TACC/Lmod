@@ -1,0 +1,57 @@
+-- -*- lua -*-
+local testName = "mpathColl"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 testName
+   ]],
+   keywords = {testName },
+
+   active   = true,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     export MODULEPATH=$(outputDir)/mf/Core
+
+     remove_generated_lmod_files mf
+     cp -a $(testDir)/mf $(outputDir)/
+
+
+     runLmod  --version                        # 1
+     runLmod  load gcc/13                      # 2
+     runLmod  --mt                             # 3
+     runLmod  rm   gcc                         # 4
+     runLmod  --mt                             # 5
+     
+     HOME=$ORIG_HOME
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}
