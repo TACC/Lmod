@@ -137,7 +137,7 @@ end
 function M.fullName(self)
    local top   = self.__stack[self.__count]
    local mname = top.mname
-   return mname:fullName()
+   return mname and mname:fullName() or false
 end
 
 function M.mname(self)
@@ -148,25 +148,25 @@ end
 function M.userName(self)
    local top   = self.__stack[self.__count]
    local mname = top.mname
-   return mname:userName()
+   return mname and mname:userName() or false
 end
 
 function M.fn(self)
    local top   = self.__stack[self.__count]
    local mname = top.mname
-   return mname:fn()
+   return mname and mname:fn() or false
 end
 
 function M.sn(self)
    local top   = self.__stack[self.__count]
    local mname = top.mname
-   return mname:sn()
+   return mname and mname:sn() or false
 end
 
 function M.version(self)
    local top   = self.__stack[self.__count]
    local mname = top.mname
-   return mname:version()
+   return mname and mname:version() or false
 end
 
 function M.mt(self)

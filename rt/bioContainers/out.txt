@@ -32,7 +32,7 @@ MODULEPATH=ProjectDIR/rt/bioContainers/bcd/mf:ProjectDIR/rt/bioContainers/mf/Cor
 export MODULEPATH;
 _LMFILES_=ProjectDIR/rt/bioContainers/mf/Core/bioContainers/0.1.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={bioContainers={fn="ProjectDIR/rt/bioContainers/mf/Core/bioContainers/0.1.lua",fullName="bioContainers/0.1",loadOrder=1,propT={},stackDepth=0,status="active",userName="bioContainers",wV="000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/bioContainers/bcd/mf","ProjectDIR/rt/bioContainers/mf/Core",},systemBaseMPATH="ProjectDIR/rt/bioContainers/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={bioContainers={actionA={"prepend_path(\"MODULEPATH\",\"ProjectDIR/rt/bioContainers/bcd/mf\")",},fn="ProjectDIR/rt/bioContainers/mf/Core/bioContainers/0.1.lua",fullName="bioContainers/0.1",loadOrder=1,propT={},stackDepth=0,status="active",userName="bioContainers",wV="000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/bioContainers/bcd/mf","ProjectDIR/rt/bioContainers/mf/Core",},systemBaseMPATH="ProjectDIR/rt/bioContainers/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -40,5 +40,5 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing -T avail
 ===========================
 MODULEPATH=ProjectDIR/rt/bioContainers/bcd/mf:ProjectDIR/rt/bioContainers/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={bioContainers={fn="ProjectDIR/rt/bioContainers/mf/Core/bioContainers/0.1.lua",fullName="bioContainers/0.1",loadOrder=1,propT={},stackDepth=0,status="active",userName="bioContainers",wV="000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/bioContainers/bcd/mf","ProjectDIR/rt/bioContainers/mf/Core",},systemBaseMPATH="ProjectDIR/rt/bioContainers/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={bioContainers={actionA={"prepend_path(\"MODULEPATH\",\"ProjectDIR/rt/bioContainers/bcd/mf\")",},fn="ProjectDIR/rt/bioContainers/mf/Core/bioContainers/0.1.lua",fullName="bioContainers/0.1",loadOrder=1,propT={},stackDepth=0,status="active",userName="bioContainers",wV="000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/bioContainers/bcd/mf","ProjectDIR/rt/bioContainers/mf/Core",},systemBaseMPATH="ProjectDIR/rt/bioContainers/mf/Core",}';
 export _ModuleTable_;
