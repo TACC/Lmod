@@ -6,7 +6,7 @@ Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc mpich
 ===========================
 ===========================
 step 3
@@ -21,7 +21,7 @@ _ModuleTable_ = {
   mT = {
     gcc = {
       actionA = {
-        "prepend_path(\"MODULEPATH\",\"Compiler/gcc/13\")",
+        "prepend_path(\"MODULEPATH\",\"OutputDIR/mf/Compiler/gcc/13\")",
       },
       fn = "OutputDIR/mf/Core/gcc/13.0.lua",
       fullName = "gcc/13.0",
@@ -32,9 +32,22 @@ _ModuleTable_ = {
       userName = "gcc",
       wV = "000000013.*zfinal",
     },
+    mpich = {
+      actionA = {
+        "prepend_path(\"MODULEPATH\",\"OutputDIR/mf/MPI/gcc/13/mpich/13\")",
+      },
+      fn = "OutputDIR/mf/Compiler/gcc/13/mpich/13.0.lua",
+      fullName = "mpich/13.0",
+      loadOrder = 2,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "mpich",
+      wV = "000000013.*zfinal",
+    },
   },
   mpathA = {
-    "Compiler/gcc/13", "OutputDIR/mf/Core",
+    "OutputDIR/mf/MPI/gcc/13/mpich/13", "OutputDIR/mf/Compiler/gcc/13", "OutputDIR/mf/Core",
   },
   systemBaseMPATH = "OutputDIR/mf/Core",
 }
@@ -44,10 +57,20 @@ rm OutputDIR/mf/Core/gcc/13.0.lua
 ===========================
 ===========================
 step 5
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm gcc
+rm OutputDIR/mf/Compiler/gcc/13/mpich/13.0.lua
 ===========================
 ===========================
 step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm gcc
+===========================
+Inactive Modules:
+  1) mpich
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm mpich
+===========================
+===========================
+step 8
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
 ===========================
 _ModuleTable_ = {
@@ -63,19 +86,19 @@ _ModuleTable_ = {
   systemBaseMPATH = "OutputDIR/mf/Core",
 }
 ===========================
-step 7
+step 9
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load acme
 ===========================
 ===========================
-step 8
+step 10
 rm OutputDIR/mf/Core/acme/1.0.lua
 ===========================
 ===========================
-step 9
+step 11
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm acme
 ===========================
 ===========================
-step 10
+step 12
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
 ===========================
 _ModuleTable_ = {
