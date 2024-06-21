@@ -28,8 +28,13 @@ testdescript = {
      runLmod  --version                        # 1
      runLmod  load gcc/13                      # 2
      runLmod  --mt                             # 3
+     rm $(outputDir)/mf/Core/gcc/13.0.lua
      runLmod  rm   gcc                         # 4
      runLmod  --mt                             # 5
+     runLmod  load acme                        # 6
+     rm $(outputDir)/mf/Core/acme/1.0.lua
+     runLmod  rm   acme                        # 7
+     runLmod  --mt                             # 8
      
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

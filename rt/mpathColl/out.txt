@@ -36,3 +36,31 @@ export _ModuleTable_;
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
 ===========================
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load acme
+===========================
+LOADEDMODULES=acme/1.0;
+export LOADEDMODULES;
+MODULEPATH=OutputDIR/mf/Core;
+export MODULEPATH;
+_LMFILES_=OutputDIR/mf/Core/acme/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={acme={fn="OutputDIR/mf/Core/acme/1.0.lua",fullName="acme/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="acme",wV="000000001.*zfinal",},},mpathA={"OutputDIR/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core",}';
+export _ModuleTable_;
+junk=junk;
+export junk;
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm acme
+===========================
+unset LOADEDMODULES;
+MODULEPATH=OutputDIR/mf/Core;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"OutputDIR/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
+===========================

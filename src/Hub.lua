@@ -486,11 +486,11 @@ local function l_missingFn_action(actionA)
    local sn           = frameStk:sn()
    local msg    = ""
    local status = true
-   local whole  = concatTbl(actionA,"\n")
-   if (whole == "") then 
+   if (not actionA or next(actionA) == nil) then
       dbg.fini("l_missingFn_action with empty actionA")
       return status 
    end
+   local whole  = concatTbl(actionA,"\n")
    dbg.print{"whole: ",whole,"\n"}
    status, msg = sandbox_run(whole)
    if (not status) then

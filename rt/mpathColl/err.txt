@@ -58,3 +58,27 @@ _ModuleTable_ = {
   },
   systemBaseMPATH = "OutputDIR/mf/Core",
 }
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load acme
+===========================
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm acme
+===========================
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
+===========================
+_ModuleTable_ = {
+  MTversion = 3,
+  c_rebuildTime = false,
+  c_shortTime = false,
+  depthT = {},
+  family = {},
+  mT = {},
+  mpathA = {
+    "OutputDIR/mf/Core",
+  },
+  systemBaseMPATH = "OutputDIR/mf/Core",
+}
