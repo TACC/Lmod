@@ -1,0 +1,86 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc mpich
+===========================
+LOADEDMODULES=gcc/13.0:mpich/13.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=OutputDIR/mf/MPI/gcc/13/mpich/13:1\;OutputDIR/mf/Compiler/gcc/13:1\;OutputDIR/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=OutputDIR/mf/MPI/gcc/13/mpich/13:OutputDIR/mf/Compiler/gcc/13:OutputDIR/mf/Core;
+export MODULEPATH;
+_LMFILES_=OutputDIR/mf/Core/gcc/13.0.lua:OutputDIR/mf/Compiler/gcc/13/mpich/13.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={gcc={actionA={"prepend_path(\"MODULEPATH\",\"OutputDIR/mf/Compiler/gcc/13\")",},fn="OutputDIR/mf/Core/gcc/13.0.lua",fullName="gcc/13.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc",wV="000000013.*zfinal",},mpich={actionA={"prepend_path(\"MODULEPATH\",\"OutputDIR/mf/MPI/gcc/13/mpich/13\")",},fn="OutputDIR/mf/Compiler/gcc/13/mpich/13.0.lua",fullName="mpich/13.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="mpich",wV="000000013.*zfinal",},},mpathA={"OutputDIR/mf/MPI/gcc/13/mpich/13","OutputDIR/mf/Compiler/gcc/13","OutputDIR/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
+===========================
+===========================
+step 4
+rm OutputDIR/mf/Core/gcc/13.0.lua
+===========================
+===========================
+step 5
+rm OutputDIR/mf/Compiler/gcc/13/mpich/13.0.lua
+===========================
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm gcc
+===========================
+unset LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=OutputDIR/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=OutputDIR/mf/Core;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={mpich={fn="OutputDIR/mf/Compiler/gcc/13/mpich/13.0.lua",fullName="mpich/13.0",loadOrder=-1,propT={},stackDepth=0,status="inactive",userName="mpich",wV="000000013.*zfinal",},},mpathA={"OutputDIR/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm mpich
+===========================
+MODULEPATH=OutputDIR/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"OutputDIR/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
+===========================
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load acme
+===========================
+LOADEDMODULES=acme/1.0;
+export LOADEDMODULES;
+MODULEPATH=OutputDIR/mf/Core;
+export MODULEPATH;
+_LMFILES_=OutputDIR/mf/Core/acme/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={acme={fn="OutputDIR/mf/Core/acme/1.0.lua",fullName="acme/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="acme",wV="000000001.*zfinal",},},mpathA={"OutputDIR/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core",}';
+export _ModuleTable_;
+junk=junk;
+export junk;
+===========================
+step 10
+rm OutputDIR/mf/Core/acme/1.0.lua
+===========================
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm acme
+===========================
+unset LOADEDMODULES;
+MODULEPATH=OutputDIR/mf/Core;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"OutputDIR/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
+===========================

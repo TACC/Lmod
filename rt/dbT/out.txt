@@ -157,7 +157,7 @@ MODULEPATH=ProjectDIR/rt/dbT/mf3:ProjectDIR/rt/dbT/mf4;
 export MODULEPATH;
 _LMFILES_=ProjectDIR/rt/dbT/mf4/newdir/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={newdir={fn="ProjectDIR/rt/dbT/mf4/newdir/1.0.lua",fullName="newdir/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="newdir",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/dbT/mf3","ProjectDIR/rt/dbT/mf4",},systemBaseMPATH="ProjectDIR/rt/dbT/mf4",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={newdir={actionA={"prepend_path(\"MODULEPATH\",\"ProjectDIR/rt/dbT/mf3\")",},fn="ProjectDIR/rt/dbT/mf4/newdir/1.0.lua",fullName="newdir/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="newdir",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/dbT/mf3","ProjectDIR/rt/dbT/mf4",},systemBaseMPATH="ProjectDIR/rt/dbT/mf4",}';
 export _ModuleTable_;
 ===========================
 step 7
@@ -165,7 +165,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden av
 ===========================
 MODULEPATH=ProjectDIR/rt/dbT/mf3:ProjectDIR/rt/dbT/mf4;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={newdir={fn="ProjectDIR/rt/dbT/mf4/newdir/1.0.lua",fullName="newdir/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="newdir",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/dbT/mf3","ProjectDIR/rt/dbT/mf4",},systemBaseMPATH="ProjectDIR/rt/dbT/mf4",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={newdir={actionA={"prepend_path(\"MODULEPATH\",\"ProjectDIR/rt/dbT/mf3\")",},fn="ProjectDIR/rt/dbT/mf4/newdir/1.0.lua",fullName="newdir/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="newdir",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/dbT/mf3","ProjectDIR/rt/dbT/mf4",},systemBaseMPATH="ProjectDIR/rt/dbT/mf4",}';
 export _ModuleTable_;
 ===========================
 step 8

@@ -255,7 +255,7 @@ end
 -- Prepend a value to a path like variable.
 function prepend_path(...)
    local t = l_convert2table(...)
-   dbg.start{"prepend_path_rtm(",l_concatTbl(t,", "),")"}
+   dbg.start{"prepend_path(",l_concatTbl(t,", "),")"}
    if (not l_validateStringTable(2, "prepend_path",t)) then return end
 
    l_cleanupPathArgs(t)

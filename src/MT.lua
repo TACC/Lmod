@@ -342,6 +342,24 @@ function M.reset_MPATH_change_flag(self)
 end
 
 
+function M.add_actionA(self, sn, action, value)
+   local entry = self.mT[sn]
+   if (entry ~= nil) then
+      local a = entry.actionA or {}
+      a[#a+1]    = action .. "(\"MODULEPATH\",\"" .. value .."\")"
+      entry.actionA = a
+   end
+end
+
+function M.get_actionA(self, sn)
+   local entry   = self.mT[sn]
+   local actionA = {}
+   if (entry ~= nil) then
+      actionA = entry.actionA or {}
+   end
+   return actionA
+end
+
 function M.add_sh2mf_cmds(self, sn, script, mcmdA)
    local entry = self.mT[sn]
    if (entry ~= nil) then

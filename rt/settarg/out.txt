@@ -180,7 +180,7 @@ PATH=/opt/apps/gcc-4_7/mpich/3.0.4/bin:obj/___generic:ProjectDIR/settarg:Project
 export PATH;
 _LMFILES_=OutputDIR/mf/Core/settarg/1.0.lua:ProjectDIR/rt/settarg/mf/Core/gcc/4.7.2.lua:ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7/mpich/3.0.4.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mpich",compiler="gcc",},mT={gcc={fn="ProjectDIR/rt/settarg/mf/Core/gcc/4.7.2.lua",fullName="gcc/4.7.2",loadOrder=2,propT={},stackDepth=0,status="active",userName="gcc",wV="000000004.000000007.000000002.*zfinal",},mpich={fn="ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7/mpich/3.0.4.lua",fullName="mpich/3.0.4",loadOrder=3,propT={},stackDepth=0,status="active",userName="mpich",wV="000000003.000000000.000000004.*zfinal",},settarg={fn="OutputDIR/mf/Core/settarg/1.0.lua",fullName="settarg/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="settarg",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/settarg/mf/MPI/gcc/4.7/mpich/3.0","ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7","OutputDIR/mf/Core","ProjectDIR/rt/settarg/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core:ProjectDIR/rt/settarg/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={MPI="mpich",compiler="gcc",},mT={gcc={actionA={"prepend_path(\"MODULEPATH\",\"ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7\")",},fn="ProjectDIR/rt/settarg/mf/Core/gcc/4.7.2.lua",fullName="gcc/4.7.2",loadOrder=2,propT={},stackDepth=0,status="active",userName="gcc",wV="000000004.000000007.000000002.*zfinal",},mpich={actionA={"prepend_path(\"MODULEPATH\",\"ProjectDIR/rt/settarg/mf/MPI/gcc/4.7/mpich/3.0\")",},fn="ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7/mpich/3.0.4.lua",fullName="mpich/3.0.4",loadOrder=3,propT={},stackDepth=0,status="active",userName="mpich",wV="000000003.000000000.000000004.*zfinal",},settarg={fn="OutputDIR/mf/Core/settarg/1.0.lua",fullName="settarg/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="settarg",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/settarg/mf/MPI/gcc/4.7/mpich/3.0","ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7","OutputDIR/mf/Core","ProjectDIR/rt/settarg/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core:ProjectDIR/rt/settarg/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 7
@@ -506,7 +506,7 @@ PATH=obj/___generic_dbg_gcc-4.7.2_mpich-3.0.4:ProjectDIR/settarg:ProjectDIR/proj
 export PATH;
 _LMFILES_=OutputDIR/mf/Core/settarg/1.0.lua:ProjectDIR/rt/settarg/mf/Core/gcc/4.7.2.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT={gcc={fn="ProjectDIR/rt/settarg/mf/Core/gcc/4.7.2.lua",fullName="gcc/4.7.2",loadOrder=2,propT={},stackDepth=0,status="active",userName="gcc",wV="000000004.000000007.000000002.*zfinal",},settarg={fn="OutputDIR/mf/Core/settarg/1.0.lua",fullName="settarg/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="settarg",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7","OutputDIR/mf/Core","ProjectDIR/rt/settarg/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core:ProjectDIR/rt/settarg/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT={gcc={actionA={"prepend_path(\"MODULEPATH\",\"ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7\")",},fn="ProjectDIR/rt/settarg/mf/Core/gcc/4.7.2.lua",fullName="gcc/4.7.2",loadOrder=2,propT={},stackDepth=0,status="active",userName="gcc",wV="000000004.000000007.000000002.*zfinal",},settarg={fn="OutputDIR/mf/Core/settarg/1.0.lua",fullName="settarg/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="settarg",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/settarg/mf/Compiler/gcc/4.7","OutputDIR/mf/Core","ProjectDIR/rt/settarg/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core:ProjectDIR/rt/settarg/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 17
@@ -575,7 +575,7 @@ MODULEPATH=ProjectDIR/rt/settarg/mf/Compiler/cmplr/clang/9.1:OutputDIR/mf/Core:P
 export MODULEPATH;
 _LMFILES_=OutputDIR/mf/Core/settarg/1.0.lua:ProjectDIR/rt/settarg/mf/Core/cmplr/clang/9.1.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={Compiler="cmplr/clang",},mT={["cmplr/clang"]={fn="ProjectDIR/rt/settarg/mf/Core/cmplr/clang/9.1.lua",fullName="cmplr/clang/9.1",loadOrder=2,propT={},stackDepth=0,status="active",userName="cmplr/clang",wV="000000009.000000001.*zfinal",},settarg={fn="OutputDIR/mf/Core/settarg/1.0.lua",fullName="settarg/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="settarg",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/settarg/mf/Compiler/cmplr/clang/9.1","OutputDIR/mf/Core","ProjectDIR/rt/settarg/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core:ProjectDIR/rt/settarg/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={Compiler="cmplr/clang",},mT={["cmplr/clang"]={actionA={"prepend_path(\"MODULEPATH\",\"ProjectDIR/rt/settarg/mf/Compiler/cmplr/clang/9.1\")",},fn="ProjectDIR/rt/settarg/mf/Core/cmplr/clang/9.1.lua",fullName="cmplr/clang/9.1",loadOrder=2,propT={},stackDepth=0,status="active",userName="cmplr/clang",wV="000000009.000000001.*zfinal",},settarg={fn="OutputDIR/mf/Core/settarg/1.0.lua",fullName="settarg/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="settarg",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/settarg/mf/Compiler/cmplr/clang/9.1","OutputDIR/mf/Core","ProjectDIR/rt/settarg/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core:ProjectDIR/rt/settarg/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 20
@@ -583,7 +583,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing show settarg
 ===========================
 MODULEPATH=ProjectDIR/rt/settarg/mf/Compiler/cmplr/clang/9.1:OutputDIR/mf/Core:ProjectDIR/rt/settarg/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={Compiler="cmplr/clang",},mT={["cmplr/clang"]={fn="ProjectDIR/rt/settarg/mf/Core/cmplr/clang/9.1.lua",fullName="cmplr/clang/9.1",loadOrder=2,propT={},stackDepth=0,status="active",userName="cmplr/clang",wV="000000009.000000001.*zfinal",},settarg={fn="OutputDIR/mf/Core/settarg/1.0.lua",fullName="settarg/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="settarg",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/settarg/mf/Compiler/cmplr/clang/9.1","OutputDIR/mf/Core","ProjectDIR/rt/settarg/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core:ProjectDIR/rt/settarg/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={Compiler="cmplr/clang",},mT={["cmplr/clang"]={actionA={"prepend_path(\"MODULEPATH\",\"ProjectDIR/rt/settarg/mf/Compiler/cmplr/clang/9.1\")",},fn="ProjectDIR/rt/settarg/mf/Core/cmplr/clang/9.1.lua",fullName="cmplr/clang/9.1",loadOrder=2,propT={},stackDepth=0,status="active",userName="cmplr/clang",wV="000000009.000000001.*zfinal",},settarg={fn="OutputDIR/mf/Core/settarg/1.0.lua",fullName="settarg/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="settarg",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/settarg/mf/Compiler/cmplr/clang/9.1","OutputDIR/mf/Core","ProjectDIR/rt/settarg/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core:ProjectDIR/rt/settarg/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 21
@@ -601,7 +601,7 @@ export PATH;
 unset PROMPT_COMMAND;
 _LMFILES_=ProjectDIR/rt/settarg/mf/Core/cmplr/clang/9.1.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={Compiler="cmplr/clang",},mT={["cmplr/clang"]={fn="ProjectDIR/rt/settarg/mf/Core/cmplr/clang/9.1.lua",fullName="cmplr/clang/9.1",loadOrder=1,propT={},stackDepth=0,status="active",userName="cmplr/clang",wV="000000009.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/settarg/mf/Compiler/cmplr/clang/9.1","OutputDIR/mf/Core","ProjectDIR/rt/settarg/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core:ProjectDIR/rt/settarg/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={Compiler="cmplr/clang",},mT={["cmplr/clang"]={actionA={"prepend_path(\"MODULEPATH\",\"ProjectDIR/rt/settarg/mf/Compiler/cmplr/clang/9.1\")",},fn="ProjectDIR/rt/settarg/mf/Core/cmplr/clang/9.1.lua",fullName="cmplr/clang/9.1",loadOrder=1,propT={},stackDepth=0,status="active",userName="cmplr/clang",wV="000000009.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/settarg/mf/Compiler/cmplr/clang/9.1","OutputDIR/mf/Core","ProjectDIR/rt/settarg/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core:ProjectDIR/rt/settarg/mf/Core",}';
 export _ModuleTable_;
 unset __LMOD_STACK_PROMPT_COMMAND;
 unalias cdt 2> /dev/null || true;

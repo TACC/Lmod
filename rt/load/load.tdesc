@@ -141,7 +141,6 @@ testdescript = {
      runLmod load  setPrompt                                # 74
      runLmod list                                           # 75
      runLmod avail                                          # 76
-     runBase echo MY_PS1: $MY_PS1                           # 77
 
 
 

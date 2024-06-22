@@ -1,0 +1,78 @@
+-- -*- lua -*-
+local testName = "mpathColl"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 testName
+   ]],
+   keywords = {testName },
+
+   active   = true,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     export MODULEPATH_ROOT=$(outputDir)/mf
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+
+     remove_generated_lmod_files mf
+     cp -a $(testDir)/mf $(outputDir)/
+     L_gcc=Core/gcc/13.0.lua
+     L_mpich=Compiler/gcc/13/mpich/13.0.lua
+
+
+     runLmod  --version                              # 1
+
+     ########################################
+     # Test unloading gcc where gcc nolonger
+     # exists and gcc changes $MODULEPATH
+
+     runLmod  load gcc mpich                         # 2
+     runLmod  --mt                                   # 3
+     runBase  rm $(outputDir)/mf/$L_gcc              # 4
+     runBase  rm $(outputDir)/mf/$L_mpich            # 5
+     runLmod  rm   gcc                               # 6
+     runLmod  rm   mpich                             # 7
+     runLmod  --mt                                   # 8
+
+     ########################################
+     # Test unloading a module (acme) that
+     # nolonger exist and does not change
+     # $MODULEPATH
+     
+     runLmod  load acme                              # 9
+     runBase  rm $(outputDir)/mf/Core/acme/1.0.lua   #10
+     runLmod  rm   acme                              #11
+     runLmod  --mt                                   #12
+    
+     HOME=$ORIG_HOME
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

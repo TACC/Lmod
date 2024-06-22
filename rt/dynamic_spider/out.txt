@@ -106,7 +106,7 @@ MODULEPATH=OutputDIR/myModules4/Compiler/gcc9:ProjectDIR/rt/dynamic_spider/mf4/C
 export MODULEPATH;
 _LMFILES_=ProjectDIR/rt/dynamic_spider/mf4/Core/gcc/9.3.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT={gcc={fn="ProjectDIR/rt/dynamic_spider/mf4/Core/gcc/9.3.0.lua",fullName="gcc/9.3.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc/9.3.0",wV="000000009.000000003.*zfinal",},},mpathA={"OutputDIR/myModules4/Compiler/gcc9","ProjectDIR/rt/dynamic_spider/mf4/Compiler/gcc9","ProjectDIR/rt/dynamic_spider/mf4/Core",},systemBaseMPATH="ProjectDIR/rt/dynamic_spider/mf4/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT={gcc={actionA={"prepend_path(\"MODULEPATH\",\"ProjectDIR/rt/dynamic_spider/mf4/Compiler/gcc9\")","prepend_path(\"MODULEPATH\",\"OutputDIR/myModules4/Compiler/gcc9\")",},fn="ProjectDIR/rt/dynamic_spider/mf4/Core/gcc/9.3.0.lua",fullName="gcc/9.3.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc/9.3.0",wV="000000009.000000003.*zfinal",},},mpathA={"OutputDIR/myModules4/Compiler/gcc9","ProjectDIR/rt/dynamic_spider/mf4/Compiler/gcc9","ProjectDIR/rt/dynamic_spider/mf4/Core",},systemBaseMPATH="ProjectDIR/rt/dynamic_spider/mf4/Core",}';
 export _ModuleTable_;
 ===========================
 step 13
@@ -114,5 +114,5 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing --terse spider
 ===========================
 MODULEPATH=OutputDIR/myModules4/Compiler/gcc9:ProjectDIR/rt/dynamic_spider/mf4/Compiler/gcc9:ProjectDIR/rt/dynamic_spider/mf4/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT={gcc={fn="ProjectDIR/rt/dynamic_spider/mf4/Core/gcc/9.3.0.lua",fullName="gcc/9.3.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc/9.3.0",wV="000000009.000000003.*zfinal",},},mpathA={"OutputDIR/myModules4/Compiler/gcc9","ProjectDIR/rt/dynamic_spider/mf4/Compiler/gcc9","ProjectDIR/rt/dynamic_spider/mf4/Core",},systemBaseMPATH="ProjectDIR/rt/dynamic_spider/mf4/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="gcc",},mT={gcc={actionA={"prepend_path(\"MODULEPATH\",\"ProjectDIR/rt/dynamic_spider/mf4/Compiler/gcc9\")","prepend_path(\"MODULEPATH\",\"OutputDIR/myModules4/Compiler/gcc9\")",},fn="ProjectDIR/rt/dynamic_spider/mf4/Core/gcc/9.3.0.lua",fullName="gcc/9.3.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc/9.3.0",wV="000000009.000000003.*zfinal",},},mpathA={"OutputDIR/myModules4/Compiler/gcc9","ProjectDIR/rt/dynamic_spider/mf4/Compiler/gcc9","ProjectDIR/rt/dynamic_spider/mf4/Core",},systemBaseMPATH="ProjectDIR/rt/dynamic_spider/mf4/Core",}';
 export _ModuleTable_;

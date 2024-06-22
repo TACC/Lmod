@@ -154,3 +154,4 @@ W.I.P:
    (8.7.41) * Issue #680: Adding new function depends_on_any()
             * Issue #680: If $MODULES_AUTO_HANDLING is set then prereq() -> depends_on(); prereq_any() -> depends_on_any()
             * Issue #686: Generate a perl pod format for manpage for module.1'
+            * ModuleTable modification: Changes to $MODULEPATH are stored in an entry.
