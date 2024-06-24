@@ -36,14 +36,12 @@ if [ -n "${ZSH_VERSION+x}" -a -z "${__LMOD_SET_ZSH_FPATH+x}" ]; then
   unset zsh_fpath
 fi
 
-SUPPORT_KSH="@support_ksh@"
-if [ $SUPPORT_KSH = yes -o -n "${KSH_VERSION+x}" -o -n "${BASH_VERSION+x}" ]; then
+if [ -n "${KSH_VERSION+x}" -o -n "${BASH_VERSION+x}" ]; then
   if [ -z "${__LMOD_SET_KSH_FPATH:-}" ]; then
     export __LMOD_SET_KSH_FPATH=1
     export FPATH=$(@PKGV@/libexec/addto --append FPATH $FPATH @PKGV@/init/ksh_funcs)
   fi
 fi 
-unset SUPPORT_KSH
 
 export LMOD_ROOT=@lmod_root@
 export LMOD_PKG=@PKGV@

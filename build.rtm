@@ -112,7 +112,7 @@ if [ -n "$LUA_PATH" ]; then
 fi
 
 EXTRA_CMD="echo "
-COMMON_OPTIONS="--with-supportKsh=yes --with-siteName=TACC  --with-silentShellDebugging=yes"
+COMMON_OPTIONS="--with-siteName=TACC  --with-silentShellDebugging=yes"
 
 
 case $SYSHOST in
