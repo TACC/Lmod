@@ -6,34 +6,6 @@ Module Naming
 FullName -> shortname/version
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-N/V vs. C/N/V
-~~~~~~~~~~~~~
-Lmod supports names like gcc/10.1 where gcc is the shortname and 10.1
-is the version.  It also supports C/N/V which is
-category/name/version.  So a module can be named compiler/gcc/10.1
-where the shortname is compiler/gcc and the version is 10.1.  The
-number of categories can be as many as a site wants to use.  It is
-just more typing.  Internally, Lmod only separates the fullName into a
-shortname (sn) and a version.
-
-N/V vs. N/V/V
-~~~~~~~~~~~~~
-
-Starting with version 7+, Lmod support two or more levels of versions
-(namely N/V/V). So sites might name a module gcc/x86_64/10.1, where the
-shortname is gcc and the version is x86_64/10.1. The depth of version
-is unlimited as is the number of names. So a site might name a module:
-compiler/gcc/x86_64/10.1 where the shortname is compiler/gcc and the
-version is x86_64/10.1
-
-See the discussion about consequences of using N/V/V vs. N/V in ...
-
-
-
-
-
-
-
 One Name Rule
 ~~~~~~~~~~~~~
 It is really the one shortname (or sn) rule.  A user can only load one
@@ -73,7 +45,7 @@ Encoding text strings can be converted to base64 encoding.  This
 means that all spaces and quotes are hidden from shell interpretation.
 
 The ModuleTable is encoded as:
-_ModuleTable_Sz_ and _ModuleTable001_ _ModuleTable002_ ...
+_ModuleTable001_ and _ModuleTable_Sz_
 
 Other environment variables used by Lmod internally all start with
 __LMOD_
@@ -84,86 +56,6 @@ Lmod communicates with users via a group of env. vars
 Thing like LMOD_CMD and LMOD_DIR etc.
 
 
-Lmod coding conventions
-~~~~~~~~~~~~~~~~~~~~~~~
 
-Notes
-~~~~~
-
-A discussion on the design of Lmod:
-
-* At the outermost level.  The lmod program produces text. This text
-  is evaluated by the appropriate tool. In other words, Lmod can
-  produce shell commands to be evaluated by a shell. It can also
-  produce python, perl or cmake commands to be evaluate by the
-  matching tool.
-
-* Internally, Lmod has a table of key-value pairs that contain
-  typically environment variables and their values.  If no errors are
-  encountered, then Lmod loops over the keys in alphabetical order and
-  generates the requested style for output (shell, python, ...).
-
-* Give an example modulefile:
-
-      $ cat acme/1.1.lua
-
-      setenv(       "SITE_ACME_DIR",   "/opt/apps/acme/1.1")
-      prepend_path( "PATH",            "/opt/apps/acme/1.1/bin")
-      prepend_path( "LD_LIBRARY_PATH", "/opt/apps/acme/1.1/bin")
-
-* $ module load acme
-
-* Lmod gets the subcommand "load" and converts it to the "Load" (via src/lmod.in.lua)
-  function in cmdfuncs.lua 
-
-  Note all subcommands from the command line map to functions in src/cmdfuncs.lua
-
-* Steps to load the module:
-** Find the modulefile: acme/1.1.lua
-** 1st Lmod walks the directories with the src/DirTree.lua to build
-   DirT table.  This table contains the directory tree.
-** 2nd: Lmod converts dirT into moduleA
-** The conversion into moduleA applies all the rules that Lmod
-   requires to know the shortname and version.
-*** Whether a module is a meta module (i.e. no version)
-*** Whether it is a N/V or N/V/V
-*** Any marked defaults in the directory tree (as oppose to
-    LMOD_MODULERC)
-* if LMOD_CACHED_LOAD is set then Lmod skips all those step because it
-  has already found moduleT ( the file is called spiderT but it is
-  really moduleA)
-* If all modules are in the form of N/V (instead of N/V/V) then
-  moduleT with multiple directories in the module path are joined into
-  one structure called LocationT
-
-* Go to spec/*/*_spec.lua to see an example of what the structure looks
-  like.  For exmaple spec/DirTree/DirTree_spec.lua for what dirT looks
-  like and spec/ModuleA/ModuleA_spec.lua
-
-* When a module is loaded.  All is known is the userName. That is the
-  name that the module name on the command line. It could be the
-  fullName (i.e. shortName/version) or just the shortName.
-
-* That userName is used to initialize on MName object.  This object is
-  used to convert the userName into the fileName.  This is a lazy
-  evaluation. The conversion from a userName into a fullName and
-  fileName is only done when it is needed.
-
-* This is because **module load compiler mpi* the mpi modulefiles
-  location might not be known until the compiler module has been
-  loaded.
-
-  
-
-
-  
-  
-  
-
-
-    
-  
-
-  
 
 
