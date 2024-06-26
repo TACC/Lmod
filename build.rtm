@@ -143,7 +143,7 @@ case $SYSHOST in
     EXTRA="--with-spiderCacheDir=$CACHEDIRS  --with-updateSystemFn=$UPDATE_FN     --with-useDotConfigDirOnly=yes"
     ;;
 
-  ls6 | stampede3 )
+  ls6 | stampede3 | vista)
     base="$HOME/l/pkg"
     PKG=$base/lmod/$PKG_VERSION
     UPDATE_FN=/tmp/losf_last_update
