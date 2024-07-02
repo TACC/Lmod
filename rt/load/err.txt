@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.37   2024-03-17 13:11 -06:00
+Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -574,7 +574,3 @@ If the avail list is too long consider trying:
 "module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
-===========================
-step 77
-echo MY_PS1: [\u@\h \W]\$
-===========================

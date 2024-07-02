@@ -103,11 +103,15 @@ end
 -- @param name The variable name
 -- @param adding True if adding to path.
 -- @param pathEntry The new value.
-local function l_dynamicMP(name, value, adding)
-   dbg.start{'Var: l_dynamicMP(name: "',name,'", value: ',value,", adding:",adding,")"}
-   local mt = require("FrameStk"):singleton():mt()
+local function l_dynamicMP(name, value, totalValue, action)
+   dbg.start{'Var: l_dynamicMP(name: "',name,'", value: ',value,", totalValue: ",totalValue,", action: ",action,")"}
+   local frameStk = require("FrameStk"):singleton()
+
+   local mt = frameStk:mt()
+   local sn = frameStk:sn()
    mt:set_MPATH_change_flag()
-   mt:updateMPathA(value)
+   mt:updateMPathA(totalValue)
+   mt:add_actionA(sn, action, value)
 
    -- Check to see if there are any currently loaded or pending modules 
    -- before looking to rebuild the caches.
@@ -120,9 +124,9 @@ local function l_dynamicMP(name, value, adding)
    dbg.fini("Var: l_dynamicMP")
 end
 
-local function l_dynamicMRC(name, value, adding)
-   dbg.start{'Var: l_dynamicMRC(name: "',name,'", value: ',value,", adding:",adding,")"}
-   cosmic:assign("LMOD_MODULERC",value)
+local function l_dynamicMRC(name, value, totalValue, action)
+   dbg.start{'Var: l_dynamicMRC(name: "',name,'", value: ',value,", totalValue: ",totalValue,", action: ",action,")"}
+   cosmic:assign("LMOD_MODULERC",totalValue)
    local MRC = require("MRC")
    MRC:__clear()
    if (dbg.active()) then
@@ -142,14 +146,14 @@ local s_dispatchT = {
    MODULERCFILE      = l_dynamicMRC,
 }
 
-local function l_processDynamicVars(name, value, adding)
-   --dbg.start{'l_processDynamicVars(name: "',name,'", value: ',value,", adding:",adding,")"}
+local function l_processDynamicVars(name, value, totalValue, action)
+   --dbg.start{'l_processDynamicVars(name: "',name,'", value: ',value,", totalValue: ",totalValue,", action: ",action,")"}
    local func = s_dispatchT[name]
    if (not func) then
       --dbg.fini("l_processDynamicVars")
       return
    end
-   func(name, value,adding)
+   func(name, value, totalValue, action)
    --dbg.fini("l_processDynamicVars")
 end
 
@@ -326,7 +330,7 @@ function M.remove(self, value, where, priority, nodups, force)
    self.value = v
    if (not v) then v = nil end
    setenv_posix(self.name, v, true)
-   l_processDynamicVars(self.name, v, adding)
+   l_processDynamicVars(self.name, value, v, "remove_path")
 end
 
 --------------------------------------------------------------------------
@@ -400,7 +404,6 @@ function M.prepend(self, value, nodups, priority)
    local pathA         = path2pathA(value, self.delim, clearDblSlash)
    local is, ie, iskip = prepend_order(#pathA)
    local isPrepend     = true
-   local adding        = true
    local p2A           = {}
 
    local tbl = self.tbl
@@ -425,7 +428,7 @@ function M.prepend(self, value, nodups, priority)
    if (not v) then v = nil end
    setenv_posix(self.name, v, true)
 
-   l_processDynamicVars(self.name, v, adding)
+   l_processDynamicVars(self.name, value, v, "prepend_path")
 end
 
 --------------------------------------------------------------------------
@@ -471,11 +474,11 @@ function M.append(self, value, nodups, priority)
       tbl[path]  = l_insertFunc(vv or {num = 0, idxA = {}}, imax, isPrepend, nodups, priority)
    end
    self.imax   = imax
-   local value = self:expand()
-   self.value  = value
-   if (not value) then value = nil end
-   setenv_posix(name, value, true)
-   l_processDynamicVars(name, value, adding)
+   local v     = self:expand()
+   self.value  = v
+   if (not v) then v = nil end
+   setenv_posix(name, v, true)
+   l_processDynamicVars(name, value, v, "append_path")
 end
 
 function M.complete(self, args)
@@ -501,7 +504,7 @@ function M.set(self,value)
    if (not value) then value = nil end
    setenv_posix(self.name, value, true)
    local adding = true
-   l_processDynamicVars(self.name, value, adding)
+   l_processDynamicVars(self.name, value, value, "setenv")
 end
 
 --------------------------------------------------------------------------
@@ -551,7 +554,7 @@ function M.pop(self)
    if (not v) then v = nil end
    setenv_posix(self.name, v, true)
    local adding = false
-   l_processDynamicVars(self.name, v, adding)
+   l_processDynamicVars(self.name, v, v, "unsetenv")
    dbg.print{"result: ",result,"\n"}
    dbg.fini("Var.pop")
    return result
@@ -619,7 +622,7 @@ function M.unset(self)
    self.type  = 'var'
    setenv_posix(self.name, nil, true)
    local adding = false
-   l_processDynamicVars(self.name, nil, adding)
+   l_processDynamicVars(self.name, nil, nil, "unsetenv")
 end
 
 

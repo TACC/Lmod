@@ -14,7 +14,7 @@ MODULEPATH=ProjectDIR/rt/use_w_sticky/mf/Core:ProjectDIR/rt/use_w_sticky/mf/Othe
 export MODULEPATH;
 _LMFILES_=ProjectDIR/rt/use_w_sticky/mf/Core/HPCBIOS/2016q2.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={HPCBIOS={fn="ProjectDIR/rt/use_w_sticky/mf/Core/HPCBIOS/2016q2.lua",fullName="HPCBIOS/2016q2",loadOrder=1,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="HPCBIOS",wV="000002016.*q.000000002.*zfinal",},},mpathA={"ProjectDIR/rt/use_w_sticky/mf/Core","ProjectDIR/rt/use_w_sticky/mf/Other",},systemBaseMPATH="ProjectDIR/rt/use_w_sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={HPCBIOS={actionA={"append_path(\"MODULEPATH\",\"ProjectDIR/rt/use_w_sticky/mf/Other\")",},fn="ProjectDIR/rt/use_w_sticky/mf/Core/HPCBIOS/2016q2.lua",fullName="HPCBIOS/2016q2",loadOrder=1,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="HPCBIOS",wV="000002016.*q.000000002.*zfinal",},},mpathA={"ProjectDIR/rt/use_w_sticky/mf/Core","ProjectDIR/rt/use_w_sticky/mf/Other",},systemBaseMPATH="ProjectDIR/rt/use_w_sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -22,7 +22,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 MODULEPATH=ProjectDIR/rt/use_w_sticky/mf/Core:ProjectDIR/rt/use_w_sticky/mf/Other;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={HPCBIOS={fn="ProjectDIR/rt/use_w_sticky/mf/Core/HPCBIOS/2016q2.lua",fullName="HPCBIOS/2016q2",loadOrder=1,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="HPCBIOS",wV="000002016.*q.000000002.*zfinal",},},mpathA={"ProjectDIR/rt/use_w_sticky/mf/Core","ProjectDIR/rt/use_w_sticky/mf/Other",},systemBaseMPATH="ProjectDIR/rt/use_w_sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={HPCBIOS={actionA={"append_path(\"MODULEPATH\",\"ProjectDIR/rt/use_w_sticky/mf/Other\")",},fn="ProjectDIR/rt/use_w_sticky/mf/Core/HPCBIOS/2016q2.lua",fullName="HPCBIOS/2016q2",loadOrder=1,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="HPCBIOS",wV="000002016.*q.000000002.*zfinal",},},mpathA={"ProjectDIR/rt/use_w_sticky/mf/Core","ProjectDIR/rt/use_w_sticky/mf/Other",},systemBaseMPATH="ProjectDIR/rt/use_w_sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -30,7 +30,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/use_w_sticky/mf/Core:ProjectDIR/rt/use_w_sticky/mf/Other;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={HPCBIOS={fn="ProjectDIR/rt/use_w_sticky/mf/Core/HPCBIOS/2016q2.lua",fullName="HPCBIOS/2016q2",loadOrder=1,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="HPCBIOS",wV="000002016.*q.000000002.*zfinal",},},mpathA={"ProjectDIR/rt/use_w_sticky/mf/Core","ProjectDIR/rt/use_w_sticky/mf/Other",},systemBaseMPATH="ProjectDIR/rt/use_w_sticky/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={HPCBIOS={actionA={"append_path(\"MODULEPATH\",\"ProjectDIR/rt/use_w_sticky/mf/Other\")",},fn="ProjectDIR/rt/use_w_sticky/mf/Core/HPCBIOS/2016q2.lua",fullName="HPCBIOS/2016q2",loadOrder=1,propT={lmod={sticky=1,},},stackDepth=0,status="active",userName="HPCBIOS",wV="000002016.*q.000000002.*zfinal",},},mpathA={"ProjectDIR/rt/use_w_sticky/mf/Core","ProjectDIR/rt/use_w_sticky/mf/Other",},systemBaseMPATH="ProjectDIR/rt/use_w_sticky/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 5

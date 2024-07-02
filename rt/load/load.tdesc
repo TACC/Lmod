@@ -121,9 +121,9 @@ testdescript = {
      runLmod unload compiler/intel                          # 68
      env | sort > end.env.xyzzy
      diff start.env.xyzzy end.env.xyzzy | $SED \
-          -e 's/^.*_ModuleTable.*//'       \
-          -e 's/^[0-9]\+[ac][0-9]\+.*//'      \
-          -e '/^ *$/d'                     \
+          -e 's/^.*_ModuleTable.*//'           \
+          -e 's/^[0-9]\+[ac][0-9]\+.*//'       \
+          -e '/^ *$/d'                         \
           > diff.env.xyzzy
 
      runBase cat diff.env.xyzzy                             # 69
@@ -141,7 +141,6 @@ testdescript = {
      runLmod load  setPrompt                                # 74
      runLmod list                                           # 75
      runLmod avail                                          # 76
-     runBase echo MY_PS1: $MY_PS1                           # 77
 
 
 

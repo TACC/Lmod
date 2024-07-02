@@ -480,6 +480,27 @@ function M.load(self, mA)
    return a
 end
 
+local function l_missingFn_action(actionA)
+   dbg.start{"l_missingFn_action(actionA)"}
+   local frameStk = FrameStk:singleton()
+   local sn       = frameStk:sn()
+   local msg      = ""
+   local status   = true
+   if (next(actionA) == nil) then
+      dbg.fini("l_missingFn_action with empty actionA")
+      return status 
+   end
+   local whole  = concatTbl(actionA,"\n")
+   dbg.print{"whole: ",whole,"\n"}
+   status, msg = sandbox_run(whole)
+   if (not status) then
+      LmodError{msg="e_Missing_Action", name = sn, message = msg}
+   end
+   dbg.fini("l_missingFn_action")
+   return status
+end
+
+
 
 --------------------------------------------------------------------------
 -- Unload modulefile(s) via the module names.
@@ -531,9 +552,14 @@ function M.unload(self,mA)
          end
 
          mt:setStatus(sn,"pending")
-         local mList  = concatTbl(mt:list("both","active"),":")
-	 local status = loadModuleFile{file=fn, mList=mList, shell=shellNm, reportErr=false}
-         dbg.print{"status from loadModulefile: ",status,"\n"}
+         local status
+         if (not isFile(fn)) then
+            status = l_missingFn_action(mt:get_actionA(sn))
+         else
+            local mList  = concatTbl(mt:list("both","active"),":")
+            status = loadModuleFile{file=fn, mList=mList, shell=shellNm, reportErr=false}
+            dbg.print{"status from loadModulefile: ",status,"\n"}
+         end
          if (status) then
             mt = frameStk:mt()
             mt:remove(sn)

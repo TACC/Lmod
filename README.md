@@ -8,7 +8,7 @@
 Lmod is program to manage the user environment under Unix: (Linux, Mac OS X, ...).
 It is a new implementation of environment modules.
 
-## Lmod Web Sites
+## Lmod Sites
 
 * Documentation:   https://lmod.readthedocs.org
 * GitHub:          https://github.com/TACC/Lmod
