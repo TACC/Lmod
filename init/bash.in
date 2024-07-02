@@ -23,21 +23,25 @@ fi
 # Prepend the FPATH variable for ksh functions when ssh is being used,
 # except for zsh as it breaks things there.
 
-SUPPORT_KSH="@support_ksh@"
-if [ $SUPPORT_KSH = yes -o -n "${KSH_VERSION+x}" ]; then
-   if [ -z "${__LMOD_SET_FPATH+x}" ]; then
-      zv=${ZSH_VERSION}
-      orig_zsh_version=@orig_zsh_version@
-      zsh_fpath=@zsh_fpath@
-      zsh_fpath=$(echo $zsh_fpath | sed -e "s|/$orig_zsh_version/|/$zv/|g" )
-      export FPATH=$(@PKGV@/libexec/addto --append FPATH $zsh_fpath @PKGV@/init/ksh_funcs)
-      export __LMOD_SET_FPATH=1
-      unset zv
-      unset orig_zsh_version
-      unset zsh_fpath
-   fi
+
+if [ -n "${ZSH_VERSION+x}" -a -z "${__LMOD_SET_ZSH_FPATH+x}" ]; then
+  export __LMOD_SET_ZSH_FPATH=1
+  zv=${ZSH_VERSION}
+  orig_zsh_version=@orig_zsh_version@
+  zsh_fpath=@zsh_fpath@
+  zsh_fpath=$(echo $zsh_fpath | sed -e "s|/$orig_zsh_version/|/$zv/|g" )
+  export FPATH=$(@PKGV@/libexec/addto --append FPATH $zsh_fpath @PKGV@/init/ksh_funcs)
+  unset zv
+  unset orig_zsh_version
+  unset zsh_fpath
 fi
-unset SUPPORT_KSH
+
+if [ -n "${KSH_VERSION+x}" -o -n "${BASH_VERSION+x}" ]; then
+  if [ -z "${__LMOD_SET_KSH_FPATH:-}" ]; then
+    export __LMOD_SET_KSH_FPATH=1
+    export FPATH=$(@PKGV@/libexec/addto --append FPATH $FPATH @PKGV@/init/ksh_funcs)
+  fi
+fi 
 
 export LMOD_ROOT=@lmod_root@
 export LMOD_PKG=@PKGV@
