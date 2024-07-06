@@ -183,8 +183,31 @@ Outline of steps to load a modulefile
 * Lmod uses the MName object to convert the userName into a filename.
 
 * Then the function loadModuleFile() tells Lua to evaluate the
-  modulefile
-*
+  modulefile.  It does so by reading the entire contents of the file
+  into a string.  This string is given to Lua to evaluate inside a
+  sandbox (see details here)
+* A tcl modulefile is converted to a lua via tcl2lua.tcl
   
+* When lua encounters a function like setenv() or prepend_path(),
+  these functions are Lmod functions.
+
+* A function like setenv() and prepend_path() are found in src/modfuncs.lua.  
+  These functions check that the arguments are valid.  Then
+  mcp:setenv() is called.
+
+* Review what mcp:setenv() etc means
+
+* functions like MainControl:setenv() and MainControl:prepend_path()
+  sets a key-value pair in the varT table.
+
+* Explain what frameStk does
+
+* Once all modulefile(s) are evaluated, control returns to lmod.
+  Assuming no errors were encountered, then lmod generates text from
+  the key-value pairs stored in the varT table for the appropriate
+  "shell".  This includes the Moduletable, LOADEDMODULES and _LMFILES_
+
+* Hooks?
+
 
 
