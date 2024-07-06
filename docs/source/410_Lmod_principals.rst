@@ -155,15 +155,36 @@ A discussion on the design of Lmod:
 
   
 
+------------------------------------------------------------------------
+Outline of steps to load a modulefile
+* command line is parsed into a sub-command such as load
+* the load string is converted to an action -> Load_Usr
+** Note that all commands are found in src/cmdfuncs.lua
+* The operation of Load_Usr and l_usrLoad() are discussed here
+* Each positional argument is now a module to load (or unload)
+* Each userName of a module is converted to an MName object (and is
+  discussed here)
+* Each Lmod function inside a modulefile gets evaluated differently
+  depending on the mode.  When loading a module, the setenv() function
+  sets an environment variable.  When unloading a module, the setenv()
+  function unsets or clears the environment variable.
 
-  
-  
-  
+  The various ways that Lmod evaluates its functions is controlled by
+  the MainControl base class and the derived (or inherited) classes
+  such as src/MC_Load.lua for module loads and src/MC_Unload.lua
 
+* So the command load calls Load_Usr() in src/cmdfuncs.lua.  That
+  calls l_usrLoad().  This then calls MainControl:load_usr() which
+  calls MainControl:load().  This then calls Hub:load() which is doing
+  the real work of loading a module
 
-    
-  
+* Hub:load() enforces the rules of Lmod
 
+* Lmod uses the MName object to convert the userName into a filename.
+
+* Then the function loadModuleFile() tells Lua to evaluate the
+  modulefile
+*
   
 
 
