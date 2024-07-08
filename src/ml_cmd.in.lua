@@ -153,6 +153,7 @@ function main()
       ["--redirect"] = 0, ["--no_redirect"] = 0, ["--no-redirect"] = 0,
       ["--spider_timeout"] = 1,       ["--spider-timeout"] = 1,
       ["--terse"] = 0,  ["-t"] = 0,
+      ["--terse_show_extensions"] = 0,  ["-t"] = 0,
       ["--timer"] = 0,
       ["--trace"] = 0,  ["-T"] = 0,
       ["--version"]=0,  ["--versoin"]=0, ["--ver"]=0, ["--v"]=0, ["-v"]=0,
