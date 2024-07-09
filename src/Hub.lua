@@ -1253,6 +1253,8 @@ function M.avail(self, argA)
    local alias2modT    = mrc:getAlias2ModT(mpathA)
    local showSN        = not defaultOnly
 
+   dbg.printT("availA",availA)
+
    if (showSN) then
       showSN = argA.n == 0
    end
