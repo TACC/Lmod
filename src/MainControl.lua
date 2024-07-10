@@ -313,7 +313,7 @@ end
 -- @param value the environment variable value.
 -- @param respect If true, then respect the old value.
 function M.setenv(self, name, value, respect)
-   name = name:trim()
+   name = (name or ""):trim()
    dbg.start{"MainControl:setenv(\"",name,"\", \"",value,"\", \"",
               respect,"\")"}
 
@@ -394,7 +394,7 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.pushenv(self, name, value)
-   name = name:trim()
+   name = (name or ""):trim()
    dbg.start{"MainControl:pushenv(\"",name,"\", \"",value,"\")"}
 
    l_check_for_valid_name("pushenv",name)
@@ -450,7 +450,7 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.popenv(self, name, value)
-   name = name:trim()
+   name = (name or ""):trim()
    dbg.start{"MainControl:popenv(\"",name,"\", \"",value,"\")"}
 
    l_check_for_valid_name("popenv",name)
@@ -614,7 +614,7 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.set_alias(self, name, value)
-   name = name:trim()
+   name = (name or ""):trim()
    dbg.start{"MainControl:set_alias(\"",name,"\", \"",value,"\")"}
 
    l_check_for_valid_alias_name("set_alias",name)
@@ -636,7 +636,7 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.unset_alias(self, name, value)
-   name = name:trim()
+   name = (name or ""):trim()
    dbg.start{"MainControl:unset_alias(\"",name,"\", \"",value,"\")"}
 
    local frameStk = FrameStk:singleton()
@@ -656,7 +656,7 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.set_shell_function(self, name, bash_function, csh_function)
-   name = name:trim()
+   name = (name or ""):trim()
    dbg.start{"MainControl:set_shell_function(\"",name,"\", \"",bash_function,"\"",
              "\", \"",csh_function,"\""}
 
@@ -679,7 +679,7 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.unset_shell_function(self, name, bash_function, csh_function)
-   name = name:trim()
+   name = (name or ""):trim()
    dbg.start{"MainControl:unset_shell_function(\"",name,"\", \"",bash_function,"\"",
              "\", \"",csh_function,"\""}
 
@@ -1620,7 +1620,7 @@ function M.add_property(self, name, value)
    local sn        = frameStk:sn()
    local mt        = frameStk:mt()
    l_check_for_valid_name("add_property",name)
-   mt:add_property(sn, name:trim(), value)
+   mt:add_property(sn, (name or ""):trim(), value)
 end
 
 
@@ -1634,7 +1634,7 @@ function M.remove_property(self, name, value)
    local sn        = frameStk:sn()
    local mt        = frameStk:mt()
    l_check_for_valid_name("remove_property",name)
-   mt:remove_property(sn, name:trim(), value)
+   mt:remove_property(sn, (name or ""):trim(), value)
 end
 
 
