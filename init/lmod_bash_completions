@@ -127,7 +127,7 @@ _module() {
         --quiet --terse --version --default --width -r --regexp --mt --latest \
         -I --ignore_cache --gitversion --dumpversion --config --miniConfig    \
         --timer -f --force --redirect --show_hidden -T --trace --nx           \
-        --no_extensions"
+        --no_extensions --loc --location --terse_show_extensions --pod "
   
   case "${prev}" in
     add|load|try-load)
@@ -193,7 +193,8 @@ _ml() {
   opts="-d -D -h -q -t -v -w -s --style --expert --quiet --help -H -f --force     \
         --quiet --terse --version --default --Verbose --width -r --regexp --mt    \
         --gitversion --ignore_cache -I --latest --pin_version --trace -T --config \
-        --miniConfig --config_json --raw --show_hidden"
+        --miniConfig --config_json --raw --show_hidden --loc --location           \
+        --terse_show_extensions --pod"
   
   case "${prev}" in
     rm|remove|unload|switch|swap)
