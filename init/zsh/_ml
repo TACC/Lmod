@@ -14,7 +14,7 @@ _ml()
     '(-I --ignore_cache)'{--ignore_cache,-I}'[Treat the cache file(s) as out-of-date]'
     '(-T --trace)'{--style,-s}'[Report major internal actions by Lmod]'
     '(-d --default)'{--default,-d}'[List default modules only when used with avail]'
-    '(-f --force)'{--force,-f}'Force removal of a sticky module or save an empty collection]'
+    '(-f --force)'{--force,-f}'[Force removal of a sticky module or save an empty collection]'
     '(-q --quiet)'{--quiet,-q}'[disable verbose messages]'
     '(-r --regexp)'{--regexp,-r}'[lua regular expression matching]'
     '(-s --style)'{--style,-s}'[avail output style]'
