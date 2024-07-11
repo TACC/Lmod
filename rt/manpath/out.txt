@@ -90,3 +90,35 @@ export MODULEPATH;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/manpath/mf/Core",},systemBaseMPATH="ProjectDIR/rt/manpath/mf/Core",}';
 export _ModuleTable_;
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load abc
+===========================
+LOADEDMODULES=abc/1.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MANPATH=/opt/apps/abc/share/man:1\;/opt/X/man:1\;:1\;/opt/Y/man:1;
+export __LMOD_REF_COUNT_MANPATH;
+MANPATH=/opt/apps/abc/share/man:/opt/X/man::/opt/Y/man;
+export MANPATH;
+MODULEPATH=ProjectDIR/rt/manpath/mf/Core;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/manpath/mf/Core/abc/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={abc={fn="ProjectDIR/rt/manpath/mf/Core/abc/1.0.lua",fullName="abc/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="abc",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/manpath/mf/Core",},systemBaseMPATH="ProjectDIR/rt/manpath/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load def
+===========================
+LOADEDMODULES=abc/1.0:def/2.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MANPATH=/opt/apps/abc/share/man:1\;/opt/X/man:1\;:1\;/opt/Y/man:1\;/opt/apps/def/share/man:1;
+export __LMOD_REF_COUNT_MANPATH;
+MANPATH=/opt/apps/abc/share/man:/opt/X/man::/opt/Y/man:/opt/apps/def/share/man;
+export MANPATH;
+MODULEPATH=ProjectDIR/rt/manpath/mf/Core;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/manpath/mf/Core/abc/1.0.lua:ProjectDIR/rt/manpath/mf/Core/def/2.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={abc={fn="ProjectDIR/rt/manpath/mf/Core/abc/1.0.lua",fullName="abc/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="abc",wV="000000001.*zfinal",},def={fn="ProjectDIR/rt/manpath/mf/Core/def/2.0.lua",fullName="def/2.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="def",wV="000000002.*zfinal",},},mpathA={"ProjectDIR/rt/manpath/mf/Core",},systemBaseMPATH="ProjectDIR/rt/manpath/mf/Core",}';
+export _ModuleTable_;

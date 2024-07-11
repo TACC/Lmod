@@ -379,7 +379,8 @@ function M.build_availA(self)
          for fullName, vv in pairs(v.fileT) do
             if (show_hidden or mrc:isVisible{fullName=fullName,sn=sn,fn=vv.fn}) then
                icnt    = icnt + 1
-               A[icnt] = { fullName = fullName, pV = pathJoin(sn,vv.pV), fn = vv.fn, sn = sn, propT = vv.propT}
+               A[icnt] = { fullName = fullName, pV = pathJoin(sn,vv.pV), fn = vv.fn, sn = sn,
+                           propT = vv.propT, provides = vv.provides}
             end
          end
       end

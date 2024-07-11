@@ -144,7 +144,7 @@ Lmod 8.7+
               Namely print the location of the module.
             * Support for "module --terse spider phdf5/1.12.2" that just prints the module in the hierarchy.
             * Move almost almost all cosmic:value() calls to inside function not at routine top-level.
-            * PR: #702: Report build time in UTC when $SOURCE_DATE_EPOCH is set
+            * PR #702: Report build time in UTC when $SOURCE_DATE_EPOCH is set
             * PR #679: support for downstream conflicts added
             * PR #679: support for dynamic LMOD_MODULERC
    (8.7.39) * Fix busted test for ModuleA.
@@ -156,6 +156,5 @@ Lmod 8.7+
             * ModuleTable modification: Changes to $MODULEPATH are stored in an entry.
    (8.7.42) * Fix setting of $FPATH when running bash or ksh shell and executing zsh -l.
    (8.7.43) * Support for ksh flag not needed anymore
-   
-   
-
+W.I.P:
+   (8.7.44) * Issue #710: path2pathA() keep double delims, Reduce triple delims to double

@@ -859,6 +859,7 @@ local function l_availEntry(defaultOnly, label, searchA, defaultT, entry)
    local fullName = entry.fullName
    local sn       = entry.sn
    local fn       = entry.fn
+   local provideA = entry.provides
    if (searchA.n > 0) then
       found = false
       for i = 1, searchA.n do
@@ -874,7 +875,7 @@ local function l_availEntry(defaultOnly, label, searchA, defaultT, entry)
       end
    end
    if (found) then
-      return sn, fullName, fn
+      return sn, fullName, fn, provideA
    end
    return nil, nil
 end
@@ -1011,8 +1012,8 @@ function M.overview(self,argA)
    end
 
    availA = regroup_avail_blocks(availStyle, availA)
-   local providedByT = false
-   self:terse_avail(mpathA, availA, alias2modT, searchA, showSN, defaultOnly, defaultT, providedByT, aa)
+   local showModuleExt = false
+   self:terse_avail(mpathA, availA, alias2modT, searchA, showSN, defaultOnly, defaultT, showModuleExt, aa)
 
    local label    = ""
    local a        = {}
@@ -1141,7 +1142,7 @@ function M.buildExtA(self, searchA, mpathA, providedByT, extA)
     dbg.fini("Hub:buildExtA()")
 end
 
-function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaultOnly, defaultT, providedByT, a)
+function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaultOnly, defaultT, showModuleExt, a)
    dbg.start{"Hub:terse_avail()"}
    local mrc         = MRC:singleton()
    local optionTbl   = optionTbl()
@@ -1171,7 +1172,7 @@ function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaul
       local prtSnT = {}  -- Mark if we have printed the sn?
       
       for i = 1,#A do
-         local sn, fullName, fn = l_availEntry(defaultOnly, label, searchA, defaultT, A[i])
+         local sn, fullName, fn, provideA = l_availEntry(defaultOnly, label, searchA, defaultT, A[i])
          if (sn) then
             if (not prtSnT[sn] and sn ~= fullName and showSN) then
                prtSnT[sn] = true
@@ -1185,6 +1186,11 @@ function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaul
                end
             end
             aa[#aa+1]     = fullName .. "\n"
+            if (showModuleExt and provideA and next(provideA) ~= nil ) then
+               for k = 1,#provideA do
+                  aa[#aa+1] = "#    " .. provideA[k] .. "\n"
+               end
+            end
          end
       end
       if (next(aa) ~= nil) then
@@ -1197,17 +1203,17 @@ function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaul
 
    -- if providedByT is not false then output 
 
-   if (providedByT and next(providedByT) ~= nil ) then
-
-     local extA = {}
-     self:buildExtA(searchA, mpathA, providedByT, extA)
-
-     for i=1,#extA do
-       a[#a+1] = "#"
-       a[#a+1] = extA[i][1]
-       a[#a+1] = "\n"
-     end
-   end
+   --if (providedByT and next(providedByT) ~= nil ) then
+   --
+   --  local extA = {}
+   --  self:buildExtA(searchA, mpathA, providedByT, extA)
+   --
+   --  for i=1,#extA do
+   --    a[#a+1] = "#"
+   --    a[#a+1] = extA[i][1]
+   --    a[#a+1] = "\n"
+   --  end
+   --end
       
    dbg.fini("Hub:terse_avail")
    return a
@@ -1253,6 +1259,8 @@ function M.avail(self, argA)
    local alias2modT    = mrc:getAlias2ModT(mpathA)
    local showSN        = not defaultOnly
 
+   dbg.printT("availA",availA)
+
    if (showSN) then
       showSN = argA.n == 0
    end
@@ -1279,17 +1287,8 @@ function M.avail(self, argA)
    if (optionTbl.terse or optionTbl.terseShowExtensions) then
       --------------------------------------------------
       -- Terse output
-      local spiderT     = false
-      local dbT         = false
-      local mpathMapT   = false
-      local providedByT = false
-      if (optionTbl.terseShowExtensions) then
-         local cache            = Cache:singleton{buildCache=true}
-         spiderT,dbT, mpathMapT, providedByT = cache:build()
-      end
-
       self:terse_avail(mpathA, availA, alias2modT, searchA, showSN,
-                       defaultOnly, defaultT, providedByT, a)
+                       defaultOnly, defaultT, optionTbl.terseShowExtensions, a)
 
       dbg.fini("Hub:avail")
       return a

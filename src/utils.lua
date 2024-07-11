@@ -595,10 +595,15 @@ function path2pathA(path, delim, clearDoubleSlash)
    if (path == '') then
       return { '' }
    end
-   local delimPatt = delim .. "+";
 
+   -- If path is /sw1/man::/sw2/man then
+   -- keep the double delim's
+   -- However convert /sw1/man:::/sw2/man to
+   --                 /sw1/man::/sw2/man 
 
-   path = path:gsub(delimPatt,delim)
+   local delimPatt = delim .. delim .. "+";
+   local delimStr  = delim .. delim 
+   path = path:gsub(delimPatt,delimStr)
 
    local pathA = {}
    for v  in path:split(delim) do

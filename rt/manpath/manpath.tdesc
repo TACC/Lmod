@@ -32,6 +32,10 @@ testdescript = {
      export MANPATH=/unknown/apps/junk/share/man
      runLmod load   unix                   # 6
      runLmod unload unix                   # 7
+     export MANPATH=/opt/X/man:::/opt/Y/man
+     runLmod load   abc                    # 8
+     runLmod load   def                    # 9
+
 
 
      HOME=$ORIG_HOME
