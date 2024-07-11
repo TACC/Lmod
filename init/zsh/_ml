@@ -23,7 +23,6 @@ _ml()
     '--Verbose[show generated module command]'
     '--config[display full Lmod configuration]'
     '--config_json[display full Lmod configuration in json format]'
-    '--force[force the removal of a sticky module or save an empty collection]'
     "--gitversion[Report Lmod's git version]"
     '--latest[Load latest (ignore default)]'
     '--location[Print the file location only when using show]'
