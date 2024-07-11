@@ -169,9 +169,6 @@ function main()
    }
 
    local translateT = {
-      ["-f"]="--force",
-      ["-I"]="--ignore_cache",
-      ["--loc"]="--location",
       ["--versoin"]="--version",
       ["--ver"]="--version",
       ["--v"]="--version",
