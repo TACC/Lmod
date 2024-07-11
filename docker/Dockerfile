@@ -42,7 +42,7 @@ RUN apt-get update \
     
 
 RUN mkdir /tmp/git-repo; cd /tmp/git-repo ; \
-    git clone https://github.com/surak/Lmod.git ; \
+    git clone https://github.com/TACC/Lmod.git ; \
     cd Lmod ; \
     git fetch --tags; \
     git checkout tags/8.7.34 ; \ 
