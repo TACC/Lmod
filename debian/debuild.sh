@@ -1,4 +1,6 @@
 #!/bin/bash
+# create a debian docker container, build Lmod in that container, copy the build files to
+# a new directory, and print the path to that new directory.
 set -e
 
 image_name="debuild-image"

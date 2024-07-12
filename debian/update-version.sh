@@ -1,4 +1,5 @@
 #!/bin/bash
+# update the debian files based on the latest git tag.
 set -e
 
 cd "$(dirname "$(realpath "$0")")" # go to the directory where this script exists
