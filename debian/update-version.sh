@@ -4,6 +4,12 @@ set -e
 
 cd "$(dirname "$(realpath "$0")")" # go to the directory where this script exists
 
+git remote -v | grep -q -e '^upstream.*TACC/Lmod' || (
+   echo "in order to get the latest version number, the official TACC repo must be an upstream."
+   echo "example: \`git remote add upstream https://github.com/TACC/Lmod.git\`"
+   exit 1
+)
+
 git fetch --tags
 latest_tag="$(git rev-list --tags --max-count=1)"
 latest_version="$(git describe --tags "$latest_tag")"
