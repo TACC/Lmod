@@ -35,7 +35,8 @@ testdescript = {
      export LMOD_TMOD_FIND_FIRST=1
      runLmod --show_hidden av                  # 6
      runLmod load B                            # 7
-     runLmod list                              # 8
+     runLmod load A                            # 8
+     runLmod list                              # 9
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

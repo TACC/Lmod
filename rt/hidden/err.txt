@@ -61,7 +61,11 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B
 ===========================
 ===========================
 step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
+===========================
+===========================
+step 9
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) B/9.8.7
+  1) B/9.8.7   2) A/1.0
