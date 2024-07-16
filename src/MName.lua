@@ -455,7 +455,7 @@ function M.find_exact_match(self, fileA)
       end
    end
 
-   ---dbg.print{"found: ",found,", fn: ",fn,", version: ", version,"\n"}
+   --dbg.print{"found: ",found,", fn: ",fn,", version: ", version,"\n"}
    --dbg.fini("MName:find_exact_match")
    return found, fn, version, wV
 end
@@ -491,9 +491,8 @@ end
 
 
 local function l_find_highest_by_key(self, key, fileA)
-   --dbg.start{"MName:find_by_key(key:\"",key,"\",fileA)"}
+   --dbg.start{"MName: l_find_highest_by_key(key:\"",key,"\",fileA)"}
    local mrc     = MRC:singleton()
-   local a       = fileA[1] or {}
    local weight  = " "  -- this is less than the lower possible weight.
    local idx     = nil
    local fn      = false
@@ -501,18 +500,25 @@ local function l_find_highest_by_key(self, key, fileA)
    local version = false
    local pV      = false
    local wV      = false
+   fileA         = fileA or {}
+   local a
 
-   for j = 1,#a do
-      local entry = a[j]
-      local v     = entry[key]
-      if (mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn} or isMarked(v)) then
-         if (v > weight) then
-            idx    = j
-            weight = v
-            pV     = entry.pV
-            wV     = entry.wV
+   for i = 1,#fileA do
+      a = fileA[i]
+
+      for j = 1,#a do
+         local entry = a[j]
+         local v     = entry[key]
+         if (mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn} or isMarked(v)) then
+            if (v > weight) then
+               idx    = j
+               weight = v
+               pV     = entry.pV
+               wV     = entry.wV
+            end
          end
       end
+      if (idx) then break end
    end
    if (idx) then
       fn           = a[idx].fn
@@ -521,7 +527,7 @@ local function l_find_highest_by_key(self, key, fileA)
       self.__range = { pV, pV }
    end
    --dbg.print{"found: ",found,", fn: ",fn,", version: ", version,", wV: ",wV,"\n"}
-   --dbg.fini("MName:find_by_key")
+   --dbg.fini("MName: l_find_highest_by_key")
    return found, fn, version, wV
 end
 
@@ -589,12 +595,12 @@ function M.find_inherit_match(self,fileA)
 end
 
 local function l_rangeCk(self, version, result_if_found, result_if_not_found)
-   dbg.start{"l_rangeCk(self, version: ",version,", result_if_found: ",result_if_found,", result_if_not_found: ",result_if_not_found,")"}
+   --dbg.start{"l_rangeCk(self, version: ",version,", result_if_found: ",result_if_found,", result_if_not_found: ",result_if_not_found,")"}
    local have_range = false
    local result     = result_if_not_found
    if (not self.__have_range) then
-      dbg.print{"no range\n"}
-      dbg.fini("l_rangeCk")
+      --dbg.print{"no range\n"}
+      --dbg.fini("l_rangeCk")
       return have_range, result
    end
 
@@ -604,17 +610,17 @@ local function l_rangeCk(self, version, result_if_found, result_if_not_found)
    local lowerFn    = self.__range_fnA[1]
    local upperFn    = self.__range_fnA[2]
    local pV         = parseVersion(version)
-   dbg.print{"lowerBound: ",lowerBound,"\n"}
-   dbg.print{"upperBound: ",upperBound,"\n"}
-   dbg.print{"pV:         ",pV,"\n"}
-   dbg.print{"lowerFn: ",lowerFn.name,", lowerFn.func(lowerBound, pV): ",lowerFn.func(lowerBound, pV),"\n"}
-   dbg.print{"upperFn: ",upperFn.name,", upperFn.func(pV, upperBound): ",upperFn.func(pV, upperBound),"\n"}
+   --dbg.print{"lowerBound: ",lowerBound,"\n"}
+   --dbg.print{"upperBound: ",upperBound,"\n"}
+   --dbg.print{"pV:         ",pV,"\n"}
+   --dbg.print{"lowerFn: ",lowerFn.name,", lowerFn.func(lowerBound, pV): ",lowerFn.func(lowerBound, pV),"\n"}
+   --dbg.print{"upperFn: ",upperFn.name,", upperFn.func(pV, upperBound): ",upperFn.func(pV, upperBound),"\n"}
 
    if (lowerFn.func(lowerBound, pV) and upperFn.func(pV, upperBound)) then
       result = result_if_found
    end
 
-   dbg.fini("l_rangeCk")
+   --dbg.fini("l_rangeCk")
    return have_range, result
 end
 
