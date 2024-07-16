@@ -501,17 +501,17 @@ local function l_find_highest_by_key(self, key, fileA)
    local pV      = false
    local wV      = false
    fileA         = fileA or {}
-   local a
+   local blockA
 
-   for i = 1,#fileA do
-      a = fileA[i]
+   for j = 1,#fileA do
+       blockA = fileA[j]
 
-      for j = 1,#a do
-         local entry = a[j]
+      for i = 1,#blockA do
+         local entry = blockA[i]
          local v     = entry[key]
          if (mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn} or isMarked(v)) then
             if (v > weight) then
-               idx    = j
+               idx    = i
                weight = v
                pV     = entry.pV
                wV     = entry.wV
@@ -521,8 +521,8 @@ local function l_find_highest_by_key(self, key, fileA)
       if (idx) then break end
    end
    if (idx) then
-      fn           = a[idx].fn
-      version      = a[idx].version or false
+      fn           = blockA[idx].fn
+      version      = blockA[idx].version or false
       found        = true
       self.__range = { pV, pV }
    end
