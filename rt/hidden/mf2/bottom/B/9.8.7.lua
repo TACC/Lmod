@@ -1,0 +1,1 @@
+setenv(myModuleName(),myModuleVersion())
