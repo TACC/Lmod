@@ -138,13 +138,13 @@ local function l_GroupIntoModules(self, level, maxdepth, mpath, dirT, T)
 end
 
 local function l_build(self, maxdepthT, dirA)
-   --dbg.start{"ModuleA l_build()"}
+   dbg.start{"ModuleA l_build()"}
    local moduleA = {}
    local sz      = #dirA
    --dbg.print{"#dirA: ",sz,"\n"}
    for i = 1,sz do
       local mpath    = dirA[i].mpath
-      --dbg.print{"mpath: ",mpath,"\n"}
+      dbg.print{"mpath: ",mpath,"\n"}
       local dirT     = dirA[i].dirT
       local T        = {}
       local maxdepth = maxdepthT[mpath] or -1
@@ -152,7 +152,7 @@ local function l_build(self, maxdepthT, dirA)
       l_GroupIntoModules(self, level, maxdepth, mpath, dirT, T)
       moduleA[#moduleA + 1] = {mpath = mpath, T = T}
    end
-   --dbg.fini("ModuleA l_build")
+   dbg.fini("ModuleA l_build")
    return moduleA
 end
 
@@ -186,8 +186,8 @@ local function l_find_vA(name, moduleA)
    if (idx) then
       versionStr = name:sub(idx+1,-1)
    end
-   --dbg.print{"sn: ",sn,", versionStr: ",versionStr,"\n"}
-   --dbg.printT("vA",vA)
+   dbg.print{"sn: ",sn,", versionStr: ",versionStr,"\n"}
+   dbg.printT("l_find_vA: vA",vA)
    return sn, versionStr, vA
 end
 
@@ -228,19 +228,20 @@ local function l_find_vB(sn, versionStr, vA)
          vB[#vB + 1] = v
       end
    end
-   --dbg.printT("vB",vB)
+   dbg.printT("l_find_vB: vB",vB)
    return fullStr, vB
 end
 
 local function l_search(name, moduleA)
-   --dbg.start{"ModuleA l_search(",name,",moduleA)"}
+   dbg.start{"ModuleA l_search(\"",name,"\", moduleA)"}
    -- First find sn and collect all v's into vA
 
    local sn, versionStr, vA = l_find_vA(name, moduleA)
    if (sn == nil) then return nil end
+   dbg.print{"sn: ",sn,", versionStr: ",versionStr,"\n"}
    local fullStr, vB        = l_find_vB(sn, versionStr, vA)
 
-   --dbg.print{"name: ",name,", sn: ",sn,", versionStr: ",versionStr, " fullStr: ",fullStr,"\n"}
+   dbg.print{"name: ",name,", sn: ",sn,", versionStr: ",versionStr, " fullStr: ",fullStr,"\n"}
 
    local extended_default = cosmic:value("LMOD_EXTENDED_DEFAULT")
 
@@ -249,12 +250,13 @@ local function l_search(name, moduleA)
       fileA[i] = {}
       collectFileA(sn, fullStr, extended_default, vB[i], fileA[i])
    end
-   --dbg.fini("ModuleA l_search")
+   dbg.printT("fileA",fileA)
+   dbg.fini("ModuleA l_search")
    return sn, versionStr, fileA
 end
 
 function M.applyWeights(self,fullNameDfltT)
-   --dbg.start{"ModuleA:applyWeights(fullNameDfltT)"}
+   dbg.start{"ModuleA:applyWeights(fullNameDfltT)"}
    for fullName, weight in pairs(fullNameDfltT) do
       repeat
          local sn, versionStr, vA = l_find_vA(fullName, self.__moduleA)
@@ -280,12 +282,12 @@ function M.applyWeights(self,fullNameDfltT)
          end
       until true
    end
-   --dbg.fini("ModuleA:applyWeights")
+   dbg.fini("ModuleA:applyWeights")
 end
 
 
 function M.__find_all_defaults(self)
-   --dbg.start{"ModuleA:__find_all_defaults()"}
+   dbg.start{"ModuleA:__find_all_defaults()"}
    local moduleA     = self.__moduleA
    local defaultT    = self.__defaultT
    local show_hidden = optionTbl().show_hidden
@@ -358,7 +360,7 @@ function M.__find_all_defaults(self)
       t[v.fn] = { sn = k, count = v.count, fullName = v.fullName, weight = v.weight }
    end
    self.__defaultT = t
-   --dbg.fini("ModuleA:__find_all_defaults")
+   dbg.fini("ModuleA:__find_all_defaults")
 end
 
 
@@ -406,7 +408,7 @@ function M.build_availA(self)
       end
       sort(availA[i].A, cmp)
    end
-   --dbg.fini("ModuleA:build_availA")
+   dbg.fini("ModuleA:build_availA")
    return availA
 end
 
@@ -483,15 +485,20 @@ function M.inherited_search(self, search_fullName, orig_fn)
 end
 
 function M.search(self, name)
+   dbg.start{"ModuleA:search(\"",name,"\")"}
    if (self.__isNVV) then
-      return l_search(name, self.__moduleA)
+      local sn, versionStr, fileA = l_search(name, self.__moduleA)
+      dbg.fini("ModuleA:search")
+      return sn, versionStr, fileA 
    end
 
    if (not self.__locationT) then
       self.__locationT = LocationT:new(self.__moduleA)
    end
 
-   return self.__locationT:search(name)
+   local sn, versionStr, fileA = self.__locationT:search(name)
+   dbg.fini("ModuleA:search")
+   return sn, versionStr, fileA 
 end
 
 local function l_checkforNV(T)
@@ -504,7 +511,7 @@ local function l_checkforNV(T)
 end
 
 local function l_build_from_spiderT(spiderT)
-   --dbg.start{"ModuleA l_build_from_spiderT(spiderT)"}
+   dbg.start{"ModuleA l_build_from_spiderT(spiderT)"}
    local find_first = cosmic:value("LMOD_TMOD_FIND_FIRST")
    local frameStk   = FrameStk:singleton()
    local mt         = frameStk:mt()
@@ -514,7 +521,7 @@ local function l_build_from_spiderT(spiderT)
    for i = 1, #mpathA do
       local mpath = mpathA[i]
       if (isDir(mpath)) then
-         --dbg.print{"pulling mpath: ",mpath," into moduleA\n"}
+         dbg.print{"pulling mpath: ",mpath," into moduleA\n"}
          local T = spiderT[mpath]
          if (T and next(T) ~= nil) then
             moduleA[#moduleA+1] = { mpath = mpath, T = deepcopy(T) }
@@ -524,7 +531,7 @@ local function l_build_from_spiderT(spiderT)
          end
       end
    end
-   --dbg.fini("ModuleA l_build_from_spiderT")
+   dbg.fini("ModuleA l_build_from_spiderT")
    return moduleA, not isNV
 end
 
@@ -535,7 +542,7 @@ end
 
 function M.update(self, t)
    t                   = t or {}
-   --dbg.start{"ModuleA:update(spider_cache = ",t.spider_cache,")"}
+   dbg.start{"ModuleA:update(spider_cache = ",t.spider_cache,")"}
    local frameStk      = FrameStk:singleton()
    local mt            = frameStk:mt()
    local varT          = frameStk:varT()
@@ -593,12 +600,12 @@ function M.update(self, t)
    self.__locationT = false
    self.__moduleA   = moduleA
    mt:updateMPathA(mpathA)
-   --dbg.fini("ModuleA:update")
+   dbg.fini("ModuleA:update")
 end
 
 
 function M.__new(self, mpathA, maxdepthT, moduleRCT, spiderT)
-   --dbg.start{"ModuleA:__new()"}
+   dbg.start{"ModuleA:__new()"}
    local o          = {}
    local find_first = cosmic:value("LMOD_TMOD_FIND_FIRST")
    setmetatable(o,self)
@@ -609,25 +616,21 @@ function M.__new(self, mpathA, maxdepthT, moduleRCT, spiderT)
    spiderT         = spiderT or {}
    if (next(spiderT) ~= nil) then
       o.__spiderBuilt        = true
-      --dbg.print{"calling l_build_from_spiderT()\n"}
-      --dbg.printT("spiderT",spiderT)
+      dbg.print{"calling l_build_from_spiderT()\n"}
+      dbg.printT("spiderT",spiderT)
       o.__moduleA, o.__isNVV = l_build_from_spiderT(spiderT)
    else
-      --dbg.print{"calling DirTree:new()\n"}
+      dbg.print{"calling DirTree:new()\n"}
       dirTree         = DirTree:new(mpathA)
       o.__spiderBuilt = false
       o.__moduleA     = l_build(o, maxdepthT, dirTree:dirA())
    end
 
-   --if (moduleRCT and next(moduleRCT) ~= nil) then
-   --   local mrc       = MRC:singleton(moduleRCT)
-   --   o:applyWeights(mrc:fullNameDfltT())
-   --end
    o.__locationT   = false
    o.__defaultT    = {}
    
 
-   --dbg.fini("ModuleA:__new")
+   dbg.fini("ModuleA:__new")
    return o
 end
 
@@ -666,10 +669,10 @@ function M.defaultT(self)
 end
 
 function M.singleton(self, t)
-   --dbg.start{"ModuleA:singleton(t)"}
+   dbg.start{"ModuleA:singleton(t)"}
    t = t or {}
    if (t.reset or (s_moduleA and s_moduleA:spiderBuilt())) then
-      --dbg.print{"Wiping out old value of s_moduleA\n"}
+      dbg.print{"Wiping out old value of s_moduleA\n"}
       self:__clear{testing=t.reset}
    end
    if (not s_moduleA) then
@@ -685,14 +688,14 @@ function M.singleton(self, t)
       s_moduleA = self:__new(mt:modulePathA(), mt:maxDepthT(), getModuleRCT(), spiderT)
    end
 
-   --dbg.fini("ModuleA:singleton")
+   dbg.fini("ModuleA:singleton")
    return s_moduleA
 end
 
 
 
 function M.__clear(self, t)
-   --dbg.start{"ModuleA:__clear()"}
+   dbg.start{"ModuleA:__clear()"}
    t = t or {}
    local MT = require("MT")
    s_moduleA = false
@@ -702,7 +705,7 @@ function M.__clear(self, t)
       Cache:__clear()
    end
    MT:__clearMT{testing=true}
-   --dbg.fini("ModuleA:__clear")
+   dbg.fini("ModuleA:__clear")
 end
 
 return M
