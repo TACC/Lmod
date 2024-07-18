@@ -157,7 +157,6 @@ Lmod 8.7+
    (8.7.42) * Fix setting of $FPATH when running bash or ksh shell and executing zsh -l.
    (8.7.43) * Support for ksh flag not needed anymore
    (8.7.44) * Issue #710: path2pathA() keep double delims, Reduce triple delims to double
-W.I.P.:
    (8.7.45) * Issue #713: Changing MName.src: l_find_highest_by_key() to loop over all fileA entries.
               Now stoping at first one found rather than just looking at fileA[1].
             * Issue #714: Adding "=encoding UTF-8" to pod generation
