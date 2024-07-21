@@ -378,6 +378,7 @@ end
 
 function M.buildManPod(self)
    local b = {}
+   b[#b+1] = "=encoding UTF-8"
    b[#b+1] = self.progName
    b[#b+1] = "=head1 SYNOPSIS"
    b[#b+1] = self.usage
