@@ -1348,10 +1348,12 @@ function M.getMTfromFile(self,tt)
 
    s_mt = false
    __removeEnvMT()
+   
+   local varT = frameStk:varT()
    FrameStk:__clear()
    dbg.print{"Setting MODULEPATH to: ",savedMPATH,"\n"}
    posix_setenv(ModulePath, savedMPATH, true)
-   frameStk = FrameStk:singleton()
+   frameStk = FrameStk:singleton{varT = varT}
    mt       = frameStk:mt()
    mt.systemBaseMPATH = savedBaseMPATH
    dbg.print{"savedBaseMPATH: ",savedBaseMPATH,"\n"}
