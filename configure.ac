@@ -1072,8 +1072,6 @@ if test $FOUND_ERROR = yes; then
   exit 1;
 fi      
 
-
-
 AC_SUBST(ZSH_SITE_FUNCTIONS_DIRS)
 AC_PATH_PROG(ZSH, zsh)
 PATH_TO_ZSH=$ZSH
@@ -1107,33 +1105,6 @@ EOF
 
    rm conftest.zsh
 fi
-
-AC_SUBST(ORIG_ZSH_VERSION)
-if test -n "$PATH_TO_ZSH" ; then
-   cat > conftest.zsh << 'EOF'
-echo $ZSH_VERSION
-EOF
-   chmod +x conftest.zsh
-   ORIG_ZSH_VERSION=`$PATH_TO_ZSH -f ./conftest.zsh 2> /dev/null`
-   rm conftest.zsh
-fi
-
-
-AC_SUBST(ZSH_FPATH)
-if test -n "$PATH_TO_ZSH" ; then
-  cat > conftest.zsh << 'EOF'
-echo $FPATH
-EOF
-
-   chmod +x conftest.zsh
-
-   unset FPATH
-   ZSH_FPATH=`$PATH_TO_ZSH -f ./conftest.zsh 2> /dev/null`
-
-   rm conftest.zsh
-fi
-
-
 
 AC_CONFIG_FILES([makefile:Makefile.in])
 AC_OUTPUT
