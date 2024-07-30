@@ -652,7 +652,7 @@ AC_ARG_WITH(lua,
     PATH_TO_LUA="$withval"
     if test ${PATH_TO_LUA:0:1} != '/' ; then
       echo "Path to lua must be absolute"
-      exit 1
+      FOUND_ERROR=yes
     fi
     AC_MSG_RESULT([PATH_TO_LUA=$with_lua])
     AC_DEFINE_UNQUOTED(PATH_TO_LUA, "$with_lua")dnl
@@ -668,7 +668,7 @@ AC_ARG_WITH(luac,
     PATH_TO_LUAC="$withval"
     if test ${PATH_TO_LUAC:0:1} != '/' ; then
       echo "Path to luac must be absolute"
-      exit 1
+      FOUND_ERROR=yes
     fi
     AC_MSG_RESULT([PATH_TO_LUAC=$with_luac])
     AC_DEFINE_UNQUOTED(PATH_TO_LUAC, "$with_luac")dnl
@@ -695,6 +695,8 @@ AC_ARG_WITH(luaSuffix,
 if test "$ALLOW_TCL_MFILES" = no ; then
   FAST_TCL_INTERP=no
 fi
+
+FOUND_ERROR=
 
 if test "$FAST_TCL_INTERP" = yes ; then
    OS=$(uname -s)
@@ -731,10 +733,11 @@ if test "$FAST_TCL_INTERP" = yes ; then
 
    if test "$ac_cv_header_tcl_h" != yes ; then
       rm -f makefile
-      AC_MSG_ERROR([Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h])
+      FOUND_ERROR=yes
+      AC_MSG_NOTICE([Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h])
    fi
    AC_SEARCH_LIBS(Tcl_CreateInterp, [tcl] [tcl8.8] [tcl8.7] [tcl8.6] [tcl8.5],[],
-                [rm -f makefile; AC_MSG_ERROR([Unable to build Lmod with -ltcl Please install the tcl devel package or configure --with-fastTCLInterp=no to not require the tcl library])], [$TCL_LIBS])
+                [rm -f makefile; FOUND_ERROR=yes; AC_MSG_NOTICE([Unable to build Lmod with -ltcl Please install the tcl devel package or configure --with-fastTCLInterp=no to not require the tcl library])], [$TCL_LIBS])
 
    AC_SUBST(TCL_INCLUDE, "$TCL_INCLUDE")
    AC_SUBST(TCL_LIBS, "$TCL_LIBS")
@@ -772,7 +775,7 @@ if test $MODE != "user_default" ; then
      echo "Please try setting mode to 755 or 750 or 700 or similar."
      echo
      rm -f makefile
-     exit 1
+     FOUND_ERROR=yes
   fi
 fi
 
@@ -783,7 +786,7 @@ if test "$PS" = "UNKNOWN_PS" ; then
   echo "You must have valid ps in your path. Quitting!"
   echo
   rm -f makefile
-  exit 1
+  FOUND_ERROR=yes
 fi
 
 AC_PATH_PROG(READLINK,readlink, UNKNOWN_READLINK)
@@ -792,7 +795,7 @@ if test "$READLINK" = "UNKNOWN_READLINK" ; then
   echo "You must have valid ps in your path. Quitting!"
   echo
   rm -f makefile
-  exit 1
+  FOUND_ERROR=yes
 fi
 
 AC_PATH_PROGS(EXPR,[gexpr] [expr], UNKNOWN_EXPR)
@@ -801,7 +804,7 @@ if test "$EXPR" = "UNKNOWN_EXPR" ; then
   echo "You must have valid expr or gexpr in your path. Quitting!"
   echo
   rm -f makefile
-  exit 1
+  FOUND_ERROR=yes
 fi
 
 AC_PATH_PROGS(BASENAME, [gbasename] [basename], UNKNOWN_BASENAME)
@@ -810,7 +813,7 @@ if test "$BASENAME" = "UNKNOWN_BASENAME" ; then
   echo "You must have either basename or gbasename in your path. Quitting!"
   echo
   rm -f makefile
-  exit 1
+  FOUND_ERROR=yes
 fi
 
 AC_PATH_PROGS(BC, [bc], UNKNOWN_BC)
@@ -819,7 +822,7 @@ if test "$BC" = "UNKNOWN_BC" ; then
   echo "You must have bc in your path. Quitting!"
   echo
   rm -f makefile
-  exit 1
+  FOUND_ERROR=yes
 fi
 
 AC_PATH_PROG(PATH_TO_POD2MAN, pod2man, UNKNOWN_POD2MAN)
@@ -835,7 +838,7 @@ elif test "$PATH_TO_HASHSUM" = "UNKNOWN_HASHSUM" ; then
   echo "You must have either sha1sum, shasum, md5sum or md5 in your path. Quitting!"
   echo
   rm -f makefile
-  exit 1
+  FOUND_ERROR=yes
 fi
 
 AC_PATH_PROG(PATH_TO_TCLSH, tclsh, UNKNOWN_TCLSH)
@@ -844,7 +847,7 @@ if test "$PATH_TO_TCLSH" = "UNKNOWN_TCLSH" -a "$ALLOW_TCL_MFILES" = yes; then
   echo "The tclsh program must be in your path. Quitting!"
   echo
   rm -f makefile
-  exit 1
+  FOUND_ERROR=yes
 fi
 AC_PATH_PROGS(PATH_TO_TR, [gtr] [tr],"")
 AC_PATH_PROGS(PATH_TO_LS, [gls] [ls], "")
@@ -856,14 +859,14 @@ AC_PATH_PROGS(PATH_TO_LS, [gls] [ls], "")
 if ! command -v $PATH_TO_LUA &>/dev/null ; then
   echo 'The program "'$PATH_TO_LUA'" must be in your path'
   rm -f makefile
-  exit 1
+  FOUND_ERROR=yes
 fi
 
 if test "${LUA_SUFFIX}" != no ; then
    if test "${PATH_TO_LUA:0:1}" = '/' -o "${PATH_TO_LUAC:0:1}" = '/'; then
       echo "Neither --with-lua= nor --with-luac= can be used with --with-luaSuffix="
       rm -f makefile
-      exit 1
+      FOUND_ERROR=yes
    fi
    PATH_TO_LUA=lua$LUA_SUFFIX
    PATH_TO_LUAC=luac$LUA_SUFFIX
@@ -879,14 +882,14 @@ else
    if test "$mismatch" = true ; then
       echo "Both --with-lua= and --with-luac= must both be specified"
       rm -f makefile
-      exit 1
+      FOUND_ERROR=yes
    fi   
 fi
 
 if ! command -v $PATH_TO_LUA &>/dev/null ; then
   echo 'The program "'$PATH_TO_LUA'" must be in your path'
   rm -f makefile
-  exit 1
+  FOUND_ERROR=yes
 fi
 
 if test ${PATH_TO_LUA:0:1} != '/' ; then
@@ -897,7 +900,7 @@ fi
 if ! command -v $PATH_TO_LUAC &>/dev/null ; then
   echo 'The program "'$PATH_TO_LUAC'" must be in your path'
   rm -f makefile
-  exit 1
+  FOUND_ERROR=yes
 fi
 
 if test "${PATH_TO_LUAC:0:1}" != '/' ; then
@@ -922,7 +925,7 @@ IntLuaV=$( $PATH_TO_LUA  -e "_,_,M,m=_VERSION:gsub('Lua%s+',''):find('(%d+)%.(%d
 if test $IntLuaV -lt 5001 -o $IntLuaV -gt 5004; then
   echo "Error: Lmod requires versions 5.1, 5.2, 5.3, or 5.4 You have: $LuaV"
   rm -f makefile
-  exit 1
+  FOUND_ERROR=yes
 fi
 
 echo "... $LuaV"
@@ -963,7 +966,7 @@ if test -n "$missingModules" ; then
   echo ""
   echo "You can not run Lmod without: $missingModules"
   rm -f makefile
-  exit 1
+  FOUND_ERROR=yes
 else
   echo "... yes"
 fi
@@ -1054,11 +1057,21 @@ if ! test "$HAVE_LUA_TERM" = yes; then
     echo Quitting!
     echo
     rm -f makefile
-    exit 1
+    FOUND_ERROR=yes
   fi
 fi
 
 ##### LUA configuration -- end
+
+
+if test $FOUND_ERROR = yes; then
+  echo
+  echo One or more errors found -> Quiting!
+  echo
+  rm -f makefile
+  exit 1;
+fi      
+
 
 
 AC_SUBST(ZSH_SITE_FUNCTIONS_DIRS)

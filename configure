@@ -4386,7 +4386,7 @@ then :
   withval=$with_lua; PATH_TO_LUA="$withval"
     if test ${PATH_TO_LUA:0:1} != '/' ; then
       echo "Path to lua must be absolute"
-      exit 1
+      FOUND_ERROR=yes
     fi
     { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: PATH_TO_LUA=$with_lua" >&5
 printf "%s\n" "PATH_TO_LUA=$with_lua" >&6; }
@@ -4409,7 +4409,7 @@ then :
   withval=$with_luac; PATH_TO_LUAC="$withval"
     if test ${PATH_TO_LUAC:0:1} != '/' ; then
       echo "Path to luac must be absolute"
-      exit 1
+      FOUND_ERROR=yes
     fi
     { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: PATH_TO_LUAC=$with_luac" >&5
 printf "%s\n" "PATH_TO_LUAC=$with_luac" >&6; }
@@ -4448,6 +4448,8 @@ fi
 if test "$ALLOW_TCL_MFILES" = no ; then
   FAST_TCL_INTERP=no
 fi
+
+FOUND_ERROR=
 
 if test "$FAST_TCL_INTERP" = yes ; then
    OS=$(uname -s)
@@ -4565,7 +4567,9 @@ fi
 
    if test "$ac_cv_header_tcl_h" != yes ; then
       rm -f makefile
-      as_fn_error $? "Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h" "$LINENO" 5
+      FOUND_ERROR=yes
+      { printf "%s\n" "$as_me:${as_lineno-$LINENO}: Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h" >&5
+printf "%s\n" "$as_me: Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h" >&6;}
    fi
    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for library containing Tcl_CreateInterp" >&5
 printf %s "checking for library containing Tcl_CreateInterp... " >&6; }
@@ -4625,7 +4629,8 @@ then :
   test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
 
 else $as_nop
-  rm -f makefile; as_fn_error $? "Unable to build Lmod with -ltcl Please install the tcl devel package or configure --with-fastTCLInterp=no to not require the tcl library" "$LINENO" 5
+  rm -f makefile; FOUND_ERROR=yes; { printf "%s\n" "$as_me:${as_lineno-$LINENO}: Unable to build Lmod with -ltcl Please install the tcl devel package or configure --with-fastTCLInterp=no to not require the tcl library" >&5
+printf "%s\n" "$as_me: Unable to build Lmod with -ltcl Please install the tcl devel package or configure --with-fastTCLInterp=no to not require the tcl library" >&6;}
 fi
 
 
@@ -4667,7 +4672,7 @@ if test $MODE != "user_default" ; then
      echo "Please try setting mode to 755 or 750 or 700 or similar."
      echo
      rm -f makefile
-     exit 1
+     FOUND_ERROR=yes
   fi
 fi
 
@@ -4723,7 +4728,7 @@ if test "$PS" = "UNKNOWN_PS" ; then
   echo "You must have valid ps in your path. Quitting!"
   echo
   rm -f makefile
-  exit 1
+  FOUND_ERROR=yes
 fi
 
 # Extract the first word of "readlink", so it can be a program name with args.
@@ -4777,7 +4782,7 @@ if test "$READLINK" = "UNKNOWN_READLINK" ; then
   echo "You must have valid ps in your path. Quitting!"
   echo
   rm -f makefile
-  exit 1
+  FOUND_ERROR=yes
 fi
 
 for ac_prog in gexpr expr
@@ -4836,7 +4841,7 @@ if test "$EXPR" = "UNKNOWN_EXPR" ; then
   echo "You must have valid expr or gexpr in your path. Quitting!"
   echo
   rm -f makefile
-  exit 1
+  FOUND_ERROR=yes
 fi
 
 for ac_prog in gbasename basename
@@ -4895,7 +4900,7 @@ if test "$BASENAME" = "UNKNOWN_BASENAME" ; then
   echo "You must have either basename or gbasename in your path. Quitting!"
   echo
   rm -f makefile
-  exit 1
+  FOUND_ERROR=yes
 fi
 
 for ac_prog in bc
@@ -4954,7 +4959,7 @@ if test "$BC" = "UNKNOWN_BC" ; then
   echo "You must have bc in your path. Quitting!"
   echo
   rm -f makefile
-  exit 1
+  FOUND_ERROR=yes
 fi
 
 # Extract the first word of "pod2man", so it can be a program name with args.
@@ -5160,7 +5165,7 @@ elif test "$PATH_TO_HASHSUM" = "UNKNOWN_HASHSUM" ; then
   echo "You must have either sha1sum, shasum, md5sum or md5 in your path. Quitting!"
   echo
   rm -f makefile
-  exit 1
+  FOUND_ERROR=yes
 fi
 
 # Extract the first word of "tclsh", so it can be a program name with args.
@@ -5214,7 +5219,7 @@ if test "$PATH_TO_TCLSH" = "UNKNOWN_TCLSH" -a "$ALLOW_TCL_MFILES" = yes; then
   echo "The tclsh program must be in your path. Quitting!"
   echo
   rm -f makefile
-  exit 1
+  FOUND_ERROR=yes
 fi
 for ac_prog in gtr tr
 do
@@ -5326,14 +5331,14 @@ test -n "$PATH_TO_LS" || PATH_TO_LS=""""
 if ! command -v $PATH_TO_LUA &>/dev/null ; then
   echo 'The program "'$PATH_TO_LUA'" must be in your path'
   rm -f makefile
-  exit 1
+  FOUND_ERROR=yes
 fi
 
 if test "${LUA_SUFFIX}" != no ; then
    if test "${PATH_TO_LUA:0:1}" = '/' -o "${PATH_TO_LUAC:0:1}" = '/'; then
       echo "Neither --with-lua= nor --with-luac= can be used with --with-luaSuffix="
       rm -f makefile
-      exit 1
+      FOUND_ERROR=yes
    fi
    PATH_TO_LUA=lua$LUA_SUFFIX
    PATH_TO_LUAC=luac$LUA_SUFFIX
@@ -5349,14 +5354,14 @@ else
    if test "$mismatch" = true ; then
       echo "Both --with-lua= and --with-luac= must both be specified"
       rm -f makefile
-      exit 1
+      FOUND_ERROR=yes
    fi
 fi
 
 if ! command -v $PATH_TO_LUA &>/dev/null ; then
   echo 'The program "'$PATH_TO_LUA'" must be in your path'
   rm -f makefile
-  exit 1
+  FOUND_ERROR=yes
 fi
 
 if test ${PATH_TO_LUA:0:1} != '/' ; then
@@ -5411,7 +5416,7 @@ fi
 if ! command -v $PATH_TO_LUAC &>/dev/null ; then
   echo 'The program "'$PATH_TO_LUAC'" must be in your path'
   rm -f makefile
-  exit 1
+  FOUND_ERROR=yes
 fi
 
 if test "${PATH_TO_LUAC:0:1}" != '/' ; then
@@ -5480,7 +5485,7 @@ IntLuaV=$( $PATH_TO_LUA  -e "_,_,M,m=_VERSION:gsub('Lua%s+',''):find('(%d+)%.(%d
 if test $IntLuaV -lt 5001 -o $IntLuaV -gt 5004; then
   echo "Error: Lmod requires versions 5.1, 5.2, 5.3, or 5.4 You have: $LuaV"
   rm -f makefile
-  exit 1
+  FOUND_ERROR=yes
 fi
 
 echo "... $LuaV"
@@ -5521,7 +5526,7 @@ if test -n "$missingModules" ; then
   echo ""
   echo "You can not run Lmod without: $missingModules"
   rm -f makefile
-  exit 1
+  FOUND_ERROR=yes
 else
   echo "... yes"
 fi
@@ -5661,11 +5666,21 @@ if ! test "$HAVE_LUA_TERM" = yes; then
     echo Quitting!
     echo
     rm -f makefile
-    exit 1
+    FOUND_ERROR=yes
   fi
 fi
 
 ##### LUA configuration -- end
+
+
+if test $FOUND_ERROR = yes; then
+  echo
+  echo One or more errors found -> Quiting!
+  echo
+  rm -f makefile
+  exit 1;
+fi
+
 
 
 
