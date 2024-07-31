@@ -3460,6 +3460,8 @@ FOLLOW_READLINK ()
   echo $myprog
 }
 
+ERR_MSG=""
+FOUND_ERROR=
 
 
 
@@ -4385,7 +4387,8 @@ if test ${with_lua+y}
 then :
   withval=$with_lua; PATH_TO_LUA="$withval"
     if test ${PATH_TO_LUA:0:1} != '/' ; then
-      echo "Path to lua must be absolute"
+      echo
+      echo "ERROR: Path to lua must be absolute!"
       exit 1
     fi
     { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: PATH_TO_LUA=$with_lua" >&5
@@ -4408,7 +4411,8 @@ if test ${with_luac+y}
 then :
   withval=$with_luac; PATH_TO_LUAC="$withval"
     if test ${PATH_TO_LUAC:0:1} != '/' ; then
-      echo "Path to luac must be absolute"
+      echo
+      echo "ERROR: Path to luac must be absolute"
       exit 1
     fi
     { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: PATH_TO_LUAC=$with_luac" >&5
@@ -4456,7 +4460,7 @@ if test "$FAST_TCL_INTERP" = yes ; then
      TCL_INCLUDE="-I${DIR}/usr/include"
    else
      for i in "" tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
-        if test -f /usr/include/$i/tcl.h ; then
+        if test -f /usr/include/$i/tcl.hh ; then
 	   TCL_INCLUDE="-I/usr/include/$i"
 	   break;
 	fi
@@ -4464,8 +4468,8 @@ if test "$FAST_TCL_INTERP" = yes ; then
    fi
 
    if test -z "$TCL_INCLUDE" ; then
-       # Extract the first word of "pkg-config", so it can be a program name with args.
-set dummy pkg-config; ac_word=$2
+       # Extract the first word of "pkg-configFoo", so it can be a program name with args.
+set dummy pkg-configFoo; ac_word=$2
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
 printf %s "checking for $ac_word... " >&6; }
 if test ${ac_cv_path_pkgConfig+y}
@@ -4554,8 +4558,8 @@ then :
 printf "%s\n" "#define STDC_HEADERS 1" >>confdefs.h
 
 fi
-ac_fn_c_check_header_compile "$LINENO" "tcl.h" "ac_cv_header_tcl_h" "$ac_includes_default"
-if test "x$ac_cv_header_tcl_h" = xyes
+ac_fn_c_check_header_compile "$LINENO" "tcl.hh" "ac_cv_header_tcl_hh" "$ac_includes_default"
+if test "x$ac_cv_header_tcl_hh" = xyes
 then :
 
 printf "%s\n" "#define HAVE_TCL_H 1" >>confdefs.h
@@ -4565,7 +4569,11 @@ fi
 
    if test "$ac_cv_header_tcl_h" != yes ; then
       rm -f makefile
-      as_fn_error $? "Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h" "$LINENO" 5
+      FOUND_ERROR=yes
+      MSG="Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h"
+      ERR_MSG="$ERR_MSG||$MSG"
+      { printf "%s\n" "$as_me:${as_lineno-$LINENO}: $MSG" >&5
+printf "%s\n" "$as_me: $MSG" >&6;}
    fi
    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for library containing Tcl_CreateInterp" >&5
 printf %s "checking for library containing Tcl_CreateInterp... " >&6; }
@@ -4658,14 +4666,25 @@ PATH_TO_SRC=$SRCDIR
 
 
 
-if test $MODE != "user_default" ; then
-  mode=0$MODE
+FOUND_ERROR=yes
+MSG="MODE must have at least one executable bit set (Not MODE=$MODE)|
+Please try setting mode to 755 or 750 or 700 or similar."
+
+     echo "$MSG"
+     echo
+ERR_MSG="$ERR_MSG||$MSG"
+
+if test $MODE == "user_default" ; then
+  mode=0755
   EXEC_BITS=$(( 0111 & $mode ));
   if test $EXEC_BITS = 0; then
+MSG="MODE must have at least one executable bit set (Not MODE=$MODE)
+Please try setting mode to 755 or 750 or 700 or similar."
+
+     echo "$MSG"
      echo
-     echo "MODE must have at least one executable bit set (Not MODE=$MODE)"
-     echo "Please try setting mode to 755 or 750 or 700 or similar."
-     echo
+ERR_MSG="$ERR_MSG
+$MSG"
      rm -f makefile
      exit 1
   fi
@@ -5667,6 +5686,20 @@ fi
 
 ##### LUA configuration -- end
 
+if test $FOUND_ERROR = yes; then
+  echo
+  echo One or more errors found:
+  echo
+  echo Error Messages:
+  echo "------------------------------------------------------------"
+  echo $ERR_MSG | tr '|' '\n' | while read item; do
+       echo $item
+  done
+  echo "------------------------------------------------------------"
+
+  rm -f makefile
+  exit 1;
+fi
 
 
 # Extract the first word of "zsh", so it can be a program name with args.
