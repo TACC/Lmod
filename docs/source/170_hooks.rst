@@ -95,7 +95,9 @@ used in the Lmod program.
 
 
 **load** (...):
-  This function is called after a modulefile is loaded in "load" mode.
+  This function is called after a modulefile is loaded in "load"
+  mode. Use **load_spider()** hook instead when desiring a hook during
+  spider evaluation.
 
 **unload** (...):
   This function is called after a modulefile is unloaded in "unload" mode.

@@ -29,8 +29,10 @@ if [ -n "${ZSH_VERSION+x}" -a -z "${__LMOD_SET_ZSH_FPATH+x}" ]; then
   zv=${ZSH_VERSION}
   orig_zsh_version=@orig_zsh_version@
   zsh_fpath=@zsh_fpath@
-  zsh_fpath=$(echo $zsh_fpath | sed -e "s|/$orig_zsh_version/|/$zv/|g" )
-  export FPATH=$(@PKGV@/libexec/addto --append FPATH $zsh_fpath @PKGV@/init/ksh_funcs)
+  if [ -n "${orig_zsh_version:-}" -a -n "${zsh_fpath:-}" ]; then
+    zsh_fpath=$(echo $zsh_fpath | sed -e "s|/$orig_zsh_version/|/$zv/|g" )
+    export FPATH=$(@PKGV@/libexec/addto --append FPATH $zsh_fpath @PKGV@/init/ksh_funcs)
+  fi
   unset zv
   unset orig_zsh_version
   unset zsh_fpath
