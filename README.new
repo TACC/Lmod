@@ -162,3 +162,7 @@ Lmod 8.7+
             * Issue #714: Adding "=encoding UTF-8" to pod generation
    (8.7.46) * Issue #716: Must only add KSH_SUPPORT to zsh when both $orig_zsh_version and $zsh_fpath have non-null values
    (8.7.47) * Issue #716: Use correct shell foo
+W.I.P:
+   (8.7.48) * Collect configure error to end of configure.
+   
+   
