@@ -165,4 +165,3 @@ Lmod 8.7+
 W.I.P:
    (8.7.48) * Issue #717: Keep previous varT when restoring a collection.  Otherwise the previous modules env vars.
               are lost and therefore not purged.
-            * Change configure.ac to run all tests before erroring out
