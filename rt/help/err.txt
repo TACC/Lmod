@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
+Modules based on Lua: Version 8.7.44 2024-07-11 16:39 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -109,7 +109,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
+Modules based on Lua: Version 8.7.44 2024-07-11 16:39 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -216,7 +216,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
+Modules based on Lua: Version 8.7.44 2024-07-11 16:39 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -236,7 +236,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --config
 ===========================
-Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
+Modules based on Lua: Version 8.7.44 2024-07-11 16:39 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                                                   Value
 Allow root to use Lmod (LMOD_ALLOW_ROOT_USE)                  yes
@@ -417,7 +417,7 @@ propT = {
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --miniConfig
 ===========================
-Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
+Modules based on Lua: Version 8.7.44 2024-07-11 16:39 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 LMOD_PACKAGE_PATH            D          nil          <empty>
 LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>
@@ -426,6 +426,7 @@ LMOD_USING_FAST_TCL_INTERP   Other      yes          no
 step 7
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --pod
 ===========================
+=encoding UTF-8
 module
 =head1 SYNOPSIS
 module [options] sub-command [args ...]
