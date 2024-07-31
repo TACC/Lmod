@@ -1078,7 +1078,7 @@ fi
 
 ##### LUA configuration -- end
 
-if test $FOUND_ERROR = yes; then
+if test "$FOUND_ERROR" = yes; then
   echo
   echo One or more errors found:
   echo
