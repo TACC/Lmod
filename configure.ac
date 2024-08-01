@@ -715,7 +715,7 @@ if test "$FAST_TCL_INTERP" = yes ; then
    fi
 	   
    if test -z "$TCL_INCLUDE" ; then
-       AC_PATH_PROG(pkgConfig, pkg-configFoo, "")
+       AC_PATH_PROG(pkgConfig, pkg-config, "")
        if  ! test x$pkgConfig = "x"; then
            for i in tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
                $pkgConfig --exists $i

@@ -4468,8 +4468,8 @@ if test "$FAST_TCL_INTERP" = yes ; then
    fi
 
    if test -z "$TCL_INCLUDE" ; then
-       # Extract the first word of "pkg-configFoo", so it can be a program name with args.
-set dummy pkg-configFoo; ac_word=$2
+       # Extract the first word of "pkg-config", so it can be a program name with args.
+set dummy pkg-config; ac_word=$2
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
 printf %s "checking for $ac_word... " >&6; }
 if test ${ac_cv_path_pkgConfig+y}
