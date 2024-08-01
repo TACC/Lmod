@@ -42,6 +42,8 @@ FOLLOW_READLINK ()
   echo $myprog
 }
 
+ERR_MSG=""
+FOUND_ERROR=
 
 AC_SUBST(DUPLICATE_PATHS)
 AC_ARG_WITH(duplicatePaths,
@@ -651,7 +653,8 @@ AC_ARG_WITH(lua,
     AS_HELP_STRING([--with-lua=ans],[absolute path to the lua interpreter to use [[lua]]]),
     PATH_TO_LUA="$withval"
     if test ${PATH_TO_LUA:0:1} != '/' ; then
-      echo "Path to lua must be absolute"
+      echo 
+      echo "ERROR: Path to lua must be absolute!"
       exit 1
     fi
     AC_MSG_RESULT([PATH_TO_LUA=$with_lua])
@@ -667,7 +670,8 @@ AC_ARG_WITH(luac,
     AS_HELP_STRING([--with-luac=ans],[absolute path to the luac interpreter to use [[luac]]]),
     PATH_TO_LUAC="$withval"
     if test ${PATH_TO_LUAC:0:1} != '/' ; then
-      echo "Path to luac must be absolute"
+      echo 
+      echo "ERROR: Path to luac must be absolute"
       exit 1
     fi
     AC_MSG_RESULT([PATH_TO_LUAC=$with_luac])
@@ -731,7 +735,10 @@ if test "$FAST_TCL_INTERP" = yes ; then
 
    if test "$ac_cv_header_tcl_h" != yes ; then
       rm -f makefile
-      AC_MSG_ERROR([Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h])
+      FOUND_ERROR=yes
+      MSG="Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h"
+      ERR_MSG="$ERR_MSG||$MSG"
+      AC_MSG_NOTICE([$MSG])
    fi
    AC_SEARCH_LIBS(Tcl_CreateInterp, [tcl] [tcl8.8] [tcl8.7] [tcl8.6] [tcl8.5],[],
                 [rm -f makefile; AC_MSG_ERROR([Unable to build Lmod with -ltcl Please install the tcl devel package or configure --with-fastTCLInterp=no to not require the tcl library])], [$TCL_LIBS])
@@ -763,14 +770,17 @@ AC_SUBST(PATH_TO_HASHSUM)
 AC_SUBST(PATH_TO_PAGER)
 AC_SUBST(PATH_TO_TCLSH)
 
-if test $MODE != "user_default" ; then
-  mode=0$MODE
+if test $MODE == "user_default" ; then
+  mode=0755
   EXEC_BITS=$(( 0111 & $mode ));
   if test $EXEC_BITS = 0; then
+MSG="MODE must have at least one executable bit set (Not MODE=$MODE)
+Please try setting mode to 755 or 750 or 700 or similar."
+
+     echo "$MSG"
      echo
-     echo "MODE must have at least one executable bit set (Not MODE=$MODE)"
-     echo "Please try setting mode to 755 or 750 or 700 or similar."
-     echo
+ERR_MSG="$ERR_MSG
+$MSG"
      rm -f makefile
      exit 1
   fi
@@ -1060,6 +1070,20 @@ fi
 
 ##### LUA configuration -- end
 
+if test "$FOUND_ERROR" = yes; then
+  echo
+  echo One or more errors found:
+  echo
+  echo Error Messages:
+  echo "------------------------------------------------------------"
+  echo $ERR_MSG | tr '|' '\n' | while read item; do
+       echo $item
+  done   
+  echo "------------------------------------------------------------"
+  
+  rm -f makefile
+  exit 1;
+fi      
 
 AC_SUBST(ZSH_SITE_FUNCTIONS_DIRS)
 AC_PATH_PROG(ZSH, zsh)
