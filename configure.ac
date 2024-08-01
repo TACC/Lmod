@@ -707,7 +707,7 @@ if test "$FAST_TCL_INTERP" = yes ; then
      TCL_INCLUDE="-I${DIR}/usr/include"
    else
      for i in "" tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
-        if test -f /usr/include/$i/tcl.hh ; then
+        if test -f /usr/include/$i/tcl.h ; then
 	   TCL_INCLUDE="-I/usr/include/$i"
 	   break;
 	fi
