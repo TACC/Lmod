@@ -25,8 +25,8 @@ fi
 
 __build_FPATH_for_zsh_ksh()
 {
-  zsh_fpath=$(zsh -f -c 'echo $FPATH')
-  export FPATH=$(@PKGV@/libexec/addto --append FPATH $zsh_fpath @PKGV@/init/ksh_funcs)
+  zsh_fpath=$(unset FPATH; zsh -f -c 'echo $FPATH')
+  export FPATH=$(@PKGV@/libexec/addto --append FPATH ${zsh_fpath} @PKGV@/init/ksh_funcs)
   unset zsh_fpath
 }  
 
