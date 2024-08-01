@@ -165,3 +165,4 @@ Lmod 8.7+
 W.I.P:
    (8.7.48) * Issue #717: Keep previous varT when restoring a collection.  Otherwise the previous modules env vars.
               are lost and therefore not purged.
+            * Issue #718: use __build_FPATH_for_zsh_ksh to build FPATH for both shells
