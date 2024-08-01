@@ -96,6 +96,7 @@ function M.new(self, t)
    self.argNames  = {}
    self.optA      = {}
 
+   local descript = ""
    local envArg   = nil
    local usage    = t
    local version  = nil
@@ -104,6 +105,7 @@ function M.new(self, t)
       ProgName = t.progName
       version  = t.version
       envArg   = t.envArg
+      descript = t.descript
 
       Error    = t.error or Error
       l_prt    = t.prt or l_prt
@@ -117,12 +119,14 @@ function M.new(self, t)
       ProgName = ProgName .. " "
    end
 
+   o.progName = ProgName
    o.exit     = Exit
    o.prt      = l_prt
    o.prtEnd   = l_prtend
    o.usage    = usage
    o.version  = version
    o.envArg   = envArg
+   o.descript = descript
    if (usage == nil) then
       local cmd  = arg[0]
       local i,j  = cmd:find(".*/")
@@ -347,7 +351,7 @@ end
 function M.buildHelpMsg(self)
    local term_width  = TermWidth()
    local b = {}
-   b[#b+1] = self.usage
+   b[#b+1] = "Usage: " .. self.usage
    b[#b+1] = "\n\nOptions:\n"
 
    local a = {}
@@ -370,6 +374,28 @@ end
 function M.printHelp(self)
    self.prt(self:buildHelpMsg())
    self.exit(0)
+end
+
+function M.buildManPod(self)
+   local b = {}
+   b[#b+1] = "=encoding UTF-8"
+   b[#b+1] = self.progName
+   b[#b+1] = "=head1 SYNOPSIS"
+   b[#b+1] = self.usage
+   b[#b+1] = "=head1 DESCRIPTION"
+   b[#b+1] = self.descript
+   b[#b+1] = "=head1 OPTIONS"
+   b[#b+1] = "=over 4"
+   local a = {}
+   for _, v in ipairs(self.optA) do
+      local opt = v.table
+      a[#a+1] = "=item I<"..self.dispTbl[opt.action](self, opt)..">"
+      a[#a+1] = opt.help or " "
+   end
+   b[#b+1] = concatTbl(a,"\n\n")
+
+   b[#b+1] = "=back"
+   return concatTbl(b,"\n\n")
 end
 
 
