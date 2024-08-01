@@ -730,7 +730,7 @@ if test "$FAST_TCL_INTERP" = yes ; then
 
    CPPFLAGS="$TCL_INCLUDE"
 
-   AC_CHECK_HEADER(tcl.hh,
+   AC_CHECK_HEADER(tcl.h,
                    [AC_DEFINE([HAVE_TCL_H], 1, [Define to 1 if you have tcl.h])],[]) 
 
    if test "$ac_cv_header_tcl_h" != yes ; then
@@ -769,14 +769,6 @@ AC_SUBST(PATH_TO_GIT)
 AC_SUBST(PATH_TO_HASHSUM)
 AC_SUBST(PATH_TO_PAGER)
 AC_SUBST(PATH_TO_TCLSH)
-
-FOUND_ERROR=yes
-MSG="MODE must have at least one executable bit set (Not MODE=$MODE)|
-Please try setting mode to 755 or 750 or 700 or similar."
-
-     echo "$MSG"
-     echo
-ERR_MSG="$ERR_MSG||$MSG"
 
 if test $MODE == "user_default" ; then
   mode=0755
