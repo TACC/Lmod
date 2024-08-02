@@ -1,0 +1,228 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load git
+===========================
+LOADEDMODULES=git/2.40.1;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MANPATH=/ford1/share/gmao_SIteam/git/git-2.40.1/share/man:1;
+export __LMOD_REF_COUNT_MANPATH;
+MANPATH=/ford1/share/gmao_SIteam/git/git-2.40.1/share/man;
+export MANPATH;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/restore_reset/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/restore_reset/mf/Core;
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH=/ford1/share/gmao_SIteam/git/git-2.40.1/bin:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=/ford1/share/gmao_SIteam/git/git-2.40.1/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+_LMFILES_=ProjectDIR/rt/restore_reset/mf/Core/git/2.40.1.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={git={fn="ProjectDIR/rt/restore_reset/mf/Core/git/2.40.1.lua",fullName="git/2.40.1",loadOrder=1,propT={},stackDepth=0,status="active",userName="git",wV="000000002.000000040.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/restore_reset/mf/Core",},systemBaseMPATH="ProjectDIR/rt/restore_reset/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing save
+===========================
+MODULEPATH=ProjectDIR/rt/restore_reset/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={git={fn="ProjectDIR/rt/restore_reset/mf/Core/git/2.40.1.lua",fullName="git/2.40.1",loadOrder=1,propT={},stackDepth=0,status="active",userName="git",wV="000000002.000000040.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/restore_reset/mf/Core",},systemBaseMPATH="ProjectDIR/rt/restore_reset/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset LOADEDMODULES;
+unset __LMOD_REF_COUNT_MANPATH;
+unset MANPATH;
+MODULEPATH=ProjectDIR/rt/restore_reset/mf/Core;
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH=ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/restore_reset/mf/Core",},systemBaseMPATH="ProjectDIR/rt/restore_reset/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc
+===========================
+CC=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/bin/gcc;
+export CC;
+CXX=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/bin/g++;
+export CXX;
+F90=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/bin/gfortran;
+export F90;
+FC=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/bin/gfortran;
+export FC;
+__LMOD_REF_COUNT_INCLUDE=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/include/c++/13.2.0:1\;/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/include:1;
+export __LMOD_REF_COUNT_INCLUDE;
+INCLUDE=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/include/c++/13.2.0:/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/include;
+export INCLUDE;
+__LMOD_REF_COUNT_LD_LIBRARY_PATH=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/lib64:1;
+export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
+LD_LIBRARY_PATH=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/lib64;
+export LD_LIBRARY_PATH;
+__LMOD_REF_COUNT_LIBRARY_PATH=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/lib64:1;
+export __LMOD_REF_COUNT_LIBRARY_PATH;
+LIBRARY_PATH=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/lib64;
+export LIBRARY_PATH;
+LMOD_FAMILY_COMPILER=gcc;
+export LMOD_FAMILY_COMPILER;
+LMOD_FAMILY_COMPILER_VERSION=13.2.0;
+export LMOD_FAMILY_COMPILER_VERSION;
+LOADEDMODULES=gcc/13.2.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MANPATH=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/share/man:1;
+export __LMOD_REF_COUNT_MANPATH;
+MANPATH=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/share/man;
+export MANPATH;
+__LMOD_REF_COUNT_MODULEPATH=/ford1/share/gmao_SIteam/lmodulefiles/Compiler/gcc-13.2.0:1\;ProjectDIR/rt/restore_reset/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=/ford1/share/gmao_SIteam/lmodulefiles/Compiler/gcc-13.2.0:ProjectDIR/rt/restore_reset/mf/Core;
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/bin:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+_LMFILES_=ProjectDIR/rt/restore_reset/mf/Core/gcc/13.2.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={Compiler="gcc",},mT={gcc={actionA={"prepend_path(\"MODULEPATH\",\"/ford1/share/gmao_SIteam/lmodulefiles/Compiler/gcc-13.2.0\")",},fn="ProjectDIR/rt/restore_reset/mf/Core/gcc/13.2.0.lua",fullName="gcc/13.2.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc",wV="000000013.000000002.*zfinal",},},mpathA={"/ford1/share/gmao_SIteam/lmodulefiles/Compiler/gcc-13.2.0","ProjectDIR/rt/restore_reset/mf/Core",},systemBaseMPATH="ProjectDIR/rt/restore_reset/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
+===========================
+unset CC;
+unset CXX;
+unset F90;
+unset FC;
+unset __LMOD_REF_COUNT_INCLUDE;
+unset INCLUDE;
+unset __LMOD_REF_COUNT_LD_LIBRARY_PATH;
+unset LD_LIBRARY_PATH;
+unset __LMOD_REF_COUNT_LIBRARY_PATH;
+unset LIBRARY_PATH;
+unset LMOD_FAMILY_COMPILER;
+unset LMOD_FAMILY_COMPILER_VERSION;
+LOADEDMODULES=git/2.40.1;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MANPATH=/ford1/share/gmao_SIteam/git/git-2.40.1/share/man:1;
+export __LMOD_REF_COUNT_MANPATH;
+MANPATH=/ford1/share/gmao_SIteam/git/git-2.40.1/share/man;
+export MANPATH;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/restore_reset/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/restore_reset/mf/Core;
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH=/ford1/share/gmao_SIteam/git/git-2.40.1/bin:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=/ford1/share/gmao_SIteam/git/git-2.40.1/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+_LMFILES_=ProjectDIR/rt/restore_reset/mf/Core/git/2.40.1.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={git={fn="ProjectDIR/rt/restore_reset/mf/Core/git/2.40.1.lua",fullName="git/2.40.1",loadOrder=1,propT={},stackDepth=0,status="active",userName="git",wV="000000002.000000040.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/restore_reset/mf/Core",},systemBaseMPATH="ProjectDIR/rt/restore_reset/mf/Core",}';
+export _ModuleTable_;
+__LMOD_DEFAULT_MODULES_LOADED__=1;
+export __LMOD_DEFAULT_MODULES_LOADED__;
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset LOADEDMODULES;
+unset __LMOD_REF_COUNT_MANPATH;
+unset MANPATH;
+MODULEPATH=ProjectDIR/rt/restore_reset/mf/Core;
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH=ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/restore_reset/mf/Core",},systemBaseMPATH="ProjectDIR/rt/restore_reset/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc
+===========================
+CC=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/bin/gcc;
+export CC;
+CXX=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/bin/g++;
+export CXX;
+F90=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/bin/gfortran;
+export F90;
+FC=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/bin/gfortran;
+export FC;
+__LMOD_REF_COUNT_INCLUDE=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/include/c++/13.2.0:1\;/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/include:1;
+export __LMOD_REF_COUNT_INCLUDE;
+INCLUDE=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/include/c++/13.2.0:/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/include;
+export INCLUDE;
+__LMOD_REF_COUNT_LD_LIBRARY_PATH=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/lib64:1;
+export __LMOD_REF_COUNT_LD_LIBRARY_PATH;
+LD_LIBRARY_PATH=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/lib64;
+export LD_LIBRARY_PATH;
+__LMOD_REF_COUNT_LIBRARY_PATH=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/lib64:1;
+export __LMOD_REF_COUNT_LIBRARY_PATH;
+LIBRARY_PATH=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/lib64;
+export LIBRARY_PATH;
+LMOD_FAMILY_COMPILER=gcc;
+export LMOD_FAMILY_COMPILER;
+LMOD_FAMILY_COMPILER_VERSION=13.2.0;
+export LMOD_FAMILY_COMPILER_VERSION;
+LOADEDMODULES=gcc/13.2.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MANPATH=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/share/man:1;
+export __LMOD_REF_COUNT_MANPATH;
+MANPATH=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/share/man;
+export MANPATH;
+__LMOD_REF_COUNT_MODULEPATH=/ford1/share/gmao_SIteam/lmodulefiles/Compiler/gcc-13.2.0:1\;ProjectDIR/rt/restore_reset/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=/ford1/share/gmao_SIteam/lmodulefiles/Compiler/gcc-13.2.0:ProjectDIR/rt/restore_reset/mf/Core;
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/bin:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+_LMFILES_=ProjectDIR/rt/restore_reset/mf/Core/gcc/13.2.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={Compiler="gcc",},mT={gcc={actionA={"prepend_path(\"MODULEPATH\",\"/ford1/share/gmao_SIteam/lmodulefiles/Compiler/gcc-13.2.0\")",},fn="ProjectDIR/rt/restore_reset/mf/Core/gcc/13.2.0.lua",fullName="gcc/13.2.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc",wV="000000013.000000002.*zfinal",},},mpathA={"/ford1/share/gmao_SIteam/lmodulefiles/Compiler/gcc-13.2.0","ProjectDIR/rt/restore_reset/mf/Core",},systemBaseMPATH="ProjectDIR/rt/restore_reset/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing reset
+===========================
+unset CC;
+unset CXX;
+unset F90;
+unset FC;
+unset __LMOD_REF_COUNT_INCLUDE;
+unset INCLUDE;
+unset __LMOD_REF_COUNT_LD_LIBRARY_PATH;
+unset LD_LIBRARY_PATH;
+unset __LMOD_REF_COUNT_LIBRARY_PATH;
+unset LIBRARY_PATH;
+unset LMOD_FAMILY_COMPILER;
+unset LMOD_FAMILY_COMPILER_VERSION;
+LOADEDMODULES=git/2.40.1;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MANPATH=/ford1/share/gmao_SIteam/git/git-2.40.1/share/man:1;
+export __LMOD_REF_COUNT_MANPATH;
+MANPATH=/ford1/share/gmao_SIteam/git/git-2.40.1/share/man;
+export MANPATH;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/restore_reset/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/restore_reset/mf/Core;
+export MODULEPATH;
+__LMOD_REF_COUNT_PATH=/ford1/share/gmao_SIteam/git/git-2.40.1/bin:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=/ford1/share/gmao_SIteam/git/git-2.40.1/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+_LMFILES_=ProjectDIR/rt/restore_reset/mf/Core/git/2.40.1.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={git={fn="ProjectDIR/rt/restore_reset/mf/Core/git/2.40.1.lua",fullName="git/2.40.1",loadOrder=1,propT={},stackDepth=0,status="active",userName="git",wV="000000002.000000040.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/restore_reset/mf/Core",},systemBaseMPATH="ProjectDIR/rt/restore_reset/mf/Core",}';
+export _ModuleTable_;
