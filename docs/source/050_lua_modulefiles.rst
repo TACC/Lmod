@@ -191,7 +191,6 @@ unset during unloading.
      $MODULEPATH when building the spider cache.  See
      :ref:`spider_tool-label` for details.
 
-
 Extra functions
 ~~~~~~~~~~~~~~~
 
@@ -272,6 +271,15 @@ The entries below describe several useful commands that come with Lmod that can 
 
 **LmodVersion** ():
     The version of lmod.
+
+**convertToCanonical** ("string"):
+    A modulefile can use this function to know if an Lmod feature is
+    supported::
+
+      if (convertToCanonical(LmodVersion()) < convertToCanonical("8.6") ) then
+        LmodMessage("The function source_sh() is not supported")
+      end
+
 
 **execute** {cmd="*<any command>*", modeA={"load"}}
     Run any command with a certain mode.  For example

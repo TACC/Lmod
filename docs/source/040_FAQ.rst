@@ -425,3 +425,17 @@ Why don't collections work on HPE/Cray systems?
    **MPI_HOME** as part of mpi program startup script, then those
    users would not be able to submit mpi programs.
 
+How to compare Lmod versions inside a module file?
+
+   Sites can use **convertToCanonical("string")** to test the Lmod version::
+
+      if(convertToCanonical(LmodVersion()) < convertToCanonical("8.6")) then
+        LmodMessage("source_sh() is not supported with this version of Lmod")
+      end
+
+Why can't Lmod find this module in $MODULEPATH?
+
+   A modulefile written in Lua requires a .lua extension.  A
+   modulefile without the .lua extension is assumed to be written in
+   TCL. However all TCL modulefiles must start with **#%Module** at
+   the at the very top of the file. Otherwise they are silently ignored.
