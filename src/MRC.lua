@@ -429,7 +429,7 @@ function M.export(self)
 end
 
 local s_must_convert = true
-function M.getHiddenT(self, mpathA, k)
+local function l_getHiddenT(self, mpathA, k)
    local t = {}
    if (s_must_convert) then
       s_must_convert = false
@@ -494,7 +494,7 @@ function M.isVisible(self, modT)
    local fn        = modT.fn
    local isVisible = true
 
-   if (self:getHiddenT(mpathA, name) or self:getHiddenT(mpathA, fn)) then
+   if (l_getHiddenT(self, mpathA, name) or l_getHiddenT(self, mpathA, fn)) then
       isVisible = false
    elseif (name:sub(1,1) == ".") then
       isVisible = false
