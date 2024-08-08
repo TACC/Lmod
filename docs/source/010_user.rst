@@ -47,7 +47,6 @@ To remove all modules including sticky modules do::
 
     $ module --force purge
 
-
 A user may wish to go back to an initial set of modules::
 
     $ module reset
