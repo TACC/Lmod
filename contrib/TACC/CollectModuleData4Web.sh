@@ -11,6 +11,7 @@ SCRIPT_DIR=${SCRIPT_NAME%/*}
 if [ $SCRIPT_DIR = "." ]; then
   SCRIPT_DIR=$PWD
 fi  
+ADMIN_DIR=$SCRIPT_DIR
 
 ########################################################################
 # find spider cmd
@@ -25,7 +26,6 @@ fi
 ########################################################################
 # Make sure that $ADMIN_DIR/softwarePage exists
 
-ADMIN_DIR=$SCRIPT_DIR
 mkdir -p $ADMIN_DIR/softwarePage
 
 ########################################################################
