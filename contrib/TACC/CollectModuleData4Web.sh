@@ -40,9 +40,23 @@ for i in /opt/modulefiles /opt/apps/modulefiles /opt/apps/xsede/modulefiles; do
 done
 BASE_MODULE_PATH=${BASE_MODULE_PATH%:}
 
+########################################################################
+# find name for python3
+
+PYTHON=
+for cmd in python3 python python2; do
+  command -v $cmd > /dev/null
+  if [ "$?" = 0 ]; then
+    PYTHON=$cmd
+    break
+  fi
+done
+
+# Build json software page and make it pretty if possible.
+
 $LMOD_DIR/spider -o softwarePage    $BASE_MODULE_PATH > $ADMIN_DIR/softwarePage/softwarePage.old.json
 
-python3 -mjson.tool $ADMIN_DIR/softwarePage/softwarePage.old.json > $ADMIN_DIR/softwarePage/softwarePage.json 2> /dev/null
+$PYTHON -mjson.tool $ADMIN_DIR/softwarePage/softwarePage.old.json > $ADMIN_DIR/softwarePage/softwarePage.json 2> /dev/null
 if [ -s $ADMIN_DIR/softwarePage/softwarePage.json ]; then
   rm -f $ADMIN_DIR/softwarePage/softwarePage.old.json
 else
