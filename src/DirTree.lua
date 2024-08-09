@@ -58,7 +58,7 @@ end
 
 local load      = (_VERSION == "Lua 5.1") and loadstring or load
 
-local ignoreT = {
+local s_ignoreT = {
    ['.']          = true,
    ['..']         = true,
    ['.git']       = true,
@@ -68,7 +68,7 @@ local ignoreT = {
    ['.DS_Store']  = true,
 }
 
-local defaultFnT = {
+local s_defaultFnT = {
    default           = 1,
    ['.modulerc.lua'] = 2,
    ['.modulerc']     = 3,
@@ -80,7 +80,7 @@ local function l_keepFile(fn)
    local lastChar  = fn:sub(-1,-1)
    local firstTwo  = fn:sub(1,2)
 
-   local result    = not (ignoreT[fn]     or lastChar == '~' or firstChar == '#' or
+   local result    = not (s_ignoreT[fn]   or lastChar == '~'  or firstChar == '#' or
                           lastChar == '#' or firstTwo == '.#' or firstTwo == '__')
    if (not result) then
       return false
@@ -90,7 +90,7 @@ local function l_keepFile(fn)
       return false
    end
 
-   if (defaultFnT[fn]) then
+   if (s_defaultFnT[fn]) then
       return true
    end
 
@@ -192,7 +192,7 @@ local function l_walk(mrc, mpath, path, dirA, fileT, regularFn)
          if (kind == "directory" and f ~= "." and f ~= "..") then
             dirA[#dirA + 1 ] = file
          elseif (kind == "file" or kind == "link") then
-            local dfltIdx = defaultFnT[f]
+            local dfltIdx   = s_defaultFnT[f]
             local fullName  = extractFullName(mpath, file)
             if (dfltIdx) then
                local luaExt = f:find("%.lua$")
