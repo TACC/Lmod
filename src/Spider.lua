@@ -103,6 +103,12 @@ function processDIR(value)
    l_process("dirA",value)
 end
 
+local function l_isActiveMfile(mrc, full, sn, fn)
+   local version = extractVersion(full, sn) or ""
+   return mrc:isVisible{fullName=full, sn=sn, fn=fn}, version
+end
+
+
 local function l_processNewModulePATH(path)
    dbg.start{"l_processNewModulePATH(path)"}
 
@@ -757,7 +763,7 @@ function M.Level0_terse(self,dbT, providedByT)
    local a           = {}
    for sn, vv in pairs(dbT) do
       for fn, v in pairs(vv) do
-         local isActive, version = isActiveMFile(mrc, v.fullName, sn, fn)
+         local isActive, version = l_isActiveMfile(mrc, v.fullName, sn, fn)
          if (show_hidden or isActive) then
             if (sn == v.fullName) then
                t[sn] = sn
@@ -833,7 +839,7 @@ function M.Level0Helper(self, dbT, providedByT, a)
 
    for sn, vv in pairs(dbT) do
       for fn,v in pairsByKeys(vv) do
-         local isActive, version = isActiveMFile(mrc, v.fullName, sn, fn)
+         local isActive, version = l_isActiveMfile(mrc, v.fullName, sn, fn)
          if (show_hidden or isActive) then
             if (t[sn] == nil) then
                t[sn] = { Description = v.Description, versionA = { }, name = sn}
@@ -1219,7 +1225,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
    if (T) then
       dbg.print{"Have T\n"}
       for fn, v in pairsByKeys(T) do
-         local isActive, version = isActiveMFile(mrc, v.fullName, sn, fn)
+         local isActive, version = l_isActiveMfile(mrc, v.fullName, sn, fn)
          if (show_hidden or isActive) then
             local kk       = sn .. "/" .. parseVersion(version)
             if (fullVT[kk] == nil) then

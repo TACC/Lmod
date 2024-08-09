@@ -510,11 +510,6 @@ function getModuleRCT(remove_MRC_home)
    return A
 end
 
-function isActiveMFile(mrc, full, sn, fn)
-   local version = extractVersion(full, sn) or ""
-   return mrc:isVisible{fullName=full, sn=sn, fn=fn}, version
-end
-
 -----------------------------------------------------------------------
 -- This function decides if the modulefile is a marked default
 -- The rule is that a marked default is given in the first character
