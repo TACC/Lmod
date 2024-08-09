@@ -590,7 +590,7 @@ function atmost(m, ie)
 
    local mname = MName:new("load", m, "atmost", false, ie)
 
-   dbg.fini("atleast")
+   dbg.fini("atmost")
    return mname
 end
 
