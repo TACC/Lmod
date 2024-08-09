@@ -2,7 +2,7 @@
 # -*- shell-script -*-
 
 ######################################################################
-# find ADMIN_DIR
+# find ADMIN_DIR (which is where this shell script is found!)
 
 SCRIPT_NAME="${BASH_SOURCE[0]:-${(%):-%x}}"
 SCRIPT_DIR=${SCRIPT_NAME%/*}
