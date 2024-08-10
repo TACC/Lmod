@@ -544,6 +544,7 @@ function M.find_between(self, fileA)
            return x.pV < y.pV
            end)
 
+   local mrc        = MRC:singleton()
    local fn         = false
    local version    = false
    local lowerBound = self.__range[1]
@@ -553,23 +554,18 @@ function M.find_between(self, fileA)
 
    local pV         = lowerBound
    local wV         = " "  -- this is less than the lower possible weight.
-
-   --dbg.print{"lower: ",pV,"\n"}
-   --dbg.print{"upper: ",upperBound,"\n"}
-   --dbg.print{"wV:    \"",wV,"\"\n\n"}
-
    local idx        = nil
    local found      = false
    for j = 1,#a do
       local entry = a[j]
       local v     = entry.pV
-      --dbg.print{"pV: ",pV,", v: ",v,", upper: \"",upperBound,"\"\n"}
-      --dbg.print{"pV <= v: ",pV <= v, ", v <= upperBound: ",v <= upperBound,", entry.wV > wV: ",entry.wV > wV,"\n"}
-
       if (lowerFn(pV,v) and upperFn(v,upperBound) and entry.wV > wV) then
-         idx = j
-         pV  = v
-         wV  = entry.wV
+         if (isMarked(v) or mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, 
+                                          visibleT = {soft = true}})  then
+            idx = j
+            pV  = v
+            wV  = entry.wV
+         end
       end
    end
    if (idx) then
