@@ -637,10 +637,6 @@ function regular_cmp(x,y)
    return x.pV < y.pV
 end
 
-
-
-
-
 function sanizatizeTbl(rplmntA, inT, outT)
    for k, v in pairs(inT) do
       local key = k

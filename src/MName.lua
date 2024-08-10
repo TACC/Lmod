@@ -417,25 +417,16 @@ end
 -- the whole module tree is treated as NVV.
 
 
-------------------------------------------------------------------------
--- M.find_exact_match() is more difficult because there are possibly
--- more than one marked default:
---    1) The filesystem can mark a default           (weighted by '^')
---    2) The system admins can have a modulerc file. (weighted by 's')
---    3) The user can have a ~/.modulerc file.       (weighted by 'u')
-
-
-function M.find_exact_match(self, fileA)
-   --dbg.start{"MName:find_exact_match(fileA)"}
+local function l_find_exact_match(self, must_have_version, fileA)
+   dbg.start{"MName l_find_exact_match(must_have_version:,",must_have_version,",fileA)"}
    local versionStr = self.__versionStr
+   local mrc        = MRC:singleton()
    local fn         = false
    local version    = false
    local pV         = " "  -- this is less than the lowest possible weight
    local wV         = false
    local found      = false
-   if (not versionStr) then
-      --dbg.print{"found: ",found,", fn: ",fn,", version: ", version,"\n"}
-      --dbg.fini("MName:find_exact_match")
+   if (must_have_version and not versionStr) then
       return found, fn, version
    end
 
@@ -443,55 +434,57 @@ function M.find_exact_match(self, fileA)
       local blockA = fileA[j]
       for i = 1, #blockA do
          local entry = blockA[i]
-         if (entry.version == versionStr and entry.pV > pV ) then
-            pV      = entry.pV
-            wV      = entry.wV
-            fn      = entry.fn
-            version = entry.version or false
-            found   = true
-            self.__range = { pV, pV }
-            break
+         if (mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, 
+                           visibleT = {soft = true, hidden = true}})  then
+            if (entry.version == versionStr and entry.pV > pV ) then
+               pV      = entry.pV
+               wV      = entry.wV
+               fn      = entry.fn
+               version = entry.version or false
+               found   = true
+               self.__range = { pV, pV }
+               break
+            end
          end
       end
    end
 
-   --dbg.print{"found: ",found,", fn: ",fn,", version: ", version,"\n"}
-   --dbg.fini("MName:find_exact_match")
+   dbg.print{"found: ",found,", fn: ",fn,", version: ", version,", wV: ",wV,"\n"}
+   dbg.fini("MName l_find_exact_match")
    return found, fn, version, wV
 end
+   
+
+------------------------------------------------------------------------
+-- M.find_exact_match() is more difficult because there are possibly
+-- more than one marked default:
+--    1) The filesystem can mark a default           (weighted by '^')
+--    2) The system admins can have a modulerc file. (weighted by 's')
+--    3) The user can have a ~/.modulerc file.       (weighted by 'u')
+
+function M.find_exact_match(self, fileA)
+   dbg.start{"MName:find_exact_match(fileA)"}
+   local must_have_version = true
+   local found, fn, version, wV = l_find_exact_match(self, must_have_version, fileA)
+   dbg.fini("MName:find_exact_match")
+   return found, fn, version, wV
+end
+------------------------------------------------------------------------
+-- This routine is almost the same as M.find_exact_match
+-- But this routine is here to find moduleName w/o versions
+-- (namely meta modules).  But modules with version have a
+-- higher priority over meta modules.
 
 function M.find_exact_match_meta_module(self, fileA)
-   --dbg.start{"MName:find_exact_match_meta_module(fileA)"}
-   local versionStr = self.__versionStr
-   local fn         = false
-   local version    = false
-   local pV         = " "  -- this is less than the lowest possible weight
-   local wV         = false
-   local found      = false
-   for j = 1, #fileA do
-      local blockA = fileA[j]
-      for i = 1, #blockA do
-         local entry = blockA[i]
-         if (entry.version == versionStr and entry.pV > pV ) then
-            pV      = entry.pV
-            wV      = entry.wV
-            fn      = entry.fn
-            version = entry.version or false
-            found   = true
-            self.__range = { pV, pV }
-            break
-         end
-      end
-   end
-
-   --dbg.print{"found: ",found,", fn: ",fn,", version: ", version,"\n"}
-   --dbg.fini("MName:find_exact_match_meta_module")
-   return found, fn, version, wV
+   dbg.start{"MName:find_exact_match_meta_module(fileA)"}
+   local must_have_version = false
+   local found, fn, version, wV = l_find_exact_match(self, must_have_version, fileA)
+   dbg.fini("MName:find_exact_match_meta_module")
+   return found, fn, version, wV 
 end
 
-
 local function l_find_highest_by_key(self, key, fileA)
-   --dbg.start{"MName: l_find_highest_by_key(key:\"",key,"\",fileA)"}
+   dbg.start{"MName: l_find_highest_by_key(key:\"",key,"\",fileA)"}
    local mrc     = MRC:singleton()
    local weight  = " "  -- this is less than the lower possible weight.
    local idx     = nil
@@ -509,7 +502,8 @@ local function l_find_highest_by_key(self, key, fileA)
       for i = 1,#blockA do
          local entry = blockA[i]
          local v     = entry[key]
-         if (mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn} or isMarked(v)) then
+         if (isMarked(v) or mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, 
+                                          visibleT = {soft = true}})  then
             if (v > weight) then
                idx    = i
                weight = v
@@ -526,8 +520,8 @@ local function l_find_highest_by_key(self, key, fileA)
       found        = true
       self.__range = { pV, pV }
    end
-   --dbg.print{"found: ",found,", fn: ",fn,", version: ", version,", wV: ",wV,"\n"}
-   --dbg.fini("MName: l_find_highest_by_key")
+   dbg.print{"found: ",found,", fn: ",fn,", version: ", version,", wV: ",wV,"\n"}
+   dbg.fini("MName: l_find_highest_by_key")
    return found, fn, version, wV
 end
 
@@ -588,10 +582,6 @@ function M.find_between(self, fileA)
    end
    --dbg.fini("MName:find_between")
    return found, fn, version, wV
-end
-
-function M.find_inherit_match(self,fileA)
-   local a = fileA[1] or {}
 end
 
 local function l_rangeCk(self, version, result_if_found, result_if_not_found)

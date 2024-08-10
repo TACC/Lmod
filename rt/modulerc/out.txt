@@ -209,8 +209,12 @@ timestampFn = {
 mrcT = {
   alias2modT = {},
   hiddenT = {
-    ["h2/1.0"] = true,
-    ["hidden/1.0"] = true,
+    ["h2/1.0"] = {
+      kind = "hidden",
+    },
+    ["hidden/1.0"] = {
+      kind = "hidden",
+    },
   },
   version2modT = {},
 }
@@ -221,8 +225,12 @@ mrcMpathT = {
       z23 = "z/23",
     },
     hiddenT = {
-      ["h2/1.0"] = true,
-      ["hidden/1.0"] = true,
+      ["h2/1.0"] = {
+        kind = "hidden",
+      },
+      ["hidden/1.0"] = {
+        kind = "hidden",
+      },
     },
     version2modT = {
       ["a/13"] = "a/13.2.345",

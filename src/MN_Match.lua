@@ -40,9 +40,9 @@ M.my_name   = "match"
 
 
 local s_stepA = {
-   MName.find_exact_match,
-   MName.find_highest,
-   MName.find_exact_match_meta_module,
+   MName.find_exact_match,             -- exact match with required version 
+   MName.find_highest,                 -- Highest match
+   MName.find_exact_match_meta_module, -- match meta module
 }
 
 function M.steps()

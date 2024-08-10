@@ -37,27 +37,52 @@ require("strict")
 --  THE SOFTWARE.
 --
 --------------------------------------------------------------------------
+require("utils")
+local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
+
+local function l_validateStringArgs(cmdName, ...)
+   local argA = pack(...)
+   for i = 1, argA.n do
+      local v = argA[i]
+      if (type(v) ~= "string") then
+         mcp:report{msg="e_Args_Not_Strings", fn = myMRC_file(), cmdName = cmdName}
+         return false
+      end
+   end
+   return true
+end
 
 --module_version("module_name","v1","v2"...)
 function module_version(module_name, ...)
+   if (not l_validateStringArgs("module_version", module_name, ...)) then return end
    local argA = pack(...)
    argA.n     = nil
-   ModA[#ModA+1] = {kind="module_version", module_name=module_name, module_versionA=argA}
+   ModA[#ModA+1] = {action="module_version", module_name=module_name, module_versionA=argA}
 end
 
 --module_alias("name","modulefile")
 function module_alias(name,mfile)
-   ModA[#ModA+1] = {kind="module_alias", name=name, mfile=mfile}
+   if (not l_validateStringArgs("module_version", name, mfile)) then return end
+   ModA[#ModA+1] = {action="module_alias", name=name, mfile=mfile}
 end
 
 --hide_version("full_module_version")
 function hide_version(full)
-   ModA[#ModA+1] = {kind="hide_version", mfile=full}
+   if (not l_validateStringArgs("hide_version", full)) then return end
+   ModA[#ModA+1] = {action="hide_version", mfile=full}
 end
 
 
 --hide_modulefile("/path/to/modulefile")
 function hide_modulefile(path)
-   ModA[#ModA+1] = {kind="hide_modulefile", mfile=path}
+   if (not l_validateStringArgs("hide_modulefile", path)) then return end
+   ModA[#ModA+1] = {action="hide_modulefile", mfile=path}
 end
 
+function hide(t)
+   if (type(t) ~= "table") then
+      mpc:report{msg="e_Args_Not_Table",func="hide",fn=myMRC_file()}
+   end
+   t.action = "hide"
+   ModA[#ModA+1] = t
+end

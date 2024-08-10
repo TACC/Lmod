@@ -266,7 +266,9 @@ mrcT = {
     intelcompiler = "intel",
   },
   hiddenT = {
-    ["gcc/4.8"] = true,
+    ["gcc/4.8"] = {
+      kind = "hidden",
+    },
   },
   version2modT = {
     ["intel/17"] = "intel/2017.1.132",
@@ -900,7 +902,9 @@ mrcT = {
     intelcompiler = "intel",
   },
   hiddenT = {
-    ["gcc/4.8"] = true,
+    ["gcc/4.8"] = {
+      kind = "hidden",
+    },
   },
   version2modT = {
     ["intel/17"] = "intel/2017.1.132",
@@ -942,7 +946,9 @@ mrcT = {
     intelcompiler = "intel",
   },
   hiddenT = {
-    ["gcc/4.8"] = true,
+    ["gcc/4.8"] = {
+      kind = "hidden",
+    },
   },
   version2modT = {
     ["intel/17"] = "intel/2017.1.132",
@@ -1089,7 +1095,9 @@ mrcT = {
     intelcompiler = "intel",
   },
   hiddenT = {
-    ["gcc/4.8"] = true,
+    ["gcc/4.8"] = {
+      kind = "hidden",
+    },
   },
   version2modT = {
     ["intel/17"] = "intel/2017.1.132",
@@ -1215,7 +1223,9 @@ mrcT = {
     intelcompiler = "intel",
   },
   hiddenT = {
-    ["gcc/4.8"] = true,
+    ["gcc/4.8"] = {
+      kind = "hidden",
+    },
   },
   version2modT = {
     ["intel/17"] = "intel/2017.1.132",

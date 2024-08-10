@@ -56,6 +56,7 @@ local mrc_sandbox_env = {
    require         = require,
    module_alias    = module_alias,
    module_version  = module_version,
+   hide            = hide,
    hide_version    = hide_version,
    hide_modulefile = hide_modulefile,
    os              = { clock = os.clock, difftime = os.difftime, time = os.time, date = os.date,

@@ -30,14 +30,18 @@ timestampFn = {
 mrcT = {
   alias2modT = {},
   hiddenT = {
-    ["foobar/1.2.3"] = true,
+    ["foobar/1.2.3"] = {
+      kind = "hidden",
+    },
   },
   version2modT = {},
 }
 mrcMpathT = {
   ["ProjectDIR/rt/dbT/mf3"] = {
     hiddenT = {
-      ["foobar/1.2.3"] = true,
+      ["foobar/1.2.3"] = {
+        kind = "hidden",
+      },
     },
   },
 }
