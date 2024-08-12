@@ -1377,3 +1377,28 @@ MODULEPATH=ProjectDIR/rt/modulerc/mfA/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/modulerc/mfA/Core/A/1.1.lua",fullName="A/1.1",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="A",wV="s00000001.000000001.*zfinal",},B={fn="ProjectDIR/rt/modulerc/mfA/Core/B/1.0.lua",fullName="B/1.0",loadOrder=2,propT={},ref_count=1,stackDepth=1,status="active",userName="B",wV="s00000001.*zfinal",},newDefaults={fn="ProjectDIR/rt/modulerc/mfA/Core/newDefaults/1.0.lua",fullName="newDefaults/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="newDefaults",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfA/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfA/Core",}';
 export _ModuleTable_;
+===========================
+step 52
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset LMOD_MODULERC;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/modulerc/mfA/Core;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/modulerc/mfA/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfA/Core",}';
+export _ModuleTable_;
+===========================
+step 53
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load ABC
+===========================
+LOADEDMODULES=ABC/3.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/modulerc/mfB/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/modulerc/mfB/Core;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/modulerc/mfB/Core/ABC/3.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ABC={fn="ProjectDIR/rt/modulerc/mfB/Core/ABC/3.0.lua",fullName="ABC/3.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="ABC",wV="000000003.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfB/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfB/Core",}';
+export _ModuleTable_;

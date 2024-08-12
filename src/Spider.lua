@@ -103,9 +103,9 @@ function processDIR(value)
    l_process("dirA",value)
 end
 
-local function l_isActiveMfile(mrc, full, sn, fn)
+local function l_isActiveMfile(mrc, full, sn, fn, show_hidden)
    local version = extractVersion(full, sn) or ""
-   return mrc:isVisible{fullName=full, sn=sn, fn=fn}, version
+   return mrc:isVisible{fullName=full, sn=sn, fn=fn, show_hidden = show_hidden}, version
 end
 
 
@@ -630,6 +630,7 @@ function M.buildDbT(self, mpathMapT, spiderT, dbT)
       return a[1] > b[1]
    end
    local function l_buildDbT_helper(mpath, sn, v, T)
+      local hard = false
       if (v.file) then
          local t = {}
          for i = 1,#dbT_keyA do
@@ -640,10 +641,12 @@ function M.buildDbT(self, mpathMapT, spiderT, dbT)
             dbg.printT("parentAA",parentT[mpath])
             sort(parentT[mpath], l_cmp)
          end
-         t.parentAA     = parentT[mpath]
-         t.fullName     = sn
-         t.hidden       = not mrc:isVisible{fullName=sn, sn=sn, fn=v.file}
-         T[v.file]      = t
+         t.parentAA      = parentT[mpath]
+         t.fullName      = sn
+         t.hidden, hard  = not mrc:isVisible{fullName=sn, sn=sn, fn=v.file, mpathA=mpathA}
+         if (not hard) then
+            T[v.file]      = t
+         end
       end
       if (next(v.fileT) ~= nil) then
          for fullName, vv in pairs(v.fileT) do
@@ -656,11 +659,11 @@ function M.buildDbT(self, mpathMapT, spiderT, dbT)
                dbg.printT("parentAA",parentT[mpath])
                sort(parentT[mpath], l_cmp)
             end
-            t.parentAA   = parentT[mpath]
-            t.mpath      = vv.mpath
-            t.fullName   = fullName
-            t.hidden     = not mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, mpathA=mpathA}
-            if (not vv.dot_version) then
+            t.parentAA     = parentT[mpath]
+            t.mpath        = vv.mpath
+            t.fullName     = fullName
+            t.hidden, hard = not mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, mpathA=mpathA}
+            if (not vv.dot_version and not hard) then
                T[vv.fn]  = t
             end
          end
@@ -707,7 +710,7 @@ function M.buildProvideByT(self, dbT, providedByT)
    local mrc = MRC:singleton()
    for sn, vv in pairs(dbT) do
       for fullPath, v in pairs(vv) do
-         local hidden = not (show_hidden or mrc:isVisible{fullName=v.fullName, sn=sn, fn=fullPath})
+         local hidden = not mrc:isVisible{fullName=v.fullName, sn=sn, fn=fullPath, show_hidden = show_hidden}
          if (v.provides ~= nil) then
             local providesA = v.provides
             for i = 1, #providesA do
@@ -763,8 +766,8 @@ function M.Level0_terse(self,dbT, providedByT)
    local a           = {}
    for sn, vv in pairs(dbT) do
       for fn, v in pairs(vv) do
-         local isActive, version = l_isActiveMfile(mrc, v.fullName, sn, fn)
-         if (show_hidden or isActive) then
+         local isActive, version = l_isActiveMfile(mrc, v.fullName, sn, fn, show_hidden)
+         if (isActive) then
             if (sn == v.fullName) then
                t[sn] = sn
             else
@@ -839,8 +842,8 @@ function M.Level0Helper(self, dbT, providedByT, a)
 
    for sn, vv in pairs(dbT) do
       for fn,v in pairsByKeys(vv) do
-         local isActive, version = l_isActiveMfile(mrc, v.fullName, sn, fn)
-         if (show_hidden or isActive) then
+         local isActive, version = l_isActiveMfile(mrc, v.fullName, sn, fn, show_hidden)
+         if (isActive) then
             if (t[sn] == nil) then
                t[sn] = { Description = v.Description, versionA = { }, name = sn}
             end
@@ -996,7 +999,7 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
       local fullA = {}
       for sn, vv in pairs(dbT) do
          for fn, v in pairs(vv) do
-            if (show_hidden or mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn}) then
+            if (mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, show_hidden = show_hidden}) then
                 fullA[#fullA+1] = {sn=sn, fullName=v.fullName}
             end
          end
@@ -1106,7 +1109,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
          dbg.print{"Have T in l_countEntries\n"}
          dbg.print{"key: ",key,"\n"}
          for fn, v in pairs(T) do
-            if (show_hidden or mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn}) then
+            if (mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, show_hidden = show_hidden}) then
                v.fn=fn
                if (v.fullName == key) then
                   aa[#aa + 1] = v
@@ -1225,7 +1228,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
    if (T) then
       dbg.print{"Have T\n"}
       for fn, v in pairsByKeys(T) do
-         local isActive, version = l_isActiveMfile(mrc, v.fullName, sn, fn)
+         local isActive, version = l_isActiveMfile(mrc, v.fullName, sn, fn, show_hidden)
          if (show_hidden or isActive) then
             local kk       = sn .. "/" .. parseVersion(version)
             if (fullVT[kk] == nil) then

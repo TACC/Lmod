@@ -317,7 +317,8 @@ function M.__find_all_defaults(self)
          elseif (next(v.fileT) ~= nil) then
             for fullName, vv in pairs(v.fileT) do
                local wV  = mrc:find_wght_for_fullName(fullName, vv.wV)
-               local vis = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn} or isMarked(wV)
+               local vis = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, visibleT = {soft=true}} or isMarked(wV)
+               dbg.print{"fullName: ",fullName,", vis: ",vis,"\n"}
                if (show_hidden or vis) then
                   count = count + 1
                   if (vis and (wV > weight)) then
@@ -372,15 +373,20 @@ function M.build_availA(self)
    local function l_build_availA_helper(mpath, sn, v, A)
       local icnt = #A
       if (v.file ) then
-         if (show_hidden or mrc:isVisible{fullName=sn,sn=sn,fn=v.file}) then
+         dbg.print{"v.file: ",v.file,"\n"}
+         if (mrc:isVisible{fullName=sn,sn=sn,fn=v.file, show_hidden = show_hidden}) then
             local metaModuleT = v.metaModuleT or {}
+            -- here is where the forbidden info goes.
+            dbg.print{"saving v.file: ",v.file,"\n"}
             A[icnt+1] = { fullName = sn, pV = sn, fn = v.file, sn = sn, propT = metaModuleT.propT}
          end
       end
       if (next(v.fileT) ~= nil) then
          for fullName, vv in pairs(v.fileT) do
-            if (show_hidden or mrc:isVisible{fullName=fullName,sn=sn,fn=vv.fn}) then
+            dbg.print{"fullName: ",fullName,",show_hidden: ",show_hidden,"\n"}
+            if ( mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, show_hidden = show_hidden}) then
                icnt    = icnt + 1
+               dbg.print{"saving fullName: ",fullName,"\n"}
                A[icnt] = { fullName = fullName, pV = pathJoin(sn,vv.pV), fn = vv.fn, sn = sn,
                            propT = vv.propT, provides = vv.provides}
             end

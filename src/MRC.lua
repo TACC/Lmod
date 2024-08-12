@@ -134,7 +134,7 @@ function l_build(self, fnA)
          self:parseModA(modA, weight)
       end
    end
-   dbg.fini("MRC l_build")
+   --dbg.fini("MRC l_build")
 end
 
 local function l_save_su_weights(self, fullName, weight)
@@ -202,6 +202,8 @@ function M.parseModA(self, modA, weight)
          elseif (entry.action == "hide_modulefile") then
             --dbg.print{"mfile: ", entry.mfile,"\n"}
             self.__hiddenT[entry.mfile] = {kind="hidden"}
+         elseif (entry.action == "hide") then
+            self.__hiddenT[entry.name] = entry
          end
       until true
    end
@@ -398,6 +400,8 @@ function M.parseModA_for_moduleA(self, name, mpath, modA)
       elseif (entry.action == "hide_version" or entry.action == "hide_modulefile") then
          --dbg.print{"mfile: ", entry.mfile,"\n"}
          l_store_mpathT(self, mpath, "hiddenT", entry.mfile, {kind = "hidden"});
+      elseif (entry.action == "hide") then
+         l_store_mpathT(self, mpath, "hiddenT", entry.name, entry);
       end
    end
    --dbg.fini("MRC:parseModA_for_moduleA")
@@ -497,24 +501,32 @@ end
 
 -- modT is a table with: sn, fullName and fn
 function M.isVisible(self, modT)
-   local frameStk  = require("FrameStk"):singleton()
-   local mname     = frameStk:mname()
-   local mt        = frameStk:mt()
-   local mpathA    = modT.mpathA or mt:modulePathA()
-   local fullName  = modT.fullName
-   local fn        = modT.fn
-   local sn        = modT.sn
-   local isVisible = true
-   local visibleT  = modT.visibleT or {}
+   dbg.start{"MRC:isVisible(modT}"}
+   local frameStk    = require("FrameStk"):singleton()
+   local mname       = frameStk:mname()
+   local mt          = frameStk:mt()
+   local mpathA      = modT.mpathA or mt:modulePathA()
+   local fullName    = modT.fullName
+   local fn          = modT.fn
+   local sn          = modT.sn
+   local show_hidden = modT.show_hidden
+   local isVisible   = true
+   local visibleT    = modT.visibleT or {}
+   local hard        = false
 
    local resultT   = l_findHiddenState(self, mpathA, sn, fullName, fn) 
    if (type(resultT) == "table" ) then
-      isVisible = (visibleT[resultT.kind] ~= nil)
+      hard = (resultT.kind == "hard")
+      if (show_hidden) then
+         isVisible = (resultT.kind ~= "hard")
+      else
+         isVisible = (visibleT[resultT.kind] ~= nil)
+      end
    elseif (fullName:sub(1,1) == ".") then
-      isVisible = (visibleT.hidden == true)
+      isVisible = (visibleT.hidden == true or show_hidden)
    else
       local idx = fullName:find("/%.")
-      isVisible = (idx == nil) or (visibleT.hidden == true)
+      isVisible = (idx == nil) or (visibleT.hidden == true) or show_hidden
    end
 
    modT.isVisible = isVisible
@@ -522,7 +534,8 @@ function M.isVisible(self, modT)
    modT.mt        = mt
    hook.apply("isVisibleHook", modT)
 
-   return modT.isVisible
+   dbg.fini("MRC:isVisible")
+   return modT.isVisible, hard
 end
 
 function M.update(self, fnA)
