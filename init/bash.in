@@ -25,25 +25,24 @@ fi
 
 __build_FPATH_for_zsh_ksh()
 {
-  zsh_fpath=$(unset FPATH; zsh -f -c 'echo $FPATH')
-  export FPATH=$(@PKGV@/libexec/addto --append FPATH ${zsh_fpath} @PKGV@/init/ksh_funcs)
+  (compinit -c 2> /dev/null)
+  if [ "$?" != 0 ]; then
+    zsh_fpath=$(unset FPATH; zsh -f -c 'echo $FPATH')
+  fi
+  export FPATH=$(@PKGV@/libexec/addto --append FPATH ${zsh_fpath:-} @PKGV@/init/ksh_funcs)
   unset zsh_fpath
 }  
 
-if [ -n "${ZSH_VERSION+x}" -a -z "${__LMOD_SET_ZSH_FPATH+x}" ]; then
-  export __LMOD_SET_ZSH_FPATH=1
+if [ -n "${ZSH_VERSION+x}" ]; then
   __build_FPATH_for_zsh_ksh 
 fi
 
 if [ -n "${KSH_VERSION+x}" -o -n "${BASH_VERSION+x}" ]; then
-  if [ -z "${__LMOD_SET_KSH_FPATH:-}" ]; then
-    type zsh > /dev/null 2>&1
-    if [ "$?" = 0 ]; then
-      __build_FPATH_for_zsh_ksh 
-    else
-      export FPATH=$(@PKGV@/libexec/addto --append FPATH ${FPATH:-} @PKGV@/init/ksh_funcs)
-    fi
-    export __LMOD_SET_KSH_FPATH=1
+  type zsh > /dev/null 2>&1
+  if [ "$?" = 0 ]; then
+    __build_FPATH_for_zsh_ksh 
+  else
+    export FPATH=$(@PKGV@/libexec/addto --append FPATH ${FPATH:-} @PKGV@/init/ksh_funcs)
   fi
 fi 
 
