@@ -554,7 +554,7 @@ function M.isVisible(self, modT)
    local my_resultT = { isVisible = modT.isVisible,
                         moduleKindT = {kind=modT.kind, hidden_load = modT.hidden_load} }
    dbg.fini("MRC:isVisible")
-   return my_resuiltT
+   return my_resultT
 end
 
 function M.update(self, fnA)

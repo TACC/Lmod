@@ -646,7 +646,7 @@ function M.buildDbT(self, mpathMapT, spiderT, dbT)
          t.fullName    = sn
          local resultT = mrc:isVisible{fullName=sn, sn=sn, fn=v.file, mpathA=mpathA}
          t.hidden      = not resultT.isVisible
-         kind          = resultT.moduleKind.kind 
+         kind          = resultT.moduleKindT.kind 
          if (not (kind == "hard")) then
             T[v.file]      = t
          end
@@ -667,8 +667,8 @@ function M.buildDbT(self, mpathMapT, spiderT, dbT)
             t.fullName    = fullName
             local resultT = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, mpathA=mpathA}
             t.hidden      = not resultT.isVisible
-            kind          = resultT.moduleKind.kind 
-            if (not vv.dot_version and (kind = "hard") then
+            kind          = resultT.moduleKindT.kind 
+            if (not vv.dot_version and (kind == "hard")) then
                T[vv.fn]  = t
             end
          end

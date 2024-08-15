@@ -250,6 +250,7 @@ local function l_lazyEval(self)
    local fn
    local wV
    local found
+   local moduleKindT
    --dbg.printT("fileA",fileA)
    --dbg.print{"#stepA: ",#stepA,"\n"}
    --dbg.print{"userName: ",self.__userName,"\n"}
@@ -421,14 +422,14 @@ end
 
 local function l_find_exact_match(self, must_have_version, fileA)
    dbg.start{"MName l_find_exact_match(must_have_version:,",must_have_version,",fileA)"}
-   local versionStr = self.__versionStr
-   local mrc        = MRC:singleton()
-   local fn         = false
-   local version    = false
-   local pV         = " "  -- this is less than the lowest possible weight
-   local wV         = false
-   local kind       = false
-   local found      = false
+   local versionStr  = self.__versionStr
+   local mrc         = MRC:singleton()
+   local fn          = false
+   local version     = false
+   local pV          = " "  -- this is less than the lowest possible weight
+   local wV          = false
+   local moduleKindT = {}
+   local found       = false
    if (must_have_version and not versionStr) then
       return found, fn, version
    end
@@ -495,7 +496,7 @@ local function l_find_highest_by_key(self, key, fileA)
    local weight      = " "  -- this is less than the lower possible weight.
    local idx         = nil
    local fn          = false
-   local moduleKindT = false
+   local moduleKindT = {}
    local found       = false
    local version     = false
    local pV          = false
@@ -517,7 +518,7 @@ local function l_find_highest_by_key(self, key, fileA)
                weight      = v
                pV          = entry.pV
                wV          = entry.wV
-               moduleKindT = result.moduleKindT
+               moduleKindT = resultT.moduleKindT
             end
          end
       end
@@ -567,7 +568,7 @@ function M.find_between(self, fileA)
    local kind        = nil
    local idx         = nil
    local found       = false
-   local moduleKindT = false
+   local moduleKindT = {}
    for j = 1,#a do
       local entry = a[j]
       local v     = entry.pV
