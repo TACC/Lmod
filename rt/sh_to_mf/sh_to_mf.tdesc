@@ -1,5 +1,5 @@
 -- -*- lua -*-
-local testName = "sh_to_modulefile"
+local testName = "sh_to_mf"
 
 testdescript = {
    owner   = "rtm",

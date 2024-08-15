@@ -1,0 +1,42 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
+===========================
+===========================
+step 2
+buildSh2MF --from zsh ProjectDIR/rt/zsh_to_mf/tstScript.zsh
+===========================
+prepend_path("PATH","ProjectDIR/rt/zsh_to_mf/bin")
+append_path("PATH","ProjectDIR/rt/zsh_to_mf/sbin")
+set_alias("fooAlias","foobin -q -l")
+set_shell_function("fooFunc","\
+    echo \"arg1: $1\"\
+","")
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load matt/1.0
+===========================
+LOADEDMODULES=matt/1.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/zsh_to_mf/mf:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/zsh_to_mf/mf;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/zsh_to_mf/mf/matt/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={matt={fn="ProjectDIR/rt/zsh_to_mf/mf/matt/1.0.lua",fullName="matt/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/zsh_to_mf/rtm.sh"]={[[set_shell_function("_sp_multi_pathadd","\\ local IFS=':' \\ if [ \\"$_sp_shell\\"=zsh ]\\ then\\ emulate -L sh\\ fi\\ for pth in $2\\ do\\ for systype in ${_sp_compatible_sys_types}\\ do\\ _spack_pathadd \\"$1\\" \\"${pth}/${systype}\\"\\ done\\ done\\","")]],},},propT={},stackDepth=0,status="active",userName="matt/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/zsh_to_mf/mf",},systemBaseMPATH="ProjectDIR/rt/zsh_to_mf/mf",}';
+export _ModuleTable_;
+_sp_multi_pathadd () {
+    local IFS=':'
+    if [ "$_sp_shell" = zsh ]
+    then
+        emulate -L sh
+    fi
+    for pth in $2
+    do
+        for systype in ${_sp_compatible_sys_types}
+        do
+            _spack_pathadd "$1" "${pth}/${systype}"
+        done
+    done;
+};

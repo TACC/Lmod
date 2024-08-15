@@ -579,7 +579,7 @@ function M.find_between(self, fileA)
             idx         = j
             pV          = v
             wV          = entry.wV
-            moduleKindT = result.moduleKindT
+            moduleKindT = resultT.moduleKindT
          end
       end
    end

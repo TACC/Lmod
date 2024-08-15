@@ -29,11 +29,7 @@ timestampFn = {
 }
 mrcT = {
   alias2modT = {},
-  hiddenT = {
-    ["foobar/1.2.3"] = {
-      kind = "hidden",
-    },
-  },
+  hiddenT = {},
   version2modT = {},
 }
 mrcMpathT = {
