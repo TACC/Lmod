@@ -464,6 +464,7 @@ MODULEPATH directory: "%{mpath}" has too many non-modulefiles (%{regularFn}). Pl
      Inactive       = "\nInactive Modules",
      DefaultM       = "Default Module",
      HiddenM        = "Hidden Module",
+     Hidden_softM   = "Soft Hidden Module",
      Extension      = "Extension that is provided by another module",
 
      avail     = [==[If the avail list is too long consider trying:

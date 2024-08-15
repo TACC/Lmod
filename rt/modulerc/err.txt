@@ -652,12 +652,13 @@ step 55
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
 ===========================
 ProjectDIR/rt/modulerc/mfB/Core
-   ABC/1.0    ABC/3.0 (H,L,D)    B/1.0    B/3.0 (H)    B/6.0 (D)
+   ABC/1.0    ABC/3.0 (S,L,D)    B/1.0    B/3.0 (S)    B/6.0 (D)
    ABC/2.0    ABC/4.0 (H)        B/2.0    B/4.0 (H)
   Where:
    D:  Default Module
    H:  Hidden Module
    L:  Module is loaded
+   S:  Soft Hidden Module
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
 "module overview" or "ml ov" to display the number of modules for each name.
