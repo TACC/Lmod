@@ -105,7 +105,8 @@ end
 
 local function l_isActiveMfile(mrc, full, sn, fn, show_hidden)
    local version = extractVersion(full, sn) or ""
-   return mrc:isVisible{fullName=full, sn=sn, fn=fn, show_hidden = show_hidden}, version
+   local resultT = mrc:isVisible{fullName=full, sn=sn, fn=fn, show_hidden = show_hidden} 
+   return resultT.isVisible, version
 end
 
 
@@ -630,7 +631,7 @@ function M.buildDbT(self, mpathMapT, spiderT, dbT)
       return a[1] > b[1]
    end
    local function l_buildDbT_helper(mpath, sn, v, T)
-      local hard = false
+      local kind = false
       if (v.file) then
          local t = {}
          for i = 1,#dbT_keyA do
@@ -641,10 +642,12 @@ function M.buildDbT(self, mpathMapT, spiderT, dbT)
             dbg.printT("parentAA",parentT[mpath])
             sort(parentT[mpath], l_cmp)
          end
-         t.parentAA      = parentT[mpath]
-         t.fullName      = sn
-         t.hidden, hard  = not mrc:isVisible{fullName=sn, sn=sn, fn=v.file, mpathA=mpathA}
-         if (not hard) then
+         t.parentAA    = parentT[mpath]
+         t.fullName    = sn
+         local resultT = mrc:isVisible{fullName=sn, sn=sn, fn=v.file, mpathA=mpathA}
+         t.hidden      = not resultT.isVisible
+         kind          = resultT.moduleKind.kind 
+         if (not (kind == "hard")) then
             T[v.file]      = t
          end
       end
@@ -659,11 +662,13 @@ function M.buildDbT(self, mpathMapT, spiderT, dbT)
                dbg.printT("parentAA",parentT[mpath])
                sort(parentT[mpath], l_cmp)
             end
-            t.parentAA     = parentT[mpath]
-            t.mpath        = vv.mpath
-            t.fullName     = fullName
-            t.hidden, hard = not mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, mpathA=mpathA}
-            if (not vv.dot_version and not hard) then
+            t.parentAA    = parentT[mpath]
+            t.mpath       = vv.mpath
+            t.fullName    = fullName
+            local resultT = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, mpathA=mpathA}
+            t.hidden      = not resultT.isVisible
+            kind          = resultT.moduleKind.kind 
+            if (not vv.dot_version and (kind = "hard") then
                T[vv.fn]  = t
             end
          end
@@ -710,7 +715,8 @@ function M.buildProvideByT(self, dbT, providedByT)
    local mrc = MRC:singleton()
    for sn, vv in pairs(dbT) do
       for fullPath, v in pairs(vv) do
-         local hidden = not mrc:isVisible{fullName=v.fullName, sn=sn, fn=fullPath, show_hidden = show_hidden}
+         local resultT = mrc:isVisible{fullName=v.fullName, sn=sn, fn=fullPath, show_hidden = show_hidden}
+         local hidden  = not resultT.isVisible
          if (v.provides ~= nil) then
             local providesA = v.provides
             for i = 1, #providesA do
@@ -965,7 +971,8 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
          if (T) then
             dbg.print{"Have T\n"}
             for fn, v in pairs(T) do
-               if (mrc:isVisible{fullName=v.fullName,fn=fn,sn=origUserSearchPat}) then
+               local resultT = mrc:isVisible{fullName=v.fullName,fn=fn,sn=origUserSearchPat}
+               if (resultT.isVisible) then
                   found = true
                   break
                end
@@ -999,7 +1006,8 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
       local fullA = {}
       for sn, vv in pairs(dbT) do
          for fn, v in pairs(vv) do
-            if (mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, show_hidden = show_hidden}) then
+            local resultT = mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, show_hidden = show_hidden}
+            if (resultT.isVisible) then
                 fullA[#fullA+1] = {sn=sn, fullName=v.fullName}
             end
          end
@@ -1109,7 +1117,8 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
          dbg.print{"Have T in l_countEntries\n"}
          dbg.print{"key: ",key,"\n"}
          for fn, v in pairs(T) do
-            if (mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, show_hidden = show_hidden}) then
+            local resultT = mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, show_hidden = show_hidden}
+            if (resultT.isVisible) then
                v.fn=fn
                if (v.fullName == key) then
                   aa[#aa + 1] = v

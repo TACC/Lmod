@@ -103,6 +103,7 @@ function M.new(self, sType, name, action, is, ie)
    o.__fn              = false
    o.__versionStr      = false
    o.__dependsOn       = false
+   o.__moduleKindT     = nil
    o.__ref_count       = nil
    o.__depends_on_anyA = nil
    o.__sType           = sType
@@ -257,11 +258,12 @@ local function l_lazyEval(self)
 
    for i = 1, #stepA do
       local func = stepA[i]
-      found, fn, version, wV = func(self, fileA)
+      found, fn, version, wV, moduleKindT = func(self, fileA)
       if (found) then
-         self.__fn      = fn
-         self.__version = version
-         self.__wV      = wV
+         self.__fn          = fn
+         self.__version     = version
+         self.__wV          = wV
+         self.__moduleKindT = moduleKindT
          if (self.__action == "latest" or self.__sn ~= self.__userName) then
             self.__userName = build_fullName(self.__sn, version)
          end
@@ -269,7 +271,7 @@ local function l_lazyEval(self)
       end
    end
    --dbg.print{"l_lazyEval: sn: ",self.__sn, ", version: ",self.__version, ", fn: ",self.__fn,", wV: ",self.__wV,", userName: ",self.__userName,"\n"}
-   --dbg.print{"fn: ",self.__fn,"\n"}
+   --dbg.print{"fn: ",self.__fn,", kind: ",moduleKindT.kind,"\n"}
    --dbg.fini("l_lazyEval")
 end
 
@@ -425,6 +427,7 @@ local function l_find_exact_match(self, must_have_version, fileA)
    local version    = false
    local pV         = " "  -- this is less than the lowest possible weight
    local wV         = false
+   local kind       = false
    local found      = false
    if (must_have_version and not versionStr) then
       return found, fn, version
@@ -433,15 +436,17 @@ local function l_find_exact_match(self, must_have_version, fileA)
    for j = 1, #fileA do
       local blockA = fileA[j]
       for i = 1, #blockA do
-         local entry = blockA[i]
-         if (mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, 
-                           visibleT = {soft = true, hidden = true}})  then
+         local entry   = blockA[i]
+         local resultT = mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, 
+                                       visibleT = {soft = true, hidden = true}}
+         if (resultT.isVisible)  then
             if (entry.version == versionStr and entry.pV > pV ) then
-               pV      = entry.pV
-               wV      = entry.wV
-               fn      = entry.fn
-               version = entry.version or false
-               found   = true
+               pV          = entry.pV
+               wV          = entry.wV
+               fn          = entry.fn
+               version     = entry.version or false
+               moduleKindT = resultT.moduleKindT
+               found       = true
                self.__range = { pV, pV }
                break
             end
@@ -449,9 +454,10 @@ local function l_find_exact_match(self, must_have_version, fileA)
       end
    end
 
-   dbg.print{"found: ",found,", fn: ",fn,", version: ", version,", wV: ",wV,"\n"}
+   dbg.print{"found: ",found,", fn: ",fn,", version: ", version,", wV: ",wV,
+             ", kind: ",moduleKindT.kind,"\n"}
    dbg.fini("MName l_find_exact_match")
-   return found, fn, version, wV
+   return found, fn, version, wV, moduleKindT
 end
    
 
@@ -465,9 +471,9 @@ end
 function M.find_exact_match(self, fileA)
    dbg.start{"MName:find_exact_match(fileA)"}
    local must_have_version = true
-   local found, fn, version, wV = l_find_exact_match(self, must_have_version, fileA)
+   local found, fn, version, wV, moduleKindT  = l_find_exact_match(self, must_have_version, fileA)
    dbg.fini("MName:find_exact_match")
-   return found, fn, version, wV
+   return found, fn, version, wV, moduleKindT
 end
 ------------------------------------------------------------------------
 -- This routine is almost the same as M.find_exact_match
@@ -478,37 +484,40 @@ end
 function M.find_exact_match_meta_module(self, fileA)
    dbg.start{"MName:find_exact_match_meta_module(fileA)"}
    local must_have_version = false
-   local found, fn, version, wV = l_find_exact_match(self, must_have_version, fileA)
+   local found, fn, version, wV, moduleKindT = l_find_exact_match(self, must_have_version, fileA)
    dbg.fini("MName:find_exact_match_meta_module")
-   return found, fn, version, wV 
+   return found, fn, version, wV, moduleKindT
 end
 
 local function l_find_highest_by_key(self, key, fileA)
    dbg.start{"MName: l_find_highest_by_key(key:\"",key,"\",fileA)"}
-   local mrc     = MRC:singleton()
-   local weight  = " "  -- this is less than the lower possible weight.
-   local idx     = nil
-   local fn      = false
-   local found   = false
-   local version = false
-   local pV      = false
-   local wV      = false
-   fileA         = fileA or {}
+   local mrc         = MRC:singleton()
+   local weight      = " "  -- this is less than the lower possible weight.
+   local idx         = nil
+   local fn          = false
+   local moduleKindT = false
+   local found       = false
+   local version     = false
+   local pV          = false
+   local wV          = false
+   fileA             = fileA or {}
    local blockA
 
    for j = 1,#fileA do
        blockA = fileA[j]
 
       for i = 1,#blockA do
-         local entry = blockA[i]
-         local v     = entry[key]
-         if (isMarked(v) or mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, 
-                                          visibleT = {soft = true}})  then
+         local entry   = blockA[i]
+         local v       = entry[key]
+         local resultT = mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, 
+                                       visibleT = {soft = true}}
+         if (isMarked(v) or resultT.isVisible) then
             if (v > weight) then
-               idx    = i
-               weight = v
-               pV     = entry.pV
-               wV     = entry.wV
+               idx         = i
+               weight      = v
+               pV          = entry.pV
+               wV          = entry.wV
+               moduleKindT = result.moduleKindT
             end
          end
       end
@@ -520,9 +529,10 @@ local function l_find_highest_by_key(self, key, fileA)
       found        = true
       self.__range = { pV, pV }
    end
-   dbg.print{"found: ",found,", fn: ",fn,", version: ", version,", wV: ",wV,"\n"}
+   dbg.print{"found: ",found,", fn: ",fn,", version: ", version,", wV: ",wV,
+             ", kind: ",moduleKindT.kind,"\n"}
    dbg.fini("MName: l_find_highest_by_key")
-   return found, fn, version, wV
+   return found, fn, version, wV, moduleKindT
 end
 
 ------------------------------------------------------------------------
@@ -544,27 +554,31 @@ function M.find_between(self, fileA)
            return x.pV < y.pV
            end)
 
-   local mrc        = MRC:singleton()
-   local fn         = false
-   local version    = false
-   local lowerBound = self.__range[1]
-   local upperBound = self.__range[2]
-   local lowerFn    = self.__range_fnA[1].func
-   local upperFn    = self.__range_fnA[2].func
+   local mrc         = MRC:singleton()
+   local fn          = false
+   local version     = false
+   local lowerBound  = self.__range[1]
+   local upperBound  = self.__range[2]
+   local lowerFn     = self.__range_fnA[1].func
+   local upperFn     = self.__range_fnA[2].func
 
-   local pV         = lowerBound
-   local wV         = " "  -- this is less than the lower possible weight.
-   local idx        = nil
-   local found      = false
+   local pV          = lowerBound
+   local wV          = " "  -- this is less than the lower possible weight.
+   local kind        = nil
+   local idx         = nil
+   local found       = false
+   local moduleKindT = false
    for j = 1,#a do
       local entry = a[j]
       local v     = entry.pV
       if (lowerFn(pV,v) and upperFn(v,upperBound) and entry.wV > wV) then
-         if (isMarked(v) or mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, 
-                                          visibleT = {soft = true}})  then
-            idx = j
-            pV  = v
-            wV  = entry.wV
+         local resultT = mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, 
+                                       visibleT = {soft = true}}
+         if (isMarked(v) or resultT.isVisible ) then
+            idx         = j
+            pV          = v
+            wV          = entry.wV
+            moduleKindT = result.moduleKindT
          end
       end
    end
@@ -577,7 +591,7 @@ function M.find_between(self, fileA)
       end
    end
    --dbg.fini("MName:find_between")
-   return found, fn, version, wV
+   return found, fn, version, wV, moduleKindT
 end
 
 local function l_rangeCk(self, version, result_if_found, result_if_not_found)

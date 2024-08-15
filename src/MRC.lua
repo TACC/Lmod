@@ -460,6 +460,10 @@ local function l_findHiddenState(self, mpathA, sn, fullName, fn)
    end
    t = self.__hiddenT
    local resultT = t[sn] or t[fullName] or t[fn]
+
+   ------------------------------------------------------------
+   -- If there is no result for sn, fullName or fn
+   -- then check for partial matches for NVV modulefiles.
    if (not resultT) then
       local _
       local n = fullName
@@ -512,30 +516,45 @@ function M.isVisible(self, modT)
    local show_hidden = modT.show_hidden
    local isVisible   = true
    local visibleT    = modT.visibleT or {}
-   local hard        = false
+   local resultT     = l_findHiddenState(self, mpathA, sn, fullName, fn) 
+   local kind        = "normal"
+   local hidden_load = false
 
-   local resultT   = l_findHiddenState(self, mpathA, sn, fullName, fn) 
+   ------------------------------------------------------------
+   -- resultT is nil if the modulefile is normal or
+   -- {kind="hidden|soft|hard"
+   --   before="<time>" after="<time>",
+   --   hidden_load = true|nil, }
+   -- if hidden.
+
    if (type(resultT) == "table" ) then
-      hard = (resultT.kind == "hard")
       if (show_hidden) then
          isVisible = (resultT.kind ~= "hard")
       else
          isVisible = (visibleT[resultT.kind] ~= nil)
       end
+      kind        = resultT.kind
+      hidden_load = resultT.hidden_load
    elseif (fullName:sub(1,1) == ".") then
       isVisible = (visibleT.hidden == true or show_hidden)
+      kind      = "hidden"
    else
       local idx = fullName:find("/%.")
       isVisible = (idx == nil) or (visibleT.hidden == true) or show_hidden
+      kind      = "hidden"
    end
 
-   modT.isVisible = isVisible
-   modT.mname     = mname
-   modT.mt        = mt
+   modT.isVisible   = isVisible
+   modT.mname       = mname
+   modT.kind        = kind
+   modT.mt          = mt
+   modT.hidden_load = hidden_load
    hook.apply("isVisibleHook", modT)
 
+   local my_resultT = { isVisible = modT.isVisible,
+                        moduleKindT = {kind=modT.kind, hidden_load = modT.hidden_load} }
    dbg.fini("MRC:isVisible")
-   return modT.isVisible, hard
+   return my_resuiltT
 end
 
 function M.update(self, fnA)

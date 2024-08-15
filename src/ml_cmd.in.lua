@@ -157,7 +157,7 @@ function main()
       ["--raw"] = 0,
       ["--redirect"] = 0, ["--no_redirect"] = 0, ["--no-redirect"] = 0,
       ["--regexp"] = 0, ["-r"] = 0,
-      ["--show_hidden"] = 0, ["--show-hidden"] = 0,
+      ["--show_hidden"] = 0, ["--show-hidden"] = 0, ["--all"] = 0, ["-A"] = 0,
       ["--spider_timeout"] = 1,       ["--spider-timeout"] = 1,
       ["--style"] = 1,  ["-s"] = 1,
       ["--terse"] = 0,  ["-t"] = 0,

@@ -312,14 +312,18 @@ function M.__find_all_defaults(self)
       end
 
       if (keepLooking) then
-         if (v.file and (show_hidden or mrc:isVisible{fullName=sn, sn=sn, fn=v.file})) then
-            defaultT[sn] = {weight = "999999999.*zfinal", fullName = sn, fn = v.file, count = 1}
+         if (v.file) then
+            local resultT = mrc:isVisible{fullName=sn, sn=sn, fn=v.file, show_hidden=show_hidden}
+            if (resultT.isVisible) then
+               defaultT[sn] = {weight = "999999999.*zfinal", fullName = sn, fn = v.file, count = 1}
+            end
          elseif (next(v.fileT) ~= nil) then
             for fullName, vv in pairs(v.fileT) do
-               local wV  = mrc:find_wght_for_fullName(fullName, vv.wV)
-               local vis = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, visibleT = {soft=true}} or isMarked(wV)
+               local wV      = mrc:find_wght_for_fullName(fullName, vv.wV)
+               local resultT = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, show_hidden = show_hidden} --visibleT = {soft=true} ?
+               local vis     = resultT.isVisible or isMarked(wV)
                dbg.print{"fullName: ",fullName,", vis: ",vis,"\n"}
-               if (show_hidden or vis) then
+               if (vis) then
                   count = count + 1
                   if (vis and (wV > weight)) then
                      found      = true
@@ -374,21 +378,24 @@ function M.build_availA(self)
       local icnt = #A
       if (v.file ) then
          dbg.print{"v.file: ",v.file,"\n"}
-         if (mrc:isVisible{fullName=sn,sn=sn,fn=v.file, show_hidden = show_hidden}) then
+         local resultT = mrc:isVisible{fullName=sn,sn=sn,fn=v.file, show_hidden = show_hidden}
+         if (resultT.isVisible) then
             local metaModuleT = v.metaModuleT or {}
             -- here is where the forbidden info goes.
             dbg.print{"saving v.file: ",v.file,"\n"}
-            A[icnt+1] = { fullName = sn, pV = sn, fn = v.file, sn = sn, propT = metaModuleT.propT}
+            A[icnt+1] = { fullName = sn, pV = sn, fn = v.file, sn = sn,
+                          propT = metaModuleT.propT, moduleKindT = resultT.moduleKindT}
          end
       end
       if (next(v.fileT) ~= nil) then
          for fullName, vv in pairs(v.fileT) do
             dbg.print{"fullName: ",fullName,",show_hidden: ",show_hidden,"\n"}
-            if ( mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, show_hidden = show_hidden}) then
+            local resultT = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, show_hidden = show_hidden}
+            if (resultT.isVisible) then
                icnt    = icnt + 1
                dbg.print{"saving fullName: ",fullName,"\n"}
                A[icnt] = { fullName = fullName, pV = pathJoin(sn,vv.pV), fn = vv.fn, sn = sn,
-                           propT = vv.propT, provides = vv.provides}
+                           propT = vv.propT, provides = vv.provides, moduleKindT = resultT.moduleKindT}
             end
          end
       end
