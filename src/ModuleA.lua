@@ -320,10 +320,16 @@ function M.__find_all_defaults(self)
          elseif (next(v.fileT) ~= nil) then
             for fullName, vv in pairs(v.fileT) do
                local wV      = mrc:find_wght_for_fullName(fullName, vv.wV)
-               local resultT = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, show_hidden = show_hidden} --visibleT = {soft=true} ?
+               local resultT = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, visibleT = {soft=true}}
                local vis     = resultT.isVisible or isMarked(wV)
-               dbg.print{"fullName: ",fullName,", vis: ",vis,"\n"}
-               if (vis) then
+
+               ------------------------------------------------------------
+               -- When hidden modules are shown (show_hidden=true) then
+               -- the count goes up.  However only visible modules can have
+               -- the (D) marking (i.e. default)
+
+
+               if (show_hidden or vis) then
                   count = count + 1
                   if (vis and (wV > weight)) then
                      found      = true

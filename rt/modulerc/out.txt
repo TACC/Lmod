@@ -1402,3 +1402,19 @@ _LMFILES_=ProjectDIR/rt/modulerc/mfB/Core/ABC/3.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ABC={fn="ProjectDIR/rt/modulerc/mfB/Core/ABC/3.0.lua",fullName="ABC/3.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="ABC",wV="000000003.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfB/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfB/Core",}';
 export _ModuleTable_;
+===========================
+step 54
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/modulerc/mfB/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ABC={fn="ProjectDIR/rt/modulerc/mfB/Core/ABC/3.0.lua",fullName="ABC/3.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="ABC",wV="000000003.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfB/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfB/Core",}';
+export _ModuleTable_;
+===========================
+step 55
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
+===========================
+MODULEPATH=ProjectDIR/rt/modulerc/mfB/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ABC={fn="ProjectDIR/rt/modulerc/mfB/Core/ABC/3.0.lua",fullName="ABC/3.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="ABC",wV="000000003.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfB/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfB/Core",}';
+export _ModuleTable_;

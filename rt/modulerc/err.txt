@@ -641,3 +641,24 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 step 53
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load ABC
 ===========================
+===========================
+step 54
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) ABC/3.0
+===========================
+step 55
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
+===========================
+ProjectDIR/rt/modulerc/mfB/Core
+   ABC/1.0    ABC/2.0    ABC/3.0 (H,L,D)    ABC/4.0 (H)
+  Where:
+   D:  Default Module
+   H:  Hidden Module
+   L:  Module is loaded
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
