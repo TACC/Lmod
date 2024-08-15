@@ -283,6 +283,7 @@ function M.add(self, mname, status, loadOrder)
       userName        = mname:userName(),
       stackDepth      = mname:stackDepth(),
       origUserName    = mname:origUserName(),
+      moduleKindT     = mname:moduleKindT{},
       ref_count       = ref_count,
       depends_on_anyA = mname:get_depends_on_anyA(),
       status          = status,

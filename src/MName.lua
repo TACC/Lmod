@@ -227,13 +227,13 @@ local function l_lazyEval(self)
    local origUserName          = self:userName()
    local userName              = mrc:resolve(mt:modulePathA(), self:userName())
    local sn, versionStr, fileA = moduleA:search(userName)
-   dbg.print{"l_lazyEval: orig: ",origUserName,", userName: ",userName, ", sn: ",sn,", versionStr: ",versionStr,"\n"}
+   --dbg.print{"l_lazyEval: orig: ",origUserName,", userName: ",userName, ", sn: ",sn,", versionStr: ",versionStr,"\n"}
    mrc:applyWeights(sn, fileA)
 
    if (origUserName ~= userName) then
       self.__origUserName = origUserName
    end
-   dbg.print{"l_lazyEval: self.__origUserName: ",self.__origUserName,"\n"}
+   --dbg.print{"l_lazyEval: self.__origUserName: ",self.__origUserName,"\n"}
 
    self.__userName   = userName
    self.__sn         = sn
@@ -271,8 +271,9 @@ local function l_lazyEval(self)
          break
       end
    end
+   local tt = self.__moduleKindT or {}
    --dbg.print{"l_lazyEval: sn: ",self.__sn, ", version: ",self.__version, ", fn: ",self.__fn,", wV: ",self.__wV,", userName: ",self.__userName,"\n"}
-   --dbg.print{"fn: ",self.__fn,", kind: ",moduleKindT.kind,"\n"}
+   --dbg.print{"fn: ",self.__fn,", kind: ",tt.kind,"\n"}
    --dbg.fini("l_lazyEval")
 end
 
@@ -282,6 +283,19 @@ function M.valid(self)
       l_lazyEval(self)
    end
    return self.__fn
+end
+
+function M.moduleKindT(self)
+   if (not self.__moduleKindT) then
+      return nil
+   end
+   local moduleKindT = self.__moduleKindT
+   local hidden_load = moduleKindT.hidden_load or nil
+   local t = nil
+   if (moduleKindT.kind ~= "normal") then
+      t = {kind = moduleKindT.kind, hidden_load = hidden_load} 
+   end
+   return t
 end
 
 

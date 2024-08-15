@@ -542,7 +542,7 @@ function M.isVisible(self, modT)
    else
       local idx = fullName:find("/%.")
       isVisible = (idx == nil) or (visibleT.hidden == true) or show_hidden
-      kind      = "hidden"
+      kind      = (idx == nil) and "normal" or "hidden"
    end
 
    modT.isVisible   = isVisible
