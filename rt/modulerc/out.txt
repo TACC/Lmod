@@ -208,14 +208,7 @@ timestampFn = {
 }
 mrcT = {
   alias2modT = {},
-  hiddenT = {
-    ["h2/1.0"] = {
-      kind = "hidden",
-    },
-    ["hidden/1.0"] = {
-      kind = "hidden",
-    },
-  },
+  hiddenT = {},
   version2modT = {},
 }
 mrcMpathT = {
@@ -1418,3 +1411,328 @@ MODULEPATH=ProjectDIR/rt/modulerc/mfB/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ABC={fn="ProjectDIR/rt/modulerc/mfB/Core/ABC/3.0.lua",fullName="ABC/3.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="ABC",wV="000000003.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfB/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfB/Core",}';
 export _ModuleTable_;
+===========================
+step 56
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+MODULEPATH=ProjectDIR/rt/modulerc/mfB/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ABC={fn="ProjectDIR/rt/modulerc/mfB/Core/ABC/3.0.lua",fullName="ABC/3.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="ABC",wV="000000003.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfB/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfB/Core",}';
+export _ModuleTable_;
+===========================
+step 57
+runSpiderCmd -o spiderT ProjectDIR/rt/modulerc/mfB/Core
+===========================
+timestampFn = {
+  false,
+}
+mrcT = {
+  alias2modT = {},
+  hiddenT = {},
+  version2modT = {},
+}
+mrcMpathT = {
+  ["ProjectDIR/rt/modulerc/mfB/Core"] = {
+    hiddenT = {
+      ["ABC/0.5"] = {
+        action = "hide",
+        kind = "hard",
+        name = "ABC/0.5",
+      },
+      ["ABC/3.0"] = {
+        action = "hide",
+        kind = "soft",
+        name = "ABC/3.0",
+      },
+      ["ABC/4.0"] = {
+        action = "hide",
+        kind = "hidden",
+        name = "ABC/4.0",
+      },
+      ["ABC/5.0"] = {
+        action = "hide",
+        kind = "hard",
+        name = "ABC/5.0",
+      },
+      ["B/0.5"] = {
+        action = "hide",
+        kind = "hard",
+        name = "B/0.5",
+      },
+      ["B/3.0"] = {
+        action = "hide",
+        kind = "soft",
+        name = "B/3.0",
+      },
+      ["B/4.0"] = {
+        action = "hide",
+        kind = "hidden",
+        name = "B/4.0",
+      },
+      ["B/5.0"] = {
+        action = "hide",
+        kind = "hard",
+        name = "B/5.0",
+      },
+    },
+  },
+}
+spiderT = {
+  ["ProjectDIR/rt/modulerc/mfB/Core"] = {
+    ABC = {
+      defaultA = {
+        {
+          barefn = ".modulerc.lua",
+          defaultIdx = 2,
+          fn = "ProjectDIR/rt/modulerc/mfB/Core/ABC/.modulerc.lua",
+          fullName = "ABC/.modulerc",
+          luaExt = 10,
+          mpath = "ProjectDIR/rt/modulerc/mfB/Core",
+          value = false,
+        },
+      },
+      defaultT = {
+        barefn = ".modulerc.lua",
+        defaultIdx = 2,
+        fn = "ProjectDIR/rt/modulerc/mfB/Core/ABC/.modulerc.lua",
+        fullName = "ABC/.modulerc",
+        luaExt = 10,
+        mpath = "ProjectDIR/rt/modulerc/mfB/Core",
+        value = false,
+      },
+      dirT = {},
+      fileT = {
+        ["ABC/0.5"] = {
+          Version = "0.5",
+          canonical = "0.5",
+          fn = "ProjectDIR/rt/modulerc/mfB/Core/ABC/0.5.lua",
+          luaExt = 4,
+          mpath = "ProjectDIR/rt/modulerc/mfB/Core",
+          pV = "000000000.000000005.*zfinal",
+          wV = "000000000.000000005.*zfinal",
+        },
+        ["ABC/1.0"] = {
+          Version = "1.0",
+          canonical = "1.0",
+          fn = "ProjectDIR/rt/modulerc/mfB/Core/ABC/1.0.lua",
+          luaExt = 4,
+          mpath = "ProjectDIR/rt/modulerc/mfB/Core",
+          pV = "000000001.*zfinal",
+          wV = "000000001.*zfinal",
+        },
+        ["ABC/2.0"] = {
+          Version = "2.0",
+          canonical = "2.0",
+          fn = "ProjectDIR/rt/modulerc/mfB/Core/ABC/2.0.lua",
+          luaExt = 4,
+          mpath = "ProjectDIR/rt/modulerc/mfB/Core",
+          pV = "000000002.*zfinal",
+          wV = "000000002.*zfinal",
+        },
+        ["ABC/3.0"] = {
+          Version = "3.0",
+          canonical = "3.0",
+          fn = "ProjectDIR/rt/modulerc/mfB/Core/ABC/3.0.lua",
+          luaExt = 4,
+          mpath = "ProjectDIR/rt/modulerc/mfB/Core",
+          pV = "000000003.*zfinal",
+          wV = "000000003.*zfinal",
+        },
+        ["ABC/4.0"] = {
+          Version = "4.0",
+          canonical = "4.0",
+          fn = "ProjectDIR/rt/modulerc/mfB/Core/ABC/4.0.lua",
+          luaExt = 4,
+          mpath = "ProjectDIR/rt/modulerc/mfB/Core",
+          pV = "000000004.*zfinal",
+          wV = "000000004.*zfinal",
+        },
+        ["ABC/5.0"] = {
+          Version = "5.0",
+          canonical = "5.0",
+          fn = "ProjectDIR/rt/modulerc/mfB/Core/ABC/5.0.lua",
+          luaExt = 4,
+          mpath = "ProjectDIR/rt/modulerc/mfB/Core",
+          pV = "000000005.*zfinal",
+          wV = "000000005.*zfinal",
+        },
+      },
+    },
+    B = {
+      defaultA = {
+        {
+          barefn = ".modulerc.lua",
+          defaultIdx = 2,
+          fn = "ProjectDIR/rt/modulerc/mfB/Core/B/.modulerc.lua",
+          fullName = "B/.modulerc",
+          luaExt = 10,
+          mpath = "ProjectDIR/rt/modulerc/mfB/Core",
+          value = false,
+        },
+      },
+      defaultT = {
+        barefn = ".modulerc.lua",
+        defaultIdx = 2,
+        fn = "ProjectDIR/rt/modulerc/mfB/Core/B/.modulerc.lua",
+        fullName = "B/.modulerc",
+        luaExt = 10,
+        mpath = "ProjectDIR/rt/modulerc/mfB/Core",
+        value = false,
+      },
+      dirT = {},
+      fileT = {
+        ["B/0.5"] = {
+          Version = "0.5",
+          canonical = "0.5",
+          fn = "ProjectDIR/rt/modulerc/mfB/Core/B/0.5.lua",
+          luaExt = 4,
+          mpath = "ProjectDIR/rt/modulerc/mfB/Core",
+          pV = "000000000.000000005.*zfinal",
+          wV = "000000000.000000005.*zfinal",
+        },
+        ["B/1.0"] = {
+          Version = "1.0",
+          canonical = "1.0",
+          fn = "ProjectDIR/rt/modulerc/mfB/Core/B/1.0.lua",
+          luaExt = 4,
+          mpath = "ProjectDIR/rt/modulerc/mfB/Core",
+          pV = "000000001.*zfinal",
+          wV = "000000001.*zfinal",
+        },
+        ["B/2.0"] = {
+          Version = "2.0",
+          canonical = "2.0",
+          fn = "ProjectDIR/rt/modulerc/mfB/Core/B/2.0.lua",
+          luaExt = 4,
+          mpath = "ProjectDIR/rt/modulerc/mfB/Core",
+          pV = "000000002.*zfinal",
+          wV = "000000002.*zfinal",
+        },
+        ["B/3.0"] = {
+          Version = "3.0",
+          canonical = "3.0",
+          fn = "ProjectDIR/rt/modulerc/mfB/Core/B/3.0.lua",
+          luaExt = 4,
+          mpath = "ProjectDIR/rt/modulerc/mfB/Core",
+          pV = "000000003.*zfinal",
+          wV = "000000003.*zfinal",
+        },
+        ["B/4.0"] = {
+          Version = "4.0",
+          canonical = "4.0",
+          fn = "ProjectDIR/rt/modulerc/mfB/Core/B/4.0.lua",
+          luaExt = 4,
+          mpath = "ProjectDIR/rt/modulerc/mfB/Core",
+          pV = "000000004.*zfinal",
+          wV = "000000004.*zfinal",
+        },
+        ["B/5.0"] = {
+          Version = "5.0",
+          canonical = "5.0",
+          fn = "ProjectDIR/rt/modulerc/mfB/Core/B/5.0.lua",
+          luaExt = 4,
+          mpath = "ProjectDIR/rt/modulerc/mfB/Core",
+          pV = "000000005.*zfinal",
+          wV = "000000005.*zfinal",
+        },
+        ["B/6.0"] = {
+          Version = "6.0",
+          canonical = "6.0",
+          fn = "ProjectDIR/rt/modulerc/mfB/Core/B/6.0.lua",
+          luaExt = 4,
+          mpath = "ProjectDIR/rt/modulerc/mfB/Core",
+          pV = "000000006.*zfinal",
+          wV = "000000006.*zfinal",
+        },
+      },
+    },
+  },
+  version = 5,
+}
+mpathMapT = {}
+===========================
+step 58
+runSpiderCmd -o dbT ProjectDIR/rt/modulerc/mfB/Core
+===========================
+timestampFn = {
+  false,
+}
+dbT = {
+  ABC = {
+    ["ProjectDIR/rt/modulerc/mfB/Core/ABC/1.0.lua"] = {
+      Version = "1.0",
+      fullName = "ABC/1.0",
+      hidden = false,
+      mpath = "ProjectDIR/rt/modulerc/mfB/Core",
+      pV = "000000001.*zfinal",
+      wV = "000000001.*zfinal",
+    },
+    ["ProjectDIR/rt/modulerc/mfB/Core/ABC/2.0.lua"] = {
+      Version = "2.0",
+      fullName = "ABC/2.0",
+      hidden = false,
+      mpath = "ProjectDIR/rt/modulerc/mfB/Core",
+      pV = "000000002.*zfinal",
+      wV = "000000002.*zfinal",
+    },
+    ["ProjectDIR/rt/modulerc/mfB/Core/ABC/3.0.lua"] = {
+      Version = "3.0",
+      fullName = "ABC/3.0",
+      hidden = true,
+      mpath = "ProjectDIR/rt/modulerc/mfB/Core",
+      pV = "000000003.*zfinal",
+      wV = "000000003.*zfinal",
+    },
+    ["ProjectDIR/rt/modulerc/mfB/Core/ABC/4.0.lua"] = {
+      Version = "4.0",
+      fullName = "ABC/4.0",
+      hidden = true,
+      mpath = "ProjectDIR/rt/modulerc/mfB/Core",
+      pV = "000000004.*zfinal",
+      wV = "000000004.*zfinal",
+    },
+  },
+  B = {
+    ["ProjectDIR/rt/modulerc/mfB/Core/B/1.0.lua"] = {
+      Version = "1.0",
+      fullName = "B/1.0",
+      hidden = false,
+      mpath = "ProjectDIR/rt/modulerc/mfB/Core",
+      pV = "000000001.*zfinal",
+      wV = "000000001.*zfinal",
+    },
+    ["ProjectDIR/rt/modulerc/mfB/Core/B/2.0.lua"] = {
+      Version = "2.0",
+      fullName = "B/2.0",
+      hidden = false,
+      mpath = "ProjectDIR/rt/modulerc/mfB/Core",
+      pV = "000000002.*zfinal",
+      wV = "000000002.*zfinal",
+    },
+    ["ProjectDIR/rt/modulerc/mfB/Core/B/3.0.lua"] = {
+      Version = "3.0",
+      fullName = "B/3.0",
+      hidden = true,
+      mpath = "ProjectDIR/rt/modulerc/mfB/Core",
+      pV = "000000003.*zfinal",
+      wV = "000000003.*zfinal",
+    },
+    ["ProjectDIR/rt/modulerc/mfB/Core/B/4.0.lua"] = {
+      Version = "4.0",
+      fullName = "B/4.0",
+      hidden = true,
+      mpath = "ProjectDIR/rt/modulerc/mfB/Core",
+      pV = "000000004.*zfinal",
+      wV = "000000004.*zfinal",
+    },
+    ["ProjectDIR/rt/modulerc/mfB/Core/B/6.0.lua"] = {
+      Version = "6.0",
+      fullName = "B/6.0",
+      hidden = false,
+      mpath = "ProjectDIR/rt/modulerc/mfB/Core",
+      pV = "000000006.*zfinal",
+      wV = "000000006.*zfinal",
+    },
+  },
+}
+provideByT = {}

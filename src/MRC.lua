@@ -433,6 +433,7 @@ function M.export(self)
 end
 
 local s_must_convert = true
+local s_hiddenT = false
 local function l_findHiddenState(self, mpathA, sn, fullName, fn)
    local t = {}
    if (s_must_convert) then
@@ -456,9 +457,9 @@ local function l_findHiddenState(self, mpathA, sn, fullName, fn)
       for k, v in pairs(hT) do
          t[self:resolve(mpathA, k)] = (v ~= true) and v or replaceT
       end
-      self.__hiddenT = t
+      s_hiddenT = t
    end
-   t = self.__hiddenT
+   t = s_hiddenT
    local resultT = t[sn] or t[fullName] or t[fn]
 
    ------------------------------------------------------------

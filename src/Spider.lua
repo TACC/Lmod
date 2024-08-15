@@ -668,7 +668,7 @@ function M.buildDbT(self, mpathMapT, spiderT, dbT)
             local resultT = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, mpathA=mpathA}
             t.hidden      = not resultT.isVisible
             kind          = resultT.moduleKindT.kind 
-            if (not vv.dot_version and (kind == "hard")) then
+            if (not vv.dot_version and (kind ~= "hard")) then
                T[vv.fn]  = t
             end
          end

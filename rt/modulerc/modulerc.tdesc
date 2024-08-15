@@ -156,6 +156,10 @@ EOF
      runLmod    load ABC                               #53
      runLmod    list                                   #54
      runLmod    --show_hidden avail                    #55
+     runLmod    avail                                  #56
+     runBase    runSpiderCmd -o spiderT $MODULEPATH    #57
+     runBase    runSpiderCmd -o dbT     $MODULEPATH    #58
+
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
