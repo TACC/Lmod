@@ -221,6 +221,7 @@ See https://lmod.readthedocs.io/en/latest/260_sh_to_modulefile.html for details.
      m_Extensions_tail     = "\nThese extensions cannot be loaded directly, use \"module spider extension_name\" for more information.\n",
      m_Family_Swap         = "\nLmod is automatically replacing \"%{oldFullName}\" with \"%{newFullName}\".\n",
      m_For_System          = ", for system: \"%{sname}\"",
+     m_Hidden_loaded       = "\nOne or more modules are hidden from list. To see all do \"module --show_hidden list\"",
      m_Inactive_Modules    = "\nInactive Modules:\n",
      m_IsNVV               = [==[
 Module defaults are chosen based on Find First Rules due to Name/Version/Version modules found in the module tree.

@@ -1,5 +1,5 @@
 -- -*- lua -*-
-local testName = "extended_default"
+local testName = "extended_dflt"
 
 testdescript = {
    owner   = "rtm",

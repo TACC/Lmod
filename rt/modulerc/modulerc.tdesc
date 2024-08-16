@@ -161,7 +161,7 @@ EOF
      runBase    runSpiderCmd -o dbT     $MODULEPATH    #58
 
      # Test hidden_load feature
-     runLmod    load C                                 #59
+     runLmod    load C D E F                           #59
      runLmod    --mt                                   #60
      runLmod    list                                   #61
      runLmod    --show_hidden list                     #62

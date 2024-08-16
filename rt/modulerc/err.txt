@@ -652,9 +652,10 @@ step 55
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
 ===========================
 ProjectDIR/rt/modulerc/mfB/Core
-   ABC/1.0            ABC/4.0 (H)    B/3.0 (S)    C/1.0 (S)
-   ABC/2.0            B/1.0          B/4.0 (H)    C/2.0 (S)
-   ABC/3.0 (S,L,D)    B/2.0          B/6.0 (D)    C/3.0 (S,D)
+   ABC/1.0            B/1.0        B/6.0 (D)      D/1.1          F/2.1
+   ABC/2.0            B/2.0        C/1.0 (S)      E/1.0 (S)
+   ABC/3.0 (S,L,D)    B/3.0 (S)    C/2.0 (S)      E/2.0 (S)
+   ABC/4.0 (H)        B/4.0 (H)    C/3.0 (S,D)    E/3.0 (S,D)
   Where:
    D:  Default Module
    H:  Hidden Module
@@ -670,7 +671,7 @@ step 56
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/modulerc/mfB/Core
-   ABC/1.0    ABC/2.0    B/1.0    B/2.0    B/6.0 (D)
+   ABC/1.0    ABC/2.0    B/1.0    B/2.0    B/6.0 (D)    D/1.1    F/2.1
   Where:
    D:  Default Module
 If the avail list is too long consider trying:
@@ -688,7 +689,7 @@ runSpiderCmd -o dbT ProjectDIR/rt/modulerc/mfB/Core
 ===========================
 ===========================
 step 59
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing load C
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load C D E F
 ===========================
 ===========================
 step 60
@@ -728,6 +729,40 @@ _ModuleTable_ = {
       userName = "C",
       wV = "000000003.*zfinal",
     },
+    D = {
+      fn = "ProjectDIR/rt/modulerc/mfB/Core/D/1.1.lua",
+      fullName = "D/1.1",
+      loadOrder = 3,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "D",
+      wV = "000000001.000000001.*zfinal",
+    },
+    E = {
+      fn = "ProjectDIR/rt/modulerc/mfB/Core/E/3.0.lua",
+      fullName = "E/3.0",
+      loadOrder = 4,
+      moduleKindT = {
+        hidden_load = true,
+        kind = "soft",
+      },
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "E",
+      wV = "000000003.*zfinal",
+    },
+    F = {
+      fn = "ProjectDIR/rt/modulerc/mfB/Core/F/2.1.lua",
+      fullName = "F/2.1",
+      loadOrder = 5,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "F",
+      wV = "000000002.000000001.*zfinal",
+    },
   },
   mpathA = {
     "ProjectDIR/rt/modulerc/mfB/Core",
@@ -739,10 +774,11 @@ step 61
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) ABC/3.0
+  1) ABC/3.0   2) D/1.1   3) F/2.1
+One or more modules are hidden from list. To see all do "module --show_hidden list"
 ===========================
 step 62
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden list
 ===========================
 Currently Loaded Modules:
-  1) ABC/3.0   2) C/3.0
+  1) ABC/3.0   2) C/3.0   3) D/1.1   4) E/3.0   5) F/2.1
