@@ -26,8 +26,8 @@ Lmod will report the following directory tree like this::
 We note that the ``.lua`` extension has not been reported above.  The
 ``.lua`` extension tells Lmod that the contents of the file are
 written in the Lua language.  All other files are assumed to be
-written in TCL.
-
+written in TCL.  Note that all TCL modulefiles **MUST** start with
+the string  **#%Module** or it will be silently ignored.
 
 Here the name of the file or directory under ``/opt/apps/modulefiles``
 is the name of the module.  The normal way to specify a module is to

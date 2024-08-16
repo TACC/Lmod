@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.44 2024-07-11 16:39 -06:00
+Modules based on Lua: Version 8.7.47 2024-07-22 10:04 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -40,7 +40,7 @@ Options:
   -f --force                        force removal of a sticky module or save an empty collection
   --redirect                        Send the output of list, avail, spider to stdout (not stderr)
   --no_redirect                     Force output of list, avail and spider to stderr
-  --show_hidden                     Avail and spider will report hidden modules
+  --show_hidden -A --all            Avail and spider will report hidden modules
   --spider_timeout=timeout          a timeout for spider
   -T --trace                        trace major changes such as loads
   --nx --no_extensions              Do not print extensions
@@ -109,7 +109,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.44 2024-07-11 16:39 -06:00
+Modules based on Lua: Version 8.7.47 2024-07-22 10:04 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -147,7 +147,7 @@ Options:
   -f --force                        force removal of a sticky module or save an empty collection
   --redirect                        Send the output of list, avail, spider to stdout (not stderr)
   --no_redirect                     Force output of list, avail and spider to stderr
-  --show_hidden                     Avail and spider will report hidden modules
+  --show_hidden -A --all            Avail and spider will report hidden modules
   --spider_timeout=timeout          a timeout for spider
   -T --trace                        trace major changes such as loads
   --nx --no_extensions              Do not print extensions
@@ -216,7 +216,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.44 2024-07-11 16:39 -06:00
+Modules based on Lua: Version 8.7.47 2024-07-22 10:04 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -236,7 +236,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --config
 ===========================
-Modules based on Lua: Version 8.7.44 2024-07-11 16:39 -06:00
+Modules based on Lua: Version 8.7.47 2024-07-22 10:04 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                                                   Value
 Allow root to use Lmod (LMOD_ALLOW_ROOT_USE)                  yes
@@ -417,7 +417,7 @@ propT = {
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --miniConfig
 ===========================
-Modules based on Lua: Version 8.7.44 2024-07-11 16:39 -06:00
+Modules based on Lua: Version 8.7.47 2024-07-22 10:04 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 LMOD_PACKAGE_PATH            D          nil          <empty>
 LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>
@@ -494,7 +494,7 @@ force removal of a sticky module or save an empty collection
 Send the output of list, avail, spider to stdout (not stderr)
 =item I<--no_redirect>
 Force output of list, avail and spider to stderr
-=item I<--show_hidden>
+=item I<--show_hidden -A --all>
 Avail and spider will report hidden modules
 =item I<--spider_timeout=timeout>
 a timeout for spider

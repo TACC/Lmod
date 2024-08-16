@@ -2,50 +2,50 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.32  2023-08-28 12:42 -05:00
+Modules based on Lua: Version 8.7.47 2024-07-22 10:04 -04:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
-buildSh2MF ProjectDIR/rt/sh_to_modulefile/tstScript.sh
+buildSh2MF ProjectDIR/rt/sh_to_mf/tstScript.sh
 ===========================
 ===========================
 step 3
-buildSh2MF --to TCL ProjectDIR/rt/sh_to_modulefile/tstScript.sh
+buildSh2MF --to TCL ProjectDIR/rt/sh_to_mf/tstScript.sh
 ===========================
 ===========================
 step 4
-buildSh2MF ProjectDIR/rt/sh_to_modulefile/path_both_ends.sh
+buildSh2MF ProjectDIR/rt/sh_to_mf/path_both_ends.sh
 ===========================
 ===========================
 step 5
-buildSh2MF --from csh ProjectDIR/rt/sh_to_modulefile/cshScript.csh
+buildSh2MF --from csh ProjectDIR/rt/sh_to_mf/cshScript.csh
 ===========================
 ===========================
 step 6
-buildSh2MF ProjectDIR/rt/sh_to_modulefile/broken.sh
+buildSh2MF ProjectDIR/rt/sh_to_mf/broken.sh
 ===========================
-Error found in sourcing script "ProjectDIR/rt/sh_to_modulefile/broken.sh":
-ProjectDIR/rt/sh_to_modulefile/broken.sh: line 3: fooBar: command not found
+Error found in sourcing script "ProjectDIR/rt/sh_to_mf/broken.sh":
+ProjectDIR/rt/sh_to_mf/broken.sh: line 3: fooBar: command not found
 If this is a bash script please try:
-  $ set -exv; . ProjectDIR/rt/sh_to_modulefile/broken.sh
+  $ set -exv; . ProjectDIR/rt/sh_to_mf/broken.sh
 See https://lmod.readthedocs.io/en/latest/260_sh_to_modulefile.html for details.
 ===========================
 step 7
-buildSh2MF ProjectDIR/rt/sh_to_modulefile/unalias.sh
+buildSh2MF ProjectDIR/rt/sh_to_mf/unalias.sh
 ===========================
-Error found in sourcing script "ProjectDIR/rt/sh_to_modulefile/unalias.sh":
+Error found in sourcing script "ProjectDIR/rt/sh_to_mf/unalias.sh":
 If this is a bash script please try:
-  $ set -exv; . ProjectDIR/rt/sh_to_modulefile/unalias.sh
+  $ set -exv; . ProjectDIR/rt/sh_to_mf/unalias.sh
 See https://lmod.readthedocs.io/en/latest/260_sh_to_modulefile.html for details.
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing show wrapperSh/1.0
 ===========================
-   ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua:
- source_sh("bash","ProjectDIR/rt/sh_to_modulefile/tstScript.sh")
+   ProjectDIR/rt/sh_to_mf/mf/wrapperSh/1.0.lua:
+ source_sh("bash","ProjectDIR/rt/sh_to_mf/tstScript.sh")
 setenv("MY_NAME","tstScript.sh")
-prepend_path("PATH","ProjectDIR/rt/sh_to_modulefile/bin")
-append_path("PATH","ProjectDIR/rt/sh_to_modulefile/sbin")
+prepend_path("PATH","ProjectDIR/rt/sh_to_mf/bin")
+append_path("PATH","ProjectDIR/rt/sh_to_mf/sbin")
 setenv("TST_SCRIPT","1")
 set_alias("fooAlias","foobin -q -l")
 set_shell_function("banner"," \
@@ -74,7 +74,7 @@ set_shell_function("save_args"," \
 ","")
 complete("bash","xyz123","-F _xyz123")
 setenv("MY_NAME","tstScript.sh")
- source_sh("bash","ProjectDIR/rt/sh_to_modulefile/second.sh arg1")
+ source_sh("bash","ProjectDIR/rt/sh_to_mf/second.sh arg1")
 setenv("SECOND","FOO_BAR")
 ===========================
 step 9
@@ -84,11 +84,11 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load wrapperSh/1.0
 step 10
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing show wrapperSh/1.0
 ===========================
-   ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua:
- source_sh("bash","ProjectDIR/rt/sh_to_modulefile/tstScript.sh")
+   ProjectDIR/rt/sh_to_mf/mf/wrapperSh/1.0.lua:
+ source_sh("bash","ProjectDIR/rt/sh_to_mf/tstScript.sh")
 setenv("MY_NAME","tstScript.sh")
-prepend_path("PATH","ProjectDIR/rt/sh_to_modulefile/bin")
-append_path("PATH","ProjectDIR/rt/sh_to_modulefile/sbin")
+prepend_path("PATH","ProjectDIR/rt/sh_to_mf/bin")
+append_path("PATH","ProjectDIR/rt/sh_to_mf/sbin")
 setenv("TST_SCRIPT","1")
 set_alias("fooAlias","foobin -q -l")
 set_shell_function("banner"," \
@@ -117,7 +117,7 @@ set_shell_function("save_args"," \
 ","")
 complete("bash","xyz123","-F _xyz123")
 setenv("MY_NAME","tstScript.sh")
- source_sh("bash","ProjectDIR/rt/sh_to_modulefile/second.sh arg1")
+ source_sh("bash","ProjectDIR/rt/sh_to_mf/second.sh arg1")
 setenv("SECOND","FOO_BAR")
 ===========================
 step 11
@@ -141,15 +141,15 @@ _ModuleTable_ = {
   family = {},
   mT = {
     wrapperSh = {
-      fn = "ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",
+      fn = "ProjectDIR/rt/sh_to_mf/mf/wrapperSh/1.0.lua",
       fullName = "wrapperSh/1.0",
       loadOrder = 1,
       mcmdT = {
-        ["ProjectDIR/rt/sh_to_modulefile/second.sh arg1"] = {
+        ["ProjectDIR/rt/sh_to_mf/second.sh arg1"] = {
           "setenv(\"SECOND\",\"FOO_BAR\")",
         },
-        ["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"] = {
-          "setenv(\"MY_NAME\",\"tstScript.sh\")", "prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")", "append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")", "setenv(\"TST_SCRIPT\",\"1\")", "set_alias(\"fooAlias\",\"foobin -q -l\")", [[set_shell_function("banner"," \\
+        ["ProjectDIR/rt/sh_to_mf/tstScript.sh"] = {
+          "setenv(\"MY_NAME\",\"tstScript.sh\")", "prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_mf/bin\")", "append_path(\"PATH\",\"ProjectDIR/rt/sh_to_mf/sbin\")", "setenv(\"TST_SCRIPT\",\"1\")", "set_alias(\"fooAlias\",\"foobin -q -l\")", [[set_shell_function("banner"," \\
     local str=\\"$1\\";\\
     local RED='\\033[1;31m';\\
     local NONE='\\033[0m';\\
@@ -179,9 +179,9 @@ _ModuleTable_ = {
     },
   },
   mpathA = {
-    "ProjectDIR/rt/sh_to_modulefile/mf",
+    "ProjectDIR/rt/sh_to_mf/mf",
   },
-  systemBaseMPATH = "ProjectDIR/rt/sh_to_modulefile/mf",
+  systemBaseMPATH = "ProjectDIR/rt/sh_to_mf/mf",
 }
 ===========================
 step 14
@@ -191,14 +191,14 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload wrapperSh/1.0
 step 15
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load brokenSh/1.0
 ===========================
-Lmod has detected the following error: Error found in sourcing script "ProjectDIR/rt/sh_to_modulefile/broken.sh":
-ProjectDIR/rt/sh_to_modulefile/broken.sh: line 3: fooBar: command not found
+Lmod has detected the following error: Error found in sourcing script "ProjectDIR/rt/sh_to_mf/broken.sh":
+ProjectDIR/rt/sh_to_mf/broken.sh: line 3: fooBar: command not found
 If this is a bash script please try:
-  $ set -exv; . ProjectDIR/rt/sh_to_modulefile/broken.sh
+  $ set -exv; . ProjectDIR/rt/sh_to_mf/broken.sh
 See https://lmod.readthedocs.io/en/latest/260_sh_to_modulefile.html for details.
 While processing the following module(s):
     Module fullname  Module Filename
-    brokenSh/1.0     ProjectDIR/rt/sh_to_modulefile/mf/brokenSh/1.0.lua
+    brokenSh/1.0     ProjectDIR/rt/sh_to_mf/mf/brokenSh/1.0.lua
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load wrapperSh/1.0
@@ -225,15 +225,15 @@ _ModuleTable_ = {
   family = {},
   mT = {
     wrapperSh = {
-      fn = "ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua",
+      fn = "ProjectDIR/rt/sh_to_mf/mf/wrapperSh/1.0.lua",
       fullName = "wrapperSh/1.0",
       loadOrder = 1,
       mcmdT = {
-        ["ProjectDIR/rt/sh_to_modulefile/second.sh arg1"] = {
+        ["ProjectDIR/rt/sh_to_mf/second.sh arg1"] = {
           "setenv(\"SECOND\",\"FOO_BAR\")",
         },
-        ["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"] = {
-          "setenv(\"MY_NAME\",\"tstScript.sh\")", "prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")", "append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")", "setenv(\"TST_SCRIPT\",\"1\")", "set_alias(\"fooAlias\",\"foobin -q -l\")", [[set_shell_function("banner"," \\
+        ["ProjectDIR/rt/sh_to_mf/tstScript.sh"] = {
+          "setenv(\"MY_NAME\",\"tstScript.sh\")", "prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_mf/bin\")", "append_path(\"PATH\",\"ProjectDIR/rt/sh_to_mf/sbin\")", "setenv(\"TST_SCRIPT\",\"1\")", "set_alias(\"fooAlias\",\"foobin -q -l\")", [[set_shell_function("banner"," \\
     local str=\\"$1\\";\\
     local RED='\\033[1;31m';\\
     local NONE='\\033[0m';\\
@@ -263,9 +263,9 @@ _ModuleTable_ = {
     },
   },
   mpathA = {
-    "ProjectDIR/rt/sh_to_modulefile/mf",
+    "ProjectDIR/rt/sh_to_mf/mf",
   },
-  systemBaseMPATH = "ProjectDIR/rt/sh_to_modulefile/mf",
+  systemBaseMPATH = "ProjectDIR/rt/sh_to_mf/mf",
 }
 ===========================
 step 20

@@ -103,6 +103,9 @@ return {
      e_Args_Not_Strings    = [==[Syntax error in file: %{fn}
  with command: %{cmdName}, one or more arguments are not strings.
 ]==], --
+     e_Args_Not_Table    = [==[Syntax error in file: %{fn}
+ with function: %{func}, is not a table.
+]==], --
      e_Args_Not_Strings_short = "command: %{cmdName}, one or more arguments are not strings.",
      e_Avail_No_MPATH      = "module %{name} is not possible. MODULEPATH is not set or not set with valid paths.\n",
      e_BadAlias            = "%{kind} names cannot contain spaces (Not: \"%{name}\")\n",
@@ -461,6 +464,7 @@ MODULEPATH directory: "%{mpath}" has too many non-modulefiles (%{regularFn}). Pl
      Inactive       = "\nInactive Modules",
      DefaultM       = "Default Module",
      HiddenM        = "Hidden Module",
+     Hidden_softM   = "Soft Hidden Module",
      Extension      = "Extension that is provided by another module",
 
      avail     = [==[If the avail list is too long consider trying:

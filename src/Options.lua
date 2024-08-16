@@ -328,7 +328,7 @@ function M.singleton(self, progName, usage, description)
    }
 
    cmdlineParser:add_option{
-      name   = {"--show_hidden" },
+      name   = {"--show_hidden","-A", "--all"},
       dest   = "show_hidden",
       action = "store_true",
       help   = i18n("hidden_H")

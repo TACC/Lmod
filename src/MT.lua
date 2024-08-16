@@ -283,6 +283,7 @@ function M.add(self, mname, status, loadOrder)
       userName        = mname:userName(),
       stackDepth      = mname:stackDepth(),
       origUserName    = mname:origUserName(),
+      moduleKindT     = mname:moduleKindT{},
       ref_count       = ref_count,
       depends_on_anyA = mname:get_depends_on_anyA(),
       status          = status,
@@ -552,7 +553,9 @@ function M.list(self, kind, status)
                           name = v[kind], fn = v.fn, loadOrder = v.loadOrder,
                           stackDepth = v.stackDepth, ref_count = v.ref_count,
                           depends_on_anyA = v.depends_on_anyA, displayName = v.fullName,
-                          origUserName = v.origUserName or false}
+                          origUserName = v.origUserName or false,
+                          moduleKindT = v.moduleKindT or {}
+            }
             a, b = l_build_AB(a, b, v.loadOrder, v[kind], obj )
          end
       end
@@ -565,7 +568,9 @@ function M.list(self, kind, status)
                           name = v.fullName, fn = v.fn, loadOrder = v.loadOrder,
                           stackDepth = v.stackDepth, ref_count = v.ref_count,
                           depends_on_anyA = v.depends_on_anyA, displayName = v.fullName, 
-                          origUserName = v.origUserName or false }
+                          origUserName = v.origUserName or false,
+                          moduleKindT = v.moduleKindT or {}
+             }
             a, b = l_build_AB(a, b, v.loadOrder, v.fullName, obj )
          end
       end
@@ -1348,10 +1353,12 @@ function M.getMTfromFile(self,tt)
 
    s_mt = false
    __removeEnvMT()
+   
+   local varT = frameStk:varT()
    FrameStk:__clear()
    dbg.print{"Setting MODULEPATH to: ",savedMPATH,"\n"}
    posix_setenv(ModulePath, savedMPATH, true)
-   frameStk = FrameStk:singleton()
+   frameStk = FrameStk:singleton{varT = varT}
    mt       = frameStk:mt()
    mt.systemBaseMPATH = savedBaseMPATH
    dbg.print{"savedBaseMPATH: ",savedBaseMPATH,"\n"}

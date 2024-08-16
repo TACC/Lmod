@@ -424,20 +424,34 @@ function List(...)
       return
    end
 
-   b[#b+1]       = "\n"
-   b[#b+1]       = msg
-   b[#b+1]       = msg2
-   b[#b+1]       = "\n"
-   local kk      = 0
-   local legendT = {}
+   b[#b+1]           = "\n"
+   b[#b+1]           = msg
+   b[#b+1]           = msg2
+   b[#b+1]           = "\n"
+   local kk          = 0
+   local legendT     = {}
+   local show_hidden = optionTbl.show_hidden
+
+   ------------------------------------------------------------------------
+   -- This hidden_load foo probably needs to be pushed down to
+   -- mt:list_w_property().
+   -- The trouble is that if there is a hidden_load module then
+   -- the legendT needs an entry telling the user that
+   -- the site has lied to them!!
+   -- I don't want to do this here. (I think!)
+   -- One change that will have to happen if this moves to mt:list_w_property()
+   -- is that this routine won't always add to a[].
+   
+
 
    for i = 1, #activeA do
       local entry    = activeA[i]
       local fullName = entry.fullName
       local origName = entry.origUserName or ""
+      local showMe   = not entry.moduleKindT.hidden_load or show_hidden
       for j = 1, wanted.n do
          local p = wanted[j]
-         if (fullName:find(p) or origName:find(p)) then
+         if (showMe and (fullName:find(p) or origName:find(p))) then
             kk = kk + 1
             a[#a + 1] = mt:list_w_property(kk, entry.sn, "short", legendT)
          end

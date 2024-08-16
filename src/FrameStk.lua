@@ -46,14 +46,15 @@ local s_frameStk  = false
 
 local function l_new(self, t)
    dbg.start{"FrameStk:l_new()"}
-   t = t or {}
-   local o = {}
+   t          = t or {}
+   local varT = t.varT or {}
+   local o    = {}
    setmetatable(o,self)
    self.__index = self
    o.__count    = 1
    o.__origMT   = MT:singleton(t)
    o.__stack    = {
-      {mname = false, mt = deepcopy(o.__origMT), varT = {} }
+      {mname = false, mt = deepcopy(o.__origMT), varT = varT}
    }
    dbg.fini("FrameStk:l_new")
    return o

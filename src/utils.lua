@@ -267,12 +267,18 @@ function colorizePropA(style, mt, modT, mrc, propT, legendT)
    local moduleName   = mt:name_w_possible_alias(modT, "full")
    propT              = propT or {}
 
-   if (not mrc:isVisible(modT)) then
+   local resultT = mrc:isVisible(modT)
+   if (not resultT.isVisible) then
       local i18n = require("i18n")
-      local H    = 'H'
+      local H    = "H"
+      local msg  = "HiddenM"
+      if (resultT.moduleKindT.kind == "soft") then
+         H = "S"
+         msg = "Hidden_softM"
+      end
       moduleName = colorize("hidden",modT.fullName)
       pA[#pA+1]  = H
-      legendT[H] = i18n("HiddenM")
+      legendT[H] = i18n(msg)
    end
 
    local resultA      = { moduleName }
@@ -510,11 +516,6 @@ function getModuleRCT(remove_MRC_home)
    return A
 end
 
-function isActiveMFile(mrc, full, sn, fn)
-   local version = extractVersion(full, sn) or ""
-   return mrc:isVisible{fullName=full, sn=sn, fn=fn}, version
-end
-
 -----------------------------------------------------------------------
 -- This function decides if the modulefile is a marked default
 -- The rule is that a marked default is given in the first character
@@ -641,10 +642,6 @@ end
 function regular_cmp(x,y)
    return x.pV < y.pV
 end
-
-
-
-
 
 function sanizatizeTbl(rplmntA, inT, outT)
    for k, v in pairs(inT) do

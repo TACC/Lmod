@@ -147,9 +147,24 @@ EOF
      runLmod    list                                   #50
      runLmod    avail                                  #51
      
+     runLmod    purge                                  #52
+     unsetMT
+     unset LMOD_MODULERC
+     export MODULEPATH_ROOT=$(testDir)/mfB
+     export MODULEPATH=$MODULEPATH_ROOT/Core
 
+     runLmod    load ABC                               #53
+     runLmod    list                                   #54
+     runLmod    --show_hidden avail                    #55
+     runLmod    avail                                  #56
+     runBase    runSpiderCmd -o spiderT $MODULEPATH    #57
+     runBase    runSpiderCmd -o dbT     $MODULEPATH    #58
 
-
+     # Test hidden_load feature
+     runLmod    load C                                 #59
+     runLmod    --mt                                   #60
+     runLmod    list                                   #61
+     runLmod    --show_hidden list                     #62
 
 
      HOME=$ORIG_HOME

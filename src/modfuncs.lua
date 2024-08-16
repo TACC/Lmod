@@ -527,6 +527,7 @@ userInGroup = userInGroups
 --------------------------------------------------------------------------
 -- Convert version to canonical so that it can be used in a comparison.
 function convertToCanonical(s)
+   if (not l_validateStringArgs("convertToCanonical",s)) then return end
    return parseVersion(s)
 end
 
@@ -589,7 +590,7 @@ function atmost(m, ie)
 
    local mname = MName:new("load", m, "atmost", false, ie)
 
-   dbg.fini("atleast")
+   dbg.fini("atmost")
    return mname
 end
 

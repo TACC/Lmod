@@ -50,15 +50,15 @@ proc doubleQuoteEscaped {text} {
 }
 
 proc module-alias {name mfile} {
-    myPuts "\{kind=\"module_alias\",name=\"$name\",mfile=\"$mfile\"\},"
+    myPuts "\{action=\"module_alias\",name=\"$name\",mfile=\"$mfile\"\},"
 }
 
 proc hide-version {mfile} {
-    myPuts "\{kind=\"hide_version\", mfile=\"$mfile\"\},"
+    myPuts "\{action=\"hide_version\", mfile=\"$mfile\"\},"
 }
 
 proc hide-modulefile {mfile} {
-    myPuts "\{kind=\"hide_modulefile\", mfile=\"$mfile\"\},"
+    myPuts "\{action=\"hide_modulefile\", mfile=\"$mfile\"\},"
 }
 
 
@@ -76,7 +76,7 @@ proc module-version {args} {
         lappend argL "\"$val\""
     }
     set versionA [join $argL ","]
-    myPuts "\{kind=\"module_version\",module_name=\"$module_name\", module_versionA=\{$versionA\}\},"
+    myPuts "\{action=\"module_version\",module_name=\"$module_name\", module_versionA=\{$versionA\}\},"
 }
 
 proc showResults {} {
@@ -120,7 +120,7 @@ proc main {mRcFile} {
     }
 
     if { $found > 0 } {
-	myPuts "\{kind=\"set_default_version\", version=\"$version\"\},"
+	myPuts "\{action=\"set_default_version\", version=\"$version\"\},"
     }
     myPuts "\}" 
     showResults
