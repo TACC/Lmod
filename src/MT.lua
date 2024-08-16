@@ -553,7 +553,9 @@ function M.list(self, kind, status)
                           name = v[kind], fn = v.fn, loadOrder = v.loadOrder,
                           stackDepth = v.stackDepth, ref_count = v.ref_count,
                           depends_on_anyA = v.depends_on_anyA, displayName = v.fullName,
-                          origUserName = v.origUserName or false}
+                          origUserName = v.origUserName or false,
+                          moduleKindT = v.moduleKindT or {}
+            }
             a, b = l_build_AB(a, b, v.loadOrder, v[kind], obj )
          end
       end
@@ -566,7 +568,9 @@ function M.list(self, kind, status)
                           name = v.fullName, fn = v.fn, loadOrder = v.loadOrder,
                           stackDepth = v.stackDepth, ref_count = v.ref_count,
                           depends_on_anyA = v.depends_on_anyA, displayName = v.fullName, 
-                          origUserName = v.origUserName or false }
+                          origUserName = v.origUserName or false,
+                          moduleKindT = v.moduleKindT or {}
+             }
             a, b = l_build_AB(a, b, v.loadOrder, v.fullName, obj )
          end
       end

@@ -160,6 +160,12 @@ EOF
      runBase    runSpiderCmd -o spiderT $MODULEPATH    #57
      runBase    runSpiderCmd -o dbT     $MODULEPATH    #58
 
+     # Test hidden_load feature
+     runLmod    load C                                 #59
+     runLmod    --mt                                   #60
+     runLmod    list                                   #61
+     runLmod    --show_hidden list                     #62
+
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

@@ -652,8 +652,9 @@ step 55
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
 ===========================
 ProjectDIR/rt/modulerc/mfB/Core
-   ABC/1.0    ABC/3.0 (S,L,D)    B/1.0    B/3.0 (S)    B/6.0 (D)
-   ABC/2.0    ABC/4.0 (H)        B/2.0    B/4.0 (H)
+   ABC/1.0            ABC/4.0 (H)    B/3.0 (S)    C/1.0 (S)
+   ABC/2.0            B/1.0          B/4.0 (H)    C/2.0 (S)
+   ABC/3.0 (S,L,D)    B/2.0          B/6.0 (D)    C/3.0 (S,D)
   Where:
    D:  Default Module
    H:  Hidden Module
@@ -685,3 +686,63 @@ runSpiderCmd -o spiderT ProjectDIR/rt/modulerc/mfB/Core
 step 58
 runSpiderCmd -o dbT ProjectDIR/rt/modulerc/mfB/Core
 ===========================
+===========================
+step 59
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load C
+===========================
+===========================
+step 60
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
+===========================
+_ModuleTable_ = {
+  MTversion = 3,
+  c_rebuildTime = false,
+  c_shortTime = false,
+  depthT = {},
+  family = {},
+  mT = {
+    ABC = {
+      fn = "ProjectDIR/rt/modulerc/mfB/Core/ABC/3.0.lua",
+      fullName = "ABC/3.0",
+      loadOrder = 1,
+      moduleKindT = {
+        kind = "soft",
+      },
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "ABC",
+      wV = "000000003.*zfinal",
+    },
+    C = {
+      fn = "ProjectDIR/rt/modulerc/mfB/Core/C/3.0.lua",
+      fullName = "C/3.0",
+      loadOrder = 2,
+      moduleKindT = {
+        hidden_load = true,
+        kind = "soft",
+      },
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "C",
+      wV = "000000003.*zfinal",
+    },
+  },
+  mpathA = {
+    "ProjectDIR/rt/modulerc/mfB/Core",
+  },
+  systemBaseMPATH = "ProjectDIR/rt/modulerc/mfB/Core",
+}
+===========================
+step 61
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) ABC/3.0
+===========================
+step 62
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden list
+===========================
+Currently Loaded Modules:
+  1) ABC/3.0   2) C/3.0
