@@ -21,7 +21,6 @@ if [ ! -x $LMOD_DIR/spider ]; then
     echo "$LMOD_DIR/spider command not found!" '-> Quiting!'
     exit 1
 fi
-   
 
 ########################################################################
 # Make sure that $ADMIN_DIR/softwarePage exists
