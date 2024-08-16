@@ -163,6 +163,7 @@ Lmod does not support modulefiles that start with two or more underscores
      e_Inf_Loop            = "A load storm (possibly an infinite loop) detected for module: \"%{fullName}\" file: \"%{file}\". It was loaded more than %{count} times.\n",
      e_LocationT_Srch      = "Error in LocationT:search().",
      e_Missing_Action      = "Missing action internal error. sn=\"%{sn}\", msg=\"${msg}\"",
+     e_Malformed_time      = "Before or after time is malformed. Please use YYYY-MM-DD or YYYY-MM-DDTHH:MM instead of \"%{tStr}\"\n",
      e_Missing_Value       = "%{func}(\"%{name}\") is not valid; a value is required.",
      e_MT_corrupt          = [==[The module table stored in the environment is corrupt.
 please execute the command \" clearMT\" and reload your modules.
@@ -173,7 +174,7 @@ please execute the command \" clearMT\" and reload your modules.
    $ module swap %{oldFullName} %{newFullName}
 
 Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOSWAP to "no" to re-enable same name autoswapping.
-]==], 
+]==],  -- 
      e_No_Hashsum          = "Unable to find HashSum program (sha1sum, shasum, md5sum or md5).",
      e_No_Matching_Mods    = "No matching modules found.\n",
      e_No_Mod_Entry        = "%{routine}: Did not find module entry: \"%{name}\". This should not happen!\n",
@@ -181,6 +182,7 @@ Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOS
      e_No_PropT_Entry      = "%{routine}: system property table has no %{location} for: \"%{name}\". \nCheck spelling and case of name.\n",
      e_No_UUID             = "uuidgen is not available, fallback failed too",
      e_No_ValidT_Entry     = "%{routine}: The validT table for %{name} has no entry for: \"%{value}\". Make sure that all keys in displayT have a matching key in validT. \nCheck spelling and case of name.\n",
+     e_Newer_posix_reqd    = "The site's luaposix is too old to use before or after modifiers to hide modules.  Please upgrade your sites luaposix.\n",
      e_Prereq              = "Cannot load module \"%{name}\" without these module(s) loaded:\n   %{module_list}\n",
      e_Prereq_Any          = "Cannot load module \"%{name}\". At least one of these module(s) must be loaded:\n   %{module_list}\n",
      e_RequireFullName     = [==[Module "%{sn}" must be loaded with the version specified, e.g. "module load %{fullName}". Use

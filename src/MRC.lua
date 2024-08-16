@@ -15,6 +15,8 @@
 --
 -- @classmod MRC
 
+_G._DEBUG      = false
+local posix    = require("posix")
 require("strict")
 
 --------------------------------------------------------------------------
@@ -106,15 +108,48 @@ end
 -- A singleton Ctor for the MRC class
 -- @param self A MRC object.
 
+local s_Epoch  = nil
+local s_Is_dst = nil
 
 function M.singleton(self, fnA)
    --dbg.start{"MRC:singleton()"}
    if (not s_MRC) then
       s_MRC = l_new(self, fnA)
    end
+   if (not s_Epoch) then
+      s_Epoch  = math.floor(epoch())
+      local tm = posix.localtime(s_Epoch)
+      s_Is_dst = tm.is_dst
+   end
+
    --dbg.fini("MRC:singleton")
    return s_MRC
 end
+
+local function l_convertStr2TM(tStr, tm, is_dst)
+   if (not tStr:find("T")) then
+      tStr = tStr .. "T00:00"
+   end
+   local d = posix.strptime(tStr,"%Y-%m-%dT%H:%M")   
+   for k,v in pairs(d) do
+      tm[k] = v
+   end
+   tm.is_dst = is_dst
+end
+
+local function l_convertTimeStr_to_epoch(tStr)
+   if (posix.strptime == nil or posix.mktime == nil) then
+      LmodError{msg="e_Newer_posix_reqd"}
+   end
+
+   local tm
+   local ok, msg = pcall(l_convertStr2TM, tStr, tm, s_is_dst)
+   if (not ok) then
+      LmodError{msg="e_Malformed_time",tStr = tStr}
+   end
+   return posix.mktime(tm)
+end
+
 
 
 function M.__clear(self)
@@ -504,6 +539,39 @@ function M.import(self, mrcT, mrcMpathT)
    --dbg.fini("MRC:import")
 end
 
+local function l_check_hidden_modifiers(resultT, visibleT, show_hidden)
+   dbg.start{"l_check_hidden_modifiers(resultT, visibleT, show_hidden)"}
+   local T_before    = math.maxinteger or math.huge
+   local T_after     = math.mininteger or 0
+   if (resultT.before) then
+      T_before = l_convertTimeStr_to_epoch(resultT.before)
+   end
+   if (resultT.after) then
+      T_after = l_convertTimeStr_to_epoch(resultT.after)
+   end
+   local hide_active = (s_Epoch <= T_before or T_after <= s_Epoch)
+   dbg.print{"s_Epoch <= T_before: ",s_Epoch <= T_before,"\n"}
+   dbg.print{"T_after <= s_Epoch:  ",T_after <= s_Epoch,"\n"}
+   dbg.print{"hide_active: ",hide_active,"\n"}
+   dbg.print{"T_before: ",T_before,", T_after: ",T_after,", s_Epoch: ",s_Epoch,"\n"}
+
+   if (not hide_active) then
+      --     isVisible, hidden_load, kind
+      dbg.fini("l_check_hidden_modifiers")
+      return true,      false,       "normal"
+   end
+   local isVisible
+   if (show_hidden) then
+      isVisible = (resultT.kind ~= "hard")
+   else
+      isVisible = (visibleT[resultT.kind] ~= nil)
+   end
+   dbg.fini("l_check_hidden_modifiers")
+   return isVisible, resultT.hidden_load, resultT.kind
+end
+
+
+
 -- modT is a table with: sn, fullName and fn
 function M.isVisible(self, modT)
    dbg.start{"MRC:isVisible(modT}"}
@@ -529,13 +597,7 @@ function M.isVisible(self, modT)
    -- if hidden.
 
    if (type(resultT) == "table" ) then
-      if (show_hidden) then
-         isVisible = (resultT.kind ~= "hard")
-      else
-         isVisible = (visibleT[resultT.kind] ~= nil)
-      end
-      kind        = resultT.kind
-      hidden_load = resultT.hidden_load
+      isVisible, hidden_load, kind = l_check_hidden_modifiers(resultT, visibleT, show_hidden)
    elseif (fullName:sub(1,1) == ".") then
       isVisible = (visibleT.hidden == true or show_hidden)
       kind      = "hidden"
