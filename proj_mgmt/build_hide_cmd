@@ -1,0 +1,45 @@
+#!/usr/bin/env lua
+-- -*- lua -*-
+
+_G._DEBUG      = false
+local posix    = require("posix")
+
+require("strict")
+require("string_utils")
+
+local s_Is_dst = nil
+
+
+function build_tStr(epoch, time_offset)
+   local myTime = epoch + time_offset
+   local tm = posix.localtime(myTime)
+   s_Is_dst = tm.is_dst
+   return string.format("%d-%02d-%02dT%02d:%02d",tm.year,tm.month,tm.day,
+                        tm.hour, tm.min)
+end
+
+function main()
+   local concatTbl   = table.concat
+   local idx         = 1
+   local epoch       = arg[idx]; idx = idx + 1
+   local name        = arg[idx]; idx = idx + 1
+   local key         = arg[idx]; idx = idx + 1
+   local time_offset = arg[idx]; idx = idx + 1
+   local other       = arg[idx]; idx = idx + 1
+
+   epoch       = math.floor(tonumber(epoch))
+   time_offset = tonumber(time_offset)
+   local tStr  = build_tStr(epoch, time_offset)
+
+   local a = {}
+   a[#a+1] = "hide{"
+   a[#a+1] = "name=" .. "\"" .. name .. "\","
+   a[#a+1] = key .. "=\"" .. tStr .. "\","
+   a[#a+1] = other
+   a[#a+1] = "}"
+   print(concatTbl(a,""))
+
+end
+
+
+main()

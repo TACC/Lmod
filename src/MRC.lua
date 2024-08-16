@@ -142,7 +142,7 @@ local function l_convertTimeStr_to_epoch(tStr)
       LmodError{msg="e_Newer_posix_reqd"}
    end
 
-   local tm
+   local tm = {}
    local ok, msg = pcall(l_convertStr2TM, tStr, tm, s_is_dst)
    if (not ok) then
       LmodError{msg="e_Malformed_time",tStr = tStr}
