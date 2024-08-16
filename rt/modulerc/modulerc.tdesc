@@ -165,6 +165,8 @@ EOF
      runLmod    --mt                                   #60
      runLmod    list                                   #61
      runLmod    --show_hidden list                     #62
+     runLmod    spider                                 #63
+     runLmod -A spider                                 #64
 
 
      HOME=$ORIG_HOME

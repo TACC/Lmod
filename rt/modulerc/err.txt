@@ -782,3 +782,35 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden list
 ===========================
 Currently Loaded Modules:
   1) ABC/3.0   2) C/3.0   3) D/1.1   4) E/3.0   5) F/2.1
+===========================
+step 63
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
+===========================
+The following is a list of the modules and extensions currently available:
+  ABC: ABC/1.0, ABC/2.0
+  B: B/1.0, B/2.0, B/6.0
+  D: D/1.1
+  F: F/2.1
+To learn more about a package execute:
+   $ module spider Foo
+where "Foo" is the name of a module.
+To find detailed information about a particular package you
+must specify the version if there is more than one version:
+   $ module spider Foo/11.1
+===========================
+step 64
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A spider
+===========================
+The following is a list of the modules and extensions currently available:
+  ABC: ABC/1.0, ABC/2.0, ABC/3.0, ABC/4.0
+  B: B/1.0, B/2.0, B/3.0, B/4.0, B/6.0
+  C: C/1.0, C/2.0, C/3.0
+  D: D/1.1
+  E: E/1.0, E/2.0, E/3.0
+  F: F/2.1
+To learn more about a package execute:
+   $ module spider Foo
+where "Foo" is the name of a module.
+To find detailed information about a particular package you
+must specify the version if there is more than one version:
+   $ module spider Foo/11.1
