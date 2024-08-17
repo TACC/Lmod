@@ -79,10 +79,34 @@ function hide_modulefile(path)
    ModA[#ModA+1] = {action="hide_modulefile", mfile=path}
 end
 
+local rulesT = {
+   action      = {kind="string", choiceT = {hide = true}},
+   name        = {kind="string"},
+   after       = {kind="string"},
+   before      = {kind="string"},
+   kind        = {kind="string", choiceT = {hard = true, normal = true, soft = true, hidden = true}},
+   hidden_load = {kind="boolean"},
+}
+
+
+
 function hide(t)
    if (type(t) ~= "table") then
       mpc:report{msg="e_Args_Not_Table",func="hide",fn=myMRC_file()}
    end
    t.action = "hide"
+   for k,v in pairs(t) do
+      local entry = rulesT[k]
+      if (entry == nil) then
+         LmodError{msg="e_Unknown_hide_key",key=k}
+      end
+      if ( type(v) ~= entry.kind) then
+         LmodError{msg="e_Unknown_hide_v_type",key=k, value=v, tkind = type(v), kind=entry.kind}
+      end
+      local choiceT = entry.choiceT
+      if (choiceT and not choiceT[v]) then
+         LmodError{msg="e_Unknown_hide_value",key=k,value=v}
+      end
+   end
    ModA[#ModA+1] = t
 end

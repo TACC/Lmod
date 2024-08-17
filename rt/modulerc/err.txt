@@ -814,3 +814,43 @@ where "Foo" is the name of a module.
 To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
+===========================
+step 65
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 66
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+ProjectDIR/rt/modulerc/mfC/Core
+   ACME/2.0    ACME/3.0 (D)    B/2.0
+  Where:
+   D:  Default Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 67
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A avail
+===========================
+ProjectDIR/rt/modulerc/mfC/Core
+   ACME/1.0 (H)    ACME/2.0    ACME/3.0 (D)    ACME/4.0 (H)    B/2.0 (D)
+  Where:
+   D:  Default Module
+   H:  Hidden Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 68
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B/1.0
+===========================
+Lmod has detected the following error: The following module(s) are unknown: "B/1.0"
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "B/1.0"
+Also make sure that all modulefiles written in TCL start with the string #%Module

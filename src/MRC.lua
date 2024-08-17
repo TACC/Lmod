@@ -143,7 +143,7 @@ local function l_convertTimeStr_to_epoch(tStr)
    end
 
    local tm = {}
-   local ok, msg = pcall(l_convertStr2TM, tStr, tm, s_is_dst)
+   local ok, msg = pcall(l_convertStr2TM, tStr, tm, s_Is_dst)
    if (not ok) then
       LmodError{msg="e_Malformed_time",tStr = tStr}
    end
@@ -539,17 +539,21 @@ function M.import(self, mrcT, mrcMpathT)
    --dbg.fini("MRC:import")
 end
 
-local function l_check_hidden_modifiers(resultT, visibleT, show_hidden)
-   dbg.start{"l_check_hidden_modifiers(resultT, visibleT, show_hidden)"}
-   local T_before    = math.maxinteger or math.huge
-   local T_after     = math.mininteger or 0
+local function l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)
+   dbg.start{"l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)"}
+   dbg.print{"fullName: ",fullName,"\n"}
+   local T_start     = math.mininteger or 0
+   local T_end       = math.maxinteger or math.huge
+
+   local T_before    = T_end
+   local T_after     = T_start
    if (resultT.before) then
       T_before = l_convertTimeStr_to_epoch(resultT.before)
    end
    if (resultT.after) then
       T_after = l_convertTimeStr_to_epoch(resultT.after)
    end
-   local hide_active = (s_Epoch <= T_before or T_after <= s_Epoch)
+   local hide_active = (s_Epoch <= T_before and T_after <= s_Epoch)
    dbg.print{"s_Epoch <= T_before: ",s_Epoch <= T_before,"\n"}
    dbg.print{"T_after <= s_Epoch:  ",T_after <= s_Epoch,"\n"}
    dbg.print{"hide_active: ",hide_active,"\n"}
@@ -597,7 +601,7 @@ function M.isVisible(self, modT)
    -- if hidden.
 
    if (type(resultT) == "table" ) then
-      isVisible, hidden_load, kind = l_check_hidden_modifiers(resultT, visibleT, show_hidden)
+      isVisible, hidden_load, kind = l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)
    elseif (fullName:sub(1,1) == ".") then
       isVisible = (visibleT.hidden == true or show_hidden)
       kind      = "hidden"

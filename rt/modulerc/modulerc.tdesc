@@ -168,6 +168,17 @@ EOF
      runLmod    spider                                 #63
      runLmod -A spider                                 #64
 
+     # test before and after hide modifiers
+     runLmod    purge                                  #65
+     unsetMT
+     export MODULEPATH_ROOT=$(testDir)/mfC
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+
+     $(testDir)/create_hide_modulerc $(projectDir) > $(outputDir)/modulerc.lua
+     export LMOD_MODULERC=$(outputDir)/modulerc.lua
+     runLmod    avail                                  #66
+     runLmod -A avail                                  #67
+     runLmod    load B/1.0                             #68
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
