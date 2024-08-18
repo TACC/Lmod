@@ -320,17 +320,18 @@ function M.__find_all_defaults(self)
          elseif (next(v.fileT) ~= nil) then
             for fullName, vv in pairs(v.fileT) do
                local wV      = mrc:find_wght_for_fullName(fullName, vv.wV)
-               local resultT = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, visibleT = {soft=true}}
-               local vis     = resultT.isVisible or isMarked(wV)
+               local resultT = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, visibleT = {soft=true}, show_hidden = show_hidden}
+               local vis     = (resultT.isVisible or isMarked(wV))
 
+               dbg.print{"l_find_all_defaults_helper: fullName: ",fullName, ", vis: ",vis,", resultT.kind: ",resultT.kind,"\n"}
                ------------------------------------------------------------
                -- When hidden modules are shown (show_hidden=true) then
                -- the count goes up.  However only visible modules can have
                -- the (D) marking (i.e. default)
 
                if (show_hidden or vis) then
-                  count = count + 1
-                  if (vis and (wV > weight)) then
+                  count = count + ((resultT.count) and 1 or 0)
+                  if (vis and (wV > weight) and resultT.moduleKindT.kind ~= "hidden") then
                      found      = true
                      weight     = wV
                      ext        = vv.luaExt and ".lua" or ""

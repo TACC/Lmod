@@ -541,7 +541,9 @@ end
 
 local function l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)
    dbg.start{"l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)"}
-   dbg.print{"fullName: ",fullName,"\n"}
+   dbg.print{"fullName: ",fullName,", resultT.kind: ", resultT.kind, "\n"}
+   dbg.printT("resultT", resultT)
+   local count       = false
    local T_start     = math.mininteger or 0
    local T_end       = math.maxinteger or math.huge
 
@@ -560,18 +562,22 @@ local function l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden
    dbg.print{"T_before: ",T_before,", T_after: ",T_after,", s_Epoch: ",s_Epoch,"\n"}
 
    if (not hide_active) then
-      --     isVisible, hidden_load, kind
+      --     isVisible, hidden_load, kind,     count
       dbg.fini("l_check_hidden_modifiers")
-      return true,      false,       "normal"
+      return true,      false,       "normal", true
    end
    local isVisible
    if (show_hidden) then
       isVisible = (resultT.kind ~= "hard")
+      count     = isVisible
    else
       isVisible = (visibleT[resultT.kind] ~= nil)
    end
+
+
+   dbg.print{"fullName: ",fullName,", resultT.kind: ", resultT.kind, ", count: ",count,"\n"}
    dbg.fini("l_check_hidden_modifiers")
-   return isVisible, resultT.hidden_load, resultT.kind
+   return isVisible, resultT.hidden_load, resultT.kind, count
 end
 
 
@@ -592,7 +598,7 @@ function M.isVisible(self, modT)
    local resultT     = l_findHiddenState(self, mpathA, sn, fullName, fn) 
    local kind        = "normal"
    local hidden_load = false
-
+   local count       = false
    ------------------------------------------------------------
    -- resultT is nil if the modulefile is normal or
    -- {kind="hidden|soft|hard"
@@ -601,14 +607,16 @@ function M.isVisible(self, modT)
    -- if hidden.
 
    if (type(resultT) == "table" ) then
-      isVisible, hidden_load, kind = l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)
+      isVisible, hidden_load, kind, count = l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)
    elseif (fullName:sub(1,1) == ".") then
       isVisible = (visibleT.hidden == true or show_hidden)
+      count     = false
       kind      = "hidden"
    else
       local idx = fullName:find("/%.")
       isVisible = (idx == nil) or (visibleT.hidden == true) or show_hidden
       kind      = (idx == nil) and "normal" or "hidden"
+      count     = (idx == nil) 
    end
 
    modT.isVisible   = isVisible
@@ -619,7 +627,9 @@ function M.isVisible(self, modT)
    hook.apply("isVisibleHook", modT)
 
    local my_resultT = { isVisible = modT.isVisible,
-                        moduleKindT = {kind=modT.kind, hidden_load = modT.hidden_load} }
+                        moduleKindT = {kind=modT.kind, hidden_load = modT.hidden_load}, 
+                        count = count }
+   
    dbg.fini("MRC:isVisible")
    return my_resultT
 end

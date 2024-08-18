@@ -95,6 +95,7 @@ function hide(t)
       mpc:report{msg="e_Args_Not_Table",func="hide",fn=myMRC_file()}
    end
    t.action = "hide"
+   t.kind   = t.kind or "hidden"
    for k,v in pairs(t) do
       local entry = rulesT[k]
       if (entry == nil) then
