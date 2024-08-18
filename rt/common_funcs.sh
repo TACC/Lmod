@@ -315,6 +315,12 @@ initStdEnvVars()
   COUNT=0
   ORIG_HOME=`(cd $HOME; /bin/pwd)`
   HOME=`/bin/pwd`
+  rm -rf $HOME/.local
+  
+  if [ -d $ORIG_HOME/.local ]; then
+    ln -s $ORIG_HOME/.local $HOME
+  fi
+
   export LMOD_TERM_WIDTH=100000
 
   PATH="/usr/bin:/bin"
