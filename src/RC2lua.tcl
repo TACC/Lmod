@@ -63,6 +63,46 @@ proc hide-modulefile {mfile} {
 
 
 proc module-hide {args} {
+   set extraArgA {}
+   set argT      [dict create]
+
+   foreach arg $args {
+      if { [info exists timeDateArg] } {
+         dict set argT $timeDateArg $arg
+         unset timeDateArg
+      } else {
+         switch -- $arg {
+            --before - --after {
+               set timeDateArg [string trimleft $arg -]
+            }
+            --hard - --soft {
+               dict set argT kind [string trimleft $arg -]
+            }
+            --hidden_load {
+               dict set argT hidden_load true
+            }
+            default {
+               lappend extraArgs $arg
+            }
+         }
+      }
+   }
+   
+   set str "\{action=\"hide\",name=\{"
+   foreach name $extraArgs {
+      append str "\"$name\","
+   }
+   append str "\},"
+   
+   dict for {key value} $argT {
+      if { $key == "hidden_load" } {
+         append str "hidden_load=true,"
+      } else {
+         append str "$key=\"$value\","
+      }
+   }
+   append str "\}"
+   myPuts $str
 }
 
 proc module-forbid {args} {
