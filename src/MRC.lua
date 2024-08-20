@@ -91,7 +91,11 @@ local function l_new(self, fnA)
    o.__alias2modT       = {}  -- Map an alias string to a module name or alias
    o.__fullNameDfltT    = {}  -- Map for fullName (in pieces) to weights
    o.__defaultT         = {}  -- Map module sn to fullname that is the default.
-   o.__hiddenT          = {}  -- Table of hidden module names and modulefiles.
+
+   o.__hiddenT          = {}  -- Table of hidden module names and modulefiles 
+                              -- from LMOD_MODULERC files only
+   o.__merged_hiddenT   = {}  -- Table of hidden module names and modulefiles 
+                              -- merged from LMOD_MODULERC and moduletree .modulerc* files
    o.__mod2versionT     = {}  -- Map from full module name to versions.
    o.__full2aliasesT    = {}
    o.__mergedAlias2modT = {}
@@ -468,11 +472,14 @@ function M.export(self)
 end
 
 local s_must_convert = true
-local s_hiddenT = false
 local function l_findHiddenState(self, mpathA, sn, fullName, fn)
    local t = {}
    if (s_must_convert) then
       s_must_convert = false
+
+      ------------------------------------------------------------
+      -- all self.__mpathT[mpath].hiddenT for current mpath
+      -- directories into self.__merged_hiddenT
 
       local hT
       local replaceT = {kind = "hidden"}
@@ -488,13 +495,16 @@ local function l_findHiddenState(self, mpathA, sn, fullName, fn)
          end
       end
 
+      ------------------------------------------------------------
+      -- Now merge LMOD_MODULERC files into self.__merged_hiddenT
+
       hT = self.__hiddenT
       for k, v in pairs(hT) do
          t[self:resolve(mpathA, k)] = (v ~= true) and v or replaceT
       end
-      s_hiddenT = t
+      self.__merged_hiddenT = t
    end
-   t = s_hiddenT
+   t = self.__merged_hiddenT
    local resultT = t[sn] or t[fullName] or t[fn]
 
    ------------------------------------------------------------
@@ -610,13 +620,13 @@ function M.isVisible(self, modT)
       isVisible, hidden_load, kind, count = l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)
    elseif (fullName:sub(1,1) == ".") then
       isVisible = (visibleT.hidden == true or show_hidden)
-      count     = false
+      count     = show_hidden
       kind      = "hidden"
    else
       local idx = fullName:find("/%.")
       isVisible = (idx == nil) or (visibleT.hidden == true) or show_hidden
       kind      = (idx == nil) and "normal" or "hidden"
-      count     = (idx == nil) 
+      count     = show_hidden or (idx == nil) 
    end
 
    modT.isVisible   = isVisible
@@ -630,6 +640,7 @@ function M.isVisible(self, modT)
                         moduleKindT = {kind=modT.kind, hidden_load = modT.hidden_load}, 
                         count = count }
    
+   dbg.print{"fullName: ",fullName,", isVisible: ",isVisible,", kind: ",kind,", show_hidden: ", show_hidden,", count: ",count,"\n"}
    dbg.fini("MRC:isVisible")
    return my_resultT
 end

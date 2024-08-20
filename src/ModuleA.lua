@@ -293,6 +293,8 @@ function M.__find_all_defaults(self)
    local show_hidden = optionTbl().show_hidden
    local mrc         = MRC:singleton()
 
+   dbg.printT("defaultT",defaultT)
+
    local function l_find_all_defaults_helper(level,isNVV, mpath, sn, v)
       local weight, keepLooking, fn, idx
       local ext, count, myfullName
@@ -327,11 +329,11 @@ function M.__find_all_defaults(self)
                ------------------------------------------------------------
                -- When hidden modules are shown (show_hidden=true) then
                -- the count goes up.  However only visible modules can have
-               -- the (D) marking (i.e. default)
+               -- the (D) marking (i.e. default) unless they are marked defaults.
 
                if (show_hidden or vis) then
                   count = count + ((resultT.count) and 1 or 0)
-                  if (vis and (wV > weight) and resultT.moduleKindT.kind ~= "hidden") then
+                  if (vis and (wV > weight) and (resultT.moduleKindT.kind ~= "hidden" or isMarked(wV)))  then
                      found      = true
                      weight     = wV
                      ext        = vv.luaExt and ".lua" or ""

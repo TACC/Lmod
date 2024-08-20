@@ -1227,6 +1227,7 @@ function M.avail(self, argA)
    local mt          = FrameStk:singleton():mt()
    local mpathA      = mt:modulePathA()
    local availStyle  = optionTbl.availStyle
+   local show_hidden = optionTbl.show_hidden
 
    local numDirs = 0
    for i = 1,#mpathA do
@@ -1366,7 +1367,8 @@ function M.avail(self, argA)
                   entry.propT["status"] = {active = 1}
                end
                local c = {}
-               local resultA = colorizePropA("short", mt, {sn=sn, fullName=fullName, fn=fn},
+               local resultA = colorizePropA("short", mt, 
+                                             {sn=sn, fullName=fullName, fn=fn, show_hidden = show_hidden},
                                              mrc, entry.propT, legendT)
                c[#c+1] = '  '
                for i = 1,#resultA do

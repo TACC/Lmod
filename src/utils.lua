@@ -260,6 +260,7 @@ end
 -- @param legendT The legend table.  A key-value pairing of keys to descriptions.
 -- @return An array of colorized strings
 function colorizePropA(style, mt, modT, mrc, propT, legendT)
+   dbg.start{"colorizePropA(style, mt, modT, mrc, propT, legendT)"}
    local readLmodRC   = require("ReadLmodRC"):singleton()
    local propDisplayT = readLmodRC:propT()
    local iprop        = 0
@@ -268,7 +269,7 @@ function colorizePropA(style, mt, modT, mrc, propT, legendT)
    propT              = propT or {}
 
    local resultT = mrc:isVisible(modT)
-   if (not resultT.isVisible) then
+   if (resultT.moduleKindT.kind ~= "normal") then
       local i18n = require("i18n")
       local H    = "H"
       local msg  = "HiddenM"
@@ -320,6 +321,7 @@ function colorizePropA(style, mt, modT, mrc, propT, legendT)
    if (#pA > 0) then
       resultA[#resultA+1] = concatTbl(pA,",")
    end
+   dbg.fini("colorizePropA")
    return resultA
 end
 
