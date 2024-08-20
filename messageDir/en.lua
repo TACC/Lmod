@@ -205,7 +205,7 @@ See https://lmod.readthedocs.io/en/latest/260_sh_to_modulefile.html for details.
      e_Unable_2_rename     = "Unable to rename %{from} to %{to}, error message: %{errMsg}",
      e_Unknown_Coll        = "User module collection: \"%{collection}\" does not exist.\n  Try \"module savelist\" for possible choices.\n",
      e_Unknown_hide_key    = "This is an unknown key: \"%{key}\" for the hide function",
-     e_Unknown_hide_v_type = "This is an unknown value type: \"%{tkind}}\".  The value type should be: \"%{kind}\" for key: \"%{key}\" for the hide function",
+     e_Unknown_hide_v_type = "This is an unknown value type: \"%{tkind}\".  The value type should be: \"%{kind}\" for key: \"%{key}\" for the hide function",
      e_Unknown_hide_value  = "This is an unknown value: \"%{value} \". for key: \"%{key}\"",
      e_coll_corrupt        = "The module collection file is corrupt. Please remove: %{fn}\n",
      e_dbT_sn_fail         = "dbT[sn] failed for sn: %{sn}\n",

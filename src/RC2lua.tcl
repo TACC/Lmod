@@ -62,50 +62,88 @@ proc hide-modulefile {mfile} {
 }
 
 
-proc module-hide {args} {
+proc parseMyArgs {args} {
    set extraArgA {}
    set argT      [dict create]
 
    foreach arg $args {
       if { [info exists timeDateArg] } {
-         dict set argT $timeDateArg $arg
+         dict set argT $timeDateArg "\"$arg\""
          unset timeDateArg
+      } elseif {[info exists nextMsgKey] } {
+         dict set argT $nextMsgKey "\[===\[$arg\]===\]"
+         unset nextMsgKey
+      } elseif {[info exists nextKeyA]} {
+         set v [string trimleft $arg " "]
+         set v [string trimleft $v   " "]
+         set v [regsub -all {\s+} $v ,]
+         set valueA [split $v ","]
+         set str "\{"
+         foreach v $valueA {
+            append str "\"$v\","
+         }
+         append str "\}"
+
+         dict set argT $nextKeyA $str
+         unset nextKeyA
       } else {
          switch -- $arg {
             --before - --after {
                set timeDateArg [string trimleft $arg -]
             }
             --hard - --soft {
-               dict set argT kind [string trimleft $arg -]
+               set v [string trimleft $arg -]
+               dict set argT kind "\"$v\""
             }
             --hidden_load {
                dict set argT hidden_load true
             }
+            --not-group - --not-user - --group - --user {
+               set nextKeyA [string map {- {}} $arg]A
+            }
+            --message - --nearly-message {
+               set nextMsgKey [string map {- {}} $arg]
+            }
             default {
-               lappend extraArgs $arg
+               lappend extraArgA $arg
             }
          }
       }
    }
    
-   set str "\{action=\"hide\",name=\{"
-   foreach name $extraArgs {
+   return [list $argT $extraArgA]
+}
+
+proc module-hide {args} {
+   lassign [parseMyArgs {*}$args] argT extraArgA
+   
+   set str "\{action=\"hide\",nameA=\{"
+   foreach name $extraArgA {
       append str "\"$name\","
    }
    append str "\},"
    
    dict for {key value} $argT {
-      if { $key == "hidden_load" } {
-         append str "hidden_load=true,"
-      } else {
-         append str "$key=\"$value\","
-      }
+      append str "$key=$value,"
    }
-   append str "\}"
+   append str "\},"
+   set str [regsub -all ",\}" $str "\}"]
    myPuts $str
 }
 
 proc module-forbid {args} {
+   lassign [parseMyArgs {*}$args] argT extraArgA
+   set str "\{action=\"forbid\",nameA=\{"
+   foreach name $extraArgA {
+      append str "\"$name\","
+   }
+   append str "\},"
+   dict for {key value} $argT {
+      append str "$key=$value,"
+   }
+   append str "\},"
+   set str [regsub -all ",\}" $str "\}"]
+   myPuts $str
 }
 
 

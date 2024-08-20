@@ -205,15 +205,11 @@ function M.parseModA(self, modA, weight)
    for i = 1,#modA do
       repeat
          local entry = modA[i]
-         --dbg.print{"entry.kind: ",entry.kind, "\n"}
-
          if (entry.action == "module_version") then
             local fullName = entry.module_name
             fullName = self:resolve({}, fullName)
-            --dbg.print{"self:resolve({}, fullName): ",fullName, "\n"}
 
             local _, _, shorter, mversion = fullName:find("(.*)/(.*)")
-            --dbg.print{"(2) fullName: ",fullName,", shorter: ",shorter,", mversion: ",mversion,"\n"}
             if (shorter == nil) then
                LmodWarning{msg="w_Broken_FullName", fullName= fullName}
                break
@@ -222,24 +218,18 @@ function M.parseModA(self, modA, weight)
             local a = entry.module_versionA
             for j = 1,#a do
                local version = a[j]
-               --dbg.print{"j: ",j, ", version: ",version, "\n"}
                if (version == "default") then
-                  --dbg.print{"Setting default: ",fullName, "\n"}
                   l_save_su_weights(self, fullName, weight)
                else
                   local key = shorter .. '/' .. version
                   self.__version2modT[key] = fullName
-                  --dbg.print{"v2m: key: ",key,": ",fullName,"\n"}
                end
             end
          elseif (entry.action == "module_alias") then
-            --dbg.print{"name: ",entry.name,", mfile: ", entry.mfile,"\n"}
             self.__alias2modT[entry.name] = entry.mfile
          elseif (entry.action == "hide_version") then
-            --dbg.print{"mfile: ", entry.mfile,"\n"}
             self.__hiddenT[entry.mfile] = {kind="hidden"}
          elseif (entry.action == "hide_modulefile") then
-            --dbg.print{"mfile: ", entry.mfile,"\n"}
             self.__hiddenT[entry.mfile] = {kind="hidden"}
          elseif (entry.action == "hide") then
             self.__hiddenT[entry.name] = entry
@@ -341,11 +331,6 @@ function M.resolve(self, mpathA, name)
    if (value ~= nil) then
       name  = value
       value = self:resolve(mpathA, value)
-   end
-
-   if (name == "intel/15") then
-      dbg.printT("version2modT",self.__version2modT)
-      dbg.printT("mpathT",self.__mpathT)
    end
 
    value = l_find_alias_value("version2modT", self.__version2modT, self.__mpathT, mpathA, name)
