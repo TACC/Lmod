@@ -162,7 +162,6 @@ Lmod 8.7+
             * Issue #714: Adding "=encoding UTF-8" to pod generation
    (8.7.46) * Issue #716: Must only add KSH_SUPPORT to zsh when both $orig_zsh_version and $zsh_fpath have non-null values
    (8.7.47) * Issue #716: Use correct shell foo
-W.I.P:
    (8.7.48) * Issue #717: Keep previous varT when restoring a collection.  Otherwise the previous modules env vars.
               are lost and therefore not purged.
             * Issue #718: use __build_FPATH_for_zsh_ksh to build FPATH for both shells
