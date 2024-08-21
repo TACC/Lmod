@@ -274,7 +274,7 @@ function colorizePropA(style, mt, modT, mrc, propT, legendT)
       local H    = "H"
       local msg  = "HiddenM"
       if (resultT.moduleKindT.kind == "soft") then
-         H = "S"
+         H = "s"
          msg = "Hidden_softM"
       end
       moduleName = colorize("hidden",modT.fullName)
