@@ -84,21 +84,25 @@ local function l_new(self, fnA)
       end
       dbg.start{"MRC l_new(fnA: ",strFnA,")"}
    end
-   local o              = {}
-   o.__mpathT           = {}  -- mpath dependent values for alias2modT, version2modT
-                              -- and hiddenT.
-   o.__version2modT     = {}  -- Map a sn/version string to a module fullname
-   o.__alias2modT       = {}  -- Map an alias string to a module name or alias
-   o.__fullNameDfltT    = {}  -- Map for fullName (in pieces) to weights
-   o.__defaultT         = {}  -- Map module sn to fullname that is the default.
+   local o               = {}
+   o.__mpathT            = {}  -- mpath dependent values for alias2modT, version2modT
+                               -- and hiddenT.
+   o.__version2modT      = {}  -- Map a sn/version string to a module fullname
+   o.__alias2modT        = {}  -- Map an alias string to a module name or alias
+   o.__fullNameDfltT     = {}  -- Map for fullName (in pieces) to weights
+   o.__defaultT          = {}  -- Map module sn to fullname that is the default.
 
-   o.__hiddenT          = {}  -- Table of hidden module names and modulefiles 
-                              -- from LMOD_MODULERC files only
-   o.__merged_hiddenT   = {}  -- Table of hidden module names and modulefiles 
-                              -- merged from LMOD_MODULERC and moduletree .modulerc* files
-   o.__mod2versionT     = {}  -- Map from full module name to versions.
-   o.__full2aliasesT    = {}
-   o.__mergedAlias2modT = {}
+   o.__forbiddenT        = {}  -- Table of forbidden modules
+                               -- from LMOD_MODULERC files only
+   o.__hiddenT           = {}  -- Table of hidden modules
+                               -- from LMOD_MODULERC files only
+   o.__merged_hiddenT    = {}  -- Table of hidden modules
+                               -- merged from LMOD_MODULERC and moduletree .modulerc* files
+   o.__merged_forbiddenT = {}  -- Table of hidden modules
+                               -- merged from LMOD_MODULERC and moduletree .modulerc* files
+   o.__mod2versionT      = {}  -- Map from full module name to versions.
+   o.__full2aliasesT     = {}
+   o.__mergedAlias2modT  = {}
    setmetatable(o,self)
    self.__index = self
 
@@ -233,6 +237,8 @@ function M.parseModA(self, modA, weight)
             self.__hiddenT[entry.mfile] = {kind="hidden"}
          elseif (entry.action == "hide") then
             self.__hiddenT[entry.name] = entry
+         elseif (entry.action == "forbid") then
+            self.__forbiddenT[entry.name] = entry
          end
       until true
    end
@@ -426,6 +432,8 @@ function M.parseModA_for_moduleA(self, name, mpath, modA)
          l_store_mpathT(self, mpath, "hiddenT", entry.mfile, {kind = "hidden"});
       elseif (entry.action == "hide") then
          l_store_mpathT(self, mpath, "hiddenT", entry.name, entry);
+      elseif (entry.action == "forbid") then
+         l_store_mpathT(self, mpath, "forbiddenT", entry.name, entry);
       end
    end
    --dbg.fini("MRC:parseModA_for_moduleA")
@@ -456,42 +464,67 @@ function M.export(self)
    return concatTbl(a,"\n")
 end
 
-local s_must_convert = true
-local function l_findHiddenState(self, mpathA, sn, fullName, fn)
+
+local function l_merge_tables(self, name, mpathA, replaceT)
+   local Tname      = "__" .. name
+   ------------------------------------------------------------
+   -- all self.__mpathT[mpath][name] for current mpath
+   -- directories into the return table "t"
+   local tt
    local t = {}
-   if (s_must_convert) then
-      s_must_convert = false
-
-      ------------------------------------------------------------
-      -- all self.__mpathT[mpath].hiddenT for current mpath
-      -- directories into self.__merged_hiddenT
-
-      local hT
-      local replaceT = {kind = "hidden"}
-      for i = #mpathA, 1, -1 do
-         local mpath = mpathA[i]
-         if (self.__mpathT[mpath]) then
-            hT = self.__mpathT[mpath].hiddenT
-            if (hT) then
-               for k,v in pairs(hT) do
-                  t[self:resolve(mpathA, k)] = (v ~= true) and v or replaceT
-               end
+   for i = #mpathA, 1, -1 do
+      local mpath = mpathA[i]
+      if (self.__mpathT[mpath]) then
+         tt = self.__mpathT[mpath][name]
+         if (tt) then
+            for k,v in pairs(tt) do
+               t[self:resolve(mpathA, k)] = (v ~= true) and v or replaceT
             end
          end
       end
+   end
 
       ------------------------------------------------------------
       -- Now merge LMOD_MODULERC files into self.__merged_hiddenT
 
-      hT = self.__hiddenT
-      for k, v in pairs(hT) do
-         t[self:resolve(mpathA, k)] = (v ~= true) and v or replaceT
-      end
-      self.__merged_hiddenT = t
+   tt = self[Tname]
+   for k, v in pairs(tt) do
+      t[self:resolve(mpathA, k)] = (v ~= true) and v or replaceT
    end
-   t = self.__merged_hiddenT
+   return t
+end
+
+local s_must_convert_hidden = true
+local function l_findHiddenState(self, mpathA, sn, fullName, fn)
+   if (s_must_convert_hidden) then
+      s_must_convert_hidden = false
+      self.__merged_hiddenT = l_merge_tables(self, "hiddenT", mpathA, {kind = "hidden"})
+   end
+   local t       = self.__merged_hiddenT
    local resultT = t[sn] or t[fullName] or t[fn]
 
+   ------------------------------------------------------------
+   -- If there is no result for sn, fullName or fn
+   -- then check for partial matches for NVV modulefiles.
+   if (not resultT) then
+      local _
+      local n = fullName
+      while (n and n ~= sn and not resultT) do
+         _, _, n = n:find("(.*)/.*")
+         resultT = t[n]
+      end
+   end
+   return resultT
+end
+
+local s_must_convert_forbidden = true
+local function l_findForbbenState(self, mpathA, sn, fullName, fn)
+   if (s_must_convert_forbidden) then
+      s_must_convert_forbidden = false
+      self.__merged_forbiddenT = l_merge_tables(self, "forbiddenT", mpathA, nil)
+   end
+   local t = self.__merged_forbiddenT
+   local resultT = t[sn] or t[fullName] or t[fn]
    ------------------------------------------------------------
    -- If there is no result for sn, fullName or fn
    -- then check for partial matches for NVV modulefiles.
@@ -534,11 +567,7 @@ function M.import(self, mrcT, mrcMpathT)
    --dbg.fini("MRC:import")
 end
 
-local function l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)
-   dbg.start{"l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)"}
-   dbg.print{"fullName: ",fullName,", resultT.kind: ", resultT.kind, "\n"}
-   dbg.printT("resultT", resultT)
-   local count       = false
+local function l_check_time_range(resultT)
    local T_start     = math.mininteger or 0
    local T_end       = math.maxinteger or math.huge
 
@@ -550,11 +579,13 @@ local function l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden
    if (resultT.after) then
       T_after = l_convertTimeStr_to_epoch(resultT.after)
    end
-   local hide_active = (s_Epoch <= T_before and T_after <= s_Epoch)
-   dbg.print{"s_Epoch <= T_before: ",s_Epoch <= T_before,"\n"}
-   dbg.print{"T_after <= s_Epoch:  ",T_after <= s_Epoch,"\n"}
-   dbg.print{"hide_active: ",hide_active,"\n"}
-   dbg.print{"T_before: ",T_before,", T_after: ",T_after,", s_Epoch: ",s_Epoch,"\n"}
+   return (s_Epoch <= T_before and T_after <= s_Epoch)
+end
+
+local function l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)
+   dbg.start{"l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)"}
+   local count       = false
+   local hide_active = l_check_time_range(resultT)
 
    if (not hide_active) then
       --     isVisible, hidden_load, kind,     count
@@ -574,7 +605,6 @@ local function l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden
    dbg.fini("l_check_hidden_modifiers")
    return isVisible, resultT.hidden_load, resultT.kind, count
 end
-
 
 
 -- modT is a table with: sn, fullName and fn

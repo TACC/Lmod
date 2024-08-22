@@ -467,8 +467,9 @@ local function l_find_exact_match(self, must_have_version, fileA)
             end
          end
       end
+      if (found) then break end
    end
-
+ 
    dbg.print{"found: ",found,", fn: ",fn,", version: ", version,", wV: ",wV,
              ", kind: ",moduleKindT.kind,"\n"}
    dbg.fini("MName l_find_exact_match")

@@ -80,7 +80,66 @@ function hide_modulefile(path)
    ModA[#ModA+1] = {action="hide_modulefile", mfile=path}
 end
 
-local rulesT = {
+local function l_hide_forbid(function_name, default_kind, argT, rulesT)
+   if (type(argT) ~= "table") then
+      mpc:report{msg="e_Args_Not_Table",func=function_name,fn=myMRC_file()}
+   end
+   argT.action = function_name
+   argT.kind   = argT.kind or default_kind
+   
+   ------------------------------------------------------------------------
+   -- Convert t.name to t.nameA if necessary
+
+   local v     = argT.name
+   if (type(v) == "string") then
+      argT.nameA = { v }
+   elseif (type(v) == "table") then
+      argT.nameA = v
+   elseif (v) then
+      LmodError{msg="e_Unknown_v_type",func=function_name, key="name", value=v,
+                tkind = type(v), kind=entry.kind}
+   end
+   argT.name  = nil
+
+   ------------------------------------------------------------------------
+   -- Check for valid table from site.
+
+   for k,v in pairs(argT) do
+      local entry = rulesT[k]
+      if (entry == nil) then
+         LmodError{msg="e_Unknown_key",key=k,func=function_name}
+      end
+      if ( type(v) == "table" and entry.kind == "stringArray") then
+         for i = 1,#v do
+            if (type(v[i]) ~= "string") then
+               LmodError{msg="e_Unknown_v_type",func=function_name,key=k, value=v[i],
+                         tkind = type(v[i]), kind=entry.kind}
+            end
+         end
+      elseif ( type(v) ~= entry.kind) then
+         LmodError{msg="e_Unknown_v_type",func=function_name,key=k, value=v,
+                   tkind = type(v), kind=entry.kind}
+      end
+      local choiceT = entry.choiceT
+      if (choiceT and not choiceT[v]) then
+         LmodError{msg="e_Unknown_value",func=function_name,key=k,value=v}
+      end
+   end
+   
+   --------------------------------------------------
+   -- expand argT.nameA into separate entries in ModA
+
+   for i = 1,#argT.nameA do
+      local e       = deepcopy(argT)
+      e.name        = argT.nameA[i]
+      e.nameA       = nil
+      ModA[#ModA+1] = e
+   end
+end
+
+
+
+local hide_rulesT = {
    action      = {kind="string", choiceT = {hide = true}},
    nameA       = {kind="stringArray"},
    after       = {kind="string"},
@@ -90,55 +149,17 @@ local rulesT = {
 }
 
 function hide(t)
-   if (type(t) ~= "table") then
-      mpc:report{msg="e_Args_Not_Table",func="hide",fn=myMRC_file()}
-   end
-   t.action = "hide"
-   t.kind   = t.kind or "hidden"
-
-   ------------------------------------------------------------------------
-   -- Convert t.name to t.nameA if necessary
-
-   local v  = t.name
-   if (type(v) == "string") then
-      t.nameA = { v }
-   elseif (type(v) == "table") then
-      t.nameA = v
-   elseif (v) then
-      LmodError{msg="e_Unknown_hide_v_type",key="name", value=v, tkind = type(v), kind=entry.kind}
-   end
-   t.name  = nil
-
-   ------------------------------------------------------------------------
-   -- Check for valid table from site.
-
-   for k,v in pairs(t) do
-      local entry = rulesT[k]
-      if (entry == nil) then
-         LmodError{msg="e_Unknown_hide_key",key=k}
-      end
-      if ( type(v) == "table" and entry.kind == "stringArray") then
-         for i = 1,#v do
-            if (type(v[i]) ~= "string") then
-               LmodError{msg="e_Unknown_hide_v_type",key=k, value=v[i], tkind = type(v[i]), kind=entry.kind}
-            end
-         end
-      elseif ( type(v) ~= entry.kind) then
-         LmodError{msg="e_Unknown_hide_v_type",key=k, value=v, tkind = type(v), kind=entry.kind}
-      end
-      local choiceT = entry.choiceT
-      if (choiceT and not choiceT[v]) then
-         LmodError{msg="e_Unknown_hide_value",key=k,value=v}
-      end
-   end
-
-   ------------------------------------------------------------
-   -- expand t.nameA into separate entries hide entries.
-
-   for i = 1,#t.nameA do
-      local e       = deepcopy(t)
-      e.name        = t.nameA[i]
-      e.nameA       = nil
-      ModA[#ModA+1] = e
-   end
+   l_hide_forbid("hide","hidden", t, hide_rulesT)
 end
+
+local forbid_rulesT = {
+   action      = {kind="string", choiceT = {forbid = true}},
+   nameA       = {kind="stringArray"},
+   after       = {kind="string"},
+   before      = {kind="string"},
+}
+
+function forbid(t)
+   l_hide_forbid("forbid", nil, t, forbid_rulesT)
+end
+   

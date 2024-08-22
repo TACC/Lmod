@@ -117,6 +117,10 @@ proc parseMyArgs {args} {
 proc module-hide {args} {
    lassign [parseMyArgs {*}$args] argT extraArgA
    
+   if { ! [dict exists $argT kind] } {
+      dict set argT kind "\"hidden\""
+   }
+
    set str "\{action=\"hide\",nameA=\{"
    foreach name $extraArgA {
       append str "\"$name\","
