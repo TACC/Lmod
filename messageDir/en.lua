@@ -154,6 +154,7 @@ To correct the situation, please execute the following command:
 
 Please submit a consulting ticket if you require additional assistance.
 ]==],
+     e_Forbidden           = "Access to %{fullName} is denied\n",
      e_Illegal_Load        = [==[The following module(s) are illegal: %{module_list}
 Lmod does not support modulefiles that start with two or more underscores
 ]==],

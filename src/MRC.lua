@@ -518,7 +518,8 @@ local function l_findHiddenState(self, mpathA, sn, fullName, fn)
 end
 
 local s_must_convert_forbidden = true
-local function l_findForbbenState(self, mpathA, sn, fullName, fn)
+local function l_findForbiddenState(self, mpathA, sn, fullName, fn)
+   dbg.start{"l_findForbiddenState(self, mpathA, sn, fullName:",fullName,", fn)"}
    if (s_must_convert_forbidden) then
       s_must_convert_forbidden = false
       self.__merged_forbiddenT = l_merge_tables(self, "forbiddenT", mpathA, nil)
@@ -536,7 +537,9 @@ local function l_findForbbenState(self, mpathA, sn, fullName, fn)
          resultT = t[n]
       end
    end
-   return resultT
+   dbg.printT{"resultT",resultT or {}}
+   dbg.fini("l_findForbiddenState")
+   return resultT or {}
 end
 
 local function l_import_helper(self,entryT)
@@ -580,6 +583,20 @@ local function l_check_time_range(resultT)
       T_after = l_convertTimeStr_to_epoch(resultT.after)
    end
    return (s_Epoch <= T_before and T_after <= s_Epoch)
+end
+
+local function l_check_forbidden_modifiers(fullName, resultT)
+   dbg.start{"l_check_forbidden_modifiers(fullName, resultT)"}
+
+   -- somehow decide here about what should resultT.message be:
+   -- (1) nil
+   -- (2) nearly
+   -- (3) message
+
+
+   local forbid_active = l_check_time_range(resultT)
+   dbg.fini("l_check_forbidden_modifiers")
+   return forbid_active
 end
 
 local function l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)
@@ -657,6 +674,35 @@ function M.isVisible(self, modT)
    
    dbg.print{"fullName: ",fullName,", isVisible: ",isVisible,", kind: ",kind,", show_hidden: ", show_hidden,", count: ",count,"\n"}
    dbg.fini("MRC:isVisible")
+   return my_resultT
+end
+
+function M.isForbidden(self, modT)
+   dbg.start{"MRC:isForbidden(modT}"}
+   local frameStk     = require("FrameStk"):singleton()
+   local mname        = frameStk:mname()
+   local mt           = frameStk:mt()
+   local mpathA       = modT.mpathA or mt:modulePathA()
+   local fullName     = modT.fullName
+   local fn           = modT.fn
+   local sn           = modT.sn
+   local resultT      = l_findForbiddenState(self, mpathA, sn, fullName, fn) 
+
+   if (not (resultT.action == "forbid")) then
+      return {}
+   end
+   
+   local isForbidden  = l_check_forbidden_modifiers(fullName, resultT)
+
+   modT.isForbidden   = isForbidden
+   modT.mname         = mname
+   modT.mt            = mt
+   modT.message       = resultT.message
+   hook.apply("isForbiddenHook",modT)
+
+   local my_resultT  = {isForbidden = modT.isForbidden, message = modT.message}
+
+   dbg.fini("MRC:isForbidden")
    return my_resultT
 end
 

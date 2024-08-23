@@ -187,7 +187,8 @@ local function l_loadMe(entryT, moduleStack, iStack, myModuleT, mt, mList, mpath
       tracing_msg{msg, fullName, " (fn: ", fn or "nil", ")"}
    end
 
-   loadModuleFile{file=fn, help=true, shell=shellNm, reportErr=false, mList = mList}
+   loadModuleFile{file=fn, help=true, shell=shellNm, reportErr=false,
+                  mList = mList, forbiddenT = {}}
    hook.apply("load_spider",{fn = fn, modFullName = fullName, sn = sn})
    mt:setStatus(sn, "active")
    reset_env()

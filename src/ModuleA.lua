@@ -392,7 +392,9 @@ function M.build_availA(self)
             -- here is where the forbidden info goes.
             dbg.print{"saving v.file: ",v.file,"\n"}
             A[icnt+1] = { fullName = sn, pV = sn, fn = v.file, sn = sn,
-                          propT = metaModuleT.propT, moduleKindT = resultT.moduleKindT}
+                          propT = metaModuleT.propT, moduleKindT = resultT.moduleKindT,
+                          forbiddenT = mrc:isForbidden{fullName=sn, sn = sn, fn = v.file},
+                        }
          end
       end
       if (next(v.fileT) ~= nil) then
@@ -403,7 +405,9 @@ function M.build_availA(self)
                icnt    = icnt + 1
                dbg.print{"saving fullName: ",fullName,"\n"}
                A[icnt] = { fullName = fullName, pV = pathJoin(sn,vv.pV), fn = vv.fn, sn = sn,
-                           propT = vv.propT, provides = vv.provides, moduleKindT = resultT.moduleKindT}
+                           propT = vv.propT, provides = vv.provides, moduleKindT = resultT.moduleKindT,
+                           forbiddenT = mrc:isForbidden{fullName=fullName, sn = sn, fn = v.file},
+                         }
             end
          end
       end

@@ -60,9 +60,10 @@ local s_mfileCountT   = {}
 function loadModuleFile(t)
    dbg.start{"loadModuleFile(",t.file,")"}
 
-   local myType   = extname(t.file)
-   local status   = true
-   local lmodBrk  = false
+   local myType     = extname(t.file)
+   local forbiddenT = t.forbiddenT or {}
+   local status     = true
+   local lmodBrk    = false
    local func
    local msg
    local whole
@@ -76,6 +77,14 @@ function loadModuleFile(t)
    if (mode() == "unload" and not isFile(t.file)) then
       dbg.fini("loadModuleFile")
       return not lmodBrk
+   end
+
+   if (forbiddenT.isForbidden) then
+      if (forbiddenT.message) then
+         LmodError(forbiddenT.message)
+      else
+         LmodError{msg="e_Forbidden",fullName = myModuleFullName()}
+      end
    end
 
    -- Check for infinite loop

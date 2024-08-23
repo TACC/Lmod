@@ -259,7 +259,7 @@ end
 -- @param propT The property table
 -- @param legendT The legend table.  A key-value pairing of keys to descriptions.
 -- @return An array of colorized strings
-function colorizePropA(style, mt, modT, mrc, propT, legendT)
+function colorizePropA(style, mt, modT, mrc, propT, legendT, forbiddenT)
    dbg.start{"colorizePropA(style, mt, modT, mrc, propT, legendT)"}
    local readLmodRC   = require("ReadLmodRC"):singleton()
    local propDisplayT = readLmodRC:propT()
@@ -267,6 +267,7 @@ function colorizePropA(style, mt, modT, mrc, propT, legendT)
    local pA           = {}
    local moduleName   = mt:name_w_possible_alias(modT, "full")
    propT              = propT or {}
+   forbiddenT         = forbiddenT or {}
 
    local resultT = mrc:isVisible(modT)
    if (resultT.moduleKindT.kind ~= "normal") then
@@ -281,6 +282,15 @@ function colorizePropA(style, mt, modT, mrc, propT, legendT)
       pA[#pA+1]  = H
       legendT[H] = i18n(msg)
    end
+
+   if (forbiddenT.isForbidden) then
+      local i18n = require("i18n")
+      local F    = "F"
+      local msg  = "ForbiddenM"
+      moduleName = colorize("forbidden",modT.fullName)
+      pA[#pA+1]  = F
+      legendT[F] = i18n(msg)
+   end      
 
    local resultA      = { moduleName }
    for kk,vv in pairsByKeys(propDisplayT) do

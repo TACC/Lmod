@@ -44,8 +44,8 @@ require("utils")
 require("haveTermSupport")
 require("myGlobals")
 
-local Foreground = "\027"
-local colorT = {
+local Escape  = "\027"
+local FcolorT = {
    black      = "[1;30",
    red        = "[1;31",
    green      = "[1;32",
@@ -56,10 +56,22 @@ local colorT = {
    white      = "[1;37",
    none       = "[0",
 }
+
+local BcolorT = {
+   black      = "[1;40",
+   red        = "[1;41",
+   green      = "[1;42",
+   yellow     = "[1;43",
+   blue       = "[1;44",
+   magenta    = "[1;45",
+   cyan       = "[1;46",
+   white      = "[1;47",
+   none       = "[0",
+}
 local cosmic    = require("Cosmic"):singleton()
 local concatTbl = table.concat
+local pack      = (_VERSION == "Lua 5.1") and argsPack or table.pack
 local s_colorize_kind = "unknown"
-local pack     = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
 ------------------------------------------------------------------------
 -- Takes an array of strings and wraps the ANSI color start and
@@ -81,9 +93,19 @@ function full_colorize(color, ... )
       a[#a+1] = "\027".."[0m"
       return concatTbl(a,"")
    end
+   if (color == "forbidden") then
+      a[#a+1] = Escape
+      a[#a+1] = Bcolor.red
+      a[#a+1] = "m"
+      for i = 1, argA.n do
+         a[#a+1] = argA[i]
+      end
+      a[#a+1] = "\027" .. "[0m"
+      return concatTbl(a,"")
+   end
 
-   a[#a+1] = Foreground
-   a[#a+1] = colorT[color]
+   a[#a+1] = Escape
+   a[#a+1] = FcolorT[color]
    a[#a+1] = 'm'
 
    for i = 1, argA.n do

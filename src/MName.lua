@@ -271,7 +271,20 @@ local function l_lazyEval(self)
          break
       end
    end
-   local tt = self.__moduleKindT or {}
+
+   ---------------------------------------------------------------
+   -- If found then check to see if this MName object is forbidden
+
+   
+   
+   self.__forbiddenT = {}
+   if (found) then
+      local my_resultT = mrc:isForbidden{fullName=build_fullName(self.__sn, version),
+                                   sn = self.__sn, fn = self.__fn}
+      self.__forbiddenT = my_resultT
+   end
+
+   --local tt = self.__moduleKindT or {}
    --dbg.print{"l_lazyEval: sn: ",self.__sn, ", version: ",self.__version, ", fn: ",self.__fn,", wV: ",self.__wV,", userName: ",self.__userName,"\n"}
    --dbg.print{"fn: ",self.__fn,", kind: ",tt.kind,"\n"}
    --dbg.fini("l_lazyEval")
@@ -782,6 +795,10 @@ function M.downstreamConflictCk(self, mnameIn)
 
    dbg.fini( "MName:downstreamConflictCk")
    return result
+end
+
+function M.forbiddenT(self)
+   return self.__forbiddenT or {}
 end
 
 function M.set_depends_on_flag(self, value)

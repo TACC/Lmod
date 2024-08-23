@@ -708,7 +708,7 @@ function M.list_w_property(self, idx, sn, style, legendT)
    end
 
    local resultA = colorizePropA(style, self, {fullName=entry.fullName, origUserName=entry.origUserName, sn=sn, fn=entry.fn},
-                                 mrc, entry.propT, legendT)
+                                 mrc, entry.propT, legendT, {})
    dbg.print{"resultA: ",resultA[1]," ",resultA[2],"\n"} 
    if (resultA[2]) then
       resultA[2] = "(" .. resultA[2] .. ")"

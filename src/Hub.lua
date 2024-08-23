@@ -141,7 +141,7 @@ function M.access(self, ...)
             local mList = concatTbl(mt:list("both","active"),":")
             frameStk:push(mname)
             loadModuleFile{file=fn,help=help, shell=shellNm, mList = mList,
-                           reportErr=true}
+                           reportErr=true, forbiddenT = mname:forbiddenT()}
             frameStk:pop()
             A[#A+1] = "\n"
          end
@@ -252,7 +252,8 @@ function M.inheritModule(self)
          A[#A+1] = "\n\n"
       end
 
-      loadModuleFile{file=mname:fn(),mList = mList, shell=shellNm, reportErr=true}
+      loadModuleFile{file=mname:fn(),mList = mList, shell=shellNm, reportErr=true,
+                     forbiddenT = mname:forbiddenT()}
       frameStk:pop()
    end
 
@@ -394,7 +395,8 @@ function M.load(self, mA)
             end
 
 
-            local status = loadModuleFile{file = fn, shell = shellNm, mList = mList, reportErr = true}
+            local status = loadModuleFile{file = fn, shell = shellNm, mList = mList,
+                                          reportErr = true, forbiddenT = mname:forbiddenT()}
             mt = frameStk:mt()
 
             -- A modulefile could the same named module over top of the current modulefile
@@ -557,7 +559,8 @@ function M.unload(self,mA)
             status = l_missingFn_action(mt:get_actionA(sn))
          else
             local mList  = concatTbl(mt:list("both","active"),":")
-            status = loadModuleFile{file=fn, mList=mList, shell=shellNm, reportErr=false}
+            status = loadModuleFile{file=fn, mList=mList, shell=shellNm, reportErr=false, 
+                                    forbiddenT = {}}
             dbg.print{"status from loadModulefile: ",status,"\n"}
          end
          if (status) then
@@ -733,7 +736,7 @@ function M.refresh()
          frameStk:push(MName:new("mt",userName))
          dbg.print{"loading: ",sn,", userName: ",myModuleUsrName(),", fn: ", fn,"\n"}
          loadModuleFile{file = fn, shell = shellNm, mList = mList,
-                        reportErr=true}
+                        reportErr=true, forbiddenT = {}}
          frameStk:pop()
       end
    end
@@ -767,7 +770,7 @@ function M.dependencyCk()
          frameStk:push(MName:new("mt",sn))
          dbg.print{"DepCk loading: ",sn," fn: ", fn,"\n"}
          loadModuleFile{file = fn, shell = shellNm, mList = mList,
-                        reportErr=true}
+                        reportErr=true, forbiddenT = {}}
          frameStk:pop()
       end
    end
@@ -1369,7 +1372,7 @@ function M.avail(self, argA)
                local c = {}
                local resultA = colorizePropA("short", mt, 
                                              {sn=sn, fullName=fullName, fn=fn, show_hidden = show_hidden},
-                                             mrc, entry.propT, legendT)
+                                             mrc, entry.propT, legendT, entry.forbiddenT)
                c[#c+1] = '  '
                for i = 1,#resultA do
                   c[#c+1] = resultA[i]
