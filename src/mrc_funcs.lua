@@ -157,6 +157,7 @@ local forbid_rulesT = {
    nameA       = {kind="stringArray"},
    after       = {kind="string"},
    before      = {kind="string"},
+   message     = {kind="string"},
 }
 
 function forbid(t)
