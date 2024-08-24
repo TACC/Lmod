@@ -470,6 +470,7 @@ MODULEPATH directory: "%{mpath}" has too many non-modulefiles (%{regularFn}). Pl
      Where          = "\n  Where:\n",
      Inactive       = "\nInactive Modules",
      DefaultM       = "Default Module",
+     ForbiddenM     = "Forbidden Module",
      HiddenM        = "Hidden Module",
      Hidden_softM   = "Soft Hidden Module",
      Extension      = "Extension that is provided by another module",

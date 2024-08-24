@@ -871,14 +871,15 @@ function M.error(self, ...)
 
    local label = colorize("red", i18n("errTitle", {}))
    local argA  = pack(...)
-   dbg.print{"argA",argA,"\n"}
-   dbg.print{"(1) argA.noTraceBack: ",argA[1].noTraceBack,"\n"}
    local sA    = l_generateMsg("lmoderror", label, argA)
    sA[#sA+1]   = "\n"
 
-   dbg.print{"(2) argA[1].noTraceBack: ",argA[1].noTraceBack,"\n"}
+   local noTraceBack = false
+   if (argA.n == 1 and type(argA[1] == "table")) then
+      noTraceBack = argA[1].noTraceBack
+   end
 
-   if (not argA[1].noTraceBack) then
+   if (not noTraceBack) then
       local a = concatTbl(stackTraceBackA,"")
       if (a:len() > 0) then
          sA[#sA+1] = a
