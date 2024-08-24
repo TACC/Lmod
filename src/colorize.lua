@@ -95,6 +95,9 @@ function full_colorize(color, ... )
    end
    if (color == "forbidden") then
       a[#a+1] = Escape
+      a[#a+1] = FcolorT.white
+      a[#a+1] = "m"
+      a[#a+1] = Escape
       a[#a+1] = BcolorT.red
       a[#a+1] = "m"
       for i = 1, argA.n do
