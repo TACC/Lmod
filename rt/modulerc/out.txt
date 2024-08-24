@@ -2037,3 +2037,39 @@ step 68
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B/1.0
 ===========================
 false
+===========================
+step 69
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+MODULEPATH=ProjectDIR/rt/modulerc/mfC/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/modulerc/mfC/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfC/Core",}';
+export _ModuleTable_;
+===========================
+step 70
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/modulerc/mfD/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/modulerc/mfD/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/modulerc/mfD/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfD/Core",}';
+export _ModuleTable_;
+===========================
+step 71
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A avail
+===========================
+MODULEPATH=ProjectDIR/rt/modulerc/mfD/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/modulerc/mfD/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfD/Core",}';
+export _ModuleTable_;
+===========================
+step 72
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load C
+===========================
+false
+===========================
+step 73
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load cluster
+===========================
+false

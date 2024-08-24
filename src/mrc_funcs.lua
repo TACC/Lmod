@@ -159,7 +159,6 @@ local forbid_rulesT = {
    before      = {kind="string"},
    message     = {kind="string"},
 }
-
 function forbid(t)
    l_hide_forbid("forbid", nil, t, forbid_rulesT)
 end

@@ -1,3 +1,2 @@
-module_version(".defaultCluster","default")
---forbid{name=".defaultCluster",message="You must pick a cluster"}
-forbid{name=".defaultCluster"}
+module_version("cluster/.defaultCluster","default")
+forbid{name="cluster/.defaultCluster",message="You must pick a cluster"}

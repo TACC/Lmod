@@ -687,7 +687,11 @@ function M.isForbidden(self, modT)
    local sn           = modT.sn
    local resultT      = l_findForbiddenState(self, mpathA, sn, fullName, fn) 
 
+   dbg.print{"fullName: ",fullName,"\n"}
+   dbg.printT("resultT",resultT)
+
    if (not (resultT.action == "forbid")) then
+      dbg.fini("MRC:isForbidden")
       return {}
    end
    

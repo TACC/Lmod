@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.47 2024-07-22 10:04 -04:00
+Modules based on Lua: Version 8.7.48 2024-08-19 16:18 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -854,3 +854,47 @@ Please check the spelling or version number. Also try "module spider ..."
 It is also possible your cache file is out-of-date; it may help to try:
   $ module --ignore_cache load "B/1.0"
 Also make sure that all modulefiles written in TCL start with the string #%Module
+===========================
+step 69
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 70
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+ProjectDIR/rt/modulerc/mfD/Core
+   C/1.0    C/2.0    C/3.0 (F,D)    cluster/a    cluster/b    cluster/c
+  Where:
+   D:  Default Module
+   F:  Forbidden Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 71
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A avail
+===========================
+ProjectDIR/rt/modulerc/mfD/Core
+   C/1.0    C/3.0     (F,D)    cluster/b    cluster/.defaultCluster (H,F,D)
+   C/2.0    cluster/a          cluster/c
+  Where:
+   D:  Default Module
+   F:  Forbidden Module
+   H:  Hidden Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 72
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load C
+===========================
+Lmod has detected the following error: Access to C/3.0 is denied
+===========================
+step 73
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load cluster
+===========================
+Lmod has detected the following error: You must pick a cluster

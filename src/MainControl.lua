@@ -781,9 +781,15 @@ local function l_generateMsg(kind, label, argA)
    local sA     = {}
    local twidth = TermWidth()
    if (argA.n == 1 and type(argA[1]) == "table") then
+      local msg = nil
+      local key = nil
       local t   = argA[1]
-      local key = t.msg
-      local msg = i18n(key, t) 
+      if (t.literal_msg) then
+         msg = t.literal_msg
+      else
+         key = t.msg
+         msg = i18n(key, t)
+      end
       if (not msg) then
          msg = "Unknown Error Message with unknown key: \"".. key .. "\""
       end
