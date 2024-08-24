@@ -216,17 +216,11 @@ function check_syntax_error_handler(self, ...)
       if (key == "e_Args_Not_Strings") then key = "e_Args_Not_Strings_short" end
       local msg = i18n(key, t) or "Unknown Error Message"
       msg       = hook.apply("errWarnMsgHook", kind, key, msg, t) or msg
-      errMsg    = buildMsg(twidth, label, msg)
+      errMsg    = buildMsg(twidth, pack(label, msg))
    else
-      errMsg  = buildMsg(twidth, label, ...)
+      errMsg  = buildMsg(twidth, pack(label, ...))
    end
 
-   --if (t and t.msg) then
-   --   dbg.print{"t.msg: ",t.msg,"\n"}
-   --   if (myModuleFullName() == "mkl/mkl") then
-   --      FukMe()
-   --   end
-   --end
    my_errorMsg = "ModuleName: "..myModuleFullName()..", Fn: "..myFileName() .. " " .. errMsg
    dbg.print{"Setting my_errorMsg to : ",my_errorMsg,"\n"}
    dbg.fini("check_syntax_error_handler")

@@ -777,10 +777,9 @@ function M.myModuleVersion(self)
    return frameStk:version()
 end
 
-local function l_generateMsg(kind, label, ...)
+local function l_generateMsg(kind, label, argA)
    local sA     = {}
    local twidth = TermWidth()
-   local argA   = pack(...)
    if (argA.n == 1 and type(argA[1]) == "table") then
       local t   = argA[1]
       local key = t.msg
@@ -789,9 +788,16 @@ local function l_generateMsg(kind, label, ...)
          msg = "Unknown Error Message with unknown key: \"".. key .. "\""
       end
       msg       = hook.apply("errWarnMsgHook", kind, key, msg, t) or msg
-      sA[#sA+1] = buildMsg(twidth, label, msg)
+      sA[#sA+1] = buildMsg(twidth, pack(label, msg))
    else
-      sA[#sA+1] = buildMsg(twidth, label, ...)
+      local ssA = {}
+      ssA[#ssA+1] = label
+      local n = #argA
+      for i = 1, n do
+         ssA[#ssA+1] = argA[i]
+      end
+      ssA.n = n+1
+      sA[#sA+1] = buildMsg(twidth, ssA)
    end
    return sA
 end
@@ -823,9 +829,9 @@ function M.message(self, ...)
       local key = t.msg
       local msg = i18n(key, t) or "Unknown Message"
       msg       = hook.apply("errWarnMsgHook", "lmodmessage", key, msg, t) or msg
-      sA[#sA+1] = buildMsg(twidth, msg)
+      sA[#sA+1] = buildMsg(twidth, {n=1, msg})
    else
-      sA[#sA+1] = buildMsg(twidth, ...)
+      sA[#sA+1] = buildMsg(twidth, pack(...))
    end
    io.stderr:write(concatTbl(sA,""),"\n")
 end
@@ -837,7 +843,8 @@ function M.warning(self, ...)
    build_i18n_messages()
    if (not quiet() and  haveWarnings()) then
       local label = colorize("red", i18n("warnTitle",{}))
-      local sA    = l_generateMsg("lmodwarning", label, ...)
+      local argA  = pack(...)
+      local sA    = l_generateMsg("lmodwarning", label, argA)
       sA[#sA+1]   = "\n"
       sA[#sA+1]   = moduleStackTraceBack()
       sA[#sA+1]   = "\n"
@@ -863,16 +870,23 @@ function M.error(self, ...)
    end
 
    local label = colorize("red", i18n("errTitle", {}))
-   local sA    = l_generateMsg("lmoderror", label, ...)
+   local argA  = pack(...)
+   dbg.print{"argA",argA,"\n"}
+   dbg.print{"(1) argA.noTraceBack: ",argA[1].noTraceBack,"\n"}
+   local sA    = l_generateMsg("lmoderror", label, argA)
    sA[#sA+1]   = "\n"
 
-   local a = concatTbl(stackTraceBackA,"")
-   if (a:len() > 0) then
-       sA[#sA+1] = a
-       sA[#sA+1] = "\n"
+   dbg.print{"(2) argA[1].noTraceBack: ",argA[1].noTraceBack,"\n"}
+
+   if (not argA[1].noTraceBack) then
+      local a = concatTbl(stackTraceBackA,"")
+      if (a:len() > 0) then
+         sA[#sA+1] = a
+         sA[#sA+1] = "\n"
+      end
+      sA[#sA+1]     = moduleStackTraceBack()
+      sA[#sA+1]     = "\n"
    end
-   sA[#sA+1]     = moduleStackTraceBack()
-   sA[#sA+1]     = "\n"
 
    io.stderr:write(concatTbl(sA,""),"\n")
    LmodErrorExit()

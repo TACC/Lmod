@@ -180,6 +180,14 @@ EOF
      runLmod -A avail                                  #67
      runLmod    load B/1.0                             #68
 
+     # test forbidden
+     runLmod    purge                                  #69
+     unsetMT
+     export MODULEPATH_ROOT=$(testDir)/mfD
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+     runLmod    avail                                  #70
+     runLmod    load C                                 #71
+
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new

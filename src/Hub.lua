@@ -374,7 +374,7 @@ function M.load(self, mA)
          elseif (not fn and not frameStk:empty()) then
             local msg = "Executing this command requires loading \"" .. userName .. "\" which failed"..
                " while processing the following module(s):\n\n"
-            msg = buildMsg(TermWidth(), msg)
+            msg = buildMsg(TermWidth(), {n = 1,msg})
             if (haveWarnings()) then
                stackTraceBackA[#stackTraceBackA+1] = moduleStackTraceBack(msg)
             end

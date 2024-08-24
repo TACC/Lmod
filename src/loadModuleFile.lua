@@ -83,7 +83,7 @@ function loadModuleFile(t)
       if (forbiddenT.message) then
          LmodError(forbiddenT.message)
       else
-         LmodError{msg="e_Forbidden",fullName = myModuleFullName()}
+         LmodError{noTraceBack=true, msg="e_Forbidden",fullName = myModuleFullName()}
       end
    end
 

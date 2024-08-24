@@ -101,8 +101,7 @@ end
 --------------------------------------------------------------------------
 -- Generate a message that will fix the available terminal width.
 -- @param width The terminal width
-function buildMsg(width, ... )
-   local argA = pack(...)
+function buildMsg(width, argA)
    local a    = {}
    local len  = 0
 

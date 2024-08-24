@@ -537,7 +537,6 @@ local function l_findForbiddenState(self, mpathA, sn, fullName, fn)
          resultT = t[n]
       end
    end
-   dbg.printT{"resultT",resultT or {}}
    dbg.fini("l_findForbiddenState")
    return resultT or {}
 end
