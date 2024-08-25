@@ -80,7 +80,7 @@ proc parseMyArgs {args} {
          set valueA [split $v ","]
          set str "\{"
          foreach v $valueA {
-            append str "\"$v\","
+            append str "\[\"$v\"\]=true,"
          }
          append str "\}"
 
@@ -99,7 +99,7 @@ proc parseMyArgs {args} {
                dict set argT hidden_load true
             }
             --not-group - --not-user - --group - --user {
-               set nextKeyA [string map {- {}} $arg]A
+               set nextKeyA [string map {- {}} $arg]T
             }
             --message - --nearly-message {
                set nextMsgKey [string map {- {}} $arg]
@@ -120,34 +120,32 @@ proc module-hide {args} {
    if { ! [dict exists $argT kind] } {
       dict set argT kind "\"hidden\""
    }
-
-   set str "\{action=\"hide\",nameA=\{"
    foreach name $extraArgA {
+      set str "\{action=\"hide\",name="
       append str "\"$name\","
-   }
-   append str "\},"
    
-   dict for {key value} $argT {
-      append str "$key=$value,"
+      dict for {key value} $argT {
+         append str "$key=$value,"
+      }
+      append str "\},"
+      set str [regsub -all ",\}" $str "\}"]
+      myPuts $str
    }
-   append str "\},"
-   set str [regsub -all ",\}" $str "\}"]
-   myPuts $str
 }
 
 proc module-forbid {args} {
    lassign [parseMyArgs {*}$args] argT extraArgA
-   set str "\{action=\"forbid\",nameA=\{"
    foreach name $extraArgA {
+      set str "\{action=\"forbid\",name="
       append str "\"$name\","
+
+      dict for {key value} $argT {
+         append str "$key=$value,"
+      }
+      append str "\},"
+      set str [regsub -all ",\}" $str "\}"]
+      myPuts $str
    }
-   append str "\},"
-   dict for {key value} $argT {
-      append str "$key=$value,"
-   }
-   append str "\},"
-   set str [regsub -all ",\}" $str "\}"]
-   myPuts $str
 }
 
 

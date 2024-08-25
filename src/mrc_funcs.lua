@@ -128,12 +128,26 @@ local function l_hide_forbid(function_name, default_kind, argT, rulesT)
    
    --------------------------------------------------
    -- expand argT.nameA into separate entries in ModA
+   -- For each entry convert userA -> userT, groupA -> groupT etc.
 
    for i = 1,#argT.nameA do
-      local e       = deepcopy(argT)
-      e.name        = argT.nameA[i]
-      e.nameA       = nil
-      ModA[#ModA+1] = e
+      local entry   = {}
+      entry.name    = argT.nameA[i]
+      for k,v in pairs(argT) do
+         if (k == "nameA") then
+            -- Do nothing
+         elseif (k:find("A$")) then
+            local key = k:gsub("A$","T")
+            local t   = {}
+            for i=1,#v do
+               t[v[i]] = true
+            end
+            entry[key] = t
+         else
+            entry[k] = v
+         end
+      end
+      ModA[#ModA+1] = entry
    end
 end
 
@@ -142,6 +156,10 @@ end
 local hide_rulesT = {
    action      = {kind="string", choiceT = {hide = true}},
    nameA       = {kind="stringArray"},
+   userA       = {kind="stringArray"},
+   groupA      = {kind="stringArray"},
+   notUserA    = {kind="stringArray"},
+   notGroupA   = {kind="stringArray"},
    after       = {kind="string"},
    before      = {kind="string"},
    kind        = {kind="string", choiceT = {hard = true, normal = true, soft = true, hidden = true}},
@@ -155,6 +173,10 @@ end
 local forbid_rulesT = {
    action      = {kind="string", choiceT = {forbid = true}},
    nameA       = {kind="stringArray"},
+   userA       = {kind="stringArray"},
+   groupA      = {kind="stringArray"},
+   notUserA    = {kind="stringArray"},
+   notGroupA   = {kind="stringArray"},
    after       = {kind="string"},
    before      = {kind="string"},
    message     = {kind="string"},
