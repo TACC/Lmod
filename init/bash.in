@@ -29,7 +29,7 @@ __build_FPATH_for_zsh_ksh()
   if [ "$?" != 0 ]; then
     zsh_fpath=$(unset FPATH; zsh -f -c 'echo $FPATH')
   fi
-  export FPATH=$(@PKGV@/libexec/addto --append FPATH ${zsh_fpath:-} @PKGV@/init/ksh_funcs)
+  export FPATH=$(@PKGV@/libexec/addto --append FPATH ${zsh_fpath:-$FPATH} @PKGV@/init/ksh_funcs)
   unset zsh_fpath
 }  
 
