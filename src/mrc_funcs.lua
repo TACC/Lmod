@@ -171,15 +171,16 @@ function hide(t)
 end
 
 local forbid_rulesT = {
-   action      = {kind="string", choiceT = {forbid = true}},
-   nameA       = {kind="stringArray"},
-   userA       = {kind="stringArray"},
-   groupA      = {kind="stringArray"},
-   notUserA    = {kind="stringArray"},
-   notGroupA   = {kind="stringArray"},
-   after       = {kind="string"},
-   before      = {kind="string"},
-   message     = {kind="string"},
+   action         = {kind="string", choiceT = {forbid = true}},
+   nameA          = {kind="stringArray"},
+   userA          = {kind="stringArray"},
+   groupA         = {kind="stringArray"},
+   notUserA       = {kind="stringArray"},
+   notGroupA      = {kind="stringArray"},
+   after          = {kind="string"},
+   before         = {kind="string"},
+   message        = {kind="string"},
+   nearly_message = {kind="string"},
 }
 function forbid(t)
    l_hide_forbid("forbid", nil, t, forbid_rulesT)

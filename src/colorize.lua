@@ -86,11 +86,11 @@ function full_colorize(color, ... )
 
    local a = {}
    if (color == "hidden") then
-      a[#a+1] = (hiddenItalic == "yes") and "\027".."[3m" or "\027".."[2m"
+      a[#a+1] = (hiddenItalic == "yes") and Escape.."[3m" or Escape.."[2m"
       for i = 1, argA.n do
          a[#a+1] = argA[i]
       end
-      a[#a+1] = "\027".."[0m"
+      a[#a+1] = Escape.."[0m"
       return concatTbl(a,"")
    end
    if (color == "forbidden") then
@@ -103,7 +103,21 @@ function full_colorize(color, ... )
       for i = 1, argA.n do
          a[#a+1] = argA[i]
       end
-      a[#a+1] = "\027" .. "[0m"
+      a[#a+1] = Escape .. "[0m"
+      return concatTbl(a,"")
+   end
+
+   if (color == "nearlyforbidden") then
+      a[#a+1] = Escape
+      a[#a+1] = FcolorT.black
+      a[#a+1] = "m"
+      a[#a+1] = Escape
+      a[#a+1] = BcolorT.yellow
+      a[#a+1] = "m"
+      for i = 1, argA.n do
+         a[#a+1] = argA[i]
+      end
+      a[#a+1] = Escape .. "[0m"
       return concatTbl(a,"")
    end
 
@@ -114,7 +128,7 @@ function full_colorize(color, ... )
    for i = 1, argA.n do
       a[#a+1] = argA[i]
    end
-   a[#a+1] = "\027" .. "[0m"
+   a[#a+1] = Escape .. "[0m"
 
    return concatTbl(a,"")
 end

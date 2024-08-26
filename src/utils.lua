@@ -282,13 +282,22 @@ function colorizePropA(style, mt, modT, mrc, propT, legendT, forbiddenT)
       legendT[H] = i18n(msg)
    end
 
-   if (forbiddenT.isForbidden) then
+   if (forbiddenT.forbiddenState == "inRange") then
       local i18n = require("i18n")
       local F    = "F"
       local msg  = "ForbiddenM"
       moduleName = colorize("forbidden",modT.fullName)
       pA[#pA+1]  = F
       legendT[F] = i18n(msg)
+   end      
+
+   if (forbiddenT.forbiddenState == "nearly") then
+      local i18n  = require("i18n")
+      local NF    = "NF"
+      local msg   = "NearlyForbiddenM"
+      moduleName  = colorize("nearlyforbidden",modT.fullName)
+      pA[#pA+1]   = NF
+      legendT[NF] = i18n(msg)
    end      
 
    local resultA      = { moduleName }

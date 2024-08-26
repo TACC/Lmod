@@ -79,11 +79,12 @@ function loadModuleFile(t)
       return not lmodBrk
    end
 
-   if (forbiddenT.isForbidden) then
+   if (forbiddenT.forbiddenState == "inRange" ) then
       if (forbiddenT.message) then
-         LmodError{noTraceBack=true, literal_msg = forbiddenT.message}
+         LmodError{msg="e_Forbidden", noTraceBack=true, literal_msg = forbiddenT.message,
+                   fullName = myModuleFullName()}
       else
-         LmodError{noTraceBack=true, msg="e_Forbidden",fullName = myModuleFullName()}
+         LmodError{msg="e_Forbidden", noTraceBack=true, fullName = myModuleFullName()}
       end
    end
 
@@ -170,6 +171,14 @@ function loadModuleFile(t)
       lmodBrk = true
    end
 
+   if (forbiddenT.forbiddenState == "nearly" ) then
+      if (forbiddenT.nearlymessage) then
+         LmodMessage{msg="w_Nearly_Forbidden_w_msg",literal_msg = forbiddenT.nearlymessage,
+                     after=forbiddenT.after}
+      else
+         LmodMessage{msg="w_Nearly_Forbidden", after=forbiddenT.after}
+      end
+   end
 
    dbg.fini("loadModuleFile")
    return not lmodBrk

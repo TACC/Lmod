@@ -863,10 +863,12 @@ step 70
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/modulerc/mfD/Core
-   C/1.0    C/2.0    C/3.0 (F,D)    cluster/a    cluster/b    cluster/c
+   C/1.0    C/3.0 (F,D)    cluster/a    cluster/c
+   C/2.0    D/3.0 (NF)     cluster/b
   Where:
-   D:  Default Module
-   F:  Forbidden Module
+   D:   Default Module
+   F:   Forbidden Module
+   NF:  Nearly Forbidden Module
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
 "module overview" or "ml ov" to display the number of modules for each name.
@@ -877,12 +879,13 @@ step 71
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A avail
 ===========================
 ProjectDIR/rt/modulerc/mfD/Core
-   C/1.0    C/3.0     (F,D)    cluster/b    cluster/.defaultCluster (H,F,D)
-   C/2.0    cluster/a          cluster/c
+   C/1.0    C/3.0 (F,D)    cluster/a    cluster/c
+   C/2.0    D/3.0 (NF)     cluster/b    cluster/.defaultCluster (H,F,D)
   Where:
-   D:  Default Module
-   F:  Forbidden Module
-   H:  Hidden Module
+   D:   Default Module
+   F:   Forbidden Module
+   H:   Hidden Module
+   NF:  Nearly Forbidden Module
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
 "module overview" or "ml ov" to display the number of modules for each name.
@@ -898,3 +901,39 @@ step 73
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load cluster
 ===========================
 Lmod has detected the following error: You must pick a cluster
+===========================
+step 74
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load D
+===========================
+Access will be denied to this module starting 3000-01-01
+===========================
+step 75
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
+===========================
+_ModuleTable_ = {
+  MTversion = 3,
+  c_rebuildTime = false,
+  c_shortTime = false,
+  depthT = {},
+  family = {},
+  mT = {
+    D = {
+      fn = "ProjectDIR/rt/modulerc/mfD/Core/D/3.0.lua",
+      forbiddenT = {
+        after = "3000-01-01",
+        forbiddenState = "nearly",
+      },
+      fullName = "D/3.0",
+      loadOrder = 1,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "D",
+      wV = "000000003.*zfinal",
+    },
+  },
+  mpathA = {
+    "ProjectDIR/rt/modulerc/mfD/Core",
+  },
+  systemBaseMPATH = "ProjectDIR/rt/modulerc/mfD/Core",
+}

@@ -844,9 +844,6 @@ function always_load(...)
    return b
 end
 
-
-
-
 --------------------------------------------------------------------------
 -- This function always unloads and never loads. The reverse of this
 -- function is a no-op.
@@ -920,7 +917,6 @@ function purge(t)
    mcp:purge(t)
    dbg.fini("purge")
 end
-
 
 --- subprocess function ---
 

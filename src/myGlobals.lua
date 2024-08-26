@@ -631,6 +631,21 @@ cosmic:init{name = "LMOD_SETTARG_FULL_SUPPORT",
             yn   = "no"}
 
 ------------------------------------------------------------------------
+-- LMOD_NEARLY_FORBIDDEN_DAYS : The number of days where the nearly
+--                              forbidden applies.
+------------------------------------------------------------------------
+local nFD_DFLT = 14
+local nFD_Env  = getenv("LMOD_NEARLY_FORBIDDEN_DAYS")
+local nFD_SedV = "@nearly_forbidden_days@"
+local nFD      = tonumber(nFD_Env) or tonumber(nFD_SedV)
+
+cosmic:init{name    = "LMOD_NEARLY_FORBIDDEN_DAYS",
+            default = nFD_DFLT,
+            envV    = nFD_Env,
+            sedV    = nFD_SedV,
+            assignV = nFD}
+
+------------------------------------------------------------------------
 -- LMOD_ANCIENT_TIME:  the time in seconds when the cache file is considered old
 ------------------------------------------------------------------------
 local ancient_dflt  = 86400

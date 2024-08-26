@@ -274,14 +274,10 @@ local function l_lazyEval(self)
 
    ---------------------------------------------------------------
    -- If found then check to see if this MName object is forbidden
-
    
-   
-   self.__forbiddenT = {}
    if (found) then
-      local my_resultT = mrc:isForbidden{fullName=build_fullName(self.__sn, version),
-                                   sn = self.__sn, fn = self.__fn}
-      self.__forbiddenT = my_resultT
+      self.__forbiddenT = mrc:isForbidden{fullName=build_fullName(self.__sn, version),
+                                          sn = self.__sn, fn = self.__fn}
    end
 
    --local tt = self.__moduleKindT or {}
@@ -798,7 +794,7 @@ function M.downstreamConflictCk(self, mnameIn)
 end
 
 function M.forbiddenT(self)
-   return self.__forbiddenT or {}
+   return self.__forbiddenT 
 end
 
 function M.set_depends_on_flag(self, value)

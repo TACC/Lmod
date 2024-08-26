@@ -178,6 +178,7 @@ local sandbox_env = {
   loaded_modules       = loaded_modules,
   mode                 = mode,
   moduleStackTraceBack = moduleStackTraceBack,
+  myConfig             = myConfig,
   myFileName           = myFileName,
   myModuleFullName     = myModuleFullName,
   myModuleName         = myModuleName,

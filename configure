@@ -681,6 +681,7 @@ PATH_TO_LUAC
 PATH_TO_LUA
 AVAIL_EXTENSIONS
 MODULE_AUTO_HANDLING
+NEARLY_FORBIDDEN_DAYS
 FAST_TCL_INTERP
 SILENCE_SHELL_DEBUGGING
 USE_DOT_CONFIG_DIR_ONLY
@@ -816,6 +817,7 @@ with_useBuiltinPkgs
 with_useDotConfigDirOnly
 with_silentShellDebugging
 with_fastTCLInterp
+with_nearlyForbiddenDays
 with_moduleAutoHandling
 with_availExtensions
 with_lua
@@ -1527,6 +1529,9 @@ Optional Packages:
                           lmod. [[yes]]
   --with-fastTCLInterp=ans
                           Use the fast TCL interpreter. [[yes]]
+  --with-nearlyForbiddenDays=ans
+                          Number of days before nearly forbidden message
+                          applies. [[14]]
   --with-moduleAutoHandling=ans
                           Automatically replaces prereqs with depends_on.
                           [[no]]
@@ -4340,11 +4345,30 @@ fi
 
 
 
+# Check whether --with-nearlyForbiddenDays was given.
+if test ${with_nearlyForbiddenDays+y}
+then :
+  withval=$with_nearlyForbiddenDays; NEARLY_FORBIDDEN_DAYS="$withval"
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: NEARLY_FORBIDDEN_DAYS=$with_nearlyForbiddenDays" >&5
+printf "%s\n" "NEARLY_FORBIDDEN_DAYS=$with_nearlyForbiddenDays" >&6; }
+    printf "%s\n" "#define NEARLY_FORBIDDEN_DAYS \"$with_nearlyForbiddenDays\"" >>confdefs.h
+
+else $as_nop
+  withval="14"
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: NEARLY_FORBIDDEN_DAYS=$withval" >&5
+printf "%s\n" "NEARLY_FORBIDDEN_DAYS=$withval" >&6; }
+    NEARLY_FORBIDDEN_DAYS="$withval"
+    printf "%s\n" "#define NEARLY_FORBIDDEN_DAYS \"$withval\"" >>confdefs.h
+
+fi
+
+
+
 # Check whether --with-moduleAutoHandling was given.
 if test ${with_moduleAutoHandling+y}
 then :
   withval=$with_moduleAutoHandling; MODULE_AUTO_HANDLING="$withval"
-    MODULE_AUTO_HANDLING=`echo $FAST_TCL_INTERP | tr '[:upper:]' '[:lower:]'`
+    MODULE_AUTO_HANDLING=`echo $MODULE_AUTO_HANDLING | tr '[:upper:]' '[:lower:]'`
     VALID_YN $MODULE_AUTO_HANDLING "--with-moduleAutoHandling=ans: ans must be yes or no"
     { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: MODULE_AUTO_HANDLING=$with-moduleAutoHandling" >&5
 printf "%s\n" "MODULE_AUTO_HANDLING=$with-moduleAutoHandling" >&6; }

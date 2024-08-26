@@ -155,6 +155,7 @@ To correct the situation, please execute the following command:
 Please submit a consulting ticket if you require additional assistance.
 ]==],
      e_Forbidden           = "Access to %{fullName} is denied\n",
+     e_Forbidden_w_msg     = "Access to %{fullName} is denied\n%{literal_msg}",
      e_Illegal_Load        = [==[The following module(s) are illegal: %{module_list}
 Lmod does not support modulefiles that start with two or more underscores
 ]==],
@@ -329,6 +330,8 @@ The following dependent module(s) are not currently loaded: %{missing}
 ]==], 
      w_MPATH_Coll          = "The system MODULEPATH has changed: please rebuild your saved collection.\n",
      w_Mods_Not_Loaded     = "The following modules were not loaded: %{module_list}\n\n",
+     w_Nearly_Forbidden    = "Access will be denied to this module starting %{after}\n",
+     w_Nearly_Forbidden_w_msg = "Access will be denied to this module starting %{after}\n%{literal_msg}",
      w_No_Coll             = "No collection named \"%{collection}\" found.",
      w_No_dot_Coll         = "It is illegal to have a `.' in a collection name.  Please choose another name for: \"%{name}\".",
      w_Possible_Bad_Dir    = "Adding \"%{dir}\" to $MODULEPATH. Did you mean: \"module %{dir} use\"?",
@@ -470,6 +473,7 @@ MODULEPATH directory: "%{mpath}" has too many non-modulefiles (%{regularFn}). Pl
      Where          = "\n  Where:\n",
      Inactive       = "\nInactive Modules",
      DefaultM       = "Default Module",
+     NearlyForbiddenM = "Nearly Forbidden Module",
      ForbiddenM     = "Forbidden Module",
      HiddenM        = "Hidden Module",
      Hidden_softM   = "Soft Hidden Module",

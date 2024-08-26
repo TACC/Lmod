@@ -284,6 +284,7 @@ function M.add(self, mname, status, loadOrder)
       stackDepth      = mname:stackDepth(),
       origUserName    = mname:origUserName(),
       moduleKindT     = mname:moduleKindT{},
+      forbiddenT      = mname:forbiddenT{},
       ref_count       = ref_count,
       depends_on_anyA = mname:get_depends_on_anyA(),
       status          = status,

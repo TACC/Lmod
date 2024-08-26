@@ -60,6 +60,7 @@ require("deepcopy")
 
 local M         = {}
 local dbg       = require("Dbg"):dbg()
+local cosmic    = require("Cosmic"):singleton()
 local concatTbl = table.concat
 local getenv    = os.getenv
 local load      = (_VERSION == "Lua 5.1") and loadstring or load
@@ -569,39 +570,65 @@ function M.import(self, mrcT, mrcMpathT)
    --dbg.fini("MRC:import")
 end
 
-local function l_check_time_range(resultT)
-   local T_start     = math.mininteger or 0
-   local T_end       = math.maxinteger or math.huge
-
-   local T_before    = T_end
-   local T_after     = T_start
-   if (resultT.before) then
-      T_before = l_convertTimeStr_to_epoch(resultT.before)
+local function l_intersection(myArray, myTable)
+   local match = false
+   for i = 1,#myArray do
+      if (myTable[myArray[i]]) then
+         match = true
+         break
+      end
    end
-   if (resultT.after) then
-      T_after = l_convertTimeStr_to_epoch(resultT.after)
-   end
-   return (s_Epoch <= T_before and T_after <= s_Epoch)
+   return match
 end
+
+local function l_check_time_range(resultT, nearlyDays)
+   local T_start  = math.mininteger or 0
+   local T_end    = math.maxinteger or math.huge
+
+   local T_before = (resultT.before) and l_convertTimeStr_to_epoch(resultT.before) or T_end
+   local T_after  = (resultT.after)  and l_convertTimeStr_to_epoch(resultT.after)  or T_start
+
+   if (s_Epoch <= T_before and  s_Epoch >= T_after) then
+      return "inRange"
+   end
+   if (s_Epoch + nearlyDays * 86400 >= T_after) then
+      return "nearly"
+   end
+   return "notActive"
+end
+
+local function l_check_user_groups(resultT)
+   local usrFlg  = resultT.userT     and resultT.userT[myConfig("username")]
+   local grpFlg  = resultT.groupT    and l_intersection(myConfig("usergroups"),resultT.groupT)
+   local nUsrFlg = resultT.notuserT  and resultT.notuserT[myConfig("username")]
+   local nGrpFlg = resultT.notgroupT and l_intersection(myConfig("usergroups"),resultT.notgroupT)
+
+   local flag = (usrFlg or grpFlg) or (not (resultT.userT or resultT.groupT) and
+                                       not (nUsrFlg or nGrpFlg))
+   return flag
+end
+
 
 local function l_check_forbidden_modifiers(fullName, resultT)
    dbg.start{"l_check_forbidden_modifiers(fullName, resultT)"}
 
-   -- somehow decide here about what should resultT.message be:
-   -- (1) nil
-   -- (2) nearly
-   -- (3) message
+   local forbiddenState = "not_forbidden"
 
+   if (l_check_user_groups(resultT)) then
+      local nearlyDays = cosmic:value("LMOD_NEARLY_FORBIDDEN_DAYS")
+      local timeFlag   = l_check_time_range(resultT, nearlyDays) 
+      forbiddenState   = timeFlag == "notActive" and "not_forbidden" or timeFlag
+   end
 
-   local forbid_active = l_check_time_range(resultT)
    dbg.fini("l_check_forbidden_modifiers")
-   return forbid_active
+   return forbiddenState
 end
 
 local function l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)
    dbg.start{"l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)"}
-   local count       = false
-   local hide_active = l_check_time_range(resultT)
+   local count         = false
+   local hide_active   = (l_check_time_range(resultT, 0) == "inRange" and
+                          l_check_user_groups(resultT))
 
    if (not hide_active) then
       --     isVisible, hidden_load, kind,     count
@@ -690,20 +717,22 @@ function M.isForbidden(self, modT)
    dbg.print{"fullName: ",fullName,"\n"}
    dbg.printT("resultT",resultT)
 
-   if (not (resultT.action == "forbid")) then
+   if (resultT.action ~= "forbid") then
       dbg.fini("MRC:isForbidden")
-      return {}
+      return nil
    end
    
-   local isForbidden  = l_check_forbidden_modifiers(fullName, resultT)
+   local forbiddenState = l_check_forbidden_modifiers(fullName, resultT)
 
-   modT.isForbidden   = isForbidden
-   modT.mname         = mname
-   modT.mt            = mt
-   modT.message       = resultT.message
+   modT.forbiddenState = forbiddenState
+   modT.mname          = mname
+   modT.mt             = mt
+   modT.message        = resultT.message
+   modT.nearlymessage  = resultT.nearlymessage
    hook.apply("isForbiddenHook",modT)
 
-   local my_resultT  = {isForbidden = modT.isForbidden, message = modT.message}
+   local my_resultT  = {forbiddenState = modT.forbiddenState, message = modT.message,
+                        nearlymessage = modT.nearlymessage, after = resultT.after}
 
    dbg.fini("MRC:isForbidden")
    return my_resultT

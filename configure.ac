@@ -620,11 +620,23 @@ AC_ARG_WITH(fastTCLInterp,
     FAST_TCL_INTERP="$withval"
     AC_DEFINE_UNQUOTED(FAST_TCL_INTERP, "$withval"))dnl
 
+AC_SUBST(NEARLY_FORBIDDEN_DAYS)
+AC_ARG_WITH(nearlyForbiddenDays,
+    AS_HELP_STRING([--with-nearlyForbiddenDays=ans],[Number of days before nearly forbidden message applies. [[14]]]),
+    NEARLY_FORBIDDEN_DAYS="$withval"
+    AC_MSG_RESULT([NEARLY_FORBIDDEN_DAYS=$with_nearlyForbiddenDays])
+    AC_DEFINE_UNQUOTED(NEARLY_FORBIDDEN_DAYS, "$with_nearlyForbiddenDays")dnl
+    ,
+    withval="14"
+    AC_MSG_RESULT([NEARLY_FORBIDDEN_DAYS=$withval])
+    NEARLY_FORBIDDEN_DAYS="$withval"
+    AC_DEFINE_UNQUOTED(NEARLY_FORBIDDEN_DAYS, "$withval"))dnl
+
 AC_SUBST(MODULE_AUTO_HANDLING)
 AC_ARG_WITH(moduleAutoHandling,
     AS_HELP_STRING([--with-moduleAutoHandling=ans],[Automatically replaces prereqs with depends_on. [[no]]]),
     MODULE_AUTO_HANDLING="$withval"
-    MODULE_AUTO_HANDLING=`echo $FAST_TCL_INTERP | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
+    MODULE_AUTO_HANDLING=`echo $MODULE_AUTO_HANDLING | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $MODULE_AUTO_HANDLING "--with-moduleAutoHandling=ans: ans must be yes or no"
     AC_MSG_RESULT([MODULE_AUTO_HANDLING=$with-moduleAutoHandling])
     AC_DEFINE_UNQUOTED(MODULE_AUTO_HANDLING, "$with-moduleAutoHandling")dnl

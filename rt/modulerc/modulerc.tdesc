@@ -185,10 +185,19 @@ EOF
      unsetMT
      export MODULEPATH_ROOT=$(testDir)/mfD
      export MODULEPATH=$MODULEPATH_ROOT/Core
+
+     # This is a hack for the ages:  Instead trying use
+     # a relative 14 days to test nearly forbidden
+     # we will use an after="3000-01-01" and NEARLY be 400,000 days
+     # Note this test will fail sometime after the year 3000
+
+     export LMOD_NEARLY_FORBIDDEN_DAYS=400000
      runLmod    avail                                  #70
      runLmod -A avail                                  #71
      runLmod    load C                                 #72
      runLmod    load cluster                           #73
+     runLmod    load D                                 #74
+     runLmod    --mt                                   #75
       
 
      HOME=$ORIG_HOME

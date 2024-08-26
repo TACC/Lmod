@@ -2073,3 +2073,19 @@ step 73
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load cluster
 ===========================
 false
+===========================
+step 74
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load D
+===========================
+LOADEDMODULES=D/3.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/modulerc/mfD/Core;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/modulerc/mfD/Core/D/3.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={D={fn="ProjectDIR/rt/modulerc/mfD/Core/D/3.0.lua",forbiddenT={after="3000-01-01",forbiddenState="nearly",},fullName="D/3.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="D",wV="000000003.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfD/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfD/Core",}';
+export _ModuleTable_;
+===========================
+step 75
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
+===========================
