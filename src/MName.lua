@@ -461,12 +461,12 @@ local function l_find_exact_match(self, must_have_version, fileA)
       local blockA = fileA[j]
       for i = 1, #blockA do
          local entry   = blockA[i]
-         local resultT = mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, 
-                                       visibleT = {soft = true, hidden = true}}
          --dbg.print{"entry.fullName: ",entry.fullName,", entry.fn: ",entry.fn,"\n"}
-         --dbg.printT("resultT",resultT)
-         if (resultT.isVisible)  then
-            if (entry.version == versionStr and entry.pV > pV ) then
+         if (entry.version == versionStr and entry.pV > pV ) then
+            local resultT = mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, 
+                                          visibleT = {soft = true, hidden = true}}
+            --dbg.printT("resultT",resultT)
+            if (resultT.isVisible)  then
                pV          = entry.pV
                wV          = entry.wV
                fn          = entry.fn
@@ -536,10 +536,10 @@ local function l_find_highest_by_key(self, key, fileA)
       for i = 1,#blockA do
          local entry   = blockA[i]
          local v       = entry[key]
-         local resultT = mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, 
+         if (v > weight) then
+            local resultT = mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, 
                                        visibleT = {soft = true}}
-         if (isMarked(v) or resultT.isVisible) then
-            if (v > weight) then
+            if (isMarked(v) or resultT.isVisible) then
                idx         = i
                weight      = v
                pV          = entry.pV
