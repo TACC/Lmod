@@ -789,11 +789,13 @@ cosmic:init{name = "LMOD_HIDDEN_ITALIC",
             sedV = "@LMOD_HIDDEN_ITALIC@",
             yn   = "no"}
 
-
 ------------------------------------------------------------------------
 -- LMOD_FILE_IGNORE_PATTERNS
 -----------------------------------------------------------------------
-cosmic:assign("LMOD_FILE_IGNORE_PATTERNS",{"%.version[-._].*", "%.modulerc[-._].*"})
+local patternA = {"%.version[-._].*",  "%.modulerc[-._].*"}
+cosmic:init{name    = "LMOD_FILE_IGNORE_PATTERNS",
+            assignV = patternA,
+            default = patternA}
 
 ------------------------------------------------------------------------
 -- GIT_VERSION: The exact git version of Lmod

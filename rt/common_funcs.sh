@@ -41,7 +41,6 @@ cleanUp ()
        -e "s| $PATH_to_LUA||g"                            \
        -e "s|\\\;$PATH_to_LUA:[0-9]\\\;|\\\;|g"           \
        -e "s|$PATH_to_LUA/lua|lua|g"                      \
-       -e "s|^LMOD_FILE_IGNORE_PATTERNS.*||g"              \
        -e 's|:/bin\([:;]\)|\1|g'                          \
        -e 's|;/bin:[0-9];|;|g'                            \
        -e 's| /bin||g'                                    \
