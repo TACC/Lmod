@@ -128,3 +128,25 @@ MODULEPATH=ProjectDIR/rt/hidden/mf2/top:ProjectDIR/rt/hidden/mf2/bottom;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/hidden/mf2/top/A/1.0.lua",fullName="A/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},B={fn="ProjectDIR/rt/hidden/mf2/bottom/B/9.8.7.lua",fullName="B/9.8.7",loadOrder=1,propT={},stackDepth=0,status="active",userName="B",wV="000000009.000000008.000000007.*zfinal",},},mpathA={"ProjectDIR/rt/hidden/mf2/top","ProjectDIR/rt/hidden/mf2/bottom",},systemBaseMPATH="ProjectDIR/rt/hidden/mf2/top:ProjectDIR/rt/hidden/mf2/bottom",}';
 export _ModuleTable_;
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset A;
+unset B;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/hidden/mf2/top:ProjectDIR/rt/hidden/mf2/bottom;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/hidden/mf2/top","ProjectDIR/rt/hidden/mf2/bottom",},systemBaseMPATH="ProjectDIR/rt/hidden/mf2/top:ProjectDIR/rt/hidden/mf2/bottom",}';
+export _ModuleTable_;
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden av
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/hidden/mf3:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/hidden/mf3;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/hidden/mf3",},systemBaseMPATH="ProjectDIR/rt/hidden/mf3",}';
+export _ModuleTable_;

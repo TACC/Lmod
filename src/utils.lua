@@ -280,6 +280,10 @@ function colorizePropA(style, mt, modT, mrc, propT, legendT, forbiddenT)
       moduleName = colorize("hidden",modT.fullName)
       pA[#pA+1]  = H
       legendT[H] = i18n(msg)
+      if (resultT.moduleKindT.hidden_load) then
+         pA[#pA+1]     = "HL"
+         legendT["HL"] = i18n("HiddenLoadM")
+      end
    end
 
    if (forbiddenT.forbiddenState == "inRange") then

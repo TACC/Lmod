@@ -476,6 +476,7 @@ MODULEPATH directory: "%{mpath}" has too many non-modulefiles (%{regularFn}). Pl
      NearlyForbiddenM = "Nearly Forbidden Module",
      ForbiddenM     = "Forbidden Module",
      HiddenM        = "Hidden Module",
+     HiddenLoadM    = "Hidden from load Module",
      Hidden_softM   = "Soft Hidden Module",
      Extension      = "Extension that is provided by another module",
 

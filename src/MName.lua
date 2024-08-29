@@ -444,7 +444,7 @@ end
 
 
 local function l_find_exact_match(self, must_have_version, fileA)
-   dbg.start{"MName l_find_exact_match(must_have_version:,",must_have_version,",fileA)"}
+   --dbg.start{"MName l_find_exact_match(must_have_version:,",must_have_version,",fileA)"}
    local versionStr  = self.__versionStr
    local mrc         = MRC:singleton()
    local fn          = false
@@ -463,6 +463,8 @@ local function l_find_exact_match(self, must_have_version, fileA)
          local entry   = blockA[i]
          local resultT = mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, 
                                        visibleT = {soft = true, hidden = true}}
+         --dbg.print{"entry.fullName: ",entry.fullName,", entry.fn: ",entry.fn,"\n"}
+         --dbg.printT("resultT",resultT)
          if (resultT.isVisible)  then
             if (entry.version == versionStr and entry.pV > pV ) then
                pV          = entry.pV
@@ -479,9 +481,9 @@ local function l_find_exact_match(self, must_have_version, fileA)
       if (found) then break end
    end
  
-   dbg.print{"found: ",found,", fn: ",fn,", version: ", version,", wV: ",wV,
-             ", kind: ",moduleKindT.kind,"\n"}
-   dbg.fini("MName l_find_exact_match")
+   --dbg.print{"found: ",found,", fn: ",fn,", version: ", version,", wV: ",wV,
+   --         ", kind: ",moduleKindT.kind,"\n"}
+   --dbg.fini("MName l_find_exact_match")
    return found, fn, version, wV, moduleKindT
 end
    
@@ -494,10 +496,10 @@ end
 --    3) The user can have a ~/.modulerc file.       (weighted by 'u')
 
 function M.find_exact_match(self, fileA)
-   dbg.start{"MName:find_exact_match(fileA)"}
+   --dbg.start{"MName:find_exact_match(fileA)"}
    local must_have_version = true
    local found, fn, version, wV, moduleKindT  = l_find_exact_match(self, must_have_version, fileA)
-   dbg.fini("MName:find_exact_match")
+   --dbg.fini("MName:find_exact_match")
    return found, fn, version, wV, moduleKindT
 end
 ------------------------------------------------------------------------
@@ -507,15 +509,15 @@ end
 -- higher priority over meta modules.
 
 function M.find_exact_match_meta_module(self, fileA)
-   dbg.start{"MName:find_exact_match_meta_module(fileA)"}
+   --dbg.start{"MName:find_exact_match_meta_module(fileA)"}
    local must_have_version = false
    local found, fn, version, wV, moduleKindT = l_find_exact_match(self, must_have_version, fileA)
-   dbg.fini("MName:find_exact_match_meta_module")
+   --dbg.fini("MName:find_exact_match_meta_module")
    return found, fn, version, wV, moduleKindT
 end
 
 local function l_find_highest_by_key(self, key, fileA)
-   dbg.start{"MName: l_find_highest_by_key(key:\"",key,"\",fileA)"}
+   --dbg.start{"MName: l_find_highest_by_key(key:\"",key,"\",fileA)"}
    local mrc         = MRC:singleton()
    local weight      = " "  -- this is less than the lower possible weight.
    local idx         = nil
@@ -554,9 +556,9 @@ local function l_find_highest_by_key(self, key, fileA)
       found        = true
       self.__range = { pV, pV }
    end
-   dbg.print{"found: ",found,", fn: ",fn,", version: ", version,", wV: ",wV,
-             ", kind: ",moduleKindT.kind,"\n"}
-   dbg.fini("MName: l_find_highest_by_key")
+   --dbg.print{"found: ",found,", fn: ",fn,", version: ", version,", wV: ",wV,
+   --          ", kind: ",moduleKindT.kind,"\n"}
+   --dbg.fini("MName: l_find_highest_by_key")
    return found, fn, version, wV, moduleKindT
 end
 

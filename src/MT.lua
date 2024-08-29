@@ -412,9 +412,20 @@ function M.status(self, sn)
    return nil
 end
 
-function M.exists(self, sn)
+function M.exists(self, sn, fullName)
    local entry = self.mT[sn]
-   return (entry ~= nil)
+   if (entry == nil) then
+      return false
+   end
+   return (fullName == nil) or entry.fullName == fullName
+end
+
+function M.moduleKindT(self, sn)
+   local entry = self.mT[sn]
+   if (entry ~= nil) then
+      return entry.moduleKindT
+   end
+   return nil
 end
 
 --------------------------------------------------------------------------
@@ -709,7 +720,7 @@ function M.list_w_property(self, idx, sn, style, legendT)
    end
 
    local resultA = colorizePropA(style, self, {fullName=entry.fullName, origUserName=entry.origUserName, sn=sn, fn=entry.fn},
-                                 mrc, entry.propT, legendT, {})
+                                 mrc, entry.propT, legendT, entry.forbiddenT)
    dbg.print{"resultA: ",resultA[1]," ",resultA[2],"\n"} 
    if (resultA[2]) then
       resultA[2] = "(" .. resultA[2] .. ")"

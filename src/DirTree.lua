@@ -47,6 +47,7 @@ local open      = io.open
 
 local access    = posix.access
 local concatTbl = table.concat
+local cosmic    = require("Cosmic"):singleton()
 local readlink  = posix.readlink
 local sort      = table.sort
 local stat      = posix.stat
@@ -76,6 +77,10 @@ local s_defaultFnT = {
 }
 
 local function l_keepFile(fn)
+   if (s_defaultFnT[fn]) then
+      return true
+   end
+
    local firstChar = fn:sub(1,1)
    local lastChar  = fn:sub(-1,-1)
    local firstTwo  = fn:sub(1,2)
@@ -90,8 +95,12 @@ local function l_keepFile(fn)
       return false
    end
 
-   if (s_defaultFnT[fn]) then
-      return true
+   local ignorePattA = cosmic:value("LMOD_FILE_IGNORE_PATTERNS")
+   for i = 1,#ignorePattA do
+      local patt = ignorePattA[i]
+      if (fn:find(patt)) then
+         return false
+      end
    end
 
    return true

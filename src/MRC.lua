@@ -334,14 +334,14 @@ end
 
 function M.resolve(self, mpathA, name)
    local value = l_find_alias_value("alias2modT", self.__alias2modT, self.__mpathT, mpathA, name)
-   dbg.print{"MRC:resolve: (1) name: ",name,", value: ",value,"\n"}
+   --dbg.print{"MRC:resolve: (1) name: ",name,", value: ",value,"\n"}
    if (value ~= nil) then
       name  = value
       value = self:resolve(mpathA, value)
    end
 
    value = l_find_alias_value("version2modT", self.__version2modT, self.__mpathT, mpathA, name)
-   dbg.print{"MRC:resolve: (2) name: ",name,", value: ",value,"\n"}
+   --dbg.print{"MRC:resolve: (2) name: ",name,", value: ",value,"\n"}
    if (value == nil) then
       value = name
    else
@@ -497,6 +497,7 @@ end
 
 local s_must_convert_hidden = true
 local function l_findHiddenState(self, mpathA, sn, fullName, fn)
+   --dbg.start{"l_findHiddenState(self, mpathA, sn: ",sn,", fullName: ",fullName,", fn)"}
    if (s_must_convert_hidden) then
       s_must_convert_hidden = false
       self.__merged_hiddenT = l_merge_tables(self, "hiddenT", mpathA, {kind = "hidden"})
@@ -515,12 +516,13 @@ local function l_findHiddenState(self, mpathA, sn, fullName, fn)
          resultT = t[n]
       end
    end
+   --dbg.fini("l_findHiddenState")
    return resultT
 end
 
 local s_must_convert_forbidden = true
 local function l_findForbiddenState(self, mpathA, sn, fullName, fn)
-   dbg.start{"l_findForbiddenState(self, mpathA, sn, fullName:",fullName,", fn)"}
+   --dbg.start{"l_findForbiddenState(self, mpathA, sn, fullName:",fullName,", fn)"}
    if (s_must_convert_forbidden) then
       s_must_convert_forbidden = false
       self.__merged_forbiddenT = l_merge_tables(self, "forbiddenT", mpathA, nil)
@@ -538,7 +540,7 @@ local function l_findForbiddenState(self, mpathA, sn, fullName, fn)
          resultT = t[n]
       end
    end
-   dbg.fini("l_findForbiddenState")
+   --dbg.fini("l_findForbiddenState")
    return resultT or {}
 end
 
@@ -663,10 +665,10 @@ function M.isVisible(self, modT)
    local show_hidden = modT.show_hidden
    local isVisible   = true
    local visibleT    = modT.visibleT or {}
-   local resultT     = l_findHiddenState(self, mpathA, sn, fullName, fn) 
    local kind        = "normal"
    local hidden_load = false
    local count       = false
+   local my_resultT  = nil
    ------------------------------------------------------------
    -- resultT is nil if the modulefile is normal or
    -- {kind="hidden|soft|hard"
@@ -674,7 +676,27 @@ function M.isVisible(self, modT)
    --   hidden_load = true|nil, }
    -- if hidden.
 
+   
+   ------------------------------------------------------------
+   -- If sn is already in the ModuleTable then use MT data instead
+
+   if (mt:exists(sn,fullName)) then
+      local moduleKindT = mt:moduleKindT(sn)
+      if (not moduleKindT) then
+         my_resultT = { isVisible = true, count = true, moduleKindT = {kind = "normal" }}
+      else
+         my_resultT = { isVisible = show_hidden or visibleT[moduleKindT.kind], count = true, moduleKindT = moduleKindT }
+      end
+      --dbg.print{"fullName: ",fullName,"\n"}
+      --dbg.printT("mt:exists(sn): true, my_resultT",my_resultT)
+      dbg.fini("MRC:isVisible")
+      return my_resultT
+   end
+
+
+   local resultT     = l_findHiddenState(self, mpathA, sn, fullName, fn) 
    if (type(resultT) == "table" ) then
+      --dbg.printT("from hidden State resultT",resultT)
       isVisible, hidden_load, kind, count = l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)
    elseif (fullName:sub(1,1) == ".") then
       isVisible = (visibleT.hidden == true or show_hidden)
@@ -694,17 +716,18 @@ function M.isVisible(self, modT)
    modT.hidden_load = hidden_load
    hook.apply("isVisibleHook", modT)
 
-   local my_resultT = { isVisible = modT.isVisible,
+   my_resultT       = { isVisible = modT.isVisible,
                         moduleKindT = {kind=modT.kind, hidden_load = modT.hidden_load}, 
                         count = count }
    
-   dbg.print{"fullName: ",fullName,", isVisible: ",isVisible,", kind: ",kind,", show_hidden: ", show_hidden,", count: ",count,"\n"}
+   --dbg.print{"fullName: ",fullName,", isVisible: ",isVisible,", kind: ",kind,", show_hidden: ", show_hidden,", count: ",count,", hidden_load: ",hidden_load,"\n"}
+   --dbg.printT("my_resultT",my_resultT)
    dbg.fini("MRC:isVisible")
    return my_resultT
 end
 
 function M.isForbidden(self, modT)
-   dbg.start{"MRC:isForbidden(modT}"}
+   --dbg.start{"MRC:isForbidden(modT}"}
    local frameStk     = require("FrameStk"):singleton()
    local mname        = frameStk:mname()
    local mt           = frameStk:mt()
@@ -714,11 +737,11 @@ function M.isForbidden(self, modT)
    local sn           = modT.sn
    local resultT      = l_findForbiddenState(self, mpathA, sn, fullName, fn) 
 
-   dbg.print{"fullName: ",fullName,"\n"}
-   dbg.printT("resultT",resultT)
+   --dbg.print{"fullName: ",fullName,"\n"}
+   --dbg.printT("resultT",resultT)
 
    if (resultT.action ~= "forbid") then
-      dbg.fini("MRC:isForbidden")
+      --dbg.fini("MRC:isForbidden")
       return nil
    end
    
@@ -734,7 +757,7 @@ function M.isForbidden(self, modT)
    local my_resultT  = {forbiddenState = modT.forbiddenState, message = modT.message,
                         nearlymessage = modT.nearlymessage, after = resultT.after}
 
-   dbg.fini("MRC:isForbidden")
+   --dbg.fini("MRC:isForbidden")
    return my_resultT
 end
 

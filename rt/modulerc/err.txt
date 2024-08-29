@@ -646,28 +646,54 @@ step 54
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) ABC/3.0
+  1) ABC/3.0 (s)
+  Where:
+   s:  Soft Hidden Module
 ===========================
 step 55
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load ABC/2.5
+===========================
+The following have been reloaded with a version change:
+  1) ABC/3.0 => ABC/2.5
+===========================
+step 56
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  None found.
+One or more modules are hidden from list. To see all do "module --show_hidden list"
+===========================
+step 57
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A list
+===========================
+Currently Loaded Modules:
+  1) ABC/2.5 (s,HL)
+  Where:
+   HL:  Hidden from load Module
+   s:   Soft Hidden Module
+===========================
+step 58
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
 ===========================
 ProjectDIR/rt/modulerc/mfB/Core
-   ABC/1.0            B/1.0        B/6.0 (D)      D/1.1          F/2.1
-   ABC/2.0            B/2.0        C/1.0 (s)      E/1.0 (s)
-   ABC/3.0 (s,L,D)    B/3.0 (s)    C/2.0 (s)      E/2.0 (s)
-   ABC/4.0 (H)        B/4.0 (H)    C/3.0 (s,D)    E/3.0 (s,D)
+   ABC/1.0             B/1.0        C/1.0 (s,HL)      E/2.0 (s,HL)
+   ABC/2.0             B/2.0        C/2.0 (s,HL)      E/3.0 (s,HL,D)
+   ABC/2.5 (s,HL,L)    B/3.0 (s)    C/3.0 (s,HL,D)    F/2.1
+   ABC/3.0 (s,D)       B/4.0 (H)    D/1.1
+   ABC/4.0 (H)         B/6.0 (D)    E/1.0 (s,HL)
   Where:
-   D:  Default Module
-   H:  Hidden Module
-   L:  Module is loaded
-   s:  Soft Hidden Module
+   D:   Default Module
+   H:   Hidden Module
+   HL:  Hidden from load Module
+   L:   Module is loaded
+   s:   Soft Hidden Module
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
 "module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 56
+step 59
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/modulerc/mfB/Core
@@ -680,19 +706,19 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 57
+step 60
 runSpiderCmd -o spiderT ProjectDIR/rt/modulerc/mfB/Core
 ===========================
 ===========================
-step 58
+step 61
 runSpiderCmd -o dbT ProjectDIR/rt/modulerc/mfB/Core
 ===========================
 ===========================
-step 59
+step 62
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load C D E F
 ===========================
 ===========================
-step 60
+step 63
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
 ===========================
 _ModuleTable_ = {
@@ -703,17 +729,18 @@ _ModuleTable_ = {
   family = {},
   mT = {
     ABC = {
-      fn = "ProjectDIR/rt/modulerc/mfB/Core/ABC/3.0.lua",
-      fullName = "ABC/3.0",
+      fn = "ProjectDIR/rt/modulerc/mfB/Core/ABC/2.5.lua",
+      fullName = "ABC/2.5",
       loadOrder = 1,
       moduleKindT = {
+        hidden_load = true,
         kind = "soft",
       },
       propT = {},
       stackDepth = 0,
       status = "active",
-      userName = "ABC",
-      wV = "000000003.*zfinal",
+      userName = "ABC/2.5",
+      wV = "000000002.000000005.*zfinal",
     },
     C = {
       fn = "ProjectDIR/rt/modulerc/mfB/Core/C/3.0.lua",
@@ -770,20 +797,23 @@ _ModuleTable_ = {
   systemBaseMPATH = "ProjectDIR/rt/modulerc/mfB/Core",
 }
 ===========================
-step 61
+step 64
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) ABC/3.0   2) D/1.1   3) F/2.1
+  1) D/1.1   2) F/2.1
 One or more modules are hidden from list. To see all do "module --show_hidden list"
 ===========================
-step 62
+step 65
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden list
 ===========================
 Currently Loaded Modules:
-  1) ABC/3.0   2) C/3.0   3) D/1.1   4) E/3.0   5) F/2.1
+  1) ABC/2.5 (s,HL)   2) C/3.0 (s,HL)   3) D/1.1   4) E/3.0 (s,HL)   5) F/2.1
+  Where:
+   HL:  Hidden from load Module
+   s:   Soft Hidden Module
 ===========================
-step 63
+step 66
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 The following is a list of the modules and extensions currently available:
@@ -798,11 +828,11 @@ To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
-step 64
+step 67
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A spider
 ===========================
 The following is a list of the modules and extensions currently available:
-  ABC: ABC/1.0, ABC/2.0, ABC/3.0, ABC/4.0
+  ABC: ABC/1.0, ABC/2.0, ABC/2.5, ABC/3.0, ABC/4.0
   B: B/1.0, B/2.0, B/3.0, B/4.0, B/6.0
   C: C/1.0, C/2.0, C/3.0
   D: D/1.1
@@ -815,11 +845,11 @@ To find detailed information about a particular package you
 must specify the version if there is more than one version:
    $ module spider Foo/11.1
 ===========================
-step 65
+step 68
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
-step 66
+step 69
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/modulerc/mfC/Core
@@ -832,7 +862,7 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 67
+step 70
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A avail
 ===========================
 ProjectDIR/rt/modulerc/mfC/Core
@@ -846,7 +876,7 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 68
+step 71
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B/1.0
 ===========================
 Lmod has detected the following error: The following module(s) are unknown: "B/1.0"
@@ -855,11 +885,11 @@ It is also possible your cache file is out-of-date; it may help to try:
   $ module --ignore_cache load "B/1.0"
 Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
-step 69
+step 72
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
-step 70
+step 73
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/modulerc/mfD/Core
@@ -875,7 +905,7 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 71
+step 74
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A avail
 ===========================
 ProjectDIR/rt/modulerc/mfD/Core
@@ -892,22 +922,30 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 72
+step 75
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load C
 ===========================
 Lmod has detected the following error: Access to C/3.0 is denied
 ===========================
-step 73
+step 76
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load cluster
 ===========================
 Lmod has detected the following error: You must pick a cluster
 ===========================
-step 74
+step 77
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load D
 ===========================
 Access will be denied to this module starting 3000-01-01
 ===========================
-step 75
+step 78
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) D/3.0 (NF)
+  Where:
+   NF:  Nearly Forbidden Module
+===========================
+step 79
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
 ===========================
 _ModuleTable_ = {

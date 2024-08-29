@@ -138,6 +138,7 @@ local function l_new(self)
    local export_module     = cosmic:value("LMOD_EXPORT_MODULE")
    local extended_default  = cosmic:value("LMOD_EXTENDED_DEFAULT")
    local fast_tcl_interp   = cosmic:value("LMOD_FAST_TCL_INTERP")
+   local fileIgnorePattA   = cosmic:value("LMOD_FILE_IGNORE_PATTERNS")
    local find_first        = cosmic:value("LMOD_TMOD_FIND_FIRST")
    local hashsum_path      = cosmic:value("LMOD_HASHSUM_PATH")
    local have_term         = cosmic:value("LMOD_HAVE_LUA_TERM")
@@ -180,6 +181,13 @@ local function l_new(self)
    local using_fast_tcl    = usingFastTCLInterp()
    cosmic:assign("LMOD_USING_FAST_TCL_INTERP",using_fast_tcl)
 
+   local s = "{"
+   for i = 1,#fileIgnorePattA do
+      s=s .. "\""..fileIgnorePattA[i].."\", "
+   end
+   s = s .. "}"
+   local fileIgnPattStr = s:gsub(", }","}")
+      
    if (dfltModules == "") then
       dfltModules = "<empty>"
    end
@@ -225,6 +233,7 @@ local function l_new(self)
    tbl.expMCmd      = { k = "Export the module command"         , v = export_module,    n = "LMOD_EXPORT_MODULE"              }
    tbl.fastTCL      = { k = "Use attached TCL over system call" , v = fast_tcl_interp,  n = "LMOD_FAST_TCL_INTERP"            }
    tbl.fastTCLUsing = { k = "Is fast TCL interp available"      , v = using_fast_tcl,   n = "LMOD_USING_FAST_TCL_INTERP"      }
+   tbl.fileIgnPatt  = { k = "File ignore patterns"              , v = fileIgnPattStr,   n = "LMOD_FILE_IGNORE_PATTERNS"       }
    tbl.hiddenItalic = { k = "Use italic instead of dim"         , v = hiddenItalic,     n = "LMOD_HIDDEN_ITALIC"              }
    tbl.ksh_support  = { k = "KSH Support"                       , v = ksh_support,      n = "LMOD_KSH_SUPPORT"                }
    tbl.lang         = { k = "Language used for err/msg/warn"    , v = lmod_lang,        n = "LMOD_LANG"                       }

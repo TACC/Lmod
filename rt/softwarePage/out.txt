@@ -66,16 +66,6 @@ spiderT = {
             "Description: foo description", "Version: 1.0", "Category: foo",
           },
         },
-        ["foo/.modulerc.1.0"] = {
-          Version = ".modulerc.1.0",
-          canonical = ".modulerc.1.0",
-          dot_version = 1,
-          fn = "ProjectDIR/rt/softwarePage/mf/foo/.modulerc.1.0.lua",
-          luaExt = 14,
-          mpath = "ProjectDIR/rt/softwarePage/mf",
-          pV = "*modulerc.000000001.*zfinal",
-          wV = "*modulerc.000000001.*zfinal",
-        },
         ["foo/.pkginfo"] = {
           Version = ".pkginfo",
           canonical = ".pkginfo",
@@ -84,15 +74,6 @@ spiderT = {
           mpath = "ProjectDIR/rt/softwarePage/mf",
           pV = "*pkginfo.*zfinal",
           wV = "*pkginfo.*zfinal",
-        },
-        ["foo/.version.1.1"] = {
-          Version = ".version.1.1",
-          canonical = ".version.1.1",
-          dot_version = 1,
-          fn = "ProjectDIR/rt/softwarePage/mf/foo/.version.1.1",
-          mpath = "ProjectDIR/rt/softwarePage/mf",
-          pV = "*version.000000001.000000001.*zfinal",
-          wV = "*version.000000001.000000001.*zfinal",
         },
         ["foo/1.0"] = {
           Category = "foo",

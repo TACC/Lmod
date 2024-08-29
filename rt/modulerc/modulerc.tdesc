@@ -155,33 +155,36 @@ EOF
 
      runLmod    load ABC                               #53
      runLmod    list                                   #54
-     runLmod    --show_hidden avail                    #55
-     runLmod    avail                                  #56
-     runBase    runSpiderCmd -o spiderT $MODULEPATH    #57
-     runBase    runSpiderCmd -o dbT     $MODULEPATH    #58
+     runLmod    load ABC/2.5                           #55
+     runLmod    list                                   #56
+     runLmod -A list                                   #57
+     runLmod    --show_hidden avail                    #58
+     runLmod    avail                                  #59
+     runBase    runSpiderCmd -o spiderT $MODULEPATH    #60
+     runBase    runSpiderCmd -o dbT     $MODULEPATH    #61
 
      # Test hidden_load feature
-     runLmod    load C D E F                           #59
-     runLmod    --mt                                   #60
-     runLmod    list                                   #61
-     runLmod    --show_hidden list                     #62
-     runLmod    spider                                 #63
-     runLmod -A spider                                 #64
+     runLmod    load C D E F                           #62
+     runLmod    --mt                                   #63
+     runLmod    list                                   #64
+     runLmod    --show_hidden list                     #65
+     runLmod    spider                                 #66
+     runLmod -A spider                                 #67
 
      # test before and after hide modifiers
-     runLmod    purge                                  #65
+     runLmod    purge                                  #68
      unsetMT
      export MODULEPATH_ROOT=$(testDir)/mfC
      export MODULEPATH=$MODULEPATH_ROOT/Core
 
      $(testDir)/create_hide_modulerc $(projectDir) > $(outputDir)/modulerc.lua
      export LMOD_MODULERC=$(outputDir)/modulerc.lua
-     runLmod    avail                                  #66
-     runLmod -A avail                                  #67
-     runLmod    load B/1.0                             #68
+     runLmod    avail                                  #69
+     runLmod -A avail                                  #70
+     runLmod    load B/1.0                             #71
 
      # test forbidden
-     runLmod    purge                                  #69
+     runLmod    purge                                  #72
      unsetMT
      export MODULEPATH_ROOT=$(testDir)/mfD
      export MODULEPATH=$MODULEPATH_ROOT/Core
@@ -192,12 +195,13 @@ EOF
      # Note this test will fail sometime after the year 3000
 
      export LMOD_NEARLY_FORBIDDEN_DAYS=400000
-     runLmod    avail                                  #70
-     runLmod -A avail                                  #71
-     runLmod    load C                                 #72
-     runLmod    load cluster                           #73
-     runLmod    load D                                 #74
-     runLmod    --mt                                   #75
+     runLmod    avail                                  #73
+     runLmod -A avail                                  #74
+     runLmod    load C                                 #75
+     runLmod    load cluster                           #76
+     runLmod    load D                                 #77
+     runLmod    list                                   #78
+     runLmod    --mt                                   #79
       
 
      HOME=$ORIG_HOME
