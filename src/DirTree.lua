@@ -47,6 +47,7 @@ local open      = io.open
 
 local access    = posix.access
 local concatTbl = table.concat
+local cosmic    = require("Cosmic"):singleton()
 local readlink  = posix.readlink
 local sort      = table.sort
 local stat      = posix.stat
@@ -58,7 +59,7 @@ end
 
 local load      = (_VERSION == "Lua 5.1") and loadstring or load
 
-local ignoreT = {
+local s_ignoreT = {
    ['.']          = true,
    ['..']         = true,
    ['.git']       = true,
@@ -68,7 +69,7 @@ local ignoreT = {
    ['.DS_Store']  = true,
 }
 
-local defaultFnT = {
+local s_defaultFnT = {
    default           = 1,
    ['.modulerc.lua'] = 2,
    ['.modulerc']     = 3,
@@ -76,11 +77,15 @@ local defaultFnT = {
 }
 
 local function l_keepFile(fn)
+   if (s_defaultFnT[fn]) then
+      return true
+   end
+
    local firstChar = fn:sub(1,1)
    local lastChar  = fn:sub(-1,-1)
    local firstTwo  = fn:sub(1,2)
 
-   local result    = not (ignoreT[fn]     or lastChar == '~' or firstChar == '#' or
+   local result    = not (s_ignoreT[fn]   or lastChar == '~'  or firstChar == '#' or
                           lastChar == '#' or firstTwo == '.#' or firstTwo == '__')
    if (not result) then
       return false
@@ -90,8 +95,12 @@ local function l_keepFile(fn)
       return false
    end
 
-   if (defaultFnT[fn]) then
-      return true
+   local ignorePattA = cosmic:value("LMOD_FILE_IGNORE_PATTERNS")
+   for i = 1,#ignorePattA do
+      local patt = ignorePattA[i]
+      if (fn:find(patt)) then
+         return false
+      end
    end
 
    return true
@@ -192,7 +201,7 @@ local function l_walk(mrc, mpath, path, dirA, fileT, regularFn)
          if (kind == "directory" and f ~= "." and f ~= "..") then
             dirA[#dirA + 1 ] = file
          elseif (kind == "file" or kind == "link") then
-            local dfltIdx = defaultFnT[f]
+            local dfltIdx   = s_defaultFnT[f]
             local fullName  = extractFullName(mpath, file)
             if (dfltIdx) then
                local luaExt = f:find("%.lua$")

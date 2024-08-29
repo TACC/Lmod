@@ -118,7 +118,18 @@ function M.init(self, t)
    end
 end
 
+local function l_build_string(v)
+   local value = v
+   if (type(v) == "table") then
+      value = serializeTbl{value=v}
+      value = value:gsub("\n","")
+   end
+   return value
+end
+
+
 function M.reportChangesFromDefault(self)
+   require("serializeTbl")
    local T    = self.__T
    local a    = {}
 
@@ -127,10 +138,12 @@ function M.reportChangesFromDefault(self)
 
 
    for k,v in pairsByKeys(T) do
-      if (v.value ~= v.default) then
-         local value = v.value
+      local value   = l_build_string(v.value)
+      local default = l_build_string(v.default)
+
+      if (value ~= default) then
          if (value == "" ) then value = "<empty>" end
-         a[#a+1] = {k, v.kind, tostring(v.default), tostring(value)}
+         a[#a+1] = {k, v.kind, tostring(default), tostring(value)}
       end
    end
 
