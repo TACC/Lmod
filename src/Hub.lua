@@ -1168,6 +1168,19 @@ function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaul
    end
 
 
+   dbg.printT("availA",availA)
+
+   local decoyT = {
+      forbiddenState = "normal"
+   }
+   local decorateT = {
+      normal  = "",
+      hidden  = " <H>",
+      soft    = " <H>",
+      inRange = " <F>",
+      nearly  = " <NF>",
+   }
+
    for j = 1,#availA do
       local A      = availA[j].A
       local label  = availA[j].mpath
@@ -1176,6 +1189,7 @@ function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaul
       
       for i = 1,#A do
          local sn, fullName, fn, provideA = l_availEntry(defaultOnly, label, searchA, defaultT, A[i])
+         local entry  = A[i]
          if (sn) then
             if (not prtSnT[sn] and sn ~= fullName and showSN) then
                prtSnT[sn] = true
@@ -1188,7 +1202,13 @@ function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaul
                   aa[#aa+1]  = aliasA[i] .. "(@".. fullName ..")\n"
                end
             end
-            aa[#aa+1]     = fullName .. "\n"
+            aa[#aa+1]  = fullName
+            aa[#aa+1]  = decorateT[entry.moduleKindT.kind]
+            local fT   = (entry.forbiddenT or decoyT)
+            local fKey = fT.forbiddenState
+            aa[#aa+1]  = decorateT[fKey]
+            aa[#aa+1]  = "\n"
+
             if (showModuleExt and provideA and next(provideA) ~= nil ) then
                for k = 1,#provideA do
                   aa[#aa+1] = "#    " .. provideA[k] .. "\n"
@@ -1203,21 +1223,6 @@ function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaul
          end
       end
    end
-
-   -- if providedByT is not false then output 
-
-   --if (providedByT and next(providedByT) ~= nil ) then
-   --
-   --  local extA = {}
-   --  self:buildExtA(searchA, mpathA, providedByT, extA)
-   --
-   --  for i=1,#extA do
-   --    a[#a+1] = "#"
-   --    a[#a+1] = extA[i][1]
-   --    a[#a+1] = "\n"
-   --  end
-   --end
-      
    dbg.fini("Hub:terse_avail")
    return a
 end

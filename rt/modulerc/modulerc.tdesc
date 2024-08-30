@@ -195,13 +195,14 @@ EOF
      # Note this test will fail sometime after the year 3000
 
      export LMOD_NEARLY_FORBIDDEN_DAYS=400000
-     runLmod    avail                                  #73
-     runLmod -A avail                                  #74
-     runLmod    load C                                 #75
-     runLmod    load cluster                           #76
-     runLmod    load D                                 #77
-     runLmod    list                                   #78
-     runLmod    --mt                                   #79
+     runLmod       avail                               #73
+     runLmod -A    avail                               #74
+     runLmod -t -A avail                               #75
+     runLmod       load C                              #76
+     runLmod       load cluster                        #77
+     runLmod       load D                              #78
+     runLmod       list                                #79
+     runLmod       --mt                                #80
       
 
      HOME=$ORIG_HOME

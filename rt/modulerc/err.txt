@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.48 2024-08-19 16:18 -06:00
+Modules based on Lua: Version 8.7.49 2024-08-30 13:55 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -923,21 +923,37 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 75
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t -A avail
+===========================
+ProjectDIR/rt/modulerc/mfD/Core:
+C/
+C/1.0
+C/2.0
+C/3.0 <F>
+D/
+D/3.0 <NF>
+cluster/
+cluster/a
+cluster/b
+cluster/c
+cluster/.defaultCluster <H> <F>
+===========================
+step 76
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load C
 ===========================
 Lmod has detected the following error: Access to C/3.0 is denied
 ===========================
-step 76
+step 77
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load cluster
 ===========================
 Lmod has detected the following error: You must pick a cluster
 ===========================
-step 77
+step 78
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load D
 ===========================
 Access will be denied to this module starting 3000-01-01
 ===========================
-step 78
+step 79
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
@@ -945,7 +961,7 @@ Currently Loaded Modules:
   Where:
    NF:  Nearly Forbidden Module
 ===========================
-step 79
+step 80
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
 ===========================
 _ModuleTable_ = {
