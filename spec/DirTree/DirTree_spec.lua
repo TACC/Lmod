@@ -123,12 +123,6 @@ describe("Testing DirTree Class: #DirTree.",
                                  defaultT = {},
                                  dirT = {},
                                  fileT = {
-                                    ["boost/.version.1.46.0"]  = {
-                                       ["canonical"] = ".version.1.46.0",
-                                       ["dot_version"] = 1,
-                                       ["fn"] = "%ProjDir%/spec/DirTree/mf/boost/.version.1.46.0",
-                                       ["mpath"] = "%ProjDir%/spec/DirTree/mf",
-                                    },
                                     ["boost/1.46.0"]  = {
                                        ["canonical"] = "1.46.0",
                                        ["fn"] = "%ProjDir%/spec/DirTree/mf/boost/1.46.0.lua",
