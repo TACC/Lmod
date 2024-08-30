@@ -167,3 +167,9 @@ Lmod 8.7+
             * Issue #718: use __build_FPATH_for_zsh_ksh to build FPATH for both shells
             * Issue #667: support for terse avail extensions
             * Collect configure error to end of configure.            
+   (8.7.49) * Change FPATH setup for zsh to support a non-exported FPATH in init/bash.in
+            * Change MF_Base:processVars to use oldT to know which paths from newA to prepend or append
+            * Add support for LMOD_FILE_IGNORE_PATTERNS in src/DirTree.lua.
+              This is to ignore files like .version.1.3 or .modulerc-1.3.lua etc
+            
+            
