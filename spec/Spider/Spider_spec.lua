@@ -99,15 +99,6 @@ describe("Testing Spider Class #Spider.",
                            defaultT = {},
                            dirT = {},
                            fileT = {
-                              ["intel/.version.19.1"]  = {
-                                 ["Version"] = ".version.19.1",
-                                 ["canonical"] = ".version.19.1",
-                                 ["dot_version"] = 1,
-                                 ["fn"] = "%ProjDir%/spec/Spider/mf/Core/intel/.version.19.1",
-                                 ["mpath"] = "%ProjDir%/spec/Spider/mf/Core",
-                                 ["pV"] = "*version.000000019.000000001.*zfinal",
-                                 ["wV"] = "*version.000000019.000000001.*zfinal",
-                              },
                               ["intel/19.1"]  = {
                                  ["Category"] = "library, mathematics",
                                  ["Description"] = "the intel compiler collection",
@@ -216,15 +207,6 @@ describe("Testing Spider Class #Spider.",
                            defaultT = {},
                            dirT = {},
                            fileT = {
-                              ["gcc/.version.5.9.2"]  = {
-                                 ["Version"] = ".version.5.9.2",
-                                 ["canonical"] = ".version.5.9.2",
-                                 ["dot_version"] = 1,
-                                 ["fn"] = "%ProjDir%/spec/Spider/h/mf/Core/gcc/.version.5.9.2",
-                                 ["mpath"] = "%ProjDir%/spec/Spider/h/mf/Core",
-                                 ["pV"] = "*version.000000005.000000009.000000002.*zfinal",
-                                 ["wV"] = "*version.000000005.000000009.000000002.*zfinal",
-                              },
                               ["gcc/5.9.2"]  = {
                                  ["Version"] = "5.9.2",
                                  ["canonical"] = "5.9.2",

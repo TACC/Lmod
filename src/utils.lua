@@ -667,12 +667,13 @@ function regular_cmp(x,y)
    return x.pV < y.pV
 end
 
-function sanizatizeTbl(rplmntA, inT, outT)
+
+local function l_sanizatizeTbl(replaceA, inT, outT)
    for k, v in pairs(inT) do
       local key = k
       if (type(k) == "string") then
-         for i = 1, #rplmntA do
-            local p  = rplmntA[i]
+         for i = 1, #replaceA do
+            local p  = replaceA[i]
             local s1 = p[1]
             local s2 = p[2]
             key = key:gsub(s1,s2)
@@ -683,11 +684,11 @@ function sanizatizeTbl(rplmntA, inT, outT)
          outT[key] = nil
       elseif (type(v) == "table") then
          outT[key] = {}
-         sanizatizeTbl(rplmntA, v, outT[key])
+         l_sanizatizeTbl(replaceA, v, outT[key])
          v = outT[key]
       elseif (type(v) == "string") then
-         for i = 1,#rplmntA do
-            local p  = rplmntA[i]
+         for i = 1,#replaceA do
+            local p  = replaceA[i]
             local s1 = p[1]
             local s2 = p[2]
             v = v:gsub(s1,s2)
@@ -699,6 +700,17 @@ function sanizatizeTbl(rplmntA, inT, outT)
 
    end
 end
+
+function sanizatizeTbl(rplmntA, inT, outT)
+   local replaceA = {}
+   for i = 1,#rplmntA do
+      local p = rplmntA[i]
+      replaceA[i] = { p[1]:escape(), p[2]}
+   end
+   
+   l_sanizatizeTbl(replaceA, inT, outT)
+end
+
 
 --------------------------------------------------------------------------
 -- Push the Lmod Version into the environment

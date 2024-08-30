@@ -72,14 +72,6 @@ describe("Testing LocationT Class #LocationT.",
                      foo = {
                         dirT = {},
                         fileT = {
-                           ["foo/.version.1.0"]  = {
-                              ["canonical"] = ".version.1.0",
-                              ["dot_version"] = 1,
-                              ["fn"] = "%ProjDir%/spec/LocationT/nv/foo/.version.1.0",
-                              ["mpath"] = "%ProjDir%/spec/LocationT/nv",
-                              ["pV"] = "*version.000000001.*zfinal",
-                              ["wV"] = "*version.000000001.*zfinal",
-                           },
                            ["foo/1.0"]  = {
                               ["canonical"] = "1.0",
                               ["fn"] = "%ProjDir%/spec/LocationT/nv/foo/1.0",

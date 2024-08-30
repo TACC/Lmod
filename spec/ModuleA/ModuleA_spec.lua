@@ -156,15 +156,6 @@ describe("Testing ModuleA Class #ModuleA.",
                               defaultT = {},
                               dirT = {},
                               fileT = {
-                                 ["boost/.version.1.46.0"]  = {
-                                    ["Version"] = ".version.1.46.0",
-                                    ["canonical"] = ".version.1.46.0",
-                                    ["dot_version"] = 1,
-                                    ["fn"] = "%ProjDir%/spec/ModuleA/mf/boost/.version.1.46.0",
-                                    ["mpath"] = "%ProjDir%/spec/ModuleA/mf",
-                                    ["pV"] = "*version.000000001.000000046.*zfinal",
-                                    ["wV"] = "*version.000000001.000000046.*zfinal",
-                                 },
                                  ["boost/1.46.0"]  = {
                                     ["Version"] = "1.46.0",
                                     ["canonical"] = "1.46.0",
@@ -231,46 +222,71 @@ describe("Testing ModuleA Class #ModuleA.",
                      {
                         A = {
                            {
-                              ["fn"] = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/32/1.0.lua",
-                              ["fullName"] = "bio/bowtie/32/1.0",
-                              ["pV"] = "bio/bowtie/000000032/000000001.*zfinal",
-                              ["sn"] = "bio/bowtie",
+                              fn = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/32/1.0.lua",
+                              fullName = "bio/bowtie/32/1.0",
+                              moduleKindT = {
+                                 hidden_load = false,
+                                 kind = "normal",
+                              },
+                              pV = "bio/bowtie/000000032/000000001.*zfinal",
+                              sn = "bio/bowtie",
                            },
                            {
-                              ["fn"] = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/32/2.0.lua",
-                              ["fullName"] = "bio/bowtie/32/2.0",
-                              ["pV"] = "bio/bowtie/000000032/000000002.*zfinal",
-                              ["sn"] = "bio/bowtie",
+                              fn = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/32/2.0.lua",
+                              fullName = "bio/bowtie/32/2.0",
+                              moduleKindT = {
+                                 hidden_load = false,
+                                 kind = "normal",
+                              },
+                              pV = "bio/bowtie/000000032/000000002.*zfinal",
+                              sn = "bio/bowtie",
                            },
                            {
-                              ["fn"] = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/64/2.0.lua",
-                              ["fullName"] = "bio/bowtie/64/2.0",
-                              ["pV"] = "bio/bowtie/000000064/000000002.*zfinal",
-                              ["sn"] = "bio/bowtie",
+                              fn = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/64/2.0.lua",
+                              fullName = "bio/bowtie/64/2.0",
+                              moduleKindT = {
+                                 hidden_load = false,
+                                 kind = "normal",
+                              },
+                              pV = "bio/bowtie/000000064/000000002.*zfinal",
+                              sn = "bio/bowtie",
                            },
                            {
-                              ["fn"] = "%ProjDir%/spec/ModuleA/mf/bio/genomics.lua",
-                              ["fullName"] = "bio/genomics",
-                              ["pV"] = "bio/genomics/M.*zfinal",
-                              ["sn"] = "bio/genomics",
-                              propT = { arch = { ["mic"] = 1} }
+                              fn = "%ProjDir%/spec/ModuleA/mf/bio/genomics.lua",
+                              fullName = "bio/genomics",
+                              moduleKindT = {
+                                 hidden_load = false,
+                                 kind = "normal",
+                              },
+                              pV = "bio/genomics/M.*zfinal",
+                              propT = {
+                                 arch = {
+                                    mic = 1,
+                                 },
+                              },
+                              sn = "bio/genomics",
                            },
                            {
-                              ["fn"] = "%ProjDir%/spec/ModuleA/mf/boost/1.46.0.lua",
-                              ["fullName"] = "boost/1.46.0",
-                              ["pV"] = "boost/000000001.000000046.*zfinal",
-                              ["sn"] = "boost",
+                              fn = "%ProjDir%/spec/ModuleA/mf/boost/1.46.0.lua",
+                              fullName = "boost/1.46.0",
+                              moduleKindT = {
+                                 hidden_load = false,
+                                 kind = "normal",
+                              },
+                              pV = "boost/000000001.000000046.*zfinal",
+                              sn = "boost",
                            },
                         },
-                        ["mpath"] = "%ProjDir%/spec/ModuleA/mf",
+                        mpath = "%ProjDir%/spec/ModuleA/mf",
                      },
                   }
 
                   local _availA = {}
                   sanizatizeTbl(rplmntA, availA, _availA)
+                  --dbg:activateDebug(1)
+                  dbg.printT("gold_availA",gold_availA)
+                  dbg.printT("_availA",    _availA)
                   assert.are.same(gold_availA, _availA)
-                  --print(serializeTbl{indent=true, name="availA",value = _availA})
-                  --print(serializeTbl{indent=true, name="gold_availA",value = gold_availA})
                end)
             it("Test of meta module and regular modules with the same name",
                function()
