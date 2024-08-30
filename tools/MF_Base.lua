@@ -312,7 +312,6 @@ function l_splice(a, is, ie)
    return b
 end
 
-
 function M.processVars(self, ignoreT, oldEnvT, envT, a)
    dbg.start{"MF_Base:processVars(ignoreT, oldEnvT, envT, a)"}
 
@@ -382,58 +381,6 @@ function M.processVars(self, ignoreT, oldEnvT, envT, a)
    end
    dbg.fini("MF_Base:processVars")
 end
-
-
-
---function M.processVars(self, ignoreT, oldEnvT, envT, a)
---   dbg.start{"MF_Base:processVars(ignoreT, oldEnvT, envT, a)"}
---
---   ------------------------------------------------------------
---   -- Add header to modulefile if necessary.
---   -- Include the "#%Module" magic string For TCL modulefiles
---
---   local s = self:header()
---   if (s) then
---      a[#a+1] = s
---   end
---
---   --dbg.print{"name: ",self:name(), "\n"}
---
---   local mt_pat = "^_ModuleTable"
---   for k, v in pairsByKeys(envT) do
---      local i = k:find(mt_pat)
---      if (not ignoreT[k] and not i) then
---         --dbg.print{"k: ", k, ", v: ", v, ", oldV: ",oldEnvT[k],"\n"}
---         local oldV = oldEnvT[k]
---         if (not oldV) then
---            a[#a+1] = self:setenv(k,v)
---         else
---            local oldA = path2pathA(oldV)
---            local newA = path2pathA(v)
---            local idx  = l_indexPath(oldV, oldA, v, newA)
---            --if (k == "PTH") then
---            --   dbg.printT(k.."-old", oldA)
---            --   dbg.printT(k.."-new", newA)
---            --   dbg.print{"idx: ",idx,"\n"}
---            --end
---
---            if (idx < 0) then
---               a[#a+1] = self:setenv(k,v)
---            else
---               newA = l_splice(newA, idx, #oldA + idx - 1)
---               for j = idx-1, 1, -1 do
---                  a[#a+1] = self:prepend_path(k,newA[j])
---               end
---               for j = idx, #newA do
---                  a[#a+1] = self:append_path(k,newA[j])
---               end
---            end
---         end
---      end
---   end
---
---   dbg.fini("MF_Base:processVars")
---end
 
 function M.complete(self, shellName, name, value)
 end
