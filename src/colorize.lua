@@ -84,54 +84,30 @@ function full_colorize(color, ... )
       return plain(color, ...)
    end
 
+   local hiddenFore = (hiddenItalic == "yes") and "[3" or "[2"
+   local cT = {
+      hidden          = { fore = hiddenFore,        back = false},
+      forbidden       = { fore = FcolorT["yellow"], back = BcolorT["red"]},
+      nearlyforbidden = { fore = FcolorT["red"],    back = BcolorT["yellow"]},
+   }
+   local fore = FcolorT[color] or cT[color].fore
+   local back = cT[color] and cT[color].back or false
+
    local a = {}
-   if (color == "hidden") then
-      a[#a+1] = (hiddenItalic == "yes") and Escape.."[3m" or Escape.."[2m"
-      for i = 1, argA.n do
-         a[#a+1] = argA[i]
-      end
-      a[#a+1] = Escape.."[0m"
-      return concatTbl(a,"")
-   end
-   if (color == "forbidden") then
-      a[#a+1] = Escape
-      a[#a+1] = FcolorT.white
-      a[#a+1] = "m"
-      a[#a+1] = Escape
-      a[#a+1] = BcolorT.red
-      a[#a+1] = "m"
-      for i = 1, argA.n do
-         a[#a+1] = argA[i]
-      end
-      a[#a+1] = Escape .. "[0m"
-      return concatTbl(a,"")
-   end
-
-   if (color == "nearlyforbidden") then
-      a[#a+1] = Escape
-      a[#a+1] = FcolorT.black
-      a[#a+1] = "m"
-      a[#a+1] = Escape
-      a[#a+1] = BcolorT.yellow
-      a[#a+1] = "m"
-      for i = 1, argA.n do
-         a[#a+1] = argA[i]
-      end
-      a[#a+1] = Escape .. "[0m"
-      return concatTbl(a,"")
-   end
-
    a[#a+1] = Escape
-   a[#a+1] = FcolorT[color]
-   a[#a+1] = 'm'
-
+   a[#a+1] = fore
+   a[#a+1] = "m"
+   if (back) then
+      a[#a+1] = Escape
+      a[#a+1] = back
+      a[#a+1] = "m"
+   end
    for i = 1, argA.n do
       a[#a+1] = argA[i]
    end
-   a[#a+1] = Escape .. "[0m"
-
+   a[#a+1] = Escape.."[0m"
    return concatTbl(a,"")
-end
+end   
 
 --------------------------------------------------------------------------
 -- This prints the array of strings without any colorization.
