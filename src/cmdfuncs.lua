@@ -405,18 +405,37 @@ function List(...)
       end
    end
 
+   local decoyT = {
+      forbiddenState = "normal",
+      kind           = "normal",
+   }
+   local decorateT = {
+      normal  = "",
+      hidden  = " <H>",
+      soft    = " <H>",
+      inRange = " <F>",
+      nearly  = " <NF>",
+   }
+
    if (optionTbl.terse) then
+      dbg.printT("activeA",activeA)
       for i = 1,#activeA do
-         local s = activeA[i].fullName
-         if (activeA[i].origUserName) then
-            s = s .. "\n" .. activeA[i].origUserName
+         local entry = activeA[i]
+         local s = entry.fullName
+         if (entry.origUserName) then
+            s = s .. "\n" .. entry.origUserName
          end
-         dbg.print{"fullName: ",activeA[i].fullName, ", orig: ",activeA[i].origUserName,", s: ",s,"\n"}
+         dbg.print{"fullName: ",entry.fullName, ", orig: ",entry.origUserName,", s: ",s,"\n"}
          
          for j = 1, wanted.n do
             local p = wanted[j]
             if (s:find(p)) then
-               shell:echo(s.."\n")
+               local aa = {}
+               aa[#aa+1] = s
+               aa[#aa+1] = decorateT[(entry.moduleKindT or decoyT).kind]
+               aa[#aa+1] = decorateT[(entry.forbiddenT  or decoyT).forbiddenState] 
+               aa[#aa+1] = "\n"
+               shell:echo(concatTbl(aa,""))
             end
          end
       end

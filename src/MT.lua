@@ -550,6 +550,8 @@ function M.list(self, kind, status)
    local a    = {}
    local b    = {}
 
+   dbg.print{"MT:list(kind: ",kind,", status:",status,")\n"}
+
    if (kind == "short" or kind == "sn") then
       for k, v in pairs(mT) do
          if ((status == "any" or status == v.status) and
@@ -566,8 +568,9 @@ function M.list(self, kind, status)
                           stackDepth = v.stackDepth, ref_count = v.ref_count,
                           depends_on_anyA = v.depends_on_anyA, displayName = v.fullName,
                           origUserName = v.origUserName or false,
-                          moduleKindT = v.moduleKindT or {}
-            }
+                          moduleKindT = v.moduleKindT or {},
+                          forbiddenT  = v.forbiddenT or {},
+                        }
             a, b = l_build_AB(a, b, v.loadOrder, v[kind], obj )
          end
       end
@@ -581,7 +584,8 @@ function M.list(self, kind, status)
                           stackDepth = v.stackDepth, ref_count = v.ref_count,
                           depends_on_anyA = v.depends_on_anyA, displayName = v.fullName, 
                           origUserName = v.origUserName or false,
-                          moduleKindT = v.moduleKindT or {}
+                          moduleKindT = v.moduleKindT or {},
+                          forbiddenT  = v.forbiddenT or {},
              }
             a, b = l_build_AB(a, b, v.loadOrder, v.fullName, obj )
          end

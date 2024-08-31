@@ -893,8 +893,8 @@ step 73
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/modulerc/mfD/Core
-   C/1.0    C/3.0 (F,D)    cluster/a    cluster/c
-   C/2.0    D/3.0 (NF)     cluster/b
+   C/1.0    C/3.0 (F,D)    F/1.0     (NF)    cluster/b
+   C/2.0    D/3.0 (NF)     cluster/a         cluster/c
   Where:
    D:   Default Module
    F:   Forbidden Module
@@ -909,13 +909,15 @@ step 74
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A avail
 ===========================
 ProjectDIR/rt/modulerc/mfD/Core
-   C/1.0    C/3.0 (F,D)    cluster/a    cluster/c
-   C/2.0    D/3.0 (NF)     cluster/b    cluster/.defaultCluster (H,F,D)
+   C/1.0          D/3.0 (NF)    cluster/a    cluster/.defaultCluster (H,F,D)
+   C/2.0          F/1.0 (NF)    cluster/b
+   C/3.0 (F,D)    H/1.0 (s)     cluster/c
   Where:
    D:   Default Module
    F:   Forbidden Module
    H:   Hidden Module
    NF:  Nearly Forbidden Module
+   s:   Soft Hidden Module
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
 "module overview" or "ml ov" to display the number of modules for each name.
@@ -932,6 +934,10 @@ C/2.0
 C/3.0 <F>
 D/
 D/3.0 <NF>
+F/
+F/1.0 <NF>
+H/
+H/1.0 <H>
 cluster/
 cluster/a
 cluster/b
@@ -949,7 +955,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load cluster
 Lmod has detected the following error: You must pick a cluster
 ===========================
 step 78
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing load D
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load D H/1.0
 ===========================
 Access will be denied to this module starting 3000-01-01
 ===========================
@@ -957,9 +963,10 @@ step 79
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) D/3.0 (NF)
+  1) D/3.0 (NF)   2) H/1.0 (s)
   Where:
    NF:  Nearly Forbidden Module
+   s:   Soft Hidden Module
 ===========================
 step 80
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
@@ -985,9 +992,28 @@ _ModuleTable_ = {
       userName = "D",
       wV = "000000003.*zfinal",
     },
+    H = {
+      fn = "ProjectDIR/rt/modulerc/mfD/Core/H/1.0.lua",
+      fullName = "H/1.0",
+      loadOrder = 2,
+      moduleKindT = {
+        kind = "soft",
+      },
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "H/1.0",
+      wV = "000000001.*zfinal",
+    },
   },
   mpathA = {
     "ProjectDIR/rt/modulerc/mfD/Core",
   },
   systemBaseMPATH = "ProjectDIR/rt/modulerc/mfD/Core",
 }
+===========================
+step 81
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t list
+===========================
+D/3.0 <NF>
+H/1.0 <H>

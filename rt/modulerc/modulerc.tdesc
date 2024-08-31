@@ -200,9 +200,10 @@ EOF
      runLmod -t -A avail                               #75
      runLmod       load C                              #76
      runLmod       load cluster                        #77
-     runLmod       load D                              #78
+     runLmod       load D H/1.0                        #78
      runLmod       list                                #79
      runLmod       --mt                                #80
+     runLmod -t    list                                #81
       
 
      HOME=$ORIG_HOME
