@@ -204,6 +204,11 @@ EOF
      runLmod       list                                #79
      runLmod       --mt                                #80
      runLmod -t    list                                #81
+     runBase runSpiderCmd -o spiderT $MODULEPATH       #82
+     runLmod       spider                              #83
+     runLmod    -A spider                              #84
+     runLmod -t    spider                              #85
+     runLmod -t -A spider                              #86
       
 
      HOME=$ORIG_HOME

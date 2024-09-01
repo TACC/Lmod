@@ -1017,3 +1017,73 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t list
 ===========================
 D/3.0 <NF>
 H/1.0 <H>
+===========================
+step 82
+runSpiderCmd -o spiderT ProjectDIR/rt/modulerc/mfD/Core
+===========================
+===========================
+step 83
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
+===========================
+The following is a list of the modules and extensions currently available:
+  C: C/1.0, C/2.0, C/3.0
+  D: D/3.0
+  F: F/1.0
+  cluster: cluster/a, cluster/b, cluster/c
+To learn more about a package execute:
+   $ module spider Foo
+where "Foo" is the name of a module.
+To find detailed information about a particular package you
+must specify the version if there is more than one version:
+   $ module spider Foo/11.1
+===========================
+step 84
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A spider
+===========================
+The following is a list of the modules and extensions currently available:
+  C: C/1.0, C/2.0, C/3.0
+  D: D/3.0
+  F: F/1.0
+  H: H/1.0
+  cluster: cluster/a, cluster/b, cluster/c, cluster/.defaultCluster
+To learn more about a package execute:
+   $ module spider Foo
+where "Foo" is the name of a module.
+To find detailed information about a particular package you
+must specify the version if there is more than one version:
+   $ module spider Foo/11.1
+===========================
+step 85
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t spider
+===========================
+C/
+C/1.0
+C/2.0
+C/3.0
+D/
+D/3.0
+F/
+F/1.0
+cluster/
+cluster/a
+cluster/b
+cluster/c
+===========================
+step 86
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t -A spider
+===========================
+C/
+C/1.0
+C/2.0
+C/3.0
+D/
+D/3.0
+F/
+F/1.0
+H/
+H/1.0
+cluster/
+cluster/a
+cluster/b
+cluster/c
+cluster/.defaultCluster
