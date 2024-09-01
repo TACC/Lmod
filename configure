@@ -5504,7 +5504,7 @@ ORIG_LUA_PATH="$LUA_PATH"
 export LUA_PATH="${SRCDIR}/src/?.lua;$LUA_PATH;;"
 LuaV=$( $PATH_TO_LUA -e 'print(_VERSION)' | sed -e 's/Lua //' )
 LmodV=$( $PATH_TO_LUA  -e "v=require('Version'); s=v.name():gsub(' .*','');print(s)")
-if test -n "$PATH_TO_GIT" -a -d $ac_confdir/.git ; then
+if test -n "$PATH_TO_GIT" -a -e $ac_confdir/.git ; then
   lmodV=$($PATH_TO_GIT describe)
 else
   lmodV=$($PATH_TO_LUA -e "v=require('Version'); s=v.git():gsub(' .*','');print(s)")
