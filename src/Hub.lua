@@ -490,7 +490,7 @@ local function l_missingFn_action(actionA)
    local status   = true
    if (next(actionA) == nil) then
       dbg.fini("l_missingFn_action with empty actionA")
-      return status 
+      return status
    end
    local whole  = concatTbl(actionA,"\n")
    dbg.print{"whole: ",whole,"\n"}
@@ -559,7 +559,7 @@ function M.unload(self,mA)
             status = l_missingFn_action(mt:get_actionA(sn))
          else
             local mList  = concatTbl(mt:list("both","active"),":")
-            status = loadModuleFile{file=fn, mList=mList, shell=shellNm, reportErr=false, 
+            status = loadModuleFile{file=fn, mList=mList, shell=shellNm, reportErr=false,
                                     forbiddenT = {}}
             dbg.print{"status from loadModulefile: ",status,"\n"}
          end
@@ -969,7 +969,7 @@ function M.overview(self,argA)
    local mt          = FrameStk:singleton():mt()
    local mpathA      = mt:modulePathA()
    local availStyle  = optionTbl.availStyle
-   
+
    local numDirs = 0
    for i = 1,#mpathA do
       local mpath = mpathA[i]
@@ -999,7 +999,7 @@ function M.overview(self,argA)
    local defaultOnly = false
    local alias2modT  = mrc:getAlias2ModT(mpathA)
    local banner      = Banner:singleton()
-   
+
    if (not optionTbl.regexp and argA and next(argA) ~= nil) then
       searchA = {}
       for i = 1, argA.n do
@@ -1016,6 +1016,7 @@ function M.overview(self,argA)
 
    availA = regroup_avail_blocks(availStyle, availA)
    local showModuleExt = false
+
    self:terse_avail(mpathA, availA, alias2modT, searchA, showSN, defaultOnly, defaultT, showModuleExt, aa)
 
    local label    = ""
@@ -1039,7 +1040,7 @@ function M.overview(self,argA)
 
    ---------------------------------------------------------------
    -- This local function stores the current sn and count into the
-   -- b array and if the current entry is true then define the next 
+   -- b array and if the current entry is true then define the next
    -- sn to be entry (minus the trailing slash) and zero count.
    local function register_sn_count_in_b(entry)
       if (sn and count > 0) then
@@ -1056,9 +1057,9 @@ function M.overview(self,argA)
    end
 
    for i = 1,#aa do
-      local entry = aa[i]:sub(1,-2) --> strip trailing newline
-      repeat 
-         dbg.print{"RTM: entry: ",entry,"\n"}
+      local entry = aa[i]:gsub("%s+$",""):gsub(" *<.*","") --> strip trailing newline and any decorations
+      repeat
+         dbg.print{"RTM: entry: \"",entry,"\"\n"}
          if (entry:find("%(@")) then
             break
          end
@@ -1175,7 +1176,7 @@ function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaul
       local label  = availA[j].mpath
       local aa     = {}
       local prtSnT = {}  -- Mark if we have printed the sn?
-      
+
       for i = 1,#A do
          local sn, fullName, fn, provideA = l_availEntry(defaultOnly, label, searchA, defaultT, A[i])
          local entry  = A[i]
@@ -1191,8 +1192,7 @@ function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaul
                   aa[#aa+1]  = aliasA[i] .. "(@".. fullName ..")\n"
                end
             end
-            aa[#aa+1]  = decorateModule(fullName, entry, entry.forbiddenT)
-            aa[#aa+1]  = "\n"
+            aa[#aa+1]  = decorateModule(fullName, entry, entry.forbiddenT) .. "\n"
 
             if (showModuleExt and provideA and next(provideA) ~= nil ) then
                for k = 1,#provideA do
@@ -1360,7 +1360,7 @@ function M.avail(self, argA)
                   entry.propT["status"] = {active = 1}
                end
                local c = {}
-               local resultA = colorizePropA("short", mt, 
+               local resultA = colorizePropA("short", mt,
                                              {sn=sn, fullName=fullName, fn=fn, show_hidden = show_hidden},
                                              mrc, entry.propT, legendT, entry.forbiddenT)
                c[#c+1] = '  '
@@ -1410,7 +1410,7 @@ function M.avail(self, argA)
    local cache                  = Cache:singleton{buildCache=true}
    local spiderT,dbT,
          mpathMapT, providedByT = cache:build()
-   
+
    dbg.printT("providedByT", providedByT)
 
    if (extensions and providedByT and next(providedByT) ~= nil) then
