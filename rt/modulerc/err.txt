@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.49 2024-08-30 13:55 -06:00
+Modules based on Lua: Version 8.7.49 YYYY-MM-DD 13:55 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -957,7 +957,7 @@ Lmod has detected the following error: You must pick a cluster
 step 78
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load D H/1.0
 ===========================
-Access will be denied to this module starting 3000-01-01
+Access will be denied to this module starting YYYY-MM-DD
 ===========================
 step 79
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
@@ -981,7 +981,7 @@ _ModuleTable_ = {
     D = {
       fn = "ProjectDIR/rt/modulerc/mfD/Core/D/3.0.lua",
       forbiddenT = {
-        after = "3000-01-01",
+        after = "YYYY-MM-DD",
         forbiddenState = "nearly",
       },
       fullName = "D/3.0",
@@ -1059,11 +1059,11 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t spider
 C/
 C/1.0
 C/2.0
-C/3.0
+C/3.0 <F>
 D/
-D/3.0
+D/3.0 <NF>
 F/
-F/1.0
+F/1.0 <NF>
 cluster/
 cluster/a
 cluster/b
@@ -1075,15 +1075,15 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t -A spider
 C/
 C/1.0
 C/2.0
-C/3.0
+C/3.0 <F>
 D/
-D/3.0
+D/3.0 <NF>
 F/
-F/1.0
+F/1.0 <NF>
 H/
-H/1.0
+H/1.0 <H>
 cluster/
 cluster/a
 cluster/b
 cluster/c
-cluster/.defaultCluster
+cluster/.defaultCluster <H> <F>

@@ -286,11 +286,11 @@ function colorizePropA(style, mt, modT, mrc, propT, legendT, forbiddenT)
       end
    end
 
-   if (forbiddenT.forbiddenState == "inRange") then
+   if (forbiddenT.forbiddenState == "forbid") then
       local i18n = require("i18n")
       local F    = "F"
       local msg  = "ForbiddenM"
-      moduleName = colorize("forbidden",modT.fullName)
+      moduleName = colorize("forbid",modT.fullName)
       pA[#pA+1]  = F
       legendT[F] = i18n(msg)
    end      
@@ -299,7 +299,7 @@ function colorizePropA(style, mt, modT, mrc, propT, legendT, forbiddenT)
       local i18n  = require("i18n")
       local NF    = "NF"
       local msg   = "NearlyForbiddenM"
-      moduleName  = colorize("nearlyforbidden",modT.fullName)
+      moduleName  = colorize("nearly",modT.fullName)
       pA[#pA+1]   = NF
       legendT[NF] = i18n(msg)
    end      
@@ -346,6 +346,10 @@ function colorizePropA(style, mt, modT, mrc, propT, legendT, forbiddenT)
    dbg.fini("colorizePropA")
    return resultA
 end
+
+
+
+
 
 local __expert = false
 --------------------------------------------------------------------------
@@ -858,6 +862,35 @@ function ShowHelpStr(...)
 
 end
 
+local s_decoyT    = false
+local s_decorateT = false
+
+function decorateModule(name, resultT, forbiddenT)
+   if (not s_decorateT) then
+      s_decoyT = {
+         forbiddenState = "normal"
+      }
+      s_decorateT = {
+         normal  = "",
+         hidden  = " <H>",
+         soft    = " <H>",
+         forbid  = " <F>",
+         nearly  = " <NF>",
+      }
+   end
+
+   local fT = forbiddenT
+   if (not forbiddenT or next(forbiddenT) == nil) then
+      fT = s_decoyT
+   end
+
+   local a = {}
+   a[#a+1] = name
+   a[#a+1] = s_decorateT[resultT.moduleKindT.kind or "normal"]
+   a[#a+1] = s_decorateT[fT.forbiddenState]
+   return concatTbl(a,"")
+end
+   
 --------------------------------------------------------------------------
 -- Unique string that combines the current time/date
 -- with a uuid id string.

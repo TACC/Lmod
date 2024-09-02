@@ -611,15 +611,21 @@ local function l_check_user_groups(resultT)
 end
 
 
+local time2FstateT = {
+   inRange = "forbid",
+   nearly  = "nearly",
+   notActive = "normal",
+}
+
 local function l_check_forbidden_modifiers(fullName, resultT)
    dbg.start{"l_check_forbidden_modifiers(fullName, resultT)"}
 
-   local forbiddenState = "not_forbidden"
+   local forbiddenState = "normal"
 
    if (l_check_user_groups(resultT)) then
       local nearlyDays = cosmic:value("LMOD_NEARLY_FORBIDDEN_DAYS")
       local timeFlag   = l_check_time_range(resultT, nearlyDays) 
-      forbiddenState   = timeFlag == "notActive" and "not_forbidden" or timeFlag
+      forbiddenState   = time2FstateT[timeFlag]
    end
 
    dbg.fini("l_check_forbidden_modifiers")

@@ -763,18 +763,20 @@ function M.Level0_terse(self,dbT, providedByT)
    local show_hidden = optionTbl.show_hidden
    local t           = {}
    local a           = {}
+
    for sn, vv in pairs(dbT) do
       for fn, v in pairs(vv) do
          local resultT = mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, 
                                        show_hidden = show_hidden}
          if (resultT.isVisible) then
+            local forbiddenT = mrc:isForbidden{fullName=v.fullName, sn=sn, fn=fn} 
             if (sn == v.fullName) then
-               t[sn] = sn
+               t[sn] = decorateModule(sn, resultT, forbiddenT)
             else
                -- print out directory name (e.g. gcc) for tab completion.
                t[sn]     = sn .. "/"
                local key = sn .. "/" .. v.pV
-               t[key]    = v.fullName
+               t[key]    = decorateModule(v.fullName, resultT, forbiddenT)
             end
          end
       end
@@ -832,6 +834,20 @@ local function l_case_independent_cmp_by_name(a,b)
    end
 end
 
+local function l_computeColor(resultT, forbiddenT)
+   local fT = forbiddenT 
+   if (not fT or next(fT) == nil) then
+      fT = {forbiddenState = "normal"}
+   end
+   if (fT.forbiddenState ~= "normal") then
+      return fT.forbiddenState 
+   end
+   if (resultT.moduleKindT.kind ~= "normal") then
+      return "hidden"
+   end
+   return false
+end
+
 function M.Level0Helper(self, dbT, providedByT, a)
    local t           = {}
    local optionTbl   = optionTbl()
@@ -845,10 +861,16 @@ function M.Level0Helper(self, dbT, providedByT, a)
          local resultT = mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, 
                                        show_hidden = show_hidden}
          if (resultT.isVisible) then
+            local forbiddenT = mrc:isForbidden{fullName=v.fullName,sn=sn,fn=fn}
             if (t[sn] == nil) then
                t[sn] = { Description = v.Description, versionA = { }, name = sn}
             end
-            t[sn].versionA[v.pV] = v.fullName
+            local color = l_computeColor(resultT, forbiddenT)
+            dbg.print{"fullName: ",v.fullName,", color: ",color,"\n"}
+            dbg.printT("resultT",resultT)
+            dbg.printT("forbiddenT",forbiddenT or {})
+            
+            t[sn].versionA[v.pV] = colorize(color, v.fullName)
          end
       end
    end

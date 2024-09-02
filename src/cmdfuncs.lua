@@ -1,4 +1,4 @@
---------------------------------------------------------------------------
+-------------------------------------------------------------------------
 -- The all the user sub-commands are implemented here.
 -- @module cmdfuncs
 
@@ -405,18 +405,6 @@ function List(...)
       end
    end
 
-   local decoyT = {
-      forbiddenState = "normal",
-      kind           = "normal",
-   }
-   local decorateT = {
-      normal  = "",
-      hidden  = " <H>",
-      soft    = " <H>",
-      inRange = " <F>",
-      nearly  = " <NF>",
-   }
-
    if (optionTbl.terse) then
       dbg.printT("activeA",activeA)
       for i = 1,#activeA do
@@ -431,9 +419,8 @@ function List(...)
             local p = wanted[j]
             if (s:find(p)) then
                local aa = {}
-               aa[#aa+1] = s
-               aa[#aa+1] = decorateT[(entry.moduleKindT or decoyT).kind]
-               aa[#aa+1] = decorateT[(entry.forbiddenT  or decoyT).forbiddenState] 
+               dbg.printT("entry",entry)
+               aa[#aa+1] = decorateModule(s, entry, entry.forbiddenT)
                aa[#aa+1] = "\n"
                shell:echo(concatTbl(aa,""))
             end

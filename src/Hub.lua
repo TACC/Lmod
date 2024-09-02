@@ -1170,17 +1170,6 @@ function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaul
 
    dbg.printT("availA",availA)
 
-   local decoyT = {
-      forbiddenState = "normal"
-   }
-   local decorateT = {
-      normal  = "",
-      hidden  = " <H>",
-      soft    = " <H>",
-      inRange = " <F>",
-      nearly  = " <NF>",
-   }
-
    for j = 1,#availA do
       local A      = availA[j].A
       local label  = availA[j].mpath
@@ -1202,11 +1191,7 @@ function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaul
                   aa[#aa+1]  = aliasA[i] .. "(@".. fullName ..")\n"
                end
             end
-            aa[#aa+1]  = fullName
-            aa[#aa+1]  = decorateT[entry.moduleKindT.kind]
-            local fT   = (entry.forbiddenT or decoyT)
-            local fKey = fT.forbiddenState
-            aa[#aa+1]  = decorateT[fKey]
+            aa[#aa+1]  = decorateModule(fullName, entry, entry.forbiddenT)
             aa[#aa+1]  = "\n"
 
             if (showModuleExt and provideA and next(provideA) ~= nil ) then

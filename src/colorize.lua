@@ -80,15 +80,15 @@ local s_colorize_kind = "unknown"
 function full_colorize(color, ... )
    local argA         = pack(...)
    local hiddenItalic = cosmic:value("LMOD_HIDDEN_ITALIC")
-   if (color == nil or argA.n < 1) then
+   if (not color or argA.n < 1) then
       return plain(color, ...)
    end
 
    local hiddenFore = (hiddenItalic == "yes") and "[3" or "[2"
    local cT = {
-      hidden          = { fore = hiddenFore,        back = false},
-      forbidden       = { fore = FcolorT["yellow"], back = BcolorT["red"]},
-      nearlyforbidden = { fore = FcolorT["red"],    back = BcolorT["yellow"]},
+      hidden      = { fore = hiddenFore,        back = false},
+      forbid      = { fore = FcolorT["yellow"], back = BcolorT["red"]},
+      nearly      = { fore = FcolorT["red"],    back = BcolorT["yellow"]},
    }
    local fore = FcolorT[color] or cT[color].fore
    local back = cT[color] and cT[color].back or false

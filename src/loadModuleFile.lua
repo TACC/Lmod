@@ -79,7 +79,7 @@ function loadModuleFile(t)
       return not lmodBrk
    end
 
-   if (forbiddenT.forbiddenState == "inRange" ) then
+   if (forbiddenT.forbiddenState == "forbid" ) then
       if (forbiddenT.message) then
          LmodError{msg="e_Forbidden", noTraceBack=true, literal_msg = forbiddenT.message,
                    fullName = myModuleFullName()}
