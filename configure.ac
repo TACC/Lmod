@@ -714,20 +714,25 @@ fi
 
 if test "$FAST_TCL_INTERP" = yes ; then
    OS=$(uname -s)
-   if test "$OS" = Darwin ; then
-     DIR=$(xcrun --show-sdk-path)
-     TCL_INCLUDE="-I${DIR}/usr/include"
+   AC_PATH_PROG(pkgConfig, pkg-config, "")
+   if test -n "$TCL_PKG_CONFIG_DIR" ; then
+      export PKG_CONFIG_PATH=$TCL_PKG_CONFIG_DIR
+      TCL_INCLUDE=`$pkgConfig --cflags-only-I tcl 2> /dev/null`
+      TCL_LIBS=`$pkgConfig --libs tcl`
+      echo TCL_INCLUDE: $TCL_INCLUDE
+   elif test "$OS" = Darwin ; then
+      DIR=$(xcrun --show-sdk-path)
+      TCL_INCLUDE="-I${DIR}/usr/include"
    else
-     for i in "" tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
-        if test -f /usr/include/$i/tcl.h ; then
-	   TCL_INCLUDE="-I/usr/include/$i"
-	   break;
-	fi
-     done
+      for i in "" tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
+         if test -f /usr/include/$i/tcl.h ; then
+            TCL_INCLUDE="-I/usr/include/$i"
+            break;
+         fi
+      done
    fi
 	   
    if test -z "$TCL_INCLUDE" ; then
-       AC_PATH_PROG(pkgConfig, pkg-config, "")
        if  ! test x$pkgConfig = "x"; then
            for i in tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
                $pkgConfig --exists $i
@@ -748,7 +753,7 @@ if test "$FAST_TCL_INTERP" = yes ; then
    if test "$ac_cv_header_tcl_h" != yes ; then
       rm -f makefile
       FOUND_ERROR=yes
-      MSG="Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h"
+      MSG="Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h.  You can also provide your own tcl installation.  Please set TCL_PKG_CONFIG_DIR to point to the directory containing tcl.pc. This is typically in <tcl-installation>/lib/pkgconfig"
       ERR_MSG="$ERR_MSG||$MSG"
       AC_MSG_NOTICE([$MSG])
    fi
