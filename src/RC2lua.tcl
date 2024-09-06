@@ -34,6 +34,53 @@
 #--
 #--------------------------------------------------------------------------
 
+array set g_state_defs [list\
+                           usergroups {<undef> findUserGroups}\
+                           username   {<undef> findUser}\
+                       ]
+proc findCmdPath {cmd} {
+   return [lindex [auto_execok $cmd] 0]
+}
+
+proc capture {cmd args} {
+   set path2cmd [findCmdPath $cmd]
+   if {$path2cmd eq {}} {
+      error "$cmd not found"
+   } else {
+      return [exec $path2cmd {*}$args]
+   }
+}
+
+
+proc findUserGroups {} {
+   return [capture id -G -n]
+}
+proc findUser {} {
+   return [capture id -u -n]
+}
+
+proc getState {state} {
+   if { ! [info exists ::g_states($state)]} {
+      if {[info exists ::g_state_defs($state)]} {
+         lassign $::g_state_defs($state) value initProc
+      } else {
+         set value <undef>
+         set initProc {}
+      }
+
+      if {$initProc ne {}} {
+         set value [$initProc]
+      }
+      set ::g_states($state) $value
+      return $value
+   } else {
+      return ::g_states($state)
+   }
+}
+      
+         
+
+
 proc initGA {} {
     global g_outputA
     unset -nocomplain g_outputA
@@ -174,6 +221,32 @@ proc showResults {} {
 	puts stdout "$my_output"
     }
 }
+
+proc module-info {what {extraArg {}}} {
+   switch -- $what {
+      username {
+         set myUser [getState username]
+         if {$extraArg ne {}} {
+            return [expr {$myUser eq $extraArg}]
+         } else {
+            return $myUser
+         }
+      }
+      usergroups {
+         if {$extraArg ne {}} {
+            return [expr {$extraArg in [getState usergroups]}]
+         } else {
+            return [getState usergroups]
+         }
+      }
+      default {
+         error "module-info what not supported"
+         return {}
+      }
+   }
+}
+
+
 
 proc main {mRcFile} {
     global env                 # Need this for .modulerc file that access global env vars.
