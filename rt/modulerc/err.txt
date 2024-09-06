@@ -1087,3 +1087,23 @@ cluster/a
 cluster/b
 cluster/c
 cluster/.defaultCluster <H> <F>
+===========================
+step 87
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A avail
+===========================
+ProjectDIR/rt/modulerc/mfD/Core
+   C/1.0          D/3.0 (NF,L)    cluster/a    cluster/.defaultCluster (H,F,D)
+   C/2.0          F/1.0 (NF)      cluster/b
+   C/3.0 (F,D)    H/1.0 (s,L)     cluster/c
+  Where:
+   D:   Default Module
+   F:   Forbidden Module
+   H:   Hidden Module
+   L:   Module is loaded
+   NF:  Nearly Forbidden Module
+   s:   Soft Hidden Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".

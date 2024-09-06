@@ -209,8 +209,11 @@ EOF
      runLmod    -A spider                              #84
      runLmod -t    spider                              #85
      runLmod -t -A spider                              #86
-      
 
+     mkdir -p $HOME/.cache/lmod
+     buildSpiderT $MODULEPATH > $HOME/.cache/lmod/spiderT.lua
+     runLmod -A    avail                               #87
+      
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new
