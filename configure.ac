@@ -746,7 +746,6 @@ if test "$FAST_TCL_INTERP" = yes ; then
               break
           fi
       done
-      fi  
    fi
 
    CPPFLAGS="$TCL_INCLUDE"
