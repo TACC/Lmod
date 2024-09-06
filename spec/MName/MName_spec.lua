@@ -3,6 +3,7 @@ local posix     = require("posix")
 
 require("strict")
 require("utils")
+require("string_utils")
 initialize_lmod()
 require("fileOps")
 
@@ -75,13 +76,14 @@ describe("Testing MName Class #MName.",
                        action = "match", fn = "%ProjDir%/spec/MName/mf/mpi/impi/64/5.0.3/048"},
                   }
 
+                  local projDirE = projDir:escape()
                   for i = 1, #goldA do
                      local gold     = goldA[i]
                      dbg.print{"RTM MName:new(\"load\", ",gold.value,",", gold.action,")\n"}
                      local mname    = MName:new("load", gold.value, gold.action)
                      dbg.print{"RTM MName:sn()\n"}
                      local sn       = mname:sn()
-                     local fn       = (mname:fn() or ""):gsub(projDir,"%%ProjDir%%")
+                     local fn       = (mname:fn() or ""):gsub(projDirE,"%%ProjDir%%")
                      local version  = mname:version()
                      dbg.print{"RTM MName:fullName()\n"}
                      local fullName = mname:fullName()
@@ -116,7 +118,7 @@ describe("Testing MName Class #MName.",
                      local gold     = goldA[i]
                      local mname    = MName:new("load", gold.value, gold.action, gold.is, gold.ie)
                      local sn       = mname:sn()
-                     local fn       = (mname:fn() or ""):gsub(projDir,"%%ProjDir%%")
+                     local fn       = (mname:fn() or ""):gsub(projDirE,"%%ProjDir%%")
                      local version  = mname:version()
                      local fullName = mname:fullName()
                      local g_full   = build_fullName(gold.sn, gold.version)
@@ -154,11 +156,12 @@ describe("Testing MName Class #MName.",
                        fn = "%ProjDir%/spec/MName/nv/bio/bt/3.9"},
                   }
 
+                  local projDirE = projDir:escape()
                   for i = 1, #goldA do
                      local gold     = goldA[i]
                      local mname    = MName:new("load", gold.value, gold.action)
                      local sn       = mname:sn()
-                     local fn       = (mname:fn() or ""):gsub(projDir,"%%ProjDir%%")
+                     local fn       = (mname:fn() or ""):gsub(projDirE,"%%ProjDir%%")
                      local version  = mname:version()
                      local fullName = mname:fullName()
                      local g_full   = build_fullName(gold.sn ,gold.version)
@@ -179,7 +182,7 @@ describe("Testing MName Class #MName.",
                      local gold     = goldA[i]
                      local mname    = MName:new("load", gold.value, gold.action, gold.is, gold.ie)
                      local sn       = mname:sn()
-                     local fn       = (mname:fn() or ""):gsub(projDir,"%%ProjDir%%")
+                     local fn       = (mname:fn() or ""):gsub(projDirE,"%%ProjDir%%")
                      local version  = mname:version()
                      local fullName = mname:fullName()
                      local g_full   = build_fullName(gold.sn, gold.version)
