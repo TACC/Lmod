@@ -714,8 +714,18 @@ fi
 
 if test "$FAST_TCL_INTERP" = yes ; then
    OS=$(uname -s)
-   AC_PATH_PROG(pkgConfig, pkg-config, "")
-   if test -n "$TCL_PKG_CONFIG_DIR" ; then
+   AC_PATH_PROG(pkgConfig, pkg-config, "UNKNOWN_PKG_CONFIG")
+   if test -n "$TCL_INCLUDE" -a -n "$TCL_LIBS"; then
+      echo "using TCL_INCLUDE: $TCL_INCLUDE"
+      echo "using TCL_LIBS:    $TCL_LIBS"
+   elif test -n "$TCL_PKG_CONFIG_DIR" ; then
+      if test "$pkgConfig" = "UNKNOWN_PKG_CONFIG" ; then
+         echo
+         echo   "You must have valid pkg-config in your path. Quitting!"
+         echo   
+         rm -f makefile
+         exit 1
+      fi   
       export PKG_CONFIG_PATH=$TCL_PKG_CONFIG_DIR
       TCL_INCLUDE=`$pkgConfig --cflags-only-I tcl 2> /dev/null`
       TCL_LIBS=`$pkgConfig --libs tcl`
@@ -733,16 +743,21 @@ if test "$FAST_TCL_INTERP" = yes ; then
    fi
 	   
    if test -z "$TCL_INCLUDE" ; then
-       if  ! test x$pkgConfig = "x"; then
-           for i in tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
-               $pkgConfig --exists $i
-               if test $? = 0; then
-                   TCL_INCLUDE=`PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 $pkgConfig --cflags-only-I $i 2> /dev/null`
-                   TCL_LIBS=`$pkgConfig --libs $i`
-                   break
-               fi
-           done
-       fi  
+      if test "$pkgConfig" = "UNKNOWN_PKG_CONFIG" ; then
+         echo
+         echo   "You must have valid pkg-config in your path. Quitting!"
+         echo   
+         rm -f makefile
+         exit 1
+      fi   
+      for i in tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
+          $pkgConfig --exists $i
+          if test $? = 0; then
+              TCL_INCLUDE=`PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 $pkgConfig --cflags-only-I $i 2> /dev/null`
+              TCL_LIBS=`$pkgConfig --libs $i`
+              break
+          fi
+      done
    fi
 
    CPPFLAGS="$TCL_INCLUDE"
@@ -753,7 +768,7 @@ if test "$FAST_TCL_INTERP" = yes ; then
    if test "$ac_cv_header_tcl_h" != yes ; then
       rm -f makefile
       FOUND_ERROR=yes
-      MSG="Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h.  You can also provide your own tcl installation.  Please set TCL_PKG_CONFIG_DIR to point to the directory containing tcl.pc. This is typically in <tcl-installation>/lib/pkgconfig"
+      MSG="Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h.  You can also provide your own tcl installation.  Please set TCL_PKG_CONFIG_DIR to point to the directory containing tcl.pc. This is typically in <tcl-installation>/lib/pkgconfig.  Or specify TCL_INCLUDE and TCL_LIBS w/o TCL_PKG_CONFIG_DIR"
       ERR_MSG="$ERR_MSG||$MSG"
       AC_MSG_NOTICE([$MSG])
    fi
