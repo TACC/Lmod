@@ -721,7 +721,7 @@ if test "$FAST_TCL_INTERP" = yes ; then
    elif test -n "$TCL_PKG_CONFIG_DIR" ; then
       if test "$pkgConfig" = "UNKNOWN_PKG_CONFIG" ; then
          echo
-         echo   'To use $TCL_PKG_CONFIG_DIR, you must have valid pkg-config in your path. Quitting!"
+         echo   'To use $TCL_PKG_CONFIG_DIR, you must have valid pkg-config in your path. Quitting!'
          echo   
          rm -f makefile
          exit 1
@@ -768,7 +768,7 @@ if test "$FAST_TCL_INTERP" = yes ; then
    if test "$ac_cv_header_tcl_h" != yes ; then
       rm -f makefile
       FOUND_ERROR=yes
-      MSG="Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h.  You can also provide your own tcl installation.  Please set TCL_PKG_CONFIG_DIR to point to the directory containing tcl.pc. This is typically in <tcl-installation>/lib/pkgconfig.  Or specify TCL_INCLUDE and TCL_LIBS w/o TCL_PKG_CONFIG_DIR.  If you use TCL_INCLUDE and TCL_LIBS you must provide the -I for TCL_INCLUDE and the -L -l to TCL_LIBS.  The directories alone are not sufficient!'
+      MSG="Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h.  You can also provide your own tcl installation.  Please set TCL_PKG_CONFIG_DIR to point to the directory containing tcl.pc. This is typically in <tcl-installation>/lib/pkgconfig.  Or specify TCL_INCLUDE and TCL_LIBS w/o TCL_PKG_CONFIG_DIR.  If you use TCL_INCLUDE and TCL_LIBS you must provide the -I for TCL_INCLUDE and the -L -l to TCL_LIBS.  The directories alone are not sufficient!"
       ERR_MSG="$ERR_MSG||$MSG"
       AC_MSG_NOTICE([$MSG])
    fi
