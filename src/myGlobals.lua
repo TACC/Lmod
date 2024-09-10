@@ -247,6 +247,13 @@ cosmic:init{name    = "LMOD_CONFIG_DIR",
             default = "/etc/lmod"}
 
 ------------------------------------------------------------------------
+-- LMOD_TERSE_DECORATIONS: Allow terse listing to be decorated
+------------------------------------------------------------------------
+cosmic:init{name    = "LMOD_TERSE_DECORATIONS",
+            sedV    = "@terse_decorations@",
+            default = "yes"}
+
+------------------------------------------------------------------------
 -- LMOD_PACKAGE_PATH: Colon separated list of directories to search for
 --                    SitePackage.lua
 ------------------------------------------------------------------------

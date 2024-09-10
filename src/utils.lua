@@ -870,15 +870,26 @@ function decorateModule(name, resultT, forbiddenT)
       s_decoyT = {
          forbiddenState = "normal"
       }
-      s_decorateT = {
-         normal  = "",
-         hidden  = " <H>",
-         soft    = " <H>",
-         forbid  = " <F>",
-         nearly  = " <NF>",
-      }
+      local decorate = cosmic:value("LMOD_TERSE_DECORATIONS")
+      if (decorate == "yes") then
+         s_decorateT = {
+            normal  = "",
+            hidden  = " <H>",
+            soft    = " <H>",
+            forbid  = " <F>",
+            nearly  = " <NF>",
+         }
+      else
+         s_decorateT = {
+            normal  = "",
+            hidden  = "",
+            soft    = "",
+            forbid  = "",
+            nearly  = "",
+         }
+      end
    end
-
+   
    local fT = forbiddenT
    if (not forbiddenT or next(forbiddenT) == nil) then
       fT = s_decoyT

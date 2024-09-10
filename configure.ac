@@ -510,6 +510,20 @@ AC_ARG_WITH(cachedLoads,
     CACHED_LOADS="$withval"
     AC_DEFINE_UNQUOTED(CACHED_LOADS, "$withval"))dnl
 
+AC_SUBST(TERSE_DECORATIONS)
+AC_ARG_WITH(terseDecorations,
+    AS_HELP_STRING([--with-terseDecorations=ans],[Allow for terse listing to be decorated. [[yes]]]),
+    TERSE_DECORATIONS="$withval"
+    TERSE_DECORATIONS=`echo $TERSE_DECORATIONS | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
+    VALID_YN $TERSE_DECORATIONS "--with-terseDecorations=ans: ans must be yes or no"
+    AC_MSG_RESULT([TERSE_DECORATIONS=$with_terseDecorations])
+    AC_DEFINE_UNQUOTED(TERSE_DECORATIONS, "$with_terseDecorations")dnl
+    ,
+    withval="yes"
+    AC_MSG_RESULT([TERSE_DECORATIONS=$withval])
+    TERSE_DECORATIONS="$withval"
+    AC_DEFINE_UNQUOTED(TERSE_DECORATIONS, "$withval"))dnl
+
 AC_SUBST(EXTENDED_DEFAULT)
 AC_ARG_WITH(extendedDefault,
     AS_HELP_STRING([--with-extendedDefault=ans],[Allow for extended default. [[yes]]]),
