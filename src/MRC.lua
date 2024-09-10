@@ -78,13 +78,7 @@ local l_buildMod2VersionT
 -- @param self A MRC object.
 
 local function l_new(self, fnA)
-   if (dbg.active()) then
-      local strFnA = "nil"
-      if (fnA and next(fnA) ~= nil) then
-         strFnA = concatTbl(fnA,", ")
-      end
-      dbg.start{"MRC l_new(fnA: ",strFnA,")"}
-   end
+   dbg.start{"MRC l_new(fnA)"}
    local o               = {}
    o.__mpathT            = {}  -- mpath dependent values for alias2modT, version2modT
                                -- and hiddenT.
