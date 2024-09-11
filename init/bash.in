@@ -25,12 +25,11 @@ fi
 
 __build_FPATH_for_zsh_ksh()
 {
-  (compinit -C 2> /dev/null)
-  if [ "$?" != 0 ]; then
-    zsh_fpath=$(unset FPATH; zsh -f -c 'echo $FPATH')
+  if ! (compinit -C 2> /dev/null) ; then
+    __zsh_fpath=$(unset FPATH; zsh -f -c 'echo $FPATH')
   fi
-  export FPATH=$(@PKGV@/libexec/addto --append FPATH ${zsh_fpath:-} @PKGV@/init/ksh_funcs)
-  unset zsh_fpath
+  export FPATH=$(@PKGV@/libexec/addto --append FPATH ${__zsh_fpath:-$FPATH} @PKGV@/init/ksh_funcs)
+  unset __zsh_fpath
 }
 
 if [ -n "${ZSH_VERSION+x}" ]; then
@@ -38,8 +37,7 @@ if [ -n "${ZSH_VERSION+x}" ]; then
 fi
 
 if [ -n "${KSH_VERSION+x}" -o -n "${BASH_VERSION+x}" ]; then
-  type zsh > /dev/null 2>&1
-  if [ "$?" = 0 ]; then
+  if command -v zsh > /dev/null; then
     __build_FPATH_for_zsh_ksh 
   else
     export FPATH=$(@PKGV@/libexec/addto --append FPATH ${FPATH:-} @PKGV@/init/ksh_funcs)
