@@ -1844,7 +1844,7 @@ end
 
 
 function M.userInGroups(self, ...)
-   local grps   = capture("groups")
+   local grps   = capture("groups 2> /dev/null")
    local argA   = pack(...)
    for g in grps:split("[ \n]") do
       for i = 1, argA.n do
@@ -1854,7 +1854,7 @@ function M.userInGroups(self, ...)
          end
       end
    end
-   local userId = capture("id -u")
+   local userId = capture("id -u 2> /dev/null")
    local isRoot = tonumber(userId) == 0
    if (isRoot) then
       return true
