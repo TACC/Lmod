@@ -486,6 +486,7 @@ end
 
 -- modT is a table with: sn, fullName and fn
 function M.isVisible(self, modT)
+   dbg.start{"MRC:isVisible(modT}"}
    local frameStk  = require("FrameStk"):singleton()
    local mname     = frameStk:mname()
    local mt        = frameStk:mt()
@@ -508,6 +509,7 @@ function M.isVisible(self, modT)
    modT.mt        = mt
    hook.apply("isVisibleHook", modT)
 
+   dbg.fini("MRC:isVisible")
    return modT.isVisible
 end
 

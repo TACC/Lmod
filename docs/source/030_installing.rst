@@ -284,7 +284,7 @@ specify where the .modulespath file is located in order of priority:
 The format of this file is::
 
     # comments are allowed as well as wildcards
-    /apps/modulefiles/\*
+    /apps/modulefiles/*
     /apps/other_modulefiles
 
 If this file exists then MODULEPATH_ROOT method is not used.

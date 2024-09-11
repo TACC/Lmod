@@ -156,15 +156,6 @@ describe("Testing ModuleA Class #ModuleA.",
                               defaultT = {},
                               dirT = {},
                               fileT = {
-                                 ["boost/.version.1.46.0"]  = {
-                                    ["Version"] = ".version.1.46.0",
-                                    ["canonical"] = ".version.1.46.0",
-                                    ["dot_version"] = 1,
-                                    ["fn"] = "%ProjDir%/spec/ModuleA/mf/boost/.version.1.46.0",
-                                    ["mpath"] = "%ProjDir%/spec/ModuleA/mf",
-                                    ["pV"] = "*version.000000001.000000046.*zfinal",
-                                    ["wV"] = "*version.000000001.000000046.*zfinal",
-                                 },
                                  ["boost/1.46.0"]  = {
                                     ["Version"] = "1.46.0",
                                     ["canonical"] = "1.46.0",

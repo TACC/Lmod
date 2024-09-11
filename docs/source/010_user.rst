@@ -36,6 +36,17 @@ The above command is short for::
     $ module unload gcc
     $ module load intel
 
+To remove all modules do::
+
+    $ module purge
+
+This will remove all modules.  Lmod will try to reload any sticky
+modules.
+
+To remove all modules including sticky modules do::
+
+    $ module --force purge
+
 A user may wish to go back to an initial set of modules::
 
     $ module reset
