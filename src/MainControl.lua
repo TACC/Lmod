@@ -1824,7 +1824,6 @@ function M.LmodBreak(self, msg)
       shell:echo(concatTbl(b,""))
    end
 
-
    if (msg and msg ~= "") then
       LmodMessage(msg)
    end
@@ -1840,8 +1839,6 @@ function M.LmodBreak(self, msg)
    error({code="LmodBreak"})
    dbg.fini("MainControl:LmodBreak")
 end
-
-
 
 function M.userInGroups(self, ...)
    local grps   = capture("groups 2> /dev/null")

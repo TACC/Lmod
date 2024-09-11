@@ -40,9 +40,9 @@ function myConfig(key)
       return result
    end
    if (key == "username") then
-      result = capture("id -u -n"):gsub("\n","")
+      result = capture("id -u -n 2> /dev/null"):gsub("\n","")
    elseif (key == "usergroups") then
-      local s = capture("id -G -n"):gsub("\n","")
+      local s = capture("id -G -n 2> /dev/null"):gsub("\n","")
       local a = {}
       for g in s:split(" ") do
          a[#a+1] = g

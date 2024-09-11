@@ -126,7 +126,7 @@ function getUname()
    t.machFamilyName = machFamilyName
    t.os_mach        = osName .. '-' .. machName
    t.target         = os.getenv("TARGET") or ""
-   t.hostName       = capture("hostname -f"):gsub("%s+","")
+   t.hostName       = capture("hostname -f 2> /dev/null"):gsub("%s+","")
 
    s_t = t
    return t
