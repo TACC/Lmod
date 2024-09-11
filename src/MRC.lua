@@ -457,6 +457,7 @@ function M.export(self)
    a[1] = serializeTbl{indent = true, name = "mrcT",      value = t         }
    a[2] = serializeTbl{indent = true, name = "mrcMpathT", value = mrcMpathT }
    return concatTbl(a,"\n")
+   --return serializeTbl{indent = true, name = "mrcMpathT", value = mrcMpathT }
 end
 
 
