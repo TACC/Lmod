@@ -142,7 +142,7 @@ proc parseMyArgs {args} {
                set v [string trimleft $arg -]
                dict set argT kind "\"$v\""
             }
-            --hidden_load {
+            --hidden-load {
                dict set argT hidden_load true
             }
             --not-group - --not-user - --group - --user {
