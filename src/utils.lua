@@ -280,7 +280,7 @@ function colorizePropA(style, mt, modT, mrc, propT, legendT, forbiddenT)
       moduleName = colorize("hidden",modT.fullName)
       pA[#pA+1]  = H
       legendT[H] = i18n(msg)
-      if (resultT.moduleKindT.hidden_load) then
+      if (resultT.moduleKindT.hidden_loaded) then
          pA[#pA+1]     = "HL"
          legendT["HL"] = i18n("HiddenLoadM")
       end

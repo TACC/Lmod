@@ -142,8 +142,8 @@ proc parseMyArgs {args} {
                set v [string trimleft $arg -]
                dict set argT kind "\"$v\""
             }
-            --hidden-load {
-               dict set argT hidden_load true
+            --hidden-loaded {
+               dict set argT hidden_loaded true
             }
             --not-group - --not-user - --group - --user {
                set nextKeyA [string map {- {}} $arg]T

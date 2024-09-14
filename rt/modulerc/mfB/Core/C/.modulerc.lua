@@ -1,1 +1,1 @@
-hide{name="C",kind="soft",hidden_load=true}
+hide{name="C",kind="soft",hidden_loaded=true}

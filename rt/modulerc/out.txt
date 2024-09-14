@@ -1413,7 +1413,7 @@ MODULEPATH=ProjectDIR/rt/modulerc/mfB/Core;
 export MODULEPATH;
 _LMFILES_=ProjectDIR/rt/modulerc/mfB/Core/ABC/2.5.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ABC={fn="ProjectDIR/rt/modulerc/mfB/Core/ABC/2.5.lua",fullName="ABC/2.5",loadOrder=1,moduleKindT={hidden_load=true,kind="soft",},propT={},stackDepth=0,status="active",userName="ABC/2.5",wV="000000002.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfB/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfB/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ABC={fn="ProjectDIR/rt/modulerc/mfB/Core/ABC/2.5.lua",fullName="ABC/2.5",loadOrder=1,moduleKindT={hidden_loaded=true,kind="soft",},propT={},stackDepth=0,status="active",userName="ABC/2.5",wV="000000002.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfB/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfB/Core",}';
 export _ModuleTable_;
 ===========================
 step 56
@@ -1421,7 +1421,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/modulerc/mfB/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ABC={fn="ProjectDIR/rt/modulerc/mfB/Core/ABC/2.5.lua",fullName="ABC/2.5",loadOrder=1,moduleKindT={hidden_load=true,kind="soft",},propT={},stackDepth=0,status="active",userName="ABC/2.5",wV="000000002.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfB/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfB/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ABC={fn="ProjectDIR/rt/modulerc/mfB/Core/ABC/2.5.lua",fullName="ABC/2.5",loadOrder=1,moduleKindT={hidden_loaded=true,kind="soft",},propT={},stackDepth=0,status="active",userName="ABC/2.5",wV="000000002.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfB/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfB/Core",}';
 export _ModuleTable_;
 ===========================
 step 57
@@ -1429,7 +1429,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A list
 ===========================
 MODULEPATH=ProjectDIR/rt/modulerc/mfB/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ABC={fn="ProjectDIR/rt/modulerc/mfB/Core/ABC/2.5.lua",fullName="ABC/2.5",loadOrder=1,moduleKindT={hidden_load=true,kind="soft",},propT={},stackDepth=0,status="active",userName="ABC/2.5",wV="000000002.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfB/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfB/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ABC={fn="ProjectDIR/rt/modulerc/mfB/Core/ABC/2.5.lua",fullName="ABC/2.5",loadOrder=1,moduleKindT={hidden_loaded=true,kind="soft",},propT={},stackDepth=0,status="active",userName="ABC/2.5",wV="000000002.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfB/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfB/Core",}';
 export _ModuleTable_;
 ===========================
 step 58
@@ -1437,7 +1437,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
 ===========================
 MODULEPATH=ProjectDIR/rt/modulerc/mfB/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ABC={fn="ProjectDIR/rt/modulerc/mfB/Core/ABC/2.5.lua",fullName="ABC/2.5",loadOrder=1,moduleKindT={hidden_load=true,kind="soft",},propT={},stackDepth=0,status="active",userName="ABC/2.5",wV="000000002.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfB/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfB/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ABC={fn="ProjectDIR/rt/modulerc/mfB/Core/ABC/2.5.lua",fullName="ABC/2.5",loadOrder=1,moduleKindT={hidden_loaded=true,kind="soft",},propT={},stackDepth=0,status="active",userName="ABC/2.5",wV="000000002.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfB/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfB/Core",}';
 export _ModuleTable_;
 ===========================
 step 59
@@ -1445,7 +1445,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 MODULEPATH=ProjectDIR/rt/modulerc/mfB/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ABC={fn="ProjectDIR/rt/modulerc/mfB/Core/ABC/2.5.lua",fullName="ABC/2.5",loadOrder=1,moduleKindT={hidden_load=true,kind="soft",},propT={},stackDepth=0,status="active",userName="ABC/2.5",wV="000000002.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfB/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfB/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ABC={fn="ProjectDIR/rt/modulerc/mfB/Core/ABC/2.5.lua",fullName="ABC/2.5",loadOrder=1,moduleKindT={hidden_loaded=true,kind="soft",},propT={},stackDepth=0,status="active",userName="ABC/2.5",wV="000000002.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfB/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfB/Core",}';
 export _ModuleTable_;
 ===========================
 step 60
@@ -1469,7 +1469,7 @@ mrcMpathT = {
       },
       ["ABC/2.5"] = {
         action = "hide",
-        hidden_load = true,
+        hidden_loaded = true,
         kind = "soft",
         name = "ABC/2.5",
       },
@@ -1510,13 +1510,13 @@ mrcMpathT = {
       },
       C = {
         action = "hide",
-        hidden_load = true,
+        hidden_loaded = true,
         kind = "soft",
         name = "C",
       },
       E = {
         action = "hide",
-        hidden_load = true,
+        hidden_loaded = true,
         kind = "soft",
         name = "E",
       },
@@ -2017,7 +2017,7 @@ MODULEPATH=ProjectDIR/rt/modulerc/mfB/Core;
 export MODULEPATH;
 _LMFILES_=ProjectDIR/rt/modulerc/mfB/Core/ABC/2.5.lua:ProjectDIR/rt/modulerc/mfB/Core/C/3.0.lua:ProjectDIR/rt/modulerc/mfB/Core/D/1.1.lua:ProjectDIR/rt/modulerc/mfB/Core/E/3.0.lua:ProjectDIR/rt/modulerc/mfB/Core/F/2.1.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ABC={fn="ProjectDIR/rt/modulerc/mfB/Core/ABC/2.5.lua",fullName="ABC/2.5",loadOrder=1,moduleKindT={hidden_load=true,kind="soft",},propT={},stackDepth=0,status="active",userName="ABC/2.5",wV="000000002.000000005.*zfinal",},C={fn="ProjectDIR/rt/modulerc/mfB/Core/C/3.0.lua",fullName="C/3.0",loadOrder=2,moduleKindT={hidden_load=true,kind="soft",},propT={},stackDepth=0,status="active",userName="C",wV="000000003.*zfinal",},D={fn="ProjectDIR/rt/modulerc/mfB/Core/D/1.1.lua",fullName="D/1.1",loadOrder=3,propT={},stackDepth=0,status="active",userName="D",wV="000000001.000000001.*zfinal",},E={fn="ProjectDIR/rt/modulerc/mfB/Core/E/3.0.lua",fullName="E/3.0",loadOrder=4,moduleKindT={hidden_load=true,kind="soft",},propT={},stackDepth=0,status="active",userName="E",wV="000000003.*zfinal",},F={fn="ProjectDIR/rt/modulerc/mfB/Core/F/2.1.lua",fullName="F/2.1",loadOrder=5,propT={},stackDepth=0,status="active",userName="F",wV="000000002.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfB/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfB/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ABC={fn="ProjectDIR/rt/modulerc/mfB/Core/ABC/2.5.lua",fullName="ABC/2.5",loadOrder=1,moduleKindT={hidden_loaded=true,kind="soft",},propT={},stackDepth=0,status="active",userName="ABC/2.5",wV="000000002.000000005.*zfinal",},C={fn="ProjectDIR/rt/modulerc/mfB/Core/C/3.0.lua",fullName="C/3.0",loadOrder=2,moduleKindT={hidden_loaded=true,kind="soft",},propT={},stackDepth=0,status="active",userName="C",wV="000000003.*zfinal",},D={fn="ProjectDIR/rt/modulerc/mfB/Core/D/1.1.lua",fullName="D/1.1",loadOrder=3,propT={},stackDepth=0,status="active",userName="D",wV="000000001.000000001.*zfinal",},E={fn="ProjectDIR/rt/modulerc/mfB/Core/E/3.0.lua",fullName="E/3.0",loadOrder=4,moduleKindT={hidden_loaded=true,kind="soft",},propT={},stackDepth=0,status="active",userName="E",wV="000000003.*zfinal",},F={fn="ProjectDIR/rt/modulerc/mfB/Core/F/2.1.lua",fullName="F/2.1",loadOrder=5,propT={},stackDepth=0,status="active",userName="F",wV="000000002.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfB/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfB/Core",}';
 export _ModuleTable_;
 ===========================
 step 63
@@ -2029,7 +2029,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/modulerc/mfB/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ABC={fn="ProjectDIR/rt/modulerc/mfB/Core/ABC/2.5.lua",fullName="ABC/2.5",loadOrder=1,moduleKindT={hidden_load=true,kind="soft",},propT={},stackDepth=0,status="active",userName="ABC/2.5",wV="000000002.000000005.*zfinal",},C={fn="ProjectDIR/rt/modulerc/mfB/Core/C/3.0.lua",fullName="C/3.0",loadOrder=2,moduleKindT={hidden_load=true,kind="soft",},propT={},stackDepth=0,status="active",userName="C",wV="000000003.*zfinal",},D={fn="ProjectDIR/rt/modulerc/mfB/Core/D/1.1.lua",fullName="D/1.1",loadOrder=3,propT={},stackDepth=0,status="active",userName="D",wV="000000001.000000001.*zfinal",},E={fn="ProjectDIR/rt/modulerc/mfB/Core/E/3.0.lua",fullName="E/3.0",loadOrder=4,moduleKindT={hidden_load=true,kind="soft",},propT={},stackDepth=0,status="active",userName="E",wV="000000003.*zfinal",},F={fn="ProjectDIR/rt/modulerc/mfB/Core/F/2.1.lua",fullName="F/2.1",loadOrder=5,propT={},stackDepth=0,status="active",userName="F",wV="000000002.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfB/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfB/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ABC={fn="ProjectDIR/rt/modulerc/mfB/Core/ABC/2.5.lua",fullName="ABC/2.5",loadOrder=1,moduleKindT={hidden_loaded=true,kind="soft",},propT={},stackDepth=0,status="active",userName="ABC/2.5",wV="000000002.000000005.*zfinal",},C={fn="ProjectDIR/rt/modulerc/mfB/Core/C/3.0.lua",fullName="C/3.0",loadOrder=2,moduleKindT={hidden_loaded=true,kind="soft",},propT={},stackDepth=0,status="active",userName="C",wV="000000003.*zfinal",},D={fn="ProjectDIR/rt/modulerc/mfB/Core/D/1.1.lua",fullName="D/1.1",loadOrder=3,propT={},stackDepth=0,status="active",userName="D",wV="000000001.000000001.*zfinal",},E={fn="ProjectDIR/rt/modulerc/mfB/Core/E/3.0.lua",fullName="E/3.0",loadOrder=4,moduleKindT={hidden_loaded=true,kind="soft",},propT={},stackDepth=0,status="active",userName="E",wV="000000003.*zfinal",},F={fn="ProjectDIR/rt/modulerc/mfB/Core/F/2.1.lua",fullName="F/2.1",loadOrder=5,propT={},stackDepth=0,status="active",userName="F",wV="000000002.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfB/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfB/Core",}';
 export _ModuleTable_;
 ===========================
 step 65
@@ -2037,7 +2037,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden list
 ===========================
 MODULEPATH=ProjectDIR/rt/modulerc/mfB/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ABC={fn="ProjectDIR/rt/modulerc/mfB/Core/ABC/2.5.lua",fullName="ABC/2.5",loadOrder=1,moduleKindT={hidden_load=true,kind="soft",},propT={},stackDepth=0,status="active",userName="ABC/2.5",wV="000000002.000000005.*zfinal",},C={fn="ProjectDIR/rt/modulerc/mfB/Core/C/3.0.lua",fullName="C/3.0",loadOrder=2,moduleKindT={hidden_load=true,kind="soft",},propT={},stackDepth=0,status="active",userName="C",wV="000000003.*zfinal",},D={fn="ProjectDIR/rt/modulerc/mfB/Core/D/1.1.lua",fullName="D/1.1",loadOrder=3,propT={},stackDepth=0,status="active",userName="D",wV="000000001.000000001.*zfinal",},E={fn="ProjectDIR/rt/modulerc/mfB/Core/E/3.0.lua",fullName="E/3.0",loadOrder=4,moduleKindT={hidden_load=true,kind="soft",},propT={},stackDepth=0,status="active",userName="E",wV="000000003.*zfinal",},F={fn="ProjectDIR/rt/modulerc/mfB/Core/F/2.1.lua",fullName="F/2.1",loadOrder=5,propT={},stackDepth=0,status="active",userName="F",wV="000000002.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfB/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfB/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ABC={fn="ProjectDIR/rt/modulerc/mfB/Core/ABC/2.5.lua",fullName="ABC/2.5",loadOrder=1,moduleKindT={hidden_loaded=true,kind="soft",},propT={},stackDepth=0,status="active",userName="ABC/2.5",wV="000000002.000000005.*zfinal",},C={fn="ProjectDIR/rt/modulerc/mfB/Core/C/3.0.lua",fullName="C/3.0",loadOrder=2,moduleKindT={hidden_loaded=true,kind="soft",},propT={},stackDepth=0,status="active",userName="C",wV="000000003.*zfinal",},D={fn="ProjectDIR/rt/modulerc/mfB/Core/D/1.1.lua",fullName="D/1.1",loadOrder=3,propT={},stackDepth=0,status="active",userName="D",wV="000000001.000000001.*zfinal",},E={fn="ProjectDIR/rt/modulerc/mfB/Core/E/3.0.lua",fullName="E/3.0",loadOrder=4,moduleKindT={hidden_loaded=true,kind="soft",},propT={},stackDepth=0,status="active",userName="E",wV="000000003.*zfinal",},F={fn="ProjectDIR/rt/modulerc/mfB/Core/F/2.1.lua",fullName="F/2.1",loadOrder=5,propT={},stackDepth=0,status="active",userName="F",wV="000000002.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfB/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfB/Core",}';
 export _ModuleTable_;
 ===========================
 step 66
@@ -2045,7 +2045,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 MODULEPATH=ProjectDIR/rt/modulerc/mfB/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ABC={fn="ProjectDIR/rt/modulerc/mfB/Core/ABC/2.5.lua",fullName="ABC/2.5",loadOrder=1,moduleKindT={hidden_load=true,kind="soft",},propT={},stackDepth=0,status="active",userName="ABC/2.5",wV="000000002.000000005.*zfinal",},C={fn="ProjectDIR/rt/modulerc/mfB/Core/C/3.0.lua",fullName="C/3.0",loadOrder=2,moduleKindT={hidden_load=true,kind="soft",},propT={},stackDepth=0,status="active",userName="C",wV="000000003.*zfinal",},D={fn="ProjectDIR/rt/modulerc/mfB/Core/D/1.1.lua",fullName="D/1.1",loadOrder=3,propT={},stackDepth=0,status="active",userName="D",wV="000000001.000000001.*zfinal",},E={fn="ProjectDIR/rt/modulerc/mfB/Core/E/3.0.lua",fullName="E/3.0",loadOrder=4,moduleKindT={hidden_load=true,kind="soft",},propT={},stackDepth=0,status="active",userName="E",wV="000000003.*zfinal",},F={fn="ProjectDIR/rt/modulerc/mfB/Core/F/2.1.lua",fullName="F/2.1",loadOrder=5,propT={},stackDepth=0,status="active",userName="F",wV="000000002.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfB/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfB/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ABC={fn="ProjectDIR/rt/modulerc/mfB/Core/ABC/2.5.lua",fullName="ABC/2.5",loadOrder=1,moduleKindT={hidden_loaded=true,kind="soft",},propT={},stackDepth=0,status="active",userName="ABC/2.5",wV="000000002.000000005.*zfinal",},C={fn="ProjectDIR/rt/modulerc/mfB/Core/C/3.0.lua",fullName="C/3.0",loadOrder=2,moduleKindT={hidden_loaded=true,kind="soft",},propT={},stackDepth=0,status="active",userName="C",wV="000000003.*zfinal",},D={fn="ProjectDIR/rt/modulerc/mfB/Core/D/1.1.lua",fullName="D/1.1",loadOrder=3,propT={},stackDepth=0,status="active",userName="D",wV="000000001.000000001.*zfinal",},E={fn="ProjectDIR/rt/modulerc/mfB/Core/E/3.0.lua",fullName="E/3.0",loadOrder=4,moduleKindT={hidden_loaded=true,kind="soft",},propT={},stackDepth=0,status="active",userName="E",wV="000000003.*zfinal",},F={fn="ProjectDIR/rt/modulerc/mfB/Core/F/2.1.lua",fullName="F/2.1",loadOrder=5,propT={},stackDepth=0,status="active",userName="F",wV="000000002.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfB/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfB/Core",}';
 export _ModuleTable_;
 ===========================
 step 67
@@ -2053,7 +2053,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A spider
 ===========================
 MODULEPATH=ProjectDIR/rt/modulerc/mfB/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ABC={fn="ProjectDIR/rt/modulerc/mfB/Core/ABC/2.5.lua",fullName="ABC/2.5",loadOrder=1,moduleKindT={hidden_load=true,kind="soft",},propT={},stackDepth=0,status="active",userName="ABC/2.5",wV="000000002.000000005.*zfinal",},C={fn="ProjectDIR/rt/modulerc/mfB/Core/C/3.0.lua",fullName="C/3.0",loadOrder=2,moduleKindT={hidden_load=true,kind="soft",},propT={},stackDepth=0,status="active",userName="C",wV="000000003.*zfinal",},D={fn="ProjectDIR/rt/modulerc/mfB/Core/D/1.1.lua",fullName="D/1.1",loadOrder=3,propT={},stackDepth=0,status="active",userName="D",wV="000000001.000000001.*zfinal",},E={fn="ProjectDIR/rt/modulerc/mfB/Core/E/3.0.lua",fullName="E/3.0",loadOrder=4,moduleKindT={hidden_load=true,kind="soft",},propT={},stackDepth=0,status="active",userName="E",wV="000000003.*zfinal",},F={fn="ProjectDIR/rt/modulerc/mfB/Core/F/2.1.lua",fullName="F/2.1",loadOrder=5,propT={},stackDepth=0,status="active",userName="F",wV="000000002.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfB/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfB/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ABC={fn="ProjectDIR/rt/modulerc/mfB/Core/ABC/2.5.lua",fullName="ABC/2.5",loadOrder=1,moduleKindT={hidden_loaded=true,kind="soft",},propT={},stackDepth=0,status="active",userName="ABC/2.5",wV="000000002.000000005.*zfinal",},C={fn="ProjectDIR/rt/modulerc/mfB/Core/C/3.0.lua",fullName="C/3.0",loadOrder=2,moduleKindT={hidden_loaded=true,kind="soft",},propT={},stackDepth=0,status="active",userName="C",wV="000000003.*zfinal",},D={fn="ProjectDIR/rt/modulerc/mfB/Core/D/1.1.lua",fullName="D/1.1",loadOrder=3,propT={},stackDepth=0,status="active",userName="D",wV="000000001.000000001.*zfinal",},E={fn="ProjectDIR/rt/modulerc/mfB/Core/E/3.0.lua",fullName="E/3.0",loadOrder=4,moduleKindT={hidden_loaded=true,kind="soft",},propT={},stackDepth=0,status="active",userName="E",wV="000000003.*zfinal",},F={fn="ProjectDIR/rt/modulerc/mfB/Core/F/2.1.lua",fullName="F/2.1",loadOrder=5,propT={},stackDepth=0,status="active",userName="F",wV="000000002.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfB/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfB/Core",}';
 export _ModuleTable_;
 ===========================
 step 68

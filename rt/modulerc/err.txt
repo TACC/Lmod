@@ -733,7 +733,7 @@ _ModuleTable_ = {
       fullName = "ABC/2.5",
       loadOrder = 1,
       moduleKindT = {
-        hidden_load = true,
+        hidden_loaded = true,
         kind = "soft",
       },
       propT = {},
@@ -747,7 +747,7 @@ _ModuleTable_ = {
       fullName = "C/3.0",
       loadOrder = 2,
       moduleKindT = {
-        hidden_load = true,
+        hidden_loaded = true,
         kind = "soft",
       },
       propT = {},
@@ -771,7 +771,7 @@ _ModuleTable_ = {
       fullName = "E/3.0",
       loadOrder = 4,
       moduleKindT = {
-        hidden_load = true,
+        hidden_loaded = true,
         kind = "soft",
       },
       propT = {},

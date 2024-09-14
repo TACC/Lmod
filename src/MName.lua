@@ -298,11 +298,11 @@ function M.moduleKindT(self)
    if (not self.__moduleKindT) then
       return nil
    end
-   local moduleKindT = self.__moduleKindT
-   local hidden_load = moduleKindT.hidden_load or nil
+   local moduleKindT   = self.__moduleKindT
+   local hidden_loaded = moduleKindT.hidden_loaded or nil
    local t = nil
    if (moduleKindT.kind ~= "normal") then
-      t = {kind = moduleKindT.kind, hidden_load = hidden_load} 
+      t = {kind = moduleKindT.kind, hidden_loaded = hidden_loaded} 
    end
    return t
 end

@@ -444,7 +444,7 @@ function List(...)
       local fullName = entry.fullName
       local origName = entry.origUserName or ""
       local showMe   = true
-      if (entry.moduleKindT.hidden_load) then
+      if (entry.moduleKindT.hidden_loaded) then
          showMe       = show_hidden
          have_hiddenL = not show_hidden
       end

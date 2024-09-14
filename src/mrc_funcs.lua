@@ -154,16 +154,16 @@ end
 
 
 local hide_rulesT = {
-   action      = {kind="string", choiceT = {hide = true}},
-   nameA       = {kind="stringArray"},
-   userA       = {kind="stringArray"},
-   groupA      = {kind="stringArray"},
-   notUserA    = {kind="stringArray"},
-   notGroupA   = {kind="stringArray"},
-   after       = {kind="string"},
-   before      = {kind="string"},
-   kind        = {kind="string", choiceT = {hard = true, normal = true, soft = true, hidden = true}},
-   hidden_load = {kind="boolean"},
+   action        = {kind="string", choiceT = {hide = true}},
+   nameA         = {kind="stringArray"},
+   userA         = {kind="stringArray"},
+   groupA        = {kind="stringArray"},
+   notUserA      = {kind="stringArray"},
+   notGroupA     = {kind="stringArray"},
+   after         = {kind="string"},
+   before        = {kind="string"},
+   kind          = {kind="string", choiceT = {hard = true, soft = true, hidden = true}},
+   hidden_loaded = {kind="boolean"},
 }
 
 function hide(t)
