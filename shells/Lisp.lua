@@ -80,9 +80,9 @@ function Lisp.expandVar(self, k, v, vType)
    v                 = tostring(v):multiEscaped()
    lineA[#lineA + 1] = "(setenv \""
    lineA[#lineA + 1] = k
-   lineA[#lineA + 1] = "\" "
+   lineA[#lineA + 1] = "\" \""
    lineA[#lineA + 1] = v
-   lineA[#lineA + 1] = ")\n"
+   lineA[#lineA + 1] = "\")\n"
    local line = concatTbl(lineA,"")
    stdout:write(line)
    if (k:find('^_ModuleTable') == nil) then
