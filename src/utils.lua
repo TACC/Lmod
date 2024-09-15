@@ -347,10 +347,6 @@ function colorizePropA(style, mt, modT, mrc, propT, legendT, forbiddenT)
    return resultA
 end
 
-
-
-
-
 local __expert = false
 --------------------------------------------------------------------------
 -- Return true if in expert mode.
