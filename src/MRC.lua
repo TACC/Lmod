@@ -457,6 +457,7 @@ function M.export(self)
    a[1] = serializeTbl{indent = true, name = "mrcT",      value = t         }
    a[2] = serializeTbl{indent = true, name = "mrcMpathT", value = mrcMpathT }
    return concatTbl(a,"\n")
+   --return serializeTbl{indent = true, name = "mrcMpathT", value = mrcMpathT }
 end
 
 
@@ -633,9 +634,9 @@ local function l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden
                           l_check_user_groups(resultT))
 
    if (not hide_active) then
-      --     isVisible, hidden_load, kind,     count
+      --     isVisible, hidden_loaded, kind,     count
       dbg.fini("l_check_hidden_modifiers")
-      return true,      false,       "normal", true
+      return true,      false,         "normal", true
    end
    local isVisible
    if (show_hidden) then
@@ -648,32 +649,32 @@ local function l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden
 
    dbg.print{"fullName: ",fullName,", resultT.kind: ", resultT.kind, ", count: ",count,"\n"}
    dbg.fini("l_check_hidden_modifiers")
-   return isVisible, resultT.hidden_load, resultT.kind, count
+   return isVisible, resultT.hidden_loaded, resultT.kind, count
 end
 
 
 -- modT is a table with: sn, fullName and fn
 function M.isVisible(self, modT)
    dbg.start{"MRC:isVisible(modT}"}
-   local frameStk    = require("FrameStk"):singleton()
-   local mname       = frameStk:mname()
-   local mt          = frameStk:mt()
-   local mpathA      = modT.mpathA or mt:modulePathA()
-   local fullName    = modT.fullName
-   local fn          = modT.fn
-   local sn          = modT.sn
-   local show_hidden = modT.show_hidden
-   local isVisible   = true
-   local visibleT    = modT.visibleT or {}
-   local kind        = "normal"
-   local hidden_load = false
-   local count       = false
-   local my_resultT  = nil
+   local frameStk      = require("FrameStk"):singleton()
+   local mname         = frameStk:mname()
+   local mt            = frameStk:mt()
+   local mpathA        = modT.mpathA or mt:modulePathA()
+   local fullName      = modT.fullName
+   local fn            = modT.fn
+   local sn            = modT.sn
+   local show_hidden   = modT.show_hidden
+   local isVisible     = true
+   local visibleT      = modT.visibleT or {}
+   local kind          = "normal"
+   local hidden_loaded = false
+   local count         = false
+   local my_resultT    = nil
    ------------------------------------------------------------
    -- resultT is nil if the modulefile is normal or
    -- {kind="hidden|soft|hard"
    --   before="<time>" after="<time>",
-   --   hidden_load = true|nil, }
+   --   hidden_loaded = true|nil, }
    -- if hidden.
 
    
@@ -697,7 +698,7 @@ function M.isVisible(self, modT)
    local resultT     = l_findHiddenState(self, mpathA, sn, fullName, fn) 
    if (type(resultT) == "table" ) then
       --dbg.printT("from hidden State resultT",resultT)
-      isVisible, hidden_load, kind, count = l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)
+      isVisible, hidden_loaded, kind, count = l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)
    elseif (fullName:sub(1,1) == ".") then
       isVisible = (visibleT.hidden == true or show_hidden)
       count     = show_hidden
@@ -709,18 +710,18 @@ function M.isVisible(self, modT)
       count     = show_hidden or (idx == nil) 
    end
 
-   modT.isVisible   = isVisible
-   modT.mname       = mname
-   modT.kind        = kind
-   modT.mt          = mt
-   modT.hidden_load = hidden_load
+   modT.isVisible     = isVisible
+   modT.mname         = mname
+   modT.kind          = kind
+   modT.mt            = mt
+   modT.hidden_loaded = hidden_loaded
    hook.apply("isVisibleHook", modT)
 
    my_resultT       = { isVisible = modT.isVisible,
-                        moduleKindT = {kind=modT.kind, hidden_load = modT.hidden_load}, 
+                        moduleKindT = {kind=modT.kind, hidden_loaded = modT.hidden_loaded}, 
                         count = count }
    
-   --dbg.print{"fullName: ",fullName,", isVisible: ",isVisible,", kind: ",kind,", show_hidden: ", show_hidden,", count: ",count,", hidden_load: ",hidden_load,"\n"}
+   --dbg.print{"fullName: ",fullName,", isVisible: ",isVisible,", kind: ",kind,", show_hidden: ", show_hidden,", count: ",count,", hidden_loaded: ",hidden_loaded,"\n"}
    --dbg.printT("my_resultT",my_resultT)
    dbg.fini("MRC:isVisible")
    return my_resultT
