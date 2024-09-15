@@ -318,6 +318,7 @@ function M.__find_all_defaults(self)
             for fullName, vv in pairs(v.fileT) do
                local wV  = mrc:find_wght_for_fullName(fullName, vv.wV)
                local vis = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn} or isMarked(wV)
+               dbg.print{"fullName: ",fullName,", vis: ",vis,"\n"}
                if (show_hidden or vis) then
                   count = count + 1
                   if (vis and (wV > weight)) then
@@ -372,15 +373,19 @@ function M.build_availA(self)
    local function l_build_availA_helper(mpath, sn, v, A)
       local icnt = #A
       if (v.file ) then
+         dbg.print{"v.file: ",v.file,"\n"}
          if (show_hidden or mrc:isVisible{fullName=sn,sn=sn,fn=v.file}) then
             local metaModuleT = v.metaModuleT or {}
+            dbg.print{"saving v.file: ",v.file,"\n"}
             A[icnt+1] = { fullName = sn, pV = sn, fn = v.file, sn = sn, propT = metaModuleT.propT}
          end
       end
       if (next(v.fileT) ~= nil) then
          for fullName, vv in pairs(v.fileT) do
+            dbg.print{"fullName: ",fullName,",show_hidden: ",show_hidden,"\n"}
             if (show_hidden or mrc:isVisible{fullName=fullName,sn=sn,fn=vv.fn}) then
                icnt    = icnt + 1
+               dbg.print{"saving fullName: ",fullName,"\n"}
                A[icnt] = { fullName = fullName, pV = pathJoin(sn,vv.pV), fn = vv.fn, sn = sn,
                            propT = vv.propT, provides = vv.provides}
             end

@@ -55,7 +55,7 @@ fi
 
 alias fooAlias='foobin -q -l'
 
-PATH=$testDir/bin:$NEW_PATH:$testDir/sbin
+export PTH=$testDir/bin:$NEW_PATH:$testDir/sbin
 
 export TST_SCRIPT=1
 export MY_NAME="tstScript.sh"

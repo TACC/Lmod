@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.32  2023-08-28 12:42 -05:00
+Modules based on Lua: Version 8.7.48 2024-08-19 16:18 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -44,8 +44,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing show wrapperSh/1.0
    ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua:
  source_sh("bash","ProjectDIR/rt/sh_to_modulefile/tstScript.sh")
 setenv("MY_NAME","tstScript.sh")
-prepend_path("PATH","ProjectDIR/rt/sh_to_modulefile/bin")
-append_path("PATH","ProjectDIR/rt/sh_to_modulefile/sbin")
+setenv("PTH","ProjectDIR/rt/sh_to_modulefile/bin:ProjectDIR/proj_mgmt:PATH_to_TM:ProjectDIR/rt/sh_to_modulefile/sbin")
 setenv("TST_SCRIPT","1")
 set_alias("fooAlias","foobin -q -l")
 set_shell_function("banner"," \
@@ -87,8 +86,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing show wrapperSh/1.0
    ProjectDIR/rt/sh_to_modulefile/mf/wrapperSh/1.0.lua:
  source_sh("bash","ProjectDIR/rt/sh_to_modulefile/tstScript.sh")
 setenv("MY_NAME","tstScript.sh")
-prepend_path("PATH","ProjectDIR/rt/sh_to_modulefile/bin")
-append_path("PATH","ProjectDIR/rt/sh_to_modulefile/sbin")
+setenv("PTH","ProjectDIR/rt/sh_to_modulefile/bin:ProjectDIR/proj_mgmt:PATH_to_TM:ProjectDIR/rt/sh_to_modulefile/sbin")
 setenv("TST_SCRIPT","1")
 set_alias("fooAlias","foobin -q -l")
 set_shell_function("banner"," \
@@ -149,7 +147,7 @@ _ModuleTable_ = {
           "setenv(\"SECOND\",\"FOO_BAR\")",
         },
         ["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"] = {
-          "setenv(\"MY_NAME\",\"tstScript.sh\")", "prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")", "append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")", "setenv(\"TST_SCRIPT\",\"1\")", "set_alias(\"fooAlias\",\"foobin -q -l\")", [[set_shell_function("banner"," \\
+          "setenv(\"MY_NAME\",\"tstScript.sh\")", "setenv(\"PTH\",\"ProjectDIR/rt/sh_to_modulefile/bin:ProjectDIR/proj_mgmt:PATH_to_TM:ProjectDIR/rt/sh_to_modulefile/sbin\")", "setenv(\"TST_SCRIPT\",\"1\")", "set_alias(\"fooAlias\",\"foobin -q -l\")", [[set_shell_function("banner"," \\
     local str=\\"$1\\";\\
     local RED='\\033[1;31m';\\
     local NONE='\\033[0m';\\
@@ -233,7 +231,7 @@ _ModuleTable_ = {
           "setenv(\"SECOND\",\"FOO_BAR\")",
         },
         ["ProjectDIR/rt/sh_to_modulefile/tstScript.sh"] = {
-          "setenv(\"MY_NAME\",\"tstScript.sh\")", "prepend_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/bin\")", "append_path(\"PATH\",\"ProjectDIR/rt/sh_to_modulefile/sbin\")", "setenv(\"TST_SCRIPT\",\"1\")", "set_alias(\"fooAlias\",\"foobin -q -l\")", [[set_shell_function("banner"," \\
+          "setenv(\"MY_NAME\",\"tstScript.sh\")", "setenv(\"PTH\",\"ProjectDIR/rt/sh_to_modulefile/bin:ProjectDIR/proj_mgmt:PATH_to_TM:ProjectDIR/rt/sh_to_modulefile/sbin\")", "setenv(\"TST_SCRIPT\",\"1\")", "set_alias(\"fooAlias\",\"foobin -q -l\")", [[set_shell_function("banner"," \\
     local str=\\"$1\\";\\
     local RED='\\033[1;31m';\\
     local NONE='\\033[0m';\\
