@@ -247,6 +247,13 @@ cosmic:init{name    = "LMOD_CONFIG_DIR",
             default = "/etc/lmod"}
 
 ------------------------------------------------------------------------
+-- LMOD_TERSE_DECORATIONS: Allow terse listing to be decorated
+------------------------------------------------------------------------
+cosmic:init{name    = "LMOD_TERSE_DECORATIONS",
+            sedV    = "@terse_decorations@",
+            default = "yes"}
+
+------------------------------------------------------------------------
 -- LMOD_PACKAGE_PATH: Colon separated list of directories to search for
 --                    SitePackage.lua
 ------------------------------------------------------------------------
@@ -629,6 +636,21 @@ cosmic:init{name    = "LMOD_LANG",
 cosmic:init{name = "LMOD_SETTARG_FULL_SUPPORT",
             sedV = "@lmod_settarg_full_support@",
             yn   = "no"}
+
+------------------------------------------------------------------------
+-- LMOD_NEARLY_FORBIDDEN_DAYS : The number of days where the nearly
+--                              forbidden applies.
+------------------------------------------------------------------------
+local nFD_DFLT = 14
+local nFD_Env  = getenv("LMOD_NEARLY_FORBIDDEN_DAYS")
+local nFD_SedV = "@nearly_forbidden_days@"
+local nFD      = tonumber(nFD_Env) or tonumber(nFD_SedV)
+
+cosmic:init{name    = "LMOD_NEARLY_FORBIDDEN_DAYS",
+            default = nFD_DFLT,
+            envV    = nFD_Env,
+            sedV    = nFD_SedV,
+            assignV = nFD}
 
 ------------------------------------------------------------------------
 -- LMOD_ANCIENT_TIME:  the time in seconds when the cache file is considered old

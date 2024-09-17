@@ -166,12 +166,12 @@ _ml()
 
 _ml_loaded_modules_negated()
 {
-  _loaded_modules_negated=(${$(module -q -t --no_redirect list 2>&1 > /dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g; s|^|-|g;')})
+  _loaded_modules_negated=(${$(module -q -t --no_redirect list 2>&1 > /dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g; s|^|-|g; s/ *<[A-Za-z][A-Za-z]*>//')})
 }
 
 _ml_loaded_modules()
 {
-  _loaded_modules=(${$(module -q -t  --no_redirect list 2>&1 > /dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g;')})
+  _loaded_modules=(${$(module -q -t  --no_redirect list 2>&1 > /dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g; s/ *<[A-Za-z][A-Za-z]*>//')})
 }
 
 
@@ -180,7 +180,7 @@ _ml_loaded_modules()
 _ml_available_modules()
 {
   if [[ -n $MODULEPATH ]];  then
-    _available_modules=(${$(module -q -t  --no_redirect avail 2>&1 > /dev/null | sed ' /:$/d; s/(@.*)//g; s#/*$##g;')})
+    _available_modules=(${$(module -q -t  --no_redirect avail 2>&1 > /dev/null | sed ' /:$/d; s/(@.*)//g; s#/*$##g; os/ *<[A-Za-z][A-Za-z]*>//')})
   fi
 }
 

@@ -2,13 +2,13 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.37   2024-03-17 13:11 -06:00
+Modules based on Lua: Version 8.7.49 YYYY-MM-DD 13:55 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --config
 ===========================
-Modules based on Lua: Version 8.7.37   2024-03-17 13:11 -06:00
+Modules based on Lua: Version 8.7.49 YYYY-MM-DD 13:55 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                                                   Value
 Allow root to use Lmod (LMOD_ALLOW_ROOT_USE)                  yes
@@ -29,6 +29,7 @@ Export the module command (LMOD_EXPORT_MODULE)                yes
 Allow extended default (LMOD_EXTENDED_DEFAULT)                yes
 Use attached TCL over system call (LMOD_FAST_TCL_INTERP)      yes
 Is fast TCL interp available (LMOD_USING_FAST_TCL_INTERP)     no
+File ignore patterns (LMOD_FILE_IGNORE_PATTERNS)              {"%.version[-._].*", "%.modulerc[-._].*"}
 Use italic instead of dim (LMOD_HIDDEN_ITALIC)                no
 KSH Support (LMOD_KSH_SUPPORT)                                no
 Language used for err/msg/warn (LMOD_LANG)                    en
@@ -64,6 +65,7 @@ System Default Modules (LMOD_SYSTEM_DEFAULT_MODULES)          <empty>
 System Name (LMOD_SYSTEM_NAME)                                <empty>
 SYSHOST (cluster name) (LMOD_SYSHOST)                         <empty>
 TCL Version                                                   <N/A>
+Terse Decorations (LMOD_TERSE_DECORATIONS)                    yes
 User cache valid time(sec) (LMOD_ANCIENT_TIME)                86400
 Write cache after (sec) (LMOD_SHORT_TIME)                     2
 Threshold (sec) (LMOD_THRESHOLD)                              1

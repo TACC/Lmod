@@ -2,7 +2,7 @@ _module_avail() {
   #
   # Lmod output goes to STDERR by default. The option --no_redirect forces output to stderr.
   #
-  @PKG@/libexec/lmod bash --no_redirect -t -q avail 2>&1 >/dev/null | sed ' /:$/d; s/(@.*)//g; s#/*$##g;'
+  @PKG@/libexec/lmod bash --no_redirect -t -q avail 2>&1 >/dev/null | sed ' /:$/d; s/(@.*)//g; s#/*$##g; s/ *<[A-Za-z][A-Za-z]*>//;'
 }
 
 _module_dir() {
@@ -68,7 +68,7 @@ _module_spider() {
 }
 
 _module_loaded_modules() {
-  @PKG@/libexec/lmod bash -q -t --no_redirect list 2>&1 >/dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g;'
+  @PKG@/libexec/lmod bash -q -t --no_redirect list 2>&1 >/dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g; s/ *<[A-Za-z][A-Za-z]*>//'
 }
 
 _module_savelist() {
@@ -80,7 +80,7 @@ _module_disable() {
 }
 
 _module_loaded_modules_negated() {
-  @PKG@/libexec/lmod bash -q -t --no_redirect list 2>&1 >/dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g; s|^|-|g;'
+  @PKG@/libexec/lmod bash -q -t --no_redirect list 2>&1 >/dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g; s|^|-|g; s/ *<[A-Za-z][A-Za-z]*>//'
 }
 
 _module_mcc() {

@@ -510,6 +510,20 @@ AC_ARG_WITH(cachedLoads,
     CACHED_LOADS="$withval"
     AC_DEFINE_UNQUOTED(CACHED_LOADS, "$withval"))dnl
 
+AC_SUBST(TERSE_DECORATIONS)
+AC_ARG_WITH(terseDecorations,
+    AS_HELP_STRING([--with-terseDecorations=ans],[Allow for terse listing to be decorated. [[yes]]]),
+    TERSE_DECORATIONS="$withval"
+    TERSE_DECORATIONS=`echo $TERSE_DECORATIONS | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
+    VALID_YN $TERSE_DECORATIONS "--with-terseDecorations=ans: ans must be yes or no"
+    AC_MSG_RESULT([TERSE_DECORATIONS=$with_terseDecorations])
+    AC_DEFINE_UNQUOTED(TERSE_DECORATIONS, "$with_terseDecorations")dnl
+    ,
+    withval="yes"
+    AC_MSG_RESULT([TERSE_DECORATIONS=$withval])
+    TERSE_DECORATIONS="$withval"
+    AC_DEFINE_UNQUOTED(TERSE_DECORATIONS, "$withval"))dnl
+
 AC_SUBST(EXTENDED_DEFAULT)
 AC_ARG_WITH(extendedDefault,
     AS_HELP_STRING([--with-extendedDefault=ans],[Allow for extended default. [[yes]]]),
@@ -620,11 +634,23 @@ AC_ARG_WITH(fastTCLInterp,
     FAST_TCL_INTERP="$withval"
     AC_DEFINE_UNQUOTED(FAST_TCL_INTERP, "$withval"))dnl
 
+AC_SUBST(NEARLY_FORBIDDEN_DAYS)
+AC_ARG_WITH(nearlyForbiddenDays,
+    AS_HELP_STRING([--with-nearlyForbiddenDays=ans],[Number of days before nearly forbidden message applies. [[14]]]),
+    NEARLY_FORBIDDEN_DAYS="$withval"
+    AC_MSG_RESULT([NEARLY_FORBIDDEN_DAYS=$with_nearlyForbiddenDays])
+    AC_DEFINE_UNQUOTED(NEARLY_FORBIDDEN_DAYS, "$with_nearlyForbiddenDays")dnl
+    ,
+    withval="14"
+    AC_MSG_RESULT([NEARLY_FORBIDDEN_DAYS=$withval])
+    NEARLY_FORBIDDEN_DAYS="$withval"
+    AC_DEFINE_UNQUOTED(NEARLY_FORBIDDEN_DAYS, "$withval"))dnl
+
 AC_SUBST(MODULE_AUTO_HANDLING)
 AC_ARG_WITH(moduleAutoHandling,
     AS_HELP_STRING([--with-moduleAutoHandling=ans],[Automatically replaces prereqs with depends_on. [[no]]]),
     MODULE_AUTO_HANDLING="$withval"
-    MODULE_AUTO_HANDLING=`echo $FAST_TCL_INTERP | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
+    MODULE_AUTO_HANDLING=`echo $MODULE_AUTO_HANDLING | tr '@<:@:upper:@:>@' '@<:@:lower:@:>@'`
     VALID_YN $MODULE_AUTO_HANDLING "--with-moduleAutoHandling=ans: ans must be yes or no"
     AC_MSG_RESULT([MODULE_AUTO_HANDLING=$with-moduleAutoHandling])
     AC_DEFINE_UNQUOTED(MODULE_AUTO_HANDLING, "$with-moduleAutoHandling")dnl
@@ -702,30 +728,50 @@ fi
 
 if test "$FAST_TCL_INTERP" = yes ; then
    OS=$(uname -s)
-   if test "$OS" = Darwin ; then
-     DIR=$(xcrun --show-sdk-path)
-     TCL_INCLUDE="-I${DIR}/usr/include"
+   AC_PATH_PROG(pkgConfig, pkg-config, "UNKNOWN_PKG_CONFIG")
+   if test -n "$TCL_INCLUDE" -a -n "$TCL_LIBS"; then
+      echo "using TCL_INCLUDE: $TCL_INCLUDE"
+      echo "using TCL_LIBS:    $TCL_LIBS"
+   elif test -n "$TCL_PKG_CONFIG_DIR" ; then
+      if test "$pkgConfig" = "UNKNOWN_PKG_CONFIG" ; then
+         echo
+         echo   'To use $TCL_PKG_CONFIG_DIR, you must have valid pkg-config in your path. Quitting!'
+         echo   
+         rm -f makefile
+         exit 1
+      fi   
+      export PKG_CONFIG_PATH=$TCL_PKG_CONFIG_DIR
+      TCL_INCLUDE=`$pkgConfig --cflags-only-I tcl 2> /dev/null`
+      TCL_LIBS=`$pkgConfig --libs tcl`
+      echo TCL_INCLUDE: $TCL_INCLUDE
+   elif test "$OS" = Darwin ; then
+      DIR=$(xcrun --show-sdk-path)
+      TCL_INCLUDE="-I${DIR}/usr/include"
    else
-     for i in "" tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
-        if test -f /usr/include/$i/tcl.h ; then
-	   TCL_INCLUDE="-I/usr/include/$i"
-	   break;
-	fi
-     done
+      for i in "" tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
+         if test -f /usr/include/$i/tcl.h ; then
+            TCL_INCLUDE="-I/usr/include/$i"
+            break;
+         fi
+      done
    fi
 	   
    if test -z "$TCL_INCLUDE" ; then
-       AC_PATH_PROG(pkgConfig, pkg-config, "")
-       if  ! test x$pkgConfig = "x"; then
-           for i in tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
-               $pkgConfig --exists $i
-               if test $? = 0; then
-                   TCL_INCLUDE=`PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 $pkgConfig --cflags-only-I $i 2> /dev/null`
-                   TCL_LIBS=`$pkgConfig --libs $i`
-                   break
-               fi
-           done
-       fi  
+      if test "$pkgConfig" = "UNKNOWN_PKG_CONFIG" ; then
+         echo
+         echo   "You must have valid pkg-config in your path. Quitting!"
+         echo   
+         rm -f makefile
+         exit 1
+      fi   
+      for i in tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
+          $pkgConfig --exists $i
+          if test $? = 0; then
+              TCL_INCLUDE=`PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 $pkgConfig --cflags-only-I $i 2> /dev/null`
+              TCL_LIBS=`$pkgConfig --libs $i`
+              break
+          fi
+      done
    fi
 
    CPPFLAGS="$TCL_INCLUDE"
@@ -736,7 +782,7 @@ if test "$FAST_TCL_INTERP" = yes ; then
    if test "$ac_cv_header_tcl_h" != yes ; then
       rm -f makefile
       FOUND_ERROR=yes
-      MSG="Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h"
+      MSG="Unable to build Lmod without tcl.h.  Please install the tcl devel package or configure --with-fastTCLInterp=no to not require tcl.h.  You can also provide your own tcl installation.  Please set TCL_PKG_CONFIG_DIR to point to the directory containing tcl.pc. This is typically in <tcl-installation>/lib/pkgconfig.  Or specify TCL_INCLUDE and TCL_LIBS w/o TCL_PKG_CONFIG_DIR.  If you use TCL_INCLUDE and TCL_LIBS you must provide the -I for TCL_INCLUDE and the -L -l to TCL_LIBS.  The directories alone are not sufficient!"
       ERR_MSG="$ERR_MSG||$MSG"
       AC_MSG_NOTICE([$MSG])
    fi
@@ -921,7 +967,7 @@ ORIG_LUA_PATH="$LUA_PATH"
 export LUA_PATH="${SRCDIR}/src/?.lua;$LUA_PATH;;"
 LuaV=$( $PATH_TO_LUA -e 'print(_VERSION)' | sed -e 's/Lua //' )
 LmodV=$( $PATH_TO_LUA  -e "v=require('Version'); s=v.name():gsub(' .*','');print(s)")
-if test -n "$PATH_TO_GIT" -a -d $ac_confdir/.git ; then
+if test -n "$PATH_TO_GIT" -a -e $ac_confdir/.git ; then
   lmodV=$($PATH_TO_GIT describe)
 else
   lmodV=$($PATH_TO_LUA -e "v=require('Version'); s=v.git():gsub(' .*','');print(s)")

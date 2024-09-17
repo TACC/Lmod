@@ -590,7 +590,7 @@ function atmost(m, ie)
 
    local mname = MName:new("load", m, "atmost", false, ie)
 
-   dbg.fini("atleast")
+   dbg.fini("atmost")
    return mname
 end
 
@@ -844,9 +844,6 @@ function always_load(...)
    return b
 end
 
-
-
-
 --------------------------------------------------------------------------
 -- This function always unloads and never loads. The reverse of this
 -- function is a no-op.
@@ -920,7 +917,6 @@ function purge(t)
    mcp:purge(t)
    dbg.fini("purge")
 end
-
 
 --- subprocess function ---
 

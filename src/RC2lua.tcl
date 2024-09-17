@@ -34,6 +34,53 @@
 #--
 #--------------------------------------------------------------------------
 
+array set g_state_defs [list\
+                           usergroups {<undef> findUserGroups}\
+                           username   {<undef> findUser}\
+                       ]
+proc findCmdPath {cmd} {
+   return [lindex [auto_execok $cmd] 0]
+}
+
+proc capture {cmd args} {
+   set path2cmd [findCmdPath $cmd]
+   if {$path2cmd eq {}} {
+      error "$cmd not found"
+   } else {
+      return [exec $path2cmd {*}$args]
+   }
+}
+
+
+proc findUserGroups {} {
+   return [capture id -G -n]
+}
+proc findUser {} {
+   return [capture id -u -n]
+}
+
+proc getState {state} {
+   if { ! [info exists ::g_states($state)]} {
+      if {[info exists ::g_state_defs($state)]} {
+         lassign $::g_state_defs($state) value initProc
+      } else {
+         set value <undef>
+         set initProc {}
+      }
+
+      if {$initProc ne {}} {
+         set value [$initProc]
+      }
+      set ::g_states($state) $value
+      return $value
+   } else {
+      return ::g_states($state)
+   }
+}
+      
+         
+
+
 proc initGA {} {
     global g_outputA
     unset -nocomplain g_outputA
@@ -50,22 +97,102 @@ proc doubleQuoteEscaped {text} {
 }
 
 proc module-alias {name mfile} {
-    myPuts "\{kind=\"module_alias\",name=\"$name\",mfile=\"$mfile\"\},"
+    myPuts "\{action=\"module_alias\",name=\"$name\",mfile=\"$mfile\"\},"
 }
 
 proc hide-version {mfile} {
-    myPuts "\{kind=\"hide_version\", mfile=\"$mfile\"\},"
+    myPuts "\{action=\"hide_version\", mfile=\"$mfile\"\},"
 }
 
 proc hide-modulefile {mfile} {
-    myPuts "\{kind=\"hide_modulefile\", mfile=\"$mfile\"\},"
+    myPuts "\{action=\"hide_modulefile\", mfile=\"$mfile\"\},"
 }
 
 
+proc parseMyArgs {args} {
+   set extraArgA {}
+   set argT      [dict create]
+
+   foreach arg $args {
+      if { [info exists timeDateArg] } {
+         dict set argT $timeDateArg "\"$arg\""
+         unset timeDateArg
+      } elseif {[info exists nextMsgKey] } {
+         dict set argT $nextMsgKey "\[===\[$arg\]===\]"
+         unset nextMsgKey
+      } elseif {[info exists nextKeyA]} {
+         set v [string trimleft $arg " "]
+         set v [string trimleft $v   " "]
+         set v [regsub -all {\s+} $v ,]
+         set valueA [split $v ","]
+         set str "\{"
+         foreach v $valueA {
+            append str "\[\"$v\"\]=true,"
+         }
+         append str "\}"
+
+         dict set argT $nextKeyA $str
+         unset nextKeyA
+      } else {
+         switch -- $arg {
+            --before - --after {
+               set timeDateArg [string trimleft $arg -]
+            }
+            --hard - --soft {
+               set v [string trimleft $arg -]
+               dict set argT kind "\"$v\""
+            }
+            --hidden-loaded {
+               dict set argT hidden_loaded true
+            }
+            --not-group - --not-user - --group - --user {
+               set nextKeyA [string map {- {}} $arg]T
+            }
+            --message - --nearly-message {
+               set nextMsgKey [string map {- {}} $arg]
+            }
+            default {
+               lappend extraArgA $arg
+            }
+         }
+      }
+   }
+   
+   return [list $argT $extraArgA]
+}
+
 proc module-hide {args} {
+   lassign [parseMyArgs {*}$args] argT extraArgA
+   
+   if { ! [dict exists $argT kind] } {
+      dict set argT kind "\"hidden\""
+   }
+   foreach name $extraArgA {
+      set str "\{action=\"hide\",name="
+      append str "\"$name\","
+   
+      dict for {key value} $argT {
+         append str "$key=$value,"
+      }
+      append str "\},"
+      set str [regsub -all ",\}" $str "\}"]
+      myPuts $str
+   }
 }
 
 proc module-forbid {args} {
+   lassign [parseMyArgs {*}$args] argT extraArgA
+   foreach name $extraArgA {
+      set str "\{action=\"forbid\",name="
+      append str "\"$name\","
+
+      dict for {key value} $argT {
+         append str "$key=$value,"
+      }
+      append str "\},"
+      set str [regsub -all ",\}" $str "\}"]
+      myPuts $str
+   }
 }
 
 
@@ -76,7 +203,7 @@ proc module-version {args} {
         lappend argL "\"$val\""
     }
     set versionA [join $argL ","]
-    myPuts "\{kind=\"module_version\",module_name=\"$module_name\", module_versionA=\{$versionA\}\},"
+    myPuts "\{action=\"module_version\",module_name=\"$module_name\", module_versionA=\{$versionA\}\},"
 }
 
 proc showResults {} {
@@ -94,6 +221,32 @@ proc showResults {} {
 	puts stdout "$my_output"
     }
 }
+
+proc module-info {what {extraArg {}}} {
+   switch -- $what {
+      username {
+         set myUser [getState username]
+         if {$extraArg ne {}} {
+            return [expr {$myUser eq $extraArg}]
+         } else {
+            return $myUser
+         }
+      }
+      usergroups {
+         if {$extraArg ne {}} {
+            return [expr {$extraArg in [getState usergroups]}]
+         } else {
+            return [getState usergroups]
+         }
+      }
+      default {
+         error "module-info what not supported"
+         return {}
+      }
+   }
+}
+
+
 
 proc main {mRcFile} {
     global env                 # Need this for .modulerc file that access global env vars.
@@ -120,7 +273,7 @@ proc main {mRcFile} {
     }
 
     if { $found > 0 } {
-	myPuts "\{kind=\"set_default_version\", version=\"$version\"\},"
+	myPuts "\{action=\"set_default_version\", version=\"$version\"\},"
     }
     myPuts "\}" 
     showResults

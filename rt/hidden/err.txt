@@ -2,14 +2,14 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.44 2024-07-11 16:39 -06:00
+Modules based on Lua: Version 8.7.48 2024-08-19 16:18 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
 ===========================
 ProjectDIR/rt/hidden/mf
-   .system (H,S)    lmod
+   .a/.1 (H)    .b/1.0 (H)    .system (H,S)    c/.1 (H)    lmod
   Where:
    H:  Hidden Module
    S:  Module is Sticky, requires --force to unload or purge
@@ -24,22 +24,34 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load .system
 ===========================
 ===========================
 step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load .a/.1
+===========================
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load .b/1.0
+===========================
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load c/.1
+===========================
+===========================
+step 7
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) .system (H,S)
+  1) .system (H,S)   2) .a/.1 (H)   3) .b/1.0 (H)   4) c/.1 (H)
   Where:
    H:  Hidden Module
    S:  Module is Sticky, requires --force to unload or purge
 ===========================
-step 5
+step 8
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 The following modules were not unloaded:
   (Use "module --force purge" to unload all):
   1) .system
 ===========================
-step 6
+step 9
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden av
 ===========================
 ProjectDIR/rt/hidden/mf2/top
@@ -56,16 +68,34 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 7
+step 10
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B
 ===========================
 ===========================
-step 8
+step 11
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
 ===========================
 ===========================
-step 9
+step 12
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) B/9.8.7   2) A/1.0
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden av
+===========================
+ProjectDIR/rt/hidden/mf3
+   A/1.0        A/2.0    B/1.5 (D)    C/1.0        C/2.0
+   A/1.5 (D)    B/1.0    B/2.0        C/1.5 (D)
+  Where:
+   D:  Default Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".

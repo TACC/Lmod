@@ -283,6 +283,8 @@ function M.add(self, mname, status, loadOrder)
       userName        = mname:userName(),
       stackDepth      = mname:stackDepth(),
       origUserName    = mname:origUserName(),
+      moduleKindT     = mname:moduleKindT{},
+      forbiddenT      = mname:forbiddenT{},
       ref_count       = ref_count,
       depends_on_anyA = mname:get_depends_on_anyA(),
       status          = status,
@@ -410,9 +412,20 @@ function M.status(self, sn)
    return nil
 end
 
-function M.exists(self, sn)
+function M.exists(self, sn, fullName)
    local entry = self.mT[sn]
-   return (entry ~= nil)
+   if (entry == nil) then
+      return false
+   end
+   return (fullName == nil) or entry.fullName == fullName
+end
+
+function M.moduleKindT(self, sn)
+   local entry = self.mT[sn]
+   if (entry ~= nil) then
+      return entry.moduleKindT
+   end
+   return nil
 end
 
 --------------------------------------------------------------------------
@@ -537,6 +550,8 @@ function M.list(self, kind, status)
    local a    = {}
    local b    = {}
 
+   dbg.print{"MT:list(kind: ",kind,", status:",status,")\n"}
+
    if (kind == "short" or kind == "sn") then
       for k, v in pairs(mT) do
          if ((status == "any" or status == v.status) and
@@ -552,7 +567,10 @@ function M.list(self, kind, status)
                           name = v[kind], fn = v.fn, loadOrder = v.loadOrder,
                           stackDepth = v.stackDepth, ref_count = v.ref_count,
                           depends_on_anyA = v.depends_on_anyA, displayName = v.fullName,
-                          origUserName = v.origUserName or false}
+                          origUserName = v.origUserName or false,
+                          moduleKindT = v.moduleKindT or {},
+                          forbiddenT  = v.forbiddenT or {},
+                        }
             a, b = l_build_AB(a, b, v.loadOrder, v[kind], obj )
          end
       end
@@ -565,7 +583,10 @@ function M.list(self, kind, status)
                           name = v.fullName, fn = v.fn, loadOrder = v.loadOrder,
                           stackDepth = v.stackDepth, ref_count = v.ref_count,
                           depends_on_anyA = v.depends_on_anyA, displayName = v.fullName, 
-                          origUserName = v.origUserName or false }
+                          origUserName = v.origUserName or false,
+                          moduleKindT = v.moduleKindT or {},
+                          forbiddenT  = v.forbiddenT or {},
+             }
             a, b = l_build_AB(a, b, v.loadOrder, v.fullName, obj )
          end
       end
@@ -703,7 +724,7 @@ function M.list_w_property(self, idx, sn, style, legendT)
    end
 
    local resultA = colorizePropA(style, self, {fullName=entry.fullName, origUserName=entry.origUserName, sn=sn, fn=entry.fn},
-                                 mrc, entry.propT, legendT)
+                                 mrc, entry.propT, legendT, entry.forbiddenT)
    dbg.print{"resultA: ",resultA[1]," ",resultA[2],"\n"} 
    if (resultA[2]) then
       resultA[2] = "(" .. resultA[2] .. ")"

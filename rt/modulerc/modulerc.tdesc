@@ -147,11 +147,73 @@ EOF
      runLmod    list                                   #50
      runLmod    avail                                  #51
      
+     runLmod    purge                                  #52
+     unsetMT
+     unset LMOD_MODULERC
+     export MODULEPATH_ROOT=$(testDir)/mfB
+     export MODULEPATH=$MODULEPATH_ROOT/Core
 
+     runLmod    load ABC                               #53
+     runLmod    list                                   #54
+     runLmod    load ABC/2.5                           #55
+     runLmod    list                                   #56
+     runLmod -A list                                   #57
+     runLmod    --show_hidden avail                    #58
+     runLmod    avail                                  #59
+     runBase    runSpiderCmd -o spiderT $MODULEPATH    #60
+     runBase    runSpiderCmd -o dbT     $MODULEPATH    #61
 
+     # Test hidden_loaded feature
+     runLmod    load C D E F                           #62
+     runLmod    --mt                                   #63
+     runLmod    list                                   #64
+     runLmod    --show_hidden list                     #65
+     runLmod    spider                                 #66
+     runLmod -A spider                                 #67
 
+     # test before and after hide modifiers
+     runLmod    purge                                  #68
+     unsetMT
+     export MODULEPATH_ROOT=$(testDir)/mfC
+     export MODULEPATH=$MODULEPATH_ROOT/Core
 
+     $(testDir)/create_hide_modulerc $(projectDir) > $(outputDir)/modulerc.lua
+     export LMOD_MODULERC=$(outputDir)/modulerc.lua
+     runLmod    avail                                  #69
+     runLmod -A avail                                  #70
+     runLmod    load B/1.0                             #71
 
+     # test forbidden
+     runLmod    purge                                  #72
+     unsetMT
+     export MODULEPATH_ROOT=$(testDir)/mfD
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+
+     # This is a hack for the ages:  Instead trying use
+     # a relative 14 days to test nearly forbidden
+     # we will use an after="3000-01-01" and NEARLY be 400,000 days
+     # Note this test will fail sometime after the year 3000
+
+     export LMOD_NEARLY_FORBIDDEN_DAYS=400000
+     runLmod       avail                               #73
+     runLmod -A    avail                               #74
+     runLmod -t -A avail                               #75
+     runLmod       load C                              #76
+     runLmod       load cluster                        #77
+     runLmod       load D H/1.0                        #78
+     runLmod       list                                #79
+     runLmod       --mt                                #80
+     runLmod -t    list                                #81
+     runBase runSpiderCmd -o spiderT $MODULEPATH       #82
+     runLmod       spider                              #83
+     runLmod    -A spider                              #84
+     runLmod -t    spider                              #85
+     runLmod -t -A spider                              #86
+
+     mkdir -p $HOME/.cache/lmod
+     buildSpiderT $MODULEPATH > $HOME/.cache/lmod/spiderT.lua
+     runLmod -A    avail                               #87
+      
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new

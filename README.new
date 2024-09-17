@@ -174,3 +174,5 @@ Lmod 8.7+
 W.I.P:
    (8.7.50) * PR #724: Emacs lisp integration updated.
             * Issue #718: use command -v instead of checking status $?
+            * Issue #690: change --hidden_load to --hidden-loaded for TCL
+                          change hidden_load to hidden_loaded in Lua.
