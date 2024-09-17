@@ -25,7 +25,7 @@ fi
 
 __build_FPATH_for_zsh_ksh()
 {
-  if ! (compinit -C 2> /dev/null) ; then
+  if [ -n "${KSH_VERSION+x}" -o -n "${BASH_VERSION+x}" ] || ! (compinit -C 2> /dev/null) ; then
     __zsh_fpath=$(unset FPATH; zsh -f -c 'echo $FPATH')
   fi
   export FPATH=$(@PKGV@/libexec/addto --append FPATH ${__zsh_fpath:-$FPATH} @PKGV@/init/ksh_funcs)
