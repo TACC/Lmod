@@ -162,6 +162,11 @@ function M.assign(self, name, value)
    T[name].kind  = self:get_key()
 end
 
+function M.get(self, name, value)
+   local t = self.__T[name] or {}
+   return t.value or value
+end
+
 function M.value(self,name)
    --io.stderr:write("value: name:", tostring(name),"\n")
    return self.__T[name].value

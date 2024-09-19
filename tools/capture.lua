@@ -52,8 +52,8 @@ function capture(cmd, envT)
    local newT = {}
    envT = envT or {}
 
-   envT["LD_LIBRARY_PATH"] = cosmic:value("LMOD_LD_LIBRARY_PATH") or ""
-   envT["LD_PRELOAD"]      = cosmic:value("LMOD_LD_PRELOAD")      or ""
+   envT["LD_LIBRARY_PATH"] = cosmic:get("LMOD_LD_LIBRARY_PATH", "")
+   envT["LD_PRELOAD"]      = cosmic:get("LMOD_LD_PRELOAD",      "")
 
 
    for k, v in pairs(envT) do
