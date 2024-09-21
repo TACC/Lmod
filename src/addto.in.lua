@@ -242,7 +242,7 @@ function main()
    table.sort(a, function(x,y) return x.value < y.value end)
    local newA = {}
    for i = 1, #a do
-      newA[i] = a[i].path
+      newA[i] = a[i].path or ""
    end
    dbg.printT("newA",newA)
 
