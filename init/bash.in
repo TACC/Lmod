@@ -20,7 +20,7 @@ if [ -n "${__lmod_vx:-}" ]; then
 fi
 
 unset __zsh_fpath
-if [ -n "${ZSH_VERSION+x}" ] &&  ! (compinit -C 2> /dev/null) ; then
+if [ -n "${ZSH_VERSION+x}" ] &&  ! (autoload -U compinit && compinit -C 2> /dev/null) ; then
   __zsh_fpath=$(unset FPATH; zsh -f -c 'echo $FPATH')
 fi
 export FPATH=$(@PKGV@/libexec/addto --append FPATH ${__zsh_fpath:-$FPATH} @PKGV@/init/ksh_funcs)

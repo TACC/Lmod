@@ -176,3 +176,8 @@ W.I.P:
             * Issue #718: use command -v instead of checking status $?
             * Issue #690: change --hidden_load to --hidden-loaded for TCL
                           change hidden_load to hidden_loaded in Lua.
+            * Report dofile() usage as an error.
+            * Updated FPATH support: bash, ksh just add path (init/ksh_funcs) to FPATH
+              zsh: if autoload && compinit fail then set __zsh_fpath with sub-shell
+            * improve addto to not include duplicates in path like variables (PATH, FPATH. ,,. )
+            

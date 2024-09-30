@@ -918,6 +918,11 @@ function purge(t)
    dbg.fini("purge")
 end
 
+function dofile_not_supported()
+   mcp:report{msg="e_Dofile_not_supported"}
+end
+
+
 --- subprocess function ---
 
 function subprocess(cmd)

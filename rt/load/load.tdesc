@@ -85,40 +85,41 @@ testdescript = {
      export LMOD_DISABLE_SAME_NAME_AUTOSWAP=yes
      runLmod load moduleA/1.0                               # 49
      runLmod load moduleB/1.0                               # 50
+     runLmod load moduleA/2.0 moduleA/1.0                   # 51
+     unset LMOD_DISABLE_SAME_NAME_AUTOSWAP
      
-     runLmod purge                                          # 51
+     runLmod purge                                          # 52
      unsetMT
      export MODULEPATH=$(testDir)/mf2/Core 
-     runLmod --show_hidden avail                            # 52
-     runLmod load .eb_builder/default                       # 53
-     runLmod load a/default                                 # 54
-     runLmod load b/default                                 # 55
-     runLmod list                                           # 56
+     runLmod --show_hidden avail                            # 53
+     runLmod load .eb_builder/default                       # 54
+     runLmod load a/default                                 # 55
+     runLmod load b/default                                 # 56
+     runLmod list                                           # 57
                                                                
-     runLmod purge                                          # 57
+     runLmod purge                                          # 58
      unsetMT
      export MODULEPATH=$(testDir)/mf3
-     runLmod load A                                         # 58
-     runLmod load A/1.0                                     # 59
-     runLmod load B                                         # 60
-     runLmod load B/2.0                                     # 61
-     runLmod load tex                                       # 62
+     runLmod load A                                         # 59
+     runLmod load A/1.0                                     # 60
+     runLmod load B                                         # 61
+     runLmod load B/2.0                                     # 62
+     runLmod load tex                                       # 63
      export LMOD_QUARANTINE_VARS=RTM_A:RTM_B:RTM_C             
      export RTM_A="I like this variable the way it is"
      export RTM_B="You can't change me"
      export RTM_B="You are not the boss of me"
-     runLmod load rtmTest                                   # 63
+     runLmod load rtmTest                                   # 64
 
      export PATH=$(testDir):$PATH
-     runLmod load MakeSystemCall                            # 64
-     runLmod list                                           # 65
-
-     runLmod purge                                          # 66
-     unsetMT
+     runLmod load MakeSystemCall                            # 65
+     runLmod list                                           # 66
+     runLmod purge                                          # 67
+     
      export MODULEPATH=$(testDir)/mf4
      env | sort >  start.env.xyzzy
-     runLmod load   compiler/intel                          # 67
-     runLmod unload compiler/intel                          # 68
+     runLmod load   compiler/intel                          # 68
+     runLmod unload compiler/intel                          # 69
      env | sort > end.env.xyzzy
      diff start.env.xyzzy end.env.xyzzy | $SED \
           -e 's/^.*_ModuleTable.*//'           \
@@ -126,21 +127,22 @@ testdescript = {
           -e '/^ *$/d'                         \
           > diff.env.xyzzy
 
-     runBase cat diff.env.xyzzy                             # 69
+     runBase cat diff.env.xyzzy                             # 70
 
 
-     runLmod purge                                          # 70
+     runLmod purge                                          # 71
      unsetMT
      export MODULEPATH=$(testDir)/mf5
-     runLmod load  multiline                                # 71
+     runLmod load  multiline                                # 72
+     runLmod load  dofile                                   # 73
 
-     runLmod purge                                          # 72
+     runLmod purge                                          # 74
      unsetMT
      export MODULEPATH=$(testDir)/mf6
-     runLmod load  longVersion                              # 73
-     runLmod load  setPrompt                                # 74
-     runLmod list                                           # 75
-     runLmod avail                                          # 76
+     runLmod load  longVersion                              # 75
+     runLmod load  setPrompt                                # 76
+     runLmod list                                           # 77
+     runLmod avail                                          # 78
 
 
 

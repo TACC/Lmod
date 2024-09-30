@@ -114,6 +114,7 @@ return {
      e_BrokenQ             = "Internal error: broken module Q\n",
      e_Conflict            = "Cannot load module \"%{name}\" because these module(s) are loaded:\n   %{module_list}\n",
      e_Conflict_Downstream = "Cannot load module \"%{userName}\" because this module set a conflict: \"%{fullNameUpstream}\"\n",
+     e_Dofile_not_supported = "The dofile() function is not supported.  Use require() or loadfile() or loadstring()",
      e_Execute_Msg         = [==[Syntax error in file: %{fn}
 with command: "execute".
 The syntax is:
