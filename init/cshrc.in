@@ -52,7 +52,10 @@ if ( ! $?MODULEPATH_ROOT ) then
        setenv MODULEPATH `@PKGV@/libexec/addto MODULEPATH $LMOD_SITE_MODULEPATH`
     endif
        
-    setenv BASH_ENV      "@PKGV@/init/bash"
+    # Don't reset BASH_ENV if set by USER
+    if  ( ! $?BASH_ENV ) then
+       setenv BASH_ENV      "@PKGV@/init/bash"
+    endif
 
     #
     # If MANPATH is empty, Lmod is adding a trailing ":" so that
