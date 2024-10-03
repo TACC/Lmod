@@ -19,11 +19,6 @@ runSpiderCmd -o spiderT ProjectDIR/rt/softwarePage/mf
 timestampFn = {
   false,
 }
-mrcT = {
-  alias2modT = {},
-  hiddenT = {},
-  version2modT = {},
-}
 mrcMpathT = {}
 spiderT = {
   ["ProjectDIR/rt/softwarePage/mf"] = {

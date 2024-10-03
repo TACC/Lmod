@@ -454,10 +454,10 @@ end
 function M.export(self)
    local t, mrcMpathT = self:extract()
    local a = {}
-   a[1] = serializeTbl{indent = true, name = "mrcT",      value = t         }
-   a[2] = serializeTbl{indent = true, name = "mrcMpathT", value = mrcMpathT }
-   return concatTbl(a,"\n")
-   --return serializeTbl{indent = true, name = "mrcMpathT", value = mrcMpathT }
+   --a[1] = serializeTbl{indent = true, name = "mrcT",      value = t         }
+   --a[2] = serializeTbl{indent = true, name = "mrcMpathT", value = mrcMpathT }
+   --return concatTbl(a,"\n")
+   return serializeTbl{indent = true, name = "mrcMpathT", value = mrcMpathT }
 end
 
 
@@ -498,10 +498,7 @@ local function l_findHiddenState(self, mpathA, sn, fullName, fn)
       self.__merged_hiddenT = l_merge_tables(self, "hiddenT", mpathA, {kind = "hidden"})
    end
    local t       = self.__merged_hiddenT
-   local resultT = t[sn] or t[fullName] or t[fn]
-
-   ------------------------------------------------------------
-   -- If there is no result for sn, fullName or fn
+   local resultT = t[sn] or t[fullName] or (fn and (t[fn] or t[fn:gsub("%.lua$","")]))
    -- then check for partial matches for NVV modulefiles.
    if (not resultT) then
       local _
@@ -523,7 +520,7 @@ local function l_findForbiddenState(self, mpathA, sn, fullName, fn)
       self.__merged_forbiddenT = l_merge_tables(self, "forbiddenT", mpathA, nil)
    end
    local t = self.__merged_forbiddenT
-   local resultT = t[sn] or t[fullName] or t[fn]
+   local resultT = t[sn] or t[fullName] or (fn and (t[fn] or t[fn:gsub("%.lua$","")]))
    ------------------------------------------------------------
    -- If there is no result for sn, fullName or fn
    -- then check for partial matches for NVV modulefiles.
@@ -539,19 +536,19 @@ local function l_findForbiddenState(self, mpathA, sn, fullName, fn)
    return resultT or {}
 end
 
-local function l_import_helper(self,entryT)
-   if (entryT and next(entryT) ~= nil) then
-      for kk,vv in pairs(entryT) do
-         local key = "__" .. kk
-         local t   = self[key]
-         for k,v in pairs(vv) do
-            t[k] = v
-         end
-      end
-   end
-end
+--local function l_import_helper(self,entryT)
+--   if (entryT and next(entryT) ~= nil) then
+--      for kk,vv in pairs(entryT) do
+--         local key = "__" .. kk
+--         local t   = self[key]
+--         for k,v in pairs(vv) do
+--            t[k] = v
+--         end
+--      end
+--   end
+--end
 
-function M.import(self, mrcT, mrcMpathT)
+function M.import(self, mrcMpathT)
    --dbg.start{"MRC:import()"}
    --dbg.print{"mrcMpathT :",mrcMpathT,"\n"}
    if (mrcMpathT and next(mrcMpathT) ~= nil) then
@@ -563,7 +560,7 @@ function M.import(self, mrcT, mrcMpathT)
          end
       end
    end
-   l_import_helper(self, mrcT)
+   self:update()
    --dbg.fini("MRC:import")
 end
 

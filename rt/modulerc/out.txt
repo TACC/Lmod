@@ -206,11 +206,6 @@ runSpiderCmd -o spiderT ProjectDIR/rt/modulerc/mf/Core
 timestampFn = {
   false,
 }
-mrcT = {
-  alias2modT = {},
-  hiddenT = {},
-  version2modT = {},
-}
 mrcMpathT = {
   ["ProjectDIR/rt/modulerc/mf/Core"] = {
     alias2modT = {
@@ -855,11 +850,6 @@ runSpiderCmd -o spiderT ProjectDIR/rt/modulerc/mf6:ProjectDIR/rt/modulerc/mf7:Pr
 timestampFn = {
   false,
 }
-mrcT = {
-  alias2modT = {},
-  hiddenT = {},
-  version2modT = {},
-}
 mrcMpathT = {
   ["ProjectDIR/rt/modulerc/mf6"] = {
     version2modT = {
@@ -1059,11 +1049,6 @@ runSpiderCmd -o spiderT ProjectDIR/rt/modulerc/mf7:ProjectDIR/rt/modulerc/mf6:Pr
 ===========================
 timestampFn = {
   false,
-}
-mrcT = {
-  alias2modT = {},
-  hiddenT = {},
-  version2modT = {},
 }
 mrcMpathT = {
   ["ProjectDIR/rt/modulerc/mf6"] = {
@@ -1453,11 +1438,6 @@ runSpiderCmd -o spiderT ProjectDIR/rt/modulerc/mfB/Core
 ===========================
 timestampFn = {
   false,
-}
-mrcT = {
-  alias2modT = {},
-  hiddenT = {},
-  version2modT = {},
 }
 mrcMpathT = {
   ["ProjectDIR/rt/modulerc/mfB/Core"] = {
@@ -2171,48 +2151,6 @@ runSpiderCmd -o spiderT ProjectDIR/rt/modulerc/mfD/Core
 timestampFn = {
   false,
 }
-mrcT = {
-  alias2modT = {},
-  hiddenT = {
-    ["ACME/1.0"] = {
-      action = "hide",
-      after = "YYYY-MM-DDTHH:mm",
-      kind = "hidden",
-      name = "ACME/1.0",
-    },
-    ["ACME/2.0"] = {
-      action = "hide",
-      after = "YYYY-MM-DDTHH:mm",
-      kind = "hidden",
-      name = "ACME/2.0",
-    },
-    ["ACME/3.0"] = {
-      action = "hide",
-      before = "YYYY-MM-DDTHH:mm",
-      kind = "hidden",
-      name = "ACME/3.0",
-    },
-    ["ACME/4.0"] = {
-      action = "hide",
-      before = "YYYY-MM-DDTHH:mm",
-      kind = "hidden",
-      name = "ACME/4.0",
-    },
-    ["B/1.0"] = {
-      action = "hide",
-      after = "YYYY-MM-DDTHH:mm",
-      kind = "hard",
-      name = "B/1.0",
-    },
-    ["B/2.0"] = {
-      action = "hide",
-      after = "YYYY-MM-DDTHH:mm",
-      kind = "hard",
-      name = "B/2.0",
-    },
-  },
-  version2modT = {},
-}
 mrcMpathT = {
   ["ProjectDIR/rt/modulerc/mfD/Core"] = {
     forbiddenT = {
@@ -2237,6 +2175,11 @@ mrcMpathT = {
       },
     },
     hiddenT = {
+      ["ProjectDIR/rt/modulerc/mfD/Core/G/1.0"] = {
+        action = "hide",
+        kind = "hidden",
+        name = "ProjectDIR/rt/modulerc/mfD/Core/G/1.0",
+      },
       ["ABC/3.0"] = {
         action = "hide",
         kind = "soft",
@@ -2268,15 +2211,10 @@ mrcMpathT = {
           lmodTestUser = true,
         },
       },
-      ["hardAll/1.0"] = {
+      hardAll = {
         action = "hide",
         kind = "hard",
-        name = "hardAll/1.0",
-      },
-      ["hardAll/2.0"] = {
-        action = "hide",
-        kind = "hard",
-        name = "hardAll/2.0",
+        name = "hardAll",
       },
     },
   },
@@ -2434,6 +2372,49 @@ spiderT = {
           mpath = "ProjectDIR/rt/modulerc/mfD/Core",
           pV = "000000001.*zfinal",
           wV = "000000001.*zfinal",
+        },
+      },
+    },
+    G = {
+      defaultA = {
+        {
+          barefn = ".modulerc.lua",
+          defaultIdx = 2,
+          fn = "ProjectDIR/rt/modulerc/mfD/Core/G/.modulerc.lua",
+          fullName = "G/.modulerc",
+          luaExt = 10,
+          mpath = "ProjectDIR/rt/modulerc/mfD/Core",
+          value = false,
+        },
+      },
+      defaultT = {
+        barefn = ".modulerc.lua",
+        defaultIdx = 2,
+        fn = "ProjectDIR/rt/modulerc/mfD/Core/G/.modulerc.lua",
+        fullName = "G/.modulerc",
+        luaExt = 10,
+        mpath = "ProjectDIR/rt/modulerc/mfD/Core",
+        value = false,
+      },
+      dirT = {},
+      fileT = {
+        ["G/1.0"] = {
+          Version = "1.0",
+          canonical = "1.0",
+          fn = "ProjectDIR/rt/modulerc/mfD/Core/G/1.0.lua",
+          luaExt = 4,
+          mpath = "ProjectDIR/rt/modulerc/mfD/Core",
+          pV = "000000001.*zfinal",
+          wV = "000000001.*zfinal",
+        },
+        ["G/2.0"] = {
+          Version = "2.0",
+          canonical = "2.0",
+          fn = "ProjectDIR/rt/modulerc/mfD/Core/G/2.0.lua",
+          luaExt = 4,
+          mpath = "ProjectDIR/rt/modulerc/mfD/Core",
+          pV = "000000002.*zfinal",
+          wV = "000000002.*zfinal",
         },
       },
     },

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.49 YYYY-MM-DD 13:55 -06:00
+Modules based on Lua: Version 8.7.49 2024-08-30 13:55 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -893,8 +893,8 @@ step 73
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/modulerc/mfD/Core
-   C/1.0    C/3.0 (F,D)    F/1.0     (NF)    cluster/b    hard/1.0
-   C/2.0    D/3.0 (NF)     cluster/a         cluster/c
+   C/1.0    C/3.0 (F,D)    F/1.0 (NF)    cluster/a    cluster/c
+   C/2.0    D/3.0 (NF)     G/2.0         cluster/b    hard/1.0
   Where:
    D:   Default Module
    F:   Forbidden Module
@@ -909,9 +909,10 @@ step 74
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A avail
 ===========================
 ProjectDIR/rt/modulerc/mfD/Core
-   C/1.0          D/3.0 (NF)    cluster/a    cluster/.defaultCluster (H,F,D)
-   C/2.0          F/1.0 (NF)    cluster/b    hard/1.0
-   C/3.0 (F,D)    H/1.0 (s)     cluster/c
+   C/1.0          F/1.0 (NF)    cluster/a                          hard/1.0
+   C/2.0          G/1.0 (H)     cluster/b
+   C/3.0 (F,D)    G/2.0 (D)     cluster/c
+   D/3.0 (NF)     H/1.0 (s)     cluster/.defaultCluster (H,F,D)
   Where:
    D:   Default Module
    F:   Forbidden Module
@@ -936,6 +937,9 @@ D/
 D/3.0 <NF>
 F/
 F/1.0 <NF>
+G/
+G/1.0 <H>
+G/2.0
 H/
 H/1.0 <H>
 cluster/
@@ -959,7 +963,7 @@ Lmod has detected the following error: You must pick a cluster
 step 78
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load D H/1.0
 ===========================
-Access will be denied to this module starting YYYY-MM-DD
+Access will be denied to this module starting 3000-01-01
 ===========================
 step 79
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
@@ -1031,6 +1035,7 @@ The following is a list of the modules and extensions currently available:
   C: C/1.0, C/2.0, C/3.0
   D: D/3.0
   F: F/1.0
+  G: G/2.0
   cluster: cluster/a, cluster/b, cluster/c
   hard: hard/1.0
 To learn more about a package execute:
@@ -1047,6 +1052,7 @@ The following is a list of the modules and extensions currently available:
   C: C/1.0, C/2.0, C/3.0
   D: D/3.0
   F: F/1.0
+  G: G/1.0, G/2.0
   H: H/1.0
   cluster: cluster/a, cluster/b, cluster/c, cluster/.defaultCluster
   hard: hard/1.0
@@ -1068,6 +1074,8 @@ D/
 D/3.0 <NF>
 F/
 F/1.0 <NF>
+G/
+G/2.0
 cluster/
 cluster/a
 cluster/b
@@ -1086,6 +1094,9 @@ D/
 D/3.0 <NF>
 F/
 F/1.0 <NF>
+G/
+G/1.0 <H>
+G/2.0
 H/
 H/1.0 <H>
 cluster/
@@ -1100,9 +1111,10 @@ step 87
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A avail
 ===========================
 ProjectDIR/rt/modulerc/mfD/Core
-   C/1.0          D/3.0 (NF,L)    cluster/a    cluster/.defaultCluster (H,F,D)
-   C/2.0          F/1.0 (NF)      cluster/b    hard/1.0
-   C/3.0 (F,D)    H/1.0 (s,L)     cluster/c
+   C/1.0           F/1.0 (NF)     cluster/a                          hard/1.0
+   C/2.0           G/1.0 (H)      cluster/b
+   C/3.0 (F,D)     G/2.0 (D)      cluster/c
+   D/3.0 (NF,L)    H/1.0 (s,L)    cluster/.defaultCluster (H,F,D)
   Where:
    D:   Default Module
    F:   Forbidden Module
