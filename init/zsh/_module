@@ -7,6 +7,7 @@ _module()
   _arguments \
     '(-h --help)'{--help,-h}'[display usage info]'                                     	\
     '(- *)'{--version,-v}'[module command version]'                                	\
+    '(-A --all)'{--all,-A}'[list, avail and spider will report hidden modules]'         \
     '(-D --debug)'{--debug,-D}'[Send program tracing information to stderr]'           	\
     '(-I --ignore_cache)'{--ignore_cache,-I}'[Treat the cache file(s) as out-of-date]'  \
     '(-T --trace)'{--trace,-T}'[Report major internal actions by Lmod]'                 \
@@ -19,6 +20,8 @@ _module()
     '(-w --width)'{--width,-w}'[use given width for max term width]'                  	\
     '--config[display full Lmod configuration]'                                         \
     '--config_json[display full Lmod configuration in json format]'                     \
+    "--dumpname[Report the string Lmod]"                                                \
+    "--dumpversion[Report Lmod's version]"                                              \
     "--gitversion[Report Lmod's git version]"                                           \
     '--latest[Load latest (ignore default)]'                                            \
     '--location[Print the file location only when using show]'                          \

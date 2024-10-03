@@ -140,6 +140,7 @@ function main()
       ["--config_json"] = 0, ["--config-json"] = 0,
       ["--default"]=0,  ["-d"]=0,
       ["--dumpversion"] = 0,
+      ["--dumpname"] = 0,
       ["--expert"]=0,   ["--novice"]=0,
       ["--force"] = 0,  ["-f"] = 0,
       ["--gitversion"] = 0,

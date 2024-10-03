@@ -49,7 +49,9 @@ if [ -z "${MODULEPATH_ROOT:-}" ]; then
     IFS=$OLD_IFS
   fi
 
-  export BASH_ENV=@PKGV@/init/bash
+  if [ -z "${BASH_ENV:-}" ]; then 
+     export BASH_ENV=@PKGV@/init/bash
+  fi
 
   #
   # If MANPATH is empty, Lmod is adding a trailing ":" so that

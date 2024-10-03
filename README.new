@@ -180,4 +180,6 @@ W.I.P:
             * Updated FPATH support: bash, ksh just add path (init/ksh_funcs) to FPATH
               zsh: if autoload && compinit fail then set __zsh_fpath with sub-shell
             * improve addto to not include duplicates in path like variables (PATH, FPATH. ,,. )
-            
+            * Add support for --dumpname in lmod and ml; Update tab completions files            
+            * PR #727: Do not reset BASH_ENV if already set for cshrc.in
+            * Do not reset BASH_ENV if already set for profile.in
