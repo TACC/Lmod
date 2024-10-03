@@ -39,15 +39,20 @@ function myConfig(key)
    if (result) then
       return result
    end
+   local optionTbl = optionTbl()
    if (key == "username") then
-      result = capture("id -u -n 2> /dev/null"):gsub("\n","")
+      result = optionTbl.rt and "lmodTestUser" or capture("id -u -n 2> /dev/null"):gsub("\n","")
    elseif (key == "usergroups") then
-      local s = capture("id -G -n 2> /dev/null"):gsub("\n","")
-      local a = {}
-      for g in s:split(" ") do
-         a[#a+1] = g
+      if (optionTbl.rt) then
+         result = { "lmodTestGroup" }
+      else
+         local s = capture("id -G -n 2> /dev/null"):gsub("\n","")
+         local a = {}
+         for g in s:split(" ") do
+            a[#a+1] = g
+         end
+         result = a
       end
-      result = a
    elseif (key == "shelltype") then
       result = Shell:name()
    end
