@@ -27,11 +27,6 @@ runSpiderCmd -o spiderT ProjectDIR/rt/dbT/mf4
 timestampFn = {
   false,
 }
-mrcT = {
-  alias2modT = {},
-  hiddenT = {},
-  version2modT = {},
-}
 mrcMpathT = {
   ["ProjectDIR/rt/dbT/mf3"] = {
     hiddenT = {

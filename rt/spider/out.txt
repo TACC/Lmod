@@ -261,20 +261,6 @@ runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/E_Core
 timestampFn = {
   false,
 }
-mrcT = {
-  alias2modT = {
-    intelcompiler = "intel",
-  },
-  hiddenT = {
-    ["gcc/4.8"] = {
-      kind = "hidden",
-    },
-  },
-  version2modT = {
-    ["intel/17"] = "intel/2017.1.132",
-    ["intel/2017"] = "intel/2017.1.132",
-  },
-}
 mrcMpathT = {}
 spiderT = {
   ["ProjectDIR/rt/spider/mf/E_Compiler/gcc/4.2"] = {
@@ -897,20 +883,6 @@ runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/G_Core
 timestampFn = {
   false,
 }
-mrcT = {
-  alias2modT = {
-    intelcompiler = "intel",
-  },
-  hiddenT = {
-    ["gcc/4.8"] = {
-      kind = "hidden",
-    },
-  },
-  version2modT = {
-    ["intel/17"] = "intel/2017.1.132",
-    ["intel/2017"] = "intel/2017.1.132",
-  },
-}
 mrcMpathT = {}
 spiderT = {
   ["ProjectDIR/rt/spider/mf/G_Core"] = {
@@ -940,20 +912,6 @@ runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/H_Core
 ===========================
 timestampFn = {
   false,
-}
-mrcT = {
-  alias2modT = {
-    intelcompiler = "intel",
-  },
-  hiddenT = {
-    ["gcc/4.8"] = {
-      kind = "hidden",
-    },
-  },
-  version2modT = {
-    ["intel/17"] = "intel/2017.1.132",
-    ["intel/2017"] = "intel/2017.1.132",
-  },
 }
 mrcMpathT = {}
 spiderT = {
@@ -1090,20 +1048,6 @@ runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/I_Core
 timestampFn = {
   false,
 }
-mrcT = {
-  alias2modT = {
-    intelcompiler = "intel",
-  },
-  hiddenT = {
-    ["gcc/4.8"] = {
-      kind = "hidden",
-    },
-  },
-  version2modT = {
-    ["intel/17"] = "intel/2017.1.132",
-    ["intel/2017"] = "intel/2017.1.132",
-  },
-}
 mrcMpathT = {}
 spiderT = {
   ["ProjectDIR/rt/spider/mf/I_Core"] = {
@@ -1217,20 +1161,6 @@ runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf2/Core
 ===========================
 timestampFn = {
   false,
-}
-mrcT = {
-  alias2modT = {
-    intelcompiler = "intel",
-  },
-  hiddenT = {
-    ["gcc/4.8"] = {
-      kind = "hidden",
-    },
-  },
-  version2modT = {
-    ["intel/17"] = "intel/2017.1.132",
-    ["intel/2017"] = "intel/2017.1.132",
-  },
 }
 mrcMpathT = {}
 spiderT = {

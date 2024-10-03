@@ -24,7 +24,7 @@ testdescript = {
 
      cacheDir=`userCacheDir`
 
-     remove_generated_lmod_files
+     remove_generated_lmod_files mf/Core/B
      
      runLmod --version              # 1
 
