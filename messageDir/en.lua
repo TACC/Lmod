@@ -441,6 +441,7 @@ MODULEPATH directory: "%{mpath}" has too many non-modulefiles (%{regularFn}). Pl
      config_H       = "Report Lmod Configuration",
      dbg_hlp        = "Program tracing written to stderr",
      dbg_hlp2       = "Program tracing written to stderr (where dbglvl is a number 1,2,3)",
+     dumpN_hlp      = "Dump the name Lmod in a machine readable way and quit",
      dumpV_hlp      = "Dump version in a machine readable way and quit",
      exprt_hlp      = "Expert mode",
      force_hlp      = "force removal of a sticky module or save an empty collection",
