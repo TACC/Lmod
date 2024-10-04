@@ -146,6 +146,7 @@ Advanced Topics
    340_inherit
    350_community
    360_check_syntax
+   370_jupyter_lmod
 
 Internal Structure of Lmod
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
