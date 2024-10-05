@@ -52,7 +52,6 @@ function myConfig(key)
          a[#a+1] =  "lmodTestGroup" 
       end
       result = a
-      end
    elseif (key == "shelltype") then
       result = Shell:name()
    end

@@ -893,8 +893,9 @@ step 73
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/modulerc/mfD/Core
-   C/1.0    C/3.0 (F,D)    F/1.0 (NF)    cluster/a    cluster/c
-   C/2.0    D/3.0 (NF)     G/2.0         cluster/b    hard/1.0
+   C/1.0          D/3.0 (NF)    cluster/a    hard/1.0
+   C/2.0          F/1.0 (NF)    cluster/b    hard/3.0 (D)
+   C/3.0 (F,D)    G/2.0         cluster/c
   Where:
    D:   Default Module
    F:   Forbidden Module
@@ -909,10 +910,11 @@ step 74
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A avail
 ===========================
 ProjectDIR/rt/modulerc/mfD/Core
-   C/1.0          F/1.0 (NF)    cluster/a                          hard/1.0
-   C/2.0          G/1.0 (H)     cluster/b
-   C/3.0 (F,D)    G/2.0 (D)     cluster/c
-   D/3.0 (NF)     H/1.0 (s)     cluster/.defaultCluster (H,F,D)
+   C/1.0          G/1.0     (H)    cluster/c
+   C/2.0          G/2.0     (D)    cluster/.defaultCluster (H,F,D)
+   C/3.0 (F,D)    H/1.0     (s)    hard/1.0
+   D/3.0 (NF)     cluster/a        hard/3.0                (D)
+   F/1.0 (NF)     cluster/b
   Where:
    D:   Default Module
    F:   Forbidden Module
@@ -949,6 +951,7 @@ cluster/c
 cluster/.defaultCluster <H> <F>
 hard/
 hard/1.0
+hard/3.0
 ===========================
 step 76
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load C
@@ -1037,7 +1040,7 @@ The following is a list of the modules and extensions currently available:
   F: F/1.0
   G: G/2.0
   cluster: cluster/a, cluster/b, cluster/c
-  hard: hard/1.0
+  hard: hard/1.0, hard/3.0
 To learn more about a package execute:
    $ module spider Foo
 where "Foo" is the name of a module.
@@ -1055,7 +1058,7 @@ The following is a list of the modules and extensions currently available:
   G: G/1.0, G/2.0
   H: H/1.0
   cluster: cluster/a, cluster/b, cluster/c, cluster/.defaultCluster
-  hard: hard/1.0
+  hard: hard/1.0, hard/3.0
 To learn more about a package execute:
    $ module spider Foo
 where "Foo" is the name of a module.
@@ -1082,6 +1085,7 @@ cluster/b
 cluster/c
 hard/
 hard/1.0
+hard/3.0
 ===========================
 step 86
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t -A spider
@@ -1106,15 +1110,17 @@ cluster/c
 cluster/.defaultCluster <H> <F>
 hard/
 hard/1.0
+hard/3.0
 ===========================
 step 87
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A avail
 ===========================
 ProjectDIR/rt/modulerc/mfD/Core
-   C/1.0           F/1.0 (NF)     cluster/a                          hard/1.0
-   C/2.0           G/1.0 (H)      cluster/b
-   C/3.0 (F,D)     G/2.0 (D)      cluster/c
-   D/3.0 (NF,L)    H/1.0 (s,L)    cluster/.defaultCluster (H,F,D)
+   C/1.0           G/1.0     (H)      cluster/c
+   C/2.0           G/2.0     (D)      cluster/.defaultCluster (H,F,D)
+   C/3.0 (F,D)     H/1.0     (s,L)    hard/1.0
+   D/3.0 (NF,L)    cluster/a          hard/3.0                (D)
+   F/1.0 (NF)      cluster/b
   Where:
    D:   Default Module
    F:   Forbidden Module

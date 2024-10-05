@@ -2211,6 +2211,22 @@ mrcMpathT = {
           lmodTestUser = true,
         },
       },
+      ["hard/3.0"] = {
+        action = "hide",
+        kind = "hard",
+        name = "hard/3.0",
+        notGroupT = {
+          lmodTestGroup = true,
+        },
+      },
+      ["hard/4.0"] = {
+        action = "hide",
+        groupT = {
+          lmodTestGroup = true,
+        },
+        kind = "hard",
+        name = "hard/4.0",
+      },
       hardAll = {
         action = "hide",
         kind = "hard",
@@ -2553,6 +2569,24 @@ spiderT = {
           mpath = "ProjectDIR/rt/modulerc/mfD/Core",
           pV = "000000002.*zfinal",
           wV = "000000002.*zfinal",
+        },
+        ["hard/3.0"] = {
+          Version = "3.0",
+          canonical = "3.0",
+          fn = "ProjectDIR/rt/modulerc/mfD/Core/hard/3.0.lua",
+          luaExt = 4,
+          mpath = "ProjectDIR/rt/modulerc/mfD/Core",
+          pV = "000000003.*zfinal",
+          wV = "000000003.*zfinal",
+        },
+        ["hard/4.0"] = {
+          Version = "4.0",
+          canonical = "4.0",
+          fn = "ProjectDIR/rt/modulerc/mfD/Core/hard/4.0.lua",
+          luaExt = 4,
+          mpath = "ProjectDIR/rt/modulerc/mfD/Core",
+          pV = "000000004.*zfinal",
+          wV = "000000004.*zfinal",
         },
       },
     },
