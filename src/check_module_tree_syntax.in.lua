@@ -313,7 +313,7 @@ function main()
    _G.mcp = MainControl.build("spider")
    _G.MCP = MainControl.build("spider")
    local remove_MRC_home         = getuid() < 501
-   local mrc                     = MRC:singleton(getModuleRCT(remove_MRC_home))
+   local mrc                     = MRC:singleton()
    local cache                   = Cache:singleton{dontWrite = true, quiet = true, buildCache = true,
                                                    buildFresh = true, noMRC=true}
    local spider                  = Spider:new()
