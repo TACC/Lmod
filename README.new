@@ -124,6 +124,7 @@ Lmod 8.7+
             * Issue #681: Internally rename complete name to be "complete<name>" and unwrap when necessary.
             * TACC issue: Change the current version of zsh with the string ${ZSH_VERSION} when builting
               the init/zsh file.
+            * Lmod Warnings nolonger set error status.
    (8.7.34) * TACC issue: (Again) Cannot use the string ${ZSH_VERSION} in $FPATH.  Instead change orig zsh version to current one.
    (8.7.35) * Issue #687: Let is-loaded and is-avail set  non-zero exit status.  This is different from warnings.
             * Issue #684: must pass in mpathA to isVisible when trying to find hidden modules in buildDbT
