@@ -21,6 +21,9 @@ New Features in Lmod
    *depends_on()* except that Lmod picks the first available in the
    list. 
 
+**Lmod Warnings**
+   (Lmod 8.7.33) Lmod warning nolonger set the error status on exit.
+
 **hook.register(<hook_name>, func, <action>)**
    (Lmod 8.7.25+) The hook.register function now takes a optional third
    argument: action.  The legal actions are the followning strings:
