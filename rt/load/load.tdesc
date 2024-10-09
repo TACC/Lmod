@@ -121,10 +121,11 @@ testdescript = {
      runLmod load   compiler/intel                          # 68
      runLmod unload compiler/intel                          # 69
      env | sort > end.env.xyzzy
-     diff start.env.xyzzy end.env.xyzzy | $SED \
-          -e 's/^.*_ModuleTable.*//'           \
-          -e 's/^[0-9]\+[ac][0-9]\+.*//'       \
-          -e '/^ *$/d'                         \
+     diff start.env.xyzzy end.env.xyzzy | $SED   \
+          -e 's/^.*_ModuleTable.*//'             \
+          -e 's/^[0-9]\+[ac][0-9]\+.*//'         \
+          -e 's/^[0-9]\+,[0-9]\+[ac][0-9]\+.*//' \
+          -e '/^ *$/d'                           \
           > diff.env.xyzzy
 
      runBase cat diff.env.xyzzy                             # 70
