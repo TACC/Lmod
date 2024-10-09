@@ -183,3 +183,5 @@ Lmod 8.7+
             * Add support for --dumpname in lmod and ml; Update tab completions files            
             * PR #727: Do not reset BASH_ENV if already set for cshrc.in
             * Do not reset BASH_ENV if already set for profile.in
+   (8.7.51) * Fix bug in load test.
+   
