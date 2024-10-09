@@ -7,6 +7,11 @@ New Features in Lmod
    modules that exist but cannot be loaded.  See :ref:`modulerc-label`
    for more details.
 
+**Decorations added to --terse output**
+  (Lmod 8.7.50+) Lmod now adds decorations to terse output. See
+  :ref:`terse_output-label` for more details. 
+
+
 **MODULES_AUTO_DEFAULT**
    (Lmod 8.7.41+) When this variable is set then Lmod treats *prereq*
    as *depends_on* and *prereq_any* as *depends_on_any*.

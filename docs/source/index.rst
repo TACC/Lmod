@@ -121,6 +121,7 @@ Advanced Topics
    095_tcl2lua
    098_dependent_modules
    100_modulefile_examples
+   105_terse_output
    110_lmod_mpi_parallel_filesystem
    120_shared_home_directories
    125_personal_spider_cache
