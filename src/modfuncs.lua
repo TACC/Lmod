@@ -299,10 +299,36 @@ function pushenv(...)
 end
 
 --------------------------------------------------------------------------
+-- Convert all function arguments to table form
+-- first_elem seperated from args for type test
+function list_2_Tbl(first_elem, ...)
+   dbg.start{"list_2_Tbl(",l_concatTbl({first_elem, ...},", "),")"}
+
+   local t = nil
+   if ( type(first_elem) == "table" )then
+      t = first_elem
+      t.kind = "table"
+   else
+      t = pack(first_elem, ...)
+      t.kind = "list"
+   end
+   dbg.print{"OutputTable: ", l_concatTbl(t, ", "), "\n"}
+   dbg.fini("list_2_Tbl")
+   return t
+end
+
+--------------------------------------------------------------------------
 -- Set the value of environment variable.
 function setenv(...)
    dbg.start{"setenv(",l_concatTbl({...},", "),")"}
+
    if (not l_validateArgsWithValue("setenv",...)) then return end
+
+   --local mcp_old = mcp
+   local table = list_2_Tbl(...)
+
+   --mcp = mcp_old
+   --dbg.print{"Setting mcp to ", mcp:name(),"\n"}
 
    mcp:setenv(...)
    dbg.fini("setenv")
