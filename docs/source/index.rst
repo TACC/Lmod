@@ -131,6 +131,7 @@ Advanced Topics
    140_deprecating_modules
    145_properties
    160_debugging_modulefiles
+   165_debugging_Lmod
    170_hooks
    185_localization
    190_Integration_of_EasyBuild_and_Lmod
