@@ -185,4 +185,5 @@ Lmod 8.7+
             * Do not reset BASH_ENV if already set for profile.in
 	    * Issue #690: Support for the functions hide{} and forbid{}
    (8.7.51) * Fix bug in load test.
+   (8.7.52) * Add MName:isVisible() so that load hooks can figure out if a loaded module is is visible or not.
    

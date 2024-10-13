@@ -307,6 +307,13 @@ function M.moduleKindT(self)
    return t
 end
 
+function M.isVisible(self)
+   if (not self.__moduleKindT) then
+      return true
+   end
+   local moduleKindT   = self.__moduleKindT
+   return moduleKindT.kind == "normal"
+end
 
 function M.userName(self)
    return self.__userName

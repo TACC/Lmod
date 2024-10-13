@@ -1,6 +1,10 @@
 New Features in Lmod
 ====================
 
+**Accessing isVisible status from load hook**
+   (Lmod 8.7.52+) The mname object is passed to the load hook.  Sites
+   can access the isVisible status by t.mname:isVisible()
+
 **hide** {} and **forbid** {}
    (Lmod 8.8+) The *hide* {} function provides a more powerful way to
    hide modules.  The *forbid* {} function provides a way to mark

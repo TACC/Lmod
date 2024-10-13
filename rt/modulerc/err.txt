@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.49 2024-08-30 13:55 -06:00
+Modules based on Lua: Version 8.7.51 2024-10-09 15:58 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -910,11 +910,12 @@ step 74
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A avail
 ===========================
 ProjectDIR/rt/modulerc/mfD/Core
-   C/1.0          G/1.0     (H)    cluster/c
-   C/2.0          G/2.0     (D)    cluster/.defaultCluster (H,F,D)
-   C/3.0 (F,D)    H/1.0     (s)    hard/1.0
-   D/3.0 (NF)     cluster/a        hard/3.0                (D)
-   F/1.0 (NF)     cluster/b
+   C/1.0          G/2.0                   (D)        hard/1.0
+   C/2.0          H/1.0                   (s)        hard/3.0 (D)
+   C/3.0 (F,D)    cluster/a                          soft/1.0 (s,D)
+   D/3.0 (NF)     cluster/b                          soft/2.0 (H)
+   F/1.0 (NF)     cluster/c
+   G/1.0 (H)      cluster/.defaultCluster (H,F,D)
   Where:
    D:   Default Module
    F:   Forbidden Module
@@ -952,6 +953,9 @@ cluster/.defaultCluster <H> <F>
 hard/
 hard/1.0
 hard/3.0
+soft/
+soft/1.0 <H>
+soft/2.0 <H>
 ===========================
 step 76
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load C
@@ -1059,6 +1063,7 @@ The following is a list of the modules and extensions currently available:
   H: H/1.0
   cluster: cluster/a, cluster/b, cluster/c, cluster/.defaultCluster
   hard: hard/1.0, hard/3.0
+  soft: soft/1.0, soft/2.0
 To learn more about a package execute:
    $ module spider Foo
 where "Foo" is the name of a module.
@@ -1111,16 +1116,20 @@ cluster/.defaultCluster <H> <F>
 hard/
 hard/1.0
 hard/3.0
+soft/
+soft/1.0 <H>
+soft/2.0 <H>
 ===========================
 step 87
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A avail
 ===========================
 ProjectDIR/rt/modulerc/mfD/Core
-   C/1.0           G/1.0     (H)      cluster/c
-   C/2.0           G/2.0     (D)      cluster/.defaultCluster (H,F,D)
-   C/3.0 (F,D)     H/1.0     (s,L)    hard/1.0
-   D/3.0 (NF,L)    cluster/a          hard/3.0                (D)
-   F/1.0 (NF)      cluster/b
+   C/1.0           G/2.0                   (D)        hard/1.0
+   C/2.0           H/1.0                   (s,L)      hard/3.0 (D)
+   C/3.0 (F,D)     cluster/a                          soft/1.0 (s,D)
+   D/3.0 (NF,L)    cluster/b                          soft/2.0 (H)
+   F/1.0 (NF)      cluster/c
+   G/1.0 (H)       cluster/.defaultCluster (H,F,D)
   Where:
    D:   Default Module
    F:   Forbidden Module
@@ -1133,3 +1142,18 @@ If the avail list is too long consider trying:
 "module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 88
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load soft/1.0
+===========================
+module: soft/1.0 isVisible statue: false
+===========================
+step 89
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load G/1.0
+===========================
+module: G/1.0 isVisible statue: false
+===========================
+step 90
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load C/1.0
+===========================
+module: C/1.0 isVisible statue: true

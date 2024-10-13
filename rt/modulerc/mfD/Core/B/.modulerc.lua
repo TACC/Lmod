@@ -1,1 +1,1 @@
-hide{name="B/1.0", kind="hidden"}
+hide{name="B/1.0"}
