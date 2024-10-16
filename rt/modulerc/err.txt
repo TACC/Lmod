@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.51 2024-10-09 15:58 -05:00
+Modules based on Lua: Version 8.7.53 2024-10-12 19:57 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -895,7 +895,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ProjectDIR/rt/modulerc/mfD/Core
    C/1.0          D/3.0 (NF)    cluster/a    hard/1.0
    C/2.0          F/1.0 (NF)    cluster/b    hard/3.0 (D)
-   C/3.0 (F,D)    G/2.0         cluster/c
+   C/3.0 (F,D)    G/2.0         cluster/c    xcc/1.0
   Where:
    D:   Default Module
    F:   Forbidden Module
@@ -914,7 +914,7 @@ ProjectDIR/rt/modulerc/mfD/Core
    C/2.0          H/1.0                   (s)        hard/3.0 (D)
    C/3.0 (F,D)    cluster/a                          soft/1.0 (s,D)
    D/3.0 (NF)     cluster/b                          soft/2.0 (H)
-   F/1.0 (NF)     cluster/c
+   F/1.0 (NF)     cluster/c                          xcc/1.0
    G/1.0 (H)      cluster/.defaultCluster (H,F,D)
   Where:
    D:   Default Module
@@ -956,6 +956,8 @@ hard/3.0
 soft/
 soft/1.0 <H>
 soft/2.0 <H>
+xcc/
+xcc/1.0
 ===========================
 step 76
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load C
@@ -1042,9 +1044,11 @@ The following is a list of the modules and extensions currently available:
   C: C/1.0, C/2.0, C/3.0
   D: D/3.0
   F: F/1.0
+  Foo: Foo/visible
   G: G/2.0
   cluster: cluster/a, cluster/b, cluster/c
   hard: hard/1.0, hard/3.0
+  xcc: xcc/1.0
 To learn more about a package execute:
    $ module spider Foo
 where "Foo" is the name of a module.
@@ -1059,11 +1063,13 @@ The following is a list of the modules and extensions currently available:
   C: C/1.0, C/2.0, C/3.0
   D: D/3.0
   F: F/1.0
+  Foo: Foo/invisible, Foo/visible
   G: G/1.0, G/2.0
   H: H/1.0
   cluster: cluster/a, cluster/b, cluster/c, cluster/.defaultCluster
   hard: hard/1.0, hard/3.0
   soft: soft/1.0, soft/2.0
+  xcc: xcc/1.0
 To learn more about a package execute:
    $ module spider Foo
 where "Foo" is the name of a module.
@@ -1082,6 +1088,8 @@ D/
 D/3.0 <NF>
 F/
 F/1.0 <NF>
+Foo/
+Foo/visible
 G/
 G/2.0
 cluster/
@@ -1091,6 +1099,8 @@ cluster/c
 hard/
 hard/1.0
 hard/3.0
+xcc/
+xcc/1.0
 ===========================
 step 86
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t -A spider
@@ -1103,6 +1113,9 @@ D/
 D/3.0 <NF>
 F/
 F/1.0 <NF>
+Foo/
+Foo/invisible <H>
+Foo/visible
 G/
 G/1.0 <H>
 G/2.0
@@ -1119,6 +1132,8 @@ hard/3.0
 soft/
 soft/1.0 <H>
 soft/2.0 <H>
+xcc/
+xcc/1.0
 ===========================
 step 87
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A avail
@@ -1128,7 +1143,7 @@ ProjectDIR/rt/modulerc/mfD/Core
    C/2.0           H/1.0                   (s,L)      hard/3.0 (D)
    C/3.0 (F,D)     cluster/a                          soft/1.0 (s,D)
    D/3.0 (NF,L)    cluster/b                          soft/2.0 (H)
-   F/1.0 (NF)      cluster/c
+   F/1.0 (NF)      cluster/c                          xcc/1.0
    G/1.0 (H)       cluster/.defaultCluster (H,F,D)
   Where:
    D:   Default Module
@@ -1146,14 +1161,69 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
 step 88
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load soft/1.0
 ===========================
-module: soft/1.0 isVisible statue: false
+module: soft/1.0 isVisible status: false
 ===========================
 step 89
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load G/1.0
 ===========================
-module: G/1.0 isVisible statue: false
+module: G/1.0 isVisible status: false
 ===========================
 step 90
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load C/1.0
 ===========================
-module: C/1.0 isVisible statue: true
+module: C/1.0 isVisible status: true
+===========================
+step 91
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load xcc Foo/invisible
+===========================
+module: xcc/1.0 isVisible status: true
+module: Foo/invisible isVisible status: false
+===========================
+step 92
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A avail
+===========================
+ProjectDIR/rt/modulerc/mfD/Compiler/xcc/1.0
+   Foo/invisible (L)    Foo/visible (D)
+ProjectDIR/rt/modulerc/mfD/Core
+   C/1.0 (L)       G/2.0                   (D)        hard/1.0
+   C/2.0           H/1.0                   (s,L)      hard/3.0 (D)
+   C/3.0 (F,D)     cluster/a                          soft/1.0 (s,L,D)
+   D/3.0 (NF,L)    cluster/b                          soft/2.0 (H)
+   F/1.0 (NF)      cluster/c                          xcc/1.0  (L)
+   G/1.0 (H,L)     cluster/.defaultCluster (H,F,D)
+  Where:
+   D:   Default Module
+   F:   Forbidden Module
+   H:   Hidden Module
+   L:   Module is loaded
+   NF:  Nearly Forbidden Module
+   s:   Soft Hidden Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 93
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload Foo/invisible xcc
+===========================
+===========================
+step 94
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load xcc Foo/invisible
+===========================
+module: xcc/1.0 isVisible status: true
+module: Foo/invisible isVisible status: false
+===========================
+step 95
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload Foo/invisible xcc
+===========================
+===========================
+step 96
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load xcc
+===========================
+module: xcc/1.0 isVisible status: true
+===========================
+step 97
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load Foo/invisible
+===========================
+module: Foo/invisible isVisible status: false

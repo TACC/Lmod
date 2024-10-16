@@ -54,7 +54,8 @@ testdescript = {
      runLmod --show_hidden avail     #18
      export LMOD_SHORT_TIME=0
      runLmod avail                   #19
-     cp $cacheDir/spiderT.*.lua ~/spiderT.lua
+     spiderFns=`find $cacheDir  -name spiderT.*.lua`
+     [ -n "${spiderFns:-}" ] && cp $cacheDir/spiderT.*.lua ~/spiderT.lua
      unset LMOD_SHORT_TIME
      runLmod avail                   #20
      rm -rf $cacheDir
@@ -218,7 +219,17 @@ EOF
      runLmod       load G/1.0                          #89
      runLmod       load C/1.0                          #90
 
+     runLmod       load xcc Foo/invisible              #91
+     runLmod -A    avail                               #92
 
+     cp $HOME/.cache/lmod/spiderT.lua spiderT.87.lua
+     rm -rf $HOME/.cache
+
+     runLmod       unload Foo/invisible xcc            #93
+     runLmod       load xcc Foo/invisible              #94
+     runLmod       unload Foo/invisible xcc            #95
+     runLmod       load xcc                            #96
+     runLmod       load Foo/invisible                  #97
      
      
 
