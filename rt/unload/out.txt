@@ -108,3 +108,33 @@ unset TOTO;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={mpich2={fn="ProjectDIR/rt/unload/mf/Compiler/intel/13.0/mpich2/1.5.2.lua",fullName="mpich2/1.5.2",loadOrder=-1,propT={},stackDepth=0,status="inactive",userName="mpich2",wV="000000001.000000005.000000002.*zfinal",},petsc={fn="ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5/petsc/3.2.lua",fullName="petsc/3.2",loadOrder=-2,propT={},stackDepth=0,status="inactive",userName="petsc",wV="000000003.000000002.*zfinal",},},mpathA={"ProjectDIR/rt/unload/mf/Core",},systemBaseMPATH="ProjectDIR/rt/unload/mf/Core",}';
 export _ModuleTable_;
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load C
+===========================
+A=A;
+export A;
+AA=X;
+export AA;
+LOADEDMODULES=C/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/unload/mf/Core;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/unload/mf/Core/C/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={C={fn="ProjectDIR/rt/unload/mf/Core/C/1.0.lua",fullName="C/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="C",wV="000000001.*zfinal",},mpich2={fn="ProjectDIR/rt/unload/mf/Compiler/intel/13.0/mpich2/1.5.2.lua",fullName="mpich2/1.5.2",loadOrder=-1,propT={},stackDepth=0,status="inactive",userName="mpich2",wV="000000001.000000005.000000002.*zfinal",},petsc={fn="ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5/petsc/3.2.lua",fullName="petsc/3.2",loadOrder=-2,propT={},stackDepth=0,status="inactive",userName="petsc",wV="000000003.000000002.*zfinal",},},mpathA={"ProjectDIR/rt/unload/mf/Core",},systemBaseMPATH="ProjectDIR/rt/unload/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload C
+===========================
+A=B;
+export A;
+AA=X;
+export AA;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/unload/mf/Core;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={mpich2={fn="ProjectDIR/rt/unload/mf/Compiler/intel/13.0/mpich2/1.5.2.lua",fullName="mpich2/1.5.2",loadOrder=-1,propT={},stackDepth=0,status="inactive",userName="mpich2",wV="000000001.000000005.000000002.*zfinal",},petsc={fn="ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5/petsc/3.2.lua",fullName="petsc/3.2",loadOrder=-2,propT={},stackDepth=0,status="inactive",userName="petsc",wV="000000003.000000002.*zfinal",},},mpathA={"ProjectDIR/rt/unload/mf/Core",},systemBaseMPATH="ProjectDIR/rt/unload/mf/Core",}';
+export _ModuleTable_;

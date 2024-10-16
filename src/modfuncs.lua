@@ -139,18 +139,18 @@ end
 --------------------------------------------------------------------------
 -- Validate a function with only string module names table.
 -- @param cmdName The command which is getting its arguments validated.
-local function l_validateArgsWithValue(cmdName, ...)
-   local argA = pack(...)
+local function l_validateArgsWithValue(cmdName, table)
 
-   for i = 1, argA.n -1 do
-      local v = argA[i]
+   local n = table.n or #table 
+   for i = 1, n -1 do
+      local v = table[i]
       if (type(v) ~= "string") then
          mcp:report{msg="e_Args_Not_Strings", fn = myFileName(), cmdName = cmdName}
          return false
       end
    end
 
-   local v = argA[argA.n]
+   local v = table[n]
    if (type(v) ~= "string" and type(v) ~= "number" and type(v) ~= "boolean") then
       mcp:report{msg="e_Args_Not_Strings", fn = myFileName(), cmdName = cmdName}
       return false
@@ -291,9 +291,19 @@ end
 -- Set the value of environment variable and maintain a stack.
 function pushenv(...)
    dbg.start{"pushenv(",l_concatTbl({...},", "),")"}
-   if (not l_validateArgsWithValue("pushenv",...)) then return end
 
-   mcp:pushenv(...)
+   local table
+   local mcp_old = mcp
+   mcp, table = list_2_Tbl(MCP, mcp, ...)
+   if ( not mcp ) then
+       mcp = mcp_old
+       return
+   end
+
+   if (not l_validateArgsWithValue("pushenv",table)) then return end
+
+   mcp:pushenv(table)
+   mcp = mcp_old
    dbg.fini("pushenv")
    return
 end
@@ -301,20 +311,36 @@ end
 --------------------------------------------------------------------------
 -- Convert all function arguments to table form
 -- first_elem seperated from args for type test
-function list_2_Tbl(first_elem, ...)
+function list_2_Tbl(MCP, mcp, first_elem, ...)
    dbg.start{"list_2_Tbl(",l_concatTbl({first_elem, ...},", "),")"}
 
+   local my_mcp = nil
    local t = nil
+   local action = nil
    if ( type(first_elem) == "table" )then
       t = first_elem
       t.kind = "table"
+      local my_mode = mode()
+      local modeA = t.mode or {}
+      for i = 1,#modeA do
+         if (my_mode == modeA[i]) then
+            action = true
+            my_mcp = MCP 
+            break
+         end
+      end
+
    else
       t = pack(first_elem, ...)
       t.kind = "list"
+      my_mcp = mcp
+      action = true
    end
-   dbg.print{"OutputTable: ", l_concatTbl(t, ", "), "\n"}
+
+   if ( not action ) then my_mcp = nil end
+   dbg.print{"OutputTable: ", t, "\n"}
    dbg.fini("list_2_Tbl")
-   return t
+   return my_mcp, t
 end
 
 --------------------------------------------------------------------------
@@ -322,15 +348,17 @@ end
 function setenv(...)
    dbg.start{"setenv(",l_concatTbl({...},", "),")"}
 
-   if (not l_validateArgsWithValue("setenv",...)) then return end
+   local table 
+   local mcp_old = mcp
+   mcp, table = list_2_Tbl(MCP, mcp, ...)
+   if ( not mcp ) then 
+       mcp = mcp_old 
+       return 
+   end 
 
-   --local mcp_old = mcp
-   local table = list_2_Tbl(...)
-
-   --mcp = mcp_old
-   --dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-
-   mcp:setenv(...)
+   if (not l_validateArgsWithValue("setenv", table)) then return end
+   mcp:setenv(table)
+   mcp = mcp_old
    dbg.fini("setenv")
    return
 end
@@ -339,9 +367,18 @@ end
 -- Unset the value of environment variable.
 function unsetenv(...)
    dbg.start{"unsetenv(",l_concatTbl({...},", "),")"}
-   if (not l_validateArgsWithValue("unsetenv",...)) then return end
 
-   mcp:unsetenv(...)
+   local table 
+   local mcp_old = mcp
+   mcp, table = list_2_Tbl(MCP, mcp, ...)
+   if ( not mcp ) then 
+       mcp = mcp_old 
+       return 
+   end 
+
+   if (not l_validateArgsWithValue("unsetenv", table)) then return end
+   mcp:unsetenv(table)
+   mcp = mcp_old
    dbg.fini("unsetenv")
    return
 end
