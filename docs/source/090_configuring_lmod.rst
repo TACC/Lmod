@@ -231,8 +231,9 @@ the configuration option which will set the action.
   [yes/no, default: no, --with-tmodFindFirst].  Normally Lmod uses the
   FIND BEST rule to search for defaults when searching C/N/V or N/V
   module layouts.  A site can force FIND_FIRST for C/N/V or N/V module
-  layouts to match the FIND_FIRST rule for N/V/V module layout.  See
-  :ref:`NVV-label` for more details.
+  layouts to match the FIND_FIRST rule for N/V/V module layout. When
+  this variable is set the default will only be chosen from the first
+  directory. See :ref:`NVV-label` for more details.
 
 **LMOD_TMOD_PATH_RULE**:
   [yes/no, default: no, --with-tmodPathRule].  Normally Lmod
