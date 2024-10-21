@@ -115,7 +115,7 @@ local s_Epoch  = nil
 local s_Is_dst = nil
 
 function M.singleton(self, fnA)
-   --dbg.start{"MRC:singleton()"}
+   dbg.start{"MRC:singleton()"}
    if (not s_MRC) then
       s_MRC = l_new(self, fnA)
    end
@@ -125,7 +125,7 @@ function M.singleton(self, fnA)
       s_Is_dst = tm.is_dst
    end
 
-   --dbg.fini("MRC:singleton")
+   dbg.fini("MRC:singleton")
    return s_MRC
 end
 
@@ -162,7 +162,7 @@ function M.__clear(self)
 end
 
 function l_build(self, fnA)
-   --dbg.start{"MRC l_build(self,fnA)"}
+   dbg.start{"MRC l_build(self,fnA)"}
    --dbg.printT("fnA",fnA)
    for i = 1, #fnA do
       local fn     = fnA[i][1]
@@ -172,7 +172,7 @@ function l_build(self, fnA)
          self:parseModA(modA, weight)
       end
    end
-   --dbg.fini("MRC l_build")
+   dbg.fini("MRC l_build")
 end
 
 local function l_save_su_weights(self, fullName, weight)
@@ -199,7 +199,7 @@ local function l_save_su_weights(self, fullName, weight)
 end
 
 function M.parseModA(self, modA, weight)
-   --dbg.start{"MRC:parseModA(modA, weight: \"",weight,"\")"}
+   dbg.start{"MRC:parseModA(modA, weight: \"",weight,"\")"}
 
    for i = 1,#modA do
       repeat
@@ -237,7 +237,8 @@ function M.parseModA(self, modA, weight)
          end
       until true
    end
-   --dbg.fini("MRC:parseModA")
+   self:setMustConvertHiddenFlag(true)
+   dbg.fini("MRC:parseModA")
 end
 
 function l_buildMod2VersionT(self, mpathA)
@@ -380,7 +381,7 @@ end
 
 
 function M.parseModA_for_moduleA(self, name, mpath, modA)
-   --dbg.start{"MRC:parseModA_for_moduleA(name: ",name,", mpath: ",mpath,", modA)"}
+   dbg.start{"MRC:parseModA_for_moduleA(name: ",name,", mpath: ",mpath,", modA)"}
    local defaultV = false
    for i = 1,#modA do
       local entry = modA[i]
@@ -431,7 +432,8 @@ function M.parseModA_for_moduleA(self, name, mpath, modA)
          l_store_mpathT(self, mpath, "forbiddenT", entry.name, entry);
       end
    end
-   --dbg.fini("MRC:parseModA_for_moduleA")
+   self:setMustConvertHiddenFlag(true)
+   dbg.fini("MRC:parseModA_for_moduleA")
    return defaultV
 end
 
@@ -462,6 +464,7 @@ end
 
 
 local function l_merge_tables(self, name, mpathA, replaceT)
+   dbg.start{"MRC:l_merge_tables(name, mpathA, replaceT)"}
    local Tname      = "__" .. name
    ------------------------------------------------------------
    -- all self.__mpathT[mpath][name] for current mpath
@@ -470,6 +473,7 @@ local function l_merge_tables(self, name, mpathA, replaceT)
    local t = {}
    for i = #mpathA, 1, -1 do
       local mpath = mpathA[i]
+      dbg.print{"mpath: ",mpath,"\n"}
       if (self.__mpathT[mpath]) then
          tt = self.__mpathT[mpath][name]
          if (tt) then
@@ -487,17 +491,21 @@ local function l_merge_tables(self, name, mpathA, replaceT)
    for k, v in pairs(tt) do
       t[self:resolve(mpathA, k)] = (v ~= true) and v or replaceT
    end
+   dbg.fini("MRC:l_merge_tables")
    return t
 end
 
-local s_must_convert_hidden = true
 local function l_findHiddenState(self, mpathA, sn, fullName, fn)
-   --dbg.start{"l_findHiddenState(self, mpathA, sn: ",sn,", fullName: ",fullName,", fn)"}
-   if (s_must_convert_hidden) then
-      s_must_convert_hidden = false
+   dbg.start{"MRC:l_findHiddenState(self, mpathA, sn: ",sn,", fullName: ",fullName,", fn)"}
+   dbg.print{"mpathA:",concatTbl(mpathA,":"),"\n"}
+   if (self:mustConvertHidden()) then
+      self:setMustConvertHiddenFlag(false)
       self.__merged_hiddenT = l_merge_tables(self, "hiddenT", mpathA, {kind = "hidden"})
    end
    local t       = self.__merged_hiddenT
+   if (fullName == "Foo/invisible") then
+      dbg.printT("merged_hiddenT",t)
+   end
    local resultT = t[sn] or t[fullName] or (fn and (t[fn] or t[fn:gsub("%.lua$","")]))
    -- then check for partial matches for NVV modulefiles.
    if (not resultT) then
@@ -508,7 +516,7 @@ local function l_findHiddenState(self, mpathA, sn, fullName, fn)
          resultT = t[n]
       end
    end
-   --dbg.fini("l_findHiddenState")
+   dbg.fini("MRC:l_findHiddenState")
    return resultT
 end
 
@@ -651,7 +659,7 @@ local function l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden
 
 
    --dbg.print{"fullName: ",fullName,", resultT.kind: ", resultT.kind, ", count: ",count,"\n"}
-   --dbg.fini("l_check_hidden_modifiers")
+   dbg.fini("l_check_hidden_modifiers")
    return isVisible, resultT.hidden_loaded, resultT.kind, count
 end
 
@@ -693,8 +701,7 @@ function M.isVisible(self, modT)
       else
          my_resultT = { isVisible = show_hidden or visibleT[moduleKindT.kind], count = true, moduleKindT = moduleKindT }
       end
-      --dbg.print{"fullName: ",fullName,"\n"}
-      --dbg.printT("mt:exists(sn): true, my_resultT",my_resultT)
+      dbg.printT("mt:exists(sn): true, my_resultT",my_resultT)
       dbg.fini("(1) MRC:isVisible")
       return my_resultT
    end
@@ -726,8 +733,8 @@ function M.isVisible(self, modT)
                         moduleKindT = {kind=modT.kind, hidden_loaded = modT.hidden_loaded},
                         count = count }
 
-   --dbg.print{"fullName: ",fullName,", isVisible: ",isVisible,", kind: ",kind,", show_hidden: ", show_hidden,", count: ",count,", hidden_loaded: ",hidden_loaded,"\n"}
-   --dbg.printT("my_resultT",my_resultT)
+   dbg.print{"fullName: ",fullName,", isVisible: ",isVisible,", kind: ",kind,", show_hidden: ", show_hidden,", count: ",count,", hidden_loaded: ",hidden_loaded,"\n"}
+   dbg.printT("my_resultT",my_resultT)
    dbg.fini("(2) MRC:isVisible")
    return my_resultT
 end
@@ -919,5 +926,16 @@ function M.applyWeights(self, sn, fileA)
    dbg.printT("fileA: ", fileA)
    dbg.fini("MRC:applyWeights")
 end
+
+local s_must_convert_hidden = true
+function M.mustConvertHidden(self)
+   return s_must_convert_hidden
+end
+
+function M.setMustConvertHiddenFlag(self, value)
+   s_must_convert_hidden = value
+end
+
+                             
 
 return M
