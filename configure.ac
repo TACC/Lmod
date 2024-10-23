@@ -741,6 +741,11 @@ if test $TCL_VERSION -ge 9000000; then
   FAST_TCL_INTERP=no
 fi
 
+if test -z "$TCL_PKG_CONFIG_DIR" ; then
+  TCL_PKG_CONFIG_DIR=`$SRCDIR/proj_mgmt/find_tcl_pc.sh $PATH_TO_TCLSH`
+fi
+
+
 if test "$FAST_TCL_INTERP" = yes ; then
    OS=$(uname -s)
    AC_PATH_PROG(pkgConfig, pkg-config, "UNKNOWN_PKG_CONFIG")
