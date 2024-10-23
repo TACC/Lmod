@@ -726,6 +726,21 @@ if test "$ALLOW_TCL_MFILES" = no ; then
   FAST_TCL_INTERP=no
 fi
 
+AC_SUBST(PATH_TO_TCLSH)
+AC_PATH_PROGS(PATH_TO_TCLSH, [tclsh9.0] [tclsh9] [tclsh], UNKNOWN_TCLSH)
+if test "$PATH_TO_TCLSH" = "UNKNOWN_TCLSH" -a "$ALLOW_TCL_MFILES" = yes; then
+  echo
+  echo "The tclsh program must be in your path. Quitting!"
+  echo
+  rm -f makefile
+  exit 1
+fi
+
+TCL_VERSION=`$PATH_TO_TCLSH $SRCDIR/proj_mgmt/tcl_version_string.tcl`
+if test $TCL_VERSION -ge 9000000; then
+  FAST_TCL_INTERP=no
+fi
+
 if test "$FAST_TCL_INTERP" = yes ; then
    OS=$(uname -s)
    AC_PATH_PROG(pkgConfig, pkg-config, "UNKNOWN_PKG_CONFIG")
@@ -814,7 +829,6 @@ AC_SUBST(PATH_TO_LS)
 AC_SUBST(PATH_TO_GIT)
 AC_SUBST(PATH_TO_HASHSUM)
 AC_SUBST(PATH_TO_PAGER)
-AC_SUBST(PATH_TO_TCLSH)
 
 if test $MODE == "user_default" ; then
   mode=0755
@@ -894,14 +908,6 @@ elif test "$PATH_TO_HASHSUM" = "UNKNOWN_HASHSUM" ; then
   exit 1
 fi
 
-AC_PATH_PROG(PATH_TO_TCLSH, tclsh, UNKNOWN_TCLSH)
-if test "$PATH_TO_TCLSH" = "UNKNOWN_TCLSH" -a "$ALLOW_TCL_MFILES" = yes; then
-  echo
-  echo "The tclsh program must be in your path. Quitting!"
-  echo
-  rm -f makefile
-  exit 1
-fi
 AC_PATH_PROGS(PATH_TO_TR, [gtr] [tr],"")
 AC_PATH_PROGS(PATH_TO_LS, [gls] [ls], "")
 
