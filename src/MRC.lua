@@ -557,8 +557,7 @@ end
 --end
 
 function M.import(self, mrcMpathT)
-   --dbg.start{"MRC:import()"}
-   --dbg.print{"mrcMpathT :",mrcMpathT,"\n"}
+   dbg.start{"MRC:import()"}
    if (mrcMpathT and next(mrcMpathT) ~= nil) then
       for mpath, v in pairs(mrcMpathT) do
          for tblName, vv in pairs(v) do
@@ -568,8 +567,9 @@ function M.import(self, mrcMpathT)
          end
       end
    end
+   dbg.print{"mrcMpathT :",self.__mpathT,"\n"}
    self:update()
-   --dbg.fini("MRC:import")
+   dbg.fini("MRC:import")
 end
 
 local function l_intersection(myArray, myTable)
