@@ -18,7 +18,7 @@ fi
 OS=$(uname -s)
 
 if [ $OS = Darwin ]; then
-  if ! command -v brew > /dev/null; then
+  if ! command -v brew > /dev/null ; then
     echo ""
     return
   fi
@@ -33,7 +33,7 @@ else
 fi
 
 TCL_PKG_CONFIG_DIR=$(dirname $TCL_PC_LOC); 
-echo TCL_PKG_CONFIG_DIR: $TCL_PKG_CONFIG_DIR
+echo $TCL_PKG_CONFIG_DIR
 
 
   
