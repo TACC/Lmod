@@ -4641,9 +4641,9 @@ fi
       DIR=$(xcrun --show-sdk-path)
       TCL_INCLUDE="-I${DIR}/usr/include"
    else
-      for i in "" tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
-         if test -f /usr/include/$i/tcl.h ; then
-            TCL_INCLUDE="-I/usr/include/$i"
+      for i in /usr/include /usr/include/tcl /usr/include/tcl9* /usr/include/tcl8*  ; do
+         if test -f $i/tcl.h ; then
+            TCL_INCLUDE="-I$i"
             break;
          fi
       done
