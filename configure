@@ -3471,6 +3471,8 @@ FOLLOW_READLINK ()
 
 ERR_MSG=""
 FOUND_ERROR=
+SRCDIR=$( cd $srcdir; pwd)
+PATH_TO_SRC=$SRCDIR
 
 
 
@@ -4789,8 +4791,6 @@ SYS_LD_LIB_PATH=$LD_LIBRARY_PATH
 SYS_LD_PRELOAD=$LD_PRELOAD
 
 
-SRCDIR=$( cd $srcdir; pwd)
-PATH_TO_SRC=$SRCDIR
 
 ##### UTILS -- start
 
