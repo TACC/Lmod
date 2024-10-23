@@ -18,7 +18,7 @@ fi
 OS=$(uname -s)
 
 if [ $OS = Darwin ]; then
-  if ! command -v brew ; then
+  if ! command -v brew > /dev/null; then
     echo ""
     return
   fi
