@@ -15,11 +15,23 @@ if ! command -v realpath > /dev/null; then
    }
 fi
 
-TCL_PATH=$(realpath $1)
-TCL_DIR=$(dirname $TCL_PATH)
-TCL_PARENT=$(dirname $TCL_DIR)
-TCL_PC_LOC=$(cd -- ${TCL_PARENT}; find . -name tcl.pc 2> /dev/null)
-TCL_PC_LOC=${TCL_PARENT}/$TCL_PC_LOC
+OS=$(uname -s)
+
+if [ $OS = Darwin ]; then
+  if ! command -v brew ; then
+    echo ""
+    return
+  fi
+  CELLAR_DIR=$(brew --cellar)
+  TCL_PC_LOC=$(find $CELLAR_DIR -name tcl.pc 2> /dev/null)
+else
+  TCL_PATH=$(realpath $1)
+  TCL_DIR=$(dirname $TCL_PATH)
+  TCL_PARENT=$(dirname $TCL_DIR)
+  TCL_PC_LOC=$(cd -- ${TCL_PARENT}; find . -name tcl.pc 2> /dev/null)
+  TCL_PC_LOC=${TCL_PARENT}/$TCL_PC_LOC
+fi
+
 TCL_PKG_CONFIG_DIR=$(dirname $TCL_PC_LOC); 
 echo TCL_PKG_CONFIG_DIR: $TCL_PKG_CONFIG_DIR
 
