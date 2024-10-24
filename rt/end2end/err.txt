@@ -45,7 +45,6 @@ symbols                =
 +++ info ++++++++++++++++++++++++++++++++++++++
 level                  = 1
 loaded null            = 0
-nameofexecutable       = OutputDIR/lmod/lmod/libexec/tcl2lua.tcl
 +++++++++++++++++++++++++++++++++++++++++++++++
 ===========================
 step 7
