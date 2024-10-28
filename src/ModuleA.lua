@@ -314,15 +314,10 @@ function M.__find_all_defaults(self)
       end
 
       if (keepLooking) then
-         if (v.file) then
-            local resultT = mrc:isVisible{fullName=sn, sn=sn, fn=v.file, show_hidden=show_hidden}
-            if (resultT.isVisible) then
-               defaultT[sn] = {weight = "999999999.*zfinal", fullName = sn, fn = v.file, count = 1}
-            end
-         elseif (next(v.fileT) ~= nil) then
+         if (next(v.fileT) ~= nil) then
             for fullName, vv in pairs(v.fileT) do
                local wV      = mrc:find_wght_for_fullName(fullName, vv.wV)
-               local resultT = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, visibleT = {soft=true}, show_hidden = show_hidden}
+               local resultT = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, visibleT = {soft=true}, show_hidden = show_hidden, mpath=vv.mpath}
                local vis     = (resultT.isVisible or isMarked(wV))
 
                dbg.print{"l_find_all_defaults_helper: fullName: ",fullName, ", vis: ",vis,", resultT.kind: ",resultT.kind,"\n"}
@@ -384,29 +379,16 @@ function M.build_availA(self)
 
    local function l_build_availA_helper(mpath, sn, v, A)
       local icnt = #A
-      if (v.file ) then
-         dbg.print{"v.file: ",v.file,"\n"}
-         local resultT = mrc:isVisible{fullName=sn,sn=sn,fn=v.file, show_hidden = show_hidden}
-         if (resultT.isVisible) then
-            local metaModuleT = v.metaModuleT or {}
-            -- here is where the forbidden info goes.
-            dbg.print{"saving v.file: ",v.file,"\n"}
-            A[icnt+1] = { fullName = sn, pV = sn, fn = v.file, sn = sn,
-                          propT = metaModuleT.propT, moduleKindT = resultT.moduleKindT,
-                          forbiddenT = mrc:isForbidden{fullName=sn, sn = sn, fn = v.file},
-                        }
-         end
-      end
       if (next(v.fileT) ~= nil) then
          for fullName, vv in pairs(v.fileT) do
             dbg.print{"fullName: ",fullName,",show_hidden: ",show_hidden,"\n"}
-            local resultT = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, show_hidden = show_hidden}
+            local resultT = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, show_hidden = show_hidden, mpath=vv.mpath}
             if (resultT.isVisible) then
                icnt    = icnt + 1
                dbg.print{"saving fullName: ",fullName,"\n"}
                A[icnt] = { fullName = fullName, pV = pathJoin(sn,vv.pV), fn = vv.fn, sn = sn,
                            propT = vv.propT, provides = vv.provides, moduleKindT = resultT.moduleKindT,
-                           forbiddenT = mrc:isForbidden{fullName=fullName, sn = sn, fn = v.file},
+                           forbiddenT = mrc:isForbidden{fullName=fullName, sn = sn, fn = vv.fn},
                          }
             end
          end
@@ -443,22 +425,7 @@ function M.inherited_search(self, search_fullName, orig_fn)
    local function l_inherited_search_helper(key, count, v)
       --dbg.start{"l_inherited_search_helper(",key,",", count,",v)"}
       local fn = false
-      if (v.file) then
-         if (search_fullName == key) then
-            if (count == 0) then
-               if (v.file == orig_fn) then
-                  fn = v.file
-                  count = 1
-               end
-            elseif (count == 1) then
-               fn = v.file
-               count = 2
-            end
-            --dbg.print{"found matching v.file\n"}
-            --dbg.fini("l_inherited_search_helper")
-            return fn, count
-         end
-      elseif (next(v.fileT) ~= nil) then
+      if (next(v.fileT) ~= nil) then
          local entryT = v.fileT[search_fullName]
          if (entryT) then
             if (count == 0) then

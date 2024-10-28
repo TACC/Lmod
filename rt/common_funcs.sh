@@ -67,6 +67,7 @@ cleanUp ()
        -e "s|^LMOD_LD_PRELOAD.*||g"                       \
        -e "s|^LuaFileSystem version.*||g"                 \
        -e "s|^Lua Version.*||g"                           \
+       -e "s|^Lmod Version.*||g"                          \
        -e "s|^Lmod branch.*||g"                           \
        -e "s|^LMOD_BRANCH.*||g"                           \
        -e "s|^\(uname -a\).*|\1|g"                        \

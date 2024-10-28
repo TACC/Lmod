@@ -140,7 +140,7 @@ function walk_spiderT(spiderT, mt, mList, errorT)
 
       if (next(v.fileT) ~= nil) then
          for fullName, vv in pairs(v.fileT) do
-            local resultT = mrc:isVisible{fullName=fullName,sn=sn,fn=vv.fn, show_hidden = show_hidden}
+            local resultT = mrc:isVisible{fullName=fullName,sn=sn,fn=vv.fn, mpath = vv.mpath, show_hidden = show_hidden}
             if (resultT.isVisible) then
                check_syntax(mpath, mt, mList, sn, vv.fn, fullName, errorT.syntaxA)
             end

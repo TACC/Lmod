@@ -671,6 +671,7 @@ function M.isVisible(self, modT)
    local mname         = frameStk:mname()
    local mt            = frameStk:mt()
    local mpathA        = modT.mpathA or mt:modulePathA()
+   local mpath         = modT.mpath
    local fullName      = modT.fullName
    local fn            = modT.fn
    local sn            = modT.sn

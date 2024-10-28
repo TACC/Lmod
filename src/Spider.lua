@@ -191,10 +191,6 @@ local function l_findModules(mpath, mt, mList, sn, v, moduleT)
    local entryT
    local moduleStack = optionTbl().moduleStack
    local iStack      = #moduleStack
-   if (v.file) then
-      entryT   = { fn = v.file, sn = sn, userName = sn, fullName = sn, version = false}
-      l_loadMe(entryT, moduleStack, iStack, v.metaModuleT, mt, mList, mpath, sn, "Spider Loading:       ")
-   end
    if (next(v.fileT) ~= nil) then
       for fullName, vv in pairs(v.fileT) do
          vv.Version = extractVersion(fullName, sn)
@@ -214,9 +210,6 @@ local function l_findChangeMPATH_modules(mpath, mt, mList, sn, v, moduleT)
    local entryT
    local moduleStack = optionTbl().moduleStack
    local iStack      = #moduleStack
-   if (v.file) then
-      LmodError("Calling l_findChangeMPATH_modules w v.file")
-   end
    if (next(v.fileT) ~= nil) then
       for fullName, vv in pairs(v.fileT) do
          if (vv.changeMPATH == true) then
@@ -624,26 +617,6 @@ function M.buildDbT(self, mpathMapT, spiderT, dbT)
    end
    local function l_buildDbT_helper(mpath, sn, v, T)
       local kind = false
-      if (v.file) then
-         local t = {}
-         for i = 1,#dbT_keyA do
-            local key = dbT_keyA[i]
-            t[key]    = v.metaModuleT[key]
-         end
-         if (parentT[mpath] and next(parentT[mpath]) ~= nil) then
-            dbg.printT("parentAA",parentT[mpath])
-            sort(parentT[mpath], l_cmp)
-         end
-         t.parentAA    = parentT[mpath]
-         t.fullName    = sn
-         local resultT = mrc:isVisible{fullName=sn, sn=sn, fn=v.file, mpathA=mpathA, 
-                                       show_hidden=show_hidden}
-         t.hidden      = not resultT.isVisible
-         kind          = resultT.moduleKindT.kind 
-         if (not (kind == "hard")) then
-            T[v.file]      = t
-         end
-      end
       if (next(v.fileT) ~= nil) then
          for fullName, vv in pairs(v.fileT) do
             local t = {}
@@ -658,7 +631,7 @@ function M.buildDbT(self, mpathMapT, spiderT, dbT)
             t.parentAA    = parentT[mpath]
             t.mpath       = vv.mpath
             t.fullName    = fullName
-            local resultT = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, mpathA=mpathA}
+            local resultT = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, mpathA=mpathA, mpath = vv.mpath}
             t.hidden      = not resultT.isVisible
             kind          = resultT.moduleKindT.kind 
             if (not vv.dot_version and (kind ~= "hard")) then
@@ -708,7 +681,7 @@ function M.buildProvideByT(self, dbT, providedByT)
    local mrc = MRC:singleton()
    for sn, vv in pairs(dbT) do
       for fullPath, v in pairs(vv) do
-         local resultT = mrc:isVisible{fullName=v.fullName, sn=sn, fn=fullPath, show_hidden = show_hidden}
+         local resultT = mrc:isVisible{fullName=v.fullName, sn=sn, fn=fullPath, show_hidden = show_hidden, mpath=v.mpath}
          local hidden  = not resultT.isVisible
          if (v.provides ~= nil) then
             local providesA = v.provides
@@ -766,7 +739,7 @@ function M.Level0_terse(self,dbT, providedByT)
 
    for sn, vv in pairs(dbT) do
       for fn, v in pairs(vv) do
-         local resultT = mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, 
+         local resultT = mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, mpath = v.mpath,
                                        show_hidden = show_hidden}
          if (resultT.isVisible) then
             local forbiddenT = mrc:isForbidden{fullName=v.fullName, sn=sn, fn=fn} 
@@ -858,7 +831,7 @@ function M.Level0Helper(self, dbT, providedByT, a)
 
    for sn, vv in pairs(dbT) do
       for fn,v in pairsByKeys(vv) do
-         local resultT = mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, 
+         local resultT = mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, mpath = v.mpath,
                                        show_hidden = show_hidden}
          if (resultT.isVisible) then
             local forbiddenT = mrc:isForbidden{fullName=v.fullName,sn=sn,fn=fn}
@@ -988,7 +961,7 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
          if (T) then
             dbg.print{"Have T\n"}
             for fn, v in pairs(T) do
-               local resultT = mrc:isVisible{fullName=v.fullName,fn=fn,sn=origUserSearchPat,
+               local resultT = mrc:isVisible{fullName=v.fullName,fn=fn,sn=origUserSearchPat, mpath=v.mpath,
                                              show_hidden=show_hidden}
                if (resultT.isVisible) then
                   found = true
@@ -1024,7 +997,7 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
       local fullA = {}
       for sn, vv in pairs(dbT) do
          for fn, v in pairs(vv) do
-            local resultT = mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, 
+            local resultT = mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, mpath = v.mpath,
                                           show_hidden = show_hidden}
             if (resultT.isVisible) then
                 fullA[#fullA+1] = {sn=sn, fullName=v.fullName}
@@ -1136,7 +1109,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
          dbg.print{"Have T in l_countEntries\n"}
          dbg.print{"key: ",key,"\n"}
          for fn, v in pairs(T) do
-            local resultT = mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, 
+            local resultT = mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, mpath = v.mpath,
                                           show_hidden = show_hidden}
             if (resultT.isVisible) then
                v.fn=fn
@@ -1257,7 +1230,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
    if (T) then
       dbg.print{"Have T\n"}
       for fn, v in pairsByKeys(T) do
-         local resultT = mrc:isVisible{fullName=v.fullName, sn=sn, fn=fn, 
+         local resultT = mrc:isVisible{fullName=v.fullName, sn=sn, fn=fn, mpath = v.mpath,
                                        show_hidden=show_hidden}
          if (resultT.isVisible) then
             local version  = extractVersion(v.fullName, sn)

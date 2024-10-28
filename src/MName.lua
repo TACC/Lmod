@@ -471,7 +471,7 @@ local function l_find_exact_match(self, must_have_version, fileA)
          local entry   = blockA[i]
          --dbg.print{"entry.fullName: ",entry.fullName,", entry.fn: ",entry.fn,"\n"}
          if (entry.version == versionStr and entry.pV > pV ) then
-            local resultT = mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, 
+            local resultT = mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, mpath=entry.mpath,
                                           visibleT = {soft = true, hidden = true}}
             --dbg.printT("resultT",resultT)
             if (resultT.isVisible)  then
@@ -545,7 +545,7 @@ local function l_find_highest_by_key(self, key, fileA)
          local entry   = blockA[i]
          local v       = entry[key]
          if (v > weight) then
-            local resultT = mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, 
+            local resultT = mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, mpath=entry.mpath,
                                        visibleT = {soft = true}}
             if (isMarked(v) or resultT.isVisible) then
                idx         = i
@@ -607,7 +607,7 @@ function M.find_between(self, fileA)
       local entry = a[j]
       local v     = entry.pV
       if (lowerFn(pV,v) and upperFn(v,upperBound) and entry.wV > wV) then
-         local resultT = mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, 
+         local resultT = mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, mpath=entry.mpath,
                                        visibleT = {soft = true}}
          if (isMarked(v) or resultT.isVisible ) then
             idx         = j

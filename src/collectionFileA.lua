@@ -39,9 +39,6 @@ require("utils")
 local dbg    = require("Dbg"):dbg()
 function collectFileA(sn, versionStr, extended_default, v, fileA)
    dbg.start{"collectFileA(",sn,",", versionStr,",v,fileA)"}
-   if (v.file and not versionStr) then
-      fileA[#fileA+1] = { sn = sn, version = nil, fullName = sn, fn=v.file, wV="~", pV="~" }
-   end
    if (v.fileT and next(v.fileT) ~= nil ) then
       local found  = false
       if (versionStr) then
@@ -49,7 +46,7 @@ function collectFileA(sn, versionStr, extended_default, v, fileA)
          local vv = v.fileT[k]
          if (vv) then
             fileA[#fileA+1] = { sn = sn, fullName = build_fullName(sn, versionStr),
-                                version = versionStr, fn = vv.fn, wV = vv.wV, pV = vv.pV }
+                                version = versionStr, fn = vv.fn, wV = vv.wV, pV = vv.pV, mpath = vv.mpath }
             dbg.fini("collectFileA")
             return
          end
@@ -67,7 +64,7 @@ function collectFileA(sn, versionStr, extended_default, v, fileA)
                   found = true
                   fileA[#fileA+1] = { sn = sn, fullName = k,
                                       version = k:gsub("^" .. sn:escape() .. "/",""),
-                                      fn = vvv.fn, wV = vvv.wV, pV = vvv.pV }
+                                      fn = vvv.fn, wV = vvv.wV, pV = vvv.pV, mpath = vvv.mpath }
                end
             end
          end
@@ -81,7 +78,7 @@ function collectFileA(sn, versionStr, extended_default, v, fileA)
       for fullName, vv in pairs(v.fileT) do
          local version   = extractVersion(fullName, sn)
          fileA[#fileA+1] = { sn = sn, fullName = fullName, version = version, fn = vv.fn,
-                             wV = vv.wV, pV = vv.pV }
+                             wV = vv.wV, pV = vv.pV, mpath = vv.mpath }
       end
    end
    if (v.dirT and next(v.dirT) ~= nil) then
