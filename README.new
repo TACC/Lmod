@@ -189,4 +189,4 @@ Lmod 8.7+
    (8.7.53) * updating docs to include link to 165_debugging_lmod.rst
 W.I.P.:
    (8.7.54) * Remove all v.file tests in dealing with ModuleA
-            * using self.__mpathT[mpath].hiddenT and self.__hiddenT instead of merged table.
+            * using self.__mpathT[mpath].hiddenT and self.__hiddenT instead of merged table for hidden status
