@@ -441,7 +441,6 @@ function main()
    local optionTbl  = optionTbl()
    local pargs      = optionTbl.pargs
    local mpathA     = {}
-
    Shell            = BaseShell:build("bash")
 
    local hub        = Hub:singleton(false)
@@ -485,11 +484,12 @@ function main()
    -- do not colorize output from spider
    colorize = plain
 
+   local mrc        = MRC:singleton()
 
+   mrc:set_display_mode("spider")
 
    -- Make sure that MRC uses $LMOD_MODULERC and ignores ~/.modulerc when building the cache
    local remove_MRC_home         = true
-   local mrc                     = MRC:singleton()
    local cache                   = Cache:singleton{dontWrite = true, quiet = true, buildCache = true,
                                                    buildFresh = true, noMRC=true}
    local spider                  = Spider:new()

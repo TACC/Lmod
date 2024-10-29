@@ -111,9 +111,10 @@ end
 -- A singleton Ctor for the MRC class
 -- @param self A MRC object.
 
-local s_Epoch  = nil
-local s_Is_dst = nil
-
+local s_Epoch        = nil
+local s_Is_dst       = nil
+local s_Show_HiddenT = nil
+local s_displayMode  = nil
 function M.singleton(self, fnA)
    dbg.start{"MRC:singleton()"}
    if (not s_MRC) then
@@ -123,6 +124,10 @@ function M.singleton(self, fnA)
       s_Epoch  = math.floor(epoch())
       local tm = posix.localtime(s_Epoch)
       s_Is_dst = tm.is_dst
+   end
+
+   if (not s_Show_HiddenT) then
+      s_Show_HiddenT = s_MRC:sane_show_hidden()
    end
 
    dbg.fini("MRC:singleton")
@@ -237,7 +242,6 @@ function M.parseModA(self, modA, weight)
          end
       until true
    end
-   self:setMustConvertHiddenFlag(true)
    dbg.fini("MRC:parseModA")
 end
 
@@ -346,8 +350,6 @@ function M.resolve(self, mpathA, name)
    return value
 end
 
-
-
 function M.getMod2VersionT(self, mpathA, key)
    if (next(self.__mod2versionT) == nil) then
       l_buildMod2VersionT(self, mpathA)
@@ -432,7 +434,6 @@ function M.parseModA_for_moduleA(self, name, mpath, modA)
          l_store_mpathT(self, mpath, "forbiddenT", entry.name, entry);
       end
    end
-   self:setMustConvertHiddenFlag(true)
    dbg.fini("MRC:parseModA_for_moduleA")
    return defaultV
 end
@@ -462,6 +463,36 @@ function M.export(self)
    return serializeTbl{indent = true, name = "mrcMpathT", value = mrcMpathT }
 end
 
+local function l_find_resultT(self, tbl_kind, replaceT, mpath, wantedA)
+   dbg.start{"MRC:l_find_resultT( tbl_kind, replaceT, mpath, wantedA)"}
+   local resultT = false
+   local Tkind   = "__" .. tbl_kind
+   local tt      = {}
+   local ttt     = self[Tkind] or {}
+   
+   if (self.__mpathT[mpath] and self.__mpathT[mpath][tbl_kind]) then
+      tt  = self.__mpathT[mpath][tbl_kind]
+   end
+   dbg.print{"mpath: ",mpath,"\n"}
+   dbg.printT("wantedA",wantedA)
+   dbg.printT("ttt", ttt)
+   dbg.printT("tt", tt)
+   dbg.printT("mpathT", self.__mpathT)
+
+   local mpathA = {mpath}
+   for i = 1,#wantedA do
+      local wanted = wantedA[i]
+      local key    = self:resolve(mpathA, wanted)
+      local ans    = ttt[key] or tt[key]
+      if (ans) then
+         resultT = ans
+         dbg.fini("MRC:l_find_resultT")
+         return resultT         
+      end
+   end
+   dbg.fini("MRC:l_find_resultT (false)")
+   return resultT
+end   
 
 local function l_merge_tables(self, name, mpathA, replaceT)
    dbg.start{"MRC:l_merge_tables(name, mpathA, replaceT)"}
@@ -495,26 +526,21 @@ local function l_merge_tables(self, name, mpathA, replaceT)
    return t
 end
 
-local function l_findHiddenState(self, mpathA, sn, fullName, fn)
-   dbg.start{"MRC:l_findHiddenState(self, mpathA, sn: ",sn,", fullName: ",fullName,", fn)"}
-   dbg.print{"mpathA:",concatTbl(mpathA,":"),"\n"}
-   if (self:mustConvertHidden()) then
-      self:setMustConvertHiddenFlag(false)
-      self.__merged_hiddenT = l_merge_tables(self, "hiddenT", mpathA, {kind = "hidden"})
-   end
-   local t       = self.__merged_hiddenT
-   if (fullName == "Foo/invisible") then
-      dbg.printT("merged_hiddenT",t)
-   end
-   local resultT = t[sn] or t[fullName] or (fn and (t[fn] or t[fn:gsub("%.lua$","")]))
+local function l_findHiddenState(self, mpath, sn, fullName, fn)
+   dbg.start{"l_findHiddenState(self, mpath, sn: ",sn,", fullName: ",fullName,", fn)"}
+   local wantedA = { sn, fullName, fn, ((fn or ""):gsub("%.lua$","")) }
+   local resultT = l_find_resultT(self, "hiddenT", {kind = "hidden"}, mpath, wantedA)
+
    -- then check for partial matches for NVV modulefiles.
    if (not resultT) then
       local _
       local n = fullName
+      wantedA = {}
       while (n and n ~= sn and not resultT) do
          _, _, n = n:find("(.*)/.*")
-         resultT = t[n]
+         wantedA[#wantedA + 1] = n
       end
+      resultT = l_find_resultT(self, "hidden", {kind = "hidden"}, mpath, wantedA)
    end
    dbg.fini("MRC:l_findHiddenState")
    return resultT
@@ -675,7 +701,7 @@ function M.isVisible(self, modT)
    local fullName      = modT.fullName
    local fn            = modT.fn
    local sn            = modT.sn
-   local show_hidden   = modT.show_hidden
+   local show_hidden   = self:show_hidden()
    local isVisible     = true
    local visibleT      = modT.visibleT or {}
    local kind          = "normal"
@@ -708,7 +734,7 @@ function M.isVisible(self, modT)
    end
 
 
-   local resultT     = l_findHiddenState(self, mpathA, sn, fullName, fn)
+   local resultT     = l_findHiddenState(self, mpath, sn, fullName, fn)
    if (type(resultT) == "table" ) then
       --dbg.printT("from hidden State resultT",resultT)
       isVisible, hidden_loaded, kind, count = l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)
@@ -937,6 +963,38 @@ function M.setMustConvertHiddenFlag(self, value)
    s_must_convert_hidden = value
 end
 
+function M.set_display_mode(self,kind)
+   s_displayMode = kind
+end
+
+local s_validT = {
+   no     = "no",
+   yes    = "all",
+   all    = "all",
+   spider = "spider",
+   list   = "list",
+   avail  = "avail",
+}   
+
+function M.sane_show_hidden(self)
+   local showH = (cosmic:value("LMOD_SHOW_HIDDEN") or "no"):lower()
+   local showHiddenT = {}
+   if (showH:find(":")) then
+      local a = path2pathA(showH)
+      for i = 1,#a do
+         local v = s_validT[a[i]] or "all"
+         showHiddenT[v] = true
+      end
+   else
+      showHiddenT[s_validT[showH] or "all"] = true
+   end
+   return showHiddenT
+end
+
+function M.show_hidden()
+   assert(s_displayMode, "display mode not set!")
+   return s_Show_HiddenT["all"] or s_Show_HiddenT[s_displayMode]
+end
                              
 
 return M

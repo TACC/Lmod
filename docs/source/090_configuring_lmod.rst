@@ -67,6 +67,19 @@ configuration step.
   your site has the SHELL_STARTUP_DEBUG package installed so that the
   invoking of the module command in the system startup will a no-op.
 
+**LMOD_SHOW_HIDDEN**:
+  [string] This variable is used to control whether hidden modules are
+  shown.  Possible values are: **all**, **avail**, **spider**, and/or
+  **list**.  The case does not matter.  The values **yes** and **all**
+  mean that all hidden modules will be shown in all cases. The values
+  **no** means that hidden modules won't be shown.
+
+
+Any value other than the above
+  is treated as **all**. The values can be combined with a colon
+  separator.  For example, using  **spider:list** would show hidden
+  modules when performing **module spider** and **module list**.
+
 **LMOD_SYSTEM_NAME**:
   [string] This variable is used to where a site is using shared home
   files systems. See :ref:`shared_home_file_system` for more details.

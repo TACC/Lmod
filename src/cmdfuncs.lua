@@ -53,6 +53,7 @@ local ColumnTable  = require('ColumnTable')
 local FrameStk     = require('FrameStk')
 local Hub          = require('Hub')
 local MName        = require("MName")
+local MRC          = require("MRC")
 local Spider       = require("Spider")
 local Version      = require("Version")
 local concatTbl    = table.concat
@@ -373,6 +374,9 @@ function List(...)
    local inactiveA = mt:list(kind,"inactive")
    local total     = #activeA + #inactiveA
    local cwidth    = optionTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
+   local mrc       = MRC:singleton()
+
+   mrc:set_display_mode("list")
 
    dbg.print{"#activeA:   ",#activeA,"\n"}
    dbg.print{"#inactiveA: ",#inactiveA,"\n"}
@@ -436,7 +440,7 @@ function List(...)
    b[#b+1]            = "\n"
    local kk           = 0
    local legendT      = {}
-   local show_hidden  = optionTbl.show_hidden
+   local show_hidden  = mrc:show_hidden()
    local have_hiddenL = false
 
    for i = 1, #activeA do
@@ -530,8 +534,10 @@ end
 -- it won't get the swap message.
 
 local function l_usrLoad(argA, check_must_load)
-   local frameStk = FrameStk:singleton()
    dbg.start{"l_usrLoad(argA, check_must_load: ",check_must_load,")"}
+   local frameStk = FrameStk:singleton()
+   local mrc      = MRC:singleton()
+   mrc:set_display_mode("all")
    local uA   = {}
    local lA   = {}
    for i = 1, argA.n do
@@ -1056,6 +1062,7 @@ end
 -- level 1 or level 2 report on particular modules.
 function SpiderCmd(...)
    dbg.start{"SpiderCmd(", concatTbl({...},", "),")"}
+   local mrc                    = MRC:singleton() ; mrc:set_display_mode("spider")
    local cache                  = Cache:singleton{buildCache=true}
    local shell                  = _G.Shell
    local optionTbl              = optionTbl()
@@ -1205,6 +1212,9 @@ function Use(...)
    local argA     = pack(...)
    local iarg     = 1
    local priority = 0
+
+   local mrc      = MRC:singleton()
+   mrc:set_display_mode("all")
 
    dbg.print{"using mcp: ",mcp:name(), "\n"}
 

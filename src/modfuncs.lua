@@ -62,6 +62,7 @@ require("declare")
 
 local BeautifulTbl = require("BeautifulTbl")
 local MName        = require("MName")
+local MRC          = require("MRC")
 local Version      = require("Version")
 local dbg          = require("Dbg"):dbg()
 local hook         = require("Hook")
@@ -798,6 +799,9 @@ function unload_usr_internal(mA, force)
       local s = mAList(mA)
       dbg.start{"unload_usr_internal(mA={"..s.."},force=",force,")"}
    end
+   local mrc = MRC:singleton()
+   mrc:set_display_mode("all")
+
    local mcp_old = mcp
    mcp = MainControl.build("unload")
    local b = MainControl.unload_usr(mcp, mA, force)
@@ -812,6 +816,9 @@ function unload_internal(mA)
       local s = mAList(mA)
       dbg.start{"unload_internal(mA={"..s.."})"}
    end
+   local mrc = MRC:singleton()
+   mrc:set_display_mode("all")
+
    local mcp_old = mcp
    mcp = mcp:build_unload()
    local b = mcp:unload(mA)

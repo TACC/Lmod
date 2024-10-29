@@ -1183,7 +1183,7 @@ step 92
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A avail
 ===========================
 ProjectDIR/rt/modulerc/mfD/Compiler/xcc/1.0
-   Foo/invisible (L)    Foo/visible (D)
+   Foo/invisible (H,L)    Foo/visible (D)
 ProjectDIR/rt/modulerc/mfD/Core
    C/1.0 (L)       G/2.0                   (D)        hard/1.0
    C/2.0           H/1.0                   (s,L)      hard/3.0 (D)

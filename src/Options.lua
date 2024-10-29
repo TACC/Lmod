@@ -455,6 +455,10 @@ function M.singleton(self, progName, usage, description)
    if (optionTbl.no_extensions) then
       cosmic:assign("LMOD_AVAIL_EXTENSIONS", "no")
    end
+
+   if (optionTbl.show_hidden) then
+      cosmic:assign("LMOD_SHOW_HIDDEN", "all")
+   end
 end
 
 return M

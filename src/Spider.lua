@@ -70,7 +70,8 @@ function M.new(self)
    local o = {}
    setmetatable(o,self)
    self.__index = self
-   self.__name  = false
+
+   o.__name  = false
    return o
 end
 
@@ -610,7 +611,6 @@ function M.buildDbT(self, mpathMapT, spiderT, dbT)
    local keepT        = l_build_keepT(mpathA, mpathParentT, spiderT)
    local parentT      = l_build_parentT(keepT, mpathMapT)
    local mrc          = MRC:singleton()
-   local show_hidden  = optionTbl().show_hidden
 
    local function l_cmp(a,b)
       return a[1] > b[1]
@@ -677,11 +677,10 @@ end
 function M.buildProvideByT(self, dbT, providedByT)
    dbg.start{"Spider:buildProvideByT(dbT, providedByT)"}
 
-   local show_hidden = optionTbl().show_hidden
    local mrc = MRC:singleton()
    for sn, vv in pairs(dbT) do
       for fullPath, v in pairs(vv) do
-         local resultT = mrc:isVisible{fullName=v.fullName, sn=sn, fn=fullPath, show_hidden = show_hidden, mpath=v.mpath}
+         local resultT = mrc:isVisible{fullName=v.fullName, sn=sn, fn=fullPath, mpath=v.mpath}
          local hidden  = not resultT.isVisible
          if (v.provides ~= nil) then
             local providesA = v.provides
@@ -732,15 +731,14 @@ end
 function M.Level0_terse(self,dbT, providedByT)
    dbg.start{"Spider:Level0_terse()"}
    local mrc         = MRC:singleton()
-   local optionTbl   = optionTbl()
-   local show_hidden = optionTbl.show_hidden
    local t           = {}
    local a           = {}
 
+   mrc:set_display_mode("spider")
+
    for sn, vv in pairs(dbT) do
       for fn, v in pairs(vv) do
-         local resultT = mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, mpath = v.mpath,
-                                       show_hidden = show_hidden}
+         local resultT = mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, mpath = v.mpath}
          if (resultT.isVisible) then
             local forbiddenT = mrc:isForbidden{fullName=v.fullName, sn=sn, fn=fn} 
             if (sn == v.fullName) then
@@ -824,15 +822,14 @@ end
 function M.Level0Helper(self, dbT, providedByT, a)
    local t           = {}
    local optionTbl   = optionTbl()
-   local show_hidden = optionTbl.show_hidden
+   local mrc         = MRC:singleton()
+   local show_hidden = mrc:show_hidden()
    local term_width  = TermWidth() - 4
    local banner      = Banner:singleton()
-   local mrc         = MRC:singleton()
 
    for sn, vv in pairs(dbT) do
       for fn,v in pairsByKeys(vv) do
-         local resultT = mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, mpath = v.mpath,
-                                       show_hidden = show_hidden}
+         local resultT = mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, mpath = v.mpath}
          if (resultT.isVisible) then
             local forbiddenT = mrc:isForbidden{fullName=v.fullName,sn=sn,fn=fn}
             if (t[sn] == nil) then
@@ -917,9 +914,12 @@ end
 
 function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
    dbg.start{"Spider:spiderSearch(dbT,providedByT,\"",userSearchPat,"\",",helpFlg,")"}
-   local optionTbl   = optionTbl()
-   local show_hidden = optionTbl.show_hidden
    local mrc         = MRC:singleton()
+   local optionTbl   = optionTbl()
+
+   mrc:set_display_mode("spider")
+
+   local show_hidden = mrc:show_hidden()
 
    dbg.print{"show_hidden: ",show_hidden,"\n"}
 
@@ -961,8 +961,7 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
          if (T) then
             dbg.print{"Have T\n"}
             for fn, v in pairs(T) do
-               local resultT = mrc:isVisible{fullName=v.fullName,fn=fn,sn=origUserSearchPat, mpath=v.mpath,
-                                             show_hidden=show_hidden}
+               local resultT = mrc:isVisible{fullName=v.fullName,fn=fn,sn=origUserSearchPat, mpath=v.mpath}
                if (resultT.isVisible) then
                   found = true
                   break
@@ -997,8 +996,7 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
       local fullA = {}
       for sn, vv in pairs(dbT) do
          for fn, v in pairs(vv) do
-            local resultT = mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, mpath = v.mpath,
-                                          show_hidden = show_hidden}
+            local resultT = mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, mpath = v.mpath}
             if (resultT.isVisible) then
                 fullA[#fullA+1] = {sn=sn, fullName=v.fullName}
             end
@@ -1080,9 +1078,9 @@ end
 function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
    dbg.start{"Spider:_Level1(dbT, providedByT, possibleA, sn: \"",sn,"\", key: \"",key,"\")"}
    local optionTbl   = optionTbl()
-   local show_hidden = optionTbl.show_hidden
    local term_width  = TermWidth() - 4
    local mrc         = MRC:singleton()
+   local show_hidden = mrc:show_hidden()
    local T           = dbT[sn]
    local TT          = providedByT[sn]
    local tailMsg     = nil
@@ -1109,8 +1107,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
          dbg.print{"Have T in l_countEntries\n"}
          dbg.print{"key: ",key,"\n"}
          for fn, v in pairs(T) do
-            local resultT = mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, mpath = v.mpath,
-                                          show_hidden = show_hidden}
+            local resultT = mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, mpath = v.mpath}
             if (resultT.isVisible) then
                v.fn=fn
                if (v.fullName == key) then
@@ -1230,8 +1227,7 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
    if (T) then
       dbg.print{"Have T\n"}
       for fn, v in pairsByKeys(T) do
-         local resultT = mrc:isVisible{fullName=v.fullName, sn=sn, fn=fn, mpath = v.mpath,
-                                       show_hidden=show_hidden}
+         local resultT = mrc:isVisible{fullName=v.fullName, sn=sn, fn=fn, mpath = v.mpath}
          if (resultT.isVisible) then
             local version  = extractVersion(v.fullName, sn)
             local kk       = sn .. "/" .. parseVersion(version)
@@ -1344,7 +1340,8 @@ function M._Level2(self, sn, fullName, entryA, entryPA, possibleA, tailMsg)
    --dbg.printT("entryA",entryA)
 
    local optionTbl    = optionTbl()
-   local show_hidden  = optionTbl.show_hidden
+   local mrc          = MRC:singleton();    mrc:set_display_mode("spider")
+   local show_hidden  = mrc:show_hidden()
    local terse        = optionTbl.terse
    local a            = {}
    local ia           = 0

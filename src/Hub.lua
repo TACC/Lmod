@@ -1220,7 +1220,9 @@ function M.avail(self, argA)
    local mt          = FrameStk:singleton():mt()
    local mpathA      = mt:modulePathA()
    local availStyle  = optionTbl.availStyle
-   local show_hidden = optionTbl.show_hidden
+   local mrc         = MRC:singleton()
+
+   mrc:set_display_mode("avail")
 
    local numDirs = 0
    for i = 1,#mpathA do
@@ -1243,7 +1245,6 @@ function M.avail(self, argA)
    local use_cache     = (not optionTbl.terse) or (cosmic:value("LMOD_CACHED_LOADS") ~= "no")
    local moduleA       = ModuleA:singleton{spider_cache=use_cache}
    local isNVV         = moduleA:isNVV()
-   local mrc           = MRC:singleton()
    local availA        = moduleA:build_availA()
    local twidth        = TermWidth()
    local cwidth        = optionTbl.rt and LMOD_COLUMN_TABLE_WIDTH or twidth
@@ -1252,6 +1253,8 @@ function M.avail(self, argA)
    local defaultOnly   = optionTbl.defaultOnly
    local alias2modT    = mrc:getAlias2ModT(mpathA)
    local showSN        = not defaultOnly
+
+
 
    dbg.printT("availA",availA)
 
@@ -1342,7 +1345,8 @@ function M.avail(self, argA)
 
    for k = 1,#availA do
       local A = availA[k].A
-      local label = availA[k].mpath
+      local mpath = availA[k].mpath
+      local label = mpath
       if (next(A) ~= nil) then
          local b = {}
          for j = 1,#A do
@@ -1361,7 +1365,7 @@ function M.avail(self, argA)
                end
                local c = {}
                local resultA = colorizePropA("short", mt,
-                                             {sn=sn, fullName=fullName, fn=fn, show_hidden = show_hidden},
+                                             {sn=sn, fullName=fullName, fn=fn, mpath = mpath },
                                              mrc, entry.propT, legendT, entry.forbiddenT)
                c[#c+1] = '  '
                for i = 1,#resultA do

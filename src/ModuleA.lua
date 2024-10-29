@@ -290,8 +290,8 @@ function M.__find_all_defaults(self)
    dbg.start{"ModuleA:__find_all_defaults()"}
    local moduleA     = self.__moduleA
    local defaultT    = self.__defaultT
-   local show_hidden = optionTbl().show_hidden
    local mrc         = MRC:singleton()
+   local show_hidden = MRC:show_hidden()
 
    dbg.printT("defaultT",defaultT)
 
@@ -317,7 +317,7 @@ function M.__find_all_defaults(self)
          if (next(v.fileT) ~= nil) then
             for fullName, vv in pairs(v.fileT) do
                local wV      = mrc:find_wght_for_fullName(fullName, vv.wV)
-               local resultT = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, visibleT = {soft=true}, show_hidden = show_hidden, mpath=vv.mpath}
+               local resultT = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, visibleT = {soft=true}, mpath=vv.mpath}
                local vis     = (resultT.isVisible or isMarked(wV))
 
                dbg.print{"l_find_all_defaults_helper: fullName: ",fullName, ", vis: ",vis,", resultT.kind: ",resultT.kind,"\n"}
@@ -374,15 +374,14 @@ end
 
 function M.build_availA(self)
    dbg.start{"ModuleA:build_availA()"}
-   local show_hidden = optionTbl().show_hidden
    local mrc         = MRC:singleton()
 
    local function l_build_availA_helper(mpath, sn, v, A)
       local icnt = #A
       if (next(v.fileT) ~= nil) then
          for fullName, vv in pairs(v.fileT) do
-            dbg.print{"fullName: ",fullName,",show_hidden: ",show_hidden,"\n"}
-            local resultT = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, show_hidden = show_hidden, mpath=vv.mpath}
+            dbg.print{"fullName: ",fullName,"\n"}
+            local resultT = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, mpath=vv.mpath}
             if (resultT.isVisible) then
                icnt    = icnt + 1
                dbg.print{"saving fullName: ",fullName,"\n"}

@@ -179,7 +179,7 @@ cosmic:init{name = "LMOD_REDIRECT",
             yn   = "no"}
 
 ------------------------------------------------------------------------
--- LMOD_DOWNSTREAM_CONFLICTS:  Module confiicts are remember for later
+-- LMOD_DOWNSTREAM_CONFLICTS: Module confiicts are remember for later
 --                            module loads
 --                            Note: this variable can only be set
 --                            at config time or via cosmic:assign() at
@@ -447,6 +447,20 @@ LMOD_QUARANTINE_VARS = getenv("LMOD_QUARANTINE_VARS")
 -- LMOD_RTM_TESTING: If set then the author is testing Lmod
 ------------------------------------------------------------------------
 LMOD_RTM_TESTING = getenv("LMOD_RTM_TESTING")
+
+
+------------------------------------------------------------------------
+-- LMOD_SHOW_HIDDEN: Controlling when hidden modules are shown.
+--                   Possible values are all, avail, list, spider
+--                   Default value is none, meaning that all hidden modules
+--                   are not shown
+------------------------------------------------------------------------
+local show_hiddenStr = getenv("LMOD_SHOW_HIDDEN")
+
+cosmic:init{name    = "LMOD_SHOW_HIDDEN",
+            default = "no",
+            envV    = show_hiddenStr,
+            assignV = show_hiddenStr}
 
 ------------------------------------------------------------------------
 -- LMOD_ADMIN_FILE: The Nag file.
