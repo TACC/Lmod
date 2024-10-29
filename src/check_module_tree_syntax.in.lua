@@ -278,14 +278,16 @@ function main()
    local pargs      = optionTbl.pargs
    local mpathA     = {}
    local errorT     = { defaultA = {}, syntaxA = {} }
-   local mrc        = MRC:singleton()
 
-   mrc:set_display_mode("spider")
    Shell            = BaseShell:build("bash")
 
    ------------------------------------------------------------------
    -- initialize lmod with SitePackage and /etc/lmod/lmod_config.lua
    initialize_lmod()
+
+   local mrc        = MRC:singleton()
+   mrc:set_display_mode("spider")
+
    dbg.set_prefix(colorize("red","Lmod"))
 
    local hub     = Hub:singleton(false)

@@ -152,7 +152,9 @@ end
 function Category(...)
    dbg.start{"Category(", concatTbl({...},", "),")"}
    local shell = _G.Shell
+   local mrc   = MRC:singleton()
 
+   mrc:set_display_mode("spider")
 
    local cache = Cache:singleton{buildCache = true}
    local moduleT, dbT = cache:build()
@@ -304,6 +306,9 @@ function Help(...)
 end
 
 function IsAvail(...)
+   local mrc  = MRC:singleton()
+   mrc:set_display_mode("avail")
+
    local argA = pack(...)
    for i = 1, argA.n do
       local mname = MName:new("load", argA[i])
@@ -315,6 +320,9 @@ function IsAvail(...)
 end
 
 function IsLoaded(...)
+   local mrc  = MRC:singleton()
+   mrc:set_display_mode("avail")
+
    local argA = pack(...)
    for i = 1, argA.n do
       local mname = MName:new("mt", argA[i])
@@ -331,6 +339,7 @@ end
 function Keyword(...)
    dbg.start{"Keyword(",concatTbl({...},","),")"}
 
+   local mrc                    = MRC:singleton(); mrc:set_display_mode("spider")
    local banner                 = Banner:singleton()
    local border                 = banner:border(0)
    local shell                  = _G.Shell
@@ -878,6 +887,9 @@ function Restore(collection)
    if (collection == "system" ) then
       Reset(msg)
    else
+      local mrc     = MRC:singleton()
+      mrc:set_display_mode("all")
+
       local mt      = FrameStk:singleton():mt()
       local results = mt:getMTfromFile{fn=path, name=myName, msg=msg}
       if (not results and collection == "default") then
@@ -1272,6 +1284,7 @@ function UnUse(...)
       MCP:remove_path{ModulePath,  v, delim=":", nodups = true, force = true}
    end
    if (mt:changeMPATH()) then
+      local mrc = MRC:singleton(); mrc:set_display_mode("all")
       mt:reset_MPATH_change_flag()
       hub.reloadAll()
    end

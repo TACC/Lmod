@@ -211,9 +211,11 @@ function M.parseModA(self, modA, weight)
          local entry = modA[i]
          if (entry.action == "module_version") then
             local fullName = entry.module_name
+            dbg.printT("entry",entry)
             fullName = self:resolve({}, fullName)
 
             local _, _, shorter, mversion = fullName:find("(.*)/(.*)")
+            dbg.print{"fullName: ",fullName,", shorter: ", shorter,"\n"}
             if (shorter == nil) then
                LmodWarning{msg="w_Broken_FullName", fullName= fullName}
                break

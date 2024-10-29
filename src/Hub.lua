@@ -111,7 +111,10 @@ function M.access(self, ...)
    local shellNm   = shell:name()
    local help      = (_G.help ~= dbg.quiet) and "-h" or nil
    local A         = ShowResultsA
+   local mrc       = MRC:singleton()
    local result, t
+
+   mrc:set_display_mode("all")
 
    local argA = pack(...)
    if (optionTbl.location or optionTbl.terse) then
@@ -969,6 +972,9 @@ function M.overview(self,argA)
    local mt          = FrameStk:singleton():mt()
    local mpathA      = mt:modulePathA()
    local availStyle  = optionTbl.availStyle
+   local mrc         = MRC:singleton()
+
+   mrc:set_display_mode("avail")
 
    local numDirs = 0
    for i = 1,#mpathA do
@@ -987,7 +993,8 @@ function M.overview(self,argA)
       return a
    end
 
-   local mrc         = MRC:singleton()
+   
+
    local use_cache   = false
    local moduleA     = ModuleA:singleton{spider_cache=use_cache}
    local availA      = moduleA:build_availA()
