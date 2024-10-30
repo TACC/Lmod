@@ -387,7 +387,7 @@ function M.build_availA(self)
                dbg.print{"saving fullName: ",fullName,"\n"}
                A[icnt] = { fullName = fullName, pV = pathJoin(sn,vv.pV), fn = vv.fn, sn = sn,
                            propT = vv.propT, provides = vv.provides, moduleKindT = resultT.moduleKindT,
-                           forbiddenT = mrc:isForbidden{fullName=fullName, sn = sn, fn = vv.fn},
+                           forbiddenT = mrc:isForbidden{fullName=fullName, sn = sn, fn = vv.fn, mpath=vv.mpath},
                          }
             end
          end

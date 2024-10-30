@@ -72,7 +72,6 @@ local pack      = (_VERSION == "Lua 5.1") and argsPack or table.pack  -- luachec
 ------------------------------------------------------------------------
 -- Local functions
 local l_build
-local l_buildMod2VersionT
 --------------------------------------------------------------------------
 -- a private ctor that is used to construct a singleton.
 -- @param self A MRC object.
@@ -95,8 +94,10 @@ local function l_new(self, fnA)
                                -- merged from LMOD_MODULERC and moduletree .modulerc* files
    o.__merged_forbiddenT = {}  -- Table of hidden modules
                                -- merged from LMOD_MODULERC and moduletree .modulerc* files
-   o.__mod2versionT      = {}  -- Map from full module name to versions.
-   o.__full2aliasesT     = {}
+   o.__mod2versionT      = false  -- Map from full module name to versions.
+   o.__full2aliasesT     = false
+   o.__old_mod2versionT  = {}  -- Map from full module name to versions.
+   o.__old_full2aliasesT = {}
    o.__mergedAlias2modT  = {}
    setmetatable(o,self)
    self.__index = self
@@ -247,16 +248,68 @@ function M.parseModA(self, modA, weight)
    dbg.fini("MRC:parseModA")
 end
 
-function l_buildMod2VersionT(self, mpathA)
-   --dbg.start{"l_buildMod2VersionT(self, mpathA)"}
+local function l_build_m2vT_f2aT(self, mpath, v2mT)
+   dbg.start{"MRC:l_build_m2vT_f2aT(mpath: ",mpath,")"}
+   local t    = {}
+   local m2vT = {}
+   local f2aT = {}
+   local mpathA = {mpath}
+      
+   dbg.printT("RTM v2mT",v2mT)
+
+   for k, v in pairs(v2mT) do
+      local key = self:resolve(mpathA, v)
+      local tt  = t[key] or {}
+      tt[k]     = true
+      t[key]    = tt
+   end
+   --dbg.printT("RTM t",t)
+   for modname, vv in pairsByKeys(t) do
+      local a = {}
+      local b = {}
+      for k in pairsByKeys(vv) do
+         a[#a+1] = k:gsub("^.*/","")
+         b[#b+1] = k
+      end
+      local s = concatTbl(a,":")
+      m2vT[modname] = s
+      f2aT[modname] = b
+   end
+
+   dbg.printT("m2vT", m2vT)
+
+   dbg.fini("MRC:l_build_m2vT_f2aT")
+   return m2vT, f2aT
+end
+   
+
+local function l_buildMod2VersionT(self, mpath)
+   dbg.start{"l_buildMod2VersionT(self, mpath)"}
+   if (not self.__mod2versionT) then
+      self.__mod2versionT, self.__full2aliasesT = 
+         l_build_m2vT_f2aT(self, mpath, self.__version2modT)
+   end
+
+   if (not self.__mpathT[mpath]) then
+      self.__mpathT[mpath] = {}
+   end
+   if (not self.__mpathT[mpath].mod2versionT) then
+      self.__mpathT[mpath].mod2versionT, self.__mpathT[mpath].full2aliasesT =
+         l_build_m2vT_f2aT(self, mpath, self.__mpathT[mpath].version2modT or {})
+   end
+   dbg.fini("l_buildMod2VersionT")
+end
+
+local function l_old_buildMod2VersionT(self, mpathA)
+   dbg.start{"l_old_buildMod2VersionT(self, mpathA)"}
    local v2mT = {}
    local m2vT = {}
    local f2aT = {}
    local mA2T = {}
 
-   --dbg.printT("self.__version2modT", self.__version2modT)
-   --dbg.printT("self.__alias2modT",   self.__alias2modT)
-   --dbg.printT("mrcMpathT", self.__mpathT)
+   dbg.printT("self.__version2modT", self.__version2modT)
+   dbg.printT("self.__alias2modT",   self.__alias2modT)
+   dbg.printT("mrcMpathT", self.__mpathT)
 
 
    local t
@@ -288,14 +341,15 @@ function l_buildMod2VersionT(self, mpathA)
       mA2T[k] = v
    end
 
-   --dbg.printT("v2mT",v2mT)
+   dbg.printT("Old: RTM v2mT",v2mT)
 
    for k, v in pairs(v2mT) do
-      v       = self:resolve(mpathA, v)
+      local v = self:resolve(mpathA, v)
       local t = m2vT[v] or {}
       t[k]    = true
       m2vT[v] = t
    end
+   dbg.printT("Old: RTM m2vT",m2vT)
    for modname, vv in pairsByKeys(m2vT) do
       local a = {}
       local b = {}
@@ -307,13 +361,13 @@ function l_buildMod2VersionT(self, mpathA)
       m2vT[modname] = s
       f2aT[modname] = b
    end
-   self.__mod2versionT  = m2vT
-   self.__full2aliasesT = f2aT
-   self.__mergedAlias2modT = mA2T
-   --dbg.printT("full2aliasesT",    f2aT)
-   --dbg.printT("mod2versionT",     m2vT)
-   --dbg.printT("mergedAlias2modT", mA2T)
-   --dbg.fini("l_buildMod2VersionT")
+   self.__old_mod2versionT  = m2vT
+   self.__old_full2aliasesT = f2aT
+   self.__mergedAlias2modT  = mA2T
+   dbg.printT("full2aliasesT",    f2aT)
+   dbg.printT("mod2versionT",     m2vT)
+   dbg.printT("mergedAlias2modT", mA2T)
+   dbg.fini("l_old_buildMod2VersionT")
 end
 
 local function l_find_alias_value(tblName, t, mrcMpathT, mpathA, key)
@@ -352,23 +406,62 @@ function M.resolve(self, mpathA, name)
    return value
 end
 
-function M.getMod2VersionT(self, mpathA, key)
-   if (next(self.__mod2versionT) == nil) then
-      l_buildMod2VersionT(self, mpathA)
+local function l_searchMod2Version(self, tbl_kind, mpath, key)
+   dbg.start{"MRC:l_searchMod2Version( mpath: ",mpath,", key: ",key,")"}
+   l_buildMod2VersionT(self, mpath)
+   if (key == "a/13.2.345") then
+      dbg.printT("self.__mod2versionT", self.__mod2versionT)
+      dbg.printT("self.__mpathT[mpath].mod2versionT", self.__mpathT[mpath].mod2versionTversion2modT)
    end
-   return self.__mod2versionT[key]
+
+   local ans = self.__mod2versionT[key] or self.__mpathT[mpath].mod2versionT[key]
+   dbg.fini("MRC:l_searchMod2Version")
+   return ans
+end
+
+local function l_searchVersionAliasT(self, tbl_kind, mpath, key)
+   dbg.start{"MRC:l_searchVersionAliasT(tbl_kind: ",tbl_kind,", mpath: ",mpath,", key: ",key,")"}
+   local Tkind  = "__" .. tbl_kind
+   local ttt    = self[Tkind] or {}
+   local tt     = {}
+   local mpathA = {mpath}
+   if (self.__mpathT[mpath] and self.__mpathT[mpath][tbl_kind]) then
+      tt  = self.__mpathT[mpath][tbl_kind]
+   end
+
+   key = self:resolve(mpathA, key)
+
+   dbg.fini("MRC:l_searchVersionAliasT")
+   return ttt[key] or tt[key]
+end
+
+
+function M.getMod2VersionT(self, mpath, mpathA, key)
+   dbg.start{"MRC:getMod2VersionT(mpath, mpathA, key)"}
+   if (next(self.__old_mod2versionT) == nil) then
+      l_old_buildMod2VersionT(self, mpathA)
+   end
+   local old_results = self.__old_mod2versionT[key]
+
+   local new_results = l_searchMod2Version(self, "version2modT", mpath, key)
+   dbg.print{"key: ", key,", old_results: ",old_results,", new_results: ",new_results,"\n"}
+
+   assert(old_results == new_results, "WTF")
+
+   dbg.fini("MRC:getMod2VersionT")
+   return new_results
 end
 
 function M.getFull2AliasesT(self, mpathA, key)
-   if (next(self.__full2aliasesT) == nil) then
-      l_buildMod2VersionT(self, mpathA)
+   if (next(self.__old_full2aliasesT) == nil) then
+      l_old_buildMod2VersionT(self, mpathA)
    end
-   return self.__full2aliasesT[key]
+   return self.__old_full2aliasesT[key]
 end
 
 function M.getAlias2ModT(self, mpathA)
    if (next(self.__mergedAlias2modT) == nil) then
-      l_buildMod2VersionT(self, mpathA)
+      l_old_buildMod2VersionT(self, mpathA)
    end
    return self.__mergedAlias2modT
 end
@@ -496,93 +589,36 @@ local function l_find_resultT(self, tbl_kind, replaceT, mpath, wantedA)
    return resultT
 end   
 
-local function l_merge_tables(self, name, mpathA, replaceT)
-   dbg.start{"MRC:l_merge_tables(name, mpathA, replaceT)"}
-   local Tname      = "__" .. name
-   ------------------------------------------------------------
-   -- all self.__mpathT[mpath][name] for current mpath
-   -- directories into the return table "t"
-   local tt
-   local t = {}
-   for i = #mpathA, 1, -1 do
-      local mpath = mpathA[i]
-      dbg.print{"mpath: ",mpath,"\n"}
-      if (self.__mpathT[mpath]) then
-         tt = self.__mpathT[mpath][name]
-         if (tt) then
-            for k,v in pairs(tt) do
-               t[self:resolve(mpathA, k)] = (v ~= true) and v or replaceT
-            end
-         end
-      end
-   end
-
-      ------------------------------------------------------------
-      -- Now merge LMOD_MODULERC files into self.__merged_hiddenT
-
-   tt = self[Tname]
-   for k, v in pairs(tt) do
-      t[self:resolve(mpathA, k)] = (v ~= true) and v or replaceT
-   end
-   dbg.fini("MRC:l_merge_tables")
-   return t
-end
-
 local function l_findHiddenState(self, mpath, sn, fullName, fn)
    dbg.start{"l_findHiddenState(self, mpath, sn: ",sn,", fullName: ",fullName,", fn)"}
    local wantedA = { sn, fullName, fn, ((fn or ""):gsub("%.lua$","")) }
-   local resultT = l_find_resultT(self, "hiddenT", {kind = "hidden"}, mpath, wantedA)
-
-   -- then check for partial matches for NVV modulefiles.
-   if (not resultT) then
-      local _
-      local n = fullName
-      wantedA = {}
-      while (n and n ~= sn and not resultT) do
-         _, _, n = n:find("(.*)/.*")
-         wantedA[#wantedA + 1] = n
-      end
-      resultT = l_find_resultT(self, "hidden", {kind = "hidden"}, mpath, wantedA)
+   local _
+   local n = fullName
+   while (n and n ~= sn) do
+      _, _, n = n:find("(.*)/.*")
+      wantedA[#wantedA + 1] = n
    end
+
+   local resultT = l_find_resultT(self, "hiddenT", {kind = "hidden"}, mpath, wantedA)
    dbg.fini("MRC:l_findHiddenState")
    return resultT
 end
 
-local s_must_convert_forbidden = true
-local function l_findForbiddenState(self, mpathA, sn, fullName, fn)
-   --dbg.start{"l_findForbiddenState(self, mpathA, sn, fullName:",fullName,", fn)"}
-   if (s_must_convert_forbidden) then
-      s_must_convert_forbidden = false
-      self.__merged_forbiddenT = l_merge_tables(self, "forbiddenT", mpathA, nil)
+
+
+local function l_findForbiddenState(self, mpath, sn, fullName, fn)
+   dbg.start{"l_findForbiddenState(self, mpath, sn, fullName:",fullName,", fn)"}
+   local wantedA = { sn, fullName, fn, ((fn or ""):gsub("%.lua$","")) }
+   local _
+   local n = fullName
+   while (n and n ~= sn) do
+      _, _, n = n:find("(.*)/.*")
+      wantedA[#wantedA + 1] = n
    end
-   local t = self.__merged_forbiddenT
-   local resultT = t[sn] or t[fullName] or (fn and (t[fn] or t[fn:gsub("%.lua$","")]))
-   ------------------------------------------------------------
-   -- If there is no result for sn, fullName or fn
-   -- then check for partial matches for NVV modulefiles.
-   if (not resultT) then
-      local _
-      local n = fullName
-      while (n and n ~= sn and not resultT) do
-         _, _, n = n:find("(.*)/.*")
-         resultT = t[n]
-      end
-   end
-   --dbg.fini("l_findForbiddenState")
+   local resultT = l_find_resultT(self, "forbiddenT", {}, mpath, wantedA)
+   dbg.fini("l_findForbiddenState")
    return resultT or {}
 end
-
---local function l_import_helper(self,entryT)
---   if (entryT and next(entryT) ~= nil) then
---      for kk,vv in pairs(entryT) do
---         local key = "__" .. kk
---         local t   = self[key]
---         for k,v in pairs(vv) do
---            t[k] = v
---         end
---      end
---   end
---end
 
 function M.import(self, mrcMpathT)
    dbg.start{"MRC:import()"}
@@ -773,11 +809,14 @@ function M.isForbidden(self, modT)
    local frameStk     = require("FrameStk"):singleton()
    local mname        = frameStk:mname()
    local mt           = frameStk:mt()
-   local mpathA       = modT.mpathA or mt:modulePathA()
+   local mpath        = modT.mpath
    local fullName     = modT.fullName
    local fn           = modT.fn
    local sn           = modT.sn
-   local resultT      = l_findForbiddenState(self, mpathA, sn, fullName, fn)
+
+   assert(mpath,"WTF")
+
+   local resultT      = l_findForbiddenState(self, mpath, sn, fullName, fn)
 
    --dbg.print{"fullName: ",fullName,"\n"}
    --dbg.printT("resultT",resultT)

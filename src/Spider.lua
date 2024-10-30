@@ -740,7 +740,7 @@ function M.Level0_terse(self,dbT, providedByT)
       for fn, v in pairs(vv) do
          local resultT = mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, mpath = v.mpath}
          if (resultT.isVisible) then
-            local forbiddenT = mrc:isForbidden{fullName=v.fullName, sn=sn, fn=fn} 
+            local forbiddenT = mrc:isForbidden{fullName=v.fullName, sn=sn, fn=fn, mpath = v.mpath} 
             if (sn == v.fullName) then
                t[sn] = decorateModule(sn, resultT, forbiddenT)
             else
@@ -831,7 +831,7 @@ function M.Level0Helper(self, dbT, providedByT, a)
       for fn,v in pairsByKeys(vv) do
          local resultT = mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, mpath = v.mpath}
          if (resultT.isVisible) then
-            local forbiddenT = mrc:isForbidden{fullName=v.fullName,sn=sn,fn=fn}
+            local forbiddenT = mrc:isForbidden{fullName=v.fullName,sn=sn,fn=fn, mpath = v.mpath}
             if (t[sn] == nil) then
                t[sn] = { Description = v.Description, versionA = { }, name = sn}
             end

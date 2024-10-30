@@ -1380,7 +1380,7 @@ function M.avail(self, argA)
                end
 
                local propStr = c[3] or ""
-               local verMapStr = mrc:getMod2VersionT(mpathA, fullName)
+               local verMapStr = mrc:getMod2VersionT(mpath, mpathA, fullName)
                if (verMapStr) then
                   legendT["Aliases"] = i18n("aliasMsg",{})
                   if (dflt == Default) then
