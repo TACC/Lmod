@@ -446,8 +446,6 @@ function M.getMod2VersionT(self, mpath, mpathA, key)
    local new_results = l_searchMod2Version(self, "version2modT", mpath, key)
    dbg.print{"key: ", key,", old_results: ",old_results,", new_results: ",new_results,"\n"}
 
-   assert(old_results == new_results, "WTF")
-
    dbg.fini("MRC:getMod2VersionT")
    return new_results
 end

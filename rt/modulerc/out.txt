@@ -914,6 +914,22 @@ spiderT = {
         },
       },
     },
+    java = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["java/1.8.0-B"] = {
+          Version = "1.8.0-B",
+          canonical = "1.8.0-B",
+          fn = "ProjectDIR/rt/modulerc/mf4/java/1.8.0-B.lua",
+          luaExt = 8,
+          mpath = "ProjectDIR/rt/modulerc/mf4",
+          pV = "000000001.000000008.*b.*zfinal",
+          wV = "000000001.000000008.*b.*zfinal",
+        },
+      },
+    },
     mpich = {
       defaultA = {},
       defaultT = {},
@@ -1111,6 +1127,22 @@ spiderT = {
           mpath = "ProjectDIR/rt/modulerc/mf4",
           pV = "000000003.*zfinal",
           wV = "000000003.*zfinal",
+        },
+      },
+    },
+    java = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["java/1.8.0-B"] = {
+          Version = "1.8.0-B",
+          canonical = "1.8.0-B",
+          fn = "ProjectDIR/rt/modulerc/mf4/java/1.8.0-B.lua",
+          luaExt = 8,
+          mpath = "ProjectDIR/rt/modulerc/mf4",
+          pV = "000000001.000000008.*b.*zfinal",
+          wV = "000000001.000000008.*b.*zfinal",
         },
       },
     },

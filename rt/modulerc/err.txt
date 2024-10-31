@@ -287,8 +287,8 @@ step 26
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/modulerc/mf4
-   a/1.0        a/3.0              mpich/3.1.2      mpich/3.2 (D)
-   a/2.0 (D)    mpich/3.1.2-dbg    mpich/3.2-dbg
+   a/1.0        a/3.0           mpich/3.1.2-dbg    mpich/3.2-dbg
+   a/2.0 (D)    java/1.8.0-B    mpich/3.1.2        mpich/3.2     (D)
   Where:
    D:  Default Module
 If the avail list is too long consider trying:
@@ -303,7 +303,8 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 Global Aliases
    a14 -> (N/A)
 ProjectDIR/rt/modulerc/mf4
-   a/1.0    a/3.0    mpich/3.1.2-dbg    mpich/3.1.2    mpich/3.2-dbg (D)
+   a/1.0    java/1.8.0-B       mpich/3.1.2
+   a/3.0    mpich/3.1.2-dbg    mpich/3.2-dbg (D)
   Where:
    D:    Default Module
    N/A:  Alias cannot be loaded with current $MODULEPATH
@@ -319,8 +320,8 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
 Global Aliases
    a14 -> (N/A)
 ProjectDIR/rt/modulerc/mf4
-   a/1.0          a/3.0              mpich/3.1.2          mpich/3.2 (H)
-   a/2.0 (H,D)    mpich/3.1.2-dbg    mpich/3.2-dbg (D)
+   a/1.0          a/3.0           mpich/3.1.2-dbg    mpich/3.2-dbg (D)
+   a/2.0 (H,D)    java/1.8.0-B    mpich/3.1.2        mpich/3.2     (H)
   Where:
    D:    Default Module
    H:    Hidden Module
@@ -349,7 +350,8 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 Global Aliases
    a14 -> (N/A)
 ProjectDIR/rt/modulerc/mf4
-   a/1.0    a/3.0    mpich/3.1.2-dbg    mpich/3.1.2    mpich/3.2-dbg (L,D)
+   a/1.0    java/1.8.0-B       mpich/3.1.2
+   a/3.0    mpich/3.1.2-dbg    mpich/3.2-dbg (L,D)
   Where:
    D:    Default Module
    L:    Module is loaded
@@ -366,8 +368,8 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
 Global Aliases
    a14 -> (N/A)
 ProjectDIR/rt/modulerc/mf4
-   a/1.0            a/3.0              mpich/3.1.2            mpich/3.2 (H)
-   a/2.0 (H,L,D)    mpich/3.1.2-dbg    mpich/3.2-dbg (L,D)
+   a/1.0            a/3.0           mpich/3.1.2-dbg    mpich/3.2-dbg (L,D)
+   a/2.0 (H,L,D)    java/1.8.0-B    mpich/3.1.2        mpich/3.2     (H)
   Where:
    D:    Default Module
    H:    Hidden Module
@@ -385,7 +387,8 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 Global Aliases
    a14 -> (N/A)
 ProjectDIR/rt/modulerc/mf4
-   a/1.0    a/3.0    mpich/3.1.2-dbg    mpich/3.1.2    mpich/3.2-dbg (L,D)
+   a/1.0    java/1.8.0-B       mpich/3.1.2
+   a/3.0    mpich/3.1.2-dbg    mpich/3.2-dbg (L,D)
   Where:
    D:    Default Module
    L:    Module is loaded
@@ -402,8 +405,8 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing --show_hidden avail
 Global Aliases
    a14 -> (N/A)
 ProjectDIR/rt/modulerc/mf4
-   a/1.0            a/3.0              mpich/3.1.2            mpich/3.2 (H)
-   a/2.0 (H,L,D)    mpich/3.1.2-dbg    mpich/3.2-dbg (L,D)
+   a/1.0            a/3.0           mpich/3.1.2-dbg    mpich/3.2-dbg (L,D)
+   a/2.0 (H,L,D)    java/1.8.0-B    mpich/3.1.2        mpich/3.2     (H)
   Where:
    D:    Default Module
    H:    Hidden Module
@@ -439,10 +442,10 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ProjectDIR/rt/modulerc/mf6
    java/1.8.0-A (1.8)
 ProjectDIR/rt/modulerc/mf7
-   java/1.8.0-B (D)
+   java/1.8.0-B (D:1.8)
 ProjectDIR/rt/modulerc/mf4
-   a/1.0        a/3.0              mpich/3.1.2      mpich/3.2 (D)
-   a/2.0 (D)    mpich/3.1.2-dbg    mpich/3.2-dbg
+   a/1.0        a/3.0           mpich/3.1.2-dbg    mpich/3.2-dbg
+   a/2.0 (D)    java/1.8.0-B    mpich/3.1.2        mpich/3.2     (D)
   Where:
    Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
    D:        Default Module
@@ -462,10 +465,10 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ProjectDIR/rt/modulerc/mf7
    java/1.8.0-B (D:1.8)
 ProjectDIR/rt/modulerc/mf6
-   java/1.8.0-A
+   java/1.8.0-A (1.8)
 ProjectDIR/rt/modulerc/mf4
-   a/1.0        a/3.0              mpich/3.1.2      mpich/3.2 (D)
-   a/2.0 (D)    mpich/3.1.2-dbg    mpich/3.2-dbg
+   a/1.0        a/3.0           mpich/3.1.2-dbg    mpich/3.2-dbg
+   a/2.0 (D)    java/1.8.0-B    mpich/3.1.2        mpich/3.2     (D)
   Where:
    Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2" will load foo/1.2.3
    D:        Default Module
