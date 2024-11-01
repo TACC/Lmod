@@ -1180,7 +1180,8 @@ function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaul
 
    for j = 1,#availA do
       local A      = availA[j].A
-      local label  = availA[j].mpath
+      local mpath  = availA[j].mpath
+      local label  = mpath
       local aa     = {}
       local prtSnT = {}  -- Mark if we have printed the sn?
 
@@ -1192,7 +1193,7 @@ function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaul
                prtSnT[sn] = true
                aa[#aa+1]  = sn .. "/\n"
             end
-            local aliasA = mrc:getFull2AliasesT(mpathA, fullName)
+            local aliasA = mrc:search_mapT("full2aliasesT", mpath, fullName)
             if (aliasA) then
                for i = 1,#aliasA do
                   local fullName = mrc:resolve(mpathA, aliasA[i])
@@ -1380,7 +1381,7 @@ function M.avail(self, argA)
                end
 
                local propStr = c[3] or ""
-               local verMapStr = mrc:getMod2VersionT(mpath, mpathA, fullName)
+               local verMapStr = mrc:search_mapT("mod2versionT", mpath, fullName)
                if (verMapStr) then
                   legendT["Aliases"] = i18n("aliasMsg",{})
                   if (dflt == Default) then

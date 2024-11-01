@@ -248,8 +248,8 @@ function M.parseModA(self, modA, weight)
    dbg.fini("MRC:parseModA")
 end
 
-local function l_build_m2vT_f2aT(self, mpath, v2mT)
-   dbg.start{"MRC:l_build_m2vT_f2aT(mpath: ",mpath,")"}
+local function l_build_reverse_maps_from_v2mT(self, mpath, v2mT)
+   dbg.start{"MRC:l_build_reverse_maps_from_v2mT(mpath: ",mpath,")"}
    local t    = {}
    local m2vT = {}
    local f2aT = {}
@@ -278,16 +278,16 @@ local function l_build_m2vT_f2aT(self, mpath, v2mT)
 
    dbg.printT("m2vT", m2vT)
 
-   dbg.fini("MRC:l_build_m2vT_f2aT")
+   dbg.fini("MRC:l_build_reverse_maps_from_v2mT")
    return m2vT, f2aT
 end
    
 
-local function l_buildMod2VersionT(self, mpath)
-   dbg.start{"l_buildMod2VersionT(self, mpath)"}
+local function l_build_m2vT_f2aT(self, mpath)
+   dbg.start{"l_build_m2vT_f2aT(self, mpath)"}
    if (not self.__mod2versionT) then
       self.__mod2versionT, self.__full2aliasesT = 
-         l_build_m2vT_f2aT(self, mpath, self.__version2modT)
+         l_build_reverse_maps_from_v2mT(self, mpath, self.__version2modT)
    end
 
    if (not self.__mpathT[mpath]) then
@@ -295,9 +295,9 @@ local function l_buildMod2VersionT(self, mpath)
    end
    if (not self.__mpathT[mpath].mod2versionT) then
       self.__mpathT[mpath].mod2versionT, self.__mpathT[mpath].full2aliasesT =
-         l_build_m2vT_f2aT(self, mpath, self.__mpathT[mpath].version2modT or {})
+         l_build_reverse_maps_from_v2mT(self, mpath, self.__mpathT[mpath].version2modT or {})
    end
-   dbg.fini("l_buildMod2VersionT")
+   dbg.fini("l_build_m2vT_f2aT")
 end
 
 local function l_old_buildMod2VersionT(self, mpathA)
@@ -406,63 +406,13 @@ function M.resolve(self, mpathA, name)
    return value
 end
 
-local function l_searchMod2Version(self, tbl_kind, mpath, key)
-   dbg.start{"MRC:l_searchMod2Version( mpath: ",mpath,", key: ",key,")"}
-   l_buildMod2VersionT(self, mpath)
-
-   local ans = self.__mod2versionT[key] or self.__mpathT[mpath].mod2versionT[key]
-   dbg.fini("MRC:l_searchMod2Version")
+function M.search_mapT(self, tbl_kind, mpath, key)
+   dbg.start{"MRC:search_mapT(", tbl_kind,", mpath: ",mpath,", key: ",key,")"}
+   l_build_m2vT_f2aT(self, mpath)
+   local ans = self["__"..tbl_kind][key] or self.__mpathT[mpath][tbl_kind][key]
+   dbg.fini("MRC:search_mapT")
    return ans
-end
-
-local function l_searchFull2aliases(self, tbl_kind, mpath, key)
-   dbg.start{"MRC:l_searchMod2Version( mpath: ",mpath,", key: ",key,")"}
-   l_buildMod2VersionT(self, mpath)
-
-   local ans = self.__full2aliasesT[key] or self.__mpathT[mpath].full2aliasesT[key]
-   dbg.fini("MRC:l_searchMod2Version")
-   return ans
-end
-
-local function l_searchVersionAliasT(self, tbl_kind, mpath, key)
-   dbg.start{"MRC:l_searchVersionAliasT(tbl_kind: ",tbl_kind,", mpath: ",mpath,", key: ",key,")"}
-   local Tkind  = "__" .. tbl_kind
-   local ttt    = self[Tkind] or {}
-   local tt     = {}
-   local mpathA = {mpath}
-   if (self.__mpathT[mpath] and self.__mpathT[mpath][tbl_kind]) then
-      tt  = self.__mpathT[mpath][tbl_kind]
-   end
-
-   key = self:resolve(mpathA, key)
-
-   dbg.fini("MRC:l_searchVersionAliasT")
-   return ttt[key] or tt[key]
-end
-
-
-function M.getMod2VersionT(self, mpath, mpathA, key)
-   dbg.start{"MRC:getMod2VersionT(mpath, mpathA, key)"}
-   --if (next(self.__old_mod2versionT) == nil) then
-   --   l_old_buildMod2VersionT(self, mpathA)
-   --end
-   --local old_results = self.__old_mod2versionT[key]
-
-   local new_results = l_searchMod2Version(self, "version2modT", mpath, key)
-
-   dbg.fini("MRC:getMod2VersionT")
-   return new_results
-end
-
-function M.getFull2AliasesT(self, mpathA, key)
-   if (next(self.__old_full2aliasesT) == nil) then
-      l_old_buildMod2VersionT(self, mpathA)
-   end
-   local old_results = self.__old_full2aliasesT[key]
-   local new_results = l_searchFull2aliases(self, "full2aliasesT", mpath, key)
-   assert(new_results == old_results, "WTF: new_resutls: ".. new_resutls ..", old_results: "..old_results)
-   return new_resutls
-end
+end   
 
 function M.getAlias2ModT(self, mpathA)
    if (next(self.__mergedAlias2modT) == nil) then
