@@ -409,12 +409,17 @@ end
 local function l_searchMod2Version(self, tbl_kind, mpath, key)
    dbg.start{"MRC:l_searchMod2Version( mpath: ",mpath,", key: ",key,")"}
    l_buildMod2VersionT(self, mpath)
-   if (key == "a/13.2.345") then
-      dbg.printT("self.__mod2versionT", self.__mod2versionT)
-      dbg.printT("self.__mpathT[mpath].mod2versionT", self.__mpathT[mpath].mod2versionTversion2modT)
-   end
 
    local ans = self.__mod2versionT[key] or self.__mpathT[mpath].mod2versionT[key]
+   dbg.fini("MRC:l_searchMod2Version")
+   return ans
+end
+
+local function l_searchFull2aliases(self, tbl_kind, mpath, key)
+   dbg.start{"MRC:l_searchMod2Version( mpath: ",mpath,", key: ",key,")"}
+   l_buildMod2VersionT(self, mpath)
+
+   local ans = self.__full2aliasesT[key] or self.__mpathT[mpath].full2aliasesT[key]
    dbg.fini("MRC:l_searchMod2Version")
    return ans
 end
@@ -438,13 +443,12 @@ end
 
 function M.getMod2VersionT(self, mpath, mpathA, key)
    dbg.start{"MRC:getMod2VersionT(mpath, mpathA, key)"}
-   if (next(self.__old_mod2versionT) == nil) then
-      l_old_buildMod2VersionT(self, mpathA)
-   end
-   local old_results = self.__old_mod2versionT[key]
+   --if (next(self.__old_mod2versionT) == nil) then
+   --   l_old_buildMod2VersionT(self, mpathA)
+   --end
+   --local old_results = self.__old_mod2versionT[key]
 
    local new_results = l_searchMod2Version(self, "version2modT", mpath, key)
-   dbg.print{"key: ", key,", old_results: ",old_results,", new_results: ",new_results,"\n"}
 
    dbg.fini("MRC:getMod2VersionT")
    return new_results
@@ -454,7 +458,10 @@ function M.getFull2AliasesT(self, mpathA, key)
    if (next(self.__old_full2aliasesT) == nil) then
       l_old_buildMod2VersionT(self, mpathA)
    end
-   return self.__old_full2aliasesT[key]
+   local old_results = self.__old_full2aliasesT[key]
+   local new_results = l_searchFull2aliases(self, "full2aliasesT", mpath, key)
+   assert(new_results == old_results, "WTF: new_resutls: ".. new_resutls ..", old_results: "..old_results)
+   return new_resutls
 end
 
 function M.getAlias2ModT(self, mpathA)
