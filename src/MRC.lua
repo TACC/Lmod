@@ -300,6 +300,62 @@ local function l_build_m2vT_f2aT(self, mpath)
    dbg.fini("l_build_m2vT_f2aT")
 end
 
+local function l_findKeyA(self, mpathA, tbl_kind)
+   local a = {}
+   local t = {}
+   local kindT = "__" .. tbl_kind
+   for k in pairs(self[kindT]) do
+      if (not t[k]) then
+         a[#a+1] = k
+         t[k] = true
+      end
+   end
+   for i = #mpathA, 1, -1 do
+      local mpath = mpathA[i]
+      if (self.__mpathT[mpath]) then
+         local tt = self.__mpathT[mpath][tbl_kind]
+         if (tt) then
+            for k in pairs(tt) do
+               if (not t[k]) then
+                  a[#a+1] = k
+                  t[k] = true
+               end
+            end
+         end
+      end
+   end
+   table.sort(a)
+   return a
+end
+
+function M.pairsForMRC_aliases(self, mpathA)
+   local a = l_findKeyA(self, mpathA, "alias2modT")
+
+   local i = 0
+   local iter = function ()
+      i = i + 1
+      local ans = nil
+      local k   = a[i]
+      if (k == nil) then return nil end
+      ans = self.__alias2modT[k]
+      if (not ans) then
+         for i = #mpathA, 1, -1 do
+            local mpath = mpathA[i]
+            if (self.__mpathT[mpath]) then
+               local tt = self.__mpathT[mpath].alias2modT
+               if (tt and tt[k]) then
+                  ans = tt[k]
+               end
+            end
+         end
+      end
+      return k, ans
+   end
+   return iter
+end
+
+
+
 local function l_old_buildMod2VersionT(self, mpathA)
    dbg.start{"l_old_buildMod2VersionT(self, mpathA)"}
    local v2mT = {}

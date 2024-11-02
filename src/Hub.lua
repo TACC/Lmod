@@ -1159,7 +1159,8 @@ function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaul
    local optionTbl   = optionTbl()
 
    if (searchA.n > 0) then
-      for k, v in pairsByKeys(alias2modT) do
+      --for k, v in pairsByKeys(alias2modT) do
+      for k, v in mrc:pairsForMRC_aliases(mpathA) do
          local fullName = mrc:resolve(mpathA, v)
          for i = 1, searchA.n do
             local s = searchA[i]
@@ -1169,7 +1170,8 @@ function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaul
          end
       end
    else
-      for k, v in pairsByKeys(alias2modT) do
+      --for k, v in pairsByKeys(alias2modT) do
+      for k, v in mrc:pairsForMRC_aliases(mpathA) do
          local fullName = mrc:resolve(mpathA, v)
          a[#a+1] = k.."(@" .. fullName ..")\n"
       end
@@ -1308,46 +1310,87 @@ function M.avail(self, argA)
    local na       = "N/A"
    local pna      = "("..na..")"
 
-   if (next(alias2modT) ~= nil) then
-      local fndAlias = false
-      local b        = {}
-      local bb       = {}
-      if (searchA.n > 0) then
-         for k, v in pairsByKeys(alias2modT) do
-            local fullName = mrc:resolve(mpathA,v)
-            for i = 1, searchA.n do
-               local s = searchA[i]
-               if (fullName:find(s)) then
-                  local mname    = MName:new("load",k)
-                  fullName = mname:fullName() or pna
-                  if (fullName == pna) then
-                     legendT[na] = i18n("m_Global_Alias_na")
-                  end
-                  fndAlias = true
-                  b[#b+1]  = { "   " .. k, "->", fullName}
-                  break
+   --if (next(alias2modT) ~= nil) then
+   --   local fndAlias = false
+   --   local b        = {}
+   --   local bb       = {}
+   --   if (searchA.n > 0) then
+   --      for k, v in pairsByKeys(alias2modT) do
+   --         local fullName = mrc:resolve(mpathA,v)
+   --         for i = 1, searchA.n do
+   --            local s = searchA[i]
+   --            if (fullName:find(s)) then
+   --               local mname    = MName:new("load",k)
+   --               fullName = mname:fullName() or pna
+   --               if (fullName == pna) then
+   --                  legendT[na] = i18n("m_Global_Alias_na")
+   --               end
+   --               fndAlias = true
+   --               b[#b+1]  = { "   " .. k, "->", fullName}
+   --               break
+   --            end
+   --         end
+   --      end
+   --   else
+   --      for k, v in pairsByKeys(alias2modT) do
+   --         local mname    = MName:new("load",k)
+   --         local fullName = mname:fullName() or pna
+   --         if (fullName == pna) then
+   --            legendT[na] = i18n("m_Global_Alias_na")
+   --         end
+   --         fndAlias = true
+   --         b[#b+1]  = { "   " .. k, "->", fullName}
+   --      end
+   --   end
+   --   if (fndAlias) then
+   --      local ct = ColumnTable:new{tbl=b, gap=1, len=length, width = cwidth}
+   --      a[#a+1]  = "\n"
+   --      a[#a+1] = banner:bannerStr("Global Aliases")
+   --      a[#a+1] = "\n"
+   --      a[#a+1]  = ct:build_tbl()
+   --      a[#a+1] = "\n"
+   --   end
+   --end
+   local fndAlias = false
+   local b        = {}
+   local bb       = {}
+   if (searchA.n > 0) then
+      --for k, v in pairsByKeys(alias2modT) do
+      for k, v in mrc:pairsForMRC_aliases(mpathA) do
+         local fullName = mrc:resolve(mpathA,v)
+         for i = 1, searchA.n do
+            local s = searchA[i]
+            if (fullName:find(s)) then
+               local mname    = MName:new("load",k)
+               fullName = mname:fullName() or pna
+               if (fullName == pna) then
+                  legendT[na] = i18n("m_Global_Alias_na")
                end
+               fndAlias = true
+               b[#b+1]  = { "   " .. k, "->", fullName}
+               break
             end
          end
-      else
-         for k, v in pairsByKeys(alias2modT) do
-            local mname    = MName:new("load",k)
-            local fullName = mname:fullName() or pna
-            if (fullName == pna) then
-               legendT[na] = i18n("m_Global_Alias_na")
-            end
-            fndAlias = true
-            b[#b+1]  = { "   " .. k, "->", fullName}
+      end
+   else
+      --for k, v in pairsByKeys(alias2modT) do
+      for k, v in mrc:pairsForMRC_aliases(mpathA) do
+         local mname    = MName:new("load",k)
+         local fullName = mname:fullName() or pna
+         if (fullName == pna) then
+            legendT[na] = i18n("m_Global_Alias_na")
          end
+         fndAlias = true
+         b[#b+1]  = { "   " .. k, "->", fullName}
       end
-      if (fndAlias) then
-         local ct = ColumnTable:new{tbl=b, gap=1, len=length, width = cwidth}
-         a[#a+1]  = "\n"
-         a[#a+1] = banner:bannerStr("Global Aliases")
-         a[#a+1] = "\n"
-         a[#a+1]  = ct:build_tbl()
-         a[#a+1] = "\n"
-      end
+   end
+   if (fndAlias) then
+      local ct = ColumnTable:new{tbl=b, gap=1, len=length, width = cwidth}
+      a[#a+1]  = "\n"
+      a[#a+1] = banner:bannerStr("Global Aliases")
+      a[#a+1] = "\n"
+      a[#a+1]  = ct:build_tbl()
+      a[#a+1] = "\n"
    end
 
 
