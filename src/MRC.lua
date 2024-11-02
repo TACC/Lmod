@@ -205,11 +205,9 @@ function M.parseModA(self, modA, weight)
          local entry = modA[i]
          if (entry.action == "module_version") then
             local fullName = entry.module_name
-            dbg.printT("entry",entry)
             fullName = self:resolve({}, fullName)
 
             local _, _, shorter, mversion = fullName:find("(.*)/(.*)")
-            dbg.print{"fullName: ",fullName,", shorter: ", shorter,"\n"}
             if (shorter == nil) then
                LmodWarning{msg="w_Broken_FullName", fullName= fullName}
                break
@@ -915,15 +913,6 @@ function M.applyWeights(self, sn, fileA)
    end
    dbg.printT("fileA: ", fileA)
    dbg.fini("MRC:applyWeights")
-end
-
-local s_must_convert_hidden = true
-function M.mustConvertHidden(self)
-   return s_must_convert_hidden
-end
-
-function M.setMustConvertHiddenFlag(self, value)
-   s_must_convert_hidden = value
 end
 
 function M.set_display_mode(self,kind)

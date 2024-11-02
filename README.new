@@ -191,3 +191,8 @@ W.I.P.:
    (8.7.54) * Remove all v.file tests in dealing with ModuleA
             * using self.__mpathT[mpath].hiddenT and self.__hiddenT instead of merged table for hidden status
             * Added mrc:set_display_mode() before commands.
+            * Build reverse maps for mod2versionT and full2aliasesT dynamically
+            * Added MRC:pairsForMRC_aliases iterator
+            * Removed MRC:__marged_hiddenT, MRC:__marged_forbiddenT and MRC:__mergedAlias2modT
+            * Issue #731: Support for env. var. LMOD_SHOW_HIDDEN
+            

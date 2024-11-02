@@ -159,33 +159,43 @@ EOF
      runLmod    load ABC/2.5                           #55
      runLmod    list                                   #56
      runLmod -A list                                   #57
-     runLmod    --show_hidden avail                    #58
-     runLmod    avail                                  #59
-     runBase    runSpiderCmd -o spiderT $MODULEPATH    #60
-     runBase    runSpiderCmd -o dbT     $MODULEPATH    #61
+     export LMOD_SHOW_HIDDEN=list
+     runLmod    list                                   #58
+     runLmod    --show_hidden avail                    #59
+     export LMOD_SHOW_HIDDEN=avail
+     runLmod    avail                                  #60
+     runLmod    list                                   #61
+     unset LMOD_SHOW_HIDDEN
+     runLmod    avail                                  #62
+     runBase    runSpiderCmd -o spiderT $MODULEPATH    #63
+     runBase    runSpiderCmd -o dbT     $MODULEPATH    #64
+     runLmod    spider                                 #65
+     export LMOD_SHOW_HIDDEN=spider
+     runLmod    spider                                 #66
+     unset LMOD_SHOW_HIDDEN
 
      # Test hidden_loaded feature
-     runLmod    load C D E F                           #62
-     runLmod    --mt                                   #63
-     runLmod    list                                   #64
-     runLmod    --show_hidden list                     #65
-     runLmod    spider                                 #66
-     runLmod -A spider                                 #67
+     runLmod    load C D E F                           #67
+     runLmod    --mt                                   #68
+     runLmod    list                                   #69
+     runLmod    --show_hidden list                     #70
+     runLmod    spider                                 #71
+     runLmod -A spider                                 #72
 
      # test before and after hide modifiers
-     runLmod    purge                                  #68
+     runLmod    purge                                  #73
      unsetMT
      export MODULEPATH_ROOT=$(testDir)/mfC
      export MODULEPATH=$MODULEPATH_ROOT/Core
 
      $(testDir)/create_hide_modulerc $(projectDir) > $(outputDir)/modulerc.lua
      export LMOD_MODULERC=$(outputDir)/modulerc.lua
-     runLmod    avail                                  #69
-     runLmod -A avail                                  #70
-     runLmod    load B/1.0                             #71
+     runLmod    avail                                  #74
+     runLmod -A avail                                  #75
+     runLmod    load B/1.0                             #76
 
      # test forbidden
-     runLmod    purge                                  #72
+     runLmod    purge                                  #77
      unsetMT
      export MODULEPATH_ROOT=$(testDir)/mfD
      export MODULEPATH=$MODULEPATH_ROOT/Core
@@ -196,40 +206,40 @@ EOF
      # Note this test will fail sometime after the year 3000
 
      export LMOD_NEARLY_FORBIDDEN_DAYS=400000
-     runLmod       avail                               #73
-     runLmod -A    avail                               #74
-     runLmod -t -A avail                               #75
-     runLmod       load C                              #76
-     runLmod       load cluster                        #77
-     runLmod       load D H/1.0                        #78
-     runLmod       list                                #79
-     runLmod       --mt                                #80
-     runLmod -t    list                                #81
-     runBase runSpiderCmd -o spiderT $MODULEPATH       #82
-     runLmod       spider                              #83
-     runLmod    -A spider                              #84
-     runLmod -t    spider                              #85
-     runLmod -t -A spider                              #86
+     runLmod       avail                               #78
+     runLmod -A    avail                               #79
+     runLmod -t -A avail                               #80
+     runLmod       load C                              #81
+     runLmod       load cluster                        #82
+     runLmod       load D H/1.0                        #83
+     runLmod       list                                #84
+     runLmod       --mt                                #85
+     runLmod -t    list                                #86
+     runBase runSpiderCmd -o spiderT $MODULEPATH       #87
+     runLmod       spider                              #88
+     runLmod    -A spider                              #89
+     runLmod -t    spider                              #90
+     runLmod -t -A spider                              #91
 
      mkdir -p $HOME/.cache/lmod
      buildSpiderT $MODULEPATH > $HOME/.cache/lmod/spiderT.lua
-     runLmod -A    avail                               #87
-     export LMOD_PACKAGE_PATH=$(testDir)
-     runLmod       load soft/1.0                       #88
-     runLmod       load G/1.0                          #89
-     runLmod       load C/1.0                          #90
-
-     runLmod       load xcc Foo/invisible              #91
      runLmod -A    avail                               #92
+     export LMOD_PACKAGE_PATH=$(testDir)
+     runLmod       load soft/1.0                       #93
+     runLmod       load G/1.0                          #94
+     runLmod       load C/1.0                          #95
+
+     runLmod       load xcc Foo/invisible              #96
+     runLmod -A    avail                               #97
 
      cp $HOME/.cache/lmod/spiderT.lua spiderT.87.lua
      rm -rf $HOME/.cache
 
-     runLmod       unload Foo/invisible xcc            #93
-     runLmod       load xcc Foo/invisible              #94
-     runLmod       unload Foo/invisible xcc            #95
-     runLmod       load xcc                            #96
-     runLmod       load Foo/invisible                  #97
+     runLmod       unload Foo/invisible xcc            #98
+     runLmod       load xcc Foo/invisible              #99
+     runLmod       unload Foo/invisible xcc            #100
+     runLmod       load xcc                            #101
+     runLmod       load Foo/invisible                  #102
      
      
 
