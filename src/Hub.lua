@@ -1004,7 +1004,6 @@ function M.overview(self,argA)
    local searchA     = argA
    local showSN      = true
    local defaultOnly = false
-   local alias2modT  = mrc:getAlias2ModT(mpathA)
    local banner      = Banner:singleton()
 
    if (not optionTbl.regexp and argA and next(argA) ~= nil) then
@@ -1024,7 +1023,7 @@ function M.overview(self,argA)
    availA = regroup_avail_blocks(availStyle, availA)
    local showModuleExt = false
 
-   self:terse_avail(mpathA, availA, alias2modT, searchA, showSN, defaultOnly, defaultT, showModuleExt, aa)
+   self:terse_avail(mpathA, availA, searchA, showSN, defaultOnly, defaultT, showModuleExt, aa)
 
    local label    = ""
    local a        = {}
@@ -1153,13 +1152,12 @@ function M.buildExtA(self, searchA, mpathA, providedByT, extA)
     dbg.fini("Hub:buildExtA()")
 end
 
-function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaultOnly, defaultT, showModuleExt, a)
+function M.terse_avail(self, mpathA, availA, searchA, showSN, defaultOnly, defaultT, showModuleExt, a)
    dbg.start{"Hub:terse_avail()"}
    local mrc         = MRC:singleton()
    local optionTbl   = optionTbl()
 
    if (searchA.n > 0) then
-      --for k, v in pairsByKeys(alias2modT) do
       for k, v in mrc:pairsForMRC_aliases(mpathA) do
          local fullName = mrc:resolve(mpathA, v)
          for i = 1, searchA.n do
@@ -1170,7 +1168,6 @@ function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaul
          end
       end
    else
-      --for k, v in pairsByKeys(alias2modT) do
       for k, v in mrc:pairsForMRC_aliases(mpathA) do
          local fullName = mrc:resolve(mpathA, v)
          a[#a+1] = k.."(@" .. fullName ..")\n"
@@ -1261,7 +1258,6 @@ function M.avail(self, argA)
    local defaultT      = moduleA:defaultT()
    local searchA       = argA
    local defaultOnly   = optionTbl.defaultOnly
-   local alias2modT    = mrc:getAlias2ModT(mpathA)
    local showSN        = not defaultOnly
 
 
@@ -1294,8 +1290,8 @@ function M.avail(self, argA)
    if (optionTbl.terse or optionTbl.terseShowExtensions) then
       --------------------------------------------------
       -- Terse output
-      self:terse_avail(mpathA, availA, alias2modT, searchA, showSN,
-                       defaultOnly, defaultT, optionTbl.terseShowExtensions, a)
+      self:terse_avail(mpathA, availA, searchA, showSN, defaultOnly, 
+                       defaultT, optionTbl.terseShowExtensions, a)
 
       dbg.fini("Hub:avail")
       return a
@@ -1310,52 +1306,10 @@ function M.avail(self, argA)
    local na       = "N/A"
    local pna      = "("..na..")"
 
-   --if (next(alias2modT) ~= nil) then
-   --   local fndAlias = false
-   --   local b        = {}
-   --   local bb       = {}
-   --   if (searchA.n > 0) then
-   --      for k, v in pairsByKeys(alias2modT) do
-   --         local fullName = mrc:resolve(mpathA,v)
-   --         for i = 1, searchA.n do
-   --            local s = searchA[i]
-   --            if (fullName:find(s)) then
-   --               local mname    = MName:new("load",k)
-   --               fullName = mname:fullName() or pna
-   --               if (fullName == pna) then
-   --                  legendT[na] = i18n("m_Global_Alias_na")
-   --               end
-   --               fndAlias = true
-   --               b[#b+1]  = { "   " .. k, "->", fullName}
-   --               break
-   --            end
-   --         end
-   --      end
-   --   else
-   --      for k, v in pairsByKeys(alias2modT) do
-   --         local mname    = MName:new("load",k)
-   --         local fullName = mname:fullName() or pna
-   --         if (fullName == pna) then
-   --            legendT[na] = i18n("m_Global_Alias_na")
-   --         end
-   --         fndAlias = true
-   --         b[#b+1]  = { "   " .. k, "->", fullName}
-   --      end
-   --   end
-   --   if (fndAlias) then
-   --      local ct = ColumnTable:new{tbl=b, gap=1, len=length, width = cwidth}
-   --      a[#a+1]  = "\n"
-   --      a[#a+1] = banner:bannerStr("Global Aliases")
-   --      a[#a+1] = "\n"
-   --      a[#a+1]  = ct:build_tbl()
-   --      a[#a+1] = "\n"
-   --   end
-   --end
    local fndAlias = false
    local b        = {}
    local bb       = {}
    if (searchA.n > 0) then
-      --for k, v in pairsByKeys(alias2modT) do
       for k, v in mrc:pairsForMRC_aliases(mpathA) do
          local fullName = mrc:resolve(mpathA,v)
          for i = 1, searchA.n do
@@ -1373,7 +1327,6 @@ function M.avail(self, argA)
          end
       end
    else
-      --for k, v in pairsByKeys(alias2modT) do
       for k, v in mrc:pairsForMRC_aliases(mpathA) do
          local mname    = MName:new("load",k)
          local fullName = mname:fullName() or pna
