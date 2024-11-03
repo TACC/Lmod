@@ -235,8 +235,8 @@ EOF
      cp $HOME/.cache/lmod/spiderT.lua spiderT.87.lua
      rm -rf $HOME/.cache
 
-     runLmod       unload Foo/invisible xcc            #98
-     runLmod       load xcc Foo/invisible              #99
+     runLmod       unload Foo/invisible xcc            # 98
+     runLmod       load xcc Foo/invisible              # 99
      runLmod       unload Foo/invisible xcc            #100
      runLmod       load xcc                            #101
      runLmod       load Foo/invisible                  #102
