@@ -67,6 +67,8 @@ configuration step.
   your site has the SHELL_STARTUP_DEBUG package installed so that the
   invoking of the module command in the system startup will a no-op.
 
+.. _show_hidden-label:
+
 **LMOD_SHOW_HIDDEN**:
   [string] This variable is used to control whether hidden modules are
   shown.  Possible values are: **all**, **avail**, **spider**, and/or
@@ -75,8 +77,8 @@ configuration step.
   **no** means that hidden modules won't be shown.
 
 
-Any value other than the above
-  is treated as **all**. The values can be combined with a colon
+  Any values other than the above (except for "", 0, or no).
+  are treated as **all**. The values can be combined with a colon
   separator.  For example, using  **spider:list** would show hidden
   modules when performing **module spider** and **module list**.
 

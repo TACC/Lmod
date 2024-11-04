@@ -1,12 +1,19 @@
 New Features in Lmod
 ====================
 
+**LMOD_SHOW_HIDDEN**
+  (Lmod 8.7.54+) The environment variable **LMOD_SHOW_HIDDEN**
+  can be used to control whether hidden modules will be show under
+  list, spider, avail.  See :ref:`show_hidden-label` for more details
+
+
+
 **Accessing isVisible status from load hook**
    (Lmod 8.7.52+) The mname object is passed to the load hook.  Sites
    can access the isVisible status by t.mname:isVisible()
 
 **hide** {} and **forbid** {}
-   (Lmod 8.8+) The *hide* {} function provides a more powerful way to
+   (Lmod 8.7.52+) The *hide* {} function provides a more powerful way to
    hide modules.  The *forbid* {} function provides a way to mark
    modules that exist but cannot be loaded.  See :ref:`modulerc-label`
    for more details.
