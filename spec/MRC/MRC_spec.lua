@@ -15,6 +15,9 @@ local cosmic     = require("Cosmic"):singleton()
 local dbg        = require("Dbg"):dbg()
 local testDir    = "spec/MRC"
 setenv_lmod_version()
+local mrc       = MRC:singleton()
+mrc:set_display_mode("spider")
+cosmic:assign("LMOD_SHOW_HIDDEN","no")
 
 describe("Testing MRC class #MRC.",
          function()

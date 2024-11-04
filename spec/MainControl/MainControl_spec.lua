@@ -17,7 +17,11 @@ local ModuleA       = require("ModuleA")
 local cosmic        = require("Cosmic"):singleton()
 local dbg           = require("Dbg")
 local getenv        = os.getenv
+local mrc           = require("MRC"):singleton()
 local testDir       = "spec/MainControl"
+mrc:set_display_mode("spider")
+cosmic:assign("LMOD_SHOW_HIDDEN","no")
+
 
 setenv_lmod_version()
 describe("Testing MainControl Class #MainControl.",

@@ -15,9 +15,12 @@ local FrameStk   = require("FrameStk")
 local dbg        = require("Dbg"):dbg()
 local concatTbl  = table.concat
 local cosmic     = require("Cosmic"):singleton()
+local mrc        = require("MRC"):singleton()
 local getenv     = os.getenv
 local testDir    = "spec/ModuleA"
 setenv_lmod_version()
+cosmic:assign("LMOD_SHOW_HIDDEN","no")
+mrc:set_display_mode("spider")
 describe("Testing ModuleA Class #ModuleA.",
          function()
             it("Build moduleA from mf",
