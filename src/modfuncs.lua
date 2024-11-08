@@ -110,20 +110,20 @@ end
 --------------------------------------------------------------------------
 -- Validate a function with only string table.
 -- @param cmdName The command which is getting its arguments validated.
-local function l_validateStringTable(n, cmdName, t)
-   n = max(n,#t)
+local function l_validateStringTable(n, cmdName, table)
+   n = max(n,#table)
    for i = 1, n do
-      local v = t[i]
+      local v = table[i]
       if (type(v) ~= "string") then
          mcp:report{msg="e_Args_Not_Strings", fn = myFileName(), cmdName = cmdName}
          return false
       end
    end
-   if (t.priority ~= nil) then
+   if (table.priority ~= nil) then
       local valid = false
-      if (t.priority == 0) then
+      if (table.priority == 0) then
          valid = true
-      elseif (t.priority >= 10) then
+      elseif (table.priority >= 10) then
          valid = true
       end
 
@@ -162,6 +162,8 @@ end
 -- Validate a function with only string module names table.
 -- @param cmdName The command which is getting its arguments validated.
 local function l_validateModules(cmdName, ...)
+
+   dbg.print{"validateModules input BLAH: ", l_concatTbl({...},", "),")"}
    local argA = pack(...)
    --dbg.print{"l_validateModules: cmd: ",cmdName, " argA.n: ",argA.n,"\n"}
    local allGood = true
@@ -189,10 +191,19 @@ end
 -- "load('name'); load('name/1.2'); load(atleast('name','3.2'))",
 function load_module(...)
    dbg.start{"load_module(",l_concatTbl({...},", "),")"}
-   if (not l_validateModules("load",...)) then return {} end
+
+   local table
+   local mcp_old = mcp
+   mcp, table = list_2_Tbl(MCP, mcp, ...)
+   if ( not mcp ) then
+       mcp = mcp_old
+       return
+   end
+
+   if (not l_validateModules("load", table)) then return {} end
 
    dbg.print{"mcp:name(): ",mcp:name(),"\n"}
-   local b  = mcp:load_usr(MName:buildA(mcp:MNameType(), ...))
+   local b  = mcp:load_usr(MName:buildA(mcp:MNameType(), table))
    dbg.fini("load_module")
    return b
 end
@@ -208,9 +219,18 @@ end
 
 function load_any(...)
    dbg.start{"load_any(",l_concatTbl({...},", "),")"}
-   if (not l_validateModules("load_any",...)) then return {} end
 
-   local b = mcp:load_any(MName:buildA(mcp:MNameType(), ...))
+   local table
+   local mcp_old = mcp
+   mcp, table = list_2_Tbl(MCP, mcp, ...)
+   if ( not mcp ) then
+       mcp = mcp_old
+       return
+   end
+
+   if (not l_validateModules("load_any", table)) then return {} end
+
+   local b = mcp:load_any(MName:buildA(mcp:MNameType(), table))
    dbg.fini("load_any")
    return b
 end   
@@ -254,34 +274,55 @@ end
 --------------------------------------------------------------------------
 -- Prepend a value to a path like variable.
 function prepend_path(...)
-   local t = l_convert2table(...)
-   dbg.start{"prepend_path(",l_concatTbl(t,", "),")"}
-   if (not l_validateStringTable(2, "prepend_path",t)) then return end
-
-   l_cleanupPathArgs(t)
-   if (t[2]) then mcp:prepend_path(t) end
+   local table
+   local mcp_old = mcp
+   mcp, table = list_2_Tbl(MCP, mcp, ...)
+   dbg.start{"prepend_path(",l_concatTbl(table,", "),")"}
+   if ( not mcp ) then
+       mcp = mcp_old
+       return
+   end
+    
+   if (not l_validateStringTable(2, "prepend_path", table)) then return end
+   l_cleanupPathArgs(table)
+   if (table[2]) then mcp:prepend_path(table) end
+   mcp = mcp_old
    dbg.fini("prepend_path")
 end
 
 --------------------------------------------------------------------------
 -- Append a value to a path like variable.
 function append_path(...)
-   local t = l_convert2table(...)
-   dbg.start{"append_path(",l_concatTbl(t,", "),")"}
-   if (not l_validateStringTable(2, "append_path",t)) then return end
-   l_cleanupPathArgs(t)
-   if (t[2]) then mcp:append_path(t) end
+   local table
+   local mcp_old = mcp
+   mcp, table = list_2_Tbl(MCP, mcp, ...)
+   dbg.start{"append_path(",l_concatTbl(table,", "),")"}
+   if ( not mcp ) then
+       mcp = mcp_old
+       return
+   end
+
+   if (not l_validateStringTable(2, "append_path",table)) then return end
+   l_cleanupPathArgs(table)
+   if (table[2]) then mcp:append_path(table) end
    dbg.fini("append_path")
 end
 
 --------------------------------------------------------------------------
 -- Remove a value from a path like variable.
 function remove_path(...)
-   local t = l_convert2table(...)
-   dbg.start{"remove_path(",l_concatTbl(t,", "),")"}
-   if (not l_validateStringTable(2, "remove_path",t)) then return end
-   l_cleanupPathArgs(t)
-   if (t[2]) then mcp:remove_path(t) end
+   local table
+   local mcp_old = mcp
+   mcp, table = list_2_Tbl(MCP, mcp, ...)
+   dbg.start{"remove_path(",l_concatTbl(table,", "),")"}
+   if ( not mcp ) then
+       mcp = mcp_old
+       return
+   end
+
+   if (not l_validateStringTable(2, "remove_path", table)) then return end
+   l_cleanupPathArgs(table)
+   if (table[2]) then mcp:remove_path(table) end
    dbg.fini("remove_path")
 end
 
@@ -848,9 +889,18 @@ end
 -- will not produce a warning if the specified modulefile(s) do not exist.
 function try_load(...)
    dbg.start{"try_load(",l_concatTbl({...},", "),")"}
-   if (not l_validateModules("try_load",...)) then return {} end
 
-   local b = mcp:try_load(MName:buildA(mcp:MNameType(), ...))
+   local table
+   local mcp_old = mcp
+   mcp, table = list_2_Tbl(MCP, mcp, ...)
+   if ( not mcp ) then
+       mcp = mcp_old
+       return
+   end
+
+   if (not l_validateModules("try_load", table)) then return {} end
+
+   local b = mcp:try_load(MName:buildA(mcp:MNameType(), table))
    dbg.fini("try_load")
    return b
 end
@@ -889,8 +939,16 @@ end
 -- not loaded.  The reverse of an unload is a no-op.
 function unload(...)
    dbg.start{"unload(",l_concatTbl({...},", "),")"}
-   if (not l_validateModules("unload",...)) then return {} end
-   local b = unload_internal(MName:buildA("mt",...))
+   local table
+   local mcp_old = mcp
+   mcp, table = list_2_Tbl(MCP, mcp, ...)
+   if ( not mcp ) then
+       mcp = mcp_old
+       return
+   end
+
+   if (not l_validateModules("unload", table)) then return {} end
+   local b = unload_internal(MName:buildA("mt", table))
    dbg.fini("unload")
    return b
 end
