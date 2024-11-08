@@ -240,6 +240,9 @@ EOF
      runLmod       unload Foo/invisible xcc            #100
      runLmod       load xcc                            #101
      runLmod       load Foo/invisible                  #102
+     runLmod       load xcc                            #103
+     runLmod       load Foo/invisible                  #104
+
      
      
 

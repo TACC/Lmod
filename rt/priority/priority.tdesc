@@ -35,6 +35,8 @@ testdescript = {
      runLmod unload priority                      # 8
      runLmod list                                 # 9
      runLmod show tdog                            #10
+     runLmod load partial                         #11
+     
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
