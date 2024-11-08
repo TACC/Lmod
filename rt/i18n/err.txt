@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
+Modules based on Lua: Version 8.7.49 2024-08-30 13:55 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -73,6 +73,7 @@ Options:
   -r --regexp                       Fait une recherche par expression régulière
   --gitversion                      Affiche la version git dans un format lisible par l'ordinateur
   --dumpversion                     Affiche la version dans un format lisible par l'ordinateur
+  --dumpname                        Dump the name Lmod in a machine readable way and quit
   --check_syntax --checkSyntax      Vérifie la syntaxe, ne charge pas le module
   --config                          Affiche la configuration Lmod
   --miniConfig                      Report Lmod Configuration differences
@@ -82,7 +83,7 @@ Options:
   -f --force                        Force la désactivation d'un module permanent, ou force la sauvegarde d'une collection vide
   --redirect                        Affiche la sortie de list, avail, spider vers stdout (plutôt que stderr)
   --no_redirect                     Affiche la sortie de list, avail, spider vers stderr
-  --show_hidden                     Avail et spider afficheront les modules cachés
+  --show_hidden -A --all            Avail et spider afficheront les modules cachés
   --spider_timeout=timeout          un délai maximal pour spider
   -T --trace                        trace major changes such as loads
   --nx --no_extensions              Do not print extensions
@@ -151,5 +152,5 @@ Sites web de Lmod
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   Pour rapporter un bogue, veuillez lire https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
+Modules based on Lua: Version 8.7.49 2024-08-30 13:55 -06:00
     by Robert McLay mclay@tacc.utexas.edu

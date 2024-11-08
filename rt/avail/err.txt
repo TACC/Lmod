@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
+Modules based on Lua: Version 8.7.49 YYYY-MM-DD 13:55 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -185,11 +185,11 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t --show_hidden avail
 ===========================
 ProjectDIR/rt/avail/mf/Core:
 .base/bar/
-.base/bar/1.4-dbg
-.base/bar/1.4
+.base/bar/1.4-dbg <H>
+.base/bar/1.4 <H>
 .base/baz/
-.base/baz/1.4-dbg
-.base/baz/1.4
+.base/baz/1.4-dbg <H>
+.base/baz/1.4 <H>
 PrgEnv
 admin/
 admin/admin-1.0
@@ -217,7 +217,7 @@ gotoblas/1.20
 gotoblas/1.26
 gotoblas/1.30
 hidden/
-hidden/.1.0
+hidden/.1.0 <H>
 intel/
 intel/intel
 junk/a/c/

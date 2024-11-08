@@ -5,7 +5,7 @@ testdescript = {
    owner   = "rtm",
    product = "modules",
    description = [[
-	 Test always_load, always_unload
+	 Test hook_avail"
    ]],
    keywords = {testName },
 

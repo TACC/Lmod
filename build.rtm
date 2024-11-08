@@ -132,7 +132,7 @@ case $SYSHOST in
     fi
     ;; 
 
-  rios | jedrik | vato | devo | xalt-lmod | bt)
+  rios | jedrik | vato | devo | xalt-lmod | bt | bt2)
     SUDO="sudo"
     base="/opt/apps"
     PKG=$base/lmod/$PKG_VERSION

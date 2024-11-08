@@ -221,6 +221,12 @@ the configuration option which will set the action.
   [string, default: <nil>, --with-syshost].  This variable can be used
   to help with module tracking.  See :ref:`tracking_usage` for details.
 
+**LMOD_TERSE_DECORATIONS**:
+  [yes/no, default: yes, --with-terseDecorations]. Terse listing from
+  **module --terse list**, **module --terse avail** and
+  **module --terse spider** include decorations.  Set this variable to
+  no to prevent this output.
+
 **LMOD_TMOD_FIND_FIRST**:
   [yes/no, default: no, --with-tmodFindFirst].  Normally Lmod uses the
   FIND BEST rule to search for defaults when searching C/N/V or N/V

@@ -24,9 +24,6 @@ testdescript = {
 
      remove_generated_lmod_files
 
-     cp $(testDir)/.lmodrc.lua .lmodrc.lua
-
-
      runLmod --version                # 1
      runLmod load intel               # 2
      runLmod avail                    # 3

@@ -631,6 +631,7 @@ userInGroup = userInGroups
 --------------------------------------------------------------------------
 -- Convert version to canonical so that it can be used in a comparison.
 function convertToCanonical(s)
+   if (not l_validateStringArgs("convertToCanonical",s)) then return end
    return parseVersion(s)
 end
 
@@ -693,7 +694,7 @@ function atmost(m, ie)
 
    local mname = MName:new("load", m, "atmost", false, ie)
 
-   dbg.fini("atleast")
+   dbg.fini("atmost")
    return mname
 end
 
@@ -964,9 +965,6 @@ function always_load(...)
    return b
 end
 
-
-
-
 --------------------------------------------------------------------------
 -- This function always unloads and never loads. The reverse of this
 -- function is a no-op.
@@ -1039,6 +1037,10 @@ function purge(t)
    dbg.start{"purge{force=",t.force,"}"}
    mcp:purge(t)
    dbg.fini("purge")
+end
+
+function dofile_not_supported()
+   mcp:report{msg="e_Dofile_not_supported"}
 end
 
 

@@ -138,6 +138,7 @@ local function l_new(self)
    local export_module     = cosmic:value("LMOD_EXPORT_MODULE")
    local extended_default  = cosmic:value("LMOD_EXTENDED_DEFAULT")
    local fast_tcl_interp   = cosmic:value("LMOD_FAST_TCL_INTERP")
+   local fileIgnorePattA   = cosmic:value("LMOD_FILE_IGNORE_PATTERNS")
    local find_first        = cosmic:value("LMOD_TMOD_FIND_FIRST")
    local hashsum_path      = cosmic:value("LMOD_HASHSUM_PATH")
    local have_term         = cosmic:value("LMOD_HAVE_LUA_TERM")
@@ -172,6 +173,7 @@ local function l_new(self)
    local site_prefix       = cosmic:value("SITE_CONTROLLED_PREFIX")
    local syshost           = cosmic:value("LMOD_SYSHOST")     or "<empty>"
    local system_name       = cosmic:value("LMOD_SYSTEM_NAME") or "<empty>"
+   local terse_decorations = cosmic:value("LMOD_TERSE_DECORATIONS")
    local threshold         = cosmic:value("LMOD_THRESHOLD")
    local tmod_rule         = cosmic:value("LMOD_TMOD_PATH_RULE")
    local tracing           = cosmic:value("LMOD_TRACING")
@@ -180,6 +182,13 @@ local function l_new(self)
    local using_fast_tcl    = usingFastTCLInterp()
    cosmic:assign("LMOD_USING_FAST_TCL_INTERP",using_fast_tcl)
 
+   local s = "{"
+   for i = 1,#fileIgnorePattA do
+      s=s .. "\""..fileIgnorePattA[i].."\", "
+   end
+   s = s .. "}"
+   local fileIgnPattStr = s:gsub(", }","}")
+      
    if (dfltModules == "") then
       dfltModules = "<empty>"
    end
@@ -208,77 +217,79 @@ local function l_new(self)
    end
 
    local tbl = {}
-   tbl.allowRoot    = { k = "Allow root to use Lmod"            , v = allow_root_use,   n = "LMOD_ALLOW_ROOT_USE"             }
-   tbl.allowTCL     = { k = "Allow TCL modulefiles"             , v = allow_tcl_mfiles, n = "LMOD_ALLOW_TCL_FILES"            }
-   tbl.avail_style  = { k = "Avail Style"                       , v = avail_style,      n = "LMOD_AVAIL_STYLE"                }
-   tbl.autoSwap     = { k = "Auto swapping"                     , v = auto_swap,        n = "LMOD_AUTO_SWAP"                  }       
-   tbl.case         = { k = "Case Independent Sorting"          , v = case_ind_sorting, n = "LMOD_CASE_INDEPENDENT_SORTING"   }
-   tbl.colorize     = { k = "Colorize Lmod"                     , v = lmod_colorize,    n = "LMOD_COLORIZE"                   }
-   tbl.configDir    = { k = "Configuration dir"                 , v = lmod_configDir,   n = "LMOD_CONFIG_DIR"                 } 
-   tbl.disable1N    = { k = "Disable Same Name AutoSwap"        , v = disable1N,        n = "LMOD_DISABLE_SAME_NAME_AUTOSWAP" }
-   tbl.disp_av_ext  = { k = "Display Extension w/ avail"        , v = avail_extensions, n = "LMOD_AVAIL_EXTENSIONS"           }
-   tbl.dotConfOnly  = { k = "Use ~/.config dir only"            , v = useDotConfigOnly, n = "LMOD_USE_DOT_CONFIG_ONLY"        }
-   tbl.dupPaths     = { k = "Allow duplicate paths"             , v = duplicate_paths,  n = "LMOD_DUPLICATE_PATHS"            }
-   tbl.dynamicC     = { k = "Dynamic Spider Cache"              , v = dynamic_cache,    n = "LMOD_DYNAMIC_SPIDER_CACHE"       }
-   tbl.extendDflt   = { k = "Allow extended default"            , v = extended_default, n = "LMOD_EXTENDED_DEFAULT"           }
-   tbl.exactMatch   = { k = "Require Exact Match/no defaults"   , v = exactMatch,       n = "LMOD_EXACT_MATCH"                }
-   tbl.expMCmd      = { k = "Export the module command"         , v = export_module,    n = "LMOD_EXPORT_MODULE"              }
-   tbl.fastTCL      = { k = "Use attached TCL over system call" , v = fast_tcl_interp,  n = "LMOD_FAST_TCL_INTERP"            }
-   tbl.fastTCLUsing = { k = "Is fast TCL interp available"      , v = using_fast_tcl,   n = "LMOD_USING_FAST_TCL_INTERP"      }
-   tbl.hiddenItalic = { k = "Use italic instead of dim"         , v = hiddenItalic,     n = "LMOD_HIDDEN_ITALIC"              }
-   tbl.ksh_support  = { k = "KSH Support"                       , v = ksh_support,      n = "LMOD_KSH_SUPPORT"                }
-   tbl.lang         = { k = "Language used for err/msg/warn"    , v = lmod_lang,        n = "LMOD_LANG"                       }
-   tbl.lang_site    = { k = "Site message file"                 , v = site_msg_file,    n = "LMOD_SITE_MSG_FILE"              }
-   tbl.lua_cpath    = { k = "LUA_CPATH"                         , v = "@sys_lua_cpath@",n = false                             }
-   tbl.lua_path     = { k = "LUA_PATH"                          , v = "@sys_lua_path@", n = false                             }
-   tbl.ld_preload   = { k = "LD_PRELOAD at config time"         , v = ld_preload,       n = "LMOD_LD_PRELOAD"                 }
-   tbl.ld_lib_path  = { k = "LD_LIBRARY_PATH at config time"    , v = ld_lib_path,      n = "LMOD_LD_LIBRARY_PATH"            }
-   tbl.lfsV         = { k = "LuaFileSystem version"             , v = lfsV,             n = false                             }
-   tbl.lmod_cfg     = { k = "lmod_config.lua location"          , v = lmod_cfg_path,    n = "LMOD_CONFIG_LOCATION"            }
-   tbl.lmodV        = { k = "Lmod version"                      , v = lmod_version,     n = false                             }
-   tbl.lmod_branch  = { k = "Lmod branch"                       , v = lmod_branch,      n = "LMOD_BRANCH"                     }
-   tbl.luaV         = { k = "Lua Version"                       , v = _VERSION,         n = false                             }
-   tbl.lua_term     = { k = "System lua-term"                   , v = have_term,        n = "LMOD_HAVE_LUA_TERM"              }
-   tbl.lua_term_A   = { k = "Active lua-term"                   , v = activeTerm,       n = false                             }
-   tbl.mAutoHndl    = { k = "Modules Auto Handling"             , v = mAutoHanding,     n = "MODULES_AUTO_HANDLING"           }
-   tbl.mpath_av     = { k = "avail: Include modulepath dir"     , v = mpath_avail,      n = "LMOD_MPATH_AVAIL"                }
-   tbl.mpath_init   = { k = "MODULEPATH_INIT"                   , v = mpath_init,       n = "LMOD_MODULEPATH_INIT"            }
-   tbl.mpath_root   = { k = "MODULEPATH_ROOT"                   , v = mpath_root,       n = "MODULEPATH_ROOT"                 }
-   tbl.modRC        = { k = "MODULERC"                          , v = rc,               n = "LMOD_MODULERC"                   }
-   tbl.nag          = { k = "NAG File"                          , v = nag,              n = "LMOD_ADMIN_FILE"                 }
-   tbl.numSC        = { k = "number of cache dirs"              , v = numSC,            n = false                             }
-   tbl.os_name      = { k = "OS Name"                           , v = os_name,          n = false                             }
-   tbl.pager        = { k = "Pager"                             , v = pager,            n = "LMOD_PAGER"                      }
-   tbl.pager_opts   = { k = "Pager Options"                     , v = pager_opts,       n = "LMOD_PAGER_OPTS"                 }
-   tbl.path_hash    = { k = "Path to HashSum"                   , v = hashsum_path,     n = "LMOD_HASHSUM_PATH"               }
-   tbl.path_lua     = { k = "Path to Lua"                       , v = lua_path,         n = false                             }
-   tbl.dsConflicts  = { k = "Downstream Module Conflicts"       , v = dsConflicts,      n = "LMOD_DOWNSTREAM_CONFLICTS"       }
-   tbl.pin_v        = { k = "Pin Versions in restore"           , v = pin_versions,     n = "LMOD_PIN_VERSIONS"               }
-   tbl.pkg          = { k = "Pkg Class name"                    , v = pkgName,          n = false                             }
-   tbl.prefix       = { k = "Lmod prefix"                       , v = "@PREFIX@",       n = false                             }
-   tbl.prefix_site  = { k = "Site controlled prefix"            , v = site_prefix,      n = "SITE_CONTROLLED_PREFIX"          }
-   tbl.prpnd_blk    = { k = "Prepend order"                     , v = prepend_block,    n = "LMOD_PREPEND_BLOCK"              }
-   tbl.rc           = { k = "LMOD_RC"                           , v = lmodrc,           n = "LMOD_RC"                         }
-   tbl.settarg      = { k = "Supporting Full Settarg Use"       , v = settarg_support,  n = "LMOD_SETTARG_FULL_SUPPORT"       }
-   tbl.shell        = { k = "User shell"                        , v = myShellName(),    n = false                             }
-   tbl.sitePkg      = { k = "Site Pkg location"                 , v = locSitePkg,       n = false                             }
-   tbl.siteName     = { k = "Site Name"                         , v = site_name,        n = "LMOD_SITE_NAME"                  }
-   tbl.spdr_ignore  = { k = "Ignore Cache"                      , v = ignore_cache,     n = "LMOD_IGNORE_CACHE"               }
-   tbl.spdr_loads   = { k = "Cached loads"                      , v = cached_loads,     n = "LMOD_CACHED_LOADS"               }
-   tbl.sysDfltM     = { k = "System Default Modules"            , v = dfltModules,      n = "LMOD_SYSTEM_DEFAULT_MODULES"     }
-   tbl.sysName      = { k = "System Name"                       , v = system_name,      n = "LMOD_SYSTEM_NAME"                }
-   tbl.syshost      = { k = "SYSHOST (cluster name)"            , v = syshost,          n = "LMOD_SYSHOST"                    }
-   tbl.tcl_version  = { k = "TCL Version"                       , v = tcl_version,      n = false                             }
-   tbl.tm_ancient   = { k = "User cache valid time(sec)"        , v = ancient,          n = "LMOD_ANCIENT_TIME"               }
-   tbl.tm_short     = { k = "Write cache after (sec)"           , v = shortTime,        n = "LMOD_SHORT_TIME"                 }
-   tbl.tm_threshold = { k = "Threshold (sec)"                   , v = threshold,        n = "LMOD_THRESHOLD"                  }
-   tbl.tmod_find1st = { k = "Tmod find first rule"              , v = find_first,       n = "LMOD_TMOD_PATH_RULE"             }
-   tbl.tmod_rule    = { k = "Tmod prepend PATH Rule"            , v = tmod_rule,        n = "LMOD_TMOD_PATH_RULE"             }
-   tbl.tracing      = { k = "Tracing"                           , v = tracing,          n = "LMOD_TRACING"                    }
-   tbl.uname        = { k = "uname -a"                          , v = uname,            n = false                             }
-   tbl.usrCacheDir  = { k = "User Cache Directory"              , v = usrCacheDir,      n = false                             }
-   tbl.redirect     = { k = "Redirect to stdout"                , v = redirect,         n = "LMOD_REDIRECT"                   }
-   tbl.z01_admin    = { k = "Admin file"                        , v = adminFn,          n = false                             }
+   tbl.allowRoot      = { k = "Allow root to use Lmod"            , v = allow_root_use,    n = "LMOD_ALLOW_ROOT_USE"             }
+   tbl.allowTCL       = { k = "Allow TCL modulefiles"             , v = allow_tcl_mfiles,  n = "LMOD_ALLOW_TCL_FILES"            }
+   tbl.avail_style    = { k = "Avail Style"                       , v = avail_style,       n = "LMOD_AVAIL_STYLE"                }
+   tbl.autoSwap       = { k = "Auto swapping"                     , v = auto_swap,         n = "LMOD_AUTO_SWAP"                  }       
+   tbl.case           = { k = "Case Independent Sorting"          , v = case_ind_sorting,  n = "LMOD_CASE_INDEPENDENT_SORTING"   }
+   tbl.colorize       = { k = "Colorize Lmod"                     , v = lmod_colorize,     n = "LMOD_COLORIZE"                   }
+   tbl.configDir      = { k = "Configuration dir"                 , v = lmod_configDir,    n = "LMOD_CONFIG_DIR"                 } 
+   tbl.disable1N      = { k = "Disable Same Name AutoSwap"        , v = disable1N,         n = "LMOD_DISABLE_SAME_NAME_AUTOSWAP" }
+   tbl.disp_av_ext    = { k = "Display Extension w/ avail"        , v = avail_extensions,  n = "LMOD_AVAIL_EXTENSIONS"           }
+   tbl.dotConfOnly    = { k = "Use ~/.config dir only"            , v = useDotConfigOnly,  n = "LMOD_USE_DOT_CONFIG_ONLY"        }
+   tbl.dupPaths       = { k = "Allow duplicate paths"             , v = duplicate_paths,   n = "LMOD_DUPLICATE_PATHS"            }
+   tbl.dynamicC       = { k = "Dynamic Spider Cache"              , v = dynamic_cache,     n = "LMOD_DYNAMIC_SPIDER_CACHE"       }
+   tbl.extendDflt     = { k = "Allow extended default"            , v = extended_default,  n = "LMOD_EXTENDED_DEFAULT"           }
+   tbl.exactMatch     = { k = "Require Exact Match/no defaults"   , v = exactMatch,        n = "LMOD_EXACT_MATCH"                }
+   tbl.expMCmd        = { k = "Export the module command"         , v = export_module,     n = "LMOD_EXPORT_MODULE"              }
+   tbl.fastTCL        = { k = "Use attached TCL over system call" , v = fast_tcl_interp,   n = "LMOD_FAST_TCL_INTERP"            }
+   tbl.fastTCLUsing   = { k = "Is fast TCL interp available"      , v = using_fast_tcl,    n = "LMOD_USING_FAST_TCL_INTERP"      }
+   tbl.fileIgnPatt    = { k = "File ignore patterns"              , v = fileIgnPattStr,    n = "LMOD_FILE_IGNORE_PATTERNS"       }
+   tbl.hiddenItalic   = { k = "Use italic instead of dim"         , v = hiddenItalic,      n = "LMOD_HIDDEN_ITALIC"              }
+   tbl.ksh_support    = { k = "KSH Support"                       , v = ksh_support,       n = "LMOD_KSH_SUPPORT"                }
+   tbl.lang           = { k = "Language used for err/msg/warn"    , v = lmod_lang,         n = "LMOD_LANG"                       }
+   tbl.lang_site      = { k = "Site message file"                 , v = site_msg_file,     n = "LMOD_SITE_MSG_FILE"              }
+   tbl.lua_cpath      = { k = "LUA_CPATH"                         , v = "@sys_lua_cpath@", n = false                             }
+   tbl.lua_path       = { k = "LUA_PATH"                          , v = "@sys_lua_path@",  n = false                             }
+   tbl.ld_preload     = { k = "LD_PRELOAD at config time"         , v = ld_preload,        n = "LMOD_LD_PRELOAD"                 }
+   tbl.ld_lib_path    = { k = "LD_LIBRARY_PATH at config time"    , v = ld_lib_path,       n = "LMOD_LD_LIBRARY_PATH"            }
+   tbl.lfsV           = { k = "LuaFileSystem version"             , v = lfsV,              n = false                             }
+   tbl.lmod_cfg       = { k = "lmod_config.lua location"          , v = lmod_cfg_path,     n = "LMOD_CONFIG_LOCATION"            }
+   tbl.lmodV          = { k = "Lmod version"                      , v = lmod_version,      n = false                             }
+   tbl.lmod_branch    = { k = "Lmod branch"                       , v = lmod_branch,       n = "LMOD_BRANCH"                     }
+   tbl.luaV           = { k = "Lua Version"                       , v = _VERSION,          n = false                             }
+   tbl.lua_term       = { k = "System lua-term"                   , v = have_term,         n = "LMOD_HAVE_LUA_TERM"              }
+   tbl.lua_term_A     = { k = "Active lua-term"                   , v = activeTerm,        n = false                             }
+   tbl.mAutoHndl      = { k = "Modules Auto Handling"             , v = mAutoHanding,      n = "MODULES_AUTO_HANDLING"           }
+   tbl.mpath_av       = { k = "avail: Include modulepath dir"     , v = mpath_avail,       n = "LMOD_MPATH_AVAIL"                }
+   tbl.mpath_init     = { k = "MODULEPATH_INIT"                   , v = mpath_init,        n = "LMOD_MODULEPATH_INIT"            }
+   tbl.mpath_root     = { k = "MODULEPATH_ROOT"                   , v = mpath_root,        n = "MODULEPATH_ROOT"                 }
+   tbl.modRC          = { k = "MODULERC"                          , v = rc,                n = "LMOD_MODULERC"                   }
+   tbl.nag            = { k = "NAG File"                          , v = nag,               n = "LMOD_ADMIN_FILE"                 }
+   tbl.numSC          = { k = "number of cache dirs"              , v = numSC,             n = false                             }
+   tbl.os_name        = { k = "OS Name"                           , v = os_name,           n = false                             }
+   tbl.pager          = { k = "Pager"                             , v = pager,             n = "LMOD_PAGER"                      }
+   tbl.pager_opts     = { k = "Pager Options"                     , v = pager_opts,        n = "LMOD_PAGER_OPTS"                 }
+   tbl.path_hash      = { k = "Path to HashSum"                   , v = hashsum_path,      n = "LMOD_HASHSUM_PATH"               }
+   tbl.path_lua       = { k = "Path to Lua"                       , v = lua_path,          n = false                             }
+   tbl.dsConflicts    = { k = "Downstream Module Conflicts"       , v = dsConflicts,       n = "LMOD_DOWNSTREAM_CONFLICTS"       }
+   tbl.pin_v          = { k = "Pin Versions in restore"           , v = pin_versions,      n = "LMOD_PIN_VERSIONS"               }
+   tbl.pkg            = { k = "Pkg Class name"                    , v = pkgName,           n = false                             }
+   tbl.prefix         = { k = "Lmod prefix"                       , v = "@PREFIX@",        n = false                             }
+   tbl.prefix_site    = { k = "Site controlled prefix"            , v = site_prefix,       n = "SITE_CONTROLLED_PREFIX"          }
+   tbl.prpnd_blk      = { k = "Prepend order"                     , v = prepend_block,     n = "LMOD_PREPEND_BLOCK"              }
+   tbl.rc             = { k = "LMOD_RC"                           , v = lmodrc,            n = "LMOD_RC"                         }
+   tbl.settarg        = { k = "Supporting Full Settarg Use"       , v = settarg_support,   n = "LMOD_SETTARG_FULL_SUPPORT"       }
+   tbl.shell          = { k = "User shell"                        , v = myShellName(),     n = false                             }
+   tbl.sitePkg        = { k = "Site Pkg location"                 , v = locSitePkg,        n = false                             }
+   tbl.siteName       = { k = "Site Name"                         , v = site_name,         n = "LMOD_SITE_NAME"                  }
+   tbl.spdr_ignore    = { k = "Ignore Cache"                      , v = ignore_cache,      n = "LMOD_IGNORE_CACHE"               }
+   tbl.spdr_loads     = { k = "Cached loads"                      , v = cached_loads,      n = "LMOD_CACHED_LOADS"               }
+   tbl.sysDfltM       = { k = "System Default Modules"            , v = dfltModules,       n = "LMOD_SYSTEM_DEFAULT_MODULES"     }
+   tbl.sysName        = { k = "System Name"                       , v = system_name,       n = "LMOD_SYSTEM_NAME"                }
+   tbl.syshost        = { k = "SYSHOST (cluster name)"            , v = syshost,           n = "LMOD_SYSHOST"                    }
+   tbl.tcl_version    = { k = "TCL Version"                       , v = tcl_version,       n = false                             }
+   tbl.terse_decorate = { k = "Terse Decorations"                 , v = terse_decorations, n = "LMOD_TERSE_DECORATIONS"          }
+   tbl.tm_ancient     = { k = "User cache valid time(sec)"        , v = ancient,           n = "LMOD_ANCIENT_TIME"               }
+   tbl.tm_short       = { k = "Write cache after (sec)"           , v = shortTime,         n = "LMOD_SHORT_TIME"                 }
+   tbl.tm_threshold   = { k = "Threshold (sec)"                   , v = threshold,         n = "LMOD_THRESHOLD"                  }
+   tbl.tmod_find1st   = { k = "Tmod find first rule"              , v = find_first,        n = "LMOD_TMOD_PATH_RULE"             }
+   tbl.tmod_rule      = { k = "Tmod prepend PATH Rule"            , v = tmod_rule,         n = "LMOD_TMOD_PATH_RULE"             }
+   tbl.tracing        = { k = "Tracing"                           , v = tracing,           n = "LMOD_TRACING"                    }
+   tbl.uname          = { k = "uname -a"                          , v = uname,             n = false                             }
+   tbl.usrCacheDir    = { k = "User Cache Directory"              , v = usrCacheDir,       n = false                             }
+   tbl.redirect       = { k = "Redirect to stdout"                , v = redirect,          n = "LMOD_REDIRECT"                   }
+   tbl.z01_admin      = { k = "Admin file"                        , v = adminFn,           n = false                             }
 
    o.tbl = tbl
    return o

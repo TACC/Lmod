@@ -121,6 +121,7 @@ Advanced Topics
    095_tcl2lua
    098_dependent_modules
    100_modulefile_examples
+   105_terse_output
    110_lmod_mpi_parallel_filesystem
    120_shared_home_directories
    125_personal_spider_cache
@@ -130,6 +131,7 @@ Advanced Topics
    140_deprecating_modules
    145_properties
    160_debugging_modulefiles
+   165_debugging_lmod
    170_hooks
    185_localization
    190_Integration_of_EasyBuild_and_Lmod

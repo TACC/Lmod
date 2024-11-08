@@ -124,6 +124,7 @@ Lmod 8.7+
             * Issue #681: Internally rename complete name to be "complete<name>" and unwrap when necessary.
             * TACC issue: Change the current version of zsh with the string ${ZSH_VERSION} when builting
               the init/zsh file.
+            * Lmod Warnings nolonger set error status.
    (8.7.34) * TACC issue: (Again) Cannot use the string ${ZSH_VERSION} in $FPATH.  Instead change orig zsh version to current one.
    (8.7.35) * Issue #687: Let is-loaded and is-avail set  non-zero exit status.  This is different from warnings.
             * Issue #684: must pass in mpathA to isVisible when trying to find hidden modules in buildDbT
@@ -156,5 +157,35 @@ Lmod 8.7+
             * ModuleTable modification: Changes to $MODULEPATH are stored in an entry.
    (8.7.42) * Fix setting of $FPATH when running bash or ksh shell and executing zsh -l.
    (8.7.43) * Support for ksh flag not needed anymore
-W.I.P:
    (8.7.44) * Issue #710: path2pathA() keep double delims, Reduce triple delims to double
+   (8.7.45) * Issue #713: Changing MName.src: l_find_highest_by_key() to loop over all fileA entries.
+              Now stoping at first one found rather than just looking at fileA[1].
+            * Issue #714: Adding "=encoding UTF-8" to pod generation
+   (8.7.46) * Issue #716: Must only add KSH_SUPPORT to zsh when both $orig_zsh_version and $zsh_fpath have non-null values
+   (8.7.47) * Issue #716: Use correct shell foo
+   (8.7.48) * Issue #717: Keep previous varT when restoring a collection.  Otherwise the previous modules env vars.
+              are lost and therefore not purged.
+            * Issue #718: use __build_FPATH_for_zsh_ksh to build FPATH for both shells
+            * Issue #667: support for terse avail extensions
+            * Collect configure error to end of configure.            
+   (8.7.49) * Add support for zsh to handle a non-exported FPATH in init/bash.in
+            * Change MF_Base:processVars to use oldT to know which paths from newA to prepend or append
+            * Add support for LMOD_FILE_IGNORE_PATTERNS in src/DirTree.lua.
+              This is to ignore files like .version.1.3 or .modulerc-1.3.lua etc
+   (8.7.50) * PR #724: Emacs lisp integration updated.
+            * Issue #718: use command -v instead of checking status $?
+            * Issue #690: change --hidden_load to --hidden-loaded for TCL
+                          change hidden_load to hidden_loaded in Lua.
+            * Report dofile() usage as an error.
+            * Updated FPATH support: bash, ksh just add path (init/ksh_funcs) to FPATH
+              zsh: if autoload && compinit fail then set __zsh_fpath with sub-shell
+            * improve addto to not include duplicates in path like variables (PATH, FPATH. ,,. )
+            * Add support for --dumpname in lmod and ml; Update tab completions files            
+            * PR #727: Do not reset BASH_ENV if already set for cshrc.in
+            * Do not reset BASH_ENV if already set for profile.in
+	    * Issue #690: Support for the functions hide{} and forbid{}
+   (8.7.51) * Fix bug in load test.
+   (8.7.52) * Add MName:isVisible() so that load hooks can figure out if a loaded module is is visible or not.
+   (8.7.53) * updating docs to include link to 165_debugging_lmod.rst
+   
+   

@@ -225,11 +225,6 @@ runSpiderCmd -o spiderT ProjectDIR/rt/meta/MF_FOO/A:ProjectDIR/rt/meta/MF_FOO/B
 timestampFn = {
   false,
 }
-mrcT = {
-  alias2modT = {},
-  hiddenT = {},
-  version2modT = {},
-}
 mrcMpathT = {}
 spiderT = {
   ["ProjectDIR/rt/meta/MF_FOO/A"] = {

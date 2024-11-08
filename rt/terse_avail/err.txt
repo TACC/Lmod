@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
+Modules based on Lua: Version 8.7.43 2024-06-24 15:50 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -62,11 +62,11 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing --terse_show_extension
 ProjectDIR/rt/terse_avail/mf/Compiler/intel/19:
 python/
 python/3.7
+#    CC/3.1
+#    DDD/4.1
 ProjectDIR/rt/terse_avail/mf/Core:
 TACC
 gcc/
 gcc/9.4
 intel/
 intel/19.1
-#    CC
-#    DDD

@@ -1,6 +1,21 @@
 New Features in Lmod
 ====================
 
+**Accessing isVisible status from load hook**
+   (Lmod 8.7.52+) The mname object is passed to the load hook.  Sites
+   can access the isVisible status by t.mname:isVisible()
+
+**hide** {} and **forbid** {}
+   (Lmod 8.8+) The *hide* {} function provides a more powerful way to
+   hide modules.  The *forbid* {} function provides a way to mark
+   modules that exist but cannot be loaded.  See :ref:`modulerc-label`
+   for more details.
+
+**Decorations added to --terse output**
+  (Lmod 8.7.50+) Lmod now adds decorations to terse output. See
+  :ref:`terse_output-label` for more details. 
+
+
 **MODULES_AUTO_DEFAULT**
    (Lmod 8.7.41+) When this variable is set then Lmod treats *prereq*
    as *depends_on* and *prereq_any* as *depends_on_any*.
@@ -9,6 +24,9 @@ New Features in Lmod
    (Lmod 8.7.41+) A new function *depends_on_any()* which works like
    *depends_on()* except that Lmod picks the first available in the
    list. 
+
+**Lmod Warnings**
+   (Lmod 8.7.33) Lmod warning nolonger set the error status on exit.
 
 **hook.register(<hook_name>, func, <action>)**
    (Lmod 8.7.25+) The hook.register function now takes a optional third

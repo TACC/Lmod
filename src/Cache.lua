@@ -337,12 +337,11 @@ local function l_readCacheFile(self, mpathA, spiderTFnA)
             end
             resultFunc() --> Finish the loadfile()
 
-            if (_G.mrcT      == nil or next(_G.mrcT) == nil or
-                _G.mrcMpathT == nil) then
+            if (_G.mrcMpathT == nil) then
                LmodError{msg="e_BrokenCacheFn",fn=fn}
             end
 
-            mrc:import(_G.mrcT, _G.mrcMpathT)
+            mrc:import(_G.mrcMpathT)
 
             local G_spiderT = _G.spiderT
             for k, v in pairs(G_spiderT) do

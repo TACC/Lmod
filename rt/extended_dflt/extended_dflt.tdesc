@@ -1,0 +1,73 @@
+-- -*- lua -*-
+local testName = "extended_dflt"
+
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 extended_default
+   ]],
+   keywords = {testName },
+
+   active   = true,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     export MODULEPATH=$(testDir)/mf/Core
+
+     remove_generated_lmod_files
+
+     runLmod --version                         # 1
+     runLmod load intel/1                      # 2
+     runLmod load mcr/64/1                     # 3
+     runLmod load intel/17                     # 4
+     runLmod load mcr/64/18                    # 5
+     runLmod load petsc/3                      # 6
+     runLmod load gcc-ftn/10.1                 # 7
+     runLmod load junk/4.0.2                   # 8
+     runLmod list                              # 9
+     runLmod load junk/4.0.2-i                 #10
+     runLmod list                              #11
+     runLmod purge                             #12
+     runLmod load abc/2                        #13
+     runLmod list                              #14
+     runLmod purge                             #15
+     runLmod load A/10                         #16
+     runLmod refresh                           #17
+     runLmod list                              #18
+
+
+
+
+
+
+     HOME=$ORIG_HOME
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

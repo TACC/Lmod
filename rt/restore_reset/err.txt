@@ -1,0 +1,41 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
+===========================
+Modules based on Lua: Version 8.7.47 2024-07-22 10:04 -04:00
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load git
+===========================
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing save
+===========================
+Saved current collection of modules to: "default"
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc
+===========================
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
+===========================
+Restoring modules from user's default
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc
+===========================
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing reset
+===========================
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: None

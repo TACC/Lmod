@@ -44,8 +44,8 @@ require("utils")
 require("haveTermSupport")
 require("myGlobals")
 
-local Foreground = "\027"
-local colorT = {
+local Escape  = "\027"
+local FcolorT = {
    black      = "[1;30",
    red        = "[1;31",
    green      = "[1;32",
@@ -56,10 +56,22 @@ local colorT = {
    white      = "[1;37",
    none       = "[0",
 }
+
+local BcolorT = {
+   black      = "[1;40",
+   red        = "[1;41",
+   green      = "[1;42",
+   yellow     = "[1;43",
+   blue       = "[1;44",
+   magenta    = "[1;45",
+   cyan       = "[1;46",
+   white      = "[1;47",
+   none       = "[0",
+}
 local cosmic    = require("Cosmic"):singleton()
 local concatTbl = table.concat
+local pack      = (_VERSION == "Lua 5.1") and argsPack or table.pack
 local s_colorize_kind = "unknown"
-local pack     = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
 ------------------------------------------------------------------------
 -- Takes an array of strings and wraps the ANSI color start and
@@ -68,31 +80,34 @@ local pack     = (_VERSION == "Lua 5.1") and argsPack or table.pack
 function full_colorize(color, ... )
    local argA         = pack(...)
    local hiddenItalic = cosmic:value("LMOD_HIDDEN_ITALIC")
-   if (color == nil or argA.n < 1) then
+   if (not color or argA.n < 1) then
       return plain(color, ...)
    end
 
+   local hiddenFore = (hiddenItalic == "yes") and "[3" or "[2"
+   local cT = {
+      hidden      = { fore = hiddenFore,        back = false},
+      forbid      = { fore = FcolorT["yellow"], back = BcolorT["red"]},
+      nearly      = { fore = FcolorT["red"],    back = BcolorT["yellow"]},
+   }
+   local fore = FcolorT[color] or cT[color].fore
+   local back = cT[color] and cT[color].back or false
+
    local a = {}
-   if (color == "hidden") then
-      a[#a+1] = (hiddenItalic == "yes") and "\027".."[3m" or "\027".."[2m"
-      for i = 1, argA.n do
-         a[#a+1] = argA[i]
-      end
-      a[#a+1] = "\027".."[0m"
-      return concatTbl(a,"")
+   a[#a+1] = Escape
+   a[#a+1] = fore
+   a[#a+1] = "m"
+   if (back) then
+      a[#a+1] = Escape
+      a[#a+1] = back
+      a[#a+1] = "m"
    end
-
-   a[#a+1] = Foreground
-   a[#a+1] = colorT[color]
-   a[#a+1] = 'm'
-
    for i = 1, argA.n do
       a[#a+1] = argA[i]
    end
-   a[#a+1] = "\027" .. "[0m"
-
+   a[#a+1] = Escape.."[0m"
    return concatTbl(a,"")
-end
+end   
 
 --------------------------------------------------------------------------
 -- This prints the array of strings without any colorization.

@@ -140,7 +140,8 @@ function walk_spiderT(spiderT, mt, mList, errorT)
 
       if (next(v.fileT) ~= nil) then
          for fullName, vv in pairs(v.fileT) do
-            if (show_hidden or mrc:isVisible{fullName=fullName,sn=sn,fn=vv.fn}) then
+            local resultT = mrc:isVisible{fullName=fullName,sn=sn,fn=vv.fn, show_hidden = show_hidden}
+            if (resultT.isVisible) then
                check_syntax(mpath, mt, mList, sn, vv.fn, fullName, errorT.syntaxA)
             end
          end
@@ -215,17 +216,11 @@ function check_syntax_error_handler(self, ...)
       if (key == "e_Args_Not_Strings") then key = "e_Args_Not_Strings_short" end
       local msg = i18n(key, t) or "Unknown Error Message"
       msg       = hook.apply("errWarnMsgHook", kind, key, msg, t) or msg
-      errMsg    = buildMsg(twidth, label, msg)
+      errMsg    = buildMsg(twidth, pack(label, msg))
    else
-      errMsg  = buildMsg(twidth, label, ...)
+      errMsg  = buildMsg(twidth, pack(label, ...))
    end
 
-   --if (t and t.msg) then
-   --   dbg.print{"t.msg: ",t.msg,"\n"}
-   --   if (myModuleFullName() == "mkl/mkl") then
-   --      FukMe()
-   --   end
-   --end
    my_errorMsg = "ModuleName: "..myModuleFullName()..", Fn: "..myFileName() .. " " .. errMsg
    dbg.print{"Setting my_errorMsg to : ",my_errorMsg,"\n"}
    dbg.fini("check_syntax_error_handler")
@@ -318,7 +313,7 @@ function main()
    _G.mcp = MainControl.build("spider")
    _G.MCP = MainControl.build("spider")
    local remove_MRC_home         = getuid() < 501
-   local mrc                     = MRC:singleton(getModuleRCT(remove_MRC_home))
+   local mrc                     = MRC:singleton()
    local cache                   = Cache:singleton{dontWrite = true, quiet = true, buildCache = true,
                                                    buildFresh = true, noMRC=true}
    local spider                  = Spider:new()

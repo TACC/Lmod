@@ -624,7 +624,7 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.set_alias(self, name, value)
-   name = name:trim()
+   name = (name or ""):trim()
    dbg.start{"MainControl:set_alias(\"",name,"\", \"",value,"\")"}
 
    l_check_for_valid_alias_name("set_alias",name)
@@ -646,7 +646,7 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.unset_alias(self, name, value)
-   name = name:trim()
+   name = (name or ""):trim()
    dbg.start{"MainControl:unset_alias(\"",name,"\", \"",value,"\")"}
 
    local frameStk = FrameStk:singleton()
@@ -666,7 +666,7 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.set_shell_function(self, name, bash_function, csh_function)
-   name = name:trim()
+   name = (name or ""):trim()
    dbg.start{"MainControl:set_shell_function(\"",name,"\", \"",bash_function,"\"",
              "\", \"",csh_function,"\""}
 
@@ -689,7 +689,7 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 function M.unset_shell_function(self, name, bash_function, csh_function)
-   name = name:trim()
+   name = (name or ""):trim()
    dbg.start{"MainControl:unset_shell_function(\"",name,"\", \"",bash_function,"\"",
              "\", \"",csh_function,"\""}
 
@@ -787,21 +787,33 @@ function M.myModuleVersion(self)
    return frameStk:version()
 end
 
-local function l_generateMsg(kind, label, ...)
+local function l_generateMsg(kind, label, argA)
    local sA     = {}
    local twidth = TermWidth()
-   local argA   = pack(...)
    if (argA.n == 1 and type(argA[1]) == "table") then
+      local msg = nil
+      local key = nil
       local t   = argA[1]
-      local key = t.msg
-      local msg = i18n(key, t) 
+      if (t.literal_msg) then
+         msg = t.literal_msg
+      else
+         key = t.msg
+         msg = i18n(key, t)
+      end
       if (not msg) then
          msg = "Unknown Error Message with unknown key: \"".. key .. "\""
       end
       msg       = hook.apply("errWarnMsgHook", kind, key, msg, t) or msg
-      sA[#sA+1] = buildMsg(twidth, label, msg)
+      sA[#sA+1] = buildMsg(twidth, pack(label, msg))
    else
-      sA[#sA+1] = buildMsg(twidth, label, ...)
+      local ssA = {}
+      ssA[#ssA+1] = label
+      local n = #argA
+      for i = 1, n do
+         ssA[#ssA+1] = argA[i]
+      end
+      ssA.n = n+1
+      sA[#sA+1] = buildMsg(twidth, ssA)
    end
    return sA
 end
@@ -833,9 +845,9 @@ function M.message(self, ...)
       local key = t.msg
       local msg = i18n(key, t) or "Unknown Message"
       msg       = hook.apply("errWarnMsgHook", "lmodmessage", key, msg, t) or msg
-      sA[#sA+1] = buildMsg(twidth, msg)
+      sA[#sA+1] = buildMsg(twidth, {n=1, msg})
    else
-      sA[#sA+1] = buildMsg(twidth, ...)
+      sA[#sA+1] = buildMsg(twidth, pack(...))
    end
    io.stderr:write(concatTbl(sA,""),"\n")
 end
@@ -847,7 +859,8 @@ function M.warning(self, ...)
    build_i18n_messages()
    if (not quiet() and  haveWarnings()) then
       local label = colorize("red", i18n("warnTitle",{}))
-      local sA    = l_generateMsg("lmodwarning", label, ...)
+      local argA  = pack(...)
+      local sA    = l_generateMsg("lmodwarning", label, argA)
       sA[#sA+1]   = "\n"
       sA[#sA+1]   = moduleStackTraceBack()
       sA[#sA+1]   = "\n"
@@ -873,16 +886,24 @@ function M.error(self, ...)
    end
 
    local label = colorize("red", i18n("errTitle", {}))
-   local sA    = l_generateMsg("lmoderror", label, ...)
+   local argA  = pack(...)
+   local sA    = l_generateMsg("lmoderror", label, argA)
    sA[#sA+1]   = "\n"
 
-   local a = concatTbl(stackTraceBackA,"")
-   if (a:len() > 0) then
-       sA[#sA+1] = a
-       sA[#sA+1] = "\n"
+   local noTraceBack = false
+   if (argA.n == 1 and type(argA[1] == "table")) then
+      noTraceBack = argA[1].noTraceBack
    end
-   sA[#sA+1]     = moduleStackTraceBack()
-   sA[#sA+1]     = "\n"
+
+   if (not noTraceBack) then
+      local a = concatTbl(stackTraceBackA,"")
+      if (a:len() > 0) then
+         sA[#sA+1] = a
+         sA[#sA+1] = "\n"
+      end
+      sA[#sA+1]     = moduleStackTraceBack()
+      sA[#sA+1]     = "\n"
+   end
 
    io.stderr:write(concatTbl(sA,""),"\n")
    LmodErrorExit()
@@ -1630,7 +1651,7 @@ function M.add_property(self, name, value)
    local sn        = frameStk:sn()
    local mt        = frameStk:mt()
    l_check_for_valid_name("add_property",name)
-   mt:add_property(sn, name:trim(), value)
+   mt:add_property(sn, (name or ""):trim(), value)
 end
 
 
@@ -1644,7 +1665,7 @@ function M.remove_property(self, name, value)
    local sn        = frameStk:sn()
    local mt        = frameStk:mt()
    l_check_for_valid_name("remove_property",name)
-   mt:remove_property(sn, name:trim(), value)
+   mt:remove_property(sn, (name or ""):trim(), value)
 end
 
 
@@ -1813,7 +1834,6 @@ function M.LmodBreak(self, msg)
       shell:echo(concatTbl(b,""))
    end
 
-
    if (msg and msg ~= "") then
       LmodMessage(msg)
    end
@@ -1830,10 +1850,8 @@ function M.LmodBreak(self, msg)
    dbg.fini("MainControl:LmodBreak")
 end
 
-
-
 function M.userInGroups(self, ...)
-   local grps   = capture("groups")
+   local grps   = capture("groups 2> /dev/null")
    local argA   = pack(...)
    for g in grps:split("[ \n]") do
       for i = 1, argA.n do
@@ -1843,7 +1861,7 @@ function M.userInGroups(self, ...)
          end
       end
    end
-   local userId = capture("id -u")
+   local userId = capture("id -u 2> /dev/null")
    local isRoot = tonumber(userId) == 0
    if (isRoot) then
       return true

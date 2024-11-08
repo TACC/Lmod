@@ -180,7 +180,8 @@ local function l_loadMe(entryT, moduleStack, iStack, myModuleT, mt, mList, mpath
       tracing_msg{msg, fullName, " (fn: ", fn or "nil", ")"}
    end
 
-   loadModuleFile{file=fn, help=true, shell=shellNm, reportErr=false, mList = mList}
+   loadModuleFile{file=fn, help=true, shell=shellNm, reportErr=false,
+                  mList = mList, forbiddenT = {}}
    hook.apply("load_spider",{fn = fn, modFullName = fullName, sn = sn})
    mt:setStatus(sn, "active")
    reset_env()
@@ -616,14 +617,13 @@ function M.buildDbT(self, mpathMapT, spiderT, dbT)
    local keepT        = l_build_keepT(mpathA, mpathParentT, spiderT)
    local parentT      = l_build_parentT(keepT, mpathMapT)
    local mrc          = MRC:singleton()
-   dbg.printT("mrc.__hiddenT",mrc.__hiddenT)
-   dbg.printT("mrc.__mpathT", mrc.__mpathT)
-
+   local show_hidden  = optionTbl().show_hidden
 
    local function l_cmp(a,b)
       return a[1] > b[1]
    end
    local function l_buildDbT_helper(mpath, sn, v, T)
+      local kind = false
       if (v.file) then
          local t = {}
          for i = 1,#dbT_keyA do
@@ -634,10 +634,15 @@ function M.buildDbT(self, mpathMapT, spiderT, dbT)
             dbg.printT("parentAA",parentT[mpath])
             sort(parentT[mpath], l_cmp)
          end
-         t.parentAA     = parentT[mpath]
-         t.fullName     = sn
-         t.hidden       = not mrc:isVisible{fullName=sn, sn=sn, fn=v.file}
-         T[v.file]      = t
+         t.parentAA    = parentT[mpath]
+         t.fullName    = sn
+         local resultT = mrc:isVisible{fullName=sn, sn=sn, fn=v.file, mpathA=mpathA, 
+                                       show_hidden=show_hidden}
+         t.hidden      = not resultT.isVisible
+         kind          = resultT.moduleKindT.kind 
+         if (not (kind == "hard")) then
+            T[v.file]      = t
+         end
       end
       if (next(v.fileT) ~= nil) then
          for fullName, vv in pairs(v.fileT) do
@@ -650,11 +655,13 @@ function M.buildDbT(self, mpathMapT, spiderT, dbT)
                dbg.printT("parentAA",parentT[mpath])
                sort(parentT[mpath], l_cmp)
             end
-            t.parentAA   = parentT[mpath]
-            t.mpath      = vv.mpath
-            t.fullName   = fullName
-            t.hidden     = not mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, mpathA=mpathA}
-            if (not vv.dot_version) then
+            t.parentAA    = parentT[mpath]
+            t.mpath       = vv.mpath
+            t.fullName    = fullName
+            local resultT = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, mpathA=mpathA}
+            t.hidden      = not resultT.isVisible
+            kind          = resultT.moduleKindT.kind 
+            if (not vv.dot_version and (kind ~= "hard")) then
                T[vv.fn]  = t
             end
          end
@@ -701,7 +708,8 @@ function M.buildProvideByT(self, dbT, providedByT)
    local mrc = MRC:singleton()
    for sn, vv in pairs(dbT) do
       for fullPath, v in pairs(vv) do
-         local hidden = not (show_hidden or mrc:isVisible{fullName=v.fullName, sn=sn, fn=fullPath})
+         local resultT = mrc:isVisible{fullName=v.fullName, sn=sn, fn=fullPath, show_hidden = show_hidden}
+         local hidden  = not resultT.isVisible
          if (v.provides ~= nil) then
             local providesA = v.provides
             for i = 1, #providesA do
@@ -755,17 +763,20 @@ function M.Level0_terse(self,dbT, providedByT)
    local show_hidden = optionTbl.show_hidden
    local t           = {}
    local a           = {}
+
    for sn, vv in pairs(dbT) do
       for fn, v in pairs(vv) do
-         local isActive, version = isActiveMFile(mrc, v.fullName, sn, fn)
-         if (show_hidden or isActive) then
+         local resultT = mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, 
+                                       show_hidden = show_hidden}
+         if (resultT.isVisible) then
+            local forbiddenT = mrc:isForbidden{fullName=v.fullName, sn=sn, fn=fn} 
             if (sn == v.fullName) then
-               t[sn] = sn
+               t[sn] = decorateModule(sn, resultT, forbiddenT)
             else
                -- print out directory name (e.g. gcc) for tab completion.
                t[sn]     = sn .. "/"
                local key = sn .. "/" .. v.pV
-               t[key]    = v.fullName
+               t[key]    = decorateModule(v.fullName, resultT, forbiddenT)
             end
          end
       end
@@ -823,6 +834,20 @@ local function l_case_independent_cmp_by_name(a,b)
    end
 end
 
+local function l_computeColor(resultT, forbiddenT)
+   local fT = forbiddenT 
+   if (not fT or next(fT) == nil) then
+      fT = {forbiddenState = "normal"}
+   end
+   if (fT.forbiddenState ~= "normal") then
+      return fT.forbiddenState 
+   end
+   if (resultT.moduleKindT.kind ~= "normal") then
+      return "hidden"
+   end
+   return false
+end
+
 function M.Level0Helper(self, dbT, providedByT, a)
    local t           = {}
    local optionTbl   = optionTbl()
@@ -833,12 +858,19 @@ function M.Level0Helper(self, dbT, providedByT, a)
 
    for sn, vv in pairs(dbT) do
       for fn,v in pairsByKeys(vv) do
-         local isActive, version = isActiveMFile(mrc, v.fullName, sn, fn)
-         if (show_hidden or isActive) then
+         local resultT = mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, 
+                                       show_hidden = show_hidden}
+         if (resultT.isVisible) then
+            local forbiddenT = mrc:isForbidden{fullName=v.fullName,sn=sn,fn=fn}
             if (t[sn] == nil) then
                t[sn] = { Description = v.Description, versionA = { }, name = sn}
             end
-            t[sn].versionA[v.pV] = v.fullName
+            local color = l_computeColor(resultT, forbiddenT)
+            dbg.print{"fullName: ",v.fullName,", color: ",color,"\n"}
+            dbg.printT("resultT",resultT)
+            dbg.printT("forbiddenT",forbiddenT or {})
+            
+            t[sn].versionA[v.pV] = colorize(color, v.fullName)
          end
       end
    end
@@ -956,7 +988,9 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
          if (T) then
             dbg.print{"Have T\n"}
             for fn, v in pairs(T) do
-               if (mrc:isVisible{fullName=v.fullName,fn=fn,sn=origUserSearchPat}) then
+               local resultT = mrc:isVisible{fullName=v.fullName,fn=fn,sn=origUserSearchPat,
+                                             show_hidden=show_hidden}
+               if (resultT.isVisible) then
                   found = true
                   break
                end
@@ -990,7 +1024,9 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
       local fullA = {}
       for sn, vv in pairs(dbT) do
          for fn, v in pairs(vv) do
-            if (show_hidden or mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn}) then
+            local resultT = mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, 
+                                          show_hidden = show_hidden}
+            if (resultT.isVisible) then
                 fullA[#fullA+1] = {sn=sn, fullName=v.fullName}
             end
          end
@@ -1100,7 +1136,9 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
          dbg.print{"Have T in l_countEntries\n"}
          dbg.print{"key: ",key,"\n"}
          for fn, v in pairs(T) do
-            if (show_hidden or mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn}) then
+            local resultT = mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, 
+                                          show_hidden = show_hidden}
+            if (resultT.isVisible) then
                v.fn=fn
                if (v.fullName == key) then
                   aa[#aa + 1] = v
@@ -1219,8 +1257,10 @@ function M._Level1(self, dbT, providedByT, possibleA, sn, key, helpFlg)
    if (T) then
       dbg.print{"Have T\n"}
       for fn, v in pairsByKeys(T) do
-         local isActive, version = isActiveMFile(mrc, v.fullName, sn, fn)
-         if (show_hidden or isActive) then
+         local resultT = mrc:isVisible{fullName=v.fullName, sn=sn, fn=fn, 
+                                       show_hidden=show_hidden}
+         if (resultT.isVisible) then
+            local version  = extractVersion(v.fullName, sn)
             local kk       = sn .. "/" .. parseVersion(version)
             if (fullVT[kk] == nil) then
                key         = sn

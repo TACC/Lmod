@@ -9,11 +9,6 @@ buildSpiderT ProjectDIR/rt/rmap/mf/Core
 timestampFn = {
   false,
 }
-mrcT = {
-  alias2modT = {},
-  hiddenT = {},
-  version2modT = {},
-}
 mrcMpathT = {}
 spiderT = {
   ["ProjectDIR/rt/rmap/mf/Compiler/intel/13.1"] = {
@@ -344,11 +339,6 @@ buildSpiderT ProjectDIR/rt/rmap/mf/2Core
 timestampFn = {
   false,
 }
-mrcT = {
-  alias2modT = {},
-  hiddenT = {},
-  version2modT = {},
-}
 mrcMpathT = {}
 spiderT = {
   ["ProjectDIR/rt/rmap/mf/2Compiler/intel/14.0"] = {
@@ -501,11 +491,6 @@ buildSpiderT ProjectDIR/rt/rmap/mf/2Core
 ===========================
 timestampFn = {
   false,
-}
-mrcT = {
-  alias2modT = {},
-  hiddenT = {},
-  version2modT = {},
 }
 mrcMpathT = {}
 spiderT = {

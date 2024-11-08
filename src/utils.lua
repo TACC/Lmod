@@ -101,8 +101,7 @@ end
 --------------------------------------------------------------------------
 -- Generate a message that will fix the available terminal width.
 -- @param width The terminal width
-function buildMsg(width, ... )
-   local argA = pack(...)
+function buildMsg(width, argA)
    local a    = {}
    local len  = 0
 
@@ -259,21 +258,51 @@ end
 -- @param propT The property table
 -- @param legendT The legend table.  A key-value pairing of keys to descriptions.
 -- @return An array of colorized strings
-function colorizePropA(style, mt, modT, mrc, propT, legendT)
+function colorizePropA(style, mt, modT, mrc, propT, legendT, forbiddenT)
+   dbg.start{"colorizePropA(style, mt, modT, mrc, propT, legendT)"}
    local readLmodRC   = require("ReadLmodRC"):singleton()
    local propDisplayT = readLmodRC:propT()
    local iprop        = 0
    local pA           = {}
    local moduleName   = mt:name_w_possible_alias(modT, "full")
    propT              = propT or {}
+   forbiddenT         = forbiddenT or {}
 
-   if (not mrc:isVisible(modT)) then
+   local resultT = mrc:isVisible(modT)
+   if (resultT.moduleKindT.kind ~= "normal") then
       local i18n = require("i18n")
-      local H    = 'H'
+      local H    = "H"
+      local msg  = "HiddenM"
+      if (resultT.moduleKindT.kind == "soft") then
+         H = "s"
+         msg = "Hidden_softM"
+      end
       moduleName = colorize("hidden",modT.fullName)
       pA[#pA+1]  = H
-      legendT[H] = i18n("HiddenM")
+      legendT[H] = i18n(msg)
+      if (resultT.moduleKindT.hidden_loaded) then
+         pA[#pA+1]     = "HL"
+         legendT["HL"] = i18n("HiddenLoadM")
+      end
    end
+
+   if (forbiddenT.forbiddenState == "forbid") then
+      local i18n = require("i18n")
+      local F    = "F"
+      local msg  = "ForbiddenM"
+      moduleName = colorize("forbid",modT.fullName)
+      pA[#pA+1]  = F
+      legendT[F] = i18n(msg)
+   end      
+
+   if (forbiddenT.forbiddenState == "nearly") then
+      local i18n  = require("i18n")
+      local NF    = "NF"
+      local msg   = "NearlyForbiddenM"
+      moduleName  = colorize("nearly",modT.fullName)
+      pA[#pA+1]   = NF
+      legendT[NF] = i18n(msg)
+   end      
 
    local resultA      = { moduleName }
    for kk,vv in pairsByKeys(propDisplayT) do
@@ -314,6 +343,7 @@ function colorizePropA(style, mt, modT, mrc, propT, legendT)
    if (#pA > 0) then
       resultA[#resultA+1] = concatTbl(pA,",")
    end
+   dbg.fini("colorizePropA")
    return resultA
 end
 
@@ -510,11 +540,6 @@ function getModuleRCT(remove_MRC_home)
    return A
 end
 
-function isActiveMFile(mrc, full, sn, fn)
-   local version = extractVersion(full, sn) or ""
-   return mrc:isVisible{fullName=full, sn=sn, fn=fn}, version
-end
-
 -----------------------------------------------------------------------
 -- This function decides if the modulefile is a marked default
 -- The rule is that a marked default is given in the first character
@@ -643,15 +668,12 @@ function regular_cmp(x,y)
 end
 
 
-
-
-
-function sanizatizeTbl(rplmntA, inT, outT)
+local function l_sanizatizeTbl(replaceA, inT, outT)
    for k, v in pairs(inT) do
       local key = k
       if (type(k) == "string") then
-         for i = 1, #rplmntA do
-            local p  = rplmntA[i]
+         for i = 1, #replaceA do
+            local p  = replaceA[i]
             local s1 = p[1]
             local s2 = p[2]
             key = key:gsub(s1,s2)
@@ -662,11 +684,11 @@ function sanizatizeTbl(rplmntA, inT, outT)
          outT[key] = nil
       elseif (type(v) == "table") then
          outT[key] = {}
-         sanizatizeTbl(rplmntA, v, outT[key])
+         l_sanizatizeTbl(replaceA, v, outT[key])
          v = outT[key]
       elseif (type(v) == "string") then
-         for i = 1,#rplmntA do
-            local p  = rplmntA[i]
+         for i = 1,#replaceA do
+            local p  = replaceA[i]
             local s1 = p[1]
             local s2 = p[2]
             v = v:gsub(s1,s2)
@@ -678,6 +700,17 @@ function sanizatizeTbl(rplmntA, inT, outT)
 
    end
 end
+
+function sanizatizeTbl(rplmntA, inT, outT)
+   local replaceA = {}
+   for i = 1,#rplmntA do
+      local p = rplmntA[i]
+      replaceA[i] = { p[1]:escape(), p[2]}
+   end
+   
+   l_sanizatizeTbl(replaceA, inT, outT)
+end
+
 
 --------------------------------------------------------------------------
 -- Push the Lmod Version into the environment
@@ -876,6 +909,46 @@ function ShowHelpStr(...)
 
 end
 
+local s_decoyT    = false
+local s_decorateT = false
+
+function decorateModule(name, resultT, forbiddenT)
+   if (not s_decorateT) then
+      s_decoyT = {
+         forbiddenState = "normal"
+      }
+      local decorate = cosmic:value("LMOD_TERSE_DECORATIONS")
+      if (decorate == "yes") then
+         s_decorateT = {
+            normal  = "",
+            hidden  = " <H>",
+            soft    = " <H>",
+            forbid  = " <F>",
+            nearly  = " <NF>",
+         }
+      else
+         s_decorateT = {
+            normal  = "",
+            hidden  = "",
+            soft    = "",
+            forbid  = "",
+            nearly  = "",
+         }
+      end
+   end
+   
+   local fT = forbiddenT
+   if (not forbiddenT or next(forbiddenT) == nil) then
+      fT = s_decoyT
+   end
+
+   local a = {}
+   a[#a+1] = name
+   a[#a+1] = s_decorateT[resultT.moduleKindT.kind or "normal"]
+   a[#a+1] = s_decorateT[fT.forbiddenState]
+   return concatTbl(a,"")
+end
+   
 --------------------------------------------------------------------------
 -- Unique string that combines the current time/date
 -- with a uuid id string.

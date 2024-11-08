@@ -31,6 +31,8 @@ cleanUp ()
        -e "s|\o033|\\\033|g"                              \
        -e "s|[\\]27|\\\033|g"                             \
        -e "s|='\\\\033|='\\\\\\\\033|g"                   \
+       -e "s|\"[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]T[0-9][0-9]:[0-9][0-9]\"|\"YYYY-MM-DDTHH:mm\"|g" \
+       -e "s|\"[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]\"|\"YYYY-MM-DD\"|g" \
        -e "s|^User shell.*||"                             \
        -e "s|\@git\@|$gitV|g"                             \
        -e "s| $PATH_to_SHA1/$SHA1SUM| PATH_to_HASHSUM|g"  \
@@ -315,6 +317,12 @@ initStdEnvVars()
   COUNT=0
   ORIG_HOME=`(cd $HOME; /bin/pwd)`
   HOME=`/bin/pwd`
+  rm -rf $HOME/.local
+  
+  if [ -d $ORIG_HOME/.local ]; then
+    ln -s $ORIG_HOME/.local $HOME
+  fi
+
   export LMOD_TERM_WIDTH=100000
 
   PATH="/usr/bin:/bin"

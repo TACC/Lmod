@@ -38,6 +38,7 @@ PREPEND_BLOCK             := $(shell echo "@PREPEND_BLOCK@" | tr '[:upper:]' '[:
 COLORIZE                  := $(shell echo "@COLORIZE@"      | tr '[:upper:]' '[:lower:]')
 SETTARG_CMD               := settarg_cmd
 MODULEPATH_INIT           := @MODULEPATH_INIT@
+LMOD_TERSE_DECORATIONS    := @TERSE_DECORATIONS@
 LMOD_AVAIL_EXTENSIONS     := @AVAIL_EXTENSIONS@
 LMOD_HIDDEN_ITALIC        := @HIDDEN_ITALIC@
 LMOD_OVERRIDE_LANG        := @LMOD_OVERRIDE_LANG@
@@ -52,9 +53,7 @@ SILENCE_SHELL_DEBUGGING   := @SILENCE_SHELL_DEBUGGING@
 SYS_LD_LIB_PATH           := @SYS_LD_LIB_PATH@
 SYS_LD_PRELOAD            := @SYS_LD_PRELOAD@
 CASE_INDEPENDENT_SORTING  := @CASE_INDEPENDENT_SORTING@
-ORIG_ZSH_VERSION          := @ORIG_ZSH_VERSION@
 ZSH_SITE_FUNCTIONS_DIRS   := @ZSH_SITE_FUNCTIONS_DIRS@
-ZSH_FPATH                 := @ZSH_FPATH@
 SPIDER_CACHE_DESCRIPT_FN  := @SPIDER_CACHE_DESCRIPT_FN@
 ANCIENT                   := @ANCIENT@
 ALLOW_TCL_MFILES          := @ALLOW_TCL_MFILES@
@@ -302,6 +301,7 @@ __installMe:
 	          -e 's|@silence_shell_debugging@|$(SILENCE_SHELL_DEBUGGING)|g'     \
 	          -e 's|@dynamic_spider_cache@|$(DYNAMIC_SPIDER_CACHE)|g'           \
 	          -e 's|@fast_tcl_interp@|$(FAST_TCL_INTERP)|g'                     \
+	          -e 's|@terse_decorations@|$(LMOD_TERSE_DECORATIONS)|g'            \
 	          -e 's|@settarg_cmd@|$(SETTARG_CMD)|g'                             \
 	          -e 's|@lmod_config_dir@|$(LMOD_CONFIG_DIR)|g'                     \
 	          -e 's|@lmod_downstream_conflicts@|$(LMOD_DOWNSTREAM_CONFLICTS)|g' \
@@ -315,8 +315,6 @@ __installMe:
 	          -e 's|@redirect@|$(REDIRECT)|g'                                   \
 	          -e 's|@basename@|$(BASENAME)|g'                                   \
 	          -e 's|@support_ksh@|$(SUPPORT_KSH)|g'                             \
-	          -e 's|@zsh_fpath@|$(ZSH_FPATH)|g'                                 \
-	          -e 's|@orig_zsh_version@|$(ORIG_ZSH_VERSION)|g'                   \
 	          -e 's|@cached_loads@|$(CACHED_LOADS)|g'                           \
 	          -e 's|@avail_extensions@|$(LMOD_AVAIL_EXTENSIONS)|g'              \
 	          -e 's|@ps@|$(PS)|g'                                               \

@@ -191,7 +191,6 @@ unset during unloading.
      $MODULEPATH when building the spider cache.  See
      :ref:`spider_tool-label` for details.
 
-
 Extra functions
 ~~~~~~~~~~~~~~~
 
@@ -268,10 +267,17 @@ The entries below describe several useful commands that come with Lmod that can 
 
        if ( not isloaded("foo") ) then try_load("foo") end
       
-      
-
 **LmodVersion** ():
     The version of lmod.
+
+**convertToCanonical** ("string"):
+    A modulefile can use this function to know if an Lmod feature is
+    supported::
+
+      if (convertToCanonical(LmodVersion()) < convertToCanonical("8.6") ) then
+        LmodMessage("The function source_sh() is not supported")
+      end
+
 
 **execute** {cmd="*<any command>*", modeA={"load"}}
     Run any command with a certain mode.  For example
@@ -280,8 +286,35 @@ The entries below describe several useful commands that come with Lmod that can 
     loading the module will do.
 
 
-Modifier functions to prereq and loads
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Lua functions not supported
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**dofile** (): 
+
+    This function is not supported in Lmod.  Use **require()** or
+    **loadfile()** or **loadstring()**
+
+   
+Lua functions
+~~~~~~~~~~~~~
+
+   **require** ():
+   An Lua module can use this function to source another lua file.
+
+   **loadfile** ():
+   An Lua module can use this function to source another lua file.
+
+
+   **loadstring** ():
+   An Lua module can use this function to evaluate a string that
+   contains Lua code.  Note that in Lua 5.1 this function is called
+   **loadstring**.  The same function is renamed to **load** in Lua
+   5.2+.  However Lmod uses the **load** function to load other
+   modules.  Therefore internal to Lmod, sites can use **loadstring**
+   () independent of which version of Lmod a site is using.
+
+Modifier functions to prereq(), conflicit() and load()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **atleast** ("name", "version"):
     This modifier function will only succeed if the module is
@@ -300,6 +333,12 @@ Modifier functions to prereq and loads
 **latest** ("name"):
     This modifier function will only succeed if the module has the
     highest version on the system.
+
+**atmost** ("name","version"):
+    This modifier function will only succeed if the module is
+    "version" or older. See the between function for adding a "<" to
+    modify the search criteria.
+    
 
 
 Introspection Functions

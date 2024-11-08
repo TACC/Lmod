@@ -4,64 +4,32 @@
 ######################################################################
 # find ADMIN_DIR
 
-cmd=$0
-dir=$(dirname $cmd); 
-if [ $dir = "." ]; then
-  dir=$PWD
+SCRIPT_NAME="${BASH_SOURCE[0]:-${(%):-%x}}"
+SCRIPT_DIR=${SCRIPT_NAME%/*}
+
+
+if [ $SCRIPT_DIR = "." ]; then
+  SCRIPT_DIR=$PWD
+fi  
+ADMIN_DIR=$SCRIPT_DIR
+
+########################################################################
+# find spider cmd
+
+LMOD_DIR=/opt/apps/lmod/lmod/libexec
+if [ ! -x $LMOD_DIR/spider ]; then
+    echo "$LMOD_DIR/spider command not found!" '-> Quiting!'
+    exit 1
 fi
-ADMIN_DIR=$dir
+   
 
-######################################################################
-# find arch.py command if it exists
-export PATH=$ADMIN_DIR/bin:$PATH
-if command -v arch.py > /dev/null ; then
-  ARCH=$(arch.py)
-else
-  ARCH=$(arch)
-fi
+########################################################################
+# Make sure that $ADMIN_DIR/softwarePage exists
 
-######################################################################
-# Use ~swtools dir if it exists otherwise use ~mclay
+mkdir -p $ADMIN_DIR/softwarePage
 
-######################################################################
-# Find LMOD_DIR in either ~swtools or ~mclay
-  
-
-MCLAY=~mclay
-SWTOOLS=~swtools
-DIRLIST=( $SWTOOLS/l/pkg/$ARCH/lmod/lmod/libexec/ 
-          $SWTOOLS/l/pkg/lmod/lmod/libexec/
-          $MCLAY/l/pkg/$ARCH/lmod/lmod/libexec/ 
-          $MCLAY/l/pkg/lmod/lmod/libexec/
-        )
-          
-for i in "${DIRLIST[@]}"; do
-    if [ -x $i/spider ]; then
-        LMOD_DIR=$i
-        break;
-    fi
-done 
-
-######################################################################
-# Find LUATOOLS in either ~swtools or ~mclay
-  
-DIRLIST=( $SWTOOLS/l/pkg/$ARCH/luatools/luatools
-          $SWTOOLS/l/pkg/luatools/luatools
-          $MCLAY/l/pkg/$ARCH/luatools/luatools
-          $MCLAY/l/pkg/luatools/luatools
-        )
-
-lua_version=$(lua -e 'print((_VERSION:gsub("Lua ","")))')
-
-for i in "${DIRLIST[@]}"; do
-    if [ -f $i/share/$lua_version/strict.lua ]; then
-        LUATOOLS=$i
-        break;
-    fi
-done 
-
-export LUA_PATH="$LUATOOLS/share/$lua_version"'/?.lua;;'
-export LUA_CPATH="$LUATOOLS/lib/$lua_version"'/?.so;;'
+########################################################################
+# find BASE_MODULE_PATH
 
 BASE_MODULE_PATH=""
 
@@ -72,9 +40,29 @@ for i in /opt/modulefiles /opt/apps/modulefiles /opt/apps/xsede/modulefiles; do
 done
 BASE_MODULE_PATH=${BASE_MODULE_PATH%:}
 
-$LMOD_DIR/spider -o softwarePage    $BASE_MODULE_PATH > $ADMIN_DIR/softwarePage/softwarePage.old.json
+########################################################################
+# find name for python3 or fallback to python2
 
-python -mjson.tool $ADMIN_DIR/softwarePage/softwarePage.old.json > $ADMIN_DIR/softwarePage/softwarePage.json 2> /dev/null
+PYTHON=
+for cmd in python3 python python2; do
+  command -v $cmd > /dev/null
+  if [ "$?" = 0 ]; then
+    PYTHON=$cmd
+    break
+  fi
+done
+
+# Build json software page and make it pretty if possible.
+
+$LMOD_DIR/spider -o softwarePage    $BASE_MODULE_PATH > $ADMIN_DIR/softwarePage/softwarePage.old.json 
+
+########################################################################
+# If a python was found then use json.tool to make pretty output
+if [ -n "${PYTHON:-}" ]; then
+  $PYTHON -mjson.tool $ADMIN_DIR/softwarePage/softwarePage.old.json > $ADMIN_DIR/softwarePage/softwarePage.json 2> /dev/null
+fi
+
+# Clean up
 if [ -s $ADMIN_DIR/softwarePage/softwarePage.json ]; then
   rm -f $ADMIN_DIR/softwarePage/softwarePage.old.json
 else
