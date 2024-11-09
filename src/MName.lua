@@ -67,8 +67,7 @@ local s_rangeFuncT = { ["<="] = {func = l_lessthan_equal, name = "<="},
 
 
 function M.new(self, sType, name, action, is, ie)
-   --dbg.start{"Mname:new(",sType,")"}
-
+   dbg.start{"Mname:new(",sType,", name: ",name,", action: ", action,")"}
    local exact_match = cosmic:value("LMOD_EXACT_MATCH")
 
    if (not s_findT) then
@@ -143,7 +142,7 @@ function M.new(self, sType, name, action, is, ie)
       o.__userName   = (name or ""):trim():gsub("/+$",""):gsub("%.lua$","")
    end
 
-   --dbg.fini("MName:new")
+   dbg.fini("MName:new")
    return o
 end
 
@@ -182,7 +181,7 @@ function M.buildA(self,sType, ...)
 end
 
 local function l_lazyEval(self)
-   --dbg.start{"l_lazyEval(",self.__userName,")"}
+   dbg.start{"l_lazyEval(",self.__userName,")"}
 
    local sType   = self.__sType
    if (sType == "mt") then
@@ -199,7 +198,7 @@ local function l_lazyEval(self)
          self.__ref_count       = mt:get_ref_count(sn)
          self.__depends_on_anyA = mt:get_depends_on_anyA(sn)
       end
-      --dbg.fini("l_lazyEval via mt")
+      dbg.fini("l_lazyEval via mt")
       return
    end
 
@@ -216,7 +215,7 @@ local function l_lazyEval(self)
          self.__wV       = t.wV
       end
 
-      --dbg.fini("l_lazyEval via inherit")
+      dbg.fini("l_lazyEval via inherit")
       return
    end
 
@@ -228,13 +227,13 @@ local function l_lazyEval(self)
    local userName              = mrc:resolve(mt:modulePathA(), self:userName())
    local sn, versionStr, fileA = moduleA:search(userName)
    dbg.printT("fileA",fileA)
-   --dbg.print{"l_lazyEval: orig: ",origUserName,", userName: ",userName, ", sn: ",sn,", versionStr: ",versionStr,"\n"}
+   dbg.print{"l_lazyEval: orig: ",origUserName,", userName: ",userName, ", sn: ",sn,", versionStr: ",versionStr,"\n"}
    mrc:applyWeights(sn, fileA)
 
    if (origUserName ~= userName) then
       self.__origUserName = origUserName
    end
-   --dbg.print{"l_lazyEval: self.__origUserName: ",self.__origUserName,"\n"}
+   dbg.print{"l_lazyEval: self.__origUserName: ",self.__origUserName,"\n"}
 
    self.__userName   = userName
    self.__sn         = sn
@@ -242,7 +241,7 @@ local function l_lazyEval(self)
    self.__stackDepth = self.__stackDepth or frameStk:stackDepth()
 
    if (not sn) then
-      --dbg.fini("l_lazyEval via no sn")
+      dbg.fini("l_lazyEval via no sn")
       return
    end
 
@@ -253,10 +252,10 @@ local function l_lazyEval(self)
    local found
    local mpath
    local moduleKindT
-   --dbg.printT("fileA",fileA)
-   --dbg.print{"#stepA: ",#stepA,"\n"}
-   --dbg.print{"userName: ",self.__userName,"\n"}
-   --dbg.print{"sn: ",self.__sn,"\n"}
+   dbg.printT("fileA",fileA)
+   dbg.print{"#stepA: ",#stepA,"\n"}
+   dbg.print{"userName: ",self.__userName,"\n"}
+   dbg.print{"sn: ",self.__sn,"\n"}
 
 
    for i = 1, #stepA do
@@ -284,10 +283,10 @@ local function l_lazyEval(self)
                                           mpath = self.__mpath}
    end
 
-   --local tt = self.__moduleKindT or {}
-   --dbg.print{"l_lazyEval: sn: ",self.__sn, ", version: ",self.__version, ", fn: ",self.__fn,", wV: ",self.__wV,", userName: ",self.__userName,"\n"}
-   --dbg.print{"fn: ",self.__fn,", kind: ",tt.kind,"\n"}
-   --dbg.fini("l_lazyEval")
+   local tt = self.__moduleKindT or {}
+   dbg.print{"l_lazyEval: sn: ",self.__sn, ", version: ",self.__version, ", fn: ",self.__fn,", wV: ",self.__wV,", userName: ",self.__userName,"\n"}
+   dbg.print{"fn: ",self.__fn,", kind: ",tt.kind,"\n"}
+   dbg.fini("l_lazyEval")
 end
 
 
