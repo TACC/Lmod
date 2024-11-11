@@ -50,6 +50,7 @@ def main():
     sys.exit(1)
           
   dateStr = lmod.build_dateTest(args.startDate, args.endDate)
+  dateStr = dateStr.replace("and","",1)
   print("Deleting records with dates: ", dateStr)
   ans = input("Is this OK (y/N)?")
   if (ans != 'y'):
