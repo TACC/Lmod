@@ -41,9 +41,9 @@ class CmdLineOptions(object):
   def execute(self):
     """ Specify command line arguments and parse the command line"""
     parser = argparse.ArgumentParser()
-    parser.add_argument("--drop",        dest='drop',   action="store_true", default = False,     help="lmod")
-    parser.add_argument("--confFn",      dest='confFn', action="store",      default = None,      help="lmod")
-    parser.add_argument("--dbname",      dest='dbname', action="store",      default = "lmod",    help="lmod")
+    parser.add_argument("--drop",        dest='drop',   action="store_true", default = False,            help="lmod")
+    parser.add_argument("--confFn",      dest='confFn', action="store",      default = "lmodV2_db.conf", help="lmod")
+    parser.add_argument("--dbname",      dest='dbname', action="store",      default = "lmod",           help="lmod")
     args = parser.parse_args()
     return args
 
@@ -87,41 +87,19 @@ def main():
 
     # 1
     cursor.execute("""
-        CREATE TABLE `userT` (
-          `user_id`       int(11) unsigned NOT NULL auto_increment,
-          `user`          varchar(64)      NOT NULL,
-          PRIMARY KEY  (`user_id`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8  COLLATE=utf8_general_ci AUTO_INCREMENT=1
-        """)
-    print("(%d) create userT table" % idx); idx += 1
-
-    # 2
-    cursor.execute("""
         CREATE TABLE `moduleT` (
-          `mod_id`        int(11) unsigned NOT NULL auto_increment,
+          `id`            int(11) unsigned NOT NULL auto_increment,
+          `user`          varchar(64)      NOT NULL,
           `path`          varchar(1024)    NOT NULL,
           `module`        varchar(64)      NOT NULL,
           `syshost`       varchar(32)      NOT NULL,
-          PRIMARY KEY  (`mod_id`),
+          `date`          DATETIME         NOT NULL,
+          PRIMARY KEY  (`id`),
           INDEX  `thekey` (`path`(128), `syshost`)
 
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8  COLLATE=utf8_general_ci AUTO_INCREMENT=1
         """)
     print("(%d) create moduleT table" % idx ); idx += 1;
-
-
-    # 3
-    cursor.execute("""
-        CREATE TABLE `join_user_module` (
-          `join_id`       int(11) unsigned NOT NULL auto_increment,
-          `user_id`       int(11) unsigned NOT NULL,
-          `mod_id`        int(11) unsigned NOT NULL,
-          `date`          DATETIME         NOT NULL,
-          PRIMARY KEY (`join_id`, `date`),
-          INDEX `index_date` (`date`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8  COLLATE=utf8_general_ci AUTO_INCREMENT=1
-        """)
-    print("(%d) create join_link_object table" % idx); idx += 1
 
     cursor.close()
   except  MySQLdb.Error as e:

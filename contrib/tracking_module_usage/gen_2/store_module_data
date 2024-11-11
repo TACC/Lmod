@@ -1,0 +1,93 @@
+#!/bin/sh
+# -*- python -*-
+
+################################################################################
+# This file is python 2/3 bilingual. 
+# The line """:" starts a comment in python and is a no-op in shell.
+""":"
+# Shell code to find and run a suitable python interpreter.
+for cmd in python3 python python2; do
+   command -v > /dev/null $cmd && exec $cmd $0 "$@"
+done
+
+echo "Error: Could not find a valid python interpreter --> exiting!" >&2
+exit 2
+":""" # this line ends the python comment and is a no-op in shell.
+################################################################################
+
+from __future__ import print_function
+import os, sys, re, time, argparse, json
+from LMODdb import LMODdb
+
+class CmdLineOptions(object):
+  """ Command line Options class """
+
+  def __init__(self):
+    """ Empty Ctor """
+    pass
+  
+  def execute(self):
+    """ Specify command line arguments and parse the command line"""
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-D",            dest='debug',    action="store_true",                           help="Debug Flag")
+    parser.add_argument("--confFn",      dest='confFn',   action="store",      default="lmodV2_db.conf", help="Name of the database")
+    parser.add_argument("dataFn",                                                                        help="Syslog/Json file name")
+    args = parser.parse_args()
+    return args
+
+
+def syshost(name):
+  hostA = name.split('.')
+  idx   = 1
+  if (len(hostA) < 2):
+    idx = 0
+  return hostA[idx]
+
+def main():
+
+  args = CmdLineOptions().execute()
+
+  lmod = LMODdb(args.confFn)
+  
+  
+  baseNm, extension = os.path.splitext(args.dataFn)
+
+  f = open(args.dataFn,"r")
+  blkSz = 1000
+  dataA = []
+
+  icount = 0
+  for count, line in enumerate(f):
+    line  = line.rstrip("\n")
+    if (extension == ".json"):
+      dataT = json.loads(line)
+    else:
+      idx   = line.find("ModuleUsageTracking: ")
+      dataT = dict(re.findall(r'(\S+)=(".*?"|\S+)', line[idx+6:]))
+      host  = dataT.get('host')
+      dataT['syshost'] = syshost(host)
+      dataT['date']    = dataT['time']
+      dataT.pop('time',None)
+      dataT.pop('host',None)
+      
+      
+      
+    if (dataT.get('syshost') == None):
+      continue
+      print(line)
+
+    
+    if (icount < blkSz):
+      dataA.append(dataT)
+    else:
+      lmod.data_to_db(args.debug, dataA)
+      dataA.clear()
+      dataA.append(dataT)
+      icount = 0
+    icount += 1
+    
+  lmod.data_to_db(args.debug, dataA)
+  f.close()
+
+
+if ( __name__ == '__main__'): main()
