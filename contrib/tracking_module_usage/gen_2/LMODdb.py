@@ -171,10 +171,10 @@ class LMODdb(object):
   def build_dateTest(self, startDate, endDate):
     dateTest = ""
     if (startDate != "unknown"):
-      dateTest = " and t2.date >= '" + startDate + "'"
+      dateTest = " and date >= '" + startDate + "'"
       
     if (endDate != "unknown"):
-      dateTest = dateTest + " and t2.date < '" + endDate + "'"
+      dateTest = dateTest + " and date < '" + endDate + "'"
     return dateTest
     
 
@@ -296,4 +296,24 @@ class LMODdb(object):
 
     except Exception as e:
       print("modules_used_by(): ",e)
+      sys.exit(1)
+
+  def delete_old_records(self, debug, syshost, startDate, endDate):
+    query = ""
+    try:
+      conn   = self.connect()
+      cursor = conn.cursor()
+      query  = "USE "+self.db()
+      cursor.execute(query)
+
+      dateTest = self.build_dateTest(startDate, endDate)
+    
+      query = "DELETE FROM moduleT where syshost like %s  " + dateTest
+      print(query)
+      cursor.execute(query, [syshost])
+      conn.commit()
+      print(cursor.rowcount, "record(s) deleted")
+
+    except Exception as e:
+      print("delete_old_records(): ",e)
       sys.exit(1)
