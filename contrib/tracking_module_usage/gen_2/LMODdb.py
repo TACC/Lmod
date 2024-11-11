@@ -184,17 +184,19 @@ class LMODdb(object):
       conn   = self.connect()
       cursor = conn.cursor()
       query  = "USE "+self.db()
-      conn.query(query)
+      cursor.execute(query)
 
       dateTest = self.build_dateTest(startDate, endDate)
 
       if (sqlPattern == "") :
         sqlPattern == "%"
 
-      query = "SELECT path, count(distinct(user)) as c3 from moduleT as t1, " +\
-              "where path like %s and syshost like %s " + dateTest + " group by path order by c3 desc"
+      query = "SELECT path, count(distinct(user)) as counts from moduleT " +\
+              "where path like %s and syshost like %s " + dateTest + " group by path order by counts desc"
+
+
       cursor.execute(query, (sqlPattern, syshost))
-      numRows = cursor.rowcount
+      myResultA = cursor.fetchall()
 
       resultT = {}
       sT      = {}
@@ -208,34 +210,88 @@ class LMODdb(object):
             sT[moduleNm]      = 0
       
 
-      for i in range(numRows):
-        row = cursor.fetchone()
+      for row in myResultA:
         moduleNm = row[0]
-        resultT[moduleNm] = { 'syshost' : syshost, 'nUsers' : row[2] }
-        sT[moduleNm]      = row[2]
+        resultT[moduleNm] = { 'syshost' : syshost, 'nUsers' : row[1] }
+        sT[moduleNm]      = row[1]
   
+      resultA = []
+      resultA.append(["Module path", "Syshost", "Distinct Users" ])
+      resultA.append(["-----------", "-------", "--------------"])
+      sT_view = [ (v,k) for k,v in sT.items() ]
+      sT_view.sort(reverse=True)
+      for v,k in sT_view:
+        resultA.append([k, resultT[k]['syshost'], resultT[k]['nUsers'] ])
+
+      conn.close()
+
+      return resultA
+      
+    except Exception as e:
+      print("counts(): ",e)
+      sys.exit(1)
 
 
-  def numtimes(self, sqlPattern, syshost, startDate, endDate):
+  def usernames(self, sqlPattern, syshost, startDate, endDate):
     query = ""
     try:
       conn   = self.connect()
       cursor = conn.cursor()
       query  = "USE "+self.db()
-      conn.query(query)
-  
+      cursor.execute(query)
+
       dateTest = self.build_dateTest(startDate, endDate)
 
       if (sqlPattern == "") :
         sqlPattern == "%"
 
-      query = "SELECT path, syshost, count(distinct(module)) as c3 from moduleT " +\
-              "where path like %s and syshost like %s " + dateTest +\
-      
+      query = "SELECT path, user from moduleT where path like %s and syshost like %s " +\
+        dateTest + " group by user, path order by path"
 
-  #def usernames(self, sqlPattern, syshost, startDate, endDate):
-  #
-  #def modules_used_by(self, username, syshost, startDate, endDate):
+      cursor.execute(query, (sqlPattern, syshost))
+      myResultA = cursor.fetchall()
+
+      resultA = []
+      resultA.append(["Module path", "Syshost", "User Name"])
+      resultA.append(["-----------", "-------", "---------"])
+
+      for row in myResultA:
+        resultA.append([row[0],syshost,row[1]])
+
+      conn.close()
+      return resultA
+
+    except Exception as e:
+      print("usernames(): ",e)
+      sys.exit(1)
+
+  def modules_used_by(self, username, syshost, startDate, endDate):
+    query = ""
+    try:
+      conn   = self.connect()
+      cursor = conn.cursor()
+      query  = "USE "+self.db()
+      cursor.execute(query)
+
+      dateTest = self.build_dateTest(startDate, endDate)
+
+      query = "SELECT path, user from moduleT where user = %s and syshost like %s " +\
+              dateTest + " group by user,path order by path"
+
+      cursor.execute(query, ( username, syshost ))
+      myResultA = cursor.fetchall()
+
+      resultA = []
+      resultA.append(["Module path", "Syshost", "User Name"])
+      resultA.append(["-----------", "-------", "---------"])
+
+
+      for row in myResultA:
+        resultA.append([row[0],syshost,row[1]])
+
+      conn.close()
+
+      return resultA
 
 
     except Exception as e:
