@@ -118,7 +118,7 @@ class LMODdb(object):
     return self.__db
 
 
-  def dump_db(self, startDate, endDate):
+  def dump_db(self, startDate, endDate, fn):
 
     userA   = None
     moduleA = None

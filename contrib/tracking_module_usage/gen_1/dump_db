@@ -1,8 +1,23 @@
-#!/usr/bin/env python
+#!/bin/sh
 # -*- python -*-
+
+################################################################################
+# This file is python 2/3 bilingual. 
+# The line """:" starts a comment in python and is a no-op in shell.
+""":"
+# Shell code to find and run a suitable python interpreter.
+for cmd in python3 python python2; do
+   command -v > /dev/null $cmd && exec $cmd $0 "$@"
+done
+
+echo "Error: Could not find a valid python interpreter --> exiting!" >&2
+exit 2
+":""" # this line ends the python comment and is a no-op in shell.
+################################################################################
+
 from __future__ import print_function
 import os, sys, re, time, datetime, argparse
-from LMODdb       import LMODdb
+#from LMODdb       import LMODdb
 from BeautifulTbl import BeautifulTbl
 
 class CmdLineOptions(object):
@@ -16,12 +31,43 @@ class CmdLineOptions(object):
     """ Specify command line arguments and parse the command line"""
     parser = argparse.ArgumentParser()
     now    = time.strftime("%Y-%m-%d")
-    parser.add_argument("--dbname",     dest='dbname',     action="store", default = "lmod",       help="lmod db name")
-    parser.add_argument("--start",      dest='startDate',  action="store", default = "1970-01-01", help="start date")
-    parser.add_argument("--end",        dest='endDate',    action="store", default = now,          help="end date")
+    parser.add_argument("--dbname",     dest='dbname',     action="store", default = "lmod",    help="lmod db name")
+    parser.add_argument("--start",      dest='startDate',  action="store", default = "1970-01", help="start date year-month")
+    parser.add_argument("--Nmonths",    dest='Nmonths',    action="store", default = 0,         help="number of months")
+    parser.add_argument("--parentDir",  dest='parentDir',  action="store", default = None,      help="parent directory")
+        
 
     args = parser.parse_args()
     return args
+
+class MyDate(object):
+  """ Class to hold date spec """
+  def __init__(self, year, month, idx):
+    self.__daysA = [ 1, 7, 14, 19, 26 ]
+    self.__dateA = [ year, month, idx ]
+    self.__N     = 5
+
+  def incr(self):
+    self.__dateA[2] += 1
+    if (self.__dateA[2] >= self.__N):
+      self.__dateA[2] = 0
+      self.__dateA[1] += 1
+      if (self.__dateA[1] > 12):
+        self.__dateA[1] = 1
+        self.__dateA[0] += 1
+        
+  def dateStr(self,char):
+    a = [ self.__dateA[0], self.__dateA[1], self.__daysA[self.__dateA[2]] ]
+    b = []
+    for entry in a:
+      b.append("{:02d}".format(entry))
+
+    result = char.join(b)
+    return result
+  
+  def ntimes(self, Nmonths):
+    return Nmonths*self.__N
+
 
 def dbConfigFn(dbname):
   """
@@ -33,8 +79,32 @@ def dbConfigFn(dbname):
 def main():
   args     = CmdLineOptions().execute()
   configFn = dbConfigFn(args.dbname)
-  lmod     = LMODdb(configFn)
+  #lmod     = LMODdb(configFn)
 
-  lmod.dump_db(args.startDate, args.endDate)
+  if (not os.path.isdir(args.parentDir)):
+    print("parentDir must exist")
+    sys.exit(1)
+
+  splitDateA = args.startDate.split("-")
+  year       = int(splitDateA[0])
+  month      = int(splitDateA[1])
+  startDateIdx = MyDate(year, month, 0)
+  endDateIdx   = MyDate(year, month, 1)
+
+  N = startDateIdx.ntimes(int(args.Nmonths))
+  fn = "lmodV2_db_"
+
+  for i in range(N):
+    output = args.parentDir + "/" + fn + startDateIdx.dateStr("_") + ".json"
+    start  = startDateIdx.dateStr("-")
+    end    = endDateIdx.dateStr("-")
+    startDateIdx.incr()
+    endDateIdx.incr()
+
+    print (start, end, output)
+    
+
+
+  #lmod.dump_db(args.startDate, args.endDate, fn)
 
 if ( __name__ == '__main__'): main()
