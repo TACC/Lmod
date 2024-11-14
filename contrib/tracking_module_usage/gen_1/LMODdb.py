@@ -123,8 +123,10 @@ class LMODdb(object):
     userA   = None
     moduleA = None
 
+
     query = ""
     try:
+      f      = open(fn, "w")
       conn   = self.connect()
       cursor = conn.cursor()
       query  = "USE "+self.db()
@@ -176,12 +178,13 @@ class LMODdb(object):
         modT    = moduleA[int(row[1])]
         date    = str(row[2])
         t       = {'user': user, 'path': modT['path'], 'module' : modT['module'], 'syshost': modT['syshost'], 'date' : date }
-        print(json.dumps(t))
+        f:write(json.dumps(t))
 
     except Exception as e:
       print("dump_db(): ",e)
       sys.exit(1)
 
+    f.close()
 
   def data_to_db(self, debug, count, dataT, line):
     """

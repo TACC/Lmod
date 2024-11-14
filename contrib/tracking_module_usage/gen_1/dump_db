@@ -79,7 +79,7 @@ def dbConfigFn(dbname):
 def main():
   args     = CmdLineOptions().execute()
   configFn = dbConfigFn(args.dbname)
-  #lmod     = LMODdb(configFn)
+  lmod     = LMODdb(configFn)
 
   if (not os.path.isdir(args.parentDir)):
     print("parentDir must exist")
@@ -95,16 +95,12 @@ def main():
   fn = "lmodV2_db_"
 
   for i in range(N):
-    output = args.parentDir + "/" + fn + startDateIdx.dateStr("_") + ".json"
+    fullFn = fn + startDateIdx.dateStr("_") + ".json"
+    output = os.path.join(args.parentDir, fullFn)
     start  = startDateIdx.dateStr("-")
     end    = endDateIdx.dateStr("-")
     startDateIdx.incr()
     endDateIdx.incr()
-
-    print (start, end, output)
-    
-
-
-  #lmod.dump_db(args.startDate, args.endDate, fn)
+    lmod.dump_db(start, end, output)
 
 if ( __name__ == '__main__'): main()
