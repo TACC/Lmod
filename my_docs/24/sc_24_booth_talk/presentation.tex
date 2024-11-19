@@ -180,8 +180,8 @@ sandbox\_registration \{ foo = foo \}
     \item New function depends\_on\_any()
     \item \$MODULES\_AUTO\_HANDLING converts prereq, prereq\_any into
       depends\_on, depends\_on\_any
-    \item Support for new: \texttt{hide{}} and \texttt{forbid{}}
-    \item Support for $LMOD\_SHOW\_HIDDEN: avail, list, spider
+    \item Support for new: \texttt{hide\{\}} and \texttt{forbid\{\}}
+    \item Support for \$LMOD\_SHOW\_HIDDEN: avail, list, spider
     \item Support for non-reversible functions: setenv, load, ...
   \end{itemize}
 \end{frame}
@@ -191,9 +191,9 @@ sandbox\_registration \{ foo = foo \}
   \begin{itemize}
     \item LMOD\_MODULERC controls defaults.
     \item With this dynamic a site can change what are the defaults
-    \item The \mathtt{conflict()} function says you can't load the
+    \item The \texttt{conflict()} function says you can't load the
       current modulefile if 
-    \item Downstream Conflicts allows sites to fail depend_on() loads 
+    \item Downstream Conflicts allows sites to fail depend\_on() loads 
   \end{itemize}
 \end{frame}
 
@@ -204,12 +204,12 @@ sandbox\_registration \{ foo = foo \}
       first module you find
     \item The tricky part is that Lmod remembers which one it loaded.
     \item Needed to support converting prereq\_any() into
-      depends\_on\_any() when \$MODULES_AUTO_HANDLING is set
+      depends\_on\_any() when \$MODULES\_AUTO\_HANDLING is set
   \end{itemize}
 \end{frame}
 
 % page 15
-\begin{frame}{\texttt{hide{}}}
+\begin{frame}{\texttt{hide\{\}}}
   \begin{itemize}
     \item A more powerful hide function with controls for users and/or
       groups
@@ -220,7 +220,7 @@ sandbox\_registration \{ foo = foo \}
 \end{frame}
 
 % page 16
-\begin{frame}{\texttt{forbid{}}}
+\begin{frame}{\texttt{forbid\{\}}}
   \begin{itemize}
     \item A forbid function which displays with ml avail but can't be loaded.
     \item Can forbid before or after certain dates
