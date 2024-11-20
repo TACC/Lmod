@@ -30,7 +30,7 @@
 
 \begin{document}
 \title[Lmod]{SC 24 Booth Talk: Lmod}
-\author{Robert McLay} 
+\author{Robert McLay, Matthew Cawood} 
 \date{Nov. 20, 2024}
 
 % page 1
@@ -42,9 +42,10 @@
 \begin{frame}{Introduction}
   \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
   \begin{itemize}
-    \item Feature and Recent changes that bare repeating
+    \item Feature and Recent changes that bear repeating
     \item Changes in the pass year.
     \item Future work?
+    \item This talk: https://github.com/TACC/Lmod/blob/main/my\_docs/24/sc\_24\_booth\_talk/presentation.pdf
   \end{itemize}
 \end{frame}
 
@@ -187,9 +188,9 @@ sandbox\_registration \{ foo = foo \}
 \end{frame}
 
 % page 13
-\begin{frame}{Dynamic LMOD\_MODULERC and Downstream Conflicts}
+\begin{frame}{Dynamic \$LMOD\_MODULERC and Downstream Conflicts}
   \begin{itemize}
-    \item LMOD\_MODULERC controls defaults.
+    \item \$LMOD\_MODULERC controls defaults (along with .modulerc.lua etc)
     \item With this dynamic a site can change what are the defaults
     \item The \texttt{conflict()} function says you can't load the
       current modulefile if 
@@ -251,7 +252,7 @@ sandbox\_registration \{ foo = foo \}
         \item How to get current module info into hooks
         \item How Lmod testing works
       \end{enumerate}
-    \item Zoom Mtg Usually 1st Tuesday at 15:30 UTC (9:30 US Central)
+    \item Zoom Mtg Usually 1st Tuesday 
     \item See Mailing list or https://github.com/TACC/Lmod/wiki for
       details
     \item Next Meeting Dec. 10th at 15:30 UTC (9:30 US Central)
@@ -277,9 +278,9 @@ sandbox\_registration \{ foo = foo \}
   \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
   \begin{itemize}
     \item Latest version: https://github.com:TACC/lmod.git
-    \item Stable version: http://lmod.sf.net
     \item Documentation:  http://lmod.readthedocs.org
-    \item Talks:          https://github.com/TACC/lmod/tree/main/my\_docs/22
+    \item Talks:          https://github.com/TACC/lmod/tree/main/my\_docs/24/sc\_24\_booth\_talk
+    \item https://github.com/TACC/Lmod/blob/main/my\_docs/24/sc\_24\_booth\_talk/presentation.pdf
   \end{itemize}
 \end{frame}
 
