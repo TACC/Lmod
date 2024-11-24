@@ -246,9 +246,10 @@ function M.searchSpiderDB(self, strA, dbT, providedByT)
       for fn, vv in pairs(vvv) do
          local whatisS  = concatTbl(vv.whatis or {},"\n"):lower()
          local found    = false
+         local help     = vv.help or ""
          for i = 1,strA.n do
             local str = strA[i]
-            if (sn:find(str) or whatisS:find(str)) then
+            if (sn:find(str) or whatisS:find(str) or help:find(str)) then
                found = true
                break
             end
