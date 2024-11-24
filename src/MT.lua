@@ -417,7 +417,7 @@ function M.exists(self, sn, fullName)
    if (entry == nil) then
       return false
    end
-   return (fullName == nil) or entry.fullName == fullName
+   return (fullName == nil) or (entry.status ~= "inactive"  and entry.fullName == fullName)
 end
 
 function M.moduleKindT(self, sn)
