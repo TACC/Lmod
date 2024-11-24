@@ -25,7 +25,7 @@ testdescript = {
      HOME=`/bin/pwd`
      cacheDir=`userCacheDir`
  
-     remove_generated_lmod_files myCacheDir fn spiderT.lua
+     remove_generated_lmod_files myCacheDir fn spiderT.lua SitePackage.lua
 
      cp $(testDir)/dot.modulerc .modulerc
 
@@ -224,26 +224,45 @@ EOF
      mkdir -p $HOME/.cache/lmod
      buildSpiderT $MODULEPATH > $HOME/.cache/lmod/spiderT.lua
      runLmod -A    avail                               #92
-     export LMOD_PACKAGE_PATH=$(testDir)
      runLmod       load soft/1.0                       #93
      runLmod       load G/1.0                          #94
      runLmod       load C/1.0                          #95
 
-     runLmod       load xcc Foo/invisible              #96
-     runLmod -A    avail                               #97
-
      cp $HOME/.cache/lmod/spiderT.lua spiderT.87.lua
      rm -rf $HOME/.cache
 
-     runLmod       unload Foo/invisible xcc            # 98
-     runLmod       load xcc Foo/invisible              # 99
-     runLmod       unload Foo/invisible xcc            #100
-     runLmod       load xcc                            #101
-     runLmod       load Foo/invisible                  #102
-     runLmod       load xcc                            #103
-     runLmod       load Foo/invisible                  #104
+     runLmod    purge                                  #96
+     unsetMT
+     unset LMOD_MODULERC
+     export LMOD_PACKAGE_PATH=$(outputDir)
+     export MODULEPATH_ROOT=$(testDir)/mfE
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+     cp $(testDir)/isVisibleHook_SitePackage.lua SitePackage.lua
+     runLmod       avail                               #97
+     runLmod -A    avail                               #98
+     runLmod       load A/1.0                          #99
+     runLmod       load B/3.0                          #100
+     runLmod       load F/1.0                          #101
+     runLmod       rm F/1.0                            #102
+     runLmod       load EESSI/1.0                      #103
+    
+     runLmod    purge                                  #104
+     unsetMT
+     unset LMOD_MODULERC
+     cp $(testDir)/SitePackage.lua .
+     export MODULEPATH_ROOT=$(testDir)/mfF
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+     runLmod       load xcc Foo/invisible              #105
+     runLmod -A    avail                               #106
 
-     
+     runLmod       unload Foo/invisible xcc            #107
+     runLmod       load xcc Foo/invisible              #108
+     runLmod       unload Foo/invisible xcc            #109
+     runLmod       load xcc                            #110
+     runLmod       load Foo/invisible                  #111
+     runLmod       load xcc                            #112
+     runLmod       load Foo/invisible                  #113
+
      
 
      HOME=$ORIG_HOME

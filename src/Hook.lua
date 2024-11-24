@@ -132,7 +132,7 @@ function M.apply(name, ...)
 end
 
 function M.exists(name)
-   return validT[name] and true or false
+   return (next(validT[name]) ~= nil) and true or false
 end
 
 return M

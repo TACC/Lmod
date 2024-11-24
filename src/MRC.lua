@@ -512,17 +512,31 @@ local function l_find_resultT(self, tbl_kind, replaceT, mpath, wantedA)
    return resultT
 end   
 
-local function l_findHiddenState(self, mpath, sn, fullName, fn)
-   dbg.start{"l_findHiddenState(self, mpath, sn: ",sn,", fullName: ",fullName,", fn)"}
-   local wantedA = { sn, fullName, fn, ((fn or ""):gsub("%.lua$","")) }
+local function l_findHiddenState(self, modT)
+   dbg.start{"l_findHiddenState(self, modT)"}
+   local fn      = modT.fn
+   local sn      = modT.sn
+   local wantedA = { modT.sn, modT.fullName, fn, ((fn or ""):gsub("%.lua$","")) }
    local _
-   local n = fullName
+   local n = modT.fullName
    while (n and n ~= sn) do
       _, _, n = n:find("(.*)/.*")
       wantedA[#wantedA + 1] = n
    end
 
-   local resultT = l_find_resultT(self, "hiddenT", {kind = "hidden"}, mpath, wantedA)
+   local resultT = l_find_resultT(self, "hiddenT", {kind = "hidden"}, modT.mpath, wantedA)
+
+   -- Apply isVisibleHook, convert false isVisible flag to resultT.
+   if (hook.exists("isVisibleHook")) then
+      modT.isVisible = true
+      hook.apply("isVisibleHook", modT)
+      if (not modT.isVisible) then
+         resultT        = resultT or {}
+         resultT.kind   = "hidden"
+         resultT.name   = modT.fullName
+      end
+   end
+
    dbg.fini("MRC:l_findHiddenState")
    return resultT
 end
@@ -537,6 +551,10 @@ local function l_findForbiddenState(self, mpath, sn, fullName, fn)
       wantedA[#wantedA + 1] = n
    end
    local resultT = l_find_resultT(self, "forbiddenT", {}, mpath, wantedA)
+   
+
+
+
    dbg.fini("l_findForbiddenState")
    return resultT or {}
 end
@@ -652,7 +670,6 @@ end
 function M.isVisible(self, modT)
    dbg.start{"MRC:isVisible(modT}"}
    local frameStk      = require("FrameStk"):singleton()
-   local mname         = frameStk:mname()
    local mt            = frameStk:mt()
    local mpathA        = modT.mpathA or mt:modulePathA()
    local mpath         = modT.mpath
@@ -673,11 +690,15 @@ function M.isVisible(self, modT)
    --   hidden_loaded = true|nil, }
    -- if hidden.
 
+   modT.mname = frameStk:mname()
+   modT.mt    = mt
 
    ------------------------------------------------------------
    -- If sn is already in the ModuleTable then use MT data instead
 
    dbg.print{"fullName: ",fullName,"\n"}
+   dbg.printT("visibleT",visibleT)
+
 
    if (mt:exists(sn,fullName)) then
       local moduleKindT = mt:moduleKindT(sn)
@@ -692,30 +713,27 @@ function M.isVisible(self, modT)
    end
 
 
-   local resultT     = l_findHiddenState(self, mpath, sn, fullName, fn)
+   local resultT     = l_findHiddenState(self, modT)
+   dbg.print{"RTM type(resultT): ",type(resultT),"\n"}
    if (type(resultT) == "table" ) then
-      --dbg.printT("from hidden State resultT",resultT)
+      dbg.printT("from hidden State resultT",resultT)
       isVisible, hidden_loaded, kind, count = l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)
+      dbg.print{"(1)isVisible: ",isVisible,"\n"}
    elseif (fullName:sub(1,1) == ".") then
       isVisible = (visibleT.hidden == true or show_hidden)
       count     = show_hidden
       kind      = "hidden"
+      dbg.print{"(2)isVisible: ",isVisible,"\n"}
    else
       local idx = fullName:find("/%.")
       isVisible = (idx == nil) or (visibleT.hidden == true) or show_hidden
       kind      = (idx == nil) and "normal" or "hidden"
       count     = show_hidden or (idx == nil)
+      dbg.print{"(3)isVisible: ",isVisible,"\n"}
    end
 
-   modT.isVisible     = isVisible
-   modT.mname         = mname
-   modT.kind          = kind
-   modT.mt            = mt
-   modT.hidden_loaded = hidden_loaded
-   hook.apply("isVisibleHook", modT)
-
-   my_resultT       = { isVisible = modT.isVisible,
-                        moduleKindT = {kind=modT.kind, hidden_loaded = modT.hidden_loaded},
+   my_resultT       = { isVisible = isVisible,
+                        moduleKindT = {kind=kind, hidden_loaded = hidden_loaded},
                         count = count }
 
    dbg.print{"fullName: ",fullName,", isVisible: ",isVisible,", kind: ",kind,", show_hidden: ", show_hidden,", count: ",count,", hidden_loaded: ",hidden_loaded,"\n"}
