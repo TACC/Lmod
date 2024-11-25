@@ -76,6 +76,7 @@ M.load_usr             = MainControl.quiet
 M.message              = MainControl.quiet
 M.msg_raw              = MainControl.quiet
 M.mgrload              = MainControl.quiet
+M.popenv               = MainControl.quiet
 M.prereq               = MainControl.quiet
 M.prereq_any           = MainControl.quiet
 M.purge                = MainControl.quiet
@@ -219,12 +220,17 @@ s_patDir = false
 -- @param self A MainControl object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
-function M.setenv(self, name, value)
-   dbg.start{"MC_Spider:setenv(name, value)"}
+function M.setenv(self, table)
+
+   dbg.start{"MC_Spider:setenv(table)"}
+   local name = (table[1] or ""):trim()
+   local value = table[2]
 
    save_set_env(name, value)
 
+   dbg.print{"here 1\n"}
    if (not s_patLib) then
+      dbg.print{"here 2\n"}
       local a  = {}
       a[#a+1]  = "^"
       a[#a+1]  = hook.apply("SiteName")
@@ -236,6 +242,7 @@ function M.setenv(self, name, value)
       a[#a+1]  = "_.*_DIR"
       s_patDir = concatTbl(a,"")
 
+      dbg.print{"here 2\n"}
       local t = {patDir = s_patDir, patLib = s_patLib}
       hook.apply("packagebasename", t)
       s_patDir = t.patDir
@@ -244,9 +251,11 @@ function M.setenv(self, name, value)
       dbg.print{"Using s_patDir: ", s_patDir, " s_patLib: ", s_patLib, "\n"}
    end
 
+   dbg.print{"here 4\n"}
    if (name:find(s_patLib)) then
       processLPATH(value)
    end
+   dbg.print{"here 5\n"}
    if (name:find(s_patDir)) then
       processDIR(value)
    end
@@ -259,8 +268,11 @@ end
 -- as long as no site mixes pushenv and popenv in the same
 -- modulefile.  Fix this when the time comes.
 
-function M.pushenv(self, name, value)
-   dbg.start{"MC_Spider:pushenv(name, value)"}
+function M.pushenv(self, table)
+   dbg.start{"MC_Spider:pushenv(table)"}
+
+   local name = (table[1] or ""):trim()
+   local value = table[2]
    save_set_env(name, value)
    dbg.fini()
    return true

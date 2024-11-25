@@ -958,9 +958,17 @@ end
 -- This function always loads and never unloads.
 function always_load(...)
    dbg.start{"always_load(",l_concatTbl({...},", "),")"}
-   if (not l_validateModules("always_load",...)) then return {} end
+   local table
+   local mcp_old = mcp
+   mcp, table = list_2_Tbl(MCP, mcp, ...)
+   if ( not mcp ) then
+       mcp = mcp_old
+       return
+   end
 
-   local b  = mcp:always_load(MName:buildA("load",...))
+   if (not l_validateModules("always_load", table)) return {} end
+
+   local b  = mcp:always_load(MName:buildA("load", table))
    dbg.fini("always_load")
    return b
 end
