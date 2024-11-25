@@ -388,10 +388,9 @@ function readAdmin()
 
       for v in whole:split("\n") do
          repeat
-            v = v:gsub("%s+$","") -- trim trailing spaces
-            v = v:gsub("^%s+", "") -- trim leading spaces
+            v = v:gsub("%s+$","")
 
-            if (v:sub(1,1) == "#") then
+            if (v:gsub("^%s+", ""):sub(1,1) == "#") then
                -- ignore this comment line
                break
 
