@@ -2,7 +2,7 @@ _module_avail() {
   #
   # Lmod output goes to STDERR by default. The option --no_redirect forces output to stderr.
   #
-  @PKG@/libexec/lmod bash --no_redirect -t -q avail 2>&1 >/dev/null | sed ' /:$/d; s/(@.*)//g; s#/*$##g;'
+  @PKG@/libexec/lmod bash --no_redirect -t -q avail 2>&1 >/dev/null | sed ' /:$/d; s/(@.*)//g; s#/*$##g; s/ *<[A-Za-z][A-Za-z]*>//;'
 }
 
 _module_dir() {
@@ -68,7 +68,7 @@ _module_spider() {
 }
 
 _module_loaded_modules() {
-  @PKG@/libexec/lmod bash -q -t --no_redirect list 2>&1 >/dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g;'
+  @PKG@/libexec/lmod bash -q -t --no_redirect list 2>&1 >/dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g; s/ *<[A-Za-z][A-Za-z]*>//'
 }
 
 _module_savelist() {
@@ -80,7 +80,7 @@ _module_disable() {
 }
 
 _module_loaded_modules_negated() {
-  @PKG@/libexec/lmod bash -q -t --no_redirect list 2>&1 >/dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g; s|^|-|g;'
+  @PKG@/libexec/lmod bash -q -t --no_redirect list 2>&1 >/dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g; s|^|-|g; s/ *<[A-Za-z][A-Za-z]*>//'
 }
 
 _module_mcc() {
@@ -125,9 +125,10 @@ _module() {
   
   opts="-d -D -h -q -t -v -w -s --style --expert --quiet --help -H -b --brief \
         --quiet --terse --version --default --width -r --regexp --mt --latest \
-        -I --ignore_cache --gitversion --dumpversion --config --miniConfig    \
-        --timer -f --force --redirect --show_hidden -T --trace --nx           \
-        --no_extensions --loc --location --terse_show_extensions --pod "
+        -I --ignore_cache --gitversion --dumpversion --dumpname --config      \
+        --miniConfig --timer -f --force --redirect --show_hidden -T --trace   \
+        --nx --no_extensions --loc --location --terse_show_extensions --pod   \
+        -A --all"
   
   case "${prev}" in
     add|load|try-load)
@@ -190,11 +191,12 @@ _ml() {
   cmds="add avail describe disable delete help keyword list load overview purge refresh restore rm\
         save show spider swap try-load unload unuse update use whatis"
   
-  opts="-d -D -h -q -t -v -w -s --style --expert --quiet --help -H -f --force     \
-        --quiet --terse --version --default --Verbose --width -r --regexp --mt    \
-        --gitversion --ignore_cache -I --latest --pin_version --trace -T --config \
-        --miniConfig --config_json --raw --show_hidden --loc --location           \
-        --terse_show_extensions --pod"
+  opts="-d -D -h -q -t -v -w -s --style --expert --quiet --help -H -b --brief \
+        --quiet --terse --version --default --width -r --regexp --mt --latest \
+        -I --ignore_cache --gitversion --dumpversion --dumpname --config      \
+        --miniConfig --timer -f --force --redirect --show_hidden -T --trace   \
+        --nx --no_extensions --loc --location --terse_show_extensions --pod   \
+        -A --all"
   
   case "${prev}" in
     rm|remove|unload|switch|swap)

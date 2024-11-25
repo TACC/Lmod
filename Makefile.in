@@ -38,6 +38,7 @@ PREPEND_BLOCK             := $(shell echo "@PREPEND_BLOCK@" | tr '[:upper:]' '[:
 COLORIZE                  := $(shell echo "@COLORIZE@"      | tr '[:upper:]' '[:lower:]')
 SETTARG_CMD               := settarg_cmd
 MODULEPATH_INIT           := @MODULEPATH_INIT@
+LMOD_TERSE_DECORATIONS    := @TERSE_DECORATIONS@
 LMOD_AVAIL_EXTENSIONS     := @AVAIL_EXTENSIONS@
 LMOD_HIDDEN_ITALIC        := @HIDDEN_ITALIC@
 LMOD_OVERRIDE_LANG        := @LMOD_OVERRIDE_LANG@
@@ -300,6 +301,7 @@ __installMe:
 	          -e 's|@silence_shell_debugging@|$(SILENCE_SHELL_DEBUGGING)|g'     \
 	          -e 's|@dynamic_spider_cache@|$(DYNAMIC_SPIDER_CACHE)|g'           \
 	          -e 's|@fast_tcl_interp@|$(FAST_TCL_INTERP)|g'                     \
+	          -e 's|@terse_decorations@|$(LMOD_TERSE_DECORATIONS)|g'            \
 	          -e 's|@settarg_cmd@|$(SETTARG_CMD)|g'                             \
 	          -e 's|@lmod_config_dir@|$(LMOD_CONFIG_DIR)|g'                     \
 	          -e 's|@lmod_downstream_conflicts@|$(LMOD_DOWNSTREAM_CONFLICTS)|g' \

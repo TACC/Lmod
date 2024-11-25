@@ -93,8 +93,9 @@ package.cpath = cmd_dir .. "../lib/?.so;"..
 require("strict")
 require("string_utils")
 require("pairsByKeys")
-local lfs    = require("lfs")
-local Optiks = require("Optiks")
+local dbg       = require("Dbg"):dbg()
+local lfs       = require("lfs")
+local Optiks    = require("Optiks")
 local s_mainTbl = {}
 
 function cmdDir()
@@ -111,19 +112,18 @@ function isDir(d)
    return (attr and attr.mode == "directory")
 end
 
-function myInsert(appendFlg, existFlg)
-   local insert = table.insert
+function myInsert(appendFlg, existFlg,maxIdx)
    if (appendFlg) then
       if (existFlg) then
-         return function (arr, v) if (isDir(v)) then insert(arr, v) end end
+         return function (t, k, v) if (isDir(v)) then t[k] = maxIdx + v end end
       else
-         return function (arr, v) insert(arr, v) end
+         return function (t, k, v) t[k] = maxIdx + v end
       end
    else
       if (existFlg) then
-         return function (arr, v) if (isDir(v)) then insert(arr, 1, v) end end
+         return function (t, k, v) if (isDir(v)) then t[k] = -v end end
       else
-         return function (arr, v) insert(arr, 1, v) end
+         return function (t, k, v) t[k] = -v end
       end
    end
 end
@@ -146,18 +146,10 @@ function myClean(cleanFlg)
    end
 end
 
-function myChkDir(existFlg)
-   if (existFlg)  then
-      return function(path) return isDir(path) end
-   else
-      return function(path) return true end
-   end
-end
-
 function main()
 
-   local remove  = table.remove
-   local concat  = table.concat
+   local removeTbl  = table.remove
+   local concatTbl  = table.concat
    local envVarA = {}
 
    ------------------------------------------------------------------------
@@ -169,12 +161,18 @@ function main()
    local cleanFlg  = optionTbl.cleanFlg
    local delim     = optionTbl.delim
 
-   local envVar    = os.getenv(pargs[1])
-   local insert    = myInsert(optionTbl.appendFlg, optionTbl.existFlg)
+   local envVarNm  = pargs[1]
+   local envVar    = os.getenv(envVarNm)
    local cleanPath = myClean(cleanFlg)
-   local chkDir    = myChkDir(optionTbl.existFlg)
 
-   remove(pargs,1)
+   if (optionTbl.debug) then
+      dbg:activateDebug(1)
+   end
+   dbg.print{"envVarNm: ",envVarNm,"\n"}
+
+   dbg.printT("pargs",pargs)
+
+   removeTbl(pargs,1)
 
    local function l_build_array(s,A)
       if (s == ":") then
@@ -194,6 +192,8 @@ function main()
       l_build_array(pargs[j], valueA)
    end
 
+   dbg.printT("valueA",valueA)
+
 
    ------------------------------------------------------------------------
    -- Convert empty string envVar values into false and clean path if requested
@@ -201,34 +201,52 @@ function main()
       l_build_array(envVar, envVarA)
    end
 
+   dbg.printT("envVarA",envVarA)
    ------------------------------------------------------------------------
    -- Make a hash table of input values
    local valueT = {}
    for j = 1, #valueA do
-      valueT[valueA[j]] = true
-   end
-
-   ------------------------------------------------------------------------
-   -- Remove any entries in input from envVarA
-   local newA = {}
-   for j = 1, #envVarA do
-      local v = envVarA[j]
-      if (not valueT[v]) then
-         if (v == false) then v = "" end
-         newA[#newA+1] = v
+      local path = valueA[j]
+      if (not valueT[path]) then
+         valueT[path] = j
       end
    end
 
-   ------------------------------------------------------------------------
-   -- Insert/append new entries with magic insert function.
+   dbg.printT("valueT",valueT)
 
-   for j = 1, #valueA do
-      local v = valueA[j]
-      if (v == false) then v = "" end
-      insert(newA, v)
+   local envVarT = {}
+   local maxIdx  = #envVarA
+
+   for j = 1,#envVarA do
+      local path = envVarA[j]
+      if (not envVarT[path]) then
+         envVarT[path] = j
+      end
+   end
+   
+   dbg.printT("Before envVarT",envVarT)
+   
+   local insert = myInsert(optionTbl.appendFlg, optionTbl.existFlg, maxIdx)
+
+   for path, idx in pairs(valueT) do
+      insert(envVarT, path, idx)
    end
 
-   io.stdout:write(concat(newA,delim),"\n")
+   dbg.printT("After envVarT",envVarT)
+
+   local a = {}
+   for path, idx in pairs(envVarT) do
+      a[#a+1] = {path=path, value = idx}
+   end
+
+   table.sort(a, function(x,y) return x.value < y.value end)
+   local newA = {}
+   for i = 1, #a do
+      newA[i] = a[i].path or ""
+   end
+   dbg.printT("newA",newA)
+
+   io.stdout:write(concatTbl(newA,delim),"\n")
 end
 
 
@@ -260,8 +278,15 @@ function options()
    cmdlineParser:add_option{
       name   = {'-d', '--delete'},
       dest   = 'delete',
-      action = 'store',
-      default = nil,
+      action = 'store_true',
+      default = false,
+   }
+
+   cmdlineParser:add_option{
+      name   = {'-D', '--debug'},
+      dest   = 'debug',
+      action = 'store_true',
+      default = false,
    }
 
    cmdlineParser:add_option{

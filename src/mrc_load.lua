@@ -40,6 +40,11 @@ require("mrc_sandbox")
 
 local dbg  = require("Dbg"):dbg()
 local load = (_VERSION == "Lua 5.1") and loadstring or load
+local s_fn = false
+
+function myMRC_file()
+   return s_fn
+end
 
 function mrc_load(fn)
    dbg.start{"mrc_load(fn:",fn,")"}
@@ -51,13 +56,14 @@ function mrc_load(fn)
 
    declare("ModA",false)
    ModA = {}
-   local myType = extname(fn)
+   s_fn = path_regularize(fn)
+   local myType = extname(s_fn)
    if (myType == ".lua") then
-      local f = io.open(fn)
+      local f = io.open(s_fn)
       whole   = false
       if (f) then
          whole = f:read("*all")
-         dbg.start{"RC_File(",fn,")"}
+         dbg.start{"RC_File(",s_fn,")"}
          dbg.print{whole}
          dbg.fini("RC_File")
          f:close()
@@ -69,19 +75,19 @@ function mrc_load(fn)
          msg    = "Empty or non-existent file"
       end
       if (not status) then
-         LmodError{msg="e_Unable_2_Load", name = "<unknown>", fn = fn, message = msg}
+         LmodError{msg="e_Unable_2_Load", name = "<unknown>", fn = s_fn, message = msg}
       end
    else
       dbg.print{"Before runTCLprog\n"}
-      whole, ok = runTCLprog(pathJoin(cmdDir(),"RC2lua.tcl"), path_regularize(fn))
+      whole, ok = runTCLprog(pathJoin(cmdDir(),"RC2lua.tcl"), s_fn)
       dbg.print{"After runTCLprog\n"}
       if (not ok) then
-         LmodError{msg = "e_Unable_2_parse", path = fn}
+         LmodError{msg = "e_Unable_2_parse", path = s_fn}
       end
 
       ok, func = pcall(load, whole)
       if (not ok or not func) then
-         LmodError{msg = "e_Unable_2_parse", path = fn}
+         LmodError{msg = "e_Unable_2_parse", path = s_fn}
       end
       if (func) then
          func()

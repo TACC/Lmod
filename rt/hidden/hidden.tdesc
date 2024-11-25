@@ -27,16 +27,28 @@ testdescript = {
      runLmod --show_hidden avail               # 2
 
      runLmod load .system                      # 3
-     runLmod list                              # 4
+     runLmod load .a/.1                        # 4
+     runLmod load .b/1.0                       # 5
+     runLmod load  c/.1                        # 6
+     runLmod list                              # 7
 
-     runLmod purge                             # 5
+     runLmod purge                             # 8
      unsetMT
      export MODULEPATH=$(testDir)/mf2/top:$(testDir)/mf2/bottom
      export LMOD_TMOD_FIND_FIRST=1
-     runLmod --show_hidden av                  # 6
-     runLmod load B                            # 7
-     runLmod load A                            # 8
-     runLmod list                              # 9
+     runLmod --show_hidden av                  # 9
+     runLmod load B                            #10
+     runLmod load A                            #11
+     runLmod list                              #12
+
+     unset  LMOD_TMOD_FIND_FIRST
+     runLmod purge                             #13
+     unsetMT
+     export MODULEPATH=$(testDir)/mf3
+
+     runLmod --show_hidden av
+
+
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

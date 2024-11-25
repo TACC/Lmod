@@ -15,6 +15,8 @@
 --
 -- @classmod MRC
 
+_G._DEBUG      = false
+local posix    = require("posix")
 require("strict")
 
 --------------------------------------------------------------------------
@@ -58,6 +60,7 @@ require("deepcopy")
 
 local M         = {}
 local dbg       = require("Dbg"):dbg()
+local cosmic    = require("Cosmic"):singleton()
 local concatTbl = table.concat
 local getenv    = os.getenv
 local load      = (_VERSION == "Lua 5.1") and loadstring or load
@@ -75,24 +78,26 @@ local l_buildMod2VersionT
 -- @param self A MRC object.
 
 local function l_new(self, fnA)
-   if (dbg.active()) then
-      local strFnA = "nil"
-      if (fnA and next(fnA) ~= nil) then
-         strFnA = concatTbl(fnA,", ")
-      end
-      dbg.start{"MRC l_new(fnA: ",strFnA,")"}
-   end
-   local o              = {}
-   o.__mpathT           = {}  -- mpath dependent values for alias2modT, version2modT
-                              -- and hiddenT.
-   o.__version2modT     = {}  -- Map a sn/version string to a module fullname
-   o.__alias2modT       = {}  -- Map an alias string to a module name or alias
-   o.__fullNameDfltT    = {}  -- Map for fullName (in pieces) to weights
-   o.__defaultT         = {}  -- Map module sn to fullname that is the default.
-   o.__hiddenT          = {}  -- Table of hidden module names and modulefiles.
-   o.__mod2versionT     = {}  -- Map from full module name to versions.
-   o.__full2aliasesT    = {}
-   o.__mergedAlias2modT = {}
+   dbg.start{"MRC l_new(fnA)"}
+   local o               = {}
+   o.__mpathT            = {}  -- mpath dependent values for alias2modT, version2modT
+                               -- and hiddenT.
+   o.__version2modT      = {}  -- Map a sn/version string to a module fullname
+   o.__alias2modT        = {}  -- Map an alias string to a module name or alias
+   o.__fullNameDfltT     = {}  -- Map for fullName (in pieces) to weights
+   o.__defaultT          = {}  -- Map module sn to fullname that is the default.
+
+   o.__forbiddenT        = {}  -- Table of forbidden modules
+                               -- from LMOD_MODULERC files only
+   o.__hiddenT           = {}  -- Table of hidden modules
+                               -- from LMOD_MODULERC files only
+   o.__merged_hiddenT    = {}  -- Table of hidden modules
+                               -- merged from LMOD_MODULERC and moduletree .modulerc* files
+   o.__merged_forbiddenT = {}  -- Table of hidden modules
+                               -- merged from LMOD_MODULERC and moduletree .modulerc* files
+   o.__mod2versionT      = {}  -- Map from full module name to versions.
+   o.__full2aliasesT     = {}
+   o.__mergedAlias2modT  = {}
    setmetatable(o,self)
    self.__index = self
 
@@ -106,15 +111,48 @@ end
 -- A singleton Ctor for the MRC class
 -- @param self A MRC object.
 
+local s_Epoch  = nil
+local s_Is_dst = nil
 
 function M.singleton(self, fnA)
    --dbg.start{"MRC:singleton()"}
    if (not s_MRC) then
       s_MRC = l_new(self, fnA)
    end
+   if (not s_Epoch) then
+      s_Epoch  = math.floor(epoch())
+      local tm = posix.localtime(s_Epoch)
+      s_Is_dst = tm.is_dst
+   end
+
    --dbg.fini("MRC:singleton")
    return s_MRC
 end
+
+local function l_convertStr2TM(tStr, tm, is_dst)
+   if (not tStr:find("T")) then
+      tStr = tStr .. "T00:00"
+   end
+   local d = posix.strptime(tStr,"%Y-%m-%dT%H:%M")   
+   for k,v in pairs(d) do
+      tm[k] = v
+   end
+   tm.is_dst = is_dst
+end
+
+local function l_convertTimeStr_to_epoch(tStr)
+   if (posix.strptime == nil or posix.mktime == nil) then
+      LmodError{msg="e_Newer_posix_reqd"}
+   end
+
+   local tm = {}
+   local ok, msg = pcall(l_convertStr2TM, tStr, tm, s_Is_dst)
+   if (not ok) then
+      LmodError{msg="e_Malformed_time",tStr = tStr}
+   end
+   return posix.mktime(tm)
+end
+
 
 
 function M.__clear(self)
@@ -134,7 +172,7 @@ function l_build(self, fnA)
          self:parseModA(modA, weight)
       end
    end
-   dbg.fini("MRC l_build")
+   --dbg.fini("MRC l_build")
 end
 
 local function l_save_su_weights(self, fullName, weight)
@@ -166,15 +204,11 @@ function M.parseModA(self, modA, weight)
    for i = 1,#modA do
       repeat
          local entry = modA[i]
-         --dbg.print{"entry.kind: ",entry.kind, "\n"}
-
-         if (entry.kind == "module_version") then
+         if (entry.action == "module_version") then
             local fullName = entry.module_name
             fullName = self:resolve({}, fullName)
-            --dbg.print{"self:resolve({}, fullName): ",fullName, "\n"}
 
             local _, _, shorter, mversion = fullName:find("(.*)/(.*)")
-            --dbg.print{"(2) fullName: ",fullName,", shorter: ",shorter,", mversion: ",mversion,"\n"}
             if (shorter == nil) then
                LmodWarning{msg="w_Broken_FullName", fullName= fullName}
                break
@@ -183,25 +217,23 @@ function M.parseModA(self, modA, weight)
             local a = entry.module_versionA
             for j = 1,#a do
                local version = a[j]
-               --dbg.print{"j: ",j, ", version: ",version, "\n"}
                if (version == "default") then
-                  --dbg.print{"Setting default: ",fullName, "\n"}
                   l_save_su_weights(self, fullName, weight)
                else
                   local key = shorter .. '/' .. version
                   self.__version2modT[key] = fullName
-                  --dbg.print{"v2m: key: ",key,": ",fullName,"\n"}
                end
             end
-         elseif (entry.kind == "module_alias") then
-            --dbg.print{"name: ",entry.name,", mfile: ", entry.mfile,"\n"}
+         elseif (entry.action == "module_alias") then
             self.__alias2modT[entry.name] = entry.mfile
-         elseif (entry.kind == "hide_version") then
-            --dbg.print{"mfile: ", entry.mfile,"\n"}
-            self.__hiddenT[entry.mfile] = true
-         elseif (entry.kind == "hide_modulefile") then
-            --dbg.print{"mfile: ", entry.mfile,"\n"}
-            self.__hiddenT[entry.mfile] = true
+         elseif (entry.action == "hide_version") then
+            self.__hiddenT[entry.mfile] = {kind="hidden"}
+         elseif (entry.action == "hide_modulefile") then
+            self.__hiddenT[entry.mfile] = {kind="hidden"}
+         elseif (entry.action == "hide") then
+            self.__hiddenT[entry.name] = entry
+         elseif (entry.action == "forbid") then
+            self.__forbiddenT[entry.name] = entry
          end
       until true
    end
@@ -296,19 +328,14 @@ end
 
 function M.resolve(self, mpathA, name)
    local value = l_find_alias_value("alias2modT", self.__alias2modT, self.__mpathT, mpathA, name)
-   dbg.print{"MRC:resolve: (1) name: ",name,", value: ",value,"\n"}
+   --dbg.print{"MRC:resolve: (1) name: ",name,", value: ",value,"\n"}
    if (value ~= nil) then
       name  = value
       value = self:resolve(mpathA, value)
    end
 
-   if (name == "intel/15") then
-      dbg.printT("version2modT",self.__version2modT)
-      dbg.printT("mpathT",self.__mpathT)
-   end
-
    value = l_find_alias_value("version2modT", self.__version2modT, self.__mpathT, mpathA, name)
-   dbg.print{"MRC:resolve: (2) name: ",name,", value: ",value,"\n"}
+   --dbg.print{"MRC:resolve: (2) name: ",name,", value: ",value,"\n"}
    if (value == nil) then
       value = name
    else
@@ -357,9 +384,9 @@ function M.parseModA_for_moduleA(self, name, mpath, modA)
    local defaultV = false
    for i = 1,#modA do
       local entry = modA[i]
-      --dbg.print{"entry.kind: ",entry.kind, "\n"}
+      --dbg.print{"entry.action: ",entry.action, "\n"}
 
-      if (entry.kind == "module_version") then
+      if (entry.action == "module_version") then
          local fullName = entry.module_name
          if (fullName:sub(1,1) == '/') then
             fullName = name .. fullName
@@ -384,10 +411,10 @@ function M.parseModA_for_moduleA(self, name, mpath, modA)
                end
             end
          end
-      elseif (entry.kind == "set_default_version") then
+      elseif (entry.action == "set_default_version") then
          --dbg.print{"version: ",entry.version,"\n"}
          defaultV = entry.version
-      elseif (entry.kind == "module_alias") then
+      elseif (entry.action == "module_alias") then
          local fullName = entry.name
          if (fullName:sub(1,1) == '/') then
             fullName = name .. fullName
@@ -395,9 +422,13 @@ function M.parseModA_for_moduleA(self, name, mpath, modA)
          local mfile = entry.mfile
          --dbg.print{"fullName: ",fullName,", mfile: ", mfile,"\n"}
          l_store_mpathT(self, mpath, "alias2modT", fullName, mfile);
-      elseif (entry.kind == "hide_version" or entry.kind == "hide_modulefile") then
+      elseif (entry.action == "hide_version" or entry.action == "hide_modulefile") then
          --dbg.print{"mfile: ", entry.mfile,"\n"}
-         l_store_mpathT(self, mpath, "hiddenT", entry.mfile, true);
+         l_store_mpathT(self, mpath, "hiddenT", entry.mfile, {kind = "hidden"});
+      elseif (entry.action == "hide") then
+         l_store_mpathT(self, mpath, "hiddenT", entry.name, entry);
+      elseif (entry.action == "forbid") then
+         l_store_mpathT(self, mpath, "forbiddenT", entry.name, entry);
       end
    end
    --dbg.fini("MRC:parseModA_for_moduleA")
@@ -423,52 +454,101 @@ end
 function M.export(self)
    local t, mrcMpathT = self:extract()
    local a = {}
-   a[1] = serializeTbl{indent = true, name = "mrcT",      value = t         }
-   a[2] = serializeTbl{indent = true, name = "mrcMpathT", value = mrcMpathT }
-   return concatTbl(a,"\n")
+   --a[1] = serializeTbl{indent = true, name = "mrcT",      value = t         }
+   --a[2] = serializeTbl{indent = true, name = "mrcMpathT", value = mrcMpathT }
+   --return concatTbl(a,"\n")
+   return serializeTbl{indent = true, name = "mrcMpathT", value = mrcMpathT }
 end
 
-local s_must_convert = true
-function M.getHiddenT(self, mpathA, k)
-   local t = {}
-   if (s_must_convert) then
-      s_must_convert = false
 
-      local hT
-      for i = #mpathA, 1, -1 do
-         local mpath = mpathA[i]
-         if (self.__mpathT[mpath]) then
-            hT = self.__mpathT[mpath].hiddenT
-            if (hT) then
-               for key in pairs(hT) do
-                  t[self:resolve(mpathA, key)] = true
-               end
+local function l_merge_tables(self, name, mpathA, replaceT)
+   local Tname      = "__" .. name
+   ------------------------------------------------------------
+   -- all self.__mpathT[mpath][name] for current mpath
+   -- directories into the return table "t"
+   local tt
+   local t = {}
+   for i = #mpathA, 1, -1 do
+      local mpath = mpathA[i]
+      if (self.__mpathT[mpath]) then
+         tt = self.__mpathT[mpath][name]
+         if (tt) then
+            for k,v in pairs(tt) do
+               t[self:resolve(mpathA, k)] = (v ~= true) and v or replaceT
             end
          end
       end
-
-      hT = self.__hiddenT
-      for key in pairs(hT) do
-         t[self:resolve(mpathA, key)] = true
-      end
-      self.__hiddenT = t
    end
-   return self.__hiddenT[k]
+
+      ------------------------------------------------------------
+      -- Now merge LMOD_MODULERC files into self.__merged_hiddenT
+
+   tt = self[Tname]
+   for k, v in pairs(tt) do
+      t[self:resolve(mpathA, k)] = (v ~= true) and v or replaceT
+   end
+   return t
 end
 
-local function l_import_helper(self,entryT)
-   if (entryT and next(entryT) ~= nil) then
-      for kk,vv in pairs(entryT) do
-         local key = "__" .. kk
-         local t   = self[key]
-         for k,v in pairs(vv) do
-            t[k] = v
-         end
+local s_must_convert_hidden = true
+local function l_findHiddenState(self, mpathA, sn, fullName, fn)
+   --dbg.start{"l_findHiddenState(self, mpathA, sn: ",sn,", fullName: ",fullName,", fn)"}
+   if (s_must_convert_hidden) then
+      s_must_convert_hidden = false
+      self.__merged_hiddenT = l_merge_tables(self, "hiddenT", mpathA, {kind = "hidden"})
+   end
+   local t       = self.__merged_hiddenT
+   local resultT = t[sn] or t[fullName] or (fn and (t[fn] or t[fn:gsub("%.lua$","")]))
+   -- then check for partial matches for NVV modulefiles.
+   if (not resultT) then
+      local _
+      local n = fullName
+      while (n and n ~= sn and not resultT) do
+         _, _, n = n:find("(.*)/.*")
+         resultT = t[n]
       end
    end
+   --dbg.fini("l_findHiddenState")
+   return resultT
 end
 
-function M.import(self, mrcT, mrcMpathT)
+local s_must_convert_forbidden = true
+local function l_findForbiddenState(self, mpathA, sn, fullName, fn)
+   --dbg.start{"l_findForbiddenState(self, mpathA, sn, fullName:",fullName,", fn)"}
+   if (s_must_convert_forbidden) then
+      s_must_convert_forbidden = false
+      self.__merged_forbiddenT = l_merge_tables(self, "forbiddenT", mpathA, nil)
+   end
+   local t = self.__merged_forbiddenT
+   local resultT = t[sn] or t[fullName] or (fn and (t[fn] or t[fn:gsub("%.lua$","")]))
+   ------------------------------------------------------------
+   -- If there is no result for sn, fullName or fn
+   -- then check for partial matches for NVV modulefiles.
+   if (not resultT) then
+      local _
+      local n = fullName
+      while (n and n ~= sn and not resultT) do
+         _, _, n = n:find("(.*)/.*")
+         resultT = t[n]
+      end
+   end
+   --dbg.fini("l_findForbiddenState")
+   return resultT or {}
+end
+
+--local function l_import_helper(self,entryT)
+--   if (entryT and next(entryT) ~= nil) then
+--      for kk,vv in pairs(entryT) do
+--         local key = "__" .. kk
+--         local t   = self[key]
+--         for k,v in pairs(vv) do
+--            t[k] = v
+--         end
+--      end
+--   end
+--end
+
+function M.import(self, mrcMpathT)
    --dbg.start{"MRC:import()"}
    --dbg.print{"mrcMpathT :",mrcMpathT,"\n"}
    if (mrcMpathT and next(mrcMpathT) ~= nil) then
@@ -480,37 +560,211 @@ function M.import(self, mrcT, mrcMpathT)
          end
       end
    end
-   l_import_helper(self, mrcT)
+   self:update()
    --dbg.fini("MRC:import")
 end
+
+local function l_intersection(myArray, myTable)
+   local match = false
+   for i = 1,#myArray do
+      if (myTable[myArray[i]]) then
+         match = true
+         break
+      end
+   end
+   return match
+end
+
+local function l_check_time_range(resultT, nearlyDays)
+   local T_start  = math.mininteger or 0
+   local T_end    = math.maxinteger or math.huge
+
+   local T_before = (resultT.before) and l_convertTimeStr_to_epoch(resultT.before) or T_end
+   local T_after  = (resultT.after)  and l_convertTimeStr_to_epoch(resultT.after)  or T_start
+
+   if (s_Epoch <= T_before and  s_Epoch >= T_after) then
+      return "inRange"
+   end
+   if (s_Epoch + nearlyDays * 86400 >= T_after) then
+      return "nearly"
+   end
+   return "notActive"
+end
+
+local function l_check_user_groups(resultT)
+   local usrFlg  = resultT.userT     and resultT.userT[myConfig("username")]
+   local grpFlg  = resultT.groupT    and l_intersection(myConfig("usergroups"),resultT.groupT)
+   local nUsrFlg = resultT.notUserT  and resultT.notUserT[myConfig("username")]
+   local nGrpFlg = resultT.notGroupT and l_intersection(myConfig("usergroups"),resultT.notGroupT)
+
+   local flag    = (usrFlg or grpFlg) or (not (resultT.userT or resultT.groupT) and
+                                       not (nUsrFlg or nGrpFlg))
+
+   --dbg.print{"l_check_user_groups: usrFlg: ",usrFlg,", nUsrFlg: ",nUsrFlg,"\n"}
+   --dbg.print{" flag: ",flag,"\n"}
+
+
+   return flag
+end
+
+
+local time2FstateT = {
+   inRange = "forbid",
+   nearly  = "nearly",
+   notActive = "normal",
+}
+
+local function l_check_forbidden_modifiers(fullName, resultT)
+   dbg.start{"l_check_forbidden_modifiers(fullName, resultT)"}
+
+   local forbiddenState = "normal"
+
+   if (l_check_user_groups(resultT)) then
+      local nearlyDays = cosmic:value("LMOD_NEARLY_FORBIDDEN_DAYS")
+      local timeFlag   = l_check_time_range(resultT, nearlyDays) 
+      forbiddenState   = time2FstateT[timeFlag]
+   end
+
+   dbg.fini("l_check_forbidden_modifiers")
+   return forbiddenState
+end
+
+local function l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)
+   dbg.start{"l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)"}
+   local count         = false
+   local hide_active   = (l_check_time_range(resultT, 0) == "inRange" and
+                          l_check_user_groups(resultT))
+
+   
+   if (not hide_active) then
+      dbg.fini("l_check_hidden_modifiers")
+      --     isVisible, hidden_loaded, kind,     count
+      return true,      false,         "normal", true
+   end
+   local isVisible
+   if (show_hidden) then
+      isVisible = (resultT.kind ~= "hard")
+      count     = isVisible
+   else
+      isVisible = (visibleT[resultT.kind] ~= nil)
+   end
+
+
+   --dbg.print{"fullName: ",fullName,", resultT.kind: ", resultT.kind, ", count: ",count,"\n"}
+   --dbg.fini("l_check_hidden_modifiers")
+   return isVisible, resultT.hidden_loaded, resultT.kind, count
+end
+
 
 -- modT is a table with: sn, fullName and fn
 function M.isVisible(self, modT)
    dbg.start{"MRC:isVisible(modT}"}
-   local frameStk  = require("FrameStk"):singleton()
-   local mname     = frameStk:mname()
-   local mt        = frameStk:mt()
-   local mpathA    = modT.mpathA or mt:modulePathA()
-   local name      = modT.fullName
-   local fn        = modT.fn
-   local isVisible = true
+   local frameStk      = require("FrameStk"):singleton()
+   local mname         = frameStk:mname()
+   local mt            = frameStk:mt()
+   local mpathA        = modT.mpathA or mt:modulePathA()
+   local fullName      = modT.fullName
+   local fn            = modT.fn
+   local sn            = modT.sn
+   local show_hidden   = modT.show_hidden
+   local isVisible     = true
+   local visibleT      = modT.visibleT or {}
+   local kind          = "normal"
+   local hidden_loaded = false
+   local count         = false
+   local my_resultT    = nil
+   ------------------------------------------------------------
+   -- resultT is nil if the modulefile is normal or
+   -- {kind="hidden|soft|hard"
+   --   before="<time>" after="<time>",
+   --   hidden_loaded = true|nil, }
+   -- if hidden.
 
-   if (self:getHiddenT(mpathA, name) or self:getHiddenT(mpathA, fn)) then
-      isVisible = false
-   elseif (name:sub(1,1) == ".") then
-      isVisible = false
-   else
-      local idx = name:find("/%.")
-      isVisible = idx == nil
+
+   ------------------------------------------------------------
+   -- If sn is already in the ModuleTable then use MT data instead
+
+   dbg.print{"fullName: ",fullName,"\n"}
+
+   if (mt:exists(sn,fullName)) then
+      local moduleKindT = mt:moduleKindT(sn)
+      if (not moduleKindT) then
+         my_resultT = { isVisible = true, count = true, moduleKindT = {kind = "normal" }}
+      else
+         my_resultT = { isVisible = show_hidden or visibleT[moduleKindT.kind], count = true, moduleKindT = moduleKindT }
+      end
+      --dbg.print{"fullName: ",fullName,"\n"}
+      --dbg.printT("mt:exists(sn): true, my_resultT",my_resultT)
+      dbg.fini("(1) MRC:isVisible")
+      return my_resultT
    end
 
-   modT.isVisible = isVisible
-   modT.mname     = mname
-   modT.mt        = mt
+
+   local resultT     = l_findHiddenState(self, mpathA, sn, fullName, fn)
+   if (type(resultT) == "table" ) then
+      --dbg.printT("from hidden State resultT",resultT)
+      isVisible, hidden_loaded, kind, count = l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)
+   elseif (fullName:sub(1,1) == ".") then
+      isVisible = (visibleT.hidden == true or show_hidden)
+      count     = show_hidden
+      kind      = "hidden"
+   else
+      local idx = fullName:find("/%.")
+      isVisible = (idx == nil) or (visibleT.hidden == true) or show_hidden
+      kind      = (idx == nil) and "normal" or "hidden"
+      count     = show_hidden or (idx == nil)
+   end
+
+   modT.isVisible     = isVisible
+   modT.mname         = mname
+   modT.kind          = kind
+   modT.mt            = mt
+   modT.hidden_loaded = hidden_loaded
    hook.apply("isVisibleHook", modT)
 
-   dbg.fini("MRC:isVisible")
-   return modT.isVisible
+   my_resultT       = { isVisible = modT.isVisible,
+                        moduleKindT = {kind=modT.kind, hidden_loaded = modT.hidden_loaded},
+                        count = count }
+
+   --dbg.print{"fullName: ",fullName,", isVisible: ",isVisible,", kind: ",kind,", show_hidden: ", show_hidden,", count: ",count,", hidden_loaded: ",hidden_loaded,"\n"}
+   --dbg.printT("my_resultT",my_resultT)
+   dbg.fini("(2) MRC:isVisible")
+   return my_resultT
+end
+
+function M.isForbidden(self, modT)
+   --dbg.start{"MRC:isForbidden(modT}"}
+   local frameStk     = require("FrameStk"):singleton()
+   local mname        = frameStk:mname()
+   local mt           = frameStk:mt()
+   local mpathA       = modT.mpathA or mt:modulePathA()
+   local fullName     = modT.fullName
+   local fn           = modT.fn
+   local sn           = modT.sn
+   local resultT      = l_findForbiddenState(self, mpathA, sn, fullName, fn)
+
+   --dbg.print{"fullName: ",fullName,"\n"}
+   --dbg.printT("resultT",resultT)
+
+   if (resultT.action ~= "forbid") then
+      --dbg.fini("MRC:isForbidden")
+      return nil
+   end
+
+   local forbiddenState = l_check_forbidden_modifiers(fullName, resultT)
+
+   modT.forbiddenState = forbiddenState
+   modT.mname          = mname
+   modT.mt             = mt
+   modT.message        = resultT.message
+   modT.nearlymessage  = resultT.nearlymessage
+   hook.apply("isForbiddenHook",modT)
+
+   local my_resultT  = {forbiddenState = modT.forbiddenState, message = modT.message,
+                        nearlymessage = modT.nearlymessage, after = resultT.after}
+
+   --dbg.fini("MRC:isForbidden")
+   return my_resultT
 end
 
 function M.update(self, fnA)
@@ -541,7 +795,7 @@ function M.find_wght_for_fullName(self, fullName, wV)
       dbg.fini("MRC:find_wght_for_fullName: no fullName")
       return wV
    end
-   
+
 
    -- split fullName into an array on '/' --> fnA
    local fnA = {}
@@ -572,7 +826,7 @@ function M.find_wght_for_fullName(self, fullName, wV)
       return wV
    end
 
-   local weight = t.weight 
+   local weight = t.weight
    local idx    = wV:match("^.*()/")
    if (weight) then
       if (idx) then
@@ -581,7 +835,7 @@ function M.find_wght_for_fullName(self, fullName, wV)
          wV = weight .. wV:sub(2,-1)
       end
    end
-   
+
    dbg.print{"found weight: ",weight,", wV: ",wV,"\n"}
    dbg.fini("MRC:find_wght_for_fullName")
    return wV

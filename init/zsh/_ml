@@ -10,6 +10,7 @@ _ml()
   arguments=(
     '(-h -H --help)'{--help,-h,-H}'[display usage info]'
     '(- *)'{--version,-v}'[module command version]'
+    '(-A --all)'{--all,-A}'[list, avail and spider will report hidden modules]'
     '(-D --debug)'{--debug,-D}'[Send program tracing information to stderr]'
     '(-I --ignore_cache)'{--ignore_cache,-I}'[Treat the cache file(s) as out-of-date]'
     '(-T --trace)'{--trace,-T}'[Report major internal actions by Lmod]'
@@ -23,6 +24,8 @@ _ml()
     '--Verbose[show generated module command]'
     '--config[display full Lmod configuration]'
     '--config_json[display full Lmod configuration in json format]'
+    "--dumpname[Report the string Lmod]"
+    "--dumpversion[Report Lmod's version]"
     "--gitversion[Report Lmod's git version]"
     '--latest[Load latest (ignore default)]'
     '--location[Print the file location only when using show]'
@@ -34,7 +37,7 @@ _ml()
     '--pod[generate pod format for manpage generation]'
     '--raw[Print raw contents of a modulefile when using show]'
     '--redirect[send messages to stdout]'
-    '--show_hidden[avail and spider will report hidden modules]'
+    '--show_hidden[list, avail and spider will report hidden modules]'
     '--style[]'
     '--timer[report run times]'
     '--terse_show_extensions[Include module extensions in terse avail output]'
@@ -166,12 +169,12 @@ _ml()
 
 _ml_loaded_modules_negated()
 {
-  _loaded_modules_negated=(${$(module -q -t --no_redirect list 2>&1 > /dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g; s|^|-|g;')})
+  _loaded_modules_negated=(${$(module -q -t --no_redirect list 2>&1 > /dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g; s|^|-|g; s/ *<[A-Za-z][A-Za-z]*>//')})
 }
 
 _ml_loaded_modules()
 {
-  _loaded_modules=(${$(module -q -t  --no_redirect list 2>&1 > /dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g;')})
+  _loaded_modules=(${$(module -q -t  --no_redirect list 2>&1 > /dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g; s/ *<[A-Za-z][A-Za-z]*>//')})
 }
 
 
@@ -180,7 +183,7 @@ _ml_loaded_modules()
 _ml_available_modules()
 {
   if [[ -n $MODULEPATH ]];  then
-    _available_modules=(${$(module -q -t  --no_redirect avail 2>&1 > /dev/null | sed ' /:$/d; s/(@.*)//g; s#/*$##g;')})
+    _available_modules=(${$(module -q -t  --no_redirect avail 2>&1 > /dev/null | sed ' /:$/d; s/(@.*)//g; s#/*$##g; s/ *<[A-Za-z][A-Za-z]*>//')})
   fi
 }
 

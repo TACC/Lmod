@@ -7,6 +7,7 @@ _module()
   _arguments \
     '(-h --help)'{--help,-h}'[display usage info]'                                     	\
     '(- *)'{--version,-v}'[module command version]'                                	\
+    '(-A --all)'{--all,-A}'[list, avail and spider will report hidden modules]'         \
     '(-D --debug)'{--debug,-D}'[Send program tracing information to stderr]'           	\
     '(-I --ignore_cache)'{--ignore_cache,-I}'[Treat the cache file(s) as out-of-date]'  \
     '(-T --trace)'{--trace,-T}'[Report major internal actions by Lmod]'                 \
@@ -19,6 +20,8 @@ _module()
     '(-w --width)'{--width,-w}'[use given width for max term width]'                  	\
     '--config[display full Lmod configuration]'                                         \
     '--config_json[display full Lmod configuration in json format]'                     \
+    "--dumpname[Report the string Lmod]"                                                \
+    "--dumpversion[Report Lmod's version]"                                              \
     "--gitversion[Report Lmod's git version]"                                           \
     '--latest[Load latest (ignore default)]'                                            \
     '--location[Print the file location only when using show]'                          \
@@ -97,14 +100,14 @@ _module_command()
 # Fills the available modules cache
 _module_loaded_modules()
 {
-  _loaded_modules=(${$(module -q -t --no_redirect list 2>&1 > /dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g;')})
+  _loaded_modules=(${$(module -q -t --no_redirect list 2>&1 > /dev/null | sed ' /^ *$/d; /:$/d; s#/*$##g; s/ *<[A-Za-z][A-Za-z]*>//')})
 }
 
 # Fills the available modules cache
 _module_available_modules()
 {
   if [[ -n $MODULEPATH ]];  then
-    _available_modules=(${$(module -q -t --no_redirect avail 2>&1 > /dev/null | sed ' /:$/d; s/(@.*)//g; s#/*$##g;')})
+    _available_modules=(${$(module -q -t --no_redirect avail 2>&1 > /dev/null | sed ' /:$/d; s/(@.*)//g; s#/*$##g; s/ *<[A-Za-z][A-Za-z]*>//')})
   fi
 }
 

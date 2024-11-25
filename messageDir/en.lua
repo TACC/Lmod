@@ -103,6 +103,9 @@ return {
      e_Args_Not_Strings    = [==[Syntax error in file: %{fn}
  with command: %{cmdName}, one or more arguments are not strings.
 ]==], --
+     e_Args_Not_Table    = [==[Syntax error in file: %{fn}
+ with function: %{func}, is not a table.
+]==], --
      e_Args_Not_Strings_short = "command: %{cmdName}, one or more arguments are not strings.",
      e_Avail_No_MPATH      = "module %{name} is not possible. MODULEPATH is not set or not set with valid paths.\n",
      e_BadAlias            = "%{kind} names cannot contain spaces (Not: \"%{name}\")\n",
@@ -111,6 +114,7 @@ return {
      e_BrokenQ             = "Internal error: broken module Q\n",
      e_Conflict            = "Cannot load module \"%{name}\" because these module(s) are loaded:\n   %{module_list}\n",
      e_Conflict_Downstream = "Cannot load module \"%{userName}\" because this module set a conflict: \"%{fullNameUpstream}\"\n",
+     e_Dofile_not_supported = "The dofile() function is not supported.  Use require() or loadfile() or loadstring()",
      e_Execute_Msg         = [==[Syntax error in file: %{fn}
 with command: "execute".
 The syntax is:
@@ -151,6 +155,8 @@ To correct the situation, please execute the following command:
 
 Please submit a consulting ticket if you require additional assistance.
 ]==],
+     e_Forbidden           = "Access to %{fullName} is denied\n",
+     e_Forbidden_w_msg     = "Access to %{fullName} is denied\n%{literal_msg}",
      e_Illegal_Load        = [==[The following module(s) are illegal: %{module_list}
 Lmod does not support modulefiles that start with two or more underscores
 ]==],
@@ -160,6 +166,7 @@ Lmod does not support modulefiles that start with two or more underscores
      e_Inf_Loop            = "A load storm (possibly an infinite loop) detected for module: \"%{fullName}\" file: \"%{file}\". It was loaded more than %{count} times.\n",
      e_LocationT_Srch      = "Error in LocationT:search().",
      e_Missing_Action      = "Missing action internal error. sn=\"%{sn}\", msg=\"${msg}\"",
+     e_Malformed_time      = "Before or after time is malformed. Please use YYYY-MM-DD or YYYY-MM-DDTHH:MM instead of \"%{tStr}\"\n",
      e_Missing_Value       = "%{func}(\"%{name}\") is not valid; a value is required.",
      e_MT_corrupt          = [==[The module table stored in the environment is corrupt.
 please execute the command \" clearMT\" and reload your modules.
@@ -170,7 +177,7 @@ please execute the command \" clearMT\" and reload your modules.
    $ module swap %{oldFullName} %{newFullName}
 
 Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOSWAP to "no" to re-enable same name autoswapping.
-]==], 
+]==],  -- 
      e_No_Hashsum          = "Unable to find HashSum program (sha1sum, shasum, md5sum or md5).",
      e_No_Matching_Mods    = "No matching modules found.\n",
      e_No_Mod_Entry        = "%{routine}: Did not find module entry: \"%{name}\". This should not happen!\n",
@@ -178,6 +185,7 @@ Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOS
      e_No_PropT_Entry      = "%{routine}: system property table has no %{location} for: \"%{name}\". \nCheck spelling and case of name.\n",
      e_No_UUID             = "uuidgen is not available, fallback failed too",
      e_No_ValidT_Entry     = "%{routine}: The validT table for %{name} has no entry for: \"%{value}\". Make sure that all keys in displayT have a matching key in validT. \nCheck spelling and case of name.\n",
+     e_Newer_posix_reqd    = "The site's luaposix is too old to use before or after modifiers to hide modules.  Please upgrade your sites luaposix.\n",
      e_Prereq              = "Cannot load module \"%{name}\" without these module(s) loaded:\n   %{module_list}\n",
      e_Prereq_Any          = "Cannot load module \"%{name}\". At least one of these module(s) must be loaded:\n   %{module_list}\n",
      e_RequireFullName     = [==[Module "%{sn}" must be loaded with the version specified, e.g. "module load %{fullName}". Use
@@ -199,6 +207,9 @@ See https://lmod.readthedocs.io/en/latest/260_sh_to_modulefile.html for details.
      e_Unable_2_parse      = "Unable to parse: \"%{path}\". Aborting!\n",
      e_Unable_2_rename     = "Unable to rename %{from} to %{to}, error message: %{errMsg}",
      e_Unknown_Coll        = "User module collection: \"%{collection}\" does not exist.\n  Try \"module savelist\" for possible choices.\n",
+     e_Unknown_key         = "This is an unknown key: \"%{key}\" for the %{func} function",
+     e_Unknown_v_type      = "This is an unknown value type: \"%{tkind}\".  The value type should be: \"%{kind}\" for key: \"%{key}\" for the %{func} function",
+     e_Unknown_value       = "This is an unknown value: \"%{value} \". for key: \"%{key}\" in the %{func} function",
      e_coll_corrupt        = "The module collection file is corrupt. Please remove: %{fn}\n",
      e_dbT_sn_fail         = "dbT[sn] failed for sn: %{sn}\n",
      e_missing_table       = "sandbox_registration: The argument passed is: \"%{kind}\". It should be a table.",
@@ -218,6 +229,7 @@ See https://lmod.readthedocs.io/en/latest/260_sh_to_modulefile.html for details.
      m_Extensions_tail     = "\nThese extensions cannot be loaded directly, use \"module spider extension_name\" for more information.\n",
      m_Family_Swap         = "\nLmod is automatically replacing \"%{oldFullName}\" with \"%{newFullName}\".\n",
      m_For_System          = ", for system: \"%{sname}\"",
+     m_Hidden_loaded       = "\nOne or more modules are hidden from list. To see all do \"module --show_hidden list\"",
      m_Inactive_Modules    = "\nInactive Modules:\n",
      m_IsNVV               = [==[
 Module defaults are chosen based on Find First Rules due to Name/Version/Version modules found in the module tree.
@@ -319,6 +331,8 @@ The following dependent module(s) are not currently loaded: %{missing}
 ]==], 
      w_MPATH_Coll          = "The system MODULEPATH has changed: please rebuild your saved collection.\n",
      w_Mods_Not_Loaded     = "The following modules were not loaded: %{module_list}\n\n",
+     w_Nearly_Forbidden    = "Access will be denied to this module starting %{after}\n",
+     w_Nearly_Forbidden_w_msg = "Access will be denied to this module starting %{after}\n%{literal_msg}",
      w_No_Coll             = "No collection named \"%{collection}\" found.",
      w_No_dot_Coll         = "It is illegal to have a `.' in a collection name.  Please choose another name for: \"%{name}\".",
      w_Possible_Bad_Dir    = "Adding \"%{dir}\" to $MODULEPATH. Did you mean: \"module %{dir} use\"?",
@@ -427,6 +441,7 @@ MODULEPATH directory: "%{mpath}" has too many non-modulefiles (%{regularFn}). Pl
      config_H       = "Report Lmod Configuration",
      dbg_hlp        = "Program tracing written to stderr",
      dbg_hlp2       = "Program tracing written to stderr (where dbglvl is a number 1,2,3)",
+     dumpN_hlp      = "Dump the name Lmod in a machine readable way and quit",
      dumpV_hlp      = "Dump version in a machine readable way and quit",
      exprt_hlp      = "Expert mode",
      force_hlp      = "force removal of a sticky module or save an empty collection",
@@ -460,7 +475,11 @@ MODULEPATH directory: "%{mpath}" has too many non-modulefiles (%{regularFn}). Pl
      Where          = "\n  Where:\n",
      Inactive       = "\nInactive Modules",
      DefaultM       = "Default Module",
+     NearlyForbiddenM = "Nearly Forbidden Module",
+     ForbiddenM     = "Forbidden Module",
      HiddenM        = "Hidden Module",
+     HiddenLoadM    = "Hidden from load Module",
+     Hidden_softM   = "Soft Hidden Module",
      Extension      = "Extension that is provided by another module",
 
      avail     = [==[If the avail list is too long consider trying:

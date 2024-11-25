@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
+Modules based on Lua: Version 8.7.43 2024-06-24 15:50 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -10,6 +10,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
 ===========================
 The following is a list of the modules and extensions currently available:
   B: B/2.0
+  C: C/1.0
   gcc: gcc/4.7.2
   intel: intel/13.0
   mpich2: mpich2/1.5.2
@@ -37,7 +38,7 @@ ProjectDIR/rt/unload/mf/MPI/intel/13.0/mpich2/1.5
 ProjectDIR/rt/unload/mf/Compiler/intel/13.0
    mpich2/1.5.2 (L)
 ProjectDIR/rt/unload/mf/Core
-   B/2.0    gcc/4.7.2    intel/13.0 (L)
+   B/2.0    C/1.0    gcc/4.7.2    intel/13.0 (L)
   Where:
    L:  Module is loaded
 If the avail list is too long consider trying:
@@ -69,3 +70,11 @@ Lmod Warning: Error in unload of B/2.0
 While processing the following module(s):
     Module fullname  Module Filename
     B/2.0            ProjectDIR/rt/unload/mf/Core/B/2.0.lua
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load C
+===========================
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload C
+===========================

@@ -41,7 +41,7 @@ done
 BASE_MODULE_PATH=${BASE_MODULE_PATH%:}
 
 ########################################################################
-# find name for python3
+# find name for python3 or fallback to python2
 
 PYTHON=
 for cmd in python3 python python2; do
@@ -54,9 +54,15 @@ done
 
 # Build json software page and make it pretty if possible.
 
-$LMOD_DIR/spider -o softwarePage    $BASE_MODULE_PATH > $ADMIN_DIR/softwarePage/softwarePage.old.json
+$LMOD_DIR/spider -o softwarePage    $BASE_MODULE_PATH > $ADMIN_DIR/softwarePage/softwarePage.old.json 
 
-$PYTHON -mjson.tool $ADMIN_DIR/softwarePage/softwarePage.old.json > $ADMIN_DIR/softwarePage/softwarePage.json 2> /dev/null
+########################################################################
+# If a python was found then use json.tool to make pretty output
+if [ -n "${PYTHON:-}" ]; then
+  $PYTHON -mjson.tool $ADMIN_DIR/softwarePage/softwarePage.old.json > $ADMIN_DIR/softwarePage/softwarePage.json 2> /dev/null
+fi
+
+# Clean up
 if [ -s $ADMIN_DIR/softwarePage/softwarePage.json ]; then
   rm -f $ADMIN_DIR/softwarePage/softwarePage.old.json
 else

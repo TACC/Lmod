@@ -70,6 +70,7 @@ local validT =
       load_spider          = {}, -- This hook is run evaluating modules for spider/avail
       listHook             = {}, -- This hook gets the list of active modules
       isVisibleHook        = {}, -- Called to evalate if a module should be hidden or not
+      isForbiddenHook      = {}, -- Called to evalate if a module should be forbidden or not
       spider_decoration    = {}, -- This hook adds decoration to spider level one output.
                                  -- It can be the category or a property.
       reverseMapPathFilter = {}, -- This hook returns two arrays keepA, ignoreA to keep or

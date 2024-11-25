@@ -1,4 +1,4 @@
---------------------------------------------------------------------------
+-------------------------------------------------------------------------
 -- The all the user sub-commands are implemented here.
 -- @module cmdfuncs
 
@@ -406,17 +406,23 @@ function List(...)
    end
 
    if (optionTbl.terse) then
+      dbg.printT("activeA",activeA)
       for i = 1,#activeA do
-         local s = activeA[i].fullName
-         if (activeA[i].origUserName) then
-            s = s .. "\n" .. activeA[i].origUserName
+         local entry = activeA[i]
+         local s = entry.fullName
+         if (entry.origUserName) then
+            s = s .. "\n" .. entry.origUserName
          end
-         dbg.print{"fullName: ",activeA[i].fullName, ", orig: ",activeA[i].origUserName,", s: ",s,"\n"}
+         dbg.print{"fullName: ",entry.fullName, ", orig: ",entry.origUserName,", s: ",s,"\n"}
          
          for j = 1, wanted.n do
             local p = wanted[j]
             if (s:find(p)) then
-               shell:echo(s.."\n")
+               local aa = {}
+               dbg.printT("entry",entry)
+               aa[#aa+1] = decorateModule(s, entry, entry.forbiddenT)
+               aa[#aa+1] = "\n"
+               shell:echo(concatTbl(aa,""))
             end
          end
       end
@@ -424,20 +430,27 @@ function List(...)
       return
    end
 
-   b[#b+1]       = "\n"
-   b[#b+1]       = msg
-   b[#b+1]       = msg2
-   b[#b+1]       = "\n"
-   local kk      = 0
-   local legendT = {}
+   b[#b+1]            = "\n"
+   b[#b+1]            = msg
+   b[#b+1]            = msg2
+   b[#b+1]            = "\n"
+   local kk           = 0
+   local legendT      = {}
+   local show_hidden  = optionTbl.show_hidden
+   local have_hiddenL = false
 
    for i = 1, #activeA do
       local entry    = activeA[i]
       local fullName = entry.fullName
       local origName = entry.origUserName or ""
+      local showMe   = true
+      if (entry.moduleKindT.hidden_loaded) then
+         showMe       = show_hidden
+         have_hiddenL = not show_hidden
+      end
       for j = 1, wanted.n do
          local p = wanted[j]
-         if (fullName:find(p) or origName:find(p)) then
+         if (showMe and (fullName:find(p) or origName:find(p))) then
             kk = kk + 1
             a[#a + 1] = mt:list_w_property(kk, entry.sn, "short", legendT)
          end
@@ -465,6 +478,10 @@ function List(...)
       b[#b+1] = bt:build_tbl()
       b[#b+1] = "\n"
    end
+   if (have_hiddenL) then
+      b[#b+1] = i18n("m_Hidden_loaded")
+   end
+
    a = {}
    kk = 0
 

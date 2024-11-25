@@ -312,8 +312,10 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 -- @param respect If true, then respect the old value.
-function M.setenv(self, name, value, respect)
-   name = (name or ""):trim()
+function M.setenv(self, table) --name, value, respect)
+   local name = (table[1] or ""):trim()
+   local value = table[2]
+   local respect = table[3] or nil
    dbg.start{"MainControl:setenv(\"",name,"\", \"",value,"\", \"",
               respect,"\")"}
 
@@ -342,8 +344,10 @@ end
 -------------------------------------------------------------------
 -- Set an environment variable.
 -- This function just sets the name with value in the current env.
-function M.setenv_env(self, name, value, respect)
-   name = (name or ""):trim()
+function M.setenv_env(self, table) --name, value, respect)
+   local name = (table[1] or ""):trim()
+   local value = table[2]
+   local respect = table[3] or nil
    dbg.start{"MainControl:setenv_env(\"",name,"\", \"",value,"\", \"",
               respect,"\")"}
    posix.setenv(name, value, true)
@@ -357,8 +361,12 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 -- @param respect If true, then respect the old value.
-function M.unsetenv(self, name, value, respect)
-   name = (name or ""):trim()
+function M.unsetenv(self, table) --name, value, respect)
+
+   local name = (table[1] or ""):trim()
+   local value = table[2]
+   local respect = table[3] or nil
+
    dbg.start{"MainControl:unsetenv(\"",name,"\", \"",value,"\")"}
 
    l_check_for_valid_name("unsetenv",name)
@@ -393,8 +401,9 @@ end
 -- @param self A MainControl object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
-function M.pushenv(self, name, value)
-   name = (name or ""):trim()
+function M.pushenv(self, table) --name, value)
+   local name = table[1]:trim()
+   local value = table[2]
    dbg.start{"MainControl:pushenv(\"",name,"\", \"",value,"\")"}
 
    l_check_for_valid_name("pushenv",name)
@@ -449,8 +458,9 @@ end
 -- @param self A MainControl object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
-function M.popenv(self, name, value)
-   name = (name or ""):trim()
+function M.popenv(self, table) --name, value)
+   local name = (table[1] or ""):trim()
+   local value = table[2]
    dbg.start{"MainControl:popenv(\"",name,"\", \"",value,"\")"}
 
    l_check_for_valid_name("popenv",name)
@@ -777,21 +787,33 @@ function M.myModuleVersion(self)
    return frameStk:version()
 end
 
-local function l_generateMsg(kind, label, ...)
+local function l_generateMsg(kind, label, argA)
    local sA     = {}
    local twidth = TermWidth()
-   local argA   = pack(...)
    if (argA.n == 1 and type(argA[1]) == "table") then
+      local msg = nil
+      local key = nil
       local t   = argA[1]
-      local key = t.msg
-      local msg = i18n(key, t) 
+      if (t.literal_msg) then
+         msg = t.literal_msg
+      else
+         key = t.msg
+         msg = i18n(key, t)
+      end
       if (not msg) then
          msg = "Unknown Error Message with unknown key: \"".. key .. "\""
       end
       msg       = hook.apply("errWarnMsgHook", kind, key, msg, t) or msg
-      sA[#sA+1] = buildMsg(twidth, label, msg)
+      sA[#sA+1] = buildMsg(twidth, pack(label, msg))
    else
-      sA[#sA+1] = buildMsg(twidth, label, ...)
+      local ssA = {}
+      ssA[#ssA+1] = label
+      local n = #argA
+      for i = 1, n do
+         ssA[#ssA+1] = argA[i]
+      end
+      ssA.n = n+1
+      sA[#sA+1] = buildMsg(twidth, ssA)
    end
    return sA
 end
@@ -823,9 +845,9 @@ function M.message(self, ...)
       local key = t.msg
       local msg = i18n(key, t) or "Unknown Message"
       msg       = hook.apply("errWarnMsgHook", "lmodmessage", key, msg, t) or msg
-      sA[#sA+1] = buildMsg(twidth, msg)
+      sA[#sA+1] = buildMsg(twidth, {n=1, msg})
    else
-      sA[#sA+1] = buildMsg(twidth, ...)
+      sA[#sA+1] = buildMsg(twidth, pack(...))
    end
    io.stderr:write(concatTbl(sA,""),"\n")
 end
@@ -837,7 +859,8 @@ function M.warning(self, ...)
    build_i18n_messages()
    if (not quiet() and  haveWarnings()) then
       local label = colorize("red", i18n("warnTitle",{}))
-      local sA    = l_generateMsg("lmodwarning", label, ...)
+      local argA  = pack(...)
+      local sA    = l_generateMsg("lmodwarning", label, argA)
       sA[#sA+1]   = "\n"
       sA[#sA+1]   = moduleStackTraceBack()
       sA[#sA+1]   = "\n"
@@ -863,16 +886,24 @@ function M.error(self, ...)
    end
 
    local label = colorize("red", i18n("errTitle", {}))
-   local sA    = l_generateMsg("lmoderror", label, ...)
+   local argA  = pack(...)
+   local sA    = l_generateMsg("lmoderror", label, argA)
    sA[#sA+1]   = "\n"
 
-   local a = concatTbl(stackTraceBackA,"")
-   if (a:len() > 0) then
-       sA[#sA+1] = a
-       sA[#sA+1] = "\n"
+   local noTraceBack = false
+   if (argA.n == 1 and type(argA[1] == "table")) then
+      noTraceBack = argA[1].noTraceBack
    end
-   sA[#sA+1]     = moduleStackTraceBack()
-   sA[#sA+1]     = "\n"
+
+   if (not noTraceBack) then
+      local a = concatTbl(stackTraceBackA,"")
+      if (a:len() > 0) then
+         sA[#sA+1] = a
+         sA[#sA+1] = "\n"
+      end
+      sA[#sA+1]     = moduleStackTraceBack()
+      sA[#sA+1]     = "\n"
+   end
 
    io.stderr:write(concatTbl(sA,""),"\n")
    LmodErrorExit()
@@ -1803,7 +1834,6 @@ function M.LmodBreak(self, msg)
       shell:echo(concatTbl(b,""))
    end
 
-
    if (msg and msg ~= "") then
       LmodMessage(msg)
    end
@@ -1820,10 +1850,8 @@ function M.LmodBreak(self, msg)
    dbg.fini("MainControl:LmodBreak")
 end
 
-
-
 function M.userInGroups(self, ...)
-   local grps   = capture("groups")
+   local grps   = capture("groups 2> /dev/null")
    local argA   = pack(...)
    for g in grps:split("[ \n]") do
       for i = 1, argA.n do
@@ -1833,7 +1861,7 @@ function M.userInGroups(self, ...)
          end
       end
    end
-   local userId = capture("id -u")
+   local userId = capture("id -u 2> /dev/null")
    local isRoot = tonumber(userId) == 0
    if (isRoot) then
       return true

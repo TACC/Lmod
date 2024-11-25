@@ -391,7 +391,13 @@ function main()
 
    -- dumpversion and quit if requested.
    if (optionTbl.dumpversion) then
-      io.stderr:write(Version.tag(),"\n")
+      Shell:echo(Version.tag())
+      os.exit(0)
+   end
+
+   -- dumpname and quit if requested.
+   if (optionTbl.dumpname) then
+      Shell:echo("Lmod\n")
       os.exit(0)
    end
 

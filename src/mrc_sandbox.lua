@@ -49,6 +49,7 @@ mrc_sandbox_run = false
 
 require("mrc_funcs")
 require("fileOps")
+require("myConfig")
 --------------------------------------------------------------------------
 -- Table containing valid functions for modulefiles.
 local mrc_sandbox_env = {
@@ -56,8 +57,11 @@ local mrc_sandbox_env = {
    require         = require,
    module_alias    = module_alias,
    module_version  = module_version,
+   forbid          = forbid,
+   hide            = hide,
    hide_version    = hide_version,
    hide_modulefile = hide_modulefile,
+   myConfig        = myConfig,
    os              = { clock = os.clock, difftime = os.difftime, time = os.time, date = os.date,
                        getenv = os.getenv, execute = os.execute},
    io              = { stderr = io.stderr, open = io.open, close = io.close, write = io.write },

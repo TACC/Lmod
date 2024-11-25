@@ -154,7 +154,7 @@ function main()
    dbg.print{"fullName: ",mname:fullName(),", userName: ",mname:userName()," optionTbl.fullName: ", optionTbl.fullName,"\n"}
 
    frameStk:push(mname)
-   loadModuleFile{file=fn, shell=shellNm, reportErr=true}
+   loadModuleFile{file=fn, shell=shellNm, reportErr=true, forbiddenT = {}}
    frameStk:pop()
    local s = concatTbl(ShowResultsA,"")
    dbg.textA{name="Text to Hash for: "..optionTbl.fullName, a=ShowResultsA}

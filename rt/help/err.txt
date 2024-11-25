@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.44 2024-07-11 16:39 -06:00
+Modules based on Lua: Version 8.7.49 2024-08-30 13:55 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -31,6 +31,7 @@ Options:
   -r --regexp                       use regular expression match
   --gitversion                      Dump git version in a machine readable way and quit
   --dumpversion                     Dump version in a machine readable way and quit
+  --dumpname                        Dump the name Lmod in a machine readable way and quit
   --check_syntax --checkSyntax      Checking module command syntax: do not load
   --config                          Report Lmod Configuration
   --miniConfig                      Report Lmod Configuration differences
@@ -40,7 +41,7 @@ Options:
   -f --force                        force removal of a sticky module or save an empty collection
   --redirect                        Send the output of list, avail, spider to stdout (not stderr)
   --no_redirect                     Force output of list, avail and spider to stderr
-  --show_hidden                     Avail and spider will report hidden modules
+  --show_hidden -A --all            Avail and spider will report hidden modules
   --spider_timeout=timeout          a timeout for spider
   -T --trace                        trace major changes such as loads
   --nx --no_extensions              Do not print extensions
@@ -109,7 +110,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.44 2024-07-11 16:39 -06:00
+Modules based on Lua: Version 8.7.49 2024-08-30 13:55 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -138,6 +139,7 @@ Options:
   -r --regexp                       use regular expression match
   --gitversion                      Dump git version in a machine readable way and quit
   --dumpversion                     Dump version in a machine readable way and quit
+  --dumpname                        Dump the name Lmod in a machine readable way and quit
   --check_syntax --checkSyntax      Checking module command syntax: do not load
   --config                          Report Lmod Configuration
   --miniConfig                      Report Lmod Configuration differences
@@ -147,7 +149,7 @@ Options:
   -f --force                        force removal of a sticky module or save an empty collection
   --redirect                        Send the output of list, avail, spider to stdout (not stderr)
   --no_redirect                     Force output of list, avail and spider to stderr
-  --show_hidden                     Avail and spider will report hidden modules
+  --show_hidden -A --all            Avail and spider will report hidden modules
   --spider_timeout=timeout          a timeout for spider
   -T --trace                        trace major changes such as loads
   --nx --no_extensions              Do not print extensions
@@ -216,7 +218,7 @@ Lmod Web Sites
   SourceForge:      https://lmod.sf.net
   TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
   To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
-Modules based on Lua: Version 8.7.44 2024-07-11 16:39 -06:00
+Modules based on Lua: Version 8.7.49 2024-08-30 13:55 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 4
@@ -236,7 +238,7 @@ Version 9
 step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --config
 ===========================
-Modules based on Lua: Version 8.7.44 2024-07-11 16:39 -06:00
+Modules based on Lua: Version 8.7.49 2024-08-30 13:55 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                                                   Value
 Allow root to use Lmod (LMOD_ALLOW_ROOT_USE)                  yes
@@ -257,6 +259,7 @@ Export the module command (LMOD_EXPORT_MODULE)                yes
 Allow extended default (LMOD_EXTENDED_DEFAULT)                yes
 Use attached TCL over system call (LMOD_FAST_TCL_INTERP)      yes
 Is fast TCL interp available (LMOD_USING_FAST_TCL_INTERP)     no
+File ignore patterns (LMOD_FILE_IGNORE_PATTERNS)              {"%.version[-._].*", "%.modulerc[-._].*"}
 Use italic instead of dim (LMOD_HIDDEN_ITALIC)                no
 KSH Support (LMOD_KSH_SUPPORT)                                no
 Language used for err/msg/warn (LMOD_LANG)                    en
@@ -292,6 +295,7 @@ System Default Modules (LMOD_SYSTEM_DEFAULT_MODULES)          <empty>
 System Name (LMOD_SYSTEM_NAME)                                <empty>
 SYSHOST (cluster name) (LMOD_SYSHOST)                         <empty>
 TCL Version                                                   <N/A>
+Terse Decorations (LMOD_TERSE_DECORATIONS)                    yes
 User cache valid time(sec) (LMOD_ANCIENT_TIME)                86400
 Write cache after (sec) (LMOD_SHORT_TIME)                     2
 Threshold (sec) (LMOD_THRESHOLD)                              1
@@ -417,7 +421,7 @@ propT = {
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --miniConfig
 ===========================
-Modules based on Lua: Version 8.7.44 2024-07-11 16:39 -06:00
+Modules based on Lua: Version 8.7.49 2024-08-30 13:55 -06:00
     by Robert McLay mclay@tacc.utexas.edu
 LMOD_PACKAGE_PATH            D          nil          <empty>
 LMOD_SYSTEM_DEFAULT_MODULES  D          __unknown__  <empty>
@@ -476,6 +480,8 @@ use regular expression match
 Dump git version in a machine readable way and quit
 =item I<--dumpversion>
 Dump version in a machine readable way and quit
+=item I<--dumpname>
+Dump the name Lmod in a machine readable way and quit
 =item I<--check_syntax --checkSyntax>
 Checking module command syntax: do not load
 =item I<--config>
@@ -494,7 +500,7 @@ force removal of a sticky module or save an empty collection
 Send the output of list, avail, spider to stdout (not stderr)
 =item I<--no_redirect>
 Force output of list, avail and spider to stderr
-=item I<--show_hidden>
+=item I<--show_hidden -A --all>
 Avail and spider will report hidden modules
 =item I<--spider_timeout=timeout>
 a timeout for spider

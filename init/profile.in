@@ -23,7 +23,8 @@ if [ -z "${MODULEPATH_ROOT:-}" ]; then
     fi
   fi
   if [ -f ${LMOD_MODULEPATH_INIT} ]; then
-     for str in $(cat ${LMOD_MODULEPATH_INIT} | sed 's/#.*$//'); do   # Allow end-of-line comments.
+     # Allow end-of-line comments and bug fix for /dir/\* error in docs
+     for str in $(cat ${LMOD_MODULEPATH_INIT} | sed -e 's/#.*$//' -e 's/\\\*/*/'); do   
         for dir in $str; do
             if [ -d $dir ]; then
                 export MODULEPATH=$(@PKGV@/libexec/addto --append MODULEPATH $dir)
@@ -48,7 +49,9 @@ if [ -z "${MODULEPATH_ROOT:-}" ]; then
     IFS=$OLD_IFS
   fi
 
-  export BASH_ENV=@PKGV@/init/bash
+  if [ -z "${BASH_ENV:-}" ]; then 
+     export BASH_ENV=@PKGV@/init/bash
+  fi
 
   #
   # If MANPATH is empty, Lmod is adding a trailing ":" so that

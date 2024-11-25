@@ -110,20 +110,20 @@ end
 --------------------------------------------------------------------------
 -- Validate a function with only string table.
 -- @param cmdName The command which is getting its arguments validated.
-local function l_validateStringTable(n, cmdName, t)
-   n = max(n,#t)
+local function l_validateStringTable(n, cmdName, table)
+   n = max(n,#table)
    for i = 1, n do
-      local v = t[i]
+      local v = table[i]
       if (type(v) ~= "string") then
          mcp:report{msg="e_Args_Not_Strings", fn = myFileName(), cmdName = cmdName}
          return false
       end
    end
-   if (t.priority ~= nil) then
+   if (table.priority ~= nil) then
       local valid = false
-      if (t.priority == 0) then
+      if (table.priority == 0) then
          valid = true
-      elseif (t.priority >= 10) then
+      elseif (table.priority >= 10) then
          valid = true
       end
 
@@ -139,18 +139,18 @@ end
 --------------------------------------------------------------------------
 -- Validate a function with only string module names table.
 -- @param cmdName The command which is getting its arguments validated.
-local function l_validateArgsWithValue(cmdName, ...)
-   local argA = pack(...)
+local function l_validateArgsWithValue(cmdName, table)
 
-   for i = 1, argA.n -1 do
-      local v = argA[i]
+   local n = table.n or #table 
+   for i = 1, n -1 do
+      local v = table[i]
       if (type(v) ~= "string") then
          mcp:report{msg="e_Args_Not_Strings", fn = myFileName(), cmdName = cmdName}
          return false
       end
    end
 
-   local v = argA[argA.n]
+   local v = table[n]
    if (type(v) ~= "string" and type(v) ~= "number" and type(v) ~= "boolean") then
       mcp:report{msg="e_Args_Not_Strings", fn = myFileName(), cmdName = cmdName}
       return false
@@ -162,6 +162,8 @@ end
 -- Validate a function with only string module names table.
 -- @param cmdName The command which is getting its arguments validated.
 local function l_validateModules(cmdName, ...)
+
+   dbg.print{"validateModules input BLAH: ", l_concatTbl({...},", "),")"}
    local argA = pack(...)
    --dbg.print{"l_validateModules: cmd: ",cmdName, " argA.n: ",argA.n,"\n"}
    local allGood = true
@@ -189,10 +191,19 @@ end
 -- "load('name'); load('name/1.2'); load(atleast('name','3.2'))",
 function load_module(...)
    dbg.start{"load_module(",l_concatTbl({...},", "),")"}
-   if (not l_validateModules("load",...)) then return {} end
+
+   local table
+   local mcp_old = mcp
+   mcp, table = list_2_Tbl(MCP, mcp, ...)
+   if ( not mcp ) then
+       mcp = mcp_old
+       return
+   end
+
+   if (not l_validateModules("load", table)) then return {} end
 
    dbg.print{"mcp:name(): ",mcp:name(),"\n"}
-   local b  = mcp:load_usr(MName:buildA(mcp:MNameType(), ...))
+   local b  = mcp:load_usr(MName:buildA(mcp:MNameType(), table))
    dbg.fini("load_module")
    return b
 end
@@ -208,9 +219,18 @@ end
 
 function load_any(...)
    dbg.start{"load_any(",l_concatTbl({...},", "),")"}
-   if (not l_validateModules("load_any",...)) then return {} end
 
-   local b = mcp:load_any(MName:buildA(mcp:MNameType(), ...))
+   local table
+   local mcp_old = mcp
+   mcp, table = list_2_Tbl(MCP, mcp, ...)
+   if ( not mcp ) then
+       mcp = mcp_old
+       return
+   end
+
+   if (not l_validateModules("load_any", table)) then return {} end
+
+   local b = mcp:load_any(MName:buildA(mcp:MNameType(), table))
    dbg.fini("load_any")
    return b
 end   
@@ -254,34 +274,55 @@ end
 --------------------------------------------------------------------------
 -- Prepend a value to a path like variable.
 function prepend_path(...)
-   local t = l_convert2table(...)
-   dbg.start{"prepend_path(",l_concatTbl(t,", "),")"}
-   if (not l_validateStringTable(2, "prepend_path",t)) then return end
-
-   l_cleanupPathArgs(t)
-   if (t[2]) then mcp:prepend_path(t) end
+   local table
+   local mcp_old = mcp
+   mcp, table = list_2_Tbl(MCP, mcp, ...)
+   dbg.start{"prepend_path(",l_concatTbl(table,", "),")"}
+   if ( not mcp ) then
+       mcp = mcp_old
+       return
+   end
+    
+   if (not l_validateStringTable(2, "prepend_path", table)) then return end
+   l_cleanupPathArgs(table)
+   if (table[2]) then mcp:prepend_path(table) end
+   mcp = mcp_old
    dbg.fini("prepend_path")
 end
 
 --------------------------------------------------------------------------
 -- Append a value to a path like variable.
 function append_path(...)
-   local t = l_convert2table(...)
-   dbg.start{"append_path(",l_concatTbl(t,", "),")"}
-   if (not l_validateStringTable(2, "append_path",t)) then return end
-   l_cleanupPathArgs(t)
-   if (t[2]) then mcp:append_path(t) end
+   local table
+   local mcp_old = mcp
+   mcp, table = list_2_Tbl(MCP, mcp, ...)
+   dbg.start{"append_path(",l_concatTbl(table,", "),")"}
+   if ( not mcp ) then
+       mcp = mcp_old
+       return
+   end
+
+   if (not l_validateStringTable(2, "append_path",table)) then return end
+   l_cleanupPathArgs(table)
+   if (table[2]) then mcp:append_path(table) end
    dbg.fini("append_path")
 end
 
 --------------------------------------------------------------------------
 -- Remove a value from a path like variable.
 function remove_path(...)
-   local t = l_convert2table(...)
-   dbg.start{"remove_path(",l_concatTbl(t,", "),")"}
-   if (not l_validateStringTable(2, "remove_path",t)) then return end
-   l_cleanupPathArgs(t)
-   if (t[2]) then mcp:remove_path(t) end
+   local table
+   local mcp_old = mcp
+   mcp, table = list_2_Tbl(MCP, mcp, ...)
+   dbg.start{"remove_path(",l_concatTbl(table,", "),")"}
+   if ( not mcp ) then
+       mcp = mcp_old
+       return
+   end
+
+   if (not l_validateStringTable(2, "remove_path", table)) then return end
+   l_cleanupPathArgs(table)
+   if (table[2]) then mcp:remove_path(table) end
    dbg.fini("remove_path")
 end
 
@@ -291,9 +332,19 @@ end
 -- Set the value of environment variable and maintain a stack.
 function pushenv(...)
    dbg.start{"pushenv(",l_concatTbl({...},", "),")"}
-   if (not l_validateArgsWithValue("pushenv",...)) then return end
 
-   mcp:pushenv(...)
+   local table
+   local mcp_old = mcp
+   mcp, table = list_2_Tbl(MCP, mcp, ...)
+   if ( not mcp ) then
+       mcp = mcp_old
+       return
+   end
+
+   if (not l_validateArgsWithValue("pushenv",table)) then return end
+
+   mcp:pushenv(table)
+   mcp = mcp_old
    dbg.fini("pushenv")
    return
 end
@@ -301,20 +352,36 @@ end
 --------------------------------------------------------------------------
 -- Convert all function arguments to table form
 -- first_elem seperated from args for type test
-function list_2_Tbl(first_elem, ...)
+function list_2_Tbl(MCP, mcp, first_elem, ...)
    dbg.start{"list_2_Tbl(",l_concatTbl({first_elem, ...},", "),")"}
 
+   local my_mcp = nil
    local t = nil
+   local action = nil
    if ( type(first_elem) == "table" )then
       t = first_elem
       t.kind = "table"
+      local my_mode = mode()
+      local modeA = t.mode or {}
+      for i = 1,#modeA do
+         if (my_mode == modeA[i]) then
+            action = true
+            my_mcp = MCP 
+            break
+         end
+      end
+
    else
       t = pack(first_elem, ...)
       t.kind = "list"
+      my_mcp = mcp
+      action = true
    end
-   dbg.print{"OutputTable: ", l_concatTbl(t, ", "), "\n"}
+
+   if ( not action ) then my_mcp = nil end
+   dbg.print{"OutputTable: ", t, "\n"}
    dbg.fini("list_2_Tbl")
-   return t
+   return my_mcp, t
 end
 
 --------------------------------------------------------------------------
@@ -322,15 +389,17 @@ end
 function setenv(...)
    dbg.start{"setenv(",l_concatTbl({...},", "),")"}
 
-   if (not l_validateArgsWithValue("setenv",...)) then return end
+   local table 
+   local mcp_old = mcp
+   mcp, table = list_2_Tbl(MCP, mcp, ...)
+   if ( not mcp ) then 
+       mcp = mcp_old 
+       return 
+   end 
 
-   --local mcp_old = mcp
-   local table = list_2_Tbl(...)
-
-   --mcp = mcp_old
-   --dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-
-   mcp:setenv(...)
+   if (not l_validateArgsWithValue("setenv", table)) then return end
+   mcp:setenv(table)
+   mcp = mcp_old
    dbg.fini("setenv")
    return
 end
@@ -339,9 +408,18 @@ end
 -- Unset the value of environment variable.
 function unsetenv(...)
    dbg.start{"unsetenv(",l_concatTbl({...},", "),")"}
-   if (not l_validateArgsWithValue("unsetenv",...)) then return end
 
-   mcp:unsetenv(...)
+   local table 
+   local mcp_old = mcp
+   mcp, table = list_2_Tbl(MCP, mcp, ...)
+   if ( not mcp ) then 
+       mcp = mcp_old 
+       return 
+   end 
+
+   if (not l_validateArgsWithValue("unsetenv", table)) then return end
+   mcp:unsetenv(table)
+   mcp = mcp_old
    dbg.fini("unsetenv")
    return
 end
@@ -616,7 +694,7 @@ function atmost(m, ie)
 
    local mname = MName:new("load", m, "atmost", false, ie)
 
-   dbg.fini("atleast")
+   dbg.fini("atmost")
    return mname
 end
 
@@ -812,9 +890,18 @@ end
 -- will not produce a warning if the specified modulefile(s) do not exist.
 function try_load(...)
    dbg.start{"try_load(",l_concatTbl({...},", "),")"}
-   if (not l_validateModules("try_load",...)) then return {} end
 
-   local b = mcp:try_load(MName:buildA(mcp:MNameType(), ...))
+   local table
+   local mcp_old = mcp
+   mcp, table = list_2_Tbl(MCP, mcp, ...)
+   if ( not mcp ) then
+       mcp = mcp_old
+       return
+   end
+
+   if (not l_validateModules("try_load", table)) then return {} end
+
+   local b = mcp:try_load(MName:buildA(mcp:MNameType(), table))
    dbg.fini("try_load")
    return b
 end
@@ -853,8 +940,16 @@ end
 -- not loaded.  The reverse of an unload is a no-op.
 function unload(...)
    dbg.start{"unload(",l_concatTbl({...},", "),")"}
-   if (not l_validateModules("unload",...)) then return {} end
-   local b = unload_internal(MName:buildA("mt",...))
+   local table
+   local mcp_old = mcp
+   mcp, table = list_2_Tbl(MCP, mcp, ...)
+   if ( not mcp ) then
+       mcp = mcp_old
+       return
+   end
+
+   if (not l_validateModules("unload", table)) then return {} end
+   local b = unload_internal(MName:buildA("mt", table))
    dbg.fini("unload")
    return b
 end
@@ -869,9 +964,6 @@ function always_load(...)
    dbg.fini("always_load")
    return b
 end
-
-
-
 
 --------------------------------------------------------------------------
 -- This function always unloads and never loads. The reverse of this
@@ -945,6 +1037,10 @@ function purge(t)
    dbg.start{"purge{force=",t.force,"}"}
    mcp:purge(t)
    dbg.fini("purge")
+end
+
+function dofile_not_supported()
+   mcp:report{msg="e_Dofile_not_supported"}
 end
 
 

@@ -328,31 +328,57 @@ function M.processVars(self, ignoreT, oldEnvT, envT, a)
 
    local mt_pat = "^_ModuleTable"
    for k, v in pairsByKeys(envT) do
-      local i = k:find(mt_pat)
-      if (not ignoreT[k] and not i) then
-         --dbg.print{"k: ", k, ", v: ", v, ", oldV: ",oldEnvT[k],"\n"}
+      if (not ignoreT[k] and not k:find(mt_pat)) then
          local oldV = oldEnvT[k]
          if (not oldV) then
             a[#a+1] = self:setenv(k,v)
          else
             local oldA = path2pathA(oldV)
             local newA = path2pathA(v)
-            local idx  = l_indexPath(oldV, oldA, v, newA)
-            if (idx < 0) then
+            ------------------------------------------------------------
+            -- Build oldT
+            local oldT = {}
+            for i = 1,#oldA do
+               oldT[oldA[i]] = i
+            end
+
+            ------------------------------------------------------------
+            -- find first index of newA in oldA
+            local Idx = math.maxinteger or math.huge
+            for i=1,#newA do
+               if ( oldT[newA[i]] ~= nil and i < Idx) then
+                  Idx = i
+                  break
+               end
+            end
+
+            if (Idx > #newA) then
                a[#a+1] = self:setenv(k,v)
             else
-               newA = l_splice(newA, idx, #oldA + idx - 1)
-               for j = idx-1, 1, -1 do
-                  a[#a+1] = self:prepend_path(k,newA[j])
+               local preA = {}
+               local appA = {}
+               
+               for i=1,#newA do
+                  local path = newA[i]
+                  if (not oldT[path]) then
+                     if ( i <= Idx) then
+                        preA[#preA + 1] = path
+                     else
+                        appA[#appA + 1] = path
+                     end
+                  end
                end
-               for j = idx, #newA do
-                  a[#a+1] = self:append_path(k,newA[j])
+
+               for j = #preA, 1, -1 do
+                  a[#a+1] = self:prepend_path(k,preA[j])
+               end
+               for j = 1,#appA  do
+                  a[#a+1] = self:append_path(k,appA[j])
                end
             end
          end
       end
    end
-
    dbg.fini("MF_Base:processVars")
 end
 

@@ -265,6 +265,13 @@ function M.singleton(self, progName, usage, description)
    }
 
    cmdlineParser:add_option{
+      name   = {"--dumpname"},
+      dest   = "dumpname",
+      action = "store_true",
+      help   = i18n("dumpN_hlp")
+   }
+
+   cmdlineParser:add_option{
       name   = {"--check_syntax", "--checkSyntax"},
       dest   = "checkSyntax",
       action = "store_true",
@@ -328,7 +335,7 @@ function M.singleton(self, progName, usage, description)
    }
 
    cmdlineParser:add_option{
-      name   = {"--show_hidden" },
+      name   = {"--show_hidden","-A", "--all"},
       dest   = "show_hidden",
       action = "store_true",
       help   = i18n("hidden_H")

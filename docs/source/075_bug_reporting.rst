@@ -23,9 +23,14 @@ Steps to report a bug
 
 #. Test your bug against the latest release from github. Please pull
    the HEAD branch.
-#. Try to reduce the problem to the fewest number of modules.  Shoot
+#. Try to reduce the problem to the fewest number of modules.  Try 
    for 1 or 2 modulefiles if you can.
 #. Run the command that fails.  i.e. ``module -D`` `cmd modulefile ...` 2> ``lmod.log``
 #. Combine the lmod.log file, the modulefiles from step 2, and possibly
    the spider cache file into a tar file.
-#. Send the tar file to mclay@tacc.utexas.edu
+#. Send general questions to the Lmod mailing list. You can join the
+   mailing list here: https://sourceforge.net/projects/lmod/lists/lmod-users
+#. Or bug reports as an issue at https://github.com/TACC/Lmod/issues 
+#. Include the tar file generated above to either location.  Note that
+   size of tar file is limited on the mailing so try to keep the tar
+   files as small as possible.

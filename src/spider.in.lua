@@ -489,7 +489,7 @@ function main()
 
    -- Make sure that MRC uses $LMOD_MODULERC and ignores ~/.modulerc when building the cache
    local remove_MRC_home         = true
-   local mrc                     = MRC:singleton(getModuleRCT(remove_MRC_home))
+   local mrc                     = MRC:singleton()
    local cache                   = Cache:singleton{dontWrite = true, quiet = true, buildCache = true,
                                                    buildFresh = true, noMRC=true}
    local spider                  = Spider:new()

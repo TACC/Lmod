@@ -141,7 +141,7 @@ function M.access(self, ...)
             local mList = concatTbl(mt:list("both","active"),":")
             frameStk:push(mname)
             loadModuleFile{file=fn,help=help, shell=shellNm, mList = mList,
-                           reportErr=true}
+                           reportErr=true, forbiddenT = mname:forbiddenT()}
             frameStk:pop()
             A[#A+1] = "\n"
          end
@@ -252,7 +252,8 @@ function M.inheritModule(self)
          A[#A+1] = "\n\n"
       end
 
-      loadModuleFile{file=mname:fn(),mList = mList, shell=shellNm, reportErr=true}
+      loadModuleFile{file=mname:fn(),mList = mList, shell=shellNm, reportErr=true,
+                     forbiddenT = mname:forbiddenT()}
       frameStk:pop()
    end
 
@@ -373,7 +374,7 @@ function M.load(self, mA)
          elseif (not fn and not frameStk:empty()) then
             local msg = "Executing this command requires loading \"" .. userName .. "\" which failed"..
                " while processing the following module(s):\n\n"
-            msg = buildMsg(TermWidth(), msg)
+            msg = buildMsg(TermWidth(), {n = 1,msg})
             if (haveWarnings()) then
                stackTraceBackA[#stackTraceBackA+1] = moduleStackTraceBack(msg)
             end
@@ -394,7 +395,8 @@ function M.load(self, mA)
             end
 
 
-            local status = loadModuleFile{file = fn, shell = shellNm, mList = mList, reportErr = true}
+            local status = loadModuleFile{file = fn, shell = shellNm, mList = mList,
+                                          reportErr = true, forbiddenT = mname:forbiddenT()}
             mt = frameStk:mt()
 
             -- A modulefile could the same named module over top of the current modulefile
@@ -488,7 +490,7 @@ local function l_missingFn_action(actionA)
    local status   = true
    if (next(actionA) == nil) then
       dbg.fini("l_missingFn_action with empty actionA")
-      return status 
+      return status
    end
    local whole  = concatTbl(actionA,"\n")
    dbg.print{"whole: ",whole,"\n"}
@@ -557,7 +559,8 @@ function M.unload(self,mA)
             status = l_missingFn_action(mt:get_actionA(sn))
          else
             local mList  = concatTbl(mt:list("both","active"),":")
-            status = loadModuleFile{file=fn, mList=mList, shell=shellNm, reportErr=false}
+            status = loadModuleFile{file=fn, mList=mList, shell=shellNm, reportErr=false,
+                                    forbiddenT = {}}
             dbg.print{"status from loadModulefile: ",status,"\n"}
          end
          if (status) then
@@ -733,7 +736,7 @@ function M.refresh()
          frameStk:push(MName:new("mt",userName))
          dbg.print{"loading: ",sn,", userName: ",myModuleUsrName(),", fn: ", fn,"\n"}
          loadModuleFile{file = fn, shell = shellNm, mList = mList,
-                        reportErr=true}
+                        reportErr=true, forbiddenT = {}}
          frameStk:pop()
       end
    end
@@ -767,7 +770,7 @@ function M.dependencyCk()
          frameStk:push(MName:new("mt",sn))
          dbg.print{"DepCk loading: ",sn," fn: ", fn,"\n"}
          loadModuleFile{file = fn, shell = shellNm, mList = mList,
-                        reportErr=true}
+                        reportErr=true, forbiddenT = {}}
          frameStk:pop()
       end
    end
@@ -966,7 +969,7 @@ function M.overview(self,argA)
    local mt          = FrameStk:singleton():mt()
    local mpathA      = mt:modulePathA()
    local availStyle  = optionTbl.availStyle
-   
+
    local numDirs = 0
    for i = 1,#mpathA do
       local mpath = mpathA[i]
@@ -996,7 +999,7 @@ function M.overview(self,argA)
    local defaultOnly = false
    local alias2modT  = mrc:getAlias2ModT(mpathA)
    local banner      = Banner:singleton()
-   
+
    if (not optionTbl.regexp and argA and next(argA) ~= nil) then
       searchA = {}
       for i = 1, argA.n do
@@ -1013,6 +1016,7 @@ function M.overview(self,argA)
 
    availA = regroup_avail_blocks(availStyle, availA)
    local showModuleExt = false
+
    self:terse_avail(mpathA, availA, alias2modT, searchA, showSN, defaultOnly, defaultT, showModuleExt, aa)
 
    local label    = ""
@@ -1036,7 +1040,7 @@ function M.overview(self,argA)
 
    ---------------------------------------------------------------
    -- This local function stores the current sn and count into the
-   -- b array and if the current entry is true then define the next 
+   -- b array and if the current entry is true then define the next
    -- sn to be entry (minus the trailing slash) and zero count.
    local function register_sn_count_in_b(entry)
       if (sn and count > 0) then
@@ -1053,9 +1057,9 @@ function M.overview(self,argA)
    end
 
    for i = 1,#aa do
-      local entry = aa[i]:sub(1,-2) --> strip trailing newline
-      repeat 
-         dbg.print{"RTM: entry: ",entry,"\n"}
+      local entry = aa[i]:gsub("%s+$",""):gsub(" *<.*","") --> strip trailing newline and any decorations
+      repeat
+         dbg.print{"RTM: entry: \"",entry,"\"\n"}
          if (entry:find("%(@")) then
             break
          end
@@ -1165,14 +1169,17 @@ function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaul
    end
 
 
+   dbg.printT("availA",availA)
+
    for j = 1,#availA do
       local A      = availA[j].A
       local label  = availA[j].mpath
       local aa     = {}
       local prtSnT = {}  -- Mark if we have printed the sn?
-      
+
       for i = 1,#A do
          local sn, fullName, fn, provideA = l_availEntry(defaultOnly, label, searchA, defaultT, A[i])
+         local entry  = A[i]
          if (sn) then
             if (not prtSnT[sn] and sn ~= fullName and showSN) then
                prtSnT[sn] = true
@@ -1185,7 +1192,8 @@ function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaul
                   aa[#aa+1]  = aliasA[i] .. "(@".. fullName ..")\n"
                end
             end
-            aa[#aa+1]     = fullName .. "\n"
+            aa[#aa+1]  = decorateModule(fullName, entry, entry.forbiddenT) .. "\n"
+
             if (showModuleExt and provideA and next(provideA) ~= nil ) then
                for k = 1,#provideA do
                   aa[#aa+1] = "#    " .. provideA[k] .. "\n"
@@ -1200,21 +1208,6 @@ function M.terse_avail(self, mpathA, availA, alias2modT, searchA, showSN, defaul
          end
       end
    end
-
-   -- if providedByT is not false then output 
-
-   --if (providedByT and next(providedByT) ~= nil ) then
-   --
-   --  local extA = {}
-   --  self:buildExtA(searchA, mpathA, providedByT, extA)
-   --
-   --  for i=1,#extA do
-   --    a[#a+1] = "#"
-   --    a[#a+1] = extA[i][1]
-   --    a[#a+1] = "\n"
-   --  end
-   --end
-      
    dbg.fini("Hub:terse_avail")
    return a
 end
@@ -1227,6 +1220,7 @@ function M.avail(self, argA)
    local mt          = FrameStk:singleton():mt()
    local mpathA      = mt:modulePathA()
    local availStyle  = optionTbl.availStyle
+   local show_hidden = optionTbl.show_hidden
 
    local numDirs = 0
    for i = 1,#mpathA do
@@ -1366,8 +1360,9 @@ function M.avail(self, argA)
                   entry.propT["status"] = {active = 1}
                end
                local c = {}
-               local resultA = colorizePropA("short", mt, {sn=sn, fullName=fullName, fn=fn},
-                                             mrc, entry.propT, legendT)
+               local resultA = colorizePropA("short", mt,
+                                             {sn=sn, fullName=fullName, fn=fn, show_hidden = show_hidden},
+                                             mrc, entry.propT, legendT, entry.forbiddenT)
                c[#c+1] = '  '
                for i = 1,#resultA do
                   c[#c+1] = resultA[i]
@@ -1415,7 +1410,7 @@ function M.avail(self, argA)
    local cache                  = Cache:singleton{buildCache=true}
    local spiderT,dbT,
          mpathMapT, providedByT = cache:build()
-   
+
    dbg.printT("providedByT", providedByT)
 
    if (extensions and providedByT and next(providedByT) ~= nil) then
@@ -1463,8 +1458,5 @@ function M.avail(self, argA)
    dbg.fini("Hub:avail")
    return a
 end
-
-
-
 
 return M

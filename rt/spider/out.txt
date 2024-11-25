@@ -261,18 +261,6 @@ runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/E_Core
 timestampFn = {
   false,
 }
-mrcT = {
-  alias2modT = {
-    intelcompiler = "intel",
-  },
-  hiddenT = {
-    ["gcc/4.8"] = true,
-  },
-  version2modT = {
-    ["intel/17"] = "intel/2017.1.132",
-    ["intel/2017"] = "intel/2017.1.132",
-  },
-}
 mrcMpathT = {}
 spiderT = {
   ["ProjectDIR/rt/spider/mf/E_Compiler/gcc/4.2"] = {
@@ -895,18 +883,6 @@ runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/G_Core
 timestampFn = {
   false,
 }
-mrcT = {
-  alias2modT = {
-    intelcompiler = "intel",
-  },
-  hiddenT = {
-    ["gcc/4.8"] = true,
-  },
-  version2modT = {
-    ["intel/17"] = "intel/2017.1.132",
-    ["intel/2017"] = "intel/2017.1.132",
-  },
-}
 mrcMpathT = {}
 spiderT = {
   ["ProjectDIR/rt/spider/mf/G_Core"] = {
@@ -936,18 +912,6 @@ runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/H_Core
 ===========================
 timestampFn = {
   false,
-}
-mrcT = {
-  alias2modT = {
-    intelcompiler = "intel",
-  },
-  hiddenT = {
-    ["gcc/4.8"] = true,
-  },
-  version2modT = {
-    ["intel/17"] = "intel/2017.1.132",
-    ["intel/2017"] = "intel/2017.1.132",
-  },
 }
 mrcMpathT = {}
 spiderT = {
@@ -1084,18 +1048,6 @@ runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf/I_Core
 timestampFn = {
   false,
 }
-mrcT = {
-  alias2modT = {
-    intelcompiler = "intel",
-  },
-  hiddenT = {
-    ["gcc/4.8"] = true,
-  },
-  version2modT = {
-    ["intel/17"] = "intel/2017.1.132",
-    ["intel/2017"] = "intel/2017.1.132",
-  },
-}
 mrcMpathT = {}
 spiderT = {
   ["ProjectDIR/rt/spider/mf/I_Core"] = {
@@ -1181,7 +1133,7 @@ MODULEPATH=ProjectDIR/rt/spider/mf/I_Core;
 export MODULEPATH;
 _LMFILES_=ProjectDIR/rt/spider/mf/I_Core/GROMACS/.2016.x-drude-20180214-g3f7439a.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={GROMACS={fn="ProjectDIR/rt/spider/mf/I_Core/GROMACS/.2016.x-drude-20180214-g3f7439a.lua",fullName="GROMACS/.2016.x-drude-20180214-g3f7439a",loadOrder=1,propT={},stackDepth=0,status="active",userName="GROMACS/.2016.x-drude-20180214-g3f7439a",wV="000000000.000002016.*x.*drude.*zfinal-.020180214.*g.000000003.*f.000007439.*a.*zfinal",},},mpathA={"ProjectDIR/rt/spider/mf/I_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/I_Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={GROMACS={fn="ProjectDIR/rt/spider/mf/I_Core/GROMACS/.2016.x-drude-20180214-g3f7439a.lua",fullName="GROMACS/.2016.x-drude-20180214-g3f7439a",loadOrder=1,moduleKindT={kind="hidden",},propT={},stackDepth=0,status="active",userName="GROMACS/.2016.x-drude-20180214-g3f7439a",wV="000000000.000002016.*x.*drude.*zfinal-.020180214.*g.000000003.*f.000007439.*a.*zfinal",},},mpathA={"ProjectDIR/rt/spider/mf/I_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/I_Core",}';
 export _ModuleTable_;
 ===========================
 step 65
@@ -1189,7 +1141,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/spider/mf/I_Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={GROMACS={fn="ProjectDIR/rt/spider/mf/I_Core/GROMACS/.2016.x-drude-20180214-g3f7439a.lua",fullName="GROMACS/.2016.x-drude-20180214-g3f7439a",loadOrder=1,propT={},stackDepth=0,status="active",userName="GROMACS/.2016.x-drude-20180214-g3f7439a",wV="000000000.000002016.*x.*drude.*zfinal-.020180214.*g.000000003.*f.000007439.*a.*zfinal",},},mpathA={"ProjectDIR/rt/spider/mf/I_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/I_Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={GROMACS={fn="ProjectDIR/rt/spider/mf/I_Core/GROMACS/.2016.x-drude-20180214-g3f7439a.lua",fullName="GROMACS/.2016.x-drude-20180214-g3f7439a",loadOrder=1,moduleKindT={kind="hidden",},propT={},stackDepth=0,status="active",userName="GROMACS/.2016.x-drude-20180214-g3f7439a",wV="000000000.000002016.*x.*drude.*zfinal-.020180214.*g.000000003.*f.000007439.*a.*zfinal",},},mpathA={"ProjectDIR/rt/spider/mf/I_Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf/I_Core",}';
 export _ModuleTable_;
 ===========================
 step 66
@@ -1209,18 +1161,6 @@ runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf2/Core
 ===========================
 timestampFn = {
   false,
-}
-mrcT = {
-  alias2modT = {
-    intelcompiler = "intel",
-  },
-  hiddenT = {
-    ["gcc/4.8"] = true,
-  },
-  version2modT = {
-    ["intel/17"] = "intel/2017.1.132",
-    ["intel/2017"] = "intel/2017.1.132",
-  },
 }
 mrcMpathT = {}
 spiderT = {

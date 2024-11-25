@@ -4,7 +4,7 @@
 ########################################################################
 
 if(! ~ @lmod_allow_root_use@ yes)
-  { ! test -z $"USER_IS_ROOT || ~ `{id -u} 0 } && exit 0
+g  { ! test -z $"USER_IS_ROOT || ~ `{id -u} 0 } && exit 0
 
 
 if(~ $#MODULEPATH_ROOT 0) {
@@ -38,7 +38,9 @@ if(~ $#MODULEPATH_ROOT 0) {
   }
 
 
-  BASH_ENV=@PKGV@/init/bash
+  if( test -z $BASH_ENV) {
+     BASH_ENV=@PKGV@/init/bash
+  }
 
   #
   # If MANPATH is empty, Lmod is adding a trailing ":" so that
