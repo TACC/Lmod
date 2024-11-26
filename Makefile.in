@@ -250,9 +250,9 @@ install: pre-install  zsh_tab_funcs fish_tab_funcs
 	fi;
 
 echo:
-	@echo Version: $(version)
-	@echo GIT_VERSION: $(GIT_VERSION)
-	@echo GIT_BRANCH:  $(GIT_BRANCH)
+	@echo Version:     '$(version)'
+	@echo GIT_VERSION: '$(GIT_VERSION)'
+	@echo GIT_BRANCH:  '$(GIT_BRANCH)'
 
 man_pages: $(DESTDIR)$(MAN_PAGES) $(DESTDIR)$(MAN_PAGES_CAT)
         ifeq ($(PATH_TO_POD2MAN), UNKNOWN_POD2MAN)
