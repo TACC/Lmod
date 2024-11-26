@@ -263,6 +263,13 @@ EOF
      runLmod       load xcc                            #112
      runLmod       load Foo/invisible                  #113
 
+     runLmod       purge                               #114
+     unsetMT
+     cp $(testDir)/SitePackage.lua .
+     export MODULEPATH_ROOT=$(testDir)/mfG
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+     runLmod       avail                               #115
+      
      
 
      HOME=$ORIG_HOME
