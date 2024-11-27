@@ -41,9 +41,9 @@ class CmdLineOptions(object):
   def execute(self):
     """ Specify command line arguments and parse the command line"""
     parser = argparse.ArgumentParser()
-    parser.add_argument("--drop",        dest='drop',   action="store_true", default = False,            help="lmod")
-    parser.add_argument("--confFn",      dest='confFn', action="store",      default = "lmodV2_db.conf", help="lmod")
-    parser.add_argument("--dbname",      dest='dbname', action="store",      default = "lmod",           help="lmod")
+    parser.add_argument("--drop",        dest='drop',   action="store_true", default = False,            help="drop tables")
+    parser.add_argument("--confFn",      dest='confFn', action="store",      default = "lmodV2_db.conf", help="lmodV2_db.conf")
+    parser.add_argument("--dbname",      dest='dbname', action="store",      default = "lmodV2",         help="lmodV2")
     args = parser.parse_args()
     return args
 
@@ -102,7 +102,7 @@ def main():
     print("(%d) create moduleT table" % idx ); idx += 1;
 
     cursor.close()
-  except  Exception as e:
+  except  MySQLdb.Error as e:
     print ("Error %d: %s" % (e.args[0], e.args[1]))
     sys.exit (1)
 
