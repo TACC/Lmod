@@ -178,7 +178,7 @@ class LMODdb(object):
         modT    = moduleA[int(row[1])]
         date    = str(row[2])
         t       = {'user': user, 'path': modT['path'], 'module' : modT['module'], 'syshost': modT['syshost'], 'date' : date }
-        f:write(json.dumps(t))
+        f.write(json.dumps(t) + "\n")
 
     except Exception as e:
       print("dump_db(): ",e)
