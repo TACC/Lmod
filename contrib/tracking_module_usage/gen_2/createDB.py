@@ -16,7 +16,7 @@ exit 2
 ################################################################################
 
 from __future__ import print_function
-import os, sys, re, MySQLdb, time
+import os, sys, re, time
 
 dirNm, execName = os.path.split(os.path.realpath(sys.argv[0]))
 sys.path.append(os.path.realpath(dirNm))
@@ -102,7 +102,7 @@ def main():
     print("(%d) create moduleT table" % idx ); idx += 1;
 
     cursor.close()
-  except  MySQLdb.Error as e:
+  except  Exception as e:
     print ("Error %d: %s" % (e.args[0], e.args[1]))
     sys.exit (1)
 
