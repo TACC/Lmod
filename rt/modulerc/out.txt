@@ -3031,3 +3031,25 @@ MODULEPATH=ProjectDIR/rt/modulerc/mfF/Compiler/xcc/1.0:ProjectDIR/rt/modulerc/mf
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={Foo={fn="ProjectDIR/rt/modulerc/mfF/Compiler/xcc/1.0/Foo/invisible.lua",fullName="Foo/invisible",loadOrder=2,moduleKindT={kind="hidden",},propT={},stackDepth=0,status="active",userName="Foo/invisible",wV="*invisible.*zfinal",},xcc={actionA={"prepend_path(\"MODULEPATH\",\"ProjectDIR/rt/modulerc/mfF/Compiler/xcc/1.0\")",},fn="ProjectDIR/rt/modulerc/mfF/Core/xcc/1.0.lua",fullName="xcc/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="xcc",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfF/Compiler/xcc/1.0","ProjectDIR/rt/modulerc/mfF/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfF/Core",}';
 export _ModuleTable_;
+===========================
+step 114
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/modulerc/mfF/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/modulerc/mfF/Core;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/modulerc/mfF/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfF/Core",}';
+export _ModuleTable_;
+===========================
+step 115
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A avail
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/modulerc/mfG/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/modulerc/mfG/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/modulerc/mfG/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfG/Core",}';
+export _ModuleTable_;

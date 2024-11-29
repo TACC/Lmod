@@ -502,8 +502,13 @@ local function l_find_resultT(self, tbl_kind, replaceT, mpath, wantedA)
       local wanted = wantedA[i]
       local key    = self:resolve(mpathA, wanted)
       local ans    = ttt[key] or tt[key]
-      if (ans and type(ans) == "table") then
-         resultT = ans
+      if (ans) then
+         if (type(ans) == "table") then
+            resultT = ans
+         else
+            resultT = replaceT
+         end
+         dbg.printT("resultT",resultT)
          dbg.fini("MRC:l_find_resultT")
          return resultT         
       end

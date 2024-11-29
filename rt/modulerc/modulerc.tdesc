@@ -238,9 +238,9 @@ EOF
      export MODULEPATH_ROOT=$(testDir)/mfE
      export MODULEPATH=$MODULEPATH_ROOT/Core
      cp $(testDir)/isVisibleHook_SitePackage.lua SitePackage.lua
-     runLmod       avail                               #97
-     runLmod -A    avail                               #98
-     runLmod       load A/1.0                          #99
+     runLmod       avail                               # 97
+     runLmod -A    avail                               # 98
+     runLmod       load A/1.0                          # 99
      runLmod       load B/3.0                          #100
      runLmod       load F/1.0                          #101
      runLmod       rm F/1.0                            #102
@@ -262,6 +262,21 @@ EOF
      runLmod       load Foo/invisible                  #111
      runLmod       load xcc                            #112
      runLmod       load Foo/invisible                  #113
+
+     runLmod    purge                                  #114
+     unsetMT
+     unset LMOD_MODULERC
+     rm SitePackage.lua
+     export MODULEPATH_ROOT=$(testDir)/mfG
+     export MODULEPATH=$MODULEPATH_ROOT/Core
+     rm -rf $HOME/.cache
+     mkdir -p $HOME/.cache/lmod
+     SED=sed
+     if [ `uname -s` = Darwin ]; then SED=gsed; fi
+     $SED -e "s|%testDir%|$(testDir)|g" < $(testDir)/spiderT-old.lua > $HOME/.cache/lmod/spiderT.lua
+     runLmod -A    avail                               #115
+
+
 
 
      HOME=$ORIG_HOME
