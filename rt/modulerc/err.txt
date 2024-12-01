@@ -1354,6 +1354,26 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
 step 115
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load xcc
+===========================
+module: xcc/1.0 isVisible status: true
+===========================
+step 116
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load Foo/invisible
+===========================
+module: Foo/invisible isVisible status: false
+===========================
+step 117
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load xcc
+===========================
+module: xcc/1.0 isVisible status: true
+module: Foo/invisible isVisible status: false
+===========================
+step 118
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 119
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -A avail
 ===========================
 ProjectDIR/rt/modulerc/mfG/Core

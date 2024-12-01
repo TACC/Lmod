@@ -556,9 +556,6 @@ local function l_findForbiddenState(self, mpath, sn, fullName, fn)
       wantedA[#wantedA + 1] = n
    end
    local resultT = l_find_resultT(self, "forbiddenT", {}, mpath, wantedA)
-   
-
-
 
    dbg.fini("l_findForbiddenState")
    return resultT or {}

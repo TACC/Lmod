@@ -263,7 +263,18 @@ EOF
      runLmod       load xcc                            #112
      runLmod       load Foo/invisible                  #113
 
+     
+     rm -rf $HOME/.cache
+     mkdir -p $HOME/.cache/lmod
+     SED=sed
+     if [ `uname -s` = Darwin ]; then SED=gsed; fi
+     $SED -e "s|%testDir%|$(testDir)|g" < $(testDir)/spiderT-basf-old.lua > $HOME/.cache/lmod/spiderT.lua
      runLmod    purge                                  #114
+     runLmod    load xcc                               #115
+     runLmod    load Foo/invisible                     #116
+     runLmod    load xcc                               #117
+
+     runLmod    purge                                  #118
      unsetMT
      unset LMOD_MODULERC
      rm SitePackage.lua
@@ -271,10 +282,8 @@ EOF
      export MODULEPATH=$MODULEPATH_ROOT/Core
      rm -rf $HOME/.cache
      mkdir -p $HOME/.cache/lmod
-     SED=sed
-     if [ `uname -s` = Darwin ]; then SED=gsed; fi
-     $SED -e "s|%testDir%|$(testDir)|g" < $(testDir)/spiderT-old.lua > $HOME/.cache/lmod/spiderT.lua
-     runLmod -A    avail                               #115
+     $SED -e "s|%testDir%|$(testDir)|g" < $(testDir)/spiderT-vub-old.lua > $HOME/.cache/lmod/spiderT.lua
+     runLmod -A    avail                               #119
 
 
 
