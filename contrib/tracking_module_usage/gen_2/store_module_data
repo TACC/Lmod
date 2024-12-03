@@ -57,13 +57,15 @@ def main():
   dataA = []
 
   icount = 0
+  modulePatt = re.compile(r'.*ModuleUsageTracking:? *')
+  
   for count, line in enumerate(f):
     line  = line.rstrip("\n")
     if (extension == ".json"):
       dataT = json.loads(line)
     else:
-      idx   = line.find("ModuleUsageTracking: ")
-      dataT = dict(re.findall(r'(\S+)=(".*?"|\S+)', line[idx+6:]))
+      rest  = modulePatt.sub('',line)
+      dataT = dict(re.findall(r'(\S+)=(".*?"|\S+)', rest))
       host  = dataT.get('host')
       dataT['syshost'] = syshost(host)
       dataT['date']    = dataT['time']
