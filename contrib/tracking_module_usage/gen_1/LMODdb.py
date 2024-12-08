@@ -169,7 +169,7 @@ class LMODdb(object):
 
 
       # extract join_user_module table:
-      query = "SELECT user_id, mod_id, UNIX_TIMESTAMP(date) from join_user_module where date >= %s AND date < %s"
+      query = "SELECT user_id, mod_id, UNIX_TIMESTAMP(date) from join_user_module where date >= %s AND date < %s limit 10000000"
       cursor.execute(query, (startDate, endDate))
       numRows = cursor.rowcount
       for i in range(numRows):

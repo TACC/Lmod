@@ -16,7 +16,7 @@ exit 2
 ################################################################################
 
 from __future__ import print_function
-import os, sys, re, time, argparse, json
+import os, sys, re, time, argparse, json, operator
 from LMODdb import LMODdb
 
 class CmdLineOptions(object):
@@ -41,6 +41,7 @@ class Ignore(object):
   def __init__(self, ignoreFn):
     if (not ignoreFn):
       self.__ignoreA = []
+      return
 
     ignoreA = []
     with open(ignoreFn, 'r') as file:
@@ -79,8 +80,6 @@ def main():
   ignore = Ignore(args.ignoreFn)
 
   f = open(args.dataFn,"r")
-  blkSz = 1000
-  dataA = []
 
   icount = 0
   modulePatt = re.compile(r'.*ModuleUsageTracking:? *')
@@ -108,16 +107,30 @@ def main():
     if (ignore.ignore(module)):
       continue
 
+    key = dataT['user'] + ' ' + dataT['syshost'] + ' ' + dataT['module'] + ' ' + dataT['path']
+    if (not key in usageT):
+      usageT[key] = { 'user'    : dataT['user'],
+                      'syshost' : dataT['syshost'],
+                      'module'  : dataT['module'],
+                      'path'    : dataT['path'],
+                      'date'    : dataT['date'],
+                      }
     
+  blkSz = 1000
+  dataA = []
+  icount = 0
+  for value in usageT.values():
     if (icount < blkSz):
-      dataA.append(dataT)
+      dataA.append(value.copy())
     else:
       lmod.data_to_db(args.debug, dataA)
       dataA.clear()
-      dataA.append(dataT)
+      dataA.append(value.copy())
       icount = 0
     icount += 1
     
+  dataA.sort(key=operator.itemgetter('date'))
+
   lmod.data_to_db(args.debug, dataA)
   f.close()
 
