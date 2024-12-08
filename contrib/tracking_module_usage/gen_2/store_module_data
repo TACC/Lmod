@@ -46,8 +46,8 @@ class Ignore(object):
     ignoreA = []
     with open(ignoreFn, 'r') as file:
     # Read each line in the file
-    for line in file:
-      ignoreA.append(re.compile(line.strip()))
+      for line in file:
+        ignoreA.append(re.compile(line.strip()))
     self.__ignoreA = ignoreA
 
   def ignore(self, module):
