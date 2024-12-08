@@ -84,6 +84,7 @@ def main():
   icount = 0
   modulePatt = re.compile(r'.*ModuleUsageTracking:? *')
   
+  usageT = {}
   for count, line in enumerate(f):
     line  = line.rstrip("\n")
     if (extension == ".json"):
