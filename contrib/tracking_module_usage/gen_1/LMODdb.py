@@ -126,7 +126,6 @@ class LMODdb(object):
 
     query = ""
     try:
-      f      = open(fn, "w")
       conn   = self.connect()
       cursor = conn.cursor()
       query  = "USE "+self.db()
@@ -172,19 +171,21 @@ class LMODdb(object):
       query = "SELECT user_id, mod_id, UNIX_TIMESTAMP(date) from join_user_module where date >= %s AND date < %s limit 10000000"
       cursor.execute(query, (startDate, endDate))
       numRows = cursor.rowcount
-      for i in range(numRows):
-        row     = cursor.fetchone()
-        user    = userA[int(row[0])]
-        modT    = moduleA[int(row[1])]
-        date    = str(row[2])
-        t       = {'user': user, 'path': modT['path'], 'module' : modT['module'], 'syshost': modT['syshost'], 'date' : date }
-        f.write(json.dumps(t) + "\n")
+      if (numRows > 0):
+        f      = open(fn, "w")
+        for i in range(numRows):
+          row     = cursor.fetchone()
+          user    = userA[int(row[0])]
+          modT    = moduleA[int(row[1])]
+          date    = str(row[2])
+          t       = {'user': user, 'path': modT['path'], 'module' : modT['module'], 'syshost': modT['syshost'], 'date' : date }
+          f.write(json.dumps(t) + "\n")
+        f.close()
 
     except Exception as e:
       print("dump_db(): ",e)
       sys.exit(1)
 
-    f.close()
 
   def data_to_db(self, debug, count, dataT, line):
     """
