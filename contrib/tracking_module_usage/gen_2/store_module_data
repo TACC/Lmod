@@ -82,7 +82,7 @@ def main():
   f = open(args.dataFn,"r")
 
   icount = 0
-  modulePatt = re.compile(r'.*ModuleUsageTracking:? *')
+  modulePatt = re.compile(r'.*ModuleUsageTracking[^ ]* *')
   
   usageT = {}
   for count, line in enumerate(f):
