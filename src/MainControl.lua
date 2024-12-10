@@ -312,8 +312,10 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 -- @param respect If true, then respect the old value.
-function M.setenv(self, name, value, respect)
-   name = (name or ""):trim()
+function M.setenv(self, table) --name, value, respect)
+   local name = (table[1] or ""):trim()
+   local value = table[2]
+   local respect = table[3] or nil
    dbg.start{"MainControl:setenv(\"",name,"\", \"",value,"\", \"",
               respect,"\")"}
 
@@ -342,8 +344,10 @@ end
 -------------------------------------------------------------------
 -- Set an environment variable.
 -- This function just sets the name with value in the current env.
-function M.setenv_env(self, name, value, respect)
-   name = (name or ""):trim()
+function M.setenv_env(self, table) --name, value, respect)
+   local name = (table[1] or ""):trim()
+   local value = table[2]
+   local respect = table[3] or nil
    dbg.start{"MainControl:setenv_env(\"",name,"\", \"",value,"\", \"",
               respect,"\")"}
    posix.setenv(name, value, true)
@@ -357,8 +361,12 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 -- @param respect If true, then respect the old value.
-function M.unsetenv(self, name, value, respect)
-   name = (name or ""):trim()
+function M.unsetenv(self, table) --name, value, respect)
+
+   local name = (table[1] or ""):trim()
+   local value = table[2]
+   local respect = table[3] or nil
+
    dbg.start{"MainControl:unsetenv(\"",name,"\", \"",value,"\")"}
 
    l_check_for_valid_name("unsetenv",name)
@@ -393,8 +401,9 @@ end
 -- @param self A MainControl object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
-function M.pushenv(self, name, value)
-   name = (name or ""):trim()
+function M.pushenv(self, table) --name, value)
+   local name = table[1]:trim()
+   local value = table[2]
    dbg.start{"MainControl:pushenv(\"",name,"\", \"",value,"\")"}
 
    l_check_for_valid_name("pushenv",name)
@@ -449,8 +458,9 @@ end
 -- @param self A MainControl object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
-function M.popenv(self, name, value)
-   name = (name or ""):trim()
+function M.popenv(self, table) --name, value)
+   local name = (table[1] or ""):trim()
+   local value = table[2]
    dbg.start{"MainControl:popenv(\"",name,"\", \"",value,"\")"}
 
    l_check_for_valid_name("popenv",name)

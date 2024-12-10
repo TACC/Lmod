@@ -66,7 +66,7 @@ local s_rangeFuncT = { ["<="] = {func = l_lessthan_equal, name = "<="},
                      }
 
 
-function M.new(self, sType, name, action, is, ie)
+function M.new(self, sType, name, action, is, ie, mode)
    --dbg.start{"Mname:new(",sType,")"}
 
    local exact_match = cosmic:value("LMOD_EXACT_MATCH")
@@ -142,6 +142,8 @@ function M.new(self, sType, name, action, is, ie)
       -- remove any trailing '/'s and any trailing .lua$
       o.__userName   = (name or ""):trim():gsub("/+$",""):gsub("%.lua$","")
    end
+
+   o.__mode = mode
 
    --dbg.fini("MName:new")
    return o

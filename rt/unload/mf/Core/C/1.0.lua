@@ -1,4 +1,4 @@
-setenv{"A", "A", mode={"load"}}
+setenv{"FOO", "BAR", mode={"load"}}
 setenv{"A", "B", mode={"unload"}}
 pushenv{"STACK_VAR", "load_value", mode={"load"}}
 pushenv{"STACK_VAR", "unload_value", mode={"unload"}}
