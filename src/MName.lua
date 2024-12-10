@@ -66,7 +66,7 @@ local s_rangeFuncT = { ["<="] = {func = l_lessthan_equal, name = "<="},
                      }
 
 
-function M.new(self, sType, name, action, is, ie, mode)
+function M.new(self, sType, name, action, is, ie)
    --dbg.start{"Mname:new(",sType,")"}
 
    local exact_match = cosmic:value("LMOD_EXACT_MATCH")
@@ -143,8 +143,6 @@ function M.new(self, sType, name, action, is, ie, mode)
       o.__userName   = (name or ""):trim():gsub("/+$",""):gsub("%.lua$","")
    end
 
-   o.__mode = mode
-
    --dbg.fini("MName:new")
    return o
 end
@@ -168,6 +166,8 @@ end
 -- @param sType The type which can be "entryT", "load", "mt"
 -- @return An array of MName objects.
 function M.buildA(self,sType, ...)
+
+   
    local argA = pack(...)
    local a    = {}
 

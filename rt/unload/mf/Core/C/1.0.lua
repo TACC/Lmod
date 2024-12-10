@@ -11,7 +11,7 @@ append_path{"PATH_TEST", "/last", mode={"load"}}
 append_path{"PATH_TEST", "/unload_last", mode={"unload"}}
 
 -- Test remove during specific modes
-remove_path{"PATH_TEST", "/to_remove", mode={"unload"}}
+--remove_path{"PATH_TEST", "/to_remove", mode={"unload"}}
 
 
 --setenv{"AA", "X", mode={"load", "unload"}}

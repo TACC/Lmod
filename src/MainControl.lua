@@ -312,10 +312,22 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 -- @param respect If true, then respect the old value.
-function M.setenv(self, table) --name, value, respect)
-   local name = (table[1] or ""):trim()
-   local value = table[2]
-   local respect = table[3] or nil
+function M.setenv(self, ...) --name, value, respect)
+   local name, value, respect
+
+   local firstArg = select(1, ...)
+   if type(firstArg) == "table" then
+      -- Format 2: arguments were passed as a table
+      local t = firstArg
+      name    = (t[1] or ""):trim()
+      value   = t[2]
+      respect = t[3] or nil
+   else
+      -- Format 1: arguments were passed as individual parameters
+      name, value, respect = ...
+      name = (name or ""):trim()
+   end
+
    dbg.start{"MainControl:setenv(\"",name,"\", \"",value,"\", \"",
               respect,"\")"}
 
@@ -340,7 +352,6 @@ function M.setenv(self, table) --name, value, respect)
    dbg.fini("MainControl:setenv")
 end
 
-
 -------------------------------------------------------------------
 -- Set an environment variable.
 -- This function just sets the name with value in the current env.
@@ -361,11 +372,21 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 -- @param respect If true, then respect the old value.
-function M.unsetenv(self, table) --name, value, respect)
+function M.unsetenv(self, ...) --name, value, respect)
+   local name, value, respect
 
-   local name = (table[1] or ""):trim()
-   local value = table[2]
-   local respect = table[3] or nil
+   local firstArg = select(1, ...)
+   if type(firstArg) == "table" then
+      -- Format 2: arguments were passed as a table
+      local t = firstArg
+      name    = (t[1] or ""):trim()
+      value   = t[2]
+      respect = t[3] or nil
+   else
+      -- Format 1: arguments were passed as individual parameters
+      name, value, respect = ...
+      name = (name or ""):trim()
+   end
 
    dbg.start{"MainControl:unsetenv(\"",name,"\", \"",value,"\")"}
 

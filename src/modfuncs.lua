@@ -140,24 +140,6 @@ end
 -- Validate a function with only string module names table.
 -- @param cmdName The command which is getting its arguments validated.
 --local function l_validateArgsWithValue(cmdName, ...)
---   local argA = pack(...)
-
---   for i = 1, argA.n -1 do
---      local v = argA[i]
---      if (type(v) ~= "string") then
---         mcp:report{msg="e_Args_Not_Strings", fn = myFileName(), cmdName = cmdName}
---         return false
---      end
---   end
-
---   local v = argA[argA.n]
---   if (type(v) ~= "string" and type(v) ~= "number" and type(v) ~= "boolean") then
---      mcp:report{msg="e_Args_Not_Strings", fn = myFileName(), cmdName = cmdName}
---      return false
---   end
---   return true
---end
-
 local function l_validateArgsWithValue(cmdName, table)
 
    local n = table.n or #table 
@@ -205,18 +187,6 @@ local function l_validateModules(cmdName, ...)
    return allGood
 end
 
---------------------------------------------------------------------------
---  The load function.  It can be found in the following forms:
--- "load('name'); load('name/1.2'); load(atleast('name','3.2'))",
---function load_module(...)
---   dbg.start{"load_module(",l_concatTbl({...},", "),")"}
---   if (not l_validateModules("load",...)) then return {} end
-
---   dbg.print{"mcp:name(): ",mcp:name(),"\n"}
---   local b  = mcp:load_usr(MName:buildA(mcp:MNameType(), ...))
---   dbg.fini("load_module")
---   return b
---end
 
 --------------------------------------------------------------------------
 -- Convert all function arguments to table form
@@ -263,11 +233,14 @@ function inTable(tbl, val)
 end
 
 
+--------------------------------------------------------------------------
+--  The load function.  It can be found in the following forms:
+-- "load('name'); load('name/1.2'); load(atleast('name','3.2'))",
+--function load_module(...)
 
 function load_module(...)
    dbg.start{"load_module(",l_concatTbl({...},", "),")"}
 
-   -- Convert arguments into a table, similar to how setenv is handled
    local argTable
    local mcp_old = mcp
    mcp, argTable = list_2_Tbl(MCP, mcp, ...)
@@ -277,29 +250,13 @@ function load_module(...)
        return {}
    end
 
-   -- If a mode selector is provided, check if current evaluation mode matches
-   if argTable.mode then
-       local currentMode = mcp._mode  
-       if (not inTable(argTable.mode, currentMode)) then
-           -- If the current mode is not allowed, skip this operation
-           mcp = mcp_old
-           dbg.fini("load_module")
-           return {}
-       end
-   end
-
-   -- Validate the modules as before
    if (not l_validateModules("load", table.unpack(argTable))) then
        mcp = mcp_old
        dbg.fini("load_module")
        return {}
    end
 
-   dbg.print{"mcp:name(): ", mcp:name(), "\n"}
-
-   -- Pass mode information along to MName:buildA
-   -- We assume MName:buildA is modified to accept a mode parameter and forward it to M.new
-   local b = mcp:load_usr(MName:buildA(mcp:MNameType(), argTable, argTable.mode))
+   local b = mcp:load_usr(MName:buildA(mcp:MNameType(), table.unpack(argTable)))
 
    mcp = mcp_old
    dbg.fini("load_module")
@@ -423,17 +380,17 @@ end
 function setenv(...)
    dbg.start{"setenv(",l_concatTbl({...},", "),")"}
 
-   local table 
+   local argTable 
    local mcp_old = mcp
-   mcp, table = list_2_Tbl(MCP, mcp, ...)
+   mcp, argTable = list_2_Tbl(MCP, mcp, ...)
    if ( not mcp ) then 
        mcp = mcp_old 
        return 
    end 
 
-   if (not l_validateArgsWithValue("setenv", table)) then return end
+   if (not l_validateArgsWithValue("setenv", argTable)) then return end
 
-   mcp:setenv(table)
+   mcp:setenv(table.unpack(argTable))
    mcp = mcp_old
    dbg.fini("setenv")
    return
@@ -444,9 +401,19 @@ end
 -- Unset the value of environment variable.
 function unsetenv(...)
    dbg.start{"unsetenv(",l_concatTbl({...},", "),")"}
-   if (not l_validateArgsWithValue("unsetenv",...)) then return end
 
-   mcp:unsetenv(...)
+   local argTable 
+   local mcp_old = mcp
+   mcp, argTable = list_2_Tbl(MCP, mcp, ...)
+   if ( not mcp ) then 
+       mcp = mcp_old 
+       return 
+   end 
+
+   if (not l_validateArgsWithValue("unsetenv", argTable)) then return end
+
+   mcp:unsetenv(table.unpack(argTable))
+   mcp = mcp_old
    dbg.fini("unsetenv")
    return
 end
@@ -958,8 +925,18 @@ end
 -- not loaded.  The reverse of an unload is a no-op.
 function unload(...)
    dbg.start{"unload(",l_concatTbl({...},", "),")"}
-   if (not l_validateModules("unload",...)) then return {} end
-   local b = unload_internal(MName:buildA("mt",...))
+
+   local argTable
+   local mcp_old = mcp
+   mcp, argTable = list_2_Tbl(MCP, mcp, ...)
+   if (not mcp) then
+       mcp = mcp_old
+       dbg.fini("unload_module")
+       return {}
+   end
+
+   if (not l_validateModules("unload", table.unpack(argTable))) then return {} end
+   local b = unload_internal(MName:buildA("mt",table.unpack(argTable)))
    dbg.fini("unload")
    return b
 end
