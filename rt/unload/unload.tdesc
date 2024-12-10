@@ -38,6 +38,15 @@ testdescript = {
      runLmod unload intel               # 7
      runLmod load   B                   # 8
      runLmod unload B                   # 9
+     runLmod load   C                   # 10
+     runLmod unload C                   # 11
+     
+     # Test mode-specific load functionality
+     runLmod load   F                   # 12 (Load F first for unload test)
+     runLmod load   D                   # 13 (Should load E, not affect F)
+     runLmod list                       # 14 (Should show D, E, and F loaded)
+     runLmod unload D                   # 15 (Should unload F, keep E)
+     runLmod list                       # 16 (Should show only E loaded)
 
      HOME=$ORIG_HOME
 
