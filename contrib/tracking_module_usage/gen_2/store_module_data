@@ -30,6 +30,7 @@ class CmdLineOptions(object):
     """ Specify command line arguments and parse the command line"""
     parser = argparse.ArgumentParser()
     parser.add_argument("-D",            dest='debug',    action="store_true",                           help="Debug Flag")
+    parser.add_argument("--store_all",   dest='storeAll', action="store_true", default=False,            help="Store all modules and not deduplicate")
     parser.add_argument("--confFn",      dest='confFn',   action="store",      default="lmodV2_db.conf", help="Name of the database")
     parser.add_argument("--ignoreFn",    dest='ignoreFn', action="store",                                help="List of module patterns to ignore")
     parser.add_argument("dataFn",                                                                        help="Syslog/Json file name")
@@ -70,10 +71,9 @@ def syshost(name):
 
 def main():
 
-  args = CmdLineOptions().execute()
-
-  lmod = LMODdb(args.confFn)
-  
+  args  = CmdLineOptions().execute()
+  lmod  = LMODdb(args.confFn)
+  dedup = not args.storeAll
   
   baseNm, extension = os.path.splitext(args.dataFn)
 
@@ -81,10 +81,12 @@ def main():
 
   f = open(args.dataFn,"r")
 
-  icount = 0
   modulePatt = re.compile(r'.*ModuleUsageTracking[^ ]* *')
   
+  dataA  = []
   usageT = {}
+  blkSz  = 1000
+  icount = 0
   for count, line in enumerate(f):
     line  = line.rstrip("\n")
     if (extension == ".json"):
@@ -108,32 +110,33 @@ def main():
     if (ignore.ignore(module)):
       continue
 
-    key = dataT['user'] + ' ' + dataT['syshost'] + ' ' + dataT['module'] + ' ' + dataT['path']
-    if (not key in usageT):
-      usageT[key] = { 'user'    : dataT['user'],
-                      'syshost' : dataT['syshost'],
-                      'module'  : dataT['module'],
-                      'path'    : dataT['path'],
-                      'date'    : dataT['date'],
+    if (dedup):
+      key = dataT['user'] + ' ' + dataT['syshost'] + ' ' + dataT['module'] + ' ' + dataT['path']
+      if (not key in usageT):
+        usageT[key] = { 'user'    : dataT['user'],
+                        'syshost' : dataT['syshost'],
+                        'module'  : dataT['module'],
+                        'path'    : dataT['path'],
+                        'date'    : dataT['date'],
                       }
-    
-  blkSz = 1000
-  dataA = []
-  icount = 0
-  for value in usageT.values():
-    if (icount < blkSz):
-      dataA.append(value.copy())
+          
     else:
-      lmod.data_to_db(args.debug, dataA)
-      dataA.clear()
-      dataA.append(value.copy())
-      icount = 0
-    icount += 1
-    
-  dataA.sort(key=operator.itemgetter('date'))
-
-  lmod.data_to_db(args.debug, dataA)
+      icount += 1
+      dataA.append(dataT.copy())
+      if (icount >= blkSz): 
+        lmod.data_to_db(args.debug, dataA)
+        dataA.clear()
+        icount = 0
+  
   f.close()
+
+  if (dedup):
+    for value in usageT.values():
+      dataA.append(value.copy())
+    dataA.sort(key=operator.itemgetter('date'))
+
+  if (len(dataA) > 0):
+    lmod.data_to_db(args.debug, dataA)
 
 
 if ( __name__ == '__main__'): main()
