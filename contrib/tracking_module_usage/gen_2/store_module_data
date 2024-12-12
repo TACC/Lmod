@@ -19,6 +19,13 @@ from __future__ import print_function
 import os, sys, re, time, argparse, json, operator
 from LMODdb import LMODdb
 
+def syshost(name):
+  hostA = name.split('.')
+  idx   = 1
+  if (len(hostA) < 2):
+    idx = 0
+  return hostA[idx]
+
 class CmdLineOptions(object):
   """ Command line Options class """
 
@@ -29,11 +36,12 @@ class CmdLineOptions(object):
   def execute(self):
     """ Specify command line arguments and parse the command line"""
     parser = argparse.ArgumentParser()
-    parser.add_argument("-D",            dest='debug',    action="store_true",                           help="Debug Flag")
-    parser.add_argument("--store_all",   dest='storeAll', action="store_true", default=False,            help="Store all modules and not deduplicate")
-    parser.add_argument("--confFn",      dest='confFn',   action="store",      default="lmodV2_db.conf", help="Name of the database")
-    parser.add_argument("--ignoreFn",    dest='ignoreFn', action="store",                                help="List of module patterns to ignore")
-    parser.add_argument("dataFn",                                                                        help="Syslog/Json file name")
+    parser.add_argument("-D",            dest='debug',      action="store_true",                           help="Debug Flag")
+    parser.add_argument("--delete",      dest='delete',     action="store_true", default=False,            help="delete file after processing")
+    parser.add_argument("--store_all",   dest='storeAll',   action="store_true", default=False,            help="Store all modules and not deduplicate")
+    parser.add_argument("--confFn",      dest='confFn',     action="store",      default="lmodV2_db.conf", help="Name of the database")
+    parser.add_argument("--ignoreFn",    dest='ignoreFn',   action="store",                                help="List of module patterns to ignore")
+    parser.add_argument('dataFnA',       metavar='dataFnA', type=str, nargs='+',                           help='a list of Syslog/Json files to process')
     args = parser.parse_args()
     return args
 
@@ -62,81 +70,105 @@ class Ignore(object):
     return result
 
 
-def syshost(name):
-  hostA = name.split('.')
-  idx   = 1
-  if (len(hostA) < 2):
-    idx = 0
-  return hostA[idx]
+class Reader(object):
+  def __init__(self, debug, ignore, ext, lmod):
+    self.debug      = debug
+    self.ignore     = ignore
+    self.ext        = ext
+    self.lmod       = lmod
+    self.modulePatt = re.compile(r'.*ModuleUsageTracking[^ ]* *')
 
-def main():
+  def handleOneLine(self, line):
+    line  = line.rstrip()
+    if (len(line) < 1):
+      return None
 
-  args  = CmdLineOptions().execute()
-  lmod  = LMODdb(args.confFn)
-  dedup = not args.storeAll
-  
-  baseNm, extension = os.path.splitext(args.dataFn)
-
-  ignore = Ignore(args.ignoreFn)
-
-  f = open(args.dataFn,"r")
-
-  modulePatt = re.compile(r'.*ModuleUsageTracking[^ ]* *')
-  
-  dataA  = []
-  usageT = {}
-  blkSz  = 1000
-  icount = 0
-  for count, line in enumerate(f):
-    line  = line.rstrip("\n")
-    if (extension == ".json"):
+    if (self.ext == '.json'):
       dataT = json.loads(line)
     else:
-      rest  = modulePatt.sub('',line)
+      rest  = self.modulePatt.sub('',line)
       dataT = dict(re.findall(r'(\S+)=(".*?"|\S+)', rest))
       host  = dataT.get('host')
       dataT['syshost'] = syshost(host)
       dataT['date']    = dataT['time']
       dataT.pop('time',None)
       dataT.pop('host',None)
-  
+
     if (dataT.get('syshost') == None):
-      continue
-      print(line)
+      dataT = None
+    elif (self.ignore.ignore(dataT.get('module'))):
+      dataT = None
 
-    # check if module is in the ignore list
-    # if so skip it.
-    module = dataT.get('module')
-    if (ignore.ignore(module)):
-      continue
+    return dataT
 
-    if (dedup):
-      key = dataT['user'] + ' ' + dataT['syshost'] + ' ' + dataT['module'] + ' ' + dataT['path']
-      if (not key in usageT):
-        usageT[key] = { 'user'    : dataT['user'],
-                        'syshost' : dataT['syshost'],
-                        'module'  : dataT['module'],
-                        'path'    : dataT['path'],
-                        'date'    : dataT['date'],
-                      }
-          
-    else:
-      icount += 1
-      dataA.append(dataT.copy())
-      if (icount >= blkSz): 
-        lmod.data_to_db(args.debug, dataA)
-        dataA.clear()
-        icount = 0
+class StoreAll(Reader):
+  def __init__(self, debug, ignore, ext, lmod):
+    super().__init__(debug, ignore, ext, lmod)
+    self.__blkSz  = 1000
+    self.__icount = 0
+    self.__dataA  = []
+    
+  def storeOneLine(self, dataT):
+    self.__icount += 1
+    self.__dataA.append(dataT.copy())
+    if (self.__icount >= self.__blkSz): 
+      self.lmod.data_to_db(self.debug, self.__dataA)
+      self.__dataA.clear()
+      self.__icount = 0
+
+  def save(self):
+    if (len(self.__dataA) > 0):
+      self.lmod.data_to_db(self.debug, self.__dataA)
   
-  f.close()
 
-  if (dedup):
-    for value in usageT.values():
+class Dedup(Reader):
+  def __init__(self, debug, ignore, ext, lmod):
+    self.__usageT = {}
+    super().__init__(debug, ignore, ext, lmod)
+
+  def storeOneLine(self, dataT):
+    key = dataT['user'] + ' ' + dataT['syshost'] + ' ' + dataT['module'] + ' ' + dataT['path']
+    if (not key in self.__usageT):
+      self.__usageT[key] = { 'user'    : dataT['user'],
+                             'syshost' : dataT['syshost'],
+                             'module'  : dataT['module'],
+                             'path'    : dataT['path'],
+                             'date'    : dataT['date'],
+                           }
+  def save(self):
+    dataA = []
+    for value in self.__usageT.values():
       dataA.append(value.copy())
     dataA.sort(key=operator.itemgetter('date'))
 
-  if (len(dataA) > 0):
-    lmod.data_to_db(args.debug, dataA)
+    if (len(dataA) > 0):
+      self.lmod.data_to_db(self.debug, dataA)
+
+
+def main():
+
+  args   = CmdLineOptions().execute()
+  lmod   = LMODdb(args.confFn)
+  ignore = Ignore(args.ignoreFn)
+  
+  for dataFn in args.dataFnA:
+    baseNm, extension = os.path.splitext(dataFn)
+    if (args.storeAll):
+      reader = StoreAll(args.debug, ignore, extension, lmod)
+    else:
+      reader = Dedup(args.debug,    ignore, extension, lmod)
+  
+    with open(dataFn, "r") as file:
+      for line in file:
+        dataT = reader.handleOneLine(line)
+        if (not dataT):
+          continue
+        reader.storeOneLine(dataT)
+
+      reader.save()
+      if (args.delete):
+        os.remove(dataFn)
+
 
 
 if ( __name__ == '__main__'): main()
