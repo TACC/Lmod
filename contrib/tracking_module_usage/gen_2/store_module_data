@@ -39,7 +39,7 @@ class CmdLineOptions(object):
     parser.add_argument("-D",            dest='debug',      action="store_true",                           help="Debug Flag")
     parser.add_argument("--delete",      dest='delete',     action="store_true", default=False,            help="delete file after processing")
     parser.add_argument("--store_all",   dest='storeAll',   action="store_true", default=False,            help="Store all modules and not deduplicate")
-    parser.add_argument("--confFn",      dest='confFn',     action="store",      default="lmodV2_db.conf", help="Name of the database")
+    parser.add_argument("--confFn",      dest='confFn',     action="store",      default="lmodV2_db.conf", help="DB config file")
     parser.add_argument("--ignoreFn",    dest='ignoreFn',   action="store",                                help="List of module patterns to ignore")
     parser.add_argument('dataFnA',       metavar='dataFnA', type=str, nargs='+',                           help='a list of Syslog/Json files to process')
     args = parser.parse_args()
@@ -158,6 +158,8 @@ def main():
     else:
       reader = Dedup(args.debug,    ignore, extension, lmod)
   
+    if (not os.path.exists(dataFn)):
+      continue
     with open(dataFn, "r") as file:
       for line in file:
         dataT = reader.handleOneLine(line)
