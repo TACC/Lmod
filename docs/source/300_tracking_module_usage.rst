@@ -79,12 +79,15 @@ Use SitePackage.lua to send a message to syslog.::
 
       -- use syshost from configuration if set
       -- otherwise extract 2nd name from hostname: i.e. login1.stampede2.tacc.utexas.edu
+      -- Please modify the following code to match your site.
       local host        = syshost 
       if (not host) then
          local i,j, first
-         i,j, first, host = uname("%n"):find("([^.]*)%.([^.]*)%.")
+         host             = uname("%n")
+         if (host:find("%.")) then
+            i,j, first, host = host:find("([^.]*)%.([^.]*)%.")
+         end
       end
-      
 
       if (mode() ~= "load") then return end
       local msg         = string.format("user=%s module=%s path=%s host=%s time=%f",
@@ -242,7 +245,8 @@ b) Use the "conf_create" program from the contrib/tracking_module_usage
    lmodV2_db.conf which is used by createDB.py, analyzeLmodDB and other programs to access the database.
 
 
-c) Make sure your python knows about the mysql.connector.python module. Please use pip or something similar if it is unavailable.
+c) Make sure your python knows about the mysql.connector.python
+   module. Please use pip or something similar if it is not already available.
 
 d) Create the database by running the createDB.py program.::
 
@@ -255,16 +259,10 @@ Step 7
 ------
 
 a) If you have more than one cluster and you want to store them in the
-   same database you might want to modify the store_module_data
-   program found in the contrib/tracking_module_usage directory.  It
-   assumes that host names are of the form:
-   node_name.cluster_name.something.something and the current
-   store_module_data program picks off the second field in the
-   hostname.  If your site names things differently you should modify
-   that routine to match your needs.
+   same database then make sure that your load_hook correctly sets the
+   name of the cluster.
 
-
-b) I use a cron job to load the moduleUsage.log-* files.   Here is the
+b) We use a cron job to load the moduleUsage.log-* files.   Here is the
    entry we use to record data.  This assumes that the account on
    "module usage machine" is swtools::
 
