@@ -418,8 +418,8 @@ function readAdmin()
 
       for v in whole:split("\n") do
          repeat
-            v = v:gsub("%s+","")
-            if (v:sub(1,1) == "#") then
+            v = v:gsub("^%s+$","")
+            if (v:find("^%s*#")) then
                -- ignore this comment line
                break
 
