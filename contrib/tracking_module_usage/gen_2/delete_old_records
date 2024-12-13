@@ -63,12 +63,7 @@ def main():
     print("Must specify end date")
     sys.exit(1)
           
-  print("startDate: ", startDate)
-  print("endDate:   ", endDate)
-  print("type(endDate): ",type(endDate))
-
   dateStr = lmod.build_dateTest(startDate, endDate)
-  print("dateStr:   ", dateStr)
   dateStr = dateStr.replace("and","",1)
   print("Deleting records with dates: ", dateStr)
   if (not args.yes): 

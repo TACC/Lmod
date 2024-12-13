@@ -274,7 +274,7 @@ Step 8
 ------
 
 Setup a crontab entry to remove data older than a year on the
-"module_usage_tracking" machine at the beginning of the month at 12:01 midnight::
+"module_usage_tracking" machine at the beginning of the month at 12:11 midnight::
 
      0 11 1 * * /home/swtools/load_module_usage/delete_old_records --keepMonths 12 --yes --confFn /home/swtools/load_module_usage/lmodV2_db.conf > /home/swtools/load_module_usage/delete.log 2>&1
 
