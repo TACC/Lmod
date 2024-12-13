@@ -420,7 +420,7 @@ function readAdmin()
          repeat
             v = v:gsub("%s+$","")
 
-            if (v:sub(1,1) == "#") then
+            if (v:gsub("^%s+", ""):sub(1,1) == "#") then
                -- ignore this comment line
                break
 
