@@ -690,6 +690,7 @@ SITE_CONTROLLED_PREFIX
 MODULEPATH_INIT
 SUPPORT_KSH
 EXTENDED_DEFAULT
+TERSE_DECORATIONS
 CACHED_LOADS
 LUA_INCLUDE
 TMOD_FIND_FIRST
@@ -809,6 +810,7 @@ with_tmodPathRule
 with_tmodFindFirst
 with_lua_include
 with_cachedLoads
+with_terseDecorations
 with_extendedDefault
 with_supportKsh
 with_ModulePathInit
@@ -1511,6 +1513,8 @@ Optional Packages:
                           defaults.[[no]]
   --with-lua_include=ans  Specify the lua include directory[[no]]
   --with-cachedLoads=ans  Use cache when loading modules. [[no]]
+  --with-terseDecorations=ans
+                          Allow for terse listing to be decorated. [[yes]]
   --with-extendedDefault=ans
                           Allow for extended default. [[yes]]
   --with-supportKsh=ans   Support KSH. [[no]]
@@ -4174,6 +4178,27 @@ else $as_nop
 printf "%s\n" "CACHED_LOADS=$withval" >&6; }
     CACHED_LOADS="$withval"
     printf "%s\n" "#define CACHED_LOADS \"$withval\"" >>confdefs.h
+
+fi
+
+
+
+# Check whether --with-terseDecorations was given.
+if test ${with_terseDecorations+y}
+then :
+  withval=$with_terseDecorations; TERSE_DECORATIONS="$withval"
+    TERSE_DECORATIONS=`echo $TERSE_DECORATIONS | tr '[:upper:]' '[:lower:]'`
+    VALID_YN $TERSE_DECORATIONS "--with-terseDecorations=ans: ans must be yes or no"
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: TERSE_DECORATIONS=$with_terseDecorations" >&5
+printf "%s\n" "TERSE_DECORATIONS=$with_terseDecorations" >&6; }
+    printf "%s\n" "#define TERSE_DECORATIONS \"$with_terseDecorations\"" >>confdefs.h
+
+else $as_nop
+  withval="yes"
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: TERSE_DECORATIONS=$withval" >&5
+printf "%s\n" "TERSE_DECORATIONS=$withval" >&6; }
+    TERSE_DECORATIONS="$withval"
+    printf "%s\n" "#define TERSE_DECORATIONS \"$withval\"" >>confdefs.h
 
 fi
 
@@ -7064,6 +7089,7 @@ echo "Use ~/.config/lmod directory only..........................." : $USE_DOT_C
 echo "Display Extensions w/ module avail.........................." : $AVAIL_EXTENSIONS
 echo "Dynamic Spider Cache support................................" : $DYNAMIC_SPIDER_CACHE
 echo "Module Conflicts remembered................................." : $LMOD_DOWNSTREAM_CONFLICTS
+echo "Allow terse listing to be decorated........................." : $TERSE_DECORATIONS
 echo "Allow for extended default.(ml intel/17 #-> intel/17.0.4)..." : $EXTENDED_DEFAULT  #"
 
 
