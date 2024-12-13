@@ -17,7 +17,9 @@ exit 2
 
 from __future__ import print_function
 import os, sys, re, time, argparse, json
-from LMODdb import LMODdb
+from datetime               import date
+from dateutil.relativedelta import relativedelta
+from LMODdb                 import LMODdb
 
 class CmdLineOptions(object):
   """ Command line Options class """
@@ -30,6 +32,8 @@ class CmdLineOptions(object):
     """ Specify command line arguments and parse the command line"""
     parser = argparse.ArgumentParser()
     parser.add_argument("--syshost",      dest='syshost',      action="store",      default = "%",            help="system host name")
+    parser.add_argument("--keepMonths",   dest='nMonths',      action="store",      default = None,           help="number of months to keep")
+    parser.add_argument("--yes",          dest='yes',          action="store_true", default = None,           help="yes to deletions")
     parser.add_argument("--start",        dest='startDate',    action="store",      default = "unknown",      help="start date")
     parser.add_argument("--end",          dest='endDate',      action="store",      default = "unknown",      help="end date")
     parser.add_argument("-D",             dest='debug',        action="store_true",                           help="Debug Flag")
@@ -39,12 +43,22 @@ class CmdLineOptions(object):
 
 
 
+def months_back(n):
+  today       = date.today()
+  result_date = today - relativedelta(months=n)
+  return result_date
+
 def main():
 
-  args = CmdLineOptions().execute()
-
-  lmod = LMODdb(args.confFn)
+  args      = CmdLineOptions().execute()
+  lmod      = LMODdb(args.confFn)
   
+  startDate = args.startDate
+  endDate   = args.endDate
+
+  if (args.nMonths):
+    endDate = months_back(args.nMonths)
+
   if (args.endDate == "unknown"):
     print("Must specify end date")
     sys.exit(1)
@@ -52,10 +66,11 @@ def main():
   dateStr = lmod.build_dateTest(args.startDate, args.endDate)
   dateStr = dateStr.replace("and","",1)
   print("Deleting records with dates: ", dateStr)
-  ans = input("Is this OK (y/N)?")
-  if (ans != 'y'):
-    print("Exiting!")
-    sys.exit(0)
+  if (not args.yes): 
+    ans = input("Is this OK (y/N)?")
+    if (ans != 'y'):
+      print("Exiting!")
+      sys.exit(0)
     
   
   lmod.delete_old_records(args.debug, args.syshost, args.startDate, args.endDate)
