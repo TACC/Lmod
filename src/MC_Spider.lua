@@ -55,7 +55,7 @@ local MainControl      = require("MainControl")
 MC_Spider              = inheritsFrom(MainControl)
 MC_Spider.my_name      = "MC_Spider"
 MC_Spider.my_sType     = "load"
-MC_Spider.my_tcl_mode  = "load"
+MC_Spider.my_tcl_mode  = "spider"
 
 local M                = MC_Spider
 
