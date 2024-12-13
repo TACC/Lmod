@@ -10,11 +10,12 @@ Tracking Module Usage
     generation (gen_1) to this version (gen_2).  The reasons why this
     version is better is discussed in the referenced section.  The
     tldr is that this new version stores much much less data.  At TACC
-    we are seeing over 100 times smaller data.  It is also easier to
+    we are seeing over 100 times less data stored.  It is also easier to
     remove older data.
 
     **NOTE**
-    Please use the files that are in contrib/tracking_module_usage/gen_2
+    Please use the programs describe here are in
+    contrib/tracking_module_usage/gen_2 
 
 
 Once you have a module system, it can be important to know what
@@ -275,9 +276,9 @@ Step 8
 Setup a crontab entry to remove data older than a year on the
 "module_usage_tracking" machine::
 
-     0 11 1 * * /home/swtools/load_module_usage/delete_old_records --keepMonths 12 --yes --confFn /home/swtools/load_module_usage/lmodV2_db.conf > /home/swtools/load_module_usage/delete.log
+     0 11 1 * * /home/swtools/load_module_usage/delete_old_records --keepMonths 12 --yes --confFn /home/swtools/load_module_usage/lmodV2_db.conf > /home/swtools/load_module_usage/delete.log 2>&1
 
-Step 8
+Step 9
 ------
 
 Once data is being written to the database you can now start analyzing the data.  You can use SQL commands directly
