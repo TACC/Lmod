@@ -195,3 +195,4 @@ W.I.P.:
             * Added MRC:pairsForMRC_aliases iterator
             * Removed MRC:__marged_hiddenT, MRC:__marged_forbiddenT and MRC:__mergedAlias2modT
             * Issue #731: Support for env. var. LMOD_SHOW_HIDDEN
+	    * Issue #739: Make tcl files have "spider" as mode matching when Lmod is in spider mode.
