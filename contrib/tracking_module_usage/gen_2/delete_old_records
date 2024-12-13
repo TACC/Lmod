@@ -78,7 +78,7 @@ def main():
       sys.exit(0)
     
   
-  lmod.delete_old_records(args.debug, args.syshost, args.startDate, args.endDate)
+  lmod.delete_old_records(args.debug, args.syshost, startDate, endDate)
 
 
 if ( __name__ == '__main__'): main()
