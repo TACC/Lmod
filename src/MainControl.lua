@@ -251,6 +251,7 @@ function M.build(name,mode)
       local MCSpider      = require('MC_Spider')
       local MCComputeHash = require('MC_ComputeHash')
       local MCCheckSyntax = require('MC_CheckSyntax')
+      local MCQuiet       = require('MC_Quiet')
 
       s_nameTbl = {
          ["load"]         = MCLoad,        -- Normal loading of modules
@@ -265,6 +266,8 @@ function M.build(name,mode)
          ["checkSyntax"]  = MCCheckSyntax, -- Check the syntax of a module, load, prereq, etc
                                            -- are ignored.
          ["dependencyCk"] = MCDepCk,       -- Report any missing dependency modules
+         ["quiet"]        = MCQuiet,       -- All operations are NO Ops (A.K.A quiet)
+         
       }
    end
 

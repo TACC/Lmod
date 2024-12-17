@@ -350,8 +350,9 @@ function main()
    Shell = BaseShell:build(shellNm)
 
    local optionTbl = optionTbl()
-   MCP = MainControl.build("load")
-   mcp = MainControl.build("load")
+   MCP  = MainControl.build("load")
+   MCPQ = MainControl.build("quiet")
+   mcp  = MainControl.build("load")
 
    ------------------------------------------------------------------
    -- initialize lmod with SitePackage and /etc/lmod/lmod_config.lua

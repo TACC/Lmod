@@ -67,8 +67,8 @@ local dbg          = require("Dbg"):dbg()
 local hook         = require("Hook")
 local max          = math.max
 local _concatTbl   = table.concat
-local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack -- luacheck: compat
-
+local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack   -- luacheck: compat
+local unpack       = (_VERSION == "Lua 5.1") and unpack   or table.unpack -- luacheck: compat
 --------------------------------------------------------------------------
 -- Special table concat function that knows about strings and numbers.
 -- @param aa  Input array
@@ -187,12 +187,11 @@ local function l_validateModules(cmdName, ...)
    return allGood
 end
 
-
 --------------------------------------------------------------------------
 -- Convert all function arguments to table form
 -- first_elem seperated from args for type test
-function list_2_Tbl(MCP, mcp, first_elem, ...)
-   dbg.start{"list_2_Tbl(",l_concatTbl({first_elem, ...},", "),")"}
+local function l_list_2_Tbl(first_elem, ...)
+   dbg.start{"l_list_2_Tbl(",l_concatTbl({first_elem, ...},", "),")"}
 
    local my_mcp = nil
    local t = nil
@@ -217,21 +216,11 @@ function list_2_Tbl(MCP, mcp, first_elem, ...)
       action = true
    end
 
-   if ( not action ) then my_mcp = nil end
+   if ( not action ) then my_mcp = MCPQ end
    dbg.print{"OutputTable: ", t, "\n"}
-   dbg.fini("list_2_Tbl")
+   dbg.fini("l_list_2_Tbl")
    return my_mcp, t
 end
-
-function inTable(tbl, val)
-   for _, v in ipairs(tbl) do
-      if v == val then
-         return true
-      end
-   end
-   return false
-end
-
 
 --------------------------------------------------------------------------
 --  The load function.  It can be found in the following forms:
@@ -243,20 +232,15 @@ function load_module(...)
 
    local argTable
    local mcp_old = mcp
-   mcp, argTable = list_2_Tbl(MCP, mcp, ...)
-   if (not mcp) then
+   mcp, argTable = l_list_2_Tbl( ...)
+
+   if (not l_validateModules("load", unpack(argTable))) then
        mcp = mcp_old
        dbg.fini("load_module")
        return {}
    end
 
-   if (not l_validateModules("load", table.unpack(argTable))) then
-       mcp = mcp_old
-       dbg.fini("load_module")
-       return {}
-   end
-
-   local b = mcp:load_usr(MName:buildA(mcp:MNameType(), table.unpack(argTable)))
+   local b = mcp:load_usr(MName:buildA(mcp:MNameType(), unpack(argTable)))
 
    mcp = mcp_old
    dbg.fini("load_module")
@@ -359,8 +343,12 @@ end
 function pushenv(...)
    dbg.start{"pushenv(",l_concatTbl({...},", "),")"}
    if (not l_validateArgsWithValue("pushenv",...)) then return end
-
-   mcp:pushenv(...)
+   local argTable
+   local mcp_old = mcp
+   
+   mcp, argTable = l_list_2_Tbl( ...)
+   mcp:pushenv(argTable)
+   mcp = mcp_old
    dbg.fini("pushenv")
    return
 end
@@ -382,15 +370,11 @@ function setenv(...)
 
    local argTable 
    local mcp_old = mcp
-   mcp, argTable = list_2_Tbl(MCP, mcp, ...)
-   if ( not mcp ) then 
-       mcp = mcp_old 
-       return 
-   end 
+   mcp, argTable = l_list_2_Tbl( ...)
 
    if (not l_validateArgsWithValue("setenv", argTable)) then return end
 
-   mcp:setenv(table.unpack(argTable))
+   mcp:setenv(unpack(argTable))
    mcp = mcp_old
    dbg.fini("setenv")
    return
@@ -404,15 +388,11 @@ function unsetenv(...)
 
    local argTable 
    local mcp_old = mcp
-   mcp, argTable = list_2_Tbl(MCP, mcp, ...)
-   if ( not mcp ) then 
-       mcp = mcp_old 
-       return 
-   end 
+   mcp, argTable = l_list_2_Tbl( ...)
 
    if (not l_validateArgsWithValue("unsetenv", argTable)) then return end
 
-   mcp:unsetenv(table.unpack(argTable))
+   mcp:unsetenv(unpack(argTable))
    mcp = mcp_old
    dbg.fini("unsetenv")
    return
@@ -928,15 +908,10 @@ function unload(...)
 
    local argTable
    local mcp_old = mcp
-   mcp, argTable = list_2_Tbl(MCP, mcp, ...)
-   if (not mcp) then
-       mcp = mcp_old
-       dbg.fini("unload_module")
-       return {}
-   end
+   mcp, argTable = l_list_2_Tbl( ...)
 
-   if (not l_validateModules("unload", table.unpack(argTable))) then return {} end
-   local b = unload_internal(MName:buildA("mt",table.unpack(argTable)))
+   if (not l_validateModules("unload", unpack(argTable))) then return {} end
+   local b = unload_internal(MName:buildA("mt",unpack(argTable)))
    dbg.fini("unload")
    return b
 end
