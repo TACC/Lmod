@@ -14,7 +14,7 @@ Tracking Module Usage
     remove older data.
 
     **NOTE**
-    Please use the programs describe here are in
+    Please use the programs describe here that are found in
     contrib/tracking_module_usage/gen_2 
 
 

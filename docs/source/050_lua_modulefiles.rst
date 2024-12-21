@@ -102,15 +102,13 @@ unset during unloading.
      of the modules.  When unloading all modules are marked to be
      unloaded.
 
-**purge** ():
-     This command will unload all (non-sticky) modules except the
-     current one.
-     
-
 **try_load** ("pkgA", "pkgB", "pkgC"):
      load all modules. No errors reported if unable to load. Any other
      errors will be reported.
 
+**purge** ():
+     This command will unload all (non-sticky) modules except the
+     one currently being loaded.
 
 **complete** ("shellName","name","args"):
      Bash and tcsh support the complete function.  Note that the
