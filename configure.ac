@@ -678,7 +678,7 @@ AC_SUBST(PATH_TO_LUA)
 AC_ARG_WITH(lua,
     AS_HELP_STRING([--with-lua=ans],[absolute path to the lua interpreter to use [[lua]]]),
     PATH_TO_LUA="$withval"
-    if test ${PATH_TO_LUA:0:1} != '/' ; then
+    if test $(printf %.1s" "$PATH_TO_LUA) != '/' ; then
       echo 
       echo "ERROR: Path to lua must be absolute!"
       exit 1
@@ -695,7 +695,7 @@ AC_SUBST(PATH_TO_LUAC)
 AC_ARG_WITH(luac,
     AS_HELP_STRING([--with-luac=ans],[absolute path to the luac interpreter to use [[luac]]]),
     PATH_TO_LUAC="$withval"
-    if test ${PATH_TO_LUAC:0:1} != '/' ; then
+    if test $(printf %.1s" "$PATH_TO_LUAC) != '/' ; then
       echo 
       echo "ERROR: Path to luac must be absolute"
       exit 1
@@ -816,7 +816,7 @@ AC_SUBST(PATH_TO_HASHSUM)
 AC_SUBST(PATH_TO_PAGER)
 AC_SUBST(PATH_TO_TCLSH)
 
-if test $MODE == "user_default" ; then
+if test $MODE = "user_default" ; then
   mode=0755
   EXEC_BITS=$(( 0111 & $mode ));
   if test $EXEC_BITS = 0; then
@@ -909,14 +909,14 @@ AC_PATH_PROGS(PATH_TO_LS, [gls] [ls], "")
 
 ##### LUA configuration -- start
 
-if ! command -v $PATH_TO_LUA &>/dev/null ; then
+if ! (command -v $PATH_TO_LUA &>/dev/null) ; then
   echo 'The program "'$PATH_TO_LUA'" must be in your path'
   rm -f makefile
   exit 1
 fi
 
 if test "${LUA_SUFFIX}" != no ; then
-   if test "${PATH_TO_LUA:0:1}" = '/' -o "${PATH_TO_LUAC:0:1}" = '/'; then
+   if test $(printf %.1s "$PATH_TO_LUA") = '/' -o $(printf %.1s "$PATH_TO_LUA") = '/'; then
       echo "Neither --with-lua= nor --with-luac= can be used with --with-luaSuffix="
       rm -f makefile
       exit 1
@@ -926,10 +926,10 @@ if test "${LUA_SUFFIX}" != no ; then
    echo "1) PATH_TO_LUA: $PATH_TO_LUA"
 else   
    mismatch=
-   if test "${PATH_TO_LUA:0:1}" = '/' -a "${PATH_TO_LUAC:0:1}" != '/'; then
+   if test $(printf %.1s "$PATH_TO_LUA") = '/' -a $(printf %.1s "$PATH_TO_LUA") != '/'; then
       mismatch="true"
    fi
-   if test "${PATH_TO_LUA:0:1}" != '/' -a "${PATH_TO_LUAC:0:1}" = '/'; then
+   if test $(printf %.1s "$PATH_TO_LUA") != '/' -a $(printf %.1s "$PATH_TO_LUA") = '/'; then
       mismatch="true"
    fi
    if test "$mismatch" = true ; then
@@ -939,24 +939,24 @@ else
    fi   
 fi
 
-if ! command -v $PATH_TO_LUA &>/dev/null ; then
+if ! (command -v $PATH_TO_LUA &>/dev/null) ; then
   echo 'The program "'$PATH_TO_LUA'" must be in your path'
   rm -f makefile
   exit 1
 fi
 
-if test ${PATH_TO_LUA:0:1} != '/' ; then
+if test $(printf %.1s "$PATH_TO_LUA") != '/' ; then
   AC_PATH_PROG(FIND_PATH_TO_LUA, $PATH_TO_LUA)
   PATH_TO_LUA=$(FOLLOW_READLINK $FIND_PATH_TO_LUA)
 fi
 
-if ! command -v $PATH_TO_LUAC &>/dev/null ; then
+if ! (command -v $PATH_TO_LUAC &>/dev/null) ; then
   echo 'The program "'$PATH_TO_LUAC'" must be in your path'
   rm -f makefile
   exit 1
 fi
 
-if test "${PATH_TO_LUAC:0:1}" != '/' ; then
+if test $(printf %.1s "$PATH_TO_LUA") != '/' ; then
   AC_PATH_PROG(FIND_PATH_TO_LUAC, $PATH_TO_LUAC)
   PATH_TO_LUAC=$(FOLLOW_READLINK $FIND_PATH_TO_LUAC)
 fi
@@ -1007,7 +1007,7 @@ printf "checking for lua modules: posix"
 
 missingModules=""
 for i in posix; do
-  if ! $PATH_TO_LUA $ac_confdir/proj_mgmt/luaModuleAvailable $i 2> /dev/null ; then
+  if ! ($PATH_TO_LUA $ac_confdir/proj_mgmt/luaModuleAvailable $i 2> /dev/null) ; then
     missingModules="$missingModules $i"
   fi
 done
