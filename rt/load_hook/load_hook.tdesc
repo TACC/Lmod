@@ -1,0 +1,59 @@
+-- -*- lua -*-
+testdescript = {
+   owner   = "rtm",
+   product = "modules",
+   description = [[
+	 Test load hook
+   ]],
+   keywords = {"load_hook" },
+
+   active = 1,
+   testName = "load_hook",
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     LUA=`findcmd lua`
+     ORIGINAL_PATH=$PATH
+     MODULEPATH_ROOT=$(testDir)/mf;     export MODULEPATH_ROOT
+     MODULEPATH=$MODULEPATH_ROOT/Core;  export MODULEPATH
+
+     remove_generated_lmod_files
+
+     export LMOD_PACKAGE_PATH=$(testDir)
+     runLmod --version                         # 1
+     runLmod load   xcc                        # 2
+     runLmod list                              # 3
+     runLmod unload xcc                        # 4
+     runLmod list                              # 5
+     
+     HOME=$ORIG_HOME
+     PATH=$ORIGINAL_PATH
+
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+
+}

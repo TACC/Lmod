@@ -1,0 +1,50 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load xcc
+===========================
+D=2.0;
+export D;
+LOADEDMODULES=xcc/1.0:d/2.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/load_hook/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/load_hook/mf/Core;
+export MODULEPATH;
+XCC=1.0;
+export XCC;
+_LMFILES_=ProjectDIR/rt/load_hook/mf/Core/xcc/1.0.lua:ProjectDIR/rt/load_hook/mf/Core/d/2.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={d={fn="ProjectDIR/rt/load_hook/mf/Core/d/2.0.lua",fullName="d/2.0",loadOrder=2,propT={},ref_count=1,stackDepth=1,status="active",userName="d",wV="000000002.*zfinal",},xcc={fn="ProjectDIR/rt/load_hook/mf/Core/xcc/1.0.lua",fullName="xcc/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="xcc",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/load_hook/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_hook/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/load_hook/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={d={fn="ProjectDIR/rt/load_hook/mf/Core/d/2.0.lua",fullName="d/2.0",loadOrder=2,propT={},ref_count=1,stackDepth=1,status="active",userName="d",wV="000000002.*zfinal",},xcc={fn="ProjectDIR/rt/load_hook/mf/Core/xcc/1.0.lua",fullName="xcc/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="xcc",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/load_hook/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_hook/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload xcc
+===========================
+unset D;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/load_hook/mf/Core;
+export MODULEPATH;
+unset XCC;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_hook/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_hook/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/load_hook/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/load_hook/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_hook/mf/Core",}';
+export _ModuleTable_;

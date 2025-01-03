@@ -570,7 +570,7 @@ function M.unload(self,mA)
             mt = frameStk:mt()
             mt:remove(sn)
             --l_registerUnloaded(fullName, fn)
-            hook.apply("unload",{fn = mname:fn(), modFullName = mname:fullName()})
+            hook.apply("unload",{fn = mname:fn(), modFullName = mname:fullName(), mname = mname})
          end
          frameStk:pop()
          a[#a+1] = status
