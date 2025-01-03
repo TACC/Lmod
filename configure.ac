@@ -678,7 +678,7 @@ AC_SUBST(PATH_TO_LUA)
 AC_ARG_WITH(lua,
     AS_HELP_STRING([--with-lua=ans],[absolute path to the lua interpreter to use [[lua]]]),
     PATH_TO_LUA="$withval"
-    if test $(printf %.1s" "$PATH_TO_LUA) != '/' ; then
+    if test $(printf %.1s "$PATH_TO_LUA") != '/' ; then
       echo 
       echo "ERROR: Path to lua must be absolute!"
       exit 1
@@ -695,7 +695,7 @@ AC_SUBST(PATH_TO_LUAC)
 AC_ARG_WITH(luac,
     AS_HELP_STRING([--with-luac=ans],[absolute path to the luac interpreter to use [[luac]]]),
     PATH_TO_LUAC="$withval"
-    if test $(printf %.1s" "$PATH_TO_LUAC) != '/' ; then
+    if test $(printf %.1s "$PATH_TO_LUAC") != '/' ; then
       echo 
       echo "ERROR: Path to luac must be absolute"
       exit 1
