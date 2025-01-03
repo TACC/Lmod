@@ -1,0 +1,84 @@
+-- -*- lua -*-
+local testName = "mode_select"
+
+testdescript = {
+   owner   = "mcawood",
+   product = "modules",
+   description = [[
+     Test mode-specific functionality for various Lmod functions:
+     - Environment operations (setenv, pushenv, unsetenv)
+     - Path operations (prepend_path, append_path, remove_path)
+     Tests include:
+     1. Basic mode-specific operations
+     2. Mixed mode and non-mode operations
+     3. Error cases and edge conditions
+   ]],
+   keywords = {testName},
+
+   active = 1,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     MODULEPATH_ROOT=$(testDir)/mf;       export MODULEPATH_ROOT
+     MODULEPATH=$(testDir)/mf/Core;       export MODULEPATH
+
+     remove_generated_lmod_files
+
+     cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
+
+     mkdir -p $HOME/.cache/lmod
+     buildSpiderT $MODULEPATH > $HOME/.cache/lmod/spiderT.lua
+
+     # Test Environment Variable Operations
+     runLmod load env_test              # 1 (Test mode-specific setenv)
+     runLmod list                       # 2 (Verify environment variables)
+     runLmod unload env_test           # 3 (Test unload behavior)
+     runLmod list                       # 4 (Verify cleanup)
+
+     # Test Path Operations
+     runLmod load path_test            # 5 (Test mode-specific path operations)
+     runLmod list                       # 6 (Verify path modifications)
+     runLmod unload path_test          # 7 (Test path cleanup)
+     runLmod list                       # 8 (Verify path restoration)
+
+     # Test Mixed Operations
+     runLmod load mixed_test           # 9 (Test mixed mode and non-mode operations)
+     runLmod list                       # 10 (Verify mixed state)
+     runLmod unload mixed_test         # 11 (Test mixed cleanup)
+     runLmod list                       # 12 (Verify final state)
+
+     # Test Load/Unload Operations
+     runLmod load load_test            # 13 (Test mode-specific module loading)
+     runLmod list                       # 14 (Verify loaded modules)
+     runLmod unload load_test          # 15 (Test mode-specific module unloading)
+     runLmod list                       # 16 (Verify final state)
+
+     HOME=$ORIG_HOME
+
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+} 

@@ -74,6 +74,7 @@ M.myModuleFullName     = MainControl.quiet
 M.myModuleUsrName      = MainControl.quiet
 M.myModuleName         = MainControl.quiet
 M.myModuleVersion      = MainControl.quiet
+M.popenv               = MainControl.quiet
 M.prepend_path         = MainControl.quiet
 M.prereq               = MainControl.quiet
 M.prereq_any           = MainControl.quiet

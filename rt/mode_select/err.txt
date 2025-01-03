@@ -1,0 +1,57 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load env_test
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) env_test/1.0
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload env_test
+===========================
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+No modules loaded
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load path_test
+===========================
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) path_test/1.0
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload path_test
+===========================
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+No modules loaded
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load mixed_test
+===========================
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) mixed_test/1.0
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload mixed_test
+===========================
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+No modules loaded

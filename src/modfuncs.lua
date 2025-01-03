@@ -305,35 +305,45 @@ end
 --------------------------------------------------------------------------
 -- Prepend a value to a path like variable.
 function prepend_path(...)
-   local t = l_convert2table(...)
-   dbg.start{"prepend_path(",l_concatTbl(t,", "),")"}
-   if (not l_validateStringTable(2, "prepend_path",t)) then return end
-
-   l_cleanupPathArgs(t)
-   if (t[2]) then mcp:prepend_path(t) end
+   dbg.start{"prepend_path(",l_concatTbl({...},", "),")"}
+   local argTable
+   local mcp_old = mcp
+   mcp, argTable = l_list_2_Tbl(...)
+   if (not l_validateArgsWithValue("prepend_path", argTable)) then return end
+   mcp:prepend_path(argTable)
+   mcp = mcp_old
    dbg.fini("prepend_path")
+   return
 end
 
 --------------------------------------------------------------------------
 -- Append a value to a path like variable.
 function append_path(...)
-   local t = l_convert2table(...)
-   dbg.start{"append_path(",l_concatTbl(t,", "),")"}
-   if (not l_validateStringTable(2, "append_path",t)) then return end
-   l_cleanupPathArgs(t)
-   if (t[2]) then mcp:append_path(t) end
+   dbg.start{"append_path(",l_concatTbl({...},", "),")"}
+   local argTable
+   local mcp_old = mcp
+   mcp, argTable = l_list_2_Tbl(...)
+   if (not l_validateArgsWithValue("append_path", argTable)) then return end
+   l_cleanupPathArgs(argTable)
+   if (argTable[2]) then mcp:append_path(argTable) end
+   mcp = mcp_old
    dbg.fini("append_path")
+   return
 end
 
 --------------------------------------------------------------------------
 -- Remove a value from a path like variable.
 function remove_path(...)
-   local t = l_convert2table(...)
-   dbg.start{"remove_path(",l_concatTbl(t,", "),")"}
-   if (not l_validateStringTable(2, "remove_path",t)) then return end
-   l_cleanupPathArgs(t)
-   if (t[2]) then mcp:remove_path(t) end
+   dbg.start{"remove_path(",l_concatTbl({...},", "),")"}
+   local argTable
+   local mcp_old = mcp
+   mcp, argTable = l_list_2_Tbl(...)
+   if (not l_validateArgsWithValue("remove_path", argTable)) then return end
+   l_cleanupPathArgs(argTable)
+   if (argTable[2]) then mcp:remove_path(argTable) end
+   mcp = mcp_old
    dbg.fini("remove_path")
+   return
 end
 
 --- Set Environment functions ----
@@ -342,12 +352,14 @@ end
 -- Set the value of environment variable and maintain a stack.
 function pushenv(...)
    dbg.start{"pushenv(",l_concatTbl({...},", "),")"}
-   if (not l_validateArgsWithValue("pushenv",...)) then return end
-   local argTable
+
+   local argTable 
    local mcp_old = mcp
-   
    mcp, argTable = l_list_2_Tbl( ...)
-   mcp:pushenv(argTable)
+
+   if (not l_validateArgsWithValue("pushenv", argTable)) then return end
+
+   mcp:pushenv(unpack(argTable))
    mcp = mcp_old
    dbg.fini("pushenv")
    return

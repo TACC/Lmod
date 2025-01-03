@@ -425,9 +425,21 @@ end
 -- @param self A MainControl object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
-function M.pushenv(self, table) --name, value)
-   local name = table[1]:trim()
-   local value = table[2]
+function M.pushenv(self, ...) --name, value)
+   local name, value
+
+   local firstArg = select(1, ...)
+   if type(firstArg) == "table" then
+      -- Format 2: arguments were passed as a table
+      local t = firstArg
+      name    = (t[1] or ""):trim()
+      value   = t[2]
+   else
+      -- Format 1: arguments were passed as individual parameters
+      name, value = ...
+      name = (name or ""):trim()
+   end
+
    dbg.start{"MainControl:pushenv(\"",name,"\", \"",value,"\")"}
 
    l_check_for_valid_name("pushenv",name)
@@ -482,9 +494,21 @@ end
 -- @param self A MainControl object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
-function M.popenv(self, table) --name, value)
-   local name = (table[1] or ""):trim()
-   local value = table[2]
+function M.popenv(self, ...) --name, value)
+   local name, value
+
+   local firstArg = select(1, ...)
+   if type(firstArg) == "table" then
+      -- Format 2: arguments were passed as a table
+      local t = firstArg
+      name    = (t[1] or ""):trim()
+      value   = t[2]
+   else
+      -- Format 1: arguments were passed as individual parameters
+      name, value = ...
+      name = (name or ""):trim()
+   end
+
    dbg.start{"MainControl:popenv(\"",name,"\", \"",value,"\")"}
 
    l_check_for_valid_name("popenv",name)
@@ -526,17 +550,30 @@ end
 -- Prepend to a path like variable.
 -- @param self A MainControl object
 -- @param t A table containing { name, value, nodups=v1, priority=v2}
-function M.prepend_path(self, t)
+function M.prepend_path(self, ...) --name, value)
    dbg.start{"MainControl:prepend_path(t)"}
-   local delim    = t.delim or ":"
-   local name     = t[1]
-   local value    = t[2]
-   local nodups   = not allow_dups( not t.nodups)
-   local priority = (-1)*(t.priority or 0)
+   
+   local name, value, nodups, priority, delim
+   
+   local firstArg = select(1, ...)
+   if type(firstArg) == "table" then
+      -- Format 2: arguments were passed as a table
+      local t = firstArg
+      name     = t[1]
+      value    = t[2]
+      nodups   = not allow_dups( not t.nodups)
+      priority = (-1)*(t.priority or 0)
+      delim    = t.delim or ":"
+   else
+      -- Format 1: arguments were passed as individual parameters
+      name, value = ...
+      nodups   = false
+      priority = 0
+      delim    = ":"
+   end
 
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
-
 
    dbg.print{"name:\"",name,"\", value: \"",value,
              "\", delim=\"",delim,"\", nodups=\"",nodups,
@@ -559,12 +596,28 @@ end
 -- Append to a path like variable.
 -- @param self A MainControl object
 -- @param t A table containing { name, value, nodups=v1, priority=v2}
-function M.append_path(self, t)
-   local delim    = t.delim or ":"
-   local name     = t[1]
-   local value    = t[2]
-   local nodups   = not allow_dups( not t.nodups)
-   local priority = t.priority or 0
+function M.append_path(self, ...) --name, value)
+   dbg.start{"MainControl:append_path(t)"}
+   
+   local name, value, nodups, priority, delim
+   
+   local firstArg = select(1, ...)
+   if type(firstArg) == "table" then
+      -- Format 2: arguments were passed as a table
+      local t = firstArg
+      name     = t[1]
+      value    = t[2]
+      nodups   = not allow_dups( not t.nodups)
+      priority = t.priority or 0
+      delim    = t.delim or ":"
+   else
+      -- Format 1: arguments were passed as individual parameters
+      name, value = ...
+      nodups   = false
+      priority = 0
+      delim    = ":"
+   end
+
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
 
@@ -590,16 +643,34 @@ end
 -- Remove an entry from a path like variable.
 -- @param self A MainControl object
 -- @param t A table containing { name, value, nodups=v1, priority=v2, where=v3, force=v4}
-function M.remove_path(self, t)
-   local delim    = t.delim or ":"
-   local name     = t[1]
-   local value    = t[2]
-   local nodups   = not allow_dups( not t.nodups)
-   local priority = t.priority or 0
-   local where    = t.where
+function M.remove_path(self, ...) --name, value)
+   dbg.start{"MainControl:remove_path(t)"}
+   
+   local name, value, nodups, priority, delim, where, force
+   
+   local firstArg = select(1, ...)
+   if type(firstArg) == "table" then
+      -- Format 2: arguments were passed as a table
+      local t = firstArg
+      name     = t[1]
+      value    = t[2]
+      nodups   = not allow_dups( not t.nodups)
+      priority = t.priority or 0
+      delim    = t.delim or ":"
+      where    = t.where
+      force    = t.force
+   else
+      -- Format 1: arguments were passed as individual parameters
+      name, value = ...
+      nodups   = false
+      priority = 0
+      delim    = ":"
+      where    = nil
+      force    = nil
+   end
+
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
-   local force    = t.force
 
    dbg.start{"MainControl:remove_path{\"",name,"\", \"",value,
              "\", delim=\"",delim,"\", nodups=",nodups,
