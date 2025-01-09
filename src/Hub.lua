@@ -158,8 +158,8 @@ function M.access(self, ...)
 
 
    if (#a > 0) then
-      LmodWarning{msg="w_Failed_2_Find",quote_comma_list=concatTbl(a,"\", \""),
-                             module_list=concatTbl(a," ")}
+      LmodError{msg="e_Failed_2_Find_w_Access",quote_comma_list=concatTbl(a,"\", \""),
+                module_list=concatTbl(a," ")}
    end
    dbg.fini("Hub:access")
 end
