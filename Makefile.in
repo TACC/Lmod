@@ -444,7 +444,8 @@ config.status:
 	./config.status --recheck
 
 trailing_blanks_removed:
-	find . -type d \( -path ./rt -o -path ./spec/Spider/h \) -prune -o -name '*.lua' -exec $(SED) -i -e 's/  *$$//' {} \;
+	find . -type d \( -path ./rt -o -path ./spec/Spider/h \) -prune -o -type f -name '*.lua'  -exec $(SED) -i.bak.BAK -e 's/  *$$//' {} \;
+	find . -type d \( -path ./rt -o -path ./spec/Spider/h \) -prune -o -name '*.lua.bak.BAK'  -exec rm {} \;
 
 dist:
 	GIT_BRANCH=`git status | head -n 1 | sed -e 's/^[# ]*On branch //g' -e 's/^[# ]*HEAD detached at//g'`; \
