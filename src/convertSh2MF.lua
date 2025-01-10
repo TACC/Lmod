@@ -89,7 +89,7 @@ local function l_convertSh2MF(shellName, style, script)
       shellT    = shellTemplateT.bash
       shellName = "bash"
    end
-   
+
    local ignoreT = {}
    for i = 1, #ignoreA do
       ignoreT[ignoreA[i]] = true
@@ -179,7 +179,7 @@ local function l_convertSh2MF(shellName, style, script)
       local msg = i18n("e_Sh_convertSh2MF",{})
       return success, msg, {}
    end
-      
+
 
    local resultT = { Vars     = {{},{}},
                      Aliases  = {{},{}},
@@ -194,7 +194,7 @@ local function l_convertSh2MF(shellName, style, script)
          resultT[blkName][irstIdx] = blkA[i]
       end
    end
-   
+
    local factory = MF_Base.build(style)
 
    return success, "", factory:process(shellName, ignoreT, resultT)

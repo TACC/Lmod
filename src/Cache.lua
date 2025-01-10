@@ -318,7 +318,7 @@ local function l_readCacheFile(self, mpathA, spiderTFnA)
          end
 
          dbg.print{"cacheFile found: ",fn,"\n"}
-         if (tracing == "yes") then  
+         if (tracing == "yes") then
             tracing_msg{"Using Cache file: ",fn}
          end
 
@@ -396,10 +396,10 @@ local function l_writeUserSpiderCacheWhenNecessary(self, delta_t, mpathA, spider
    dbg.print{"quiet:    ", quiet(),", initial:   ", optionTbl.initial,"\n"}
    dbg.print{"prtRbMsg: ",prtRbMsg,", quiet:     ",self.quiet,"\n"}
 
-   
+
    local r = {}
    hook.apply("writeCache",r)
-   
+
    dbg.print{"self.dontWrite: ", self.dontWrite, ", r.dontWriteCache: ",
                 r.dontWriteCache, "\n"}
 
@@ -534,7 +534,7 @@ function M.build(self, fast)
       mrc:update()
       return false, false, false, false
    end
-   
+
    if (next(spiderT) ~= nil) then
       dbg.print{"Using pre-built spiderT!\n"}
       dbg.fini("Cache:build")

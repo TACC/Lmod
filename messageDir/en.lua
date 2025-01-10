@@ -79,7 +79,7 @@ return {
        ml s  -> ml save
        ml sl -> ml savelist
        ml sw -> ml swap
-   
+
    Loading Modules named "r" or "spider" or other module commands
    --------------------------------------------------------------
 
@@ -177,7 +177,7 @@ please execute the command \" clearMT\" and reload your modules.
    $ module swap %{oldFullName} %{newFullName}
 
 Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOSWAP to "no" to re-enable same name autoswapping.
-]==],  -- 
+]==],  --
      e_No_Hashsum          = "Unable to find HashSum program (sha1sum, shasum, md5sum or md5).",
      e_No_Matching_Mods    = "No matching modules found.\n",
      e_No_Mod_Entry        = "%{routine}: Did not find module entry: \"%{name}\". This should not happen!\n",
@@ -215,7 +215,7 @@ See https://lmod.readthedocs.io/en/latest/260_sh_to_modulefile.html for details.
      e_missing_table       = "sandbox_registration: The argument passed is: \"%{kind}\". It should be a table.",
      e_setStandardPaths    = "Unknown Key: \"%{key}\" in setStandardPaths.\n",
 
-     
+
      --------------------------------------------------------------------------
      -- LmodMessages
      --------------------------------------------------------------------------
@@ -328,7 +328,7 @@ to see if the module(s) are available across all compilers and MPI implementatio
 %{border}
 The following dependent module(s) are not currently loaded: %{missing}
 %{border}
-]==], 
+]==],
      w_MPATH_Coll          = "The system MODULEPATH has changed: please rebuild your saved collection.\n",
      w_Mods_Not_Loaded     = "The following modules were not loaded: %{module_list}\n\n",
      w_Nearly_Forbidden    = "Access will be denied to this module starting %{after}\n",

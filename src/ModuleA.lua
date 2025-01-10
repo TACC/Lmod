@@ -480,7 +480,7 @@ function M.search(self, name)
    if (self.__isNVV) then
       local sn, versionStr, fileA = l_search(name, self.__moduleA)
       dbg.fini("ModuleA:search")
-      return sn, versionStr, fileA 
+      return sn, versionStr, fileA
    end
 
    if (not self.__locationT) then
@@ -489,7 +489,7 @@ function M.search(self, name)
 
    local sn, versionStr, fileA = self.__locationT:search(name)
    dbg.fini("ModuleA:search")
-   return sn, versionStr, fileA 
+   return sn, versionStr, fileA
 end
 
 local function l_checkforNV(T)
@@ -619,7 +619,7 @@ function M.__new(self, mpathA, maxdepthT, moduleRCT, spiderT)
 
    o.__locationT   = false
    o.__defaultT    = {}
-   
+
 
    dbg.fini("ModuleA:__new")
    return o

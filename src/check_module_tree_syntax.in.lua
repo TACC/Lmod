@@ -173,7 +173,7 @@ function check_syntax(mpath, mt, mList, sn, fn, fullName, errorA)
    local shell    = _G.Shell
    local tracing  = cosmic:value("LMOD_TRACING")
    local frameStk = FrameStk:singleton()
-   
+
 
    local function l_loadMe(entryT)
       dbg.start{"loadMe(entryT, moduleStack, iStack, myModuleT)"}
@@ -270,7 +270,7 @@ function options()
    optionTbl.pargs = pargs
    Use_Preload     = optionTbl.preload
 end
-   
+
 function main()
 
    options()
@@ -330,7 +330,7 @@ function main()
    MCP.report = check_syntax_error_handler
    Shell:setActive(false)
    setSyntaxMode(true)
-   
+
    local mList           = ""
    local tracing         = cosmic:value("LMOD_TRACING")
    local mt              = deepcopy(MT:singleton())
@@ -389,7 +389,7 @@ function main()
       end
       io.stderr:write("\n")
    end
-      
+
    dbg.fini("module_tree_check main")
    if (ierr > 0) then
       print("\n",colorize("red","There were ".. tostring(ierr) .. " possible errors found!"),"\n")

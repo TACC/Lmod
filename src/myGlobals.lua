@@ -66,7 +66,7 @@ LuaV = (_VERSION:gsub("Lua ",""))
 cosmic:init{name    = "LMOD_BRANCH",
             default = "main",
             assignV = Version.branch()}
-            
+
 
 ------------------------------------------------------------------------
 -- Lmod ExitHookArray Object:
@@ -96,7 +96,7 @@ if (not mpath_init) then
          mpath_init = default_mpath_init
       end
    end
-   
+
 end
 
 cosmic:init{name    = "LMOD_MODULEPATH_INIT",
@@ -190,7 +190,7 @@ cosmic:init{name    = "LMOD_DOWNSTREAM_CONFLICTS",
             default = "no",
             assignV = "no"}
 ------------------------------------------------------------------------
--- LMOD_RC:  Lmod RC list of colon separated files 
+-- LMOD_RC:  Lmod RC list of colon separated files
 ------------------------------------------------------------------------
 local rcfiles = getenv("LMOD_RC")
 cosmic:init{name    = "LMOD_RC",
@@ -394,7 +394,7 @@ cosmic:init{name    = "LMOD_PAGER_OPTS",
             default = "-XqMREF"}
 
 ------------------------------------------------------------------------
--- LMOD_SYSTEM_DEFAULT_MODULES: 
+-- LMOD_SYSTEM_DEFAULT_MODULES:
 ------------------------------------------------------------------------
 local defaultModules = getenv("LMOD_SYSTEM_DEFAULT_MODULES")
 
@@ -415,7 +415,7 @@ local rc_dflt    = pathJoin(etcDir,"rc.lua")
 if (not isFile(rc_dflt)) then
    rc_dflt   = pathJoin(etcDir,"rc")
 end
-local rc        = getenv("LMOD_MODULERC") or 
+local rc        = getenv("LMOD_MODULERC") or
                   getenv("LMOD_MODULERCFILE") or
                   getenv("MODULERCFILE")
 cosmic:init{name    = "LMOD_MODULERC",

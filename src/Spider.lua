@@ -305,7 +305,7 @@ function M.findAllModules(self, mpathA, spiderT, mpathMapT)
    local mList           = ""
    local exit            = os.exit
    os.exit               = l_nothing
-   
+
    local mcp_old   = mcp
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    mcp = MainControl.build("spider")
@@ -360,7 +360,7 @@ function M.findAllModules(self, mpathA, spiderT, mpathMapT)
             if (tracing == "yes") then
                tracing_msg{"Full spider search on ",mpath}
             end
-            
+
             local moduleA     = ModuleA:__new({mpath}, maxdepthT):moduleA()
             local T           = moduleA[1].T
             for sn, v in pairs(T) do
@@ -634,7 +634,7 @@ function M.buildDbT(self, mpathMapT, spiderT, dbT)
             t.fullName    = fullName
             local resultT = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, mpathA=mpathA, mpath = vv.mpath}
             t.hidden      = not resultT.isVisible
-            kind          = resultT.moduleKindT.kind 
+            kind          = resultT.moduleKindT.kind
             if (not vv.dot_version and (kind ~= "hard")) then
                T[vv.fn]  = t
             end
@@ -741,7 +741,7 @@ function M.Level0_terse(self,dbT, providedByT)
       for fn, v in pairs(vv) do
          local resultT = mrc:isVisible{fullName=v.fullName,sn=sn,fn=fn, mpath = v.mpath}
          if (resultT.isVisible) then
-            local forbiddenT = mrc:isForbidden{fullName=v.fullName, sn=sn, fn=fn, mpath = v.mpath} 
+            local forbiddenT = mrc:isForbidden{fullName=v.fullName, sn=sn, fn=fn, mpath = v.mpath}
             if (sn == v.fullName) then
                t[sn] = decorateModule(sn, resultT, forbiddenT)
             else
@@ -807,12 +807,12 @@ local function l_case_independent_cmp_by_name(a,b)
 end
 
 local function l_computeColor(resultT, forbiddenT)
-   local fT = forbiddenT 
+   local fT = forbiddenT
    if (not fT or next(fT) == nil) then
       fT = {forbiddenState = "normal"}
    end
    if (fT.forbiddenState ~= "normal") then
-      return fT.forbiddenState 
+      return fT.forbiddenState
    end
    if (resultT.moduleKindT.kind ~= "normal") then
       return "hidden"
@@ -840,7 +840,7 @@ function M.Level0Helper(self, dbT, providedByT, a)
             dbg.print{"fullName: ",v.fullName,", color: ",color,"\n"}
             dbg.printT("resultT",resultT)
             dbg.printT("forbiddenT",forbiddenT or {})
-            
+
             t[sn].versionA[v.pV] = colorize(color, v.fullName)
          end
       end
@@ -955,7 +955,7 @@ function M.spiderSearch(self, dbT, providedByT, userSearchPat, helpFlg)
    if (T or TT) then
       -- Must check for any valid modulefiles or providesBy
       dbg.print{"Have T or TT\n"}
-      
+
       local found = true
       if (not show_hidden) then
          found = false
@@ -1509,7 +1509,7 @@ function M._Level2(self, sn, fullName, entryA, entryPA, possibleA, tailMsg)
       ia = ia + 1; a[ia] = "\n"
       ia = ia + 1; a[ia] = tailMsg
    end
-      
+
 
    ia = ia + 1; a[ia] = "\n"
    local name = self:getExactMatch()

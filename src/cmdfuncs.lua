@@ -104,7 +104,7 @@ local function l_findNamedCollections(a,pathA)
    local system_name  = cosmic:value("LMOD_SYSTEM_NAME")
    local t            = {}
    for i = 1,#pathA do
-      repeat 
+      repeat
          local path = pathA[i]
          if (not isDir(path)) then break end
          for file in lfs.dir(path) do
@@ -208,7 +208,7 @@ To get a list of every module in a category execute:
 
       local b = {}
       for cat, _ in pairsByKeys(categoryT) do
-         b[#b+1] = cat 
+         b[#b+1] = cat
       end
 
       b = hook.apply("category", "simple", b) or b
@@ -427,7 +427,7 @@ function List(...)
             s = s .. "\n" .. entry.origUserName
          end
          dbg.print{"fullName: ",entry.fullName, ", orig: ",entry.origUserName,", s: ",s,"\n"}
-         
+
          for j = 1, wanted.n do
             local p = wanted[j]
             if (s:find(p)) then
@@ -691,7 +691,7 @@ function Reset(msg)
          b[#b+1] = {k,v}
       end
    end
-   
+
    local function cmp(a,b)
       return a[2] < b[2]
    end
@@ -707,7 +707,7 @@ function Reset(msg)
       pathA = concatTbl(a," ")
    end
 
-   
+
    dbg.print{"default: \"",default,"\"\n"}
 
    default = default:trim()
@@ -747,10 +747,10 @@ local function l_collectionDir(mode)
       a[#a+1] = dotConfD
       a[#a+1] = dotLmodD
    end
-   return a 
+   return a
 end
-      
-            
+
+
 
 local function l_find_a_collection(collectionName)
    local pathA = l_collectionDir("read")

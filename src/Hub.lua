@@ -993,7 +993,7 @@ function M.overview(self,argA)
       return a
    end
 
-   
+
 
    local use_cache   = false
    local moduleA     = ModuleA:singleton{spider_cache=use_cache}
@@ -1290,7 +1290,7 @@ function M.avail(self, argA)
    if (optionTbl.terse or optionTbl.terseShowExtensions) then
       --------------------------------------------------
       -- Terse output
-      self:terse_avail(mpathA, availA, searchA, showSN, defaultOnly, 
+      self:terse_avail(mpathA, availA, searchA, showSN, defaultOnly,
                        defaultT, optionTbl.terseShowExtensions, a)
 
       dbg.fini("Hub:avail")
