@@ -198,5 +198,7 @@ Lmod 8.7+
    (8.7.55) * Patch #737: A better test for spaces in front of # for admin.list
 W.I.P:
    (8.7.56) * Issue #742: Switch Makefile.in to use dump-downed sed instead of Gnu Sed
+   (8.7.56) * PR    #743: Allow TCL modulefile to test shell type
+   
    
    
