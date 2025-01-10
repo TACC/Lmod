@@ -147,6 +147,13 @@ Please check the spelling or version number. Also try "module spider ..."
 Also make sure that all modulefiles written in TCL start with the string #%Module
 ]==],
 
+     e_Failed_2_Find_w_Access = [==[Failed to find the following module(s):  "%{quote_comma_list}" in your MODULEPATH
+Try:
+
+    $ module spider %{module_list}
+
+to see if the module(s) are available across all compilers and MPI implementations.
+]==],
      e_Family_Conflict     = [==[You can only have one %{name} module loaded at a time.
 You already have %{oldName} loaded.
 To correct the situation, please execute the following command:
@@ -317,13 +324,6 @@ No change in modules loaded.
 ]==],
      w_Broken_FullName     = "Badly formed module-version line: module-name must be fully qualified: %{fullName} is not.\n",
      w_Empty_Coll          = "You have no modules loaded because the collection \"%{collectionName}\" is empty!\n",
-     w_Failed_2_Find       = [==[Failed to find the following module(s):  "%{quote_comma_list}" in your MODULEPATH
-Try:
-
-    $ module spider %{module_list}
-
-to see if the module(s) are available across all compilers and MPI implementations.
-]==],
      w_MissingModules      = [==[
 %{border}
 The following dependent module(s) are not currently loaded: %{missing}
