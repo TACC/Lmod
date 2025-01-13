@@ -44,36 +44,35 @@ testdescript = {
      # Test Error Cases - Each in isolation
      runLmod load nil_mode_test         # 1 (Test missing mode specification)
      runLmod list                       # 2 (Verify state after nil mode error)
-     module purge
+     runLmod purge                      # 3
      
-     runLmod load invalid_mode_test     # 3 (Test invalid mode string)
-     runLmod list                       # 4 (Verify state after invalid mode error)
-     module purge
+     runLmod load invalid_mode_test     # 4 (Test invalid mode string)
+     runLmod list                       # 5 (Verify state after invalid mode error)
+     runLmod purge                      # 6
      
-     runLmod load empty_mode_test       # 5 (Test empty mode table)
-     runLmod list                       # 6 (Verify state after empty mode error)
-     module purge
+     runLmod load empty_mode_test       # 7 (Test empty mode table)
+     runLmod list                       # 8 (Verify state after empty mode error)
+     runLmod purge                      # 9
 
      # Test Mixed Load Operations
-     runLmod load mixed_load_test       # 7 (Test load-specific operations)
-     runLmod list                       # 8 (Verify load state)
-     runLmod unload mixed_load_test     # 9 (Test cleanup)
-     runLmod list                       # 10 (Verify state after unload)
-     module purge
+     runLmod load mixed_load_test       #10 (Test load-specific operations)
+     runLmod list                       #11 (Verify load state)
+     runLmod unload mixed_load_test     #12 (Test cleanup)
+     runLmod list                       #13 (Verify state after unload)
+     runLmod purge                      #14
 
      # Test Mixed Unload Operations
-     runLmod load mixed_unload_test     # 11 (Test unload-specific operations)
-     runLmod list                       # 12 (Verify initial state)
-     runLmod unload mixed_unload_test   # 13 (Test unload behavior)
-     runLmod list                       # 14 (Verify final state)
-     module purge
+     runLmod load mixed_unload_test     #15 (Test unload-specific operations)
+     runLmod list                       #16 (Verify initial state)
+     runLmod unload mixed_unload_test   #17 (Test unload behavior)
+     runLmod list                       #18 (Verify final state)
+     runLmod purge                      #19
 
      # Test Mixed Both Operations
-     runLmod load mixed_both_test       # 15 (Test dual-mode operations during load)
-     runLmod list                       # 16 (Verify load state)
-     runLmod unload mixed_both_test     # 17 (Test dual-mode operations during unload)
-     runLmod list                       # 18 (Verify final state)
-     module purge
+     runLmod load mixed_both_test       #20 (Test dual-mode operations during load)
+     runLmod list                       #21 (Verify load state)
+     runLmod unload mixed_both_test     #22 (Test dual-mode operations during unload)
+     runLmod list                       #23 (Verify final state)
 
      HOME=$ORIG_HOME
 
