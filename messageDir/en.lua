@@ -511,5 +511,13 @@ The following modules match your search criteria: "%{module_list}"
      namedCollList  = "Named collection list %{msgHdr}:\n",
      noModsLoaded   = "No modules loaded\n",
      specific_hlp   = "Module Specific Help for \"%{fullName}\"",
+
+     -- Add new error messages for mode selector
+     e_Mode_Not_Set = [==[Syntax error in file: %{fn}
+ with command: %{cmdName}, mode must be specified when using mode selector.
+]==],
+     e_Invalid_Mode = [==[Syntax error in file: %{fn}
+ with command: %{cmdName}, invalid mode "%{mode}". Valid modes are: "load" and "unload".
+]==],
    }
 }

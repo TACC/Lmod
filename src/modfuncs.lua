@@ -188,6 +188,31 @@ local function l_validateModules(cmdName, ...)
 end
 
 --------------------------------------------------------------------------
+-- Validate mode selector input
+-- @param cmdName The command which is getting its arguments validated.
+-- @param t The table containing mode selector input
+local function l_validateModeSelector(cmdName, t)
+   if (t.mode == nil) then
+      mcp:report{msg="e_Mode_Not_Set", fn = myFileName(), cmdName = cmdName}
+      return false
+   end
+
+   if (#t.mode == 0) then
+      mcp:report{msg="e_Mode_Not_Set", fn = myFileName(), cmdName = cmdName}
+      return false
+   end
+
+   local validModes = {load = true, unload = true}
+   for i = 1, #t.mode do
+      if not validModes[t.mode[i]] then
+         mcp:report{msg="e_Invalid_Mode", fn = myFileName(), cmdName = cmdName, mode = t.mode[i]}
+         return false
+      end
+   end
+   return true
+end
+
+--------------------------------------------------------------------------
 -- Convert all function arguments to table form
 -- first_elem seperated from args for type test
 local function l_list_2_Tbl(first_elem, ...)
@@ -201,6 +226,12 @@ local function l_list_2_Tbl(first_elem, ...)
       t.kind = "table"
       local my_mode = mode()
       local modeA = t.mode or {}
+
+      -- Validate mode selector input
+      if not l_validateModeSelector(t.cmdName or "unknown", t) then
+         return MCPQ, t
+      end
+
       for i = 1,#modeA do
          if (my_mode == modeA[i]) then
             action = true
