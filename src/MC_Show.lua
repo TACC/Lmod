@@ -69,7 +69,27 @@ M.build_unload      = MainControl.do_not_build_unload
 M.color_banner      = MainControl.color_banner
 
 local function l_ShowCmd(name,...)
-   A[#A+1] = ShowCmdStr(name, ...)
+   local args = pack(...)
+   dbg.start{"l_ShowCmd(name=\"",name,"\")"}
+   for i=1,args.n do
+      dbg.print{"  arg[",i,"] type=",type(args[i]),", value=",args[i],"\n"}
+      if type(args[i]) == "table" then
+         dbg.print{"    table contents:\n"}
+         for k,v in pairs(args[i]) do
+            dbg.print{"    key=",k,", value=",v,"\n"}
+         end
+      end
+   end
+   
+   -- Use ShowCmdTbl for mode-specific functions
+   if args.n == 1 and type(args[1]) == "table" and args[1].mode then
+      dbg.print{"  Using ShowCmdTbl\n"}
+      A[#A+1] = ShowCmdTbl(name, args[1])
+   else
+      dbg.print{"  Using ShowCmdStr\n"}
+      A[#A+1] = ShowCmdStr(name, ...)
+   end
+   dbg.fini("l_ShowCmd")
 end
 
 local function l_Show_help(...)

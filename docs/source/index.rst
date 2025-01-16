@@ -1,4 +1,3 @@
-
 Lmod: A New Environment Module System
 =====================================
 
@@ -148,6 +147,7 @@ Advanced Topics
    340_inherit
    350_community
    360_check_syntax
+   370_irreversible
 
 Internal Structure of Lmod
 ^^^^^^^^^^^^^^^^^^^^^^^^^^

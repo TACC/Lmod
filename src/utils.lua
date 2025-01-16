@@ -838,6 +838,40 @@ function ShowCmdStr(name, ...)
 end
 
 --------------------------------------------------------------------------
+-- This routine formats table-style module commands to match the modulefile format
+-- @param name The command name (e.g. "setenv")
+-- @param t The table of arguments
+function ShowCmdTbl(name, t)
+   dbg.start{"ShowCmdTbl(",name,", t)"}
+   
+   local a = {}
+   a[#a + 1] = s_indentString
+   a[#a + 1] = name
+   a[#a + 1] = "{"
+   
+   -- Handle numeric indices first
+   for i = 1, #t do
+      if i > 1 then
+         a[#a + 1] = ","
+      end
+      a[#a + 1] = '"' .. t[i] .. '"'
+   end
+   
+   -- Only add mode field if present
+   if t.mode then
+      if #t > 0 then
+         a[#a + 1] = ","
+      end
+      a[#a + 1] = 'mode="' .. t.mode .. '"'
+   end
+   
+   a[#a + 1] = "}\n"
+   
+   dbg.fini("ShowCmdTbl")
+   return concatTbl(a,"")
+end
+
+--------------------------------------------------------------------------
 -- This routine prints a help message.  This is used by MC_Show
 function ShowHelpStr(...)
    dbg.start{"ShowHelpStr(...)"}

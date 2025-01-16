@@ -69,6 +69,18 @@ local max          = math.max
 local _concatTbl   = table.concat
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack   -- luacheck: compat
 local unpack       = (_VERSION == "Lua 5.1") and unpack   or table.unpack -- luacheck: compat
+
+-- List of functions that support mode-select
+local mode_select_functions = {
+    setenv = true,
+    pushenv = true,
+    unsetenv = true,
+    prepend_path = true,
+    append_path = true,
+    remove_path = true,
+    load = true
+}
+
 --------------------------------------------------------------------------
 -- Special table concat function that knows about strings and numbers.
 -- @param aa  Input array
@@ -192,16 +204,6 @@ end
 -- @param cmdName The command which is getting its arguments validated.
 -- @param t The table containing mode selector input
 local function l_validateModeSelector(cmdName, t)
-   if (t.mode == nil) then
-      mcp:report{msg="e_Mode_Not_Set", fn = myFileName(), cmdName = cmdName}
-      return false
-   end
-
-   if (#t.mode == 0) then
-      mcp:report{msg="e_Mode_Not_Set", fn = myFileName(), cmdName = cmdName}
-      return false
-   end
-
    local validModes = {load = true, unload = true}
    for i = 1, #t.mode do
       if not validModes[t.mode[i]] then
@@ -221,25 +223,64 @@ local function l_list_2_Tbl(first_elem, ...)
    local my_mcp = nil
    local t = nil
    local action = nil
-   if ( type(first_elem) == "table" )then
+
+   -- First check if this is a mode-select capable function call
+   local is_mode_select_capable = false
+   local cmdName = "unknown"
+   if type(first_elem) == "table" and first_elem.cmdName then
+      cmdName = first_elem.cmdName
+      is_mode_select_capable = mode_select_functions[cmdName]
+   end
+
+   dbg.print{"Mode selection debug:\n"}
+   dbg.print{"Function name: ", cmdName, "\n"}
+   dbg.print{"First elem type: ", type(first_elem), "\n"}
+   dbg.print{"Is mode-select capable: ", is_mode_select_capable, "\n"}
+
+   if type(first_elem) == "table" then
       t = first_elem
       t.kind = "table"
       local my_mode = mode()
-      local modeA = t.mode or {}
 
-      -- Validate mode selector input
-      if not l_validateModeSelector(t.cmdName or "unknown", t) then
-         return MCPQ, t
-      end
+      -- Only do mode validation for mode-select capable functions using curly brace syntax
+      if is_mode_select_capable and t.kind == "table" and not t.__waterMark then
+         dbg.print{"Checking mode for mode-select capable function\n"}
+         dbg.print{"Current mode: ", my_mode, "\n"}
+         dbg.print{"Has mode key: ", t.mode ~= nil, "\n"}
 
-      for i = 1,#modeA do
-         if (my_mode == modeA[i]) then
-            action = true
-            my_mcp = MCP 
-            break
+         -- For mode-select capable functions using curly brace syntax, mode MUST be specified
+         if not t.mode then
+            dbg.print{"Error: Mode-select capable function called with curly brace syntax but no mode key\n"}
+            mcp:report{msg="e_Mode_Not_Set", fn = myFileName(), cmdName = cmdName}
+            return MCPQ, t
          end
-      end
 
+         -- Mode must be a non-empty table
+         if type(t.mode) ~= "table" or #t.mode == 0 then
+            dbg.print{"Error: Mode must be a non-empty table\n"}
+            mcp:report{msg="e_Mode_Not_Set", fn = myFileName(), cmdName = cmdName}
+            return MCPQ, t
+         end
+
+         -- Validate the mode values
+         if not l_validateModeSelector(cmdName, t) then
+            return MCPQ, t
+         end
+
+         -- Check if current mode matches any of the specified modes
+         local modeA = t.mode
+         for i = 1,#modeA do
+            if (my_mode == modeA[i]) then
+               action = true
+               my_mcp = MCP 
+               break
+            end
+         end
+      else
+         -- Non mode-select function or non-curly brace syntax
+         action = true
+         my_mcp = mcp
+      end
    else
       t = pack(first_elem, ...)
       t.kind = "list"
