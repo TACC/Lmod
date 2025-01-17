@@ -17,14 +17,14 @@ Mode select is implemented through a table with a ``mode`` field that specifies 
     setenv{
         name = "MY_VAR",
         value = "some_value",
-        mode = "load"
+        mode = {"load"}
     }
 
     -- Execute only during unload
     setenv{
         name = "CLEANUP_VAR", 
         value = "cleanup_value",
-        mode = "unload"
+        mode = {"unload"}
     }
 
 Supported Modes
@@ -40,8 +40,8 @@ Important Notes
 
 1. When using mode select, the specified action becomes irreversible in the opposite mode. For example:
 
-   * If an action is specified with ``mode = "load"``, it will not be automatically reversed during unload
-   * If an action is specified with ``mode = "unload"``, it will not be automatically reversed during load
+   * If an action is specified with ``mode = {"load"}``, it will not be automatically reversed during unload
+   * If an action is specified with ``mode = {"unload"}``, it will not be automatically reversed during load
 
 2. To completely remove the effects of a mode-specific module, you may need to:
    
@@ -67,7 +67,7 @@ Consider a module that needs to perform special cleanup during unload::
     setenv{
         name = "CLEANUP_REQUIRED",
         value = "true",
-        mode = "unload"
+        mode = {"unload"}
     }
 
 In this example:
