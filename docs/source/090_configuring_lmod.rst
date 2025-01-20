@@ -271,8 +271,18 @@ the configuration option which will set the action.
   When this is set, Lmod will treat *prereq()* like *depends_on()* and
   *prereq_any()* like *depends_on_any()*.
 
+Setting environment variables or cosmic:assign() at startup
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**LMOD_FILE_IGNORE_PATTERNS**
+  Sites can replace the default value for this Lua Array variable to
+  ignore files.  The default value is `{"%.version[-._].*",
+  "%.modulerc[-._].*"}`.  Note that you must use Lua based regular
+  expressions.
+  
 Configuration or cosmic:assign() at startup
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 **LMOD_DOWNSTREAM_CONFLICTS**:
   [yes/no, default: no, --with-downstreamConflicts] If yes then

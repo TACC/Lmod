@@ -816,6 +816,7 @@ cosmic:init{name = "LMOD_HIDDEN_ITALIC",
 local patternA = {"%.version[-._].*",  "%.modulerc[-._].*"}
 cosmic:init{name    = "LMOD_FILE_IGNORE_PATTERNS",
             assignV = patternA,
+            envV    = getenv("LMOD_FILE_IGNORE_PATTERNS"),
             default = patternA}
 
 ------------------------------------------------------------------------

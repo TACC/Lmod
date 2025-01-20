@@ -94,7 +94,7 @@ function M.init(self, t)
    end
 
    if (t.assignV ~= nil) then
-      local defaultV = t.default
+      local defaultV = envV or t.default 
       local value    = t.assignV
       T[name] = {value = value, kind = kind, default = defaultV}
       return
