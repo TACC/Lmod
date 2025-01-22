@@ -251,6 +251,7 @@ local function l_search(name, moduleA)
       collectFileA(sn, fullStr, extended_default, vB[i], fileA[i])
    end
    dbg.printT("fileA",fileA)
+   dbg.print{"sn: ",sn,", versionStr: ",versionStr,"\n"}
    dbg.fini("ModuleA l_search")
    return sn, versionStr, fileA
 end
@@ -613,8 +614,11 @@ function M.__new(self, mpathA, maxdepthT, moduleRCT, spiderT)
    else
       dbg.print{"calling DirTree:new()\n"}
       dirTree         = DirTree:new(mpathA)
+      dbg.printT("dirTree",dirTree:dirA())
       o.__spiderBuilt = false
       o.__moduleA     = l_build(o, maxdepthT, dirTree:dirA())
+      dbg.printT("moduleA",o.__moduleA)
+      dbg.print{"isNVV: ",o.__isNVV,"\n"}
    end
 
    o.__locationT   = false
