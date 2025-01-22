@@ -74,7 +74,7 @@ local validT =
       spider_decoration    = {}, -- This hook adds decoration to spider level one output.
                                  -- It can be the category or a property.
       reverseMapPathFilter = {}, -- This hook returns two arrays keepA, ignoreA to keep or
-                                 -- ignore a path in the reverseMap mapping 
+                                 -- ignore a path in the reverseMap mapping
       colorize_fullName    = {}, -- Allow module avail and list to colorize name and/or version
 }
 
@@ -106,7 +106,7 @@ function M.register(name, func, action)
    if (not s_actionT[action]) then
       LmodWarning{msg="w_Unknown_Hook_Action",action = tostring(action)}
    end
-   
+
    -- Save func depending on action
    if (action == "replace") then
       validT[name] = {func}

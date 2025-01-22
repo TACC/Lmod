@@ -276,7 +276,7 @@ local function l_lazyEval(self)
 
    ---------------------------------------------------------------
    -- If found then check to see if this MName object is forbidden
-   
+
    if (found) then
       self.__forbiddenT = mrc:isForbidden{fullName=build_fullName(self.__sn, version),
                                           sn = self.__sn, fn = self.__fn,
@@ -305,7 +305,7 @@ function M.moduleKindT(self)
    local hidden_loaded = moduleKindT.hidden_loaded or nil
    local t = nil
    if (moduleKindT.kind ~= "normal") then
-      t = {kind = moduleKindT.kind, hidden_loaded = hidden_loaded} 
+      t = {kind = moduleKindT.kind, hidden_loaded = hidden_loaded}
    end
    return t
 end
@@ -492,13 +492,13 @@ local function l_find_exact_match(self, must_have_version, fileA)
       end
       if (found) then break end
    end
- 
+
    --dbg.print{"found: ",found,", fn: ",fn,", version: ", version,", wV: ",wV,
    --         ", kind: ",moduleKindT.kind,"\n"}
    --dbg.fini("MName l_find_exact_match")
    return found, fn, version, wV, moduleKindT, mpath
 end
-   
+
 
 ------------------------------------------------------------------------
 -- M.find_exact_match() is more difficult because there are possibly
@@ -812,7 +812,7 @@ function M.downstreamConflictCk(self, mnameIn)
 end
 
 function M.forbiddenT(self)
-   return self.__forbiddenT 
+   return self.__forbiddenT
 end
 
 function M.set_depends_on_flag(self, value)

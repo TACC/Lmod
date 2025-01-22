@@ -89,8 +89,8 @@ end
 
 
 local function l_prequire(m)
-   local ok, value = pcall(require, m) 
-   if (not ok) then 
+   local ok, value = pcall(require, m)
+   if (not ok) then
       return nil, value
    end
   return value
@@ -293,7 +293,7 @@ function colorizePropA(style, mt, modT, mrc, propT, legendT, forbiddenT)
       moduleName = colorize("forbid",modT.fullName)
       pA[#pA+1]  = F
       legendT[F] = i18n(msg)
-   end      
+   end
 
    if (forbiddenT.forbiddenState == "nearly") then
       local i18n  = require("i18n")
@@ -302,7 +302,7 @@ function colorizePropA(style, mt, modT, mrc, propT, legendT, forbiddenT)
       moduleName  = colorize("nearly",modT.fullName)
       pA[#pA+1]   = NF
       legendT[NF] = i18n(msg)
-   end      
+   end
 
    local resultA      = { moduleName }
    for kk,vv in pairsByKeys(propDisplayT) do
@@ -623,10 +623,10 @@ function path2pathA(path, delim, clearDoubleSlash)
    -- If path is /sw1/man::/sw2/man then
    -- keep the double delim's
    -- However convert /sw1/man:::/sw2/man to
-   --                 /sw1/man::/sw2/man 
+   --                 /sw1/man::/sw2/man
 
    local delimPatt = delim .. delim .. "+";
-   local delimStr  = delim .. delim 
+   local delimStr  = delim .. delim
    path = path:gsub(delimPatt,delimStr)
 
    local pathA = {}
@@ -706,7 +706,7 @@ function sanizatizeTbl(rplmntA, inT, outT)
       local p = rplmntA[i]
       replaceA[i] = { p[1]:escape(), p[2]}
    end
-   
+
    l_sanizatizeTbl(replaceA, inT, outT)
 end
 
@@ -849,7 +849,7 @@ function ShowHelpStr(...)
          a[#a + 1] = line
          a[#a + 1] = "\n" .. s_indentString
       end
-      a[#a] = "]],[[\n" .. s_indentString 
+      a[#a] = "]],[[\n" .. s_indentString
    end
    a[#a] = "]])\n"
    dbg.fini("ShowHelpStr")
@@ -884,7 +884,7 @@ function decorateModule(name, resultT, forbiddenT)
          }
       end
    end
-   
+
    local fT = forbiddenT
    if (not forbiddenT or next(forbiddenT) == nil) then
       fT = s_decoyT
@@ -896,7 +896,7 @@ function decorateModule(name, resultT, forbiddenT)
    a[#a+1] = s_decorateT[fT.forbiddenState]
    return concatTbl(a,"")
 end
-   
+
 --------------------------------------------------------------------------
 -- Unique string that combines the current time/date
 -- with a uuid id string.
@@ -999,7 +999,7 @@ local function l_restoreEnv(oldEnvT, newEnvT)
       setenv_posix(k,v or nil, true)
    end
    dbg.fini("l_restoreEnv")
-end   
+end
 
 
 local function l_runTCLprog(TCLprog, tcl_args)
@@ -1136,7 +1136,7 @@ end
 declare("QuarantineT")
 
 local function l_build_quarantineT()
-   
+
    QuarantineT = {}
    if (LMOD_QUARANTINE_VARS) then
       local qA = path2pathA(LMOD_QUARANTINE_VARS)
@@ -1169,9 +1169,9 @@ function reset_env()
    s_clrEnvT = {}
    s_envT    = {}
 end
-      
+
 ------------------------------------------------------------
--- Initialize Lmod 
+-- Initialize Lmod
 
 function initialize_lmod()
    -- Push Lmod version into environment
@@ -1198,7 +1198,7 @@ function initialize_lmod()
    cosmic:set_key("lmod_cfg")
    build_i18n_messages()
    l_build_runTCLprog()
-   l_build_accept_function()   
+   l_build_accept_function()
    l_build_allow_dups_function()
    l_build_prepend_order_function()
    if (not QuarantineT) then
@@ -1253,9 +1253,9 @@ function tracing_msg(msgA)
 end
 
 function dynamic_shell(shellNm)
-   local BaseShell = require("BaseShell") 
+   local BaseShell = require("BaseShell")
    local success   = false
-   
+
    if (shellNm ~= "shell") then
       if (BaseShell.isValid(shellNm)) then
          -- Trust a valid shell and report the shell name is valid and return
@@ -1285,7 +1285,7 @@ function dynamic_shell(shellNm)
          return shellNm, success
       end
    end
-   
+
    local ps_cmd = "@ps@"
    if ( ps_cmd:sub(1,1) == "@" ) then
       ps_cmd = "ps"

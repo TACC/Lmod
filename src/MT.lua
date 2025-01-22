@@ -367,7 +367,7 @@ function M.add_sh2mf_cmds(self, sn, script, mcmdA)
    if (entry ~= nil) then
       local a64 = {}
       for i =1, #mcmdA do
-         a64[i] = encode64(mcmdA[i]) 
+         a64[i] = encode64(mcmdA[i])
       end
       if (entry.mcmdT_64 == nil) then
          entry.mcmdT_64 = {}
@@ -392,7 +392,7 @@ function M.get_sh2mf_cmds(self, sn, script)
    end
    return nil
 end
-   
+
 function M.setStatus(self, sn, status)
    local entry = self.mT[sn]
    if (entry ~= nil) then
@@ -479,11 +479,11 @@ function M.serializeTbl(self, state)
       end
       mt.conflictT = tt
    end
-         
+
    if (make_pretty)  then
       local mT = mt.mT
       for sn, v in pairs(mT) do
-         local mcmdT_64 = mT[sn].mcmdT_64 
+         local mcmdT_64 = mT[sn].mcmdT_64
          if (mcmdT_64 and next(mcmdT_64) ~= nil) then
             local t = {}
             for script64, mcmdA_64 in pairsByKeys(mcmdT_64) do
@@ -582,7 +582,7 @@ function M.list(self, kind, status)
              local obj = { sn = k, fullName = v.fullName, userName = v.userName,
                           name = v.fullName, fn = v.fn, loadOrder = v.loadOrder,
                           stackDepth = v.stackDepth, ref_count = v.ref_count,
-                          depends_on_anyA = v.depends_on_anyA, displayName = v.fullName, 
+                          depends_on_anyA = v.depends_on_anyA, displayName = v.fullName,
                           origUserName = v.origUserName or false,
                           moduleKindT = v.moduleKindT or {},
                           forbiddenT  = v.forbiddenT or {},
@@ -725,7 +725,7 @@ function M.list_w_property(self, idx, sn, style, legendT)
 
    local resultA = colorizePropA(style, self, {fullName=entry.fullName, origUserName=entry.origUserName, sn=sn, fn=entry.fn},
                                  mrc, entry.propT, legendT, entry.forbiddenT)
-   dbg.print{"resultA: ",resultA[1]," ",resultA[2],"\n"} 
+   dbg.print{"resultA: ",resultA[1]," ",resultA[2],"\n"}
    if (resultA[2]) then
       resultA[2] = "(" .. resultA[2] .. ")"
    end
@@ -795,7 +795,7 @@ function M.lookup_w_userName(self,userName)
    if (userName == sn) then
       return sn
    end
-   
+
    -- Case 2:  userName -> fullName ?
    local fullName = self:fullName(sn)
    if (userName == fullName) then
@@ -1330,7 +1330,7 @@ function M.getMTfromFile(self,tt)
       dbg.print{"sn: ",sn,", hash: ", t[sn], "\n"}
    end
 
-   
+
    mcp:purge{force=true}
 
    local savedBaseMPATH = l_mt.systemBaseMPATH
@@ -1369,7 +1369,7 @@ function M.getMTfromFile(self,tt)
 
    s_mt = false
    __removeEnvMT()
-   
+
    local varT = frameStk:varT()
    FrameStk:__clear()
    dbg.print{"Setting MODULEPATH to: ",savedMPATH,"\n"}
@@ -1421,7 +1421,7 @@ function M.getMTfromFile(self,tt)
    -- depends_on() function is a fake load.
    for i = 1, #activeA do
       local mname = MName:new("load",activeA[i][knd])
-      local ref_count = activeA[i].ref_count 
+      local ref_count = activeA[i].ref_count
       if (ref_count) then
          ref_count = ref_count - 1
       end
@@ -1526,7 +1526,7 @@ function M.extractModulesFiles(self)
       fileStr = concatTbl(fileA,":")
    end
 
-   local oldV = getenv("LOADEDMODULES") 
+   local oldV = getenv("LOADEDMODULES")
    dbg.print{"RTM: oldV: ",oldV,", loadStr: ",loadStr,"\n"}
 
    if (oldV == loadStr) then

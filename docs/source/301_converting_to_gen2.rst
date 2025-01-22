@@ -55,7 +55,7 @@ This will create files named lmodV2_YYYY_MM_DD.json.
 Step 2
 ------
 
-Place or copy those *.json files to the appropriate machine or
+Place or copy those \*.json files to the appropriate machine or
 location where you can load then into the new "module_usage_tracking"
 machine.
 

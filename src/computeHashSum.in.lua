@@ -143,7 +143,7 @@ function main()
    ------------------------------------------------------------------
    -- initialize lmod with SitePackage and /etc/lmod/lmod_config.lua
    initialize_lmod()
-   
+
    MCP           = MainControl.build("computeHash","load")
    mcp           = MainControl.build("computeHash","load")
 

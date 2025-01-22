@@ -264,7 +264,7 @@ function M.pushenv(self, name, value)
    save_set_env(name, value)
    dbg.fini()
    return true
-end   
+end
 
 --------------------------------------------------------------------------
 -- Pass-thru to Spider_append_path().

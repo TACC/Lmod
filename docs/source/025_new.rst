@@ -1,6 +1,10 @@
 New Features in Lmod
 ====================
 
+**LMOD_FILE_IGNORE_PATTERNS**
+  (Lmod 8.7.56+)  Sites can replace the default value with their own
+  list of file patterns to ignore.
+
 **Updated Tracking Module Usage**
   (Lmod 8.7.54+) The optional module usage tracking system has been
   updated.  It now uses Python3 and mysql.connector.python.  The new

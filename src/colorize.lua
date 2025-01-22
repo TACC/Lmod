@@ -107,7 +107,7 @@ function full_colorize(color, ... )
    end
    a[#a+1] = Escape.."[0m"
    return concatTbl(a,"")
-end   
+end
 
 --------------------------------------------------------------------------
 -- This prints the array of strings without any colorization.

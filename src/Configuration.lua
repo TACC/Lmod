@@ -152,7 +152,7 @@ local function l_new(self)
    local lmod_configDir    = cosmic:value("LMOD_CONFIG_DIR")
    local lmod_lang         = cosmic:value("LMOD_LANG")
    local lmodrc            = cosmic:value("LMOD_RC")
-   local lmod_branch       = cosmic:value("LMOD_BRANCH") 
+   local lmod_branch       = cosmic:value("LMOD_BRANCH")
    local lua_path          = cosmic:value("PATH_TO_LUA")
    local mpath_avail       = cosmic:value("LMOD_MPATH_AVAIL")
    local mpath_init        = cosmic:value("LMOD_MODULEPATH_INIT")
@@ -188,7 +188,7 @@ local function l_new(self)
    end
    s = s .. "}"
    local fileIgnPattStr = s:gsub(", }","}")
-      
+
    if (dfltModules == "") then
       dfltModules = "<empty>"
    end
@@ -220,10 +220,10 @@ local function l_new(self)
    tbl.allowRoot      = { k = "Allow root to use Lmod"            , v = allow_root_use,    n = "LMOD_ALLOW_ROOT_USE"             }
    tbl.allowTCL       = { k = "Allow TCL modulefiles"             , v = allow_tcl_mfiles,  n = "LMOD_ALLOW_TCL_FILES"            }
    tbl.avail_style    = { k = "Avail Style"                       , v = avail_style,       n = "LMOD_AVAIL_STYLE"                }
-   tbl.autoSwap       = { k = "Auto swapping"                     , v = auto_swap,         n = "LMOD_AUTO_SWAP"                  }       
+   tbl.autoSwap       = { k = "Auto swapping"                     , v = auto_swap,         n = "LMOD_AUTO_SWAP"                  }
    tbl.case           = { k = "Case Independent Sorting"          , v = case_ind_sorting,  n = "LMOD_CASE_INDEPENDENT_SORTING"   }
    tbl.colorize       = { k = "Colorize Lmod"                     , v = lmod_colorize,     n = "LMOD_COLORIZE"                   }
-   tbl.configDir      = { k = "Configuration dir"                 , v = lmod_configDir,    n = "LMOD_CONFIG_DIR"                 } 
+   tbl.configDir      = { k = "Configuration dir"                 , v = lmod_configDir,    n = "LMOD_CONFIG_DIR"                 }
    tbl.disable1N      = { k = "Disable Same Name AutoSwap"        , v = disable1N,         n = "LMOD_DISABLE_SAME_NAME_AUTOSWAP" }
    tbl.disp_av_ext    = { k = "Display Extension w/ avail"        , v = avail_extensions,  n = "LMOD_AVAIL_EXTENSIONS"           }
    tbl.dotConfOnly    = { k = "Use ~/.config dir only"            , v = useDotConfigOnly,  n = "LMOD_USE_DOT_CONFIG_ONLY"        }
@@ -329,7 +329,7 @@ function M.report(self, t)
    end
 
    local b = {}
-   local bt 
+   local bt
    if (not mini) then
       bt      = BeautifulTbl:new{tbl=a}
       b[#b+1] = bt:build_tbl()
@@ -351,7 +351,7 @@ function M.report(self, t)
    b[#b+1] = "Changes from Default Configuration"
    b[#b+1] = "----------------------------------\n"
 
-   
+
    if (next(aa) ~= nil) then
       bt      = BeautifulTbl:new{tbl=aa}
       b[#b+1] = bt:build_tbl()
@@ -388,7 +388,7 @@ function M.report(self, t)
          b[#b+1]  = bt:build_tbl()
          b[#b+1]  = "\n"
       end
-      
+
       local banner = Banner:singleton()
       local border = banner:border(2)
       local str    = " Lmod Property Table (LMOD_RC):"

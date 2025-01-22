@@ -68,7 +68,7 @@ function collectFileA(sn, versionStr, extended_default, v, fileA)
                end
             end
          end
-         
+
          if (found or versionStr ~= "default") then
             -- We can return if we found something or the version string is not /default
             dbg.fini("collectFileA via found or versionStr ~= \"default\"")
