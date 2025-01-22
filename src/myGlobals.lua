@@ -49,6 +49,7 @@ local lfs          = require("lfs")
 local getenv       = os.getenv
 local access       = posix.access
 local setenv_posix = posix.setenv
+local load         = (_VERSION == "Lua 5.1") and loadstring or load
 
 if (isNotDefined("cmdDir")) then
    _G.cmdDir = function() return pathJoin(getenv("PROJDIR"),"src") end
@@ -814,9 +815,22 @@ cosmic:init{name = "LMOD_HIDDEN_ITALIC",
 -- LMOD_FILE_IGNORE_PATTERNS
 -----------------------------------------------------------------------
 local patternA = {"%.version[-._].*",  "%.modulerc[-._].*"}
+local envV     = getenv("LMOD_FILE_IGNORE_PATTERNS")
+if (envV) then
+   local evalStr = "LMOD_FILE_IGNORE_PATTERNS = "..envV
+   declare("LMOD_FILE_IGNORE_PATTERNS")
+   local func, message = load(evalStr)
+   if (not func) then
+      io.stderr:write(message,"\n")
+      os.exit(1)
+   end
+   pcall(func)
+   envV = LMOD_FILE_IGNORE_PATTERNS
+   LMOD_FILE_IGNORE_PATTERNS = nil
+end
 cosmic:init{name    = "LMOD_FILE_IGNORE_PATTERNS",
             assignV = patternA,
-            envV    = getenv("LMOD_FILE_IGNORE_PATTERNS"),
+            envV    = envV,
             default = patternA}
 
 ------------------------------------------------------------------------
