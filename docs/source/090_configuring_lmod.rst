@@ -1,4 +1,6 @@
 .. _env_vars-label:
+.. _show_hidden-label:
+
 
 Configuring Lmod for your site
 ==============================
@@ -66,8 +68,6 @@ configuration step.
   nothing.  This is useful when testing a personal copy of Lmod and
   your site has the SHELL_STARTUP_DEBUG package installed so that the
   invoking of the module command in the system startup will a no-op.
-
-.. _show_hidden-label:
 
 **LMOD_SHOW_HIDDEN**:
   [string] This variable is used to control whether hidden modules are
@@ -272,13 +272,15 @@ the configuration option which will set the action.
   *prereq_any()* like *depends_on_any()*.
 
 Setting environment variables or cosmic:assign() at startup
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **LMOD_FILE_IGNORE_PATTERNS**
   Sites can replace the default value for this Lua Array variable to
-  ignore files.  The default value is `{"%.version[-._].*",
-  "%.modulerc[-._].*"}`.  Note that you must use Lua based regular
-  expressions.
+  ignore files.  The default value is::
+
+    `{"%.version[-._].*",   "%.modulerc[-._].*"}`
+
+  Note that you must use Lua based regular expressions.  
   
 Configuration or cosmic:assign() at startup
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
