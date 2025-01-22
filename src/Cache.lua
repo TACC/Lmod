@@ -376,8 +376,8 @@ end
 
 local function l_writeUserSpiderCacheWhenNecessary(self, delta_t, mpathA, spiderT, mpathMapT)
    local doneMsg
-   local ancient   = cosmic:value("LMOD_ANCIENT_TIME")
-   local shortTime = cosmic:value("LMOD_SHORT_TIME")
+   local ancient   = tonumber(cosmic:value("LMOD_ANCIENT_TIME"))
+   local shortTime = tonumber(cosmic:value("LMOD_SHORT_TIME"))
    local optionTbl = optionTbl()
    local tracing   = cosmic:value("LMOD_TRACING")
    local mrc       = MRC:singleton()
