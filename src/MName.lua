@@ -252,6 +252,8 @@ local function l_lazyEval(self)
    local found
    local mpath
    local moduleKindT
+   local origUserName = self.__userName:gsub("/default","")
+
    dbg.printT("fileA",fileA)
    dbg.print{"#stepA: ",#stepA,"\n"}
    dbg.print{"userName: ",self.__userName,"\n"}
@@ -262,18 +264,24 @@ local function l_lazyEval(self)
       local func = stepA[i]
       found, fn, version, wV, moduleKindT, mpath = func(self, fileA)
       if (found) then
-         self.__fn          = fn
-         self.__version     = version
-         self.__wV          = wV
-         self.__moduleKindT = moduleKindT
-         self.__mpath       = mpath
-         if (self.__action == "latest" or self.__sn ~= self.__userName) then
-            self.__userName = build_fullName(self.__sn, version)
+         local fullN = build_fullName(self.__sn, version)
+         --dbg.print{"sn: ",self.__sn,", version: ",version,", origUserName: ",origUserName,", fullN: ", fullN,", fullN:find(origUserName): ",fullN:find(origUserName, 1, true),"\n"}
+         if (fullN:find(origUserName, 1, true)) then
+            self.__fn          = fn
+            self.__version     = version
+            self.__wV          = wV
+            self.__moduleKindT = moduleKindT
+            self.__mpath       = mpath
+            if (self.__action == "latest" or self.__sn ~= self.__userName) then
+               self.__userName = build_fullName(self.__sn, version)
+            end
+         else
+            found = false
          end
          break
       end
    end
-
+   
    ---------------------------------------------------------------
    -- If found then check to see if this MName object is forbidden
 
