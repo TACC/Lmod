@@ -156,38 +156,79 @@ local function l_build(self, maxdepthT, dirA)
    return moduleA
 end
 
+local function l_check_depth(searchA, sz, versionStr, dirT)
+   if (not dirT or sz < 1 or next(dirT) == nil) then
+      return true, sz, versionStr, nil
+   end
+   local name       = searchA[sz][1]
+   if (dirT[name]) then
+      versionStr = searchA[#searchA][2]
+      sz         = sz - 1
+      return l_check_depth(searchA, sz, versionStr, dirT.dirT)
+   end
+   -- Did not find name so return false
+   return false, sz, versionStr, nil
+end
+
+
 local function l_find_vA(name, moduleA)
    -- First find sn and collect all v's into vA
+   dbg.start{"ModuleA: l_find_vA(name:\"",name,"\", moduleA"}
    local versionStr = false
    local vA         = {}
    local sn         = name
-   local idx        = nil
-   local done       = false
+   local sz
+   local dirT
 
-   while true do
-      for i = 1, #moduleA do
-         local v = moduleA[i].T[sn]
-         if (v) then
-            done        = true
-            vA[#vA + 1] = v
-         end
-      end
-      if (done) then break end
-      idx = sn:match("^.*()/")
-      if (idx == nil) then break end
-      sn = sn:sub(1,idx-1)
+   -- Build searchA to contain the list of module names.
+   -- So "intel/arm64/17/17.0.1" becomes:
+   -- searchA -> { {"intel/arm64/17/17.0.1",false}, {"intel/arm64/17","17.0.1"}, {"intel/arm64","17/17.0.1"}, {"intel","arm64/17/17.0.1"}}
+   
+   local searchA    = {}
+   searchA[#searchA + 1] = {sn, false}
+   while (true) do
+      sn = sn:match("(.*/).*")
+      if (not sn) then break end
+      sn                    = sn:sub(1,-2)  -- strip trailing slash
+      searchA[#searchA + 1] = {sn, name:sub(sn:len()+2, -1)}
    end
 
+   dbg.printT("searchA",searchA)
+
+
+   sn         = searchA[#searchA][1]
+   versionStr = searchA[#searchA][2]
+   dbg.print{"sn: ",sn,"\n"}
+   
+   searchA[#searchA] = nil
+   local done        = false
+   local found       = false
+
+   for i = 1, #moduleA do
+      local v = moduleA[i].T[sn]
+      
+      if (v) then
+         -- We have match the top level name.  Now we have to match
+         -- the keys in dirT to keep this "v"
+         dbg.print{"(1) versionStr: ",versionStr,"\n"}
+         
+         found, sz, versionStr, dirT = l_check_depth(searchA, #searchA, versionStr, v.dirT)
+         dbg.print{"(2) versionStr: ",versionStr,"\n"}
+         if (found) then
+            vA[#vA + 1] = v
+            done = true
+         end
+      end
+   end
+            
    -- If there is nothing in vA then the name is not in moduleA.
    if (next(vA) == nil) then
       return nil
    end
 
-   if (idx) then
-      versionStr = name:sub(idx+1,-1)
-   end
    dbg.print{"sn: ",sn,", versionStr: ",versionStr,"\n"}
    dbg.printT("l_find_vA: vA",vA)
+   dbg.fini("l_find_vA")
    return sn, versionStr, vA
 end
 
