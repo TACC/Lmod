@@ -158,6 +158,7 @@ end
 
 local function l_find_vA(name, moduleA)
    -- First find sn and collect all v's into vA
+   dbg.start{"ModuleA: l_find_vA(name:\"",name,"\", moduleA"}
    local versionStr = false
    local vA         = {}
    local sn         = name
@@ -188,6 +189,7 @@ local function l_find_vA(name, moduleA)
    end
    dbg.print{"sn: ",sn,", versionStr: ",versionStr,"\n"}
    dbg.printT("l_find_vA: vA",vA)
+   dbg.fini("l_find_vA")
    return sn, versionStr, vA
 end
 
@@ -251,6 +253,7 @@ local function l_search(name, moduleA)
       collectFileA(sn, fullStr, extended_default, vB[i], fileA[i])
    end
    dbg.printT("fileA",fileA)
+   dbg.print{"sn: ",sn,", versionStr: ",versionStr,"\n"}
    dbg.fini("ModuleA l_search")
    return sn, versionStr, fileA
 end
@@ -613,8 +616,11 @@ function M.__new(self, mpathA, maxdepthT, moduleRCT, spiderT)
    else
       dbg.print{"calling DirTree:new()\n"}
       dirTree         = DirTree:new(mpathA)
+      dbg.printT("dirTree",dirTree:dirA())
       o.__spiderBuilt = false
       o.__moduleA     = l_build(o, maxdepthT, dirTree:dirA())
+      dbg.printT("moduleA",o.__moduleA)
+      dbg.print{"isNVV: ",o.__isNVV,"\n"}
    end
 
    o.__locationT   = false
