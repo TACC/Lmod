@@ -61,7 +61,15 @@ testdescript = {
      MODULEPATH=$(testDir)/mf6
      runLmod avail                             #16
      runLmod load vasp/does_not_exist          #17
-     runLmod list                              #18
+
+     runLmod purge                             #18
+     unsetMT
+
+     MODULEPATH=$(testDir)/mf7
+     runLmod avail                             #19
+     runLmod load complr/gcc                   #20
+     runLmod list                              #21
+
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

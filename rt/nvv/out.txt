@@ -168,9 +168,39 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load vasp/does_not_exi
 false
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 MODULEPATH=ProjectDIR/rt/nvv/mf6;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/nvv/mf6",},systemBaseMPATH="ProjectDIR/rt/nvv/mf6",}';
+export _ModuleTable_;
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/nvv/mf7:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/nvv/mf7;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/nvv/mf7",},systemBaseMPATH="ProjectDIR/rt/nvv/mf7",}';
+export _ModuleTable_;
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load complr/gcc
+===========================
+LOADEDMODULES=complr/gcc/arm64/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/nvv/mf7;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/nvv/mf7/complr/gcc/arm64/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={["complr/gcc"]={fn="ProjectDIR/rt/nvv/mf7/complr/gcc/arm64/1.0.lua",fullName="complr/gcc/arm64/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="complr/gcc",wV="*arm.000000064/000000001.*zfinal",},},mpathA={"ProjectDIR/rt/nvv/mf7",},systemBaseMPATH="ProjectDIR/rt/nvv/mf7",}';
+export _ModuleTable_;
+===========================
+step 21
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/nvv/mf7;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={["complr/gcc"]={fn="ProjectDIR/rt/nvv/mf7/complr/gcc/arm64/1.0.lua",fullName="complr/gcc/arm64/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="complr/gcc",wV="*arm.000000064/000000001.*zfinal",},},mpathA={"ProjectDIR/rt/nvv/mf7",},systemBaseMPATH="ProjectDIR/rt/nvv/mf7",}';
 export _ModuleTable_;

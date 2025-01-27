@@ -253,7 +253,6 @@ local function l_lazyEval(self)
    local funcName
    local mpath
    local moduleKindT
-   local origUserName = self.__userName:gsub("/default","")
 
    dbg.printT("fileA",fileA)
    dbg.print{"#stepA: ",#stepA,"\n"}
@@ -266,19 +265,13 @@ local function l_lazyEval(self)
       found, fn, version, wV, moduleKindT, mpath, funcName = func(self, fileA)
       dbg.print{"found: ",found,", funcName: ",funcName,"\n"}
       if (found) then
-         local fullN = build_fullName(self.__sn, version)
-         --dbg.print{"sn: ",self.__sn,", version: ",version,", origUserName: ",origUserName,", fullN: ", fullN,", fullN:find(origUserName): ",fullN:find(origUserName, 1, true),"\n"}
-         if (fullN:find(origUserName, 1, true)) then
-            self.__fn          = fn
-            self.__version     = version
-            self.__wV          = wV
-            self.__moduleKindT = moduleKindT
-            self.__mpath       = mpath
-            if (self.__action == "latest" or self.__sn ~= self.__userName) then
-               self.__userName = build_fullName(self.__sn, version)
-            end
-         else
-            found = false
+         self.__fn          = fn
+         self.__version     = version
+         self.__wV          = wV
+         self.__moduleKindT = moduleKindT
+         self.__mpath       = mpath
+         if (self.__action == "latest" or self.__sn ~= self.__userName) then
+            self.__userName = build_fullName(self.__sn, version)
          end
          break
       end
