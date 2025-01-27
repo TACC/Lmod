@@ -203,3 +203,4 @@ W.I.P:
             * Fixed LMOD_FILE_IGNORE_PATTERNS so that it can be an env. var and converted to a Lua array table.
             * Documented LMOD_FILE_IGNORE_PATTERNS
             * Issue #740: Rewrite ModuleA l_find_vA so that it checks partial version strings.
+	    * Issue #745: posix.setenv("var", false, true) must change to posix.setenv("var", nil, true).

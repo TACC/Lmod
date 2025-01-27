@@ -346,6 +346,9 @@ function M.setenv_env(self, name, value, respect)
    name = (name or ""):trim()
    dbg.start{"MainControl:setenv_env(\"",name,"\", \"",value,"\", \"",
               respect,"\")"}
+   if (value == false) then
+      value = nil
+   end
    posix.setenv(name, value, true)
    dbg.fini("MainControl:setenv_env")
 end
