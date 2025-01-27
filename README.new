@@ -202,4 +202,4 @@ W.I.P:
             * Trailing blanks removed.
             * Fixed LMOD_FILE_IGNORE_PATTERNS so that it can be an env. var and converted to a Lua array table.
             * Documented LMOD_FILE_IGNORE_PATTERNS
-            
+            * Issue #740: Rewrite ModuleA l_find_vA so that it checks partial version strings.
