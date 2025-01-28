@@ -304,7 +304,14 @@ function load_module(...)
 
    local argTable
    local mcp_old = mcp
-   mcp, argTable = l_list_2_Tbl( ...)
+   
+   -- If first argument is a table, add cmdName
+   local args = {...}
+   if type(args[1]) == "table" then
+      args[1].cmdName = "load"
+   end
+   
+   mcp, argTable = l_list_2_Tbl(unpack(args))
 
    if (not l_validateModules("load", unpack(argTable))) then
        mcp = mcp_old
@@ -380,7 +387,14 @@ function prepend_path(...)
    dbg.start{"prepend_path(",l_concatTbl({...},", "),")"}
    local argTable
    local mcp_old = mcp
-   mcp, argTable = l_list_2_Tbl(...)
+   
+   -- If first argument is a table, add cmdName
+   local args = {...}
+   if type(args[1]) == "table" then
+      args[1].cmdName = "prepend_path"
+   end
+   
+   mcp, argTable = l_list_2_Tbl(unpack(args))
    if (not l_validateArgsWithValue("prepend_path", argTable)) then return end
    mcp:prepend_path(argTable)
    mcp = mcp_old
@@ -394,7 +408,14 @@ function append_path(...)
    dbg.start{"append_path(",l_concatTbl({...},", "),")"}
    local argTable
    local mcp_old = mcp
-   mcp, argTable = l_list_2_Tbl(...)
+   
+   -- If first argument is a table, add cmdName
+   local args = {...}
+   if type(args[1]) == "table" then
+      args[1].cmdName = "append_path"
+   end
+   
+   mcp, argTable = l_list_2_Tbl(unpack(args))
    if (not l_validateArgsWithValue("append_path", argTable)) then return end
    l_cleanupPathArgs(argTable)
    if (argTable[2]) then mcp:append_path(argTable) end
@@ -409,7 +430,14 @@ function remove_path(...)
    dbg.start{"remove_path(",l_concatTbl({...},", "),")"}
    local argTable
    local mcp_old = mcp
-   mcp, argTable = l_list_2_Tbl(...)
+   
+   -- If first argument is a table, add cmdName
+   local args = {...}
+   if type(args[1]) == "table" then
+      args[1].cmdName = "remove_path"
+   end
+   
+   mcp, argTable = l_list_2_Tbl(unpack(args))
    if (not l_validateArgsWithValue("remove_path", argTable)) then return end
    l_cleanupPathArgs(argTable)
    if (argTable[2]) then mcp:remove_path(argTable) end
@@ -427,7 +455,14 @@ function pushenv(...)
 
    local argTable 
    local mcp_old = mcp
-   mcp, argTable = l_list_2_Tbl( ...)
+   
+   -- If first argument is a table, add cmdName
+   local args = {...}
+   if type(args[1]) == "table" then
+      args[1].cmdName = "pushenv"
+   end
+   
+   mcp, argTable = l_list_2_Tbl(unpack(args))
 
    if (not l_validateArgsWithValue("pushenv", argTable)) then return end
 
@@ -454,7 +489,14 @@ function setenv(...)
 
    local argTable 
    local mcp_old = mcp
-   mcp, argTable = l_list_2_Tbl( ...)
+   
+   -- If first argument is a table, add cmdName
+   local args = {...}
+   if type(args[1]) == "table" then
+      args[1].cmdName = "setenv"
+   end
+   
+   mcp, argTable = l_list_2_Tbl(unpack(args))
 
    if (not l_validateArgsWithValue("setenv", argTable)) then return end
 
@@ -472,7 +514,14 @@ function unsetenv(...)
 
    local argTable 
    local mcp_old = mcp
-   mcp, argTable = l_list_2_Tbl( ...)
+   
+   -- If first argument is a table, add cmdName
+   local args = {...}
+   if type(args[1]) == "table" then
+      args[1].cmdName = "unsetenv"
+   end
+   
+   mcp, argTable = l_list_2_Tbl(unpack(args))
 
    if (not l_validateArgsWithValue("unsetenv", argTable)) then return end
 
