@@ -71,7 +71,7 @@ local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack   -- lua
 local unpack       = (_VERSION == "Lua 5.1") and unpack   or table.unpack -- luacheck: compat
 
 -- List of functions that support mode-select
-local mode_select_functions = {
+local s_mode_select_funcT = {
     setenv = true,
     pushenv = true,
     unsetenv = true,
@@ -229,7 +229,7 @@ local function l_list_2_Tbl(first_elem, ...)
    local cmdName = "unknown"
    if type(first_elem) == "table" and first_elem.cmdName then
       cmdName = first_elem.cmdName
-      is_mode_select_capable = mode_select_functions[cmdName]
+      is_mode_select_capable = s_mode_select_funcT[cmdName]
    end
 
    dbg.print{"Mode selection debug:\n"}
