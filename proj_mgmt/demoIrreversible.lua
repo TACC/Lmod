@@ -25,7 +25,9 @@ local mcp          = "mcp"
 local MCP          = "MCP"
 local MCPQ         = "quiet"
 function mode()
-   return "show"
+   return "load"
+   --return "unload"
+   --return "show"
 end
 
 local s_purgeFlg = false
@@ -311,6 +313,17 @@ function setenv(...)
    dbg.fini("setenv")
 end
 
+function pushenv(...)
+   local argT    = l_build_check_argT("pushenv", s_pushenv_rulesT, ...)
+   local mcp_old = mcp
+   mcp = l_chose_mcp(argT)
+
+   ---mcp:pushenv(argT)
+   mcp_pushenv(mcp, argT)
+   mcp = mcp_old
+   dbg.fini("pushenv")
+end
+
 function prepend_path(...)
    local argT    = l_build_check_argT("prepend_path", s_prepend_rulesT, ...)
    local mcp_old = mcp
@@ -354,6 +367,12 @@ function mcp_setenv(mcp, argT)
    end
 end
 
+function mcp_pushenv(mcp, argT)
+   if (mcp ~= "quiet") then
+      print("  pushenv ".. argT[1] .. "=" .. tostring(argT[2]))
+   end
+end
+
 function mcp_prepend_path(mcp, argT)
    if (mcp ~= "quiet") then
       print("  Prepending \""..argT[2].." to "..argT[1])
@@ -378,11 +397,17 @@ end
 function main()
    dbg:activateDebug(1)
    
+   print("My mode is: ",mode(),"\n")
+
+
    setenv("A", "B")
    setenv{"A", "B"}
    setenv("A", false)
    setenv("A", "B", true)
    setenv{"A", "B", mode = {"unload"}}
+
+   pushenv("A", "B")
+   pushenv{"A", "B", mode = {"unload"}}
    
    prepend_path("PATH", "/a/B")
    prepend_path("PATH", "/a/B",":")
