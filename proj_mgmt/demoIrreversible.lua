@@ -18,7 +18,7 @@ local unpack       = (_VERSION == "Lua 5.1") and unpack   or table.unpack -- lua
 local huge         = math.maxinteger or math.huge
 
 ------------------------------------------------------------------------
--- Fake Lmod variables
+-- Fake Lmod variables and functions
 
 
 local mcp          = "mcp"
