@@ -322,6 +322,17 @@ function prepend_path(...)
    dbg.fini("prepend_path")
 end
 
+function append_path(...)
+   local argT    = l_build_check_argT("append_path", s_prepend_rulesT, ...)
+   local mcp_old = mcp
+   mcp = l_chose_mcp(argT)
+
+   ---mcp:append_path(argT)
+   mcp_append_path(mcp, argT)
+   mcp = mcp_old
+   dbg.fini("append_path")
+end
+
 function load_module(...)
    local argT    = l_build_check_argT("load_module", s_load_rulesT, ...)
    local mcp_old = mcp
@@ -345,7 +356,13 @@ end
 
 function mcp_prepend_path(mcp, argT)
    if (mcp ~= "quiet") then
-      print("  Adding \""..argT[2].." to "..argT[1])
+      print("  Prepending \""..argT[2].." to "..argT[1])
+   end
+end
+
+function mcp_append_path(mcp, argT)
+   if (mcp ~= "quiet") then
+      print("  Appending \""..argT[2].." to "..argT[1])
    end
 end
 
@@ -371,6 +388,9 @@ function main()
    prepend_path("PATH", "/a/B",":")
    prepend_path{"PATH", "/a/B"}
    prepend_path{"PATH", "/a/B", priority=10, delim=";"}
+   append_path("MODULEPATH", "/a/B")
+   append_path("MODULEPATH", "/a/B",":")
+   append_path{"MODULEPATH", "/a/B"}
 
    load_module("A", "B", "C")
 end
