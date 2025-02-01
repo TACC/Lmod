@@ -37,7 +37,8 @@ function purgeFlg()
 end
 
 ------------------------------------------------------------------------
--- Mode function check.  Does not return when error is found
+-- Mode function check.  It checks to see that argT.mode is a table
+-- Does not return when error is found
 
 local s_validModeT = {
    normal = true,
@@ -48,6 +49,11 @@ local s_validModeT = {
 
 local function l_modeCk(argT)
    local modeA = argT.mode
+   if (type(modeA) ~= "table") then
+      print(argT.__cmdName.." has a bad mode \""..tostring(modeA).."\". It must be a table.")
+      os.exit(1)
+   end
+      
    for i = 1, #modeA do
       local my_mode = modeA[i]
       if (not s_validModeT[my_mode]) then
@@ -155,6 +161,22 @@ local function l_stringValueCk(value)
 end
 
 
+
+
+------------------------------------------------------------------------
+-- Trim requested arguments
+local function l_trim_first_arg(argT)
+   argT[1] = argT[1]:trim()
+end
+
+local function l_trim_all_strings_args(argT)
+   for i = 1, argT.n do
+      if (type(argT[1]) == "string") then
+         argT[i] = argT[i]:trim()
+      end
+   end
+end
+
 ------------------------------------------------------------------------
 -- Rules tables checking arguments for setenv, prepend_path and
 -- load module functions
@@ -163,36 +185,42 @@ local s_setenv_rulesT = {
    sizeN        = {min=2, max=3},
    checkA       = {l_stringCk, l_stringValueCk, l_booleanCk},
    checkTblArgs = { l_modeCk },
+   trimArg      = l_trim_first_arg,
 }
 
 local s_pushenv_rulesT = {
    sizeN        = {min=2, max=2},
    checkA       = {l_stringCk, l_stringValueCk},
    checkTblArgs = { l_modeCk },
+   trimArg      = l_trim_first_arg,
 }
 
 local s_unsetenv_rulesT = {
    sizeN        = {min=1, max=2},
    checkA       = {l_stringCk, l_stringValueCk},
    checkTblArgs = { l_modeCk },
+   trimArg      = l_trim_first_arg,
 }
 
 local s_prepend_rulesT = {
    sizeN = {min=2, max=3},
    checkA = {l_stringCk, l_stringCk, l_stringCk },
    checkTblArgs = { l_modeCk, l_priorityCk, l_delimCk},
+   trimArg      = l_trim_first_arg,
 }
 
 local s_remove_rulesT = {
    sizeN = {min=2, max=3},
    checkA = {l_stringCk, l_stringCk, l_stringCk },
    checkTblArgs = { l_modeCk, l_delimCk},
+   trimArg      = l_trim_first_arg,
 }
 
 local s_load_rulesT = {
    sizeN        = {min = 1, max = huge},
    checkList    = l_validateModules,
    checkTblArgs = { l_modeCk },
+   trimArg      = l_trim_all_strings_args,
 }
 
 
@@ -221,7 +249,10 @@ local function l_check_argT(argT, rulesT)
    if (rulesT.checkArgList) then
       rulesT.checkArgList(argT) -- Will not return if error
    end
-
+   
+   if (rulesT.trimArg) then
+      rulesT.trimArg(argT)
+   end
 end
 
 
@@ -269,8 +300,10 @@ local function l_build_argTable(cmdName, first_elem, ... )
       argT.__cmdName = cmdName
       argT.kind      = "Table"
       argT.n         = #argT
-      if (not (argT.mode and next(argT.mode) ~= nil)) then
-         argT.mode = {"normal"}
+      if (not argT.mode) then
+         if (not (argT.mode == "table" and next(argT.mode) ~= nil)) then
+            argT.mode = {"normal"}
+         end
       end
    else
       argT           = pack(first_elem, ...)
@@ -400,7 +433,7 @@ function main()
    print("My mode is: ",mode(),"\n")
 
 
-   setenv("A", "B")
+   setenv("A ", "B")
    setenv{"A", "B"}
    setenv("A", false)
    setenv("A", "B", true)
@@ -418,6 +451,9 @@ function main()
    append_path{"MODULEPATH", "/a/B"}
 
    load_module("A", "B", "C")
+
+   setenv{"A", "B", mode = true}
+
 end
 
 main()
