@@ -57,6 +57,7 @@ end
 
 ------------------------------------------------------------------------
 -- Check functions for prepend_path type functions
+-- These do not return on error
 
 local function l_priorityCk(argT)
    if (argT.priority == nil or type(argT.priority) == "number") then
@@ -66,6 +67,9 @@ local function l_priorityCk(argT)
    os.exit(1)
 end
    
+
+------------------------------------------------------------------------
+-- Check for string characters for the delim.  Convert 3rd arg to argT.delim if it exists
 
 local function l_delimCk(argT)
    if (argT.n == 3) then
