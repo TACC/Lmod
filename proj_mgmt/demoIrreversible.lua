@@ -37,7 +37,7 @@ function purgeFlg()
 end
 
 ------------------------------------------------------------------------
--- Mode function check.  It checks to see that argT.mode is a table
+-- Mode function check.  It checks to see that argT.modeA is a table
 -- Does not return when error is found
 
 local s_validModeT = {
@@ -48,7 +48,7 @@ local s_validModeT = {
                       
 
 local function l_modeCk(argT)
-   local modeA = argT.mode
+   local modeA = argT.modeA
    if (type(modeA) ~= "table") then
       print(argT.__cmdName.." has a bad mode \""..tostring(modeA).."\". It must be a table.")
       os.exit(1)
@@ -257,8 +257,8 @@ end
 
 
 ------------------------------------------------------------------------
--- This function uses the argT.mode to return the correct mcp
--- Note that all argT must have a argT.mode array
+-- This function uses the argT.modeA to return the correct mcp
+-- Note that all argT must have a argT.modeA array
 
 local function l_chose_mcp(argT)
    local my_mode = mode()
@@ -266,7 +266,7 @@ local function l_chose_mcp(argT)
       return mcp
    end
 
-   local modeA   = argT.mode
+   local modeA   = argT.modeA
    local action  = false
    local my_mcp
    for i = 1, #modeA do
@@ -300,15 +300,15 @@ local function l_build_argTable(cmdName, first_elem, ... )
       argT.__cmdName = cmdName
       argT.kind      = "Table"
       argT.n         = #argT
-      if (not argT.mode) then
-         if (not (argT.mode == "table" and next(argT.mode) ~= nil)) then
-            argT.mode = {"normal"}
+      if (not argT.modeA) then
+         if (not (type(argT.modeA) == "table" and next(argT.modeA) ~= nil)) then
+            argT.modeA = {"normal"}
          end
       end
    else
       argT           = pack(first_elem, ...)
       argT.__cmdName = cmdName
-      argT.mode      = {"normal"}
+      argT.modeA     = {"normal"}
       argT.kind      = "Array"
    end
    return argT
@@ -437,10 +437,10 @@ function main()
    setenv{"A", "B"}
    setenv("A", false)
    setenv("A", "B", true)
-   setenv{"A", "B", mode = {"unload"}}
+   setenv{"A", "B", modeA = {"unload"}}
 
    pushenv("A", "B")
-   pushenv{"A", "B", mode = {"unload"}}
+   pushenv{"A", "B", modeA = {"unload"}}
    
    prepend_path("PATH", "/a/B")
    prepend_path("PATH", "/a/B",":")
@@ -452,7 +452,7 @@ function main()
 
    load_module("A", "B", "C")
 
-   setenv{"A", "B", mode = true}
+   setenv{"A", "B", modeA = true}
 
 end
 
