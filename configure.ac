@@ -726,6 +726,26 @@ if test "$ALLOW_TCL_MFILES" = no ; then
   FAST_TCL_INTERP=no
 fi
 
+AC_SUBST(PATH_TO_TCLSH)
+AC_PATH_PROGS(PATH_TO_TCLSH, [tclsh9.0] [tclsh9] [tclsh], UNKNOWN_TCLSH)
+if test "$PATH_TO_TCLSH" = "UNKNOWN_TCLSH" -a "$ALLOW_TCL_MFILES" = yes; then
+  echo
+  echo "The tclsh program must be in your path. Quitting!"
+  echo
+  rm -f makefile
+  exit 1
+fi
+
+TCL_VERSION=`$PATH_TO_TCLSH $SRCDIR/proj_mgmt/tcl_version_string.tcl`
+if test $TCL_VERSION -ge 9000000; then
+  FAST_TCL_INTERP=no
+fi
+
+if test -z "$TCL_PKG_CONFIG_DIR" ; then
+  TCL_PKG_CONFIG_DIR=`$SRCDIR/proj_mgmt/find_tcl_pc.sh $PATH_TO_TCLSH`
+fi
+
+
 if test "$FAST_TCL_INTERP" = yes ; then
    OS=$(uname -s)
    AC_PATH_PROG(pkgConfig, pkg-config, "UNKNOWN_PKG_CONFIG")
@@ -748,9 +768,9 @@ if test "$FAST_TCL_INTERP" = yes ; then
       DIR=$(xcrun --show-sdk-path)
       TCL_INCLUDE="-I${DIR}/usr/include"
    else
-      for i in "" tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
-         if test -f /usr/include/$i/tcl.h ; then
-            TCL_INCLUDE="-I/usr/include/$i"
+      for i in /usr/include /usr/include/tcl /usr/include/tcl9* /usr/include/tcl8*  ; do
+         if test -f $i/tcl.h ; then
+            TCL_INCLUDE="-I$i"
             break;
          fi
       done
