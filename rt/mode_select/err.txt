@@ -2,16 +2,12 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load nil_mode_test
 ===========================
-Lmod has detected the following error: Syntax error in file: ProjectDIR/rt/mode_select/mf/Core/nil_mode_test/1.0.lua
- with command: setenv, mode must be specified when using mode selector.
-While processing the following module(s):
-    Module fullname    Module Filename
-    nil_mode_test/1.0  ProjectDIR/rt/mode_select/mf/Core/nil_mode_test/1.0.lua
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
-No modules loaded
+Currently Loaded Modules:
+  1) nil_mode_test/1.0
 ===========================
 step 3
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
@@ -38,16 +34,12 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 step 7
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load empty_mode_test
 ===========================
-Lmod has detected the following error: Syntax error in file: ProjectDIR/rt/mode_select/mf/Core/empty_mode_test/1.0.lua
- with command: setenv, mode must be specified when using mode selector.
-While processing the following module(s):
-    Module fullname      Module Filename
-    empty_mode_test/1.0  ProjectDIR/rt/mode_select/mf/Core/empty_mode_test/1.0.lua
 ===========================
 step 8
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
-No modules loaded
+Currently Loaded Modules:
+  1) empty_mode_test/1.0
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge

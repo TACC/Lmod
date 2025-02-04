@@ -60,6 +60,7 @@ require("parseVersion")
 require("TermWidth")
 require("declare")
 
+local l_validateModules
 local BeautifulTbl = require("BeautifulTbl")
 local MName        = require("MName")
 local Version      = require("Version")
@@ -70,15 +71,184 @@ local _concatTbl   = table.concat
 local pack         = (_VERSION == "Lua 5.1") and argsPack or table.pack   -- luacheck: compat
 local unpack       = (_VERSION == "Lua 5.1") and unpack   or table.unpack -- luacheck: compat
 
--- List of functions that support mode-select
-local s_mode_select_funcT = {
-    setenv = true,
-    pushenv = true,
-    unsetenv = true,
-    prepend_path = true,
-    append_path = true,
-    remove_path = true,
-    load = true
+
+-- Check functions used by the rules table:
+local function l_stringCk(value)
+   return type(value) == "string", "string"
+end
+
+local function l_stringValueCk(value)
+   local t = type(value)
+   return (t == "string" or t == "number" or t == "boolean"), "string_or_value"
+end
+
+local function l_booleanCk(value)
+   return type(value) == "boolean", "boolean"
+end
+
+local function l_trim_first_arg(argT)
+   if type(argT[1]) == "string" then
+      argT[1] = argT[1]:trim()
+   end
+end
+
+local function l_trim_all_strings_args(argT)
+   for i = 1, argT.n do
+      if type(argT[i]) == "string" then
+         argT[i] = argT[i]:trim()
+      end
+   end
+end
+
+-- New mode check for the table: checks if modeA exists, is non-empty,
+-- and that each mode value is among the allowed ones.
+local function l_modeCk(argT)
+   if (type(argT.modeA) ~= "table" or #argT.modeA == 0) then
+      mcp:report{msg="e_Mode_Not_Set", fn = myFileName(), cmdName = argT.__cmdName}
+      return false
+   end
+
+   local validModes = { normal = true, load = true, unload = true }
+   for i = 1, #argT.modeA do
+      if not validModes[argT.modeA[i]] then
+         mcp:report{msg="e_Invalid_Mode", fn = myFileName(), cmdName = argT.__cmdName, mode = argT.modeA[i]}
+         return false
+      end
+   end
+   return true
+end
+
+-- Helper: Build the argument table ensuring a mode array exists.
+local function l_build_argTable(cmdName, first_elem, ... )
+   local argT
+   if (type(first_elem) == "table") then
+      argT = first_elem
+      argT.__cmdName = cmdName
+      argT.kind      = "Table"
+      argT.n         = #argT
+      if (not argT.modeA or type(argT.modeA) ~= "table" or (#argT.modeA == 0)) then
+         if (argT.mode and type(argT.mode) == "table" and (#argT.mode > 0)) then
+            argT.modeA = argT.mode
+            argT.mode  = nil
+         else
+            argT.modeA = {"normal"}
+         end
+      end
+   else
+      argT = pack(first_elem, ...)
+      argT.__cmdName = cmdName
+      argT.modeA     = {"normal"}
+      argT.kind      = "Array"
+   end
+   return argT
+end
+
+-- Check the arguments in the table using the provided rules.
+local function l_check_argT(argT, rulesT)
+   if (argT.n < rulesT.sizeN.min or argT.n > rulesT.sizeN.max) then
+      mcp:report{msg="e_wrong_num_args", fn = myFileName(), cmdName = argT.__cmdName}
+      return false
+   end
+   if (rulesT.checkA) then
+      for i = 1, argT.n do
+         local checkFunc = rulesT.checkA[i]
+         if checkFunc then
+            local ok, expectedType = checkFunc(argT[i])
+            if not ok then
+               mcp:report{msg="e_bad_arg", fn = myFileName(), cmdName = argT.__cmdName, arg = argT[i], expected = expectedType}
+               return false
+            end
+         end
+      end
+   end
+   if (rulesT.checkTblArgs) then
+      for _, f in ipairs(rulesT.checkTblArgs) do
+         if not f(argT) then return false end
+      end
+   end
+   if (rulesT.trimArg) then
+      rulesT.trimArg(argT)
+   end
+   return true
+end
+
+-- Build the argument table and check it against the rules.
+local function l_build_check_argT(cmdName, rulesT, first_elem, ... )
+   local argT = l_build_argTable(cmdName, first_elem, ...) 
+   if (not l_check_argT(argT, rulesT)) then return nil end
+   return argT
+end
+
+-- Choose the appropriate mcp based on the mode.
+local function l_chose_mcp(argT)
+   local my_mode = mode()
+   -- In 'show' mode, always execute.
+   if my_mode == "show" then
+      return mcp
+   end
+
+   local modeA = argT.modeA
+   -- If the mode is explicitly "normal", always execute.
+   for i = 1, #modeA do
+      if modeA[i] == "normal" then
+         return mcp
+      end
+   end
+
+   -- Otherwise, if current mode matches one of the declared modes, execute.
+   for i = 1, #modeA do
+      if my_mode == modeA[i] then
+         return MCP
+      end
+   end
+
+   -- If no match is found, then no-op.
+   return MCPQ
+end
+
+-- Define the rules table for setenv.
+local s_setenv_rulesT = {
+   sizeN        = {min=2, max=3},
+   checkA       = {l_stringCk, l_stringValueCk, l_booleanCk},
+   checkTblArgs = { l_modeCk },
+   trimArg      = l_trim_first_arg,
+}
+
+local s_pushenv_rulesT = {
+   sizeN        = {min=2, max=2},
+   checkA       = {l_stringCk, l_stringValueCk},
+   checkTblArgs = { l_modeCk },
+   trimArg      = l_trim_first_arg,
+}
+
+local s_unsetenv_rulesT = {
+   sizeN        = {min=1, max=2},
+   checkA       = {l_stringCk, l_stringValueCk},
+   checkTblArgs = { l_modeCk },
+   trimArg      = l_trim_first_arg,
+}
+
+local s_prepend_rulesT = {
+   sizeN        = {min=2, max=3},
+   checkA       = {l_stringCk, l_stringCk, l_stringCk},
+   checkTblArgs = { l_modeCk },
+   trimArg      = l_trim_first_arg,
+}
+
+local s_remove_rulesT = {
+   sizeN        = {min=2, max=3},
+   checkA       = {l_stringCk, l_stringCk, l_stringCk},
+   checkTblArgs = { l_modeCk },
+   trimArg      = l_trim_first_arg,
+}
+
+local huge = math.maxinteger or math.huge
+local s_load_rulesT = {
+   sizeN        = {min=1, max=huge},
+   -- Here, checkList is used since load_module accepts a variable list of module names.
+   checkList    = l_validateModules,
+   checkTblArgs = { l_modeCk },
+   trimArg      = l_trim_all_strings_args,
 }
 
 --------------------------------------------------------------------------
@@ -199,128 +369,28 @@ local function l_validateModules(cmdName, ...)
    return allGood
 end
 
---------------------------------------------------------------------------
--- Validate mode selector input
--- @param cmdName The command which is getting its arguments validated.
--- @param t The table containing mode selector input
-local function l_validateModeSelector(cmdName, t)
-   local validModes = {load = true, unload = true}
-   for i = 1, #t.mode do
-      if not validModes[t.mode[i]] then
-         mcp:report{msg="e_Invalid_Mode", fn = myFileName(), cmdName = cmdName, mode = t.mode[i]}
-         return false
-      end
-   end
-   return true
-end
-
---------------------------------------------------------------------------
--- Convert all function arguments to table form
--- first_elem seperated from args for type test
-local function l_list_2_Tbl(first_elem, ...)
-   dbg.start{"l_list_2_Tbl(",l_concatTbl({first_elem, ...},", "),")"}
-
-   local my_mcp = nil
-   local t = nil
-   local action = nil
-
-   -- First check if this is a mode-select capable function call
-   local is_mode_select_capable = false
-   local cmdName = "unknown"
-   if type(first_elem) == "table" and first_elem.cmdName then
-      cmdName = first_elem.cmdName
-      is_mode_select_capable = s_mode_select_funcT[cmdName]
-   end
-
-   dbg.print{"Mode selection debug:\n"}
-   dbg.print{"Function name: ", cmdName, "\n"}
-   dbg.print{"First elem type: ", type(first_elem), "\n"}
-   dbg.print{"Is mode-select capable: ", is_mode_select_capable, "\n"}
-
-   if type(first_elem) == "table" then
-      t = first_elem
-      t.kind = "table"
-      local my_mode = mode()
-
-      -- Only do mode validation for mode-select capable functions using curly brace syntax
-      if is_mode_select_capable and t.kind == "table" and not t.__waterMark then
-         dbg.print{"Checking mode for mode-select capable function\n"}
-         dbg.print{"Current mode: ", my_mode, "\n"}
-         dbg.print{"Has mode key: ", t.mode ~= nil, "\n"}
-
-         -- For mode-select capable functions using curly brace syntax, mode MUST be specified
-         if not t.mode then
-            dbg.print{"Error: Mode-select capable function called with curly brace syntax but no mode key\n"}
-            mcp:report{msg="e_Mode_Not_Set", fn = myFileName(), cmdName = cmdName}
-            return MCPQ, t
-         end
-
-         -- Mode must be a non-empty table
-         if type(t.mode) ~= "table" or #t.mode == 0 then
-            dbg.print{"Error: Mode must be a non-empty table\n"}
-            mcp:report{msg="e_Mode_Not_Set", fn = myFileName(), cmdName = cmdName}
-            return MCPQ, t
-         end
-
-         -- Validate the mode values
-         if not l_validateModeSelector(cmdName, t) then
-            return MCPQ, t
-         end
-
-         -- Check if current mode matches any of the specified modes
-         local modeA = t.mode
-         for i = 1,#modeA do
-            if (my_mode == modeA[i]) then
-               action = true
-               my_mcp = MCP 
-               break
-            end
-         end
-      else
-         -- Non mode-select function or non-curly brace syntax
-         action = true
-         my_mcp = mcp
-      end
-   else
-      t = pack(first_elem, ...)
-      t.kind = "list"
-      my_mcp = mcp
-      action = true
-   end
-
-   if ( not action ) then my_mcp = MCPQ end
-   dbg.print{"OutputTable: ", t, "\n"}
-   dbg.fini("l_list_2_Tbl")
-   return my_mcp, t
-end
 
 --------------------------------------------------------------------------
 --  The load function.  It can be found in the following forms:
 -- "load('name'); load('name/1.2'); load(atleast('name','3.2'))",
---function load_module(...)
-
 function load_module(...)
-   dbg.start{"load_module(",l_concatTbl({...},", "),")"}
+   dbg.start{"load_module(", l_concatTbl({...}, ", "), ")"}
 
-   local argTable
-   local mcp_old = mcp
-   
-   -- If first argument is a table, add cmdName
    local args = {...}
    if type(args[1]) == "table" then
       args[1].cmdName = "load"
    end
-   
-   mcp, argTable = l_list_2_Tbl(unpack(args))
 
-   if (not l_validateModules("load", unpack(argTable))) then
-       mcp = mcp_old
-       dbg.fini("load_module")
-       return {}
+   local argT = l_build_check_argT("load_module", s_load_rulesT, unpack(args))
+   if (not argT) then
+      dbg.fini("load_module")
+      return {}
    end
 
-   local b = mcp:load_usr(MName:buildA(mcp:MNameType(), unpack(argTable)))
+   local mcp_old = mcp
+   mcp = l_chose_mcp(argT)
 
+   local b = mcp:load_usr(MName:buildA(mcp:MNameType(), unpack(argT)))
    mcp = mcp_old
    dbg.fini("load_module")
    return b
@@ -384,19 +454,21 @@ end
 --------------------------------------------------------------------------
 -- Prepend a value to a path like variable.
 function prepend_path(...)
-   dbg.start{"prepend_path(",l_concatTbl({...},", "),")"}
-   local argTable
-   local mcp_old = mcp
-   
-   -- If first argument is a table, add cmdName
-   local args = {...}
-   if type(args[1]) == "table" then
-      args[1].cmdName = "prepend_path"
+   dbg.start{"prepend_path(", l_concatTbl({...}, ", "), ")"}
+
+   local argT = l_build_check_argT("prepend_path", s_prepend_rulesT, ...)
+   if (not argT) then
+      dbg.fini("prepend_path")
+      return
    end
-   
-   mcp, argTable = l_list_2_Tbl(unpack(args))
-   if (not l_validateArgsWithValue("prepend_path", argTable)) then return end
-   mcp:prepend_path(argTable)
+
+   l_cleanupPathArgs(argT)
+   local mcp_old = mcp
+   mcp = l_chose_mcp(argT)
+
+   if (argT[2]) then
+      mcp:prepend_path(unpack(argT))
+   end
    mcp = mcp_old
    dbg.fini("prepend_path")
    return
@@ -405,20 +477,21 @@ end
 --------------------------------------------------------------------------
 -- Append a value to a path like variable.
 function append_path(...)
-   dbg.start{"append_path(",l_concatTbl({...},", "),")"}
-   local argTable
-   local mcp_old = mcp
-   
-   -- If first argument is a table, add cmdName
-   local args = {...}
-   if type(args[1]) == "table" then
-      args[1].cmdName = "append_path"
+   dbg.start{"append_path(", l_concatTbl({...}, ", "), ")"}
+
+   local argT = l_build_check_argT("append_path", s_prepend_rulesT, ...)
+   if (not argT) then
+      dbg.fini("append_path")
+      return
    end
-   
-   mcp, argTable = l_list_2_Tbl(unpack(args))
-   if (not l_validateArgsWithValue("append_path", argTable)) then return end
-   l_cleanupPathArgs(argTable)
-   if (argTable[2]) then mcp:append_path(argTable) end
+
+   l_cleanupPathArgs(argT)
+   local mcp_old = mcp
+   mcp = l_chose_mcp(argT)
+
+   if (argT[2]) then
+      mcp:append_path(unpack(argT))
+   end
    mcp = mcp_old
    dbg.fini("append_path")
    return
@@ -427,20 +500,21 @@ end
 --------------------------------------------------------------------------
 -- Remove a value from a path like variable.
 function remove_path(...)
-   dbg.start{"remove_path(",l_concatTbl({...},", "),")"}
-   local argTable
-   local mcp_old = mcp
-   
-   -- If first argument is a table, add cmdName
-   local args = {...}
-   if type(args[1]) == "table" then
-      args[1].cmdName = "remove_path"
+   dbg.start{"remove_path(", l_concatTbl({...}, ", "), ")"}
+
+   local argT = l_build_check_argT("remove_path", s_remove_rulesT, ...)
+   if (not argT) then
+      dbg.fini("remove_path")
+      return
    end
-   
-   mcp, argTable = l_list_2_Tbl(unpack(args))
-   if (not l_validateArgsWithValue("remove_path", argTable)) then return end
-   l_cleanupPathArgs(argTable)
-   if (argTable[2]) then mcp:remove_path(argTable) end
+
+   l_cleanupPathArgs(argT)
+   local mcp_old = mcp
+   mcp = l_chose_mcp(argT)
+
+   if (argT[2]) then
+      mcp:remove_path(unpack(argT))
+   end
    mcp = mcp_old
    dbg.fini("remove_path")
    return
@@ -451,22 +525,18 @@ end
 --------------------------------------------------------------------------
 -- Set the value of environment variable and maintain a stack.
 function pushenv(...)
-   dbg.start{"pushenv(",l_concatTbl({...},", "),")"}
+   dbg.start{"pushenv(", l_concatTbl({...}, ", "), ")"}
 
-   local argTable 
-   local mcp_old = mcp
-   
-   -- If first argument is a table, add cmdName
-   local args = {...}
-   if type(args[1]) == "table" then
-      args[1].cmdName = "pushenv"
+   local argT = l_build_check_argT("pushenv", s_pushenv_rulesT, ...)
+   if (not argT) then
+      dbg.fini("pushenv")
+      return
    end
-   
-   mcp, argTable = l_list_2_Tbl(unpack(args))
 
-   if (not l_validateArgsWithValue("pushenv", argTable)) then return end
+   local mcp_old = mcp
+   mcp = l_chose_mcp(argT)
 
-   mcp:pushenv(unpack(argTable))
+   mcp:pushenv(unpack(argT))
    mcp = mcp_old
    dbg.fini("pushenv")
    return
@@ -485,22 +555,20 @@ end
 
 -- Set the value of environment variable.
 function setenv(...)
-   dbg.start{"setenv(",l_concatTbl({...},", "),")"}
+   dbg.start{"setenv(", l_concatTbl({...}, ", "), ")"}
 
-   local argTable 
-   local mcp_old = mcp
-   
-   -- If first argument is a table, add cmdName
-   local args = {...}
-   if type(args[1]) == "table" then
-      args[1].cmdName = "setenv"
+   -- Build and validate the argument table using the new rules.
+   local argT = l_build_check_argT("setenv", s_setenv_rulesT, ...)
+   if (not argT) then
+      dbg.fini("setenv")
+      return
    end
    
-   mcp, argTable = l_list_2_Tbl(unpack(args))
+   local mcp_old = mcp
+   mcp = l_chose_mcp(argT)
 
-   if (not l_validateArgsWithValue("setenv", argTable)) then return end
-
-   mcp:setenv(unpack(argTable))
+   -- Call the underlying mcp function using unpacked arguments from argT.
+   mcp:setenv(unpack(argT))
    mcp = mcp_old
    dbg.fini("setenv")
    return
@@ -510,22 +578,19 @@ end
 --------------------------------------------------------------------------
 -- Unset the value of environment variable.
 function unsetenv(...)
-   dbg.start{"unsetenv(",l_concatTbl({...},", "),")"}
+   dbg.start{"unsetenv(", l_concatTbl({...}, ", "), ")"}
 
-   local argTable 
-   local mcp_old = mcp
-   
-   -- If first argument is a table, add cmdName
-   local args = {...}
-   if type(args[1]) == "table" then
-      args[1].cmdName = "unsetenv"
+   -- Build and validate the argument table using the new rules.
+   local argT = l_build_check_argT("unsetenv", s_unsetenv_rulesT, ...)
+   if (not argT) then
+      dbg.fini("unsetenv")
+      return
    end
    
-   mcp, argTable = l_list_2_Tbl(unpack(args))
+   local mcp_old = mcp
+   mcp = l_chose_mcp(argT)
 
-   if (not l_validateArgsWithValue("unsetenv", argTable)) then return end
-
-   mcp:unsetenv(unpack(argTable))
+   mcp:unsetenv(unpack(argT))
    mcp = mcp_old
    dbg.fini("unsetenv")
    return
@@ -1037,14 +1102,9 @@ end
 -- in the modulefile.  It is not an error to unload a module which is
 -- not loaded.  The reverse of an unload is a no-op.
 function unload(...)
-   dbg.start{"unload(",l_concatTbl({...},", "),")"}
-
-   local argTable
-   local mcp_old = mcp
-   mcp, argTable = l_list_2_Tbl( ...)
-
-   if (not l_validateModules("unload", unpack(argTable))) then return {} end
-   local b = unload_internal(MName:buildA("mt",unpack(argTable)))
+   dbg.start{"unload(", l_concatTbl({...}, ", "), ")"}
+   if (not l_validateModules("unload", ...)) then return {} end
+   local b = unload_internal(MName:buildA("mt", ...))
    dbg.fini("unload")
    return b
 end
@@ -1151,4 +1211,5 @@ function subprocess(cmd)
    p:close()
    return ret
 end
+
 
