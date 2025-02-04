@@ -71,6 +71,13 @@ testdescript = {
      runLmod list                              #21
 
 
+     runLmod purge                             #14
+     unsetMT
+
+     MODULEPATH=$(testDir)/mf7
+     runLmod avail                             #15
+     runLmod load complr/gcc                   #16
+
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new
