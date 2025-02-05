@@ -1130,8 +1130,8 @@ function M.setfamily(self,familyNm,mName)
    local familyA = l_buildFamilyPrefix()
    for i = 1,#familyA do
       local n = familyA[i] .. familyNm:upper()
-      MCP:setenv(n, mName)
-      MCP:setenv(n .. "_VERSION", myModuleVersion())
+      MCP:setenv{n, mName}
+      MCP:setenv{n .. "_VERSION", myModuleVersion()}
    end
    return results
 end
@@ -1144,8 +1144,8 @@ function M.unsetfamily(self,familyNm)
    local familyA = l_buildFamilyPrefix()
    for i = 1,#familyA do
       local n = familyA[i] .. familyNm:upper()
-      MCP:unsetenv(n, "")
-      MCP:unsetenv(n .. "_VERSION", "")
+      MCP:unsetenv{n, ""}
+      MCP:unsetenv{n .. "_VERSION", ""}
    end
    self.family[familyNm] = nil
 end

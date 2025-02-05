@@ -315,30 +315,14 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 -- @param respect If true, then respect the old value.
-function M.setenv(self, ...) --name, value, respect)
-   local name, value, respect
+function M.setenv(self, argT)
 
-   local firstArg = select(1, ...)
-   if type(firstArg) == "table" then
-      -- Format 2: arguments were passed as a table
-      local t = firstArg
-      name    = (t[1] or ""):trim()
-      value   = t[2]
-      respect = t[3] or nil
-   else
-      -- Format 1: arguments were passed as individual parameters
-      name, value, respect = ...
-      name = (name or ""):trim()
-   end
+   local name    = argT[1] 
+   local value   = argT[2]
+   local respect = argT[3] or false
 
    dbg.start{"MainControl:setenv(\"",name,"\", \"",value,"\", \"",
               respect,"\")"}
-
-   l_check_for_valid_name("setenv",name)
-
-   if (value == nil) then
-      LmodError{msg="e_Missing_Value", func = "setenv", name = name}
-   end
 
    if (respect and getenv(name)) then
       dbg.print{"Respecting old value"}
@@ -358,10 +342,9 @@ end
 -------------------------------------------------------------------
 -- Set an environment variable.
 -- This function just sets the name with value in the current env.
-function M.setenv_env(self, table) --name, value, respect)
-   local name = (table[1] or ""):trim()
-   local value = table[2]
-   local respect = table[3] or nil
+function M.setenv_env(self, argT) --name, value, respect)
+   local name    = argT[1]
+   local value   = argT[2]
    dbg.start{"MainControl:setenv_env(\"",name,"\", \"",value,"\", \"",
               respect,"\")"}
    posix.setenv(name, value, true)
@@ -375,25 +358,12 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 -- @param respect If true, then respect the old value.
-function M.unsetenv(self, ...) --name, value, respect)
-   local name, value, respect
-
-   local firstArg = select(1, ...)
-   if type(firstArg) == "table" then
-      -- Format 2: arguments were passed as a table
-      local t = firstArg
-      name    = (t[1] or ""):trim()
-      value   = t[2]
-      respect = t[3] or nil
-   else
-      -- Format 1: arguments were passed as individual parameters
-      name, value, respect = ...
-      name = (name or ""):trim()
-   end
+function M.unsetenv(self, argT)
+   local name    = argT[1]
+   local value   = argT[2]
+   local respect = argT[3] or false
 
    dbg.start{"MainControl:unsetenv(\"",name,"\", \"",value,"\")"}
-
-   l_check_for_valid_name("unsetenv",name)
 
    if (respect and getenv(name) ~= value) then
       dbg.print{"Respecting old value"}
@@ -425,32 +395,11 @@ end
 -- @param self A MainControl object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
-function M.pushenv(self, ...) --name, value)
-   local name, value
-
-   local firstArg = select(1, ...)
-   if type(firstArg) == "table" then
-      -- Format 2: arguments were passed as a table
-      local t = firstArg
-      name    = (t[1] or ""):trim()
-      value   = t[2]
-   else
-      -- Format 1: arguments were passed as individual parameters
-      name, value = ...
-      name = (name or ""):trim()
-   end
+function M.pushenv(self, argT)
+   local name    = argT[1]
+   local value   = argT[2]
 
    dbg.start{"MainControl:pushenv(\"",name,"\", \"",value,"\")"}
-
-   l_check_for_valid_name("pushenv",name)
-   ----------------------------------------------------------------
-   -- If name exists in the env and the stack version of the name
-   -- doesn't exist then use the name's value as the initial value
-   -- for "stackName".
-
-   if (value == nil) then
-      LmodError{msg="e_Missing_Value",func = "pushenv", name = name}
-   end
 
    local stackName = l_createStackName(name)
    local v64       = nil
@@ -494,28 +443,14 @@ end
 -- @param self A MainControl object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
-function M.popenv(self, ...) --name, value)
-   local name, value
-
-   local firstArg = select(1, ...)
-   if type(firstArg) == "table" then
-      -- Format 2: arguments were passed as a table
-      local t = firstArg
-      name    = (t[1] or ""):trim()
-      value   = t[2]
-   else
-      -- Format 1: arguments were passed as individual parameters
-      name, value = ...
-      name = (name or ""):trim()
-   end
-
+function M.popenv(self, argT)
+   local name    = argT[1]
+   local value   = argT[2]
    dbg.start{"MainControl:popenv(\"",name,"\", \"",value,"\")"}
 
-   l_check_for_valid_name("popenv",name)
-
    local stackName = l_createStackName(name)
-   local frameStk = FrameStk:singleton()
-   local varT     = frameStk:varT()
+   local frameStk  = FrameStk:singleton()
+   local varT      = frameStk:varT()
 
    if (varT[stackName] == nil) then
       varT[stackName] = Var:new(stackName)
@@ -550,27 +485,12 @@ end
 -- Prepend to a path like variable.
 -- @param self A MainControl object
 -- @param t A table containing { name, value, nodups=v1, priority=v2}
-function M.prepend_path(self, ...) --name, value)
-   dbg.start{"MainControl:prepend_path(t)"}
-   
-   local name, value, nodups, priority, delim
-   
-   local firstArg = select(1, ...)
-   if type(firstArg) == "table" then
-      -- Format 2: arguments were passed as a table
-      local t = firstArg
-      name     = t[1]
-      value    = t[2]
-      nodups   = not allow_dups( not t.nodups)
-      priority = (-1)*(t.priority or 0)
-      delim    = t.delim or ":"
-   else
-      -- Format 1: arguments were passed as individual parameters
-      name, value = ...
-      nodups   = false
-      priority = 0
-      delim    = ":"
-   end
+function M.prepend_path(self, argT)
+   local name     = argT[1]
+   local value    = argT[2]
+   local nodups   = not allow_dups( not argT.nodups)
+   local priority = (-1)*(argT.priority or 0)
+   local delim    = argT.delim or ":"
 
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
@@ -578,8 +498,6 @@ function M.prepend_path(self, ...) --name, value)
    dbg.print{"name:\"",name,"\", value: \"",value,
              "\", delim=\"",delim,"\", nodups=\"",nodups,
              "\", priority=",priority,"\n"}
-
-   l_check_for_valid_name("prepend_path",name)
 
    if (varT[name] == nil) then
       varT[name] = Var:new(name, nil, nodups, delim)
@@ -595,28 +513,13 @@ end
 --------------------------------------------------------------------------
 -- Append to a path like variable.
 -- @param self A MainControl object
--- @param t A table containing { name, value, nodups=v1, priority=v2}
-function M.append_path(self, ...) --name, value)
-   dbg.start{"MainControl:append_path(t)"}
-   
-   local name, value, nodups, priority, delim
-   
-   local firstArg = select(1, ...)
-   if type(firstArg) == "table" then
-      -- Format 2: arguments were passed as a table
-      local t = firstArg
-      name     = t[1]
-      value    = t[2]
-      nodups   = not allow_dups( not t.nodups)
-      priority = t.priority or 0
-      delim    = t.delim or ":"
-   else
-      -- Format 1: arguments were passed as individual parameters
-      name, value = ...
-      nodups   = false
-      priority = 0
-      delim    = ":"
-   end
+-- @param argT A table containing { name, value, nodups=v1, priority=v2}
+function M.append_path(self, argT)
+   local name     = argT[1]
+   local value    = argT[2]
+   local nodups   = not allow_dups( not argT.nodups)
+   local priority = argT.priority or 0
+   local delim    = argT.delim or ":"
 
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
@@ -625,8 +528,6 @@ function M.append_path(self, ...) --name, value)
              "\", delim=\"",delim,"\", nodups=\"",nodups,
              "\", priority=",priority,
              "}"}
-
-   l_check_for_valid_name("append_path",name)
 
    -- Do not allow dups on MODULEPATH like env vars.
    nodups = name == ModulePath or nodups
@@ -642,32 +543,15 @@ end
 --------------------------------------------------------------------------
 -- Remove an entry from a path like variable.
 -- @param self A MainControl object
--- @param t A table containing { name, value, nodups=v1, priority=v2, where=v3, force=v4}
-function M.remove_path(self, ...) --name, value)
-   dbg.start{"MainControl:remove_path(t)"}
-   
-   local name, value, nodups, priority, delim, where, force
-   
-   local firstArg = select(1, ...)
-   if type(firstArg) == "table" then
-      -- Format 2: arguments were passed as a table
-      local t = firstArg
-      name     = t[1]
-      value    = t[2]
-      nodups   = not allow_dups( not t.nodups)
-      priority = t.priority or 0
-      delim    = t.delim or ":"
-      where    = t.where
-      force    = t.force
-   else
-      -- Format 1: arguments were passed as individual parameters
-      name, value = ...
-      nodups   = false
-      priority = 0
-      delim    = ":"
-      where    = nil
-      force    = nil
-   end
+-- @param argT A table containing { name, value, nodups=v1, priority=v2, where=v3, force=v4}
+function M.remove_path(self, argT)
+   local name     = argT[1]
+   local value    = argT[2]
+   local nodups   = not allow_dups( not argT.nodups)
+   local priority = argT.priority or 0
+   local delim    = argT.delim or ":"
+   local where    = argT.where
+   local force    = argT.force
 
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
@@ -678,8 +562,6 @@ function M.remove_path(self, ...) --name, value)
              ", where=",where,
              ", force=",force,
              "}"}
-
-   l_check_for_valid_name("remove_path",name)
 
    -- Do not allow dups on MODULEPATH like env vars.
    nodups = (name == ModulePath) or nodups

@@ -86,6 +86,18 @@ local function l_booleanCk(value)
    return type(value) == "boolean", "boolean"
 end
 
+local function l_valid_nameCk(name)
+   if (not type(name) == "string") then
+      return false, "string"
+   end
+   local l    = name:len()
+   local i, j = name:find("^[a-zA-Z_][a-zA-Z0-9_]*")
+   if (j ~= l) then
+      return false, "valid_name"
+   end
+   return true
+end
+
 local function l_trim_first_arg(argT)
    if type(argT[1]) == "string" then
       argT[1] = argT[1]:trim()
@@ -99,6 +111,22 @@ local function l_trim_all_strings_args(argT)
       end
    end
 end
+
+local s_cleanupDirT = { PATH = true, LD_LIBRARY_PATH = true, LIBRARY_PATH = true, MODULEPATH = true }
+
+local function l_cleanupPathArgs(argT)
+   local name = argT[1]:trim()
+   local path = argT[2]:trim()
+   
+   if (s_cleanupDirT[name]) then
+      path = path:gsub(":+$",""):gsub("^:+",""):gsub(":+",":")
+      if (path == "") then path = false end
+      argT[2] = path
+   end
+
+   return
+end
+
 
 -- New mode check for the table: checks if modeA exists, is non-empty,
 -- and that each mode value is among the allowed ones.
@@ -175,7 +203,11 @@ end
 -- Build the argument table and check it against the rules.
 local function l_build_check_argT(cmdName, rulesT, first_elem, ... )
    local argT = l_build_argTable(cmdName, first_elem, ...) 
-   if (not l_check_argT(argT, rulesT)) then return nil end
+   if (not l_check_argT(argT, rulesT) ) then return nil end
+   if (dbg.active()) then
+      local s = cmdName .. serializeTbl{value=argT}:gsub("\n"," "):gsub(", *}"," }")
+      dbg.start{s}
+   end
    return argT
 end
 
@@ -206,40 +238,42 @@ local function l_chose_mcp(argT)
    return MCPQ
 end
 
+
+
 -- Define the rules table for setenv.
 local s_setenv_rulesT = {
    sizeN        = {min=2, max=3},
-   checkA       = {l_stringCk, l_stringValueCk, l_booleanCk},
+   checkA       = { l_valid_nameCk, l_stringValueCk, l_booleanCk},
    checkTblArgs = { l_modeCk },
    trimArg      = l_trim_first_arg,
 }
 
 local s_pushenv_rulesT = {
    sizeN        = {min=2, max=2},
-   checkA       = {l_stringCk, l_stringValueCk},
+   checkA       = { l_valid_nameCk, l_stringValueCk},
    checkTblArgs = { l_modeCk },
    trimArg      = l_trim_first_arg,
 }
 
 local s_unsetenv_rulesT = {
    sizeN        = {min=1, max=2},
-   checkA       = {l_stringCk, l_stringValueCk},
+   checkA       = { l_valid_nameCk, l_stringValueCk},
    checkTblArgs = { l_modeCk },
    trimArg      = l_trim_first_arg,
 }
 
 local s_prepend_rulesT = {
    sizeN        = {min=2, max=3},
-   checkA       = {l_stringCk, l_stringCk, l_stringCk},
+   checkA       = { l_valid_nameCk, l_stringCk, l_stringCk},
    checkTblArgs = { l_modeCk },
-   trimArg      = l_trim_first_arg,
+   trimArg      = l_cleanupPathArgs,
 }
 
 local s_remove_rulesT = {
    sizeN        = {min=2, max=3},
-   checkA       = {l_stringCk, l_stringCk, l_stringCk},
+   checkA       = { l_valid_nameCk, l_stringCk, l_stringCk},
    checkTblArgs = { l_modeCk },
-   trimArg      = l_trim_first_arg,
+   trimArg      = l_cleanupPathArgs,
 }
 
 local huge = math.maxinteger or math.huge
@@ -437,37 +471,26 @@ local function l_convert2table(...)
    return t
 end
 
-local function l_cleanupPathArgs(t)
-   local name = t[1]:trim()
-   local path = t[2]:trim()
-   
-   if (s_cleanupDirT[name]) then
-      path = path:gsub(":+$",""):gsub("^:+",""):gsub(":+",":")
-      if (path == "") then path = false end
-      t[2] = path
-   end
-
-   return
-end
-
 
 --------------------------------------------------------------------------
 -- Prepend a value to a path like variable.
 function prepend_path(...)
-   dbg.start{"prepend_path(", l_concatTbl({...}, ", "), ")"}
-
    local argT = l_build_check_argT("prepend_path", s_prepend_rulesT, ...)
    if (not argT) then
       dbg.fini("prepend_path")
       return
    end
 
-   l_cleanupPathArgs(argT)
+
    local mcp_old = mcp
    mcp = l_chose_mcp(argT)
+   dbg.print{"after l_chose_mcp\n"}
+
+   dbg.printT("argT",argT)
 
    if (argT[2]) then
-      mcp:prepend_path(unpack(argT))
+      dbg.print{"Calling mcp:prepend_path\n"}
+      mcp:prepend_path(argT)
    end
    mcp = mcp_old
    dbg.fini("prepend_path")
@@ -477,15 +500,7 @@ end
 --------------------------------------------------------------------------
 -- Append a value to a path like variable.
 function append_path(...)
-   dbg.start{"append_path(", l_concatTbl({...}, ", "), ")"}
-
    local argT = l_build_check_argT("append_path", s_prepend_rulesT, ...)
-   if (not argT) then
-      dbg.fini("append_path")
-      return
-   end
-
-   l_cleanupPathArgs(argT)
    local mcp_old = mcp
    mcp = l_chose_mcp(argT)
 
@@ -525,8 +540,6 @@ end
 --------------------------------------------------------------------------
 -- Set the value of environment variable and maintain a stack.
 function pushenv(...)
-   dbg.start{"pushenv(", l_concatTbl({...}, ", "), ")"}
-
    local argT = l_build_check_argT("pushenv", s_pushenv_rulesT, ...)
    if (not argT) then
       dbg.fini("pushenv")
@@ -555,8 +568,6 @@ end
 
 -- Set the value of environment variable.
 function setenv(...)
-   dbg.start{"setenv(", l_concatTbl({...}, ", "), ")"}
-
    -- Build and validate the argument table using the new rules.
    local argT = l_build_check_argT("setenv", s_setenv_rulesT, ...)
    if (not argT) then
@@ -568,7 +579,7 @@ function setenv(...)
    mcp = l_chose_mcp(argT)
 
    -- Call the underlying mcp function using unpacked arguments from argT.
-   mcp:setenv(unpack(argT))
+   mcp:setenv(argT)
    mcp = mcp_old
    dbg.fini("setenv")
    return
@@ -578,8 +589,6 @@ end
 --------------------------------------------------------------------------
 -- Unset the value of environment variable.
 function unsetenv(...)
-   dbg.start{"unsetenv(", l_concatTbl({...}, ", "), ")"}
-
    -- Build and validate the argument table using the new rules.
    local argT = l_build_check_argT("unsetenv", s_unsetenv_rulesT, ...)
    if (not argT) then
