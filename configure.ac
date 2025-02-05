@@ -44,6 +44,8 @@ FOLLOW_READLINK ()
 
 ERR_MSG=""
 FOUND_ERROR=
+SRCDIR=$( cd $srcdir; pwd)
+PATH_TO_SRC=$SRCDIR
 
 AC_SUBST(DUPLICATE_PATHS)
 AC_ARG_WITH(duplicatePaths,
@@ -726,6 +728,26 @@ if test "$ALLOW_TCL_MFILES" = no ; then
   FAST_TCL_INTERP=no
 fi
 
+AC_SUBST(PATH_TO_TCLSH)
+AC_PATH_PROGS(PATH_TO_TCLSH, [tclsh9.0] [tclsh9] [tclsh], UNKNOWN_TCLSH)
+if test "$PATH_TO_TCLSH" = "UNKNOWN_TCLSH" -a "$ALLOW_TCL_MFILES" = yes; then
+  echo
+  echo "The tclsh program must be in your path. Quitting!"
+  echo
+  rm -f makefile
+  exit 1
+fi
+
+TCL_VERSION=`$PATH_TO_TCLSH $SRCDIR/proj_mgmt/tcl_version_string.tcl`
+if test $TCL_VERSION -ge 9000000; then
+  FAST_TCL_INTERP=no
+fi
+
+if test -z "$TCL_PKG_CONFIG_DIR" ; then
+  TCL_PKG_CONFIG_DIR=`$SRCDIR/proj_mgmt/find_tcl_pc.sh $PATH_TO_TCLSH`
+fi
+
+
 if test "$FAST_TCL_INTERP" = yes ; then
    OS=$(uname -s)
    AC_PATH_PROG(pkgConfig, pkg-config, "UNKNOWN_PKG_CONFIG")
@@ -748,9 +770,9 @@ if test "$FAST_TCL_INTERP" = yes ; then
       DIR=$(xcrun --show-sdk-path)
       TCL_INCLUDE="-I${DIR}/usr/include"
    else
-      for i in "" tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
-         if test -f /usr/include/$i/tcl.h ; then
-            TCL_INCLUDE="-I/usr/include/$i"
+      for i in /usr/include /usr/include/tcl /usr/include/tcl9* /usr/include/tcl8*  ; do
+         if test -f $i/tcl.h ; then
+            TCL_INCLUDE="-I$i"
             break;
          fi
       done
@@ -800,8 +822,6 @@ AC_SUBST(SYS_LD_PRELOAD)
 SYS_LD_PRELOAD=$LD_PRELOAD
 
 AC_SUBST(PATH_TO_SRC)
-SRCDIR=$( cd $srcdir; pwd)
-PATH_TO_SRC=$SRCDIR
 
 ##### UTILS -- start
 
@@ -814,7 +834,6 @@ AC_SUBST(PATH_TO_LS)
 AC_SUBST(PATH_TO_GIT)
 AC_SUBST(PATH_TO_HASHSUM)
 AC_SUBST(PATH_TO_PAGER)
-AC_SUBST(PATH_TO_TCLSH)
 
 if test $MODE = "user_default" ; then
   mode=0755
@@ -894,14 +913,6 @@ elif test "$PATH_TO_HASHSUM" = "UNKNOWN_HASHSUM" ; then
   exit 1
 fi
 
-AC_PATH_PROG(PATH_TO_TCLSH, tclsh, UNKNOWN_TCLSH)
-if test "$PATH_TO_TCLSH" = "UNKNOWN_TCLSH" -a "$ALLOW_TCL_MFILES" = yes; then
-  echo
-  echo "The tclsh program must be in your path. Quitting!"
-  echo
-  rm -f makefile
-  exit 1
-fi
 AC_PATH_PROGS(PATH_TO_TR, [gtr] [tr],"")
 AC_PATH_PROGS(PATH_TO_LS, [gls] [ls], "")
 

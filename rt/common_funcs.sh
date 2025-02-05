@@ -138,6 +138,11 @@ runBase ()
    "$@" > _stdout.$NUM 2>> _stderr.$NUM
 }
 
+printErr ()
+{
+  echo "$@" 1>&2
+}
+
 runFish ()
 {
   runBase $LUA_EXEC $projectDir/src/lmod.in.lua fish --regression_testing "$@"

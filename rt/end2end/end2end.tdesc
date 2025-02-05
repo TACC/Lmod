@@ -67,9 +67,9 @@ testdescript = {
      runMe $LMOD_EXEC avail
      export TEST=0
      runMe $LMOD_EXEC load b
-     runMe echo "TEST: $TEST"
+     runMe printErr "TEST: $TEST" 
      runMe $LMOD_EXEC unload b
-     runMe echo "TEST: $TEST"
+     runMe printErr "TEST: $TEST"
 
 
 
