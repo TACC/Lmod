@@ -381,7 +381,15 @@ proc module-info {what {more {}}} {
 	}
     }
     "shell" {
-        return $g_shellName
+        if {$more ne {}} {
+            if {$g_shellName eq $more} {
+               return 1
+            } else {
+               return 0
+            }
+        } else {
+            return $g_shellName
+        }
     }
     "shelltype" {
         return $g_shellType
