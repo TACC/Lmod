@@ -29,7 +29,6 @@ testdescript = {
      DIR=Lmod
      dir=lmod
 
-
      remove_generated_lmod_files build b0 lmod results.csv
 
      GIT_BRANCH=`git status | head -n 1 | sed -e 's/^[# ]*On branch //g' -e 's/^[# ]*HEAD detached at//g'`
@@ -37,7 +36,7 @@ testdescript = {
      LmodV=`$LUA_EXEC $projectDir/src/$CMD bash --dumpversion 2>&1`
      echo LmodV=$LmodV
      mkdir b0
-     (cd b0; $(projectDir)/configure --prefix=$(outputDir)/b0 --with-useBuiltinPkgs=yes)
+     (cd b0; sh $(projectDir)/configure --prefix=$(outputDir)/b0 --with-useBuiltinPkgs=yes)
      (cd $(projectDir); make -f $(outputDir)/b0/makefile dist GIT_BRANCH=$GIT_BRANCH)
      tar xf $projectDir/${DIR}-$LmodV.tar.bz2
      rm -rf $projectDir/${DIR}-$LmodV.tar.bz2

@@ -10,12 +10,16 @@ _G.MainControl   = require("MainControl")
 local DirTree    = require("DirTree")
 local ModuleA    = require("ModuleA")
 local LocationT  = require("LocationT")
+local MRC        = require("MRC")
 local concatTbl  = table.concat
 local cosmic     = require("Cosmic"):singleton()
 local getenv     = os.getenv
 local testDir    = "spec/LocationT"
 
 setenv_lmod_version()
+local mrc = MRC:singleton()
+mrc:set_display_mode("spider")
+cosmic:assign("LMOD_SHOW_HIDDEN","no")
 describe("Testing LocationT Class #LocationT.",
          function()
             it("build locationT and compare",

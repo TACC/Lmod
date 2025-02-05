@@ -67,6 +67,7 @@ cleanUp ()
        -e "s|^LMOD_LD_PRELOAD.*||g"                       \
        -e "s|^LuaFileSystem version.*||g"                 \
        -e "s|^Lua Version.*||g"                           \
+       -e "s|^Lmod Version.*||g"                          \
        -e "s|^Lmod branch.*||g"                           \
        -e "s|^LMOD_BRANCH.*||g"                           \
        -e "s|^\(uname -a\).*|\1|g"                        \
@@ -287,15 +288,16 @@ initStdEnvVars()
   unset SHLIB_PATH
   unset TERM
   unset _LMFILES_
-  unset LMOD_IGNORE_CACHE
   unset LMOD_CACHED_LOADS
-  unset LMOD_SET_NOGLOB
-  unset LMOD_DISPLAY_VERSION_COLOR
-  unset LMOD_DISPLAY_SN_COLOR
   unset LMOD_DISPLAY_META_COLOR
-  unset LMOD_SYSTEM_DEFAULT_MODULES
+  unset LMOD_DISPLAY_SN_COLOR
+  unset LMOD_DISPLAY_VERSION_COLOR
+  unset LMOD_IGNORE_CACHE
   unset LMOD_MODULERC
   unset LMOD_MODULERCFILE
+  unset LMOD_SET_NOGLOB
+  unset LMOD_SHOW_HIDDEN
+  unset LMOD_SYSTEM_DEFAULT_MODULES
   unset MODULERCFILE
   unset __LMOD_Priority_PATH
   export LMOD_NEWLINE="

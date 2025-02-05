@@ -15,9 +15,13 @@ For example::
 
     $ module load abc/1.2.3
 
+    -----------------------------------------------------------------
+    There are messages associated with the following module(s) :
+    -----------------------------------------------------------------
     abc/1.2.3:
         This module is deprecated and will be removed from the system
         on June 19.   Please load abc/2.3.4 instead.
+    -----------------------------------------------------------------
 
 
 Note that this message is just text and in no way controls user access
@@ -64,6 +68,8 @@ full path to a modulefile.  If it doesn't then it is a
 moduleName/version string. Also, you can have several
 modulefiles use the same message by separating them with *|* 
 
+You can add comments with the `#` character.
+
 You can use Lua regular expression to also match one or modules for
 both the full path to a module or the module fullname. Lua regular
 expressions are much less powerful (see
@@ -87,7 +93,7 @@ names that have a '-' in their name requires % quoting.
 The message can be as many lines as you like.  The message ends with a
 blank line.   Below is an example::
 
-
+      # removed because ...
       gcc/2.95:    This module is deprecated and will be removed from the system on Jan 1. 1999.
                    Please switch to a newer compiler.
 

@@ -1,0 +1,79 @@
+#!/bin/sh
+# -*- python -*-
+
+################################################################################
+# This file is python 2/3 bilingual. 
+# The line """:" starts a comment in python and is a no-op in shell.
+""":"
+# Shell code to find and run a suitable python interpreter.
+for cmd in python3 python python2; do
+   command -v > /dev/null $cmd && exec $cmd $0 "$@"
+done
+
+echo "Error: Could not find a valid python interpreter --> exiting!" >&2
+exit 2
+":""" # this line ends the python comment and is a no-op in shell.
+################################################################################
+
+from __future__ import print_function
+import os, sys, re, time, argparse, json
+from datetime               import date
+from dateutil.relativedelta import relativedelta
+from LMODdb                 import LMODdb
+
+class CmdLineOptions(object):
+  """ Command line Options class """
+
+  def __init__(self):
+    """ Empty Ctor """
+    pass
+  
+  def execute(self):
+    """ Specify command line arguments and parse the command line"""
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--syshost",      dest='syshost',      action="store",      default = "%",            help="system host name")
+    parser.add_argument("--keepMonths",   dest='nMonths',      action="store",      default = None,           help="number of months to keep")
+    parser.add_argument("--yes",          dest='yes',          action="store_true", default = None,           help="yes to deletions")
+    parser.add_argument("--start",        dest='startDate',    action="store",      default = "unknown",      help="start date")
+    parser.add_argument("--end",          dest='endDate',      action="store",      default = "unknown",      help="end date")
+    parser.add_argument("-D",             dest='debug',        action="store_true",                           help="Debug Flag")
+    parser.add_argument("--confFn",       dest='confFn',       action="store",      default="lmodV2_db.conf", help="Name of the database")
+    args = parser.parse_args()
+    return args
+
+
+
+def months_back(n):
+  today       = date.today()
+  result_date = today - relativedelta(months=n)
+  return result_date
+
+def main():
+
+  args      = CmdLineOptions().execute()
+  lmod      = LMODdb(args.confFn)
+  
+  startDate = args.startDate
+  endDate   = args.endDate
+
+  if (args.nMonths):
+    endDate = str(months_back(int(args.nMonths)))
+
+  if (endDate == "unknown"):
+    print("Must specify end date")
+    sys.exit(1)
+          
+  dateStr = lmod.build_dateTest(startDate, endDate)
+  dateStr = dateStr.replace("and","",1)
+  print("Deleting records with dates: ", dateStr)
+  if (not args.yes): 
+    ans = input("Is this OK (y/N)?")
+    if (ans != 'y'):
+      print("Exiting!")
+      sys.exit(0)
+    
+  
+  lmod.delete_old_records(args.debug, args.syshost, startDate, endDate)
+
+
+if ( __name__ == '__main__'): main()

@@ -2,7 +2,7 @@
 #  value
 #
 #  key2: value ..
-
+    # a comment 
 
 gcc/4.2.3:  This is old and you should not be using it.
 

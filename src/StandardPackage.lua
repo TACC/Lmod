@@ -124,7 +124,7 @@ local keepA = {}
 local function l_reverseMapPathFilterHook()
    return keepA, ignoreA
 end
-   
+
 hook.register("reverseMapPathFilter",l_reverseMapPathFilterHook)
 
 

@@ -49,7 +49,7 @@ function myConfig(key)
          a[#a+1] = g
       end
       if (optionTbl.rt) then
-         a[#a+1] =  "lmodTestGroup" 
+         a[#a+1] =  "lmodTestGroup"
       end
       result = a
    elseif (key == "shelltype") then

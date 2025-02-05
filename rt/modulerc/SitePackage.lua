@@ -6,6 +6,6 @@ local function load_hook(t)
       --     t.mname:        The Module Name object. 
 
    local isVisible = t.mname:isVisible()
-   io.stderr:write("module: ",t.modFullName," isVisible statue: ",tostring(isVisible),"\n")
+   io.stderr:write("module: ",t.modFullName," isVisible status: ",tostring(isVisible),"\n")
 end
 hook.register("load", load_hook)

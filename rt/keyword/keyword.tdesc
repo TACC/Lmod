@@ -29,6 +29,8 @@ testdescript = {
      runLmod --version                  # 1
      runLmod           keyword graph    # 2
      runLmod --terse   keyword graph    # 3
+     runLmod           keyword ICC_DIR  # 4
+     runLmod --terse   keyword ICC_DIR  # 5
 
      HOME=$ORIG_HOME
 

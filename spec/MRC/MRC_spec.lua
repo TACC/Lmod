@@ -15,6 +15,9 @@ local cosmic     = require("Cosmic"):singleton()
 local dbg        = require("Dbg"):dbg()
 local testDir    = "spec/MRC"
 setenv_lmod_version()
+local mrc       = MRC:singleton()
+mrc:set_display_mode("spider")
+cosmic:assign("LMOD_SHOW_HIDDEN","no")
 
 describe("Testing MRC class #MRC.",
          function()
@@ -78,7 +81,7 @@ describe("Testing MRC class #MRC.",
                   local _mrcMpathT   = {}
                   sanizatizeTbl(rplmntA, mrcMpathT, _mrcMpathT)
                   --print(serializeTbl{indent=true, name="mrcT",      value = mrcT})
-                  --print(serializeTbl{indent=true, name="mrcMpathT", value = _mrcMpathT}) 
+                  --print(serializeTbl{indent=true, name="mrcMpathT", value = _mrcMpathT})
                   assert.are.same(gold_mrcT,       mrcT)
                   assert.are.same(gold_mrcMpathT, _mrcMpathT)
                end)

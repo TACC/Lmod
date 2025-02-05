@@ -49,11 +49,12 @@ def main():
 
   lmod = LMODdb(args.confFn)
 
+  modulePatt = re.compile(r'.*ModuleUsageTracking:? *')
+
   f = open(args.syslog_fn,"r")
   for count, line in enumerate(f):
     line  = line.rstrip("\n")
-    idx   = line.find("ModuleUsageTracking: ")
-    dataT = dict(re.findall(r'(\S+)=(".*?"|\S+)', line[idx+6:]))
+    dataT = dict(re.findall(r'(\S+)=(".*?"|\S+)', rest))
 
     if (dataT.get('host') == None):
       print(line)
