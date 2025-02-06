@@ -223,9 +223,9 @@ function main()
          envVarT[path] = j
       end
    end
-   
+
    dbg.printT("Before envVarT",envVarT)
-   
+
    local insert = myInsert(optionTbl.appendFlg, optionTbl.existFlg, maxIdx)
 
    for path, idx in pairs(valueT) do

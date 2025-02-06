@@ -1,0 +1,91 @@
+#!/bin/sh
+# -*- python -*-
+
+################################################################################
+# This file is python 2/3 bilingual. 
+# The line """:" starts a comment in python and is a no-op in shell.
+""":"
+# Shell code to find and run a suitable python interpreter.
+for cmd in python3 python python2; do
+   command -v > /dev/null $cmd && exec $cmd $0 "$@"
+done
+
+echo "Error: Could not find a valid python interpreter --> exiting!" >&2
+exit 2
+":""" # this line ends the python comment and is a no-op in shell.
+################################################################################
+
+
+from __future__ import print_function
+import os, sys, re, getpass, base64, traceback
+try:
+  import configparser
+except:
+  import ConfigParser as configparser
+
+try:
+  input = raw_input
+except:
+  pass
+
+dirNm, execName = os.path.split(sys.argv[0])
+sys.path.insert(1,os.path.abspath(os.path.join(dirNm, "../libexec")))
+sys.path.insert(1,os.path.realpath(os.path.join(dirNm, "../site")))
+
+import argparse
+
+class CmdLineOptions(object):
+  def __init__(self):
+    pass
+  
+  def execute(self):
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--dbhost",  dest='dbhost',  action="store",  help="db host")
+    parser.add_argument("--dbuser",  dest='dbuser',  action="store",  help="db user")
+    parser.add_argument("--passwd",  dest='passwd',  action="store",  help="password")
+    parser.add_argument("--dbname",  dest='dbname',  action="store",  help="name of db")
+
+    args = parser.parse_args()
+    
+    return args
+class CreateConf(object):
+  def __init__(self, args):
+    self.__host   = args.dbhost 
+    self.__user   = args.dbuser 
+    self.__passwd = args.passwd 
+    self.__db     = args.dbname 
+    
+  def __readFromUser(self):
+    if (not self.__host):   self.__host   = input("Database host: ")
+    if (not self.__user):   self.__user   = input("Database user: ")
+    if (not self.__passwd): self.__passwd = getpass.getpass("Database pass: ")
+    if (not self.__db):     self.__db     = input("Database name: ")
+    
+  def __writeConfig(self):
+    config=configparser.ConfigParser()
+    config.add_section("MYSQL")
+    config.set("MYSQL","HOST",self.__host)
+    config.set("MYSQL","USER",self.__user)
+    config.set("MYSQL","PASSWD",base64.b64encode(self.__passwd.encode()).decode())
+    config.set("MYSQL","DB",self.__db)
+
+    fn = self.__db + "_db.conf"
+
+    f = open(fn,"w")
+    config.write(f)
+    f.close()
+
+  def create(self):
+
+    self.__readFromUser()
+    self.__writeConfig()
+    
+
+
+def main():
+  args = CmdLineOptions().execute()
+  createConf = CreateConf(args)
+  createConf.create()
+
+
+if ( __name__ == '__main__'): main()

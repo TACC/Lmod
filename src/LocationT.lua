@@ -44,11 +44,6 @@ local dbg      = require("Dbg"):dbg()
 local cosmic   = require("Cosmic"):singleton()
 
 local function l_merge_locationT(origT, lctnT, v)
-   if (v.file) then
-      if (origT == nil) then
-         lctnT = {file = v.file }
-      end
-   end
    if (next(v.fileT) ~= nil and lctnT.file == nil) then
       if (origT == nil or lctnT.fileT == nil) then
          lctnT = {fileT = v.fileT, dirT = lctnT.dirT or {}}
@@ -88,9 +83,7 @@ local function l_build(moduleA)
    local T = moduleA[1].T or {}
 
    for sn,v in pairs(T) do
-      if (v.file) then
-         locationT[sn] = {file = v.file, fileT = {}, dirT = {}, mpath = v.mpath }
-      elseif (next(v.fileT) ~= nil) then
+      if (next(v.fileT) ~= nil) then
          locationT[sn] = {fileT = v.fileT, dirT = {}}
       elseif (next(v.dirT)) then
          locationT[sn] = {dirT = v.dirT, fileT={}}
@@ -111,12 +104,12 @@ local function l_build(moduleA)
 end
 
 function M.new(self, moduleA)
-   --dbg.start{"LocationT:new(moduleA)"}
+   dbg.start{"LocationT:new(moduleA)"}
    local o = {}
    setmetatable(o,self)
    o.__locationT = l_build(deepcopy(moduleA))
    self.__index = self
-   --dbg.fini("LocationT:new")
+   dbg.fini("LocationT:new")
    return o
 end
 
@@ -125,12 +118,12 @@ function M.locationT(self)
 end
 
 function M.search(self, name)
-   --dbg.start{"LocationT:search(",name,")"}
+   dbg.start{"LocationT:search(",name,")"}
    local locationT = self.__locationT
 
    if (next(locationT) == nil) then
-      --dbg.print{"next(locationT) == nil\n"}
-      --dbg.fini("LocationT:search")
+      dbg.print{"next(locationT) == nil\n"}
+      dbg.fini("LocationT:search")
       return nil, nil, nil
    end
 
@@ -154,14 +147,14 @@ function M.search(self, name)
 
    -- if v is nil then the name was not found so quit
    if (v == nil) then
-      --dbg.fini("LocationT:search")
+      dbg.fini("LocationT:search")
       return nil
    end
 
-   if (v.dirT == nil and v.file == nil) then
-      --dbg.print{"sn: ",sn,"\n"}
-      --dbg.printT("locationT", locationT)
-      --dbg.fini("LocationT:search")
+   if (v.dirT == nil) then
+      dbg.print{"sn: ",sn,"\n"}
+      dbg.printT("locationT", locationT)
+      dbg.fini("LocationT:search")
       LmodError{msg="e_LocationT_Srch"}
       return nil
    end
@@ -205,14 +198,14 @@ function M.search(self, name)
       end
    end
 
-   --dbg.print{"sn:",sn,", versionStr: ",versionStr,", fullStr: ",fullStr,"\n"}
-   --dbg.printT("v",v)
+   dbg.print{"sn:",sn,", versionStr: ",versionStr,", fullStr: ",fullStr,"\n"}
+   dbg.printT("v",v)
 
    local fileA = {}
    fileA[1]    = {}
    local extended_default = cosmic:value("LMOD_EXTENDED_DEFAULT")
    collectFileA(sn, fullStr, extended_default, v, fileA[1])
-   --dbg.fini("LocationT:search")
+   dbg.fini("LocationT:search")
    return sn, versionStr, fileA
 end
 

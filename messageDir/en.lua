@@ -79,7 +79,7 @@ return {
        ml s  -> ml save
        ml sl -> ml savelist
        ml sw -> ml swap
-   
+
    Loading Modules named "r" or "spider" or other module commands
    --------------------------------------------------------------
 
@@ -147,6 +147,13 @@ Please check the spelling or version number. Also try "module spider ..."
 Also make sure that all modulefiles written in TCL start with the string #%Module
 ]==],
 
+     e_Failed_2_Find_w_Access = [==[Failed to find the following module(s):  "%{quote_comma_list}" in your MODULEPATH
+Try:
+
+    $ module spider %{module_list}
+
+to see if the module(s) are available across all compilers and MPI implementations.
+]==],
      e_Family_Conflict     = [==[You can only have one %{name} module loaded at a time.
 You already have %{oldName} loaded.
 To correct the situation, please execute the following command:
@@ -177,7 +184,7 @@ please execute the command \" clearMT\" and reload your modules.
    $ module swap %{oldFullName} %{newFullName}
 
 Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOSWAP to "no" to re-enable same name autoswapping.
-]==],  -- 
+]==],  --
      e_No_Hashsum          = "Unable to find HashSum program (sha1sum, shasum, md5sum or md5).",
      e_No_Matching_Mods    = "No matching modules found.\n",
      e_No_Mod_Entry        = "%{routine}: Did not find module entry: \"%{name}\". This should not happen!\n",
@@ -215,7 +222,7 @@ See https://lmod.readthedocs.io/en/latest/260_sh_to_modulefile.html for details.
      e_missing_table       = "sandbox_registration: The argument passed is: \"%{kind}\". It should be a table.",
      e_setStandardPaths    = "Unknown Key: \"%{key}\" in setStandardPaths.\n",
 
-     
+
      --------------------------------------------------------------------------
      -- LmodMessages
      --------------------------------------------------------------------------
@@ -317,18 +324,11 @@ No change in modules loaded.
 ]==],
      w_Broken_FullName     = "Badly formed module-version line: module-name must be fully qualified: %{fullName} is not.\n",
      w_Empty_Coll          = "You have no modules loaded because the collection \"%{collectionName}\" is empty!\n",
-     w_Failed_2_Find       = [==[Failed to find the following module(s):  "%{quote_comma_list}" in your MODULEPATH
-Try:
-
-    $ module spider %{module_list}
-
-to see if the module(s) are available across all compilers and MPI implementations.
-]==],
      w_MissingModules      = [==[
 %{border}
 The following dependent module(s) are not currently loaded: %{missing}
 %{border}
-]==], 
+]==],
      w_MPATH_Coll          = "The system MODULEPATH has changed: please rebuild your saved collection.\n",
      w_Mods_Not_Loaded     = "The following modules were not loaded: %{module_list}\n\n",
      w_Nearly_Forbidden    = "Access will be denied to this module starting %{after}\n",

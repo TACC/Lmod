@@ -118,10 +118,11 @@ class LMODdb(object):
     return self.__db
 
 
-  def dump_db(self, startDate, endDate):
+  def dump_db(self, startDate, endDate, fn):
 
     userA   = None
     moduleA = None
+
 
     query = ""
     try:
@@ -167,16 +168,19 @@ class LMODdb(object):
 
 
       # extract join_user_module table:
-      query = "SELECT user_id, mod_id, UNIX_TIMESTAMP(date) from join_user_module where date >= %s AND date < %s"
+      query = "SELECT user_id, mod_id, UNIX_TIMESTAMP(date) from join_user_module where date >= %s AND date < %s limit 10000000"
       cursor.execute(query, (startDate, endDate))
       numRows = cursor.rowcount
-      for i in range(numRows):
-        row     = cursor.fetchone()
-        user    = userA[int(row[0])]
-        modT    = moduleA[int(row[1])]
-        date    = str(row[2])
-        t       = {'user': user, 'path': modT['path'], 'module' : modT['module'], 'syshost': modT['syshost'], 'date' : date }
-        print(json.dumps(t))
+      if (numRows > 0):
+        f      = open(fn, "w")
+        for i in range(numRows):
+          row     = cursor.fetchone()
+          user    = userA[int(row[0])]
+          modT    = moduleA[int(row[1])]
+          date    = str(row[2])
+          t       = {'user': user, 'path': modT['path'], 'module' : modT['module'], 'syshost': modT['syshost'], 'date' : date }
+          f.write(json.dumps(t) + "\n")
+        f.close()
 
     except Exception as e:
       print("dump_db(): ",e)

@@ -78,9 +78,7 @@ function mrc_load(fn)
          LmodError{msg="e_Unable_2_Load", name = "<unknown>", fn = s_fn, message = msg}
       end
    else
-      dbg.print{"Before runTCLprog\n"}
       whole, ok = runTCLprog(pathJoin(cmdDir(),"RC2lua.tcl"), s_fn)
-      dbg.print{"After runTCLprog\n"}
       if (not ok) then
          LmodError{msg = "e_Unable_2_parse", path = s_fn}
       end

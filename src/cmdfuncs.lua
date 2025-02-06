@@ -53,6 +53,7 @@ local ColumnTable  = require('ColumnTable')
 local FrameStk     = require('FrameStk')
 local Hub          = require('Hub')
 local MName        = require("MName")
+local MRC          = require("MRC")
 local Spider       = require("Spider")
 local Version      = require("Version")
 local concatTbl    = table.concat
@@ -103,7 +104,7 @@ local function l_findNamedCollections(a,pathA)
    local system_name  = cosmic:value("LMOD_SYSTEM_NAME")
    local t            = {}
    for i = 1,#pathA do
-      repeat 
+      repeat
          local path = pathA[i]
          if (not isDir(path)) then break end
          for file in lfs.dir(path) do
@@ -151,7 +152,9 @@ end
 function Category(...)
    dbg.start{"Category(", concatTbl({...},", "),")"}
    local shell = _G.Shell
+   local mrc   = MRC:singleton()
 
+   mrc:set_display_mode("spider")
 
    local cache = Cache:singleton{buildCache = true}
    local moduleT, dbT = cache:build()
@@ -205,7 +208,7 @@ To get a list of every module in a category execute:
 
       local b = {}
       for cat, _ in pairsByKeys(categoryT) do
-         b[#b+1] = cat 
+         b[#b+1] = cat
       end
 
       b = hook.apply("category", "simple", b) or b
@@ -303,6 +306,9 @@ function Help(...)
 end
 
 function IsAvail(...)
+   local mrc  = MRC:singleton()
+   mrc:set_display_mode("avail")
+
    local argA = pack(...)
    for i = 1, argA.n do
       local mname = MName:new("load", argA[i])
@@ -314,6 +320,9 @@ function IsAvail(...)
 end
 
 function IsLoaded(...)
+   local mrc  = MRC:singleton()
+   mrc:set_display_mode("avail")
+
    local argA = pack(...)
    for i = 1, argA.n do
       local mname = MName:new("mt", argA[i])
@@ -330,6 +339,7 @@ end
 function Keyword(...)
    dbg.start{"Keyword(",concatTbl({...},","),")"}
 
+   local mrc                    = MRC:singleton(); mrc:set_display_mode("spider")
    local banner                 = Banner:singleton()
    local border                 = banner:border(0)
    local shell                  = _G.Shell
@@ -373,6 +383,9 @@ function List(...)
    local inactiveA = mt:list(kind,"inactive")
    local total     = #activeA + #inactiveA
    local cwidth    = optionTbl.rt and LMOD_COLUMN_TABLE_WIDTH or TermWidth()
+   local mrc       = MRC:singleton()
+
+   mrc:set_display_mode("list")
 
    dbg.print{"#activeA:   ",#activeA,"\n"}
    dbg.print{"#inactiveA: ",#inactiveA,"\n"}
@@ -414,7 +427,7 @@ function List(...)
             s = s .. "\n" .. entry.origUserName
          end
          dbg.print{"fullName: ",entry.fullName, ", orig: ",entry.origUserName,", s: ",s,"\n"}
-         
+
          for j = 1, wanted.n do
             local p = wanted[j]
             if (s:find(p)) then
@@ -436,7 +449,7 @@ function List(...)
    b[#b+1]            = "\n"
    local kk           = 0
    local legendT      = {}
-   local show_hidden  = optionTbl.show_hidden
+   local show_hidden  = mrc:show_hidden()
    local have_hiddenL = false
 
    for i = 1, #activeA do
@@ -530,8 +543,10 @@ end
 -- it won't get the swap message.
 
 local function l_usrLoad(argA, check_must_load)
-   local frameStk = FrameStk:singleton()
    dbg.start{"l_usrLoad(argA, check_must_load: ",check_must_load,")"}
+   local frameStk = FrameStk:singleton()
+   local mrc      = MRC:singleton()
+   mrc:set_display_mode("all")
    local uA   = {}
    local lA   = {}
    for i = 1, argA.n do
@@ -676,7 +691,7 @@ function Reset(msg)
          b[#b+1] = {k,v}
       end
    end
-   
+
    local function cmp(a,b)
       return a[2] < b[2]
    end
@@ -692,7 +707,7 @@ function Reset(msg)
       pathA = concatTbl(a," ")
    end
 
-   
+
    dbg.print{"default: \"",default,"\"\n"}
 
    default = default:trim()
@@ -732,10 +747,10 @@ local function l_collectionDir(mode)
       a[#a+1] = dotConfD
       a[#a+1] = dotLmodD
    end
-   return a 
+   return a
 end
-      
-            
+
+
 
 local function l_find_a_collection(collectionName)
    local pathA = l_collectionDir("read")
@@ -872,6 +887,9 @@ function Restore(collection)
    if (collection == "system" ) then
       Reset(msg)
    else
+      local mrc     = MRC:singleton()
+      mrc:set_display_mode("all")
+
       local mt      = FrameStk:singleton():mt()
       local results = mt:getMTfromFile{fn=path, name=myName, msg=msg}
       if (not results and collection == "default") then
@@ -1056,6 +1074,7 @@ end
 -- level 1 or level 2 report on particular modules.
 function SpiderCmd(...)
    dbg.start{"SpiderCmd(", concatTbl({...},", "),")"}
+   local mrc                    = MRC:singleton() ; mrc:set_display_mode("spider")
    local cache                  = Cache:singleton{buildCache=true}
    local shell                  = _G.Shell
    local optionTbl              = optionTbl()
@@ -1206,6 +1225,9 @@ function Use(...)
    local iarg     = 1
    local priority = 0
 
+   local mrc      = MRC:singleton()
+   mrc:set_display_mode("all")
+
    dbg.print{"using mcp: ",mcp:name(), "\n"}
 
    while (iarg <= argA.n) do
@@ -1262,6 +1284,7 @@ function UnUse(...)
       MCP:remove_path{ModulePath,  v, delim=":", nodups = true, force = true}
    end
    if (mt:changeMPATH()) then
+      local mrc = MRC:singleton(); mrc:set_display_mode("all")
       mt:reset_MPATH_change_flag()
       hub.reloadAll()
    end

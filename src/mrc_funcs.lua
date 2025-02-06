@@ -86,7 +86,7 @@ local function l_hide_forbid(function_name, default_kind, argT, rulesT)
    end
    argT.action = function_name
    argT.kind   = argT.kind or default_kind
-   
+
    ------------------------------------------------------------------------
    -- Convert t.name to t.nameA if necessary
 
@@ -125,7 +125,7 @@ local function l_hide_forbid(function_name, default_kind, argT, rulesT)
          LmodError{msg="e_Unknown_value",func=function_name,key=k,value=v}
       end
    end
-   
+
    --------------------------------------------------
    -- expand argT.nameA into separate entries in ModA
    -- For each entry convert userA -> userT, groupA -> groupT etc.
@@ -185,4 +185,4 @@ local forbid_rulesT = {
 function forbid(t)
    l_hide_forbid("forbid", nil, t, forbid_rulesT)
 end
-   
+

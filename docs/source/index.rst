@@ -142,6 +142,7 @@ Advanced Topics
    250_site_package
    260_sh_to_modulefile
    300_tracking_module_usage
+   301_converting_to_gen2
    310_settarg
    320_improving_perf
    330_extensions

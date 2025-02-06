@@ -447,3 +447,49 @@ step 27
 echo FOO=%% BAZ=% %
 ===========================
 FOO=%% BAZ=% %
+===========================
+step 28
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset A;
+unset B;
+unset BAR;
+unset BAZ;
+unset C;
+unset FOO;
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/pushenv/mf/Core2;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/pushenv/mf/Core2",},systemBaseMPATH="ProjectDIR/rt/pushenv/mf/Core2",}';
+export _ModuleTable_;
+unset __LMOD_STACK_A;
+unset __LMOD_STACK_B;
+unset __LMOD_STACK_BAZ;
+unset __LMOD_STACK_C;
+unset __LMOD_STACK_FOO;
+===========================
+step 29
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load tryThis
+===========================
+LOADEDMODULES=tryThis/1.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/pushenv/mf/Core3:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/pushenv/mf/Core3;
+export MODULEPATH;
+unset TESTVAR;
+_LMFILES_=ProjectDIR/rt/pushenv/mf/Core3/tryThis/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={tryThis={fn="ProjectDIR/rt/pushenv/mf/Core3/tryThis/1.0.lua",fullName="tryThis/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="tryThis",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/pushenv/mf/Core3",},systemBaseMPATH="ProjectDIR/rt/pushenv/mf/Core3",}';
+export _ModuleTable_;
+__LMOD_STACK_TESTVAR=false:tryThis;
+export __LMOD_STACK_TESTVAR;
+===========================
+step 30
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing refresh
+===========================
+MODULEPATH=ProjectDIR/rt/pushenv/mf/Core3;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={tryThis={fn="ProjectDIR/rt/pushenv/mf/Core3/tryThis/1.0.lua",fullName="tryThis/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="tryThis",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/pushenv/mf/Core3",},systemBaseMPATH="ProjectDIR/rt/pushenv/mf/Core3",}';
+export _ModuleTable_;

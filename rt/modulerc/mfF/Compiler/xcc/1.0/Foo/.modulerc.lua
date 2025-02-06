@@ -1,0 +1,1 @@
+hide{name="Foo/invisible"}

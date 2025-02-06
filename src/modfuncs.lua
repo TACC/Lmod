@@ -62,6 +62,7 @@ require("declare")
 
 local BeautifulTbl = require("BeautifulTbl")
 local MName        = require("MName")
+local MRC          = require("MRC")
 local Version      = require("Version")
 local dbg          = require("Dbg"):dbg()
 local hook         = require("Hook")
@@ -213,7 +214,7 @@ function load_any(...)
    local b = mcp:load_any(MName:buildA(mcp:MNameType(), ...))
    dbg.fini("load_any")
    return b
-end   
+end
 
 local s_cleanupDirT = { PATH = true, LD_LIBRARY_PATH = true, LIBRARY_PATH = true, MODULEPATH = true }
 
@@ -232,7 +233,7 @@ local function l_convert2table(...)
       t[2]    = argA[2]
       t.delim = argA[3]
    end
-   
+
    t.priority = tonumber(t.priority or "0")
    return t
 end
@@ -240,7 +241,7 @@ end
 local function l_cleanupPathArgs(t)
    local name = t[1]:trim()
    local path = t[2]:trim()
-   
+
    if (s_cleanupDirT[name]) then
       path = path:gsub(":+$",""):gsub("^:+",""):gsub(":+",":")
       if (path == "") then path = false end
@@ -381,7 +382,7 @@ function haveDynamicMPATH()
    mcp:haveDynamicMPATH()
    dbg.fini("haveDynamicMPATH")
 end
-   
+
 
 --------------------------------------------------------------------------
 -- Return true if in spider mode.  Use mode function instead.
@@ -798,6 +799,9 @@ function unload_usr_internal(mA, force)
       local s = mAList(mA)
       dbg.start{"unload_usr_internal(mA={"..s.."},force=",force,")"}
    end
+   local mrc = MRC:singleton()
+   mrc:set_display_mode("all")
+
    local mcp_old = mcp
    mcp = MainControl.build("unload")
    local b = MainControl.unload_usr(mcp, mA, force)
@@ -812,6 +816,9 @@ function unload_internal(mA)
       local s = mAList(mA)
       dbg.start{"unload_internal(mA={"..s.."})"}
    end
+   local mrc = MRC:singleton()
+   mrc:set_display_mode("all")
+
    local mcp_old = mcp
    mcp = mcp:build_unload()
    local b = mcp:unload(mA)

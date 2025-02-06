@@ -153,7 +153,7 @@ function main()
       ["--mt"] = 0,
       ["--old_style"] = 0,
       ["--pin_versions"]=0, ["--pin-versions"]=0,
-      ["--pod"] = 0, 
+      ["--pod"] = 0,
       ["--quiet"] = 0,  ["-q"] = 0,
       ["--raw"] = 0,
       ["--redirect"] = 0, ["--no_redirect"] = 0, ["--no-redirect"] = 0,
@@ -162,7 +162,7 @@ function main()
       ["--spider_timeout"] = 1,       ["--spider-timeout"] = 1,
       ["--style"] = 1,  ["-s"] = 1,
       ["--terse"] = 0,  ["-t"] = 0,
-      ["--terse_show_extensions"] = 0, 
+      ["--terse_show_extensions"] = 0,
       ["--timer"] = 0,
       ["--trace"] = 0,  ["-T"] = 0,
       ["--version"]=0,  ["--versoin"]=0, ["--ver"]=0, ["--v"]=0, ["-v"]=0,
@@ -204,7 +204,7 @@ function main()
       show="show",
       spider="spider",
       swap="swap", sw="swap",
-      switch="swap", 
+      switch="swap",
       tablelist="tablelist",
       ['try-load']  = "try-load",
       ['tryload']   = "try-load",
@@ -237,7 +237,7 @@ function main()
             argA[#argA+1] = v
             break
          end
-            
+
          if (grab > 0) then
             optA[#optA+1] = v
             grab          = grab - 1
