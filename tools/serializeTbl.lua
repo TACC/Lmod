@@ -64,6 +64,22 @@ local quoteA = {
    {'[========[',']========]'},
 }
    
+local s_equal
+local s_nl
+local s_comma
+
+local function l_set_constants(kind)
+   if (kind == "tight") then
+      s_equal = "="
+      s_nl    = ""
+      s_comma = ","
+   else
+      s_equal = " = "
+      s_nl    = "\n"
+      s_comma = ", "
+   end
+end
+
 local function l_quoteValue(value)
    for i = 1,#quoteA do
       local left = quoteA[i][1]
@@ -76,7 +92,7 @@ local function l_quoteValue(value)
 end
 
 
-local function l_nsformat(value)
+local function l_nsformat(value, dsplyNum)
    if (type(value) == 'string') then
       value = value:gsub("\\","\\\\")
       if (value:find("\n")) then
@@ -94,6 +110,9 @@ local function l_nsformat(value)
       end
    elseif (type(value) == 'number') then
       value = tostring(value)
+      if (dsplyNum == "string") then
+         value = "\"" .. value .. "\""
+      end
    end
    return value
 end
@@ -109,7 +128,7 @@ local keywordT = {
    ['']       = true,  [' ']      = true,
 }
 
-local function wrap_name(indent, name)
+local function l_wrap_name(indent, name)
    local str
    if (name:find("[^0-9A-Za-z_]") or keywordT[name] or
        name:sub(1,1):find("[0-9]") ) then
@@ -126,14 +145,15 @@ end
 -- sub-tables.  It also ignores keys that start with "__" unless
 -- keepDUnderScore is true.
 
-local function outputTblHelper(indentIdx, name, T, keepDUnderScore, a, level)
+local function outputTblHelper(indentIdx, name, T, dsplyNum,
+                               keepDUnderScore, ignoreKeysT, a, level)
 
    -------------------------------------------------
    -- Remove all keys in table that start with "__"
 
    local t = {}
    for key in pairs(T) do
-      if (type(key) == "number" or keepDUnderScore or key:sub(1,2) ~= '__') then
+      if (not ignoreKeysT[key] and (type(key) == "number" or keepDUnderScore or key:sub(1,2) ~= '__')) then
          t[key] = T[key]
       end
    end
@@ -151,20 +171,20 @@ local function outputTblHelper(indentIdx, name, T, keepDUnderScore, a, level)
    -- characters or it start with a number.
    local str
    if (type(name) == 'string') then
-      str = wrap_name(indent, name) .. " = {"
+      str = l_wrap_name(indent, name) .. s_equal .. "{"
    else
       str = indent .. "{"
    end
    a[#a+1] = str
    if (next(T) == nil) then
       if (level == 0) then
-         a[#a+1] = '}\n'
+         a[#a+1] = '}' .. s_nl
       else
-         a[#a+1] = "},\n"
+         a[#a+1] = "}," .. s_nl
       end
       return
    end
-   a[#a] = a[#a] .. "\n"
+   a[#a] = a[#a] .. s_nl
 
    --------------------------------------------------
    -- Update indent
@@ -174,6 +194,7 @@ local function outputTblHelper(indentIdx, name, T, keepDUnderScore, a, level)
       indentIdx = indentIdx + 2
       indent    = string.rep(" ",indentIdx)
    end
+
 
    -- verify if is an array with no tables in it.
    local isArray = true
@@ -190,41 +211,41 @@ local function outputTblHelper(indentIdx, name, T, keepDUnderScore, a, level)
       a[#a+1] = indent
       w       = w + indent:len()
       for i = 1,#t-1 do
-         a[#a+1] = l_nsformat(t[i])
+         a[#a+1] = l_nsformat(t[i], dsplyNum)
          w       = w + tostring(a[#a]):len()
-         a[#a+1] = ", "
+         a[#a+1] = s_comma
          w       = w + a[#a]:len()
          if ( w > twidth) then
-            table.insert(a,#a-2,"\n" .. indent)
+            table.insert(a,#a-2, s_nl .. indent)
             w       = a[#a-1]:len()+2+indent:len()
          end
       end
       if (#t > 0) then
-         a[#a+1] = l_nsformat(t[#t])
-         a[#a+1] = ",\n"
+         a[#a+1] = l_nsformat(t[#t], dsplyNum)
+         a[#a+1] = "," .. s_nl
       end
    else
       for key, value in pairsByKeys(t) do
          if (type(value) == 'table') then
-            outputTblHelper(indentIdx, key, t[key], keepDUnderScore, a, level+1)
+            outputTblHelper(indentIdx, key, t[key], dsplyNum, keepDUnderScore, ignoreKeysT, a, level+1)
          else
             if (type(key) == "string") then
-               str = wrap_name(indent, key) .. ' = '
+               str = l_wrap_name(indent, key) .. s_equal
             else
                str = indent
             end
             a[#a+1] = str
-            a[#a+1] = l_nsformat(t[key])
-            a[#a+1] = ",\n"
+            a[#a+1] = l_nsformat(t[key], dsplyNum)
+            a[#a+1] = "," .. s_nl
          end
       end
    end
    indent    = origIndent
    indentIdx = origIndentIdx
    if (level == 0) then
-      a[#a+1] = indent .. '}\n'
+      a[#a+1] = indent .. '}' .. s_nl
    else
-      a[#a+1] = indent .. "},\n"
+      a[#a+1] = indent .. "}," .. s_nl
    end
 end
 
@@ -234,11 +255,17 @@ end
 -- @param options input table.
 function serializeTbl(options)
    local a               = {}
+   local tight           = options.tight    or "normal"
+   local dsplyNum        = options.dsplyNum or "normal"
    local n               = options.name
    local level           = 0
    local value           = options.value
    local keepDUnderScore = options.keep_double_underscore
+   local ignoreKeysT     = options.ignoreKeysT or {}
    local indentIdx       = -1
+
+   l_set_constants(tight)
+
    if (options.indent) then
       indentIdx = 0
       if (type(options.indent) == 'string' and options.indent:find("^  *$")) then
@@ -246,16 +273,19 @@ function serializeTbl(options)
       end
    end
 
+
    if (type(value) == "table") then
-      outputTblHelper(indentIdx, options.name, options.value, keepDUnderScore, a, level)
+      outputTblHelper(indentIdx, options.name, options.value, dsplyNum,
+                      keepDUnderScore, ignoreKeysT, a, level)
    else
-      a[#a+1] = wrap_name("",n)
-      a[#a+1] = " = "
-      a[#a+1] = l_nsformat(value)
-      a[#a+1] = "\n"
+      a[#a+1] = l_wrap_name("",n)
+      a[#a+1] = s_equal
+      a[#a+1] = l_nsformat(value, dsplyNum)
+      a[#a+1] = s_nl
    end
 
    local s = table.concat(a,"")
+   s = s:gsub(", *}","}")
 
    if (options.fn == nil) then
       return s

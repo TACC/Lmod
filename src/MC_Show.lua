@@ -68,28 +68,22 @@ M.myModuleUsrName   = MainControl.myModuleUsrName
 M.build_unload      = MainControl.do_not_build_unload
 M.color_banner      = MainControl.color_banner
 
-local function l_ShowCmd(name,...)
-   local args = pack(...)
-   dbg.start{"l_ShowCmd(name=\"",name,"\")"}
-   for i=1,args.n do
-      dbg.print{"  arg[",i,"] type=",type(args[i]),", value=",args[i],"\n"}
-      if type(args[i]) == "table" then
-         dbg.print{"    table contents:\n"}
-         for k,v in pairs(args[i]) do
-            dbg.print{"    key=",k,", value=",v,"\n"}
-         end
-      end
-   end
-   
-   -- Use ShowCmdTbl for mode-specific functions
-   if args.n == 1 and type(args[1]) == "table" and args[1].mode then
-      dbg.print{"  Using ShowCmdTbl\n"}
-      A[#A+1] = ShowCmdTbl(name, args[1])
+local function l_ShowCmd(name, first_elem, ...)
+   local argT
+   if (type(first_elem) == "table") then
+      argT      = first_elem
+      argT.kind = argT.kind or "Table"
+      argT.n    = #argT
    else
-      dbg.print{"  Using ShowCmdStr\n"}
-      A[#A+1] = ShowCmdStr(name, ...)
+      argT = pack(first_elem, ...)
    end
-   dbg.fini("l_ShowCmd")
+
+   if (argT.kind == "Table") then
+      A[#A+1] = ShowCmdTbl(name, argT)
+   else
+     dbg.printT("l_ShowCmd: argT",argT)
+     A[#A+1] = ShowCmdStr(name, argT)
+   end
 end
 
 local function l_Show_help(...)
@@ -194,9 +188,14 @@ end
 -- @param self A MainControl object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
-function M.pushenv(self, name,value)
+function M.pushenv(self, argT)
+   local name  = argT[1]
+   local value = argT[2]
+   if (value == false) then
+      value = nil
+   end
    setenv_posix(name, value, true)
-   l_ShowCmd("pushenv", name, value)
+   l_ShowCmd("pushenv", argT)
 end
 
 --------------------------------------------------------------------------
@@ -211,8 +210,8 @@ end
 -- Print append_path command.
 -- @param self A MainControl object
 -- @param t input table
-function M.append_path(self, t)
-   l_ShowCmd("append_path", t)
+function M.append_path(self, argT)
+   l_ShowCmd("append_path", argT)
 end
 
 --------------------------------------------------------------------------
@@ -220,9 +219,14 @@ end
 -- @param self A MainControl object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
-function M.setenv(self, name,value)
+function M.setenv(self, argT)
+   local name  = argT[1]
+   local value = argT[2]
+   if (value == false) then
+      value = nil
+   end
    setenv_posix(name, value, true)
-   l_ShowCmd("setenv", name, value)
+   l_ShowCmd("setenv", argT)
 end
 
 --------------------------------------------------------------------------
@@ -230,17 +234,18 @@ end
 -- @param self A MainControl object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
-function M.unsetenv(self, name,value)
+function M.unsetenv(self, argT)
+   local name  = argT[1]
    setenv_posix(name, nil, true)
-   l_ShowCmd("unsetenv", name, value)
+   l_ShowCmd("unsetenv", argT)
 end
 
 --------------------------------------------------------------------------
 -- Print remove_path command.
 -- @param self A MainControl object
 -- @param t input table
-function M.remove_path(self, t)
-   l_ShowCmd("remove_path", t)
+function M.remove_path(self, argT)
+   l_ShowCmd("remove_path", argT)
 end
 
 --------------------------------------------------------------------------

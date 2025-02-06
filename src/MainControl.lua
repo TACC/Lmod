@@ -345,6 +345,8 @@ end
 function M.setenv_env(self, argT) --name, value, respect)
    local name    = argT[1]
    local value   = argT[2]
+   local respect = argT[3]
+
    dbg.start{"MainControl:setenv_env(\"",name,"\", \"",value,"\", \"",
               respect,"\")"}
    posix.setenv(name, value, true)

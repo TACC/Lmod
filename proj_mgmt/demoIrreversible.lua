@@ -325,7 +325,7 @@ local function l_build_check_argT(cmdName, rulesT, first_elem, ... )
    local argT = l_build_argTable(cmdName, first_elem, ... )
    l_check_argT(argT, rulesT)  -- Will not return if error
    if (dbg.active()) then
-      local s = cmdName .. serializeTbl{value=argT}:gsub("\n"," "):gsub(", *}"," }")
+      local s = cmdName .. serializeTbl{value=argT,tight="tight",dsplyNum="string",ignoreKeysT = {n = true, kind = true}} --:gsub("\n"," "):gsub(", *}"," }")
       dbg.start{s}
    end
    return argT

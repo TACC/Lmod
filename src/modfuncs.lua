@@ -112,6 +112,37 @@ local function l_trim_all_strings_args(argT)
    end
 end
 
+local function l_priorityCk(argT)
+   local priority = argT.priority
+   if (priority == nil or type(priority) == "number") then
+      return true
+   end
+   if (type(priority) == "string" and tonumber(priority) ) then
+      argT.priority = tonumber(priority)
+      return true
+   end
+   mcp:report{msg="e_Prioity", priority=argT.priority, fn = myFileName(), cmdName = argT.__cmdName}
+   return false
+end
+   
+------------------------------------------------------------------------
+-- Check for string characters for the delim.  Convert 3rd arg to argT.delim if it exists
+
+local function l_delimCk(argT)
+   if (argT.n == 3) then
+      argT.delim = argT[3]
+      argT[3]    = nil
+      argT.n     = 2
+      argT.kind  = "Table"
+   end
+      
+   if (argT.delim == nil or type(argT.delim) == "string") then
+      return true
+   end
+   mcp:report{msg="e_Delim", delim=argT.delim, fn = myFileName(), cmdName = argT.__cmdName}
+   return false
+end
+
 local s_cleanupDirT = { PATH = true, LD_LIBRARY_PATH = true, LIBRARY_PATH = true, MODULEPATH = true }
 
 local function l_cleanupPathArgs(argT)
@@ -150,7 +181,12 @@ end
 local function l_build_argTable(cmdName, first_elem, ... )
    local argT
    if (type(first_elem) == "table") then
-      argT = first_elem
+      dbg.print{"type(first_elem) == \"table\"\n"}
+      if (first_elem.__waterMark == "MName") then
+         argT = pack(first_elem, ...)
+      else
+         argT = first_elem
+      end
       argT.__cmdName = cmdName
       argT.kind      = "Table"
       argT.n         = #argT
@@ -163,10 +199,15 @@ local function l_build_argTable(cmdName, first_elem, ... )
          end
       end
    else
+      dbg.print{"type(first_elem) ~= \"table\"\n"}
       argT = pack(first_elem, ...)
       argT.__cmdName = cmdName
       argT.modeA     = {"normal"}
       argT.kind      = "Array"
+   end
+   if (dbg.active()) then
+      local s = cmdName .. serializeTbl{value=argT}:gsub("\n"," "):gsub(", *}"," }")
+      dbg.start{s}
    end
    return argT
 end
@@ -174,8 +215,11 @@ end
 -- Check the arguments in the table using the provided rules.
 local function l_check_argT(argT, rulesT)
    if (argT.n < rulesT.sizeN.min or argT.n > rulesT.sizeN.max) then
-      mcp:report{msg="e_wrong_num_args", fn = myFileName(), cmdName = argT.__cmdName}
+      mcp:report{msg="e_wrong_num_args", n = argT.n,  fn = myFileName(), cmdName = argT.__cmdName}
       return false
+   end
+   if (rulesT.trimArg) then
+      rulesT.trimArg(argT)
    end
    if (rulesT.checkA) then
       for i = 1, argT.n do
@@ -190,12 +234,10 @@ local function l_check_argT(argT, rulesT)
       end
    end
    if (rulesT.checkTblArgs) then
-      for _, f in ipairs(rulesT.checkTblArgs) do
-         if not f(argT) then return false end
+      for i = 1,#rulesT.checkTblArgs do
+         local func = rulesT.checkTblArgs[i]
+         if (not func(argT)) then return false end
       end
-   end
-   if (rulesT.trimArg) then
-      rulesT.trimArg(argT)
    end
    return true
 end
@@ -204,10 +246,6 @@ end
 local function l_build_check_argT(cmdName, rulesT, first_elem, ... )
    local argT = l_build_argTable(cmdName, first_elem, ...) 
    if (not l_check_argT(argT, rulesT) ) then return nil end
-   if (dbg.active()) then
-      local s = cmdName .. serializeTbl{value=argT}:gsub("\n"," "):gsub(", *}"," }")
-      dbg.start{s}
-   end
    return argT
 end
 
@@ -243,46 +281,46 @@ end
 -- Define the rules table for setenv.
 local s_setenv_rulesT = {
    sizeN        = {min=2, max=3},
+   trimArg      = l_trim_first_arg,
    checkA       = { l_valid_nameCk, l_stringValueCk, l_booleanCk},
    checkTblArgs = { l_modeCk },
-   trimArg      = l_trim_first_arg,
 }
 
 local s_pushenv_rulesT = {
    sizeN        = {min=2, max=2},
+   trimArg      = l_trim_first_arg,
    checkA       = { l_valid_nameCk, l_stringValueCk},
    checkTblArgs = { l_modeCk },
-   trimArg      = l_trim_first_arg,
 }
 
 local s_unsetenv_rulesT = {
    sizeN        = {min=1, max=2},
+   trimArg      = l_trim_first_arg,
    checkA       = { l_valid_nameCk, l_stringValueCk},
    checkTblArgs = { l_modeCk },
-   trimArg      = l_trim_first_arg,
 }
 
 local s_prepend_rulesT = {
    sizeN        = {min=2, max=3},
-   checkA       = { l_valid_nameCk, l_stringCk, l_stringCk},
-   checkTblArgs = { l_modeCk },
    trimArg      = l_cleanupPathArgs,
+   checkA       = { l_valid_nameCk, l_stringCk, l_stringCk},
+   checkTblArgs = { l_modeCk, l_priorityCk, l_delimCk},
 }
 
 local s_remove_rulesT = {
    sizeN        = {min=2, max=3},
+   trimArg      = l_cleanupPathArgs,
    checkA       = { l_valid_nameCk, l_stringCk, l_stringCk},
    checkTblArgs = { l_modeCk },
-   trimArg      = l_cleanupPathArgs,
 }
 
 local huge = math.maxinteger or math.huge
 local s_load_rulesT = {
    sizeN        = {min=1, max=huge},
+   trimArg      = l_trim_all_strings_args,
    -- Here, checkList is used since load_module accepts a variable list of module names.
    checkList    = l_validateModules,
    checkTblArgs = { l_modeCk },
-   trimArg      = l_trim_all_strings_args,
 }
 
 --------------------------------------------------------------------------
@@ -408,14 +446,7 @@ end
 --  The load function.  It can be found in the following forms:
 -- "load('name'); load('name/1.2'); load(atleast('name','3.2'))",
 function load_module(...)
-   dbg.start{"load_module(", l_concatTbl({...}, ", "), ")"}
-
-   local args = {...}
-   if type(args[1]) == "table" then
-      args[1].cmdName = "load"
-   end
-
-   local argT = l_build_check_argT("load_module", s_load_rulesT, unpack(args))
+   local argT = l_build_check_argT("load_module", s_load_rulesT, ...)
    if (not argT) then
       dbg.fini("load_module")
       return {}
@@ -424,7 +455,7 @@ function load_module(...)
    local mcp_old = mcp
    mcp = l_chose_mcp(argT)
 
-   local b = mcp:load_usr(MName:buildA(mcp:MNameType(), unpack(argT)))
+   local b = mcp:load_usr(MName:buildA(mcp:MNameType(), argT))
    mcp = mcp_old
    dbg.fini("load_module")
    return b
@@ -441,10 +472,13 @@ end
 
 
 function load_any(...)
-   dbg.start{"load_any(",l_concatTbl({...},", "),")"}
-   if (not l_validateModules("load_any",...)) then return {} end
+   local argT = l_build_check_argT("load_any", s_load_rulesT, ...)
+   if (not argT) then
+      dbg.fini("load_any")
+      return {}
+   end
 
-   local b = mcp:load_any(MName:buildA(mcp:MNameType(), ...))
+   local b = mcp:load_any(MName:buildA(mcp:MNameType(), argT))
    dbg.fini("load_any")
    return b
 end   
@@ -505,7 +539,7 @@ function append_path(...)
    mcp = l_chose_mcp(argT)
 
    if (argT[2]) then
-      mcp:append_path(unpack(argT))
+      mcp:append_path(argT)
    end
    mcp = mcp_old
    dbg.fini("append_path")
@@ -515,20 +549,17 @@ end
 --------------------------------------------------------------------------
 -- Remove a value from a path like variable.
 function remove_path(...)
-   dbg.start{"remove_path(", l_concatTbl({...}, ", "), ")"}
-
    local argT = l_build_check_argT("remove_path", s_remove_rulesT, ...)
    if (not argT) then
       dbg.fini("remove_path")
       return
    end
 
-   l_cleanupPathArgs(argT)
    local mcp_old = mcp
    mcp = l_chose_mcp(argT)
 
    if (argT[2]) then
-      mcp:remove_path(unpack(argT))
+      mcp:remove_path(argT)
    end
    mcp = mcp_old
    dbg.fini("remove_path")
@@ -549,7 +580,7 @@ function pushenv(...)
    local mcp_old = mcp
    mcp = l_chose_mcp(argT)
 
-   mcp:pushenv(unpack(argT))
+   mcp:pushenv(argT)
    mcp = mcp_old
    dbg.fini("pushenv")
    return
@@ -578,7 +609,7 @@ function setenv(...)
    local mcp_old = mcp
    mcp = l_chose_mcp(argT)
 
-   -- Call the underlying mcp function using unpacked arguments from argT.
+   -- Call the underlying mcp function 
    mcp:setenv(argT)
    mcp = mcp_old
    dbg.fini("setenv")
@@ -599,7 +630,7 @@ function unsetenv(...)
    local mcp_old = mcp
    mcp = l_chose_mcp(argT)
 
-   mcp:unsetenv(unpack(argT))
+   mcp:unsetenv(argT)
    mcp = mcp_old
    dbg.fini("unsetenv")
    return
@@ -826,7 +857,7 @@ function prereq(...)
    dbg.start{"prereq(",l_concatTbl({...},", "),")"}
    if (not l_validateModules("prereq", ...)) then return end
 
-   mcp:prereq(MName:buildA(mcp:MNamePrereqType(), ...))
+   mcp:prereq(MName:buildA(mcp:MNamePrereqType(), pack(...)))
    dbg.fini("prereq")
 end
 
@@ -837,7 +868,7 @@ function prereq_any(...)
    dbg.start{"prereq_any(",l_concatTbl({...},", "),")"}
    if (not l_validateModules("prereq_any",...)) then return end
 
-   mcp:prereq_any(MName:buildA(mcp:MNamePrereqType(),...))
+   mcp:prereq_any(MName:buildA(mcp:MNamePrereqType(), pack(...)))
    dbg.fini("prereq_any")
 end
 
@@ -847,7 +878,7 @@ function conflict(...)
    dbg.start{"conflict(",l_concatTbl({...},", "),")"}
    if (not l_validateModules("conflict",...)) then return end
 
-   mcp:conflict(MName:buildA("mt",...))
+   mcp:conflict(MName:buildA("mt", pack(...) ))
    dbg.fini("conflict")
 end
 
@@ -1070,10 +1101,15 @@ end
 -- The only difference between 'load' and 'try_load' is that a 'try_load'
 -- will not produce a warning if the specified modulefile(s) do not exist.
 function try_load(...)
-   dbg.start{"try_load(",l_concatTbl({...},", "),")"}
-   if (not l_validateModules("try_load",...)) then return {} end
+   local argT = l_build_check_argT("try_load", s_load_rulesT, ...)
+   if (not argT) then
+      dbg.fini("try_load")
+      return {}
+   end
 
-   local b = mcp:try_load(MName:buildA(mcp:MNameType(), ...))
+   local mcp_old = mcp
+   mcp = l_chose_mcp(argT)
+   local b = mcp:try_load(MName:buildA(mcp:MNameType(), argT))
    dbg.fini("try_load")
    return b
 end
@@ -1111,9 +1147,14 @@ end
 -- in the modulefile.  It is not an error to unload a module which is
 -- not loaded.  The reverse of an unload is a no-op.
 function unload(...)
-   dbg.start{"unload(", l_concatTbl({...}, ", "), ")"}
-   if (not l_validateModules("unload", ...)) then return {} end
-   local b = unload_internal(MName:buildA("mt", ...))
+   dbg.print{"Here in unload(...)\n"}
+   local argT = l_build_check_argT("unload", s_load_rulesT, ...)
+   dbg.print{"after l_build_check_argT\n"}
+   if (not argT) then
+      dbg.fini("unload")
+      return {}
+   end
+   local b = unload_internal(MName:buildA("mt", argT))
    dbg.fini("unload")
    return b
 end
@@ -1121,10 +1162,13 @@ end
 --------------------------------------------------------------------------
 -- This function always loads and never unloads.
 function always_load(...)
-   dbg.start{"always_load(",l_concatTbl({...},", "),")"}
-   if (not l_validateModules("always_load",...)) then return {} end
+   local argT = l_build_check_argT("always_load", s_load_rulesT, ...)
+   if (not argT) then
+      dbg.fini("always_load")
+      return {}
+   end
 
-   local b  = mcp:always_load(MName:buildA("load",...))
+   local b  = mcp:always_load(MName:buildA("load",argT))
    dbg.fini("always_load")
    return b
 end
@@ -1143,7 +1187,7 @@ function depends_on(...)
    dbg.start{"depends_on(",l_concatTbl({...},", "),")"}
    if (not l_validateModules("depends_on",...)) then return {} end
 
-   local b = mcp:depends_on(MName:buildA(mcp:MNameType(),...))
+   local b = mcp:depends_on(MName:buildA(mcp:MNameType(), pack(...)))
    dbg.fini("depends_on")
 end
 
@@ -1151,7 +1195,7 @@ function depends_on_any(...)
    dbg.start{"depends_on_any(",l_concatTbl({...},", "),")"}
    if (not l_validateModules("depends_on_any",...)) then return {} end
 
-   local b = mcp:depends_on_any(MName:buildA(mcp:MNameType(),...))
+   local b = mcp:depends_on_any(MName:buildA(mcp:MNameType(), pack(...)))
    dbg.fini("depends_on_any")
 end
 

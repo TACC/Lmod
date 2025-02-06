@@ -114,6 +114,7 @@ return {
      e_BrokenQ             = "Internal error: broken module Q\n",
      e_Conflict            = "Cannot load module \"%{name}\" because these module(s) are loaded:\n   %{module_list}\n",
      e_Conflict_Downstream = "Cannot load module \"%{userName}\" because this module set a conflict: \"%{fullNameUpstream}\"\n",
+     e_Delim               = "A bad delim has been given, delim must be a string: \"%{delim}\" for command: %{cmdName} in file: %{fn}",
      e_Dofile_not_supported = "The dofile() function is not supported.  Use require() or loadfile() or loadstring()",
      e_Execute_Msg         = [==[Syntax error in file: %{fn}
 with command: "execute".
@@ -188,6 +189,7 @@ Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOS
      e_Newer_posix_reqd    = "The site's luaposix is too old to use before or after modifiers to hide modules.  Please upgrade your sites luaposix.\n",
      e_Prereq              = "Cannot load module \"%{name}\" without these module(s) loaded:\n   %{module_list}\n",
      e_Prereq_Any          = "Cannot load module \"%{name}\". At least one of these module(s) must be loaded:\n   %{module_list}\n",
+     e_Prioity             = "A bad priority has been given, priority must be a number: \"%{priority}\" for command: %{cmdName} in file: %{fn}",
      e_RequireFullName     = [==[Module "%{sn}" must be loaded with the version specified, e.g. "module load %{fullName}". Use
 
    $ module spider %{sn}
@@ -210,10 +212,12 @@ See https://lmod.readthedocs.io/en/latest/260_sh_to_modulefile.html for details.
      e_Unknown_key         = "This is an unknown key: \"%{key}\" for the %{func} function",
      e_Unknown_v_type      = "This is an unknown value type: \"%{tkind}\".  The value type should be: \"%{kind}\" for key: \"%{key}\" for the %{func} function",
      e_Unknown_value       = "This is an unknown value: \"%{value} \". for key: \"%{key}\" in the %{func} function",
+     e_bad_arg             = "Found arg = \"%{arg}\", expected arg to be of type: %{expected} in file: %{fn} from command: %{cmdName}",
      e_coll_corrupt        = "The module collection file is corrupt. Please remove: %{fn}\n",
      e_dbT_sn_fail         = "dbT[sn] failed for sn: %{sn}\n",
      e_missing_table       = "sandbox_registration: The argument passed is: \"%{kind}\". It should be a table.",
      e_setStandardPaths    = "Unknown Key: \"%{key}\" in setStandardPaths.\n",
+     e_wrong_num_args      = "Wrong number of arguments (n: %{n}) for %{cmdName} in file: %{fn}",
 
      
      --------------------------------------------------------------------------

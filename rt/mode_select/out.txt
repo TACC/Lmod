@@ -93,10 +93,14 @@ LOADEDMODULES=mixed_load_test/1.0;
 export LOADEDMODULES;
 MIXED_ENV_LOAD=env_load;
 export MIXED_ENV_LOAD;
+__LMOD_REF_COUNT_MIXED_LIB=/mixed/lib/normal:1;
+export __LMOD_REF_COUNT_MIXED_LIB;
 MIXED_LIB=/mixed/lib/normal;
 export MIXED_LIB;
 MIXED_NORMAL_ENV=normal_env;
 export MIXED_NORMAL_ENV;
+__LMOD_REF_COUNT_MIXED_PATH=/mixed/bin/load:1;
+export __LMOD_REF_COUNT_MIXED_PATH;
 MIXED_PATH=/mixed/bin/load;
 export MIXED_PATH;
 MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
@@ -118,6 +122,8 @@ step 12
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload mixed_load_test
 ===========================
 unset LOADEDMODULES;
+unset __LMOD_REF_COUNT_MIXED_LIB;
+unset MIXED_LIB;
 unset MIXED_NORMAL_ENV;
 MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
 export MODULEPATH;
@@ -146,6 +152,8 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load mixed_unload_test
 ===========================
 LOADEDMODULES=mixed_unload_test/1.0;
 export LOADEDMODULES;
+__LMOD_REF_COUNT_MIXED_LIB=/mixed/lib/normal:1;
+export __LMOD_REF_COUNT_MIXED_LIB;
 MIXED_LIB=/mixed/lib/normal;
 export MIXED_LIB;
 MIXED_NORMAL_ENV=normal_env;
@@ -171,7 +179,11 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload mixed_unload_te
 unset LOADEDMODULES;
 MIXED_ENV_UNLOAD=env_unload;
 export MIXED_ENV_UNLOAD;
+unset __LMOD_REF_COUNT_MIXED_LIB;
+unset MIXED_LIB;
 unset MIXED_NORMAL_ENV;
+__LMOD_REF_COUNT_MIXED_PATH=/mixed/bin/load:1\;/mixed/bin/unload:1;
+export __LMOD_REF_COUNT_MIXED_PATH;
 MIXED_PATH=/mixed/bin/load:/mixed/bin/unload;
 export MIXED_PATH;
 MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
@@ -203,10 +215,14 @@ LOADEDMODULES=mixed_both_test/1.0;
 export LOADEDMODULES;
 MIXED_ENV_BOTH=env_both;
 export MIXED_ENV_BOTH;
+__LMOD_REF_COUNT_MIXED_LIB=/mixed/lib/normal:1;
+export __LMOD_REF_COUNT_MIXED_LIB;
 MIXED_LIB=/mixed/lib/normal;
 export MIXED_LIB;
 MIXED_NORMAL_ENV=normal_env;
 export MIXED_NORMAL_ENV;
+__LMOD_REF_COUNT_MIXED_PATH=/mixed/bin/both:1\;/mixed/bin/load:1\;/mixed/bin/unload:1;
+export __LMOD_REF_COUNT_MIXED_PATH;
 MIXED_PATH=/mixed/bin/both:/mixed/bin/load:/mixed/bin/unload;
 export MIXED_PATH;
 MIXED_STACK=stack_both;
@@ -234,8 +250,12 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload mixed_both_test
 unset LOADEDMODULES;
 MIXED_ENV_BOTH=env_both;
 export MIXED_ENV_BOTH;
+unset __LMOD_REF_COUNT_MIXED_LIB;
+unset MIXED_LIB;
 unset MIXED_NORMAL_ENV;
-MIXED_PATH=/mixed/bin/both:/mixed/bin/both:/mixed/bin/load:/mixed/bin/unload;
+__LMOD_REF_COUNT_MIXED_PATH=/mixed/bin/both:2\;/mixed/bin/load:1\;/mixed/bin/unload:1;
+export __LMOD_REF_COUNT_MIXED_PATH;
+MIXED_PATH=/mixed/bin/both:/mixed/bin/load:/mixed/bin/unload;
 export MIXED_PATH;
 MIXED_STACK=stack_both;
 export MIXED_STACK;

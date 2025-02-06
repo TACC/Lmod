@@ -787,44 +787,18 @@ end
 --------------------------------------------------------------------------
 -- This routine converts a command into a string.  This is used by MC_Show
 -- @param name Input command name.
-function ShowCmdStr(name, ...)
+function ShowCmdStr(name, argT)
    dbg.start{"ShowCmdStr(",name,", ...)"}
    local a       = {}
-   local argA    = pack(...)
-   local n       = argA.n
-   local t       = argA
+   local n       = argT.n
    local hasKeys = false
    local left    = "("
    local right   = ")\n"
-   if (argA.n == 1 and type(argA[1]) == "table") then
-      t       = argA[1]
-      n       = #t
-      hasKeys = true
-   end
    for i = 1, n do
-      local s = l_arg2str(t[i])
+      local s = l_arg2str(argT[i])
       if (s ~= nil) then
          a[#a + 1] = s
       end
-   end
-
-   if (hasKeys) then
-      hasKeys = false
-
-      for k,v in pairs(t) do
-         if (type(k) ~= "number") then
-            local strV = tostring(v)
-            if (s_defaultsT[k] ~= strV) then
-               hasKeys = true
-               a[#a+1] = k.."="..l_arg2str(v)
-            end
-         end
-      end
-   end
-
-   if (hasKeys) then
-      left    = "{"
-      right   = "}\n"
    end
 
    local b = {}
@@ -841,31 +815,20 @@ end
 -- This routine formats table-style module commands to match the modulefile format
 -- @param name The command name (e.g. "setenv")
 -- @param t The table of arguments
-function ShowCmdTbl(name, t)
-   dbg.start{"ShowCmdTbl(",name,", t)"}
+function ShowCmdTbl(name, argT)
+   dbg.start{"ShowCmdTbl(",name,", argT)"}
    
+   local ignoreKeysT = { n = true, kind = true }
+   if (argT.modeA and next(argT.modeA) ~= nil and #argT.modeA  == 1 and argT.modeA[1] == "normal") then
+      ignoreKeysT.modeA = true
+   end
+
+
+   local s = name .. serializeTbl{value=argT, ignoreKeysT = ignoreKeysT, dsplyNum = "string", tight = "tight"}
    local a = {}
    a[#a + 1] = s_indentString
-   a[#a + 1] = name
-   a[#a + 1] = "{"
-   
-   -- Handle numeric indices first
-   for i = 1, #t do
-      if i > 1 then
-         a[#a + 1] = ","
-      end
-      a[#a + 1] = '"' .. t[i] .. '"'
-   end
-   
-   -- Only add mode field if present
-   if t.mode then
-      if #t > 0 then
-         a[#a + 1] = ","
-      end
-      a[#a + 1] = 'mode="' .. t.mode .. '"'
-   end
-   
-   a[#a + 1] = "}\n"
+   a[#a + 1] = s
+   a[#a + 1] = "\n"
    
    dbg.fini("ShowCmdTbl")
    return concatTbl(a,"")
