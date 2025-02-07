@@ -71,9 +71,13 @@ M.color_banner      = MainControl.color_banner
 local function l_ShowCmd(name, first_elem, ...)
    local argT
    if (type(first_elem) == "table") then
-      argT      = first_elem
-      argT.kind = argT.kind or "Table"
-      argT.n    = #argT
+      if (next(first_elem) ~= nil ) then
+         argT      = first_elem
+         argT.kind = argT.kind or "Table"
+         argT.n    = #argT
+      else
+         argT      = {n = 0, kind = "Array"}
+      end
    else
       argT = pack(first_elem, ...)
    end

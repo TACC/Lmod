@@ -282,7 +282,7 @@ end
 local s_setenv_rulesT = {
    sizeN        = {min=2, max=3},
    trimArg      = l_trim_first_arg,
-   checkA       = { l_valid_nameCk, l_stringValueCk, l_booleanCk},
+   checkA       = { l_valid_nameCk, l_stringValueCk, l_stringValueCk},
    checkTblArgs = { l_modeCk },
 }
 
@@ -943,7 +943,7 @@ end
 -- Set an alias for bash and csh
 function set_alias(...)
    dbg.start{"set_alias(",l_concatTbl({...},", "),")"}
-   if (not l_validateArgsWithValue("set_alias",...)) then return end
+   if (not l_validateArgsWithValue("set_alias", pack(...) )) then return end
 
    mcp:set_alias(...)
    dbg.fini("set_alias")
