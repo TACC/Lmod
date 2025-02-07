@@ -10,7 +10,7 @@ jobs:
           luaVersion: ["5.4", "5.3", "5.2", "5.1"]
       steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: install dependencies MacOS
         if: matrix.os == 'macos-latest'
         run: brew install coreutils gnu-sed
@@ -37,29 +37,12 @@ jobs:
          echo "$PWD/Hermes/bin" >> $GITHUB_PATH
          cd -
       - name: Run tests
-        run: |
-         set +e
-         while true; do
-           tm rt/mode_select 
-           for dir in $(ls -pd rt/mode_select | grep '/$'); do
-             diff -c ${dir}t1/mode_select/_err.left ${dir}/t1/mode_select/_err.right > /dev/null 2>&1
-             if [ $? -ne 0 ]; then
-               echo ">>>> ${dir}/err.txt"
-               diff -c ${dir}t1/*/_err.left ${dir}/t1/*/_err.right || echo
-               echo ">>>> ${dir}/out.txt"
-               diff -c ${dir}/out.txt ${dir}/t1/*/out.txt || echo
-               echo ">>>> ${dir}/t1.txt"
-               cat ${dir}t1/*/t1.log
-             fi
-           done
-           break
-         done
-         false
+        run: tm
       - name: show output of failed Lmod tests
         if: ${{ failure() }}
         run: |
          set +e
-         for dir in $(ls -pd rt/mode_select | grep '/$'); do
+         for dir in $(ls -pd rt/* | grep '/$'); do
            diff -c ${dir}t1/*/_err.left ${dir}/t1/*/_err.right > /dev/null 2>&1
            if [ $? -ne 0 ]; then
              echo ">>>> ${dir}/err.txt"

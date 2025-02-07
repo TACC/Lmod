@@ -260,6 +260,7 @@ initStdEnvVars()
     fi
   done < <(env)
 
+  unset -f module
   unset CPATH
   unset DYLD_LIBRARY_PATH
   unset INCLUDE
