@@ -72,6 +72,10 @@ local function l_ShowCmd(name,...)
    A[#A+1] = ShowCmdStr(name, ...)
 end
 
+local function l_ShowCmdT(funcName, table)
+   A[#A+1] = ShowCmdT(funcName, table)
+end
+
 local function l_Show_help(...)
    A[#A+1] = ShowHelpStr(...)
 end
@@ -174,9 +178,9 @@ end
 -- @param self A MainControl object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
-function M.pushenv(self, name,value)
-   setenv_posix(name, value, true)
-   l_ShowCmd("pushenv", name, value)
+function M.pushenv(self, table)
+   setenv_posix(table[1], table[2], true)
+   l_ShowCmdT("pushenv", table)
 end
 
 --------------------------------------------------------------------------
@@ -200,9 +204,9 @@ end
 -- @param self A MainControl object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
-function M.setenv(self, name,value)
-   setenv_posix(name, value, true)
-   l_ShowCmd("setenv", name, value)
+function M.setenv(self, table) --name,value)
+   setenv_posix(table[1], table[2], true)
+   l_ShowCmdT("setenv", table)
 end
 
 --------------------------------------------------------------------------
@@ -210,9 +214,9 @@ end
 -- @param self A MainControl object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
-function M.unsetenv(self, name,value)
-   setenv_posix(name, nil, true)
-   l_ShowCmd("unsetenv", name, value)
+function M.unsetenv(self, table)
+   setenv_posix(table[1], nil, true)
+   l_ShowCmdT("unsetenv", table)
 end
 
 --------------------------------------------------------------------------

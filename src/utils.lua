@@ -758,6 +758,11 @@ end
 -- @param v input number or string.
 local function l_arg2str(v)
    if (v == nil) then return v end
+   if (type(v) == "table") then
+      local a = {}
+      local s = serializeTbl{value = v, indent = false}
+      return s
+   end
    local s = tostring(v)
    if (type(v) ~= "boolean") then
       s = "\"".. s .."\""
@@ -829,6 +834,52 @@ function ShowCmdStr(name, ...)
    local b = {}
    b[#b+1] = s_indentString
    b[#b+1] = name
+   b[#b+1] = left
+   b[#b+1] = concatTbl(a,",")
+   b[#b+1] = right
+   dbg.fini("ShowCmdStr")
+   return concatTbl(b,"")
+end
+
+--------------------------------------------------------------------------
+-- This routine converts a command into a string.  This is used by MC_Show
+-- @param name Input command name.
+function ShowCmdT(funcName, t)
+   dbg.start{"ShowCmdStr(",funcName,", table)"}
+   local a       = {}
+   local n       = t.n
+   local hasKeys = t.kind == "table"
+   local left    = t.kind == "list" and "(" or "{"
+   local right   = t.kind == "list" and ")\n" or "}\n"
+
+   for i = 1, n do
+      local s = l_arg2str(t[i])
+      if (s ~= nil) then
+         a[#a + 1] = s
+      end
+   end
+
+   if (hasKeys) then
+      hasKeys = false
+
+      for k,v in pairs(t) do 
+         repeat 
+            if ( k == "n" or k == "kind") then break end
+
+            if (type(k) ~= "number") then
+               local strV = tostring(v)
+               if (s_defaultsT[k] ~= strV) then
+                  hasKeys = true
+                  a[#a+1] = k.."="..l_arg2str(v)
+               end
+            end
+         until true  
+      end
+   end
+
+   local b = {}
+   b[#b+1] = s_indentString
+   b[#b+1] = funcName
    b[#b+1] = left
    b[#b+1] = concatTbl(a,",")
    b[#b+1] = right
