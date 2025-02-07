@@ -37,7 +37,19 @@ jobs:
          echo "$PWD/Hermes/bin" >> $GITHUB_PATH
          cd -
       - name: Run tests
-        run: tm rt/mode_select
+        run: |
+         tm rt/mode_select
+         for dir in $(ls -pd rt/mode_select | grep '/$'); do
+           diff -c ${dir}t1/*/_err.left ${dir}/t1/*/_err.right > /dev/null 2>&1
+           if [ $? -ne 0 ]; then
+             echo ">>>> ${dir}/err.txt"
+             diff -c ${dir}t1/*/_err.left ${dir}/t1/*/_err.right || echo
+             echo ">>>> ${dir}/out.txt"
+             diff -c ${dir}/out.txt ${dir}/t1/*/out.txt || echo
+             echo ">>>> ${dir}/t1.txt"
+             cat ${dir}t1/*/t1.log
+           fi
+         done
       - name: show output of failed Lmod tests
         if: ${{ failure() }}
         run: |
