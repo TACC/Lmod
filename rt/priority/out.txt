@@ -118,3 +118,21 @@ MODULEPATH=ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="ProjectDIR/rt/priority/mf/Core/a/1.0.lua",fullName="a/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="a",wV="000000001.*zfinal",},tdog={fn="ProjectDIR/rt/priority/mf/Core/tdog/1.0",fullName="tdog/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="tdog",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},systemBaseMPATH="ProjectDIR/rt/priority/mf/Core",}';
 export _ModuleTable_;
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load partial
+===========================
+LOADEDMODULES=a/1.0:tdog/1.0:partial/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/priority/mf/RTM:ProjectDIR/rt/priority/mf/Core;
+export MODULEPATH;
+__LMOD_Priority_PATH=/a-q/b:-100;
+export __LMOD_Priority_PATH;
+__LMOD_REF_COUNT_PATH=/a-q/b:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
+export __LMOD_REF_COUNT_PATH;
+PATH=/a-q/b:ProjectDIR/proj_mgmt:PATH_to_TM;
+export PATH;
+_LMFILES_=ProjectDIR/rt/priority/mf/Core/a/1.0.lua:ProjectDIR/rt/priority/mf/Core/tdog/1.0:ProjectDIR/rt/priority/mf/Core/partial/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="ProjectDIR/rt/priority/mf/Core/a/1.0.lua",fullName="a/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="a",wV="000000001.*zfinal",},partial={fn="ProjectDIR/rt/priority/mf/Core/partial/1.0.lua",fullName="partial/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="partial",wV="000000001.*zfinal",},tdog={fn="ProjectDIR/rt/priority/mf/Core/tdog/1.0",fullName="tdog/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="tdog",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/priority/mf/RTM","ProjectDIR/rt/priority/mf/Core",},systemBaseMPATH="ProjectDIR/rt/priority/mf/Core",}';
+export _ModuleTable_;

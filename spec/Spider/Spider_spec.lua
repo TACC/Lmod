@@ -15,8 +15,11 @@ local concatTbl  = table.concat
 local cosmic     = require("Cosmic"):singleton()
 local dbg        = require("Dbg"):dbg()
 local getenv     = os.getenv
+local mrc        = require("MRC"):singleton()
 local testDir    = "spec/Spider"
 setenv_lmod_version()
+mrc:set_display_mode("spider")
+cosmic:assign("LMOD_SHOW_HIDDEN","no")
 describe("Testing Spider Class #Spider.",
          function()
             it("Core directory Test",

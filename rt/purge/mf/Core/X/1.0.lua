@@ -1,0 +1,2 @@
+purge()
+setenv("X","X")

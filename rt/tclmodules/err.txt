@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.30  2023-07-21 17:13 -05:00
+Modules based on Lua: Version 8.7.53 2024-10-12 19:57 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -33,8 +33,8 @@ step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/tclmodules/mf
-   a/1.0                      getenv/1.0    hide/2.0   (D)
-   earlyLateOutput/2.0 (L)    hide/1.0      showMe/1.0
+   a/1.0                      getenv/1.0    hide/2.0       (D)    showMe/1.0
+   earlyLateOutput/2.0 (L)    hide/1.0      outputMode/1.0
   Where:
    D:  Default Module
    L:  Module is loaded
@@ -48,3 +48,24 @@ step 7
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load getenv
 ===========================
 FOUND
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
+===========================
+The following is a list of the modules and extensions currently available:
+  a: a/1.0
+  earlyLateOutput: earlyLateOutput/2.0
+  getenv: getenv/1.0
+  hide: hide/1.0, hide/2.0
+  outputMode: outputMode/1.0
+  showMe: showMe/1.0
+To learn more about a package execute:
+   $ module spider Foo
+where "Foo" is the name of a module.
+To find detailed information about a particular package you
+must specify the version if there is more than one version:
+   $ module spider Foo/11.1
+===========================
+step 9
+cat myMode.log
+===========================

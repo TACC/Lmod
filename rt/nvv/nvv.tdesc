@@ -53,7 +53,30 @@ testdescript = {
 
      MODULEPATH=$(testDir)/mf4:$(testDir)/mf5:
      export LMOD_TMOD_FIND_FIRST=yes
-     runLmod load A/3.0
+     runLmod load A/3.0                        #14
+
+     runLmod purge                             #15
+     unsetMT
+
+     MODULEPATH=$(testDir)/mf6
+     runLmod avail                             #16
+     runLmod load vasp/does_not_exist          #17
+
+     runLmod purge                             #18
+     unsetMT
+
+     MODULEPATH=$(testDir)/mf7
+     runLmod avail                             #19
+     runLmod load complr/gcc                   #20
+     runLmod list                              #21
+
+
+     runLmod purge                             #14
+     unsetMT
+
+     MODULEPATH=$(testDir)/mf7
+     runLmod avail                             #15
+     runLmod load complr/gcc                   #16
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

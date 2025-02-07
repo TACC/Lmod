@@ -1,0 +1,176 @@
+#!/bin/sh
+# -*- python -*-
+
+################################################################################
+# This file is python 2/3 bilingual. 
+# The line """:" starts a comment in python and is a no-op in shell.
+""":"
+# Shell code to find and run a suitable python interpreter.
+for cmd in python3 python python2; do
+   command -v > /dev/null $cmd && exec $cmd $0 "$@"
+done
+
+echo "Error: Could not find a valid python interpreter --> exiting!" >&2
+exit 2
+":""" # this line ends the python comment and is a no-op in shell.
+################################################################################
+
+from __future__ import print_function
+import os, sys, re, time, argparse, json, operator
+from LMODdb import LMODdb
+
+def syshost(name):
+  hostA = name.split('.')
+  idx   = 1
+  if (len(hostA) < 2):
+    idx = 0
+  return hostA[idx]
+
+class CmdLineOptions(object):
+  """ Command line Options class """
+
+  def __init__(self):
+    """ Empty Ctor """
+    pass
+  
+  def execute(self):
+    """ Specify command line arguments and parse the command line"""
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-D",            dest='debug',      action="store_true",                           help="Debug Flag")
+    parser.add_argument("--delete",      dest='delete',     action="store_true", default=False,            help="delete file after processing")
+    parser.add_argument("--store_all",   dest='storeAll',   action="store_true", default=False,            help="Store all modules and not deduplicate")
+    parser.add_argument("--confFn",      dest='confFn',     action="store",      default="lmodV2_db.conf", help="DB config file")
+    parser.add_argument("--ignoreFn",    dest='ignoreFn',   action="store",                                help="List of module patterns to ignore")
+    parser.add_argument('dataFnA',       metavar='dataFnA', type=str, nargs='+',                           help='a list of Syslog/Json files to process')
+    args = parser.parse_args()
+    return args
+
+
+class Ignore(object):
+  def __init__(self, ignoreFn):
+    if (not ignoreFn):
+      self.__ignoreA = []
+      return
+
+    ignoreA = []
+    with open(ignoreFn, 'r') as file:
+    # Read each line in the file
+      for line in file:
+        ignoreA.append(re.compile(line.strip()))
+    self.__ignoreA = ignoreA
+
+  def ignore(self, module):
+    result = False
+    for rex in self.__ignoreA:
+      match = rex.match(module)
+      if (match):
+        result = True
+        break
+
+    return result
+
+
+class Reader(object):
+  def __init__(self, debug, ignore, ext, lmod):
+    self.debug      = debug
+    self.ignore     = ignore
+    self.ext        = ext
+    self.lmod       = lmod
+    self.modulePatt = re.compile(r'.*ModuleUsageTracking[^ ]* *')
+
+  def handleOneLine(self, line):
+    line  = line.rstrip()
+    if (len(line) < 1):
+      return None
+
+    if (self.ext == '.json'):
+      dataT = json.loads(line)
+    else:
+      rest  = self.modulePatt.sub('',line)
+      dataT = dict(re.findall(r'(\S+)=(".*?"|\S+)', rest))
+      host  = dataT.get('host')
+      dataT['syshost'] = syshost(host)
+      dataT['date']    = dataT['time']
+      dataT.pop('time',None)
+      dataT.pop('host',None)
+
+    if (dataT.get('syshost') == None):
+      dataT = None
+    elif (self.ignore.ignore(dataT.get('module'))):
+      dataT = None
+
+    return dataT
+
+class StoreAll(Reader):
+  def __init__(self, debug, ignore, ext, lmod):
+    super().__init__(debug, ignore, ext, lmod)
+    self.__blkSz  = 1000
+    self.__icount = 0
+    self.__dataA  = []
+    
+  def storeOneLine(self, dataT):
+    self.__icount += 1
+    self.__dataA.append(dataT.copy())
+    if (self.__icount >= self.__blkSz): 
+      self.lmod.data_to_db(self.debug, self.__dataA)
+      self.__dataA.clear()
+      self.__icount = 0
+
+  def save(self):
+    if (len(self.__dataA) > 0):
+      self.lmod.data_to_db(self.debug, self.__dataA)
+  
+
+class Dedup(Reader):
+  def __init__(self, debug, ignore, ext, lmod):
+    self.__usageT = {}
+    super().__init__(debug, ignore, ext, lmod)
+
+  def storeOneLine(self, dataT):
+    key = dataT['user'] + ' ' + dataT['syshost'] + ' ' + dataT['module'] + ' ' + dataT['path']
+    if (not key in self.__usageT):
+      self.__usageT[key] = { 'user'    : dataT['user'],
+                             'syshost' : dataT['syshost'],
+                             'module'  : dataT['module'],
+                             'path'    : dataT['path'],
+                             'date'    : dataT['date'],
+                           }
+  def save(self):
+    dataA = []
+    for value in self.__usageT.values():
+      dataA.append(value.copy())
+    dataA.sort(key=operator.itemgetter('date'))
+
+    if (len(dataA) > 0):
+      self.lmod.data_to_db(self.debug, dataA)
+
+
+def main():
+
+  args   = CmdLineOptions().execute()
+  lmod   = LMODdb(args.confFn)
+  ignore = Ignore(args.ignoreFn)
+  
+  for dataFn in args.dataFnA:
+    baseNm, extension = os.path.splitext(dataFn)
+    if (args.storeAll):
+      reader = StoreAll(args.debug, ignore, extension, lmod)
+    else:
+      reader = Dedup(args.debug,    ignore, extension, lmod)
+  
+    if (not os.path.exists(dataFn)):
+      continue
+    with open(dataFn, "r") as file:
+      for line in file:
+        dataT = reader.handleOneLine(line)
+        if (not dataT):
+          continue
+        reader.storeOneLine(dataT)
+
+      reader.save()
+      if (args.delete):
+        os.remove(dataFn)
+
+
+
+if ( __name__ == '__main__'): main()

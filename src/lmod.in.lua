@@ -516,7 +516,7 @@ function main()
 
 
    ------------------------------------------------------------
-   -- Do the work of Lmod 
+   -- Do the work of Lmod
    ------------------------------------------------------------
 
    local cmd = cmdT.cmd
@@ -557,7 +557,7 @@ function main()
    -- LOADEDMODULES and _LMFILES_
    local status, loadedmodules, lmfiles = mt:extractModulesFiles()
    dbg.print{"status: ",status,", loadedmodules: \"",loadedmodules,"\"\n"}
-   if (status) then 
+   if (status) then
       varT['LOADEDMODULES'] = Var:new('LOADEDMODULES')
       varT['LOADEDMODULES']:set(loadedmodules)
       varT['_LMFILES_'] = Var:new('_LMFILES_')

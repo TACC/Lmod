@@ -1,4 +1,6 @@
 .. _env_vars-label:
+.. _show_hidden-label:
+
 
 Configuring Lmod for your site
 ==============================
@@ -66,6 +68,19 @@ configuration step.
   nothing.  This is useful when testing a personal copy of Lmod and
   your site has the SHELL_STARTUP_DEBUG package installed so that the
   invoking of the module command in the system startup will a no-op.
+
+**LMOD_SHOW_HIDDEN**:
+  [string] This variable is used to control whether hidden modules are
+  shown.  Possible values are: **all**, **avail**, **spider**, and/or
+  **list**.  The case does not matter.  The values **yes** and **all**
+  mean that all hidden modules will be shown in all cases. The values
+  **no** means that hidden modules won't be shown.
+
+
+  Any values other than the above (except for "", 0, or no).
+  are treated as **all**. The values can be combined with a colon
+  separator.  For example, using  **spider:list** would show hidden
+  modules when performing **module spider** and **module list**.
 
 **LMOD_SYSTEM_NAME**:
   [string] This variable is used to where a site is using shared home
@@ -231,8 +246,9 @@ the configuration option which will set the action.
   [yes/no, default: no, --with-tmodFindFirst].  Normally Lmod uses the
   FIND BEST rule to search for defaults when searching C/N/V or N/V
   module layouts.  A site can force FIND_FIRST for C/N/V or N/V module
-  layouts to match the FIND_FIRST rule for N/V/V module layout.  See
-  :ref:`NVV-label` for more details.
+  layouts to match the FIND_FIRST rule for N/V/V module layout. When
+  this variable is set the default will only be chosen from the first
+  directory. See :ref:`NVV-label` for more details.
 
 **LMOD_TMOD_PATH_RULE**:
   [yes/no, default: no, --with-tmodPathRule].  Normally Lmod
@@ -255,8 +271,20 @@ the configuration option which will set the action.
   When this is set, Lmod will treat *prereq()* like *depends_on()* and
   *prereq_any()* like *depends_on_any()*.
 
+Setting environment variables or cosmic:assign() at startup
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**LMOD_FILE_IGNORE_PATTERNS**
+  Sites can replace the default value for this Lua Array variable to
+  ignore files.  The default value is::
+
+    `{"%.version[-._].*",   "%.modulerc[-._].*"}`
+
+  Note that you must use Lua based regular expressions.  
+  
 Configuration or cosmic:assign() at startup
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 **LMOD_DOWNSTREAM_CONFLICTS**:
   [yes/no, default: no, --with-downstreamConflicts] If yes then

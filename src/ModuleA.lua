@@ -156,38 +156,86 @@ local function l_build(self, maxdepthT, dirA)
    return moduleA
 end
 
+local function l_check_depth(searchA, idx, dirT)
+   dbg.print{"ModuleA l_check_depth: idx: ",idx,"\n"}
+   if (not dirT or idx < 1 or next(dirT) == nil) then
+      return true, idx, nil
+   end
+   local name       = searchA[idx][1]
+   dbg.print{"ModuleA l_check_depth: name: ",name,"\n"}
+   
+   if (dirT[name]) then
+      idx           = idx - 1
+      return l_check_depth(searchA, idx, dirT.dirT)
+   end
+   -- Did not find name so return false
+   return false, idx, nil
+end
+
+
 local function l_find_vA(name, moduleA)
    -- First find sn and collect all v's into vA
+   dbg.start{"ModuleA: l_find_vA(name:\"",name,"\", moduleA"}
    local versionStr = false
    local vA         = {}
    local sn         = name
-   local idx        = nil
-   local done       = false
+   local sz
+   local idx
+   local dirT
 
-   while true do
+   -- Build searchA to contain the list of module names.
+   -- So "intel/arm64/17/17.0.1" becomes:
+   -- searchA -> { {"intel/arm64/17/17.0.1",false}, {"intel/arm64/17","17.0.1"}, {"intel/arm64","17/17.0.1"}, {"intel","arm64/17/17.0.1"}}
+   
+   local searchA    = {}
+   searchA[#searchA + 1] = {sn, false}
+   while (true) do
+      sn = sn:match("(.*/).*")
+      if (not sn) then break end
+      sn                    = sn:sub(1,-2)  -- strip trailing slash
+      searchA[#searchA + 1] = {sn, name:sub(sn:len()+2, -1)}
+   end
+
+   dbg.printT("searchA",searchA)
+
+
+   local done        = false
+   local found       = false
+
+   sz = #searchA
+   for j = #searchA, 1, -1 do
+      sn = searchA[j][1]
+      dbg.print{"j: ",j,", sn: ",sn,"\n"}
       for i = 1, #moduleA do
          local v = moduleA[i].T[sn]
+      
          if (v) then
-            done        = true
-            vA[#vA + 1] = v
+            dbg.print{"found sn in moduleA\n"}
+            dbg.printT("v",v)
+            -- We have match the top level name.  Now we have to match
+            -- the keys in dirT to keep this "v"
+         
+            versionStr = searchA[j][2]
+            found, idx, dirT = l_check_depth(searchA, j-1, v.dirT)
+            dbg.print{"found: ",found,"\n"}
+            if (found) then
+               vA[#vA + 1] = v
+               done = true
+            end
          end
       end
       if (done) then break end
-      idx = sn:match("^.*()/")
-      if (idx == nil) then break end
-      sn = sn:sub(1,idx-1)
+      sz = sz - 1
    end
-
+            
    -- If there is nothing in vA then the name is not in moduleA.
    if (next(vA) == nil) then
       return nil
    end
 
-   if (idx) then
-      versionStr = name:sub(idx+1,-1)
-   end
    dbg.print{"sn: ",sn,", versionStr: ",versionStr,"\n"}
    dbg.printT("l_find_vA: vA",vA)
+   dbg.fini("l_find_vA")
    return sn, versionStr, vA
 end
 
@@ -251,6 +299,7 @@ local function l_search(name, moduleA)
       collectFileA(sn, fullStr, extended_default, vB[i], fileA[i])
    end
    dbg.printT("fileA",fileA)
+   dbg.print{"sn: ",sn,", versionStr: ",versionStr,"\n"}
    dbg.fini("ModuleA l_search")
    return sn, versionStr, fileA
 end
@@ -290,8 +339,8 @@ function M.__find_all_defaults(self)
    dbg.start{"ModuleA:__find_all_defaults()"}
    local moduleA     = self.__moduleA
    local defaultT    = self.__defaultT
-   local show_hidden = optionTbl().show_hidden
    local mrc         = MRC:singleton()
+   local show_hidden = MRC:show_hidden()
 
    dbg.printT("defaultT",defaultT)
 
@@ -314,15 +363,10 @@ function M.__find_all_defaults(self)
       end
 
       if (keepLooking) then
-         if (v.file) then
-            local resultT = mrc:isVisible{fullName=sn, sn=sn, fn=v.file, show_hidden=show_hidden}
-            if (resultT.isVisible) then
-               defaultT[sn] = {weight = "999999999.*zfinal", fullName = sn, fn = v.file, count = 1}
-            end
-         elseif (next(v.fileT) ~= nil) then
+         if (next(v.fileT) ~= nil) then
             for fullName, vv in pairs(v.fileT) do
                local wV      = mrc:find_wght_for_fullName(fullName, vv.wV)
-               local resultT = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, visibleT = {soft=true}, show_hidden = show_hidden}
+               local resultT = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, visibleT = {soft=true}, mpath=vv.mpath}
                local vis     = (resultT.isVisible or isMarked(wV))
 
                dbg.print{"l_find_all_defaults_helper: fullName: ",fullName, ", vis: ",vis,", resultT.kind: ",resultT.kind,"\n"}
@@ -379,34 +423,20 @@ end
 
 function M.build_availA(self)
    dbg.start{"ModuleA:build_availA()"}
-   local show_hidden = optionTbl().show_hidden
    local mrc         = MRC:singleton()
 
    local function l_build_availA_helper(mpath, sn, v, A)
       local icnt = #A
-      if (v.file ) then
-         dbg.print{"v.file: ",v.file,"\n"}
-         local resultT = mrc:isVisible{fullName=sn,sn=sn,fn=v.file, show_hidden = show_hidden}
-         if (resultT.isVisible) then
-            local metaModuleT = v.metaModuleT or {}
-            -- here is where the forbidden info goes.
-            dbg.print{"saving v.file: ",v.file,"\n"}
-            A[icnt+1] = { fullName = sn, pV = sn, fn = v.file, sn = sn,
-                          propT = metaModuleT.propT, moduleKindT = resultT.moduleKindT,
-                          forbiddenT = mrc:isForbidden{fullName=sn, sn = sn, fn = v.file},
-                        }
-         end
-      end
       if (next(v.fileT) ~= nil) then
          for fullName, vv in pairs(v.fileT) do
-            dbg.print{"fullName: ",fullName,",show_hidden: ",show_hidden,"\n"}
-            local resultT = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, show_hidden = show_hidden}
+            dbg.print{"fullName: ",fullName,"\n"}
+            local resultT = mrc:isVisible{fullName=fullName, sn=sn, fn=vv.fn, mpath=vv.mpath}
             if (resultT.isVisible) then
                icnt    = icnt + 1
                dbg.print{"saving fullName: ",fullName,"\n"}
                A[icnt] = { fullName = fullName, pV = pathJoin(sn,vv.pV), fn = vv.fn, sn = sn,
                            propT = vv.propT, provides = vv.provides, moduleKindT = resultT.moduleKindT,
-                           forbiddenT = mrc:isForbidden{fullName=fullName, sn = sn, fn = v.file},
+                           forbiddenT = mrc:isForbidden{fullName=fullName, sn = sn, fn = vv.fn, mpath=vv.mpath},
                          }
             end
          end
@@ -443,22 +473,7 @@ function M.inherited_search(self, search_fullName, orig_fn)
    local function l_inherited_search_helper(key, count, v)
       --dbg.start{"l_inherited_search_helper(",key,",", count,",v)"}
       local fn = false
-      if (v.file) then
-         if (search_fullName == key) then
-            if (count == 0) then
-               if (v.file == orig_fn) then
-                  fn = v.file
-                  count = 1
-               end
-            elseif (count == 1) then
-               fn = v.file
-               count = 2
-            end
-            --dbg.print{"found matching v.file\n"}
-            --dbg.fini("l_inherited_search_helper")
-            return fn, count
-         end
-      elseif (next(v.fileT) ~= nil) then
+      if (next(v.fileT) ~= nil) then
          local entryT = v.fileT[search_fullName]
          if (entryT) then
             if (count == 0) then
@@ -514,7 +529,7 @@ function M.search(self, name)
    if (self.__isNVV) then
       local sn, versionStr, fileA = l_search(name, self.__moduleA)
       dbg.fini("ModuleA:search")
-      return sn, versionStr, fileA 
+      return sn, versionStr, fileA
    end
 
    if (not self.__locationT) then
@@ -523,7 +538,7 @@ function M.search(self, name)
 
    local sn, versionStr, fileA = self.__locationT:search(name)
    dbg.fini("ModuleA:search")
-   return sn, versionStr, fileA 
+   return sn, versionStr, fileA
 end
 
 local function l_checkforNV(T)
@@ -647,13 +662,16 @@ function M.__new(self, mpathA, maxdepthT, moduleRCT, spiderT)
    else
       dbg.print{"calling DirTree:new()\n"}
       dirTree         = DirTree:new(mpathA)
+      dbg.printT("dirTree",dirTree:dirA())
       o.__spiderBuilt = false
       o.__moduleA     = l_build(o, maxdepthT, dirTree:dirA())
+      dbg.printT("moduleA",o.__moduleA)
+      dbg.print{"isNVV: ",o.__isNVV,"\n"}
    end
 
    o.__locationT   = false
    o.__defaultT    = {}
-   
+
 
    dbg.fini("ModuleA:__new")
    return o

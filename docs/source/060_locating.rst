@@ -266,7 +266,7 @@ are the rules that Lmod uses to locate a modulefile when in N/V/V mode:
    names that it has.  It matches by directory name.  No partial matches
    are on directory names
 #. In the directory that is found above the first marked default is
-   found.
+   found. No other directories are searched.
 #. If there are no marked defaults, then the "highest" is chosen.
 #. The two above rules are followed at each directory level.
 #. If a site has "extended defaults" enabled and a user types in part

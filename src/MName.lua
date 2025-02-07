@@ -67,8 +67,7 @@ local s_rangeFuncT = { ["<="] = {func = l_lessthan_equal, name = "<="},
 
 
 function M.new(self, sType, name, action, is, ie)
-   --dbg.start{"Mname:new(",sType,")"}
-
+   dbg.start{"Mname:new(",sType,", name: ",name,", action: ", action,")"}
    local exact_match = cosmic:value("LMOD_EXACT_MATCH")
 
    if (not s_findT) then
@@ -143,7 +142,7 @@ function M.new(self, sType, name, action, is, ie)
       o.__userName   = (name or ""):trim():gsub("/+$",""):gsub("%.lua$","")
    end
 
-   --dbg.fini("MName:new")
+   dbg.fini("MName:new")
    return o
 end
 
@@ -181,7 +180,7 @@ function M.buildA(self,sType, argT)
 end
 
 local function l_lazyEval(self)
-   --dbg.start{"l_lazyEval(",self.__userName,")"}
+   dbg.start{"l_lazyEval(",self.__userName,")"}
 
    local sType   = self.__sType
    if (sType == "mt") then
@@ -198,7 +197,7 @@ local function l_lazyEval(self)
          self.__ref_count       = mt:get_ref_count(sn)
          self.__depends_on_anyA = mt:get_depends_on_anyA(sn)
       end
-      --dbg.fini("l_lazyEval via mt")
+      dbg.fini("l_lazyEval via mt")
       return
    end
 
@@ -215,7 +214,7 @@ local function l_lazyEval(self)
          self.__wV       = t.wV
       end
 
-      --dbg.fini("l_lazyEval via inherit")
+      dbg.fini("l_lazyEval via inherit")
       return
    end
 
@@ -226,13 +225,14 @@ local function l_lazyEval(self)
    local origUserName          = self:userName()
    local userName              = mrc:resolve(mt:modulePathA(), self:userName())
    local sn, versionStr, fileA = moduleA:search(userName)
-   --dbg.print{"l_lazyEval: orig: ",origUserName,", userName: ",userName, ", sn: ",sn,", versionStr: ",versionStr,"\n"}
+   dbg.printT("fileA",fileA)
+   dbg.print{"l_lazyEval: orig: ",origUserName,", userName: ",userName, ", sn: ",sn,", versionStr: ",versionStr,"\n"}
    mrc:applyWeights(sn, fileA)
 
    if (origUserName ~= userName) then
       self.__origUserName = origUserName
    end
-   --dbg.print{"l_lazyEval: self.__origUserName: ",self.__origUserName,"\n"}
+   dbg.print{"l_lazyEval: self.__origUserName: ",self.__origUserName,"\n"}
 
    self.__userName   = userName
    self.__sn         = sn
@@ -240,7 +240,7 @@ local function l_lazyEval(self)
    self.__stackDepth = self.__stackDepth or frameStk:stackDepth()
 
    if (not sn) then
-      --dbg.fini("l_lazyEval via no sn")
+      dbg.fini("l_lazyEval via no sn")
       return
    end
 
@@ -249,40 +249,46 @@ local function l_lazyEval(self)
    local fn
    local wV
    local found
+   local funcName
+   local mpath
    local moduleKindT
-   --dbg.printT("fileA",fileA)
-   --dbg.print{"#stepA: ",#stepA,"\n"}
-   --dbg.print{"userName: ",self.__userName,"\n"}
-   --dbg.print{"sn: ",self.__sn,"\n"}
+
+   dbg.printT("fileA",fileA)
+   dbg.print{"#stepA: ",#stepA,"\n"}
+   dbg.print{"userName: ",self.__userName,"\n"}
+   dbg.print{"sn: ",self.__sn,"\n"}
 
 
    for i = 1, #stepA do
       local func = stepA[i]
-      found, fn, version, wV, moduleKindT = func(self, fileA)
+      found, fn, version, wV, moduleKindT, mpath, funcName = func(self, fileA)
+      dbg.print{"found: ",found,", funcName: ",funcName,"\n"}
       if (found) then
          self.__fn          = fn
          self.__version     = version
          self.__wV          = wV
          self.__moduleKindT = moduleKindT
+         self.__mpath       = mpath
          if (self.__action == "latest" or self.__sn ~= self.__userName) then
             self.__userName = build_fullName(self.__sn, version)
          end
          break
       end
    end
-
+   
    ---------------------------------------------------------------
    -- If found then check to see if this MName object is forbidden
-   
+
    if (found) then
       self.__forbiddenT = mrc:isForbidden{fullName=build_fullName(self.__sn, version),
-                                          sn = self.__sn, fn = self.__fn}
+                                          sn = self.__sn, fn = self.__fn,
+                                          mpath = self.__mpath}
    end
 
-   --local tt = self.__moduleKindT or {}
-   --dbg.print{"l_lazyEval: sn: ",self.__sn, ", version: ",self.__version, ", fn: ",self.__fn,", wV: ",self.__wV,", userName: ",self.__userName,"\n"}
-   --dbg.print{"fn: ",self.__fn,", kind: ",tt.kind,"\n"}
-   --dbg.fini("l_lazyEval")
+   local tt = self.__moduleKindT or {}
+   dbg.print{"l_lazyEval: sn: ",self.__sn, ", version: ",self.__version, ", fn: ",self.__fn,", wV: ",self.__wV,", userName: ",self.__userName,"\n"}
+   dbg.print{"fn: ",self.__fn,", kind: ",tt.kind,"\n"}
+   dbg.fini("l_lazyEval")
 end
 
 
@@ -301,7 +307,7 @@ function M.moduleKindT(self)
    local hidden_loaded = moduleKindT.hidden_loaded or nil
    local t = nil
    if (moduleKindT.kind ~= "normal") then
-      t = {kind = moduleKindT.kind, hidden_loaded = hidden_loaded} 
+      t = {kind = moduleKindT.kind, hidden_loaded = hidden_loaded}
    end
    return t
 end
@@ -459,6 +465,7 @@ local function l_find_exact_match(self, must_have_version, fileA)
    local wV          = false
    local moduleKindT = {}
    local found       = false
+   local mpath       = false
    if (must_have_version and not versionStr) then
       return found, fn, version
    end
@@ -469,13 +476,14 @@ local function l_find_exact_match(self, must_have_version, fileA)
          local entry   = blockA[i]
          --dbg.print{"entry.fullName: ",entry.fullName,", entry.fn: ",entry.fn,"\n"}
          if (entry.version == versionStr and entry.pV > pV ) then
-            local resultT = mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, 
+            local resultT = mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, mpath=entry.mpath,
                                           visibleT = {soft = true, hidden = true}}
             --dbg.printT("resultT",resultT)
             if (resultT.isVisible)  then
                pV          = entry.pV
                wV          = entry.wV
                fn          = entry.fn
+               mpath       = entry.mpath
                version     = entry.version or false
                moduleKindT = resultT.moduleKindT
                found       = true
@@ -486,13 +494,13 @@ local function l_find_exact_match(self, must_have_version, fileA)
       end
       if (found) then break end
    end
- 
+
    --dbg.print{"found: ",found,", fn: ",fn,", version: ", version,", wV: ",wV,
    --         ", kind: ",moduleKindT.kind,"\n"}
    --dbg.fini("MName l_find_exact_match")
-   return found, fn, version, wV, moduleKindT
+   return found, fn, version, wV, moduleKindT, mpath
 end
-   
+
 
 ------------------------------------------------------------------------
 -- M.find_exact_match() is more difficult because there are possibly
@@ -504,9 +512,9 @@ end
 function M.find_exact_match(self, fileA)
    --dbg.start{"MName:find_exact_match(fileA)"}
    local must_have_version = true
-   local found, fn, version, wV, moduleKindT  = l_find_exact_match(self, must_have_version, fileA)
+   local found, fn, version, wV, moduleKindT, mpath  = l_find_exact_match(self, must_have_version, fileA)
    --dbg.fini("MName:find_exact_match")
-   return found, fn, version, wV, moduleKindT
+   return found, fn, version, wV, moduleKindT, mpath, "find_exact_match"
 end
 ------------------------------------------------------------------------
 -- This routine is almost the same as M.find_exact_match
@@ -517,9 +525,9 @@ end
 function M.find_exact_match_meta_module(self, fileA)
    --dbg.start{"MName:find_exact_match_meta_module(fileA)"}
    local must_have_version = false
-   local found, fn, version, wV, moduleKindT = l_find_exact_match(self, must_have_version, fileA)
+   local found, fn, version, wV, moduleKindT, mpath = l_find_exact_match(self, must_have_version, fileA)
    --dbg.fini("MName:find_exact_match_meta_module")
-   return found, fn, version, wV, moduleKindT
+   return found, fn, version, wV, moduleKindT, mpath, "find_exact_match_meta_module"
 end
 
 local function l_find_highest_by_key(self, key, fileA)
@@ -533,27 +541,34 @@ local function l_find_highest_by_key(self, key, fileA)
    local version     = false
    local pV          = false
    local wV          = false
+   local mpath       = false
    fileA             = fileA or {}
    local blockA
 
+   dbg.printT("fileA: ",fileA)
    for j = 1,#fileA do
-       blockA = fileA[j]
-
+      blockA = fileA[j]
+      dbg.printT("blockA: ",blockA)
+      
       for i = 1,#blockA do
          local entry   = blockA[i]
          local v       = entry[key]
+         dbg.print{"fullName: ",entry.fullName,", weight: ",weight,", v: ",v,"\n"}
          if (v > weight) then
-            local resultT = mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, 
+            local resultT = mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, mpath=entry.mpath,
                                        visibleT = {soft = true}}
             if (isMarked(v) or resultT.isVisible) then
                idx         = i
                weight      = v
                pV          = entry.pV
                wV          = entry.wV
+               mpath       = entry.mpath
                moduleKindT = resultT.moduleKindT
+               dbg.print{"saving fullName: ", entry.fullName,"\n"}
             end
          end
       end
+      dbg.print{"idx: ",idx,"\n"}
       if (idx) then break end
    end
    if (idx) then
@@ -565,7 +580,7 @@ local function l_find_highest_by_key(self, key, fileA)
    --dbg.print{"found: ",found,", fn: ",fn,", version: ", version,", wV: ",wV,
    --          ", kind: ",moduleKindT.kind,"\n"}
    --dbg.fini("MName: l_find_highest_by_key")
-   return found, fn, version, wV, moduleKindT
+   return found, fn, version, wV, moduleKindT, mpath, "l_find_highest_by_key("..key..")"
 end
 
 ------------------------------------------------------------------------
@@ -597,6 +612,7 @@ function M.find_between(self, fileA)
 
    local pV          = lowerBound
    local wV          = " "  -- this is less than the lower possible weight.
+   local mpath       = false
    local kind        = nil
    local idx         = nil
    local found       = false
@@ -605,12 +621,13 @@ function M.find_between(self, fileA)
       local entry = a[j]
       local v     = entry.pV
       if (lowerFn(pV,v) and upperFn(v,upperBound) and entry.wV > wV) then
-         local resultT = mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, 
+         local resultT = mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, mpath=entry.mpath,
                                        visibleT = {soft = true}}
          if (isMarked(v) or resultT.isVisible ) then
             idx         = j
             pV          = v
             wV          = entry.wV
+            mpath       = entry.mpath
             moduleKindT = resultT.moduleKindT
          end
       end
@@ -624,7 +641,7 @@ function M.find_between(self, fileA)
       end
    end
    --dbg.fini("MName:find_between")
-   return found, fn, version, wV, moduleKindT
+   return found, fn, version, wV, moduleKindT, mpath, "find_between"
 end
 
 local function l_rangeCk(self, version, result_if_found, result_if_not_found)
@@ -802,7 +819,7 @@ function M.downstreamConflictCk(self, mnameIn)
 end
 
 function M.forbiddenT(self)
-   return self.__forbiddenT 
+   return self.__forbiddenT
 end
 
 function M.set_depends_on_flag(self, value)

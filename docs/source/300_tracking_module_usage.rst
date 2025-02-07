@@ -3,6 +3,21 @@
 Tracking Module Usage
 =====================
 
+    **NOTE**
+    This section describe the new version of the Lmod database for Lmod
+    version (8.7.54+).  If your site has been using the previous version
+    please see :ref:`convert_gen1_gen2-label` if you wish to convert the old
+    generation (gen_1) to this version (gen_2).  The reasons why this
+    version is better is discussed in the referenced section.  The
+    tldr is that this new version stores much much less data.  At TACC
+    we are seeing over 100 times less data stored.  It is also easier to
+    remove older data.
+
+    **NOTE**
+    Please use the programs describe here that are found in
+    contrib/tracking_module_usage/gen_2 
+
+
 Once you have a module system, it can be important to know what
 modules your users are using or not.  This ability collect in some
 fashion has existed for a long time.  What is new here is a complete
@@ -12,7 +27,7 @@ into a database.
 There are a number of steps but all are easy.  The following is an
 overview.  I am going to explain our setup and point out where you
 site may be different.  In this setup I will be assuming that you are
-using a MySQL database and Rsyslog (version 5.8)
+using a MySQL database (version 8.0+) and Rsyslog (version 8+)
 
 For a cluster, it is common to have each node in that cluster to send
 its syslog messages to a single central machine (called master in this
@@ -40,6 +55,7 @@ Detailed Steps
 Step 1
 ------
 
+
 Use SitePackage.lua to send a message to syslog.::
 
    --------------------------------------------------------------------------
@@ -63,12 +79,15 @@ Use SitePackage.lua to send a message to syslog.::
 
       -- use syshost from configuration if set
       -- otherwise extract 2nd name from hostname: i.e. login1.stampede2.tacc.utexas.edu
+      -- Please modify the following code to match your site.
       local host        = syshost 
       if (not host) then
          local i,j, first
-         i,j, first, host = uname("%n"):find("([^.]*)%.([^.]*)%.")
+         host             = uname("%n")
+         if (host:find("%.")) then
+            i,j, first, host = host:find("([^.]*)%.([^.]*)%.")
+         end
       end
-      
 
       if (mode() ~= "load") then return end
       local msg         = string.format("user=%s module=%s path=%s host=%s time=%f",
@@ -92,7 +111,7 @@ saved.  The second hook is called at exit.  If there were no errors then any mod
 reported by sending a syslog message with the tag "ModuleUsageTracking"
 
 Please read the file src/SitePackage.lua to see how to use the environment variable
-LMOD_PACKAGE_PATH to point to your own SitePackage.lua.
+LMOD_PACKAGE_PATH to point to your own SitePackage.lua or /etc/lmod/lmod_config.lua
 
 You should check to see that Lmod finds your SitePackage.lua.  If you do::
 
@@ -120,7 +139,7 @@ Have "master" send the tracking messages to a separate computer.
 You can add the following to master's /etc/rsyslog.conf file::
 
    if $programname contains 'ModuleUsageTracking' then @module_usage_tracking
-   &~
+   & stop
 
 Where you change "module_usage_tracking" into a real machine name.
 Adding this to rsyslog.conf will direct all syslog messages to be sent
@@ -148,15 +167,30 @@ Then in /etc/rsyslog.d/moduleTracking.conf::
     $InputUDPServerBindRuleset remote
     $UDPServerRun 514
 
-The above commands are in the language of rsyslog version 5.8.  What
+The above commands are in the language of rsyslog version 8+.  What
 this says is accept outside syslog messages on port 514 and if any are
 tagged with "ModuleUsageTracking" then write them to
 /var/log/moduleUsage.log 
 
 Remember to restart the rsyslog daemon on the "module_usage_tracking" machine.
 
-
 Step 4
+------
+
+Sites may have firewall rules that will prevent master from
+connecting.  After completing step 3, try sending syslog message from
+your cluster to your "module_usage_tracking" machine with the command
+`logger`::
+
+   $ logger  -t ModuleUsageTracking -p local0.info -n 192.168.4.8 "Some test message"
+
+where you have replaced 192.168.4.8 with the correct ip address of the
+"module_usage_tracking" machine.  If the above message does not appear
+on "module_usage_tracking" machine in /var/log/moduleUsage.log then
+talk with your network team to fix the firewall rules.
+
+
+Step 5
 ------
 
 Create the file /etc/logrotate.d/moduleUsage::
@@ -172,27 +206,24 @@ Create the file /etc/logrotate.d/moduleUsage::
 
 
 This will log rotate the moduleUsage.log.  Remember to restart the logrotate daemon.  Note that it will be
-the second day before the log is rotated.  On Centos machines, it seems that the log rotate happens at about 3am.
+the second day before the log is rotated.  On our machines, it seems that the log rotate happens at about 3am.
 
-Step 5
+Step 6
 ------
 
-I found the following site helpful in getting the MySQL database setup::
+a) Install the mysql.connector.python via pip3 or your package
+   manager. Do NOT use mysql.connector.
 
-    http://zetcode.com/db/mysqlpython/
-
-a) Install MySQL db. Create a mysql root password.  Then create an account in the database like this::
+a) Create a mysql root password.  Then create an account in the database like this::
 
        $ mysql -u root -p
        Enter password:
 
-       mysql> CREATE DATABASE lmod;
+       mysql> CREATE DATABASE lmodV2;
 
-       mysql> CREATE USER 'lmod'@'localhost' IDENTIFIED BY 'test623';
+       mysql> CREATE USER 'lmodUser'@'localhost' IDENTIFIED WITH mysql_native_password BY 'test623';
 
-       mysql> USE lmod;
-
-       mysql> GRANT ALL ON lmod.* TO 'lmod'@'localhost';
+       mysql> GRANT ALL ON lmodV2.* TO 'lmodUser'@'localhost';
 
        mysql> flush privileges;
 
@@ -205,64 +236,47 @@ b) Use the "conf_create" program from the contrib/tracking_module_usage
    directory to create a file containing the access information for the db:: 
 
        $ ./conf_create
-       Database host:
-       Database user: lmod
-       Database pass:
-       Database name: lmod
+         Database host: localhost
+         Database user: lmodUser
+         Database pass:
+         Database name: lmodV2
 
-   Where you'll have to fill in the correct name for the database host and password.   This creates a file named
-   lmod_db.conf which is used by createDB.py, analyzeLmodDB and other programs to access the database.
+   Where you'll have to fill in the correct password.   This creates a file named
+   lmodV2_db.conf which is used by createDB.py, analyzeLmodDB and other programs to access the database.
 
 
-c) Make sure your python knows about the MySQLdb module. Please use pip or something similar if it is unavailable.
-
+c) Make sure your python knows about the mysql.connector.python
+   module. Please use pip or something similar if it is not already available.
 
 d) Create the database by running the createDB.py program.::
 
       $ ./createDB.py
 
-
-
-Step 6
-------
-
-a) If you have more than one cluster and you want to store them in the
-   same database you might want to modify the store_module_data
-   program found in the contrib/tracking_module_usage directory.  It
-   assumes that host names are of the form:
-   node_name.cluster_name.something.something and the current
-   store_module_data program picks off the second field in the
-   hostname.  If your site names things differently you should modify
-   that routine to match your needs.
-
-
-b) I use a cron job to load the moduleUsage.log-* files.   This is the script I use::
-
-       #!/bin/bash
-
-       PATH=<path_to_python3>:$PATH
-       cd ~mclay/load_module_usage
-
-       for i in /var/log/moduleUsage.log-*; do
-         ./store_module_data $i
-         if [ "$?" -eq 0 ]; then
-           rm -f $i
-         fi
-       done
-
-Where <path_to_python3> has a python3 that can also import MySQLdb python module.
-If it is not already installed, you can do::
-
-    $ pip3 install mysqlclient
-  
-Also you'll probably want to change ~mclay/load_module_usage to where ever you have
-the store_module_data program and lmod_db.conf files.  
-
-I am running this cron job on the "module_usage_tracking" machine at 5am every morning.
-This is after the log rotation has been done.
+   Note that createDB.py support --drop to remove the old databae.     
 
 
 Step 7
+------
+
+a) If you have more than one cluster and you want to store them in the
+   same database then make sure that your load_hook correctly sets the
+   name of the cluster.
+
+b) We use a cron job to load the moduleUsage.log-* files.   Here is the
+   entry we use to record data.  This assumes that the account on
+   "module usage machine" is swtools::
+
+       13 4 * * * /home/swtools/load_module_usage/store_module_data --delete --confFn /home/swtools/load_module_usage/lmodV2_db.conf /var/log/moduleUsage.log-* > /home/swtools/load_module_usage/store.log 2>&1
+
+Step 8
+------
+
+Setup a crontab entry to remove data older than a year on the
+"module_usage_tracking" machine at the beginning of the month at 12:11 midnight::
+
+     0 11 1 * * /home/swtools/load_module_usage/delete_old_records --keepMonths 12 --yes --confFn /home/swtools/load_module_usage/lmodV2_db.conf > /home/swtools/load_module_usage/delete.log 2>&1
+
+Step 9
 ------
 
 Once data is being written to the database you can now start analyzing the data.  You can use SQL commands directly
@@ -328,6 +342,7 @@ c) modules_used_by:  Report the modules used by a particular user::
      /opt/apps/gcc4_9/mvapich2_2_1/modulefiles/pmetis/4.0.2.lua             mclay
      /opt/apps/intel13/modulefiles/boost/1.55.0.lua                         mclay
      /opt/apps/intel13/modulefiles/mvapich2/1.9a2                           mclay
+
 
 
 Tracking user loads and not dependent loads
