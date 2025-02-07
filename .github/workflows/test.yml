@@ -37,7 +37,7 @@ jobs:
          echo "$PWD/Hermes/bin" >> $GITHUB_PATH
          cd -
       - name: Run tests
-        run: tm
+        run: tm mode_select
       - name: show output of failed Lmod tests
         if: ${{ failure() }}
         run: |
