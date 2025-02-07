@@ -145,11 +145,18 @@ end
 
 local s_cleanupDirT = { PATH = true, LD_LIBRARY_PATH = true, LIBRARY_PATH = true, MODULEPATH = true }
 
+local function l_trim_string(value)
+   if (type(value) == "string") then
+      value = value:trim()
+   end
+   return value
+end
+
 local function l_cleanupPathArgs(argT)
-   local name = argT[1]:trim()
-   local path = argT[2]:trim()
+   local name = l_trim_string(argT[1])
+   local path = l_trim_string(argT[2])
    
-   if (s_cleanupDirT[name]) then
+   if (path and s_cleanupDirT[name]) then
       path = path:gsub(":+$",""):gsub("^:+",""):gsub(":+",":")
       if (path == "") then path = false end
       argT[2] = path
@@ -181,7 +188,6 @@ end
 local function l_build_argTable(cmdName, first_elem, ... )
    local argT
    if (type(first_elem) == "table") then
-      dbg.print{"type(first_elem) == \"table\"\n"}
       if (first_elem.__waterMark == "MName") then
          argT = pack(first_elem, ...)
       else
@@ -199,7 +205,6 @@ local function l_build_argTable(cmdName, first_elem, ... )
          end
       end
    else
-      dbg.print{"type(first_elem) ~= \"table\"\n"}
       argT = pack(first_elem, ...)
       argT.__cmdName = cmdName
       argT.modeA     = {"normal"}
@@ -420,7 +425,6 @@ end
 -- @param cmdName The command which is getting its arguments validated.
 local function l_validateModules(cmdName, ...)
    local argA = pack(...)
-   --dbg.print{"l_validateModules: cmd: ",cmdName, " argA.n: ",argA.n,"\n"}
    local allGood = true
    local fn      = false
    for i = 1, argA.n do
@@ -518,12 +522,8 @@ function prepend_path(...)
 
    local mcp_old = mcp
    mcp = l_chose_mcp(argT)
-   dbg.print{"after l_chose_mcp\n"}
-
-   dbg.printT("argT",argT)
 
    if (argT[2]) then
-      dbg.print{"Calling mcp:prepend_path\n"}
       mcp:prepend_path(argT)
    end
    mcp = mcp_old
@@ -656,9 +656,6 @@ end
 function family(name)
    dbg.start{"family(",name,")"}
    if (not l_validateStringArgs("family",name)) then return end
-
-   dbg.print{"Setting mcp to ", mcp:name(),"\n"}
-
 
    mcp:family(name)
    dbg.fini("family")
@@ -1147,9 +1144,7 @@ end
 -- in the modulefile.  It is not an error to unload a module which is
 -- not loaded.  The reverse of an unload is a no-op.
 function unload(...)
-   dbg.print{"Here in unload(...)\n"}
    local argT = l_build_check_argT("unload", s_load_rulesT, ...)
-   dbg.print{"after l_build_check_argT\n"}
    if (not argT) then
       dbg.fini("unload")
       return {}
