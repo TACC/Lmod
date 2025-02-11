@@ -119,3 +119,19 @@ step 25
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 No modules loaded
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load forbidden_env_test
+===========================
+Lmod has detected the following error: MODULEPATH variable cannot be mode selected.
+While processing the following module(s):
+    Module fullname         Module Filename
+    forbidden_env_test/1.0  ProjectDIR/rt/mode_select/mf/Core/forbidden_env_test/1.0.lua
+===========================
+step 27
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load invalid_key_test
+===========================
+Lmod has detected the following error: Invalid key detected in function setenv: Invalid key: extra.
+While processing the following module(s):
+    Module fullname       Module Filename
+    invalid_key_test/1.0  ProjectDIR/rt/mode_select/mf/Core/invalid_key_test/1.0.lua

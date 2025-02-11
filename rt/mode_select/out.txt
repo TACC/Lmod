@@ -288,3 +288,13 @@ MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
 export _ModuleTable_;
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load forbidden_env_test
+===========================
+false
+===========================
+step 27
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load invalid_key_test
+===========================
+false

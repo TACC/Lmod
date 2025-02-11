@@ -1,0 +1,1 @@
+prepend_path{"MODULEPATH", "FOOBAR", modeA={"load"}} 
