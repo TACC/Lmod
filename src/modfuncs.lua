@@ -184,6 +184,44 @@ local function l_modeCk(argT)
    return true
 end
 
+
+-- New helper to check for forbidden key modifications in mode-specific functions.
+-- For instance, if a call such as:
+--    prepend_path{"MODULEPATH", "FOOBAR", modeA={"load"}}
+-- is attempted in load mode, this operation is forbidden.
+local function l_checkForbiddenEnv(argT)
+   local cmd = argT.__cmdName
+
+   -- Only proceed with forbidden key check if the function is mode-select.
+   if (not argT.modeA or type(argT.modeA) ~= "table" or #argT.modeA == 0) then
+      return true
+   end
+
+   -- Check if the target variable is in the list of forbidden keys.
+   local forbiddenKeys = { MODULEPATH = true }  
+   if argT[1] and forbiddenKeys[argT[1]:upper()] then
+      local message = cmd .. " operation on " .. argT[1]:upper() .. " is forbidden in load mode."
+      mcp:report{msg="e_Forbidden_Env", fn = myFileName(), cmdName = cmd, detail = message}
+   end
+   return true
+end
+
+-- New function to check for invalid function keys
+local function l_checkInvalidFuncKey(argT)
+   local validKeys = { n = true, delim = true, modeA = true, priority = true, kind = true }
+   for k, v in pairs(argT) do
+      if type(k) == "string" and k:sub(1,1) ~= "_" then
+         if not validKeys[k] then
+            local cmd = argT.__cmdName or "unknown"
+            local detail = "Invalid key: " .. k
+            mcp:report{msg="e_Invalid_Func_Key", fn = myFileName(), cmdName = cmd, detail = detail}
+            return false
+         end
+      end
+   end
+   return true
+end
+
 -- Helper: Build the argument table ensuring a mode array exists.
 local function l_build_argTable(cmdName, first_elem, ... )
    local argT
@@ -220,7 +258,7 @@ end
 -- Check the arguments in the table using the provided rules.
 local function l_check_argT(argT, rulesT)
    if (argT.n < rulesT.sizeN.min or argT.n > rulesT.sizeN.max) then
-      mcp:report{msg="e_wrong_num_args", n = argT.n,  fn = myFileName(), cmdName = argT.__cmdName}
+      mcp:report{msg="e_wrong_num_args", n = argT.n, fn = myFileName(), cmdName = argT.__cmdName}
       return false
    end
    if (rulesT.trimArg) then
@@ -239,9 +277,17 @@ local function l_check_argT(argT, rulesT)
       end
    end
    if (rulesT.checkTblArgs) then
-      for i = 1,#rulesT.checkTblArgs do
+      for i = 1, #rulesT.checkTblArgs do
          local func = rulesT.checkTblArgs[i]
          if (not func(argT)) then return false end
+      end
+   end
+   -- Run any additional "other_tests" if defined.
+   if (rulesT.other_tests) then
+      for i = 1, #rulesT.other_tests do
+         local testFunc = rulesT.other_tests[i]
+         -- Should the test signal a forbidden operation, it produces its own report.
+         testFunc(argT)
       end
    end
    return true
@@ -289,6 +335,7 @@ local s_setenv_rulesT = {
    trimArg      = l_trim_first_arg,
    checkA       = { l_valid_nameCk, l_stringValueCk, l_stringValueCk},
    checkTblArgs = { l_modeCk },
+   other_tests  = { l_checkForbiddenEnv, l_checkInvalidFuncKey },
 }
 
 local s_pushenv_rulesT = {
@@ -296,6 +343,7 @@ local s_pushenv_rulesT = {
    trimArg      = l_trim_first_arg,
    checkA       = { l_valid_nameCk, l_stringValueCk},
    checkTblArgs = { l_modeCk },
+   other_tests  = { l_checkForbiddenEnv, l_checkInvalidFuncKey },
 }
 
 local s_unsetenv_rulesT = {
@@ -303,6 +351,7 @@ local s_unsetenv_rulesT = {
    trimArg      = l_trim_first_arg,
    checkA       = { l_valid_nameCk, l_stringValueCk},
    checkTblArgs = { l_modeCk },
+   other_tests  = { l_checkForbiddenEnv, l_checkInvalidFuncKey },
 }
 
 local s_prepend_rulesT = {
@@ -310,6 +359,7 @@ local s_prepend_rulesT = {
    trimArg      = l_cleanupPathArgs,
    checkA       = { l_valid_nameCk, l_stringCk, l_stringCk},
    checkTblArgs = { l_modeCk, l_priorityCk, l_delimCk},
+   other_tests  = { l_checkForbiddenEnv, l_checkInvalidFuncKey },
 }
 
 local s_remove_rulesT = {
@@ -317,6 +367,8 @@ local s_remove_rulesT = {
    trimArg      = l_cleanupPathArgs,
    checkA       = { l_valid_nameCk, l_stringCk, l_stringCk},
    checkTblArgs = { l_modeCk },
+   other_tests  = { l_checkForbiddenEnv, l_checkInvalidFuncKey },
+
 }
 
 local huge = math.maxinteger or math.huge
@@ -326,6 +378,7 @@ local s_load_rulesT = {
    -- Here, checkList is used since load_module accepts a variable list of module names.
    checkList    = l_validateModules,
    checkTblArgs = { l_modeCk },
+   other_tests  = { l_checkInvalidFuncKey },
 }
 
 --------------------------------------------------------------------------
@@ -1259,5 +1312,6 @@ function subprocess(cmd)
    p:close()
    return ret
 end
+
 
 
