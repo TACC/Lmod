@@ -111,7 +111,7 @@ local sandbox_env = {
   unload               = unload,
   always_load          = always_load,
   depends_on           = depends_on,
-  depends_on_any       = depends_on_any, 
+  depends_on_any       = depends_on_any,
 
   --- Load Modify functions ---
   atleast              = atleast,
@@ -230,7 +230,7 @@ local sandbox_env = {
   -- dbg functions
   ------------------------------------------------------------
   dbg = { active = dbg.active, fini  = dbg.fini, print = dbg.print,
-          print2D = dbg.print2D, printA = dbg.printA, printT = dbg.printT, 
+          print2D = dbg.print2D, printA = dbg.printA, printT = dbg.printT,
           start = dbg.start },
 
   ------------------------------------------------------------

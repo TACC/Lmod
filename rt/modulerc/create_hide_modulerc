@@ -3,9 +3,10 @@
 
 projectDir=$1
 epoch=$(lua -e 'print(os.time())')
-
+dateStr=$(date -R)
 
 cmd=$projectDir/proj_mgmt/build_hide_cmd
+echo "--" '>' " CurrentTime: $dateStr"
 
 $cmd  $epoch ACME/1.0 after  -120 ""
 $cmd  $epoch ACME/2.0 after   120 ""

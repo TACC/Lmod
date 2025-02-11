@@ -309,7 +309,7 @@ local function l_createShellTbl()
          ["lisp"]   = {name = "lisp",   object = Lisp   },
          ["csh"]    = {name = "csh",    object = Csh    },
          ["tcsh"]   = {name = "tcsh",   object = Csh    },
-         ["perl"]   = {name = "perl",   object = Perl   }, 
+         ["perl"]   = {name = "perl",   object = Perl   },
          ["python"] = {name = "python", object = Python },
          ["json"]   = {name = "json",   object = Json   },
          ["cmake"]  = {name = "cmake",  object = CMake  },

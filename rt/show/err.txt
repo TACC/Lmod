@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.53 2024-10-12 19:57 -05:00
+Modules based on Lua: Version 8.7.56 2025-02-04 18:12 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -97,7 +97,7 @@ os.exit("1")
 step 13
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing show nosuchmodule
 ===========================
-Lmod Warning: Failed to find the following module(s): "nosuchmodule" in your MODULEPATH
+Lmod has detected the following error: Failed to find the following module(s): "nosuchmodule" in your MODULEPATH
 Try:
     $ module spider nosuchmodule
 to see if the module(s) are available across all compilers and MPI implementations.

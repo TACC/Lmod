@@ -187,5 +187,20 @@ Lmod 8.7+
    (8.7.51) * Fix bug in load test.
    (8.7.52) * Add MName:isVisible() so that load hooks can figure out if a loaded module is is visible or not.
    (8.7.53) * updating docs to include link to 165_debugging_lmod.rst
-   
-   
+   (8.7.54) * Remove all v.file tests in dealing with ModuleA
+            * using self.__mpathT[mpath].hiddenT and self.__hiddenT instead of merged table for hidden status
+            * Added mrc:set_display_mode() before commands.
+            * Build reverse maps for mod2versionT and full2aliasesT dynamically
+            * Added MRC:pairsForMRC_aliases iterator
+            * Removed MRC:__marged_hiddenT, MRC:__marged_forbiddenT and MRC:__mergedAlias2modT
+            * Issue #731: Support for env. var. LMOD_SHOW_HIDDEN
+	    * Issue #739: Make tcl files have "spider" as mode matching when Lmod is in spider mode.
+   (8.7.55) * Patch #737: A better test for spaces in front of # for admin.list
+   (8.7.56) * Issue #742: Switch Makefile.in to use dump-downed sed instead of Gnu Sed
+            * PR    #743: Allow TCL modulefile to test shell type
+            * Trailing blanks removed.
+            * Fixed LMOD_FILE_IGNORE_PATTERNS so that it can be an env. var and converted to a Lua array table.
+            * Documented LMOD_FILE_IGNORE_PATTERNS
+            * Issue #740: Rewrite ModuleA l_find_vA so that it checks partial version strings.
+	    * Issue #745: posix.setenv("var", false, true) must change to posix.setenv("var", nil, true).
+            * Issue #728: Disallow fast TCL interp with TCL 9+.  This will hopely fixed in the future (;->)

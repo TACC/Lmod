@@ -90,9 +90,8 @@ __LMOD_STACK_TEST=123:0;
 export __LMOD_STACK_TEST;
 ===========================
 step 10
-echo TEST: 123
+printErr TEST: 123
 ===========================
-TEST: 123
 ===========================
 step 11
  OutputDIR/lmod/lmod/libexec/lmod unload b
@@ -111,9 +110,8 @@ __LMOD_STACK_TEST=0;
 export __LMOD_STACK_TEST;
 ===========================
 step 12
-echo TEST: 0
+printErr TEST: 0
 ===========================
-TEST: 0
 ===========================
 step 13
  OutputDIR/lmod/lmod/libexec/lmod avail

@@ -43,6 +43,10 @@ testdescript = {
      runLmod show tclpurge                       #15
      runLmod load tclpurge                       #16
      runLmod list                                #17
+     runLmod load PrgEnv openmpi                 #18
+     runLmod load X                              #19
+     runLmod list                                #20
+
 
      
 

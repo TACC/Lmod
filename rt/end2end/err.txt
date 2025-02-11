@@ -2,13 +2,13 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.6  2022-06-25 15:58 -05:00
+Modules based on Lua: Version 8.7.53 2024-10-12 19:57 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
  OutputDIR/lmod/lmod/libexec/lmod --version
 ===========================
-Modules based on Lua: Version 8.7.6 8.7.6-2-g0b268900 2022-06-25 15:58 -05:00
+Modules based on Lua: Version 8.7.53 2024-10-12 19:57 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 3
@@ -45,7 +45,6 @@ symbols                =
 +++ info ++++++++++++++++++++++++++++++++++++++
 level                  = 1
 loaded null            = 0
-nameofexecutable       = OutputDIR/lmod/lmod/libexec/tcl2lua.tcl
 +++++++++++++++++++++++++++++++++++++++++++++++
 ===========================
 step 7
@@ -73,16 +72,18 @@ step 9
 ===========================
 ===========================
 step 10
-echo TEST: 123
+printErr TEST: 123
 ===========================
+TEST: 123
 ===========================
 step 11
  OutputDIR/lmod/lmod/libexec/lmod unload b
 ===========================
 ===========================
 step 12
-echo TEST: 0
+printErr TEST: 0
 ===========================
+TEST: 0
 ===========================
 step 13
  OutputDIR/lmod/lmod/libexec/lmod avail

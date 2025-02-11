@@ -349,6 +349,9 @@ function M.setenv_env(self, argT) --name, value, respect)
 
    dbg.start{"MainControl:setenv_env(\"",name,"\", \"",value,"\", \"",
               respect,"\")"}
+   if (value == false) then
+      value = nil
+   end
    posix.setenv(name, value, true)
    dbg.fini("MainControl:setenv_env")
 end
@@ -458,12 +461,12 @@ function M.popenv(self, argT)
       varT[stackName] = Var:new(stackName)
    end
 
-   
+
    local v64 = varT[stackName]:pop()
    dbg.print{"stackName: ", stackName,", varT[stackName]:expand(): \"",varT[stackName]:expand() ,"\", v64: \"",v64,"\"\n"}
    local v   = nil
    if (v64 == "false") then
-      v = false   
+      v = false
    elseif (v64) then
       v = decode64(v64)
    end
@@ -912,7 +915,7 @@ end
 function M.performDependencyCk(self)
    if (not s_performDepCk) then return end
    dbg.start{"MainControl:performDependencyCk()"}
-   
+
    local hub = Hub:singleton()
    hub:dependencyCk()
    self:reportMissingDepModules()
@@ -1034,7 +1037,7 @@ end
 --   if no module loadable error.
 --
 
-function M.depends_on_any(self, mA) 
+function M.depends_on_any(self, mA)
    if (dbg.active()) then
       local s                                  = mAList(mA)
       dbg.start{"MainControl:depends_on_any(mA = {"..s.."})"}
@@ -1053,9 +1056,9 @@ function M.depends_on_any(self, mA)
       elseif (mname:sn()) then
          mB[#mB + 1] = mname
       end
-   end 
+   end
 
-   if (next(mB) == nil) then 
+   if (next(mB) == nil) then
       local s = mAList(mA)
       LmodError{msg="e_Failed_depends_any", module_list=s}
    end
@@ -1067,9 +1070,9 @@ function M.depends_on_any(self, mA)
 
    l_registerUserLoads(mC)
    local a = self:load(mC)
-   
+
    self:registerDependencyCk()
-   
+
    dbg.fini("MainControl:depends_on_any")
    return a
 end
@@ -1131,7 +1134,7 @@ function M.forgo_any(self,mA)
          local sn    = mname:sn()
          if (not sn) then break end
          if (child_sn ~= sn) then break end
-         
+
          ------------------------------------------------------------
          -- if here then we have found the only depends_on_any module
          -- that we "loaded". So decrement ref count and unload when
@@ -1385,7 +1388,7 @@ function M.removeConflict(self, mA)
    if (dsConflicts == "yes" ) then
       mt:removeConflicts(frameStk:mname())
    end
-   
+
    dbg.fini("MainControl:removeConflict")
 end
 
@@ -1677,7 +1680,7 @@ function M.purge(self,t)
 
    dbg.fini("MainControl:Purge")
 end
-   
+
 
 
 
@@ -1724,7 +1727,7 @@ function M.source_sh(self, shellName, script)
       if (not success) then LmodError(msg) end
       mt:add_sh2mf_cmds(sn, script, mcmdA)
    end
- 
+
    local whole = concatTbl(mcmdA,"\n")
    dbg.print{"whole:\n ",whole,"\n"}
    local status, msg = sandbox_run(whole)
@@ -1755,7 +1758,7 @@ function M.complete(self, shellName, name, args)
       dbg.fini("MainControl:complete")
       return
    end
-   
+
    local varT = FrameStk:singleton():varT()
    local n    = wrap_complete(name)
    if (varT[n] == nil) then
@@ -1846,8 +1849,8 @@ function M.userInGroups(self, ...)
       return true
    end
    return false
-end   
-   
+end
+
 function M.missing_module(self,userName, showName)
    s_missingModuleT[userName] = showName
 end
