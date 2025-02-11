@@ -219,7 +219,14 @@ See https://lmod.readthedocs.io/en/latest/260_sh_to_modulefile.html for details.
      e_setStandardPaths    = "Unknown Key: \"%{key}\" in setStandardPaths.\n",
      e_wrong_num_args      = "Wrong number of arguments (n: %{n}) for %{cmdName} in file: %{fn}",
 
-     
+     -- Add new error messages for mode selector
+     e_Mode_Not_Set        = [==[Syntax error in file: %{fn}
+ with command: %{cmdName}, mode must be specified when using mode selector.]==],
+     e_Invalid_Mode        = [==[Syntax error in file: %{fn}
+ with command: %{cmdName}, invalid mode "%{mode}". Valid modes are: "load" and "unload".]==],
+     e_Forbidden_Env       = "MODULEPATH variable cannot be mode selected.",
+     e_Invalid_Func_Key    = "Invalid key detected in function %{cmdName}: %{detail}.",
+
      --------------------------------------------------------------------------
      -- LmodMessages
      --------------------------------------------------------------------------
@@ -516,12 +523,5 @@ The following modules match your search criteria: "%{module_list}"
      noModsLoaded   = "No modules loaded\n",
      specific_hlp   = "Module Specific Help for \"%{fullName}\"",
 
-     -- Add new error messages for mode selector
-     e_Mode_Not_Set = [==[Syntax error in file: %{fn}
- with command: %{cmdName}, mode must be specified when using mode selector.
-]==],
-     e_Invalid_Mode = [==[Syntax error in file: %{fn}
- with command: %{cmdName}, invalid mode "%{mode}". Valid modes are: "load" and "unload".
-]==],
    }
 }
