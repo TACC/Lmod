@@ -8,8 +8,10 @@
 #define MYNAME        "tcl2lua"
 #define MYVERSION      MYNAME " 0.1"
 
-static char* resultStr = NULL;
-static int   rlen      = 0;
+typedef struct _results {
+    char* resultStr;
+    int   rlen;
+} results_t;
 
 /*
  * The sLiteral argument *must* be a string literal; the incantation with
@@ -23,6 +25,8 @@ int setResultsObjCmd(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Ob
   int      len;
   Tcl_Obj *objPtr;
   int i;
+  results_t* results = (results_t*)clientData;
+
   if (objc != 2) {
     Tcl_WrongNumArgs(interp, 1, objv, "value");
     return TCL_ERROR;
@@ -36,14 +40,14 @@ int setResultsObjCmd(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Ob
       return TCL_ERROR;
     }
 
-  if (len > rlen) 
+  if (len > results->rlen) 
     {
-      free(resultStr);
-      rlen      = len + 1;
-      resultStr = (char *) malloc(rlen*sizeof(char));
+      free(results->resultStr);
+      results->rlen      = len + 1;
+      results->resultStr = (char *) malloc(results->rlen*sizeof(char));
     }
-  memcpy(&resultStr[0], str, len);
-  resultStr[len] = '\0';
+  memcpy(results->resultStr, str, len);
+  results->resultStr[len] = '\0';
   return TCL_OK;
 }
 
@@ -51,7 +55,6 @@ int Tcl_AppInit(Tcl_Interp* interp)
 {
   if (Tcl_Init(interp) == TCL_ERROR)
     return TCL_ERROR;
-  Tcl_CreateObjCommand(interp,"setResults", setResultsObjCmd, (ClientData) NULL, (Tcl_CmdDeleteProc *) NULL);
   return TCL_OK;
 }
 
@@ -72,12 +75,10 @@ static int runTCLprog(lua_State *L)
   int argc   = 0;
   int status = 1;
 
-  if (rlen == 0)
-    {
-      rlen      = 1024;
-      resultStr = (char *) malloc((rlen+1)*sizeof(char));
-    }
-  strcpy(resultStr," ");
+  results_t results;
+  results.rlen = 1024;
+  results.resultStr = (char *) malloc((results.rlen+1)*sizeof(char));
+  strcpy(results.resultStr," ");
 
   Tcl_FindExecutable(cmd);
   interp = Tcl_CreateInterp();
@@ -89,6 +90,8 @@ static int runTCLprog(lua_State *L)
   
   if (Tcl_AppInit(interp) != TCL_OK)
     return TCL_ERROR;
+
+  Tcl_CreateObjCommand(interp,"setResults", setResultsObjCmd, (ClientData) &results, (Tcl_CmdDeleteProc *) NULL);
 
   Tcl_SetVar2Ex(interp, "argv0", NULL, Tcl_NewStringObj(cmd,-1), TCL_GLOBAL_ONLY);
   argvPtr   = Tcl_NewListObj(0, NULL);
@@ -167,9 +170,10 @@ static int runTCLprog(lua_State *L)
     }
 
   lua_status  = (tcl_status == TCL_OK);
-  lua_pushstring(L, resultStr);
+  lua_pushstring(L, results.resultStr);
   Tcl_DeleteInterp(interp);
-  (resultStr) ?  lua_pushboolean(L, lua_status): lua_pushboolean(L, 0);
+  (results.resultStr) ?  lua_pushboolean(L, lua_status): lua_pushboolean(L, 0);
+  free(results.resultStr);
   return 2;
 }
 
