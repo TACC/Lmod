@@ -197,7 +197,10 @@ local function l_checkForbiddenEnv(argT)
    if (not argT.modeA or type(argT.modeA) ~= "table" or #argT.modeA == 0) then
       return true
    end
-   if (argT.modeA and type(argT.modeA) == "table" and #argT.modeA == 1 and argT.modeA[1] == "normal") then
+   --if (argT.modeA and type(argT.modeA) == "table" and #argT.modeA == 1 and argT.modeA[1] == "normal") then
+   --   return true
+   --end
+   if (#argT.modeA == 1 and argT.modeA[1] == "normal") then
       return true
    end
 
