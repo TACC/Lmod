@@ -35,9 +35,12 @@ testdescript = {
      runLmod show a                  #11
      runLmod show b_tcl              #12
      runLmod show nosuchmodule       #13
-     runLmod --location show a       #14
-     runLmod --terse    show a       #15
-     runLmod show showMe             #16
+     export LMOD_QUIET=1
+     runLmod show nosuchmodule       #14 (no warning message printed because LMOD_QUIET is set.)
+     unset LMOD_QUIET
+     runLmod --location show a       #15  
+     runLmod --terse    show a       #16
+     runLmod show showMe             #17
 
      HOME=$ORIG_HOME
 
