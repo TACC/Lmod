@@ -170,25 +170,25 @@ function options()
    local usage         = "Usage: "
    local cmdlineParser = Optiks:new{usage=usage, version="1.0"}
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'-q','--quiet'},
       dest   = 'quiet',
       action = 'store_true',
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'--simple'},
       dest   = 'simple',
       action = 'store_true',
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name   = {'--full'},
       dest   = 'full',
       action = 'store_true',
    }
 
-   cmdlineParser:add_option{ 
+   cmdlineParser:add_option{
       name    = {'-s','--shell'},
       dest    = 'shell',
       action  = 'store',
@@ -206,7 +206,7 @@ end
 function main()
    local optionTbl     = optionTbl()
    options()
-   
+
    local setenv = bash_export
    local unset  = bash_unset
    if ( optionTbl.shell == "csh" ) then
@@ -250,12 +250,12 @@ function main()
    setenv("MODULESHOME",            "")
    setenv("MODULEPATH",             "")
    setenv("MODULEPATH_ROOT",        "")
-   setenv("LMOD_MODULERCFILE",      "")   
-   setenv("LMOD_MODULERC",          "")   
-   setenv("MODULERCFILE",           "")   
-   setenv("TARG_TITLE_BAR_PAREN",   "")   
+   setenv("LMOD_MODULERCFILE",      "")
+   setenv("LMOD_MODULERC",          "")
+   setenv("MODULERCFILE",           "")
+   setenv("TARG_TITLE_BAR_PAREN",   "")
    setenv("__Init_Default_Modules", "")
-   
+
    unset("module")
    unset("ml")
    unset("clearMT")

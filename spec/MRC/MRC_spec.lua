@@ -81,7 +81,7 @@ describe("Testing MRC class #MRC.",
                   local _mrcMpathT   = {}
                   sanizatizeTbl(rplmntA, mrcMpathT, _mrcMpathT)
                   --print(serializeTbl{indent=true, name="mrcT",      value = mrcT})
-                  --print(serializeTbl{indent=true, name="mrcMpathT", value = _mrcMpathT}) 
+                  --print(serializeTbl{indent=true, name="mrcMpathT", value = _mrcMpathT})
                   assert.are.same(gold_mrcT,       mrcT)
                   assert.are.same(gold_mrcMpathT, _mrcMpathT)
                end)

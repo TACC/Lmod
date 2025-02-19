@@ -101,15 +101,15 @@ end
 function M.process(self, shellName, ignoreT, resultT)
    dbg.start{"MF_Base:process(shellName, ignoreT, resultT)"}
    local a = {}
-   
+
    -- load oldEnvT and envT environment
    declare("oldEnvT")
    declare("envT")
    l_safe_eval("oldEnvT",resultT["Vars"][1])
    l_safe_eval("envT",   resultT["Vars"][2])
-   
+
    self:processVars(ignoreT, oldEnvT, envT, a)
-   
+
    self:processAliases(  shellName, resultT["Aliases"][1],  resultT["Aliases"][2],  a)
 
    self:processFuncs(    shellName, resultT["Funcs"][1],    resultT["Funcs"][2],    a)
@@ -143,7 +143,7 @@ local function l_extractAliases(shellName, aliases)
 
    return aliasT
 end
-   
+
 function M.processAliases(self, shellName, old, new, a)
    dbg.start{"MF_Base:processAliases(shellName, old, new, a)"}
 
@@ -180,15 +180,15 @@ local function l_extractFuncs(shellName, funcs)
 
    return funcT
 end
-      
-   
+
+
 function M.processFuncs(self, shellName, old, new, a)
    dbg.start{"MF_Base:processFuncs(shellName, old, new, a)"}
    if (not shellFuncPatt[shellName] ) then return end
 
    local oldFuncT = l_extractFuncs(shellName, old)
    local funcT    = l_extractFuncs(shellName, new)
-   
+
    for k,v in pairsByKeys(funcT) do
       local oldV = oldFuncT[k]
       if (oldV == nil or oldV ~= v) then
@@ -357,7 +357,7 @@ function M.processVars(self, ignoreT, oldEnvT, envT, a)
             else
                local preA = {}
                local appA = {}
-               
+
                for i=1,#newA do
                   local path = newA[i]
                   if (not oldT[path]) then

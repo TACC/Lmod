@@ -196,4 +196,11 @@ Lmod 8.7+
             * Issue #731: Support for env. var. LMOD_SHOW_HIDDEN
 	    * Issue #739: Make tcl files have "spider" as mode matching when Lmod is in spider mode.
    (8.7.55) * Patch #737: A better test for spaces in front of # for admin.list
-   
+   (8.7.56) * Issue #742: Switch Makefile.in to use dump-downed sed instead of Gnu Sed
+            * PR    #743: Allow TCL modulefile to test shell type
+            * Trailing blanks removed.
+            * Fixed LMOD_FILE_IGNORE_PATTERNS so that it can be an env. var and converted to a Lua array table.
+            * Documented LMOD_FILE_IGNORE_PATTERNS
+            * Issue #740: Rewrite ModuleA l_find_vA so that it checks partial version strings.
+	    * Issue #745: posix.setenv("var", false, true) must change to posix.setenv("var", nil, true).
+            * Issue #728: Disallow fast TCL interp with TCL 9+.  This will hopely fixed in the future (;->)

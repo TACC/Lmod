@@ -349,8 +349,8 @@ describe("Testing ModuleA Class #ModuleA.",
                   -- Secret way to wipe out the MT singleton
                   local projDir = os.getenv("PROJDIR")
                   local base  = pathJoin(projDir, testDir)
-                  local mpath = pathJoin(base, "mf2") .. ":" .. pathJoin(base, "mf3") 
-                  
+                  local mpath = pathJoin(base, "mf2") .. ":" .. pathJoin(base, "mf3")
+
                   posix.setenv("HOME",base, true)
                   posix.setenv("MODULEPATH",mpath,true)
                   local maxdepth = pathJoin(base, "mf2") .. ":2;" .. pathJoin(base, "mf3") .. ":2;"

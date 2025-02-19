@@ -63,7 +63,7 @@ local quoteA = {
    {'[=======[',']=======]'},
    {'[========[',']========]'},
 }
-   
+
 local function l_quoteValue(value)
    for i = 1,#quoteA do
       local left = quoteA[i][1]

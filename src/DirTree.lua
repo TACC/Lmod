@@ -145,7 +145,7 @@ end
 
 --------------------------------------------------------------------------
 -- This routine is given the absolute path to all possible default
--- files. 
+-- files.
 -- @param defaultA - An array entries that contain: { fullName=, fn=, mpath=, luaExt=, barefn=}
 -- return the first defaultA.  All other ones are ignored.
 local function l_versionFile(mrc, mpath, defaultA)
@@ -153,17 +153,17 @@ local function l_versionFile(mrc, mpath, defaultA)
    sort(defaultA, function(x,y)
                     return x.defaultIdx < y.defaultIdx
                   end)
-   repeat 
+   repeat
       local defaultT = defaultA[1]
       local path     = defaultT.fn
       if (defaultT.barefn == "default") then
          defaultT.value = barefilename(l_walk_link(defaultT.fn)):gsub("%.lua$","")
          break
       end
-      
+
       local modA = mrc_load(path)
       local _, _, name = defaultT.fullName:find("(.*)/.*")
-      
+
       defaultT.value = mrc:parseModA_for_moduleA(name, mpath, modA)
    until true
    --dbg.fini("DirTree:l_versionFile")
@@ -251,7 +251,7 @@ end
 
 local function l_walk_tree(mrc, mpath, pathIn, dirT, regularFn)
 
-   local defaultA 
+   local defaultA
    local dirA          = {}
    local fileT         = {}
    defaultA, regularFn = l_walk(mrc, mpath, pathIn, dirA, fileT, regularFn)

@@ -102,7 +102,7 @@ function M.singleton(self, progName, usage, description)
    local styleA       = {}
    local icnt         = 0
    local defaultStyle = "system"
-   
+
    local style = cosmic:value("LMOD_AVAIL_STYLE")
 
    for s in style:split(":") do
@@ -412,7 +412,7 @@ function M.singleton(self, progName, usage, description)
       a[#a+1] = "=head1 AUTHOR\n\n"
       a[#a+1] = "Robert McLay mclay@tacc.utexas.edu"
 
-      optionTbl.pod   = concatTbl(a,"\n") 
+      optionTbl.pod   = concatTbl(a,"\n")
    end
 
    if (optionTbl.trace) then

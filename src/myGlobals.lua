@@ -49,6 +49,7 @@ local lfs          = require("lfs")
 local getenv       = os.getenv
 local access       = posix.access
 local setenv_posix = posix.setenv
+local load         = (_VERSION == "Lua 5.1") and loadstring or load
 
 if (isNotDefined("cmdDir")) then
    _G.cmdDir = function() return pathJoin(getenv("PROJDIR"),"src") end
@@ -66,7 +67,7 @@ LuaV = (_VERSION:gsub("Lua ",""))
 cosmic:init{name    = "LMOD_BRANCH",
             default = "main",
             assignV = Version.branch()}
-            
+
 
 ------------------------------------------------------------------------
 -- Lmod ExitHookArray Object:
@@ -96,7 +97,7 @@ if (not mpath_init) then
          mpath_init = default_mpath_init
       end
    end
-   
+
 end
 
 cosmic:init{name    = "LMOD_MODULEPATH_INIT",
@@ -190,7 +191,7 @@ cosmic:init{name    = "LMOD_DOWNSTREAM_CONFLICTS",
             default = "no",
             assignV = "no"}
 ------------------------------------------------------------------------
--- LMOD_RC:  Lmod RC list of colon separated files 
+-- LMOD_RC:  Lmod RC list of colon separated files
 ------------------------------------------------------------------------
 local rcfiles = getenv("LMOD_RC")
 cosmic:init{name    = "LMOD_RC",
@@ -394,7 +395,7 @@ cosmic:init{name    = "LMOD_PAGER_OPTS",
             default = "-XqMREF"}
 
 ------------------------------------------------------------------------
--- LMOD_SYSTEM_DEFAULT_MODULES: 
+-- LMOD_SYSTEM_DEFAULT_MODULES:
 ------------------------------------------------------------------------
 local defaultModules = getenv("LMOD_SYSTEM_DEFAULT_MODULES")
 
@@ -415,7 +416,7 @@ local rc_dflt    = pathJoin(etcDir,"rc.lua")
 if (not isFile(rc_dflt)) then
    rc_dflt   = pathJoin(etcDir,"rc")
 end
-local rc        = getenv("LMOD_MODULERC") or 
+local rc        = getenv("LMOD_MODULERC") or
                   getenv("LMOD_MODULERCFILE") or
                   getenv("MODULERCFILE")
 cosmic:init{name    = "LMOD_MODULERC",
@@ -814,8 +815,22 @@ cosmic:init{name = "LMOD_HIDDEN_ITALIC",
 -- LMOD_FILE_IGNORE_PATTERNS
 -----------------------------------------------------------------------
 local patternA = {"%.version[-._].*",  "%.modulerc[-._].*"}
+local envV     = getenv("LMOD_FILE_IGNORE_PATTERNS")
+if (envV) then
+   local evalStr = "LMOD_FILE_IGNORE_PATTERNS = "..envV
+   declare("LMOD_FILE_IGNORE_PATTERNS")
+   local func, message = load(evalStr)
+   if (not func) then
+      io.stderr:write(message,"\n")
+      os.exit(1)
+   end
+   pcall(func)
+   envV = LMOD_FILE_IGNORE_PATTERNS
+   LMOD_FILE_IGNORE_PATTERNS = nil
+end
 cosmic:init{name    = "LMOD_FILE_IGNORE_PATTERNS",
             assignV = patternA,
+            envV    = envV,
             default = patternA}
 
 ------------------------------------------------------------------------

@@ -27,7 +27,6 @@ proc InfoOut { } {
     puts stderr     "+++ info ++++++++++++++++++++++++++++++++++++++"
     puts stderr     [ concat        "level                  = " [info level ]]
     puts stderr     [ concat        "loaded null            = " [is-loaded null ]]
-    puts stderr     [ concat        "nameofexecutable       = " [info nameofexecutable ]]
     puts stderr     "+++++++++++++++++++++++++++++++++++++++++++++++"
 }
 if { [ module-info mode load ] } { InfoOut }

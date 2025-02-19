@@ -10,7 +10,7 @@ jobs:
           luaVersion: ["5.4", "5.3", "5.2", "5.1"]
       steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: install dependencies MacOS
         if: matrix.os == 'macos-latest'
         run: brew install coreutils gnu-sed

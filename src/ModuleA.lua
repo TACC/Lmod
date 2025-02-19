@@ -156,38 +156,86 @@ local function l_build(self, maxdepthT, dirA)
    return moduleA
 end
 
+local function l_check_depth(searchA, idx, dirT)
+   dbg.print{"ModuleA l_check_depth: idx: ",idx,"\n"}
+   if (not dirT or idx < 1 or next(dirT) == nil) then
+      return true, idx, nil
+   end
+   local name       = searchA[idx][1]
+   dbg.print{"ModuleA l_check_depth: name: ",name,"\n"}
+   
+   if (dirT[name]) then
+      idx           = idx - 1
+      return l_check_depth(searchA, idx, dirT.dirT)
+   end
+   -- Did not find name so return false
+   return false, idx, nil
+end
+
+
 local function l_find_vA(name, moduleA)
    -- First find sn and collect all v's into vA
+   dbg.start{"ModuleA: l_find_vA(name:\"",name,"\", moduleA"}
    local versionStr = false
    local vA         = {}
    local sn         = name
-   local idx        = nil
-   local done       = false
+   local sz
+   local idx
+   local dirT
 
-   while true do
+   -- Build searchA to contain the list of module names.
+   -- So "intel/arm64/17/17.0.1" becomes:
+   -- searchA -> { {"intel/arm64/17/17.0.1",false}, {"intel/arm64/17","17.0.1"}, {"intel/arm64","17/17.0.1"}, {"intel","arm64/17/17.0.1"}}
+   
+   local searchA    = {}
+   searchA[#searchA + 1] = {sn, false}
+   while (true) do
+      sn = sn:match("(.*/).*")
+      if (not sn) then break end
+      sn                    = sn:sub(1,-2)  -- strip trailing slash
+      searchA[#searchA + 1] = {sn, name:sub(sn:len()+2, -1)}
+   end
+
+   dbg.printT("searchA",searchA)
+
+
+   local done        = false
+   local found       = false
+
+   sz = #searchA
+   for j = #searchA, 1, -1 do
+      sn = searchA[j][1]
+      dbg.print{"j: ",j,", sn: ",sn,"\n"}
       for i = 1, #moduleA do
          local v = moduleA[i].T[sn]
+      
          if (v) then
-            done        = true
-            vA[#vA + 1] = v
+            dbg.print{"found sn in moduleA\n"}
+            dbg.printT("v",v)
+            -- We have match the top level name.  Now we have to match
+            -- the keys in dirT to keep this "v"
+         
+            versionStr = searchA[j][2]
+            found, idx, dirT = l_check_depth(searchA, j-1, v.dirT)
+            dbg.print{"found: ",found,"\n"}
+            if (found) then
+               vA[#vA + 1] = v
+               done = true
+            end
          end
       end
       if (done) then break end
-      idx = sn:match("^.*()/")
-      if (idx == nil) then break end
-      sn = sn:sub(1,idx-1)
+      sz = sz - 1
    end
-
+            
    -- If there is nothing in vA then the name is not in moduleA.
    if (next(vA) == nil) then
       return nil
    end
 
-   if (idx) then
-      versionStr = name:sub(idx+1,-1)
-   end
    dbg.print{"sn: ",sn,", versionStr: ",versionStr,"\n"}
    dbg.printT("l_find_vA: vA",vA)
+   dbg.fini("l_find_vA")
    return sn, versionStr, vA
 end
 
@@ -251,6 +299,7 @@ local function l_search(name, moduleA)
       collectFileA(sn, fullStr, extended_default, vB[i], fileA[i])
    end
    dbg.printT("fileA",fileA)
+   dbg.print{"sn: ",sn,", versionStr: ",versionStr,"\n"}
    dbg.fini("ModuleA l_search")
    return sn, versionStr, fileA
 end
@@ -480,7 +529,7 @@ function M.search(self, name)
    if (self.__isNVV) then
       local sn, versionStr, fileA = l_search(name, self.__moduleA)
       dbg.fini("ModuleA:search")
-      return sn, versionStr, fileA 
+      return sn, versionStr, fileA
    end
 
    if (not self.__locationT) then
@@ -489,7 +538,7 @@ function M.search(self, name)
 
    local sn, versionStr, fileA = self.__locationT:search(name)
    dbg.fini("ModuleA:search")
-   return sn, versionStr, fileA 
+   return sn, versionStr, fileA
 end
 
 local function l_checkforNV(T)
@@ -613,13 +662,16 @@ function M.__new(self, mpathA, maxdepthT, moduleRCT, spiderT)
    else
       dbg.print{"calling DirTree:new()\n"}
       dirTree         = DirTree:new(mpathA)
+      dbg.printT("dirTree",dirTree:dirA())
       o.__spiderBuilt = false
       o.__moduleA     = l_build(o, maxdepthT, dirTree:dirA())
+      dbg.printT("moduleA",o.__moduleA)
+      dbg.print{"isNVV: ",o.__isNVV,"\n"}
    end
 
    o.__locationT   = false
    o.__defaultT    = {}
-   
+
 
    dbg.fini("ModuleA:__new")
    return o

@@ -214,7 +214,7 @@ function load_any(...)
    local b = mcp:load_any(MName:buildA(mcp:MNameType(), ...))
    dbg.fini("load_any")
    return b
-end   
+end
 
 local s_cleanupDirT = { PATH = true, LD_LIBRARY_PATH = true, LIBRARY_PATH = true, MODULEPATH = true }
 
@@ -233,7 +233,7 @@ local function l_convert2table(...)
       t[2]    = argA[2]
       t.delim = argA[3]
    end
-   
+
    t.priority = tonumber(t.priority or "0")
    return t
 end
@@ -241,7 +241,7 @@ end
 local function l_cleanupPathArgs(t)
    local name = t[1]:trim()
    local path = t[2]:trim()
-   
+
    if (s_cleanupDirT[name]) then
       path = path:gsub(":+$",""):gsub("^:+",""):gsub(":+",":")
       if (path == "") then path = false end
@@ -382,7 +382,7 @@ function haveDynamicMPATH()
    mcp:haveDynamicMPATH()
    dbg.fini("haveDynamicMPATH")
 end
-   
+
 
 --------------------------------------------------------------------------
 -- Return true if in spider mode.  Use mode function instead.
