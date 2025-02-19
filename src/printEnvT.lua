@@ -62,7 +62,7 @@ local setenv_posix = posix.setenv
 function main()
    local envT = getenv_posix()
    for k,v in pairs(envT) do
-      if ((k:find("^BASH_FUNC_module()$") or )k:find("^BASH_FUNC_ml()$") then
+      if ((k:find("^BASH_FUNC_module%%") or )k:find("^BASH_FUNC_ml%%") then
          envT[k] = nil
       end
    end
