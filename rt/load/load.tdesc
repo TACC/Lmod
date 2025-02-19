@@ -144,7 +144,7 @@ testdescript = {
      runLmod load  setPrompt                                # 76
      runLmod list                                           # 77
      runLmod avail                                          # 78
-
+     runLmod update                                         # 79
 
 
 
