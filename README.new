@@ -206,4 +206,7 @@ Lmod 8.7+
             * Issue #728: Disallow fast TCL interp with TCL 9+.  This will hopely fixed in the future (;->)
 W.I.P:
    (8.7.57) * Issue #750: Adding support for new function export_shell_function()
-   
+            * Pr    #752: Ensure m_Module_Msgs_close has an ending newline
+            * Issue #743: "module show noSuchModule" return an LmodError instead of 
+                          LmodWarning except when $LMOD_QUIET is set
+            * Issue #749: set display mode when executing "module update"
