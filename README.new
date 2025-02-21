@@ -204,3 +204,6 @@ Lmod 8.7+
             * Issue #740: Rewrite ModuleA l_find_vA so that it checks partial version strings.
 	    * Issue #745: posix.setenv("var", false, true) must change to posix.setenv("var", nil, true).
             * Issue #728: Disallow fast TCL interp with TCL 9+.  This will hopely fixed in the future (;->)
+W.I.P:
+   (8.7.57) * Issue #750: Adding support for new function export_shell_function()
+   

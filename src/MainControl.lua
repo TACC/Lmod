@@ -1771,7 +1771,7 @@ function M.complete(self, shellName, name, args)
    end
 
    local varT = FrameStk:singleton():varT()
-   local n    = wrap_complete(name)
+   local n    = wrap_kind("complete", name)
    if (varT[n] == nil) then
       varT[n] = Var:new(n)
    end
@@ -1786,7 +1786,7 @@ function M.uncomplete(self, shellName, name, args)
       return
    end
    local varT = FrameStk:singleton():varT()
-   local n    = wrap_complete(name)
+   local n    = wrap_kind("complete", name)
    if (varT[n] == nil) then
       varT[n] = Var:new(n)
    end
@@ -1795,7 +1795,27 @@ function M.uncomplete(self, shellName, name, args)
    dbg.fini("MainControl:uncomplete")
 end
 
+function M.export_shell_function(self, funcName)
+   dbg.start{"MainControl:export_shell_function(funcName: \"",funcName,"\")"}
+   local varT = FrameStk:singleton():varT()
+   local n    = wrap_kind("export_shell_function", funcName)
+   if (varT[n] == nil) then
+      varT[n] = Var:new(n)
+   end
+   varT[n]:export_shell_function()
+   dbg.fini("MainControl:export_shell_function")
+end
 
+function M.unexport_shell_function(self,funcName)
+   dbg.start{"MainControl:unexport_shell_function(funcName: \"",funcName,"\")"}
+   local varT = FrameStk:singleton():varT()
+   local n    = wrap_kind("export_shell_function", funcName)
+   if (varT[n] == nil) then
+      varT[n] = Var:new(n)
+   end
+   varT[n]:unset_shell_function()
+   dbg.fini("MainControl:unexport_shell_function")
+end
 
 function M.color_banner(self,color)
    if (quiet()) then

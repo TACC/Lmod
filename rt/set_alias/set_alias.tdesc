@@ -30,8 +30,9 @@ testdescript = {
      runLmod load test1     # 5
      runLmod load sfunc     # 6
      runLmod load alias     # 7
-     runLmod load spack     # 8
-     runLmod show showMe    # 9
+     runLmod load   spack   # 8
+     runLmod unload spack   # 9
+     runLmod show showMe    #10
 
      HOME=$ORIG_HOME
 
