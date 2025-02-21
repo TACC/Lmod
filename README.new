@@ -207,6 +207,7 @@ Lmod 8.7+
 W.I.P:
    (8.7.57) * Issue #750: Adding support for new function export_shell_function()
                           Modified convertSh2MF.lua support converting export -f func to export_shell_function("func")
+                          Make "export -f funcName" appear last in bash/zsh/sh shell output
             * PR    #752: Ensure m_Module_Msgs_close has an ending newline
             * Issue #743: "module show noSuchModule" return an LmodError instead of 
                           LmodWarning except when $LMOD_QUIET is set
