@@ -147,7 +147,6 @@ banner () {
     local NONE='\\033[0m';
     echo "${RED}${str}${NONE}";
 };
-[[ -n "${BASH_VERSION:-}" ]] && complete -F _xyz123 xyz123;
 alias fooAlias=foobin\ -q\ -l;
 fooFunc () {
     echo "arg1: $1";
@@ -167,6 +166,7 @@ save_args () {
     done;
     echo " ";
 };
+[[ -n "${BASH_VERSION:-}" ]] && complete -F _xyz123 xyz123;
 ===========================
 step 11
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing show wrapperSh/1.0
@@ -189,7 +189,6 @@ banner () {
     local NONE='\\033[0m';
     echo "${RED}${str}${NONE}";
 };
-[[ -n "${BASH_VERSION:-}" ]] && complete -F _xyz123 xyz123;
 alias fooAlias=foobin\ -q\ -l;
 fooFunc () {
     echo "arg1: $1";
@@ -209,6 +208,7 @@ save_args () {
     done;
     echo " ";
 };
+[[ -n "${BASH_VERSION:-}" ]] && complete -F _xyz123 xyz123;
 ===========================
 step 13
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
@@ -236,12 +236,12 @@ unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/sh_to_mf/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_mf/mf",}';
 export _ModuleTable_;
 unset -f banner 2> /dev/null || true;
-[[ -n "${BASH_VERSION:-}" ]] && complete -r xyz123;
 unalias fooAlias 2> /dev/null || true;
 unset -f fooFunc 2> /dev/null || true;
 unset -f junk 2> /dev/null || true;
 unset -f my_help 2> /dev/null || true;
 unset -f save_args 2> /dev/null || true;
+[[ -n "${BASH_VERSION:-}" ]] && complete -r xyz123;
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load brokenSh/1.0
@@ -273,7 +273,6 @@ banner () {
     local NONE='\\033[0m';
     echo "${RED}${str}${NONE}";
 };
-[[ -n "${BASH_VERSION:-}" ]] && complete -F _xyz123 xyz123;
 alias fooAlias=foobin\ -q\ -l;
 fooFunc () {
     echo "arg1: $1";
@@ -293,6 +292,7 @@ save_args () {
     done;
     echo " ";
 };
+[[ -n "${BASH_VERSION:-}" ]] && complete -F _xyz123 xyz123;
 ===========================
 step 18
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing save
@@ -325,7 +325,6 @@ banner () {
     local NONE='\\033[0m';
     echo "${RED}${str}${NONE}";
 };
-[[ -n "${BASH_VERSION:-}" ]] && complete -F _xyz123 xyz123;
 alias fooAlias=foobin\ -q\ -l;
 fooFunc () {
     echo "arg1: $1";
@@ -345,6 +344,7 @@ save_args () {
     done;
     echo " ";
 };
+[[ -n "${BASH_VERSION:-}" ]] && complete -F _xyz123 xyz123;
 ===========================
 step 20
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
@@ -369,7 +369,6 @@ banner () {
     local NONE='\\033[0m';
     echo "${RED}${str}${NONE}";
 };
-[[ -n "${BASH_VERSION:-}" ]] && complete -F _xyz123 xyz123;
 alias fooAlias=foobin\ -q\ -l;
 fooFunc () {
     echo "arg1: $1";
@@ -389,6 +388,7 @@ save_args () {
     done;
     echo " ";
 };
+[[ -n "${BASH_VERSION:-}" ]] && complete -F _xyz123 xyz123;
 ===========================
 step 22
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list

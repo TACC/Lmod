@@ -162,7 +162,7 @@ function Bash.export_shell_function(self, n, value)
    if (value) then
       lineA[#lineA + 1]  = "[[ -n \"${BASH_VERSION:-}\" ]] && export -f "
       lineA[#lineA + 1]  = name
-      lineA[#lineA + 1]  = ";\n"
+      lineA[#lineA + 1]  = " 2> /dev/null || true;\n"
    else
       lineA[#lineA + 1]  = "[[ -n \"${BASH_VERSION:-}\" ]] && unset -f "
       lineA[#lineA + 1]  = name

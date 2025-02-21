@@ -149,6 +149,9 @@ function M.expand(self, tbl)
 
    local init = false
 
+   local delayT = {}
+
+
    for k,v in pairsByKeys(tbl) do
       if (not init) then
          self:initialize()
@@ -178,10 +181,8 @@ function M.expand(self, tbl)
          self:alias(k,vstr)
       elseif (vType == "shell_function") then
          self:shellFunc(k,vstr)
-      elseif (vType == "complete") then
-         self:complete(k,vstr)
-      elseif (vType == "export_shell_function") then
-         self:export_shell_function(k,vstr)
+      elseif (vType == "complete" or vType == "export_shell_function") then
+         delayT[k] = { vType = vType, vstr = vstr }
       elseif (not vstr) then
          self:unset(k, vType)
       elseif (k == "_ModuleTable_") then
@@ -192,6 +193,17 @@ function M.expand(self, tbl)
          end
       end
    end
+   if (next(delayT) ~= nil) then
+      for k, v in pairsByKeys(delayT) do
+         local vType = v.vType
+         if (vType == "complete") then
+            self:complete(k,v.vstr)
+         elseif (vType == "export_shell_function") then
+            self:export_shell_function(k,v.vstr)
+         end
+      end
+   end
+
    if (init) then
       self:finalize()
    end

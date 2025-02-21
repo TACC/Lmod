@@ -112,7 +112,7 @@ _some_spack_func () {
      echo found;
    fi;
 };
-[[ -n "${BASH_VERSION:-}" ]] && export -f _some_spack_func;
+[[ -n "${BASH_VERSION:-}" ]] && export -f _some_spack_func 2> /dev/null || true;
 ===========================
 step 9
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload spack
