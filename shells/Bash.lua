@@ -71,7 +71,7 @@ local function l_build_shell_func(name, func)
    local a = {}
    a[#a+1] = name
    a[#a+1] = " () { ";
-   a[#a+1] = func:gsub("\n$","")
+   a[#a+1] = func:gsub("\n%s*\n","\n"):gsub("\n$","")
    a[#a+1] = "; \n};\n"
    return concatTbl(a,"")
 end
