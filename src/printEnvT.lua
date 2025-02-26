@@ -61,9 +61,18 @@ local setenv_posix = posix.setenv
 
 function main()
    local envT = getenv_posix()
-   for k,v in pairs(envT) do
-      if ((k:find("^BASH_FUNC_.*()$") or k:find("%%$")) and v:sub(1,2) == "()") then
-         envT[k] = nil
+   local kind = arg[2] or "normal"
+   if (kind == "normal") then
+      for k,v in pairs(envT) do
+         if (k:find("^BASH_FUNC_.*%%")) then
+            envT[k] = nil
+         end
+      end
+   elseif (kind == "exportFuncs") then
+      for k,v in pairs(envT) do
+         if (not k:find("^BASH_FUNC_.*%%")) then
+            envT[k] = nil
+         end
       end
    end
    local name = arg[1] or "envT"

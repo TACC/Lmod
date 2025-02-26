@@ -565,7 +565,7 @@ function main()
 
    local vPATH = varT["PATH"]
    if (vPATH) then
-      vPATH:prt();
+      vPATH:prt()
    end
 
    hook.apply("finalize", cmdName)

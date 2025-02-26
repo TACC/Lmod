@@ -413,6 +413,16 @@ function isAvail(m)
 end
 
 
+------------------------------------------------------------------------
+-- export shell function
+function export_shell_function(funcName)
+   dbg.start{"export_shell_function(",funcName,")"}
+   if (not l_validateStringArgs("export_shell_function",funcName)) then return false end
+   mcp:export_shell_function(funcName)
+   dbg.fini("export_shell_function")
+end
+
+
 function myFileName()
    return mcp:myFileName()
 end

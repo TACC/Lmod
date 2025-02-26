@@ -48,52 +48,53 @@ require("strict")
 
 require("utils")
 
-local dbg              = require("Dbg"):dbg()
-local concatTbl        = table.concat
-local hook             = require("Hook")
-local MainControl      = require("MainControl")
-MC_Spider              = inheritsFrom(MainControl)
-MC_Spider.my_name      = "MC_Spider"
-MC_Spider.my_sType     = "load"
-MC_Spider.my_tcl_mode  = "spider"
+local dbg               = require("Dbg"):dbg()
+local concatTbl         = table.concat
+local hook              = require("Hook")
+local MainControl       = require("MainControl")
+MC_Spider               = inheritsFrom(MainControl)
+MC_Spider.my_name       = "MC_Spider"
+MC_Spider.my_sType      = "load"
+MC_Spider.my_tcl_mode   = "spider"
 
-local M                = MC_Spider
+local M                 = MC_Spider
 
-M.always_load          = MainControl.quiet
-M.always_unload        = MainControl.quiet
-M.build_unload         = MainControl.do_not_build_unload
-M.color_banner         = MainControl.quiet
-M.complete             = MainControl.quiet
-M.conflict             = MainControl.quiet
-M.depends_on           = MainControl.quiet
-M.depends_on_any       = MainControl.quiet
-M.error                = MainControl.quiet
-M.execute              = MainControl.execute
-M.inherit              = MainControl.quiet
-M.load                 = MainControl.quiet
-M.load_any             = MainControl.quiet
-M.load_usr             = MainControl.quiet
-M.message              = MainControl.quiet
-M.msg_raw              = MainControl.quiet
-M.mgrload              = MainControl.quiet
-M.prereq               = MainControl.quiet
-M.prereq_any           = MainControl.quiet
-M.purge                = MainControl.quiet
-M.remove_path          = MainControl.quiet
-M.report               = MainControl.warning
-M.set_alias            = MainControl.quiet
-M.set_shell_function   = MainControl.quiet
-M.source_sh            = MainControl.quiet
-M.try_load             = MainControl.quiet
-M.uncomplete           = MainControl.quiet
-M.unload               = MainControl.quiet
-M.unload_usr           = MainControl.quiet
-M.unsetenv             = MainControl.quiet
-M.unset_alias          = MainControl.quiet
-M.unset_shell_function = MainControl.quiet
-M.usrload              = MainControl.quiet
-M.warning              = MainControl.warning
-M.LmodBreak            = MainControl.quiet
+M.always_load           = MainControl.quiet
+M.always_unload         = MainControl.quiet
+M.build_unload          = MainControl.do_not_build_unload
+M.color_banner          = MainControl.quiet
+M.complete              = MainControl.quiet
+M.conflict              = MainControl.quiet
+M.depends_on            = MainControl.quiet
+M.depends_on_any        = MainControl.quiet
+M.error                 = MainControl.quiet
+M.execute               = MainControl.execute
+M.export_shell_function = MainControl.quiet
+M.inherit               = MainControl.quiet
+M.load                  = MainControl.quiet
+M.load_any              = MainControl.quiet
+M.load_usr              = MainControl.quiet
+M.message               = MainControl.quiet
+M.msg_raw               = MainControl.quiet
+M.mgrload               = MainControl.quiet
+M.prereq                = MainControl.quiet
+M.prereq_any            = MainControl.quiet
+M.purge                 = MainControl.quiet
+M.remove_path           = MainControl.quiet
+M.report                = MainControl.warning
+M.set_alias             = MainControl.quiet
+M.set_shell_function    = MainControl.quiet
+M.source_sh             = MainControl.quiet
+M.try_load              = MainControl.quiet
+M.uncomplete            = MainControl.quiet
+M.unload                = MainControl.quiet
+M.unload_usr            = MainControl.quiet
+M.unsetenv              = MainControl.quiet
+M.unset_alias           = MainControl.quiet
+M.unset_shell_function  = MainControl.quiet
+M.usrload               = MainControl.quiet
+M.warning               = MainControl.warning
+M.LmodBreak             = MainControl.quiet
 
 function argsPack(...)
    local arg = { n = select("#", ...), ...}

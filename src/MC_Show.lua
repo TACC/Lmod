@@ -99,6 +99,14 @@ function M.whatis(self, value)
 end
 
 --------------------------------------------------------------------------
+-- Print export_shell_function command.
+-- @param self A MainControl object
+-- @param value the whatis string.
+function M.export_shell_function(self, value)
+   l_ShowCmd("export_shell_function", value)
+end
+
+--------------------------------------------------------------------------
 -- Print exit command.
 -- @param self A MainControl object
 -- @param value the whatis string.

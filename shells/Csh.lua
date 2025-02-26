@@ -133,7 +133,7 @@ end
 
 function Csh.complete(self, name, value)
    local lineA = {}
-   local n     = unwrap_complete(name)
+   local n     = unwrap_kind("complete", name)
    if (value) then
       lineA[#lineA + 1]  = "complete "
       lineA[#lineA + 1]  = n

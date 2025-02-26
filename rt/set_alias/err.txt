@@ -34,6 +34,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load spack
 ===========================
 ===========================
 step 9
+<<<<<<< HEAD
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load multiline/3.0
 ===========================
 ===========================
@@ -56,6 +57,12 @@ The following have been reloaded with a version change:
   1) multiline/1.0 => multiline/4.0
 ===========================
 step 13
+=======
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload spack
+===========================
+===========================
+step 10
+>>>>>>> IS750-spack-sh
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing show showMe
 ===========================
    ProjectDIR/rt/set_alias/mf/showMe/1.0.lua:

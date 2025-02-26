@@ -110,11 +110,16 @@ function M.process(self, shellName, ignoreT, resultT)
 
    self:processVars(ignoreT, oldEnvT, envT, a)
 
-   self:processAliases(  shellName, resultT["Aliases"][1],  resultT["Aliases"][2],  a)
+   self:processAliases(     shellName, resultT["Aliases"][1],     resultT["Aliases"][2],     a)
 
-   self:processFuncs(    shellName, resultT["Funcs"][1],    resultT["Funcs"][2],    a)
+   self:processFuncs(       shellName, resultT["Funcs"][1],       resultT["Funcs"][2],       a)
 
-   self:processComplete( shellName, resultT["Complete"][1], resultT["Complete"][2], a)
+   self:processComplete(    shellName, resultT["Complete"][1],    resultT["Complete"][2],    a)
+
+   l_safe_eval("oldEnvT",resultT["ExportFuncs"][1])
+   l_safe_eval("envT",   resultT["ExportFuncs"][2])
+
+   self:processExportFuncs( shellName, oldEnvT, envT, a)
 
    dbg.fini("MF_Base:process")
    return a
@@ -243,6 +248,18 @@ function M.processComplete(self, shellName, old, new, a)
    dbg.fini("MF_Base:processComplete")
 end
 
+function M.processExportFuncs(self, shellName, oldEnvT, envT, a)
+   dbg.start{"MF_Base:processExportFuncs(ignoreT, oldEnvT, envT, a)"}
+
+   for k, v in pairsByKeys(envT) do
+      if (not oldEnvT[k]) then
+         local i, j, var = k:find("BASH_FUNC_([^%%]+)%%")
+         a[#a+1] = self:export_shell_function(var)
+      end
+   end
+
+   dbg.fini("MF_Base:processExportFuncs")
+end
 
 
 function l_indexPath(old, oldA, new, newA)
@@ -311,6 +328,8 @@ function l_splice(a, is, ie)
    end
    return b
 end
+
+
 
 function M.processVars(self, ignoreT, oldEnvT, envT, a)
    dbg.start{"MF_Base:processVars(ignoreT, oldEnvT, envT, a)"}

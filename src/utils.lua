@@ -1313,10 +1313,10 @@ function locatePkg(pkg)
    return result
 end
 
-function wrap_complete(name)
-   return "complete<" .. name .. ">"
+function wrap_kind(kind, name)
+   return kind .. "<" .. name .. ">"
 end
-function unwrap_complete(name)
-   local i,j,n = name:find("complete<([^<]*)>")
+function unwrap_kind(kind, name)
+   local i,j,n = name:find(kind .. "<([^<]*)>")
    return n
 end

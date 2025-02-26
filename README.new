@@ -204,3 +204,11 @@ Lmod 8.7+
             * Issue #740: Rewrite ModuleA l_find_vA so that it checks partial version strings.
 	    * Issue #745: posix.setenv("var", false, true) must change to posix.setenv("var", nil, true).
             * Issue #728: Disallow fast TCL interp with TCL 9+.  This will hopely fixed in the future (;->)
+W.I.P:
+   (8.7.57) * Issue #750: Adding support for new function export_shell_function()
+                          Modified convertSh2MF.lua support converting export -f func to export_shell_function("func")
+                          Make "export -f funcName" appear last in bash/zsh/sh shell output
+            * PR    #752: Ensure m_Module_Msgs_close has an ending newline
+            * Issue #743: "module show noSuchModule" return an LmodError instead of 
+                          LmodWarning except when $LMOD_QUIET is set
+            * Issue #749: set display mode when executing "module update"
