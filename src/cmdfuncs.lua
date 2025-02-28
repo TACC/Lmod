@@ -1280,12 +1280,15 @@ function UnUse(...)
    local mt     = FrameStk:singleton():mt()
    local argA   = pack(...)
    local nodups = true
+
+   local mrc    = MRC:singleton();
+   mrc:set_display_mode("all")
+
    for i = 1, argA.n do
       local v = argA[i]
       MCP:remove_path{ModulePath,  v, delim=":", nodups = true, force = true}
    end
    if (mt:changeMPATH()) then
-      local mrc = MRC:singleton(); mrc:set_display_mode("all")
       mt:reset_MPATH_change_flag()
       hub.reloadAll()
    end
