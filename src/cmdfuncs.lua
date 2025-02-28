@@ -1204,6 +1204,7 @@ end
 --------------------------------------------------------------------------
 --  Reload all modules.
 function Update()
+   local mrc = MRC:singleton(); mrc:set_display_mode("all")
    local hub = Hub:singleton()
    local force_update = true
    hub:reloadAll(force_update)

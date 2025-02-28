@@ -493,6 +493,17 @@ function M.uncomplete(self)
 end
 
 
+function M.export_shell_function(self)
+   self.type      = "export_shell_function"
+   self.value     = true
+end
+
+function M.unset_shell_function(self)
+   self.type      = "export_shell_function"
+   self.value     = false
+end
+
+
 --------------------------------------------------------------------------
 -- Set the environment variable to *value*
 -- @param self A Var object

@@ -96,5 +96,9 @@ function MF_TCL.header()
    return "#%Module"
 end
 
+function MF_TCL.export_shell_function(self, k)
+   return ""
+end
+
 return MF_TCL
 
