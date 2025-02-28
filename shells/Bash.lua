@@ -71,7 +71,7 @@ local function l_build_shell_func(name, func)
    local a = {}
    a[#a+1] = name
    a[#a+1] = " () { ";
-   a[#a+1] = func:gsub("\n$","")
+   a[#a+1] = func:gsub("\n%s*\n","\n"):gsub("\n$","")
    a[#a+1] = "; \n};\n"
    return concatTbl(a,"")
 end
@@ -82,6 +82,7 @@ end
 --                   one and only one semicolon at the end.
 
 function Bash.shellFunc(self, k, v)
+   dbg.print{"Bash.shellFunc: k: \"",k,"\", v: ",v,"\n"}
    if (not v) then
       stdout:write("unset -f ",k," 2> /dev/null || true;\n")
       dbg.print{   "unset -f ",k," 2> /dev/null || true;\n"}
@@ -136,23 +137,41 @@ function Bash.unset(self, k, vType)
    dbg.print{   "unset ",k,";\n"}
 end
 
-function Bash.complete(self, name, value)
+function Bash.complete(self, n, value)
    local lineA = {}
-   local n     = unwrap_complete(name)
+   local name  = unwrap_kind("complete", n)
    if (value) then
       lineA[#lineA + 1]  = "[[ -n \"${BASH_VERSION:-}\" ]] && complete "
       lineA[#lineA + 1]  = value
       lineA[#lineA + 1]  = " "
-      lineA[#lineA + 1]  = n
+      lineA[#lineA + 1]  = name
       lineA[#lineA + 1]  = ";\n"
    else
       lineA[#lineA + 1]  = "[[ -n \"${BASH_VERSION:-}\" ]] && complete -r "
-      lineA[#lineA + 1]  = n
+      lineA[#lineA + 1]  = name
       lineA[#lineA + 1]  = ";\n"
    end
    local line = concatTbl(lineA,"")
    stdout:write(line)
    dbg.print{   line}
+end
+
+function Bash.export_shell_function(self, n, value)
+   local lineA = {}
+   local name  = unwrap_kind("export_shell_function", n)
+   if (value) then
+      lineA[#lineA + 1]  = "[[ -n \"${BASH_VERSION:-}\" ]] && export -f "
+      lineA[#lineA + 1]  = name
+      lineA[#lineA + 1]  = " 2> /dev/null || true;\n"
+   else
+      lineA[#lineA + 1]  = "[[ -n \"${BASH_VERSION:-}\" ]] && unset -f "
+      lineA[#lineA + 1]  = name
+      lineA[#lineA + 1]  = " 2> /dev/null || true;\n"
+   end
+   local line = concatTbl(lineA,"")
+   stdout:write(line)
+   dbg.print{   line}
+
 end
 
 

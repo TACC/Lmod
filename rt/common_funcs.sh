@@ -266,6 +266,7 @@ initStdEnvVars()
     fi
   done < <(env)
 
+  unset -f module
   unset CPATH
   unset DYLD_LIBRARY_PATH
   unset INCLUDE
@@ -288,6 +289,8 @@ initStdEnvVars()
   unset SHLIB_PATH
   unset TERM
   unset _LMFILES_
+  unset LMOD_EXPERT
+  unset LMOD_QUIET
   unset LMOD_CACHED_LOADS
   unset LMOD_DISPLAY_META_COLOR
   unset LMOD_DISPLAY_SN_COLOR

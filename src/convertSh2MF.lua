@@ -103,23 +103,27 @@ local function l_convertSh2MF(shellName, style, script)
       "%{shellArgs}",
       "\"",
       "%{flgErr}",
-      "%{printEnvT} oldEnvT;",
+      "%{printEnvT} oldEnvT normal;",
       "echo %{sep};",
       "%{alias};",
       "echo %{sep};",
       "%{funcs};",
       "echo %{sep};",
       "%{complete};",
+      "echo %{sep};",
+      "%{printEnvT} oldEnvT exportFuncs;",
       "echo %{sep};",
       "%{source} %{script} %{redirect};",
       "echo %{sep};",
-      "%{printEnvT} envT;",
+      "%{printEnvT} envT normal;",
       "echo %{sep};",
       "%{alias};",
       "echo %{sep};",
       "%{funcs};",
       "echo %{sep};",
       "%{complete};",
+      "echo %{sep};",
+      "%{printEnvT} envT exportFuncs;",
       "echo %{sep};",
       "\"",
    }
@@ -151,8 +155,8 @@ local function l_convertSh2MF(shellName, style, script)
       end
    end
 
-   local processOrderA = { {"Vars", 1}, {"Aliases", 1}, {"Funcs", 1}, {"Complete", 1}, {"SourceScriptOutput", 0},
-                           {"Vars", 2}, {"Aliases", 2}, {"Funcs", 2}, {"Complete", 2}, }
+   local processOrderA = { {"Vars", 1}, {"Aliases", 1}, {"Funcs", 1}, {"Complete", 1}, {"ExportFuncs", 1}, {"SourceScriptOutput", 0},
+                           {"Vars", 2}, {"Aliases", 2}, {"Funcs", 2}, {"Complete", 2}, {"ExportFuncs", 2}, }
 
    local blkA = {}
    sep        = sep:escape()
@@ -170,21 +174,22 @@ local function l_convertSh2MF(shellName, style, script)
 
    if (not status) then
       success = false
-      local msg = i18n("e_Sh_Error",{script=script,errorMsg=blkA[5]})
+      local msg = i18n("e_Sh_Error",{script=script,errorMsg=blkA[6]})
       return success, msg, {}
    end
 
-   if (#blkA ~= 9) then
+   if (#blkA < 9) then
       success = false
       local msg = i18n("e_Sh_convertSh2MF",{})
       return success, msg, {}
    end
 
 
-   local resultT = { Vars     = {{},{}},
-                     Aliases  = {{},{}},
-                     Funcs    = {{},{}},
-                     Complete = {{},{}},
+   local resultT = { Vars        = {{},{}},
+                     Aliases     = {{},{}},
+                     Funcs       = {{},{}},
+                     Complete    = {{},{}},
+                     ExportFuncs = {{},{}},
                    }
 
    for i = 1, #processOrderA do

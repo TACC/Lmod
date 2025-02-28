@@ -593,8 +593,12 @@ proc remove-path { var val args} {
 }
 
 proc output-path-foo { cmd var val separator priority } {
-    global g_outputA
-    lappend g_outputA  "$cmd\{\"$var\",\"$val\",delim=\"$separator\",priority=\"$priority\"\}\n"
+   global g_outputA
+   if { $priority == 0 && $separator == ":" } {
+      lappend g_outputA  "$cmd\(\"$var\",\"$val\"\)\n"
+   } else {
+      lappend g_outputA  "$cmd\{\"$var\",\"$val\",delim=\"$separator\",priority=$priority\}\n"
+   }
 }
 
 

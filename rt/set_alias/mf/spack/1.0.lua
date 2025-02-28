@@ -4,3 +4,4 @@ set_shell_function("_some_spack_func", "\
      echo found;\
    fi\
 ","")
+export_shell_function("_some_spack_func")

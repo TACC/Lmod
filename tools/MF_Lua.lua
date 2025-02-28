@@ -87,6 +87,9 @@ function MF_Lmod.complete(self, shellName, k, v)
    return "complete(" .. shellName:doubleQuoteString() .. "," .. k:doubleQuoteString() .. "," .. v:doubleQuoteString() .. ")"
 end
 
+function MF_Lmod.export_shell_function(self, k)
+   return "export_shell_function(" .. k:doubleQuoteString() .. ")"
+end
 
 return MF_Lmod
 
