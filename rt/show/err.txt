@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.56 2025-02-04 18:12 -07:00
+Modules based on Lua: Version 8.7.57 2025-02-25 17:22 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -123,7 +123,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing show showMe
 setenv("TVAR","/tmp")
 prepend_path("TESTPATH","/tmp")
 ===========================
-step 17
+step 18
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing show mode_test
 ===========================
    ProjectDIR/rt/show/mf/Core/mode_test/1.0.lua:
