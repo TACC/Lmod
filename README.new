@@ -212,4 +212,5 @@ Lmod 8.7+
                           LmodWarning except when $LMOD_QUIET is set
             * Issue #749: set display mode when executing "module update"
    (8.7.58) * PR    #754: move set_display_mode up in cmdfuncs.lua in function UnUse
-   
+            * Support for Irreversible functions added.  Documentation needs to be expanded.
+	    
