@@ -64,8 +64,8 @@ testdescript = {
      runLmod purge                      #16
 
      # Test Mixed Unload Operations
-     runLmod load mixed_unload_test     #17  (Test unload-specific operations)
-     runLmod list                       #18  (Verify initial state)
+     runLmod load mixed_unload_test     #17 (Test unload-specific operations)
+     runLmod list                       #18 (Verify initial state)
      runLmod unload mixed_unload_test   #19 (Test unload behavior)
      runLmod list                       #20 (Verify final state)
      runLmod purge                      #21
@@ -76,8 +76,8 @@ testdescript = {
      runLmod unload mixed_both_test     #24 (Test dual-mode operations during unload)
      runLmod list                       #25 (Verify final state)
 
-     runLmod load forbidden_env_test       #26 (Test forbidden env var check: should raise error and not load)
-     runLmod load invalid_key_test         #27 (Test invalid func key check: should raise error and not load)
+     runLmod load forbidden_env_test    #26 (Test forbidden env var check: should raise error and not load)
+     runLmod load invalid_key_test      #27 (Test invalid func key check: should raise error and not load)
 
 
      HOME=$ORIG_HOME
