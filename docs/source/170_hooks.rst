@@ -178,7 +178,7 @@ used in the Lmod program.
   property table.  See *rt/uitSitePkg/mf/site_scripts/SitePackage.lua*
   for a complete example.
 
-**add_to_module** (table):
+**decorate_module** (table):
   (Returns: table)
   This hook allows a site to add contents to a module file (e.g. add
   ``add_property(...)`` based on the location of the module file). It

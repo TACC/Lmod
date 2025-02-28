@@ -154,9 +154,8 @@ function loadModuleFile(t)
    end
 
    -- dynamic additions via hook
-   local additional_lines = hook.apply("add_to_module", {path=myFileName(), name=myModuleName(), version=myModuleVersion(), contents=whole}) or {}
-   additional_lines = concatTbl(additional_lines, "\n")
-   whole = whole .. "\n" .. additional_lines
+   local additional_lines = hook.apply("decorate_module", {path=myFileName(), name=myModuleName(), version=myModuleVersion(), contents=whole}) or {}
+   whole = whole .. "\n" .. concatTbl(additional_lines, "\n")
 
    -- Use the sandbox to evaluate modulefile text.
    if (whole) then
