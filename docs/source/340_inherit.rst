@@ -7,12 +7,12 @@ A Personal Hierarchy Mirroring the System Hierarchy
 Suppose you as a user wants to have personal modules that work as part
 of the software hierarchy.  You might want to do that if you are a
 library or parallel application developer. You might want to test
-libraries or parallel applications before making them publically
+libraries or parallel applications before making them publicly
 available. These are two possible of many that you might want to
 mirror the software hierarchy. So how to go about it.
 
 The simplest to understand (but not implement) is to just copy over
-the entire compiler-mpi tree to your account and then tweek the
+the entire compiler-mpi tree to your account and then tweak the
 compiler and mpi modules to point inside your directory.  Once you
 have done that, you can add the modules that you need.
 

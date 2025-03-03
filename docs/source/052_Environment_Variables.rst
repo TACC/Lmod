@@ -8,7 +8,7 @@ Environment variables defined by Lmod startup files
 **LMOD_CMD** : The path to the installed lmod command.
 
 **LMOD_DIR** : The directory that contains the installed lmod
-    command.  This environment variable is usefull for running the
+    command.  This environment variable is useful for running the
     **spider** command: i.e. $LMOD_DIR/spider.  This is the libexec directory
 
 **LMOD_PKG** : This the path the directory that contains the libexec,

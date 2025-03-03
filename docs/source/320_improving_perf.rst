@@ -13,7 +13,7 @@ improve the loading of modules by doing the following steps:
 
 #. Configure Lmod to use LMOD_CACHED_LOADS=yes
 
-Theses are the most important steps.  As long as your site keeps the
+These are the most important steps.  As long as your site keeps the
 cache file up-to-day, the above steps will improve performance the
 most.
 
