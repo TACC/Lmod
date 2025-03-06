@@ -208,9 +208,8 @@ Lmod 8.7+
                           Modified convertSh2MF.lua support converting export -f func to export_shell_function("func")
                           Make "export -f funcName" appear last in bash/zsh/sh shell output
             * PR    #752: Ensure m_Module_Msgs_close has an ending newline
-            * Issue #743: "module show noSuchModule" return an LmodError instead of 
+             * Issue #743: "module show noSuchModule" return an LmodError instead of 
                           LmodWarning except when $LMOD_QUIET is set
             * Issue #749: set display mode when executing "module update"
    (8.7.58) * PR    #754: move set_display_mode up in cmdfuncs.lua in function UnUse
             * Support for Irreversible functions added.  Documentation needs to be expanded.
-	    
