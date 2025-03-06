@@ -214,3 +214,5 @@ Lmod 8.7+
    (8.7.58) * PR    #754: move set_display_mode up in cmdfuncs.lua in function UnUse
             * Support for Irreversible functions added.  Documentation needs to be expanded.
    (8.7.59) * PR    #738: Add new hook: decorate_module
+W.I.P:
+   (8.7.60) * PR    #755: Merged in spelling corrections to docs'
