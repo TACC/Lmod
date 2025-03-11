@@ -742,6 +742,7 @@ end
 -- @param mA   An array of Module Name objects.
 function ShowCmdA(name, mA)
    local a = {}
+   mA      = mA or {}
    for i = 1, #mA do
       a[i] = mA[i]:show()
    end
