@@ -29,9 +29,9 @@
  
 
 \begin{document}
-\title[Lmod]{SC 24 Booth Talk: Lmod}
+\title[Lmod]{EUM '25 Lmod}
 \author{Robert McLay, Matthew Cawood} 
-\date{Nov. 20, 2024}
+\date{March. 25, 2025}
 
 % page 1
 \frame{\titlepage} 
@@ -42,18 +42,18 @@
 \begin{frame}{Introduction}
   \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
   \begin{itemize}
-    \item Feature and Recent changes that bear repeating
+    \item Feature and Recent changes that worth repeating
     \item Changes in the pass year.
-    \item Future work?
-    \item This talk: https://github.com/TACC/Lmod/blob/main/my\_docs/24/sc\_24\_booth\_talk/presentation.pdf
+    \item Future of Lmod? th
+    \item This talk: https://github.com/TACC/Lmod/blob/main/my\_docs/25/EUM\_25/presentation.pdf
   \end{itemize}
 \end{frame}
 
 % page 3
 \begin{frame}{Features}
   \begin{itemize}
-    \item Current version is Lmod 8.7.53
-    \item Release of 8.8 is very soon.
+    \item Current version is Lmod 8.7.59
+    \item Release of 8.8 is next week.
     \item Reads for TCL and Lua modulefiles
     \item One name rule.
     \item Support Software Hierarchy (but not required!)
@@ -71,29 +71,35 @@
 % page 4
 \begin{frame}{\texttt{Recent Feature of Lmod 8+}}
   \begin{itemize}
-    \item The TCL interpreter is now (optionally) embedded with Lmod.
-    \item \texttt{depends\_on()}
-    \item New Function: \texttt{extensions("numpy/1.16.4 scipy/1.4")}
-    \item Checking your module tree 8.4.3+
+    \item Updated sh\_to\_modulefile and \texttt{source\_sh()} function (First
+      in Tmod)
+    \item Downstream Conflicts and Dynamic defaults via modulerc files
+    \item More powerful hide/forbid functions (First in Tmod)
+    \item Improvements in module usage tracking: Space and Time saving
+    \item Irreversible: setenv and load other modules while unloading
+    \item New Hook: \texttt{decorate\_module}
   \end{itemize}
 \end{frame}
 
 % page 5
-\begin{frame}{\texttt{depends\_on()}}
+\begin{frame}{Updated \texttt{source\_sh()}}
   \begin{itemize}
-    \item Modules X and Y depends on Module A
-    \item ml purge; ml X; ml unload X;      $\Rightarrow$ unload A
-    \item ml purge; ml X Y; ml unload X;    $\Rightarrow$ keep A
-    \item ml purge; ml X Y; ml unload X Y ; $\Rightarrow$ unload A
-    \item ml purge; ml A X Y; ml unload X Y ; $\Rightarrow$ keep A
+    \item Allows sites to place a shell script inside a modulefile
+    \item It dynamically converts the shell script into a modulefile
+    \item It stores the module commands in the moduletable in your
+      env.
+    \item sh\_to\_modulefile is better if there are no dynamic vars
+      like \$HOME.
+    \item Older versions could get lost with path like variables
+    \item This is now fixed!?
   \end{itemize}
 \end{frame}
 
 % page 6
-\begin{frame}{Checking your module tree 8.4.3+}
+\begin{frame}{Downstream Conflicts and Dynamic defaults}
   \begin{itemize}
-    \item New command added: \texttt{\$LMOD\_DIR/check\_module\_tree\_syntax}
-    \item Reports syntax errors across the entire \texttt{\$MODULEPATH}
+    \item A developer on the OpenHPC team requested this.
+    \item 
     \item Report which modules have multiple marked defaults sets
     \item Precedent order: default symlink, .modulerc.lua, .modulerc, .version
     \item Does not check SYSTEM MODULERCFILE for defaults.
