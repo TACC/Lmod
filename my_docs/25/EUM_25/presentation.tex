@@ -90,6 +90,7 @@
       env.
     \item sh\_to\_modulefile is better if there are no dynamic vars
       like \$HOME.
+    \item It knows about env. vars and shell functions and aliases.
     \item Older versions could get lost with path like variables
     \item This is now fixed!?
   \end{itemize}
@@ -99,84 +100,90 @@
 \begin{frame}{Downstream Conflicts and Dynamic defaults}
   \begin{itemize}
     \item A developer on the OpenHPC team requested this.
-    \item 
-    \item Report which modules have multiple marked defaults sets
-    \item Precedent order: default symlink, .modulerc.lua, .modulerc, .version
-    \item Does not check SYSTEM MODULERCFILE for defaults.
+    \item The problem exist between OpenHPC and site modulefiles
+    \item Downstream conflicts allow sites to error out with
+      conflicted modules.
+    \item Sites can also dynamically change the defaults with modulerc files.
   \end{itemize}
 \end{frame}
 
 % page 7
-\begin{frame}{Lmod Recent Features}
+\begin{frame}{New to Lmod: hide and forbid}
   \begin{itemize}
-    \item New Features now reported:
-      https://lmod.readthedocs.io/en/latest/025\_new.html
-    \item \texttt{module overview}
-    \item \texttt{module -d avail}
-    \item New config file: /etc/lmod/lmod\_config.lua
-    \item LMOD\_QUARANTINE\_VARS
-    \item updates to sh\_to\_modulefile
-    \item source\_sh(): source a shell script inside a modulefile
+    \item First implemented in Tmod.
+    \item A Spack developer requested support fot this in Lmod
   \end{itemize}
 \end{frame}
 
 % page 8
-\begin{frame}[fragile]
-  \frametitle{module overview}
-    {\tiny
-\begin{semiverbatim}
-% module overview
------------------- /opt/apps/modulefiles/Core -----------------
-StdEnv    (1)   hashrf    (2)   papi        (2)   xalt     (1)
-ddt       (1)   intel     (2)   singularity (2)
-git       (1)   noweb     (1)   valgrind    (1)
-
---------------- /opt/apps/lmod/lmod/modulefiles/Core ----------
-lmod (1)   settarg (1)    
-\end{semiverbatim}
-    }
+\begin{frame}{\texttt{hide\{\}}}
+  \begin{itemize}
+    \item A more powerful hide function with controls for users and/or
+      groups
+    \item Can hide before or after certain dates
+    \item Can hide modules from being listed
+    \item Can hide modules so that they can't be seen or loaded.
+    \item This hide when listed can be overridden (-A, LMOD\_SHOW\_HIDDEN)
+    \item The env. var.  LMOD\_SHOW\_HIDDEN support was requested Alexandre Strube!
+  \end{itemize}
 \end{frame}
 
 % page 9
-\begin{frame}[fragile]
-  \frametitle{/etc/lmod/lmod\_config.lua configuration file}
+\begin{frame}{\texttt{forbid\{\}}}
   \begin{itemize}
-    \item This file is evaluated during Lmod startup. 
-    \item This location is the default during configuration.
-    \item A site can change this location at configuration.
+    \item A forbid function which displays with ml avail but can't be loaded.
+    \item Can forbid before or after certain dates
+    \item Can mark certain users or groups special privileges
   \end{itemize}
-    {\small
-\begin{semiverbatim}
--- Example /etc/lmod/lmod\_config.lua
-require("strict")
-local cosmic = require("Cosmic"):singleton()
-
-cosmic:assign("LMOD\_SITE\_NAME", "XYZZY")
-local function foo()
-  ...
-end
-sandbox\_registration \{ foo = foo \}
-\end{semiverbatim}
-}
 \end{frame}
 
 % page 10
-\begin{frame}{Sourcing shell scripts inside a modulefile w/ source\_sh()}
+\begin{frame}{Improvements to Module Usage Tracking}
   \begin{itemize}
-    \item This was first implemented in Tmod 4.7
-    \item Lmod 8.6 re-implements this feature in a similar way.
-    \item It knows about env. vars and shell functions and aliases.
+    \item Forced to move DB from an old VM to new VM
+    \item Noticed that users loaded same module multiple times per day
+    \item Only need to know once per day
+    \item 10x reduction is amount of data per day
+    \item Redesiged table means that TACC keeps 12 months of data.
+    \item Much smaller db with much much faster searching.
   \end{itemize}
 \end{frame}
 
 % page 11
-\begin{frame}{Changes this year (I)}
+\begin{frame}{New to Lmod: Irreversible (I)}
   \begin{itemize}
-    \item zsh and ksh have stopped fighting over FPATH
-    \item Generate actual manpages via pod2man
-    \item new option: \texttt{module --dumpname} $\Rightarrow$ Lmod
-    \item Now showing module extensions with \texttt{module --terse  avail}
-    \item Support for TCL 9.0+ (it works but not integrated into Lmod)
+    \item Loading a module set env. vars and adds entries to path-like
+      vars etc. 
+    \item Unloading a module unsets env. vars and remove entries to
+      path-like vars  etc.
+    \item New feature: modulefiles can optionally setenv or load when
+      unloading a module.
+    \item It is a rare need.
+    \item It could be needed when changing styles like: Cray modules
+      to not. 
+  \end{itemize}
+\end{frame}
+
+% page 12
+\begin{frame}[fragile]
+  \frametitle{Irreversible (II)}
+    {\tiny
+\begin{semiverbatim}
+load{"dep_load", modeA={"load"}}        
+load{"dep_unload", modeA={"unload"}}    
+setenv{"AAA", "BBB", modeA={"unload"}}  
+\end{semiverbatim}
+    }
+\end{frame}
+
+% page 13
+\begin{frame}{Hook: decorate\_module}
+  \begin{itemize}
+    \item Sites that do not want to modify modulefiles
+    \item They can use this hook to add Lua functions to the modulefile
+    \item This hook is called loading a modulefile.
+    \item Text must be in Lua.  
+    \item TCL file will have been converted to Lua
   \end{itemize}
 \end{frame}
 
@@ -215,16 +222,6 @@ sandbox\_registration \{ foo = foo \}
   \end{itemize}
 \end{frame}
 
-% page 15
-\begin{frame}{\texttt{hide\{\}}}
-  \begin{itemize}
-    \item A more powerful hide function with controls for users and/or
-      groups
-    \item Can hide before or after certain dates
-    \item Can hide modules from being listed
-    \item This hide when listed can be overridden (-A, LMOD\_SHOW\_HIDDEN)
-  \end{itemize}
-\end{frame}
 
 % page 16
 \begin{frame}{\texttt{forbid\{\}}}
@@ -235,16 +232,6 @@ sandbox\_registration \{ foo = foo \}
   \end{itemize}
 \end{frame}
 
-% page 17
-\begin{frame}{Lmod Module Tracking DB Update }
-  \begin{itemize}
-    \item Lmod uses hooks to allow sites to track usage
-    \item Old DB was smaller but slower to analyze
-    \item New DB is one table but larger
-    \item No joining required to analyze
-    \item Can delete older data. We will only keep 1 years worth
-  \end{itemize}
-\end{frame}
 
 % page 18
 \begin{frame}{Lmod Monthly Zoom Mtg}
