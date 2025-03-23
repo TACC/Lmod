@@ -26,7 +26,6 @@
 %  \end{itemize}
 %
 %\end{frame}
- 
 
 \begin{document}
 \title[Lmod]{EUM '25 Lmod}
@@ -42,9 +41,8 @@
 \begin{frame}{Introduction}
   \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
   \begin{itemize}
-    \item Feature and Recent changes that worth repeating
-    \item Changes in the pass year.
-    \item Future of Lmod? th
+    \item Recent changes that are worth repeating
+    \item Future of Lmod?
     \item This talk: https://github.com/TACC/Lmod/blob/main/my\_docs/25/EUM\_25/presentation.pdf
   \end{itemize}
 \end{frame}
@@ -97,13 +95,13 @@
 \end{frame}
 
 % page 6
-\begin{frame}{Downstream Conflicts and Dynamic defaults}
+\begin{frame}{Dynamic \$LMOD\_MODULERC and Downstream Conflicts}
   \begin{itemize}
-    \item A developer on the OpenHPC team requested this.
-    \item The problem exist between OpenHPC and site modulefiles
-    \item Downstream conflicts allow sites to error out with
-      conflicted modules.
-    \item Sites can also dynamically change the defaults with modulerc files.
+    \item \$LMOD\_MODULERC controls defaults (along with .modulerc.lua etc)
+    \item With this dynamic a site can change what are the defaults
+    \item The \texttt{conflict()} function says you can't load the
+      current modulefile if 
+    \item Downstream Conflicts allows sites to fail depend\_on() loads 
   \end{itemize}
 \end{frame}
 
@@ -111,7 +109,7 @@
 \begin{frame}{New to Lmod: hide and forbid}
   \begin{itemize}
     \item First implemented in Tmod.
-    \item A Spack developer requested support fot this in Lmod
+    \item A Spack developer requested support for this in Lmod
   \end{itemize}
 \end{frame}
 
@@ -167,11 +165,11 @@
 % page 12
 \begin{frame}[fragile]
   \frametitle{Irreversible (II)}
-    {\tiny
+    {\small
 \begin{semiverbatim}
-load{"dep_load", modeA={"load"}}        
-load{"dep_unload", modeA={"unload"}}    
-setenv{"AAA", "BBB", modeA={"unload"}}  
+load\{"dep_load", modeA=\{"load"\}\}        
+load\{"dep_unload", modeA=\{"unload"\}\}    
+setenv\{"AAA", "BBB", modeA=\{"unload"\}\}  
 \end{semiverbatim}
     }
 \end{frame}
@@ -187,86 +185,40 @@ setenv{"AAA", "BBB", modeA={"unload"}}
   \end{itemize}
 \end{frame}
 
-% page 12
-\begin{frame}{Changes this year (II)}
-  \begin{itemize}
-    \item Dynamic LMOD\_MODULERC and downstream conflicts
-    \item New function depends\_on\_any()
-    \item \$MODULES\_AUTO\_HANDLING converts prereq, prereq\_any into
-      depends\_on, depends\_on\_any
-    \item Support for new: \texttt{hide\{\}} and \texttt{forbid\{\}}
-    \item Support for \$LMOD\_SHOW\_HIDDEN: avail, list, spider
-    \item Support for non-reversible functions: setenv, load, ...
-  \end{itemize}
-\end{frame}
-
-% page 13
-\begin{frame}{Dynamic \$LMOD\_MODULERC and Downstream Conflicts}
-  \begin{itemize}
-    \item \$LMOD\_MODULERC controls defaults (along with .modulerc.lua etc)
-    \item With this dynamic a site can change what are the defaults
-    \item The \texttt{conflict()} function says you can't load the
-      current modulefile if 
-    \item Downstream Conflicts allows sites to fail depend\_on() loads 
-  \end{itemize}
-\end{frame}
-
 % page 14
-\begin{frame}{New Function \texttt{depends\_on\_any()}}
+\begin{frame}{Future of Lmod?}
   \begin{itemize}
-    \item \texttt{depends\_on\_any("A","B","C")} says try loading the
-      first module you find
-    \item The tricky part is that Lmod remembers which one it loaded.
-    \item Needed to support converting prereq\_any() into
-      depends\_on\_any() when \$MODULES\_AUTO\_HANDLING is set
+    \item I am now working half-time.
+    \item Matthew Cawood from TACC is helping with Lmod
+    \item This spring we will start joining HPSF
   \end{itemize}
 \end{frame}
 
+% page 15
+\begin{frame}{Looking for others to join the Lmod team}
+  \begin{itemize}
+    \item Lmod's success is in part to due the mailing list and Github
+    \item Answering the mail
+    \item Hidden reason is the Large Regression test system.
+    \item This makes it harder to break current behavior.
+  \end{itemize}
+\end{frame}
 
 % page 16
-\begin{frame}{\texttt{forbid\{\}}}
+\begin{frame}{Why join Lmod team?}
   \begin{itemize}
-    \item A forbid function which displays with ml avail but can't be loaded.
-    \item Can forbid before or after certain dates
-    \item Can mark certain users or groups special privileges
+    \item I have travelled the world
+    \item I'm here!
   \end{itemize}
 \end{frame}
 
-
-% page 18
-\begin{frame}{Lmod Monthly Zoom Mtg}
-  \begin{itemize}
-    \item Previous Topics
-      \begin{enumerate}
-        \item Lmod Hooks Discussion
-        \item Debugging Modulefiles
-        \item Settarg and integrating Lmod with build system
-        \item How Module collections works 
-        \item How to get current module info into hooks
-        \item How Lmod testing works
-      \end{enumerate}
-    \item Zoom Mtg Usually 1st Tuesday 
-    \item See Mailing list or https://github.com/TACC/Lmod/wiki for
-      details
-    \item Next Meeting Dec. 10th at 15:30 UTC (9:30 US Central)
-    \item Feel free to when you have questions or concerns and skip
-      when you don't.
-  \end{itemize}
-\end{frame}
-
-% page 19
+% page 17
 \begin{frame}[fragile]
     \frametitle{Lmod Doc usage by City}
     \center{\includegraphics[width=.9\textwidth]{Lmod_doc_usage_by_city}}
 \end{frame}
 
-% page 20
-\begin{frame}[fragile]
-    \frametitle{Lmod Doc usage by Country}
-    \center{\includegraphics[width=.9\textwidth]{Lmod_doc_usage_by_country}}
-\end{frame}
-
-% page 21
+% page 18
 \begin{frame}{Conclusions: Lmod 8+}
   \center{\includegraphics[width=.9\textwidth]{Lmod-4color@2x.png}}
   \begin{itemize}
