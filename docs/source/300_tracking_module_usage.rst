@@ -252,7 +252,7 @@ d) Create the database by running the createDB.py program.::
 
       $ ./createDB.py
 
-   Note that createDB.py support --drop to remove the old databae.     
+   Note that createDB.py support --drop to remove the old database.     
 
 
 Step 7

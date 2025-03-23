@@ -36,7 +36,7 @@ then Lmod searches for the property information in the following order:
 #. $LMOD_RC
 
 Where $LMOD_RC is an environment variable that can be set to point to
-any file locaiton. If there are more than one of these files exist
+any file location. If there are more than one of these files exist
 then they are merged and not a replacement.  So a site can (and
 should) leave the first file as is and create another one to specify
 site properties and Lmod will merge the information into one.

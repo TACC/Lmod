@@ -249,35 +249,35 @@ function main()
    local epoch        = epoch
    local t1           = epoch()
 
-   local availTbl     = { name = "avail",       checkMPATH = false, cmd = Avail         }
-   local gdTbl        = { name = "getDefault",  checkMPATH = false, cmd = GetDefault    }
-   local helpTbl      = { name = "help",        checkMPATH = false, cmd = Help          }
-   local keywordTbl   = { name = "keyword",     checkMPATH = false, cmd = Keyword       }
-   local listTbl      = { name = "list",        checkMPATH = false, cmd = List          }
-   local loadTbl      = { name = "load",        checkMPATH = true,  cmd = Load_Usr      }
-   local mcTbl        = { name = "describe",    checkMPATH = false, cmd = CollectionLst }
-   local purgeTbl     = { name = "purge",       checkMPATH = true,  cmd = Purge_Usr     }
-   local overviewTbl  = { name = "overview",    checkMPATH = false, cmd = Overview      }
-   local refreshTbl   = { name = "refresh",     checkMPATH = false, cmd = Refresh       }
-   local resetTbl     = { name = "reset",       checkMPATH = true,  cmd = Reset         }
-   local restoreTbl   = { name = "restore",     checkMPATH = false, cmd = Restore       }
-   local saveTbl      = { name = "save",        checkMPATH = false, cmd = Save          }
-   local savelistTbl  = { name = "savelist",    checkMPATH = false, cmd = SaveList      }
-   local searchTbl    = { name = "search",      checkMPATH = false, cmd = SearchCmd     }
-   local showTbl      = { name = "show",        checkMPATH = false, cmd = Show          }
-   local spiderTbl    = { name = "spider",      checkMPATH = true,  cmd = SpiderCmd     }
-   local swapTbl      = { name = "swap",        checkMPATH = true,  cmd = Swap          }
-   local tblLstTbl    = { name = "tablelist",   checkMPATH = false, cmd = TableList     }
-   local tryAddTbl    = { name = "try-add",     checkMPATH = true,  cmd = Load_Try      }
-   local unloadTbl    = { name = "unload",      checkMPATH = true,  cmd = UnLoad        }
-   local unuseTbl     = { name = "unuse",       checkMPATH = true,  cmd = UnUse         }
-   local updateTbl    = { name = "update",      checkMPATH = true,  cmd = Update        }
-   local useTbl       = { name = "use",         checkMPATH = true,  cmd = Use           }
-   local disableTbl   = { name = "disable",     checkMPATH = false, cmd = Disable       }
-   local whatisTbl    = { name = "whatis",      checkMPATH = false, cmd = Whatis        }
-   local isLoadedTbl  = { name = "isLoaded",    checkMPATH = false, cmd = IsLoaded      }
-   local isAvailTbl   = { name = "isAvail",     checkMPATH = false, cmd = IsAvail       }
-   local categoryTbl  = { name = "category",    checkMPATH = true,  cmd = Category      }
+   local availTbl     = { name = "cmdfuncs.lua:(Avail)         avail",       checkMPATH = false, cmd = Avail         }
+   local gdTbl        = { name = "cmdfuncs.lua:(GetDefault)    getDefault",  checkMPATH = false, cmd = GetDefault    }
+   local helpTbl      = { name = "cmdfuncs.lua:(Help)          help",        checkMPATH = false, cmd = Help          }
+   local keywordTbl   = { name = "cmdfuncs.lua:(Keyword)       keyword",     checkMPATH = false, cmd = Keyword       }
+   local listTbl      = { name = "cmdfuncs.lua:(List)          list",        checkMPATH = false, cmd = List          }
+   local loadTbl      = { name = "cmdfuncs.lua:(Load_Usr)      load",        checkMPATH = true,  cmd = Load_Usr      }
+   local mcTbl        = { name = "cmdfuncs.lua:(CollectionLst) describe",    checkMPATH = false, cmd = CollectionLst }
+   local purgeTbl     = { name = "cmdfuncs.lua:(Purge_Usr)     purge",       checkMPATH = true,  cmd = Purge_Usr     }
+   local overviewTbl  = { name = "cmdfuncs.lua:(Overview)      overview",    checkMPATH = false, cmd = Overview      }
+   local refreshTbl   = { name = "cmdfuncs.lua:(Refresh)       refresh",     checkMPATH = false, cmd = Refresh       }
+   local resetTbl     = { name = "cmdfuncs.lua:(Reset)         reset",       checkMPATH = true,  cmd = Reset         }
+   local restoreTbl   = { name = "cmdfuncs.lua:(Restore)       restore",     checkMPATH = false, cmd = Restore       }
+   local saveTbl      = { name = "cmdfuncs.lua:(Save)          save",        checkMPATH = false, cmd = Save          }
+   local savelistTbl  = { name = "cmdfuncs.lua:(SaveList)      savelist",    checkMPATH = false, cmd = SaveList      }
+   local searchTbl    = { name = "cmdfuncs.lua:(SearchCmd)     search",      checkMPATH = false, cmd = SearchCmd     }
+   local showTbl      = { name = "cmdfuncs.lua:(Show)          show",        checkMPATH = false, cmd = Show          }
+   local spiderTbl    = { name = "cmdfuncs.lua:(SpiderCmd)     spider",      checkMPATH = true,  cmd = SpiderCmd     }
+   local swapTbl      = { name = "cmdfuncs.lua:(Swap)          swap",        checkMPATH = true,  cmd = Swap          }
+   local tblLstTbl    = { name = "cmdfuncs.lua:(TableList)     tablelist",   checkMPATH = false, cmd = TableList     }
+   local tryAddTbl    = { name = "cmdfuncs.lua:(Load_Try)      try-add",     checkMPATH = true,  cmd = Load_Try      }
+   local unloadTbl    = { name = "cmdfuncs.lua:(Unload)        unload",      checkMPATH = true,  cmd = UnLoad        }
+   local unuseTbl     = { name = "cmdfuncs.lua:(UnUse)         unuse",       checkMPATH = true,  cmd = UnUse         }
+   local updateTbl    = { name = "cmdfuncs.lua:(Update)        update",      checkMPATH = true,  cmd = Update        }
+   local useTbl       = { name = "cmdfuncs.lua:(Use)           use",         checkMPATH = true,  cmd = Use           }
+   local disableTbl   = { name = "cmdfuncs.lua:(Disable)       disable",     checkMPATH = false, cmd = Disable       }
+   local whatisTbl    = { name = "cmdfuncs.lua:(Whatis)        whatis",      checkMPATH = false, cmd = Whatis        }
+   local isLoadedTbl  = { name = "cmdfuncs.lua:(IsLoaded)      isLoaded",    checkMPATH = false, cmd = IsLoaded      }
+   local isAvailTbl   = { name = "cmdfuncs.lua:(IsAvail)       isAvail",     checkMPATH = false, cmd = IsAvail       }
+   local categoryTbl  = { name = "cmdfuncs.lua:(Category)      category",    checkMPATH = true,  cmd = Category      }
 
    local lmodCmdA = {
       {cmd = 'add',          min = 2, action = loadTbl     },
@@ -350,8 +350,9 @@ function main()
    Shell = BaseShell:build(shellNm)
 
    local optionTbl = optionTbl()
-   MCP = MainControl.build("load")
-   mcp = MainControl.build("load")
+   MCP  = MainControl.build("load")
+   MCPQ = MainControl.build("quiet")
+   mcp  = MainControl.build("load")
 
    ------------------------------------------------------------------
    -- initialize lmod with SitePackage and /etc/lmod/lmod_config.lua
@@ -518,7 +519,7 @@ function main()
    -- Do the work of Lmod
    ------------------------------------------------------------
 
-   local cmd  = cmdT.cmd
+   local cmd = cmdT.cmd
    dbg.print{"cmd name: ", cmdT.name,"\n"}
    cmd(unpack(optionTbl.pargs))
 

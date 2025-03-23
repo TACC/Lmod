@@ -505,12 +505,18 @@ cosmic:init{name    = "LFS_VERSION",
 --
 
 ------------------------------------------------------------------------
--- MCP, mcp:  MainControl Program objects.  These objects implement
---            the module functions: load, setenv, prepend_path, etc.
+-- MCP, MCPQ, mcp:  MainControl Program objects.  These objects implement
+--                  the module functions: load, setenv, prepend_path, etc.
+--
 --            MCP is always positive.  That is, load is load, setenv is
---            setenv.  Where as mcp is dynamic.  It is positive on load
+--            setenv.  
+--
+--            mcp: is dynamic.  It is positive on load
 --            and the reverse on unload.
+--
+--            MCPQ is always quiet.
 ------------------------------------------------------------------------
+MCPQ           = false
 MCP            = false
 mcp            = false
 

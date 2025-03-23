@@ -1,6 +1,14 @@
 New Features in Lmod
 ====================
 
+**decorate_module**:
+  (Lmod 8.7.59+)  Sites can use this new hook to add text to a
+  modulefile. Note that if this hook exists all modules will call this
+  hook, so sites will typically only want to text to certain modules.
+  Also this added text must be written in Lua.  TCL modulefiles will
+  have already been converted to Lua.
+
+
 **LMOD_FILE_IGNORE_PATTERNS**
   (Lmod 8.7.56+)  Sites can replace the default value with their own
   list of file patterns to ignore.

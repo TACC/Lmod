@@ -1,0 +1,300 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/mode_select/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load nil_mode_test
+===========================
+LOADEDMODULES=nil_mode_test/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
+export MODULEPATH;
+TEST_NIL_MODE=value;
+export TEST_NIL_MODE;
+_LMFILES_=ProjectDIR/rt/mode_select/mf/Core/nil_mode_test/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={nil_mode_test={fn="ProjectDIR/rt/mode_select/mf/Core/nil_mode_test/1.0.lua",fullName="nil_mode_test/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="nil_mode_test",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={nil_mode_test={fn="ProjectDIR/rt/mode_select/mf/Core/nil_mode_test/1.0.lua",fullName="nil_mode_test/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="nil_mode_test",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
+export MODULEPATH;
+unset TEST_NIL_MODE;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load invalid_mode_test
+===========================
+false
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load empty_mode_test
+===========================
+LOADEDMODULES=empty_mode_test/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
+export MODULEPATH;
+TEST_EMPTY_MODE=value;
+export TEST_EMPTY_MODE;
+_LMFILES_=ProjectDIR/rt/mode_select/mf/Core/empty_mode_test/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={empty_mode_test={fn="ProjectDIR/rt/mode_select/mf/Core/empty_mode_test/1.0.lua",fullName="empty_mode_test/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="empty_mode_test",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={empty_mode_test={fn="ProjectDIR/rt/mode_select/mf/Core/empty_mode_test/1.0.lua",fullName="empty_mode_test/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="empty_mode_test",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
+export MODULEPATH;
+unset TEST_EMPTY_MODE;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load mixed_load_test
+===========================
+LOADEDMODULES=mixed_load_test/1.0;
+export LOADEDMODULES;
+MIXED_ENV_LOAD=env_load;
+export MIXED_ENV_LOAD;
+__LMOD_REF_COUNT_MIXED_LIB=/mixed/lib/normal:1;
+export __LMOD_REF_COUNT_MIXED_LIB;
+MIXED_LIB=/mixed/lib/normal;
+export MIXED_LIB;
+MIXED_NORMAL_ENV=normal_env;
+export MIXED_NORMAL_ENV;
+__LMOD_REF_COUNT_MIXED_PATH=/mixed/bin/load:1;
+export __LMOD_REF_COUNT_MIXED_PATH;
+MIXED_PATH=/mixed/bin/load;
+export MIXED_PATH;
+MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/mode_select/mf/Core/mixed_load_test/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={mixed_load_test={fn="ProjectDIR/rt/mode_select/mf/Core/mixed_load_test/1.0.lua",fullName="mixed_load_test/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="mixed_load_test",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={mixed_load_test={fn="ProjectDIR/rt/mode_select/mf/Core/mixed_load_test/1.0.lua",fullName="mixed_load_test/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="mixed_load_test",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload mixed_load_test
+===========================
+unset LOADEDMODULES;
+unset __LMOD_REF_COUNT_MIXED_LIB;
+unset MIXED_LIB;
+unset MIXED_NORMAL_ENV;
+MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load mixed_unload_test
+===========================
+LOADEDMODULES=mixed_unload_test/1.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MIXED_LIB=/mixed/lib/normal:1;
+export __LMOD_REF_COUNT_MIXED_LIB;
+MIXED_LIB=/mixed/lib/normal;
+export MIXED_LIB;
+MIXED_NORMAL_ENV=normal_env;
+export MIXED_NORMAL_ENV;
+MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/mode_select/mf/Core/mixed_unload_test/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={mixed_unload_test={fn="ProjectDIR/rt/mode_select/mf/Core/mixed_unload_test/1.0.lua",fullName="mixed_unload_test/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="mixed_unload_test",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={mixed_unload_test={fn="ProjectDIR/rt/mode_select/mf/Core/mixed_unload_test/1.0.lua",fullName="mixed_unload_test/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="mixed_unload_test",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload mixed_unload_test
+===========================
+unset LOADEDMODULES;
+MIXED_ENV_UNLOAD=env_unload;
+export MIXED_ENV_UNLOAD;
+unset __LMOD_REF_COUNT_MIXED_LIB;
+unset MIXED_LIB;
+unset MIXED_NORMAL_ENV;
+__LMOD_REF_COUNT_MIXED_PATH=/mixed/bin/load:1\;/mixed/bin/unload:1;
+export __LMOD_REF_COUNT_MIXED_PATH;
+MIXED_PATH=/mixed/bin/load:/mixed/bin/unload;
+export MIXED_PATH;
+MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 21
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 22
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load mixed_both_test
+===========================
+LOADEDMODULES=mixed_both_test/1.0;
+export LOADEDMODULES;
+MIXED_ENV_BOTH=env_both;
+export MIXED_ENV_BOTH;
+__LMOD_REF_COUNT_MIXED_LIB=/mixed/lib/normal:1;
+export __LMOD_REF_COUNT_MIXED_LIB;
+MIXED_LIB=/mixed/lib/normal;
+export MIXED_LIB;
+MIXED_NORMAL_ENV=normal_env;
+export MIXED_NORMAL_ENV;
+__LMOD_REF_COUNT_MIXED_PATH=/mixed/bin/both:1\;/mixed/bin/load:1\;/mixed/bin/unload:1;
+export __LMOD_REF_COUNT_MIXED_PATH;
+MIXED_PATH=/mixed/bin/both:/mixed/bin/load:/mixed/bin/unload;
+export MIXED_PATH;
+MIXED_STACK=stack_both;
+export MIXED_STACK;
+MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/mode_select/mf/Core/mixed_both_test/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={mixed_both_test={fn="ProjectDIR/rt/mode_select/mf/Core/mixed_both_test/1.0.lua",fullName="mixed_both_test/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="mixed_both_test",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
+export _ModuleTable_;
+__LMOD_STACK_MIXED_STACK=stack_both;
+export __LMOD_STACK_MIXED_STACK;
+===========================
+step 23
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={mixed_both_test={fn="ProjectDIR/rt/mode_select/mf/Core/mixed_both_test/1.0.lua",fullName="mixed_both_test/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="mixed_both_test",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 24
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload mixed_both_test
+===========================
+unset LOADEDMODULES;
+MIXED_ENV_BOTH=env_both;
+export MIXED_ENV_BOTH;
+unset __LMOD_REF_COUNT_MIXED_LIB;
+unset MIXED_LIB;
+unset MIXED_NORMAL_ENV;
+__LMOD_REF_COUNT_MIXED_PATH=/mixed/bin/both:2\;/mixed/bin/load:1\;/mixed/bin/unload:1;
+export __LMOD_REF_COUNT_MIXED_PATH;
+MIXED_PATH=/mixed/bin/both:/mixed/bin/load:/mixed/bin/unload;
+export MIXED_PATH;
+MIXED_STACK=stack_both;
+export MIXED_STACK;
+MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
+export _ModuleTable_;
+__LMOD_STACK_MIXED_STACK=stack_both:stack_both;
+export __LMOD_STACK_MIXED_STACK;
+===========================
+step 25
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load forbidden_env_test
+===========================
+false
+===========================
+step 27
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load invalid_key_test
+===========================
+false

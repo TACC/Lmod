@@ -47,6 +47,7 @@ require("fileOps")
 require("sandbox")
 require("string_utils")
 require("utils")
+local hook            = require("Hook")
 local dbg             = require("Dbg"):dbg()
 local concatTbl       = table.concat
 local getenv          = os.getenv
@@ -151,6 +152,10 @@ function loadModuleFile(t)
          LmodError{msg="e_Unable_2_Load", name = n, fn = t.file, message = msg}
       end
    end
+
+   -- dynamic additions via hook
+   local additional_lines = hook.apply("decorate_module", {path=myFileName(), name=myModuleName(), version=myModuleVersion(), contents=whole}) or {}
+   whole = whole .. "\n" .. concatTbl(additional_lines, "\n")
 
    -- Use the sandbox to evaluate modulefile text.
    if (whole) then

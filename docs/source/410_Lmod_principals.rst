@@ -137,7 +137,7 @@ A discussion on the design of Lmod:
   one structure called LocationT
 
 * Go to spec/*/*_spec.lua to see an example of what the structure looks
-  like.  For exmaple spec/DirTree/DirTree_spec.lua for what dirT looks
+  like.  For example spec/DirTree/DirTree_spec.lua for what dirT looks
   like and spec/ModuleA/ModuleA_spec.lua
 
 * When a module is loaded.  All is known is the userName. That is the

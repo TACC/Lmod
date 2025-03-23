@@ -177,6 +177,13 @@ used in the Lmod program.
   1 output.  The table passed in contains the whatis category and the
   property table.  See *rt/uitSitePkg/mf/site_scripts/SitePackage.lua*
   for a complete example.
+
+**decorate_module** (table):
+  (Returns: table)
+  This hook allows a site to add contents to a module file (e.g. add
+  ``add_property(...)`` based on the location of the module file). It
+  provides a table ``{path, name, version, contents}`` as a parameter and
+  should return an indexed table of strings to add to the module file as lines.
   
 
 Example Hook: msgHook

@@ -1,0 +1,137 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
+===========================
+Modules based on Lua: Version 8.7.53 2024-10-12 19:57 -05:00
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load nil_mode_test
+===========================
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) nil_mode_test/1.0
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load invalid_mode_test
+===========================
+Lmod has detected the following error: Syntax error in file: ProjectDIR/rt/mode_select/mf/Core/invalid_mode_test/1.0.lua
+ with command: setenv, invalid mode "invalid". Valid modes are: "load" and "unload".
+While processing the following module(s):
+    Module fullname        Module Filename
+    invalid_mode_test/1.0  ProjectDIR/rt/mode_select/mf/Core/invalid_mode_test/1.0.lua
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+No modules loaded
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load empty_mode_test
+===========================
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) empty_mode_test/1.0
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load mixed_load_test
+===========================
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) mixed_load_test/1.0
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload mixed_load_test
+===========================
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+No modules loaded
+===========================
+step 16
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 17
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load mixed_unload_test
+===========================
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) mixed_unload_test/1.0
+===========================
+step 19
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload mixed_unload_test
+===========================
+===========================
+step 20
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+No modules loaded
+===========================
+step 21
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 22
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load mixed_both_test
+===========================
+===========================
+step 23
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+Currently Loaded Modules:
+  1) mixed_both_test/1.0
+===========================
+step 24
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload mixed_both_test
+===========================
+===========================
+step 25
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
+===========================
+No modules loaded
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load forbidden_env_test
+===========================
+Lmod has detected the following error: MODULEPATH variable cannot be mode selected.
+While processing the following module(s):
+    Module fullname         Module Filename
+    forbidden_env_test/1.0  ProjectDIR/rt/mode_select/mf/Core/forbidden_env_test/1.0.lua
+===========================
+step 27
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load invalid_key_test
+===========================
+Lmod has detected the following error: Invalid key detected in function setenv: Invalid key: extra.
+While processing the following module(s):
+    Module fullname       Module Filename
+    invalid_key_test/1.0  ProjectDIR/rt/mode_select/mf/Core/invalid_key_test/1.0.lua

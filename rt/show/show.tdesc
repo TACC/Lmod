@@ -41,6 +41,7 @@ testdescript = {
      runLmod --location show a       #15  
      runLmod --terse    show a       #16
      runLmod show showMe             #17
+     runLmod show mode_test          #18
 
      HOME=$ORIG_HOME
 

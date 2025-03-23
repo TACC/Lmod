@@ -220,8 +220,10 @@ s_patDir = false
 -- @param self A MainControl object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
-function M.setenv(self, name, value)
-   dbg.start{"MC_Spider:setenv(name, value)"}
+function M.setenv(self, argT)
+   dbg.start{"MC_Spider:setenv(argT)"}
+   local name  = argT[1]
+   local value = argT[2]
 
    save_set_env(name, value)
 
@@ -260,10 +262,12 @@ end
 -- as long as no site mixes pushenv and popenv in the same
 -- modulefile.  Fix this when the time comes.
 
-function M.pushenv(self, name, value)
-   dbg.start{"MC_Spider:pushenv(name, value)"}
+function M.pushenv(self, argT)
+   dbg.start{"MC_Spider:pushenv(argT)"}
+   local name  = argT[1]
+   local value = argT[2]
    save_set_env(name, value)
-   dbg.fini()
+   dbg.fini("MC_Spider:pushenv")
    return true
 end
 
@@ -271,10 +275,10 @@ end
 -- Pass-thru to Spider_append_path().
 -- @param self A MainControl object.
 -- @param t input table.
-function M.prepend_path(self,t)
-   dbg.start{"MC_Spider:prepend_path(t)"}
-   Spider_append_path("prepend",t)
-   dbg.fini()
+function M.prepend_path(self,argT)
+   dbg.start{"MC_Spider:prepend_path(argT)"}
+   Spider_append_path("prepend",argT)
+   dbg.fini("MC_Spider:prepend_path")
    return true
 
 end
@@ -283,10 +287,10 @@ end
 -- Pass-thru to Spider_append_path().
 -- @param self A MainControl object.
 -- @param t input table.
-function M.append_path(self,t)
-   dbg.start{"MC_Spider:append_path(t)"}
-   Spider_append_path("append",t)
-   dbg.fini()
+function M.append_path(self,argT)
+   dbg.start{"MC_Spider:append_path(argT)"}
+   Spider_append_path("append",argT)
+   dbg.fini("MC_Spider:append_path")
    return true
 end
 
