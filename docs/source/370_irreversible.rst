@@ -22,29 +22,29 @@ Mode select is implemented through a table with a ``modeA`` field that specifies
 Important Notes
 ^^^^^^^^^^^^^
 1. Spider caching disregards mode-specific actions:
-   * Module dependencies and conflicts are evaluated without considering mode-specific behavior
-   * Users should not rely on mode-specific actions for dependency resolution
+  * Module dependencies and conflicts are evaluated without considering mode-specific behavior
+  * Users should not rely on mode-specific actions for dependency resolution
 
 2. When using mode select, the specified action becomes irreversible in the opposite mode. For example:
-   * If an action is specified with ``mode = {"load"}``, it will not be automatically reversed during unload
+  * If an action is specified with ``mode = {"load"}``, it will not be automatically reversed during unload
 
 3. To completely remove the effects of a mode-specific module, you may need to:
-   * Purge all modules (``module purge``)
-   * Start a new shell session
-   * Or manually reverse the changes
+  * Purge all modules (``module purge``)
+  * Start a new shell session
+  * Or manually reverse the changes
 
 4. MODULEPATH modifications cannot be mode-specific:
-   * Operations like ``prepend_path{"MODULEPATH", ...}`` with a ``modeA`` field will raise an error
-   * This restriction helps maintain consistent module visibility across load/unload cycles
-   * MODULEPATH changes should be handled through normal (non-mode-specific) operations
+  * Operations like ``prepend_path{"MODULEPATH", ...}`` with a ``modeA`` field will raise an error
+  * This restriction helps maintain consistent module visibility across load/unload cycles
+  * MODULEPATH changes should be handled through normal (non-mode-specific) operations
 
 5. Mode-specific functions only accept these valid keys:
-   * ``n`` - Number of arguments
-   * ``delim`` - Delimiter for path-like operations
-   * ``modeA`` - Array specifying execution modes
-   * ``priority`` - Priority level for the operation
-   * ``kind`` - Type of operation
-   * Using any other keys will raise an error
+  * ``n`` - Number of arguments
+  * ``delim`` - Delimiter for path-like operations
+  * ``modeA`` - Array specifying execution modes
+  * ``priority`` - Priority level for the operation
+  * ``kind`` - Type of operation
+  * Using any other keys will raise an error
 
 Example Scenario
 ^^^^^^^^^^^^^^^
