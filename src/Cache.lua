@@ -525,7 +525,6 @@ function M.build(self, fast)
    -------------------------------------------------------------------
    -- Ctor w/o system or user MODULERC files.  We will update when
    -- we need to.
-   --local mrc       = MRC:singleton({})
    local mrc       = MRC:singleton()
 
    dbg.print{"self.buildCache: ",self.buildCache,"\n"}
