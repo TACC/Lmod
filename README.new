@@ -187,7 +187,6 @@ Lmod 8.7+
    (8.7.51) * Fix bug in load test.
    (8.7.52) * Add MName:isVisible() so that load hooks can figure out if a loaded module is is visible or not.
    (8.7.53) * updating docs to include link to 165_debugging_lmod.rst
-W.I.P.:
    (8.7.54) * Remove all v.file tests in dealing with ModuleA
             * using self.__mpathT[mpath].hiddenT and self.__hiddenT instead of merged table for hidden status
             * Added mrc:set_display_mode() before commands.
@@ -195,3 +194,4 @@ W.I.P.:
             * Added MRC:pairsForMRC_aliases iterator
             * Removed MRC:__marged_hiddenT, MRC:__marged_forbiddenT and MRC:__mergedAlias2modT
             * Issue #731: Support for env. var. LMOD_SHOW_HIDDEN
+	    * Issue #739: Make tcl files have "spider" as mode matching when Lmod is in spider mode.

@@ -49,6 +49,7 @@ def dbConfigFn(dbname):
   return dbname + "_db.conf"
 
 def main():
+  start    = time.time()
   args     = CmdLineOptions().execute()
   configFn = dbConfigFn(args.dbname)
   lmod     = LMODdb(configFn)
@@ -83,5 +84,8 @@ def main():
   print("\n")
   print(bt.build_tbl())
   print("\n\nNumber of entries: ",num)
+  end  = time.time()
+  runTime = end - start
+  print ("\nTime: ",datetime.timedelta(seconds=runTime))
 
 if ( __name__ == '__main__'): main()

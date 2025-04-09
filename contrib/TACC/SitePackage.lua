@@ -75,13 +75,17 @@ local function l_load_hook(t)
       local i,j, first
       i,j, first, host = uname("%n"):find("([^.]*)%.([^.]*)%.")
       if (not host) then
-         local fullhost = capture("hostname -f")
-         i,j, first, host = fullhost:find("([^.]*)%.([^.]*)%.")
+         local fullhost = capture("hostname -f"):trim()
+         if (fullhost:find("%.")) then
+            i,j, first, host = fullhost:find("([^.]*)%.([^.]*)%.")
+         else
+            host = fullhost
+         end
       end
    end
 
    local currentTime = epoch()
-   local msg         = string.format("user=%s module=%s path=%s host=%s time=%f",
+   local msg         = string.format("user='%s' module='%s' path='%s' host='%s' time='%f'",
                                      user, t.modFullName, t.fn, host or "<unknown_syshost>", currentTime)
    s_msgT[t.modFullName] = msg
    dbg.fini()
@@ -145,7 +149,7 @@ end
 
 local function l_report_loads()
    for k,msg in pairs(s_msgT) do
-      lmod_system_execute("logger -t ModuleUsageTracking -p local0.info " .. msg)      
+      lmod_system_execute("logger -t ModuleUsageTracking -p local0.info " .. msg)
    end
 end
 
