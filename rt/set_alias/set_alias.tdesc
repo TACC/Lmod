@@ -23,15 +23,20 @@ testdescript = {
      remove_generated_lmod_files a b c
 
      touch a b c
-     runLmod --version      # 1
-     runLmod load test1     # 2
-     runLmod load test2     # 3
-     runLmod unload test2   # 4
-     runLmod load test1     # 5
-     runLmod load sfunc     # 6
-     runLmod load alias     # 7
-     runLmod load spack     # 8
-     runLmod show showMe    # 9
+     runLmod --version          # 1
+     runLmod load test1         # 2
+     runLmod load test2         # 3
+     runLmod unload test2       # 4
+     runLmod load test1         # 5
+     runLmod load sfunc         # 6
+     runLmod load alias         # 7
+     runLmod load spack         # 8 
+     runLmod unload spack   # 9
+     runLmod load multiline/3.0 # 9
+     runLmod load multiline/2.0 #10
+     runLmod load multiline/1.0 #11
+     runLmod load multiline/4.0 #12
+     runLmod show showMe        #13
 
      HOME=$ORIG_HOME
 

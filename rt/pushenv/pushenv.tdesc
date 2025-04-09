@@ -66,10 +66,27 @@ testdescript = {
      runLmod unload second    #26
      runBase echo FOO="%$FOO%" BAZ="%$BAZ%"    #27
 
+     #--------------------------------------------------------------
+     # Issue: #745: pushenv("FOO",false) then module refresh
 
+     runLmod purge            #28
+     unsetMT
+     MODULEPATH=$MODULEPATH_ROOT/Core3;  export MODULEPATH
+     export TESTVAR="tryThis"
+     runLmod load tryThis     #29
+     runLmod refresh          #30
 
- 
-
+     #--------------------------------------------------------------
+     # Issue: #367
+     runLmod purge            #31
+     unsetMT
+     MODULEPATH=$MODULEPATH_ROOT/Core4;  export MODULEPATH
+     export PSTART=something
+     export RR=Z
+     runLmod load   A         #32
+     runLmod load   B         #33
+     runLmod unload B         #34
+     runLmod unload A         #35
 
      HOME_ORIG=$HOME
 

@@ -1,0 +1,42 @@
+Notes for EUM Talk at Juelich
+
+* Recent Features of Lmod
+** Updated sh_to_modulefile and source_sh
+*** sh_to_modulefile converts a shell script into a modulefile (one time)
+*** source_sh converts to a module file every time dynamically
+*** Works pretty well: Issue that the shell is run with -eou.
+    This means that the shell script must generate no lines with
+    non-zero status ->  stmt || true
+    This just became available in 2024 with Lmod 8.6+
+    Stolen from Tmod
+** Downstream Conflicts and Dynamic Defaults via modulerc files
+Request from OpenHPC
+** First implemented in Tmod: hide/forbid
+   Request from Spack developers
+** Improvements to Module tracking
+Forced to move DB from an old VM to new VM
+Noticed that users loaded same module multiple times per day
+Only need to know once per day
+10x reduction is amount of data per day
+Also with changing to one table in DB.  TACC only keeps 12 months of data.
+** New to Lmod: Irreversible
+   This means that modulefiles can set env vars or load other modules
+   when unloading
+*** Show examples
+** Decorate a module: Hook: decorate_module
+   Add lua commands to a module
+   This hook is called for every module so your site has to control
+   via paths or module names
+   Good when your site doesn't change the text of the module
+**** Add properties
+**** 
+
+* Will start to have Lmod join Linux foundation and HPSF
+* Looking for others to join supporting Lmod
+  Similarily to EB
+  Free help
+* Mailing list and Github issues/PR
+* Extensive Regression Testing system.
+* Get to travel the world.  (I'm here!)
+
+

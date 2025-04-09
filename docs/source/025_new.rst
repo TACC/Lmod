@@ -4,12 +4,31 @@ New Features in Lmod
 **Updated Method for tracking module usage**
   (Lmod 8.8+) See :ref:`tracking_usage` for more details
 
+**decorate_module**:
+  (Lmod 8.7.59+)  Sites can use this new hook to add text to a
+  modulefile. Note that if this hook exists all modules will call this
+  hook, so sites will typically only want to text to certain modules.
+  Also this added text must be written in Lua.  TCL modulefiles will
+  have already been converted to Lua.
+
+
+**LMOD_FILE_IGNORE_PATTERNS**
+  (Lmod 8.7.56+)  Sites can replace the default value with their own
+  list of file patterns to ignore.
+
+**Updated Tracking Module Usage**
+  (Lmod 8.7.54+) The optional module usage tracking system has been
+  updated.  It now uses Python3 and mysql.connector.python.  The new
+  system also greatly reduces the amount of data stored.  See the
+  updated documentation at :ref:`tracking_usage` and how to convert
+  from old gen 1 format to the new gen 2 database format at
+  :ref:`convert_gen1_gen2-label` 
+
 
 **LMOD_SHOW_HIDDEN**
   (Lmod 8.7.54+) The environment variable **LMOD_SHOW_HIDDEN**
   can be used to control whether hidden modules will be show under
   list, spider, avail.  See :ref:`show_hidden-label` for more details
-
 
 
 **Accessing isVisible status from load hook**

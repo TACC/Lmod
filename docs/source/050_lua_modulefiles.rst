@@ -106,6 +106,9 @@ unset during unloading.
      load all modules. No errors reported if unable to load. Any other
      errors will be reported.
 
+**purge** ():
+     This command will unload all (non-sticky) modules except the
+     one currently being loaded.
 
 **complete** ("shellName","name","args"):
      Bash and tcsh support the complete function.  Note that the
@@ -247,7 +250,7 @@ The entries below describe several useful commands that come with Lmod that can 
 **mode** ():
     Returns the string "load" when a modulefile is being loaded,
     "unload" when unloading, and "spider" when a modulefile is
-    processed builting the spider cache which is used by *module
+    processed building the spider cache which is used by *module
     avail* and *module spider*.
 
 **isloaded** ("NAME"):

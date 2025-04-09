@@ -115,12 +115,6 @@ UNAME_S                   := $(shell uname -s)
 VersionDate               := $(shell cat $(VDateFn))
 MODE                      := @MODE@
 
-ifeq ($(UNAME_S),Darwin)
-  SED      := gsed
-else
-  SED      := sed
-endif
-
 MODE_X := $(shell $(srcdir)/proj_mgmt/convert_mode.sh -x $(MODE))
 MODE_R := $(shell $(srcdir)/proj_mgmt/convert_mode.sh -r $(MODE))
 
@@ -278,7 +272,7 @@ __installMe:
 	   fn=$${bareN%%.in*};                                                      \
 	   ext=$${bareN#*.};                                                        \
 	   : echo "DIRLOC/fn: $(DIRLOC)/$$fn";                                      \
-	   $(SED) -e 's|@PREFIX@|$(prefix)|g'                                       \
+	   sed    -e 's|@PREFIX@|$(prefix)|g'                                       \
 	          -e 's|@LMOD_TOP_DIR@|$(MY_PACKAGE)|g'                             \
 	          -e 's|@path_to_lua@|$(PATH_TO_LUA)|g'                             \
 	          -e 's|@hashsum@|$(PATH_TO_HASHSUM)|g'                             \
@@ -444,7 +438,8 @@ config.status:
 	./config.status --recheck
 
 trailing_blanks_removed:
-	find . -type d \( -path ./rt -o -path ./spec/Spider/h \) -prune -o -name '*.lua' -exec $(SED) -i -e 's/  *$$//' {} \;
+	find . -type d \( -path ./rt -o -path ./spec/Spider/h \) -prune -o -type f -name '*.lua'  -exec sed -i.bak.BAK -e 's/  *$$//' {} \;
+	find . -type d \( -path ./rt -o -path ./spec/Spider/h \) -prune -o -name '*.lua.bak.BAK'  -exec rm {} \;
 
 dist:
 	GIT_BRANCH=`git status | head -n 1 | sed -e 's/^[# ]*On branch //g' -e 's/^[# ]*HEAD detached at//g'`; \

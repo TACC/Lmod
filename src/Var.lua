@@ -113,7 +113,7 @@ local function l_dynamicMP(name, value, totalValue, action)
    mt:updateMPathA(totalValue)
    mt:add_actionA(sn, action, value)
 
-   -- Check to see if there are any currently loaded or pending modules 
+   -- Check to see if there are any currently loaded or pending modules
    -- before looking to rebuild the caches.
    if (not mt:empty()) then
       local cached_loads = cosmic:value("LMOD_CACHED_LOADS")
@@ -489,6 +489,17 @@ end
 
 function M.uncomplete(self)
    self.type      = "complete"
+   self.value     = false
+end
+
+
+function M.export_shell_function(self)
+   self.type      = "export_shell_function"
+   self.value     = true
+end
+
+function M.unset_shell_function(self)
+   self.type      = "export_shell_function"
    self.value     = false
 end
 

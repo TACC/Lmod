@@ -101,20 +101,25 @@ end
 function M.process(self, shellName, ignoreT, resultT)
    dbg.start{"MF_Base:process(shellName, ignoreT, resultT)"}
    local a = {}
-   
+
    -- load oldEnvT and envT environment
    declare("oldEnvT")
    declare("envT")
    l_safe_eval("oldEnvT",resultT["Vars"][1])
    l_safe_eval("envT",   resultT["Vars"][2])
-   
+
    self:processVars(ignoreT, oldEnvT, envT, a)
-   
-   self:processAliases(  shellName, resultT["Aliases"][1],  resultT["Aliases"][2],  a)
 
-   self:processFuncs(    shellName, resultT["Funcs"][1],    resultT["Funcs"][2],    a)
+   self:processAliases(     shellName, resultT["Aliases"][1],     resultT["Aliases"][2],     a)
 
-   self:processComplete( shellName, resultT["Complete"][1], resultT["Complete"][2], a)
+   self:processFuncs(       shellName, resultT["Funcs"][1],       resultT["Funcs"][2],       a)
+
+   self:processComplete(    shellName, resultT["Complete"][1],    resultT["Complete"][2],    a)
+
+   l_safe_eval("oldEnvT",resultT["ExportFuncs"][1])
+   l_safe_eval("envT",   resultT["ExportFuncs"][2])
+
+   self:processExportFuncs( shellName, oldEnvT, envT, a)
 
    dbg.fini("MF_Base:process")
    return a
@@ -143,7 +148,7 @@ local function l_extractAliases(shellName, aliases)
 
    return aliasT
 end
-   
+
 function M.processAliases(self, shellName, old, new, a)
    dbg.start{"MF_Base:processAliases(shellName, old, new, a)"}
 
@@ -180,15 +185,15 @@ local function l_extractFuncs(shellName, funcs)
 
    return funcT
 end
-      
-   
+
+
 function M.processFuncs(self, shellName, old, new, a)
    dbg.start{"MF_Base:processFuncs(shellName, old, new, a)"}
    if (not shellFuncPatt[shellName] ) then return end
 
    local oldFuncT = l_extractFuncs(shellName, old)
    local funcT    = l_extractFuncs(shellName, new)
-   
+
    for k,v in pairsByKeys(funcT) do
       local oldV = oldFuncT[k]
       if (oldV == nil or oldV ~= v) then
@@ -243,6 +248,18 @@ function M.processComplete(self, shellName, old, new, a)
    dbg.fini("MF_Base:processComplete")
 end
 
+function M.processExportFuncs(self, shellName, oldEnvT, envT, a)
+   dbg.start{"MF_Base:processExportFuncs(ignoreT, oldEnvT, envT, a)"}
+
+   for k, v in pairsByKeys(envT) do
+      if (not oldEnvT[k]) then
+         local i, j, var = k:find("BASH_FUNC_([^%%]+)%%")
+         a[#a+1] = self:export_shell_function(var)
+      end
+   end
+
+   dbg.fini("MF_Base:processExportFuncs")
+end
 
 
 function l_indexPath(old, oldA, new, newA)
@@ -312,6 +329,8 @@ function l_splice(a, is, ie)
    return b
 end
 
+
+
 function M.processVars(self, ignoreT, oldEnvT, envT, a)
    dbg.start{"MF_Base:processVars(ignoreT, oldEnvT, envT, a)"}
 
@@ -357,7 +376,7 @@ function M.processVars(self, ignoreT, oldEnvT, envT, a)
             else
                local preA = {}
                local appA = {}
-               
+
                for i=1,#newA do
                   local path = newA[i]
                   if (not oldT[path]) then

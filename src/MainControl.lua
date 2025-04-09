@@ -251,6 +251,7 @@ function M.build(name,mode)
       local MCSpider      = require('MC_Spider')
       local MCComputeHash = require('MC_ComputeHash')
       local MCCheckSyntax = require('MC_CheckSyntax')
+      local MCQuiet       = require('MC_Quiet')
 
       s_nameTbl = {
          ["load"]         = MCLoad,        -- Normal loading of modules
@@ -265,6 +266,8 @@ function M.build(name,mode)
          ["checkSyntax"]  = MCCheckSyntax, -- Check the syntax of a module, load, prereq, etc
                                            -- are ignored.
          ["dependencyCk"] = MCDepCk,       -- Report any missing dependency modules
+         ["quiet"]        = MCQuiet,       -- All operations are NO Ops (A.K.A quiet)
+         
       }
    end
 
@@ -312,16 +315,14 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 -- @param respect If true, then respect the old value.
-function M.setenv(self, name, value, respect)
-   name = (name or ""):trim()
+function M.setenv(self, argT)
+
+   local name    = argT[1] 
+   local value   = argT[2]
+   local respect = argT[3] or false
+
    dbg.start{"MainControl:setenv(\"",name,"\", \"",value,"\", \"",
               respect,"\")"}
-
-   l_check_for_valid_name("setenv",name)
-
-   if (value == nil) then
-      LmodError{msg="e_Missing_Value", func = "setenv", name = name}
-   end
 
    if (respect and getenv(name)) then
       dbg.print{"Respecting old value"}
@@ -338,14 +339,19 @@ function M.setenv(self, name, value, respect)
    dbg.fini("MainControl:setenv")
 end
 
-
 -------------------------------------------------------------------
 -- Set an environment variable.
 -- This function just sets the name with value in the current env.
-function M.setenv_env(self, name, value, respect)
-   name = (name or ""):trim()
+function M.setenv_env(self, argT) --name, value, respect)
+   local name    = argT[1]
+   local value   = argT[2]
+   local respect = argT[3]
+
    dbg.start{"MainControl:setenv_env(\"",name,"\", \"",value,"\", \"",
               respect,"\")"}
+   if (value == false) then
+      value = nil
+   end
    posix.setenv(name, value, true)
    dbg.fini("MainControl:setenv_env")
 end
@@ -357,11 +363,12 @@ end
 -- @param name the environment variable name.
 -- @param value the environment variable value.
 -- @param respect If true, then respect the old value.
-function M.unsetenv(self, name, value, respect)
-   name = (name or ""):trim()
-   dbg.start{"MainControl:unsetenv(\"",name,"\", \"",value,"\")"}
+function M.unsetenv(self, argT)
+   local name    = argT[1]
+   local value   = argT[2]
+   local respect = argT[3] or false
 
-   l_check_for_valid_name("unsetenv",name)
+   dbg.start{"MainControl:unsetenv(\"",name,"\", \"",value,"\")"}
 
    if (respect and getenv(name) ~= value) then
       dbg.print{"Respecting old value"}
@@ -393,19 +400,11 @@ end
 -- @param self A MainControl object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
-function M.pushenv(self, name, value)
-   name = (name or ""):trim()
+function M.pushenv(self, argT)
+   local name    = argT[1]
+   local value   = argT[2]
+
    dbg.start{"MainControl:pushenv(\"",name,"\", \"",value,"\")"}
-
-   l_check_for_valid_name("pushenv",name)
-   ----------------------------------------------------------------
-   -- If name exists in the env and the stack version of the name
-   -- doesn't exist then use the name's value as the initial value
-   -- for "stackName".
-
-   if (value == nil) then
-      LmodError{msg="e_Missing_Value",func = "pushenv", name = name}
-   end
 
    local stackName = l_createStackName(name)
    local v64       = nil
@@ -449,26 +448,25 @@ end
 -- @param self A MainControl object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
-function M.popenv(self, name, value)
-   name = (name or ""):trim()
+function M.popenv(self, argT)
+   local name    = argT[1]
+   local value   = argT[2]
    dbg.start{"MainControl:popenv(\"",name,"\", \"",value,"\")"}
 
-   l_check_for_valid_name("popenv",name)
-
    local stackName = l_createStackName(name)
-   local frameStk = FrameStk:singleton()
-   local varT     = frameStk:varT()
+   local frameStk  = FrameStk:singleton()
+   local varT      = frameStk:varT()
 
    if (varT[stackName] == nil) then
       varT[stackName] = Var:new(stackName)
    end
 
-   
+
    local v64 = varT[stackName]:pop()
    dbg.print{"stackName: ", stackName,", varT[stackName]:expand(): \"",varT[stackName]:expand() ,"\", v64: \"",v64,"\"\n"}
    local v   = nil
    if (v64 == "false") then
-      v = false   
+      v = false
    elseif (v64) then
       v = decode64(v64)
    end
@@ -492,23 +490,19 @@ end
 -- Prepend to a path like variable.
 -- @param self A MainControl object
 -- @param t A table containing { name, value, nodups=v1, priority=v2}
-function M.prepend_path(self, t)
-   dbg.start{"MainControl:prepend_path(t)"}
-   local delim    = t.delim or ":"
-   local name     = t[1]
-   local value    = t[2]
-   local nodups   = not allow_dups( not t.nodups)
-   local priority = (-1)*(t.priority or 0)
+function M.prepend_path(self, argT)
+   local name     = argT[1]
+   local value    = argT[2]
+   local nodups   = not allow_dups( not argT.nodups)
+   local priority = (-1)*(argT.priority or 0)
+   local delim    = argT.delim or ":"
 
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
 
-
    dbg.print{"name:\"",name,"\", value: \"",value,
              "\", delim=\"",delim,"\", nodups=\"",nodups,
              "\", priority=",priority,"\n"}
-
-   l_check_for_valid_name("prepend_path",name)
 
    if (varT[name] == nil) then
       varT[name] = Var:new(name, nil, nodups, delim)
@@ -524,13 +518,14 @@ end
 --------------------------------------------------------------------------
 -- Append to a path like variable.
 -- @param self A MainControl object
--- @param t A table containing { name, value, nodups=v1, priority=v2}
-function M.append_path(self, t)
-   local delim    = t.delim or ":"
-   local name     = t[1]
-   local value    = t[2]
-   local nodups   = not allow_dups( not t.nodups)
-   local priority = t.priority or 0
+-- @param argT A table containing { name, value, nodups=v1, priority=v2}
+function M.append_path(self, argT)
+   local name     = argT[1]
+   local value    = argT[2]
+   local nodups   = not allow_dups( not argT.nodups)
+   local priority = argT.priority or 0
+   local delim    = argT.delim or ":"
+
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
 
@@ -538,8 +533,6 @@ function M.append_path(self, t)
              "\", delim=\"",delim,"\", nodups=\"",nodups,
              "\", priority=",priority,
              "}"}
-
-   l_check_for_valid_name("append_path",name)
 
    -- Do not allow dups on MODULEPATH like env vars.
    nodups = name == ModulePath or nodups
@@ -555,17 +548,18 @@ end
 --------------------------------------------------------------------------
 -- Remove an entry from a path like variable.
 -- @param self A MainControl object
--- @param t A table containing { name, value, nodups=v1, priority=v2, where=v3, force=v4}
-function M.remove_path(self, t)
-   local delim    = t.delim or ":"
-   local name     = t[1]
-   local value    = t[2]
-   local nodups   = not allow_dups( not t.nodups)
-   local priority = t.priority or 0
-   local where    = t.where
+-- @param argT A table containing { name, value, nodups=v1, priority=v2, where=v3, force=v4}
+function M.remove_path(self, argT)
+   local name     = argT[1]
+   local value    = argT[2]
+   local nodups   = not allow_dups( not argT.nodups)
+   local priority = argT.priority or 0
+   local delim    = argT.delim or ":"
+   local where    = argT.where
+   local force    = argT.force
+
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
-   local force    = t.force
 
    dbg.start{"MainControl:remove_path{\"",name,"\", \"",value,
              "\", delim=\"",delim,"\", nodups=",nodups,
@@ -573,8 +567,6 @@ function M.remove_path(self, t)
              ", where=",where,
              ", force=",force,
              "}"}
-
-   l_check_for_valid_name("remove_path",name)
 
    -- Do not allow dups on MODULEPATH like env vars.
    nodups = (name == ModulePath) or nodups
@@ -923,7 +915,7 @@ end
 function M.performDependencyCk(self)
    if (not s_performDepCk) then return end
    dbg.start{"MainControl:performDependencyCk()"}
-   
+
    local hub = Hub:singleton()
    hub:dependencyCk()
    self:reportMissingDepModules()
@@ -1045,7 +1037,7 @@ end
 --   if no module loadable error.
 --
 
-function M.depends_on_any(self, mA) 
+function M.depends_on_any(self, mA)
    if (dbg.active()) then
       local s                                  = mAList(mA)
       dbg.start{"MainControl:depends_on_any(mA = {"..s.."})"}
@@ -1064,9 +1056,9 @@ function M.depends_on_any(self, mA)
       elseif (mname:sn()) then
          mB[#mB + 1] = mname
       end
-   end 
+   end
 
-   if (next(mB) == nil) then 
+   if (next(mB) == nil) then
       local s = mAList(mA)
       LmodError{msg="e_Failed_depends_any", module_list=s}
    end
@@ -1078,9 +1070,9 @@ function M.depends_on_any(self, mA)
 
    l_registerUserLoads(mC)
    local a = self:load(mC)
-   
+
    self:registerDependencyCk()
-   
+
    dbg.fini("MainControl:depends_on_any")
    return a
 end
@@ -1142,7 +1134,7 @@ function M.forgo_any(self,mA)
          local sn    = mname:sn()
          if (not sn) then break end
          if (child_sn ~= sn) then break end
-         
+
          ------------------------------------------------------------
          -- if here then we have found the only depends_on_any module
          -- that we "loaded". So decrement ref count and unload when
@@ -1396,7 +1388,7 @@ function M.removeConflict(self, mA)
    if (dsConflicts == "yes" ) then
       mt:removeConflicts(frameStk:mname())
    end
-   
+
    dbg.fini("MainControl:removeConflict")
 end
 
@@ -1688,7 +1680,7 @@ function M.purge(self,t)
 
    dbg.fini("MainControl:Purge")
 end
-   
+
 
 
 
@@ -1735,7 +1727,7 @@ function M.source_sh(self, shellName, script)
       if (not success) then LmodError(msg) end
       mt:add_sh2mf_cmds(sn, script, mcmdA)
    end
- 
+
    local whole = concatTbl(mcmdA,"\n")
    dbg.print{"whole:\n ",whole,"\n"}
    local status, msg = sandbox_run(whole)
@@ -1766,9 +1758,9 @@ function M.complete(self, shellName, name, args)
       dbg.fini("MainControl:complete")
       return
    end
-   
+
    local varT = FrameStk:singleton():varT()
-   local n    = wrap_complete(name)
+   local n    = wrap_kind("complete", name)
    if (varT[n] == nil) then
       varT[n] = Var:new(n)
    end
@@ -1783,7 +1775,7 @@ function M.uncomplete(self, shellName, name, args)
       return
    end
    local varT = FrameStk:singleton():varT()
-   local n    = wrap_complete(name)
+   local n    = wrap_kind("complete", name)
    if (varT[n] == nil) then
       varT[n] = Var:new(n)
    end
@@ -1792,7 +1784,27 @@ function M.uncomplete(self, shellName, name, args)
    dbg.fini("MainControl:uncomplete")
 end
 
+function M.export_shell_function(self, funcName)
+   dbg.start{"MainControl:export_shell_function(funcName: \"",funcName,"\")"}
+   local varT = FrameStk:singleton():varT()
+   local n    = wrap_kind("export_shell_function", funcName)
+   if (varT[n] == nil) then
+      varT[n] = Var:new(n)
+   end
+   varT[n]:export_shell_function()
+   dbg.fini("MainControl:export_shell_function")
+end
 
+function M.unexport_shell_function(self,funcName)
+   dbg.start{"MainControl:unexport_shell_function(funcName: \"",funcName,"\")"}
+   local varT = FrameStk:singleton():varT()
+   local n    = wrap_kind("export_shell_function", funcName)
+   if (varT[n] == nil) then
+      varT[n] = Var:new(n)
+   end
+   varT[n]:unset_shell_function()
+   dbg.fini("MainControl:unexport_shell_function")
+end
 
 function M.color_banner(self,color)
    if (quiet()) then
@@ -1857,8 +1869,8 @@ function M.userInGroups(self, ...)
       return true
    end
    return false
-end   
-   
+end
+
 function M.missing_module(self,userName, showName)
    s_missingModuleT[userName] = showName
 end

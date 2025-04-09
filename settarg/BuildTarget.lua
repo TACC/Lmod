@@ -509,7 +509,7 @@ function M.exec(shell)
    end
 
    dbg.print{"3. envVarsTbl.TARG_OS: ",envVarsTbl.TARG_OS,"\n"}
-   
+
    stt:registerVars(envVarsTbl)
    local old_stt = getSTT() or ""
    local new_stt = stt:serializeTbl()

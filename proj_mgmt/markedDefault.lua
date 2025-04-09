@@ -34,7 +34,7 @@ local function l_marked_default(t, fullName, weight)
 
    l_marked_default_helper(1,n,a,t,weight)
    return t
-end      
+end
 
 local function l_find_all_sn(sn, t)
    dbg.print{"\nl_find_all_sn(sn: \"",sn,"\", t)"}
@@ -47,9 +47,9 @@ local function l_find_all_sn(sn, t)
    end
 
    if (n < 1) then
-      print("not found")   
+      print("not found")
       return
-   end      
+   end
 
    local found = false
    for i = 1, n do
@@ -61,11 +61,11 @@ local function l_find_all_sn(sn, t)
    end
 
    if (not found) then
-      print("not found")   
+      print("not found")
       return
    end
    dbg.print{"\n"}
-   dbg.printT("t",t)   
+   dbg.printT("t",t)
 
    local a = {}
    for k, v in pairs(t) do
@@ -74,7 +74,7 @@ local function l_find_all_sn(sn, t)
    dbg.print{"\n"}
    dbg.printT("a",a)
 end
-   
+
 function find_all_versions(k,t,a,b)
    --dbg.start{"find_all_versions(k,t,a,b)"}
    b[#b+1] = k
@@ -91,7 +91,7 @@ function find_all_versions(k,t,a,b)
    end
    --dbg.fini("find_all_versions")
 end
-   
+
 function main()
    local fullA = {{"compiler/intel/x86/24.1","s"},
                   {"compiler/intel/x86/22.1","s"},
@@ -99,17 +99,17 @@ function main()
                   {"compiler/intel/x86/blue/24.1","s"},
                   {"compiler/intel/arm64/22.1","s"},
                   {"compiler/gcc/14.1",      "s"},
-                  {"gcc/12.1",               "s"},                  
-                  {"gcc/14.1",               "s"},                  
-                  {"gcc/14.1",               "s"},                  
-                  {"gcc/14.1",               "u"},                  
-                  {"gcc/13.1",               "u"},                  
-                  {"intel/24.1",             "s"},                  
-                  {"intel/22.1",             "s"},                  
+                  {"gcc/12.1",               "s"},
+                  {"gcc/14.1",               "s"},
+                  {"gcc/14.1",               "s"},
+                  {"gcc/14.1",               "u"},
+                  {"gcc/13.1",               "u"},
+                  {"intel/24.1",             "s"},
+                  {"intel/22.1",             "s"},
    }
 
    dbg:activateDebug()
-   
+
    local t = s_fullNameDfltT
 
    for i = 1,#fullA do

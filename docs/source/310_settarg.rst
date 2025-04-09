@@ -112,10 +112,10 @@ settarg changes your path to include $TARG by removing the old value
 of $TARG and replacing it with the new value of $TARG.  This way you
 can set $TARG, build, then run the new executable.
 
-Settarg integration witn prompt commands
+Settarg integration with prompt commands
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Tbe bash shell support an environment variable called "PROMPT_COMMAND".
+The bash shell support an environment variable called "PROMPT_COMMAND".
 If this variable is set to the name of a shell function, then for each
 new shell prompt, this command is run.  Similarly, zsh will run the
 "precmd" on every new prompt.  By default the settarg module defines a

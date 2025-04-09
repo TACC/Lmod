@@ -79,7 +79,7 @@ return {
        ml s  -> ml save
        ml sl -> ml savelist
        ml sw -> ml swap
-   
+
    Loading Modules named "r" or "spider" or other module commands
    --------------------------------------------------------------
 
@@ -114,6 +114,7 @@ return {
      e_BrokenQ             = "Internal error: broken module Q\n",
      e_Conflict            = "Cannot load module \"%{name}\" because these module(s) are loaded:\n   %{module_list}\n",
      e_Conflict_Downstream = "Cannot load module \"%{userName}\" because this module set a conflict: \"%{fullNameUpstream}\"\n",
+     e_Delim               = "A bad delim has been given, delim must be a string: \"%{delim}\" for command: %{cmdName} in file: %{fn}",
      e_Dofile_not_supported = "The dofile() function is not supported.  Use require() or loadfile() or loadstring()",
      e_Execute_Msg         = [==[Syntax error in file: %{fn}
 with command: "execute".
@@ -147,6 +148,13 @@ Please check the spelling or version number. Also try "module spider ..."
 Also make sure that all modulefiles written in TCL start with the string #%Module
 ]==],
 
+     e_Failed_2_Find_w_Access = [==[Failed to find the following module(s):  "%{quote_comma_list}" in your MODULEPATH
+Try:
+
+    $ module spider %{module_list}
+
+to see if the module(s) are available across all compilers and MPI implementations.
+]==],
      e_Family_Conflict     = [==[You can only have one %{name} module loaded at a time.
 You already have %{oldName} loaded.
 To correct the situation, please execute the following command:
@@ -177,7 +185,7 @@ please execute the command \" clearMT\" and reload your modules.
    $ module swap %{oldFullName} %{newFullName}
 
 Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOSWAP to "no" to re-enable same name autoswapping.
-]==],  -- 
+]==],  --
      e_No_Hashsum          = "Unable to find HashSum program (sha1sum, shasum, md5sum or md5).",
      e_No_Matching_Mods    = "No matching modules found.\n",
      e_No_Mod_Entry        = "%{routine}: Did not find module entry: \"%{name}\". This should not happen!\n",
@@ -188,6 +196,7 @@ Alternatively, you can set the environment variable LMOD_DISABLE_SAME_NAME_AUTOS
      e_Newer_posix_reqd    = "The site's luaposix is too old to use before or after modifiers to hide modules.  Please upgrade your sites luaposix.\n",
      e_Prereq              = "Cannot load module \"%{name}\" without these module(s) loaded:\n   %{module_list}\n",
      e_Prereq_Any          = "Cannot load module \"%{name}\". At least one of these module(s) must be loaded:\n   %{module_list}\n",
+     e_Prioity             = "A bad priority has been given, priority must be a number: \"%{priority}\" for command: %{cmdName} in file: %{fn}",
      e_RequireFullName     = [==[Module "%{sn}" must be loaded with the version specified, e.g. "module load %{fullName}". Use
 
    $ module spider %{sn}
@@ -210,12 +219,21 @@ See https://lmod.readthedocs.io/en/latest/260_sh_to_modulefile.html for details.
      e_Unknown_key         = "This is an unknown key: \"%{key}\" for the %{func} function",
      e_Unknown_v_type      = "This is an unknown value type: \"%{tkind}\".  The value type should be: \"%{kind}\" for key: \"%{key}\" for the %{func} function",
      e_Unknown_value       = "This is an unknown value: \"%{value} \". for key: \"%{key}\" in the %{func} function",
+     e_bad_arg             = "Found arg = \"%{arg}\", expected arg to be of type: %{expected} in file: %{fn} from command: %{cmdName}",
      e_coll_corrupt        = "The module collection file is corrupt. Please remove: %{fn}\n",
      e_dbT_sn_fail         = "dbT[sn] failed for sn: %{sn}\n",
      e_missing_table       = "sandbox_registration: The argument passed is: \"%{kind}\". It should be a table.",
      e_setStandardPaths    = "Unknown Key: \"%{key}\" in setStandardPaths.\n",
+     e_wrong_num_args      = "Wrong number of arguments (n: %{n}) for %{cmdName} in file: %{fn}",
 
-     
+     -- Add new error messages for mode selector
+     e_Mode_Not_Set        = [==[Syntax error in file: %{fn}
+ with command: %{cmdName}, mode must be specified when using mode selector.]==],
+     e_Invalid_Mode        = [==[Syntax error in file: %{fn}
+ with command: %{cmdName}, invalid mode "%{mode}". Valid modes are: "load" and "unload".]==],
+     e_Forbidden_Env       = "MODULEPATH variable cannot be mode selected.",
+     e_Invalid_Func_Key    = "Invalid key detected in function %{cmdName}: %{detail}.",
+
      --------------------------------------------------------------------------
      -- LmodMessages
      --------------------------------------------------------------------------
@@ -251,7 +269,7 @@ To search the contents of modules for matching words execute:
 
   $   module keyword %{s}
 ]==], --
-     m_Module_Msgs_close   = "%{border}",
+     m_Module_Msgs_close   = "%{border}\n\n",
      m_Other_matches       = "\n     Other possible modules matches:\n        %{bb}\n",
      m_Other_possible      = [==[
      Other possible modules matches:
@@ -317,18 +335,11 @@ No change in modules loaded.
 ]==],
      w_Broken_FullName     = "Badly formed module-version line: module-name must be fully qualified: %{fullName} is not.\n",
      w_Empty_Coll          = "You have no modules loaded because the collection \"%{collectionName}\" is empty!\n",
-     w_Failed_2_Find       = [==[Failed to find the following module(s):  "%{quote_comma_list}" in your MODULEPATH
-Try:
-
-    $ module spider %{module_list}
-
-to see if the module(s) are available across all compilers and MPI implementations.
-]==],
      w_MissingModules      = [==[
 %{border}
 The following dependent module(s) are not currently loaded: %{missing}
 %{border}
-]==], 
+]==],
      w_MPATH_Coll          = "The system MODULEPATH has changed: please rebuild your saved collection.\n",
      w_Mods_Not_Loaded     = "The following modules were not loaded: %{module_list}\n\n",
      w_Nearly_Forbidden    = "Access will be denied to this module starting %{after}\n",
@@ -511,5 +522,6 @@ The following modules match your search criteria: "%{module_list}"
      namedCollList  = "Named collection list %{msgHdr}:\n",
      noModsLoaded   = "No modules loaded\n",
      specific_hlp   = "Module Specific Help for \"%{fullName}\"",
+
    }
 }

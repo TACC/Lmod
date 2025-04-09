@@ -132,7 +132,7 @@ local function l_convertStr2TM(tStr, tm, is_dst)
    if (not tStr:find("T")) then
       tStr = tStr .. "T00:00"
    end
-   local d = posix.strptime(tStr,"%Y-%m-%dT%H:%M")   
+   local d = posix.strptime(tStr,"%Y-%m-%dT%H:%M")
    for k,v in pairs(d) do
       tm[k] = v
    end
@@ -245,7 +245,7 @@ local function l_build_reverse_maps_from_v2mT(self, mpath, v2mT)
    local m2vT = {}
    local f2aT = {}
    local mpathA = {mpath}
-      
+
    dbg.printT("RTM v2mT",v2mT)
 
    for k, v in pairs(v2mT) do
@@ -272,12 +272,12 @@ local function l_build_reverse_maps_from_v2mT(self, mpath, v2mT)
    dbg.fini("MRC:l_build_reverse_maps_from_v2mT")
    return m2vT, f2aT
 end
-   
+
 
 local function l_build_m2vT_f2aT(self, mpath)
    dbg.start{"l_build_m2vT_f2aT(self, mpath)"}
    if (not self.__mod2versionT) then
-      self.__mod2versionT, self.__full2aliasesT = 
+      self.__mod2versionT, self.__full2aliasesT =
          l_build_reverse_maps_from_v2mT(self, mpath, self.__version2modT)
    end
 
@@ -387,7 +387,7 @@ function M.search_mapT(self, tbl_kind, mpath, key)
    local ans = self["__"..tbl_kind][key] or self.__mpathT[mpath][tbl_kind][key]
    dbg.fini("MRC:search_mapT")
    return ans
-end   
+end
 
 local function l_store_mpathT(self, mpath, tblName, key, value)
    if ( not self.__mpathT[mpath] ) then
@@ -487,7 +487,7 @@ local function l_find_resultT(self, tbl_kind, replaceT, mpath, wantedA)
    local Tkind   = "__" .. tbl_kind
    local tt      = {}
    local ttt     = self[Tkind] or {}
-   
+
    if (self.__mpathT[mpath] and self.__mpathT[mpath][tbl_kind]) then
       tt  = self.__mpathT[mpath][tbl_kind]
    end
@@ -510,12 +510,12 @@ local function l_find_resultT(self, tbl_kind, replaceT, mpath, wantedA)
          end
          dbg.printT("resultT",resultT)
          dbg.fini("MRC:l_find_resultT")
-         return resultT         
+         return resultT
       end
    end
    dbg.fini("MRC:l_find_resultT (false)")
    return resultT
-end   
+end
 
 local function l_findHiddenState(self, modT)
    dbg.start{"l_findHiddenState(self, modT)"}
@@ -633,7 +633,7 @@ local function l_check_forbidden_modifiers(fullName, resultT)
 
    if (l_check_user_groups(resultT)) then
       local nearlyDays = cosmic:value("LMOD_NEARLY_FORBIDDEN_DAYS")
-      local timeFlag   = l_check_time_range(resultT, nearlyDays) 
+      local timeFlag   = l_check_time_range(resultT, nearlyDays)
       forbiddenState   = time2FstateT[timeFlag]
    end
 
@@ -647,7 +647,7 @@ local function l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden
    local hide_active   = (l_check_time_range(resultT, 0) == "inRange" and
                           l_check_user_groups(resultT))
 
-   
+
    if (not hide_active) then
       dbg.fini("l_check_hidden_modifiers")
       --     isVisible, hidden_loaded, kind,     count
@@ -946,7 +946,7 @@ local s_validT = {
    spider = "spider",
    list   = "list",
    avail  = "avail",
-}   
+}
 
 function M.sane_show_hidden(self)
    local showH = (cosmic:value("LMOD_SHOW_HIDDEN") or "no"):lower()
@@ -967,6 +967,6 @@ function M.show_hidden()
    assert(s_displayMode, "display mode not set!")
    return s_Show_HiddenT["all"] or s_Show_HiddenT[s_displayMode]
 end
-                             
+
 
 return M

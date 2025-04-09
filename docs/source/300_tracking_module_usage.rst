@@ -14,7 +14,7 @@ Tracking Module Usage
     remove older data.
 
     **NOTE**
-    Please use the programs describe here are in
+    Please use the programs describe here that are found in
     contrib/tracking_module_usage/gen_2 
 
 
@@ -252,7 +252,7 @@ d) Create the database by running the createDB.py program.::
 
       $ ./createDB.py
 
-   Note that createDB.py support --drop to remove the old databae.     
+   Note that createDB.py support --drop to remove the old database.     
 
 
 Step 7

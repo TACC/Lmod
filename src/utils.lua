@@ -89,8 +89,8 @@ end
 
 
 local function l_prequire(m)
-   local ok, value = pcall(require, m) 
-   if (not ok) then 
+   local ok, value = pcall(require, m)
+   if (not ok) then
       return nil, value
    end
   return value
@@ -293,7 +293,7 @@ function colorizePropA(style, mt, modT, mrc, propT, legendT, forbiddenT)
       moduleName = colorize("forbid",modT.fullName)
       pA[#pA+1]  = F
       legendT[F] = i18n(msg)
-   end      
+   end
 
    if (forbiddenT.forbiddenState == "nearly") then
       local i18n  = require("i18n")
@@ -302,7 +302,7 @@ function colorizePropA(style, mt, modT, mrc, propT, legendT, forbiddenT)
       moduleName  = colorize("nearly",modT.fullName)
       pA[#pA+1]   = NF
       legendT[NF] = i18n(msg)
-   end      
+   end
 
    local resultA      = { moduleName }
    for kk,vv in pairsByKeys(propDisplayT) do
@@ -418,9 +418,8 @@ function readAdmin()
 
       for v in whole:split("\n") do
          repeat
-            v = v:gsub("%s+$","")
-
-            if (v:sub(1,1) == "#") then
+            v = v:gsub("^%s+$","")
+            if (v:find("^%s*#")) then
                -- ignore this comment line
                break
 
@@ -624,10 +623,10 @@ function path2pathA(path, delim, clearDoubleSlash)
    -- If path is /sw1/man::/sw2/man then
    -- keep the double delim's
    -- However convert /sw1/man:::/sw2/man to
-   --                 /sw1/man::/sw2/man 
+   --                 /sw1/man::/sw2/man
 
    local delimPatt = delim .. delim .. "+";
-   local delimStr  = delim .. delim 
+   local delimStr  = delim .. delim
    path = path:gsub(delimPatt,delimStr)
 
    local pathA = {}
@@ -707,7 +706,7 @@ function sanizatizeTbl(rplmntA, inT, outT)
       local p = rplmntA[i]
       replaceA[i] = { p[1]:escape(), p[2]}
    end
-   
+
    l_sanizatizeTbl(replaceA, inT, outT)
 end
 
@@ -787,44 +786,18 @@ end
 --------------------------------------------------------------------------
 -- This routine converts a command into a string.  This is used by MC_Show
 -- @param name Input command name.
-function ShowCmdStr(name, ...)
+function ShowCmdStr(name, argT)
    dbg.start{"ShowCmdStr(",name,", ...)"}
    local a       = {}
-   local argA    = pack(...)
-   local n       = argA.n
-   local t       = argA
+   local n       = argT.n
    local hasKeys = false
    local left    = "("
    local right   = ")\n"
-   if (argA.n == 1 and type(argA[1]) == "table") then
-      t       = argA[1]
-      n       = #t
-      hasKeys = true
-   end
    for i = 1, n do
-      local s = l_arg2str(t[i])
+      local s = l_arg2str(argT[i])
       if (s ~= nil) then
          a[#a + 1] = s
       end
-   end
-
-   if (hasKeys) then
-      hasKeys = false
-
-      for k,v in pairs(t) do
-         if (type(k) ~= "number") then
-            local strV = tostring(v)
-            if (s_defaultsT[k] ~= strV) then
-               hasKeys = true
-               a[#a+1] = k.."="..l_arg2str(v)
-            end
-         end
-      end
-   end
-
-   if (hasKeys) then
-      left    = "{"
-      right   = "}\n"
    end
 
    local b = {}
@@ -835,6 +808,29 @@ function ShowCmdStr(name, ...)
    b[#b+1] = right
    dbg.fini("ShowCmdStr")
    return concatTbl(b,"")
+end
+
+--------------------------------------------------------------------------
+-- This routine formats table-style module commands to match the modulefile format
+-- @param name The command name (e.g. "setenv")
+-- @param t The table of arguments
+function ShowCmdTbl(name, argT)
+   dbg.start{"ShowCmdTbl(",name,", argT)"}
+   
+   local ignoreKeysT = { n = true, kind = true }
+   if (argT.modeA and next(argT.modeA) ~= nil and #argT.modeA  == 1 and argT.modeA[1] == "normal") then
+      ignoreKeysT.modeA = true
+   end
+
+
+   local s = name .. serializeTbl{value=argT, ignoreKeysT = ignoreKeysT, dsplyNum = "string", tight = "tight"}
+   local a = {}
+   a[#a + 1] = s_indentString
+   a[#a + 1] = s
+   a[#a + 1] = "\n"
+   
+   dbg.fini("ShowCmdTbl")
+   return concatTbl(a,"")
 end
 
 --------------------------------------------------------------------------
@@ -850,7 +846,7 @@ function ShowHelpStr(...)
          a[#a + 1] = line
          a[#a + 1] = "\n" .. s_indentString
       end
-      a[#a] = "]],[[\n" .. s_indentString 
+      a[#a] = "]],[[\n" .. s_indentString
    end
    a[#a] = "]])\n"
    dbg.fini("ShowHelpStr")
@@ -885,7 +881,7 @@ function decorateModule(name, resultT, forbiddenT)
          }
       end
    end
-   
+
    local fT = forbiddenT
    if (not forbiddenT or next(forbiddenT) == nil) then
       fT = s_decoyT
@@ -897,7 +893,7 @@ function decorateModule(name, resultT, forbiddenT)
    a[#a+1] = s_decorateT[fT.forbiddenState]
    return concatTbl(a,"")
 end
-   
+
 --------------------------------------------------------------------------
 -- Unique string that combines the current time/date
 -- with a uuid id string.
@@ -1000,7 +996,7 @@ local function l_restoreEnv(oldEnvT, newEnvT)
       setenv_posix(k,v or nil, true)
    end
    dbg.fini("l_restoreEnv")
-end   
+end
 
 
 local function l_runTCLprog(TCLprog, tcl_args)
@@ -1137,7 +1133,7 @@ end
 declare("QuarantineT")
 
 local function l_build_quarantineT()
-   
+
    QuarantineT = {}
    if (LMOD_QUARANTINE_VARS) then
       local qA = path2pathA(LMOD_QUARANTINE_VARS)
@@ -1170,9 +1166,9 @@ function reset_env()
    s_clrEnvT = {}
    s_envT    = {}
 end
-      
+
 ------------------------------------------------------------
--- Initialize Lmod 
+-- Initialize Lmod
 
 function initialize_lmod()
    -- Push Lmod version into environment
@@ -1199,7 +1195,7 @@ function initialize_lmod()
    cosmic:set_key("lmod_cfg")
    build_i18n_messages()
    l_build_runTCLprog()
-   l_build_accept_function()   
+   l_build_accept_function()
    l_build_allow_dups_function()
    l_build_prepend_order_function()
    if (not QuarantineT) then
@@ -1254,9 +1250,9 @@ function tracing_msg(msgA)
 end
 
 function dynamic_shell(shellNm)
-   local BaseShell = require("BaseShell") 
+   local BaseShell = require("BaseShell")
    local success   = false
-   
+
    if (shellNm ~= "shell") then
       if (BaseShell.isValid(shellNm)) then
          -- Trust a valid shell and report the shell name is valid and return
@@ -1286,7 +1282,7 @@ function dynamic_shell(shellNm)
          return shellNm, success
       end
    end
-   
+
    local ps_cmd = "@ps@"
    if ( ps_cmd:sub(1,1) == "@" ) then
       ps_cmd = "ps"
@@ -1314,10 +1310,10 @@ function locatePkg(pkg)
    return result
 end
 
-function wrap_complete(name)
-   return "complete<" .. name .. ">"
+function wrap_kind(kind, name)
+   return kind .. "<" .. name .. ">"
 end
-function unwrap_complete(name)
-   local i,j,n = name:find("complete<([^<]*)>")
+function unwrap_kind(kind, name)
+   local i,j,n = name:find(kind .. "<([^<]*)>")
    return n
 end

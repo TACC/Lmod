@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/sh
 # -*- shell-script -*-
 
 arg="$1"

@@ -117,7 +117,7 @@ Using Your Package Manager for Ubuntu or Debian systems
 For modern debian and debian derivatives, you can get the necessary
 dependencies by executing the following commands.  Note that for this
 to work you may need to repair your /etc/apt/sources.list.  Check to
-see if your sources.list file as uncommmented "deb-src" lines.  Once
+see if your sources.list file as uncommented "deb-src" lines.  Once
 this is correct, please execute the following lines::
 
     $ sudo apt update

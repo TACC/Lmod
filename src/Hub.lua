@@ -158,11 +158,11 @@ function M.access(self, ...)
 
 
    if (#a > 0) then
-      LmodWarning{msg="w_Failed_2_Find",quote_comma_list=concatTbl(a,"\", \""),
-                             module_list=concatTbl(a," ")}
+      local report = quiet() and LmodWarning or LmodError
+      report{msg="e_Failed_2_Find_w_Access",quote_comma_list=concatTbl(a,"\", \""),
+             module_list=concatTbl(a," ")}
    end
-   dbg.fini("Hub:access")
-end
+   dbg.fini("Hub:access")end
 
 --------------------------------------------------------------------------
 -- This function marks a module name as loaded and saves
@@ -570,7 +570,7 @@ function M.unload(self,mA)
             mt = frameStk:mt()
             mt:remove(sn)
             --l_registerUnloaded(fullName, fn)
-            hook.apply("unload",{fn = mname:fn(), modFullName = mname:fullName()})
+            hook.apply("unload",{fn = mname:fn(), modFullName = mname:fullName(), mname = mname})
          end
          frameStk:pop()
          a[#a+1] = status
@@ -993,7 +993,7 @@ function M.overview(self,argA)
       return a
    end
 
-   
+
 
    local use_cache   = false
    local moduleA     = ModuleA:singleton{spider_cache=use_cache}
@@ -1290,7 +1290,7 @@ function M.avail(self, argA)
    if (optionTbl.terse or optionTbl.terseShowExtensions) then
       --------------------------------------------------
       -- Terse output
-      self:terse_avail(mpathA, availA, searchA, showSN, defaultOnly, 
+      self:terse_avail(mpathA, availA, searchA, showSN, defaultOnly,
                        defaultT, optionTbl.terseShowExtensions, a)
 
       dbg.fini("Hub:avail")

@@ -44,6 +44,8 @@ FOLLOW_READLINK ()
 
 ERR_MSG=""
 FOUND_ERROR=
+SRCDIR=$( cd $srcdir; pwd)
+PATH_TO_SRC=$SRCDIR
 
 AC_SUBST(DUPLICATE_PATHS)
 AC_ARG_WITH(duplicatePaths,
@@ -678,7 +680,7 @@ AC_SUBST(PATH_TO_LUA)
 AC_ARG_WITH(lua,
     AS_HELP_STRING([--with-lua=ans],[absolute path to the lua interpreter to use [[lua]]]),
     PATH_TO_LUA="$withval"
-    if test ${PATH_TO_LUA:0:1} != '/' ; then
+    if test $(printf %.1s "$PATH_TO_LUA") != '/' ; then
       echo 
       echo "ERROR: Path to lua must be absolute!"
       exit 1
@@ -695,7 +697,7 @@ AC_SUBST(PATH_TO_LUAC)
 AC_ARG_WITH(luac,
     AS_HELP_STRING([--with-luac=ans],[absolute path to the luac interpreter to use [[luac]]]),
     PATH_TO_LUAC="$withval"
-    if test ${PATH_TO_LUAC:0:1} != '/' ; then
+    if test $(printf %.1s "$PATH_TO_LUAC") != '/' ; then
       echo 
       echo "ERROR: Path to luac must be absolute"
       exit 1
@@ -726,6 +728,26 @@ if test "$ALLOW_TCL_MFILES" = no ; then
   FAST_TCL_INTERP=no
 fi
 
+AC_SUBST(PATH_TO_TCLSH)
+AC_PATH_PROGS(PATH_TO_TCLSH, [tclsh9.0] [tclsh9] [tclsh], UNKNOWN_TCLSH)
+if test "$PATH_TO_TCLSH" = "UNKNOWN_TCLSH" -a "$ALLOW_TCL_MFILES" = yes; then
+  echo
+  echo "The tclsh program must be in your path. Quitting!"
+  echo
+  rm -f makefile
+  exit 1
+fi
+
+TCL_VERSION=`$PATH_TO_TCLSH $SRCDIR/proj_mgmt/tcl_version_string.tcl`
+if test $TCL_VERSION -ge 9000000; then
+  FAST_TCL_INTERP=no
+fi
+
+if test -z "$TCL_PKG_CONFIG_DIR" ; then
+  TCL_PKG_CONFIG_DIR=`$SRCDIR/proj_mgmt/find_tcl_pc.sh $PATH_TO_TCLSH`
+fi
+
+
 if test "$FAST_TCL_INTERP" = yes ; then
    OS=$(uname -s)
    AC_PATH_PROG(pkgConfig, pkg-config, "UNKNOWN_PKG_CONFIG")
@@ -748,9 +770,9 @@ if test "$FAST_TCL_INTERP" = yes ; then
       DIR=$(xcrun --show-sdk-path)
       TCL_INCLUDE="-I${DIR}/usr/include"
    else
-      for i in "" tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
-         if test -f /usr/include/$i/tcl.h ; then
-            TCL_INCLUDE="-I/usr/include/$i"
+      for i in /usr/include /usr/include/tcl /usr/include/tcl9* /usr/include/tcl8*  ; do
+         if test -f $i/tcl.h ; then
+            TCL_INCLUDE="-I$i"
             break;
          fi
       done
@@ -800,8 +822,6 @@ AC_SUBST(SYS_LD_PRELOAD)
 SYS_LD_PRELOAD=$LD_PRELOAD
 
 AC_SUBST(PATH_TO_SRC)
-SRCDIR=$( cd $srcdir; pwd)
-PATH_TO_SRC=$SRCDIR
 
 ##### UTILS -- start
 
@@ -814,9 +834,8 @@ AC_SUBST(PATH_TO_LS)
 AC_SUBST(PATH_TO_GIT)
 AC_SUBST(PATH_TO_HASHSUM)
 AC_SUBST(PATH_TO_PAGER)
-AC_SUBST(PATH_TO_TCLSH)
 
-if test $MODE == "user_default" ; then
+if test $MODE = "user_default" ; then
   mode=0755
   EXEC_BITS=$(( 0111 & $mode ));
   if test $EXEC_BITS = 0; then
@@ -894,14 +913,6 @@ elif test "$PATH_TO_HASHSUM" = "UNKNOWN_HASHSUM" ; then
   exit 1
 fi
 
-AC_PATH_PROG(PATH_TO_TCLSH, tclsh, UNKNOWN_TCLSH)
-if test "$PATH_TO_TCLSH" = "UNKNOWN_TCLSH" -a "$ALLOW_TCL_MFILES" = yes; then
-  echo
-  echo "The tclsh program must be in your path. Quitting!"
-  echo
-  rm -f makefile
-  exit 1
-fi
 AC_PATH_PROGS(PATH_TO_TR, [gtr] [tr],"")
 AC_PATH_PROGS(PATH_TO_LS, [gls] [ls], "")
 
@@ -909,14 +920,14 @@ AC_PATH_PROGS(PATH_TO_LS, [gls] [ls], "")
 
 ##### LUA configuration -- start
 
-if ! command -v $PATH_TO_LUA &>/dev/null ; then
+if ! (command -v $PATH_TO_LUA &>/dev/null) ; then
   echo 'The program "'$PATH_TO_LUA'" must be in your path'
   rm -f makefile
   exit 1
 fi
 
 if test "${LUA_SUFFIX}" != no ; then
-   if test "${PATH_TO_LUA:0:1}" = '/' -o "${PATH_TO_LUAC:0:1}" = '/'; then
+   if test $(printf %.1s "$PATH_TO_LUA") = '/' -o $(printf %.1s "$PATH_TO_LUA") = '/'; then
       echo "Neither --with-lua= nor --with-luac= can be used with --with-luaSuffix="
       rm -f makefile
       exit 1
@@ -926,10 +937,10 @@ if test "${LUA_SUFFIX}" != no ; then
    echo "1) PATH_TO_LUA: $PATH_TO_LUA"
 else   
    mismatch=
-   if test "${PATH_TO_LUA:0:1}" = '/' -a "${PATH_TO_LUAC:0:1}" != '/'; then
+   if test $(printf %.1s "$PATH_TO_LUA") = '/' -a $(printf %.1s "$PATH_TO_LUA") != '/'; then
       mismatch="true"
    fi
-   if test "${PATH_TO_LUA:0:1}" != '/' -a "${PATH_TO_LUAC:0:1}" = '/'; then
+   if test $(printf %.1s "$PATH_TO_LUA") != '/' -a $(printf %.1s "$PATH_TO_LUA") = '/'; then
       mismatch="true"
    fi
    if test "$mismatch" = true ; then
@@ -939,24 +950,24 @@ else
    fi   
 fi
 
-if ! command -v $PATH_TO_LUA &>/dev/null ; then
+if ! (command -v $PATH_TO_LUA &>/dev/null) ; then
   echo 'The program "'$PATH_TO_LUA'" must be in your path'
   rm -f makefile
   exit 1
 fi
 
-if test ${PATH_TO_LUA:0:1} != '/' ; then
+if test $(printf %.1s "$PATH_TO_LUA") != '/' ; then
   AC_PATH_PROG(FIND_PATH_TO_LUA, $PATH_TO_LUA)
   PATH_TO_LUA=$(FOLLOW_READLINK $FIND_PATH_TO_LUA)
 fi
 
-if ! command -v $PATH_TO_LUAC &>/dev/null ; then
+if ! (command -v $PATH_TO_LUAC &>/dev/null) ; then
   echo 'The program "'$PATH_TO_LUAC'" must be in your path'
   rm -f makefile
   exit 1
 fi
 
-if test "${PATH_TO_LUAC:0:1}" != '/' ; then
+if test $(printf %.1s "$PATH_TO_LUA") != '/' ; then
   AC_PATH_PROG(FIND_PATH_TO_LUAC, $PATH_TO_LUAC)
   PATH_TO_LUAC=$(FOLLOW_READLINK $FIND_PATH_TO_LUAC)
 fi
@@ -1007,7 +1018,7 @@ printf "checking for lua modules: posix"
 
 missingModules=""
 for i in posix; do
-  if ! $PATH_TO_LUA $ac_confdir/proj_mgmt/luaModuleAvailable $i 2> /dev/null ; then
+  if ! ($PATH_TO_LUA $ac_confdir/proj_mgmt/luaModuleAvailable $i 2> /dev/null) ; then
     missingModules="$missingModules $i"
   fi
 done

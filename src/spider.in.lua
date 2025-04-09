@@ -148,7 +148,7 @@ local function l_keepThisPath(path, dirA, keepA, ignoreA)
          return false
       end
    end
-   
+
    for i = 1, #keepA do
       if (path:find(keepA[i],1,true) == 1) then
          dbg.print{"In keepA list: path:",path,"\n"}

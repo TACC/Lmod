@@ -15,7 +15,7 @@ tracking database.  There are several reasons for this change:
    load.  It is now possible to block storing these modules.
 
 3. In studying our data, it became clear that many users were
-   loading the same modules repeatly during a day.  We have only
+   loading the same modules repeatedly during a day.  We have only
    been interested in distinct users use of modules.  Not how many
    times a user loaded a particular module.  So by default the
    `store_module_data` program only records the first use of a
@@ -55,7 +55,7 @@ This will create files named lmodV2_YYYY_MM_DD.json.
 Step 2
 ------
 
-Place or copy those *.json files to the appropriate machine or
+Place or copy those \*.json files to the appropriate machine or
 location where you can load then into the new "module_usage_tracking"
 machine.
 

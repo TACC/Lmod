@@ -138,6 +138,11 @@ runBase ()
    "$@" > _stdout.$NUM 2>> _stderr.$NUM
 }
 
+printErr ()
+{
+  echo "$@" 1>&2
+}
+
 runFish ()
 {
   runBase $LUA_EXEC $projectDir/src/lmod.in.lua fish --regression_testing "$@"
@@ -261,6 +266,7 @@ initStdEnvVars()
     fi
   done < <(env)
 
+  unset -f module
   unset CPATH
   unset DYLD_LIBRARY_PATH
   unset INCLUDE
@@ -283,6 +289,8 @@ initStdEnvVars()
   unset SHLIB_PATH
   unset TERM
   unset _LMFILES_
+  unset LMOD_EXPERT
+  unset LMOD_QUIET
   unset LMOD_CACHED_LOADS
   unset LMOD_DISPLAY_META_COLOR
   unset LMOD_DISPLAY_SN_COLOR

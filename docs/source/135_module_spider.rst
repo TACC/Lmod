@@ -104,7 +104,7 @@ hdf5 module and not the phdf5 module.  It does report that other
 matches are possible (such as phdf5).  The reason for this is some
 sites name the  R stat package as R.  This rule is to prevent getting
 every module that has an 'r' in it.  Note that the searching for
-modules is case insensitve.  So *module spider openmpi* would match a
+modules is case insensitive.  So *module spider openmpi* would match a
 module named *OpenMPI*.
 
 If you search a name that only partially matches a module name then
