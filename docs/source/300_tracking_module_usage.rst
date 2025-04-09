@@ -120,7 +120,7 @@ Have "master" send the tracking messages to a separate computer.
 You can add the following to master's /etc/rsyslog.conf file::
 
    if $programname contains 'ModuleUsageTracking' then @module_usage_tracking
-   &~
+   & stop
 
 Where you change "module_usage_tracking" into a real machine name.
 Adding this to rsyslog.conf will direct all syslog messages to be sent

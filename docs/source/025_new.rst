@@ -1,6 +1,10 @@
 New Features in Lmod
 ====================
 
+**Updated Method for tracking module usage**
+  (Lmod 8.8+) See :ref:`tracking_usage` for more details
+
+
 **LMOD_SHOW_HIDDEN**
   (Lmod 8.7.54+) The environment variable **LMOD_SHOW_HIDDEN**
   can be used to control whether hidden modules will be show under
