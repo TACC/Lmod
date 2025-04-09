@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.55 2024-12-13 12:24 -07:00
+Modules based on Lua: Version 8.7.59 2025-03-06 13:51 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -125,4 +125,24 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load tryThis
 ===========================
 step 30
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing refresh
+===========================
+===========================
+step 31
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 32
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
+===========================
+===========================
+step 33
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B
+===========================
+===========================
+step 34
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload B
+===========================
+===========================
+step 35
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload A
 ===========================

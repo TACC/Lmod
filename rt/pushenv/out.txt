@@ -493,3 +493,95 @@ MODULEPATH=ProjectDIR/rt/pushenv/mf/Core3;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={tryThis={fn="ProjectDIR/rt/pushenv/mf/Core3/tryThis/1.0.lua",fullName="tryThis/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="tryThis",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/pushenv/mf/Core3",},systemBaseMPATH="ProjectDIR/rt/pushenv/mf/Core3",}';
 export _ModuleTable_;
+===========================
+step 31
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/pushenv/mf/Core3;
+export MODULEPATH;
+TESTVAR=tryThis;
+export TESTVAR;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/pushenv/mf/Core3",},systemBaseMPATH="ProjectDIR/rt/pushenv/mf/Core3",}';
+export _ModuleTable_;
+__LMOD_STACK_TESTVAR=tryThis;
+export __LMOD_STACK_TESTVAR;
+===========================
+step 32
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
+===========================
+LOADEDMODULES=A/1.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/pushenv/mf/Core4:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/pushenv/mf/Core4;
+export MODULEPATH;
+unset PSTART;
+RR=A;
+export RR;
+_LMFILES_=ProjectDIR/rt/pushenv/mf/Core4/A/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/pushenv/mf/Core4/A/1.0.lua",fullName="A/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/pushenv/mf/Core4",},systemBaseMPATH="ProjectDIR/rt/pushenv/mf/Core4",}';
+export _ModuleTable_;
+__LMOD_STACK_PSTART=false:something;
+export __LMOD_STACK_PSTART;
+__LMOD_STACK_RR=A:Z;
+export __LMOD_STACK_RR;
+===========================
+step 33
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B
+===========================
+LOADEDMODULES=A/1.0:B/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/pushenv/mf/Core4;
+export MODULEPATH;
+PSTART=anything;
+export PSTART;
+RR=B;
+export RR;
+_LMFILES_=ProjectDIR/rt/pushenv/mf/Core4/A/1.0.lua:ProjectDIR/rt/pushenv/mf/Core4/B/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/pushenv/mf/Core4/A/1.0.lua",fullName="A/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},B={fn="ProjectDIR/rt/pushenv/mf/Core4/B/1.0.lua",fullName="B/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="B",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/pushenv/mf/Core4",},systemBaseMPATH="ProjectDIR/rt/pushenv/mf/Core4",}';
+export _ModuleTable_;
+__LMOD_STACK_PSTART=anything:false:something;
+export __LMOD_STACK_PSTART;
+__LMOD_STACK_RR=B:A:Z;
+export __LMOD_STACK_RR;
+===========================
+step 34
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload B
+===========================
+LOADEDMODULES=A/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/pushenv/mf/Core4;
+export MODULEPATH;
+unset PSTART;
+RR=A;
+export RR;
+_LMFILES_=ProjectDIR/rt/pushenv/mf/Core4/A/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/pushenv/mf/Core4/A/1.0.lua",fullName="A/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/pushenv/mf/Core4",},systemBaseMPATH="ProjectDIR/rt/pushenv/mf/Core4",}';
+export _ModuleTable_;
+__LMOD_STACK_PSTART=false:something;
+export __LMOD_STACK_PSTART;
+__LMOD_STACK_RR=A:Z;
+export __LMOD_STACK_RR;
+===========================
+step 35
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload A
+===========================
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/pushenv/mf/Core4;
+export MODULEPATH;
+PSTART=something;
+export PSTART;
+RR=Z;
+export RR;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/pushenv/mf/Core4",},systemBaseMPATH="ProjectDIR/rt/pushenv/mf/Core4",}';
+export _ModuleTable_;
+__LMOD_STACK_PSTART=something;
+export __LMOD_STACK_PSTART;
+__LMOD_STACK_RR=Z;
+export __LMOD_STACK_RR;
