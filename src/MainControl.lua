@@ -407,37 +407,49 @@ function M.pushenv(self, argT)
    dbg.start{"MainControl:pushenv(\"",name,"\", \"",value,"\")"}
 
    local stackName = l_createStackName(name)
-   local v64       = nil
    local v         = getenv(name)
-   if (getenv(stackName) == nil and v) then
-      v64          = encode64(v)
+   local v64       = "false"
+   if (v) then
+      v64          = encode64(tostring(v))
+   end
+   if (value) then
+      value = tostring(value)
    end
 
-   local nodups   = false
+
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
 
-   dbg.print{"stackName: ",stackName,", v64: ",v64,"\n"}
-   if (varT[stackName] == nil) then
-      varT[stackName] = Var:new(stackName, v64, nodups, ":")
-   end
-
-   if (value == false) then
-      v   = false
-      v64 = "false"
-   else
-      v   = tostring(value)
-      v64 = encode64(v)
-   end
-
-   local priority = 0
-
-   varT[stackName]:prepend(v64, nodups, priority)
-
+   ------------------------------------------------------------
+   -- Set user env. variable to value
    if (varT[name] == nil) then
       varT[name] = Var:new(name)
    end
-   varT[name]:set(v)
+   varT[name]:set(value)
+
+   ------------------------------------------------------------
+   -- Save away old value on stackName
+
+   local nodups   = false
+   if (varT[stackName] == nil) then
+      -- Save old variable at top of stack that is only 1 deep.
+      varT[stackName] = Var:new(stackName, v64, nodups, ":")
+      if (dbg.active() and name == "BAZ") then
+         dbg.print{"value: \"",value,"\",v64: ",v64,"\n"}
+         local priority = 0
+         varT[stackName]:prepend(encode64("third"), nodups, priority)
+         varT[stackName]:prepend(encode64("fourth"), nodups, priority)
+         varT[stackName]:prt("load")
+         local v4 = varT[stackName]:pop()
+         varT[stackName]:prt("pop 1")
+      end
+      
+   else
+      -- Replace top of stack with v64 by a pop and a push
+      varT[stackName]:pop()
+      local priority = 0
+      varT[stackName]:prepend(v64, nodups, priority)
+   end
 
    dbg.fini("MainControl:pushenv")
 end
@@ -459,7 +471,7 @@ function M.popenv(self, argT)
 
    if (varT[stackName] == nil) then
       varT[stackName] = Var:new(stackName)
-   end
+   end 
 
 
    local v64 = varT[stackName]:pop()

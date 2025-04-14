@@ -519,8 +519,7 @@ function M.set(self,value)
 end
 
 --------------------------------------------------------------------------
--- Remove the top value and return the second value or nil if
--- none are left.
+-- Pop top value off of stack and return it or nil if none are left.
 -- @param self A Var object.
 function M.pop(self)
    dbg.start{"Var.pop(self)"}
@@ -529,16 +528,15 @@ function M.pop(self)
    local min2   = huge
    local result = nil
 
-   --if (dbg.active()) then
-   --   print(__FILE__() .. ':' .. __LINE__())
-   --   self:prt("(1) Var:pop()")
-   --   print(__FILE__() .. ':' .. __LINE__())
-   --end
+   if (dbg.active()) then
+      self:prt("(1) Var:pop()")
+   end
 
    for k, vv in pairs(self.tbl) do
       local idxA = vv.idxA
       local v = idxA[1][1]
       dbg.print{"v: ",v,", imin: ",imin,", min2: ",min2,"\n"}
+      dbg.printT("vv", vv)
       if (v == imin) then
          vv          = l_remFunc(vv, "first", 0, false)
          self.tbl[k] = vv
