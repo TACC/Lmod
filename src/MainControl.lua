@@ -416,7 +416,6 @@ function M.pushenv(self, argT)
       value = tostring(value)
    end
 
-
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
 
@@ -431,24 +430,31 @@ function M.pushenv(self, argT)
    -- Save away old value on stackName
 
    local nodups   = false
-   if (varT[stackName] == nil) then
+   
+   local oldV     = getenv(stackName)
+   if (oldV == nil) then
       -- Save old variable at top of stack that is only 1 deep.
       varT[stackName] = Var:new(stackName, v64, nodups, ":")
       if (dbg.active() and name == "BAZ") then
-         dbg.print{"value: \"",value,"\",v64: ",v64,"\n"}
-         local priority = 0
-         varT[stackName]:prepend(encode64("third"), nodups, priority)
-         varT[stackName]:prepend(encode64("fourth"), nodups, priority)
-         varT[stackName]:prt("load")
-         local v4 = varT[stackName]:pop()
-         varT[stackName]:prt("pop 1")
+         varT[stackName]:prt("initial value")
+      end
+   else
+      dbg.print{"oldV: \"",oldV,"\", value: \"",value,"\",v64: ",v64,"\n"}
+      if (varT[stackName] == nil) then
+         varT[stackName] = Var:new(stackName)
       end
       
-   else
       -- Replace top of stack with v64 by a pop and a push
-      varT[stackName]:pop()
+      if (dbg.active() and name == "BAZ") then
+         varT[stackName]:prt("before")
+      end
+      
       local priority = 0
       varT[stackName]:prepend(v64, nodups, priority)
+      if (dbg.active() and name == "BAZ") then
+         dbg.print{"value: \"",value,"\",v64: ",v64,"\n"}
+         varT[stackName]:prt("push")
+      end
    end
 
    dbg.fini("MainControl:pushenv")
