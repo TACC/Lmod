@@ -28,7 +28,7 @@ _LMFILES_=OutputDIR/mf/Core/settarg/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={settarg={fn="OutputDIR/mf/Core/settarg/1.0.lua",fullName="settarg/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="settarg",wV="000000001.*zfinal",},},mpathA={"OutputDIR/mf/Core","ProjectDIR/rt/settarg/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core:ProjectDIR/rt/settarg/mf/Core",}';
 export _ModuleTable_;
-__LMOD_STACK_PROMPT_COMMAND=precmd;
+__LMOD_STACK_PROMPT_COMMAND=false;
 export __LMOD_STACK_PROMPT_COMMAND;
 alias cdt=cd\ \$TARG;
 dbg () { settarg "$@" dbg;

@@ -247,7 +247,7 @@ _LMFILES_=ProjectDIR/rt/mode_select/mf/Core/mixed_both_test/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={mixed_both_test={fn="ProjectDIR/rt/mode_select/mf/Core/mixed_both_test/1.0.lua",fullName="mixed_both_test/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="mixed_both_test",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
 export _ModuleTable_;
-__LMOD_STACK_MIXED_STACK=stack_both;
+__LMOD_STACK_MIXED_STACK=false;
 export __LMOD_STACK_MIXED_STACK;
 ===========================
 step 23
@@ -278,7 +278,7 @@ export MODULEPATH;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
 export _ModuleTable_;
-__LMOD_STACK_MIXED_STACK=stack_both:stack_both;
+__LMOD_STACK_MIXED_STACK=stack_both:false;
 export __LMOD_STACK_MIXED_STACK;
 ===========================
 step 25

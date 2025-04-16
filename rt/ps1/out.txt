@@ -18,7 +18,7 @@ _LMFILES_=ProjectDIR/rt/ps1/mf/Core/setprompt/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={setprompt={fn="ProjectDIR/rt/ps1/mf/Core/setprompt/1.0.lua",fullName="setprompt/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="setprompt",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/ps1/mf/Core",},systemBaseMPATH="ProjectDIR/rt/ps1/mf/Core",}';
 export _ModuleTable_;
-__LMOD_STACK_PS1=hello\>\ :test\ \\u@\\h\>\ ;
+__LMOD_STACK_PS1=test\ \\u@\\h\>\ ;
 export __LMOD_STACK_PS1;
 ===========================
 step 3
@@ -32,5 +32,4 @@ export PS1;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/ps1/mf/Core",},systemBaseMPATH="ProjectDIR/rt/ps1/mf/Core",}';
 export _ModuleTable_;
-__LMOD_STACK_PS1=test\ \\u@\\h\>\ ;
-export __LMOD_STACK_PS1;
+unset __LMOD_STACK_PS1;
