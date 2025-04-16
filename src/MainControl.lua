@@ -435,9 +435,6 @@ function M.pushenv(self, argT)
    if (oldV == nil) then
       -- Save old variable at top of stack that is only 1 deep.
       varT[stackName] = Var:new(stackName, v64, nodups, ":")
-      if (dbg.active() and name == "BAZ") then
-         varT[stackName]:prt("initial value")
-      end
    else
       dbg.print{"oldV: \"",oldV,"\", value: \"",value,"\",v64: ",v64,"\n"}
       if (varT[stackName] == nil) then

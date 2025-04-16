@@ -532,10 +532,12 @@ function M.pop(self)
       self:prt("(1) Var:pop()")
    end
 
+   local icnt = 0
    for k, vv in pairs(self.tbl) do
       local idxA = vv.idxA
       local v = idxA[1][1]
-      --dbg.print{"v: ",v,", imin: ",imin,", min2: ",min2,"\n"}
+      --icnt = icnt + 1
+      --dbg.print{"icnt: ",icnt,", v: ",v,", imin: ",imin,", min2: ",min2,"\n"}
       --dbg.printT("vv", vv)
       if (v == imin) then
          result      = k
@@ -550,7 +552,6 @@ function M.pop(self)
       --dbg.print{"v: \"",v,"\"\n"}
       if (v < min2) then
          min2   = v
-         result = k
       end
       --dbg.print{"min2: ",min2,"\n"}
    end
