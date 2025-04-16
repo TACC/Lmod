@@ -443,18 +443,8 @@ function M.pushenv(self, argT)
       if (varT[stackName] == nil) then
          varT[stackName] = Var:new(stackName)
       end
-      
-      -- Replace top of stack with v64 by a pop and a push
-      if (dbg.active() and name == "BAZ") then
-         varT[stackName]:prt("before")
-      end
-      
       local priority = 0
       varT[stackName]:prepend(v64, nodups, priority)
-      if (dbg.active() and name == "BAZ") then
-         dbg.print{"value: \"",value,"\",v64: ",v64,"\n"}
-         varT[stackName]:prt("push")
-      end
    end
 
    dbg.fini("MainControl:pushenv")
@@ -477,7 +467,7 @@ function M.popenv(self, argT)
 
    if (varT[stackName] == nil) then
       varT[stackName] = Var:new(stackName)
-   end 
+   end
 
 
    local v64 = varT[stackName]:pop()

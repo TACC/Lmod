@@ -532,13 +532,11 @@ function M.pop(self)
       self:prt("(1) Var:pop()")
    end
 
-   local icnt = 0
    for k, vv in pairs(self.tbl) do
       local idxA = vv.idxA
       local v = idxA[1][1]
-      icnt = icnt + 1
-      dbg.print{"icnt: ",icnt, ", v: ",v,", imin: ",imin,", min2: ",min2,"\n"}
-      dbg.printT("vv", vv)
+      --dbg.print{"v: ",v,", imin: ",imin,", min2: ",min2,"\n"}
+      --dbg.printT("vv", vv)
       if (v == imin) then
          result      = k
          vv          = l_remFunc(vv, "first", 0, false, false)
@@ -549,17 +547,17 @@ function M.pop(self)
             v = huge
          end
       end
-      dbg.print{"v: \"",v,"\"\n"}
+      --dbg.print{"v: \"",v,"\"\n"}
       if (v < min2) then
          min2   = v
+         result = k
       end
-      dbg.print{"min2: ",min2,"\n"}
+      --dbg.print{"min2: ",min2,"\n"}
    end
-   dbg.print{"imin: ",imin,", min2: ",min2,"\n"}
+   --dbg.print{"imin: ",imin,", min2: ",min2,"\n"}
    if (min2 < huge) then
       self.imin = min2
    end
-   dbg.print{"(2) imin: ",imin,"\n"}
 
    local v    = self:expand()
    self.value = v
