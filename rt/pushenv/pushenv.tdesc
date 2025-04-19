@@ -92,6 +92,15 @@ testdescript = {
      export RR=ZZ
      runLmod load   A         #38
      runLmod unload A         #39
+     export RR=Z
+     runLmod load   A         #40
+     export RR=AA
+     runLmod load   B         #41
+     runLmod unload B         #42
+     runLmod unload A         #43
+
+
+
 
      HOME_ORIG=$HOME
 

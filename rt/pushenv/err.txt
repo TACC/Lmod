@@ -162,3 +162,19 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
 step 39
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload A
 ===========================
+===========================
+step 40
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
+===========================
+===========================
+step 41
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B
+===========================
+===========================
+step 42
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload B
+===========================
+===========================
+step 43
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload A
+===========================
