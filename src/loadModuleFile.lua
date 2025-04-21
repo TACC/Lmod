@@ -61,13 +61,14 @@ local s_mfileCountT   = {}
 function loadModuleFile(t)
    dbg.start{"loadModuleFile(",t.file,")"}
 
-   local myType     = extname(t.file)
-   local forbiddenT = t.forbiddenT or {}
-   local status     = true
-   local lmodBrk    = false
+   local myType         = extname(t.file)
+   local forbiddenT     = t.forbiddenT or {}
+   local returnContents = t.returnContents
+   local status         = true
+   local lmodBrk        = false
    local func
    local msg
-   local whole
+   local whole          = nil
    local userName
 
 
@@ -77,7 +78,7 @@ function loadModuleFile(t)
 
    if (mode() == "unload" and not isFile(t.file)) then
       dbg.fini("loadModuleFile")
-      return not lmodBrk
+      return not lmodBrk, whole 
    end
 
    if (forbiddenT.forbiddenState == "forbid" ) then
@@ -98,7 +99,9 @@ function loadModuleFile(t)
       end
    end
 
-   if (myType == ".lua") then
+   if (t.contents) then
+      whole = t.contents
+   elseif (returnContents or myType == ".lua") then
       -- Read in lua module file into a [[whole]] string.
       local f = io.open(t.file)
       if (f) then
@@ -108,7 +111,9 @@ function loadModuleFile(t)
          dbg.fini("ModuleFile")
          f:close()
       end
-   else
+   end
+
+   if (myType ~= ".lua") then
       userName       = myModuleUsrName()
       local fullName = myModuleFullName()
       -- Build argument list then call tcl2lua translator
@@ -155,11 +160,11 @@ function loadModuleFile(t)
 
    -- dynamic additions via hook
    local additional_lines = hook.apply("decorate_module", {path=myFileName(), name=myModuleName(), version=myModuleVersion(), contents=whole}) or {}
-   whole = whole .. "\n" .. concatTbl(additional_lines, "\n")
+   local everything = whole .. "\n" .. concatTbl(additional_lines, "\n")
 
    -- Use the sandbox to evaluate modulefile text.
-   if (whole) then
-      status, msg = sandbox_run(whole)
+   if (everything) then
+      status, msg = sandbox_run(everything)
    else
       status = nil
       msg    = "Empty or non-existent file"
@@ -186,5 +191,5 @@ function loadModuleFile(t)
    end
 
    dbg.fini("loadModuleFile")
-   return not lmodBrk
+   return not lmodBrk, whole
 end

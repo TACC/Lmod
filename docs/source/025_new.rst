@@ -1,6 +1,9 @@
 New Features in Lmod
 ====================
 
+**Updated Method for tracking module usage**
+  (Lmod 8.8+) See :ref:`tracking_usage` for more details
+
 **decorate_module**:
   (Lmod 8.7.59+)  Sites can use this new hook to add text to a
   modulefile. Note that if this hook exists all modules will call this
