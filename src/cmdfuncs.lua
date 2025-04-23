@@ -1204,6 +1204,7 @@ end
 --------------------------------------------------------------------------
 --  Reload all modules.
 function Update()
+   local mrc = MRC:singleton(); mrc:set_display_mode("all")
    local hub = Hub:singleton()
    local force_update = true
    hub:reloadAll(force_update)
@@ -1279,12 +1280,15 @@ function UnUse(...)
    local mt     = FrameStk:singleton():mt()
    local argA   = pack(...)
    local nodups = true
+
+   local mrc    = MRC:singleton();
+   mrc:set_display_mode("all")
+
    for i = 1, argA.n do
       local v = argA[i]
       MCP:remove_path{ModulePath,  v, delim=":", nodups = true, force = true}
    end
    if (mt:changeMPATH()) then
-      local mrc = MRC:singleton(); mrc:set_display_mode("all")
       mt:reset_MPATH_change_flag()
       hub.reloadAll()
    end
@@ -1296,7 +1300,7 @@ end
 function UnLoad(...)
    dbg.start{"UnLoad(",concatTbl({...},", "),")"}
    local force = false
-   unload_usr_internal(MName:buildA("mt", ...), force)
+   unload_usr_internal(MName:buildA("mt", pack(...)), force)
    mcp:mustLoad()
    dbg.fini("UnLoad")
 end

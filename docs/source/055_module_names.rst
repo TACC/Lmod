@@ -45,7 +45,7 @@ fullName == sn/version
 
 The fullName of a modulefile is complete name which is made of two
 parts: sn and version.  The sn is the shortname and represents the
-minumum name that can be used to specify a module.  So for the
+minimum name that can be used to specify a module.  So for the
 ``gcc/7.1`` modulefile.  The fullName is ``gcc/7.1`` and the sn is
 ``gcc`` and the version is ``7.1``.  This naming convention is known
 as NAME/VERSION and is abbreviated N/V.  There are two more complicated
@@ -83,7 +83,7 @@ packages be named: ``bio/bowtie/3.4`` or ``bio/tophat/2.7``.  When the
 fullName is ``bio/bowtie/3.4`` then the sn for is ``bio/bowtie`` and the
 version is ``3.4``.
 
-Sites should think carefully about chosing to using C/N/V.  This can
+Sites should think carefully about choosing to using C/N/V.  This can
 make it easier for users to know which modules provide say physics, 
 chemistry or biology applications but it does lead to great deal more
 typing of which tab completion provided by the bash or zsh shells can
@@ -117,7 +117,7 @@ Sites can mix N/V and C/N/V layouts, Lmod will be able to decide the
 sn and versions by walking directory tree. In general, the fullName,
 will be divided into directories names to become the sn and the
 version will be the file.  So for the fullName ``bio/tophat/7.2`` the
-directores bio and tophat become the sn, ``bio/tophat`` and the
+directories bio and tophat become the sn, ``bio/tophat`` and the
 version is ``7.2``.
 
 Lmod supports as many directory levels as site likes.  For example, a

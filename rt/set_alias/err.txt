@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.6.16  2022-03-22 14:19 -05:00
+Modules based on Lua: Version 8.7.56 2025-02-04 18:12 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -34,6 +34,32 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load spack
 ===========================
 ===========================
 step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload spack
+===========================
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load multiline/3.0
+===========================
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load multiline/2.0
+===========================
+The following have been reloaded with a version change:
+  1) multiline/3.0 => multiline/2.0
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load multiline/1.0
+===========================
+The following have been reloaded with a version change:
+  1) multiline/2.0 => multiline/1.0
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load multiline/4.0
+===========================
+The following have been reloaded with a version change:
+  1) multiline/1.0 => multiline/4.0
+===========================
+step 14
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing show showMe
 ===========================
    ProjectDIR/rt/set_alias/mf/showMe/1.0.lua:

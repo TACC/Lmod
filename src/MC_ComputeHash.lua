@@ -63,9 +63,10 @@ local M                    = MC_ComputeHash
 local cosmic               = require("Cosmic"):singleton()
 local dbg                  = require("Dbg"):dbg()
 local A                    = ShowResultsA
+local pack                 = (_VERSION == "Lua 5.1") and argsPack or table.pack
 
 local function l_ShowCmd(name, ...)
-   A[#A+1] = ShowCmdStr(name, ...)
+   A[#A+1] = ShowCmdStr(name, pack(...))
 end
 
 M.add_property         = MainControl.quiet

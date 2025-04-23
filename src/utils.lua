@@ -791,44 +791,18 @@ end
 --------------------------------------------------------------------------
 -- This routine converts a command into a string.  This is used by MC_Show
 -- @param name Input command name.
-function ShowCmdStr(name, ...)
+function ShowCmdStr(name, argT)
    dbg.start{"ShowCmdStr(",name,", ...)"}
    local a       = {}
-   local argA    = pack(...)
-   local n       = argA.n
-   local t       = argA
+   local n       = argT.n
    local hasKeys = false
    local left    = "("
    local right   = ")\n"
-   if (argA.n == 1 and type(argA[1]) == "table") then
-      t       = argA[1]
-      n       = #t
-      hasKeys = true
-   end
    for i = 1, n do
-      local s = l_arg2str(t[i])
+      local s = l_arg2str(argT[i])
       if (s ~= nil) then
          a[#a + 1] = s
       end
-   end
-
-   if (hasKeys) then
-      hasKeys = false
-
-      for k,v in pairs(t) do
-         if (type(k) ~= "number") then
-            local strV = tostring(v)
-            if (s_defaultsT[k] ~= strV) then
-               hasKeys = true
-               a[#a+1] = k.."="..l_arg2str(v)
-            end
-         end
-      end
-   end
-
-   if (hasKeys) then
-      left    = "{"
-      right   = "}\n"
    end
 
    local b = {}
@@ -842,49 +816,26 @@ function ShowCmdStr(name, ...)
 end
 
 --------------------------------------------------------------------------
--- This routine converts a command into a string.  This is used by MC_Show
--- @param name Input command name.
-function ShowCmdT(funcName, t)
-   dbg.start{"ShowCmdStr(",funcName,", table)"}
-   local a       = {}
-   local n       = t.n
-   local hasKeys = t.kind == "table"
-   local left    = t.kind == "list" and "(" or "{"
-   local right   = t.kind == "list" and ")\n" or "}\n"
-
-   for i = 1, n do
-      local s = l_arg2str(t[i])
-      if (s ~= nil) then
-         a[#a + 1] = s
-      end
+-- This routine formats table-style module commands to match the modulefile format
+-- @param name The command name (e.g. "setenv")
+-- @param t The table of arguments
+function ShowCmdTbl(name, argT)
+   dbg.start{"ShowCmdTbl(",name,", argT)"}
+   
+   local ignoreKeysT = { n = true, kind = true }
+   if (argT.modeA and next(argT.modeA) ~= nil and #argT.modeA  == 1 and argT.modeA[1] == "normal") then
+      ignoreKeysT.modeA = true
    end
 
-   if (hasKeys) then
-      hasKeys = false
 
-      for k,v in pairs(t) do 
-         repeat 
-            if ( k == "n" or k == "kind") then break end
-
-            if (type(k) ~= "number") then
-               local strV = tostring(v)
-               if (s_defaultsT[k] ~= strV) then
-                  hasKeys = true
-                  a[#a+1] = k.."="..l_arg2str(v)
-               end
-            end
-         until true  
-      end
-   end
-
-   local b = {}
-   b[#b+1] = s_indentString
-   b[#b+1] = funcName
-   b[#b+1] = left
-   b[#b+1] = concatTbl(a,",")
-   b[#b+1] = right
-   dbg.fini("ShowCmdStr")
-   return concatTbl(b,"")
+   local s = name .. serializeTbl{value=argT, ignoreKeysT = ignoreKeysT, dsplyNum = "string", tight = "tight"}
+   local a = {}
+   a[#a + 1] = s_indentString
+   a[#a + 1] = s
+   a[#a + 1] = "\n"
+   
+   dbg.fini("ShowCmdTbl")
+   return concatTbl(a,"")
 end
 
 --------------------------------------------------------------------------
@@ -1364,10 +1315,10 @@ function locatePkg(pkg)
    return result
 end
 
-function wrap_complete(name)
-   return "complete<" .. name .. ">"
+function wrap_kind(kind, name)
+   return kind .. "<" .. name .. ">"
 end
-function unwrap_complete(name)
-   local i,j,n = name:find("complete<([^<]*)>")
+function unwrap_kind(kind, name)
+   local i,j,n = name:find(kind .. "<([^<]*)>")
    return n
 end

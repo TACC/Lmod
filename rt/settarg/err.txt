@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
+Modules based on Lua: Version 8.7.53 2024-10-12 19:57 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -96,8 +96,8 @@ prepend_path("PATH","ProjectDIR/settarg")
 setenv("LMOD_SETTARG_CMD","ProjectDIR/settarg/settarg_cmd.in.lua")
 set_shell_function("settarg","eval $($LMOD_SETTARG_CMD -s sh \"$@\")","eval `$LMOD_SETTARG_CMD  -s csh $*`")
 set_shell_function("gettargdir","builtin echo $TARG","echo $TARG")
-setenv("SETTARG_TAG1","OBJ")
-setenv("SETTARG_TAG2","_")
+setenv("SETTARG_TAG1","OBJ","true")
+setenv("SETTARG_TAG2","_","true")
 set_alias("cdt","cd $TARG")
 set_shell_function("targ","builtin echo $TARG","echo $TARG")
 set_shell_function("dbg","settarg \"$@\" dbg","settarg $* dbg")

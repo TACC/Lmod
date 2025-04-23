@@ -112,11 +112,88 @@ _some_spack_func () {
      echo found;
    fi;
 };
+[[ -n "${BASH_VERSION:-}" ]] && export -f _some_spack_func 2> /dev/null || true;
 ===========================
 step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload spack
+===========================
+LOADEDMODULES=test1/1.0:sfunc/1.0:alias/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/set_alias/mf;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/set_alias/mf/test1/1.0.lua:ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua:ProjectDIR/rt/set_alias/mf/alias/1.0;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={alias={fn="ProjectDIR/rt/set_alias/mf/alias/1.0",fullName="alias/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="alias",wV="000000001.*zfinal",},sfunc={fn="ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua",fullName="sfunc/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="sfunc",wV="000000001.*zfinal",},test1={fn="ProjectDIR/rt/set_alias/mf/test1/1.0.lua",fullName="test1/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="test1",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/set_alias/mf",},systemBaseMPATH="ProjectDIR/rt/set_alias/mf",}';
+export _ModuleTable_;
+unset -f _some_spack_func 2> /dev/null || true;
+[[ -n "${BASH_VERSION:-}" ]] && unset -f _some_spack_func 2> /dev/null || true;
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load multiline/3.0
+===========================
+LOADEDMODULES=test1/1.0:sfunc/1.0:alias/1.0:multiline/3.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/set_alias/mf;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/set_alias/mf/test1/1.0.lua:ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua:ProjectDIR/rt/set_alias/mf/alias/1.0:ProjectDIR/rt/set_alias/mf/multiline/3.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={alias={fn="ProjectDIR/rt/set_alias/mf/alias/1.0",fullName="alias/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="alias",wV="000000001.*zfinal",},multiline={fn="ProjectDIR/rt/set_alias/mf/multiline/3.0.lua",fullName="multiline/3.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="multiline/3.0",wV="000000003.*zfinal",},sfunc={fn="ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua",fullName="sfunc/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="sfunc",wV="000000001.*zfinal",},test1={fn="ProjectDIR/rt/set_alias/mf/test1/1.0.lua",fullName="test1/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="test1",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/set_alias/mf",},systemBaseMPATH="ProjectDIR/rt/set_alias/mf",}';
+export _ModuleTable_;
+foo () {     echo foo ;
+};
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load multiline/2.0
+===========================
+LOADEDMODULES=test1/1.0:sfunc/1.0:alias/1.0:multiline/2.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/set_alias/mf;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/set_alias/mf/test1/1.0.lua:ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua:ProjectDIR/rt/set_alias/mf/alias/1.0:ProjectDIR/rt/set_alias/mf/multiline/2.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={alias={fn="ProjectDIR/rt/set_alias/mf/alias/1.0",fullName="alias/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="alias",wV="000000001.*zfinal",},multiline={fn="ProjectDIR/rt/set_alias/mf/multiline/2.0.lua",fullName="multiline/2.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="multiline/2.0",wV="000000002.*zfinal",},sfunc={fn="ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua",fullName="sfunc/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="sfunc",wV="000000001.*zfinal",},test1={fn="ProjectDIR/rt/set_alias/mf/test1/1.0.lua",fullName="test1/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="test1",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/set_alias/mf",},systemBaseMPATH="ProjectDIR/rt/set_alias/mf",}';
+export _ModuleTable_;
+foo () {
+    echo foo ;
+};
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load multiline/1.0
+===========================
+LOADEDMODULES=test1/1.0:sfunc/1.0:alias/1.0:multiline/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/set_alias/mf;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/set_alias/mf/test1/1.0.lua:ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua:ProjectDIR/rt/set_alias/mf/alias/1.0:ProjectDIR/rt/set_alias/mf/multiline/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={alias={fn="ProjectDIR/rt/set_alias/mf/alias/1.0",fullName="alias/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="alias",wV="000000001.*zfinal",},multiline={fn="ProjectDIR/rt/set_alias/mf/multiline/1.0.lua",fullName="multiline/1.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="multiline/1.0",wV="000000001.*zfinal",},sfunc={fn="ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua",fullName="sfunc/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="sfunc",wV="000000001.*zfinal",},test1={fn="ProjectDIR/rt/set_alias/mf/test1/1.0.lua",fullName="test1/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="test1",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/set_alias/mf",},systemBaseMPATH="ProjectDIR/rt/set_alias/mf",}';
+export _ModuleTable_;
+foo () {
+    echo foo;
+};
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load multiline/4.0
+===========================
+LOADEDMODULES=test1/1.0:sfunc/1.0:alias/1.0:multiline/4.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/set_alias/mf;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/set_alias/mf/test1/1.0.lua:ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua:ProjectDIR/rt/set_alias/mf/alias/1.0:ProjectDIR/rt/set_alias/mf/multiline/4.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={alias={fn="ProjectDIR/rt/set_alias/mf/alias/1.0",fullName="alias/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="alias",wV="000000001.*zfinal",},multiline={fn="ProjectDIR/rt/set_alias/mf/multiline/4.0.lua",fullName="multiline/4.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="multiline/4.0",wV="000000004.*zfinal",},sfunc={fn="ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua",fullName="sfunc/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="sfunc",wV="000000001.*zfinal",},test1={fn="ProjectDIR/rt/set_alias/mf/test1/1.0.lua",fullName="test1/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="test1",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/set_alias/mf",},systemBaseMPATH="ProjectDIR/rt/set_alias/mf",}';
+export _ModuleTable_;
+foo () {     STR="
+    foo
+    bar
+"
+    echo $STR ;
+};
+===========================
+step 14
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing show showMe
 ===========================
 MODULEPATH=ProjectDIR/rt/set_alias/mf;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={alias={fn="ProjectDIR/rt/set_alias/mf/alias/1.0",fullName="alias/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="alias",wV="000000001.*zfinal",},sfunc={fn="ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua",fullName="sfunc/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="sfunc",wV="000000001.*zfinal",},spack={fn="ProjectDIR/rt/set_alias/mf/spack/1.0.lua",fullName="spack/1.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="spack",wV="000000001.*zfinal",},test1={fn="ProjectDIR/rt/set_alias/mf/test1/1.0.lua",fullName="test1/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="test1",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/set_alias/mf",},systemBaseMPATH="ProjectDIR/rt/set_alias/mf",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={alias={fn="ProjectDIR/rt/set_alias/mf/alias/1.0",fullName="alias/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="alias",wV="000000001.*zfinal",},multiline={fn="ProjectDIR/rt/set_alias/mf/multiline/4.0.lua",fullName="multiline/4.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="multiline/4.0",wV="000000004.*zfinal",},sfunc={fn="ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua",fullName="sfunc/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="sfunc",wV="000000001.*zfinal",},test1={fn="ProjectDIR/rt/set_alias/mf/test1/1.0.lua",fullName="test1/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="test1",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/set_alias/mf",},systemBaseMPATH="ProjectDIR/rt/set_alias/mf",}';
 export _ModuleTable_;

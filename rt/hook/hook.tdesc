@@ -37,6 +37,13 @@ testdescript = {
      export LMOD_PACKAGE_PATH=$(testDir)/prepend
      runLmod load admin intel               # 6
 
+     export LMOD_PACKAGE_PATH=$(testDir)/decorate_module; 
+     runLmod load A                         # 7
+     runLmod load decorate                  # 8
+
+     
+
+
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new

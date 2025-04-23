@@ -277,7 +277,7 @@ scripts such as job submission scripts?
 Why do modules sometimes get loaded when I execute ``module use <path>``?
 
    A main principal is that when $MODULEPATH changes, Lmod checks all
-   the currently loaded modules. If any of thoses modules would not
+   the currently loaded modules. If any of those modules would not
    have been chosen then each is swapped for the new choice.
 
 How to use module commands inside a Makefile?
@@ -322,7 +322,7 @@ What to do if new modules are missing when doing ``module avail``?
 How to edit a modulefile?
 
    Lmod does not provide a way to directly edit modulefiles.
-   Typically modulefiles are owned by the system so cannot be editted
+   Typically modulefiles are owned by the system so cannot be edited
    by users.  However, Lmod does provide a convenient way to locate
    modules which could be used for a bash/zsh shell function::
 
