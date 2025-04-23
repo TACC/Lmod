@@ -647,18 +647,6 @@ end
 
 --------------------------------------------------------------------------
 -- Set the value of environment variable.
---function setenv(...)
---   dbg.start{"setenv(",l_concatTbl({...},", "),")"}
---   if (not l_validateArgsWithValue("setenv",...)) then return end
-
---   mcp:setenv(...)
---   dbg.fini("setenv")
---   return
---end
-
--- Set the value of environment variable.
-
--- Set the value of environment variable.
 function setenv(...)
    -- Build and validate the argument table using the new rules.
    local argT = l_build_check_argT("setenv", s_setenv_rulesT, ...)

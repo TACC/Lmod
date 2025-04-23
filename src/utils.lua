@@ -758,11 +758,6 @@ end
 -- @param v input number or string.
 local function l_arg2str(v)
    if (v == nil) then return v end
-   if (type(v) == "table") then
-      local a = {}
-      local s = serializeTbl{value = v, indent = false}
-      return s
-   end
    local s = tostring(v)
    if (type(v) ~= "boolean") then
       s = "\"".. s .."\""

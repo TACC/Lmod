@@ -227,9 +227,7 @@ function M.setenv(self, argT)
 
    save_set_env(name, value)
 
-   dbg.print{"here 1\n"}
    if (not s_patLib) then
-      dbg.print{"here 2\n"}
       local a  = {}
       a[#a+1]  = "^"
       a[#a+1]  = hook.apply("SiteName")
@@ -241,7 +239,6 @@ function M.setenv(self, argT)
       a[#a+1]  = "_.*_DIR"
       s_patDir = concatTbl(a,"")
 
-      dbg.print{"here 2\n"}
       local t = {patDir = s_patDir, patLib = s_patLib}
       hook.apply("packagebasename", t)
       s_patDir = t.patDir
@@ -250,11 +247,9 @@ function M.setenv(self, argT)
       dbg.print{"Using s_patDir: ", s_patDir, " s_patLib: ", s_patLib, "\n"}
    end
 
-   dbg.print{"here 4\n"}
    if (name:find(s_patLib)) then
       processLPATH(value)
    end
-   dbg.print{"here 5\n"}
    if (name:find(s_patDir)) then
       processDIR(value)
    end
