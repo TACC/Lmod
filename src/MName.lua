@@ -164,12 +164,11 @@ end
 -- @param self A MName object
 -- @param sType The type which can be "entryT", "load", "mt"
 -- @return An array of MName objects.
-function M.buildA(self,sType, ...)
-   local argA = pack(...)
+function M.buildA(self,sType, argT)
    local a    = {}
 
-   for i = 1, argA.n do
-      local v = argA[i]
+   for i = 1, argT.n do
+      local v = argT[i]
       if (type(v) == "string" ) then
          a[#a + 1] = self:new(sType, v:trim())
       elseif (type(v) == "table") then

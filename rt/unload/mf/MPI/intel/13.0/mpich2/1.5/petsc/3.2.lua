@@ -1,1 +1,1 @@
-../../../../../.base/petsc/3.2.lua
+setenv("PETSC_VERSION","3.2")

@@ -9,7 +9,7 @@ across their cluster.  If a site has more than one cluster, they may
 chose to have a separate home directory for each cluster.  Some sites
 may wish to have multiple clusters share a single home directory.
 While this strategy has some advantages, it complicates things for
-your users and adminstrators.  If your site has a single home
+your users and administrators.  If your site has a single home
 directory sharing between two or more clusters, you have a shared
 home file system.
 

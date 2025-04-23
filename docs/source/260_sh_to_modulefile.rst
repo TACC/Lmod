@@ -65,7 +65,7 @@ Using **source_sh** ()
 ^^^^^^^^^^^^^^^^^^^^^^
 The feature of sourcing shell scripts inside a modulefile was
 introduced in Tmod 4.6+.  It has be shamelessly studied and
-re-implemented in Lmod 8.6+. In Lmod, this feature re-uses much of the
+re-implemented in Lmod 8.6+. In Lmod, this feature reuses much of the
 code that implements **sh_to_modulefile**.  This code does the
 following when performing a module load.
 

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
+Modules based on Lua: Version 8.7.57 2025-02-25 17:22 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -36,3 +36,12 @@ Load hook B called on admin
 Load hook A called on admin
 Load hook B called on intel
 Load hook A called on intel
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
+===========================
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load decorate
+===========================
+I made it!

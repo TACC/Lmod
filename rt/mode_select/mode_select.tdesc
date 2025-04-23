@@ -1,0 +1,105 @@
+-- -*- lua -*-
+local testName = "mode_select"
+
+testdescript = {
+   owner   = "mcawood",
+   product = "modules",
+   description = [[
+     Test mode-specific functionality for various Lmod functions:
+     - Environment operations (setenv, pushenv, unsetenv)
+     - Path operations (prepend_path, append_path, remove_path)
+     Tests include:
+     1. Basic mode-specific operations
+     2. Mixed mode and non-mode operations
+     3. Error cases:
+        - Missing mode specification
+        - Invalid mode strings
+        - Empty mode table
+   ]],
+   keywords = {testName},
+
+   active = 1,
+   testName = testName,
+   job_submit_method = "INTERACTIVE",
+
+   runScript = [[
+
+     . $(projectDir)/rt/common_funcs.sh
+
+     unsetMT
+     initStdEnvVars
+     MODULEPATH_ROOT=$(testDir)/mf;       export MODULEPATH_ROOT
+     MODULEPATH=$(testDir)/mf/Core;       export MODULEPATH
+
+     remove_generated_lmod_files
+
+     cp $(projectDir)/init/lmodrc.lua .lmodrc.lua
+
+     mkdir -p $HOME/.cache/lmod
+     buildSpiderT $MODULEPATH > $HOME/.cache/lmod/spiderT.lua
+
+     runLmod --version                  # 1
+     # Helper function to cleanup environment
+     runLmod purge                      # 2
+     
+
+     # Test Error Cases - Each in isolation
+     runLmod load nil_mode_test         # 3 (Test missing mode specification)
+     runLmod list                       # 4 (Verify state after nil mode error)
+     runLmod purge                      # 5
+     
+     runLmod load invalid_mode_test     # 6 (Test invalid mode string)
+     runLmod list                       # 7 (Verify state after invalid mode error)
+     runLmod purge                      # 8
+     
+     runLmod load empty_mode_test       # 9 (Test empty mode table)
+     runLmod list                       #10 (Verify state after empty mode error)
+     runLmod purge                      #11
+
+     # Test Mixed Load Operations
+     runLmod load mixed_load_test       #12 (Test load-specific operations)
+     runLmod list                       #13 (Verify load state)
+     runLmod unload mixed_load_test     #14 (Test cleanup)
+     runLmod list                       #15 (Verify state after unload)
+     runLmod purge                      #16
+
+     # Test Mixed Unload Operations
+     runLmod load mixed_unload_test     #17 (Test unload-specific operations)
+     runLmod list                       #18 (Verify initial state)
+     runLmod unload mixed_unload_test   #19 (Test unload behavior)
+     runLmod list                       #20 (Verify final state)
+     runLmod purge                      #21
+
+     # Test Mixed Both Operations
+     runLmod load mixed_both_test       #22 (Test dual-mode operations during load)
+     runLmod list                       #23 (Verify load state)
+     runLmod unload mixed_both_test     #24 (Test dual-mode operations during unload)
+     runLmod list                       #25 (Verify final state)
+
+     runLmod load forbidden_env_test    #26 (Test forbidden env var check: should raise error and not load)
+     runLmod load invalid_key_test      #27 (Test invalid func key check: should raise error and not load)
+
+
+     HOME=$ORIG_HOME
+
+     cat _stdout.[0-9][0-9][0-9] > _stdout.orig
+     joinBase64Results  -bash  _stdout.orig _stdout.new
+     cleanUp _stdout.new out.txt
+
+     cat _stderr.[0-9][0-9][0-9] > _stderr.orig
+     cleanUp _stderr.orig err.txt
+
+     rm -f results.csv
+     wrapperDiff --csv results.csv $(testDir)/out.txt out.txt
+     wrapperDiff --csv results.csv $(testDir)/err.txt err.txt
+     testFinish -r $(resultFn) -t $(runtimeFn) results.csv
+   ]],
+
+   blessScript = [[
+         # perform what is needed
+   ]],
+
+   tests = {
+      { id='t1'},
+   },
+} 

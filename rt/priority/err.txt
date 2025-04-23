@@ -45,7 +45,7 @@ step 10
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing show tdog
 ===========================
    ProjectDIR/rt/priority/mf/Core/tdog/1.0:
-prepend_path{"RTM_PATH","/top/dog100",priority="100"}
+prepend_path{"RTM_PATH","/top/dog100",delim=":",priority="100"}
 prepend_path("RTM_PATH","/top/dog0")
 ===========================
 step 11

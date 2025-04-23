@@ -48,53 +48,53 @@ require("strict")
 
 require("utils")
 
-local dbg              = require("Dbg"):dbg()
-local concatTbl        = table.concat
-local hook             = require("Hook")
-local MainControl      = require("MainControl")
-MC_Spider              = inheritsFrom(MainControl)
-MC_Spider.my_name      = "MC_Spider"
-MC_Spider.my_sType     = "load"
-MC_Spider.my_tcl_mode  = "spider"
+local dbg               = require("Dbg"):dbg()
+local concatTbl         = table.concat
+local hook              = require("Hook")
+local MainControl       = require("MainControl")
+MC_Spider               = inheritsFrom(MainControl)
+MC_Spider.my_name       = "MC_Spider"
+MC_Spider.my_sType      = "load"
+MC_Spider.my_tcl_mode   = "spider"
 
-local M                = MC_Spider
+local M                 = MC_Spider
 
-M.always_load          = MainControl.quiet
-M.always_unload        = MainControl.quiet
-M.build_unload         = MainControl.do_not_build_unload
-M.color_banner         = MainControl.quiet
-M.complete             = MainControl.quiet
-M.conflict             = MainControl.quiet
-M.depends_on           = MainControl.quiet
-M.depends_on_any       = MainControl.quiet
-M.error                = MainControl.quiet
-M.execute              = MainControl.execute
-M.inherit              = MainControl.quiet
-M.load                 = MainControl.quiet
-M.load_any             = MainControl.quiet
-M.load_usr             = MainControl.quiet
-M.message              = MainControl.quiet
-M.msg_raw              = MainControl.quiet
-M.mgrload              = MainControl.quiet
-M.popenv               = MainControl.quiet
-M.prereq               = MainControl.quiet
-M.prereq_any           = MainControl.quiet
-M.purge                = MainControl.quiet
-M.remove_path          = MainControl.quiet
-M.report               = MainControl.warning
-M.set_alias            = MainControl.quiet
-M.set_shell_function   = MainControl.quiet
-M.source_sh            = MainControl.quiet
-M.try_load             = MainControl.quiet
-M.uncomplete           = MainControl.quiet
-M.unload               = MainControl.quiet
-M.unload_usr           = MainControl.quiet
-M.unsetenv             = MainControl.quiet
-M.unset_alias          = MainControl.quiet
-M.unset_shell_function = MainControl.quiet
-M.usrload              = MainControl.quiet
-M.warning              = MainControl.warning
-M.LmodBreak            = MainControl.quiet
+M.always_load           = MainControl.quiet
+M.always_unload         = MainControl.quiet
+M.build_unload          = MainControl.do_not_build_unload
+M.color_banner          = MainControl.quiet
+M.complete              = MainControl.quiet
+M.conflict              = MainControl.quiet
+M.depends_on            = MainControl.quiet
+M.depends_on_any        = MainControl.quiet
+M.error                 = MainControl.quiet
+M.execute               = MainControl.execute
+M.export_shell_function = MainControl.quiet
+M.inherit               = MainControl.quiet
+M.load                  = MainControl.quiet
+M.load_any              = MainControl.quiet
+M.load_usr              = MainControl.quiet
+M.message               = MainControl.quiet
+M.msg_raw               = MainControl.quiet
+M.mgrload               = MainControl.quiet
+M.prereq                = MainControl.quiet
+M.prereq_any            = MainControl.quiet
+M.purge                 = MainControl.quiet
+M.remove_path           = MainControl.quiet
+M.report                = MainControl.warning
+M.set_alias             = MainControl.quiet
+M.set_shell_function    = MainControl.quiet
+M.source_sh             = MainControl.quiet
+M.try_load              = MainControl.quiet
+M.uncomplete            = MainControl.quiet
+M.unload                = MainControl.quiet
+M.unload_usr            = MainControl.quiet
+M.unsetenv              = MainControl.quiet
+M.unset_alias           = MainControl.quiet
+M.unset_shell_function  = MainControl.quiet
+M.usrload               = MainControl.quiet
+M.warning               = MainControl.warning
+M.LmodBreak             = MainControl.quiet
 
 function argsPack(...)
    local arg = { n = select("#", ...), ...}
@@ -220,11 +220,10 @@ s_patDir = false
 -- @param self A MainControl object.
 -- @param name the environment variable name.
 -- @param value the environment variable value.
-function M.setenv(self, table)
-
-   dbg.start{"MC_Spider:setenv(table)"}
-   local name = (table[1] or ""):trim()
-   local value = table[2]
+function M.setenv(self, argT)
+   dbg.start{"MC_Spider:setenv(argT)"}
+   local name  = argT[1]
+   local value = argT[2]
 
    save_set_env(name, value)
 
@@ -268,13 +267,12 @@ end
 -- as long as no site mixes pushenv and popenv in the same
 -- modulefile.  Fix this when the time comes.
 
-function M.pushenv(self, table)
-   dbg.start{"MC_Spider:pushenv(table)"}
-
-   local name = (table[1] or ""):trim()
-   local value = table[2]
+function M.pushenv(self, argT)
+   dbg.start{"MC_Spider:pushenv(argT)"}
+   local name  = argT[1]
+   local value = argT[2]
    save_set_env(name, value)
-   dbg.fini()
+   dbg.fini("MC_Spider:pushenv")
    return true
 end
 
@@ -282,10 +280,10 @@ end
 -- Pass-thru to Spider_append_path().
 -- @param self A MainControl object.
 -- @param t input table.
-function M.prepend_path(self,t)
-   dbg.start{"MC_Spider:prepend_path(t)"}
-   Spider_append_path("prepend",t)
-   dbg.fini()
+function M.prepend_path(self,argT)
+   dbg.start{"MC_Spider:prepend_path(argT)"}
+   Spider_append_path("prepend",argT)
+   dbg.fini("MC_Spider:prepend_path")
    return true
 
 end
@@ -294,10 +292,10 @@ end
 -- Pass-thru to Spider_append_path().
 -- @param self A MainControl object.
 -- @param t input table.
-function M.append_path(self,t)
-   dbg.start{"MC_Spider:append_path(t)"}
-   Spider_append_path("append",t)
-   dbg.fini()
+function M.append_path(self,argT)
+   dbg.start{"MC_Spider:append_path(argT)"}
+   Spider_append_path("append",argT)
+   dbg.fini("MC_Spider:append_path")
    return true
 end
 

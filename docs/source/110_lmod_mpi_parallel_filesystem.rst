@@ -13,7 +13,7 @@ this timeout problem for mpi programs that execute more than 1000
 nodes, but when this problem occurs will depend on relative speeds of
 the network and the parallel filesystem.
 
-It is helpful to outline the proceedure that we use at TACC to start a
+It is helpful to outline the procedure that we use at TACC to start a
 job on a compute node for a user 
 
 #. The bash user submits a job to the scheduler.
@@ -86,7 +86,7 @@ submission script::
     #SBATCH ...
 
     module load intel mvapich2
-    ibrun ./my_mpi_program        # start parallel executation.
+    ibrun ./my_mpi_program        # start parallel execution.
 
 Note that the total environment is passed by our parallel job starter
 ibrun.  So there is no need for a user's ~/bashrc or similar file to

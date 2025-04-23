@@ -105,6 +105,14 @@ buildSh2MF ProjectDIR/rt/sh_to_mf/unalias.sh
 ===========================
 ===========================
 step 8
+buildSh2MF ProjectDIR/rt/sh_to_mf/spack_foo.sh
+===========================
+set_shell_function("_some_spack_func"," \
+    echo \"_some_spack_func\"\
+","")
+export_shell_function("_some_spack_func")
+===========================
+step 9
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing show wrapperSh/1.0
 ===========================
 __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/sh_to_mf/mf:1;
@@ -114,7 +122,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/sh_to_mf/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_mf/mf",}';
 export _ModuleTable_;
 ===========================
-step 9
+step 10
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load wrapperSh/1.0
 ===========================
 LOADEDMODULES=wrapperSh/1.0;
@@ -139,7 +147,6 @@ banner () {
     local NONE='\\033[0m';
     echo "${RED}${str}${NONE}";
 };
-[[ -n "${BASH_VERSION:-}" ]] && complete -F _xyz123 xyz123;
 alias fooAlias=foobin\ -q\ -l;
 fooFunc () {
     echo "arg1: $1";
@@ -159,8 +166,9 @@ save_args () {
     done;
     echo " ";
 };
+[[ -n "${BASH_VERSION:-}" ]] && complete -F _xyz123 xyz123;
 ===========================
-step 10
+step 11
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing show wrapperSh/1.0
 ===========================
 MODULEPATH=ProjectDIR/rt/sh_to_mf/mf;
@@ -168,7 +176,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_mf/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/sh_to_mf/second.sh arg1"]={"setenv(\"SECOND\",\"FOO_BAR\")",},["ProjectDIR/rt/sh_to_mf/tstScript.sh"]={"setenv(\"MY_NAME\",\"tstScript.sh\")","setenv(\"PTH\",\"ProjectDIR/rt/sh_to_mf/bin:ProjectDIR/proj_mgmt:PATH_to_TM:ProjectDIR/rt/sh_to_mf/sbin\")","setenv(\"TST_SCRIPT\",\"1\")","set_alias(\"fooAlias\",\"foobin -q -l\")",[[set_shell_function("banner"," \\ local str=\\"$1\\";\\ local RED='\\033[1;31m';\\ local NONE='\\033[0m';\\ echo \\"${RED}${str}${NONE}\\"\\","")]],[[set_shell_function("fooFunc"," \\ echo \\"arg1: $1\\"\\","")]],[[set_shell_function("junk"," \\ if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\ \\\\echo \\"junk\\";\\ fi\\","")]],[[set_shell_function("my_help"," \\ echo \\"do not forget \\\\\\"foo\\\\\\"\\"\\","")]],[[set_shell_function("save_args"," \\ for arg in \\"$@\\";\\ do\\ printf \\"%s\\\\n\\" \\"$arg\\" | sed -e \\"s/'/'\\\\\\\\\\\\\\\\''/g\\" -e \\"1s/^/'/\\" -e \\"\\\\$s/\\\\$/' \\\\\\\\\\\\\\\\/\\";\\ done;\\ echo \\" \\"\\","")]],"complete(\"bash\",\"XyZ123\",\"-F _xyz123\")",},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_mf/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_mf/mf",}';
 export _ModuleTable_;
 ===========================
-step 11
+step 12
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing refresh
 ===========================
 MODULEPATH=ProjectDIR/rt/sh_to_mf/mf;
@@ -181,7 +189,6 @@ banner () {
     local NONE='\\033[0m';
     echo "${RED}${str}${NONE}";
 };
-[[ -n "${BASH_VERSION:-}" ]] && complete -F _xyz123 xyz123;
 alias fooAlias=foobin\ -q\ -l;
 fooFunc () {
     echo "arg1: $1";
@@ -201,8 +208,9 @@ save_args () {
     done;
     echo " ";
 };
+[[ -n "${BASH_VERSION:-}" ]] && complete -F _xyz123 xyz123;
 ===========================
-step 12
+step 13
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/sh_to_mf/mf;
@@ -210,11 +218,11 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_mf/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/sh_to_mf/second.sh arg1"]={"setenv(\"SECOND\",\"FOO_BAR\")",},["ProjectDIR/rt/sh_to_mf/tstScript.sh"]={"setenv(\"MY_NAME\",\"tstScript.sh\")","setenv(\"PTH\",\"ProjectDIR/rt/sh_to_mf/bin:ProjectDIR/proj_mgmt:PATH_to_TM:ProjectDIR/rt/sh_to_mf/sbin\")","setenv(\"TST_SCRIPT\",\"1\")","set_alias(\"fooAlias\",\"foobin -q -l\")",[[set_shell_function("banner"," \\ local str=\\"$1\\";\\ local RED='\\033[1;31m';\\ local NONE='\\033[0m';\\ echo \\"${RED}${str}${NONE}\\"\\","")]],[[set_shell_function("fooFunc"," \\ echo \\"arg1: $1\\"\\","")]],[[set_shell_function("junk"," \\ if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\ \\\\echo \\"junk\\";\\ fi\\","")]],[[set_shell_function("my_help"," \\ echo \\"do not forget \\\\\\"foo\\\\\\"\\"\\","")]],[[set_shell_function("save_args"," \\ for arg in \\"$@\\";\\ do\\ printf \\"%s\\\\n\\" \\"$arg\\" | sed -e \\"s/'/'\\\\\\\\\\\\\\\\''/g\\" -e \\"1s/^/'/\\" -e \\"\\\\$s/\\\\$/' \\\\\\\\\\\\\\\\/\\";\\ done;\\ echo \\" \\"\\","")]],"complete(\"bash\",\"XyZ123\",\"-F _xyz123\")",},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_mf/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_mf/mf",}';
 export _ModuleTable_;
 ===========================
-step 13
+step 14
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
 ===========================
 ===========================
-step 14
+step 15
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload wrapperSh/1.0
 ===========================
 unset LOADEDMODULES;
@@ -228,19 +236,19 @@ unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/sh_to_mf/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_mf/mf",}';
 export _ModuleTable_;
 unset -f banner 2> /dev/null || true;
-[[ -n "${BASH_VERSION:-}" ]] && complete -r xyz123;
 unalias fooAlias 2> /dev/null || true;
 unset -f fooFunc 2> /dev/null || true;
 unset -f junk 2> /dev/null || true;
 unset -f my_help 2> /dev/null || true;
 unset -f save_args 2> /dev/null || true;
+[[ -n "${BASH_VERSION:-}" ]] && complete -r xyz123;
 ===========================
-step 15
+step 16
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load brokenSh/1.0
 ===========================
 false
 ===========================
-step 16
+step 17
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load wrapperSh/1.0
 ===========================
 LOADEDMODULES=wrapperSh/1.0;
@@ -265,7 +273,6 @@ banner () {
     local NONE='\\033[0m';
     echo "${RED}${str}${NONE}";
 };
-[[ -n "${BASH_VERSION:-}" ]] && complete -F _xyz123 xyz123;
 alias fooAlias=foobin\ -q\ -l;
 fooFunc () {
     echo "arg1: $1";
@@ -285,8 +292,9 @@ save_args () {
     done;
     echo " ";
 };
+[[ -n "${BASH_VERSION:-}" ]] && complete -F _xyz123 xyz123;
 ===========================
-step 17
+step 18
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing save
 ===========================
 MODULEPATH=ProjectDIR/rt/sh_to_mf/mf;
@@ -294,7 +302,7 @@ export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={wrapperSh={fn="ProjectDIR/rt/sh_to_mf/mf/wrapperSh/1.0.lua",fullName="wrapperSh/1.0",loadOrder=1,mcmdT={["ProjectDIR/rt/sh_to_mf/second.sh arg1"]={"setenv(\"SECOND\",\"FOO_BAR\")",},["ProjectDIR/rt/sh_to_mf/tstScript.sh"]={"setenv(\"MY_NAME\",\"tstScript.sh\")","setenv(\"PTH\",\"ProjectDIR/rt/sh_to_mf/bin:ProjectDIR/proj_mgmt:PATH_to_TM:ProjectDIR/rt/sh_to_mf/sbin\")","setenv(\"TST_SCRIPT\",\"1\")","set_alias(\"fooAlias\",\"foobin -q -l\")",[[set_shell_function("banner"," \\ local str=\\"$1\\";\\ local RED='\\033[1;31m';\\ local NONE='\\033[0m';\\ echo \\"${RED}${str}${NONE}\\"\\","")]],[[set_shell_function("fooFunc"," \\ echo \\"arg1: $1\\"\\","")]],[[set_shell_function("junk"," \\ if [ -n \\"${ZSH_VERSION:-}\\" ]; then\\ \\\\echo \\"junk\\";\\ fi\\","")]],[[set_shell_function("my_help"," \\ echo \\"do not forget \\\\\\"foo\\\\\\"\\"\\","")]],[[set_shell_function("save_args"," \\ for arg in \\"$@\\";\\ do\\ printf \\"%s\\\\n\\" \\"$arg\\" | sed -e \\"s/'/'\\\\\\\\\\\\\\\\''/g\\" -e \\"1s/^/'/\\" -e \\"\\\\$s/\\\\$/' \\\\\\\\\\\\\\\\/\\";\\ done;\\ echo \\" \\"\\","")]],"complete(\"bash\",\"XyZ123\",\"-F _xyz123\")",},},propT={},stackDepth=0,status="active",userName="wrapperSh/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/sh_to_mf/mf",},systemBaseMPATH="ProjectDIR/rt/sh_to_mf/mf",}';
 export _ModuleTable_;
 ===========================
-step 18
+step 19
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
 ===========================
 MODULEPATH=ProjectDIR/rt/sh_to_mf/mf;
@@ -317,7 +325,6 @@ banner () {
     local NONE='\\033[0m';
     echo "${RED}${str}${NONE}";
 };
-[[ -n "${BASH_VERSION:-}" ]] && complete -F _xyz123 xyz123;
 alias fooAlias=foobin\ -q\ -l;
 fooFunc () {
     echo "arg1: $1";
@@ -337,12 +344,13 @@ save_args () {
     done;
     echo " ";
 };
+[[ -n "${BASH_VERSION:-}" ]] && complete -F _xyz123 xyz123;
 ===========================
-step 19
+step 20
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
 ===========================
 ===========================
-step 20
+step 21
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
 ===========================
 LOADEDMODULES=A/1.0;
@@ -361,7 +369,6 @@ banner () {
     local NONE='\\033[0m';
     echo "${RED}${str}${NONE}";
 };
-[[ -n "${BASH_VERSION:-}" ]] && complete -F _xyz123 xyz123;
 alias fooAlias=foobin\ -q\ -l;
 fooFunc () {
     echo "arg1: $1";
@@ -381,8 +388,9 @@ save_args () {
     done;
     echo " ";
 };
+[[ -n "${BASH_VERSION:-}" ]] && complete -F _xyz123 xyz123;
 ===========================
-step 21
+step 22
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=OutputDIR/mf;
