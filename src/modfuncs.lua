@@ -429,20 +429,20 @@ end
 --------------------------------------------------------------------------
 -- Validate a function with only string table.
 -- @param cmdName The command which is getting its arguments validated.
-local function l_validateStringTable(n, cmdName, table)
-   n = max(n,#table)
+local function l_validateStringTable(n, cmdName, t)
+   n = max(n,#t)
    for i = 1, n do
-      local v = table[i]
+      local v = t[i]
       if (type(v) ~= "string") then
          mcp:report{msg="e_Args_Not_Strings", fn = myFileName(), cmdName = cmdName}
          return false
       end
    end
-   if (table.priority ~= nil) then
+   if (t.priority ~= nil) then
       local valid = false
-      if (table.priority == 0) then
+      if (t.priority == 0) then
          valid = true
-      elseif (table.priority >= 10) then
+      elseif (t.priority >= 10) then
          valid = true
       end
 
@@ -483,8 +483,6 @@ end
 -- Validate a function with only string module names table.
 -- @param cmdName The command which is getting its arguments validated.
 local function l_validateModules(cmdName, ...)
-
-   dbg.print{"validateModules input BLAH: ", l_concatTbl({...},", "),")"}
    local argA = pack(...)
    local allGood = true
    local fn      = false
@@ -644,41 +642,6 @@ function pushenv(...)
    mcp = mcp_old
    dbg.fini("pushenv")
    return
-end
-
---------------------------------------------------------------------------
--- Convert all function arguments to table form
--- first_elem seperated from args for type test
-function list_2_Tbl(MCP, mcp, first_elem, ...)
-   dbg.start{"list_2_Tbl(",l_concatTbl({first_elem, ...},", "),")"}
-
-   local my_mcp = nil
-   local t = nil
-   local action = nil
-   if ( type(first_elem) == "table" )then
-      t = first_elem
-      t.kind = "table"
-      local my_mode = mode()
-      local modeA = t.mode or {}
-      for i = 1,#modeA do
-         if (my_mode == modeA[i]) then
-            action = true
-            my_mcp = MCP 
-            break
-         end
-      end
-
-   else
-      t = pack(first_elem, ...)
-      t.kind = "list"
-      my_mcp = mcp
-      action = true
-   end
-
-   if ( not action ) then my_mcp = nil end
-   dbg.print{"OutputTable: ", t, "\n"}
-   dbg.fini("list_2_Tbl")
-   return my_mcp, t
 end
 
 --------------------------------------------------------------------------
