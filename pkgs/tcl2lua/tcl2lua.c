@@ -20,9 +20,9 @@ typedef struct _results {
 #define TclNewLiteralStringObj(objPtr, sLiteral) \
     (objPtr) = Tcl_NewStringObj( (sLiteral), (int) (sizeof(sLiteral "") - 1))
 
-int setResultsObjCmd(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[])
+int setResultsObjCmd(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj * const objv[])
 {
-  int      len;
+  int len;
   Tcl_Obj *objPtr;
   int i;
   results_t* results = (results_t*)clientData;
