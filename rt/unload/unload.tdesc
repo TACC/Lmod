@@ -29,15 +29,18 @@ testdescript = {
      mkdir -p $HOME/.cache/lmod
      buildSpiderT $MODULEPATH > $HOME/.cache/lmod/spiderT.lua
 
-     runLmod --version                  # 1
-     runLmod spider                     # 2
-     runLmod load intel                 # 3
-     runLmod load mpich2 petsc          # 4
-     runLmod avail                      # 5
-     runLmod list                       # 6
-     runLmod unload intel               # 7
-     runLmod load   B                   # 8
-     runLmod unload B                   # 9
+     runLmod --version                           # 1
+     runBase runSpiderCmd -o spiderT $MODULEPATH # 2
+     runLmod spider                              # 3
+     runLmod load intel                          # 4
+     runLmod load mpich2 petsc                   # 5
+     runLmod avail                               # 6
+     runLmod list                                # 7
+     runLmod unload intel                        # 8
+     runLmod load   B                            # 9
+     runLmod unload B                            #10
+     runLmod load   C                            #11
+     runLmod unload C                            #12
 
      HOME=$ORIG_HOME
 
