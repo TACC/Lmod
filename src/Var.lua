@@ -519,8 +519,7 @@ function M.set(self,value)
 end
 
 --------------------------------------------------------------------------
--- Remove the top value and return the second value or nil if
--- none are left.
+-- Pop top value off of stack and return it or nil if none are left.
 -- @param self A Var object.
 function M.pop(self)
    dbg.start{"Var.pop(self)"}
@@ -529,18 +528,20 @@ function M.pop(self)
    local min2   = huge
    local result = nil
 
-   --if (dbg.active()) then
-   --   print(__FILE__() .. ':' .. __LINE__())
-   --   self:prt("(1) Var:pop()")
-   --   print(__FILE__() .. ':' .. __LINE__())
-   --end
+   if (dbg.active()) then
+      self:prt("(1) Var:pop()")
+   end
 
+   local icnt = 0
    for k, vv in pairs(self.tbl) do
       local idxA = vv.idxA
       local v = idxA[1][1]
-      dbg.print{"v: ",v,", imin: ",imin,", min2: ",min2,"\n"}
+      --icnt = icnt + 1
+      --dbg.print{"icnt: ",icnt,", v: ",v,", imin: ",imin,", min2: ",min2,"\n"}
+      --dbg.printT("vv", vv)
       if (v == imin) then
-         vv          = l_remFunc(vv, "first", 0, false)
+         result      = k
+         vv          = l_remFunc(vv, "first", 0, false, false)
          self.tbl[k] = vv
          if (vv ~= nil) then
             v = vv.idxA[1][1]
@@ -548,14 +549,13 @@ function M.pop(self)
             v = huge
          end
       end
-      dbg.print{"v: \"",v,"\"\n"}
+      --dbg.print{"v: \"",v,"\"\n"}
       if (v < min2) then
          min2   = v
-         result = k
       end
-      dbg.print{"min2: ",min2,"\n"}
+      --dbg.print{"min2: ",min2,"\n"}
    end
-   dbg.print{"imin: ",imin,", min2: ",min2,"\n"}
+   --dbg.print{"imin: ",imin,", min2: ",min2,"\n"}
    if (min2 < huge) then
       self.imin = min2
    end

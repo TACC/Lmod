@@ -116,33 +116,65 @@ echo FOO=%% BAZ=% %
 ===========================
 ===========================
 step 28
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload first
 ===========================
 ===========================
 step 29
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing load tryThis
+echo FOO=%% BAZ=%%
 ===========================
 ===========================
 step 30
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing refresh
-===========================
-===========================
-step 31
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
+step 31
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load tryThis
+===========================
+===========================
 step 32
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing refresh
 ===========================
 ===========================
 step 33
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
 step 34
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload B
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
 ===========================
 ===========================
 step 35
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B
+===========================
+===========================
+step 36
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload B
+===========================
+===========================
+step 37
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload A
+===========================
+===========================
+step 38
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
+===========================
+===========================
+step 39
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload A
+===========================
+===========================
+step 40
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
+===========================
+===========================
+step 41
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B
+===========================
+===========================
+step 42
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload B
+===========================
+===========================
+step 43
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload A
 ===========================

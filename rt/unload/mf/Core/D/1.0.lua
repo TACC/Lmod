@@ -1,2 +1,2 @@
 setenv("Z", "X")
-setenv{"J", "K", mode={"load"}}
+setenv{"J", "K", modeA={"load"}}

@@ -313,8 +313,9 @@ function main()
    end
 
    dbg.start{"module_tree_check main()"}
-   _G.mcp = MainControl.build("spider")
-   _G.MCP = MainControl.build("spider")
+   _G.mcp  = MainControl.build("spider")
+   _G.MCP  = MainControl.build("spider")
+   _G.MCPQ = MainControl.build("spider")
    local remove_MRC_home         = getuid() < 501
    local cache                   = Cache:singleton{dontWrite = true, quiet = true, buildCache = true,
                                                    buildFresh = true, noMRC=true}
@@ -322,8 +323,9 @@ function main()
    local spiderT, dbT,
          mpathMapT, providedByT  = cache:build()
 
-   _G.MCP = MainControl.build("checkSyntax")
-   _G.mcp = MainControl.build("checkSyntax")
+   _G.MCP  = MainControl.build("checkSyntax")
+   _G.MCPQ = MainControl.build("checkSyntax")
+   _G.mcp  = MainControl.build("checkSyntax")
    mcp.error  = check_syntax_error_handler
    MCP.error  = check_syntax_error_handler
    mcp.report = check_syntax_error_handler
