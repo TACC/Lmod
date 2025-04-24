@@ -20,7 +20,7 @@ static int   rlen      = 0;
 
 int setResultsObjCmd(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj * const objv[])
 {
-  Tcl_Size len;
+  int len;
   Tcl_Obj *objPtr;
   int i;
   if (objc != 2) {
