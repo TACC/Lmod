@@ -97,6 +97,7 @@ require("utils")
 require("fileOps")
 require("capture")
 MainControl   = require("MainControl")
+MCPQ          = false
 MCP           = false
 mcp           = false
 require("modfuncs")
@@ -145,6 +146,7 @@ function main()
    initialize_lmod()
 
    MCP           = MainControl.build("computeHash","load")
+   MCPQ          = MainControl.build("computeHash","load")
    mcp           = MainControl.build("computeHash","load")
 
    local fn     = optionTbl.pargs[1]

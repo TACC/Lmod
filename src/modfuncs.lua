@@ -311,11 +311,20 @@ end
 local function l_chose_mcp(argT)
    local my_mode = mode()
    -- In 'show' mode, always execute.
-   if my_mode == "show" then
+
+   if (my_mode == "show") then
       return mcp
    end
 
    local modeA = argT.modeA
+   if (my_mode == "spider") then
+      for i = 1, #modeA do
+         if modeA[i] == "load" then
+            return mcp
+         end
+      end
+   end
+      
    -- If the mode is explicitly "normal", always execute.
    for i = 1, #modeA do
       if modeA[i] == "normal" then
@@ -512,15 +521,21 @@ end
 function load_module(...)
    local argT = l_build_check_argT("load_module", s_load_rulesT, ...)
    if (not argT) then
+      dbg.print{"empty argT\n"}
       dbg.fini("load_module")
       return {}
    end
 
-   local mcp_old = mcp
+   --local mcp_old = mcp
+   mcpStack:push(mcp)
+   dbg.print{"before chose: mcp: ",mcp,"\n"}
    mcp = l_chose_mcp(argT)
+   dbg.print{"after chose: mcp: ",mcp,"\n"}
 
    local b = mcp:load_usr(MName:buildA(mcp:MNameType(), argT))
-   mcp = mcp_old
+   --mcp = mcp_old
+   mcp = mcpStack:pop()
+   dbg.print{"restore: mcp: ",mcp,"\n"}
    dbg.fini("load_module")
    return b
 end
@@ -579,13 +594,19 @@ function prepend_path(...)
    end
 
 
-   local mcp_old = mcp
+   --local mcp_old = mcp
+   mcpStack:push(mcp)
+   dbg.print{"before chose: mcp: ",mcp,"\n"}
+
    mcp = l_chose_mcp(argT)
 
+   dbg.print{"after chose: mcp: ",mcp,"\n"}
    if (argT[2]) then
       mcp:prepend_path(argT)
    end
-   mcp = mcp_old
+   --mcp = mcp_old
+   mcp = mcpStack:pop()
+   dbg.print{"restore: mcp: ",mcp,"\n"}
    dbg.fini("prepend_path")
    return
 end
@@ -594,13 +615,22 @@ end
 -- Append a value to a path like variable.
 function append_path(...)
    local argT = l_build_check_argT("append_path", s_prepend_rulesT, ...)
-   local mcp_old = mcp
+   if (not argT) then
+      dbg.fini("prepend_path")
+      return
+   end
+   --local mcp_old = mcp
+   mcpStack:push(mcp)
+   dbg.print{"before chose: mcp: ",mcp,"\n"}
    mcp = l_chose_mcp(argT)
+   dbg.print{"after chose: mcp: ",mcp,"\n"}
 
    if (argT[2]) then
       mcp:append_path(argT)
    end
-   mcp = mcp_old
+   --mcp = mcp_old
+   mcp = mcpStack:pop()
+   dbg.print{"restore: mcp: ",mcp,"\n"}
    dbg.fini("append_path")
    return
 end
@@ -614,13 +644,15 @@ function remove_path(...)
       return
    end
 
-   local mcp_old = mcp
+   --local mcp_old = mcp
+   mcpStack:push(mcp)
    mcp = l_chose_mcp(argT)
 
    if (argT[2]) then
       mcp:remove_path(argT)
    end
-   mcp = mcp_old
+   --mcp = mcp_old
+   mcp = mcpStack:pop()
    dbg.fini("remove_path")
    return
 end
@@ -636,26 +668,18 @@ function pushenv(...)
       return
    end
 
-   local mcp_old = mcp
+   --local mcp_old = mcp
+   mcpStack:push(mcp)
    mcp = l_chose_mcp(argT)
 
    mcp:pushenv(argT)
-   mcp = mcp_old
+   --mcp = mcp_old
+   mcp = mcpStack:pop()
    dbg.fini("pushenv")
    return
 end
 
 --------------------------------------------------------------------------
--- Set the value of environment variable.
---function setenv(...)
---   dbg.start{"setenv(",l_concatTbl({...},", "),")"}
---   if (not l_validateArgsWithValue("setenv",...)) then return end
-
---   mcp:setenv(...)
---   dbg.fini("setenv")
---   return
---end
-
 -- Set the value of environment variable.
 function setenv(...)
    -- Build and validate the argument table using the new rules.
@@ -665,12 +689,14 @@ function setenv(...)
       return
    end
    
-   local mcp_old = mcp
+   --local mcp_old = mcp
+   mcpStack:push(mcp)
    mcp = l_chose_mcp(argT)
 
    -- Call the underlying mcp function 
    mcp:setenv(argT)
-   mcp = mcp_old
+   --mcp = mcp_old
+   mcp = mcpStack:pop()
    dbg.fini("setenv")
    return
 end
@@ -686,11 +712,13 @@ function unsetenv(...)
       return
    end
    
-   local mcp_old = mcp
+   --local mcp_old = mcp
+   mcpStack:push(mcp)
    mcp = l_chose_mcp(argT)
 
    mcp:unsetenv(argT)
-   mcp = mcp_old
+   --mcp = mcp_old
+   mcp = mcpStack:pop()
    dbg.fini("unsetenv")
    return
 end
@@ -1173,9 +1201,12 @@ function try_load(...)
       return {}
    end
 
-   local mcp_old = mcp
+   --local mcp_old = mcp
+   mcpStack:push(mcp)
    mcp = l_chose_mcp(argT)
    local b = mcp:try_load(MName:buildA(mcp:MNameType(), argT))
+   --mcp = mcp_old
+   mcp = mcpStack:pop()
    dbg.fini("try_load")
    return b
 end
@@ -1188,10 +1219,12 @@ function unload_usr_internal(mA, force)
    local mrc = MRC:singleton()
    mrc:set_display_mode("all")
 
-   local mcp_old = mcp
+   --local mcp_old = mcp
+   mcpStack:push(mcp)
    mcp = MainControl.build("unload")
    local b = MainControl.unload_usr(mcp, mA, force)
-   mcp = mcp_old
+   --mcp = mcp_old
+   mcp = mcpStack:pop()
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    dbg.fini("unload_usr_internal")
    return b
@@ -1205,10 +1238,12 @@ function unload_internal(mA)
    local mrc = MRC:singleton()
    mrc:set_display_mode("all")
 
-   local mcp_old = mcp
+   --local mcp_old = mcp
+   mcpStack:push(mcp)
    mcp = mcp:build_unload()
    local b = mcp:unload(mA)
-   mcp = mcp_old
+   --mcp = mcp_old
+   mcp = mcpStack:pop()
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    dbg.fini("unload_internal")
    return b
