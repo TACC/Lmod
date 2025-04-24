@@ -306,7 +306,9 @@ function M.findAllModules(self, mpathA, spiderT, mpathMapT)
    local exit            = os.exit
    os.exit               = l_nothing
 
-   local mcp_old   = mcp
+   --local mcp_old   = mcp
+   dbg.print{"mcpStack: ",mcpStack,"\n"}
+   mcpStack:push(mcp)
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    mcp = MainControl.build("spider")
 
@@ -396,7 +398,8 @@ function M.findAllModules(self, mpathA, spiderT, mpathMapT)
    end
 
    dbg.printT("mpathMapT",mpathMapT)
-   mcp = mcp_old
+   --mcp = mcp_old
+   mcp = mcpStack:pop()
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    dbg.fini("Spider:findAllModules")
 end

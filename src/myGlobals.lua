@@ -43,6 +43,7 @@ require("strict")
 require("declare")
 require("fileOps")
 
+local Stack        = require("Stack")
 local Version      = require("Version")
 local cosmic       = require("Cosmic"):singleton()
 local lfs          = require("lfs")
@@ -519,6 +520,9 @@ cosmic:init{name    = "LFS_VERSION",
 MCPQ           = false
 MCP            = false
 mcp            = false
+
+mcpStack       = Stack:new()
+
 
 ------------------------------------------------------------------------
 -- adminA:  An array that contains module names and a message to users

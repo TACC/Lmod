@@ -60,6 +60,7 @@ local s_mfileCountT   = {}
 --          things like the current list of modules and the shell.
 function loadModuleFile(t)
    dbg.start{"loadModuleFile(",t.file,")"}
+   dbg.print{"mcp: ",mcp,"\n"}
 
    local myType     = extname(t.file)
    local forbiddenT = t.forbiddenT or {}
@@ -70,6 +71,7 @@ function loadModuleFile(t)
    local whole
    local userName
 
+   
 
 
    -- If the user is requesting an unload, don't complain if the file
@@ -185,6 +187,7 @@ function loadModuleFile(t)
       end
    end
 
+   dbg.print{"mcp: ",mcp,"\n"}
    dbg.fini("loadModuleFile")
    return not lmodBrk
 end
