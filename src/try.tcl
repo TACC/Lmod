@@ -1,10 +1,9 @@
 #!/usr/bin/tclsh
 
-proc getModCmdOpts { args } {
+proc getModCmdOpts { &answerA &extraArgs args  } {
    
-   #set resultA {}
-   #set otherArgs {}
-
+   upvar 1 ${&answerA}   resultA
+   upvar 1 ${&extraArgs} otherArgs
    foreach arg $args {
       if {[info exists nextArgIsKey]} {
          set resultA($nextArgIsKey) $arg
@@ -16,7 +15,7 @@ proc getModCmdOpts { args } {
             -r - -respect - --respect {
                set resultA(respect) true
             }
-            --mode {
+            -mode - --mode {
                set nextArgIsKey mode
             }
             default {
@@ -25,15 +24,12 @@ proc getModCmdOpts { args } {
          }
       }
    }
-   puts $resultA(respect)
-   puts $resultA(mode)
-   puts $otherArgs
-   return [list $resultA $otherArgs ]
 }
 
 #lassign [getModCmdOpts -r -respect --respect --mode normal  A B C] resultA otherArgs
-lassign [getModCmdOpts -r --mode {load unload}  A B C] resultA otherArgs
+getModCmdOpts resultA otherArgs -r --mode {load unload}  A B C
 
-puts resultA(respect)
-puts otherArgs(1)
+puts "mode: $resultA(mode)"
+puts "respect: $resultA(respect)"
+puts "args: $otherArgs"
 
