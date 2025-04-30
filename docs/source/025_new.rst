@@ -1,8 +1,13 @@
 New Features in Lmod
 ====================
 
+**Irreversible module actions**
+  (Lmod 8.8) You can now set environment variable or load modules when
+  unloading. See :ref:`mode_select-label` for more details.
+
+
 **Updated Method for tracking module usage**
-  (Lmod 8.8+) See :ref:`tracking_usage` for more details
+  (Lmod 8.8+) See :ref:`tracking_usage` for more details.
 
 **decorate_module**:
   (Lmod 8.7.59+)  Sites can use this new hook to add text to a
