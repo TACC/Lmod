@@ -87,8 +87,8 @@ testdescript = {
 
      runLmod load   env_test            #29
      runLmod unload env_test            #30
-
-
+     runLmod load   load_test           #31
+     runLmod unload load_test           #32
 
      HOME=$ORIG_HOME
 

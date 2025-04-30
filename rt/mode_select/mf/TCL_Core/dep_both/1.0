@@ -1,0 +1,2 @@
+#%Module
+setenv DEP_BOTH_LOADED yes
