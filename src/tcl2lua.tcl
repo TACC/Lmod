@@ -736,12 +736,10 @@ proc extensions { args } {
     }
 }
 
-proc loadcmd { args } {
-    eval cmdargs "load" $args
-}
-
-proc load_any_cmd { args } {
-    eval cmdargs "load_any" $args
+proc loadcmd { cmdName args } {
+   getModCmdOpts resultA otherArgs {*}$args
+   
+   eval cmdargs_w_mode_select $cmdName $resultA(mode) {*}$otherArgs
 }
 
 proc swapcmd { old {new {}}} {
@@ -770,16 +768,15 @@ proc system {args} {
    return $status
 }
 
-proc tryloadcmd { args } {
-    eval cmdargs "try_load" $args
-}
+
 proc unload { args } {
-    set mode [currentMode]
-    set cmdName "unload"
-    if {$mode == "remove"} {
-        set cmdName "load"
-    }
-    eval cmdargs $cmdName $args
+   getModCmdOpts resultA otherArgs {*}$args
+   set mode [currentMode]
+   set cmdName "unload"
+   if {$mode == "remove"} {
+      set cmdName "load"
+   }
+   eval cmdargs_w_mode_select $cmdName $resultA(mode) {*}$otherArgs
 }
 proc prereq { args } {
     eval cmdargs "prereq_any" $args
@@ -1004,26 +1001,26 @@ proc is-avail { arg } {
 proc module { command args } {
     switch -- $command {
         load {
-            eval loadcmd $args
+            eval loadcmd "load" $args
         }
         load-any {
-            eval load_any_cmd $args
+            eval loadcmd "load_any" $args
         }
 	switch -
 	swap {
 	    eval swapcmd $args
 	}
         add {
-            eval loadcmd $args
+            eval loadcmd "load" $args
         }
         purge {
             eval purge $args
         }
         try-add {
-            eval tryloadcmd $args
+            eval loadcmd "try_load" $args
         }
         try-load {
-            eval tryloadcmd $args
+            eval loadcmd "try_load" $args
         }
         unload {
             eval unload $args
