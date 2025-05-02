@@ -1,0 +1,6 @@
+#%Module
+
+module load --mode load          dep_load
+module load --mode unload        dep_unload
+module load --mode {load unload} dep_both
+

@@ -80,6 +80,16 @@ testdescript = {
      runLmod load invalid_key_test      #27 (Test invalid func key check: should raise error and not load)
 
 
+     # Test TCL modules
+     runLmod purge                      #28
+     unsetMT
+     export MODULEPATH=$(testDir)/mf/TCL_Core
+
+     runLmod load   env_test            #29
+     runLmod unload env_test            #30
+     runLmod load   load_test           #31
+     runLmod unload load_test           #32
+
      HOME=$ORIG_HOME
 
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

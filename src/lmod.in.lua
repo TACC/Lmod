@@ -480,8 +480,9 @@ function main()
    hub = Hub:singleton(checkMPATH)
 
    if (optionTbl.checkSyntax) then
-      MCP = MainControl.build("checkSyntax")
-      mcp = MainControl.build("checkSyntax")
+      MCP  = MainControl.build("checkSyntax")
+      MCPQ = MainControl.build("checkSyntax")
+      mcp  = MainControl.build("checkSyntax")
       setSyntaxMode(true)
       Shell:setActive(false)
    end

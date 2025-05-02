@@ -580,7 +580,8 @@ local function l_usrLoad(argA, check_must_load)
          LmodWarning{msg="w_Undef_MPATH"}
       end
 
-      local mcp_old = mcp
+      --local mcp_old = mcp
+      mcpStack:push(mcp)
       mcp           = MCP
       dbg.print{"Setting mcp to ", mcp:name(),"\n"}
       b             = mcp:load_usr(lA)
@@ -588,7 +589,8 @@ local function l_usrLoad(argA, check_must_load)
       if (haveWarnings() and check_must_load) then
          mcp.mustLoad()
       end
-      mcp           = mcp_old
+      --mcp           = mcp_old
+      mcp           = mcpStack:pop()
    end
 
    dbg.fini("l_usrLoad")
@@ -1218,8 +1220,11 @@ function Use(...)
    dbg.start{"Use(", concatTbl({...},", "),")"}
    local mt       = FrameStk:singleton():mt()
    local a        = {}
-   local mcp_old  = mcp
-   local mcp      = MCP
+   --local mcp_old  = mcp
+   --local mcp      = MCP
+   mcpStack:push(mcp)
+   mcp            = MCP
+
    local op       = mcp.prepend_path
 
    local argA     = pack(...)
@@ -1267,7 +1272,8 @@ function Use(...)
       mt:reset_MPATH_change_flag()
       hub.reloadAll()
    end
-   mcp = mcp_old
+   --mcp = mcp_old
+   mcp = mcpStack:pop()
    dbg.fini("Use")
 end
 

@@ -407,37 +407,42 @@ function M.pushenv(self, argT)
    dbg.start{"MainControl:pushenv(\"",name,"\", \"",value,"\")"}
 
    local stackName = l_createStackName(name)
-   local v64       = nil
    local v         = getenv(name)
-   if (getenv(stackName) == nil and v) then
-      v64          = encode64(v)
+   local v64       = "false"
+   if (v) then
+      v64          = encode64(tostring(v))
+   end
+   if (value) then
+      value = tostring(value)
    end
 
-   local nodups   = false
    local frameStk = FrameStk:singleton()
    local varT     = frameStk:varT()
 
-   dbg.print{"stackName: ",stackName,", v64: ",v64,"\n"}
-   if (varT[stackName] == nil) then
-      varT[stackName] = Var:new(stackName, v64, nodups, ":")
-   end
-
-   if (value == false) then
-      v   = false
-      v64 = "false"
-   else
-      v   = tostring(value)
-      v64 = encode64(v)
-   end
-
-   local priority = 0
-
-   varT[stackName]:prepend(v64, nodups, priority)
-
+   ------------------------------------------------------------
+   -- Set user env. variable to value
    if (varT[name] == nil) then
       varT[name] = Var:new(name)
    end
-   varT[name]:set(v)
+   varT[name]:set(value)
+
+   ------------------------------------------------------------
+   -- Save away old value on stackName
+
+   local nodups   = false
+   
+   local oldV     = getenv(stackName)
+   if (oldV == nil) then
+      -- Save old variable at top of stack that is only 1 deep.
+      varT[stackName] = Var:new(stackName, v64, nodups, ":")
+   else
+      dbg.print{"oldV: \"",oldV,"\", value: \"",value,"\",v64: ",v64,"\n"}
+      if (varT[stackName] == nil) then
+         varT[stackName] = Var:new(stackName)
+      end
+      local priority = 0
+      varT[stackName]:prepend(v64, nodups, priority)
+   end
 
    dbg.fini("MainControl:pushenv")
 end

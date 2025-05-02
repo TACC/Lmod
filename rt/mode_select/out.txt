@@ -247,7 +247,7 @@ _LMFILES_=ProjectDIR/rt/mode_select/mf/Core/mixed_both_test/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={mixed_both_test={fn="ProjectDIR/rt/mode_select/mf/Core/mixed_both_test/1.0.lua",fullName="mixed_both_test/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="mixed_both_test",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
 export _ModuleTable_;
-__LMOD_STACK_MIXED_STACK=stack_both;
+__LMOD_STACK_MIXED_STACK=false;
 export __LMOD_STACK_MIXED_STACK;
 ===========================
 step 23
@@ -278,7 +278,7 @@ export MODULEPATH;
 unset _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
 export _ModuleTable_;
-__LMOD_STACK_MIXED_STACK=stack_both:stack_both;
+__LMOD_STACK_MIXED_STACK=stack_both:false;
 export __LMOD_STACK_MIXED_STACK;
 ===========================
 step 25
@@ -298,3 +298,78 @@ step 27
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load invalid_key_test
 ===========================
 false
+===========================
+step 28
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+MODULEPATH=ProjectDIR/rt/mode_select/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/mode_select/mf/Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 29
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load env_test
+===========================
+LOADEDMODULES=env_test/1.0;
+export LOADEDMODULES;
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/mode_select/mf/TCL_Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/mode_select/mf/TCL_Core;
+export MODULEPATH;
+TEST_VAR_BOTH=both_modes;
+export TEST_VAR_BOTH;
+TEST_VAR_LOAD=load_only;
+export TEST_VAR_LOAD;
+TEST_VAR_NORMAL=no_mode;
+export TEST_VAR_NORMAL;
+_LMFILES_=ProjectDIR/rt/mode_select/mf/TCL_Core/env_test/1.0;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={env_test={fn="ProjectDIR/rt/mode_select/mf/TCL_Core/env_test/1.0",fullName="env_test/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="env_test",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mode_select/mf/TCL_Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/TCL_Core",}';
+export _ModuleTable_;
+===========================
+step 30
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload env_test
+===========================
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/mode_select/mf/TCL_Core;
+export MODULEPATH;
+TEST_VAR_BOTH=both_modes;
+export TEST_VAR_BOTH;
+unset TEST_VAR_NORMAL;
+TEST_VAR_UNLOAD=unload_only;
+export TEST_VAR_UNLOAD;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/mode_select/mf/TCL_Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/TCL_Core",}';
+export _ModuleTable_;
+===========================
+step 31
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load load_test
+===========================
+DEP_BOTH_LOADED=yes;
+export DEP_BOTH_LOADED;
+DEP_LOAD_LOADED=yes;
+export DEP_LOAD_LOADED;
+LOADEDMODULES=dep_load/1.0:dep_both/1.0:load_test/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/mode_select/mf/TCL_Core;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/mode_select/mf/TCL_Core/dep_load/1.0:ProjectDIR/rt/mode_select/mf/TCL_Core/dep_both/1.0:ProjectDIR/rt/mode_select/mf/TCL_Core/load_test/1.0;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={dep_both={fn="ProjectDIR/rt/mode_select/mf/TCL_Core/dep_both/1.0",fullName="dep_both/1.0",loadOrder=2,propT={},stackDepth=1,status="active",userName="dep_both",wV="000000001.*zfinal",},dep_load={fn="ProjectDIR/rt/mode_select/mf/TCL_Core/dep_load/1.0",fullName="dep_load/1.0",loadOrder=1,propT={},stackDepth=1,status="active",userName="dep_load",wV="000000001.*zfinal",},load_test={fn="ProjectDIR/rt/mode_select/mf/TCL_Core/load_test/1.0",fullName="load_test/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="load_test",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mode_select/mf/TCL_Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/TCL_Core",}';
+export _ModuleTable_;
+===========================
+step 32
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload load_test
+===========================
+DEP_BOTH_LOADED=yes;
+export DEP_BOTH_LOADED;
+DEP_UNLOAD_LOADED=yes;
+export DEP_UNLOAD_LOADED;
+LOADEDMODULES=dep_load/1.0:dep_unload/1.0:dep_both/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/mode_select/mf/TCL_Core;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/mode_select/mf/TCL_Core/dep_load/1.0:ProjectDIR/rt/mode_select/mf/TCL_Core/dep_unload/1.0:ProjectDIR/rt/mode_select/mf/TCL_Core/dep_both/1.0;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={dep_both={fn="ProjectDIR/rt/mode_select/mf/TCL_Core/dep_both/1.0",fullName="dep_both/1.0",loadOrder=3,propT={},stackDepth=1,status="active",userName="dep_both",wV="000000001.*zfinal",},dep_load={fn="ProjectDIR/rt/mode_select/mf/TCL_Core/dep_load/1.0",fullName="dep_load/1.0",loadOrder=1,propT={},stackDepth=1,status="active",userName="dep_load",wV="000000001.*zfinal",},dep_unload={fn="ProjectDIR/rt/mode_select/mf/TCL_Core/dep_unload/1.0",fullName="dep_unload/1.0",loadOrder=2,propT={},stackDepth=1,status="active",userName="dep_unload",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mode_select/mf/TCL_Core",},systemBaseMPATH="ProjectDIR/rt/mode_select/mf/TCL_Core",}';
+export _ModuleTable_;

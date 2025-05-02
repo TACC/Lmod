@@ -738,11 +738,6 @@ if test "$PATH_TO_TCLSH" = "UNKNOWN_TCLSH" -a "$ALLOW_TCL_MFILES" = yes; then
   exit 1
 fi
 
-TCL_VERSION=`$PATH_TO_TCLSH $SRCDIR/proj_mgmt/tcl_version_string.tcl`
-if test $TCL_VERSION -ge 9000000; then
-  FAST_TCL_INTERP=no
-fi
-
 if test -z "$TCL_PKG_CONFIG_DIR" ; then
   TCL_PKG_CONFIG_DIR=`$SRCDIR/proj_mgmt/find_tcl_pc.sh $PATH_TO_TCLSH`
 fi

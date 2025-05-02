@@ -470,8 +470,10 @@ function main()
    end
 
    dbg.start{"Spider main()"}
-   MCP = MainControl.build("spider")
-   mcp = MainControl.build("spider")
+   dbg.print{"mcpStack: ",mcpStack,"\n"}
+   MCP  = MainControl.build("spider")
+   MCPQ = MainControl.build("quiet")
+   mcp  = MainControl.build("spider")
 
    dbg.print{"LMOD_TRACING: ",cosmic:value("LMOD_TRACING"),"\n"}
 

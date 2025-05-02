@@ -2,14 +2,14 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.36   2024-03-14
+Modules based on Lua: Version 8.7.59 2025-03-06 13:51 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing show BRK
 ===========================
    ProjectDIR/rt/break/mf/BRK/1.0:
-setenv("BRK","1.0")
+setenv{"BRK","1.0"}
 LmodBreak("")
 ===========================
 step 3

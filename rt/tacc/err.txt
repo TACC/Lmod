@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
+Modules based on Lua: Version 8.7.59 2025-03-06 13:51 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -106,7 +106,7 @@ step 16
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing show gatk
 ===========================
    ProjectDIR/rt/tacc/mf/Base/gatk/1.0:
-prepend_path("PATH","/unknown/apps/gatk/1.0/bin")
+prepend_path{"PATH","/unknown/apps/gatk/1.0/bin",delim=":",priority="0"}
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gatk

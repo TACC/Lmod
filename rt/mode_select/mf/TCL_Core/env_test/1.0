@@ -1,0 +1,7 @@
+#%Module
+#  Test setenv with mode
+setenv --mode load          "TEST_VAR_LOAD"    "load_only"
+setenv --mode unload        "TEST_VAR_UNLOAD"  "unload_only"
+setenv --mode {load unload} "TEST_VAR_BOTH"    "both_modes"
+setenv                      "TEST_VAR_NORMAL"  "no_mode"
+

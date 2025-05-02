@@ -276,7 +276,8 @@ local s_stk = {}
 function M.mgrload(self, active)
    dbg.start{"Hub:mgrload(",active.userName,")"}
 
-   local mcp_old   = mcp
+   --local mcp_old   = mcp
+   mcpStack:push(mcp)
    mcp             = MainControl.build("mgrload","load")
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    local mname     = MName:new("load", active.userName)
@@ -288,7 +289,8 @@ function M.mgrload(self, active)
    mname:setStackDepth(active.stackDepth)
    mname:set_depends_on_flag(ref_count)
    local a       = MCP.load(mcp,{mname})
-   mcp           = mcp_old
+   --mcp           = mcp_old
+   mcp           = mcpStack:pop()
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
 
    dbg.fini("Hub:mgrload")
@@ -363,13 +365,15 @@ function M.load(self, mA)
                                               newFullName = fullName,    newVersion = mname:version()}
             end
 
-            local mcp_old = mcp
+            --local mcp_old = mcp
+            mcpStack:push(mcp)
             local mcp     = MCP
             dbg.print{"Setting mcp to ", mcp:name(),"\n"}
             unload_internal{MName:new("mt",sn)}
             mname:reset()  -- force a new lazyEval
             local status = mcp:load_usr{mname}
-            mcp          = mcp_old
+            --mcp          = mcp_old
+            mcp          = mcpStack:pop()
             dbg.print{"Setting mcp to ", mcp:name(),"\n"}
             if (not status) then
                loaded = false
@@ -608,8 +612,9 @@ function M.reloadAll(self, force_update)
    dbg.start{"Hub:reloadAll(count: ",ReloadAllCntr ,")"}
    local frameStk = FrameStk:singleton()
    local mt       = frameStk:mt()
-   local mcp_old  = mcp
    local shell    = _G.Shell
+   --local mcp_old  = mcp
+   mcpStack:push(mcp)
    mcp = MCP
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
 
@@ -705,7 +710,8 @@ function M.reloadAll(self, force_update)
       end
    end
 
-   mcp = mcp_old
+   --mcp = mcp_old
+   mcp = mcpStack:pop()
    dbg.print{"Setting mpc to ", mcp:name(),"\n"}
    dbg.fini("Hub:reloadAll")
    ReloadAllCntr = ReloadAllCntr - 1
@@ -725,7 +731,8 @@ function M.refresh()
    local frameStk = FrameStk:singleton()
    local mt       = frameStk:mt()
    local shellNm  = _G.Shell and _G.Shell:name() or "bash"
-   local mcp_old  = mcp
+   --local mcp_old  = mcp
+   mcpStack:push(mcp)
    mcp            = MainControl.build("refresh","load")
 
    local activeA  = mt:list("short","active")
@@ -744,7 +751,8 @@ function M.refresh()
       end
    end
 
-   mcp = mcp_old
+   --mcp = mcp_old
+   mcp = mcpStack:pop()
    dbg.print{"Setting mcp to : ",mcp:name(),"\n"}
    dbg.fini("Hub:refresh")
 end
@@ -760,7 +768,8 @@ function M.dependencyCk()
    local frameStk = FrameStk:singleton()
    local mt       = frameStk:mt()
    local shellNm  = _G.Shell and _G.Shell:name() or "bash"
-   local mcp_old  = mcp
+   --local mcp_old  = mcp
+   mcpStack:push(mcp)
    mcp            = MainControl.build("dependencyCk")
 
    local activeA  = mt:list("short","active")
@@ -778,7 +787,8 @@ function M.dependencyCk()
       end
    end
 
-   mcp = mcp_old
+   --mcp = mcp_old
+   mcp = mcpStack:pop()
    dbg.print{"Setting mcp to : ",mcp:name(),"\n"}
    dbg.fini("Hub:dependencyCk")
 end
@@ -803,9 +813,10 @@ function M.reload_sticky(self, force)
    local stuckA   = {}
    local unstuckA = {}
    local stickyA  = mt:getStickyA()
-   local mcp_old  = mcp
-   mcp            = MCP
    local reload   = false
+   --local mcp_old  = mcp
+   mcpStack:push(mcp)
+   mcp            = MCP
    for i = #stickyA, 1, -1 do
       local entry = stickyA[i]
       local mname = MName:new("load",entry.userName)
@@ -824,7 +835,8 @@ function M.reload_sticky(self, force)
          reload = true
       end
    end
-   mcp = mcp_old
+   --mcp = mcp_old
+   mcp = mcpStack:pop()
 
    if (reload and not quiet()) then
       LmodMessage{msg="m_Sticky_Mods"}

@@ -1402,7 +1402,8 @@ function M.getMTfromFile(self,tt)
    -- Load all modules: use Mgrload load for all modules
 
    local MName   = require("MName")
-   local mcp_old = mcp
+   --local mcp_old = mcp
+   mcpStack:push(mcp)
    mcp           = MainControl.build("mgrload","load")
 
    -----------------------------------------------
@@ -1433,7 +1434,8 @@ function M.getMTfromFile(self,tt)
    end
    dbg.print{"Running MCP.load(mcp, mA)\n"}
    MCP.load(mcp,mA)
-   mcp        = mcp_old
+   --mcp        = mcp_old
+   mcp        = mcpStack:pop()
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    mt         = frameStk:mt()
    local varT = frameStk:varT()

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.53 2024-10-12 19:57 -05:00
+Modules based on Lua: Version 8.7.59 2025-03-06 13:51 -07:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -24,10 +24,10 @@ step 5
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing show showMe
 ===========================
    ProjectDIR/rt/tclmodules/mf/showMe/1.0:
-setenv("TESTVAR","/tmp")
-prepend_path("TESTPATH","/tmp")
-pushenv("T2","/tmp/t2")
-prepend_path("TESTPATH","/tmp/t2")
+setenv{"TESTVAR","/tmp"}
+prepend_path{"TESTPATH","/tmp",delim=":",priority="0"}
+pushenv{"T2","/tmp/t2"}
+prepend_path{"TESTPATH","/tmp/t2",delim=":",priority="0"}
 ===========================
 step 6
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
