@@ -28,129 +28,136 @@ describe("Testing ModuleA Class #ModuleA.",
                   local goldA = {
                      {
                         T = {
-                           ["bio/bowtie"]  = {
+                           ["bio/bowtie"] = {
                               defaultA = {
                                  {
-                                    ["barefn"] = ".version",
-                                    ["defaultIdx"] = 4,
-                                    ["fn"] = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/.version",
-                                    ["fullName"] = "bio/bowtie/.version",
-                                    ["mpath"] = "%ProjDir%/spec/ModuleA/mf",
-                                    ["value"] = "64",
+                                    barefn = ".version",
+                                    defaultIdx = 4,
+                                    fn = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/.version",
+                                    fullName = "bio/bowtie/.version",
+                                    mpath = "%ProjDir%/spec/ModuleA/mf",
+                                    value = "64",
                                  },
                               },
                               defaultT = {
-                                 ["barefn"] = ".version",
-                                 ["defaultIdx"] = 4,
-                                 ["fn"] = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/.version",
-                                 ["fullName"] = "bio/bowtie/.version",
-                                 ["mpath"] = "%ProjDir%/spec/ModuleA/mf",
-                                 ["value"] = "64",
+                                 barefn = ".version",
+                                 defaultIdx = 4,
+                                 fn = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/.version",
+                                 fullName = "bio/bowtie/.version",
+                                 mpath = "%ProjDir%/spec/ModuleA/mf",
+                                 value = "64",
                               },
                               dirT = {
-                                 ["bio/bowtie/.128"]  = {
+                                 ["bio/bowtie/.128"] = {
                                     defaultA = {},
                                     defaultT = {},
                                     dirT = {},
                                     fileT = {
-                                       ["bio/bowtie/.128/1.0"]  = {
-                                          ["Version"] = ".128/1.0",
-                                          ["canonical"] = "1.0",
-                                          ["fn"] = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/.128/1.0.lua",
-                                          ["luaExt"] = 4,
-                                          ["mpath"] = "%ProjDir%/spec/ModuleA/mf",
-                                          ["pV"] = "000000000.000000128/000000001.*zfinal",
-                                          ["wV"] = "000000000.000000128/000000001.*zfinal",
+                                       ["bio/bowtie/.128/1.0"] = {
+                                          Version = ".128/1.0",
+                                          canonical = "1.0",
+                                          contents = "",
+                                          fn = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/.128/1.0.lua",
+                                          luaExt = 4,
+                                          mpath = "%ProjDir%/spec/ModuleA/mf",
+                                          pV = "000000000.000000128/000000001.*zfinal",
+                                          wV = "000000000.000000128/000000001.*zfinal",
                                        },
                                     },
                                  },
-                                 ["bio/bowtie/32"]  = {
+                                 ["bio/bowtie/32"] = {
                                     defaultA = {},
                                     defaultT = {},
                                     dirT = {},
                                     fileT = {
-                                       ["bio/bowtie/32/.3.0"]  = {
-                                          ["Version"] = "32/.3.0",
-                                          ["canonical"] = ".3.0",
-                                          ["fn"] = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/32/.3.0.lua",
-                                          ["luaExt"] = 5,
-                                          ["mpath"] = "%ProjDir%/spec/ModuleA/mf",
-                                          ["pV"] = "000000032/000000000.000000003.*zfinal",
-                                          ["wV"] = "000000032/000000000.000000003.*zfinal",
+                                       ["bio/bowtie/32/.3.0"] = {
+                                          Version = "32/.3.0",
+                                          canonical = ".3.0",
+                                          contents = "",
+                                          fn = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/32/.3.0.lua",
+                                          luaExt = 5,
+                                          mpath = "%ProjDir%/spec/ModuleA/mf",
+                                          pV = "000000032/000000000.000000003.*zfinal",
+                                          wV = "000000032/000000000.000000003.*zfinal",
                                        },
-                                       ["bio/bowtie/32/1.0"]  = {
-                                          ["Version"] = "32/1.0",
-                                          ["canonical"] = "1.0",
-                                          ["fn"] = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/32/1.0.lua",
-                                          ["luaExt"] = 4,
-                                          ["mpath"] = "%ProjDir%/spec/ModuleA/mf",
-                                          ["pV"] = "000000032/000000001.*zfinal",
-                                          ["wV"] = "000000032/000000001.*zfinal",
+                                       ["bio/bowtie/32/1.0"] = {
+                                          Version = "32/1.0",
+                                          canonical = "1.0",
+                                          contents = "",
+                                          fn = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/32/1.0.lua",
+                                          luaExt = 4,
+                                          mpath = "%ProjDir%/spec/ModuleA/mf",
+                                          pV = "000000032/000000001.*zfinal",
+                                          wV = "000000032/000000001.*zfinal",
                                        },
-                                       ["bio/bowtie/32/2.0"]  = {
-                                          ["Version"] = "32/2.0",
-                                          ["canonical"] = "2.0",
-                                          ["fn"] = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/32/2.0.lua",
-                                          ["luaExt"] = 4,
-                                          ["mpath"] = "%ProjDir%/spec/ModuleA/mf",
-                                          ["pV"] = "000000032/000000002.*zfinal",
-                                          ["wV"] = "000000032/000000002.*zfinal",
+                                       ["bio/bowtie/32/2.0"] = {
+                                          Version = "32/2.0",
+                                          canonical = "2.0",
+                                          contents = "",
+                                          fn = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/32/2.0.lua",
+                                          luaExt = 4,
+                                          mpath = "%ProjDir%/spec/ModuleA/mf",
+                                          pV = "000000032/000000002.*zfinal",
+                                          wV = "000000032/000000002.*zfinal",
                                        },
                                     },
                                  },
-                                 ["bio/bowtie/64"]  = {
+                                 ["bio/bowtie/64"] = {
                                     defaultA = {
                                        {
-                                          ["barefn"] = ".modulerc",
-                                          ["defaultIdx"] = 3,
-                                          ["fn"] = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/64/.modulerc",
-                                          ["fullName"] = "bio/bowtie/64/.modulerc",
-                                          ["mpath"] = "%ProjDir%/spec/ModuleA/mf",
-                                          ["value"] = "bio/bowtie/64/2.0",
+                                          barefn = ".modulerc",
+                                          defaultIdx = 3,
+                                          fn = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/64/.modulerc",
+                                          fullName = "bio/bowtie/64/.modulerc",
+                                          mpath = "%ProjDir%/spec/ModuleA/mf",
+                                          value = "bio/bowtie/64/2.0",
                                        },
                                     },
                                     defaultT = {
-                                       ["barefn"] = ".modulerc",
-                                       ["defaultIdx"] = 3,
-                                       ["fn"] = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/64/.modulerc",
-                                       ["fullName"] = "bio/bowtie/64/.modulerc",
-                                       ["mpath"] = "%ProjDir%/spec/ModuleA/mf",
-                                       ["value"] = "bio/bowtie/64/2.0",
+                                       barefn = ".modulerc",
+                                       defaultIdx = 3,
+                                       fn = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/64/.modulerc",
+                                       fullName = "bio/bowtie/64/.modulerc",
+                                       mpath = "%ProjDir%/spec/ModuleA/mf",
+                                       value = "bio/bowtie/64/2.0",
                                     },
                                     dirT = {},
                                     fileT = {
-                                       ["bio/bowtie/64/2.0"]  = {
-                                          ["Version"] = "64/2.0",
-                                          ["canonical"] = "2.0",
-                                          ["fn"] = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/64/2.0.lua",
-                                          ["luaExt"] = 4,
-                                          ["mpath"] = "%ProjDir%/spec/ModuleA/mf",
-                                          ["pV"] = "000000064/000000002.*zfinal",
-                                          ["wV"] = "^00000064/^00000002.*zfinal",
+                                       ["bio/bowtie/64/2.0"] = {
+                                          Version = "64/2.0",
+                                          canonical = "2.0",
+                                          contents = "",
+                                          fn = "%ProjDir%/spec/ModuleA/mf/bio/bowtie/64/2.0.lua",
+                                          luaExt = 4,
+                                          mpath = "%ProjDir%/spec/ModuleA/mf",
+                                          pV = "000000064/000000002.*zfinal",
+                                          wV = "^00000064/^00000002.*zfinal",
                                        },
                                     },
                                  },
                               },
                               fileT = {},
                            },
-                           ["bio/genomics"]  = {
+                           ["bio/genomics"] = {
                               defaultA = {},
                               defaultT = {},
                               dirT = {},
                               fileT = {
-                                 ["bio/genomics"]  = {
-                                    ["Version"] = false,
-                                    ["canonical"] = "",
-                                    ["fn"] = "%ProjDir%/spec/ModuleA/mf/bio/genomics.lua",
-                                    ["luaExt"] = 9,
-                                    ["mpath"] = "%ProjDir%/spec/ModuleA/mf",
-                                    ["pV"] = "M.*zfinal",
+                                 ["bio/genomics"] = {
+                                    Version = false,
+                                    canonical = "",
+                                    contents = [[add_property("arch","mic")
+]],
+                                    fn = "%ProjDir%/spec/ModuleA/mf/bio/genomics.lua",
+                                    luaExt = 9,
+                                    mpath = "%ProjDir%/spec/ModuleA/mf",
+                                    pV = "M.*zfinal",
                                     propT = {
                                        arch = {
-                                          ["mic"] = 1,
+                                          mic = 1,
                                        },
                                     },
-                                    ["wV"] = "M.*zfinal",
+                                    wV = "M.*zfinal",
                                  },
                               },
                            },
@@ -159,19 +166,27 @@ describe("Testing ModuleA Class #ModuleA.",
                               defaultT = {},
                               dirT = {},
                               fileT = {
-                                 ["boost/1.46.0"]  = {
-                                    ["Version"] = "1.46.0",
-                                    ["canonical"] = "1.46.0",
-                                    ["fn"] = "%ProjDir%/spec/ModuleA/mf/boost/1.46.0.lua",
-                                    ["luaExt"] = 7,
-                                    ["mpath"] = "%ProjDir%/spec/ModuleA/mf",
-                                    ["pV"] = "000000001.000000046.*zfinal",
-                                    ["wV"] = "000000001.000000046.*zfinal",
+                                 ["boost/1.46.0"] = {
+                                    Version = "1.46.0",
+                                    canonical = "1.46.0",
+                                    contents = [[local name         = "boost"
+local fn           = myFileName():gsub(".lua","")
+local version      = barefilename(fn)
+local pkgName      = pathJoin(name,version)
+local pkgRoot      = "/unknown/apps"
+local base         = pathJoin(pkgRoot, pkgName)
+setenv(      "TACC_BOOST_DIR",   base)
+]],
+                                    fn = "%ProjDir%/spec/ModuleA/mf/boost/1.46.0.lua",
+                                    luaExt = 7,
+                                    mpath = "%ProjDir%/spec/ModuleA/mf",
+                                    pV = "000000001.000000046.*zfinal",
+                                    wV = "000000001.000000046.*zfinal",
                                  },
                               },
                            },
                         },
-                        ["mpath"] = "%ProjDir%/spec/ModuleA/mf",
+                        mpath = "%ProjDir%/spec/ModuleA/mf",
                      },
                   }
 
@@ -304,6 +319,8 @@ describe("Testing ModuleA Class #ModuleA.",
                                  Foo = {
                                     ["Version"] = false,
                                     ["canonical"] = "",
+                                    ["contents"] = [[setenv("My_Name",myModuleFullName())
+]],
                                     ["fn"] = "%ProjDir%/spec/ModuleA/mf2/Foo.lua",
                                     ["luaExt"] = 4,
                                     ["mpath"] = "%ProjDir%/spec/ModuleA/mf2",
@@ -325,6 +342,8 @@ describe("Testing ModuleA Class #ModuleA.",
                                  ["Foo/1.0"]  = {
                                     ["Version"] = "1.0",
                                     ["canonical"] = "1.0",
+                                    ["contents"] = [[setenv("My_Name",myModuleFullName())
+]],
                                     ["fn"] = "%ProjDir%/spec/ModuleA/mf3/Foo/1.0.lua",
                                     ["luaExt"] = 4,
                                     ["mpath"] = "%ProjDir%/spec/ModuleA/mf3",
@@ -334,6 +353,8 @@ describe("Testing ModuleA Class #ModuleA.",
                                  ["Foo/2.0"]  = {
                                     ["Version"] = "2.0",
                                     ["canonical"] = "2.0",
+                                    ["contents"] = [[setenv("My_Name",myModuleFullName())
+]],
                                     ["fn"] = "%ProjDir%/spec/ModuleA/mf3/Foo/2.0.lua",
                                     ["luaExt"] = 4,
                                     ["mpath"] = "%ProjDir%/spec/ModuleA/mf3",

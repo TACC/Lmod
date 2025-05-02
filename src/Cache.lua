@@ -440,7 +440,7 @@ local function l_writeUserSpiderCacheWhenNecessary(self, delta_t, mpathA, spider
          local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
          local s1 = "ancient = " .. tostring(math.floor(ancient)) .."\n"
          local s2 = mrc:export()
-         local s3 = serializeTbl{name="spiderT",      value=spiderT,   indent=true}
+         local s3 = serializeTbl{name="spiderT",      value=spiderT,   indent=true, ignoreKeysT = {contents = true}}
          local s4 = serializeTbl{name="mpathMapT",    value=mpathMapT, indent=true}
          f:write(s0,s1,s2,s3,s4)
          f:close()

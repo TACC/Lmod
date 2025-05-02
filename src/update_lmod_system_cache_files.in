@@ -356,6 +356,7 @@ new_timestamp
 
 # update cache files
 update_cache $LMOD_CACHE_DIR spiderT
+update_cache $LMOD_CACHE_DIR spiderBigT
 if [ $UPDATE_REVERSEMAPT_CACHE -ne 0 ]; then
     update_cache  $LMOD_REVERSEMAPT_DIR reverseMapT
 fi

@@ -124,6 +124,8 @@ describe("Testing LocationT Class #LocationT.",
                            Foo = {
                               ["Version"] = false,
                               ["canonical"] = "",
+                              ["contents"] = [[setenv("My_Name",myModuleFullName())
+]],
                               ["fn"] = "%ProjDir%/spec/LocationT/mf/A/Foo.lua",
                               ["luaExt"] = 4,
                               ["mpath"] = "%ProjDir%/spec/LocationT/mf/A",
@@ -133,6 +135,8 @@ describe("Testing LocationT Class #LocationT.",
                            ["Foo/1.0"]  = {
                               ["Version"] = "1.0",
                               ["canonical"] = "1.0",
+                              ["contents"] = [[setenv("My_Name",myModuleFullName())
+]],
                               ["fn"] = "%ProjDir%/spec/LocationT/mf/B/Foo/1.0.lua",
                               ["luaExt"] = 4,
                               ["mpath"] = "%ProjDir%/spec/LocationT/mf/B",
@@ -142,6 +146,8 @@ describe("Testing LocationT Class #LocationT.",
                            ["Foo/2.0"]  = {
                               ["Version"] = "2.0",
                               ["canonical"] = "2.0",
+                              ["contents"] = [[setenv("My_Name",myModuleFullName())
+]],
                               ["fn"] = "%ProjDir%/spec/LocationT/mf/B/Foo/2.0.lua",
                               ["luaExt"] = 4,
                               ["mpath"] = "%ProjDir%/spec/LocationT/mf/B",
@@ -182,6 +188,8 @@ describe("Testing LocationT Class #LocationT.",
                            Foo = {
                               ["Version"] = false,
                               ["canonical"] = "",
+                              ["contents"] = [[setenv("My_Name",myModuleFullName())
+]],
                               ["fn"] = "%ProjDir%/spec/LocationT/mf/A/Foo.lua",
                               ["luaExt"] = 4,
                               ["mpath"] = "%ProjDir%/spec/LocationT/mf/A",
@@ -191,6 +199,8 @@ describe("Testing LocationT Class #LocationT.",
                            ["Foo/1.0"]  = {
                               ["Version"] = "1.0",
                               ["canonical"] = "1.0",
+                              ["contents"] = [[setenv("My_Name",myModuleFullName())
+]],
                               ["fn"] = "%ProjDir%/spec/LocationT/mf/B/Foo/1.0.lua",
                               ["luaExt"] = 4,
                               ["mpath"] = "%ProjDir%/spec/LocationT/mf/B",
@@ -200,6 +210,8 @@ describe("Testing LocationT Class #LocationT.",
                            ["Foo/2.0"]  = {
                               ["Version"] = "2.0",
                               ["canonical"] = "2.0",
+                              ["contents"] = [[setenv("My_Name",myModuleFullName())
+]],
                               ["fn"] = "%ProjDir%/spec/LocationT/mf/B/Foo/2.0.lua",
                               ["luaExt"] = 4,
                               ["mpath"] = "%ProjDir%/spec/LocationT/mf/B",
@@ -244,6 +256,8 @@ describe("Testing LocationT Class #LocationT.",
                            ["Foo/1.0"]  = {
                               ["Version"] = "1.0",
                               ["canonical"] = "1.0",
+                              ["contents"] = [[setenv("My_Name",myModuleFullName())
+]],
                               ["fn"] = "%ProjDir%/spec/LocationT/mf2/Foo/1.0.lua",
                               ["luaExt"] = 4,
                               ["mpath"] = "%ProjDir%/spec/LocationT/mf2",
@@ -253,6 +267,8 @@ describe("Testing LocationT Class #LocationT.",
                            ["Foo/2.0"]  = {
                               ["Version"] = "2.0",
                               ["canonical"] = "2.0",
+                              ["contents"] = [[setenv("My_Name",myModuleFullName())
+]],
                               ["fn"] = "%ProjDir%/spec/LocationT/mf2/Foo/2.0.lua",
                               ["luaExt"] = 4,
                               ["mpath"] = "%ProjDir%/spec/LocationT/mf2",

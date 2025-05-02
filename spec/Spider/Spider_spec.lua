@@ -46,6 +46,9 @@ describe("Testing Spider Class #Spider.",
                               TACC = {
                                  ["Version"] = false,
                                  ["canonical"] = "",
+                                 ["contents"] = [[setenv("my_name",myModuleName())
+add_property("arch","mic")
+]],
                                  ["fn"] = "%ProjDir%/spec/Spider/mf/Core/TACC.lua",
                                  ["luaExt"] = 5,
                                  ["mpath"] = "%ProjDir%/spec/Spider/mf/Core",
@@ -87,6 +90,8 @@ describe("Testing Spider Class #Spider.",
                                     ["icr/64/3.7"]  = {
                                        ["Version"] = "64/3.7",
                                        ["canonical"] = "3.7",
+                                       ["contents"] = [[ 
+]],
                                        ["fn"] = "%ProjDir%/spec/Spider/mf/Core/icr/64/3.7",
                                        ["mpath"] = "%ProjDir%/spec/Spider/mf/Core",
                                        ["pV"] = "000000064/000000003.000000007.*zfinal",
@@ -109,6 +114,21 @@ describe("Testing Spider Class #Spider.",
                                  ["URL"] = "http://www.intel.com",
                                  ["Version"] = "19.1",
                                  ["canonical"] = "19.1",
+                                 ["contents"] = [=[setenv("intel_version", myModuleVersion())
+add_property("arch","mic")
+local base = pathJoin("/app", myModuleFullName())
+setenv( "LMOD_INTEL_DIR", base)
+setenv( "LMOD_INTEL_LIB", pathJoin(base,"lib"))
+
+
+whatis("Name: " .. myModuleName())
+whatis("Version: " .. myModuleVersion())
+whatis("Category: library, mathematics")
+whatis("URL: http://www.intel.com")
+whatis("Description: the intel compiler collection")
+
+help([[ This is the compiler help message ]])
+]=],
                                  dirA = {
                                     ["/app/intel/19.1"] = 1,
                                  },
@@ -169,21 +189,32 @@ describe("Testing Spider Class #Spider.",
                   _G.MCP = MainControl.build("spider")
                   spider:findAllModules({mpath}, spiderT, mpathMapT)
                   local gold_spiderT = {
-                     ["%ProjDir%/spec/Spider/h/mf/Compiler/gcc/5.9"]  = {
+                     ["%ProjDir%/spec/Spider/h/mf/Compiler/gcc/5.9"] = {
                         mpich = {
-                           defaultT = {},
                            defaultA = {},
+                           defaultT = {},
                            dirT = {},
                            fileT = {
-                              ["mpich/17.200.3"]  = {
-                                 ["Version"] = "17.200.3",
-                                 ["canonical"] = "17.200.3",
-                                 ["changeMPATH"] = true,
-                                 ["fn"] = "%ProjDir%/spec/Spider/h/mf/Compiler/gcc/5.9/mpich/17.200.3.lua",
-                                 ["luaExt"] = 9,
-                                 ["mpath"] = "%ProjDir%/spec/Spider/h/mf/Compiler/gcc/5.9",
-                                 ["pV"] = "000000017.000000200.000000003.*zfinal",
-                                 ["wV"] = "000000017.000000200.000000003.*zfinal",
+                              ["mpich/17.200.3"] = {
+                                 Version = "17.200.3",
+                                 canonical = "17.200.3",
+                                 changeMPATH = true,
+                                 contents = [[local name         = myModuleName()
+local fullVersion  = myModuleVersion()
+local pkgName      = pathJoin(name, fullVersion)
+local hierA        = hierarchyA(pkgName,1)
+local compiler_dir = hierA[1]
+local pkgVersion   = fullVersion:match('(%d+%.%d+)%.?')
+
+local mroot        = os.getenv("MODULEPATH_ROOT")
+
+prepend_path("MODULEPATH", pathJoin(mroot, "MPI", compiler_dir, name, pkgVersion))
+]],
+                                 fn = "%ProjDir%/spec/Spider/h/mf/Compiler/gcc/5.9/mpich/17.200.3.lua",
+                                 luaExt = 9,
+                                 mpath = "%ProjDir%/spec/Spider/h/mf/Compiler/gcc/5.9",
+                                 pV = "000000017.000000200.000000003.*zfinal",
+                                 wV = "000000017.000000200.000000003.*zfinal",
                               },
                            },
                         },
@@ -192,33 +223,44 @@ describe("Testing Spider Class #Spider.",
                            defaultT = {},
                            dirT = {},
                            fileT = {
-                              ["python/2.7.9"]  = {
-                                 ["Version"] = "2.7.9",
-                                 ["canonical"] = "2.7.9",
-                                 ["fn"] = "%ProjDir%/spec/Spider/h/mf/Compiler/gcc/5.9/python/2.7.9.lua",
-                                 ["luaExt"] = 6,
-                                 ["mpath"] = "%ProjDir%/spec/Spider/h/mf/Compiler/gcc/5.9",
-                                 ["pV"] = "000000002.000000007.000000009.*zfinal",
-                                 ["wV"] = "000000002.000000007.000000009.*zfinal",
+                              ["python/2.7.9"] = {
+                                 Version = "2.7.9",
+                                 canonical = "2.7.9",
+                                 contents = [[setenv("PYTHON_VERSION", myModuleVersion())
+setenv("LEVEL","Compiler")
+]],
+                                 fn = "%ProjDir%/spec/Spider/h/mf/Compiler/gcc/5.9/python/2.7.9.lua",
+                                 luaExt = 6,
+                                 mpath = "%ProjDir%/spec/Spider/h/mf/Compiler/gcc/5.9",
+                                 pV = "000000002.000000007.000000009.*zfinal",
+                                 wV = "000000002.000000007.000000009.*zfinal",
                               },
                            },
                         },
                      },
-                     ["%ProjDir%/spec/Spider/h/mf/Core"]  = {
+                     ["%ProjDir%/spec/Spider/h/mf/Core"] = {
                         gcc = {
                            defaultA = {},
                            defaultT = {},
                            dirT = {},
                            fileT = {
-                              ["gcc/5.9.2"]  = {
-                                 ["Version"] = "5.9.2",
-                                 ["canonical"] = "5.9.2",
-                                 ["changeMPATH"] = true,
-                                 ["fn"] = "%ProjDir%/spec/Spider/h/mf/Core/gcc/5.9.2.lua",
-                                 ["luaExt"] = 6,
-                                 ["mpath"] = "%ProjDir%/spec/Spider/h/mf/Core",
-                                 ["pV"] = "000000005.000000009.000000002.*zfinal",
-                                 ["wV"] = "000000005.000000009.000000002.*zfinal",
+                              ["gcc/5.9.2"] = {
+                                 Version = "5.9.2",
+                                 canonical = "5.9.2",
+                                 changeMPATH = true,
+                                 contents = [[local name        = myModuleName()
+local fullVersion = myModuleVersion()
+local pkgVersion  = fullVersion:match('(%d+%.%d+)%.?')
+local pkgNameVer  = pathJoin(name,pkgVersion)
+local mroot       = os.getenv("MODULEPATH_ROOT")
+
+prepend_path("MODULEPATH", pathJoin(mroot, "Compiler", pkgNameVer))
+]],
+                                 fn = "%ProjDir%/spec/Spider/h/mf/Core/gcc/5.9.2.lua",
+                                 luaExt = 6,
+                                 mpath = "%ProjDir%/spec/Spider/h/mf/Core",
+                                 pV = "000000005.000000009.000000002.*zfinal",
+                                 wV = "000000005.000000009.000000002.*zfinal",
                               },
                            },
                         },
@@ -227,32 +269,37 @@ describe("Testing Spider Class #Spider.",
                            defaultT = {},
                            dirT = {},
                            fileT = {
-                              ["python/2.7.9"]  = {
-                                 ["Version"] = "2.7.9",
-                                 ["canonical"] = "2.7.9",
-                                 ["fn"] = "%ProjDir%/spec/Spider/h/mf/Core/python/2.7.9.lua",
-                                 ["luaExt"] = 6,
-                                 ["mpath"] = "%ProjDir%/spec/Spider/h/mf/Core",
-                                 ["pV"] = "000000002.000000007.000000009.*zfinal",
-                                 ["wV"] = "000000002.000000007.000000009.*zfinal",
+                              ["python/2.7.9"] = {
+                                 Version = "2.7.9",
+                                 canonical = "2.7.9",
+                                 contents = [[setenv("PYTHON_VERSION", myModuleVersion())
+setenv("LEVEL","Core")
+]],
+                                 fn = "%ProjDir%/spec/Spider/h/mf/Core/python/2.7.9.lua",
+                                 luaExt = 6,
+                                 mpath = "%ProjDir%/spec/Spider/h/mf/Core",
+                                 pV = "000000002.000000007.000000009.*zfinal",
+                                 wV = "000000002.000000007.000000009.*zfinal",
                               },
                            },
                         },
                      },
-                     ["%ProjDir%/spec/Spider/h/mf/MPI/gcc/5.9/mpich/17.200"]  = {
+                     ["%ProjDir%/spec/Spider/h/mf/MPI/gcc/5.9/mpich/17.200"] = {
                         parmetis = {
                            defaultA = {},
                            defaultT = {},
                            dirT = {},
                            fileT = {
-                              ["parmetis/4.0.3"]  = {
-                                 ["Version"] = "4.0.3",
-                                 ["canonical"] = "4.0.3",
-                                 ["fn"] = "%ProjDir%/spec/Spider/h/mf/MPI/gcc/5.9/mpich/17.200/parmetis/4.0.3.lua",
-                                 ["luaExt"] = 6,
-                                 ["mpath"] = "%ProjDir%/spec/Spider/h/mf/MPI/gcc/5.9/mpich/17.200",
-                                 ["pV"] = "000000004.000000000.000000003.*zfinal",
-                                 ["wV"] = "000000004.000000000.000000003.*zfinal",
+                              ["parmetis/4.0.3"] = {
+                                 Version = "4.0.3",
+                                 canonical = "4.0.3",
+                                 contents = [[setenv(myModuleName(),myModuleVersion())
+]],
+                                 fn = "%ProjDir%/spec/Spider/h/mf/MPI/gcc/5.9/mpich/17.200/parmetis/4.0.3.lua",
+                                 luaExt = 6,
+                                 mpath = "%ProjDir%/spec/Spider/h/mf/MPI/gcc/5.9/mpich/17.200",
+                                 pV = "000000004.000000000.000000003.*zfinal",
+                                 wV = "000000004.000000000.000000003.*zfinal",
                               },
                            },
                         },
@@ -261,19 +308,22 @@ describe("Testing Spider Class #Spider.",
                            defaultT = {},
                            dirT = {},
                            fileT = {
-                              ["python/2.7.9"]  = {
-                                 ["Version"] =  "2.7.9",
-                                 ["canonical"] = "2.7.9",
-                                 ["fn"] = "%ProjDir%/spec/Spider/h/mf/MPI/gcc/5.9/mpich/17.200/python/2.7.9.lua",
-                                 ["luaExt"] = 6,
-                                 ["mpath"] = "%ProjDir%/spec/Spider/h/mf/MPI/gcc/5.9/mpich/17.200",
-                                 ["pV"] = "000000002.000000007.000000009.*zfinal",
-                                 ["wV"] = "000000002.000000007.000000009.*zfinal",
+                              ["python/2.7.9"] = {
+                                 Version = "2.7.9",
+                                 canonical = "2.7.9",
+                                 contents = [[setenv("PYTHON_VERSION", myModuleVersion())
+setenv("LEVEL","MPI")
+]],
+                                 fn = "%ProjDir%/spec/Spider/h/mf/MPI/gcc/5.9/mpich/17.200/python/2.7.9.lua",
+                                 luaExt = 6,
+                                 mpath = "%ProjDir%/spec/Spider/h/mf/MPI/gcc/5.9/mpich/17.200",
+                                 pV = "000000002.000000007.000000009.*zfinal",
+                                 wV = "000000002.000000007.000000009.*zfinal",
                               },
                            },
                         },
                      },
-                     ["version"] = 5,
+                     version = 5,
                   }
                   local rplmntA  = { {projDir,"%%ProjDir%%"} }
                   local _spiderT = {}

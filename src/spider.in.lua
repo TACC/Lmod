@@ -252,10 +252,22 @@ local function l_rptSpiderT(mpathMapT, spiderT, timestampFn, dbT, providedByT)
    local ts  = { timestampFn }
    local s1  = serializeTbl{name="timestampFn",   value=ts,         indent=true}
    local s2  = mrc:export()
-   local s3  = serializeTbl{name="spiderT",       value=spiderT,    indent=true}
+   local s3  = serializeTbl{name="spiderT",       value=spiderT,    indent=true, ignoreKeysT = {contents = true}}
    local s4  = serializeTbl{name="mpathMapT",     value=mpathMapT,  indent=true}
    io.stdout:write(s1,s2,s3,s4,"\n")
    dbg.fini("l_rptSpiderT")
+end
+
+local function l_rptBigSpiderT(mpathMapT, spiderT, timestampFn, dbT, providedByT)
+   dbg.start{ "l_rptBigSpiderT(mpathMapT, spiderT, timestampFn, dbT, providedByT)"}
+   local mrc = MRC:singleton()
+   local ts  = { timestampFn }
+   local s1  = serializeTbl{name="timestampFn",   value=ts,         indent=true}
+   local s2  = mrc:export()
+   local s3  = serializeTbl{name="spiderT",       value=spiderT,    indent=true}
+   local s4  = serializeTbl{name="mpathMapT",     value=mpathMapT,  indent=true}
+   io.stdout:write(s1,s2,s3,s4,"\n")
+   dbg.fini("l_rptBigSpiderT")
 end
 
 local function l_buildReverseMapT(dbT)
@@ -512,6 +524,7 @@ function main()
       list             = l_rptList,
       moduleT          = l_rptSpiderT,
       spiderT          = l_rptSpiderT,
+      spiderBigT       = l_rptBigSpiderT,
       softwarePage     = l_rptSoftwarePageJson,
       jsonSoftwarePage = l_rptSoftwarePageJson,
       xmlSoftwarePage  = l_rptSoftwarePageXml,
