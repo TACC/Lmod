@@ -405,9 +405,12 @@ local function l_writeUserSpiderCacheWhenNecessary(self, delta_t, mpathA, spider
 
    local dontWrite = self.dontWrite or r.dontWriteCache or (cosmic:value("LMOD_IGNORE_CACHE") == "yes")
 
-   if (tracing == "yes") then
-      tracing_msg{"completed building cache. Saving cache: ",
-                  tostring(not(delta_t < shortTime or dontWrite))}
+   if (tracing == "yes" ) then
+      local action = not(delta_t < shortTime or dontWrite)
+      if (action) then
+         tracing_msg{"completed building cache. Saving cache: ",
+                     tostring(action)}
+      end
    end
 
    if (delta_t < shortTime or dontWrite) then
@@ -598,10 +601,10 @@ function M.build(self, fast)
    end
 
    local userSpiderTFN = self.usrSpiderTFN
-   local buildSpiderT  = (#dirA > 0)
+   local buildSpiderT  = (next(dirA) ~= nil)
    dbg.print{"buildSpiderT: ",buildSpiderT,"\n"}
    local tracing  = cosmic:value("LMOD_TRACING")
-   if (tracing == "yes") then
+   if (tracing == "yes" and next(mpA) ~= nil)
       tracing_msg{"Building Spider cache for the following dir(s): ",
                   concatTbl(mpA,", ")}
    end
