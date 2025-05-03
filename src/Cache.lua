@@ -604,7 +604,7 @@ function M.build(self, fast)
    local buildSpiderT  = (next(dirA) ~= nil)
    dbg.print{"buildSpiderT: ",buildSpiderT,"\n"}
    local tracing  = cosmic:value("LMOD_TRACING")
-   if (tracing == "yes" and next(mpA) ~= nil)
+   if (tracing == "yes" and next(mpA) ~= nil) then
       tracing_msg{"Building Spider cache for the following dir(s): ",
                   concatTbl(mpA,", ")}
    end
