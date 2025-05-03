@@ -319,7 +319,7 @@ local function l_readCacheFile(self, mpathA, spiderTFnA)
 
          dbg.print{"cacheFile found: ",fn,"\n"}
          if (tracing == "yes") then
-            tracing_msg{"Using Cache file: ",fn}
+            tracing_msg{"Using Cache file: ",fn,", mcp:mode(): ",mcp:mode()}
          end
 
          -- Check Time
