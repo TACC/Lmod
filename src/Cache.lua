@@ -224,7 +224,7 @@ end
 function M.singleton(self, t)
    dbg.start{"Cache:singleton()"}
 
-   t                = t or {}
+   t = t or {}
    if (not s_cache) then
       s_cache   = l_new(self, t)
    end
@@ -236,6 +236,7 @@ function M.singleton(self, t)
    if (t.buildFresh) then
       s_cache.buildFresh = t.buildFresh
    end
+   s_cache.kind = t.kind or "normal"
 
    dbg.print{"s_cache.buildCache: ",self.buildCache,"\n"}
 
@@ -319,7 +320,7 @@ local function l_readCacheFile(self, mpathA, spiderTFnA)
 
          dbg.print{"cacheFile found: ",fn,"\n"}
          if (tracing == "yes") then
-            tracing_msg{"Using Cache file: ",fn,", mcp:mode(): ",mcp:mode()}
+            tracing_msg{"Using Cache file: ",fn,", kind: ",self.kind or "normal"}
          end
 
          -- Check Time

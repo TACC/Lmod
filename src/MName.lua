@@ -202,7 +202,7 @@ local function l_lazyEval(self)
    end
 
    local cached_loads = cosmic:value("LMOD_CACHED_LOADS")
-   local moduleA = ModuleA:singleton{spider_cache = (cached_loads ~= "no")}
+   local moduleA = ModuleA:singleton{spider_cache = (cached_loads ~= "no"), kind = "Big"}
    if (sType == "inherit") then
       local t  = self.__t
       local fn = moduleA:inherited_search(self.__fullName, t.fn)
