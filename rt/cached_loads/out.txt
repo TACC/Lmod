@@ -115,3 +115,160 @@ MODULEPATH=OutputDIR/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="OutputDIR/mf/Core/A/1.0.lua",fullName="A/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},B={fn="OutputDIR/mf/Core/B/1.0.lua",fullName="B/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="B",wV="000000001.*zfinal",},},mpathA={"OutputDIR/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core",}';
 export _ModuleTable_;
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset LOADEDMODULES;
+unset ME;
+MODULEPATH=OutputDIR/mf/Core;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"OutputDIR/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 13
+runSpiderCmd -o spiderBigT OutputDIR/mf/Core
+===========================
+timestampFn = {
+  false,
+}
+mrcMpathT = {}
+spiderT = {
+  ["OutputDIR/mf/Core"] = {
+    A = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["A/1.0"] = {
+          Version = "1.0",
+          canonical = "1.0",
+          contents = [[setenv("ME",myModuleFullName())
+]],
+          fn = "OutputDIR/mf/Core/A/1.0.lua",
+          luaExt = 4,
+          mpath = "OutputDIR/mf/Core",
+          pV = "000000001.*zfinal",
+          wV = "000000001.*zfinal",
+        },
+      },
+    },
+    B = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["B/1.0"] = {
+          Version = "1.0",
+          canonical = "1.0",
+          contents = [[setenv("ME",myModuleFullName())
+]],
+          fn = "OutputDIR/mf/Core/B/1.0.lua",
+          luaExt = 4,
+          mpath = "OutputDIR/mf/Core",
+          pV = "000000001.*zfinal",
+          wV = "000000001.*zfinal",
+        },
+      },
+    },
+    C = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["C/1.2"] = {
+          Version = "1.2",
+          canonical = "1.2",
+          changeMPATH = true,
+          contents = [[local mroot = os.getenv("MODULEPATH_ROOT")
+prepend_path("MODULEPATH",pathJoin(mroot,"cae"))
+]],
+          fn = "OutputDIR/mf/Core/C/1.2.lua",
+          luaExt = 4,
+          mpath = "OutputDIR/mf/Core",
+          pV = "000000001.000000002.*zfinal",
+          wV = "000000001.000000002.*zfinal",
+        },
+      },
+    },
+  },
+  ["OutputDIR/mf/cae"] = {
+    abaqus = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["abaqus/3.0"] = {
+          Version = "3.0",
+          canonical = "3.0",
+          contents = [[setenv(myModuleName(),myModuleFullName())
+]],
+          fn = "OutputDIR/mf/cae/abaqus/3.0.lua",
+          luaExt = 4,
+          mpath = "OutputDIR/mf/cae",
+          pV = "000000003.*zfinal",
+          wV = "000000003.*zfinal",
+        },
+      },
+    },
+    fluent = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["fluent/2.0"] = {
+          Version = "2.0",
+          canonical = "2.0",
+          contents = [[setenv(myModuleName(),myModuleFullName())
+]],
+          fn = "OutputDIR/mf/cae/fluent/2.0.lua",
+          luaExt = 4,
+          mpath = "OutputDIR/mf/cae",
+          pV = "000000002.*zfinal",
+          wV = "000000002.*zfinal",
+        },
+      },
+    },
+    openfoam = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["openfoam/1.0"] = {
+          Version = "1.0",
+          canonical = "1.0",
+          contents = [[setenv(myModuleName(),myModuleFullName())
+]],
+          fn = "OutputDIR/mf/cae/openfoam/1.0.lua",
+          luaExt = 4,
+          mpath = "OutputDIR/mf/cae",
+          pV = "000000001.*zfinal",
+          wV = "000000001.*zfinal",
+        },
+      },
+    },
+  },
+  version = 5,
+}
+mpathMapT = {
+  ["OutputDIR/mf/cae"] = {
+    ["C/1.2"] = "OutputDIR/mf/Core",
+  },
+}
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -T load A B C
+===========================
+LOADEDMODULES=A/1.0:B/1.0:C/1.2;
+export LOADEDMODULES;
+ME=B/1.0;
+export ME;
+__LMOD_REF_COUNT_MODULEPATH=OutputDIR/mf/cae:1\;OutputDIR/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=OutputDIR/mf/cae:OutputDIR/mf/Core;
+export MODULEPATH;
+_LMFILES_=OutputDIR/mf/Core/A/1.0.lua:OutputDIR/mf/Core/B/1.0.lua:OutputDIR/mf/Core/C/1.2.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="OutputDIR/mf/Core/A/1.0.lua",fullName="A/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},B={fn="OutputDIR/mf/Core/B/1.0.lua",fullName="B/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="B",wV="000000001.*zfinal",},C={actionA={"prepend_path(\"MODULEPATH\",\"OutputDIR/mf/cae\")",},fn="OutputDIR/mf/Core/C/1.2.lua",fullName="C/1.2",loadOrder=3,propT={},stackDepth=0,status="active",userName="C",wV="000000001.000000002.*zfinal",},},mpathA={"OutputDIR/mf/cae","OutputDIR/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core",}';
+export _ModuleTable_;

@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
+Modules based on Lua: Version 8.7.60 2025-04-30 12:50 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -55,3 +55,22 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) A/1.0   2) B/1.0
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 13
+runSpiderCmd -o spiderBigT OutputDIR/mf/Core
+===========================
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -T load A B C
+===========================
+running: module --regression_testing -T load A B C
+  Using Cache file: OutputDIR/.cache/lmod/spiderBigT.lua, kind: Big
+  (1)(0)Loading: A (fn: OutputDIR/mf/Core/A/1.0.lua, using Find-Best and using spider cache contents)
+  (2)(0)Loading: B (fn: OutputDIR/mf/Core/B/1.0.lua, using Find-Best and using spider cache contents)
+  (3)(0)Loading: C (fn: OutputDIR/mf/Core/C/1.2.lua, using Find-Best and using spider cache contents)
+    Prepending: OutputDIR/mf/cae to MODULEPATH
+  reloadAll(1)(A, B, C)
