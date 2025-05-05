@@ -1,8 +1,15 @@
 New Features in Lmod
 ====================
 
+**Change in Dynamic Spider Cache Support**
+  (Lmod 8.7.61+) The default for LMOD_DYNAMIC_SPIDER_CACHE has changed
+  to no as this is a performance penalty.  Most sites do not require
+  that the modulefiles with changes to MODULEPATH need to be
+  re-evaluated. 
+
+
 **Irreversible module actions**
-  (Lmod 8.8) You can now set environment variable or load modules when
+  (Lmod 8.7.60+) You can now set environment variable or load modules when
   unloading. See :ref:`mode_select-label` for more details.
 
 
