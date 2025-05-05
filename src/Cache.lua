@@ -122,6 +122,20 @@ local function l_new(self, t)
 
    local compiled_ext_sys = "luac_"..LuaV
    local compiled_ext_usr = "luac_"..CLuaV
+
+   local extA = { compiled_ext_sys,
+                  "old." .. compiled_ext_sys,
+                  "lua",
+                  "old.lua",
+   }
+   local nameA = {}
+   if (t.kind == "Big") then
+      nameA[1] = "spiderBigT."
+      nameA[2] = "spiderT."
+   else
+      nameA[1] = "spiderT."
+   end
+      
    for j  = 1, #scDescriptT  do
       local entry = scDescriptT[j]
       local tt    = {}
@@ -146,34 +160,54 @@ local function l_new(self, t)
          if (attr.mode == "directory") then
             dbg.print{"Adding: dir: ",dir,", timestamp: ",lastUpdate, "\n"}
             scDirA[#scDirA+1] =
-               { fileA = { pathJoin(dir, "spiderT."     .. compiled_ext_sys),
-                           pathJoin(dir, "spiderT.old." .. compiled_ext_sys),
-                           pathJoin(dir, "spiderT.lua"),
-                           pathJoin(dir, "spiderT.old.lua"),
-                         },
+               { fileA = {},
                  timestamp = lastUpdate,
                  fileT = "system",
                }
+            local fileA = scDirA[#scDirA].fileA
+            for j = 1,#nameA do
+               for i = 1,#extA do
+                  fileA[#fileA + 1] = pathJoin(dir, nameA[j] .. extA[i])
+               end
+            end
             break
          end
       end
    end
 
-   local usrSpiderT   = hook.apply("groupName","spiderT.lua")
-   local usrSpiderT_C = hook.apply("groupName","spiderT."..compiled_ext_usr)
 
+   extA = { compiled_ext_usr,
+            "lua",
+   }
+
+        --fileA = { pathJoin(usrCacheDir, usrSpiderT_C),
+        --          pathJoin(usrCacheDir, usrSpiderT),
+        --          pathJoin(usrCacheDir, "spiderT."..compiled_ext_usr),
+        --          pathJoin(usrCacheDir, "spiderT.lua"),
+        --        },
+
+   local usrSpiderT   = hook.apply("groupName","spiderT.lua")
    local usrSpiderTFnA = {
-      { fileA = { pathJoin(usrCacheDir, usrSpiderT_C),
-                  pathJoin(usrCacheDir, usrSpiderT),
-                  pathJoin(usrCacheDir, "spiderT."..compiled_ext_usr),
-                  pathJoin(usrCacheDir, "spiderT.lua"),
-                },
+      { fileA = {},
         fileT = "your",
         timestamp = systemEpoch
       },
    }
 
+   local fileA = usrSpiderTFnA[1].fileA
+   for j = 1,#nameA do
+      for i = 1,#extA do
+         fileA[#fileA + 1] = pathJoin(usrCacheDir, hook.apply("groupName",nameA[j] .. extA[i]))
+      end
+   end
+   for j = 1,#nameA do
+      for i = 1,#extA do
+         fileA[#fileA + 1] = pathJoin(usrCacheDir, nameA[j] .. extA[i])
+      end
+   end
+
    t                   = t or {}
+   o.kind              = t.kind
    o.spiderDirT        = {}
    o.mDT               = {}
    o.usrCacheDir       = usrCacheDir
@@ -224,7 +258,8 @@ end
 function M.singleton(self, t)
    dbg.start{"Cache:singleton()"}
 
-   t = t or {}
+   t      = t or {}
+   t.kind = t.kind or "normal"
    if (not s_cache) then
       s_cache   = l_new(self, t)
    end
@@ -236,7 +271,6 @@ function M.singleton(self, t)
    if (t.buildFresh) then
       s_cache.buildFresh = t.buildFresh
    end
-   s_cache.kind = t.kind or "normal"
 
    dbg.print{"s_cache.buildCache: ",self.buildCache,"\n"}
 
@@ -320,7 +354,7 @@ local function l_readCacheFile(self, mpathA, spiderTFnA)
 
          dbg.print{"cacheFile found: ",fn,"\n"}
          if (tracing == "yes") then
-            tracing_msg{"Using Cache file: ",fn,", kind: ",self.kind or "normal"}
+            tracing_msg{"Using Cache file: ",fn,", kind: ",self.kind}
          end
 
          -- Check Time
