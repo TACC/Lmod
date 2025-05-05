@@ -2,13 +2,13 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.53 2024-10-12 19:57 -05:00
+Modules based on Lua: Version 8.7.60 2025-04-30 12:50 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --config
 ===========================
-Modules based on Lua: Version 8.7.53 2024-10-12 19:57 -05:00
+Modules based on Lua: Version 8.7.60 2025-04-30 12:50 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 Description                                                   Value
 Allow root to use Lmod (LMOD_ALLOW_ROOT_USE)                  yes
@@ -23,7 +23,7 @@ Display Extension w/ avail (LMOD_AVAIL_EXTENSIONS)            yes
 Use ~/.config dir only (LMOD_USE_DOT_CONFIG_ONLY)             no
 Downstream Module Conflicts (LMOD_DOWNSTREAM_CONFLICTS)       no
 Allow duplicate paths (LMOD_DUPLICATE_PATHS)                  no
-Dynamic Spider Cache (LMOD_DYNAMIC_SPIDER_CACHE)              yes
+Dynamic Spider Cache (LMOD_DYNAMIC_SPIDER_CACHE)              no
 Require Exact Match/no defaults (LMOD_EXACT_MATCH)            no
 Export the module command (LMOD_EXPORT_MODULE)                yes
 Allow extended default (LMOD_EXTENDED_DEFAULT)                yes

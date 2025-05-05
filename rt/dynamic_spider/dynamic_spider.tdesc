@@ -21,6 +21,7 @@ testdescript = {
      initStdEnvVars
      export MODULEPATH_ROOT=$(testDir)/mf
      export MODULEPATH=$MODULEPATH_ROOT/Core
+     export LMOD_DYNAMIC_SPIDER_CACHE=yes
      cacheDir=`userCacheDir`
 
      remove_generated_lmod_files myModules{,2,4}
