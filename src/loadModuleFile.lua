@@ -103,6 +103,9 @@ function loadModuleFile(t)
 
    if (t.contents) then
       whole = t.contents
+      dbg.start{"ModuleFile_via_contents"}
+      dbg.print{whole}
+      dbg.fini("ModuleFile_via_contents")
    elseif (returnContents or myType == ".lua") then
       -- Read in lua module file into a [[whole]] string.
       local f = io.open(t.file)

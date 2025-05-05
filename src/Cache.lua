@@ -199,8 +199,6 @@ local function l_new(self, t)
       for i = 1,#extA do
          fileA[#fileA + 1] = pathJoin(usrCacheDir, hook.apply("groupName",nameA[j] .. extA[i]))
       end
-   end
-   for j = 1,#nameA do
       for i = 1,#extA do
          fileA[#fileA + 1] = pathJoin(usrCacheDir, nameA[j] .. extA[i])
       end

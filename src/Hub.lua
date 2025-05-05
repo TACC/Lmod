@@ -323,6 +323,7 @@ function M.load(self, mA)
          mt               = frameStk:mt()
 
          local sn         = mname:sn()
+         local contents   = mname:contents()
          dbg.print{"Hub:load i: ",i,", userName: ",userName,", sn: ",sn,"\n",}
 
          if ((sn == nil) and ((i > 1) or (frameStk:stackDepth() > 0))) then
@@ -348,6 +349,7 @@ function M.load(self, mA)
                         "(" .. tostring(ReloadAllCntr) .. ")",
                         "Loading: ", userName, " (fn: ", fn or "nil",
                         isNVV and ", using Find-First" or ", using Find-Best",
+                        contents and " and using spider cache contents" or "",
                         ")" }
          end
 
@@ -401,9 +403,11 @@ function M.load(self, mA)
                end
             end
 
-
+            dbg.print{"mname",mname,"\n"}
+            
             local status = loadModuleFile{file = fn, shell = shellNm, mList = mList,
-                                          reportErr = true, forbiddenT = mname:forbiddenT()}
+                                          reportErr = true, forbiddenT = mname:forbiddenT(),
+                                          contents = mname:contents()}
             mt = frameStk:mt()
 
             -- A modulefile could the same named module over top of the current modulefile

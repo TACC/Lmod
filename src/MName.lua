@@ -252,6 +252,7 @@ local function l_lazyEval(self)
    local funcName
    local mpath
    local moduleKindT
+   local contents
 
    dbg.printT("fileA",fileA)
    dbg.print{"#stepA: ",#stepA,"\n"}
@@ -261,7 +262,7 @@ local function l_lazyEval(self)
 
    for i = 1, #stepA do
       local func = stepA[i]
-      found, fn, version, wV, moduleKindT, mpath, funcName = func(self, fileA)
+      found, fn, version, wV, moduleKindT, mpath, contents, funcName = func(self, fileA)
       dbg.print{"found: ",found,", funcName: ",funcName,"\n"}
       if (found) then
          self.__fn          = fn
@@ -269,6 +270,7 @@ local function l_lazyEval(self)
          self.__wV          = wV
          self.__moduleKindT = moduleKindT
          self.__mpath       = mpath
+         self.__contents    = contents
          if (self.__action == "latest" or self.__sn ~= self.__userName) then
             self.__userName = build_fullName(self.__sn, version)
          end
@@ -297,6 +299,13 @@ function M.valid(self)
       l_lazyEval(self)
    end
    return self.__fn
+end
+
+function M.contents(self)
+   if (not self.__contents) then
+      l_lazyEval(self)
+   end
+   return self.__contents
 end
 
 function M.moduleKindT(self)
@@ -466,6 +475,7 @@ local function l_find_exact_match(self, must_have_version, fileA)
    local moduleKindT = {}
    local found       = false
    local mpath       = false
+   local contents    = false
    if (must_have_version and not versionStr) then
       return found, fn, version
    end
@@ -484,6 +494,7 @@ local function l_find_exact_match(self, must_have_version, fileA)
                wV          = entry.wV
                fn          = entry.fn
                mpath       = entry.mpath
+               contents    = entry.contents
                version     = entry.version or false
                moduleKindT = resultT.moduleKindT
                found       = true
@@ -498,7 +509,7 @@ local function l_find_exact_match(self, must_have_version, fileA)
    --dbg.print{"found: ",found,", fn: ",fn,", version: ", version,", wV: ",wV,
    --         ", kind: ",moduleKindT.kind,"\n"}
    --dbg.fini("MName l_find_exact_match")
-   return found, fn, version, wV, moduleKindT, mpath
+   return found, fn, version, wV, moduleKindT, mpath, contents
 end
 
 
@@ -512,9 +523,9 @@ end
 function M.find_exact_match(self, fileA)
    --dbg.start{"MName:find_exact_match(fileA)"}
    local must_have_version = true
-   local found, fn, version, wV, moduleKindT, mpath  = l_find_exact_match(self, must_have_version, fileA)
+   local found, fn, version, wV, moduleKindT, mpath, contents = l_find_exact_match(self, must_have_version, fileA)
    --dbg.fini("MName:find_exact_match")
-   return found, fn, version, wV, moduleKindT, mpath, "find_exact_match"
+   return found, fn, version, wV, moduleKindT, mpath, contents, "find_exact_match"
 end
 ------------------------------------------------------------------------
 -- This routine is almost the same as M.find_exact_match
@@ -525,9 +536,9 @@ end
 function M.find_exact_match_meta_module(self, fileA)
    --dbg.start{"MName:find_exact_match_meta_module(fileA)"}
    local must_have_version = false
-   local found, fn, version, wV, moduleKindT, mpath = l_find_exact_match(self, must_have_version, fileA)
+   local found, fn, version, wV, moduleKindT, mpath, contents = l_find_exact_match(self, must_have_version, fileA)
    --dbg.fini("MName:find_exact_match_meta_module")
-   return found, fn, version, wV, moduleKindT, mpath, "find_exact_match_meta_module"
+   return found, fn, version, wV, moduleKindT, mpath, contents, "find_exact_match_meta_module"
 end
 
 local function l_find_highest_by_key(self, key, fileA)
@@ -542,6 +553,7 @@ local function l_find_highest_by_key(self, key, fileA)
    local pV          = false
    local wV          = false
    local mpath       = false
+   local contents    = false
    fileA             = fileA or {}
    local blockA
 
@@ -563,6 +575,7 @@ local function l_find_highest_by_key(self, key, fileA)
                pV          = entry.pV
                wV          = entry.wV
                mpath       = entry.mpath
+               contents    = entry.contents
                moduleKindT = resultT.moduleKindT
                dbg.print{"saving fullName: ", entry.fullName,"\n"}
             end
@@ -580,7 +593,7 @@ local function l_find_highest_by_key(self, key, fileA)
    --dbg.print{"found: ",found,", fn: ",fn,", version: ", version,", wV: ",wV,
    --          ", kind: ",moduleKindT.kind,"\n"}
    --dbg.fini("MName: l_find_highest_by_key")
-   return found, fn, version, wV, moduleKindT, mpath, "l_find_highest_by_key("..key..")"
+   return found, fn, version, wV, moduleKindT, mpath, contents, "l_find_highest_by_key("..key..")"
 end
 
 ------------------------------------------------------------------------
@@ -613,6 +626,7 @@ function M.find_between(self, fileA)
    local pV          = lowerBound
    local wV          = " "  -- this is less than the lower possible weight.
    local mpath       = false
+   local contents    = false
    local kind        = nil
    local idx         = nil
    local found       = false
@@ -628,6 +642,7 @@ function M.find_between(self, fileA)
             pV          = v
             wV          = entry.wV
             mpath       = entry.mpath
+            contents    = entry.contents
             moduleKindT = resultT.moduleKindT
          end
       end
@@ -641,7 +656,7 @@ function M.find_between(self, fileA)
       end
    end
    --dbg.fini("MName:find_between")
-   return found, fn, version, wV, moduleKindT, mpath, "find_between"
+   return found, fn, version, wV, moduleKindT, mpath, contents, "find_between"
 end
 
 local function l_rangeCk(self, version, result_if_found, result_if_not_found)
