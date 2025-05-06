@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.49 YYYY-MM-DD 13:55 -06:00
+Modules based on Lua: Version 8.7.60 2025-04-30 12:50 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -556,7 +556,7 @@ step 44
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Global Aliases
-   ucc14 -> (N/A)
+   ucc12 -> (N/A)    ucc14 -> (N/A)
 ProjectDIR/rt/avail/mf/CoreA
    parmetis/3.1 (m)
   Where:
@@ -580,3 +580,51 @@ If the avail list is too long consider trying:
 "module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 46
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 47
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail ucc14
+===========================
+Global Aliases
+   ucc14 -> ucc/14.0.2
+ProjectDIR/rt/avail/mf/Core
+   ucc/14.0.2
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 48
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail ucc12
+===========================
+Global Aliases
+   ucc12 -> (N/A)
+No module(s) or extension(s) found!
+  Where:
+   N/A:  Alias cannot be loaded with current $MODULEPATH
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 49
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail ucc13
+===========================
+No module(s) or extension(s) found!
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 50
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t avail ucc14
+===========================
+ucc14(@ucc/14.0.2)
+ProjectDIR/rt/avail/mf/Core:
+ucc/14.0.2

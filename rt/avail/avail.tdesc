@@ -106,7 +106,16 @@ testdescript = {
      runLmod avail                    #44
      runLmod avail parmetis           #45
 
-
+     ############################################################
+     # Test Issue #759: Show global aliases with avail
+     export LMOD_MODULERCFILE=$testDir/dot.modulerc.lua
+     runLmod purge                    #46
+     unsetMT
+     export MODULEPATH=$(testDir)/mf/Core
+     runLmod avail ucc14              #47
+     runLmod avail ucc12              #48 
+     runLmod avail ucc13              #49
+     runLmod -t avail ucc14           #50
      
      HOME=$ORIG_HOME
 

@@ -1174,7 +1174,7 @@ function M.terse_avail(self, mpathA, availA, searchA, showSN, defaultOnly, defau
          local fullName = mrc:resolve(mpathA, v)
          for i = 1, searchA.n do
             local s = searchA[i]
-            if (fullName:find(s)) then
+            if (fullName:find(s) or k:find(s)) then
                a[#a+1] = k.."(@" .. fullName ..")\n"
             end
          end
@@ -1326,7 +1326,7 @@ function M.avail(self, argA)
          local fullName = mrc:resolve(mpathA,v)
          for i = 1, searchA.n do
             local s = searchA[i]
-            if (fullName:find(s)) then
+            if (fullName:find(s) or k:find(s)) then
                local mname    = MName:new("load",k)
                fullName = mname:fullName() or pna
                if (fullName == pna) then
