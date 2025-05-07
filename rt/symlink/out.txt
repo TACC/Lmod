@@ -56,3 +56,73 @@ _LMFILES_=ProjectDIR/rt/symlink/mf/Core/intel/12.1.5.lua:ProjectDIR/rt/symlink/m
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={a={fn="ProjectDIR/rt/symlink/mf/Core/a/1.2.lua",fullName="a/1.2",loadOrder=2,propT={},stackDepth=0,status="active",userName="a",wV="^00000001.000000002.*zfinal",},b={fn="ProjectDIR/rt/symlink/mf/Core/b/1.1.lua",fullName="b/1.1",loadOrder=3,propT={},stackDepth=0,status="active",userName="b",wV="^00000001.000000001.*zfinal",},bad_symlink={fn="ProjectDIR/rt/symlink/mf/Core/bad_symlink/1.0.lua",fullName="bad_symlink/1.0",loadOrder=6,propT={},stackDepth=0,status="active",userName="bad_symlink",wV="000000001.*zfinal",},boost={fn="ProjectDIR/rt/symlink/mf/Core/boost/1.55.0.lua",fullName="boost/1.55.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="boost",wV="^00000001.000000055.*zfinal",},intel={fn="ProjectDIR/rt/symlink/mf/Core/intel/12.1.5.lua",fullName="intel/12.1.5",loadOrder=1,propT={},stackDepth=0,status="active",userName="intel",wV="^00000012.000000001.000000005.*zfinal",},mv2={fn="ProjectDIR/rt/symlink/mf/Core/mv2/2.1rc2.lua",fullName="mv2/2.1rc2",loadOrder=5,propT={},stackDepth=0,status="active",userName="mv2",wV="^00000002.000000001.*c.000000002.*zfinal",},},mpathA={"ProjectDIR/rt/symlink/mf/Core",},systemBaseMPATH="ProjectDIR/rt/symlink/mf/Core",}';
 export _ModuleTable_;
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/symlink/mf/Core;
+export MODULEPATH;
+unset MY_VERSION;
+unset VERSION;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/symlink/mf/Core",},systemBaseMPATH="ProjectDIR/rt/symlink/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing av
+===========================
+__LMOD_REF_COUNT_MODULEPATH=OutputDIR/mf2:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=OutputDIR/mf2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"OutputDIR/mf2",},systemBaseMPATH="OutputDIR/mf2",}';
+export _ModuleTable_;
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
+===========================
+MODULEPATH=OutputDIR/mf2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"OutputDIR/mf2",},systemBaseMPATH="OutputDIR/mf2",}';
+export _ModuleTable_;
+===========================
+step 10
+chmod -r mf2/gcc/14.5.lua
+===========================
+===========================
+step 11
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
+===========================
+MODULEPATH=OutputDIR/mf2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"OutputDIR/mf2",},systemBaseMPATH="OutputDIR/mf2",}';
+export _ModuleTable_;
+===========================
+step 12
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc/14.5
+===========================
+false
+===========================
+step 13
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+MODULEPATH=OutputDIR/mf2;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"OutputDIR/mf2",},systemBaseMPATH="OutputDIR/mf2",}';
+export _ModuleTable_;
+===========================
+step 14
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing av
+===========================
+__LMOD_REF_COUNT_MODULEPATH=OutputDIR/mf2.ltd:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=OutputDIR/mf2.ltd;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"OutputDIR/mf2.ltd",},systemBaseMPATH="OutputDIR/mf2.ltd",}';
+export _ModuleTable_;
+===========================
+step 15
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load gcc/14.5
+===========================
+false

@@ -22,7 +22,7 @@ testdescript = {
      MODULEPATH_ROOT=$(testDir)/mf;    export MODULEPATH_ROOT
      MODULEPATH=$MODULEPATH_ROOT/Core; export MODULEPATH
 
-     remove_generated_lmod_files
+     remove_generated_lmod_files mf2 mf2.ltd
      rm -f  good.text bad1.text bad2.text
 
      runLmod --version                  # 1
@@ -34,9 +34,23 @@ testdescript = {
      ln -s bad bad1.text
      ln -s bad1.text bad2.text
      runLmod load bad_symlink           # 6
+     runLmod purge                      # 7
+     unsetMT
 
+     MODULEPATH=$(outputDir)/mf2; export MODULEPATH
 
+     cp -a $(testDir)/mf2 $(testDir)/mf2.ltd $(outputDir)
+     runLmod av                         # 8
+     runLmod spider                     # 9
+     runBase chmod -r mf2/gcc/14.5.lua  #10
+     runLmod spider                     #11
+     runLmod load gcc/14.5              #12
 
+     runLmod purge                      #13
+     unsetMT
+     MODULEPATH=$(outputDir)/mf2.ltd; export MODULEPATH
+     runLmod av                         #14
+     runLmod load gcc/14.5              #15
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
