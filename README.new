@@ -221,4 +221,5 @@ Lmod 8.7+
             * Issue #728: Now allow FAST_TCL_INTERP with tcl 9
             * PR    #757: Merge in changes to irreversible docs
             * Support for TCL Irreversible commands added.
-            
+W.I.P:
+   (8.7.61) * Issue #761: Only apply decorate_module hook if whole exists.
