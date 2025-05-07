@@ -22,6 +22,7 @@ describe("Testing The Avail command #Avail.",
                function()
                   local projDir    = os.getenv("PROJDIR")
                   local mpath      = pathJoin(projDir, testDir, "mf")
+                  posix.setenv("LMOD_QUIET","yes")
                   posix.setenv("LMOD_TERM_WIDTH","160")
                   posix.setenv("MODULERCFILE",pathJoin(projDir,testDir,".modulerc"))
                   posix.setenv("MODULEPATH",mpath,true)
@@ -90,7 +91,6 @@ describe("Testing The Avail command #Avail.",
                   -------------------------------------------------------
                   -- Test 5 avail output in regular mode
 
-                  posix.setenv("LMOD_QUIET","yes")
                   optionTbl.terse       = nil
                   a  = hub:avail(pack()) or {}
                   _a = {}
