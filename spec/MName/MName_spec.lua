@@ -7,6 +7,8 @@ require("string_utils")
 initialize_lmod()
 require("fileOps")
 
+_G.MainControl  = require("MainControl")
+
 local MName     = require("MName")
 local ModuleA   = require("ModuleA")
 local mrc       = require("MRC"):singleton()
