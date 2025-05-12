@@ -1111,6 +1111,7 @@ function M.overview(self,argA)
    if (next(b) ~= nil) then
       print_overview_block()
    end
+   a = hook.apply("msgHook", "overview", a) or a
 
    dbg.fini("Hub:overview")
    return a

@@ -1102,7 +1102,7 @@ function SpiderCmd(...)
    else
       local a = {}
       a[#a+1] = s
-      a = hook.apply("msgHook","spider",a)
+      a = hook.apply("msgHook","spider",a) or a
       s = concatTbl(a,"")
       shell:echo(s)
    end
