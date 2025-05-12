@@ -213,7 +213,7 @@ local function l_new(self)
 
    local tcl_version = "<N/A>"
    if (allow_tcl_mfiles == "yes" and not optionTbl().rt) then
-      tcl_version = capture("echo 'puts [info patchlevel]' | tclsh")
+      tcl_version = capture("echo 'puts [info patchlevel]' | " .. cosmic:value("LMOD_TCLSH"))
    end
 
    local tbl = {}
