@@ -8,6 +8,12 @@
 #define MYNAME        "tcl2lua"
 #define MYVERSION      MYNAME " 0.1"
 
+#if TCL_MAJOR_VERSION   < 9
+  typedef int Tcl_Size;
+#endif
+
+
+
 typedef struct _results {
     char* resultStr;
     int   rlen;
