@@ -59,5 +59,12 @@ export PTH=$testDir/bin:$NEW_PATH:$testDir/sbin
 
 export TST_SCRIPT=1
 export MY_NAME="tstScript.sh"
+if [ -z "${LD_LIBRARY_PATH}" ]; then
+  LD_LIBRARY_PATH="/abc/def:/def/qrst"
+else
+  LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/abc/def:/def/qrst"
+fi
+
+
 
 complete -F _xyz123 XyZ123

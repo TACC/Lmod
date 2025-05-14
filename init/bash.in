@@ -19,12 +19,32 @@ if [ -n "${__lmod_vx:-}" ]; then
     echo "Shell debugging temporarily silenced: export LMOD_SH_DBG_ON=1 for this output (@PKGV@/init/@my_shell@)" 1>&2
 fi
 
-unset __zsh_fpath
-if [ -n "${ZSH_VERSION+x}" ] &&  ! (autoload -U compinit && compinit -C 2> /dev/null) ; then
-  __zsh_fpath=$(unset FPATH; zsh -f -c 'echo $FPATH')
+########################################################################
+# add ksh func to zsh if the account is a user and not a system account
+__uid=$(id -u)
+__system=$(uname -s)
+if [ $__system = Darwin ]; then
+  LMOD_UID_MIN=500
+else
+  LMOD_UID_MIN=1000
 fi
-export FPATH=$(@PKGV@/libexec/addto --append FPATH ${__zsh_fpath:-$FPATH} @PKGV@/init/ksh_funcs)
-unset __zsh_fpath
+if [ -f /etc/login.defs ]; then
+  __xx=$(grep '^UID_MIN' /etc/login.defs | sed -e 's/^UID_MIN[ \t]*//')
+  if [ -n "${__xx}" ]; then
+    LMOD_UID_MIN=$__xx
+  fi
+  unset __xx
+fi
+
+if [ $uid -ge $LMOD_UID_MIN ]; then
+  unset __zsh_fpath
+  if [ -n "${ZSH_VERSION+x}" ] &&  ! (autoload -U compinit && compinit -C 2> /dev/null) ; then
+    __zsh_fpath=$(unset FPATH; zsh -f -c 'echo $FPATH')
+  fi
+  export FPATH=$(@PKGV@/libexec/addto --append FPATH ${__zsh_fpath:-$FPATH} @PKGV@/init/ksh_funcs)
+  unset __zsh_fpath
+fi
+unset __uid __system LMOD_UID_MIN
 
 export LMOD_ROOT=@lmod_root@
 export LMOD_PKG=@PKGV@

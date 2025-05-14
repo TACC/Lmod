@@ -224,3 +224,4 @@ Lmod 8.7+
 W.I.P.:
             * Issue #762: Fixed int len to be Tcl_Size len in tcl2lua.c
             * Issue #763: Added msgHook to overview.  Handle empty msgHook function for spider.
+            * Issue #767: Only add ksh functions to zsh user accounts and not system ones

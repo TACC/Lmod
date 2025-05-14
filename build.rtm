@@ -5,6 +5,7 @@ echo Making Version: $PKG_VERSION
 
 parallel_make_install()
 {
+  unset LD_LIBRARY_PATH
   PARALLEL_BUILD="-j"
   if [ -n ${LMOD_SIMPLE_BUILD:-} ]; then
      PARALLEL_BUILD=""
@@ -17,11 +18,11 @@ parallel_make_install()
   fi
 
   if [ "$BUILD_TYPE" != "EXPERIMENTAL" ]; then
-    echo "$SUDO $MAKE $PARALLEL_BUILD GIT_VERSION=$GIT_VERSION install     $MAKE_EXTRA"
-          $SUDO $MAKE $PARALLEL_BUILD  GIT_VERSION=$GIT_VERSION install     $MAKE_EXTRA
+    echo "$SUDO LD_LIBRARY_PATH= $MAKE $PARALLEL_BUILD GIT_VERSION=$GIT_VERSION install    $MAKE_EXTRA"
+          $SUDO LD_LIBRARY_PATH= $MAKE $PARALLEL_BUILD GIT_VERSION=$GIT_VERSION install    $MAKE_EXTRA
   else
     echo "$SUDO $MAKE pre-install $MAKE_EXTRA"
-    $SUDO $MAKE GIT_VERSION=$GIT_VERSION $PARALLEL_BUILD pre-install $MAKE_EXTRA
+    $SUDO LD_LIBRARY_PATH= $MAKE GIT_VERSION=$GIT_VERSION $PARALLEL_BUILD pre-install $MAKE_EXTRA
     $SUDO rm -f $BASE_DIR/lmod/EXPERIMENTAL
     $SUDO ln -s $PKG_VERSION $BASE_DIR/lmod/EXPERIMENTAL
   fi
