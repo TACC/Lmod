@@ -23,20 +23,12 @@ fi
 # add ksh func to zsh if the account is a user and not a system account
 __uid=$(id -u)
 __system=$(uname -s)
+__stat_flag='-c'
 if [ $__system = Darwin ]; then
-  LMOD_UID_MIN=500
-else
-  LMOD_UID_MIN=1000
-fi
-if [ -f /etc/login.defs ]; then
-  __xx=$(grep '^UID_MIN' /etc/login.defs | sed -e 's/^UID_MIN[ \t]*//')
-  if [ -n "${__xx}" ]; then
-    LMOD_UID_MIN=$__xx
-  fi
-  unset __xx
-fi
-
-if [ $__uid -ge $LMOD_UID_MIN ]; then
+  __stat_flag='-f'
+fi  
+__ksh_funcs_uid=$(PATH=/bin:/usr/bin stat $__stat_flag '%u' @PKGV@/init/ksh_funcs)
+if [ $__ksh_funcs_uid -eq 0 -o $__ksh_funcs_uid -eq $__uid ]; then
   unset __zsh_fpath
   if [ -n "${ZSH_VERSION+x}" ] &&  ! (autoload -U compinit && compinit -C 2> /dev/null) ; then
     __zsh_fpath=$(unset FPATH; zsh -f -c 'echo $FPATH')
@@ -44,7 +36,7 @@ if [ $__uid -ge $LMOD_UID_MIN ]; then
   export FPATH=$(@PKGV@/libexec/addto --append FPATH ${__zsh_fpath:-$FPATH} @PKGV@/init/ksh_funcs)
   unset __zsh_fpath
 fi
-unset __uid __system LMOD_UID_MIN
+unset __uid __system __ksh_funcs_uid __stat_flag
 
 export LMOD_ROOT=@lmod_root@
 export LMOD_PKG=@PKGV@
