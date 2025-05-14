@@ -18,11 +18,11 @@ parallel_make_install()
   fi
 
   if [ "$BUILD_TYPE" != "EXPERIMENTAL" ]; then
-    echo "$SUDO LD_LIBRARY_PATH= $MAKE $PARALLEL_BUILD GIT_VERSION=$GIT_VERSION install    $MAKE_EXTRA"
-          $SUDO LD_LIBRARY_PATH= $MAKE $PARALLEL_BUILD GIT_VERSION=$GIT_VERSION install    $MAKE_EXTRA
+    echo "$SUDO LD_LIBRARY_PATH= LD_PRELOAD= $MAKE $PARALLEL_BUILD GIT_VERSION=$GIT_VERSION install     $MAKE_EXTRA"
+          $SUDO LD_LIBRARY_PATH= LD_PRELOAD= $MAKE $PARALLEL_BUILD GIT_VERSION=$GIT_VERSION install     $MAKE_EXTRA
   else
     echo "$SUDO $MAKE pre-install $MAKE_EXTRA"
-    $SUDO LD_LIBRARY_PATH= $MAKE GIT_VERSION=$GIT_VERSION $PARALLEL_BUILD pre-install $MAKE_EXTRA
+    $SUDO LD_LIBRARY_PATH= LD_PRELOAD= $MAKE GIT_VERSION=$GIT_VERSION $PARALLEL_BUILD pre-install $MAKE_EXTRA
     $SUDO rm -f $BASE_DIR/lmod/EXPERIMENTAL
     $SUDO ln -s $PKG_VERSION $BASE_DIR/lmod/EXPERIMENTAL
   fi
@@ -39,7 +39,6 @@ save_old_version()
     fi
   fi
 }
-
 make_symlink()
 {
   if [ "$SITE_CONTROLLED_PREFIX" = "yes" ]; then
@@ -198,7 +197,7 @@ if [ "$?" = 0 ]; then
 fi
 
 cmdA=("-$MAKE distclean"
-      "./configure --prefix=$BASE_DIR --with-settarg=yes $COMMON_OPTIONS $EXTRA"
+      "LD_LIBRARY_PATH= LD_PRELOAD= ./configure --prefix=$BASE_DIR --with-settarg=yes $COMMON_OPTIONS $EXTRA"
       "echo BASE_DIR: $BASE_DIR"
       "save_old_version"
       "$MAKE echo"

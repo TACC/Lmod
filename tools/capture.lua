@@ -39,6 +39,48 @@ local getenv       = os.getenv
 local setenv_posix = posix.setenv
 local cosmic       = require("Cosmic"):singleton()
 
+function clean_capture(cmd)
+   dbg.start{"clean_capture(",cmd,")"}
+   if (dbg.active()) then
+      dbg.print{"cwd: ",posix.getcwd(),"\n",level=2}
+   end
+
+   -- in Lua 5.1, p:close() does not return exit status,
+   -- so we append 'echo $?' to the command to determine the exit status
+   local ec_msg = "Lmod Capture Exit Code"
+   if (_VERSION == "Lua 5.1") then
+      cmd = cmd .. '; echo "' .. ec_msg .. ': $?"'
+   end
+
+   local out    = nil
+   local status = nil
+   local p   = io.popen(cmd)
+   if (p ~= nil) then
+      out    = p:read("*all")
+      status = p:close()
+   end
+
+   -- trim 'exit code: <value>' from the end of the output and determine exit status
+   if _VERSION == "Lua 5.1" then
+      local exit_code = out:match(ec_msg .. ": (%d+)\n$")
+      if not exit_code then
+         LmodError("Failed to find '" .. ec_msg .. "' in output: " .. out)
+      end
+      status = exit_code == '0'
+      out = out:gsub(ec_msg .. ": %d+\n$", '')
+   end
+
+
+   if (dbg.active()) then
+      dbg.start{"clean_capture output()",level=2}
+      dbg.print{out}
+      dbg.fini("clean_capture output")
+   end
+   --dbg.print{"status: ",status,", type(status): ",type(status),"\n"}
+   dbg.fini("clean_capture")
+   return out, status
+end
+
 --------------------------------------------------------------------------
 -- Capture output and exit status from *cmd*
 -- @param cmd A string that contains a unix command.
@@ -61,30 +103,7 @@ function capture(cmd, envT)
       setenv_posix(k, v, true)
    end
 
-   -- in Lua 5.1, p:close() does not return exit status,
-   -- so we append 'echo $?' to the command to determine the exit status
-   local ec_msg = "Lmod Capture Exit Code"
-   if (_VERSION == "Lua 5.1") then
-      cmd = cmd .. '; echo "' .. ec_msg .. ': $?"'
-   end
-
-   local out
-   local status
-   local p   = io.popen(cmd)
-   if (p ~= nil) then
-      out    = p:read("*all")
-      status = p:close()
-   end
-
-   -- trim 'exit code: <value>' from the end of the output and determine exit status
-   if _VERSION == "Lua 5.1" then
-      local exit_code = out:match(ec_msg .. ": (%d+)\n$")
-      if not exit_code then
-         LmodError("Failed to find '" .. ec_msg .. "' in output: " .. out)
-      end
-      status = exit_code == '0'
-      out = out:gsub(ec_msg .. ": %d+\n$", '')
-   end
+   local out, status = clean_capture(cmd)
 
    for k, v in pairs(newT) do
       if (v == false) then v = nil end
@@ -96,7 +115,7 @@ function capture(cmd, envT)
       dbg.print{out}
       dbg.fini("capture output")
    end
-   --dbg.print{"status: ",status,", type(status): ",type(status),"\n"}
    dbg.fini("capture")
    return out, status
 end
+

@@ -36,7 +36,7 @@ if [ -f /etc/login.defs ]; then
   unset __xx
 fi
 
-if [ $uid -ge $LMOD_UID_MIN ]; then
+if [ $__uid -ge $LMOD_UID_MIN ]; then
   unset __zsh_fpath
   if [ -n "${ZSH_VERSION+x}" ] &&  ! (autoload -U compinit && compinit -C 2> /dev/null) ; then
     __zsh_fpath=$(unset FPATH; zsh -f -c 'echo $FPATH')

@@ -144,7 +144,7 @@ local function l_convertSh2MF(shellName, style, script)
 
    local cmd   = replaceStr(concatTbl(cmdA," "), t)
 
-   local output,status = capture(cmd)
+   local output, status = clean_capture(cmd)
 
    if (dbg.active()) then
       local f = io.open("s.log","w")
