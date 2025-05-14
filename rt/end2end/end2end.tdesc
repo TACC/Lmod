@@ -36,7 +36,7 @@ testdescript = {
      LmodV=`$LUA_EXEC $projectDir/src/$CMD bash --dumpversion 2>&1`
      echo LmodV=$LmodV
      mkdir b0
-     (cd b0; sh LD_LIBRARY_PATH= LD_PRELOAD= $(projectDir)/configure --prefix=$(outputDir)/b0 --with-useBuiltinPkgs=yes)
+     (cd b0; LD_LIBRARY_PATH= LD_PRELOAD= sh $(projectDir)/configure --prefix=$(outputDir)/b0 --with-useBuiltinPkgs=yes)
      (cd $(projectDir); LD_LIBRARY_PATH= make -f $(outputDir)/b0/makefile dist GIT_BRANCH=$GIT_BRANCH)
      tar xf $projectDir/${DIR}-$LmodV.tar.bz2
      rm -rf $projectDir/${DIR}-$LmodV.tar.bz2
