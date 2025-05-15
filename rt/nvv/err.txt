@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.55 2024-12-13 12:24 -07:00
+Modules based on Lua: Version 8.7.60 2025-04-30 12:50 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -172,3 +172,47 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
 step 24
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load complr/gcc
 ===========================
+===========================
+step 25
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+ProjectDIR/rt/nvv/mf8
+   qiime/2-2020.2             qiime/2-2024.5/metagenome
+   qiime/2-2021.4             qiime/2-2024.10/amplicon   (D)
+   qiime/2-2023.5             qiime/2-2024.10/metagenome
+   qiime/2-2024.5/amplicon
+  Where:
+   D:  Default Module
+Module defaults are chosen based on Find First Rules due to Name/Version/Version modules found in the module tree.
+See https://lmod.readthedocs.io/en/latest/060_locating.html for details.
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 27
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load qiime
+===========================
+===========================
+step 28
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load qiime/2-2023.5
+===========================
+The following have been reloaded with a version change:
+  1) qiime/2-2024.10/amplicon => qiime/2-2023.5
+===========================
+step 29
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load qiime/2-2024.10
+===========================
+The following have been reloaded with a version change:
+  1) qiime/2-2023.5 => qiime/2-2024.10/amplicon
+===========================
+step 30
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load qiime/2-2024.10/metagenome
+===========================
+The following have been reloaded with a version change:
+  1) qiime/2-2024.10/amplicon => qiime/2-2024.10/metagenome

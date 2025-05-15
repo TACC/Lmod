@@ -83,10 +83,10 @@ testdescript = {
 
      MODULEPATH=$(testDir)/mf8
      runLmod avail                             #26
-     runLmod load qiime/2-2023.5               #27
-
-
-
+     runLmod load qiime                        #27
+     runLmod load qiime/2-2023.5               #28
+     runLmod load qiime/2-2024.10              #29
+     runLmod load qiime/2-2024.10/metagenome   #30
 
 
 
