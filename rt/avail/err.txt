@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.49 YYYY-MM-DD 13:55 -06:00
+Modules based on Lua: Version 8.7.60 2025-04-30 12:50 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -580,3 +580,31 @@ If the avail list is too long consider trying:
 "module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 46
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 47
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t avail
+===========================
+Lmod Warning: Unable to load module because of error when evaluating modulefile: <unknown>
+ OutputDIR/mf/CoreB/smake/.modulerc.lua: Unreadable or Empty or non-existent file
+     Please check the modulefile and especially if there is a line number specified in the above message
+ OutputDIR/mf/CoreB:
+emacs/
+emacs/27.1
+emacs/28.2
+gcc/
+gcc/14.1
+smake/
+smake/8.16.0
+===========================
+step 48
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing overview
+===========================
+Lmod Warning: Unable to load module because of error when evaluating modulefile: <unknown>
+ OutputDIR/mf/CoreB/smake/.modulerc.lua: Unreadable or Empty or non-existent file
+     Please check the modulefile and especially if there is a line number specified in the above message
+ OutputDIR/mf/CoreB
+emacs (2)   gcc (1)   smake (1)

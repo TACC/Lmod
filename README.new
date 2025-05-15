@@ -227,4 +227,4 @@ W.I.P.:
             * Issue #767: Only add ksh functions to zsh user accounts and not system ones
             * Issue #764: Created clean_capture() routine.  It does not put values for LD_LIBRARY_PATH, LD_PRELOAD
                           Note that capture() calls clean_capture().
-                          
+            * Issue #766: Produce warning instead of error when .modulerc* files are unreadable.

@@ -22,7 +22,7 @@ testdescript = {
      export MODULEPATH
      unset TERM
 
-     remove_generated_lmod_files
+     remove_generated_lmod_files mf
 
      cp $(testDir)/.lmodrc.lua .lmodrc.lua
 
@@ -105,6 +105,24 @@ testdescript = {
      export MODULEPATH=$(testDir)/mf/CoreA
      runLmod avail                    #44
      runLmod avail parmetis           #45
+
+     ############################################################
+     # Test Issue #766: Test overview when one .modulerc.lua file
+     #                  is unreadable
+     runLmod purge                    #46
+     unset LMOD_MODULERCFILE
+     unsetMT
+     mkdir -p $(outputDir)/mf/
+     cp -a $(testDir)/mf/CoreB $(outputDir)/mf/
+     chmod -r $(outputDir)/mf/CoreB/smake/.modulerc.lua
+     
+     export MODULEPATH=$(outputDir)/mf/CoreB
+     runLmod -t avail                 #47
+     runLmod overview                 #48
+
+
+     
+
 
 
      

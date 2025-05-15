@@ -444,3 +444,29 @@ MODULEPATH=ProjectDIR/rt/avail/mf/CoreA;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/avail/mf/CoreA",},systemBaseMPATH="ProjectDIR/rt/avail/mf/CoreA",}';
 export _ModuleTable_;
+===========================
+step 46
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+MODULEPATH=ProjectDIR/rt/avail/mf/CoreA;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/avail/mf/CoreA",},systemBaseMPATH="ProjectDIR/rt/avail/mf/CoreA",}';
+export _ModuleTable_;
+===========================
+step 47
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t avail
+===========================
+__LMOD_REF_COUNT_MODULEPATH=OutputDIR/mf/CoreB:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=OutputDIR/mf/CoreB;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"OutputDIR/mf/CoreB",},systemBaseMPATH="OutputDIR/mf/CoreB",}';
+export _ModuleTable_;
+===========================
+step 48
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing overview
+===========================
+MODULEPATH=OutputDIR/mf/CoreB;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"OutputDIR/mf/CoreB",},systemBaseMPATH="OutputDIR/mf/CoreB",}';
+export _ModuleTable_;
