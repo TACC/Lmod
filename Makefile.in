@@ -389,7 +389,7 @@ src/computeHashSum: $(ComputeHashSum)
 tcl2lua:
 	if [ -d $(srcdir)/pkgs/tcl2lua ]; then                             \
            $(MAKE) -C $(srcdir)/pkgs/tcl2lua  LUA_INC=$(LUA_INCLUDE)       \
-	        TCL_INCLUDE=$(TCL_INCLUDE) TCL_LIBS=$(TCL_LIBS)            \
+	        TCL_INCLUDE=$(TCL_INCLUDE) TCL_LIBS="$(TCL_LIBS)"          \
                 LIB=$(DESTDIR)$(LIB) LIBS=@LIBS@ CC="$(CC)"                \
                 SHARE=$(DESTDIR)$(LIBEXEC) MODE_R=$(MODE_R)                \
                 install;                                                   \
