@@ -4632,6 +4632,7 @@ fi
       TCL_INCLUDE=`$pkgConfig --cflags-only-I tcl 2> /dev/null`
       TCL_LIBS=`$pkgConfig --libs tcl`
       echo TCL_INCLUDE: $TCL_INCLUDE
+      echo TCL_LIB:     $TCL_LIB
    elif test "$OS" = Darwin ; then
       DIR=$(xcrun --show-sdk-path)
       TCL_INCLUDE="-I${DIR}/usr/include"
