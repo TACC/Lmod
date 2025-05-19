@@ -760,8 +760,9 @@ if test "$FAST_TCL_INTERP" = yes ; then
       export PKG_CONFIG_PATH=$TCL_PKG_CONFIG_DIR
       TCL_INCLUDE=`$pkgConfig --cflags-only-I tcl 2> /dev/null`
       TCL_LIBS=`$pkgConfig --libs tcl`
-      echo TCL_INCLUDE: $TCL_INCLUDE
-      echo TCL_LIB:     $TCL_LIB
+      echo PKG_CONFIG_PATH: $PKG_CONFIG_PATH
+      echo TCL_INCLUDE:     $TCL_INCLUDE
+      echo TCL_LIB:         $TCL_LIB
    elif test "$OS" = Darwin ; then
       DIR=$(xcrun --show-sdk-path)
       TCL_INCLUDE="-I${DIR}/usr/include"
