@@ -62,8 +62,10 @@ function loadModuleFile(t)
    dbg.start{"loadModuleFile(",t.file,")"}
    dbg.print{"mcp: ",mcp,"\n"}
 
+   dbg.print{"Here 0\n"}
    local myType     = extname(t.file)
    local forbiddenT = t.forbiddenT or {}
+   dbg.print{"Here 0.1\n"}
    local status     = true
    local lmodBrk    = false
    local func
@@ -73,6 +75,7 @@ function loadModuleFile(t)
 
    
 
+   dbg.print{"Here 1\n"}
 
    -- If the user is requesting an unload, don't complain if the file
    -- has disappeared.
@@ -81,6 +84,8 @@ function loadModuleFile(t)
       dbg.fini("loadModuleFile")
       return not lmodBrk
    end
+
+   dbg.print{"Here 2\n"}
 
    if (forbiddenT.forbiddenState == "forbid" ) then
       if (forbiddenT.message) then
@@ -93,6 +98,7 @@ function loadModuleFile(t)
 
    -- Check for infinite loop
 
+   dbg.print{"Here 3\n"}
    if (mcp:mode() == "load" and t.file) then
       s_mfileCountT[t.file] = ( s_mfileCountT[t.file] or 0) + 1
       if (s_mfileCountT[t.file] > 500) then
@@ -100,6 +106,7 @@ function loadModuleFile(t)
       end
    end
 
+   dbg.print{"Here 4\n"}
    if (myType == ".lua") then
       -- Read in lua module file into a [[whole]] string.
       local f = io.open(t.file)
@@ -111,6 +118,7 @@ function loadModuleFile(t)
          f:close()
       end
    else
+      dbg.print{"Reading tcl file\n"}
       userName       = myModuleUsrName()
       local fullName = myModuleFullName()
       -- Build argument list then call tcl2lua translator
@@ -147,6 +155,8 @@ function loadModuleFile(t)
          A[#A + 1] = "-h"
       end
       A[#A + 1] = path_regularize(t.file)
+      local cmd = concatTbl(A," ")
+      dbg.print{"cmd: ",concatTbl(A," "),"\n"}
       whole, status = runTCLprog(pathJoin(cmdDir(),"tcl2lua.tcl"),concatTbl(A," "))
       if (not status) then
          local n = userName or ""
