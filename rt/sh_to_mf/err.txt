@@ -220,11 +220,15 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing save
 Saved current collection of modules to: "default"
 ===========================
 step 20
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 21
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
 ===========================
 Restoring modules from user's default
 ===========================
-step 21
+step 22
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
 ===========================
 _ModuleTable_ = {
@@ -278,11 +282,11 @@ _ModuleTable_ = {
   systemBaseMPATH = "ProjectDIR/rt/sh_to_mf/mf",
 }
 ===========================
-step 22
+step 23
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
 ===========================
 ===========================
-step 23
+step 24
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:

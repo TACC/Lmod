@@ -39,10 +39,40 @@ local getenv       = os.getenv
 local setenv_posix = posix.setenv
 local cosmic       = require("Cosmic"):singleton()
 
-function clean_capture(cmd)
-   dbg.start{"clean_capture(",cmd,")"}
+--------------------------------------------------------------------------
+-- Capture output and exit status from *cmd*
+-- @param cmd A string that contains a unix command.
+-- @param envT A table that contains environment variables to be set/restored when running *cmd*.
+function capture(cmd, envT)
+   dbg.start{"capture(",cmd,")"}
    if (dbg.active()) then
       dbg.print{"cwd: ",posix.getcwd(),"\n",level=2}
+   end
+
+   local newT = {}
+   envT = envT or {}
+
+   local env_ldT = {
+      LMOD_LD_LIBRARY_PATH = "LD_LIBRARY_PATH",
+      LMOD_LD_PRELOAD      = "LD_PRELOAD",
+   }
+
+   ------------------------------------------------------------
+   -- Overwrite LD_LIBRARY_PATH and/or LD_PRELOAD iff
+   -- they have a saved value from configure time.
+
+   for k, v in pairs(env_ldT) do
+      local value = cosmic:get(k, "")
+      if (value ~= "") then
+         envT[v] = value
+      end
+   end
+
+   dbg.printT("envT",envT)
+
+   for k, v in pairs(envT) do
+      newT[k] = getenv(k) or false
+      setenv_posix(k, v, true)
    end
 
    -- in Lua 5.1, p:close() does not return exit status,
@@ -71,40 +101,6 @@ function clean_capture(cmd)
    end
 
 
-   if (dbg.active()) then
-      dbg.start{"clean_capture output()",level=2}
-      dbg.print{out}
-      dbg.fini("clean_capture output")
-   end
-   --dbg.print{"status: ",status,", type(status): ",type(status),"\n"}
-   dbg.fini("clean_capture")
-   return out, status
-end
-
---------------------------------------------------------------------------
--- Capture output and exit status from *cmd*
--- @param cmd A string that contains a unix command.
--- @param envT A table that contains environment variables to be set/restored when running *cmd*.
-function capture(cmd, envT)
-   dbg.start{"capture(",cmd,")"}
-   if (dbg.active()) then
-      dbg.print{"cwd: ",posix.getcwd(),"\n",level=2}
-   end
-
-   local newT = {}
-   envT = envT or {}
-
-   envT["LD_LIBRARY_PATH"] = cosmic:get("LMOD_LD_LIBRARY_PATH", "")
-   envT["LD_PRELOAD"]      = cosmic:get("LMOD_LD_PRELOAD",      "")
-
-
-   for k, v in pairs(envT) do
-      newT[k] = getenv(k) or false
-      setenv_posix(k, v, true)
-   end
-
-   local out, status = clean_capture(cmd)
-
    for k, v in pairs(newT) do
       if (v == false) then v = nil end
       setenv_posix(k,v, true)
@@ -118,4 +114,3 @@ function capture(cmd, envT)
    dbg.fini("capture")
    return out, status
 end
-
