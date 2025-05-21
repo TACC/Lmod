@@ -121,7 +121,7 @@ function M.access(self, ...)
       local userName = argA[1]
       local mname    = mt:have(userName,"any") and MName:new("mt",userName)
                                                or  MName:new("load",userName)
-      local fn       = mname:fn()
+      local fn       = mname:fn() or ""
       shell:echo(fn .. "\n")
       return
    end
