@@ -5,6 +5,7 @@ echo Making Version: $PKG_VERSION
 
 parallel_make_install()
 {
+  unset LD_LIBRARY_PATH
   PARALLEL_BUILD="-j"
   if [ -n ${LMOD_SIMPLE_BUILD:-} ]; then
      PARALLEL_BUILD=""
@@ -18,7 +19,7 @@ parallel_make_install()
 
   if [ "$BUILD_TYPE" != "EXPERIMENTAL" ]; then
     echo "$SUDO $MAKE $PARALLEL_BUILD GIT_VERSION=$GIT_VERSION install     $MAKE_EXTRA"
-          $SUDO $MAKE $PARALLEL_BUILD  GIT_VERSION=$GIT_VERSION install     $MAKE_EXTRA
+          $SUDO $MAKE $PARALLEL_BUILD GIT_VERSION=$GIT_VERSION install     $MAKE_EXTRA
   else
     echo "$SUDO $MAKE pre-install $MAKE_EXTRA"
     $SUDO $MAKE GIT_VERSION=$GIT_VERSION $PARALLEL_BUILD pre-install $MAKE_EXTRA
@@ -38,7 +39,6 @@ save_old_version()
     fi
   fi
 }
-
 make_symlink()
 {
   if [ "$SITE_CONTROLLED_PREFIX" = "yes" ]; then
@@ -197,7 +197,7 @@ if [ "$?" = 0 ]; then
 fi
 
 cmdA=("-$MAKE distclean"
-      "./configure --prefix=$BASE_DIR --with-settarg=yes $COMMON_OPTIONS $EXTRA"
+      "LD_LIBRARY_PATH= LD_PRELOAD= ./configure --prefix=$BASE_DIR --with-settarg=yes $COMMON_OPTIONS $EXTRA"
       "echo BASE_DIR: $BASE_DIR"
       "save_old_version"
       "$MAKE echo"

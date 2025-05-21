@@ -71,9 +71,6 @@ function loadModuleFile(t)
    local whole
    local userName
 
-   
-
-
    -- If the user is requesting an unload, don't complain if the file
    -- has disappeared.
 
@@ -111,6 +108,7 @@ function loadModuleFile(t)
          f:close()
       end
    else
+      dbg.print{"Reading tcl file\n"}
       userName       = myModuleUsrName()
       local fullName = myModuleFullName()
       -- Build argument list then call tcl2lua translator

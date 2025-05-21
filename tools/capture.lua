@@ -52,9 +52,23 @@ function capture(cmd, envT)
    local newT = {}
    envT = envT or {}
 
-   envT["LD_LIBRARY_PATH"] = cosmic:get("LMOD_LD_LIBRARY_PATH", "")
-   envT["LD_PRELOAD"]      = cosmic:get("LMOD_LD_PRELOAD",      "")
+   local env_ldT = {
+      LMOD_LD_LIBRARY_PATH = "LD_LIBRARY_PATH",
+      LMOD_LD_PRELOAD      = "LD_PRELOAD",
+   }
 
+   ------------------------------------------------------------
+   -- Overwrite LD_LIBRARY_PATH and/or LD_PRELOAD iff
+   -- they have a saved value from configure time.
+
+   for k, v in pairs(env_ldT) do
+      local value = cosmic:get(k, "")
+      if (value ~= "") then
+         envT[v] = value
+      end
+   end
+
+   dbg.printT("envT",envT)
 
    for k, v in pairs(envT) do
       newT[k] = getenv(k) or false
@@ -68,8 +82,8 @@ function capture(cmd, envT)
       cmd = cmd .. '; echo "' .. ec_msg .. ': $?"'
    end
 
-   local out
-   local status
+   local out    = nil
+   local status = nil
    local p   = io.popen(cmd)
    if (p ~= nil) then
       out    = p:read("*all")
@@ -86,6 +100,7 @@ function capture(cmd, envT)
       out = out:gsub(ec_msg .. ": %d+\n$", '')
    end
 
+
    for k, v in pairs(newT) do
       if (v == false) then v = nil end
       setenv_posix(k,v, true)
@@ -96,7 +111,6 @@ function capture(cmd, envT)
       dbg.print{out}
       dbg.fini("capture output")
    end
-   --dbg.print{"status: ",status,", type(status): ",type(status),"\n"}
    dbg.fini("capture")
    return out, status
 end

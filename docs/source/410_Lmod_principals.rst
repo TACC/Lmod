@@ -66,8 +66,8 @@ Unloading a module can never fail
 Even if unloading a module has an error in it, it is unloaded.  The
 error is treated as a warning.
 
-Base64 encoding is used a great deal
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Base64 encoding is used to hide spaces and quotes from the shell
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Encoding text strings can be converted to base64 encoding.  This
 means that all spaces and quotes are hidden from shell interpretation.

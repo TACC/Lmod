@@ -236,3 +236,71 @@ _LMFILES_=ProjectDIR/rt/nvv/mf7/complr/gcc/arm64/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={["complr/gcc"]={fn="ProjectDIR/rt/nvv/mf7/complr/gcc/arm64/1.0.lua",fullName="complr/gcc/arm64/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="complr/gcc",wV="*arm.000000064/000000001.*zfinal",},},mpathA={"ProjectDIR/rt/nvv/mf7",},systemBaseMPATH="ProjectDIR/rt/nvv/mf7",}';
 export _ModuleTable_;
+===========================
+step 25
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+unset LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/nvv/mf7;
+export MODULEPATH;
+unset _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/nvv/mf7",},systemBaseMPATH="ProjectDIR/rt/nvv/mf7",}';
+export _ModuleTable_;
+===========================
+step 26
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/nvv/mf8:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/nvv/mf8;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/nvv/mf8",},systemBaseMPATH="ProjectDIR/rt/nvv/mf8",}';
+export _ModuleTable_;
+===========================
+step 27
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load qiime
+===========================
+LOADEDMODULES=qiime/2-2024.10/amplicon;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/nvv/mf8;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/nvv/mf8/qiime/2-2024.10/amplicon.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={qiime={fn="ProjectDIR/rt/nvv/mf8/qiime/2-2024.10/amplicon.lua",fullName="qiime/2-2024.10/amplicon",loadOrder=1,propT={},stackDepth=0,status="active",userName="qiime",wV="^00000002.*zfinal-.000002024.000000010/^amplicon.*zfinal",},},mpathA={"ProjectDIR/rt/nvv/mf8",},systemBaseMPATH="ProjectDIR/rt/nvv/mf8",}';
+export _ModuleTable_;
+===========================
+step 28
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load qiime/2-2023.5
+===========================
+LOADEDMODULES=qiime/2-2023.5;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/nvv/mf8;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/nvv/mf8/qiime/2-2023.5.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={qiime={fn="ProjectDIR/rt/nvv/mf8/qiime/2-2023.5.lua",fullName="qiime/2-2023.5",loadOrder=1,propT={},stackDepth=0,status="active",userName="qiime/2-2023.5",wV="000000002.*zfinal-.000002023.000000005.*zfinal",},},mpathA={"ProjectDIR/rt/nvv/mf8",},systemBaseMPATH="ProjectDIR/rt/nvv/mf8",}';
+export _ModuleTable_;
+===========================
+step 29
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load qiime/2-2024.10
+===========================
+LOADEDMODULES=qiime/2-2024.10/amplicon;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/nvv/mf8;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/nvv/mf8/qiime/2-2024.10/amplicon.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={qiime={fn="ProjectDIR/rt/nvv/mf8/qiime/2-2024.10/amplicon.lua",fullName="qiime/2-2024.10/amplicon",loadOrder=1,propT={},stackDepth=0,status="active",userName="qiime/2-2024.10/amplicon",wV="^00000002.*zfinal-.000002024.000000010/^amplicon.*zfinal",},},mpathA={"ProjectDIR/rt/nvv/mf8",},systemBaseMPATH="ProjectDIR/rt/nvv/mf8",}';
+export _ModuleTable_;
+===========================
+step 30
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load qiime/2-2024.10/metagenome
+===========================
+LOADEDMODULES=qiime/2-2024.10/metagenome;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/nvv/mf8;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/nvv/mf8/qiime/2-2024.10/metagenome.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={qiime={fn="ProjectDIR/rt/nvv/mf8/qiime/2-2024.10/metagenome.lua",fullName="qiime/2-2024.10/metagenome",loadOrder=1,propT={},stackDepth=0,status="active",userName="qiime/2-2024.10/metagenome",wV="^00000002.*zfinal-.000002024.000000010/*metagenome.*zfinal",},},mpathA={"ProjectDIR/rt/nvv/mf8",},systemBaseMPATH="ProjectDIR/rt/nvv/mf8",}';
+export _ModuleTable_;

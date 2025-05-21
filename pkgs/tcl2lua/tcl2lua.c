@@ -8,6 +8,12 @@
 #define MYNAME        "tcl2lua"
 #define MYVERSION      MYNAME " 0.1"
 
+#if TCL_MAJOR_VERSION   < 9
+  typedef int Tcl_Size;
+#endif
+
+
+
 typedef struct _results {
     char* resultStr;
     int   rlen;
@@ -22,9 +28,8 @@ typedef struct _results {
 
 int setResultsObjCmd(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj * const objv[])
 {
-  int len;
+  Tcl_Size len;
   Tcl_Obj *objPtr;
-  int i;
   results_t* results = (results_t*)clientData;
 
   if (objc != 2) {
@@ -73,7 +78,6 @@ static int runTCLprog(lua_State *L)
 
   size_t len, a;
   int argc   = 0;
-  int status = 1;
 
   results_t results;
   results.rlen = 1024;

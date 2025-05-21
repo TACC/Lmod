@@ -747,6 +747,7 @@ if test "$FAST_TCL_INTERP" = yes ; then
    OS=$(uname -s)
    AC_PATH_PROG(pkgConfig, pkg-config, "UNKNOWN_PKG_CONFIG")
    if test -n "$TCL_INCLUDE" -a -n "$TCL_LIBS"; then
+      echo "Using user defined TCL include and lib"
       echo "using TCL_INCLUDE: $TCL_INCLUDE"
       echo "using TCL_LIBS:    $TCL_LIBS"
    elif test -n "$TCL_PKG_CONFIG_DIR" ; then
@@ -757,14 +758,19 @@ if test "$FAST_TCL_INTERP" = yes ; then
          rm -f makefile
          exit 1
       fi   
+      echo "Using TCL_PKG_CONFIG_DIR with pkg-config to find TCL include and lib"
       export PKG_CONFIG_PATH=$TCL_PKG_CONFIG_DIR
       TCL_INCLUDE=`$pkgConfig --cflags-only-I tcl 2> /dev/null`
       TCL_LIBS=`$pkgConfig --libs tcl`
-      echo TCL_INCLUDE: $TCL_INCLUDE
+      echo PKG_CONFIG_PATH: $PKG_CONFIG_PATH
+      echo TCL_INCLUDE:     $TCL_INCLUDE
+      echo TCL_LIBS:        $TCL_LIBS
    elif test "$OS" = Darwin ; then
+      echo "Using Darwin xcrun to find TCL include and lib"
       DIR=$(xcrun --show-sdk-path)
       TCL_INCLUDE="-I${DIR}/usr/include"
    else
+      echo "Looping over include paths to find TCL include (not lib)"
       for i in /usr/include /usr/include/tcl /usr/include/tcl9* /usr/include/tcl8*  ; do
          if test -f $i/tcl.h ; then
             TCL_INCLUDE="-I$i"
@@ -781,6 +787,7 @@ if test "$FAST_TCL_INTERP" = yes ; then
          rm -f makefile
          exit 1
       fi   
+      echo "Looping over tcl names to find TCL include and lib"
       for i in tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
           $pkgConfig --exists $i
           if test $? = 0; then
@@ -803,9 +810,11 @@ if test "$FAST_TCL_INTERP" = yes ; then
       ERR_MSG="$ERR_MSG||$MSG"
       AC_MSG_NOTICE([$MSG])
    fi
-   AC_SEARCH_LIBS(Tcl_CreateInterp, [tcl] [tcl8.8] [tcl8.7] [tcl8.6] [tcl8.5],[],
-                [rm -f makefile; AC_MSG_ERROR([Unable to build Lmod with -ltcl Please install the tcl devel package or configure --with-fastTCLInterp=no to not require the tcl library])], [$TCL_LIBS])
+   if test -z "$TCL_LIBS" ; then
+     AC_SEARCH_LIBS(Tcl_CreateInterp, [tcl] [tcl8.8] [tcl8.7] [tcl8.6] [tcl8.5],[],
+                  [rm -f makefile; AC_MSG_ERROR([Unable to build Lmod with -ltcl Please install the tcl devel package or configure --with-fastTCLInterp=no to not require the tcl library])], [$TCL_LIBS])
 
+   fi
    AC_SUBST(TCL_INCLUDE, "$TCL_INCLUDE")
    AC_SUBST(TCL_LIBS, "$TCL_LIBS")
 fi

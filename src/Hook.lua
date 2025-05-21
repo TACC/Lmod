@@ -55,7 +55,7 @@ local validT =
                                  -- It is used to generate family
                                  -- prefix:  site_FAMILY_
       msgHook              = {}, -- Hook to print messages after:
-                                 -- avail, list, spider,
+                                 -- avail, overview, list, spider,
       errWarnMsgHook       = {}, -- Hook to print messages after LmodError
                                  -- LmodWarning, LmodMessage
       groupName            = {}, -- This hook adds the arch and os name

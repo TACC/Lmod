@@ -11,7 +11,7 @@ ifeq ($(OS),Darwin)
 else
   LIB_OPTION := -shared -Wl,-soname,$(SONAMEV) #for Linux
 endif
-override CFLAGS   := $(CFLAGS) -DLUA_COMPAT_MODULE -fPIC $(LUA_INC) $(TCL_INCLUDE)
+override CFLAGS   := $(CFLAGS) -Wall -DLUA_COMPAT_MODULE -fPIC $(LUA_INC) $(TCL_INCLUDE)
 
 all:  $(LIBRARY) $(SONAMEV) $(SONAME)
 

@@ -616,13 +616,23 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 step 49
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t avail
 ===========================
-Lmod has detected the following error: Unable to load module because of error when evaluating modulefile: <unknown>
- OutputDIR/mf/CoreB/smake/.modulerc.lua: Empty or non-existent file
+Lmod Warning: Unable to load module because of error when evaluating modulefile: <unknown>
+ OutputDIR/mf/CoreB/smake/.modulerc.lua: Unreadable or Empty or non-existent file
      Please check the modulefile and especially if there is a line number specified in the above message
+ OutputDIR/mf/CoreB:
+emacs/
+emacs/27.1
+emacs/28.2
+gcc/
+gcc/14.1
+smake/
+smake/8.16.0
 ===========================
 step 50
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing overview
 ===========================
-Lmod has detected the following error: Unable to load module because of error when evaluating modulefile: <unknown>
- OutputDIR/mf/CoreB/smake/.modulerc.lua: Empty or non-existent file
+Lmod Warning: Unable to load module because of error when evaluating modulefile: <unknown>
+ OutputDIR/mf/CoreB/smake/.modulerc.lua: Unreadable or Empty or non-existent file
      Please check the modulefile and especially if there is a line number specified in the above message
+ OutputDIR/mf/CoreB
+emacs (2)   gcc (1)   smake (1)

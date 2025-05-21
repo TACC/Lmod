@@ -221,6 +221,12 @@ Lmod 8.7+
             * Issue #728: Now allow FAST_TCL_INTERP with tcl 9
             * PR    #757: Merge in changes to irreversible docs
             * Support for TCL Irreversible commands added.
-W.I.P:
+W.I.P.:
+            * Issue #762: Fixed int len to be Tcl_Size len in tcl2lua.c
+            * Issue #763: Added msgHook to overview.  Handle empty msgHook function for spider.
+            * Issue #767: Only add ksh functions to zsh user accounts when /path/to/lmod/init/ksh_funcs
+                          has the correct users
+            * Issue #764: Created clean_capture() routine.  It does not put values for LD_LIBRARY_PATH, LD_PRELOAD
+                          Note that capture() calls clean_capture().
+            * Issue #766: Produce warning instead of error when .modulerc* files are unreadable.
             # Issue #759: Using :escape to deal w/ special chars like '-'
-            

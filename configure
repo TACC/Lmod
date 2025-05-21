@@ -4618,6 +4618,7 @@ fi
 
 
    if test -n "$TCL_INCLUDE" -a -n "$TCL_LIBS"; then
+      echo "Using user defined TCL include and lib"
       echo "using TCL_INCLUDE: $TCL_INCLUDE"
       echo "using TCL_LIBS:    $TCL_LIBS"
    elif test -n "$TCL_PKG_CONFIG_DIR" ; then
@@ -4628,14 +4629,19 @@ fi
          rm -f makefile
          exit 1
       fi
+      echo "Using TCL_PKG_CONFIG_DIR with pkg-config to find TCL include and lib"
       export PKG_CONFIG_PATH=$TCL_PKG_CONFIG_DIR
       TCL_INCLUDE=`$pkgConfig --cflags-only-I tcl 2> /dev/null`
       TCL_LIBS=`$pkgConfig --libs tcl`
-      echo TCL_INCLUDE: $TCL_INCLUDE
+      echo PKG_CONFIG_PATH: $PKG_CONFIG_PATH
+      echo TCL_INCLUDE:     $TCL_INCLUDE
+      echo TCL_LIBS:        $TCL_LIBS
    elif test "$OS" = Darwin ; then
+      echo "Using Darwin xcrun to find TCL include and lib"
       DIR=$(xcrun --show-sdk-path)
       TCL_INCLUDE="-I${DIR}/usr/include"
    else
+      echo "Looping over include paths to find TCL include (not lib)"
       for i in /usr/include /usr/include/tcl /usr/include/tcl9* /usr/include/tcl8*  ; do
          if test -f $i/tcl.h ; then
             TCL_INCLUDE="-I$i"
@@ -4652,6 +4658,7 @@ fi
          rm -f makefile
          exit 1
       fi
+      echo "Looping over tcl names to find TCL include and lib"
       for i in tcl tcl8.8 tcl8.7 tcl8.6 tcl8.5; do
           $pkgConfig --exists $i
           if test $? = 0; then
@@ -4711,7 +4718,8 @@ fi
       { printf "%s\n" "$as_me:${as_lineno-$LINENO}: $MSG" >&5
 printf "%s\n" "$as_me: $MSG" >&6;}
    fi
-   { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for library containing Tcl_CreateInterp" >&5
+   if test -z "$TCL_LIBS" ; then
+     { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for library containing Tcl_CreateInterp" >&5
 printf %s "checking for library containing Tcl_CreateInterp... " >&6; }
 if test ${ac_cv_search_Tcl_CreateInterp+y}
 then :
@@ -4773,6 +4781,7 @@ else $as_nop
 fi
 
 
+   fi
    TCL_INCLUDE="$TCL_INCLUDE"
 
    TCL_LIBS="$TCL_LIBS"
