@@ -45,7 +45,7 @@ testdescript = {
      runLmod avail local              #15
      runLmod --ignore_cache avail     #16
      export LMOD_MODULERCFILE=$testDir/dot.modulerc
-     runLmod avail conda              #17
+     runLmod avail conda2             #17
      runLmod avail adnoc              #18
 
      export LMOD_MODULERCFILE=$testDir/dot.modulerc.lua
