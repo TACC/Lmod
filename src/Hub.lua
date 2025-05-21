@@ -977,6 +977,21 @@ local function regroup_avail_blocks(availStyle, availA)
    return newAvailA
 end
 
+local function l_build_searchA(mrc, mpathA, argA)
+   local searchA = {}
+   for i = 1, argA.n do
+      local s  = argA[i]
+      local ss = mrc:resolve(mpathA, s)
+      if (ss ~= s) then
+         searchA[i] = ss:escape()
+      else
+         searchA[i] = s:caseIndependent()
+      end
+   end
+   searchA.n = argA.n
+   return searchA
+end
+
 function M.overview(self,argA)
    dbg.start{"Hub:overview(",concatTbl(argA,", "),")"}
    local aa          = {}
@@ -1019,17 +1034,7 @@ function M.overview(self,argA)
    local banner      = Banner:singleton()
 
    if (not optionTbl.regexp and argA and next(argA) ~= nil) then
-      searchA = {}
-      for i = 1, argA.n do
-         local s  = argA[i]
-         local ss = mrc:resolve(mpathA, s)
-         if (ss ~= s) then
-            searchA[i] = ss
-         else
-            searchA[i] = s:caseIndependent()
-         end
-      end
-      searchA.n = argA.n
+      searchA = l_build_searchA(mrc, mpathA, argA)
    end
 
    availA = regroup_avail_blocks(availStyle, availA)
@@ -1286,21 +1291,8 @@ function M.avail(self, argA)
 
 
    if (not optionTbl.regexp and argA and next(argA) ~= nil) then
-      searchA = {}
-      for i = 1, argA.n do
-         local s  = argA[i]
-         local ss = mrc:resolve(mpathA, s)
-         if (ss ~= s) then
-            searchA[i] = ss:escape()
-         else
-            searchA[i] = s:caseIndependent()
-         end
-      end
-      searchA.n = argA.n
-      dbg.printT("searchA",searchA)
+      searchA = l_build_searchA(mrc, mpathA, argA)
    end
-
-
 
    if (optionTbl.terse or optionTbl.terseShowExtensions) then
       --------------------------------------------------
