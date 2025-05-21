@@ -221,4 +221,6 @@ Lmod 8.7+
             * Issue #728: Now allow FAST_TCL_INTERP with tcl 9
             * PR    #757: Merge in changes to irreversible docs
             * Support for TCL Irreversible commands added.
+W.I.P:
+            # Issue #759: Using :escape to deal w/ special chars like '-'
             

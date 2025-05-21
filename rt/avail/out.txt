@@ -168,7 +168,7 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"Pro
 export _ModuleTable_;
 ===========================
 step 17
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail conda
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail conda2
 ===========================
 MODULEPATH=ProjectDIR/rt/avail/mf/Core2:ProjectDIR/rt/avail/mf/Core;
 export MODULEPATH;
@@ -472,12 +472,7 @@ export _ModuleTable_;
 step 49
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t avail
 ===========================
-__LMOD_REF_COUNT_MODULEPATH=OutputDIR/mf/CoreB:1;
-export __LMOD_REF_COUNT_MODULEPATH;
-MODULEPATH=OutputDIR/mf/CoreB;
-export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"OutputDIR/mf/CoreB",},systemBaseMPATH="OutputDIR/mf/CoreB",}';
-export _ModuleTable_;
+false
 ===========================
 step 50
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing overview

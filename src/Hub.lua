@@ -1291,13 +1291,16 @@ function M.avail(self, argA)
          local s  = argA[i]
          local ss = mrc:resolve(mpathA, s)
          if (ss ~= s) then
-            searchA[i] = ss
+            searchA[i] = ss:escape()
          else
             searchA[i] = s:caseIndependent()
          end
       end
       searchA.n = argA.n
+      dbg.printT("searchA",searchA)
    end
+
+
 
    if (optionTbl.terse or optionTbl.terseShowExtensions) then
       --------------------------------------------------
