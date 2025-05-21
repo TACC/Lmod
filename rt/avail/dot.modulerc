@@ -1,0 +1,2 @@
+module-alias conda ucc/14.0.2
+module-alias adnoc does_not_exist
