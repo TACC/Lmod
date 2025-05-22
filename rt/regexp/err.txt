@@ -60,3 +60,21 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load ab-
 step 7
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load ab
 ===========================
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing ov
+===========================
+ProjectDIR/rt/regexp/mf/Core
+a-b (1)   a (1)   ab- (2)   ab (1)
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing ov ab-
+===========================
+ProjectDIR/rt/regexp/mf/Core
+ab- (2)
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider a-b
+===========================
+  a-b: a-b/1-1
+    This module can be loaded directly: module load a-b/1-1

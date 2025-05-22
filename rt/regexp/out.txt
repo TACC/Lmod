@@ -60,3 +60,27 @@ _LMFILES_=ProjectDIR/rt/regexp/mf/Core/ab-/2.0-1.lua:ProjectDIR/rt/regexp/mf/Cor
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ab={fn="ProjectDIR/rt/regexp/mf/Core/ab/1.0.lua",fullName="ab/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="ab",wV="000000001.*zfinal",},["ab-"]={fn="ProjectDIR/rt/regexp/mf/Core/ab-/2.0-1.lua",fullName="ab-/2.0-1",loadOrder=1,propT={},stackDepth=0,status="active",userName="ab-",wV="000000002.*zfinal-.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/regexp/mf/Core",},systemBaseMPATH="ProjectDIR/rt/regexp/mf/Core",}';
 export _ModuleTable_;
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing ov
+===========================
+MODULEPATH=ProjectDIR/rt/regexp/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ab={fn="ProjectDIR/rt/regexp/mf/Core/ab/1.0.lua",fullName="ab/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="ab",wV="000000001.*zfinal",},["ab-"]={fn="ProjectDIR/rt/regexp/mf/Core/ab-/2.0-1.lua",fullName="ab-/2.0-1",loadOrder=1,propT={},stackDepth=0,status="active",userName="ab-",wV="000000002.*zfinal-.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/regexp/mf/Core",},systemBaseMPATH="ProjectDIR/rt/regexp/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing ov ab-
+===========================
+MODULEPATH=ProjectDIR/rt/regexp/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ab={fn="ProjectDIR/rt/regexp/mf/Core/ab/1.0.lua",fullName="ab/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="ab",wV="000000001.*zfinal",},["ab-"]={fn="ProjectDIR/rt/regexp/mf/Core/ab-/2.0-1.lua",fullName="ab-/2.0-1",loadOrder=1,propT={},stackDepth=0,status="active",userName="ab-",wV="000000002.*zfinal-.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/regexp/mf/Core",},systemBaseMPATH="ProjectDIR/rt/regexp/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider a-b
+===========================
+MODULEPATH=ProjectDIR/rt/regexp/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ab={fn="ProjectDIR/rt/regexp/mf/Core/ab/1.0.lua",fullName="ab/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="ab",wV="000000001.*zfinal",},["ab-"]={fn="ProjectDIR/rt/regexp/mf/Core/ab-/2.0-1.lua",fullName="ab-/2.0-1",loadOrder=1,propT={},stackDepth=0,status="active",userName="ab-",wV="000000002.*zfinal-.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/regexp/mf/Core",},systemBaseMPATH="ProjectDIR/rt/regexp/mf/Core",}';
+export _ModuleTable_;

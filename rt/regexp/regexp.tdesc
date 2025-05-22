@@ -30,13 +30,9 @@ testdescript = {
      runLmod avail a                  # 5
      runLmod load ab-                 # 6
      runLmod load ab                  # 7
-
-
-
-
-
-
-
+     runLmod ov                       # 8
+     runLmod ov ab-                   # 9
+     runLmod spider a-b               #10
 
      HOME=$ORIG_HOME
 
