@@ -229,4 +229,6 @@ W.I.P.:
             * Issue #764: Created clean_capture() routine.  It does not put values for LD_LIBRARY_PATH, LD_PRELOAD
                           Note that capture() calls clean_capture().
             * Issue #766: Produce warning instead of error when .modulerc* files are unreadable.
-            # Issue #759: Using :escape to deal w/ special chars like '-'
+            * Issue #759: Using :escape to deal w/ special chars like '-'
+            * Issue #765: Only call decorate_module hook if a module is found.
+            

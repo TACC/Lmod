@@ -123,6 +123,20 @@ testdescript = {
      runLmod -t avail                 #49
      runLmod overview                 #50
 
+     ############################################################
+     # Test Issue #765: 
+     runLmod purge                    #51
+     unset LMOD_MODULERCFILE
+     unsetMT
+     ln -s $(outputDir)/mf/CoreB/emacs/27.1.lua $(outputDir)/mf/CoreB/emacs/27.1_special.lua
+     chmod -r $(outputDir)/mf/CoreB/emacs/27.1.lua
+     runLmod avail                    #52
+
+
+     
+
+
+
      HOME=$ORIG_HOME
 
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
