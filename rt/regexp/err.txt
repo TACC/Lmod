@@ -1,0 +1,80 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
+===========================
+Modules based on Lua: Version 8.7.60 2025-04-30 12:50 -05:00
+    by Robert McLay mclay@tacc.utexas.edu
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+ProjectDIR/rt/regexp/mf/Core
+   a-b/1-1    a/1.0    ab-/1.0    ab-/2.0-1 (D)    ab/1.0
+  Where:
+   D:  Default Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail a-b
+===========================
+ProjectDIR/rt/regexp/mf/Core
+   a-b/1-1
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail a-b/1-1
+===========================
+ProjectDIR/rt/regexp/mf/Core
+   a-b/1-1
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail a
+===========================
+ProjectDIR/rt/regexp/mf/Core
+   a-b/1-1    a/1.0    ab-/1.0    ab-/2.0-1 (D)    ab/1.0
+  Where:
+   D:  Default Module
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load ab-
+===========================
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load ab
+===========================
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing ov
+===========================
+ProjectDIR/rt/regexp/mf/Core
+a-b (1)   a (1)   ab- (2)   ab (1)
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing ov ab-
+===========================
+ProjectDIR/rt/regexp/mf/Core
+ab- (2)
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider a-b
+===========================
+  a-b: a-b/1-1
+    This module can be loaded directly: module load a-b/1-1

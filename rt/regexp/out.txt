@@ -1,0 +1,86 @@
+===========================
+step 1
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
+===========================
+===========================
+step 2
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/regexp/mf/Core:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/regexp/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/regexp/mf/Core",},systemBaseMPATH="ProjectDIR/rt/regexp/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 3
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail a-b
+===========================
+MODULEPATH=ProjectDIR/rt/regexp/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/regexp/mf/Core",},systemBaseMPATH="ProjectDIR/rt/regexp/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 4
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail a-b/1-1
+===========================
+MODULEPATH=ProjectDIR/rt/regexp/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/regexp/mf/Core",},systemBaseMPATH="ProjectDIR/rt/regexp/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 5
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail a
+===========================
+MODULEPATH=ProjectDIR/rt/regexp/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/regexp/mf/Core",},systemBaseMPATH="ProjectDIR/rt/regexp/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load ab-
+===========================
+LOADEDMODULES=ab-/2.0-1;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/regexp/mf/Core;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/regexp/mf/Core/ab-/2.0-1.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={["ab-"]={fn="ProjectDIR/rt/regexp/mf/Core/ab-/2.0-1.lua",fullName="ab-/2.0-1",loadOrder=1,propT={},stackDepth=0,status="active",userName="ab-",wV="000000002.*zfinal-.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/regexp/mf/Core",},systemBaseMPATH="ProjectDIR/rt/regexp/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 7
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load ab
+===========================
+LOADEDMODULES=ab-/2.0-1:ab/1.0;
+export LOADEDMODULES;
+MODULEPATH=ProjectDIR/rt/regexp/mf/Core;
+export MODULEPATH;
+_LMFILES_=ProjectDIR/rt/regexp/mf/Core/ab-/2.0-1.lua:ProjectDIR/rt/regexp/mf/Core/ab/1.0.lua;
+export _LMFILES_;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ab={fn="ProjectDIR/rt/regexp/mf/Core/ab/1.0.lua",fullName="ab/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="ab",wV="000000001.*zfinal",},["ab-"]={fn="ProjectDIR/rt/regexp/mf/Core/ab-/2.0-1.lua",fullName="ab-/2.0-1",loadOrder=1,propT={},stackDepth=0,status="active",userName="ab-",wV="000000002.*zfinal-.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/regexp/mf/Core",},systemBaseMPATH="ProjectDIR/rt/regexp/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 8
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing ov
+===========================
+MODULEPATH=ProjectDIR/rt/regexp/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ab={fn="ProjectDIR/rt/regexp/mf/Core/ab/1.0.lua",fullName="ab/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="ab",wV="000000001.*zfinal",},["ab-"]={fn="ProjectDIR/rt/regexp/mf/Core/ab-/2.0-1.lua",fullName="ab-/2.0-1",loadOrder=1,propT={},stackDepth=0,status="active",userName="ab-",wV="000000002.*zfinal-.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/regexp/mf/Core",},systemBaseMPATH="ProjectDIR/rt/regexp/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 9
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing ov ab-
+===========================
+MODULEPATH=ProjectDIR/rt/regexp/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ab={fn="ProjectDIR/rt/regexp/mf/Core/ab/1.0.lua",fullName="ab/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="ab",wV="000000001.*zfinal",},["ab-"]={fn="ProjectDIR/rt/regexp/mf/Core/ab-/2.0-1.lua",fullName="ab-/2.0-1",loadOrder=1,propT={},stackDepth=0,status="active",userName="ab-",wV="000000002.*zfinal-.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/regexp/mf/Core",},systemBaseMPATH="ProjectDIR/rt/regexp/mf/Core",}';
+export _ModuleTable_;
+===========================
+step 10
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider a-b
+===========================
+MODULEPATH=ProjectDIR/rt/regexp/mf/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ab={fn="ProjectDIR/rt/regexp/mf/Core/ab/1.0.lua",fullName="ab/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="ab",wV="000000001.*zfinal",},["ab-"]={fn="ProjectDIR/rt/regexp/mf/Core/ab-/2.0-1.lua",fullName="ab-/2.0-1",loadOrder=1,propT={},stackDepth=0,status="active",userName="ab-",wV="000000002.*zfinal-.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/regexp/mf/Core",},systemBaseMPATH="ProjectDIR/rt/regexp/mf/Core",}';
+export _ModuleTable_;
