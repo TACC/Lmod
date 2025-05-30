@@ -128,6 +128,7 @@ function colorize_kind()
    return s_colorize_kind
 end
 
+
 function colorize_init()
    local lmod_colorize = cosmic:value("LMOD_COLORIZE")
    if (lmod_colorize == "force" or (connected2Term() and lmod_colorize == "yes" )) then
