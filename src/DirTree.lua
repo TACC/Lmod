@@ -51,10 +51,10 @@ local cosmic    = require("Cosmic"):singleton()
 local readlink  = posix.readlink
 local sort      = table.sort
 local stat      = posix.stat
-local user_uid  = 0
+local user_id   = 0
 local getuid    = posix.getuid
 if (getuid) then
-   user_uid = getuid()
+   user_id = getuid()
 end
 
 local load      = (_VERSION == "Lua 5.1") and loadstring or load
@@ -106,7 +106,7 @@ local function l_keepFile(fn)
    return true
 end
 
-local function l_checkValidModulefileReal(fn)
+local function l_checkValidTCLModulefileReal(fn)
    local f = open(fn,"r")
    if (not f) then
       return false
@@ -118,11 +118,11 @@ local function l_checkValidModulefileReal(fn)
    return (line:find("^#%%Module") ~= nil)
 end
 
-local function l_checkValidModulefileFake(fn)
+local function l_checkValidTCLModulefileFake(fn)
    return true
 end
 
-local l_checkValidModulefile = l_checkValidModulefileReal
+local l_checkValidTCLModulefile = l_checkValidTCLModulefileReal
 
 --------------------------------------------------------------------------
 -- Use readlink to find the link
@@ -194,19 +194,21 @@ local function l_walk(mrc, mpath, path, dirA, fileT, regularFn)
          if (attr == nil) then break end
          local kind = attr.mode
 
-         if (attr.uid == 0 and user_uid == 0 and not attr.permissions:find("......r..")) then break end
+         if (attr.uid == 0 and user_id == 0 and not attr.permissions:find("......r..")) then break end
 
          --dbg.print{"file: ",file,", kind: ",kind,"\n"}
 
          if (kind == "directory" and f ~= "." and f ~= "..") then
-            dirA[#dirA + 1 ] = file
+            if (user_id == 0 or attr.permissions:find("^r.x")) then
+               dirA[#dirA + 1 ] = file
+            end
          elseif (kind == "file" or kind == "link") then
             local dfltIdx   = s_defaultFnT[f]
             local fullName  = extractFullName(mpath, file)
             if (dfltIdx) then
                local luaExt = f:find("%.lua$")
                local sizeFn = lfs.attributes(file,"size")
-               if (f ~= "default" and not luaExt and sizeFn > 0 and (not l_checkValidModulefile(file))) then break end
+               if (f ~= "default" and not luaExt and sizeFn > 0 and (not l_checkValidTCLModulefile(file))) then break end
                defaultA[#defaultA+1] = { fullName = fullName, fn = file, mpath = mpath, luaExt = luaExt,
                                          barefn = f, defaultIdx = dfltIdx, value = false}
                if (f == "default" and kind == "file") then
@@ -214,7 +216,7 @@ local function l_walk(mrc, mpath, path, dirA, fileT, regularFn)
                end
             elseif (not fileT[fullName] or not fileT[fullName].luaExt) then
                local luaExt = f:find("%.lua$")
-               if (accept_fn(file) and (luaExt or l_checkValidModulefile(file))) then
+               if ((user_id == 0 or attr.permissions:find("^r")) and accept_fn(file) and (luaExt or l_checkValidTCLModulefile(file))) then
                   local dot_version = f:find("^%.version") or f:find("^%.modulerc")
                   fileT[fullName]   = {fn = file, canonical = f:gsub("%.lua$", ""), mpath = mpath,
                                        luaExt = luaExt, dot_version = dot_version}

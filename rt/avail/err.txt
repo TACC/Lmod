@@ -621,12 +621,16 @@ Lmod Warning: Unable to load module because of error when evaluating modulefile:
      Please check the modulefile and especially if there is a line number specified in the above message
  OutputDIR/mf/CoreB:
 emacs/
+emacs/26.4
 emacs/27.1
 emacs/28.2
 gcc/
 gcc/14.1
 smake/
 smake/8.16.0
+ucc/
+ucc/1.0
+ucc/2.0
 ===========================
 step 50
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing overview
@@ -635,7 +639,7 @@ Lmod Warning: Unable to load module because of error when evaluating modulefile:
  OutputDIR/mf/CoreB/smake/.modulerc.lua: Unreadable or Empty or non-existent file
      Please check the modulefile and especially if there is a line number specified in the above message
  OutputDIR/mf/CoreB
-emacs (2)   gcc (1)   smake (1)
+emacs (3)   gcc (1)   smake (1)   ucc (2)
 ===========================
 step 51
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
@@ -645,10 +649,7 @@ step 52
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
  OutputDIR/mf/CoreB
-   emacs/27.1_special    emacs/28.2 (D)    smake/8.16.0
-   emacs/27.1            gcc/14.1
-  Where:
-   D:  Default Module
+   emacs/28.2    gcc/14.1    smake/8.16.0
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
 "module overview" or "ml ov" to display the number of modules for each name.

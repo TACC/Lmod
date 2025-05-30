@@ -130,6 +130,8 @@ testdescript = {
      unsetMT
      ln -s $(outputDir)/mf/CoreB/emacs/27.1.lua $(outputDir)/mf/CoreB/emacs/27.1_special.lua
      chmod -r $(outputDir)/mf/CoreB/emacs/27.1.lua
+     chmod -r $(outputDir)/mf/CoreB/emacs/26.4.lua
+     chmod 400 $(outputDir)/mf/CoreB/ucc
      runLmod avail                    #52
 
 
