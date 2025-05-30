@@ -223,6 +223,7 @@ Lmod 8.7+
             * Support for TCL Irreversible commands added.
 W.I.P.:
             * Issue #762: Fixed int len to be Tcl_Size len in tcl2lua.c
+            * Issue #762: Make TCL_Size be int when tcl version is < 9
             * Issue #763: Added msgHook to overview.  Handle empty msgHook function for spider.
             * Issue #767: Only add ksh functions to zsh user accounts when /path/to/lmod/init/ksh_funcs
                           has the correct users
