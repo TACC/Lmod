@@ -231,4 +231,4 @@ W.I.P.:
             * Issue #766: Produce warning instead of error when .modulerc* files are unreadable.
             * Issue #759: Using :escape to deal w/ special chars like '-'
             * Issue #765: Only call decorate_module hook if a module is found.
-            
+            * Issue #765: Check permissions for file and directories in src/DirTree.lua

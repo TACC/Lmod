@@ -133,11 +133,7 @@ testdescript = {
      chmod -r $(outputDir)/mf/CoreB/emacs/26.4.lua
      chmod 400 $(outputDir)/mf/CoreB/ucc
      runLmod avail                    #52
-
-
-     
-
-
+     chmod 755 $(outputDir)/mf/CoreB/ucc
 
      HOME=$ORIG_HOME
 
