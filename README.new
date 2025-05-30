@@ -227,8 +227,9 @@ W.I.P.:
             * Issue #763: Added msgHook to overview.  Handle empty msgHook function for spider.
             * Issue #767: Only add ksh functions to zsh user accounts when /path/to/lmod/init/ksh_funcs
                           has the correct users
-            * Issue #764: Created clean_capture() routine.  It does not put values for LD_LIBRARY_PATH, LD_PRELOAD
-                          Note that capture() calls clean_capture().
+            * Issue #764: Lmod's capture routine only changes LD_LIBRARY_PATH and LD_PRELOAD when
+                          LMOD_LD_LIBRARY_PATH and LMOD_LD_PRELOAD have an initial value.  In other words,
+                          don't change LD_LIBRARY_PATH if you don't have to.
             * Issue #766: Produce warning instead of error when .modulerc* files are unreadable.
             * Issue #759: Using :escape to deal w/ special chars like '-'
             * Issue #765: Only call decorate_module hook if a module is found.
