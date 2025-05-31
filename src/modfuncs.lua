@@ -526,14 +526,12 @@ function load_module(...)
       return {}
    end
 
-   --local mcp_old = mcp
    mcpStack:push(mcp)
    dbg.print{"before chose: mcp: ",mcp,"\n"}
    mcp = l_chose_mcp(argT)
    dbg.print{"after chose: mcp: ",mcp,"\n"}
 
    local b = mcp:load_usr(MName:buildA(mcp:MNameType(), argT))
-   --mcp = mcp_old
    mcp = mcpStack:pop()
    dbg.print{"restore: mcp: ",mcp,"\n"}
    dbg.fini("load_module")
@@ -594,7 +592,6 @@ function prepend_path(...)
    end
 
 
-   --local mcp_old = mcp
    mcpStack:push(mcp)
    dbg.print{"before chose: mcp: ",mcp,"\n"}
 
@@ -604,7 +601,6 @@ function prepend_path(...)
    if (argT[2]) then
       mcp:prepend_path(argT)
    end
-   --mcp = mcp_old
    mcp = mcpStack:pop()
    dbg.print{"restore: mcp: ",mcp,"\n"}
    dbg.fini("prepend_path")
@@ -619,7 +615,6 @@ function append_path(...)
       dbg.fini("prepend_path")
       return
    end
-   --local mcp_old = mcp
    mcpStack:push(mcp)
    dbg.print{"before chose: mcp: ",mcp,"\n"}
    mcp = l_chose_mcp(argT)
@@ -628,7 +623,6 @@ function append_path(...)
    if (argT[2]) then
       mcp:append_path(argT)
    end
-   --mcp = mcp_old
    mcp = mcpStack:pop()
    dbg.print{"restore: mcp: ",mcp,"\n"}
    dbg.fini("append_path")
@@ -644,14 +638,12 @@ function remove_path(...)
       return
    end
 
-   --local mcp_old = mcp
    mcpStack:push(mcp)
    mcp = l_chose_mcp(argT)
 
    if (argT[2]) then
       mcp:remove_path(argT)
    end
-   --mcp = mcp_old
    mcp = mcpStack:pop()
    dbg.fini("remove_path")
    return
@@ -668,12 +660,10 @@ function pushenv(...)
       return
    end
 
-   --local mcp_old = mcp
    mcpStack:push(mcp)
    mcp = l_chose_mcp(argT)
 
    mcp:pushenv(argT)
-   --mcp = mcp_old
    mcp = mcpStack:pop()
    dbg.fini("pushenv")
    return
@@ -689,13 +679,11 @@ function setenv(...)
       return
    end
    
-   --local mcp_old = mcp
    mcpStack:push(mcp)
    mcp = l_chose_mcp(argT)
 
    -- Call the underlying mcp function 
    mcp:setenv(argT)
-   --mcp = mcp_old
    mcp = mcpStack:pop()
    dbg.fini("setenv")
    return
@@ -712,12 +700,10 @@ function unsetenv(...)
       return
    end
    
-   --local mcp_old = mcp
    mcpStack:push(mcp)
    mcp = l_chose_mcp(argT)
 
    mcp:unsetenv(argT)
-   --mcp = mcp_old
    mcp = mcpStack:pop()
    dbg.fini("unsetenv")
    return
@@ -1201,11 +1187,9 @@ function try_load(...)
       return {}
    end
 
-   --local mcp_old = mcp
    mcpStack:push(mcp)
    mcp = l_chose_mcp(argT)
    local b = mcp:try_load(MName:buildA(mcp:MNameType(), argT))
-   --mcp = mcp_old
    mcp = mcpStack:pop()
    dbg.fini("try_load")
    return b
@@ -1219,11 +1203,9 @@ function unload_usr_internal(mA, force)
    local mrc = MRC:singleton()
    mrc:set_display_mode("all")
 
-   --local mcp_old = mcp
    mcpStack:push(mcp)
    mcp = MainControl.build("unload")
    local b = MainControl.unload_usr(mcp, mA, force)
-   --mcp = mcp_old
    mcp = mcpStack:pop()
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    dbg.fini("unload_usr_internal")
@@ -1238,11 +1220,9 @@ function unload_internal(mA)
    local mrc = MRC:singleton()
    mrc:set_display_mode("all")
 
-   --local mcp_old = mcp
    mcpStack:push(mcp)
    mcp = mcp:build_unload()
    local b = mcp:unload(mA)
-   --mcp = mcp_old
    mcp = mcpStack:pop()
    dbg.print{"Setting mcp to ", mcp:name(),"\n"}
    dbg.fini("unload_internal")
