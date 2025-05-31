@@ -148,7 +148,14 @@ Things to explain:
 
 #. MName: How Lmod converts module names to paths.  The difference
    between a modulefile to load versus unload.
+#. DirTree and ModuleA and LocationT:  How MName uses both of these Classes to
+   figure out what a module is.  That is the whole N/V, C/N/V versus N/V/V
 #. MCP: How the mcp object works.  The many ways that Lmod evaluates
    modulefiles.
 #. FrameStk:  How Lmod handles the break function
-#. VarT
+#. VarT: How the var table works.  Especially, how prepend, append
+   works for path like variables.
+#. MT: How the module table works to store the state in a the user
+   env.
+#. Cosmic and myGlobal
+
