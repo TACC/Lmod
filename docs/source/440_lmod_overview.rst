@@ -143,3 +143,12 @@ similarly.
    value.  In this case the key is "PATH" and "/home/user/bin" is
    prepended to "PATH".  These changes to the  key value pair is
    stored in the **varT** table.
+
+Things to explain:
+
+#. MName: How Lmod converts module names to paths.  The difference
+   between a modulefile to load versus unload.
+#. MCP: How the mcp object works.  The many ways that Lmod evaluates
+   modulefiles.
+#. FrameStk:  How Lmod handles the break function
+#. VarT
