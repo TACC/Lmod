@@ -223,9 +223,9 @@ Lmod 8.7+
             * Support for TCL Irreversible commands added.
 W.I.P.:
             * Issue #762: Fixed int len to be Tcl_Size len in tcl2lua.c
-            * Issue #762: Make TCL_Size be int when tcl version is < 9
+                          Make TCL_Size be int when tcl version is < 9
             * Issue #763: Added msgHook to overview.  Handle empty msgHook function for spider.
-            * Issue #767: Only add ksh functions to zsh user accounts when /path/to/lmod/init/ksh_funcs
+            * Issue #767: Only add ksh functions to bash/zsh user accounts when /path/to/lmod/init/ksh_funcs
                           has the correct user access.
             * Issue #764: Lmod's capture routine only changes LD_LIBRARY_PATH and LD_PRELOAD when
                           LMOD_LD_LIBRARY_PATH and LMOD_LD_PRELOAD have an initial value.  In other words,
@@ -233,4 +233,4 @@ W.I.P.:
             * Issue #766: Produce warning instead of error when .modulerc* files are unreadable.
             * Issue #759: Using :escape to deal w/ special chars like '-'
             * Issue #765: Only call decorate_module hook if a module is found.
-            * Issue #765: Check permissions for file and directories in src/DirTree.lua
+            * Issue #761: Check permissions for file and directories in src/DirTree.lua
