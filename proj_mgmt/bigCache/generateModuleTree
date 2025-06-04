@@ -1,0 +1,66 @@
+#!/usr/bin/env lua
+-- -*- lua -*-
+
+require("strict")
+require("string_utils")
+require("fileOps")
+local dbg = require("Dbg"):dbg()
+
+function genNames(letterA, Nmodules)
+   local nameA = {}
+   local imod  = 0
+   for k = 1, 36 do
+      for j = 1, 26 do
+         for i = 1, 26 do
+            imod = imod + 1
+            nameA[imod] = letterA[i] .. letterA[j] .. letterA[k]
+            if (imod >= Nmodules) then 
+               return nameA 
+            end
+         end
+      end
+   end
+   return nameA
+end
+   
+
+
+
+function main()
+   local letterA = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N",
+                    "O","P","Q","R","S","T","U","V","X","Y","Z"}
+
+   local nDir     = 5
+   local nMod     = 3
+   local idx      = 0
+   local Nmodules = nDir * nMod
+   local nameA    = genNames(letterA, Nmodules)
+
+   for iDir = 1, nDir do
+      local dirName = letterA[iDir]
+      mkdir_recursive(dirName)
+      for iMod = 1, nMod do
+         idx        = idx + 1
+         local name = nameA[idx]
+         local fn   = pathJoin(dirName, name) .. ".lua"
+         local f    = io.open(fn,"w")
+         
+         local sA   = {}
+         sA[#sA+1]  = "setenv(\"" .. name .. "1\",\""..name:lower() .. "1\")"
+         sA[#sA+1]  = "setenv(\"" .. name .. "2\",\""..name:lower() .. "2\")"
+         sA[#sA+1]  = "setenv(\"" .. name .. "3\",\""..name:lower() .. "3\")"
+         sA[#sA+1]  = "setenv(\"" .. name .. "4\",\""..name:lower() .. "4\")"
+         sA[#sA+1]  = "setenv(\"" .. name .. "5\",\""..name:lower() .. "5\")"
+         sA[#sA+1]  = "setenv(\"" .. name .. "6\",\""..name:lower() .. "6\")"
+         sA[#sA+1]  = "prepend_path(\"MY_PATH\",\""..pathJoin("/unknown/path",name .. "7") .. "\")"
+
+         local s = table.concat(sA,"\n")
+         f:write(s,"\n")
+         f:close()
+      end
+   end
+
+end
+
+
+main()
