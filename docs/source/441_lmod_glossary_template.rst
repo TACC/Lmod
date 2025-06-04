@@ -7,10 +7,24 @@ This glossary defines key terms, components, and concepts used within the Lmod c
    :sorted:
 
    Cosmic
-       Placeholder: A detailed explanation of the Cosmic variable/concept in Lmod.
+       A singleton module in Lmod responsible for managing global
+       configuration values and Lmod's internal state or settings. It
+       provides a centralized interface (e.g., ``cosmic:value()``,
+       ``cosmic:assign()``) to get, set, and initialize these
+       parameters, many of which are derived from environment
+       variables or Lmod's configuration files. It acts as a
+       central access point for global settings throughout the Lmod codebase. 
 
    DirTree
-       Placeholder: A detailed explanation of the DirTree class/object and its role in Lmod, particularly in module discovery.
+       A class/module in Lmod that scans module file directory
+       structures (as defined by ``MODULEPATH`` and other
+       mechanisms). It builds a representation of the available
+       modules by traversing these directories, identifying
+       modulefiles, and noting associated version or ``.modulerc.*``
+       files. This hierarchical tree of directories and modulefiles is
+       then utilized by other Lmod components, such as ``MName`` and
+       ``ModuleA``, to discover, locate, and understand the available
+       software modules. 
 
    FrameStk
        Placeholder: A detailed explanation of FrameStk and its function, especially concerning the 'break' command in modulefiles.
@@ -22,10 +36,27 @@ This glossary defines key terms, components, and concepts used within the Lmod c
        Placeholder: A detailed explanation of the local function ``l_usrLoad()`` within ``Load_Usr()``, its parameters (e.g., ``check_must_load``), and its role in processing module load/unload lists.
 
    LMOD_CMD
-       Placeholder: Explanation of the environment variable ``$LMOD_CMD`` and its significance in invoking the Lmod executable.
+       An environment variable that stores the absolute path to the
+       main Lmod executable script (typically named ``lmod``). This
+       variable is essential for the correct functioning of the
+       ``module`` command. Shell initialization scripts (e.g., for
+       bash, tcsh, zsh) use ``$LMOD_CMD`` to define the ``module``
+       shell function or alias, which then calls the Lmod executable,
+       passing user commands and arguments to it. It must be correctly set
+       in the user's environment for Lmod to be invoked. 
 
    lmodCmdA
-       Placeholder: A detailed explanation of the ``lmodCmdA`` table (typically found in ``lmod.in.lua``) and its role in mapping user commands to internal Lmod functions.
+       A Lua table defined in the ``lmod.in.lua`` script. It serves as
+       a primary dispatch table for Lmod, mapping user-provided
+       command strings (e.g., "load", "avail", "list", "purge") to
+       internal Lmod data structures or function entry points. When a
+       user issues a ``module <command> ...`` instruction, Lmod
+       consults ``lmodCmdA`` to find the entry corresponding to
+       ``<command>``. This entry then directs Lmod to the appropriate
+       internal table (like ``loadTbl``) or function (like
+       ``Load_Usr()`` found in ``src/cmdfuncs.lua``) responsible for
+       handling that specific action. 
+
 
    Load_Usr()
        Placeholder: A detailed explanation of the ``Load_Usr()`` function (typically in ``src/cmdfuncs.lua``), how it's invoked, and its primary responsibilities in handling user module load requests.
