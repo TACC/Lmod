@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.49 2024-08-30 13:55 -06:00
+Modules based on Lua: Version 8.7.60 2025-04-30 12:50 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -978,3 +978,36 @@ If the avail list is too long consider trying:
 "module overview" or "ml ov" to display the number of modules for each name.
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 79
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 80
+runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf7
+===========================
+===========================
+step 81
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
+===========================
+The following is a list of the modules and extensions currently available:
+  bad: bad/1.0
+  tst1: tst1/19
+  tst2: tst2/19
+To learn more about a package execute:
+   $ module spider Foo
+where "Foo" is the name of a module.
+To find detailed information about a particular package you
+must specify the version if there is more than one version:
+   $ module spider Foo/11.1
+===========================
+step 82
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load bad
+===========================
+BAD/1.0 v: nil
+Lmod has detected the following error: Unable to load module because of error when evaluating modulefile:
+     ProjectDIR/rt/spider/mf7/bad/1.0.lua: [string "local v = nil..."]:6: attempt to compare number with nil
+     Please check the modulefile and especially if there is a line number specified in the above message
+While processing the following module(s):
+    Module fullname  Module Filename
+    bad/1.0          ProjectDIR/rt/spider/mf7/bad/1.0.lua

@@ -1540,3 +1540,100 @@ MODULEPATH=ProjectDIR/rt/spider/mf5/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf5/Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf5/Core",}';
 export _ModuleTable_;
+===========================
+step 79
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+MODULEPATH=ProjectDIR/rt/spider/mf5/Core;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf5/Core",},systemBaseMPATH="ProjectDIR/rt/spider/mf5/Core",}';
+export _ModuleTable_;
+===========================
+step 80
+runSpiderCmd -o spiderT ProjectDIR/rt/spider/mf7
+===========================
+timestampFn = {
+  false,
+}
+mrcMpathT = {}
+spiderT = {
+  ["ProjectDIR/rt/spider/mf7"] = {
+    bad = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["bad/1.0"] = {
+          Version = "1.0",
+          canonical = "1.0",
+          fn = "ProjectDIR/rt/spider/mf7/bad/1.0.lua",
+          luaExt = 4,
+          mpath = "ProjectDIR/rt/spider/mf7",
+          pV = "000000001.*zfinal",
+          wV = "000000001.*zfinal",
+        },
+      },
+    },
+    tst1 = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["tst1/19"] = {
+          Category = "test_cat",
+          Name = "tst1",
+          URL = "http:/test",
+          Version = "19",
+          canonical = "19",
+          fn = "ProjectDIR/rt/spider/mf7/tst1/19.lua",
+          luaExt = 3,
+          mpath = "ProjectDIR/rt/spider/mf7",
+          pV = "000000019.*zfinal",
+          wV = "000000019.*zfinal",
+          whatis = {
+            "Name:        tst1", "Version:     19", "Category:    test_cat", "URL:         http:/test",
+          },
+        },
+      },
+    },
+    tst2 = {
+      defaultA = {},
+      defaultT = {},
+      dirT = {},
+      fileT = {
+        ["tst2/19"] = {
+          Category = "test_cat",
+          Name = "tst2",
+          URL = "http:/test",
+          Version = "19",
+          canonical = "19",
+          fn = "ProjectDIR/rt/spider/mf7/tst2/19.lua",
+          luaExt = 3,
+          mpath = "ProjectDIR/rt/spider/mf7",
+          pV = "000000019.*zfinal",
+          wV = "000000019.*zfinal",
+          whatis = {
+            "Name:        tst2", "Version:     19", "Category:    test_cat", "URL:         http:/test",
+          },
+        },
+      },
+    },
+  },
+  version = 5,
+}
+mpathMapT = {}
+===========================
+step 81
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
+===========================
+__LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/spider/mf7:1;
+export __LMOD_REF_COUNT_MODULEPATH;
+MODULEPATH=ProjectDIR/rt/spider/mf7;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf7",},systemBaseMPATH="ProjectDIR/rt/spider/mf7",}';
+export _ModuleTable_;
+===========================
+step 82
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load bad
+===========================
+false
