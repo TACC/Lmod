@@ -9,6 +9,15 @@ following simple modulefiles called foo/1.0.lua::
     setenv("Foo", "Bar")
     prepend_path("PATH", "/home/user/bin")
 
+For a detailed description of Lmod's high-level architecture, its core
+components, their interactions, and an explanation of the project's directory
+structure, please refer to the dedicated document:
+
+.. toctree::
+   :maxdepth: 1
+
+   443_structure
+
 In Lmod simplist terms, it takes commands from the user to change the state of the user's environment.  
 It does this by loading and unloading modulefiles. When Lmod takes a command, it modifies an internal
 table of key value pairs.   Finally, once the command has successfully
