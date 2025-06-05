@@ -86,8 +86,8 @@ Internal Steps
    the modulefile is a TCL module, then the conversion from TCL to
    Lua is done here with the **runTCLprog()** routine. Finally it
    takes the contents of the modulefile which in all cases is now a
-   lua program and calls **sandbox()** to evaluate the modulefile.
-#. The **sandbox()** routine is an interesting feature of Lua.  It
+   lua program and calls **sandbox_run()** to evaluate the modulefile.
+#. The **sandbox_run()** routine is an interesting feature of Lua.  It
    allows Lmod to call the Lua interpreter and control what functions
    are available.  In particular, modulefiles can only call certain
    Lmod functions like **setenv()** and **prepend_path()** but not
