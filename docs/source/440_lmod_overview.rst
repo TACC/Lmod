@@ -50,7 +50,7 @@ Internal Steps
 #. The user command **module load foo/1.0**
 #. Lmod decides what command to run by using the second argument
    (namely **load**) and converts the word into a command.  It does
-   this by searching the **lmodCmdA** table in **lmod.in.lua** for the
+   this by searching the **lmodCmdA** table in **src/lmod.in.lua** for the
    user command (**load**).  The **lmodCmdA** table matches action
    value as **loadTbl** and the **loadTbl** has the comand
    **Load_Usr()** which is a function in **src/cmdfuncs.lua**
@@ -65,10 +65,10 @@ Internal Steps
 #. The **l_usrLoad** function converts the command line argument
    **foo/1.0** to an **MName** object.  This is necessary to map the
    name to an actual path in the filesystem.  This conversion from a
-   module name to an MName object is found here: ???
+   module name to an MName object is found here: :ref:`deepdive_mname_resolution`
 #. The module is ready to start the loading process. It uses a derived
    object called **mcp** (short for main control program, a nod to the
-   movie Tron)  How this works is discussed here: ???.  In our case,
+   movie Tron)  How this works is discussed here: :ref:`deepdive_mcp_overview`.  In our case,
    the **mcp:load_usr(lA)** calls **M.load_usr()** in
    **src/MainControl.lua**.  After telling Lmod to register the list
    of loaded module, Lmod then calls **M.load()** still in
@@ -120,7 +120,7 @@ evaluate the module are discussed here.  Here we discuss how the line
    supposed to take. For example this modulefile could be loading, in
    that case it calls **M.setenv()** in **src/MainControl.lua**. But
    if Lmod is unloading the module then **M.unsetenv()** is called.
-   This is controlled by **mcp**.  See MCP discussion??? for more
+   This is controlled by **mcp**.  See :ref:`deepdive_mcp_overview` for more
    details.
 #. The function **M.setenv()** store the name of the environment
    variable as the key and the next command line argument as the
@@ -136,7 +136,7 @@ similarly.
    supposed to take. For example this modulefile could be loading, in
    that case it calls **M.prepend_path()** in **src/MainControl.lua**. But
    if Lmod is unloading the module then **M.remove_path()** is called.
-   This is controlled by **mcp**.  See MCP discussion??? for more
+   This is controlled by **mcp**.  See :ref:`deepdive_mcp_overview` for more
    details.
 #. The function **M.prepend_path()** store the name of the environment
    variable as the key and the next command line argument as the
