@@ -12,9 +12,11 @@ The process can be broken down as follows:
 **MName Instantiation (`MName:new()`)**
 
 -   When Lmod processes a command involving a module name (e.g., in `l_usrLoad()` from `src/cmdfuncs.lua`), it creates an ``MName`` object using `MName:new(sType, name, action, ...)`.
+
     -   `sType`: Specifies the context, commonly "load" when trying to find a new module to load, or "mt" when referring to an already loaded module in the Module Table.
     -   `name`: The raw string provided by the user (e.g., "foo/1.0"). This is stored internally as `__userName` after basic cleaning (trimming whitespace, removing trailing "/" or ".lua").
     -   `action`: Determines the search strategy. Examples include "exact" (find this specific version), "match" (find a suitable match, possibly a default), or "latest". This `action` results in the instantiation of a specialized MName variant (e.g., ``MN_Exact`` from ``src/MN_Exact.lua``, ``MN_Match`` from ``src/MN_Match.lua``) that inherits from the base ``MName`` class. These variants define specific search steps.
+
 -   At this stage, core properties of the MName object like `__fn` (the resolved filepath), `__sn` (the short name, e.g., "foo"), and `__version` are typically initialized to `false`. The actual resolution is deferred.
 
 **Lazy Evaluation (`l_lazyEval()`)**
@@ -22,6 +24,7 @@ The process can be broken down as follows:
 -   The MName object doesn't immediately search for the module file upon creation. Instead, it performs **lazy evaluation**. The actual resolution logic is triggered by the `l_lazyEval(self)` function within `MName.lua`.
 -   This function is called automatically the first time a resolved property (like `:fn()`, `:sn()`, `:version()`, or `:valid()`) is accessed on the ``MName`` object.
 -   The core of `l_lazyEval()` for an `sType` of "load" involves these steps:
+
     1.  **Get `ModuleA` Singleton**: It obtains an instance of ``ModuleA`` (from ``src/ModuleA.lua``) using `ModuleA:singleton{spider_cache = ...}`. ``ModuleA`` is responsible for knowing about all available modules, either by reading a pre-computed spider cache or by actively scanning the `MODULEPATH`.
     2.  **Initial Name Resolution**: The `__userName` might be further resolved or canonicalized using `MRC:resolve()` (ModuleRC or Resolution Control).
     3.  **Search via `ModuleA`**: It calls `moduleA:search(userName)` to get a preliminary list of candidate module files. This is a critical step where `ModuleA` looks up the `userName`.
@@ -30,19 +33,21 @@ The process can be broken down as follows:
 
 The behavior of `moduleA:search(userName)` depends on whether Lmod determines the module path structure to be primarily Name/Version/Version (NVV) or not. This is tracked by the `ModuleA.__isNVV` flag. For a general overview of how Lmod picks modules in these different layouts, see :ref:`nv_rules-label` and :ref:`NVV-label`.
 
-**Non-NVV Path (Standard Name/Version Layouts)**
+**N/V Path (Standard Name/Version Layouts)**
 
 -   If `ModuleA.__isNVV` is `false`, the search is delegated to a ``LocationT`` object. (See :ref:`nv_rules-label` for more details on N/V rules).
 -   **`LocationT:new(moduleA_data)`**:
+
     -   If a ``LocationT`` object (`src/LocationT.lua`) hasn't been created yet for the current `ModuleA` data, it's instantiated.
     -   The `LocationT` constructor (specifically its local `l_build` function) takes `ModuleA.__moduleA` (which is an array of module structures, one for each `MODULEPATH` directory) and *merges* them into a single, unified tree representation (`self.__locationT`).
     -   The merging logic (`l_merge_locationT` in `LocationT.lua`) handles potential conflicts if the same module/version exists in multiple `MODULEPATH` directories. It uses the `wV` (weighted version string, which includes default priorities) to decide which version takes precedence in the unified view. This ensures consistent resolution across the entire `MODULEPATH`.
 -   **`LocationT:search(name)`**:
+
     -   This method takes the `name` and first determines the base "short name" (`sn`) by looking up keys in its unified `__locationT` tree. For "foo/1.0", `sn` would become "foo", and `versionStr` would be "1.0".
     -   It then navigates this merged tree using `sn` and the components of `versionStr` to find the specific module structure node (`v`).
     -   Finally, it calls `collectFileA(sn, versionStr, extended_default, v, output_table)` to populate `output_table` with candidate files from this node `v`. `collectFileA` is defined in `src/collectionFileA.lua`.
 
-**NVV Path (Name/Version/Version Layouts)**
+**N/V/V Path (Name/Version/Version Layouts)**
 
 -   If `ModuleA.__isNVV` is `true`, `ModuleA` uses its internal `l_search(name, moduleA_data)` function (local to `ModuleA.lua`). (See :ref:`NVV-label` for more details on N/V/V rules).
 -   **`l_find_vA(name, moduleA_data)`**: This helper function first parses the input `name` to identify a base short name (`sn`) and the remaining version string (`versionStr`). It then searches through all entries in `moduleA_data` (i.e., each `MODULEPATH` directory's unmerged view) to find all occurrences of this `sn`. It returns an array (`vA`) of module structures for `sn`, one for each `MODULEPATH` where it was found.
@@ -62,7 +67,9 @@ The behavior of `moduleA:search(userName)` depends on whether Lmod determines th
 -   After `ModuleA:search()` (via either path) returns `sn`, `versionStr`, and `fileA` (the list of candidate file structures), the `l_lazyEval()` function in `MName.lua` takes over again.
 -   It retrieves a list of search functions (steps) using `self:steps()`. These steps are defined by the specialized MName `action` type (e.g., `MN_Exact.lua` provides `MName.find_exact_match`).
 -   It iterates through these step functions (e.g., `MName.find_exact_match()`, `MName.find_highest()`), applying each one to the `fileA` list.
+
     -   These functions use the `pV` (parsed version for sorting) and `wV` (weighted version, including default priorities) attributes that were added to file entries by `ModuleA` (originally during its `l_addPV` processing of `DirTree` output).
+
 -   The first step function that successfully finds and selects a single module file from `fileA` determines the outcome. This populates `self.__fn` (the final filepath), `self.__version`, and other properties on the ``MName`` object.
 
 **The Role of `DirTree`**

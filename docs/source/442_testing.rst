@@ -28,12 +28,11 @@ Inside each test directory, you'll commonly find the following types of files:
     require their own simple modulefiles to exercise specific Lmod behaviors.
     These are usually located within the test's directory or its subdirectories.
 *   **Reference Output Files:**
+
     *   **``err.txt``**: Contains the expected standard error output for the test.
-    *   **``std.txt``**: Contains the expected standard output for the test.
-    *   (Sometimes **``out.txt``**: May serve as a combined reference for stdout and stderr,
-      or for specific test output validation.)
-*   **Helper Scripts (e.g., ``*.sh``, ``*.lua``):** Some tests might use additional
-    scripts to set up specific conditions or perform complex validation steps.
+    *   **``out.txt``**: Contains the expected standard output for the test.
+
+*   **Helper Scripts (e.g., ``*.sh``, ``*.lua``):** Some tests might     use additional    scripts to set up specific conditions or perform complex validation steps.
 
 The primary tool for running these tests is a shell command typically named ``t``,
 which is made available by sourcing a specific testing environment script (detailed below).
@@ -144,10 +143,10 @@ To inspect the output of a failed test:
 .. code-block:: bash
 
     cd /path/to/Lmod/rt/my_feature_test
-    cat t1/my_feature_test/std.txt  # View actual standard output
+    cat t1/my_feature_test/out.txt  # View actual standard output
     cat t1/my_feature_test/err.txt  # View actual standard error
 
-Compare these with ``std.txt`` and ``err.txt`` in the current directory
+Compare these with ``out.txt`` and ``err.txt`` in the current directory
 (``/path/to/Lmod/rt/my_feature_test/``) to understand the discrepancies.
 
 Editing a Test
@@ -192,7 +191,7 @@ to the Lua source code (files in ``src/``) to output variables or trace messages
 .. code-block:: lua
 
     -- In some file like src/cmdfuncs.lua
-    dbg.print{"My debug message: some_variable = ", some_variable, "\\n"}
+    dbg.print{"My debug message: some_variable = ", some_variable, "\n"}
 
 By default, this debug output is suppressed. To see the output when running a
 regression test, you need to enable debugging for the ``lmod`` command. This is
