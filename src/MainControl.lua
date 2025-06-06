@@ -1204,7 +1204,7 @@ function M.load(self, mA)
    end
 
    local hub = Hub:singleton()
-   local a      = hub:load(mA)
+   local a   = hub:load(mA)
 
    if (not quiet()) then
       self:registerAdminMsg(mA)

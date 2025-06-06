@@ -25,8 +25,9 @@ describe("Testing MName Class #MName.",
          function()
             it("Test finding modules with NVV files",
                function()
-                  _G.mcp           = _G.MainControl.build("load")
-                  _G.MCP           = _G.MainControl.build("load")
+                  _G.mcp        = _G.MainControl.build("load")
+                  _G.MCP        = _G.MainControl.build("load")
+
                   local projDir = os.getenv("PROJDIR")
                   local mpathA  = {
                      pathJoin(projDir, testDir, "mf"),

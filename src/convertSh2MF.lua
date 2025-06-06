@@ -144,7 +144,9 @@ local function l_convertSh2MF(shellName, style, script)
 
    local cmd   = replaceStr(concatTbl(cmdA," "), t)
 
-   local output,status = capture(cmd)
+   dbg.print{"LD_LIBRARY_PATH: ",os.getenv("LD_LIBRARY_PATH") or "","\n"}
+
+   local output, status = capture(cmd)
 
    if (dbg.active()) then
       local f = io.open("s.log","w")

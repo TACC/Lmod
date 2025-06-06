@@ -72,10 +72,10 @@ function mrc_load(fn)
          status, msg = mrc_sandbox_run(whole)
       else
          status = nil
-         msg    = "Empty or non-existent file"
+         msg    = "Unreadable or Empty or non-existent file"
       end
       if (not status) then
-         LmodError{msg="e_Unable_2_Load", name = "<unknown>", fn = s_fn, message = msg}
+         LmodWarning{msg="e_Unable_2_Load", name = "<unknown>", fn = s_fn, message = msg}
       end
    else
       whole, ok = runTCLprog(pathJoin(cmdDir(),"RC2lua.tcl"), s_fn)

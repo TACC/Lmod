@@ -157,6 +157,7 @@ _LMFILES_=ProjectDIR/rt/extended_dflt/mf/Core/A/10.01.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/extended_dflt/mf/Core/A/10.01.lua",fullName="A/10.01",loadOrder=1,propT={},stackDepth=0,status="active",userName="A/10.01",wV="000000010.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/extended_dflt/mf/Core",},systemBaseMPATH="ProjectDIR/rt/extended_dflt/mf/Core",}';
 export _ModuleTable_;
+unalias foo 2> /dev/null || true;
 foo () { echo ok;
 };
 ===========================
@@ -167,6 +168,7 @@ MODULEPATH=ProjectDIR/rt/extended_dflt/mf/Core;
 export MODULEPATH;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/extended_dflt/mf/Core/A/10.01.lua",fullName="A/10.01",loadOrder=1,propT={},stackDepth=0,status="active",userName="A/10.01",wV="000000010.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/extended_dflt/mf/Core",},systemBaseMPATH="ProjectDIR/rt/extended_dflt/mf/Core",}';
 export _ModuleTable_;
+unalias foo 2> /dev/null || true;
 foo () { echo ok;
 };
 ===========================

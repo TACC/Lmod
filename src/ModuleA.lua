@@ -156,7 +156,7 @@ local function l_build(self, maxdepthT, dirA)
    return moduleA
 end
 
-local function l_check_depth(searchA, idx, dirT)
+local function l_check_depth(searchA, idx, fileT, dirT)
    dbg.print{"ModuleA l_check_depth: idx: ",idx,"\n"}
    if (not dirT or idx < 1 or next(dirT) == nil) then
       return true, idx, nil
@@ -166,8 +166,15 @@ local function l_check_depth(searchA, idx, dirT)
    
    if (dirT[name]) then
       idx           = idx - 1
-      return l_check_depth(searchA, idx, dirT.dirT)
+      return l_check_depth(searchA, idx, dirT.fileT, dirT.dirT)
    end
+
+   if (fileT[name]) then
+      dbg.print{"ModuleA l_check_depth: found fileT[name]: ",name,"\n"}
+      return true, idx, nil
+   end
+
+   dbg.print{"ModuleA l_check_depth: did not find name: ",name,"\n"}
    -- Did not find name so return false
    return false, idx, nil
 end
@@ -185,7 +192,13 @@ local function l_find_vA(name, moduleA)
 
    -- Build searchA to contain the list of module names.
    -- So "intel/arm64/17/17.0.1" becomes:
-   -- searchA -> { {"intel/arm64/17/17.0.1",false}, {"intel/arm64/17","17.0.1"}, {"intel/arm64","17/17.0.1"}, {"intel","arm64/17/17.0.1"}}
+   -- searchA : 
+   -- { 
+   --    {"intel/arm64/17/17.0.1",false}, 
+   --    {"intel/arm64/17","17.0.1"}, 
+   --    {"intel/arm64","17/17.0.1"},
+   --    {"intel","arm64/17/17.0.1"}
+   -- }
    
    local searchA    = {}
    searchA[#searchA + 1] = {sn, false}
@@ -216,7 +229,7 @@ local function l_find_vA(name, moduleA)
             -- the keys in dirT to keep this "v"
          
             versionStr = searchA[j][2]
-            found, idx, dirT = l_check_depth(searchA, j-1, v.dirT)
+            found, idx, dirT = l_check_depth(searchA, j-1, v.fileT, v.dirT)
             dbg.print{"found: ",found,"\n"}
             if (found) then
                vA[#vA + 1] = v
@@ -230,6 +243,8 @@ local function l_find_vA(name, moduleA)
             
    -- If there is nothing in vA then the name is not in moduleA.
    if (next(vA) == nil) then
+      dbg.print{"next(vA) == nil\n"}
+      dbg.fini("l_find_vA")
       return nil
    end
 

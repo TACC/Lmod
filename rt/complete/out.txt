@@ -16,6 +16,7 @@ _LMFILES_=ProjectDIR/rt/complete/mf/spack/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={spack={fn="ProjectDIR/rt/complete/mf/spack/1.0.lua",fullName="spack/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="spack",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/complete/mf",},systemBaseMPATH="ProjectDIR/rt/complete/mf",}';
 export _ModuleTable_;
+unalias _bash_completion_spack 2> /dev/null || true;
 _bash_completion_spack () {     local -a COMP_WORDS_NO_FLAGS;
     local index=0;
     while [[ "$index" -lt "$COMP_CWORD" ]]; do
@@ -73,6 +74,7 @@ _LMFILES_=ProjectDIR/rt/complete/mf/tcl_spack/1.0;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={tcl_spack={fn="ProjectDIR/rt/complete/mf/tcl_spack/1.0",fullName="tcl_spack/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="tcl_spack",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/complete/mf",},systemBaseMPATH="ProjectDIR/rt/complete/mf",}';
 export _ModuleTable_;
+unalias _bash_completion_spack 2> /dev/null || true;
 _bash_completion_spack () {
     local -a COMP_WORDS_NO_FLAGS;
     local index=0;
@@ -142,8 +144,10 @@ _LMFILES_=ProjectDIR/rt/complete/mf/foo/1.0.lua;
 export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={foo={fn="ProjectDIR/rt/complete/mf/foo/1.0.lua",fullName="foo/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="foo/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/complete/mf",},systemBaseMPATH="ProjectDIR/rt/complete/mf",}';
 export _ModuleTable_;
+unalias foo 2> /dev/null || true;
 foo () { echo foo;
 };
+unalias foo_completion 2> /dev/null || true;
 foo_completion () { COMPREPLY=(bar baz);
 };
 [[ -n "${BASH_VERSION:-}" ]] && complete -o default -F foo_completion foo;

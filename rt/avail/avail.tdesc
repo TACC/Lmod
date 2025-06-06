@@ -22,7 +22,7 @@ testdescript = {
      export MODULEPATH
      unset TERM
 
-     remove_generated_lmod_files
+     remove_generated_lmod_files mf
 
      cp $(testDir)/.lmodrc.lua .lmodrc.lua
 
@@ -44,70 +44,97 @@ testdescript = {
      runLmod use $(testDir)/mf/Core2  #14
      runLmod avail local              #15
      runLmod --ignore_cache avail     #16
+     export LMOD_MODULERCFILE=$testDir/dot.modulerc
+     runLmod avail conda2             #17
+     runLmod avail adnoc              #18
 
      export LMOD_MODULERCFILE=$testDir/dot.modulerc.lua
-     runLmod overview                 #17
+     runLmod overview                 #19
      unset LMOD_MODULERCFILE
 
-     runLmod purge                    #18
+     runLmod purge                    #20
      unsetMT
      unset MODULEPATH
-     runLmod avail                    #19
+     runLmod avail                    #21
 
      export MODULEPATH=$(testDir)/mf/Core3
-     runLmod avail                    #20
-     runLmod load TACC                #21
-     runLmod load intel/15.0.2        #22
-     runLmod load intel               #23
+     runLmod avail                    #22
+     runLmod load TACC                #23
+     runLmod load intel/15.0.2        #24
+     runLmod load intel               #25
 
-     runLmod use $(testDir)/mf/Core4  #24
-     runLmod avail                    #25
-
-     runLmod use $(testDir)/mf/Order  #26
+     runLmod use $(testDir)/mf/Core4  #26
      runLmod avail                    #27
-     runLmod use $(testDir)/mf/Core6  #28
-     runLmod avail                    #29
-     runLmod avail FooBar             #30
 
-     runLmod purge                    #31
+     runLmod use $(testDir)/mf/Order  #28
+     runLmod avail                    #29
+     runLmod use $(testDir)/mf/Core6  #30
+     runLmod avail                    #31
+     runLmod avail FooBar             #32
+
+     runLmod purge                    #33
      unsetMT
      unset MODULEPATH
-     runLmod use $(testDir)/mf/Core7  #32
-     runLmod avail                    #33
-     runLmod load A                   #34
-     runLmod load B                   #35
-     runLmod list                     #36
+     runLmod use $(testDir)/mf/Core7  #34
+     runLmod avail                    #35
+     runLmod load A                   #36
+     runLmod load B                   #37
+     runLmod list                     #38
 
      ############################################################
      # Test when there are too many non modulefile that start with .
-     runLmod use $(testDir)/mf/Core8  #37
-     runLmod avail                    #38
+     runLmod use $(testDir)/mf/Core8  #39
+     runLmod avail                    #40
 
      ############################################################
      # Test when there are too many non modulefile that do not start with .
-     runLmod use $(testDir)/mf/Core9  #39
+     runLmod use $(testDir)/mf/Core9  #41
 
      ############################################################
      # Test Issue #613: clean env after every load thru spider
-     runLmod purge                    #40
+     runLmod purge                    #42
      unsetMT
      unset MODULEPATH
-     runLmod use $(testDir)/mf/CoreA  #41
-     runLmod avail                    #42
+     runLmod use $(testDir)/mf/CoreA  #43
+     runLmod avail                    #44
 
      ############################################################
      # Test Issue #629: Do not print global alias section hdr
      #                  when there is no global aliases to print
 
      export LMOD_MODULERCFILE=$testDir/dot.modulerc.lua
-     runLmod purge                    #43
+     runLmod purge                    #45
      unsetMT
      export MODULEPATH=$(testDir)/mf/CoreA
-     runLmod avail                    #44
-     runLmod avail parmetis           #45
+     runLmod avail                    #46
+     runLmod avail parmetis           #47
 
-
+     ############################################################
+     # Test Issue #766: Test overview when one .modulerc.lua file
+     #                  is unreadable
+     runLmod purge                    #48
+     unset LMOD_MODULERCFILE
+     unsetMT
+     mkdir -p $(outputDir)/mf/
+     cp -a $(testDir)/mf/CoreB $(outputDir)/mf/
+     chmod -r $(outputDir)/mf/CoreB/smake/.modulerc.lua
      
+     export MODULEPATH=$(outputDir)/mf/CoreB
+     runLmod -t avail                 #49
+     runLmod overview                 #50
+
+     ############################################################
+     # Test Issue #765: 
+     runLmod purge                    #51
+     unset LMOD_MODULERCFILE
+     unsetMT
+     ln -s $(outputDir)/mf/CoreB/emacs/27.1.lua $(outputDir)/mf/CoreB/emacs/27.1_special.lua
+     chmod -r $(outputDir)/mf/CoreB/emacs/27.1.lua
+     chmod -r $(outputDir)/mf/CoreB/emacs/26.4.lua
+     chmod 400 $(outputDir)/mf/CoreB/ucc
+     runLmod avail                    #52
+     chmod 755 $(outputDir)/mf/CoreB/ucc
+
      HOME=$ORIG_HOME
 
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

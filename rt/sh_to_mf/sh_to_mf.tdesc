@@ -24,26 +24,33 @@ testdescript = {
 
      unset -f fooBar > /dev/null 2> /dev/null
 
-     runLmod --version                                 # 1
-     runSh2MF             $(testDir)/tstScript.sh      # 2
-     runSh2MF  --to TCL   $(testDir)/tstScript.sh      # 3 
-     runSh2MF             $(testDir)/path_both_ends.sh # 4        
-     runSh2MF  --from csh $(testDir)/cshScript.csh     # 5
-     runSh2MF             $(testDir)/broken.sh         # 6
-     runSh2MF             $(testDir)/unalias.sh        # 7 
-     runSh2MF             $(testDir)/spack_foo.sh      # 8
-     runLmod  show wrapperSh/1.0                       # 9
-     runLmod  load wrapperSh/1.0                       #10
-     runLmod  show wrapperSh/1.0                       #11
-     runLmod  refresh                                  #12
-     runLmod  list                                     #13
-     runLmod  --mt                                     #14
-     runLmod  unload wrapperSh/1.0                     #15
-     runLmod  load   brokenSh/1.0                      #16
-     runLmod  load   wrapperSh/1.0                     #18
-     runLmod  save                                     #19
-     runLmod  restore                                  #20
-     runLmod  --mt                                     #21
+     runLmod --version                                            # 1    
+     ORIG_LD=${LD_LIBRARY_PATH}
+     export LD_LIBRARY_PATH="/df/gh${ORIG_LD:+:}${ORIG_LD}"
+     runSh2MF             $(testDir)/tstScript.sh                 # 2
+     runSh2MF  --to TCL   $(testDir)/tstScript.sh                 # 3 
+     runSh2MF             $(testDir)/path_both_ends.sh            # 4        
+     runSh2MF  --from csh $(testDir)/cshScript.csh                # 5
+     runSh2MF             $(testDir)/broken.sh                    # 6
+     runSh2MF             $(testDir)/unalias.sh                   # 7 
+     runSh2MF             $(testDir)/spack_foo.sh                 # 8
+    
+     export LD_LIBRARY_PATH="bar${LD_LIBRARY_PATH:+:}${LD_LIBRARY_PATH}"
+     runSh2MF             $(testDir)/tst2.sh                      # 9 
+     runLmod  show wrapperSh/1.0                                  #10
+     runLmod  load wrapperSh/1.0                                  #11
+     runLmod  show wrapperSh/1.0                                  #12
+     runLmod  refresh                                             #13
+     runLmod  list                                                #14
+     runLmod  --mt                                                #15
+     runLmod  unload wrapperSh/1.0                                #16
+     runLmod  load   brokenSh/1.0                                 #17
+     runLmod  load   wrapperSh/1.0                                #18
+     runLmod  save                                                #19
+     runBase  export LD_LIBRARY_PATH="foo${ORIG_LD:+:}${ORIG_LD}" #20
+     runLmod  restore                                             #21
+     runLmod  --mt                                                #22
+
 
      unsetMT
 
@@ -51,8 +58,8 @@ testdescript = {
      mkdir -p $MODULEPATH/A
 
      buildSh2MF  --to TCL   $(testDir)/tstScript.sh > $MODULEPATH/A/1.0
-     runLmod load A                                    #20
-     runLmod list                                      #21
+     runLmod load A                                            #23
+     runLmod list                                              #24
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

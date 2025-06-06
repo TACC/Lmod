@@ -580,7 +580,6 @@ local function l_usrLoad(argA, check_must_load)
          LmodWarning{msg="w_Undef_MPATH"}
       end
 
-      --local mcp_old = mcp
       mcpStack:push(mcp)
       mcp           = MCP
       dbg.print{"Setting mcp to ", mcp:name(),"\n"}
@@ -589,7 +588,6 @@ local function l_usrLoad(argA, check_must_load)
       if (haveWarnings() and check_must_load) then
          mcp.mustLoad()
       end
-      --mcp           = mcp_old
       mcp           = mcpStack:pop()
    end
 
@@ -1102,7 +1100,7 @@ function SpiderCmd(...)
    else
       local a = {}
       a[#a+1] = s
-      a = hook.apply("msgHook","spider",a)
+      a = hook.apply("msgHook","spider",a) or a
       s = concatTbl(a,"")
       shell:echo(s)
    end

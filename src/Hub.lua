@@ -121,7 +121,7 @@ function M.access(self, ...)
       local userName = argA[1]
       local mname    = mt:have(userName,"any") and MName:new("mt",userName)
                                                or  MName:new("load",userName)
-      local fn       = mname:fn()
+      local fn       = mname:fn() or ""
       shell:echo(fn .. "\n")
       return
    end
@@ -981,6 +981,21 @@ local function regroup_avail_blocks(availStyle, availA)
    return newAvailA
 end
 
+local function l_build_searchA(mrc, mpathA, argA)
+   local searchA = {}
+   for i = 1, argA.n do
+      local s  = argA[i]
+      local ss = mrc:resolve(mpathA, s)
+      if (ss ~= s) then
+         searchA[i] = ss:escape()
+      else
+         searchA[i] = s:caseIndependent()
+      end
+   end
+   searchA.n = argA.n
+   return searchA
+end
+
 function M.overview(self,argA)
    dbg.start{"Hub:overview(",concatTbl(argA,", "),")"}
    local aa          = {}
@@ -1023,17 +1038,7 @@ function M.overview(self,argA)
    local banner      = Banner:singleton()
 
    if (not optionTbl.regexp and argA and next(argA) ~= nil) then
-      searchA = {}
-      for i = 1, argA.n do
-         local s  = argA[i]
-         local ss = mrc:resolve(mpathA, s)
-         if (ss ~= s) then
-            searchA[i] = ss
-         else
-            searchA[i] = s:caseIndependent()
-         end
-      end
-      searchA.n = argA.n
+      searchA = l_build_searchA(mrc, mpathA, argA)
    end
 
    availA = regroup_avail_blocks(availStyle, availA)
@@ -1115,6 +1120,7 @@ function M.overview(self,argA)
    if (next(b) ~= nil) then
       print_overview_block()
    end
+   a = hook.apply("msgHook", "overview", a) or a
 
    dbg.fini("Hub:overview")
    return a
@@ -1178,7 +1184,7 @@ function M.terse_avail(self, mpathA, availA, searchA, showSN, defaultOnly, defau
          local fullName = mrc:resolve(mpathA, v)
          for i = 1, searchA.n do
             local s = searchA[i]
-            if (fullName:find(s)) then
+            if (fullName:find(s) or k:find(s)) then
                a[#a+1] = k.."(@" .. fullName ..")\n"
             end
          end
@@ -1290,17 +1296,7 @@ function M.avail(self, argA)
 
 
    if (not optionTbl.regexp and argA and next(argA) ~= nil) then
-      searchA = {}
-      for i = 1, argA.n do
-         local s  = argA[i]
-         local ss = mrc:resolve(mpathA, s)
-         if (ss ~= s) then
-            searchA[i] = ss
-         else
-            searchA[i] = s:caseIndependent()
-         end
-      end
-      searchA.n = argA.n
+      searchA = l_build_searchA(mrc, mpathA, argA)
    end
 
    if (optionTbl.terse or optionTbl.terseShowExtensions) then
@@ -1330,7 +1326,7 @@ function M.avail(self, argA)
          local fullName = mrc:resolve(mpathA,v)
          for i = 1, searchA.n do
             local s = searchA[i]
-            if (fullName:find(s)) then
+            if (fullName:find(s) or k:find(s)) then
                local mname    = MName:new("load",k)
                fullName = mname:fullName() or pna
                if (fullName == pna) then

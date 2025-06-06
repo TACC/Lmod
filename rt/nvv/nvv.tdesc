@@ -71,12 +71,24 @@ testdescript = {
      runLmod list                              #21
 
 
-     runLmod purge                             #14
+     runLmod purge                             #22
      unsetMT
 
      MODULEPATH=$(testDir)/mf7
-     runLmod avail                             #15
-     runLmod load complr/gcc                   #16
+     runLmod avail                             #23
+     runLmod load complr/gcc                   #24
+
+     runLmod purge                             #25
+     unsetMT
+
+     MODULEPATH=$(testDir)/mf8
+     runLmod avail                             #26
+     runLmod load qiime                        #27
+     runLmod load qiime/2-2023.5               #28
+     runLmod load qiime/2-2024.10              #29
+     runLmod load qiime/2-2024.10/metagenome   #30
+
+
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

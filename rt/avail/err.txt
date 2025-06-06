@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.49 YYYY-MM-DD 13:55 -06:00
+Modules based on Lua: Version 8.7.60 2025-04-30 12:50 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -339,6 +339,34 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
 step 17
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail conda2
+===========================
+Global Aliases
+   conda2 -> (N/A)
+No module(s) or extension(s) found!
+  Where:
+   N/A:  Alias cannot be loaded with current $MODULEPATH
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 18
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail adnoc
+===========================
+Global Aliases
+   adnoc -> (N/A)
+No module(s) or extension(s) found!
+  Where:
+   N/A:  Alias cannot be loaded with current $MODULEPATH
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 19
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing overview
 ===========================
 ProjectDIR/rt/avail/mf/Core2
@@ -349,16 +377,16 @@ admin  (1)   foo (2)   intel    (1)   local  (5)   ucc      (3)
 alex   (1)   gcc (1)   junk/a/c (1)   multi  (1)   unix     (1)
 bar    (2)   git (5)   junk/b/c (1)   noweb  (1)
 ===========================
-step 18
+step 20
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
-step 19
+step 21
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Lmod has detected the following error: module avail is not possible. MODULEPATH is not set or not set with valid paths.
 ===========================
-step 20
+step 22
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/avail/mf/Core3
@@ -371,25 +399,25 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 21
+step 23
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load TACC
 ===========================
 ===========================
-step 22
+step 24
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load intel/15.0.2
 ===========================
 ===========================
-step 23
+step 25
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load intel
 ===========================
 The following have been reloaded with a version change:
   1) intel/15.0.2 => intel/15.0.1
 ===========================
-step 24
+step 26
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/avail/mf/Core4
 ===========================
 ===========================
-step 25
+step 27
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/avail/mf/Core4
@@ -406,11 +434,11 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 26
+step 28
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/avail/mf/Order
 ===========================
 ===========================
-step 27
+step 29
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/avail/mf/Order
@@ -429,11 +457,11 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 28
+step 30
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/avail/mf/Core6
 ===========================
 ===========================
-step 29
+step 31
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/avail/mf/Core6
@@ -454,7 +482,7 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 30
+step 32
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail FooBar
 ===========================
 No module(s) or extension(s) found!
@@ -464,15 +492,15 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 31
+step 33
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
-step 32
+step 34
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/avail/mf/Core7
 ===========================
 ===========================
-step 33
+step 35
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/avail/mf/Core7
@@ -483,27 +511,27 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 34
+step 36
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
 ===========================
 ===========================
-step 35
+step 37
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B
 ===========================
 Found C
 D Not found
 ===========================
-step 36
+step 38
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) A/1.2   2) B/1.0
 ===========================
-step 37
+step 39
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/avail/mf/Core8
 ===========================
 ===========================
-step 38
+step 40
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/avail/mf/Core7
@@ -516,12 +544,12 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 39
+step 41
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/avail/mf/Core9
 ===========================
 Lmod Warning: MODULEPATH directory: "ProjectDIR/rt/avail/mf/Core9" has too many non-modulefiles (101). Please make sure that modulefiles are in their own directory and not mixed in with non-modulefiles (e.g. source code)
 ===========================
-step 40
+step 42
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 Lmod Warning: MODULEPATH directory: "ProjectDIR/rt/avail/mf/Core9" has too many non-modulefiles (101). Please make sure that modulefiles are in their own directory and not mixed in with non-modulefiles (e.g. source code)
@@ -531,11 +559,11 @@ While processing the following module(s):
 Found C
 D Not found
 ===========================
-step 41
+step 43
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing use ProjectDIR/rt/avail/mf/CoreA
 ===========================
 ===========================
-step 42
+step 44
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 ProjectDIR/rt/avail/mf/CoreA
@@ -548,15 +576,15 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 43
+step 45
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
-step 44
+step 46
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 Global Aliases
-   ucc14 -> (N/A)
+   ucc12 -> (N/A)    ucc14 -> (N/A)
 ProjectDIR/rt/avail/mf/CoreA
    parmetis/3.1 (m)
   Where:
@@ -568,13 +596,60 @@ If the avail list is too long consider trying:
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
 ===========================
-step 45
+step 47
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail parmetis
 ===========================
 ProjectDIR/rt/avail/mf/CoreA
    parmetis/3.1 (m)
   Where:
    m:  built for host and native MIC
+If the avail list is too long consider trying:
+"module --default avail" or "ml -d av" to just list the default modules.
+"module overview" or "ml ov" to display the number of modules for each name.
+Use "module spider" to find all possible modules and extensions.
+Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
+===========================
+step 48
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 49
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -t avail
+===========================
+Lmod Warning: Unable to load module because of error when evaluating modulefile: <unknown>
+ OutputDIR/mf/CoreB/smake/.modulerc.lua: Unreadable or Empty or non-existent file
+     Please check the modulefile and especially if there is a line number specified in the above message
+ OutputDIR/mf/CoreB:
+emacs/
+emacs/26.4
+emacs/27.1
+emacs/28.2
+gcc/
+gcc/14.1
+smake/
+smake/8.16.0
+ucc/
+ucc/1.0
+ucc/2.0
+===========================
+step 50
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing overview
+===========================
+Lmod Warning: Unable to load module because of error when evaluating modulefile: <unknown>
+ OutputDIR/mf/CoreB/smake/.modulerc.lua: Unreadable or Empty or non-existent file
+     Please check the modulefile and especially if there is a line number specified in the above message
+ OutputDIR/mf/CoreB
+emacs (3)   gcc (1)   smake (1)   ucc (2)
+===========================
+step 51
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 52
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
+===========================
+ OutputDIR/mf/CoreB
+   emacs/28.2    gcc/14.1    smake/8.16.0
 If the avail list is too long consider trying:
 "module --default avail" or "ml -d av" to just list the default modules.
 "module overview" or "ml ov" to display the number of modules for each name.
