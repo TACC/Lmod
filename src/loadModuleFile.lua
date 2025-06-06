@@ -72,6 +72,7 @@ function loadModuleFile(t)
    local whole          = nil
    local userName
 
+   dbg.print{"Checking mode for unload\n"}
    -- If the user is requesting an unload, don't complain if the file
    -- has disappeared.
 
@@ -90,6 +91,7 @@ function loadModuleFile(t)
    end
 
    -- Check for infinite loop
+   dbg.print{"checking mcp:mode()\n"}
 
    if (mcp:mode() == "load" and t.file) then
       s_mfileCountT[t.file] = ( s_mfileCountT[t.file] or 0) + 1
@@ -98,6 +100,7 @@ function loadModuleFile(t)
       end
    end
 
+   dbg.print{"t.contents: ",t.contents,", myType: ",myType,"\n"}
    if (t.contents) then
       whole = t.contents
       dbg.start{"ModuleFile_via_contents"}
@@ -113,7 +116,9 @@ function loadModuleFile(t)
          dbg.fini("ModuleFile")
          f:close()
       end
-   else
+   end
+
+   if (myType ~= ".lua") then
       dbg.print{"Reading tcl file\n"}
       userName       = myModuleUsrName()
       local fullName = myModuleFullName()
