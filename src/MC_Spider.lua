@@ -138,11 +138,16 @@ end
 -- modules the version will be "".
 -- @param self A MainControl object.
 function M.myModuleVersion(self)
+   dbg.start{"MC_Spider:myModuleVersion(}"}
    local moduleStack = optionTbl().moduleStack
    local iStack      = #moduleStack
    local fullName    = moduleStack[iStack].fullName
    local sn          = moduleStack[iStack].sn
-   return extractVersion(fullName, sn) or ""
+   local version     = extractVersion(fullName, sn) or ""
+   dbg.print{"fullName: ",fullName,", sn: ",sn,", version: ",version,"\n"}
+   
+   dbg.fini("MC_Spider:myModuleVersion")
+   return version
 end
 
 --------------------------------------------------------------------------

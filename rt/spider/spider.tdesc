@@ -191,6 +191,15 @@ testdescript = {
      export MODULEPATH=$MODULEPATH_ROOT/Core
      runLmod avail                                                            #78
 
+     ############################################################
+     # Test Issue #768: Problem with spider and conditionals
+     runLmod purge                                                            #79
+     unsetMT
+     export MODULEPATH=$(testDir)/mf7
+     runBase runSpiderCmd -o spiderT $MODULEPATH                              #80
+     runLmod spider                                                           #81
+     runLmod load bad                                                         #82
+
      HOME=$ORIG_HOME
 
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
