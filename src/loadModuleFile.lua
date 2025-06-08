@@ -156,8 +156,10 @@ function loadModuleFile(t)
    -- Use the sandbox to evaluate modulefile text.
    if (whole) then
       -- dynamic additions via hook
-      local additional_lines = hook.apply("decorate_module", {path=myFileName(), name=myModuleName(), version=myModuleVersion(), contents=whole}) or {}
-      whole = whole .. "\n" .. concatTbl(additional_lines, "\n")
+      if ( hook.exists("decorate_module") ) then
+         local additional_lines = hook.apply("decorate_module", {path=myFileName(), name=myModuleName(), version=myModuleVersion(), contents=whole}) or {}
+         whole = whole .. "\n" .. concatTbl(additional_lines, "\n")
+      end
       status, msg = sandbox_run(whole)
    else
       status = nil
