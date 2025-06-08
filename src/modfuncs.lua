@@ -833,9 +833,7 @@ end
 --------------------------------------------------------------------------
 -- Return the version of the module.
 function myModuleVersion()
-   dbg.start{"myModuleVersion()"}
    local version = mcp:myModuleVersion()
-   dbg.fini("myModuleVersion")
    return version
 end
 
