@@ -583,10 +583,13 @@ function M.build(self, fast)
    local optionTbl   = optionTbl()
    local T1          = epoch()
    local sysDirsRead = 0
+   local deltaT      = 0.0
 
    dbg.print{"buildFresh: ",self.buildFresh,"\n"}
    if (not (self.buildFresh or optionTbl.checkSyntax)) then
-      sysDirsRead = l_readCacheFile(self, mpathA, self.systemDirA)
+      local cacheT1 = epoch()
+      sysDirsRead   = l_readCacheFile(self, mpathA, self.systemDirA)
+      timer:deltaT("read_system_cache",epoch() - cacheT1)
    end
 
    ------------------------------------------------------------------------
@@ -595,7 +598,9 @@ function M.build(self, fast)
    local spiderDirT  = self.spiderDirT
    local usrDirsRead = 0
    if (not (self.buildFresh  or isFile(self.usrCacheInvalidFn))) then
+      local cacheT1 = epoch()
       usrDirsRead = l_readCacheFile(self, mpathA, self.usrSpiderTFnA)
+      timer:deltaT("read_user_cache",epoch() - cacheT1)
    end
 
    local mpathT = {}
