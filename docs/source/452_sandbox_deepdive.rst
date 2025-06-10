@@ -17,7 +17,8 @@ The key files involved in this process are:
 *   ``src/sandbox.lua``: Contains the core logic for creating and running the sandbox.
 *   ``src/modfuncs.lua``: Defines the API functions available to modulefiles (e.g., ``setenv``, ``prepend_path``, ``load``).
 
-### Permitted Lua Functions
+Permitted Lua Functions
+^^^^^^^^^^^^^^^^^^^^^^^
 
 Only a small, "safe" subset of Lua's standard libraries are exposed to modulefiles. Functions that could perform insecure or system-altering operations are deliberately excluded.
 
@@ -34,7 +35,8 @@ The following are explicitly **not** included in the sandbox, as they could be u
 *   ``dofile``, ``loadfile``: Blocked to prevent a modulefile from executing other, potentially untrusted scripts.
 *   ``require``: Modulefiles cannot load arbitrary Lua modules.
 
-### The Lmod Modulefile API
+The Lmod Modulefile API
+^^^^^^^^^^^^^^^^^^^^^^^
 
 The second part of the ``sandbox_env`` is the set of functions defined in ``src/modfuncs.lua``. These functions form the public API for modulefiles. When a modulefile calls ``prepend_path("PATH", "/some/dir")``, it is invoking the ``prepend_path`` function from ``modfuncs.lua``, which has been exposed in its environment. These functions are designed to safely interact with Lmod's internal state, primarily by queuing changes in the ``mcp`` (Main Control Program) object.
 
@@ -54,11 +56,13 @@ Handling Different File Types
 
 Lmod's sandbox is designed for Lua, but it can handle different types of files through pre-processing.
 
-### TCL Modulefiles
+TCL Modulefiles
+^^^^^^^^^^^^^^^
 
 Lmod does **not** have a separate sandbox for TCL. Instead, when ``loadModuleFile()`` detects a TCL modulefile (by its lack of a ``.lua`` extension), it first passes the file to a translator script, ``tcl2lua.tcl``. This script reads the TCL ``modulecmd`` syntax (e.g., ``prepend-path``) and converts it into an equivalent Lua script string. This resulting Lua code is then executed in the standard Lua sandbox described above.
 
-### ``.modulerc`` Files
+``.modulerc`` Files
+^^^^^^^^^^^^^^^^^^^
 
 Configuration files like ``.modulerc`` are also evaluated in a sandbox, but a more restrictive one. The process, handled by ``mrc_sandbox_run()``, uses a much smaller allowlist of functions. This is because ``.modulerc`` files are intended for simple configuration (like setting a default version) and should not perform complex operations like loading other modules or modifying arbitrary environment variables.
 

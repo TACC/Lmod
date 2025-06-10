@@ -1,29 +1,20 @@
 Github Actions
 ~~~~~~~~~~~~~~
 
-The github website where Lmod has its repository supports actions.
-This is a hook to run tests to verify the soundness of any updates.
+Lmod's GitHub repository uses **GitHub Actions** to automatically run tests and checks on the codebase. This process ensures that any new contributions or updates maintain the stability and quality of the project.
 
-When checking in github checks to see if there is a .github/workflows
-directory with \*.yml files. If they exists then github runs them
-during the check-in process.
+When code is pushed to the repository, GitHub automatically looks for workflow files in the `.github/workflows/` directory. Lmod uses two primary workflow files:
 
-Lmod has two \*.yml files: docs.yml and test.yml file.  The docs.yml
-file checks to see if the documentation can be built without errors.
-The test.yml runs three sets of tests for both Linux and MacOS with
-several versions of Lua.
+-   `docs.yml`: This workflow ensures that the project's documentation can be built without any errors.
+-   `test.yml`: This workflow executes a comprehensive test suite on both Linux and macOS environments, across multiple versions of Lua.
 
-The .yml file downloads all the dependencies for lua and the Hermes testing
-harness.  Then each of the following tests are run.
+The `test.yml` workflow downloads all necessary dependencies for Lua and the testing frameworks. Then, it runs the following test suites:
 
-#. The **hermes** tm tests as describe ???
-#. The lua based **busted** unit tests
-#. The **Lmod_test_suite**.  These tests are run with Lmod installed. The tm tests are run directly from the source tree.
+#. The **hermes** system tests, which are described in detail in :doc:`442_testing`.
+#. The **busted** unit tests, which focus on verifying individual data structures and functions within Lmod.
+#. The **Lmod Test Suite**, which runs tests on a full Lmod installation to validate end-to-end functionality.
 
-
-The **hermes** system tests have been previously described in ???
-
-The **busted** unit tests exist to test various data structures in Lmod separately. For example, the Avail test in `spec/Avail/Avail_spec.lua` verifies the `Avail` command in different modes:
+The **busted** unit tests are designed to test various components in isolation. For example, tests for the `avail` command in `spec/Avail/Avail_spec.lua` cover different modes of operation:
 
 - **Terse Mode**: Checks the output for available modules in a concise format.
 - **Default Only**: Verifies the output for default modules only.
