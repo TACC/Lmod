@@ -585,7 +585,7 @@ function main()
    local t2 = epoch()
    timer:deltaT("main", t2 - t1)
    if (optionTbl.reportTimer) then
-      io.stderr:write(timer:report(),"\n")
+      io.stderr:write("\n",timer:report(),"\n\n")
    end
 
    if (getStatusFlag()) then
