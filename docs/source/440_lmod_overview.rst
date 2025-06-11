@@ -24,6 +24,14 @@ It does this by loading and unloading modulefiles. When Lmod takes a command, it
 table of key value pairs.   Finally, once the command has successfully
 completed, Lmod will output the table of key value pairs to stdout.
 
+The two core internal data structures Lmod uses to manage this state are:
+
+-  **The Module Table (MT)**: An in-memory database of all known modules and their current state (active, inactive, etc.).
+-  **The Variable Table (varT)**: An in-memory representation of the shell environment being modified.
+
+These tables are snapshotted and managed by the :doc:`FrameStk <454_framestack_deepdive>` to allow for reversible operations.
+You can learn more about these core components in the :doc:`Lmod Glossary <441_lmod_glossary>`.
+
 The output is typically written as shell commands. The choice of shell is picked
 by the user. The `module` command itself is a shell function (in bash/zsh) or
 alias (in tcsh/csh) that uses `eval` to apply Lmod's output to the current
@@ -90,15 +98,15 @@ The following steps trace the execution of the command **`module load foo/1.0`**
    minus are added to the unload list.  All other modules are added to
    the load list.
 #. The **l_usrLoad** function converts the command line argument
-   **foo/1.0** to an **MName** object. An MName is Lmod's internal representation
+   **foo/1.0** to an **MName** object. An :doc:`MName <441_lmod_glossary>` is Lmod's internal representation
    of a module, encapsulating its name, version, and the logic to find its file path.
-   The complex details of this name-to-path resolution process are found here:
-   :ref:`deepdive_mname_resolution`
+   The complex details of this name-to-path resolution process are found in the
+   :doc:`MName Resolution Deep Dive <450_mname_resolution_deepdive>`.
 #. The module is ready to start the loading process. It uses a derived
    object called **mcp** (short for main control program, a nod to the
-   movie Tron). The `mcp` is Lmod's central conductor; it knows the current
+   movie Tron). The :doc:`mcp <441_lmod_glossary>` is Lmod's central conductor; it knows the current
    context (e.g., 'loading' vs. 'unloading') and dictates how modulefile commands
-   should be interpreted. How this works is discussed here: :ref:`deepdive_mcp_overview`.
+   should be interpreted. How this works is discussed in the :doc:`MCP Deep Dive <451_mcp_deepdive>`.
    In our case, the **mcp:load_usr(lA)** calls **M.load_usr()** in
    **src/MainControl.lua**.  After telling Lmod to register the list
    of loaded module, Lmod then calls **M.load()** still in
@@ -123,7 +131,7 @@ The following steps trace the execution of the command **`module load foo/1.0`**
    Lmod functions like **setenv()** and **prepend_path()** but not
    other internal Lmod functions. It also allows Lmod to capture any
    syntax or other errors that a modulefile might have. The sandbox mechanism
-   is explained in detail here: :ref:`deepdive_sandbox`.
+   is explained in detail in the :doc:`Sandbox Deep Dive <452_sandbox_deepdive>`.
 #. Once the **sandbox_run()** function is called.  It is now Lua that
    controls the evaluation of the modulefile.  The only time that Lmod
    has control is when a function implemented in Lmod like
@@ -173,12 +181,12 @@ evaluate the module are discussed here.  Here we discuss how the line
    supposed to take. For example this modulefile could be loading, in
    that case it calls **M.setenv()** in **src/MainControl.lua**. But
    if Lmod is unloading the module then **M.unsetenv()** is called.
-   This is controlled by **mcp**.  See :ref:`deepdive_mcp_overview` for more
+   This is controlled by **mcp**.  See the :doc:`MCP Deep Dive <451_mcp_deepdive>` for more
    details.
 #. The function **M.setenv()** store the name of the environment
    variable as the key and the next command line argument as the
    value.  In this case the key is "Foo" and the value is "Bar".  This
-   key value pair is stored in the **varT** table.
+   key value pair is stored in the **varT** table. See the :doc:`varT Deep Dive <456_vart_deepdive>` for details.
 
 The evaluation of **prepend_path("PATH","/home/user/bin")** works
 similarly.
@@ -189,7 +197,7 @@ similarly.
    supposed to take. For example this modulefile could be loading, in
    that case it calls **M.prepend_path()** in **src/MainControl.lua**. But
    if Lmod is unloading the module then **M.remove_path()** is called.
-   This is controlled by **mcp**.  See :ref:`deepdive_mcp_overview` for more
+   This is controlled by **mcp**.  See the :doc:`MCP Deep Dive <451_mcp_deepdive>` for more
    details.
 #. The function **M.prepend_path()** store the name of the environment
    variable as the key and the next command line argument as the
@@ -201,9 +209,9 @@ Summary
 -------
 
 As we have seen, a single `module load` command initiates a chain of events:
-parsing the user's request, resolving a module name to a file (`MName`),
-orchestrating the operation based on context (`mcp`), enforcing loading rules
-like conflict detection (`Hub`), and finally evaluating the modulefile in a
+parsing the user's request, resolving a module name to a file (:doc:`MName <441_lmod_glossary>`),
+orchestrating the operation based on context (:doc:`mcp <441_lmod_glossary>`), enforcing loading rules
+like conflict detection (:doc:`Hub <441_lmod_glossary>`), and finally evaluating the modulefile in a
 secure `sandbox`. The entire process culminates in Lmod generating a string of
 shell commands, which the user's shell then executes via `eval` to modify its
 own environment.

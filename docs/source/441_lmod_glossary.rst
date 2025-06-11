@@ -23,6 +23,8 @@ This glossary defines key terms, components, and concepts used within the Lmod c
 
        Common operations include ``push()`` when entering a module context and ``pop()`` when exiting.
 
+       For a detailed explanation of its role in state management, see :doc:`454_framestack_deepdive`.
+
    Hub
        A central singleton object, with its logic primarily defined in ``src/Hub.lua``. It acts as the main engine for Lmod's operations concerning modules. Its responsibilities include:
 
@@ -117,6 +119,8 @@ This glossary defines key terms, components, and concepts used within the Lmod c
 
        The ``MT`` is typically accessed as a singleton object (e.g., ``MT:singleton()``) or retrieved from the current evaluation context via ``frameStk:mt()``. It is dynamically updated as modules are loaded and unloaded.
 
+       For a detailed explanation of its role in state management, see :doc:`455_mt_deepdive`.
+
    myGlobal
        Refers to the Lua script ``src/myGlobals.lua``. Its
        primary purpose is to initialize and make available a wide
@@ -155,4 +159,6 @@ This glossary defines key terms, components, and concepts used within the Lmod c
        1.  **Structure**: ``varT`` is a Lua table where keys are environment variable names (strings, e.g., "PATH", "FOO_VERSION"). The values associated with these keys are instances of the ``Var`` class (defined in ``src/Var.lua``). Each ``Var`` object encapsulates the state and behavior for a single environment variable (e.g., its current value, delimiter for path-like variables, rules for handling duplicates).
        2.  **Access**: ``varT`` is typically accessed from the current evaluation context (frame) via ``frameStk:varT()``, where ``frameStk`` is the singleton instance of ``FrameStk``.
        3.  **Manipulation**: All modifications to the environment dictated by modulefile commands (like ``setenv``, ``prepend_path``, ``set_alias``) are performed by first obtaining the relevant ``Var`` object from ``varT`` (creating it if it doesn't exist via ``Var:new(name)``) and then calling methods on that ``Var`` object (e.g., ``:set()``, ``:prepend()``, ``:setAlias()``). These methods update the internal state of the ``Var`` object within ``varT``.
-       4.  **Output Generation**: After all module commands are processed, Lmod reads the final state of all ``Var`` objects in ``varT`` to generate the shell commands (e.g., ``export FOO=bar;``, ``setenv PATH /new/path:$PATH``) that will actually modify the user's shell environment. 
+       4.  **Output Generation**: After all module commands are processed, Lmod reads the final state of all ``Var`` objects in ``varT`` to generate the shell commands (e.g., ``export FOO=bar;``, ``setenv PATH /new/path:$PATH``) that will actually modify the user's shell environment.
+
+       For a detailed explanation of its role in state management, see :doc:`456_vart_deepdive`.
