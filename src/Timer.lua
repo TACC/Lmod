@@ -98,8 +98,8 @@ function M.report(self)
                  return a[3] > b[3]
                  end)
 
-   table.insert(a, 1, { "----", "-----", "------", "--------" })
    table.insert(a, 1, { "Name", "Count", "T Time", "Ave Time" })
+   table.insert(a, 2, { "----", "-----", "------", "--------" })
 
    local bt = BeautifulTbl:new{tbl = a, justifyT = {"Left", "Right", "Right", "Right"}}
    return bt:build_tbl()
