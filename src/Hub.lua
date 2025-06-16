@@ -786,7 +786,7 @@ function M.dependencyCk()
          frameStk:push(MName:new("mt",sn))
          dbg.print{"DepCk loading: ",sn," fn: ", fn,"\n"}
          loadModuleFile{file = fn, shell = shellNm, mList = mList,
-                        reportErr=true, forbiddenT = {}}
+                        reportErr=true, forbiddenT = {} }
          frameStk:pop()
       end
    end
