@@ -22,6 +22,7 @@ dirNm, execName = os.path.split(os.path.realpath(sys.argv[0]))
 sys.path.append(os.path.realpath(dirNm))
 
 from LMODdb     import LMODdb
+import mysql.connector
 import argparse
 
 def dbConfigFn(dbname):
@@ -102,8 +103,8 @@ def main():
     print("(%d) create moduleT table" % idx ); idx += 1;
 
     cursor.close()
-  except  MySQLdb.Error as e:
-    print ("Error %d: %s" % (e.args[0], e.args[1]))
-    sys.exit (1)
+  except mysql.connector.Error as e:
+    print("Error %d: %s" % (e.args[0], e.args[1]))
+    sys.exit(1)
 
 if ( __name__ == '__main__'): main()
