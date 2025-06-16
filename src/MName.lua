@@ -48,6 +48,7 @@ local cosmic      = require("Cosmic"):singleton()
 local dbg         = require("Dbg"):dbg()
 local sort        = table.sort
 local s_findT     = false
+local timer       = require("Timer"):singleton()
 
 function M.className(self)
    return self.my_name
@@ -184,6 +185,7 @@ local function l_lazyEval(self)
 
    local sType   = self.__sType
    if (sType == "mt") then
+      local t1       = epoch()
       local frameStk = FrameStk:singleton()
       local mt       = frameStk:mt()
       local sn       = mt:lookup_w_userName(self.__userName)
@@ -197,6 +199,7 @@ local function l_lazyEval(self)
          self.__ref_count       = mt:get_ref_count(sn)
          self.__depends_on_anyA = mt:get_depends_on_anyA(sn)
       end
+      timer:deltaT("l_lazyEval", epoch() - t1)
       dbg.fini("l_lazyEval via mt")
       return
    end

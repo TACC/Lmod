@@ -59,6 +59,7 @@ local i18n          = require("i18n")
 local remove        = table.remove
 local sort          = table.sort
 local q_load        = 0
+local timer         = require("Timer"):singleton()
 local s_same        = true
 
 local A             = ShowResultsA
@@ -785,8 +786,10 @@ function M.dependencyCk()
       if (isFile(fn)) then
          frameStk:push(MName:new("mt",sn))
          dbg.print{"DepCk loading: ",sn," fn: ", fn,"\n"}
+         local t1 = epoch()
          loadModuleFile{file = fn, shell = shellNm, mList = mList,
                         reportErr=true, forbiddenT = {} }
+         timer:deltaT("depend_load", epoch() - t1)
          frameStk:pop()
       end
    end

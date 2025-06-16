@@ -900,7 +900,7 @@ end
 --------------------------------------------------------------------------
 -- The quiet function.
 -- @param self A MainControl object
-function M.quiet(self, ...)
+function M.quiet(self)
    -- very Quiet !!!
 end
 
