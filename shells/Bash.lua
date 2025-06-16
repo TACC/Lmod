@@ -83,7 +83,8 @@ end
 --                   one and only one semicolon at the end.
 
 function Bash.shellFunc(self, k, v)
-   dbg.print{"Bash.shellFunc: k: \"",k,"\", v: ",v,"\n"}
+   local value = (type(v) == "table") and v[1] or v
+   dbg.print{"Bash.shellFunc: k: \"",k,"\", value: ",value,"\n"}
    if (not v) then
       stdout:write("unset -f ",k," 2> /dev/null || true;\n")
       dbg.print{   "unset -f ",k," 2> /dev/null || true;\n"}
