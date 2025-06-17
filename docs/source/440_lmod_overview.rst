@@ -37,7 +37,8 @@ by the user. The `module` command itself is a shell function (in bash/zsh) or
 alias (in tcsh/csh) that uses `eval` to apply Lmod's output to the current
 shell.
 
-For bash and zsh, the shell function is typically defined as:
+For bash and zsh, the shell function ``module`` can be defined in its
+simpliest terms as:
 
 .. code-block:: shell
 
@@ -48,13 +49,15 @@ For bash and zsh, the shell function is typically defined as:
 The `eval` command is the key to Lmod's ability to modify the shell's
 environment. The process works in three stages:
 
-1.  **`$LMOD_CMD shell "$@"`**: First, the Lmod program runs. Its job is *not*
-    to change the environment itself, but to **print plain text** to its
+1.  **$LMOD_CMD shell "$@"**: First, the Lmod program runs. Its job is *not*
+    to change the environment itself, but to **generate plain text** to its
     standard output. This text consists of the shell commands required to make
-    the desired changes (e.g., ``export FOO=Bar;`` or ``unset PATH;``).
-2.  **`$(...)`**: The shell's command substitution syntax captures this plain
+    the desired changes (e.g., ``export FOO=Bar;`` or ``unset
+    PATH;``). Note that if Lmod sees **shell** as its first arguemnt
+    it figures out what shell the user is running.
+2.  **$(...)**: The shell's command substitution syntax captures this plain
     text output from the Lmod process.
-3.  **`eval "..."`**: Finally, `eval` takes the captured string of commands
+3.  **eval "..."**: Finally, `eval` takes the captured string of commands
     and executes it in the context of the *current* shell. This is what allows
     Lmod, an external program, to define variables, aliases, and functions in
     your interactive session.
@@ -80,9 +83,9 @@ ignoring the evaluation step.
 Internal Steps
 --------------
 
-The following steps trace the execution of the command **`module load foo/1.0`**.
+The following steps trace the execution of the command **module load foo/1.0**.
 
-#. The user command **module load foo/1.0**
+#. The user issues the command **module load foo/1.0**
 #. Lmod decides what command to run by using the second argument
    (namely **load**) and converts the word into a command.  It does
    this by searching the **lmodCmdA** table in **src/lmod.in.lua** for the
@@ -112,7 +115,8 @@ The following steps trace the execution of the command **`module load foo/1.0`**
    of loaded module, Lmod then calls **M.load()** still in
    **src/MainControl.lua** 
 #. The function **M.load()** builds a hub singleton and calls
-   **hub:load()** with the list of MName objects to load
+   **hub:load()** with the list of MName objects to load.  Note that a
+   user might request more than one module to load.
 #. The **M.load()** is found in **src/Hub.lua**.  Here Lmod has
    implemented many of its rules.  For example this routine checks to
    see if there is another "Foo" module loaded.  In that case the old
@@ -142,7 +146,7 @@ The following steps trace the execution of the command **`module load foo/1.0`**
 #. Finally, if there are no errors, Lmod then takes the internal key
    value pairs and output that text in the requested style, such as
    bash as text which is then evaluated by the shell function or shell
-   alias. 
+   alias.  This only happens for values that have changed.
 
 Visual Summary of Internal Steps
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -157,7 +161,7 @@ The following flowchart provides a high-level summary of the process described a
     Lmod Process:
     1. Parse Command (`lmod.in.lua`)
     2. Create `MName` for "foo"
-    3. Use `mcp` to orchestrate load
+    3. Build an `mcp` object to orchestrate load
     4. `Hub` applies rules (conflicts, etc.)
     5. `loadModuleFile` reads file
     6. `sandbox` executes module code
