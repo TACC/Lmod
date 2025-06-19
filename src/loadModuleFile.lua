@@ -101,7 +101,7 @@ function loadModuleFile(t)
       end
    end
 
-   dbg.print{"t.contents: ",t.contents,", myType: ",myType,"\n"}
+   dbg.print{"myType: ",myType,", t.contents: \n",t.contents,"\n"}
    if (t.contents) then
       whole = t.contents
       dbg.start{"ModuleFile_via_contents"}
