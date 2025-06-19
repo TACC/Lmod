@@ -732,10 +732,12 @@ end
 
 function M.singleton(self, t)
    dbg.start{"ModuleA:singleton(t)"}
+   local resetFlag = false
    t      = t or {}
    t.kind = t.kind or "normal"
    if (t.reset or (s_moduleA and s_moduleA:spiderBuilt())) then
       dbg.print{"Wiping out old value of s_moduleA, t.reset: ",t.reset,", s_moduleA:spiderBuilt(): ",(s_moduleA and s_moduleA:spiderBuilt()),"\n"}
+      resetFlag = true
       self:__clear{testing=t.reset}
    end
    if (not s_moduleA) then
@@ -749,7 +751,9 @@ function M.singleton(self, t)
          spiderT, dbT = cache:build()
       end
       s_moduleA = self:__new(mt:modulePathA(), mt:maxDepthT(), getModuleRCT(), spiderT)
-      s_moduleA:setSpiderBuilt(false)
+      if (resetFlag) then
+         s_moduleA:setSpiderBuilt(false)
+      end
       dbg.print{"After ModuleA:__new: s_moduleA:spiderBuilt(): ",(s_moduleA and s_moduleA:spiderBuilt()),"\n"}
    end
 
