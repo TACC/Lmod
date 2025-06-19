@@ -672,9 +672,8 @@ function M.__new(self, mpathA, maxdepthT, moduleRCT, spiderT)
    if (next(spiderT) ~= nil) then
       o.__spiderBuilt        = true
       dbg.print{"calling l_build_from_spiderT()\n"}
-      dbg.printT("spiderT",spiderT)
+      --dbg.printT("spiderT",spiderT)
       o.__moduleA, o.__isNVV = l_build_from_spiderT(spiderT)
-      o.__spiderBuilt        = false
    else
       dbg.print{"calling DirTree:new()\n"}
       dirTree         = DirTree:new(mpathA)
@@ -750,6 +749,7 @@ function M.singleton(self, t)
          spiderT, dbT = cache:build()
       end
       s_moduleA = self:__new(mt:modulePathA(), mt:maxDepthT(), getModuleRCT(), spiderT)
+      s_moduleA:setSpiderBuilt(false)
       dbg.print{"After ModuleA:__new: s_moduleA:spiderBuilt(): ",(s_moduleA and s_moduleA:spiderBuilt()),"\n"}
    end
 
