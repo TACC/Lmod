@@ -731,7 +731,7 @@ function M.singleton(self, t)
    t      = t or {}
    t.kind = t.kind or "normal"
    if (t.reset or (s_moduleA and s_moduleA:spiderBuilt())) then
-      dbg.print{"Wiping out old value of s_moduleA\n"}
+      dbg.print{"Wiping out old value of s_moduleA, t.reset: ",t.reset,", s_moduleA:spiderBuilt(): ",(s_moduleA and s_moduleA:spiderBuilt()),"\n"}
       self:__clear{testing=t.reset}
    end
    if (not s_moduleA) then

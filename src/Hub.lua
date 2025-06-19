@@ -788,7 +788,7 @@ function M.dependencyCk()
          dbg.print{"DepCk loading: ",sn," fn: ", fn,"\n"}
          local t1 = epoch()
          loadModuleFile{file = fn, shell = shellNm, mList = mList,
-                        reportErr=true, forbiddenT = {} }
+                        reportErr=true, forbiddenT = {}, depCk = true }
          timer:deltaT("depend_load", epoch() - t1)
          frameStk:pop()
       end

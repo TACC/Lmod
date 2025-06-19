@@ -51,6 +51,7 @@ local hook            = require("Hook")
 local dbg             = require("Dbg"):dbg()
 local concatTbl       = table.concat
 local getenv          = os.getenv
+local timer           = require("Timer"):singleton()
 
 local s_mfileCountT   = {}
 
@@ -166,9 +167,13 @@ function loadModuleFile(t)
 
    if (whole) then
       -- dynamic additions via hook
-      local additional_lines = hook.apply("decorate_module", {path=myFileName(), name=myModuleName(), version=myModuleVersion(), contents=whole}) or {}
-      local everything       = whole .. "\n" .. concatTbl(additional_lines, "\n")
-
+      local everything 
+      if ( hook.exists("decorate_module") ) then
+         local additional_lines = hook.apply("decorate_module", {path=myFileName(), name=myModuleName(), version=myModuleVersion(), contents=whole}) or {}
+         everything             = whole .. "\n" .. concatTbl(additional_lines, "\n")
+      else
+         everything = whole
+      end
       status, msg = sandbox_run(everything)
    else
       status = nil
