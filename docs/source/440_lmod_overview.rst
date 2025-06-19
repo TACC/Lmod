@@ -164,7 +164,7 @@ The following flowchart provides a high-level summary of the process described a
     3. Build an `mcp` object to orchestrate load
     4. `Hub` applies rules (conflicts, etc.)
     5. `loadModuleFile` reads file
-    6. `sandbox` executes module code
+    6. `sandbox` executes module code using the generated `mcp`
     7. Update internal state (`VarT`, `MT`)
     8. Generate shell code string (e.g., "export FOO=Bar;")
            |
