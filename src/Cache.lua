@@ -215,6 +215,7 @@ local function l_new(self, t)
    end
 
    t                   = t or {}
+   o.kind              = t.kind
    o.usrCacheDir       = usrCacheDir
    o.usrCacheInvalidFn = pathJoin(usrCacheDir,"invalidated")
    o.usrSpiderTFnA     = usrSpiderTFnA
