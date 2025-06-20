@@ -221,8 +221,7 @@ Lmod 8.7+
             * Issue #728: Now allow FAST_TCL_INTERP with tcl 9
             * PR    #757: Merge in changes to irreversible docs
             * Support for TCL Irreversible commands added.
-W.I.P.:
-            * Issue #762: Fixed int len to be Tcl_Size len in tcl2lua.c
+   (8.7.61) * Issue #762: Fixed int len to be Tcl_Size len in tcl2lua.c
                           Make TCL_Size be int when tcl version is < 9
             * Issue #763: Added msgHook to overview.  Handle empty msgHook function for spider.
             * Issue #767: Only add ksh functions to bash/zsh user accounts when /path/to/lmod/init/ksh_funcs
@@ -234,3 +233,4 @@ W.I.P.:
             * Issue #759: Using :escape to deal w/ special chars like '-'
             * Issue #765: Only call decorate_module hook if a module is found.
             * Issue #761: Check permissions for file and directories in src/DirTree.lua
+            # Issue #771: Wrap l_readCacheFile() in a pcall.  Report warning for bad cache file but keep going.
