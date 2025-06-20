@@ -1637,3 +1637,11 @@ step 82
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load bad
 ===========================
 false
+===========================
+step 83
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
+===========================
+MODULEPATH=ProjectDIR/rt/spider/mf7;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={},mpathA={"ProjectDIR/rt/spider/mf7",},systemBaseMPATH="ProjectDIR/rt/spider/mf7",}';
+export _ModuleTable_;

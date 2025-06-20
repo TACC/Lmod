@@ -1011,3 +1011,18 @@ Lmod has detected the following error: Unable to load module because of error wh
 While processing the following module(s):
     Module fullname  Module Filename
     bad/1.0          ProjectDIR/rt/spider/mf7/bad/1.0.lua
+===========================
+step 83
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing spider
+===========================
+Lmod Warning: User Spider cache appears broken
+The following is a list of the modules and extensions currently available:
+  bad: bad/1.0
+  tst1: tst1/19
+  tst2: tst2/19
+To learn more about a package execute:
+   $ module spider Foo
+where "Foo" is the name of a module.
+To find detailed information about a particular package you
+must specify the version if there is more than one version:
+   $ module spider Foo/11.1

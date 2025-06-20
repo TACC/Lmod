@@ -200,6 +200,13 @@ testdescript = {
      runLmod spider                                                           #81
      runLmod load bad                                                         #82
 
+     ############################################################
+     # Test Issue #771: What if spider cache is broken?
+     mkdir -p $HOME/.cache/lmod
+     cp $(testDir)/bad_cache.lua $HOME/.cache/lmod/spiderT.lua
+     runLmod spider                                                           #83
+
+
      HOME=$ORIG_HOME
 
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

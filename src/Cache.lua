@@ -565,10 +565,7 @@ function M.build(self, fast)
       ok, msg = pcall(l_readCacheFile, self, mpathA, self.systemDirA, resultT)
       if (not ok) then
          l_resetSpiderT(self)
-         if (msg) then 
-            io.stderr:write("Msg: ",msg,"\n")
-            LmodWarning{msg="w_Broken_Spider_Cache"}
-         end
+         LmodWarning{msg="w_Broken_Cache",kind="System"}
       else
          sysDirsRead   = resultT.dirsRead
       end
@@ -585,10 +582,7 @@ function M.build(self, fast)
       ok, msg = pcall(l_readCacheFile,self, mpathA, self.usrSpiderTFnA, resultT)
       if (not ok) then
          l_resetSpiderT(self)
-         if (msg) then 
-            io.stderr:write("Msg: ",msg,"\n")
-            LmodWarning{msg="w_Broken_Spider_Cache"}
-         end
+         LmodWarning{msg="w_Broken_Cache",kind="User"}
       else
          usrDirsRead = resultT.dirsRead
       end
