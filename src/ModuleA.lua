@@ -700,6 +700,10 @@ function M.isNVV(self)
    return self.__isNVV
 end
 
+function M.setSpiderBuilt(self, value)
+   self.__spiderBuilt = value
+end
+
 function M.spiderBuilt(self)
    return self.__spiderBuilt
 end
@@ -728,9 +732,11 @@ end
 
 function M.singleton(self, t)
    dbg.start{"ModuleA:singleton(t)"}
-   t = t or {}
+   local resetFlag = false
+   t               = t or {}
    if (t.reset or (s_moduleA and s_moduleA:spiderBuilt())) then
       dbg.print{"Wiping out old value of s_moduleA\n"}
+      resetFlag = true
       self:__clear{testing=t.reset}
    end
    if (not s_moduleA) then
@@ -744,6 +750,9 @@ function M.singleton(self, t)
          spiderT, dbT = cache:build()
       end
       s_moduleA = self:__new(mt:modulePathA(), mt:maxDepthT(), getModuleRCT(), spiderT)
+      if (resetFlag) then
+         s_moduleA:setSpiderBuilt(false)
+      end
    end
 
    dbg.fini("ModuleA:singleton")
