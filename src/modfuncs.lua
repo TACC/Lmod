@@ -833,7 +833,8 @@ end
 --------------------------------------------------------------------------
 -- Return the version of the module.
 function myModuleVersion()
-   return mcp:myModuleVersion()
+   local version = mcp:myModuleVersion()
+   return version
 end
 
 --------------------------------------------------------------------------

@@ -72,7 +72,7 @@ function findInPath(exec, path)
       end
    end
 
-   path    = path or os.getenv("PATH")
+   path = path or os.getenv("PATH") or ""
    for dir in path:split(":") do
       local fullcmd = pathJoin(dir, cmd)
       if (access(fullcmd,"x")) then

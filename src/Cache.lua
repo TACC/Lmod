@@ -88,6 +88,16 @@ local timer      = require("Timer"):singleton()
 
 local random     = math.random
 local randomseed = math.randomseed
+
+local function l_resetSpiderT(self)
+   self.mDT        = {}
+   self.spiderT    = {}
+   self.mpathMapT  = {}
+   self.spiderDirT = {}
+end
+
+
+
 --------------------------------------------------------------------------
 -- This singleton construct reads the scDescriptT table that can be
 -- defined in the lmodrc.lua.  Typically this table, if it exists
@@ -205,9 +215,6 @@ local function l_new(self, t)
    end
 
    t                   = t or {}
-   o.kind              = t.kind
-   o.spiderDirT        = {}
-   o.mDT               = {}
    o.usrCacheDir       = usrCacheDir
    o.usrCacheInvalidFn = pathJoin(usrCacheDir,"invalidated")
    o.usrSpiderTFnA     = usrSpiderTFnA
@@ -221,9 +228,8 @@ local function l_new(self, t)
 
    o.dbT               = {}
    o.providedByT       = {}
-   o.spiderT           = {}
-   o.mpathMapT         = {}
    o.moduleDirA        = {}
+   l_resetSpiderT(o)
    dbg.fini("Cache:l_new")
    return o
 end
@@ -304,7 +310,7 @@ end
 -- @param self a Cache object
 -- @param spiderTFnA An array of cache files to read and process.
 -- @return the number of directories read.
-local function l_readCacheFile(self, mpathA, spiderTFnA)
+local function l_readCacheFile(self, mpathA, spiderTFnA, resultT)
    dbg.start{"Cache l_readCacheFile(mpathA, spiderTFnA)"}
    local dirsRead     = 0
    local ignore_cache = cosmic:value("LMOD_IGNORE_CACHE") == "yes"
@@ -312,7 +318,8 @@ local function l_readCacheFile(self, mpathA, spiderTFnA)
    if (optionTbl().ignoreCache or ignore_cache) then
       dbg.print{"LMOD_IGNORE_CACHE is true\n"}
       dbg.fini("Cache l_readCacheFile")
-      return dirsRead
+      resultT.dirsRead = dirsRead
+      return 
    end
 
    declare("spiderT")
@@ -400,8 +407,9 @@ local function l_readCacheFile(self, mpathA, spiderTFnA)
       until true
    end
 
+   resultT.dirsRead = dirsRead
    dbg.fini("Cache l_readCacheFile")
-   return dirsRead
+   return 
 end
 
 --------------------------------------------------------------------------
@@ -587,8 +595,16 @@ function M.build(self, fast)
 
    dbg.print{"buildFresh: ",self.buildFresh,"\n"}
    if (not (self.buildFresh or optionTbl.checkSyntax)) then
+      local ok, msg
+      local resultT = {}
       local cacheT1 = epoch()
-      sysDirsRead   = l_readCacheFile(self, mpathA, self.systemDirA)
+      ok, msg = pcall(l_readCacheFile, self, mpathA, self.systemDirA, resultT)
+      if (not ok) then
+         l_resetSpiderT(self)
+         LmodWarning{msg="w_Broken_Cache",kind="System"}
+      else
+         sysDirsRead   = resultT.dirsRead
+      end
       timer:deltaT("read_system_cache",epoch() - cacheT1)
    end
 
@@ -598,8 +614,16 @@ function M.build(self, fast)
    local spiderDirT  = self.spiderDirT
    local usrDirsRead = 0
    if (not (self.buildFresh  or isFile(self.usrCacheInvalidFn))) then
+      local ok, msg
+      local resultT = {}
       local cacheT1 = epoch()
-      usrDirsRead = l_readCacheFile(self, mpathA, self.usrSpiderTFnA)
+      ok, msg = pcall(l_readCacheFile,self, mpathA, self.usrSpiderTFnA, resultT)
+      if (not ok) then
+         l_resetSpiderT(self)
+         LmodWarning{msg="w_Broken_Cache",kind="User"}
+      else
+         usrDirsRead = resultT.dirsRead
+      end
       timer:deltaT("read_user_cache",epoch() - cacheT1)
    end
 

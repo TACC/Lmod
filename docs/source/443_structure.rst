@@ -70,8 +70,8 @@ Key Architectural Components:
     *   **Key Files:**
 
         *   ``src/lmod.in.lua``: After all command processing is complete, this script orchestrates the output generation by calling the ``expand()`` method of the current ``Shell`` object, passing it the ``varT``.
-        *   ``src/BaseShell.lua``: Provides an abstract base class for shell-specific output generation.
-        *   ``src/shells/*.lua`` (e.g., ``src/shells/bash.lua``, ``src/shells/csh.lua``): These are concrete implementations for specific shells. They inherit from ``BaseShell.lua`` and implement the ``expand(varT)`` method, which iterates through the ``varT`` and prints the appropriate shell commands (e.g., ``export VAR=val`` for Bash, ``setenv VAR val`` for Csh) to standard output.
+        *   ``shells/BaseShell.lua``: Provides an abstract base class for shell-specific output generation.
+        *   ``shells/*.lua`` (e.g., ``shells/bash.lua``, ``shells/csh.lua``): These are concrete implementations for specific shells. They inherit from ``BaseShell.lua`` and implement the ``expand(varT)`` method, which iterates through the ``varT`` and prints the appropriate shell commands (e.g., ``export VAR=val`` for Bash, ``setenv VAR val`` for Csh) to standard output.
         *   ``src/Exec.lua``: Manages any direct shell command execution requested by modulefiles via the ``execute{}`` directive. Its ``expand()`` method is also called by ``lmod.in.lua`` to output these commands.
 
 Project Directory Structure
@@ -79,9 +79,11 @@ Project Directory Structure
 
 Understanding the layout of the Lmod codebase can help in navigating and comprehending its components.
 
-*   **``src/``**: This is the heart of Lmod, containing all the core Lua source files that implement Lmod's functionality. Key files discussed in the architecture section (``lmod.in.lua``, ``MainControl.lua``, ``sandbox.lua``, ``Var.lua``, ``modfuncs.lua``, ``Hub.lua``, ``loadModuleFile.lua``, ``Options.lua``, ``cmdfuncs.lua``, ``BaseShell.lua``, etc.) are located here.
-    *   **``src/shells/``**: Contains Lua modules for specific shell output formatting (e.g., ``bash.lua``, ``csh.lua``, ``zsh.lua``). These are used by the Output Formatter.
+*   **``src/``**: This is the heart of Lmod, containing all the core Lua source files that implement Lmod's functionality. Key files discussed in the architecture section (``lmod.in.lua``, ``MainControl.lua``, ``sandbox.lua``, ``Var.lua``, ``modfuncs.lua``, ``Hub.lua``, ``loadModuleFile.lua``, ``Options.lua``, ``cmdfuncs.lua``,  etc.) are located here.
+
     *   **``src/MC_*.lua`` files**: Implementations for different modes of the MainControl program (MCP).
+
+*   **``shells/``**: Contains Lua modules for specific shell output formatting (e.g., ``BaseShell.lua``, ``Bash.lua``, ``Csh.lua``, ``Zsh.lua``). These are used by the Output Formatter.
 
 *   **``libexec/``**: Contains helper scripts and the main executable entry points like ``lmod`` and ``ml`` (which are typically wrappers that call ``lmod.in.lua`` and ``ml_cmd.in.lua`` respectively with the Lua interpreter). The ``tcl2lua.tcl`` script is also often found here or in a path accessible to ``loadModuleFile.lua``.
 
@@ -92,6 +94,7 @@ Understanding the layout of the Lmod codebase can help in navigating and compreh
 *   **``etc/``**: Typically contains Lmod's global configuration files, such as ``lmod_config.lua`` (site-wide Lmod settings) and ``lmodrc.lua`` (system-wide module RC file).
 
 *   **``docs/``**: Contains the source files for Lmod's documentation, written in reStructuredText.
+
     *   **``docs/source/``**: The primary location for ``.rst`` files.
 
 *   **``rt/``**: Contains the regression testing suite for Lmod (short for "regression tests"). This framework is crucial for verifying Lmod's functionality, preventing regressions, and ensuring stability across different shells and scenarios. For details on how to run these tests, see :ref:`lmod_testing_guide`.

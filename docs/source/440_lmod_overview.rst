@@ -1,44 +1,72 @@
 Lmod Internal Overview
 ~~~~~~~~~~~~~~~~~~~~~~
 
-This overview is for developers who wish to understand how the Lmod
-program works.  We will outline the actions that Lmod takes when it is
-given a command. In particular we will show how Lmod loads the
-following simple modulefiles called foo/1.0.lua:: 
+This document provides a concrete, step-by-step walkthrough of Lmod's most common
+operation: loading a module. It follows a single ``module load`` command from
+user input to the final environment modification, explaining the key functions
+and components involved in that specific sequence.
+
+To illustrate this process, we will trace how Lmod handles the command
+``module load foo/1.0``, assuming the ``foo/1.0.lua`` modulefile contains the
+following code:
+
+.. code-block:: lua
 
     setenv("Foo", "Bar")
     prepend_path("PATH", "/home/user/bin")
 
-For a detailed description of Lmod's high-level architecture, its core
-components, their interactions, and an explanation of the project's directory
-structure, please refer to the dedicated document:
+For a higher-level, component-based view of the architecture (the "what" and "where"), 
+please first read the :doc:`443_structure` document. We recommend understanding the 
+high-level components before diving into this detailed procedural walkthrough.
 
-.. toctree::
-   :maxdepth: 1
-
-   443_structure
-
-In Lmod simplist terms, it takes commands from the user to change the state of the user's environment.  
+In Lmod's simplest terms, it takes commands from the user to change the state of the user's environment.  
 It does this by loading and unloading modulefiles. When Lmod takes a command, it modifies an internal
 table of key value pairs.   Finally, once the command has successfully
 completed, Lmod will output the table of key value pairs to stdout.
 
-The output is typically written as shell commands.  The choice of
-shell is picked by the user.   The module command in its simplest form
-is a shell function in bash and a shell alias in tcsh/csh.  For bash
-and zsh the shell function can be written as::
+The two core internal data structures Lmod uses to manage this state are:
+
+-  **The Module Table (MT)**: An in-memory database of all known modules and their current state (active, inactive, etc.).
+-  **The Variable Table (varT)**: An in-memory representation of the shell environment being modified.
+
+These tables are snapshotted and managed by the :doc:`FrameStk <454_framestack_deepdive>` to allow for reversible operations.
+You can learn more about these core components in the :doc:`Lmod Glossary <441_lmod_glossary>`.
+
+The output is typically written as shell commands. The choice of shell is picked
+by the user. The `module` command itself is a shell function (in bash/zsh) or
+alias (in tcsh/csh) that uses `eval` to apply Lmod's output to the current
+shell.
+
+For bash and zsh, the shell function ``module`` can be defined in its
+simpliest terms as:
+
+.. code-block:: shell
 
    module () {
      eval "$($LMOD_CMD shell "$@")"
    }
 
-where *$LMOD_CMD* is the path to the Lmod source.  The second argument
-*shell* tells Lmod to ask the environment what shell is running.  For
-tcsh/csh the shell alias is::
+The `eval` command is the key to Lmod's ability to modify the shell's
+environment. The process works in three stages:
 
-   alias module 'eval `$LMOD_CMD tcsh \!*'`
+1.  **$LMOD_CMD shell "$@"**: First, the Lmod program runs. Its job is *not*
+    to change the environment itself, but to **generate plain text** to its
+    standard output. This text consists of the shell commands required to make
+    the desired changes (e.g., ``export FOO=Bar;`` or ``unset
+    PATH;``). Note that if Lmod sees **shell** as its first arguemnt
+    it figures out what shell the user is running.
+2.  **$(...)**: The shell's command substitution syntax captures this plain
+    text output from the Lmod process.
+3.  **eval "..."**: Finally, `eval` takes the captured string of commands
+    and executes it in the context of the *current* shell. This is what allows
+    Lmod, an external program, to define variables, aliases, and functions in
+    your interactive session.
 
-In all cases the second argument controls how the key value pairs are
+For tcsh/csh the shell alias is::
+
+   alias module 'eval `$LMOD_CMD tcsh \!*`'
+
+In all cases the second argument to `lmod` controls how the key value pairs are
 expressed.  For bash/zsh **Foo => Bar** gets expanded to::
 
    Foo=Bar
@@ -55,8 +83,9 @@ ignoring the evaluation step.
 Internal Steps
 --------------
 
+The following steps trace the execution of the command **module load foo/1.0**.
 
-#. The user command **module load foo/1.0**
+#. The user issues the command **module load foo/1.0**
 #. Lmod decides what command to run by using the second argument
    (namely **load**) and converts the word into a command.  It does
    this by searching the **lmodCmdA** table in **src/lmod.in.lua** for the
@@ -72,18 +101,22 @@ Internal Steps
    minus are added to the unload list.  All other modules are added to
    the load list.
 #. The **l_usrLoad** function converts the command line argument
-   **foo/1.0** to an **MName** object.  This is necessary to map the
-   name to an actual path in the filesystem.  This conversion from a
-   module name to an MName object is found here: :ref:`deepdive_mname_resolution`
+   **foo/1.0** to an **MName** object. An :doc:`MName <441_lmod_glossary>` is Lmod's internal representation
+   of a module, encapsulating its name, version, and the logic to find its file path.
+   The complex details of this name-to-path resolution process are found in the
+   :doc:`MName Resolution Deep Dive <450_mname_resolution_deepdive>`.
 #. The module is ready to start the loading process. It uses a derived
    object called **mcp** (short for main control program, a nod to the
-   movie Tron)  How this works is discussed here: :ref:`deepdive_mcp_overview`.  In our case,
-   the **mcp:load_usr(lA)** calls **M.load_usr()** in
+   movie Tron). The :doc:`mcp <441_lmod_glossary>` is Lmod's central conductor; it knows the current
+   context (e.g., 'loading' vs. 'unloading') and dictates how modulefile commands
+   should be interpreted. How this works is discussed in the :doc:`MCP Deep Dive <451_mcp_deepdive>`.
+   In our case, the **mcp:load_usr(lA)** calls **M.load_usr()** in
    **src/MainControl.lua**.  After telling Lmod to register the list
    of loaded module, Lmod then calls **M.load()** still in
    **src/MainControl.lua** 
 #. The function **M.load()** builds a hub singleton and calls
-   **hub:load()** with the list of MName objects to load
+   **hub:load()** with the list of MName objects to load.  Note that a
+   user might request more than one module to load.
 #. The **M.load()** is found in **src/Hub.lua**.  Here Lmod has
    implemented many of its rules.  For example this routine checks to
    see if there is another "Foo" module loaded.  In that case the old
@@ -101,7 +134,8 @@ Internal Steps
    are available.  In particular, modulefiles can only call certain
    Lmod functions like **setenv()** and **prepend_path()** but not
    other internal Lmod functions. It also allows Lmod to capture any
-   syntax or other errors that a modulefile might have.
+   syntax or other errors that a modulefile might have. The sandbox mechanism
+   is explained in detail in the :doc:`Sandbox Deep Dive <452_sandbox_deepdive>`.
 #. Once the **sandbox_run()** function is called.  It is now Lua that
    controls the evaluation of the modulefile.  The only time that Lmod
    has control is when a function implemented in Lmod like
@@ -112,8 +146,30 @@ Internal Steps
 #. Finally, if there are no errors, Lmod then takes the internal key
    value pairs and output that text in the requested style, such as
    bash as text which is then evaluated by the shell function or shell
-   alias. 
+   alias.  This only happens for values that have changed.
 
+Visual Summary of Internal Steps
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following flowchart provides a high-level summary of the process described above.
+
+.. code-block:: text
+
+    User Shell: "module load foo"
+           |
+           v
+    Lmod Process:
+    1. Parse Command (`lmod.in.lua`)
+    2. Create `MName` for "foo"
+    3. Build an `mcp` object to orchestrate load
+    4. `Hub` applies rules (conflicts, etc.)
+    5. `loadModuleFile` reads file
+    6. `sandbox` executes module code using the generated `mcp`
+    7. Update internal state (`VarT`, `MT`)
+    8. Generate shell code string (e.g., "export FOO=Bar;")
+           |
+           v
+    User Shell: `eval` executes the string
 
 Steps to evaluate a modulefile
 ------------------------------
@@ -129,12 +185,12 @@ evaluate the module are discussed here.  Here we discuss how the line
    supposed to take. For example this modulefile could be loading, in
    that case it calls **M.setenv()** in **src/MainControl.lua**. But
    if Lmod is unloading the module then **M.unsetenv()** is called.
-   This is controlled by **mcp**.  See :ref:`deepdive_mcp_overview` for more
+   This is controlled by **mcp**.  See the :doc:`MCP Deep Dive <451_mcp_deepdive>` for more
    details.
 #. The function **M.setenv()** store the name of the environment
    variable as the key and the next command line argument as the
    value.  In this case the key is "Foo" and the value is "Bar".  This
-   key value pair is stored in the **varT** table.
+   key value pair is stored in the **varT** table. See the :doc:`varT Deep Dive <456_vart_deepdive>` for details.
 
 The evaluation of **prepend_path("PATH","/home/user/bin")** works
 similarly.
@@ -145,7 +201,7 @@ similarly.
    supposed to take. For example this modulefile could be loading, in
    that case it calls **M.prepend_path()** in **src/MainControl.lua**. But
    if Lmod is unloading the module then **M.remove_path()** is called.
-   This is controlled by **mcp**.  See :ref:`deepdive_mcp_overview` for more
+   This is controlled by **mcp**.  See the :doc:`MCP Deep Dive <451_mcp_deepdive>` for more
    details.
 #. The function **M.prepend_path()** store the name of the environment
    variable as the key and the next command line argument as the
@@ -153,18 +209,14 @@ similarly.
    prepended to "PATH".  These changes to the  key value pair is
    stored in the **varT** table.
 
-Things to explain:
+Summary
+-------
 
-#. MName: How Lmod converts module names to paths.  The difference
-   between a modulefile to load versus unload.
-#. DirTree and ModuleA and LocationT:  How MName uses both of these Classes to
-   figure out what a module is.  That is the whole N/V, C/N/V versus N/V/V
-#. MCP: How the mcp object works.  The many ways that Lmod evaluates
-   modulefiles.
-#. FrameStk:  How Lmod handles the break function
-#. VarT: How the var table works.  Especially, how prepend, append
-   works for path like variables.
-#. MT: How the module table works to store the state in a the user
-   env.
-#. Cosmic and myGlobal
+As we have seen, a single `module load` command initiates a chain of events:
+parsing the user's request, resolving a module name to a file (:doc:`MName <441_lmod_glossary>`),
+orchestrating the operation based on context (:doc:`mcp <441_lmod_glossary>`), enforcing loading rules
+like conflict detection (:doc:`Hub <441_lmod_glossary>`), and finally evaluating the modulefile in a
+secure `sandbox`. The entire process culminates in Lmod generating a string of
+shell commands, which the user's shell then executes via `eval` to modify its
+own environment.
 

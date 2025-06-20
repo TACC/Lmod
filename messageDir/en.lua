@@ -321,6 +321,7 @@ must specify the version if there is more than one version:
      --------------------------------------------------------------------------
      -- LmodWarnings
      --------------------------------------------------------------------------
+     w_Broken_Cache        = "%{kind} Spider cache appears broken",
      w_Broken_Coll         = [==[One or more modules in your %{collectionName} collection have changed: "%{module_list}".
 To see the contents of this collection execute:
   $ module describe %{collectionName}
