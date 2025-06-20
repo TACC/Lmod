@@ -672,7 +672,7 @@ function M.__new(self, mpathA, maxdepthT, moduleRCT, spiderT)
    if (next(spiderT) ~= nil) then
       o.__spiderBuilt        = true
       dbg.print{"calling l_build_from_spiderT()\n"}
-      dbg.printT("spiderT",spiderT)
+      --dbg.printT("spiderT",spiderT)
       o.__moduleA, o.__isNVV = l_build_from_spiderT(spiderT)
    else
       dbg.print{"calling DirTree:new()\n"}
@@ -735,7 +735,7 @@ function M.singleton(self, t)
    local resetFlag = false
    t               = t or {}
    if (t.reset or (s_moduleA and s_moduleA:spiderBuilt())) then
-      dbg.print{"Wiping out old value of s_moduleA\n"}
+      dbg.print{"Wiping out old value of s_moduleA, t.reset: ",t.reset,", s_moduleA:spiderBuilt(): ",(s_moduleA and s_moduleA:spiderBuilt()),"\n"}
       resetFlag = true
       self:__clear{testing=t.reset}
    end
@@ -753,6 +753,7 @@ function M.singleton(self, t)
       if (resetFlag) then
          s_moduleA:setSpiderBuilt(false)
       end
+      dbg.print{"After ModuleA:__new: s_moduleA:spiderBuilt(): ",(s_moduleA and s_moduleA:spiderBuilt()),"\n"}
    end
 
    dbg.fini("ModuleA:singleton")

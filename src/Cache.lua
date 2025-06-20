@@ -560,9 +560,18 @@ function M.build(self, fast)
 
    dbg.print{"buildFresh: ",self.buildFresh,"\n"}
    if (not (self.buildFresh or optionTbl.checkSyntax)) then
+      local ok, msg
       local resultT = {}
-      l_readCacheFile(self, mpathA, self.systemDirA, resultT)
-      sysDirsRead   = resultT.dirsRead
+      ok, msg = pcall(l_readCacheFile, self, mpathA, self.systemDirA, resultT)
+      if (not ok) then
+         l_resetSpiderT(self)
+         if (msg) then 
+            io.stderr:write("Msg: ",msg,"\n")
+            LmodWarning{msg="w_Broken_Spider_Cache"}
+         end
+      else
+         sysDirsRead   = resultT.dirsRead
+      end
    end
 
    ------------------------------------------------------------------------
@@ -571,9 +580,18 @@ function M.build(self, fast)
    local spiderDirT  = self.spiderDirT
    local usrDirsRead = 0
    if (not (self.buildFresh  or isFile(self.usrCacheInvalidFn))) then
+      local ok, msg
       local resultT = {}
-      l_readCacheFile(self, mpathA, self.usrSpiderTFnA, resultT)
-      usrDirsRead = resultT.dirsRead
+      ok, msg = pcall(l_readCacheFile,self, mpathA, self.usrSpiderTFnA, resultT)
+      if (not ok) then
+         l_resetSpiderT(self)
+         if (msg) then 
+            io.stderr:write("Msg: ",msg,"\n")
+            LmodWarning{msg="w_Broken_Spider_Cache"}
+         end
+      else
+         usrDirsRead = resultT.dirsRead
+      end
    end
 
    local mpathT = {}
