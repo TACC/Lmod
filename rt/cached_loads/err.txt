@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.60 2025-04-30 12:50 -05:00
+Modules based on Lua: Version 8.7.61 2025-06-20 16:09 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -22,16 +22,20 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B
 ===========================
 ===========================
 step 6
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load authentict
+===========================
+===========================
+step 7
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) A/1.0   2) B/1.0
+  1) A/1.0   2) B/1.0   3) authentict/2.0
 ===========================
-step 7
+step 8
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing unload B
 ===========================
 ===========================
-step 8
+step 9
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B
 ===========================
 Lmod has detected the following error: The following module(s) are unknown: "B"
@@ -40,37 +44,38 @@ It is also possible your cache file is out-of-date; it may help to try:
   $ module --ignore_cache load "B"
 Also make sure that all modulefiles written in TCL start with the string #%Module
 ===========================
-step 9
+step 10
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) A/1.0
+  1) A/1.0   2) authentict/2.0
 ===========================
-step 10
+step 11
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B
 ===========================
 ===========================
-step 11
+step 12
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
-  1) A/1.0   2) B/1.0
+  1) A/1.0   2) authentict/2.0   3) B/1.0
 ===========================
-step 12
+step 13
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
 ===========================
 ===========================
-step 13
+step 14
 runSpiderCmd -o spiderBigT OutputDIR/mf/Core
 ===========================
 ===========================
-step 14
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing -T load A B C
+step 15
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing -T load A B C authentict
 ===========================
-running: module --regression_testing -T load A B C
+running: module --regression_testing -T load A B C authentict
   Using Cache file: OutputDIR/.cache/lmod/spiderBigT.lua, kind: Big
   (1)(0)Loading: A (fn: OutputDIR/mf/Core/A/1.0.lua, using Find-Best and using spider cache contents)
   (2)(0)Loading: B (fn: OutputDIR/mf/Core/B/1.0.lua, using Find-Best and using spider cache contents)
   (3)(0)Loading: C (fn: OutputDIR/mf/Core/C/1.2.lua, using Find-Best and using spider cache contents)
     Prepending: OutputDIR/mf/cae to MODULEPATH
-  reloadAll(1)(A, B, C)
+  (4)(0)Loading: authentict (fn: OutputDIR/mf/Core/authentict/2.0.lua, using Find-Best and using spider cache contents)
+  reloadAll(1)(A, B, C, authentict)

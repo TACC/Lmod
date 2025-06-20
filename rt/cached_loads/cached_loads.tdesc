@@ -42,23 +42,24 @@ testdescript = {
 
      runLmod load   A                                # 4
      runLmod load   B                                # 5
-     runLmod list                                    # 6
-     runLmod unload B                                # 7
+     runLmod load   authentict                       # 6
+     runLmod list                                    # 7
+     runLmod unload B                                # 8
 
      export LMOD_CACHED_LOADS=1
-     runLmod load   B                                # 8
-     runLmod list                                    # 9
+     runLmod load   B                                # 9
+     runLmod list                                    #10
 
      export LMOD_IGNORE_CACHE=1
-     runLmod load   B                                #10
-     runLmod list                                    #11              
+     runLmod load   B                                #11
+     runLmod list                                    #12              
     
-     runLmod purge                                   #12
+     runLmod purge                                   #13
      unset  LMOD_IGNORE_CACHE
      export LMOD_DYNAMIC_SPIDER_CACHE=no
-     runBase runSpiderCmd -o spiderBigT  $MODULEPATH #13
+     runBase runSpiderCmd -o spiderBigT  $MODULEPATH #14
      runSpiderCmd -o spiderBigT  $MODULEPATH > $cacheDir/spiderBigT.lua
-     runLmod -T load  A B C                          #14
+     runLmod -T load  A B C authentict               #15
 
  
 
