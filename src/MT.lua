@@ -1625,5 +1625,26 @@ function M.haveDSConflict(self, mnameIn)
    return false
 end
 
+function M.record_depends_on(self, sn, mA)
+   dbg.start{"MT:record_depends_on(mA)"}
+   local entry = self.mT[sn]
+   assert(entry)
+   local depT = entry.depT or {}
+   local depA = depT.depA or {}
+   depT.depA  = depA
+   entry.depT = depT
+
+   for i = 1, #mA do
+      repeat
+         local mname = mA[i]
+         local sn    = mname:sn()
+         if (not sn) then break end
+         local version = mname:get_version_description()
+         depA[#depA+1] = {sn = sn, version = version}
+      until (true)
+   end
+   dbg.fini("MT:record_depends_on")
+end
+
 
 return M

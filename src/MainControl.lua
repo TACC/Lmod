@@ -1014,6 +1014,7 @@ function M.depends_on(self, mA)
    local mB = {}
    local mt = FrameStk:singleton():mt()
 
+
    for i = 1,#mA do
       local mname = mA[i]
       if (not mname:isloaded()) then
@@ -1026,6 +1027,14 @@ function M.depends_on(self, mA)
 
    l_registerUserLoads(mB)
    local a = self:load(mB)
+
+   
+   ------------------------------------------------------------
+   -- Get a new mt after all loads then record dependencies
+   -- in the sn found from myModuleName()
+   mt = FrameStk:singleton():mt()
+   mt:record_depends_on(myModuleName(), mA)
+
 
    self:registerDependencyCk()
 
