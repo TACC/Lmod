@@ -1647,13 +1647,18 @@ function M.record_depends_on(self, sn, mA)
 end
 
 function M.record_depends_on_any(self, sn, mA)
-   dbg.start{"MT:record_depends_on_any(mA)"}
+   dbg.start{"MT:record_depends_on_any(sn: \"",sn,"\", mA)"}
    local entry = self.mT[sn]
    assert(entry)
+
+   dbg.printT("(1) depT",entry.depT)
+
    local depT = entry.depT or {}
    local doaA = depT.doaA or {}
    depT.doaA  = doaA
    entry.depT = depT
+
+
 
    local my_doaA = {}
 
@@ -1668,6 +1673,7 @@ function M.record_depends_on_any(self, sn, mA)
       until (true)
    end
    doaA[#doaA +1] = my_doaA
+   dbg.printT("(2) depT",depT)
    dbg.fini("MT:record_depends_on_any")
 end
 

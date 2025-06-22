@@ -1061,12 +1061,15 @@ function M.depends_on_any(self, mA)
 
    local mt = FrameStk:singleton():mt()
    local mB = {}
+   local sn = myModuleName()
 
    for i = 1,#mA do
       local mname = mA[i]
       if (mname:isloaded()) then
          mt:safely_incr_ref_count(mname)
-         mt:save_depends_on_any(myModuleName(), mname:sn())
+         mt:save_depends_on_any(sn, mname:sn())
+         mt:record_depends_on_any(sn, mA)
+         self:registerDependencyCk()
          dbg.fini("MainControl:depends_on_any")
          return {}
       elseif (mname:sn()) then
@@ -1091,11 +1094,9 @@ function M.depends_on_any(self, mA)
    -- Get a new mt after all loads then record the depends on any 
    -- in the sn found from myModuleName()
    mt = FrameStk:singleton():mt()
-   mt:record_depends_on_any(myModuleName(), mA)
-
+   mt:record_depends_on_any(sn, mA)
 
    self:registerDependencyCk()
-
    dbg.fini("MainControl:depends_on_any")
    return a
 end
