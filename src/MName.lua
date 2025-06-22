@@ -892,7 +892,7 @@ function M.get_version_description(self)
       t.value = { self.__isOrig, self.__ieOrig}
    else
       local version = (self.__action == "latest") and self.__version 
-          or selfextractVersion(self.__userName, self.__sn)
+          or extractVersion(self.__userName, self.__sn)
       if (version) then
          t.kind  = "fixed"
          t.value = version

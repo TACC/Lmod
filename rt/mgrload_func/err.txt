@@ -57,15 +57,15 @@ _ModuleTable_ = {
           {
             sn = "A",
             version = {
-              kind = "fixed",
-              value = "1.0",
+              kind = "bool",
+              value = true,
             },
           },
           {
             sn = "C",
             version = {
-              kind = "fixed",
-              value = "1.0",
+              kind = "bool",
+              value = true,
             },
           },
         },
