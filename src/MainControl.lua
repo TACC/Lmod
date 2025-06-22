@@ -1042,10 +1042,6 @@ function M.depends_on(self, mA)
    return a
 end
 
-
-
-
-
 -------------------------------------------------------------------
 -- depends_on_any() a list of modules.  This is short hand for:
 --
@@ -1085,7 +1081,7 @@ function M.depends_on_any(self, mA)
    local mC = {mB[1]}
    local mname = mC[1]
    mname:set_depends_on_flag(true)
-   mt:save_depends_on_any(myModuleName(), mname:sn())
+   mt:save_depends_on_any(sn, mname:sn())
 
    l_registerUserLoads(mC)
    local a = self:load(mC)
@@ -1364,6 +1360,34 @@ function M.fake_load(self,mA)
       dbg.fini("MainControl:fake_load")
    end
 end
+
+function M.fake_depends_on(self,mA)
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"MainControl:fake_depends_on(mA={"..s.."})"}
+   end
+
+   local mt = FrameStk:singleton():mt()
+   mt:record_depends_on(myModuleName(), mA)
+
+   dbg.fini("MainControl:fake_depends_on")
+end
+
+function M.fake_depends_on_any(self,mA)
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"MainControl:fake_depends_on_any(mA={"..s.."})"}
+   end
+
+   local mt = FrameStk:singleton():mt()
+   mt:record_depends_on_any(myModuleName(), mA)
+
+   dbg.fini("MainControl:fake_depends_on_any")
+end
+
+
+
+
 
 --------------------------------------------------------------------------
 -- Check the conflicts from *mA*.

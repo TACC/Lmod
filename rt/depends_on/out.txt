@@ -154,7 +154,7 @@ MODULEPATH=ProjectDIR/rt/depends_on/mf/Core;
 export MODULEPATH;
 _LMFILES_=ProjectDIR/rt/depends_on/mf/Core/A.lua:ProjectDIR/rt/depends_on/mf/Core/B.lua:ProjectDIR/rt/depends_on/mf/Core/X:ProjectDIR/rt/depends_on/mf/Core/Y.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/depends_on/mf/Core/A.lua",fullName="A",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="A",wV="M.*zfinal",},B={fn="ProjectDIR/rt/depends_on/mf/Core/B.lua",fullName="B",loadOrder=2,propT={},ref_count=2,stackDepth=1,status="active",userName="B",wV="M.*zfinal",},X={fn="ProjectDIR/rt/depends_on/mf/Core/X",fullName="X",loadOrder=3,propT={},stackDepth=0,status="active",userName="X",wV="M.*zfinal",},Y={fn="ProjectDIR/rt/depends_on/mf/Core/Y.lua",fullName="Y",loadOrder=4,propT={},stackDepth=0,status="active",userName="Y",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/depends_on/mf/Core",},systemBaseMPATH="ProjectDIR/rt/depends_on/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/depends_on/mf/Core/A.lua",fullName="A",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="A",wV="M.*zfinal",},B={fn="ProjectDIR/rt/depends_on/mf/Core/B.lua",fullName="B",loadOrder=2,propT={},ref_count=2,stackDepth=1,status="active",userName="B",wV="M.*zfinal",},X={depT={depA={{sn="A",version={kind="bool",value=true,},},{sn="B",version={kind="bool",value=true,},},},},fn="ProjectDIR/rt/depends_on/mf/Core/X",fullName="X",loadOrder=3,propT={},stackDepth=0,status="active",userName="X",wV="M.*zfinal",},Y={depT={depA={{sn="B",version={kind="bool",value=true,},},},},fn="ProjectDIR/rt/depends_on/mf/Core/Y.lua",fullName="Y",loadOrder=4,propT={},stackDepth=0,status="active",userName="Y",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/depends_on/mf/Core",},systemBaseMPATH="ProjectDIR/rt/depends_on/mf/Core",}';
 export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__=1;
 export __LMOD_DEFAULT_MODULES_LOADED__;
@@ -168,7 +168,7 @@ MODULEPATH=ProjectDIR/rt/depends_on/mf/Core;
 export MODULEPATH;
 _LMFILES_=ProjectDIR/rt/depends_on/mf/Core/B.lua:ProjectDIR/rt/depends_on/mf/Core/X:ProjectDIR/rt/depends_on/mf/Core/Y.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={B={fn="ProjectDIR/rt/depends_on/mf/Core/B.lua",fullName="B",loadOrder=1,propT={},ref_count=2,stackDepth=1,status="active",userName="B",wV="M.*zfinal",},X={fn="ProjectDIR/rt/depends_on/mf/Core/X",fullName="X",loadOrder=2,propT={},stackDepth=0,status="active",userName="X",wV="M.*zfinal",},Y={fn="ProjectDIR/rt/depends_on/mf/Core/Y.lua",fullName="Y",loadOrder=3,propT={},stackDepth=0,status="active",userName="Y",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/depends_on/mf/Core",},systemBaseMPATH="ProjectDIR/rt/depends_on/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={B={fn="ProjectDIR/rt/depends_on/mf/Core/B.lua",fullName="B",loadOrder=1,propT={},ref_count=2,stackDepth=1,status="active",userName="B",wV="M.*zfinal",},X={depT={depA={{sn="A",version={kind="bool",value=true,},},{sn="B",version={kind="bool",value=true,},},},},fn="ProjectDIR/rt/depends_on/mf/Core/X",fullName="X",loadOrder=2,propT={},stackDepth=0,status="active",userName="X",wV="M.*zfinal",},Y={depT={depA={{sn="B",version={kind="bool",value=true,},},},},fn="ProjectDIR/rt/depends_on/mf/Core/Y.lua",fullName="Y",loadOrder=3,propT={},stackDepth=0,status="active",userName="Y",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/depends_on/mf/Core",},systemBaseMPATH="ProjectDIR/rt/depends_on/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 18
@@ -214,7 +214,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
 ===========================
 MODULEPATH=ProjectDIR/rt/depends_on/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={B={fn="ProjectDIR/rt/depends_on/mf/Core/B.lua",fullName="B",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="B",wV="M.*zfinal",},Y={fn="ProjectDIR/rt/depends_on/mf/Core/Y.lua",fullName="Y",loadOrder=2,propT={},stackDepth=0,status="active",userName="Y",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/depends_on/mf/Core",},systemBaseMPATH="ProjectDIR/rt/depends_on/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={B={fn="ProjectDIR/rt/depends_on/mf/Core/B.lua",fullName="B",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="B",wV="M.*zfinal",},Y={depT={depA={{sn="B",version={kind="bool",value=true,},},},},fn="ProjectDIR/rt/depends_on/mf/Core/Y.lua",fullName="Y",loadOrder=2,propT={},stackDepth=0,status="active",userName="Y",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/depends_on/mf/Core",},systemBaseMPATH="ProjectDIR/rt/depends_on/mf/Core",}';
 export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__=1;
 export __LMOD_DEFAULT_MODULES_LOADED__;
@@ -284,7 +284,7 @@ MODULEPATH=ProjectDIR/rt/depends_on/mf/Core;
 export MODULEPATH;
 _LMFILES_=ProjectDIR/rt/depends_on/mf/Core/A.lua:ProjectDIR/rt/depends_on/mf/Core/B.lua:ProjectDIR/rt/depends_on/mf/Core/X:ProjectDIR/rt/depends_on/mf/Core/Y.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/depends_on/mf/Core/A.lua",fullName="A",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="A",wV="M.*zfinal",},B={fn="ProjectDIR/rt/depends_on/mf/Core/B.lua",fullName="B",loadOrder=2,propT={},ref_count=2,stackDepth=1,status="active",userName="B",wV="M.*zfinal",},X={fn="ProjectDIR/rt/depends_on/mf/Core/X",fullName="X",loadOrder=3,propT={},stackDepth=0,status="active",userName="X",wV="M.*zfinal",},Y={fn="ProjectDIR/rt/depends_on/mf/Core/Y.lua",fullName="Y",loadOrder=4,propT={},stackDepth=0,status="active",userName="Y",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/depends_on/mf/Core",},systemBaseMPATH="ProjectDIR/rt/depends_on/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/depends_on/mf/Core/A.lua",fullName="A",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="A",wV="M.*zfinal",},B={fn="ProjectDIR/rt/depends_on/mf/Core/B.lua",fullName="B",loadOrder=2,propT={},ref_count=2,stackDepth=1,status="active",userName="B",wV="M.*zfinal",},X={depT={depA={{sn="A",version={kind="bool",value=true,},},{sn="B",version={kind="bool",value=true,},},},},fn="ProjectDIR/rt/depends_on/mf/Core/X",fullName="X",loadOrder=3,propT={},stackDepth=0,status="active",userName="X",wV="M.*zfinal",},Y={depT={depA={{sn="B",version={kind="bool",value=true,},},},},fn="ProjectDIR/rt/depends_on/mf/Core/Y.lua",fullName="Y",loadOrder=4,propT={},stackDepth=0,status="active",userName="Y",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/depends_on/mf/Core",},systemBaseMPATH="ProjectDIR/rt/depends_on/mf/Core",}';
 export _ModuleTable_;
 __LMOD_DEFAULT_MODULES_LOADED__=1;
 export __LMOD_DEFAULT_MODULES_LOADED__;
@@ -294,7 +294,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/depends_on/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/depends_on/mf/Core/A.lua",fullName="A",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="A",wV="M.*zfinal",},B={fn="ProjectDIR/rt/depends_on/mf/Core/B.lua",fullName="B",loadOrder=2,propT={},ref_count=2,stackDepth=1,status="active",userName="B",wV="M.*zfinal",},X={fn="ProjectDIR/rt/depends_on/mf/Core/X",fullName="X",loadOrder=3,propT={},stackDepth=0,status="active",userName="X",wV="M.*zfinal",},Y={fn="ProjectDIR/rt/depends_on/mf/Core/Y.lua",fullName="Y",loadOrder=4,propT={},stackDepth=0,status="active",userName="Y",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/depends_on/mf/Core",},systemBaseMPATH="ProjectDIR/rt/depends_on/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/depends_on/mf/Core/A.lua",fullName="A",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="A",wV="M.*zfinal",},B={fn="ProjectDIR/rt/depends_on/mf/Core/B.lua",fullName="B",loadOrder=2,propT={},ref_count=2,stackDepth=1,status="active",userName="B",wV="M.*zfinal",},X={depT={depA={{sn="A",version={kind="bool",value=true,},},{sn="B",version={kind="bool",value=true,},},},},fn="ProjectDIR/rt/depends_on/mf/Core/X",fullName="X",loadOrder=3,propT={},stackDepth=0,status="active",userName="X",wV="M.*zfinal",},Y={depT={depA={{sn="B",version={kind="bool",value=true,},},},},fn="ProjectDIR/rt/depends_on/mf/Core/Y.lua",fullName="Y",loadOrder=4,propT={},stackDepth=0,status="active",userName="Y",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/depends_on/mf/Core",},systemBaseMPATH="ProjectDIR/rt/depends_on/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 31
@@ -870,5 +870,27 @@ _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={depT={depA=
 export _ModuleTable_;
 ===========================
 step 79
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
+===========================
+===========================
+step 80
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing save
+===========================
+MODULEPATH=ProjectDIR/rt/depends_on/mf/Core7;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={depT={depA={{sn="x",version={kind="fixed",value="1.0",},},{sn="y",version={kind="bool",value=true,},},},doaA={{{sn="xx",version={kind="bool",value=true,},},{sn="yy",version={kind="fixed",value="1.0",},},},{{sn="rr",version={kind="bool",value=true,},},{sn="qq",version={kind="fixed",value="1.0",},},},},},depends_on_anyA={"yy","rr",},fn="ProjectDIR/rt/depends_on/mf/Core7/A/1.0.lua",fullName="A/1.0",loadOrder=6,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},B={depT={doaA={{{sn="yy",version={kind="fixed",value="1.0",},},{sn="xx",version={kind="bool",value=true,},},},},},depends_on_anyA={"yy",},fn="ProjectDIR/rt/depends_on/mf/Core7/B/1.0.lua",fullName="B/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="B",wV="000000001.*zfinal",},rr={fn="ProjectDIR/rt/depends_on/mf/Core7/rr/1.0.lua",fullName="rr/1.0",loadOrder=5,propT={},ref_count=1,stackDepth=1,status="active",userName="rr",wV="000000001.*zfinal",},x={fn="ProjectDIR/rt/depends_on/mf/Core7/x/1.0.lua",fullName="x/1.0",loadOrder=3,propT={},ref_count=1,stackDepth=1,status="active",userName="x/1.0",wV="000000001.*zfinal",},y={fn="ProjectDIR/rt/depends_on/mf/Core7/y/1.0.lua",fullName="y/1.0",loadOrder=4,propT={},ref_count=1,stackDepth=1,status="active",userName="y",wV="000000001.*zfinal",},yy={fn="ProjectDIR/rt/depends_on/mf/Core7/yy/1.0.lua",fullName="yy/1.0",loadOrder=1,propT={},ref_count=2,stackDepth=1,status="active",userName="yy/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/depends_on/mf/Core7",},systemBaseMPATH="ProjectDIR/rt/depends_on/mf/Core7",}';
+export _ModuleTable_;
+===========================
+step 81
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
+===========================
+MODULEPATH=ProjectDIR/rt/depends_on/mf/Core7;
+export MODULEPATH;
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={depT={depA={{sn="x",version={kind="fixed",value="1.0",},},{sn="y",version={kind="bool",value=true,},},},doaA={{{sn="xx",version={kind="bool",value=true,},},{sn="yy",version={kind="fixed",value="1.0",},},},{{sn="rr",version={kind="bool",value=true,},},{sn="qq",version={kind="fixed",value="1.0",},},},},},depends_on_anyA={"yy","rr",},fn="ProjectDIR/rt/depends_on/mf/Core7/A/1.0.lua",fullName="A/1.0",loadOrder=6,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},B={depT={doaA={{{sn="yy",version={kind="fixed",value="1.0",},},{sn="xx",version={kind="bool",value=true,},},},},},depends_on_anyA={"yy",},fn="ProjectDIR/rt/depends_on/mf/Core7/B/1.0.lua",fullName="B/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="B",wV="000000001.*zfinal",},rr={fn="ProjectDIR/rt/depends_on/mf/Core7/rr/1.0.lua",fullName="rr/1.0",loadOrder=5,propT={},ref_count=1,stackDepth=1,status="active",userName="rr",wV="000000001.*zfinal",},x={fn="ProjectDIR/rt/depends_on/mf/Core7/x/1.0.lua",fullName="x/1.0",loadOrder=3,propT={},ref_count=1,stackDepth=1,status="active",userName="x/1.0",wV="000000001.*zfinal",},y={fn="ProjectDIR/rt/depends_on/mf/Core7/y/1.0.lua",fullName="y/1.0",loadOrder=4,propT={},ref_count=1,stackDepth=1,status="active",userName="y",wV="000000001.*zfinal",},yy={fn="ProjectDIR/rt/depends_on/mf/Core7/yy/1.0.lua",fullName="yy/1.0",loadOrder=1,propT={},ref_count=2,stackDepth=1,status="active",userName="yy/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/depends_on/mf/Core7",},systemBaseMPATH="ProjectDIR/rt/depends_on/mf/Core7",}';
+export _ModuleTable_;
+__LMOD_DEFAULT_MODULES_LOADED__=1;
+export __LMOD_DEFAULT_MODULES_LOADED__;
+===========================
+step 82
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
 ===========================
