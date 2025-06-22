@@ -135,6 +135,24 @@ _ModuleTable_ = {
       wV = "000000001.*zfinal",
     },
     TACC = {
+      depT = {
+        depA = {
+          {
+            sn = "A",
+            version = {
+              kind = "bool",
+              value = true,
+            },
+          },
+          {
+            sn = "C",
+            version = {
+              kind = "bool",
+              value = true,
+            },
+          },
+        },
+      },
       fn = "ProjectDIR/rt/mgrload_func/mf/Core/TACC.lua",
       fullName = "TACC",
       loadOrder = 3,
