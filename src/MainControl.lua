@@ -1087,6 +1087,13 @@ function M.depends_on_any(self, mA)
    l_registerUserLoads(mC)
    local a = self:load(mC)
 
+   ------------------------------------------------------------
+   -- Get a new mt after all loads then record the depends on any 
+   -- in the sn found from myModuleName()
+   mt = FrameStk:singleton():mt()
+   mt:record_depends_on_any(myModuleName(), mA)
+
+
    self:registerDependencyCk()
 
    dbg.fini("MainControl:depends_on_any")

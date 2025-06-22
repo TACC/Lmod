@@ -20,6 +20,26 @@ _ModuleTable_ = {
   family = {},
   mT = {
     AA = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "x",
+              version = {
+                kind = "fixed",
+                value = "2.0",
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "y", "y", "y",
       },
@@ -89,6 +109,26 @@ _ModuleTable_ = {
   family = {},
   mT = {
     A = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "x",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "z",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "y", "x",
       },
@@ -102,6 +142,26 @@ _ModuleTable_ = {
       wV = "000000001.*zfinal",
     },
     B = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "z",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "y",
       },
@@ -158,6 +218,26 @@ _ModuleTable_ = {
   family = {},
   mT = {
     B = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "z",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "y",
       },
@@ -211,6 +291,26 @@ _ModuleTable_ = {
   family = {},
   mT = {
     B = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "z",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "y",
       },
@@ -285,6 +385,26 @@ _ModuleTable_ = {
       wV = "000000001.*zfinal",
     },
     B = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "z",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "y",
       },
@@ -330,6 +450,26 @@ _ModuleTable_ = {
   family = {},
   mT = {
     B = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "z",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "y",
       },
@@ -389,6 +529,26 @@ _ModuleTable_ = {
   family = {},
   mT = {
     B = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "z",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "y",
       },
@@ -461,6 +621,26 @@ _ModuleTable_ = {
   family = {},
   mT = {
     A = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "x",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "z",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "y", "x",
       },
@@ -474,6 +654,26 @@ _ModuleTable_ = {
       wV = "000000001.*zfinal",
     },
     B = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "z",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "y",
       },
@@ -764,6 +964,42 @@ _ModuleTable_ = {
   family = {},
   mT = {
     A = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "x",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+          {
+            {
+              sn = "z",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "x", "z",
       },
@@ -824,6 +1060,26 @@ _ModuleTable_ = {
   family = {},
   mT = {
     AAA = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "x",
+              version = {
+                kind = "fixed",
+                value = "2.0",
+              },
+            },
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "x",
       },
@@ -871,6 +1127,26 @@ _ModuleTable_ = {
   family = {},
   mT = {
     AAA = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "x",
+              version = {
+                kind = "fixed",
+                value = "2.0",
+              },
+            },
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "x",
       },

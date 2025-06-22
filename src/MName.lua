@@ -890,12 +890,16 @@ function M.get_version_description(self)
    if (self.__have_range) then
       t.kind  = "between"
       t.value = { self.__isOrig, self.__ieOrig}
-   elseif (self.__version) then
-      t.kind  = "fixed"
-      t.value = self.__version
    else
-      t.kind  = "bool"
-      t.value = true
+      local version = (self.__action == "latest") and self.__version 
+          or selfextractVersion(self.__userName, self.__sn)
+      if (version) then
+         t.kind  = "fixed"
+         t.value = version
+      else
+         t.kind  = "bool"
+         t.value = true
+      end
    end
    if (dbg.active()) then
       local s = serializeTbl{indent = true, value = t}

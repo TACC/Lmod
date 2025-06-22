@@ -1646,5 +1646,30 @@ function M.record_depends_on(self, sn, mA)
    dbg.fini("MT:record_depends_on")
 end
 
+function M.record_depends_on_any(self, sn, mA)
+   dbg.start{"MT:record_depends_on_any(mA)"}
+   local entry = self.mT[sn]
+   assert(entry)
+   local depT = entry.depT or {}
+   local doaA = depT.doaA or {}
+   depT.doaA  = doaA
+   entry.depT = depT
+
+   local my_doaA = {}
+
+
+   for i = 1, #mA do
+      repeat
+         local mname = mA[i]
+         local sn    = mname:sn()
+         if (not sn) then break end
+         local version = mname:get_version_description()
+         my_doaA[#my_doaA+1] = {sn = sn, version = version}
+      until (true)
+   end
+   doaA[#doaA +1] = my_doaA
+   dbg.fini("MT:record_depends_on_any")
+end
+
 
 return M
