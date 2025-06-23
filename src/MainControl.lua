@@ -983,6 +983,12 @@ function M.dependencyCk_any(self, mA)
    return {}
 end
 
+function M.addMissingDepModule(self, userName, name)
+   local a = s_missDepT[userName] or {}
+   a[#a+1] = name
+   s_missDepT[userName] = a
+end
+
 function M.reportMissingDepModules(self)
    local t = s_missDepT
    if (next(t) ~= nil) then

@@ -235,3 +235,9 @@ Lmod 8.7+
             * Issue #761: Check permissions for file and directories in src/DirTree.lua
             * Unalias name before setting shell function
             # Issue #771: Wrap l_readCacheFile() in a pcall.  Report warning for bad cache file but keep going.
+W.I.P:
+   (8.7.62) * BigCache changes: Use contents of modulefiles from spiderBigT.lua
+            * Modify MT to record dependencis.
+            * Use Modified MT to check dependencies.
+            * PR #772: Fix contrib/tracking_module_usage/gen_2/createDB.py to use mysql.connector
+            
