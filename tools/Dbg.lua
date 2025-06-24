@@ -111,7 +111,7 @@ local function l_rPrint(s, l, i)
         return l-1
     end
     io.stderr:write(i," ", ts,"\n");  -- print "table"
-    for k,v in pairs(s) do  -- print "[KEY] VALUE"
+    for k,v in pairsByKeys(s) do  -- print "[KEY] VALUE"
         l = l_rPrint(v, l, i.."\t["..tostring(k).."]");
         if (l < 0) then break end
     end

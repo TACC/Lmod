@@ -37,10 +37,10 @@ testdescript = {
      runLmod load x                            #12
      runLmod rm   A                            #13
      runLmod --mt                              #14
-     runLmod load A                            #15
+     runLmod load A AAAA                       #15
      runLmod rm   x                            #16
      runLmod --mt                              #17
-     runLmod rm   A                            #18
+     runLmod rm   A AAAA                       #18
      runLmod --mt                              #19
      runLmod load none                         #20
      runLmod load d                            #21
@@ -112,6 +112,22 @@ testdescript = {
      runLmod load A                           #57
      runLmod --mt                             #58
      
+
+     ########################################
+     # Test what happens if a user swaps out
+     # the dependent modules
+     unset MODULES_AUTO_HANDLING
+     runLmod purge                            #59
+     unsetMT
+     export MODULEPATH=$(testDir)/mf/Core
+     runLmod load AAA                         #60
+     runLmod --mt                             #61
+     runLmod load -x y                        #62
+     runLmod --mt                             #63
+     runLmod rm   AAA                         #64
+     
+
+
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig
      joinBase64Results  -bash  _stdout.orig _stdout.new

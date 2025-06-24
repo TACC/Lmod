@@ -59,6 +59,7 @@ local i18n          = require("i18n")
 local remove        = table.remove
 local sort          = table.sort
 local q_load        = 0
+local timer         = require("Timer"):singleton()
 local s_same        = true
 
 local A             = ShowResultsA
@@ -757,41 +758,59 @@ function M.refresh()
    dbg.fini("Hub:refresh")
 end
 
+function M.dependencyCk()
+   dbg.start{"Hub:dependencyCk()"}
+   local mt       = FrameStk:singleton():mt()
+   local activeA  = mt:list("short","active")
+
+   for i = 1,#activeA do
+      local sn       = activeA[i]
+      local t1 = epoch()
+      mt:check_deps(sn)
+      timer:deltaT("check_deps", epoch() - t1)
+   end
+
+   dbg.fini("Hub:dependencyCk")
+end
+
+
 --------------------------------------------------------------------------
 -- Loop over all active modules and reload each one.
 -- Since only the "depend_on()" function is active and all
 -- other Lmod functions are inactive because mcp is now
 -- MC_DependencyCk, there is no need to unload and reload the
 -- modulefiles.  Just call loadModuleFile() to check the dependencies.
-function M.dependencyCk()
-   dbg.start{"Hub:dependencyCk()"}
-   local frameStk = FrameStk:singleton()
-   local mt       = frameStk:mt()
-   local shellNm  = _G.Shell and _G.Shell:name() or "bash"
-   --local mcp_old  = mcp
-   mcpStack:push(mcp)
-   mcp            = MainControl.build("dependencyCk")
-
-   local activeA  = mt:list("short","active")
-   local mList    = concatTbl(mt:list("both","active"),":")
-
-   for i = 1,#activeA do
-      local sn       = activeA[i]
-      local fn       = mt:fn(sn)
-      if (isFile(fn)) then
-         frameStk:push(MName:new("mt",sn))
-         dbg.print{"DepCk loading: ",sn," fn: ", fn,"\n"}
-         loadModuleFile{file = fn, shell = shellNm, mList = mList,
-                        reportErr=true, forbiddenT = {}}
-         frameStk:pop()
-      end
-   end
-
-   --mcp = mcp_old
-   mcp = mcpStack:pop()
-   dbg.print{"Setting mcp to : ",mcp:name(),"\n"}
-   dbg.fini("Hub:dependencyCk")
-end
+--function M.dependencyCk()
+--   dbg.start{"Hub:dependencyCk()"}
+--   local frameStk = FrameStk:singleton()
+--   local mt       = frameStk:mt()
+--   local shellNm  = _G.Shell and _G.Shell:name() or "bash"
+--   --local mcp_old  = mcp
+--   mcpStack:push(mcp)
+--   mcp            = MainControl.build("dependencyCk")
+--
+--   local activeA  = mt:list("short","active")
+--   local mList    = concatTbl(mt:list("both","active"),":")
+--
+--   for i = 1,#activeA do
+--      local sn       = activeA[i]
+--      local fn       = mt:fn(sn)
+--      if (isFile(fn)) then
+--         frameStk:push(MName:new("mt",sn))
+--         dbg.print{"DepCk loading: ",sn," fn: ", fn,"\n"}
+--         local t1 = epoch()
+--         loadModuleFile{file = fn, shell = shellNm, mList = mList,
+--                        reportErr=true, forbiddenT = {}, depCk = true }
+--         timer:deltaT("depend_load", epoch() - t1)
+--         frameStk:pop()
+--      end
+--   end
+--
+--   --mcp = mcp_old
+--   mcp = mcpStack:pop()
+--   dbg.print{"Setting mcp to : ",mcp:name(),"\n"}
+--   dbg.fini("Hub:dependencyCk")
+--end
 
 
 --------------------------------------------------------------------------

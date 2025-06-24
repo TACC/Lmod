@@ -48,6 +48,7 @@ local cosmic      = require("Cosmic"):singleton()
 local dbg         = require("Dbg"):dbg()
 local sort        = table.sort
 local s_findT     = false
+local timer       = require("Timer"):singleton()
 
 function M.className(self)
    return self.my_name
@@ -184,6 +185,7 @@ local function l_lazyEval(self)
 
    local sType   = self.__sType
    if (sType == "mt") then
+      local t1       = epoch()
       local frameStk = FrameStk:singleton()
       local mt       = frameStk:mt()
       local sn       = mt:lookup_w_userName(self.__userName)
@@ -197,6 +199,7 @@ local function l_lazyEval(self)
          self.__ref_count       = mt:get_ref_count(sn)
          self.__depends_on_anyA = mt:get_depends_on_anyA(sn)
       end
+      timer:deltaT("l_lazyEval", epoch() - t1)
       dbg.fini("l_lazyEval via mt")
       return
    end
@@ -867,6 +870,29 @@ function M.print(self)
    return t
 end
 
+function M.get_version_description(self)
+   local t = {}
+   if (self.__have_range) then
+      t.kind  = "between"
+      t.value = { self.__isOrig, self.__ieOrig}
+   else
+      local version = (self.__action == "latest") and self.__version 
+          or extractVersion(self.__userName, self.__sn)
+      if (version) then
+         t.kind  = "fixed"
+         t.value = version
+      else
+         t.kind  = "bool"
+         t.value = true
+      end
+   end
+   if (dbg.active()) then
+      local s = serializeTbl{indent = true, value = t}
+      dbg.print{"MName:get_version_description(): sn: ",self:sn(), ", version: ",s,"\n"}
+   end
+   return t
+end
+      
 
 
 return M

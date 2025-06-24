@@ -522,7 +522,11 @@ function main()
 
    local cmd = cmdT.cmd
    dbg.print{"cmd name: ", cmdT.name,"\n"}
+   local cmdT0 = epoch()
+   timer:deltaT("pre_cmd", cmdT0 - t1)
    cmd(unpack(optionTbl.pargs))
+   local cmdT1 = epoch()
+   timer:deltaT("run_cmd",cmdT1 - cmdT0)
 
    ------------------------------------------------------------
    -- After running command reset frameStk and mt as the
@@ -583,9 +587,10 @@ function main()
    end
 
    local t2 = epoch()
+   timer:deltaT("post_cmd", t2 - cmdT1)
    timer:deltaT("main", t2 - t1)
    if (optionTbl.reportTimer) then
-      io.stderr:write(timer:report(),"\n")
+      io.stderr:write("\n",timer:report(),"\n\n")
    end
 
    if (getStatusFlag()) then

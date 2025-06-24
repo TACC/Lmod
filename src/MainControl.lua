@@ -70,6 +70,7 @@ local s_missDepT       = {}
 local s_missingModuleT = {}
 local s_missingFlg     = false
 local s_purgeFlg       = false
+local timer            = require("Timer"):singleton()
 
 --------------------------------------------------------------------------
 -- Remember the user's requested load array into an internal table.
@@ -899,7 +900,7 @@ end
 --------------------------------------------------------------------------
 -- The quiet function.
 -- @param self A MainControl object
-function M.quiet(self, ...)
+function M.quiet(self)
    -- very Quiet !!!
 end
 
@@ -920,9 +921,10 @@ end
 function M.performDependencyCk(self)
    if (not s_performDepCk) then return end
    dbg.start{"MainControl:performDependencyCk()"}
-
    local hub = Hub:singleton()
+   local t0 = epoch()
    hub:dependencyCk()
+   timer:deltaT("performDependencyCk", epoch() - t0)
    self:reportMissingDepModules()
    dbg.fini("MainControl:performDependencyCk")
 end
@@ -981,6 +983,12 @@ function M.dependencyCk_any(self, mA)
    return {}
 end
 
+function M.addMissingDepModule(self, userName, name)
+   local a = s_missDepT[userName] or {}
+   a[#a+1] = name
+   s_missDepT[userName] = a
+end
+
 function M.reportMissingDepModules(self)
    local t = s_missDepT
    if (next(t) ~= nil) then
@@ -1012,28 +1020,33 @@ function M.depends_on(self, mA)
    local mB = {}
    local mt = FrameStk:singleton():mt()
 
-   for i                                       = 1,#mA do
-      local mname                              = mA[i]
+
+   for i = 1,#mA do
+      local mname = mA[i]
       if (not mname:isloaded()) then
          mname:set_depends_on_flag(true)
-         mB[#mB + 1]                           = mname
+         mB[#mB + 1] = mname
       else
          mt:safely_incr_ref_count(mname)
       end
    end
 
    l_registerUserLoads(mB)
-   local a                                     = self:load(mB)
+   local a = self:load(mB)
+
+   
+   ------------------------------------------------------------
+   -- Get a new mt after all loads then record dependencies
+   -- in the sn found from myModuleName()
+   mt = FrameStk:singleton():mt()
+   mt:record_depends_on(myModuleName(), mA)
+
 
    self:registerDependencyCk()
 
    dbg.fini("MainControl:depends_on")
    return a
 end
-
-
-
-
 
 -------------------------------------------------------------------
 -- depends_on_any() a list of modules.  This is short hand for:
@@ -1050,12 +1063,15 @@ function M.depends_on_any(self, mA)
 
    local mt = FrameStk:singleton():mt()
    local mB = {}
+   local sn = myModuleName()
 
    for i = 1,#mA do
       local mname = mA[i]
       if (mname:isloaded()) then
          mt:safely_incr_ref_count(mname)
-         mt:save_depends_on_any(myModuleName(), mname:sn())
+         mt:save_depends_on_any(sn, mname:sn())
+         mt:record_depends_on_any(sn, mA)
+         self:registerDependencyCk()
          dbg.fini("MainControl:depends_on_any")
          return {}
       elseif (mname:sn()) then
@@ -1071,13 +1087,18 @@ function M.depends_on_any(self, mA)
    local mC = {mB[1]}
    local mname = mC[1]
    mname:set_depends_on_flag(true)
-   mt:save_depends_on_any(myModuleName(), mname:sn())
+   mt:save_depends_on_any(sn, mname:sn())
 
    l_registerUserLoads(mC)
    local a = self:load(mC)
 
-   self:registerDependencyCk()
+   ------------------------------------------------------------
+   -- Get a new mt after all loads then record the depends on any 
+   -- in the sn found from myModuleName()
+   mt = FrameStk:singleton():mt()
+   mt:record_depends_on_any(sn, mA)
 
+   self:registerDependencyCk()
    dbg.fini("MainControl:depends_on_any")
    return a
 end
@@ -1345,6 +1366,34 @@ function M.fake_load(self,mA)
       dbg.fini("MainControl:fake_load")
    end
 end
+
+function M.fake_depends_on(self,mA)
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"MainControl:fake_depends_on(mA={"..s.."})"}
+   end
+
+   local mt = FrameStk:singleton():mt()
+   mt:record_depends_on(myModuleName(), mA)
+
+   dbg.fini("MainControl:fake_depends_on")
+end
+
+function M.fake_depends_on_any(self,mA)
+   if (dbg.active()) then
+      local s = mAList(mA)
+      dbg.start{"MainControl:fake_depends_on_any(mA={"..s.."})"}
+   end
+
+   local mt = FrameStk:singleton():mt()
+   mt:record_depends_on_any(myModuleName(), mA)
+
+   dbg.fini("MainControl:fake_depends_on_any")
+end
+
+
+
+
 
 --------------------------------------------------------------------------
 -- Check the conflicts from *mA*.

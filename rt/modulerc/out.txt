@@ -1369,7 +1369,7 @@ MODULEPATH=ProjectDIR/rt/modulerc/mfA/Core;
 export MODULEPATH;
 _LMFILES_=ProjectDIR/rt/modulerc/mfA/Core/A/1.1.lua:ProjectDIR/rt/modulerc/mfA/Core/B/1.0.lua:ProjectDIR/rt/modulerc/mfA/Core/newDefaults/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/modulerc/mfA/Core/A/1.1.lua",fullName="A/1.1",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="A",wV="s00000001.000000001.*zfinal",},B={fn="ProjectDIR/rt/modulerc/mfA/Core/B/1.0.lua",fullName="B/1.0",loadOrder=2,propT={},ref_count=1,stackDepth=1,status="active",userName="B",wV="s00000001.*zfinal",},newDefaults={fn="ProjectDIR/rt/modulerc/mfA/Core/newDefaults/1.0.lua",fullName="newDefaults/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="newDefaults",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfA/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfA/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/modulerc/mfA/Core/A/1.1.lua",fullName="A/1.1",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="A",wV="s00000001.000000001.*zfinal",},B={fn="ProjectDIR/rt/modulerc/mfA/Core/B/1.0.lua",fullName="B/1.0",loadOrder=2,propT={},ref_count=1,stackDepth=1,status="active",userName="B",wV="s00000001.*zfinal",},newDefaults={depT={depA={{sn="A",version={kind="bool",value=true,},},{sn="B",version={kind="bool",value=true,},},},},fn="ProjectDIR/rt/modulerc/mfA/Core/newDefaults/1.0.lua",fullName="newDefaults/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="newDefaults",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfA/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfA/Core",}';
 export _ModuleTable_;
 ===========================
 step 50
@@ -1377,7 +1377,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/modulerc/mfA/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/modulerc/mfA/Core/A/1.1.lua",fullName="A/1.1",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="A",wV="s00000001.000000001.*zfinal",},B={fn="ProjectDIR/rt/modulerc/mfA/Core/B/1.0.lua",fullName="B/1.0",loadOrder=2,propT={},ref_count=1,stackDepth=1,status="active",userName="B",wV="s00000001.*zfinal",},newDefaults={fn="ProjectDIR/rt/modulerc/mfA/Core/newDefaults/1.0.lua",fullName="newDefaults/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="newDefaults",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfA/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfA/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/modulerc/mfA/Core/A/1.1.lua",fullName="A/1.1",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="A",wV="s00000001.000000001.*zfinal",},B={fn="ProjectDIR/rt/modulerc/mfA/Core/B/1.0.lua",fullName="B/1.0",loadOrder=2,propT={},ref_count=1,stackDepth=1,status="active",userName="B",wV="s00000001.*zfinal",},newDefaults={depT={depA={{sn="A",version={kind="bool",value=true,},},{sn="B",version={kind="bool",value=true,},},},},fn="ProjectDIR/rt/modulerc/mfA/Core/newDefaults/1.0.lua",fullName="newDefaults/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="newDefaults",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfA/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfA/Core",}';
 export _ModuleTable_;
 ===========================
 step 51
@@ -1385,7 +1385,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing avail
 ===========================
 MODULEPATH=ProjectDIR/rt/modulerc/mfA/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/modulerc/mfA/Core/A/1.1.lua",fullName="A/1.1",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="A",wV="s00000001.000000001.*zfinal",},B={fn="ProjectDIR/rt/modulerc/mfA/Core/B/1.0.lua",fullName="B/1.0",loadOrder=2,propT={},ref_count=1,stackDepth=1,status="active",userName="B",wV="s00000001.*zfinal",},newDefaults={fn="ProjectDIR/rt/modulerc/mfA/Core/newDefaults/1.0.lua",fullName="newDefaults/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="newDefaults",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfA/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfA/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="ProjectDIR/rt/modulerc/mfA/Core/A/1.1.lua",fullName="A/1.1",loadOrder=1,propT={},ref_count=1,stackDepth=1,status="active",userName="A",wV="s00000001.000000001.*zfinal",},B={fn="ProjectDIR/rt/modulerc/mfA/Core/B/1.0.lua",fullName="B/1.0",loadOrder=2,propT={},ref_count=1,stackDepth=1,status="active",userName="B",wV="s00000001.*zfinal",},newDefaults={depT={depA={{sn="A",version={kind="bool",value=true,},},{sn="B",version={kind="bool",value=true,},},},},fn="ProjectDIR/rt/modulerc/mfA/Core/newDefaults/1.0.lua",fullName="newDefaults/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="newDefaults",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfA/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfA/Core",}';
 export _ModuleTable_;
 ===========================
 step 52
@@ -2881,7 +2881,7 @@ MODULEPATH=ProjectDIR/rt/modulerc/mfE/Core;
 export MODULEPATH;
 _LMFILES_=ProjectDIR/rt/modulerc/mfE/Core/EESSI/1.0.lua:ProjectDIR/rt/modulerc/mfE/Core/B/3.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={B={fn="ProjectDIR/rt/modulerc/mfE/Core/B/3.0.lua",fullName="B/3.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="B/3.0",wV="000000003.*zfinal",},EESSI={fn="ProjectDIR/rt/modulerc/mfE/Core/EESSI/1.0.lua",fullName="EESSI/1.0",loadOrder=1,moduleKindT={kind="hidden",},propT={},ref_count=1,stackDepth=1,status="active",userName="EESSI/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfE/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfE/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={B={depT={depA={{sn="EESSI",version={kind="fixed",value="1.0",},},},},fn="ProjectDIR/rt/modulerc/mfE/Core/B/3.0.lua",fullName="B/3.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="B/3.0",wV="000000003.*zfinal",},EESSI={fn="ProjectDIR/rt/modulerc/mfE/Core/EESSI/1.0.lua",fullName="EESSI/1.0",loadOrder=1,moduleKindT={kind="hidden",},propT={},ref_count=1,stackDepth=1,status="active",userName="EESSI/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfE/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfE/Core",}';
 export _ModuleTable_;
 ===========================
 step 101
@@ -2893,7 +2893,7 @@ MODULEPATH=ProjectDIR/rt/modulerc/mfE/Core;
 export MODULEPATH;
 _LMFILES_=ProjectDIR/rt/modulerc/mfE/Core/EESSI/1.0.lua:ProjectDIR/rt/modulerc/mfE/Core/B/3.0.lua:ProjectDIR/rt/modulerc/mfE/Core/F/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={B={fn="ProjectDIR/rt/modulerc/mfE/Core/B/3.0.lua",fullName="B/3.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="B/3.0",wV="000000003.*zfinal",},EESSI={fn="ProjectDIR/rt/modulerc/mfE/Core/EESSI/1.0.lua",fullName="EESSI/1.0",loadOrder=1,moduleKindT={kind="hidden",},propT={},ref_count=1,stackDepth=1,status="active",userName="EESSI/1.0",wV="000000001.*zfinal",},F={fn="ProjectDIR/rt/modulerc/mfE/Core/F/1.0.lua",fullName="F/1.0",loadOrder=3,moduleKindT={kind="hidden",},propT={},stackDepth=0,status="active",userName="F/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfE/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfE/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={B={depT={depA={{sn="EESSI",version={kind="fixed",value="1.0",},},},},fn="ProjectDIR/rt/modulerc/mfE/Core/B/3.0.lua",fullName="B/3.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="B/3.0",wV="000000003.*zfinal",},EESSI={fn="ProjectDIR/rt/modulerc/mfE/Core/EESSI/1.0.lua",fullName="EESSI/1.0",loadOrder=1,moduleKindT={kind="hidden",},propT={},ref_count=1,stackDepth=1,status="active",userName="EESSI/1.0",wV="000000001.*zfinal",},F={fn="ProjectDIR/rt/modulerc/mfE/Core/F/1.0.lua",fullName="F/1.0",loadOrder=3,moduleKindT={kind="hidden",},propT={},stackDepth=0,status="active",userName="F/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfE/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfE/Core",}';
 export _ModuleTable_;
 ===========================
 step 102
@@ -2905,7 +2905,7 @@ MODULEPATH=ProjectDIR/rt/modulerc/mfE/Core;
 export MODULEPATH;
 _LMFILES_=ProjectDIR/rt/modulerc/mfE/Core/EESSI/1.0.lua:ProjectDIR/rt/modulerc/mfE/Core/B/3.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={B={fn="ProjectDIR/rt/modulerc/mfE/Core/B/3.0.lua",fullName="B/3.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="B/3.0",wV="000000003.*zfinal",},EESSI={fn="ProjectDIR/rt/modulerc/mfE/Core/EESSI/1.0.lua",fullName="EESSI/1.0",loadOrder=1,moduleKindT={kind="hidden",},propT={},ref_count=1,stackDepth=1,status="active",userName="EESSI/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfE/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfE/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={B={depT={depA={{sn="EESSI",version={kind="fixed",value="1.0",},},},},fn="ProjectDIR/rt/modulerc/mfE/Core/B/3.0.lua",fullName="B/3.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="B/3.0",wV="000000003.*zfinal",},EESSI={fn="ProjectDIR/rt/modulerc/mfE/Core/EESSI/1.0.lua",fullName="EESSI/1.0",loadOrder=1,moduleKindT={kind="hidden",},propT={},ref_count=1,stackDepth=1,status="active",userName="EESSI/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfE/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfE/Core",}';
 export _ModuleTable_;
 ===========================
 step 103
@@ -2917,7 +2917,7 @@ MODULEPATH=ProjectDIR/rt/modulerc/mfE/Core;
 export MODULEPATH;
 _LMFILES_=ProjectDIR/rt/modulerc/mfE/Core/B/3.0.lua:ProjectDIR/rt/modulerc/mfE/Core/EESSI/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={B={fn="ProjectDIR/rt/modulerc/mfE/Core/B/3.0.lua",fullName="B/3.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="B/3.0",wV="000000003.*zfinal",},EESSI={fn="ProjectDIR/rt/modulerc/mfE/Core/EESSI/1.0.lua",fullName="EESSI/1.0",loadOrder=2,moduleKindT={kind="hidden",},propT={},stackDepth=0,status="active",userName="EESSI/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfE/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfE/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={B={depT={depA={{sn="EESSI",version={kind="fixed",value="1.0",},},},},fn="ProjectDIR/rt/modulerc/mfE/Core/B/3.0.lua",fullName="B/3.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="B/3.0",wV="000000003.*zfinal",},EESSI={fn="ProjectDIR/rt/modulerc/mfE/Core/EESSI/1.0.lua",fullName="EESSI/1.0",loadOrder=2,moduleKindT={kind="hidden",},propT={},stackDepth=0,status="active",userName="EESSI/1.0",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/modulerc/mfE/Core",},systemBaseMPATH="ProjectDIR/rt/modulerc/mfE/Core",}';
 export _ModuleTable_;
 ===========================
 step 104

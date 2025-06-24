@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
+Modules based on Lua: Version 8.7.61 2025-06-20 16:09 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -20,6 +20,58 @@ _ModuleTable_ = {
   family = {},
   mT = {
     AA = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "x",
+              version = {
+                kind = "fixed",
+                value = "2.0",
+              },
+            },
+          },
+          {
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "z",
+              version = {
+                kind = "fixed",
+                value = "3.0",
+              },
+            },
+          },
+          {
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "x",
+              version = {
+                kind = "fixed",
+                value = "3.0",
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "y", "y", "y",
       },
@@ -89,6 +141,42 @@ _ModuleTable_ = {
   family = {},
   mT = {
     A = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "x",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+          {
+            {
+              sn = "x",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "z",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "y", "x",
       },
@@ -102,6 +190,26 @@ _ModuleTable_ = {
       wV = "000000001.*zfinal",
     },
     B = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "z",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "y",
       },
@@ -158,6 +266,26 @@ _ModuleTable_ = {
   family = {},
   mT = {
     B = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "z",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "y",
       },
@@ -211,6 +339,26 @@ _ModuleTable_ = {
   family = {},
   mT = {
     B = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "z",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "y",
       },
@@ -252,14 +400,14 @@ _ModuleTable_ = {
 }
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A AAAA
 ===========================
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm x
 ===========================
 Lmod Warning:
-The following dependent module(s) are not currently loaded: x (required by: A/1.0, A/1.0)
+The following dependent module(s) are not currently loaded: x (required by: A/1.0, AAAA/1.0)
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
@@ -272,6 +420,42 @@ _ModuleTable_ = {
   family = {},
   mT = {
     A = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "x",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+          {
+            {
+              sn = "x",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "z",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "x", "x",
       },
@@ -284,7 +468,53 @@ _ModuleTable_ = {
       userName = "A",
       wV = "000000001.*zfinal",
     },
+    AAAA = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "x",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
+      depends_on_anyA = {
+        "x",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/AAAA/1.0.lua",
+      fullName = "AAAA/1.0",
+      loadOrder = 4,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "AAAA",
+      wV = "000000001.*zfinal",
+    },
     B = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "z",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "y",
       },
@@ -316,7 +546,7 @@ _ModuleTable_ = {
 }
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm A
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm A AAAA
 ===========================
 ===========================
 step 19
@@ -330,6 +560,26 @@ _ModuleTable_ = {
   family = {},
   mT = {
     B = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "z",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "y",
       },
@@ -389,6 +639,26 @@ _ModuleTable_ = {
   family = {},
   mT = {
     B = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "z",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "y",
       },
@@ -402,6 +672,19 @@ _ModuleTable_ = {
       wV = "000000001.*zfinal",
     },
     already = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "d",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "d",
       },
@@ -461,6 +744,42 @@ _ModuleTable_ = {
   family = {},
   mT = {
     A = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "x",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+          {
+            {
+              sn = "x",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "z",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "y", "x",
       },
@@ -474,6 +793,26 @@ _ModuleTable_ = {
       wV = "000000001.*zfinal",
     },
     B = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "z",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "y",
       },
@@ -550,6 +889,42 @@ _ModuleTable_ = {
   family = {},
   mT = {
     A = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "x",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+          {
+            {
+              sn = "x",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "z",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "y", "x",
       },
@@ -563,6 +938,26 @@ _ModuleTable_ = {
       wV = "000000001.*zfinal",
     },
     B = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "z",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "y",
       },
@@ -764,6 +1159,42 @@ _ModuleTable_ = {
   family = {},
   mT = {
     A = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "x",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+          {
+            {
+              sn = "z",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
       depends_on_anyA = {
         "x", "z",
       },
@@ -804,3 +1235,140 @@ _ModuleTable_ = {
   },
   systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf3/Core",
 }
+===========================
+step 59
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 60
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load AAA
+===========================
+===========================
+step 61
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
+===========================
+_ModuleTable_ = {
+  MTversion = 3,
+  c_rebuildTime = false,
+  c_shortTime = false,
+  depthT = {},
+  family = {},
+  mT = {
+    AAA = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "x",
+              version = {
+                kind = "fixed",
+                value = "2.0",
+              },
+            },
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
+      depends_on_anyA = {
+        "x",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/AAA/1.0.lua",
+      fullName = "AAA/1.0",
+      loadOrder = 2,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "AAA",
+      wV = "000000001.*zfinal",
+    },
+    x = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/x/2.0.lua",
+      fullName = "x/2.0",
+      loadOrder = 1,
+      propT = {},
+      ref_count = 1,
+      stackDepth = 1,
+      status = "active",
+      userName = "x/2.0",
+      wV = "000000002.*zfinal",
+    },
+  },
+  mpathA = {
+    "ProjectDIR/rt/depends_on_any/mf/Core",
+  },
+  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core",
+}
+===========================
+step 62
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load -x y
+===========================
+===========================
+step 63
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
+===========================
+_ModuleTable_ = {
+  MTversion = 3,
+  c_rebuildTime = false,
+  c_shortTime = false,
+  depthT = {},
+  family = {},
+  mT = {
+    AAA = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "x",
+              version = {
+                kind = "fixed",
+                value = "2.0",
+              },
+            },
+            {
+              sn = "y",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
+      depends_on_anyA = {
+        "x",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/AAA/1.0.lua",
+      fullName = "AAA/1.0",
+      loadOrder = 1,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "AAA",
+      wV = "000000001.*zfinal",
+    },
+    y = {
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/y/1.0.lua",
+      fullName = "y/1.0",
+      loadOrder = 2,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "y",
+      wV = "000000001.*zfinal",
+    },
+  },
+  mpathA = {
+    "ProjectDIR/rt/depends_on_any/mf/Core",
+  },
+  systemBaseMPATH = "ProjectDIR/rt/depends_on_any/mf/Core",
+}
+===========================
+step 64
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm AAA
+===========================

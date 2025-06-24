@@ -1625,5 +1625,213 @@ function M.haveDSConflict(self, mnameIn)
    return false
 end
 
+function M.record_depends_on(self, sn, mA)
+   dbg.start{"MT:record_depends_on(mA)"}
+   local entry = self.mT[sn]
+   assert(entry)
+   local depT = entry.depT or {}
+   local depA = depT.depA or {}
+   depT.depA  = depA
+   entry.depT = depT
+
+   for i = 1, #mA do
+      repeat
+         local mname = mA[i]
+         local sn    = mname:sn()
+         if (not sn) then break end
+         local version = mname:get_version_description()
+         depA[#depA+1] = {sn = sn, version = version}
+      until (true)
+   end
+   dbg.fini("MT:record_depends_on")
+end
+
+function M.record_depends_on_any(self, sn, mA)
+   dbg.start{"MT:record_depends_on_any(sn: \"",sn,"\", mA)"}
+   local entry = self.mT[sn]
+   assert(entry)
+
+   local depT = entry.depT or {}
+   local doaA = depT.doaA or {}
+   depT.doaA  = doaA
+   entry.depT = depT
+
+
+   local my_doaA = {}
+
+   for i = 1, #mA do
+      repeat
+         local mname = mA[i]
+         local sn    = mname:sn()
+         if (not sn) then break end
+         local version = mname:get_version_description()
+         my_doaA[#my_doaA+1] = {sn = sn, version = version}
+      until (true)
+   end
+   doaA[#doaA +1] = my_doaA
+   dbg.fini("MT:record_depends_on_any")
+end
+
+
+------------------------------------------------------------------------
+-- Check mT for valid entries.
+
+local function l_boolCk(self, depEntryT)
+   local mT = self.mT
+   return mT[depEntryT.sn] ~= nil
+end
+
+local function l_fixedCk(self, depEntryT)
+   local mT    = self.mT
+   local entry = mT[depEntryT.sn]
+   if (not entry) then
+      return false
+   end
+   local fullName = pathJoin(depEntryT.sn, depEntryT.version.value)
+   return entry.fullName == fullName
+end
+
+
+
+local function l_lessthan(a,b)
+   return a < b
+end
+
+local function l_lessthan_equal(a,b)
+   return a <= b
+end
+
+local function l_build_test(v)
+   if (not v) then
+      return v, l_lessthan_equal(a,b)
+   end
+   if ( v:find("[<>]") ) then
+      return v:gsub("[<>]",""), l_lessthan
+   end
+   return v, l_lessthan_equal
+end
+   
+local function l_betweenCk(self, depEntryT)
+   local mT    = self.mT
+   local sn    = depEntryT.sn
+   local entry = mT[sn]
+   if (not entry) then
+      return false
+   end
+
+   local is, lowerFn = l_build_test(depEntryT.version.value[1] or false)
+   local ie, upperFn = l_build_test(depEntryT.version.value[2] or false)
+   local lowerBound  = is and parseVersion(is) or " "
+   local upperBound  = ie and parseVersion(ie) or "~"
+   local pV          = parseVersion(extractVersion(entry.fullName, sn))
+   return (lowerFn(lowerBound,pV) and upperFn(pV,upperBound))
+end
+
+------------------------------------------------------------------------
+-- convert depEntryT table into a user readable name.
+
+local function l_boolNameRpt(depEntryT)
+   return depEntryT.sn
+end
+
+local function l_fixedNameRpt(depEntryT)
+   return pathJoin(depEntryT.sn,depEntryT.version.value)
+end
+
+local function l_betweenNameRpt(depEntryT)
+   local is = depEntryT.version.value[1] or false
+   local ie = depEntryT.version.value[2] or false
+
+   local funcName   = "between"
+   local valueRange = {1,2}
+   if (not ie) then
+      funcName = "atleast"
+      valueRange = {1,1}
+   elseif(not is) then
+      funcName = "atmost"
+      valueRange = {2,2}
+   end
+
+   local a = {}
+   a[#a+1] = funcName .. "("
+   a[#a+1] = depEntryT.sn .. ","
+   
+   for idx = valueRange[1],valueRange[2] do
+      a[#a+1] = depEntryT.version.value[idx] .. ","
+   end
+   a[#a]   = a[#a]:sub(1,-2)  -- remove trailing comma
+   a[#a+1] = ")"
+   return concatTbl(a,"")
+end
+
+local s_fnDepT = { fixed   = l_fixedCk,
+                   bool    = l_boolCk,
+                   between = l_betweenCk,
+}
+
+local s_fnNameT =  { fixed   = l_fixedNameRpt,
+                     bool    = l_boolNameRpt,
+                     between = l_betweenNameRpt,
+}
+
+
+------------------------------------------------------------------------
+-- Use table driven local functions above to 
+
+
+function M.check_deps(self, sn)
+   dbg.start{"MT:check_deps(sn: \"",sn,"\","}
+   local entry = self.mT[sn]
+   assert(entry)
+   local depT = entry.depT
+   if (not depT) then 
+      dbg.fini("MT:check_deps")
+      return 
+   end
+
+   ------------------------------------------------------------
+   -- Check regular dependencies
+   
+   local depA = depT.depA
+   if (depA and next(depA) ~= nil) then
+      for i = 1,#depA do
+         local depEntryT = depA[i]
+         local l_func    = s_fnDepT[depEntryT.version.kind]
+         if (not l_func(self, depEntryT)) then
+            local l_nameFunc = s_fnNameT[depEntryT.version.kind]
+            MCP:addMissingDepModule(l_nameFunc(depEntryT), entry.fullName)
+         end
+      end
+   end
+
+   ------------------------------------------------------------
+   -- Check depends_on_any dependencies
+   local doaA = depT.doaA
+   if (doaA and next(doaA) ~= nil) then
+      for j = 1, #doaA do
+         local blockA   = doaA[j]
+         local failure  = true
+         local idxMatch = nil
+         local snMatch  = entry.depends_on_anyA[j]
+         for i = 1, #blockA do
+            local depEntryT = blockA[i]
+            local l_func    = s_fnDepT[depEntryT.version.kind]
+            if (l_func(self,depEntryT)) then
+               failure = false
+               break -- There is a match so quit looking.
+            end
+            if (snMatch == depEntryT.sn) then
+               idxMatch = i
+            end
+         end
+         if (failure) then
+            local brokenEntryT = blockA[idxMatch]
+            local l_nameFunc = s_fnNameT[brokenEntryT.version.kind]
+            MCP:addMissingDepModule(l_nameFunc(brokenEntryT), entry.fullName)
+         end
+      end
+   end
+   dbg.fini("MT:check_deps")
+end
 
 return M

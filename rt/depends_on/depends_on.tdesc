@@ -142,10 +142,20 @@ testdescript = {
      runLmod load intel                        #75
      runLmod list                              #76
 
+     ##############################################
+     # Test storing into entry.depT in MT
 
+     runLmod purge                             #77
+     unsetMT
+     export MODULEPATH=$(testDir)/mf/Core7
+     runLmod load B A                          #78
+     runLmod --mt                              #79
 
-
-
+     ##############################################
+     # Test save/restore
+     runLmod save                              #80
+     runLmod restore                           #81
+     runLmod --mt                              #82
 
      
 

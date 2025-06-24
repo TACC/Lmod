@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
+Modules based on Lua: Version 8.7.61 2025-06-20 16:09 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -403,3 +403,339 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 Currently Loaded Modules:
   1) A/1.0   2) python3/1.0   3) intel/1.0
+===========================
+step 77
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge
+===========================
+===========================
+step 78
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load B A
+===========================
+===========================
+step 79
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
+===========================
+_ModuleTable_ = {
+  MTversion = 3,
+  c_rebuildTime = false,
+  c_shortTime = false,
+  depthT = {},
+  family = {},
+  mT = {
+    A = {
+      depT = {
+        depA = {
+          {
+            sn = "x",
+            version = {
+              kind = "fixed",
+              value = "1.0",
+            },
+          },
+          {
+            sn = "y",
+            version = {
+              kind = "bool",
+              value = true,
+            },
+          },
+        },
+        doaA = {
+          {
+            {
+              sn = "xx",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "yy",
+              version = {
+                kind = "fixed",
+                value = "1.0",
+              },
+            },
+          },
+          {
+            {
+              sn = "rr",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "qq",
+              version = {
+                kind = "fixed",
+                value = "1.0",
+              },
+            },
+          },
+        },
+      },
+      depends_on_anyA = {
+        "yy", "rr",
+      },
+      fn = "ProjectDIR/rt/depends_on/mf/Core7/A/1.0.lua",
+      fullName = "A/1.0",
+      loadOrder = 6,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "A",
+      wV = "000000001.*zfinal",
+    },
+    B = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "yy",
+              version = {
+                kind = "fixed",
+                value = "1.0",
+              },
+            },
+            {
+              sn = "xx",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
+      depends_on_anyA = {
+        "yy",
+      },
+      fn = "ProjectDIR/rt/depends_on/mf/Core7/B/1.0.lua",
+      fullName = "B/1.0",
+      loadOrder = 2,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "B",
+      wV = "000000001.*zfinal",
+    },
+    rr = {
+      fn = "ProjectDIR/rt/depends_on/mf/Core7/rr/1.0.lua",
+      fullName = "rr/1.0",
+      loadOrder = 5,
+      propT = {},
+      ref_count = 1,
+      stackDepth = 1,
+      status = "active",
+      userName = "rr",
+      wV = "000000001.*zfinal",
+    },
+    x = {
+      fn = "ProjectDIR/rt/depends_on/mf/Core7/x/1.0.lua",
+      fullName = "x/1.0",
+      loadOrder = 3,
+      propT = {},
+      ref_count = 1,
+      stackDepth = 1,
+      status = "active",
+      userName = "x/1.0",
+      wV = "000000001.*zfinal",
+    },
+    y = {
+      fn = "ProjectDIR/rt/depends_on/mf/Core7/y/1.0.lua",
+      fullName = "y/1.0",
+      loadOrder = 4,
+      propT = {},
+      ref_count = 1,
+      stackDepth = 1,
+      status = "active",
+      userName = "y",
+      wV = "000000001.*zfinal",
+    },
+    yy = {
+      fn = "ProjectDIR/rt/depends_on/mf/Core7/yy/1.0.lua",
+      fullName = "yy/1.0",
+      loadOrder = 1,
+      propT = {},
+      ref_count = 2,
+      stackDepth = 1,
+      status = "active",
+      userName = "yy/1.0",
+      wV = "000000001.*zfinal",
+    },
+  },
+  mpathA = {
+    "ProjectDIR/rt/depends_on/mf/Core7",
+  },
+  systemBaseMPATH = "ProjectDIR/rt/depends_on/mf/Core7",
+}
+===========================
+step 80
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing save
+===========================
+Saved current collection of modules to: "default"
+===========================
+step 81
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing restore
+===========================
+Restoring modules from user's default
+===========================
+step 82
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
+===========================
+_ModuleTable_ = {
+  MTversion = 3,
+  c_rebuildTime = false,
+  c_shortTime = false,
+  depthT = {},
+  family = {},
+  mT = {
+    A = {
+      depT = {
+        depA = {
+          {
+            sn = "x",
+            version = {
+              kind = "fixed",
+              value = "1.0",
+            },
+          },
+          {
+            sn = "y",
+            version = {
+              kind = "bool",
+              value = true,
+            },
+          },
+        },
+        doaA = {
+          {
+            {
+              sn = "xx",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "yy",
+              version = {
+                kind = "fixed",
+                value = "1.0",
+              },
+            },
+          },
+          {
+            {
+              sn = "rr",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+            {
+              sn = "qq",
+              version = {
+                kind = "fixed",
+                value = "1.0",
+              },
+            },
+          },
+        },
+      },
+      depends_on_anyA = {
+        "yy", "rr",
+      },
+      fn = "ProjectDIR/rt/depends_on/mf/Core7/A/1.0.lua",
+      fullName = "A/1.0",
+      loadOrder = 6,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "A",
+      wV = "000000001.*zfinal",
+    },
+    B = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "yy",
+              version = {
+                kind = "fixed",
+                value = "1.0",
+              },
+            },
+            {
+              sn = "xx",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
+      depends_on_anyA = {
+        "yy",
+      },
+      fn = "ProjectDIR/rt/depends_on/mf/Core7/B/1.0.lua",
+      fullName = "B/1.0",
+      loadOrder = 2,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "B",
+      wV = "000000001.*zfinal",
+    },
+    rr = {
+      fn = "ProjectDIR/rt/depends_on/mf/Core7/rr/1.0.lua",
+      fullName = "rr/1.0",
+      loadOrder = 5,
+      propT = {},
+      ref_count = 1,
+      stackDepth = 1,
+      status = "active",
+      userName = "rr",
+      wV = "000000001.*zfinal",
+    },
+    x = {
+      fn = "ProjectDIR/rt/depends_on/mf/Core7/x/1.0.lua",
+      fullName = "x/1.0",
+      loadOrder = 3,
+      propT = {},
+      ref_count = 1,
+      stackDepth = 1,
+      status = "active",
+      userName = "x/1.0",
+      wV = "000000001.*zfinal",
+    },
+    y = {
+      fn = "ProjectDIR/rt/depends_on/mf/Core7/y/1.0.lua",
+      fullName = "y/1.0",
+      loadOrder = 4,
+      propT = {},
+      ref_count = 1,
+      stackDepth = 1,
+      status = "active",
+      userName = "y",
+      wV = "000000001.*zfinal",
+    },
+    yy = {
+      fn = "ProjectDIR/rt/depends_on/mf/Core7/yy/1.0.lua",
+      fullName = "yy/1.0",
+      loadOrder = 1,
+      propT = {},
+      ref_count = 2,
+      stackDepth = 1,
+      status = "active",
+      userName = "yy/1.0",
+      wV = "000000001.*zfinal",
+    },
+  },
+  mpathA = {
+    "ProjectDIR/rt/depends_on/mf/Core7",
+  },
+  systemBaseMPATH = "ProjectDIR/rt/depends_on/mf/Core7",
+}

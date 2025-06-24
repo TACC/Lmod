@@ -51,6 +51,7 @@ local hook            = require("Hook")
 local dbg             = require("Dbg"):dbg()
 local concatTbl       = table.concat
 local getenv          = os.getenv
+local timer           = require("Timer"):singleton()
 
 local s_mfileCountT   = {}
 
@@ -68,7 +69,7 @@ function loadModuleFile(t)
    local lmodBrk    = false
    local func
    local msg
-   local whole
+   local whole          = nil
    local userName
 
    -- If the user is requesting an unload, don't complain if the file

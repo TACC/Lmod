@@ -18,7 +18,7 @@ XCC=1.0;
 export XCC;
 _LMFILES_=ProjectDIR/rt/load_hook/mf/Core/xcc/1.0.lua:ProjectDIR/rt/load_hook/mf/Core/d/2.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={d={fn="ProjectDIR/rt/load_hook/mf/Core/d/2.0.lua",fullName="d/2.0",loadOrder=2,propT={},ref_count=1,stackDepth=1,status="active",userName="d",wV="000000002.*zfinal",},xcc={fn="ProjectDIR/rt/load_hook/mf/Core/xcc/1.0.lua",fullName="xcc/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="xcc",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/load_hook/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_hook/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={d={fn="ProjectDIR/rt/load_hook/mf/Core/d/2.0.lua",fullName="d/2.0",loadOrder=2,propT={},ref_count=1,stackDepth=1,status="active",userName="d",wV="000000002.*zfinal",},xcc={depT={depA={{sn="d",version={kind="bool",value=true,},},},},fn="ProjectDIR/rt/load_hook/mf/Core/xcc/1.0.lua",fullName="xcc/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="xcc",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/load_hook/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_hook/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -26,7 +26,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/load_hook/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={d={fn="ProjectDIR/rt/load_hook/mf/Core/d/2.0.lua",fullName="d/2.0",loadOrder=2,propT={},ref_count=1,stackDepth=1,status="active",userName="d",wV="000000002.*zfinal",},xcc={fn="ProjectDIR/rt/load_hook/mf/Core/xcc/1.0.lua",fullName="xcc/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="xcc",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/load_hook/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_hook/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={d={fn="ProjectDIR/rt/load_hook/mf/Core/d/2.0.lua",fullName="d/2.0",loadOrder=2,propT={},ref_count=1,stackDepth=1,status="active",userName="d",wV="000000002.*zfinal",},xcc={depT={depA={{sn="d",version={kind="bool",value=true,},},},},fn="ProjectDIR/rt/load_hook/mf/Core/xcc/1.0.lua",fullName="xcc/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="xcc",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/load_hook/mf/Core",},systemBaseMPATH="ProjectDIR/rt/load_hook/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 4
