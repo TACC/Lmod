@@ -1685,7 +1685,6 @@ local function l_fixedCk(self, depEntryT)
    local mT    = self.mT
    local entry = mT[depEntryT.sn]
    if (not entry) then
-      dbg.fini("l_fixedCk")
       return false
    end
    local fullName = pathJoin(depEntryT.sn, depEntryT.version.value)
@@ -1785,7 +1784,10 @@ function M.check_deps(self, sn)
    local entry = self.mT[sn]
    assert(entry)
    local depT = entry.depT
-   if (not depT) then return end
+   if (not depT) then 
+      dbg.fini("MT:check_deps")
+      return 
+   end
 
    ------------------------------------------------------------
    -- Check regular dependencies
@@ -1816,7 +1818,7 @@ function M.check_deps(self, sn)
             local l_func    = s_fnDepT[depEntryT.version.kind]
             if (l_func(self,depEntryT)) then
                failure = false
-               break
+               break -- There is a match so quit looking.
             end
             if (snMatch == depEntryT.sn) then
                idxMatch = i

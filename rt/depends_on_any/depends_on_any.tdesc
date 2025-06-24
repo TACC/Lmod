@@ -37,10 +37,10 @@ testdescript = {
      runLmod load x                            #12
      runLmod rm   A                            #13
      runLmod --mt                              #14
-     runLmod load A                            #15
+     runLmod load A AAAA                       #15
      runLmod rm   x                            #16
      runLmod --mt                              #17
-     runLmod rm   A                            #18
+     runLmod rm   A AAAA                       #18
      runLmod --mt                              #19
      runLmod load none                         #20
      runLmod load d                            #21

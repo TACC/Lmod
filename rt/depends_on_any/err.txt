@@ -400,14 +400,14 @@ _ModuleTable_ = {
 }
 ===========================
 step 15
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing load A AAAA
 ===========================
 ===========================
 step 16
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm x
 ===========================
 Lmod Warning:
-The following dependent module(s) are not currently loaded: x (required by: A/1.0)
+The following dependent module(s) are not currently loaded: x (required by: A/1.0, AAAA/1.0)
 ===========================
 step 17
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --mt
@@ -468,6 +468,32 @@ _ModuleTable_ = {
       userName = "A",
       wV = "000000001.*zfinal",
     },
+    AAAA = {
+      depT = {
+        doaA = {
+          {
+            {
+              sn = "x",
+              version = {
+                kind = "bool",
+                value = true,
+              },
+            },
+          },
+        },
+      },
+      depends_on_anyA = {
+        "x",
+      },
+      fn = "ProjectDIR/rt/depends_on_any/mf/Core/AAAA/1.0.lua",
+      fullName = "AAAA/1.0",
+      loadOrder = 4,
+      propT = {},
+      stackDepth = 0,
+      status = "active",
+      userName = "AAAA",
+      wV = "000000001.*zfinal",
+    },
     B = {
       depT = {
         doaA = {
@@ -520,7 +546,7 @@ _ModuleTable_ = {
 }
 ===========================
 step 18
-lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm A
+lua ProjectDIR/src/lmod.in.lua shell --regression_testing rm A AAAA
 ===========================
 ===========================
 step 19
