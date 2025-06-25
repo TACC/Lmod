@@ -1171,7 +1171,7 @@ This is a module file for the container quay.io/biocontainers/authentict:1.0.1--
 following programs:
 	eferlanti@tacc.utexas.edu
 ]]
-help(help_message,"\\n")
+help(help_message,"\n")
 whatis("Name: authentict")
 whatis("Version: ctr-1.0.1--py311h9f5acd7_0")
 whatis("Category: Genotyping, Sequence contamination filtering, DNA substitution modelling")
@@ -1290,7 +1290,7 @@ MODULEPATH=OutputDIR/mf/cae:OutputDIR/mf/Core;
 export MODULEPATH;
 _LMFILES_=OutputDIR/mf/Core/A/1.0.lua:OutputDIR/mf/Core/B/1.0.lua:OutputDIR/mf/Core/C/1.2.lua:OutputDIR/mf/Core/authentict/2.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="OutputDIR/mf/Core/A/1.0.lua",fullName="A/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},B={fn="OutputDIR/mf/Core/B/1.0.lua",fullName="B/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="B",wV="000000001.*zfinal",},C={actionA={"prepend_path(\"MODULEPATH\",\"OutputDIR/mf/cae\")",},fn="OutputDIR/mf/Core/C/1.2.lua",fullName="C/1.2",loadOrder=3,propT={},stackDepth=0,status="active",userName="C",wV="000000001.000000002.*zfinal",},authentict={fn="OutputDIR/mf/Core/authentict/2.0.lua",fullName="authentict/2.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="authentict",wV="000000002.*zfinal",},},mpathA={"OutputDIR/mf/cae","OutputDIR/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={A={fn="OutputDIR/mf/Core/A/1.0.lua",fullName="A/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},B={fn="OutputDIR/mf/Core/B/1.0.lua",fullName="B/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="B",wV="000000001.*zfinal",},C={actionA={[[prepend_path("MODULEPATH","OutputDIR/mf/cae")]],},fn="OutputDIR/mf/Core/C/1.2.lua",fullName="C/1.2",loadOrder=3,propT={},stackDepth=0,status="active",userName="C",wV="000000001.000000002.*zfinal",},authentict={fn="OutputDIR/mf/Core/authentict/2.0.lua",fullName="authentict/2.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="authentict",wV="000000002.*zfinal",},},mpathA={"OutputDIR/mf/cae","OutputDIR/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core",}';
 export _ModuleTable_;
 unalias ace2sam 2> /dev/null || true;
 ace2sam () { RGC_APP=ace2sam; apptainer exec ${BIOCONTAINER_DIR}/biocontainers/authentict/authentict-1.0.1--py311h9f5acd7_0.sif $RGC_APP $@;
