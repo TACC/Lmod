@@ -2,7 +2,7 @@
 step 1
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing --version
 ===========================
-Modules based on Lua: Version 8.7.40 2024-06-11 15:18 -06:00
+Modules based on Lua: Version 8.7.61 2025-06-20 16:09 -05:00
     by Robert McLay mclay@tacc.utexas.edu
 ===========================
 step 2
@@ -21,7 +21,7 @@ _ModuleTable_ = {
   mT = {
     gcc = {
       actionA = {
-        "prepend_path(\"MODULEPATH\",\"OutputDIR/mf/Compiler/gcc/13\")",
+        [[prepend_path("MODULEPATH","OutputDIR/mf/Compiler/gcc/13")]],
       },
       fn = "OutputDIR/mf/Core/gcc/13.0.lua",
       fullName = "gcc/13.0",
@@ -34,7 +34,7 @@ _ModuleTable_ = {
     },
     mpich = {
       actionA = {
-        "prepend_path(\"MODULEPATH\",\"OutputDIR/mf/MPI/gcc/13/mpich/13\")",
+        [[prepend_path("MODULEPATH","OutputDIR/mf/MPI/gcc/13/mpich/13")]],
       },
       fn = "OutputDIR/mf/Compiler/gcc/13/mpich/13.0.lua",
       fullName = "mpich/13.0",

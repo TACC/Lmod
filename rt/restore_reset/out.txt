@@ -92,7 +92,7 @@ PATH=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/bin:ProjectDIR/proj_mgmt:PATH_to_TM
 export PATH;
 _LMFILES_=ProjectDIR/rt/restore_reset/mf/Core/gcc/13.2.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={Compiler="gcc",},mT={gcc={actionA={"prepend_path(\"MODULEPATH\",\"/ford1/share/gmao_SIteam/lmodulefiles/Compiler/gcc-13.2.0\")",},fn="ProjectDIR/rt/restore_reset/mf/Core/gcc/13.2.0.lua",fullName="gcc/13.2.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc",wV="000000013.000000002.*zfinal",},},mpathA={"/ford1/share/gmao_SIteam/lmodulefiles/Compiler/gcc-13.2.0","ProjectDIR/rt/restore_reset/mf/Core",},systemBaseMPATH="ProjectDIR/rt/restore_reset/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={Compiler="gcc",},mT={gcc={actionA={[[prepend_path("MODULEPATH","/ford1/share/gmao_SIteam/lmodulefiles/Compiler/gcc-13.2.0")]],},fn="ProjectDIR/rt/restore_reset/mf/Core/gcc/13.2.0.lua",fullName="gcc/13.2.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc",wV="000000013.000000002.*zfinal",},},mpathA={"/ford1/share/gmao_SIteam/lmodulefiles/Compiler/gcc-13.2.0","ProjectDIR/rt/restore_reset/mf/Core",},systemBaseMPATH="ProjectDIR/rt/restore_reset/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 6
@@ -190,7 +190,7 @@ PATH=/ford1/share/gmao_SIteam/gcc/gcc-13.2.0/bin:ProjectDIR/proj_mgmt:PATH_to_TM
 export PATH;
 _LMFILES_=ProjectDIR/rt/restore_reset/mf/Core/gcc/13.2.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={Compiler="gcc",},mT={gcc={actionA={"prepend_path(\"MODULEPATH\",\"/ford1/share/gmao_SIteam/lmodulefiles/Compiler/gcc-13.2.0\")",},fn="ProjectDIR/rt/restore_reset/mf/Core/gcc/13.2.0.lua",fullName="gcc/13.2.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc",wV="000000013.000000002.*zfinal",},},mpathA={"/ford1/share/gmao_SIteam/lmodulefiles/Compiler/gcc-13.2.0","ProjectDIR/rt/restore_reset/mf/Core",},systemBaseMPATH="ProjectDIR/rt/restore_reset/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={Compiler="gcc",},mT={gcc={actionA={[[prepend_path("MODULEPATH","/ford1/share/gmao_SIteam/lmodulefiles/Compiler/gcc-13.2.0")]],},fn="ProjectDIR/rt/restore_reset/mf/Core/gcc/13.2.0.lua",fullName="gcc/13.2.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="gcc",wV="000000013.000000002.*zfinal",},},mpathA={"/ford1/share/gmao_SIteam/lmodulefiles/Compiler/gcc-13.2.0","ProjectDIR/rt/restore_reset/mf/Core",},systemBaseMPATH="ProjectDIR/rt/restore_reset/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 9

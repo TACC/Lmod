@@ -103,7 +103,7 @@ def main():
     print("(%d) create moduleT table" % idx ); idx += 1;
 
     cursor.close()
-  except  mysql.connector.Error as e:
+  except mysql.connector.Error as e:
     print("Error %d: %s" % (e.args[0], e.args[1]))
     sys.exit(1)
 

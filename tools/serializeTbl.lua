@@ -94,12 +94,10 @@ end
 
 local function l_nsformat(value, dsplyNum)
    if (type(value) == 'string') then
-      value = value:gsub("\\","\\\\")
-      if (value:find("\n")) then
+      if (value:find("\n") or value:find('"')) then
          local left, rght = l_quoteValue(value)
 	 value = left .. value .. rght
       else
-         value = value:gsub('"','\\"')
 	 value = "\"" .. value .. "\""
       end
    elseif (type(value) == 'boolean') then

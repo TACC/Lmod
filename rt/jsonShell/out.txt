@@ -42,7 +42,7 @@ systemBaseMPATH = "ProjectDIR/rt/jsonShell/mf/Core",
   },
   shellFunc = {
     ml = {
-      "eval $($LMOD_DIR/ml_cmd \"$@\")", "eval `$LMOD_DIR/ml_cmd $*`",
+      [[eval $($LMOD_DIR/ml_cmd "$@")]], "eval `$LMOD_DIR/ml_cmd $*`",
     },
   },
   unset = {},

@@ -46,7 +46,7 @@ PATH=/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc
 export PATH;
 _LMFILES_=ProjectDIR/rt/hook/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/hook/mf/Core/intel/intel.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={admin={fn="ProjectDIR/rt/hook/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},intel={actionA={"prepend_path(\"MODULEPATH\",\"ProjectDIR/rt/hook/mf/Compiler/intel/10.1\")",},fn="ProjectDIR/rt/hook/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=2,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},},mpathA={"ProjectDIR/rt/hook/mf/Compiler/intel/10.1","ProjectDIR/rt/hook/mf/Core",},}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={admin={fn="ProjectDIR/rt/hook/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},intel={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/hook/mf/Compiler/intel/10.1")]],},fn="ProjectDIR/rt/hook/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=2,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},},mpathA={"ProjectDIR/rt/hook/mf/Compiler/intel/10.1","ProjectDIR/rt/hook/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -70,7 +70,7 @@ MODULEPATH=ProjectDIR/rt/hook/mf/Compiler/intel/10.1:ProjectDIR/rt/hook/mf/Core;
 export MODULEPATH;
 PATH=/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/usr/sbin:/sbin:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={admin={fn="ProjectDIR/rt/hook/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},intel={actionA={"prepend_path(\"MODULEPATH\",\"ProjectDIR/rt/hook/mf/Compiler/intel/10.1\")",},fn="ProjectDIR/rt/hook/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=2,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},},mpathA={"ProjectDIR/rt/hook/mf/Compiler/intel/10.1","ProjectDIR/rt/hook/mf/Core",},}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={admin={fn="ProjectDIR/rt/hook/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},intel={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/hook/mf/Compiler/intel/10.1")]],},fn="ProjectDIR/rt/hook/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=2,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},},mpathA={"ProjectDIR/rt/hook/mf/Compiler/intel/10.1","ProjectDIR/rt/hook/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 5
@@ -94,7 +94,7 @@ MODULEPATH=ProjectDIR/rt/hook/mf/Compiler/intel/10.1:ProjectDIR/rt/hook/mf/Core;
 export MODULEPATH;
 PATH=/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/usr/sbin:/sbin:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={admin={fn="ProjectDIR/rt/hook/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},intel={actionA={"prepend_path(\"MODULEPATH\",\"ProjectDIR/rt/hook/mf/Compiler/intel/10.1\")",},fn="ProjectDIR/rt/hook/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=2,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},},mpathA={"ProjectDIR/rt/hook/mf/Compiler/intel/10.1","ProjectDIR/rt/hook/mf/Core",},}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={admin={fn="ProjectDIR/rt/hook/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},intel={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/hook/mf/Compiler/intel/10.1")]],},fn="ProjectDIR/rt/hook/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=2,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},},mpathA={"ProjectDIR/rt/hook/mf/Compiler/intel/10.1","ProjectDIR/rt/hook/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 6
@@ -118,7 +118,7 @@ MODULEPATH=ProjectDIR/rt/hook/mf/Compiler/intel/10.1:ProjectDIR/rt/hook/mf/Core;
 export MODULEPATH;
 PATH=/vol/local/intel/idb/idb/bin:/vol/local/intel/fc/fc/bin:/vol/local/intel/cc/cc/bin:/usr/sbin:/sbin:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={admin={fn="ProjectDIR/rt/hook/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},intel={actionA={"prepend_path(\"MODULEPATH\",\"ProjectDIR/rt/hook/mf/Compiler/intel/10.1\")",},fn="ProjectDIR/rt/hook/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=2,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},},mpathA={"ProjectDIR/rt/hook/mf/Compiler/intel/10.1","ProjectDIR/rt/hook/mf/Core",},}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={admin={fn="ProjectDIR/rt/hook/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},intel={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/hook/mf/Compiler/intel/10.1")]],},fn="ProjectDIR/rt/hook/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=2,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},},mpathA={"ProjectDIR/rt/hook/mf/Compiler/intel/10.1","ProjectDIR/rt/hook/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 7
@@ -132,7 +132,7 @@ MODULEPATH=ProjectDIR/rt/hook/mf/Compiler/intel/10.1:ProjectDIR/rt/hook/mf/Core;
 export MODULEPATH;
 _LMFILES_=ProjectDIR/rt/hook/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/hook/mf/Core/intel/intel.lua:ProjectDIR/rt/hook/mf/Core/A/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={A={fn="ProjectDIR/rt/hook/mf/Core/A/1.0.lua",fullName="A/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},admin={fn="ProjectDIR/rt/hook/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},intel={actionA={"prepend_path(\"MODULEPATH\",\"ProjectDIR/rt/hook/mf/Compiler/intel/10.1\")",},fn="ProjectDIR/rt/hook/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=2,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},},mpathA={"ProjectDIR/rt/hook/mf/Compiler/intel/10.1","ProjectDIR/rt/hook/mf/Core",},}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={A={fn="ProjectDIR/rt/hook/mf/Core/A/1.0.lua",fullName="A/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},admin={fn="ProjectDIR/rt/hook/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},intel={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/hook/mf/Compiler/intel/10.1")]],},fn="ProjectDIR/rt/hook/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=2,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},},mpathA={"ProjectDIR/rt/hook/mf/Compiler/intel/10.1","ProjectDIR/rt/hook/mf/Core",},}';
 export _ModuleTable_;
 ===========================
 step 8
@@ -144,7 +144,7 @@ MODULEPATH=ProjectDIR/rt/hook/mf/Compiler/intel/10.1:ProjectDIR/rt/hook/mf/Core;
 export MODULEPATH;
 _LMFILES_=ProjectDIR/rt/hook/mf/Core/admin/admin-1.0.lua:ProjectDIR/rt/hook/mf/Core/intel/intel.lua:ProjectDIR/rt/hook/mf/Core/A/1.0.lua:ProjectDIR/rt/hook/mf/Core/decorate/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={A={fn="ProjectDIR/rt/hook/mf/Core/A/1.0.lua",fullName="A/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},admin={fn="ProjectDIR/rt/hook/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},decorate={fn="ProjectDIR/rt/hook/mf/Core/decorate/1.0.lua",fullName="decorate/1.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="decorate",wV="000000001.*zfinal",},intel={actionA={"prepend_path(\"MODULEPATH\",\"ProjectDIR/rt/hook/mf/Compiler/intel/10.1\")",},fn="ProjectDIR/rt/hook/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=2,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},},mpathA={"ProjectDIR/rt/hook/mf/Compiler/intel/10.1","ProjectDIR/rt/hook/mf/Core",},}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={compiler="intel",},mT={A={fn="ProjectDIR/rt/hook/mf/Core/A/1.0.lua",fullName="A/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="A",wV="000000001.*zfinal",},admin={fn="ProjectDIR/rt/hook/mf/Core/admin/admin-1.0.lua",fullName="admin/admin-1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="admin",wV="^admin.*zfinal-.000000001.*zfinal",},decorate={fn="ProjectDIR/rt/hook/mf/Core/decorate/1.0.lua",fullName="decorate/1.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="decorate",wV="000000001.*zfinal",},intel={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/hook/mf/Compiler/intel/10.1")]],},fn="ProjectDIR/rt/hook/mf/Core/intel/intel.lua",fullName="intel/intel",loadOrder=2,propT={},stackDepth=0,status="active",userName="intel",wV="*intel.*zfinal",},},mpathA={"ProjectDIR/rt/hook/mf/Compiler/intel/10.1","ProjectDIR/rt/hook/mf/Core",},}';
 export _ModuleTable_;
 foo=bar;
 export foo;

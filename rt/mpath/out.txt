@@ -62,7 +62,7 @@ PATH=/unknown/apps/ifort/18.0.1/bin:/unknown/apps/icc/18.0.1/bin:ProjectDIR/proj
 export PATH;
 _LMFILES_=ProjectDIR/rt/mpath/mf/Core/icc/18.0.1.lua:ProjectDIR/rt/mpath/mf/Core/ifort/18.0.1.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={icc={actionA={"prepend_path(\"MODULEPATH\",\"ProjectDIR/rt/mpath/mf/Compiler/intel/18.0\")",},fn="ProjectDIR/rt/mpath/mf/Core/icc/18.0.1.lua",fullName="icc/18.0.1",loadOrder=1,propT={},stackDepth=0,status="active",userName="icc",wV="000000018.000000000.000000001.*zfinal",},ifort={actionA={"prepend_path(\"MODULEPATH\",\"ProjectDIR/rt/mpath/mf/Compiler/intel/18.0\")",},fn="ProjectDIR/rt/mpath/mf/Core/ifort/18.0.1.lua",fullName="ifort/18.0.1",loadOrder=2,propT={},stackDepth=0,status="active",userName="ifort",wV="000000018.000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mpath/mf/Compiler/intel/18.0","ProjectDIR/rt/mpath/mf/Core","ProjectDIR/rt/mpath/mf/RTM",},systemBaseMPATH="ProjectDIR/rt/mpath/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={icc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/mpath/mf/Compiler/intel/18.0")]],},fn="ProjectDIR/rt/mpath/mf/Core/icc/18.0.1.lua",fullName="icc/18.0.1",loadOrder=1,propT={},stackDepth=0,status="active",userName="icc",wV="000000018.000000000.000000001.*zfinal",},ifort={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/mpath/mf/Compiler/intel/18.0")]],},fn="ProjectDIR/rt/mpath/mf/Core/ifort/18.0.1.lua",fullName="ifort/18.0.1",loadOrder=2,propT={},stackDepth=0,status="active",userName="ifort",wV="000000018.000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mpath/mf/Compiler/intel/18.0","ProjectDIR/rt/mpath/mf/Core","ProjectDIR/rt/mpath/mf/RTM",},systemBaseMPATH="ProjectDIR/rt/mpath/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 7
@@ -84,7 +84,7 @@ PATH=/unknown/apps/ifort/18.0.1/bin:ProjectDIR/proj_mgmt:PATH_to_TM;
 export PATH;
 _LMFILES_=ProjectDIR/rt/mpath/mf/Core/ifort/18.0.1.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ifort={actionA={"prepend_path(\"MODULEPATH\",\"ProjectDIR/rt/mpath/mf/Compiler/intel/18.0\")",},fn="ProjectDIR/rt/mpath/mf/Core/ifort/18.0.1.lua",fullName="ifort/18.0.1",loadOrder=1,propT={},stackDepth=0,status="active",userName="ifort",wV="000000018.000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mpath/mf/Compiler/intel/18.0","ProjectDIR/rt/mpath/mf/Core","ProjectDIR/rt/mpath/mf/RTM",},systemBaseMPATH="ProjectDIR/rt/mpath/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={ifort={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/mpath/mf/Compiler/intel/18.0")]],},fn="ProjectDIR/rt/mpath/mf/Core/ifort/18.0.1.lua",fullName="ifort/18.0.1",loadOrder=1,propT={},stackDepth=0,status="active",userName="ifort",wV="000000018.000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mpath/mf/Compiler/intel/18.0","ProjectDIR/rt/mpath/mf/Core","ProjectDIR/rt/mpath/mf/RTM",},systemBaseMPATH="ProjectDIR/rt/mpath/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 8
@@ -106,7 +106,7 @@ PATH=/unknown/apps/icc/18.0.1/bin:/unknown/apps/ifort/18.0.1/bin:ProjectDIR/proj
 export PATH;
 _LMFILES_=ProjectDIR/rt/mpath/mf/Core/ifort/18.0.1.lua:ProjectDIR/rt/mpath/mf/Core/icc/18.0.1.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={icc={actionA={"prepend_path(\"MODULEPATH\",\"ProjectDIR/rt/mpath/mf/Compiler/intel/18.0\")",},fn="ProjectDIR/rt/mpath/mf/Core/icc/18.0.1.lua",fullName="icc/18.0.1",loadOrder=2,propT={},stackDepth=0,status="active",userName="icc",wV="000000018.000000000.000000001.*zfinal",},ifort={actionA={"prepend_path(\"MODULEPATH\",\"ProjectDIR/rt/mpath/mf/Compiler/intel/18.0\")",},fn="ProjectDIR/rt/mpath/mf/Core/ifort/18.0.1.lua",fullName="ifort/18.0.1",loadOrder=1,propT={},stackDepth=0,status="active",userName="ifort",wV="000000018.000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mpath/mf/Compiler/intel/18.0","ProjectDIR/rt/mpath/mf/Core","ProjectDIR/rt/mpath/mf/RTM",},systemBaseMPATH="ProjectDIR/rt/mpath/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={icc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/mpath/mf/Compiler/intel/18.0")]],},fn="ProjectDIR/rt/mpath/mf/Core/icc/18.0.1.lua",fullName="icc/18.0.1",loadOrder=2,propT={},stackDepth=0,status="active",userName="icc",wV="000000018.000000000.000000001.*zfinal",},ifort={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/mpath/mf/Compiler/intel/18.0")]],},fn="ProjectDIR/rt/mpath/mf/Core/ifort/18.0.1.lua",fullName="ifort/18.0.1",loadOrder=1,propT={},stackDepth=0,status="active",userName="ifort",wV="000000018.000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mpath/mf/Compiler/intel/18.0","ProjectDIR/rt/mpath/mf/Core","ProjectDIR/rt/mpath/mf/RTM",},systemBaseMPATH="ProjectDIR/rt/mpath/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 9
@@ -116,5 +116,5 @@ __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/mpath/mf/Core:1\;ProjectDIR/rt/mpath/m
 export __LMOD_REF_COUNT_MODULEPATH;
 MODULEPATH=ProjectDIR/rt/mpath/mf/Core:ProjectDIR/rt/mpath/mf/RTM;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={icc={actionA={"prepend_path(\"MODULEPATH\",\"ProjectDIR/rt/mpath/mf/Compiler/intel/18.0\")",},fn="ProjectDIR/rt/mpath/mf/Core/icc/18.0.1.lua",fullName="icc/18.0.1",loadOrder=2,propT={},stackDepth=0,status="active",userName="icc",wV="000000018.000000000.000000001.*zfinal",},ifort={actionA={"prepend_path(\"MODULEPATH\",\"ProjectDIR/rt/mpath/mf/Compiler/intel/18.0\")",},fn="ProjectDIR/rt/mpath/mf/Core/ifort/18.0.1.lua",fullName="ifort/18.0.1",loadOrder=1,propT={},stackDepth=0,status="active",userName="ifort",wV="000000018.000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mpath/mf/Core","ProjectDIR/rt/mpath/mf/RTM",},systemBaseMPATH="ProjectDIR/rt/mpath/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={icc={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/mpath/mf/Compiler/intel/18.0")]],},fn="ProjectDIR/rt/mpath/mf/Core/icc/18.0.1.lua",fullName="icc/18.0.1",loadOrder=2,propT={},stackDepth=0,status="active",userName="icc",wV="000000018.000000000.000000001.*zfinal",},ifort={actionA={[[prepend_path("MODULEPATH","ProjectDIR/rt/mpath/mf/Compiler/intel/18.0")]],},fn="ProjectDIR/rt/mpath/mf/Core/ifort/18.0.1.lua",fullName="ifort/18.0.1",loadOrder=1,propT={},stackDepth=0,status="active",userName="ifort",wV="000000018.000000000.000000001.*zfinal",},},mpathA={"ProjectDIR/rt/mpath/mf/Core","ProjectDIR/rt/mpath/mf/RTM",},systemBaseMPATH="ProjectDIR/rt/mpath/mf/Core",}';
 export _ModuleTable_;
