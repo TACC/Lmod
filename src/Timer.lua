@@ -86,8 +86,7 @@ end
 -- The report function.  It returns a string which are the results.
 -- @param self An Timer object.
 function M.report(self)
-   local a   = {}
-
+   local a = {}
    local t = self.tbl
 
    for k, v in pairs(t) do

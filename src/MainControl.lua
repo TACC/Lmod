@@ -921,11 +921,11 @@ end
 function M.performDependencyCk(self)
    if (not s_performDepCk) then return end
    dbg.start{"MainControl:performDependencyCk()"}
-   local hub = Hub:singleton()
    local t0 = epoch()
+   local hub = Hub:singleton()
    hub:dependencyCk()
-   timer:deltaT("performDependencyCk", epoch() - t0)
    self:reportMissingDepModules()
+   timer:deltaT("performDependencyCk", epoch() - t0)
    dbg.fini("MainControl:performDependencyCk")
 end
 

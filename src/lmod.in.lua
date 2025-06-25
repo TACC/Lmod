@@ -549,7 +549,8 @@ function main()
    -- Report any changes (worth reporting from original MT)
    if (not quiet()) then
       mt:reportChanges()
-   end
+   end      
+
 
    -- Convert MT into a variable _ModuleTable_
 
@@ -557,7 +558,7 @@ function main()
    local n        = mt:name()
    varT[n]        = Var:new(n)
    varT[n]:set(mt:serializeTbl())
-
+   
    -- Extract Loaded modules and filenames into
    -- LOADEDMODULES and _LMFILES_
    local status, loadedmodules, lmfiles = mt:extractModulesFiles()
@@ -578,8 +579,10 @@ function main()
    ExitHookA.apply()
    dbg.fini("lmod")
 
+   local shellT0 = epoch()
    -- Output all newly created path and variables.
    Shell:expand(varT)
+   timer:deltaT("Shell:expand(varT)", epoch() - shellT0)
 
    -- Expand any execute\{\} cmds
    if (Shell:real_shell())then
