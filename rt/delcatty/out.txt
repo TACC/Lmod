@@ -24,7 +24,7 @@ VSC_OS_LOCAL=SL6;
 export VSC_OS_LOCAL;
 _LMFILES_=ProjectDIR/rt/delcatty/mf/Core/cluster/delcatty;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={cluster={actionA={"prepend_path(\"MODULEPATH\",\"/apps/gent/SL6/sandybridge/modules/all\")",},fn="ProjectDIR/rt/delcatty/mf/Core/cluster/delcatty",fullName="cluster/delcatty",loadOrder=1,propT={},stackDepth=0,status="active",userName="cluster/delcatty",wV="*delcatty.*zfinal",},},mpathA={"/apps/gent/SL6/sandybridge/modules/all","ProjectDIR/rt/delcatty/mf/Core",},systemBaseMPATH="ProjectDIR/rt/delcatty/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={cluster={actionA={[[prepend_path("MODULEPATH","/apps/gent/SL6/sandybridge/modules/all")]],},fn="ProjectDIR/rt/delcatty/mf/Core/cluster/delcatty",fullName="cluster/delcatty",loadOrder=1,propT={},stackDepth=0,status="active",userName="cluster/delcatty",wV="*delcatty.*zfinal",},},mpathA={"/apps/gent/SL6/sandybridge/modules/all","ProjectDIR/rt/delcatty/mf/Core",},systemBaseMPATH="ProjectDIR/rt/delcatty/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -38,7 +38,7 @@ VSC_tools_version=1.17;
 export VSC_tools_version;
 _LMFILES_=ProjectDIR/rt/delcatty/mf/Core/cluster/delcatty:ProjectDIR/rt/delcatty/mf/Core/VSC-tools/1.17;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={["VSC-tools"]={fn="ProjectDIR/rt/delcatty/mf/Core/VSC-tools/1.17",fullName="VSC-tools/1.17",loadOrder=2,propT={},stackDepth=0,status="active",userName="VSC-tools",wV="^00000001.000000017.*zfinal",},cluster={actionA={"prepend_path(\"MODULEPATH\",\"/apps/gent/SL6/sandybridge/modules/all\")",},fn="ProjectDIR/rt/delcatty/mf/Core/cluster/delcatty",fullName="cluster/delcatty",loadOrder=1,propT={},stackDepth=0,status="active",userName="cluster/delcatty",wV="*delcatty.*zfinal",},},mpathA={"/apps/gent/SL6/sandybridge/modules/all","ProjectDIR/rt/delcatty/mf/Core",},systemBaseMPATH="ProjectDIR/rt/delcatty/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={["VSC-tools"]={fn="ProjectDIR/rt/delcatty/mf/Core/VSC-tools/1.17",fullName="VSC-tools/1.17",loadOrder=2,propT={},stackDepth=0,status="active",userName="VSC-tools",wV="^00000001.000000017.*zfinal",},cluster={actionA={[[prepend_path("MODULEPATH","/apps/gent/SL6/sandybridge/modules/all")]],},fn="ProjectDIR/rt/delcatty/mf/Core/cluster/delcatty",fullName="cluster/delcatty",loadOrder=1,propT={},stackDepth=0,status="active",userName="cluster/delcatty",wV="*delcatty.*zfinal",},},mpathA={"/apps/gent/SL6/sandybridge/modules/all","ProjectDIR/rt/delcatty/mf/Core",},systemBaseMPATH="ProjectDIR/rt/delcatty/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -46,7 +46,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=/apps/gent/SL6/sandybridge/modules/all:ProjectDIR/rt/delcatty/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={["VSC-tools"]={fn="ProjectDIR/rt/delcatty/mf/Core/VSC-tools/1.17",fullName="VSC-tools/1.17",loadOrder=2,propT={},stackDepth=0,status="active",userName="VSC-tools",wV="^00000001.000000017.*zfinal",},cluster={actionA={"prepend_path(\"MODULEPATH\",\"/apps/gent/SL6/sandybridge/modules/all\")",},fn="ProjectDIR/rt/delcatty/mf/Core/cluster/delcatty",fullName="cluster/delcatty",loadOrder=1,propT={},stackDepth=0,status="active",userName="cluster/delcatty",wV="*delcatty.*zfinal",},},mpathA={"/apps/gent/SL6/sandybridge/modules/all","ProjectDIR/rt/delcatty/mf/Core",},systemBaseMPATH="ProjectDIR/rt/delcatty/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={["VSC-tools"]={fn="ProjectDIR/rt/delcatty/mf/Core/VSC-tools/1.17",fullName="VSC-tools/1.17",loadOrder=2,propT={},stackDepth=0,status="active",userName="VSC-tools",wV="^00000001.000000017.*zfinal",},cluster={actionA={[[prepend_path("MODULEPATH","/apps/gent/SL6/sandybridge/modules/all")]],},fn="ProjectDIR/rt/delcatty/mf/Core/cluster/delcatty",fullName="cluster/delcatty",loadOrder=1,propT={},stackDepth=0,status="active",userName="cluster/delcatty",wV="*delcatty.*zfinal",},},mpathA={"/apps/gent/SL6/sandybridge/modules/all","ProjectDIR/rt/delcatty/mf/Core",},systemBaseMPATH="ProjectDIR/rt/delcatty/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 5
@@ -58,5 +58,5 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=/apps/gent/SL6/sandybridge/modules/all:ProjectDIR/rt/delcatty/mf/Core;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={["VSC-tools"]={fn="ProjectDIR/rt/delcatty/mf/Core/VSC-tools/1.17",fullName="VSC-tools/1.17",loadOrder=2,propT={},stackDepth=0,status="active",userName="VSC-tools",wV="^00000001.000000017.*zfinal",},cluster={actionA={"prepend_path(\"MODULEPATH\",\"/apps/gent/SL6/sandybridge/modules/all\")",},fn="ProjectDIR/rt/delcatty/mf/Core/cluster/delcatty",fullName="cluster/delcatty",loadOrder=1,propT={},stackDepth=0,status="active",userName="cluster/delcatty",wV="*delcatty.*zfinal",},},mpathA={"/apps/gent/SL6/sandybridge/modules/all","ProjectDIR/rt/delcatty/mf/Core",},systemBaseMPATH="ProjectDIR/rt/delcatty/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={["VSC-tools"]={fn="ProjectDIR/rt/delcatty/mf/Core/VSC-tools/1.17",fullName="VSC-tools/1.17",loadOrder=2,propT={},stackDepth=0,status="active",userName="VSC-tools",wV="^00000001.000000017.*zfinal",},cluster={actionA={[[prepend_path("MODULEPATH","/apps/gent/SL6/sandybridge/modules/all")]],},fn="ProjectDIR/rt/delcatty/mf/Core/cluster/delcatty",fullName="cluster/delcatty",loadOrder=1,propT={},stackDepth=0,status="active",userName="cluster/delcatty",wV="*delcatty.*zfinal",},},mpathA={"/apps/gent/SL6/sandybridge/modules/all","ProjectDIR/rt/delcatty/mf/Core",},systemBaseMPATH="ProjectDIR/rt/delcatty/mf/Core",}';
 export _ModuleTable_;

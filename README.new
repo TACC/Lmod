@@ -233,4 +233,5 @@ Lmod 8.7+
             * Issue #759: Using :escape to deal w/ special chars like '-'
             * Issue #765: Only call decorate_module hook if a module is found.
             * Issue #761: Check permissions for file and directories in src/DirTree.lua
-            # Issue #771: Wrap l_readCacheFile() in a pcall.  Report warning for bad cache file but keep going.
+            * Issue #771: Wrap l_readCacheFile() in a pcall.  Report warning for bad cache file but keep going.
+            * Change tools/serializeTbl.lua to correctly handle internal double quotes in string.

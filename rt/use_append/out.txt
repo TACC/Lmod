@@ -14,7 +14,7 @@ MODULEPATH=ProjectDIR/rt/use_append/mf/Core:ProjectDIR/rt/use_append/mf/Append:P
 export MODULEPATH;
 _LMFILES_=ProjectDIR/rt/use_append/mf/Core/append;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={append={actionA={"append_path(\"MODULEPATH\",\"ProjectDIR/rt/use_append/mf/Append\")","append_path(\"MODULEPATH\",\"ProjectDIR/rt/use_append/mf/Append2\")",},fn="ProjectDIR/rt/use_append/mf/Core/append",fullName="append",loadOrder=1,propT={},stackDepth=0,status="active",userName="append",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/use_append/mf/Core","ProjectDIR/rt/use_append/mf/Append","ProjectDIR/rt/use_append/mf/Append2",},systemBaseMPATH="ProjectDIR/rt/use_append/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={append={actionA={[[append_path("MODULEPATH","ProjectDIR/rt/use_append/mf/Append")]],[[append_path("MODULEPATH","ProjectDIR/rt/use_append/mf/Append2")]],},fn="ProjectDIR/rt/use_append/mf/Core/append",fullName="append",loadOrder=1,propT={},stackDepth=0,status="active",userName="append",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/use_append/mf/Core","ProjectDIR/rt/use_append/mf/Append","ProjectDIR/rt/use_append/mf/Append2",},systemBaseMPATH="ProjectDIR/rt/use_append/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 3
@@ -22,7 +22,7 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing show append
 ===========================
 MODULEPATH=ProjectDIR/rt/use_append/mf/Core:ProjectDIR/rt/use_append/mf/Append:ProjectDIR/rt/use_append/mf/Append2;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={append={actionA={"append_path(\"MODULEPATH\",\"ProjectDIR/rt/use_append/mf/Append\")","append_path(\"MODULEPATH\",\"ProjectDIR/rt/use_append/mf/Append2\")",},fn="ProjectDIR/rt/use_append/mf/Core/append",fullName="append",loadOrder=1,propT={},stackDepth=0,status="active",userName="append",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/use_append/mf/Core","ProjectDIR/rt/use_append/mf/Append","ProjectDIR/rt/use_append/mf/Append2",},systemBaseMPATH="ProjectDIR/rt/use_append/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={append={actionA={[[append_path("MODULEPATH","ProjectDIR/rt/use_append/mf/Append")]],[[append_path("MODULEPATH","ProjectDIR/rt/use_append/mf/Append2")]],},fn="ProjectDIR/rt/use_append/mf/Core/append",fullName="append",loadOrder=1,propT={},stackDepth=0,status="active",userName="append",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/use_append/mf/Core","ProjectDIR/rt/use_append/mf/Append","ProjectDIR/rt/use_append/mf/Append2",},systemBaseMPATH="ProjectDIR/rt/use_append/mf/Core",}';
 export _ModuleTable_;
 ===========================
 step 4
@@ -30,5 +30,5 @@ lua ProjectDIR/src/lmod.in.lua shell --regression_testing list
 ===========================
 MODULEPATH=ProjectDIR/rt/use_append/mf/Core:ProjectDIR/rt/use_append/mf/Append:ProjectDIR/rt/use_append/mf/Append2;
 export MODULEPATH;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={append={actionA={"append_path(\"MODULEPATH\",\"ProjectDIR/rt/use_append/mf/Append\")","append_path(\"MODULEPATH\",\"ProjectDIR/rt/use_append/mf/Append2\")",},fn="ProjectDIR/rt/use_append/mf/Core/append",fullName="append",loadOrder=1,propT={},stackDepth=0,status="active",userName="append",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/use_append/mf/Core","ProjectDIR/rt/use_append/mf/Append","ProjectDIR/rt/use_append/mf/Append2",},systemBaseMPATH="ProjectDIR/rt/use_append/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={append={actionA={[[append_path("MODULEPATH","ProjectDIR/rt/use_append/mf/Append")]],[[append_path("MODULEPATH","ProjectDIR/rt/use_append/mf/Append2")]],},fn="ProjectDIR/rt/use_append/mf/Core/append",fullName="append",loadOrder=1,propT={},stackDepth=0,status="active",userName="append",wV="M.*zfinal",},},mpathA={"ProjectDIR/rt/use_append/mf/Core","ProjectDIR/rt/use_append/mf/Append","ProjectDIR/rt/use_append/mf/Append2",},systemBaseMPATH="ProjectDIR/rt/use_append/mf/Core",}';
 export _ModuleTable_;

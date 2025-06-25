@@ -14,7 +14,7 @@ MODULEPATH=OutputDIR/mf/cae:OutputDIR/mf/Core;
 export MODULEPATH;
 _LMFILES_=OutputDIR/mf/Core/C/1.2.lua:OutputDIR/mf/cae/openfoam/1.0.lua;
 export _LMFILES_;
-_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={C={actionA={"prepend_path(\"MODULEPATH\",\"OutputDIR/mf/cae\")",},fn="OutputDIR/mf/Core/C/1.2.lua",fullName="C/1.2",loadOrder=1,propT={},stackDepth=0,status="active",userName="C",wV="000000001.000000002.*zfinal",},openfoam={fn="OutputDIR/mf/cae/openfoam/1.0.lua",fullName="openfoam/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="openfoam",wV="000000001.*zfinal",},},mpathA={"OutputDIR/mf/cae","OutputDIR/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core",}';
+_ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={C={actionA={[[prepend_path("MODULEPATH","OutputDIR/mf/cae")]],},fn="OutputDIR/mf/Core/C/1.2.lua",fullName="C/1.2",loadOrder=1,propT={},stackDepth=0,status="active",userName="C",wV="000000001.000000002.*zfinal",},openfoam={fn="OutputDIR/mf/cae/openfoam/1.0.lua",fullName="openfoam/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="openfoam",wV="000000001.*zfinal",},},mpathA={"OutputDIR/mf/cae","OutputDIR/mf/Core",},systemBaseMPATH="OutputDIR/mf/Core",}';
 export _ModuleTable_;
 openfoam=openfoam/1.0;
 export openfoam;
