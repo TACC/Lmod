@@ -94,7 +94,7 @@ end
 
 local function l_nsformat(value, dsplyNum)
    if (type(value) == 'string') then
-      if (value:find("\n") or value:find('"')) then
+      if ( value:find('[\n"]') ) then
          local left, rght = l_quoteValue(value)
 	 value = left .. value .. rght
       else
