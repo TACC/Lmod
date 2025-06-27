@@ -75,6 +75,8 @@ end
 
 function Python.unset(self, k, vType)
    local lineA = {}
+   -- We set environment key first to avoid Python key error
+   -- in case key isn't set.
    lineA[#lineA + 1] = "os.environ["
    lineA[#lineA + 1] = k:doubleQuoteString()
    lineA[#lineA + 1] = "] = ''\n"
