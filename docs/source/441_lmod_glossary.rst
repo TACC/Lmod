@@ -10,7 +10,7 @@ This glossary defines key terms, components, and concepts used within the Lmod c
        A singleton module in Lmod responsible for managing global configuration values and Lmod's internal state or settings. It provides a centralized interface (e.g., ``cosmic:value()``, ``cosmic:assign()``) to get, set, and initialize these parameters, many of which are derived from environment variables (e.g., ``LMOD_SITE_NAME``, ``LMOD_TRACING``) or Lmod's configuration files. It acts as a central access point for global settings throughout the Lmod codebase.
 
    DirTree
-       A class/module in Lmod that scans module file directory structures (as defined by ``MODULEPATH`` and other mechanisms). It builds a representation of the available modules by traversing these directories, identifying modulefiles, and noting associated version or ``.modulerc`` files. This hierarchical tree of directories and modulefiles is then utilized by other Lmod components, such as ``MName`` and ``ModuleA``, to discover, locate, and understand the available software modules.
+       A class/module in Lmod that scans module file directory structures (as defined by ``MODULEPATH``). It builds a representation of the available modules by traversing these directories, identifying modulefiles, and noting associated version or ``.modulerc`` files. This hierarchical tree of directories and modulefiles is then utilized by other Lmod components, such as ``MName`` and ``ModuleA``, to discover, locate, and understand the available software modules.
 
    FrameStk
        (Frame Stack)
@@ -31,7 +31,7 @@ This glossary defines key terms, components, and concepts used within the Lmod c
        #.   Orchestrating the loading (``hub:load()``) and unloading (``hub:unload()``) of modules.
        #.   Enforcing Lmod's rules during these operations, such as handling already loaded modules, checking for conflicts, and managing dependencies (``hub:dependencyCk()``).
        #.   Providing information about modules, such as listing available modules (``hub:avail()``) or their overview (``hub:overview()``).
-       #.   Managing the overall module state, including reloading all modules (``hub:reloadAll()``) or refreshing the module view (``hub:refresh()``).
+       #.   Managing the overall module state, including reloading all modules (``hub:reloadAll()``) or refreshing the shell aiases and functions (``hub:refresh()``).
 
        It is called by `MainControl` methods (e.g., ``M.load()`` calls ``hub:load()``) and is a critical component in the sequence of actions Lmod takes to manage the user's environment.
 
@@ -39,7 +39,7 @@ This glossary defines key terms, components, and concepts used within the Lmod c
        A local Lua function defined within ``src/cmdfuncs.lua``, specifically as a helper function called by ``Load_Usr()``. Its primary responsibilities are:
 
        1.  To process the array of module name arguments (``argA``) passed from the command line.
-       2.  To distinguish between modules to be loaded and modules to be unloaded (typically those prefixed with a minus sign), sorting them into separate internal lists.
+       2.  To distinguish between modules to be loaded and modules to be unloaded (those prefixed with a minus sign), sorting them into separate internal lists.
        3.  To convert these module name strings (e.g., "foo/1.0") into ``MName`` objects, which are Lmod's internal representation for modules.
        4.  It accepts a ``check_must_load`` boolean parameter, which dictates whether Lmod should verify at the end of the process if all requested modules were successfully loaded.
 
@@ -69,7 +69,7 @@ This glossary defines key terms, components, and concepts used within the Lmod c
        A Lua table defined in ``src/lmod.in.lua`` that acts as a configuration and dispatch target for module loading commands. Entries in the main command dispatch table, ``lmodCmdA`` (for user commands like "load", "add", etc.), point to ``loadTbl`` via their ``action`` field. The ``loadTbl`` itself contains properties relevant to the load operation, most importantly a ``cmd`` field that holds a direct reference to the primary function responsible for handling the load request, which is ``Load_Usr()`` (located in ``src/cmdfuncs.lua``). It may also contain other metadata like ``name`` (for debugging/identification) and ``checkMPATH`` (a boolean indicating if ``MODULEPATH`` needs to be checked).
 
    LocationT
-       A class (defined in ``src/LocationT.lua``) that creates a structured representation of module locations. It is typically initialized with data derived from ``ModuleA`` (which itself is built from ``DirTree``'s scan of ``MODULEPATH``). ``LocationT``'s primary purpose is to provide an efficient way to search for modules (via its ``LocationT:search(name)`` method) and to help ``MName`` objects resolve a given module name string (which might follow various conventions like Name/Version, Category/Name/Version) to its canonical file path and associated properties. It achieves this by abstracting the complexities of different directory layouts found across various module trees, effectively creating a readily searchable map or index.
+       A class (defined in ``src/LocationT.lua``) that creates a tructured representation of module locations when the module  tree is completely N/V or C/N/V and not N/V/V. It is typically initialized with data derived from ``ModuleA`` (which itself is built from ``DirTree``'s scan of ``MODULEPATH``). ``LocationT``'s primary purpose is to provide an efficient way to search for modules (via its ``LocationT:search(name)`` method) and to help ``MName`` objects resolve a given module name string (which might follow various conventions like Name/Version, Category/Name/Version) to its canonical file path and associated properties. It achieves this by abstracting the complexities of different directory layouts found across various module trees, effectively creating a readily searchable map or index.
 
    mcp
        (Main Control Program)
@@ -80,21 +80,21 @@ This glossary defines key terms, components, and concepts used within the Lmod c
        2.  **Method Dispatch**: It provides the core methods (like ``mcp:load_usr()``, ``mcp:setenv()``, ``mcp:prepend_path()``) that are called by higher-level functions (in ``src/modfuncs.lua`` or ``src/cmdfuncs.lua``). These ``mcp`` methods then delegate to the actual implementation methods (e.g., ``M.load_usr()``, ``M.setenv()``) within the ``MainControl`` class, tailored to the current mode.
        3.  **Central Orchestration**: It ties together various components by holding references or providing access to other key Lmod objects and data structures necessary for the current operation.
 
-       The global variables ``mcp``, ``MCP``, and ``MCPQ`` are typically instances of ``MainControl`` initialized for different primary purposes or verbosity levels within a single Lmod invocation.
+       The ``mcp`` global variable is in the current mode (i.e. load, unload, show, etc).  ``MCP`` is always in load mode and ``MCPQ`` is always in quiet mode.
 
    MName
        An ``MName`` (Module Name) object is Lmod's primary internal representation of a module. These objects are created from user-provided module name strings (e.g., "gcc/9.3.0", "tacc") or from other internal representations. ``MName`` objects are defined in ``src/MName.lua``.
        Key characteristics and roles:
 
-       1.  **Encapsulation**: An ``MName`` object encapsulates various properties of a module, including its user-specified name, its canonical short name (``:sn()``), full name (``:fullName()``), version (``:version()``), and the resolved path to its modulefile (``:fn()`` or ``:path()``).
-       2.  **Resolution**: It contains the logic to resolve a potentially ambiguous module name string into a specific modulefile on the filesystem. This process involves interacting with other Lmod components like ``DirTree`` (for directory structure), ``ModuleA`` (for collections of modules), and ``LocationT`` (for location indexing and handling different naming schemes like N/V, C/N/V).
+       1.  **Encapsulation**: An ``MName`` object encapsulates various properties of a module, including its user-specified name, its canonical short name (``:sn()``), full name (``:fullName()``), version (``:version()``), and the resolved path to its modulefile (``:fn()``).
+       2.  **Resolution**: It contains the logic to resolve a potentially ambiguous module name string into a specific modulefile on the filesystem. This process involves interacting with other Lmod components like ``ModuleA`` (for collections of modules, mainly when a module tree is N/V/V ), and ``LocationT`` (for location indexing and handling different naming schemes like N/V, C/N/V).
        3.  **State & Validation**: ``MName`` objects can report on the module's status, such as whether it's currently loaded (``:isloaded()``) or if it's a valid, findable module (``:valid()``).
        4.  **Operations**: They are used extensively throughout Lmod. For example, lists of ``MName`` objects are passed to functions like ``hub:load()`` and ``mcp:load_usr()`` to specify which modules to act upon. Modulefile commands like ``prereq`` or ``conflict`` also operate on ``MName`` objects.
 
        Instantiation typically occurs via methods like ``MName:new(type, name, ...)`` or ``MName:buildA(type, argTable)``.
 
    ModuleA
-       ``ModuleA`` (Module Array/Aggregator) is a class, defined in ``src/ModuleA.lua``, that represents the entire collection of available modules discovered by Lmod from the ``MODULEPATH``. It is typically used as a singleton within Lmod's operations.
+       ``ModuleA`` (Module Array) is a class, defined in ``src/ModuleA.lua``, that represents the entire collection of available modules discovered by Lmod from the ``MODULEPATH``. It is typically used as a singleton within Lmod's operations.
        Key characteristics and roles:
 
        1.  **Data Source**: It acts as a primary, structured source of information about all known modules. It's initialized by processing the ``MODULEPATH`` directories, using ``DirTree`` to scan the filesystem and identify modulefiles and their organization.
@@ -136,10 +136,12 @@ This glossary defines key terms, components, and concepts used within the Lmod c
        It serves as a foundational script that provides a consistent and globally accessible set of parameters and constants for the rest of the Lmod codebase.
 
    runTCLprog()
-       A globally available Lmod function (``_G.runTCLprog``) responsible for executing a specified TCL script and returning its output. It is primarily used by:
+       A globally available Lmod function (``_G.runTCLprog``)
+       responsible for executing a specified TCL script and returning
+       its output. It is primarily used by:
+       
        1.  ``loadModuleFile()``: To convert TCL-based modulefiles into Lua code. In this context, ``runTCLprog`` is called with ``tcl2lua.tcl`` (a TCL script that translates modulecmd TCL syntax to Lua) as the program to run, and the path to the target TCL modulefile plus other necessary arguments.
-       2.  ``mrc_load.lua``: To convert ``.modulerc`` files (which can be TCL based) into Lua. Here, ``runTCLprog`` is called with ``RC2lua.tcl``.
-       The ``runTCLprog`` function itself has multiple potential backends: it can be a Lua implementation that invokes an external ``tclsh`` interpreter, or if Lmod is compiled with an embedded TCL interpreter (from ``pkgs/tcl2lua/tcl2lua.c`` or ``embed/tcl2lua.c``), it can be a C function that directly executes the TCL script. Its purpose is to bridge the gap between TCL-based files and Lmod's Lua core by translating TCL into executable Lua statements.
+       2.  ``mrc_load.lua``: To convert ``.modulerc`` files (which can be TCL based) into Lua. Here, ``runTCLprog`` is called with ``RC2lua.tcl``.  The ``runTCLprog`` function itself has multiple potential backends: it can be a Lua implementation that invokes an external ``tclsh`` interpreter, or if Lmod is compiled with an embedded TCL interpreter (from ``pkgs/tcl2lua/tcl2lua.c`` or ``embed/tcl2lua.c``), it can be a C function that directly executes the TCL script. Its purpose is to bridge the gap between TCL-based files and Lmod's Lua core by translating TCL into executable Lua statements.
 
    sandbox_run()
        The "sandbox" refers to the controlled execution environment Lmod creates to evaluate the Lua code within modulefiles. This mechanism is primarily implemented in ``src/sandbox.lua``.
