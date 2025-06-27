@@ -237,3 +237,7 @@ Lmod 8.7+
    (8.7.62) * Modify MT to record dependencis and check them
             * PR #772: Fix contrib/tracking_module_usage/gen_2/createDB.py to use mysql.connector
             * Change tools/serializeTbl.lua to correctly handle internal double quotes in string.
+   (8.7.63) * Issue #774: Adding comment to explain why Lmod sets and then unset env vars in Python
+	    * Issue #775: Update tools/serializeTbl.lua to backslash the backslashes for 
+                          strings w/o newlines or double quotes
+			  
