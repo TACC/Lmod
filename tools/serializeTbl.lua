@@ -98,6 +98,7 @@ local function l_nsformat(value, dsplyNum)
          local left, rght = l_quoteValue(value)
 	 value = left .. value .. rght
       else
+         value = value:gsub("\\","\\\\")
 	 value = "\"" .. value .. "\""
       end
    elseif (type(value) == 'boolean') then
