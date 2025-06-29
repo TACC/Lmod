@@ -241,3 +241,6 @@ Lmod 8.7+
 	    * Issue #775: Update tools/serializeTbl.lua to backslash the backslashes for 
                           strings w/o newlines or double quotes
 			  
+   W.I.P:
+            * Internal Lmod Code docs published.
+            
