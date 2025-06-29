@@ -158,6 +158,7 @@ Overview and Internal Structure of Lmod
 
    440_lmod_overview
    441_lmod_glossary
+   444_code_conventions
    442_testing
    443_structure
    450_mname_resolution_deepdive
