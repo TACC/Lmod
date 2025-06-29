@@ -17,7 +17,7 @@ The ``mcp`` (Main Control Program) is a central, stateful object that orchestrat
     -   **`checkSyntax`**: For validating a modulefile without applying changes.
     -   **`computeHash`**: Used in collection management to determine if a modulefile's effective content has changed.
     -   **`mgrLoad`**: A special mode for restoring collections, where `load(), depends_on(), etc` commands within modulefiles are ignored.
-    -   **`refresh`**: For `module refresh`, re-evaluating loaded modules primarily to redefine aliases and shell functions.
+    -   **`refresh`**: For `module refresh`, re-evaluating loaded modules to redefine aliases and shell functions for sub-shells
     -   **`quiet`**: A mode where most operations are suppressed, used internally.
 
 **Dispatching Modulefile Commands**

@@ -23,16 +23,25 @@ Permitted Lua Functions
 Only a small, "safe" subset of Lua's standard libraries are exposed to modulefiles. Functions that could perform insecure or system-altering operations are deliberately excluded.
 
 **Included Functions and Libraries:**
+
 *   **Basic Utilities:** ``assert``, ``ipairs``, ``pairs``, ``pcall``, ``print``, ``tostring``, ``type``, ``unpack``
+
 *   **String Manipulation:** The entire ``string`` library (e.g., ``string.format``, ``string.match``, ``string.sub``). This is considered safe and is highly useful for modulefile authors.
+
 *   **Table Manipulation:** The ``table`` library (e.g., ``table.concat``, ``table.insert``, ``table.sort``).
+
 *   **Mathematical Functions:** The ``math`` library.
 
 **Excluded Functions and Libraries:**
+
 The following are explicitly **not** included in the sandbox, as they could be used to compromise security or system stability:
+
 *   ``io`` library: To prevent arbitrary file reading/writing from within a modulefile.
+
 *   ``os`` library: Functions like ``os.execute()``, ``os.rename()``, and ``os.remove()`` are forbidden to prevent modulefiles from executing arbitrary shell commands or modifying the filesystem. (Note: Lmod provides its own safe ``execute()`` function with controlled behavior).
+
 *   ``dofile``, ``loadfile``: Blocked to prevent a modulefile from executing other, potentially untrusted scripts.
+
 *   ``require``: Modulefiles cannot load arbitrary Lua modules.
 
 The Lmod Modulefile API
