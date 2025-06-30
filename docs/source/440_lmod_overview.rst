@@ -18,6 +18,7 @@ following code:
 For a higher-level, component-based view of the architecture (the "what" and "where"), 
 please first read the :doc:`443_structure` document. We recommend understanding the 
 high-level components before diving into this detailed procedural walkthrough.
+Also Lmod coding conventions are discussed in :doc:`444_code_conventions`.
 
 In Lmod's simplest terms, it takes commands from the user to change the state of the user's environment.  
 It does this by loading and unloading modulefiles. When Lmod takes a command, it modifies an internal

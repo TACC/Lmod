@@ -231,8 +231,6 @@ Re-testing and Advanced Scenarios
         cd /path/to/Lmod/rt/my_feature_test
         t .
 
-    The user note "t1 ." might be a shorthand used within a specific context, but typically ``t .`` is used.
-
 *   **Cleaning Temporary Files:** The user note ``run rm tm/*, t .`` (if in ``rt/[test]``)
     suggests that there might be other temporary files (perhaps in a ``tm/`` directory)
     that sometimes need cleaning before a re-run. The ``t`` command usually handles

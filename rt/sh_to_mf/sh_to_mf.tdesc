@@ -27,6 +27,7 @@ testdescript = {
      runLmod --version                                            # 1    
      ORIG_LD=${LD_LIBRARY_PATH}
      export LD_LIBRARY_PATH="/df/gh${ORIG_LD:+:}${ORIG_LD}"
+     export FOO_ESC='\['
      runSh2MF             $(testDir)/tstScript.sh                 # 2
      runSh2MF  --to TCL   $(testDir)/tstScript.sh                 # 3 
      runSh2MF             $(testDir)/path_both_ends.sh            # 4        
@@ -50,6 +51,7 @@ testdescript = {
      runBase  export LD_LIBRARY_PATH="foo${ORIG_LD:+:}${ORIG_LD}" #20
      runLmod  restore                                             #21
      runLmod  --mt                                                #22
+     runLmod  load   conda/24.3                                   #23
 
 
      unsetMT
@@ -58,8 +60,8 @@ testdescript = {
      mkdir -p $MODULEPATH/A
 
      buildSh2MF  --to TCL   $(testDir)/tstScript.sh > $MODULEPATH/A/1.0
-     runLmod load A                                            #23
-     runLmod list                                              #24
+     runLmod load A                                            #24
+     runLmod list                                              #25
 
      HOME=$ORIG_HOME
      cat _stdout.[0-9][0-9][0-9] > _stdout.orig

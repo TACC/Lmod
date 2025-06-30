@@ -246,7 +246,6 @@ function M.build(name,mode)
       local MCUnload      = require('MC_Unload')
       local MCMgrLoad     = require('MC_MgrLoad')
       local MCRefresh     = require('MC_Refresh')
-      local MCDepCk       = require('MC_DependencyCk')
       local MCShow        = require('MC_Show')
       local MCAccess      = require('MC_Access')
       local MCSpider      = require('MC_Spider')
@@ -266,7 +265,6 @@ function M.build(name,mode)
          ["spider"]       = MCSpider,      -- Process module files for spider operations
          ["checkSyntax"]  = MCCheckSyntax, -- Check the syntax of a module, load, prereq, etc
                                            -- are ignored.
-         ["dependencyCk"] = MCDepCk,       -- Report any missing dependency modules
          ["quiet"]        = MCQuiet,       -- All operations are NO Ops (A.K.A quiet)
          
       }

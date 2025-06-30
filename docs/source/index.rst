@@ -150,13 +150,25 @@ Advanced Topics
    360_check_syntax
    370_irreversible
 
-Internal Structure of Lmod
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+Overview and Internal Structure of Lmod
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. toctree::
    :maxdepth: 1
 
-   400_code_conventions
+   440_lmod_overview
+   441_lmod_glossary
+   444_code_conventions
+   442_testing
+   443_structure
+   450_mname_resolution_deepdive
+   451_mcp_deepdive
+   452_sandbox_deepdive
+   453_github_actions
+   454_framestack_deepdive
+   455_mt_deepdive
+   456_vart_deepdive
+   
 
 
 Topics yet to be written
