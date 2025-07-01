@@ -52,7 +52,7 @@ require("TermWidth")
 -- Convert the string value into a quoted string of some kind and boolean
 -- into true/false.
 
-local quoteA = {
+local s_quoteA = {
    {'[[',']]'},
    {'[=[',']=]'},
    {'[==[',']==]'},
@@ -80,10 +80,15 @@ local function l_set_constants(kind)
    end
 end
 
-local function l_quoteValue(value)
-   for i = 1,#quoteA do
-      local left = quoteA[i][1]
-      local rght = quoteA[i][2]
+local function l_has_brackets(value)
+   return (value:find("[",1,true) or value:find("]",1,true))
+end
+
+local function l_quoteValue(value, has_brackets)
+   local istart = has_brackets and 2 or 1
+   for i = istart,#s_quoteA do
+      local left = s_quoteA[i][1]
+      local rght = s_quoteA[i][2]
       if (not (value:find(left,1,true) or value:find(rght,1,true))) then
          return left, rght
       end
@@ -94,8 +99,9 @@ end
 
 local function l_nsformat(value, dsplyNum)
    if (type(value) == 'string') then
-      if ( value:find('[\n"]') ) then
-         local left, rght = l_quoteValue(value)
+      local has_brackets = l_has_brackets(value)
+      if ( has_brackets or value:find('[\n"]') ) then
+         local left, rght = l_quoteValue(value, has_brackets)
 	 value = left .. value .. rght
       else
          value = value:gsub("\\","\\\\")
