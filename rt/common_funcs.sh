@@ -148,6 +148,11 @@ runFish ()
   runBase $LUA_EXEC $projectDir/src/lmod.in.lua fish --regression_testing "$@"
 }
 
+runNushell ()
+{
+  runBase $LUA_EXEC $projectDir/src/lmod.in.lua nushell --regression_testing "$@"
+}
+
 runJson ()
 {
   runBase $LUA_EXEC $projectDir/src/lmod.in.lua json --regression_testing "$@"

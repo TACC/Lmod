@@ -309,6 +309,7 @@ local function l_createShellTbl()
       local Bash         = require('Bash')
       local Bare         = require('Bare')
       local Fish         = require('Fish')
+      local Nushell      = require('Nushell')
       local Lisp         = require('Lisp')
       local Perl         = require('Perl')
       local Python       = require('Python')
@@ -325,6 +326,7 @@ local function l_createShellTbl()
          ["mksh"]   = {name = "ksh",    object = Bash   },
          ["zsh"]    = {name = "zsh",    object = Bash   },
          ["fish"]   = {name = "fish",   object = Fish   },
+         ["nushell"]= {name = "nushell",object = Nushell},
          ["emacs"]  = {name = "lisp",   object = Lisp   },
          ["lisp"]   = {name = "lisp",   object = Lisp   },
          ["csh"]    = {name = "csh",    object = Csh    },
