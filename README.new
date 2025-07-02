@@ -240,7 +240,5 @@ Lmod 8.7+
    (8.7.63) * Issue #774: Adding comment to explain why Lmod sets and then unset env vars in Python
 	    * Issue #775: Update tools/serializeTbl.lua to backslash the backslashes for 
                           strings w/o newlines or double quotes
-			  
-   W.I.P:
-            * Internal Lmod Code docs published.
-            
+   (8.7.64) * Issue #776: Special handling when strings have brackets when serializing
+            * Lmod internal docs and overview added.
