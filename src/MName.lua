@@ -536,7 +536,6 @@ end
 local function l_find_highest_by_key(self, key, fileA)
    --dbg.start{"MName: l_find_highest_by_key(key:\"",key,"\",fileA)"}
    local mrc         = MRC:singleton()
-   local weight      = " "  -- this is less than the lower possible weight.
    local idx         = nil
    local fn          = false
    local moduleKindT = {}
@@ -548,27 +547,35 @@ local function l_find_highest_by_key(self, key, fileA)
    fileA             = fileA or {}
    local blockA
 
+   local function l_cmp_pV(a,b)
+      return a.pV > b.pV
+   end
+
+   local function l_cmp_wV(a,b)
+      return a.wV > b.wV
+   end
+
+   local l_cmp = (key == "pV") and l_cmp_pV or l_cmp_wV
+
+
    dbg.printT("fileA: ",fileA)
    for j = 1,#fileA do
       blockA = fileA[j]
+      sort(blockA, l_cmp) -- sort by appropriate weight (pV or wV)
       dbg.printT("blockA: ",blockA)
       
       for i = 1,#blockA do
          local entry   = blockA[i]
          local v       = entry[key]
-         dbg.print{"fullName: ",entry.fullName,", weight: ",weight,", v: ",v,"\n"}
-         if (v > weight) then
-            local resultT = mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, mpath=entry.mpath,
+         local resultT = mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, mpath=entry.mpath,
                                        visibleT = {soft = true}}
-            if (isMarked(v) or resultT.isVisible) then
-               idx         = i
-               weight      = v
-               pV          = entry.pV
-               wV          = entry.wV
-               mpath       = entry.mpath
-               moduleKindT = resultT.moduleKindT
-               dbg.print{"saving fullName: ", entry.fullName,"\n"}
-            end
+         if (isMarked(v) or resultT.isVisible) then
+            idx         = i
+            pV          = entry.pV
+            wV          = entry.wV
+            mpath       = entry.mpath
+            moduleKindT = resultT.moduleKindT
+            dbg.print{"saving fullName: ", entry.fullName,"\n"}
          end
       end
       dbg.print{"idx: ",idx,"\n"}
