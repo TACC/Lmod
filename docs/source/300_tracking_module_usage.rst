@@ -99,7 +99,7 @@ Use SitePackage.lua to send a message to syslog.::
    hook.register("load", l_load_hook)
 
    local function l_report_loads()
-      if (posix.syslog) then
+      if (posix.syslog and type(posix.syslog) == "table") then
          posix.syslog.openlog("ModuleUsageTracking")
          for k,msg in pairs(s_msgT) do
             posix.syslog.syslog(posix.syslog.LOG_INFO, msg)

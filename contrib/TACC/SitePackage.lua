@@ -148,7 +148,7 @@ local function l_avail_hook(t)
 end
 
 local function l_report_loads()
-   if (posix.syslog) then
+   if (posix.syslog and type(posix.syslog) == "table" ) then
       posix.syslog.openlog("ModuleUsageTracking")
       for k,msg in pairs(s_msgT) do
          posix.syslog.syslog(posix.syslog.LOG_INFO, msg)
