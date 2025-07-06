@@ -68,7 +68,7 @@ Use SitePackage.lua to send a message to syslog.::
 
    local s_msgT = {}
 
-   local function load_hook(t)
+   local function l_load_hook(t)
       -- the arg t is a table:
       --     t.modFullName:  the module full name: (i.e: gcc/4.7.2)
       --     t.fn:           The file name: (i.e /apps/modulefiles/Core/gcc/4.7.2.lua)
@@ -96,19 +96,29 @@ Use SitePackage.lua to send a message to syslog.::
       s_msgT[t.modFullName] = msg                                        
    end
 
-   hook.register("load", load_hook)
+   hook.register("load", l_load_hook)
 
-   local function report_loads()
-      for k,msg in pairs(s_msgT) do
-         lmod_system_execute("logger -t ModuleUsageTracking -p local0.info " .. msg)      
+   local function l_report_loads()
+      if (posix.syslog) then
+         posix.syslog.openlog("ModuleUsageTracking")
+         for k,msg in pairs(s_msgT) do
+            posix.syslog.syslog(posix.syslog.LOG_INFO, msg)
+         end
+         posix.syslog.closelog()
+      else
+         for k,msg in pairs(s_msgT) do
+            lmod_system_execute("logger -t ModuleUsageTracking -p local0.info " .. msg)
+         end
       end
    end
 
-   ExitHookA.register(report_loads)
+   ExitHookA.register(l_report_loads)
 
 This code uses two "hook" functions.  The first is load_hook. This means that every load will
 saved.  The second hook is called at exit.  If there were no errors then any module loads are
-reported by sending a syslog message with the tag "ModuleUsageTracking"
+reported by sending a syslog message with the tag
+"ModuleUsageTracking".  The **l_report_loads** () function shows how
+to the luaposix interface to syslog if it is available.
 
 Please read the file src/SitePackage.lua to see how to use the environment variable
 LMOD_PACKAGE_PATH to point to your own SitePackage.lua or /etc/lmod/lmod_config.lua
