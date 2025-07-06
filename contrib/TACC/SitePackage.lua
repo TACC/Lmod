@@ -148,12 +148,27 @@ local function l_avail_hook(t)
 end
 
 local function l_report_loads()
+   local openlog
+   local syslog
+   local closelog
    if (posix.syslog) then
-      posix.syslog.openlog("ModuleUsageTracking")
-      for k,msg in pairs(s_msgT) do
-         posix.syslog.syslog(posix.syslog.LOG_INFO, msg)
+      if (type(posix.syslog) == "table" ) then
+         -- Support new style posix.syslog table
+         openlog  = posix.syslog.openlog
+         syslog   = posix.syslog.syslog
+         closelog = posix.syslog.closelog
+      else
+         -- Support original style posix.syslog functions
+         openlog  = posix.openlog
+         syslog   = posix.syslog
+         closelog = posix.closelog
       end
-      posix.syslog.closelog()
+
+      openlog("ModuleUsageTracking")
+      for k,msg in pairs(s_msgT) do
+         syslog(posix.syslog.LOG_INFO, msg)
+      end
+      closelog()
    else
       for k,msg in pairs(s_msgT) do
          lmod_system_execute("logger -t ModuleUsageTracking -p local0.info " .. msg)
