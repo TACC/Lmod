@@ -576,6 +576,7 @@ local function l_find_highest_by_key(self, key, fileA)
             mpath       = entry.mpath
             moduleKindT = resultT.moduleKindT
             dbg.print{"saving fullName: ", entry.fullName,"\n"}
+            break;
          end
       end
       dbg.print{"idx: ",idx,"\n"}
