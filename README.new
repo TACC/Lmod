@@ -243,4 +243,4 @@ Lmod 8.7+
 			  
    W.I.P:
             * Internal Lmod Code docs published.
-            
+            * Issue #704: Support for nushell command generation added.            
