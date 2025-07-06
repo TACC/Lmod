@@ -608,10 +608,11 @@ end
 
 function M.find_between(self, fileA)
    --dbg.start{"MName:find_between(fileA)"}
-   local a     = fileA[1] or {}
-   sort(a, function(x,y)
-           return x.pV < y.pV
+   local blockA = fileA[1] or {}
+   sort(blockA, function(x,y)
+           return x.wV > y.wV
            end)
+   dbg.printT("blockA", blockA)
 
    local mrc         = MRC:singleton()
    local fn          = false
@@ -621,31 +622,30 @@ function M.find_between(self, fileA)
    local lowerFn     = self.__range_fnA[1].func
    local upperFn     = self.__range_fnA[2].func
 
-   local pV          = lowerBound
-   local wV          = " "  -- this is less than the lower possible weight.
+   local wV          = nil
    local mpath       = false
    local kind        = nil
    local idx         = nil
    local found       = false
    local moduleKindT = {}
-   for j = 1,#a do
-      local entry = a[j]
+   for j = 1,#blockA do
+      local entry = blockA[j]
       local v     = entry.pV
-      if (lowerFn(pV,v) and upperFn(v,upperBound) and entry.wV > wV) then
+      if (lowerFn(lowerBound,v) and upperFn(v,upperBound)) then
          local resultT = mrc:isVisible{fullName=entry.fullName,sn=entry.sn,fn=entry.fn, mpath=entry.mpath,
                                        visibleT = {soft = true}}
-         if (isMarked(v) or resultT.isVisible ) then
+         if (isMarked(entry.wV) or resultT.isVisible ) then
             idx         = j
-            pV          = v
             wV          = entry.wV
             mpath       = entry.mpath
             moduleKindT = resultT.moduleKindT
+            break
          end
       end
    end
    if (idx) then
-      fn      = a[idx].fn
-      version = a[idx].version
+      fn      = blockA[idx].fn
+      version = blockA[idx].version
       found   = true
       if (found) then
          self.__userName = build_fullName(self.__sn,version)
