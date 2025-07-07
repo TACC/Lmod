@@ -138,8 +138,8 @@ end
 --                     the derived shell class member function to do the
 --                     actual expansion to standard out (io.stdout).
 
-function M.expand(self, tbl)
-   dbg.start{"BaseShell:expand(tbl)"}
+function M.expand(self, varT)
+   dbg.start{"BaseShell:expand(varT)"}
 
    if ( not self._active) then
       dbg.print{"expand is not active\n"}
@@ -150,14 +150,13 @@ function M.expand(self, tbl)
    local init = false
 
    local delayT = {}
+   if (next(varT) ~= nil ) then
+      self:initialize()
+      init = true
+   end
 
 
-   for k,v in pairsByKeys(tbl) do
-      if (not init) then
-         self:initialize()
-         init = true
-      end
-
+   for k,v in pairsByKeys(varT) do
       local vstr, vType, priorityStrT, refCountT = v:expand()
       if (next(priorityStrT) ~= nil) then
          for prtyKey,prtyStr in pairs(priorityStrT) do
