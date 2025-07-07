@@ -639,6 +639,13 @@ end
 
 
 
+function M.expandT(self)
+   local vstr, vType, priorityStrT, refCountT = self:expand()
+   return {vstr = vstr, vType = vType, 
+           priorityStrT = priorityStrT, refCountT = refCountT}
+end
+
+
 --------------------------------------------------------------------------
 -- Expand the value into a string.   Obviously non-path
 -- types are simply returned.

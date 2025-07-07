@@ -156,10 +156,12 @@ function M.expand(self, varT)
    end
 
 
-   for k,v in pairsByKeys(varT) do
-      local vstr, vType, priorityStrT, refCountT = v:expand()
-      if (next(priorityStrT) ~= nil) then
-         for prtyKey,prtyStr in pairs(priorityStrT) do
+   for k,var in pairsByKeys(varT) do
+      local t     = var:expandT()
+      local vType = t.vType
+      local vstr  = t.vstr
+      if (next(t.priorityStrT) ~= nil) then
+         for prtyKey,prtyStr in pairs(t.priorityStrT) do
             if (prtyStr) then
                self:expandVar(prtyKey,prtyStr,"path")
             else
@@ -167,8 +169,8 @@ function M.expand(self, varT)
             end
          end
       end
-      if (next(refCountT) ~= nil) then
-         for key,value in pairs(refCountT) do
+      if (next(t.refCountT) ~= nil) then
+         for key,value in pairs(t.refCountT) do
             if (value) then
                self:expandVar(key, value, "path")
             else
@@ -177,9 +179,9 @@ function M.expand(self, varT)
          end
       end
       if (vType == "alias") then
-         self:alias(k,vstr)
+         self:alias(k, vstr)
       elseif (vType == "shell_function") then
-         self:shellFunc(k,vstr)
+         self:shellFunc(k, vstr)
       elseif (vType == "complete" or vType == "export_shell_function") then
          delayT[k] = { vType = vType, vstr = vstr }
       elseif (not vstr) then
