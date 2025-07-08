@@ -53,14 +53,6 @@ function CMake.alias(self, k, v)
    -- do nothing: alias do not make sense in a cmake script
 end
 
-function CMake.set_shell_func(self, k, t)
-   -- do nothing: shell functions do not make sense in a cmake script
-end
-
-function CMake.shellFunc(self, k, v)
-   -- do nothing: shell functions do not make sense in a cmake script
-end
-
 function CMake.echo(self,...)
    self:_echo(...)
 end

@@ -75,30 +75,6 @@ function Rc.alias(self, k, v)
   dbg.print{   line}
 end
 
-function Rc.set_shell_function(self, k, t)
-   -- Do nothing
-end
-
-
---------------------------------------------------------------------------
--- Rc:shellFunc(): Modify module definition of function truncating
---                 everything after first semicolon.
---                 [copied from bash behavior]
-function Rc.shellFunc(self,k,v)
-   if (not v) then
-      stdout:write("fn ",k,"\n")
-      dbg.print{   "fn ",k,"\n"}
-   else
-      --local func = v[1]:gsub(";%s*$","")
-      --stdout:write("fn ",k," { ",func," }\n")
-      --dbg.print{   "fn ",k," { ",func," }\n"}
-      -- Unfortunately, shell functions come only in bash and csh
-      -- types.  They contain $() and "", so are
-      -- unsuitable for execution by rc.
-      -- Neither can they be translated automatically.
-   end
-end
-
 --------------------------------------------------------------------------
 -- Rc:expandVar(): expand a single key-value pair into Rc syntax.
 

@@ -157,7 +157,7 @@ function M.set_alias(self, k, t)
 end
 
 function M.set_shell_function(self, k, t)
-   self:shellFunc(k, t.vstr)
+   -- Nothing
 end
 
 function M.set_path(self, k, t)

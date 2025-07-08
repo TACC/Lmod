@@ -66,9 +66,9 @@ function Fish.alias(self, k, v)
 end
 
 --------------------------------------------------------------------------
--- Fish:shellFunc(): Either define or undefine a fish shell function.
---                   Modify module definition of function so that there is
---                   one and only one semicolon at the end.
+-- Fish:set_shell_func(): Either define or undefine a fish shell function.
+--                        Modify module definition of function so that there is
+--                        one and only one semicolon at the end.
 
 function Fish.set_shell_func(self, k, t)
    local vstr = t.vstr
@@ -81,18 +81,6 @@ function Fish.set_shell_func(self, k, t)
       dbg.print{   "function ",k,"; ",func,"; end;\n"}
    end
 end
-
-function Fish.shellFunc(self, k, v)
-   if (not v) then
-      stdout:write("functions -e ",k,";\n")
-      dbg.print{   "functions -e ",k,";\n"}
-   else
-      local func = v[1]:gsub(";%s*$","")
-      stdout:write("function ",k,"; ",func,"; end;\n")
-      dbg.print{   "function ",k,"; ",func,"; end;\n"}
-   end
-end
-
 
 --------------------------------------------------------------------------
 -- Fish:expandVar(): Define either a global or local variable in bash

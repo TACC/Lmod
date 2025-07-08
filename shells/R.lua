@@ -51,14 +51,6 @@ function R.alias(self, k, v)
    -- do nothing: alias do not make sense in a R script.
 end
 
-function R.shellFunc(self, k, v)
-   -- do nothing: shell functions do not make sense in a R script.
-end
-
-function R.set_shell_func(self, k, t)
-   -- do nothing: shell functions do not make sense in a R script.
-end
-
 function R.echo(self,...)
    self:_echo(...)
 end

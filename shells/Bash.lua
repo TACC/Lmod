@@ -95,20 +95,6 @@ function Bash.set_shell_function(self, k, t)
    end
 end
 
-function Bash.shellFunc(self, k, v)
-   dbg.print{"Bash.shellFunc: k: \"",k,"\", v: ",v,"\n"}
-   if (not v) then
-      stdout:write("unset -f ",k," 2> /dev/null || true;\n")
-      dbg.print{   "unset -f ",k," 2> /dev/null || true;\n"}
-   else
-      local func = v[1]:gsub(";%s*$","")
-      local str  = l_build_shell_func(k, func);
-      stdout:write(str)
-      dbg.print{   str}
-   end
-end
-
-
 --------------------------------------------------------------------------
 -- Bash:expandVar(): Define either a global or local variable in bash
 --                   syntax

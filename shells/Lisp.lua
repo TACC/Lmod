@@ -59,20 +59,6 @@ function Lisp.alias(self, k, v)
 end
 
 --------------------------------------------------------------------------
--- Lisp:shellFunc(): Either define or undefine a bash shell function.
---                   Modify module definition of function so that there is
---                   one and only one semicolon at the end.
-
-function Lisp.shellFunc(self, k, v)
-   -- do nothing: shell functions do not make sense in lisp.
-end
-
-function Lisp.set_shell_func(self, k, t)
-   -- do nothing: shell functions do not make sense in lisp.
-end
-
-
---------------------------------------------------------------------------
 -- Lisp:expandVar(): Define either a global or local variable in bash
 --                   syntax
 

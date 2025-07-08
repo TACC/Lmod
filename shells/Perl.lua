@@ -51,14 +51,6 @@ function Perl.alias(self, k, v)
    -- do nothing: alias do not make sense in a perl script.
 end
 
-function Perl.shellFunc(self, k, v)
-   -- do nothing: shell functions do not make sense in a perl script.
-end
-
-function Perl.set_shell_func(self, k, t)
-   -- do nothing: shell functions do not make sense in a perl script.
-end
-
 function Perl.echo(self,...)
    self:_echo(...)
 end
