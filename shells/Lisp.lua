@@ -53,7 +53,7 @@ Lisp.myType     = Lisp.my_name
 -- Lisp:expandVar(): Define either a global or local variable in bash
 --                   syntax
 
-function Lisp.expandVar(self, k, v, vType)
+function Lisp.expandVar(self, k, v)
    local lineA       = {}
    if (k:find("%.")) then
       return
@@ -74,7 +74,7 @@ end
 --------------------------------------------------------------------------
 -- Lisp:unset() unset an environment variable.
 
-function Lisp.unset(self, k, vType)
+function Lisp.unset(self, k)
    if (k:find("%.")) then
       return
    end

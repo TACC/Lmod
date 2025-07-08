@@ -52,7 +52,7 @@ function Ruby.echo(self,...)
    self:_echo(...)
 end
 
-function Ruby.expandVar(self, k, v, vType)
+function Ruby.expandVar(self, k, v))
    local lineA = {}
    v                 = tostring(v):doubleQuoteString()
    lineA[#lineA + 1] = 'ENV['
@@ -65,7 +65,7 @@ function Ruby.expandVar(self, k, v, vType)
    dbg.print{   line}
 end
 
-function Ruby.unset(self, k, vType)
+function Ruby.unset(self, k)
    local lineA = {}
    lineA[#lineA + 1] = "ENV["
    lineA[#lineA + 1] = k:doubleQuoteString()

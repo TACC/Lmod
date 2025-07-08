@@ -51,7 +51,7 @@ function Perl.echo(self,...)
    self:_echo(...)
 end
 
-function Perl.expandVar(self, k, v, vType)
+function Perl.expandVar(self, k, v)
    local lineA = {}
    v = v:doubleQuoteString():atSymbolEscaped()
 
@@ -65,7 +65,7 @@ function Perl.expandVar(self, k, v, vType)
    dbg.print{   line}
 end
 
-function Perl.unset(self, k, vType)
+function Perl.unset(self, k)
    stdout:write("delete $ENV{",k,"};\n")
    dbg.print{   "delete $ENV{",k,"};\n"}
 end

@@ -84,10 +84,9 @@ function Fish.set_shell_func(self, k, t)
 end
 
 --------------------------------------------------------------------------
--- Fish:expandVar(): Define either a global or local variable in bash
---                   syntax
+-- Fish:expandVar(): Define a global variable in Fish syntax
 
-function Fish.expandVar(self, k, v, vType)
+function Fish.expandVar(self, k, v)
    local lineA       = {}
    v                 = tostring(v):multiEscaped()
    if (k == "PATH" or k == "INFOPATH") then
@@ -95,9 +94,7 @@ function Fish.expandVar(self, k, v, vType)
    end
    lineA[#lineA + 1] = "set "
    lineA[#lineA + 1] = "-x "
-   if (vType ~= "local_var") then
-      lineA[#lineA + 1] = "-g "
-   end
+   lineA[#lineA + 1] = "-g "
    lineA[#lineA + 1] = k
    lineA[#lineA + 1] = " "
    lineA[#lineA + 1] = v

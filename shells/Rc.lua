@@ -79,7 +79,7 @@ end
 --------------------------------------------------------------------------
 -- Rc:expandVar(): expand a single key-value pair into Rc syntax.
 
-function Rc.expandVar(self, k, v, vType)
+function Rc.expandVar(self, k, v)
    if (k:find("%.")) then
       return
    end
@@ -121,7 +121,7 @@ end
 --------------------------------------------------------------------------
 -- Rc:unset(): unset a local or env. variable.
 
-function Rc.unset(self, k, vType)
+function Rc.unset(self, k)
    if (k:find("%.")) then
       return
    end

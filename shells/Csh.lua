@@ -85,7 +85,7 @@ end
 --------------------------------------------------------------------------
 -- Csh:expandVar(): expand a single key-value pair into Csh syntax.
 
-function Csh.expandVar(self, k, v, vType)
+function Csh.expandVar(self, k, v)
    if (k:find("%.")) then
       return
    end
@@ -93,12 +93,7 @@ function Csh.expandVar(self, k, v, vType)
    local middle      = ' '
    v                 = tostring(v):gsub("!","\\!")
    v                 = v:multiEscaped()
-   if (vType == "local_var") then
-      lineA[#lineA + 1] = "set "
-      middle            = "="
-   else
-      lineA[#lineA + 1] = "setenv "
-   end
+   lineA[#lineA + 1] = "setenv "
    lineA[#lineA + 1] = k
    lineA[#lineA + 1] = middle
    lineA[#lineA + 1] = v
@@ -117,16 +112,12 @@ end
 --------------------------------------------------------------------------
 -- Csh:unset(): unset a local or env. variable.
 
-function Csh.unset(self, k, vType)
+function Csh.unset(self, k)
    if (k:find("%.")) then
       return
    end
    local lineA       = {}
-   if (vType == "local_var") then
-      lineA[#lineA + 1] = "unset "
-   else
-      lineA[#lineA + 1] = "unsetenv "
-   end
+   lineA[#lineA + 1] = "unsetenv "
    lineA[#lineA + 1] = k
    lineA[#lineA + 1] = ";\n"
    local line = concatTbl(lineA,"")

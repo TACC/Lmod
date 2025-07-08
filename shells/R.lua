@@ -51,7 +51,7 @@ function R.echo(self,...)
    self:_echo(...)
 end
 
-function R.expandVar(self, k, v, vType)
+function R.expandVar(self, k, v)
    local lineA = {}
    v = tostring(v):doubleQuoteString()
    lineA[#lineA + 1] = 'Sys.setenv("'
@@ -64,7 +64,7 @@ function R.expandVar(self, k, v, vType)
    dbg.print{   line}
 end
 
-function R.unset(self, k, vType)
+function R.unset(self, k)
    stdout:write('Sys.unsetenv("',k,"\")\n")
    dbg.print{   'Sys.unsetenv("',k,"\")\n"}
 end

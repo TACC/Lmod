@@ -53,7 +53,7 @@ function CMake.echo(self,...)
    self:_echo(...)
 end
 
-function CMake.expandVar(self, k, v, vType)
+function CMake.expandVar(self, k, v)
    local lineA = {}
    lineA[#lineA + 1] = 'set(ENV{'
    lineA[#lineA + 1] = k
@@ -65,7 +65,7 @@ function CMake.expandVar(self, k, v, vType)
    dbg.print{   line}
 end
 
-function CMake.unset(self, k, vType)
+function CMake.unset(self, k)
    local lineA = {}
    lineA[#lineA + 1] = 'unset(ENV{'
    lineA[#lineA + 1] = k

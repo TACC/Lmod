@@ -52,7 +52,7 @@ function Python.echo(self,...)
    self:_echo(...)
 end
 
-function Python.expandVar(self, k, v, vType)
+function Python.expandVar(self, k, v)
    local lineA = {}
    v                 = tostring(v):doubleQuoteString()
    lineA[#lineA + 1] = 'os.environ['
@@ -65,7 +65,7 @@ function Python.expandVar(self, k, v, vType)
    dbg.print{   line}
 end
 
-function Python.unset(self, k, vType)
+function Python.unset(self, k)
    local lineA = {}
    -- We set environment key first to avoid Python key error
    -- in case key isn't set.

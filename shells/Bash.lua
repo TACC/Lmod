@@ -96,10 +96,9 @@ function Bash.set_shell_function(self, k, t)
 end
 
 --------------------------------------------------------------------------
--- Bash:expandVar(): Define either a global or local variable in bash
---                   syntax
+-- Bash:expandVar(): Define a global variable in bash syntax
 
-function Bash.expandVar(self, k, v, vType)
+function Bash.expandVar(self, k, v)
    local lineA       = {}
    local nl          = [["
 "]]
@@ -114,11 +113,9 @@ function Bash.expandVar(self, k, v, vType)
    lineA[#lineA + 1] = "="
    lineA[#lineA + 1] = v
    lineA[#lineA + 1] = ";\n"
-   if (vType ~= "local_var") then
-      lineA[#lineA + 1] = "export "
-      lineA[#lineA + 1] = k
-      lineA[#lineA + 1] = ";\n"
-   end
+   lineA[#lineA + 1] = "export "
+   lineA[#lineA + 1] = k
+   lineA[#lineA + 1] = ";\n"
    local line = concatTbl(lineA,"")
    stdout:write(line)
    if (k:find('^_ModuleTable') == nil) then
@@ -129,7 +126,7 @@ end
 --------------------------------------------------------------------------
 -- Bash:unset() unset an environment variable.
 
-function Bash.unset(self, k, vType)
+function Bash.unset(self, k)
    if (k:find("%.")) then
       return
    end
