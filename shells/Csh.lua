@@ -78,7 +78,8 @@ end
 function Csh.set_shell_function(self,k,t)
    local vstr  = t.vstr
    local vv    = (type(vstr) == "table") and vstr[2] or ""
-   self:alias(k,vv)
+   t.vstr      = vv
+   self:set_alias(k,t)
 end
 
 --------------------------------------------------------------------------
