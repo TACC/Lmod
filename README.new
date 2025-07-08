@@ -245,6 +245,7 @@ W.I.P:
             * Lmod internal docs and overview added.
             * Updated docs and contrib/TACC/SitePackage.lua to use posix.syslog interface when available 
               instead of the logger command.
-            * Changed MName:l_find_highest_by_key() and MName:find_between.  They now sort blockA then pick 
-              the first one that is visible.
-              
+            * Changed MName:l_find_highest_by_key() and MName:find_between.  They now sort blockA 
+              then pick the first one that is visible.
+            * Changed BaseShell:expand() to use self table instead of big if-elseif-else block to 
+              expand varT key-value pairs.

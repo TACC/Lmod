@@ -134,12 +134,12 @@ end
 function M.set_var(self, k, t)
    local vstr = t.vstr
    if (not vstr) then
-      self:unset(k, t.vType)
+      self:unset(k)
    elseif (k == "_ModuleTable_") then
       self:expandMT(vstr)
    else
       if (not QuarantineT[k]) then
-         self:expandVar(k, vstr, t.vType)
+         self:expandVar(k, vstr)
       end
    end
 end
@@ -222,7 +222,7 @@ function M.expand(self, varT)
    --    self:set_var(k,t)
 
    for k,var in pairsByKeys(varT) do
-      local t        = var:expandT()
+      local t = var:expandT()
       self[t.funcName](self, k, t)
    end
 
