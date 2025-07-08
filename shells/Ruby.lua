@@ -56,7 +56,7 @@ function Ruby.shellFunc(self, k, v)
    -- do nothing: shell functions do not make sense in a ruby script
 end
 
-function Ruby.set_shell_func(self, k, 5)
+function Ruby.set_shell_func(self, k, t)
    -- do nothing: shell functions do not make sense in a ruby script
 end
 
