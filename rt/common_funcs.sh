@@ -41,7 +41,7 @@ cleanUp ()
        -e "s|:$PATH_to_LUA\([:;]\)|\1|g"                  \
        -e "s|;$PATH_to_LUA:[0-9];|;|g"                    \
        -e "s| $PATH_to_LUA||g"                            \
-       -e "s| \"$PATH_to_LUA\",||g"                        \
+       -e "s| \"$PATH_to_LUA\",||g"                       \
        -e "s|\\\;$PATH_to_LUA:[0-9]\\\;|\\\;|g"           \
        -e "s|$PATH_to_LUA/lua|lua|g"                      \
        -e 's|:/bin\([:;]\)|\1|g'                          \
@@ -59,10 +59,12 @@ cleanUp ()
        -e "s|:$PATH_to_SHA1\([:;]\)|\1|g"                 \
        -e "s|;$PATH_to_SHA1:[0-9];|;|g"                   \
        -e "s| $PATH_to_SHA1||g"                           \
+       -e "s| \"$PATH_to_SHA1\",||g"                      \
        -e "s|\\\;$PATH_to_SHA1:[0-9]\\\;|\\\;|g"          \
        -e "s|:$PATH_TO_SED\([:;]\)|\1|g"                  \
        -e "s|;$PATH_TO_SED:[0-9];|;|g"                    \
        -e "s| $PATH_TO_SED||g"                            \
+       -e "s| \"$PATH_to_SED\",||g"                       \
        -e "s|\\\;$PATH_TO_SED:[0-9]\\\;|\\\;|g"           \
        -e "s|^ *Lmod version.*||g"                        \
        -e "s|^LMOD_LD_PRELOAD.*||g"                       \
