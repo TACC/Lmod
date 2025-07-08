@@ -329,6 +329,7 @@ initStdEnvVars()
 
   PATH_to_SHA1=`findcmd --pathOnly $SHA1SUM`
   PATH_TO_SED=`findcmd --pathOnly $SED`
+  SED=$PATH_TO_SED/$SED
 
   LUA_EXEC=$PATH_to_LUA/lua
   numStep=0
@@ -344,7 +345,7 @@ initStdEnvVars()
   export LMOD_TERM_WIDTH=100000
 
   PATH="/usr/bin:/bin"
-  pathA=($PATH_to_SHA1 $PATH_to_TM $PATH_to_LUA $PATH_TO_SED $projectDir/proj_mgmt)
+  pathA=($PATH_to_SHA1 $PATH_to_TM $PATH_to_LUA $projectDir/proj_mgmt)
   for jj in "${pathA[@]}"; do
     pathmunge $jj 
   done
