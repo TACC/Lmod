@@ -208,7 +208,7 @@ function M.expand(self, varT)
 
    ------------------------------------------------------------
    -- This loop is kinda magical.  It replaces a big if-elseif-else
-   -- block with a table look-up into the shell object.
+   -- block with a table look-up into the shell object: self
    -- The t.funcName values are:
    --   set_var
    --   set_path
