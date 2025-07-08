@@ -151,22 +151,25 @@ local function l_report_loads()
    local openlog
    local syslog
    local closelog
+   local logInfo
    if (posix.syslog) then
       if (type(posix.syslog) == "table" ) then
          -- Support new style posix.syslog table
          openlog  = posix.syslog.openlog
          syslog   = posix.syslog.syslog
          closelog = posix.syslog.closelog
+         logInfo  = posix.syslog.LOG_INFO
       else
          -- Support original style posix.syslog functions
          openlog  = posix.openlog
          syslog   = posix.syslog
          closelog = posix.closelog
+         logInfo  = 6
       end
 
       openlog("ModuleUsageTracking")
       for k,msg in pairs(s_msgT) do
-         syslog(posix.syslog.LOG_INFO, msg)
+         syslog(logInfo, msg)
       end
       closelog()
    else
