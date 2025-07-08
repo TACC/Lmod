@@ -164,7 +164,7 @@ local function l_report_loads()
          openlog  = posix.openlog
          syslog   = posix.syslog
          closelog = posix.closelog
-         logInfo  = "LOG_INFO"
+         logInfo  = 6
       end
 
       openlog("ModuleUsageTracking")
