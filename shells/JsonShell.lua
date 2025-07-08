@@ -60,9 +60,9 @@ function Json.initialize(self)
    self.js = js.encode({alias={}, shellFunc={}, env={}, unset={}})
 end
 
-function Json.alias(self, k, v)
+function Json.set_alias(self, k, t)
    local tbl = js.decode(self.js)
-   tbl["alias"][k] = v
+   tbl["alias"][k] = t.vstr
    self.js = js.encode(tbl)
 end
 

@@ -48,14 +48,6 @@ local stdout    = io.stdout
 Ruby.my_name    = "ruby"
 Ruby.myType     = Ruby.my_name
 
-function Ruby.alias(self, k, v)
-   -- do nothing: alias do not make sense in a ruby script
-end
-
-function Ruby.shellFunc(self, k, v)
-   -- do nothing: shell functions do not make sense in a ruby script
-end
-
 function Ruby.echo(self,...)
    self:_echo(...)
 end

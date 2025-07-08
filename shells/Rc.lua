@@ -59,7 +59,8 @@ Rc.myType          = 'rc'
 --             in.  This way there is one and only one semicolon at the
 --             end.
 
-function Rc.alias(self, k, v)
+function Rc.set_alias(self, k, t)
+  local vstr  = t.vstr
   local lineA = {}
   lineA[#lineA + 1] = "fn "
   lineA[#lineA + 1] = k
@@ -68,7 +69,7 @@ function Rc.alias(self, k, v)
     -- detect whether k is an alias for k itself
     lineA[#lineA + 1] = "builtin "
   end
-  lineA[#lineA + 1] = v
+  lineA[#lineA + 1] = vstr
   lineA[#lineA + 1] = " $* }\n"
   local line = concatTbl(lineA,"")
   stdout:write(line)

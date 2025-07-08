@@ -48,10 +48,6 @@ local stdout    = io.stdout
 Python.my_name  = "python"
 Python.myType   = Python.my_name
 
-function Python.alias(self, k, v)
-   -- do nothing: alias do not make sense in a python script
-end
-
 function Python.echo(self,...)
    self:_echo(...)
 end

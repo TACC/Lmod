@@ -153,7 +153,7 @@ end
 M.set_export_shell_function = M.set_complete
 
 function M.set_alias(self, k, t)
-   self:alias(k, t.vstr)
+   -- Nothing
 end
 
 function M.set_shell_function(self, k, t)

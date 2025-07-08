@@ -57,16 +57,17 @@ Csh.myType         = 'csh'
 --              in.  This way there is one and only one semicolon at the
 --              end.
 
-function Csh.alias(self, k, v)
-   if (not v ) then
+function Csh.set_alias(self, k, t)
+   local vstr = t.vstr
+   if (not vstr ) then
       stdout:write("unalias ",k,";\n")
       dbg.print{   "unalias ",k,";\n"}
    else
-      v = v:gsub("%$%*","\\!*")
-      v = v:gsub("%$([0-9])", "\\!:%1")
-      v = v:gsub(";%s$","")
-      stdout:write("alias ",k," '",v,"';\n")
-      dbg.print{   "alias ",k," '",v,"';\n"}
+      vstr = vstr:gsub("%$%*","\\!*")
+      vstr = vstr:gsub("%$([0-9])", "\\!:%1")
+      vstr = vstr:gsub(";%s$","")
+      stdout:write("alias ",k," '",vstr,"';\n")
+      dbg.print{   "alias ",k," '",vstr,"';\n"}
    end
 end
 

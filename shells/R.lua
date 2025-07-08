@@ -47,10 +47,6 @@ local stdout      = io.stdout
 R.my_name         = "r"
 R.myType          = R.my_type
 
-function R.alias(self, k, v)
-   -- do nothing: alias do not make sense in a R script.
-end
-
 function R.echo(self,...)
    self:_echo(...)
 end

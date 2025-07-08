@@ -50,15 +50,6 @@ Lisp.my_name    = "lisp"
 Lisp.myType     = Lisp.my_name
 
 --------------------------------------------------------------------------
--- Bash:alias(): Either define or undefine a bash shell alias.
---               Modify module definition of function so that there is
---               one and only one semicolon at the end.
-
-function Lisp.alias(self, k, v)
-   -- do nothing: alias do not make sense in lisp.
-end
-
---------------------------------------------------------------------------
 -- Lisp:expandVar(): Define either a global or local variable in bash
 --                   syntax
 

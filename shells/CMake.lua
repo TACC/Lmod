@@ -49,10 +49,6 @@ local stdout    = io.stdout
 CMake.my_name   = "cmake"
 CMake.myType    = "cmake"
 
-function CMake.alias(self, k, v)
-   -- do nothing: alias do not make sense in a cmake script
-end
-
 function CMake.echo(self,...)
    self:_echo(...)
 end

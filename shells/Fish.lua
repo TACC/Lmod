@@ -54,14 +54,15 @@ Fish.myType     = Fish.my_name
 --               Modify module definition of alias so that there is
 --               one and only one semicolon at the end.
 
-function Fish.alias(self, k, v)
-   if (not v) then
+function Fish.set_alias(self, k, t)
+   local vstr = t.vstr
+   if (not vstr) then
       stdout:write("functions -e ",k,";\n")
       dbg.print{   "functions -e ",k,";\n"}
    else
-      v = v:gsub(";%s*$","")
-      stdout:write("alias ",k,"='",v,"';\n")
-      dbg.print{   "alias ",k,"='",v,"';\n"}
+      vstr = vstr:gsub(";%s*$","")
+      stdout:write("alias ",k,"='",vstr,"';\n")
+      dbg.print{   "alias ",k,"='",vstr,"';\n"}
    end
 end
 
