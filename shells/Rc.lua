@@ -75,6 +75,11 @@ function Rc.alias(self, k, v)
   dbg.print{   line}
 end
 
+function Rc.set_shell_function(self, k, t)
+   -- Do nothing
+end
+
+
 --------------------------------------------------------------------------
 -- Rc:shellFunc(): Modify module definition of function truncating
 --                 everything after first semicolon.

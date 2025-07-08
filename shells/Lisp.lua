@@ -67,6 +67,10 @@ function Lisp.shellFunc(self, k, v)
    -- do nothing: shell functions do not make sense in lisp.
 end
 
+function Lisp.set_shell_func(self, k, t)
+   -- do nothing: shell functions do not make sense in lisp.
+end
+
 
 --------------------------------------------------------------------------
 -- Lisp:expandVar(): Define either a global or local variable in bash

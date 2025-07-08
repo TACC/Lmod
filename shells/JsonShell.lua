@@ -66,6 +66,13 @@ function Json.alias(self, k, v)
    self.js = js.encode(tbl)
 end
 
+function Json.set_shell_func(self, k, t)
+   local tbl = js.decode(self.js)
+   tbl["shellFunc"][k] = t.vstr[1]
+   self.js = js.encode(tbl)
+end
+
+
 function Json.shellFunc(self, k, v)
    local tbl = js.decode(self.js)
    tbl["shellFunc"][k] = v

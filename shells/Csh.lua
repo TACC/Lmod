@@ -74,6 +74,12 @@ end
 -- Csh:shellFunc(): reuse the Csh:alias function after deciding if is
 --                  a set or unset of the alias.
 
+function Csh.set_shell_func(self,k,t)
+   local vstr  = t.vstr
+   local vv    = (type(vstr) == "table") and vstr[2] or ""
+   self:alias(k,vv)
+end
+
 function Csh.shellFunc(self,k,v)
    local vv = (type(v) == "table") and v[2] or ""
    self:alias(k,vv)

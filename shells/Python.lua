@@ -56,6 +56,10 @@ function Python.shellFunc(self, k, v)
    -- do nothing: shell functions do not make sense in a python script
 end
 
+function Python.set_shell_func(self, k, t)
+   -- do nothing: shell functions do not make sense in a python script
+end
+
 function Python.echo(self,...)
    self:_echo(...)
 end

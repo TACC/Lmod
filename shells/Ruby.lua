@@ -34,13 +34,13 @@
 
 --------------------------------------------------------------------------
 -- Ruby(): This is a derived class from BaseShell.  It expands variables
---           into python syntax.  Note that aliases and shell functions are
+--           into Ruby syntax.  Note that aliases and shell functions are
 --           ignored as they do not make sense in Ruby.
 
 require("strict")
 
 local BaseShell = require("BaseShell")
-local Ruby    = inheritsFrom(BaseShell)
+local Ruby      = inheritsFrom(BaseShell)
 local dbg       = require("Dbg"):dbg()
 local Var       = require("Var")
 local concatTbl = table.concat
@@ -49,11 +49,15 @@ Ruby.my_name    = "ruby"
 Ruby.myType     = Ruby.my_name
 
 function Ruby.alias(self, k, v)
-   -- do nothing: alias do not make sense in a python script
+   -- do nothing: alias do not make sense in a ruby script
 end
 
 function Ruby.shellFunc(self, k, v)
-   -- do nothing: shell functions do not make sense in a python script
+   -- do nothing: shell functions do not make sense in a ruby script
+end
+
+function Ruby.set_shell_func(self, k, 5)
+   -- do nothing: shell functions do not make sense in a ruby script
 end
 
 function Ruby.echo(self,...)
