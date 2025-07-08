@@ -130,11 +130,63 @@ function M.report_success(self)
    -- No output for normal shells
 end
 
+
+function M.set_var(self, k, t)
+   local vstr = t.vstr
+   if (not vstr) then
+      self:unset(k, t.vType)
+   elseif (k == "_ModuleTable_") then
+      self:expandMT(vstr)
+   else
+      if (not QuarantineT[k]) then
+         self:expandVar(k, vstr, t.vType)
+      end
+   end
+end
+
+local s_delayT = {}
+
+function M.set_complete(self, k, t)
+   s_delayT[k] = { vType = t.vType, vstr = t.vstr }
+end
+
+M.set_export_shell_function = M.set_complete
+
+function M.set_alias(self, k, t)
+   self:alias(k, t.vstr)
+end
+
+function M.set_shell_function(self, k, t)
+   self:shellFunc(k, t.vstr)
+end
+
+function M.set_path(self, k, t)
+   if (next(t.priorityStrT) ~= nil) then
+      for prtyKey,prtyStr in pairs(t.priorityStrT) do
+         if (prtyStr) then
+            self:expandVar(prtyKey,prtyStr,"path")
+         else
+            self:unset(prtyKey,"path")
+         end
+      end
+   end
+   if (next(t.refCountT) ~= nil) then
+      for key,value in pairs(t.refCountT) do
+         if (value) then
+            self:expandVar(key, value, "path")
+         else
+            self:unset(key,"path")
+         end
+      end
+   end
+   self:set_var(k, t)
+end
+
 --------------------------------------------------------------------------
 -- BaseShell:expand(): This base class function is what converts the
 --                     environment variables stored internally into
 --                     strings.  Each variable knows its type, so this
---                     routine does a big switch on each type and calls
+--                     routine calls 
 --                     the derived shell class member function to do the
 --                     actual expansion to standard out (io.stdout).
 
@@ -149,53 +201,33 @@ function M.expand(self, varT)
 
    local init = false
 
-   local delayT = {}
    if (next(varT) ~= nil ) then
       self:initialize()
       init = true
    end
 
+   ------------------------------------------------------------
+   -- This loop is kinda magical.  It replaces a big if-elseif-else
+   -- block with a table look-up into the shell object.
+   -- The t.funcName values are:
+   --   set_var
+   --   set_path
+   --   set_complete
+   --   set_export_shell_function
+   --   set_shell_function
+   -- 
+   -- The stmt:
+   --    self[t.funcName](self, k, t)
+   -- when t.funcName is "set_var" then above stmt is the same as:
+   --    self:set_var(k,t)
 
    for k,var in pairsByKeys(varT) do
-      local t     = var:expandT()
-      local vType = t.vType
-      local vstr  = t.vstr
-      if (next(t.priorityStrT) ~= nil) then
-         for prtyKey,prtyStr in pairs(t.priorityStrT) do
-            if (prtyStr) then
-               self:expandVar(prtyKey,prtyStr,"path")
-            else
-               self:unset(prtyKey,"path")
-            end
-         end
-      end
-      if (next(t.refCountT) ~= nil) then
-         for key,value in pairs(t.refCountT) do
-            if (value) then
-               self:expandVar(key, value, "path")
-            else
-               self:unset(key,"path")
-            end
-         end
-      end
-      if (vType == "alias") then
-         self:alias(k, vstr)
-      elseif (vType == "shell_function") then
-         self:shellFunc(k, vstr)
-      elseif (vType == "complete" or vType == "export_shell_function") then
-         delayT[k] = { vType = vType, vstr = vstr }
-      elseif (not vstr) then
-         self:unset(k, vType)
-      elseif (k == "_ModuleTable_") then
-         self:expandMT(vstr)
-      else
-         if (not QuarantineT[k]) then
-            self:expandVar(k,vstr,vType)
-         end
-      end
+      local t        = var:expandT()
+      self[t.funcName](self, k, t)
    end
-   if (next(delayT) ~= nil) then
-      for k, v in pairsByKeys(delayT) do
+
+   if (next(s_delayT) ~= nil) then
+      for k, v in pairsByKeys(s_delayT) do
          local vType = v.vType
          if (vType == "complete") then
             self:complete(k,v.vstr)

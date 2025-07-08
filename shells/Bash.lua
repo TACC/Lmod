@@ -81,6 +81,20 @@ end
 --                   Modify module definition of function so that there is
 --                   one and only one semicolon at the end.
 
+function Bash.set_shell_function(self, k, t)
+   dbg.print{"Bash.set_shell_function: k: \"",k,"\"\n"}
+   local vstr = t.vstr
+   if (not vstr) then
+      stdout:write("unset -f ",k," 2> /dev/null || true;\n")
+      dbg.print{   "unset -f ",k," 2> /dev/null || true;\n"}
+   else
+      local func = vstr[1]:gsub(";%s*$","")
+      local str  = l_build_shell_func(k, func);
+      stdout:write(str)
+      dbg.print{   str}
+   end
+end
+
 function Bash.shellFunc(self, k, v)
    dbg.print{"Bash.shellFunc: k: \"",k,"\", v: ",v,"\n"}
    if (not v) then
