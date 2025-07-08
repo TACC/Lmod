@@ -71,10 +71,10 @@ function Csh.alias(self, k, v)
 end
 
 --------------------------------------------------------------------------
--- Csh:set_shell_func(): reuse the Csh:alias function after deciding if is
+-- Csh:set_shell_function(): reuse the Csh:alias function after deciding if is
 --                       a set or unset of the alias.
 
-function Csh.set_shell_func(self,k,t)
+function Csh.set_shell_function(self,k,t)
    local vstr  = t.vstr
    local vv    = (type(vstr) == "table") and vstr[2] or ""
    self:alias(k,vv)

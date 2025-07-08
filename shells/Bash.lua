@@ -55,13 +55,13 @@ Bash.myType     = "sh"
 --               Modify module definition of function so that there is
 --               one and only one semicolon at the end.
 
-function Bash.alias(self, k, v)
-   if (not v) then
+function Bash.set_alias(self, k, t)
+   local vstr = t.vstr
+   if (not vstr) then
       stdout:write("unalias ",k," 2> /dev/null || true;\n")
       dbg.print{   "unalias ",k," 2> /dev/null || true;\n"}
    else
-      v = v:gsub(";%s*$",""):multiEscaped()
-
+      local v = vstr:gsub(";%s*$",""):multiEscaped()
       stdout:write("alias ",k,"=",v,";\n")
       dbg.print{   "alias ",k,"=",v,";\n"}
    end
