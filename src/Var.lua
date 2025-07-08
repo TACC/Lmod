@@ -487,26 +487,26 @@ end
 function M.complete(self, args)
    if (not args) then value = false end
    self.type      = "complete"
-   self.funcName  = "set_complete"
+   self.funcName  = "set_complete_delay"
    self.value     = args
 end
 
 function M.uncomplete(self)
    self.type      = "complete"
-   self.funcName  = "set_complete"
+   self.funcName  = "set_complete_delay"
    self.value     = false
 end
 
 
 function M.export_shell_function(self)
    self.type      = "export_shell_function"
-   self.funcName  = "set_export_shell_function"
+   self.funcName  = "set_export_shell_function_delay"
    self.value     = true
 end
 
 function M.unset_shell_function(self)
    self.type      = "export_shell_function"
-   self.funcName  = "set_export_shell_function"
+   self.funcName  = "set_export_shell_function_delay"
    self.value     = false
 end
 

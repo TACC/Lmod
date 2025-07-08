@@ -146,11 +146,11 @@ end
 
 local s_delayT = {}
 
-function M.set_complete(self, k, t)
+function M.set_complete_delay(self, k, t)
    s_delayT[k] = { vType = t.vType, vstr = t.vstr }
 end
 
-M.set_export_shell_function = M.set_complete
+M.set_export_shell_function_delay = M.set_complete_delay
 
 function M.set_alias(self, k, t)
    -- Nothing
@@ -159,6 +159,15 @@ end
 function M.set_shell_function(self, k, t)
    -- Nothing
 end
+
+function M.set_complete(self, k, t)
+   -- Nothing
+end
+function M.set_export_shell_function(self, k, t)
+   -- Nothing
+end
+
+
 
 function M.set_path(self, k, t)
    if (next(t.priorityStrT) ~= nil) then
@@ -212,8 +221,8 @@ function M.expand(self, varT)
    -- The t.funcName values are:
    --   set_var
    --   set_path
-   --   set_complete
-   --   set_export_shell_function
+   --   set_complete_delay
+   --   set_export_shell_function_delay
    --   set_shell_function
    -- 
    -- The stmt:
@@ -226,13 +235,17 @@ function M.expand(self, varT)
       self[t.funcName](self, k, t)
    end
 
+   ------------------------------------------------------------
+   -- copy the complete and export shell commands after all the 
+   -- 
+
    if (next(s_delayT) ~= nil) then
       for k, v in pairsByKeys(s_delayT) do
          local vType = v.vType
          if (vType == "complete") then
-            self:complete(k,v.vstr)
+            self:set_complete(k,v.vstr)
          elseif (vType == "export_shell_function") then
-            self:export_shell_function(k,v.vstr)
+            self:set_export_shell_function(k,v.vstr)
          end
       end
    end

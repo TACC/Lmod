@@ -134,7 +134,7 @@ function Bash.unset(self, k)
    dbg.print{   "unset ",k,";\n"}
 end
 
-function Bash.complete(self, n, value)
+function Bash.set_complete(self, n, value)
    local lineA = {}
    local name  = unwrap_kind("complete", n)
    if (value) then
@@ -153,7 +153,7 @@ function Bash.complete(self, n, value)
    dbg.print{   line}
 end
 
-function Bash.export_shell_function(self, n, value)
+function Bash.set_export_shell_function(self, n, value)
    local lineA = {}
    local name  = unwrap_kind("export_shell_function", n)
    if (value) then

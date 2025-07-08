@@ -125,7 +125,7 @@ function Csh.unset(self, k)
    dbg.print{   line}
 end
 
-function Csh.complete(self, name, value)
+function Csh.set_complete(self, name, value)
    local lineA = {}
    local n     = unwrap_kind("complete", name)
    if (value) then
