@@ -42,8 +42,8 @@ jobs:
         if: ${{ failure() }}
         run: |
          set +e
-         for dir in $(ls -pd rt/* | grep '/$'); do
-           diff -c ${dir}t1/*/_err.left ${dir}/t1/*/_err.right > /dev/null 2>&1
+         #for dir in $(ls -pd rt/* | grep '/$'); do
+           diff -c ${dir}t1/nushell/_err.left ${dir}/t1/nushell/_err.right > /dev/null 2>&1
            if [ $? -ne 0 ]; then
              echo ">>>> ${dir}/err.txt"
              diff -c ${dir}t1/*/_err.left ${dir}/t1/*/_err.right || echo
@@ -52,7 +52,7 @@ jobs:
              echo ">>>> ${dir}/t1.txt"
              cat ${dir}t1/*/t1.log
            fi
-         done
+         #done
       - name: run busted tests
         run: |
           PROJDIR=`pwd` LMOD_FAST_TCL_INTERP=no busted --verbose -m "./src/?.lua;./tools/?.lua;./tools/?/init.lua"
