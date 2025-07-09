@@ -45,17 +45,27 @@ cleanUp ()
        -e "s|\\\;$PATH_to_LUA:[0-9]\\\;|\\\;|g"           \
        -e "s|$PATH_to_LUA/lua|lua|g"                      \
        -e 's|:/bin\([:;]\)|\1|g'                          \
-       -e 's|;/bin:[0-9];|;|g'                            \
+       -e 's|;/bin:[0-9]\([";]\)|\1|g'                    \
        -e 's| /bin||g'                                    \
+       -e 's| "/bin",||g'                                 \
+       -e 's|\\\\;/bin:[0-9]\\\\;|\\\\;|g'                \
        -e 's|\\\;/bin:[0-9]\\\;|\\\;|g'                   \
        -e "s|:/usr/bin\([:;]\)|\1|g"                      \
-       -e "s|;/usr/bin:[0-9];|;|g"                        \
+       -e 's|;/usr/bin:[0-9]\([";]\)|\1|g'                \
        -e "s| /usr/bin||g"                                \
+       -e 's| "/usr/bin",||g'                             \
        -e "s|\\\;/usr/bin:[0-9]\\\;|\\\;|g"               \
+       -e 's|\\\\;/usr/bin:[0-9]\\\\;|\\\\;|g'            \
        -e "s|:/usr/local/bin\([:;]\)|\1|g"                \
        -e "s|;/usr/local/bin:[0-9];|;|g"                  \
        -e "s| /usr/local/bin||g"                          \
+       -e 's| "/usr/local/bin",||g'                       \
        -e "s|\\\;/usr/local/bin:[0-9]\\\;|\\\;|g"         \
+       -e 's|\\\\;/opt/homebrew/bin:[0-9]\\\\;|\\\\;|g'   \
+       -e "s|:/opt/homebrew/bin\([:;]\)|\1|g"             \
+       -e "s|;/opt/homebrew/bin:[0-9];|;|g"               \
+       -e "s| /opt/homebrew/bin||g"                       \
+       -e "s| \"/opt/homebrew/bin\",||g"                  \
        -e "s|:$PATH_to_SHA1\([:;]\)|\1|g"                 \
        -e "s|;$PATH_to_SHA1:[0-9];|;|g"                   \
        -e "s| $PATH_to_SHA1||g"                           \

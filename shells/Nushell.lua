@@ -86,9 +86,32 @@ end
 -- Nushell:expandVar(): Define environment variables in nushell syntax
 --                      Use vType parameter to determine if variable is path-like
 
+local s_quoteA = {
+   {"r#'","'#"},
+   {"r##'","'##"},
+   {"r###'","'###"},
+   {"r####'","'####"},
+   {"r#####'","'#####"},
+   {"r######'","'######"},
+}
+
+local function l_quoteValue(value)
+   for i = 1,#s_quoteA do
+      local left = s_quoteA[i][1]
+      local rght = s_quoteA[i][2]
+      if (not (value:find(left,1,true) or value:find(rght,1,true))) then
+         return left, rght
+      end
+   end
+   return s_quoteA[1][1], s_quoteA[1][2]
+end
+
+
+
+
 function Nushell.expandVar(self, k, v, vType)
    local lineA = {}
-   v = tostring(v):multiEscaped()
+   v = tostring(v)
    
    -- Handle path-like variables by converting to nushell list format
    -- BUT: __LMOD_REF_COUNT_* variables are encoded strings, not actual paths
@@ -98,23 +121,24 @@ function Nushell.expandVar(self, k, v, vType)
       lineA[#lineA + 1] = " = ["
       
       -- Split on colons and create a nushell list
-      local paths = {}
-      for path in v:gmatch("[^:]+") do
-         -- Escape quotes in path and wrap in quotes
-         local escaped_path = path:gsub('"', '\\"')
-         table.insert(paths, '"' .. escaped_path .. '"')
+      local pathA  = path2pathA(v)
+      local qpathA = {}
+
+      for i = 1,#pathA do
+         local path = pathA[i]
+         local left, rght = l_quoteValue(path)
+         qpathA[i] = left .. path .. rght
       end
-      lineA[#lineA + 1] = concatTbl(paths, ", ")
+      lineA[#lineA + 1] = concatTbl(qpathA, ", ")
       lineA[#lineA + 1] = "]\n"
    else
       -- Regular environment variable
       lineA[#lineA + 1] = "$env."
       lineA[#lineA + 1] = k
-      lineA[#lineA + 1] = " = \""
-      -- Escape quotes and backslashes for nushell
-      local escaped_v = v:gsub('\\', '\\\\'):gsub('"', '\\"')
-      lineA[#lineA + 1] = escaped_v
-      lineA[#lineA + 1] = "\"\n"
+      lineA[#lineA + 1] = " = "
+      local left, rght = l_quoteValue(v)
+      lineA[#lineA + 1] = left .. v .. rght
+      lineA[#lineA + 1] = ";\n"
    end
    
    local line = concatTbl(lineA,"")
