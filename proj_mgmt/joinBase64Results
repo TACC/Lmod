@@ -107,7 +107,7 @@ local function l_grabNushell(line,b)
    for v in line:split(' ') do
       a[#a + 1] = v
    end
-   b[#b+1] = a[3]:gsub("\"","")
+   b[#b+1] = a[3]:gsub("r#'([^']*)'#;","%1")
 end   
 
 
@@ -317,10 +317,10 @@ end
 function lmod_stack(shell, whole)
    local pattT =
       { 
-         csh     = {"^(setenv __LMOD_STACK[^ ]*)%s+([^;]*);?",   " "},
-         bash    = {"^(__LMOD_STACK[^=]*)=([^;]*);",             "="},
-         fish    = {"^(set -x -g __LMOD_STACK[^ ]*)%s+\"(.*)\"", " "},
-         nushell = {"^(.env.__LMOD_STACK[^ ]*)%s+\"(.*)\"", " "},
+         csh     = {"^(setenv __LMOD_STACK[^ ]*)%s+([^;]*);?",        " "},
+         bash    = {"^(__LMOD_STACK[^=]*)=([^;]*);",                  "="},
+         fish    = {"^(set -x -g __LMOD_STACK[^ ]*)%s+\"(.*)\"",      " "},
+         nushell = {"^(%$env.__LMOD_STACK[^ ]*)%s+=%s+r#'([^']*)'#;", " "},
       }
    local a = {}
    local patt = pattT[shell][1]

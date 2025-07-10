@@ -130,7 +130,7 @@ function Nushell.expandVar(self, k, v, vType)
          qpathA[i] = left .. path .. rght
       end
       lineA[#lineA + 1] = concatTbl(qpathA, ", ")
-      lineA[#lineA + 1] = "]\n"
+      lineA[#lineA + 1] = ",];\n"
    else
       -- Regular environment variable
       lineA[#lineA + 1] = "$env."

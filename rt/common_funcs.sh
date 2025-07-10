@@ -41,36 +41,28 @@ cleanUp ()
        -e "s|:$PATH_to_LUA\([:;]\)|\1|g"                  \
        -e "s|;$PATH_to_LUA:[0-9];|;|g"                    \
        -e "s| $PATH_to_LUA||g"                            \
-       -e "s| \"$PATH_to_LUA\",||g"                       \
        -e "s|\\\;$PATH_to_LUA:[0-9]\\\;|\\\;|g"           \
        -e "s|$PATH_to_LUA/lua|lua|g"                      \
        -e 's|:/bin\([:;]\)|\1|g'                          \
-       -e 's|;/bin:[0-9]\([";]\)|\1|g'                    \
+       -e 's|;/bin:[0-9];|;|g'                            \
        -e 's| /bin||g'                                    \
-       -e 's| "/bin",||g'                                 \
-       -e 's|\\\\;/bin:[0-9]\\\\;|\\\\;|g'                \
        -e 's|\\\;/bin:[0-9]\\\;|\\\;|g'                   \
        -e "s|:/usr/bin\([:;]\)|\1|g"                      \
-       -e 's|;/usr/bin:[0-9]\([";]\)|\1|g'                \
+       -e "s|;/usr/bin:[0-9];|;|g"                        \
        -e "s| /usr/bin||g"                                \
-       -e 's| "/usr/bin",||g'                             \
        -e "s|\\\;/usr/bin:[0-9]\\\;|\\\;|g"               \
-       -e 's|\\\\;/usr/bin:[0-9]\\\\;|\\\\;|g'            \
        -e "s|:/usr/local/bin\([:;]\)|\1|g"                \
        -e "s|;/usr/local/bin:[0-9];|;|g"                  \
        -e "s| /usr/local/bin||g"                          \
-       -e 's| "/usr/local/bin",||g'                       \
        -e "s|\\\;/usr/local/bin:[0-9]\\\;|\\\;|g"         \
-       -e 's|\\\\;/opt/homebrew/bin:[0-9]\\\\;|\\\\;|g'   \
-       -e "s|:/opt/homebrew/bin\([:;]\)|\1|g"             \
-       -e "s|;/opt/homebrew/bin:[0-9];|;|g"               \
-       -e "s| /opt/homebrew/bin||g"                       \
-       -e "s| \"/opt/homebrew/bin\",||g"                  \
        -e "s|:$PATH_to_SHA1\([:;]\)|\1|g"                 \
        -e "s|;$PATH_to_SHA1:[0-9];|;|g"                   \
        -e "s| $PATH_to_SHA1||g"                           \
-       -e "s| \"$PATH_to_SHA1\",||g"                      \
        -e "s|\\\;$PATH_to_SHA1:[0-9]\\\;|\\\;|g"          \
+       -e "s|:$PATH_TO_SED\([:;]\)|\1|g"                  \
+       -e "s|;$PATH_TO_SED:[0-9];|;|g"                    \
+       -e "s| $PATH_TO_SED||g"                            \
+       -e "s|\\\;$PATH_TO_SED:[0-9]\\\;|\\\;|g"           \
        -e "s|^ *Lmod version.*||g"                        \
        -e "s|^LMOD_LD_PRELOAD.*||g"                       \
        -e "s|^LuaFileSystem version.*||g"                 \
@@ -154,11 +146,6 @@ printErr ()
 runFish ()
 {
   runBase $LUA_EXEC $projectDir/src/lmod.in.lua fish --regression_testing "$@"
-}
-
-runNushell ()
-{
-  runBase $LUA_EXEC $projectDir/src/lmod.in.lua nushell --regression_testing "$@"
 }
 
 runJson ()
@@ -334,7 +321,6 @@ initStdEnvVars()
 
   PATH_to_SHA1=`findcmd --pathOnly $SHA1SUM`
   PATH_TO_SED=`findcmd --pathOnly $SED`
-  SED=$PATH_TO_SED/$SED
 
   LUA_EXEC=$PATH_to_LUA/lua
   numStep=0
@@ -350,7 +336,7 @@ initStdEnvVars()
   export LMOD_TERM_WIDTH=100000
 
   PATH="/usr/bin:/bin"
-  pathA=($PATH_to_SHA1 $PATH_to_TM $PATH_to_LUA $projectDir/proj_mgmt)
+  pathA=($PATH_to_SHA1 $PATH_to_TM $PATH_to_LUA $PATH_TO_SED $projectDir/proj_mgmt)
   for jj in "${pathA[@]}"; do
     pathmunge $jj 
   done
