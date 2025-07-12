@@ -143,7 +143,7 @@ local s_removeA = {
    "^_ModuleTable_Sz_=.*",
    "^set.* _ModuleTable_Sz_ .*",
    "^%-%%%%%-.*",
-   "^  *[{}] *$",
+   "^  *[(){}] *$",
    "^ *$",
 }
 
