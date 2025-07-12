@@ -855,9 +855,9 @@ export _ModuleTable_;
 step 70
 cat diff.env.xyzzy
 ===========================
-< __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/load/mf3:1
-> __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/load/mf4:1
-> __LMOD_REF_COUNT_PATH=ProjectDIR/rt/load:1;ProjectDIR/proj_mgmt:1;PATH_to_TM:1;/bin:1
+< __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/load/mf3:1;
+> __LMOD_REF_COUNT_MODULEPATH=ProjectDIR/rt/load/mf4:1;
+> __LMOD_REF_COUNT_PATH=ProjectDIR/rt/load:1\;ProjectDIR/proj_mgmt:1\;PATH_to_TM:1;
 ===========================
 step 71
 lua ProjectDIR/src/lmod.in.lua shell --regression_testing purge

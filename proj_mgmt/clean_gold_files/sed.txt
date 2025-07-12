@@ -1,9 +1,6 @@
-       -e "s| $PATH_to_SHA1/$SHA1SUM| PATH_to_HASHSUM|g"  \
    $SED                                                   \
        -e 's|\(__LMOD_REF_COUNT_[^ =]*[ =]\)\([^ ]\)|\1\\;\2|' \
        -e "s|\(__LMOD_REF_COUNT_[^ =]* = r#'\)|\1;|" \
-       -e "s|/usr/.*/sha1sum|PATH_to_HASHSUM|g"           \
-       -e "s|/bin/.*/sha1sum|PATH_to_HASHSUM|g"           \
        -e "s|:$PATH_to_LUA\([:;]\)|\1|g"                  \
        -e "s|;$PATH_to_LUA:[0-9];|;|g"                    \
        -e "s| $PATH_to_LUA||g"                            \
@@ -29,15 +26,7 @@
        -e "s|;$PATH_TO_SED:[0-9];|;|g"                    \
        -e "s| $PATH_TO_SED||g"                            \
        -e "s|\\\;$PATH_TO_SED:[0-9]\\\;|\\\;|g"           \
-       -e "s|$PATH_to_TM|PATH_to_TM|g"                    \
-       -e "s|\-%%\-.*||g"                                 \
-       -e "s| *----* *||g"                                \
-       -e "s|^ *=============================* *|=============================|g" \
-       -e "s|^--* *| |g"                                  \
-       -e "s|---* *$||g"                                  \
        -e "s|\\\9|	|g"                               \
-       -e "s|$old|$new|g"                                 \
        -e 's|\(__LMOD_REF_COUNT_[^ =]*[ =]\)\\;|\1|'      \
        -e "s|\(__LMOD_REF_COUNT_[^ =]* = r#'\);|\1|"      \
        -e "s|\\\;$|;|"                                    \
-       -e "/^ *$/d"                                       \

@@ -154,7 +154,7 @@ export _LMFILES_;
 _ModuleTable_='_ModuleTable_={MTversion=3,depthT={},family={},mT={alias={fn="ProjectDIR/rt/set_alias/mf/alias/1.0",fullName="alias/1.0",loadOrder=3,propT={},stackDepth=0,status="active",userName="alias",wV="000000001.*zfinal",},multiline={fn="ProjectDIR/rt/set_alias/mf/multiline/2.0.lua",fullName="multiline/2.0",loadOrder=4,propT={},stackDepth=0,status="active",userName="multiline/2.0",wV="000000002.*zfinal",},sfunc={fn="ProjectDIR/rt/set_alias/mf/sfunc/1.0.lua",fullName="sfunc/1.0",loadOrder=2,propT={},stackDepth=0,status="active",userName="sfunc",wV="000000001.*zfinal",},test1={fn="ProjectDIR/rt/set_alias/mf/test1/1.0.lua",fullName="test1/1.0",loadOrder=1,propT={},stackDepth=0,status="active",userName="test1",wV="000000001.*zfinal",},},mpathA={"ProjectDIR/rt/set_alias/mf",},systemBaseMPATH="ProjectDIR/rt/set_alias/mf",}';
 export _ModuleTable_;
 foo () {
-    echo foo ;
+    echo foo \;
 };
 ===========================
 step 12
@@ -187,7 +187,7 @@ foo () {     STR="
     foo
     bar
 "
-    echo $STR ;
+    echo $STR \;
 };
 ===========================
 step 14

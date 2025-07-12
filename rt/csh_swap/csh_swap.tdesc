@@ -173,8 +173,8 @@ EOF
      HOME=$ORIG_HOME
 
      joinBase64Results -csh  _stdout.orig _stdout.new
-     cleanUp _stdout.new  out.txt
-     cleanUp _stderr.orig err.txt
+     cleanUp --csh _stdout.new  out.txt
+     cleanUp --csh _stderr.orig err.txt
 
 
      rm -f results.csv

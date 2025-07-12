@@ -89,14 +89,12 @@ end
 function Fish.expandVar(self, k, v, vType)
    local lineA       = {}
    v                 = tostring(v):multiEscaped()
-   if (k == "PATH" or k == "INFOPATH") then
+   if (vType == "path" and not k:match("^__LMOD_REF_COUNT_")) then
       v = v:gsub(":",' ')
    end
    lineA[#lineA + 1] = "set "
    lineA[#lineA + 1] = "-x "
-   if (vType ~= "local_var") then
-      lineA[#lineA + 1] = "-g "
-   end
+   lineA[#lineA + 1] = "-g "
    lineA[#lineA + 1] = k
    lineA[#lineA + 1] = " "
    lineA[#lineA + 1] = v
