@@ -95,8 +95,8 @@ local function l_init_envTable(self)
       {"%-%-%-* *$",                          ""                   },
       {"attempt to call.*WTF.*",              ""                   },
       {".*_AST_FEATURES.*",                   ""                   },
-      {"(file \"ProjectDIR/rt/end2end.*)",    ""                   },
-      {"(file \"OutputDIR/lmod/lmod/.*)",     ""                   },
+      {"\(file \"ProjectDIR/rt/end2end.*\)",  ""                   },
+      {"\(file \"OutputDIR/lmod/lmod/.*\)",   ""                   },
       {"^ *=============================* *", banner               },
       {"  *$",                                ""                   },
       {"^ *$",                                ""                   }, 
@@ -143,8 +143,6 @@ local s_removeA = {
    "^_ModuleTable_Sz_=.*",
    "^set.* _ModuleTable_Sz_ .*",
    "^%-%%%%%-.*",
-   "^  *[(){}] *$",
-   "^    [(]",
    "^ *$",
 }
 
