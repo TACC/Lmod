@@ -117,7 +117,7 @@ function M.singleton(self, fnA)
    if (not s_Epoch) then
       s_Epoch  = math.floor(epoch())
       local tm = posix.localtime(s_Epoch)
-      s_Is_dst = tm.is_dst
+      s_Is_dst = tm.is_dst or (tm.tm_isdst and tm.tm_isdst ~= 0)
    end
 
    if (not s_Show_HiddenT) then
@@ -129,7 +129,6 @@ function M.singleton(self, fnA)
 end
 
 local s_tmTransT = {
-   is_dst   = true,
    tm_hour  = "hour",
    tm_isdst = "is_dst",
    tm_mday  = "monthDay",
@@ -168,6 +167,7 @@ local function l_convertStr2TM(tStr, tm, is_dst)
       tm[k] = v
    end
    tm.is_dst = is_dst
+   tm.tm_isdst = is_dst and 1 or 0
 end
 
 local function l_convertTimeStr_to_epoch(tStr)
@@ -181,7 +181,7 @@ local function l_convertTimeStr_to_epoch(tStr)
       LmodError{msg="e_Malformed_time",tStr = tStr}
    end
    tm = l_convertOldtm(tm)
-   dbg.print{"tm",tm,"\n"}
+   dbg.printT("tm",tm)
    return posix.mktime(tm)
 end
 
