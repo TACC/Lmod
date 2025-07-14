@@ -151,6 +151,7 @@ local function l_convertOldtm(tm)
       end
       t.year  = 1900 + t.year
       t.month = t.month + 1
+      t.is_dst = tm.is_dst
    else
       t = tm
    end
