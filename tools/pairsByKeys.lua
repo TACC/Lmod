@@ -34,23 +34,45 @@ local sort = table.sort
 --end
 
 function pairsByKeys (t, f)
+   local a = {}
+   local numA = {}
    local strA = {}
+   local boolA = {}
+   local n = 0
    for k in pairs(t) do
-      if (type(k) == "string") then
-         strA[#strA+1] = k
+      local kind = type(k)
+      if (kind == "number") then
+         numA[#numA+1] = k
+      elseif (kind == "boolean") then
+         boolA[#boolA+1] = k
       else
-         strA[#strA+1] = tostring(k)
+         strA[#strA+1] = k
       end
    end
+   sort(numA, f)
    sort(strA, f)
+
+   for i = 1, #boolA do
+      n = n + 1
+      a[n] = boolA[i]
+   end
+
+   for i = 1,#numA do
+      n = n + 1
+      a[n] = numA[i]
+   end
+
+   for i = 1,#strA do
+      n = n + 1
+      a[n] = strA[i]
+   end
 
    local i = 0                -- iterator variable
    local iter = function ()   -- iterator function
                    i = i + 1
-                   if strA[i] == nil then return nil
-                   else return strA[i], t[strA[i]]
+                   if a[i] == nil then return nil
+                   else return a[i], t[a[i]]
                    end
                 end
    return iter
 end
-
