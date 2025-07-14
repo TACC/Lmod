@@ -152,7 +152,7 @@ local function l_convertOldtm(tm)
          end
       end
       t.year  = 1900 + t.year
-      t.month = t.month
+      t.month = t.month + 1
    else
       t = tm
    end
