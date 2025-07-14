@@ -179,9 +179,9 @@ local function l_convertTimeStr_to_epoch(tStr)
    if (not ok) then
       LmodError{msg="e_Malformed_time",tStr = tStr}
    end
-   dbg.print{"tStr: ",tStr,"\n"}
-   dbg.printT("tm", tm)
+   dbg.print{"tStr: ",tStr,",tm.is_dst: ",tm.is_dst,"\n"}
    tm = l_convertOldtm(tm)
+   dbg.printT("tm", tm)
    return posix.mktime(tm)
 end
 
