@@ -142,15 +142,20 @@ local s_tmTransT = {
 }
    
 local function l_convertOldtm(tm)
+   local t = {}
    if (tm.tm_mon) then
       for k, v in pairs(tm) do
+         t[k] = v
          local key = s_tmTransT[k]
          if (key) then
-            tm[key] = v
+            t[key] = v
          end
       end
-      tm.year = 1900 + tm.year
+      t.year = 1900 + t.year
+   else
+      t = tm
    end
+   return t
 end
 
 local function l_convertStr2TM(tStr, tm, is_dst)
@@ -174,7 +179,9 @@ local function l_convertTimeStr_to_epoch(tStr)
    if (not ok) then
       LmodError{msg="e_Malformed_time",tStr = tStr}
    end
-   l_convertOldtm(tm)
+   dbg.print{"tStr: ",tStr,"\n"}
+   dbg.printT("tm", tm)
+   tm = l_convertOldtm(tm)
    return posix.mktime(tm)
 end
 
