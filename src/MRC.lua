@@ -151,7 +151,6 @@ local function l_convertOldtm(tm)
       end
       tm.year = 1900 + tm.year
    end
-   return tm
 end
 
 local function l_convertStr2TM(tStr, tm, is_dst)
@@ -175,7 +174,7 @@ local function l_convertTimeStr_to_epoch(tStr)
    if (not ok) then
       LmodError{msg="e_Malformed_time",tStr = tStr}
    end
-   tm = l_convertOldtm(tm)
+   l_convertOldtm(tm)
    return posix.mktime(tm)
 end
 
