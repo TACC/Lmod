@@ -628,13 +628,15 @@ local function l_check_time_range(resultT, nearlyDays)
    local T_before = (resultT.before) and l_convertTimeStr_to_epoch(resultT.before) or T_end
    local T_after  = (resultT.after)  and l_convertTimeStr_to_epoch(resultT.after)  or T_start
 
+   
+   local result = "notActive"
    if (s_Epoch <= T_before and  s_Epoch >= T_after) then
-      return "inRange"
+      result = "inRange"
+   elseif (s_Epoch + nearlyDays * 86400 >= T_after) then
+      result = "nearly"
    end
-   if (s_Epoch + nearlyDays * 86400 >= T_after) then
-      return "nearly"
-   end
-   return "notActive"
+   dbg.print{"result: ",result, ", T_before: ", T_before, ", s_Epoch: ", s_Epoch, ", T_after: ", T_after,"\n"}
+   return result
 end
 
 local function l_check_user_groups(resultT)
@@ -675,7 +677,7 @@ local function l_check_forbidden_modifiers(fullName, resultT)
 end
 
 local function l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)
-   dbg.start{"l_check_hidden_modifiers(fullName, resultT, visibleT, show_hidden)"}
+   dbg.start{"l_check_hidden_modifiers(fullName:", fullName,", resultT, visibleT, show_hidden)"}
    local count         = false
    local hide_active   = (l_check_time_range(resultT, 0) == "inRange" and
                           l_check_user_groups(resultT))
